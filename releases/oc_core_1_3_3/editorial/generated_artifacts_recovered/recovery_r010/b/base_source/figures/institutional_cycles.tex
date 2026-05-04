@@ -1,0 +1,16 @@
+% FILE: figures/institutional_cycles.tex
+% Institutional cycles in a social continuum
+
+\begin{tikzpicture}[>=latex,thick,scale=1]
+  % Cycle nodes
+  \node[draw, rounded corners, fill=gray!10] (Leg) at (0,0) {legislation};
+  \node[draw, rounded corners, fill=gray!10] (Exec) at (4,0) {execution};
+  \node[draw, rounded corners, fill=gray!10] (Jud) at (2,-2.5) {judgement};
+
+  % Cycle arrows
+  \draw[->] (Leg) -- (Exec);
+  \draw[->] (Exec) -- (Jud);
+  \draw[->] (Jud) -- (Leg);
+
+  \node[anchor=north] at (2,-3.2) {$C_7$: institutional cycle};
+\end{tikzpicture}

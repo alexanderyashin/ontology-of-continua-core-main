@@ -1,0 +1,95 @@
+{
+  "batch_id": "oc_core_1.3.3_r008_v_model_publication_translation",
+  "cache_ref": "logion_local/runtime/cache/logion_llm_service_v1",
+  "caller_id": "oc_core_1_3_3_recovery_r008",
+  "capability_status": "LOCAL_OLLAMA_BLOCKED_BY_GOVERNANCE",
+  "generated_at_utc": "2026-05-04T13:14:10Z",
+  "governance_decision": {
+    "gpu_allowed": true,
+    "gpu_thermal_band": "DEGRADED",
+    "host_status": "DEGRADED",
+    "llm_allowed": false,
+    "max_workers": 1,
+    "reason": "host_governance_blocks_or_cools_local_llm",
+    "schema_id": "LOGION_LLM_SERVICE_GOVERNANCE_DECISION_v1",
+    "status": "BLOCK"
+  },
+  "host_summary": {
+    "effective_max_workers": 1,
+    "gpu_temp_c": 73.0,
+    "gpu_thermal_band": "DEGRADED",
+    "host_gpu_allowed": true,
+    "host_safety_next_action": "THROTTLE_WORKERS_ALLOW_ROI_LLM_AND_SAFE_GPU",
+    "llm_budget_remaining": 12,
+    "no_send_lock": true,
+    "schema_id": "LOGION_LLM_SERVICE_HOST_SUMMARY_v1",
+    "status": "DEGRADED"
+  },
+  "ledger_ref": "logion_local/runtime/observability/logion_llm/LOGION_LLM_SERVICE_LEDGER.ndjson",
+  "policy": {
+    "cadence": "7b_then_two_3b_thermal_debt_cycles_when_governance_allows",
+    "direct_ollama_calls_allowed": false,
+    "max_workers": 1,
+    "parallel_local_llm_runs_allowed": false,
+    "provider_script": "logion/k3/execution/scripts/logion_llm/Provider_Ollama_Local_v0_1.ps1"
+  },
+  "rows": [
+    {
+      "governance_reason": "host_governance_blocks_or_cools_local_llm",
+      "gpu_thermal_band": "DEGRADED",
+      "host_status": "DEGRADED",
+      "level": "L10",
+      "llm_cadence": "cooldown_no_llm_gpu",
+      "operation_type": "figure_pedagogy_check",
+      "schema_id": "LOGION_LLM_SERVICE_ROW_v1",
+      "status": "SKIPPED_BY_GOVERNANCE",
+      "task_id": "r008_l10_k_figure_pedagogy_check"
+    },
+    {
+      "governance_reason": "host_governance_blocks_or_cools_local_llm",
+      "gpu_thermal_band": "DEGRADED",
+      "host_status": "DEGRADED",
+      "level": "L10",
+      "llm_cadence": "cooldown_no_llm_gpu",
+      "operation_type": "micro_check",
+      "schema_id": "LOGION_LLM_SERVICE_ROW_v1",
+      "status": "SKIPPED_BY_GOVERNANCE",
+      "task_id": "r008_l10_public_instruction_leak_check"
+    },
+    {
+      "governance_reason": "host_governance_blocks_or_cools_local_llm",
+      "gpu_thermal_band": "DEGRADED",
+      "host_status": "DEGRADED",
+      "level": "L9",
+      "llm_cadence": "cooldown_no_llm_gpu",
+      "operation_type": "chapter_aggregate_check",
+      "schema_id": "LOGION_LLM_SERVICE_ROW_v1",
+      "status": "SKIPPED_BY_GOVERNANCE",
+      "task_id": "r008_l9_reader_pdf_translation_aggregate"
+    }
+  ],
+  "run_mode": "safe_exhaustive",
+  "schema_id": "LOGION_LLM_SERVICE_RESPONSE_v1",
+  "service_id": "logion_llm_service_v1",
+  "state_ref": "logion_local/runtime/state/LOGION_LLM_SERVICE_STATE_latest.json",
+  "status": "SKIPPED_BY_GOVERNANCE",
+  "summary": {
+    "cache_hit_total": 0,
+    "cadence_sequence": [
+      "cooldown_no_llm_gpu",
+      "cooldown_no_llm_gpu",
+      "cooldown_no_llm_gpu"
+    ],
+    "model_sequence": [],
+    "provider_invocation_total": 0,
+    "request_total": 3,
+    "static_blocker_total": 0,
+    "unmanaged_ollama_call_total": 0
+  },
+  "v_model": {
+    "lower_level_blockers": 0,
+    "lowest_checked_level": "L10",
+    "order": "L10_to_L9_L8_to_document",
+    "stopped_before_upper_review": false
+  }
+}

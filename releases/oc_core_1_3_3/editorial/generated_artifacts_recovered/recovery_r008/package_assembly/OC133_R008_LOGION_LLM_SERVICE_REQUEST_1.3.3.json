@@ -1,0 +1,78 @@
+{
+  "batch_id": "oc_core_1.3.3_r008_v_model_publication_translation",
+  "caller_id": "oc_core_1_3_3_recovery_r008",
+  "requests": [
+    {
+      "allow_7b": true,
+      "forbidden_terms": [
+        "route sheet",
+        "control sheet",
+        "machine register",
+        "this section is included so",
+        "must teach",
+        "purpose and role",
+        "construction and order",
+        "Figure Route and Design Logic",
+        "Evidence Coverage Map",
+        "Scientific Reading Protocol"
+      ],
+      "level": "L10",
+      "max_tokens": 192,
+      "operation_type": "micro_check",
+      "prompt": "Inspect this OC Core 1.3.3 public section policy for instruction-prose leakage. Return JSON with facts, inferences, next_action, blocker_delta, stop_class, confidence, and science_program_update. Public text must be finished scientific prose.",
+      "schema_id": "LOGION_LLM_SERVICE_REQUEST_v1",
+      "task_id": "r008_l10_public_instruction_leak_check",
+      "temperature": 0.05,
+      "use_cache": true
+    },
+    {
+      "allow_7b": true,
+      "forbidden_terms": [
+        "route sheet",
+        "control sheet",
+        "machine register",
+        "this section is included so",
+        "must teach",
+        "purpose and role",
+        "construction and order",
+        "Figure Route and Design Logic",
+        "Evidence Coverage Map",
+        "Scientific Reading Protocol"
+      ],
+      "level": "L10",
+      "max_tokens": 192,
+      "operation_type": "figure_pedagogy_check",
+      "prompt": "Check whether a K0-K12 hierarchy figure names every K-level, avoids label collisions, shows upward composition and downward constraint, and links the diagram to formulas, examples, evidence, and falsifiers.",
+      "schema_id": "LOGION_LLM_SERVICE_REQUEST_v1",
+      "task_id": "r008_l10_k_figure_pedagogy_check",
+      "temperature": 0.05,
+      "use_cache": true
+    },
+    {
+      "allow_7b": true,
+      "forbidden_terms": [
+        "route sheet",
+        "control sheet",
+        "machine register",
+        "this section is included so",
+        "must teach",
+        "purpose and role",
+        "construction and order",
+        "Figure Route and Design Logic",
+        "Evidence Coverage Map",
+        "Scientific Reading Protocol"
+      ],
+      "level": "L9",
+      "max_tokens": 224,
+      "operation_type": "chapter_aggregate_check",
+      "prompt": "Aggregate clean L10 findings into an L9 reader-facing translation check. Confirm that lower-level blockers are zero before whole-section review and that public prose reads as manuscript text rather than a construction packet.",
+      "schema_id": "LOGION_LLM_SERVICE_REQUEST_v1",
+      "task_id": "r008_l9_reader_pdf_translation_aggregate",
+      "temperature": 0.05,
+      "use_cache": true
+    }
+  ],
+  "run_mode": "safe_exhaustive",
+  "schema_id": "LOGION_LLM_SERVICE_BATCH_REQUEST_v1",
+  "thermal_debt_remaining": 0
+}

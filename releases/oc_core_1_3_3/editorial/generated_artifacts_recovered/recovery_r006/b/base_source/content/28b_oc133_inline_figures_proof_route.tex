@@ -1,0 +1,178 @@
+\section{Inline Visual Route: Proof and Formalization}
+
+These figures connect theorem prose, proof sheets, finite witnesses, and formal subsets.
+
+
+\subsection{Theorem route}
+
+This visual anchor names the objects, review direction, and formula or numeric boundary that keep the figure tied to the argument.
+
+
+\begin{figure}[htbp]
+
+\centering
+
+\begin{tikzpicture}[>=Latex,node distance=2.4cm]
+
+\node[draw,rounded corners,fill=blue!7,text width=0.28\textwidth,align=center,minimum height=1.0cm] (a) {Claim};
+
+\node[draw,rounded corners,fill=green!7,text width=0.28\textwidth,align=center,minimum height=1.0cm,right=of a] (b) {Proof sheet};
+
+\draw[->,line width=0.8pt] (a) -- node[above,align=center] {assumptions} (b);
+
+\node[draw,rounded corners,fill=orange!8,text width=0.68\textwidth,align=center,below=0.9cm of $(a)!0.5!(b)$] (c) {review question: support class, boundary, falsifier};
+
+\draw[->,dashed] (c.north) -- ($(a)!0.5!(b)$);
+
+\end{tikzpicture}
+
+\caption{Theorem route. Shows the path from public sentence to proof sheet and assumptions. The figure is placed inline in the manuscript; complete machine evidence remains in the evidence package.}
+
+\label{fig:r005-inline-28b_oc133_inline_figures_proof_route-1}
+
+\end{figure}
+
+\subsection{Lean subset route}
+
+This visual anchor names the objects, review direction, and formula or numeric boundary that keep the figure tied to the argument.
+
+
+\begin{figure}[htbp]
+
+\centering
+
+\begin{tikzpicture}[>=Latex,node distance=2.4cm]
+
+\node[draw,rounded corners,fill=blue!7,text width=0.28\textwidth,align=center,minimum height=1.0cm] (a) {Definition};
+
+\node[draw,rounded corners,fill=green!7,text width=0.28\textwidth,align=center,minimum height=1.0cm,right=of a] (b) {Lean declaration};
+
+\draw[->,line width=0.8pt] (a) -- node[above,align=center] {encoded fragment} (b);
+
+\node[draw,rounded corners,fill=orange!8,text width=0.68\textwidth,align=center,below=0.9cm of $(a)!0.5!(b)$] (c) {review question: support class, boundary, falsifier};
+
+\draw[->,dashed] (c.north) -- ($(a)!0.5!(b)$);
+
+\end{tikzpicture}
+
+\caption{Lean subset route. Shows where mechanization supports a bounded theorem surface. The figure is placed inline in the manuscript; complete machine evidence remains in the evidence package.}
+
+\label{fig:r005-inline-28b_oc133_inline_figures_proof_route-2}
+
+\end{figure}
+
+\subsection{Finite witness route}
+
+This visual anchor names the objects, review direction, and formula or numeric boundary that keep the figure tied to the argument.
+
+
+\begin{figure}[htbp]
+
+\centering
+
+\begin{tikzpicture}[>=Latex,node distance=2.4cm]
+
+\node[draw,rounded corners,fill=blue!7,text width=0.28\textwidth,align=center,minimum height=1.0cm] (a) {Positive case};
+
+\node[draw,rounded corners,fill=green!7,text width=0.28\textwidth,align=center,minimum height=1.0cm,right=of a] (b) {Negative control};
+
+\draw[->,line width=0.8pt] (a) -- node[above,align=center] {mutation test} (b);
+
+\node[draw,rounded corners,fill=orange!8,text width=0.68\textwidth,align=center,below=0.9cm of $(a)!0.5!(b)$] (c) {review question: support class, boundary, falsifier};
+
+\draw[->,dashed] (c.north) -- ($(a)!0.5!(b)$);
+
+\end{tikzpicture}
+
+\caption{Finite witness route. Shows why negative controls are part of proof readability. The figure is placed inline in the manuscript; complete machine evidence remains in the evidence package.}
+
+\label{fig:r005-inline-28b_oc133_inline_figures_proof_route-3}
+
+\end{figure}
+
+\subsection{Counterexample boundary}
+
+This visual anchor names the objects, review direction, and formula or numeric boundary that keep the figure tied to the argument.
+
+
+\begin{figure}[htbp]
+
+\centering
+
+\begin{tikzpicture}[>=Latex,node distance=2.4cm]
+
+\node[draw,rounded corners,fill=blue!7,text width=0.28\textwidth,align=center,minimum height=1.0cm] (a) {Assumption set};
+
+\node[draw,rounded corners,fill=green!7,text width=0.28\textwidth,align=center,minimum height=1.0cm,right=of a] (b) {Countermodel};
+
+\draw[->,line width=0.8pt] (a) -- node[above,align=center] {reopening} (b);
+
+\node[draw,rounded corners,fill=orange!8,text width=0.68\textwidth,align=center,below=0.9cm of $(a)!0.5!(b)$] (c) {review question: support class, boundary, falsifier};
+
+\draw[->,dashed] (c.north) -- ($(a)!0.5!(b)$);
+
+\end{tikzpicture}
+
+\caption{Counterexample boundary. Shows how a failed assumption reopens a theorem. The figure is placed inline in the manuscript; complete machine evidence remains in the evidence package.}
+
+\label{fig:r005-inline-28b_oc133_inline_figures_proof_route-4}
+
+\end{figure}
+
+\subsection{Dependency chain}
+
+This visual anchor names the objects, review direction, and formula or numeric boundary that keep the figure tied to the argument.
+
+
+\begin{figure}[htbp]
+
+\centering
+
+\begin{tikzpicture}[>=Latex,node distance=2.4cm]
+
+\node[draw,rounded corners,fill=blue!7,text width=0.28\textwidth,align=center,minimum height=1.0cm] (a) {Definition};
+
+\node[draw,rounded corners,fill=green!7,text width=0.28\textwidth,align=center,minimum height=1.0cm,right=of a] (b) {Lemma};
+
+\draw[->,line width=0.8pt] (a) -- node[above,align=center] {theorem} (b);
+
+\node[draw,rounded corners,fill=orange!8,text width=0.68\textwidth,align=center,below=0.9cm of $(a)!0.5!(b)$] (c) {review question: support class, boundary, falsifier};
+
+\draw[->,dashed] (c.north) -- ($(a)!0.5!(b)$);
+
+\end{tikzpicture}
+
+\caption{Dependency chain. Shows the proof dependency route as a chain, not a label. The figure is placed inline in the manuscript; complete machine evidence remains in the evidence package.}
+
+\label{fig:r005-inline-28b_oc133_inline_figures_proof_route-5}
+
+\end{figure}
+
+\subsection{Minimality witness}
+
+This visual anchor names the objects, review direction, and formula or numeric boundary that keep the figure tied to the argument.
+
+
+\begin{figure}[htbp]
+
+\centering
+
+\begin{tikzpicture}[>=Latex,node distance=2.4cm]
+
+\node[draw,rounded corners,fill=blue!7,text width=0.28\textwidth,align=center,minimum height=1.0cm] (a) {Component kept};
+
+\node[draw,rounded corners,fill=green!7,text width=0.28\textwidth,align=center,minimum height=1.0cm,right=of a] (b) {Verdict changes};
+
+\draw[->,line width=0.8pt] (a) -- node[above,align=center] {ablation} (b);
+
+\node[draw,rounded corners,fill=orange!8,text width=0.68\textwidth,align=center,below=0.9cm of $(a)!0.5!(b)$] (c) {review question: support class, boundary, falsifier};
+
+\draw[->,dashed] (c.north) -- ($(a)!0.5!(b)$);
+
+\end{tikzpicture}
+
+\caption{Minimality witness. Shows component independence by keep/drop comparison. The figure is placed inline in the manuscript; complete machine evidence remains in the evidence package.}
+
+\label{fig:r005-inline-28b_oc133_inline_figures_proof_route-6}
+
+\end{figure}

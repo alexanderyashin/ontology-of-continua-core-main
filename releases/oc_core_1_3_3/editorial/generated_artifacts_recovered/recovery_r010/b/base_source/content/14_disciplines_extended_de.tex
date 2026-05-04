@@ -1,0 +1,483 @@
+% ====================================================================
+% FILE: content/14_disciplines_extended.tex
+% Disziplinübergeordnete Instantiierungen des Kontinuumrahmens
+% Kernausgabe 1.3 Flagship
+% ====================================================================
+
+\section{Disziplinübergeordnete Instantiierungen des Kontinuumrahmens}
+\label{sec:disciplines-extended}
+
+Dieses Kapitel prueft eine Behauptung begrenzter Darstellung: Ausgewaehlte
+wissenschaftliche und formal-theoretische Domänen koennen durch das Tupel
+\[
+  (\Omega, A, P(t), J(t), \Theta, \partial\Omega, C, k(t))
+\]
+auf eine Weise ausgedrueckt werden, die mit der strukturellen Hierarchie der
+Niveaus \(K_0\)--\(K_{12}\), der Schwellenlandchaft, der Operatorfamilie und der
+Verzweigungstopologie aus Abschnitt~the branching-topology chapter kompatibel ist.
+Hier steht \(k(t)\) lediglich dafuer da, den Domänen-Tuple lesbar zu halten;
+lokal bezeichnet es das entsprechende \(k(K_x,t)\).
+Ebenso können spätere Domänenblöcke Symbole wie \(P_x\) oder \(J_x\)
+auch ohne \(t\) schreiben, wenn der Absatz die Familie von Potenzialen oder
+Flussen beschreibt und nicht eine einzelne Zeitflaeche.
+Jede domanenspezifische Zuordnung wird hier unter einem kanonischen Label behandelt:
+der \emph{candidate-embedding rule}. Ausdruecke wie bounded
+representation test, structural-compatibility screen, bounded embedding pass und
+bounded embedding criterion sind Ortsbeschreibungen dieser Regel, keine
+separaten Kriterien. Ziel ist es zu zeigen, wie gut untersuchte Klassen von
+Systemen als Kontinua innerhalb der strukturellen Axiome von OC dargestellt werden
+koennen, nicht zu behaupten, dass jedes Objekt einer Disziplin durch eine
+einzige OC-Kodierung ausgenuehrt ist
+\parencite{anderson_more_is_different}.
+
+Dies ist eine Strukturverträglichkeitsthese, nicht eine Behauptung ueber
+operativen Nutzen. Der praktische Vergleich wird auf Abschnitt
+the practical utility chapter und Anhang
+the practical utility chapter atlas verschoben. Dieses Kapitel fragt,
+ob eine Domäne als begrenztes Kontinuum dargestellt werden kann; es behauptet
+nicht, dass jede solche Domäne bereits ein geschlossenes Theorem-Paket,
+halte-out Replay, Comparator-Audit oder deploymentbereites Verfahren besitzt.
+
+% ====================================================================
+\subsection{Prinzipien fuer Domänen-Einbettung}
+% ====================================================================
+
+Um eine Disziplin in OC zu repräsentieren, müssen folgende strukturelle
+Ausrichtungsbedingungen erfuellt werden.
+
+\paragraph{1. Abbildung von Objekten auf Kontinuumskomponenten.}
+Eine Domäne hat eine Kandidatenkontinuumdarstellung, wenn ihre Objekte abgebildet
+werden koennen auf:
+\begin{itemize}
+  \item \(\Omega\): zulaessige Konfigurationen,
+  \item \(A\): Achsen, die wesentliche Freiheitsgrade bestimmen,
+  \item \(P\): Potenziale, die Kraefte, Energien, Kosten oder semantische
+        Spannung kodieren,
+  \item \(J\): Flüsse (Materie, Ladung, Wahrscheinlichkeit, Information,
+        Ressourcen),
+  \item \(\Theta\): Schwellen, die Stabilität, Phasenwechsel und Kollaps
+        steuern,
+  \item \(\partial\Omega\): Viabilitaetsgrenzen,
+  \item \(C\): Zyklen zur Erhaltung von Persistenz,
+  \item \(k(t)\): Continuumness (Viabilitätsmass).
+\end{itemize}
+
+\paragraph{2. Einbettungsraumrestriktionen.}
+Eine gültige Instanziierung erfordert sowohl
+\(\Omega(K_x)\subseteq\Omega(M_x)\) als auch \(A(K_x)\subseteq A(M_x)\). Wenn
+nicht die erforderlichen Zustände oder Achsen im Einbettungsraum vorhanden sind,
+ist die vorgeschlagene Instanziierung strukturell unzulaessig.
+
+\paragraph{3. K-Level-Entsprechung.}
+Eine Disziplin ist auf Niveau \(K_x\) nur dann begrenzt eingebettet, wenn:
+\begin{itemize}
+  \item ihre dominanten Achsen den Achsen von \(K_x\) entsprechen,
+  \item ihre Schwellen die von niedrigeren Ebenen verfeinern,
+  \item ihre Flüsse und Zyklen zur Operatorfamilie von \(K_x\) passen,
+  \item ihr Verhalten die dimensionsbezogene Monotonie währt.
+\end{itemize}
+
+\paragraph{4. Strukturelle Kompatibilität.}
+Domäneninstanziierung erfordert:
+\begin{itemize}
+  \item interne Konsistenz mit OC-Schwellen,
+  \item Existenz wenigstens eines unterstuetzenden Zyklus
+        \(C_{\mathrm{support}}\),
+  \item nicht-leere zulaessige Region \(\Omega\neq\emptyset\),
+  \item Erweiterbarkeit der Domänendynamik durch die Operatorfamilie.
+\end{itemize}
+
+Ein Vorschlag scheitert, wenn irgendeine Pruefung misslingt: die Abbildung hat eine
+ausgeschnittene zulaessige Region, erforderliche Achsen fehlen im Einbettungsraum,
+angegebene Schwellen während des Verfahrens nicht erfuellbar sind oder die
+vorgesehenen Zyklen das Objekt nicht von der relevanten Grenze fernhalten. Diese
+sind Ablehnungsbedingungen, nicht bloss kosmetische Omissionsfehler.
+
+Die folgenden Abschnitte zusammenfassen begrenzte Kandidatenrepräsentationen
+ueber Disziplinen.
+
+% ====================================================================
+\subsection{Physik (Niveau \texorpdfstring{$K_2$}{K2})}
+% ====================================================================
+
+Physikalische Systeme instanziieren \(K_2\), wenn Feldkonfigurationen,
+Ordnungsparameter und Kohärenzstrukturen die relevanten Achsen bilden.
+Die Diskussion ist bewußt auf Standard-Phänomene, Renormierung und
+Perkollation beschränkt, nicht auf eine uneingeschriebene Behauptung über die
+ganze Physik \parencite{goldenfeld_lectures,wilson_renormalization,stauffer_percolation}.
+
+\paragraph{Zustandsraum und Achsen.}
+\begin{itemize}
+  \item \(\Omega_{2}\): Feldkonfigurationen (Skalar-, Vektor- und
+        Eichfelder).
+  \item \(A_{2}\): räumliche Achsen, Modenachsen, interne Symmetrieachsen,
+        Ordnungsachsen.
+\end{itemize}
+
+\paragraph{Potenziale und Flüsse.}
+\begin{itemize}
+  \item \(P_2\): physikalische Energiefunktionale (Wirkung, freie Energie).
+  \item \(J_2\): diffusive, konvektive und feldtheoretische Ströme.
+\end{itemize}
+
+\paragraph{Schwellenwerte.}
+\begin{itemize}
+  \item \(\Theta_{\mathrm{crit}}\): Phasengrenzen,
+  \item \(\Theta_{\mathrm{BKT}}\): Berezinskii-Kosterlitz-Thouless
+        Vortex-Entwirrungs-Schwelle,
+  \item \(\Theta_{\mathrm{mass}}\): Kohärenzschwelle für Massenerzeugung,
+  \item \(\Theta_{\mathrm{death}}\): Konfinenz- oder Entkopplungsbedingungen.
+\end{itemize}
+
+\paragraph{Randstrukturen.}
+Innerhalb dieser begrenzten Abbildung entspricht \(\partial\Omega\) kritischen
+Flächen, Perkolationsgrenzen und Phasenseparationsschnittstellen.
+
+\paragraph{Zyklen.}
+Topologische Solitonen, Vortex-Paare, Renormierungzyklen und oszillatorische
+Feldmoden sind Instanzen von \(C_2\).
+
+\paragraph{Begrenztes Einbettungskriterium (Physik -> \texorpdfstring{\(K_2\)}{K2}).}
+Ein physikalisches System erfährt das begrenzte Einbettungskriterium auf
+\(K_2\), wenn:
+\begin{itemize}
+  \item seine Felder einen zusammenhaengenden Konfigurationsraum \(\Omega_2\)
+        definieren,
+  \item sein Energiefunktional Schwellen definiert, die mit OC kompatibel sind,
+  \item Flüsse Erhaltungssatze via \(J_2\) ausdrücken,
+  \item kohärente Zyklen strukturelle Persistenz erhalten.
+\end{itemize}
+
+% ====================================================================
+\subsection{Chemie und Entstehung des Lebens (Niveaus \texorpdfstring{$K_3$}{K3}--\texorpdfstring{$K_4$}{K4})}
+% ====================================================================
+
+Chemische Systeme werden auf \(K_3\) abgebildet, protocyte Systeme auf
+\(K_4\).
+Diese Abbildungen sind durch den Abschluss von Reaktionsnetzen, katalytische
+Organisation und membrankonstraint präbiotische Struktur beschraenkt
+\parencite{kauffman_autocatalytic,raf_networks}.
+
+\paragraph{Chemische Kontinua (\texorpdfstring{\(K_3\)}{K3}).}
+\begin{itemize}
+  \item \(\Omega_{\mathrm{chem}}\): Konzentrationsvektoren, Reaktionszustände,
+        katalytische Konfigurationen.
+  \item \(A_{\mathrm{chem}}\): Spezieskonzentrationen, Umweltparameter
+        (pH, Salinität, Temperatur).
+  \item \(P_{\mathrm{chem}}(t)\): chemische Potentiale, Affinitätsgradienten,
+        Konzentrationsdisequilibrien.
+  \item \(J_{\mathrm{chem}}\): Reaktionsraten, Transportflüsse.
+  \item \(\Theta_{\mathrm{act}}\): katalytische Aktivierungsschwelle.
+  \item \(\Theta_{\mathrm{closure}}\): reflexiv auto-katalytischer und
+        nahrungs-generierter (RAF)-Abschluss-Schwellenwert.
+  \item \(C_{\mathrm{chem}}\): Reaktionszyklen, RAF-Abschluss-Schleifen.
+\end{itemize}
+
+\paragraph{Protocell-Kontinua (\texorpdfstring{\(K_4\)}{K4}).}
+\begin{itemize}
+  \item \(\Omega_{4}\): Vesikelzustände, Membrankonfigurationen, interne
+        chemische Zusammensetzungen.
+  \item \(A_4\): Krümmung, Oberflächenzug, Permeabilität, Ladung.
+  \item \(P_4(t)\): osmotische, chemische, elektrochemische und
+        Krümmungspotentiale.
+  \item \(\Theta_{\mathrm{perm}}, \Theta_{\mathrm{osm}}, \Theta_{\mathrm{curv}}\):
+        Membrantieffizienz-Schwellen.
+  \item \(J_4\): osmotische Flüsse, Ionenflüsse, metabolische Flüsse.
+  \item \(C_4\): metabolische Zyklen, Membranhaltungszyklen,
+        gradient-erhaltende Zyklen.
+\end{itemize}
+
+\paragraph{Begrenztes Einbettungskriterium (Chemie -> \texorpdfstring{\(K_3\)}{K3}).}
+Ein chemisches System erfüllt das begrenzte \(K_3\)-Kriterium, wenn:
+\begin{itemize}
+  \item Reaktionsnetze eine nichtleere zulaessige Region bilden,
+  \item katalytische und Abschluss-Schwellen ohne membranspezifische Achsen
+        darstellbar sind,
+  \item Zyklen Reaktionsschluss und Konzentrationskontrolle aufrechterhalten,
+  \item Einbettungsrestriktionen die chemischen Achsen des Weges stützen.
+\end{itemize}
+
+\paragraph{Begrenztes Einbettungskriterium (Protocells -> \texorpdfstring{\(K_4\)}{K4}).}
+Ein protocellulares System erfüllt das begrenzte \(K_4\)-Kriterium, wenn:
+\begin{itemize}
+  \item membranduell gestuetzte chemische Dynamik eine nichtleere zulaessige
+        Region bildet,
+  \item Membrandrücke \(\partial\Omega_4\) definieren,
+  \item Zyklen Konzentrationsgradienten und Integrität der Kompartimente
+        aufrechterhalten,
+  \item Einbettungsrestriktionen sowohl chemische als auch membranbezogene
+        Achsen stützen.
+\end{itemize}
+
+% ====================================================================
+\subsection{Biologie (Niveau \texorpdfstring{$K_5$}{K5})}
+% ====================================================================
+
+Biologische Zellen, über den protocellulären \(K_4\)-Weg hinaus, entstehen dann,
+wenn Protocellen Erregbarkeit und strukturierte Regulation erwerben.
+Hier richtet sich die Zielsetzung auf die begrenzte Einbettung von excitablem und
+morphogenetischem Organisationsbereich, nicht auf eine unbeschränkte Theorie des
+Lebens als Ganzes \parencite{turing_morphogenesis,hopfield_nn}.
+
+\paragraph{Zustandsraum und Achsen.}
+\begin{itemize}
+  \item \(\Omega_5\): Verteilungen von Membranpotentialen, Kanalzuständen,
+        Iongradienten.
+  \item \(A_5\): Exzitabilitätsachsen (Membranpotential \(\Delta V\), Ionen-
+        Konzentrationen, Gating-Variablenachsen).
+\end{itemize}
+
+\paragraph{Potenziale und Flüsse.}
+\[
+  P_5: \text{elektrochemische Potentiale},\qquad
+  J_5: \text{Ionenströme, Stoffwechselströme}.
+\]
+
+\paragraph{Schwellen.}
+\[
+  \Theta_{\mathrm{exc}},\quad
+  \Theta_{\mathrm{refr}},\quad
+  \Theta_{\mathrm{grad}},\quad
+  \Theta_{\mathrm{death}}.
+\]
+
+\paragraph{Zyklen.}
+Zu den relevanten Zyklen gehoeren der Proto-Spike-Zyklus
+\(C_{\mathrm{spike}}\), Stoffwechselzyklen und elektrische Oszillations-
+schleifen.
+
+\paragraph{Begrenztes Einbettungskriterium (Biologie -> \texorpdfstring{\(K_5\)}{K5}).}
+Ein biologisches System erfüllt das begrenzte \(K_5\)-Kriterium, wenn:
+\begin{itemize}
+  \item Exzitabilitaet nichttriviale \(\Delta V\)-Achsen definiert,
+  \item Schwellen Schwellwerte fuer Feuern und Refraktärae definieren,
+  \item Zyklen Homöostase und Signalübertragung erhalten,
+  \item Einbettung ionische, energetische und membranstuetzende Achsen enthaelt.
+\end{itemize}
+
+% ====================================================================
+\subsection{Kognition (Niveau \texorpdfstring{$K_6$}{K6})}
+% ====================================================================
+
+Die Abschnitte \(K_6\)--\(K_{10}\) unten sind strukturelle
+Kandidaten-Embeddings.
+Sie sind Ausblicke auf die Grenzrepräsentation, solange
+Abschnitt~the practical utility chapter oder
+Anhang~the practical utility chapter atlas einen engeren operativen
+Lane explizit freigibt. Sie sind nicht unmittelbar anwendbare praktische
+Behauptungen.
+
+Kognitive Systeme entstehen, wenn Repräsentation, Bindung und Vorhersagemodelle
+zu den dominanten Achsen werden.
+Die Darstellung orientiert sich an klassischer Arbeit über Organisationsstrukturen
+von Verhalten und Vorhersageverarbeitung, nicht an der Behauptung, dass OC die
+Kognitionsforschung vollständig ersetzt
+\parencite{hebb_organization,friston_free_energy}.
+
+\paragraph{Zustandsraum und Achsen.}
+\begin{itemize}
+  \item \(\Omega_6\): repräsentationale Konfigurationen, aktivierte
+        konzeptionelle Zustände, Vorhersagezustände.
+  \item \(A_6\): repräsentatorische Achsen, Bindungsachsen,
+        prädiktive Achsen.
+\end{itemize}
+
+\paragraph{Potenziale und Flüsse.}
+\begin{itemize}
+  \item \(P_6\): Vorhersagefehler, semantische Spannung, Konfidenz.
+  \item \(J_6\): Aufmerksamkeitsflüsse, Inferenzflüsse, Gedächtnis-
+        transitions.
+\end{itemize}
+
+\paragraph{Schwellen.}
+\[
+  \Theta_{\mathrm{pred}},\quad
+  \Theta_{\mathrm{bind}},\quad
+  \Theta_{\mathrm{coh}},\quad
+  \Theta_{\mathrm{expr}}.
+\]
+
+\paragraph{Zyklen.}
+Zu den relevanten Zyklen gehoeren Aufmerksamkeits-Vorhersage-Zyklen,
+Gedächtnis-Konsolidierungszyklen und Modelle der Stabilitaetsschleifen.
+
+\paragraph{Begrenztes Einbettungskriterium (Kognition -> \texorpdfstring{\(K_6\)}{K6}).}
+Ein kognitives System erfüllt das begrenzte \(K_6\)-Kriterium, wenn:
+\begin{itemize}
+  \item es kohärente innere Modelle innerhalb der
+        expressivity-Schwellwerte aufrechterhaelt,
+  \item Flüsse den Vorhersagefehler reduzieren und konzeptionelle Struktur
+        tragen,
+  \item Zyklen Aufmerksamkeit, Erinnerung und Aktualisierung regulieren,
+  \item Grenzen \(\partial\Omega_6\) Modellgrenzen kodieren.
+\end{itemize}
+
+% ====================================================================
+\subsection{Gesellschaft (Niveau \texorpdfstring{$K_7$}{K7})}
+% ====================================================================
+
+Soziale Systeme instanziieren \(K_7\), wenn Normen, Institutionen und Vertrauen
+die dominanten strukturellen Achsen bilden.
+Der Zielumfang ist schwellengetriebene Kollektivverhalten, netzwerkte Koordination
+und institutionelle Persistenz \parencite{granovetter_threshold,schelling_micromotives,newman_networks}.
+
+\paragraph{Zustandsraum und Achsen.}
+\begin{itemize}
+  \item \(\Omega_7\): Kommunikationsgraphen, Rollenstrukturen,
+        institutionelle Zustände.
+  \item \(A_7\): normative Achsen, Vertrauenachsen, Institutionenachsen.
+\end{itemize}
+
+\paragraph{Potenziale und Flüsse.}
+\[
+\begin{aligned}
+  P_7 &: \text{Vertrauen, Legitimität, symbolisches Kapital},\\
+  J_7 &: \text{Kommunikation, Ressourcentransfer und Normtransmission}.
+\end{aligned}
+\]
+
+\paragraph{Schwellen.}
+\[
+  \Theta_{\mathrm{trust}},\quad
+  \Theta_{\mathrm{leg}},\quad
+  \Theta_{\mathrm{role}}.
+\]
+
+\paragraph{Zyklen.}
+Zu den relevanten Zyklen gehoeren institutionelle Zyklen, normhafte Zyklen
+und Koordinationszyklen.
+
+\paragraph{Begrenztes Einbettungskriterium (Gesellschaft -> \texorpdfstring{\(K_7\)}{K7}).}
+Ein soziales System erfüllt das begrenzte \(K_7\)-Kriterium, wenn:
+\begin{itemize}
+  \item Vertrauen und Normen Viabilitätsschwellen definieren,
+  \item Institutionen Zyklen von Governance und Koordination aufrechterhalten,
+  \item Kommunikations- und Ressourcenflüsse die Einbettungsrestriktionen
+        respektieren,
+  \item soziale Grenzen eine nichtleere \(\partial\Omega_7\) bilden.
+\end{itemize}
+
+% ====================================================================
+\subsection{Zivilisatorische Systeme (Niveau \texorpdfstring{$K_8$}{K8})}
+% ====================================================================
+
+Zivilisatorische Systeme erweitern soziale Kontinua auf Infrastrukturen,
+Energieflüsse und großskalige Koordination.
+Der Zweck ist beschraenkt auf grossskalige organisierte Systeme mit
+netzbasierten Infrastrukturen und Stabilitaetsrestriktionen
+\parencite{newman_networks,may_stability_complexity}.
+
+\paragraph{Zustandsraum und Achsen.}
+\begin{itemize}
+  \item \(\Omega_8\): Infrastrukturnetze, wirtschaftliche Zustände,
+        Bevölkerungsverteilungen.
+  \item \(A_8\): Infrastrukturelle Achsen, Energieflussachsen,
+        Kommunikationsachsen, Komplexitätsachsen.
+\end{itemize}
+
+\paragraph{Potenziale und Flüsse.}
+\[
+  P_8: \text{Energieverfugbarkeit, Ressourcengradienten, Risiko-Potentiale},\qquad
+  J_8: \text{Handel, Energiefluss, Datenfluetze}.
+\]
+
+\paragraph{Schwellen.}
+\[
+  \Theta_{\mathrm{stress}},\quad
+  \Theta_{\mathrm{capacity}},\quad
+  \Theta_{\mathrm{cohesion}}.
+\]
+
+\paragraph{Zyklen.}
+Relevante Zyklen sind wirtschaftliche Zyklen, Infrastruktur-Renewal-Zyklen
+und Wissensweitergabe-Schleifen.
+
+\paragraph{Begrenztes Einbettungskriterium (Zivilisation -> \texorpdfstring{\(K_8\)}{K8}).}
+Ein Zivilisationssystem erfüllt das begrenzte \(K_8\)-Kriterium, wenn:
+\begin{itemize}
+  \item Energie- und Strukturverteilungen \(P_8\) definieren,
+  \item Infrastrukturfloesse stabile globale Zyklen bilden,
+  \item Institutionen auf \(K_7\) konsistent als Unterstrukturen eingebettet sind,
+  \item großräumige Grenzen eine globale \(\partial\Omega_8\) definieren.
+\end{itemize}
+
+% ====================================================================
+\subsection{Theorie und formale Systeme (Niveaus \texorpdfstring{$K_9$}{K9}--\texorpdfstring{$K_{10}$}{K10})}
+% ====================================================================
+
+Theorie- und meta-theoretische formale Systemstrukturen belegen die obere Route in
+diesem Kapitel. Dieser Unterabschnitt gibt ein OC-internes Schema für
+\(K_9\)--\(K_{10}\), mit lokaler Unterstützung durch
+Abschnitte~the K-level witness taxonomy chapter und~the foundational-consistency chapter.
+Es wird nicht behauptet, dass ein vollständig abgeschlossenes externes
+Embedding-Theorem fuer jede Theorie oder jedes formale System existiert. Rekursive
+strukturelle Kontinua bleiben die Ebene \(K_{11}\), ausserhalb der Regel dieses
+Kapitels.
+
+\paragraph{Theoretische Kontinua (\texorpdfstring{\(K_9\)}{K9}).}
+\begin{itemize}
+  \item \(\Omega_9\): Raum von Modellen, Formalismen und Repräsentationen.
+  \item \(A_9\): konzeptionelle, formale und Modellierungsachsen.
+  \item \(P_9\): Kohärenzpotentiale, empirische Spannung, erklärende
+        Kraft.
+  \item \(J_9\): Modellrevisionsflüsse, Anomaliebehandlung, Argument-
+        transfer flows.
+  \item \(\Theta_{\mathrm{expr}}, \Theta_{\mathrm{coh}}\): Schwellen fuer
+        Konsistenz und Expressivität.
+  \item \(\partial\Omega_9\): Inkonsistenz, Expressivitaetsversagen oder
+        nicht behobene Anomaliegrenzen.
+  \item \(C_9\): Paradigmenzyklen, Forschungszyklen.
+  \item \(k_9(t)\): Kohärenz- und Validierungsbandbreite der Continuumness.
+\end{itemize}
+
+\paragraph{Metatheoretische formale Kontinua (\texorpdfstring{\(K_{10}\)}{K10}).}
+\begin{itemize}
+  \item \(\Omega_{10}\): Raum metatheoretischer Zustände, formale
+        Systeme, Beweiszustände, Modelle-von-Modellen-Objekte und
+        rekursionsgebundene Sprachen.
+  \item \(A_{10}\): Metaachsen, Rekursionsachsen, Konsistenzachsen,
+        Expressivitätsachsen und Theorievergleichachsen.
+  \item \(P_{10}\): Suchflusskapazität, Konsistenzmarge, formale
+        expressive Kapazität und metatheoretisches Kohärenzpotenzial.
+  \item \(J_{10}\): Beweissuchflüsse, formale Updateflüsse,
+        Metamodelluebersetzungen und Rekursionssteuerungsflüsse.
+  \item \(\Theta_{\mathrm{cons}}, \Theta_{\mathrm{rec}}, \Theta_{\mathrm{meta}}\):
+        Schwellen fuer Konsistenz, begrenzte Rekursion und Metaebenenkohärenz.
+  \item \(\partial\Omega_{10}\): Inkonsistenz, unentscheidbare Überdehnung,
+        Rekursionsrandflächen oder Metaebenen-Grenzfehler.
+  \item \(C_{10}\): Beweisschleifen, Rekursionszyklen, Formupdate-
+        Zyklen und Metamodell-Auditzyklen.
+  \item \(k_{10}(t)\): formale und metatheoretische Lebensfähigkeit unter
+        Konsistenz-, Rekursions-, Selbstreferenz- und Beweisdurchsatz-
+        Restriktionen.
+\end{itemize}
+
+\paragraph{Kandidaten-Einbettungsregel (Theorie -> \texorpdfstring{\(K_9\)}{K9},
+Metatheoretisches formales System -> \texorpdfstring{\(K_{10}\)}{K10}).}
+Theorie- und metatheoretische formale Routen erfuellen die Kandidatenregel,
+wenn die relevante \(K_9\)- oder \(K_{10}\)-Struktur folgende
+Bedingungen erfuellt:
+\begin{itemize}
+  \item konzeptionelle und formale Achsen bilden ein valides Achsenset,
+  \item Kohärenzbedingungen definieren mit OC kompatible Schwellen,
+  \item Zyklen von Argumentation, Modellierung und Revision erhalten
+        Viabilität,
+  \item Einbettungsraeume stützen die erforderlichen expressiven Freiheitsgrade.
+\end{itemize}
+
+% ====================================================================
+\subsection*{Zusammenfassung}
+
+Dieses Kapitel formuliert begrenzte disziplinübergreifende Kandidaten-
+Einbettungskriterien fuer Physik, Chemie, Protocells, Biologie, Kognition,
+Gesellschaft, Zivilisation, Theorie und formale Systeme. Jede begrenzte Route
+wird mit demselben strukturellen Tuple auf der Detaillierungsebene des jeweiligen
+Unterabschnittes gemappt, aber jede Zuordnung wird nur als Strukturverträglichkeit-
+behauptung gesehen, nicht als Beweis, dass OC bereits die bestmoeglichen lokalen
+Modelle in jeder Disziplin ersetzt. Diese stärkere operative und Vergleichsfrage
+wird spaeter in den expliziten Unterstuetzungsklassen in
+Abschnitt~the practical utility chapter und der zeilenweisen
+Atlasdarstellung in
+Anhang~the practical utility chapter atlas behandelt.
+
+% END OF FILE

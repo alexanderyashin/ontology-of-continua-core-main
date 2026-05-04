@@ -1,0 +1,87 @@
+\documentclass[11pt,a4paper]{article}
+
+\input{preamble}
+% PDF metadata source of truth: preamble.tex.
+% Required metadata fields: pdftitle, pdfauthor, pdfsubject, pdfkeywords, pdflang.
+
+\begin{document}
+
+\input{content/frontmatter_oc_core_1_3_master.tex}
+\renewcommand*\contentsname{Table of Contents}
+\setcounter{tocdepth}{1}
+\setcounter{secnumdepth}{3}
+\makeatletter
+% R005_TOC_VISUAL_HIERARCHY
+% R006_TOC_VISUAL_HIERARCHY
+\renewcommand*\l@section[2]{\addvspace{0.55em}\begingroup\bfseries\large\@dottedtocline{1}{0em}{4.8em}{#1}{#2}\endgroup}
+\renewcommand*\l@subsection[2]{\@dottedtocline{2}{2.0em}{5.8em}{\small #1}{\small #2}}
+\renewcommand*\l@subsubsection[2]{\@dottedtocline{3}{4.2em}{6.4em}{\scriptsize #1}{\scriptsize #2}}
+\makeatother
+\tableofcontents
+\clearpage
+
+\input{content/r006/01_why_continuum_ontology.tex}
+\input{content/r006/02_first_concepts_and_k_primer.tex}
+\input{content/_auto_core_inputs_1_3_3_integrated.tex}
+
+\section*{Part VI -- Limits, Prior Art, and Closure}
+\addcontentsline{toc}{section}{Part VI -- Limits, Prior Art, and Closure}
+\input{content/18_oc_core_1_3_source_audit.tex}
+\input{content/19_oc_core_1_3_foundational_consistency.tex}
+\input{content/20_oc_core_1_3_theorem_roadmap.tex}
+\input{content/21_oc_core_1_3_worked_examples.tex}
+\input{content/22_oc_core_1_3_operationalization_program.tex}
+\input{content/23_oc_core_1_3_empirical_execution_protocols.tex}
+\input{content/24_oc_core_1_3_proof_machinery.tex}
+\input{content/25_oc_core_1_3_toe_synthesis.tex}
+\input{content/26_oc_core_1_3_practical_utility.tex}
+\input{content/28f_oc133_inline_figures_appendix_route.tex}
+\input{content/99_oc_core_1_3_3_final_conclusion.tex}
+
+\appendix
+\section*{Appendices -- Evidence, Proof, and Reference Support}
+\addcontentsline{toc}{section}{Appendices -- Evidence, Proof, and Reference Support}
+The appendices preserve notation, axiomatics, K-level tables, provenance,
+reviewer objection navigation, empirical replay surfaces, benchmark cases,
+proof machinery, technical derivations, synthesis support, and applied
+comparison material. They are secondary scientific annexes: the main body
+teaches the argument, while the appendices give reviewers the support map
+needed to audit the release.
+\input{appendix/A_notation}
+\input{appendix/B_axioms_full}
+\input{appendix/C_klevels_tables}
+\input{appendix/D_oc_core_1_3_source_audit_appendix}
+\input{appendix/E_oc_core_1_3_journal_core_bridge}
+\input{appendix/F_oc_core_1_3_reviewer_navigation_matrix}
+\input{appendix/S_oc_core_1_3_external_criticism_closure}
+\input{appendix/G_oc_core_1_3_empirical_validation_matrix}
+\input{appendix/H_oc_core_1_3_institute_run_measurement_program}
+\input{appendix/I_oc_core_1_3_domain_benchmark_manifest}
+\input{appendix/L_oc_core_1_3_domain_benchmark_caseset}
+\input{appendix/J_oc_core_1_3_domain_replay_reports}
+\input{appendix/K_oc_core_1_3_domain_execution_board}
+\input{appendix/M_oc_core_1_3_proof_machinery_appendix.tex}
+\input{appendix/O_oc_core_1_3_technical_derivation_atlas.tex}
+\input{appendix/P_oc_core_1_3_reference_benchmark_atlas.tex}
+\input{appendix/Q_oc_core_1_3_toe_support_dossiers.tex}
+\input{appendix/V_oc_core_1_3_3_historical_core_12_provenance_annex.tex}
+\input{appendix/R_oc_core_1_3_practical_utility_model_comparison_atlas.tex}
+
+
+\clearpage
+\clearpage
+\section*{Keywords and Citation Route}
+\noindent\textbf{Keywords.} Ontology of Continua; continuum ontology; typed model core; systems theory; autopoiesis; dynamical systems; hybrid systems; formal methods; Lean formalization; finite semantic checks; target-blind replay QA; reproducible research; artifact evaluation; claim governance; falsifiability; evidence-bound scientific publishing.
+
+\medskip
+\noindent\textbf{Citation identity.} Alexander Yashin, \emph{Ontology of Continua Core 1.3.3: Master Monograph}, 4 May 2026. The Concept DOI is printed on the title page.
+
+\medskip
+\noindent\textbf{Open repository.} The public repository route is \href{https://github.com/alexanderyashin/ontology-of-continua-core-main}{github.com/alexanderyashin/ontology-of-continua-core-main}. Repository files support reproducibility and source inspection; they do not replace the manuscript's claim boundaries.
+
+
+\clearpage
+\nocite{*}
+\printbibliography[heading=bibintoc,title={Bibliography}]
+
+\end{document}

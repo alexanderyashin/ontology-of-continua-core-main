@@ -1,0 +1,33 @@
+\begin{tikzpicture}[
+    node distance=0.9cm,
+    >=latex,
+    thick,
+    levelbox/.style={draw, rounded corners, minimum width=2.3cm, minimum height=0.62cm, align=center},
+    baselevel/.style={levelbox, fill=gray!12},
+    highlightlevel/.style={levelbox, fill=orange!16},
+]
+
+\node[baselevel] (K0) {$K_0$};
+\node[baselevel, below=of K0] (K1) {$K_1$};
+\node[baselevel, below=of K1] (K2) {$K_2$};
+\node[baselevel, below=of K2] (K3) {$K_3$};
+\node[baselevel, below=of K3] (K4) {$K_4$};
+\node[baselevel, below=of K4] (K5) {$K_5$};
+\node[baselevel, below=of K5] (K6) {$K_6$};
+\node[baselevel, below=of K6] (K7) {$K_7$};
+\node[baselevel, below=of K7] (K8) {$K_8$};
+\node[baselevel, below=of K8] (K9) {$K_9$};
+\node[baselevel, below=of K9] (K10) {$K_{10}$};
+\node[highlightlevel, below=of K10] (K11) {$K_{11}$};
+\node[highlightlevel, below=of K11] (K12) {$K_{12}$};
+
+\foreach \i/\j in {K0/K1, K1/K2, K2/K3, K3/K4, K4/K5, K5/K6, K6/K7, K7/K8, K8/K9, K9/K10, K10/K11, K11/K12}
+{
+    \draw[->] (\i) -- (\j);
+}
+
+\node[anchor=west, align=left] at (2.0, -9.9) {\footnotesize $K_{11}$: evolving meta-theoretical spaces, operator families, meta-logics};
+\node[anchor=west, align=left] at (2.0, -10.8) {\footnotesize $K_{12}$: global coherence constraints across higher-order structures};
+\node[anchor=west, align=left] at (2.0, -11.7) {\footnotesize The upper levels are retained because the public corpus already requires them.};
+
+\end{tikzpicture}

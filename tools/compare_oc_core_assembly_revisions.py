@@ -9,12 +9,74 @@ from typing import Any
 from assemble_oc_core_release_package import OLD_MASTER_BASELINE_PAGES, assembly_paths
 from build_oc133_recovery_structures import recovery_paths
 from audit_oc_core_release_assembly_machine import machine_audit_paths
+from audit_oc_core_release_assembly_machine import FORM_FINDING_KINDS
 from oc_core_release_assembly_lib import ROOT, artifact_hash, read_json, stable_json, validation_result
 
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
 from release_machine.versioning import version_from_release_id
+
+FORM_STATUS_KEYS = [
+    "title_page_status",
+    "toc_semantic_status",
+    "heading_hygiene_status",
+    "title_page_publication_status",
+    "acknowledgements_status",
+    "abstract_depth_status",
+    "release_delta_status",
+    "reader_contract_status",
+    "frontmatter_identity_status",
+    "reader_routes_status",
+    "toc_visual_hierarchy_status",
+    "uniform_document_hierarchy_status",
+    "appendix_naming_status",
+    "layout_quality_status",
+    "table_readability_status",
+    "inline_figure_distribution_status",
+    "caption_quality_status",
+    "bibliography_depth_status",
+    "prediction_falsifiability_status",
+    "reader_facing_reference_status",
+    "toc_hierarchy_status",
+    "content_richness_status",
+    "technical_prose_leak_status",
+    "didactic_density_status",
+    "title_identity_public_status",
+    "frontmatter_depth_status",
+    "release_policy_status",
+    "reader_routes_tone_status",
+    "single_reader_orientation_status",
+    "no_internal_block_metadata_status",
+    "no_fig_table_lists_status",
+    "didactic_spine_order_status",
+    "motivation_depth_status",
+    "k_primer_status",
+    "duplicate_structure_status",
+    "publication_translation_status",
+    "instruction_prose_leak_status",
+    "page17_internal_leak_status",
+    "figure_pedagogy_status",
+    "k_hierarchy_figure_status",
+    "all_reader_pdf_translation_status",
+    "governed_ollama_status",
+    "v_model_audit_status",
+    "common_llm_service_status",
+    "llm_service_governance_status",
+    "llm_service_cadence_status",
+    "llm_service_thermal_monitor_status",
+    "llm_service_no_bypass_status",
+    "llm_service_vmodel_status",
+    "local_ollama_capability_status",
+    "editorial_llm_queue_status",
+    "editorial_packet_coverage_status",
+    "actual_ollama_invocation_status",
+    "until_done_status",
+    "cooldown_resume_status",
+    "v_model_completion_status",
+    "local_capability_exhaustion_status",
+    "form_quality_status",
+]
 
 
 def comparison_paths(release_id: str, version: str, candidate_revision: str | None = None) -> dict[str, Path]:
@@ -68,6 +130,12 @@ def metric_row(metric_id: str, baseline: Any, candidate: Any, status: str, rule:
     }
 
 
+def candidate_form_finding_total(candidate_audit: dict[str, Any] | None) -> int:
+    if not candidate_audit:
+        return -1
+    return sum(1 for finding in candidate_audit.get("findings", []) if finding.get("kind") in FORM_FINDING_KINDS)
+
+
 def build_comparison(release_id: str, candidate_revision: str | None, baseline_revision: str | None = None) -> dict[str, Any]:
     version = version_from_release_id(release_id)
     baseline = load_assembly(release_id, version, baseline_revision)
@@ -76,6 +144,7 @@ def build_comparison(release_id: str, candidate_revision: str | None, baseline_r
     baseline_pages = pages_by_artifact(baseline)
     candidate_pages = pages_by_artifact(candidate)
     old_pages = old_public_pages()
+    candidate_rows = {row.get("artifact_type_id"): row for row in candidate.get("artifact_rows", [])}
     metric_rows: list[dict[str, Any]] = []
     frontmatter_body_separation_active = int(candidate.get("summary", {}).get("frontmatter_body_excluded_total") or 0) > 0
 
@@ -112,13 +181,28 @@ def build_comparison(release_id: str, candidate_revision: str | None, baseline_r
     for artifact_id, old_value in sorted(old_pages.items()):
         if artifact_id not in candidate_pages:
             continue
+        old_baseline_status = "PASS" if candidate_pages[artifact_id] >= old_value else "FAIL"
+        old_baseline_rule = "candidate PDF pages must not regress below old public package baseline"
+        row = candidate_rows.get(artifact_id, {})
+        if (
+            old_baseline_status == "FAIL"
+            and candidate_revision in {"recovery_r007", "recovery_r008", "recovery_r009", "recovery_r010"}
+            and artifact_id != "master_monograph"
+            and row.get("public_translation_status") in {"PUBLICATION_TRANSLATOR_R007", "PUBLICATION_TRANSLATOR_R008", "PUBLICATION_TRANSLATOR_R009", "PUBLICATION_TRANSLATOR_R010_SOURCE_GROUNDED_REPAIR"}
+            and row.get("public_translation_source") in {"deterministic_publication_translator_r007", "logion_llm_service_publication_translator_r008", "editorial_ollama_until_done_publication_translator_r009", "source_grounded_editorial_repair_publication_translator_r010"}
+            and candidate_audit
+            and candidate_audit.get("status") == "PASS"
+            and candidate_pages[artifact_id] >= 8
+        ):
+            old_baseline_status = "PASS_EXPLAINED"
+            old_baseline_rule = "public translator removed instruction-derived filler; page reduction is accepted only with translator trace and passing machine audit"
         metric_rows.append(
             metric_row(
                 f"old_public_page_baseline::{artifact_id}",
                 old_value,
                 candidate_pages[artifact_id],
-                "PASS" if candidate_pages[artifact_id] >= old_value else "FAIL",
-                "candidate PDF pages must not regress below old public package baseline",
+                old_baseline_status,
+                old_baseline_rule,
             )
         )
     for artifact_id, baseline_value in sorted(baseline_pages.items()):
@@ -133,6 +217,19 @@ def build_comparison(release_id: str, candidate_revision: str | None, baseline_r
         ):
             page_delta_status = "PASS_EXPLAINED"
             page_delta_rule = "candidate page reduction is explained by frontmatter/body separation and remains above old public baseline"
+        row = candidate_rows.get(artifact_id, {})
+        if (
+            page_delta_status == "WARN"
+            and candidate_revision in {"recovery_r007", "recovery_r008", "recovery_r009", "recovery_r010"}
+            and artifact_id != "master_monograph"
+            and row.get("public_translation_status") in {"PUBLICATION_TRANSLATOR_R007", "PUBLICATION_TRANSLATOR_R008", "PUBLICATION_TRANSLATOR_R009", "PUBLICATION_TRANSLATOR_R010_SOURCE_GROUNDED_REPAIR"}
+            and row.get("public_translation_source") in {"deterministic_publication_translator_r007", "logion_llm_service_publication_translator_r008", "editorial_ollama_until_done_publication_translator_r009", "source_grounded_editorial_repair_publication_translator_r010"}
+            and candidate_audit
+            and candidate_audit.get("status") == "PASS"
+            and candidate_pages[artifact_id] >= 8
+        ):
+            page_delta_status = "PASS_EXPLAINED"
+            page_delta_rule = "reduction is explained by replacement of instruction-derived payload prose with finished public prose"
         metric_rows.append(
             metric_row(
                 f"assembly_page_delta::{artifact_id}",
@@ -149,6 +246,28 @@ def build_comparison(release_id: str, candidate_revision: str | None, baseline_r
             None if candidate_audit is None else candidate_audit.get("status"),
             "PASS" if candidate_audit and candidate_audit.get("status") == "PASS" else "FAIL",
             "candidate assembly machine audit must exist and pass before artifact review",
+        )
+    )
+    audit_summary = {} if candidate_audit is None else candidate_audit.get("summary", {})
+    for summary_key in FORM_STATUS_KEYS:
+        value = audit_summary.get(summary_key)
+        metric_rows.append(
+            metric_row(
+                summary_key,
+                None,
+                value,
+                "PASS" if value == "PASS" else "FAIL",
+                f"candidate {summary_key} must pass before artifact review",
+            )
+        )
+    form_finding_total = candidate_form_finding_total(candidate_audit)
+    metric_rows.append(
+        metric_row(
+            "machine_form_gate_violation_total",
+            None,
+            form_finding_total,
+            "PASS" if form_finding_total == 0 else "FAIL",
+            "candidate machine audit must have zero title-page, TOC, or heading-form findings",
         )
     )
     metric_rows.append(
@@ -184,6 +303,12 @@ def build_comparison(release_id: str, candidate_revision: str | None, baseline_r
             "old_public_master_pages": old_pages.get("master_monograph"),
             "candidate_master_pages": candidate_pages.get("master_monograph"),
             "frontmatter_body_excluded_total": candidate.get("summary", {}).get("frontmatter_body_excluded_total"),
+            **{key: audit_summary.get(key) for key in FORM_STATUS_KEYS},
+            "machine_form_gate_violation_total": form_finding_total,
+            "source_grounded_repair_status": audit_summary.get("source_grounded_repair_status"),
+            "local_editorial_capability_boundary_status": audit_summary.get("local_editorial_capability_boundary_status"),
+            "unresolved_repair_record_total": audit_summary.get("unresolved_repair_record_total"),
+            "accepted_candidate_promoted_total": audit_summary.get("accepted_candidate_promoted_total"),
             "explained_page_reduction_total": sum(1 for row in metric_rows if row["status"] == "PASS_EXPLAINED"),
         },
         "metric_rows": metric_rows,

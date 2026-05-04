@@ -1,0 +1,19 @@
+\section{Атлас технических выводов}
+\label{sec:oc-core-1-3-technical-derivation-atlas}
+
+Это приложение возвращает полный рекурсивный технический подкорпус Core:
+K-уровни, M-пространства, межуровневые переходы, циклы, jets, процессы,
+операторы и теоремные опоры. Материал остаётся внутри одного PDF, но не
+ломает основной дидактический маршрут.
+
+\begingroup
+\let\ocappendixsection\section
+\let\ocappendixsubsection\subsection
+\let\ocappendixsubsubsection\subsubsection
+\renewcommand{\section}{\ocappendixsubsection}
+\renewcommand{\subsection}{\ocappendixsubsubsection}
+\scriptsize
+\RaggedRight
+\sloppy
+\input{content/_auto_core_platinum_technical_appendix_inputs_ru.tex}
+\endgroup

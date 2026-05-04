@@ -1,0 +1,237 @@
+% ====================================================================
+% DATEI: content/08_boundary.tex
+% Erweiterte Rand- und Patch-Geometrie — Core 1.3.3 (Abschlussversion)
+% ====================================================================
+
+\section{Erweiterte Rand- und Patch-Geometrie}
+\label{sec:boundary-extended}
+
+Dieses Kapitel stellt die vollständige Theorie von Grenzen und Patch-Geometrie wieder her.
+Ränder bilden eine der universellsten Strukturen im OC-Rahmen:
+Sie steuern die Phasentrennung in \(K_2\), die Membranbildung in \(K_3\)--\(K_4\),
+die Erregbarkeit in \(K_5\) sowie repräsentationale oder institutionelle Grenzen in
+\(K_6\)--\(K_8\).
+Die vorliegende Version konsolidiert die für Core~1.3.3 erforderliche vollständige Struktur:
+schwellenwertdefinierte Grenzen, Patch-Diskretisierung, lokale Schwellenwertklassen
+und randgetriebene Übergänge.
+
+\subsection{Formale Definition von \texorpdfstring{$\partial\Omega(K)$}{boundary}}
+
+Für jedes Kontinuum \(K\) mit zulässigem Zustandsraum \(\Omega(K)\) und Schwellenwertlandschaft
+\(\Theta(K)\) ist der Rand als die Menge von Zuständen definiert, für die
+mindestens ein Schwellenwert exakt gesättigt ist:
+\[
+  \partial\Omega(K)
+  =
+  \big\{\, s \in \overline{\Omega(K)} :
+          \exists k\ \text{such that}\ g_k(s) = \Theta_k \big\}.
+\]
+Äquivalent dazu gilt: Wenn \(f_k(s)=g_k(s)-\Theta_k\) die verschobene Restfunktion
+bezeichnet, die im Notizanhang der Notation und im Modellkapitel verwendet wird,
+halten Innenzustände \(f_k(s)<0\), Zustände auf der zulässigen Seite \(f_k(s)\le0\), und
+der gleiche Rand ist die Nullstelle \(f_k(s)=0\) für mindestens einen aktiven Schwellenwert.
+
+Damit gilt:
+\begin{itemize}
+    \item Innenzustände erfüllen \(f_k(s) < \Theta_k\) für alle Schwellenwerte;
+    \item Außenzustände verletzen mindestens einen Schwellenwert;
+    \item der Rand ist eine \emph{schwellenwertdefinierte Oberfläche}, keine geometrische
+          Primitive.
+\end{itemize}
+
+Diese Definition vereint klassische Oberflächen, Membranen, Vesikel,
+Perkolationsfronten, erregbare Grenzen, logische Limiten und institutionelle
+Schwellenwerte in einem Rahmen.
+
+\subsection{Randgeometrie}
+
+Randgeometrie ergibt sich aus der lokalen Struktur von Schwellenwerten, Potentialen
+und Flüssen.
+Wenn der aktive Schwellenwert im Punkt \(s \in \partial\Omega(K)\) \(g_k\) ist, ist die
+äußere Normale parallel zur Gradientenrichtung:
+\[
+  n(s) \propto \nabla g_k(s).
+\]
+
+Mehrere aktive Schwellenwerte erzeugen Ecken, Kanten und Regionen hoher Krümmung.
+Krümmung wird dynamisch relevant, sobald Biege- oder Oberflächenenergie-Terme
+in das Potential eingehen:
+\[
+  P_{\mathrm{bend}}(s) = \tfrac{1}{2}\,\kappa(s)^2\,\kappa_b,
+\]
+mit Biegesteifigkeit \(\kappa_b\).
+
+Dies verbindet:
+\begin{itemize}
+    \item \(K_2\): klassische Oberflächenspannung,
+    \item \(K_3\)–\(K_4\): Membran-Krümmung und Vesikel-Energetik,
+    \item \(K_5\): Geometrie erregbarer Grenzen.
+\end{itemize}
+
+\subsection{Patch-Modell von Grenzen}
+
+OC modelliert Grenzen nicht als kontinuierliche, homogene Flächen, sondern als
+Sammlungen dynamischer \emph{Patches}:
+\[
+  \partial\Omega(K) = \bigcup_i \partial\Omega_i.
+\]
+
+Jeder Patch \(P_i\) enthält:
+\[
+  (\sigma_i,\Theta_i,P_i(t),J_i(t)),
+\]
+was seinen lokalen Zustand, die Schwellenwerte, Potentiale und Flüsse beschreibt.
+
+\paragraph{Lokale Zustände.}
+Patches nehmen symbolische Zustände an:
+\[
+  \sigma_i \in \{L_\alpha, L_\beta, L_o, L_f, L_b\},
+\]
+wobei sie lokale Packungs- oder Strukturregime kodieren:
+\begin{itemize}
+    \item \(L_\alpha\): flüssig-ungeordnet,
+    \item \(L_\beta\): geordnet/gelartig,
+    \item \(L_o\): flüssig-geordnet,
+    \item \(L_f\): fragil/dünn (prärupturisch),
+    \item \(L_b\): gebrochener Randzustand.
+\end{itemize}
+
+Dieses Alphabet ist über biologische Membranen hinaus verallgemeinerbar auf
+Perkolationskanten, Rissfronten, fluktuierende Interfaces und sogar symbolische/kognitive
+Grenzen.
+
+\paragraph{Lokale Schwellenwerte.}
+Jeder Patch besitzt einen Vektor:
+\[
+  \Theta_i = (\Theta^{\rm perm}_i, \Theta^{\rm grad}_i, \Theta^{\rm mem}_i,
+              \Theta^{\rm bend}_i, \ldots ),
+\]
+mit den zugehörigen lokalen Potentialen \(P_i(t)\) und Flüssen \(J_i(t)\).
+
+\subsection{Grenzwertsystem}
+
+Über \(K_2\)--\(K_5\) erscheinen universell drei Schwellenwertklassen.
+
+\paragraph{1. Permeabilitätsschwelle \(\Theta_{\rm perm}\).}
+Ein Patch wird permeabel, wenn:
+\[
+  |\nabla P_i| > \Theta^{\rm perm}_i.
+\]
+Beispiele:
+\begin{itemize}
+    \item osmotische Permeabilität (\(K_3\)--\(K_4\)),
+    \item Ionenleck-Beginn (\(K_5\)),
+    \item Phasenfrontdurchdringung (\(K_2\)).
+\end{itemize}
+
+\paragraph{2. Gradienten-Schwelle \(\Theta_{\rm grad}\).}
+Wenn ein Gradient nicht aufrechtzuerhalten ist:
+\[
+  |\nabla P_i| > \Theta^{\rm grad}_i
+  \quad\Rightarrow\quad \sigma_i \to L_f.
+\]
+Dies steuert:
+\begin{itemize}
+    \item Vesikelriss bei hohem osmotischem Druck (\(K_4\)),
+    \item Auslösung von Aktionspotenzialen an Initialsegmenten von Axonen (\(K_5\)),
+    \item beschleunigte Phasenfronten und Rissausbreitung (\(K_2\)).
+\end{itemize}
+
+\paragraph{3. Membranintegritätsschwelle \(\Theta_{\rm mem}\).}
+Wenn Membranspannung oder Krümmung Grenzwerte überschreiten:
+\[
+  \gamma_i > \Theta^{\rm mem}_i
+  \qquad\text{oder}\qquad
+  \kappa(s) > \Theta^{\rm bend}_i,
+\]
+dann gilt:
+\[
+  \sigma_i \to L_b.
+\]
+
+Dies liefert ein vereinheitlichtes Verständnis von Rissen, Beulenbildung, Porenbildung,
+Randversagen und Oberflächenkollaps.
+
+\subsection{Randgetriebene Dynamik}
+
+Nachbarschaftliche Patches interagieren über Flüsse:
+\[
+  J_{ij} = F(P_i, P_j, \sigma_i, \sigma_j).
+\]
+
+Damit entstehen:
+\begin{itemize}
+    \item Stabilisierung und Umordnung von Patch-Mosaiken,
+    \item Ausbreitung von Rissfronten,
+    \item krümmungsgetriebene Migration,
+    \item Porenbildungseinleitung,
+    \item Verhalten als erregbares Medium in \(K_5\).
+\end{itemize}
+
+Patch-Entwicklung folgt:
+\[
+  \frac{d\sigma_i}{dt}
+  = S(\sigma_i, P_i, J_i, \Theta_i),
+\]
+wohin \(S\) ein struktureller Aktualisierungsoperator ist, unabhängig vom
+betroffenen Definitionsbereich.
+
+\medskip
+\textbf{Prinzip der Randlokalisation.}
+\emph{Alle Dimensional-Übergänge in \(K_3\)--\(K_5\) beginnen an Randpatches.}
+
+Dies erklärt:
+\begin{itemize}
+    \item den Protocell-Rupturbeginn an Hoch-Krümmungsstellen,
+    \item die Auslösung von Aktionspotenzialen an den Axoninitialsegmenten,
+    \item Phasenübergänge, die an Defekten oder Oberflächen nucleieren.
+\end{itemize}
+
+\subsection{Randversagen und Kollaps}
+
+Randkollaps tritt ein, wenn eine zusammenhängende Menge von Patches gebrochen wird:
+\[
+  \sigma_i = L_b
+  \qquad \forall\, i \in \mathcal{C},
+\]
+und der Cluster \(\mathcal{C}\) sich über den Rand perkoliert.
+
+Nach Satz~3 (Ergebniskapitel):
+\[
+  \partial\Omega(K)\ \text{kollabiert}
+  \quad\Longrightarrow\quad
+  \Omega(K) = \emptyset,
+\]
+und das Kontinuum erlischt.
+
+Wir unterscheiden:
+\begin{itemize}
+    \item \textbf{lokales Versagen}: isolierte \(L_b\)-Patches, reversibel;
+    \item \textbf{Cluster-Kollaps}: perkolierendes \(L_b\)-Netzwerk, irreversibel;
+    \item \textbf{globaler Randverlust}: Verschwinden des Randes, was Tod oder Übergang
+          zu einem neuen Kontinuum impliziert.
+\end{itemize}
+
+\subsection{Rand und Wiedergeburt}
+
+Die Entstehung eines neuen Kontinuums \(K_{x+1}\) erfordert typischerweise:
+\begin{itemize}
+    \item Bildung oder Riss von Randpatches,
+    \item Erzeugung neuer Patch-Typen,
+    \item Auftreten neuer Schwellenwertklassen an Randbereichen,
+    \item Etablierung einer neuen globalen Randgeometrie.
+\end{itemize}
+
+\textbf{Prinzip der Randwiedergeburt.}
+\emph{Neue Kontinua entstehen aus neuen Randgeometrien.}
+
+Beispiele:
+\begin{itemize}
+    \item Membranschluss im Übergang \(K_3 \to K_4\),
+    \item Auftreten erregbarer Grenzen im Übergang \(K_4 \to K_5\),
+    \item Bildung institutioneller Grenzen im Übergang \(K_6 \to K_7\),
+    \item Auftreten repräsentationaler Grenzen im Übergang \(K_9 \to K_{10}\).
+\end{itemize}
+
+Grenzen sind daher nicht nur Beschränkungen:
+Sie sind generative Oberflächen, auf denen neue Achsen, Restriktionen und Zyklen entstehen.

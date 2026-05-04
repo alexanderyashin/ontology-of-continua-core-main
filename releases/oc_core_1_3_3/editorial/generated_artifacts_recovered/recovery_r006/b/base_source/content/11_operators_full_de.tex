@@ -1,0 +1,427 @@
+% ====================================================================
+% DATEI: content/11_operators_full_de.tex
+% Vollständige Operatorfamilie F, G, H, Q, R, S, U, Psi, E_int
+% Core 1.3.3 — kanonische Version
+% ====================================================================
+
+\section{Evolution und Interaktionsoperatoren}
+\label{sec:operators-full}
+
+Dieses Kapitel erweitert den in
+Abschnitt~the formal model chapter eingeführten abstrakten Evolutionsoperator
+zu der vollständigen Operatorfamilie, die in der Ontology of
+Continua (OC) verwendet wird. Es fasst die Definitionen aus archival source corpus
+zusammen und stellt sie in einer kompakten, vertikal konsistenten Form dar,
+die für Core~1.3.3 geeignet ist.
+
+Während dieses Abschnitts wird ein Kontinuum als
+\[
+  K(t) =
+  \big(
+    \Omega(t), A(t), P(t), J(t),
+    \Theta(t), \partial\Omega(t), C(t), k(t)
+  \big),
+\]
+mit den in Abschnitt~the formal model chapter definierten Komponenten geschrieben.
+Der Einbettungsraum sei \(M\), mit Achsen \(A(M)\) und Beschränkungen,
+die die zulässigen Zustände von \(K\) einschränken.
+
+\subsection{Zerlegung des Evolutionsoperators}
+
+Die strukturelle Evolution eines Kontinuums über einen infinitesimalen
+Zeitschritt ist durch einen Operator beschrieben
+\[
+  E : K(t) \longrightarrow K(t+dt).
+\]
+Statt einen einzelnen monolithischen Operator anzugeben, zerlegt OC \(E\)
+in eine Familie von Operatoren, die auf unterschiedliche Komponenten des
+Kontinuums wirken:
+\[
+  E = (F, G, H, Q, R, S, U),
+\]
+wobei
+\begin{itemize}
+  \item \(F\) die Dynamik der Flüsse \(J\) steuert;
+  \item \(G\) die Dynamik der Potentiale \(P\) steuert;
+  \item \(H\) die Dynamik der Schwellwerte \(\Theta\) steuert;
+  \item \(Q\) die Dynamik der Zyklen \(C\) steuert;
+  \item \(R\) die Dynamik des Randes \(\partial\Omega\) steuert;
+  \item \(S\) die strukturelle Rekonfiguration der Achsen \(A\) und
+        der internen Konnektivität steuert;
+  \item \(U\) die Evolution der Continuumness \(k(t)\) steuert.
+\end{itemize}
+
+Formal kann dies geschrieben werden als
+\begin{align*}
+  J(t+dt)              &= F\big(J(t), P(t), A(t), \Theta(t), M\big), \\
+  P(t+dt)              &= G\big(P(t), A(t), J(t), \Theta(t), M\big), \\
+  \Theta(t+dt)         &= H\big(\Theta(t), P(t), J(t), M\big), \\
+  C(t+dt)              &= Q\big(C(t), P(t), J(t), \Theta(t)\big), \\
+  \partial\Omega(t+dt) &= R\big(\partial\Omega(t), P(t), J(t), \Theta(t), M\big), \\
+  A(t+dt)              &= S\big(A(t), P(t), J(t), \Theta(t), M\big), \\
+  k(t+dt)              &= U\big(k(t), \Omega(t), A(t), P(t), J(t),
+                               \Theta(t), C(t), \partial\Omega(t), M\big).
+\end{align*}
+
+Die Operatoren sind durch die Axiome von OC eingeschränkt, insbesondere die
+Monotonie der Dimension, die Unmöglichkeit einer Evolution außerhalb des
+Einbettungsraums sowie die Definition von Geburt und Tod.
+
+\subsection{Operator \texorpdfstring{\texorpdfstring{$F$}{F}}{F}: Flussdynamik}
+
+Der Flussoperator \(F\) steuert die zeitliche Änderung der Flüsse:
+\[
+  J(t+dt) = F\big(J(t), P(t), A(t), \Theta(t), M\big).
+\]
+
+Konzeptionell kodiert \(F\):
+\begin{itemize}
+  \item Erhaltungs- oder Bilanzgesetze (z.\,B. Kontinuitätsgleichungen,
+        Kirchhoff-Summen, Erhaltung der Wahrscheinlichkeit);
+  \item konstitutive Beziehungen, die Flüsse mit Potentialgradienten
+        verknüpfen (z.\,B. Fick-, Ohm-, Fourier-Gesetze, Reaktionskinetik);
+  \item die strukturelle Einteilung von Flüssen in stützende, kritische und
+        destruierende Komponenten.
+\end{itemize}
+
+Eine generische Zerlegung lautet
+\[
+  J(t) = J_{\mathrm{support}}(t)
+       + J_{\mathrm{critical}}(t)
+       + J_{\mathrm{kill}}(t),
+\]
+wobei \(F\) diese Struktur erhält:
+\begin{align*}
+  J_{\mathrm{support}}(t+dt)
+    &= F_{\mathrm{support}}\big(J, P, A, \Theta, M\big), \\
+  J_{\mathrm{critical}}(t+dt)
+    &= F_{\mathrm{critical}}\big(J, P, A, \Theta, M\big), \\
+  J_{\mathrm{kill}}(t+dt)
+    &= F_{\mathrm{kill}}\big(J, P, A, \Theta, M\big).
+\end{align*}
+
+Auf verschiedenen Ebenen \(K_x\) haben diese Klassen unterschiedliche
+Ausprägungen:
+\begin{itemize}
+  \item in \(K_2\) (physikalische Kontinua) sind Flüsse diffusive, konvektive
+        und feldvermittelte Ströme;
+  \item in \(K_3\) (chemische Kontinua) entsprechen Flüsse Reaktions- und
+        Transportraten;
+  \item in \(K_4\)–\(K_5\) (protokelluläre und bioelektrische Kontinua) sind
+        Flüsse Ionenströme, osmotische Flüsse und Stoffwechsel-Flüsse;
+  \item in \(K_6\)–\(K_8\) (kognitive und soziale Kontinua) werden Flüsse zu
+        Flüssen von Information, Aufmerksamkeit, Ressourcen und Verpflichtungen.
+\end{itemize}
+
+\subsection{Operator \texorpdfstring{\texorpdfstring{$G$}{G}}{G}: Potentialdynamik}
+
+Der Potentialoperator \(G\) steuert die Änderung der Potentiale:
+\[
+  P(t+dt) = G\big(P(t), A(t), J(t), \Theta(t), M\big).
+\]
+
+In vielen konkreten Modellen wird \(G\) als Differentialrelation geschrieben
+\[
+  \frac{dP}{dt} = J,
+\]
+gegebenenfalls mit zusätzlichen nichtlinearen Termen für Dissipation,
+Antrieb und Kopplung.
+Auf struktureller Ebene verlangt OC nur:
+\begin{itemize}
+  \item Potentiale reagieren auf Flüsse und können diese wiederum einschränken;
+  \item Änderungen der Potentiale respektieren die Vorzeichen- und
+        Ungleichungsstruktur, die durch \(\Theta\) vorgegeben ist;
+  \item bei Abwesenheit von Flüssen \(J = 0\) streben Potentiale gegen
+        Schwellflächen oder relaxieren in intern bevorzugte Konfigurationen.
+\end{itemize}
+
+Unterschiedliche Klassen von Potentialen (energetisch, chemisch, elektrochemisch,
+informational, normativ) sind Beispiele derselben strukturellen Rolle:
+Einschränkungen und antreibende Kräfte auf \(\Omega(K)\) zu kodieren.
+
+\subsection{Operator \texorpdfstring{\texorpdfstring{$H$}{H}}{H}: Schwellenwertdynamik}
+
+Schwellwerte sind nicht statisch; sie können sich unter dem Einfluss von
+Potentialen, Flüssen und Einbettungsrestriktionen anpassen, driften oder
+rekonfigurieren. Der Schwellwertoperator \(H\) ist definiert durch
+\[
+  \Theta(t+dt) = H\big(\Theta(t), P(t), J(t), M\big).
+\]
+
+Beispiele sind:
+\begin{itemize}
+  \item Anpassung von Aktivierungskurven ionischer Kanäle im Nervengewebe;
+  \item Plastizität der Existenzbereiche von Protokellen in wechselnden
+        Umgebungen;
+  \item Verschiebung von Normen und institutionellen Schwellwerten in
+        sozialen Systemen;
+  \item Änderungen von Kohärenz- oder Konsistenzschwellwerten in
+        theoretischen Systemen.
+\end{itemize}
+
+Formal muss \(H\) erfüllen:
+\begin{itemize}
+  \item Kompatibilität mit den Einbettungsrestriktionen: Schwellwertänderungen
+        dürfen keine Konfigurationen verlangen, die durch \(M\) verboten sind;
+  \item Erhaltung der Taxonomie der Schwellwerte
+        (\(\Theta_{\mathrm{exist}}, \Theta_{\mathrm{stab}},
+        \Theta_{\mathrm{crit}}, \Theta_{\mathrm{dim}},
+        \Theta_{\mathrm{death}}, \Theta_{\mathrm{expr}}, \Theta_{\mathrm{embed}}\));
+  \item lokale Stetigkeit: kleine Änderungen in Potentialen oder Flüssen dürfen
+        zu kleinen Schwellwertänderungen führen, außer an kritischen Punkten,
+        an denen Bifurkationen erlaubt sind.
+\end{itemize}
+
+\subsection{Operator \texorpdfstring{\texorpdfstring{$Q$}{Q}}{Q}: Zyklische Dynamik}
+
+Zyklen \(C(t)\) repräsentieren geschlossene Trajektorien, die die
+Organisation des Kontinuums aufrechterhalten. Ihre Evolution wird gesteuert durch
+\[
+  C(t+dt) = Q\big(C(t), P(t), J(t), \Theta(t)\big).
+\]
+
+Strukturell behandelt \(Q\):
+\begin{itemize}
+  \item \emph{Geburt} neuer Zyklen, wenn sich Flüsse im Zustandsraum fern von
+        \(\partial\Omega\) schließen;
+  \item \emph{Stabilisierung} oder \emph{Verstärkung} vorhandener Zyklen,
+        wenn stützende Flüsse dominieren;
+  \item \emph{Abschwächung} und \emph{Zerstörung} von Zyklen bei destruierenden
+        Flüssen oder Schwellwertverletzungen.
+\end{itemize}
+
+Zykluskomplexe sind besonders wichtig. Sei \(C_{\max}(t)\) die maximale Menge
+paarweise kompatibler Zyklen, die das Kontinuum stützen. Dann besagt Satz~9 in
+Abschnitt~the historical result-boundary chapter, dass der Tod mit \(C_{\max}(t) = \emptyset\)
+zusammenfällt. Der Operator \(Q\) beteiligt sich daher direkt an
+Leben--Tod-Übergängen.
+
+\subsection{Operator \texorpdfstring{\texorpdfstring{$R$}{R}}{R}: Randdynamik}
+
+Der Randoperator \(R\) steuert die Geometrie und Position des Randes
+\(\partial\Omega\):
+\[
+  \partial\Omega(t+dt) =
+    R\big(\partial\Omega(t), P(t), J(t), \Theta(t), M\big).
+\]
+
+Auf struktureller Ebene muss \(R\):
+\begin{itemize}
+  \item mit den Schwellwertdefinitionen konsistent sein:
+        \(\partial\Omega = \{ s \mid \exists k: f_k(s) = 0 \}\);
+  \item Expansion, Kontraktion und Bifurkation von \(\Omega\) zulassen;
+  \item die Effekte von Flüssen und Schwellwertverschiebungen auf
+        zugängliche Regionen kodieren.
+\end{itemize}
+
+In konkreten Implementierungen kann \(R\) viele Formen annehmen:
+\begin{itemize}
+  \item in \(K_2\) kann es der Bewegung von Phasengrenzen,
+        Perkolationsschwellwerten oder Kohärenzoberflächen entsprechen;
+  \item in \(K_3\)–\(K_4\) umfasst es die Dynamik von Membranen,
+        Schnittstellen und Kompartiment-Grenzen;
+  \item in \(K_5\) beschreibt es Schwellwerte der Erregbarkeit und
+        refraktären Regionen im Leitfähigkeitsraum;
+  \item in \(K_7\)–\(K_8\) kann es institutionelle und rechtliche
+        Grenzen repräsentieren.
+\end{itemize}
+
+Abschnitt~the boundary geometry chapter enthält eine erweiterte Darstellung der
+Randgeometrie und Patch-Modelle.
+
+\subsection{Operator \texorpdfstring{\texorpdfstring{$S$}{S}}{S}: Strukturelle
+Rekonfiguration}
+
+Der Strukturoperator \(S\) steuert Änderungen an Achsen und interner
+Konfiguration:
+\[
+  A(t+dt) = S\big(A(t), P(t), J(t), \Theta(t), M\big).
+\]
+
+Typische Rollen von \(S\) sind:
+\begin{itemize}
+  \item Aktivierung oder Deaktivierung von Achsen (z.\,B. Freischalten latenter
+        Freiheitsgrade);
+  \item Neuverkabelung von Konnektivitätsmustern innerhalb des Kontinuums;
+  \item Grobkörnige Abbildung oder Verfeinerung effektiver Achsen unter
+        Renormierung oder Abstraktion.
+\end{itemize}
+
+Wesentlich ist, dass \(S\) der Monotonie der Dimension unterliegt:
+\[
+  \dim A(t+dt) \ge \dim A(t).
+\]
+Wird eine neue Achse \(A_{\mathrm{new}}\) hinzugefügt, so dass
+\(A_{\mathrm{new}} \notin \mathrm{span}_{\mathrm{str}}(A(t))\), tritt ein
+Dimensionswechsel ein und das Kontinuum wird zu \(K_{x+1}\), anstatt auf demselben
+Niveau zu bleiben. Dies wird im Folgenden durch die Geburtsoperatoren in
+Abschnitt~the birth operators formalisiert discussion.
+
+\subsection{Operator \texorpdfstring{\texorpdfstring{$U$}{U}}{U}: Continuumness-Dynamik}
+
+Der Operator \(U\) steuert die Evolution der Continuumness \(k(t)\):
+\[
+  k(t+dt) =
+  U\big(k(t), \Omega(t), A(t), P(t), J(t),
+        \Theta(t), C(t), \partial\Omega(t), M\big).
+\]
+
+Mit der vereinheitlichten Definition von \(k(t)\) aus Abschnitt~the formal model chapter
+bewertet \(U\), wie Änderungen im Zustandsraum, in Achsen, Flüssen,
+Schwellwerten, Zyklen und Rand die Viabilität des Kontinuums beeinflussen.
+Qualitativ gilt:
+\begin{itemize}
+  \item stützende Flüsse und stabile Zyklen erhöhen oder erhalten \(k(t)\);
+  \item destruierende Flüsse und Zyklusverlust senken \(k(t)\);
+  \item Annäherung an \(\partial\Omega\) reduziert \(k(t)\);
+  \item Expansion von \(\Omega\) und Anreicherung von Zykluskomplexen erhöhen
+        \(k(t)\).
+\end{itemize}
+
+Der Tod entspricht \(k(t) \to 0\) zusammen mit \(\Omega = \emptyset\).
+Geburt entspricht dem Auftreten eines neuen Kontinuums mit \(k(t) > 0\) in einer
+zuvor leeren Region des Möglichkeitsraums.
+
+\subsection{Geburtsoperatoren \texorpdfstring{$\Psi_{x\to x+1}$}{Psi\_x→x+1}}
+\label{sec:birth-operators}
+
+Dimensionswechsel zwischen Ebenen werden durch Geburtsoperatoren vermittelt
+\[
+  \Psi_{x\to x+1} : (K_x, M_x) \longrightarrow (K_{x+1}, M_{x+1}).
+\]
+
+Strukturell ist \(\Psi_{x\to x+1}\) definiert, sobald die folgenden Bedingungen
+erfüllt sind:
+\begin{enumerate}
+  \item \textbf{Neue Unterschiede.}\
+        Es gibt eine Klasse von Unterschieden außerhalb des aktuellen
+        strukturellen Spanns:
+        \[
+          D_{\mathrm{new}}\not\subseteq
+          \mathrm{span}_{\mathrm{str}}(A(K_x)).
+        \]
+  \item \textbf{Spannung oberhalb der Dimensionsschwelle.}\
+        Die strukturelle Spannung überschreitet die Dimensionsschwelle:
+        \[
+          T(K_x,t) > \Theta_{\mathrm{dim}}(K_x).
+        \]
+  \item \textbf{Verfügbare Achse im Einbettungsraum.}\
+        Der Einbettungsraum \(M_x\) enthält mindestens eine Achse, die zur
+        Aufnahme der neuen Unterschiede geeignet ist:
+        \[
+          A_{\mathrm{new}} \in A(M_x) \setminus A(K_x).
+        \]
+  \item \textbf{Nicht-leere zulässige Region.}\
+        Es gibt eine nichtleere Menge von Zuständen \(\Omega(K_{x+1})\), die mit
+        der neuen Achse und den Schwellwerten kompatibel ist.
+\end{enumerate}
+
+Die Wirkung von \(\Psi_{x\to x+1}\) lässt sich zusammenfassen als
+\begin{align*}
+  A(K_{x+1})      &= A(K_x) \cup \{A_{\mathrm{new}}\}, \\
+  \Omega(K_{x+1}) &\subseteq
+     \Omega(M_{x+1}) \cap
+     \big\{ s \mid \Theta(K_{x+1})(s) \le 0 \big\}, \\
+  M_{x+1}         &\supset M_x,
+\end{align*}
+mit allen anderen Komponenten von \(K_{x+1}\) (Flüsse, Potentiale, Zyklen,
+Continuumness) durch das allgemeine strukturelle Gerüst bestimmt.
+
+Geburtsoperatoren sind \emph{minimal} und \emph{irreversibel}:
+jede nichttriviale Nutzung von \(A_{\mathrm{new}}\) konstituiert das neue
+Kontinuum \(K_{x+1}\); eine Rückkehr zur vorherigen Dimensionalität würde die
+Zerstörung von \(\Omega(K_{x+1})\) erfordern, was als Tod und nicht als
+reversible Vereinfachung interpretiert wird.
+
+\subsection{Interaktionsoperator \texorpdfstring{$E_{\mathrm{int}}$}{E\_int}}
+
+Wenn zwei Kontinua \(K_a\) und \(K_b\) interagieren, wird deren gemeinsame
+Dynamik durch einen Interaktionsoperator beschrieben
+\[
+  E_{\mathrm{int}} : (K_a, K_b, M)
+    \longrightarrow (K_a', K_b', M'),
+\]
+wobei \(M'\) den aktualisierten Einbettungsraum für das kombinierte System
+bezeichnet.
+
+Auf struktureller Ebene modifiziert \(E_{\mathrm{int}}\) Potentiale, Flüsse,
+Schwellwerte, Zyklen und gegebenenfalls Achsen jedes Kontinuums. Es werden
+mehrere Regime unterschieden:
+
+\begin{itemize}
+  \item \textbf{Konkurrenz.}\
+        Flüsse eines Kontinuums behindern die Aufrechterhaltung von Zyklen im
+        anderen. Typischerweise können \(k_a\) und \(k_b\) nicht beide unbegrenzt
+        wachsen.
+  \item \textbf{Parasitismus.}\
+        Ein Kontinuum entzieht einem anderen stützende Flüsse und erhöht dadurch
+        die eigene Continuumness auf Kosten seines Wirts.
+  \item \textbf{Symbiose.}\
+        Gekoppelte Flüsse erhöhen die Continuumness beider Kontinua; gemeinsame
+        Zyklen können entstehen, die das Paar stabilisieren.
+  \item \textbf{Fusion.}\
+        Achsen und Potentiale vereinen sich zu einem neuen Kontinuum
+        \(K_{\mathrm{fusion}}\) mit zusammengeführtenden Zustandsraum und
+        Schwellwerten. Formal entspricht die Fusion der Geburt eines
+        höherdimensionalen Kontinuums über einen zusammengesetzten Geburtsoperator.
+\end{itemize}
+
+Interaktion kann selbst Dimensionswechsel auslösen, wenn gemischte Unterschiede
+neue Achsen erzeugen, die den Kontinua isoliert nicht zur Verfügung stehen, und
+wenn die Spannung die relevanten Schwellwerte überschreitet.
+
+\subsection{Operatoralgebra und Nebenbedingungen}
+
+Obwohl OC keine vollständige Operatoralgebra postuliert, sind mehrere
+strukturelle Nebenbedingungen für innere Konsistenz erforderlich:
+
+\paragraph{Kompatibilität mit Einbettungsräumen.}
+Alle Operatoren müssen die Inklusion
+\(A(K(t)) \subseteq A(M(t))\) respektieren und keine Entwicklung entlang von
+Achsen erzeugen, die im \(M\) nicht vorhanden sind. Geburtsoperatoren sind nur
+definiert, wenn \(M\) die relevanten Achsen bereits enthält.
+
+\paragraph{Monotonie der Dimension.}
+Der Strukturoperator \(S\) und die Geburtsoperatoren \(\Psi_{x\to x+1}\) müssen
+erfüllen
+\[
+  \dim A(t+dt) \ge \dim A(t),
+\]
+mit strikter Ungleichheit nur bei Dimensionswechseln.
+
+\paragraph{Schwellwertkonforme Dynamik.}
+Operatoren \(F, G, H, Q, R\) müssen die durch Schwellwerte vorgegebene
+Ungleichungsstruktur erhalten, außer bei autorisierten Überschreitungen von
+kritischen oder Todesschwellwerten. Verletzungen von
+\(\Theta_{\mathrm{exist}}\) werden als Todesereignisse interpretiert.
+
+\paragraph{Continuumness als Viabilitätsindikator.}
+Der Operator \(U\) koppelt alle anderen Komponenten; im Einzelnen:
+\begin{itemize}
+  \item wenn \(k(t) = 0\) und \(\Omega = \emptyset\), ist das Kontinuum tot und
+        weitere Anwendungen von \(E\) haben auf dieser Ebene keine Wirkung;
+  \item wenn \(k(t) > 0\), existiert mindestens ein stützender Zyklus und die
+        Flüsse müssen die in \(F\) und \(Q\) kodierten Ausgleichsbedingungen
+        erfüllen.
+\end{itemize}
+
+\paragraph{Kreuzebenen-Konsistenz.}
+Für Übergänge \(K_x \to K_{x+1}\) muss die Operatorfamilie der höheren Ebene auf
+die der niedrigeren Ebene zurückführen, wenn die neue Achse festgehalten und die
+zusätzlichen Freiheitsgrade eingefroren werden. Damit sind die unteren Ebenen
+als Spezialfälle höherer Ebenen wieder auffindbar, und die vertikale
+Kohärenz der Hierarchie bleibt erhalten.
+
+\subsection{Zusammenfassung}
+
+Die Operatorfamilie \((F, G, H, Q, R, S, U, \Psi, E_{\mathrm{int}})\) stellt
+das dynamische Rückgrat der Ontology of Continua dar. Statt einer einzelnen
+hoche spezifischen Bewegungsgleichung verwendet OC ein modulares Satz von
+Operatoren, die auf Flüsse, Potentiale, Schwellwerte, Zyklen, Grenzen, Achsen
+und Continuumness wirken. Ihre kombinierte Wirkung regelt Geburt, Leben,
+Interaktion und Tod von Kontinua über alle Ebenen \(K_0\)–\(K_{10}\).
+
+Dieses Kapitel vervollständigt den formalen Kern von Core~1.3.3, indem es die
+strukturelle Dynamik explizit macht, die in früheren Entwürfen nur implizit
+vorkam, und den Boden für vollständig quantitative Modelle in nachfolgenden
+Erweiterungspapieren bereitet.

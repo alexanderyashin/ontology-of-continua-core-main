@@ -1,0 +1,73 @@
+{
+  "artifact_hash": "d95eec3dfb64d7c0e6f8657f4da419b58946b35393007b02f2a43cbffebf0ae2",
+  "artifacts": {
+    "cockpit_md": "LOGION_EDITORIAL_WORKBENCH_COCKPIT.md",
+    "review_queue": "LOGION_EDITORIAL_WORKBENCH_REVIEW_QUEUE.json",
+    "review_trace": "LOGION_EDITORIAL_WORKBENCH_REVIEW_TRACE.json",
+    "writer_queue": "LOGION_EDITORIAL_WORKBENCH_WRITER_QUEUE.json",
+    "writer_trace": "LOGION_EDITORIAL_WORKBENCH_WRITER_TRACE.json"
+  },
+  "generated_at_utc": "2026-05-04T14:31:24Z",
+  "llm_service_id": "logion_llm_service_v1",
+  "output_dir": "releases\\oc_core_1_3_3\\editorial\\generated_artifacts_recovered\\recovery_r009\\editorial_workbench\\write_check_v1",
+  "policy": {
+    "cadence": "delegated_to_logion_llm_service_v1",
+    "direct_ollama_calls_allowed": false,
+    "host_safety": "delegated_to_logion_llm_service_v1_preflight_before_each_packet",
+    "max_workers": 1,
+    "parallel_local_llm_runs_allowed": false,
+    "writer_then_checker": true
+  },
+  "schema_id": "LOGION_EDITORIAL_WORKBENCH_RESPONSE_v1",
+  "service_id": "logion_editorial_workbench_v1",
+  "source_queue_id": "oc_core_1.3.3_r009_editorial_until_done",
+  "status": "REPAIR_REQUIRED",
+  "summary": {
+    "actual_invocation_total": 7,
+    "checker": {
+      "cadence_sequence": [
+        "substantive_7b_then_two_cheap_cycles",
+        "thermal_debt_cheap_model_2",
+        "thermal_debt_cheap_model_1"
+      ],
+      "host_sample_total": 3,
+      "model_sequence": [
+        "qwen2.5-coder:7b",
+        "qwen2.5-coder:3b",
+        "qwen2.5-coder:3b"
+      ],
+      "packet_done_total": 3,
+      "provider_invocation_total": 3,
+      "queue_status": "BLOCKED_BY_STATIC_FINDINGS",
+      "request_total": 4,
+      "static_blocker_total": 1,
+      "status": "BLOCKED_BY_STATIC_FINDINGS",
+      "unmanaged_ollama_call_total": 0
+    },
+    "source_l10_packet_total": 32,
+    "static_blocker_total": 1,
+    "unmanaged_ollama_call_total": 0,
+    "writer": {
+      "cadence_sequence": [
+        "substantive_7b_then_two_cheap_cycles",
+        "thermal_debt_cheap_model_2",
+        "thermal_debt_cheap_model_1",
+        "substantive_7b_then_two_cheap_cycles"
+      ],
+      "host_sample_total": 4,
+      "model_sequence": [
+        "qwen2.5-coder:7b",
+        "qwen2.5-coder:3b",
+        "qwen2.5-coder:3b",
+        "qwen2.5-coder:7b"
+      ],
+      "packet_done_total": 3,
+      "provider_invocation_total": 4,
+      "queue_status": "LOCAL_CAPABILITY_EXHAUSTED",
+      "request_total": 32,
+      "static_blocker_total": 0,
+      "status": "LOCAL_CAPABILITY_EXHAUSTED",
+      "unmanaged_ollama_call_total": 0
+    }
+  }
+}

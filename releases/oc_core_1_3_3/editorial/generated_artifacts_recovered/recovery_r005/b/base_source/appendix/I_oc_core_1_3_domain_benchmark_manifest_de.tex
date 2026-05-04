@@ -1,0 +1,113 @@
+\section{Pinned Benchmark Dataset Manifest}
+\label{sec:oc-core-1-3-domain-benchmark-manifest}
+
+This appendix records the pinned benchmark families, held-out policies,
+quantitative gates, and falsifiers that define lawful empirical promotion in
+the current release. The point is not to restate raw registry fields one by
+one, but to show which dataset family carries which evidential burden and what
+would count as a genuine empirical failure.
+
+\begingroup
+\footnotesize
+\RaggedRight
+\setlength{\tabcolsep}{4pt}
+\setlength{\LTleft}{0pt}
+\setlength{\LTright}{0pt}
+
+\begin{table}[htbp]
+\centering
+\begin{tabular}{@{}L{0.16\textwidth}L{0.24\textwidth}L{0.27\textwidth}L{0.25\textwidth}@{}}
+\toprule
+Domain & Execution protocol & Held-out design & Quantitative gate \\
+\midrule
+Mathematics & \occode{OC13::EXECUTION::MATHEMATICS::ANCHOR_REPLAY} & Deterministic counterexample and trace replay; minimum 31 cases & No sigma gate; promotion fails on any divergence or surviving counterexample \\
+Physics & \occode{OC13::EXECUTION::PHYSICS::CONSTANTS_SPECTRA_TRANSPORT} & Leave one benchmark family out; minimum 30 cases & Coverage 1.0; mean abs.\ error at most 1.0 sigma; p95 at most 2.5 sigma; max at most 5.0 sigma; tail breaches 0 \\
+Chemistry & \occode{OC13::EXECUTION::CHEMISTRY::THERMOCHEMISTRY_SPECTRA_KINETICS} & Hold out one compound or reaction class; minimum 30 cases & Coverage 1.0; mean abs.\ error at most 1.0 sigma; p95 at most 2.5 sigma; max at most 5.0 sigma; tail breaches 0 \\
+Biology & \occode{OC13::EXECUTION::BIOLOGY::STATE_TRANSITIONS_AND_RESPONSE_SIGNATURES} & Reserve one dataset family per signature class; minimum 30 cases & Coverage 1.0; mean abs.\ error at most 1.0 sigma; p95 at most 2.5 sigma; max at most 5.0 sigma; ECE at most 0.05; tail breaches 0 \\
+Systems / Civilizational projection & \occode{OC13::EXECUTION::SYSTEMS::MACRO_TRAJECTORIES_AND_REGIME_SHIFTS} & Held-out interval replay with turning-point checks; minimum 30 cases & Coverage 1.0; Brier at most 0.08; ECE at most 0.05; tail breaches 0 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\paragraph{Mathematics.}
+Protocol \occode{OC13::EXECUTION::MATHEMATICS::ANCHOR_REPLAY} runs under the
+hybrid-escalation evidence bar, but in practice this lane is deterministic
+rather than measurement-driven. The held-out policy is
+\occode{DETERMINISTIC_COUNTEREXAMPLE_AND_TRACE_REPLAY}, with a minimum of 31
+strict cases. Coverage, sigma thresholds, Brier score, and ECE are therefore
+not applicable. Promotion survives only if no replay divergence and no
+surviving counterexample appear. Replay command:
+the public evidence replay route. No
+external dataset manifest is required because the mathematics anchor closes on
+strict replay and counterexample traces rather than on observational data.
+
+\paragraph{Physics.}
+Protocol \occode{OC13::EXECUTION::PHYSICS::CONSTANTS_SPECTRA_TRANSPORT} runs
+under hybrid escalation and binds theorem-to-observable maps to pinned official
+constants, spectral tables, and transport challenge corpora. The current
+caseset contains 30 pinned cases, 20 held-out cases, and declared predictions
+for all 30 benchmark rows. The quantitative gate requires full coverage, mean
+absolute normalized error at most 1.0 sigma, p95 at most 2.5 sigma, maximum
+error at most 5.0 sigma, and zero tail breaches. Promotion survives only if
+every benchmark family remains within tolerance; any residual breach or broken
+sign/order constraint falsifies the packet. Replay command:
+\occode{public evidence replay route --domain-id PHYSICS}.
+\begin{itemize}[leftmargin=1.5em,nosep]
+\item \occode{PHY_BENCH_001}: \occode{fine_structure_constant_residual}. Authority: \occode{NIST / CODATA constants}. Dataset: \url{https://physics.nist.gov/cuu/Constants/index.html}. Held-out policy: leave one family out for residual verification.
+\item \occode{PHY_BENCH_002}: \occode{hydrogen_balmer_line_residual}. Authority: \occode{NIST Atomic Spectra Database}. Dataset: \url{https://physics.nist.gov/PhysRefData/ASD/lines_form.html}. Held-out policy: reserve transitions not used during packet fitting.
+\item \occode{PHY_BENCH_003}: \occode{transport_scaling_residual}. Authority: \occode{DOE Office of Science challenge corpora}. Dataset: \url{https://science.osti.gov/-/media/fes/pdf/workshop-reports/FES_Grand_Challenges_Report_final.pdf}. Held-out policy: hold out one transport-regime family.
+\end{itemize}
+
+\paragraph{Chemistry.}
+Protocol \occode{OC13::EXECUTION::CHEMISTRY::THERMOCHEMISTRY_SPECTRA_KINETICS}
+maps theorem packets to thermochemical, spectral, and kinetic observables
+against pinned reference tables. The current caseset contains 30 pinned cases,
+19 held-out cases, and declared predictions for all 30 benchmark rows. The
+quantitative gate matches the physics lane: full coverage, mean absolute
+normalized error at most 1.0 sigma, p95 at most 2.5 sigma, maximum error at
+most 5.0 sigma, and zero tail breaches. A held-out thermochemical, spectral,
+or kinetic family outside tolerance falsifies the promoted chemistry packet.
+Replay command:
+\occode{public evidence replay route --domain-id CHEMISTRY}.
+\begin{itemize}[leftmargin=1.5em,nosep]
+\item \occode{CHEM_BENCH_001}: \occode{gas_phase_enthalpy_residual}. Authority: \occode{NIST Chemistry WebBook}. Dataset: \url{https://webbook.nist.gov/chemistry/}. Held-out policy: hold out one compound family from calibration.
+\item \occode{CHEM_BENCH_002}: \occode{spectral_transition_residual}. Authority: \occode{NIST Chemistry WebBook}. Dataset: \url{https://webbook.nist.gov/chemistry/}. Held-out policy: hold out one spectral family.
+\item \occode{CHEM_BENCH_003}: \occode{kinetic_or_equilibrium_residual}. Authority: \occode{DOE BES / EFRC challenge corpora}. Dataset: \url{https://science.osti.gov/bes/efrc/Research/Grand-Challenges}. Held-out policy: hold out one reaction-class envelope.
+\end{itemize}
+
+\paragraph{Biology.}
+Protocol
+\occode{OC13::EXECUTION::BIOLOGY::STATE_TRANSITIONS_AND_RESPONSE_SIGNATURES}
+chooses one bounded biological lane at a time and evaluates predicted state
+transitions or response signatures against open assay data. The current caseset
+contains 30 pinned cases, 16 held-out cases, and declared predictions for all
+30 benchmark rows. The quantitative gate requires full coverage, mean absolute
+normalized error at most 1.0 sigma, p95 at most 2.5 sigma, maximum error at
+most 5.0 sigma, ECE at most 0.05, and zero tail breaches. Promotion survives
+only if the bounded signature family reproduces the held-out dataset family
+without widening the claim boundary. Replay command:
+\occode{public evidence replay route --domain-id BIOLOGY}.
+\begin{itemize}[leftmargin=1.5em,nosep]
+\item \occode{BIO_BENCH_001}: \occode{expression_signature_residual}. Authority: \occode{NCBI GEO}. Dataset: \url{https://www.ncbi.nlm.nih.gov/geo/}. Held-out policy: reserve one time-series family for held-out replay.
+\item \occode{BIO_BENCH_002}: \occode{state_transition_order_error}. Authority: \occode{NCBI GEO}. Dataset: \url{https://www.ncbi.nlm.nih.gov/geo/}. Held-out policy: reserve one cell-state transition family.
+\item \occode{BIO_BENCH_003}: \occode{response_onset_residual}. Authority: official open biological assay repositories. Dataset: \url{https://www.ncbi.nlm.nih.gov/geo/}. Held-out policy: reserve one response-signature family.
+\end{itemize}
+
+\paragraph{Systems / Civilizational projection.}
+Protocol \occode{OC13::EXECUTION::SYSTEMS::MACRO_TRAJECTORIES_AND_REGIME_SHIFTS}
+evaluates K8 projection packets against pinned macro-process series with
+held-out interval tests. The current caseset contains 30 pinned cases, 18
+held-out cases, and declared predictions for all 30 benchmark rows. The
+quantitative gate requires full coverage, Brier score at most 0.08, ECE at
+most 0.05, and zero tail breaches. Promotion survives only if the declared
+trajectory and regime-change observables remain inside tolerance on held-out
+intervals; a missed turning point or out-of-band trajectory falsifies the
+packet. Replay command:
+\occode{public evidence replay route --domain-id SYSTEMS_CIVILIZATIONAL_PROJECTION}.
+\begin{itemize}[leftmargin=1.5em,nosep]
+\item \occode{SYS_BENCH_001}: \occode{population_trajectory_residual}. Authority: \occode{World Bank Indicators API}. Dataset: \url{https://api.worldbank.org/v2/en/indicator/SP.POP.TOTL?format=json}. Held-out policy: leave out one interval family.
+\item \occode{SYS_BENCH_002}: \occode{gdp_growth_turning_point_error}. Authority: \occode{World Bank Indicators API}. Dataset: \url{https://api.worldbank.org/v2/en/indicator/NY.GDP.MKTP.KD.ZG?format=json}. Held-out policy: reserve one held-out macro interval.
+\item \occode{SYS_BENCH_003}: \occode{process_system_regime_score}. Authority: \occode{World Bank Indicators API}. Dataset: \url{https://api.worldbank.org/v2/en/indicator/EG.USE.PCAP.KG.OE?format=json}. Held-out policy: reserve one resource-intensity curve family.
+\end{itemize}
+
+\endgroup

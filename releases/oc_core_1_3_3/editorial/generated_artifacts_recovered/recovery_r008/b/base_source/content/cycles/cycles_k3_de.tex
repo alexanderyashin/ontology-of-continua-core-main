@@ -1,0 +1,188 @@
+% ================================================================
+% ==== FILE: content/cycles/cycles_k3.tex
+% ================================================================
+
+\subsubsection{Zyklen auf \texorpdfstring{$K_3$}{K_3}}
+\label{sec:cycles-k3}
+
+Ebene$K_3$entspricht dem RAF-chemischen Kontinuum:
+ein sich selbst erhaltendes Reaktionsnetzwerk, das durch Autokatalyse ermöglicht wird und
+F-Verschluss.
+Sein Zustandsraum ist gegeben durch
+\[
+  \Omega(K_3) = \{(M,R,C,F)\mid (M',R')\in \mathrm{RAF}(G_2)\},
+\]
+Wo$G_2$ist das Konnektivitätsdiagramm, von dem geerbt wurde$K_2$,
+und die RAF-Bedingung erzwingt sowohl autokatalytische Unterstützung als auch Erreichbarkeit
+aller Reaktanten aus dem Lebensmittelset$F$.
+Zyklen weiter$K_3$entstehen als wiederkehrende chemische Transformationen
+Reaktionswege, katalytische Flüsse und Wiederherstellung des Verschlusses.
+
+\subsubsection{Grundlegende Arten von Zyklen auf \texorpdfstring{$K_3$}{K_3}}
+
+Drei strukturelle Klassen von Zyklen definieren die dynamische Komplexität von
+das RAF-Kontinuum.
+
+\paragraph{(1) Autocatalytic Reaction Cycles.}
+
+Dies sind geschlossene Pfade im Reaktionsraum:
+\[
+  m_{i_1}\xrightarrow{r_1} m_{i_2}
+    \xrightarrow{r_2} \dots
+    \xrightarrow{r_k} m_{i_1},
+\]
+where each reaction $r_j$ is catalysed by some $m\in M'$.
+Solche Zyklen halten Konzentrationen aufrecht, kontrollieren Produktionsverhältnisse und
+propagieren RAF-Stabilität.
+Sie stellen das minimale dynamische Substrat dar$K_3$.
+
+\paragraph{(2) F-closure Restoration Cycles.}
+
+Die RAF-Eigenschaft erfordert:
+\[
+  \text{all reactants in } R' \text{ must be reachable from } F.
+\]
+Perturbations (e.g.\ deficit of a molecule) can temporarily break
+F-Verschluss.
+Zyklen, die den F-Abschluss wiederherstellen, erfüllen:
+\[
+  F \to M_{\mathrm{lost}} \to M_{\mathrm{restored}} \to F
+\]
+und sind für die Lebensfähigkeit von wesentlicher Bedeutung$K_3$.
+They interact directly with the threshold $\Theta_{\mathrm{kas}}$.
+
+\paragraph{(3) Energetic and Redox Cycles.}
+
+Following the extended chemical block (the corresponding derivation note),
+Zu den chemischen Potenzialen gehören:
+\[
+  P_{\mathrm{chem}}(t),\;
+  P_{\mathrm{redox}}(t),\;
+  P_{\mathrm{grad}}(t).
+\]
+Entsprechend,$K_3$unterstützt energetische Kreisläufe:
+\[
+  C_{\mathrm{energy}}: 
+  P_{\mathrm{chem}}\to P_{\mathrm{redox}}
+    \to P_{\mathrm{grad}} \to P_{\mathrm{chem}},
+\]
+die die Stoffwechsel- und Gradientenzyklen von vorwegnehmen$K_4$.
+
+Diese Prozesse halten das RAF-System im energieeffizienten Bereich
+des Zustandsraums.
+
+\subsubsection{Strukturelle Spannungen und Schwellen}
+
+Die strukturelle Spannung$T_3(t)$wird bestimmt durch:
+\[
+T_3 =
+   f\bigl(
+     \mathrm{deficit}_{\mathrm{catalysis}},\;
+     1-\rho_{\mathrm{closure}},\;
+     \mathrm{energy\ deficit},\;
+     \mathrm{redox\ imbalance}
+   \bigr),
+\]
+where $\rho_{\mathrm{closure}}$ is the closure metric defined by:
+\[
+  \rho_{\mathrm{closure}} =
+    \frac{\text{number of reachable reactants from } F}
+         {\text{total reactants in } R'}.
+\]
+
+Die Lebensfähigkeit des Zyklus erfordert:
+\[
+  T_3(t) < \Theta_{\mathrm{death}}^{(3)},
+\]
+und die Existenz einer RAF erfordert:
+\[
+  \rho_{\mathrm{cat}} \cdot \rho_{\mathrm{closure}}
+  \ge \Theta_{\mathrm{kas}}.
+\]
+
+So geht es weiter$K_3$existieren innerhalb einer klar definierten Lebensfähigkeitsregion.
+
+\subsubsection{Metriken von Zyklen auf \texorpdfstring{$K_3$}{K_3}}
+
+Im Einklang mit den universellen Metriken (the corresponding construction route):
+
+\paragraph{Length.}
+\[
+  L(C) = \int_0^\tau \|J_{\mathrm{chem}}(t)\|\, dt,
+\]
+where $J_{\mathrm{chem}}$ is the reaction–flow vector.
+
+\paragraph{Efficiency.}
+\[
+  C_{\mathrm{eff}}
+   = \frac{1}{L(C)}
+     \int_0^\tau J_{\mathrm{chem}}(t)\cdot dA_{\mathrm{chem}}(t),
+\]
+where $A_{\mathrm{chem}}$ are chemical-state axes (active/inactive
+Reaktion, An-/Abwesenheit von Arten).
+
+\paragraph{Stability.}
+\[
+  S(C) = \min_{t\in[0,\tau]}
+         d\bigl(
+           \Omega(K_3),\;
+           \partial\Omega(K_3)
+         \bigr),
+\]
+was der Nähe zum Brechen entweder der Autokatalyse oder entspricht
+Schließung.
+
+\paragraph{Weight.}
+\[
+  w(C) = F\bigl(
+           C_{\mathrm{eff}},\;
+           S(C),\;
+           \mathrm{energy\ turnover}
+         \bigr).
+\]
+
+\subsubsection{Zeit- und Zyklusperioden}
+
+Die chemische Zeit läuft$K_3$ist definiert über:
+\[
+  \tau(K_3) = \int \frac{ds}{v_{\mathrm{chem}}},
+\]
+where $v_{\mathrm{chem}}$ is the effective reaction velocity.
+Für RAF-Zyklen beträgt die charakteristische Wiederholungsperiode:
+\[
+  \tau_{\mathrm{RAF}}
+  \sim \frac{1}{k_{\mathrm{cat}}}
+\]
+where $k_{\mathrm{cat}}$ is the effective catalytic rate.
+
+Die Zeit selbst ist somit eine Funktion der wiederkehrenden Reaktionsstruktur.
+
+\subsubsection{Geburt höherer Zyklen}
+
+Zyklen bei$K_3$dienen als Vorläufer$K_4$Zyklen:
+
+\begin{itemize}
+  \item Membranwartungszyklen,
+  \item Energie-Gradienten-Zyklen über eine Grenze hinweg,
+  \item protometabolische Schleifen,
+  \item Vorerregbarkeitszyklen (über Ionen- oder Protonengradienten).
+\end{itemize}
+
+The continuity map $K_3\to K_4$ (the corresponding derivation note)
+zeigt, dass Zyklen von:
+
+\[
+  (P_{\mathrm{chem}}, P_{\mathrm{grad}}, J_{\mathrm{chem}})
+\]
+
+nach und nach werden:
+
+\[
+  (P_{\mathrm{mem}}, P_{\mathrm{grad}}, J_{\mathrm{in/out}})
+\]
+
+as a membrane $\partial\Omega$ forms.
+
+So geht es weiter$K_3$Kodieren Sie die früheste Organisationsstruktur.
+Biologische Zyklen (Stoffwechsel, Membran, Erregbarkeit) entstehen erst später
+von dieser Basis aus.

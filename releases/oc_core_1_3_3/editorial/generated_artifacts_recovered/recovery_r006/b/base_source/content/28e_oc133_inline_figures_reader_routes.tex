@@ -1,0 +1,178 @@
+\section{Inline Visual Route: Reader Routes}
+
+These figures make audience routes explicit in the reader-facing path.
+
+
+\subsection{Scientific reviewer route}
+
+This visual anchor names the objects, review direction, and formula or numeric boundary that keep the figure tied to the argument.
+
+
+\begin{figure}[htbp]
+
+\centering
+
+\begin{tikzpicture}[>=Latex,node distance=2.4cm]
+
+\node[draw,rounded corners,fill=blue!7,text width=0.28\textwidth,align=center,minimum height=1.0cm] (a) {Model};
+
+\node[draw,rounded corners,fill=green!7,text width=0.28\textwidth,align=center,minimum height=1.0cm,right=of a] (b) {Proof};
+
+\draw[->,line width=0.8pt] (a) -- node[above,align=center] {falsifier} (b);
+
+\node[draw,rounded corners,fill=orange!8,text width=0.68\textwidth,align=center,below=0.9cm of $(a)!0.5!(b)$] (c) {review question: support class, boundary, falsifier};
+
+\draw[->,dashed] (c.north) -- ($(a)!0.5!(b)$);
+
+\end{tikzpicture}
+
+\caption{Scientific reviewer route. Shows the reviewer route through model, proof, and reopening condition. The figure is placed inline in the manuscript; complete machine evidence remains in the evidence package.}
+
+\label{fig:r005-inline-28e_oc133_inline_figures_reader_routes-1}
+
+\end{figure}
+
+\subsection{Theoretical reader route}
+
+This visual anchor names the objects, review direction, and formula or numeric boundary that keep the figure tied to the argument.
+
+
+\begin{figure}[htbp]
+
+\centering
+
+\begin{tikzpicture}[>=Latex,node distance=2.4cm]
+
+\node[draw,rounded corners,fill=blue!7,text width=0.28\textwidth,align=center,minimum height=1.0cm] (a) {Prior art};
+
+\node[draw,rounded corners,fill=green!7,text width=0.28\textwidth,align=center,minimum height=1.0cm,right=of a] (b) {Residual delta};
+
+\draw[->,line width=0.8pt] (a) -- node[above,align=center] {limits} (b);
+
+\node[draw,rounded corners,fill=orange!8,text width=0.68\textwidth,align=center,below=0.9cm of $(a)!0.5!(b)$] (c) {review question: support class, boundary, falsifier};
+
+\draw[->,dashed] (c.north) -- ($(a)!0.5!(b)$);
+
+\end{tikzpicture}
+
+\caption{Theoretical reader route. Shows overlap-first reading for theorists. The figure is placed inline in the manuscript; complete machine evidence remains in the evidence package.}
+
+\label{fig:r005-inline-28e_oc133_inline_figures_reader_routes-2}
+
+\end{figure}
+
+\subsection{Practitioner route}
+
+This visual anchor names the objects, review direction, and formula or numeric boundary that keep the figure tied to the argument.
+
+
+\begin{figure}[htbp]
+
+\centering
+
+\begin{tikzpicture}[>=Latex,node distance=2.4cm]
+
+\node[draw,rounded corners,fill=blue!7,text width=0.28\textwidth,align=center,minimum height=1.0cm] (a) {Use case};
+
+\node[draw,rounded corners,fill=green!7,text width=0.28\textwidth,align=center,minimum height=1.0cm,right=of a] (b) {Method};
+
+\draw[->,line width=0.8pt] (a) -- node[above,align=center] {evidence} (b);
+
+\node[draw,rounded corners,fill=orange!8,text width=0.68\textwidth,align=center,below=0.9cm of $(a)!0.5!(b)$] (c) {review question: support class, boundary, falsifier};
+
+\draw[->,dashed] (c.north) -- ($(a)!0.5!(b)$);
+
+\end{tikzpicture}
+
+\caption{Practitioner route. Shows applied reading from use case to reproducible evidence. The figure is placed inline in the manuscript; complete machine evidence remains in the evidence package.}
+
+\label{fig:r005-inline-28e_oc133_inline_figures_reader_routes-3}
+
+\end{figure}
+
+\subsection{Executive route}
+
+This visual anchor names the objects, review direction, and formula or numeric boundary that keep the figure tied to the argument.
+
+
+\begin{figure}[htbp]
+
+\centering
+
+\begin{tikzpicture}[>=Latex,node distance=2.4cm]
+
+\node[draw,rounded corners,fill=blue!7,text width=0.28\textwidth,align=center,minimum height=1.0cm] (a) {Strategy};
+
+\node[draw,rounded corners,fill=green!7,text width=0.28\textwidth,align=center,minimum height=1.0cm,right=of a] (b) {Risk};
+
+\draw[->,line width=0.8pt] (a) -- node[above,align=center] {boundary} (b);
+
+\node[draw,rounded corners,fill=orange!8,text width=0.68\textwidth,align=center,below=0.9cm of $(a)!0.5!(b)$] (c) {review question: support class, boundary, falsifier};
+
+\draw[->,dashed] (c.north) -- ($(a)!0.5!(b)$);
+
+\end{tikzpicture}
+
+\caption{Executive route. Shows decision reading without pretending proof details are executive summaries. The figure is placed inline in the manuscript; complete machine evidence remains in the evidence package.}
+
+\label{fig:r005-inline-28e_oc133_inline_figures_reader_routes-4}
+
+\end{figure}
+
+\subsection{Auditor route}
+
+This visual anchor names the objects, review direction, and formula or numeric boundary that keep the figure tied to the argument.
+
+
+\begin{figure}[htbp]
+
+\centering
+
+\begin{tikzpicture}[>=Latex,node distance=2.4cm]
+
+\node[draw,rounded corners,fill=blue!7,text width=0.28\textwidth,align=center,minimum height=1.0cm] (a) {Manifest};
+
+\node[draw,rounded corners,fill=green!7,text width=0.28\textwidth,align=center,minimum height=1.0cm,right=of a] (b) {Replay};
+
+\draw[->,line width=0.8pt] (a) -- node[above,align=center] {hash} (b);
+
+\node[draw,rounded corners,fill=orange!8,text width=0.68\textwidth,align=center,below=0.9cm of $(a)!0.5!(b)$] (c) {review question: support class, boundary, falsifier};
+
+\draw[->,dashed] (c.north) -- ($(a)!0.5!(b)$);
+
+\end{tikzpicture}
+
+\caption{Auditor route. Shows evidence audit from manifest to replay result. The figure is placed inline in the manuscript; complete machine evidence remains in the evidence package.}
+
+\label{fig:r005-inline-28e_oc133_inline_figures_reader_routes-5}
+
+\end{figure}
+
+\subsection{Hostile reader route}
+
+This visual anchor names the objects, review direction, and formula or numeric boundary that keep the figure tied to the argument.
+
+
+\begin{figure}[htbp]
+
+\centering
+
+\begin{tikzpicture}[>=Latex,node distance=2.4cm]
+
+\node[draw,rounded corners,fill=blue!7,text width=0.28\textwidth,align=center,minimum height=1.0cm] (a) {Attack};
+
+\node[draw,rounded corners,fill=green!7,text width=0.28\textwidth,align=center,minimum height=1.0cm,right=of a] (b) {Claim};
+
+\draw[->,line width=0.8pt] (a) -- node[above,align=center] {repair} (b);
+
+\node[draw,rounded corners,fill=orange!8,text width=0.68\textwidth,align=center,below=0.9cm of $(a)!0.5!(b)$] (c) {review question: support class, boundary, falsifier};
+
+\draw[->,dashed] (c.north) -- ($(a)!0.5!(b)$);
+
+\end{tikzpicture}
+
+\caption{Hostile reader route. Shows objection-driven reading from attack to repair condition. The figure is placed inline in the manuscript; complete machine evidence remains in the evidence package.}
+
+\label{fig:r005-inline-28e_oc133_inline_figures_reader_routes-6}
+
+\end{figure}

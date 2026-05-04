@@ -1,0 +1,561 @@
+% FILE: content/03_model.tex
+
+\section{Ontologische Struktur des Modells}
+\label{sec:model}
+
+Dieser Abschnitt präsentiert den formalen Kern der Ontologie der Kontinua (OC).
+Er liefert die einheitliche Notation, Axiome, Definitionen und strukturellen
+Nebenbedingungen, die für die nachfolgenden Kapitel über Abschluss,
+Synthese und praktische Anwendung benötigt werden.
+
+OC beschreibt Kontinua in mehreren wissenschaftlichen Domänen mittels einer
+einheitlichen strukturellen Sprache. Diese Sprache wird aus Achsen,
+Potentialen, Flüssen, Schwellen, Grenzen, Zyklen und einem Maß der
+Kontinuität aufgebaut. Jedes Kontinuum ist außerdem in einem umgebenden
+Meta-Raum eingebettet. Alle Definitionen in diesem Abschnitt sind auf der
+Ebene des formalen Vokabulars domänenunabhängig. Spätere Kapitel zur
+Prüfung sortieren die Aussagen nach Beweisstatus und empirischer
+Stützung; dieser Abschnitt liefert die gemeinsame Modellsprache, auf der diese
+Prüfungen aufbauen.
+
+\subsection{Axiomatische Grundlage: Niveau \texorpdfstring{$K_0$}{K\_0}}
+
+Niveau \(K_0\) ist ein rein strukturelles Substrat.
+Es ist kein physischer Raum; ihm ist weder Zeit, Energie, Geometrie noch Dynamik
+innewohnend.
+Seine Rolle ist es, die minimalen Bedingungen bereitzustellen, unter denen ein
+Kontinuum höherer Ordnung logisch möglich ist.
+
+\paragraph{Spezifikation von \texorpdfstring{\(K_0\)}{K\_0}}
+\(K_0\) wird durch ein Tripel festgelegt:
+\[
+    K_0 = (S,\Delta,\mathcal{C}),
+\]
+mit:
+\begin{itemize}
+    \item \(S\) ist eine Menge von Zuständen;
+    \item \(\Delta : S \times S \to \mathbb{R}_{\ge 0}\) ist eine strukturelle
+          Differenzfunktion;
+    \item \(\mathcal{C}\) ist eine strukturelle Relation (oder Familie von
+          Relationen), die Unterscheidbarkeit erhält.
+\end{itemize}
+Auf dieser Ebene gibt es keine Zeitvariable und keinen Evolutionsoperator.
+
+\paragraph{Axiom 0.1 (Unterschied und Unterscheidbarkeit).}
+Für alle \(s_1,s_2 \in S\):
+\[
+    \Delta(s_1,s_2) = 0 \;\Rightarrow\; s_1 = s_2.
+\]
+Nichtverschwindende strukturelle Unterschiede bilden die minimale Bedingung für
+Unterscheidbarkeit.
+Ein Kontinuum kann nicht existieren, wenn es keine zwei unterscheidbaren
+Zustände gibt.
+
+\paragraph{Axiom 0.2 (Nichttriviale Schwelle \texorpdfstring{$\Theta_0$}{Theta\_0}).}
+Es gibt ein \(\varepsilon > 0\), so dass
+\[
+    \forall s_1,s_2\in S,\qquad
+    s_1 \neq s_2 \Rightarrow \Delta(s_1,s_2) \ge \varepsilon.
+\]
+Der Wert \(\Theta_0 = \varepsilon\) ist eine minimale strukturelle Schwelle:
+Unterschiede kleiner als \(\varepsilon\) werden auf der Ebene von \(K_0\) nicht
+aufgelöst.
+
+\paragraph{Axiom 0.3 (Logisches Substrat).}
+\(K_0\) trägt weder eine Zeitachse noch einen Dynamikoperator.
+Es entfaltet sich nicht selbst und erzeugt nicht aus sich heraus höhere Ebenen.
+Es legt nur logische Bedingungen für Unterscheidbarkeit und das
+Vorhandensein nichttrivialer Unterschiede fest.
+Alle Dynamik sowie alle Begriffe von Energie, Geometrie und Kausalität
+gehören zu den Ebenen \(K_1\) und höher.
+
+Insbesondere kann kein Operator auf \(K_0\) die Dimension erhöhen:
+Unterschiede auf Ebene \(K_0\) werden immer entlang der vorhandenen
+strukturellen Achse der Unterscheidbarkeit ausgedrückt.
+Die mit \(K_0\) verbundene Dimensionalität ist durch den einbettenden
+Meta-Raum \(M_0\) festgelegt.
+Hier bezeichnet \(M_0\) den minimalen Meta-Raum, in dem das rein
+strukturelle Substrat zur späteren Entstehung von \(K_0\to K_1\) auswertbar ist;
+es ist kein physischer Behälter oder eine dynamische Umgebung.
+
+\subsection{Konstruktion von Niveau \texorpdfstring{$K_1$}{K\_1}}
+
+Niveau \(K_1\) ist das einfachste echte Kontinuum: Es führt Zeit,
+eine eindimensionale Achse und eine elementare geometrische Struktur ein.
+
+\paragraph{Spezifikation von \texorpdfstring{\(K_1\)}{K\_1}}
+Das Kontinuum \(K_1\) wird definiert als
+\[
+    K_1 = \big(X_1,\tau_1,\Omega_1,A_1,P_1(t),J_1(t),\Theta_1,\partial\Omega_1,C_1,k_1(t)\big),
+\]
+mit:
+\begin{itemize}
+    \item \(A_1\) ist eine einzelne Achse (eine eindimensionale Koordinate);
+    \item \((X_1,\tau_1)\) ist ein topologischer Raum, gewonnen aus den
+          strukturellen Daten von \(K_0\), typischerweise ein Intervall
+          \(X_1 = (a,b)\);
+    \item \(\Omega_1\) ist eine Menge zulässiger Konfigurationen auf \(X_1\)
+          mit passenden Regularitätsbedingungen.
+          In diesem zeitabhängigen analytischen Beispiel gilt
+          \[
+              \Omega_1 = C^0(I,H^1(X_1,V_1)) \cap C^1(I,L^2(X_1,V_1)),
+          \]
+          wobei \(I\) das Zeitintervall und \(V_1\) der im Beispiel genutzte
+          Hilbertraum ist; bei endlich vielen Freiheitsgraden ist ein
+          endlichdimensionaler Vektorraum der spezielle Fall.
+    \item \(P_1(t)\) ist ein energieähnliches Potentialfunktional auf
+          \(\Omega_1\);
+    \item \(J_1(t)\) sind Flüsse, die aus der Variation von \(P_1(t)\) folgen;
+    \item \(\Theta_1\) kodiert minimale Bedingungen für klassische Stabilität;
+    \item \(\partial\Omega_1\) ist die Grenze, an der Stabilitätsschwellen
+          saturieren;
+    \item \(C_1\) ist die Menge der klassischen Zyklen (etwa periodische Bahnen);
+    \item \(k_1(t)\) misst eindimensionale Kontinuität nach der untenstehenden
+          allgemeinen Definition.
+\end{itemize}
+
+\paragraph{Übergang \texorpdfstring{$\Psi_{0\to 1}$}{Psi\_0\_to\_1}}
+Der Übergang \(K_0 \to K_1\) wird durch einen Operator erzeugt:
+\[
+    \Psi_{0\to 1} : (S,\Delta,\mathcal{C}) \mapsto (X_1,\tau_1,A_1,\Omega_1,\Theta_1),
+\]
+welcher das Skelettgerüst von \(K_1\) konstruiert; das Energiefunktional,
+die Flussfamilie, die Grenze, die Zyklen und der Skalar der Kontinuität werden
+in den nachfolgenden, \(K_1\)-spezifischen Klauseln festgelegt.
+Der Skelettaufbau:
+\begin{itemize}
+    \item identifiziert eine Familie strukturell kompatibler Zustände in \(S\);
+    \item stattet diese mit einer Ordnung und Topologie \((X_1,\tau_1)\) aus;
+    \item definiert die erste Achse \(A_1\);
+    \item konstruiert den zulässigen Konfigurationsraum \(\Omega_1\);
+    \item induziert klassische Schwellen \(\Theta_1\).
+\end{itemize}
+Dies ist die erste Instanz dimensionaler Emergenz: eine kontinuierliche Achse
+erscheint, die innerhalb des rein strukturellen Substrats von \(K_0\) nicht
+repräsentierbar ist.
+
+\subsection{Allgemeine Definition eines Kontinuums}
+
+Für jedes Niveau \(K\) in der Hierarchie wird ein Kontinuum als das Tupel
+\[
+    K = \big(\Omega(K), A(K), P(t), J(t), \Theta(K), \partial\Omega(K), C(K), k(K,t)\big),
+\]
+definiert, wobei:
+\begin{itemize}
+    \item \(\Omega(K)\) eine nichtleere Menge zulässiger Zustände ist;
+    \item \(A(K) = \{A_1,\dots,A_n\}\) ist eine endliche Menge von Achsen
+von inkompatiblen Unterschieden;
+    \item \(P(t)\) der Vektor der Potentiale auf \(\Omega(K)\) ist;
+    \item \(J(t)\) ist der aggregierte Potenzial-Flussvektor; die
+          Zustandsaktualisierungen werden durch den Evolutionsoperator \(E\)
+          behandelt;
+    \item \(\Theta(K) = \{\Theta_i\}\) ist die Menge der Schwellenfunktionen;
+    \item \(\partial\Omega(K)\) ist die Grenze der zulässigen Zustände;
+    \item \(C(K)\) ist die Familie strukturell stabiler Zyklen;
+    \item \(k(K,t)\) ist das Maß der Kontinuität.
+\end{itemize}
+
+Jedes Kontinuum ist in einen umgebenden Meta-Raum \(M\) eingebettet, sodass
+\[
+    \Omega(K)\subseteq\Omega(M), \qquad A(K)\subseteq A(M).
+\]
+Der Meta-Raum liefert zusätzliche zulässige Zustände und Achsen, die künftige
+dimensionale Erweiterungen von \(K\) aufnehmen können.
+
+\paragraph{Zustandsraum und Grenze}
+Schwellen werden als Funktionen \(f_i : \overline{\Omega(K)} \to \mathbb{R}\) mit
+\[
+    f_i(s) \le 0 \quad\text{für alle } s \in \Omega(K),
+\]
+definiert; die Grenze ist dann
+\[
+    \partial\Omega(K) = \{ s \in \overline{\Omega(K)} \mid \exists\, i: f_i(s) = 0 \}.
+\]
+Diese Definition benötigt keine Metrik und gilt gleichwertig für geometrische,
+topologische, energetische, informationsbezogene oder logische Kontinua.
+
+Die Grenze ist dynamisch. Die folgende Notation gibt eine Aktualisierungsabbildung
+wieder, keinen Ableitungsbegriff eines mengenwertigen Objekts:
+\[
+    \partial\Omega(K,t+dt) =
+    R\big(\partial\Omega(K,t),P(t),J(t),\Theta(K)\big),
+\]
+die \(\Omega(K)\) während Geburt, Lebenszeit und Todesereignissen schrumpfen,
+expandieren oder bifurkieren kann.
+
+\subsection{Taxonomie der Schwellen}
+
+Jedes Kontinuum besitzt eine strukturierte Menge von Schwellen \(\Theta(K)\),
+geordnet nach den folgenden Typen:
+
+\begin{itemize}
+    \item \textbf{Existenzschwellen} \(\Theta_{\mathrm{exist}}\): Bedingungen,
+          unter denen \(\Omega(K)\neq\emptyset\).
+    \item \textbf{Stabilitätsschwellen} \(\Theta_{\mathrm{stab}}\): Bedingungen
+          für beschränkte Dynamik und nicht-divergente Flüsse.
+    \item \textbf{Kritische Schwellen} \(\Theta_{\mathrm{crit}}\):
+          Hypersurfaces, an denen qualitative Veränderungen auftreten
+          (Phasenübergänge, Bifurkationen).
+    \item \textbf{Dimensionsschwellen} \(\Theta_{\mathrm{dim}}\): Bedingungen,
+          unter denen neue Achsen und höherdimensionale Kontinua entstehen können.
+    \item \textbf{Todes-Schwellen} \(\Theta_{\mathrm{death}}\): strukturelle
+          Grenzen, bei denen keine zulässigen Zustände mehr existieren und
+          \(\Omega(K)\) kollabiert.
+\end{itemize}
+
+Das vollständige Schwellenfeld eines Kontinuums ist daher eine Sammlung von
+Ungleichungen:
+\[
+    f_{i}^{(\mathrm{exist})}(s) \le 0,\quad
+    f_{i}^{(\mathrm{stab})}(s) \le 0,\quad
+    f_{i}^{(\mathrm{crit})}(s) \le 0,\quad
+    f_{i}^{(\mathrm{dim})}(s) \le 0,\quad
+    f_{i}^{(\mathrm{death})}(s) \le 0,
+\]
+mit den jeweiligen Randkomponenten als Gleichungen.
+\subsection{Potentiale, Flüsse und strukturelle Spannung}
+
+Potentiale \(P(t)\) kodieren die interne Konfiguration von Beschränkungen und
+triebenden Kräften innerhalb eines Kontinuums.
+Sie können sich in Energieoberflächen, chemischen Konzentrationen,
+Membrandegre, repräsentationalen oder informationsbezogenen Strukturen sowie
+institutionellen und normativen Spannungen ausdrücken.
+
+Der aggregierte Flussvektor \(J(t)\) beschreibt die Änderungsrate der
+Potentiale:
+\[
+    \frac{dP}{dt} = J(t),
+\]
+mit \(J(t)\) zerlegt in strukturell unterschiedliche Komponenten:
+\begin{itemize}
+    \item \textbf{stützende Flüsse} \(J_{\mathrm{support}}\), die Zyklen
+          stabilisieren und \(k(K,t)\) stabil halten;
+    \item \textbf{kritische Flüsse} \(J_{\mathrm{critical}}\), die das System auf
+den kritischen Schwellenbereich \(\Theta_{\mathrm{crit}}\) und
+          \(\Theta_{\mathrm{dim}}\) zu- oder über diese Schwellen treiben;
+    \item \textbf{destruktive Flüsse} \(J_{\mathrm{kill}}\), die das System über
+          \(\Theta_{\mathrm{death}}\) treiben und \(k(K,t)\) reduzieren.
+\end{itemize}
+
+Strukturelle Spannung \(T(K,t)\) ist ein Funktional von Potentialen, Achsen und
+Gradienten (schematisch \(T=T(P,A,\nabla P)\)).
+Sie misst, wie stark die aktuelle Konfiguration die Schwellenlandschaft belastet.
+Dimensionsübergänge treten auf, wenn \(T(K,t)\) den Wert
+\(\Theta_{\mathrm{dim}}(K)\) überschreitet; Kollaps entsteht, wenn
+Destruktivflüsse zusammen mit der Spannung das System über
+\(\Theta_{\mathrm{death}}(K)\) treiben.
+
+\subsection{Zyklen und Kontinuität}
+
+Zyklen \(C(K)\) sind geschlossene Trajektorien in \(\Omega(K)\), die in
+endlichem Abstand von der Grenze bleiben und Kontinuität bewahren.
+Auf struktureller Ebene gilt:
+\[
+    L(C) = \int_C d\ell_K < \infty,\qquad
+    S(C) = \min_{s \in C} \delta_{\partial\Omega}(s) > 0,
+\]
+wobei \(d\ell_K\) das gewählte strukturelle Längenelement für das realisierte
+Kontinuum ist und \(\delta_{\partial\Omega}(s)\) die entsprechende
+Abstandsfunktion zur Grenze.
+Die oben stehende Grenzdefinition ist metrikkorrekt; diese Zyklusabschätzungen
+fügen eine strukturelle Norm nur dann hinzu, wenn quantitativer Abstand oder
+Länge gemessen werden.
+Bei metrischen Realisierungen kann diese Norm eine induzierte Distanz sein.
+Bei nichtmetrischen Realisierungen ist sie eine am Niveau zulässige
+Trennungsfunktionalität, die genau auf der Grenze verschwindet und innerhalb
+strukturell innerer Zustände positiv ist.
+
+Wenn das Kontinuum entwickelt, wird der zulässige Bereich als zeitabhängig
+verstanden:
+\(\Omega(K,t)\) bezeichnet den Zustandssraum von \(K\) zum Zeitpunkt
+\(t\), während \(\Omega(K)\) den zugrunde liegenden
+niveau-relativen zulässigen Raum bezeichnet, wenn kein Zeitschnitt angegeben ist.
+Wenn ältere Formeln \(\Omega(K(t))\) schreiben, ist diese Notation als dasselbe
+Zeitabschnittsobjekt \(\Omega(K,t)\) zu lesen.
+Das Modell übernimmt die folgende einheitliche Definition der Kontinuität:
+\[
+    k(K,t)
+    = \chi_{\Omega}(s_K(t);K,t)
+      S_{\mathrm{axes}}(K,t)
+      S_{\mathrm{cycles}}(K,t)
+      S_{\mathrm{flows}}(K,t)
+      S_{\mathrm{coh}}(K,t),
+\]
+mit:
+\begin{itemize}
+    \item \(s_K(t)\) ist der aktuelle Zustand von \(K\) zum Zeitpunkt \(t\),
+          und \(\chi_{\Omega}(s_K(t);K,t)\) ist der Existenzindikator:
+          er ist \(1\), wenn \(s_K(t)\in\Omega(K,t)\), sonst \(0\);
+    \item \(S_{\mathrm{axes}}(K,t)\) quantifiziert die effektive Achsen-Sättigung,
+          beispielsweise das Verhältnis des effektiven Rangs der aktiven Achsen
+a zum maximalen möglichen Rang dieses Niveaus;
+    \item \(S_{\mathrm{cycles}}(K,t)\) misst die Stärke und Effizienz stabiler
+          Zyklen, etwa als gewichtete Summe zyklischer Effizienzen,
+          normalisiert auf Maximalwerte;
+    \item \(S_{\mathrm{flows}}(K,t)\) erfasst Flussstabilität. Mit aggregierten
+          stützenden und destruktiven Größen \(\Phi_{\mathrm{support}}\) und
+          \(\Phi_{\mathrm{kill}}\) gilt lokal die folgende Regel. Der
+          Nullfluss-Zweig gilt nur, wenn der geprüfte Zustand keinen aktiven
+          Flusskanal besitzt:
+          \[
+              S_{\mathrm{flows}}(K,t)=
+              \begin{cases}
+              \dfrac{\Phi_{\mathrm{support}}(t)}
+                    {\Phi_{\mathrm{support}}(t)+\Phi_{\mathrm{kill}}(t)},
+                    & \Phi_{\mathrm{support}}(t)+\Phi_{\mathrm{kill}}(t)>0,\\[0.7em]
+              1, & \Phi_{\mathrm{support}}(t)=\Phi_{\mathrm{kill}}(t)=0.
+              \end{cases}
+          \]
+          Damit gilt bei Verschwinden der Stützung bei positivem destruktivem Fluss:
+          \(S_{\mathrm{flows}}=0\);
+    \item \(S_{\mathrm{coh}}(K,t)\in[0,1]\) kodiert globale
+          strukturelle Kohärenz; diese kann die Konnektivität relevanter Graphen,
+          die Kompatibilität von Schwellen und Flüssen sowie das Fehlen
+          widersprüchlicher Restriktionen umfassen.
+\end{itemize}
+Alle Multiplikationsfaktoren in der obigen Definition werden im lokalen Modell auf
+\([0,1]\) normiert, bevor das Produkt ausgewertet wird.
+Der Operator zur Aktualisierung der Kontinuität \(U\), der später in
+Abschnitt~the operator semantics chapter entwickelt wird, überführt \(k(K,t)\) auf
+den nächsten rechtmäßigen Zeitschritt anhand dieser Faktoren.
+
+Per Konstruktion gilt \(0 \le k(K,t) \le 1\).
+Positives \(k(K,t)\) ist der Lebendigkeitsindikator. Er bündelt vier
+gleichzeitige Aussagen: Der aktuelle Zustand ist zulässig, die aktiven Achsen
+bleiben gestützt, der Zyklusfaktor und der Flussstabilitätsfaktor sind beide
+positiv, und der Kohärenzfaktor ist nicht kollabiert. Der volle Lebendigkeitsstatus
+benötigt zusätzlich die in Abschnitt~the lifecycle and rebirth chapter genannten Klauseln
+zu Existenz, Schwelle und Identität.
+Der Tod entspricht \(k(K,t)\to 0\) zusammen mit dem Kollaps von
+\(\Omega(K)\).
+
+\subsection{Evolutionsoperator}
+
+Die Entwicklung eines Kontinuums wird auf struktureller Ebene durch einen Operator
+dargestellt:
+\[
+    E: K(t) \mapsto K(t+dt),
+\]
+oder ausgeschrieben:
+\[
+    E:\ (\Omega,A,P,J,\Theta,\partial\Omega,C,k)
+    \longrightarrow (\Omega',A',P',J',\Theta',\partial\Omega',C',k').
+\]
+Hier bezeichnet \(A'\) die nach Evolutionsschritt neue Achsenmenge desselben
+Kontinuums im erweiterten Tupel.
+Dies ist ein unärer Evolutionsoperator auf einem Zeitschnitt von \(K\). Der aktive
+Meta-Raum gehört zur Umgebung. Wenn er lokal benannt werden muss, erscheint er als
+Index-Parameter und nicht als zweites Argument von \(E\), damit die
+Operator-Arity konstant bleibt.
+
+Das Modell fasst Flussaktualisierungen, Schwellenprüfungen, Zyklusstruktur,
+Grenzbewegungen, Achsenerweiterung und Kontinuitätsaktualisierungen nicht in
+einem einzigen Differentialsystem zusammen. Diese Komponenten werden als
+gekoppelte Bestandteile eines eingeschränkten strukturellen Evolutionsrahmens mit
+folgenden Anforderungen behandelt:
+
+\begin{itemize}
+    \item \textbf{Konsistenz:} wenn \(s(t) \in \Omega(K(t))\), dann gilt entweder
+          \(s(t+dt) \in \Omega(K(t+dt))\) oder der Übergang ist mit einer
+          Schwellenüberschreitung verbunden;
+    \item \textbf{Schwellenkonformität:} Flüsse folgen der Ungleichungsstruktur
+          in \(\Theta(K)\), außer bei explizitem Überschreiten kritischer
+          oder Todes-Schwellen.
+    \item \textbf{Monotonie der Dimension:} wenn \(A'\) eine neue Achse enthält,
+die nicht als Kombination früherer Achsen darstellbar ist, dann gilt
+          \(\dim(K(t+dt)) > \dim(K(t))\); die Dimension kann nicht sinken.
+\end{itemize}
+
+Die Dynamik läuft solange, bis \(\Omega(K(t)) \neq \emptyset\).
+Ist \(\Omega(K(t^\ast)) = \emptyset\), ist das Kontinuum tot und \(E\) kann
+nicht mehr sinnvoll auf ihm wirken.
+
+\subsection{Einbettung in Meta-Räume}
+
+Jedes Niveau \(K_x\) ist in einen Meta-Raum \(M_x\) eingebettet, der zusätzliche
+a zulässige Zustände und Achsen bereitstellt.
+Auf struktureller Ebene wird dies durch
+\[
+    \Omega(K_x(t)) \subseteq \Omega(M_x(t)), \qquad
+    A(K_x) \subseteq A(M_x)
+\]
+gegeben.
+Das universelle Evolutionsaxiom kann dann schematisch geschrieben werden als
+\[
+    K_x(t+dt) = E_{M_x(t)}\big(K_x(t)\big),
+\]
+mit der Zusatzbedingung, dass bei Versagen der Zeitschnitt-Einbettungsbedingung
+\(\Omega(K_x(t))\not\subseteq\Omega(M_x(t))\), das Kontinuum \(K_x\)
+aufhört zu existieren. Ist der Zeitschnitt klar, verbergen die verkürzten
+Notationen \(K_x\) und \(M_x\) den Zeitaspekt \(t\).
+Die dimensionale Weiterentwicklung von \(K_x\) ist nur möglich, wenn der Meta-Raum
+eine Achse \(A_{\mathrm{new}}\in A(M_x)\setminus A(K_x)\) enthält und die
+strukturelle Spannung die zugehörige Dimensionsschwelle übersteigt. Dies ist die
+Achsen-Ursprungs-Bedingung weiter unten: Neue Achsen können nicht allein aus
+\(K_x\) generiert werden.
+
+\subsection{Geburt von Kontinua}
+
+Das Auftreten eines neuen Kontinuums \(K_{x+1}\) aus \(K_x\) ist ein
+schwelleninduzierter Phasenübergang.
+Strukturell erfolgt die Geburt, wenn folgende Bedingungen erfüllt sind:
+
+\begin{enumerate}
+    \item Eine neue Klasse von Unterschieden erscheint, die nicht über die bestehenden
+          Achsen \(A(K_x)\) beschrieben werden kann;
+    \item Die mit diesen Unterschieden verbundene strukturelle Spannung erfüllt
+          \[
+              T(K_x,t) > \Theta_{\mathrm{dim}}(K_x).
+          \]
+    \item Der Einbettungsraum \(M_x\) enthält mindestens eine Achse, die die
+          neuen Unterschiede tragen kann (d.h.\ \(A_{\mathrm{new}} \in A(M_x)
+          \setminus A(K_x)\)).
+    \item Es gibt eine nichtleere Menge zulässiger Zustände
+          \(\Omega(K_{x+1})\), kompatibel mit der neuen Achse und den
+          Schwellen.
+\end{enumerate}
+
+Der Operator der dimensionsbedingten Geburt
+\[
+    \Psi_{x\to x+1}: K_x \to K_{x+1}
+\]
+ist minimal und irreversibel: Jede nichttriviale Entstehung der neuen Achse
+konstituiert das neue Kontinuum \(K_{x+1}\), und die Dimension von
+\(K_{x+1}\) kann nicht auf die von \(K_x\) zurückgeführt werden, ohne
+\(\Omega(K_{x+1})\) zu zerstören.
+Das lokale Modell implementiert somit dimensionsbezogene Monotonie. Das
+zugehörige Ergebnis über das Ausbleiben spontaner Erzeugung ist separat in
+Abschnitt~the spontaneous-dimension theorem discussion dokumentiert.
+
+\subsection{Leben von Kontinua}
+
+Ein Kontinuum \(K\) gilt im Zeitintervall als lebendig, wenn
+\[
+    \Omega(K(t)) \neq \emptyset,\qquad
+    k(K,t) > 0,\qquad
+    C(K(t)) \neq \emptyset,
+\]
+und wenn die stützenden Flüsse \(J_{\mathrm{support}}\) die destruktiven
+Flüsse \(J_{\mathrm{kill}}\) über den relevanten Zyklen integriert überwiegen.
+
+Leben entspricht daher der beständigen Existenz von:
+\begin{itemize}
+    \item stabilen Zyklen im endlichen strukturellen Abstand zur Grenze;
+    \item ausreichenden stützenden Flüssen zur Aufrechterhaltung dieser Zyklen;
+    \item Kohärenz zwischen Potentialen, Achsen und Schwellen;
+    \item kontrolliertem kritischem Verhalten ohne Überschreiten von
+          \(\Theta_{\mathrm{death}}\).
+\end{itemize}
+
+Diese Bedingungen werden auf jeder Ebene \(K_x\) unterschiedlich interpretiert,
+doch das strukturelle Muster ist vom Protocellniveau bis zu Institutionen gleich.
+
+\subsection{Tod von Kontinua}
+
+Ein Kontinuum \(K\) stirbt zum Zeitpunkt \(t^\ast\), wenn
+\[
+    \Omega(K(t^\ast)) = \emptyset,
+\]
+was \(\chi_{\Omega}(s_K(t^\ast);K,t^\ast)=0\) impliziert und damit
+\(k(K,t^\ast)=0\).
+Äquivalent gilt:
+\begin{itemize}
+    \item alle stabilen Zyklen verschwinden, \(C(K(t^\ast)) = \emptyset\);
+    \item kein Zustand erfüllt die Schwellenungleichungen gleichzeitig;
+    \item jeder Versuch einer dynamischen Fortsetzung verletzt mindestens eine
+          Existenz-Schwelle \(\Theta_{\mathrm{exist}}\).
+\end{itemize}
+
+\paragraph{Irreversibilität des Todes}
+Ist \(\Omega(K(t^\ast)) = \emptyset\), gibt es keinen strukturellen Operator
+innerhalb desselben Niveaus, der ein nicht-leeres \(\Omega(K)\) rekonstruieren
+kann.
+Jegliche scheinbare Wiederbelebung entspricht der Geburt eines neuen
+Kontinuums \(K'\) mit eigenen Schwellen und Zustandsraum, nicht der
+Fortführung des ursprünglichen \(K\).
+Daher ist der Tod strukturell irreversibel.
+
+\subsection{Interaktion von Kontinua}
+
+Zwei Kontinua \(K_a\) und \(K_b\) interagieren über den
+Interaktionsoperator
+\[
+    E_{\mathrm{int}} : (K_a,K_b) \mapsto (K_a',K_b'),
+\]
+der auf ihre kombinierten Potentiale, Flüsse, Schwellen und Achsen wirkt.
+Strukturell werden mehrere Regime unterschieden:
+
+\begin{itemize}
+    \item \textbf{Konkurrenz:} Flüsse des einen Kontinuums behindern die
+          Stabilisierung der Zyklen im anderen; typischerweise können
+          \(k_a(t)\) und \(k_b(t)\) nicht beide unbegrenzt wachsen.
+    \item \textbf{Parasitismus:} Ein Kontinuum entzieht einem anderen
+          stützende Flüsse und erhöht das eigene \(k\) auf Kosten des Wirts.
+    \item \textbf{Symbiose:} stützende Flüsse sind gekoppelt, sodass beide
+          Kontinua ihre Kontinuität erhöhen und ihren zulässigen Raum
+          erweitern.
+    \item \textbf{Fusion:} Achsen und Potentiale verschmelzen zu einem neuen
+          Kontinuum \(K_{\mathrm{fusion}}\) mit vereinten Achsen und einem neuen
+          Zustandsraum \(\Omega_{\mathrm{fusion}}\).
+\end{itemize}
+
+Interaktion kann selbst Dimensionsübergänge induzieren, wenn kombinierte
+Unterschiede neue, bisher ungenutzte Achsen erzeugen und die Spannung über
+\(\Theta_{\mathrm{dim}}\) treiben.
+
+\subsection{Vertikale Hierarchie \texorpdfstring{$K_0$–$K_{12}$}{K0--K12}}
+
+Innerhalb dieses formalen Schemas kann die OC-Hierarchie \(K_0,\dots,K_{12}\)
+wie folgt zusammengefasst werden:
+
+\begin{itemize}
+    \item \(K_0\): rein strukturelles Substrat unterscheidbarer Zustände und
+          Unterschiede, ohne Zeit, ohne Dynamik.
+    \item \(K_1\): eindimensionales klassisches Kontinuum mit
+          Energie-Funktionalen und Grundstabilitätsschwellen.
+    \item \(K_2\): physikalische Kontinua einschließlich Feldern,
+          Phasenübergängen, Perkolation, Berezinskii--Kosterlitz--Thouless-ähnlichen
+          Übergängen und Massenstruktur in der Feldtheorie.
+    \item \(K_3\): chemische Kontinua einschließlich Reaktionsnetzen,
+          reflexiv-autokatalytischen und ernährungsinduzierten Strukturen,
+          Konzentrationen und Umgebungsparametern.
+    \item \(K_4\): protocelluläre Kontinua mit Membranen, osmotischen
+          und Krümmungsschwellen, internen/externalen Gradienten und
+          metabolischen Teilräumen.
+    \item \(K_5\): frühe neuronale und bioelektrische Kontinua mit Ionenkanälen,
+          Erregbarkeitsschwellen, gradientgetriebenen Flüssen und Proto-Spikes.
+    \item \(K_6\): kognitive Kontinua mit repräsentationalen Achsen,
+          Bindung, internen Modellen, Gedächtnisschwellen und
+          Vorhersageschwellen.
+    \item \(K_7\): soziale Kontinua mit Vertrauensschwellen, institutionellen
+          Zyklen, Kommunikation und Koordinationsflüssen.
+    \item \(K_8\): zivilisatorische Kontinua mit großskaligen
+          Infrastrukturen, systemischen Schwellen und Langstreckenzyklen.
+    \item \(K_9\): theoretische Kontinua aus Theorien, Paradigmen,
+          Ontologien und Modellfamilien mit Konsistenz- und Kohärenzschwellen.
+    \item \(K_{10}\): metatheoretische Kontinua, die Vergleich, Evaluation
+          und Transformation über Klassen von Theorien regeln.
+    \item \(K_{11}\): rekursive metatheoretische Kontinua über
+          Operatorfamilien, metalogische Aktualisierung und Rekursion im
+          Modellraum.
+    \item \(K_{12}\): globale Kohärenz-Kontinua, die die Kompatibilität über
+          Familien von \(K_{11}\)-Strukturen hinweg begrenzen.
+\end{itemize}
+
+Jedes Niveau übernimmt die allgemeine Kontinuumsstruktur und ergänzt neue
+Achsen, Potentiale, Schwellen und Zyklen spezifisch für seine Domäne.
+Dieses Kapitel leitet nicht für jede domänenspezifische Repräsentationstheorie
+jede Einzelheit im vollen Detail her; es dokumentiert das gemeinsame
+strukturelle Rückgrat, das diese Instantiierungen respektieren müssen.
+
+\subsection{Zusammenfassung}
+
+Dieser Abschnitt hat das ontologische Rückgrat von OC präsentiert: die Axiome von
+\(K_0\), die Konstruktion von \(K_1\), die allgemeine Kontinuumsdefinition,
+die Taxonomie der Schwellen, die Rollen von Potentialen, Flüssen und
+struktureller Spannung sowie die Definition von Zyklen und Kontinuität.
+Er hat zudem den Evolutionsoperator, die Einbettung in Meta-Räume,
+die strukturellen Bedingungen für Geburt, Leben und Tod, den Interaktionsoperator
+und die vertikale Hierarchie \(K_0\)–\(K_{12}\) festgelegt.
+Alle weiteren Entwicklungen in Core und Erweiterungsarbeiten stützen sich auf
+diese Struktur als gemeinsame Grundlage.

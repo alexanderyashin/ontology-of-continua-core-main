@@ -1,0 +1,423 @@
+% ================================================================
+% ==== FILE: content/k_levels/k5.tex
+% ================================================================
+
+% ==============================
+%  Ontology of Continua — Core
+%  K-level Module: K5
+%  File: content/k_levels/k5.tex
+%  Status: FULLY DEFINED
+% ==============================
+
+\subsubsection{\texorpdfstring{$K_5$}{K_5} Übersicht}
+\label{sec:k5-overview}
+
+$K_5$ ist das Niveau, bei dem \emph{elektrische Erregbarkeit} als a auftritt
+neue ontologische Dimension. Die Protozellengrenze von $K_4$ wird zu einer
+\emph{elektrisch aktive Membran} durch die Bildung von Ionenkanälen
+mit kontrollierter Leitfähigkeit. Dadurch wird eine neue Achse generiert:
+\[
+A_{\mathrm{exc}}: \Delta V \;\mapsto\; \text{elektrische Zustandsdifferenz},
+\]
+wobei $\Delta V$ das Transmembranpotential ist.
+
+Diese Achse ist in $K_4$ nicht definierbar. Es stellt eine neue Klasse von dar
+unvereinbare Unterschiede und stellt daher eine echte Steigerung dar
+Dimension.
+
+Organisatorisch zeichnet sich $K_5$ aus durch:
+\begin{itemize}
+    \item stabile Ionenkanäle (offen/geschlossen/undicht/blockiert),
+    \item kontrollierte Ionenflüsse,
+    \item erregbare Zyklen (Anregung–Erholung),
+    \item Feuerfestdynamik,
+    \item Lärmschutz und Schwellenreaktionen,
+    \item autarke elektrische Organisation, eng gekoppelt an die
+          chemischer Innenraum.
+\end{itemize}
+
+$K_5$ ist das minimale \emph{neuronenartige} Kontinuum, auch wenn es kein reales ist
+Neuronen gibt es noch.
+
+% ================================================================
+\subsubsection{Zustandsraum \texorpdfstring{$\Omega(K_5)$}{\Omega(K_5)}}
+
+Ein Zustand von $K_5$ umfasst:
+\[
+\Omega(K_5) = \{ \Delta V,\, c_i,\, g_{\mathrm{ion}},\,
+                P_{\mathrm{open}},\,
+                x(t),\,
+                G=(V,E),\,
+                I(t) \}.
+\]
+
+Komponenten:
+\begin{itemize}
+    \item $\Delta V$ – Transmembranpotential,
+    \item $c_i$ — Ionenkonzentrationen innen und außen,
+    \item $g_{\mathrm{ion}}$ — Leitfähigkeiten von Ionenkanälen,
+    \item $P_{\mathrm{open}}$ – offene Wahrscheinlichkeiten,
+    \item $x(t)$ – interne Aktivierungsvariablen,
+    \item $G=(V,E)$ – protoneuronales Konnektivitätsdiagramm für mehrere Einheiten
+          $K_5$ Systeme,
+    \item $I(t)$ – externe oder interne Ströme.
+\end{itemize}
+
+Voraussetzung für die Zulassung sind:
+\[
+|\Delta V| < \Theta_{\mathrm{volt-max}}, \quad
+c_i \in \text{Lebensfähigkeitsbereich}, \quad
+0 \le P_{\mathrm{open}} \le 1.
+\]
+
+% ================================================================
+\subsubsection{Grenze \texorpdfstring{$\partial\Omega(K_5)$}{\partial\Omega(K_5)}}
+
+Die Membran erbt die Grenze von $K_4$ mit einer neuen Struktur:
+\[
+\partial\Omega(K_5)
+    = \partial\Omega(K_4)
+      \cup \{ \text{Ionenkanäle mit Gating-Kinetik} \}.
+\]
+
+Für jeden Kanal $k$:
+\begin{itemize}
+    \item Zustandsraum: offen/geschlossen/blockiert/undicht,
+    \item-Parameter: $g_k$, Umkehrpotential $E_k$, Gating-Variablen,
+    \item Lokalisierung auf Patch-Ebene,
+    \item Wechselwirkungen mit lokaler Krümmung und Spannung.
+\end{itemize}
+
+Der Zusammenbruch der Kanalordnung oder der Gating-Kinetik zerstört $\Omega(K_5)$.
+
+% ================================================================
+\subsubsection{Achsen \texorpdfstring{$A(K_5)$}{A(K_5)}}
+
+Die minimalen Achsen sind:
+\[
+A(K_5) = A(K_4)\; \Tasse\;
+\{ A_{\mathrm{exc}},\; A_{\mathrm{ion}},\; A_{\mathrm{gate}} \}.
+\]
+
+Wo:
+\begin{itemize}
+    \item $A_{\mathrm{exc}}$: elektrische Erregerachse,
+    \item $A_{\mathrm{ion}}$: Ionenspezies und Flussunterschiede,
+    \item $A_{\mathrm{gate}}$: Gating-Zustandsunterschiede für Ionenkanäle.
+\end{itemize}
+
+Diese Achsen sind mit rein chemischen Differenzen von $K_4$ und nicht kompatibel
+implizieren ein höherdimensionales Kontinuum.
+
+% ================================================================
+\subsubsection{Potentiale \texorpdfstring{$P(K_5)$}{P(K_5)}}
+
+Zu den Potenzialen gehören:
+\[
+P(K_5)=\{
+E_{\mathrm{ion}},\;
+P_{\mathrm{gate}},\;
+P_{\mathrm{exc}},\;
+P_{\mathrm{Rauschen}},\;
+P_{\mathrm{refrac}},\;
+P_{\mathrm{Kopplung}}
+\}.
+\]
+
+Interpretation:
+\begin{itemize}
+    \item $E_{\mathrm{ion}}$ — Nernstpotentiale für jede Ionenart,
+    \item $P_{\mathrm{gate}}$ – Gating-Aktivierungspotentiale,
+    \item $P_{\mathrm{exc}}$ — Anregungsschwellen für die Spike-Initiierung,
+    \item $P_{\mathrm{noise}}$ — Lärmschutzpotentiale,
+    \item $P_{\mathrm{refrac}}$ — Refraktär-Rückstellpotentiale,
+    \item $P_{\mathrm{Kopplung}}$ — Potentiale für die elektrische Kopplung
+          mehrere Einheiten über $G$.
+\end{itemize}
+
+% ================================================================
+\subsubsection{Schwellenwerte \texorpdfstring{$\Theta(K_5)$}{\Theta(K_5)}}
+
+Schwellenstruktur:
+\[
+\Theta(K_5)=\{
+\Theta_{\mathrm{exc}},\;
+\Theta_{\mathrm{Rauschen}},\;
+\Theta_{\mathrm{volt-max}},\;
+\Theta_{\mathrm{channel-open}},\;
+\Theta_{\mathrm{channel-close}},\;
+\Theta_{\mathrm{Kanalrauschen}},\;
+\Theta_{\mathrm{front}},\;
+\Theta_{\mathrm{refrac}}
+\}.
+\]
+
+Bedeutung:
+\begin{itemize}
+    \item $\Theta_{\mathrm{exc}}$: Anregungsschwelle für Spike
+          Generation,
+    \item $\Theta_{\mathrm{noise}}$: Rauschgrenze, jenseits derer Anregung
+          ist verloren,
+    \item $\Theta_{\mathrm{volt-max}}$: maximal sichere Transmembran
+          Spannung,
+    \item $\Theta_{\mathrm{channel-open}}$, $\Theta_{\mathrm{channel-close}}$:
+          Gating-Lebensfähigkeitsschwellen,
+    \item $\Theta_{\mathrm{channel-noise}}$: Rauschtoleranz beim Gating,
+    \item $\Theta_{\mathrm{front}}$: minimale Bedingungen für die Ausbreitung
+          Fronten in Mehrfamilienhäusern,
+    \item $\Theta_{\mathrm{refrac}}$: minimaler Refraktärerholungsgrad.
+\end{itemize}
+
+Überschreitung von $\Theta_{\mathrm{volt-max}}$ oder $\Theta_{\mathrm{channel-noise}}$
+vernichtet das Kontinuum.
+
+% ================================================================
+\subsubsection{Flüsse \texorpdfstring{$J(K_5)$}{J(K_5)}}
+
+Flüsse:
+\begin{itemize}
+    \item Ionenströme:
+    \[
+    J_{\mathrm{ion},k} = g_k(\Updelta V - E_k),
+    \]
+    \item Leckströme und Rauschströme,
+    \item Gating-Variablenflüsse:
+          $\dot{x} = f(x,\Delta V)$,
+    \item Spike-Propagation fließt über Graphkanten $E$,
+    \item Rückgewinnungsströme der Feuerfestigkeit,
+    \item-Kopplungsflüsse zwischen Einheiten.
+\end{itemize}
+
+Stabilität erfordert:
+\[
+\sigma(J) < \sigma_{\max}(K_5).
+\]
+
+% ================================================================
+\subsubsection{Zyklen \texorpdfstring{$C(K_5)$}{C(K_5)}}
+
+Charakteristische Zyklen:
+\[
+C(K_5)
+= \{ C_{\mathrm{exc}},\;
+     C_{\mathrm{refrac}},\;
+     C_{\mathrm{Lärmschutz}},\;
+     C_{\mathrm{Kanaldynamik}},\;
+     C_{\mathrm{Kopplung}} \}.
+\]
+
+Beschreibungen:
+\begin{itemize}
+    \item $C_{\mathrm{exc}}$: Anregungszyklus (Ruhe → Anregung →
+          Peak → Repolarisation),
+    \item $C_{\mathrm{refrac}}$: Kanal zur Wiederherstellung des Refraktärzyklus
+          Staaten,
+    \item $C_{\mathrm{noise-control}}$: Unterdrückung der Stochastik
+          Schwankungen,
+    \item $C_{\mathrm{channel-dynamics}}$: Gating-Zyklen, die aufrechterhalten
+          Erregbarkeit,
+    \item $C_{\mathrm{Kopplung}}$: Synchronisationszyklen mit mehreren Einheiten.
+\end{itemize}
+
+Jeder Zyklus hat eine charakteristische Periode $\tau_{C_j}$.
+
+% ================================================================
+\subsubsection{Zeit \texorpdfstring{$\tau(K_5)$}{\tau(K_5)}}
+
+Die Zeit ergibt sich aus der Existenz stabiler Anregungszyklen:
+\[
+\tau(K_5)
+    = \min_j \tau_{C_j},
+\qquad
+\Pi(C_j) > \Theta_{\mathrm{Zeit}}.
+\]
+
+Aufgrund der Schärfe ist die zeitliche Ordnung bei $K_5$ starrer als bei $K_4$
+Erregungsschwellen und Refraktärintervalle.
+
+% ================================================================
+\subsubsection{Kontinuität \texorpdfstring{$k(K_5)$}{k(K_5)}}
+
+Unter Verwendung der allgemeinen Definition:
+\[
+k_5
+= H(\Omega(K_5))
+  \cdot\frac{|V_{\mathrm{Zyklus}}|}{|V|}
+  \cdot\frac{\sum_j C_j^{\mathrm{eff}}}{\sum_j C_j^{\max}}
+  \cdot\left(1-\frac{\sigma(J)}{\sigma_{\max}}\right)
+  \cdot\left(1-\frac{T(K_5)}{\Theta_{\mathrm{stab}}}\right)_+.
+\]
+
+Interpretation:
+\begin{itemize}
+    \item Zyklusfraktion steuert Lebensfähigkeit,
+    \item Übermäßiger Lärm reduziert $k_5$,
+    \item zu groß $\Delta V$ kollabiert $k_5$ auf Null,
+    \item koordinierte Anregung erhöht $k_5$.
+\end{itemize}
+
+% ================================================================
+\subsubsection{Strukturelle Spannung \texorpdfstring{$T(K_5)$}{T(K_5)}}
+
+Spannungsquellen:
+\begin{itemize}
+    \item inkompatible Ionengradienten,
+    \item Gating-Geräusch,
+    \item außer Kontrolle geratene Erregung,
+    \item unzureichende Refraktärrückgewinnung,
+    \item Verlust der Kopplungsstabilität,
+    \item unkontrollierte Depolarisation.
+\end{itemize}
+
+Fehler, wenn:
+\[
+T(K_5) > \Theta_{\mathrm{volt-max}}.
+\]
+
+% ================================================================
+\subsubsection{Energie \texorpdfstring{$E(K_5)$}{E(K_5)}}
+
+Energiefunktional:
+\[
+E(K_5)
+= E_{\mathrm{chem}}
++ E_{\mathrm{ion}}
++ E_{\mathrm{Pumpe}}
++ E_{\mathrm{exc}}
++ E_{\mathrm{Rauschen}}
++ E_{\mathrm{Kopplung}}.
+\]
+
+Komponenten:
+\begin{itemize}
+    \item chemische Energie zur Aufrechterhaltung von Gradienten,
+    \item Ionenstromenergie,
+    \item pumpengetriebener Energieverbrauch,
+    \item Anregungs- und Gating-Energie,
+    \item Lärmschutzenergie,
+    \item Kopplungsenergie in Netzwerken mit mehreren Einheiten.
+\end{itemize}
+
+% ================================================================
+\subsubsection{Operatoren auf \texorpdfstring{$K_5$}{K_5} (\texorpdfstring{$\Psi$}{\Psi}, \texorpdfstring{$\Phi$}{\Phi}, \texorpdfstring{$\Lambda$}{\Lambda}, \texorpdfstring{$U$}{U}, \texorpdfstring{$\Chi$}{\Chi})}
+
+\begin{itemize}
+    \item $\Psi_{5\to6}$ – Entstehung kognitiver Modellierungsachsen und
+          Umwandlung von Anregungszyklen in Attraktoren,
+    \item $\Phi$ – Entwicklung der Kanalkinetik und Leitfähigkeiten,
+    \item $\Lambda$ – strukturelle Kopplung der Anregung mit der Chemikalie
+          Homöostase,
+    \item $U$ – Vereinigung ionischer Spezies zu integrierten elektrischen
+          Dynamik,
+    \item $\Chi$ – Verzweigung in verschiedene Erregbarkeitsregime (Burst,
+          tonisch, phasisch).
+\end{itemize}
+
+% ================================================================
+\subsubsection{Prozesse auf \texorpdfstring{$K_5$}{K_5}}
+
+Typische Prozesse:
+\begin{itemize}
+    \item Spike-Initiierung und Wiederherstellung,
+    \item Gating-Kinetik-Übergänge,
+    \item Schwankungen um die Erregungsschwelle,
+    \item Ausbreitung von Fronten über $G$,
+    \item Feuerfestigkeitsgesteuerte Ordnung der Aktivität,
+    \item-Synchronisation in gekoppelten Einheiten,
+    \item Entstehung attraktorartiger stabiler Feuermuster.
+\end{itemize}
+
+% ================================================================
+\subsubsection{Vorhersagen für \texorpdfstring{$K_5$}{K_5}}
+
+\begin{enumerate}
+    \item Erregbarkeit erfordert streng kontrollierte Lärmregime.
+    \item Spitzenartige Ereignisse treten spontan auf, sobald $\Theta_{\mathrm{exc}}$
+          ist gekreuzt.
+    \item Die globale Depolarisierung führt zum Strukturkollaps.
+    \item Vernetzte $K_5$-Systeme bilden Attraktoren, die $K_6$ vorwegnehmen
+          kognitive Modelle.
+    \item Kanalvielfalt erweitert lebensfähige Regionen von $\Omega(K_5)$.
+\end{enumerate}
+
+% ================================================================
+\subsubsection{Experimente für \texorpdfstring{$K_5$}{K_5}}
+
+Empirische Analoga:
+\begin{itemize}
+    \item künstliche Lipidvesikel mit rekonstituierten Ionenkanälen,
+    \item Patch-Clamp-Experimente zur Messung von Gating-Rauschen,
+    \item Spannungsklemmencharakterisierung von $\Delta V$-Schwellenwerten,
+    \item Multivesikel-Kopplungs- und Synchronisationstests,
+    \item Protoneuronenmodelle mit minimaler Erregbarkeit.
+\end{itemize}
+
+Diese Tests prüfen direkt $\Theta_{\mathrm{exc}}$, $\Theta_{\mathrm{noise}}$,
+$\Theta_{\mathrm{channel-open}}$ usw.
+
+% ================================================================
+\subsubsection{Zusammenbruch und Tod von \texorpdfstring{$K_5$}{K_5}}
+
+Tritt auf, wenn:
+\[
+\Omega(K_5) = \varnothing.
+\]
+
+Mechanismen:
+\begin{itemize}
+    \item unkontrollierte Depolarisation,
+    \item-Kanalfehlfunktion oder Gating-Zusammenbruch,
+    \item Ionengradientendissipation,
+    \item Lärmbedingte Ausfälle durch Durchgehen,
+    \item Unfähigkeit, sich von der Erregung zu erholen.
+\end{itemize}
+
+Der Kollaps verhindert die Entstehung von $K_6$.
+
+% ================================================================
+\subsubsection{Falschbarkeit von \texorpdfstring{$K_5$}{K_5}}
+
+Wichtige überprüfbare Vorhersagen:
+\begin{enumerate}
+    \item Erregbares Verhalten kann ohne feuerfestes Material nicht aufrechterhalten werden
+          Zyklen.
+    \item Lärmschutzgrenzwerte sind real und messbar.
+    \item Ionenkanalverteilungen bestimmen Lebensfähigkeitsgrenzen.
+    \item Stabile Attraktoren in $K_5$ müssen existieren, bevor sich $K_6$ bilden kann.
+    \item Spike-Ausbreitung erfordert $\Theta_{\mathrm{front}}$.
+\end{enumerate}
+
+Das Scheitern dieser Vorhersagen widerlegt das Modell von $K_5$.
+
+% ================================================================
+\subsubsection{Verzweigung / ontologische Position von \texorpdfstring{$K_5$}{K_5}}
+
+Verzweigungstypen:
+\begin{itemize}
+    \item tonisch-phasische-Burst-Erregbarkeitsregime,
+    \item Mehrkanal- vs. Einkanalsysteme,
+    \item schwach vs. stark gekoppelte Einheiten,
+    \item verteilte vs. lokalisierte Anregungsmuster.
+\end{itemize}
+
+Ontologischer Ort:
+\[
+K_4 \to K_5 \to K_6.
+\]
+
+$K_5$ ist die Brücke zwischen biologischen Protozellen und kognitiven Systemen.
+
+% ================================================================
+\subsubsection{Beziehung zu M-Räumen}
+
+$M_5$ gibt an:
+\begin{itemize}
+    \item erlaubte ionische Spezies und Ladungsträger,
+    \item zulässige Leitfähigkeits- und Potentialbereiche,
+    \item Rauschregime, die mit der Erregbarkeit kompatibel sind,
+    \item Umgebungsbedingungen, die die Kanalstabilität ermöglichen,
+    \item erlaubte Kopplungsstrukturen.
+\end{itemize}
+
+Die Kompatibilität von $K_5$ mit $M_5$ bestimmt die Existenz von
+elektrisch erregbare Systeme.

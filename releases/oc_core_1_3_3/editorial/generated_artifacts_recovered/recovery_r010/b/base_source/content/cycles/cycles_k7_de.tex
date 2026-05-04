@@ -1,0 +1,364 @@
+% ================================================================
+% ==== FILE: content/cycles/cycles_k7.tex
+% ================================================================
+
+\subsubsection{Zyklen auf \texorpdfstring{$K_7$}{K_7}}
+\label{sec:cycles-k7}
+
+Das Niveau$K_7$stellt das soziale Kontinuum dar: eine strukturierte Domäne von
+Rollen, Normen, Kommunikationsflüsse, Vertrauensdynamik und institutionelle Aspekte
+Stabilisierung.
+Zyklen weiter$K_7$Formalisierung wiederkehrender sozialer Prozesse, die das aufrechterhalten
+Beharrlichkeit sozialer Gruppen, Institutionen und kollektiven Verhaltens.
+
+Äxte an$K_7$enthalten:
+\[
+  A_{\mathrm{role}},\;
+  A_{\mathrm{norm}},\;
+  A_{\mathrm{trust}},\;
+  A_{\mathrm{comm}},\;
+  A_{\mathrm{coop}},
+\]
+mit Potenzialen:
+\[
+  P_{\mathrm{trust}},\;
+  P_{\mathrm{coh}},\;
+  P_{\mathrm{normative}},\;
+  P_{\mathrm{stability}},
+\]
+and flows (the corresponding derivation note):
+\[
+  J_{\mathrm{comm}},\;
+  J_{\mathrm{coop}},\;
+  J_{\mathrm{stab}}.
+\]
+
+Schwellenwerte, die die Lebensfähigkeit des Zyklus bestimmen:
+\[
+  \Theta_{\mathrm{trust}},\;
+  \Theta_{\mathrm{norm}},\;
+  \Theta_{\mathrm{coh\text{-}soc}},\;
+  \Theta_{\mathrm{embed}},\;
+  \Theta_{\mathrm{fragility}}.
+\]
+
+\subsubsection{Überblick}
+
+Ein soziales Kontinuum besteht nicht, weil seine Komponenten statisch sind, sondern weil
+sie werden durch wiederkehrende Kommunikationszyklen dynamisch aufrechterhalten,
+Zusammenarbeit, Durchsetzung von Normen, Wiederherstellung des Vertrauens und institutionelle Aspekte
+Reproduktion.
+In diesem Abschnitt werden diese Zyklen in der Sprache des OC-Frameworks formalisiert.
+
+\subsubsection{1. Kommunikationszyklus$C_{\mathrm{comm}}$}
+
+Kommunikation ist der Kernprozess zur Schaffung eines gemeinsamen Zustands innerhalb des Sozialen
+Kontinuum.
+
+Der Zyklus:
+\[
+  \mathrm{signal}
+  \to
+  \mathrm{interpretation}
+  \to
+  \mathrm{feedback}
+  \to
+  \mathrm{alignment}
+  \to
+  \mathrm{signal}.
+\]
+
+Formal:
+\[
+  C_{\mathrm{comm}}
+    =
+    \left\{
+      A_{\mathrm{comm}}(t),
+      P_{\mathrm{coh}}(t),
+      J_{\mathrm{comm}}(t)
+    \right\}.
+\]
+
+Stabilität erfordert:
+\[
+  T_{\mathrm{comm}} < \Theta_{\mathrm{coh\text{-}soc}}.
+\]
+
+\subsubsection{2. Vertrauens-Regenerationszyklus$C_{\mathrm{trust}}$}
+
+Trust is a dynamic potential $P_{\mathrm{trust}}$ subject to fluctuations,
+Erosion und Wiederherstellung.
+
+Zyklusstruktur:
+\[
+  \mathrm{cooperation}
+  \to
+  \mathrm{verification}
+  \to
+  \mathrm{reinforcement}
+  \to
+  \mathrm{renewal}
+  \to
+  \mathrm{cooperation}.
+\]
+
+Formal:
+\[
+ C_{\mathrm{trust}}
+   =
+   \left\{
+     P_{\mathrm{trust}}(t),\;
+     J_{\mathrm{coop}}(t),\;
+     A_{\mathrm{trust}}(t)
+   \right\}.
+\]
+
+Existenzbedingung:
+\[
+  P_{\mathrm{trust}}(t+\tau_{\mathrm{trust}})=
+  P_{\mathrm{trust}}(t).
+\]
+
+Schwelle:
+\[
+  T_{\mathrm{trust}} < \Theta_{\mathrm{trust}}.
+\]
+
+\subsubsection{3. Normdurchsetzungszyklus$C_{\mathrm{norm}}$}
+
+Soziale Normen regeln Erwartungen und Verhalten.
+
+Zyklus:
+\[
+  \mathrm{activation}
+  \to
+  \mathrm{monitoring}
+  \to
+  \mathrm{sanction}
+  \to
+  \mathrm{repair}
+  \to
+  \mathrm{activation}.
+\]
+
+Bilden:
+\[
+  C_{\mathrm{norm}}=
+  \left\{
+    A_{\mathrm{norm}}(t),
+    P_{\mathrm{normative}}(t),
+    J_{\mathrm{stab}}(t)
+  \right\}.
+\]
+
+Schwellenwertbedingung:
+\[
+  T_{\mathrm{norm}} < \Theta_{\mathrm{norm}}.
+\]
+
+\subsubsection{4. Rollenstrukturzyklus$C_{\mathrm{role}}$}
+
+Soziale Rollen müssen kontinuierlich reproduziert werden, um die institutionelle Ordnung aufrechtzuerhalten.
+
+Zyklus:
+\[
+  \mathrm{role\ learning}
+  \to
+  \mathrm{performance}
+  \to
+  \mathrm{evaluation}
+  \to
+  \mathrm{adjustment}
+  \to
+  \mathrm{role\ learning}.
+\]
+
+Formal:
+\[
+  C_{\mathrm{role}}
+  =
+  \left\{
+     A_{\mathrm{role}}(t),\;
+     P_{\mathrm{stability}}(t),\;
+     J_{\mathrm{comm}}(t)
+  \right\}.
+\]
+
+Schwelle:
+\[
+  T_{\mathrm{role}} < \Theta_{\mathrm{coh\text{-}soc}}.
+\]
+
+\subsubsection{5. Kooperationszyklus$C_{\mathrm{coop}}$}
+
+Cooperation, sustained by $J_{\mathrm{coop}}$, is a recurrent structure:
+
+\[
+ \mathrm{proposal}
+ \to
+ \mathrm{coordination}
+ \to
+ \mathrm{execution}
+ \to
+ \mathrm{reward}
+ \to
+ \mathrm{renewal}.
+\]
+
+Formal:
+\[
+ C_{\mathrm{coop}}=
+ \left\{
+   J_{\mathrm{coop}}(t),\;
+   P_{\mathrm{trust}}(t),\;
+   A_{\mathrm{coop}}(t)
+ \right\}.
+\]
+
+Stabilitätsbedingung:
+\[
+ T_{\mathrm{coop}} < \Theta_{\mathrm{trust}}.
+\]
+
+\subsubsection{6. Institutioneller Reproduktionszyklus$C_{\mathrm{inst}}$}
+
+Institutionen sind dauerhafte soziale Strukturen, die definiert sind durch:
+
+\[
+  \mathrm{codification}
+  \to
+  \mathrm{implementation}
+  \to
+  \mathrm{monitoring}
+  \to
+  \mathrm{repair}
+  \to
+  \mathrm{codification}.
+\]
+
+Die institutionelle Reproduktion hängt ab von:
+
+\[
+ C_{\mathrm{inst}}
+ =
+ \left\{
+   A_{\mathrm{norm}}(t),\;
+   A_{\mathrm{role}}(t),\;
+   P_{\mathrm{stability}}(t),\;
+   J_{\mathrm{stab}}(t)
+ \right\}.
+\]
+
+Schwelle:
+\[
+ T_{\mathrm{inst}} < \Theta_{\mathrm{embed}}.
+\]
+
+Die Einbettungsraumbeschränkung kodiert die Abhängigkeit von
+$K_7$An$M_7$.
+
+\subsubsection{7. Sozialer Stabilitätszyklus$C_{\mathrm{stab}}$}
+
+Dies ist eine mehrzyklische Integration:
+
+\[
+  C_{\mathrm{stab}}
+    =
+    C_{\mathrm{comm}}
+    \cup
+    C_{\mathrm{trust}}
+    \cup
+    C_{\mathrm{norm}}
+    \cup
+    C_{\mathrm{role}}
+    \cup
+    C_{\mathrm{coop}}.
+\]
+
+Stabilität erfordert:
+
+\[
+  T_{\mathrm{soc}}
+  <
+  \min(\Theta_{\mathrm{trust}},
+       \Theta_{\mathrm{norm}},
+       \Theta_{\mathrm{coh\text{-}soc}},
+       \Theta_{\mathrm{embed}}).
+\]
+
+Dieser Zyklus entspricht der Existenz eines kohärenten sozialen Kontinuums.
+
+\subsubsection{Zyklusmetriken für \texorpdfstring{$K_7$}{K_7}}
+
+\paragraph{Length.}
+\[
+L(C)
+  = \oint d\Omega(K_7).
+\]
+
+\paragraph{Efficiency.}
+\[
+  C_{\mathrm{eff}}
+    =
+    \frac{\oint J_7\cdot dA}{L(C)}.
+\]
+
+\paragraph{Stability.}
+\[
+SC)
+  = \min_{t\in C}
+    d(\Omega(K_7), \partial\Omega(K_7)).
+\]
+
+\paragraph{Weight.}
+\[
+WC)
+ =
+ F(C_{\mathrm{eff}},S(C),
+   P_{\mathrm{trust}},
+   P_{\mathrm{normative}},
+   P_{\mathrm{coh}}).
+\]
+
+\subsubsection{Zusammenbruch von \texorpdfstring{$K_7$}{K_7} Zyklen}
+
+Ein Zusammenbruch sozialer Zyklen tritt auf, wenn:
+
+\[
+ T_{\mathrm{trust}} > \Theta_{\mathrm{trust}},
+ \qquad
+ T_{\mathrm{norm}} > \Theta_{\mathrm{norm}},
+ \qquad
+ T_{\mathrm{comm}} > \Theta_{\mathrm{coh\text{-}soc}},
+\]
+
+oder wenn Einschränkungen hinsichtlich des Einbettungsraums fehlschlagen:
+
+\[
+ M_7 \not\supseteq \Omega(K_7).
+\]
+
+Zusammenbruch bedeutet:
+
+\[
+ C_j \to \varnothing,\quad
+ \Omega(K_7)=\varnothing,\quad
+ k_7\to 0.
+\]
+
+\subsubsection{Kontinuität von \texorpdfstring{$K_6$}{K_6} zu \texorpdfstring{$K_7$}{K_7}}
+
+The transition $K_6\to K_7$ (the corresponding derivation note) occurs when:
+\[
+  T_{\mathrm{comm}} > \Theta_{\mathrm{dim}},
+\]
+und neue Achsen erscheinen:
+\[
+  A_{\mathrm{role}},\;
+  A_{\mathrm{norm}},\;
+  A_{\mathrm{trust}},\;
+  A_{\mathrm{coop}}.
+\]
+
+Dies schafft neue Schwellen und ermöglicht die Existenz sozialer Kreisläufe
+ohne Analogie auf kognitiver Ebene$K_6$.

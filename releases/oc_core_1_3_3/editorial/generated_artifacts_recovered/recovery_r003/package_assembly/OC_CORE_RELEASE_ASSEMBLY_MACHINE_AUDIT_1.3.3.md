@@ -1,0 +1,147 @@
+# OC Core Release Assembly Machine Audit 1.3.3
+
+Status: `FAIL`
+Assembly revision: `recovery_r003`
+Structure source: `recovered_l10c`
+Artifact hash: `8c7a5105d297de6387128879962d66abde0c3712315c27f85e83245795411222`
+
+## Summary
+
+- `terminal_node_total`: 5386
+- `blocked_terminal_total`: 0
+- `transition_record_total`: 5385
+- `artifact_type_total`: 9
+- `finding_total`: 116
+- `severity_counts`: {'CRITICAL': 111, 'HIGH': 5}
+- `title_page_status`: FAIL
+- `toc_semantic_status`: FAIL
+- `heading_hygiene_status`: PASS
+- `title_page_publication_status`: FAIL
+- `acknowledgements_status`: FAIL
+- `abstract_depth_status`: FAIL
+- `release_delta_status`: FAIL
+- `reader_contract_status`: FAIL
+- `toc_hierarchy_status`: FAIL
+- `content_richness_status`: FAIL
+- `technical_prose_leak_status`: FAIL
+- `form_quality_status`: FAIL
+- `form_finding_total`: 91
+
+## Findings
+
+- `CRITICAL` `publication_body_source_not_curated_payload`: `release_guide`
+- `CRITICAL` `frontmatter_governance_missing_source_section`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r003\sources\release_guide_1.3.3.md`
+- `CRITICAL` `frontmatter_governance_missing_source_section`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r003\sources\release_guide_1.3.3.md`
+- `HIGH` `frontmatter_governance_source_order_violation`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r003\sources\release_guide_1.3.3.md`
+- `CRITICAL` `publication_reader_internal_instrument_leak`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r003\sources\release_guide_1.3.3.md`
+- `CRITICAL` `publication_technical_prose_leak`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r003\sources\release_guide_1.3.3.md`
+- `CRITICAL` `publication_acknowledgements_too_short`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r003\sources\release_guide_1.3.3.md`
+- `CRITICAL` `publication_acknowledgements_missing_reviewers_critics`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r003\sources\release_guide_1.3.3.md`
+- `CRITICAL` `publication_abstract_missing_depth_anchor`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r003\sources\release_guide_1.3.3.md`
+- `CRITICAL` `publication_release_delta_missing`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r003\sources\release_guide_1.3.3.md`
+- `CRITICAL` `publication_reader_contract_too_short`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r003\sources\release_guide_1.3.3.md`
+- `CRITICAL` `publication_reader_contract_missing_orientation_anchor`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r003\sources\release_guide_1.3.3.md`
+- `CRITICAL` `publication_title_page_missing_dedication`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r003\pdf\release_guide_1.3.3.pdf`
+- `CRITICAL` `publication_title_page_internal_instrument_leak`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r003\pdf\release_guide_1.3.3.pdf`
+- `CRITICAL` `pdf_toc_hierarchy_technical_entry`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r003\pdf\release_guide_1.3.3.pdf`
+- `CRITICAL` `frontmatter_governance_missing_pdf_section`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r003\pdf\release_guide_1.3.3.pdf`
+- `CRITICAL` `frontmatter_governance_missing_pdf_section`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r003\pdf\release_guide_1.3.3.pdf`
+- `CRITICAL` `publication_reader_internal_instrument_leak`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r003\pdf\release_guide_1.3.3.pdf`
+- `CRITICAL` `publication_technical_prose_leak`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r003\pdf\release_guide_1.3.3.pdf`
+- `CRITICAL` `publication_acknowledgements_too_short`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r003\pdf\release_guide_1.3.3.pdf`
+- `CRITICAL` `publication_acknowledgements_missing_reviewers_critics`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r003\pdf\release_guide_1.3.3.pdf`
+- `CRITICAL` `publication_abstract_missing_depth_anchor`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r003\pdf\release_guide_1.3.3.pdf`
+- `CRITICAL` `publication_release_delta_missing`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r003\pdf\release_guide_1.3.3.pdf`
+- `CRITICAL` `publication_reader_contract_missing_orientation_anchor`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r003\pdf\release_guide_1.3.3.pdf`
+- `CRITICAL` `publication_body_source_not_corpus`: `master_monograph`
+- `CRITICAL` `publication_master_missing_richness_anchor`: `master_monograph`
+- `CRITICAL` `frontmatter_governance_missing_source_section`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r003\sources\master_monograph_1.3.3.md`
+- `CRITICAL` `frontmatter_governance_missing_source_section`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r003\sources\master_monograph_1.3.3.md`
+- `HIGH` `frontmatter_governance_source_order_violation`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r003\sources\master_monograph_1.3.3.md`
+- `CRITICAL` `publication_reader_internal_instrument_leak`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r003\sources\master_monograph_1.3.3.md`
+- `CRITICAL` `publication_technical_prose_leak`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r003\sources\master_monograph_1.3.3.md`
+- `CRITICAL` `publication_acknowledgements_too_short`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r003\sources\master_monograph_1.3.3.md`
+- `CRITICAL` `publication_acknowledgements_missing_reviewers_critics`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r003\sources\master_monograph_1.3.3.md`
+- `CRITICAL` `publication_release_delta_missing`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r003\sources\master_monograph_1.3.3.md`
+- `CRITICAL` `publication_reader_contract_too_short`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r003\sources\master_monograph_1.3.3.md`
+- `CRITICAL` `publication_reader_contract_missing_orientation_anchor`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r003\sources\master_monograph_1.3.3.md`
+- `CRITICAL` `publication_title_page_missing_dedication`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r003\pdf\master_monograph_1.3.3.pdf`
+- `CRITICAL` `publication_title_page_internal_instrument_leak`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r003\pdf\master_monograph_1.3.3.pdf`
+- `CRITICAL` `pdf_toc_page_cap_violation`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r003\pdf\master_monograph_1.3.3.pdf`
+- `CRITICAL` `frontmatter_governance_missing_pdf_section`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r003\pdf\master_monograph_1.3.3.pdf`
+- `CRITICAL` `frontmatter_governance_missing_pdf_section`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r003\pdf\master_monograph_1.3.3.pdf`
+- `CRITICAL` `publication_reader_internal_instrument_leak`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r003\pdf\master_monograph_1.3.3.pdf`
+- `CRITICAL` `publication_technical_prose_leak`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r003\pdf\master_monograph_1.3.3.pdf`
+- `CRITICAL` `publication_acknowledgements_too_short`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r003\pdf\master_monograph_1.3.3.pdf`
+- `CRITICAL` `publication_acknowledgements_missing_reviewers_critics`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r003\pdf\master_monograph_1.3.3.pdf`
+- `CRITICAL` `publication_release_delta_missing`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r003\pdf\master_monograph_1.3.3.pdf`
+- `CRITICAL` `publication_reader_contract_missing_orientation_anchor`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r003\pdf\master_monograph_1.3.3.pdf`
+- `CRITICAL` `publication_body_source_not_curated_payload`: `journal_core_article`
+- `CRITICAL` `frontmatter_governance_missing_source_section`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r003\sources\journal_core_article_1.3.3.md`
+- `CRITICAL` `frontmatter_governance_missing_source_section`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r003\sources\journal_core_article_1.3.3.md`
+- `HIGH` `frontmatter_governance_source_order_violation`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r003\sources\journal_core_article_1.3.3.md`
+- `CRITICAL` `publication_reader_internal_instrument_leak`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r003\sources\journal_core_article_1.3.3.md`
+- `CRITICAL` `publication_technical_prose_leak`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r003\sources\journal_core_article_1.3.3.md`
+- `CRITICAL` `publication_acknowledgements_too_short`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r003\sources\journal_core_article_1.3.3.md`
+- `CRITICAL` `publication_acknowledgements_missing_reviewers_critics`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r003\sources\journal_core_article_1.3.3.md`
+- `CRITICAL` `publication_abstract_missing_depth_anchor`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r003\sources\journal_core_article_1.3.3.md`
+- `CRITICAL` `publication_release_delta_missing`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r003\sources\journal_core_article_1.3.3.md`
+- `CRITICAL` `publication_reader_contract_too_short`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r003\sources\journal_core_article_1.3.3.md`
+- `CRITICAL` `publication_reader_contract_missing_orientation_anchor`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r003\sources\journal_core_article_1.3.3.md`
+- `CRITICAL` `publication_title_page_missing_dedication`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r003\pdf\journal_core_article_1.3.3.pdf`
+- `CRITICAL` `publication_title_page_internal_instrument_leak`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r003\pdf\journal_core_article_1.3.3.pdf`
+- `CRITICAL` `pdf_toc_page_cap_violation`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r003\pdf\journal_core_article_1.3.3.pdf`
+- `CRITICAL` `frontmatter_governance_missing_pdf_section`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r003\pdf\journal_core_article_1.3.3.pdf`
+- `CRITICAL` `frontmatter_governance_missing_pdf_section`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r003\pdf\journal_core_article_1.3.3.pdf`
+- `CRITICAL` `publication_reader_internal_instrument_leak`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r003\pdf\journal_core_article_1.3.3.pdf`
+- `CRITICAL` `publication_technical_prose_leak`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r003\pdf\journal_core_article_1.3.3.pdf`
+- `CRITICAL` `publication_acknowledgements_too_short`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r003\pdf\journal_core_article_1.3.3.pdf`
+- `CRITICAL` `publication_acknowledgements_missing_reviewers_critics`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r003\pdf\journal_core_article_1.3.3.pdf`
+- `CRITICAL` `publication_abstract_missing_depth_anchor`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r003\pdf\journal_core_article_1.3.3.pdf`
+- `CRITICAL` `publication_release_delta_missing`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r003\pdf\journal_core_article_1.3.3.pdf`
+- `CRITICAL` `publication_reader_contract_missing_orientation_anchor`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r003\pdf\journal_core_article_1.3.3.pdf`
+- `CRITICAL` `publication_body_source_not_curated_payload`: `methods_repro_companion`
+- `CRITICAL` `frontmatter_governance_missing_source_section`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r003\sources\methods_repro_companion_1.3.3.md`
+- `CRITICAL` `frontmatter_governance_missing_source_section`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r003\sources\methods_repro_companion_1.3.3.md`
+- `HIGH` `frontmatter_governance_source_order_violation`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r003\sources\methods_repro_companion_1.3.3.md`
+- `CRITICAL` `publication_reader_internal_instrument_leak`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r003\sources\methods_repro_companion_1.3.3.md`
+- `CRITICAL` `publication_technical_prose_leak`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r003\sources\methods_repro_companion_1.3.3.md`
+- `CRITICAL` `publication_acknowledgements_too_short`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r003\sources\methods_repro_companion_1.3.3.md`
+- `CRITICAL` `publication_acknowledgements_missing_reviewers_critics`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r003\sources\methods_repro_companion_1.3.3.md`
+- `CRITICAL` `publication_abstract_missing_depth_anchor`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r003\sources\methods_repro_companion_1.3.3.md`
+- `CRITICAL` `publication_release_delta_missing`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r003\sources\methods_repro_companion_1.3.3.md`
+- `CRITICAL` `publication_reader_contract_too_short`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r003\sources\methods_repro_companion_1.3.3.md`
+- `CRITICAL` `publication_reader_contract_missing_orientation_anchor`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r003\sources\methods_repro_companion_1.3.3.md`
+- `CRITICAL` `publication_title_page_missing_dedication`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r003\pdf\methods_repro_companion_1.3.3.pdf`
+- `CRITICAL` `publication_title_page_internal_instrument_leak`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r003\pdf\methods_repro_companion_1.3.3.pdf`
+- `CRITICAL` `frontmatter_governance_missing_pdf_section`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r003\pdf\methods_repro_companion_1.3.3.pdf`
+- `CRITICAL` `frontmatter_governance_missing_pdf_section`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r003\pdf\methods_repro_companion_1.3.3.pdf`
+- `CRITICAL` `publication_reader_internal_instrument_leak`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r003\pdf\methods_repro_companion_1.3.3.pdf`
+- `CRITICAL` `publication_technical_prose_leak`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r003\pdf\methods_repro_companion_1.3.3.pdf`
+- `CRITICAL` `publication_acknowledgements_too_short`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r003\pdf\methods_repro_companion_1.3.3.pdf`
+- `CRITICAL` `publication_acknowledgements_missing_reviewers_critics`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r003\pdf\methods_repro_companion_1.3.3.pdf`
+- `CRITICAL` `publication_abstract_missing_depth_anchor`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r003\pdf\methods_repro_companion_1.3.3.pdf`
+- `CRITICAL` `publication_release_delta_missing`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r003\pdf\methods_repro_companion_1.3.3.pdf`
+- `CRITICAL` `publication_reader_contract_missing_orientation_anchor`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r003\pdf\methods_repro_companion_1.3.3.pdf`
+- `CRITICAL` `publication_body_source_not_curated_payload`: `reviewer_attack_response_map`
+- `CRITICAL` `frontmatter_governance_missing_source_section`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r003\sources\reviewer_attack_response_map_1.3.3.md`
+- `CRITICAL` `frontmatter_governance_missing_source_section`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r003\sources\reviewer_attack_response_map_1.3.3.md`
+- `HIGH` `frontmatter_governance_source_order_violation`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r003\sources\reviewer_attack_response_map_1.3.3.md`
+- `CRITICAL` `publication_reader_internal_instrument_leak`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r003\sources\reviewer_attack_response_map_1.3.3.md`
+- `CRITICAL` `publication_technical_prose_leak`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r003\sources\reviewer_attack_response_map_1.3.3.md`
+- `CRITICAL` `publication_acknowledgements_too_short`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r003\sources\reviewer_attack_response_map_1.3.3.md`
+- `CRITICAL` `publication_acknowledgements_missing_reviewers_critics`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r003\sources\reviewer_attack_response_map_1.3.3.md`
+- `CRITICAL` `publication_release_delta_missing`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r003\sources\reviewer_attack_response_map_1.3.3.md`
+- `CRITICAL` `publication_reader_contract_too_short`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r003\sources\reviewer_attack_response_map_1.3.3.md`
+- `CRITICAL` `publication_reader_contract_missing_orientation_anchor`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r003\sources\reviewer_attack_response_map_1.3.3.md`
+- `CRITICAL` `publication_title_page_missing_dedication`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r003\pdf\reviewer_attack_response_map_1.3.3.pdf`
+- `CRITICAL` `publication_title_page_internal_instrument_leak`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r003\pdf\reviewer_attack_response_map_1.3.3.pdf`
+- `CRITICAL` `pdf_toc_page_cap_violation`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r003\pdf\reviewer_attack_response_map_1.3.3.pdf`
+- `CRITICAL` `frontmatter_governance_missing_pdf_section`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r003\pdf\reviewer_attack_response_map_1.3.3.pdf`
+- `CRITICAL` `frontmatter_governance_missing_pdf_section`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r003\pdf\reviewer_attack_response_map_1.3.3.pdf`
+- `CRITICAL` `publication_reader_internal_instrument_leak`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r003\pdf\reviewer_attack_response_map_1.3.3.pdf`
+- `CRITICAL` `publication_technical_prose_leak`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r003\pdf\reviewer_attack_response_map_1.3.3.pdf`
+- `CRITICAL` `publication_acknowledgements_too_short`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r003\pdf\reviewer_attack_response_map_1.3.3.pdf`
+- `CRITICAL` `publication_acknowledgements_missing_reviewers_critics`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r003\pdf\reviewer_attack_response_map_1.3.3.pdf`
+- `CRITICAL` `publication_release_delta_missing`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r003\pdf\reviewer_attack_response_map_1.3.3.pdf`
+- `CRITICAL` `publication_reader_contract_missing_orientation_anchor`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r003\pdf\reviewer_attack_response_map_1.3.3.pdf`

@@ -1,0 +1,180 @@
+\section{Theorem-Roadmap und Beweisnavigation}
+\label{sec:oc13-theorem-roadmap}
+
+Dieses Kapitel ist die klarste kompakte Karte der beweisstützenden Route. Seine Aufgabe ist es,
+aufzuzeigen, wo die tragende Theoremachse liegt, welche Aussageklassen welche wissenschaftliche
+Last tragen und wo ein kritischer Gutachter zuerst nachfragen sollte. Es ersetzt weder die formalen
+Kapitel noch den Leserleitfaden. Der Leserleitfaden liefert Einstiegspfade; dieses Kapitel liefert
+Beweisnavigation.
+
+\subsection{Tragende Theoremachse}
+
+Auf der Ebene der beschränkten Journal-Core-Behauptung stützt sich die vorliegende Veröffentlichung
+auf einen relativ kleinen tragenden Kern, obwohl die Monographie selbst wesentlich umfangreicher bleibt.
+Das nachfolgende schematische Schema ist kompakt, nicht im strengen Sinne beweistheoretisch minimal:
+es sind der Rest- und der Wiedergeburtzweig sichtbar, weil das verteidigte Theorem auf Artikelebene die
+Identität nach dem Kollaps einteilt und nicht den Tod allein. Die Achse kann daher schematisch als
+Abhängigkeitsnotation statt als Implikation der Objektsprache ausgedrückt werden. Um den Eindruck
+eines Beweiskalküls zu vermeiden, ist die Unterstützungsstruktur als beschriftete Gutachterkanten
+geschrieben:
+
+\begin{enumerate}
+\item \textbf{Kante 1.} Axiom~3.2 zusammen mit Definition~12.1, 12.3 und 12.4 unterstützt Source Theorem~3, und Source Theorem~3 unterstützt Lemma~1.
+\item \textbf{Kante 2.} Axiom~3.3 zusammen mit Definition~12.6 unterstützt Source Korollar~3.2, und Source Korollar~3.2 unterstützt Lemma~3.
+\item \textbf{Kante 3.} Lemma~1 zusammen mit Definition~12.5 unterstützt Lemma~2.
+\item \textbf{Kante 4.} Lemma~2 ist die einzige im kanonischen Register der Beweisverpflichtungen
+eingezeichnete Voraussetzung für Theorem~A.
+\end{enumerate}
+
+Die Definitionen in dieser Liste sind Voraussetzungsknoten, keine unabhängigen Voraussetzungen
+für Theoreme. Das Wort ``unterstützt'' bezeichnet einen im Release zugelassenen Unterstützungsschritt
+statt eines primitiven Implikationsoperators von OC.
+
+Lemma~3 bleibt in der Umgebung der Roadmap eine zugelassene Verpflichtung zur Wiedergeburtskontrolle,
+ist jedoch keine Voraussetzung von Theorem~A im kanonischen Register der Beweisverpflichtungen. Seine
+geltungstragende Rolle ist eine andere: Es unterstützt die begleitende Kontrollaussage,
+Proposition~B. Immer wenn ein komprimierter Artikelnachweis das Paket aus Tod--Rest--Wiedergeburt
+in einem Absatz diskutiert, ist Lemma~3 als unterstützend für Proposition~B zu lesen, während
+Theorem~A selbst die durch Lemma~2 geführte Einordnung von Tod und Rest bleibt.
+
+\paragraph{Proposition B (Wiedergeburtskontrolle auf Artikelebene).}
+\label{prop:oc13-rebirth-control}
+In der artikelbezogenen Extraktion wird nach dem rechtmäßigen Kollaps von
+\(K\), also bei \(\Omega(K)=\emptyset\) und \(k(K,t)=0\), ein späteres Objekt\(K'\) genau dann
+als Wiedergeburt klassifiziert, wenn \(K'\) lebendig ist, numerisch vom toten originalen Kontinuum\(K\)
+verschieden ist, entweder im selben Einbettungszweig oder in einem explizit nachgewiesenen verwandten
+Einbettungszweig auftritt, mindestens ein deklariertes Reststützenelement übernimmt und die relevanten
+Geburtsbedingungen erfüllt. Die Identitätsregel liefert den Grund dafür, dass diese Nicht-Identitätsbedingung
+erzwungen statt optional ist. Diese Proposition ist eine begleitende Kontrollaussage für den Wiedergeburtzweig;
+sie ist keine Voraussetzung von Theorem~A.
+
+In dieser Roadmap markiert das Präfix \emph{Source} eine Zeugenprojektion aus dem geprüften öffentlichen
+LaTeX-Quelltextkorpus und dem im Source-Audit-Anhang beschriebenen archivalischen PDF-Kompilat.
+Solche Zeilen werden in Core~1.3.3 als Source-bezeugte Stützpunkte übernommen und über das
+kanonische Beweisverpflichtungsregister geprüft; sie sind keine neu eingeführten primitiven Theoreme der
+artikelbezogenen Extraktion. Die unpräfigierten Lemma, Theorem~A und Proposition~B sind die auf dieser
+beobachteten Stütze aufgebauten artikelbezogenen abgeleiteten Zeilen. Theorem~A nutzt die Achse zu
+Tod und Rest; Proposition~B nutzt den Wiedergeburtskontrollzweig.
+
+Axiome, Source-Theoreme und -Korollare, Lemmata und Theorem~A tragen Stützknoten mit
+Beweiskraft; Definitionen fixieren die von diesen Knoten verwendeten Begriffe.
+
+Der Sinn dieser expliziten Kette ist nicht, vorzutäuschen, dass der gesamte Rahmen auf ein einziges
+Diagramm reduzierbar wäre. Der Sinn ist zu zeigen, dass die beschränkte Behauptung einen prüfbaren
+positiven Kern hat und nicht eine Wolke motivierender Prosa. Abbildung~source label figure oc13 theorem spine
+markiert darüber hinaus eine ausgeschlossene, hebenlastige Versuchungslinie als Grenze einer
+gespannten Überprüfung; sie wird genau so geprüft, dass sie nicht irrtümlich als zugelassene Stütze in der
+positiven Kette missverstanden werden kann. Die Zweigfolge Korollar~3.2 / Lemma~3 wird als zugelassener
+Wiedergeburt-Kontrollzweig für Proposition~B neben der Theoremroute gezeigt, nicht als Vorgänger von
+Theorem~A. In dieser Roadmap wird der verwandte Einbettungszweig durch einen einzigen auditierbaren
+artikellokalen Zeugen repräsentiert, nicht durch eine erschöpfende Liste jedes zulässigen Source-
+Niveaubezogenen Zeugen dieses Zweigs. Dies ist derselbe Zweig, der durch
+\(\mathcal{M}\sim_{\mathrm{res}}\mathcal{M}'\) in
+the worked examples chapter bezeichnet wird: eine benannte struktur-erhaltende Abbildung
+\(h:\mathcal{M}\to\mathcal{M}'\), ein Rest-Element
+\(r\in R_{\mathrm{res}}(K)\),
+Mitgliedschaft im zulässigen Bereich
+\(h(r)\in\Omega(K')\subseteq\Omega_{\mathrm{amb}}(\mathcal{M}')\),
+und Erhaltung der Grenzwert- und Zulässigkeitsprädikate auf der Substruktur mit Rest. the worked examples chapter
+und der Journal-Core-Stand belegen diesen Zeugenprüfpfad explizit.
+
+\begin{figure}[htbp]
+\centering
+\input{figures/oc_core_1_3_theorem_spine.tex}
+\caption{Tragende Theoremachse der beschränkten Behauptung von Core~1.3.3. Durchgezogene Pfeile
+kennzeichnen zugelassene Stützung. Der positive Theorem~A-Zweig endet bei Lemma~2; der Zweig aus
+Lemma~3 bleibt neben dieser Strecke als zugelassene Wiedergeburtskontrollstützung sichtbar.
+Der gestrichelte Zweig markiert einen ausgeschlossenen hebenlastigen Weg, der als Randbedingung geprüft
+wird und nicht in den positiven Beweis aufgenommen wird. Die größere Monographie bleibt erforderlich,
+weil die umgebenden Kapitel Ontologie, Operatorhülle, K-Level-Lehre, Kollapsgrammatik, empirische
+Schwelle und Audit-Schichten festlegen, die diese Achse wissenschaftlich interpretierbar und extern
+zitierebar machen.}
+\label{fig:oc13-theorem-spine}
+\end{figure}
+
+\subsection{Was die Achse umgibt}
+
+Die Theoremachse hat eine kleine Beweisabhängigkeit, wird aber im weiteren Manuskript auf fünf unterschiedliche
+Weisen interpretiert und geprüft:
+
+\begin{enumerate}
+\item die formalen Doktrinenkapitel fixieren Zulässigkeit, Schwellen, Operatoren, Ebenen, Verzweigung und Falsifizierbarkeit;
+\item die Konsistenz- und Source-Grenzkapitel fixieren Aussageklasse, Theoremfatum und Veröffentlichungsumfang;
+\item das Kapitel zur Beweistechnik und der Anhang fixieren Revision, Vergleichsoperator, Kompression und die Disziplin der Beweisverpflichtung;
+\item die operativen und empirischen Kapitel fixieren Förderung, Wiederholung und die Disziplin der Falsifikatoren;
+\item die Anhänge halten die Audit- und Atlaslast im gleichen Band.
+\end{enumerate}
+
+Das erklärt, weshalb die Monographie größer sein darf als der verteidigte Artikel, ohne rhetorisch zu kippen.
+Diese umgebenden Kapitel sind Publikations- und Audit-Rahmen, keine zusätzlichen Voraussetzungen von Theorem~A.
+
+\subsection{Aussageklassen und Lastverteilung}
+
+Die folgende Tabelle ist eine Beweisnavigationskarte für Gutachter. Sie folgt der Aussageklassentaxonomie
+von the foundational-consistency chapter. Die Propositionenzeile ist eine reine
+Navigationsuntergliederung abgeleiteter Aussagen, keine neue Beweisstatus-Klasse. Operative Regeln bleiben
+eine nachgelagerte Prüfungs- statt eine separate Beweisstatusklasse.
+
+\begin{table}[htbp]
+\centering
+\begingroup
+\footnotesize
+\RaggedRight
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{@{}L{0.21\textwidth}L{0.28\textwidth}L{0.39\textwidth}@{}}
+\toprule
+\textbf{Aussageklasse} & \textbf{Wissenschaftliche Last} & \textbf{Prüfort} \\
+\midrule
+Axiomatische Aussagen & Legen primitive Zulässigkeits-, Identitäts- oder Schwellenbedingungen fest. & Axiomanhang, Notationsanhang sowie the sections on boundary extended, and section collapse rebirth. \\
+Abgeleitete Theoreme und Lemmata & Tragen den beweistragenden positiven Kern. & the sections on results, section collapse rebirth, and the theorem roadmap, Gutachter-Navigationsmatrix und Anhang zur Beweistechnik. \\
+Artikelbezogene Propositionen & Tragen begleitende Kontrollaussagen, die aus derselben auditierbaren Stütze abgeleitet sind,
+      aber keine Voraussetzungen von Theorem~A sind. Proposition~B ist das Beispiel der Wiedergeburtskontrolle. & the theorem-roadmap section, and the worked examples chapter und Journal-Core-Bridge-Anhang. \\
+Strukturaussagen & Erklären Hierarchie, Modulstruktur und Verhältnis zwischen Ebenen oder Artefakten. & the sections on klevels full, and section falsifiability extended, the modules master discussion, the public claim-boundary chapter und the foundational-consistency chapter. \\
+Interpretationsaussagen & Erklären Bedeutung, Nichtbehauptungen und nachgelagerte Grenzen. & the sections on discussion, the worked examples chapter, and section oc core 1 3 practical utility, Provenance and Corpus Appendix und Gutachter-Navigationsmatrix. \\
+Empirische Aussagen & Erfordern ein quellbesessenes Domänenpaket, theoremnächige Spur, numerisches
+      Parametergesetz, beobachtbare Bindung, fixierte Datenroute, Aussonderungs-Replay,
+      Comparator-Audit und einen Falsifikator vor der Förderung. & the sections on oc core 1 3 operationalization program, and section oc core 1 3 empirical execution protocols sowie Anhänge~the oc core 1 3 empirical validation matrix--the the oc discussioncore 1 3 domain execution board discussion. \\
+Grenzsaussagen & Kennzeichnen rechtmäßige Zukunftsarbeit ohne positive Release-Befugnis. & the practical utility chapter, Anhang~the practical utility chapter atlas und die Grenzzeilen im source-owned science corpus. \\
+\bottomrule
+\end{tabular}
+\endgroup
+\caption{Aussageklassen und ihre Prüfungsbelastung in Core~1.3.3. Die Tabelle ersetzt nicht die formalen Kapitel;
+sie verhindert lediglich, dass Beweis-, Interpretations-, Empirie-Promotion und Frontier-Sprache still
+verändert ihre Rolle wechseln. Replay, Comparator, Falsifikator und Eskalationsregeln sind nachgelagerte
+Kontrollverpflichtungen, die diesen Klassen zugeordnet sind.}
+\label{tab:oc13-statement-classes}
+\end{table}
+
+Alle Prüfziele in Tabelle~source label table oc13 statement classes sind anhand der englischen Masterquelle
+auf Label-Konsistenz geprüft. Wird eines dieser Labels durch eine Release-Hülle geändert, muss die
+tafel vor der Behandlung der Roadmap als mechanisch nachvollziehbare Auditstrecke neu erzeugt oder
+gepatcht werden.
+
+\subsection{Kürzeste Checkliste für harte Gegenprüfung}
+
+Wenn ein Gutachter die effizienteste Angriffsfolge sucht, bleiben die logisch härtesten Prüfungen
+die folgenden:
+
+\begin{enumerate}
+\item prüfen, dass der Kollaps an den Verlust zulässiger Realisierung gekoppelt ist und nicht an eine lose Metapher;
+\item prüfen, dass die Irreversibilitätsregel die Wiederherstellung des ursprünglichen Kontinuums als numerisch
+      dieselbe Entität verbietet;
+\item prüfen, dass Rest und Wiedergeburt kontrollierte Klassifikationen und keine narrativen Etiketten sind;
+\item prüfen, dass keine ausgeschlossene, hebenlastige Theoremenfamilie unbemerkt in die positive beschränkte
+      Route zurückgeführt wird;
+\item prüfen, dass die Journal-Core-Extraktion nichts Stärkeres behauptet als das quellbesessene Wissenschafts-
+      corpus und die kanonische science-state register-Erlaubnis; die Flaggschiff-Monographie wird dann nur als abgeleitete
+      Vergleichsoberfläche nachgeprüft;
+\item prüfen, dass die K-Level-Doktrin, insbesondere \(K_{11}\) und \(K_{12}\), strukturell begründet und nicht
+      rhetorisch überhöht ist.
+\end{enumerate}
+
+Gelingen diese Prüfungen nicht, kann nachfolgende Prosa sie nicht retten. Gelingt
+es dagegen, wird eine langsamere Volllektüre sinnvoll.
+
+\paragraph{Brücke zum nächsten Kapitel.}
+Mit der kartierten Beweistruktur wechselt das nächste Kapitel bewusst den Modus. Es navigiert die Achse nicht
+mehr abstrakt; stattdessen zeigt es, wie die formale Grammatik über Rechenbeispiele, Gegenbeispiele
+und beschränkte interpretative Prüfungen gelesen werden soll.
+
+\clearpage

@@ -14,7 +14,7 @@
     "structure": 656,
     "style": 656
   },
-  "artifact_hash": "ca0bfcf1caff9b969c780e37038e95459a88560751d495daa0bbdb4afa8c1ff6",
+  "artifact_hash": "0836c4c7775f3179522aad1f3569f9f7c1e5d58b465504f0f465bd0e406e2d8d",
   "artifact_kind": "OC_CORE_RELEASE_QUALITY_AUDIT",
   "artifact_quality_rows": [
     {
@@ -31,12 +31,14 @@
         }
       ],
       "existing_candidate_asset_total": 2,
+      "form_quality_status": "FAIL",
       "label": "Release Guide",
+      "machine_form_gate_finding_total": 46,
       "metric_family": "artifact_hygiene",
       "recovery_baseline": null,
-      "score": 1.0,
+      "score": 0.0,
       "source": "generated_release_package_assembly",
-      "state": "PASS"
+      "state": "FAIL"
     },
     {
       "artifact_type_id": "master_monograph",
@@ -52,16 +54,18 @@
         }
       ],
       "existing_candidate_asset_total": 2,
+      "form_quality_status": "FAIL",
       "label": "Master Monograph",
+      "machine_form_gate_finding_total": 306,
       "metric_family": "artifact_hygiene",
       "recovery_baseline": {
         "old_public_master_baseline_pages": 650,
         "pass": true,
         "recovered_master_pages": 1123
       },
-      "score": 1.0,
+      "score": 0.0,
       "source": "generated_release_package_assembly",
-      "state": "PASS"
+      "state": "FAIL"
     },
     {
       "artifact_type_id": "journal_core_article",
@@ -77,12 +81,14 @@
         }
       ],
       "existing_candidate_asset_total": 2,
+      "form_quality_status": "FAIL",
       "label": "Journal Core Article",
+      "machine_form_gate_finding_total": 159,
       "metric_family": "artifact_hygiene",
       "recovery_baseline": null,
-      "score": 1.0,
+      "score": 0.0,
       "source": "generated_release_package_assembly",
-      "state": "PASS"
+      "state": "FAIL"
     },
     {
       "artifact_type_id": "methods_repro_companion",
@@ -98,12 +104,14 @@
         }
       ],
       "existing_candidate_asset_total": 2,
+      "form_quality_status": "FAIL",
       "label": "Methods Repro Companion",
+      "machine_form_gate_finding_total": 75,
       "metric_family": "artifact_hygiene",
       "recovery_baseline": null,
-      "score": 1.0,
+      "score": 0.0,
       "source": "generated_release_package_assembly",
-      "state": "PASS"
+      "state": "FAIL"
     },
     {
       "artifact_type_id": "reviewer_attack_response_map",
@@ -119,12 +127,14 @@
         }
       ],
       "existing_candidate_asset_total": 2,
+      "form_quality_status": "FAIL",
       "label": "Reviewer Attack Response Map",
+      "machine_form_gate_finding_total": 71,
       "metric_family": "artifact_hygiene",
       "recovery_baseline": null,
-      "score": 1.0,
+      "score": 0.0,
       "source": "generated_release_package_assembly",
-      "state": "PASS"
+      "state": "FAIL"
     },
     {
       "artifact_type_id": "public_evidence_bundle",
@@ -136,7 +146,9 @@
         }
       ],
       "existing_candidate_asset_total": 1,
+      "form_quality_status": "PASS",
       "label": "Public Evidence Bundle",
+      "machine_form_gate_finding_total": 0,
       "metric_family": "artifact_hygiene",
       "recovery_baseline": null,
       "score": 1.0,
@@ -153,7 +165,9 @@
         }
       ],
       "existing_candidate_asset_total": 1,
+      "form_quality_status": "PASS",
       "label": "Integrity Manifest",
+      "machine_form_gate_finding_total": 0,
       "metric_family": "artifact_hygiene",
       "recovery_baseline": null,
       "score": 1.0,
@@ -170,7 +184,9 @@
         }
       ],
       "existing_candidate_asset_total": 1,
+      "form_quality_status": "PASS",
       "label": "Citation Metadata",
+      "machine_form_gate_finding_total": 0,
       "metric_family": "artifact_hygiene",
       "recovery_baseline": null,
       "score": 1.0,
@@ -187,7 +203,9 @@
         }
       ],
       "existing_candidate_asset_total": 1,
+      "form_quality_status": "PASS",
       "label": "Release Notes Changelog",
+      "machine_form_gate_finding_total": 0,
       "metric_family": "artifact_hygiene",
       "recovery_baseline": null,
       "score": 1.0,
@@ -15962,6 +15980,7 @@
     "l10_projection_matrix_hash": "2528ae4b4b4a9760a810afb2b2cabc785938ecf4b445a426568c37a24185afe3",
     "metric_catalog_hash": "c3fbdeba0fcb872e12d83e9c8f6a07696d219f29f24cfbcd47b3b2a7d27a9f81",
     "package_cascade_hash": "4b1f05445e4484eece901d954c01f3a7c7abd61d56e5a2b06cd4b43ca63bf52f",
+    "release_assembly_machine_audit_hash": "a581ad03ae2cc14eb578ac4a28baee8997e6b87543c3b3ab7c41190f5d8ab0f9",
     "release_instance_hash": "5d8d592ccd357ec35fe9b0d43a852a1ed07275bac411719da67bb9b5e191230b",
     "release_package_assembly_hash": "0bbd4867a05eaba1850e8117dc1c60d035944eb2a1265d9283ea268efe11a97b",
     "review_package_hash": "9a90a534b8296bb8b70d740d5cd4469d2951d262f438edd88541e9049d99feb6",
@@ -15970,9 +15989,13 @@
   "status": "QUALITY_REPAIR_REQUIRED",
   "summary": {
     "applicable_projection_total": 6635,
-    "artifact_failure_total": 0,
+    "artifact_failure_total": 5,
     "artifact_type_total": 9,
-    "blocking_vulnerability_total": 1,
+    "blocking_vulnerability_total": 2,
+    "form_quality_status": "FAIL",
+    "heading_hygiene_status": "FAIL",
+    "machine_audit_status": "FAIL",
+    "machine_form_gate_finding_total": 657,
     "metric_total": 15,
     "missing_required_metric_node_total": 0,
     "not_assessed_l10_total": 0,
@@ -15987,9 +16010,12 @@
     "scientific_coverage_not_assessed_l10_total": 656,
     "scientific_full_coverage_claim_allowed": false,
     "terminal_l10_node_total": 656,
-    "vulnerability_total": 1
+    "title_page_status": "FAIL",
+    "toc_semantic_status": "FAIL",
+    "vulnerability_total": 2
   },
   "vulnerability_ids": [
+    "VULN-MA-001",
     "VULN-CERB-001"
   ]
 }

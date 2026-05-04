@@ -1,7 +1,7 @@
 # OC Core Release Quality Audit 1.3.3
 
 Status: `QUALITY_REPAIR_REQUIRED`
-Artifact hash: `ca0bfcf1caff9b969c780e37038e95459a88560751d495daa0bbdb4afa8c1ff6`
+Artifact hash: `0836c4c7775f3179522aad1f3569f9f7c1e5d58b465504f0f465bd0e406e2d8d`
 
 ## Summary
 
@@ -15,13 +15,19 @@ Artifact hash: `ca0bfcf1caff9b969c780e37038e95459a88560751d495daa0bbdb4afa8c1ff6
 - `scientific_coverage_not_assessed_l10_total`: 656
 - `missing_required_metric_node_total`: 0
 - `artifact_type_total`: 9
-- `artifact_failure_total`: 0
+- `artifact_failure_total`: 5
+- `machine_audit_status`: FAIL
+- `title_page_status`: FAIL
+- `toc_semantic_status`: FAIL
+- `heading_hygiene_status`: FAIL
+- `form_quality_status`: FAIL
+- `machine_form_gate_finding_total`: 657
 - `recovered_package_regression_applicable`: True
 - `old_public_master_baseline_pages`: 650
 - `recovered_master_pages`: 1123
 - `recovered_master_baseline_pass`: True
-- `blocking_vulnerability_total`: 1
-- `vulnerability_total`: 1
+- `blocking_vulnerability_total`: 2
+- `vulnerability_total`: 2
 - `quality_claim_allowed`: False
 - `scientific_full_coverage_claim_allowed`: False
 

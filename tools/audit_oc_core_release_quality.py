@@ -14,12 +14,74 @@ from build_oc_core_release_instance import instance_paths
 from build_oc_core_release_package_cascade import package_paths
 from build_oc_core_text_fill_rules import rules_paths
 from assemble_oc_core_release_package import OLD_MASTER_BASELINE_PAGES, assembly_paths
+from audit_oc_core_release_assembly_machine import FORM_FINDING_KINDS, machine_audit_paths
 from oc_core_release_assembly_lib import ROOT, artifact_hash, read_json, stable_json, validation_result
 
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
 from release_machine.versioning import version_from_release_id
+
+FORM_STATUS_KEYS = [
+    "title_page_status",
+    "toc_semantic_status",
+    "heading_hygiene_status",
+    "title_page_publication_status",
+    "acknowledgements_status",
+    "abstract_depth_status",
+    "release_delta_status",
+    "reader_contract_status",
+    "frontmatter_identity_status",
+    "reader_routes_status",
+    "toc_visual_hierarchy_status",
+    "uniform_document_hierarchy_status",
+    "appendix_naming_status",
+    "layout_quality_status",
+    "table_readability_status",
+    "inline_figure_distribution_status",
+    "caption_quality_status",
+    "bibliography_depth_status",
+    "prediction_falsifiability_status",
+    "reader_facing_reference_status",
+    "toc_hierarchy_status",
+    "content_richness_status",
+    "technical_prose_leak_status",
+    "didactic_density_status",
+    "title_identity_public_status",
+    "frontmatter_depth_status",
+    "release_policy_status",
+    "reader_routes_tone_status",
+    "single_reader_orientation_status",
+    "no_internal_block_metadata_status",
+    "no_fig_table_lists_status",
+    "didactic_spine_order_status",
+    "motivation_depth_status",
+    "k_primer_status",
+    "duplicate_structure_status",
+    "publication_translation_status",
+    "instruction_prose_leak_status",
+    "page17_internal_leak_status",
+    "figure_pedagogy_status",
+    "k_hierarchy_figure_status",
+    "all_reader_pdf_translation_status",
+    "governed_ollama_status",
+    "v_model_audit_status",
+    "common_llm_service_status",
+    "llm_service_governance_status",
+    "llm_service_cadence_status",
+    "llm_service_thermal_monitor_status",
+    "llm_service_no_bypass_status",
+    "llm_service_vmodel_status",
+    "local_ollama_capability_status",
+    "editorial_llm_queue_status",
+    "editorial_packet_coverage_status",
+    "actual_ollama_invocation_status",
+    "until_done_status",
+    "cooldown_resume_status",
+    "v_model_completion_status",
+    "local_capability_exhaustion_status",
+    "form_quality_status",
+]
 
 
 QUALITY_VALIDATION_STATUS_FAIL = "QUALITY_REPAIR_REQUIRED"
@@ -61,7 +123,47 @@ def _release_package_assembly(release_id: str, assembly_revision: str | None = N
     return read_json(path) if path.exists() else None
 
 
-def _artifact_scores(review_package: dict[str, Any], assembly: dict[str, Any] | None = None) -> list[dict[str, Any]]:
+def _release_machine_audit(release_id: str, assembly_revision: str | None = None) -> dict[str, Any] | None:
+    version = version_from_release_id(release_id)
+    path = machine_audit_paths(release_id, version, assembly_revision)["audit_json"]
+    return read_json(path) if path.exists() else None
+
+
+def _machine_form_findings(machine_audit: dict[str, Any] | None, artifact_type_id: str | None = None) -> list[dict[str, Any]]:
+    if not machine_audit:
+        return []
+    findings = [finding for finding in machine_audit.get("findings", []) if finding.get("kind") in FORM_FINDING_KINDS]
+    if artifact_type_id is None:
+        return findings
+    return [finding for finding in findings if finding.get("artifact_type_id") == artifact_type_id]
+
+
+def _machine_form_summary(machine_audit: dict[str, Any] | None) -> dict[str, Any]:
+    if not machine_audit:
+        missing = {
+            "machine_audit_status": "MISSING",
+            "machine_form_gate_finding_total": 0,
+        }
+        missing.update({key: "FAIL" for key in FORM_STATUS_KEYS})
+        return missing
+    summary = machine_audit.get("summary", {})
+    payload = {
+        "machine_audit_status": machine_audit.get("status"),
+        "machine_form_gate_finding_total": len(_machine_form_findings(machine_audit)),
+        "source_grounded_repair_status": summary.get("source_grounded_repair_status"),
+        "local_editorial_capability_boundary_status": summary.get("local_editorial_capability_boundary_status"),
+        "unresolved_repair_record_total": summary.get("unresolved_repair_record_total"),
+        "accepted_candidate_promoted_total": summary.get("accepted_candidate_promoted_total"),
+    }
+    payload.update({key: summary.get(key) for key in FORM_STATUS_KEYS})
+    return payload
+
+
+def _artifact_scores(
+    review_package: dict[str, Any],
+    assembly: dict[str, Any] | None = None,
+    machine_audit: dict[str, Any] | None = None,
+) -> list[dict[str, Any]]:
     if assembly:
         rows: list[dict[str, Any]] = []
         for artifact in assembly.get("artifact_rows", []):
@@ -79,7 +181,10 @@ def _artifact_scores(review_package: dict[str, Any], assembly: dict[str, Any] | 
                     "recovered_master_pages": pages,
                     "pass": baseline_ok,
                 }
-            state = "PASS" if output_paths and not missing and pdf_ok and baseline_ok else "FAIL"
+            artifact_form_findings = _machine_form_findings(machine_audit, artifact.get("artifact_type_id"))
+            machine_required = artifact.get("output_kind") == "markdown_and_pdf"
+            form_ok = (not machine_required) or (machine_audit is not None and machine_audit.get("status") == "PASS" and not artifact_form_findings)
+            state = "PASS" if output_paths and not missing and pdf_ok and baseline_ok and form_ok else "FAIL"
             rows.append(
                 {
                     "artifact_type_id": artifact["artifact_type_id"],
@@ -92,6 +197,8 @@ def _artifact_scores(review_package: dict[str, Any], assembly: dict[str, Any] | 
                     "metric_family": "artifact_hygiene",
                     "source": "generated_release_package_assembly",
                     "recovery_baseline": recovery_baseline,
+                    "form_quality_status": "PASS" if form_ok else "FAIL",
+                    "machine_form_gate_finding_total": len(artifact_form_findings),
                 }
             )
         return rows
@@ -269,9 +376,15 @@ def build_audit_payload(release_id: str, assembly_revision: str | None = None) -
     package = read_json(package_paths()["cascade_json"])
     rules = read_json(rules_paths()["rules_json"])
     package_assembly = _release_package_assembly(release_id, assembly_revision)
+    machine_audit = _release_machine_audit(release_id, assembly_revision) if package_assembly else None
+    if package_assembly:
+        machine_form_summary = _machine_form_summary(machine_audit)
+    else:
+        machine_form_summary = {"machine_audit_status": None, "machine_form_gate_finding_total": 0}
+        machine_form_summary.update({key: None for key in FORM_STATUS_KEYS})
     recovery_regression = _recovery_regression_summary(package_assembly)
     l10_rows = _l10_quality_rows(aggregator, matrix, package_assembly)
-    artifact_rows = _artifact_scores(review_package, package_assembly)
+    artifact_rows = _artifact_scores(review_package, package_assembly, machine_audit)
     not_assessed_nodes = [row["aggregator_node_id"] for row in l10_rows if row["quality_state"] == "NOT_ASSESSED"]
     scientific_not_assessed_nodes = [row["aggregator_node_id"] for row in l10_rows if row.get("scientific_coverage_status") == "not_assessed"]
     missing_metric_rows = [row for row in l10_rows if row["missing_required_metric_ids"]]
@@ -294,6 +407,7 @@ def build_audit_payload(release_id: str, assembly_revision: str | None = None) -
             "release_instance_hash": instance["artifact_hash"],
             "review_package_hash": review_package["artifact_hash"],
             "release_package_assembly_hash": (package_assembly or {}).get("artifact_hash"),
+            "release_assembly_machine_audit_hash": (machine_audit or {}).get("artifact_hash"),
             "current_release_aggregator_hash": aggregator["artifact_hash"],
             "metric_catalog_hash": catalog["artifact_hash"],
             "l10_projection_matrix_hash": matrix["artifact_hash"],
@@ -312,6 +426,7 @@ def build_audit_payload(release_id: str, assembly_revision: str | None = None) -
             "missing_required_metric_node_total": len(missing_metric_rows),
             "artifact_type_total": len(artifact_rows),
             "artifact_failure_total": len(artifact_failures),
+            **machine_form_summary,
             "recovered_package_regression_applicable": recovery_regression["applicable"],
             "old_public_master_baseline_pages": recovery_regression.get("old_public_master_baseline_pages"),
             "recovered_master_pages": recovery_regression.get("recovered_master_pages"),
@@ -370,7 +485,22 @@ def build_vulnerability_rows(
                 "verification_rule": "python tools/build_oc_core_l10_quality_projection_matrix.py --check must pass with no node_missing_required_metrics failures.",
             }
         )
-    failed_artifacts = [row for row in artifact_rows if row["state"] != "PASS"]
+    form_failed_artifacts = [row for row in artifact_rows if row.get("form_quality_status") == "FAIL"]
+    failed_artifacts = [row for row in artifact_rows if row["state"] != "PASS" and row.get("form_quality_status") != "FAIL"]
+    if form_failed_artifacts:
+        vulnerabilities.append(
+            {
+                "vulnerability_id": "VULN-MA-001",
+                "root_class": "release_artifact_form_gate_failure",
+                "severity": "CRITICAL",
+                "release_blocking": True,
+                "affected_node_ids": [],
+                "affected_artifacts": [row["artifact_type_id"] for row in form_failed_artifacts],
+                "finding_total": sum(int(row.get("machine_form_gate_finding_total") or 0) for row in form_failed_artifacts),
+                "required_repair": "Repair the generated title page, table of contents, or visible heading hierarchy and rerun the assembly machine audit.",
+                "verification_rule": f"python tools/audit_oc_core_release_assembly_machine.py --release {release_id} --check must show form_quality_status=PASS and form_finding_total=0.",
+            }
+        )
     if failed_artifacts:
         vulnerabilities.append(
             {

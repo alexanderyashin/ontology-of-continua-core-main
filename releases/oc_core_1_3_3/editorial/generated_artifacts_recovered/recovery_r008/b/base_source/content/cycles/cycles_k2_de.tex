@@ -1,0 +1,172 @@
+% ================================================================
+% ==== FILE: content/cycles/cycles_k2.tex
+% ================================================================
+
+\subsubsection{Zyklen auf \texorpdfstring{$K_2$}{K_2}}
+\label{sec:cycles-k2}
+
+Ebene$K_2$entspricht dem Kontinuum der Konnektivität.
+Sein Zustandsraum wird durch eine versickerungsartige Konfiguration dargestellt
+\[
+  \Omega(K_2) \cong \{0,1\}^{|E|},
+\]
+Wo$E$ist die Menge der Kanten und die Strukturvariable ist die
+Berufswahrscheinlichkeit$p$.
+Das grundlegende Phänomen auf dieser Ebene ist die Entstehung oder Zerstörung
+der globalen Konnektivität.
+
+Zyklen weiter$K_2$entstehen aufgrund von Schwankungen in der Clusterstruktur,
+connectivity measures, and the effective time $\tau(K_2)$ associated
+mit Korrelationsdynamik.
+
+\subsubsection{Definition von Zyklen auf \texorpdfstring{$K_2$}{K_2}}
+
+Ein Zyklus weiter$K_2$ist eine dynamische Flugbahn
+\[
+  C:[0,\tau]\to\Omega(K_2)
+\]
+so dass:
+\[
+  C(0)=C(\tau),
+\]
+und seine Entwicklung wird vom Operator gesteuert
+\[
+  \frac{dp}{dt}
+  = F_2(p,\, A_2,\, P_2,\, J_2,\, \Theta_2),
+\]
+Wo:
+
+\begin{itemize}
+  \item $A_2$sind Konnektivitätsachsen (lokale „besetzte/unbesetzte“ Zustände),
+  \item $P_2$sind Potenziale, die aus Clustergrößen, Korrelationslänge,
+oder energieähnliche Parameter,
+  \item $J_2$sind Ströme von Konnektivitätsänderungen,
+  \item $\Theta_2$enthält die kritische Versickerungsschwelle$p_c$.
+\end{itemize}
+
+Somit ist ein Zyklus eine geschlossene Wiederholung von Konnektivitätskonfigurationen.
+
+\subsubsection{Arten von Zyklen auf \texorpdfstring{$K_2$}{K_2}}
+
+Es gibt drei Hauptklassen von Zyklen.
+
+\paragraph{(1) Cluster–Rearrangement Cycles.}
+Lokale Edge-Flip-Dynamik erzeugt oszillierendes Verhalten im Cluster
+Struktur.
+Diese Zyklen nähern sich nicht der Kritikalität und weisen eine begrenzte Korrelation auf
+Länge.
+
+\paragraph{(2) Subcritical Connectivity Cycles.}
+Für$p<p_c$, kann das System in der Größe wiederkehrendes Verhalten erfahren
+Verteilung endlicher Cluster:
+\[
+  C: \quad
+  N(s,t) \to N(s,t+\tau),
+\]
+Wo$N(s)$ist die Anzahl der Clustergrößen$s$.
+Diese Zyklen sind aufgrund des Fehlens eines Riesen strukturell stabil
+Komponente.
+
+\paragraph{(3) Critical–Near-Critical Cycles.}
+For $p\approx p_c$, oscillations may bring the system repeatedly close
+bis zur kritischen Perkolationsschwelle.
+Diese Zyklen haben:
+
+\begin{itemize}
+  \item lange Korrelationslängen$\xi(p(t))$,
+  \item hohe strukturelle Spannung$T_2(t)$,
+  \item Empfindlichkeit gegenüber Schwellenwerten$\Theta_2$,
+  \item Potenzial für phasenübergangsartige Exkursionen.
+\end{itemize}
+
+Dies ist die erste Ebene in der Hierarchie mit nicht trivialen Strukturen
+Zyklen erscheinen.
+
+\subsubsection{Strukturelle Spannung und Schwelleninteraktion}
+
+Strukturelle Spannung an$K_2$ist gegeben durch:
+\[
+T_2(p)
+  = f\bigl(\xi(p),\; \mathrm{Conn}(p),\;
+       |p - p_c|\bigr),
+\]
+Wo$f$wächst, wenn sich das System der Kritikalität nähert.
+
+Ein Zyklus kann nur dann periodisch sein, wenn:
+\[
+  T_2(t) < \Theta_{\mathrm{death}}
+\]
+für alle$t$.
+Wenn die Schleife die Phasengrenze überschreitet
+\[
+p = p_c,
+\]
+Das System durchläuft einen Strukturwandel und der Kreislauf kann sich nicht schließen
+reibungslos, es sei denn, die Dynamik kehrt zurück$p$über die gleiche Grenze.
+
+Dies führt zunächst einmal zur Möglichkeit **kritischer Zyklen**
+im OC von Schleifen, die mit Phasenübergängen interagieren.
+
+\subsubsection{Metriken von Zyklen auf \texorpdfstring{$K_2$}{K_2}}
+
+In Übereinstimmung mit Lauf ~ 9 werden die Zyklen wie folgt gemessen:
+
+\[
+L(C)
+  = \int_0^\tau \|\dot{p}(t)\|\, dt,
+\]
+\[
+  C_{\mathrm{eff}}
+  = \frac{1}{L(C)} \int_0^\tau J_2(t)\cdot dA_2(t),
+\]
+\[
+  S(C) = \min_{t\in[0,\tau]} d\bigl(\Omega(K_2),\partial\Omega(K_2)\bigr),
+\]
+Wo$d$hängt von der Nähe zur Kritikalität ab.
+
+Für nahezu kritische Zyklen:
+\[
+  S(C) \to 0 \quad \text{as} \quad p\to p_c.
+\]
+
+Dies ist der Ursprung der „kritischen Verlangsamung“ und des „kritischen Zyklus“.
+Degeneration.''
+
+\subsubsection{Geburt der Zeit und nicht-trivialer Zyklen}
+
+According to the formal definition of $\tau(K_2)$ (memory block~C.1–7),
+Zeit weiter$K_2$wird durch die Wiederholungsperiode der Korrelation bestimmt
+Strukturen:
+\[
+  \tau(K_2) \sim \frac{1}{\omega_{\mathrm{corr}}}.
+\]
+
+So geht es weiter$K_2$stehen in direktem Zusammenhang mit:
+
+\begin{itemize}
+  \item Entwicklung der Korrelationslänge$\xi(t)$,
+  \item Zeitskalen der Clusterumordnung,
+  \item Beschäftigungsflussdynamik$dp/dt$.
+\end{itemize}
+
+Dies stellt fest$K_2$als erste Ebene mit **dynamischem Temporal
+Komplexität**.
+
+\subsubsection{Rolle von \texorpdfstring{$K_2$}{K_2} Zyklen in der Hierarchie}
+
+Zyklen weiter$K_2$sind der Vorläufer von:
+
+\begin{itemize}
+  \item chemische Reaktionszyklen auf$K_3$;
+  \item Membran- und Stoffwechselzyklen auf$K_4$;
+  \item Spike-Zyklen an$K_5$;
+  \item kognitive Wiederholungsschleifen weiter$K_6$;
+  \item institutionelle Zyklen auf$K_7$;
+  \item Reproduktionszyklen auf Zivilisationsebene weiter$K_8$.
+\end{itemize}
+
+The essential mechanism introduced at $K_2$ is \emph{critical recurrence}
+— die Möglichkeit, zyklisch mit Schwellenwerten zu interagieren.
+
+Daher$K_2$ist das minimale Niveau, das die Ontologie von Continua zulässt
+nichttriviale, schwellensensitive, strukturell komplexe Zyklen.

@@ -1,0 +1,319 @@
+{
+  "batch_id": "oc_core_1.3.3_r009_editorial_until_done_writer_checker",
+  "cache_ref": "logion_local/runtime/cache/logion_llm_service_v1",
+  "caller_id": "logion_editorial_workbench_v1",
+  "capability_status": "LOWER_LEVEL_STATIC_BLOCKERS",
+  "generated_at_utc": "2026-05-04T14:31:24Z",
+  "governance_decision": {
+    "status": "ALLOW"
+  },
+  "heartbeat_ref": "logion_local/runtime/state/LOGION_LLM_SERVICE_HEARTBEAT_latest.json",
+  "host_samples": [
+    {
+      "governance_status": "ALLOW",
+      "gpu_temp_c": 52.0,
+      "gpu_thermal_band": "GREEN",
+      "host_status": "GREEN",
+      "task_id": "editorial_check_editorial_write_r009_l10_journal_core_article_0001_0009",
+      "ts_utc": "2026-05-04T14:30:43Z"
+    },
+    {
+      "governance_status": "ALLOW",
+      "gpu_temp_c": 53.0,
+      "gpu_thermal_band": "GREEN",
+      "host_status": "GREEN",
+      "task_id": "editorial_check_editorial_write_r009_l10_master_monograph_0001_0025",
+      "ts_utc": "2026-05-04T14:30:49Z"
+    },
+    {
+      "governance_status": "ALLOW",
+      "gpu_temp_c": 51.0,
+      "gpu_thermal_band": "GREEN",
+      "host_status": "GREEN",
+      "task_id": "editorial_check_editorial_write_r009_l10_master_monograph_0026_0050",
+      "ts_utc": "2026-05-04T14:31:20Z"
+    }
+  ],
+  "host_summary": {
+    "governance_status": "ALLOW",
+    "gpu_temp_c": 51.0,
+    "gpu_thermal_band": "GREEN",
+    "host_status": "GREEN",
+    "task_id": "editorial_check_editorial_write_r009_l10_master_monograph_0026_0050",
+    "ts_utc": "2026-05-04T14:31:20Z"
+  },
+  "ledger_ref": "logion_local/runtime/observability/logion_llm/LOGION_LLM_SERVICE_LEDGER.ndjson",
+  "policy": {
+    "cadence": "7b_then_two_3b_thermal_debt_cycles_when_governance_allows",
+    "direct_ollama_calls_allowed": false,
+    "max_workers": 1,
+    "parallel_local_llm_runs_allowed": false,
+    "provider_script": "logion/k3/execution/scripts/logion_llm/Provider_Ollama_Local_v0_1.ps1",
+    "until_done": true
+  },
+  "queue_id": "oc_core_1.3.3_r009_editorial_until_done_writer_checker",
+  "queue_status": "BLOCKED_BY_STATIC_FINDINGS",
+  "rows": [
+    {
+      "artifact_type_id": "journal_core_article",
+      "cache_status": "MISS",
+      "level": "L10",
+      "llm_cadence": "substantive_7b_then_two_cheap_cycles",
+      "model": "qwen2.5-coder:7b",
+      "operation_type": "publication_template_check",
+      "output_text": "{\n  \"verdict\": \"Inconclusive\",\n  \"score_0_100\": 75,\n  \"blockers\": [\"Missing formal anchor\", \"Lacks limitation or falsifier\"],\n  \"repair_actions\": [\"Add a formal definition of OC and its components\", \"Include a limitation or falsifier to address potential counterarguments\"],\n  \"publishability_note\": \"The text is clear but lacks depth in formal definitions and critical analysis.\"\n}",
+      "output_text_sha256": "64993f739c72636998a0dd5303a61113fdf2efdf85ed4a7a777a911ca9fafcdc",
+      "page_range": [
+        1,
+        9
+      ],
+      "provider": "ollama_local",
+      "provider_message": "ollama_response_ready",
+      "schema_id": "LOGION_LLM_SERVICE_ROW_v1",
+      "source_ref": "releases/oc_core_1_3_3/editorial/generated_artifacts_recovered/recovery_r009/pdf/journal_core_article_1.3.3.pdf",
+      "status": "PASS",
+      "task_id": "editorial_check_editorial_write_r009_l10_journal_core_article_0001_0009",
+      "thermal_debt_remaining_after": 2,
+      "thermal_samples": [
+        {
+          "band": "GREEN",
+          "gpu_temp_c": 52.0,
+          "ts_utc": "2026-05-04T14:30:43Z"
+        },
+        {
+          "band": "GREEN",
+          "gpu_temp_c": 58.0,
+          "ts_utc": "2026-05-04T14:30:45Z"
+        },
+        {
+          "band": "GREEN",
+          "gpu_temp_c": 55.0,
+          "ts_utc": "2026-05-04T14:30:47Z"
+        }
+      ],
+      "unmanaged_ollama_call": false,
+      "usage": {
+        "input_tokens": 357,
+        "output_tokens": 95,
+        "total_tokens": 452
+      },
+      "validation_result": {
+        "expected_schema": "verdict_score_blockers_repair_actions_publishability_note",
+        "message": "ollama_response_ready",
+        "provider_status": "PASS",
+        "status": "PASS"
+      }
+    },
+    {
+      "artifact_type_id": "master_monograph",
+      "cache_status": "MISS",
+      "level": "L10",
+      "llm_cadence": "thermal_debt_cheap_model_2",
+      "model": "qwen2.5-coder:3b",
+      "operation_type": "publication_template_check",
+      "output_text": "{\n  \"verdict\": \"Reject\",\n  \"score_0_100\": 50,\n  \"blockers\": [\n    \"Fabricated facts: 'Ontology of Continua (OC)' is not a recognized term in the field.\",\n    \"Missing anchors: 'Practical and scientific difficulty', 'Mutually incompatible vocabularies' are not defined or referenced.\",\n    \"Forbidden public terms: 'route sheet; control sheet; machine register; this section is included so; must teach; purpose and role; construction and order; Figure Route and Design Logic; Evidence Coverage Map; Scientific Reading Protocol; recovery_; Logion; ESTRA.'\",\n    \"Internal process prose: 'Clarify claim boundaries', 'Improve reader route', 'Expose weak presentation choices', 'Force clearer separation between model claims, proof routes, numerical evidence, prior-art comparison, and publication form' are not relevant to the candidate's prose.\"\n  ],\n  \"repair_actions\": [\n    \"Define 'Ontology of Continua (OC)'\",\n    \"Provide definitions for 'Practical and scientific difficulty', 'Mutually incompatible vocabularies'\",\n    \"Remove forbidden public terms from the prose\"\n  ],\n  \"publishability_note\": \"The candidate's prose is incomplete and contains fabricated facts, missing anchors, and internal process prose. It does not provide a clear and concise explanation of the practical and scientific challenge addressed by the Ontology of Continua (OC).\"\n}",
+      "output_text_sha256": "8b631205528478b910e1415b69e3822ada4ca57f0fd9ed78f2e365b02ef419bb",
+      "page_range": [
+        1,
+        25
+      ],
+      "provider": "ollama_local",
+      "provider_message": "ollama_response_ready",
+      "schema_id": "LOGION_LLM_SERVICE_ROW_v1",
+      "source_ref": "releases/oc_core_1_3_3/editorial/generated_artifacts_recovered/recovery_r009/pdf/master_monograph_1.3.3.pdf",
+      "status": "PASS",
+      "task_id": "editorial_check_editorial_write_r009_l10_master_monograph_0001_0025",
+      "thermal_debt_remaining_after": 1,
+      "thermal_samples": [
+        {
+          "band": "GREEN",
+          "gpu_temp_c": 53.0,
+          "ts_utc": "2026-05-04T14:30:49Z"
+        },
+        {
+          "band": "GREEN",
+          "gpu_temp_c": 52.0,
+          "ts_utc": "2026-05-04T14:30:51Z"
+        },
+        {
+          "band": "GREEN",
+          "gpu_temp_c": 52.0,
+          "ts_utc": "2026-05-04T14:30:53Z"
+        },
+        {
+          "band": "GREEN",
+          "gpu_temp_c": 52.0,
+          "ts_utc": "2026-05-04T14:30:55Z"
+        },
+        {
+          "band": "GREEN",
+          "gpu_temp_c": 52.0,
+          "ts_utc": "2026-05-04T14:30:57Z"
+        },
+        {
+          "band": "GREEN",
+          "gpu_temp_c": 51.0,
+          "ts_utc": "2026-05-04T14:31:00Z"
+        },
+        {
+          "band": "GREEN",
+          "gpu_temp_c": 51.0,
+          "ts_utc": "2026-05-04T14:31:02Z"
+        },
+        {
+          "band": "GREEN",
+          "gpu_temp_c": 55.0,
+          "ts_utc": "2026-05-04T14:31:04Z"
+        },
+        {
+          "band": "GREEN",
+          "gpu_temp_c": 53.0,
+          "ts_utc": "2026-05-04T14:31:06Z"
+        },
+        {
+          "band": "GREEN",
+          "gpu_temp_c": 53.0,
+          "ts_utc": "2026-05-04T14:31:08Z"
+        },
+        {
+          "band": "GREEN",
+          "gpu_temp_c": 53.0,
+          "ts_utc": "2026-05-04T14:31:10Z"
+        },
+        {
+          "band": "GREEN",
+          "gpu_temp_c": 53.0,
+          "ts_utc": "2026-05-04T14:31:12Z"
+        },
+        {
+          "band": "GREEN",
+          "gpu_temp_c": 53.0,
+          "ts_utc": "2026-05-04T14:31:14Z"
+        },
+        {
+          "band": "GREEN",
+          "gpu_temp_c": 53.0,
+          "ts_utc": "2026-05-04T14:31:16Z"
+        },
+        {
+          "band": "GREEN",
+          "gpu_temp_c": 53.0,
+          "ts_utc": "2026-05-04T14:31:18Z"
+        }
+      ],
+      "unmanaged_ollama_call": false,
+      "usage": {
+        "input_tokens": 428,
+        "output_tokens": 298,
+        "total_tokens": 726
+      },
+      "validation_result": {
+        "expected_schema": "verdict_score_blockers_repair_actions_publishability_note",
+        "message": "ollama_response_ready",
+        "provider_status": "PASS",
+        "status": "PASS"
+      }
+    },
+    {
+      "artifact_type_id": "master_monograph",
+      "cache_status": "MISS",
+      "level": "L10",
+      "llm_cadence": "thermal_debt_cheap_model_1",
+      "model": "qwen2.5-coder:3b",
+      "operation_type": "publication_template_check",
+      "output_text": "{\n  \"verdict\": \"Accept\",\n  \"score_0_100\": 85,\n  \"blockers\": [],\n  \"repair_actions\": [],\n  \"publishability_note\": \"\"\n}",
+      "output_text_sha256": "1f130ba77908699b1883d600d2466733272bb7325cca7cc8a5845bc123727633",
+      "page_range": [
+        26,
+        50
+      ],
+      "provider": "ollama_local",
+      "provider_message": "ollama_response_ready",
+      "schema_id": "LOGION_LLM_SERVICE_ROW_v1",
+      "source_ref": "releases/oc_core_1_3_3/editorial/generated_artifacts_recovered/recovery_r009/pdf/master_monograph_1.3.3.pdf",
+      "status": "PASS",
+      "task_id": "editorial_check_editorial_write_r009_l10_master_monograph_0026_0050",
+      "thermal_debt_remaining_after": 0,
+      "thermal_samples": [
+        {
+          "band": "GREEN",
+          "gpu_temp_c": 51.0,
+          "ts_utc": "2026-05-04T14:31:20Z"
+        },
+        {
+          "band": "GREEN",
+          "gpu_temp_c": 53.0,
+          "ts_utc": "2026-05-04T14:31:22Z"
+        }
+      ],
+      "unmanaged_ollama_call": false,
+      "usage": {
+        "input_tokens": 469,
+        "output_tokens": 44,
+        "total_tokens": 513
+      },
+      "validation_result": {
+        "expected_schema": "verdict_score_blockers_repair_actions_publishability_note",
+        "message": "ollama_response_ready",
+        "provider_status": "PASS",
+        "status": "PASS"
+      }
+    },
+    {
+      "forbidden_hits": [
+        "route sheet",
+        "control sheet",
+        "machine register",
+        "this section is included so",
+        "must teach",
+        "purpose and role",
+        "construction and order",
+        "Figure Route and Design Logic",
+        "Evidence Coverage Map",
+        "Scientific Reading Protocol",
+        "recovery_",
+        "Logion",
+        "ESTRA"
+      ],
+      "level": "L10",
+      "llm_cadence": "static_gate_before_llm",
+      "schema_id": "LOGION_LLM_SERVICE_ROW_v1",
+      "status": "STATIC_BLOCKER",
+      "task_id": "editorial_check_editorial_write_r009_l10_master_monograph_0051_0075"
+    }
+  ],
+  "run_mode": "safe_exhaustive_until_done_checker",
+  "schema_id": "LOGION_LLM_SERVICE_RESPONSE_v1",
+  "service_id": "logion_llm_service_v1",
+  "state_ref": "logion_local/runtime/state/LOGION_LLM_SERVICE_STATE_latest.json",
+  "status": "BLOCKED_BY_STATIC_FINDINGS",
+  "summary": {
+    "cache_hit_total": 0,
+    "cadence_sequence": [
+      "substantive_7b_then_two_cheap_cycles",
+      "thermal_debt_cheap_model_2",
+      "thermal_debt_cheap_model_1"
+    ],
+    "cooldown_event_total": 0,
+    "cooldown_resume_total": 0,
+    "host_sample_total": 3,
+    "model_sequence": [
+      "qwen2.5-coder:7b",
+      "qwen2.5-coder:3b",
+      "qwen2.5-coder:3b"
+    ],
+    "packet_attempted_total": 3,
+    "packet_done_total": 3,
+    "packet_skipped_total": 0,
+    "provider_invocation_total": 3,
+    "request_total": 4,
+    "static_blocker_total": 1,
+    "unmanaged_ollama_call_total": 0
+  },
+  "v_model": {
+    "lower_level_blockers": 1,
+    "lowest_checked_level": "L10",
+    "order": "L10_to_L9_L8_to_document",
+    "stopped_before_upper_review": false
+  }
+}

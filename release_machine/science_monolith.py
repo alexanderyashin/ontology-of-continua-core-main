@@ -30,6 +30,22 @@ INTEGRATED_EVIDENCE_REF = Path("content/27c_oc_core_1_3_3_methods_evidence_and_c
 INTEGRATED_REVIEW_REF = Path("content/27d_oc_core_1_3_3_review_boundaries_and_journal_map.tex")
 INTEGRATED_APPENDIX_REF = Path("appendix/T_oc_core_1_3_3_science_monolith_trace.tex")
 INTEGRATED_AUTO_CORE_REF = Path("content/_auto_core_inputs_1_3_3_integrated.tex")
+R005_INLINE_FIGURE_REFS = [
+    Path("content/28a_oc133_inline_figures_foundation.tex"),
+    Path("content/28b_oc133_inline_figures_proof_route.tex"),
+    Path("content/28c_oc133_inline_figures_evidence_route.tex"),
+    Path("content/28d_oc133_inline_figures_domain_route.tex"),
+    Path("content/28e_oc133_inline_figures_reader_routes.tex"),
+    Path("content/28f_oc133_inline_figures_appendix_route.tex"),
+]
+R006_DIDACTIC_SPINE_REFS = [
+    Path("content/r006/01_why_continuum_ontology.tex"),
+    Path("content/r006/02_first_concepts_and_k_primer.tex"),
+]
+R007_DIDACTIC_SPINE_REFS = [
+    Path("content/r007/01_why_continuum_ontology.tex"),
+    Path("content/r007/02_first_concepts_and_k_primer.tex"),
+]
 POSITIVE_STANDARD_APPENDIX_REF = Path("appendix/U_oc_core_1_3_3_public_scientific_quality_standard.tex")
 HISTORICAL_CORE12_ANNEX_REF = Path("appendix/V_oc_core_1_3_3_historical_core_12_provenance_annex.tex")
 INTEGRATED_CONTENT_REFS = [
@@ -48,15 +64,19 @@ MONOLITH_VOLUME_POLICY = "FULL_CORPUS_PLUS_133_INTEGRATION_NO_TRUNCATION_NO_PADD
 MONOLITH_STRUCTURE_POLICY = "TOP_DOWN_FROZEN_LEVELS_APPEND_ONLY_NO_REDUCTION"
 
 FROZEN_TOP_LEVEL_BLOCKS = [
-    "Reader Orientation",
-    "Complete Scientific Argument",
-    "Scientific Closure and Use Boundaries",
-    "Scientific Evidence and Review Appendices",
+    "Part I -- Why a Continuum Ontology",
+    "Part II -- First Concepts",
+    "Part III -- Formal Core",
+    "Part IV -- Evidence, Proof, and Falsifiability",
+    "Part V -- Domain and Practical Routes",
+    "Part VI -- Limits, Prior Art, and Closure",
+    "Appendices -- Evidence, Proof, and Reference Support",
 ]
 
 FROZEN_ENTRYPOINT_INPUT_REFS = [
     "content/frontmatter_oc_core_1_3_master.tex",
-    "content/17_oc_core_1_3_reader_guide.tex",
+    R007_DIDACTIC_SPINE_REFS[0].as_posix(),
+    R007_DIDACTIC_SPINE_REFS[1].as_posix(),
     INTEGRATED_AUTO_CORE_REF.as_posix(),
     "content/18_oc_core_1_3_source_audit.tex",
     "content/19_oc_core_1_3_foundational_consistency.tex",
@@ -81,7 +101,6 @@ FROZEN_ENTRYPOINT_INPUT_REFS = [
     "appendix/J_oc_core_1_3_domain_replay_reports",
     "appendix/K_oc_core_1_3_domain_execution_board",
     "appendix/M_oc_core_1_3_proof_machinery_appendix.tex",
-    "appendix/N_oc_core_1_3_figure_atlas.tex",
     "appendix/O_oc_core_1_3_technical_derivation_atlas.tex",
     "appendix/P_oc_core_1_3_reference_benchmark_atlas.tex",
     "appendix/Q_oc_core_1_3_toe_support_dossiers.tex",
@@ -89,7 +108,9 @@ FROZEN_ENTRYPOINT_INPUT_REFS = [
 ]
 
 FROZEN_AUTO_CORE_ALLOWED_RELOCATIONS = {
-    "content/07_figures.tex": "appendix/N_oc_core_1_3_figure_atlas.tex",
+    "content/01_intro.tex": R007_DIDACTIC_SPINE_REFS[0].as_posix(),
+    "content/02_background.tex": R007_DIDACTIC_SPINE_REFS[0].as_posix(),
+    "content/07_figures.tex": R005_INLINE_FIGURE_REFS[0].as_posix(),
     "content/axioms_full.tex": HISTORICAL_CORE12_ANNEX_REF.as_posix(),
     "content/theorems_master.tex": HISTORICAL_CORE12_ANNEX_REF.as_posix(),
     "content/toe/toe_master.tex": "content/25_oc_core_1_3_toe_synthesis.tex",
@@ -170,6 +191,10 @@ def read_json(path: Path, default: Any | None = None) -> Any:
 def _public_clean(value: Any) -> str:
     text = str(value if value is not None else "")
     replacements = {
+        "Logion/Research/ManuscriptIntegration": "the manuscript integration pipeline",
+        "Logion/Editorial/ScientificEditorial": "the scientific editorial pipeline",
+        "Logion": "the release engineering pipeline",
+        "ESTRA": "the methodological staging framework",
         "PROMOTED_BOUNDED_NO_SEND_V12": "bounded promoted release claim",
         "PROMOTED_BOUNDED_PUBLIC_RELEASE_V12": "bounded promoted release claim",
         "no-send formal release-consistency check": "bounded formal consistency check",
@@ -218,6 +243,8 @@ def _public_clean(value: Any) -> str:
         "lawful closed science": "bounded research protocol",
         "Current closure status: PASS. Promotion blockers: none.": "Current release posture: bounded support is recorded; broader promotion requires explicit additional evidence.",
         "Current closure status": "Current release posture",
+        "scientific closure": "scientific completion boundary",
+        "Scientific closure": "Scientific completion boundary",
         "Promotion blockers": "broader-promotion limits",
         "theorem packet COMPLETE": "theorem packet recorded",
         "theorem packet is COMPLETE": "theorem packet is recorded",
@@ -265,6 +292,7 @@ def _public_clean(value: Any) -> str:
         "final all-domain completion": "complete scientific coverage",
         "all-domain": "full-scope",
         "superiority": "unrestricted comparative claim",
+        "unrestricted unrestricted comparative claim": "unrestricted comparative claim",
         "universal rules": "declared structural rules",
         "Universal rules": "Declared structural rules",
         "K0-K12 hierarchy": "K0-K12 witness taxonomy",
@@ -406,6 +434,14 @@ def _public_clean(value: Any) -> str:
     text = re.sub(r"\\ref\{[^}]+\}", "the cited location", text)
     text = re.sub(r"internal gate predicates", "machine-verification predicates", text, flags=re.I)
     text = re.sub(r"internal gate", "machine-verification criterion", text, flags=re.I)
+    text = re.sub(r"\bPublication-grade text gate\b", "publication-grade text criterion", text, flags=re.I)
+    text = re.sub(r"\bpositive gates\b", "positive criteria", text, flags=re.I)
+    text = re.sub(r"\bpositive gate\b", "positive criterion", text, flags=re.I)
+    text = re.sub(r"\brelease gates\b", "release criteria", text, flags=re.I)
+    text = re.sub(r"\breviewer gates\b", "review criteria", text, flags=re.I)
+    text = re.sub(r"\bmachine-readable release gates\b", "machine-readable release criteria", text, flags=re.I)
+    text = re.sub(r"\bmachine gate\b", "machine criterion", text, flags=re.I)
+    text = re.sub(r"\bclaim gate\b", "claim boundary", text, flags=re.I)
     text = re.sub(r"\buniversal\s+structural\b", "declared structural", text, flags=re.I)
     text = re.sub(r"\buniversal\s+structure\b", "declared model structure", text, flags=re.I)
     text = re.sub(r"\bglobal\s+semantic\s+coherence\b", "declared semantic coherence", text, flags=re.I)
@@ -675,6 +711,8 @@ def _top_down_structure_freeze_gate(
     source_auto_core_inputs = _tex_input_refs(source_auto_core_text)
     integrated_auto_core_inputs = _tex_input_refs(integrated_auto_core_text)
     top_blocks = re.findall(r"\\ocvolumeblock\{([^}]+)\}", entrypoint_text)
+    top_blocks.extend(re.findall(r"\\section\*\{((?:Part|Appendices)[^}]+)\}", entrypoint_text))
+    top_blocks.extend(re.findall(r"\\section\*\{((?:Part)[^}]+)\}", integrated_auto_core_text))
 
     missing_blocks = [block for block in FROZEN_TOP_LEVEL_BLOCKS if block not in top_blocks]
     missing_entrypoint_inputs = [ref for ref in FROZEN_ENTRYPOINT_INPUT_REFS if ref not in entrypoint_inputs]
@@ -689,6 +727,7 @@ def _top_down_structure_freeze_gate(
         if source_ref in source_auto_core_inputs
         and source_ref not in integrated_auto_core_inputs
         and relocated_to not in entrypoint_inputs
+        and relocated_to not in integrated_auto_core_inputs
     ]
     failures = []
     if missing_blocks:
@@ -1431,8 +1470,7 @@ def _run(args: list[str], cwd: Path, *, timeout: int) -> dict[str, Any]:
 
 
 def _frontmatter_133(doi: str | None, zenodo_record_url: str | None) -> str:
-    doi_text = doi or "assigned by the corrected Zenodo publication record"
-    zenodo_text = zenodo_record_url or "assigned by the corrected publication pass"
+    concept_doi = "10.5281/zenodo.17899134"
     return rf"""\begin{{titlepage}}
 \phantomsection
 \label{{sec:oc133-title-page}}
@@ -1460,100 +1498,225 @@ def _frontmatter_133(doi: str | None, zenodo_record_url: str | None) -> str:
 {{\normalsize Independent Researcher, Leipzig/Halle, Germany}}\\[0.2cm]
 {{\normalsize \href{{https://orcid.org/0009-0008-6166-0914}}{{ORCID 0009-0008-6166-0914}}}}\\[1.0cm]
 
-{{\normalsize Version v1.3.3; release date: 1 May 2026}}\\[0.35cm]
-{{\normalsize Version DOI: \href{{https://doi.org/{_tex_escape(doi_text)}}}{{{_tex_escape(doi_text)}}}}}\\[0.2cm]
-{{\normalsize Zenodo record: \href{{{_tex_escape(zenodo_text)}}}{{{_tex_escape(zenodo_text)}}}}}\\[0.2cm]
-{{\normalsize Concept DOI: \href{{https://doi.org/10.5281/zenodo.17899134}}{{10.5281/zenodo.17899134}}}}\\[0.2cm]
-{{\normalsize GitHub release: \href{{https://github.com/alexanderyashin/ontology-of-continua-core-main/releases/tag/v1.3.3}}{{v1.3.3}}}}\\[0.9cm]
+{{\normalsize Version v1.3.3}}\\[0.3cm]
+{{\normalsize Manuscript revision date: 4 May 2026}}\\[0.3cm]
+{{\normalsize Concept DOI: \href{{https://doi.org/{concept_doi}}}{{{concept_doi}}}}}\\[0.9cm]
 
 \vfill
 
 % DEDICATION_REQUIRED_DO_NOT_REMOVE
 % OC_CORE_PUBLICATION_DEDICATION
 {{\small\itshape Dedicated to my dear wife Maria, without whom this work would have been impossible.}}\\[0.8cm]
-
-\begin{{minipage}}{{0.86\textwidth}}
-\centering\scriptsize
-This public monograph is the canonical OC Core~1.3.3 scientific artifact.
-Earlier source witnesses and archived releases are provenance history only; they are not the current release identity.
-\end{{minipage}}
 \end{{center}}
 \end{{titlepage}}
 
+\clearpage
+\noindent\textbf{{Acknowledgements.}}
+The author thanks the reviewers and critics whose questions, objections, and
+suggestions contributed to the development of the Ontology of Continua and to
+the refinement of this release. Their criticism helped sharpen the claim
+boundaries, improve the reader route, expose weak presentation choices, and
+force clearer separation between model claims, proof routes, numerical evidence,
+prior-art comparison, and publication form. Acknowledgement records review
+pressure and intellectual contribution to the development of the work; it does
+not imply authorship, endorsement, publication approval, responsibility for the
+theory, or agreement with any claim promoted in the manuscript.
+\begin{{itemize}}
+    \item G.~V.~Apostolov.
+    \item Eduard Fadeev.
+    \item Gennady Alekseevich Nosov.
+    \item Sergey Shpadyrev.
+    \item Stanislav Tsukrov.
+\end{{itemize}}
+
+\clearpage
 \begin{{abstract}}
-Ontology of Continua (OC) Core~1.3.3 is a bounded external-review release of the
-OC model core. It presents typed carriers and realizations, liveness and death
-conditions, residue, morphisms, generalized boundaries, hybrid operators,
-cycle modes, historical/effective dimension, K-level witnesses, proof
-boundaries, a Lean-checked subset, executable finite semantic checks,
-bounded target-blind replay QA examples, prior-art comparison, and adversarial-review
-closure.
+Modern systems rarely respect the borders by which modern institutions divide
+knowledge. A climate model, an AI platform, a biological organism, a market, an
+enterprise architecture, and a scientific theory all involve persistence,
+constraint, boundary, transition, failure, repair, and cross-level dependence,
+yet they are usually described in mutually incompatible vocabularies. The
+Ontology of Continua (OC) begins from that practical and scientific difficulty:
+it asks whether heterogeneous systems can be compared through a shared
+structural language without erasing the local knowledge that makes each domain
+serious.
 
-The monograph is written as one continuous scientific manuscript rather than as
-a prior volume followed by an update packet. The 1.3.3 additions are integrated
-into the model, proof, evidence, comparison, and reviewer-boundary chapters.
-Machine-readable registers remain in the evidence package; the public text
-teaches the claims, assumptions, evidence routes, and limits before pointing to
-the replay artifacts.
+OC Core~1.3.3 is the bounded external-review release of that model core. It
+presents a typed account of continuants, realizations, liveness, death,
+residue, rebirth, morphisms, generalized boundaries, hybrid operators, cycle
+modes, historical and effective dimension, and K-level witnesses under explicit
+assumptions. Its scientific task is not to replace physics, chemistry, biology,
+cognition, systems engineering, economics, or philosophy with a slogan. Its
+task is to give readers a precise object whose definitions, proof routes,
+finite semantic checks, figures, tables, numerical anchors, comparator
+boundaries, and failure conditions can be inspected.
 
-The scope is explicit. This release promotes only evidence-bound model-core
-claims. It does not claim final completion of every future scientific
-projection, complete numerical closure for all domains, or an unbounded
-comparison victory over contemporary science. Those obligations remain in the
-background research program until separately evidenced.
+The manuscript is written as one continuous scientific monograph rather than as
+a prior volume followed by an update packet. It first gives the reader a reason
+to care about a continuum ontology, then introduces the elementary picture of a
+continuum, the nesting of continua inside continua, and the K-level hierarchy,
+and only then moves into the formal core, evidence surfaces, proof routes,
+domain projections, limitations, and appendices. The ambition is didactic as
+well as formal: the reader should be able to see what the theory is for before
+being asked to evaluate its notation.
+
+The current maturity of OC Core is deliberately stated as bounded. The release
+is mature enough to be read as a coherent scientific manuscript and to be
+checked against formal and executable artifacts. It is not a declaration of
+final all-domain completion, complete numerical closure, or unbounded
+comparative victory over contemporary science. Where a theorem route, proof
+sheet, Lean declaration, finite semantic case, replay row, comparator row, or
+negative-control route supports a claim, the claim is promoted. Where that
+support is incomplete, the text records a limitation or future obligation
+instead of widening the public wording.
+
+The manuscript contains the full monograph body, a compact article route, a
+methods and reproducibility route, reviewer-response material, proof and
+formalization sections, finite-model and numerical evidence anchors, figure and
+table material, source-trace appendices, and practical-use boundaries. Figures
+and tables are retained as scientific material; formulas and theorem statements
+are retained in the mathematical spine; machine-readable registers remain in
+the evidence package where they can be audited without becoming the narrative
+structure of the manuscript.
+
+The practical value of the release is a disciplined compression without loss of
+meaning. If OC is useful, it should help a scientific reviewer, a systems
+theorist, an AI builder, an enterprise architect, or an evidence auditor
+translate a complex system into a common ontology while preserving the
+differences that matter. The principal limitation is part of the method:
+future releases must add evidence, mechanization, comparator work, or domain
+validation before they widen the public claim surface. Version~1.3.3 therefore
+offers a publication-grade basis for external review, not a claim that every
+future scientific obligation has already been discharged.
 \end{{abstract}}
 
 \clearpage
-\noindent\textbf{{Document role.}}
-This PDF is the canonical master monograph for OC Core~1.3.3. It is the
-long-form scientific text that teaches the model, records the proof/evidence
-route, and defines the public claim boundary before readers consult
-machine-readable evidence.
+\section*{{Version 1.3.3 Release Delta}}
+\addcontentsline{{toc}}{{section}}{{Version 1.3.3 Release Delta}}
+The OC Core release sequence is part of a continuing scientific program rather
+than a series of isolated archive events. As the model is tested against formal
+criticism, domain examples, reproducibility checks, and external review, the
+public manuscript is expected to become more precise, more explicit about its
+limits, and more useful to readers outside the author's immediate working
+context. A new release is warranted only when there is a meaningful scientific
+or editorial delta: a clarified definition, stronger proof route, better
+evidence boundary, improved reader pathway, repaired notation, new domain
+projection, or more honest comparator position.
 
-\medskip
-\noindent\textbf{{Reader Contract.}}
-This monograph is a publication-grade manuscript, not an internal routing memo,
-process packet, or raw register dump. Every promoted claim is either
-argued in the prose, tied to a proof/evidence artifact, or explicitly bounded
-as future research.
+This policy is a commitment to system without pretending that research can be
+made mechanical. The author intends to make future public updates regular
+enough for readers, reviewers, and auditors to follow the development of the
+model, while preserving the difference between a public scientific result and
+private working material. No internal route, unpublished process detail, or
+control-plane record is promoted as reader-facing evidence merely because it
+helped produce the release.
 
-\medskip
-\noindent\textbf{{Main-argument boundary.}}
-The continuous scientific argument is the model, proof, evidence,
-comparison, limitation, and discussion path. Long theorem registers,
-finite-case rows, replay inventories, source-provenance tables, reviewer
-matrices, and journal-package maps are evidence appendices: they preserve the
-full corpus for auditability, but they are not the narrative spine and they do
-not promote broader claims merely by appearing in the monograph.
+Version~1.3.3 is the release in which the OC Core corpus is reorganized from
+scattered source witnesses and process records into a reviewable scientific
+package. The visible delta is not merely a new archive number: the release
+strengthens the typed foundation, makes the claim boundary explicit, integrates
+the theorem route with public proof sheets, and separates reader-facing prose
+from machine evidence.
+
+The model delta includes clearer treatment of carriers, realizations, liveness,
+death, residue, rebirth, morphisms, generalized boundaries, hybrid operators,
+cycle modes, historical and effective dimension, and K-level witnesses. These
+additions are presented as a bounded model-core grammar rather than as an
+unrestricted theory of every phenomenon.
+
+The verification delta adds and consolidates a Lean-checked subset, structured
+proof sheets, finite semantic checks, finite witness interpretation, bounded
+target-blind replay QA, comparator and prior-art positioning, negative-control
+and falsifier language, and adversarial-review response material. Where a
+stronger claim is not yet earned, the release records the limitation instead of
+hiding it inside a source-control record.
+
+The editorial delta is equally important. Figures, tables, formulas, numeric
+anchors, appendices, and evidence routes are kept in the publication corpus;
+machine coverage maps remain coverage and trace data only. The public
+documents are therefore built from the human manuscript hierarchy and curated
+payload sources, while source bindings and machine evidence indexes stay in the
+review manifest.
+
+For a returning reader, the practical point is this: 1.3.3 should be read as a
+clarification and consolidation release. It does not claim final closure. It
+improves the public surface through which the model can be criticized, taught,
+checked, and extended.
 
 \clearpage
-\noindent\textbf{{Keywords.}}
-Ontology of Continua; typed model core; formal methods; proof governance;
-finite semantic checks; target-blind replay QA; reproducible research;
-scientific release engineering.
+\section*{{Reader Routes}}
+\addcontentsline{{toc}}{{section}}{{Reader Routes}}
+Dear readers, systems theory is of interest to many communities, but rarely in
+exactly the same way. A formal reviewer, a philosopher of systems, an applied
+architect, an AI engineer, a security specialist, and an executive reader may
+all ask legitimate questions of the same manuscript. OC Core~1.3.3 is therefore
+designed as a deliberately generous scientific reading surface: it aims to
+disclose the Ontology of Continua as an applied model of system architecture
+while giving different readers a courteous route into the material.
 
-\clearpage
-\noindent\textbf{{Reproducibility and citation note.}}
-\begin{{itemize}}[leftmargin=1.6em,nosep]
-\item Current version DOI: \href{{https://doi.org/{_tex_escape(doi_text)}}}{{{_tex_escape(doi_text)}}}.
-\item Current Zenodo record: \href{{{_tex_escape(zenodo_text)}}}{{{_tex_escape(zenodo_text)}}}.
-\item GitHub release tag: \href{{https://github.com/alexanderyashin/ontology-of-continua-core-main/releases/tag/v1.3.3}}{{v1.3.3}}.
-\item Logion is the research-instrument and institute-automation system used to prepare, check, package, and audit the work; it is not an author.
-\item ESTRA is the methodological framework used in the work; it is not an author or affiliation.
-\end{{itemize}}
+The monograph is intentionally somewhat redundant. It first motivates the
+problem, then introduces the basic picture of a continuum, then gives the
+formal grammar, and only after that asks the reader to inspect proofs, numbers,
+domain routes, and appendices. This structure is meant to serve exacting
+readers from different scientific and economic contexts without forcing every
+reader to begin at the same level of abstraction.
 
-\noindent\textbf{{Substantive review and idea acknowledgements.}}
-The following public acknowledgements record review challenge, ideas, or criticism
-that improved the release route. They are sorted by surname in English
-transcription and do not imply authorship, endorsement, publication approval, or
-agreement with the theory's release form:
-\begin{{itemize}}
-    \item G.~V.~Apostolov --- substantive review and idea input.
-    \item Eduard Fadeev --- Parfit idea and release-governance pressure.
-    \item Gennady Alekseevich Nosov --- substantive review and idea input.
-    \item Sergey Shpadyrev --- substantive review and idea input.
-    \item Stanislav Tsukrov --- substantive external criticism and Core~1.3 criticism-response pressure.
-\end{{itemize}}
+\paragraph{{Scientific reviewers and formal critics.}}
+You may wish to start with the Abstract, Release Delta, Part~I, the formal core
+in Part~III, the theorem/proof route, the Lean subset, finite semantic
+witnesses, proof machinery appendix, and falsifiability sections. This route is
+meant to make the work attackable in the best sense: every promoted claim
+should expose assumptions, formulas, proof or executable evidence, comparator
+boundary, and reopening condition.
+
+\paragraph{{Systems theorists, philosophers, and interested theoretical readers.}}
+You may prefer to start with the continuum problem, historical and systems-
+theory motivation, the K-level primer, lifecycle and boundary chapters,
+prior-art comparison, and limitations before opening numeric evidence. This
+path asks what OC inherits, what it reorganizes, where its residual delta
+begins, and where predecessors or parallel branches already carry part of the
+claim.
+
+\paragraph{{Applied architects of complex systems.}}
+Engineers, enterprise architects, AI builders, security specialists, and
+applied researchers may find it useful to start from practical examples,
+domain projections, figures, tables, and worked routes before returning to the
+formal core. The model chapters can then be read as a design grammar for
+carriers, realizations, boundaries, operators, update/flow separation, evidence
+classes, and claim boundaries in AI systems, evaluation pipelines, simulations,
+knowledge models, and formalized domain architectures.
+
+\paragraph{{CIO, CEO, enterprise architecture, and strategy readers.}}
+Readers approaching the manuscript from institutional or strategic work may
+sensibly read the release delta, the practical utility chapter, the
+model-comparison appendix, and the final conclusion before investing in proof
+details. This route asks what the model is for, what it can support today, what
+remains too immature for operational commitment, and how evidence classes
+affect research or enterprise decisions.
+
+\paragraph{{Reproducibility auditors, evidence reviewers, and benchmark readers.}}
+Readers responsible for verification may go directly to the methods and
+evidence chapters, target-blind replay QA, numeric tables, machine-readable
+table reference, audit trail, source-trace appendix, and public evidence
+package manifest. This route asks whether formula, input snapshot, comparator,
+residual or uncertainty, negative control, falsifier, replay hash, and failure
+interpretation are present.
+
+\paragraph{{Structure of the monograph.}}
+Part~I explains why a continuum ontology is being proposed at all. Part~II
+introduces continua, nesting, and K-levels in reader-facing language. Part~III
+states the formal core. Part~IV gathers evidence, proof, falsifiability,
+predictions, and reproducibility routes. Part~V presents domain and practical
+routes. Part~VI closes with limitations, prior art, and citation/repository
+guidance. The appendices carry proof, evidence, table, and source-trace support.
+
+\paragraph{{Reading rule shared by all groups.}}
+The author asks all readers to treat limitations as part of the claim, not as a
+footnote. A statement is promoted only where its assumptions, proof or evidence
+class, comparator boundary, formulas, appendices, numeric or formal anchor,
+figure/table explanation, and reopening condition are visible. Claims about
+complete scientific coverage, complete numerical closure, or unbounded
+comparative victory over contemporary science are not promoted by this release.
 
 \clearpage
 """
@@ -1793,7 +1956,7 @@ def _rewrite_public_appendix_wrappers(source_dir: Path) -> None:
         return [
             f"For {label}, the scholarly synthesis contributes {role}, explains why this module exists, shows how it connects to the current 1.3.3 argument, and prevents stronger inherited language from being promoted without the current proof, replay, comparator, and falsifier surfaces.",
             f"For {label}, reader use is to {reviewer_use}; if that source-specific question cannot be answered from the promoted theorem, proof sheet, finite semantic case, replay table, comparator row, or claim-boundary section, the source remains background support rather than public theorem evidence.",
-            f"For {label}, the audit route keeps the full file `{ref}` indexed by the science monolith corpus ledger and the public evidence package. The science is therefore not discarded, while the PDF avoids becoming a raw source dump. A line-level reviewer follows the ledger; a scientific reader follows this digest and the main chapter.",
+            f"For {label}, the audit route keeps the complete source module indexed by the science monolith corpus ledger and the public evidence package. The science is therefore not discarded, while the PDF avoids becoming a raw source dump. A line-level reviewer follows the ledger; a scientific reader follows this digest and the main chapter.",
             f"{label} reader checkpoint is satisfied only when the main manuscript tells the reader which claim class this module can support, which evidence class limits it, which prior-art or comparator boundary applies, and which failure would reopen the claim. This fourth check is deliberately positive: the module must contribute intelligibility, not merely avoid forbidden wording.",
             f"For {label}, the external wording boundary allows public language to say that the route helps organize, test, or constrain a bounded OC claim. It may not say that the route proves full-domain closure, final TOE status, universal superiority, or a domain result absent from the current proof and evidence layer. This boundary is part of the source's scientific content, not a marketing caveat.",
         ]
@@ -3030,6 +3193,566 @@ def _write_positive_scientific_quality_standard_appendix(source_dir: Path) -> No
     write_text_if_changed(source_dir / POSITIVE_STANDARD_APPENDIX_REF, appendix_text)
 
 
+def _write_r005_inline_figure_sections(source_dir: Path) -> None:
+    """Write distributed didactic figures for the r005 monograph route."""
+    groups = [
+        (
+            R005_INLINE_FIGURE_REFS[0],
+            "Inline Visual Route: Model Foundation",
+            "These figures are placed in the main argument so the reader can learn the model before opening evidence tables.",
+            [
+                ("Carrier to realization", "Carrier $C$", "Realization $R_t$", "lawful realization", "Shows the basic OC route from carrier to time-indexed realization; numeric anchor: $t=0,1$ status comparison."),
+                ("Liveness status split", "Live", "Dead", "status predicate", "Separates live status from dead status; formula anchor: $live(x,t)\\in\\{0,1\\}$."),
+                ("Residue after collapse", "Collapse", "Residue", "trace", "Shows why residue is not continuing liveness; numeric anchor: continuumness score reaches $0$."),
+                ("Boundary crossing", "Interior", "Boundary", "$\\partial\\Omega$", "Shows a threshold boundary as a reviewable object rather than a metaphor; formula anchor: $d(x,\\partial\\Omega)$."),
+                ("Operator stack", "Flow", "Guard reset", "hybrid update", "Separates smooth flow from discrete update; formula anchor: $x_{t+1}=G(F_t(x_t))$."),
+                ("K-level witness", "Lower projection", "Retained witness", "non-loss test", "Shows the reduction test for a K-level claim; numeric anchor: witness preserved or lost as $0/1$."),
+            ],
+        ),
+        (
+            R005_INLINE_FIGURE_REFS[1],
+            "Inline Visual Route: Proof and Formalization",
+            "These figures connect theorem prose, proof sheets, finite witnesses, and formal subsets.",
+            [
+                ("Theorem route", "Claim", "Proof sheet", "assumptions", "Shows the path from public sentence to proof sheet and assumptions."),
+                ("Lean subset route", "Definition", "Lean declaration", "encoded fragment", "Shows where mechanization supports a bounded theorem surface."),
+                ("Finite witness route", "Positive case", "Negative control", "mutation test", "Shows why negative controls are part of proof readability."),
+                ("Counterexample boundary", "Assumption set", "Countermodel", "reopening", "Shows how a failed assumption reopens a theorem."),
+                ("Dependency chain", "Definition", "Lemma", "theorem", "Shows the proof dependency route as a chain, not a label."),
+                ("Minimality witness", "Component kept", "Verdict changes", "ablation", "Shows component independence by keep/drop comparison."),
+            ],
+        ),
+        (
+            R005_INLINE_FIGURE_REFS[2],
+            "Inline Visual Route: Evidence and Replay",
+            "These figures teach how numeric and computational evidence enters the public claim surface.",
+            [
+                ("Replay row anatomy", "Formula", "Observed value", "residual", "Shows formula, observation, and residual as one evidence row."),
+                ("Target-blind split", "Held target", "Unlocked result", "split policy", "Shows why target-blind replay is stronger than archive lookup."),
+                ("Comparator lane", "OC row", "Baseline", "delta", "Shows comparison as residual-delta accounting rather than priority rhetoric."),
+                ("Uncertainty route", "Prediction", "Interval", "error bar", "Shows that numbers require uncertainty or residual interpretation."),
+                ("Falsifier row", "Promoted claim", "Failing observation", "reopen", "Shows how an empirical claim can be reopened."),
+                ("Evidence package link", "Prose claim", "Machine row", "hash", "Shows why exact rows live in the package while interpretation stays in prose."),
+            ],
+        ),
+        (
+            R005_INLINE_FIGURE_REFS[3],
+            "Inline Visual Route: Domain and Systems Readings",
+            "These figures distribute domain examples across the manuscript instead of isolating them in an atlas.",
+            [
+                ("Physics replay lane", "Constant route", "Comparator", "residual", "Shows bounded physical reconstruction as a replay lane, not total physics."),
+                ("Chemistry replay lane", "Formula mass", "Public snapshot", "residual", "Shows molecular reconstruction with source and comparator."),
+                ("Biology replay lane", "Observed count", "Protocol", "negative control", "Shows bio/geodata evidence as bounded QA."),
+                ("Systems replay lane", "Macro series", "Baseline", "forecast boundary", "Shows systems evidence as protocol-bound series reading."),
+                ("AI builder route", "Model grammar", "Evaluation pipeline", "claim boundary", "Shows how engineers use OC as claim-to-evidence discipline."),
+                ("Enterprise route", "Decision question", "Evidence class", "commitment boundary", "Shows how CIO/CEO/EA readers avoid overcommitment."),
+            ],
+        ),
+        (
+            R005_INLINE_FIGURE_REFS[4],
+            "Inline Visual Route: Reader Routes",
+            "These figures make audience routes explicit in the reader-facing path.",
+            [
+                ("Scientific reviewer route", "Model", "Proof", "falsifier", "Shows the reviewer route through model, proof, and reopening condition."),
+                ("Theoretical reader route", "Prior art", "Residual delta", "limits", "Shows overlap-first reading for theorists."),
+                ("Practitioner route", "Use case", "Method", "evidence", "Shows applied reading from use case to reproducible evidence."),
+                ("Executive route", "Strategy", "Risk", "boundary", "Shows decision reading without pretending proof details are executive summaries."),
+                ("Auditor route", "Manifest", "Replay", "hash", "Shows evidence audit from manifest to replay result."),
+                ("Hostile reader route", "Attack", "Claim", "repair", "Shows objection-driven reading from attack to repair condition."),
+            ],
+        ),
+        (
+            R005_INLINE_FIGURE_REFS[5],
+            "Inline Visual Route: Appendices and Evidence Map",
+            "These figures explain how appendices support the argument without becoming the argument.",
+            [
+                ("Appendix role map", "Main claim", "Appendix", "audit support", "Shows appendices as support routes, not raw dumps."),
+                ("Machine-readable table route", "Reader row", "Data table", "checksum", "Shows where machine-readable table references belong."),
+                ("Audit trail route", "Prose", "Manifest", "audit report", "Shows the path from public prose to audit trail."),
+                ("Comparison row route", "Same claim", "Comparator", "residual delta", "Shows reader-facing comparison rows with same-claim discipline."),
+                ("Bibliography boundary", "Predecessor", "Overlap", "novelty limit", "Shows references as novelty boundaries."),
+                ("Release closure route", "Manuscript", "Package", "future work", "Shows how the current release stops before unsupported claims."),
+            ],
+        ),
+    ]
+    for ref, title, intro, rows in groups:
+        lines = [rf"\section{{{_tex_escape(title)}}}", _tex_paragraph(intro)]
+        for index, (caption_title, left, right, arrow, caption) in enumerate(rows, start=1):
+            lines.extend(
+                [
+                    rf"\subsection{{{_tex_escape(caption_title)}}}",
+                    _tex_paragraph(
+                        "This visual anchor names the objects, review direction, and formula or numeric boundary that keep the figure tied to the argument."
+                    ),
+                    r"\begin{figure}[htbp]",
+                    r"\centering",
+                    r"\begin{tikzpicture}[>=Latex,node distance=2.4cm]",
+                    rf"\node[draw,rounded corners,fill=blue!7,text width=0.28\textwidth,align=center,minimum height=1.0cm] (a) {{{_tex_escape(left)}}};",
+                    rf"\node[draw,rounded corners,fill=green!7,text width=0.28\textwidth,align=center,minimum height=1.0cm,right=of a] (b) {{{_tex_escape(right)}}};",
+                    rf"\draw[->,line width=0.8pt] (a) -- node[above,align=center] {{{_tex_escape(arrow)}}} (b);",
+                    r"\node[draw,rounded corners,fill=orange!8,text width=0.68\textwidth,align=center,below=0.9cm of $(a)!0.5!(b)$] (c) {review question: support class, boundary, falsifier};",
+                    r"\draw[->,dashed] (c.north) -- ($(a)!0.5!(b)$);",
+                    r"\end{tikzpicture}",
+                    rf"\caption{{{_tex_escape(caption_title)}. {_tex_escape(caption)} The figure is placed inline in the manuscript; complete machine evidence remains in the evidence package.}}",
+                    rf"\label{{fig:r005-inline-{ref.stem}-{index}}}",
+                    r"\end{figure}",
+                ]
+            )
+        write_text_if_changed(source_dir / ref, "\n\n".join(lines))
+
+
+def _write_r007_didactic_spine(source_dir: Path) -> None:
+    """Write the r007 publication-translated teaching spine before the formal corpus."""
+    part_i = r"""\section*{Part I -- Why a Continuum Ontology}
+\addcontentsline{toc}{section}{Part I -- Why a Continuum Ontology}
+
+\section{Introduction: The Continuum Problem}
+\label{sec:r007-continuum-problem}
+
+The Ontology of Continua begins from an ordinary but stubborn fact: real systems
+do not respect the disciplinary borders by which they are usually studied. A
+factory depends on physics, software, human attention, incentives, supply
+chains, security boundaries, and regulation. A living organism depends on
+chemistry, cellular architecture, metabolism, signalling, cognition, and
+environmental coupling. An AI platform depends on mathematical models, compute
+infrastructure, organizational purpose, evaluation regimes, trust, and failure
+response. In each case, the object that matters is not merely a thing, a process,
+or a dataset. It is a structured continuum that persists while internal
+differences, flows, thresholds, and boundaries change.
+
+OC proposes to describe such systems with a shared structural grammar. The
+proposal is not that every domain becomes the same, nor that specialist theories
+are replaced by a single master vocabulary. The proposal is more modest and more
+useful: when different domains speak about persistence, admissible states,
+failure, recovery, boundary crossing, feedback, and cross-level dependence, they
+often need a common bridge language. Without such a bridge, a physical model, a
+biological model, an enterprise model, and a social model may all describe parts
+of one system while remaining unable to say how those parts constrain one
+another.
+
+\begin{figure}[p]
+\centering
+\resizebox{\textwidth}{!}{%
+\begin{tikzpicture}[x=1cm,y=1cm, every node/.style={font=\small}]
+  \definecolor{ocBlue}{HTML}{173B57}
+  \definecolor{ocGold}{HTML}{A77D2A}
+  \definecolor{ocGreen}{HTML}{4B7F52}
+  \draw[rounded corners=16pt, fill=blue!3, draw=ocBlue, line width=1.1pt] (-6.2,-3.0) rectangle (6.2,3.0);
+  \node[ocBlue, font=\bfseries\large] at (0,3.45) {Continuum \(K\) embedded in a larger context \(M\)};
+  \draw[->, line width=0.9pt, ocGold] (-4.8,-2.0) -- (4.8,-2.0);
+  \node[anchor=west, ocGold] at (4.95,-2.0) {axis \(A_1\): controlled variation};
+  \draw[->, line width=0.9pt, ocGold] (-4.8,-2.0) -- (-4.8,2.25);
+  \node[anchor=south, ocGold] at (-4.8,2.32) {axis \(A_2\): second structural difference};
+  \draw[fill=ocGreen!15, draw=ocGreen, line width=0.9pt] (0,0) ellipse (3.25 and 1.35);
+  \draw[dashed, line width=0.9pt, red!70!black] (3.25,0) arc (0:360:3.25 and 1.35);
+  \node[draw, fill=white, rounded corners=3pt, align=center] at (0,0.1) {admissible state region\\\(\Omega(K)\)};
+  \draw[->, thick, blue!70!black] (-2.6,-0.65) .. controls (-1.3,1.45) and (1.0,1.45) .. (2.55,-0.4);
+  \node[draw, fill=white, rounded corners=3pt, align=center, blue!70!black] at (0.1,2.05) {flow \(J(t)\) moves the system\\inside or across admissible states};
+  \draw[->, thick, ocGold] (2.15,-2.35) -- (2.15,-1.15);
+  \node[draw, fill=white, rounded corners=3pt, align=center, ocGold] at (3.95,-2.55) {threshold \(\Theta(K)\)\\changes regime};
+  \draw[->, line width=0.9pt] (-1.0,-0.55) arc (215:-100:0.82);
+  \node[draw, fill=white, rounded corners=3pt, align=center] at (-0.35,-1.28) {cycle \(C(K)\)\\sustains recurrence};
+  \node[draw, fill=white, rounded corners=3pt, align=center] at (-4.15,1.25) {continuumness\\\(k(K,t)>0\)};
+  \node[draw, fill=white, rounded corners=3pt, align=center, red!70!black] at (4.35,1.2) {boundary\\\(\partial\Omega(K)\)};
+  \draw[-{Latex[length=2.5mm]}, red!70!black] (3.55,0.75) -- (3.0,0.55);
+  \node[draw, fill=white, rounded corners=3pt, align=center] at (-3.5,-2.62) {lower continua compose \(K\)};
+  \node[draw, fill=white, rounded corners=3pt, align=center] at (0,-2.62) {formal anchor:\\\(K=(\Omega,\partial\Omega,A,\Theta,P,J,C,k,M)\)};
+  \node[draw, fill=white, rounded corners=3pt, align=center] at (3.8,-0.55) {falsifier example:\\a claimed live continuum crosses\\a declared death boundary};
+  \draw[->, dashed] (-3.5,-2.32) -- (-1.55,-0.9);
+  \draw[->, dashed] (3.55,-0.4) -- (2.95,-0.18);
+\end{tikzpicture}}
+\caption{A reader-facing picture of a continuum in OC. The diagram shows an
+admissible state region, boundary, axes, threshold, flow, cycle, and
+continuumness condition, while also naming the formal tuple and one falsifier
+class. It is not a domain-specific picture; it is the common structural
+template used later for physical, biological, cognitive, social, enterprise,
+and theoretical systems.}
+\label{fig:r007-continuum-demonstrator}
+\end{figure}
+
+\section{Motivation: Why a Shared Systems Language Is Needed}
+\label{sec:r007-motivation}
+
+The wish to describe organized wholes is old. Ancient natural philosophy asked
+how form, matter, motion, cause, and purpose relate. Early modern science gained
+immense power by isolating mechanisms and measuring them with increasing
+precision. Later systems theory, cybernetics, dynamical systems, autopoiesis,
+complexity science, network science, formal methods, and enterprise architecture
+each recovered part of the same pressure: many important objects are not
+adequately understood as isolated components. They are maintained by relations,
+feedback, constraints, thresholds, and levels of organization.
+
+The success of specialization created a new difficulty. Scientific fields
+became more exact partly by becoming more local. Physics developed languages for
+fields, particles, phase transitions, and symmetry. Chemistry developed
+languages for reaction networks, catalysis, concentration, and closure. Biology
+developed languages for membranes, metabolism, regulation, and evolution.
+Cognitive science developed languages for representation, prediction, memory,
+and binding. Social theory and economics developed languages for institutions,
+markets, incentives, coordination, and trust. Engineering developed languages
+for interfaces, requirements, safety, architecture, and operational risk. Each
+language is useful. The problem appears when one real system requires all of
+them at once.
+
+This is the scientific fragmentation problem in its practical form. The same
+world is divided into separate explanatory silos, and each silo often becomes
+more precise by reducing how much of the surrounding system it is willing to
+represent. OC does not treat that fragmentation as a moral failure of
+disciplines. It treats it as a modelling cost that becomes visible whenever
+cross-domain prediction, governance, safety, or system design requires several
+domains to be held in one account.
+
+The result is a familiar silo pattern. A domain can see its own variables and
+miss the constraints imposed by another domain. A technical architecture can be
+correct in software terms and fragile in institutional terms. A policy can be
+coherent in legal terms and destructive in operational terms. A biological
+description can be precise at one level and silent about the higher-level
+feedback that changes selection pressure. A strategy can be persuasive in
+economic terms and blind to security, cognition, or infrastructure. These are
+not merely communication problems; they are modelling problems. If the language
+of the model cannot represent cross-domain constraint, the model silently
+removes part of the system.
+
+This matters especially as agentic AI systems become more capable. Work that
+was once handled by human judgment, tacit context, and informal philosophical
+language is increasingly delegated to software agents, model pipelines, and
+automated decision loops. Those systems need explicit representations of
+state, boundary, evidence, authority, failure, recovery, and cross-level
+constraint. If the underlying ontology is shallow, the agent may optimize inside
+one domain while damaging another. If the ontology is over-specific, it cannot
+generalize. OC is motivated by the need for a middle route: a compact structural
+language that is formal enough to be checked and broad enough to describe
+systems whose relevant properties span domains.
+
+The economic version of the same problem is equally practical. Enterprises,
+governments, laboratories, and platforms all need shared language for complex
+systems. A CEO, CIO, enterprise architect, security lead, researcher, and
+engineer may discuss the same transformation while meaning different things by
+stability, boundary, lifecycle, risk, resilience, and evidence. A useful
+meta-ontology should not erase these roles. It should let them translate their
+concerns into a common structure: What is the admissible state space? Which
+flows sustain it? Which thresholds threaten it? Which cycles maintain it? Which
+lower-level continua compose it? Which higher-level continuum contains it?
+Which failure would prove the current claim wrong?
+
+The benefit sought by OC is therefore compression without loss of meaning. A
+good compression does not flatten a system into a slogan. It preserves the
+differences that matter while removing accidental incompatibility between
+vocabularies. If a continuum can be described by state space, axes, thresholds,
+flows, cycles, boundaries, continuumness, and embedding context, then readers
+from different disciplines can at least begin with the same structural map.
+They can still disagree about parameters, evidence, interpretation, and
+prediction; but they are no longer forced to disagree because their languages
+cannot align.
+
+This is also why the manuscript has to be readable before it is merely
+checkable. A skeptical reader is right to distrust a theory with a large name if
+the opening pages do not explain the problem, the value, and the boundary of
+the claim. OC therefore has to earn the reader's patience. It must show why the
+same pattern of admissible states, thresholds, cycles, flows, and boundaries
+appears in different domains; it must show why that pattern is not already
+exhausted by one existing field; and it must state what would make the proposal
+fail. The motivation of Core~1.3.3 is not grandiosity. It is the practical need
+for a disciplined bridge between domain science, system architecture,
+formalization, and evidence review.
+
+\section{Scope of OC Core 1.3.3}
+\label{sec:r007-scope}
+
+Core~1.3.3 is a model-core release. It does not claim that every domain
+projection is complete, every numerical prediction is validated, or every
+formal proof is mechanized. It does claim that the reader-facing manuscript now
+contains the public grammar needed to inspect the model: continua, state
+spaces, boundaries, thresholds, potentials, flows, cycles, continuumness,
+operators, K-levels, proof routes, finite witnesses, target-blind replay QA,
+prior-art comparison, and falsifier language.
+
+The included material falls into four classes. First, the conceptual and formal
+core states the vocabulary and grammar of the theory. Second, the proof and
+formalization layer binds selected claims to proof sheets, Lean subset evidence,
+finite semantic checks, and counterexample boundaries. Third, the evidence and
+reproducibility layer records bounded numerical, replay, comparator, and audit
+surfaces. Fourth, the practical and domain layer shows how the model may be read
+by engineers, architects, AI builders, strategy readers, and reviewers without
+overstating the current science.
+
+The excluded material is just as important. Core~1.3.3 does not promote
+unrestricted superiority over existing science, universal domain closure, or
+complete empirical validation. It does not ask a reader to treat internal build
+records as scientific prose. It does not require that every future domain
+projection already be complete. It treats missing domain evidence as future
+work rather than as a hidden success.
+
+The release is therefore evidence-bounded. A claim is promoted only when its
+assumptions, formula or reconstruction rule, proof or evidence class,
+comparator boundary, and reopening condition are visible. When the evidence is
+finite, scoped, replay-based, or illustrative, the manuscript says so. When a
+claim needs broader domain validation or stronger mechanization, that need
+remains part of the public limitation.
+
+\section{Conceptual Background Without Duplication}
+\label{sec:r007-conceptual-background}
+
+The chapters that follow no longer repeat a second motivation chapter. They
+move from motivation into conceptual background. A continuum is introduced as a
+structural object; the formal sections later make that object exact. The reader
+should keep four questions in view. What makes the system admissible? What keeps
+it alive or coherent? What boundary would be crossed by failure? What larger
+system contains it, and what smaller systems compose it?
+"""
+    part_ii = r"""\section*{Part II -- First Concepts}
+\addcontentsline{toc}{section}{Part II -- First Concepts}
+
+\section{First Concepts: Continua, Nesting, and K-Levels}
+\label{sec:r007-first-concepts-k-primer}
+
+A continuum in OC is not merely a smooth line, an interval, or a physical
+medium. It is a structured system whose admissible states, internal axes,
+flows, thresholds, cycles, and boundaries allow it to persist as one thing while
+changing. This definition is deliberately broad, but it is not empty. A pile of
+unrelated parts is not yet a continuum. A continuum must have a state space
+\(\Omega(K)\), a boundary \(\partial\Omega(K)\), structural differences
+\(A(K)\), sustaining or destructive flows \(J(t)\), thresholds \(\Theta(K)\),
+cycles \(C(K)\), and a continuumness measure \(k(K,t)\).
+
+The simplest reader-facing formula is:
+\[
+K=\bigl(\Omega,\partial\Omega,A,\Theta,P,J,C,k,M\bigr).
+\]
+The tuple says that a continuum is not just what it is made of. It is also the
+space of admissible states, the boundary of that space, the dimensions along
+which it can vary, the thresholds that change its regime, the potentials and
+flows that move it, the cycles that sustain it, the continuumness that measures
+its live coherence, and the embedding context in which it can become part of
+something larger.
+
+\subsection{Continua Contain Continua}
+
+The most important first intuition is nesting. Continua are composed of
+continua and can themselves become components of larger continua. A cell
+contains molecular and metabolic continua. An organism contains cellular,
+neural, immunological, behavioral, and ecological continua. An enterprise
+contains technical platforms, teams, processes, contracts, security controls,
+knowledge flows, and markets. A scientific theory contains definitions,
+models, proof routes, examples, literature relations, and research programs.
+
+This nesting is not one linear chain for the whole world. It is closer to a
+fractal matryoshka of systems. A higher level is formed from lower-level
+continua and their configurations, but it is not reducible to a mere list of
+parts. The configuration determines new constraints, new possibilities, and new
+failure modes. Conversely, a higher-level continuum constrains what its
+lower-level continua can do. In an enterprise, an individual service can be
+technically healthy and still become organizationally dead if governance,
+security, economics, or user trust remove it from the admissible state space of
+the enterprise.
+
+\subsection{Why the Letter K}
+
+The letter \(K\) is used for levels because it echoes the German word
+\emph{Kontinuum}. The letter \(C\) is already heavily overloaded in many
+mathematical, computational, and systems contexts, including categories,
+constants, cycles, classes, and complexity. The notation \(K_x\) therefore
+names a continuum level while keeping the symbols \(C(K)\) and related
+families available for cycles and other structures.
+
+\subsection{K-Levels Are Not a Mere Classification}
+
+A K-level is not a label pasted onto a system after inspection. It is a way of
+asking what kind of continuum is being formed, what lower continua compose it,
+what new axis or configuration appears, what space of possibilities is opened,
+and what boundary or failure mode becomes visible. The lower levels shape the
+possible upper levels; the upper levels reorganize the meaning and operation of
+the lower levels.
+
+\begin{table}[htbp]
+\centering
+\small
+\begin{tabular}{p{0.18\textwidth}p{0.35\textwidth}p{0.35\textwidth}}
+\toprule
+Level route & Reader question & Enterprise or AI-system analogy\\
+\midrule
+\(K_0\)--\(K_1\) & What minimal structure and first admissible axis exist? & A primitive data object or interface becomes addressable.\\
+\(K_2\)--\(K_4\) & What physical, chemical, or protocellular constraints make stable operation possible? & Infrastructure, energy, hardware, deployment substrate, and runtime constraints become non-optional.\\
+\(K_5\)--\(K_6\) & What signalling, memory, representation, or decision loop appears? & Monitoring, feedback, model state, policy memory, and agent reasoning begin to matter.\\
+\(K_7\)--\(K_8\) & What social, institutional, or civilizational coordination contains the system? & Teams, governance, trust, regulation, markets, and organizational resilience constrain technical design.\\
+\(K_9\)--\(K_{12}\) & What theory, formal system, meta-theory, or cross-domain synthesis governs interpretation? & Architecture doctrine, verification regime, enterprise ontology, and strategic model comparison determine how claims are judged.\\
+\bottomrule
+\end{tabular}
+\caption{A first reader-facing interpretation of K-levels. The table is not a final proof of the hierarchy; it gives a practical entry point before the formal K0--K12 chapters.}
+\label{tab:r007-k-primer}
+\end{table}
+
+% R007_K_LEVELS_PRESENT: K0 K1 K2 K3 K4 K5 K6 K7 K8 K9 K10 K11 K12.
+\begin{figure}[p]
+\centering
+\resizebox{\textwidth}{!}{%
+\begin{tikzpicture}[x=1cm,y=0.78cm, every node/.style={font=\scriptsize}]
+  \definecolor{ocBlue}{HTML}{173B57}
+  \definecolor{ocGold}{HTML}{A77D2A}
+  \definecolor{ocGreen}{HTML}{4B7F52}
+  \node[font=\bfseries\large, ocBlue] at (0,14.2) {K0--K12 hierarchy: composition upward, constraint downward};
+  \foreach \i/\name/\example in {
+    0/{resolution boundary}/{addressable difference or null-continuumness},
+    1/{first structured carrier}/{primitive interface or physical coordinate},
+    2/{process closure}/{reaction, routine, or stable runtime loop},
+    3/{organized substrate}/{physical organization or deployment substrate},
+    4/{binding and composition}/{chemical binding or integrated component},
+    5/{liveness and regulation}/{cell, organism, service health, feedback},
+    6/{cognition and agency}/{agent, controller, model memory},
+    7/{social coordination}/{team, institution, governance relation},
+    8/{civilizational or market system}/{economy, platform, ecology, regulation},
+    9/{theory-level system}/{formal model, architecture doctrine},
+    10/{meta-theoretic comparison}/{comparator frame, verification regime},
+    11/{method and publication quality}/{reproducibility and review practice},
+    12/{cross-domain synthesis}/{bounded universal comparison under assumptions}
+  }{
+    \pgfmathsetmacro{\y}{13-\i}
+    \node[draw, rounded corners=3pt, fill=blue!5, text width=0.18\textwidth, align=center, minimum height=0.55cm] (k\i) at (-4.8,\y) {\textbf{K\i}\\\name};
+    \node[draw, rounded corners=3pt, fill=green!5, text width=0.47\textwidth, align=left, minimum height=0.55cm] (e\i) at (1.35,\y) {\example};
+    \draw[-, ocBlue] (k\i.east) -- (e\i.west);
+  }
+  \foreach \i in {0,...,11}{
+    \pgfmathtruncatemacro{\j}{\i+1}
+    \draw[->, ocGreen, line width=0.75pt] (k\i.north east) -- (k\j.south east);
+    \draw[->, ocGold, line width=0.75pt] (e\j.south west) -- (e\i.north west);
+  }
+  \node[draw, rounded corners=4pt, fill=white, text width=0.36\textwidth, align=center] at (-4.8,-0.65)
+    {upward composition: lower continua make the next continuum possible};
+  \node[draw, rounded corners=4pt, fill=white, text width=0.45\textwidth, align=center] at (1.35,-0.65)
+    {downward constraint: the containing continuum restricts admissible lower-level behavior};
+  \draw[->, thick, ocGreen] (-6.2,-0.15) -- (-6.2,13.3) node[midway,left,align=center] {composition\\arrow};
+  \draw[->, thick, ocGold] (5.7,13.3) -- (5.7,-0.15) node[midway,right,align=center] {constraint\\arrow};
+\end{tikzpicture}}
+\caption{Complete K0--K12 teaching hierarchy. The numbered ladder names each level, gives a human-readable interpretation, and shows the two directions of dependence: lower continua compose higher continua, while higher continua constrain the admissible behavior of their parts. This figure supports the K-level formal sections and the enterprise/AI examples that follow.}
+\label{fig:r007-k0-k12-hierarchy}
+\end{figure}
+
+\subsection{What Characterizes a K-Level}
+
+Each K-level is characterized by at least five questions. First, what lower
+continua are required? Second, what new axis or configuration appears? Third,
+what admissible state space becomes possible? Fourth, what cycles or flows
+sustain the new level? Fifth, what boundary or death condition would collapse
+it? These questions keep the hierarchy operational. A level is not accepted
+because it sounds plausible; it must name the structural difference that earns
+its place.
+
+\subsection{A Practical Enterprise Example}
+
+Consider an AI-enabled enterprise risk system. At one level, there are compute
+resources, networks, storage, and data pipelines. At another level, there are
+models, embeddings, prompts, policies, and evaluation traces. At a higher
+level, there are teams, approvals, legal obligations, customer trust, business
+strategy, and public reputation. A failure in one layer can move another layer
+outside its admissible state space: a model update can break compliance, a
+security event can collapse trust, a governance delay can make an otherwise
+correct technical system operationally unusable. OC gives this situation a
+single structural vocabulary without pretending that infrastructure, law,
+economics, and cognition are the same discipline.
+
+\subsection{How the Primer Leads into the Formal Core}
+
+The next parts of the monograph make this intuition exact. The formal core
+defines state spaces, boundaries, thresholds, potentials, flows, cycles,
+continuumness, operators, and K-level witnesses. The evidence parts then ask
+which of those claims are supported by proof, finite semantics, replay QA,
+numeric rows, comparator analysis, and falsifier tests. The reader should now
+have the map: continua contain continua, K-levels name structured emergence,
+and the rest of the manuscript tests how far that grammar can be made precise.
+"""
+    for ref, text in zip(R007_DIDACTIC_SPINE_REFS, [part_i, part_ii], strict=True):
+        write_text_if_changed(source_dir / ref, text)
+
+
+def _apply_r005_publication_layout_standard(source_dir: Path) -> None:
+    """Apply r005 typography, TOC, appendix, and backmatter standards."""
+    preamble = source_dir / "preamble.tex"
+    if preamble.exists():
+        text = read_text(preamble)
+        if "% R005_LAYOUT_STANDARD" not in text:
+            text += r"""
+
+% R005_LAYOUT_STANDARD
+% R006_LAYOUT_STANDARD
+% R007_LAYOUT_STANDARD
+\usepackage{graphicx}
+\usepackage{caption}
+\captionsetup{font=small,labelfont=bf,justification=RaggedRight,singlelinecheck=false,skip=6pt}
+\setlength{\parskip}{0.35em}
+\renewcommand{\arraystretch}{1.22}
+\setlength{\tabcolsep}{5.5pt}
+\newcommand{\ocrulebox}[2]{%
+  \par\medskip
+  \noindent\fbox{\begin{minipage}{0.94\textwidth}\textbf{#1}\par\smallskip #2\end{minipage}}%
+  \par\medskip
+}
+\renewcommand{\ocvolumeblock}[2]{%
+  \clearpage
+  \phantomsection
+  \addcontentsline{toc}{section}{#1}
+  \section*{#1}
+  \ocrulebox{#1}{#2}
+}
+"""
+            write_text_if_changed(preamble, text)
+
+    appendix_titles = {
+        "A_notation.tex": "Appendix A -- Notation and Symbol Tables",
+        "B_axioms_full.tex": "Appendix B -- Collected Axiomatics",
+        "C_klevels_tables.tex": "Appendix C -- K-Level Tables and Structural Conditions",
+        "D_oc_core_1_3_source_audit_appendix.tex": "Appendix D -- Provenance and Corpus Audit",
+        "E_oc_core_1_3_journal_core_bridge.tex": "Appendix E -- Journal-Core Bridge and Extraction Logic",
+        "F_oc_core_1_3_reviewer_navigation_matrix.tex": "Appendix F -- Reviewer Objection Navigation",
+        "G_oc_core_1_3_empirical_validation_matrix.tex": "Appendix G -- Empirical Evidence Boundary",
+        "H_oc_core_1_3_institute_run_measurement_program.tex": "Appendix H -- Measurement Program Boundary",
+        "I_oc_core_1_3_domain_benchmark_manifest.tex": "Appendix I -- Domain Benchmark Manifest",
+        "J_oc_core_1_3_domain_replay_reports.tex": "Appendix J -- Domain Replay Reports",
+        "K_oc_core_1_3_domain_execution_board.tex": "Appendix K -- Domain Execution Board",
+        "L_oc_core_1_3_domain_benchmark_caseset.tex": "Appendix L -- Domain Benchmark Case-Set",
+        "M_oc_core_1_3_proof_machinery_appendix.tex": "Appendix M -- Proof Machinery",
+        "O_oc_core_1_3_technical_derivation_atlas.tex": "Appendix O -- Technical Derivation Digest",
+        "P_oc_core_1_3_reference_benchmark_atlas.tex": "Appendix P -- Reference, Prediction, and Falsifier Digest",
+        "Q_oc_core_1_3_toe_support_dossiers.tex": "Appendix Q -- Synthesis Support Digest",
+        "R_oc_core_1_3_practical_utility_model_comparison_atlas.tex": "Appendix R -- Applied Boundary and Model Comparison",
+        "S_oc_core_1_3_external_criticism_closure.tex": "Appendix S -- External Criticism Closure",
+        INTEGRATED_APPENDIX_REF.name: "Appendix T -- Evidence Map and Machine-Readable Table Reference",
+        POSITIVE_STANDARD_APPENDIX_REF.name: "Appendix U -- Publication-Grade Scientific Quality Standard",
+        HISTORICAL_CORE12_ANNEX_REF.name: "Appendix V -- Historical Core 1.2 Provenance Boundary",
+    }
+    for name, title in appendix_titles.items():
+        path = source_dir / "appendix" / name
+        if not path.exists():
+            continue
+        text = read_text(path)
+        lines = text.splitlines()
+        for line_index, line in enumerate(lines):
+            if line.lstrip().startswith(r"\section{"):
+                lines[line_index] = rf"\section{{{_tex_escape(title)}}}"
+                break
+        text = "\n".join(lines) + ("\n" if text.endswith("\n") else "")
+        if "R005_APPENDIX_READER_FRAME" not in text[:900]:
+            section_match = re.search(r"\\section\{[^}]+\}", text)
+            if section_match:
+                replacement = section_match.group(0) + "\n% R005_APPENDIX_READER_FRAME\n" + _tex_paragraph(
+                    "Reader frame. This appendix supports the main manuscript by explaining source role, evidence class, audit route, and limitation boundary. It is not a detached raw dump."
+                )
+                text = text.replace(section_match.group(0), replacement, 1)
+        write_text_if_changed(path, text)
+
+
+def _r005_backmatter_section() -> str:
+    return r"""\clearpage
+\section*{Keywords and Citation Route}
+\noindent\textbf{Keywords.} Ontology of Continua; continuum ontology; typed model core; systems theory; autopoiesis; dynamical systems; hybrid systems; formal methods; Lean formalization; finite semantic checks; target-blind replay QA; reproducible research; artifact evaluation; claim governance; falsifiability; evidence-bound scientific publishing.
+
+\medskip
+\noindent\textbf{Citation identity.} Alexander Yashin, \emph{Ontology of Continua Core 1.3.3: Master Monograph}, 4 May 2026. The Concept DOI is printed on the title page.
+
+\medskip
+\noindent\textbf{Open repository.} The public repository route is \href{https://github.com/alexanderyashin/ontology-of-continua-core-main}{github.com/alexanderyashin/ontology-of-continua-core-main}. Repository files support reproducibility and source inspection; they do not replace the manuscript's claim boundaries.
+"""
+
+
 def _rewrite_reader_guide_for_133(source_dir: Path) -> None:
     """Replace legacy cross-reference-heavy route prose with a stable 1.3.3 guide.
 
@@ -3232,7 +3955,27 @@ def _prepare_base_source(root: Path, build_dir: Path, *, doi: str | None = None,
     _rewrite_public_appendix_wrappers(dst)
     _rewrite_public_science_projection_sources(dst)
     _write_positive_scientific_quality_standard_appendix(dst)
+    _write_r005_inline_figure_sections(dst)
+    _write_r007_didactic_spine(dst)
+    _apply_r005_publication_layout_standard(dst)
     return dst
+
+
+def _sanitize_visible_heading_ids(text: str) -> str:
+    def replace_heading(match: re.Match[str]) -> str:
+        command = match.group(1)
+        title = match.group(2).strip()
+        title = re.sub(
+            r"^(?:T133|OC133)[-_][A-Z0-9_-]+(?::\s*)?",
+            lambda item: _reader_heading_from_identifier(item.group(0).rstrip(": ")),
+            title,
+            flags=re.I,
+        )
+        if re.match(r"^(?:T133|OC133)[-_]", title):
+            title = _reader_heading_from_identifier(title)
+        return rf"\{command}{{{title}}}"
+
+    return re.sub(r"\\(section|subsection|subsubsection)\{([^{}]*(?:T133|OC133)[-_][^{}]*)\}", replace_heading, text)
 
 
 def _sanitize_source_tree(source_dir: Path) -> None:
@@ -3241,6 +3984,7 @@ def _sanitize_source_tree(source_dir: Path) -> None:
             _replace_version_tokens(path)
             if path.suffix.lower() in {".tex", ".md", ".txt"}:
                 cleaned = _public_clean(read_text(path))
+                cleaned = _sanitize_visible_heading_ids(cleaned)
                 write_text_if_changed(path, cleaned)
 
 
@@ -3377,6 +4121,42 @@ def _public_sentence_values(items: list[str]) -> str:
     return " ".join(v for v in values if v)
 
 
+PUBLIC_IDENTIFIER_TITLES = {
+    "T133-K0-RES": "K-zero resolution and continuumness boundary",
+    "T133-OMEGA-STATUS": "Lifecycle status: liveness, death, residue, and rebirth",
+    "T133-K-ZERO": "Continuumness-zero obstruction",
+    "T133-BOUNDARY": "Metric-threshold boundary specialization",
+    "T133-HYBRID": "Typed hybrid update and chart-labelled operator semantics",
+    "T133-DIM": "Dimension and witness semantics",
+    "T133-CYCLE": "Live-status cycle-mode requirement",
+    "T133-ID": "Identity, residue, and rebirth classification",
+    "T133-MIN": "Declared component independence of the semantic verdict interface",
+    "T133-KLEVEL": "Adjacent K-level witness consistency",
+    "OC133-NUM-PHYS-C": "Physical constant replay: speed-of-light route",
+    "OC133-NUM-CHEM-WEBBOOK-H2O": "Chemistry replay: water mass from a public source snapshot",
+    "OC133-NUM-CHEM-H2O": "Chemistry replay: water formula reconstruction",
+    "OC133-NUM-BIO-GEO-COUNT": "Biology and geodata replay: counted public records",
+    "OC133-NUM-SYS-WDI-GDP": "Systems replay: public macro-series route",
+    "OC133-NUM-MATH-FINITE": "Mathematical finite-model replay route",
+    "OC133-NOVELTY-001": "Novelty boundary and residual-delta comparison",
+}
+
+
+def _reader_heading_from_identifier(raw: Any, row: dict[str, Any] | None = None, *, fallback_index: int = 0) -> str:
+    text = _public_clean(raw or "").strip()
+    if text in PUBLIC_IDENTIFIER_TITLES:
+        return PUBLIC_IDENTIFIER_TITLES[text]
+    if re.match(r"^(?:T133|OC133)[-_][A-Z0-9_-]+$", text):
+        return text.replace("T133-", "").replace("OC133-", "").replace("_", " ").replace("-", " ").title()
+    if row:
+        for key in ("title", "claim", "public_claim_boundary", "theme", "domain", "lane", "status"):
+            candidate = _public_clean(row.get(key) or "").strip()
+            if candidate and not re.match(r"^(?:T133|OC133)[-_]", candidate):
+                candidate = re.sub(r"\s+", " ", candidate)
+                return candidate[:96].rstrip(" ,:;-")
+    return f"Evidence route {fallback_index}" if fallback_index else "Evidence route"
+
+
 def _source_hash_rows(root: Path, refs: list[str]) -> list[str]:
     lines = []
     for ref in refs:
@@ -3441,7 +4221,8 @@ def _section_from_rows(title: str, intro: str, rows: list[dict[str, Any]], keys:
         if row.get("case_id") or row.get("witness_id"):
             heading = _public_row_heading(row.get("case_id") or row.get("witness_id"), idx)
         else:
-            heading = row.get("theorem_id") or row.get("claim_id") or row.get("lane") or row.get("venue_id") or row.get("objection_id") or row.get("phenomenon_id") or f"row-{idx}"
+            raw_heading = row.get("theorem_id") or row.get("claim_id") or row.get("lane") or row.get("venue_id") or row.get("objection_id") or row.get("phenomenon_id") or f"row-{idx}"
+            heading = _reader_heading_from_identifier(raw_heading, row, fallback_index=idx)
         body.append(rf"\subsection{{{_tex_escape(heading)}}}")
         selected: list[str] = []
         for key in keys:
@@ -3647,7 +4428,7 @@ def _positive_obligation_playbooks() -> str:
         ),
         (
             "Known-error learning playbook",
-            "Every failure pattern that has occurred once becomes a future gate. Raw TeX leakage, route-sheet public "
+            "Every failure pattern that has occurred once becomes a future static check. Raw TeX leakage, internal-route public "
             "PDFs, metadata-first archive pages, absent dedication, absent title pages, stale version identity, control "
             "locks in public artifacts, unsupported superiority language, register-dominated prose, and post-publication "
             "visual defects are now known errors. The release standard is not memoryless; the machine must become stricter "
@@ -3735,7 +4516,7 @@ def _positive_obligation_playbooks() -> str:
             _tex_paragraph(
                 "The publication standard uses quantitative thresholds because taste alone is too weak. Each public PDF "
                 "has minimum page and text-volume thresholds, mandatory frontmatter anchors, required reader-contract "
-                "language, required transition density, maximum tolerance for route-sheet vocabulary, and mandatory "
+                "language, required transition density, maximum tolerance for internal-route vocabulary, and mandatory "
                 "evidence anchors. Those numbers do not make the text good by themselves, but they prevent empty or "
                 "stub-like artifacts from being mistaken for publication-grade documents."
             ),
@@ -3946,9 +4727,10 @@ def _integrated_claim_argument_sections(claim_rows: list[dict[str, Any]], proof_
         )
         lean = _public_clean(proof.get("lean_ref") or "the Lean subset where the theorem has a declared formal counterpart")
         scope = _public_clean(row.get("scope_limit") or proof.get("scope_limit") or "the stated assumptions and counterexample boundary")
+        visible_title = _reader_heading_from_identifier(cid, proof or row, fallback_index=idx)
         body.extend(
             [
-                rf"\subsection{{{_tex_escape(cid)}: {_tex_escape(title)}}}",
+                rf"\subsection{{{_tex_escape(visible_title)}}}",
                 _tex_paragraph(
                     f"{claim_openers[(idx - 1) % len(claim_openers)]} The claim addresses this ambiguity: {claim} "
                     "The point of including it in the 1.3.3 release is to make the ambiguity auditable rather than to "
@@ -3992,63 +4774,39 @@ def _integrated_claim_argument_sections(claim_rows: list[dict[str, Any]], proof_
 
 def _scientific_reading_protocol_section() -> str:
     body = [
-        r"\section{Scientific Reading Protocol for the 1.3.3 Monolith}",
+        r"\section{How to Inspect the Integrated 1.3.3 Argument}",
         r"\label{sec:oc133-scientific-reading-protocol}",
         _tex_paragraph(
-            "The monolith is intentionally long because it has to serve several readers at once: a formal reviewer, a "
-            "domain scientist, an editor, a reproducibility auditor, and a hostile reader looking for overclaim. The "
-            "recommended protocol is not to read every evidence row first. The reader should first understand the object "
-            "grammar, then the theorem ceiling, then the executable evidence, then the comparator boundary, and only then "
-            "the release and journal-preparation apparatus."
+            "The integrated monograph is intentionally long because it has to remain useful to several kinds of external "
+            "reader at once. The most reliable inspection path begins with the object grammar, moves to theorem and finite "
+            "semantics, then to empirical replay, then to comparator boundaries, and finally to publication and citation "
+            "surfaces. This order preserves the argument: a replay row is easier to judge after the reader knows the object "
+            "whose behavior the row is meant to reconstruct."
         ),
         _tex_paragraph(
-            "Step one is the object grammar. The reader should be able to say what a carrier is, what a realization is, "
-            "what lawful possibility permits, what liveness means at a time slice, what residue preserves after death, "
-            "what an identity morphism is allowed to preserve, and why a boundary is not merely a metaphor. If this grammar "
-            "is unclear, later empirical and release sections should be paused rather than skimmed."
+            "The object grammar names carriers, realizations, lawful possibility, liveness, residue, identity morphisms, "
+            "boundaries, operators, cycles, and K-level witnesses. The theorem layer then places a ceiling on wording: a "
+            "promoted formal statement needs assumptions, proof route, finite witness interpretation, and a counterexample "
+            "boundary. The executable layer contributes Lean-subset evidence and finite semantic cases where those checks "
+            "exist. The empirical layer contributes target-blind rows and replay QA with formulas, inputs, comparators, "
+            "residuals, negative controls, falsifiers, and hashes."
         ),
         _tex_paragraph(
-            "Step two is the theorem ceiling. Each theorem should be read as a bounded claim with assumptions, proof route, "
-            "finite witness route, and counterexample boundary. The purpose of the theorem registry is not to impress the "
-            "reader with labels; it is to make it impossible for a public sentence to float away from its proof obligation. "
-            "A label that cannot be traced to proof and boundary is editorially unfinished."
+            "The comparator layer is equally important. OC does not benefit from pretending that systems theory, cybernetics, "
+            "autopoiesis, dynamical systems, category theory, RAF theory, complexity measures, identity theory, or "
+            "reproducibility engineering are absent. The useful question is narrower and more serious: which overlap is "
+            "accepted, which residual delta remains, and which public statement is still justified under declared assumptions?"
         ),
         _tex_paragraph(
-            "Step three is the executable layer. The Lean subset and finite semantic checks are not decorations and they are "
-            "not substitutes for the entire mathematical theory. They are selected executable anchors: places where the "
-            "reader can see that a semantic distinction has been encoded, accepted, rejected, or mutation-tested. Their "
-            "scientific role is strongest when the negative control is as visible as the positive witness."
+            "Reviewer objections are treated as scientific material when they name an attacked claim, identify the failure "
+            "mode, point to the evidence that would answer it, and state the condition that would reopen the claim. This "
+            "keeps criticism close to the model rather than turning it into a separate commentary layer."
         ),
         _tex_paragraph(
-            "Step four is the empirical layer. The target-blind rows and replay-QA tables are read as evidence of disciplined "
-            "claim-to-data plumbing. They demonstrate formula binding, snapshot binding, comparator binding, uncertainty or "
-            "residual accounting, negative control, falsifier, and replay hash. They do not close every future domain; they "
-            "show how a domain claim must be made if it is to enter the release surface."
-        ),
-        _tex_paragraph(
-            "Step five is the comparator layer. The reader should look for accepted overlap before looking for residual "
-            "delta. If the manuscript sounds as if it invented general systems theory, autopoiesis, dynamical systems, "
-            "category theory, RAF theory, complexity measures, identity theory, or reproducibility engineering, then the "
-            "wording has failed. The defensible contribution is the bounded integration and governance of claim, proof, "
-            "data, comparator, and reopening conditions."
-        ),
-        _tex_paragraph(
-            "Step six is the adversarial layer. Reviewer objections are not an appendix of public relations. They are part "
-            "of the scientific control surface. A good objection names the attacked claim, the exact failure mode, the "
-            "evidence that would answer it, and the residual condition that would reopen it. The release is stronger when "
-            "those routes are explicit because a hostile reader can test the same paths the authors used."
-        ),
-        _tex_paragraph(
-            "Step seven is the publication layer. GitHub and Zenodo package the public scientific object; journal packets "
-            "remain owner-review preparation material until a later venue-specific action. Metadata, checksums, PDFs, and "
-            "asset lists are not secondary chores: they are part of the reproducibility perimeter. A release whose metadata "
-            "contradicts its manuscript is scientifically damaged even if the proofs are locally sound."
-        ),
-        _tex_paragraph(
-            "This reading protocol is also a repair protocol. When a defect appears, the correction should target the first "
-            "layer where the defect originates: ontology, theorem boundary, executable witness, empirical replay, comparator "
-            "positioning, adversarial response, editorial prose, or publication packaging. That is how the system avoids "
-            "random review churn and closes the most important vulnerabilities before spending attention on polish."
+            "The same principle governs repair. When a defect appears, the correction belongs at the first layer where the "
+            "defect originates: ontology, theorem boundary, executable witness, empirical replay, comparator positioning, "
+            "adversarial response, editorial prose, or publication packaging. Lower-layer errors should be fixed before a "
+            "global reader is asked to judge the whole manuscript."
         ),
     ]
     return "\n".join(body)
@@ -4217,7 +4975,7 @@ def _bounded_scientific_synthesis_sections() -> str:
         body.append(_tex_paragraph(paragraph))
         body.append(
             _tex_paragraph(
-                "The reviewer payoff is concrete: the statement can be attacked at the level of definitions, assumptions, "
+                "The reviewer value is concrete: the statement can be attacked at the level of definitions, assumptions, "
                 "witnesses, data route, comparator, or falsifier. The release is intentionally bounded so that such attacks "
                 "do not have to fight rhetoric before reaching the scientific claim."
             )
@@ -4510,109 +5268,63 @@ def _generate_integrated_science_tex(
         r"\section{Typed Model Foundation and Claim Boundary}",
         r"\label{sec:oc133-integrated-scientific-closure}",
         _tex_paragraph(
-            "This chapter states the model-core boundary inside the monograph's main scientific argument. "
-            "It introduces the typed foundation, proof obligations, finite-check semantics, replay QA rows, comparator "
-            "claims, and review boundaries as scientific material: definitions first, obligations second, evidence third, "
-            "and limits fourth."
+            "The didactic opening has now given the reader an intuitive picture of a continuum and of the K-level hierarchy. "
+            "This chapter turns that picture into the first scientific claim of the release. OC Core 1.3.3 treats a continuum "
+            "as a typed model object: it has a carrier, admissible state region, boundary, axes of variation, thresholds, "
+            "potentials, flows, cycles, continuumness, operators, and an embedding context. The claim is not that every "
+            "domain has already been solved. The claim is that these components provide a common grammar for stating how a "
+            "system persists, changes, fails, recovers, or becomes part of another system."
         ),
         _tex_paragraph(
-            f"The public release identifier is OC Core {VERSION}. "
-            f"The release DOI is {doi or 'assigned by Zenodo during the corrected publication pass'}, and the "
-            f"Zenodo record is {zenodo_record_url or 'assigned by the corrected publication pass'}. "
-            "The release is prepared for public archival correction on GitHub and Zenodo; journal submissions remain a "
-            "separate later editorial action."
+            f"The public manuscript identifier is OC Core {VERSION}; its Concept DOI is printed on the title page. Platform "
+            "events, repository state, and archival records are support surfaces rather than elements of the scientific "
+            "argument. The argument itself is the chain from definition to intuition, from intuition to formal anchor, from "
+            "formal anchor to proof or finite witness, and from evidence to an explicit limitation or falsifier."
         ),
-        r"\subsection{Reader Contract for the 1.3.3 Model-Core Chapters}",
+        r"\subsection{Claim, Intuition, and Formal Anchor}",
         _tex_paragraph(
-            "The reader should treat the 1.3.3 chapters as the public scientific route through the "
-            "proof, finite-model, validation, comparator, and review corpus. The release promotes bounded model-core claims "
-            "where the artifacts contain explicit evidence. It does not promote final all-domain completion or unbounded "
-            "cross-science comparison claims; those obligations remain in the background science program until they "
-            "are literally evidenced."
-        ),
-        r"\subsection{How Evidence Enters the Model}",
-        _tex_paragraph(
-            "The scientific text binds research artifacts, proof registers, Lean and finite evidence, replay QA tables, "
-            "novelty/comparator rows, and review closures to readable sections. A claim is introduced in prose before "
-            "the reader is asked to inspect a theorem identifier, replay row, or machine-readable evidence file."
-        ),
-        r"\begin{itemize}[leftmargin=1.8em]",
-                _tex_item("Manuscript-quality rule", "internal routing memos, raw registers, glued appendices, page-number resets, absent front matter, and absent dedication create scientific reopening conditions"),
-        _tex_item("Corpus coverage gate", "every promoted 1.3.3 science surface is included, cited, or excluded with reason"),
-        _tex_item("Evidence coverage gate", "major theorem, evidence, review, and journal anchors must appear in the manuscript as readable science before machine evidence is consulted"),
-        _tex_item("Editorial adversarial-review gate", "editorial reviewers must return zero critical/high findings before publication replacement"),
-        r"\end{itemize}",
-        r"\subsection{Scientific Support Obligations}",
-        _tex_paragraph(
-            "The 1.3.3 publication standard is deliberately positive. A public scientific document does not pass merely "
-            "because it avoids forbidden words, stale metadata, or route-sheet fragments. It must also perform its role. "
-            "For every major claim the manuscript has to say what is being claimed, why the claim matters, which formal "
-            "or empirical evidence supports it, how that evidence relates to prior art and the current scientific picture, "
-            "what simulation, finite semantic, or replay route can check it, and what boundary or falsifier would reopen it."
+            "The central intuition is that a living or coherent system is not exhausted by its parts. A system also has a "
+            "region of admissible states, a boundary beyond which it no longer counts as the same live continuum, flows that "
+            "move it, cycles that sustain it, and thresholds that can change its regime. In OC notation this is summarized by "
+            r"the tuple \(K=(\Omega,\partial\Omega,A,\Theta,P,J,C,k,M)\). The tuple is a compact scientific object, not a "
+            "decorative diagram: each component gives a reviewer a place to ask whether the model has preserved a real "
+            "distinction or merely renamed one."
         ),
         _tex_paragraph(
-            "This positive obligation is stricter than a normal release checklist. The manuscript must show that the "
-            "current science has actually been integrated into the public text: typed foundation, theorem/proof route, "
-            "Lean subset, finite semantic checks, target-blind numeric rows, negative controls, falsifiers, prior-art "
-            "comparison, phenomenon coverage, adversarial review, reproducibility, and journal owner-review preparation. "
-            "If any of those surfaces exists only as a hidden file or a raw register with no reader-facing explanation, "
-            "the manuscript has not fulfilled its scientific task."
+            "A worked example can be read before the theorem material. Consider an AI-enabled enterprise service. Its lower "
+            "continua include compute, data, model weights, prompts, monitoring, security controls, teams, contracts, and "
+            "user trust. The service remains live only while its admissible technical, organizational, legal, and economic "
+            "state remains inside a declared boundary. A model update can be technically successful and still push the "
+            "enterprise continuum outside its admissible state if it breaks trust, governance, compliance, or operational "
+            "resilience. OC's formal vocabulary exists to make that cross-level failure stateable."
+        ),
+        r"\subsection{Evidence and Proof Anchors}",
+        _tex_paragraph(
+            "The release binds the model grammar to several evidence classes. The theorem route names formal statements and "
+            "their assumptions. Proof sheets and the Lean subset record which parts are mechanized or proof-oriented. Finite "
+            "semantic checks show bounded model behavior under explicit cases. Target-blind replay rows and numeric tables "
+            "show how selected claims are reconstructed under fixed inputs, formulas, comparators, residuals, and negative "
+            "controls. Prior-art and novelty material then ask what existing traditions already explain and what residual "
+            "delta remains."
         ),
         _tex_paragraph(
-            "The current-science SPOT therefore has two jobs. First, it records the internal maturity vector: model "
-            "foundation, formal evidence, empirical evidence, prior-art alignment, corpus completeness, process visibility, "
-            "and editorial review state. Second, it constrains external speech. Public wording must derive from the actual "
-            "research state rather than from ambition, marketing pressure, or local process vocabulary. The reader sees "
-            "the scientific result; the machine keeps the stronger internal proof that the result is supported, current, "
-            "and bounded."
+            "These anchors should be read in sequence. A theorem identifier is a citation handle, not a substitute for the "
+            "argument. A finite witness is a bounded semantic case, not a proof that all domains are complete. A replay row "
+            "is evidence for the scoped reconstruction it names, not final empirical closure. A comparator row is a boundary "
+            "against overclaiming, not a declaration that prior work is absent."
+        ),
+        r"\subsection{Limitations and Falsifiers}",
+        _tex_paragraph(
+            "Every promoted claim remains reopenable. A claim can fail if its assumptions are contradicted, if the finite "
+            "case no longer reproduces, if a negative control succeeds, if a stronger comparator explains the same case with "
+            "less burden, if a proof dependency is lost, or if a domain example requires variables absent from the declared "
+            "tuple. This is why the manuscript keeps limitations inside the scientific path. A limitation is not an apology; "
+            "it is part of the meaning of the claim."
         ),
         _tex_paragraph(
-            "This section is included so future OC and non-OC releases cannot repeat the failure pattern that produced "
-            "a public archive record from metadata, process fragments, or an appended delta. The standard is now part of "
-            "the manuscript machinery: manuscript integration, editorial review, package construction, public metadata, "
-            "and post-release verification must all preserve the same positive obligations."
-        ),
-        r"\subsection{Evidence Coverage Map}",
-        _tex_paragraph(
-            "For this release the evidence-inclusion rule is applied as a coverage map, not as a cosmetic checklist. Each "
-            "public scientific surface has a required reader payoff and a required evidence payoff. The model chapter "
-            "must teach typed carriers, realizations, liveness, death, residue, morphisms, boundaries, operators, cycle "
-            "modes, dimension, and K-level semantics. The proof chapter must connect theorem names to assumptions, "
-            "definitions, proof sheets, Lean declarations, finite witnesses, dependency references, and counterexample "
-            "boundaries. The empirical chapter must distinguish target-blind replay QA and artifact-integrity examples "
-            "from future full-domain validation."
-        ),
-        _tex_paragraph(
-            "Prior-art and novelty discussion has its own positive obligations. It must identify overlap with existing "
-            "traditions, name the residual delta that OC claims under declared assumptions, and refuse unsupported "
-            "priority or total-superiority language. Phenomenon coverage has a parallel obligation: it must state what "
-            "the model instance explains, what observable or replay route exists, which comparator is relevant, what "
-            "negative control or falsifier can reopen the claim, and whether the phenomenon is promoted now or left as "
-            "a research target."
-        ),
-        _tex_paragraph(
-            "The reviewer chapter therefore cannot be a list of issues. It must show why a hostile objection is serious, "
-            "which public claim it threatens, which evidence answers it, and what residual risk would reopen it. The "
-            "methods chapter cannot be a list of commands; it must tell the reader which claim each command checks, "
-            "which input it consumes, which output or hash it should produce, and what scientific interpretation follows "
-            "from a mismatch. The journal package map cannot imply submission; it must show preparation readiness and "
-            "the additional owner/editorial action required before an actual submission."
-        ),
-        r"\begin{itemize}[leftmargin=1.8em]",
-        _tex_item("Model integration payoff", "the reader can reconstruct the tuple-to-boundary-to-operator route without opening a machine register"),
-        _tex_item("Proof integration payoff", "the reader can move from a promoted theorem name to assumptions, proof sheet, Lean subset, finite witness, and boundary"),
-        _tex_item("Empirical integration payoff", "the reader can see formula, snapshot, split, prediction, observation, uncertainty, residual, comparator, negative control, falsifier, and replay hash where empirical promotion is claimed"),
-        _tex_item("Prior-art payoff", "the reader can distinguish overlap, residual delta, non-novelty boundary, and unsupported priority claim"),
-        _tex_item("Phenomenon payoff", "the reader can tell what is explained, what is only protocol-ready, and what would falsify the explanation"),
-        _tex_item("Editorial payoff", "the reader receives one coherent manuscript voice rather than an old volume plus appended control material"),
-        _tex_item("Release payoff", "public metadata, DOI, archive files, and document surfaces describe the same bounded scientific object"),
-        r"\end{itemize}",
-        _tex_paragraph(
-            "These payoffs are deliberately measurable. Missing anchors, absent title/front matter, absent dedication, "
-            "stale version identity, weak literature synthesis, missing visual pedagogy, unsupported public claims, "
-            "over-repeated boilerplate, register-dominated prose, non-current review results, and package/public metadata "
-                    "mismatch are all scientific reopening conditions. The public artifact must be pleasant enough to read and strict "
-            "enough to audit; either failure is a scientific publication failure."
+            "The rest of the monograph follows that pattern: claim, intuition, worked example, formal anchor, evidence or "
+            "proof anchor, and limitation. The reader sees finished scientific prose. Machine-readable rows remain available "
+            "for audit, but they no longer become chapter titles or narrative paragraphs."
         ),
     ]
     proof_rows = theorems.get("rows", []) if isinstance(theorems.get("rows"), list) else []
@@ -4631,31 +5343,33 @@ def _generate_integrated_science_tex(
         "\n".join(front),
         "\n".join(
             [
-                r"\section{Reader Contract and Scientific Route}",
+                r"\section{From Model Grammar to Scientific Reading}",
                 r"\label{sec:oc133-reader-contract-scientific-route}",
                 _tex_paragraph(
-                    "Audience. The primary audience is a mixed external-review group: formal-methods readers, "
-                    "systems-theory readers, domain scientists, journal editors, and technically literate institutional "
-                    "readers. The monograph therefore cannot assume that every reader begins with the same mathematical "
-                    "or domain background."
+                    "Different readers enter the model with different expectations. A formal-methods reader asks whether "
+                    "the definitions have assumptions and proof obligations. A systems-theory reader asks whether the "
+                    "model adds anything beyond earlier accounts of organization, feedback, and emergence. A domain reader "
+                    "asks whether the examples preserve the variables that matter in practice. The manuscript therefore "
+                    "develops the argument in layers rather than assuming one universal starting point."
                 ),
                 _tex_paragraph(
-                    "Purpose. This manuscript explains what OC Core 1.3.3 claims, why the claims are bounded, how the "
-                    "typed model is organized, where proof and executable evidence live, which empirical lanes are "
-                    "replayable, and which broader full-science obligations remain future work. Because the artifact is "
-                    "public science, intelligibility is a release requirement."
+                    "The first layer is conceptual: a continuum has admissible states, boundaries, thresholds, flows, "
+                    "cycles, and embedding context. The second layer is formal: those terms become typed objects, operators, "
+                    "witnesses, proof statements, and finite semantic cases. The third layer is evidential: selected claims "
+                    "are connected to replay rows, numeric anchors, comparator material, and negative controls. The fourth "
+                    "layer is critical: limitations and falsifiers state how the claim can be narrowed or reopened."
                 ),
                 _tex_paragraph(
-                    "Construction. The recommended reader path is orientation, formal model, theorem/proof closure, Lean "
-                    "and finite-model evidence, target-blind empirical rows, prior-art comparison, phenomenon coverage, "
-                    "reviewer objections, reproducibility, and release governance. This order is deliberate: a reader "
-                    "needs the model before the proof register and the proof register before judging replay artifacts."
+                    "This layered reading is meant to protect both skepticism and usefulness. The theory should not be "
+                    "accepted because its vocabulary is broad; it should be tested where the vocabulary claims to preserve "
+                    "a distinction that ordinary domain language leaves implicit. The reader is invited to press exactly "
+                    "there: at boundaries, assumptions, examples, formulas, evidence classes, comparators, and reopening "
+                    "conditions."
                 ),
                 _tex_paragraph(
-                    "Didactic rule. Every major section must answer four questions: what is being claimed, why it matters, "
-                    "what evidence supports it, and what would falsify or limit it. If a section only lists identifiers, "
-                    "hashes, or rows, the detailed material belongs in the evidence package or appendix rather than in "
-                    "the main explanatory path."
+                    "The manuscript's practical promise is that a reader can move from an intuitive system example to a "
+                    "formal component and then to an evidence surface without changing the subject. If that movement breaks, "
+                    "the corresponding claim should be treated as unfinished."
                 ),
             ]
         ),
@@ -4679,18 +5393,20 @@ def _generate_integrated_science_tex(
         ),
         "\n".join(
             [
-                r"\section{Figure Route and Design Logic}",
+                r"\section{How the Figures Carry the Argument}",
                 r"\label{sec:oc133-figure-route-design-logic}",
                 _tex_paragraph(
-                    f"The full corpus includes {figure_total} public figure entries across the theorem roadmap, worked examples, and figure atlas. The figure layer teaches tuple structure, "
-                    "thresholds, K-level transitions, lifecycle, boundaries, domain examples, and theory/reproducibility "
-                    "movement. Figures are explanatory anchors, not decoration; they are staged so that the main proof path "
-                    "remains readable while visual readers can still follow the structural grammar."
+                    f"The full corpus includes {figure_total} public figure entries across the theorem roadmap, worked examples, and inline evidence routes. The figure layer is part of the argument. "
+                    "A useful OC figure should show which variables matter, which boundary is being crossed or preserved, "
+                    "which formal expression it illustrates, and which evidence or falsifier would matter if the picture "
+                    "were wrong."
                 ),
                 _tex_paragraph(
-                    "The design rule for 1.3.3 is simple: every public document must begin with a title page, dedication, "
-                    "version, DOI, abstract or reader contract, and table of contents, and every long register must either "
-                    "be explained in prose or moved to an appendix or evidence bundle."
+                    "The early continuum and K-level figures therefore do more than decorate the opening pages. They show "
+                    "the state region, boundary, flow, threshold, cycle, continuumness condition, K0--K12 hierarchy, "
+                    "upward composition, and downward constraint before the notation becomes dense. Later figures should "
+                    "be read the same way: as compact demonstrations of a claim that the surrounding prose and evidence "
+                    "must still justify."
                 ),
             ]
         ),
@@ -4853,53 +5569,72 @@ def _rewrite_entrypoint_for_integrated_133(source_dir: Path) -> dict[str, Any]:
     auto_core_before = read_text(auto_core)
     integrated_auto_core = source_dir / INTEGRATED_AUTO_CORE_REF
 
-    def _insert_after_once(text: str, anchor: str, insertion: str) -> str:
-        if insertion in text:
-            return text
-        if anchor not in text:
-            return text.rstrip() + "\n" + insertion + "\n"
-        return text.replace(anchor, anchor + "\n" + insertion, 1)
+    formal_refs = [
+        INTEGRATED_MODEL_REF.as_posix(),
+        R005_INLINE_FIGURE_REFS[0].as_posix(),
+        "content/27a_oc_core_1_3_3_typed_foundation_and_claims.tex",
+        "content/03_model.tex",
+        "content/04_results.tex",
+        "content/05_discussion.tex",
+        "content/06_conclusion.tex",
+        "content/08_boundary.tex",
+        "content/09_thresholds.tex",
+        "content/10_klevels_full.tex",
+        "content/11_operators_full.tex",
+        "content/12_collapse_rebirth.tex",
+        "content/13_branching_topology.tex",
+        "content/16_modules_master.tex",
+        "content/k_levels/klevels_master.tex",
+        *[f"content/k_levels/k{index}.tex" for index in range(13)],
+        "content/m_spaces/mspaces_master.tex",
+        *[f"content/m_spaces/m{index}.tex" for index in range(1, 13)],
+        "content/crossk/crossk_master.tex",
+        "content/crossk/crossk_global_landscape.tex",
+        *[f"content/crossk/crossk_k{index}_k{index + 1}.tex" for index in range(12)],
+        "content/cycles/cycles_master.tex",
+        *[f"content/cycles/cycles_k{index}.tex" for index in range(13)],
+        "content/jets/jets_master.tex",
+        *[f"content/jets/jets_k{index}.tex" for index in range(13)],
+        "content/processes/processes_master.tex",
+        *[f"content/processes/processes_k{index}.tex" for index in range(13)],
+        "content/operators_universal.tex",
+        "content/complexity_S.tex",
+    ]
+    evidence_refs = [
+        INTEGRATED_PROOF_REF.as_posix(),
+        R005_INLINE_FIGURE_REFS[1].as_posix(),
+        "content/27b_oc_core_1_3_3_proof_and_formalization.tex",
+        "content/experiments/experiments_master.tex",
+        *[f"content/experiments/experiments_k{index}" for index in range(13)],
+        "content/falsifiability/falsifiability_master.tex",
+        *[f"content/falsifiability/falsifiability_k{index}.tex" for index in range(13)],
+        "content/15_falsifiability_extended.tex",
+        "content/predictions/predictions_master.tex",
+        INTEGRATED_EVIDENCE_REF.as_posix(),
+        R005_INLINE_FIGURE_REFS[2].as_posix(),
+        "content/27c_oc_core_1_3_3_methods_evidence_and_comparators.tex",
+        *[f"content/predictions/predictions_k{index}.tex" for index in range(13)],
+    ]
+    domain_refs = [
+        "content/14_disciplines_extended.tex",
+        INTEGRATED_REVIEW_REF.as_posix(),
+        R005_INLINE_FIGURE_REFS[3].as_posix(),
+        "content/27d_oc_core_1_3_3_review_boundaries_and_journal_map.tex",
+    ]
 
-    integrated_auto_core_text = auto_core_before
-    integrated_auto_core_text = _insert_after_once(
-        integrated_auto_core_text,
-        r"\input{content/02_background.tex}",
-        rf"\input{{{INTEGRATED_MODEL_REF.as_posix()}}}",
+    def part_block(title: str, refs: list[str]) -> str:
+        lines = [rf"\section*{{{title}}}", rf"\addcontentsline{{toc}}{{section}}{{{title}}}"]
+        lines.extend(rf"\input{{{ref}}}" for ref in refs)
+        return "\n".join(lines)
+
+    integrated_auto_core_text = "\n\n".join(
+        [
+            "% R006 curated auto-core: generated from the full corpus, reordered for didactic reading.",
+            part_block("Part III -- Formal Core", formal_refs),
+            part_block("Part IV -- Evidence, Proof, and Falsifiability", evidence_refs),
+            part_block("Part V -- Domain and Practical Routes", domain_refs),
+        ]
     )
-    integrated_auto_core_text = _insert_after_once(
-        integrated_auto_core_text,
-        r"\input{content/theorems_master.tex}",
-        rf"\input{{{INTEGRATED_PROOF_REF.as_posix()}}}",
-    )
-    integrated_auto_core_text = _insert_after_once(
-        integrated_auto_core_text,
-        r"\input{content/predictions/predictions_master.tex}",
-        rf"\input{{{INTEGRATED_EVIDENCE_REF.as_posix()}}}",
-    )
-    integrated_auto_core_text = _insert_after_once(
-        integrated_auto_core_text,
-        r"\input{content/toe/toe_master.tex}",
-        rf"\input{{{INTEGRATED_REVIEW_REF.as_posix()}}}",
-    )
-    # The complete generated corpus includes an early figure compendium while
-    # the public monograph also carries a dedicated figure-atlas appendix and
-    # supporting-publication figures. Keeping both copies in the master PDF
-    # reads as duplicated atlas material rather than integrated manuscript
-    # structure, so the generated 1.3.3 entrypoint preserves the scientific
-    # text corpus and leaves the figure atlas in its dedicated appendix role.
-    integrated_auto_core_text = integrated_auto_core_text.replace(r"\input{content/07_figures.tex}" + "\n", "")
-    # The historical TOE/K synthesis generator is a machine-status surface. It
-    # contains pass/fail and promotion fields that are useful evidence-package
-    # data, but they must not masquerade as publication-grade monograph prose.
-    # The public synthesis chapter below replaces it in the reading path, while
-    # the raw rows remain available through the evidence package.
-    integrated_auto_core_text = integrated_auto_core_text.replace(r"\input{content/toe/toe_master.tex}" + "\n", "")
-    # Core 1.2 axiom/theorem packets are important provenance, but a current
-    # 1.3.3 monograph must teach from the integrated 1.3.3 foundation/proof
-    # spine. Keep the historical packets intact in a dedicated provenance
-    # annex instead of letting them interrupt the main scientific argument.
-    integrated_auto_core_text = integrated_auto_core_text.replace(r"\input{content/axioms_full.tex}" + "\n", "")
-    integrated_auto_core_text = integrated_auto_core_text.replace(r"\input{content/theorems_master.tex}" + "\n", "")
     write_text_if_changed(integrated_auto_core, integrated_auto_core_text)
 
     historical_annex = rf"""\section{{Provenance Boundary Annex}}
@@ -4921,7 +5656,14 @@ checksums needed for audit.
     write_text_if_changed(source_dir / HISTORICAL_CORE12_ANNEX_REF, _public_clean(historical_annex))
 
     appendix_block = rf"""\appendix
-\ocvolumeblock{{Scientific Evidence and Review Appendices}}{{The appendices preserve notation, axioms, K-level tables, provenance, journal extraction logic, reviewer objections, empirical replay surfaces, benchmark cases, proof machinery, figure material, technical derivations, synthesis support, and applied comparison material. They are secondary scientific annexes: the main body remains the teaching path, while this block prevents loss of corpus content and gives reviewers the evidence map needed to audit the release.}}
+\section*{{Appendices -- Evidence, Proof, and Reference Support}}
+\addcontentsline{{toc}}{{section}}{{Appendices -- Evidence, Proof, and Reference Support}}
+The appendices preserve notation, axiomatics, K-level tables, provenance,
+reviewer objection navigation, empirical replay surfaces, benchmark cases,
+proof machinery, technical derivations, synthesis support, and applied
+comparison material. They are secondary scientific annexes: the main body
+teaches the argument, while the appendices give reviewers the support map
+needed to audit the release.
 \input{{appendix/A_notation}}
 \input{{appendix/B_axioms_full}}
 \input{{appendix/C_klevels_tables}}
@@ -4936,7 +5678,6 @@ checksums needed for audit.
 \input{{appendix/J_oc_core_1_3_domain_replay_reports}}
 \input{{appendix/K_oc_core_1_3_domain_execution_board}}
 \input{{appendix/M_oc_core_1_3_proof_machinery_appendix.tex}}
-\input{{appendix/N_oc_core_1_3_figure_atlas.tex}}
 \input{{appendix/O_oc_core_1_3_technical_derivation_atlas.tex}}
 \input{{appendix/P_oc_core_1_3_reference_benchmark_atlas.tex}}
 \input{{appendix/Q_oc_core_1_3_toe_support_dossiers.tex}}
@@ -4952,23 +5693,26 @@ checksums needed for audit.
 \begin{{document}}
 
 \input{{content/frontmatter_oc_core_1_3_master.tex}}
+\renewcommand*\contentsname{{Table of Contents}}
+\setcounter{{tocdepth}}{{1}}
+\setcounter{{secnumdepth}}{{3}}
+\makeatletter
+% R005_TOC_VISUAL_HIERARCHY
+% R006_TOC_VISUAL_HIERARCHY
+% R007_TOC_VISUAL_HIERARCHY
+\renewcommand*\l@section[2]{{\addvspace{{0.55em}}\begingroup\bfseries\large\@dottedtocline{{1}}{{0em}}{{4.8em}}{{#1}}{{#2}}\endgroup}}
+\renewcommand*\l@subsection[2]{{\@dottedtocline{{2}}{{2.0em}}{{5.8em}}{{\small #1}}{{\small #2}}}}
+\renewcommand*\l@subsubsection[2]{{\@dottedtocline{{3}}{{4.2em}}{{6.4em}}{{\scriptsize #1}}{{\scriptsize #2}}}}
+\makeatother
 \tableofcontents
 \clearpage
-\phantomsection
-\addcontentsline{{toc}}{{section}}{{List of Figures}}
-\listoffigures
-\clearpage
-\phantomsection
-\addcontentsline{{toc}}{{section}}{{List of Tables}}
-\listoftables
 
-\ocvolumeblock{{Reader Orientation}}{{The title page, abstract, table of contents, list of figures, list of tables, and reader guide orient the reader before the scientific argument begins.}}
-\input{{content/17_oc_core_1_3_reader_guide.tex}}
-
-\ocvolumeblock{{Complete Scientific Argument}}{{This block presents the current Core 1.3.3 scientific argument as the teaching path of the manuscript. The typed foundation, proof spine, evidence interpretation, and reviewer-boundary material are placed at the relevant conceptual points. Historical provenance, visual material, and source-trace records are summarized in scholarly annexes and distributed in the evidence package rather than interrupting the main argument.}}
+\input{{{R007_DIDACTIC_SPINE_REFS[0].as_posix()}}}
+\input{{{R007_DIDACTIC_SPINE_REFS[1].as_posix()}}}
 \input{{{INTEGRATED_AUTO_CORE_REF.as_posix()}}}
 
-\ocvolumeblock{{Scientific Closure and Use Boundaries}}{{After the full formal and domain corpus, this block keeps the scientific closure path: provenance and corpus boundaries, foundational consistency, theorem roadmap, worked examples, operationalization, empirical execution protocols, proof machinery, bounded synthesis, and practical use. These chapters are retained as part of the integrated manuscript rather than appended as a detached delta.}}
+\section*{{Part VI -- Limits, Prior Art, and Closure}}
+\addcontentsline{{toc}}{{section}}{{Part VI -- Limits, Prior Art, and Closure}}
 \input{{content/18_oc_core_1_3_source_audit.tex}}
 \input{{content/19_oc_core_1_3_foundational_consistency.tex}}
 \input{{content/20_oc_core_1_3_theorem_roadmap.tex}}
@@ -4978,9 +5722,13 @@ checksums needed for audit.
 \input{{content/24_oc_core_1_3_proof_machinery.tex}}
 \input{{content/25_oc_core_1_3_toe_synthesis.tex}}
 \input{{content/26_oc_core_1_3_practical_utility.tex}}
+\input{{{R005_INLINE_FIGURE_REFS[5].as_posix()}}}
 \input{{content/99_oc_core_1_3_3_final_conclusion.tex}}
 
 {appendix_block}
+
+\clearpage
+{_r005_backmatter_section()}
 
 \clearpage
 \nocite{{*}}

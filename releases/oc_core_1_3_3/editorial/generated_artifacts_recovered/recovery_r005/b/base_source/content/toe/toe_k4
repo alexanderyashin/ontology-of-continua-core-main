@@ -1,0 +1,45 @@
+% Generated from OC_CORE_1_3_SCIENCE_SPOT_latest.json for K4
+\subsection{Level K4: compartmental and membrane thresholds}
+\label{subsec:synthesis-support-k4}
+Current release posture: bounded evidence recorded. broader-promotion limits: none.
+
+\paragraph{Theorem claim.}
+K4 closes the first compartmental organization packet by binding membrane thickness, bending stability, and gradient maintenance to lawful biological thresholds.
+
+\paragraph{Operator and K-level binding.}
+H, R, and S couple membrane stability, osmotic admissibility, and retained gradients into a bounded protocellular regime. Kernel refs: evidence-package record 03 model.tex, \allowbreak evidence-package record 10 klevels full.tex, \allowbreak evidence-package record 11 operators full.tex, \allowbreak \occode{APPENDIX_Q_SYNTHESIS_DOSSIER_K4}.
+
+\paragraph{Parameter law.}
+\[
+\begin{gathered} d_{\mathrm{mem}} \in [3, 5]\,\mathrm{nm},\quad \kappa \in [10, 25]\,k_{\mathrm{B}}T,\quad \Delta pH \in [0.5, 2] \\ \gamma_{\mathrm{edge}} \in [5,20]\,\mathrm{pN},\quad \Pi \in [10^5,10^6]\,\mathrm{Pa},\quad P_i \in [10^{-12},10^{-8}]\,\mathrm{m/s} \end{gathered}
+\]
+
+\paragraph{Observable binding and units.}
+Membrane thickness, bending modulus, osmotic pressure, proton gradient, and permeability lanes for compartmental organization. Observable ids: \occode{K4::MEMBRANE_THICKNESS}, \allowbreak \occode{K4::BENDING_MODULUS}, \allowbreak \occode{K4::PROTON_GRADIENT}, \allowbreak \occode{K4::LINE_TENSION}, \allowbreak \occode{K4::OSMOTIC_PRESSURE_SCALE}, \allowbreak \occode{K4::PERMEABILITY_RANGE}, \allowbreak \occode{BIOLOGY::EXPRESSION_SIGNATURE_RESIDUAL}, \allowbreak \occode{BIOLOGY::STATE_TRANSITION_ORDER_ERROR}, \allowbreak \occode{BIOLOGY::RESPONSE_ONSET_RESIDUAL}, \allowbreak \occode{CHEMISTRY::GAS_PHASE_ENTHALPY_RESIDUAL}, \allowbreak \occode{CHEMISTRY::SPECTRAL_TRANSITION_RESIDUAL}, \allowbreak \occode{CHEMISTRY::KINETIC_OR_EQUILIBRIUM_RESIDUAL}.
+
+\paragraph{Numerical instantiation and prediction table.}
+The table below is a promoted subset of the numerical backing rows in the appendix on table k4 membrane parameters.
+\begin{longtable}{@{}L{0.27\textwidth}L{0.15\textwidth}L{0.24\textwidth}L{0.16\textwidth}@{}}
+\toprule
+Quantity & Symbol & Value / range & Units or note \\
+\midrule
+\endfirsthead
+\toprule
+Quantity & Symbol & Value / range & Units or note \\
+\midrule
+\endhead
+Membrane thickness & $\scriptstyle d_{\mathrm{mem}}$ & $3\text{--}5$ & $\mathrm{nm}$ \\
+Membrane bending modulus & $\scriptstyle \kappa$ & $10\text{--}25$ & $k_{\mathrm{B}}T$ \\
+Typical proton gradient & $\scriptstyle \Delta pH$ & $0.5\text{--}2$ & pH units \\
+Line tension (edge) & $\scriptstyle \gamma_{\mathrm{edge}}$ & $5\text{--}20$ & $\mathrm{pN}$ \\
+Osmotic pressure scale & $\scriptstyle \Pi$ & $10^5\text{--}10^6$ & $\mathrm{Pa}$ \\
+Permeability range & $\scriptstyle P_i$ & $10^{-12}\text{--}10^{-8}$ & $\mathrm{m/s}$ \\
+\bottomrule
+\end{longtable}
+
+\paragraph{Falsifier and collapse boundary.}
+K4 collapses if compartments cannot retain a lawful gradient, if membranes lose structural stability, or if permeability escapes the admissible packet. Falsifier refs: \occode{APPENDIX_Q_SYNTHESIS_DOSSIER_K4}, \allowbreak evidence-package record falsifiability master.tex, \allowbreak evidence-package record falsifiability k4.tex, \allowbreak evidence-package record falsifiability k5.tex, \allowbreak evidence-package record falsifiability k6.tex, \allowbreak evidence-package record falsifiability k7.tex, \allowbreak evidence-package record falsifiability k2.tex, \allowbreak evidence-package record falsifiability k3.tex.
+
+\paragraph{Bounded domain-lane bindings.}
+\occode{BIOLOGY}: class \occode{bounded theorem route}, verdict bounded evidence recorded, held-out cases \occode{16}, theorem packet recorded, parameter law recorded. Packet ref: evidence-package record biology. Metrics: \occode{covered_case_total}=30, \allowbreak \occode{covered_held_out_case_total}=16, \allowbreak \occode{normalized_error_mean_abs}=0.444222, \allowbreak \occode{normalized_error_p95}=1.030033, \allowbreak \occode{normalized_error_max}=1.438582, \allowbreak \occode{tail_breach_count}=0.
+\occode{CHEMISTRY}: class \occode{bounded theorem route}, verdict bounded evidence recorded, held-out cases \occode{19}, theorem packet recorded, parameter law recorded. Packet ref: evidence-package record chemistry. Metrics: \occode{covered_case_total}=30, \allowbreak \occode{covered_held_out_case_total}=19, \allowbreak \occode{normalized_error_mean_abs}=0.533285, \allowbreak \occode{normalized_error_p95}=1.0, \allowbreak \occode{normalized_error_max}=1.597772, \allowbreak \occode{tail_breach_count}=0.

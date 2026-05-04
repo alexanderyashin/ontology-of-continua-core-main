@@ -1,0 +1,102 @@
+% corresponding evidence-package record
+science-state register revision: repo SHA \occode{0dd049c48def00df8a7d50bef07abb127a3c4fb3}; timestamp \occode{2026-04-22T09:23:17Z}.
+The evidence bar is now locked to the internal science-state register rather than to drifting summary surfaces. The mathematics anchor is replay-only: it requires deterministic exact replay rather than a data-backed benchmark route. The empirical domain lanes require held-out results that clear the declared five-sigma bar without tail-breach inflation. Residual containment by itself is not enough for promotion.
+
+\subsection{Global evidence bar}
+For the empirical lanes, the default evidence bar remains hybrid escalation: official or open primary data first, then institute-run measurements only if the observable family cannot be closed otherwise. The mathematics lane is replay-only and closes through deterministic exact replay rather than an out-of-sample data route. In every lane, evidence discipline sits behind proof-routed trace closure rather than replacing it.
+
+\subsection{Execution protocol matrix}
+\begingroup
+\scriptsize
+\setlength{\tabcolsep}{1.5pt}
+\begin{longtable}{@{}L{0.13\textwidth}L{0.10\textwidth}L{0.12\textwidth}L{0.14\textwidth}L{0.16\textwidth}L{0.13\textwidth}L{0.10\textwidth}@{}}
+\toprule
+Domain & Wave & Evidence bar & Held-out policy & Replay command & Replay status & Closure verdict \\
+\midrule
+\endfirsthead
+\toprule
+Domain & Wave & Evidence bar & Held-out policy & Replay command & Replay status & Closure verdict \\
+\midrule
+\endhead
+Mathematics & wave 0 anchor & \occode{HYBRID_ESCALATION} & \occode{DETERMINISTIC_COUNTEREXAMPLE_AND_TRACE_REPLAY} & \occode{run_claim_simulations_v1.py} & replayable under the bounded public protocol & bounded evidence recorded \\
+Physics & wave 1 physics & \occode{HYBRID_ESCALATION} & \occode{LEAVE_ONE_BENCHMARK_FAMILY_OUT} & \occode{run_oc_core_domain_hard_closure_replay_v1.py --domain-id PHYSICS} & replayable under the bounded public protocol & bounded evidence recorded \\
+Chemistry & wave 2 chemistry & \occode{HYBRID_ESCALATION} & \occode{HOLD_OUT_ONE_COMPOUND_OR_REACTION_CLASS} & \occode{run_oc_core_domain_hard_closure_replay_v1.py --domain-id CHEMISTRY} & replayable under the bounded public protocol & bounded evidence recorded \\
+Biology & wave 3 biology & \occode{HYBRID_ESCALATION} & \occode{RESERVE_ONE_DATASET_FAMILY_PER_SIGNATURE_CLASS} & \occode{run_oc_core_domain_hard_closure_replay_v1.py --domain-id BIOLOGY} & replayable under the bounded public protocol & bounded evidence recorded \\
+Systems / Civilizational projection & wave 4 systems & \occode{HYBRID_ESCALATION} & \occode{HELD_OUT_INTERVAL_REPLAY_WITH_TURNING_POINT_CHECKS} & \occode{run_oc_core_domain_hard_closure_replay_v1.py --domain-id SYSTEMS_CIVILIZATIONAL_PROJECTION} & replayable under the bounded public protocol & bounded evidence recorded \\
+\bottomrule
+\end{longtable}
+\endgroup
+
+\subsection{Method ladder}
+\begin{longtable}{@{}L{0.07\textwidth}L{0.18\textwidth}L{0.26\textwidth}L{0.27\textwidth}@{}}
+\toprule
+Order & Method class & Entry rule & Anti-cycle condition \\
+\midrule
+\endfirsthead
+\toprule
+Order & Method class & Entry rule & Anti-cycle condition \\
+\midrule
+\endhead
+1 & \occode{SOURCE_EXTRACTION} & Use when a claim lacks an exact theorem target, exact dependency list, or exact source text. & May not be repeated unless a new source block, new theorem family, or newly scoped parent claim is introduced. \\
+2 & \occode{FRESH_DERIVATION_FROM_OPERATORS} & Use when source extraction alone does not close the proof-routed route. & May not be repeated unless a new formal premise or a new decomposition of the claim space appears. \\
+3 & \occode{REPARAMETERIZATION_OR_CLAIM_DECOMPOSITION} & Use when the claim is too wide, rubberized, or under-specified to admit a lawful parameter law. & May not be repeated unless a new observable family or a new admissible regime is declared before replay. \\
+4 & \occode{NEW_DATA_OR_MEASUREMENT_ROUTE} & Use only after theorem target, parameter law, and held-out policy are already fixed. & May not be repeated unless the new route adds a previously unavailable observable family or a nonoverlapping held-out family. \\
+5 & \occode{SAME_CLAIM_CLASS_ADVERSARIAL_COMPARISON} & Use when the claim survives internal closure steps and must now face simpler same-claim-class competitors. & May not be repeated unless a new comparator family or a new cost-normalized metric is introduced. \\
+\bottomrule
+\end{longtable}
+
+\subsection{Per-domain escalation doctrine}
+\paragraph{Mathematics.}
+Protocol \occode{OC13::EXECUTION::MATHEMATICS::ANCHOR_REPLAY} runs under evidence bar \occode{HYBRID_ESCALATION} and currently reports readiness bounded evidence recorded.
+Closure phase: \occode{PHASE_1_STABILIZE_CLOSED_CORE}. Launch rule: \occode{MAINTAIN_ALWAYS_ON}.
+Pinned route institutions: Clay Mathematics Institute, \allowbreak American Institute of Mathematics.
+Held-out policy: \occode{DETERMINISTIC_COUNTEREXAMPLE_AND_TRACE_REPLAY}, with minimum cases \occode{31}.
+Quantitative gate: minimum cases 31; strictly terminalized cases at least 31; counterexample survivors capped at 0; replay divergences capped at 0.
+Replay harness: the public evidence replay route.
+Institute-run trigger: \occode{ONLY_IF_DETERMINISTIC_REPLAY_BREAKS}. Measurement wave: \occode{NONE}.
+Open gaps: none.
+Escalation plan: Expand the exact-question corpus rather than broadening outward claims when a replay gap appears.
+
+\paragraph{Physics.}
+Protocol \occode{OC13::EXECUTION::PHYSICS::CONSTANTS_SPECTRA_TRANSPORT} runs under evidence bar \occode{HYBRID_ESCALATION} and currently reports readiness bounded evidence recorded.
+Closure phase: \occode{PHASE_3_PHYSICS_CLOSURE}. Launch rule: \occode{START_IMMEDIATELY_AFTER_PHASE_1}.
+Pinned route institutions: NIST, \allowbreak U.S. Department of Energy Office of Science.
+Held-out policy: \occode{LEAVE_ONE_BENCHMARK_FAMILY_OUT}, with minimum cases \occode{30}.
+Quantitative gate: minimum cases 30; coverage ratio 1.0; mean absolute normalized error at or below 1.0 sigma; 95th-percentile normalized error at or below 2.5 sigma; maximum normalized error at or below 5.0 sigma; tail breaches capped at 0; critical residual threshold 2.5 sigma; severe residual threshold 1.5 sigma.
+Replay harness: \occode{public evidence replay route --domain-id PHYSICS}.
+Institute-run trigger: \occode{OPEN_DATA_COVERAGE_LT_1_0_OR_HELD_OUT_CASES_LT_30_OR_RESIDUAL_BREACH_PERSISTS}. Measurement wave: Physics institute-run wave 1a.
+Open gaps: none.
+Escalation plan: If official/open data do not cover the required observable family, queue institute-run measurement or observational partner acquisition.
+
+\paragraph{Chemistry.}
+Protocol \occode{OC13::EXECUTION::CHEMISTRY::THERMOCHEMISTRY_SPECTRA_KINETICS} runs under evidence bar \occode{HYBRID_ESCALATION} and currently reports readiness bounded evidence recorded.
+Closure phase: \occode{PHASE_4_CHEMISTRY_CLOSURE}. Launch rule: \occode{START_AFTER_PHYSICS_THEOREM_PACKET_LOCKS}.
+Pinned route institutions: NIST, \allowbreak U.S. Department of Energy Office of Science.
+Held-out policy: \occode{HOLD_OUT_ONE_COMPOUND_OR_REACTION_CLASS}, with minimum cases \occode{30}.
+Quantitative gate: minimum cases 30; coverage ratio 1.0; mean absolute normalized error at or below 1.0 sigma; 95th-percentile normalized error at or below 2.5 sigma; maximum normalized error at or below 5.0 sigma; tail breaches capped at 0; critical residual threshold 2.5 sigma; severe residual threshold 1.5 sigma.
+Replay harness: \occode{public evidence replay route --domain-id CHEMISTRY}.
+Institute-run trigger: \occode{OPEN_DATA_COVERAGE_LT_1_0_OR_HELD_OUT_CASES_LT_30_OR_RESIDUAL_BREACH_PERSISTS}. Measurement wave: Chemistry institute-run wave 2a.
+Open gaps: none.
+Escalation plan: When official/open reference data are insufficient, queue targeted laboratory or partner-measurement acquisition.
+
+\paragraph{Biology.}
+Protocol \occode{OC13::EXECUTION::BIOLOGY::STATE_TRANSITIONS_AND_RESPONSE_SIGNATURES} runs under evidence bar \occode{HYBRID_ESCALATION} and currently reports readiness bounded evidence recorded.
+Closure phase: \occode{PHASE_5_BIOLOGY_CLOSURE}. Launch rule: \occode{START_AFTER_CHEMISTRY_THEOREM_PACKET_LOCKS}.
+Pinned route institutions: NCBI GEO.
+Held-out policy: \occode{RESERVE_ONE_DATASET_FAMILY_PER_SIGNATURE_CLASS}, with minimum cases \occode{30}.
+Quantitative gate: minimum cases 30; coverage ratio 1.0; mean absolute normalized error at or below 1.0 sigma; 95th-percentile normalized error at or below 2.5 sigma; maximum normalized error at or below 5.0 sigma; tail breaches capped at 0; expected calibration error at or below 0.05.
+Replay harness: \occode{public evidence replay route --domain-id BIOLOGY}.
+Institute-run trigger: \occode{OPEN_DATA_COVERAGE_LT_1_0_OR_HELD_OUT_CASES_LT_30_OR_SIGNATURE_CLASS_UNDERCONSTRAINED}. Measurement wave: Biology institute-run wave 3a.
+Open gaps: none.
+Escalation plan: If open repositories cannot close the lane honestly, promote an institute-run observation or assay plan instead of overclaiming.
+
+\paragraph{Systems / Civilizational projection.}
+Protocol \occode{OC13::EXECUTION::SYSTEMS::MACRO_TRAJECTORIES_AND_REGIME_SHIFTS} runs under evidence bar \occode{HYBRID_ESCALATION} and currently reports readiness bounded evidence recorded.
+Closure phase: \occode{PHASE_6_SYSTEMS_CLOSURE}. Launch rule: \occode{ALLOW_PARALLEL_DATA_PREP_AFTER_CHEMISTRY_BUT_FINAL_PROMOTION_AFTER_BIOLOGY_FORMAL_ROUTE}.
+Pinned route institutions: World Bank, \allowbreak U.S. Department of Energy Office of Science.
+Held-out policy: \occode{HELD_OUT_INTERVAL_REPLAY_WITH_TURNING_POINT_CHECKS}, with minimum cases \occode{30}.
+Quantitative gate: minimum cases 30; coverage ratio 1.0; tail breaches capped at 0; Brier score at or below 0.08; expected calibration error at or below 0.05; critical-failure F1 at least 0.87; critical-failure precision at least 0.85; critical-failure recall at least 0.9.
+Replay harness: \occode{public evidence replay route --domain-id SYSTEMS_CIVILIZATIONAL_PROJECTION}.
+Institute-run trigger: \occode{OPEN_DATA_COVERAGE_LT_1_0_OR_HELD_OUT_INTERVAL_COUNT_LT_30_OR_TURNING_POINT_BREACH_PERSISTS}. Measurement wave: Systems institute-run wave 4a.
+Open gaps: none.
+Escalation plan: If open macro-process series are insufficient, queue institute-run observation design or partner data acquisition.

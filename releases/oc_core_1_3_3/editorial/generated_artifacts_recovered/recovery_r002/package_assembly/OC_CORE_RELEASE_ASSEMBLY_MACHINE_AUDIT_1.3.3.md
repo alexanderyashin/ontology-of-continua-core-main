@@ -1,9 +1,9 @@
 # OC Core Release Assembly Machine Audit 1.3.3
 
-Status: `PASS`
+Status: `FAIL`
 Assembly revision: `recovery_r002`
 Structure source: `recovered_l10c`
-Artifact hash: `5394740d3d0b12653115037a834917a54fd83b6c2082c2bec7e060c365111692`
+Artifact hash: `a581ad03ae2cc14eb578ac4a28baee8997e6b87543c3b3ab7c41190f5d8ab0f9`
 
 ## Summary
 
@@ -11,9 +11,213 @@ Artifact hash: `5394740d3d0b12653115037a834917a54fd83b6c2082c2bec7e060c365111692
 - `blocked_terminal_total`: 0
 - `transition_record_total`: 5385
 - `artifact_type_total`: 9
-- `finding_total`: 0
-- `severity_counts`: {}
+- `finding_total`: 672
+- `severity_counts`: {'CRITICAL': 662, 'HIGH': 10}
+- `title_page_status`: FAIL
+- `toc_semantic_status`: FAIL
+- `heading_hygiene_status`: FAIL
+- `form_quality_status`: FAIL
+- `form_finding_total`: 657
 
 ## Findings
 
-- none
+- `CRITICAL` `frontmatter_governance_missing_source_section`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r002\sources\release_guide_1.3.3.md`
+- `HIGH` `frontmatter_governance_source_order_violation`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r002\sources\release_guide_1.3.3.md`
+- `HIGH` `frontmatter_governance_source_order_violation`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r002\sources\release_guide_1.3.3.md`
+- `CRITICAL` `frontmatter_forbidden_heading_prefix`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r002\sources\release_guide_1.3.3.md`
+- `CRITICAL` `frontmatter_forbidden_heading_prefix`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r002\sources\release_guide_1.3.3.md`
+- `CRITICAL` `frontmatter_forbidden_heading_prefix`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r002\sources\release_guide_1.3.3.md`
+- `CRITICAL` `frontmatter_forbidden_heading_prefix`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r002\sources\release_guide_1.3.3.md`
+- `CRITICAL` `frontmatter_forbidden_heading_prefix`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r002\sources\release_guide_1.3.3.md`
+- `CRITICAL` `frontmatter_forbidden_heading_prefix`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r002\sources\release_guide_1.3.3.md`
+- `CRITICAL` `frontmatter_forbidden_heading_prefix`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r002\sources\release_guide_1.3.3.md`
+- `CRITICAL` `frontmatter_forbidden_heading_prefix`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r002\sources\release_guide_1.3.3.md`
+- `CRITICAL` `frontmatter_heading_trailing_comma`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r002\sources\release_guide_1.3.3.md`
+- `CRITICAL` `frontmatter_forbidden_heading_prefix`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r002\sources\release_guide_1.3.3.md`
+- `CRITICAL` `frontmatter_forbidden_heading_prefix`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r002\sources\release_guide_1.3.3.md`
+- `CRITICAL` `frontmatter_forbidden_heading_prefix`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r002\sources\release_guide_1.3.3.md`
+- `CRITICAL` `frontmatter_forbidden_heading_prefix`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r002\sources\release_guide_1.3.3.md`
+- `CRITICAL` `frontmatter_forbidden_heading_prefix`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r002\sources\release_guide_1.3.3.md`
+- `CRITICAL` `frontmatter_forbidden_heading_prefix`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r002\sources\release_guide_1.3.3.md`
+- `CRITICAL` `frontmatter_forbidden_heading_prefix`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r002\sources\release_guide_1.3.3.md`
+- `CRITICAL` `frontmatter_forbidden_heading_prefix`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r002\sources\release_guide_1.3.3.md`
+- `CRITICAL` `frontmatter_forbidden_heading_prefix`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r002\sources\release_guide_1.3.3.md`
+- `CRITICAL` `frontmatter_forbidden_heading_prefix`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r002\sources\release_guide_1.3.3.md`
+- `CRITICAL` `frontmatter_forbidden_heading_prefix`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r002\sources\release_guide_1.3.3.md`
+- `CRITICAL` `frontmatter_forbidden_heading_prefix`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r002\sources\release_guide_1.3.3.md`
+- `CRITICAL` `frontmatter_forbidden_heading_prefix`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r002\sources\release_guide_1.3.3.md`
+- `CRITICAL` `frontmatter_forbidden_heading_prefix`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r002\sources\release_guide_1.3.3.md`
+- `CRITICAL` `frontmatter_forbidden_heading_prefix`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r002\sources\release_guide_1.3.3.md`
+- `CRITICAL` `frontmatter_forbidden_heading_prefix`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r002\sources\release_guide_1.3.3.md`
+- `CRITICAL` `frontmatter_forbidden_heading_prefix`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r002\sources\release_guide_1.3.3.md`
+- `CRITICAL` `frontmatter_forbidden_heading_prefix`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r002\sources\release_guide_1.3.3.md`
+- `CRITICAL` `frontmatter_heading_trailing_comma`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r002\sources\release_guide_1.3.3.md`
+- `CRITICAL` `frontmatter_form_flat_toc_continuation`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r002\sources\release_guide_1.3.3.md`
+- `CRITICAL` `frontmatter_form_technical_toc_entry`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r002\sources\release_guide_1.3.3.md`
+- `CRITICAL` `pdf_title_page_missing_metadata`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r002\pdf\release_guide_1.3.3.pdf`
+- `CRITICAL` `pdf_title_page_not_primary`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r002\pdf\release_guide_1.3.3.pdf`
+- `CRITICAL` `pdf_forbidden_heading_prefix`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r002\pdf\release_guide_1.3.3.pdf`
+- `CRITICAL` `pdf_forbidden_heading_prefix`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r002\pdf\release_guide_1.3.3.pdf`
+- `CRITICAL` `pdf_heading_too_long`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r002\pdf\release_guide_1.3.3.pdf`
+- `CRITICAL` `pdf_forbidden_heading_prefix`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r002\pdf\release_guide_1.3.3.pdf`
+- `CRITICAL` `pdf_heading_too_long`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r002\pdf\release_guide_1.3.3.pdf`
+- `CRITICAL` `pdf_forbidden_heading_prefix`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r002\pdf\release_guide_1.3.3.pdf`
+- `CRITICAL` `pdf_heading_too_long`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r002\pdf\release_guide_1.3.3.pdf`
+- `CRITICAL` `pdf_forbidden_heading_prefix`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r002\pdf\release_guide_1.3.3.pdf`
+- `CRITICAL` `pdf_heading_too_long`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r002\pdf\release_guide_1.3.3.pdf`
+- `CRITICAL` `pdf_forbidden_heading_prefix`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r002\pdf\release_guide_1.3.3.pdf`
+- `CRITICAL` `pdf_forbidden_heading_prefix`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r002\pdf\release_guide_1.3.3.pdf`
+- `CRITICAL` `pdf_forbidden_heading_prefix`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r002\pdf\release_guide_1.3.3.pdf`
+- `CRITICAL` `pdf_forbidden_heading_prefix`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r002\pdf\release_guide_1.3.3.pdf`
+- `CRITICAL` `pdf_forbidden_heading_prefix`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r002\pdf\release_guide_1.3.3.pdf`
+- `CRITICAL` `frontmatter_governance_missing_source_section`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r002\sources\master_monograph_1.3.3.md`
+- `HIGH` `frontmatter_governance_source_order_violation`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r002\sources\master_monograph_1.3.3.md`
+- `HIGH` `frontmatter_governance_source_order_violation`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r002\sources\master_monograph_1.3.3.md`
+- `CRITICAL` `frontmatter_forbidden_heading_prefix`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r002\sources\master_monograph_1.3.3.md`
+- `CRITICAL` `frontmatter_forbidden_heading_prefix`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r002\sources\master_monograph_1.3.3.md`
+- `CRITICAL` `frontmatter_forbidden_heading_prefix`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r002\sources\master_monograph_1.3.3.md`
+- `CRITICAL` `frontmatter_forbidden_heading_prefix`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r002\sources\master_monograph_1.3.3.md`
+- `CRITICAL` `frontmatter_forbidden_heading_prefix`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r002\sources\master_monograph_1.3.3.md`
+- `CRITICAL` `frontmatter_forbidden_heading_prefix`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r002\sources\master_monograph_1.3.3.md`
+- `CRITICAL` `frontmatter_forbidden_heading_prefix`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r002\sources\master_monograph_1.3.3.md`
+- `CRITICAL` `frontmatter_forbidden_heading_prefix`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r002\sources\master_monograph_1.3.3.md`
+- `CRITICAL` `frontmatter_heading_trailing_comma`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r002\sources\master_monograph_1.3.3.md`
+- `CRITICAL` `frontmatter_forbidden_heading_prefix`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r002\sources\master_monograph_1.3.3.md`
+- `CRITICAL` `frontmatter_forbidden_heading_prefix`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r002\sources\master_monograph_1.3.3.md`
+- `CRITICAL` `frontmatter_forbidden_heading_prefix`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r002\sources\master_monograph_1.3.3.md`
+- `CRITICAL` `frontmatter_forbidden_heading_prefix`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r002\sources\master_monograph_1.3.3.md`
+- `CRITICAL` `frontmatter_forbidden_heading_prefix`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r002\sources\master_monograph_1.3.3.md`
+- `CRITICAL` `frontmatter_forbidden_heading_prefix`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r002\sources\master_monograph_1.3.3.md`
+- `CRITICAL` `frontmatter_forbidden_heading_prefix`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r002\sources\master_monograph_1.3.3.md`
+- `CRITICAL` `frontmatter_forbidden_heading_prefix`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r002\sources\master_monograph_1.3.3.md`
+- `CRITICAL` `frontmatter_forbidden_heading_prefix`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r002\sources\master_monograph_1.3.3.md`
+- `CRITICAL` `frontmatter_forbidden_heading_prefix`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r002\sources\master_monograph_1.3.3.md`
+- `CRITICAL` `frontmatter_forbidden_heading_prefix`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r002\sources\master_monograph_1.3.3.md`
+- `CRITICAL` `frontmatter_forbidden_heading_prefix`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r002\sources\master_monograph_1.3.3.md`
+- `CRITICAL` `frontmatter_forbidden_heading_prefix`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r002\sources\master_monograph_1.3.3.md`
+- `CRITICAL` `frontmatter_heading_trailing_comma`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r002\sources\master_monograph_1.3.3.md`
+- `CRITICAL` `frontmatter_forbidden_heading_prefix`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r002\sources\master_monograph_1.3.3.md`
+- `CRITICAL` `frontmatter_forbidden_heading_prefix`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r002\sources\master_monograph_1.3.3.md`
+- `CRITICAL` `frontmatter_heading_trailing_comma`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r002\sources\master_monograph_1.3.3.md`
+- `CRITICAL` `frontmatter_forbidden_heading_prefix`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r002\sources\master_monograph_1.3.3.md`
+- `CRITICAL` `frontmatter_forbidden_heading_prefix`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r002\sources\master_monograph_1.3.3.md`
+- `CRITICAL` `frontmatter_forbidden_heading_prefix`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r002\sources\master_monograph_1.3.3.md`
+- `CRITICAL` `frontmatter_forbidden_heading_prefix`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r002\sources\master_monograph_1.3.3.md`
+- `CRITICAL` `frontmatter_forbidden_heading_prefix`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r002\sources\master_monograph_1.3.3.md`
+- `CRITICAL` `frontmatter_forbidden_heading_prefix`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r002\sources\master_monograph_1.3.3.md`
+- `CRITICAL` `frontmatter_forbidden_heading_prefix`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r002\sources\master_monograph_1.3.3.md`
+- `CRITICAL` `frontmatter_forbidden_heading_prefix`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r002\sources\master_monograph_1.3.3.md`
+- `CRITICAL` `frontmatter_forbidden_heading_prefix`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r002\sources\master_monograph_1.3.3.md`
+- `CRITICAL` `frontmatter_forbidden_heading_prefix`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r002\sources\master_monograph_1.3.3.md`
+- `CRITICAL` `frontmatter_forbidden_heading_prefix`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r002\sources\master_monograph_1.3.3.md`
+- `CRITICAL` `frontmatter_heading_trailing_comma`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r002\sources\master_monograph_1.3.3.md`
+- `CRITICAL` `frontmatter_forbidden_heading_prefix`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r002\sources\master_monograph_1.3.3.md`
+- `CRITICAL` `frontmatter_forbidden_heading_prefix`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r002\sources\master_monograph_1.3.3.md`
+- `CRITICAL` `frontmatter_forbidden_heading_prefix`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r002\sources\master_monograph_1.3.3.md`
+- `CRITICAL` `frontmatter_forbidden_heading_prefix`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r002\sources\master_monograph_1.3.3.md`
+- `CRITICAL` `frontmatter_forbidden_heading_prefix`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r002\sources\master_monograph_1.3.3.md`
+- `CRITICAL` `frontmatter_forbidden_heading_prefix`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r002\sources\master_monograph_1.3.3.md`
+- `CRITICAL` `frontmatter_heading_trailing_comma`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r002\sources\master_monograph_1.3.3.md`
+- `CRITICAL` `frontmatter_forbidden_heading_prefix`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r002\sources\master_monograph_1.3.3.md`
+- `CRITICAL` `frontmatter_heading_trailing_comma`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r002\sources\master_monograph_1.3.3.md`
+- `CRITICAL` `frontmatter_forbidden_heading_prefix`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r002\sources\master_monograph_1.3.3.md`
+- `CRITICAL` `frontmatter_forbidden_heading_prefix`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r002\sources\master_monograph_1.3.3.md`
+- `CRITICAL` `frontmatter_forbidden_heading_prefix`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r002\sources\master_monograph_1.3.3.md`
+- `CRITICAL` `frontmatter_heading_trailing_comma`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r002\sources\master_monograph_1.3.3.md`
+- `CRITICAL` `frontmatter_forbidden_heading_prefix`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r002\sources\master_monograph_1.3.3.md`
+- `CRITICAL` `frontmatter_forbidden_heading_prefix`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r002\sources\master_monograph_1.3.3.md`
+- `CRITICAL` `frontmatter_forbidden_heading_prefix`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r002\sources\master_monograph_1.3.3.md`
+- `CRITICAL` `frontmatter_forbidden_heading_prefix`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r002\sources\master_monograph_1.3.3.md`
+- `CRITICAL` `frontmatter_forbidden_heading_prefix`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r002\sources\master_monograph_1.3.3.md`
+- `CRITICAL` `frontmatter_forbidden_heading_prefix`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r002\sources\master_monograph_1.3.3.md`
+- `CRITICAL` `frontmatter_forbidden_heading_prefix`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r002\sources\master_monograph_1.3.3.md`
+- `CRITICAL` `frontmatter_forbidden_heading_prefix`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r002\sources\master_monograph_1.3.3.md`
+- `CRITICAL` `frontmatter_forbidden_heading_prefix`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r002\sources\master_monograph_1.3.3.md`
+- `CRITICAL` `frontmatter_forbidden_heading_prefix`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r002\sources\master_monograph_1.3.3.md`
+- `CRITICAL` `frontmatter_forbidden_heading_prefix`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r002\sources\master_monograph_1.3.3.md`
+- `CRITICAL` `frontmatter_forbidden_heading_prefix`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r002\sources\master_monograph_1.3.3.md`
+- `CRITICAL` `frontmatter_forbidden_heading_prefix`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r002\sources\master_monograph_1.3.3.md`
+- `CRITICAL` `frontmatter_forbidden_heading_prefix`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r002\sources\master_monograph_1.3.3.md`
+- `CRITICAL` `frontmatter_forbidden_heading_prefix`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r002\sources\master_monograph_1.3.3.md`
+- `CRITICAL` `frontmatter_heading_trailing_comma`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r002\sources\master_monograph_1.3.3.md`
+- `CRITICAL` `frontmatter_forbidden_heading_prefix`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r002\sources\master_monograph_1.3.3.md`
+- `CRITICAL` `frontmatter_forbidden_heading_prefix`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r002\sources\master_monograph_1.3.3.md`
+- `CRITICAL` `frontmatter_forbidden_heading_prefix`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r002\sources\master_monograph_1.3.3.md`
+- `CRITICAL` `frontmatter_forbidden_heading_prefix`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r002\sources\master_monograph_1.3.3.md`
+- `CRITICAL` `frontmatter_forbidden_heading_prefix`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r002\sources\master_monograph_1.3.3.md`
+- `CRITICAL` `frontmatter_forbidden_heading_prefix`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r002\sources\master_monograph_1.3.3.md`
+- `CRITICAL` `frontmatter_forbidden_heading_prefix`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r002\sources\master_monograph_1.3.3.md`
+- `CRITICAL` `frontmatter_forbidden_heading_prefix`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r002\sources\master_monograph_1.3.3.md`
+- `CRITICAL` `frontmatter_forbidden_heading_prefix`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r002\sources\master_monograph_1.3.3.md`
+- `CRITICAL` `frontmatter_forbidden_heading_prefix`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r002\sources\master_monograph_1.3.3.md`
+- `CRITICAL` `frontmatter_forbidden_heading_prefix`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r002\sources\master_monograph_1.3.3.md`
+- `CRITICAL` `frontmatter_forbidden_heading_prefix`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r002\sources\master_monograph_1.3.3.md`
+- `CRITICAL` `frontmatter_forbidden_heading_prefix`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r002\sources\master_monograph_1.3.3.md`
+- `CRITICAL` `frontmatter_forbidden_heading_prefix`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r002\sources\master_monograph_1.3.3.md`
+- `CRITICAL` `frontmatter_forbidden_heading_prefix`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r002\sources\master_monograph_1.3.3.md`
+- `CRITICAL` `frontmatter_forbidden_heading_prefix`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r002\sources\master_monograph_1.3.3.md`
+- `CRITICAL` `frontmatter_forbidden_heading_prefix`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r002\sources\master_monograph_1.3.3.md`
+- `CRITICAL` `frontmatter_forbidden_heading_prefix`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r002\sources\master_monograph_1.3.3.md`
+- `CRITICAL` `frontmatter_forbidden_heading_prefix`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r002\sources\master_monograph_1.3.3.md`
+- `CRITICAL` `frontmatter_forbidden_heading_prefix`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r002\sources\master_monograph_1.3.3.md`
+- `CRITICAL` `frontmatter_forbidden_heading_prefix`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r002\sources\master_monograph_1.3.3.md`
+- `CRITICAL` `frontmatter_forbidden_heading_prefix`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r002\sources\master_monograph_1.3.3.md`
+- `CRITICAL` `frontmatter_forbidden_heading_prefix`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r002\sources\master_monograph_1.3.3.md`
+- `CRITICAL` `frontmatter_forbidden_heading_prefix`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r002\sources\master_monograph_1.3.3.md`
+- `CRITICAL` `frontmatter_forbidden_heading_prefix`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r002\sources\master_monograph_1.3.3.md`
+- `CRITICAL` `frontmatter_forbidden_heading_prefix`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r002\sources\master_monograph_1.3.3.md`
+- `CRITICAL` `frontmatter_forbidden_heading_prefix`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r002\sources\master_monograph_1.3.3.md`
+- `CRITICAL` `frontmatter_forbidden_heading_prefix`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r002\sources\master_monograph_1.3.3.md`
+- `CRITICAL` `frontmatter_forbidden_heading_prefix`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r002\sources\master_monograph_1.3.3.md`
+- `CRITICAL` `frontmatter_forbidden_heading_prefix`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r002\sources\master_monograph_1.3.3.md`
+- `CRITICAL` `frontmatter_forbidden_heading_prefix`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r002\sources\master_monograph_1.3.3.md`
+- `CRITICAL` `frontmatter_forbidden_heading_prefix`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r002\sources\master_monograph_1.3.3.md`
+- `CRITICAL` `frontmatter_forbidden_heading_prefix`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r002\sources\master_monograph_1.3.3.md`
+- `CRITICAL` `frontmatter_forbidden_heading_prefix`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r002\sources\master_monograph_1.3.3.md`
+- `CRITICAL` `frontmatter_forbidden_heading_prefix`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r002\sources\master_monograph_1.3.3.md`
+- `CRITICAL` `frontmatter_forbidden_heading_prefix`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r002\sources\master_monograph_1.3.3.md`
+- `CRITICAL` `frontmatter_forbidden_heading_prefix`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r002\sources\master_monograph_1.3.3.md`
+- `CRITICAL` `frontmatter_forbidden_heading_prefix`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r002\sources\master_monograph_1.3.3.md`
+- `CRITICAL` `frontmatter_forbidden_heading_prefix`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r002\sources\master_monograph_1.3.3.md`
+- `CRITICAL` `frontmatter_forbidden_heading_prefix`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r002\sources\master_monograph_1.3.3.md`
+- `CRITICAL` `frontmatter_forbidden_heading_prefix`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r002\sources\master_monograph_1.3.3.md`
+- `CRITICAL` `frontmatter_forbidden_heading_prefix`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r002\sources\master_monograph_1.3.3.md`
+- `CRITICAL` `frontmatter_forbidden_heading_prefix`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r002\sources\master_monograph_1.3.3.md`
+- `CRITICAL` `frontmatter_forbidden_heading_prefix`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r002\sources\master_monograph_1.3.3.md`
+- `CRITICAL` `frontmatter_forbidden_heading_prefix`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r002\sources\master_monograph_1.3.3.md`
+- `CRITICAL` `frontmatter_forbidden_heading_prefix`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r002\sources\master_monograph_1.3.3.md`
+- `CRITICAL` `frontmatter_forbidden_heading_prefix`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r002\sources\master_monograph_1.3.3.md`
+- `CRITICAL` `frontmatter_forbidden_heading_prefix`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r002\sources\master_monograph_1.3.3.md`
+- `CRITICAL` `frontmatter_forbidden_heading_prefix`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r002\sources\master_monograph_1.3.3.md`
+- `CRITICAL` `frontmatter_forbidden_heading_prefix`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r002\sources\master_monograph_1.3.3.md`
+- `CRITICAL` `frontmatter_forbidden_heading_prefix`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r002\sources\master_monograph_1.3.3.md`
+- `CRITICAL` `frontmatter_forbidden_heading_prefix`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r002\sources\master_monograph_1.3.3.md`
+- `CRITICAL` `frontmatter_forbidden_heading_prefix`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r002\sources\master_monograph_1.3.3.md`
+- `CRITICAL` `frontmatter_forbidden_heading_prefix`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r002\sources\master_monograph_1.3.3.md`
+- `CRITICAL` `frontmatter_forbidden_heading_prefix`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r002\sources\master_monograph_1.3.3.md`
+- `CRITICAL` `frontmatter_forbidden_heading_prefix`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r002\sources\master_monograph_1.3.3.md`
+- `CRITICAL` `frontmatter_forbidden_heading_prefix`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r002\sources\master_monograph_1.3.3.md`
+- `CRITICAL` `frontmatter_forbidden_heading_prefix`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r002\sources\master_monograph_1.3.3.md`
+- `CRITICAL` `frontmatter_forbidden_heading_prefix`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r002\sources\master_monograph_1.3.3.md`
+- `CRITICAL` `frontmatter_forbidden_heading_prefix`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r002\sources\master_monograph_1.3.3.md`
+- `CRITICAL` `frontmatter_forbidden_heading_prefix`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r002\sources\master_monograph_1.3.3.md`
+- `CRITICAL` `frontmatter_forbidden_heading_prefix`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r002\sources\master_monograph_1.3.3.md`
+- `CRITICAL` `frontmatter_forbidden_heading_prefix`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r002\sources\master_monograph_1.3.3.md`
+- `CRITICAL` `frontmatter_forbidden_heading_prefix`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r002\sources\master_monograph_1.3.3.md`
+- `CRITICAL` `frontmatter_forbidden_heading_prefix`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r002\sources\master_monograph_1.3.3.md`
+- `CRITICAL` `frontmatter_forbidden_heading_prefix`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r002\sources\master_monograph_1.3.3.md`
+- `CRITICAL` `frontmatter_forbidden_heading_prefix`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r002\sources\master_monograph_1.3.3.md`
+- `CRITICAL` `frontmatter_forbidden_heading_prefix`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r002\sources\master_monograph_1.3.3.md`
+- `CRITICAL` `frontmatter_forbidden_heading_prefix`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r002\sources\master_monograph_1.3.3.md`
+- `CRITICAL` `frontmatter_forbidden_heading_prefix`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r002\sources\master_monograph_1.3.3.md`
+- `CRITICAL` `frontmatter_forbidden_heading_prefix`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r002\sources\master_monograph_1.3.3.md`
+- `CRITICAL` `frontmatter_forbidden_heading_prefix`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r002\sources\master_monograph_1.3.3.md`
+- `CRITICAL` `frontmatter_forbidden_heading_prefix`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r002\sources\master_monograph_1.3.3.md`
+- `CRITICAL` `frontmatter_forbidden_heading_prefix`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r002\sources\master_monograph_1.3.3.md`
+- `CRITICAL` `frontmatter_forbidden_heading_prefix`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r002\sources\master_monograph_1.3.3.md`
+- `CRITICAL` `frontmatter_forbidden_heading_prefix`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r002\sources\master_monograph_1.3.3.md`
+- `CRITICAL` `frontmatter_forbidden_heading_prefix`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r002\sources\master_monograph_1.3.3.md`
+- `CRITICAL` `frontmatter_forbidden_heading_prefix`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r002\sources\master_monograph_1.3.3.md`
+- `CRITICAL` `frontmatter_forbidden_heading_prefix`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r002\sources\master_monograph_1.3.3.md`
+- `CRITICAL` `frontmatter_forbidden_heading_prefix`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r002\sources\master_monograph_1.3.3.md`
+- `CRITICAL` `frontmatter_forbidden_heading_prefix`: `releases\oc_core_1_3_3\editorial\generated_artifacts_recovered\recovery_r002\sources\master_monograph_1.3.3.md`

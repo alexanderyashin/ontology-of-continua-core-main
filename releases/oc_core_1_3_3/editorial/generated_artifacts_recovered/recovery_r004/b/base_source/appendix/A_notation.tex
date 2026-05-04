@@ -1,0 +1,368 @@
+% ====================================================================
+% FILE: appendix/A_notation.tex
+% Notation and Symbols for Ontology of Continua — Core 1.3.3
+% ====================================================================
+
+\section{Notation and Symbols}
+\label{app:notation}
+
+This appendix collects the main symbols and notational conventions used
+throughout the Core~1.3.3 master monograph. It is not exhaustive, but it covers
+the structural elements that recur across the main proof-bearing chapters and
+the science appendices.
+
+\begingroup
+\footnotesize
+\RaggedRight
+\sloppy
+
+\subsection{Continuum Structure}
+
+\begin{description}
+  \item[\(K\)] A continuum (generic level).
+  \item[\(K_x\)] Continuum at level \(x\in\{0,\dots,12\}\).
+  \item[\(K(t)\)] Time-sliced continuum object obtained from a fixed continuum
+        \(K\) at local time \(t\). If a chapter needs the internal state
+        separately, it names that state as \(s(t)\in\Omega(K,t)\).
+  \item[\(\tau(K)\)] Scalar level-time symbol used by the K-level chapters when
+        a level has an effective temporal rhythm. In those chapters
+        \(\tau(K_x)\) is the local scalar alias of
+        \(\tau_{\mathrm{eff}}(K_x)\). A finite ordered family of temporal
+        parameters must be written with a decorated family symbol such as
+        \(\boldsymbol{\tau}(K)=(\tau_1(K),\dots,\tau_m(K))\). If the level is
+        atemporal or the local construction does not represent time,
+        \(\tau(K)\) is left undefined rather than silently replaced by a trivial
+        time object. An actual temporal order relation, when needed, is written
+        separately, for example as \(\preceq_K\), and is not denoted by
+        \(\tau(K)\). Topology is written as a paired structure such as
+        \((X_1,\tau_1)\), or as the legacy local alias \((X,\tau)\) when the
+        local \(K_1\) display binds it explicitly.
+  \item[\(\tau_{\mathrm{eff}}(K)\)] Scalar effective time or rhythm selected
+        from the temporal-parameter family \(\boldsymbol{\tau}(K)\) by the local rule
+        declared in the surrounding chapter. When \(\tau_{C_j}\) is a cycle
+        period and the selected rhythm is the slowest non-degradable cycle, the
+        corresponding extremum is \(\max_j\tau_{C_j}\). Displays using
+        \(\min_j\tau_{C_j}\) name the fastest closed rhythm and must not be read
+        as the slowest-cycle convention.
+  \item[\(M_x\)] Embedding space for level \(K_x\).
+  \item[\(M_x(t)\)] Time-indexed embedding space for \(K_x\) when the
+        surrounding chapter allows the environment itself to vary.
+  \item[\(\Omega(K)\)] Set of admissible states of \(K\).
+  \item[\(\Omega(K,t)\)] Time-indexed admissible states of \(K\) at time
+        \(t\); this is the dynamic specialization of \(\Omega(K)\) used when a
+        chapter needs the admissible set at a specific instant.
+        Legacy expressions such as \(\Omega(K(t))\) and \(C(K(t))\)
+        denote the same time slice as the comma forms \(\Omega(K,t)\) and
+        \(C(K,t)\); the comma form is the preferred notation in Core~1.3.3.
+  \item[\(\mathbf{1}_{\{\Omega(K,t)\neq\emptyset\}}\)] Nonemptiness indicator for
+        the time-slice admissible region: it is \(1\) exactly when
+        \(\Omega(K,t)\neq\emptyset\) and \(0\) otherwise.
+  \item[\(H(\Omega(K_x))\)] Legacy K-level notation for the same nonemptiness
+        factor in continuity products. It is a Boolean admissibility indicator,
+        not the threshold-evolution operator \(H_{\mathrm{thr}}\).
+  \item[\(\Sigma_{\Omega}(K_x;M_x)\)] Threshold-saturation locus of
+        \(\Omega(K_x)\) inside the declared ambient embedding space \(M_x\):
+        \[
+          \Sigma_{\Omega}(K_x;M_x)=
+          \{s\in\overline{\Omega(K_x)}^{\,M_x}\mid
+          \exists i\in I_{\mathrm{act}}(K_x;M_x):\,f_i(s)=0\}.
+        \]
+        Here \(g_i,\theta_i^{\mathrm{bdry}}:
+        \overline{\Omega(K_x)}^{\,M_x}\to\mathbb{R}\) are evaluated on the same
+        local state domain and \(f_i\) is the shifted residual form of a raw
+        threshold inequality:
+        \(f_i(s)=g_i(s)-\theta_i^{\mathrm{bdry}}(s)\). Thus \(f_i(s)\le0\) is
+        the admissible-side convention and \(f_i(s)=0\) is equivalent to the
+        pointwise raw saturation equation \(g_i(s)=
+        \theta_i^{\mathrm{bdry}}(s)\). The decorated
+        \(\theta_i^{\mathrm{bdry}}\) is the local boundary-threshold function,
+        not the global threshold family \(\Theta(K)\). Scalar thresholds are
+        the constant-function special case. Let
+        \(I_{\Theta}(K_x;M_x)\) be the finite threshold family declared for this
+        local boundary computation. The active set is
+        \[
+          I_{\mathrm{act}}(K_x;M_x)=
+          \left\{i\in I_{\Theta}(K_x;M_x)\,\middle|\,
+          \begin{array}{l}
+          \exists s\in\overline{\Omega(K_x)}^{\,M_x}: f_i(s)=0,\\
+          \text{and every neighbourhood }U\ni s\text{ in }
+          \overline{\Omega(K_x)}^{\,M_x}\text{ contains a point }u\in U\\
+          \text{with } f_j(u)\le0\text{ for all }j\ne i\text{ but }f_i(u)>0
+          \end{array}\right\}.
+        \]
+        Thus \(I_{\mathrm{act}}\) records constraints whose equality can be
+        reached and whose removal has a local violating witness. The stronger
+        reading that removing the constraint enlarges the full admissible side
+        requires the regularity and constraint-qualification assumptions stated
+        locally; without those assumptions, \(I_{\mathrm{act}}\) is used only as
+        a threshold-saturation witness. The same residual convention is used in
+        the model and boundary chapters.
+  \item[\(\partial\Omega(K_x)\)] Boundary of the admissible states of \(K_x\).
+        In theorem-bearing threshold contexts this is the threshold-defined
+        admissible boundary recorded by the active saturation locus
+        \(\Sigma_{\Omega}(K_x;M_x)\). The ambient topological boundary
+        \(\partial_{M_x}^{\mathrm{top}}\Omega(K_x)\) is a separate derived
+        topological object. A local section may identify
+        \(\partial\Omega(K_x)\) with
+        \(\partial_{M_x}^{\mathrm{top}}\Omega(K_x)\) only after it states the
+        required regularity and constraint-qualification assumptions.
+  \item[\(\partial\Omega(K_x,t)\)] Time-indexed admissible boundary of \(K_x\)
+        at time \(t\), equivalently \(\partial_{M_x(t)}\Omega(K_x,t)\) under
+        the threshold family active at that slice when the ambient space
+        varies. If the surrounding chapter does not vary the ambient space, the
+        shorthand is read relative to the fixed \(M_x\).
+  \item[\(A(K)\)] Set of axes of incompatible differences:
+        \(A(K) = \{A_1,\dots,A_n\}\).
+  \item[\(A(K,t)\)] Time-indexed effective axis set of \(K\), used when the
+        working axis family is tracked dynamically.
+  \item[\(P(t)\)] Vector of potentials (energetic, chemical, informational,
+        biological, cognitive, social, etc.).
+  \item[\(J(t)\)] Vector of flows transforming potentials and states.
+  \item[\(\Theta(K)\)] Threshold landscape of \(K\), including existence,
+        stability, critical, dimensional, death, expressive and embedding
+        thresholds.
+  \item[\(\Theta(K,t)\)] Time-indexed threshold landscape of \(K\) when the
+        admissible boundary is updated during the evolution.
+  \item[\(C(K)\)] Family of structurally stable cycles of \(K\).
+  \item[\(C(K,t)\)] Time-indexed cycle family of \(K\) when the currently
+        surviving stable cycles are tracked dynamically.
+  \item[\(k(K,t)\)] Measure of continuumness (viability) of \(K\).
+\end{description}
+
+\subsection{Thresholds and Tension}
+
+\begin{description}
+  \item[\(\Theta_{\mathrm{exist}}\)] Existence thresholds:
+        minimal conditions for \(\Omega(K)\neq\emptyset\).
+  \item[\(\Theta_{\mathrm{stab}}\)] Stability thresholds:
+        conditions for bounded dynamics.
+  \item[\(\Theta_{\mathrm{crit}}\)] Critical thresholds:
+        surfaces of qualitative change or phase transition.
+  \item[\(\Theta_{\mathrm{dim}}\)] Dimensional thresholds:
+        conditions for emergence of new axes.
+  \item[\(\Theta_{\mathrm{time}}\)] Temporal-stability threshold used in
+        K-level time-emergence clauses. A cycle contributes to scalar level-time
+        only when its persistence or closure score satisfies the local
+        \(\Pi(C_j)>\Theta_{\mathrm{time}}\) obligation.
+  \item[\(\Theta_{\mathrm{death}}\)] Death thresholds:
+        limits beyond which no admissible states remain.
+  \item[\(\Theta_{\mathrm{expr}}\)] Expressive thresholds:
+        minimal expressive capacity of axes required to represent relevant
+        differences.
+  \item[\(\Theta_{\mathrm{embed}}\)] Embedding thresholds:
+        constraints imposed by embedding spaces \(M_x\).
+  \item[\(T(K,t)\)] Structural tension functional, depending on potentials,
+        axes and gradients.
+\end{description}
+
+\subsection{Operators}
+
+The time-indexed operators below describe internal dynamics for levels \(K_1\)
+and above on time slices of a fixed continuum \(K\). The K0-local glyphs and
+cross-level birth operators listed later are separate namespaced entries, not
+members of that internal-dynamics family. Level \(K_0\) is non-dynamical and
+carries no internal time parameter, so statements about \(K_0\) are expressed
+through structural relations rather than through the time-indexed operators
+listed here. Where the surrounding level is already fixed, the notation
+suppresses that constant \(K\)-dependence only for brevity rather than to imply
+that thresholds, cycles, boundaries, axes, or continuumness are level-free.
+In those displayed signatures, bare \(M\) abbreviates the active \(M_x\) or
+\(M_x(t)\); \(A(t)\), \(\Theta(t)\), \(C(t)\), \(\Omega(t)\), and
+\(\partial\Omega(t)\) abbreviate \(A(K,t)\), \(\Theta(K,t)\), \(C(K,t)\),
+\(\Omega(K,t)\), and \(\partial\Omega(K,t)\) for the fixed continuum under
+discussion.
+The displayed signatures in this appendix are reader-facing projections of
+the exact operator definitions in the operator semantics chapter. They keep
+the principal output component visible while retaining the full coupled
+arguments needed by the formal operator chapter.
+The K-level archive and the process atlas both use the glyph family
+\((\Psi,\Phi,\Lambda,U,\Chi)\), but they do not share one theorem-bearing
+namespace. In the K-level archive these glyphs are level-row shorthand; in the
+process atlas they are process-layer operators local to the process modules.
+The list below is deliberately namespaced: it includes K-level glyphs, dynamic
+operators used in the formal chapters, and presentation aliases used only in
+specific rows. A glyph entry is therefore not a global definition unless its
+entry explicitly says so.
+Bare \(\Psi\) denotes the generic birth/rebirth operator family of the formal
+core. Its indexed forms state the route being used: \(\Psi_{x\to x+1}\)
+denotes adjacent-level birth, while a rebirth route may use a same-level or
+cross-level candidate \(K'\) as specified by the local rebirth predicate.
+Legacy or local process uses must carry their level or module subscript.
+The source \(K_0\) archive uses \((\Psi_0,\Phi_0,\Lambda_0)\) as its local
+root process glyphs for distinction generation, relational reconfiguration,
+and compositional assembly. The bounded synthesis also uses compact aliases such
+as \(F_0\), \(Q_0\), and \(U_0\) inside its \(K_0\) numeric rows; those aliases
+name local root constraints only and do not inherit the time-indexed \(K_1+\)
+dynamic operator meanings listed below.
+
+\begin{description}
+  \item[\(E_{\mathrm{evol}}\)] Structural evolution operator, often written
+        locally as \(E\) after the chapter has bound the symbol:
+        \(E_{\mathrm{evol}}: K(t) \to K(t+dt)\). The decorated form avoids
+        collision with energy quantities such as \(E(K_x)\).
+  \item[\(F\)] Flow operator:
+        \(F:(J(t),P(t),A(t),\Theta(t),M)\mapsto J(t+dt)\).
+  \item[\(G\)] Potential operator:
+        \(G:(P(t),A(t),J(t),\Theta(t),M)\mapsto P(t+dt)\).
+  \item[\(H_{\mathrm{thr}}\)] Threshold-evolution operator, often written
+        locally as \(H\) after the chapter has bound the symbol:
+        \(H_{\mathrm{thr}}:(\Theta(t),P(t),J(t),M)\mapsto \Theta(t+dt)\).
+  \item[\(Q\)] Cycle operator:
+        \(Q:(C(t),P(t),J(t),\Theta(t))\mapsto C(t+dt)\).
+  \item[\(R\)] Boundary operator:
+        \(R:(\partial\Omega(t),P(t),J(t),\Theta(t),M)\mapsto
+        \partial\Omega(t+dt)\).
+  \item[\(S_{\mathrm{axis}}\)] Axis-structure operator, often written locally
+        as \(S\) after the chapter has bound the symbol:
+        \(S_{\mathrm{axis}}:(A(t),P(t),J(t),\Theta(t),M)\mapsto A(t+dt)\).
+        The decorated form avoids collision with scalar complexity \(S(K)\).
+  \item[\(U\)] Continuumness operator:
+        \(U:(k(t),\Omega(t),A(t),P(t),J(t),\Theta(t),C(t),
+        \partial\Omega(t),M)\mapsto k(t+dt)\).
+  \item[\(\mathrm{DoF}(X)\)] Degrees of freedom available to the continuum,
+        level, or embedding object \(X\) in the local compatibility test.
+        The K0 synthesis rows use \(\mathrm{DoF}(K_x)/\mathrm{DoF}(M_x)\)
+        as a dimensionless meta-space compatibility ratio.
+  \item[\(C_{\mathrm{nt}}\)] Non-trivial lawful-cycle presence count or
+        indicator in the local synthesis row. The threshold
+        \(C_{\mathrm{nt}}\geq 1\) means that at least one non-trivial lawful
+        cycle remains available to the tested structure.
+  \item[\(\Psi_0,\Phi_0,\Lambda_0\)] Local \(K_0\) root process glyphs used in
+        the source \(K_0\) archive for distinction generation, relational
+        reconfiguration, and compositional assembly.
+  \item[\(\Phi\)] Meta-space evolution operator used in the K-level archive
+        when a level's embedding space is itself allowed to change.
+  \item[\(\Lambda\)] Constraint operator enforcing the active law or
+        admissibility family in the relevant meta-domain.
+  \item[\(\Chi\)] Logical-branching operator used when the formal branch
+        structure of a continuum must be tracked explicitly. This is the
+        K-level archive convention; process modules that use \(\Chi\) for
+        collapse define that use locally.
+  \item[\(\Psi_{x\to x+1}\)] Birth operator for \(x\in\{0,\dots,11\}\):
+        admissible transition \((K_x,M_x)\mapsto (K_{x+1},M_{x+1})\) when
+        the surrounding birth, embedding, and threshold conditions are
+        satisfied.
+  \item[\(\Psi_{x\to y}\)] Non-adjacent birth-route notation for \(y>x\). It is
+        not an additional primitive unless a local theorem explicitly declares
+        it so; by default it abbreviates the admissible composition
+        \(\Psi_{y-1\to y}\circ\cdots\circ\Psi_{x\to x+1}\), with every
+        intermediate threshold and embedding obligation still required.
+  \item[\(\Psi_{\mathrm{reb}}\)] Rebirth-route operator family. A candidate-
+        specific use is written
+        \(\Psi_{\mathrm{reb}}(K,K',h;R_{\mathrm{res}}(K),\mathcal{M},\mathcal{M}')\):
+        \(R_{\mathrm{res}}(K)\) is the residue set of the collapsed continuum,
+        \(\mathcal{M}\) and \(\mathcal{M}'\) are the source and target
+        embedding spaces, \(h:\mathcal{M}\to\mathcal{M}'\) is the witness map,
+        and the later candidate \(K'\) is tested against residue, threshold
+        conditions, and identity conditions. This notation allows same-level
+        rebirth as well as cross-level rebirth when the local Definition~12.6
+        route permits it.
+  \item[\(E_{\mathrm{int}}\)] Interaction operator for multiple continua.
+\end{description}
+
+\subsection{Levels and Embedding Spaces}
+
+The labels below are mnemonic descriptions for quick notation lookup. The
+canonical level doctrine is stated in the K-level witness taxonomy chapter and the
+generated K-level archive.
+
+\begin{description}
+  \item[\(K_0\)] Structural substrate (no time, no geometry, no energy).
+  \item[\(K_1\)] One--dimensional classical continua.
+  \item[\(K_2\)] Physical continua (fields, phases, percolation,
+        Berezinskii--Kosterlitz--Thouless (BKT) transitions,
+        mass--related structures).
+  \item[\(K_3\)] Chemical continua (reaction networks,
+        reflexively autocatalytic and food-generated (RAF) closure).
+  \item[\(K_4\)] Protocellular continua (membranes, gradients, osmotic and
+        curvature thresholds).
+  \item[\(K_5\)] Early neural and bioelectrical continua (ion channels,
+        excitability, spikes).
+  \item[\(K_6\)] Cognitive continua (representations, binding, prediction).
+  \item[\(K_7\)] Social continua (norms, institutions, trust).
+  \item[\(K_8\)] Civilizational continua (infrastructures, systemic
+        thresholds).
+  \item[\(K_9\)] Theory-level continua: theories, paradigms, ontologies, and
+        formal languages treated as structured objects.
+  \item[\(K_{10}\)] Meta-theoretical continua: model-of-models recursion and
+        self-referential theory structure.
+  \item[\(K_{11}\)] Evolving meta-theoretical spaces: operator and model-space
+        evolution above local meta-model recursion.
+  \item[\(K_{12}\)] Global coherence layer: cross-framework compatibility,
+        integrability, and the admissible upper envelope of the public
+        hierarchy.
+\end{description}
+
+\subsection{Miscellaneous Symbols}
+
+\begin{description}
+  \item[\(\dim(X)\)] General structural dimension convention for any object
+        \(X\) that is already represented as an axis set, structural set, or
+        locally linearized space in the surrounding argument.
+  \item[\(\dim(K)\)] For \(K_1\) and above, the dimensionality of continuum
+        \(K\), fixed in this monograph as \(\dim(K)=|A(K)|\), where \(A(K)\)
+        is its effective axis set.
+  \item[\(\dim(K(t))\)] Time-slice dimensionality convention for an evolving
+        continuum: \(\dim(K(t)) = |A(K,t)|\), where \(A(K,t)\) is the
+        effective axis set at that slice.
+  \item[\(\dim_{\mathrm{cov}}(\Omega(K))\)] Covering dimension of
+        \(\Omega(K)\) with the subspace topology inherited from the declared
+        ambient space. This notation is used only for nonempty admissible
+        regions unless a local empty-set convention is explicitly declared.
+  \item[\(\dim_{\mathrm{eff}}(\Omega(K))\)] Effective admissible-state
+        dimension used in cross-level emergence comparisons. It may coincide
+        with \(\dim_{\mathrm{cov}}(\Omega(K))\) only under the local hypotheses
+        stated in the surrounding argument; otherwise it is a rank or active-axis
+        proxy, not the literal covering dimension. Legacy displays of
+        \(\dim(\Omega(K_1))<\dim(\Omega(K_2))\) in transition schematics are to
+        be read as \(\dim_{\mathrm{eff}}\)-comparisons. Local linearized
+        approximations may also use a separate symbol such as
+        \(r_{\mathrm{lin}}(K)\).
+  \item[\(\dim(S,\Delta,\mathcal{C})\)] Dimension of a structural tuple, read
+        as the dimension of the structural set equipped with its declared
+        difference and connectivity data.
+  \item[\(\dim(K_0)\)] Base-level dimension convention for the structural
+        substrate: \(\dim(K_0)=0\), because \(K_0\) carries
+        distinguishability without a geometric axis family of the higher-level
+        kind. Abstract \(K_0\) structural variation in \(A(K_0)\) is therefore
+        not counted by the higher-level effective-axis dimension \(\dim(K)\).
+  \item[\(r_{\mathrm{lin}}(K)\)] Optional local linearized rank notion for a
+        section-specific approximation. It is introduced separately whenever a
+        local argument needs a rank concept distinct from \(\dim(K)\).
+  \item[\(C_{\max}(t)\)] Maximal compatible cycle set at the time slice used by
+        the operator chapter's death criterion.
+  \item[\(C_{\max}(K)\)] Maximal structurally stable cycle complex or set
+        associated with \(K\) under the full threshold landscape
+        \(\Theta(K)\). Time-slice death checks use \(C_{\max}(t)\), and
+        summary statistics must be named separately.
+  \item[\(\mathrm{span}_{\mathrm{str}}(A)\)] Structural span of a set of
+        axes: the smallest structurally closed subobject, inside the fixed
+        ambient continuum or meta-space, that contains \(A\) and is closed
+        under the locally declared admissible composition, restriction, and
+        threshold-respecting transport operations. Equivalently it is the
+        intersection of all locally declared structurally closed subobjects
+        that contain \(A\). This notation is used only in contexts where that
+        local closed-subobject family is nonempty and stable under arbitrary
+        intersections; otherwise the section must declare a replacement span
+        operation.
+  \item[\(\mathrm{span}_{\mathrm{lin}}(A)\)] Ordinary linear span of a set of
+        axes inside a local linearization. It is used only when a section
+        states an explicit linear approximation.
+  \item[\(\mathrm{span}(A)\)] Shorthand for
+        \(\mathrm{span}_{\mathrm{str}}(A)\) in theorem-bearing structural
+        text unless a section explicitly declares a local linearisation. Use
+        \(\mathrm{span}_{\mathrm{lin}}(A)\) only under such an explicit linear
+        approximation. The subscripted forms remain preferred.
+  \item[\(\chi_{\Omega}(s;K,t)\)] Binary admissibility indicator with codomain
+        \(\{0,1\}\): \(\chi_{\Omega}(s;K,t)=1\) exactly when the state \(s\)
+        of \(K\) at time \(t\) lies in \(\Omega(K,t)\), and
+        \(\chi_{\Omega}(s;K,t)=0\) otherwise. The symbol
+        \(\chi_{\Omega}\) is reserved for pointwise membership; use
+        \(\mathbf{1}_{\{\Omega(K,t)\neq\emptyset\}}\) for nonemptiness of the
+        admissible region itself.
+\end{description}
+
+This notation appendix is intentionally compact; more specialised symbols used
+only in particular extension papers are defined locally in those texts.
+
+\endgroup

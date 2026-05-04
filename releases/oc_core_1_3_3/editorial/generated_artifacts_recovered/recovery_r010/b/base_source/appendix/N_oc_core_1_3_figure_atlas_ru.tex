@@ -1,0 +1,15 @@
+\section{Атлас рисунков}
+\label{sec:oc-core-1-3-figure-atlas}
+
+Это приложение сохраняет унаследованный корпус рисунков внутри флагманского
+тома, но не перегружает центральный маршрут чтения. Рисунки остаются частью
+монографии; они просто перенесены в отдельный visual atlas.
+
+\begingroup
+\let\ocappendixsection\section
+\let\ocappendixsubsection\subsection
+\let\ocappendixsubsubsection\subsubsection
+\renewcommand{\section}{\ocappendixsubsection}
+\renewcommand{\subsection}{\ocappendixsubsubsection}
+\input{content/07_figures_ru.tex}
+\endgroup

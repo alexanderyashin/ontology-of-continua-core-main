@@ -1,0 +1,537 @@
+{
+  "batch_id": "oc_core_1.3.3_r009_editorial_until_done_writer",
+  "cache_ref": "logion_local/runtime/cache/logion_llm_service_v1",
+  "caller_id": "logion_editorial_workbench_v1",
+  "capability_status": "LOCAL_OLLAMA_FAILED_OR_THERMALLY_STOPPED_AFTER_SAFE_ATTEMPT",
+  "generated_at_utc": "2026-05-04T14:30:43Z",
+  "governance_decision": {
+    "status": "ALLOW"
+  },
+  "heartbeat_ref": "logion_local/runtime/state/LOGION_LLM_SERVICE_HEARTBEAT_latest.json",
+  "host_samples": [
+    {
+      "governance_status": "ALLOW",
+      "gpu_temp_c": 51.0,
+      "gpu_thermal_band": "GREEN",
+      "host_status": "GREEN",
+      "task_id": "editorial_write_r009_l10_journal_core_article_0001_0009",
+      "ts_utc": "2026-05-04T14:28:41Z"
+    },
+    {
+      "governance_status": "ALLOW",
+      "gpu_temp_c": 53.0,
+      "gpu_thermal_band": "GREEN",
+      "host_status": "GREEN",
+      "task_id": "editorial_write_r009_l10_master_monograph_0001_0025",
+      "ts_utc": "2026-05-04T14:29:20Z"
+    },
+    {
+      "governance_status": "ALLOW",
+      "gpu_temp_c": 52.0,
+      "gpu_thermal_band": "GREEN",
+      "host_status": "GREEN",
+      "task_id": "editorial_write_r009_l10_master_monograph_0026_0050",
+      "ts_utc": "2026-05-04T14:29:47Z"
+    },
+    {
+      "governance_status": "ALLOW",
+      "gpu_temp_c": 52.0,
+      "gpu_thermal_band": "GREEN",
+      "host_status": "GREEN",
+      "task_id": "editorial_write_r009_l10_master_monograph_0051_0075",
+      "ts_utc": "2026-05-04T14:30:01Z"
+    }
+  ],
+  "host_summary": {
+    "governance_status": "ALLOW",
+    "gpu_temp_c": 52.0,
+    "gpu_thermal_band": "GREEN",
+    "host_status": "GREEN",
+    "task_id": "editorial_write_r009_l10_master_monograph_0051_0075",
+    "ts_utc": "2026-05-04T14:30:01Z"
+  },
+  "ledger_ref": "logion_local/runtime/observability/logion_llm/LOGION_LLM_SERVICE_LEDGER.ndjson",
+  "policy": {
+    "cadence": "7b_then_two_3b_thermal_debt_cycles_when_governance_allows",
+    "direct_ollama_calls_allowed": false,
+    "max_workers": 1,
+    "parallel_local_llm_runs_allowed": false,
+    "provider_script": "logion/k3/execution/scripts/logion_llm/Provider_Ollama_Local_v0_1.ps1",
+    "until_done": true
+  },
+  "queue_id": "oc_core_1.3.3_r009_editorial_until_done_writer",
+  "queue_status": "LOCAL_CAPABILITY_EXHAUSTED",
+  "rows": [
+    {
+      "artifact_type_id": "journal_core_article",
+      "cache_status": "MISS",
+      "level": "L10",
+      "llm_cadence": "substantive_7b_then_two_cheap_cycles",
+      "model": "qwen2.5-coder:7b",
+      "operation_type": "publication_template_write",
+      "output_text": "{\n  \"public_rewrite\": \"The Ontology of Continua (OC) addresses the complexity of modern systems by providing a typed model core that integrates physical infrastructure, software architecture, institutional incentives, security boundaries, user cognition, and economic feedback.\",\n  \"editorial_moves\": [\n    {\n      \"move\": \"Clarify\",\n      \"description\": \"Rephrased 'entangled' to 'complex' for clarity.\"\n    },\n    {\n      \"move\": \"Simplify\",\n      \"description\": \"Used 'integrated' instead of 'carries' for smoother readability.\"\n    }\n  ],\n  \"anchors_preserved\": true,\n  \"new_risks\": [],\n  \"confidence\": \"High\"\n}",
+      "output_text_sha256": "0f18fae5dba3f9975ba57c8cc078395d1e5489ee174dfbf5b9a3b3d4c1ad4deb",
+      "page_range": [
+        1,
+        9
+      ],
+      "provider": "ollama_local",
+      "provider_message": "ollama_response_ready",
+      "schema_id": "LOGION_LLM_SERVICE_ROW_v1",
+      "source_ref": "releases/oc_core_1_3_3/editorial/generated_artifacts_recovered/recovery_r009/pdf/journal_core_article_1.3.3.pdf",
+      "status": "PASS",
+      "task_id": "editorial_write_r009_l10_journal_core_article_0001_0009",
+      "thermal_debt_remaining_after": 2,
+      "thermal_samples": [
+        {
+          "band": "GREEN",
+          "gpu_temp_c": 51.0,
+          "ts_utc": "2026-05-04T14:28:41Z"
+        },
+        {
+          "band": "GREEN",
+          "gpu_temp_c": 51.0,
+          "ts_utc": "2026-05-04T14:28:43Z"
+        },
+        {
+          "band": "GREEN",
+          "gpu_temp_c": 52.0,
+          "ts_utc": "2026-05-04T14:28:45Z"
+        },
+        {
+          "band": "GREEN",
+          "gpu_temp_c": 52.0,
+          "ts_utc": "2026-05-04T14:28:47Z"
+        },
+        {
+          "band": "GREEN",
+          "gpu_temp_c": 52.0,
+          "ts_utc": "2026-05-04T14:28:49Z"
+        },
+        {
+          "band": "GREEN",
+          "gpu_temp_c": 51.0,
+          "ts_utc": "2026-05-04T14:28:51Z"
+        },
+        {
+          "band": "GREEN",
+          "gpu_temp_c": 51.0,
+          "ts_utc": "2026-05-04T14:28:53Z"
+        },
+        {
+          "band": "GREEN",
+          "gpu_temp_c": 51.0,
+          "ts_utc": "2026-05-04T14:28:55Z"
+        },
+        {
+          "band": "GREEN",
+          "gpu_temp_c": 51.0,
+          "ts_utc": "2026-05-04T14:28:57Z"
+        },
+        {
+          "band": "GREEN",
+          "gpu_temp_c": 51.0,
+          "ts_utc": "2026-05-04T14:28:59Z"
+        },
+        {
+          "band": "GREEN",
+          "gpu_temp_c": 51.0,
+          "ts_utc": "2026-05-04T14:29:01Z"
+        },
+        {
+          "band": "GREEN",
+          "gpu_temp_c": 51.0,
+          "ts_utc": "2026-05-04T14:29:03Z"
+        },
+        {
+          "band": "GREEN",
+          "gpu_temp_c": 51.0,
+          "ts_utc": "2026-05-04T14:29:05Z"
+        },
+        {
+          "band": "GREEN",
+          "gpu_temp_c": 51.0,
+          "ts_utc": "2026-05-04T14:29:07Z"
+        },
+        {
+          "band": "GREEN",
+          "gpu_temp_c": 51.0,
+          "ts_utc": "2026-05-04T14:29:09Z"
+        },
+        {
+          "band": "GREEN",
+          "gpu_temp_c": 60.0,
+          "ts_utc": "2026-05-04T14:29:11Z"
+        },
+        {
+          "band": "GREEN",
+          "gpu_temp_c": 56.0,
+          "ts_utc": "2026-05-04T14:29:14Z"
+        },
+        {
+          "band": "GREEN",
+          "gpu_temp_c": 55.0,
+          "ts_utc": "2026-05-04T14:29:16Z"
+        },
+        {
+          "band": "GREEN",
+          "gpu_temp_c": 56.0,
+          "ts_utc": "2026-05-04T14:29:18Z"
+        }
+      ],
+      "unmanaged_ollama_call": false,
+      "usage": {
+        "input_tokens": 940,
+        "output_tokens": 146,
+        "total_tokens": 1086
+      },
+      "validation_result": {
+        "expected_schema": "public_rewrite_editorial_moves_anchors_preserved_new_risks_confidence",
+        "message": "ollama_response_ready",
+        "provider_status": "PASS",
+        "status": "PASS"
+      }
+    },
+    {
+      "artifact_type_id": "master_monograph",
+      "cache_status": "MISS",
+      "level": "L10",
+      "llm_cadence": "thermal_debt_cheap_model_2",
+      "model": "qwen2.5-coder:3b",
+      "operation_type": "publication_template_write",
+      "output_text": "{\n  \"public_rewrite\": \"The Ontology of Continua (OC) addresses the practical and scientific challenge of describing modern systems that involve persistence, constraint, boundary, transition, failure, repair, and cross-level dependence using mutually incompatible vocabularies.\",\n  \"editorial_moves\": [\"Clarify claim boundaries\", \"Improve reader route\", \"Expose weak presentation choices\", \"Force clearer separation between model claims, proof routes, numerical evidence, prior-art comparison, and publication form\"],\n  \"anchors_preserved\": [\"Practical and scientific difficulty\", \"Mutually incompatible vocabularies\", \"Continuum K1\", \"Time-dependent analytic example\", \"Energy-like potential functional\", \"Flows derived from the variation of P1 (t)\", \"Minimal conditions for classical stability\", \"Boundary where stability thresholds saturate\", \"Classical cycles\", \"One-dimensional continuumness\"],\n  \"new_risks\": [\"Potential misinterpretation of complex concepts\", \"Inadequate explanation of technical terms\"],\n  \"confidence\": \"High\"\n}",
+      "output_text_sha256": "484711fe2be6949c16c84da1fc844b7a7d96a4798e5ae9a236371051f0e22e08",
+      "page_range": [
+        1,
+        25
+      ],
+      "provider": "ollama_local",
+      "provider_message": "ollama_response_ready",
+      "schema_id": "LOGION_LLM_SERVICE_ROW_v1",
+      "source_ref": "releases/oc_core_1_3_3/editorial/generated_artifacts_recovered/recovery_r009/pdf/master_monograph_1.3.3.pdf",
+      "status": "PASS",
+      "task_id": "editorial_write_r009_l10_master_monograph_0001_0025",
+      "thermal_debt_remaining_after": 1,
+      "thermal_samples": [
+        {
+          "band": "GREEN",
+          "gpu_temp_c": 53.0,
+          "ts_utc": "2026-05-04T14:29:20Z"
+        },
+        {
+          "band": "GREEN",
+          "gpu_temp_c": 52.0,
+          "ts_utc": "2026-05-04T14:29:22Z"
+        },
+        {
+          "band": "GREEN",
+          "gpu_temp_c": 53.0,
+          "ts_utc": "2026-05-04T14:29:24Z"
+        },
+        {
+          "band": "GREEN",
+          "gpu_temp_c": 52.0,
+          "ts_utc": "2026-05-04T14:29:26Z"
+        },
+        {
+          "band": "GREEN",
+          "gpu_temp_c": 52.0,
+          "ts_utc": "2026-05-04T14:29:28Z"
+        },
+        {
+          "band": "GREEN",
+          "gpu_temp_c": 52.0,
+          "ts_utc": "2026-05-04T14:29:30Z"
+        },
+        {
+          "band": "GREEN",
+          "gpu_temp_c": 51.0,
+          "ts_utc": "2026-05-04T14:29:32Z"
+        },
+        {
+          "band": "GREEN",
+          "gpu_temp_c": 51.0,
+          "ts_utc": "2026-05-04T14:29:34Z"
+        },
+        {
+          "band": "GREEN",
+          "gpu_temp_c": 57.0,
+          "ts_utc": "2026-05-04T14:29:36Z"
+        },
+        {
+          "band": "GREEN",
+          "gpu_temp_c": 53.0,
+          "ts_utc": "2026-05-04T14:29:38Z"
+        },
+        {
+          "band": "GREEN",
+          "gpu_temp_c": 53.0,
+          "ts_utc": "2026-05-04T14:29:41Z"
+        },
+        {
+          "band": "GREEN",
+          "gpu_temp_c": 53.0,
+          "ts_utc": "2026-05-04T14:29:43Z"
+        },
+        {
+          "band": "GREEN",
+          "gpu_temp_c": 53.0,
+          "ts_utc": "2026-05-04T14:29:45Z"
+        }
+      ],
+      "unmanaged_ollama_call": false,
+      "usage": {
+        "input_tokens": 1053,
+        "output_tokens": 208,
+        "total_tokens": 1261
+      },
+      "validation_result": {
+        "expected_schema": "public_rewrite_editorial_moves_anchors_preserved_new_risks_confidence",
+        "message": "ollama_response_ready",
+        "provider_status": "PASS",
+        "status": "PASS"
+      }
+    },
+    {
+      "artifact_type_id": "master_monograph",
+      "cache_status": "MISS",
+      "level": "L10",
+      "llm_cadence": "thermal_debt_cheap_model_1",
+      "model": "qwen2.5-coder:3b",
+      "operation_type": "publication_template_write",
+      "output_text": "{\n  \"public_rewrite\": \"The passage K0 → K1 is generated by an operator Ψ0→1 : (S, ∆, C) 7→ (X1 , τ1 , A1 , Ω1 , Θ1 ), which constructs the skeletal K1 scaffold; the energy functional, flow family, boundary, cycles, and continuumness scalar are specified by the subsequent K1 -specific clauses rather than by this first transition map alone. The scaffold construction: • identifies a family of structurally compatible states in S; • equips them with an order and topology (X1 , τ1 ); • defines the first axis A1 ; • constructs the admissible configuration space Ω1 ; • induces classical thresholds Θ1 . This is the first instance of dimensional emergence: a continuous axis appears that cannot be represented within the purely structural substrate of K0 .\",\n  \"editorial_moves\": [\n    \"Replaced 'S' with 'X1' to clarify the admissible configuration space.\",\n    \"Added 'τ1' for topology.\"\n  ],\n  \"anchors_preserved\": [\"scaffold construction\", \"thresholds\"],\n  \"new_risks\": [],\n  \"confidence\": 95\n}",
+      "output_text_sha256": "54bd36e967620d95de96788cd4968abf56039aa977cd29490a2a60ddb7f71f69",
+      "page_range": [
+        26,
+        50
+      ],
+      "provider": "ollama_local",
+      "provider_message": "ollama_response_ready",
+      "schema_id": "LOGION_LLM_SERVICE_ROW_v1",
+      "source_ref": "releases/oc_core_1_3_3/editorial/generated_artifacts_recovered/recovery_r009/pdf/master_monograph_1.3.3.pdf",
+      "status": "PASS",
+      "task_id": "editorial_write_r009_l10_master_monograph_0026_0050",
+      "thermal_debt_remaining_after": 0,
+      "thermal_samples": [
+        {
+          "band": "GREEN",
+          "gpu_temp_c": 51.0,
+          "ts_utc": "2026-05-04T14:29:47Z"
+        },
+        {
+          "band": "GREEN",
+          "gpu_temp_c": 57.0,
+          "ts_utc": "2026-05-04T14:29:49Z"
+        },
+        {
+          "band": "GREEN",
+          "gpu_temp_c": 53.0,
+          "ts_utc": "2026-05-04T14:29:51Z"
+        },
+        {
+          "band": "GREEN",
+          "gpu_temp_c": 53.0,
+          "ts_utc": "2026-05-04T14:29:53Z"
+        },
+        {
+          "band": "GREEN",
+          "gpu_temp_c": 53.0,
+          "ts_utc": "2026-05-04T14:29:55Z"
+        },
+        {
+          "band": "GREEN",
+          "gpu_temp_c": 52.0,
+          "ts_utc": "2026-05-04T14:29:57Z"
+        },
+        {
+          "band": "GREEN",
+          "gpu_temp_c": 52.0,
+          "ts_utc": "2026-05-04T14:29:59Z"
+        }
+      ],
+      "unmanaged_ollama_call": false,
+      "usage": {
+        "input_tokens": 1054,
+        "output_tokens": 253,
+        "total_tokens": 1307
+      },
+      "validation_result": {
+        "expected_schema": "public_rewrite_editorial_moves_anchors_preserved_new_risks_confidence",
+        "message": "ollama_response_ready",
+        "provider_status": "PASS",
+        "status": "PASS"
+      }
+    },
+    {
+      "artifact_type_id": "master_monograph",
+      "cache_status": "MISS",
+      "level": "L10",
+      "llm_cadence": "substantive_7b_then_two_cheap_cycles",
+      "model": "qwen2.5-coder:7b",
+      "operation_type": "publication_template_write",
+      "output_text": "",
+      "output_text_sha256": null,
+      "page_range": [
+        51,
+        75
+      ],
+      "provider": "ollama_local",
+      "provider_message": "The request was canceled due to the configured HttpClient.Timeout of 40 seconds elapsing. | The operation was canceled. | The operation was canceled. | Unable to read data from the transport connection: Der E/A-Vorgang wurde wegen eines Threadendes oder einer Anwendungsanforderung abgebrochen.. | Der E/A-Vorgang wurde wegen eines Threadendes oder einer Anwendungsanforderung abgebrochen.",
+      "schema_id": "LOGION_LLM_SERVICE_ROW_v1",
+      "source_ref": "releases/oc_core_1_3_3/editorial/generated_artifacts_recovered/recovery_r009/pdf/master_monograph_1.3.3.pdf",
+      "status": "OLLAMA_CHAT_FAILED",
+      "task_id": "editorial_write_r009_l10_master_monograph_0051_0075",
+      "thermal_debt_remaining_after": 0,
+      "thermal_samples": [
+        {
+          "band": "GREEN",
+          "gpu_temp_c": 52.0,
+          "ts_utc": "2026-05-04T14:30:02Z"
+        },
+        {
+          "band": "GREEN",
+          "gpu_temp_c": 51.0,
+          "ts_utc": "2026-05-04T14:30:04Z"
+        },
+        {
+          "band": "GREEN",
+          "gpu_temp_c": 54.0,
+          "ts_utc": "2026-05-04T14:30:06Z"
+        },
+        {
+          "band": "GREEN",
+          "gpu_temp_c": 52.0,
+          "ts_utc": "2026-05-04T14:30:08Z"
+        },
+        {
+          "band": "GREEN",
+          "gpu_temp_c": 52.0,
+          "ts_utc": "2026-05-04T14:30:10Z"
+        },
+        {
+          "band": "GREEN",
+          "gpu_temp_c": 51.0,
+          "ts_utc": "2026-05-04T14:30:12Z"
+        },
+        {
+          "band": "GREEN",
+          "gpu_temp_c": 51.0,
+          "ts_utc": "2026-05-04T14:30:14Z"
+        },
+        {
+          "band": "GREEN",
+          "gpu_temp_c": 51.0,
+          "ts_utc": "2026-05-04T14:30:16Z"
+        },
+        {
+          "band": "GREEN",
+          "gpu_temp_c": 50.0,
+          "ts_utc": "2026-05-04T14:30:18Z"
+        },
+        {
+          "band": "GREEN",
+          "gpu_temp_c": 50.0,
+          "ts_utc": "2026-05-04T14:30:20Z"
+        },
+        {
+          "band": "GREEN",
+          "gpu_temp_c": 50.0,
+          "ts_utc": "2026-05-04T14:30:22Z"
+        },
+        {
+          "band": "GREEN",
+          "gpu_temp_c": 50.0,
+          "ts_utc": "2026-05-04T14:30:24Z"
+        },
+        {
+          "band": "GREEN",
+          "gpu_temp_c": 50.0,
+          "ts_utc": "2026-05-04T14:30:26Z"
+        },
+        {
+          "band": "GREEN",
+          "gpu_temp_c": 50.0,
+          "ts_utc": "2026-05-04T14:30:28Z"
+        },
+        {
+          "band": "GREEN",
+          "gpu_temp_c": 50.0,
+          "ts_utc": "2026-05-04T14:30:30Z"
+        },
+        {
+          "band": "GREEN",
+          "gpu_temp_c": 57.0,
+          "ts_utc": "2026-05-04T14:30:32Z"
+        },
+        {
+          "band": "GREEN",
+          "gpu_temp_c": 54.0,
+          "ts_utc": "2026-05-04T14:30:34Z"
+        },
+        {
+          "band": "GREEN",
+          "gpu_temp_c": 53.0,
+          "ts_utc": "2026-05-04T14:30:36Z"
+        },
+        {
+          "band": "GREEN",
+          "gpu_temp_c": 53.0,
+          "ts_utc": "2026-05-04T14:30:39Z"
+        },
+        {
+          "band": "GREEN",
+          "gpu_temp_c": 54.0,
+          "ts_utc": "2026-05-04T14:30:41Z"
+        }
+      ],
+      "unmanaged_ollama_call": false,
+      "usage": {
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "total_tokens": 0
+      },
+      "validation_result": {
+        "expected_schema": "public_rewrite_editorial_moves_anchors_preserved_new_risks_confidence",
+        "message": "The request was canceled due to the configured HttpClient.Timeout of 40 seconds elapsing. | The operation was canceled. | The operation was canceled. | Unable to read data from the transport connection: Der E/A-Vorgang wurde wegen eines Threadendes oder einer Anwendungsanforderung abgebrochen.. | Der E/A-Vorgang wurde wegen eines Threadendes oder einer Anwendungsanforderung abgebrochen.",
+        "provider_status": "OLLAMA_CHAT_FAILED",
+        "status": "FAIL"
+      }
+    }
+  ],
+  "run_mode": "safe_exhaustive_until_done_writer",
+  "schema_id": "LOGION_LLM_SERVICE_RESPONSE_v1",
+  "service_id": "logion_llm_service_v1",
+  "state_ref": "logion_local/runtime/state/LOGION_LLM_SERVICE_STATE_latest.json",
+  "status": "LOCAL_CAPABILITY_EXHAUSTED",
+  "summary": {
+    "cache_hit_total": 0,
+    "cadence_sequence": [
+      "substantive_7b_then_two_cheap_cycles",
+      "thermal_debt_cheap_model_2",
+      "thermal_debt_cheap_model_1",
+      "substantive_7b_then_two_cheap_cycles"
+    ],
+    "cooldown_event_total": 0,
+    "cooldown_resume_total": 0,
+    "host_sample_total": 4,
+    "model_sequence": [
+      "qwen2.5-coder:7b",
+      "qwen2.5-coder:3b",
+      "qwen2.5-coder:3b",
+      "qwen2.5-coder:7b"
+    ],
+    "packet_attempted_total": 4,
+    "packet_done_total": 3,
+    "packet_skipped_total": 0,
+    "provider_invocation_total": 4,
+    "request_total": 32,
+    "static_blocker_total": 0,
+    "unmanaged_ollama_call_total": 0
+  },
+  "v_model": {
+    "lower_level_blockers": 1,
+    "lowest_checked_level": "L10",
+    "order": "L10_to_L9_L8_to_document",
+    "stopped_before_upper_review": false
+  }
+}

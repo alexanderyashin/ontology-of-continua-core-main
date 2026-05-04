@@ -1,0 +1,280 @@
+---
+document_title: "OC Core Release Guide v1.3.3"
+document_version: "1.3.3"
+release_id: "oc_core_1_3_3"
+concept_doi: "10.5281/zenodo.17899134"
+---
+
+\begin{titlepage}
+\thispagestyle{empty}
+\centering
+\vspace*{0.12\textheight}
+{\Huge\bfseries OC Core Release Guide v1.3.3\par}
+\vspace{1.2em}
+{\Large Public landing guide and recommended reading order\par}
+\vspace{2.5em}
+{\large Alexander Yashin\par}
+{\normalsize Independent Researcher\par}
+{\normalsize ORCID 0009-0008-6166-0914\par}
+\vfill
+{\normalsize Version 1.3.3; revision recovery\_r005\par}
+{\normalsize Manuscript revision date: 3 May 2026\par}
+{\normalsize Concept DOI: 10.5281/zenodo.17899134\par}
+\vspace{1.5em}
+{\small\itshape Dedicated to my dear wife Maria, without whom this work would have been impossible.\par}
+\end{titlepage}
+\clearpage
+
+# Acknowledgements {.unnumbered}
+
+The author thanks the reviewers and critics whose questions, objections, and suggestions contributed to the development of the Ontology of Continua and to the refinement of this release. The acknowledged contributors are G. V. Apostolov, Eduard Fadeev, Gennady Alekseevich Nosov, Sergey Shpadyrev, and Stanislav Tsukrov. Their criticism helped sharpen the claim boundaries, improve the reader route, expose weak presentation choices, and force clearer separation between model claims, proof routes, numerical evidence, prior-art comparison, and publication form. Acknowledgement records review pressure and intellectual contribution to the development of the work; it does not imply authorship, endorsement, publication approval, responsibility for the theory, or agreement with any claim promoted in the manuscript.
+
+# Abstract {.unnumbered}
+
+This release guide is the entry document for the OC Core 1.3.3 public package. The Ontology of Continua is a typed model-core project for describing continuants, realizations, liveness, death, residue, boundaries, morphisms, operators, cycles, dimension, and K-level witnesses under explicit assumptions. Its immediate publication task is not to replace every domain science with a slogan. The task is to give reviewers a precise object whose definitions, proof routes, finite semantic checks, replay examples, comparator boundaries, and failure conditions can be inspected.
+
+Version 1.3.3 is a bounded external-review release. It is mature enough to be read as a coherent scientific manuscript and to be checked against formal and executable artifacts, but it remains a staged research program rather than a declaration of final all-domain completion. The release promotes model-core claims where their assumptions and evidence are visible; it leaves broader numerical closure, wider domain validation, and stronger comparative claims as future obligations.
+
+The package contains a full monograph, a compact article route, a methods and reproducibility companion, a reviewer attack-and-response map, release navigation, public evidence anchors, finite-model outputs, Lean subset evidence, bounded target-blind replay QA, comparator and prior-art material, and appendices for proof, figures, tables, numeric rows, and source trace. The monograph is the canonical reading spine; the other documents are curated routes for first reading, editorial review, replay, and hostile criticism.
+
+The evidence status is deliberately mixed and explicit. Some claims are supported by theorem routes, proof sheets, Lean declarations, and finite semantic witnesses. Some claims are supported by bounded numerical or target-blind replay rows that should be read as scoped QA evidence, not as complete empirical validation of a whole domain. Some claims are positioned against prior art or retained as research boundaries because the available evidence is not yet strong enough for a broader statement.
+
+The principal limitation is therefore part of the manuscript's method: public wording must not outrun the evidence. OC Core 1.3.3 asks the reader to evaluate whether the typed model, proof governance, finite semantics, numerical anchors, figures, tables, appendices, and reviewer-response routes form a coherent bounded model-core contribution. Future work must add evidence or mechanization before it widens the public claim surface.
+
+# Version 1.3.3 Release Delta {.unnumbered}
+
+Version 1.3.3 is the release in which the OC Core corpus is reorganized from a set of scattered source witnesses and process records into a reviewable scientific package. The visible delta is not merely a new archive number: the release strengthens the typed foundation, makes the claim boundary explicit, integrates the theorem route with public proof sheets, and separates reader-facing prose from machine evidence.
+
+The model delta includes clearer treatment of carriers, realizations, liveness, death, residue, rebirth, morphisms, generalized boundaries, hybrid operators, cycle modes, historical and effective dimension, and K-level witnesses. These additions are presented as a bounded model-core grammar rather than as an unrestricted theory of every phenomenon.
+
+The verification delta adds and consolidates a Lean-checked subset, structured proof sheets, finite semantic checks, finite witness interpretation, bounded target-blind replay QA, comparator and prior-art positioning, negative-control and falsifier language, and adversarial-review response material. Where a stronger claim is not yet earned, the release records the limitation instead of hiding it inside a source-control record.
+
+The editorial delta is equally important. Figures, tables, formulas, numeric anchors, appendices, and evidence routes are kept in the publication corpus; machine coverage maps remain coverage and trace data only. The public documents are therefore built from the human manuscript hierarchy and curated payload sources, while source bindings and machine evidence indexes stay in the review manifest.
+
+# Reader Routes {.unnumbered}
+
+Dear reader, this manuscript is a public scientific reading surface for OC Core 1.3.3. It is not an internal routing memo, not a build log, and not a one-to-one printout of evidence-node records. The document exists so that a careful reader can understand the model, select a reading route, and then open the machine-readable evidence package only where exact inspection is needed.
+
+Scientific reviewers and formal critics should read the abstract, release delta, model-foundation route, theorem/proof integration route, Lean subset, finite semantic witnesses, proof machinery, and falsifiability sections. Their question is whether each promoted claim has assumptions, proof or executable evidence, counterexample boundary, and reopening condition.
+
+Systems theorists, philosophers, and interested theoretical readers should read the continuum problem, systems-theory context, K-level hierarchy, lifecycle and boundary chapters, prior-art comparison, and limitations before the numeric evidence. Their route asks what OC borrows, what it reorganizes, where its residual delta begins, and where predecessors or parallel branches already carry part of the claim.
+
+AI builders, engineers, architects, and applied researchers should use the model chapters as a design grammar for carriers, realizations, boundaries, operators, update/flow separation, evidence classes, and claim gates. Then they should read methods, worked examples, figures, tables, reproducibility, and practical utility. This route supports AI systems, evaluation pipelines, knowledge models, simulations, and formalized domain architectures.
+
+CIO, CEO, enterprise architects, and strategy readers should read the release delta, reader guide, practical utility chapter, model-comparison appendix, and final conclusion first. Their route asks what the model is for, what it can support today, what remains too immature for operational commitment, and how the evidence classes affect research or enterprise decisions.
+
+Reproducibility auditors, evidence reviewers, and benchmark readers should read the methods and evidence chapters, target-blind replay QA, numeric tables, machine-readable table reference, audit trail, source-trace appendix, and public evidence package manifest. Their route asks whether formula, input snapshot, comparator, residual or uncertainty, negative control, falsifier, replay hash, and failure interpretation are present.
+
+Use this guide first to choose the right document, then move to the monograph, article, methods companion, or reviewer map according to your task. In the full package, the conceptual model and formulas live in the monograph's scientific body; the proof route and Lean subset live in theorem, proof, and formalization sections; numeric evidence and target-blind replay QA live in the methods/evidence route; figures and tables live inline in the monograph; appendices carry source trace, proof machinery, comparison rows, audit trail, and machine-readable table references; prior-art comparison and reviewer objections live in the article and attack-response map.
+
+Read the limitations as part of the claim, not as a footnote. A statement is promoted only where its assumptions, proof or evidence class, comparator boundary, and reopening condition are visible. Claims about complete scientific coverage, unrestricted all-domain numerical closure, or unrestricted superiority over contemporary science are not promoted by this release.
+
+```{=latex}
+\clearpage
+\renewcommand*\contentsname{Table of Contents}
+\setcounter{tocdepth}{2}
+\setcounter{secnumdepth}{2}
+\makeatletter
+% R005_TOC_VISUAL_HIERARCHY
+\renewcommand*\l@section[2]{\addvspace{0.5em}\begingroup\bfseries\large\@dottedtocline{1}{0em}{4.8em}{#1}{#2}\endgroup}
+\renewcommand*\l@subsection[2]{\@dottedtocline{2}{2.0em}{5.8em}{\small #1}{\small #2}}
+\makeatother
+\tableofcontents
+\clearpage
+```
+
+# Reading Map
+
+This reading map is document-specific. The generated PDF table of contents gives page locations; the steps below state what the reader should do with each section.
+
+1. Public landing guide. Confirm what the archive contains and which file is the right first read.
+2. Recommended reading order. Choose the next public PDF according to the reader's task.
+3. Evidence summary. Check the evidence summary before treating the release as citable science.
+4. Claim boundary. Read the boundary statement so the release is not overclaimed.
+5. Verification route. Use the verification notes only after the human reading order is clear.
+6. Citation route. Copy the citation metadata from the DOI and citation files.
+
+# Audience and Reading Path
+
+Purpose and role. This document is written for new public readers, scientific contacts, repository visitors, and archivists who need to know what to open first. It exists to orient the reader to the release without turning the guide into a process manual, so the opening pages identify the intended reader before they introduce formal claims.
+
+Construction and order. The argument is organized as scope, reading order, evidence boundary, citation route, and reviewer entry points. The guide stays short and practical: it names the archive objects, explains the reading order, and warns readers away from over-reading machine evidence as broader validation.
+
+The teaching obligation is that the guide answers what exists, why it matters, what to read, and what not to overclaim. The current research support is the bounded OC Core 1.3.3 model-core stack: typed model, theorem and proof route, Lean subset, finite semantic witnesses, bounded replay rows, comparator positioning, phenomenon coverage, negative controls, falsifiers, and adversarial review. For this guide, the support stack is used only to explain where a reader should start and how not to overread the archive.
+
+The document therefore states what the reader should learn from the evidence and where that evidence stops. It does not use release-readiness language as a substitute for scientific explanation, and it does not claim unsupported full-science completion.
+
+# Public Landing Guide
+
+This guide is the first-file landing surface for public Zenodo and GitHub users. It exists so the record opens with a readable scientific navigation page rather than metadata, checksums, or process material.
+
+# Recommended Reading Order
+
+1. Read the Master Monograph for the full scientific argument, formal spine, proof registers, evidence tables, and claim boundary.
+
+2. Read the Journal Core article for the compact external-review path.
+
+3. Read the Methods and Reproducibility Companion for replay, finite-model, Lean, validation, checksum, and package-inventory details.
+
+4. Read the Reviewer Attack and Response Map for hostile-review closure, novelty/equivalence boundaries, phenomenon coverage, and known background research obligations.
+
+5. Use the public reproducibility zip only after the PDFs, because it is an evidence and replay package rather than the primary reading surface.
+
+# Evidence Summary
+
+The 1.3.3 release promotes bounded model-core claims tied to theorem/proof registers, a Lean-checked subset, finite-model semantic checks, bounded target-blind replay QA examples, comparator positioning, and adversarial-review closure.
+
+The public surface does not promote complete scientific coverage or unrestricted cross-science comparison victory. Those statements are outside the 1.3.3 public claim surface.
+
+Primary evidence anchors include T133-K0-RES, T133-OMEGA-STATUS, T133-HYBRID, T133-MIN, the finite-model output attestation, target-blind replay table, domain evidence-boundary report, and adversarial-review summary.
+
+# What Each Public File Is For
+
+The release guide is intentionally first in the file list: it is the public landing surface and tells readers where to start. The master monograph is the canonical scientific artifact and should be cited when discussing the full theory. The journal core article is the compact article-length path for editors, reviewers, and first-pass scientific readers. The methods companion is the reproducibility and audit path. The reviewer attack map is the adversarial path.
+
+The public zip is a reproducibility bundle, not the first reading surface. It carries source projections, evidence summaries, replay material, checksums, and package metadata so that a reader can verify the release without mistaking machine-readable support files for the scientific exposition. The manifest, checksums, citation, CodeMeta, RO-Crate, release notes, and changelog are included for archival and indexing use.
+
+# Editorial Method for the Guide
+
+The guide is evaluated as a reader-facing scientific document, not as an internal process summary. Its positive obligation is to answer the editor's first questions before any archive file is opened: who the document is for, what the release is about, why the release exists, how the argument is built, what the reader should learn, what evidence supports that learning, where prior art enters, what replay or simulation can check, what would reopen the claim, and what the release does not claim.
+
+The guide therefore uses a short but complete didactic path. It starts with audience and purpose, moves to the reading order, gives the claim boundary, names the evidence anchors, explains the public files in human terms, shows the visual route, and ends with citation and archival notes. That order is intentional: a reader should never have to infer the scientific role of a file from its checksum, filename, or machine manifest.
+
+This editorial method is also a regression guard. If a future release turns the public landing document into a raw register, a metadata wall, an internal routing memo, or a placeholder contents page, the positive mission gate must fail even if all files exist. The guide is allowed to be compact, but it is not allowed to be thin, evasive, or dependent on private process vocabulary.
+
+# Claim Boundary
+
+The release surface is deliberately bounded. It promotes the model-core and evidence-backed claims that pass the scientific verification bar. It does not promote unsupported total finality, complete numerical closure for every domain, or unrestricted victory over every local scientific model. Those statements are outside the 1.3.3 public claim surface. This boundary is part of the scientific claim, not a marketing caveat.
+
+For review purposes, the strongest public claim is that OC Core 1.3.3 is ready for external scientific review as a typed, reproducible, adversarially audited cross-domain model core with explicit limits. A reviewer can attack the formal definitions, theorem dependencies, finite witnesses, empirical lanes, comparator positioning, or release-governance boundaries directly from the public artifacts.
+
+# Verification Route
+
+A minimal verification route is: inspect the release guide, check the master monograph front matter and dedication, verify the theorem/evidence anchors in the monograph, inspect the finite-model output attestation, inspect the target-blind prediction table, compare the checksum file with local assets, and read the reviewer attack map for the known high-pressure objections. The release process records the same route in machine-readable form so that future releases cannot substitute an internal routing memo or metadata packet for the primary scientific artifact.
+
+# Reviewer Entry Points
+
+A formal reviewer should begin with the master monograph theorem roadmap, then inspect the Lean subset and finite-model attestation. An empirical reviewer should begin with the methods companion, the target-blind replay table, the domain evidence-boundary report, and the negative-control/falsifier rows. A prior-art reviewer should begin with the comparator and novelty register and then use the reviewer attack map. An editor should begin with the journal core article and the journal owner-review package index.
+
+The theory is intentionally exposed to criticism. If a theorem lacks assumptions, if a finite witness is self-confirming, if a data lane lacks a comparator or negative control, or if a public claim exceeds its evidence, the corresponding gate should fail. The 1.3.3 public release is designed so that those failures are visible and mechanically routable instead of hidden in prose.
+
+# Visual Route - Reader Route Figures
+
+These figures give the first reading route before the long monograph. They show where to begin and what each route prevents.
+
+![Conceptual diagram of typed OC continuum components](../figures/oc133_tuple_route.png)
+
+Figure 1. The typed-continuum diagram connects the basic object vocabulary to the place where a public claim must be located.
+
+![Conceptual diagram of lifecycle status and identity boundaries](../figures/oc133_lifecycle_route.png)
+
+Figure 2. The lifecycle diagram separates liveness, death, residue, rebirth, and identity preservation.
+
+![Conceptual diagram of K-level witness and demotion checks](../figures/oc133_klevel_route.png)
+
+Figure 3. The K-level diagram separates witness-bearing transitions from inert observables that must be demoted.
+
+![Conceptual diagram of boundary separation and falsifier checks](../figures/oc133_boundary_route.png)
+
+Figure 4. The boundary diagram links classifier, separation, interface, negative control, and falsifier.
+
+![Conceptual diagram linking public claims to evidence and reopening conditions](../figures/oc133_evidence_route.png)
+
+Figure 5. The evidence diagram shows how a statement becomes reviewable instead of remaining a slogan.
+
+![Conceptual diagram of bounded replay and empirical claim limits](../figures/oc133_replay_boundary.png)
+
+Figure 6. The replay-boundary diagram shows why a numeric row is a bounded claim, not a whole-domain proof.
+
+Tuple route. Carrier, realization, liveness, residue, boundary, and morphism prevent the tuple from being treated as a loose metaphor.
+
+Lifecycle route. Live state, death condition, residue evidence, rebirth candidate, and identity boundary prevent residue from being confused with identity continuation.
+
+K-level route. Lower model, added observable, retained witness, reduction test, and lawful demotion prevent hierarchy from being added without a witness.
+
+Evidence route. Claim, assumptions, proof sheet, Lean or finite witness, replay row where applicable, and reopening condition prevent claims from being promoted without support.
+
+Replay route. Source, formula, comparator, residual, negative control, and falsifier prevent numeric evidence from being over-read.
+
+**Route A: Tuple map** Carrier -> realization -> liveness -> residue -> boundary -> morphism. The tuple is read left to right before theorem obligations are inspected.
+
+Review use 1. The route points to the relevant definition, evidence artifact, and reopening condition.
+
+**Route B: Lifecycle route** Live state -> death condition -> residue evidence -> rebirth candidate -> identity boundary. A failed invariant or residue mismatch blocks identity continuation.
+
+Review use 2. The route points to the relevant definition, evidence artifact, and reopening condition.
+
+**Route C: K-level route** Lower model + added observable -> transition witness -> retained distinction test -> demotion when the observable is inert.
+
+Review use 3. The route points to the relevant definition, evidence artifact, and reopening condition.
+
+**Route D: Boundary route** Classifier boundary -> observable separation -> negative control -> falsifier. Metric thresholds are special cases, not the whole boundary theory.
+
+Review use 4. The route points to the relevant definition, evidence artifact, and reopening condition.
+
+**Route E: Evidence route** Claim -> assumptions -> proof sheet -> Lean subset or finite witness -> numeric replay row when applicable -> reviewer reopening condition.
+
+Review use 5. The route points to the relevant definition, evidence artifact, and reopening condition.
+
+**Route F: Replay boundary** Pinned source -> formula -> comparator -> residual -> negative control -> falsifier. A numeric result carries only the claim whose replay boundary is complete.
+
+Review use 6. The route points to the relevant definition, evidence artifact, and reopening condition.
+
+# What to Cite
+
+For the full theory and release-level scientific argument, cite the Master Monograph. For a concise article-shaped description, cite the Journal Core. For reproducibility and validation questions, cite the Methods and Reproducibility Companion. For adversarial-review and claim-boundary questions, cite the Reviewer Attack and Response Map. For archival integrity, cite the DOI record and verify the checksum manifest.
+
+The preferred human reading path is intentionally different from the machine replay path. Humans should start with the guide and monograph. Machines should start with the manifest, checksums, and public zip. Both paths are present, but the public record is arranged so the human path is visible first.
+
+# Editorial and Archival Notes
+
+Editors should treat the journal-preparation materials as preparation aids, not as evidence that a journal article preparation has occurred. The present public release establishes the scientific and reproducibility baseline from which later editorial decisions can proceed.
+
+Archivists should treat the Zenodo concept DOI as the version chain and the record DOI as the exact public artifact set for the current 1.3.3 publication. The release notes and checksum manifest record archival integrity details; this guide keeps the reader-facing path focused on the science.
+
+Readers comparing versions should not infer that every broad future research ambition is completed in 1.3.3. The release distinguishes the bounded external-review model core from the continuing full science program. This distinction is explicit so the artifact can be used for preliminary technical review with scientists, colleagues, and institutions without implying external endorsement, applied-domain validation, or broader proof than the evidence layer provides today.
+
+For practical use, this means the public record is suitable as a serious review and discussion baseline: it contains the long-form monograph, compact article path, reproducibility companion, adversarial-review map, and replay package. It is not a substitute for the reader's own scientific judgment, but it is arranged so that judgment can be applied to the right artifacts in the right order.
+
+If the record is mirrored elsewhere, this guide should remain the first visible document. That ordering is part of the release-quality contract: public readers see the science first, then the supporting machine-readable materials.
+
+The guide also states an editorial promise for the whole artifact family: every public file has a human role, and no file is promoted merely because it exists in the archive. The monograph carries the full argument, the article carries the compressed peer-review route, the methods companion carries replay interpretation, the reviewer map carries adversarial synthesis, and the public zip carries evidence. A reader who cannot tell which file answers which question has found a release defect rather than a personal reading failure.
+
+The guide's visual pedagogy is intentionally minimal. It does not try to teach every formal construction; it gives just enough orientation to let a reader distinguish the tuple route, lifecycle route, evidence route, and archive route before moving into the longer documents. That keeps the landing document readable while still satisfying the obligation that public science must show readers how to operate the model.
+
+# Related Work and Comparator Boundary
+
+This guide gives a compact map of the comparator traditions a reader should keep in view before reading the monograph.
+The release does not claim absence of predecessors, global priority, or unrestricted comparative claim over modern science. Its defensible public contribution is narrower: it integrates typed model-core claims, proof sheets, finite semantic witnesses, bounded numeric replay QA, comparator rows, and explicit reopening conditions into one auditable scientific release surface.
+
+Required comparator family: Mereology and mereotopology. Boundary: OC does not claim to invent part-whole or boundary theory. It uses typed boundaries, residue relations, and classifier rules as the release-local way to keep boundary claims falsifiable.
+
+Required comparator family: Process ontology and continuity. Boundary: OC does not settle every process-metaphysical debate. It states lifecycle, death, residue, rebirth, and identity-continuation boundaries under declared assumptions.
+
+Required comparator family: Formal logic, category theory, type theory, and proof assistants. Boundary: OC uses these traditions as comparison and implementation context; a Lean declaration or finite witness supports only the exact bounded statement it encodes.
+
+Comparator tradition: General System Theory. Source anchor: Ludwig von Bertalanffy, General System Theory. OC accepts the overlap: general systems framing and cross-domain system concepts. The bounded residual delta for this release is release-bound typed theorem register plus executable finite witnesses, numeric replay QA, falsifier registry, and authorization-bounded release-governed publication controls. The boundary is equally important: OC must not claim invention of general systems theory or organized-whole analysis.
+
+Comparator tradition: Autopoiesis. Source anchor: Maturana and Varela, Autopoiesis and Cognition. OC accepts the overlap: autopoietic organization of living systems. The bounded residual delta for this release is typed distinction between liveness, death, residue, rebirth, and identity invariants. The boundary is equally important: OC must not claim invention of autopoiesis or self-producing organization.
+
+Comparator tradition: Dynamical Systems. Source anchor: Encyclopedia of Mathematics, Dynamical system. OC accepts the overlap: mathematical dynamical-system state evolution. The bounded residual delta for this release explicitly blocks differentiating non-smooth proof/rewrite states unless smooth charts are declared. The boundary is equally important: OC must not claim invention of state spaces, flows, or attractor-style dynamics.
+
+Comparator tradition: Category and Topos Formalisms. Source anchor: nLab, topos. OC accepts the overlap: category/topos formalisms and internal logic. The bounded residual delta for this release is the use of typed morphism discipline to police public scientific claims, without claiming invention of category theory. The boundary is equally important: OC must not claim invention of typed objects, morphisms, or topoi.
+
+Comparator tradition: RAF Theory. Source anchor: Hordijk and Steel, Autocatalytic sets and boundaries. OC accepts the overlap: RAF formalization of autocatalytic sets and boundary discussion. The bounded residual delta for this release is the typed placement of RAF-like closure as one K-level route with explicit reduction and demotion checks, without replacing RAF theory. The boundary is equally important: OC must not claim invention of autocatalytic-set closure.
+
+Comparator tradition: Complexity and Information Measures. Source anchor: Stanford Encyclopedia of Philosophy, Information. OC accepts the overlap: information concepts and measures. The bounded residual delta for this release is the release-local practice that separates historical activation from effective rank in the release theorem inventory. The boundary is equally important: OC must not claim invention of information or complexity measures.
+The full comparator matrix and source snapshots remain in the evidence package. If a future systematic search shows that a comparator already carries the same claim at the same strength, the OC public wording must be demoted or rewritten rather than defended by novelty rhetoric.
+
+# Visual Route Boundary
+
+The guide includes the route diagrams needed for first orientation. The master monograph carries the full visual and figure atlas; the guide's role is to prevent readers from opening the archive in the wrong order while still giving a durable visual map.
+
+\clearpage
+\section*{Keywords and Citation Route}
+
+Keywords: Ontology of Continua; continuum ontology; typed model core; systems theory; autopoiesis; dynamical systems; hybrid systems; formal methods; Lean formalization; finite semantic checks; target-blind replay QA; reproducible research; artifact evaluation; claim governance; falsifiability; evidence-bound scientific publishing.
+
+Citation identity: Alexander Yashin, OC Core Release Guide v1.3.3, revision recovery_r005, 3 May 2026. The Concept DOI is printed on the title page.
+
+Open repository: <https://github.com/alexanderyashin/ontology-of-continua-core-main>. Repository files support reproducibility and source inspection; they do not replace the manuscript's claim boundaries.

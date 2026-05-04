@@ -1,0 +1,281 @@
+% ================================================================
+% ==== FILE: content/m_spaces/m4.tex
+% ================================================================
+
+% ==============================
+%  Ontology of Continua — Core
+%  Meta-Space: M4
+%  FULL MODULE — FINAL VERSION
+% ==============================
+
+\subsubsection{\texorpdfstring{$M_4$}{M_4} Übersicht}
+\label{sec:m4-overview}
+
+$M_4$ ist der Metaraum, der die Zulässigkeitsbedingungen dafür bereitstellt
+biologische Kontinua der Ebene $K_4$.
+Es ist der erste Metaraum, in dem:
+
+\begin{itemize}
+    \item eine stabile \emph{semipermeable Grenze} ist zulässig,
+    \item die topologische Unterscheidung \textbf{innen/außen} wird zu einer Achse,
+    \item nontrivial \emph{Konzentrations-, elektrische, pH- und Redoxgradienten}
+    kann aufrechterhalten werden,
+    \item aktive Transport- und Energieumwandlungsprozesse sind erlaubt,
+    \item Reaktionsnetzwerke sind begrenzt und räumlich koordiniert,
+    \item der Übergang von der chemischen zur protobiologischen Struktur ($K_3 \to K_4$)
+          ist zulässig.
+\end{itemize}
+
+$M_4$ führt die geometrischen und energetischen Bedingungen für ein
+Kompartimentierung – die bestimmende Eigenschaft früher Zellen.
+
+% ---------------------------------------------------------------
+\subsubsection*{1. Zulässiger Konfigurationsraum \texorpdfstring{$\Omega(M_4)$}{\Omega(M_4)}}
+
+Die zulässigen Konfigurationen in $M_4$ erweitern die von $M_3$ um:
+
+\[
+\Omega(M_4)
+=
+\Big\{
+(\phi,\ G_{\mathrm{chem}},\ \rho_{\mathrm{in/out}},\
+\Delta\mu,\ g_{ij},\ \partial\Omega,\ \Pi)
+\ \Big|\ \text{Zulässigkeitsbedingungen gelten}
+\Big\}.
+\]
+
+Wo:
+
+\begin{itemize}
+    \item $\partial\Omega$ – eine semipermeable Membran, die eine kompakte Grenze bildet,
+    \item $\rho_{\mathrm{in/out}}$ — Konzentrationsfelder innen und außen,
+    \item $\Delta\mu$ – elektrochemische Potentialgradienten über $\partial\Omega$,
+    \item $\Pi$ – Permeabilitätstensor (richtungs- und artabhängig),
+    \item $G_{\mathrm{chem}}$ – interne RAF-Netzwerke, die funktionsfähig bleiben
+          unter Haft.
+\end{itemize}
+
+Zulassungsbedingungen:
+
+\begin{enumerate}
+    \item \textbf{Membranstabilität}:
+    $\partial\Omega$ muss unter Spannung die mechanische Integrität bewahren
+    $T_{\mathrm{mem}} < \Theta_{\mathrm{mem}}$.
+
+    \item \textbf{Permeabilitätsbeschränkungen}:
+    $\Pi$ muss endlich, anisotrop und artspezifisch sein.
+
+    \item \textbf{Gradientenkompatibilität}:
+    Elektrochemische Gradienten müssen Folgendes erfüllen:
+    \[
+    |\Delta\mu| < \Theta_{\mathrm{grad-max}}.
+    \]
+
+    \item \textbf{Volumenendlichkeit}:
+    Der interne Bereich muss ein begrenztes Volumen und eine begrenzte Masse haben.
+
+    \item \textbf{RAF-Kompatibilität}:
+    Interne Reaktionsnetzwerke müssen topologisch geschlossen bleiben.
+\end{enumerate}
+
+$M_4$ bietet somit die minimale Umgebung, in der Protozellen existieren können.
+
+% ---------------------------------------------------------------
+\subsubsection*{2. Zulässige Achsen \texorpdfstring{$A(M_4)$}{A(M_4)}}
+
+Es erscheint eine neue Grundachse:
+
+\[
+A_{\mathrm{in/out}} = \{ \text{innen},\ \text{außen} \}.
+\]
+
+Es erfüllt:
+
+\[
+A_{\mathrm{in/out}} \not\subseteq \operatorname{span}(A_1, A_2, A_3)
+\quad\Rightarrow\quad
+\text{neue Dimension erlaubt}.
+\]
+
+Zu den weiteren zulässigen Achsen gehören:
+
+\begin{itemize}
+    \item $A_{\mathrm{perm}}$ – Permeabilitätszustände,
+    \item $A_{\mathrm{grad}}$ — Gradientenkonfigurationen (pH, Ionen, Ladung),
+    \item $A_{\mathrm{vol}}$ — Volumen-/Druckachse,
+    \item $A_{\mathrm{energy}}$ – innere Energiezustände
+          (ATP-ähnliche Vorläufer, Redox-Pools).
+\end{itemize}
+
+Diese Achsen definieren die interne Funktionsgeometrie früher Zellen.
+
+% ---------------------------------------------------------------
+\subsubsection*{3. Potentiale \texorpdfstring{$P(M_4)$}{P(M_4)}}
+
+$M_4$ lässt neue Potenzialklassen zu:
+
+\[
+P(M_4) =
+\big(
+U_{\mathrm{mem}},\
+U_{\mathrm{grad}},\
+U_{\mathrm{osm}},\
+U_{\mathrm{Ladung}},\
+U_{\mathrm{Redox}},\
+U_{\mathrm{aktiv}}
+\Big).
+\]
+
+Interpretation:
+
+\begin{itemize}
+    \item $U_{\mathrm{mem}}$ – Membranbiegung und Oberflächenspannungspotential,
+    \item $U_{\mathrm{grad}}$ – in chemischen/elektrischen Gradienten gespeicherte Energie,
+    \item $U_{\mathrm{osm}}$ — osmotisches Druckpotential,
+    \item $U_{\mathrm{Ladung}}$ — Coulombische und dielektrische Wechselwirkungen,
+    \item $U_{\mathrm{redox}}$ — Redox-Energielandschaft,
+    \item $U_{\mathrm{active}}$ – Energieumwandlung, die aktiven Transport ermöglicht.
+\end{itemize}
+
+Alle Potenziale müssen sein:
+
+\begin{enumerate}
+    \item fast überall differenzierbar,
+    \item von unten begrenzt,
+    \item kompatibel mit Membranstabilitätsbedingungen.
+\end{enumerate}
+
+% ---------------------------------------------------------------
+\subsubsection*{4. Schwellenwerte \texorpdfstring{$\Theta(M_4)$}{\Theta(M_4)}}
+
+Wichtige biologische Schwellenwerte eingeführt:
+
+\begin{itemize}
+    \item $\Theta_{\mathrm{mem}}$ — Membranbruchschwelle,
+    \item $\Theta_{\mathrm{grad}}$ – minimaler Gradient, der zur Aufrechterhaltung der Struktur erforderlich ist,
+    \item $\Theta_{\mathrm{grad-max}}$ – maximal tolerierbarer Gradient,
+    \item $\Theta_{\mathrm{osm}}$ – osmotische Drucktoleranz,
+    \item $\Theta_{\mathrm{pH}}$ — Lebensfähigkeitsintervall für den internen pH-Wert,
+    \item $\Theta_{\mathrm{redox}}$ – Redox-Kompatibilitätsschwelle.
+\end{itemize}
+
+Kritische Bedingung dafür, dass $K_4$ am Leben bleibt:
+
+\[
+T_4 <
+\min\{
+\Theta_{\mathrm{mem}},\
+\Theta_{\mathrm{osm}},\
+\Theta_{\mathrm{grad-max}},\
+\Theta_{\mathrm{pH}},\
+\Theta_{\mathrm{Redox}}
+\}.
+\]
+
+% ---------------------------------------------------------------
+\subsubsection*{5. Flüsse \texorpdfstring{$J(M_4)$}{J(M_4)}}
+
+Zulässige Flüsse umfassen:
+
+\[
+J(M_4)
+=
+\big(
+J_{\mathrm{diff}},\
+J_{\mathrm{perm}},\
+J_{\mathrm{Pumpe}},\
+J_{\mathrm{Redox}},\
+J_{\mathrm{osm}},\
+\nabla_i T_4
+\Big).
+\]
+
+Wo:
+
+\begin{itemize}
+    \item $J_{\mathrm{diff}}$ — passive Diffusion innen/außen,
+    \item $J_{\mathrm{perm}}$ — Membranpermeationsflüsse,
+    \item $J_{\mathrm{pump}}$ — aktiver Transport gegen Gradienten,
+    \item $J_{\mathrm{redox}}$ – redoxzyklische Strömungen,
+    \item $J_{\mathrm{osm}}$ — osmotische Gleichgewichtsflüsse,
+    \item $\nabla_i T_4$ – Strömungen, die durch strukturelle Spannungsgradienten angetrieben werden.
+\end{itemize}
+
+Alle Strömungen müssen der Massenerhaltung innerhalb der Membrangrenze genügen.
+
+% ---------------------------------------------------------------
+\subsubsection*{6. Zyklen in \texorpdfstring{$M_4$}{M_4}}
+
+$M_4$ ist der Metaraum, in dem biologische Zyklen zulässig werden:
+
+\begin{itemize}
+    \item $C_{\mathrm{RAF-core}}$ — reaktionsautokatalytische Zyklen,
+    \item $C_{\mathrm{metabolic}}$ – grundlegender Stoffwechselumsatz,
+    \item $C_{\mathrm{pump}}$ – pumpengetriebene aktive Transportzyklen,
+    \item $C_{\mathrm{redox}}$ — Elektronentransferzyklen,
+    \item $C_{\mathrm{buffer}}$ – pH-Pufferzyklen.
+\end{itemize}
+
+Voraussetzung für Zyklenstabilität:
+
+\[
+\oint_C dA_i \ungefähr 0
+\quad\text{und}\quad
+T_4 \ \text{begrenzt}.
+\]
+
+Diese Zyklen erzeugen die zeitliche Struktur $\tau(K_4)$.
+
+% ---------------------------------------------------------------
+\subsubsection*{7. Grenze \texorpdfstring{$\partial\Omega(M_4)$}{\partial\Omega(M_4)}}
+
+Eine Konfiguration nähert sich $\partial\Omega(M_4)$, wenn:
+
+\begin{itemize}
+    \item Membranspannung nähert sich der Bruchgrenze:
+    \[
+    T_{\mathrm{mem}} \to \Theta_{\mathrm{mem}},
+    \]
+    \item interner pH verlässt das Lebensfähigkeitsintervall,
+    \item-Gradienten überschreiten $\Theta_{\mathrm{grad-max}}$,
+    \item osmotisches Ungleichgewicht wird instabil,
+    \item Einschluss bricht den RAF-Verschluss im Inneren des Abteils.
+\end{itemize}
+
+Das Überqueren von $\partial\Omega(M_4)$ zerstört das protobiologische Kontinuum $K_4$.
+
+% ---------------------------------------------------------------
+\subsubsection*{8. Beziehung zu \texorpdfstring{$M_3$}{M_3} und \texorpdfstring{$M_5$}{M_5}}
+
+Der Übergang $K_3 \to K_4$ ist zulässig, wenn:
+
+\[
+A_{\mathrm{in/out}} \in A(M_4),
+\qquad
+\Omega(K_4) \subseteq \Omega(M_4),
+\qquad
+T_3 \ge\Theta_{\mathrm{dim}}.
+\]
+
+Der Übergang zu $K_5$ erfordert:
+
+\[
+A_{\mathrm{exc}} \in A(M_5),
+\qquad
+\Updelta V\ge\Theta_{\mathrm{exc}},
+\qquad
+\text{Kanäle und elektrische Leitung zulässig}.
+\]
+
+Somit ist $M_4$ der Metaraum von:
+
+\begin{itemize}
+    \item Membranstruktur,
+    \item-Unterteilung,
+    \item Gradienten und osmotische Physik,
+    \item Energieumwandlung,
+    \item früher Stoffwechsel,
+    \item minimale biologische Stabilität.
+\end{itemize}
+
+Es ist die strukturelle Grundlage für protozelluläres Leben.
