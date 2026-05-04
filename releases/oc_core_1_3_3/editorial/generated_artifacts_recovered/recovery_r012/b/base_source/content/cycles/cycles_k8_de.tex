@@ -1,0 +1,374 @@
+% ================================================================
+% ==== FILE: content/cycles/cycles_k8.tex
+% ================================================================
+
+\subsubsection{Zyklen auf \texorpdfstring{$K_8$}{K_8}}
+\label{sec:cycles-k8}
+
+Das Niveau$K_8$stellt das zivilisatorische Kontinuum dar: ein großräumiges,
+Mehrkomponentensystem, das Bevölkerung, Infrastrukturen, Energiebasis,
+Logistik, Informationssysteme und wirtschaftliche Reproduktionsmechanismen.
+Zyklen weiter$K_8$Formalisieren Sie die wiederkehrenden Makroprozesse, die a ermöglichen
+Zivilisation, die sich über die historische Zeit hinweg behaupten kann.
+
+Der Zustand von$K_8$Ist:
+\[
+  s(t) = (\text{Pop}(t), \text{Infra}(t), \text{Tech}(t),
+           \text{Energy}(t), \text{Info}(t), \text{Econ}(t)).
+\]
+
+The fundamental flows (the corresponding derivation note) are:
+\[
+J^{(8)} =
+  \left(
+  \begin{aligned}
+   &J_{\mathrm{energy}}, J_{\mathrm{material}}, J_{\mathrm{logistics}},\\
+   &J_{\mathrm{info}}, J_{\mathrm{population}}
+  \end{aligned}
+  \right).
+\]
+
+Kritische Schwellenwerte:
+\[
+  \Theta_E,\;
+  \Theta_L,\;
+  \Theta_I,\;
+  \Theta_M,\;
+  \Theta_R.
+\]
+
+Strukturelle Spannung:
+\[
+T_8 =
+  \begin{aligned}
+    &w_E(E_{\mathrm{crit}} - E_{\mathrm{density}})
+    + w_L(L_{\mathrm{demand}} - L_{\mathrm{capacity}})\\
+    &\quad + w_M(M_{\mathrm{demand}} - M_{\mathrm{repair}})
+    + w_I(I_{\mathrm{complexity}} - I_{\mathrm{coherence}})\\
+    &\quad + w_R(R_{\mathrm{demand}} - R_{\mathrm{supply}})
+  \end{aligned}
+  .
+\]
+
+Die Existenz eines zivilisatorischen Kontinuums erfordert:
+\[
+  T_8 < 0,\qquad k_8>0.
+\]
+
+\subsubsection{Überblick}
+
+Zivilisationszyklen beschreiben die makrowiederkehrenden Prozesse, durch die
+Gesellschaften erhalten materielle Reproduktion, Energieflüsse, Wissenskohärenz,
+Logistik, Nachhaltigkeit der Infrastruktur und demografische Stabilität.
+Diese Zyklen integrieren die dynamischen Interaktionen zwischen Subsystemen und stellen sicher
+the persistence of $\Omega(K_8)$.
+
+\subsubsection{1. Energiereproduktionszyklus$C_{\mathrm{energy}}$}
+
+Die Energiedichte ist der wichtigste Faktor für die Lebensfähigkeit einer Zivilisation.
+
+\[
+  \mathrm{Extraction}
+  \to
+  \mathrm{Conversion}
+  \to
+  \mathrm{Distribution}
+  \to
+  \mathrm{Use}
+  \to
+  \mathrm{Maintenance}
+  \to
+  \mathrm{Extraction}.
+\]
+
+Formal:
+\[
+  C_{\mathrm{energy}} =
+  \left\{
+    J_{\mathrm{energy}}(t),\;
+    E_{\mathrm{density}}(t),\;
+    \mathrm{Infra}_{\mathrm{energy}}(t)
+  \right\}.
+\]
+
+Schwelle:
+\[
+  E_{\mathrm{density}} > \Theta_E.
+\]
+
+\subsubsection{2. Materialproduktion-Logistik-Zyklus$C_{\mathrm{mat/log}}$}
+
+Der Makrokreislauf, der Produktion, Transport und Konsum verbindet.
+
+\[
+  \mathrm{Production}
+  \to
+  \mathrm{Transport}
+  \to
+  \mathrm{Use}
+  \to
+  \mathrm{Waste\;processing}
+  \to
+  \mathrm{Repair}
+  \to
+  \mathrm{Production}.
+\]
+
+Bilden:
+\[
+ C_{\mathrm{mat/log}} =
+ \left\{
+ \begin{aligned}
+   &J_{\mathrm{material}}(t),\;
+    J_{\mathrm{logistics}}(t),\\
+   &L_{\mathrm{capacity}}(t),\;
+    \mathrm{Infra}_{\mathrm{industrial}}(t)
+ \end{aligned}
+ \right\}.
+\]
+
+Schwelle:
+\[
+  L_{\mathrm{capacity}} > \Theta_L.
+\]
+
+\subsubsection{3. Wartungszyklus der Infrastruktur$C_{\mathrm{infra}}$}
+
+Die Stabilität der Zivilisation hängt von der Aufrechterhaltung komplexer Infrastrukturen ab.
+
+\[
+  \mathrm{Inspection}
+  \to
+  \mathrm{Repair}
+  \to
+  \mathrm{Upgrade}
+  \to
+  \mathrm{Integration}
+  \to
+  \mathrm{Inspection}.
+\]
+
+Bilden:
+\[
+  C_{\mathrm{infra}} =
+  \left\{
+  \begin{aligned}
+     &M_{\mathrm{repair}}(t),\;
+      \mathrm{Infra}(t),\\
+     &J_{\mathrm{material}}(t)
+  \end{aligned}
+  \right\}.
+\]
+
+Schwelle:
+\[
+  M_{\mathrm{repair}} > \Theta_M.
+\]
+
+\subsubsection{4. Informationskohärenzzyklus$C_{\mathrm{info}}$}
+
+Eine Zivilisation erfordert eine konsistente Informationsverarbeitungskapazität.
+
+\[
+  \mathrm{Generation}
+  \to
+  \mathrm{Transmission}
+  \to
+  \mathrm{Integration}
+  \to
+  \mathrm{Coherence\;checking}
+  \to
+  \mathrm{Update}
+  \to
+  \mathrm{Generation}.
+\]
+
+Bilden:
+\[
+  C_{\mathrm{info}}
+  =
+  \left\{
+  \begin{aligned}
+    &J_{\mathrm{info}}(t),\;
+     I_{\mathrm{coherence}}(t),\\
+    &I_{\mathrm{complexity}}(t)
+  \end{aligned}
+  \right\}.
+\]
+
+Schwelle:
+\[
+  I_{\mathrm{coherence}} > \Theta_I.
+\]
+
+\subsubsection{5. Demografischer Reproduktionszyklus$C_{\mathrm{pop}}$}
+
+Demografische Stabilität ist für die Aufrechterhaltung von Arbeitskräften, Wissenstransfer und
+Militärische Kapazität und intergenerationelle Reproduktion.
+
+\[
+  \mathrm{Birth}
+  \to
+  \mathrm{Growth}
+  \to
+  \mathrm{Education}
+  \to
+  \mathrm{Labour}
+  \to
+  \mathrm{Aging}
+  \to
+  \mathrm{Birth}.
+\]
+
+Bilden:
+\[
+  C_{\mathrm{pop}}
+    =
+    \left\{
+    \begin{aligned}
+      &J_{\mathrm{population}}(t),\;
+       R_{\mathrm{supply}}(t),\\
+      &R_{\mathrm{demand}}(t)
+    \end{aligned}
+    \right\}.
+\]
+
+Schwelle:
+\[
+  R_{\mathrm{supply}} > \Theta_R.
+\]
+
+\subsubsection{6. Makroökonomischer Reproduktionszyklus$C_{\mathrm{econ}}$}
+
+Der Wirtschaftskreislauf:
+
+\[
+  \mathrm{Investment}
+  \to
+  \mathrm{Production}
+  \to
+  \mathrm{Distribution}
+  \to
+  \mathrm{Consumption}
+  \to
+  \mathrm{Reinvestment}.
+\]
+
+Formal:
+\[
+ C_{\mathrm{econ}}=
+ \left\{
+ \begin{aligned}
+   &\mathrm{Econ}(t),\;
+    J_{\mathrm{material}}(t),\\
+   &J_{\mathrm{energy}}(t),\;
+    J_{\mathrm{info}}(t)
+ \end{aligned}
+  \right\}.
+\]
+
+Stabilität erfordert:
+\[
+  T_{\mathrm{econ}} < \min(\Theta_L, \Theta_E).
+\]
+
+\subsubsection{7. Integrierter Zivilisationszyklus$C_{\mathrm{civ}}$}
+
+Das zivilisatorische Kontinuum bleibt nur bestehen, wenn alle wichtigen Reproduktionszyklen stattfinden
+bleiben innerhalb stabiler Schwellenwerte.
+
+\[
+ C_{\mathrm{civ}}
+   = \begin{aligned}[t]
+     &C_{\mathrm{energy}}
+      \cup C_{\mathrm{mat/log}}
+      \cup C_{\mathrm{infra}}\\
+     &\cup C_{\mathrm{info}}
+      \cup C_{\mathrm{pop}}
+      \cup C_{\mathrm{econ}}
+   \end{aligned}
+   .
+\]
+
+Stabilität erfordert:
+\[
+T_8
+   <
+   \min\!\bigl(\Theta_E,\Theta_L,\Theta_I,\Theta_M,\Theta_R\bigr).
+\]
+
+If any subthreshold fails, $\Omega(K_8)$ undergoes collapse.
+
+\subsubsection{Zyklusmetriken für \texorpdfstring{$K_8$}{K_8}}
+
+\paragraph{Cycle length.}
+\[
+  L(C) = \oint d\Omega(K_8).
+\]
+
+\paragraph{Efficiency.}
+\[
+  C_{\mathrm{eff}}
+  = \frac{\oint J^{(8)}\cdot dA}{L(C)}.
+\]
+
+\paragraph{Stability.}
+\[
+SC)
+    = \min_{t\in C}
+      d(\Omega(K_8),\partial\Omega(K_8)).
+\]
+
+\paragraph{Weight.}
+\[
+WC)
+ =
+ F(C_{\mathrm{eff}},
+SC),
+   E_{\mathrm{density}},
+   L_{\mathrm{capacity}},
+   I_{\mathrm{coherence}}).
+\]
+
+\subsubsection{Zusammenbruch von \texorpdfstring{$K_8$}{K_8} Zyklen}
+
+Ein Kollaps tritt auf, wenn:
+
+\[
+  E_{\mathrm{density}} < \Theta_E,\qquad
+  L_{\mathrm{capacity}} < \Theta_L,\qquad
+  I_{\mathrm{coherence}} < \Theta_I,\qquad
+  M_{\mathrm{repair}} < \Theta_M,\qquad
+  R_{\mathrm{supply}} < \Theta_R.
+\]
+
+Unter Zusammenbruch:
+
+\[
+  C_j \to \varnothing,\qquad
+  \Omega(K_8)=\varnothing,\qquad
+  k_8\to 0.
+\]
+
+Dies entspricht einem völligen Zusammenbruch der Zivilisation.
+
+\subsubsection{Kontinuität von \texorpdfstring{$K_7$}{K_7} zu \texorpdfstring{$K_8$}{K_8}}
+
+The transition $K_7\to K_8$ occurs when:
+
+\[
+  T_{\mathrm{soc}} > \Theta_{\mathrm{dim}},
+\]
+
+und neue Achsen erscheinen:
+
+\[
+  A_{\mathrm{energy}},\;
+  A_{\mathrm{logistics}},\;
+  A_{\mathrm{infra}},\;
+  A_{\mathrm{population}},\;
+  A_{\mathrm{econ}}.
+\]
+
+Dies führt zu Makroreproduktionszyklen ohne Analogie auf sozialer Ebene
+$K_7$.

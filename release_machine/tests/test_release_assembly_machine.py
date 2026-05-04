@@ -91,6 +91,17 @@ R011_FORM_STATUS_KEYS = R010_FORM_STATUS_KEYS + [
     "zero_fabrication_risk_status",
     "scientific_journal_submission_ready_status",
 ]
+R012_FORM_STATUS_KEYS = R011_FORM_STATUS_KEYS + [
+    "figure_spec_coverage_status",
+    "diagram_geometry_status",
+    "rendered_figure_bbox_status",
+    "label_collision_status",
+    "figure_semantic_completeness_status",
+    "k_hierarchy_visual_status",
+    "continuum_visual_status",
+    "caption_argument_status",
+    "visual_cockpit_status",
+]
 
 
 def read_json(path: Path) -> dict:
@@ -1357,6 +1368,77 @@ class ReleaseAssemblyMachineTests(unittest.TestCase):
             self.assertEqual(row["public_translation_source"], "journal_requirements_spot_publication_translator_r011")
             self.assertEqual(row["source_gap_zero_status"], "PASS")
             self.assertEqual(row["scientific_journal_submission_ready_status"], "SCIENTIFIC_JOURNAL_SUBMISSION_READY_NO_SEND")
+
+    def test_recovery_r011_fails_recovery_r012_visual_machine_when_reaudited(self) -> None:
+        tools_dir = ROOT / "tools"
+        if str(tools_dir) not in sys.path:
+            sys.path.insert(0, str(tools_dir))
+        from audit_oc_core_release_assembly_machine import build_audit
+
+        audit = build_audit("oc_core_1_3_3", "recovery_r011")
+        finding_kinds = {finding["kind"] for finding in audit["findings"]}
+        for kind in [
+            "publication_r012_figure_spec_missing",
+            "publication_r012_geometry_failed",
+            "publication_r012_rendered_bbox_failed",
+            "publication_r012_visual_cockpit_failed",
+        ]:
+            self.assertIn(kind, finding_kinds)
+        for key in [
+            "figure_spec_coverage_status",
+            "diagram_geometry_status",
+            "rendered_figure_bbox_status",
+            "visual_cockpit_status",
+            "form_quality_status",
+        ]:
+            self.assertEqual(audit["summary"][key], "FAIL", key)
+
+    def test_recovery_r012_visual_qa_package_passes(self) -> None:
+        base = ROOT / "releases" / "oc_core_1_3_3" / "editorial" / "generated_artifacts_recovered" / "recovery_r012"
+        assembly = read_json(base / "package_assembly" / "OC_CORE_RELEASE_PACKAGE_ASSEMBLY_1.3.3.json")
+        machine = read_json(base / "package_assembly" / "OC_CORE_RELEASE_ASSEMBLY_MACHINE_AUDIT_1.3.3.json")
+        comparison = read_json(base / "package_assembly" / "OC_CORE_RELEASE_ASSEMBLY_REVISION_COMPARISON_1.3.3.recovery_r012.json")
+        quality = read_json(
+            ROOT
+            / "releases"
+            / "oc_core_1_3_3"
+            / "editorial"
+            / "quality_validation"
+            / "recovery_r012"
+            / "OC_CORE_RELEASE_QUALITY_AUDIT_1.3.3.json"
+        )
+        visual_root = base / "visual_quality"
+        registry = read_json(visual_root / "OC133_R012_FIGURE_REGISTRY_1.3.3.json")
+        geometry = read_json(visual_root / "OC133_R012_FIGURE_GEOMETRY_LEDGER_1.3.3.json")
+        rendered = read_json(visual_root / "OC133_R012_RENDERED_FIGURE_BBOX_LEDGER_1.3.3.json")
+        cockpit = read_json(visual_root / "OC133_R012_VISUAL_QA_COCKPIT_1.3.3.json")
+
+        self.assertEqual(assembly["assembly_revision"], "recovery_r012")
+        self.assertEqual(assembly["publication_translation_pipeline"]["status"], "PUBLICATION_TRANSLATOR_R012_FIGURE_VISUAL_QA_SPOT")
+        self.assertEqual(cockpit["status"], "PASS")
+        self.assertGreaterEqual(registry["figure_total"], 36)
+        self.assertGreaterEqual(registry["deterministic_tikz_spec_total"], 38)
+        self.assertEqual(geometry["status"], "PASS")
+        self.assertEqual(rendered["status"], "PASS")
+        self.assertFalse(rendered["technical_probe_pdf_in_public_package"])
+        self.assertFalse((visual_root / "probe").exists())
+        labels = {figure["label"] for figure in registry["figures"]}
+        self.assertIn("fig:r012-continuum-demonstrator", labels)
+        self.assertIn("fig:r012-k0-k12-hierarchy", labels)
+        for index in range(13):
+            self.assertIn(f"K{index}", json.dumps(registry, ensure_ascii=False))
+
+        rows = {row["artifact_type_id"]: row for row in assembly["artifact_rows"]}
+        master = rows["master_monograph"]
+        self.assertEqual(master["visual_cockpit_status"], "PASS")
+        self.assertEqual(master["public_translation_source"], "science_monolith_figure_visual_qa_spot_r012")
+        for key in R012_FORM_STATUS_KEYS:
+            self.assertEqual(machine["summary"][key], "PASS", key)
+            self.assertEqual(comparison["summary"][key], "PASS", key)
+            self.assertEqual(quality["summary"][key], "PASS", key)
+        self.assertEqual(machine["status"], "PASS")
+        self.assertEqual(comparison["status"], "PASS")
+        self.assertEqual(quality["summary"]["artifact_failure_total"], 0)
 
 
 if __name__ == "__main__":

@@ -24,6 +24,8 @@ from assemble_oc_core_release_package import (
     R010_TRANSLATOR_STATUS,
     R011_REVISION,
     R011_TRANSLATOR_STATUS,
+    R012_REVISION,
+    R012_TRANSLATOR_STATUS,
     TEXT_ARTIFACTS,
     assembly_paths,
     artifact_title,
@@ -174,6 +176,15 @@ APPENDIX_FINDING_KINDS = {
 FIGURE_FINDING_KINDS = {
     "publication_inline_figure_distribution_too_low",
     "publication_figure_atlas_still_included",
+    "publication_r012_figure_spec_missing",
+    "publication_r012_geometry_failed",
+    "publication_r012_rendered_bbox_failed",
+    "publication_r012_label_collision_failed",
+    "publication_r012_semantic_visual_failed",
+    "publication_r012_k_hierarchy_visual_failed",
+    "publication_r012_continuum_visual_failed",
+    "publication_r012_caption_argument_failed",
+    "publication_r012_visual_cockpit_failed",
 }
 BIBLIOGRAPHY_FINDING_KINDS = {
     "publication_bibliography_depth_too_low",
@@ -249,6 +260,17 @@ R011_FINDING_KINDS = {
     "publication_fabrication_risk_open",
     "publication_scientific_journal_readiness_missing",
 }
+R012_FINDING_KINDS = {
+    "publication_r012_figure_spec_missing",
+    "publication_r012_geometry_failed",
+    "publication_r012_rendered_bbox_failed",
+    "publication_r012_label_collision_failed",
+    "publication_r012_semantic_visual_failed",
+    "publication_r012_k_hierarchy_visual_failed",
+    "publication_r012_continuum_visual_failed",
+    "publication_r012_caption_argument_failed",
+    "publication_r012_visual_cockpit_failed",
+}
 FORM_FINDING_KINDS = (
     TITLE_PAGE_FINDING_KINDS
     | TOC_FORM_FINDING_KINDS
@@ -270,6 +292,7 @@ FORM_FINDING_KINDS = (
     | R008_FINDING_KINDS
     | R009_FINDING_KINDS
     | R011_FINDING_KINDS
+    | R012_FINDING_KINDS
 )
 
 
@@ -286,7 +309,13 @@ def scan_text(path: Path) -> list[dict[str, Any]]:
         return [{"kind": "missing_file", "path": str(path)}]
     text = path.read_text(encoding="utf-8", errors="replace")
     scan_target = text
-    if "recovery_r011" in str(path) or "journal_requirements_spot" in str(path):
+    path_text = str(path).replace("\\", "/")
+    governance_metadata_path = (
+        "/package_assembly/" in path_text
+        or "/journal_requirements_spot/" in path_text
+        or "journal_requirements_spot" in path_text
+    )
+    if "recovery_r011" in path_text or governance_metadata_path:
         scan_target = re.sub(
             r"SCIENTIFIC_JOURNAL_SUBMISSION_READY_NO_SEND|OWNER_REVIEW_READY_NO_SEND|REPAIR_REQUIRED_NO_SEND|owner_review_no_send|no_send_lock",
             "allowed_governance_marker",
@@ -1045,6 +1074,8 @@ def collect_publication_frontmatter_findings(
                 "content/r007/02_first_concepts_and_k_primer.tex",
                 "content/r008/01_why_continuum_ontology.tex",
                 "content/r008/02_first_concepts_and_k_primer.tex",
+                "content/r012/01_why_continuum_ontology.tex",
+                "content/r012/02_first_concepts_and_k_primer.tex",
                 "content/_auto_core_inputs_1_3_3_integrated.tex",
             ]:
                 candidate = path.parent / rel_ref
@@ -1064,12 +1095,20 @@ def collect_publication_frontmatter_findings(
             integrated_candidate = path.parent / "content/_auto_core_inputs_1_3_3_integrated.tex"
             integrated_lower = integrated_candidate.read_text(encoding="utf-8", errors="replace").lower() if integrated_candidate.is_file() else ""
             entry_terms = [
+                "content/r012/01_why_continuum_ontology.tex",
+                "content/r012/02_first_concepts_and_k_primer.tex",
+                "content/_auto_core_inputs_1_3_3_integrated.tex",
+                "part vi -- limits, prior art, and closure",
+                "appendices -- evidence, proof, and reference support",
+            ]
+            if any(term not in entry_lower for term in entry_terms[:2]):
+                entry_terms = [
                 "content/r008/01_why_continuum_ontology.tex",
                 "content/r008/02_first_concepts_and_k_primer.tex",
                 "content/_auto_core_inputs_1_3_3_integrated.tex",
                 "part vi -- limits, prior art, and closure",
                 "appendices -- evidence, proof, and reference support",
-            ]
+                ]
             if any(term not in entry_lower for term in entry_terms[:2]):
                 entry_terms = [
                     "content/r007/01_why_continuum_ontology.tex",
@@ -1111,7 +1150,9 @@ def collect_publication_frontmatter_findings(
                 findings.append({"kind": "publication_k_primer_missing", "artifact_type_id": artifact_type_id, "path": str(path.relative_to(ROOT)), "source_kind": source_kind, "missing": primer_missing})
             if source_kind == "source":
                 r007_required = ["upward composition", "downward constraint"]
-                if "fig:r008-continuum-demonstrator" in r006_text or "fig:r008-k0-k12-hierarchy" in r006_text:
+                if "fig:r012-continuum-demonstrator" in r006_text or "fig:r012-k0-k12-hierarchy" in r006_text:
+                    r007_required.extend(["fig:r012-continuum-demonstrator", "fig:r012-k0-k12-hierarchy", "R012_K_LEVELS_PRESENT", "R012_VISUAL_SPEC"])
+                elif "fig:r008-continuum-demonstrator" in r006_text or "fig:r008-k0-k12-hierarchy" in r006_text:
                     r007_required.extend(["fig:r008-continuum-demonstrator", "fig:r008-k0-k12-hierarchy", "R008_K_LEVELS_PRESENT"])
                 else:
                     r007_required.extend(["fig:r007-continuum-demonstrator", "fig:r007-k0-k12-hierarchy"])
@@ -1181,6 +1222,7 @@ def collect_publication_content_richness_findings(row: dict[str, Any]) -> list[d
             "curated_public_payload_markdown_editorial_ollama_until_done_r009",
             "curated_public_payload_markdown_source_grounded_repair_r010",
             "curated_public_payload_markdown_journal_requirements_spot_r011",
+            "curated_public_payload_markdown_figure_visual_qa_r012",
         }:
             findings.append({"kind": "publication_body_source_not_curated_payload", "artifact_type_id": artifact_type_id, "document_body_source": row.get("document_body_source")})
     return findings
@@ -1192,7 +1234,7 @@ def collect_r007_translation_findings(row: dict[str, Any]) -> list[dict[str, Any
         return []
     findings: list[dict[str, Any]] = []
     translation_status = row.get("public_translation_status")
-    if translation_status not in {"PUBLICATION_TRANSLATOR_R007", R008_TRANSLATOR_STATUS, R009_TRANSLATOR_STATUS, R010_TRANSLATOR_STATUS, R011_TRANSLATOR_STATUS}:
+    if translation_status not in {"PUBLICATION_TRANSLATOR_R007", R008_TRANSLATOR_STATUS, R009_TRANSLATOR_STATUS, R010_TRANSLATOR_STATUS, R011_TRANSLATOR_STATUS, R012_TRANSLATOR_STATUS}:
         findings.append({"kind": "publication_translation_missing", "artifact_type_id": artifact_type_id, "public_translation_status": row.get("public_translation_status")})
     source = str(row.get("public_translation_source") or "")
     expected_sources = {
@@ -1206,6 +1248,8 @@ def collect_r007_translation_findings(row: dict[str, Any]) -> list[dict[str, Any
         "source_grounded_editorial_repair_publication_translator_r010",
         "science_monolith_journal_requirements_spot_r011",
         "journal_requirements_spot_publication_translator_r011",
+        "science_monolith_figure_visual_qa_spot_r012",
+        "figure_visual_qa_publication_translator_r012",
     }
     if source not in expected_sources:
         findings.append({"kind": "publication_all_reader_pdf_translation_missing", "artifact_type_id": artifact_type_id, "public_translation_source": row.get("public_translation_source")})
@@ -1217,7 +1261,7 @@ def collect_r007_translation_findings(row: dict[str, Any]) -> list[dict[str, Any
         findings.append({"kind": "publication_ollama_governance_trace_missing", "artifact_type_id": artifact_type_id, "governed_ollama_status": governed_status})
     if int(row.get("unmanaged_ollama_call_total") or 0) != 0:
         findings.append({"kind": "publication_ollama_governance_bypass", "artifact_type_id": artifact_type_id, "unmanaged_ollama_call_total": row.get("unmanaged_ollama_call_total")})
-    if translation_status in {R008_TRANSLATOR_STATUS, R009_TRANSLATOR_STATUS, R010_TRANSLATOR_STATUS, R011_TRANSLATOR_STATUS}:
+    if translation_status in {R008_TRANSLATOR_STATUS, R009_TRANSLATOR_STATUS, R010_TRANSLATOR_STATUS, R011_TRANSLATOR_STATUS, R012_TRANSLATOR_STATUS}:
         if not row.get("logion_llm_service_status"):
             findings.append({"kind": "publication_common_llm_service_missing", "artifact_type_id": artifact_type_id})
         if not row.get("logion_llm_service_ledger_ref"):
@@ -1290,7 +1334,7 @@ def collect_r009_queue_findings(assembly: dict[str, Any]) -> list[dict[str, Any]
 
 
 def collect_r011_journal_spot_findings(assembly: dict[str, Any]) -> list[dict[str, Any]]:
-    if assembly.get("assembly_revision") != R011_REVISION:
+    if assembly.get("assembly_revision") not in {R011_REVISION, R012_REVISION}:
         return []
     trace = assembly.get("governed_ollama_trace") if isinstance(assembly.get("governed_ollama_trace"), dict) else {}
     findings: list[dict[str, Any]] = []
@@ -1342,7 +1386,7 @@ def collect_r011_journal_spot_findings(assembly: dict[str, Any]) -> list[dict[st
             }
         )
     version = assembly.get("release_identity", {}).get("version") or "1.3.3"
-    base = assembly_paths("oc_core_1_3_3", str(version), R011_REVISION)["assembly_json"].parents[1]
+    base = assembly_paths("oc_core_1_3_3", str(version), str(assembly.get("assembly_revision") or R011_REVISION))["assembly_json"].parents[1]
     root = base / "journal_requirements_spot"
     if not (root / f"OC133_R011_JOURNAL_REQUIREMENTS_INDEX_{version}.json").is_file():
         findings.append({"kind": "publication_journal_requirements_trace_missing", "artifact_type_id": "assembly", "missing": "requirements_index"})
@@ -1371,6 +1415,49 @@ def collect_r011_journal_spot_findings(assembly: dict[str, Any]) -> list[dict[st
             package_payload = read_json(package)
             if package_payload.get("status") != "OWNER_REVIEW_READY_NO_SEND" or package_payload.get("external_action_performed") is not False or package_payload.get("no_send_lock") is not True:
                 findings.append({"kind": "publication_submission_component_missing", "artifact_type_id": venue_id})
+    return findings
+
+
+def collect_r012_visual_findings(assembly: dict[str, Any]) -> list[dict[str, Any]]:
+    if assembly.get("assembly_revision") == R011_REVISION:
+        return [
+            {"kind": "publication_r012_figure_spec_missing", "artifact_type_id": "assembly", "reason": "r011 has no figure registry"},
+            {"kind": "publication_r012_geometry_failed", "artifact_type_id": "assembly", "reason": "r011 has no geometry ledger"},
+            {"kind": "publication_r012_rendered_bbox_failed", "artifact_type_id": "assembly", "reason": "r011 has no rendered bbox ledger"},
+            {"kind": "publication_r012_visual_cockpit_failed", "artifact_type_id": "assembly", "reason": "r011 has no visual QA cockpit"},
+        ]
+    if assembly.get("assembly_revision") != R012_REVISION:
+        return []
+    trace = assembly.get("visual_quality_trace") if isinstance(assembly.get("visual_quality_trace"), dict) else {}
+    findings: list[dict[str, Any]] = []
+    expected = {
+        "figure_spec_coverage_status": "publication_r012_figure_spec_missing",
+        "diagram_geometry_status": "publication_r012_geometry_failed",
+        "rendered_figure_bbox_status": "publication_r012_rendered_bbox_failed",
+        "label_collision_status": "publication_r012_label_collision_failed",
+        "figure_semantic_completeness_status": "publication_r012_semantic_visual_failed",
+        "k_hierarchy_visual_status": "publication_r012_k_hierarchy_visual_failed",
+        "continuum_visual_status": "publication_r012_continuum_visual_failed",
+        "caption_argument_status": "publication_r012_caption_argument_failed",
+        "visual_cockpit_status": "publication_r012_visual_cockpit_failed",
+    }
+    for key, kind in expected.items():
+        if trace.get(key) != "PASS":
+            findings.append({"kind": kind, "artifact_type_id": "assembly", key: trace.get(key)})
+    version = assembly.get("release_identity", {}).get("version") or "1.3.3"
+    base = assembly_paths("oc_core_1_3_3", str(version), R012_REVISION)["assembly_json"].parents[1]
+    visual_root = base / "visual_quality"
+    required_files = [
+        visual_root / f"OC133_R012_FIGURE_REGISTRY_{version}.json",
+        visual_root / f"OC133_R012_FIGURE_GEOMETRY_LEDGER_{version}.json",
+        visual_root / f"OC133_R012_RENDERED_FIGURE_BBOX_LEDGER_{version}.json",
+        visual_root / f"OC133_R012_VISUAL_QA_COCKPIT_{version}.json",
+    ]
+    for path in required_files:
+        if not path.is_file():
+            findings.append({"kind": "publication_r012_visual_cockpit_failed", "artifact_type_id": "assembly", "missing": str(path.relative_to(ROOT))})
+    if (visual_root / "probe").exists():
+        findings.append({"kind": "publication_r012_rendered_bbox_failed", "artifact_type_id": "assembly", "reason": "technical probe PDF directory leaked into release tree"})
     return findings
 
 
@@ -1434,6 +1521,15 @@ def form_statuses(findings: list[dict[str, Any]]) -> dict[str, str | int]:
     zero_internal_leak_status = "FAIL" if kinds & {"publication_internal_leak_in_journal_projection"} else "PASS"
     zero_fabrication_risk_status = "FAIL" if kinds & {"publication_fabrication_risk_open"} else "PASS"
     scientific_journal_submission_ready_status = "FAIL" if kinds & {"publication_scientific_journal_readiness_missing"} else "PASS"
+    figure_spec_coverage_status = "FAIL" if kinds & {"publication_r012_figure_spec_missing"} else "PASS"
+    diagram_geometry_status = "FAIL" if kinds & {"publication_r012_geometry_failed"} else "PASS"
+    rendered_figure_bbox_status = "FAIL" if kinds & {"publication_r012_rendered_bbox_failed"} else "PASS"
+    label_collision_status = "FAIL" if kinds & {"publication_r012_label_collision_failed"} else "PASS"
+    figure_semantic_completeness_status = "FAIL" if kinds & {"publication_r012_semantic_visual_failed"} else "PASS"
+    k_hierarchy_visual_status = "FAIL" if kinds & {"publication_r012_k_hierarchy_visual_failed"} else "PASS"
+    continuum_visual_status = "FAIL" if kinds & {"publication_r012_continuum_visual_failed"} else "PASS"
+    caption_argument_status = "FAIL" if kinds & {"publication_r012_caption_argument_failed"} else "PASS"
+    visual_cockpit_status = "FAIL" if kinds & {"publication_r012_visual_cockpit_failed"} else "PASS"
     form_status = "PASS" if all(
         status == "PASS"
         for status in [
@@ -1495,6 +1591,15 @@ def form_statuses(findings: list[dict[str, Any]]) -> dict[str, str | int]:
             zero_internal_leak_status,
             zero_fabrication_risk_status,
             scientific_journal_submission_ready_status,
+            figure_spec_coverage_status,
+            diagram_geometry_status,
+            rendered_figure_bbox_status,
+            label_collision_status,
+            figure_semantic_completeness_status,
+            k_hierarchy_visual_status,
+            continuum_visual_status,
+            caption_argument_status,
+            visual_cockpit_status,
         ]
     ) else "FAIL"
     return {
@@ -1565,6 +1670,15 @@ def form_statuses(findings: list[dict[str, Any]]) -> dict[str, str | int]:
         "zero_internal_leak_status": zero_internal_leak_status,
         "zero_fabrication_risk_status": zero_fabrication_risk_status,
         "scientific_journal_submission_ready_status": scientific_journal_submission_ready_status,
+        "figure_spec_coverage_status": figure_spec_coverage_status,
+        "diagram_geometry_status": diagram_geometry_status,
+        "rendered_figure_bbox_status": rendered_figure_bbox_status,
+        "label_collision_status": label_collision_status,
+        "figure_semantic_completeness_status": figure_semantic_completeness_status,
+        "k_hierarchy_visual_status": k_hierarchy_visual_status,
+        "continuum_visual_status": continuum_visual_status,
+        "caption_argument_status": caption_argument_status,
+        "visual_cockpit_status": visual_cockpit_status,
         "form_quality_status": form_status,
         "form_finding_total": sum(1 for finding in findings if finding.get("kind") in FORM_FINDING_KINDS),
     }
@@ -1750,6 +1864,7 @@ def build_audit(release_id: str, assembly_revision: str | None = None) -> dict[s
     findings.extend(collect_r008_service_findings(assembly))
     findings.extend(collect_r009_queue_findings(assembly))
     findings.extend(collect_r011_journal_spot_findings(assembly))
+    findings.extend(collect_r012_visual_findings(assembly))
 
     scan_paths = [
         paths["terminal_contracts_json"],

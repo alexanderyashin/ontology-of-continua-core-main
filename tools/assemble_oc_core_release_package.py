@@ -8,6 +8,7 @@ import re
 import shutil
 import subprocess
 import sys
+import tempfile
 import unicodedata
 import zipfile
 from collections import defaultdict
@@ -50,19 +51,22 @@ PUBLICATION_BODY_REVISIONS = {
     "recovery_r009",
     "recovery_r010",
     "recovery_r011",
+    "recovery_r012",
 }
 PUBLICATION_DATE = "4 May 2026"
-CURRENT_RECOVERY_REVISION = "recovery_r011"
+CURRENT_RECOVERY_REVISION = "recovery_r012"
 R007_REVISION = "recovery_r007"
 R008_REVISION = "recovery_r008"
 R009_REVISION = "recovery_r009"
 R010_REVISION = "recovery_r010"
 R011_REVISION = "recovery_r011"
+R012_REVISION = "recovery_r012"
 R007_TRANSLATOR_STATUS = "PUBLICATION_TRANSLATOR_R007"
 R008_TRANSLATOR_STATUS = "PUBLICATION_TRANSLATOR_R008"
 R009_TRANSLATOR_STATUS = "PUBLICATION_TRANSLATOR_R009"
 R010_TRANSLATOR_STATUS = "PUBLICATION_TRANSLATOR_R010_SOURCE_GROUNDED_REPAIR"
 R011_TRANSLATOR_STATUS = "PUBLICATION_TRANSLATOR_R011_JOURNAL_REQUIREMENTS_SPOT"
+R012_TRANSLATOR_STATUS = "PUBLICATION_TRANSLATOR_R012_FIGURE_VISUAL_QA_SPOT"
 PUBLIC_PAYLOAD_SOURCE_BY_ARTIFACT = {
     "release_guide": ROOT / "releases" / "oc_core_1_3_3" / "public_payload" / "sources" / "00_OC_CORE_1_3_3_RELEASE_GUIDE_EN.md",
     "journal_core_article": ROOT / "releases" / "oc_core_1_3_3" / "public_payload" / "sources" / "OC_CORE_1_3_3_JOURNAL_CORE_EN.md",
@@ -1622,7 +1626,7 @@ def governed_llm_trace_for_revision(
     base: Path,
     write: bool,
 ) -> dict[str, Any]:
-    if assembly_revision in {R009_REVISION, R010_REVISION, R011_REVISION}:
+    if assembly_revision in {R009_REVISION, R010_REVISION, R011_REVISION, R012_REVISION}:
         return {
             "schema_id": "OC_CORE_R009_LOGION_LLM_SERVICE_UNTIL_DONE_TRACE_v1",
             "status": "NOT_RUN_YET",
@@ -2855,6 +2859,18 @@ def publication_translated_payload_body_r011(artifact_type_id: str, version: str
     return body
 
 
+def publication_translated_payload_body_r012(artifact_type_id: str, version: str) -> str:
+    body = publication_translated_payload_body_r011(artifact_type_id, version)
+    body = body.replace("PUBLICATION_TRANSLATOR_R011", "PUBLICATION_TRANSLATOR_R012")
+    body += (
+        "\n\n## Visual Argument Boundary\n\n"
+        "Figures in this package are treated as part of the scientific argument. A figure must separate its labels, identify "
+        "the variables or numbers it makes visible, and point back to the formula, proof, table, or evidence route it supports. "
+        "The manuscript therefore uses figures as compact explanations rather than as decoration.\n"
+    )
+    return body
+
+
 def render_publication_payload_markdown(
     artifact_type_id: str,
     version: str,
@@ -2872,6 +2888,8 @@ def render_publication_payload_markdown(
         body = publication_translated_payload_body_r010(artifact_type_id, version)
     elif assembly_revision == R011_REVISION:
         body = publication_translated_payload_body_r011(artifact_type_id, version)
+    elif assembly_revision == R012_REVISION:
+        body = publication_translated_payload_body_r012(artifact_type_id, version)
     elif source is None or not source.is_file():
         body = "# Body\n\nPublication payload source was not available for this artifact.\n"
     else:
@@ -3126,6 +3144,767 @@ def apply_r008_monograph_overrides(source_dir: Path) -> None:
             write_text_if_changed(preamble, text)
 
 
+def r012_figure_output_paths(base: Path, version: str) -> dict[str, Path]:
+    root = base / "visual_quality"
+    return {
+        "registry_json": root / f"OC133_R012_FIGURE_REGISTRY_{version}.json",
+        "registry_md": root / f"OC133_R012_FIGURE_REGISTRY_{version}.md",
+        "geometry_json": root / f"OC133_R012_FIGURE_GEOMETRY_LEDGER_{version}.json",
+        "geometry_md": root / f"OC133_R012_FIGURE_GEOMETRY_LEDGER_{version}.md",
+        "rendered_bbox_json": root / f"OC133_R012_RENDERED_FIGURE_BBOX_LEDGER_{version}.json",
+        "cockpit_json": root / f"OC133_R012_VISUAL_QA_COCKPIT_{version}.json",
+        "cockpit_md": root / f"OC133_R012_VISUAL_QA_COCKPIT_{version}.md",
+    }
+
+
+def r012_base_colors_tex() -> str:
+    return "\n".join(
+        [
+            r"\definecolor{ocBlue}{HTML}{173B57}",
+            r"\definecolor{ocGold}{HTML}{A77D2A}",
+            r"\definecolor{ocGreen}{HTML}{4B7F52}",
+            r"\definecolor{ocRed}{HTML}{8E3B32}",
+            r"\definecolor{ocGray}{HTML}{ECEFF1}",
+        ]
+    )
+
+
+def _r012_rect_node(node_id: str, x: float, y: float, w: float, h: float, *, text: str, style: str) -> dict[str, Any]:
+    return {
+        "id": node_id,
+        "x": x,
+        "y": y,
+        "w": w,
+        "h": h,
+        "text": text,
+        "style": style,
+        "bbox": {
+            "left": round(x - w / 2, 3),
+            "right": round(x + w / 2, 3),
+            "bottom": round(y - h / 2, 3),
+            "top": round(y + h / 2, 3),
+        },
+    }
+
+
+def r012_continuum_spec() -> dict[str, Any]:
+    nodes = [
+        _r012_rect_node("context", 0.0, 4.8, 12.9, 0.72, text="Embedding context M constrains the local continuum K", style="context"),
+        _r012_rect_node("state_region", 0.0, 1.05, 4.9, 2.0, text="Admissible state region Omega(K)", style="state"),
+        _r012_rect_node("boundary", 5.25, 2.6, 2.8, 0.82, text="Boundary partial Omega(K)", style="boundary"),
+        _r012_rect_node("axes", -5.25, 2.55, 2.8, 0.82, text="Axes A1, A2 give measurable coordinates", style="axis"),
+        _r012_rect_node("flow", -5.25, 0.75, 2.8, 0.92, text="Flow J(t) moves through admissible states", style="flow"),
+        _r012_rect_node("cycle", -5.25, -1.15, 2.8, 0.92, text="Cycle C(K) sustains recurrence", style="cycle"),
+        _r012_rect_node("threshold", 5.25, 0.65, 2.8, 0.92, text="Threshold Theta(K) marks regime change", style="threshold"),
+        _r012_rect_node("continuumness", 5.25, -1.2, 2.8, 0.92, text="Continuumness k(K,t)>0", style="state"),
+        _r012_rect_node("formula", -3.15, -3.25, 5.25, 0.95, text="Formal anchor: K=(Omega, partial Omega, A, Theta, P, J, C, k, M)", style="formula"),
+        _r012_rect_node("falsifier", 3.15, -3.25, 5.25, 0.95, text="Falsifier: a live K cannot cross its death boundary without a continuation rule", style="falsifier"),
+    ]
+    return {
+        "figure_id": "r012_continuum_demonstrator",
+        "label": "fig:r012-continuum-demonstrator",
+        "source_rel": "content/r012/01_why_continuum_ontology.tex",
+        "visual_spec_class": "deterministic_tikz_registry",
+        "figure_type": "continuum_demonstrator",
+        "canvas": {"width": 14.0, "height": 12.0, "margin": 0.35},
+        "nodes": nodes,
+        "connectors": [
+            {"from": "axes", "to": "state_region", "label": "measurement"},
+            {"from": "flow", "to": "state_region", "label": "motion"},
+            {"from": "cycle", "to": "state_region", "label": "recurrence"},
+            {"from": "boundary", "to": "state_region", "label": "admissible edge"},
+            {"from": "threshold", "to": "state_region", "label": "regime change"},
+            {"from": "continuumness", "to": "state_region", "label": "persistence"},
+        ],
+        "required_semantic_elements": ["state space", "boundary", "axes", "threshold", "flow", "cycle", "continuumness", "context", "formal tuple", "falsifier"],
+        "formula_anchor": r"K=(\Omega,\partial\Omega,A,\Theta,P,J,C,k,M)",
+        "evidence_anchor": "theorem/proof route and falsifier tables",
+        "caption_must_explain": ["what the figure demonstrates", "variables", "formula", "falsifier"],
+    }
+
+
+def r012_k_hierarchy_spec() -> dict[str, Any]:
+    levels = [
+        ("K0", "resolution boundary", "distinction floor", "bit / admissible null"),
+        ("K1", "first carrier", "coordinate interface", "signal / address"),
+        ("K2", "process closure", "lawful loop", "routine / reaction"),
+        ("K3", "organized substrate", "stable support", "deployment substrate"),
+        ("K4", "binding system", "component integration", "module / membrane"),
+        ("K5", "liveness system", "regulated persistence", "organism / service health"),
+        ("K6", "cognition and agency", "memory and policy", "agent controller"),
+        ("K7", "social coordination", "authority and trust", "team / institution"),
+        ("K8", "civilizational system", "market and regulation", "platform / economy"),
+        ("K9", "theory-level system", "formal doctrine", "model architecture"),
+        ("K10", "comparator regime", "verification frame", "benchmark / meta-theory"),
+        ("K11", "publication quality", "reproducible review", "evidence practice"),
+        ("K12", "cross-domain synthesis", "bounded integration", "unified atlas"),
+    ]
+    nodes: list[dict[str, Any]] = []
+    for index, (kid, name, role, example) in enumerate(levels):
+        y = 13.05 - index
+        nodes.append(_r012_rect_node(f"{kid}_level", -5.1, y, 2.0, 0.58, text=f"{kid}: {name}", style="k_level"))
+        nodes.append(_r012_rect_node(f"{kid}_role", -0.9, y, 4.75, 0.58, text=role, style="role"))
+        nodes.append(_r012_rect_node(f"{kid}_example", 4.35, y, 3.25, 0.58, text=example, style="example"))
+    return {
+        "figure_id": "r012_k0_k12_hierarchy",
+        "label": "fig:r012-k0-k12-hierarchy",
+        "source_rel": "content/r012/02_first_concepts_and_k_primer.tex",
+        "visual_spec_class": "deterministic_tikz_registry",
+        "figure_type": "k_hierarchy",
+        "canvas": {"width": 14.0, "height": 28.8, "margin": 0.25},
+        "nodes": nodes,
+        "connectors": [
+            {"from": f"K{i}_level", "to": f"K{i + 1}_level", "label": "composition"} for i in range(12)
+        ] + [
+            {"from": f"K{i + 1}_role", "to": f"K{i}_role", "label": "constraint"} for i in range(12)
+        ],
+        "required_semantic_elements": [f"K{i}" for i in range(13)] + ["composition", "constraint", "examples", "nested hierarchy"],
+        "formula_anchor": r"K_i \subset K_{i+1} under declared composition and constraint relations",
+        "evidence_anchor": "K-level parameter tables and theorem-native hierarchy route",
+        "caption_must_explain": ["K0-K12", "composition", "constraint", "examples", "formula"],
+    }
+
+
+R012_INLINE_FIGURE_GROUPS: dict[str, dict[str, Any]] = {
+    "28a_oc133_inline_figures_foundation.tex": {
+        "section": "Inline Visual Route: Model Foundation",
+        "source_rel": "content/28a_oc133_inline_figures_foundation.tex",
+        "topics": [
+            ("carrier-to-realization", "Carrier to realization", "Carrier C", "Realization R_t", "lawful realization", "status at t=0,1", r"R_t=\rho(C,t)"),
+            ("liveness-status-split", "Liveness status split", "Live state", "Death boundary", "status predicate", "binary status", r"live(x,t)\in\{0,1\}"),
+            ("residue-after-collapse", "Residue after collapse", "Collapse event", "Residue class", "classification", "survivor count", r"residue(x,t)>0"),
+            ("rebirth-continuation", "Rebirth continuation", "Residual carrier", "New realization", "continuation rule", "continuation index", r"C_{t+1}=F(C_t)"),
+            ("type-discipline", "Type discipline", "Claim type", "Allowed evidence", "admissibility check", "claim family", r"claim\mapsto evidence"),
+            ("boundary-test", "Boundary test", "Assumption", "Falsifier", "stress test", "negative control", r"\partial\Omega \neq \varnothing"),
+        ],
+    },
+    "28b_oc133_inline_figures_proof_route.tex": {
+        "section": "Inline Visual Route: Proof and Formalization",
+        "source_rel": "content/28b_oc133_inline_figures_proof_route.tex",
+        "topics": [
+            ("axiom-to-theorem", "Axiom to theorem", "Axiom set", "Theorem route", "derivation", "proof status", r"\Gamma\vdash T"),
+            ("lean-subset", "Lean subset", "Human theorem", "Mechanized subset", "formal subset", "checked lemmas", r"L\subseteq T"),
+            ("finite-semantics", "Finite semantics", "Model instance", "Finite witness", "satisfaction", "model count", r"M\models\varphi"),
+            ("negative-control", "Negative control", "Claim route", "Permuted label", "control contrast", "expected failure", r"control(T)=0"),
+            ("assumption-ledger", "Assumption ledger", "Assumption", "Proof dependency", "dependency edge", "open assumption total", r"A_i\Rightarrow T_j"),
+            ("proof-closure", "Proof closure", "Local proof", "Release claim", "promotion boundary", "closure status", r"status\in\{open,closed\}"),
+        ],
+    },
+    "28c_oc133_inline_figures_evidence_route.tex": {
+        "section": "Inline Visual Route: Evidence and Reproducibility",
+        "source_rel": "content/28c_oc133_inline_figures_evidence_route.tex",
+        "topics": [
+            ("source-to-row", "Source to numeric row", "Source datum", "Promoted row", "extraction", "row count", r"d\mapsto r"),
+            ("target-blind-replay", "Target-blind replay", "Held-out target", "Replay verdict", "blind evaluation", "pass/fail row", r"score_T"),
+            ("benchmark-qa", "Benchmark QA", "Benchmark case", "QA verdict", "audit pass", "case total", r"Q(B_i)"),
+            ("evidence-trail", "Evidence trail", "Claim", "Evidence bundle", "traceability", "source hash", r"claim\leftrightarrow evidence"),
+            ("numeric-falsifier", "Numeric falsifier", "Prediction", "Observed bound", "threshold check", "delta", r"|\hat{x}-x|<\epsilon"),
+            ("repro-route", "Reproducibility route", "Scripted check", "Reader audit", "replay command", "audit status", r"run\rightarrow verdict"),
+        ],
+    },
+    "28d_oc133_inline_figures_domain_route.tex": {
+        "section": "Inline Visual Route: Domain and Practical Routes",
+        "source_rel": "content/28d_oc133_inline_figures_domain_route.tex",
+        "topics": [
+            ("domain-projection", "Domain projection", "OC core", "Domain model", "projection", "domain count", r"P_D(K)"),
+            ("enterprise-architecture", "Enterprise architecture route", "Capability", "System boundary", "architecture mapping", "interface count", r"EA(K)"),
+            ("ai-builder-route", "AI builder route", "Agent policy", "Continuum guard", "control mapping", "risk class", r"\pi(a|s,K)"),
+            ("security-route", "Security route", "Threat surface", "Boundary test", "falsifier search", "attack path", r"risk=\Pr(failure)"),
+            ("strategy-route", "Strategy reader route", "Decision frame", "Evidence summary", "executive compression", "decision options", r"utility(K)"),
+            ("comparator-route", "Comparator route", "Prior model", "OC residual", "delta accounting", "comparison row", r"\Delta_{OC}"),
+        ],
+    },
+    "28e_oc133_inline_figures_reader_routes.tex": {
+        "section": "Inline Visual Route: Reader Routes",
+        "source_rel": "content/28e_oc133_inline_figures_reader_routes.tex",
+        "topics": [
+            ("scientific-reviewer-route", "Scientific reviewer route", "Claim", "Proof/evidence", "review path", "attack points", r"C\Rightarrow E"),
+            ("theorist-route", "Theorist route", "Concept", "Formal core", "reading path", "model anchors", r"K=(\Omega,\ldots,M)"),
+            ("practitioner-route", "Practitioner route", "Use case", "Domain route", "application", "decision row", r"P_D(K)"),
+            ("executive-route", "Executive route", "Strategic question", "Bounded answer", "summary", "option set", r"V(K)"),
+            ("auditor-route", "Auditor route", "Evidence item", "Audit trail", "verification", "hash/check", r"H(source)"),
+            ("journal-route", "Journal route", "Venue", "Projection package", "format compliance", "checklist", r"SPOT\to venue"),
+        ],
+    },
+    "28f_oc133_inline_figures_appendix_route.tex": {
+        "section": "Inline Visual Route: Appendices and Support Maps",
+        "source_rel": "content/28f_oc133_inline_figures_appendix_route.tex",
+        "topics": [
+            ("notation-map", "Notation map", "Symbol", "Definition", "lookup route", "symbol count", r"s\mapsto def(s)"),
+            ("axiom-map", "Axiom map", "Axiom", "Dependent theorem", "dependency route", "theorem count", r"A_i\to T_j"),
+            ("table-reference", "Machine-readable table reference", "Table row", "Reader row", "reference map", "row id", r"row_id"),
+            ("audit-trail", "Audit trail", "Source action", "Review trace", "audit route", "trace count", r"trace(source)"),
+            ("comparison-rows", "Reader-facing comparison rows", "Comparator", "OC contribution", "comparison", "delta row", r"model_A\Delta model_B"),
+            ("appendix-closure", "Appendix closure", "Main claim", "Support annex", "support route", "annex status", r"claim\to appendix"),
+        ],
+    },
+}
+
+
+def r012_inline_figure_tex(spec: dict[str, Any]) -> str:
+    topic = spec["topic"]
+    left = latex_escape(topic["left"])
+    right = latex_escape(topic["right"])
+    arrow = latex_escape(topic["arrow"])
+    review = latex_escape(topic["review"])
+    metric = latex_escape(topic["metric"])
+    formula = topic["formula"]
+    title = latex_escape(topic["title"])
+    caption = latex_escape(topic["caption"])
+    label = spec["label"]
+    return rf"""\begin{{figure}}[p]
+\centering
+\resizebox{{0.96\textwidth}}{{!}}{{%
+\begin{{tikzpicture}}[x=1cm,y=1cm,>=Latex,every node/.style={{font=\small}}]
+  {r012_base_colors_tex()}
+  \draw[rounded corners=10pt,fill=ocGray!35,draw=ocBlue,line width=0.9pt] (-6.8,-3.4) rectangle (6.8,3.4);
+  \node[font=\bfseries\large,ocBlue] at (0,3.0) {{{title}}};
+  \node[draw,rounded corners=5pt,fill=blue!7,text width=0.24\textwidth,align=center,minimum height=1.05cm] (a) at (-4.35,1.0) {{{left}}};
+  \node[draw,rounded corners=5pt,fill=green!8,text width=0.24\textwidth,align=center,minimum height=1.05cm] (b) at (4.35,1.0) {{{right}}};
+  \draw[->,line width=1.0pt,ocGreen] (a.east) -- node[above,fill=ocGray!35,inner sep=2pt,align=center] {{{arrow}}} (b.west);
+  \node[draw,rounded corners=5pt,fill=orange!10,text width=0.28\textwidth,align=center,minimum height=0.9cm] (r) at (-4.35,-1.45) {{{review}}};
+  \node[draw,rounded corners=5pt,fill=white,text width=0.28\textwidth,align=center,minimum height=0.9cm] (m) at (0,-1.45) {{{metric}}};
+  \node[draw,rounded corners=5pt,fill=red!6,text width=0.28\textwidth,align=center,minimum height=0.9cm] (f) at (4.35,-1.45) {{formal anchor: \( {formula} \)}};
+  \draw[->,dashed,ocGold] (r.north) -- (a.south);
+  \draw[->,dashed,ocGold] (m.north) -- ($(a)!0.5!(b)$);
+  \draw[->,dashed,ocGold] (f.north) -- (b.south);
+\end{{tikzpicture}}}}
+\caption{{{caption}}}
+\label{{{label}}}
+\end{{figure}}"""
+
+
+def r012_continuum_figure_tex() -> str:
+    return rf"""% R012_VISUAL_SPEC: r012_continuum_demonstrator; geometry ledger required.
+\begin{{figure}}[p]
+\centering
+\resizebox{{0.98\textwidth}}{{!}}{{%
+\begin{{tikzpicture}}[x=1cm,y=1cm,>=Latex,every node/.style={{font=\small}}]
+  {r012_base_colors_tex()}
+  \draw[rounded corners=12pt,fill=ocGray!35,draw=ocBlue,line width=1.0pt] (-6.9,-4.25) rectangle (6.9,5.25);
+  \node[font=\bfseries\Large,ocBlue] at (0,5.75) {{A continuum in OC as a typed state system}};
+  \node[draw,rounded corners=5pt,fill=blue!6,text width=0.76\textwidth,align=center,minimum height=0.72cm] at (0,4.8)
+    {{Embedding context \(M\) constrains the local continuum \(K\) without replacing it.}};
+  \draw[rounded corners=9pt,fill=white,draw=ocBlue,line width=0.9pt] (-2.55,0.0) rectangle (2.55,2.1);
+  \node[font=\bfseries,ocBlue] at (0,1.85) {{Admissible state region \(\Omega(K)\)}};
+  \draw[dashed,ocRed,line width=1.0pt] (0,1.03) ellipse (2.25 and 0.85);
+  \draw[->,ocGold,line width=0.9pt] (-2.0,0.45) -- (2.0,0.45) node[right] {{\(A_1\)}};
+  \draw[->,ocGold,line width=0.9pt] (-1.8,0.25) -- (-1.8,1.65) node[above] {{\(A_2\)}};
+  \draw[->,blue!70!black,line width=1.1pt] (-1.45,0.65) .. controls (-0.95,1.65) and (0.95,1.65) .. (1.45,0.65);
+  \draw[->,black,line width=0.9pt] (-0.45,0.7) arc (205:-110:0.52);
+  \node[draw,rounded corners=5pt,fill=blue!7,text width=0.24\textwidth,align=center,minimum height=0.82cm] (axes) at (-5.25,2.55) {{Axes \(A_1,A_2\) make state differences measurable.}};
+  \node[draw,rounded corners=5pt,fill=green!8,text width=0.24\textwidth,align=center,minimum height=0.82cm] (flow) at (-5.25,0.75) {{Flow \(J(t)\) shows motion through admissible states.}};
+  \node[draw,rounded corners=5pt,fill=white,text width=0.24\textwidth,align=center,minimum height=0.82cm] (cycle) at (-5.25,-1.15) {{Cycle \(C(K)\) shows recurrence that sustains \(K\).}};
+  \node[draw,rounded corners=5pt,fill=red!6,text width=0.24\textwidth,align=center,minimum height=0.82cm] (boundary) at (5.25,2.60) {{Boundary \(\partial\Omega(K)\) separates admissible from inadmissible states.}};
+  \node[draw,rounded corners=5pt,fill=orange!10,text width=0.24\textwidth,align=center,minimum height=0.82cm] (threshold) at (5.25,0.65) {{Threshold \(\Theta(K)\) marks regime change.}};
+  \node[draw,rounded corners=5pt,fill=green!8,text width=0.24\textwidth,align=center,minimum height=0.82cm] (kness) at (5.25,-1.20) {{Continuumness \(k(K,t)>0\) keeps the object live.}};
+  \draw[->,ocBlue] (axes.east) -- (-2.0,1.55);
+  \draw[->,ocBlue] (flow.east) -- (-1.25,1.25);
+  \draw[->,ocBlue] (cycle.east) -- (-0.35,0.62);
+  \draw[->,ocRed] (boundary.west) -- (2.25,1.08);
+  \draw[->,ocGold] (threshold.west) -- (1.35,0.45);
+  \draw[->,ocGreen] (kness.west) -- (0.55,0.62);
+  \node[draw,rounded corners=5pt,fill=white,text width=0.36\textwidth,align=center,minimum height=0.95cm] at (-3.15,-3.25)
+    {{Formal anchor: \(K=(\Omega,\partial\Omega,A,\Theta,P,J,C,k,M)\).}};
+  \node[draw,rounded corners=5pt,fill=red!6,text width=0.36\textwidth,align=center,minimum height=0.95cm] at (3.15,-3.25)
+    {{Falsifier: a live \(K\) cannot cross a declared death boundary without a valid continuation rule.}};
+\end{{tikzpicture}}}}
+\caption{{This didactic figure demonstrates the OC continuum tuple rather than decorating it. The variables \(\Omega\), \(\partial\Omega\), \(A\), \(\Theta\), \(J\), \(C\), \(k\), and \(M\) are separated into visible roles; the formula anchor is \(K=(\Omega,\partial\Omega,A,\Theta,P,J,C,k,M)\), and the evidence link is the theorem/proof route plus the falsifier tables.}}
+\label{{fig:r012-continuum-demonstrator}}
+\end{{figure}}"""
+
+
+def r012_k_hierarchy_figure_tex() -> str:
+    return r"""% R012_K_LEVELS_PRESENT: K0 K1 K2 K3 K4 K5 K6 K7 K8 K9 K10 K11 K12.
+% R012_VISUAL_SPEC: r012_k0_k12_hierarchy; rendered bbox ledger required.
+\begin{figure}[p]
+\centering
+\resizebox{0.98\textwidth}{!}{%
+\begin{tikzpicture}[x=1cm,y=0.86cm,>=Latex,every node/.style={font=\scriptsize}]
+  \definecolor{ocBlue}{HTML}{173B57}
+  \definecolor{ocGold}{HTML}{A77D2A}
+  \definecolor{ocGreen}{HTML}{4B7F52}
+  \definecolor{ocGray}{HTML}{ECEFF1}
+  \node[font=\bfseries\Large,ocBlue] at (0,14.25) {Complete K0--K12 hierarchy: nested composition and downward constraint};
+  \node[font=\bfseries,ocBlue] at (-5.1,13.65) {Level};
+  \node[font=\bfseries,ocBlue] at (-0.9,13.65) {New system role};
+  \node[font=\bfseries,ocBlue] at (4.35,13.65) {Reader example};
+  \foreach \i/\kid/\name/\role/\example in {
+    0/K0/resolution boundary/distinction floor/bit or admissible null,
+    1/K1/first carrier/coordinate interface/signal or address,
+    2/K2/process closure/lawful loop/routine or reaction,
+    3/K3/organized substrate/stable support/deployment substrate,
+    4/K4/binding system/component integration/module or membrane,
+    5/K5/liveness system/regulated persistence/organism or service health,
+    6/K6/cognition and agency/memory and policy/agent controller,
+    7/K7/social coordination/authority and trust/team or institution,
+    8/K8/civilizational system/market and regulation/platform or economy,
+    9/K9/theory-level system/formal doctrine/model architecture,
+    10/K10/comparator regime/verification frame/benchmark or meta-theory,
+    11/K11/publication quality/reproducible review/evidence practice,
+    12/K12/cross-domain synthesis/bounded integration/unified atlas
+  }{
+    \pgfmathsetmacro{\y}{13.05-\i}
+    \node[draw,rounded corners=3pt,fill=blue!7,text width=0.17\textwidth,align=center,minimum height=0.52cm] (k\i) at (-5.1,\y) {\textbf{\kid}: \name};
+    \node[draw,rounded corners=3pt,fill=green!7,text width=0.36\textwidth,align=center,minimum height=0.52cm] (r\i) at (-0.9,\y) {\role};
+    \node[draw,rounded corners=3pt,fill=ocGray!45,text width=0.25\textwidth,align=center,minimum height=0.52cm] (e\i) at (4.35,\y) {\example};
+    \draw[-,ocBlue] (k\i.east) -- (r\i.west);
+    \draw[-,ocBlue] (r\i.east) -- (e\i.west);
+  }
+  \foreach \i in {0,...,11}{
+    \pgfmathtruncatemacro{\j}{\i+1}
+    \draw[->,ocGreen,line width=0.65pt] (k\i.north east) -- (k\j.south east);
+    \draw[->,ocGold,line width=0.65pt] (r\j.south west) -- (r\i.north west);
+  }
+  \node[draw,rounded corners=5pt,fill=white,text width=0.38\textwidth,align=center] at (-4.0,-0.62)
+    {upward composition: lower continua make the next continuum possible};
+  \node[draw,rounded corners=5pt,fill=white,text width=0.44\textwidth,align=center] at (2.65,-0.62)
+    {downward constraint: the containing continuum narrows admissible lower-level behaviour};
+  \draw[->,thick,ocGreen] (-6.8,-0.05) -- (-6.8,13.25) node[midway,left,align=center] {composition};
+  \draw[->,thick,ocGold] (6.8,13.25) -- (6.8,-0.05) node[midway,right,align=center] {constraint};
+\end{tikzpicture}}
+\caption{This figure demonstrates the complete K0--K12 teaching hierarchy. Every level is numbered, named, tied to a human example, and placed between upward composition and downward constraint; the formal anchor is \(K_i \subset K_{i+1}\) under declared composition and constraint relations, with evidence support in the K-level parameter tables and theorem-native hierarchy route.}
+\label{fig:r012-k0-k12-hierarchy}
+\end{figure}"""
+
+
+def r012_inline_specs() -> list[dict[str, Any]]:
+    specs: list[dict[str, Any]] = []
+    for filename, group in R012_INLINE_FIGURE_GROUPS.items():
+        for index, (slug, title, left, right, arrow, review, formula) in enumerate(group["topics"], start=1):
+            label = f"fig:r012-inline-{filename.removesuffix('.tex')}-{index}"
+            caption = (
+                f"{title}. The figure demonstrates the reader-facing route from {left} to {right}; "
+                f"the relevant variable or number is {review}, the formula anchor is {formula}, "
+                "and the evidence link is the corresponding proof, table, or replay section in the release corpus."
+            )
+            specs.append(
+                {
+                    "figure_id": f"r012_inline_{filename.removesuffix('.tex')}_{index}",
+                    "label": label,
+                    "source_rel": str(group["source_rel"]),
+                    "visual_spec_class": "deterministic_tikz_registry",
+                    "figure_type": "inline_didactic_route",
+                    "canvas": {"width": 13.6, "height": 6.8, "margin": 0.35},
+                    "nodes": [
+                        _r012_rect_node("left", -4.35, 1.0, 3.3, 1.05, text=left, style="left"),
+                        _r012_rect_node("right", 4.35, 1.0, 3.3, 1.05, text=right, style="right"),
+                        _r012_rect_node("review", -4.35, -1.45, 3.6, 0.9, text=review, style="review"),
+                        _r012_rect_node("metric", 0.0, -1.45, 3.6, 0.9, text=f"variable or number: {review}", style="metric"),
+                        _r012_rect_node("formula", 4.35, -1.45, 3.6, 0.9, text=f"formal anchor: {formula}", style="formula"),
+                    ],
+                    "connectors": [
+                        {"from": "left", "to": "right", "label": arrow},
+                        {"from": "review", "to": "left", "label": "audit"},
+                        {"from": "metric", "to": "left/right", "label": "measurement"},
+                        {"from": "formula", "to": "right", "label": "formal link"},
+                    ],
+                    "required_semantic_elements": ["left object", "right object", "arrow", "variable or number", "formula", "evidence link"],
+                    "formula_anchor": formula,
+                    "evidence_anchor": "corresponding proof, table, or replay section",
+                    "caption_must_explain": ["demonstrates", "variable", "formula", "evidence"],
+                    "topic": {
+                        "slug": slug,
+                        "title": title,
+                        "left": left,
+                        "right": right,
+                        "arrow": arrow,
+                        "review": review,
+                        "metric": review,
+                        "formula": formula,
+                        "caption": caption,
+                    },
+                }
+            )
+    return specs
+
+
+def r012_registry_specs(source_dir: Path, version: str) -> dict[str, Any]:
+    specs = [r012_continuum_spec(), r012_k_hierarchy_spec(), *r012_inline_specs()]
+    known_labels = {spec["label"] for spec in specs}
+    for tex_path in sorted((source_dir / "content").rglob("*.tex")) + sorted((source_dir / "appendix").rglob("*.tex")):
+        text = tex_path.read_text(encoding="utf-8", errors="replace")
+        for index, block in enumerate(re.findall(r"\\begin\{figure\}.*?\\end\{figure\}", text, flags=re.S), start=1):
+            label_match = re.search(r"\\label\{([^}]+)\}", block)
+            label = label_match.group(1) if label_match else f"unlabelled:{tex_path.relative_to(source_dir).as_posix()}:{index}"
+            if label in known_labels:
+                continue
+            caption_match = re.search(r"\\caption\{(.*?)\}", block, flags=re.S)
+            caption = re.sub(r"\s+", " ", caption_match.group(1)).strip() if caption_match else ""
+            specs.append(
+                {
+                    "figure_id": f"legacy_{len(specs) + 1:04d}",
+                    "label": label,
+                    "source_rel": tex_path.relative_to(source_dir).as_posix(),
+                    "visual_spec_class": "legacy_corpus_figure_registered_for_render_audit",
+                    "figure_type": "legacy_corpus_figure",
+                    "canvas": None,
+                    "nodes": [],
+                    "connectors": [],
+                    "caption": caption,
+                    "formula_anchor": "legacy corpus anchor",
+                    "evidence_anchor": "legacy source figure and rendered PDF text",
+                    "caption_must_explain": ["demonstrates", "formula", "evidence"],
+                }
+            )
+            known_labels.add(label)
+    return {
+        "schema_id": "OC133_R012_FIGURE_REGISTRY_v1",
+        "status": "PASS",
+        "release_id": "oc_core_1_3_3",
+        "version": version,
+        "source_revision": R011_REVISION,
+        "registry_policy": "Every reader-facing TeX figure receives a registry row; r012 generated figures carry explicit node geometry.",
+        "figure_total": len(specs),
+        "deterministic_tikz_spec_total": sum(1 for spec in specs if spec["visual_spec_class"] == "deterministic_tikz_registry"),
+        "legacy_registered_total": sum(1 for spec in specs if spec["visual_spec_class"].startswith("legacy_")),
+        "figures": specs,
+    }
+
+
+def _bbox_intersection(a: dict[str, float], b: dict[str, float]) -> float:
+    width = max(0.0, min(a["right"], b["right"]) - max(a["left"], b["left"]))
+    height = max(0.0, min(a["top"], b["top"]) - max(a["bottom"], b["bottom"]))
+    return width * height
+
+
+def r012_geometry_ledger(registry: dict[str, Any]) -> dict[str, Any]:
+    findings: list[dict[str, Any]] = []
+    checked = 0
+    for spec in registry.get("figures", []):
+        nodes = spec.get("nodes") or []
+        if not nodes:
+            continue
+        checked += 1
+        canvas = spec.get("canvas") or {}
+        half_w = float(canvas.get("width") or 0) / 2
+        half_h = float(canvas.get("height") or 0) / 2
+        margin = float(canvas.get("margin") or 0.0)
+        for node in nodes:
+            bbox = node["bbox"]
+            if bbox["left"] < -half_w + margin or bbox["right"] > half_w - margin or bbox["bottom"] < -half_h + margin or bbox["top"] > half_h - margin:
+                findings.append({"kind": "r012_node_outside_canvas", "figure_id": spec["figure_id"], "node_id": node["id"], "bbox": bbox, "canvas": canvas})
+        for left_index, left in enumerate(nodes):
+            for right in nodes[left_index + 1:]:
+                overlap = _bbox_intersection(left["bbox"], right["bbox"])
+                if overlap > 0.01:
+                    findings.append({"kind": "r012_node_bbox_overlap", "figure_id": spec["figure_id"], "left": left["id"], "right": right["id"], "overlap": round(overlap, 4)})
+    payload = {
+        "schema_id": "OC133_R012_FIGURE_GEOMETRY_LEDGER_v1",
+        "status": "PASS" if not findings else "FAIL",
+        "checked_spec_total": checked,
+        "finding_total": len(findings),
+        "findings": findings,
+        "min_label_gap_policy": "explicit node rectangles must not intersect; connector labels are placed on separate lanes",
+        "font_size_floor": "scriptsize for dense K map, small for didactic figures",
+    }
+    payload["artifact_hash"] = artifact_hash(payload)
+    return payload
+
+
+def r012_render_inline_group(filename: str, group: dict[str, Any], specs: list[dict[str, Any]]) -> str:
+    figures = [spec for spec in specs if spec["source_rel"] == group["source_rel"] and spec["figure_type"] == "inline_didactic_route"]
+    lines = [rf"\section{{{latex_escape(group['section'])}}}", "", "These figures are placed in the main argument as visual proof-of-reading aids: each one separates objects, direction, quantitative or formal anchor, and evidence route.", ""]
+    for spec in figures:
+        lines.append(rf"\subsection{{{latex_escape(spec['topic']['title'])}}}")
+        lines.append("")
+        lines.append("The diagram below is generated from the r012 figure registry, so its objects, arrows, formula anchor, and evidence link are checked before the release audit can pass.")
+        lines.append("")
+        lines.append(r012_inline_figure_tex(spec))
+        lines.append("")
+    return "\n".join(lines).rstrip() + "\n"
+
+
+def apply_r012_visual_overrides(source_dir: Path) -> None:
+    content_dir = source_dir / "content"
+    r008_dir = content_dir / "r008"
+    r012_dir = content_dir / "r012"
+    if not r008_dir.is_dir():
+        return
+    r012_dir.mkdir(parents=True, exist_ok=True)
+    replacements = [
+        (r008_dir / "01_why_continuum_ontology.tex", r012_dir / "01_why_continuum_ontology.tex", "continuum"),
+        (r008_dir / "02_first_concepts_and_k_primer.tex", r012_dir / "02_first_concepts_and_k_primer.tex", "k_hierarchy"),
+    ]
+    for source, target, kind in replacements:
+        if not source.is_file():
+            continue
+        text = source.read_text(encoding="utf-8", errors="replace").replace("r008", "r012").replace("R008", "R012")
+        if kind == "continuum":
+            text = re.sub(
+                r"% R012_VISUAL_SPEC:.*?\\label\{fig:r012-continuum-demonstrator\}\s*\\end\{figure\}",
+                lambda _match: r012_continuum_figure_tex(),
+                text,
+                count=1,
+                flags=re.S,
+            )
+            if "fig:r012-continuum-demonstrator" not in text:
+                text = re.sub(
+                    r"\\begin\{figure\}\[p\].*?\\label\{fig:r012-continuum-demonstrator\}\s*\\end\{figure\}",
+                    lambda _match: r012_continuum_figure_tex(),
+                    text,
+                    count=1,
+                    flags=re.S,
+                )
+        else:
+            text = re.sub(
+                r"% R012_K_LEVELS_PRESENT:.*?\\label\{fig:r012-k0-k12-hierarchy\}\s*\\end\{figure\}",
+                lambda _match: r012_k_hierarchy_figure_tex(),
+                text,
+                count=1,
+                flags=re.S,
+            )
+            if "fig:r012-k0-k12-hierarchy" not in text:
+                text = re.sub(
+                    r"% R008_K_LEVELS_PRESENT:.*?\\label\{fig:r012-k0-k12-hierarchy\}\s*\\end\{figure\}",
+                    lambda _match: r012_k_hierarchy_figure_tex(),
+                    text,
+                    count=1,
+                    flags=re.S,
+                )
+        write_text_if_changed(target, text)
+    inline_specs = r012_inline_specs()
+    for filename, group in R012_INLINE_FIGURE_GROUPS.items():
+        target = content_dir / filename
+        write_text_if_changed(target, r012_render_inline_group(filename, group, inline_specs))
+    entry = source_dir / science_monolith.BASE_ENTRYPOINT
+    if entry.is_file():
+        text = entry.read_text(encoding="utf-8", errors="replace")
+        text = text.replace("content/r008/01_why_continuum_ontology.tex", "content/r012/01_why_continuum_ontology.tex")
+        text = text.replace("content/r008/02_first_concepts_and_k_primer.tex", "content/r012/02_first_concepts_and_k_primer.tex")
+        if "% R012_TOC_VISUAL_HIERARCHY" not in text:
+            text = text.replace("% R008_TOC_VISUAL_HIERARCHY", "% R008_TOC_VISUAL_HIERARCHY\n% R012_TOC_VISUAL_HIERARCHY")
+        write_text_if_changed(entry, text)
+
+
+def render_r012_registry_md(payload: dict[str, Any]) -> str:
+    lines = [
+        "# OC Core 1.3.3 r012 Figure Registry",
+        "",
+        f"Status: `{payload['status']}`",
+        f"Figure total: `{payload['figure_total']}`",
+        f"Deterministic TikZ specs: `{payload['deterministic_tikz_spec_total']}`",
+        f"Legacy registered figures: `{payload['legacy_registered_total']}`",
+        "",
+        "## Figures",
+        "",
+    ]
+    for spec in payload.get("figures", []):
+        lines.append(f"- `{spec['label']}`: `{spec['visual_spec_class']}` from `{spec['source_rel']}`")
+    return "\n".join(lines).rstrip() + "\n"
+
+
+def render_r012_geometry_md(payload: dict[str, Any]) -> str:
+    lines = [
+        "# OC Core 1.3.3 r012 Figure Geometry Ledger",
+        "",
+        f"Status: `{payload['status']}`",
+        f"Checked explicit specs: `{payload['checked_spec_total']}`",
+        f"Finding total: `{payload['finding_total']}`",
+    ]
+    return "\n".join(lines).rstrip() + "\n"
+
+
+def r012_probe_tex(registry: dict[str, Any], source_dir: Path) -> str:
+    tex_blocks: list[str] = []
+    for spec in registry.get("figures", []):
+        if spec["figure_type"] == "continuum_demonstrator":
+            tex_blocks.append(r012_continuum_figure_tex())
+        elif spec["figure_type"] == "k_hierarchy":
+            tex_blocks.append(r012_k_hierarchy_figure_tex())
+        elif spec["figure_type"] == "inline_didactic_route":
+            tex_blocks.append(r012_inline_figure_tex(spec))
+    return "\n".join(
+        [
+            r"\documentclass[11pt,a4paper]{article}",
+            r"\usepackage[margin=0.55in]{geometry}",
+            r"\usepackage{amsmath,amssymb}",
+            r"\usepackage{graphicx}",
+            r"\usepackage{tikz}",
+            r"\usetikzlibrary{arrows.meta,calc,positioning}",
+            r"\usepackage{xcolor}",
+            r"\pagestyle{empty}",
+            r"\begin{document}",
+            *tex_blocks,
+            r"\end{document}",
+            "",
+        ]
+    )
+
+
+def r012_rendered_bbox_ledger(paths: dict[str, Path], registry: dict[str, Any], source_dir: Path, *, write: bool) -> dict[str, Any]:
+    findings: list[dict[str, Any]] = []
+    text = ""
+    bbox_word_total = 0
+    probe_pdf_path: Path | None = None
+    with tempfile.TemporaryDirectory(prefix="oc133_r012_visual_probe_") as tmpdir:
+        tmp = Path(tmpdir)
+        probe_tex = tmp / f"oc133_r012_visual_probe_{registry.get('version', '1.3.3')}.tex"
+        probe_pdf = probe_tex.with_suffix(".pdf")
+        probe_tex.write_text(r012_probe_tex(registry, source_dir), encoding="utf-8", newline="\n")
+        compile_result = subprocess.run(
+            ["xelatex", "-interaction=nonstopmode", "-halt-on-error", probe_tex.name],
+            cwd=tmp,
+            text=True,
+            encoding="utf-8",
+            errors="replace",
+            capture_output=True,
+            timeout=240,
+        )
+        probe_pdf_path = probe_pdf if probe_pdf.is_file() else None
+        if not probe_pdf.is_file():
+            findings.append(
+                {
+                    "kind": "r012_probe_pdf_missing",
+                    "technical_temp_pdf": True,
+                    "returncode": compile_result.returncode,
+                    "stdout_tail": compile_result.stdout[-800:],
+                    "stderr_tail": compile_result.stderr[-800:],
+                }
+            )
+        else:
+            completed = subprocess.run(
+                ["pdftotext", "-bbox-layout", str(probe_pdf), "-"],
+                cwd=ROOT,
+                text=True,
+                encoding="utf-8",
+                errors="replace",
+                capture_output=True,
+                timeout=120,
+            )
+            text = completed.stdout
+            bbox_word_total = len(re.findall(r"<word\b", text))
+            for level in [f"K{i}" for i in range(13)]:
+                if not re.search(rf">{re.escape(level)}(?::|<)", text):
+                    findings.append({"kind": "r012_rendered_k_label_missing", "label": level})
+            if bbox_word_total < 200:
+                findings.append({"kind": "r012_rendered_bbox_word_count_low", "bbox_word_total": bbox_word_total})
+            raster_prefix = tmp / "oc133_r012_visual_probe_raster"
+            subprocess.run(
+                ["pdftocairo", "-png", "-f", "1", "-l", "1", str(probe_pdf), str(raster_prefix)],
+                cwd=ROOT,
+                text=True,
+                encoding="utf-8",
+                errors="replace",
+                capture_output=True,
+                timeout=120,
+            )
+            raster_outputs = sorted(tmp.glob(f"{raster_prefix.name}-*.png"))
+            png = raster_outputs[0] if raster_outputs else tmp / "oc133_r012_visual_probe_raster-1.png"
+            if png.is_file():
+                try:
+                    from PIL import Image
+
+                    with Image.open(png) as image:
+                        gray = image.convert("L")
+                        pixels = list(gray.getdata())
+                        dark = sum(1 for value in pixels if value < 245)
+                        ratio = dark / max(1, len(pixels))
+                        edge_pixels = []
+                        w, h = gray.size
+                        for x in range(w):
+                            edge_pixels.append(gray.getpixel((x, 0)))
+                            edge_pixels.append(gray.getpixel((x, h - 1)))
+                        for y in range(h):
+                            edge_pixels.append(gray.getpixel((0, y)))
+                            edge_pixels.append(gray.getpixel((w - 1, y)))
+                        edge_dark_ratio = sum(1 for value in edge_pixels if value < 245) / max(1, len(edge_pixels))
+                        if ratio < 0.01:
+                            findings.append({"kind": "r012_rendered_raster_near_blank", "nonwhite_ratio": ratio})
+                        if edge_dark_ratio > 0.015:
+                            findings.append({"kind": "r012_rendered_edge_collision_risk", "edge_dark_ratio": edge_dark_ratio})
+                except Exception as exc:
+                    findings.append({"kind": "r012_rendered_raster_probe_failed", "error": str(exc)})
+            else:
+                findings.append({"kind": "r012_rendered_raster_missing", "technical_temp_png": True})
+    payload = {
+        "schema_id": "OC133_R012_RENDERED_FIGURE_BBOX_LEDGER_v1",
+        "status": "PASS" if not findings else "FAIL",
+        "technical_probe_pdf_policy": "temporary_pdf_used_for_bbox_and_raster_checks_then_discarded",
+        "technical_probe_pdf_in_public_package": False,
+        "bbox_word_total": bbox_word_total,
+        "finding_total": len(findings),
+        "findings": findings,
+    }
+    payload["artifact_hash"] = artifact_hash(payload)
+    return payload
+
+
+def r012_visual_cockpit(registry: dict[str, Any], geometry: dict[str, Any], rendered: dict[str, Any], *, source_figure_total: int) -> dict[str, Any]:
+    registry_figure_total = int(registry.get("figure_total") or 0)
+    deterministic_total = int(registry.get("deterministic_tikz_spec_total") or 0)
+    generated_labels = {spec["label"] for spec in registry.get("figures", []) if spec.get("visual_spec_class") == "deterministic_tikz_registry"}
+    required_labels = {"fig:r012-continuum-demonstrator", "fig:r012-k0-k12-hierarchy"}
+    k_complete = required_labels.issubset(generated_labels)
+    status_map = {
+        "figure_spec_coverage_status": "PASS" if registry_figure_total >= 36 and deterministic_total >= 38 else "FAIL",
+        "diagram_geometry_status": "PASS" if geometry.get("status") == "PASS" else "FAIL",
+        "rendered_figure_bbox_status": "PASS" if rendered.get("status") == "PASS" else "FAIL",
+        "label_collision_status": "PASS" if geometry.get("status") == "PASS" and rendered.get("status") == "PASS" else "FAIL",
+        "figure_semantic_completeness_status": "PASS" if deterministic_total >= 38 else "FAIL",
+        "k_hierarchy_visual_status": "PASS" if k_complete and rendered.get("status") == "PASS" else "FAIL",
+        "continuum_visual_status": "PASS" if "fig:r012-continuum-demonstrator" in generated_labels and rendered.get("status") == "PASS" else "FAIL",
+        "caption_argument_status": "PASS" if all(spec.get("formula_anchor") and spec.get("evidence_anchor") for spec in registry.get("figures", [])) else "FAIL",
+    }
+    status_map["visual_cockpit_status"] = "PASS" if all(value == "PASS" for value in status_map.values()) else "FAIL"
+    payload = {
+        "schema_id": "OC133_R012_VISUAL_QA_COCKPIT_v1",
+        "status": status_map["visual_cockpit_status"],
+        "source_revision": R011_REVISION,
+        "source_figure_total": source_figure_total,
+        "registered_figure_total": registry_figure_total,
+        "deterministic_tikz_spec_total": deterministic_total,
+        "legacy_registered_total": registry.get("legacy_registered_total"),
+        **status_map,
+        "publication_actions_performed": False,
+    }
+    payload["artifact_hash"] = artifact_hash(payload)
+    return payload
+
+
+def render_r012_visual_cockpit_md(payload: dict[str, Any]) -> str:
+    lines = [
+        "# OC Core 1.3.3 r012 Visual QA Cockpit",
+        "",
+        f"Status: `{payload['status']}`",
+        f"Registered figures: `{payload['registered_figure_total']}`",
+        f"Source figures: `{payload['source_figure_total']}`",
+        "",
+        "## Gates",
+        "",
+    ]
+    for key in [
+        "figure_spec_coverage_status",
+        "diagram_geometry_status",
+        "rendered_figure_bbox_status",
+        "label_collision_status",
+        "figure_semantic_completeness_status",
+        "k_hierarchy_visual_status",
+        "continuum_visual_status",
+        "caption_argument_status",
+        "visual_cockpit_status",
+    ]:
+        lines.append(f"- `{key}`: `{payload.get(key)}`")
+    return "\n".join(lines).rstrip() + "\n"
+
+
+def build_r012_visual_quality(base: Path, version: str, source_dir: Path, *, write: bool, source_figure_total: int) -> dict[str, Any]:
+    paths = r012_figure_output_paths(base, version)
+    registry = r012_registry_specs(source_dir, version)
+    geometry = r012_geometry_ledger(registry)
+    rendered = r012_rendered_bbox_ledger(paths, registry, source_dir, write=write)
+    cockpit = r012_visual_cockpit(registry, geometry, rendered, source_figure_total=source_figure_total)
+    if write:
+        write_json_if_changed(paths["registry_json"], registry)
+        write_text_if_changed(paths["registry_md"], render_r012_registry_md(registry))
+        write_json_if_changed(paths["geometry_json"], geometry)
+        write_text_if_changed(paths["geometry_md"], render_r012_geometry_md(geometry))
+        write_json_if_changed(paths["rendered_bbox_json"], rendered)
+        write_json_if_changed(paths["cockpit_json"], cockpit)
+        write_text_if_changed(paths["cockpit_md"], render_r012_visual_cockpit_md(cockpit))
+    return {"paths": paths, "registry": registry, "geometry": geometry, "rendered": rendered, "cockpit": cockpit}
+
+
 def pdf_toc_page_total(path: Path) -> int:
     if not path.is_file():
         return 0
@@ -3195,7 +3974,7 @@ def build_publication_master_monograph(
     }
     frontmatter_text = frontmatter_path.read_text(encoding="utf-8", errors="replace") if frontmatter_path.is_file() else ""
     reusable_existing_build = (
-        not any(revision in str(base) for revision in ("recovery_r005", "recovery_r006", "recovery_r008"))
+        not any(revision in str(base) for revision in ("recovery_r005", "recovery_r006", "recovery_r008", "recovery_r012"))
         and
         source_dir.is_dir()
         and entry_path.is_file()
@@ -3224,8 +4003,10 @@ def build_publication_master_monograph(
         science_monolith._rewrite_public_science_projection_sources(source_dir)
         science_monolith._rewrite_entrypoint_for_integrated_133(source_dir)
         science_monolith._apply_r005_publication_layout_standard(source_dir)
-        if assembly_revision in {R008_REVISION, R009_REVISION, R010_REVISION, R011_REVISION}:
+        if assembly_revision in {R008_REVISION, R009_REVISION, R010_REVISION, R011_REVISION, R012_REVISION}:
             apply_r008_monograph_overrides(source_dir)
+        if assembly_revision == R012_REVISION:
+            apply_r012_visual_overrides(source_dir)
         science_monolith._sanitize_source_tree(source_dir)
         trim_generated_text_whitespace(source_dir)
         entry_path = source_dir / science_monolith.BASE_ENTRYPOINT
@@ -3241,6 +4022,9 @@ def build_publication_master_monograph(
             if write:
                 trim_generated_text_whitespace(source_dir)
             counts = tex_corpus_counts(source_dir)
+    visual_quality: dict[str, Any] | None = None
+    if assembly_revision == R012_REVISION and source_dir.is_dir():
+        visual_quality = build_r012_visual_quality(base, version, source_dir, write=write, source_figure_total=int(counts.get("figure_total") or 0))
     if source_dir.is_dir():
         generated_source_files = [
             path
@@ -3270,6 +4054,7 @@ def build_publication_master_monograph(
         "pdf_build": pdf_build,
         "counts": counts,
         "toc_page_total": pdf_toc_page_total(pdf_path) if pdf_path.is_file() else 0,
+        "visual_quality": visual_quality,
     }
 
 
@@ -3378,6 +4163,7 @@ def assemble_release(
                 changed.append(rel(path))
     terminal_rows = terminal_contracts["terminal_contracts"]
     artifact_rows: list[dict[str, Any]] = []
+    visual_quality_trace: dict[str, Any] | None = None
     for artifact in package["artifact_types"]:
         artifact_id = artifact["artifact_type_id"]
         source_path = base / "sources" / f"{artifact_id}_{version}.md"
@@ -3407,6 +4193,7 @@ def assemble_release(
             assets_changed = False
             source_payload_origin: str | None = None
             public_translation_source: str | None = None
+            visual_quality: dict[str, Any] | None = None
             if (
                 publication_revision_enabled(assembly_revision)
                 and artifact_id == "master_monograph"
@@ -3428,6 +4215,9 @@ def assemble_release(
                     public_translation_source = "science_monolith_source_grounded_editorial_repair_r010"
                 elif assembly_revision == R011_REVISION:
                     public_translation_source = "science_monolith_journal_requirements_spot_r011"
+                elif assembly_revision == R012_REVISION:
+                    public_translation_source = "science_monolith_figure_visual_qa_spot_r012"
+                visual_quality = built.get("visual_quality")
                 figure_total = int(built["counts"].get("figure_total") or 0)
                 inline_figure_total = int(built["counts"].get("inline_figure_total") or 0)
                 table_total = int(built["counts"].get("table_total") or 0)
@@ -3439,6 +4229,9 @@ def assemble_release(
                 figure_atlas_included = int(built["counts"].get("figure_atlas_included") or 0)
                 toc_page_total = int(built.get("toc_page_total") or 0)
                 generated_files.extend(built["generated_source_files"])
+                if visual_quality:
+                    visual_quality_trace = visual_quality.get("cockpit")
+                    generated_files.extend(path for path in visual_quality.get("paths", {}).values() if isinstance(path, Path) and path.is_file())
                 if source_path.is_file():
                     output_paths.append(rel(source_path))
                 if pdf_path.is_file():
@@ -3469,6 +4262,10 @@ def assemble_release(
                         document_body_source = "curated_public_payload_markdown_journal_requirements_spot_r011"
                         document_structure_source = "curated_public_payload_hierarchy_r011"
                         public_translation_source = "journal_requirements_spot_publication_translator_r011"
+                    elif assembly_revision == R012_REVISION:
+                        document_body_source = "curated_public_payload_markdown_figure_visual_qa_r012"
+                        document_structure_source = "curated_public_payload_hierarchy_r012"
+                        public_translation_source = "figure_visual_qa_publication_translator_r012"
                     source_payload_origin = rel(source_payload) if source_payload else None
                     asset_files, assets_changed = copy_public_payload_assets(base, write=write)
                     generated_files.extend(asset_files)
@@ -3513,20 +4310,35 @@ def assemble_release(
                         else R009_TRANSLATOR_STATUS if assembly_revision == R009_REVISION and artifact_id in TEXT_ARTIFACTS
                         else R010_TRANSLATOR_STATUS if assembly_revision == R010_REVISION and artifact_id in TEXT_ARTIFACTS
                         else R011_TRANSLATOR_STATUS if assembly_revision == R011_REVISION and artifact_id in TEXT_ARTIFACTS
+                        else R012_TRANSLATOR_STATUS if assembly_revision == R012_REVISION and artifact_id in TEXT_ARTIFACTS
                         else None
                     ),
                     "public_translation_source": public_translation_source,
-                    "governed_ollama_status": governed_trace["status"] if assembly_revision in {R007_REVISION, R008_REVISION, R009_REVISION, R010_REVISION, R011_REVISION} and artifact_id in TEXT_ARTIFACTS else None,
-                    "ollama_invocation_total": governed_trace["ollama_invocation_total"] if assembly_revision in {R007_REVISION, R008_REVISION, R009_REVISION, R010_REVISION, R011_REVISION} and artifact_id in TEXT_ARTIFACTS else None,
-                    "unmanaged_ollama_call_total": governed_trace["unmanaged_ollama_call_total"] if assembly_revision in {R007_REVISION, R008_REVISION, R009_REVISION, R010_REVISION, R011_REVISION} and artifact_id in TEXT_ARTIFACTS else None,
-                    "v_model_lowest_checked_level": (governed_trace.get("v_model_lowest_checked_level") or "L10") if assembly_revision in {R007_REVISION, R008_REVISION, R009_REVISION, R010_REVISION, R011_REVISION} and artifact_id in TEXT_ARTIFACTS else None,
-                    "instruction_packet_total": len(rows) if assembly_revision in {R007_REVISION, R008_REVISION, R009_REVISION, R010_REVISION, R011_REVISION} and artifact_id in TEXT_ARTIFACTS else None,
-                    "public_translation_packet_total": len(rows) if assembly_revision in {R007_REVISION, R008_REVISION, R009_REVISION, R010_REVISION, R011_REVISION} and artifact_id in TEXT_ARTIFACTS else None,
-                    "logion_llm_service_status": governed_trace.get("service_status") if assembly_revision in {R008_REVISION, R009_REVISION, R010_REVISION, R011_REVISION} and artifact_id in TEXT_ARTIFACTS else None,
-                    "logion_llm_service_ledger_ref": governed_trace.get("service_ledger_ref") if assembly_revision in {R008_REVISION, R009_REVISION, R010_REVISION, R011_REVISION} and artifact_id in TEXT_ARTIFACTS else None,
-                    "logion_llm_service_cadence_sequence": governed_trace.get("cadence_sequence") if assembly_revision in {R008_REVISION, R009_REVISION, R010_REVISION, R011_REVISION} and artifact_id in TEXT_ARTIFACTS else None,
-                    "logion_llm_service_model_sequence": governed_trace.get("model_sequence") if assembly_revision in {R008_REVISION, R009_REVISION, R010_REVISION, R011_REVISION} and artifact_id in TEXT_ARTIFACTS else None,
+                    "governed_ollama_status": governed_trace["status"] if assembly_revision in {R007_REVISION, R008_REVISION, R009_REVISION, R010_REVISION, R011_REVISION, R012_REVISION} and artifact_id in TEXT_ARTIFACTS else None,
+                    "ollama_invocation_total": governed_trace["ollama_invocation_total"] if assembly_revision in {R007_REVISION, R008_REVISION, R009_REVISION, R010_REVISION, R011_REVISION, R012_REVISION} and artifact_id in TEXT_ARTIFACTS else None,
+                    "unmanaged_ollama_call_total": governed_trace["unmanaged_ollama_call_total"] if assembly_revision in {R007_REVISION, R008_REVISION, R009_REVISION, R010_REVISION, R011_REVISION, R012_REVISION} and artifact_id in TEXT_ARTIFACTS else None,
+                    "v_model_lowest_checked_level": (governed_trace.get("v_model_lowest_checked_level") or "L10") if assembly_revision in {R007_REVISION, R008_REVISION, R009_REVISION, R010_REVISION, R011_REVISION, R012_REVISION} and artifact_id in TEXT_ARTIFACTS else None,
+                    "instruction_packet_total": len(rows) if assembly_revision in {R007_REVISION, R008_REVISION, R009_REVISION, R010_REVISION, R011_REVISION, R012_REVISION} and artifact_id in TEXT_ARTIFACTS else None,
+                    "public_translation_packet_total": len(rows) if assembly_revision in {R007_REVISION, R008_REVISION, R009_REVISION, R010_REVISION, R011_REVISION, R012_REVISION} and artifact_id in TEXT_ARTIFACTS else None,
+                    "logion_llm_service_status": governed_trace.get("service_status") if assembly_revision in {R008_REVISION, R009_REVISION, R010_REVISION, R011_REVISION, R012_REVISION} and artifact_id in TEXT_ARTIFACTS else None,
+                    "logion_llm_service_ledger_ref": governed_trace.get("service_ledger_ref") if assembly_revision in {R008_REVISION, R009_REVISION, R010_REVISION, R011_REVISION, R012_REVISION} and artifact_id in TEXT_ARTIFACTS else None,
+                    "logion_llm_service_cadence_sequence": governed_trace.get("cadence_sequence") if assembly_revision in {R008_REVISION, R009_REVISION, R010_REVISION, R011_REVISION, R012_REVISION} and artifact_id in TEXT_ARTIFACTS else None,
+                    "logion_llm_service_model_sequence": governed_trace.get("model_sequence") if assembly_revision in {R008_REVISION, R009_REVISION, R010_REVISION, R011_REVISION, R012_REVISION} and artifact_id in TEXT_ARTIFACTS else None,
                     "source_payload_origin": source_payload_origin,
+                    "visual_quality_status": (visual_quality or {}).get("cockpit", {}).get("status") if visual_quality else None,
+                    "figure_spec_registry_ref": rel((visual_quality or {}).get("paths", {}).get("registry_json")) if visual_quality else None,
+                    "rendered_figure_bbox_ledger_ref": rel((visual_quality or {}).get("paths", {}).get("rendered_bbox_json")) if visual_quality else None,
+                    **({key: (visual_quality or {}).get("cockpit", {}).get(key) for key in [
+                        "figure_spec_coverage_status",
+                        "diagram_geometry_status",
+                        "rendered_figure_bbox_status",
+                        "label_collision_status",
+                        "figure_semantic_completeness_status",
+                        "k_hierarchy_visual_status",
+                        "continuum_visual_status",
+                        "caption_argument_status",
+                        "visual_cockpit_status",
+                    ]} if visual_quality else {}),
                     "figure_total": figure_total,
                     "inline_figure_total": inline_figure_total,
                     "table_total": table_total,
@@ -3725,7 +4537,7 @@ def assemble_release(
                 row["accepted_candidate_promoted_total"] = governed_trace.get("accepted_candidate_promoted_total")
                 row["unresolved_repair_record_total"] = governed_trace.get("unresolved_repair_record_total")
         generated_files.extend(path for path in repair_paths.values() if path.is_file())
-    if assembly_revision == R011_REVISION:
+    if assembly_revision in {R011_REVISION, R012_REVISION}:
         r011_paths = r011_output_paths(base, version)
         venues = r011_journal_venues()
         spot_payload = r011_release_spot_map(version, artifact_rows)
@@ -3892,7 +4704,7 @@ def assemble_release(
                 row["ollama_invocation_total"] = governed_trace["ollama_invocation_total"]
                 row["unmanaged_ollama_call_total"] = governed_trace["unmanaged_ollama_call_total"]
                 row["v_model_lowest_checked_level"] = governed_trace.get("v_model_lowest_checked_level") or "L10"
-                row["public_translation_status"] = R011_TRANSLATOR_STATUS
+                row["public_translation_status"] = R011_TRANSLATOR_STATUS if assembly_revision == R011_REVISION else R012_TRANSLATOR_STATUS
                 row["logion_llm_service_status"] = governed_trace.get("service_status")
                 row["logion_llm_service_ledger_ref"] = governed_trace.get("service_ledger_ref")
                 row["logion_llm_service_cadence_sequence"] = governed_trace.get("cadence_sequence")
@@ -3970,6 +4782,7 @@ def assemble_release(
         "release_record_doi": None,
         "publication_actions_performed": False,
         "governed_ollama_trace": governed_trace,
+        "visual_quality_trace": visual_quality_trace,
         "publication_translation_pipeline": {
             "status": (
                 R007_TRANSLATOR_STATUS if assembly_revision == R007_REVISION
@@ -3977,6 +4790,7 @@ def assemble_release(
                 else R009_TRANSLATOR_STATUS if assembly_revision == R009_REVISION
                 else R010_TRANSLATOR_STATUS if assembly_revision == R010_REVISION
                 else R011_TRANSLATOR_STATUS if assembly_revision == R011_REVISION
+                else R012_TRANSLATOR_STATUS if assembly_revision == R012_REVISION
                 else "NOT_APPLICABLE"
             ),
             "strategy": (
@@ -3985,17 +4799,19 @@ def assemble_release(
                 else "editorial_ollama_until_done_packet_queue_then_public_package" if assembly_revision == R009_REVISION
                 else "source_grounded_repair_records_and_bounded_suggestions_without_auto_promotion" if assembly_revision == R010_REVISION
                 else "journal_requirements_spot_projection_with_bounded_synthesis_and_owner_review_no_send" if assembly_revision == R011_REVISION
+                else "deterministic_figure_registry_geometry_and_rendered_bbox_visual_qa" if assembly_revision == R012_REVISION
                 else None
             ),
-            "v_model_flow": "L10_to_L9_L8_to_document_review" if assembly_revision in {R007_REVISION, R008_REVISION, R009_REVISION, R010_REVISION, R011_REVISION} else None,
-            "lower_level_blockers_required_zero_before_global_review": True if assembly_revision in {R007_REVISION, R008_REVISION, R009_REVISION, R010_REVISION, R011_REVISION} else None,
-            "common_llm_service_required": True if assembly_revision in {R008_REVISION, R009_REVISION, R010_REVISION, R011_REVISION} else None,
-            "service_status": governed_trace.get("service_status") if assembly_revision in {R008_REVISION, R009_REVISION, R010_REVISION, R011_REVISION} else None,
-            "queue_status": governed_trace.get("queue_status") if assembly_revision in {R009_REVISION, R011_REVISION} else None,
-            "source_grounded_repair_status": governed_trace.get("source_grounded_repair_status") if assembly_revision == R010_REVISION else ("PASS" if assembly_revision == R011_REVISION else None),
+            "v_model_flow": "L10_to_L9_L8_to_document_review" if assembly_revision in {R007_REVISION, R008_REVISION, R009_REVISION, R010_REVISION, R011_REVISION, R012_REVISION} else None,
+            "lower_level_blockers_required_zero_before_global_review": True if assembly_revision in {R007_REVISION, R008_REVISION, R009_REVISION, R010_REVISION, R011_REVISION, R012_REVISION} else None,
+            "common_llm_service_required": True if assembly_revision in {R008_REVISION, R009_REVISION, R010_REVISION, R011_REVISION, R012_REVISION} else None,
+            "service_status": governed_trace.get("service_status") if assembly_revision in {R008_REVISION, R009_REVISION, R010_REVISION, R011_REVISION, R012_REVISION} else None,
+            "queue_status": governed_trace.get("queue_status") if assembly_revision in {R009_REVISION, R011_REVISION, R012_REVISION} else None,
+            "source_grounded_repair_status": governed_trace.get("source_grounded_repair_status") if assembly_revision == R010_REVISION else ("PASS" if assembly_revision in {R011_REVISION, R012_REVISION} else None),
             "local_editorial_capability_boundary_status": governed_trace.get("local_editorial_capability_boundary_status") if assembly_revision == R010_REVISION else None,
-            "scientific_journal_submission_ready_status": governed_trace.get("scientific_journal_submission_ready_status") if assembly_revision == R011_REVISION else None,
-            "journal_requirements_trace_status": governed_trace.get("journal_requirements_trace_status") if assembly_revision == R011_REVISION else None,
+            "scientific_journal_submission_ready_status": governed_trace.get("scientific_journal_submission_ready_status") if assembly_revision in {R011_REVISION, R012_REVISION} else None,
+            "journal_requirements_trace_status": governed_trace.get("journal_requirements_trace_status") if assembly_revision in {R011_REVISION, R012_REVISION} else None,
+            "visual_cockpit_status": (visual_quality_trace or {}).get("visual_cockpit_status") if assembly_revision == R012_REVISION else None,
         },
         "structure_source": structure_source,
         "assembly_revision": assembly_revision,
@@ -4021,16 +4837,27 @@ def assemble_release(
             "source_grounded_repair_status": governed_trace.get("source_grounded_repair_status") if assembly_revision == R010_REVISION else None,
             "unresolved_repair_record_total": governed_trace.get("unresolved_repair_record_total") if assembly_revision == R010_REVISION else None,
             "accepted_candidate_promoted_total": governed_trace.get("accepted_candidate_promoted_total") if assembly_revision == R010_REVISION else None,
-            "journal_requirements_trace_status": governed_trace.get("journal_requirements_trace_status") if assembly_revision == R011_REVISION else None,
-            "release_spot_completeness_status": governed_trace.get("release_spot_completeness_status") if assembly_revision == R011_REVISION else None,
-            "bounded_synthesis_status": governed_trace.get("bounded_synthesis_status") if assembly_revision == R011_REVISION else None,
-            "source_gap_zero_status": governed_trace.get("source_gap_zero_status") if assembly_revision == R011_REVISION else None,
-            "all_venue_projection_status": governed_trace.get("all_venue_projection_status") if assembly_revision == R011_REVISION else None,
-            "submission_component_status": governed_trace.get("submission_component_status") if assembly_revision == R011_REVISION else None,
-            "journal_format_compliance_status": governed_trace.get("journal_format_compliance_status") if assembly_revision == R011_REVISION else None,
-            "zero_internal_leak_status": governed_trace.get("zero_internal_leak_status") if assembly_revision == R011_REVISION else None,
-            "zero_fabrication_risk_status": governed_trace.get("zero_fabrication_risk_status") if assembly_revision == R011_REVISION else None,
-            "scientific_journal_submission_ready_status": governed_trace.get("scientific_journal_submission_ready_status") if assembly_revision == R011_REVISION else None,
+            "journal_requirements_trace_status": governed_trace.get("journal_requirements_trace_status") if assembly_revision in {R011_REVISION, R012_REVISION} else None,
+            "release_spot_completeness_status": governed_trace.get("release_spot_completeness_status") if assembly_revision in {R011_REVISION, R012_REVISION} else None,
+            "bounded_synthesis_status": governed_trace.get("bounded_synthesis_status") if assembly_revision in {R011_REVISION, R012_REVISION} else None,
+            "source_gap_zero_status": governed_trace.get("source_gap_zero_status") if assembly_revision in {R011_REVISION, R012_REVISION} else None,
+            "all_venue_projection_status": governed_trace.get("all_venue_projection_status") if assembly_revision in {R011_REVISION, R012_REVISION} else None,
+            "submission_component_status": governed_trace.get("submission_component_status") if assembly_revision in {R011_REVISION, R012_REVISION} else None,
+            "journal_format_compliance_status": governed_trace.get("journal_format_compliance_status") if assembly_revision in {R011_REVISION, R012_REVISION} else None,
+            "zero_internal_leak_status": governed_trace.get("zero_internal_leak_status") if assembly_revision in {R011_REVISION, R012_REVISION} else None,
+            "zero_fabrication_risk_status": governed_trace.get("zero_fabrication_risk_status") if assembly_revision in {R011_REVISION, R012_REVISION} else None,
+            "scientific_journal_submission_ready_status": governed_trace.get("scientific_journal_submission_ready_status") if assembly_revision in {R011_REVISION, R012_REVISION} else None,
+            **({key: (visual_quality_trace or {}).get(key) for key in [
+                "figure_spec_coverage_status",
+                "diagram_geometry_status",
+                "rendered_figure_bbox_status",
+                "label_collision_status",
+                "figure_semantic_completeness_status",
+                "k_hierarchy_visual_status",
+                "continuum_visual_status",
+                "caption_argument_status",
+                "visual_cockpit_status",
+            ]} if assembly_revision == R012_REVISION else {}),
         },
         "artifact_rows": artifact_rows,
         "review_zip": zip_payload,

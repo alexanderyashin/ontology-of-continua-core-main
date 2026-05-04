@@ -90,6 +90,15 @@ FORM_STATUS_KEYS = [
     "zero_internal_leak_status",
     "zero_fabrication_risk_status",
     "scientific_journal_submission_ready_status",
+    "figure_spec_coverage_status",
+    "diagram_geometry_status",
+    "rendered_figure_bbox_status",
+    "label_collision_status",
+    "figure_semantic_completeness_status",
+    "k_hierarchy_visual_status",
+    "continuum_visual_status",
+    "caption_argument_status",
+    "visual_cockpit_status",
     "form_quality_status",
 ]
 

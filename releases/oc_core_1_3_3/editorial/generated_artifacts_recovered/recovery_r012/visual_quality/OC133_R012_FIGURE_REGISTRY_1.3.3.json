@@ -1,0 +1,6594 @@
+{
+  "deterministic_tikz_spec_total": 38,
+  "figure_total": 74,
+  "figures": [
+    {
+      "canvas": {
+        "height": 12.0,
+        "margin": 0.35,
+        "width": 14.0
+      },
+      "caption_must_explain": [
+        "what the figure demonstrates",
+        "variables",
+        "formula",
+        "falsifier"
+      ],
+      "connectors": [
+        {
+          "from": "axes",
+          "label": "measurement",
+          "to": "state_region"
+        },
+        {
+          "from": "flow",
+          "label": "motion",
+          "to": "state_region"
+        },
+        {
+          "from": "cycle",
+          "label": "recurrence",
+          "to": "state_region"
+        },
+        {
+          "from": "boundary",
+          "label": "admissible edge",
+          "to": "state_region"
+        },
+        {
+          "from": "threshold",
+          "label": "regime change",
+          "to": "state_region"
+        },
+        {
+          "from": "continuumness",
+          "label": "persistence",
+          "to": "state_region"
+        }
+      ],
+      "evidence_anchor": "theorem/proof route and falsifier tables",
+      "figure_id": "r012_continuum_demonstrator",
+      "figure_type": "continuum_demonstrator",
+      "formula_anchor": "K=(\\Omega,\\partial\\Omega,A,\\Theta,P,J,C,k,M)",
+      "label": "fig:r012-continuum-demonstrator",
+      "nodes": [
+        {
+          "bbox": {
+            "bottom": 4.44,
+            "left": -6.45,
+            "right": 6.45,
+            "top": 5.16
+          },
+          "h": 0.72,
+          "id": "context",
+          "style": "context",
+          "text": "Embedding context M constrains the local continuum K",
+          "w": 12.9,
+          "x": 0.0,
+          "y": 4.8
+        },
+        {
+          "bbox": {
+            "bottom": 0.05,
+            "left": -2.45,
+            "right": 2.45,
+            "top": 2.05
+          },
+          "h": 2.0,
+          "id": "state_region",
+          "style": "state",
+          "text": "Admissible state region Omega(K)",
+          "w": 4.9,
+          "x": 0.0,
+          "y": 1.05
+        },
+        {
+          "bbox": {
+            "bottom": 2.19,
+            "left": 3.85,
+            "right": 6.65,
+            "top": 3.01
+          },
+          "h": 0.82,
+          "id": "boundary",
+          "style": "boundary",
+          "text": "Boundary partial Omega(K)",
+          "w": 2.8,
+          "x": 5.25,
+          "y": 2.6
+        },
+        {
+          "bbox": {
+            "bottom": 2.14,
+            "left": -6.65,
+            "right": -3.85,
+            "top": 2.96
+          },
+          "h": 0.82,
+          "id": "axes",
+          "style": "axis",
+          "text": "Axes A1, A2 give measurable coordinates",
+          "w": 2.8,
+          "x": -5.25,
+          "y": 2.55
+        },
+        {
+          "bbox": {
+            "bottom": 0.29,
+            "left": -6.65,
+            "right": -3.85,
+            "top": 1.21
+          },
+          "h": 0.92,
+          "id": "flow",
+          "style": "flow",
+          "text": "Flow J(t) moves through admissible states",
+          "w": 2.8,
+          "x": -5.25,
+          "y": 0.75
+        },
+        {
+          "bbox": {
+            "bottom": -1.61,
+            "left": -6.65,
+            "right": -3.85,
+            "top": -0.69
+          },
+          "h": 0.92,
+          "id": "cycle",
+          "style": "cycle",
+          "text": "Cycle C(K) sustains recurrence",
+          "w": 2.8,
+          "x": -5.25,
+          "y": -1.15
+        },
+        {
+          "bbox": {
+            "bottom": 0.19,
+            "left": 3.85,
+            "right": 6.65,
+            "top": 1.11
+          },
+          "h": 0.92,
+          "id": "threshold",
+          "style": "threshold",
+          "text": "Threshold Theta(K) marks regime change",
+          "w": 2.8,
+          "x": 5.25,
+          "y": 0.65
+        },
+        {
+          "bbox": {
+            "bottom": -1.66,
+            "left": 3.85,
+            "right": 6.65,
+            "top": -0.74
+          },
+          "h": 0.92,
+          "id": "continuumness",
+          "style": "state",
+          "text": "Continuumness k(K,t)>0",
+          "w": 2.8,
+          "x": 5.25,
+          "y": -1.2
+        },
+        {
+          "bbox": {
+            "bottom": -3.725,
+            "left": -5.775,
+            "right": -0.525,
+            "top": -2.775
+          },
+          "h": 0.95,
+          "id": "formula",
+          "style": "formula",
+          "text": "Formal anchor: K=(Omega, partial Omega, A, Theta, P, J, C, k, M)",
+          "w": 5.25,
+          "x": -3.15,
+          "y": -3.25
+        },
+        {
+          "bbox": {
+            "bottom": -3.725,
+            "left": 0.525,
+            "right": 5.775,
+            "top": -2.775
+          },
+          "h": 0.95,
+          "id": "falsifier",
+          "style": "falsifier",
+          "text": "Falsifier: a live K cannot cross its death boundary without a continuation rule",
+          "w": 5.25,
+          "x": 3.15,
+          "y": -3.25
+        }
+      ],
+      "required_semantic_elements": [
+        "state space",
+        "boundary",
+        "axes",
+        "threshold",
+        "flow",
+        "cycle",
+        "continuumness",
+        "context",
+        "formal tuple",
+        "falsifier"
+      ],
+      "source_rel": "content/r012/01_why_continuum_ontology.tex",
+      "visual_spec_class": "deterministic_tikz_registry"
+    },
+    {
+      "canvas": {
+        "height": 28.8,
+        "margin": 0.25,
+        "width": 14.0
+      },
+      "caption_must_explain": [
+        "K0-K12",
+        "composition",
+        "constraint",
+        "examples",
+        "formula"
+      ],
+      "connectors": [
+        {
+          "from": "K0_level",
+          "label": "composition",
+          "to": "K1_level"
+        },
+        {
+          "from": "K1_level",
+          "label": "composition",
+          "to": "K2_level"
+        },
+        {
+          "from": "K2_level",
+          "label": "composition",
+          "to": "K3_level"
+        },
+        {
+          "from": "K3_level",
+          "label": "composition",
+          "to": "K4_level"
+        },
+        {
+          "from": "K4_level",
+          "label": "composition",
+          "to": "K5_level"
+        },
+        {
+          "from": "K5_level",
+          "label": "composition",
+          "to": "K6_level"
+        },
+        {
+          "from": "K6_level",
+          "label": "composition",
+          "to": "K7_level"
+        },
+        {
+          "from": "K7_level",
+          "label": "composition",
+          "to": "K8_level"
+        },
+        {
+          "from": "K8_level",
+          "label": "composition",
+          "to": "K9_level"
+        },
+        {
+          "from": "K9_level",
+          "label": "composition",
+          "to": "K10_level"
+        },
+        {
+          "from": "K10_level",
+          "label": "composition",
+          "to": "K11_level"
+        },
+        {
+          "from": "K11_level",
+          "label": "composition",
+          "to": "K12_level"
+        },
+        {
+          "from": "K1_role",
+          "label": "constraint",
+          "to": "K0_role"
+        },
+        {
+          "from": "K2_role",
+          "label": "constraint",
+          "to": "K1_role"
+        },
+        {
+          "from": "K3_role",
+          "label": "constraint",
+          "to": "K2_role"
+        },
+        {
+          "from": "K4_role",
+          "label": "constraint",
+          "to": "K3_role"
+        },
+        {
+          "from": "K5_role",
+          "label": "constraint",
+          "to": "K4_role"
+        },
+        {
+          "from": "K6_role",
+          "label": "constraint",
+          "to": "K5_role"
+        },
+        {
+          "from": "K7_role",
+          "label": "constraint",
+          "to": "K6_role"
+        },
+        {
+          "from": "K8_role",
+          "label": "constraint",
+          "to": "K7_role"
+        },
+        {
+          "from": "K9_role",
+          "label": "constraint",
+          "to": "K8_role"
+        },
+        {
+          "from": "K10_role",
+          "label": "constraint",
+          "to": "K9_role"
+        },
+        {
+          "from": "K11_role",
+          "label": "constraint",
+          "to": "K10_role"
+        },
+        {
+          "from": "K12_role",
+          "label": "constraint",
+          "to": "K11_role"
+        }
+      ],
+      "evidence_anchor": "K-level parameter tables and theorem-native hierarchy route",
+      "figure_id": "r012_k0_k12_hierarchy",
+      "figure_type": "k_hierarchy",
+      "formula_anchor": "K_i \\subset K_{i+1} under declared composition and constraint relations",
+      "label": "fig:r012-k0-k12-hierarchy",
+      "nodes": [
+        {
+          "bbox": {
+            "bottom": 12.76,
+            "left": -6.1,
+            "right": -4.1,
+            "top": 13.34
+          },
+          "h": 0.58,
+          "id": "K0_level",
+          "style": "k_level",
+          "text": "K0: resolution boundary",
+          "w": 2.0,
+          "x": -5.1,
+          "y": 13.05
+        },
+        {
+          "bbox": {
+            "bottom": 12.76,
+            "left": -3.275,
+            "right": 1.475,
+            "top": 13.34
+          },
+          "h": 0.58,
+          "id": "K0_role",
+          "style": "role",
+          "text": "distinction floor",
+          "w": 4.75,
+          "x": -0.9,
+          "y": 13.05
+        },
+        {
+          "bbox": {
+            "bottom": 12.76,
+            "left": 2.725,
+            "right": 5.975,
+            "top": 13.34
+          },
+          "h": 0.58,
+          "id": "K0_example",
+          "style": "example",
+          "text": "bit / admissible null",
+          "w": 3.25,
+          "x": 4.35,
+          "y": 13.05
+        },
+        {
+          "bbox": {
+            "bottom": 11.76,
+            "left": -6.1,
+            "right": -4.1,
+            "top": 12.34
+          },
+          "h": 0.58,
+          "id": "K1_level",
+          "style": "k_level",
+          "text": "K1: first carrier",
+          "w": 2.0,
+          "x": -5.1,
+          "y": 12.05
+        },
+        {
+          "bbox": {
+            "bottom": 11.76,
+            "left": -3.275,
+            "right": 1.475,
+            "top": 12.34
+          },
+          "h": 0.58,
+          "id": "K1_role",
+          "style": "role",
+          "text": "coordinate interface",
+          "w": 4.75,
+          "x": -0.9,
+          "y": 12.05
+        },
+        {
+          "bbox": {
+            "bottom": 11.76,
+            "left": 2.725,
+            "right": 5.975,
+            "top": 12.34
+          },
+          "h": 0.58,
+          "id": "K1_example",
+          "style": "example",
+          "text": "signal / address",
+          "w": 3.25,
+          "x": 4.35,
+          "y": 12.05
+        },
+        {
+          "bbox": {
+            "bottom": 10.76,
+            "left": -6.1,
+            "right": -4.1,
+            "top": 11.34
+          },
+          "h": 0.58,
+          "id": "K2_level",
+          "style": "k_level",
+          "text": "K2: process closure",
+          "w": 2.0,
+          "x": -5.1,
+          "y": 11.05
+        },
+        {
+          "bbox": {
+            "bottom": 10.76,
+            "left": -3.275,
+            "right": 1.475,
+            "top": 11.34
+          },
+          "h": 0.58,
+          "id": "K2_role",
+          "style": "role",
+          "text": "lawful loop",
+          "w": 4.75,
+          "x": -0.9,
+          "y": 11.05
+        },
+        {
+          "bbox": {
+            "bottom": 10.76,
+            "left": 2.725,
+            "right": 5.975,
+            "top": 11.34
+          },
+          "h": 0.58,
+          "id": "K2_example",
+          "style": "example",
+          "text": "routine / reaction",
+          "w": 3.25,
+          "x": 4.35,
+          "y": 11.05
+        },
+        {
+          "bbox": {
+            "bottom": 9.76,
+            "left": -6.1,
+            "right": -4.1,
+            "top": 10.34
+          },
+          "h": 0.58,
+          "id": "K3_level",
+          "style": "k_level",
+          "text": "K3: organized substrate",
+          "w": 2.0,
+          "x": -5.1,
+          "y": 10.05
+        },
+        {
+          "bbox": {
+            "bottom": 9.76,
+            "left": -3.275,
+            "right": 1.475,
+            "top": 10.34
+          },
+          "h": 0.58,
+          "id": "K3_role",
+          "style": "role",
+          "text": "stable support",
+          "w": 4.75,
+          "x": -0.9,
+          "y": 10.05
+        },
+        {
+          "bbox": {
+            "bottom": 9.76,
+            "left": 2.725,
+            "right": 5.975,
+            "top": 10.34
+          },
+          "h": 0.58,
+          "id": "K3_example",
+          "style": "example",
+          "text": "deployment substrate",
+          "w": 3.25,
+          "x": 4.35,
+          "y": 10.05
+        },
+        {
+          "bbox": {
+            "bottom": 8.76,
+            "left": -6.1,
+            "right": -4.1,
+            "top": 9.34
+          },
+          "h": 0.58,
+          "id": "K4_level",
+          "style": "k_level",
+          "text": "K4: binding system",
+          "w": 2.0,
+          "x": -5.1,
+          "y": 9.05
+        },
+        {
+          "bbox": {
+            "bottom": 8.76,
+            "left": -3.275,
+            "right": 1.475,
+            "top": 9.34
+          },
+          "h": 0.58,
+          "id": "K4_role",
+          "style": "role",
+          "text": "component integration",
+          "w": 4.75,
+          "x": -0.9,
+          "y": 9.05
+        },
+        {
+          "bbox": {
+            "bottom": 8.76,
+            "left": 2.725,
+            "right": 5.975,
+            "top": 9.34
+          },
+          "h": 0.58,
+          "id": "K4_example",
+          "style": "example",
+          "text": "module / membrane",
+          "w": 3.25,
+          "x": 4.35,
+          "y": 9.05
+        },
+        {
+          "bbox": {
+            "bottom": 7.76,
+            "left": -6.1,
+            "right": -4.1,
+            "top": 8.34
+          },
+          "h": 0.58,
+          "id": "K5_level",
+          "style": "k_level",
+          "text": "K5: liveness system",
+          "w": 2.0,
+          "x": -5.1,
+          "y": 8.05
+        },
+        {
+          "bbox": {
+            "bottom": 7.76,
+            "left": -3.275,
+            "right": 1.475,
+            "top": 8.34
+          },
+          "h": 0.58,
+          "id": "K5_role",
+          "style": "role",
+          "text": "regulated persistence",
+          "w": 4.75,
+          "x": -0.9,
+          "y": 8.05
+        },
+        {
+          "bbox": {
+            "bottom": 7.76,
+            "left": 2.725,
+            "right": 5.975,
+            "top": 8.34
+          },
+          "h": 0.58,
+          "id": "K5_example",
+          "style": "example",
+          "text": "organism / service health",
+          "w": 3.25,
+          "x": 4.35,
+          "y": 8.05
+        },
+        {
+          "bbox": {
+            "bottom": 6.76,
+            "left": -6.1,
+            "right": -4.1,
+            "top": 7.34
+          },
+          "h": 0.58,
+          "id": "K6_level",
+          "style": "k_level",
+          "text": "K6: cognition and agency",
+          "w": 2.0,
+          "x": -5.1,
+          "y": 7.050000000000001
+        },
+        {
+          "bbox": {
+            "bottom": 6.76,
+            "left": -3.275,
+            "right": 1.475,
+            "top": 7.34
+          },
+          "h": 0.58,
+          "id": "K6_role",
+          "style": "role",
+          "text": "memory and policy",
+          "w": 4.75,
+          "x": -0.9,
+          "y": 7.050000000000001
+        },
+        {
+          "bbox": {
+            "bottom": 6.76,
+            "left": 2.725,
+            "right": 5.975,
+            "top": 7.34
+          },
+          "h": 0.58,
+          "id": "K6_example",
+          "style": "example",
+          "text": "agent controller",
+          "w": 3.25,
+          "x": 4.35,
+          "y": 7.050000000000001
+        },
+        {
+          "bbox": {
+            "bottom": 5.76,
+            "left": -6.1,
+            "right": -4.1,
+            "top": 6.34
+          },
+          "h": 0.58,
+          "id": "K7_level",
+          "style": "k_level",
+          "text": "K7: social coordination",
+          "w": 2.0,
+          "x": -5.1,
+          "y": 6.050000000000001
+        },
+        {
+          "bbox": {
+            "bottom": 5.76,
+            "left": -3.275,
+            "right": 1.475,
+            "top": 6.34
+          },
+          "h": 0.58,
+          "id": "K7_role",
+          "style": "role",
+          "text": "authority and trust",
+          "w": 4.75,
+          "x": -0.9,
+          "y": 6.050000000000001
+        },
+        {
+          "bbox": {
+            "bottom": 5.76,
+            "left": 2.725,
+            "right": 5.975,
+            "top": 6.34
+          },
+          "h": 0.58,
+          "id": "K7_example",
+          "style": "example",
+          "text": "team / institution",
+          "w": 3.25,
+          "x": 4.35,
+          "y": 6.050000000000001
+        },
+        {
+          "bbox": {
+            "bottom": 4.76,
+            "left": -6.1,
+            "right": -4.1,
+            "top": 5.34
+          },
+          "h": 0.58,
+          "id": "K8_level",
+          "style": "k_level",
+          "text": "K8: civilizational system",
+          "w": 2.0,
+          "x": -5.1,
+          "y": 5.050000000000001
+        },
+        {
+          "bbox": {
+            "bottom": 4.76,
+            "left": -3.275,
+            "right": 1.475,
+            "top": 5.34
+          },
+          "h": 0.58,
+          "id": "K8_role",
+          "style": "role",
+          "text": "market and regulation",
+          "w": 4.75,
+          "x": -0.9,
+          "y": 5.050000000000001
+        },
+        {
+          "bbox": {
+            "bottom": 4.76,
+            "left": 2.725,
+            "right": 5.975,
+            "top": 5.34
+          },
+          "h": 0.58,
+          "id": "K8_example",
+          "style": "example",
+          "text": "platform / economy",
+          "w": 3.25,
+          "x": 4.35,
+          "y": 5.050000000000001
+        },
+        {
+          "bbox": {
+            "bottom": 3.76,
+            "left": -6.1,
+            "right": -4.1,
+            "top": 4.34
+          },
+          "h": 0.58,
+          "id": "K9_level",
+          "style": "k_level",
+          "text": "K9: theory-level system",
+          "w": 2.0,
+          "x": -5.1,
+          "y": 4.050000000000001
+        },
+        {
+          "bbox": {
+            "bottom": 3.76,
+            "left": -3.275,
+            "right": 1.475,
+            "top": 4.34
+          },
+          "h": 0.58,
+          "id": "K9_role",
+          "style": "role",
+          "text": "formal doctrine",
+          "w": 4.75,
+          "x": -0.9,
+          "y": 4.050000000000001
+        },
+        {
+          "bbox": {
+            "bottom": 3.76,
+            "left": 2.725,
+            "right": 5.975,
+            "top": 4.34
+          },
+          "h": 0.58,
+          "id": "K9_example",
+          "style": "example",
+          "text": "model architecture",
+          "w": 3.25,
+          "x": 4.35,
+          "y": 4.050000000000001
+        },
+        {
+          "bbox": {
+            "bottom": 2.76,
+            "left": -6.1,
+            "right": -4.1,
+            "top": 3.34
+          },
+          "h": 0.58,
+          "id": "K10_level",
+          "style": "k_level",
+          "text": "K10: comparator regime",
+          "w": 2.0,
+          "x": -5.1,
+          "y": 3.0500000000000007
+        },
+        {
+          "bbox": {
+            "bottom": 2.76,
+            "left": -3.275,
+            "right": 1.475,
+            "top": 3.34
+          },
+          "h": 0.58,
+          "id": "K10_role",
+          "style": "role",
+          "text": "verification frame",
+          "w": 4.75,
+          "x": -0.9,
+          "y": 3.0500000000000007
+        },
+        {
+          "bbox": {
+            "bottom": 2.76,
+            "left": 2.725,
+            "right": 5.975,
+            "top": 3.34
+          },
+          "h": 0.58,
+          "id": "K10_example",
+          "style": "example",
+          "text": "benchmark / meta-theory",
+          "w": 3.25,
+          "x": 4.35,
+          "y": 3.0500000000000007
+        },
+        {
+          "bbox": {
+            "bottom": 1.76,
+            "left": -6.1,
+            "right": -4.1,
+            "top": 2.34
+          },
+          "h": 0.58,
+          "id": "K11_level",
+          "style": "k_level",
+          "text": "K11: publication quality",
+          "w": 2.0,
+          "x": -5.1,
+          "y": 2.0500000000000007
+        },
+        {
+          "bbox": {
+            "bottom": 1.76,
+            "left": -3.275,
+            "right": 1.475,
+            "top": 2.34
+          },
+          "h": 0.58,
+          "id": "K11_role",
+          "style": "role",
+          "text": "reproducible review",
+          "w": 4.75,
+          "x": -0.9,
+          "y": 2.0500000000000007
+        },
+        {
+          "bbox": {
+            "bottom": 1.76,
+            "left": 2.725,
+            "right": 5.975,
+            "top": 2.34
+          },
+          "h": 0.58,
+          "id": "K11_example",
+          "style": "example",
+          "text": "evidence practice",
+          "w": 3.25,
+          "x": 4.35,
+          "y": 2.0500000000000007
+        },
+        {
+          "bbox": {
+            "bottom": 0.76,
+            "left": -6.1,
+            "right": -4.1,
+            "top": 1.34
+          },
+          "h": 0.58,
+          "id": "K12_level",
+          "style": "k_level",
+          "text": "K12: cross-domain synthesis",
+          "w": 2.0,
+          "x": -5.1,
+          "y": 1.0500000000000007
+        },
+        {
+          "bbox": {
+            "bottom": 0.76,
+            "left": -3.275,
+            "right": 1.475,
+            "top": 1.34
+          },
+          "h": 0.58,
+          "id": "K12_role",
+          "style": "role",
+          "text": "bounded integration",
+          "w": 4.75,
+          "x": -0.9,
+          "y": 1.0500000000000007
+        },
+        {
+          "bbox": {
+            "bottom": 0.76,
+            "left": 2.725,
+            "right": 5.975,
+            "top": 1.34
+          },
+          "h": 0.58,
+          "id": "K12_example",
+          "style": "example",
+          "text": "unified atlas",
+          "w": 3.25,
+          "x": 4.35,
+          "y": 1.0500000000000007
+        }
+      ],
+      "required_semantic_elements": [
+        "K0",
+        "K1",
+        "K2",
+        "K3",
+        "K4",
+        "K5",
+        "K6",
+        "K7",
+        "K8",
+        "K9",
+        "K10",
+        "K11",
+        "K12",
+        "composition",
+        "constraint",
+        "examples",
+        "nested hierarchy"
+      ],
+      "source_rel": "content/r012/02_first_concepts_and_k_primer.tex",
+      "visual_spec_class": "deterministic_tikz_registry"
+    },
+    {
+      "canvas": {
+        "height": 6.8,
+        "margin": 0.35,
+        "width": 13.6
+      },
+      "caption_must_explain": [
+        "demonstrates",
+        "variable",
+        "formula",
+        "evidence"
+      ],
+      "connectors": [
+        {
+          "from": "left",
+          "label": "lawful realization",
+          "to": "right"
+        },
+        {
+          "from": "review",
+          "label": "audit",
+          "to": "left"
+        },
+        {
+          "from": "metric",
+          "label": "measurement",
+          "to": "left/right"
+        },
+        {
+          "from": "formula",
+          "label": "formal link",
+          "to": "right"
+        }
+      ],
+      "evidence_anchor": "corresponding proof, table, or replay section",
+      "figure_id": "r012_inline_28a_oc133_inline_figures_foundation_1",
+      "figure_type": "inline_didactic_route",
+      "formula_anchor": "R_t=\\rho(C,t)",
+      "label": "fig:r012-inline-28a_oc133_inline_figures_foundation-1",
+      "nodes": [
+        {
+          "bbox": {
+            "bottom": 0.475,
+            "left": -6.0,
+            "right": -2.7,
+            "top": 1.525
+          },
+          "h": 1.05,
+          "id": "left",
+          "style": "left",
+          "text": "Carrier C",
+          "w": 3.3,
+          "x": -4.35,
+          "y": 1.0
+        },
+        {
+          "bbox": {
+            "bottom": 0.475,
+            "left": 2.7,
+            "right": 6.0,
+            "top": 1.525
+          },
+          "h": 1.05,
+          "id": "right",
+          "style": "right",
+          "text": "Realization R_t",
+          "w": 3.3,
+          "x": 4.35,
+          "y": 1.0
+        },
+        {
+          "bbox": {
+            "bottom": -1.9,
+            "left": -6.15,
+            "right": -2.55,
+            "top": -1.0
+          },
+          "h": 0.9,
+          "id": "review",
+          "style": "review",
+          "text": "status at t=0,1",
+          "w": 3.6,
+          "x": -4.35,
+          "y": -1.45
+        },
+        {
+          "bbox": {
+            "bottom": -1.9,
+            "left": -1.8,
+            "right": 1.8,
+            "top": -1.0
+          },
+          "h": 0.9,
+          "id": "metric",
+          "style": "metric",
+          "text": "variable or number: status at t=0,1",
+          "w": 3.6,
+          "x": 0.0,
+          "y": -1.45
+        },
+        {
+          "bbox": {
+            "bottom": -1.9,
+            "left": 2.55,
+            "right": 6.15,
+            "top": -1.0
+          },
+          "h": 0.9,
+          "id": "formula",
+          "style": "formula",
+          "text": "formal anchor: R_t=\\rho(C,t)",
+          "w": 3.6,
+          "x": 4.35,
+          "y": -1.45
+        }
+      ],
+      "required_semantic_elements": [
+        "left object",
+        "right object",
+        "arrow",
+        "variable or number",
+        "formula",
+        "evidence link"
+      ],
+      "source_rel": "content/28a_oc133_inline_figures_foundation.tex",
+      "topic": {
+        "arrow": "lawful realization",
+        "caption": "Carrier to realization. The figure demonstrates the reader-facing route from Carrier C to Realization R_t; the relevant variable or number is status at t=0,1, the formula anchor is R_t=\\rho(C,t), and the evidence link is the corresponding proof, table, or replay section in the release corpus.",
+        "formula": "R_t=\\rho(C,t)",
+        "left": "Carrier C",
+        "metric": "status at t=0,1",
+        "review": "status at t=0,1",
+        "right": "Realization R_t",
+        "slug": "carrier-to-realization",
+        "title": "Carrier to realization"
+      },
+      "visual_spec_class": "deterministic_tikz_registry"
+    },
+    {
+      "canvas": {
+        "height": 6.8,
+        "margin": 0.35,
+        "width": 13.6
+      },
+      "caption_must_explain": [
+        "demonstrates",
+        "variable",
+        "formula",
+        "evidence"
+      ],
+      "connectors": [
+        {
+          "from": "left",
+          "label": "status predicate",
+          "to": "right"
+        },
+        {
+          "from": "review",
+          "label": "audit",
+          "to": "left"
+        },
+        {
+          "from": "metric",
+          "label": "measurement",
+          "to": "left/right"
+        },
+        {
+          "from": "formula",
+          "label": "formal link",
+          "to": "right"
+        }
+      ],
+      "evidence_anchor": "corresponding proof, table, or replay section",
+      "figure_id": "r012_inline_28a_oc133_inline_figures_foundation_2",
+      "figure_type": "inline_didactic_route",
+      "formula_anchor": "live(x,t)\\in\\{0,1\\}",
+      "label": "fig:r012-inline-28a_oc133_inline_figures_foundation-2",
+      "nodes": [
+        {
+          "bbox": {
+            "bottom": 0.475,
+            "left": -6.0,
+            "right": -2.7,
+            "top": 1.525
+          },
+          "h": 1.05,
+          "id": "left",
+          "style": "left",
+          "text": "Live state",
+          "w": 3.3,
+          "x": -4.35,
+          "y": 1.0
+        },
+        {
+          "bbox": {
+            "bottom": 0.475,
+            "left": 2.7,
+            "right": 6.0,
+            "top": 1.525
+          },
+          "h": 1.05,
+          "id": "right",
+          "style": "right",
+          "text": "Death boundary",
+          "w": 3.3,
+          "x": 4.35,
+          "y": 1.0
+        },
+        {
+          "bbox": {
+            "bottom": -1.9,
+            "left": -6.15,
+            "right": -2.55,
+            "top": -1.0
+          },
+          "h": 0.9,
+          "id": "review",
+          "style": "review",
+          "text": "binary status",
+          "w": 3.6,
+          "x": -4.35,
+          "y": -1.45
+        },
+        {
+          "bbox": {
+            "bottom": -1.9,
+            "left": -1.8,
+            "right": 1.8,
+            "top": -1.0
+          },
+          "h": 0.9,
+          "id": "metric",
+          "style": "metric",
+          "text": "variable or number: binary status",
+          "w": 3.6,
+          "x": 0.0,
+          "y": -1.45
+        },
+        {
+          "bbox": {
+            "bottom": -1.9,
+            "left": 2.55,
+            "right": 6.15,
+            "top": -1.0
+          },
+          "h": 0.9,
+          "id": "formula",
+          "style": "formula",
+          "text": "formal anchor: live(x,t)\\in\\{0,1\\}",
+          "w": 3.6,
+          "x": 4.35,
+          "y": -1.45
+        }
+      ],
+      "required_semantic_elements": [
+        "left object",
+        "right object",
+        "arrow",
+        "variable or number",
+        "formula",
+        "evidence link"
+      ],
+      "source_rel": "content/28a_oc133_inline_figures_foundation.tex",
+      "topic": {
+        "arrow": "status predicate",
+        "caption": "Liveness status split. The figure demonstrates the reader-facing route from Live state to Death boundary; the relevant variable or number is binary status, the formula anchor is live(x,t)\\in\\{0,1\\}, and the evidence link is the corresponding proof, table, or replay section in the release corpus.",
+        "formula": "live(x,t)\\in\\{0,1\\}",
+        "left": "Live state",
+        "metric": "binary status",
+        "review": "binary status",
+        "right": "Death boundary",
+        "slug": "liveness-status-split",
+        "title": "Liveness status split"
+      },
+      "visual_spec_class": "deterministic_tikz_registry"
+    },
+    {
+      "canvas": {
+        "height": 6.8,
+        "margin": 0.35,
+        "width": 13.6
+      },
+      "caption_must_explain": [
+        "demonstrates",
+        "variable",
+        "formula",
+        "evidence"
+      ],
+      "connectors": [
+        {
+          "from": "left",
+          "label": "classification",
+          "to": "right"
+        },
+        {
+          "from": "review",
+          "label": "audit",
+          "to": "left"
+        },
+        {
+          "from": "metric",
+          "label": "measurement",
+          "to": "left/right"
+        },
+        {
+          "from": "formula",
+          "label": "formal link",
+          "to": "right"
+        }
+      ],
+      "evidence_anchor": "corresponding proof, table, or replay section",
+      "figure_id": "r012_inline_28a_oc133_inline_figures_foundation_3",
+      "figure_type": "inline_didactic_route",
+      "formula_anchor": "residue(x,t)>0",
+      "label": "fig:r012-inline-28a_oc133_inline_figures_foundation-3",
+      "nodes": [
+        {
+          "bbox": {
+            "bottom": 0.475,
+            "left": -6.0,
+            "right": -2.7,
+            "top": 1.525
+          },
+          "h": 1.05,
+          "id": "left",
+          "style": "left",
+          "text": "Collapse event",
+          "w": 3.3,
+          "x": -4.35,
+          "y": 1.0
+        },
+        {
+          "bbox": {
+            "bottom": 0.475,
+            "left": 2.7,
+            "right": 6.0,
+            "top": 1.525
+          },
+          "h": 1.05,
+          "id": "right",
+          "style": "right",
+          "text": "Residue class",
+          "w": 3.3,
+          "x": 4.35,
+          "y": 1.0
+        },
+        {
+          "bbox": {
+            "bottom": -1.9,
+            "left": -6.15,
+            "right": -2.55,
+            "top": -1.0
+          },
+          "h": 0.9,
+          "id": "review",
+          "style": "review",
+          "text": "survivor count",
+          "w": 3.6,
+          "x": -4.35,
+          "y": -1.45
+        },
+        {
+          "bbox": {
+            "bottom": -1.9,
+            "left": -1.8,
+            "right": 1.8,
+            "top": -1.0
+          },
+          "h": 0.9,
+          "id": "metric",
+          "style": "metric",
+          "text": "variable or number: survivor count",
+          "w": 3.6,
+          "x": 0.0,
+          "y": -1.45
+        },
+        {
+          "bbox": {
+            "bottom": -1.9,
+            "left": 2.55,
+            "right": 6.15,
+            "top": -1.0
+          },
+          "h": 0.9,
+          "id": "formula",
+          "style": "formula",
+          "text": "formal anchor: residue(x,t)>0",
+          "w": 3.6,
+          "x": 4.35,
+          "y": -1.45
+        }
+      ],
+      "required_semantic_elements": [
+        "left object",
+        "right object",
+        "arrow",
+        "variable or number",
+        "formula",
+        "evidence link"
+      ],
+      "source_rel": "content/28a_oc133_inline_figures_foundation.tex",
+      "topic": {
+        "arrow": "classification",
+        "caption": "Residue after collapse. The figure demonstrates the reader-facing route from Collapse event to Residue class; the relevant variable or number is survivor count, the formula anchor is residue(x,t)>0, and the evidence link is the corresponding proof, table, or replay section in the release corpus.",
+        "formula": "residue(x,t)>0",
+        "left": "Collapse event",
+        "metric": "survivor count",
+        "review": "survivor count",
+        "right": "Residue class",
+        "slug": "residue-after-collapse",
+        "title": "Residue after collapse"
+      },
+      "visual_spec_class": "deterministic_tikz_registry"
+    },
+    {
+      "canvas": {
+        "height": 6.8,
+        "margin": 0.35,
+        "width": 13.6
+      },
+      "caption_must_explain": [
+        "demonstrates",
+        "variable",
+        "formula",
+        "evidence"
+      ],
+      "connectors": [
+        {
+          "from": "left",
+          "label": "continuation rule",
+          "to": "right"
+        },
+        {
+          "from": "review",
+          "label": "audit",
+          "to": "left"
+        },
+        {
+          "from": "metric",
+          "label": "measurement",
+          "to": "left/right"
+        },
+        {
+          "from": "formula",
+          "label": "formal link",
+          "to": "right"
+        }
+      ],
+      "evidence_anchor": "corresponding proof, table, or replay section",
+      "figure_id": "r012_inline_28a_oc133_inline_figures_foundation_4",
+      "figure_type": "inline_didactic_route",
+      "formula_anchor": "C_{t+1}=F(C_t)",
+      "label": "fig:r012-inline-28a_oc133_inline_figures_foundation-4",
+      "nodes": [
+        {
+          "bbox": {
+            "bottom": 0.475,
+            "left": -6.0,
+            "right": -2.7,
+            "top": 1.525
+          },
+          "h": 1.05,
+          "id": "left",
+          "style": "left",
+          "text": "Residual carrier",
+          "w": 3.3,
+          "x": -4.35,
+          "y": 1.0
+        },
+        {
+          "bbox": {
+            "bottom": 0.475,
+            "left": 2.7,
+            "right": 6.0,
+            "top": 1.525
+          },
+          "h": 1.05,
+          "id": "right",
+          "style": "right",
+          "text": "New realization",
+          "w": 3.3,
+          "x": 4.35,
+          "y": 1.0
+        },
+        {
+          "bbox": {
+            "bottom": -1.9,
+            "left": -6.15,
+            "right": -2.55,
+            "top": -1.0
+          },
+          "h": 0.9,
+          "id": "review",
+          "style": "review",
+          "text": "continuation index",
+          "w": 3.6,
+          "x": -4.35,
+          "y": -1.45
+        },
+        {
+          "bbox": {
+            "bottom": -1.9,
+            "left": -1.8,
+            "right": 1.8,
+            "top": -1.0
+          },
+          "h": 0.9,
+          "id": "metric",
+          "style": "metric",
+          "text": "variable or number: continuation index",
+          "w": 3.6,
+          "x": 0.0,
+          "y": -1.45
+        },
+        {
+          "bbox": {
+            "bottom": -1.9,
+            "left": 2.55,
+            "right": 6.15,
+            "top": -1.0
+          },
+          "h": 0.9,
+          "id": "formula",
+          "style": "formula",
+          "text": "formal anchor: C_{t+1}=F(C_t)",
+          "w": 3.6,
+          "x": 4.35,
+          "y": -1.45
+        }
+      ],
+      "required_semantic_elements": [
+        "left object",
+        "right object",
+        "arrow",
+        "variable or number",
+        "formula",
+        "evidence link"
+      ],
+      "source_rel": "content/28a_oc133_inline_figures_foundation.tex",
+      "topic": {
+        "arrow": "continuation rule",
+        "caption": "Rebirth continuation. The figure demonstrates the reader-facing route from Residual carrier to New realization; the relevant variable or number is continuation index, the formula anchor is C_{t+1}=F(C_t), and the evidence link is the corresponding proof, table, or replay section in the release corpus.",
+        "formula": "C_{t+1}=F(C_t)",
+        "left": "Residual carrier",
+        "metric": "continuation index",
+        "review": "continuation index",
+        "right": "New realization",
+        "slug": "rebirth-continuation",
+        "title": "Rebirth continuation"
+      },
+      "visual_spec_class": "deterministic_tikz_registry"
+    },
+    {
+      "canvas": {
+        "height": 6.8,
+        "margin": 0.35,
+        "width": 13.6
+      },
+      "caption_must_explain": [
+        "demonstrates",
+        "variable",
+        "formula",
+        "evidence"
+      ],
+      "connectors": [
+        {
+          "from": "left",
+          "label": "admissibility check",
+          "to": "right"
+        },
+        {
+          "from": "review",
+          "label": "audit",
+          "to": "left"
+        },
+        {
+          "from": "metric",
+          "label": "measurement",
+          "to": "left/right"
+        },
+        {
+          "from": "formula",
+          "label": "formal link",
+          "to": "right"
+        }
+      ],
+      "evidence_anchor": "corresponding proof, table, or replay section",
+      "figure_id": "r012_inline_28a_oc133_inline_figures_foundation_5",
+      "figure_type": "inline_didactic_route",
+      "formula_anchor": "claim\\mapsto evidence",
+      "label": "fig:r012-inline-28a_oc133_inline_figures_foundation-5",
+      "nodes": [
+        {
+          "bbox": {
+            "bottom": 0.475,
+            "left": -6.0,
+            "right": -2.7,
+            "top": 1.525
+          },
+          "h": 1.05,
+          "id": "left",
+          "style": "left",
+          "text": "Claim type",
+          "w": 3.3,
+          "x": -4.35,
+          "y": 1.0
+        },
+        {
+          "bbox": {
+            "bottom": 0.475,
+            "left": 2.7,
+            "right": 6.0,
+            "top": 1.525
+          },
+          "h": 1.05,
+          "id": "right",
+          "style": "right",
+          "text": "Allowed evidence",
+          "w": 3.3,
+          "x": 4.35,
+          "y": 1.0
+        },
+        {
+          "bbox": {
+            "bottom": -1.9,
+            "left": -6.15,
+            "right": -2.55,
+            "top": -1.0
+          },
+          "h": 0.9,
+          "id": "review",
+          "style": "review",
+          "text": "claim family",
+          "w": 3.6,
+          "x": -4.35,
+          "y": -1.45
+        },
+        {
+          "bbox": {
+            "bottom": -1.9,
+            "left": -1.8,
+            "right": 1.8,
+            "top": -1.0
+          },
+          "h": 0.9,
+          "id": "metric",
+          "style": "metric",
+          "text": "variable or number: claim family",
+          "w": 3.6,
+          "x": 0.0,
+          "y": -1.45
+        },
+        {
+          "bbox": {
+            "bottom": -1.9,
+            "left": 2.55,
+            "right": 6.15,
+            "top": -1.0
+          },
+          "h": 0.9,
+          "id": "formula",
+          "style": "formula",
+          "text": "formal anchor: claim\\mapsto evidence",
+          "w": 3.6,
+          "x": 4.35,
+          "y": -1.45
+        }
+      ],
+      "required_semantic_elements": [
+        "left object",
+        "right object",
+        "arrow",
+        "variable or number",
+        "formula",
+        "evidence link"
+      ],
+      "source_rel": "content/28a_oc133_inline_figures_foundation.tex",
+      "topic": {
+        "arrow": "admissibility check",
+        "caption": "Type discipline. The figure demonstrates the reader-facing route from Claim type to Allowed evidence; the relevant variable or number is claim family, the formula anchor is claim\\mapsto evidence, and the evidence link is the corresponding proof, table, or replay section in the release corpus.",
+        "formula": "claim\\mapsto evidence",
+        "left": "Claim type",
+        "metric": "claim family",
+        "review": "claim family",
+        "right": "Allowed evidence",
+        "slug": "type-discipline",
+        "title": "Type discipline"
+      },
+      "visual_spec_class": "deterministic_tikz_registry"
+    },
+    {
+      "canvas": {
+        "height": 6.8,
+        "margin": 0.35,
+        "width": 13.6
+      },
+      "caption_must_explain": [
+        "demonstrates",
+        "variable",
+        "formula",
+        "evidence"
+      ],
+      "connectors": [
+        {
+          "from": "left",
+          "label": "stress test",
+          "to": "right"
+        },
+        {
+          "from": "review",
+          "label": "audit",
+          "to": "left"
+        },
+        {
+          "from": "metric",
+          "label": "measurement",
+          "to": "left/right"
+        },
+        {
+          "from": "formula",
+          "label": "formal link",
+          "to": "right"
+        }
+      ],
+      "evidence_anchor": "corresponding proof, table, or replay section",
+      "figure_id": "r012_inline_28a_oc133_inline_figures_foundation_6",
+      "figure_type": "inline_didactic_route",
+      "formula_anchor": "\\partial\\Omega \\neq \\varnothing",
+      "label": "fig:r012-inline-28a_oc133_inline_figures_foundation-6",
+      "nodes": [
+        {
+          "bbox": {
+            "bottom": 0.475,
+            "left": -6.0,
+            "right": -2.7,
+            "top": 1.525
+          },
+          "h": 1.05,
+          "id": "left",
+          "style": "left",
+          "text": "Assumption",
+          "w": 3.3,
+          "x": -4.35,
+          "y": 1.0
+        },
+        {
+          "bbox": {
+            "bottom": 0.475,
+            "left": 2.7,
+            "right": 6.0,
+            "top": 1.525
+          },
+          "h": 1.05,
+          "id": "right",
+          "style": "right",
+          "text": "Falsifier",
+          "w": 3.3,
+          "x": 4.35,
+          "y": 1.0
+        },
+        {
+          "bbox": {
+            "bottom": -1.9,
+            "left": -6.15,
+            "right": -2.55,
+            "top": -1.0
+          },
+          "h": 0.9,
+          "id": "review",
+          "style": "review",
+          "text": "negative control",
+          "w": 3.6,
+          "x": -4.35,
+          "y": -1.45
+        },
+        {
+          "bbox": {
+            "bottom": -1.9,
+            "left": -1.8,
+            "right": 1.8,
+            "top": -1.0
+          },
+          "h": 0.9,
+          "id": "metric",
+          "style": "metric",
+          "text": "variable or number: negative control",
+          "w": 3.6,
+          "x": 0.0,
+          "y": -1.45
+        },
+        {
+          "bbox": {
+            "bottom": -1.9,
+            "left": 2.55,
+            "right": 6.15,
+            "top": -1.0
+          },
+          "h": 0.9,
+          "id": "formula",
+          "style": "formula",
+          "text": "formal anchor: \\partial\\Omega \\neq \\varnothing",
+          "w": 3.6,
+          "x": 4.35,
+          "y": -1.45
+        }
+      ],
+      "required_semantic_elements": [
+        "left object",
+        "right object",
+        "arrow",
+        "variable or number",
+        "formula",
+        "evidence link"
+      ],
+      "source_rel": "content/28a_oc133_inline_figures_foundation.tex",
+      "topic": {
+        "arrow": "stress test",
+        "caption": "Boundary test. The figure demonstrates the reader-facing route from Assumption to Falsifier; the relevant variable or number is negative control, the formula anchor is \\partial\\Omega \\neq \\varnothing, and the evidence link is the corresponding proof, table, or replay section in the release corpus.",
+        "formula": "\\partial\\Omega \\neq \\varnothing",
+        "left": "Assumption",
+        "metric": "negative control",
+        "review": "negative control",
+        "right": "Falsifier",
+        "slug": "boundary-test",
+        "title": "Boundary test"
+      },
+      "visual_spec_class": "deterministic_tikz_registry"
+    },
+    {
+      "canvas": {
+        "height": 6.8,
+        "margin": 0.35,
+        "width": 13.6
+      },
+      "caption_must_explain": [
+        "demonstrates",
+        "variable",
+        "formula",
+        "evidence"
+      ],
+      "connectors": [
+        {
+          "from": "left",
+          "label": "derivation",
+          "to": "right"
+        },
+        {
+          "from": "review",
+          "label": "audit",
+          "to": "left"
+        },
+        {
+          "from": "metric",
+          "label": "measurement",
+          "to": "left/right"
+        },
+        {
+          "from": "formula",
+          "label": "formal link",
+          "to": "right"
+        }
+      ],
+      "evidence_anchor": "corresponding proof, table, or replay section",
+      "figure_id": "r012_inline_28b_oc133_inline_figures_proof_route_1",
+      "figure_type": "inline_didactic_route",
+      "formula_anchor": "\\Gamma\\vdash T",
+      "label": "fig:r012-inline-28b_oc133_inline_figures_proof_route-1",
+      "nodes": [
+        {
+          "bbox": {
+            "bottom": 0.475,
+            "left": -6.0,
+            "right": -2.7,
+            "top": 1.525
+          },
+          "h": 1.05,
+          "id": "left",
+          "style": "left",
+          "text": "Axiom set",
+          "w": 3.3,
+          "x": -4.35,
+          "y": 1.0
+        },
+        {
+          "bbox": {
+            "bottom": 0.475,
+            "left": 2.7,
+            "right": 6.0,
+            "top": 1.525
+          },
+          "h": 1.05,
+          "id": "right",
+          "style": "right",
+          "text": "Theorem route",
+          "w": 3.3,
+          "x": 4.35,
+          "y": 1.0
+        },
+        {
+          "bbox": {
+            "bottom": -1.9,
+            "left": -6.15,
+            "right": -2.55,
+            "top": -1.0
+          },
+          "h": 0.9,
+          "id": "review",
+          "style": "review",
+          "text": "proof status",
+          "w": 3.6,
+          "x": -4.35,
+          "y": -1.45
+        },
+        {
+          "bbox": {
+            "bottom": -1.9,
+            "left": -1.8,
+            "right": 1.8,
+            "top": -1.0
+          },
+          "h": 0.9,
+          "id": "metric",
+          "style": "metric",
+          "text": "variable or number: proof status",
+          "w": 3.6,
+          "x": 0.0,
+          "y": -1.45
+        },
+        {
+          "bbox": {
+            "bottom": -1.9,
+            "left": 2.55,
+            "right": 6.15,
+            "top": -1.0
+          },
+          "h": 0.9,
+          "id": "formula",
+          "style": "formula",
+          "text": "formal anchor: \\Gamma\\vdash T",
+          "w": 3.6,
+          "x": 4.35,
+          "y": -1.45
+        }
+      ],
+      "required_semantic_elements": [
+        "left object",
+        "right object",
+        "arrow",
+        "variable or number",
+        "formula",
+        "evidence link"
+      ],
+      "source_rel": "content/28b_oc133_inline_figures_proof_route.tex",
+      "topic": {
+        "arrow": "derivation",
+        "caption": "Axiom to theorem. The figure demonstrates the reader-facing route from Axiom set to Theorem route; the relevant variable or number is proof status, the formula anchor is \\Gamma\\vdash T, and the evidence link is the corresponding proof, table, or replay section in the release corpus.",
+        "formula": "\\Gamma\\vdash T",
+        "left": "Axiom set",
+        "metric": "proof status",
+        "review": "proof status",
+        "right": "Theorem route",
+        "slug": "axiom-to-theorem",
+        "title": "Axiom to theorem"
+      },
+      "visual_spec_class": "deterministic_tikz_registry"
+    },
+    {
+      "canvas": {
+        "height": 6.8,
+        "margin": 0.35,
+        "width": 13.6
+      },
+      "caption_must_explain": [
+        "demonstrates",
+        "variable",
+        "formula",
+        "evidence"
+      ],
+      "connectors": [
+        {
+          "from": "left",
+          "label": "formal subset",
+          "to": "right"
+        },
+        {
+          "from": "review",
+          "label": "audit",
+          "to": "left"
+        },
+        {
+          "from": "metric",
+          "label": "measurement",
+          "to": "left/right"
+        },
+        {
+          "from": "formula",
+          "label": "formal link",
+          "to": "right"
+        }
+      ],
+      "evidence_anchor": "corresponding proof, table, or replay section",
+      "figure_id": "r012_inline_28b_oc133_inline_figures_proof_route_2",
+      "figure_type": "inline_didactic_route",
+      "formula_anchor": "L\\subseteq T",
+      "label": "fig:r012-inline-28b_oc133_inline_figures_proof_route-2",
+      "nodes": [
+        {
+          "bbox": {
+            "bottom": 0.475,
+            "left": -6.0,
+            "right": -2.7,
+            "top": 1.525
+          },
+          "h": 1.05,
+          "id": "left",
+          "style": "left",
+          "text": "Human theorem",
+          "w": 3.3,
+          "x": -4.35,
+          "y": 1.0
+        },
+        {
+          "bbox": {
+            "bottom": 0.475,
+            "left": 2.7,
+            "right": 6.0,
+            "top": 1.525
+          },
+          "h": 1.05,
+          "id": "right",
+          "style": "right",
+          "text": "Mechanized subset",
+          "w": 3.3,
+          "x": 4.35,
+          "y": 1.0
+        },
+        {
+          "bbox": {
+            "bottom": -1.9,
+            "left": -6.15,
+            "right": -2.55,
+            "top": -1.0
+          },
+          "h": 0.9,
+          "id": "review",
+          "style": "review",
+          "text": "checked lemmas",
+          "w": 3.6,
+          "x": -4.35,
+          "y": -1.45
+        },
+        {
+          "bbox": {
+            "bottom": -1.9,
+            "left": -1.8,
+            "right": 1.8,
+            "top": -1.0
+          },
+          "h": 0.9,
+          "id": "metric",
+          "style": "metric",
+          "text": "variable or number: checked lemmas",
+          "w": 3.6,
+          "x": 0.0,
+          "y": -1.45
+        },
+        {
+          "bbox": {
+            "bottom": -1.9,
+            "left": 2.55,
+            "right": 6.15,
+            "top": -1.0
+          },
+          "h": 0.9,
+          "id": "formula",
+          "style": "formula",
+          "text": "formal anchor: L\\subseteq T",
+          "w": 3.6,
+          "x": 4.35,
+          "y": -1.45
+        }
+      ],
+      "required_semantic_elements": [
+        "left object",
+        "right object",
+        "arrow",
+        "variable or number",
+        "formula",
+        "evidence link"
+      ],
+      "source_rel": "content/28b_oc133_inline_figures_proof_route.tex",
+      "topic": {
+        "arrow": "formal subset",
+        "caption": "Lean subset. The figure demonstrates the reader-facing route from Human theorem to Mechanized subset; the relevant variable or number is checked lemmas, the formula anchor is L\\subseteq T, and the evidence link is the corresponding proof, table, or replay section in the release corpus.",
+        "formula": "L\\subseteq T",
+        "left": "Human theorem",
+        "metric": "checked lemmas",
+        "review": "checked lemmas",
+        "right": "Mechanized subset",
+        "slug": "lean-subset",
+        "title": "Lean subset"
+      },
+      "visual_spec_class": "deterministic_tikz_registry"
+    },
+    {
+      "canvas": {
+        "height": 6.8,
+        "margin": 0.35,
+        "width": 13.6
+      },
+      "caption_must_explain": [
+        "demonstrates",
+        "variable",
+        "formula",
+        "evidence"
+      ],
+      "connectors": [
+        {
+          "from": "left",
+          "label": "satisfaction",
+          "to": "right"
+        },
+        {
+          "from": "review",
+          "label": "audit",
+          "to": "left"
+        },
+        {
+          "from": "metric",
+          "label": "measurement",
+          "to": "left/right"
+        },
+        {
+          "from": "formula",
+          "label": "formal link",
+          "to": "right"
+        }
+      ],
+      "evidence_anchor": "corresponding proof, table, or replay section",
+      "figure_id": "r012_inline_28b_oc133_inline_figures_proof_route_3",
+      "figure_type": "inline_didactic_route",
+      "formula_anchor": "M\\models\\varphi",
+      "label": "fig:r012-inline-28b_oc133_inline_figures_proof_route-3",
+      "nodes": [
+        {
+          "bbox": {
+            "bottom": 0.475,
+            "left": -6.0,
+            "right": -2.7,
+            "top": 1.525
+          },
+          "h": 1.05,
+          "id": "left",
+          "style": "left",
+          "text": "Model instance",
+          "w": 3.3,
+          "x": -4.35,
+          "y": 1.0
+        },
+        {
+          "bbox": {
+            "bottom": 0.475,
+            "left": 2.7,
+            "right": 6.0,
+            "top": 1.525
+          },
+          "h": 1.05,
+          "id": "right",
+          "style": "right",
+          "text": "Finite witness",
+          "w": 3.3,
+          "x": 4.35,
+          "y": 1.0
+        },
+        {
+          "bbox": {
+            "bottom": -1.9,
+            "left": -6.15,
+            "right": -2.55,
+            "top": -1.0
+          },
+          "h": 0.9,
+          "id": "review",
+          "style": "review",
+          "text": "model count",
+          "w": 3.6,
+          "x": -4.35,
+          "y": -1.45
+        },
+        {
+          "bbox": {
+            "bottom": -1.9,
+            "left": -1.8,
+            "right": 1.8,
+            "top": -1.0
+          },
+          "h": 0.9,
+          "id": "metric",
+          "style": "metric",
+          "text": "variable or number: model count",
+          "w": 3.6,
+          "x": 0.0,
+          "y": -1.45
+        },
+        {
+          "bbox": {
+            "bottom": -1.9,
+            "left": 2.55,
+            "right": 6.15,
+            "top": -1.0
+          },
+          "h": 0.9,
+          "id": "formula",
+          "style": "formula",
+          "text": "formal anchor: M\\models\\varphi",
+          "w": 3.6,
+          "x": 4.35,
+          "y": -1.45
+        }
+      ],
+      "required_semantic_elements": [
+        "left object",
+        "right object",
+        "arrow",
+        "variable or number",
+        "formula",
+        "evidence link"
+      ],
+      "source_rel": "content/28b_oc133_inline_figures_proof_route.tex",
+      "topic": {
+        "arrow": "satisfaction",
+        "caption": "Finite semantics. The figure demonstrates the reader-facing route from Model instance to Finite witness; the relevant variable or number is model count, the formula anchor is M\\models\\varphi, and the evidence link is the corresponding proof, table, or replay section in the release corpus.",
+        "formula": "M\\models\\varphi",
+        "left": "Model instance",
+        "metric": "model count",
+        "review": "model count",
+        "right": "Finite witness",
+        "slug": "finite-semantics",
+        "title": "Finite semantics"
+      },
+      "visual_spec_class": "deterministic_tikz_registry"
+    },
+    {
+      "canvas": {
+        "height": 6.8,
+        "margin": 0.35,
+        "width": 13.6
+      },
+      "caption_must_explain": [
+        "demonstrates",
+        "variable",
+        "formula",
+        "evidence"
+      ],
+      "connectors": [
+        {
+          "from": "left",
+          "label": "control contrast",
+          "to": "right"
+        },
+        {
+          "from": "review",
+          "label": "audit",
+          "to": "left"
+        },
+        {
+          "from": "metric",
+          "label": "measurement",
+          "to": "left/right"
+        },
+        {
+          "from": "formula",
+          "label": "formal link",
+          "to": "right"
+        }
+      ],
+      "evidence_anchor": "corresponding proof, table, or replay section",
+      "figure_id": "r012_inline_28b_oc133_inline_figures_proof_route_4",
+      "figure_type": "inline_didactic_route",
+      "formula_anchor": "control(T)=0",
+      "label": "fig:r012-inline-28b_oc133_inline_figures_proof_route-4",
+      "nodes": [
+        {
+          "bbox": {
+            "bottom": 0.475,
+            "left": -6.0,
+            "right": -2.7,
+            "top": 1.525
+          },
+          "h": 1.05,
+          "id": "left",
+          "style": "left",
+          "text": "Claim route",
+          "w": 3.3,
+          "x": -4.35,
+          "y": 1.0
+        },
+        {
+          "bbox": {
+            "bottom": 0.475,
+            "left": 2.7,
+            "right": 6.0,
+            "top": 1.525
+          },
+          "h": 1.05,
+          "id": "right",
+          "style": "right",
+          "text": "Permuted label",
+          "w": 3.3,
+          "x": 4.35,
+          "y": 1.0
+        },
+        {
+          "bbox": {
+            "bottom": -1.9,
+            "left": -6.15,
+            "right": -2.55,
+            "top": -1.0
+          },
+          "h": 0.9,
+          "id": "review",
+          "style": "review",
+          "text": "expected failure",
+          "w": 3.6,
+          "x": -4.35,
+          "y": -1.45
+        },
+        {
+          "bbox": {
+            "bottom": -1.9,
+            "left": -1.8,
+            "right": 1.8,
+            "top": -1.0
+          },
+          "h": 0.9,
+          "id": "metric",
+          "style": "metric",
+          "text": "variable or number: expected failure",
+          "w": 3.6,
+          "x": 0.0,
+          "y": -1.45
+        },
+        {
+          "bbox": {
+            "bottom": -1.9,
+            "left": 2.55,
+            "right": 6.15,
+            "top": -1.0
+          },
+          "h": 0.9,
+          "id": "formula",
+          "style": "formula",
+          "text": "formal anchor: control(T)=0",
+          "w": 3.6,
+          "x": 4.35,
+          "y": -1.45
+        }
+      ],
+      "required_semantic_elements": [
+        "left object",
+        "right object",
+        "arrow",
+        "variable or number",
+        "formula",
+        "evidence link"
+      ],
+      "source_rel": "content/28b_oc133_inline_figures_proof_route.tex",
+      "topic": {
+        "arrow": "control contrast",
+        "caption": "Negative control. The figure demonstrates the reader-facing route from Claim route to Permuted label; the relevant variable or number is expected failure, the formula anchor is control(T)=0, and the evidence link is the corresponding proof, table, or replay section in the release corpus.",
+        "formula": "control(T)=0",
+        "left": "Claim route",
+        "metric": "expected failure",
+        "review": "expected failure",
+        "right": "Permuted label",
+        "slug": "negative-control",
+        "title": "Negative control"
+      },
+      "visual_spec_class": "deterministic_tikz_registry"
+    },
+    {
+      "canvas": {
+        "height": 6.8,
+        "margin": 0.35,
+        "width": 13.6
+      },
+      "caption_must_explain": [
+        "demonstrates",
+        "variable",
+        "formula",
+        "evidence"
+      ],
+      "connectors": [
+        {
+          "from": "left",
+          "label": "dependency edge",
+          "to": "right"
+        },
+        {
+          "from": "review",
+          "label": "audit",
+          "to": "left"
+        },
+        {
+          "from": "metric",
+          "label": "measurement",
+          "to": "left/right"
+        },
+        {
+          "from": "formula",
+          "label": "formal link",
+          "to": "right"
+        }
+      ],
+      "evidence_anchor": "corresponding proof, table, or replay section",
+      "figure_id": "r012_inline_28b_oc133_inline_figures_proof_route_5",
+      "figure_type": "inline_didactic_route",
+      "formula_anchor": "A_i\\Rightarrow T_j",
+      "label": "fig:r012-inline-28b_oc133_inline_figures_proof_route-5",
+      "nodes": [
+        {
+          "bbox": {
+            "bottom": 0.475,
+            "left": -6.0,
+            "right": -2.7,
+            "top": 1.525
+          },
+          "h": 1.05,
+          "id": "left",
+          "style": "left",
+          "text": "Assumption",
+          "w": 3.3,
+          "x": -4.35,
+          "y": 1.0
+        },
+        {
+          "bbox": {
+            "bottom": 0.475,
+            "left": 2.7,
+            "right": 6.0,
+            "top": 1.525
+          },
+          "h": 1.05,
+          "id": "right",
+          "style": "right",
+          "text": "Proof dependency",
+          "w": 3.3,
+          "x": 4.35,
+          "y": 1.0
+        },
+        {
+          "bbox": {
+            "bottom": -1.9,
+            "left": -6.15,
+            "right": -2.55,
+            "top": -1.0
+          },
+          "h": 0.9,
+          "id": "review",
+          "style": "review",
+          "text": "open assumption total",
+          "w": 3.6,
+          "x": -4.35,
+          "y": -1.45
+        },
+        {
+          "bbox": {
+            "bottom": -1.9,
+            "left": -1.8,
+            "right": 1.8,
+            "top": -1.0
+          },
+          "h": 0.9,
+          "id": "metric",
+          "style": "metric",
+          "text": "variable or number: open assumption total",
+          "w": 3.6,
+          "x": 0.0,
+          "y": -1.45
+        },
+        {
+          "bbox": {
+            "bottom": -1.9,
+            "left": 2.55,
+            "right": 6.15,
+            "top": -1.0
+          },
+          "h": 0.9,
+          "id": "formula",
+          "style": "formula",
+          "text": "formal anchor: A_i\\Rightarrow T_j",
+          "w": 3.6,
+          "x": 4.35,
+          "y": -1.45
+        }
+      ],
+      "required_semantic_elements": [
+        "left object",
+        "right object",
+        "arrow",
+        "variable or number",
+        "formula",
+        "evidence link"
+      ],
+      "source_rel": "content/28b_oc133_inline_figures_proof_route.tex",
+      "topic": {
+        "arrow": "dependency edge",
+        "caption": "Assumption ledger. The figure demonstrates the reader-facing route from Assumption to Proof dependency; the relevant variable or number is open assumption total, the formula anchor is A_i\\Rightarrow T_j, and the evidence link is the corresponding proof, table, or replay section in the release corpus.",
+        "formula": "A_i\\Rightarrow T_j",
+        "left": "Assumption",
+        "metric": "open assumption total",
+        "review": "open assumption total",
+        "right": "Proof dependency",
+        "slug": "assumption-ledger",
+        "title": "Assumption ledger"
+      },
+      "visual_spec_class": "deterministic_tikz_registry"
+    },
+    {
+      "canvas": {
+        "height": 6.8,
+        "margin": 0.35,
+        "width": 13.6
+      },
+      "caption_must_explain": [
+        "demonstrates",
+        "variable",
+        "formula",
+        "evidence"
+      ],
+      "connectors": [
+        {
+          "from": "left",
+          "label": "promotion boundary",
+          "to": "right"
+        },
+        {
+          "from": "review",
+          "label": "audit",
+          "to": "left"
+        },
+        {
+          "from": "metric",
+          "label": "measurement",
+          "to": "left/right"
+        },
+        {
+          "from": "formula",
+          "label": "formal link",
+          "to": "right"
+        }
+      ],
+      "evidence_anchor": "corresponding proof, table, or replay section",
+      "figure_id": "r012_inline_28b_oc133_inline_figures_proof_route_6",
+      "figure_type": "inline_didactic_route",
+      "formula_anchor": "status\\in\\{open,closed\\}",
+      "label": "fig:r012-inline-28b_oc133_inline_figures_proof_route-6",
+      "nodes": [
+        {
+          "bbox": {
+            "bottom": 0.475,
+            "left": -6.0,
+            "right": -2.7,
+            "top": 1.525
+          },
+          "h": 1.05,
+          "id": "left",
+          "style": "left",
+          "text": "Local proof",
+          "w": 3.3,
+          "x": -4.35,
+          "y": 1.0
+        },
+        {
+          "bbox": {
+            "bottom": 0.475,
+            "left": 2.7,
+            "right": 6.0,
+            "top": 1.525
+          },
+          "h": 1.05,
+          "id": "right",
+          "style": "right",
+          "text": "Release claim",
+          "w": 3.3,
+          "x": 4.35,
+          "y": 1.0
+        },
+        {
+          "bbox": {
+            "bottom": -1.9,
+            "left": -6.15,
+            "right": -2.55,
+            "top": -1.0
+          },
+          "h": 0.9,
+          "id": "review",
+          "style": "review",
+          "text": "closure status",
+          "w": 3.6,
+          "x": -4.35,
+          "y": -1.45
+        },
+        {
+          "bbox": {
+            "bottom": -1.9,
+            "left": -1.8,
+            "right": 1.8,
+            "top": -1.0
+          },
+          "h": 0.9,
+          "id": "metric",
+          "style": "metric",
+          "text": "variable or number: closure status",
+          "w": 3.6,
+          "x": 0.0,
+          "y": -1.45
+        },
+        {
+          "bbox": {
+            "bottom": -1.9,
+            "left": 2.55,
+            "right": 6.15,
+            "top": -1.0
+          },
+          "h": 0.9,
+          "id": "formula",
+          "style": "formula",
+          "text": "formal anchor: status\\in\\{open,closed\\}",
+          "w": 3.6,
+          "x": 4.35,
+          "y": -1.45
+        }
+      ],
+      "required_semantic_elements": [
+        "left object",
+        "right object",
+        "arrow",
+        "variable or number",
+        "formula",
+        "evidence link"
+      ],
+      "source_rel": "content/28b_oc133_inline_figures_proof_route.tex",
+      "topic": {
+        "arrow": "promotion boundary",
+        "caption": "Proof closure. The figure demonstrates the reader-facing route from Local proof to Release claim; the relevant variable or number is closure status, the formula anchor is status\\in\\{open,closed\\}, and the evidence link is the corresponding proof, table, or replay section in the release corpus.",
+        "formula": "status\\in\\{open,closed\\}",
+        "left": "Local proof",
+        "metric": "closure status",
+        "review": "closure status",
+        "right": "Release claim",
+        "slug": "proof-closure",
+        "title": "Proof closure"
+      },
+      "visual_spec_class": "deterministic_tikz_registry"
+    },
+    {
+      "canvas": {
+        "height": 6.8,
+        "margin": 0.35,
+        "width": 13.6
+      },
+      "caption_must_explain": [
+        "demonstrates",
+        "variable",
+        "formula",
+        "evidence"
+      ],
+      "connectors": [
+        {
+          "from": "left",
+          "label": "extraction",
+          "to": "right"
+        },
+        {
+          "from": "review",
+          "label": "audit",
+          "to": "left"
+        },
+        {
+          "from": "metric",
+          "label": "measurement",
+          "to": "left/right"
+        },
+        {
+          "from": "formula",
+          "label": "formal link",
+          "to": "right"
+        }
+      ],
+      "evidence_anchor": "corresponding proof, table, or replay section",
+      "figure_id": "r012_inline_28c_oc133_inline_figures_evidence_route_1",
+      "figure_type": "inline_didactic_route",
+      "formula_anchor": "d\\mapsto r",
+      "label": "fig:r012-inline-28c_oc133_inline_figures_evidence_route-1",
+      "nodes": [
+        {
+          "bbox": {
+            "bottom": 0.475,
+            "left": -6.0,
+            "right": -2.7,
+            "top": 1.525
+          },
+          "h": 1.05,
+          "id": "left",
+          "style": "left",
+          "text": "Source datum",
+          "w": 3.3,
+          "x": -4.35,
+          "y": 1.0
+        },
+        {
+          "bbox": {
+            "bottom": 0.475,
+            "left": 2.7,
+            "right": 6.0,
+            "top": 1.525
+          },
+          "h": 1.05,
+          "id": "right",
+          "style": "right",
+          "text": "Promoted row",
+          "w": 3.3,
+          "x": 4.35,
+          "y": 1.0
+        },
+        {
+          "bbox": {
+            "bottom": -1.9,
+            "left": -6.15,
+            "right": -2.55,
+            "top": -1.0
+          },
+          "h": 0.9,
+          "id": "review",
+          "style": "review",
+          "text": "row count",
+          "w": 3.6,
+          "x": -4.35,
+          "y": -1.45
+        },
+        {
+          "bbox": {
+            "bottom": -1.9,
+            "left": -1.8,
+            "right": 1.8,
+            "top": -1.0
+          },
+          "h": 0.9,
+          "id": "metric",
+          "style": "metric",
+          "text": "variable or number: row count",
+          "w": 3.6,
+          "x": 0.0,
+          "y": -1.45
+        },
+        {
+          "bbox": {
+            "bottom": -1.9,
+            "left": 2.55,
+            "right": 6.15,
+            "top": -1.0
+          },
+          "h": 0.9,
+          "id": "formula",
+          "style": "formula",
+          "text": "formal anchor: d\\mapsto r",
+          "w": 3.6,
+          "x": 4.35,
+          "y": -1.45
+        }
+      ],
+      "required_semantic_elements": [
+        "left object",
+        "right object",
+        "arrow",
+        "variable or number",
+        "formula",
+        "evidence link"
+      ],
+      "source_rel": "content/28c_oc133_inline_figures_evidence_route.tex",
+      "topic": {
+        "arrow": "extraction",
+        "caption": "Source to numeric row. The figure demonstrates the reader-facing route from Source datum to Promoted row; the relevant variable or number is row count, the formula anchor is d\\mapsto r, and the evidence link is the corresponding proof, table, or replay section in the release corpus.",
+        "formula": "d\\mapsto r",
+        "left": "Source datum",
+        "metric": "row count",
+        "review": "row count",
+        "right": "Promoted row",
+        "slug": "source-to-row",
+        "title": "Source to numeric row"
+      },
+      "visual_spec_class": "deterministic_tikz_registry"
+    },
+    {
+      "canvas": {
+        "height": 6.8,
+        "margin": 0.35,
+        "width": 13.6
+      },
+      "caption_must_explain": [
+        "demonstrates",
+        "variable",
+        "formula",
+        "evidence"
+      ],
+      "connectors": [
+        {
+          "from": "left",
+          "label": "blind evaluation",
+          "to": "right"
+        },
+        {
+          "from": "review",
+          "label": "audit",
+          "to": "left"
+        },
+        {
+          "from": "metric",
+          "label": "measurement",
+          "to": "left/right"
+        },
+        {
+          "from": "formula",
+          "label": "formal link",
+          "to": "right"
+        }
+      ],
+      "evidence_anchor": "corresponding proof, table, or replay section",
+      "figure_id": "r012_inline_28c_oc133_inline_figures_evidence_route_2",
+      "figure_type": "inline_didactic_route",
+      "formula_anchor": "score_T",
+      "label": "fig:r012-inline-28c_oc133_inline_figures_evidence_route-2",
+      "nodes": [
+        {
+          "bbox": {
+            "bottom": 0.475,
+            "left": -6.0,
+            "right": -2.7,
+            "top": 1.525
+          },
+          "h": 1.05,
+          "id": "left",
+          "style": "left",
+          "text": "Held-out target",
+          "w": 3.3,
+          "x": -4.35,
+          "y": 1.0
+        },
+        {
+          "bbox": {
+            "bottom": 0.475,
+            "left": 2.7,
+            "right": 6.0,
+            "top": 1.525
+          },
+          "h": 1.05,
+          "id": "right",
+          "style": "right",
+          "text": "Replay verdict",
+          "w": 3.3,
+          "x": 4.35,
+          "y": 1.0
+        },
+        {
+          "bbox": {
+            "bottom": -1.9,
+            "left": -6.15,
+            "right": -2.55,
+            "top": -1.0
+          },
+          "h": 0.9,
+          "id": "review",
+          "style": "review",
+          "text": "pass/fail row",
+          "w": 3.6,
+          "x": -4.35,
+          "y": -1.45
+        },
+        {
+          "bbox": {
+            "bottom": -1.9,
+            "left": -1.8,
+            "right": 1.8,
+            "top": -1.0
+          },
+          "h": 0.9,
+          "id": "metric",
+          "style": "metric",
+          "text": "variable or number: pass/fail row",
+          "w": 3.6,
+          "x": 0.0,
+          "y": -1.45
+        },
+        {
+          "bbox": {
+            "bottom": -1.9,
+            "left": 2.55,
+            "right": 6.15,
+            "top": -1.0
+          },
+          "h": 0.9,
+          "id": "formula",
+          "style": "formula",
+          "text": "formal anchor: score_T",
+          "w": 3.6,
+          "x": 4.35,
+          "y": -1.45
+        }
+      ],
+      "required_semantic_elements": [
+        "left object",
+        "right object",
+        "arrow",
+        "variable or number",
+        "formula",
+        "evidence link"
+      ],
+      "source_rel": "content/28c_oc133_inline_figures_evidence_route.tex",
+      "topic": {
+        "arrow": "blind evaluation",
+        "caption": "Target-blind replay. The figure demonstrates the reader-facing route from Held-out target to Replay verdict; the relevant variable or number is pass/fail row, the formula anchor is score_T, and the evidence link is the corresponding proof, table, or replay section in the release corpus.",
+        "formula": "score_T",
+        "left": "Held-out target",
+        "metric": "pass/fail row",
+        "review": "pass/fail row",
+        "right": "Replay verdict",
+        "slug": "target-blind-replay",
+        "title": "Target-blind replay"
+      },
+      "visual_spec_class": "deterministic_tikz_registry"
+    },
+    {
+      "canvas": {
+        "height": 6.8,
+        "margin": 0.35,
+        "width": 13.6
+      },
+      "caption_must_explain": [
+        "demonstrates",
+        "variable",
+        "formula",
+        "evidence"
+      ],
+      "connectors": [
+        {
+          "from": "left",
+          "label": "audit pass",
+          "to": "right"
+        },
+        {
+          "from": "review",
+          "label": "audit",
+          "to": "left"
+        },
+        {
+          "from": "metric",
+          "label": "measurement",
+          "to": "left/right"
+        },
+        {
+          "from": "formula",
+          "label": "formal link",
+          "to": "right"
+        }
+      ],
+      "evidence_anchor": "corresponding proof, table, or replay section",
+      "figure_id": "r012_inline_28c_oc133_inline_figures_evidence_route_3",
+      "figure_type": "inline_didactic_route",
+      "formula_anchor": "Q(B_i)",
+      "label": "fig:r012-inline-28c_oc133_inline_figures_evidence_route-3",
+      "nodes": [
+        {
+          "bbox": {
+            "bottom": 0.475,
+            "left": -6.0,
+            "right": -2.7,
+            "top": 1.525
+          },
+          "h": 1.05,
+          "id": "left",
+          "style": "left",
+          "text": "Benchmark case",
+          "w": 3.3,
+          "x": -4.35,
+          "y": 1.0
+        },
+        {
+          "bbox": {
+            "bottom": 0.475,
+            "left": 2.7,
+            "right": 6.0,
+            "top": 1.525
+          },
+          "h": 1.05,
+          "id": "right",
+          "style": "right",
+          "text": "QA verdict",
+          "w": 3.3,
+          "x": 4.35,
+          "y": 1.0
+        },
+        {
+          "bbox": {
+            "bottom": -1.9,
+            "left": -6.15,
+            "right": -2.55,
+            "top": -1.0
+          },
+          "h": 0.9,
+          "id": "review",
+          "style": "review",
+          "text": "case total",
+          "w": 3.6,
+          "x": -4.35,
+          "y": -1.45
+        },
+        {
+          "bbox": {
+            "bottom": -1.9,
+            "left": -1.8,
+            "right": 1.8,
+            "top": -1.0
+          },
+          "h": 0.9,
+          "id": "metric",
+          "style": "metric",
+          "text": "variable or number: case total",
+          "w": 3.6,
+          "x": 0.0,
+          "y": -1.45
+        },
+        {
+          "bbox": {
+            "bottom": -1.9,
+            "left": 2.55,
+            "right": 6.15,
+            "top": -1.0
+          },
+          "h": 0.9,
+          "id": "formula",
+          "style": "formula",
+          "text": "formal anchor: Q(B_i)",
+          "w": 3.6,
+          "x": 4.35,
+          "y": -1.45
+        }
+      ],
+      "required_semantic_elements": [
+        "left object",
+        "right object",
+        "arrow",
+        "variable or number",
+        "formula",
+        "evidence link"
+      ],
+      "source_rel": "content/28c_oc133_inline_figures_evidence_route.tex",
+      "topic": {
+        "arrow": "audit pass",
+        "caption": "Benchmark QA. The figure demonstrates the reader-facing route from Benchmark case to QA verdict; the relevant variable or number is case total, the formula anchor is Q(B_i), and the evidence link is the corresponding proof, table, or replay section in the release corpus.",
+        "formula": "Q(B_i)",
+        "left": "Benchmark case",
+        "metric": "case total",
+        "review": "case total",
+        "right": "QA verdict",
+        "slug": "benchmark-qa",
+        "title": "Benchmark QA"
+      },
+      "visual_spec_class": "deterministic_tikz_registry"
+    },
+    {
+      "canvas": {
+        "height": 6.8,
+        "margin": 0.35,
+        "width": 13.6
+      },
+      "caption_must_explain": [
+        "demonstrates",
+        "variable",
+        "formula",
+        "evidence"
+      ],
+      "connectors": [
+        {
+          "from": "left",
+          "label": "traceability",
+          "to": "right"
+        },
+        {
+          "from": "review",
+          "label": "audit",
+          "to": "left"
+        },
+        {
+          "from": "metric",
+          "label": "measurement",
+          "to": "left/right"
+        },
+        {
+          "from": "formula",
+          "label": "formal link",
+          "to": "right"
+        }
+      ],
+      "evidence_anchor": "corresponding proof, table, or replay section",
+      "figure_id": "r012_inline_28c_oc133_inline_figures_evidence_route_4",
+      "figure_type": "inline_didactic_route",
+      "formula_anchor": "claim\\leftrightarrow evidence",
+      "label": "fig:r012-inline-28c_oc133_inline_figures_evidence_route-4",
+      "nodes": [
+        {
+          "bbox": {
+            "bottom": 0.475,
+            "left": -6.0,
+            "right": -2.7,
+            "top": 1.525
+          },
+          "h": 1.05,
+          "id": "left",
+          "style": "left",
+          "text": "Claim",
+          "w": 3.3,
+          "x": -4.35,
+          "y": 1.0
+        },
+        {
+          "bbox": {
+            "bottom": 0.475,
+            "left": 2.7,
+            "right": 6.0,
+            "top": 1.525
+          },
+          "h": 1.05,
+          "id": "right",
+          "style": "right",
+          "text": "Evidence bundle",
+          "w": 3.3,
+          "x": 4.35,
+          "y": 1.0
+        },
+        {
+          "bbox": {
+            "bottom": -1.9,
+            "left": -6.15,
+            "right": -2.55,
+            "top": -1.0
+          },
+          "h": 0.9,
+          "id": "review",
+          "style": "review",
+          "text": "source hash",
+          "w": 3.6,
+          "x": -4.35,
+          "y": -1.45
+        },
+        {
+          "bbox": {
+            "bottom": -1.9,
+            "left": -1.8,
+            "right": 1.8,
+            "top": -1.0
+          },
+          "h": 0.9,
+          "id": "metric",
+          "style": "metric",
+          "text": "variable or number: source hash",
+          "w": 3.6,
+          "x": 0.0,
+          "y": -1.45
+        },
+        {
+          "bbox": {
+            "bottom": -1.9,
+            "left": 2.55,
+            "right": 6.15,
+            "top": -1.0
+          },
+          "h": 0.9,
+          "id": "formula",
+          "style": "formula",
+          "text": "formal anchor: claim\\leftrightarrow evidence",
+          "w": 3.6,
+          "x": 4.35,
+          "y": -1.45
+        }
+      ],
+      "required_semantic_elements": [
+        "left object",
+        "right object",
+        "arrow",
+        "variable or number",
+        "formula",
+        "evidence link"
+      ],
+      "source_rel": "content/28c_oc133_inline_figures_evidence_route.tex",
+      "topic": {
+        "arrow": "traceability",
+        "caption": "Evidence trail. The figure demonstrates the reader-facing route from Claim to Evidence bundle; the relevant variable or number is source hash, the formula anchor is claim\\leftrightarrow evidence, and the evidence link is the corresponding proof, table, or replay section in the release corpus.",
+        "formula": "claim\\leftrightarrow evidence",
+        "left": "Claim",
+        "metric": "source hash",
+        "review": "source hash",
+        "right": "Evidence bundle",
+        "slug": "evidence-trail",
+        "title": "Evidence trail"
+      },
+      "visual_spec_class": "deterministic_tikz_registry"
+    },
+    {
+      "canvas": {
+        "height": 6.8,
+        "margin": 0.35,
+        "width": 13.6
+      },
+      "caption_must_explain": [
+        "demonstrates",
+        "variable",
+        "formula",
+        "evidence"
+      ],
+      "connectors": [
+        {
+          "from": "left",
+          "label": "threshold check",
+          "to": "right"
+        },
+        {
+          "from": "review",
+          "label": "audit",
+          "to": "left"
+        },
+        {
+          "from": "metric",
+          "label": "measurement",
+          "to": "left/right"
+        },
+        {
+          "from": "formula",
+          "label": "formal link",
+          "to": "right"
+        }
+      ],
+      "evidence_anchor": "corresponding proof, table, or replay section",
+      "figure_id": "r012_inline_28c_oc133_inline_figures_evidence_route_5",
+      "figure_type": "inline_didactic_route",
+      "formula_anchor": "|\\hat{x}-x|<\\epsilon",
+      "label": "fig:r012-inline-28c_oc133_inline_figures_evidence_route-5",
+      "nodes": [
+        {
+          "bbox": {
+            "bottom": 0.475,
+            "left": -6.0,
+            "right": -2.7,
+            "top": 1.525
+          },
+          "h": 1.05,
+          "id": "left",
+          "style": "left",
+          "text": "Prediction",
+          "w": 3.3,
+          "x": -4.35,
+          "y": 1.0
+        },
+        {
+          "bbox": {
+            "bottom": 0.475,
+            "left": 2.7,
+            "right": 6.0,
+            "top": 1.525
+          },
+          "h": 1.05,
+          "id": "right",
+          "style": "right",
+          "text": "Observed bound",
+          "w": 3.3,
+          "x": 4.35,
+          "y": 1.0
+        },
+        {
+          "bbox": {
+            "bottom": -1.9,
+            "left": -6.15,
+            "right": -2.55,
+            "top": -1.0
+          },
+          "h": 0.9,
+          "id": "review",
+          "style": "review",
+          "text": "delta",
+          "w": 3.6,
+          "x": -4.35,
+          "y": -1.45
+        },
+        {
+          "bbox": {
+            "bottom": -1.9,
+            "left": -1.8,
+            "right": 1.8,
+            "top": -1.0
+          },
+          "h": 0.9,
+          "id": "metric",
+          "style": "metric",
+          "text": "variable or number: delta",
+          "w": 3.6,
+          "x": 0.0,
+          "y": -1.45
+        },
+        {
+          "bbox": {
+            "bottom": -1.9,
+            "left": 2.55,
+            "right": 6.15,
+            "top": -1.0
+          },
+          "h": 0.9,
+          "id": "formula",
+          "style": "formula",
+          "text": "formal anchor: |\\hat{x}-x|<\\epsilon",
+          "w": 3.6,
+          "x": 4.35,
+          "y": -1.45
+        }
+      ],
+      "required_semantic_elements": [
+        "left object",
+        "right object",
+        "arrow",
+        "variable or number",
+        "formula",
+        "evidence link"
+      ],
+      "source_rel": "content/28c_oc133_inline_figures_evidence_route.tex",
+      "topic": {
+        "arrow": "threshold check",
+        "caption": "Numeric falsifier. The figure demonstrates the reader-facing route from Prediction to Observed bound; the relevant variable or number is delta, the formula anchor is |\\hat{x}-x|<\\epsilon, and the evidence link is the corresponding proof, table, or replay section in the release corpus.",
+        "formula": "|\\hat{x}-x|<\\epsilon",
+        "left": "Prediction",
+        "metric": "delta",
+        "review": "delta",
+        "right": "Observed bound",
+        "slug": "numeric-falsifier",
+        "title": "Numeric falsifier"
+      },
+      "visual_spec_class": "deterministic_tikz_registry"
+    },
+    {
+      "canvas": {
+        "height": 6.8,
+        "margin": 0.35,
+        "width": 13.6
+      },
+      "caption_must_explain": [
+        "demonstrates",
+        "variable",
+        "formula",
+        "evidence"
+      ],
+      "connectors": [
+        {
+          "from": "left",
+          "label": "replay command",
+          "to": "right"
+        },
+        {
+          "from": "review",
+          "label": "audit",
+          "to": "left"
+        },
+        {
+          "from": "metric",
+          "label": "measurement",
+          "to": "left/right"
+        },
+        {
+          "from": "formula",
+          "label": "formal link",
+          "to": "right"
+        }
+      ],
+      "evidence_anchor": "corresponding proof, table, or replay section",
+      "figure_id": "r012_inline_28c_oc133_inline_figures_evidence_route_6",
+      "figure_type": "inline_didactic_route",
+      "formula_anchor": "run\\rightarrow verdict",
+      "label": "fig:r012-inline-28c_oc133_inline_figures_evidence_route-6",
+      "nodes": [
+        {
+          "bbox": {
+            "bottom": 0.475,
+            "left": -6.0,
+            "right": -2.7,
+            "top": 1.525
+          },
+          "h": 1.05,
+          "id": "left",
+          "style": "left",
+          "text": "Scripted check",
+          "w": 3.3,
+          "x": -4.35,
+          "y": 1.0
+        },
+        {
+          "bbox": {
+            "bottom": 0.475,
+            "left": 2.7,
+            "right": 6.0,
+            "top": 1.525
+          },
+          "h": 1.05,
+          "id": "right",
+          "style": "right",
+          "text": "Reader audit",
+          "w": 3.3,
+          "x": 4.35,
+          "y": 1.0
+        },
+        {
+          "bbox": {
+            "bottom": -1.9,
+            "left": -6.15,
+            "right": -2.55,
+            "top": -1.0
+          },
+          "h": 0.9,
+          "id": "review",
+          "style": "review",
+          "text": "audit status",
+          "w": 3.6,
+          "x": -4.35,
+          "y": -1.45
+        },
+        {
+          "bbox": {
+            "bottom": -1.9,
+            "left": -1.8,
+            "right": 1.8,
+            "top": -1.0
+          },
+          "h": 0.9,
+          "id": "metric",
+          "style": "metric",
+          "text": "variable or number: audit status",
+          "w": 3.6,
+          "x": 0.0,
+          "y": -1.45
+        },
+        {
+          "bbox": {
+            "bottom": -1.9,
+            "left": 2.55,
+            "right": 6.15,
+            "top": -1.0
+          },
+          "h": 0.9,
+          "id": "formula",
+          "style": "formula",
+          "text": "formal anchor: run\\rightarrow verdict",
+          "w": 3.6,
+          "x": 4.35,
+          "y": -1.45
+        }
+      ],
+      "required_semantic_elements": [
+        "left object",
+        "right object",
+        "arrow",
+        "variable or number",
+        "formula",
+        "evidence link"
+      ],
+      "source_rel": "content/28c_oc133_inline_figures_evidence_route.tex",
+      "topic": {
+        "arrow": "replay command",
+        "caption": "Reproducibility route. The figure demonstrates the reader-facing route from Scripted check to Reader audit; the relevant variable or number is audit status, the formula anchor is run\\rightarrow verdict, and the evidence link is the corresponding proof, table, or replay section in the release corpus.",
+        "formula": "run\\rightarrow verdict",
+        "left": "Scripted check",
+        "metric": "audit status",
+        "review": "audit status",
+        "right": "Reader audit",
+        "slug": "repro-route",
+        "title": "Reproducibility route"
+      },
+      "visual_spec_class": "deterministic_tikz_registry"
+    },
+    {
+      "canvas": {
+        "height": 6.8,
+        "margin": 0.35,
+        "width": 13.6
+      },
+      "caption_must_explain": [
+        "demonstrates",
+        "variable",
+        "formula",
+        "evidence"
+      ],
+      "connectors": [
+        {
+          "from": "left",
+          "label": "projection",
+          "to": "right"
+        },
+        {
+          "from": "review",
+          "label": "audit",
+          "to": "left"
+        },
+        {
+          "from": "metric",
+          "label": "measurement",
+          "to": "left/right"
+        },
+        {
+          "from": "formula",
+          "label": "formal link",
+          "to": "right"
+        }
+      ],
+      "evidence_anchor": "corresponding proof, table, or replay section",
+      "figure_id": "r012_inline_28d_oc133_inline_figures_domain_route_1",
+      "figure_type": "inline_didactic_route",
+      "formula_anchor": "P_D(K)",
+      "label": "fig:r012-inline-28d_oc133_inline_figures_domain_route-1",
+      "nodes": [
+        {
+          "bbox": {
+            "bottom": 0.475,
+            "left": -6.0,
+            "right": -2.7,
+            "top": 1.525
+          },
+          "h": 1.05,
+          "id": "left",
+          "style": "left",
+          "text": "OC core",
+          "w": 3.3,
+          "x": -4.35,
+          "y": 1.0
+        },
+        {
+          "bbox": {
+            "bottom": 0.475,
+            "left": 2.7,
+            "right": 6.0,
+            "top": 1.525
+          },
+          "h": 1.05,
+          "id": "right",
+          "style": "right",
+          "text": "Domain model",
+          "w": 3.3,
+          "x": 4.35,
+          "y": 1.0
+        },
+        {
+          "bbox": {
+            "bottom": -1.9,
+            "left": -6.15,
+            "right": -2.55,
+            "top": -1.0
+          },
+          "h": 0.9,
+          "id": "review",
+          "style": "review",
+          "text": "domain count",
+          "w": 3.6,
+          "x": -4.35,
+          "y": -1.45
+        },
+        {
+          "bbox": {
+            "bottom": -1.9,
+            "left": -1.8,
+            "right": 1.8,
+            "top": -1.0
+          },
+          "h": 0.9,
+          "id": "metric",
+          "style": "metric",
+          "text": "variable or number: domain count",
+          "w": 3.6,
+          "x": 0.0,
+          "y": -1.45
+        },
+        {
+          "bbox": {
+            "bottom": -1.9,
+            "left": 2.55,
+            "right": 6.15,
+            "top": -1.0
+          },
+          "h": 0.9,
+          "id": "formula",
+          "style": "formula",
+          "text": "formal anchor: P_D(K)",
+          "w": 3.6,
+          "x": 4.35,
+          "y": -1.45
+        }
+      ],
+      "required_semantic_elements": [
+        "left object",
+        "right object",
+        "arrow",
+        "variable or number",
+        "formula",
+        "evidence link"
+      ],
+      "source_rel": "content/28d_oc133_inline_figures_domain_route.tex",
+      "topic": {
+        "arrow": "projection",
+        "caption": "Domain projection. The figure demonstrates the reader-facing route from OC core to Domain model; the relevant variable or number is domain count, the formula anchor is P_D(K), and the evidence link is the corresponding proof, table, or replay section in the release corpus.",
+        "formula": "P_D(K)",
+        "left": "OC core",
+        "metric": "domain count",
+        "review": "domain count",
+        "right": "Domain model",
+        "slug": "domain-projection",
+        "title": "Domain projection"
+      },
+      "visual_spec_class": "deterministic_tikz_registry"
+    },
+    {
+      "canvas": {
+        "height": 6.8,
+        "margin": 0.35,
+        "width": 13.6
+      },
+      "caption_must_explain": [
+        "demonstrates",
+        "variable",
+        "formula",
+        "evidence"
+      ],
+      "connectors": [
+        {
+          "from": "left",
+          "label": "architecture mapping",
+          "to": "right"
+        },
+        {
+          "from": "review",
+          "label": "audit",
+          "to": "left"
+        },
+        {
+          "from": "metric",
+          "label": "measurement",
+          "to": "left/right"
+        },
+        {
+          "from": "formula",
+          "label": "formal link",
+          "to": "right"
+        }
+      ],
+      "evidence_anchor": "corresponding proof, table, or replay section",
+      "figure_id": "r012_inline_28d_oc133_inline_figures_domain_route_2",
+      "figure_type": "inline_didactic_route",
+      "formula_anchor": "EA(K)",
+      "label": "fig:r012-inline-28d_oc133_inline_figures_domain_route-2",
+      "nodes": [
+        {
+          "bbox": {
+            "bottom": 0.475,
+            "left": -6.0,
+            "right": -2.7,
+            "top": 1.525
+          },
+          "h": 1.05,
+          "id": "left",
+          "style": "left",
+          "text": "Capability",
+          "w": 3.3,
+          "x": -4.35,
+          "y": 1.0
+        },
+        {
+          "bbox": {
+            "bottom": 0.475,
+            "left": 2.7,
+            "right": 6.0,
+            "top": 1.525
+          },
+          "h": 1.05,
+          "id": "right",
+          "style": "right",
+          "text": "System boundary",
+          "w": 3.3,
+          "x": 4.35,
+          "y": 1.0
+        },
+        {
+          "bbox": {
+            "bottom": -1.9,
+            "left": -6.15,
+            "right": -2.55,
+            "top": -1.0
+          },
+          "h": 0.9,
+          "id": "review",
+          "style": "review",
+          "text": "interface count",
+          "w": 3.6,
+          "x": -4.35,
+          "y": -1.45
+        },
+        {
+          "bbox": {
+            "bottom": -1.9,
+            "left": -1.8,
+            "right": 1.8,
+            "top": -1.0
+          },
+          "h": 0.9,
+          "id": "metric",
+          "style": "metric",
+          "text": "variable or number: interface count",
+          "w": 3.6,
+          "x": 0.0,
+          "y": -1.45
+        },
+        {
+          "bbox": {
+            "bottom": -1.9,
+            "left": 2.55,
+            "right": 6.15,
+            "top": -1.0
+          },
+          "h": 0.9,
+          "id": "formula",
+          "style": "formula",
+          "text": "formal anchor: EA(K)",
+          "w": 3.6,
+          "x": 4.35,
+          "y": -1.45
+        }
+      ],
+      "required_semantic_elements": [
+        "left object",
+        "right object",
+        "arrow",
+        "variable or number",
+        "formula",
+        "evidence link"
+      ],
+      "source_rel": "content/28d_oc133_inline_figures_domain_route.tex",
+      "topic": {
+        "arrow": "architecture mapping",
+        "caption": "Enterprise architecture route. The figure demonstrates the reader-facing route from Capability to System boundary; the relevant variable or number is interface count, the formula anchor is EA(K), and the evidence link is the corresponding proof, table, or replay section in the release corpus.",
+        "formula": "EA(K)",
+        "left": "Capability",
+        "metric": "interface count",
+        "review": "interface count",
+        "right": "System boundary",
+        "slug": "enterprise-architecture",
+        "title": "Enterprise architecture route"
+      },
+      "visual_spec_class": "deterministic_tikz_registry"
+    },
+    {
+      "canvas": {
+        "height": 6.8,
+        "margin": 0.35,
+        "width": 13.6
+      },
+      "caption_must_explain": [
+        "demonstrates",
+        "variable",
+        "formula",
+        "evidence"
+      ],
+      "connectors": [
+        {
+          "from": "left",
+          "label": "control mapping",
+          "to": "right"
+        },
+        {
+          "from": "review",
+          "label": "audit",
+          "to": "left"
+        },
+        {
+          "from": "metric",
+          "label": "measurement",
+          "to": "left/right"
+        },
+        {
+          "from": "formula",
+          "label": "formal link",
+          "to": "right"
+        }
+      ],
+      "evidence_anchor": "corresponding proof, table, or replay section",
+      "figure_id": "r012_inline_28d_oc133_inline_figures_domain_route_3",
+      "figure_type": "inline_didactic_route",
+      "formula_anchor": "\\pi(a|s,K)",
+      "label": "fig:r012-inline-28d_oc133_inline_figures_domain_route-3",
+      "nodes": [
+        {
+          "bbox": {
+            "bottom": 0.475,
+            "left": -6.0,
+            "right": -2.7,
+            "top": 1.525
+          },
+          "h": 1.05,
+          "id": "left",
+          "style": "left",
+          "text": "Agent policy",
+          "w": 3.3,
+          "x": -4.35,
+          "y": 1.0
+        },
+        {
+          "bbox": {
+            "bottom": 0.475,
+            "left": 2.7,
+            "right": 6.0,
+            "top": 1.525
+          },
+          "h": 1.05,
+          "id": "right",
+          "style": "right",
+          "text": "Continuum guard",
+          "w": 3.3,
+          "x": 4.35,
+          "y": 1.0
+        },
+        {
+          "bbox": {
+            "bottom": -1.9,
+            "left": -6.15,
+            "right": -2.55,
+            "top": -1.0
+          },
+          "h": 0.9,
+          "id": "review",
+          "style": "review",
+          "text": "risk class",
+          "w": 3.6,
+          "x": -4.35,
+          "y": -1.45
+        },
+        {
+          "bbox": {
+            "bottom": -1.9,
+            "left": -1.8,
+            "right": 1.8,
+            "top": -1.0
+          },
+          "h": 0.9,
+          "id": "metric",
+          "style": "metric",
+          "text": "variable or number: risk class",
+          "w": 3.6,
+          "x": 0.0,
+          "y": -1.45
+        },
+        {
+          "bbox": {
+            "bottom": -1.9,
+            "left": 2.55,
+            "right": 6.15,
+            "top": -1.0
+          },
+          "h": 0.9,
+          "id": "formula",
+          "style": "formula",
+          "text": "formal anchor: \\pi(a|s,K)",
+          "w": 3.6,
+          "x": 4.35,
+          "y": -1.45
+        }
+      ],
+      "required_semantic_elements": [
+        "left object",
+        "right object",
+        "arrow",
+        "variable or number",
+        "formula",
+        "evidence link"
+      ],
+      "source_rel": "content/28d_oc133_inline_figures_domain_route.tex",
+      "topic": {
+        "arrow": "control mapping",
+        "caption": "AI builder route. The figure demonstrates the reader-facing route from Agent policy to Continuum guard; the relevant variable or number is risk class, the formula anchor is \\pi(a|s,K), and the evidence link is the corresponding proof, table, or replay section in the release corpus.",
+        "formula": "\\pi(a|s,K)",
+        "left": "Agent policy",
+        "metric": "risk class",
+        "review": "risk class",
+        "right": "Continuum guard",
+        "slug": "ai-builder-route",
+        "title": "AI builder route"
+      },
+      "visual_spec_class": "deterministic_tikz_registry"
+    },
+    {
+      "canvas": {
+        "height": 6.8,
+        "margin": 0.35,
+        "width": 13.6
+      },
+      "caption_must_explain": [
+        "demonstrates",
+        "variable",
+        "formula",
+        "evidence"
+      ],
+      "connectors": [
+        {
+          "from": "left",
+          "label": "falsifier search",
+          "to": "right"
+        },
+        {
+          "from": "review",
+          "label": "audit",
+          "to": "left"
+        },
+        {
+          "from": "metric",
+          "label": "measurement",
+          "to": "left/right"
+        },
+        {
+          "from": "formula",
+          "label": "formal link",
+          "to": "right"
+        }
+      ],
+      "evidence_anchor": "corresponding proof, table, or replay section",
+      "figure_id": "r012_inline_28d_oc133_inline_figures_domain_route_4",
+      "figure_type": "inline_didactic_route",
+      "formula_anchor": "risk=\\Pr(failure)",
+      "label": "fig:r012-inline-28d_oc133_inline_figures_domain_route-4",
+      "nodes": [
+        {
+          "bbox": {
+            "bottom": 0.475,
+            "left": -6.0,
+            "right": -2.7,
+            "top": 1.525
+          },
+          "h": 1.05,
+          "id": "left",
+          "style": "left",
+          "text": "Threat surface",
+          "w": 3.3,
+          "x": -4.35,
+          "y": 1.0
+        },
+        {
+          "bbox": {
+            "bottom": 0.475,
+            "left": 2.7,
+            "right": 6.0,
+            "top": 1.525
+          },
+          "h": 1.05,
+          "id": "right",
+          "style": "right",
+          "text": "Boundary test",
+          "w": 3.3,
+          "x": 4.35,
+          "y": 1.0
+        },
+        {
+          "bbox": {
+            "bottom": -1.9,
+            "left": -6.15,
+            "right": -2.55,
+            "top": -1.0
+          },
+          "h": 0.9,
+          "id": "review",
+          "style": "review",
+          "text": "attack path",
+          "w": 3.6,
+          "x": -4.35,
+          "y": -1.45
+        },
+        {
+          "bbox": {
+            "bottom": -1.9,
+            "left": -1.8,
+            "right": 1.8,
+            "top": -1.0
+          },
+          "h": 0.9,
+          "id": "metric",
+          "style": "metric",
+          "text": "variable or number: attack path",
+          "w": 3.6,
+          "x": 0.0,
+          "y": -1.45
+        },
+        {
+          "bbox": {
+            "bottom": -1.9,
+            "left": 2.55,
+            "right": 6.15,
+            "top": -1.0
+          },
+          "h": 0.9,
+          "id": "formula",
+          "style": "formula",
+          "text": "formal anchor: risk=\\Pr(failure)",
+          "w": 3.6,
+          "x": 4.35,
+          "y": -1.45
+        }
+      ],
+      "required_semantic_elements": [
+        "left object",
+        "right object",
+        "arrow",
+        "variable or number",
+        "formula",
+        "evidence link"
+      ],
+      "source_rel": "content/28d_oc133_inline_figures_domain_route.tex",
+      "topic": {
+        "arrow": "falsifier search",
+        "caption": "Security route. The figure demonstrates the reader-facing route from Threat surface to Boundary test; the relevant variable or number is attack path, the formula anchor is risk=\\Pr(failure), and the evidence link is the corresponding proof, table, or replay section in the release corpus.",
+        "formula": "risk=\\Pr(failure)",
+        "left": "Threat surface",
+        "metric": "attack path",
+        "review": "attack path",
+        "right": "Boundary test",
+        "slug": "security-route",
+        "title": "Security route"
+      },
+      "visual_spec_class": "deterministic_tikz_registry"
+    },
+    {
+      "canvas": {
+        "height": 6.8,
+        "margin": 0.35,
+        "width": 13.6
+      },
+      "caption_must_explain": [
+        "demonstrates",
+        "variable",
+        "formula",
+        "evidence"
+      ],
+      "connectors": [
+        {
+          "from": "left",
+          "label": "executive compression",
+          "to": "right"
+        },
+        {
+          "from": "review",
+          "label": "audit",
+          "to": "left"
+        },
+        {
+          "from": "metric",
+          "label": "measurement",
+          "to": "left/right"
+        },
+        {
+          "from": "formula",
+          "label": "formal link",
+          "to": "right"
+        }
+      ],
+      "evidence_anchor": "corresponding proof, table, or replay section",
+      "figure_id": "r012_inline_28d_oc133_inline_figures_domain_route_5",
+      "figure_type": "inline_didactic_route",
+      "formula_anchor": "utility(K)",
+      "label": "fig:r012-inline-28d_oc133_inline_figures_domain_route-5",
+      "nodes": [
+        {
+          "bbox": {
+            "bottom": 0.475,
+            "left": -6.0,
+            "right": -2.7,
+            "top": 1.525
+          },
+          "h": 1.05,
+          "id": "left",
+          "style": "left",
+          "text": "Decision frame",
+          "w": 3.3,
+          "x": -4.35,
+          "y": 1.0
+        },
+        {
+          "bbox": {
+            "bottom": 0.475,
+            "left": 2.7,
+            "right": 6.0,
+            "top": 1.525
+          },
+          "h": 1.05,
+          "id": "right",
+          "style": "right",
+          "text": "Evidence summary",
+          "w": 3.3,
+          "x": 4.35,
+          "y": 1.0
+        },
+        {
+          "bbox": {
+            "bottom": -1.9,
+            "left": -6.15,
+            "right": -2.55,
+            "top": -1.0
+          },
+          "h": 0.9,
+          "id": "review",
+          "style": "review",
+          "text": "decision options",
+          "w": 3.6,
+          "x": -4.35,
+          "y": -1.45
+        },
+        {
+          "bbox": {
+            "bottom": -1.9,
+            "left": -1.8,
+            "right": 1.8,
+            "top": -1.0
+          },
+          "h": 0.9,
+          "id": "metric",
+          "style": "metric",
+          "text": "variable or number: decision options",
+          "w": 3.6,
+          "x": 0.0,
+          "y": -1.45
+        },
+        {
+          "bbox": {
+            "bottom": -1.9,
+            "left": 2.55,
+            "right": 6.15,
+            "top": -1.0
+          },
+          "h": 0.9,
+          "id": "formula",
+          "style": "formula",
+          "text": "formal anchor: utility(K)",
+          "w": 3.6,
+          "x": 4.35,
+          "y": -1.45
+        }
+      ],
+      "required_semantic_elements": [
+        "left object",
+        "right object",
+        "arrow",
+        "variable or number",
+        "formula",
+        "evidence link"
+      ],
+      "source_rel": "content/28d_oc133_inline_figures_domain_route.tex",
+      "topic": {
+        "arrow": "executive compression",
+        "caption": "Strategy reader route. The figure demonstrates the reader-facing route from Decision frame to Evidence summary; the relevant variable or number is decision options, the formula anchor is utility(K), and the evidence link is the corresponding proof, table, or replay section in the release corpus.",
+        "formula": "utility(K)",
+        "left": "Decision frame",
+        "metric": "decision options",
+        "review": "decision options",
+        "right": "Evidence summary",
+        "slug": "strategy-route",
+        "title": "Strategy reader route"
+      },
+      "visual_spec_class": "deterministic_tikz_registry"
+    },
+    {
+      "canvas": {
+        "height": 6.8,
+        "margin": 0.35,
+        "width": 13.6
+      },
+      "caption_must_explain": [
+        "demonstrates",
+        "variable",
+        "formula",
+        "evidence"
+      ],
+      "connectors": [
+        {
+          "from": "left",
+          "label": "delta accounting",
+          "to": "right"
+        },
+        {
+          "from": "review",
+          "label": "audit",
+          "to": "left"
+        },
+        {
+          "from": "metric",
+          "label": "measurement",
+          "to": "left/right"
+        },
+        {
+          "from": "formula",
+          "label": "formal link",
+          "to": "right"
+        }
+      ],
+      "evidence_anchor": "corresponding proof, table, or replay section",
+      "figure_id": "r012_inline_28d_oc133_inline_figures_domain_route_6",
+      "figure_type": "inline_didactic_route",
+      "formula_anchor": "\\Delta_{OC}",
+      "label": "fig:r012-inline-28d_oc133_inline_figures_domain_route-6",
+      "nodes": [
+        {
+          "bbox": {
+            "bottom": 0.475,
+            "left": -6.0,
+            "right": -2.7,
+            "top": 1.525
+          },
+          "h": 1.05,
+          "id": "left",
+          "style": "left",
+          "text": "Prior model",
+          "w": 3.3,
+          "x": -4.35,
+          "y": 1.0
+        },
+        {
+          "bbox": {
+            "bottom": 0.475,
+            "left": 2.7,
+            "right": 6.0,
+            "top": 1.525
+          },
+          "h": 1.05,
+          "id": "right",
+          "style": "right",
+          "text": "OC residual",
+          "w": 3.3,
+          "x": 4.35,
+          "y": 1.0
+        },
+        {
+          "bbox": {
+            "bottom": -1.9,
+            "left": -6.15,
+            "right": -2.55,
+            "top": -1.0
+          },
+          "h": 0.9,
+          "id": "review",
+          "style": "review",
+          "text": "comparison row",
+          "w": 3.6,
+          "x": -4.35,
+          "y": -1.45
+        },
+        {
+          "bbox": {
+            "bottom": -1.9,
+            "left": -1.8,
+            "right": 1.8,
+            "top": -1.0
+          },
+          "h": 0.9,
+          "id": "metric",
+          "style": "metric",
+          "text": "variable or number: comparison row",
+          "w": 3.6,
+          "x": 0.0,
+          "y": -1.45
+        },
+        {
+          "bbox": {
+            "bottom": -1.9,
+            "left": 2.55,
+            "right": 6.15,
+            "top": -1.0
+          },
+          "h": 0.9,
+          "id": "formula",
+          "style": "formula",
+          "text": "formal anchor: \\Delta_{OC}",
+          "w": 3.6,
+          "x": 4.35,
+          "y": -1.45
+        }
+      ],
+      "required_semantic_elements": [
+        "left object",
+        "right object",
+        "arrow",
+        "variable or number",
+        "formula",
+        "evidence link"
+      ],
+      "source_rel": "content/28d_oc133_inline_figures_domain_route.tex",
+      "topic": {
+        "arrow": "delta accounting",
+        "caption": "Comparator route. The figure demonstrates the reader-facing route from Prior model to OC residual; the relevant variable or number is comparison row, the formula anchor is \\Delta_{OC}, and the evidence link is the corresponding proof, table, or replay section in the release corpus.",
+        "formula": "\\Delta_{OC}",
+        "left": "Prior model",
+        "metric": "comparison row",
+        "review": "comparison row",
+        "right": "OC residual",
+        "slug": "comparator-route",
+        "title": "Comparator route"
+      },
+      "visual_spec_class": "deterministic_tikz_registry"
+    },
+    {
+      "canvas": {
+        "height": 6.8,
+        "margin": 0.35,
+        "width": 13.6
+      },
+      "caption_must_explain": [
+        "demonstrates",
+        "variable",
+        "formula",
+        "evidence"
+      ],
+      "connectors": [
+        {
+          "from": "left",
+          "label": "review path",
+          "to": "right"
+        },
+        {
+          "from": "review",
+          "label": "audit",
+          "to": "left"
+        },
+        {
+          "from": "metric",
+          "label": "measurement",
+          "to": "left/right"
+        },
+        {
+          "from": "formula",
+          "label": "formal link",
+          "to": "right"
+        }
+      ],
+      "evidence_anchor": "corresponding proof, table, or replay section",
+      "figure_id": "r012_inline_28e_oc133_inline_figures_reader_routes_1",
+      "figure_type": "inline_didactic_route",
+      "formula_anchor": "C\\Rightarrow E",
+      "label": "fig:r012-inline-28e_oc133_inline_figures_reader_routes-1",
+      "nodes": [
+        {
+          "bbox": {
+            "bottom": 0.475,
+            "left": -6.0,
+            "right": -2.7,
+            "top": 1.525
+          },
+          "h": 1.05,
+          "id": "left",
+          "style": "left",
+          "text": "Claim",
+          "w": 3.3,
+          "x": -4.35,
+          "y": 1.0
+        },
+        {
+          "bbox": {
+            "bottom": 0.475,
+            "left": 2.7,
+            "right": 6.0,
+            "top": 1.525
+          },
+          "h": 1.05,
+          "id": "right",
+          "style": "right",
+          "text": "Proof/evidence",
+          "w": 3.3,
+          "x": 4.35,
+          "y": 1.0
+        },
+        {
+          "bbox": {
+            "bottom": -1.9,
+            "left": -6.15,
+            "right": -2.55,
+            "top": -1.0
+          },
+          "h": 0.9,
+          "id": "review",
+          "style": "review",
+          "text": "attack points",
+          "w": 3.6,
+          "x": -4.35,
+          "y": -1.45
+        },
+        {
+          "bbox": {
+            "bottom": -1.9,
+            "left": -1.8,
+            "right": 1.8,
+            "top": -1.0
+          },
+          "h": 0.9,
+          "id": "metric",
+          "style": "metric",
+          "text": "variable or number: attack points",
+          "w": 3.6,
+          "x": 0.0,
+          "y": -1.45
+        },
+        {
+          "bbox": {
+            "bottom": -1.9,
+            "left": 2.55,
+            "right": 6.15,
+            "top": -1.0
+          },
+          "h": 0.9,
+          "id": "formula",
+          "style": "formula",
+          "text": "formal anchor: C\\Rightarrow E",
+          "w": 3.6,
+          "x": 4.35,
+          "y": -1.45
+        }
+      ],
+      "required_semantic_elements": [
+        "left object",
+        "right object",
+        "arrow",
+        "variable or number",
+        "formula",
+        "evidence link"
+      ],
+      "source_rel": "content/28e_oc133_inline_figures_reader_routes.tex",
+      "topic": {
+        "arrow": "review path",
+        "caption": "Scientific reviewer route. The figure demonstrates the reader-facing route from Claim to Proof/evidence; the relevant variable or number is attack points, the formula anchor is C\\Rightarrow E, and the evidence link is the corresponding proof, table, or replay section in the release corpus.",
+        "formula": "C\\Rightarrow E",
+        "left": "Claim",
+        "metric": "attack points",
+        "review": "attack points",
+        "right": "Proof/evidence",
+        "slug": "scientific-reviewer-route",
+        "title": "Scientific reviewer route"
+      },
+      "visual_spec_class": "deterministic_tikz_registry"
+    },
+    {
+      "canvas": {
+        "height": 6.8,
+        "margin": 0.35,
+        "width": 13.6
+      },
+      "caption_must_explain": [
+        "demonstrates",
+        "variable",
+        "formula",
+        "evidence"
+      ],
+      "connectors": [
+        {
+          "from": "left",
+          "label": "reading path",
+          "to": "right"
+        },
+        {
+          "from": "review",
+          "label": "audit",
+          "to": "left"
+        },
+        {
+          "from": "metric",
+          "label": "measurement",
+          "to": "left/right"
+        },
+        {
+          "from": "formula",
+          "label": "formal link",
+          "to": "right"
+        }
+      ],
+      "evidence_anchor": "corresponding proof, table, or replay section",
+      "figure_id": "r012_inline_28e_oc133_inline_figures_reader_routes_2",
+      "figure_type": "inline_didactic_route",
+      "formula_anchor": "K=(\\Omega,\\ldots,M)",
+      "label": "fig:r012-inline-28e_oc133_inline_figures_reader_routes-2",
+      "nodes": [
+        {
+          "bbox": {
+            "bottom": 0.475,
+            "left": -6.0,
+            "right": -2.7,
+            "top": 1.525
+          },
+          "h": 1.05,
+          "id": "left",
+          "style": "left",
+          "text": "Concept",
+          "w": 3.3,
+          "x": -4.35,
+          "y": 1.0
+        },
+        {
+          "bbox": {
+            "bottom": 0.475,
+            "left": 2.7,
+            "right": 6.0,
+            "top": 1.525
+          },
+          "h": 1.05,
+          "id": "right",
+          "style": "right",
+          "text": "Formal core",
+          "w": 3.3,
+          "x": 4.35,
+          "y": 1.0
+        },
+        {
+          "bbox": {
+            "bottom": -1.9,
+            "left": -6.15,
+            "right": -2.55,
+            "top": -1.0
+          },
+          "h": 0.9,
+          "id": "review",
+          "style": "review",
+          "text": "model anchors",
+          "w": 3.6,
+          "x": -4.35,
+          "y": -1.45
+        },
+        {
+          "bbox": {
+            "bottom": -1.9,
+            "left": -1.8,
+            "right": 1.8,
+            "top": -1.0
+          },
+          "h": 0.9,
+          "id": "metric",
+          "style": "metric",
+          "text": "variable or number: model anchors",
+          "w": 3.6,
+          "x": 0.0,
+          "y": -1.45
+        },
+        {
+          "bbox": {
+            "bottom": -1.9,
+            "left": 2.55,
+            "right": 6.15,
+            "top": -1.0
+          },
+          "h": 0.9,
+          "id": "formula",
+          "style": "formula",
+          "text": "formal anchor: K=(\\Omega,\\ldots,M)",
+          "w": 3.6,
+          "x": 4.35,
+          "y": -1.45
+        }
+      ],
+      "required_semantic_elements": [
+        "left object",
+        "right object",
+        "arrow",
+        "variable or number",
+        "formula",
+        "evidence link"
+      ],
+      "source_rel": "content/28e_oc133_inline_figures_reader_routes.tex",
+      "topic": {
+        "arrow": "reading path",
+        "caption": "Theorist route. The figure demonstrates the reader-facing route from Concept to Formal core; the relevant variable or number is model anchors, the formula anchor is K=(\\Omega,\\ldots,M), and the evidence link is the corresponding proof, table, or replay section in the release corpus.",
+        "formula": "K=(\\Omega,\\ldots,M)",
+        "left": "Concept",
+        "metric": "model anchors",
+        "review": "model anchors",
+        "right": "Formal core",
+        "slug": "theorist-route",
+        "title": "Theorist route"
+      },
+      "visual_spec_class": "deterministic_tikz_registry"
+    },
+    {
+      "canvas": {
+        "height": 6.8,
+        "margin": 0.35,
+        "width": 13.6
+      },
+      "caption_must_explain": [
+        "demonstrates",
+        "variable",
+        "formula",
+        "evidence"
+      ],
+      "connectors": [
+        {
+          "from": "left",
+          "label": "application",
+          "to": "right"
+        },
+        {
+          "from": "review",
+          "label": "audit",
+          "to": "left"
+        },
+        {
+          "from": "metric",
+          "label": "measurement",
+          "to": "left/right"
+        },
+        {
+          "from": "formula",
+          "label": "formal link",
+          "to": "right"
+        }
+      ],
+      "evidence_anchor": "corresponding proof, table, or replay section",
+      "figure_id": "r012_inline_28e_oc133_inline_figures_reader_routes_3",
+      "figure_type": "inline_didactic_route",
+      "formula_anchor": "P_D(K)",
+      "label": "fig:r012-inline-28e_oc133_inline_figures_reader_routes-3",
+      "nodes": [
+        {
+          "bbox": {
+            "bottom": 0.475,
+            "left": -6.0,
+            "right": -2.7,
+            "top": 1.525
+          },
+          "h": 1.05,
+          "id": "left",
+          "style": "left",
+          "text": "Use case",
+          "w": 3.3,
+          "x": -4.35,
+          "y": 1.0
+        },
+        {
+          "bbox": {
+            "bottom": 0.475,
+            "left": 2.7,
+            "right": 6.0,
+            "top": 1.525
+          },
+          "h": 1.05,
+          "id": "right",
+          "style": "right",
+          "text": "Domain route",
+          "w": 3.3,
+          "x": 4.35,
+          "y": 1.0
+        },
+        {
+          "bbox": {
+            "bottom": -1.9,
+            "left": -6.15,
+            "right": -2.55,
+            "top": -1.0
+          },
+          "h": 0.9,
+          "id": "review",
+          "style": "review",
+          "text": "decision row",
+          "w": 3.6,
+          "x": -4.35,
+          "y": -1.45
+        },
+        {
+          "bbox": {
+            "bottom": -1.9,
+            "left": -1.8,
+            "right": 1.8,
+            "top": -1.0
+          },
+          "h": 0.9,
+          "id": "metric",
+          "style": "metric",
+          "text": "variable or number: decision row",
+          "w": 3.6,
+          "x": 0.0,
+          "y": -1.45
+        },
+        {
+          "bbox": {
+            "bottom": -1.9,
+            "left": 2.55,
+            "right": 6.15,
+            "top": -1.0
+          },
+          "h": 0.9,
+          "id": "formula",
+          "style": "formula",
+          "text": "formal anchor: P_D(K)",
+          "w": 3.6,
+          "x": 4.35,
+          "y": -1.45
+        }
+      ],
+      "required_semantic_elements": [
+        "left object",
+        "right object",
+        "arrow",
+        "variable or number",
+        "formula",
+        "evidence link"
+      ],
+      "source_rel": "content/28e_oc133_inline_figures_reader_routes.tex",
+      "topic": {
+        "arrow": "application",
+        "caption": "Practitioner route. The figure demonstrates the reader-facing route from Use case to Domain route; the relevant variable or number is decision row, the formula anchor is P_D(K), and the evidence link is the corresponding proof, table, or replay section in the release corpus.",
+        "formula": "P_D(K)",
+        "left": "Use case",
+        "metric": "decision row",
+        "review": "decision row",
+        "right": "Domain route",
+        "slug": "practitioner-route",
+        "title": "Practitioner route"
+      },
+      "visual_spec_class": "deterministic_tikz_registry"
+    },
+    {
+      "canvas": {
+        "height": 6.8,
+        "margin": 0.35,
+        "width": 13.6
+      },
+      "caption_must_explain": [
+        "demonstrates",
+        "variable",
+        "formula",
+        "evidence"
+      ],
+      "connectors": [
+        {
+          "from": "left",
+          "label": "summary",
+          "to": "right"
+        },
+        {
+          "from": "review",
+          "label": "audit",
+          "to": "left"
+        },
+        {
+          "from": "metric",
+          "label": "measurement",
+          "to": "left/right"
+        },
+        {
+          "from": "formula",
+          "label": "formal link",
+          "to": "right"
+        }
+      ],
+      "evidence_anchor": "corresponding proof, table, or replay section",
+      "figure_id": "r012_inline_28e_oc133_inline_figures_reader_routes_4",
+      "figure_type": "inline_didactic_route",
+      "formula_anchor": "V(K)",
+      "label": "fig:r012-inline-28e_oc133_inline_figures_reader_routes-4",
+      "nodes": [
+        {
+          "bbox": {
+            "bottom": 0.475,
+            "left": -6.0,
+            "right": -2.7,
+            "top": 1.525
+          },
+          "h": 1.05,
+          "id": "left",
+          "style": "left",
+          "text": "Strategic question",
+          "w": 3.3,
+          "x": -4.35,
+          "y": 1.0
+        },
+        {
+          "bbox": {
+            "bottom": 0.475,
+            "left": 2.7,
+            "right": 6.0,
+            "top": 1.525
+          },
+          "h": 1.05,
+          "id": "right",
+          "style": "right",
+          "text": "Bounded answer",
+          "w": 3.3,
+          "x": 4.35,
+          "y": 1.0
+        },
+        {
+          "bbox": {
+            "bottom": -1.9,
+            "left": -6.15,
+            "right": -2.55,
+            "top": -1.0
+          },
+          "h": 0.9,
+          "id": "review",
+          "style": "review",
+          "text": "option set",
+          "w": 3.6,
+          "x": -4.35,
+          "y": -1.45
+        },
+        {
+          "bbox": {
+            "bottom": -1.9,
+            "left": -1.8,
+            "right": 1.8,
+            "top": -1.0
+          },
+          "h": 0.9,
+          "id": "metric",
+          "style": "metric",
+          "text": "variable or number: option set",
+          "w": 3.6,
+          "x": 0.0,
+          "y": -1.45
+        },
+        {
+          "bbox": {
+            "bottom": -1.9,
+            "left": 2.55,
+            "right": 6.15,
+            "top": -1.0
+          },
+          "h": 0.9,
+          "id": "formula",
+          "style": "formula",
+          "text": "formal anchor: V(K)",
+          "w": 3.6,
+          "x": 4.35,
+          "y": -1.45
+        }
+      ],
+      "required_semantic_elements": [
+        "left object",
+        "right object",
+        "arrow",
+        "variable or number",
+        "formula",
+        "evidence link"
+      ],
+      "source_rel": "content/28e_oc133_inline_figures_reader_routes.tex",
+      "topic": {
+        "arrow": "summary",
+        "caption": "Executive route. The figure demonstrates the reader-facing route from Strategic question to Bounded answer; the relevant variable or number is option set, the formula anchor is V(K), and the evidence link is the corresponding proof, table, or replay section in the release corpus.",
+        "formula": "V(K)",
+        "left": "Strategic question",
+        "metric": "option set",
+        "review": "option set",
+        "right": "Bounded answer",
+        "slug": "executive-route",
+        "title": "Executive route"
+      },
+      "visual_spec_class": "deterministic_tikz_registry"
+    },
+    {
+      "canvas": {
+        "height": 6.8,
+        "margin": 0.35,
+        "width": 13.6
+      },
+      "caption_must_explain": [
+        "demonstrates",
+        "variable",
+        "formula",
+        "evidence"
+      ],
+      "connectors": [
+        {
+          "from": "left",
+          "label": "verification",
+          "to": "right"
+        },
+        {
+          "from": "review",
+          "label": "audit",
+          "to": "left"
+        },
+        {
+          "from": "metric",
+          "label": "measurement",
+          "to": "left/right"
+        },
+        {
+          "from": "formula",
+          "label": "formal link",
+          "to": "right"
+        }
+      ],
+      "evidence_anchor": "corresponding proof, table, or replay section",
+      "figure_id": "r012_inline_28e_oc133_inline_figures_reader_routes_5",
+      "figure_type": "inline_didactic_route",
+      "formula_anchor": "H(source)",
+      "label": "fig:r012-inline-28e_oc133_inline_figures_reader_routes-5",
+      "nodes": [
+        {
+          "bbox": {
+            "bottom": 0.475,
+            "left": -6.0,
+            "right": -2.7,
+            "top": 1.525
+          },
+          "h": 1.05,
+          "id": "left",
+          "style": "left",
+          "text": "Evidence item",
+          "w": 3.3,
+          "x": -4.35,
+          "y": 1.0
+        },
+        {
+          "bbox": {
+            "bottom": 0.475,
+            "left": 2.7,
+            "right": 6.0,
+            "top": 1.525
+          },
+          "h": 1.05,
+          "id": "right",
+          "style": "right",
+          "text": "Audit trail",
+          "w": 3.3,
+          "x": 4.35,
+          "y": 1.0
+        },
+        {
+          "bbox": {
+            "bottom": -1.9,
+            "left": -6.15,
+            "right": -2.55,
+            "top": -1.0
+          },
+          "h": 0.9,
+          "id": "review",
+          "style": "review",
+          "text": "hash/check",
+          "w": 3.6,
+          "x": -4.35,
+          "y": -1.45
+        },
+        {
+          "bbox": {
+            "bottom": -1.9,
+            "left": -1.8,
+            "right": 1.8,
+            "top": -1.0
+          },
+          "h": 0.9,
+          "id": "metric",
+          "style": "metric",
+          "text": "variable or number: hash/check",
+          "w": 3.6,
+          "x": 0.0,
+          "y": -1.45
+        },
+        {
+          "bbox": {
+            "bottom": -1.9,
+            "left": 2.55,
+            "right": 6.15,
+            "top": -1.0
+          },
+          "h": 0.9,
+          "id": "formula",
+          "style": "formula",
+          "text": "formal anchor: H(source)",
+          "w": 3.6,
+          "x": 4.35,
+          "y": -1.45
+        }
+      ],
+      "required_semantic_elements": [
+        "left object",
+        "right object",
+        "arrow",
+        "variable or number",
+        "formula",
+        "evidence link"
+      ],
+      "source_rel": "content/28e_oc133_inline_figures_reader_routes.tex",
+      "topic": {
+        "arrow": "verification",
+        "caption": "Auditor route. The figure demonstrates the reader-facing route from Evidence item to Audit trail; the relevant variable or number is hash/check, the formula anchor is H(source), and the evidence link is the corresponding proof, table, or replay section in the release corpus.",
+        "formula": "H(source)",
+        "left": "Evidence item",
+        "metric": "hash/check",
+        "review": "hash/check",
+        "right": "Audit trail",
+        "slug": "auditor-route",
+        "title": "Auditor route"
+      },
+      "visual_spec_class": "deterministic_tikz_registry"
+    },
+    {
+      "canvas": {
+        "height": 6.8,
+        "margin": 0.35,
+        "width": 13.6
+      },
+      "caption_must_explain": [
+        "demonstrates",
+        "variable",
+        "formula",
+        "evidence"
+      ],
+      "connectors": [
+        {
+          "from": "left",
+          "label": "format compliance",
+          "to": "right"
+        },
+        {
+          "from": "review",
+          "label": "audit",
+          "to": "left"
+        },
+        {
+          "from": "metric",
+          "label": "measurement",
+          "to": "left/right"
+        },
+        {
+          "from": "formula",
+          "label": "formal link",
+          "to": "right"
+        }
+      ],
+      "evidence_anchor": "corresponding proof, table, or replay section",
+      "figure_id": "r012_inline_28e_oc133_inline_figures_reader_routes_6",
+      "figure_type": "inline_didactic_route",
+      "formula_anchor": "SPOT\\to venue",
+      "label": "fig:r012-inline-28e_oc133_inline_figures_reader_routes-6",
+      "nodes": [
+        {
+          "bbox": {
+            "bottom": 0.475,
+            "left": -6.0,
+            "right": -2.7,
+            "top": 1.525
+          },
+          "h": 1.05,
+          "id": "left",
+          "style": "left",
+          "text": "Venue",
+          "w": 3.3,
+          "x": -4.35,
+          "y": 1.0
+        },
+        {
+          "bbox": {
+            "bottom": 0.475,
+            "left": 2.7,
+            "right": 6.0,
+            "top": 1.525
+          },
+          "h": 1.05,
+          "id": "right",
+          "style": "right",
+          "text": "Projection package",
+          "w": 3.3,
+          "x": 4.35,
+          "y": 1.0
+        },
+        {
+          "bbox": {
+            "bottom": -1.9,
+            "left": -6.15,
+            "right": -2.55,
+            "top": -1.0
+          },
+          "h": 0.9,
+          "id": "review",
+          "style": "review",
+          "text": "checklist",
+          "w": 3.6,
+          "x": -4.35,
+          "y": -1.45
+        },
+        {
+          "bbox": {
+            "bottom": -1.9,
+            "left": -1.8,
+            "right": 1.8,
+            "top": -1.0
+          },
+          "h": 0.9,
+          "id": "metric",
+          "style": "metric",
+          "text": "variable or number: checklist",
+          "w": 3.6,
+          "x": 0.0,
+          "y": -1.45
+        },
+        {
+          "bbox": {
+            "bottom": -1.9,
+            "left": 2.55,
+            "right": 6.15,
+            "top": -1.0
+          },
+          "h": 0.9,
+          "id": "formula",
+          "style": "formula",
+          "text": "formal anchor: SPOT\\to venue",
+          "w": 3.6,
+          "x": 4.35,
+          "y": -1.45
+        }
+      ],
+      "required_semantic_elements": [
+        "left object",
+        "right object",
+        "arrow",
+        "variable or number",
+        "formula",
+        "evidence link"
+      ],
+      "source_rel": "content/28e_oc133_inline_figures_reader_routes.tex",
+      "topic": {
+        "arrow": "format compliance",
+        "caption": "Journal route. The figure demonstrates the reader-facing route from Venue to Projection package; the relevant variable or number is checklist, the formula anchor is SPOT\\to venue, and the evidence link is the corresponding proof, table, or replay section in the release corpus.",
+        "formula": "SPOT\\to venue",
+        "left": "Venue",
+        "metric": "checklist",
+        "review": "checklist",
+        "right": "Projection package",
+        "slug": "journal-route",
+        "title": "Journal route"
+      },
+      "visual_spec_class": "deterministic_tikz_registry"
+    },
+    {
+      "canvas": {
+        "height": 6.8,
+        "margin": 0.35,
+        "width": 13.6
+      },
+      "caption_must_explain": [
+        "demonstrates",
+        "variable",
+        "formula",
+        "evidence"
+      ],
+      "connectors": [
+        {
+          "from": "left",
+          "label": "lookup route",
+          "to": "right"
+        },
+        {
+          "from": "review",
+          "label": "audit",
+          "to": "left"
+        },
+        {
+          "from": "metric",
+          "label": "measurement",
+          "to": "left/right"
+        },
+        {
+          "from": "formula",
+          "label": "formal link",
+          "to": "right"
+        }
+      ],
+      "evidence_anchor": "corresponding proof, table, or replay section",
+      "figure_id": "r012_inline_28f_oc133_inline_figures_appendix_route_1",
+      "figure_type": "inline_didactic_route",
+      "formula_anchor": "s\\mapsto def(s)",
+      "label": "fig:r012-inline-28f_oc133_inline_figures_appendix_route-1",
+      "nodes": [
+        {
+          "bbox": {
+            "bottom": 0.475,
+            "left": -6.0,
+            "right": -2.7,
+            "top": 1.525
+          },
+          "h": 1.05,
+          "id": "left",
+          "style": "left",
+          "text": "Symbol",
+          "w": 3.3,
+          "x": -4.35,
+          "y": 1.0
+        },
+        {
+          "bbox": {
+            "bottom": 0.475,
+            "left": 2.7,
+            "right": 6.0,
+            "top": 1.525
+          },
+          "h": 1.05,
+          "id": "right",
+          "style": "right",
+          "text": "Definition",
+          "w": 3.3,
+          "x": 4.35,
+          "y": 1.0
+        },
+        {
+          "bbox": {
+            "bottom": -1.9,
+            "left": -6.15,
+            "right": -2.55,
+            "top": -1.0
+          },
+          "h": 0.9,
+          "id": "review",
+          "style": "review",
+          "text": "symbol count",
+          "w": 3.6,
+          "x": -4.35,
+          "y": -1.45
+        },
+        {
+          "bbox": {
+            "bottom": -1.9,
+            "left": -1.8,
+            "right": 1.8,
+            "top": -1.0
+          },
+          "h": 0.9,
+          "id": "metric",
+          "style": "metric",
+          "text": "variable or number: symbol count",
+          "w": 3.6,
+          "x": 0.0,
+          "y": -1.45
+        },
+        {
+          "bbox": {
+            "bottom": -1.9,
+            "left": 2.55,
+            "right": 6.15,
+            "top": -1.0
+          },
+          "h": 0.9,
+          "id": "formula",
+          "style": "formula",
+          "text": "formal anchor: s\\mapsto def(s)",
+          "w": 3.6,
+          "x": 4.35,
+          "y": -1.45
+        }
+      ],
+      "required_semantic_elements": [
+        "left object",
+        "right object",
+        "arrow",
+        "variable or number",
+        "formula",
+        "evidence link"
+      ],
+      "source_rel": "content/28f_oc133_inline_figures_appendix_route.tex",
+      "topic": {
+        "arrow": "lookup route",
+        "caption": "Notation map. The figure demonstrates the reader-facing route from Symbol to Definition; the relevant variable or number is symbol count, the formula anchor is s\\mapsto def(s), and the evidence link is the corresponding proof, table, or replay section in the release corpus.",
+        "formula": "s\\mapsto def(s)",
+        "left": "Symbol",
+        "metric": "symbol count",
+        "review": "symbol count",
+        "right": "Definition",
+        "slug": "notation-map",
+        "title": "Notation map"
+      },
+      "visual_spec_class": "deterministic_tikz_registry"
+    },
+    {
+      "canvas": {
+        "height": 6.8,
+        "margin": 0.35,
+        "width": 13.6
+      },
+      "caption_must_explain": [
+        "demonstrates",
+        "variable",
+        "formula",
+        "evidence"
+      ],
+      "connectors": [
+        {
+          "from": "left",
+          "label": "dependency route",
+          "to": "right"
+        },
+        {
+          "from": "review",
+          "label": "audit",
+          "to": "left"
+        },
+        {
+          "from": "metric",
+          "label": "measurement",
+          "to": "left/right"
+        },
+        {
+          "from": "formula",
+          "label": "formal link",
+          "to": "right"
+        }
+      ],
+      "evidence_anchor": "corresponding proof, table, or replay section",
+      "figure_id": "r012_inline_28f_oc133_inline_figures_appendix_route_2",
+      "figure_type": "inline_didactic_route",
+      "formula_anchor": "A_i\\to T_j",
+      "label": "fig:r012-inline-28f_oc133_inline_figures_appendix_route-2",
+      "nodes": [
+        {
+          "bbox": {
+            "bottom": 0.475,
+            "left": -6.0,
+            "right": -2.7,
+            "top": 1.525
+          },
+          "h": 1.05,
+          "id": "left",
+          "style": "left",
+          "text": "Axiom",
+          "w": 3.3,
+          "x": -4.35,
+          "y": 1.0
+        },
+        {
+          "bbox": {
+            "bottom": 0.475,
+            "left": 2.7,
+            "right": 6.0,
+            "top": 1.525
+          },
+          "h": 1.05,
+          "id": "right",
+          "style": "right",
+          "text": "Dependent theorem",
+          "w": 3.3,
+          "x": 4.35,
+          "y": 1.0
+        },
+        {
+          "bbox": {
+            "bottom": -1.9,
+            "left": -6.15,
+            "right": -2.55,
+            "top": -1.0
+          },
+          "h": 0.9,
+          "id": "review",
+          "style": "review",
+          "text": "theorem count",
+          "w": 3.6,
+          "x": -4.35,
+          "y": -1.45
+        },
+        {
+          "bbox": {
+            "bottom": -1.9,
+            "left": -1.8,
+            "right": 1.8,
+            "top": -1.0
+          },
+          "h": 0.9,
+          "id": "metric",
+          "style": "metric",
+          "text": "variable or number: theorem count",
+          "w": 3.6,
+          "x": 0.0,
+          "y": -1.45
+        },
+        {
+          "bbox": {
+            "bottom": -1.9,
+            "left": 2.55,
+            "right": 6.15,
+            "top": -1.0
+          },
+          "h": 0.9,
+          "id": "formula",
+          "style": "formula",
+          "text": "formal anchor: A_i\\to T_j",
+          "w": 3.6,
+          "x": 4.35,
+          "y": -1.45
+        }
+      ],
+      "required_semantic_elements": [
+        "left object",
+        "right object",
+        "arrow",
+        "variable or number",
+        "formula",
+        "evidence link"
+      ],
+      "source_rel": "content/28f_oc133_inline_figures_appendix_route.tex",
+      "topic": {
+        "arrow": "dependency route",
+        "caption": "Axiom map. The figure demonstrates the reader-facing route from Axiom to Dependent theorem; the relevant variable or number is theorem count, the formula anchor is A_i\\to T_j, and the evidence link is the corresponding proof, table, or replay section in the release corpus.",
+        "formula": "A_i\\to T_j",
+        "left": "Axiom",
+        "metric": "theorem count",
+        "review": "theorem count",
+        "right": "Dependent theorem",
+        "slug": "axiom-map",
+        "title": "Axiom map"
+      },
+      "visual_spec_class": "deterministic_tikz_registry"
+    },
+    {
+      "canvas": {
+        "height": 6.8,
+        "margin": 0.35,
+        "width": 13.6
+      },
+      "caption_must_explain": [
+        "demonstrates",
+        "variable",
+        "formula",
+        "evidence"
+      ],
+      "connectors": [
+        {
+          "from": "left",
+          "label": "reference map",
+          "to": "right"
+        },
+        {
+          "from": "review",
+          "label": "audit",
+          "to": "left"
+        },
+        {
+          "from": "metric",
+          "label": "measurement",
+          "to": "left/right"
+        },
+        {
+          "from": "formula",
+          "label": "formal link",
+          "to": "right"
+        }
+      ],
+      "evidence_anchor": "corresponding proof, table, or replay section",
+      "figure_id": "r012_inline_28f_oc133_inline_figures_appendix_route_3",
+      "figure_type": "inline_didactic_route",
+      "formula_anchor": "row_id",
+      "label": "fig:r012-inline-28f_oc133_inline_figures_appendix_route-3",
+      "nodes": [
+        {
+          "bbox": {
+            "bottom": 0.475,
+            "left": -6.0,
+            "right": -2.7,
+            "top": 1.525
+          },
+          "h": 1.05,
+          "id": "left",
+          "style": "left",
+          "text": "Table row",
+          "w": 3.3,
+          "x": -4.35,
+          "y": 1.0
+        },
+        {
+          "bbox": {
+            "bottom": 0.475,
+            "left": 2.7,
+            "right": 6.0,
+            "top": 1.525
+          },
+          "h": 1.05,
+          "id": "right",
+          "style": "right",
+          "text": "Reader row",
+          "w": 3.3,
+          "x": 4.35,
+          "y": 1.0
+        },
+        {
+          "bbox": {
+            "bottom": -1.9,
+            "left": -6.15,
+            "right": -2.55,
+            "top": -1.0
+          },
+          "h": 0.9,
+          "id": "review",
+          "style": "review",
+          "text": "row id",
+          "w": 3.6,
+          "x": -4.35,
+          "y": -1.45
+        },
+        {
+          "bbox": {
+            "bottom": -1.9,
+            "left": -1.8,
+            "right": 1.8,
+            "top": -1.0
+          },
+          "h": 0.9,
+          "id": "metric",
+          "style": "metric",
+          "text": "variable or number: row id",
+          "w": 3.6,
+          "x": 0.0,
+          "y": -1.45
+        },
+        {
+          "bbox": {
+            "bottom": -1.9,
+            "left": 2.55,
+            "right": 6.15,
+            "top": -1.0
+          },
+          "h": 0.9,
+          "id": "formula",
+          "style": "formula",
+          "text": "formal anchor: row_id",
+          "w": 3.6,
+          "x": 4.35,
+          "y": -1.45
+        }
+      ],
+      "required_semantic_elements": [
+        "left object",
+        "right object",
+        "arrow",
+        "variable or number",
+        "formula",
+        "evidence link"
+      ],
+      "source_rel": "content/28f_oc133_inline_figures_appendix_route.tex",
+      "topic": {
+        "arrow": "reference map",
+        "caption": "Machine-readable table reference. The figure demonstrates the reader-facing route from Table row to Reader row; the relevant variable or number is row id, the formula anchor is row_id, and the evidence link is the corresponding proof, table, or replay section in the release corpus.",
+        "formula": "row_id",
+        "left": "Table row",
+        "metric": "row id",
+        "review": "row id",
+        "right": "Reader row",
+        "slug": "table-reference",
+        "title": "Machine-readable table reference"
+      },
+      "visual_spec_class": "deterministic_tikz_registry"
+    },
+    {
+      "canvas": {
+        "height": 6.8,
+        "margin": 0.35,
+        "width": 13.6
+      },
+      "caption_must_explain": [
+        "demonstrates",
+        "variable",
+        "formula",
+        "evidence"
+      ],
+      "connectors": [
+        {
+          "from": "left",
+          "label": "audit route",
+          "to": "right"
+        },
+        {
+          "from": "review",
+          "label": "audit",
+          "to": "left"
+        },
+        {
+          "from": "metric",
+          "label": "measurement",
+          "to": "left/right"
+        },
+        {
+          "from": "formula",
+          "label": "formal link",
+          "to": "right"
+        }
+      ],
+      "evidence_anchor": "corresponding proof, table, or replay section",
+      "figure_id": "r012_inline_28f_oc133_inline_figures_appendix_route_4",
+      "figure_type": "inline_didactic_route",
+      "formula_anchor": "trace(source)",
+      "label": "fig:r012-inline-28f_oc133_inline_figures_appendix_route-4",
+      "nodes": [
+        {
+          "bbox": {
+            "bottom": 0.475,
+            "left": -6.0,
+            "right": -2.7,
+            "top": 1.525
+          },
+          "h": 1.05,
+          "id": "left",
+          "style": "left",
+          "text": "Source action",
+          "w": 3.3,
+          "x": -4.35,
+          "y": 1.0
+        },
+        {
+          "bbox": {
+            "bottom": 0.475,
+            "left": 2.7,
+            "right": 6.0,
+            "top": 1.525
+          },
+          "h": 1.05,
+          "id": "right",
+          "style": "right",
+          "text": "Review trace",
+          "w": 3.3,
+          "x": 4.35,
+          "y": 1.0
+        },
+        {
+          "bbox": {
+            "bottom": -1.9,
+            "left": -6.15,
+            "right": -2.55,
+            "top": -1.0
+          },
+          "h": 0.9,
+          "id": "review",
+          "style": "review",
+          "text": "trace count",
+          "w": 3.6,
+          "x": -4.35,
+          "y": -1.45
+        },
+        {
+          "bbox": {
+            "bottom": -1.9,
+            "left": -1.8,
+            "right": 1.8,
+            "top": -1.0
+          },
+          "h": 0.9,
+          "id": "metric",
+          "style": "metric",
+          "text": "variable or number: trace count",
+          "w": 3.6,
+          "x": 0.0,
+          "y": -1.45
+        },
+        {
+          "bbox": {
+            "bottom": -1.9,
+            "left": 2.55,
+            "right": 6.15,
+            "top": -1.0
+          },
+          "h": 0.9,
+          "id": "formula",
+          "style": "formula",
+          "text": "formal anchor: trace(source)",
+          "w": 3.6,
+          "x": 4.35,
+          "y": -1.45
+        }
+      ],
+      "required_semantic_elements": [
+        "left object",
+        "right object",
+        "arrow",
+        "variable or number",
+        "formula",
+        "evidence link"
+      ],
+      "source_rel": "content/28f_oc133_inline_figures_appendix_route.tex",
+      "topic": {
+        "arrow": "audit route",
+        "caption": "Audit trail. The figure demonstrates the reader-facing route from Source action to Review trace; the relevant variable or number is trace count, the formula anchor is trace(source), and the evidence link is the corresponding proof, table, or replay section in the release corpus.",
+        "formula": "trace(source)",
+        "left": "Source action",
+        "metric": "trace count",
+        "review": "trace count",
+        "right": "Review trace",
+        "slug": "audit-trail",
+        "title": "Audit trail"
+      },
+      "visual_spec_class": "deterministic_tikz_registry"
+    },
+    {
+      "canvas": {
+        "height": 6.8,
+        "margin": 0.35,
+        "width": 13.6
+      },
+      "caption_must_explain": [
+        "demonstrates",
+        "variable",
+        "formula",
+        "evidence"
+      ],
+      "connectors": [
+        {
+          "from": "left",
+          "label": "comparison",
+          "to": "right"
+        },
+        {
+          "from": "review",
+          "label": "audit",
+          "to": "left"
+        },
+        {
+          "from": "metric",
+          "label": "measurement",
+          "to": "left/right"
+        },
+        {
+          "from": "formula",
+          "label": "formal link",
+          "to": "right"
+        }
+      ],
+      "evidence_anchor": "corresponding proof, table, or replay section",
+      "figure_id": "r012_inline_28f_oc133_inline_figures_appendix_route_5",
+      "figure_type": "inline_didactic_route",
+      "formula_anchor": "model_A\\Delta model_B",
+      "label": "fig:r012-inline-28f_oc133_inline_figures_appendix_route-5",
+      "nodes": [
+        {
+          "bbox": {
+            "bottom": 0.475,
+            "left": -6.0,
+            "right": -2.7,
+            "top": 1.525
+          },
+          "h": 1.05,
+          "id": "left",
+          "style": "left",
+          "text": "Comparator",
+          "w": 3.3,
+          "x": -4.35,
+          "y": 1.0
+        },
+        {
+          "bbox": {
+            "bottom": 0.475,
+            "left": 2.7,
+            "right": 6.0,
+            "top": 1.525
+          },
+          "h": 1.05,
+          "id": "right",
+          "style": "right",
+          "text": "OC contribution",
+          "w": 3.3,
+          "x": 4.35,
+          "y": 1.0
+        },
+        {
+          "bbox": {
+            "bottom": -1.9,
+            "left": -6.15,
+            "right": -2.55,
+            "top": -1.0
+          },
+          "h": 0.9,
+          "id": "review",
+          "style": "review",
+          "text": "delta row",
+          "w": 3.6,
+          "x": -4.35,
+          "y": -1.45
+        },
+        {
+          "bbox": {
+            "bottom": -1.9,
+            "left": -1.8,
+            "right": 1.8,
+            "top": -1.0
+          },
+          "h": 0.9,
+          "id": "metric",
+          "style": "metric",
+          "text": "variable or number: delta row",
+          "w": 3.6,
+          "x": 0.0,
+          "y": -1.45
+        },
+        {
+          "bbox": {
+            "bottom": -1.9,
+            "left": 2.55,
+            "right": 6.15,
+            "top": -1.0
+          },
+          "h": 0.9,
+          "id": "formula",
+          "style": "formula",
+          "text": "formal anchor: model_A\\Delta model_B",
+          "w": 3.6,
+          "x": 4.35,
+          "y": -1.45
+        }
+      ],
+      "required_semantic_elements": [
+        "left object",
+        "right object",
+        "arrow",
+        "variable or number",
+        "formula",
+        "evidence link"
+      ],
+      "source_rel": "content/28f_oc133_inline_figures_appendix_route.tex",
+      "topic": {
+        "arrow": "comparison",
+        "caption": "Reader-facing comparison rows. The figure demonstrates the reader-facing route from Comparator to OC contribution; the relevant variable or number is delta row, the formula anchor is model_A\\Delta model_B, and the evidence link is the corresponding proof, table, or replay section in the release corpus.",
+        "formula": "model_A\\Delta model_B",
+        "left": "Comparator",
+        "metric": "delta row",
+        "review": "delta row",
+        "right": "OC contribution",
+        "slug": "comparison-rows",
+        "title": "Reader-facing comparison rows"
+      },
+      "visual_spec_class": "deterministic_tikz_registry"
+    },
+    {
+      "canvas": {
+        "height": 6.8,
+        "margin": 0.35,
+        "width": 13.6
+      },
+      "caption_must_explain": [
+        "demonstrates",
+        "variable",
+        "formula",
+        "evidence"
+      ],
+      "connectors": [
+        {
+          "from": "left",
+          "label": "support route",
+          "to": "right"
+        },
+        {
+          "from": "review",
+          "label": "audit",
+          "to": "left"
+        },
+        {
+          "from": "metric",
+          "label": "measurement",
+          "to": "left/right"
+        },
+        {
+          "from": "formula",
+          "label": "formal link",
+          "to": "right"
+        }
+      ],
+      "evidence_anchor": "corresponding proof, table, or replay section",
+      "figure_id": "r012_inline_28f_oc133_inline_figures_appendix_route_6",
+      "figure_type": "inline_didactic_route",
+      "formula_anchor": "claim\\to appendix",
+      "label": "fig:r012-inline-28f_oc133_inline_figures_appendix_route-6",
+      "nodes": [
+        {
+          "bbox": {
+            "bottom": 0.475,
+            "left": -6.0,
+            "right": -2.7,
+            "top": 1.525
+          },
+          "h": 1.05,
+          "id": "left",
+          "style": "left",
+          "text": "Main claim",
+          "w": 3.3,
+          "x": -4.35,
+          "y": 1.0
+        },
+        {
+          "bbox": {
+            "bottom": 0.475,
+            "left": 2.7,
+            "right": 6.0,
+            "top": 1.525
+          },
+          "h": 1.05,
+          "id": "right",
+          "style": "right",
+          "text": "Support annex",
+          "w": 3.3,
+          "x": 4.35,
+          "y": 1.0
+        },
+        {
+          "bbox": {
+            "bottom": -1.9,
+            "left": -6.15,
+            "right": -2.55,
+            "top": -1.0
+          },
+          "h": 0.9,
+          "id": "review",
+          "style": "review",
+          "text": "annex status",
+          "w": 3.6,
+          "x": -4.35,
+          "y": -1.45
+        },
+        {
+          "bbox": {
+            "bottom": -1.9,
+            "left": -1.8,
+            "right": 1.8,
+            "top": -1.0
+          },
+          "h": 0.9,
+          "id": "metric",
+          "style": "metric",
+          "text": "variable or number: annex status",
+          "w": 3.6,
+          "x": 0.0,
+          "y": -1.45
+        },
+        {
+          "bbox": {
+            "bottom": -1.9,
+            "left": 2.55,
+            "right": 6.15,
+            "top": -1.0
+          },
+          "h": 0.9,
+          "id": "formula",
+          "style": "formula",
+          "text": "formal anchor: claim\\to appendix",
+          "w": 3.6,
+          "x": 4.35,
+          "y": -1.45
+        }
+      ],
+      "required_semantic_elements": [
+        "left object",
+        "right object",
+        "arrow",
+        "variable or number",
+        "formula",
+        "evidence link"
+      ],
+      "source_rel": "content/28f_oc133_inline_figures_appendix_route.tex",
+      "topic": {
+        "arrow": "support route",
+        "caption": "Appendix closure. The figure demonstrates the reader-facing route from Main claim to Support annex; the relevant variable or number is annex status, the formula anchor is claim\\to appendix, and the evidence link is the corresponding proof, table, or replay section in the release corpus.",
+        "formula": "claim\\to appendix",
+        "left": "Main claim",
+        "metric": "annex status",
+        "review": "annex status",
+        "right": "Support annex",
+        "slug": "appendix-closure",
+        "title": "Appendix closure"
+      },
+      "visual_spec_class": "deterministic_tikz_registry"
+    },
+    {
+      "canvas": null,
+      "caption": "Schematic structure of a continuum \\(K = (\\Omega, A, P, J, \\Theta, \\partial\\Omega, C, k)\\).",
+      "caption_must_explain": [
+        "demonstrates",
+        "formula",
+        "evidence"
+      ],
+      "connectors": [],
+      "evidence_anchor": "legacy source figure and rendered PDF text",
+      "figure_id": "legacy_0039",
+      "figure_type": "legacy_corpus_figure",
+      "formula_anchor": "legacy corpus anchor",
+      "label": "fig:continua-structure",
+      "nodes": [],
+      "source_rel": "content/07_figures.tex",
+      "visual_spec_class": "legacy_corpus_figure_registered_for_render_audit"
+    },
+    {
+      "canvas": null,
+      "caption": "Axes and threshold surfaces in the extended state space of a continuum.",
+      "caption_must_explain": [
+        "demonstrates",
+        "formula",
+        "evidence"
+      ],
+      "connectors": [],
+      "evidence_anchor": "legacy source figure and rendered PDF text",
+      "figure_id": "legacy_0040",
+      "figure_type": "legacy_corpus_figure",
+      "formula_anchor": "legacy corpus anchor",
+      "label": "fig:axes-thresholds",
+      "nodes": [],
+      "source_rel": "content/07_figures.tex",
+      "visual_spec_class": "legacy_corpus_figure_registered_for_render_audit"
+    },
+    {
+      "canvas": null,
+      "caption": "Taxonomy of thresholds: existence, stability, critical, dimensional and death thresholds.",
+      "caption_must_explain": [
+        "demonstrates",
+        "formula",
+        "evidence"
+      ],
+      "connectors": [],
+      "evidence_anchor": "legacy source figure and rendered PDF text",
+      "figure_id": "legacy_0041",
+      "figure_type": "legacy_corpus_figure",
+      "formula_anchor": "legacy corpus anchor",
+      "label": "fig:thresholds-taxonomy",
+      "nodes": [],
+      "source_rel": "content/07_figures.tex",
+      "visual_spec_class": "legacy_corpus_figure_registered_for_render_audit"
+    },
+    {
+      "canvas": null,
+      "caption": "Structural difference and minimal threshold \\texorpdfstring{\\(\\Theta_0\\)",
+      "caption_must_explain": [
+        "demonstrates",
+        "formula",
+        "evidence"
+      ],
+      "connectors": [],
+      "evidence_anchor": "legacy source figure and rendered PDF text",
+      "figure_id": "legacy_0042",
+      "figure_type": "legacy_corpus_figure",
+      "formula_anchor": "legacy corpus anchor",
+      "label": "fig:delta-threshold-k0",
+      "nodes": [],
+      "source_rel": "content/07_figures.tex",
+      "visual_spec_class": "legacy_corpus_figure_registered_for_render_audit"
+    },
+    {
+      "canvas": null,
+      "caption": "Schematic of the transition \\(\\Psi_{0\\to 1",
+      "caption_must_explain": [
+        "demonstrates",
+        "formula",
+        "evidence"
+      ],
+      "connectors": [],
+      "evidence_anchor": "legacy source figure and rendered PDF text",
+      "figure_id": "legacy_0043",
+      "figure_type": "legacy_corpus_figure",
+      "formula_anchor": "legacy corpus anchor",
+      "label": "fig:k0-k1-transition",
+      "nodes": [],
+      "source_rel": "content/07_figures.tex",
+      "visual_spec_class": "legacy_corpus_figure_registered_for_render_audit"
+    },
+    {
+      "canvas": null,
+      "caption": "vertical hierarchy of continua from \\texorpdfstring{\\(K_0\\)",
+      "caption_must_explain": [
+        "demonstrates",
+        "formula",
+        "evidence"
+      ],
+      "connectors": [],
+      "evidence_anchor": "legacy source figure and rendered PDF text",
+      "figure_id": "legacy_0044",
+      "figure_type": "legacy_corpus_figure",
+      "formula_anchor": "legacy corpus anchor",
+      "label": "fig:levels-hierarchy",
+      "nodes": [],
+      "source_rel": "content/07_figures.tex",
+      "visual_spec_class": "legacy_corpus_figure_registered_for_render_audit"
+    },
+    {
+      "canvas": null,
+      "caption": "Illustrative potential landscape and flows \\(J(t)\\) on a continuum.",
+      "caption_must_explain": [
+        "demonstrates",
+        "formula",
+        "evidence"
+      ],
+      "connectors": [],
+      "evidence_anchor": "legacy source figure and rendered PDF text",
+      "figure_id": "legacy_0045",
+      "figure_type": "legacy_corpus_figure",
+      "formula_anchor": "legacy corpus anchor",
+      "label": "fig:potential-landscape",
+      "nodes": [],
+      "source_rel": "content/07_figures.tex",
+      "visual_spec_class": "legacy_corpus_figure_registered_for_render_audit"
+    },
+    {
+      "canvas": null,
+      "caption": "Schematic action of the evolution operator \\(E : K(t) \\mapsto K(t+dt)\\).",
+      "caption_must_explain": [
+        "demonstrates",
+        "formula",
+        "evidence"
+      ],
+      "connectors": [],
+      "evidence_anchor": "legacy source figure and rendered PDF text",
+      "figure_id": "legacy_0046",
+      "figure_type": "legacy_corpus_figure",
+      "formula_anchor": "legacy corpus anchor",
+      "label": "fig:evolution-operator",
+      "nodes": [],
+      "source_rel": "content/07_figures.tex",
+      "visual_spec_class": "legacy_corpus_figure_registered_for_render_audit"
+    },
+    {
+      "canvas": null,
+      "caption": "Birth, life and death of a continuum in terms of the state space \\texorpdfstring{\\(\\Omega\\)",
+      "caption_must_explain": [
+        "demonstrates",
+        "formula",
+        "evidence"
+      ],
+      "connectors": [],
+      "evidence_anchor": "legacy source figure and rendered PDF text",
+      "figure_id": "legacy_0047",
+      "figure_type": "legacy_corpus_figure",
+      "formula_anchor": "legacy corpus anchor",
+      "label": "fig:birth-life-death",
+      "nodes": [],
+      "source_rel": "content/07_figures.tex",
+      "visual_spec_class": "legacy_corpus_figure_registered_for_render_audit"
+    },
+    {
+      "canvas": null,
+      "caption": "Percolation--type transition at level \\texorpdfstring{\\(K_2\\)",
+      "caption_must_explain": [
+        "demonstrates",
+        "formula",
+        "evidence"
+      ],
+      "connectors": [],
+      "evidence_anchor": "legacy source figure and rendered PDF text",
+      "figure_id": "legacy_0048",
+      "figure_type": "legacy_corpus_figure",
+      "formula_anchor": "legacy corpus anchor",
+      "label": "fig:percolation",
+      "nodes": [],
+      "source_rel": "content/07_figures.tex",
+      "visual_spec_class": "legacy_corpus_figure_registered_for_render_audit"
+    },
+    {
+      "canvas": null,
+      "caption": "BKT--type transition as an example of threshold--governed emergence of a new topological axis.",
+      "caption_must_explain": [
+        "demonstrates",
+        "formula",
+        "evidence"
+      ],
+      "connectors": [],
+      "evidence_anchor": "legacy source figure and rendered PDF text",
+      "figure_id": "legacy_0049",
+      "figure_type": "legacy_corpus_figure",
+      "formula_anchor": "legacy corpus anchor",
+      "label": "fig:bkt-transition",
+      "nodes": [],
+      "source_rel": "content/07_figures.tex",
+      "visual_spec_class": "legacy_corpus_figure_registered_for_render_audit"
+    },
+    {
+      "canvas": null,
+      "caption": "Illustrative Bloch sphere diagram for quantum two--level systems.",
+      "caption_must_explain": [
+        "demonstrates",
+        "formula",
+        "evidence"
+      ],
+      "connectors": [],
+      "evidence_anchor": "legacy source figure and rendered PDF text",
+      "figure_id": "legacy_0050",
+      "figure_type": "legacy_corpus_figure",
+      "formula_anchor": "legacy corpus anchor",
+      "label": "fig:bloch-sphere",
+      "nodes": [],
+      "source_rel": "content/07_figures.tex",
+      "visual_spec_class": "legacy_corpus_figure_registered_for_render_audit"
+    },
+    {
+      "canvas": null,
+      "caption": "RAF network as a chemical continuum at level \\texorpdfstring{\\(K_3\\)",
+      "caption_must_explain": [
+        "demonstrates",
+        "formula",
+        "evidence"
+      ],
+      "connectors": [],
+      "evidence_anchor": "legacy source figure and rendered PDF text",
+      "figure_id": "legacy_0051",
+      "figure_type": "legacy_corpus_figure",
+      "formula_anchor": "legacy corpus anchor",
+      "label": "fig:raf-network",
+      "nodes": [],
+      "source_rel": "content/07_figures.tex",
+      "visual_spec_class": "legacy_corpus_figure_registered_for_render_audit"
+    },
+    {
+      "canvas": null,
+      "caption": "Catalytic paths and supporting flows in a reaction network.",
+      "caption_must_explain": [
+        "demonstrates",
+        "formula",
+        "evidence"
+      ],
+      "connectors": [],
+      "evidence_anchor": "legacy source figure and rendered PDF text",
+      "figure_id": "legacy_0052",
+      "figure_type": "legacy_corpus_figure",
+      "formula_anchor": "legacy corpus anchor",
+      "label": "fig:catalytic-paths",
+      "nodes": [],
+      "source_rel": "content/07_figures.tex",
+      "visual_spec_class": "legacy_corpus_figure_registered_for_render_audit"
+    },
+    {
+      "canvas": null,
+      "caption": "Membrane closure and emergence of a protocellular boundary at level \\texorpdfstring{\\(K_4\\)",
+      "caption_must_explain": [
+        "demonstrates",
+        "formula",
+        "evidence"
+      ],
+      "connectors": [],
+      "evidence_anchor": "legacy source figure and rendered PDF text",
+      "figure_id": "legacy_0053",
+      "figure_type": "legacy_corpus_figure",
+      "formula_anchor": "legacy corpus anchor",
+      "label": "fig:membrane-closure",
+      "nodes": [],
+      "source_rel": "content/07_figures.tex",
+      "visual_spec_class": "legacy_corpus_figure_registered_for_render_audit"
+    },
+    {
+      "canvas": null,
+      "caption": "Osmotic gradients, membrane tension and structural thresholds in protocells.",
+      "caption_must_explain": [
+        "demonstrates",
+        "formula",
+        "evidence"
+      ],
+      "connectors": [],
+      "evidence_anchor": "legacy source figure and rendered PDF text",
+      "figure_id": "legacy_0054",
+      "figure_type": "legacy_corpus_figure",
+      "formula_anchor": "legacy corpus anchor",
+      "label": "fig:gradient-osmosis-tension",
+      "nodes": [],
+      "source_rel": "content/07_figures.tex",
+      "visual_spec_class": "legacy_corpus_figure_registered_for_render_audit"
+    },
+    {
+      "canvas": null,
+      "caption": "Vesicle flickering regime near curvature and osmotic thresholds.",
+      "caption_must_explain": [
+        "demonstrates",
+        "formula",
+        "evidence"
+      ],
+      "connectors": [],
+      "evidence_anchor": "legacy source figure and rendered PDF text",
+      "figure_id": "legacy_0055",
+      "figure_type": "legacy_corpus_figure",
+      "formula_anchor": "legacy corpus anchor",
+      "label": "fig:vesicle-flickering",
+      "nodes": [],
+      "source_rel": "content/07_figures.tex",
+      "visual_spec_class": "legacy_corpus_figure_registered_for_render_audit"
+    },
+    {
+      "canvas": null,
+      "caption": "Propagation of membrane potential \\texorpdfstring{\\(\\Delta V\\)",
+      "caption_must_explain": [
+        "demonstrates",
+        "formula",
+        "evidence"
+      ],
+      "connectors": [],
+      "evidence_anchor": "legacy source figure and rendered PDF text",
+      "figure_id": "legacy_0056",
+      "figure_type": "legacy_corpus_figure",
+      "formula_anchor": "legacy corpus anchor",
+      "label": "fig:dv-propagation-membrane",
+      "nodes": [],
+      "source_rel": "content/07_figures.tex",
+      "visual_spec_class": "legacy_corpus_figure_registered_for_render_audit"
+    },
+    {
+      "canvas": null,
+      "caption": "Ion channel states and excitation thresholds at level \\texorpdfstring{\\(K_5\\)",
+      "caption_must_explain": [
+        "demonstrates",
+        "formula",
+        "evidence"
+      ],
+      "connectors": [],
+      "evidence_anchor": "legacy source figure and rendered PDF text",
+      "figure_id": "legacy_0057",
+      "figure_type": "legacy_corpus_figure",
+      "formula_anchor": "legacy corpus anchor",
+      "label": "fig:ion-channel-states",
+      "nodes": [],
+      "source_rel": "content/07_figures.tex",
+      "visual_spec_class": "legacy_corpus_figure_registered_for_render_audit"
+    },
+    {
+      "canvas": null,
+      "caption": "Proto--spike dynamics as a minimal excitatory cycle.",
+      "caption_must_explain": [
+        "demonstrates",
+        "formula",
+        "evidence"
+      ],
+      "connectors": [],
+      "evidence_anchor": "legacy source figure and rendered PDF text",
+      "figure_id": "legacy_0058",
+      "figure_type": "legacy_corpus_figure",
+      "formula_anchor": "legacy corpus anchor",
+      "label": "fig:proto-spike",
+      "nodes": [],
+      "source_rel": "content/07_figures.tex",
+      "visual_spec_class": "legacy_corpus_figure_registered_for_render_audit"
+    },
+    {
+      "canvas": null,
+      "caption": "Schematic cognitive state space and binding axes at level \\texorpdfstring{\\(K_6\\)",
+      "caption_must_explain": [
+        "demonstrates",
+        "formula",
+        "evidence"
+      ],
+      "connectors": [],
+      "evidence_anchor": "legacy source figure and rendered PDF text",
+      "figure_id": "legacy_0059",
+      "figure_type": "legacy_corpus_figure",
+      "formula_anchor": "legacy corpus anchor",
+      "label": "fig:cognitive-state-space",
+      "nodes": [],
+      "source_rel": "content/07_figures.tex",
+      "visual_spec_class": "legacy_corpus_figure_registered_for_render_audit"
+    },
+    {
+      "canvas": null,
+      "caption": "Binding space for cognitive continua and associated thresholds.",
+      "caption_must_explain": [
+        "demonstrates",
+        "formula",
+        "evidence"
+      ],
+      "connectors": [],
+      "evidence_anchor": "legacy source figure and rendered PDF text",
+      "figure_id": "legacy_0060",
+      "figure_type": "legacy_corpus_figure",
+      "formula_anchor": "legacy corpus anchor",
+      "label": "fig:binding-space",
+      "nodes": [],
+      "source_rel": "content/07_figures.tex",
+      "visual_spec_class": "legacy_corpus_figure_registered_for_render_audit"
+    },
+    {
+      "canvas": null,
+      "caption": "Institutional cycles and social flows at level \\texorpdfstring{\\(K_7\\)",
+      "caption_must_explain": [
+        "demonstrates",
+        "formula",
+        "evidence"
+      ],
+      "connectors": [],
+      "evidence_anchor": "legacy source figure and rendered PDF text",
+      "figure_id": "legacy_0061",
+      "figure_type": "legacy_corpus_figure",
+      "formula_anchor": "legacy corpus anchor",
+      "label": "fig:institutional-cycles",
+      "nodes": [],
+      "source_rel": "content/07_figures.tex",
+      "visual_spec_class": "legacy_corpus_figure_registered_for_render_audit"
+    },
+    {
+      "canvas": null,
+      "caption": "Trust thresholds and collapse of social continuumness.",
+      "caption_must_explain": [
+        "demonstrates",
+        "formula",
+        "evidence"
+      ],
+      "connectors": [],
+      "evidence_anchor": "legacy source figure and rendered PDF text",
+      "figure_id": "legacy_0062",
+      "figure_type": "legacy_corpus_figure",
+      "formula_anchor": "legacy corpus anchor",
+      "label": "fig:trust-threshold",
+      "nodes": [],
+      "source_rel": "content/07_figures.tex",
+      "visual_spec_class": "legacy_corpus_figure_registered_for_render_audit"
+    },
+    {
+      "canvas": null,
+      "caption": "Civilizational energy and infrastructure cycles at level \\texorpdfstring{\\(K_8\\)",
+      "caption_must_explain": [
+        "demonstrates",
+        "formula",
+        "evidence"
+      ],
+      "connectors": [],
+      "evidence_anchor": "legacy source figure and rendered PDF text",
+      "figure_id": "legacy_0063",
+      "figure_type": "legacy_corpus_figure",
+      "formula_anchor": "legacy corpus anchor",
+      "label": "fig:civilization-energy-cycles",
+      "nodes": [],
+      "source_rel": "content/07_figures.tex",
+      "visual_spec_class": "legacy_corpus_figure_registered_for_render_audit"
+    },
+    {
+      "canvas": null,
+      "caption": "Technological layers and embedding spaces for civilizational continua.",
+      "caption_must_explain": [
+        "demonstrates",
+        "formula",
+        "evidence"
+      ],
+      "connectors": [],
+      "evidence_anchor": "legacy source figure and rendered PDF text",
+      "figure_id": "legacy_0064",
+      "figure_type": "legacy_corpus_figure",
+      "formula_anchor": "legacy corpus anchor",
+      "label": "fig:technological-layers-m8",
+      "nodes": [],
+      "source_rel": "content/07_figures.tex",
+      "visual_spec_class": "legacy_corpus_figure_registered_for_render_audit"
+    },
+    {
+      "canvas": null,
+      "caption": "Graph of theories as a continuum at level \\texorpdfstring{\\(K_9\\)",
+      "caption_must_explain": [
+        "demonstrates",
+        "formula",
+        "evidence"
+      ],
+      "connectors": [],
+      "evidence_anchor": "legacy source figure and rendered PDF text",
+      "figure_id": "legacy_0065",
+      "figure_type": "legacy_corpus_figure",
+      "formula_anchor": "legacy corpus anchor",
+      "label": "fig:theory-graph",
+      "nodes": [],
+      "source_rel": "content/07_figures.tex",
+      "visual_spec_class": "legacy_corpus_figure_registered_for_render_audit"
+    },
+    {
+      "canvas": null,
+      "caption": "Flows between representations, models and data in \\texorpdfstring{\\(K_9\\)",
+      "caption_must_explain": [
+        "demonstrates",
+        "formula",
+        "evidence"
+      ],
+      "connectors": [],
+      "evidence_anchor": "legacy source figure and rendered PDF text",
+      "figure_id": "legacy_0066",
+      "figure_type": "legacy_corpus_figure",
+      "formula_anchor": "legacy corpus anchor",
+      "label": "fig:representation-flow-graph",
+      "nodes": [],
+      "source_rel": "content/07_figures.tex",
+      "visual_spec_class": "legacy_corpus_figure_registered_for_render_audit"
+    },
+    {
+      "canvas": null,
+      "caption": "Self--referential structure of meta--theoretical continua at level \\(K_{10",
+      "caption_must_explain": [
+        "demonstrates",
+        "formula",
+        "evidence"
+      ],
+      "connectors": [],
+      "evidence_anchor": "legacy source figure and rendered PDF text",
+      "figure_id": "legacy_0067",
+      "figure_type": "legacy_corpus_figure",
+      "formula_anchor": "legacy corpus anchor",
+      "label": "fig:metatheory-k10-selfreference",
+      "nodes": [],
+      "source_rel": "content/07_figures.tex",
+      "visual_spec_class": "legacy_corpus_figure_registered_for_render_audit"
+    },
+    {
+      "canvas": null,
+      "caption": "Load-bearing theorem spine of the bounded Core~1.3.3 claim. Solid arrows mark admitted support. The positive Theorem~A route terminates at Lemma~2; the Lemma~3 branch remains visible as admitted rebirth-control support beside that route. The dashed branch marks an excluded lift-heavy route that is reviewed as a boundary condition rather than admitted into the positive proof. The larger monograph remains necessary because the surrounding chapters fix the ontology, operator shell, K-level doctrine, collapse grammar, empirical bar, and audit layers that keep this spine scientifically interpretable and externally citable.",
+      "caption_must_explain": [
+        "demonstrates",
+        "formula",
+        "evidence"
+      ],
+      "connectors": [],
+      "evidence_anchor": "legacy source figure and rendered PDF text",
+      "figure_id": "legacy_0068",
+      "figure_type": "legacy_corpus_figure",
+      "formula_anchor": "legacy corpus anchor",
+      "label": "fig:oc13-theorem-spine",
+      "nodes": [],
+      "source_rel": "content/20_oc_core_1_3_theorem_roadmap.tex",
+      "visual_spec_class": "legacy_corpus_figure_registered_for_render_audit"
+    },
+    {
+      "canvas": null,
+      "caption": "Minimal life-cycle schematic for the bounded collapse grammar. The point of the figure is not to offer a domain-specific simulation but to show the exact interpretive burden of the formal rules: in this minimal model, the object remains live only while the admissible region is nonempty, the required cycles remain present, and \\(k(K,t)>0\\), with supporting flows not dominated by destructive flows on the relevant cycles. Admissible-state collapse kills it, and any later live continuum is classified as rebirth rather than persistence only when the residue, embedding-space, and birth-condition clauses of Definition~12.6 are satisfied and the identity rule rules out restoration of the dead original.",
+      "caption_must_explain": [
+        "demonstrates",
+        "formula",
+        "evidence"
+      ],
+      "connectors": [],
+      "evidence_anchor": "legacy source figure and rendered PDF text",
+      "figure_id": "legacy_0069",
+      "figure_type": "legacy_corpus_figure",
+      "formula_anchor": "legacy corpus anchor",
+      "label": "fig:oc13-birth-life-death",
+      "nodes": [],
+      "source_rel": "content/21_oc_core_1_3_worked_examples.tex",
+      "visual_spec_class": "legacy_corpus_figure_registered_for_render_audit"
+    },
+    {
+      "canvas": null,
+      "caption": "Extended vertical hierarchy through \\(K_{12",
+      "caption_must_explain": [
+        "demonstrates",
+        "formula",
+        "evidence"
+      ],
+      "connectors": [],
+      "evidence_anchor": "legacy source figure and rendered PDF text",
+      "figure_id": "legacy_0070",
+      "figure_type": "legacy_corpus_figure",
+      "formula_anchor": "legacy corpus anchor",
+      "label": "fig:oc13-levels-k12",
+      "nodes": [],
+      "source_rel": "content/21_oc_core_1_3_worked_examples.tex",
+      "visual_spec_class": "legacy_corpus_figure_registered_for_render_audit"
+    },
+    {
+      "canvas": null,
+      "caption": "A reader-facing picture of a continuum in OC. The diagram shows an admissible state region, boundary, axes, threshold, flow, cycle, and continuumness condition, while also naming the formal tuple and one falsifier class. It is not a domain-specific picture; it is the common structural template used later for physical, biological, cognitive, social, enterprise, and theoretical systems.",
+      "caption_must_explain": [
+        "demonstrates",
+        "formula",
+        "evidence"
+      ],
+      "connectors": [],
+      "evidence_anchor": "legacy source figure and rendered PDF text",
+      "figure_id": "legacy_0071",
+      "figure_type": "legacy_corpus_figure",
+      "formula_anchor": "legacy corpus anchor",
+      "label": "fig:r007-continuum-demonstrator",
+      "nodes": [],
+      "source_rel": "content/r007/01_why_continuum_ontology.tex",
+      "visual_spec_class": "legacy_corpus_figure_registered_for_render_audit"
+    },
+    {
+      "canvas": null,
+      "caption": "Complete K0--K12 teaching hierarchy. The numbered ladder names each level, gives a human-readable interpretation, and shows the two directions of dependence: lower continua compose higher continua, while higher continua constrain the admissible behavior of their parts. This figure supports the K-level formal sections and the enterprise/AI examples that follow.",
+      "caption_must_explain": [
+        "demonstrates",
+        "formula",
+        "evidence"
+      ],
+      "connectors": [],
+      "evidence_anchor": "legacy source figure and rendered PDF text",
+      "figure_id": "legacy_0072",
+      "figure_type": "legacy_corpus_figure",
+      "formula_anchor": "legacy corpus anchor",
+      "label": "fig:r007-k0-k12-hierarchy",
+      "nodes": [],
+      "source_rel": "content/r007/02_first_concepts_and_k_primer.tex",
+      "visual_spec_class": "legacy_corpus_figure_registered_for_render_audit"
+    },
+    {
+      "canvas": null,
+      "caption": "A didactic continuum diagram for the external reader. The labels are outside the semantic objects they explain: state region, boundary, axes, flow, threshold, cycle, continuumness, context, formal tuple, and falsifier are all visible without overlap.",
+      "caption_must_explain": [
+        "demonstrates",
+        "formula",
+        "evidence"
+      ],
+      "connectors": [],
+      "evidence_anchor": "legacy source figure and rendered PDF text",
+      "figure_id": "legacy_0073",
+      "figure_type": "legacy_corpus_figure",
+      "formula_anchor": "legacy corpus anchor",
+      "label": "fig:r008-continuum-demonstrator",
+      "nodes": [],
+      "source_rel": "content/r008/01_why_continuum_ontology.tex",
+      "visual_spec_class": "legacy_corpus_figure_registered_for_render_audit"
+    },
+    {
+      "canvas": null,
+      "caption": "The full K-level teaching ladder. The figure does not merely decorate the text: it demonstrates the two central dependencies used later in the formal hierarchy. Every K0--K12 level is numbered and named; the left column shows composition upward, and the right column shows how a higher continuum constrains its parts.",
+      "caption_must_explain": [
+        "demonstrates",
+        "formula",
+        "evidence"
+      ],
+      "connectors": [],
+      "evidence_anchor": "legacy source figure and rendered PDF text",
+      "figure_id": "legacy_0074",
+      "figure_type": "legacy_corpus_figure",
+      "formula_anchor": "legacy corpus anchor",
+      "label": "fig:r008-k0-k12-hierarchy",
+      "nodes": [],
+      "source_rel": "content/r008/02_first_concepts_and_k_primer.tex",
+      "visual_spec_class": "legacy_corpus_figure_registered_for_render_audit"
+    }
+  ],
+  "legacy_registered_total": 36,
+  "registry_policy": "Every reader-facing TeX figure receives a registry row; r012 generated figures carry explicit node geometry.",
+  "release_id": "oc_core_1_3_3",
+  "schema_id": "OC133_R012_FIGURE_REGISTRY_v1",
+  "source_revision": "recovery_r011",
+  "status": "PASS",
+  "version": "1.3.3"
+}
