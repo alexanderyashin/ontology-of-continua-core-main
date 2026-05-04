@@ -26,6 +26,8 @@ from assemble_oc_core_release_package import (
     R011_TRANSLATOR_STATUS,
     R012_REVISION,
     R012_TRANSLATOR_STATUS,
+    R013_REVISION,
+    R013_TRANSLATOR_STATUS,
     TEXT_ARTIFACTS,
     assembly_paths,
     artifact_title,
@@ -186,6 +188,18 @@ FIGURE_FINDING_KINDS = {
     "publication_r012_caption_argument_failed",
     "publication_r012_visual_cockpit_failed",
 }
+TABLE_FINDING_KINDS = {
+    "publication_r013_table_spec_missing",
+    "publication_r013_compiled_table_coverage_failed",
+    "publication_r013_table_layout_standard_failed",
+    "publication_r013_table_geometry_failed",
+    "publication_r013_rendered_table_bbox_failed",
+    "publication_r013_table_text_collision_failed",
+    "publication_r013_table_edge_clipping_failed",
+    "publication_r013_table_caption_argument_failed",
+    "publication_r013_table_semantic_anchor_failed",
+    "publication_r013_table_cockpit_failed",
+}
 BIBLIOGRAPHY_FINDING_KINDS = {
     "publication_bibliography_depth_too_low",
     "publication_bibliography_verified_shortfall",
@@ -271,6 +285,7 @@ R012_FINDING_KINDS = {
     "publication_r012_caption_argument_failed",
     "publication_r012_visual_cockpit_failed",
 }
+R013_FINDING_KINDS = TABLE_FINDING_KINDS
 FORM_FINDING_KINDS = (
     TITLE_PAGE_FINDING_KINDS
     | TOC_FORM_FINDING_KINDS
@@ -293,6 +308,7 @@ FORM_FINDING_KINDS = (
     | R009_FINDING_KINDS
     | R011_FINDING_KINDS
     | R012_FINDING_KINDS
+    | R013_FINDING_KINDS
 )
 
 
@@ -1223,6 +1239,7 @@ def collect_publication_content_richness_findings(row: dict[str, Any]) -> list[d
             "curated_public_payload_markdown_source_grounded_repair_r010",
             "curated_public_payload_markdown_journal_requirements_spot_r011",
             "curated_public_payload_markdown_figure_visual_qa_r012",
+            "curated_public_payload_markdown_table_rendered_qa_r013",
         }:
             findings.append({"kind": "publication_body_source_not_curated_payload", "artifact_type_id": artifact_type_id, "document_body_source": row.get("document_body_source")})
     return findings
@@ -1234,7 +1251,7 @@ def collect_r007_translation_findings(row: dict[str, Any]) -> list[dict[str, Any
         return []
     findings: list[dict[str, Any]] = []
     translation_status = row.get("public_translation_status")
-    if translation_status not in {"PUBLICATION_TRANSLATOR_R007", R008_TRANSLATOR_STATUS, R009_TRANSLATOR_STATUS, R010_TRANSLATOR_STATUS, R011_TRANSLATOR_STATUS, R012_TRANSLATOR_STATUS}:
+    if translation_status not in {"PUBLICATION_TRANSLATOR_R007", R008_TRANSLATOR_STATUS, R009_TRANSLATOR_STATUS, R010_TRANSLATOR_STATUS, R011_TRANSLATOR_STATUS, R012_TRANSLATOR_STATUS, R013_TRANSLATOR_STATUS}:
         findings.append({"kind": "publication_translation_missing", "artifact_type_id": artifact_type_id, "public_translation_status": row.get("public_translation_status")})
     source = str(row.get("public_translation_source") or "")
     expected_sources = {
@@ -1250,6 +1267,8 @@ def collect_r007_translation_findings(row: dict[str, Any]) -> list[dict[str, Any
         "journal_requirements_spot_publication_translator_r011",
         "science_monolith_figure_visual_qa_spot_r012",
         "figure_visual_qa_publication_translator_r012",
+        "science_monolith_table_rendered_qa_spot_r013",
+        "table_rendered_qa_publication_translator_r013",
     }
     if source not in expected_sources:
         findings.append({"kind": "publication_all_reader_pdf_translation_missing", "artifact_type_id": artifact_type_id, "public_translation_source": row.get("public_translation_source")})
@@ -1261,7 +1280,7 @@ def collect_r007_translation_findings(row: dict[str, Any]) -> list[dict[str, Any
         findings.append({"kind": "publication_ollama_governance_trace_missing", "artifact_type_id": artifact_type_id, "governed_ollama_status": governed_status})
     if int(row.get("unmanaged_ollama_call_total") or 0) != 0:
         findings.append({"kind": "publication_ollama_governance_bypass", "artifact_type_id": artifact_type_id, "unmanaged_ollama_call_total": row.get("unmanaged_ollama_call_total")})
-    if translation_status in {R008_TRANSLATOR_STATUS, R009_TRANSLATOR_STATUS, R010_TRANSLATOR_STATUS, R011_TRANSLATOR_STATUS, R012_TRANSLATOR_STATUS}:
+    if translation_status in {R008_TRANSLATOR_STATUS, R009_TRANSLATOR_STATUS, R010_TRANSLATOR_STATUS, R011_TRANSLATOR_STATUS, R012_TRANSLATOR_STATUS, R013_TRANSLATOR_STATUS}:
         if not row.get("logion_llm_service_status"):
             findings.append({"kind": "publication_common_llm_service_missing", "artifact_type_id": artifact_type_id})
         if not row.get("logion_llm_service_ledger_ref"):
@@ -1334,7 +1353,7 @@ def collect_r009_queue_findings(assembly: dict[str, Any]) -> list[dict[str, Any]
 
 
 def collect_r011_journal_spot_findings(assembly: dict[str, Any]) -> list[dict[str, Any]]:
-    if assembly.get("assembly_revision") not in {R011_REVISION, R012_REVISION}:
+    if assembly.get("assembly_revision") not in {R011_REVISION, R012_REVISION, R013_REVISION}:
         return []
     trace = assembly.get("governed_ollama_trace") if isinstance(assembly.get("governed_ollama_trace"), dict) else {}
     findings: list[dict[str, Any]] = []
@@ -1426,7 +1445,7 @@ def collect_r012_visual_findings(assembly: dict[str, Any]) -> list[dict[str, Any
             {"kind": "publication_r012_rendered_bbox_failed", "artifact_type_id": "assembly", "reason": "r011 has no rendered bbox ledger"},
             {"kind": "publication_r012_visual_cockpit_failed", "artifact_type_id": "assembly", "reason": "r011 has no visual QA cockpit"},
         ]
-    if assembly.get("assembly_revision") != R012_REVISION:
+    if assembly.get("assembly_revision") not in {R012_REVISION, R013_REVISION}:
         return []
     trace = assembly.get("visual_quality_trace") if isinstance(assembly.get("visual_quality_trace"), dict) else {}
     findings: list[dict[str, Any]] = []
@@ -1445,7 +1464,7 @@ def collect_r012_visual_findings(assembly: dict[str, Any]) -> list[dict[str, Any
         if trace.get(key) != "PASS":
             findings.append({"kind": kind, "artifact_type_id": "assembly", key: trace.get(key)})
     version = assembly.get("release_identity", {}).get("version") or "1.3.3"
-    base = assembly_paths("oc_core_1_3_3", str(version), R012_REVISION)["assembly_json"].parents[1]
+    base = assembly_paths("oc_core_1_3_3", str(version), str(assembly.get("assembly_revision") or R012_REVISION))["assembly_json"].parents[1]
     visual_root = base / "visual_quality"
     required_files = [
         visual_root / f"OC133_R012_FIGURE_REGISTRY_{version}.json",
@@ -1458,6 +1477,59 @@ def collect_r012_visual_findings(assembly: dict[str, Any]) -> list[dict[str, Any
             findings.append({"kind": "publication_r012_visual_cockpit_failed", "artifact_type_id": "assembly", "missing": str(path.relative_to(ROOT))})
     if (visual_root / "probe").exists():
         findings.append({"kind": "publication_r012_rendered_bbox_failed", "artifact_type_id": "assembly", "reason": "technical probe PDF directory leaked into release tree"})
+    return findings
+
+
+def collect_r013_table_findings(assembly: dict[str, Any]) -> list[dict[str, Any]]:
+    if assembly.get("assembly_revision") == R012_REVISION:
+        return [
+            {"kind": "publication_r013_table_spec_missing", "artifact_type_id": "assembly", "reason": "r012 has no table registry"},
+            {"kind": "publication_r013_table_geometry_failed", "artifact_type_id": "assembly", "reason": "r012 has no table geometry ledger"},
+            {"kind": "publication_r013_rendered_table_bbox_failed", "artifact_type_id": "assembly", "reason": "r012 has no rendered table bbox ledger"},
+            {"kind": "publication_r013_table_cockpit_failed", "artifact_type_id": "assembly", "reason": "r012 has no table QA cockpit"},
+        ]
+    if assembly.get("assembly_revision") != R013_REVISION:
+        return []
+    trace = assembly.get("table_quality_trace") if isinstance(assembly.get("table_quality_trace"), dict) else {}
+    findings: list[dict[str, Any]] = []
+    expected = {
+        "table_spec_coverage_status": "publication_r013_table_spec_missing",
+        "compiled_table_coverage_status": "publication_r013_compiled_table_coverage_failed",
+        "table_layout_standard_status": "publication_r013_table_layout_standard_failed",
+        "table_geometry_status": "publication_r013_table_geometry_failed",
+        "rendered_table_bbox_status": "publication_r013_rendered_table_bbox_failed",
+        "table_text_collision_status": "publication_r013_table_text_collision_failed",
+        "table_edge_clipping_status": "publication_r013_table_edge_clipping_failed",
+        "table_caption_argument_status": "publication_r013_table_caption_argument_failed",
+        "table_semantic_anchor_status": "publication_r013_table_semantic_anchor_failed",
+        "table_cockpit_status": "publication_r013_table_cockpit_failed",
+    }
+    for key, kind in expected.items():
+        if trace.get(key) != "PASS":
+            findings.append({"kind": kind, "artifact_type_id": "assembly", key: trace.get(key)})
+    version = assembly.get("release_identity", {}).get("version") or "1.3.3"
+    base = assembly_paths("oc_core_1_3_3", str(version), R013_REVISION)["assembly_json"].parents[1]
+    table_root = base / "table_quality"
+    required_files = [
+        table_root / f"OC133_R013_TABLE_REGISTRY_{version}.json",
+        table_root / f"OC133_R013_TABLE_GEOMETRY_LEDGER_{version}.json",
+        table_root / f"OC133_R013_RENDERED_TABLE_BBOX_LEDGER_{version}.json",
+        table_root / f"OC133_R013_TABLE_QA_COCKPIT_{version}.json",
+    ]
+    for path in required_files:
+        if not path.is_file():
+            findings.append({"kind": "publication_r013_table_cockpit_failed", "artifact_type_id": "assembly", "missing": str(path.relative_to(ROOT))})
+    if (table_root / "probe").exists():
+        findings.append({"kind": "publication_r013_rendered_table_bbox_failed", "artifact_type_id": "assembly", "reason": "technical table probe directory leaked into release tree"})
+    if int(trace.get("registered_table_total") or 0) != int(trace.get("compiled_reader_table_total") or -1):
+        findings.append(
+            {
+                "kind": "publication_r013_compiled_table_coverage_failed",
+                "artifact_type_id": "assembly",
+                "registered_table_total": trace.get("registered_table_total"),
+                "compiled_reader_table_total": trace.get("compiled_reader_table_total"),
+            }
+        )
     return findings
 
 
@@ -1530,6 +1602,16 @@ def form_statuses(findings: list[dict[str, Any]]) -> dict[str, str | int]:
     continuum_visual_status = "FAIL" if kinds & {"publication_r012_continuum_visual_failed"} else "PASS"
     caption_argument_status = "FAIL" if kinds & {"publication_r012_caption_argument_failed"} else "PASS"
     visual_cockpit_status = "FAIL" if kinds & {"publication_r012_visual_cockpit_failed"} else "PASS"
+    table_spec_coverage_status = "FAIL" if kinds & {"publication_r013_table_spec_missing"} else "PASS"
+    compiled_table_coverage_status = "FAIL" if kinds & {"publication_r013_compiled_table_coverage_failed"} else "PASS"
+    table_layout_standard_status = "FAIL" if kinds & {"publication_r013_table_layout_standard_failed"} else "PASS"
+    table_geometry_status = "FAIL" if kinds & {"publication_r013_table_geometry_failed"} else "PASS"
+    rendered_table_bbox_status = "FAIL" if kinds & {"publication_r013_rendered_table_bbox_failed"} else "PASS"
+    table_text_collision_status = "FAIL" if kinds & {"publication_r013_table_text_collision_failed"} else "PASS"
+    table_edge_clipping_status = "FAIL" if kinds & {"publication_r013_table_edge_clipping_failed"} else "PASS"
+    table_caption_argument_status = "FAIL" if kinds & {"publication_r013_table_caption_argument_failed"} else "PASS"
+    table_semantic_anchor_status = "FAIL" if kinds & {"publication_r013_table_semantic_anchor_failed"} else "PASS"
+    table_cockpit_status = "FAIL" if kinds & {"publication_r013_table_cockpit_failed"} else "PASS"
     form_status = "PASS" if all(
         status == "PASS"
         for status in [
@@ -1600,6 +1682,16 @@ def form_statuses(findings: list[dict[str, Any]]) -> dict[str, str | int]:
             continuum_visual_status,
             caption_argument_status,
             visual_cockpit_status,
+            table_spec_coverage_status,
+            compiled_table_coverage_status,
+            table_layout_standard_status,
+            table_geometry_status,
+            rendered_table_bbox_status,
+            table_text_collision_status,
+            table_edge_clipping_status,
+            table_caption_argument_status,
+            table_semantic_anchor_status,
+            table_cockpit_status,
         ]
     ) else "FAIL"
     return {
@@ -1617,7 +1709,7 @@ def form_statuses(findings: list[dict[str, Any]]) -> dict[str, str | int]:
         "uniform_document_hierarchy_status": "PASS" if appendix_status == "PASS" and heading_status == "PASS" else "FAIL",
         "appendix_naming_status": appendix_status,
         "layout_quality_status": layout_status,
-        "table_readability_status": "PASS" if content_status == "PASS" else "FAIL",
+        "table_readability_status": "PASS" if content_status == "PASS" and table_cockpit_status == "PASS" else "FAIL",
         "inline_figure_distribution_status": figure_status,
         "caption_quality_status": figure_status,
         "bibliography_depth_status": bibliography_status,
@@ -1679,6 +1771,16 @@ def form_statuses(findings: list[dict[str, Any]]) -> dict[str, str | int]:
         "continuum_visual_status": continuum_visual_status,
         "caption_argument_status": caption_argument_status,
         "visual_cockpit_status": visual_cockpit_status,
+        "table_spec_coverage_status": table_spec_coverage_status,
+        "compiled_table_coverage_status": compiled_table_coverage_status,
+        "table_layout_standard_status": table_layout_standard_status,
+        "table_geometry_status": table_geometry_status,
+        "rendered_table_bbox_status": rendered_table_bbox_status,
+        "table_text_collision_status": table_text_collision_status,
+        "table_edge_clipping_status": table_edge_clipping_status,
+        "table_caption_argument_status": table_caption_argument_status,
+        "table_semantic_anchor_status": table_semantic_anchor_status,
+        "table_cockpit_status": table_cockpit_status,
         "form_quality_status": form_status,
         "form_finding_total": sum(1 for finding in findings if finding.get("kind") in FORM_FINDING_KINDS),
     }
@@ -1865,6 +1967,7 @@ def build_audit(release_id: str, assembly_revision: str | None = None) -> dict[s
     findings.extend(collect_r009_queue_findings(assembly))
     findings.extend(collect_r011_journal_spot_findings(assembly))
     findings.extend(collect_r012_visual_findings(assembly))
+    findings.extend(collect_r013_table_findings(assembly))
 
     scan_paths = [
         paths["terminal_contracts_json"],

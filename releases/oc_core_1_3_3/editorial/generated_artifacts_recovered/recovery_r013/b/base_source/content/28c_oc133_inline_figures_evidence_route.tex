@@ -1,0 +1,177 @@
+\section{Inline Visual Route: Evidence and Reproducibility}
+
+These figures are placed in the main argument as visual proof-of-reading aids: each one separates objects, direction, quantitative or formal anchor, and evidence route.
+
+\subsection{Source to numeric row}
+
+The diagram below is generated from the r012 figure registry, so its objects, arrows, formula anchor, and evidence link are checked before the release audit can pass.
+
+\begin{figure}[p]
+\centering
+\resizebox{0.96\textwidth}{!}{%
+\begin{tikzpicture}[x=1cm,y=1cm,>=Latex,every node/.style={font=\small}]
+  \definecolor{ocBlue}{HTML}{173B57}
+\definecolor{ocGold}{HTML}{A77D2A}
+\definecolor{ocGreen}{HTML}{4B7F52}
+\definecolor{ocRed}{HTML}{8E3B32}
+\definecolor{ocGray}{HTML}{ECEFF1}
+  \draw[rounded corners=10pt,fill=ocGray!35,draw=ocBlue,line width=0.9pt] (-6.8,-3.4) rectangle (6.8,3.4);
+  \node[font=\bfseries\large,ocBlue] at (0,3.0) {Source to numeric row};
+  \node[draw,rounded corners=5pt,fill=blue!7,text width=0.24\textwidth,align=center,minimum height=1.05cm] (a) at (-4.35,1.0) {Source datum};
+  \node[draw,rounded corners=5pt,fill=green!8,text width=0.24\textwidth,align=center,minimum height=1.05cm] (b) at (4.35,1.0) {Promoted row};
+  \draw[->,line width=1.0pt,ocGreen] (a.east) -- node[above,fill=ocGray!35,inner sep=2pt,align=center] {extraction} (b.west);
+  \node[draw,rounded corners=5pt,fill=orange!10,text width=0.28\textwidth,align=center,minimum height=0.9cm] (r) at (-4.35,-1.45) {row count};
+  \node[draw,rounded corners=5pt,fill=white,text width=0.28\textwidth,align=center,minimum height=0.9cm] (m) at (0,-1.45) {row count};
+  \node[draw,rounded corners=5pt,fill=red!6,text width=0.28\textwidth,align=center,minimum height=0.9cm] (f) at (4.35,-1.45) {formal anchor: \( d\mapsto r \)};
+  \draw[->,dashed,ocGold] (r.north) -- (a.south);
+  \draw[->,dashed,ocGold] (m.north) -- ($(a)!0.5!(b)$);
+  \draw[->,dashed,ocGold] (f.north) -- (b.south);
+\end{tikzpicture}}
+\caption{Source to numeric row. The figure demonstrates the reader-facing route from Source datum to Promoted row; the relevant variable or number is row count, the formula anchor is d\textbackslash\{\}mapsto r, and the evidence link is the corresponding proof, table, or replay section in the release corpus.}
+\label{fig:r012-inline-28c_oc133_inline_figures_evidence_route-1}
+\end{figure}
+
+\subsection{Target-blind replay}
+
+The diagram below is generated from the r012 figure registry, so its objects, arrows, formula anchor, and evidence link are checked before the release audit can pass.
+
+\begin{figure}[p]
+\centering
+\resizebox{0.96\textwidth}{!}{%
+\begin{tikzpicture}[x=1cm,y=1cm,>=Latex,every node/.style={font=\small}]
+  \definecolor{ocBlue}{HTML}{173B57}
+\definecolor{ocGold}{HTML}{A77D2A}
+\definecolor{ocGreen}{HTML}{4B7F52}
+\definecolor{ocRed}{HTML}{8E3B32}
+\definecolor{ocGray}{HTML}{ECEFF1}
+  \draw[rounded corners=10pt,fill=ocGray!35,draw=ocBlue,line width=0.9pt] (-6.8,-3.4) rectangle (6.8,3.4);
+  \node[font=\bfseries\large,ocBlue] at (0,3.0) {Target-blind replay};
+  \node[draw,rounded corners=5pt,fill=blue!7,text width=0.24\textwidth,align=center,minimum height=1.05cm] (a) at (-4.35,1.0) {Held-out target};
+  \node[draw,rounded corners=5pt,fill=green!8,text width=0.24\textwidth,align=center,minimum height=1.05cm] (b) at (4.35,1.0) {Replay verdict};
+  \draw[->,line width=1.0pt,ocGreen] (a.east) -- node[above,fill=ocGray!35,inner sep=2pt,align=center] {blind evaluation} (b.west);
+  \node[draw,rounded corners=5pt,fill=orange!10,text width=0.28\textwidth,align=center,minimum height=0.9cm] (r) at (-4.35,-1.45) {pass/fail row};
+  \node[draw,rounded corners=5pt,fill=white,text width=0.28\textwidth,align=center,minimum height=0.9cm] (m) at (0,-1.45) {pass/fail row};
+  \node[draw,rounded corners=5pt,fill=red!6,text width=0.28\textwidth,align=center,minimum height=0.9cm] (f) at (4.35,-1.45) {formal anchor: \( score_T \)};
+  \draw[->,dashed,ocGold] (r.north) -- (a.south);
+  \draw[->,dashed,ocGold] (m.north) -- ($(a)!0.5!(b)$);
+  \draw[->,dashed,ocGold] (f.north) -- (b.south);
+\end{tikzpicture}}
+\caption{Target-blind replay. The figure demonstrates the reader-facing route from Held-out target to Replay verdict; the relevant variable or number is pass/fail row, the formula anchor is score\_T, and the evidence link is the corresponding proof, table, or replay section in the release corpus.}
+\label{fig:r012-inline-28c_oc133_inline_figures_evidence_route-2}
+\end{figure}
+
+\subsection{Benchmark QA}
+
+The diagram below is generated from the r012 figure registry, so its objects, arrows, formula anchor, and evidence link are checked before the release audit can pass.
+
+\begin{figure}[p]
+\centering
+\resizebox{0.96\textwidth}{!}{%
+\begin{tikzpicture}[x=1cm,y=1cm,>=Latex,every node/.style={font=\small}]
+  \definecolor{ocBlue}{HTML}{173B57}
+\definecolor{ocGold}{HTML}{A77D2A}
+\definecolor{ocGreen}{HTML}{4B7F52}
+\definecolor{ocRed}{HTML}{8E3B32}
+\definecolor{ocGray}{HTML}{ECEFF1}
+  \draw[rounded corners=10pt,fill=ocGray!35,draw=ocBlue,line width=0.9pt] (-6.8,-3.4) rectangle (6.8,3.4);
+  \node[font=\bfseries\large,ocBlue] at (0,3.0) {Benchmark QA};
+  \node[draw,rounded corners=5pt,fill=blue!7,text width=0.24\textwidth,align=center,minimum height=1.05cm] (a) at (-4.35,1.0) {Benchmark case};
+  \node[draw,rounded corners=5pt,fill=green!8,text width=0.24\textwidth,align=center,minimum height=1.05cm] (b) at (4.35,1.0) {QA verdict};
+  \draw[->,line width=1.0pt,ocGreen] (a.east) -- node[above,fill=ocGray!35,inner sep=2pt,align=center] {audit pass} (b.west);
+  \node[draw,rounded corners=5pt,fill=orange!10,text width=0.28\textwidth,align=center,minimum height=0.9cm] (r) at (-4.35,-1.45) {case total};
+  \node[draw,rounded corners=5pt,fill=white,text width=0.28\textwidth,align=center,minimum height=0.9cm] (m) at (0,-1.45) {case total};
+  \node[draw,rounded corners=5pt,fill=red!6,text width=0.28\textwidth,align=center,minimum height=0.9cm] (f) at (4.35,-1.45) {formal anchor: \( Q(B_i) \)};
+  \draw[->,dashed,ocGold] (r.north) -- (a.south);
+  \draw[->,dashed,ocGold] (m.north) -- ($(a)!0.5!(b)$);
+  \draw[->,dashed,ocGold] (f.north) -- (b.south);
+\end{tikzpicture}}
+\caption{Benchmark QA. The figure demonstrates the reader-facing route from Benchmark case to QA verdict; the relevant variable or number is case total, the formula anchor is Q(B\_i), and the evidence link is the corresponding proof, table, or replay section in the release corpus.}
+\label{fig:r012-inline-28c_oc133_inline_figures_evidence_route-3}
+\end{figure}
+
+\subsection{Evidence trail}
+
+The diagram below is generated from the r012 figure registry, so its objects, arrows, formula anchor, and evidence link are checked before the release audit can pass.
+
+\begin{figure}[p]
+\centering
+\resizebox{0.96\textwidth}{!}{%
+\begin{tikzpicture}[x=1cm,y=1cm,>=Latex,every node/.style={font=\small}]
+  \definecolor{ocBlue}{HTML}{173B57}
+\definecolor{ocGold}{HTML}{A77D2A}
+\definecolor{ocGreen}{HTML}{4B7F52}
+\definecolor{ocRed}{HTML}{8E3B32}
+\definecolor{ocGray}{HTML}{ECEFF1}
+  \draw[rounded corners=10pt,fill=ocGray!35,draw=ocBlue,line width=0.9pt] (-6.8,-3.4) rectangle (6.8,3.4);
+  \node[font=\bfseries\large,ocBlue] at (0,3.0) {Evidence trail};
+  \node[draw,rounded corners=5pt,fill=blue!7,text width=0.24\textwidth,align=center,minimum height=1.05cm] (a) at (-4.35,1.0) {Claim};
+  \node[draw,rounded corners=5pt,fill=green!8,text width=0.24\textwidth,align=center,minimum height=1.05cm] (b) at (4.35,1.0) {Evidence bundle};
+  \draw[->,line width=1.0pt,ocGreen] (a.east) -- node[above,fill=ocGray!35,inner sep=2pt,align=center] {traceability} (b.west);
+  \node[draw,rounded corners=5pt,fill=orange!10,text width=0.28\textwidth,align=center,minimum height=0.9cm] (r) at (-4.35,-1.45) {source hash};
+  \node[draw,rounded corners=5pt,fill=white,text width=0.28\textwidth,align=center,minimum height=0.9cm] (m) at (0,-1.45) {source hash};
+  \node[draw,rounded corners=5pt,fill=red!6,text width=0.28\textwidth,align=center,minimum height=0.9cm] (f) at (4.35,-1.45) {formal anchor: \( claim\leftrightarrow evidence \)};
+  \draw[->,dashed,ocGold] (r.north) -- (a.south);
+  \draw[->,dashed,ocGold] (m.north) -- ($(a)!0.5!(b)$);
+  \draw[->,dashed,ocGold] (f.north) -- (b.south);
+\end{tikzpicture}}
+\caption{Evidence trail. The figure demonstrates the reader-facing route from Claim to Evidence bundle; the relevant variable or number is source hash, the formula anchor is claim\textbackslash\{\}leftrightarrow evidence, and the evidence link is the corresponding proof, table, or replay section in the release corpus.}
+\label{fig:r012-inline-28c_oc133_inline_figures_evidence_route-4}
+\end{figure}
+
+\subsection{Numeric falsifier}
+
+The diagram below is generated from the r012 figure registry, so its objects, arrows, formula anchor, and evidence link are checked before the release audit can pass.
+
+\begin{figure}[p]
+\centering
+\resizebox{0.96\textwidth}{!}{%
+\begin{tikzpicture}[x=1cm,y=1cm,>=Latex,every node/.style={font=\small}]
+  \definecolor{ocBlue}{HTML}{173B57}
+\definecolor{ocGold}{HTML}{A77D2A}
+\definecolor{ocGreen}{HTML}{4B7F52}
+\definecolor{ocRed}{HTML}{8E3B32}
+\definecolor{ocGray}{HTML}{ECEFF1}
+  \draw[rounded corners=10pt,fill=ocGray!35,draw=ocBlue,line width=0.9pt] (-6.8,-3.4) rectangle (6.8,3.4);
+  \node[font=\bfseries\large,ocBlue] at (0,3.0) {Numeric falsifier};
+  \node[draw,rounded corners=5pt,fill=blue!7,text width=0.24\textwidth,align=center,minimum height=1.05cm] (a) at (-4.35,1.0) {Prediction};
+  \node[draw,rounded corners=5pt,fill=green!8,text width=0.24\textwidth,align=center,minimum height=1.05cm] (b) at (4.35,1.0) {Observed bound};
+  \draw[->,line width=1.0pt,ocGreen] (a.east) -- node[above,fill=ocGray!35,inner sep=2pt,align=center] {threshold check} (b.west);
+  \node[draw,rounded corners=5pt,fill=orange!10,text width=0.28\textwidth,align=center,minimum height=0.9cm] (r) at (-4.35,-1.45) {delta};
+  \node[draw,rounded corners=5pt,fill=white,text width=0.28\textwidth,align=center,minimum height=0.9cm] (m) at (0,-1.45) {delta};
+  \node[draw,rounded corners=5pt,fill=red!6,text width=0.28\textwidth,align=center,minimum height=0.9cm] (f) at (4.35,-1.45) {formal anchor: \( |\hat{x}-x|<\epsilon \)};
+  \draw[->,dashed,ocGold] (r.north) -- (a.south);
+  \draw[->,dashed,ocGold] (m.north) -- ($(a)!0.5!(b)$);
+  \draw[->,dashed,ocGold] (f.north) -- (b.south);
+\end{tikzpicture}}
+\caption{Numeric falsifier. The figure demonstrates the reader-facing route from Prediction to Observed bound; the relevant variable or number is delta, the formula anchor is |\textbackslash\{\}hat\{x\}-x|<\textbackslash\{\}epsilon, and the evidence link is the corresponding proof, table, or replay section in the release corpus.}
+\label{fig:r012-inline-28c_oc133_inline_figures_evidence_route-5}
+\end{figure}
+
+\subsection{Reproducibility route}
+
+The diagram below is generated from the r012 figure registry, so its objects, arrows, formula anchor, and evidence link are checked before the release audit can pass.
+
+\begin{figure}[p]
+\centering
+\resizebox{0.96\textwidth}{!}{%
+\begin{tikzpicture}[x=1cm,y=1cm,>=Latex,every node/.style={font=\small}]
+  \definecolor{ocBlue}{HTML}{173B57}
+\definecolor{ocGold}{HTML}{A77D2A}
+\definecolor{ocGreen}{HTML}{4B7F52}
+\definecolor{ocRed}{HTML}{8E3B32}
+\definecolor{ocGray}{HTML}{ECEFF1}
+  \draw[rounded corners=10pt,fill=ocGray!35,draw=ocBlue,line width=0.9pt] (-6.8,-3.4) rectangle (6.8,3.4);
+  \node[font=\bfseries\large,ocBlue] at (0,3.0) {Reproducibility route};
+  \node[draw,rounded corners=5pt,fill=blue!7,text width=0.24\textwidth,align=center,minimum height=1.05cm] (a) at (-4.35,1.0) {Scripted check};
+  \node[draw,rounded corners=5pt,fill=green!8,text width=0.24\textwidth,align=center,minimum height=1.05cm] (b) at (4.35,1.0) {Reader audit};
+  \draw[->,line width=1.0pt,ocGreen] (a.east) -- node[above,fill=ocGray!35,inner sep=2pt,align=center] {replay command} (b.west);
+  \node[draw,rounded corners=5pt,fill=orange!10,text width=0.28\textwidth,align=center,minimum height=0.9cm] (r) at (-4.35,-1.45) {audit status};
+  \node[draw,rounded corners=5pt,fill=white,text width=0.28\textwidth,align=center,minimum height=0.9cm] (m) at (0,-1.45) {audit status};
+  \node[draw,rounded corners=5pt,fill=red!6,text width=0.28\textwidth,align=center,minimum height=0.9cm] (f) at (4.35,-1.45) {formal anchor: \( run\rightarrow verdict \)};
+  \draw[->,dashed,ocGold] (r.north) -- (a.south);
+  \draw[->,dashed,ocGold] (m.north) -- ($(a)!0.5!(b)$);
+  \draw[->,dashed,ocGold] (f.north) -- (b.south);
+\end{tikzpicture}}
+\caption{Reproducibility route. The figure demonstrates the reader-facing route from Scripted check to Reader audit; the relevant variable or number is audit status, the formula anchor is run\textbackslash\{\}rightarrow verdict, and the evidence link is the corresponding proof, table, or replay section in the release corpus.}
+\label{fig:r012-inline-28c_oc133_inline_figures_evidence_route-6}
+\end{figure}

@@ -99,6 +99,16 @@ FORM_STATUS_KEYS = [
     "continuum_visual_status",
     "caption_argument_status",
     "visual_cockpit_status",
+    "table_spec_coverage_status",
+    "compiled_table_coverage_status",
+    "table_layout_standard_status",
+    "table_geometry_status",
+    "rendered_table_bbox_status",
+    "table_text_collision_status",
+    "table_edge_clipping_status",
+    "table_caption_argument_status",
+    "table_semantic_anchor_status",
+    "table_cockpit_status",
     "form_quality_status",
 ]
 

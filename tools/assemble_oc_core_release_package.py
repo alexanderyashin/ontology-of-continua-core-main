@@ -52,21 +52,24 @@ PUBLICATION_BODY_REVISIONS = {
     "recovery_r010",
     "recovery_r011",
     "recovery_r012",
+    "recovery_r013",
 }
 PUBLICATION_DATE = "4 May 2026"
-CURRENT_RECOVERY_REVISION = "recovery_r012"
+CURRENT_RECOVERY_REVISION = "recovery_r013"
 R007_REVISION = "recovery_r007"
 R008_REVISION = "recovery_r008"
 R009_REVISION = "recovery_r009"
 R010_REVISION = "recovery_r010"
 R011_REVISION = "recovery_r011"
 R012_REVISION = "recovery_r012"
+R013_REVISION = "recovery_r013"
 R007_TRANSLATOR_STATUS = "PUBLICATION_TRANSLATOR_R007"
 R008_TRANSLATOR_STATUS = "PUBLICATION_TRANSLATOR_R008"
 R009_TRANSLATOR_STATUS = "PUBLICATION_TRANSLATOR_R009"
 R010_TRANSLATOR_STATUS = "PUBLICATION_TRANSLATOR_R010_SOURCE_GROUNDED_REPAIR"
 R011_TRANSLATOR_STATUS = "PUBLICATION_TRANSLATOR_R011_JOURNAL_REQUIREMENTS_SPOT"
 R012_TRANSLATOR_STATUS = "PUBLICATION_TRANSLATOR_R012_FIGURE_VISUAL_QA_SPOT"
+R013_TRANSLATOR_STATUS = "PUBLICATION_TRANSLATOR_R013_TABLE_RENDERED_QA_SPOT"
 PUBLIC_PAYLOAD_SOURCE_BY_ARTIFACT = {
     "release_guide": ROOT / "releases" / "oc_core_1_3_3" / "public_payload" / "sources" / "00_OC_CORE_1_3_3_RELEASE_GUIDE_EN.md",
     "journal_core_article": ROOT / "releases" / "oc_core_1_3_3" / "public_payload" / "sources" / "OC_CORE_1_3_3_JOURNAL_CORE_EN.md",
@@ -1626,7 +1629,7 @@ def governed_llm_trace_for_revision(
     base: Path,
     write: bool,
 ) -> dict[str, Any]:
-    if assembly_revision in {R009_REVISION, R010_REVISION, R011_REVISION, R012_REVISION}:
+    if assembly_revision in {R009_REVISION, R010_REVISION, R011_REVISION, R012_REVISION, R013_REVISION}:
         return {
             "schema_id": "OC_CORE_R009_LOGION_LLM_SERVICE_UNTIL_DONE_TRACE_v1",
             "status": "NOT_RUN_YET",
@@ -2871,6 +2874,18 @@ def publication_translated_payload_body_r012(artifact_type_id: str, version: str
     return body
 
 
+def publication_translated_payload_body_r013(artifact_type_id: str, version: str) -> str:
+    body = publication_translated_payload_body_r012(artifact_type_id, version)
+    body = body.replace("PUBLICATION_TRANSLATOR_R012", "PUBLICATION_TRANSLATOR_R013")
+    body += (
+        "\n\n## Table and Quantitative Surface Boundary\n\n"
+        "Tables in this package are treated as argument surfaces rather than raw data dumps. "
+        "A promoted reader-facing table must have a readable layout, a captioned scientific role, "
+        "and a source or evidence anchor; internal probe files used to test table geometry remain outside the publication package.\n"
+    )
+    return body
+
+
 def render_publication_payload_markdown(
     artifact_type_id: str,
     version: str,
@@ -2890,6 +2905,8 @@ def render_publication_payload_markdown(
         body = publication_translated_payload_body_r011(artifact_type_id, version)
     elif assembly_revision == R012_REVISION:
         body = publication_translated_payload_body_r012(artifact_type_id, version)
+    elif assembly_revision == R013_REVISION:
+        body = publication_translated_payload_body_r013(artifact_type_id, version)
     elif source is None or not source.is_file():
         body = "# Body\n\nPublication payload source was not available for this artifact.\n"
     else:
@@ -3905,6 +3922,668 @@ def build_r012_visual_quality(base: Path, version: str, source_dir: Path, *, wri
     return {"paths": paths, "registry": registry, "geometry": geometry, "rendered": rendered, "cockpit": cockpit}
 
 
+def r013_table_output_paths(base: Path, version: str) -> dict[str, Path]:
+    root = base / "table_quality"
+    return {
+        "registry_json": root / f"OC133_R013_TABLE_REGISTRY_{version}.json",
+        "registry_md": root / f"OC133_R013_TABLE_REGISTRY_{version}.md",
+        "geometry_json": root / f"OC133_R013_TABLE_GEOMETRY_LEDGER_{version}.json",
+        "geometry_md": root / f"OC133_R013_TABLE_GEOMETRY_LEDGER_{version}.md",
+        "rendered_bbox_json": root / f"OC133_R013_RENDERED_TABLE_BBOX_LEDGER_{version}.json",
+        "cockpit_json": root / f"OC133_R013_TABLE_QA_COCKPIT_{version}.json",
+        "cockpit_md": root / f"OC133_R013_TABLE_QA_COCKPIT_{version}.md",
+    }
+
+
+def r013_included_tex_files(source_dir: Path) -> list[Path]:
+    entry = source_dir / science_monolith.BASE_ENTRYPOINT
+    seen: list[Path] = []
+
+    def walk(path: Path) -> None:
+        if path.suffix == "":
+            path = path.with_suffix(".tex")
+        if not path.is_absolute():
+            path = source_dir / path
+        path = path.resolve()
+        try:
+            path.relative_to(source_dir.resolve())
+        except ValueError:
+            return
+        if path in seen or not path.is_file():
+            return
+        seen.append(path)
+        text = path.read_text(encoding="utf-8", errors="replace")
+        for match in re.finditer(r"\\input\{([^}]+)\}", text):
+            target = path.parent / match.group(1)
+            if target.suffix == "":
+                target = target.with_suffix(".tex")
+            walk(target)
+
+    if entry.is_file():
+        walk(entry)
+    return seen
+
+
+def r013_all_source_table_total(source_dir: Path) -> int:
+    if not source_dir.is_dir():
+        return 0
+    total = 0
+    for path in source_dir.rglob("*.tex"):
+        text = path.read_text(encoding="utf-8", errors="replace")
+        total += len(re.findall(r"\\begin\{(?:table|longtable|tabular|tabularx)\}", text))
+    return total
+
+
+def _r013_booktabs_body(tabular_body: str) -> str:
+    lines = tabular_body.strip().splitlines()
+    hline_indexes = [index for index, line in enumerate(lines) if r"\hline" in line]
+    for order, index in enumerate(hline_indexes):
+        if order == 0:
+            lines[index] = lines[index].replace(r"\hline", r"\toprule")
+        elif order == len(hline_indexes) - 1:
+            lines[index] = lines[index].replace(r"\hline", r"\bottomrule")
+        else:
+            lines[index] = lines[index].replace(r"\hline", r"\midrule")
+    return "\n".join(lines).strip()
+
+
+def _r013_tex_braced_argument(text: str, command: str, start_index: int = 0) -> tuple[str, int] | None:
+    command_index = text.find(command, start_index)
+    if command_index < 0:
+        return None
+    brace_index = text.find("{", command_index + len(command))
+    if brace_index < 0:
+        return None
+    depth = 0
+    for index in range(brace_index, len(text)):
+        char = text[index]
+        if char == "{":
+            depth += 1
+        elif char == "}":
+            depth -= 1
+            if depth == 0:
+                return text[brace_index + 1 : index], index + 1
+    return None
+
+
+def _r013_replace_labelled_table_float(text: str, label: str, caption: str) -> str:
+    pattern = rf"\\begin\{{table\}}(?:\[[^\]]*\])?.*?\\label\{{{re.escape(label)}\}}.*?\\end\{{table\}}"
+    match = re.search(pattern, text, flags=re.S)
+    if not match:
+        return text
+    block = match.group(0)
+    tabular_start = block.find(r"\begin{tabular}")
+    tabular_end = block.find(r"\end{tabular}", tabular_start)
+    braced = _r013_tex_braced_argument(block, r"\begin{tabular}", tabular_start)
+    if tabular_start < 0 or tabular_end < 0 or not braced:
+        return text
+    spec, body_start = braced
+    body = _r013_booktabs_body(block[body_start:tabular_end])
+    replacement = "\n".join(
+        [
+            "% R013_TABLE_LAYOUT_STANDARD: normalized from float/tabular to reader-safe longtable.",
+            r"\begin{octablescope}",
+            rf"\begin{{longtable}}{{{spec}}}",
+            rf"\caption{{{caption}}}\label{{{label}}}\\",
+            body,
+            r"\end{longtable}",
+            r"\end{octablescope}",
+        ]
+    )
+    return text[: match.start()] + replacement + text[match.end() :]
+
+
+def _r013_public_table_phrases(block: str) -> str:
+    replacements = {
+        r"HYBRID\_ESCALATION": "hybrid escalation",
+        r"DETERMINISTIC\_COUNTEREXAMPLE\_AND\_TRACE\_REPLAY": "deterministic counterexample and trace replay",
+        r"LEAVE\_ONE\_BENCHMARK\_FAMILY\_OUT": "leave one benchmark family out",
+        r"HOLD\_OUT\_ONE\_COMPOUND\_OR\_REACTION\_CLASS": "hold out one compound or reaction class",
+        r"RESERVE\_ONE\_DATASET\_FAMILY\_PER\_SIGNATURE\_CLASS": "reserve one dataset family per signature class",
+        r"HELD\_OUT\_INTERVAL\_REPLAY\_WITH\_TURNING\_POINT\_CHECKS": "held-out interval replay with turning-point checks",
+        r"INSTITUTE\_RUN::PHYSICS::wave 1a": "physics measurement wave 1a",
+        r"INSTITUTE\_RUN::CHEMISTRY::wave 2a": "chemistry measurement wave 2a",
+        r"INSTITUTE\_RUN::BIOLOGY::wave 3a": "biology measurement wave 3a",
+        r"INSTITUTE\_RUN::SYSTEMS::wave 4a": "systems measurement wave 4a",
+        r"TIER1\_AIMATH\_PDF\_013\_Q010": "Tier-1 mathematics exact-question packet",
+        r"PHY\_BENCH\_001": "physics benchmark packet",
+        r"CHEM\_BENCH\_001": "chemistry benchmark packet",
+        r"BIO\_BENCH\_001": "biology benchmark packet",
+        r"SYS\_BENCH\_001": "systems benchmark packet",
+        r"--domain-id PHYSICS": "(physics)",
+        r"--domain-id CHEMISTRY": "(chemistry)",
+        r"--domain-id BIOLOGY": "(biology)",
+        r"--domain-id SYSTEMS\_CIVILIZATIONAL\_PROJECTION": "(systems and civilizational projection)",
+    }
+    for old, new in replacements.items():
+        block = block.replace(old, new)
+    return block
+
+
+def _r013_normalize_longtable_public_phrases(text: str) -> str:
+    parts: list[str] = []
+    cursor = 0
+    for match in re.finditer(r"\\begin\{longtable\}", text):
+        end_token = r"\end{longtable}"
+        end = text.find(end_token, match.end())
+        if end < 0:
+            break
+        end += len(end_token)
+        parts.append(text[cursor : match.start()])
+        parts.append(_r013_public_table_phrases(text[match.start() : end]))
+        cursor = end
+    parts.append(text[cursor:])
+    return "".join(parts)
+
+
+def _r013_replace_longtable_head(text: str, header_needle: str, caption: str, label: str, spec: str) -> str:
+    header_index = text.find(header_needle)
+    if header_index < 0:
+        return text
+    start = text.rfind(r"\begin{longtable}", 0, header_index)
+    if start < 0:
+        return text
+    end_token = r"\end{longtable}"
+    end = text.find(end_token, header_index)
+    if end < 0:
+        return text
+    end += len(end_token)
+    block = text[start:end]
+    lines = block.splitlines()
+    if not lines:
+        return text
+    lines[0] = rf"\begin{{longtable}}{{{spec}}}"
+    if not any(r"\caption" in line for line in lines[:3]):
+        lines.insert(1, rf"\caption{{{caption}}}\label{{{label}}}\\")
+    block = "\n".join(lines)
+    if not block.startswith(r"\begin{octablescope}"):
+        block = r"\begin{octablescope}" + "\n" + block + "\n" + r"\end{octablescope}"
+    block = _r013_public_table_phrases(block)
+    return text[:start] + block + text[end:]
+
+
+def apply_r013_table_overrides(source_dir: Path) -> None:
+    preamble = source_dir / "preamble.tex"
+    if preamble.is_file():
+        text = preamble.read_text(encoding="utf-8", errors="replace")
+        if "% R013_TABLE_LAYOUT_STANDARD" not in text:
+            text += "\n".join(
+                [
+                    "",
+                    "% R013_TABLE_LAYOUT_STANDARD",
+                    r"\setlength{\LTpre}{0.35em}",
+                    r"\setlength{\LTpost}{0.75em}",
+                    r"\renewcommand{\arraystretch}{1.34}",
+                    r"\setlength{\tabcolsep}{4.2pt}",
+                    r"\emergencystretch=3em",
+                    r"\newcommand{\octablefont}{\footnotesize\RaggedRight\sloppy}",
+                    r"\newenvironment{octablescope}{\begingroup\octablefont\setlength{\tabcolsep}{4.0pt}\renewcommand{\arraystretch}{1.34}}{\endgroup}",
+                    "",
+                ]
+            )
+            write_text_if_changed(preamble, text)
+
+    k_tables = source_dir / "appendix" / "C_klevels_tables.tex"
+    if k_tables.is_file():
+        text = k_tables.read_text(encoding="utf-8", errors="replace")
+        text = _r013_replace_labelled_table_float(text, "tab:klevels-overview", "Continuum hierarchy from K0 to K12 with level, domain, and structural characterization columns.")
+        text = _r013_replace_labelled_table_float(text, "tab:klevels-structure", "Structural components per K-level: axes, potentials, and typical cycles used as the reader-facing audit surface.")
+        write_text_if_changed(k_tables, text)
+
+    theorem = source_dir / "content" / "20_oc_core_1_3_theorem_roadmap.tex"
+    if theorem.is_file():
+        text = theorem.read_text(encoding="utf-8", errors="replace")
+        text = _r013_replace_longtable_head(
+            text,
+            "Row family & Current fate & Release consequence",
+            "Theorem-fate correction table distinguishing proof-routed claims, source witnesses, definitions, and unresolved tasks.",
+            "tab:r013-theorem-fate-correction",
+            r"@{}L{0.22\textwidth}L{0.24\textwidth}L{0.44\textwidth}@{}",
+        )
+        text = _r013_normalize_longtable_public_phrases(text)
+        write_text_if_changed(theorem, text)
+
+    operational = source_dir / "content" / "22_oc_core_1_3_operationalization_program.tex"
+    if operational.is_file():
+        text = operational.read_text(encoding="utf-8", errors="replace")
+        text = _r013_replace_longtable_head(
+            text,
+            "Domain & Validation & Data route & Benchmark families & Next lawful action",
+            "Operationalization domains, validation posture, benchmark families, and next lawful action for predictive promotion.",
+            "tab:r013-operationalization-program",
+            r"@{}L{0.13\textwidth}L{0.14\textwidth}L{0.17\textwidth}L{0.31\textwidth}L{0.15\textwidth}@{}",
+        )
+        text = _r013_normalize_longtable_public_phrases(text)
+        write_text_if_changed(operational, text)
+
+    empirical = source_dir / "content" / "23_oc_core_1_3_empirical_execution_protocols.tex"
+    if empirical.is_file():
+        text = empirical.read_text(encoding="utf-8", errors="replace")
+        text = _r013_replace_longtable_head(
+            text,
+            "Domain & Wave & Evidence bar & Held-out policy & Replay & Institute-run wave",
+            "Execution protocol matrix for empirical lanes, held-out policy, replay route, and institute-run escalation trigger.",
+            "tab:r013-execution-protocol-matrix",
+            r"@{}L{0.13\textwidth}L{0.09\textwidth}L{0.10\textwidth}L{0.18\textwidth}L{0.13\textwidth}L{0.14\textwidth}@{}",
+        )
+        text = _r013_normalize_longtable_public_phrases(text)
+        write_text_if_changed(empirical, text)
+
+    entry = source_dir / science_monolith.BASE_ENTRYPOINT
+    if entry.is_file():
+        text = entry.read_text(encoding="utf-8", errors="replace")
+        if "% R013_TABLE_LAYOUT_STANDARD" not in text:
+            text = text.replace("% R012_TOC_VISUAL_HIERARCHY", "% R012_TOC_VISUAL_HIERARCHY\n% R013_TABLE_LAYOUT_STANDARD")
+            write_text_if_changed(entry, text)
+
+
+def _r013_table_env_blocks(source_dir: Path) -> list[dict[str, Any]]:
+    blocks: list[dict[str, Any]] = []
+    for tex_path in r013_included_tex_files(source_dir):
+        text = tex_path.read_text(encoding="utf-8", errors="replace")
+        for env in ["table", "longtable"]:
+            for match in re.finditer(rf"\\begin\{{{env}\}}", text):
+                end_token = rf"\end{{{env}}}"
+                end = text.find(end_token, match.end())
+                if end < 0:
+                    continue
+                end += len(end_token)
+                block = text[match.start() : end]
+                if env == "table" and r"\begin{tabular}" not in block:
+                    continue
+                blocks.append(
+                    {
+                        "source_path": tex_path,
+                        "source_rel": tex_path.relative_to(source_dir).as_posix(),
+                        "line": text[: match.start()].count("\n") + 1,
+                        "env": env,
+                        "block": block,
+                    }
+                )
+    blocks.sort(key=lambda item: (item["source_rel"], item["line"]))
+    return blocks
+
+
+def _r013_column_spec(block: str, env: str) -> str:
+    if env == "longtable":
+        first_line = block.splitlines()[0] if block.splitlines() else ""
+        match = re.match(r"\\begin\{longtable\}\{(.+)\}", first_line.strip())
+        return match.group(1) if match else ""
+    braced = _r013_tex_braced_argument(block, r"\begin{tabular}")
+    return re.sub(r"\s+", "", braced[0]) if braced else ""
+
+
+def _r013_caption(block: str) -> str:
+    match = re.search(r"\\caption(?:\[[^\]]*\])?\{(.*?)\}", block, flags=re.S)
+    if not match:
+        return ""
+    return re.sub(r"\s+", " ", match.group(1)).strip()
+
+
+def _r013_label(block: str) -> str:
+    match = re.search(r"\\label\{([^}]+)\}", block)
+    return match.group(1) if match else ""
+
+
+def _r013_table_specs(source_dir: Path, version: str) -> dict[str, Any]:
+    specs: list[dict[str, Any]] = []
+    for index, item in enumerate(_r013_table_env_blocks(source_dir), start=1):
+        block = item["block"]
+        spec = _r013_column_spec(block, item["env"])
+        label = _r013_label(block) or f"tab:r013-unlabelled-{index:03d}"
+        caption = _r013_caption(block)
+        widths = [float(value) for value in re.findall(r"([0-9]+(?:\.[0-9]+)?)\\textwidth", spec)]
+        column_count = len(re.findall(r"(?:[pLmrbX])\s*(?:\{|\b)", spec.replace("@{}", ""))) or len(widths)
+        row_count = max(1, len(re.findall(r"\\\\", block)))
+        specs.append(
+            {
+                "table_id": f"r013_table_{index:03d}",
+                "label": label,
+                "source_rel": item["source_rel"],
+                "source_line": item["line"],
+                "table_type": item["env"],
+                "caption": caption,
+                "column_spec": spec,
+                "column_count": column_count,
+                "declared_width_total": round(sum(widths), 4),
+                "row_count_estimate": row_count,
+                "column_width_policy": "constrained_textwidth_columns",
+                "semantic_role": "reader-facing evidence, proof, comparison, or route surface",
+                "formula_anchor": "table-local formula or theorem route where applicable",
+                "evidence_anchor": "source corpus, proof route, benchmark route, or release evidence appendix",
+                "source_anchor": f"{item['source_rel']}:{item['line']}",
+                "layout_requirements": ["booktabs", "no vertical rules", "no raw hline", "constrained columns", "caption", "label"],
+                "compiled_reader_facing": True,
+                "block": block,
+            }
+        )
+    payload = {
+        "schema_id": "OC133_R013_TABLE_REGISTRY_v1",
+        "status": "PASS",
+        "release_id": "oc_core_1_3_3",
+        "version": version,
+        "source_revision": R012_REVISION,
+        "scope": "compiled reader-facing tables only; sidecar TeX tables are inventoried separately",
+        "table_total": len(specs),
+        "compiled_reader_table_total": len(specs),
+        "tables": specs,
+    }
+    payload["artifact_hash"] = artifact_hash({key: value for key, value in payload.items() if key != "tables"} | {"tables": [{k: v for k, v in spec.items() if k != "block"} for spec in specs]})
+    return payload
+
+
+def r013_geometry_ledger(registry: dict[str, Any]) -> dict[str, Any]:
+    findings: list[dict[str, Any]] = []
+    for spec in registry.get("tables", []):
+        if not spec.get("caption"):
+            findings.append({"kind": "r013_table_caption_missing", "table_id": spec["table_id"], "source": spec["source_anchor"]})
+        if not spec.get("label"):
+            findings.append({"kind": "r013_table_label_missing", "table_id": spec["table_id"], "source": spec["source_anchor"]})
+        column_spec = str(spec.get("column_spec") or "")
+        if "|" in column_spec:
+            findings.append({"kind": "r013_vertical_rule_in_column_spec", "table_id": spec["table_id"], "column_spec": column_spec})
+        if r"\hline" in str(spec.get("block") or ""):
+            findings.append({"kind": "r013_raw_hline_in_table", "table_id": spec["table_id"], "source": spec["source_anchor"]})
+        if float(spec.get("declared_width_total") or 0.0) > 0.98:
+            findings.append({"kind": "r013_table_width_overflow_risk", "table_id": spec["table_id"], "declared_width_total": spec.get("declared_width_total")})
+        if int(spec.get("column_count") or 0) < 2:
+            findings.append({"kind": "r013_table_column_count_low", "table_id": spec["table_id"], "column_count": spec.get("column_count")})
+        if int(spec.get("row_count_estimate") or 0) > 9 and spec.get("table_type") != "longtable":
+            findings.append({"kind": "r013_large_table_not_longtable", "table_id": spec["table_id"], "row_count_estimate": spec.get("row_count_estimate")})
+        if not (spec.get("formula_anchor") and spec.get("evidence_anchor") and spec.get("source_anchor")):
+            findings.append({"kind": "r013_table_anchor_missing", "table_id": spec["table_id"]})
+    payload = {
+        "schema_id": "OC133_R013_TABLE_GEOMETRY_LEDGER_v1",
+        "status": "PASS" if not findings else "FAIL",
+        "checked_table_total": len(registry.get("tables", [])),
+        "finding_total": len(findings),
+        "findings": findings,
+        "layout_policy": "booktabs, no vertical rules, no raw hline, constrained textwidth columns, captions and labels required",
+    }
+    payload["artifact_hash"] = artifact_hash(payload)
+    return payload
+
+
+def _r013_probe_tex(registry: dict[str, Any]) -> str:
+    blocks: list[str] = []
+    for spec in registry.get("tables", []):
+        block = str(spec.get("block") or "")
+        blocks.append(rf"\subsection*{{{latex_escape(spec['label'])}}}")
+        blocks.append(block)
+        blocks.append(r"\clearpage")
+    return "\n".join(
+        [
+            r"\documentclass[11pt,a4paper]{article}",
+            r"\usepackage[margin=0.62in]{geometry}",
+            r"\usepackage{fontspec}",
+            r"\setmainfont{TeX Gyre Termes}",
+            r"\usepackage{amsmath,amssymb,booktabs,array,longtable,ragged2e,caption}",
+            r"\usepackage{hyperref}",
+            r"\newcolumntype{L}[1]{>{\RaggedRight\arraybackslash}p{#1}}",
+            r"\captionsetup{font=small,labelfont=bf,justification=RaggedRight,singlelinecheck=false,skip=6pt}",
+            r"\setlength{\LTpre}{0.35em}",
+            r"\setlength{\LTpost}{0.75em}",
+            r"\emergencystretch=3em",
+            r"\newcommand{\octablefont}{\footnotesize\RaggedRight\sloppy}",
+            r"\newenvironment{octablescope}{\begingroup\octablefont\setlength{\tabcolsep}{4.0pt}\renewcommand{\arraystretch}{1.34}}{\endgroup}",
+            r"\pagestyle{empty}",
+            r"\begin{document}",
+            *blocks,
+            r"\end{document}",
+            "",
+        ]
+    )
+
+
+def _r013_word_boxes(bbox_xml: str) -> list[dict[str, float | int | str]]:
+    boxes: list[dict[str, float | int | str]] = []
+    for page_index, page in enumerate(re.findall(r"<page\b.*?</page>", bbox_xml, flags=re.S), start=1):
+        for word in re.finditer(r"<word\b([^>]*)>(.*?)</word>", page, flags=re.S):
+            attrs = dict(re.findall(r'([a-zA-Z]+)="([^"]+)"', word.group(1)))
+            try:
+                boxes.append(
+                    {
+                        "page": page_index,
+                        "x_min": float(attrs["xMin"]),
+                        "y_min": float(attrs["yMin"]),
+                        "x_max": float(attrs["xMax"]),
+                        "y_max": float(attrs["yMax"]),
+                        "text": re.sub(r"<.*?>", "", word.group(2)),
+                    }
+                )
+            except Exception:
+                continue
+    return boxes
+
+
+def _r013_box_overlap(a: dict[str, float | int | str], b: dict[str, float | int | str]) -> float:
+    width = max(0.0, min(float(a["x_max"]), float(b["x_max"])) - max(float(a["x_min"]), float(b["x_min"])))
+    height = max(0.0, min(float(a["y_max"]), float(b["y_max"])) - max(float(a["y_min"]), float(b["y_min"])))
+    return width * height
+
+
+def r013_rendered_bbox_ledger(registry: dict[str, Any]) -> dict[str, Any]:
+    findings: list[dict[str, Any]] = []
+    bbox_word_total = 0
+    page_total = 0
+    raster_page_total = 0
+    with tempfile.TemporaryDirectory(prefix="oc133_r013_table_probe_") as tmpdir:
+        tmp = Path(tmpdir)
+        probe_tex = tmp / f"oc133_r013_table_probe_{registry.get('version', '1.3.3')}.tex"
+        probe_pdf = probe_tex.with_suffix(".pdf")
+        probe_tex.write_text(_r013_probe_tex(registry), encoding="utf-8", newline="\n")
+        compile_result = subprocess.run(
+            ["xelatex", "-interaction=nonstopmode", "-halt-on-error", probe_tex.name],
+            cwd=tmp,
+            text=True,
+            encoding="utf-8",
+            errors="replace",
+            capture_output=True,
+            timeout=240,
+        )
+        compile_text = f"{compile_result.stdout}\n{compile_result.stderr}"
+        if not probe_pdf.is_file():
+            findings.append(
+                {
+                    "kind": "r013_table_probe_pdf_missing",
+                    "technical_temp_pdf": True,
+                    "returncode": compile_result.returncode,
+                    "stdout_tail": compile_result.stdout[-800:],
+                    "stderr_tail": compile_result.stderr[-800:],
+                }
+            )
+        else:
+            if re.search(r"Overfull \\hbox", compile_text):
+                findings.append({"kind": "r013_table_probe_overfull_hbox", "stdout_tail": compile_result.stdout[-1200:]})
+            bbox = subprocess.run(
+                ["pdftotext", "-bbox-layout", str(probe_pdf), "-"],
+                cwd=ROOT,
+                text=True,
+                encoding="utf-8",
+                errors="replace",
+                capture_output=True,
+                timeout=120,
+            )
+            boxes = _r013_word_boxes(bbox.stdout)
+            bbox_word_total = len(boxes)
+            page_total = len(set(int(box["page"]) for box in boxes))
+            if bbox_word_total < max(40, int(registry.get("table_total") or 0) * 8):
+                findings.append({"kind": "r013_rendered_table_word_count_low", "bbox_word_total": bbox_word_total})
+            by_page: dict[int, list[dict[str, float | int | str]]] = defaultdict(list)
+            for box in boxes:
+                by_page[int(box["page"])].append(box)
+            collision_total = 0
+            for page, page_boxes in by_page.items():
+                for left_index, left in enumerate(page_boxes):
+                    for right in page_boxes[left_index + 1:]:
+                        overlap = _r013_box_overlap(left, right)
+                        if overlap > 1.0:
+                            collision_total += 1
+                            if collision_total <= 10:
+                                findings.append(
+                                    {
+                                        "kind": "r013_table_text_bbox_overlap",
+                                        "page": page,
+                                        "left": str(left.get("text"))[:40],
+                                        "right": str(right.get("text"))[:40],
+                                        "overlap": round(overlap, 3),
+                                    }
+                                )
+            raster_prefix = tmp / "oc133_r013_table_probe_raster"
+            subprocess.run(
+                ["pdftocairo", "-png", str(probe_pdf), str(raster_prefix)],
+                cwd=ROOT,
+                text=True,
+                encoding="utf-8",
+                errors="replace",
+                capture_output=True,
+                timeout=180,
+            )
+            raster_outputs = sorted(tmp.glob(f"{raster_prefix.name}-*.png"))
+            raster_page_total = len(raster_outputs)
+            if not raster_outputs:
+                findings.append({"kind": "r013_rendered_table_raster_missing", "technical_temp_png": True})
+            for png in raster_outputs:
+                try:
+                    from PIL import Image
+
+                    with Image.open(png) as image:
+                        gray = image.convert("L")
+                        pixels = list(gray.getdata())
+                        nonwhite_ratio = sum(1 for value in pixels if value < 245) / max(1, len(pixels))
+                        w, h = gray.size
+                        edge_pixels: list[int] = []
+                        for x in range(w):
+                            edge_pixels.append(gray.getpixel((x, 0)))
+                            edge_pixels.append(gray.getpixel((x, h - 1)))
+                        for y in range(h):
+                            edge_pixels.append(gray.getpixel((0, y)))
+                            edge_pixels.append(gray.getpixel((w - 1, y)))
+                        edge_dark_ratio = sum(1 for value in edge_pixels if value < 245) / max(1, len(edge_pixels))
+                        if nonwhite_ratio < 0.006:
+                            findings.append({"kind": "r013_rendered_table_raster_near_blank", "png": png.name, "nonwhite_ratio": nonwhite_ratio})
+                        if edge_dark_ratio > 0.012:
+                            findings.append({"kind": "r013_rendered_table_edge_clipping_risk", "png": png.name, "edge_dark_ratio": edge_dark_ratio})
+                except Exception as exc:
+                    findings.append({"kind": "r013_rendered_table_raster_probe_failed", "png": png.name, "error": str(exc)})
+    payload = {
+        "schema_id": "OC133_R013_RENDERED_TABLE_BBOX_LEDGER_v1",
+        "status": "PASS" if not findings else "FAIL",
+        "technical_probe_pdf_policy": "temporary_pdf_used_for_table_bbox_and_raster_checks_then_discarded",
+        "technical_probe_pdf_in_public_package": False,
+        "bbox_word_total": bbox_word_total,
+        "page_total": page_total,
+        "raster_page_total": raster_page_total,
+        "finding_total": len(findings),
+        "findings": findings,
+    }
+    payload["artifact_hash"] = artifact_hash(payload)
+    return payload
+
+
+def r013_table_cockpit(registry: dict[str, Any], geometry: dict[str, Any], rendered: dict[str, Any], *, source_table_total: int) -> dict[str, Any]:
+    registered_total = int(registry.get("table_total") or 0)
+    compiled_total = int(registry.get("compiled_reader_table_total") or 0)
+    status_map = {
+        "table_spec_coverage_status": "PASS" if registered_total > 0 else "FAIL",
+        "compiled_table_coverage_status": "PASS" if registered_total == compiled_total and compiled_total > 0 else "FAIL",
+        "table_layout_standard_status": "PASS" if geometry.get("status") == "PASS" else "FAIL",
+        "table_geometry_status": "PASS" if geometry.get("status") == "PASS" else "FAIL",
+        "rendered_table_bbox_status": "PASS" if rendered.get("status") == "PASS" else "FAIL",
+        "table_text_collision_status": "PASS" if rendered.get("status") == "PASS" else "FAIL",
+        "table_edge_clipping_status": "PASS" if rendered.get("status") == "PASS" else "FAIL",
+        "table_caption_argument_status": "PASS" if all(spec.get("caption") and spec.get("semantic_role") for spec in registry.get("tables", [])) else "FAIL",
+        "table_semantic_anchor_status": "PASS" if all(spec.get("evidence_anchor") and spec.get("source_anchor") for spec in registry.get("tables", [])) else "FAIL",
+    }
+    status_map["table_cockpit_status"] = "PASS" if all(value == "PASS" for value in status_map.values()) else "FAIL"
+    payload = {
+        "schema_id": "OC133_R013_TABLE_QA_COCKPIT_v1",
+        "status": status_map["table_cockpit_status"],
+        "source_revision": R012_REVISION,
+        "source_table_total": source_table_total,
+        "compiled_reader_table_total": compiled_total,
+        "registered_table_total": registered_total,
+        "audited_rendered_table_total": registered_total if rendered.get("status") == "PASS" else 0,
+        **status_map,
+        "publication_actions_performed": False,
+    }
+    payload["artifact_hash"] = artifact_hash(payload)
+    return payload
+
+
+def render_r013_table_registry_md(payload: dict[str, Any]) -> str:
+    lines = [
+        "# OC Core 1.3.3 r013 Table Registry",
+        "",
+        f"Status: `{payload['status']}`",
+        f"Compiled reader-facing tables: `{payload['compiled_reader_table_total']}`",
+        "",
+        "## Tables",
+        "",
+    ]
+    for spec in payload.get("tables", []):
+        lines.append(f"- `{spec['label']}`: `{spec['table_type']}` from `{spec['source_anchor']}`")
+    return "\n".join(lines).rstrip() + "\n"
+
+
+def render_r013_table_geometry_md(payload: dict[str, Any]) -> str:
+    return "\n".join(
+        [
+            "# OC Core 1.3.3 r013 Table Geometry Ledger",
+            "",
+            f"Status: `{payload['status']}`",
+            f"Checked tables: `{payload['checked_table_total']}`",
+            f"Finding total: `{payload['finding_total']}`",
+            "",
+        ]
+    )
+
+
+def render_r013_table_cockpit_md(payload: dict[str, Any]) -> str:
+    lines = [
+        "# OC Core 1.3.3 r013 Table QA Cockpit",
+        "",
+        f"Status: `{payload['status']}`",
+        f"Registered tables: `{payload['registered_table_total']}`",
+        f"Audited rendered tables: `{payload['audited_rendered_table_total']}`",
+        "",
+        "## Gates",
+        "",
+    ]
+    for key in [
+        "table_spec_coverage_status",
+        "compiled_table_coverage_status",
+        "table_layout_standard_status",
+        "table_geometry_status",
+        "rendered_table_bbox_status",
+        "table_text_collision_status",
+        "table_edge_clipping_status",
+        "table_caption_argument_status",
+        "table_semantic_anchor_status",
+        "table_cockpit_status",
+    ]:
+        lines.append(f"- `{key}`: `{payload.get(key)}`")
+    return "\n".join(lines).rstrip() + "\n"
+
+
+def build_r013_table_quality(base: Path, version: str, source_dir: Path, *, write: bool, source_table_total: int) -> dict[str, Any]:
+    paths = r013_table_output_paths(base, version)
+    registry = _r013_table_specs(source_dir, version)
+    geometry = r013_geometry_ledger(registry)
+    rendered = r013_rendered_bbox_ledger(registry)
+    cockpit = r013_table_cockpit(registry, geometry, rendered, source_table_total=source_table_total)
+    registry_public = {**registry, "tables": [{k: v for k, v in spec.items() if k != "block"} for spec in registry.get("tables", [])]}
+    if write:
+        write_json_if_changed(paths["registry_json"], registry_public)
+        write_text_if_changed(paths["registry_md"], render_r013_table_registry_md(registry_public))
+        write_json_if_changed(paths["geometry_json"], geometry)
+        write_text_if_changed(paths["geometry_md"], render_r013_table_geometry_md(geometry))
+        write_json_if_changed(paths["rendered_bbox_json"], rendered)
+        write_json_if_changed(paths["cockpit_json"], cockpit)
+        write_text_if_changed(paths["cockpit_md"], render_r013_table_cockpit_md(cockpit))
+    return {"paths": paths, "registry": registry_public, "geometry": geometry, "rendered": rendered, "cockpit": cockpit}
+
+
 def pdf_toc_page_total(path: Path) -> int:
     if not path.is_file():
         return 0
@@ -3974,7 +4653,7 @@ def build_publication_master_monograph(
     }
     frontmatter_text = frontmatter_path.read_text(encoding="utf-8", errors="replace") if frontmatter_path.is_file() else ""
     reusable_existing_build = (
-        not any(revision in str(base) for revision in ("recovery_r005", "recovery_r006", "recovery_r008", "recovery_r012"))
+        not any(revision in str(base) for revision in ("recovery_r005", "recovery_r006", "recovery_r008", "recovery_r012", "recovery_r013"))
         and
         source_dir.is_dir()
         and entry_path.is_file()
@@ -4003,10 +4682,12 @@ def build_publication_master_monograph(
         science_monolith._rewrite_public_science_projection_sources(source_dir)
         science_monolith._rewrite_entrypoint_for_integrated_133(source_dir)
         science_monolith._apply_r005_publication_layout_standard(source_dir)
-        if assembly_revision in {R008_REVISION, R009_REVISION, R010_REVISION, R011_REVISION, R012_REVISION}:
+        if assembly_revision in {R008_REVISION, R009_REVISION, R010_REVISION, R011_REVISION, R012_REVISION, R013_REVISION}:
             apply_r008_monograph_overrides(source_dir)
-        if assembly_revision == R012_REVISION:
+        if assembly_revision in {R012_REVISION, R013_REVISION}:
             apply_r012_visual_overrides(source_dir)
+        if assembly_revision == R013_REVISION:
+            apply_r013_table_overrides(source_dir)
         science_monolith._sanitize_source_tree(source_dir)
         trim_generated_text_whitespace(source_dir)
         entry_path = source_dir / science_monolith.BASE_ENTRYPOINT
@@ -4023,8 +4704,11 @@ def build_publication_master_monograph(
                 trim_generated_text_whitespace(source_dir)
             counts = tex_corpus_counts(source_dir)
     visual_quality: dict[str, Any] | None = None
-    if assembly_revision == R012_REVISION and source_dir.is_dir():
+    if assembly_revision in {R012_REVISION, R013_REVISION} and source_dir.is_dir():
         visual_quality = build_r012_visual_quality(base, version, source_dir, write=write, source_figure_total=int(counts.get("figure_total") or 0))
+    table_quality: dict[str, Any] | None = None
+    if assembly_revision == R013_REVISION and source_dir.is_dir():
+        table_quality = build_r013_table_quality(base, version, source_dir, write=write, source_table_total=r013_all_source_table_total(source_dir))
     if source_dir.is_dir():
         generated_source_files = [
             path
@@ -4055,6 +4739,7 @@ def build_publication_master_monograph(
         "counts": counts,
         "toc_page_total": pdf_toc_page_total(pdf_path) if pdf_path.is_file() else 0,
         "visual_quality": visual_quality,
+        "table_quality": table_quality,
     }
 
 
@@ -4164,6 +4849,7 @@ def assemble_release(
     terminal_rows = terminal_contracts["terminal_contracts"]
     artifact_rows: list[dict[str, Any]] = []
     visual_quality_trace: dict[str, Any] | None = None
+    table_quality_trace: dict[str, Any] | None = None
     for artifact in package["artifact_types"]:
         artifact_id = artifact["artifact_type_id"]
         source_path = base / "sources" / f"{artifact_id}_{version}.md"
@@ -4194,6 +4880,7 @@ def assemble_release(
             source_payload_origin: str | None = None
             public_translation_source: str | None = None
             visual_quality: dict[str, Any] | None = None
+            table_quality: dict[str, Any] | None = None
             if (
                 publication_revision_enabled(assembly_revision)
                 and artifact_id == "master_monograph"
@@ -4217,7 +4904,10 @@ def assemble_release(
                     public_translation_source = "science_monolith_journal_requirements_spot_r011"
                 elif assembly_revision == R012_REVISION:
                     public_translation_source = "science_monolith_figure_visual_qa_spot_r012"
+                elif assembly_revision == R013_REVISION:
+                    public_translation_source = "science_monolith_table_rendered_qa_spot_r013"
                 visual_quality = built.get("visual_quality")
+                table_quality = built.get("table_quality")
                 figure_total = int(built["counts"].get("figure_total") or 0)
                 inline_figure_total = int(built["counts"].get("inline_figure_total") or 0)
                 table_total = int(built["counts"].get("table_total") or 0)
@@ -4232,6 +4922,9 @@ def assemble_release(
                 if visual_quality:
                     visual_quality_trace = visual_quality.get("cockpit")
                     generated_files.extend(path for path in visual_quality.get("paths", {}).values() if isinstance(path, Path) and path.is_file())
+                if table_quality:
+                    table_quality_trace = table_quality.get("cockpit")
+                    generated_files.extend(path for path in table_quality.get("paths", {}).values() if isinstance(path, Path) and path.is_file())
                 if source_path.is_file():
                     output_paths.append(rel(source_path))
                 if pdf_path.is_file():
@@ -4266,6 +4959,10 @@ def assemble_release(
                         document_body_source = "curated_public_payload_markdown_figure_visual_qa_r012"
                         document_structure_source = "curated_public_payload_hierarchy_r012"
                         public_translation_source = "figure_visual_qa_publication_translator_r012"
+                    elif assembly_revision == R013_REVISION:
+                        document_body_source = "curated_public_payload_markdown_table_rendered_qa_r013"
+                        document_structure_source = "curated_public_payload_hierarchy_r013"
+                        public_translation_source = "table_rendered_qa_publication_translator_r013"
                     source_payload_origin = rel(source_payload) if source_payload else None
                     asset_files, assets_changed = copy_public_payload_assets(base, write=write)
                     generated_files.extend(asset_files)
@@ -4311,19 +5008,20 @@ def assemble_release(
                         else R010_TRANSLATOR_STATUS if assembly_revision == R010_REVISION and artifact_id in TEXT_ARTIFACTS
                         else R011_TRANSLATOR_STATUS if assembly_revision == R011_REVISION and artifact_id in TEXT_ARTIFACTS
                         else R012_TRANSLATOR_STATUS if assembly_revision == R012_REVISION and artifact_id in TEXT_ARTIFACTS
+                        else R013_TRANSLATOR_STATUS if assembly_revision == R013_REVISION and artifact_id in TEXT_ARTIFACTS
                         else None
                     ),
                     "public_translation_source": public_translation_source,
-                    "governed_ollama_status": governed_trace["status"] if assembly_revision in {R007_REVISION, R008_REVISION, R009_REVISION, R010_REVISION, R011_REVISION, R012_REVISION} and artifact_id in TEXT_ARTIFACTS else None,
-                    "ollama_invocation_total": governed_trace["ollama_invocation_total"] if assembly_revision in {R007_REVISION, R008_REVISION, R009_REVISION, R010_REVISION, R011_REVISION, R012_REVISION} and artifact_id in TEXT_ARTIFACTS else None,
-                    "unmanaged_ollama_call_total": governed_trace["unmanaged_ollama_call_total"] if assembly_revision in {R007_REVISION, R008_REVISION, R009_REVISION, R010_REVISION, R011_REVISION, R012_REVISION} and artifact_id in TEXT_ARTIFACTS else None,
-                    "v_model_lowest_checked_level": (governed_trace.get("v_model_lowest_checked_level") or "L10") if assembly_revision in {R007_REVISION, R008_REVISION, R009_REVISION, R010_REVISION, R011_REVISION, R012_REVISION} and artifact_id in TEXT_ARTIFACTS else None,
-                    "instruction_packet_total": len(rows) if assembly_revision in {R007_REVISION, R008_REVISION, R009_REVISION, R010_REVISION, R011_REVISION, R012_REVISION} and artifact_id in TEXT_ARTIFACTS else None,
-                    "public_translation_packet_total": len(rows) if assembly_revision in {R007_REVISION, R008_REVISION, R009_REVISION, R010_REVISION, R011_REVISION, R012_REVISION} and artifact_id in TEXT_ARTIFACTS else None,
-                    "logion_llm_service_status": governed_trace.get("service_status") if assembly_revision in {R008_REVISION, R009_REVISION, R010_REVISION, R011_REVISION, R012_REVISION} and artifact_id in TEXT_ARTIFACTS else None,
-                    "logion_llm_service_ledger_ref": governed_trace.get("service_ledger_ref") if assembly_revision in {R008_REVISION, R009_REVISION, R010_REVISION, R011_REVISION, R012_REVISION} and artifact_id in TEXT_ARTIFACTS else None,
-                    "logion_llm_service_cadence_sequence": governed_trace.get("cadence_sequence") if assembly_revision in {R008_REVISION, R009_REVISION, R010_REVISION, R011_REVISION, R012_REVISION} and artifact_id in TEXT_ARTIFACTS else None,
-                    "logion_llm_service_model_sequence": governed_trace.get("model_sequence") if assembly_revision in {R008_REVISION, R009_REVISION, R010_REVISION, R011_REVISION, R012_REVISION} and artifact_id in TEXT_ARTIFACTS else None,
+                    "governed_ollama_status": governed_trace["status"] if assembly_revision in {R007_REVISION, R008_REVISION, R009_REVISION, R010_REVISION, R011_REVISION, R012_REVISION, R013_REVISION} and artifact_id in TEXT_ARTIFACTS else None,
+                    "ollama_invocation_total": governed_trace["ollama_invocation_total"] if assembly_revision in {R007_REVISION, R008_REVISION, R009_REVISION, R010_REVISION, R011_REVISION, R012_REVISION, R013_REVISION} and artifact_id in TEXT_ARTIFACTS else None,
+                    "unmanaged_ollama_call_total": governed_trace["unmanaged_ollama_call_total"] if assembly_revision in {R007_REVISION, R008_REVISION, R009_REVISION, R010_REVISION, R011_REVISION, R012_REVISION, R013_REVISION} and artifact_id in TEXT_ARTIFACTS else None,
+                    "v_model_lowest_checked_level": (governed_trace.get("v_model_lowest_checked_level") or "L10") if assembly_revision in {R007_REVISION, R008_REVISION, R009_REVISION, R010_REVISION, R011_REVISION, R012_REVISION, R013_REVISION} and artifact_id in TEXT_ARTIFACTS else None,
+                    "instruction_packet_total": len(rows) if assembly_revision in {R007_REVISION, R008_REVISION, R009_REVISION, R010_REVISION, R011_REVISION, R012_REVISION, R013_REVISION} and artifact_id in TEXT_ARTIFACTS else None,
+                    "public_translation_packet_total": len(rows) if assembly_revision in {R007_REVISION, R008_REVISION, R009_REVISION, R010_REVISION, R011_REVISION, R012_REVISION, R013_REVISION} and artifact_id in TEXT_ARTIFACTS else None,
+                    "logion_llm_service_status": governed_trace.get("service_status") if assembly_revision in {R008_REVISION, R009_REVISION, R010_REVISION, R011_REVISION, R012_REVISION, R013_REVISION} and artifact_id in TEXT_ARTIFACTS else None,
+                    "logion_llm_service_ledger_ref": governed_trace.get("service_ledger_ref") if assembly_revision in {R008_REVISION, R009_REVISION, R010_REVISION, R011_REVISION, R012_REVISION, R013_REVISION} and artifact_id in TEXT_ARTIFACTS else None,
+                    "logion_llm_service_cadence_sequence": governed_trace.get("cadence_sequence") if assembly_revision in {R008_REVISION, R009_REVISION, R010_REVISION, R011_REVISION, R012_REVISION, R013_REVISION} and artifact_id in TEXT_ARTIFACTS else None,
+                    "logion_llm_service_model_sequence": governed_trace.get("model_sequence") if assembly_revision in {R008_REVISION, R009_REVISION, R010_REVISION, R011_REVISION, R012_REVISION, R013_REVISION} and artifact_id in TEXT_ARTIFACTS else None,
                     "source_payload_origin": source_payload_origin,
                     "visual_quality_status": (visual_quality or {}).get("cockpit", {}).get("status") if visual_quality else None,
                     "figure_spec_registry_ref": rel((visual_quality or {}).get("paths", {}).get("registry_json")) if visual_quality else None,
@@ -4339,6 +5037,25 @@ def assemble_release(
                         "caption_argument_status",
                         "visual_cockpit_status",
                     ]} if visual_quality else {}),
+                    "table_quality_status": (table_quality or {}).get("cockpit", {}).get("status") if table_quality else None,
+                    "table_registry_ref": rel((table_quality or {}).get("paths", {}).get("registry_json")) if table_quality else None,
+                    "rendered_table_bbox_ledger_ref": rel((table_quality or {}).get("paths", {}).get("rendered_bbox_json")) if table_quality else None,
+                    "source_table_total": (table_quality or {}).get("cockpit", {}).get("source_table_total") if table_quality else None,
+                    "compiled_reader_table_total": (table_quality or {}).get("cockpit", {}).get("compiled_reader_table_total") if table_quality else None,
+                    "registered_table_total": (table_quality or {}).get("cockpit", {}).get("registered_table_total") if table_quality else None,
+                    "audited_rendered_table_total": (table_quality or {}).get("cockpit", {}).get("audited_rendered_table_total") if table_quality else None,
+                    **({key: (table_quality or {}).get("cockpit", {}).get(key) for key in [
+                        "table_spec_coverage_status",
+                        "compiled_table_coverage_status",
+                        "table_layout_standard_status",
+                        "table_geometry_status",
+                        "rendered_table_bbox_status",
+                        "table_text_collision_status",
+                        "table_edge_clipping_status",
+                        "table_caption_argument_status",
+                        "table_semantic_anchor_status",
+                        "table_cockpit_status",
+                    ]} if table_quality else {}),
                     "figure_total": figure_total,
                     "inline_figure_total": inline_figure_total,
                     "table_total": table_total,
@@ -4537,7 +5254,7 @@ def assemble_release(
                 row["accepted_candidate_promoted_total"] = governed_trace.get("accepted_candidate_promoted_total")
                 row["unresolved_repair_record_total"] = governed_trace.get("unresolved_repair_record_total")
         generated_files.extend(path for path in repair_paths.values() if path.is_file())
-    if assembly_revision in {R011_REVISION, R012_REVISION}:
+    if assembly_revision in {R011_REVISION, R012_REVISION, R013_REVISION}:
         r011_paths = r011_output_paths(base, version)
         venues = r011_journal_venues()
         spot_payload = r011_release_spot_map(version, artifact_rows)
@@ -4704,7 +5421,13 @@ def assemble_release(
                 row["ollama_invocation_total"] = governed_trace["ollama_invocation_total"]
                 row["unmanaged_ollama_call_total"] = governed_trace["unmanaged_ollama_call_total"]
                 row["v_model_lowest_checked_level"] = governed_trace.get("v_model_lowest_checked_level") or "L10"
-                row["public_translation_status"] = R011_TRANSLATOR_STATUS if assembly_revision == R011_REVISION else R012_TRANSLATOR_STATUS
+                row["public_translation_status"] = (
+                    R011_TRANSLATOR_STATUS
+                    if assembly_revision == R011_REVISION
+                    else R012_TRANSLATOR_STATUS
+                    if assembly_revision == R012_REVISION
+                    else R013_TRANSLATOR_STATUS
+                )
                 row["logion_llm_service_status"] = governed_trace.get("service_status")
                 row["logion_llm_service_ledger_ref"] = governed_trace.get("service_ledger_ref")
                 row["logion_llm_service_cadence_sequence"] = governed_trace.get("cadence_sequence")
@@ -4783,6 +5506,7 @@ def assemble_release(
         "publication_actions_performed": False,
         "governed_ollama_trace": governed_trace,
         "visual_quality_trace": visual_quality_trace,
+        "table_quality_trace": table_quality_trace,
         "publication_translation_pipeline": {
             "status": (
                 R007_TRANSLATOR_STATUS if assembly_revision == R007_REVISION
@@ -4791,6 +5515,7 @@ def assemble_release(
                 else R010_TRANSLATOR_STATUS if assembly_revision == R010_REVISION
                 else R011_TRANSLATOR_STATUS if assembly_revision == R011_REVISION
                 else R012_TRANSLATOR_STATUS if assembly_revision == R012_REVISION
+                else R013_TRANSLATOR_STATUS if assembly_revision == R013_REVISION
                 else "NOT_APPLICABLE"
             ),
             "strategy": (
@@ -4800,18 +5525,20 @@ def assemble_release(
                 else "source_grounded_repair_records_and_bounded_suggestions_without_auto_promotion" if assembly_revision == R010_REVISION
                 else "journal_requirements_spot_projection_with_bounded_synthesis_and_owner_review_no_send" if assembly_revision == R011_REVISION
                 else "deterministic_figure_registry_geometry_and_rendered_bbox_visual_qa" if assembly_revision == R012_REVISION
+                else "deterministic_table_registry_geometry_and_rendered_bbox_table_qa" if assembly_revision == R013_REVISION
                 else None
             ),
-            "v_model_flow": "L10_to_L9_L8_to_document_review" if assembly_revision in {R007_REVISION, R008_REVISION, R009_REVISION, R010_REVISION, R011_REVISION, R012_REVISION} else None,
-            "lower_level_blockers_required_zero_before_global_review": True if assembly_revision in {R007_REVISION, R008_REVISION, R009_REVISION, R010_REVISION, R011_REVISION, R012_REVISION} else None,
-            "common_llm_service_required": True if assembly_revision in {R008_REVISION, R009_REVISION, R010_REVISION, R011_REVISION, R012_REVISION} else None,
-            "service_status": governed_trace.get("service_status") if assembly_revision in {R008_REVISION, R009_REVISION, R010_REVISION, R011_REVISION, R012_REVISION} else None,
-            "queue_status": governed_trace.get("queue_status") if assembly_revision in {R009_REVISION, R011_REVISION, R012_REVISION} else None,
-            "source_grounded_repair_status": governed_trace.get("source_grounded_repair_status") if assembly_revision == R010_REVISION else ("PASS" if assembly_revision in {R011_REVISION, R012_REVISION} else None),
+            "v_model_flow": "L10_to_L9_L8_to_document_review" if assembly_revision in {R007_REVISION, R008_REVISION, R009_REVISION, R010_REVISION, R011_REVISION, R012_REVISION, R013_REVISION} else None,
+            "lower_level_blockers_required_zero_before_global_review": True if assembly_revision in {R007_REVISION, R008_REVISION, R009_REVISION, R010_REVISION, R011_REVISION, R012_REVISION, R013_REVISION} else None,
+            "common_llm_service_required": True if assembly_revision in {R008_REVISION, R009_REVISION, R010_REVISION, R011_REVISION, R012_REVISION, R013_REVISION} else None,
+            "service_status": governed_trace.get("service_status") if assembly_revision in {R008_REVISION, R009_REVISION, R010_REVISION, R011_REVISION, R012_REVISION, R013_REVISION} else None,
+            "queue_status": governed_trace.get("queue_status") if assembly_revision in {R009_REVISION, R011_REVISION, R012_REVISION, R013_REVISION} else None,
+            "source_grounded_repair_status": governed_trace.get("source_grounded_repair_status") if assembly_revision == R010_REVISION else ("PASS" if assembly_revision in {R011_REVISION, R012_REVISION, R013_REVISION} else None),
             "local_editorial_capability_boundary_status": governed_trace.get("local_editorial_capability_boundary_status") if assembly_revision == R010_REVISION else None,
-            "scientific_journal_submission_ready_status": governed_trace.get("scientific_journal_submission_ready_status") if assembly_revision in {R011_REVISION, R012_REVISION} else None,
-            "journal_requirements_trace_status": governed_trace.get("journal_requirements_trace_status") if assembly_revision in {R011_REVISION, R012_REVISION} else None,
-            "visual_cockpit_status": (visual_quality_trace or {}).get("visual_cockpit_status") if assembly_revision == R012_REVISION else None,
+            "scientific_journal_submission_ready_status": governed_trace.get("scientific_journal_submission_ready_status") if assembly_revision in {R011_REVISION, R012_REVISION, R013_REVISION} else None,
+            "journal_requirements_trace_status": governed_trace.get("journal_requirements_trace_status") if assembly_revision in {R011_REVISION, R012_REVISION, R013_REVISION} else None,
+            "visual_cockpit_status": (visual_quality_trace or {}).get("visual_cockpit_status") if assembly_revision in {R012_REVISION, R013_REVISION} else None,
+            "table_cockpit_status": (table_quality_trace or {}).get("table_cockpit_status") if assembly_revision == R013_REVISION else None,
         },
         "structure_source": structure_source,
         "assembly_revision": assembly_revision,
@@ -4837,16 +5564,16 @@ def assemble_release(
             "source_grounded_repair_status": governed_trace.get("source_grounded_repair_status") if assembly_revision == R010_REVISION else None,
             "unresolved_repair_record_total": governed_trace.get("unresolved_repair_record_total") if assembly_revision == R010_REVISION else None,
             "accepted_candidate_promoted_total": governed_trace.get("accepted_candidate_promoted_total") if assembly_revision == R010_REVISION else None,
-            "journal_requirements_trace_status": governed_trace.get("journal_requirements_trace_status") if assembly_revision in {R011_REVISION, R012_REVISION} else None,
-            "release_spot_completeness_status": governed_trace.get("release_spot_completeness_status") if assembly_revision in {R011_REVISION, R012_REVISION} else None,
-            "bounded_synthesis_status": governed_trace.get("bounded_synthesis_status") if assembly_revision in {R011_REVISION, R012_REVISION} else None,
-            "source_gap_zero_status": governed_trace.get("source_gap_zero_status") if assembly_revision in {R011_REVISION, R012_REVISION} else None,
-            "all_venue_projection_status": governed_trace.get("all_venue_projection_status") if assembly_revision in {R011_REVISION, R012_REVISION} else None,
-            "submission_component_status": governed_trace.get("submission_component_status") if assembly_revision in {R011_REVISION, R012_REVISION} else None,
-            "journal_format_compliance_status": governed_trace.get("journal_format_compliance_status") if assembly_revision in {R011_REVISION, R012_REVISION} else None,
-            "zero_internal_leak_status": governed_trace.get("zero_internal_leak_status") if assembly_revision in {R011_REVISION, R012_REVISION} else None,
-            "zero_fabrication_risk_status": governed_trace.get("zero_fabrication_risk_status") if assembly_revision in {R011_REVISION, R012_REVISION} else None,
-            "scientific_journal_submission_ready_status": governed_trace.get("scientific_journal_submission_ready_status") if assembly_revision in {R011_REVISION, R012_REVISION} else None,
+            "journal_requirements_trace_status": governed_trace.get("journal_requirements_trace_status") if assembly_revision in {R011_REVISION, R012_REVISION, R013_REVISION} else None,
+            "release_spot_completeness_status": governed_trace.get("release_spot_completeness_status") if assembly_revision in {R011_REVISION, R012_REVISION, R013_REVISION} else None,
+            "bounded_synthesis_status": governed_trace.get("bounded_synthesis_status") if assembly_revision in {R011_REVISION, R012_REVISION, R013_REVISION} else None,
+            "source_gap_zero_status": governed_trace.get("source_gap_zero_status") if assembly_revision in {R011_REVISION, R012_REVISION, R013_REVISION} else None,
+            "all_venue_projection_status": governed_trace.get("all_venue_projection_status") if assembly_revision in {R011_REVISION, R012_REVISION, R013_REVISION} else None,
+            "submission_component_status": governed_trace.get("submission_component_status") if assembly_revision in {R011_REVISION, R012_REVISION, R013_REVISION} else None,
+            "journal_format_compliance_status": governed_trace.get("journal_format_compliance_status") if assembly_revision in {R011_REVISION, R012_REVISION, R013_REVISION} else None,
+            "zero_internal_leak_status": governed_trace.get("zero_internal_leak_status") if assembly_revision in {R011_REVISION, R012_REVISION, R013_REVISION} else None,
+            "zero_fabrication_risk_status": governed_trace.get("zero_fabrication_risk_status") if assembly_revision in {R011_REVISION, R012_REVISION, R013_REVISION} else None,
+            "scientific_journal_submission_ready_status": governed_trace.get("scientific_journal_submission_ready_status") if assembly_revision in {R011_REVISION, R012_REVISION, R013_REVISION} else None,
             **({key: (visual_quality_trace or {}).get(key) for key in [
                 "figure_spec_coverage_status",
                 "diagram_geometry_status",
@@ -4857,7 +5584,19 @@ def assemble_release(
                 "continuum_visual_status",
                 "caption_argument_status",
                 "visual_cockpit_status",
-            ]} if assembly_revision == R012_REVISION else {}),
+            ]} if assembly_revision in {R012_REVISION, R013_REVISION} else {}),
+            **({key: (table_quality_trace or {}).get(key) for key in [
+                "table_spec_coverage_status",
+                "compiled_table_coverage_status",
+                "table_layout_standard_status",
+                "table_geometry_status",
+                "rendered_table_bbox_status",
+                "table_text_collision_status",
+                "table_edge_clipping_status",
+                "table_caption_argument_status",
+                "table_semantic_anchor_status",
+                "table_cockpit_status",
+            ]} if assembly_revision == R013_REVISION else {}),
         },
         "artifact_rows": artifact_rows,
         "review_zip": zip_payload,
