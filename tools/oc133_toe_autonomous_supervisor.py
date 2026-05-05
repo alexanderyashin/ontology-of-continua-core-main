@@ -28,9 +28,11 @@ COCKPIT_NAME = "OC133_TOE_AUTONOMOUS_COCKPIT.json"
 WAVE_LEDGER_NAME = "OC133_TOE_AUTONOMOUS_WAVE_LEDGER.json"
 NEXT_ACTION_QUEUE_NAME = "OC133_TOE_AUTONOMOUS_NEXT_ACTION_QUEUE.json"
 ESCALATION_LEDGER_NAME = "OC133_TOE_AUTONOMOUS_CAPABILITY_ESCALATION_LEDGER.json"
+CAPABILITY_DEVELOPMENT_LEDGER_NAME = "OC133_TOE_AUTONOMOUS_CAPABILITY_DEVELOPMENT_LEDGER.json"
 FRONTIER_HASHES_NAME = "OC133_TOE_AUTONOMOUS_FRONTIER_HASHES.json"
 COMMIT_LEDGER_NAME = "OC133_TOE_AUTONOMOUS_COMMIT_LEDGER.json"
 TERMINAL_VALIDATION_NAME = "OC133_TOE_AUTONOMOUS_TERMINAL_VALIDATION_REPORT.json"
+HEARTBEAT_NAME = "OC133_TOE_AUTONOMOUS_HEARTBEAT.json"
 BLOCKING_GRAPH_NAME = "OC133_TOE_BLOCKING_GRAPH.json"
 SUPPORT_INDEX_NAME = "OC133_TOE_SUPPORT_REFERENCE_INDEX.json"
 
@@ -157,16 +159,6 @@ def semantic_payload(root: Path, rel_path: str | Path) -> Any:
 
 def semantic_frontier_hash(root: Path) -> str:
     refs = [
-        factory.FACTORY_DIR / BLOCKING_GRAPH_NAME,
-        factory.FACTORY_DIR / SUPPORT_INDEX_NAME,
-        factory.FACTORY_DIR / factory.CAPABILITY_BACKLOG_NAME,
-        factory.FACTORY_DIR / factory.SUBWORK_ORDERS_NAME,
-        factory.FACTORY_DIR / factory.ROOT_CAUSE_LEDGER_NAME,
-        factory.FACTORY_DIR / factory.LANES_NAME,
-        factory.FACTORY_DIR / "lane_execution/AI/OC133_AI_PROJECTION_SUPPORT_PACK.json",
-        factory.FACTORY_DIR / "lane_execution/ENTERPRISE_ARCHITECTURE/OC133_EA_PROJECTION_SUPPORT_PACK.json",
-        factory.FACTORY_DIR / "lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/gap_jobs",
-        factory.FACTORY_DIR / "lane_execution/GRAND_TOE_CLAIM_LEDGER_EVIDENCE/OC133_GRAND_PROMOTION_DERIVATION_REPORT.json",
         "releases/oc_core_1_3/editorial/science_sources/toe_projection_lanes/ai.json",
         "releases/oc_core_1_3/editorial/science_sources/toe_projection_lanes/enterprise_architecture.json",
         factory.GRAND_SCORECARD,
@@ -179,6 +171,7 @@ def semantic_frontier_hash(root: Path) -> str:
     return artifact_hash(
         {
             "validator_parts": factory.current_validator_error_parts(root),
+            "frontier_policy": "Scientific frontier excludes supervisor bookkeeping, blocking-graph, capability-backlog, and diagnostic artifacts so zero-delta waves cannot masquerade as progress.",
             "refs": {str(ref).replace("\\", "/"): semantic_payload(root, ref) for ref in refs},
         }
     )
@@ -326,7 +319,13 @@ def lane_for_error(error: str) -> str:
     return "TOE_CLOSURE_FACTORY"
 
 
-def build_blocking_graph(root: Path, queue: dict[str, Any], support_index: dict[str, Any], generated_at: str | None = None) -> dict[str, Any]:
+def build_blocking_graph(
+    root: Path,
+    queue: dict[str, Any],
+    support_index: dict[str, Any],
+    generated_at: str | None = None,
+    capability_development_rows: list[dict[str, Any]] | None = None,
+) -> dict[str, Any]:
     parts = factory.current_validator_error_parts(root)
     nodes: dict[str, dict[str, Any]] = {}
     edges: list[dict[str, str]] = []
@@ -439,6 +438,38 @@ def build_blocking_graph(root: Path, queue: dict[str, Any], support_index: dict[
             edges.append(graph_edge(lane_node_id, artifact_id, "requires"))
             edges.append(graph_edge(artifact_id, capability_id, "needs_capability"))
 
+    capability_rows_for_graph = capability_development_rows if capability_development_rows is not None else load_capability_development_rows(root)
+    for row in capability_rows_for_graph:
+        capability_id = str(row.get("capability_development_id") or row.get("capability_escalation_id") or artifact_hash(row)[:16])
+        node_id = f"capability_development:{capability_id}"
+        source_node_id = str(row.get("source_graph_node_id") or "")
+        lane_id = str(row.get("lane_id") or "TOE_CLOSURE_FACTORY")
+        nodes[node_id] = graph_node(
+            node_id,
+            "capability_development",
+            str(row.get("status") or "OPEN"),
+            lane_id=lane_id,
+            source_graph_node_id=source_node_id,
+            source_action_id=row.get("source_action_id"),
+            missing_artifact_type=row.get("missing_artifact_type"),
+            implementation_gap_class=row.get("implementation_gap_class"),
+            capability_executor_ready=bool(row.get("capability_executor_ready")),
+            why_it_failed=row.get("why_it_failed"),
+            repair_strategy=row.get("repair_strategy"),
+            required_capability=row.get("required_capability"),
+            execution_command=row.get("execution_command", []),
+            implementation_command=row.get("implementation_command", []),
+            pass_predicate=row.get("pass_predicate"),
+            next_escalation=row.get("next_escalation"),
+            validator_binding=row.get("validator_binding") or f"capability_development::{capability_id}",
+        )
+        lane_node_id = f"lane:{lane_id}"
+        if lane_node_id in nodes:
+            edges.append(graph_edge(node_id, lane_node_id, "produces"))
+        if source_node_id and source_node_id in nodes:
+            edges.append(graph_edge(source_node_id, node_id, "needs_capability"))
+            edges.append(graph_edge(node_id, source_node_id, "supersedes"))
+
     support_id = "support_index:canonical_refs"
     nodes[support_id] = graph_node(
         support_id,
@@ -464,7 +495,7 @@ def build_blocking_graph(root: Path, queue: dict[str, Any], support_index: dict[
     next_nodes = [
         node["node_id"]
         for node in open_nodes
-        if node.get("node_type") in {"required_artifact", "executor_capability"}
+        if node.get("node_type") in {"required_artifact", "executor_capability", "capability_development"}
     ][:25]
     payload = {
         "schema_id": "OC133_TOE_BLOCKING_GRAPH_v1",
@@ -489,6 +520,12 @@ def build_blocking_graph(root: Path, queue: dict[str, Any], support_index: dict[
 
 def load_state(root: Path) -> dict[str, Any]:
     return read_json(root / SUPERVISOR_DIR / STATE_NAME)
+
+
+def load_capability_development_rows(root: Path) -> list[dict[str, Any]]:
+    payload = read_json(root / SUPERVISOR_DIR / CAPABILITY_DEVELOPMENT_LEDGER_NAME)
+    rows = payload.get("rows") or []
+    return [row for row in rows if isinstance(row, dict)]
 
 
 def existing_attempt_signatures(state: dict[str, Any]) -> set[str]:
@@ -614,8 +651,7 @@ def cerberus_actions(science_error_total: int) -> list[dict[str, Any]]:
     return [action]
 
 
-def plan_next_actions(root: Path, state: dict[str, Any], frontier_hash: str) -> dict[str, Any]:
-    parts = factory.current_validator_error_parts(root)
+def seed_actions_from_validator(root: Path, parts: dict[str, list[str]]) -> list[dict[str, Any]]:
     science_errors = parts["science_errors"]
     cerberus_errors = parts["cerberus_errors"]
     actions: list[dict[str, Any]] = []
@@ -630,6 +666,161 @@ def plan_next_actions(root: Path, state: dict[str, Any], frontier_hash: str) -> 
         actions.extend(grand_actions())
     if cerberus_errors:
         actions.extend(cerberus_actions(len(science_errors)))
+    return actions
+
+
+LANE_PRIORITY = {
+    "AI": 10,
+    "ENTERPRISE_ARCHITECTURE": 20,
+    "MODERN_SCIENCE_COMPARATOR_SUPERIORITY": 30,
+    "GRAND_TOE_CLAIM_LEDGER_EVIDENCE": 40,
+    "TOE_CLOSURE_FACTORY": 50,
+    "CERBERUS_RELEASE_REVIEW_GATE": 80,
+}
+
+NODE_TYPE_PRIORITY = {
+    "required_artifact": 10,
+    "executor_capability": 20,
+    "capability_development": 30,
+    "closure_lane": 40,
+    "validator_error": 50,
+}
+
+ARTIFACT_PRIORITY = {
+    "source_grounded_non_blocker_candidate": 10,
+    "non_blocker_public_claim_scope": 20,
+    "lean_refs": 30,
+    "finite_case_refs": 40,
+    "evidence_or_simulation_refs": 50,
+    "comparator_refs": 60,
+    "falsifier_refs": 70,
+}
+
+
+def graph_priority_tuple(node: dict[str, Any], science_error_total: int) -> tuple[int, int, int, str]:
+    lane_id = str(node.get("lane_id") or "TOE_CLOSURE_FACTORY")
+    lane_priority = LANE_PRIORITY.get(lane_id, 60)
+    if lane_id == "CERBERUS_RELEASE_REVIEW_GATE" and science_error_total:
+        lane_priority = 90
+    node_priority = NODE_TYPE_PRIORITY.get(str(node.get("node_type")), 90)
+    artifact_key = str(node.get("artifact_key") or node.get("missing_artifact_type") or "")
+    artifact_priority = ARTIFACT_PRIORITY.get(artifact_key, 80)
+    return (lane_priority, node_priority, artifact_priority, str(node.get("node_id")))
+
+
+def action_by_id(actions: list[dict[str, Any]]) -> dict[str, dict[str, Any]]:
+    return {str(action.get("action_id")): action for action in actions}
+
+
+def capability_targets_for_required_artifact(graph: dict[str, Any], node_id: str) -> list[str]:
+    return [
+        edge["target"]
+        for edge in graph.get("edges", []) or []
+        if edge.get("source") == node_id
+        and edge.get("edge_type") == "needs_capability"
+        and str(edge.get("target", "")).startswith("capability:")
+    ]
+
+
+def graph_action_for_node(
+    graph: dict[str, Any],
+    node: dict[str, Any],
+    seed_actions: dict[str, dict[str, Any]],
+) -> dict[str, Any] | None:
+    node_id = str(node.get("node_id"))
+    node_type = str(node.get("node_type"))
+    capability_node_ids: list[str] = []
+    if node_type == "executor_capability" and node_id.startswith("capability:"):
+        capability_node_ids = [node_id]
+    elif node_type == "required_artifact":
+        capability_node_ids = capability_targets_for_required_artifact(graph, node_id)
+    elif (
+        node_type == "capability_development"
+        and node.get("execution_command")
+        and node.get("capability_executor_ready") is True
+    ):
+        action = action_defaults(
+            f"AUTO-{node_id.replace(':', '-').replace('/', '-')}",
+            str(node.get("lane_id") or "TOE_CLOSURE_FACTORY"),
+            "capability_development",
+            list(node.get("execution_command") or []),
+        )
+        action.update(
+            {
+                "graph_node_id": node_id,
+                "graph_node_type": node_type,
+                "graph_dependency_path": [node_id],
+                "missing_artifact_type": node.get("missing_artifact_type"),
+                "why_it_failed": node.get("why_it_failed"),
+                "repair_strategy": node.get("repair_strategy"),
+                "required_capability": node.get("required_capability"),
+                "pass_predicate": node.get("pass_predicate"),
+                "next_escalation": node.get("next_escalation"),
+                "validator_binding": node.get("validator_binding"),
+            }
+        )
+        return action
+    for capability_node_id in capability_node_ids:
+        action_id = capability_node_id.removeprefix("capability:")
+        action = seed_actions.get(action_id)
+        if not action:
+            continue
+        payload = dict(action)
+        payload.update(
+            {
+                "graph_node_id": node_id,
+                "graph_node_type": node_type,
+                "graph_dependency_path": [node_id, capability_node_id] if node_id != capability_node_id else [node_id],
+                "validator_binding": node.get("validator_binding") or payload.get("validator_binding"),
+            }
+        )
+        return payload
+    return None
+
+
+def resolve_actions_from_graph(
+    graph: dict[str, Any],
+    seed_actions: list[dict[str, Any]],
+    science_error_total: int,
+) -> list[dict[str, Any]]:
+    seed_by_id = action_by_id(seed_actions)
+    resolved: list[dict[str, Any]] = []
+    seen_action_ids: set[str] = set()
+    open_nodes = [node for node in graph.get("nodes", []) or [] if node.get("status") != "PASS"]
+    for node in sorted(open_nodes, key=lambda row: graph_priority_tuple(row, science_error_total)):
+        if node.get("node_type") not in {"required_artifact", "executor_capability", "capability_development"}:
+            continue
+        action = graph_action_for_node(graph, node, seed_by_id)
+        if not action:
+            continue
+        action_id = str(action.get("action_id"))
+        if action_id in seen_action_ids:
+            continue
+        action["planner_mode"] = "GRAPH_RESOLVER"
+        action["graph_priority"] = list(graph_priority_tuple(node, science_error_total))
+        seen_action_ids.add(action_id)
+        resolved.append(action)
+    if resolved:
+        return resolved
+    for action in seed_actions:
+        payload = dict(action)
+        payload["planner_mode"] = "LEGACY_FALLBACK_NO_GRAPH_ACTION"
+        payload["graph_node_id"] = None
+        payload["graph_node_type"] = None
+        payload["graph_dependency_path"] = []
+        resolved.append(payload)
+    return resolved
+
+
+def plan_next_actions(root: Path, state: dict[str, Any], frontier_hash: str) -> dict[str, Any]:
+    parts = factory.current_validator_error_parts(root)
+    science_errors = parts["science_errors"]
+    cerberus_errors = parts["cerberus_errors"]
+    seed_actions = seed_actions_from_validator(root, parts)
+    support_index = build_support_reference_index(root)
+    seed_queue = {"rows": seed_actions}
+    planning_graph = build_blocking_graph(root, seed_queue, support_index)
+    actions = resolve_actions_from_graph(planning_graph, seed_actions, len(science_errors))
 
     attempted = existing_attempt_signatures(state)
     for action in actions:
@@ -646,11 +837,23 @@ def plan_next_actions(root: Path, state: dict[str, Any], frontier_hash: str) -> 
         "generated_at": utc_now(),
         "status": "OPEN" if actions else "PASS",
         "frontier_hash": frontier_hash,
+        "planner_mode": "GRAPH_RESOLVER",
         "blocking_graph_ref": (factory.FACTORY_DIR / BLOCKING_GRAPH_NAME).as_posix(),
+        "blocking_graph_frontier_hash": planning_graph.get("graph_frontier_hash"),
         "support_reference_index_ref": (factory.FACTORY_DIR / SUPPORT_INDEX_NAME).as_posix(),
         "validator_error_total": factory.validator_error_total(parts),
         "science_validator_error_total": len(science_errors),
         "cerberus_error_total": len(cerberus_errors),
+        "graph_candidate_node_total": len([
+            node for node in planning_graph.get("nodes", []) or []
+            if node.get("status") != "PASS"
+            and node.get("node_type") in {"required_artifact", "executor_capability", "capability_development"}
+        ]),
+        "selected_graph_node_ids": [
+            str(action.get("graph_node_id"))
+            for action in actions
+            if action.get("graph_node_id")
+        ],
         "action_total": len(actions),
         "executable_action_total": sum(
             1
@@ -690,6 +893,10 @@ def run_action(root: Path, action: dict[str, Any], timeout: int) -> dict[str, An
         "action_id": action["action_id"],
         "lane_id": action["lane_id"],
         "executor_type": action["executor_type"],
+        "planner_mode": action.get("planner_mode"),
+        "graph_node_id": action.get("graph_node_id"),
+        "graph_node_type": action.get("graph_node_type"),
+        "graph_dependency_path": action.get("graph_dependency_path", []),
         "status": "PASS" if result["returncode"] == 0 else "FAIL_CLOSED",
         "frontier_signature": action["frontier_signature"],
         "frontier_hash_before": before_frontier,
@@ -779,25 +986,49 @@ def escalation_rows(queue: dict[str, Any], action_results: list[dict[str, Any]],
         needs_escalation = action.get("already_attempted_on_frontier") or action["action_id"] in attempted_ids
         if not needs_escalation:
             continue
+        missing_artifact_type = (
+            action.get("required_artifact")
+            or (action.get("missing_artifacts") or [None])[0]
+            or action.get("missing_artifact_type")
+            or action.get("executor_type")
+        )
         row = {
             "capability_escalation_id": f"AUTO-R017-CAPABILITY-ESCALATION-{index:04d}",
+            "capability_development_id": f"AUTO-R017-CAPABILITY-DEVELOPMENT-{index:04d}-{artifact_hash(action)[:8]}",
             "source_action_id": action["action_id"],
+            "source_graph_node_id": action.get("graph_node_id"),
+            "source_graph_node_type": action.get("graph_node_type"),
+            "graph_dependency_path": action.get("graph_dependency_path", []),
             "lane_id": action["lane_id"],
             "executor_type": action["executor_type"],
+            "missing_artifact_type": missing_artifact_type,
+            "implementation_gap_class": "ZERO_DELTA_GRAPH_DEPENDENCY",
+            "capability_executor_ready": False,
             "status": "OPEN",
             "frontier_repeated": frontier_repeated,
             "why_it_failed": "The action did not reduce strict validator errors on this semantic frontier.",
             "repair_strategy": "Create a narrower source-bound executor for the exact missing artifact class before rerunning the same action.",
             "required_capability": action["required_capability"],
             "execution_command": action.get("execution_command", []),
+            "implementation_command": [
+                sys.executable,
+                "tools/oc133_toe_autonomous_supervisor.py",
+                "--write",
+                "--until-r017-pass",
+                "--max-iterations",
+                "0",
+                "--resume",
+            ],
             "pass_predicate": action["pass_predicate"],
             "next_escalation": action["next_escalation"],
+            "validator_binding": action.get("validator_binding") or f"action::{action['action_id']}",
         }
         rows.append(row)
     return rows
 
 
 def run_supervisor(root: Path, args: argparse.Namespace) -> dict[str, dict[str, Any]]:
+    run_started_monotonic = time.monotonic()
     generated_at = utc_now()
     prior_state = load_state(root) if args.resume else {}
     attempted = existing_attempt_signatures(prior_state)
@@ -816,6 +1047,13 @@ def run_supervisor(root: Path, args: argparse.Namespace) -> dict[str, dict[str, 
             "science_validator_error_total": len(parts["science_errors"]),
             "cerberus_error_total": len(parts["cerberus_errors"]),
             "capability_escalation_total": 0,
+            "current_graph_node_id": None,
+            "active_executor": None,
+            "last_validator_delta": 0,
+            "elapsed_runtime_seconds": int(time.monotonic() - run_started_monotonic),
+            "last_commit_sha": factory.git_head(root),
+            "next_escalation": "Clean unexpected tracked worktree dirt before autonomous TOE closure can continue.",
+            "last_heartbeat_at": utc_now(),
             "worktree_gate": gate,
             "attempted_action_signatures": sorted(attempted),
             "attempted_action_signature_total": len(attempted),
@@ -834,7 +1072,7 @@ def run_supervisor(root: Path, args: argparse.Namespace) -> dict[str, dict[str, 
     wave_rows = []
     frontier_rows = []
     all_action_results = []
-    all_escalations = []
+    all_escalations = load_capability_development_rows(root) if args.resume else []
     commit_rows: list[dict[str, Any]] = []
     terminal_report = terminal_validation(root, args.timeout, False)
     iteration = 0
@@ -887,8 +1125,11 @@ def run_supervisor(root: Path, args: argparse.Namespace) -> dict[str, dict[str, 
                 "after_validator_error_total": after_total,
                 "validator_error_delta": before_total - after_total,
                 "next_action_ids": [action["action_id"] for action in queue["rows"]],
+                "next_graph_node_ids": [action.get("graph_node_id") for action in queue["rows"] if action.get("graph_node_id")],
                 "selected_action_ids": [action["action_id"] for action in selected],
-                "executor_selected": "autonomous_next_action_router",
+                "selected_graph_node_ids": [action.get("graph_node_id") for action in selected if action.get("graph_node_id")],
+                "executor_selected": "graph_resolver",
+                "active_executor": selected[0].get("executor_type") if selected else None,
                 "capability_escalation_ids": [row["capability_escalation_id"] for row in escalations],
                 "commit_sha": factory.git_head(root),
                 "terminal_gate": "R017_READY_TO_ASSEMBLE" if final_passed else "R017_BLOCKED_BY_TOE_AUTONOMOUS_SUPERVISOR",
@@ -916,6 +1157,13 @@ def run_supervisor(root: Path, args: argparse.Namespace) -> dict[str, dict[str, 
 
     current_parts = factory.current_validator_error_parts(root)
     current_total = factory.validator_error_total(current_parts)
+    latest_wave = wave_rows[-1] if wave_rows else {}
+    latest_selected = (latest_wave.get("action_results") or [{}])[0] if latest_wave.get("action_results") else {}
+    latest_queue_action = (queue.get("rows") or [{}])[0] if isinstance(queue, dict) and queue.get("rows") else {}
+    current_graph_node_id = latest_selected.get("graph_node_id") or latest_queue_action.get("graph_node_id")
+    active_executor = latest_selected.get("executor_type") or latest_queue_action.get("executor_type")
+    last_validator_delta = latest_wave.get("validator_error_delta", 0)
+    latest_escalation = all_escalations[-1] if all_escalations else {}
     state = {
         "schema_id": "OC133_TOE_AUTONOMOUS_SUPERVISOR_STATE_v1",
         "generated_at": generated_at,
@@ -932,6 +1180,14 @@ def run_supervisor(root: Path, args: argparse.Namespace) -> dict[str, dict[str, 
         "attempted_action_signatures": sorted(attempted),
         "attempted_action_signature_total": len(attempted),
         "capability_escalation_total": len(all_escalations),
+        "current_graph_node_id": current_graph_node_id,
+        "active_executor": active_executor,
+        "last_validator_delta": last_validator_delta,
+        "elapsed_runtime_seconds": int(time.monotonic() - run_started_monotonic),
+        "last_commit_sha": factory.git_head(root),
+        "next_escalation": latest_escalation.get("next_escalation") or latest_queue_action.get("next_escalation"),
+        "last_heartbeat_at": utc_now(),
+        "graph_resolver_status": "PASS",
         "zero_delta_continue_policy": "PASS",
         "terminal_stop_on_zero_delta": False,
         "worktree_gate": gate,
@@ -961,7 +1217,14 @@ def build_outputs(
     gate: dict[str, Any],
 ) -> dict[Path, dict[str, Any]]:
     support_index = build_support_reference_index(root, state["generated_at"])
-    blocking_graph = build_blocking_graph(root, queue or {}, support_index, state["generated_at"])
+    capability_development = build_capability_development_ledger(escalation_rows_payload, state["generated_at"])
+    blocking_graph = build_blocking_graph(
+        root,
+        queue or {},
+        support_index,
+        state["generated_at"],
+        capability_development.get("rows", []),
+    )
     wave_ledger = {
         "schema_id": "OC133_TOE_AUTONOMOUS_WAVE_LEDGER_v1",
         "generated_at": state["generated_at"],
@@ -1011,12 +1274,21 @@ def build_outputs(
         "next_action_total": int(queue_payload.get("action_total") or 0),
         "executable_action_total": int(queue_payload.get("executable_action_total") or 0),
         "capability_escalation_total": state["capability_escalation_total"],
+        "capability_development_total": capability_development["capability_development_total"],
+        "open_capability_development_total": capability_development["open_capability_development_total"],
         "blocking_graph_status": blocking_graph["status"],
         "blocking_graph_open_node_total": blocking_graph["open_node_total"],
         "blocking_graph_frontier_hash": blocking_graph["graph_frontier_hash"],
         "support_reference_index_status": support_index["status"],
         "indexed_lean_ref_total": support_index["indexed_lean_ref_total"],
         "passing_finite_case_total": support_index["passing_finite_case_total"],
+        "heartbeat_ref": (SUPERVISOR_DIR / HEARTBEAT_NAME).as_posix(),
+        "current_graph_node_id": state.get("current_graph_node_id"),
+        "active_executor": state.get("active_executor"),
+        "last_validator_delta": state.get("last_validator_delta"),
+        "elapsed_runtime_seconds": state.get("elapsed_runtime_seconds"),
+        "last_commit_sha": state.get("last_commit_sha"),
+        "next_escalation": state.get("next_escalation"),
         "worktree_gate_status": gate["status"],
         "terminal_validation_status": terminal_report["status"],
         "zero_delta_continue_policy": "PASS",
@@ -1033,9 +1305,11 @@ def build_outputs(
         SUPERVISOR_DIR / WAVE_LEDGER_NAME: wave_ledger,
         SUPERVISOR_DIR / NEXT_ACTION_QUEUE_NAME: queue_payload,
         SUPERVISOR_DIR / ESCALATION_LEDGER_NAME: escalation,
+        SUPERVISOR_DIR / CAPABILITY_DEVELOPMENT_LEDGER_NAME: capability_development,
         SUPERVISOR_DIR / FRONTIER_HASHES_NAME: frontier,
         SUPERVISOR_DIR / COMMIT_LEDGER_NAME: commit_ledger,
         SUPERVISOR_DIR / TERMINAL_VALIDATION_NAME: terminal_report,
+        SUPERVISOR_DIR / HEARTBEAT_NAME: build_heartbeat(state),
     }
 
 
@@ -1046,6 +1320,60 @@ def build_commit_ledger(rows: list[dict[str, Any]]) -> dict[str, Any]:
         "status": "PASS" if rows else "NO_CHECKPOINT_COMMIT_REQUESTED_OR_CREATED",
         "commit_total": len(rows),
         "rows": rows,
+    }
+    payload["artifact_hash"] = artifact_hash(payload)
+    return payload
+
+
+def build_capability_development_ledger(rows: list[dict[str, Any]], generated_at: str) -> dict[str, Any]:
+    normalized: list[dict[str, Any]] = []
+    seen: set[str] = set()
+    for row in rows:
+        capability_id = str(row.get("capability_development_id") or row.get("capability_escalation_id") or artifact_hash(row)[:16])
+        if capability_id in seen:
+            continue
+        seen.add(capability_id)
+        payload = dict(row)
+        payload["capability_development_id"] = capability_id
+        payload.setdefault("status", "OPEN")
+        payload.setdefault("why_it_failed", "A graph-selected action produced zero validator delta.")
+        payload.setdefault("repair_strategy", "Implement a narrower source-bound capability for this exact missing artifact.")
+        payload.setdefault("required_capability", "Research/TOEClosureFactory")
+        payload.setdefault("execution_command", [])
+        payload.setdefault("implementation_command", [])
+        payload.setdefault("capability_executor_ready", False)
+        payload.setdefault("pass_predicate", "The source-bound capability executes and removes its validator-bound blocker.")
+        payload.setdefault("next_escalation", "Split this capability again by lower-level source/evidence dependency.")
+        payload.setdefault("validator_binding", payload.get("source_action_id") or "strict_final_toe_validator")
+        normalized.append(payload)
+    payload = {
+        "schema_id": "OC133_TOE_AUTONOMOUS_CAPABILITY_DEVELOPMENT_LEDGER_v1",
+        "generated_at": generated_at,
+        "status": "OPEN" if normalized else "PASS",
+        "capability_development_total": len(normalized),
+        "open_capability_development_total": sum(1 for row in normalized if row.get("status") != "PASS"),
+        "zero_delta_creates_capability_work": True,
+        "same_frontier_rerun_policy": "Repeated frontier actions become capability-development graph nodes; the supervisor must not rerun the identical action blindly.",
+        "rows": normalized,
+    }
+    payload["artifact_hash"] = artifact_hash(payload)
+    return payload
+
+
+def build_heartbeat(state: dict[str, Any]) -> dict[str, Any]:
+    payload = {
+        "schema_id": "OC133_TOE_AUTONOMOUS_HEARTBEAT_v1",
+        "generated_at": utc_now(),
+        "status": state.get("status"),
+        "current_promotion_gate": state.get("current_promotion_gate"),
+        "latest_wave_id": state.get("latest_wave_id"),
+        "current_graph_node_id": state.get("current_graph_node_id"),
+        "active_executor": state.get("active_executor"),
+        "validator_error_total": state.get("validator_error_total"),
+        "last_validator_delta": state.get("last_validator_delta"),
+        "elapsed_runtime_seconds": state.get("elapsed_runtime_seconds"),
+        "last_commit_sha": state.get("last_commit_sha"),
+        "next_escalation": state.get("next_escalation"),
     }
     payload["artifact_hash"] = artifact_hash(payload)
     return payload
@@ -1111,9 +1439,11 @@ def main(argv: list[str] | None = None) -> int:
             SUPERVISOR_DIR / WAVE_LEDGER_NAME,
             SUPERVISOR_DIR / NEXT_ACTION_QUEUE_NAME,
             SUPERVISOR_DIR / ESCALATION_LEDGER_NAME,
+            SUPERVISOR_DIR / CAPABILITY_DEVELOPMENT_LEDGER_NAME,
             SUPERVISOR_DIR / FRONTIER_HASHES_NAME,
             SUPERVISOR_DIR / COMMIT_LEDGER_NAME,
             SUPERVISOR_DIR / TERMINAL_VALIDATION_NAME,
+            SUPERVISOR_DIR / HEARTBEAT_NAME,
         ]
         files = {
             ROOT / path: stable_json(read_json(ROOT / path))

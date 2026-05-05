@@ -2242,8 +2242,10 @@ class ReleaseAssemblyMachineTests(unittest.TestCase):
         waves = read_json(supervisor_dir / "OC133_TOE_AUTONOMOUS_WAVE_LEDGER.json")
         queue = read_json(supervisor_dir / "OC133_TOE_AUTONOMOUS_NEXT_ACTION_QUEUE.json")
         escalation = read_json(supervisor_dir / "OC133_TOE_AUTONOMOUS_CAPABILITY_ESCALATION_LEDGER.json")
+        capability_development = read_json(supervisor_dir / "OC133_TOE_AUTONOMOUS_CAPABILITY_DEVELOPMENT_LEDGER.json")
         frontier = read_json(supervisor_dir / "OC133_TOE_AUTONOMOUS_FRONTIER_HASHES.json")
         terminal = read_json(supervisor_dir / "OC133_TOE_AUTONOMOUS_TERMINAL_VALIDATION_REPORT.json")
+        heartbeat = read_json(supervisor_dir / "OC133_TOE_AUTONOMOUS_HEARTBEAT.json")
 
         self.assertEqual(state["schema_id"], "OC133_TOE_AUTONOMOUS_SUPERVISOR_STATE_v1")
         self.assertEqual(state["status"], "INTERNAL_AUTONOMOUS_RUN_STATE_OPEN")
@@ -2251,9 +2253,15 @@ class ReleaseAssemblyMachineTests(unittest.TestCase):
         self.assertFalse(state["terminal_stop_on_zero_delta"])
         self.assertEqual(state["zero_delta_continue_policy"], "PASS")
         self.assertGreaterEqual(state["iteration_total"], 1)
+        self.assertEqual(state["graph_resolver_status"], "PASS")
+        self.assertIsNotNone(state["current_graph_node_id"])
+        self.assertIsNotNone(state["active_executor"])
+        self.assertEqual(state["last_validator_delta"], 0)
         self.assertEqual(cockpit["current_promotion_gate"], "R017_BLOCKED_BY_TOE_AUTONOMOUS_SUPERVISOR")
         self.assertEqual(cockpit["validator_error_total"], state["validator_error_total"])
         self.assertEqual(cockpit["worktree_gate_status"], "PASS")
+        self.assertEqual(cockpit["current_graph_node_id"], state["current_graph_node_id"])
+        self.assertEqual(cockpit["active_executor"], state["active_executor"])
 
         self.assertEqual(waves["schema_id"], "OC133_TOE_AUTONOMOUS_WAVE_LEDGER_v1")
         self.assertGreaterEqual(waves["wave_total"], 1)
@@ -2261,6 +2269,8 @@ class ReleaseAssemblyMachineTests(unittest.TestCase):
         self.assertTrue(all(row["validator_error_delta"] == 0 for row in waves["rows"][:2]))
         self.assertTrue(all(row["terminal_gate"] == "R017_BLOCKED_BY_TOE_AUTONOMOUS_SUPERVISOR" for row in waves["rows"]))
         self.assertTrue(any(row["selected_action_ids"] for row in waves["rows"]))
+        self.assertTrue(any(row["selected_graph_node_ids"] for row in waves["rows"]))
+        self.assertTrue(all(row["executor_selected"] == "graph_resolver" for row in waves["rows"]))
         self.assertTrue(any(
             validation["status"] == "SKIPPED_DETERMINISTIC_SCIENCE_BLOCKERS_REMAIN"
             for row in waves["rows"]
@@ -2270,10 +2280,15 @@ class ReleaseAssemblyMachineTests(unittest.TestCase):
 
         self.assertEqual(queue["schema_id"], "OC133_TOE_AUTONOMOUS_NEXT_ACTION_QUEUE_v1")
         self.assertEqual(queue["status"], "OPEN")
+        self.assertEqual(queue["planner_mode"], "GRAPH_RESOLVER")
+        self.assertGreater(queue["graph_candidate_node_total"], 0)
+        self.assertTrue(queue["selected_graph_node_ids"])
         self.assertGreater(queue["action_total"], 0)
         self.assertTrue(any(row["lane_id"] == "AI" for row in queue["rows"]))
         self.assertTrue(any(row["lane_id"] == "ENTERPRISE_ARCHITECTURE" for row in queue["rows"]))
         self.assertTrue(any(row["lane_id"] == "MODERN_SCIENCE_COMPARATOR_SUPERIORITY" for row in queue["rows"]))
+        self.assertTrue(all(row["planner_mode"] == "GRAPH_RESOLVER" for row in queue["rows"]))
+        self.assertTrue(all(row.get("graph_node_id") for row in queue["rows"]))
         self.assertFalse(queue["terminal_stop_on_zero_delta"])
 
         self.assertEqual(escalation["status"], "OPEN")
@@ -2285,8 +2300,22 @@ class ReleaseAssemblyMachineTests(unittest.TestCase):
                 self.assertIn(field, row)
                 self.assertIsNotNone(row[field])
 
+        self.assertEqual(capability_development["schema_id"], "OC133_TOE_AUTONOMOUS_CAPABILITY_DEVELOPMENT_LEDGER_v1")
+        self.assertEqual(capability_development["status"], "OPEN")
+        self.assertGreater(capability_development["capability_development_total"], 0)
+        self.assertTrue(capability_development["zero_delta_creates_capability_work"])
+        for row in capability_development["rows"]:
+            self.assertEqual(row["status"], "OPEN")
+            self.assertFalse(row["capability_executor_ready"])
+            for field in ["source_graph_node_id", "missing_artifact_type", "why_it_failed", "repair_strategy", "required_capability", "execution_command", "implementation_command", "pass_predicate", "next_escalation", "validator_binding"]:
+                self.assertIn(field, row)
+                self.assertIsNotNone(row[field], field)
+
         self.assertEqual(frontier["status"], "PASS")
         self.assertEqual(frontier["frontier_row_total"], waves["wave_total"])
+        self.assertEqual(heartbeat["schema_id"], "OC133_TOE_AUTONOMOUS_HEARTBEAT_v1")
+        self.assertEqual(heartbeat["current_graph_node_id"], state["current_graph_node_id"])
+        self.assertEqual(heartbeat["active_executor"], state["active_executor"])
         self.assertEqual(terminal["status"], "BLOCKED")
         self.assertFalse(terminal["final_validator_passed"])
         self.assertFalse(terminal["r017_assembly_attempted"])
@@ -2297,6 +2326,7 @@ class ReleaseAssemblyMachineTests(unittest.TestCase):
         support = read_json(factory_dir / "OC133_TOE_SUPPORT_REFERENCE_INDEX.json")
         cockpit = read_json(factory_dir / "autonomous_supervisor" / "OC133_TOE_AUTONOMOUS_COCKPIT.json")
         queue = read_json(factory_dir / "autonomous_supervisor" / "OC133_TOE_AUTONOMOUS_NEXT_ACTION_QUEUE.json")
+        capability_development = read_json(factory_dir / "autonomous_supervisor" / "OC133_TOE_AUTONOMOUS_CAPABILITY_DEVELOPMENT_LEDGER.json")
 
         self.assertEqual(support["schema_id"], "OC133_TOE_SUPPORT_REFERENCE_INDEX_v1")
         self.assertEqual(support["status"], "PASS")
@@ -2321,11 +2351,12 @@ class ReleaseAssemblyMachineTests(unittest.TestCase):
         self.assertEqual(queue["blocking_graph_ref"], "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/OC133_TOE_BLOCKING_GRAPH.json")
 
         node_types = {row["node_type"] for row in graph["nodes"]}
-        for node_type in ["validator_error", "closure_lane", "required_artifact", "executor_capability", "generated_evidence", "r017_promotion_gate"]:
+        for node_type in ["validator_error", "closure_lane", "required_artifact", "executor_capability", "capability_development", "generated_evidence", "r017_promotion_gate"]:
             self.assertIn(node_type, node_types)
         edge_types = {row["edge_type"] for row in graph["edges"]}
         for edge_type in ["blocks", "requires", "produces", "validated_by", "needs_capability"]:
             self.assertIn(edge_type, edge_types)
+        self.assertIn("supersedes", edge_types)
         open_nodes = [row for row in graph["nodes"] if row["status"] != "PASS"]
         self.assertTrue(open_nodes)
         for row in open_nodes:
@@ -2333,7 +2364,30 @@ class ReleaseAssemblyMachineTests(unittest.TestCase):
                 self.assertIn(field, row)
                 self.assertIsNotNone(row[field], field)
         self.assertTrue(any(str(node_id).startswith("required_artifact:AI:") for node_id in graph["next_executable_node_ids"]))
+        self.assertTrue(any(str(row["node_id"]).startswith("capability_development:") for row in graph["nodes"]))
+        self.assertEqual(capability_development["open_capability_development_total"], cockpit["open_capability_development_total"])
         self.assertTrue(any(row["lane_id"] == "CERBERUS_RELEASE_REVIEW_GATE" for row in graph["nodes"] if row["node_type"] == "closure_lane"))
+
+    def test_r017_autonomous_supervisor_graph_resolver_does_not_repeat_same_frontier_action(self) -> None:
+        tools_dir = ROOT / "tools"
+        if str(tools_dir) not in sys.path:
+            sys.path.insert(0, str(tools_dir))
+        import oc133_toe_autonomous_supervisor as supervisor
+
+        frontier_hash = supervisor.semantic_frontier_hash(ROOT)
+        initial_queue = supervisor.plan_next_actions(ROOT, {"attempted_action_signatures": []}, frontier_hash)
+        action_ids = [row["action_id"] for row in initial_queue["rows"] if row.get("execution_command")]
+        self.assertTrue(action_ids)
+        repeated_state = {
+            "attempted_action_signatures": [f"{frontier_hash}::{action_id}" for action_id in action_ids],
+        }
+        repeated_queue = supervisor.plan_next_actions(ROOT, repeated_state, frontier_hash)
+        selected = supervisor.select_actions(repeated_queue, 12)
+
+        self.assertEqual(repeated_queue["planner_mode"], "GRAPH_RESOLVER")
+        self.assertTrue(all(row["already_attempted_on_frontier"] for row in repeated_queue["rows"] if row.get("execution_command")))
+        self.assertFalse(selected)
+        self.assertTrue(any(row["status"] == "CAPABILITY_ESCALATION_REQUIRED" for row in repeated_queue["rows"]))
 
     def test_recovery_r017_is_fail_closed_until_final_toe_validator_passes(self) -> None:
         tools_dir = ROOT / "tools"
