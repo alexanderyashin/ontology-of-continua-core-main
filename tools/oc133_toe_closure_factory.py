@@ -2152,6 +2152,10 @@ def comparator_gap_scoring_work_order_rel(gap_id: str) -> Path:
     return lane_execution_base("MODERN_SCIENCE_COMPARATOR_SUPERIORITY") / "scoring_work_orders" / f"scoring_{gap_hash}.json"
 
 
+def comparator_scoring_executor_backlog_rel() -> Path:
+    return lane_execution_base("MODERN_SCIENCE_COMPARATOR_SUPERIORITY") / "OC133_MODERN_SCIENCE_COMPARATOR_SCORING_EXECUTOR_BACKLOG.json"
+
+
 def comparator_gap_research_artifact_rel(gap_id: str, artifact_key: str) -> Path:
     safe_key = re.sub(r"[^A-Za-z0-9_.-]+", "_", artifact_key).strip("_") or "unknown_artifact"
     gap_hash = artifact_hash({"gap_id": gap_id})[:16]
@@ -2342,6 +2346,110 @@ def build_comparator_gap_scoring_work_order(root: Path, gap_id: str) -> dict[str
     payload["artifact_ref"] = rel(root, root / comparator_gap_scoring_work_order_rel(gap_id))
     payload["artifact_hash"] = artifact_hash(payload)
     write_json_artifact(root, comparator_gap_scoring_work_order_rel(gap_id), payload)
+    return payload
+
+
+def comparator_scoring_work_orders(root: Path) -> list[dict[str, Any]]:
+    base = root / lane_execution_base("MODERN_SCIENCE_COMPARATOR_SUPERIORITY") / "scoring_work_orders"
+    rows: list[dict[str, Any]] = []
+    if base.exists():
+        for path in sorted(base.glob("*.json")):
+            payload = read_json(path)
+            if payload.get("schema_id") == "OC133_MODERN_SCIENCE_COMPARATOR_SCORING_WORK_ORDER_v1":
+                rows.append(payload)
+    return rows
+
+
+def build_comparator_scoring_executor_backlog(root: Path) -> dict[str, Any]:
+    open_gap_ids = [
+        str(row.get("gap_id"))
+        for row in comparator_execution_gap_rows(root)
+        if row.get("status") != "PASS" and "oc_prediction_scoring_row" in set(row.get("missing_artifacts") or [])
+    ]
+    for gap_id in open_gap_ids:
+        existing = read_json(root / comparator_gap_scoring_work_order_rel(gap_id))
+        if not existing:
+            build_comparator_gap_scoring_work_order(root, gap_id)
+    rows: list[dict[str, Any]] = []
+    root_cause_counts: dict[str, int] = {}
+    for scoring_order in comparator_scoring_work_orders(root):
+        if scoring_order.get("status") == "PASS":
+            continue
+        root_cause = str(scoring_order.get("root_cause_class") or "UNKNOWN")
+        root_cause_counts[root_cause] = root_cause_counts.get(root_cause, 0) + 1
+        gap_id = str(scoring_order.get("gap_id") or "")
+        if root_cause == "EXECUTABLE_SPEC_MISSING_FOR_SCORING":
+            sub_artifacts = [
+                {
+                    "artifact_id": "executable_scoring_spec_generation",
+                    "required_capability": "Research/BenchmarkDesign",
+                    "pass_predicate": "Coverage lane has a complete executable_work_order with source, target, OC scoring rule, comparator, uncertainty, falsifier, and replay requirements.",
+                }
+            ]
+        elif root_cause == "SCORING_PACK_FAIL_CLOSED":
+            sub_artifacts = [
+                {
+                    "artifact_id": "strict_evidence_pack_diagnosis",
+                    "required_capability": "Research/ScoringExecutor",
+                    "pass_predicate": "Fail-closed evidence pack has an explicit diagnosis and a source-bound repair path; no broad superiority credit is granted.",
+                },
+                {
+                    "artifact_id": "model_or_claim_repair_decision",
+                    "required_capability": "Research/ModelComparison",
+                    "pass_predicate": "Either OC materially beats the preregistered comparator after a valid repair, or the broad superiority claim remains blocked.",
+                },
+            ]
+        else:
+            sub_artifacts = scoring_order.get("required_next_artifacts") or []
+        for index, artifact in enumerate(sub_artifacts, start=1):
+            artifact_id = str(artifact.get("artifact_id") or f"subtask_{index:02d}")
+            row = normalize_problem_row(
+                {
+                    "subwork_order_id": f"R017-SCORING-{artifact_hash({'gap_id': gap_id, 'artifact_id': artifact_id})[:16]}",
+                    "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+                    "gap_id": gap_id,
+                    "domain_class_id": scoring_order.get("domain_class_id"),
+                    "phenomenon_class_id": scoring_order.get("phenomenon_class_id"),
+                    "root_cause_class": root_cause,
+                    "missing_artifact_type": "oc_prediction_scoring_row",
+                    "scoring_subartifact_id": artifact_id,
+                    "status": "OPEN",
+                    "source_work_order_ref": scoring_order.get("artifact_ref"),
+                    "required_source_block": artifact,
+                    "why_it_failed": scoring_order.get("why_it_failed"),
+                    "repair_strategy": f"Build `{artifact_id}` for gap `{gap_id}` from governed open/free sources, then rerun the target-hidden scorer and strict validator.",
+                    "required_capability": artifact.get("required_capability") or scoring_order.get("required_capability") or "Research/ScoringExecutor",
+                    "execution_command": [sys.executable, "tools/oc133_toe_closure_factory.py", "--compile-comparator-scoring-backlog", "--write"],
+                    "pass_predicate": artifact.get("pass_predicate") or scoring_order.get("pass_predicate"),
+                    "next_escalation": "If no deterministic executor exists for this subartifact, create a lane-specific acquisition/scoring tool and keep r017 blocked.",
+                    "validator_binding": f"comparator_gap::{gap_id}::oc_prediction_scoring_row::{artifact_id}",
+                    "no_fake_closure_policy": "Subtasks describe required scientific work; they cannot close broad TOE superiority without a passing evidence pack and replay record.",
+                },
+                {},
+            )
+            row["subwork_hash"] = artifact_hash(row)
+            rows.append(row)
+    payload = {
+        "schema_id": "OC133_MODERN_SCIENCE_COMPARATOR_SCORING_EXECUTOR_BACKLOG_v1",
+        "generated_at": stable_generated_at(root, comparator_scoring_executor_backlog_rel()),
+        "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+        "status": "OPEN" if rows else "PASS",
+        "open_scoring_gap_total": len(open_gap_ids),
+        "scoring_work_order_total": len(comparator_scoring_work_orders(root)),
+        "root_cause_counts": root_cause_counts,
+        "subwork_order_total": len(rows),
+        "execution_command": [sys.executable, "tools/oc133_toe_closure_factory.py", "--compile-comparator-scoring-backlog", "--write"],
+        "pass_predicate": "All scoring subtasks are replaced by passing target-hidden evidence packs, material OC-vs-comparator superiority, and clean replay records.",
+        "why_it_failed": "Comparator broad coverage still lacks strict OC prediction scoring evidence for one or more gaps." if rows else "All comparator scoring work orders are closed.",
+        "repair_strategy": "Execute subtasks in source -> target -> model -> comparator -> uncertainty -> falsifier -> replay order; never count a diagnostic work order as evidence.",
+        "required_capability": "Research/ScoringExecutor",
+        "next_escalation": "Implement lane-specific scoring executors for the earliest open subtask in each gap.",
+        "no_fake_closure_policy": "This backlog is an internal research-control graph artifact. It is not a public claim and cannot promote modern_science_comparator_superiority.",
+        "rows": rows,
+    }
+    payload["artifact_ref"] = rel(root, root / comparator_scoring_executor_backlog_rel())
+    payload["artifact_hash"] = artifact_hash(payload)
+    write_json_artifact(root, comparator_scoring_executor_backlog_rel(), payload)
     return payload
 
 
@@ -2769,6 +2877,7 @@ def build_comparator_lane_diagnostics(root: Path) -> dict[str, Any]:
     register = read_json(root / COMPARATOR_REGISTER)
     gap_rows = comparator_gap_rows(root)
     execution_rows = comparator_execution_gap_rows(root)
+    scoring_backlog = build_comparator_scoring_executor_backlog(root)
     grouped: dict[str, list[dict[str, Any]]] = {}
     for row in execution_rows:
         grouped.setdefault(str(row.get("domain_class_id") or "UNKNOWN"), []).append(row)
@@ -2816,6 +2925,8 @@ def build_comparator_lane_diagnostics(root: Path) -> dict[str, Any]:
         "coverage_gap_total": len(execution_rows),
         "closed_gap_total": sum(1 for row in execution_rows if row.get("status") == "PASS"),
         "open_gap_total": sum(1 for row in execution_rows if row.get("status") != "PASS"),
+        "scoring_backlog_ref": scoring_backlog.get("artifact_ref"),
+        "scoring_subwork_order_total": scoring_backlog.get("subwork_order_total"),
         "broad_pass_allowed": False,
         "job_rows": job_rows,
         "rows": execution_rows,
@@ -2835,6 +2946,8 @@ def build_comparator_lane_diagnostics(root: Path) -> dict[str, Any]:
         "benchmark_scoped_superiority_status": register.get("modern_science_comparator_superiority", {}).get("benchmark_scoped_state"),
         "broad_superiority_status": register.get("modern_science_comparator_superiority", {}).get("state"),
         "coverage_gap_total": len(gap_rows),
+        "scoring_backlog_ref": scoring_backlog.get("artifact_ref"),
+        "scoring_subwork_order_total": scoring_backlog.get("subwork_order_total"),
         "broad_claim_predicates": register.get("broad_claim_predicates", {}),
         "rows": gap_rows,
         "why_it_failed": "Broad superiority is not closed because coverage_extends_to_all_of_modern_science is false.",
@@ -4163,9 +4276,9 @@ def capability_executor_for_row(row: dict[str, Any], compiled_capability_id: str
         if gap_id and artifact_key in COMPARATOR_REQUIRED_ARTIFACT_KEYS:
             if artifact_key == "oc_prediction_scoring_row":
                 return (
-                    [sys.executable, "tools/oc133_toe_closure_factory.py", "--execute-comparator-scoring-work-order", gap_id, "--write"],
-                    "comparator_scoring_work_order",
-                    "Create the exact comparator scoring work order with source, target, OC model, incumbent comparator, uncertainty, falsifier, replay, and fail-closed pass predicates.",
+                    [sys.executable, "tools/oc133_toe_closure_factory.py", "--compile-comparator-scoring-backlog", "--write"],
+                    "comparator_scoring_executor_backlog",
+                    "Compile lower-level scoring executor subtasks from all open comparator scoring work orders, with exact source, target, OC model, incumbent comparator, uncertainty, falsifier, replay, and fail-closed pass predicates.",
                 )
             return (
                 [sys.executable, "tools/oc133_toe_closure_factory.py", "--execute-comparator-gap-artifact", gap_id, artifact_key, "--write"],
@@ -4604,6 +4717,7 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--execute-comparator-gap", help="Execute one modern-science comparator coverage gap.")
     parser.add_argument("--execute-comparator-gap-artifact", nargs=2, metavar=("GAP_ID", "ARTIFACT_KEY"), help="Execute one modern-science comparator coverage-gap artifact work packet.")
     parser.add_argument("--execute-comparator-scoring-work-order", help="Build the exact scoring/replay research work order for one comparator coverage gap.")
+    parser.add_argument("--compile-comparator-scoring-backlog", action="store_true", help="Compile exact lower-level scoring executor subtasks for open comparator scoring work orders.")
     parser.add_argument("--execute-comparator-domain-job", help="Execute one modern-science comparator domain job such as MS-COV-JOB-001.")
     parser.add_argument("--timeout", type=int, default=900)
     args = parser.parse_args(argv)
@@ -4646,6 +4760,13 @@ def main(argv: list[str] | None = None) -> int:
         payload = build_comparator_gap_scoring_work_order(ROOT, args.execute_comparator_scoring_work_order)
         artifact_ref = payload.get("artifact_ref")
         path = ROOT / artifact_ref if isinstance(artifact_ref, str) and artifact_ref else ROOT / comparator_gap_scoring_work_order_rel(args.execute_comparator_scoring_work_order)
+        result = validation_result({path: stable_json(payload)}, write=args.write)
+        print(json.dumps(result if args.write or args.check else payload, ensure_ascii=False, indent=2, sort_keys=True))
+        return 1 if args.check and result["state"] != "PASS" else 0
+    if args.compile_comparator_scoring_backlog:
+        payload = build_comparator_scoring_executor_backlog(ROOT)
+        artifact_ref = payload.get("artifact_ref")
+        path = ROOT / artifact_ref if isinstance(artifact_ref, str) and artifact_ref else ROOT / comparator_scoring_executor_backlog_rel()
         result = validation_result({path: stable_json(payload)}, write=args.write)
         print(json.dumps(result if args.write or args.check else payload, ensure_ascii=False, indent=2, sort_keys=True))
         return 1 if args.check and result["state"] != "PASS" else 0
