@@ -1,0 +1,72 @@
+{
+  "artifact_hash": "8c0c9f700291758f2bc6c0671ae462d20ddcc2712230414b40411a373a0bb812",
+  "artifact_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/ENTERPRISE_ARCHITECTURE/source_intake_executions/R017-EA-SI-CLAIM_SCOPE-002.json",
+  "candidate_total": 0,
+  "execution_command": [
+    "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+    "tools/oc133_toe_closure_factory.py",
+    "--execute-source-intake-work-order",
+    "R017-ENTERPRISE_ARCHITECTURE-SOURCE-INTAKE-CLAIM_SCOPE-002",
+    "--write"
+  ],
+  "generated_at": "2026-05-05T19:37:22Z",
+  "lane_id": "ENTERPRISE_ARCHITECTURE",
+  "next_escalation": "Create theorem/proof/Lean/finite/evidence/comparator/falsifier artifacts for the lane; do not manually flip final_toe_support_allowed.",
+  "pass_predicate": "support_pack_status == PASS and the guarded writer validates the candidate without remaining strict validator errors.",
+  "repair_strategy": "Close the missing support keys in the support pack and rerun the guarded projection writer.",
+  "required_capability": "Research/EnterpriseArchitectureProjection",
+  "rows": [],
+  "schema_id": "OC133_TOE_PROJECTION_SOURCE_INTAKE_EXECUTION_v1",
+  "source_intake_row_found": true,
+  "source_intake_rows": [
+    {
+      "candidate_claim_id": null,
+      "candidate_projection_id": "OC133-FINAL-TOE-ENTERPRISE_ARCHITECTURE-SOURCE-GAP",
+      "candidate_public_claim_scope": "NO_SOURCE_CANDIDATE_BOUND",
+      "candidate_source_json_path": null,
+      "closure_condition": "Projection lane may PASS only after claim scope, formal refs, Lean refs, finite refs, evidence, comparator, and falsifier refs are all bound and non-blocker.",
+      "execution_command": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "tools/oc133_toe_closure_factory.py",
+        "--execute-capability-lane",
+        "ENTERPRISE_ARCHITECTURE",
+        "--write"
+      ],
+      "fake_closure_rejected": true,
+      "finding_class": "ENTERPRISE_ARCHITECTURE_DOMAIN_TOE_PROJECTION_LANE",
+      "lane_id": "ENTERPRISE_ARCHITECTURE",
+      "missing_support_key": "claim_not_blocker",
+      "next_escalation": "Route this source-intake item to the research corpus; do not write a PASS projection row until static validation succeeds.",
+      "pass_predicate": "support_checks.claim_not_blocker == true and the strict final TOE projection validator no longer emits this lane error.",
+      "repair_strategy": "Replace blocker/future-research scope with a source-supported promoted claim scope or keep the lane fail-closed.",
+      "required_artifact": "non_blocker_public_claim_scope",
+      "required_artifacts": [
+        "non_blocker_public_claim_scope"
+      ],
+      "required_capability": "Research/EnterpriseArchitectureProjection",
+      "root_cause_class": "MISSING_EXECUTABLE_EA_TOE_PROJECTION_SUPPORT",
+      "source_refs": [
+        "releases\\oc_core_1_3\\editorial\\science_sources\\toe_projection_lanes\\enterprise_architecture.json",
+        "claims/CLAIM_LEDGER_1_3_3.json",
+        "claims/CLAIM_LEDGER_FULL.json",
+        "proofs/THEOREM_REGISTRY_1_3_3.json",
+        "proofs/THEOREM_INVENTORY_1_3_3.json",
+        "reports/OC_CORE_1_3_3_DOMAIN_VALIDATION_REPORT.json",
+        "reports/OC_CORE_1_3_3_GRAND_EMPIRICAL_REPORT.json",
+        "reports/OC_CORE_1_3_3_MODERN_SCIENCE_COVERAGE_LANE_QUEUE.json",
+        "releases/oc_core_1_3/editorial/OC_CORE_1_3_PRACTICAL_UTILITY_ATLAS_latest.json",
+        "releases/oc_core_1_3/editorial/OC_CORE_1_3_UNIFIED_SYNTHESIS_latest.json"
+      ],
+      "status": "OPEN",
+      "subwork_order_id": "R017-ENTERPRISE_ARCHITECTURE-SOURCE-INTAKE-CLAIM_SCOPE-002",
+      "why_it_failed": "ENTERPRISE_ARCHITECTURE projection cannot pass because `claim_not_blocker` is false for the best current source candidate.",
+      "work_order_id": "R017-ENTERPRISE_ARCHITECTURE-SOURCE-INTAKE-CLAIM_SCOPE-002"
+    }
+  ],
+  "status": "SOURCE_GAP_OPEN",
+  "support_pack_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/ENTERPRISE_ARCHITECTURE/OC133_EA_PROJECTION_SUPPORT_PACK.json",
+  "support_pack_status": "SOURCE_GAP_OPEN",
+  "support_pass_candidate_total": 0,
+  "why_it_failed": "Source-intake execution did not find a fully source-bound projection candidate.",
+  "work_order_id": "R017-ENTERPRISE_ARCHITECTURE-SOURCE-INTAKE-CLAIM_SCOPE-002"
+}

@@ -1,0 +1,137 @@
+{
+  "artifact_hash": "c302cecaf847aa740ad81b7c9ce5c45a6bff8ad907a819fd2e9930ecfd412ccf",
+  "artifact_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/AI/source_intake_executions/R017-AI-SI-CLAIM_SCOPE-002.json",
+  "candidate_total": 1,
+  "execution_command": [
+    "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+    "tools/oc133_toe_closure_factory.py",
+    "--execute-source-intake-work-order",
+    "R017-AI-SOURCE-INTAKE-CLAIM_SCOPE-002",
+    "--write"
+  ],
+  "generated_at": "2026-05-05T19:37:20Z",
+  "lane_id": "AI",
+  "next_escalation": "Create theorem/proof/Lean/finite/evidence/comparator/falsifier artifacts for the lane; do not manually flip final_toe_support_allowed.",
+  "pass_predicate": "support_pack_status == PASS and the guarded writer validates the candidate without remaining strict validator errors.",
+  "repair_strategy": "Close the missing support keys in the support pack and rerun the guarded projection writer.",
+  "required_capability": "Research/AIProjection",
+  "rows": [
+    {
+      "candidate_index": 1,
+      "candidate_row": {
+        "claim_id": "OC133-AI-MINED-001",
+        "closure_verdict": "FAIL_CLOSED",
+        "comparator_refs": [
+          "comparators/OC_1_3_3_MODERN_SCIENCE_SUPERIORITY_REGISTER.json"
+        ],
+        "evidence_or_simulation_refs": [
+          "reports/OC_CORE_1_3_3_GRAND_EMPIRICAL_REPORT.json",
+          "validation/heldout/grand_science_evidence_registry.json"
+        ],
+        "falsifier_refs": [
+          "validation/target_blind/OC133_TARGET_BLIND_PREDICTION_TABLE.json"
+        ],
+        "finite_case_refs": [],
+        "lean_refs": [],
+        "projection_id": "OC133-FINAL-TOE-AI-001",
+        "public_claim_scope": "machine learning generalization and evaluation",
+        "source_claim_public_status": null,
+        "source_json_path": "$.lanes[11]",
+        "source_refs": [
+          "claims/CLAIM_LEDGER_1_3_3.json",
+          "proofs/THEOREM_REGISTRY_1_3_3.json",
+          "proofs/FINITE_MODEL_CHECKS_1_3_3.json"
+        ],
+        "support_checks": {
+          "claim_id_present": true,
+          "claim_not_blocker": true,
+          "comparator_refs_exist": true,
+          "evidence_refs_exist": true,
+          "falsifier_refs_exist": true,
+          "finite_case_refs_present": false,
+          "formal_refs_exist": false,
+          "lean_refs_exist": false,
+          "public_claim_scope_present": true
+        },
+        "theorem_or_formal_boundary_refs": []
+      },
+      "claim_id": "OC133-AI-MINED-001",
+      "missing_support_keys": [
+        "formal_refs_exist",
+        "lean_refs_exist",
+        "finite_case_refs_present"
+      ],
+      "projection_id": "OC133-FINAL-TOE-AI-001",
+      "public_claim_scope": "machine learning generalization and evaluation",
+      "repair_strategy": "Bind native theorem/proof, Lean declaration, passing finite witness, evidence, comparator, and falsifier refs before promotion.",
+      "source_json_path": "$.lanes[11]",
+      "support_checks": {
+        "claim_id_present": true,
+        "claim_not_blocker": true,
+        "comparator_refs_exist": true,
+        "evidence_refs_exist": true,
+        "falsifier_refs_exist": true,
+        "finite_case_refs_present": false,
+        "formal_refs_exist": false,
+        "lean_refs_exist": false,
+        "public_claim_scope_present": true
+      },
+      "support_status": "SOURCE_GAP_OPEN",
+      "theorem_native_match": false,
+      "why_it_failed": "Candidate lacks native theorem/Lean/finite/evidence/comparator/falsifier support."
+    }
+  ],
+  "schema_id": "OC133_TOE_PROJECTION_SOURCE_INTAKE_EXECUTION_v1",
+  "source_intake_row_found": true,
+  "source_intake_rows": [
+    {
+      "candidate_claim_id": "OC133-AI-MINED-001",
+      "candidate_projection_id": "OC133-FINAL-TOE-AI-001",
+      "candidate_public_claim_scope": "machine learning generalization and evaluation",
+      "candidate_source_json_path": "$.lanes[11]",
+      "closure_condition": "Projection lane may PASS only after claim scope, formal refs, Lean refs, finite refs, evidence, comparator, and falsifier refs are all bound and non-blocker.",
+      "execution_command": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "tools/oc133_toe_closure_factory.py",
+        "--execute-capability-lane",
+        "AI",
+        "--write"
+      ],
+      "fake_closure_rejected": true,
+      "finding_class": "AI_DOMAIN_TOE_PROJECTION_LANE",
+      "lane_id": "AI",
+      "missing_support_key": "claim_not_blocker",
+      "next_escalation": "Route this source-intake item to the research corpus; do not write a PASS projection row until static validation succeeds.",
+      "pass_predicate": "support_checks.claim_not_blocker == true and the strict final TOE projection validator no longer emits this lane error.",
+      "repair_strategy": "Replace blocker/future-research scope with a source-supported promoted claim scope or keep the lane fail-closed.",
+      "required_artifact": "non_blocker_public_claim_scope",
+      "required_artifacts": [
+        "non_blocker_public_claim_scope"
+      ],
+      "required_capability": "Research/AIProjection",
+      "root_cause_class": "MISSING_EXECUTABLE_AI_TOE_PROJECTION_SUPPORT",
+      "source_refs": [
+        "releases\\oc_core_1_3\\editorial\\science_sources\\toe_projection_lanes\\ai.json",
+        "claims/CLAIM_LEDGER_1_3_3.json",
+        "claims/CLAIM_LEDGER_FULL.json",
+        "proofs/THEOREM_REGISTRY_1_3_3.json",
+        "proofs/THEOREM_INVENTORY_1_3_3.json",
+        "reports/OC_CORE_1_3_3_DOMAIN_VALIDATION_REPORT.json",
+        "reports/OC_CORE_1_3_3_GRAND_EMPIRICAL_REPORT.json",
+        "reports/OC_CORE_1_3_3_MODERN_SCIENCE_COVERAGE_LANE_QUEUE.json",
+        "releases/oc_core_1_3/editorial/OC_CORE_1_3_PRACTICAL_UTILITY_ATLAS_latest.json",
+        "releases/oc_core_1_3/editorial/OC_CORE_1_3_UNIFIED_SYNTHESIS_latest.json"
+      ],
+      "status": "OPEN",
+      "subwork_order_id": "R017-AI-SOURCE-INTAKE-CLAIM_SCOPE-002",
+      "why_it_failed": "AI projection cannot pass because `claim_not_blocker` is false for the best current source candidate.",
+      "work_order_id": "R017-AI-SOURCE-INTAKE-CLAIM_SCOPE-002"
+    }
+  ],
+  "status": "SOURCE_GAP_OPEN",
+  "support_pack_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/AI/OC133_AI_PROJECTION_SUPPORT_PACK.json",
+  "support_pack_status": "SOURCE_GAP_OPEN",
+  "support_pass_candidate_total": 0,
+  "why_it_failed": "Source-intake execution did not find a fully source-bound projection candidate.",
+  "work_order_id": "R017-AI-SOURCE-INTAKE-CLAIM_SCOPE-002"
+}

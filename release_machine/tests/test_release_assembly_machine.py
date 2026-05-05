@@ -1999,6 +1999,7 @@ class ReleaseAssemblyMachineTests(unittest.TestCase):
                 "guarded_writer_report_ref",
                 "source_mining_report_ref",
                 "source_intake_work_orders_ref",
+                "projection_support_pack_ref",
             ]:
                 self.assertTrue((ROOT / refs[ref]).exists(), ref)
             self.assertFalse(payload["support_checks"]["claim_not_blocker"])
@@ -2010,24 +2011,47 @@ class ReleaseAssemblyMachineTests(unittest.TestCase):
             self.assertIn("finite_case_refs_present", payload["missing_support_keys"])
             source_mining = read_json(ROOT / refs["source_mining_report_ref"])
             source_intake = read_json(ROOT / refs["source_intake_work_orders_ref"])
+            support_pack = read_json(ROOT / refs["projection_support_pack_ref"])
             self.assertEqual(source_mining["status"], "SOURCE_GAP_OPEN")
             self.assertEqual(source_mining["candidate_total"], 0)
             self.assertEqual(source_intake["status"], "OPEN")
             self.assertGreater(source_intake["open_work_order_total"], 0)
+            self.assertEqual(support_pack["status"], "SOURCE_GAP_OPEN")
+            self.assertEqual(support_pack["support_pass_candidate_total"], 0)
             self.assertTrue(
                 any(
                     row["required_artifact"] in {"lean_refs", "finite_case_refs", "source_grounded_non_blocker_candidate"}
                     for row in source_intake["rows"]
                 )
             )
+            for row in source_intake["rows"]:
+                short_work_order_id = row["work_order_id"].replace(
+                    "R017-ENTERPRISE_ARCHITECTURE-SOURCE-INTAKE-", "R017-EA-SI-"
+                ).replace("R017-AI-SOURCE-INTAKE-", "R017-AI-SI-")
+                execution_ref = (
+                    factory_dir
+                    / "lane_execution"
+                    / lane_id
+                    / "source_intake_executions"
+                    / f"{short_work_order_id}.json"
+                )
+                self.assertTrue(execution_ref.exists(), row["work_order_id"])
+                execution = read_json(execution_ref)
+                self.assertEqual(execution["work_order_id"], row["work_order_id"])
+                self.assertIn(execution["status"], {"SOURCE_GAP_OPEN", "PASS"})
+                self.assertTrue((ROOT / execution["support_pack_ref"]).exists())
 
         self.assertEqual(grand["status"], "FAIL_CLOSED")
         self.assertEqual(grand["finite_regression_guard_status"], "PASS")
         self.assertEqual(grand["finite_failure_total"], 0)
         self.assertEqual(grand["finite_failure_ids"], [])
         self.assertTrue((ROOT / grand["promotion_execution_plan_ref"]).exists())
+        self.assertTrue((ROOT / grand["promotion_derivation_report_ref"]).exists())
         grand_plan = read_json(ROOT / grand["promotion_execution_plan_ref"])
+        grand_derivation = read_json(ROOT / grand["promotion_derivation_report_ref"])
         self.assertEqual(grand_plan["status"], "FAIL_CLOSED")
+        self.assertEqual(grand_derivation["status"], "FAIL_CLOSED")
+        self.assertFalse(grand_derivation["scorecard_write_performed"])
         self.assertGreater(grand_plan["open_prerequisite_total"], 0)
         self.assertTrue(any(row["predicate_id"] == "AI_projection_pass" and row["status"] == "OPEN" for row in grand_plan["rows"]))
         self.assertTrue(any(row["predicate_id"] == "modern_science_superiority_certified" and row["status"] == "OPEN" for row in grand_plan["rows"]))
@@ -2063,6 +2087,13 @@ class ReleaseAssemblyMachineTests(unittest.TestCase):
             self.assertGreater(domain_job["open_gap_total"], 0)
             self.assertFalse(domain_job["broad_pass_allowed"])
             self.assertTrue(domain_job["missing_artifacts_by_gap"])
+            self.assertTrue(domain_job["gap_execution_refs"])
+            for gap_ref in domain_job["gap_execution_refs"].values():
+                self.assertTrue((ROOT / gap_ref).exists(), gap_ref)
+                gap_payload = read_json(ROOT / gap_ref)
+                self.assertEqual(gap_payload["status"], "OPEN")
+                self.assertGreater(gap_payload["missing_artifact_total"], 0)
+                self.assertTrue(gap_payload["artifact_rows"])
         self.assertFalse(comparator["broad_claim_predicates"]["coverage_extends_to_all_of_modern_science"])
 
     def test_r017_modern_science_benchmark_scoped_superiority_does_not_count_as_broad_pass(self) -> None:

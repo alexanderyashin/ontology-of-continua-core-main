@@ -1198,6 +1198,26 @@ def projection_row_support_checks(root: Path, row: dict[str, Any]) -> dict[str, 
     }
 
 
+def projection_lane_prefix(lane_id: str) -> str:
+    return "AI" if lane_id == "AI" else "EA"
+
+
+def projection_source_intake_execution_rel(lane_id: str, work_order_id: str) -> Path:
+    prefix = projection_lane_prefix(lane_id)
+    short_id = work_order_id
+    short_id = short_id.replace("R017-ENTERPRISE_ARCHITECTURE-SOURCE-INTAKE-", "R017-EA-SI-")
+    short_id = short_id.replace("R017-AI-SOURCE-INTAKE-", "R017-AI-SI-")
+    return lane_execution_base(lane_id) / "source_intake_executions" / f"{short_id}.json"
+
+
+def lane_id_from_projection_work_order(work_order_id: str) -> str | None:
+    if work_order_id.startswith("R017-AI-"):
+        return "AI"
+    if work_order_id.startswith("R017-ENTERPRISE_ARCHITECTURE-"):
+        return "ENTERPRISE_ARCHITECTURE"
+    return None
+
+
 PROJECTION_SUPPORT_WORK = {
     "source_mined_candidate_available": (
         "SOURCE_DISCOVERY",
@@ -1240,6 +1260,138 @@ PROJECTION_SUPPORT_WORK = {
         "Bind falsifier rows that state what would narrow or invalidate the projection claim.",
     ),
 }
+
+
+def projection_support_pack_payload(
+    root: Path,
+    lane_id: str,
+    source_mining: dict[str, Any],
+    *,
+    generated_at: str,
+    work_order_id: str | None = None,
+) -> dict[str, Any]:
+    candidates: list[dict[str, Any]] = []
+    for key in ["candidate_rows", "rejected_candidate_rows"]:
+        value = source_mining.get(key)
+        if isinstance(value, list):
+            candidates.extend(row for row in value if isinstance(row, dict))
+    theorem_rows = theorem_rows_by_id(root)
+    finite_rows = finite_case_ids_by_theorem(root)
+    support_rows: list[dict[str, Any]] = []
+    for index, candidate in enumerate(candidates, start=1):
+        claim_id = str(candidate.get("claim_id") or "")
+        theorem = theorem_rows.get(claim_id, {})
+        rebuilt = dict(candidate)
+        if theorem:
+            rebuilt["theorem_or_formal_boundary_refs"] = sorted(
+                set(
+                    list(rebuilt.get("theorem_or_formal_boundary_refs") or [])
+                    + [
+                        ref
+                        for ref in [theorem.get("proof_sheet_ref"), theorem.get("evidence_ref")]
+                        if isinstance(ref, str) and ref
+                    ]
+                )
+            )
+            if theorem.get("lean_ref"):
+                rebuilt["lean_refs"] = sorted(set(list(rebuilt.get("lean_refs") or []) + [str(theorem["lean_ref"])]))
+            rebuilt["finite_case_refs"] = sorted(set(list(rebuilt.get("finite_case_refs") or []) + finite_rows.get(claim_id, [])))
+        checks = projection_row_support_checks(root, rebuilt)
+        missing = [key for key, passed in checks.items() if passed is not True]
+        support_rows.append(
+            {
+                "candidate_index": index,
+                "projection_id": rebuilt.get("projection_id"),
+                "claim_id": claim_id,
+                "public_claim_scope": rebuilt.get("public_claim_scope"),
+                "source_json_path": rebuilt.get("source_json_path"),
+                "theorem_native_match": bool(theorem),
+                "support_status": "PASS" if not missing else "SOURCE_GAP_OPEN",
+                "missing_support_keys": missing,
+                "support_checks": checks,
+                "candidate_row": rebuilt,
+                "why_it_failed": "Candidate lacks native theorem/Lean/finite/evidence/comparator/falsifier support." if missing else "Candidate is fully supported for guarded writer validation.",
+                "repair_strategy": "Bind native theorem/proof, Lean declaration, passing finite witness, evidence, comparator, and falsifier refs before promotion.",
+            }
+        )
+    support_pass_rows = [row for row in support_rows if row.get("support_status") == "PASS"]
+    payload = {
+        "schema_id": "OC133_TOE_PROJECTION_SUPPORT_PACK_v1",
+        "generated_at": generated_at,
+        "lane_id": lane_id,
+        "work_order_id": work_order_id,
+        "status": "PASS" if support_pass_rows else "SOURCE_GAP_OPEN",
+        "candidate_total": len(candidates),
+        "support_pass_candidate_total": len(support_pass_rows),
+        "support_gap_candidate_total": len(support_rows) - len(support_pass_rows),
+        "why_it_failed": "No projection candidate has native theorem/Lean/finite support sufficient for final TOE promotion." if not support_pass_rows else "At least one projection candidate is fully source-bound.",
+        "repair_strategy": "Promote only support_pass rows through the guarded writer; route all source gaps back to the research corpus.",
+        "required_capability": "Research/AIProjection" if lane_id == "AI" else "Research/EnterpriseArchitectureProjection",
+        "execution_command": [sys.executable, "tools/oc133_toe_closure_factory.py", "--execute-source-intake-work-order", work_order_id or f"R017-{lane_id}-SOURCE-INTAKE", "--write"],
+        "pass_predicate": "support_pass_candidate_total > 0 and strict final TOE projection validator errors disappear for this lane.",
+        "next_escalation": "If no support-pass candidate exists, create a native theorem/proof/Lean/finite route or keep the lane blocked.",
+        "rows": support_rows,
+    }
+    payload["artifact_hash"] = artifact_hash(payload)
+    return payload
+
+
+def build_projection_source_intake_execution(root: Path, work_order_id: str) -> dict[str, Any]:
+    lane_id = lane_id_from_projection_work_order(work_order_id)
+    if not lane_id:
+        payload = {
+            "schema_id": "OC133_TOE_PROJECTION_SOURCE_INTAKE_EXECUTION_v1",
+            "generated_at": utc_now(),
+            "work_order_id": work_order_id,
+            "status": "FAIL_CLOSED",
+            "why_it_failed": "Work order id does not identify the AI or Enterprise Architecture projection lane.",
+            "repair_strategy": "Use an R017-AI-* or R017-ENTERPRISE_ARCHITECTURE-* source-intake work order id.",
+            "required_capability": "Research/TOEClosureFactory",
+            "execution_command": [sys.executable, "tools/oc133_toe_closure_factory.py", "--execute-source-intake-work-order", work_order_id, "--write"],
+            "pass_predicate": "Known projection work order id maps to a lane and produces a support pack.",
+            "next_escalation": "Regenerate source-intake work orders for the projection lanes.",
+            "rows": [],
+        }
+        payload["artifact_hash"] = artifact_hash(payload)
+        return payload
+    prefix = projection_lane_prefix(lane_id)
+    base = lane_execution_base(lane_id)
+    artifact_rel = projection_source_intake_execution_rel(lane_id, work_order_id)
+    generated_at = stable_generated_at(root, artifact_rel)
+    source_mining = mine_projection_lane_sources(root, lane_id, generated_at=generated_at)
+    support_pack = projection_support_pack_payload(root, lane_id, source_mining, generated_at=generated_at, work_order_id=work_order_id)
+    support_pack_rel = base / f"OC133_{prefix}_PROJECTION_SUPPORT_PACK.json"
+    support_pack_ref = write_json_artifact(root, support_pack_rel, support_pack)
+    matching_rows = []
+    source_intake_path = base / f"OC133_{prefix}_SOURCE_INTAKE_WORK_ORDERS.json"
+    source_intake = read_json(root / source_intake_path)
+    for row in source_intake.get("rows", []) or []:
+        if isinstance(row, dict) and row.get("work_order_id") == work_order_id:
+            matching_rows.append(row)
+    payload = {
+        "schema_id": "OC133_TOE_PROJECTION_SOURCE_INTAKE_EXECUTION_v1",
+        "generated_at": generated_at,
+        "lane_id": lane_id,
+        "work_order_id": work_order_id,
+        "status": "PASS" if support_pack.get("status") == "PASS" else "SOURCE_GAP_OPEN",
+        "source_intake_row_found": bool(matching_rows),
+        "support_pack_ref": support_pack_ref,
+        "support_pack_status": support_pack.get("status"),
+        "candidate_total": support_pack.get("candidate_total"),
+        "support_pass_candidate_total": support_pack.get("support_pass_candidate_total"),
+        "why_it_failed": "Source-intake execution did not find a fully source-bound projection candidate." if support_pack.get("status") != "PASS" else "Source-intake execution found a fully source-bound candidate.",
+        "repair_strategy": "Close the missing support keys in the support pack and rerun the guarded projection writer.",
+        "required_capability": "Research/AIProjection" if lane_id == "AI" else "Research/EnterpriseArchitectureProjection",
+        "execution_command": [sys.executable, "tools/oc133_toe_closure_factory.py", "--execute-source-intake-work-order", work_order_id, "--write"],
+        "pass_predicate": "support_pack_status == PASS and the guarded writer validates the candidate without remaining strict validator errors.",
+        "next_escalation": "Create theorem/proof/Lean/finite/evidence/comparator/falsifier artifacts for the lane; do not manually flip final_toe_support_allowed.",
+        "source_intake_rows": matching_rows,
+        "rows": support_pack.get("rows", []),
+    }
+    payload["artifact_hash"] = artifact_hash(payload)
+    payload["artifact_ref"] = rel(root, root / artifact_rel)
+    write_json_artifact(root, artifact_rel, payload)
+    return payload
 
 
 def build_projection_source_intake_work_orders(
@@ -1499,6 +1651,7 @@ def build_projection_lane_capability_artifacts(root: Path, lane_id: str) -> dict
         support_checks,
         generated_at=generated_at,
     )
+    support_pack = projection_support_pack_payload(root, lane_id, source_mining, generated_at=generated_at)
     candidate = dict(source_payload)
     candidate["lane_id"] = lane_id
     candidate["title"] = candidate.get("title") or lane_title
@@ -1527,6 +1680,7 @@ def build_projection_lane_capability_artifacts(root: Path, lane_id: str) -> dict
         "falsifier_rows_ref": write_json_artifact(root, base / f"OC133_{prefix}_FALSIFIER_ROWS.json", falsifier_rows),
         "candidate_projection_ref": write_json_artifact(root, base / f"OC133_{prefix}_PROJECTION_CANDIDATE.json", candidate),
         "source_intake_work_orders_ref": write_json_artifact(root, base / f"OC133_{prefix}_SOURCE_INTAKE_WORK_ORDERS.json", source_intake),
+        "projection_support_pack_ref": write_json_artifact(root, base / f"OC133_{prefix}_PROJECTION_SUPPORT_PACK.json", support_pack),
     }
     if support_pass:
         write_json_artifact(root, target_rel, candidate)
@@ -1557,6 +1711,8 @@ def build_projection_lane_capability_artifacts(root: Path, lane_id: str) -> dict
         "source_intake_work_order_total": source_intake["source_intake_work_order_total"],
         "open_source_intake_work_order_total": source_intake["open_work_order_total"],
         "missing_support_keys": source_intake["missing_support_keys"],
+        "support_pack_status": support_pack["status"],
+        "support_pass_candidate_total": support_pack["support_pass_candidate_total"],
         "artifact_refs": artifact_refs,
     }
     artifact_refs["capability_report_ref"] = write_json_artifact(root, base / f"OC133_{prefix}_PROJECTION_CAPABILITY_REPORT.json", capability_report)
@@ -1635,6 +1791,58 @@ def build_grand_promotion_execution_plan(root: Path, *, generated_at: str) -> di
     return payload
 
 
+def build_grand_promotion_derivation_report(root: Path, *, generated_at: str) -> dict[str, Any]:
+    base = lane_execution_base("GRAND_TOE_CLAIM_LEDGER_EVIDENCE")
+    promotion = read_json(root / GRAND_PROMOTION_REPORT)
+    scorecard = read_json(root / GRAND_SCORECARD)
+    ai = evaluate_projection_lane(root, "AI", FINAL_TOE_PROJECTION_LANE_TARGETS["AI"])
+    ea = evaluate_projection_lane(root, "ENTERPRISE_ARCHITECTURE", FINAL_TOE_PROJECTION_LANE_TARGETS["ENTERPRISE_ARCHITECTURE"])
+    comparator = evaluate_comparator_lane(root)
+    finite = read_json(root / FINITE_CHECK_REPORT)
+    plan = build_grand_promotion_execution_plan(root, generated_at=generated_at)
+    derived_checks = {
+        "ai_projection_pass": ai.get("status") == "PASS",
+        "enterprise_architecture_projection_pass": ea.get("status") == "PASS",
+        "comparator_broad_pass": comparator.get("status") == "PASS",
+        "finite_regression_guard_pass": int(finite.get("failure_total") or 0) == 0,
+        "promotion_contract_pass": promotion.get("verdict") == "PASS",
+        "scorecard_all_domain_ready": scorecard.get("all_domain_ready_no_send") is True,
+        "scorecard_grand_toe_claim_pass": ((scorecard.get("checks") or {}).get("grand_toe_claim_ledger_evidence") or {}).get("state") == "PASS",
+        "scorecard_modern_science_comparator_pass": ((scorecard.get("checks") or {}).get("modern_science_comparator_superiority") or {}).get("state") == "PASS",
+    }
+    missing = [key for key, passed in derived_checks.items() if passed is not True]
+    payload = {
+        "schema_id": "OC133_GRAND_PROMOTION_DERIVATION_REPORT_v1",
+        "generated_at": generated_at,
+        "lane_id": "GRAND_TOE_CLAIM_LEDGER_EVIDENCE",
+        "status": "PASS" if not missing else "FAIL_CLOSED",
+        "scorecard_write_performed": False,
+        "derived_checks": derived_checks,
+        "missing_derived_checks": missing,
+        "promotion_execution_plan_ref": plan.get("artifact_ref"),
+        "input_refs": {
+            "grand_promotion_report": str(GRAND_PROMOTION_REPORT),
+            "scorecard": str(GRAND_SCORECARD),
+            "finite_checks": str(FINITE_CHECK_REPORT),
+            "ai_projection_lane": rel(root, FINAL_TOE_PROJECTION_LANE_TARGETS["AI"]),
+            "enterprise_architecture_projection_lane": rel(root, FINAL_TOE_PROJECTION_LANE_TARGETS["ENTERPRISE_ARCHITECTURE"]),
+            "comparator_register": str(COMPARATOR_REGISTER),
+        },
+        "why_it_failed": "Grand promotion derivation still has unmet lane-derived prerequisites." if missing else "Grand promotion derivation predicates are all satisfied.",
+        "repair_strategy": "Derive scorecard PASS only from PASS lane outputs; never manually override all_domain_ready_no_send or blocker_ids.",
+        "required_capability": "Research/FormalScience",
+        "execution_command": [sys.executable, "tools/oc133_toe_closure_factory.py", "--execute-capability-lane", "GRAND_TOE_CLAIM_LEDGER_EVIDENCE", "--write"],
+        "pass_predicate": "All derived_checks true and strict grand-science validator errors disappear.",
+        "next_escalation": "Close AI/EA/comparator support first, then rerun grand promotion derivation and scorecard sync.",
+        "rows": plan.get("rows", []),
+    }
+    payload["artifact_hash"] = artifact_hash(payload)
+    artifact_rel = base / "OC133_GRAND_PROMOTION_DERIVATION_REPORT.json"
+    payload["artifact_ref"] = rel(root, root / artifact_rel)
+    write_json_artifact(root, artifact_rel, payload)
+    return payload
+
+
 def build_grand_lane_diagnostics(root: Path) -> dict[str, Any]:
     base = lane_execution_base("GRAND_TOE_CLAIM_LEDGER_EVIDENCE")
     generated_at = stable_generated_at(root, base / "OC133_GRAND_PROMOTION_SUBLANE_DIAGNOSIS.json")
@@ -1642,6 +1850,7 @@ def build_grand_lane_diagnostics(root: Path) -> dict[str, Any]:
     promotion = read_json(root / GRAND_PROMOTION_REPORT)
     scorecard = read_json(root / GRAND_SCORECARD)
     promotion_plan = build_grand_promotion_execution_plan(root, generated_at=generated_at)
+    derivation = build_grand_promotion_derivation_report(root, generated_at=generated_at)
     payload = {
         "schema_id": "OC133_GRAND_PROMOTION_SUBLANE_DIAGNOSIS_v1",
         "generated_at": generated_at,
@@ -1656,8 +1865,10 @@ def build_grand_lane_diagnostics(root: Path) -> dict[str, Any]:
         "promotion_dependency_vector": promotion.get("promotion_gate_vector", {}),
         "promotion_open_blockers": promotion.get("open_blockers", []),
         "promotion_execution_plan_ref": promotion_plan["artifact_ref"],
+        "promotion_derivation_report_ref": derivation["artifact_ref"],
         "promotion_prerequisite_total": promotion_plan["prerequisite_total"],
         "promotion_open_prerequisite_total": promotion_plan["open_prerequisite_total"],
+        "promotion_derivation_status": derivation["status"],
         "subwork_orders": grand_claim_subwork(root),
         "why_it_failed": "Grand TOE promotion is blocked while finite failures, comparator blockers, empirical blockers, or promotion contract blockers remain.",
         "repair_strategy": "Resolve each finite failure and promotion dependency, then rerun grand science loop and strict final validator.",
@@ -1750,6 +1961,92 @@ def comparator_execution_gap_rows(root: Path) -> list[dict[str, Any]]:
     return execution_rows
 
 
+def comparator_lane_queue_rows_by_gap(root: Path) -> dict[str, dict[str, Any]]:
+    payload = read_json(root / "reports/OC_CORE_1_3_3_MODERN_SCIENCE_COVERAGE_LANE_QUEUE.json")
+    rows = payload.get("rows") or payload.get("lanes") or []
+    if not isinstance(rows, list):
+        return {}
+    return {
+        str(row.get("coverage_gap_id")): row
+        for row in rows
+        if isinstance(row, dict) and row.get("coverage_gap_id")
+    }
+
+
+def comparator_gap_execution_rel(gap_id: str) -> Path:
+    gap_hash = artifact_hash({"gap_id": gap_id})[:16]
+    return lane_execution_base("MODERN_SCIENCE_COMPARATOR_SUPERIORITY") / "gap_jobs" / f"gap_{gap_hash}.json"
+
+
+def comparator_gap_execution_payload(root: Path, gap_id: str, *, generated_at: str | None = None) -> dict[str, Any]:
+    execution_rows = comparator_execution_gap_rows(root)
+    gap_row = next((row for row in execution_rows if row.get("gap_id") == gap_id), {})
+    queue_row = comparator_lane_queue_rows_by_gap(root).get(gap_id, {})
+    missing = list(gap_row.get("missing_artifacts") or COMPARATOR_REQUIRED_ARTIFACT_KEYS)
+    artifact_rows = []
+    for index, artifact_key in enumerate(COMPARATOR_REQUIRED_ARTIFACT_KEYS, start=1):
+        artifact_rows.append(
+            normalize_problem_row(
+                {
+                    "subwork_order_id": f"R017-COMPARATOR-GAP-{gap_id}-{artifact_key}",
+                    "gap_id": gap_id,
+                    "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+                    "artifact_key": artifact_key,
+                    "status": "PASS" if artifact_key not in missing else "OPEN",
+                    "source_refs": [
+                        "reports/OC_CORE_1_3_3_MODERN_SCIENCE_COVERAGE_LANE_QUEUE.json",
+                        "benchmarks/modern_science/OC133_MODERN_SCIENCE_COVERAGE_WORK_ORDERS.json",
+                        "comparators/modern_science/OC133_MODERN_SCIENCE_COVERAGE_REGISTER.json",
+                    ],
+                    "why_it_failed": f"Comparator gap `{gap_id}` lacks `{artifact_key}`." if artifact_key in missing else f"Comparator gap `{gap_id}` has `{artifact_key}` bound.",
+                    "repair_strategy": f"Create or bind the `{artifact_key}` artifact through governed open/free source acquisition, target separation, scoring, uncertainty, falsifier, and replay policy.",
+                    "required_capability": "Research/PriorArt",
+                },
+                {
+                    "execution_command": [sys.executable, "tools/oc133_toe_closure_factory.py", "--execute-comparator-gap", gap_id, "--write"],
+                    "pass_predicate": f"{artifact_key} exists, is hash-bound, and passes the declared comparator coverage acceptance predicates.",
+                    "next_escalation": "If this artifact remains open, split it into source acquisition, scoring, or replay subtasks using the queue row dependencies.",
+                },
+            )
+        )
+    payload = {
+        "schema_id": "OC133_MODERN_SCIENCE_COMPARATOR_GAP_EXECUTION_v1",
+        "generated_at": generated_at or stable_generated_at(root, comparator_gap_execution_rel(gap_id)),
+        "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+        "gap_id": gap_id,
+        "domain_class_id": gap_row.get("domain_class_id") or queue_row.get("domain_class_id"),
+        "phenomenon_class_id": gap_row.get("phenomenon_class_id") or queue_row.get("phenomenon_class_id"),
+        "status": "PASS" if gap_row and not missing else "OPEN",
+        "queue_row_found": bool(queue_row),
+        "execution_state": queue_row.get("execution_state"),
+        "dependency_key": queue_row.get("dependency_key"),
+        "dependencies": queue_row.get("dependencies", []),
+        "official_source_defaults": queue_row.get("official_source_defaults", []),
+        "expected_acceptance_predicates": queue_row.get("expected_acceptance_predicates", []),
+        "required_artifacts": COMPARATOR_REQUIRED_ARTIFACT_KEYS,
+        "missing_artifacts": missing,
+        "missing_artifact_total": len(missing),
+        "artifact_rows": artifact_rows,
+        "why_it_failed": "Comparator gap is not closed because one or more required artifacts are missing." if missing else "Comparator gap has all required artifacts.",
+        "repair_strategy": "Execute source-capsule, benchmark, comparator, scoring, uncertainty, falsifier, and replay subtasks until the gap closes in the coverage register.",
+        "required_capability": "Research/PriorArt",
+        "execution_command": [sys.executable, "tools/oc133_toe_closure_factory.py", "--execute-comparator-gap", gap_id, "--write"],
+        "pass_predicate": "missing_artifact_total == 0 and coverage register marks this gap PASS.",
+        "next_escalation": "Use artifact_rows as the next per-artifact work list; do not count benchmark-scoped superiority as broad closure.",
+        "rows": [gap_row] if gap_row else [],
+    }
+    payload["artifact_hash"] = artifact_hash(payload)
+    return payload
+
+
+def build_comparator_gap_execution(root: Path, gap_id: str) -> dict[str, Any]:
+    payload = comparator_gap_execution_payload(root, gap_id)
+    artifact_rel = comparator_gap_execution_rel(gap_id)
+    payload["artifact_ref"] = rel(root, root / artifact_rel)
+    write_json_artifact(root, artifact_rel, payload)
+    return payload
+
+
 def comparator_domain_job_payload(root: Path, job_id: str, *, generated_at: str | None = None) -> dict[str, Any]:
     execution_rows = comparator_execution_gap_rows(root)
     grouped: dict[str, list[dict[str, Any]]] = {}
@@ -1766,6 +2063,11 @@ def comparator_domain_job_payload(root: Path, job_id: str, *, generated_at: str 
         for row in rows_for_domain
         if row.get("status") != "PASS"
     }
+    gap_execution_refs: dict[str, str] = {}
+    for row in rows_for_domain:
+        gap_id = str(row.get("gap_id") or "")
+        if gap_id:
+            gap_execution_refs[gap_id] = build_comparator_gap_execution(root, gap_id).get("artifact_ref", "")
     open_rows = [row for row in rows_for_domain if row.get("status") != "PASS"]
     payload = {
         "schema_id": "OC133_MODERN_SCIENCE_COMPARATOR_DOMAIN_JOB_EXECUTION_v1",
@@ -1779,6 +2081,7 @@ def comparator_domain_job_payload(root: Path, job_id: str, *, generated_at: str 
         "closed_gap_total": len(rows_for_domain) - len(open_rows),
         "required_artifacts": COMPARATOR_REQUIRED_ARTIFACT_KEYS,
         "missing_artifacts_by_gap": missing_by_gap,
+        "gap_execution_refs": gap_execution_refs,
         "broad_pass_allowed": bool(rows_for_domain and not open_rows),
         "why_it_failed": "Domain job still has open broad-coverage comparator gaps." if open_rows else "Domain job has no open broad-coverage comparator gaps.",
         "repair_strategy": "Bind verified source capsules, benchmark cases, incumbent comparators, OC scoring, uncertainty, falsifiers, and replay records for every gap in this domain class.",
@@ -2133,6 +2436,9 @@ def artifact_refs_from_lane_attempt(result: dict[str, Any]) -> list[str]:
         artifact_refs = payload.get("artifact_refs")
         if isinstance(artifact_refs, dict):
             refs.extend(str(value) for value in artifact_refs.values() if value)
+        for key, value in payload.items():
+            if key.endswith("_refs") and isinstance(value, dict):
+                refs.extend(str(ref) for ref in value.values() if ref)
     return refs
 
 
@@ -2187,6 +2493,11 @@ def execute_lane_attempt(root: Path, lane_id: str, timeout: int) -> dict[str, An
         execution_state = "EXECUTED_PROJECTION_CAPABILITY"
         subwork = projection_lane_subwork(lane_id)
         capability_report = build_projection_lane_capability_artifacts(root, lane_id)
+        source_intake = read_json(root / str(capability_report.get("artifact_refs", {}).get("source_intake_work_orders_ref") or ""))
+        source_intake_executions: list[dict[str, Any]] = []
+        for row in source_intake.get("rows", []) or []:
+            if isinstance(row, dict) and row.get("work_order_id"):
+                source_intake_executions.append(build_projection_source_intake_execution(root, str(row["work_order_id"])))
         command_results.append(
             {
                 "cmd": ["internal", "build_projection_lane_capability_artifacts", lane_id],
@@ -2198,6 +2509,12 @@ def execute_lane_attempt(root: Path, lane_id: str, timeout: int) -> dict[str, An
                         "subwork_order_ids": [row["subwork_order_id"] for row in subwork],
                         "capability_status": capability_report["status"],
                         "artifact_refs": capability_report["artifact_refs"],
+                        "source_intake_execution_total": len(source_intake_executions),
+                        "open_source_intake_execution_total": sum(1 for row in source_intake_executions if row.get("status") != "PASS"),
+                        "source_intake_execution_refs": {
+                            f"source_intake_execution_{index:03d}_ref": row.get("artifact_ref")
+                            for index, row in enumerate(source_intake_executions, start=1)
+                        },
                         "projection_write_performed": capability_report["projection_write_performed"],
                     },
                     ensure_ascii=False,
@@ -2235,6 +2552,7 @@ def execute_lane_attempt(root: Path, lane_id: str, timeout: int) -> dict[str, An
                         "artifact_refs": {
                             "grand_promotion_diagnosis_ref": diagnostic["artifact_ref"],
                             "grand_promotion_execution_plan_ref": diagnostic.get("promotion_execution_plan_ref"),
+                            "grand_promotion_derivation_report_ref": diagnostic.get("promotion_derivation_report_ref"),
                         },
                     },
                     ensure_ascii=False,
@@ -3254,9 +3572,26 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--max-iterations", type=int, default=6)
     parser.add_argument("--execute-lane", choices=[row["lane_id"] for row in lane_registry_rows()])
     parser.add_argument("--execute-capability-lane", choices=[row["lane_id"] for row in lane_registry_rows()])
+    parser.add_argument("--execute-source-intake-work-order", help="Execute one AI/EA source-intake work order.")
+    parser.add_argument("--execute-comparator-gap", help="Execute one modern-science comparator coverage gap.")
     parser.add_argument("--execute-comparator-domain-job", help="Execute one modern-science comparator domain job such as MS-COV-JOB-001.")
     parser.add_argument("--timeout", type=int, default=900)
     args = parser.parse_args(argv)
+    if args.execute_source_intake_work_order:
+        payload = build_projection_source_intake_execution(ROOT, args.execute_source_intake_work_order)
+        lane_id = payload.get("lane_id") or "UNKNOWN"
+        artifact_ref = payload.get("artifact_ref")
+        path = ROOT / artifact_ref if isinstance(artifact_ref, str) and artifact_ref else ROOT / projection_source_intake_execution_rel(str(lane_id), args.execute_source_intake_work_order)
+        result = validation_result({path: stable_json(payload)}, write=args.write)
+        print(json.dumps(result if args.write or args.check else payload, ensure_ascii=False, indent=2, sort_keys=True))
+        return 1 if args.check and result["state"] != "PASS" else 0
+    if args.execute_comparator_gap:
+        payload = build_comparator_gap_execution(ROOT, args.execute_comparator_gap)
+        artifact_ref = payload.get("artifact_ref")
+        path = ROOT / artifact_ref if isinstance(artifact_ref, str) and artifact_ref else ROOT / comparator_gap_execution_rel(args.execute_comparator_gap)
+        result = validation_result({path: stable_json(payload)}, write=args.write)
+        print(json.dumps(result if args.write or args.check else payload, ensure_ascii=False, indent=2, sort_keys=True))
+        return 1 if args.check and result["state"] != "PASS" else 0
     if args.execute_comparator_domain_job:
         payload = build_comparator_domain_job_execution(ROOT, args.execute_comparator_domain_job)
         path = ROOT / FACTORY_DIR / "lane_execution" / "MODERN_SCIENCE_COMPARATOR_SUPERIORITY" / "domain_jobs" / f"{args.execute_comparator_domain_job}.json"
