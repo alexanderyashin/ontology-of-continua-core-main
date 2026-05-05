@@ -1,0 +1,124 @@
+{
+  "artifact_hash": "b55e2c4e86ddb2a8fe44689b2e56a8f5a3546a0054a58f9f2f3605b4448585d8",
+  "cerberus_state": "FAIL",
+  "comparator_coverage_status": "FAIL",
+  "current_promotion_gate": "R017_BLOCKED_BY_TOE_CLOSURE_FACTORY",
+  "execution_step_total": 5,
+  "execution_trace": [
+    {
+      "purpose": "sync_spot",
+      "result": {
+        "cmd": [
+          "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+          "tools/build_oc_core_1_3_science_spot.py"
+        ],
+        "returncode": 0,
+        "stderr_tail": "",
+        "stdout_tail": "Built OC Core 1.3 science SPOT and synchronized derived surfaces.\n"
+      },
+      "status": "PASS",
+      "step_index": 1
+    },
+    {
+      "purpose": "research_loop",
+      "result": {
+        "cmd": [
+          "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+          "tools/oc133_grand_science_research_loop.py",
+          "--execute",
+          "--allow-blocked-exit-zero"
+        ],
+        "returncode": 0,
+        "stderr_tail": "",
+        "stdout_tail": "rn_science_comparator_superiority\"\n  ],\n  \"blocker_ids_after\": [\n    \"grand_toe_claim_ledger_evidence\",\n    \"modern_science_comparator_superiority\"\n  ],\n  \"all_domain_blocker_total_after\": 2,\n  \"command_fail_total\": 1,\n  \"blocked_obligation_total\": 2,\n  \"rows\": [\n    {\n      \"obligation_id\": \"OC133-GRAND-PRIORART-001\",\n      \"owner_capability\": \"Research/PriorArt\",\n      \"title\": \"Certify superiority against modern-science comparator baselines\",\n      \"blocker_check\": \"modern_science_comparator_superiority\",\n      \"profile\": \"v12_modern_science_comparator_research_program\",\n      \"action\": \"execute\",\n      \"action_state\": \"COMMAND_PASS\",\n      \"execution_state\": \"BLOCKED\",\n      \"before_check_state\": \"FAIL\",\n      \"after_check_state\": \"FAIL\",\n      \"blocker_still_present\": true,\n      \"closure_predicate_satisfied\": false,\n      \"artifact_exists_is_not_closure\": true,\n      \"command\": {\n        \"cmd\": [\n          \"C:\\\\Users\\\\Megaport\\\\scoop\\\\apps\\\\python\\\\current\\\\python.exe\",\n          \"tools/oc133_capability_repair_executor.py\",\n          \"--profile\",\n          \"v12_modern_science_comparator_research_program\"\n        ],\n        \"returncode\": 0,\n        \"stdout_tail\": \"{\\n  \\\"profile\\\": \\\"v12_modern_science_comparator_research_program\\\",\\n  \\\"state\\\": \\\"SCIENTIFIC_BLOCKERS_REMAIN\\\",\\n  \\\"ledger_ref\\\": \\\"reviews/oc133_llm_cerberus/repair/OC133_CAPABILITY_REPAIR_EXECUTION_LEDGER.json\\\",\\n  \\\"work_order_total\\\": 1\\n}\\n\",\n        \"stderr_tail\": \"\"\n      },\n      \"no_send\": true,\n      \"publish_allowed\": false,\n      \"journal_submissions_allowed\": false\n    },\n    {\n      \"obligation_id\": \"OC133-GRAND-FORMAL-001\",\n      \"owner_capability\": \"Research/FormalScience\",\n      \"title\": \"Prove the dedicated grand TOE/all-domain claim or keep it unpromoted\",\n      \"blocker_check\": \"grand_toe_claim_ledger_evidence\",\n      \"profile\": \"v12_grand_formal_science_research_program\",\n      \"action\": \"execute\",\n      \"action_state\": \"COMMAND_FAIL\",\n      \"execution_state\": \"BLOCKED\",\n      \"before_check_state\": \"FAIL\",\n      \"after_check_state\": \"FAIL\",\n      \"blocker_still_present\": true,\n      \"closure_predicate_satisfied\": false,\n      \"artifact_exists_is_not_closure\": true,\n      \"command\": {\n        \"cmd\": [\n          \"C:\\\\Users\\\\Megaport\\\\scoop\\\\apps\\\\python\\\\current\\\\python.exe\",\n          \"tools/oc133_capability_repair_executor.py\",\n          \"--profile\",\n          \"v12_grand_formal_science_research_program\"\n        ],\n        \"returncode\": 1,\n        \"stdout_tail\": \"{\\n  \\\"profile\\\": \\\"v12_grand_formal_science_research_program\\\",\\n  \\\"state\\\": \\\"FAIL\\\",\\n  \\\"ledger_ref\\\": \\\"reviews/oc133_llm_cerberus/repair/OC133_CAPABILITY_REPAIR_EXECUTION_LEDGER.json\\\",\\n  \\\"work_order_total\\\": 1\\n}\\n\",\n        \"stderr_tail\": \"\"\n      },\n      \"no_send\": true,\n      \"publish_allowed\": false,\n      \"journal_submissions_allowed\": false\n    }\n  ],\n  \"verdict\": \"SCIENTIFIC_BLOCKERS_REMAIN\",\n  \"no_send\": true,\n  \"publish_allowed\": false,\n  \"journal_submissions_allowed\": false\n}\n"
+      },
+      "status": "PASS",
+      "step_index": 2
+    },
+    {
+      "purpose": "science_validator_before_cerberus",
+      "result": {
+        "cmd": [
+          "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+          "tools/validate_oc_core_1_3_science_spot.py",
+          "--require-final-toe-pass"
+        ],
+        "returncode": 1,
+        "stderr_tail": "ERROR: Final TOE projection validation failed: AI lane closure_verdict is not PASS\nERROR: Final TOE projection validation failed: AI lane final_toe_support_allowed is not true\nERROR: Final TOE projection validation failed: AI row 1 is not PASS\nERROR: Final TOE projection validation failed: ENTERPRISE_ARCHITECTURE lane closure_verdict is not PASS\nERROR: Final TOE projection validation failed: ENTERPRISE_ARCHITECTURE lane final_toe_support_allowed is not true\nERROR: Final TOE projection validation failed: ENTERPRISE_ARCHITECTURE row 1 is not PASS\nERROR: Final TOE grand-science validation failed: all_domain_ready_no_send is not true\nERROR: Final TOE grand-science validation failed: grand_toe_claim_ledger_evidence is not PASS\nERROR: Final TOE grand-science validation failed: grand_toe_claim_ledger_evidence remains in blocker_ids\nERROR: Final TOE grand-science validation failed: modern_science_comparator_superiority is not PASS\nERROR: Final TOE grand-science validation failed: modern_science_comparator_superiority remains in blocker_ids\nERROR: Cerberus targets surface does not match the current repository HEAD.\nERROR: Cerberus run surface does not match the current repository HEAD.\nERROR: Cerberus acceptance surface does not match the current repository HEAD.\nERROR: Cerberus run fingerprint does not match the current manifest inputs.\nERROR: Cerberus acceptance fingerprint does not match the current manifest inputs.\nERROR: Cerberus acceptance certificate is not PASS.\nERROR: Cerberus LLM gate is not PASS.\nERROR: Cerberus still has open defect findings.\n",
+        "stdout_tail": ""
+      },
+      "status": "FAIL_CLOSED",
+      "step_index": 3
+    },
+    {
+      "purpose": "canonical_cerberus_after_science_clear",
+      "result": {
+        "cmd": [
+          "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+          "tools/run_oc_core_1_3_cerberus_review.py",
+          "--codex-model",
+          "gpt-5.4-mini",
+          "--llm-workers",
+          "1"
+        ],
+        "returncode": null,
+        "stderr_tail": "Skipped because final science validator remains red; expensive Cerberus/LLM gate is not run until lower-level blockers are closed.",
+        "stdout_tail": ""
+      },
+      "status": "SKIPPED_DETERMINISTIC_SCIENCE_BLOCKERS_REMAIN",
+      "step_index": 4
+    },
+    {
+      "purpose": "final_validator",
+      "result": {
+        "cmd": [
+          "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+          "tools/validate_oc_core_1_3_science_spot.py",
+          "--require-final-toe-pass",
+          "--require-cerberus-clean"
+        ],
+        "returncode": 1,
+        "stderr_tail": "ERROR: Final TOE projection validation failed: AI lane closure_verdict is not PASS\nERROR: Final TOE projection validation failed: AI lane final_toe_support_allowed is not true\nERROR: Final TOE projection validation failed: AI row 1 is not PASS\nERROR: Final TOE projection validation failed: ENTERPRISE_ARCHITECTURE lane closure_verdict is not PASS\nERROR: Final TOE projection validation failed: ENTERPRISE_ARCHITECTURE lane final_toe_support_allowed is not true\nERROR: Final TOE projection validation failed: ENTERPRISE_ARCHITECTURE row 1 is not PASS\nERROR: Final TOE grand-science validation failed: all_domain_ready_no_send is not true\nERROR: Final TOE grand-science validation failed: grand_toe_claim_ledger_evidence is not PASS\nERROR: Final TOE grand-science validation failed: grand_toe_claim_ledger_evidence remains in blocker_ids\nERROR: Final TOE grand-science validation failed: modern_science_comparator_superiority is not PASS\nERROR: Final TOE grand-science validation failed: modern_science_comparator_superiority remains in blocker_ids\nERROR: Cerberus targets surface does not match the current repository HEAD.\nERROR: Cerberus run surface does not match the current repository HEAD.\nERROR: Cerberus acceptance surface does not match the current repository HEAD.\nERROR: Cerberus run fingerprint does not match the current manifest inputs.\nERROR: Cerberus acceptance fingerprint does not match the current manifest inputs.\nERROR: Cerberus acceptance certificate is not PASS.\nERROR: Cerberus LLM gate is not PASS.\nERROR: Cerberus still has open defect findings.\n",
+        "stdout_tail": ""
+      },
+      "status": "FAIL_CLOSED",
+      "step_index": 5
+    }
+  ],
+  "fail_lane_total": 5,
+  "generated_at": "2026-05-05T16:26:57Z",
+  "lane_total": 5,
+  "latest_execution_status": "FAIL_CLOSED",
+  "local_external_compute_policy": "deterministic/static first; governed local LLM for small chunks; external Cerberus only after deterministic blockers are zero",
+  "ollama_usage_policy": "No direct unmanaged Ollama calls are made by this factory.",
+  "open_obligation_total": 21,
+  "pass_lane_total": 0,
+  "proof_data_simulation_coverage_status": "INCOMPLETE",
+  "r017_promotion_allowed": false,
+  "release_id": "oc_core_1_3_3",
+  "schema_id": "OC133_TOE_CLOSURE_COCKPIT_v1",
+  "status": "OPEN",
+  "validator_error_total": 19,
+  "validator_errors": [
+    "Final TOE projection validation failed: AI lane closure_verdict is not PASS",
+    "Final TOE projection validation failed: AI lane final_toe_support_allowed is not true",
+    "Final TOE projection validation failed: AI row 1 is not PASS",
+    "Final TOE projection validation failed: ENTERPRISE_ARCHITECTURE lane closure_verdict is not PASS",
+    "Final TOE projection validation failed: ENTERPRISE_ARCHITECTURE lane final_toe_support_allowed is not true",
+    "Final TOE projection validation failed: ENTERPRISE_ARCHITECTURE row 1 is not PASS",
+    "Final TOE grand-science validation failed: all_domain_ready_no_send is not true",
+    "Final TOE grand-science validation failed: grand_toe_claim_ledger_evidence is not PASS",
+    "Final TOE grand-science validation failed: grand_toe_claim_ledger_evidence remains in blocker_ids",
+    "Final TOE grand-science validation failed: modern_science_comparator_superiority is not PASS",
+    "Final TOE grand-science validation failed: modern_science_comparator_superiority remains in blocker_ids",
+    "Cerberus targets surface does not match the current repository HEAD.",
+    "Cerberus run surface does not match the current repository HEAD.",
+    "Cerberus acceptance surface does not match the current repository HEAD.",
+    "Cerberus run fingerprint does not match the current manifest inputs.",
+    "Cerberus acceptance fingerprint does not match the current manifest inputs.",
+    "Cerberus acceptance certificate is not PASS.",
+    "Cerberus LLM gate is not PASS.",
+    "Cerberus still has open defect findings."
+  ],
+  "version": "1.3.3"
+}

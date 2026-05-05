@@ -1745,6 +1745,109 @@ class ReleaseAssemblyMachineTests(unittest.TestCase):
         self.assertTrue(any("grand_toe_claim_ledger_evidence is not PASS" in error for error in scorecard_errors))
         self.assertTrue(any("modern_science_comparator_superiority is not PASS" in error for error in scorecard_errors))
 
+    def test_r017_toe_closure_factory_emits_fail_closed_obligations_lanes_and_cockpit(self) -> None:
+        factory_path = ROOT / "tools" / "oc133_toe_closure_factory.py"
+        spec = importlib.util.spec_from_file_location("oc133_toe_closure_factory", factory_path)
+        module = importlib.util.module_from_spec(spec)
+        self.assertIsNotNone(spec)
+        self.assertIsNotNone(spec.loader)
+        spec.loader.exec_module(module)
+
+        errors = module.current_validator_errors(ROOT)
+        obligations = module.build_obligations(ROOT, errors, generated_at="TEST")
+        lanes = module.build_lane_results(ROOT, generated_at="TEST")
+        cockpit = module.build_cockpit(ROOT, obligations, lanes, errors, [], generated_at="TEST")
+
+        self.assertGreaterEqual(len(errors), 1)
+        self.assertEqual(obligations["status"], "OPEN")
+        self.assertFalse(obligations["r017_promotion_allowed"])
+        self.assertGreaterEqual(obligations["work_order_total"], len(errors))
+        finding_classes = {row["finding_class"] for row in obligations["rows"]}
+        for finding_class in [
+            "AI_DOMAIN_TOE_PROJECTION_LANE",
+            "ENTERPRISE_ARCHITECTURE_DOMAIN_TOE_PROJECTION_LANE",
+            "GRAND_TOE_CLAIM_LEDGER_EVIDENCE",
+            "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+            "CERBERUS_RELEASE_REVIEW_GATE",
+        ]:
+            self.assertIn(finding_class, finding_classes)
+        for row in obligations["rows"]:
+            self.assertTrue(row["blocks_r017"])
+            self.assertTrue(row["fake_closure_rejected"])
+            self.assertTrue(row["closure_condition"])
+            self.assertTrue(row["validator_binding"])
+
+        lane_rows = {row["lane_id"]: row for row in lanes["rows"]}
+        for lane_id in [
+            "AI",
+            "ENTERPRISE_ARCHITECTURE",
+            "GRAND_TOE_CLAIM_LEDGER_EVIDENCE",
+            "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+            "CERBERUS_RELEASE_REVIEW_GATE",
+        ]:
+            self.assertIn(lane_id, lane_rows)
+            self.assertEqual(lane_rows[lane_id]["status"], "FAIL")
+            self.assertEqual(lane_rows[lane_id]["closure_verdict"], "FAIL_CLOSED")
+            self.assertFalse(lane_rows[lane_id]["final_toe_support_allowed"])
+
+        self.assertEqual(cockpit["status"], "OPEN")
+        self.assertEqual(cockpit["current_promotion_gate"], "R017_BLOCKED_BY_TOE_CLOSURE_FACTORY")
+        self.assertFalse(cockpit["r017_promotion_allowed"])
+        self.assertEqual(cockpit["latest_execution_status"], "NOT_RUN")
+        self.assertEqual(cockpit["fail_lane_total"], 5)
+        self.assertEqual(cockpit["proof_data_simulation_coverage_status"], "INCOMPLETE")
+
+    def test_r017_toe_closure_factory_rejects_future_research_or_demoted_rows_as_closure(self) -> None:
+        factory_path = ROOT / "tools" / "oc133_toe_closure_factory.py"
+        spec = importlib.util.spec_from_file_location("oc133_toe_closure_factory", factory_path)
+        module = importlib.util.module_from_spec(spec)
+        self.assertIsNotNone(spec)
+        self.assertIsNotNone(spec.loader)
+        spec.loader.exec_module(module)
+
+        tools_dir = ROOT / "tools"
+        if str(tools_dir) not in sys.path:
+            sys.path.insert(0, str(tools_dir))
+        from oc_core_1_3_science_spot_lib import FINAL_TOE_PROJECTION_LANE_TARGETS
+
+        for lane_id in ["AI", "ENTERPRISE_ARCHITECTURE"]:
+            payload = read_json(FINAL_TOE_PROJECTION_LANE_TARGETS[lane_id])
+            self.assertEqual(payload["status"], "FUTURE_RESEARCH_REQUIRED")
+            self.assertEqual(payload["closure_verdict"], "FAIL_CLOSED")
+            self.assertFalse(payload["final_toe_support_allowed"])
+            result = module.evaluate_projection_lane(ROOT, lane_id, FINAL_TOE_PROJECTION_LANE_TARGETS[lane_id])
+            self.assertEqual(result["status"], "FAIL")
+            self.assertEqual(result["closure_verdict"], "FAIL_CLOSED")
+            self.assertFalse(result["final_toe_support_allowed"])
+            self.assertGreater(result["finding_total"], 0)
+
+    def test_r017_toe_closure_factory_artifacts_are_idempotent_and_checked(self) -> None:
+        factory_dir = ROOT / "operations" / "logion_release_mission" / "oc_core_1_3_3" / "toe_closure_factory"
+        cockpit = read_json(factory_dir / "OC133_TOE_CLOSURE_COCKPIT.json")
+        obligations = read_json(factory_dir / "OC133_TOE_CLOSURE_OBLIGATIONS.json")
+        lanes = read_json(factory_dir / "OC133_TOE_LANE_RESULTS.json")
+
+        self.assertEqual(cockpit["current_promotion_gate"], "R017_BLOCKED_BY_TOE_CLOSURE_FACTORY")
+        self.assertFalse(cockpit["r017_promotion_allowed"])
+        self.assertEqual(obligations["status"], "OPEN")
+        self.assertEqual(lanes["status"], "FAIL")
+        self.assertEqual(cockpit["validator_error_total"], obligations["validator_error_total"])
+        self.assertEqual(cockpit["open_obligation_total"], obligations["open_work_order_total"])
+        self.assertEqual(cockpit["fail_lane_total"], lanes["fail_lane_total"])
+        if cockpit["execution_step_total"]:
+            trace_by_purpose = {row["purpose"]: row for row in cockpit["execution_trace"]}
+            self.assertIn("science_validator_before_cerberus", trace_by_purpose)
+            self.assertIn("canonical_cerberus_after_science_clear", trace_by_purpose)
+            self.assertEqual(trace_by_purpose["science_validator_before_cerberus"]["status"], "FAIL_CLOSED")
+            self.assertEqual(
+                trace_by_purpose["canonical_cerberus_after_science_clear"]["status"],
+                "SKIPPED_DETERMINISTIC_SCIENCE_BLOCKERS_REMAIN",
+            )
+            self.assertIn(
+                "expensive Cerberus/LLM gate is not run",
+                trace_by_purpose["canonical_cerberus_after_science_clear"]["result"]["stderr_tail"],
+            )
+
     def test_recovery_r017_is_fail_closed_until_final_toe_validator_passes(self) -> None:
         tools_dir = ROOT / "tools"
         if str(tools_dir) not in sys.path:
