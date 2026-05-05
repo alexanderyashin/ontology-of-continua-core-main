@@ -2,10 +2,10 @@
 
 Status: `OPEN`
 Promotion gate: `R017_BLOCKED_BY_TOE_CLOSURE_FACTORY`
-Validator errors: `19`
-Science errors: `11`
+Validator errors: `25`
+Science errors: `17`
 Cerberus errors: `8`
-Open obligations: `21`
+Open obligations: `27`
 Lanes: `0/5` PASS
 Lane dispatcher: `BLOCKED`
 Root-cause coverage: `PASS`
@@ -29,21 +29,27 @@ Latest execution: `FAIL_CLOSED`
 - `R017-TOE-CLOSURE-001` `AI_DOMAIN_TOE_PROJECTION_LANE`: AI projection has PASS rows with theorem/proof or finite witnesses, evidence/simulation anchors, comparator baselines, falsifiers, and final TOE support allowed.
 - `R017-TOE-CLOSURE-002` `AI_DOMAIN_TOE_PROJECTION_LANE`: AI projection has PASS rows with theorem/proof or finite witnesses, evidence/simulation anchors, comparator baselines, falsifiers, and final TOE support allowed.
 - `R017-TOE-CLOSURE-003` `AI_DOMAIN_TOE_PROJECTION_LANE`: AI projection has PASS rows with theorem/proof or finite witnesses, evidence/simulation anchors, comparator baselines, falsifiers, and final TOE support allowed.
-- `R017-TOE-CLOSURE-004` `ENTERPRISE_ARCHITECTURE_DOMAIN_TOE_PROJECTION_LANE`: EA projection has PASS rows with operational metrics, case anchors, comparator alternatives, falsifiers, and final TOE support allowed.
-- `R017-TOE-CLOSURE-005` `ENTERPRISE_ARCHITECTURE_DOMAIN_TOE_PROJECTION_LANE`: EA projection has PASS rows with operational metrics, case anchors, comparator alternatives, falsifiers, and final TOE support allowed.
-- `R017-TOE-CLOSURE-006` `ENTERPRISE_ARCHITECTURE_DOMAIN_TOE_PROJECTION_LANE`: EA projection has PASS rows with operational metrics, case anchors, comparator alternatives, falsifiers, and final TOE support allowed.
-- `R017-TOE-CLOSURE-007` `ALL_DOMAIN_READINESS_SCORECARD`: All-domain readiness is true only after all final TOE checks pass and blocker_ids is empty.
-- `R017-TOE-CLOSURE-008` `GRAND_TOE_CLAIM_LEDGER_EVIDENCE`: A promoted grand TOE claim row exists only if theorem/proof/Lean/finite/evidence/comparator dependencies are satisfied.
-- `R017-TOE-CLOSURE-009` `GRAND_TOE_CLAIM_LEDGER_EVIDENCE`: A promoted grand TOE claim row exists only if theorem/proof/Lean/finite/evidence/comparator dependencies are satisfied.
-- `R017-TOE-CLOSURE-010` `MODERN_SCIENCE_COMPARATOR_SUPERIORITY`: Modern-science superiority is PASS only when each required domain has source-backed benchmark rows and honest superiority certification.
-- `R017-TOE-CLOSURE-011` `MODERN_SCIENCE_COMPARATOR_SUPERIORITY`: Modern-science superiority is PASS only when each required domain has source-backed benchmark rows and honest superiority certification.
-- `R017-TOE-CLOSURE-012` `CERBERUS_RELEASE_REVIEW_GATE`: Cerberus acceptance is PASS, LLM gate is PASS, and open defect findings are zero.
-- `R017-TOE-CLOSURE-013` `CERBERUS_RELEASE_REVIEW_GATE`: Cerberus acceptance is PASS, LLM gate is PASS, and open defect findings are zero.
-- `R017-TOE-CLOSURE-014` `CERBERUS_RELEASE_REVIEW_GATE`: Cerberus acceptance is PASS, LLM gate is PASS, and open defect findings are zero.
-- `R017-TOE-CLOSURE-015` `CERBERUS_RELEASE_REVIEW_GATE`: Cerberus acceptance is PASS, LLM gate is PASS, and open defect findings are zero.
-- `R017-TOE-CLOSURE-016` `CERBERUS_RELEASE_REVIEW_GATE`: Cerberus acceptance is PASS, LLM gate is PASS, and open defect findings are zero.
-- `R017-TOE-CLOSURE-017` `CERBERUS_RELEASE_REVIEW_GATE`: Cerberus acceptance is PASS, LLM gate is PASS, and open defect findings are zero.
+- `R017-TOE-CLOSURE-004` `AI_DOMAIN_TOE_PROJECTION_LANE`: AI projection has PASS rows with theorem/proof or finite witnesses, evidence/simulation anchors, comparator baselines, falsifiers, and final TOE support allowed.
+- `R017-TOE-CLOSURE-005` `AI_DOMAIN_TOE_PROJECTION_LANE`: AI projection has PASS rows with theorem/proof or finite witnesses, evidence/simulation anchors, comparator baselines, falsifiers, and final TOE support allowed.
+- `R017-TOE-CLOSURE-006` `AI_DOMAIN_TOE_PROJECTION_LANE`: AI projection has PASS rows with theorem/proof or finite witnesses, evidence/simulation anchors, comparator baselines, falsifiers, and final TOE support allowed.
+- `R017-TOE-CLOSURE-007` `ENTERPRISE_ARCHITECTURE_DOMAIN_TOE_PROJECTION_LANE`: EA projection has PASS rows with operational metrics, case anchors, comparator alternatives, falsifiers, and final TOE support allowed.
+- `R017-TOE-CLOSURE-008` `ENTERPRISE_ARCHITECTURE_DOMAIN_TOE_PROJECTION_LANE`: EA projection has PASS rows with operational metrics, case anchors, comparator alternatives, falsifiers, and final TOE support allowed.
+- `R017-TOE-CLOSURE-009` `ENTERPRISE_ARCHITECTURE_DOMAIN_TOE_PROJECTION_LANE`: EA projection has PASS rows with operational metrics, case anchors, comparator alternatives, falsifiers, and final TOE support allowed.
+- `R017-TOE-CLOSURE-010` `ENTERPRISE_ARCHITECTURE_DOMAIN_TOE_PROJECTION_LANE`: EA projection has PASS rows with operational metrics, case anchors, comparator alternatives, falsifiers, and final TOE support allowed.
+- `R017-TOE-CLOSURE-011` `ENTERPRISE_ARCHITECTURE_DOMAIN_TOE_PROJECTION_LANE`: EA projection has PASS rows with operational metrics, case anchors, comparator alternatives, falsifiers, and final TOE support allowed.
+- `R017-TOE-CLOSURE-012` `ENTERPRISE_ARCHITECTURE_DOMAIN_TOE_PROJECTION_LANE`: EA projection has PASS rows with operational metrics, case anchors, comparator alternatives, falsifiers, and final TOE support allowed.
+- `R017-TOE-CLOSURE-013` `ALL_DOMAIN_READINESS_SCORECARD`: All-domain readiness is true only after all final TOE checks pass and blocker_ids is empty.
+- `R017-TOE-CLOSURE-014` `GRAND_TOE_CLAIM_LEDGER_EVIDENCE`: A promoted grand TOE claim row exists only if theorem/proof/Lean/finite/evidence/comparator dependencies are satisfied.
+- `R017-TOE-CLOSURE-015` `GRAND_TOE_CLAIM_LEDGER_EVIDENCE`: A promoted grand TOE claim row exists only if theorem/proof/Lean/finite/evidence/comparator dependencies are satisfied.
+- `R017-TOE-CLOSURE-016` `MODERN_SCIENCE_COMPARATOR_SUPERIORITY`: Modern-science superiority is PASS only when each required domain has source-backed benchmark rows and honest superiority certification.
+- `R017-TOE-CLOSURE-017` `MODERN_SCIENCE_COMPARATOR_SUPERIORITY`: Modern-science superiority is PASS only when each required domain has source-backed benchmark rows and honest superiority certification.
 - `R017-TOE-CLOSURE-018` `CERBERUS_RELEASE_REVIEW_GATE`: Cerberus acceptance is PASS, LLM gate is PASS, and open defect findings are zero.
 - `R017-TOE-CLOSURE-019` `CERBERUS_RELEASE_REVIEW_GATE`: Cerberus acceptance is PASS, LLM gate is PASS, and open defect findings are zero.
-- `R017-TOE-LANE-AI-020` `AI_DOMAIN_TOE_PROJECTION_LANE`: AI projection must add source-grounded AI claims, formal boundaries, benchmark/simulation evidence, comparator baselines, and falsifiers.
-- `R017-TOE-LANE-ENTERPRISE_ARCHITECTURE-021` `ENTERPRISE_ARCHITECTURE_DOMAIN_TOE_PROJECTION_LANE`: EA projection must add source-grounded architecture claims, operational metrics, architecture cases, comparator alternatives, and falsifiers.
+- `R017-TOE-CLOSURE-020` `CERBERUS_RELEASE_REVIEW_GATE`: Cerberus acceptance is PASS, LLM gate is PASS, and open defect findings are zero.
+- `R017-TOE-CLOSURE-021` `CERBERUS_RELEASE_REVIEW_GATE`: Cerberus acceptance is PASS, LLM gate is PASS, and open defect findings are zero.
+- `R017-TOE-CLOSURE-022` `CERBERUS_RELEASE_REVIEW_GATE`: Cerberus acceptance is PASS, LLM gate is PASS, and open defect findings are zero.
+- `R017-TOE-CLOSURE-023` `CERBERUS_RELEASE_REVIEW_GATE`: Cerberus acceptance is PASS, LLM gate is PASS, and open defect findings are zero.
+- `R017-TOE-CLOSURE-024` `CERBERUS_RELEASE_REVIEW_GATE`: Cerberus acceptance is PASS, LLM gate is PASS, and open defect findings are zero.
+- `R017-TOE-CLOSURE-025` `CERBERUS_RELEASE_REVIEW_GATE`: Cerberus acceptance is PASS, LLM gate is PASS, and open defect findings are zero.
+- `R017-TOE-LANE-AI-026` `AI_DOMAIN_TOE_PROJECTION_LANE`: AI projection must add source-grounded AI claims, formal boundaries, benchmark/simulation evidence, comparator baselines, and falsifiers.
+- `R017-TOE-LANE-ENTERPRISE_ARCHITECTURE-027` `ENTERPRISE_ARCHITECTURE_DOMAIN_TOE_PROJECTION_LANE`: EA projection must add source-grounded architecture claims, operational metrics, architecture cases, comparator alternatives, and falsifiers.

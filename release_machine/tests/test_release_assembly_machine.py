@@ -1740,7 +1740,13 @@ class ReleaseAssemblyMachineTests(unittest.TestCase):
         self.assertTrue(FINAL_TOE_PROJECTION_LANE_TARGETS["AI"].exists())
         self.assertTrue(FINAL_TOE_PROJECTION_LANE_TARGETS["ENTERPRISE_ARCHITECTURE"].exists())
         self.assertTrue(any("AI lane closure_verdict is not PASS" in error for error in errors))
+        self.assertTrue(any("AI row 1 is missing lean_refs" in error for error in errors))
+        self.assertTrue(any("AI row 1 is missing finite_case_refs" in error for error in errors))
+        self.assertTrue(any("AI row 1 is blocker/future-research/demoted scope" in error for error in errors))
         self.assertTrue(any("ENTERPRISE_ARCHITECTURE lane closure_verdict is not PASS" in error for error in errors))
+        self.assertTrue(any("ENTERPRISE_ARCHITECTURE row 1 is missing lean_refs" in error for error in errors))
+        self.assertTrue(any("ENTERPRISE_ARCHITECTURE row 1 is missing finite_case_refs" in error for error in errors))
+        self.assertTrue(any("ENTERPRISE_ARCHITECTURE row 1 is blocker/future-research/demoted scope" in error for error in errors))
         scorecard_errors = validate_final_toe_grand_science_scorecard(ROOT)
         self.assertTrue(any("grand_toe_claim_ledger_evidence is not PASS" in error for error in scorecard_errors))
         self.assertTrue(any("modern_science_comparator_superiority is not PASS" in error for error in scorecard_errors))
@@ -1983,9 +1989,12 @@ class ReleaseAssemblyMachineTests(unittest.TestCase):
             for ref in [
                 "claim_ledger_ref",
                 "formal_boundary_map_ref",
+                "proof_sheet_ref",
                 "evidence_pack_ref",
+                "evidence_or_simulation_pack_ref",
                 "comparator_baselines_ref",
                 "falsifier_ref",
+                "falsifier_rows_ref",
                 "candidate_projection_ref",
                 "guarded_writer_report_ref",
                 "source_mining_report_ref",
@@ -2000,15 +2009,27 @@ class ReleaseAssemblyMachineTests(unittest.TestCase):
             self.assertEqual(source_mining["candidate_total"], 0)
 
         self.assertEqual(grand["status"], "FAIL_CLOSED")
+        self.assertEqual(grand["finite_regression_guard_status"], "PASS")
         self.assertEqual(grand["finite_failure_total"], 0)
         self.assertEqual(grand["finite_failure_ids"], [])
         self.assertEqual(comparator["status"], "OPEN")
         self.assertEqual(comparator["coverage_gap_total"], 35)
         self.assertTrue((ROOT / comparator["execution_report_ref"]).exists())
         self.assertEqual(comparator_execution["status"], "OPEN")
+        self.assertEqual(comparator_execution["domain_job_total"], 12)
+        self.assertEqual(comparator_execution["open_domain_job_total"], 12)
         self.assertEqual(comparator_execution["coverage_gap_total"], 35)
         self.assertEqual(comparator_execution["open_gap_total"], 35)
         self.assertFalse(comparator_execution["broad_pass_allowed"])
+        for job in comparator_execution["job_rows"]:
+            self.assertEqual(job["status"], "OPEN")
+            self.assertFalse(job["source_capsule_verified"])
+            self.assertFalse(job["benchmark_case_bound"])
+            self.assertFalse(job["incumbent_comparator_bound"])
+            self.assertFalse(job["oc_scoring_bound"])
+            self.assertFalse(job["uncertainty_bound"])
+            self.assertFalse(job["falsifier_bound"])
+            self.assertFalse(job["replay_record_bound"])
         self.assertFalse(comparator["broad_claim_predicates"]["coverage_extends_to_all_of_modern_science"])
 
     def test_r017_modern_science_benchmark_scoped_superiority_does_not_count_as_broad_pass(self) -> None:
@@ -2038,8 +2059,8 @@ class ReleaseAssemblyMachineTests(unittest.TestCase):
                 "sync_spot_before_research_wave",
                 "ai_research_lane",
                 "enterprise_architecture_research_lane",
-                "grand_toe_claim_ledger_evidence_research_lane",
                 "modern_science_comparator_superiority_research_lane",
+                "grand_toe_claim_ledger_evidence_research_lane",
                 "sync_spot_after_research_lanes",
                 "grand_science_scorecard_sync",
                 "science_validator_before_cerberus",

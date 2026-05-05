@@ -1132,11 +1132,34 @@ FINAL_TOE_PROJECTION_REQUIRED_ROW_FIELDS = [
     "projection_id",
     "public_claim_scope",
     "theorem_or_formal_boundary_refs",
+    "lean_refs",
+    "finite_case_refs",
     "evidence_or_simulation_refs",
     "comparator_refs",
     "falsifier_refs",
     "closure_verdict",
 ]
+
+FINAL_TOE_PROJECTION_REF_FIELDS = [
+    "theorem_or_formal_boundary_refs",
+    "lean_refs",
+    "evidence_or_simulation_refs",
+    "comparator_refs",
+    "falsifier_refs",
+]
+
+FINAL_TOE_FORBIDDEN_PUBLIC_STATUS_TERMS = [
+    "future_research",
+    "demoted",
+    "fail_closed",
+    "blocked",
+    "placeholder",
+]
+
+SYMBOL_DECL_RE = re.compile(
+    r"^\s*(?:def|theorem|lemma|axiom|constant|inductive|structure)\s+([A-Za-z_][A-Za-z0-9_'.]*)",
+    re.MULTILINE,
+)
 
 FINAL_TOE_GRAND_SCIENCE_SCORECARD = REPO_ROOT / "operations" / "logion_release_mission" / "oc_core_1_3_3" / "OC133_ALL_DOMAIN_READINESS_SCORECARD.json"
 FINAL_TOE_REQUIRED_GRAND_CHECKS = [
@@ -1371,6 +1394,56 @@ def load_json_if_exists(path: Path) -> Any | None:
     if not path.exists():
         return None
     return load_json(path)
+
+
+def ref_path(ref: str) -> str:
+    return str(ref).split("::", 1)[0].strip()
+
+
+def ref_symbol(ref: str) -> str:
+    return str(ref).split("::", 1)[1].strip() if "::" in str(ref) else ""
+
+
+def declared_symbols(path: Path) -> set[str]:
+    if not path.exists() or not path.is_file():
+        return set()
+    return set(SYMBOL_DECL_RE.findall(path.read_text(encoding="utf-8", errors="replace")))
+
+
+def final_toe_ref_exists(repo_root: Path, ref: str) -> bool:
+    path = repo_root / ref_path(ref)
+    return path.exists()
+
+
+def final_toe_lean_ref_bound(repo_root: Path, ref: str) -> bool:
+    path = repo_root / ref_path(ref)
+    symbol = ref_symbol(ref)
+    return path.exists() and bool(symbol) and symbol in declared_symbols(path)
+
+
+def finite_case_rows_by_id(repo_root: Path) -> dict[str, dict[str, Any]]:
+    path = repo_root / "proofs" / "FINITE_MODEL_CHECKS_1_3_3.json"
+    if not path.exists():
+        return {}
+    payload = load_json(path)
+    rows = payload.get("rows", []) if isinstance(payload, dict) else []
+    return {
+        str(row.get("case_id")): row
+        for row in rows
+        if isinstance(row, dict) and row.get("case_id")
+    }
+
+
+def final_toe_projection_row_is_blocker(row: dict[str, Any]) -> bool:
+    claim_id = str(row.get("claim_id") or "")
+    public_scope = str(row.get("public_claim_scope") or "")
+    status_text = " ".join(
+        str(row.get(field) or "")
+        for field in ["public_status", "status", "source_gap_status", "closure_verdict"]
+    ).lower()
+    if "blocker" in claim_id.lower() or "not final toe evidence" in public_scope.lower():
+        return True
+    return any(term in status_text for term in FINAL_TOE_FORBIDDEN_PUBLIC_STATUS_TERMS)
 
 
 def dump_json(path: Path, payload: Any) -> None:
@@ -6525,6 +6598,7 @@ def validate_spot_structure(
 def validate_final_toe_projection_lanes(repo_root: Path | None = None) -> list[str]:
     repo_root = repo_root or REPO_ROOT
     errors: list[str] = []
+    finite_rows = finite_case_rows_by_id(repo_root)
     for lane_id, target_path in FINAL_TOE_PROJECTION_LANE_TARGETS.items():
         if not target_path.exists():
             errors.append(f"Final TOE projection validation failed: {lane_id} lane is missing: {target_path}")
@@ -6551,20 +6625,30 @@ def validate_final_toe_projection_lanes(repo_root: Path | None = None) -> list[s
                     errors.append(f"Final TOE projection validation failed: {lane_id} row {index} is missing {field}")
             if row.get("closure_verdict") != "PASS":
                 errors.append(f"Final TOE projection validation failed: {lane_id} row {index} is not PASS")
-            for ref_field in [
-                "theorem_or_formal_boundary_refs",
-                "evidence_or_simulation_refs",
-                "comparator_refs",
-                "falsifier_refs",
-            ]:
+            if final_toe_projection_row_is_blocker(row):
+                errors.append(f"Final TOE projection validation failed: {lane_id} row {index} is blocker/future-research/demoted scope")
+            for ref_field in FINAL_TOE_PROJECTION_REF_FIELDS:
                 refs = row.get(ref_field, [])
                 if not isinstance(refs, list):
                     errors.append(f"Final TOE projection validation failed: {lane_id} row {index} {ref_field} is not a list")
                     continue
                 for ref in refs:
-                    ref_path = str(ref).split("::", 1)[0].strip()
-                    if ref_path and not (repo_root / ref_path).exists():
+                    if ref_field == "lean_refs":
+                        if not final_toe_lean_ref_bound(repo_root, str(ref)):
+                            errors.append(f"Final TOE projection validation failed: {lane_id} row {index} Lean ref is not bound: {ref}")
+                        continue
+                    if ref_path(str(ref)) and not final_toe_ref_exists(repo_root, str(ref)):
                         errors.append(f"Final TOE projection validation failed: {lane_id} row {index} ref is missing: {ref}")
+            finite_refs = row.get("finite_case_refs", [])
+            if not isinstance(finite_refs, list):
+                errors.append(f"Final TOE projection validation failed: {lane_id} row {index} finite_case_refs is not a list")
+                continue
+            for case_id in finite_refs:
+                finite_row = finite_rows.get(str(case_id))
+                if not finite_row:
+                    errors.append(f"Final TOE projection validation failed: {lane_id} row {index} finite case is missing: {case_id}")
+                elif finite_row.get("passed") is not True:
+                    errors.append(f"Final TOE projection validation failed: {lane_id} row {index} finite case is not PASS: {case_id}")
     return errors
 
 

@@ -1,5 +1,5 @@
 {
-  "artifact_hash": "0caa7b327f9e4feee2365861962c4692038e17c7de94abee37d01e4080348818",
+  "artifact_hash": "47af05f5c3d56b0d616a39f0ee0178176c56ddbb336f476bc5c07292e2e62c34",
   "capability_backlog_status": "OPEN",
   "capability_backlog_total": 61,
   "cerberus_error_total": 8,
@@ -11,20 +11,20 @@
     {
       "purpose": "research_wave_until_final_pass",
       "result": {
-        "after_validator_error_total": 19,
-        "before_validator_error_total": 19,
-        "changed_artifact_total": 20,
+        "after_validator_error_total": 25,
+        "before_validator_error_total": 25,
+        "changed_artifact_total": 27,
         "research_wave_step_total": 10,
         "supervisor_state": "INTERNAL_RUN_STATE_CAPABILITY_BACKLOG_OPEN",
         "validator_error_delta": 0,
         "wave_trace": [
           {
             "after_cerberus_error_total": 8,
-            "after_science_error_total": 11,
-            "after_validator_error_total": 19,
+            "after_science_error_total": 17,
+            "after_validator_error_total": 25,
             "before_cerberus_error_total": 8,
-            "before_science_error_total": 11,
-            "before_validator_error_total": 19,
+            "before_science_error_total": 17,
+            "before_validator_error_total": 25,
             "changed_artifact_total": 0,
             "changed_artifacts": [],
             "execution_command": [
@@ -58,19 +58,22 @@
           },
           {
             "after_cerberus_error_total": 8,
-            "after_science_error_total": 11,
-            "after_validator_error_total": 19,
+            "after_science_error_total": 17,
+            "after_validator_error_total": 25,
             "before_cerberus_error_total": 8,
-            "before_science_error_total": 11,
-            "before_validator_error_total": 19,
-            "changed_artifact_total": 9,
+            "before_science_error_total": 17,
+            "before_validator_error_total": 25,
+            "changed_artifact_total": 12,
             "changed_artifacts": [
               "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/AI/OC133_AI_SOURCE_MINING_REPORT.json",
               "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/AI/OC133_AI_CLAIM_LEDGER.json",
               "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/AI/OC133_AI_FORMAL_BOUNDARY_MAP.json",
+              "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/AI/OC133_AI_PROOF_SHEET.json",
               "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/AI/OC133_AI_EVIDENCE_PACK.json",
+              "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/AI/OC133_AI_EVIDENCE_OR_SIMULATION_PACK.json",
               "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/AI/OC133_AI_COMPARATOR_BASELINES.json",
               "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/AI/OC133_AI_FALSIFIERS.json",
+              "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/AI/OC133_AI_FALSIFIER_ROWS.json",
               "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/AI/OC133_AI_PROJECTION_CANDIDATE.json",
               "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/AI/OC133_AI_PROJECTION_GUARDED_WRITER_REPORT.json",
               "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/AI/OC133_AI_PROJECTION_CAPABILITY_REPORT.json"
@@ -84,7 +87,7 @@
             ],
             "lane_id": "AI",
             "next_escalation": "Use generated lane artifacts and subwork orders to close source gaps; rerun strict final TOE validator.",
-            "pass_fail_reason": "lane closure_verdict is not PASS; lane final_toe_support_allowed is not true; row 1 closure_verdict is not PASS; row 1 lean_refs is empty or not a list; row 1 finite_case_refs is empty or not a list",
+            "pass_fail_reason": "lane closure_verdict is not PASS; lane final_toe_support_allowed is not true; row 1 missing lean_refs; row 1 missing finite_case_refs; row 1 closure_verdict is not PASS; row 1 is blocker/future-research/demoted scope; row 1 lean_refs is empty or not a list; row 1 finite_case_refs are missing or not PASS",
             "pass_predicate": "AI lane closure_verdict == PASS and final_toe_support_allowed == true",
             "purpose": "ai_research_lane",
             "repair_strategy": "AI projection lane has claim id, public scope, formal boundary, evidence/simulation refs, comparator refs, falsifiers, row PASS, lane PASS, and final TOE support allowed.",
@@ -92,9 +95,9 @@
             "research_wave_step_id": "R017-RESEARCH-WAVE-002",
             "result": {
               "after_cerberus_error_total": 8,
-              "after_science_error_total": 11,
+              "after_science_error_total": 17,
               "before_cerberus_error_total": 8,
-              "before_science_error_total": 11,
+              "before_science_error_total": 17,
               "closure_condition": "AI projection lane has claim id, public scope, formal boundary, evidence/simulation refs, comparator refs, falsifiers, row PASS, lane PASS, and final TOE support allowed.",
               "command_results": [
                 {
@@ -105,7 +108,7 @@
                   ],
                   "returncode": 0,
                   "stderr_tail": "AI projection capability executed. Guarded writer leaves the lane fail-closed unless claim/formal/evidence/comparator/falsifier artifacts pass static validation.",
-                  "stdout_tail": "{\"lane_id\": \"AI\", \"subwork_order_total\": 6, \"subwork_order_ids\": [\"R017-AI-CLAIM_GRAPH-001\", \"R017-AI-FORMAL_BOUNDARY-002\", \"R017-AI-BENCHMARK_SIMULATION-003\", \"R017-AI-COMPARATOR_BASELINE-004\", \"R017-AI-FALSIFIER-005\", \"R017-AI-PROJECTION_PASS_WRITER-006\"], \"capability_status\": \"SOURCE_GAP_OPEN\", \"artifact_refs\": {\"source_mining_report_ref\": \"operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/AI/OC133_AI_SOURCE_MINING_REPORT.json\", \"claim_ledger_ref\": \"operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/AI/OC133_AI_CLAIM_LEDGER.json\", \"formal_boundary_map_ref\": \"operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/AI/OC133_AI_FORMAL_BOUNDARY_MAP.json\", \"evidence_pack_ref\": \"operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/AI/OC133_AI_EVIDENCE_PACK.json\", \"comparator_baselines_ref\": \"operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/AI/OC133_AI_COMPARATOR_BASELINES.json\", \"falsifier_ref\": \"operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/AI/OC133_AI_FALSIFIERS.json\", \"candidate_projection_ref\": \"operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/AI/OC133_AI_PROJECTION_CANDIDATE.json\", \"guarded_writer_report_ref\": \"operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/AI/OC133_AI_PROJECTION_GUARDED_WRITER_REPORT.json\", \"capability_report_ref\": \"operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/AI/OC133_AI_PROJECTION_CAPABILITY_REPORT.json\"}, \"projection_write_performed\": false}"
+                  "stdout_tail": "{\"lane_id\": \"AI\", \"subwork_order_total\": 6, \"subwork_order_ids\": [\"R017-AI-CLAIM_GRAPH-001\", \"R017-AI-FORMAL_BOUNDARY-002\", \"R017-AI-BENCHMARK_SIMULATION-003\", \"R017-AI-COMPARATOR_BASELINE-004\", \"R017-AI-FALSIFIER-005\", \"R017-AI-PROJECTION_PASS_WRITER-006\"], \"capability_status\": \"SOURCE_GAP_OPEN\", \"artifact_refs\": {\"source_mining_report_ref\": \"operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/AI/OC133_AI_SOURCE_MINING_REPORT.json\", \"claim_ledger_ref\": \"operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/AI/OC133_AI_CLAIM_LEDGER.json\", \"formal_boundary_map_ref\": \"operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/AI/OC133_AI_FORMAL_BOUNDARY_MAP.json\", \"proof_sheet_ref\": \"operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/AI/OC133_AI_PROOF_SHEET.json\", \"evidence_pack_ref\": \"operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/AI/OC133_AI_EVIDENCE_PACK.json\", \"evidence_or_simulation_pack_ref\": \"operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/AI/OC133_AI_EVIDENCE_OR_SIMULATION_PACK.json\", \"comparator_baselines_ref\": \"operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/AI/OC133_AI_COMPARATOR_BASELINES.json\", \"falsifier_ref\": \"operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/AI/OC133_AI_FALSIFIERS.json\", \"falsifier_rows_ref\": \"operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/AI/OC133_AI_FALSIFIER_ROWS.json\", \"candidate_projection_ref\": \"operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/AI/OC133_AI_PROJECTION_CANDIDATE.json\", \"guarded_writer_report_ref\": \"operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/AI/OC133_AI_PROJECTION_GUARDED_WRITER_REPORT.json\", \"capability_report_ref\": \"operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/AI/OC133_AI_PROJECTION_CAPABILITY_REPORT.json\"}, \"projection_write_performed\": false}"
                 }
               ],
               "execution_command": [
@@ -121,13 +124,16 @@
               "lane_result": {
                 "closure_verdict": "FAIL_CLOSED",
                 "final_toe_support_allowed": false,
-                "finding_total": 5,
+                "finding_total": 8,
                 "findings": [
                   "lane closure_verdict is not PASS",
                   "lane final_toe_support_allowed is not true",
+                  "row 1 missing lean_refs",
+                  "row 1 missing finite_case_refs",
                   "row 1 closure_verdict is not PASS",
+                  "row 1 is blocker/future-research/demoted scope",
                   "row 1 lean_refs is empty or not a list",
-                  "row 1 finite_case_refs is empty or not a list"
+                  "row 1 finite_case_refs are missing or not PASS"
                 ],
                 "lane_id": "AI",
                 "lane_type": "domain_projection",
@@ -144,28 +150,31 @@
               "status": "FAIL_CLOSED",
               "validator_binding": "validate_final_toe_projection_lanes::AI",
               "validator_error_delta": 0,
-              "why_it_failed": "lane closure_verdict is not PASS; lane final_toe_support_allowed is not true; row 1 closure_verdict is not PASS; row 1 lean_refs is empty or not a list; row 1 finite_case_refs is empty or not a list"
+              "why_it_failed": "lane closure_verdict is not PASS; lane final_toe_support_allowed is not true; row 1 missing lean_refs; row 1 missing finite_case_refs; row 1 closure_verdict is not PASS; row 1 is blocker/future-research/demoted scope; row 1 lean_refs is empty or not a list; row 1 finite_case_refs are missing or not PASS"
             },
             "status": "FAIL_CLOSED",
             "step_index": 2,
             "validator_error_delta": 0,
-            "why_it_failed": "lane closure_verdict is not PASS; lane final_toe_support_allowed is not true; row 1 closure_verdict is not PASS; row 1 lean_refs is empty or not a list; row 1 finite_case_refs is empty or not a list"
+            "why_it_failed": "lane closure_verdict is not PASS; lane final_toe_support_allowed is not true; row 1 missing lean_refs; row 1 missing finite_case_refs; row 1 closure_verdict is not PASS; row 1 is blocker/future-research/demoted scope; row 1 lean_refs is empty or not a list; row 1 finite_case_refs are missing or not PASS"
           },
           {
             "after_cerberus_error_total": 8,
-            "after_science_error_total": 11,
-            "after_validator_error_total": 19,
+            "after_science_error_total": 17,
+            "after_validator_error_total": 25,
             "before_cerberus_error_total": 8,
-            "before_science_error_total": 11,
-            "before_validator_error_total": 19,
-            "changed_artifact_total": 9,
+            "before_science_error_total": 17,
+            "before_validator_error_total": 25,
+            "changed_artifact_total": 12,
             "changed_artifacts": [
               "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/ENTERPRISE_ARCHITECTURE/OC133_EA_SOURCE_MINING_REPORT.json",
               "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/ENTERPRISE_ARCHITECTURE/OC133_EA_CLAIM_LEDGER.json",
               "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/ENTERPRISE_ARCHITECTURE/OC133_EA_FORMAL_BOUNDARY_MAP.json",
+              "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/ENTERPRISE_ARCHITECTURE/OC133_EA_PROOF_SHEET.json",
               "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/ENTERPRISE_ARCHITECTURE/OC133_EA_EVIDENCE_PACK.json",
+              "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/ENTERPRISE_ARCHITECTURE/OC133_EA_EVIDENCE_OR_SIMULATION_PACK.json",
               "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/ENTERPRISE_ARCHITECTURE/OC133_EA_COMPARATOR_BASELINES.json",
               "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/ENTERPRISE_ARCHITECTURE/OC133_EA_FALSIFIERS.json",
+              "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/ENTERPRISE_ARCHITECTURE/OC133_EA_FALSIFIER_ROWS.json",
               "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/ENTERPRISE_ARCHITECTURE/OC133_EA_PROJECTION_CANDIDATE.json",
               "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/ENTERPRISE_ARCHITECTURE/OC133_EA_PROJECTION_GUARDED_WRITER_REPORT.json",
               "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/ENTERPRISE_ARCHITECTURE/OC133_EA_PROJECTION_CAPABILITY_REPORT.json"
@@ -179,7 +188,7 @@
             ],
             "lane_id": "ENTERPRISE_ARCHITECTURE",
             "next_escalation": "Use generated lane artifacts and subwork orders to close source gaps; rerun strict final TOE validator.",
-            "pass_fail_reason": "lane closure_verdict is not PASS; lane final_toe_support_allowed is not true; row 1 closure_verdict is not PASS; row 1 lean_refs is empty or not a list; row 1 finite_case_refs is empty or not a list",
+            "pass_fail_reason": "lane closure_verdict is not PASS; lane final_toe_support_allowed is not true; row 1 missing lean_refs; row 1 missing finite_case_refs; row 1 closure_verdict is not PASS; row 1 is blocker/future-research/demoted scope; row 1 lean_refs is empty or not a list; row 1 finite_case_refs are missing or not PASS",
             "pass_predicate": "ENTERPRISE_ARCHITECTURE lane closure_verdict == PASS and final_toe_support_allowed == true",
             "purpose": "enterprise_architecture_research_lane",
             "repair_strategy": "EA projection lane has claim id, public scope, operational evidence, architecture cases, comparator alternatives, falsifiers, row PASS, lane PASS, and final TOE support allowed.",
@@ -187,9 +196,9 @@
             "research_wave_step_id": "R017-RESEARCH-WAVE-003",
             "result": {
               "after_cerberus_error_total": 8,
-              "after_science_error_total": 11,
+              "after_science_error_total": 17,
               "before_cerberus_error_total": 8,
-              "before_science_error_total": 11,
+              "before_science_error_total": 17,
               "closure_condition": "EA projection lane has claim id, public scope, operational evidence, architecture cases, comparator alternatives, falsifiers, row PASS, lane PASS, and final TOE support allowed.",
               "command_results": [
                 {
@@ -200,7 +209,7 @@
                   ],
                   "returncode": 0,
                   "stderr_tail": "ENTERPRISE_ARCHITECTURE projection capability executed. Guarded writer leaves the lane fail-closed unless claim/formal/evidence/comparator/falsifier artifacts pass static validation.",
-                  "stdout_tail": "{\"lane_id\": \"ENTERPRISE_ARCHITECTURE\", \"subwork_order_total\": 6, \"subwork_order_ids\": [\"R017-ENTERPRISE_ARCHITECTURE-CLAIM_GRAPH-001\", \"R017-ENTERPRISE_ARCHITECTURE-ARCHITECTURE_CASES-002\", \"R017-ENTERPRISE_ARCHITECTURE-FORMAL_BOUNDARY-003\", \"R017-ENTERPRISE_ARCHITECTURE-COMPARATOR_ALTERNATIVES-004\", \"R017-ENTERPRISE_ARCHITECTURE-FALSIFIER-005\", \"R017-ENTERPRISE_ARCHITECTURE-PROJECTION_PASS_WRITER-006\"], \"capability_status\": \"SOURCE_GAP_OPEN\", \"artifact_refs\": {\"source_mining_report_ref\": \"operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/ENTERPRISE_ARCHITECTURE/OC133_EA_SOURCE_MINING_REPORT.json\", \"claim_ledger_ref\": \"operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/ENTERPRISE_ARCHITECTURE/OC133_EA_CLAIM_LEDGER.json\", \"formal_boundary_map_ref\": \"operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/ENTERPRISE_ARCHITECTURE/OC133_EA_FORMAL_BOUNDARY_MAP.json\", \"evidence_pack_ref\": \"operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/ENTERPRISE_ARCHITECTURE/OC133_EA_EVIDENCE_PACK.json\", \"comparator_baselines_ref\": \"operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/ENTERPRISE_ARCHITECTURE/OC133_EA_COMPARATOR_BASELINES.json\", \"falsifier_ref\": \"operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/ENTERPRISE_ARCHITECTURE/OC133_EA_FALSIFIERS.json\", \"candidate_projection_ref\": \"operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/ENTERPRISE_ARCHITECTURE/OC133_EA_PROJECTION_CANDIDATE.json\", \"guarded_writer_report_ref\": \"operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/ENTERPRISE_ARCHITECTURE/OC133_EA_PROJECTION_GUARDED_WRITER_REPORT.json\", \"capability_report_ref\": \"operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/ENTERPRISE_ARCHITECTURE/OC133_EA_PROJECTION_CAPABILITY_REPORT.json\"}, \"projection_write_performed\": false}"
+                  "stdout_tail": "{\"lane_id\": \"ENTERPRISE_ARCHITECTURE\", \"subwork_order_total\": 6, \"subwork_order_ids\": [\"R017-ENTERPRISE_ARCHITECTURE-CLAIM_GRAPH-001\", \"R017-ENTERPRISE_ARCHITECTURE-ARCHITECTURE_CASES-002\", \"R017-ENTERPRISE_ARCHITECTURE-FORMAL_BOUNDARY-003\", \"R017-ENTERPRISE_ARCHITECTURE-COMPARATOR_ALTERNATIVES-004\", \"R017-ENTERPRISE_ARCHITECTURE-FALSIFIER-005\", \"R017-ENTERPRISE_ARCHITECTURE-PROJECTION_PASS_WRITER-006\"], \"capability_status\": \"SOURCE_GAP_OPEN\", \"artifact_refs\": {\"source_mining_report_ref\": \"operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/ENTERPRISE_ARCHITECTURE/OC133_EA_SOURCE_MINING_REPORT.json\", \"claim_ledger_ref\": \"operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/ENTERPRISE_ARCHITECTURE/OC133_EA_CLAIM_LEDGER.json\", \"formal_boundary_map_ref\": \"operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/ENTERPRISE_ARCHITECTURE/OC133_EA_FORMAL_BOUNDARY_MAP.json\", \"proof_sheet_ref\": \"operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/ENTERPRISE_ARCHITECTURE/OC133_EA_PROOF_SHEET.json\", \"evidence_pack_ref\": \"operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/ENTERPRISE_ARCHITECTURE/OC133_EA_EVIDENCE_PACK.json\", \"evidence_or_simulation_pack_ref\": \"operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/ENTERPRISE_ARCHITECTURE/OC133_EA_EVIDENCE_OR_SIMULATION_PACK.json\", \"comparator_baselines_ref\": \"operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/ENTERPRISE_ARCHITECTURE/OC133_EA_COMPARATOR_BASELINES.json\", \"falsifier_ref\": \"operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/ENTERPRISE_ARCHITECTURE/OC133_EA_FALSIFIERS.json\", \"falsifier_rows_ref\": \"operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/ENTERPRISE_ARCHITECTURE/OC133_EA_FALSIFIER_ROWS.json\", \"candidate_projection_ref\": \"operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/ENTERPRISE_ARCHITECTURE/OC133_EA_PROJECTION_CANDIDATE.json\", \"guarded_writer_report_ref\": \"operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/ENTERPRISE_ARCHITECTURE/OC133_EA_PROJECTION_GUARDED_WRITER_REPORT.json\", \"capability_report_ref\": \"operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/ENTERPRISE_ARCHITECTURE/OC133_EA_PROJECTION_CAPABILITY_REPORT.json\"}, \"projection_write_performed\": false}"
                 }
               ],
               "execution_command": [
@@ -216,13 +225,16 @@
               "lane_result": {
                 "closure_verdict": "FAIL_CLOSED",
                 "final_toe_support_allowed": false,
-                "finding_total": 5,
+                "finding_total": 8,
                 "findings": [
                   "lane closure_verdict is not PASS",
                   "lane final_toe_support_allowed is not true",
+                  "row 1 missing lean_refs",
+                  "row 1 missing finite_case_refs",
                   "row 1 closure_verdict is not PASS",
+                  "row 1 is blocker/future-research/demoted scope",
                   "row 1 lean_refs is empty or not a list",
-                  "row 1 finite_case_refs is empty or not a list"
+                  "row 1 finite_case_refs are missing or not PASS"
                 ],
                 "lane_id": "ENTERPRISE_ARCHITECTURE",
                 "lane_type": "domain_projection",
@@ -239,20 +251,117 @@
               "status": "FAIL_CLOSED",
               "validator_binding": "validate_final_toe_projection_lanes::ENTERPRISE_ARCHITECTURE",
               "validator_error_delta": 0,
-              "why_it_failed": "lane closure_verdict is not PASS; lane final_toe_support_allowed is not true; row 1 closure_verdict is not PASS; row 1 lean_refs is empty or not a list; row 1 finite_case_refs is empty or not a list"
+              "why_it_failed": "lane closure_verdict is not PASS; lane final_toe_support_allowed is not true; row 1 missing lean_refs; row 1 missing finite_case_refs; row 1 closure_verdict is not PASS; row 1 is blocker/future-research/demoted scope; row 1 lean_refs is empty or not a list; row 1 finite_case_refs are missing or not PASS"
             },
             "status": "FAIL_CLOSED",
             "step_index": 3,
             "validator_error_delta": 0,
-            "why_it_failed": "lane closure_verdict is not PASS; lane final_toe_support_allowed is not true; row 1 closure_verdict is not PASS; row 1 lean_refs is empty or not a list; row 1 finite_case_refs is empty or not a list"
+            "why_it_failed": "lane closure_verdict is not PASS; lane final_toe_support_allowed is not true; row 1 missing lean_refs; row 1 missing finite_case_refs; row 1 closure_verdict is not PASS; row 1 is blocker/future-research/demoted scope; row 1 lean_refs is empty or not a list; row 1 finite_case_refs are missing or not PASS"
           },
           {
             "after_cerberus_error_total": 8,
-            "after_science_error_total": 11,
-            "after_validator_error_total": 19,
+            "after_science_error_total": 17,
+            "after_validator_error_total": 25,
             "before_cerberus_error_total": 8,
-            "before_science_error_total": 11,
-            "before_validator_error_total": 19,
+            "before_science_error_total": 17,
+            "before_validator_error_total": 25,
+            "changed_artifact_total": 2,
+            "changed_artifacts": [
+              "M operations/logion_release_mission/oc_core_1_3_3/OC133_GRAND_SCIENCE_RESEARCH_PROGRAM.json",
+              "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/OC133_MODERN_SCIENCE_BROAD_COVERAGE_WORK_ORDERS.json"
+            ],
+            "execution_command": [
+              "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+              "tools/oc133_toe_closure_factory.py",
+              "--execute-capability-lane",
+              "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+              "--write"
+            ],
+            "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+            "next_escalation": "Use generated lane artifacts and subwork orders to close source gaps; rerun strict final TOE validator.",
+            "pass_fail_reason": "modern_science_comparator_superiority check is not PASS; modern_science_comparator_superiority remains in blocker_ids; source-backed benchmark superiority is not certified",
+            "pass_predicate": "modern_science_comparator_superiority.state == PASS and broad modern-science coverage is certified",
+            "purpose": "modern_science_comparator_superiority_research_lane",
+            "repair_strategy": "Modern-science superiority passes only if broad coverage predicates and source-backed comparator baselines pass, not merely benchmark-scoped baselines.",
+            "required_capability": "Research/PriorArt",
+            "research_wave_step_id": "R017-RESEARCH-WAVE-004",
+            "result": {
+              "after_cerberus_error_total": 8,
+              "after_science_error_total": 17,
+              "before_cerberus_error_total": 8,
+              "before_science_error_total": 17,
+              "closure_condition": "Modern-science superiority passes only if broad coverage predicates and source-backed comparator baselines pass, not merely benchmark-scoped baselines.",
+              "command_results": [
+                {
+                  "cmd": [
+                    "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+                    "tools/oc133_capability_repair_executor.py",
+                    "--profile",
+                    "v12_modern_science_comparator_research_program"
+                  ],
+                  "returncode": 0,
+                  "stderr_tail": "",
+                  "stdout_tail": "{\n  \"profile\": \"v12_modern_science_comparator_research_program\",\n  \"state\": \"SCIENTIFIC_BLOCKERS_REMAIN\",\n  \"ledger_ref\": \"reviews/oc133_llm_cerberus/repair/OC133_CAPABILITY_REPAIR_EXECUTION_LEDGER.json\",\n  \"work_order_total\": 1\n}\n"
+                },
+                {
+                  "cmd": [
+                    "internal",
+                    "build_comparator_lane_diagnostics"
+                  ],
+                  "returncode": 0,
+                  "stderr_tail": "Comparator broad-coverage work orders materialized; benchmark-scoped superiority is not upgraded to broad TOE superiority.",
+                  "stdout_tail": "{\"lane_id\": \"MODERN_SCIENCE_COMPARATOR_SUPERIORITY\", \"diagnostic_status\": \"OPEN\", \"coverage_gap_total\": 35, \"artifact_ref\": \"operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/OC133_MODERN_SCIENCE_BROAD_COVERAGE_WORK_ORDERS.json\"}"
+                }
+              ],
+              "execution_command": [
+                "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+                "tools/oc133_capability_repair_executor.py",
+                "--profile",
+                "v12_modern_science_comparator_research_program"
+              ],
+              "execution_state": "EXECUTED",
+              "finding_class": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+              "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+              "lane_result": {
+                "closure_verdict": "FAIL_CLOSED",
+                "final_toe_support_allowed": false,
+                "finding_total": 3,
+                "findings": [
+                  "modern_science_comparator_superiority check is not PASS",
+                  "modern_science_comparator_superiority remains in blocker_ids",
+                  "source-backed benchmark superiority is not certified"
+                ],
+                "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+                "lane_type": "comparator_superiority",
+                "source_refs": [
+                  "operations\\logion_release_mission\\oc_core_1_3_3\\OC133_ALL_DOMAIN_READINESS_SCORECARD.json",
+                  "comparators\\OC_1_3_3_MODERN_SCIENCE_SUPERIORITY_REGISTER.json"
+                ],
+                "status": "FAIL"
+              },
+              "next_escalation": "Use generated lane artifacts and subwork orders to close source gaps; rerun strict final TOE validator.",
+              "no_fake_closure_policy": "Benchmark-scoped superiority cannot be upgraded to broad modern-science superiority.",
+              "owner_capability": "Research/PriorArt",
+              "pass_predicate": "modern_science_comparator_superiority.state == PASS and broad modern-science coverage is certified",
+              "repair_strategy": "Modern-science superiority passes only if broad coverage predicates and source-backed comparator baselines pass, not merely benchmark-scoped baselines.",
+              "required_capability": "Research/PriorArt",
+              "status": "FAIL_CLOSED",
+              "validator_binding": "validate_final_toe_grand_science_scorecard::modern_science_comparator_superiority",
+              "validator_error_delta": 0,
+              "why_it_failed": "modern_science_comparator_superiority check is not PASS; modern_science_comparator_superiority remains in blocker_ids; source-backed benchmark superiority is not certified"
+            },
+            "status": "FAIL_CLOSED",
+            "step_index": 4,
+            "validator_error_delta": 0,
+            "why_it_failed": "modern_science_comparator_superiority check is not PASS; modern_science_comparator_superiority remains in blocker_ids; source-backed benchmark superiority is not certified"
+          },
+          {
+            "after_cerberus_error_total": 8,
+            "after_science_error_total": 17,
+            "after_validator_error_total": 25,
+            "before_cerberus_error_total": 8,
+            "before_science_error_total": 17,
+            "before_validator_error_total": 25,
             "changed_artifact_total": 1,
             "changed_artifacts": [
               "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/GRAND_TOE_CLAIM_LEDGER_EVIDENCE/OC133_GRAND_PROMOTION_SUBLANE_DIAGNOSIS.json"
@@ -271,12 +380,12 @@
             "purpose": "grand_toe_claim_ledger_evidence_research_lane",
             "repair_strategy": "Grand TOE claim promotion contract passes with dedicated promoted claim row, Lean refs, finite refs, positive/negative finite controls, empirical pack, and comparator PASS.",
             "required_capability": "Research/FormalScience",
-            "research_wave_step_id": "R017-RESEARCH-WAVE-004",
+            "research_wave_step_id": "R017-RESEARCH-WAVE-005",
             "result": {
               "after_cerberus_error_total": 8,
-              "after_science_error_total": 11,
+              "after_science_error_total": 17,
               "before_cerberus_error_total": 8,
-              "before_science_error_total": 11,
+              "before_science_error_total": 17,
               "closure_condition": "Grand TOE claim promotion contract passes with dedicated promoted claim row, Lean refs, finite refs, positive/negative finite controls, empirical pack, and comparator PASS.",
               "command_results": [
                 {
@@ -339,113 +448,17 @@
               "why_it_failed": "grand_toe_claim_ledger_evidence check is not PASS; grand_toe_claim_ledger_evidence remains in blocker_ids; grand promotion contract verdict is BLOCKED"
             },
             "status": "FAIL_CLOSED",
-            "step_index": 4,
+            "step_index": 5,
             "validator_error_delta": 0,
             "why_it_failed": "grand_toe_claim_ledger_evidence check is not PASS; grand_toe_claim_ledger_evidence remains in blocker_ids; grand promotion contract verdict is BLOCKED"
           },
           {
             "after_cerberus_error_total": 8,
-            "after_science_error_total": 11,
-            "after_validator_error_total": 19,
+            "after_science_error_total": 17,
+            "after_validator_error_total": 25,
             "before_cerberus_error_total": 8,
-            "before_science_error_total": 11,
-            "before_validator_error_total": 19,
-            "changed_artifact_total": 1,
-            "changed_artifacts": [
-              "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/OC133_MODERN_SCIENCE_BROAD_COVERAGE_WORK_ORDERS.json"
-            ],
-            "execution_command": [
-              "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
-              "tools/oc133_toe_closure_factory.py",
-              "--execute-capability-lane",
-              "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
-              "--write"
-            ],
-            "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
-            "next_escalation": "Use generated lane artifacts and subwork orders to close source gaps; rerun strict final TOE validator.",
-            "pass_fail_reason": "modern_science_comparator_superiority check is not PASS; modern_science_comparator_superiority remains in blocker_ids; source-backed benchmark superiority is not certified",
-            "pass_predicate": "modern_science_comparator_superiority.state == PASS and broad modern-science coverage is certified",
-            "purpose": "modern_science_comparator_superiority_research_lane",
-            "repair_strategy": "Modern-science superiority passes only if broad coverage predicates and source-backed comparator baselines pass, not merely benchmark-scoped baselines.",
-            "required_capability": "Research/PriorArt",
-            "research_wave_step_id": "R017-RESEARCH-WAVE-005",
-            "result": {
-              "after_cerberus_error_total": 8,
-              "after_science_error_total": 11,
-              "before_cerberus_error_total": 8,
-              "before_science_error_total": 11,
-              "closure_condition": "Modern-science superiority passes only if broad coverage predicates and source-backed comparator baselines pass, not merely benchmark-scoped baselines.",
-              "command_results": [
-                {
-                  "cmd": [
-                    "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
-                    "tools/oc133_capability_repair_executor.py",
-                    "--profile",
-                    "v12_modern_science_comparator_research_program"
-                  ],
-                  "returncode": 0,
-                  "stderr_tail": "",
-                  "stdout_tail": "{\n  \"profile\": \"v12_modern_science_comparator_research_program\",\n  \"state\": \"SCIENTIFIC_BLOCKERS_REMAIN\",\n  \"ledger_ref\": \"reviews/oc133_llm_cerberus/repair/OC133_CAPABILITY_REPAIR_EXECUTION_LEDGER.json\",\n  \"work_order_total\": 1\n}\n"
-                },
-                {
-                  "cmd": [
-                    "internal",
-                    "build_comparator_lane_diagnostics"
-                  ],
-                  "returncode": 0,
-                  "stderr_tail": "Comparator broad-coverage work orders materialized; benchmark-scoped superiority is not upgraded to broad TOE superiority.",
-                  "stdout_tail": "{\"lane_id\": \"MODERN_SCIENCE_COMPARATOR_SUPERIORITY\", \"diagnostic_status\": \"OPEN\", \"coverage_gap_total\": 35, \"artifact_ref\": \"operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/OC133_MODERN_SCIENCE_BROAD_COVERAGE_WORK_ORDERS.json\"}"
-                }
-              ],
-              "execution_command": [
-                "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
-                "tools/oc133_capability_repair_executor.py",
-                "--profile",
-                "v12_modern_science_comparator_research_program"
-              ],
-              "execution_state": "EXECUTED",
-              "finding_class": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
-              "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
-              "lane_result": {
-                "closure_verdict": "FAIL_CLOSED",
-                "final_toe_support_allowed": false,
-                "finding_total": 3,
-                "findings": [
-                  "modern_science_comparator_superiority check is not PASS",
-                  "modern_science_comparator_superiority remains in blocker_ids",
-                  "source-backed benchmark superiority is not certified"
-                ],
-                "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
-                "lane_type": "comparator_superiority",
-                "source_refs": [
-                  "operations\\logion_release_mission\\oc_core_1_3_3\\OC133_ALL_DOMAIN_READINESS_SCORECARD.json",
-                  "comparators\\OC_1_3_3_MODERN_SCIENCE_SUPERIORITY_REGISTER.json"
-                ],
-                "status": "FAIL"
-              },
-              "next_escalation": "Use generated lane artifacts and subwork orders to close source gaps; rerun strict final TOE validator.",
-              "no_fake_closure_policy": "Benchmark-scoped superiority cannot be upgraded to broad modern-science superiority.",
-              "owner_capability": "Research/PriorArt",
-              "pass_predicate": "modern_science_comparator_superiority.state == PASS and broad modern-science coverage is certified",
-              "repair_strategy": "Modern-science superiority passes only if broad coverage predicates and source-backed comparator baselines pass, not merely benchmark-scoped baselines.",
-              "required_capability": "Research/PriorArt",
-              "status": "FAIL_CLOSED",
-              "validator_binding": "validate_final_toe_grand_science_scorecard::modern_science_comparator_superiority",
-              "validator_error_delta": 0,
-              "why_it_failed": "modern_science_comparator_superiority check is not PASS; modern_science_comparator_superiority remains in blocker_ids; source-backed benchmark superiority is not certified"
-            },
-            "status": "FAIL_CLOSED",
-            "step_index": 5,
-            "validator_error_delta": 0,
-            "why_it_failed": "modern_science_comparator_superiority check is not PASS; modern_science_comparator_superiority remains in blocker_ids; source-backed benchmark superiority is not certified"
-          },
-          {
-            "after_cerberus_error_total": 8,
-            "after_science_error_total": 11,
-            "after_validator_error_total": 19,
-            "before_cerberus_error_total": 8,
-            "before_science_error_total": 11,
-            "before_validator_error_total": 19,
+            "before_science_error_total": 17,
+            "before_validator_error_total": 25,
             "changed_artifact_total": 0,
             "changed_artifacts": [],
             "execution_command": [
@@ -479,11 +492,11 @@
           },
           {
             "after_cerberus_error_total": 8,
-            "after_science_error_total": 11,
-            "after_validator_error_total": 19,
+            "after_science_error_total": 17,
+            "after_validator_error_total": 25,
             "before_cerberus_error_total": 8,
-            "before_science_error_total": 11,
-            "before_validator_error_total": 19,
+            "before_science_error_total": 17,
+            "before_validator_error_total": 25,
             "changed_artifact_total": 0,
             "changed_artifacts": [],
             "execution_command": [
@@ -519,11 +532,11 @@
           },
           {
             "after_cerberus_error_total": 8,
-            "after_science_error_total": 11,
-            "after_validator_error_total": 19,
+            "after_science_error_total": 17,
+            "after_validator_error_total": 25,
             "before_cerberus_error_total": 8,
-            "before_science_error_total": 11,
-            "before_validator_error_total": 19,
+            "before_science_error_total": 17,
+            "before_validator_error_total": 25,
             "changed_artifact_total": 0,
             "changed_artifacts": [],
             "execution_command": [
@@ -548,7 +561,7 @@
                 "--require-final-toe-pass"
               ],
               "returncode": 1,
-              "stderr_tail": "ERROR: Final TOE projection validation failed: AI lane closure_verdict is not PASS\nERROR: Final TOE projection validation failed: AI lane final_toe_support_allowed is not true\nERROR: Final TOE projection validation failed: AI row 1 is not PASS\nERROR: Final TOE projection validation failed: ENTERPRISE_ARCHITECTURE lane closure_verdict is not PASS\nERROR: Final TOE projection validation failed: ENTERPRISE_ARCHITECTURE lane final_toe_support_allowed is not true\nERROR: Final TOE projection validation failed: ENTERPRISE_ARCHITECTURE row 1 is not PASS\nERROR: Final TOE grand-science validation failed: all_domain_ready_no_send is not true\nERROR: Final TOE grand-science validation failed: grand_toe_claim_ledger_evidence is not PASS\nERROR: Final TOE grand-science validation failed: grand_toe_claim_ledger_evidence remains in blocker_ids\nERROR: Final TOE grand-science validation failed: modern_science_comparator_superiority is not PASS\nERROR: Final TOE grand-science validation failed: modern_science_comparator_superiority remains in blocker_ids\nERROR: Cerberus targets surface does not match the current repository HEAD.\nERROR: Cerberus run surface does not match the current repository HEAD.\nERROR: Cerberus acceptance surface does not match the current repository HEAD.\nERROR: Cerberus run fingerprint does not match the current manifest inputs.\nERROR: Cerberus acceptance fingerprint does not match the current manifest inputs.\nERROR: Cerberus acceptance certificate is not PASS.\nERROR: Cerberus LLM gate is not PASS.\nERROR: Cerberus still has open defect findings.\n",
+              "stderr_tail": "ERROR: Final TOE projection validation failed: AI lane closure_verdict is not PASS\nERROR: Final TOE projection validation failed: AI lane final_toe_support_allowed is not true\nERROR: Final TOE projection validation failed: AI row 1 is missing lean_refs\nERROR: Final TOE projection validation failed: AI row 1 is missing finite_case_refs\nERROR: Final TOE projection validation failed: AI row 1 is not PASS\nERROR: Final TOE projection validation failed: AI row 1 is blocker/future-research/demoted scope\nERROR: Final TOE projection validation failed: ENTERPRISE_ARCHITECTURE lane closure_verdict is not PASS\nERROR: Final TOE projection validation failed: ENTERPRISE_ARCHITECTURE lane final_toe_support_allowed is not true\nERROR: Final TOE projection validation failed: ENTERPRISE_ARCHITECTURE row 1 is missing lean_refs\nERROR: Final TOE projection validation failed: ENTERPRISE_ARCHITECTURE row 1 is missing finite_case_refs\nERROR: Final TOE projection validation failed: ENTERPRISE_ARCHITECTURE row 1 is not PASS\nERROR: Final TOE projection validation failed: ENTERPRISE_ARCHITECTURE row 1 is blocker/future-research/demoted scope\nERROR: Final TOE grand-science validation failed: all_domain_ready_no_send is not true\nERROR: Final TOE grand-science validation failed: grand_toe_claim_ledger_evidence is not PASS\nERROR: Final TOE grand-science validation failed: grand_toe_claim_ledger_evidence remains in blocker_ids\nERROR: Final TOE grand-science validation failed: modern_science_comparator_superiority is not PASS\nERROR: Final TOE grand-science validation failed: modern_science_comparator_superiority remains in blocker_ids\nERROR: Cerberus targets surface does not match the current repository HEAD.\nERROR: Cerberus run surface does not match the current repository HEAD.\nERROR: Cerberus acceptance surface does not match the current repository HEAD.\nERROR: Cerberus run fingerprint does not match the current manifest inputs.\nERROR: Cerberus acceptance fingerprint does not match the current manifest inputs.\nERROR: Cerberus acceptance certificate is not PASS.\nERROR: Cerberus LLM gate is not PASS.\nERROR: Cerberus still has open defect findings.\n",
               "stdout_tail": ""
             },
             "status": "FAIL_CLOSED",
@@ -558,11 +571,11 @@
           },
           {
             "after_cerberus_error_total": 8,
-            "after_science_error_total": 11,
-            "after_validator_error_total": 19,
+            "after_science_error_total": 17,
+            "after_validator_error_total": 25,
             "before_cerberus_error_total": 8,
-            "before_science_error_total": 11,
-            "before_validator_error_total": 19,
+            "before_science_error_total": 17,
+            "before_validator_error_total": 25,
             "changed_artifact_total": 0,
             "changed_artifacts": [],
             "execution_command": [
@@ -613,11 +626,11 @@
           },
           {
             "after_cerberus_error_total": 8,
-            "after_science_error_total": 11,
-            "after_validator_error_total": 19,
+            "after_science_error_total": 17,
+            "after_validator_error_total": 25,
             "before_cerberus_error_total": 8,
-            "before_science_error_total": 11,
-            "before_validator_error_total": 19,
+            "before_science_error_total": 17,
+            "before_validator_error_total": 25,
             "changed_artifact_total": 0,
             "changed_artifacts": [],
             "execution_command": [
@@ -643,7 +656,7 @@
                 "--require-cerberus-clean"
               ],
               "returncode": 1,
-              "stderr_tail": "ERROR: Final TOE projection validation failed: AI lane closure_verdict is not PASS\nERROR: Final TOE projection validation failed: AI lane final_toe_support_allowed is not true\nERROR: Final TOE projection validation failed: AI row 1 is not PASS\nERROR: Final TOE projection validation failed: ENTERPRISE_ARCHITECTURE lane closure_verdict is not PASS\nERROR: Final TOE projection validation failed: ENTERPRISE_ARCHITECTURE lane final_toe_support_allowed is not true\nERROR: Final TOE projection validation failed: ENTERPRISE_ARCHITECTURE row 1 is not PASS\nERROR: Final TOE grand-science validation failed: all_domain_ready_no_send is not true\nERROR: Final TOE grand-science validation failed: grand_toe_claim_ledger_evidence is not PASS\nERROR: Final TOE grand-science validation failed: grand_toe_claim_ledger_evidence remains in blocker_ids\nERROR: Final TOE grand-science validation failed: modern_science_comparator_superiority is not PASS\nERROR: Final TOE grand-science validation failed: modern_science_comparator_superiority remains in blocker_ids\nERROR: Cerberus targets surface does not match the current repository HEAD.\nERROR: Cerberus run surface does not match the current repository HEAD.\nERROR: Cerberus acceptance surface does not match the current repository HEAD.\nERROR: Cerberus run fingerprint does not match the current manifest inputs.\nERROR: Cerberus acceptance fingerprint does not match the current manifest inputs.\nERROR: Cerberus acceptance certificate is not PASS.\nERROR: Cerberus LLM gate is not PASS.\nERROR: Cerberus still has open defect findings.\n",
+              "stderr_tail": "ERROR: Final TOE projection validation failed: AI lane closure_verdict is not PASS\nERROR: Final TOE projection validation failed: AI lane final_toe_support_allowed is not true\nERROR: Final TOE projection validation failed: AI row 1 is missing lean_refs\nERROR: Final TOE projection validation failed: AI row 1 is missing finite_case_refs\nERROR: Final TOE projection validation failed: AI row 1 is not PASS\nERROR: Final TOE projection validation failed: AI row 1 is blocker/future-research/demoted scope\nERROR: Final TOE projection validation failed: ENTERPRISE_ARCHITECTURE lane closure_verdict is not PASS\nERROR: Final TOE projection validation failed: ENTERPRISE_ARCHITECTURE lane final_toe_support_allowed is not true\nERROR: Final TOE projection validation failed: ENTERPRISE_ARCHITECTURE row 1 is missing lean_refs\nERROR: Final TOE projection validation failed: ENTERPRISE_ARCHITECTURE row 1 is missing finite_case_refs\nERROR: Final TOE projection validation failed: ENTERPRISE_ARCHITECTURE row 1 is not PASS\nERROR: Final TOE projection validation failed: ENTERPRISE_ARCHITECTURE row 1 is blocker/future-research/demoted scope\nERROR: Final TOE grand-science validation failed: all_domain_ready_no_send is not true\nERROR: Final TOE grand-science validation failed: grand_toe_claim_ledger_evidence is not PASS\nERROR: Final TOE grand-science validation failed: grand_toe_claim_ledger_evidence remains in blocker_ids\nERROR: Final TOE grand-science validation failed: modern_science_comparator_superiority is not PASS\nERROR: Final TOE grand-science validation failed: modern_science_comparator_superiority remains in blocker_ids\nERROR: Cerberus targets surface does not match the current repository HEAD.\nERROR: Cerberus run surface does not match the current repository HEAD.\nERROR: Cerberus acceptance surface does not match the current repository HEAD.\nERROR: Cerberus run fingerprint does not match the current manifest inputs.\nERROR: Cerberus acceptance fingerprint does not match the current manifest inputs.\nERROR: Cerberus acceptance certificate is not PASS.\nERROR: Cerberus LLM gate is not PASS.\nERROR: Cerberus still has open defect findings.\n",
               "stdout_tail": ""
             },
             "status": "FAIL_CLOSED",
@@ -658,7 +671,7 @@
     }
   ],
   "fail_lane_total": 5,
-  "generated_at": "2026-05-05T18:40:34Z",
+  "generated_at": "2026-05-05T18:57:57Z",
   "lane_dispatcher_status": "BLOCKED",
   "lane_subwork_order_status": "OPEN",
   "lane_subwork_order_total": 55,
@@ -667,31 +680,37 @@
   "local_external_compute_policy": "deterministic/static first; governed local LLM for small chunks; external Cerberus only after deterministic blockers are zero",
   "no_progress_creates_backlog": true,
   "ollama_usage_policy": "No direct unmanaged Ollama calls are made by this factory.",
-  "open_obligation_total": 21,
+  "open_obligation_total": 27,
   "pass_lane_total": 0,
   "proof_data_simulation_coverage_status": "INCOMPLETE",
   "r017_promotion_allowed": false,
   "release_id": "oc_core_1_3_3",
-  "research_wave_changed_artifact_total": 20,
+  "research_wave_changed_artifact_total": 27,
   "research_wave_status": "CAPABILITY_BACKLOG_OPEN",
   "research_wave_step_total": 10,
   "research_wave_validator_delta": 0,
   "root_cause_coverage_status": "PASS",
-  "root_cause_total": 19,
+  "root_cause_total": 25,
   "schema_id": "OC133_TOE_CLOSURE_COCKPIT_v1",
-  "science_validator_error_total": 11,
+  "science_validator_error_total": 17,
   "status": "OPEN",
   "toe_problem_explainability_missing_total": 0,
   "toe_problem_explainability_status": "PASS",
   "validator_delta_trace_status": "CAPABILITY_BACKLOG_OPEN",
-  "validator_error_total": 19,
+  "validator_error_total": 25,
   "validator_errors": [
     "Final TOE projection validation failed: AI lane closure_verdict is not PASS",
     "Final TOE projection validation failed: AI lane final_toe_support_allowed is not true",
+    "Final TOE projection validation failed: AI row 1 is missing lean_refs",
+    "Final TOE projection validation failed: AI row 1 is missing finite_case_refs",
     "Final TOE projection validation failed: AI row 1 is not PASS",
+    "Final TOE projection validation failed: AI row 1 is blocker/future-research/demoted scope",
     "Final TOE projection validation failed: ENTERPRISE_ARCHITECTURE lane closure_verdict is not PASS",
     "Final TOE projection validation failed: ENTERPRISE_ARCHITECTURE lane final_toe_support_allowed is not true",
+    "Final TOE projection validation failed: ENTERPRISE_ARCHITECTURE row 1 is missing lean_refs",
+    "Final TOE projection validation failed: ENTERPRISE_ARCHITECTURE row 1 is missing finite_case_refs",
     "Final TOE projection validation failed: ENTERPRISE_ARCHITECTURE row 1 is not PASS",
+    "Final TOE projection validation failed: ENTERPRISE_ARCHITECTURE row 1 is blocker/future-research/demoted scope",
     "Final TOE grand-science validation failed: all_domain_ready_no_send is not true",
     "Final TOE grand-science validation failed: grand_toe_claim_ledger_evidence is not PASS",
     "Final TOE grand-science validation failed: grand_toe_claim_ledger_evidence remains in blocker_ids",

@@ -1,9 +1,9 @@
 {
-  "artifact_hash": "8be5c4312eebbde5b93b0d8f51bdeb74de259b751cc750f7f91a7ef387e97778",
+  "artifact_hash": "826c937e8b5d2f7f25116ae9a29bb27a8d8573431438df2ecc446d4b836450ce",
   "capability_total": 61,
   "explainability_missing_ids": [],
   "explainability_missing_total": 0,
-  "generated_at": "2026-05-05T18:40:34Z",
+  "generated_at": "2026-05-05T18:57:57Z",
   "open_capability_total": 60,
   "release_id": "oc_core_1_3_3",
   "rows": [
@@ -42,7 +42,7 @@
       "repair_strategy": "Execute the EA projection capability lane: inventory EA claims from the canonical corpus, bind architecture cases and operational metrics, add comparator alternatives and falsifiers, then rewrite enterprise_architecture.json only when all required refs exist.",
       "required_capability": "Research/EnterpriseArchitectureProjection",
       "root_cause_class": "MISSING_EXECUTABLE_EA_TOE_PROJECTION_SUPPORT",
-      "source_problem_id": "R017-ROOT-CAUSE-004",
+      "source_problem_id": "R017-ROOT-CAUSE-007",
       "status": "OPEN",
       "why_it_failed": "The EA lane is present, but it contains bounded future-research rows rather than dedicated PASS-grade architecture cases, operational metrics, comparator alternatives, and falsifier bindings.",
       "why_needed": "The EA lane is present, but it contains bounded future-research rows rather than dedicated PASS-grade architecture cases, operational metrics, comparator alternatives, and falsifier bindings."
@@ -61,7 +61,7 @@
       "repair_strategy": "Close parent lanes first, rebuild the SPOT and scorecard, then rerun the final TOE validator.",
       "required_capability": "Research/ScorecardSync",
       "root_cause_class": "DOWNSTREAM_SCORECARD_BLOCKED_BY_OPEN_LANES",
-      "source_problem_id": "R017-ROOT-CAUSE-007",
+      "source_problem_id": "R017-ROOT-CAUSE-013",
       "status": "OPEN",
       "why_it_failed": "The all-domain readiness flag is downstream of AI, EA, grand promotion, comparator, and Cerberus gates; it cannot turn green while any parent lane remains red.",
       "why_needed": "The all-domain readiness flag is downstream of AI, EA, grand promotion, comparator, and Cerberus gates; it cannot turn green while any parent lane remains red."
@@ -81,7 +81,7 @@
       "repair_strategy": "Split grand closure into sublanes for promoted claim row, theorem/proof refs, Lean refs, finite positive/negative controls, finite failure repair, empirical pack, comparator pack, and promotion contract refresh.",
       "required_capability": "Research/FormalScience",
       "root_cause_class": "GRAND_PROMOTION_CONTRACT_DEPENDENCY_FAILURE",
-      "source_problem_id": "R017-ROOT-CAUSE-008",
+      "source_problem_id": "R017-ROOT-CAUSE-014",
       "status": "OPEN",
       "why_it_failed": "The grand TOE promotion contract is blocked by missing dedicated promoted-claim evidence, comparator superiority, empirical superiority, and finite model failures.",
       "why_needed": "The grand TOE promotion contract is blocked by missing dedicated promoted-claim evidence, comparator superiority, empirical superiority, and finite model failures."
@@ -101,7 +101,7 @@
       "repair_strategy": "Expand comparator work into per-gap source-backed benchmark/comparator rows and keep broad superiority blocked until all broad coverage predicates pass.",
       "required_capability": "Research/PriorArt",
       "root_cause_class": "BROAD_COMPARATOR_COVERAGE_GAP",
-      "source_problem_id": "R017-ROOT-CAUSE-010",
+      "source_problem_id": "R017-ROOT-CAUSE-016",
       "status": "OPEN",
       "why_it_failed": "The current comparator evidence certifies only benchmark-scoped superiority; broad modern-science superiority is blocked by uncovered domains and missing source-backed comparator predicates.",
       "why_needed": "The current comparator evidence certifies only benchmark-scoped superiority; broad modern-science superiority is blocked by uncovered domains and missing source-backed comparator predicates."
@@ -121,7 +121,7 @@
       "repair_strategy": "Skip expensive Cerberus while deterministic science gates are red; after science PASS, refresh Cerberus targets/run/acceptance and clear open findings.",
       "required_capability": "Review/Cerberus",
       "root_cause_class": "STALE_OR_UNCLEAN_CERBERUS_SURFACE",
-      "source_problem_id": "R017-ROOT-CAUSE-012",
+      "source_problem_id": "R017-ROOT-CAUSE-018",
       "status": "OPEN",
       "why_it_failed": "Cerberus targets/run/acceptance fingerprints or open findings do not bind cleanly to the current repository state.",
       "why_needed": "Cerberus targets/run/acceptance fingerprints or open findings do not bind cleanly to the current repository state."

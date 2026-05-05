@@ -60,6 +60,10 @@ FINITE_CHECK_REPORT = Path("proofs/FINITE_MODEL_CHECKS_1_3_3.json")
 COMPARATOR_REGISTER = Path("comparators/OC_1_3_3_MODERN_SCIENCE_SUPERIORITY_REGISTER.json")
 CERBERUS_FINDINGS = Path("releases/oc_core_1_3/editorial/OC_CORE_1_3_CERBERUS_REVIEW_FINDINGS_latest.json")
 CERBERUS_ACCEPTANCE = Path("releases/oc_core_1_3/editorial/OC_CORE_1_3_CERBERUS_ACCEPTANCE_CERT_latest.json")
+SYMBOL_DECL_RE = re.compile(
+    r"^\s*(?:def|theorem|lemma|axiom|constant|inductive|structure)\s+([A-Za-z_][A-Za-z0-9_'.]*)",
+    re.MULTILINE,
+)
 
 
 def utc_now() -> str:
@@ -89,6 +93,52 @@ def rel(root: Path, path: Path) -> str:
 
 def split_ref_path(ref: str) -> str:
     return str(ref).split("::", 1)[0].strip()
+
+
+def split_ref_symbol(ref: str) -> str:
+    return str(ref).split("::", 1)[1].strip() if "::" in str(ref) else ""
+
+
+def declared_symbols(path: Path) -> set[str]:
+    if not path.exists() or not path.is_file():
+        return set()
+    return set(SYMBOL_DECL_RE.findall(path.read_text(encoding="utf-8", errors="replace")))
+
+
+def lean_ref_bound(root: Path, ref: str) -> bool:
+    path = root / split_ref_path(ref)
+    symbol = split_ref_symbol(ref)
+    return path.exists() and bool(symbol) and symbol in declared_symbols(path)
+
+
+def finite_case_rows_by_id(root: Path) -> dict[str, dict[str, Any]]:
+    finite = read_json(root / FINITE_CHECK_REPORT)
+    rows = finite.get("rows", [])
+    if not isinstance(rows, list):
+        return {}
+    return {
+        str(row.get("case_id")): row
+        for row in rows
+        if isinstance(row, dict) and row.get("case_id")
+    }
+
+
+def finite_refs_status(root: Path, refs: list[Any]) -> dict[str, Any]:
+    finite_rows = finite_case_rows_by_id(root)
+    rows = []
+    for ref in refs:
+        case_id = str(ref)
+        row = finite_rows.get(case_id)
+        rows.append({"case_id": case_id, "exists": bool(row), "passed": bool(row and row.get("passed") is True)})
+    return {
+        "ref_total": len(rows),
+        "existing_ref_total": sum(1 for row in rows if row["exists"]),
+        "passing_ref_total": sum(1 for row in rows if row["passed"]),
+        "missing_ref_total": sum(1 for row in rows if not row["exists"]),
+        "failing_ref_total": sum(1 for row in rows if row["exists"] and not row["passed"]),
+        "rows": rows,
+        "status": "PASS" if rows and all(row["passed"] for row in rows) else "FAIL",
+    }
 
 
 def refs_status(root: Path, refs: list[Any]) -> dict[str, Any]:
@@ -1134,13 +1184,14 @@ def build_projection_row_from_claim(root: Path, lane_id: str, source_row: dict[s
 
 
 def projection_row_support_checks(root: Path, row: dict[str, Any]) -> dict[str, bool]:
+    lean_refs = list(row.get("lean_refs") or [])
     return {
         "claim_id_present": bool(row.get("claim_id")),
         "public_claim_scope_present": bool(row.get("public_claim_scope")),
         "claim_not_blocker": not projection_blocker_row(row),
         "formal_refs_exist": refs_status(root, list(row.get("theorem_or_formal_boundary_refs") or []))["status"] == "PASS",
-        "lean_refs_exist": refs_status(root, list(row.get("lean_refs") or []))["status"] == "PASS",
-        "finite_case_refs_present": bool(row.get("finite_case_refs")),
+        "lean_refs_exist": bool(lean_refs) and all(lean_ref_bound(root, str(ref)) for ref in lean_refs),
+        "finite_case_refs_present": finite_refs_status(root, list(row.get("finite_case_refs") or []))["status"] == "PASS",
         "evidence_refs_exist": refs_status(root, list(row.get("evidence_or_simulation_refs") or []))["status"] == "PASS",
         "comparator_refs_exist": refs_status(root, list(row.get("comparator_refs") or []))["status"] == "PASS",
         "falsifier_refs_exist": refs_status(root, list(row.get("falsifier_refs") or []))["status"] == "PASS",
@@ -1278,12 +1329,39 @@ def build_projection_lane_capability_artifacts(root: Path, lane_id: str) -> dict
         "falsifier_refs": falsifier_refs,
         "ref_status": refs_status(root, falsifier_refs),
     }
+    proof_sheet = {
+        "schema_id": "OC133_TOE_PROJECTION_PROOF_SHEET_v1",
+        "generated_at": generated_at,
+        "lane_id": lane_id,
+        "status": "PASS" if not blocker_claim and formal_map["status"] == "PASS" and bool(lean_refs) else "SOURCE_GAP_OPEN",
+        "claim_id": claim_id,
+        "public_claim_scope": public_scope,
+        "formal_boundary_refs": formal_refs,
+        "lean_refs": lean_refs,
+        "finite_case_refs": finite_case_refs,
+        "why_it_failed": "Projection proof sheet lacks a non-blocker claim, bound Lean refs, or finite witnesses." if blocker_claim or not lean_refs or not finite_case_refs else "Proof-sheet support is available for guarded validation.",
+        "repair_strategy": "Bind this projection to explicit theorem/proof, Lean declaration, and passing finite case before promotion.",
+    }
+    falsifier_rows = {
+        "schema_id": "OC133_TOE_PROJECTION_FALSIFIER_ROWS_v1",
+        "generated_at": generated_at,
+        "lane_id": lane_id,
+        "status": falsifier_pack["status"],
+        "rows": [
+            {
+                "claim_id": claim_id,
+                "falsifier_ref": ref,
+                "closure_condition": "Projection claim must fail or narrow if this falsifier row is violated.",
+            }
+            for ref in falsifier_refs
+        ],
+    }
     support_checks = {
         "source_mined_candidate_available": bool(mined_rows),
         "claim_not_blocker": not blocker_claim,
         "formal_refs_exist": formal_map["status"] == "PASS",
-        "lean_refs_exist": refs_status(root, lean_refs)["status"] == "PASS",
-        "finite_case_refs_present": bool(finite_case_refs),
+        "lean_refs_exist": bool(lean_refs) and all(lean_ref_bound(root, str(ref)) for ref in lean_refs),
+        "finite_case_refs_present": finite_refs_status(root, finite_case_refs)["status"] == "PASS",
         "evidence_refs_exist": evidence_pack["status"] == "PASS",
         "comparator_refs_exist": comparator_pack["status"] == "PASS",
         "falsifier_refs_exist": falsifier_pack["status"] == "PASS",
@@ -1310,9 +1388,12 @@ def build_projection_lane_capability_artifacts(root: Path, lane_id: str) -> dict
         "source_mining_report_ref": write_json_artifact(root, base / f"OC133_{prefix}_SOURCE_MINING_REPORT.json", source_mining),
         "claim_ledger_ref": write_json_artifact(root, base / f"OC133_{prefix}_CLAIM_LEDGER.json", claim_ledger),
         "formal_boundary_map_ref": write_json_artifact(root, base / f"OC133_{prefix}_FORMAL_BOUNDARY_MAP.json", formal_map),
+        "proof_sheet_ref": write_json_artifact(root, base / f"OC133_{prefix}_PROOF_SHEET.json", proof_sheet),
         "evidence_pack_ref": write_json_artifact(root, base / f"OC133_{prefix}_EVIDENCE_PACK.json", evidence_pack),
+        "evidence_or_simulation_pack_ref": write_json_artifact(root, base / f"OC133_{prefix}_EVIDENCE_OR_SIMULATION_PACK.json", evidence_pack),
         "comparator_baselines_ref": write_json_artifact(root, base / f"OC133_{prefix}_COMPARATOR_BASELINES.json", comparator_pack),
         "falsifier_ref": write_json_artifact(root, base / f"OC133_{prefix}_FALSIFIERS.json", falsifier_pack),
+        "falsifier_rows_ref": write_json_artifact(root, base / f"OC133_{prefix}_FALSIFIER_ROWS.json", falsifier_rows),
         "candidate_projection_ref": write_json_artifact(root, base / f"OC133_{prefix}_PROJECTION_CANDIDATE.json", candidate),
     }
     if support_pass:
@@ -1358,11 +1439,14 @@ def build_grand_lane_diagnostics(root: Path) -> dict[str, Any]:
         "generated_at": generated_at,
         "lane_id": "GRAND_TOE_CLAIM_LEDGER_EVIDENCE",
         "status": "PASS" if not finite_failures and promotion.get("verdict") == "PASS" else "FAIL_CLOSED",
+        "finite_regression_guard_status": "PASS" if not finite_failures else "FAIL",
         "promotion_verdict": promotion.get("verdict"),
         "scorecard_blocker_ids": scorecard.get("blocker_ids", []),
         "finite_failure_total": len(finite_failures),
         "finite_failure_ids": [row.get("case_id") for row in finite_failures],
         "finite_failures": finite_failures,
+        "promotion_dependency_vector": promotion.get("promotion_gate_vector", {}),
+        "promotion_open_blockers": promotion.get("open_blockers", []),
         "subwork_orders": grand_claim_subwork(root),
         "why_it_failed": "Grand TOE promotion is blocked while finite failures, comparator blockers, empirical blockers, or promotion contract blockers remain.",
         "repair_strategy": "Resolve each finite failure and promotion dependency, then rerun grand science loop and strict final validator.",
@@ -1416,15 +1500,55 @@ def build_comparator_lane_diagnostics(root: Path) -> dict[str, Any]:
                 "repair_strategy": "Execute this work order by binding source capsule, target acquisition, incumbent comparator, OC scoring, uncertainty, falsifier, and replay evidence.",
             }
         )
+    grouped: dict[str, list[dict[str, Any]]] = {}
+    for row in execution_rows:
+        grouped.setdefault(str(row.get("domain_class_id") or "UNKNOWN"), []).append(row)
+    job_rows: list[dict[str, Any]] = []
+    for domain_index, (domain_class_id, rows_for_domain) in enumerate(sorted(grouped.items()), start=1):
+        job_rows.append(
+            {
+                "job_id": f"MS-COV-JOB-{domain_index:03d}",
+                "domain_class_id": domain_class_id,
+                "status": "OPEN",
+                "gap_total": len(rows_for_domain),
+                "open_gap_total": len([row for row in rows_for_domain if row.get("status") != "PASS"]),
+                "required_artifacts": [
+                    "verified_open_source_capsule",
+                    "benchmark_case",
+                    "incumbent_comparator",
+                    "oc_prediction_scoring_row",
+                    "uncertainty_row",
+                    "falsifier_row",
+                    "replay_record",
+                ],
+                "source_capsule_verified": False,
+                "benchmark_case_bound": False,
+                "incumbent_comparator_bound": False,
+                "oc_scoring_bound": False,
+                "uncertainty_bound": False,
+                "falsifier_bound": False,
+                "replay_record_bound": False,
+                "gap_ids": [row.get("gap_id") for row in rows_for_domain],
+                "why_it_failed": "This domain class still lacks complete source-capsule, benchmark, comparator, scoring, uncertainty, falsifier, and replay bindings for every gap.",
+                "repair_strategy": "Execute governed open-source acquisition/cache and replay for each gap before broad coverage can pass.",
+                "required_capability": "Research/PriorArt",
+                "execution_command": [sys.executable, "tools/oc133_toe_closure_factory.py", "--execute-capability-lane", "MODERN_SCIENCE_COMPARATOR_SUPERIORITY", "--write"],
+                "pass_predicate": "All required artifacts are bound for every gap in this domain class and every gap row is PASS.",
+                "next_escalation": "Split this domain class into per-gap acquisition/replay tasks if no domain-level progress occurs.",
+            }
+        )
     execution_report = {
         "schema_id": "OC133_MODERN_SCIENCE_BROAD_COVERAGE_EXECUTION_REPORT_v1",
         "generated_at": generated_at,
         "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
         "status": "OPEN" if execution_rows else "MISSING",
+        "domain_job_total": len(job_rows),
+        "open_domain_job_total": sum(1 for row in job_rows if row.get("status") != "PASS"),
         "coverage_gap_total": len(execution_rows),
         "closed_gap_total": sum(1 for row in execution_rows if row.get("status") == "PASS"),
         "open_gap_total": sum(1 for row in execution_rows if row.get("status") != "PASS"),
         "broad_pass_allowed": False,
+        "job_rows": job_rows,
         "rows": execution_rows,
         "why_it_failed": "Broad modern-science coverage still has open source-backed comparator gaps.",
         "repair_strategy": "Close every gap row with governed source-backed benchmark/comparator evidence before broad superiority can pass.",
@@ -1480,14 +1604,15 @@ def evaluate_projection_lane(root: Path, lane_id: str, path: Path) -> dict[str, 
             findings.append(f"row {index} is not an object")
             continue
         for field in FINAL_TOE_PROJECTION_REQUIRED_ROW_FIELDS:
-            if field not in row:
+            if not row.get(field):
                 findings.append(f"row {index} missing {field}")
         if row.get("closure_verdict") != "PASS":
             findings.append(f"row {index} closure_verdict is not PASS")
+        if projection_blocker_row(row):
+            findings.append(f"row {index} is blocker/future-research/demoted scope")
         for ref_field in [
             "theorem_or_formal_boundary_refs",
             "lean_refs",
-            "finite_case_refs",
             "evidence_or_simulation_refs",
             "comparator_refs",
             "falsifier_refs",
@@ -1497,8 +1622,15 @@ def evaluate_projection_lane(root: Path, lane_id: str, path: Path) -> dict[str, 
                 findings.append(f"row {index} {ref_field} is empty or not a list")
                 continue
             for ref in value:
+                if ref_field == "lean_refs":
+                    if not lean_ref_bound(root, str(ref)):
+                        findings.append(f"row {index} {ref_field} unbound Lean ref {ref}")
+                    continue
                 if not ref_exists(root, str(ref)):
                     findings.append(f"row {index} {ref_field} missing ref {ref}")
+        finite_status = finite_refs_status(root, list(row.get("finite_case_refs") or []))
+        if finite_status["status"] != "PASS":
+            findings.append(f"row {index} finite_case_refs are missing or not PASS")
     return {
         "lane_id": lane_id,
         "lane_type": "domain_projection",
@@ -2243,8 +2375,8 @@ def execute_research_wave_once(root: Path, timeout: int, iteration: int = 1) -> 
     for lane_id in [
         "AI",
         "ENTERPRISE_ARCHITECTURE",
-        "GRAND_TOE_CLAIM_LEDGER_EVIDENCE",
         "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+        "GRAND_TOE_CLAIM_LEDGER_EVIDENCE",
     ]:
         rows.append(execute_research_wave_lane_step(root, step_index=len(rows) + 1, lane_id=lane_id, timeout=timeout))
 
