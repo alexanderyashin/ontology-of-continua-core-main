@@ -1,7 +1,7 @@
 # OC Core Release Quality Audit 1.3.3
 
 Status: `QUALITY_VALIDATION_PASS`
-Artifact hash: `7f8854c48d25012e185a013d30482a324ef64a4f66df2ca31363298a50bfa51e`
+Artifact hash: `3ff7f10c267322818dceda798abbfae134f43e84b9c37d9a2e0562c84caa72c1`
 
 ## Summary
 

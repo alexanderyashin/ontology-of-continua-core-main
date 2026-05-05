@@ -3,7 +3,7 @@
 Status: `PASS`
 Baseline revision: `recovery_r015`
 Candidate revision: `recovery_r016`
-Artifact hash: `53e676fe44ab957669f20684e43590fccad976a2b28f23e04eae1e9ff047afe2`
+Artifact hash: `17ed880406a33c8d7f0b252d722cf440b0bf8d921c406a7a51d7a4fed7518be6`
 
 ## Summary
 

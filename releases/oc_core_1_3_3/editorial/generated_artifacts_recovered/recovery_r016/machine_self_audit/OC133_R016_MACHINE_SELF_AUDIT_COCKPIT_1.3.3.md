@@ -20,8 +20,8 @@ r017 promotion gate: `R017_BLOCKED_BY_TOE_VALIDATOR`
 - `reader_pdf_total`: `5`
 - `reader_pdf_ok_total`: `5`
 - `journal_package_total`: `8`
-- `toe_validator_error_total`: `15`
-- `toe_research_work_order_total`: `17`
+- `toe_validator_error_total`: `20`
+- `toe_research_work_order_total`: `22`
 - `delta_rebuild_count`: `1`
 - `full_rebuild_count`: `1`
 - `local_ollama_invocation_total`: `20`

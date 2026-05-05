@@ -1,7 +1,7 @@
 # OC Core Release Package Assembly 1.3.3
 
 Status: `OC_CORE_RELEASE_PACKAGE_REVIEW_ARTIFACTS_ASSEMBLED`
-Artifact hash: `9268b052d25f210d0986ef9ae350dad4d1e42e38cb6e6268a2a1a10c44613538`
+Artifact hash: `77ec81660f2a39548c3bd06cac510209f01081270037bba6c79bac75d5e5a394`
 Concept DOI for generated PDFs: `10.5281/zenodo.17899134`
 Structure source: `recovered_l10c`
 Assembly revision: `recovery_r016`
@@ -49,7 +49,7 @@ Publication actions performed: `false`
 - toe_gap_assessment_status: PASS
 - toe_final_pass_status: FAIL
 - r017_promotion_gate: R017_BLOCKED_BY_TOE_VALIDATOR
-- toe_validator_error_total: 15
+- toe_validator_error_total: 20
 - figure_spec_coverage_status: PASS
 - diagram_geometry_status: PASS
 - rendered_figure_bbox_status: PASS

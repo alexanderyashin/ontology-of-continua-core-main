@@ -3,7 +3,7 @@
 Status: `PASS`
 Assembly revision: `recovery_r016`
 Structure source: `recovered_l10c`
-Artifact hash: `20ed30fc009faf597f082fc7860a879c9d930c647cb5cc838ee76301bb4227b8`
+Artifact hash: `e7395e4af71562a61033aeec711639b75d36223271b8657a2dc9dd5c3d5a81f9`
 
 ## Summary
 
@@ -54,7 +54,7 @@ Artifact hash: `20ed30fc009faf597f082fc7860a879c9d930c647cb5cc838ee76301bb4227b8
 - `toe_gap_assessment_status`: PASS
 - `toe_final_pass_status`: FAIL
 - `r017_promotion_gate`: R017_BLOCKED_BY_TOE_VALIDATOR
-- `toe_validator_error_total`: 15
+- `toe_validator_error_total`: 20
 - `title_page_status`: PASS
 - `toc_semantic_status`: PASS
 - `heading_hygiene_status`: PASS

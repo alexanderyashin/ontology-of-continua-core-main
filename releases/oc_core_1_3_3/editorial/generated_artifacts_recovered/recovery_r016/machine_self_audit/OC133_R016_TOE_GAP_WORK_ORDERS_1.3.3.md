@@ -152,6 +152,56 @@ Status: `OPEN`
 - `blocks_r017`: True
 - `status`: OPEN
 
+## `R016-TOE-GAP-016` CERBERUS_FINGERPRINT_DRIFT
+
+- `finding_class`: CERBERUS_FINGERPRINT_DRIFT
+- `severity`: CRITICAL
+- `source_validator_message`: Cerberus targets surface does not match the current repository HEAD.
+- `research_route`: canonical_science_spot_then_delta_projection
+- `required_closure_condition`: Repair from canonical scientific sources, regenerate projections, and rerun final TOE validation; do not patch public prose to hide the gap.
+- `blocks_r017`: True
+- `status`: OPEN
+
+## `R016-TOE-GAP-017` CERBERUS_FINGERPRINT_DRIFT
+
+- `finding_class`: CERBERUS_FINGERPRINT_DRIFT
+- `severity`: CRITICAL
+- `source_validator_message`: Cerberus run surface does not match the current repository HEAD.
+- `research_route`: canonical_science_spot_then_delta_projection
+- `required_closure_condition`: Repair from canonical scientific sources, regenerate projections, and rerun final TOE validation; do not patch public prose to hide the gap.
+- `blocks_r017`: True
+- `status`: OPEN
+
+## `R016-TOE-GAP-018` CERBERUS_FINGERPRINT_DRIFT
+
+- `finding_class`: CERBERUS_FINGERPRINT_DRIFT
+- `severity`: CRITICAL
+- `source_validator_message`: Cerberus acceptance surface does not match the current repository HEAD.
+- `research_route`: canonical_science_spot_then_delta_projection
+- `required_closure_condition`: Repair from canonical scientific sources, regenerate projections, and rerun final TOE validation; do not patch public prose to hide the gap.
+- `blocks_r017`: True
+- `status`: OPEN
+
+## `R016-TOE-GAP-019` CERBERUS_FINGERPRINT_DRIFT
+
+- `finding_class`: CERBERUS_FINGERPRINT_DRIFT
+- `severity`: CRITICAL
+- `source_validator_message`: Cerberus run fingerprint does not match the current manifest inputs.
+- `research_route`: canonical_science_spot_then_delta_projection
+- `required_closure_condition`: Repair from canonical scientific sources, regenerate projections, and rerun final TOE validation; do not patch public prose to hide the gap.
+- `blocks_r017`: True
+- `status`: OPEN
+
+## `R016-TOE-GAP-020` CERBERUS_FINGERPRINT_DRIFT
+
+- `finding_class`: CERBERUS_FINGERPRINT_DRIFT
+- `severity`: CRITICAL
+- `source_validator_message`: Cerberus acceptance fingerprint does not match the current manifest inputs.
+- `research_route`: canonical_science_spot_then_delta_projection
+- `required_closure_condition`: Repair from canonical scientific sources, regenerate projections, and rerun final TOE validation; do not patch public prose to hide the gap.
+- `blocks_r017`: True
+- `status`: OPEN
+
 ## `R016-TOE-AI-001` AI_DOMAIN_TOE_PROJECTION_LANE
 
 - `finding_class`: AI_DOMAIN_TOE_PROJECTION_LANE

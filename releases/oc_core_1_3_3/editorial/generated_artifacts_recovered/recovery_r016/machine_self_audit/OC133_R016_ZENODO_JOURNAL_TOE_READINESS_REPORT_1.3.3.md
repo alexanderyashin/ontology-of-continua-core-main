@@ -13,5 +13,5 @@ Status: `ASSESSMENT_COMPLETE`
 - `publication_actions_performed`: False
 - `no_send_policy`: No Zenodo, DOI, GitHub release, or journal submission action is performed by r016.
 - `theory_maturity_assessment`: bounded_scientific_release_with_final_toe_closure_blocked
-- `distance_to_toe`: {'validator_error_total': 15, 'work_order_total': 17, 'ai_lane_required': True, 'enterprise_architecture_lane_required': True}
-- `artifact_hash`: cfb6d016bb0db2db14f1ec7b95c3b879b32aa509a96d62975bc2a8fb750b7ff7
+- `distance_to_toe`: {'validator_error_total': 20, 'work_order_total': 22, 'ai_lane_required': True, 'enterprise_architecture_lane_required': True}
+- `artifact_hash`: f969a683f00e2d68c0bf295a437bd480192cd7a7d1c6e4153ad863566d576eda

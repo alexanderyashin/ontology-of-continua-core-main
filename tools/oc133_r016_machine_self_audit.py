@@ -6,6 +6,7 @@ from typing import Any
 
 from oc_core_release_assembly_lib import ROOT, artifact_hash, stable_json, write_text_if_changed
 from oc_core_1_3_science_spot_lib import validate_existing_bundle
+from oc_core_1_3_cerberus_lib import validate_existing_cerberus_bundle
 
 
 R016_REVISION = "recovery_r016"
@@ -43,7 +44,9 @@ def r016_machine_self_audit_paths(base: Path, version: str) -> dict[str, Path]:
 
 def r017_toe_gate_errors() -> list[str]:
     try:
-        return validate_existing_bundle(ROOT, require_final_toe_pass=True)
+        errors = validate_existing_bundle(ROOT, require_final_toe_pass=True)
+        errors.extend(validate_existing_cerberus_bundle(ROOT, require_clean=True))
+        return errors
     except Exception as exc:  # fail closed: validator errors are promotion blockers
         return [f"TOE validator invocation failed: {exc}"]
 
