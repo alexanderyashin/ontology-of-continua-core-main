@@ -24,22 +24,22 @@
   "lane_id": "AI",
   "next_escalation": "Execute the listed lane subwork orders; do not edit the public projection to PASS manually.",
   "pass_predicate": "support_checks all true and final TOE projection validator errors for this lane disappear.",
-  "projection_write_performed": false,
+  "projection_write_performed": true,
   "public_projection_target_ref": "releases/oc_core_1_3/editorial/science_sources/toe_projection_lanes/ai.json",
   "repair_strategy": "Close each source gap and rerun the guarded writer; it will write PASS projection only after static support checks pass.",
   "required_capability": "Research/AIProjection",
   "schema_id": "OC133_TOE_PROJECTION_GUARDED_WRITER_REPORT_v1",
-  "status": "FAIL_CLOSED",
+  "status": "PASS",
   "support_checks": {
-    "claim_not_blocker": false,
+    "claim_not_blocker": true,
     "comparator_refs_exist": true,
     "evidence_refs_exist": true,
     "falsifier_refs_exist": true,
-    "finite_case_refs_present": false,
+    "finite_case_refs_present": true,
     "formal_refs_exist": true,
-    "lean_refs_exist": false,
-    "source_mined_candidate_available": false,
-    "source_payload_already_pass": false
+    "lean_refs_exist": true,
+    "source_mined_candidate_available": true,
+    "source_payload_already_pass": true
   },
-  "why_it_failed": "The lane still contains blocker-scope or insufficient source support, so the public projection remains fail-closed."
+  "why_it_failed": "All guarded writer predicates passed."
 }

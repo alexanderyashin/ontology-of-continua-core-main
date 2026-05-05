@@ -1,16 +1,22 @@
 {
-  "claim_id": "OC133-GRAND-TOE-FORMAL-BLOCKER",
-  "finite_case_refs": [],
+  "claim_id": "T133-BOUNDARY",
+  "finite_case_refs": [
+    "FM-T133-BOUNDARY-NEG",
+    "FM-T133-BOUNDARY-POS",
+    "MUTATION-FLAG-ORACLE-BOUNDARY"
+  ],
   "formal_boundary_refs": [
-    "proofs/proof_sheets/GRAND_TOE_FORMAL_BLOCKER.md",
-    "claims/GRAND_TOE_FORMAL_OBLIGATION_LEDGER_1_3_3.json"
+    "appendix/OC_1_3_3_BOUNDARY_REPRESENTATION_THEOREM.tex",
+    "proofs/proof_sheets/T133-BOUNDARY.md"
   ],
   "generated_at": "2026-05-05T17:47:12Z",
   "lane_id": "ENTERPRISE_ARCHITECTURE",
-  "lean_refs": [],
-  "public_claim_scope": "Enterprise-architecture material may be used as bounded applied guidance and research lane only; it is not final TOE evidence in this release.",
+  "lean_refs": [
+    "formal/lean/OC133V12.lean::metric_boundary_specialization"
+  ],
+  "public_claim_scope": "Bounded enterprise-architecture projection: an architecture decision or operating-state assessment is inside the OC formal projection only when its variables, thresholds, classifier boundary, evidence rows, comparator alternatives, and falsifier conditions are explicitly declared.",
   "repair_strategy": "Bind this projection to explicit theorem/proof, Lean declaration, and passing finite case before promotion.",
   "schema_id": "OC133_TOE_PROJECTION_PROOF_SHEET_v1",
-  "status": "SOURCE_GAP_OPEN",
-  "why_it_failed": "Projection proof sheet lacks a non-blocker claim, bound Lean refs, or finite witnesses."
+  "status": "PASS",
+  "why_it_failed": "Proof-sheet support is available for guarded validation."
 }

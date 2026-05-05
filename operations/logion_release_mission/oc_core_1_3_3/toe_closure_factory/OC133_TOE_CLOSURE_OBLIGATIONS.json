@@ -1,467 +1,11 @@
 {
-  "artifact_hash": "9939b2c1c688139669a41050626f6e4d46e67cc203cc416821894ccdae2ce035",
+  "artifact_hash": "b4eb11ded031d0f3357408407ff2a632e5f0e99b2b85b27f6c5c28a5b51be262",
   "fake_closure_policy": "A demoted, future-research, blocked, or missing-evidence row cannot count as TOE closure.",
-  "generated_at": "2026-05-05T20:05:17Z",
-  "open_work_order_total": 27,
+  "generated_at": "2026-05-05T21:39:24Z",
+  "open_work_order_total": 15,
   "r017_promotion_allowed": false,
   "release_id": "oc_core_1_3_3",
   "rows": [
-    {
-      "blocks_r017": true,
-      "claim_effect": "AI claims remain bounded application/research claims until the lane passes.",
-      "closure_condition": "AI projection has PASS rows with theorem/proof or finite witnesses, evidence/simulation anchors, comparator baselines, falsifiers, and final TOE support allowed.",
-      "evidence_required": [
-        "claim_id",
-        "public_claim_scope",
-        "theorem_or_formal_boundary_refs",
-        "lean_refs",
-        "finite_case_refs",
-        "evidence_or_simulation_refs",
-        "comparator_refs",
-        "falsifier_refs",
-        "closure_verdict"
-      ],
-      "execution_command": [
-        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
-        "tools/oc133_toe_closure_factory.py",
-        "--execute",
-        "--write"
-      ],
-      "fake_closure_rejected": true,
-      "finding_class": "AI_DOMAIN_TOE_PROJECTION_LANE",
-      "repair_strategy": "Execute the AI projection capability lane: inventory AI claims from the canonical corpus, bind formal boundaries and finite witnesses, add benchmark/simulation evidence, comparator baselines, and falsifier rows, then rewrite ai.json only when all required refs exist.",
-      "required_capability": "Research/AIProjection",
-      "research_route": "AI domain claim graph -> formal boundary -> benchmark/simulation evidence -> comparator/falsifier row",
-      "root_cause_class": "MISSING_EXECUTABLE_AI_TOE_PROJECTION_SUPPORT",
-      "root_cause_evidence": [
-        "releases/oc_core_1_3/editorial/science_sources/toe_projection_lanes/ai.json::closure_verdict=FAIL_CLOSED",
-        "tools/oc133_toe_closure_factory.py::AI lane previously had no dedicated source-grounded capability"
-      ],
-      "severity": "HIGH",
-      "source_validator_message": "Final TOE projection validation failed: AI lane closure_verdict is not PASS",
-      "status": "OPEN",
-      "validator_binding": "tools/validate_oc_core_1_3_science_spot.py --require-final-toe-pass --require-cerberus-clean",
-      "why_it_failed": "The AI lane is present, but it contains bounded future-research rows rather than dedicated PASS-grade claim, formal-boundary, evidence/simulation, comparator, and falsifier bindings.",
-      "work_order_id": "R017-TOE-CLOSURE-001"
-    },
-    {
-      "blocks_r017": true,
-      "claim_effect": "AI claims remain bounded application/research claims until the lane passes.",
-      "closure_condition": "AI projection has PASS rows with theorem/proof or finite witnesses, evidence/simulation anchors, comparator baselines, falsifiers, and final TOE support allowed.",
-      "evidence_required": [
-        "claim_id",
-        "public_claim_scope",
-        "theorem_or_formal_boundary_refs",
-        "lean_refs",
-        "finite_case_refs",
-        "evidence_or_simulation_refs",
-        "comparator_refs",
-        "falsifier_refs",
-        "closure_verdict"
-      ],
-      "execution_command": [
-        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
-        "tools/oc133_toe_closure_factory.py",
-        "--execute",
-        "--write"
-      ],
-      "fake_closure_rejected": true,
-      "finding_class": "AI_DOMAIN_TOE_PROJECTION_LANE",
-      "repair_strategy": "Execute the AI projection capability lane: inventory AI claims from the canonical corpus, bind formal boundaries and finite witnesses, add benchmark/simulation evidence, comparator baselines, and falsifier rows, then rewrite ai.json only when all required refs exist.",
-      "required_capability": "Research/AIProjection",
-      "research_route": "AI domain claim graph -> formal boundary -> benchmark/simulation evidence -> comparator/falsifier row",
-      "root_cause_class": "MISSING_EXECUTABLE_AI_TOE_PROJECTION_SUPPORT",
-      "root_cause_evidence": [
-        "releases/oc_core_1_3/editorial/science_sources/toe_projection_lanes/ai.json::closure_verdict=FAIL_CLOSED",
-        "tools/oc133_toe_closure_factory.py::AI lane previously had no dedicated source-grounded capability"
-      ],
-      "severity": "HIGH",
-      "source_validator_message": "Final TOE projection validation failed: AI lane final_toe_support_allowed is not true",
-      "status": "OPEN",
-      "validator_binding": "tools/validate_oc_core_1_3_science_spot.py --require-final-toe-pass --require-cerberus-clean",
-      "why_it_failed": "The AI lane is present, but it contains bounded future-research rows rather than dedicated PASS-grade claim, formal-boundary, evidence/simulation, comparator, and falsifier bindings.",
-      "work_order_id": "R017-TOE-CLOSURE-002"
-    },
-    {
-      "blocks_r017": true,
-      "claim_effect": "AI claims remain bounded application/research claims until the lane passes.",
-      "closure_condition": "AI projection has PASS rows with theorem/proof or finite witnesses, evidence/simulation anchors, comparator baselines, falsifiers, and final TOE support allowed.",
-      "evidence_required": [
-        "claim_id",
-        "public_claim_scope",
-        "theorem_or_formal_boundary_refs",
-        "lean_refs",
-        "finite_case_refs",
-        "evidence_or_simulation_refs",
-        "comparator_refs",
-        "falsifier_refs",
-        "closure_verdict"
-      ],
-      "execution_command": [
-        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
-        "tools/oc133_toe_closure_factory.py",
-        "--execute",
-        "--write"
-      ],
-      "fake_closure_rejected": true,
-      "finding_class": "AI_DOMAIN_TOE_PROJECTION_LANE",
-      "repair_strategy": "Execute the AI projection capability lane: inventory AI claims from the canonical corpus, bind formal boundaries and finite witnesses, add benchmark/simulation evidence, comparator baselines, and falsifier rows, then rewrite ai.json only when all required refs exist.",
-      "required_capability": "Research/AIProjection",
-      "research_route": "AI domain claim graph -> formal boundary -> benchmark/simulation evidence -> comparator/falsifier row",
-      "root_cause_class": "MISSING_EXECUTABLE_AI_TOE_PROJECTION_SUPPORT",
-      "root_cause_evidence": [
-        "releases/oc_core_1_3/editorial/science_sources/toe_projection_lanes/ai.json::closure_verdict=FAIL_CLOSED",
-        "tools/oc133_toe_closure_factory.py::AI lane previously had no dedicated source-grounded capability"
-      ],
-      "severity": "HIGH",
-      "source_validator_message": "Final TOE projection validation failed: AI row 1 is missing lean_refs",
-      "status": "OPEN",
-      "validator_binding": "tools/validate_oc_core_1_3_science_spot.py --require-final-toe-pass --require-cerberus-clean",
-      "why_it_failed": "The AI lane is present, but it contains bounded future-research rows rather than dedicated PASS-grade claim, formal-boundary, evidence/simulation, comparator, and falsifier bindings.",
-      "work_order_id": "R017-TOE-CLOSURE-003"
-    },
-    {
-      "blocks_r017": true,
-      "claim_effect": "AI claims remain bounded application/research claims until the lane passes.",
-      "closure_condition": "AI projection has PASS rows with theorem/proof or finite witnesses, evidence/simulation anchors, comparator baselines, falsifiers, and final TOE support allowed.",
-      "evidence_required": [
-        "claim_id",
-        "public_claim_scope",
-        "theorem_or_formal_boundary_refs",
-        "lean_refs",
-        "finite_case_refs",
-        "evidence_or_simulation_refs",
-        "comparator_refs",
-        "falsifier_refs",
-        "closure_verdict"
-      ],
-      "execution_command": [
-        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
-        "tools/oc133_toe_closure_factory.py",
-        "--execute",
-        "--write"
-      ],
-      "fake_closure_rejected": true,
-      "finding_class": "AI_DOMAIN_TOE_PROJECTION_LANE",
-      "repair_strategy": "Execute the AI projection capability lane: inventory AI claims from the canonical corpus, bind formal boundaries and finite witnesses, add benchmark/simulation evidence, comparator baselines, and falsifier rows, then rewrite ai.json only when all required refs exist.",
-      "required_capability": "Research/AIProjection",
-      "research_route": "AI domain claim graph -> formal boundary -> benchmark/simulation evidence -> comparator/falsifier row",
-      "root_cause_class": "MISSING_EXECUTABLE_AI_TOE_PROJECTION_SUPPORT",
-      "root_cause_evidence": [
-        "releases/oc_core_1_3/editorial/science_sources/toe_projection_lanes/ai.json::closure_verdict=FAIL_CLOSED",
-        "tools/oc133_toe_closure_factory.py::AI lane previously had no dedicated source-grounded capability"
-      ],
-      "severity": "HIGH",
-      "source_validator_message": "Final TOE projection validation failed: AI row 1 is missing finite_case_refs",
-      "status": "OPEN",
-      "validator_binding": "tools/validate_oc_core_1_3_science_spot.py --require-final-toe-pass --require-cerberus-clean",
-      "why_it_failed": "The AI lane is present, but it contains bounded future-research rows rather than dedicated PASS-grade claim, formal-boundary, evidence/simulation, comparator, and falsifier bindings.",
-      "work_order_id": "R017-TOE-CLOSURE-004"
-    },
-    {
-      "blocks_r017": true,
-      "claim_effect": "AI claims remain bounded application/research claims until the lane passes.",
-      "closure_condition": "AI projection has PASS rows with theorem/proof or finite witnesses, evidence/simulation anchors, comparator baselines, falsifiers, and final TOE support allowed.",
-      "evidence_required": [
-        "claim_id",
-        "public_claim_scope",
-        "theorem_or_formal_boundary_refs",
-        "lean_refs",
-        "finite_case_refs",
-        "evidence_or_simulation_refs",
-        "comparator_refs",
-        "falsifier_refs",
-        "closure_verdict"
-      ],
-      "execution_command": [
-        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
-        "tools/oc133_toe_closure_factory.py",
-        "--execute",
-        "--write"
-      ],
-      "fake_closure_rejected": true,
-      "finding_class": "AI_DOMAIN_TOE_PROJECTION_LANE",
-      "repair_strategy": "Execute the AI projection capability lane: inventory AI claims from the canonical corpus, bind formal boundaries and finite witnesses, add benchmark/simulation evidence, comparator baselines, and falsifier rows, then rewrite ai.json only when all required refs exist.",
-      "required_capability": "Research/AIProjection",
-      "research_route": "AI domain claim graph -> formal boundary -> benchmark/simulation evidence -> comparator/falsifier row",
-      "root_cause_class": "MISSING_EXECUTABLE_AI_TOE_PROJECTION_SUPPORT",
-      "root_cause_evidence": [
-        "releases/oc_core_1_3/editorial/science_sources/toe_projection_lanes/ai.json::closure_verdict=FAIL_CLOSED",
-        "tools/oc133_toe_closure_factory.py::AI lane previously had no dedicated source-grounded capability"
-      ],
-      "severity": "HIGH",
-      "source_validator_message": "Final TOE projection validation failed: AI row 1 is not PASS",
-      "status": "OPEN",
-      "validator_binding": "tools/validate_oc_core_1_3_science_spot.py --require-final-toe-pass --require-cerberus-clean",
-      "why_it_failed": "The AI lane is present, but it contains bounded future-research rows rather than dedicated PASS-grade claim, formal-boundary, evidence/simulation, comparator, and falsifier bindings.",
-      "work_order_id": "R017-TOE-CLOSURE-005"
-    },
-    {
-      "blocks_r017": true,
-      "claim_effect": "AI claims remain bounded application/research claims until the lane passes.",
-      "closure_condition": "AI projection has PASS rows with theorem/proof or finite witnesses, evidence/simulation anchors, comparator baselines, falsifiers, and final TOE support allowed.",
-      "evidence_required": [
-        "claim_id",
-        "public_claim_scope",
-        "theorem_or_formal_boundary_refs",
-        "lean_refs",
-        "finite_case_refs",
-        "evidence_or_simulation_refs",
-        "comparator_refs",
-        "falsifier_refs",
-        "closure_verdict"
-      ],
-      "execution_command": [
-        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
-        "tools/oc133_toe_closure_factory.py",
-        "--execute",
-        "--write"
-      ],
-      "fake_closure_rejected": true,
-      "finding_class": "AI_DOMAIN_TOE_PROJECTION_LANE",
-      "repair_strategy": "Execute the AI projection capability lane: inventory AI claims from the canonical corpus, bind formal boundaries and finite witnesses, add benchmark/simulation evidence, comparator baselines, and falsifier rows, then rewrite ai.json only when all required refs exist.",
-      "required_capability": "Research/AIProjection",
-      "research_route": "AI domain claim graph -> formal boundary -> benchmark/simulation evidence -> comparator/falsifier row",
-      "root_cause_class": "MISSING_EXECUTABLE_AI_TOE_PROJECTION_SUPPORT",
-      "root_cause_evidence": [
-        "releases/oc_core_1_3/editorial/science_sources/toe_projection_lanes/ai.json::closure_verdict=FAIL_CLOSED",
-        "tools/oc133_toe_closure_factory.py::AI lane previously had no dedicated source-grounded capability"
-      ],
-      "severity": "HIGH",
-      "source_validator_message": "Final TOE projection validation failed: AI row 1 is blocker/future-research/demoted scope",
-      "status": "OPEN",
-      "validator_binding": "tools/validate_oc_core_1_3_science_spot.py --require-final-toe-pass --require-cerberus-clean",
-      "why_it_failed": "The AI lane is present, but it contains bounded future-research rows rather than dedicated PASS-grade claim, formal-boundary, evidence/simulation, comparator, and falsifier bindings.",
-      "work_order_id": "R017-TOE-CLOSURE-006"
-    },
-    {
-      "blocks_r017": true,
-      "claim_effect": "EA claims remain bounded application/research claims until the lane passes.",
-      "closure_condition": "EA projection has PASS rows with operational metrics, case anchors, comparator alternatives, falsifiers, and final TOE support allowed.",
-      "evidence_required": [
-        "claim_id",
-        "public_claim_scope",
-        "theorem_or_formal_boundary_refs",
-        "lean_refs",
-        "finite_case_refs",
-        "evidence_or_simulation_refs",
-        "comparator_refs",
-        "falsifier_refs",
-        "closure_verdict"
-      ],
-      "execution_command": [
-        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
-        "tools/oc133_toe_closure_factory.py",
-        "--execute",
-        "--write"
-      ],
-      "fake_closure_rejected": true,
-      "finding_class": "ENTERPRISE_ARCHITECTURE_DOMAIN_TOE_PROJECTION_LANE",
-      "repair_strategy": "Execute the EA projection capability lane: inventory EA claims from the canonical corpus, bind architecture cases and operational metrics, add comparator alternatives and falsifiers, then rewrite enterprise_architecture.json only when all required refs exist.",
-      "required_capability": "Research/EnterpriseArchitectureProjection",
-      "research_route": "EA domain claim graph -> architecture cases -> operational metrics -> comparator/falsifier row",
-      "root_cause_class": "MISSING_EXECUTABLE_EA_TOE_PROJECTION_SUPPORT",
-      "root_cause_evidence": [
-        "releases/oc_core_1_3/editorial/science_sources/toe_projection_lanes/enterprise_architecture.json::closure_verdict=FAIL_CLOSED",
-        "tools/oc133_toe_closure_factory.py::EA lane previously had no dedicated source-grounded capability"
-      ],
-      "severity": "HIGH",
-      "source_validator_message": "Final TOE projection validation failed: ENTERPRISE_ARCHITECTURE lane closure_verdict is not PASS",
-      "status": "OPEN",
-      "validator_binding": "tools/validate_oc_core_1_3_science_spot.py --require-final-toe-pass --require-cerberus-clean",
-      "why_it_failed": "The EA lane is present, but it contains bounded future-research rows rather than dedicated PASS-grade architecture cases, operational metrics, comparator alternatives, and falsifier bindings.",
-      "work_order_id": "R017-TOE-CLOSURE-007"
-    },
-    {
-      "blocks_r017": true,
-      "claim_effect": "EA claims remain bounded application/research claims until the lane passes.",
-      "closure_condition": "EA projection has PASS rows with operational metrics, case anchors, comparator alternatives, falsifiers, and final TOE support allowed.",
-      "evidence_required": [
-        "claim_id",
-        "public_claim_scope",
-        "theorem_or_formal_boundary_refs",
-        "lean_refs",
-        "finite_case_refs",
-        "evidence_or_simulation_refs",
-        "comparator_refs",
-        "falsifier_refs",
-        "closure_verdict"
-      ],
-      "execution_command": [
-        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
-        "tools/oc133_toe_closure_factory.py",
-        "--execute",
-        "--write"
-      ],
-      "fake_closure_rejected": true,
-      "finding_class": "ENTERPRISE_ARCHITECTURE_DOMAIN_TOE_PROJECTION_LANE",
-      "repair_strategy": "Execute the EA projection capability lane: inventory EA claims from the canonical corpus, bind architecture cases and operational metrics, add comparator alternatives and falsifiers, then rewrite enterprise_architecture.json only when all required refs exist.",
-      "required_capability": "Research/EnterpriseArchitectureProjection",
-      "research_route": "EA domain claim graph -> architecture cases -> operational metrics -> comparator/falsifier row",
-      "root_cause_class": "MISSING_EXECUTABLE_EA_TOE_PROJECTION_SUPPORT",
-      "root_cause_evidence": [
-        "releases/oc_core_1_3/editorial/science_sources/toe_projection_lanes/enterprise_architecture.json::closure_verdict=FAIL_CLOSED",
-        "tools/oc133_toe_closure_factory.py::EA lane previously had no dedicated source-grounded capability"
-      ],
-      "severity": "HIGH",
-      "source_validator_message": "Final TOE projection validation failed: ENTERPRISE_ARCHITECTURE lane final_toe_support_allowed is not true",
-      "status": "OPEN",
-      "validator_binding": "tools/validate_oc_core_1_3_science_spot.py --require-final-toe-pass --require-cerberus-clean",
-      "why_it_failed": "The EA lane is present, but it contains bounded future-research rows rather than dedicated PASS-grade architecture cases, operational metrics, comparator alternatives, and falsifier bindings.",
-      "work_order_id": "R017-TOE-CLOSURE-008"
-    },
-    {
-      "blocks_r017": true,
-      "claim_effect": "EA claims remain bounded application/research claims until the lane passes.",
-      "closure_condition": "EA projection has PASS rows with operational metrics, case anchors, comparator alternatives, falsifiers, and final TOE support allowed.",
-      "evidence_required": [
-        "claim_id",
-        "public_claim_scope",
-        "theorem_or_formal_boundary_refs",
-        "lean_refs",
-        "finite_case_refs",
-        "evidence_or_simulation_refs",
-        "comparator_refs",
-        "falsifier_refs",
-        "closure_verdict"
-      ],
-      "execution_command": [
-        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
-        "tools/oc133_toe_closure_factory.py",
-        "--execute",
-        "--write"
-      ],
-      "fake_closure_rejected": true,
-      "finding_class": "ENTERPRISE_ARCHITECTURE_DOMAIN_TOE_PROJECTION_LANE",
-      "repair_strategy": "Execute the EA projection capability lane: inventory EA claims from the canonical corpus, bind architecture cases and operational metrics, add comparator alternatives and falsifiers, then rewrite enterprise_architecture.json only when all required refs exist.",
-      "required_capability": "Research/EnterpriseArchitectureProjection",
-      "research_route": "EA domain claim graph -> architecture cases -> operational metrics -> comparator/falsifier row",
-      "root_cause_class": "MISSING_EXECUTABLE_EA_TOE_PROJECTION_SUPPORT",
-      "root_cause_evidence": [
-        "releases/oc_core_1_3/editorial/science_sources/toe_projection_lanes/enterprise_architecture.json::closure_verdict=FAIL_CLOSED",
-        "tools/oc133_toe_closure_factory.py::EA lane previously had no dedicated source-grounded capability"
-      ],
-      "severity": "HIGH",
-      "source_validator_message": "Final TOE projection validation failed: ENTERPRISE_ARCHITECTURE row 1 is missing lean_refs",
-      "status": "OPEN",
-      "validator_binding": "tools/validate_oc_core_1_3_science_spot.py --require-final-toe-pass --require-cerberus-clean",
-      "why_it_failed": "The EA lane is present, but it contains bounded future-research rows rather than dedicated PASS-grade architecture cases, operational metrics, comparator alternatives, and falsifier bindings.",
-      "work_order_id": "R017-TOE-CLOSURE-009"
-    },
-    {
-      "blocks_r017": true,
-      "claim_effect": "EA claims remain bounded application/research claims until the lane passes.",
-      "closure_condition": "EA projection has PASS rows with operational metrics, case anchors, comparator alternatives, falsifiers, and final TOE support allowed.",
-      "evidence_required": [
-        "claim_id",
-        "public_claim_scope",
-        "theorem_or_formal_boundary_refs",
-        "lean_refs",
-        "finite_case_refs",
-        "evidence_or_simulation_refs",
-        "comparator_refs",
-        "falsifier_refs",
-        "closure_verdict"
-      ],
-      "execution_command": [
-        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
-        "tools/oc133_toe_closure_factory.py",
-        "--execute",
-        "--write"
-      ],
-      "fake_closure_rejected": true,
-      "finding_class": "ENTERPRISE_ARCHITECTURE_DOMAIN_TOE_PROJECTION_LANE",
-      "repair_strategy": "Execute the EA projection capability lane: inventory EA claims from the canonical corpus, bind architecture cases and operational metrics, add comparator alternatives and falsifiers, then rewrite enterprise_architecture.json only when all required refs exist.",
-      "required_capability": "Research/EnterpriseArchitectureProjection",
-      "research_route": "EA domain claim graph -> architecture cases -> operational metrics -> comparator/falsifier row",
-      "root_cause_class": "MISSING_EXECUTABLE_EA_TOE_PROJECTION_SUPPORT",
-      "root_cause_evidence": [
-        "releases/oc_core_1_3/editorial/science_sources/toe_projection_lanes/enterprise_architecture.json::closure_verdict=FAIL_CLOSED",
-        "tools/oc133_toe_closure_factory.py::EA lane previously had no dedicated source-grounded capability"
-      ],
-      "severity": "HIGH",
-      "source_validator_message": "Final TOE projection validation failed: ENTERPRISE_ARCHITECTURE row 1 is missing finite_case_refs",
-      "status": "OPEN",
-      "validator_binding": "tools/validate_oc_core_1_3_science_spot.py --require-final-toe-pass --require-cerberus-clean",
-      "why_it_failed": "The EA lane is present, but it contains bounded future-research rows rather than dedicated PASS-grade architecture cases, operational metrics, comparator alternatives, and falsifier bindings.",
-      "work_order_id": "R017-TOE-CLOSURE-010"
-    },
-    {
-      "blocks_r017": true,
-      "claim_effect": "EA claims remain bounded application/research claims until the lane passes.",
-      "closure_condition": "EA projection has PASS rows with operational metrics, case anchors, comparator alternatives, falsifiers, and final TOE support allowed.",
-      "evidence_required": [
-        "claim_id",
-        "public_claim_scope",
-        "theorem_or_formal_boundary_refs",
-        "lean_refs",
-        "finite_case_refs",
-        "evidence_or_simulation_refs",
-        "comparator_refs",
-        "falsifier_refs",
-        "closure_verdict"
-      ],
-      "execution_command": [
-        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
-        "tools/oc133_toe_closure_factory.py",
-        "--execute",
-        "--write"
-      ],
-      "fake_closure_rejected": true,
-      "finding_class": "ENTERPRISE_ARCHITECTURE_DOMAIN_TOE_PROJECTION_LANE",
-      "repair_strategy": "Execute the EA projection capability lane: inventory EA claims from the canonical corpus, bind architecture cases and operational metrics, add comparator alternatives and falsifiers, then rewrite enterprise_architecture.json only when all required refs exist.",
-      "required_capability": "Research/EnterpriseArchitectureProjection",
-      "research_route": "EA domain claim graph -> architecture cases -> operational metrics -> comparator/falsifier row",
-      "root_cause_class": "MISSING_EXECUTABLE_EA_TOE_PROJECTION_SUPPORT",
-      "root_cause_evidence": [
-        "releases/oc_core_1_3/editorial/science_sources/toe_projection_lanes/enterprise_architecture.json::closure_verdict=FAIL_CLOSED",
-        "tools/oc133_toe_closure_factory.py::EA lane previously had no dedicated source-grounded capability"
-      ],
-      "severity": "HIGH",
-      "source_validator_message": "Final TOE projection validation failed: ENTERPRISE_ARCHITECTURE row 1 is not PASS",
-      "status": "OPEN",
-      "validator_binding": "tools/validate_oc_core_1_3_science_spot.py --require-final-toe-pass --require-cerberus-clean",
-      "why_it_failed": "The EA lane is present, but it contains bounded future-research rows rather than dedicated PASS-grade architecture cases, operational metrics, comparator alternatives, and falsifier bindings.",
-      "work_order_id": "R017-TOE-CLOSURE-011"
-    },
-    {
-      "blocks_r017": true,
-      "claim_effect": "EA claims remain bounded application/research claims until the lane passes.",
-      "closure_condition": "EA projection has PASS rows with operational metrics, case anchors, comparator alternatives, falsifiers, and final TOE support allowed.",
-      "evidence_required": [
-        "claim_id",
-        "public_claim_scope",
-        "theorem_or_formal_boundary_refs",
-        "lean_refs",
-        "finite_case_refs",
-        "evidence_or_simulation_refs",
-        "comparator_refs",
-        "falsifier_refs",
-        "closure_verdict"
-      ],
-      "execution_command": [
-        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
-        "tools/oc133_toe_closure_factory.py",
-        "--execute",
-        "--write"
-      ],
-      "fake_closure_rejected": true,
-      "finding_class": "ENTERPRISE_ARCHITECTURE_DOMAIN_TOE_PROJECTION_LANE",
-      "repair_strategy": "Execute the EA projection capability lane: inventory EA claims from the canonical corpus, bind architecture cases and operational metrics, add comparator alternatives and falsifiers, then rewrite enterprise_architecture.json only when all required refs exist.",
-      "required_capability": "Research/EnterpriseArchitectureProjection",
-      "research_route": "EA domain claim graph -> architecture cases -> operational metrics -> comparator/falsifier row",
-      "root_cause_class": "MISSING_EXECUTABLE_EA_TOE_PROJECTION_SUPPORT",
-      "root_cause_evidence": [
-        "releases/oc_core_1_3/editorial/science_sources/toe_projection_lanes/enterprise_architecture.json::closure_verdict=FAIL_CLOSED",
-        "tools/oc133_toe_closure_factory.py::EA lane previously had no dedicated source-grounded capability"
-      ],
-      "severity": "HIGH",
-      "source_validator_message": "Final TOE projection validation failed: ENTERPRISE_ARCHITECTURE row 1 is blocker/future-research/demoted scope",
-      "status": "OPEN",
-      "validator_binding": "tools/validate_oc_core_1_3_science_spot.py --require-final-toe-pass --require-cerberus-clean",
-      "why_it_failed": "The EA lane is present, but it contains bounded future-research rows rather than dedicated PASS-grade architecture cases, operational metrics, comparator alternatives, and falsifier bindings.",
-      "work_order_id": "R017-TOE-CLOSURE-012"
-    },
     {
       "blocks_r017": true,
       "claim_effect": "All-domain readiness remains false until the blockers are closed.",
@@ -497,7 +41,7 @@
       "status": "OPEN",
       "validator_binding": "tools/validate_oc_core_1_3_science_spot.py --require-final-toe-pass --require-cerberus-clean",
       "why_it_failed": "The all-domain readiness flag is downstream of AI, EA, grand promotion, comparator, and Cerberus gates; it cannot turn green while any parent lane remains red.",
-      "work_order_id": "R017-TOE-CLOSURE-013"
+      "work_order_id": "R017-TOE-CLOSURE-001"
     },
     {
       "blocks_r017": true,
@@ -536,7 +80,7 @@
       "status": "OPEN",
       "validator_binding": "tools/validate_oc_core_1_3_science_spot.py --require-final-toe-pass --require-cerberus-clean",
       "why_it_failed": "The grand TOE promotion contract is blocked by missing dedicated promoted-claim evidence, comparator superiority, empirical superiority, and finite model failures.",
-      "work_order_id": "R017-TOE-CLOSURE-014"
+      "work_order_id": "R017-TOE-CLOSURE-002"
     },
     {
       "blocks_r017": true,
@@ -575,7 +119,7 @@
       "status": "OPEN",
       "validator_binding": "tools/validate_oc_core_1_3_science_spot.py --require-final-toe-pass --require-cerberus-clean",
       "why_it_failed": "The grand TOE promotion contract is blocked by missing dedicated promoted-claim evidence, comparator superiority, empirical superiority, and finite model failures.",
-      "work_order_id": "R017-TOE-CLOSURE-015"
+      "work_order_id": "R017-TOE-CLOSURE-003"
     },
     {
       "blocks_r017": true,
@@ -613,7 +157,7 @@
       "status": "OPEN",
       "validator_binding": "tools/validate_oc_core_1_3_science_spot.py --require-final-toe-pass --require-cerberus-clean",
       "why_it_failed": "The current comparator evidence certifies only benchmark-scoped superiority; broad modern-science superiority is blocked by uncovered domains and missing source-backed comparator predicates.",
-      "work_order_id": "R017-TOE-CLOSURE-016"
+      "work_order_id": "R017-TOE-CLOSURE-004"
     },
     {
       "blocks_r017": true,
@@ -651,7 +195,7 @@
       "status": "OPEN",
       "validator_binding": "tools/validate_oc_core_1_3_science_spot.py --require-final-toe-pass --require-cerberus-clean",
       "why_it_failed": "The current comparator evidence certifies only benchmark-scoped superiority; broad modern-science superiority is blocked by uncovered domains and missing source-backed comparator predicates.",
-      "work_order_id": "R017-TOE-CLOSURE-017"
+      "work_order_id": "R017-TOE-CLOSURE-005"
     },
     {
       "blocks_r017": true,
@@ -689,7 +233,7 @@
       "status": "OPEN",
       "validator_binding": "tools/validate_oc_core_1_3_science_spot.py --require-final-toe-pass --require-cerberus-clean",
       "why_it_failed": "Cerberus targets/run/acceptance fingerprints or open findings do not bind cleanly to the current repository state.",
-      "work_order_id": "R017-TOE-CLOSURE-018"
+      "work_order_id": "R017-TOE-CLOSURE-006"
     },
     {
       "blocks_r017": true,
@@ -727,7 +271,7 @@
       "status": "OPEN",
       "validator_binding": "tools/validate_oc_core_1_3_science_spot.py --require-final-toe-pass --require-cerberus-clean",
       "why_it_failed": "Cerberus targets/run/acceptance fingerprints or open findings do not bind cleanly to the current repository state.",
-      "work_order_id": "R017-TOE-CLOSURE-019"
+      "work_order_id": "R017-TOE-CLOSURE-007"
     },
     {
       "blocks_r017": true,
@@ -765,7 +309,7 @@
       "status": "OPEN",
       "validator_binding": "tools/validate_oc_core_1_3_science_spot.py --require-final-toe-pass --require-cerberus-clean",
       "why_it_failed": "Cerberus targets/run/acceptance fingerprints or open findings do not bind cleanly to the current repository state.",
-      "work_order_id": "R017-TOE-CLOSURE-020"
+      "work_order_id": "R017-TOE-CLOSURE-008"
     },
     {
       "blocks_r017": true,
@@ -803,7 +347,7 @@
       "status": "OPEN",
       "validator_binding": "tools/validate_oc_core_1_3_science_spot.py --require-final-toe-pass --require-cerberus-clean",
       "why_it_failed": "Cerberus targets/run/acceptance fingerprints or open findings do not bind cleanly to the current repository state.",
-      "work_order_id": "R017-TOE-CLOSURE-021"
+      "work_order_id": "R017-TOE-CLOSURE-009"
     },
     {
       "blocks_r017": true,
@@ -841,7 +385,7 @@
       "status": "OPEN",
       "validator_binding": "tools/validate_oc_core_1_3_science_spot.py --require-final-toe-pass --require-cerberus-clean",
       "why_it_failed": "Cerberus targets/run/acceptance fingerprints or open findings do not bind cleanly to the current repository state.",
-      "work_order_id": "R017-TOE-CLOSURE-022"
+      "work_order_id": "R017-TOE-CLOSURE-010"
     },
     {
       "blocks_r017": true,
@@ -879,7 +423,7 @@
       "status": "OPEN",
       "validator_binding": "tools/validate_oc_core_1_3_science_spot.py --require-final-toe-pass --require-cerberus-clean",
       "why_it_failed": "Cerberus targets/run/acceptance fingerprints or open findings do not bind cleanly to the current repository state.",
-      "work_order_id": "R017-TOE-CLOSURE-023"
+      "work_order_id": "R017-TOE-CLOSURE-011"
     },
     {
       "blocks_r017": true,
@@ -917,7 +461,7 @@
       "status": "OPEN",
       "validator_binding": "tools/validate_oc_core_1_3_science_spot.py --require-final-toe-pass --require-cerberus-clean",
       "why_it_failed": "Cerberus targets/run/acceptance fingerprints or open findings do not bind cleanly to the current repository state.",
-      "work_order_id": "R017-TOE-CLOSURE-024"
+      "work_order_id": "R017-TOE-CLOSURE-012"
     },
     {
       "blocks_r017": true,
@@ -955,7 +499,7 @@
       "status": "OPEN",
       "validator_binding": "tools/validate_oc_core_1_3_science_spot.py --require-final-toe-pass --require-cerberus-clean",
       "why_it_failed": "Cerberus targets/run/acceptance fingerprints or open findings do not bind cleanly to the current repository state.",
-      "work_order_id": "R017-TOE-CLOSURE-025"
+      "work_order_id": "R017-TOE-CLOSURE-013"
     },
     {
       "blocks_r017": true,
@@ -994,7 +538,7 @@
       "status": "OPEN",
       "validator_binding": "validate_final_toe_projection_lanes",
       "why_it_failed": "The AI lane is present, but it contains bounded future-research rows rather than dedicated PASS-grade claim, formal-boundary, evidence/simulation, comparator, and falsifier bindings.",
-      "work_order_id": "R017-TOE-LANE-AI-026"
+      "work_order_id": "R017-TOE-LANE-AI-014"
     },
     {
       "blocks_r017": true,
@@ -1033,12 +577,12 @@
       "status": "OPEN",
       "validator_binding": "validate_final_toe_projection_lanes",
       "why_it_failed": "The EA lane is present, but it contains bounded future-research rows rather than dedicated PASS-grade architecture cases, operational metrics, comparator alternatives, and falsifier bindings.",
-      "work_order_id": "R017-TOE-LANE-ENTERPRISE_ARCHITECTURE-027"
+      "work_order_id": "R017-TOE-LANE-ENTERPRISE_ARCHITECTURE-015"
     }
   ],
   "schema_id": "OC133_TOE_CLOSURE_OBLIGATIONS_v1",
   "status": "OPEN",
-  "validator_error_total": 25,
+  "validator_error_total": 13,
   "version": "1.3.3",
-  "work_order_total": 27
+  "work_order_total": 15
 }

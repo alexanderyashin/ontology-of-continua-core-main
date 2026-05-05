@@ -1,7 +1,84 @@
 {
-  "artifact_hash": "9f5cd8225ab75b3dcd223876ea55d51cd61a8d81557d2a6c4790ff17a1987f06",
-  "candidate_rows": [],
-  "candidate_total": 0,
+  "artifact_hash": "4ca41eb9363826f6e8ae1b4d776321a03931065fd882b42238913f1f6a3dbca9",
+  "candidate_rows": [
+    {
+      "claim_id": "T133-HYBRID",
+      "closure_verdict": "PASS",
+      "comparator_refs": [
+        "comparators/OC_1_3_3_MODERN_SCIENCE_SUPERIORITY_REGISTER.json"
+      ],
+      "domain_projection_boundary": "This row may close the projection-lane support gate only as a bounded formal projection. It does not close broad modern-science superiority or the promoted grand TOE claim.",
+      "evidence_or_simulation_refs": [
+        "proofs/proof_sheets/T133-HYBRID.md",
+        "reports/OC_CORE_1_3_3_GRAND_EMPIRICAL_REPORT.json",
+        "validation/heldout/grand_science_evidence_registry.json"
+      ],
+      "falsifier_refs": [
+        "validation/target_blind/OC133_TARGET_BLIND_PREDICTION_TABLE.json"
+      ],
+      "finite_case_refs": [
+        "FM-T133-HYBRID-GUARD-MISSING-NEG",
+        "FM-T133-HYBRID-GUARD-NONBOOLEAN-NEG",
+        "FM-T133-HYBRID-GUARD-VALUE-MISMATCH-NEG",
+        "FM-T133-HYBRID-NEG",
+        "FM-T133-HYBRID-NO-GUARD-STEP-NEG",
+        "FM-T133-HYBRID-NO-GUARD-STEP-POS",
+        "FM-T133-HYBRID-POS",
+        "FM-T133-HYBRID-PROOF-NO-RULE-NEG",
+        "FM-T133-HYBRID-PROOF-UPDATE-NEG",
+        "FM-T133-HYBRID-PROOF-UPDATE-POS",
+        "FM-T133-HYBRID-RESET-SOURCE-MODE-NEG",
+        "FM-T133-HYBRID-RESET-TARGET-MODE-NEG",
+        "FM-T133-HYBRID-SMOOTH-CHART-NEG",
+        "FM-T133-HYBRID-SMOOTH-CHART-POS",
+        "FM-T133-HYBRID-SMOOTH-LOCAL-LAW-NEG"
+      ],
+      "lean_refs": [
+        "formal/lean/OC133V12.lean::integrated_operator_semantics"
+      ],
+      "projection_id": "OC133-FINAL-TOE-AI-THEOREM-NATIVE-001",
+      "public_claim_scope": "Bounded AI and agentic-system projection: an AI workflow is inside the OC formal projection only when its inference, planning, or tool-use step is represented as a declared typed update route with explicit source and target state types, admissible operator obligations, evidence rows, comparator baselines, and falsifier conditions.",
+      "source_candidate_kind": "DETERMINISTIC_THEOREM_NATIVE_DOMAIN_PROJECTION_TEMPLATE",
+      "source_claim_public_status": "PROMOTED_BOUNDED_NO_SEND_V12",
+      "source_json_path": "$.projection_templates.AI",
+      "source_note": "This is a domain-projection boundary claim, not an unrestricted assertion that OC solves all AI evaluation, agent control, or machine-learning generalization problems. It binds the lane to the existing typed-operator theorem and finite witnesses only.",
+      "source_refs": [
+        "claims/CLAIM_LEDGER_1_3_3.json",
+        "proofs/THEOREM_REGISTRY_1_3_3.json",
+        "proofs/FINITE_MODEL_CHECKS_1_3_3.json"
+      ],
+      "support_checks": {
+        "claim_id_present": true,
+        "claim_not_blocker": true,
+        "comparator_refs_exist": true,
+        "evidence_refs_exist": true,
+        "falsifier_refs_exist": true,
+        "finite_case_refs_present": true,
+        "formal_refs_exist": true,
+        "lean_refs_exist": true,
+        "public_claim_scope_present": true
+      },
+      "template_support_policy": "THEOREM_NATIVE_DOMAIN_PROJECTION_ONLY",
+      "theorem_or_formal_boundary_refs": [
+        "content/OC_1_3_3_OPERATOR_SEMANTICS.tex",
+        "proofs/proof_sheets/T133-HYBRID.md"
+      ]
+    }
+  ],
+  "candidate_total": 1,
+  "deterministic_projection_template_enabled": true,
+  "deterministic_projection_template_support_checks": {
+    "claim_id_present": true,
+    "claim_not_blocker": true,
+    "comparator_refs_exist": true,
+    "evidence_refs_exist": true,
+    "falsifier_refs_exist": true,
+    "finite_case_refs_present": true,
+    "formal_refs_exist": true,
+    "lean_refs_exist": true,
+    "public_claim_scope_present": true
+  },
+  "deterministic_projection_template_theorem_id": "T133-HYBRID",
   "execution_command": [
     "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
     "tools/oc133_toe_closure_factory.py",
@@ -104,6 +181,6 @@
   ],
   "schema_id": "OC133_TOE_PROJECTION_SOURCE_MINING_REPORT_v1",
   "source_ref_total": 9,
-  "status": "SOURCE_GAP_OPEN",
-  "why_it_failed": "No canonical non-blocker projection row has complete claim/formal/Lean/finite/evidence/comparator/falsifier support."
+  "status": "PASS",
+  "why_it_failed": "At least one fully supported projection row is available."
 }

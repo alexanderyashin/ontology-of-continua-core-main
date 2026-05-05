@@ -1,690 +1,18 @@
 {
-  "action_total": 55,
-  "artifact_hash": "cd8514f99b25b0e3edc5ae01746da8839f366374d39fa4bfa98888d522141c35",
-  "blocking_graph_frontier_hash": "6a6b046e2cf605dec8d4bbe88437d6a57a7aef00189bcea7de28336b5782c5dc",
+  "action_total": 45,
+  "artifact_hash": "1660757d9def09c72bd848a10311052d6d40a072c0db5fc8104667db0d160dae",
+  "blocking_graph_frontier_hash": "0636ac385e084064edef10d1a09c9729c8bee0c8e626f3660fcb15f70c31cfd4",
   "blocking_graph_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/OC133_TOE_BLOCKING_GRAPH.json",
   "cerberus_error_total": 8,
-  "executable_action_total": 43,
-  "frontier_hash": "bbf0197d69bd90939d683525326901acf82cc6d53ff97de2aa09ae0e831c7240",
-  "generated_at": "2026-05-05T21:07:40Z",
-  "graph_candidate_node_total": 308,
+  "executable_action_total": 36,
+  "frontier_hash": "632ddf9bd86533cf0263b3665f34815254d63b53551396a7e842d5bb616569cb",
+  "generated_at": "2026-05-05T21:29:25Z",
+  "graph_candidate_node_total": 290,
   "planner_mode": "GRAPH_RESOLVER",
   "rows": [
     {
-      "action_id": "AUTO-R017-AI-SOURCE-INTAKE-SOURCE_DISCOVERY-001",
-      "already_attempted_on_frontier": true,
-      "execution_command": [
-        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
-        "tools/oc133_toe_closure_factory.py",
-        "--execute-source-intake-work-order",
-        "R017-AI-SOURCE-INTAKE-SOURCE_DISCOVERY-001",
-        "--write"
-      ],
-      "executor_type": "source_intake_work_order",
-      "frontier_signature": "bbf0197d69bd90939d683525326901acf82cc6d53ff97de2aa09ae0e831c7240::AUTO-R017-AI-SOURCE-INTAKE-SOURCE_DISCOVERY-001",
-      "graph_dependency_path": [
-        "required_artifact:AI:source_grounded_non_blocker_candidate",
-        "capability:AUTO-R017-AI-SOURCE-INTAKE-SOURCE_DISCOVERY-001"
-      ],
-      "graph_node_id": "required_artifact:AI:source_grounded_non_blocker_candidate",
-      "graph_node_type": "required_artifact",
-      "graph_priority": [
-        10,
-        10,
-        10,
-        "required_artifact:AI:source_grounded_non_blocker_candidate"
-      ],
-      "lane_id": "AI",
-      "missing_support_key": "source_mined_candidate_available",
-      "next_escalation": "This exact action has already been tried on this semantic frontier; create a narrower capability work order instead of rerunning it.",
-      "pass_predicate": "The referenced lane disappears from strict TOE validator errors without weakening gates.",
-      "planner_mode": "GRAPH_RESOLVER",
-      "repair_strategy": "Execute this action, sync SPOT/projections, rerun validators, and keep r017 blocked unless the strict terminal gate passes.",
-      "required_artifact": "source_grounded_non_blocker_candidate",
-      "required_capability": "Research/AIProjection",
-      "selected_for_execution": false,
-      "source_ref": null,
-      "status": "CAPABILITY_ESCALATION_REQUIRED",
-      "validator_binding": "support_artifact::AI::source_grounded_non_blocker_candidate",
-      "why_it_failed": "The strict final TOE validator still reports this lane as open.",
-      "work_order_id": "R017-AI-SOURCE-INTAKE-SOURCE_DISCOVERY-001"
-    },
-    {
-      "action_id": "AUTO-R017-AI-SOURCE-INTAKE-CLAIM_SCOPE-002",
-      "already_attempted_on_frontier": true,
-      "execution_command": [
-        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
-        "tools/oc133_toe_closure_factory.py",
-        "--execute-source-intake-work-order",
-        "R017-AI-SOURCE-INTAKE-CLAIM_SCOPE-002",
-        "--write"
-      ],
-      "executor_type": "source_intake_work_order",
-      "frontier_signature": "bbf0197d69bd90939d683525326901acf82cc6d53ff97de2aa09ae0e831c7240::AUTO-R017-AI-SOURCE-INTAKE-CLAIM_SCOPE-002",
-      "graph_dependency_path": [
-        "required_artifact:AI:non_blocker_public_claim_scope",
-        "capability:AUTO-R017-AI-SOURCE-INTAKE-CLAIM_SCOPE-002"
-      ],
-      "graph_node_id": "required_artifact:AI:non_blocker_public_claim_scope",
-      "graph_node_type": "required_artifact",
-      "graph_priority": [
-        10,
-        10,
-        20,
-        "required_artifact:AI:non_blocker_public_claim_scope"
-      ],
-      "lane_id": "AI",
-      "missing_support_key": "claim_not_blocker",
-      "next_escalation": "This exact action has already been tried on this semantic frontier; create a narrower capability work order instead of rerunning it.",
-      "pass_predicate": "The referenced lane disappears from strict TOE validator errors without weakening gates.",
-      "planner_mode": "GRAPH_RESOLVER",
-      "repair_strategy": "Execute this action, sync SPOT/projections, rerun validators, and keep r017 blocked unless the strict terminal gate passes.",
-      "required_artifact": "non_blocker_public_claim_scope",
-      "required_capability": "Research/AIProjection",
-      "selected_for_execution": false,
-      "source_ref": null,
-      "status": "CAPABILITY_ESCALATION_REQUIRED",
-      "validator_binding": "support_artifact::AI::non_blocker_public_claim_scope",
-      "why_it_failed": "The strict final TOE validator still reports this lane as open.",
-      "work_order_id": "R017-AI-SOURCE-INTAKE-CLAIM_SCOPE-002"
-    },
-    {
-      "action_id": "AUTO-R017-AI-SOURCE-INTAKE-LEAN_BINDING-003",
-      "already_attempted_on_frontier": true,
-      "execution_command": [
-        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
-        "tools/oc133_toe_closure_factory.py",
-        "--execute-source-intake-work-order",
-        "R017-AI-SOURCE-INTAKE-LEAN_BINDING-003",
-        "--write"
-      ],
-      "executor_type": "source_intake_work_order",
-      "frontier_signature": "bbf0197d69bd90939d683525326901acf82cc6d53ff97de2aa09ae0e831c7240::AUTO-R017-AI-SOURCE-INTAKE-LEAN_BINDING-003",
-      "graph_dependency_path": [
-        "required_artifact:AI:lean_refs",
-        "capability:AUTO-R017-AI-SOURCE-INTAKE-LEAN_BINDING-003"
-      ],
-      "graph_node_id": "required_artifact:AI:lean_refs",
-      "graph_node_type": "required_artifact",
-      "graph_priority": [
-        10,
-        10,
-        30,
-        "required_artifact:AI:lean_refs"
-      ],
-      "lane_id": "AI",
-      "missing_support_key": "lean_refs_exist",
-      "next_escalation": "This exact action has already been tried on this semantic frontier; create a narrower capability work order instead of rerunning it.",
-      "pass_predicate": "The referenced lane disappears from strict TOE validator errors without weakening gates.",
-      "planner_mode": "GRAPH_RESOLVER",
-      "repair_strategy": "Execute this action, sync SPOT/projections, rerun validators, and keep r017 blocked unless the strict terminal gate passes.",
-      "required_artifact": "lean_refs",
-      "required_capability": "Research/AIProjection",
-      "selected_for_execution": false,
-      "source_ref": null,
-      "status": "CAPABILITY_ESCALATION_REQUIRED",
-      "validator_binding": "support_artifact::AI::lean_refs",
-      "why_it_failed": "The strict final TOE validator still reports this lane as open.",
-      "work_order_id": "R017-AI-SOURCE-INTAKE-LEAN_BINDING-003"
-    },
-    {
-      "action_id": "AUTO-R017-AI-SOURCE-INTAKE-FINITE_CASE_BINDING-004",
-      "already_attempted_on_frontier": true,
-      "execution_command": [
-        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
-        "tools/oc133_toe_closure_factory.py",
-        "--execute-source-intake-work-order",
-        "R017-AI-SOURCE-INTAKE-FINITE_CASE_BINDING-004",
-        "--write"
-      ],
-      "executor_type": "source_intake_work_order",
-      "frontier_signature": "bbf0197d69bd90939d683525326901acf82cc6d53ff97de2aa09ae0e831c7240::AUTO-R017-AI-SOURCE-INTAKE-FINITE_CASE_BINDING-004",
-      "graph_dependency_path": [
-        "required_artifact:AI:finite_case_refs",
-        "capability:AUTO-R017-AI-SOURCE-INTAKE-FINITE_CASE_BINDING-004"
-      ],
-      "graph_node_id": "required_artifact:AI:finite_case_refs",
-      "graph_node_type": "required_artifact",
-      "graph_priority": [
-        10,
-        10,
-        40,
-        "required_artifact:AI:finite_case_refs"
-      ],
-      "lane_id": "AI",
-      "missing_support_key": "finite_case_refs_present",
-      "next_escalation": "This exact action has already been tried on this semantic frontier; create a narrower capability work order instead of rerunning it.",
-      "pass_predicate": "The referenced lane disappears from strict TOE validator errors without weakening gates.",
-      "planner_mode": "GRAPH_RESOLVER",
-      "repair_strategy": "Execute this action, sync SPOT/projections, rerun validators, and keep r017 blocked unless the strict terminal gate passes.",
-      "required_artifact": "finite_case_refs",
-      "required_capability": "Research/AIProjection",
-      "selected_for_execution": false,
-      "source_ref": null,
-      "status": "CAPABILITY_ESCALATION_REQUIRED",
-      "validator_binding": "support_artifact::AI::finite_case_refs",
-      "why_it_failed": "The strict final TOE validator still reports this lane as open.",
-      "work_order_id": "R017-AI-SOURCE-INTAKE-FINITE_CASE_BINDING-004"
-    },
-    {
-      "action_id": "AUTO-capability_development-AUTO-R017-CAPABILITY-DEVELOPMENT-0001-d34a5a39",
-      "already_attempted_on_frontier": true,
-      "execution_command": [
-        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
-        "tools/oc133_toe_closure_factory.py",
-        "--execute-capability-development",
-        "R017-CAPDEV-2ce86b903927",
-        "--write"
-      ],
-      "executor_type": "capability_development",
-      "frontier_signature": "bbf0197d69bd90939d683525326901acf82cc6d53ff97de2aa09ae0e831c7240::AUTO-capability_development-AUTO-R017-CAPABILITY-DEVELOPMENT-0001-d34a5a39",
-      "graph_dependency_path": [
-        "capability_development:AUTO-R017-CAPABILITY-DEVELOPMENT-0001-d34a5a39"
-      ],
-      "graph_node_id": "capability_development:AUTO-R017-CAPABILITY-DEVELOPMENT-0001-d34a5a39",
-      "graph_node_type": "capability_development",
-      "graph_priority": [
-        10,
-        30,
-        10,
-        "capability_development:AUTO-R017-CAPABILITY-DEVELOPMENT-0001-d34a5a39"
-      ],
-      "lane_id": "AI",
-      "missing_artifact_type": "source_grounded_non_blocker_candidate",
-      "next_escalation": "This exact action has already been tried on this semantic frontier; create a narrower capability work order instead of rerunning it.",
-      "pass_predicate": "The referenced lane disappears from strict TOE validator errors without weakening gates.",
-      "planner_mode": "GRAPH_RESOLVER",
-      "repair_strategy": "Create a narrower source-bound executor for the exact missing artifact class before rerunning the same action.",
-      "required_capability": "Research/AIProjection",
-      "selected_for_execution": false,
-      "source_graph_node_id": "required_artifact:AI:source_grounded_non_blocker_candidate",
-      "status": "CAPABILITY_ESCALATION_REQUIRED",
-      "validator_binding": "support_artifact::AI::source_grounded_non_blocker_candidate",
-      "why_it_failed": "The action did not reduce strict validator errors on this semantic frontier."
-    },
-    {
-      "action_id": "AUTO-capability_development-AUTO-R017-CAPABILITY-DEVELOPMENT-0005-069ec53d",
-      "already_attempted_on_frontier": true,
-      "execution_command": [
-        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
-        "tools/oc133_toe_closure_factory.py",
-        "--execute-capability-development",
-        "R017-CAPDEV-655773b2f94a",
-        "--write"
-      ],
-      "executor_type": "capability_development",
-      "frontier_signature": "bbf0197d69bd90939d683525326901acf82cc6d53ff97de2aa09ae0e831c7240::AUTO-capability_development-AUTO-R017-CAPABILITY-DEVELOPMENT-0005-069ec53d",
-      "graph_dependency_path": [
-        "capability_development:AUTO-R017-CAPABILITY-DEVELOPMENT-0005-069ec53d"
-      ],
-      "graph_node_id": "capability_development:AUTO-R017-CAPABILITY-DEVELOPMENT-0005-069ec53d",
-      "graph_node_type": "capability_development",
-      "graph_priority": [
-        10,
-        30,
-        10,
-        "capability_development:AUTO-R017-CAPABILITY-DEVELOPMENT-0005-069ec53d"
-      ],
-      "lane_id": "AI",
-      "missing_artifact_type": "source_grounded_non_blocker_candidate",
-      "next_escalation": "This exact action has already been tried on this semantic frontier; create a narrower capability work order instead of rerunning it.",
-      "pass_predicate": "The referenced lane disappears from strict TOE validator errors without weakening gates.",
-      "planner_mode": "GRAPH_RESOLVER",
-      "repair_strategy": "Create a narrower source-bound executor for the exact missing artifact class before rerunning the same action.",
-      "required_capability": "Research/AIProjection",
-      "selected_for_execution": false,
-      "source_graph_node_id": "capability_development:AUTO-R017-CAPABILITY-DEVELOPMENT-0001-d34a5a39",
-      "status": "CAPABILITY_ESCALATION_REQUIRED",
-      "validator_binding": "support_artifact::AI::source_grounded_non_blocker_candidate",
-      "why_it_failed": "The action did not reduce strict validator errors on this semantic frontier."
-    },
-    {
-      "action_id": "AUTO-capability_development-AUTO-R017-CAPABILITY-DEVELOPMENT-0005-697e4bb4",
-      "already_attempted_on_frontier": true,
-      "execution_command": [
-        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
-        "tools/oc133_toe_closure_factory.py",
-        "--execute-capability-development",
-        "R017-CAPDEV-8adbd9304250",
-        "--write"
-      ],
-      "executor_type": "capability_development",
-      "frontier_signature": "bbf0197d69bd90939d683525326901acf82cc6d53ff97de2aa09ae0e831c7240::AUTO-capability_development-AUTO-R017-CAPABILITY-DEVELOPMENT-0005-697e4bb4",
-      "graph_dependency_path": [
-        "capability_development:AUTO-R017-CAPABILITY-DEVELOPMENT-0005-697e4bb4"
-      ],
-      "graph_node_id": "capability_development:AUTO-R017-CAPABILITY-DEVELOPMENT-0005-697e4bb4",
-      "graph_node_type": "capability_development",
-      "graph_priority": [
-        10,
-        30,
-        10,
-        "capability_development:AUTO-R017-CAPABILITY-DEVELOPMENT-0005-697e4bb4"
-      ],
-      "lane_id": "AI",
-      "missing_artifact_type": "source_grounded_non_blocker_candidate",
-      "next_escalation": "This exact action has already been tried on this semantic frontier; create a narrower capability work order instead of rerunning it.",
-      "pass_predicate": "The referenced lane disappears from strict TOE validator errors without weakening gates.",
-      "planner_mode": "GRAPH_RESOLVER",
-      "repair_strategy": "Create a narrower source-bound executor for the exact missing artifact class before rerunning the same action.",
-      "required_capability": "Research/AIProjection",
-      "selected_for_execution": false,
-      "source_graph_node_id": "capability_development:AUTO-R017-CAPABILITY-DEVELOPMENT-0001-9069cbf6",
-      "status": "CAPABILITY_ESCALATION_REQUIRED",
-      "validator_binding": "support_artifact::AI::source_grounded_non_blocker_candidate",
-      "why_it_failed": "The action did not reduce strict validator errors on this semantic frontier."
-    },
-    {
-      "action_id": "AUTO-capability_development-AUTO-R017-CAPABILITY-DEVELOPMENT-0007-76dcdd35",
-      "already_attempted_on_frontier": true,
-      "execution_command": [
-        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
-        "tools/oc133_toe_closure_factory.py",
-        "--execute-capability-development",
-        "R017-CAPDEV-49d810e57071",
-        "--write"
-      ],
-      "executor_type": "capability_development",
-      "frontier_signature": "bbf0197d69bd90939d683525326901acf82cc6d53ff97de2aa09ae0e831c7240::AUTO-capability_development-AUTO-R017-CAPABILITY-DEVELOPMENT-0007-76dcdd35",
-      "graph_dependency_path": [
-        "capability_development:AUTO-R017-CAPABILITY-DEVELOPMENT-0007-76dcdd35"
-      ],
-      "graph_node_id": "capability_development:AUTO-R017-CAPABILITY-DEVELOPMENT-0007-76dcdd35",
-      "graph_node_type": "capability_development",
-      "graph_priority": [
-        10,
-        30,
-        10,
-        "capability_development:AUTO-R017-CAPABILITY-DEVELOPMENT-0007-76dcdd35"
-      ],
-      "lane_id": "AI",
-      "missing_artifact_type": "source_grounded_non_blocker_candidate",
-      "next_escalation": "This exact action has already been tried on this semantic frontier; create a narrower capability work order instead of rerunning it.",
-      "pass_predicate": "The referenced lane disappears from strict TOE validator errors without weakening gates.",
-      "planner_mode": "GRAPH_RESOLVER",
-      "repair_strategy": "Create a narrower source-bound executor for the exact missing artifact class before rerunning the same action.",
-      "required_capability": "Research/AIProjection",
-      "selected_for_execution": false,
-      "source_graph_node_id": "capability_development:AUTO-R017-CAPABILITY-DEVELOPMENT-0005-069ec53d",
-      "status": "CAPABILITY_ESCALATION_REQUIRED",
-      "validator_binding": "support_artifact::AI::source_grounded_non_blocker_candidate",
-      "why_it_failed": "The action did not reduce strict validator errors on this semantic frontier."
-    },
-    {
-      "action_id": "AUTO-capability_development-AUTO-R017-CAPABILITY-DEVELOPMENT-0008-4226bb15",
-      "already_attempted_on_frontier": true,
-      "execution_command": [
-        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
-        "tools/oc133_toe_closure_factory.py",
-        "--execute-capability-development",
-        "R017-CAPDEV-3f2aa489774a",
-        "--write"
-      ],
-      "executor_type": "capability_development",
-      "frontier_signature": "bbf0197d69bd90939d683525326901acf82cc6d53ff97de2aa09ae0e831c7240::AUTO-capability_development-AUTO-R017-CAPABILITY-DEVELOPMENT-0008-4226bb15",
-      "graph_dependency_path": [
-        "capability_development:AUTO-R017-CAPABILITY-DEVELOPMENT-0008-4226bb15"
-      ],
-      "graph_node_id": "capability_development:AUTO-R017-CAPABILITY-DEVELOPMENT-0008-4226bb15",
-      "graph_node_type": "capability_development",
-      "graph_priority": [
-        10,
-        30,
-        10,
-        "capability_development:AUTO-R017-CAPABILITY-DEVELOPMENT-0008-4226bb15"
-      ],
-      "lane_id": "AI",
-      "missing_artifact_type": "source_grounded_non_blocker_candidate",
-      "next_escalation": "This exact action has already been tried on this semantic frontier; create a narrower capability work order instead of rerunning it.",
-      "pass_predicate": "The referenced lane disappears from strict TOE validator errors without weakening gates.",
-      "planner_mode": "GRAPH_RESOLVER",
-      "repair_strategy": "Create a narrower source-bound executor for the exact missing artifact class before rerunning the same action.",
-      "required_capability": "Research/AIProjection",
-      "selected_for_execution": false,
-      "source_graph_node_id": "capability_development:AUTO-R017-CAPABILITY-DEVELOPMENT-0005-697e4bb4",
-      "status": "CAPABILITY_ESCALATION_REQUIRED",
-      "validator_binding": "support_artifact::AI::source_grounded_non_blocker_candidate",
-      "why_it_failed": "The action did not reduce strict validator errors on this semantic frontier."
-    },
-    {
-      "action_id": "AUTO-capability_development-AUTO-R017-CAPABILITY-DEVELOPMENT-0009-d8790750",
-      "already_attempted_on_frontier": true,
-      "execution_command": [
-        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
-        "tools/oc133_toe_closure_factory.py",
-        "--execute-capability-development",
-        "R017-CAPDEV-393a99ee6136",
-        "--write"
-      ],
-      "executor_type": "capability_development",
-      "frontier_signature": "bbf0197d69bd90939d683525326901acf82cc6d53ff97de2aa09ae0e831c7240::AUTO-capability_development-AUTO-R017-CAPABILITY-DEVELOPMENT-0009-d8790750",
-      "graph_dependency_path": [
-        "capability_development:AUTO-R017-CAPABILITY-DEVELOPMENT-0009-d8790750"
-      ],
-      "graph_node_id": "capability_development:AUTO-R017-CAPABILITY-DEVELOPMENT-0009-d8790750",
-      "graph_node_type": "capability_development",
-      "graph_priority": [
-        10,
-        30,
-        10,
-        "capability_development:AUTO-R017-CAPABILITY-DEVELOPMENT-0009-d8790750"
-      ],
-      "lane_id": "AI",
-      "missing_artifact_type": "source_grounded_non_blocker_candidate",
-      "next_escalation": "This exact action has already been tried on this semantic frontier; create a narrower capability work order instead of rerunning it.",
-      "pass_predicate": "The referenced lane disappears from strict TOE validator errors without weakening gates.",
-      "planner_mode": "GRAPH_RESOLVER",
-      "repair_strategy": "Create a narrower source-bound executor for the exact missing artifact class before rerunning the same action.",
-      "required_capability": "Research/AIProjection",
-      "selected_for_execution": false,
-      "source_graph_node_id": "capability_development:AUTO-R017-CAPABILITY-DEVELOPMENT-0007-76dcdd35",
-      "status": "CAPABILITY_ESCALATION_REQUIRED",
-      "validator_binding": "support_artifact::AI::source_grounded_non_blocker_candidate",
-      "why_it_failed": "The action did not reduce strict validator errors on this semantic frontier."
-    },
-    {
-      "action_id": "AUTO-capability_development-AUTO-R017-CAPABILITY-DEVELOPMENT-0002-9e775d34",
-      "already_attempted_on_frontier": true,
-      "execution_command": [
-        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
-        "tools/oc133_toe_closure_factory.py",
-        "--execute-capability-development",
-        "R017-CAPDEV-e38d0dd40d4d",
-        "--write"
-      ],
-      "executor_type": "capability_development",
-      "frontier_signature": "bbf0197d69bd90939d683525326901acf82cc6d53ff97de2aa09ae0e831c7240::AUTO-capability_development-AUTO-R017-CAPABILITY-DEVELOPMENT-0002-9e775d34",
-      "graph_dependency_path": [
-        "capability_development:AUTO-R017-CAPABILITY-DEVELOPMENT-0002-9e775d34"
-      ],
-      "graph_node_id": "capability_development:AUTO-R017-CAPABILITY-DEVELOPMENT-0002-9e775d34",
-      "graph_node_type": "capability_development",
-      "graph_priority": [
-        10,
-        30,
-        20,
-        "capability_development:AUTO-R017-CAPABILITY-DEVELOPMENT-0002-9e775d34"
-      ],
-      "lane_id": "AI",
-      "missing_artifact_type": "non_blocker_public_claim_scope",
-      "next_escalation": "This exact action has already been tried on this semantic frontier; create a narrower capability work order instead of rerunning it.",
-      "pass_predicate": "The referenced lane disappears from strict TOE validator errors without weakening gates.",
-      "planner_mode": "GRAPH_RESOLVER",
-      "repair_strategy": "Create a narrower source-bound executor for the exact missing artifact class before rerunning the same action.",
-      "required_capability": "Research/AIProjection",
-      "selected_for_execution": false,
-      "source_graph_node_id": "required_artifact:AI:non_blocker_public_claim_scope",
-      "status": "CAPABILITY_ESCALATION_REQUIRED",
-      "validator_binding": "support_artifact::AI::non_blocker_public_claim_scope",
-      "why_it_failed": "The action did not reduce strict validator errors on this semantic frontier."
-    },
-    {
-      "action_id": "AUTO-capability_development-AUTO-R017-CAPABILITY-DEVELOPMENT-0006-c9c663b0",
-      "already_attempted_on_frontier": false,
-      "execution_command": [
-        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
-        "tools/oc133_toe_closure_factory.py",
-        "--execute-capability-development",
-        "R017-CAPDEV-5ee9aa73302b",
-        "--write"
-      ],
-      "executor_type": "capability_development",
-      "frontier_signature": "bbf0197d69bd90939d683525326901acf82cc6d53ff97de2aa09ae0e831c7240::AUTO-capability_development-AUTO-R017-CAPABILITY-DEVELOPMENT-0006-c9c663b0",
-      "graph_dependency_path": [
-        "capability_development:AUTO-R017-CAPABILITY-DEVELOPMENT-0006-c9c663b0"
-      ],
-      "graph_node_id": "capability_development:AUTO-R017-CAPABILITY-DEVELOPMENT-0006-c9c663b0",
-      "graph_node_type": "capability_development",
-      "graph_priority": [
-        10,
-        30,
-        20,
-        "capability_development:AUTO-R017-CAPABILITY-DEVELOPMENT-0006-c9c663b0"
-      ],
-      "lane_id": "AI",
-      "missing_artifact_type": "non_blocker_public_claim_scope",
-      "next_escalation": "If this action produces no validator delta, split the missing artifact class into a narrower capability work order.",
-      "pass_predicate": "The referenced lane disappears from strict TOE validator errors without weakening gates.",
-      "planner_mode": "GRAPH_RESOLVER",
-      "repair_strategy": "Create a narrower source-bound executor for the exact missing artifact class before rerunning the same action.",
-      "required_capability": "Research/AIProjection",
-      "selected_for_execution": true,
-      "source_graph_node_id": "capability_development:AUTO-R017-CAPABILITY-DEVELOPMENT-0002-9e775d34",
-      "status": "OPEN",
-      "validator_binding": "support_artifact::AI::non_blocker_public_claim_scope",
-      "why_it_failed": "The action did not reduce strict validator errors on this semantic frontier."
-    },
-    {
-      "action_id": "AUTO-capability_development-AUTO-R017-CAPABILITY-DEVELOPMENT-0003-2199287f",
-      "already_attempted_on_frontier": false,
-      "execution_command": [
-        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
-        "tools/oc133_toe_closure_factory.py",
-        "--execute-capability-development",
-        "R017-CAPDEV-24058711fd79",
-        "--write"
-      ],
-      "executor_type": "capability_development",
-      "frontier_signature": "bbf0197d69bd90939d683525326901acf82cc6d53ff97de2aa09ae0e831c7240::AUTO-capability_development-AUTO-R017-CAPABILITY-DEVELOPMENT-0003-2199287f",
-      "graph_dependency_path": [
-        "capability_development:AUTO-R017-CAPABILITY-DEVELOPMENT-0003-2199287f"
-      ],
-      "graph_node_id": "capability_development:AUTO-R017-CAPABILITY-DEVELOPMENT-0003-2199287f",
-      "graph_node_type": "capability_development",
-      "graph_priority": [
-        10,
-        30,
-        30,
-        "capability_development:AUTO-R017-CAPABILITY-DEVELOPMENT-0003-2199287f"
-      ],
-      "lane_id": "AI",
-      "missing_artifact_type": "lean_refs",
-      "next_escalation": "If this action produces no validator delta, split the missing artifact class into a narrower capability work order.",
-      "pass_predicate": "The referenced lane disappears from strict TOE validator errors without weakening gates.",
-      "planner_mode": "GRAPH_RESOLVER",
-      "repair_strategy": "Create a narrower source-bound executor for the exact missing artifact class before rerunning the same action.",
-      "required_capability": "Research/AIProjection",
-      "selected_for_execution": true,
-      "source_graph_node_id": "required_artifact:AI:lean_refs",
-      "status": "OPEN",
-      "validator_binding": "support_artifact::AI::lean_refs",
-      "why_it_failed": "The action did not reduce strict validator errors on this semantic frontier."
-    },
-    {
-      "action_id": "AUTO-capability_development-AUTO-R017-CAPABILITY-DEVELOPMENT-0004-89f82c35",
-      "already_attempted_on_frontier": false,
-      "execution_command": [
-        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
-        "tools/oc133_toe_closure_factory.py",
-        "--execute-capability-development",
-        "R017-CAPDEV-6f1ebe44a981",
-        "--write"
-      ],
-      "executor_type": "capability_development",
-      "frontier_signature": "bbf0197d69bd90939d683525326901acf82cc6d53ff97de2aa09ae0e831c7240::AUTO-capability_development-AUTO-R017-CAPABILITY-DEVELOPMENT-0004-89f82c35",
-      "graph_dependency_path": [
-        "capability_development:AUTO-R017-CAPABILITY-DEVELOPMENT-0004-89f82c35"
-      ],
-      "graph_node_id": "capability_development:AUTO-R017-CAPABILITY-DEVELOPMENT-0004-89f82c35",
-      "graph_node_type": "capability_development",
-      "graph_priority": [
-        10,
-        30,
-        40,
-        "capability_development:AUTO-R017-CAPABILITY-DEVELOPMENT-0004-89f82c35"
-      ],
-      "lane_id": "AI",
-      "missing_artifact_type": "finite_case_refs",
-      "next_escalation": "If this action produces no validator delta, split the missing artifact class into a narrower capability work order.",
-      "pass_predicate": "The referenced lane disappears from strict TOE validator errors without weakening gates.",
-      "planner_mode": "GRAPH_RESOLVER",
-      "repair_strategy": "Create a narrower source-bound executor for the exact missing artifact class before rerunning the same action.",
-      "required_capability": "Research/AIProjection",
-      "selected_for_execution": false,
-      "source_graph_node_id": "required_artifact:AI:finite_case_refs",
-      "status": "OPEN",
-      "validator_binding": "support_artifact::AI::finite_case_refs",
-      "why_it_failed": "The action did not reduce strict validator errors on this semantic frontier."
-    },
-    {
-      "action_id": "AUTO-R017-ENTERPRISE_ARCHITECTURE-SOURCE-INTAKE-SOURCE_DISCOVERY-001",
-      "already_attempted_on_frontier": false,
-      "execution_command": [
-        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
-        "tools/oc133_toe_closure_factory.py",
-        "--execute-source-intake-work-order",
-        "R017-ENTERPRISE_ARCHITECTURE-SOURCE-INTAKE-SOURCE_DISCOVERY-001",
-        "--write"
-      ],
-      "executor_type": "source_intake_work_order",
-      "frontier_signature": "bbf0197d69bd90939d683525326901acf82cc6d53ff97de2aa09ae0e831c7240::AUTO-R017-ENTERPRISE_ARCHITECTURE-SOURCE-INTAKE-SOURCE_DISCOVERY-001",
-      "graph_dependency_path": [
-        "required_artifact:ENTERPRISE_ARCHITECTURE:source_grounded_non_blocker_candidate",
-        "capability:AUTO-R017-ENTERPRISE_ARCHITECTURE-SOURCE-INTAKE-SOURCE_DISCOVERY-001"
-      ],
-      "graph_node_id": "required_artifact:ENTERPRISE_ARCHITECTURE:source_grounded_non_blocker_candidate",
-      "graph_node_type": "required_artifact",
-      "graph_priority": [
-        20,
-        10,
-        10,
-        "required_artifact:ENTERPRISE_ARCHITECTURE:source_grounded_non_blocker_candidate"
-      ],
-      "lane_id": "ENTERPRISE_ARCHITECTURE",
-      "missing_support_key": "source_mined_candidate_available",
-      "next_escalation": "If this action produces no validator delta, split the missing artifact class into a narrower capability work order.",
-      "pass_predicate": "The referenced lane disappears from strict TOE validator errors without weakening gates.",
-      "planner_mode": "GRAPH_RESOLVER",
-      "repair_strategy": "Execute this action, sync SPOT/projections, rerun validators, and keep r017 blocked unless the strict terminal gate passes.",
-      "required_artifact": "source_grounded_non_blocker_candidate",
-      "required_capability": "Research/EnterpriseArchitectureProjection",
-      "selected_for_execution": false,
-      "source_ref": null,
-      "status": "OPEN",
-      "validator_binding": "support_artifact::ENTERPRISE_ARCHITECTURE::source_grounded_non_blocker_candidate",
-      "why_it_failed": "The strict final TOE validator still reports this lane as open.",
-      "work_order_id": "R017-ENTERPRISE_ARCHITECTURE-SOURCE-INTAKE-SOURCE_DISCOVERY-001"
-    },
-    {
-      "action_id": "AUTO-R017-ENTERPRISE_ARCHITECTURE-SOURCE-INTAKE-CLAIM_SCOPE-002",
-      "already_attempted_on_frontier": false,
-      "execution_command": [
-        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
-        "tools/oc133_toe_closure_factory.py",
-        "--execute-source-intake-work-order",
-        "R017-ENTERPRISE_ARCHITECTURE-SOURCE-INTAKE-CLAIM_SCOPE-002",
-        "--write"
-      ],
-      "executor_type": "source_intake_work_order",
-      "frontier_signature": "bbf0197d69bd90939d683525326901acf82cc6d53ff97de2aa09ae0e831c7240::AUTO-R017-ENTERPRISE_ARCHITECTURE-SOURCE-INTAKE-CLAIM_SCOPE-002",
-      "graph_dependency_path": [
-        "required_artifact:ENTERPRISE_ARCHITECTURE:non_blocker_public_claim_scope",
-        "capability:AUTO-R017-ENTERPRISE_ARCHITECTURE-SOURCE-INTAKE-CLAIM_SCOPE-002"
-      ],
-      "graph_node_id": "required_artifact:ENTERPRISE_ARCHITECTURE:non_blocker_public_claim_scope",
-      "graph_node_type": "required_artifact",
-      "graph_priority": [
-        20,
-        10,
-        20,
-        "required_artifact:ENTERPRISE_ARCHITECTURE:non_blocker_public_claim_scope"
-      ],
-      "lane_id": "ENTERPRISE_ARCHITECTURE",
-      "missing_support_key": "claim_not_blocker",
-      "next_escalation": "If this action produces no validator delta, split the missing artifact class into a narrower capability work order.",
-      "pass_predicate": "The referenced lane disappears from strict TOE validator errors without weakening gates.",
-      "planner_mode": "GRAPH_RESOLVER",
-      "repair_strategy": "Execute this action, sync SPOT/projections, rerun validators, and keep r017 blocked unless the strict terminal gate passes.",
-      "required_artifact": "non_blocker_public_claim_scope",
-      "required_capability": "Research/EnterpriseArchitectureProjection",
-      "selected_for_execution": false,
-      "source_ref": null,
-      "status": "OPEN",
-      "validator_binding": "support_artifact::ENTERPRISE_ARCHITECTURE::non_blocker_public_claim_scope",
-      "why_it_failed": "The strict final TOE validator still reports this lane as open.",
-      "work_order_id": "R017-ENTERPRISE_ARCHITECTURE-SOURCE-INTAKE-CLAIM_SCOPE-002"
-    },
-    {
-      "action_id": "AUTO-R017-ENTERPRISE_ARCHITECTURE-SOURCE-INTAKE-LEAN_BINDING-003",
-      "already_attempted_on_frontier": false,
-      "execution_command": [
-        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
-        "tools/oc133_toe_closure_factory.py",
-        "--execute-source-intake-work-order",
-        "R017-ENTERPRISE_ARCHITECTURE-SOURCE-INTAKE-LEAN_BINDING-003",
-        "--write"
-      ],
-      "executor_type": "source_intake_work_order",
-      "frontier_signature": "bbf0197d69bd90939d683525326901acf82cc6d53ff97de2aa09ae0e831c7240::AUTO-R017-ENTERPRISE_ARCHITECTURE-SOURCE-INTAKE-LEAN_BINDING-003",
-      "graph_dependency_path": [
-        "required_artifact:ENTERPRISE_ARCHITECTURE:lean_refs",
-        "capability:AUTO-R017-ENTERPRISE_ARCHITECTURE-SOURCE-INTAKE-LEAN_BINDING-003"
-      ],
-      "graph_node_id": "required_artifact:ENTERPRISE_ARCHITECTURE:lean_refs",
-      "graph_node_type": "required_artifact",
-      "graph_priority": [
-        20,
-        10,
-        30,
-        "required_artifact:ENTERPRISE_ARCHITECTURE:lean_refs"
-      ],
-      "lane_id": "ENTERPRISE_ARCHITECTURE",
-      "missing_support_key": "lean_refs_exist",
-      "next_escalation": "If this action produces no validator delta, split the missing artifact class into a narrower capability work order.",
-      "pass_predicate": "The referenced lane disappears from strict TOE validator errors without weakening gates.",
-      "planner_mode": "GRAPH_RESOLVER",
-      "repair_strategy": "Execute this action, sync SPOT/projections, rerun validators, and keep r017 blocked unless the strict terminal gate passes.",
-      "required_artifact": "lean_refs",
-      "required_capability": "Research/EnterpriseArchitectureProjection",
-      "selected_for_execution": false,
-      "source_ref": null,
-      "status": "OPEN",
-      "validator_binding": "support_artifact::ENTERPRISE_ARCHITECTURE::lean_refs",
-      "why_it_failed": "The strict final TOE validator still reports this lane as open.",
-      "work_order_id": "R017-ENTERPRISE_ARCHITECTURE-SOURCE-INTAKE-LEAN_BINDING-003"
-    },
-    {
-      "action_id": "AUTO-R017-ENTERPRISE_ARCHITECTURE-SOURCE-INTAKE-FINITE_CASE_BINDING-004",
-      "already_attempted_on_frontier": false,
-      "execution_command": [
-        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
-        "tools/oc133_toe_closure_factory.py",
-        "--execute-source-intake-work-order",
-        "R017-ENTERPRISE_ARCHITECTURE-SOURCE-INTAKE-FINITE_CASE_BINDING-004",
-        "--write"
-      ],
-      "executor_type": "source_intake_work_order",
-      "frontier_signature": "bbf0197d69bd90939d683525326901acf82cc6d53ff97de2aa09ae0e831c7240::AUTO-R017-ENTERPRISE_ARCHITECTURE-SOURCE-INTAKE-FINITE_CASE_BINDING-004",
-      "graph_dependency_path": [
-        "required_artifact:ENTERPRISE_ARCHITECTURE:finite_case_refs",
-        "capability:AUTO-R017-ENTERPRISE_ARCHITECTURE-SOURCE-INTAKE-FINITE_CASE_BINDING-004"
-      ],
-      "graph_node_id": "required_artifact:ENTERPRISE_ARCHITECTURE:finite_case_refs",
-      "graph_node_type": "required_artifact",
-      "graph_priority": [
-        20,
-        10,
-        40,
-        "required_artifact:ENTERPRISE_ARCHITECTURE:finite_case_refs"
-      ],
-      "lane_id": "ENTERPRISE_ARCHITECTURE",
-      "missing_support_key": "finite_case_refs_present",
-      "next_escalation": "If this action produces no validator delta, split the missing artifact class into a narrower capability work order.",
-      "pass_predicate": "The referenced lane disappears from strict TOE validator errors without weakening gates.",
-      "planner_mode": "GRAPH_RESOLVER",
-      "repair_strategy": "Execute this action, sync SPOT/projections, rerun validators, and keep r017 blocked unless the strict terminal gate passes.",
-      "required_artifact": "finite_case_refs",
-      "required_capability": "Research/EnterpriseArchitectureProjection",
-      "selected_for_execution": false,
-      "source_ref": null,
-      "status": "OPEN",
-      "validator_binding": "support_artifact::ENTERPRISE_ARCHITECTURE::finite_case_refs",
-      "why_it_failed": "The strict final TOE validator still reports this lane as open.",
-      "work_order_id": "R017-ENTERPRISE_ARCHITECTURE-SOURCE-INTAKE-FINITE_CASE_BINDING-004"
-    },
-    {
       "action_id": "AUTO-R017-COMPARATOR-GAP-3b8c55c1eafe",
-      "already_attempted_on_frontier": false,
+      "already_attempted_on_frontier": true,
       "execution_command": [
         "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
         "tools/oc133_toe_closure_factory.py",
@@ -693,7 +21,7 @@
         "--write"
       ],
       "executor_type": "comparator_gap",
-      "frontier_signature": "bbf0197d69bd90939d683525326901acf82cc6d53ff97de2aa09ae0e831c7240::AUTO-R017-COMPARATOR-GAP-3b8c55c1eafe",
+      "frontier_signature": "632ddf9bd86533cf0263b3665f34815254d63b53551396a7e842d5bb616569cb::AUTO-R017-COMPARATOR-GAP-3b8c55c1eafe",
       "gap_id": "MS-COV-GAP-AGRICULTURAL_FOOD_SCIENCES-ANIMAL_HEALTH_AND_PRODUCTION_SYSTEMS",
       "graph_dependency_path": [
         "required_artifact:MODERN_SCIENCE_COMPARATOR_SUPERIORITY:MS-COV-GAP-AGRICULTURAL_FOOD_SCIENCES-ANIMAL_HEALTH_AND_PRODUCTION_SYSTEMS:benchmark_case",
@@ -718,20 +46,20 @@
         "falsifier_row",
         "replay_record"
       ],
-      "next_escalation": "If this action produces no validator delta, split the missing artifact class into a narrower capability work order.",
+      "next_escalation": "This exact action has already been tried on this semantic frontier; create a narrower capability work order instead of rerunning it.",
       "pass_predicate": "The referenced lane disappears from strict TOE validator errors without weakening gates.",
       "planner_mode": "GRAPH_RESOLVER",
       "repair_strategy": "Execute this action, sync SPOT/projections, rerun validators, and keep r017 blocked unless the strict terminal gate passes.",
       "required_capability": "Research/PriorArt",
       "selected_for_execution": false,
       "source_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/gap_jobs/gap_3b8c55c1eafe2517.json",
-      "status": "OPEN",
+      "status": "CAPABILITY_ESCALATION_REQUIRED",
       "validator_binding": "comparator_gap::MS-COV-GAP-AGRICULTURAL_FOOD_SCIENCES-ANIMAL_HEALTH_AND_PRODUCTION_SYSTEMS::benchmark_case",
       "why_it_failed": "The strict final TOE validator still reports this lane as open."
     },
     {
       "action_id": "AUTO-R017-COMPARATOR-GAP-f193d7044d98",
-      "already_attempted_on_frontier": false,
+      "already_attempted_on_frontier": true,
       "execution_command": [
         "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
         "tools/oc133_toe_closure_factory.py",
@@ -740,7 +68,7 @@
         "--write"
       ],
       "executor_type": "comparator_gap",
-      "frontier_signature": "bbf0197d69bd90939d683525326901acf82cc6d53ff97de2aa09ae0e831c7240::AUTO-R017-COMPARATOR-GAP-f193d7044d98",
+      "frontier_signature": "632ddf9bd86533cf0263b3665f34815254d63b53551396a7e842d5bb616569cb::AUTO-R017-COMPARATOR-GAP-f193d7044d98",
       "gap_id": "MS-COV-GAP-AGRICULTURAL_FOOD_SCIENCES-CROP_YIELD_SOIL_AND_TRAIT_OBSERVABLES",
       "graph_dependency_path": [
         "required_artifact:MODERN_SCIENCE_COMPARATOR_SUPERIORITY:MS-COV-GAP-AGRICULTURAL_FOOD_SCIENCES-CROP_YIELD_SOIL_AND_TRAIT_OBSERVABLES:benchmark_case",
@@ -765,20 +93,20 @@
         "falsifier_row",
         "replay_record"
       ],
-      "next_escalation": "If this action produces no validator delta, split the missing artifact class into a narrower capability work order.",
+      "next_escalation": "This exact action has already been tried on this semantic frontier; create a narrower capability work order instead of rerunning it.",
       "pass_predicate": "The referenced lane disappears from strict TOE validator errors without weakening gates.",
       "planner_mode": "GRAPH_RESOLVER",
       "repair_strategy": "Execute this action, sync SPOT/projections, rerun validators, and keep r017 blocked unless the strict terminal gate passes.",
       "required_capability": "Research/PriorArt",
       "selected_for_execution": false,
       "source_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/gap_jobs/gap_f193d7044d98f51f.json",
-      "status": "OPEN",
+      "status": "CAPABILITY_ESCALATION_REQUIRED",
       "validator_binding": "comparator_gap::MS-COV-GAP-AGRICULTURAL_FOOD_SCIENCES-CROP_YIELD_SOIL_AND_TRAIT_OBSERVABLES::benchmark_case",
       "why_it_failed": "The strict final TOE validator still reports this lane as open."
     },
     {
       "action_id": "AUTO-R017-COMPARATOR-GAP-b1f19189ac36",
-      "already_attempted_on_frontier": false,
+      "already_attempted_on_frontier": true,
       "execution_command": [
         "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
         "tools/oc133_toe_closure_factory.py",
@@ -787,7 +115,7 @@
         "--write"
       ],
       "executor_type": "comparator_gap",
-      "frontier_signature": "bbf0197d69bd90939d683525326901acf82cc6d53ff97de2aa09ae0e831c7240::AUTO-R017-COMPARATOR-GAP-b1f19189ac36",
+      "frontier_signature": "632ddf9bd86533cf0263b3665f34815254d63b53551396a7e842d5bb616569cb::AUTO-R017-COMPARATOR-GAP-b1f19189ac36",
       "gap_id": "MS-COV-GAP-AGRICULTURAL_FOOD_SCIENCES-FOOD_CHEMISTRY_SAFETY_AND_NUTRITION",
       "graph_dependency_path": [
         "required_artifact:MODERN_SCIENCE_COMPARATOR_SUPERIORITY:MS-COV-GAP-AGRICULTURAL_FOOD_SCIENCES-FOOD_CHEMISTRY_SAFETY_AND_NUTRITION:benchmark_case",
@@ -812,20 +140,20 @@
         "falsifier_row",
         "replay_record"
       ],
-      "next_escalation": "If this action produces no validator delta, split the missing artifact class into a narrower capability work order.",
+      "next_escalation": "This exact action has already been tried on this semantic frontier; create a narrower capability work order instead of rerunning it.",
       "pass_predicate": "The referenced lane disappears from strict TOE validator errors without weakening gates.",
       "planner_mode": "GRAPH_RESOLVER",
       "repair_strategy": "Execute this action, sync SPOT/projections, rerun validators, and keep r017 blocked unless the strict terminal gate passes.",
       "required_capability": "Research/PriorArt",
       "selected_for_execution": false,
       "source_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/gap_jobs/gap_b1f19189ac368c4d.json",
-      "status": "OPEN",
+      "status": "CAPABILITY_ESCALATION_REQUIRED",
       "validator_binding": "comparator_gap::MS-COV-GAP-AGRICULTURAL_FOOD_SCIENCES-FOOD_CHEMISTRY_SAFETY_AND_NUTRITION::benchmark_case",
       "why_it_failed": "The strict final TOE validator still reports this lane as open."
     },
     {
       "action_id": "AUTO-R017-COMPARATOR-GAP-9d16b5041970",
-      "already_attempted_on_frontier": false,
+      "already_attempted_on_frontier": true,
       "execution_command": [
         "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
         "tools/oc133_toe_closure_factory.py",
@@ -834,7 +162,7 @@
         "--write"
       ],
       "executor_type": "comparator_gap",
-      "frontier_signature": "bbf0197d69bd90939d683525326901acf82cc6d53ff97de2aa09ae0e831c7240::AUTO-R017-COMPARATOR-GAP-9d16b5041970",
+      "frontier_signature": "632ddf9bd86533cf0263b3665f34815254d63b53551396a7e842d5bb616569cb::AUTO-R017-COMPARATOR-GAP-9d16b5041970",
       "gap_id": "MS-COV-GAP-BIOLOGICAL_LIFE_SCIENCES-CELLULAR_DEVELOPMENTAL_REGULATORY_DYNAMICS",
       "graph_dependency_path": [
         "required_artifact:MODERN_SCIENCE_COMPARATOR_SUPERIORITY:MS-COV-GAP-BIOLOGICAL_LIFE_SCIENCES-CELLULAR_DEVELOPMENTAL_REGULATORY_DYNAMICS:benchmark_case",
@@ -859,20 +187,20 @@
         "falsifier_row",
         "replay_record"
       ],
-      "next_escalation": "If this action produces no validator delta, split the missing artifact class into a narrower capability work order.",
+      "next_escalation": "This exact action has already been tried on this semantic frontier; create a narrower capability work order instead of rerunning it.",
       "pass_predicate": "The referenced lane disappears from strict TOE validator errors without weakening gates.",
       "planner_mode": "GRAPH_RESOLVER",
       "repair_strategy": "Execute this action, sync SPOT/projections, rerun validators, and keep r017 blocked unless the strict terminal gate passes.",
       "required_capability": "Research/PriorArt",
       "selected_for_execution": false,
       "source_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/gap_jobs/gap_9d16b5041970ef2a.json",
-      "status": "OPEN",
+      "status": "CAPABILITY_ESCALATION_REQUIRED",
       "validator_binding": "comparator_gap::MS-COV-GAP-BIOLOGICAL_LIFE_SCIENCES-CELLULAR_DEVELOPMENTAL_REGULATORY_DYNAMICS::benchmark_case",
       "why_it_failed": "The strict final TOE validator still reports this lane as open."
     },
     {
       "action_id": "AUTO-R017-COMPARATOR-GAP-80c7d7ec237d",
-      "already_attempted_on_frontier": false,
+      "already_attempted_on_frontier": true,
       "execution_command": [
         "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
         "tools/oc133_toe_closure_factory.py",
@@ -881,7 +209,7 @@
         "--write"
       ],
       "executor_type": "comparator_gap",
-      "frontier_signature": "bbf0197d69bd90939d683525326901acf82cc6d53ff97de2aa09ae0e831c7240::AUTO-R017-COMPARATOR-GAP-80c7d7ec237d",
+      "frontier_signature": "632ddf9bd86533cf0263b3665f34815254d63b53551396a7e842d5bb616569cb::AUTO-R017-COMPARATOR-GAP-80c7d7ec237d",
       "gap_id": "MS-COV-GAP-BIOLOGICAL_LIFE_SCIENCES-ECOLOGY_POPULATION_AND_BIODIVERSITY_OBSERVABLES",
       "graph_dependency_path": [
         "required_artifact:MODERN_SCIENCE_COMPARATOR_SUPERIORITY:MS-COV-GAP-BIOLOGICAL_LIFE_SCIENCES-ECOLOGY_POPULATION_AND_BIODIVERSITY_OBSERVABLES:benchmark_case",
@@ -906,20 +234,20 @@
         "falsifier_row",
         "replay_record"
       ],
-      "next_escalation": "If this action produces no validator delta, split the missing artifact class into a narrower capability work order.",
+      "next_escalation": "This exact action has already been tried on this semantic frontier; create a narrower capability work order instead of rerunning it.",
       "pass_predicate": "The referenced lane disappears from strict TOE validator errors without weakening gates.",
       "planner_mode": "GRAPH_RESOLVER",
       "repair_strategy": "Execute this action, sync SPOT/projections, rerun validators, and keep r017 blocked unless the strict terminal gate passes.",
       "required_capability": "Research/PriorArt",
       "selected_for_execution": false,
       "source_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/gap_jobs/gap_80c7d7ec237d85b3.json",
-      "status": "OPEN",
+      "status": "CAPABILITY_ESCALATION_REQUIRED",
       "validator_binding": "comparator_gap::MS-COV-GAP-BIOLOGICAL_LIFE_SCIENCES-ECOLOGY_POPULATION_AND_BIODIVERSITY_OBSERVABLES::benchmark_case",
       "why_it_failed": "The strict final TOE validator still reports this lane as open."
     },
     {
       "action_id": "AUTO-R017-COMPARATOR-GAP-ac1f601d3315",
-      "already_attempted_on_frontier": false,
+      "already_attempted_on_frontier": true,
       "execution_command": [
         "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
         "tools/oc133_toe_closure_factory.py",
@@ -928,7 +256,7 @@
         "--write"
       ],
       "executor_type": "comparator_gap",
-      "frontier_signature": "bbf0197d69bd90939d683525326901acf82cc6d53ff97de2aa09ae0e831c7240::AUTO-R017-COMPARATOR-GAP-ac1f601d3315",
+      "frontier_signature": "632ddf9bd86533cf0263b3665f34815254d63b53551396a7e842d5bb616569cb::AUTO-R017-COMPARATOR-GAP-ac1f601d3315",
       "gap_id": "MS-COV-GAP-BIOLOGICAL_LIFE_SCIENCES-EVOLUTIONARY_PHYLOGENETIC_PATTERNS",
       "graph_dependency_path": [
         "required_artifact:MODERN_SCIENCE_COMPARATOR_SUPERIORITY:MS-COV-GAP-BIOLOGICAL_LIFE_SCIENCES-EVOLUTIONARY_PHYLOGENETIC_PATTERNS:benchmark_case",
@@ -953,20 +281,20 @@
         "falsifier_row",
         "replay_record"
       ],
-      "next_escalation": "If this action produces no validator delta, split the missing artifact class into a narrower capability work order.",
+      "next_escalation": "This exact action has already been tried on this semantic frontier; create a narrower capability work order instead of rerunning it.",
       "pass_predicate": "The referenced lane disappears from strict TOE validator errors without weakening gates.",
       "planner_mode": "GRAPH_RESOLVER",
       "repair_strategy": "Execute this action, sync SPOT/projections, rerun validators, and keep r017 blocked unless the strict terminal gate passes.",
       "required_capability": "Research/PriorArt",
       "selected_for_execution": false,
       "source_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/gap_jobs/gap_ac1f601d3315235c.json",
-      "status": "OPEN",
+      "status": "CAPABILITY_ESCALATION_REQUIRED",
       "validator_binding": "comparator_gap::MS-COV-GAP-BIOLOGICAL_LIFE_SCIENCES-EVOLUTIONARY_PHYLOGENETIC_PATTERNS::benchmark_case",
       "why_it_failed": "The strict final TOE validator still reports this lane as open."
     },
     {
       "action_id": "AUTO-R017-COMPARATOR-GAP-044c4b9f478c",
-      "already_attempted_on_frontier": false,
+      "already_attempted_on_frontier": true,
       "execution_command": [
         "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
         "tools/oc133_toe_closure_factory.py",
@@ -975,7 +303,7 @@
         "--write"
       ],
       "executor_type": "comparator_gap",
-      "frontier_signature": "bbf0197d69bd90939d683525326901acf82cc6d53ff97de2aa09ae0e831c7240::AUTO-R017-COMPARATOR-GAP-044c4b9f478c",
+      "frontier_signature": "632ddf9bd86533cf0263b3665f34815254d63b53551396a7e842d5bb616569cb::AUTO-R017-COMPARATOR-GAP-044c4b9f478c",
       "gap_id": "MS-COV-GAP-CHEMICAL_SCIENCES-MATERIALS_AND_SPECTROSCOPY_OBSERVABLES",
       "graph_dependency_path": [
         "required_artifact:MODERN_SCIENCE_COMPARATOR_SUPERIORITY:MS-COV-GAP-CHEMICAL_SCIENCES-MATERIALS_AND_SPECTROSCOPY_OBSERVABLES:benchmark_case",
@@ -1000,20 +328,20 @@
         "falsifier_row",
         "replay_record"
       ],
-      "next_escalation": "If this action produces no validator delta, split the missing artifact class into a narrower capability work order.",
+      "next_escalation": "This exact action has already been tried on this semantic frontier; create a narrower capability work order instead of rerunning it.",
       "pass_predicate": "The referenced lane disappears from strict TOE validator errors without weakening gates.",
       "planner_mode": "GRAPH_RESOLVER",
       "repair_strategy": "Execute this action, sync SPOT/projections, rerun validators, and keep r017 blocked unless the strict terminal gate passes.",
       "required_capability": "Research/PriorArt",
       "selected_for_execution": false,
       "source_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/gap_jobs/gap_044c4b9f478c7bc2.json",
-      "status": "OPEN",
+      "status": "CAPABILITY_ESCALATION_REQUIRED",
       "validator_binding": "comparator_gap::MS-COV-GAP-CHEMICAL_SCIENCES-MATERIALS_AND_SPECTROSCOPY_OBSERVABLES::benchmark_case",
       "why_it_failed": "The strict final TOE validator still reports this lane as open."
     },
     {
       "action_id": "AUTO-R017-COMPARATOR-GAP-0b00ee8a56e1",
-      "already_attempted_on_frontier": false,
+      "already_attempted_on_frontier": true,
       "execution_command": [
         "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
         "tools/oc133_toe_closure_factory.py",
@@ -1022,7 +350,7 @@
         "--write"
       ],
       "executor_type": "comparator_gap",
-      "frontier_signature": "bbf0197d69bd90939d683525326901acf82cc6d53ff97de2aa09ae0e831c7240::AUTO-R017-COMPARATOR-GAP-0b00ee8a56e1",
+      "frontier_signature": "632ddf9bd86533cf0263b3665f34815254d63b53551396a7e842d5bb616569cb::AUTO-R017-COMPARATOR-GAP-0b00ee8a56e1",
       "gap_id": "MS-COV-GAP-CHEMICAL_SCIENCES-REACTION_AND_KINETICS_PREDICTION",
       "graph_dependency_path": [
         "required_artifact:MODERN_SCIENCE_COMPARATOR_SUPERIORITY:MS-COV-GAP-CHEMICAL_SCIENCES-REACTION_AND_KINETICS_PREDICTION:benchmark_case",
@@ -1047,14 +375,14 @@
         "falsifier_row",
         "replay_record"
       ],
-      "next_escalation": "If this action produces no validator delta, split the missing artifact class into a narrower capability work order.",
+      "next_escalation": "This exact action has already been tried on this semantic frontier; create a narrower capability work order instead of rerunning it.",
       "pass_predicate": "The referenced lane disappears from strict TOE validator errors without weakening gates.",
       "planner_mode": "GRAPH_RESOLVER",
       "repair_strategy": "Execute this action, sync SPOT/projections, rerun validators, and keep r017 blocked unless the strict terminal gate passes.",
       "required_capability": "Research/PriorArt",
       "selected_for_execution": false,
       "source_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/gap_jobs/gap_0b00ee8a56e1234a.json",
-      "status": "OPEN",
+      "status": "CAPABILITY_ESCALATION_REQUIRED",
       "validator_binding": "comparator_gap::MS-COV-GAP-CHEMICAL_SCIENCES-REACTION_AND_KINETICS_PREDICTION::benchmark_case",
       "why_it_failed": "The strict final TOE validator still reports this lane as open."
     },
@@ -1069,7 +397,7 @@
         "--write"
       ],
       "executor_type": "comparator_gap",
-      "frontier_signature": "bbf0197d69bd90939d683525326901acf82cc6d53ff97de2aa09ae0e831c7240::AUTO-R017-COMPARATOR-GAP-dd1092e4b6a8",
+      "frontier_signature": "632ddf9bd86533cf0263b3665f34815254d63b53551396a7e842d5bb616569cb::AUTO-R017-COMPARATOR-GAP-dd1092e4b6a8",
       "gap_id": "MS-COV-GAP-CHEMICAL_SCIENCES-THERMOCHEMISTRY_AND_PHASE_BEHAVIOR",
       "graph_dependency_path": [
         "required_artifact:MODERN_SCIENCE_COMPARATOR_SUPERIORITY:MS-COV-GAP-CHEMICAL_SCIENCES-THERMOCHEMISTRY_AND_PHASE_BEHAVIOR:benchmark_case",
@@ -1099,7 +427,7 @@
       "planner_mode": "GRAPH_RESOLVER",
       "repair_strategy": "Execute this action, sync SPOT/projections, rerun validators, and keep r017 blocked unless the strict terminal gate passes.",
       "required_capability": "Research/PriorArt",
-      "selected_for_execution": false,
+      "selected_for_execution": true,
       "source_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/gap_jobs/gap_dd1092e4b6a884f7.json",
       "status": "OPEN",
       "validator_binding": "comparator_gap::MS-COV-GAP-CHEMICAL_SCIENCES-THERMOCHEMISTRY_AND_PHASE_BEHAVIOR::benchmark_case",
@@ -1116,7 +444,7 @@
         "--write"
       ],
       "executor_type": "comparator_gap",
-      "frontier_signature": "bbf0197d69bd90939d683525326901acf82cc6d53ff97de2aa09ae0e831c7240::AUTO-R017-COMPARATOR-GAP-cdd8bd8ff796",
+      "frontier_signature": "632ddf9bd86533cf0263b3665f34815254d63b53551396a7e842d5bb616569cb::AUTO-R017-COMPARATOR-GAP-cdd8bd8ff796",
       "gap_id": "MS-COV-GAP-COGNITIVE_BEHAVIORAL_NEUROSCIENCES-BEHAVIORAL_TASK_AND_PSYCHOMETRIC_PREDICTION",
       "graph_dependency_path": [
         "required_artifact:MODERN_SCIENCE_COMPARATOR_SUPERIORITY:MS-COV-GAP-COGNITIVE_BEHAVIORAL_NEUROSCIENCES-BEHAVIORAL_TASK_AND_PSYCHOMETRIC_PREDICTION:benchmark_case",
@@ -1146,7 +474,7 @@
       "planner_mode": "GRAPH_RESOLVER",
       "repair_strategy": "Execute this action, sync SPOT/projections, rerun validators, and keep r017 blocked unless the strict terminal gate passes.",
       "required_capability": "Research/PriorArt",
-      "selected_for_execution": false,
+      "selected_for_execution": true,
       "source_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/gap_jobs/gap_cdd8bd8ff7969c58.json",
       "status": "OPEN",
       "validator_binding": "comparator_gap::MS-COV-GAP-COGNITIVE_BEHAVIORAL_NEUROSCIENCES-BEHAVIORAL_TASK_AND_PSYCHOMETRIC_PREDICTION::benchmark_case",
@@ -1163,7 +491,7 @@
         "--write"
       ],
       "executor_type": "comparator_gap",
-      "frontier_signature": "bbf0197d69bd90939d683525326901acf82cc6d53ff97de2aa09ae0e831c7240::AUTO-R017-COMPARATOR-GAP-f5ba5b27c474",
+      "frontier_signature": "632ddf9bd86533cf0263b3665f34815254d63b53551396a7e842d5bb616569cb::AUTO-R017-COMPARATOR-GAP-f5ba5b27c474",
       "gap_id": "MS-COV-GAP-COGNITIVE_BEHAVIORAL_NEUROSCIENCES-LEARNING_MEMORY_AND_PERCEPTION_DYNAMICS",
       "graph_dependency_path": [
         "required_artifact:MODERN_SCIENCE_COMPARATOR_SUPERIORITY:MS-COV-GAP-COGNITIVE_BEHAVIORAL_NEUROSCIENCES-LEARNING_MEMORY_AND_PERCEPTION_DYNAMICS:benchmark_case",
@@ -1193,7 +521,7 @@
       "planner_mode": "GRAPH_RESOLVER",
       "repair_strategy": "Execute this action, sync SPOT/projections, rerun validators, and keep r017 blocked unless the strict terminal gate passes.",
       "required_capability": "Research/PriorArt",
-      "selected_for_execution": false,
+      "selected_for_execution": true,
       "source_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/gap_jobs/gap_f5ba5b27c4747241.json",
       "status": "OPEN",
       "validator_binding": "comparator_gap::MS-COV-GAP-COGNITIVE_BEHAVIORAL_NEUROSCIENCES-LEARNING_MEMORY_AND_PERCEPTION_DYNAMICS::benchmark_case",
@@ -1210,7 +538,7 @@
         "--write"
       ],
       "executor_type": "comparator_gap",
-      "frontier_signature": "bbf0197d69bd90939d683525326901acf82cc6d53ff97de2aa09ae0e831c7240::AUTO-R017-COMPARATOR-GAP-3a74fb5d8077",
+      "frontier_signature": "632ddf9bd86533cf0263b3665f34815254d63b53551396a7e842d5bb616569cb::AUTO-R017-COMPARATOR-GAP-3a74fb5d8077",
       "gap_id": "MS-COV-GAP-COGNITIVE_BEHAVIORAL_NEUROSCIENCES-NEURAL_RECORDING_AND_BRAIN_NETWORK_OBSERVABLES",
       "graph_dependency_path": [
         "required_artifact:MODERN_SCIENCE_COMPARATOR_SUPERIORITY:MS-COV-GAP-COGNITIVE_BEHAVIORAL_NEUROSCIENCES-NEURAL_RECORDING_AND_BRAIN_NETWORK_OBSERVABLES:benchmark_case",
@@ -1240,7 +568,7 @@
       "planner_mode": "GRAPH_RESOLVER",
       "repair_strategy": "Execute this action, sync SPOT/projections, rerun validators, and keep r017 blocked unless the strict terminal gate passes.",
       "required_capability": "Research/PriorArt",
-      "selected_for_execution": false,
+      "selected_for_execution": true,
       "source_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/gap_jobs/gap_3a74fb5d8077bd9e.json",
       "status": "OPEN",
       "validator_binding": "comparator_gap::MS-COV-GAP-COGNITIVE_BEHAVIORAL_NEUROSCIENCES-NEURAL_RECORDING_AND_BRAIN_NETWORK_OBSERVABLES::benchmark_case",
@@ -1257,7 +585,7 @@
         "--write"
       ],
       "executor_type": "comparator_gap",
-      "frontier_signature": "bbf0197d69bd90939d683525326901acf82cc6d53ff97de2aa09ae0e831c7240::AUTO-R017-COMPARATOR-GAP-701e34b0c7b6",
+      "frontier_signature": "632ddf9bd86533cf0263b3665f34815254d63b53551396a7e842d5bb616569cb::AUTO-R017-COMPARATOR-GAP-701e34b0c7b6",
       "gap_id": "MS-COV-GAP-COMPLEX_SYSTEMS_OPERATIONS_SCIENCE-MULTI_AGENT_SYSTEM_DYNAMICS",
       "graph_dependency_path": [
         "required_artifact:MODERN_SCIENCE_COMPARATOR_SUPERIORITY:MS-COV-GAP-COMPLEX_SYSTEMS_OPERATIONS_SCIENCE-MULTI_AGENT_SYSTEM_DYNAMICS:benchmark_case",
@@ -1304,7 +632,7 @@
         "--write"
       ],
       "executor_type": "comparator_gap",
-      "frontier_signature": "bbf0197d69bd90939d683525326901acf82cc6d53ff97de2aa09ae0e831c7240::AUTO-R017-COMPARATOR-GAP-72929588c49e",
+      "frontier_signature": "632ddf9bd86533cf0263b3665f34815254d63b53551396a7e842d5bb616569cb::AUTO-R017-COMPARATOR-GAP-72929588c49e",
       "gap_id": "MS-COV-GAP-COMPLEX_SYSTEMS_OPERATIONS_SCIENCE-QUEUE_SUPPLY_CHAIN_AND_OPERATIONS_OBSERVABLES",
       "graph_dependency_path": [
         "required_artifact:MODERN_SCIENCE_COMPARATOR_SUPERIORITY:MS-COV-GAP-COMPLEX_SYSTEMS_OPERATIONS_SCIENCE-QUEUE_SUPPLY_CHAIN_AND_OPERATIONS_OBSERVABLES:benchmark_case",
@@ -1351,7 +679,7 @@
         "--write"
       ],
       "executor_type": "comparator_gap",
-      "frontier_signature": "bbf0197d69bd90939d683525326901acf82cc6d53ff97de2aa09ae0e831c7240::AUTO-R017-COMPARATOR-GAP-29bcbfd7bc87",
+      "frontier_signature": "632ddf9bd86533cf0263b3665f34815254d63b53551396a7e842d5bb616569cb::AUTO-R017-COMPARATOR-GAP-29bcbfd7bc87",
       "gap_id": "MS-COV-GAP-COMPLEX_SYSTEMS_OPERATIONS_SCIENCE-RESILIENCE_RISK_AND_INTERVENTION_RESPONSE",
       "graph_dependency_path": [
         "required_artifact:MODERN_SCIENCE_COMPARATOR_SUPERIORITY:MS-COV-GAP-COMPLEX_SYSTEMS_OPERATIONS_SCIENCE-RESILIENCE_RISK_AND_INTERVENTION_RESPONSE:benchmark_case",
@@ -1398,7 +726,7 @@
         "--write"
       ],
       "executor_type": "comparator_gap",
-      "frontier_signature": "bbf0197d69bd90939d683525326901acf82cc6d53ff97de2aa09ae0e831c7240::AUTO-R017-COMPARATOR-GAP-81360a6338c2",
+      "frontier_signature": "632ddf9bd86533cf0263b3665f34815254d63b53551396a7e842d5bb616569cb::AUTO-R017-COMPARATOR-GAP-81360a6338c2",
       "gap_id": "MS-COV-GAP-COMPUTER_INFORMATION_SCIENCES-INFORMATION_NETWORK_AND_SECURITY_OBSERVABLES",
       "graph_dependency_path": [
         "required_artifact:MODERN_SCIENCE_COMPARATOR_SUPERIORITY:MS-COV-GAP-COMPUTER_INFORMATION_SCIENCES-INFORMATION_NETWORK_AND_SECURITY_OBSERVABLES:benchmark_case",
@@ -1445,7 +773,7 @@
         "--write"
       ],
       "executor_type": "comparator_gap",
-      "frontier_signature": "bbf0197d69bd90939d683525326901acf82cc6d53ff97de2aa09ae0e831c7240::AUTO-R017-COMPARATOR-GAP-b0e7d011bb17",
+      "frontier_signature": "632ddf9bd86533cf0263b3665f34815254d63b53551396a7e842d5bb616569cb::AUTO-R017-COMPARATOR-GAP-b0e7d011bb17",
       "gap_id": "MS-COV-GAP-COMPUTER_INFORMATION_SCIENCES-MACHINE_LEARNING_GENERALIZATION_AND_EVALUATION",
       "graph_dependency_path": [
         "required_artifact:MODERN_SCIENCE_COMPARATOR_SUPERIORITY:MS-COV-GAP-COMPUTER_INFORMATION_SCIENCES-MACHINE_LEARNING_GENERALIZATION_AND_EVALUATION:benchmark_case",
@@ -1492,7 +820,7 @@
         "--write"
       ],
       "executor_type": "comparator_gap",
-      "frontier_signature": "bbf0197d69bd90939d683525326901acf82cc6d53ff97de2aa09ae0e831c7240::AUTO-R017-COMPARATOR-GAP-b68311337e99",
+      "frontier_signature": "632ddf9bd86533cf0263b3665f34815254d63b53551396a7e842d5bb616569cb::AUTO-R017-COMPARATOR-GAP-b68311337e99",
       "gap_id": "MS-COV-GAP-COMPUTER_INFORMATION_SCIENCES-PROGRAM_SEMANTICS_AND_VERIFICATION",
       "graph_dependency_path": [
         "required_artifact:MODERN_SCIENCE_COMPARATOR_SUPERIORITY:MS-COV-GAP-COMPUTER_INFORMATION_SCIENCES-PROGRAM_SEMANTICS_AND_VERIFICATION:benchmark_case",
@@ -1539,7 +867,7 @@
         "--write"
       ],
       "executor_type": "comparator_gap",
-      "frontier_signature": "bbf0197d69bd90939d683525326901acf82cc6d53ff97de2aa09ae0e831c7240::AUTO-R017-COMPARATOR-GAP-6fa88ac46f5c",
+      "frontier_signature": "632ddf9bd86533cf0263b3665f34815254d63b53551396a7e842d5bb616569cb::AUTO-R017-COMPARATOR-GAP-6fa88ac46f5c",
       "gap_id": "MS-COV-GAP-EARTH_SPACE_ENVIRONMENTAL_SCIENCES-CLIMATE_WEATHER_GEOPHYSICAL_TIME_SERIES",
       "graph_dependency_path": [
         "required_artifact:MODERN_SCIENCE_COMPARATOR_SUPERIORITY:MS-COV-GAP-EARTH_SPACE_ENVIRONMENTAL_SCIENCES-CLIMATE_WEATHER_GEOPHYSICAL_TIME_SERIES:benchmark_case",
@@ -1586,7 +914,7 @@
         "--write"
       ],
       "executor_type": "comparator_gap",
-      "frontier_signature": "bbf0197d69bd90939d683525326901acf82cc6d53ff97de2aa09ae0e831c7240::AUTO-R017-COMPARATOR-GAP-59532ab68d23",
+      "frontier_signature": "632ddf9bd86533cf0263b3665f34815254d63b53551396a7e842d5bb616569cb::AUTO-R017-COMPARATOR-GAP-59532ab68d23",
       "gap_id": "MS-COV-GAP-EARTH_SPACE_ENVIRONMENTAL_SCIENCES-GEOCHEMISTRY_AND_HYDROLOGY_OBSERVABLES",
       "graph_dependency_path": [
         "required_artifact:MODERN_SCIENCE_COMPARATOR_SUPERIORITY:MS-COV-GAP-EARTH_SPACE_ENVIRONMENTAL_SCIENCES-GEOCHEMISTRY_AND_HYDROLOGY_OBSERVABLES:benchmark_case",
@@ -1633,7 +961,7 @@
         "--write"
       ],
       "executor_type": "comparator_gap",
-      "frontier_signature": "bbf0197d69bd90939d683525326901acf82cc6d53ff97de2aa09ae0e831c7240::AUTO-R017-COMPARATOR-GAP-04a29758f831",
+      "frontier_signature": "632ddf9bd86533cf0263b3665f34815254d63b53551396a7e842d5bb616569cb::AUTO-R017-COMPARATOR-GAP-04a29758f831",
       "gap_id": "MS-COV-GAP-EARTH_SPACE_ENVIRONMENTAL_SCIENCES-REMOTE_SENSING_AND_PLANETARY_MEASUREMENTS",
       "graph_dependency_path": [
         "required_artifact:MODERN_SCIENCE_COMPARATOR_SUPERIORITY:MS-COV-GAP-EARTH_SPACE_ENVIRONMENTAL_SCIENCES-REMOTE_SENSING_AND_PLANETARY_MEASUREMENTS:benchmark_case",
@@ -1680,7 +1008,7 @@
         "--write"
       ],
       "executor_type": "comparator_gap",
-      "frontier_signature": "bbf0197d69bd90939d683525326901acf82cc6d53ff97de2aa09ae0e831c7240::AUTO-R017-COMPARATOR-GAP-a1c1bcc404d1",
+      "frontier_signature": "632ddf9bd86533cf0263b3665f34815254d63b53551396a7e842d5bb616569cb::AUTO-R017-COMPARATOR-GAP-a1c1bcc404d1",
       "gap_id": "MS-COV-GAP-ENGINEERING_MATERIALS_SCIENCES-CONTROL_SYSTEMS_AND_SIGNAL_MEASUREMENT",
       "graph_dependency_path": [
         "required_artifact:MODERN_SCIENCE_COMPARATOR_SUPERIORITY:MS-COV-GAP-ENGINEERING_MATERIALS_SCIENCES-CONTROL_SYSTEMS_AND_SIGNAL_MEASUREMENT:benchmark_case",
@@ -1727,7 +1055,7 @@
         "--write"
       ],
       "executor_type": "comparator_gap",
-      "frontier_signature": "bbf0197d69bd90939d683525326901acf82cc6d53ff97de2aa09ae0e831c7240::AUTO-R017-COMPARATOR-GAP-292f561baf27",
+      "frontier_signature": "632ddf9bd86533cf0263b3665f34815254d63b53551396a7e842d5bb616569cb::AUTO-R017-COMPARATOR-GAP-292f561baf27",
       "gap_id": "MS-COV-GAP-ENGINEERING_MATERIALS_SCIENCES-ENERGY_TRANSPORT_AND_MANUFACTURING_PROCESSES",
       "graph_dependency_path": [
         "required_artifact:MODERN_SCIENCE_COMPARATOR_SUPERIORITY:MS-COV-GAP-ENGINEERING_MATERIALS_SCIENCES-ENERGY_TRANSPORT_AND_MANUFACTURING_PROCESSES:benchmark_case",
@@ -1774,7 +1102,7 @@
         "--write"
       ],
       "executor_type": "comparator_gap",
-      "frontier_signature": "bbf0197d69bd90939d683525326901acf82cc6d53ff97de2aa09ae0e831c7240::AUTO-R017-COMPARATOR-GAP-b1491a46e156",
+      "frontier_signature": "632ddf9bd86533cf0263b3665f34815254d63b53551396a7e842d5bb616569cb::AUTO-R017-COMPARATOR-GAP-b1491a46e156",
       "gap_id": "MS-COV-GAP-ENGINEERING_MATERIALS_SCIENCES-MATERIALS_PROPERTY_AND_FAILURE_PREDICTION",
       "graph_dependency_path": [
         "required_artifact:MODERN_SCIENCE_COMPARATOR_SUPERIORITY:MS-COV-GAP-ENGINEERING_MATERIALS_SCIENCES-MATERIALS_PROPERTY_AND_FAILURE_PREDICTION:benchmark_case",
@@ -1821,7 +1149,7 @@
         "--write"
       ],
       "executor_type": "comparator_gap",
-      "frontier_signature": "bbf0197d69bd90939d683525326901acf82cc6d53ff97de2aa09ae0e831c7240::AUTO-R017-COMPARATOR-GAP-e892ff669caa",
+      "frontier_signature": "632ddf9bd86533cf0263b3665f34815254d63b53551396a7e842d5bb616569cb::AUTO-R017-COMPARATOR-GAP-e892ff669caa",
       "gap_id": "MS-COV-GAP-FORMAL_MATHEMATICS_AND_LOGIC-COMPUTATIONAL_COMPLEXITY_AND_ALGORITHMIC_PROOF",
       "graph_dependency_path": [
         "required_artifact:MODERN_SCIENCE_COMPARATOR_SUPERIORITY:MS-COV-GAP-FORMAL_MATHEMATICS_AND_LOGIC-COMPUTATIONAL_COMPLEXITY_AND_ALGORITHMIC_PROOF:benchmark_case",
@@ -1868,7 +1196,7 @@
         "--write"
       ],
       "executor_type": "comparator_gap",
-      "frontier_signature": "bbf0197d69bd90939d683525326901acf82cc6d53ff97de2aa09ae0e831c7240::AUTO-R017-COMPARATOR-GAP-d24b3af373ba",
+      "frontier_signature": "632ddf9bd86533cf0263b3665f34815254d63b53551396a7e842d5bb616569cb::AUTO-R017-COMPARATOR-GAP-d24b3af373ba",
       "gap_id": "MS-COV-GAP-FORMAL_MATHEMATICS_AND_LOGIC-FORMAL_THEOREM_RECONSTRUCTION",
       "graph_dependency_path": [
         "required_artifact:MODERN_SCIENCE_COMPARATOR_SUPERIORITY:MS-COV-GAP-FORMAL_MATHEMATICS_AND_LOGIC-FORMAL_THEOREM_RECONSTRUCTION:benchmark_case",
@@ -1915,7 +1243,7 @@
         "--write"
       ],
       "executor_type": "comparator_gap",
-      "frontier_signature": "bbf0197d69bd90939d683525326901acf82cc6d53ff97de2aa09ae0e831c7240::AUTO-R017-COMPARATOR-GAP-ce94088abe21",
+      "frontier_signature": "632ddf9bd86533cf0263b3665f34815254d63b53551396a7e842d5bb616569cb::AUTO-R017-COMPARATOR-GAP-ce94088abe21",
       "gap_id": "MS-COV-GAP-FORMAL_MATHEMATICS_AND_LOGIC-STATISTICAL_INFERENCE_IDENTIFIABILITY",
       "graph_dependency_path": [
         "required_artifact:MODERN_SCIENCE_COMPARATOR_SUPERIORITY:MS-COV-GAP-FORMAL_MATHEMATICS_AND_LOGIC-STATISTICAL_INFERENCE_IDENTIFIABILITY:benchmark_case",
@@ -1962,7 +1290,7 @@
         "--write"
       ],
       "executor_type": "comparator_gap",
-      "frontier_signature": "bbf0197d69bd90939d683525326901acf82cc6d53ff97de2aa09ae0e831c7240::AUTO-R017-COMPARATOR-GAP-c8f37f6962a1",
+      "frontier_signature": "632ddf9bd86533cf0263b3665f34815254d63b53551396a7e842d5bb616569cb::AUTO-R017-COMPARATOR-GAP-c8f37f6962a1",
       "gap_id": "MS-COV-GAP-MEDICAL_HEALTH_SCIENCES-CLINICAL_OUTCOMES_AND_BIOMARKERS",
       "graph_dependency_path": [
         "required_artifact:MODERN_SCIENCE_COMPARATOR_SUPERIORITY:MS-COV-GAP-MEDICAL_HEALTH_SCIENCES-CLINICAL_OUTCOMES_AND_BIOMARKERS:benchmark_case",
@@ -2009,7 +1337,7 @@
         "--write"
       ],
       "executor_type": "comparator_gap",
-      "frontier_signature": "bbf0197d69bd90939d683525326901acf82cc6d53ff97de2aa09ae0e831c7240::AUTO-R017-COMPARATOR-GAP-bde33a9d3737",
+      "frontier_signature": "632ddf9bd86533cf0263b3665f34815254d63b53551396a7e842d5bb616569cb::AUTO-R017-COMPARATOR-GAP-bde33a9d3737",
       "gap_id": "MS-COV-GAP-MEDICAL_HEALTH_SCIENCES-EPIDEMIOLOGICAL_TRANSMISSION_AND_RISK",
       "graph_dependency_path": [
         "required_artifact:MODERN_SCIENCE_COMPARATOR_SUPERIORITY:MS-COV-GAP-MEDICAL_HEALTH_SCIENCES-EPIDEMIOLOGICAL_TRANSMISSION_AND_RISK:benchmark_case",
@@ -2056,7 +1384,7 @@
         "--write"
       ],
       "executor_type": "comparator_gap",
-      "frontier_signature": "bbf0197d69bd90939d683525326901acf82cc6d53ff97de2aa09ae0e831c7240::AUTO-R017-COMPARATOR-GAP-37c095c180c5",
+      "frontier_signature": "632ddf9bd86533cf0263b3665f34815254d63b53551396a7e842d5bb616569cb::AUTO-R017-COMPARATOR-GAP-37c095c180c5",
       "gap_id": "MS-COV-GAP-MEDICAL_HEALTH_SCIENCES-PHARMACOLOGY_TOXICOLOGY_AND_DOSE_RESPONSE",
       "graph_dependency_path": [
         "required_artifact:MODERN_SCIENCE_COMPARATOR_SUPERIORITY:MS-COV-GAP-MEDICAL_HEALTH_SCIENCES-PHARMACOLOGY_TOXICOLOGY_AND_DOSE_RESPONSE:benchmark_case",
@@ -2103,7 +1431,7 @@
         "--write"
       ],
       "executor_type": "comparator_gap",
-      "frontier_signature": "bbf0197d69bd90939d683525326901acf82cc6d53ff97de2aa09ae0e831c7240::AUTO-R017-COMPARATOR-GAP-f0ee7d5ec550",
+      "frontier_signature": "632ddf9bd86533cf0263b3665f34815254d63b53551396a7e842d5bb616569cb::AUTO-R017-COMPARATOR-GAP-f0ee7d5ec550",
       "gap_id": "MS-COV-GAP-PHYSICAL_SCIENCES-ASTRONOMICAL_AND_COSMOLOGICAL_OBSERVABLES",
       "graph_dependency_path": [
         "required_artifact:MODERN_SCIENCE_COMPARATOR_SUPERIORITY:MS-COV-GAP-PHYSICAL_SCIENCES-ASTRONOMICAL_AND_COSMOLOGICAL_OBSERVABLES:benchmark_case",
@@ -2150,7 +1478,7 @@
         "--write"
       ],
       "executor_type": "comparator_gap",
-      "frontier_signature": "bbf0197d69bd90939d683525326901acf82cc6d53ff97de2aa09ae0e831c7240::AUTO-R017-COMPARATOR-GAP-8b4b8aaaa996",
+      "frontier_signature": "632ddf9bd86533cf0263b3665f34815254d63b53551396a7e842d5bb616569cb::AUTO-R017-COMPARATOR-GAP-8b4b8aaaa996",
       "gap_id": "MS-COV-GAP-PHYSICAL_SCIENCES-CONDENSED_MATTER_FIELDS_AND_MEASUREMENTS",
       "graph_dependency_path": [
         "required_artifact:MODERN_SCIENCE_COMPARATOR_SUPERIORITY:MS-COV-GAP-PHYSICAL_SCIENCES-CONDENSED_MATTER_FIELDS_AND_MEASUREMENTS:benchmark_case",
@@ -2197,7 +1525,7 @@
         "--write"
       ],
       "executor_type": "comparator_gap",
-      "frontier_signature": "bbf0197d69bd90939d683525326901acf82cc6d53ff97de2aa09ae0e831c7240::AUTO-R017-COMPARATOR-GAP-a7777e969d54",
+      "frontier_signature": "632ddf9bd86533cf0263b3665f34815254d63b53551396a7e842d5bb616569cb::AUTO-R017-COMPARATOR-GAP-a7777e969d54",
       "gap_id": "MS-COV-GAP-PHYSICAL_SCIENCES-DYNAMICAL_LAWS_AND_CONSERVATION",
       "graph_dependency_path": [
         "required_artifact:MODERN_SCIENCE_COMPARATOR_SUPERIORITY:MS-COV-GAP-PHYSICAL_SCIENCES-DYNAMICAL_LAWS_AND_CONSERVATION:benchmark_case",
@@ -2244,7 +1572,7 @@
         "--write"
       ],
       "executor_type": "comparator_gap",
-      "frontier_signature": "bbf0197d69bd90939d683525326901acf82cc6d53ff97de2aa09ae0e831c7240::AUTO-R017-COMPARATOR-GAP-fc08158de149",
+      "frontier_signature": "632ddf9bd86533cf0263b3665f34815254d63b53551396a7e842d5bb616569cb::AUTO-R017-COMPARATOR-GAP-fc08158de149",
       "gap_id": "MS-COV-GAP-SOCIAL_ECONOMIC_POLITICAL_SCIENCES-ECONOMIC_INDICATOR_AND_MARKET_OBSERVABLES",
       "graph_dependency_path": [
         "required_artifact:MODERN_SCIENCE_COMPARATOR_SUPERIORITY:MS-COV-GAP-SOCIAL_ECONOMIC_POLITICAL_SCIENCES-ECONOMIC_INDICATOR_AND_MARKET_OBSERVABLES:benchmark_case",
@@ -2291,7 +1619,7 @@
         "--write"
       ],
       "executor_type": "comparator_gap",
-      "frontier_signature": "bbf0197d69bd90939d683525326901acf82cc6d53ff97de2aa09ae0e831c7240::AUTO-R017-COMPARATOR-GAP-3dcf09e69027",
+      "frontier_signature": "632ddf9bd86533cf0263b3665f34815254d63b53551396a7e842d5bb616569cb::AUTO-R017-COMPARATOR-GAP-3dcf09e69027",
       "gap_id": "MS-COV-GAP-SOCIAL_ECONOMIC_POLITICAL_SCIENCES-INSTITUTIONAL_SOCIAL_NETWORK_AND_POLICY_OUTCOMES",
       "graph_dependency_path": [
         "required_artifact:MODERN_SCIENCE_COMPARATOR_SUPERIORITY:MS-COV-GAP-SOCIAL_ECONOMIC_POLITICAL_SCIENCES-INSTITUTIONAL_SOCIAL_NETWORK_AND_POLICY_OUTCOMES:benchmark_case",
@@ -2328,6 +1656,294 @@
       "why_it_failed": "The strict final TOE validator still reports this lane as open."
     },
     {
+      "action_id": "AUTO-capability_development-AUTO-R017-CAPABILITY-DEVELOPMENT-0003-c5a91cfe",
+      "already_attempted_on_frontier": false,
+      "execution_command": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "tools/oc133_toe_closure_factory.py",
+        "--execute-capability-development",
+        "R017-CAPDEV-c0628de87657",
+        "--write"
+      ],
+      "executor_type": "capability_development",
+      "frontier_signature": "632ddf9bd86533cf0263b3665f34815254d63b53551396a7e842d5bb616569cb::AUTO-capability_development-AUTO-R017-CAPABILITY-DEVELOPMENT-0003-c5a91cfe",
+      "graph_dependency_path": [
+        "capability_development:AUTO-R017-CAPABILITY-DEVELOPMENT-0003-c5a91cfe"
+      ],
+      "graph_node_id": "capability_development:AUTO-R017-CAPABILITY-DEVELOPMENT-0003-c5a91cfe",
+      "graph_node_type": "capability_development",
+      "graph_priority": [
+        30,
+        30,
+        80,
+        "capability_development:AUTO-R017-CAPABILITY-DEVELOPMENT-0003-c5a91cfe"
+      ],
+      "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+      "missing_artifact_type": "verified_open_source_capsule",
+      "next_escalation": "If this action produces no validator delta, split the missing artifact class into a narrower capability work order.",
+      "pass_predicate": "The referenced lane disappears from strict TOE validator errors without weakening gates.",
+      "planner_mode": "GRAPH_RESOLVER",
+      "repair_strategy": "Create a narrower source-bound executor for the exact missing artifact class before rerunning the same action.",
+      "required_capability": "Research/PriorArt",
+      "selected_for_execution": false,
+      "source_graph_node_id": "required_artifact:MODERN_SCIENCE_COMPARATOR_SUPERIORITY:MS-COV-GAP-AGRICULTURAL_FOOD_SCIENCES-FOOD_CHEMISTRY_SAFETY_AND_NUTRITION:benchmark_case",
+      "status": "OPEN",
+      "validator_binding": "comparator_gap::MS-COV-GAP-AGRICULTURAL_FOOD_SCIENCES-FOOD_CHEMISTRY_SAFETY_AND_NUTRITION::benchmark_case",
+      "why_it_failed": "The action did not reduce strict validator errors on this semantic frontier."
+    },
+    {
+      "action_id": "AUTO-capability_development-AUTO-R017-CAPABILITY-DEVELOPMENT-0004-5f29c4f2",
+      "already_attempted_on_frontier": false,
+      "execution_command": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "tools/oc133_toe_closure_factory.py",
+        "--execute-capability-development",
+        "R017-CAPDEV-6f7030d9bc53",
+        "--write"
+      ],
+      "executor_type": "capability_development",
+      "frontier_signature": "632ddf9bd86533cf0263b3665f34815254d63b53551396a7e842d5bb616569cb::AUTO-capability_development-AUTO-R017-CAPABILITY-DEVELOPMENT-0004-5f29c4f2",
+      "graph_dependency_path": [
+        "capability_development:AUTO-R017-CAPABILITY-DEVELOPMENT-0004-5f29c4f2"
+      ],
+      "graph_node_id": "capability_development:AUTO-R017-CAPABILITY-DEVELOPMENT-0004-5f29c4f2",
+      "graph_node_type": "capability_development",
+      "graph_priority": [
+        30,
+        30,
+        80,
+        "capability_development:AUTO-R017-CAPABILITY-DEVELOPMENT-0004-5f29c4f2"
+      ],
+      "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+      "missing_artifact_type": "verified_open_source_capsule",
+      "next_escalation": "If this action produces no validator delta, split the missing artifact class into a narrower capability work order.",
+      "pass_predicate": "The referenced lane disappears from strict TOE validator errors without weakening gates.",
+      "planner_mode": "GRAPH_RESOLVER",
+      "repair_strategy": "Create a narrower source-bound executor for the exact missing artifact class before rerunning the same action.",
+      "required_capability": "Research/PriorArt",
+      "selected_for_execution": false,
+      "source_graph_node_id": "required_artifact:MODERN_SCIENCE_COMPARATOR_SUPERIORITY:MS-COV-GAP-BIOLOGICAL_LIFE_SCIENCES-CELLULAR_DEVELOPMENTAL_REGULATORY_DYNAMICS:benchmark_case",
+      "status": "OPEN",
+      "validator_binding": "comparator_gap::MS-COV-GAP-BIOLOGICAL_LIFE_SCIENCES-CELLULAR_DEVELOPMENTAL_REGULATORY_DYNAMICS::benchmark_case",
+      "why_it_failed": "The action did not reduce strict validator errors on this semantic frontier."
+    },
+    {
+      "action_id": "AUTO-capability_development-AUTO-R017-CAPABILITY-DEVELOPMENT-0005-13a56bc4",
+      "already_attempted_on_frontier": false,
+      "execution_command": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "tools/oc133_toe_closure_factory.py",
+        "--execute-capability-development",
+        "R017-CAPDEV-12a0e97225c8",
+        "--write"
+      ],
+      "executor_type": "capability_development",
+      "frontier_signature": "632ddf9bd86533cf0263b3665f34815254d63b53551396a7e842d5bb616569cb::AUTO-capability_development-AUTO-R017-CAPABILITY-DEVELOPMENT-0005-13a56bc4",
+      "graph_dependency_path": [
+        "capability_development:AUTO-R017-CAPABILITY-DEVELOPMENT-0005-13a56bc4"
+      ],
+      "graph_node_id": "capability_development:AUTO-R017-CAPABILITY-DEVELOPMENT-0005-13a56bc4",
+      "graph_node_type": "capability_development",
+      "graph_priority": [
+        30,
+        30,
+        80,
+        "capability_development:AUTO-R017-CAPABILITY-DEVELOPMENT-0005-13a56bc4"
+      ],
+      "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+      "missing_artifact_type": "verified_open_source_capsule",
+      "next_escalation": "If this action produces no validator delta, split the missing artifact class into a narrower capability work order.",
+      "pass_predicate": "The referenced lane disappears from strict TOE validator errors without weakening gates.",
+      "planner_mode": "GRAPH_RESOLVER",
+      "repair_strategy": "Create a narrower source-bound executor for the exact missing artifact class before rerunning the same action.",
+      "required_capability": "Research/PriorArt",
+      "selected_for_execution": false,
+      "source_graph_node_id": "required_artifact:MODERN_SCIENCE_COMPARATOR_SUPERIORITY:MS-COV-GAP-BIOLOGICAL_LIFE_SCIENCES-ECOLOGY_POPULATION_AND_BIODIVERSITY_OBSERVABLES:benchmark_case",
+      "status": "OPEN",
+      "validator_binding": "comparator_gap::MS-COV-GAP-BIOLOGICAL_LIFE_SCIENCES-ECOLOGY_POPULATION_AND_BIODIVERSITY_OBSERVABLES::benchmark_case",
+      "why_it_failed": "The action did not reduce strict validator errors on this semantic frontier."
+    },
+    {
+      "action_id": "AUTO-capability_development-AUTO-R017-CAPABILITY-DEVELOPMENT-0005-a35a28bd",
+      "already_attempted_on_frontier": false,
+      "execution_command": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "tools/oc133_toe_closure_factory.py",
+        "--execute-capability-development",
+        "R017-CAPDEV-7e6210a103b0",
+        "--write"
+      ],
+      "executor_type": "capability_development",
+      "frontier_signature": "632ddf9bd86533cf0263b3665f34815254d63b53551396a7e842d5bb616569cb::AUTO-capability_development-AUTO-R017-CAPABILITY-DEVELOPMENT-0005-a35a28bd",
+      "graph_dependency_path": [
+        "capability_development:AUTO-R017-CAPABILITY-DEVELOPMENT-0005-a35a28bd"
+      ],
+      "graph_node_id": "capability_development:AUTO-R017-CAPABILITY-DEVELOPMENT-0005-a35a28bd",
+      "graph_node_type": "capability_development",
+      "graph_priority": [
+        30,
+        30,
+        80,
+        "capability_development:AUTO-R017-CAPABILITY-DEVELOPMENT-0005-a35a28bd"
+      ],
+      "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+      "missing_artifact_type": "verified_open_source_capsule",
+      "next_escalation": "If this action produces no validator delta, split the missing artifact class into a narrower capability work order.",
+      "pass_predicate": "The referenced lane disappears from strict TOE validator errors without weakening gates.",
+      "planner_mode": "GRAPH_RESOLVER",
+      "repair_strategy": "Create a narrower source-bound executor for the exact missing artifact class before rerunning the same action.",
+      "required_capability": "Research/PriorArt",
+      "selected_for_execution": false,
+      "source_graph_node_id": "required_artifact:MODERN_SCIENCE_COMPARATOR_SUPERIORITY:MS-COV-GAP-AGRICULTURAL_FOOD_SCIENCES-ANIMAL_HEALTH_AND_PRODUCTION_SYSTEMS:benchmark_case",
+      "status": "OPEN",
+      "validator_binding": "comparator_gap::MS-COV-GAP-AGRICULTURAL_FOOD_SCIENCES-ANIMAL_HEALTH_AND_PRODUCTION_SYSTEMS::benchmark_case",
+      "why_it_failed": "The action did not reduce strict validator errors on this semantic frontier."
+    },
+    {
+      "action_id": "AUTO-capability_development-AUTO-R017-CAPABILITY-DEVELOPMENT-0006-66cfebe8",
+      "already_attempted_on_frontier": false,
+      "execution_command": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "tools/oc133_toe_closure_factory.py",
+        "--execute-capability-development",
+        "R017-CAPDEV-88a6866bf092",
+        "--write"
+      ],
+      "executor_type": "capability_development",
+      "frontier_signature": "632ddf9bd86533cf0263b3665f34815254d63b53551396a7e842d5bb616569cb::AUTO-capability_development-AUTO-R017-CAPABILITY-DEVELOPMENT-0006-66cfebe8",
+      "graph_dependency_path": [
+        "capability_development:AUTO-R017-CAPABILITY-DEVELOPMENT-0006-66cfebe8"
+      ],
+      "graph_node_id": "capability_development:AUTO-R017-CAPABILITY-DEVELOPMENT-0006-66cfebe8",
+      "graph_node_type": "capability_development",
+      "graph_priority": [
+        30,
+        30,
+        80,
+        "capability_development:AUTO-R017-CAPABILITY-DEVELOPMENT-0006-66cfebe8"
+      ],
+      "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+      "missing_artifact_type": "verified_open_source_capsule",
+      "next_escalation": "If this action produces no validator delta, split the missing artifact class into a narrower capability work order.",
+      "pass_predicate": "The referenced lane disappears from strict TOE validator errors without weakening gates.",
+      "planner_mode": "GRAPH_RESOLVER",
+      "repair_strategy": "Create a narrower source-bound executor for the exact missing artifact class before rerunning the same action.",
+      "required_capability": "Research/PriorArt",
+      "selected_for_execution": false,
+      "source_graph_node_id": "required_artifact:MODERN_SCIENCE_COMPARATOR_SUPERIORITY:MS-COV-GAP-BIOLOGICAL_LIFE_SCIENCES-EVOLUTIONARY_PHYLOGENETIC_PATTERNS:benchmark_case",
+      "status": "OPEN",
+      "validator_binding": "comparator_gap::MS-COV-GAP-BIOLOGICAL_LIFE_SCIENCES-EVOLUTIONARY_PHYLOGENETIC_PATTERNS::benchmark_case",
+      "why_it_failed": "The action did not reduce strict validator errors on this semantic frontier."
+    },
+    {
+      "action_id": "AUTO-capability_development-AUTO-R017-CAPABILITY-DEVELOPMENT-0006-f5753e5c",
+      "already_attempted_on_frontier": false,
+      "execution_command": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "tools/oc133_toe_closure_factory.py",
+        "--execute-capability-development",
+        "R017-CAPDEV-2d8efab944e6",
+        "--write"
+      ],
+      "executor_type": "capability_development",
+      "frontier_signature": "632ddf9bd86533cf0263b3665f34815254d63b53551396a7e842d5bb616569cb::AUTO-capability_development-AUTO-R017-CAPABILITY-DEVELOPMENT-0006-f5753e5c",
+      "graph_dependency_path": [
+        "capability_development:AUTO-R017-CAPABILITY-DEVELOPMENT-0006-f5753e5c"
+      ],
+      "graph_node_id": "capability_development:AUTO-R017-CAPABILITY-DEVELOPMENT-0006-f5753e5c",
+      "graph_node_type": "capability_development",
+      "graph_priority": [
+        30,
+        30,
+        80,
+        "capability_development:AUTO-R017-CAPABILITY-DEVELOPMENT-0006-f5753e5c"
+      ],
+      "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+      "missing_artifact_type": "verified_open_source_capsule",
+      "next_escalation": "If this action produces no validator delta, split the missing artifact class into a narrower capability work order.",
+      "pass_predicate": "The referenced lane disappears from strict TOE validator errors without weakening gates.",
+      "planner_mode": "GRAPH_RESOLVER",
+      "repair_strategy": "Create a narrower source-bound executor for the exact missing artifact class before rerunning the same action.",
+      "required_capability": "Research/PriorArt",
+      "selected_for_execution": false,
+      "source_graph_node_id": "required_artifact:MODERN_SCIENCE_COMPARATOR_SUPERIORITY:MS-COV-GAP-AGRICULTURAL_FOOD_SCIENCES-CROP_YIELD_SOIL_AND_TRAIT_OBSERVABLES:benchmark_case",
+      "status": "OPEN",
+      "validator_binding": "comparator_gap::MS-COV-GAP-AGRICULTURAL_FOOD_SCIENCES-CROP_YIELD_SOIL_AND_TRAIT_OBSERVABLES::benchmark_case",
+      "why_it_failed": "The action did not reduce strict validator errors on this semantic frontier."
+    },
+    {
+      "action_id": "AUTO-capability_development-AUTO-R017-CAPABILITY-DEVELOPMENT-0007-449110c2",
+      "already_attempted_on_frontier": false,
+      "execution_command": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "tools/oc133_toe_closure_factory.py",
+        "--execute-capability-development",
+        "R017-CAPDEV-046d1b8563a4",
+        "--write"
+      ],
+      "executor_type": "capability_development",
+      "frontier_signature": "632ddf9bd86533cf0263b3665f34815254d63b53551396a7e842d5bb616569cb::AUTO-capability_development-AUTO-R017-CAPABILITY-DEVELOPMENT-0007-449110c2",
+      "graph_dependency_path": [
+        "capability_development:AUTO-R017-CAPABILITY-DEVELOPMENT-0007-449110c2"
+      ],
+      "graph_node_id": "capability_development:AUTO-R017-CAPABILITY-DEVELOPMENT-0007-449110c2",
+      "graph_node_type": "capability_development",
+      "graph_priority": [
+        30,
+        30,
+        80,
+        "capability_development:AUTO-R017-CAPABILITY-DEVELOPMENT-0007-449110c2"
+      ],
+      "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+      "missing_artifact_type": "verified_open_source_capsule",
+      "next_escalation": "If this action produces no validator delta, split the missing artifact class into a narrower capability work order.",
+      "pass_predicate": "The referenced lane disappears from strict TOE validator errors without weakening gates.",
+      "planner_mode": "GRAPH_RESOLVER",
+      "repair_strategy": "Create a narrower source-bound executor for the exact missing artifact class before rerunning the same action.",
+      "required_capability": "Research/PriorArt",
+      "selected_for_execution": false,
+      "source_graph_node_id": "required_artifact:MODERN_SCIENCE_COMPARATOR_SUPERIORITY:MS-COV-GAP-CHEMICAL_SCIENCES-MATERIALS_AND_SPECTROSCOPY_OBSERVABLES:benchmark_case",
+      "status": "OPEN",
+      "validator_binding": "comparator_gap::MS-COV-GAP-CHEMICAL_SCIENCES-MATERIALS_AND_SPECTROSCOPY_OBSERVABLES::benchmark_case",
+      "why_it_failed": "The action did not reduce strict validator errors on this semantic frontier."
+    },
+    {
+      "action_id": "AUTO-capability_development-AUTO-R017-CAPABILITY-DEVELOPMENT-0008-942c4337",
+      "already_attempted_on_frontier": false,
+      "execution_command": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "tools/oc133_toe_closure_factory.py",
+        "--execute-capability-development",
+        "R017-CAPDEV-2ad6b9aa61d2",
+        "--write"
+      ],
+      "executor_type": "capability_development",
+      "frontier_signature": "632ddf9bd86533cf0263b3665f34815254d63b53551396a7e842d5bb616569cb::AUTO-capability_development-AUTO-R017-CAPABILITY-DEVELOPMENT-0008-942c4337",
+      "graph_dependency_path": [
+        "capability_development:AUTO-R017-CAPABILITY-DEVELOPMENT-0008-942c4337"
+      ],
+      "graph_node_id": "capability_development:AUTO-R017-CAPABILITY-DEVELOPMENT-0008-942c4337",
+      "graph_node_type": "capability_development",
+      "graph_priority": [
+        30,
+        30,
+        80,
+        "capability_development:AUTO-R017-CAPABILITY-DEVELOPMENT-0008-942c4337"
+      ],
+      "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+      "missing_artifact_type": "verified_open_source_capsule",
+      "next_escalation": "If this action produces no validator delta, split the missing artifact class into a narrower capability work order.",
+      "pass_predicate": "The referenced lane disappears from strict TOE validator errors without weakening gates.",
+      "planner_mode": "GRAPH_RESOLVER",
+      "repair_strategy": "Create a narrower source-bound executor for the exact missing artifact class before rerunning the same action.",
+      "required_capability": "Research/PriorArt",
+      "selected_for_execution": false,
+      "source_graph_node_id": "required_artifact:MODERN_SCIENCE_COMPARATOR_SUPERIORITY:MS-COV-GAP-CHEMICAL_SCIENCES-REACTION_AND_KINETICS_PREDICTION:benchmark_case",
+      "status": "OPEN",
+      "validator_binding": "comparator_gap::MS-COV-GAP-CHEMICAL_SCIENCES-REACTION_AND_KINETICS_PREDICTION::benchmark_case",
+      "why_it_failed": "The action did not reduce strict validator errors on this semantic frontier."
+    },
+    {
       "action_id": "AUTO-R017-GRAND-PROMOTION-DERIVATION",
       "already_attempted_on_frontier": false,
       "execution_command": [
@@ -2338,7 +1954,7 @@
         "--write"
       ],
       "executor_type": "grand_promotion_derivation",
-      "frontier_signature": "bbf0197d69bd90939d683525326901acf82cc6d53ff97de2aa09ae0e831c7240::AUTO-R017-GRAND-PROMOTION-DERIVATION",
+      "frontier_signature": "632ddf9bd86533cf0263b3665f34815254d63b53551396a7e842d5bb616569cb::AUTO-R017-GRAND-PROMOTION-DERIVATION",
       "graph_dependency_path": [
         "capability:AUTO-R017-GRAND-PROMOTION-DERIVATION"
       ],
@@ -2366,7 +1982,7 @@
       "already_attempted_on_frontier": false,
       "execution_command": [],
       "executor_type": "skip_until_science_pass",
-      "frontier_signature": "bbf0197d69bd90939d683525326901acf82cc6d53ff97de2aa09ae0e831c7240::AUTO-R017-CERBERUS-CLEAN-REFRESH",
+      "frontier_signature": "632ddf9bd86533cf0263b3665f34815254d63b53551396a7e842d5bb616569cb::AUTO-R017-CERBERUS-CLEAN-REFRESH",
       "graph_dependency_path": [
         "capability:AUTO-R017-CERBERUS-CLEAN-REFRESH"
       ],
@@ -2391,26 +2007,8 @@
     }
   ],
   "schema_id": "OC133_TOE_AUTONOMOUS_NEXT_ACTION_QUEUE_v1",
-  "science_validator_error_total": 17,
+  "science_validator_error_total": 5,
   "selected_graph_node_ids": [
-    "required_artifact:AI:source_grounded_non_blocker_candidate",
-    "required_artifact:AI:non_blocker_public_claim_scope",
-    "required_artifact:AI:lean_refs",
-    "required_artifact:AI:finite_case_refs",
-    "capability_development:AUTO-R017-CAPABILITY-DEVELOPMENT-0001-d34a5a39",
-    "capability_development:AUTO-R017-CAPABILITY-DEVELOPMENT-0005-069ec53d",
-    "capability_development:AUTO-R017-CAPABILITY-DEVELOPMENT-0005-697e4bb4",
-    "capability_development:AUTO-R017-CAPABILITY-DEVELOPMENT-0007-76dcdd35",
-    "capability_development:AUTO-R017-CAPABILITY-DEVELOPMENT-0008-4226bb15",
-    "capability_development:AUTO-R017-CAPABILITY-DEVELOPMENT-0009-d8790750",
-    "capability_development:AUTO-R017-CAPABILITY-DEVELOPMENT-0002-9e775d34",
-    "capability_development:AUTO-R017-CAPABILITY-DEVELOPMENT-0006-c9c663b0",
-    "capability_development:AUTO-R017-CAPABILITY-DEVELOPMENT-0003-2199287f",
-    "capability_development:AUTO-R017-CAPABILITY-DEVELOPMENT-0004-89f82c35",
-    "required_artifact:ENTERPRISE_ARCHITECTURE:source_grounded_non_blocker_candidate",
-    "required_artifact:ENTERPRISE_ARCHITECTURE:non_blocker_public_claim_scope",
-    "required_artifact:ENTERPRISE_ARCHITECTURE:lean_refs",
-    "required_artifact:ENTERPRISE_ARCHITECTURE:finite_case_refs",
     "required_artifact:MODERN_SCIENCE_COMPARATOR_SUPERIORITY:MS-COV-GAP-AGRICULTURAL_FOOD_SCIENCES-ANIMAL_HEALTH_AND_PRODUCTION_SYSTEMS:benchmark_case",
     "required_artifact:MODERN_SCIENCE_COMPARATOR_SUPERIORITY:MS-COV-GAP-AGRICULTURAL_FOOD_SCIENCES-CROP_YIELD_SOIL_AND_TRAIT_OBSERVABLES:benchmark_case",
     "required_artifact:MODERN_SCIENCE_COMPARATOR_SUPERIORITY:MS-COV-GAP-AGRICULTURAL_FOOD_SCIENCES-FOOD_CHEMISTRY_SAFETY_AND_NUTRITION:benchmark_case",
@@ -2446,12 +2044,20 @@
     "required_artifact:MODERN_SCIENCE_COMPARATOR_SUPERIORITY:MS-COV-GAP-PHYSICAL_SCIENCES-DYNAMICAL_LAWS_AND_CONSERVATION:benchmark_case",
     "required_artifact:MODERN_SCIENCE_COMPARATOR_SUPERIORITY:MS-COV-GAP-SOCIAL_ECONOMIC_POLITICAL_SCIENCES-ECONOMIC_INDICATOR_AND_MARKET_OBSERVABLES:benchmark_case",
     "required_artifact:MODERN_SCIENCE_COMPARATOR_SUPERIORITY:MS-COV-GAP-SOCIAL_ECONOMIC_POLITICAL_SCIENCES-INSTITUTIONAL_SOCIAL_NETWORK_AND_POLICY_OUTCOMES:benchmark_case",
+    "capability_development:AUTO-R017-CAPABILITY-DEVELOPMENT-0003-c5a91cfe",
+    "capability_development:AUTO-R017-CAPABILITY-DEVELOPMENT-0004-5f29c4f2",
+    "capability_development:AUTO-R017-CAPABILITY-DEVELOPMENT-0005-13a56bc4",
+    "capability_development:AUTO-R017-CAPABILITY-DEVELOPMENT-0005-a35a28bd",
+    "capability_development:AUTO-R017-CAPABILITY-DEVELOPMENT-0006-66cfebe8",
+    "capability_development:AUTO-R017-CAPABILITY-DEVELOPMENT-0006-f5753e5c",
+    "capability_development:AUTO-R017-CAPABILITY-DEVELOPMENT-0007-449110c2",
+    "capability_development:AUTO-R017-CAPABILITY-DEVELOPMENT-0008-942c4337",
     "capability:AUTO-R017-GRAND-PROMOTION-DERIVATION",
     "capability:AUTO-R017-CERBERUS-CLEAN-REFRESH"
   ],
   "status": "OPEN",
   "support_reference_index_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/OC133_TOE_SUPPORT_REFERENCE_INDEX.json",
   "terminal_stop_on_zero_delta": false,
-  "validator_error_total": 25,
+  "validator_error_total": 13,
   "zero_delta_continue_policy": "PASS"
 }

@@ -1,97 +1,185 @@
 {
-  "artifact_hash": "fccccdd689cd54023b6e84b9eb3b9e63e0f071cc62f96ce381597abc9c159fea",
-  "generated_at": "2026-05-05T21:07:34Z",
+  "artifact_hash": "313ead3ef90a97072d72c181eb6532785d6f70ab65490b6971a644b3d1d02be2",
+  "generated_at": "2026-05-05T21:29:16Z",
   "rows": [
     {
       "action_results": [
         {
-          "action_id": "AUTO-capability_development-AUTO-R017-CAPABILITY-DEVELOPMENT-0006-c9c663b0",
-          "after_validator_error_total": 25,
-          "before_validator_error_total": 25,
+          "action_id": "AUTO-R017-COMPARATOR-GAP-dd1092e4b6a8",
+          "after_validator_error_total": 13,
+          "before_validator_error_total": 13,
           "execution_command": [
             "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
             "tools/oc133_toe_closure_factory.py",
-            "--execute-capability-development",
-            "R017-CAPDEV-5ee9aa73302b",
+            "--execute-comparator-gap",
+            "MS-COV-GAP-CHEMICAL_SCIENCES-THERMOCHEMISTRY_AND_PHASE_BEHAVIOR",
             "--write"
           ],
-          "executor_type": "capability_development",
-          "frontier_hash_after": "bbf0197d69bd90939d683525326901acf82cc6d53ff97de2aa09ae0e831c7240",
-          "frontier_hash_before": "bbf0197d69bd90939d683525326901acf82cc6d53ff97de2aa09ae0e831c7240",
-          "frontier_signature": "bbf0197d69bd90939d683525326901acf82cc6d53ff97de2aa09ae0e831c7240::AUTO-capability_development-AUTO-R017-CAPABILITY-DEVELOPMENT-0006-c9c663b0",
+          "executor_type": "comparator_gap",
+          "frontier_hash_after": "632ddf9bd86533cf0263b3665f34815254d63b53551396a7e842d5bb616569cb",
+          "frontier_hash_before": "632ddf9bd86533cf0263b3665f34815254d63b53551396a7e842d5bb616569cb",
+          "frontier_signature": "632ddf9bd86533cf0263b3665f34815254d63b53551396a7e842d5bb616569cb::AUTO-R017-COMPARATOR-GAP-dd1092e4b6a8",
           "graph_dependency_path": [
-            "capability_development:AUTO-R017-CAPABILITY-DEVELOPMENT-0006-c9c663b0"
+            "required_artifact:MODERN_SCIENCE_COMPARATOR_SUPERIORITY:MS-COV-GAP-CHEMICAL_SCIENCES-THERMOCHEMISTRY_AND_PHASE_BEHAVIOR:benchmark_case",
+            "capability:AUTO-R017-COMPARATOR-GAP-dd1092e4b6a8"
           ],
-          "graph_node_id": "capability_development:AUTO-R017-CAPABILITY-DEVELOPMENT-0006-c9c663b0",
-          "graph_node_type": "capability_development",
-          "lane_id": "AI",
+          "graph_node_id": "required_artifact:MODERN_SCIENCE_COMPARATOR_SUPERIORITY:MS-COV-GAP-CHEMICAL_SCIENCES-THERMOCHEMISTRY_AND_PHASE_BEHAVIOR:benchmark_case",
+          "graph_node_type": "required_artifact",
+          "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
           "next_escalation": "If this action produces no validator delta, split the missing artifact class into a narrower capability work order.",
           "pass_predicate": "The referenced lane disappears from strict TOE validator errors without weakening gates.",
           "planner_mode": "GRAPH_RESOLVER",
-          "repair_strategy": "Create a narrower source-bound executor for the exact missing artifact class before rerunning the same action.",
-          "required_capability": "Research/AIProjection",
+          "repair_strategy": "Execute this action, sync SPOT/projections, rerun validators, and keep r017 blocked unless the strict terminal gate passes.",
+          "required_capability": "Research/PriorArt",
           "result": {
             "cmd": [
               "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
               "tools/oc133_toe_closure_factory.py",
-              "--execute-capability-development",
-              "R017-CAPDEV-5ee9aa73302b",
+              "--execute-comparator-gap",
+              "MS-COV-GAP-CHEMICAL_SCIENCES-THERMOCHEMISTRY_AND_PHASE_BEHAVIOR",
               "--write"
             ],
-            "returncode": 1,
+            "returncode": 0,
             "stderr_tail": "",
             "stdout_tail": "{\n  \"changed\": [],\n  \"missing\": [],\n  \"state\": \"PASS\"\n}\n"
           },
-          "status": "FAIL_CLOSED",
+          "status": "PASS",
           "validator_error_delta": 0,
-          "why_it_failed": "The action did not reduce strict validator errors on this semantic frontier."
+          "why_it_failed": "The strict final TOE validator still reports this lane as open."
         },
         {
-          "action_id": "AUTO-capability_development-AUTO-R017-CAPABILITY-DEVELOPMENT-0003-2199287f",
-          "after_validator_error_total": 25,
-          "before_validator_error_total": 25,
+          "action_id": "AUTO-R017-COMPARATOR-GAP-cdd8bd8ff796",
+          "after_validator_error_total": 13,
+          "before_validator_error_total": 13,
           "execution_command": [
             "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
             "tools/oc133_toe_closure_factory.py",
-            "--execute-capability-development",
-            "R017-CAPDEV-24058711fd79",
+            "--execute-comparator-gap",
+            "MS-COV-GAP-COGNITIVE_BEHAVIORAL_NEUROSCIENCES-BEHAVIORAL_TASK_AND_PSYCHOMETRIC_PREDICTION",
             "--write"
           ],
-          "executor_type": "capability_development",
-          "frontier_hash_after": "bbf0197d69bd90939d683525326901acf82cc6d53ff97de2aa09ae0e831c7240",
-          "frontier_hash_before": "bbf0197d69bd90939d683525326901acf82cc6d53ff97de2aa09ae0e831c7240",
-          "frontier_signature": "bbf0197d69bd90939d683525326901acf82cc6d53ff97de2aa09ae0e831c7240::AUTO-capability_development-AUTO-R017-CAPABILITY-DEVELOPMENT-0003-2199287f",
+          "executor_type": "comparator_gap",
+          "frontier_hash_after": "632ddf9bd86533cf0263b3665f34815254d63b53551396a7e842d5bb616569cb",
+          "frontier_hash_before": "632ddf9bd86533cf0263b3665f34815254d63b53551396a7e842d5bb616569cb",
+          "frontier_signature": "632ddf9bd86533cf0263b3665f34815254d63b53551396a7e842d5bb616569cb::AUTO-R017-COMPARATOR-GAP-cdd8bd8ff796",
           "graph_dependency_path": [
-            "capability_development:AUTO-R017-CAPABILITY-DEVELOPMENT-0003-2199287f"
+            "required_artifact:MODERN_SCIENCE_COMPARATOR_SUPERIORITY:MS-COV-GAP-COGNITIVE_BEHAVIORAL_NEUROSCIENCES-BEHAVIORAL_TASK_AND_PSYCHOMETRIC_PREDICTION:benchmark_case",
+            "capability:AUTO-R017-COMPARATOR-GAP-cdd8bd8ff796"
           ],
-          "graph_node_id": "capability_development:AUTO-R017-CAPABILITY-DEVELOPMENT-0003-2199287f",
-          "graph_node_type": "capability_development",
-          "lane_id": "AI",
+          "graph_node_id": "required_artifact:MODERN_SCIENCE_COMPARATOR_SUPERIORITY:MS-COV-GAP-COGNITIVE_BEHAVIORAL_NEUROSCIENCES-BEHAVIORAL_TASK_AND_PSYCHOMETRIC_PREDICTION:benchmark_case",
+          "graph_node_type": "required_artifact",
+          "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
           "next_escalation": "If this action produces no validator delta, split the missing artifact class into a narrower capability work order.",
           "pass_predicate": "The referenced lane disappears from strict TOE validator errors without weakening gates.",
           "planner_mode": "GRAPH_RESOLVER",
-          "repair_strategy": "Create a narrower source-bound executor for the exact missing artifact class before rerunning the same action.",
-          "required_capability": "Research/AIProjection",
+          "repair_strategy": "Execute this action, sync SPOT/projections, rerun validators, and keep r017 blocked unless the strict terminal gate passes.",
+          "required_capability": "Research/PriorArt",
           "result": {
             "cmd": [
               "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
               "tools/oc133_toe_closure_factory.py",
-              "--execute-capability-development",
-              "R017-CAPDEV-24058711fd79",
+              "--execute-comparator-gap",
+              "MS-COV-GAP-COGNITIVE_BEHAVIORAL_NEUROSCIENCES-BEHAVIORAL_TASK_AND_PSYCHOMETRIC_PREDICTION",
               "--write"
             ],
-            "returncode": 1,
+            "returncode": 0,
             "stderr_tail": "",
             "stdout_tail": "{\n  \"changed\": [],\n  \"missing\": [],\n  \"state\": \"PASS\"\n}\n"
           },
-          "status": "FAIL_CLOSED",
+          "status": "PASS",
           "validator_error_delta": 0,
-          "why_it_failed": "The action did not reduce strict validator errors on this semantic frontier."
+          "why_it_failed": "The strict final TOE validator still reports this lane as open."
+        },
+        {
+          "action_id": "AUTO-R017-COMPARATOR-GAP-f5ba5b27c474",
+          "after_validator_error_total": 13,
+          "before_validator_error_total": 13,
+          "execution_command": [
+            "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+            "tools/oc133_toe_closure_factory.py",
+            "--execute-comparator-gap",
+            "MS-COV-GAP-COGNITIVE_BEHAVIORAL_NEUROSCIENCES-LEARNING_MEMORY_AND_PERCEPTION_DYNAMICS",
+            "--write"
+          ],
+          "executor_type": "comparator_gap",
+          "frontier_hash_after": "632ddf9bd86533cf0263b3665f34815254d63b53551396a7e842d5bb616569cb",
+          "frontier_hash_before": "632ddf9bd86533cf0263b3665f34815254d63b53551396a7e842d5bb616569cb",
+          "frontier_signature": "632ddf9bd86533cf0263b3665f34815254d63b53551396a7e842d5bb616569cb::AUTO-R017-COMPARATOR-GAP-f5ba5b27c474",
+          "graph_dependency_path": [
+            "required_artifact:MODERN_SCIENCE_COMPARATOR_SUPERIORITY:MS-COV-GAP-COGNITIVE_BEHAVIORAL_NEUROSCIENCES-LEARNING_MEMORY_AND_PERCEPTION_DYNAMICS:benchmark_case",
+            "capability:AUTO-R017-COMPARATOR-GAP-f5ba5b27c474"
+          ],
+          "graph_node_id": "required_artifact:MODERN_SCIENCE_COMPARATOR_SUPERIORITY:MS-COV-GAP-COGNITIVE_BEHAVIORAL_NEUROSCIENCES-LEARNING_MEMORY_AND_PERCEPTION_DYNAMICS:benchmark_case",
+          "graph_node_type": "required_artifact",
+          "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+          "next_escalation": "If this action produces no validator delta, split the missing artifact class into a narrower capability work order.",
+          "pass_predicate": "The referenced lane disappears from strict TOE validator errors without weakening gates.",
+          "planner_mode": "GRAPH_RESOLVER",
+          "repair_strategy": "Execute this action, sync SPOT/projections, rerun validators, and keep r017 blocked unless the strict terminal gate passes.",
+          "required_capability": "Research/PriorArt",
+          "result": {
+            "cmd": [
+              "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+              "tools/oc133_toe_closure_factory.py",
+              "--execute-comparator-gap",
+              "MS-COV-GAP-COGNITIVE_BEHAVIORAL_NEUROSCIENCES-LEARNING_MEMORY_AND_PERCEPTION_DYNAMICS",
+              "--write"
+            ],
+            "returncode": 0,
+            "stderr_tail": "",
+            "stdout_tail": "{\n  \"changed\": [],\n  \"missing\": [],\n  \"state\": \"PASS\"\n}\n"
+          },
+          "status": "PASS",
+          "validator_error_delta": 0,
+          "why_it_failed": "The strict final TOE validator still reports this lane as open."
+        },
+        {
+          "action_id": "AUTO-R017-COMPARATOR-GAP-3a74fb5d8077",
+          "after_validator_error_total": 13,
+          "before_validator_error_total": 13,
+          "execution_command": [
+            "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+            "tools/oc133_toe_closure_factory.py",
+            "--execute-comparator-gap",
+            "MS-COV-GAP-COGNITIVE_BEHAVIORAL_NEUROSCIENCES-NEURAL_RECORDING_AND_BRAIN_NETWORK_OBSERVABLES",
+            "--write"
+          ],
+          "executor_type": "comparator_gap",
+          "frontier_hash_after": "632ddf9bd86533cf0263b3665f34815254d63b53551396a7e842d5bb616569cb",
+          "frontier_hash_before": "632ddf9bd86533cf0263b3665f34815254d63b53551396a7e842d5bb616569cb",
+          "frontier_signature": "632ddf9bd86533cf0263b3665f34815254d63b53551396a7e842d5bb616569cb::AUTO-R017-COMPARATOR-GAP-3a74fb5d8077",
+          "graph_dependency_path": [
+            "required_artifact:MODERN_SCIENCE_COMPARATOR_SUPERIORITY:MS-COV-GAP-COGNITIVE_BEHAVIORAL_NEUROSCIENCES-NEURAL_RECORDING_AND_BRAIN_NETWORK_OBSERVABLES:benchmark_case",
+            "capability:AUTO-R017-COMPARATOR-GAP-3a74fb5d8077"
+          ],
+          "graph_node_id": "required_artifact:MODERN_SCIENCE_COMPARATOR_SUPERIORITY:MS-COV-GAP-COGNITIVE_BEHAVIORAL_NEUROSCIENCES-NEURAL_RECORDING_AND_BRAIN_NETWORK_OBSERVABLES:benchmark_case",
+          "graph_node_type": "required_artifact",
+          "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+          "next_escalation": "If this action produces no validator delta, split the missing artifact class into a narrower capability work order.",
+          "pass_predicate": "The referenced lane disappears from strict TOE validator errors without weakening gates.",
+          "planner_mode": "GRAPH_RESOLVER",
+          "repair_strategy": "Execute this action, sync SPOT/projections, rerun validators, and keep r017 blocked unless the strict terminal gate passes.",
+          "required_capability": "Research/PriorArt",
+          "result": {
+            "cmd": [
+              "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+              "tools/oc133_toe_closure_factory.py",
+              "--execute-comparator-gap",
+              "MS-COV-GAP-COGNITIVE_BEHAVIORAL_NEUROSCIENCES-NEURAL_RECORDING_AND_BRAIN_NETWORK_OBSERVABLES",
+              "--write"
+            ],
+            "returncode": 0,
+            "stderr_tail": "",
+            "stdout_tail": "{\n  \"changed\": [],\n  \"missing\": [],\n  \"state\": \"PASS\"\n}\n"
+          },
+          "status": "PASS",
+          "validator_error_delta": 0,
+          "why_it_failed": "The strict final TOE validator still reports this lane as open."
         }
       ],
-      "active_executor": "capability_development",
-      "after_validator_error_total": 25,
-      "before_validator_error_total": 25,
+      "active_executor": "comparator_gap",
+      "after_validator_error_total": 13,
+      "before_validator_error_total": 13,
       "capability_escalation_ids": [
         "AUTO-R017-CAPABILITY-ESCALATION-0001",
         "AUTO-R017-CAPABILITY-ESCALATION-0002",
@@ -104,34 +192,15 @@
         "AUTO-R017-CAPABILITY-ESCALATION-0009",
         "AUTO-R017-CAPABILITY-ESCALATION-0010",
         "AUTO-R017-CAPABILITY-ESCALATION-0011",
-        "AUTO-R017-CAPABILITY-ESCALATION-0012",
-        "AUTO-R017-CAPABILITY-ESCALATION-0013"
+        "AUTO-R017-CAPABILITY-ESCALATION-0012"
       ],
-      "commit_sha": "4ace51fb",
+      "commit_sha": "2e4cefe5",
       "executor_selected": "graph_resolver",
-      "frontier_hash_after": "bbf0197d69bd90939d683525326901acf82cc6d53ff97de2aa09ae0e831c7240",
-      "frontier_hash_before": "bbf0197d69bd90939d683525326901acf82cc6d53ff97de2aa09ae0e831c7240",
+      "frontier_hash_after": "632ddf9bd86533cf0263b3665f34815254d63b53551396a7e842d5bb616569cb",
+      "frontier_hash_before": "632ddf9bd86533cf0263b3665f34815254d63b53551396a7e842d5bb616569cb",
       "frontier_repeated": true,
       "iteration": 1,
       "next_action_ids": [
-        "AUTO-R017-AI-SOURCE-INTAKE-SOURCE_DISCOVERY-001",
-        "AUTO-R017-AI-SOURCE-INTAKE-CLAIM_SCOPE-002",
-        "AUTO-R017-AI-SOURCE-INTAKE-LEAN_BINDING-003",
-        "AUTO-R017-AI-SOURCE-INTAKE-FINITE_CASE_BINDING-004",
-        "AUTO-capability_development-AUTO-R017-CAPABILITY-DEVELOPMENT-0001-d34a5a39",
-        "AUTO-capability_development-AUTO-R017-CAPABILITY-DEVELOPMENT-0005-069ec53d",
-        "AUTO-capability_development-AUTO-R017-CAPABILITY-DEVELOPMENT-0005-697e4bb4",
-        "AUTO-capability_development-AUTO-R017-CAPABILITY-DEVELOPMENT-0007-76dcdd35",
-        "AUTO-capability_development-AUTO-R017-CAPABILITY-DEVELOPMENT-0008-4226bb15",
-        "AUTO-capability_development-AUTO-R017-CAPABILITY-DEVELOPMENT-0009-d8790750",
-        "AUTO-capability_development-AUTO-R017-CAPABILITY-DEVELOPMENT-0002-9e775d34",
-        "AUTO-capability_development-AUTO-R017-CAPABILITY-DEVELOPMENT-0006-c9c663b0",
-        "AUTO-capability_development-AUTO-R017-CAPABILITY-DEVELOPMENT-0003-2199287f",
-        "AUTO-capability_development-AUTO-R017-CAPABILITY-DEVELOPMENT-0004-89f82c35",
-        "AUTO-R017-ENTERPRISE_ARCHITECTURE-SOURCE-INTAKE-SOURCE_DISCOVERY-001",
-        "AUTO-R017-ENTERPRISE_ARCHITECTURE-SOURCE-INTAKE-CLAIM_SCOPE-002",
-        "AUTO-R017-ENTERPRISE_ARCHITECTURE-SOURCE-INTAKE-LEAN_BINDING-003",
-        "AUTO-R017-ENTERPRISE_ARCHITECTURE-SOURCE-INTAKE-FINITE_CASE_BINDING-004",
         "AUTO-R017-COMPARATOR-GAP-3b8c55c1eafe",
         "AUTO-R017-COMPARATOR-GAP-f193d7044d98",
         "AUTO-R017-COMPARATOR-GAP-b1f19189ac36",
@@ -167,28 +236,18 @@
         "AUTO-R017-COMPARATOR-GAP-a7777e969d54",
         "AUTO-R017-COMPARATOR-GAP-fc08158de149",
         "AUTO-R017-COMPARATOR-GAP-3dcf09e69027",
+        "AUTO-capability_development-AUTO-R017-CAPABILITY-DEVELOPMENT-0003-c5a91cfe",
+        "AUTO-capability_development-AUTO-R017-CAPABILITY-DEVELOPMENT-0004-5f29c4f2",
+        "AUTO-capability_development-AUTO-R017-CAPABILITY-DEVELOPMENT-0005-13a56bc4",
+        "AUTO-capability_development-AUTO-R017-CAPABILITY-DEVELOPMENT-0005-a35a28bd",
+        "AUTO-capability_development-AUTO-R017-CAPABILITY-DEVELOPMENT-0006-66cfebe8",
+        "AUTO-capability_development-AUTO-R017-CAPABILITY-DEVELOPMENT-0006-f5753e5c",
+        "AUTO-capability_development-AUTO-R017-CAPABILITY-DEVELOPMENT-0007-449110c2",
+        "AUTO-capability_development-AUTO-R017-CAPABILITY-DEVELOPMENT-0008-942c4337",
         "AUTO-R017-GRAND-PROMOTION-DERIVATION",
         "AUTO-R017-CERBERUS-CLEAN-REFRESH"
       ],
       "next_graph_node_ids": [
-        "required_artifact:AI:source_grounded_non_blocker_candidate",
-        "required_artifact:AI:non_blocker_public_claim_scope",
-        "required_artifact:AI:lean_refs",
-        "required_artifact:AI:finite_case_refs",
-        "capability_development:AUTO-R017-CAPABILITY-DEVELOPMENT-0001-d34a5a39",
-        "capability_development:AUTO-R017-CAPABILITY-DEVELOPMENT-0005-069ec53d",
-        "capability_development:AUTO-R017-CAPABILITY-DEVELOPMENT-0005-697e4bb4",
-        "capability_development:AUTO-R017-CAPABILITY-DEVELOPMENT-0007-76dcdd35",
-        "capability_development:AUTO-R017-CAPABILITY-DEVELOPMENT-0008-4226bb15",
-        "capability_development:AUTO-R017-CAPABILITY-DEVELOPMENT-0009-d8790750",
-        "capability_development:AUTO-R017-CAPABILITY-DEVELOPMENT-0002-9e775d34",
-        "capability_development:AUTO-R017-CAPABILITY-DEVELOPMENT-0006-c9c663b0",
-        "capability_development:AUTO-R017-CAPABILITY-DEVELOPMENT-0003-2199287f",
-        "capability_development:AUTO-R017-CAPABILITY-DEVELOPMENT-0004-89f82c35",
-        "required_artifact:ENTERPRISE_ARCHITECTURE:source_grounded_non_blocker_candidate",
-        "required_artifact:ENTERPRISE_ARCHITECTURE:non_blocker_public_claim_scope",
-        "required_artifact:ENTERPRISE_ARCHITECTURE:lean_refs",
-        "required_artifact:ENTERPRISE_ARCHITECTURE:finite_case_refs",
         "required_artifact:MODERN_SCIENCE_COMPARATOR_SUPERIORITY:MS-COV-GAP-AGRICULTURAL_FOOD_SCIENCES-ANIMAL_HEALTH_AND_PRODUCTION_SYSTEMS:benchmark_case",
         "required_artifact:MODERN_SCIENCE_COMPARATOR_SUPERIORITY:MS-COV-GAP-AGRICULTURAL_FOOD_SCIENCES-CROP_YIELD_SOIL_AND_TRAIT_OBSERVABLES:benchmark_case",
         "required_artifact:MODERN_SCIENCE_COMPARATOR_SUPERIORITY:MS-COV-GAP-AGRICULTURAL_FOOD_SCIENCES-FOOD_CHEMISTRY_SAFETY_AND_NUTRITION:benchmark_case",
@@ -224,16 +283,28 @@
         "required_artifact:MODERN_SCIENCE_COMPARATOR_SUPERIORITY:MS-COV-GAP-PHYSICAL_SCIENCES-DYNAMICAL_LAWS_AND_CONSERVATION:benchmark_case",
         "required_artifact:MODERN_SCIENCE_COMPARATOR_SUPERIORITY:MS-COV-GAP-SOCIAL_ECONOMIC_POLITICAL_SCIENCES-ECONOMIC_INDICATOR_AND_MARKET_OBSERVABLES:benchmark_case",
         "required_artifact:MODERN_SCIENCE_COMPARATOR_SUPERIORITY:MS-COV-GAP-SOCIAL_ECONOMIC_POLITICAL_SCIENCES-INSTITUTIONAL_SOCIAL_NETWORK_AND_POLICY_OUTCOMES:benchmark_case",
+        "capability_development:AUTO-R017-CAPABILITY-DEVELOPMENT-0003-c5a91cfe",
+        "capability_development:AUTO-R017-CAPABILITY-DEVELOPMENT-0004-5f29c4f2",
+        "capability_development:AUTO-R017-CAPABILITY-DEVELOPMENT-0005-13a56bc4",
+        "capability_development:AUTO-R017-CAPABILITY-DEVELOPMENT-0005-a35a28bd",
+        "capability_development:AUTO-R017-CAPABILITY-DEVELOPMENT-0006-66cfebe8",
+        "capability_development:AUTO-R017-CAPABILITY-DEVELOPMENT-0006-f5753e5c",
+        "capability_development:AUTO-R017-CAPABILITY-DEVELOPMENT-0007-449110c2",
+        "capability_development:AUTO-R017-CAPABILITY-DEVELOPMENT-0008-942c4337",
         "capability:AUTO-R017-GRAND-PROMOTION-DERIVATION",
         "capability:AUTO-R017-CERBERUS-CLEAN-REFRESH"
       ],
       "selected_action_ids": [
-        "AUTO-capability_development-AUTO-R017-CAPABILITY-DEVELOPMENT-0006-c9c663b0",
-        "AUTO-capability_development-AUTO-R017-CAPABILITY-DEVELOPMENT-0003-2199287f"
+        "AUTO-R017-COMPARATOR-GAP-dd1092e4b6a8",
+        "AUTO-R017-COMPARATOR-GAP-cdd8bd8ff796",
+        "AUTO-R017-COMPARATOR-GAP-f5ba5b27c474",
+        "AUTO-R017-COMPARATOR-GAP-3a74fb5d8077"
       ],
       "selected_graph_node_ids": [
-        "capability_development:AUTO-R017-CAPABILITY-DEVELOPMENT-0006-c9c663b0",
-        "capability_development:AUTO-R017-CAPABILITY-DEVELOPMENT-0003-2199287f"
+        "required_artifact:MODERN_SCIENCE_COMPARATOR_SUPERIORITY:MS-COV-GAP-CHEMICAL_SCIENCES-THERMOCHEMISTRY_AND_PHASE_BEHAVIOR:benchmark_case",
+        "required_artifact:MODERN_SCIENCE_COMPARATOR_SUPERIORITY:MS-COV-GAP-COGNITIVE_BEHAVIORAL_NEUROSCIENCES-BEHAVIORAL_TASK_AND_PSYCHOMETRIC_PREDICTION:benchmark_case",
+        "required_artifact:MODERN_SCIENCE_COMPARATOR_SUPERIORITY:MS-COV-GAP-COGNITIVE_BEHAVIORAL_NEUROSCIENCES-LEARNING_MEMORY_AND_PERCEPTION_DYNAMICS:benchmark_case",
+        "required_artifact:MODERN_SCIENCE_COMPARATOR_SUPERIORITY:MS-COV-GAP-COGNITIVE_BEHAVIORAL_NEUROSCIENCES-NEURAL_RECORDING_AND_BRAIN_NETWORK_OBSERVABLES:benchmark_case"
       ],
       "status": "INTERNAL_AUTONOMOUS_RUN_STATE_OPEN",
       "terminal_gate": "R017_BLOCKED_BY_TOE_AUTONOMOUS_SUPERVISOR",
@@ -275,7 +346,7 @@
               "--require-final-toe-pass"
             ],
             "returncode": 1,
-            "stderr_tail": "ERROR: Final TOE projection validation failed: AI lane closure_verdict is not PASS\nERROR: Final TOE projection validation failed: AI lane final_toe_support_allowed is not true\nERROR: Final TOE projection validation failed: AI row 1 is missing lean_refs\nERROR: Final TOE projection validation failed: AI row 1 is missing finite_case_refs\nERROR: Final TOE projection validation failed: AI row 1 is not PASS\nERROR: Final TOE projection validation failed: AI row 1 is blocker/future-research/demoted scope\nERROR: Final TOE projection validation failed: ENTERPRISE_ARCHITECTURE lane closure_verdict is not PASS\nERROR: Final TOE projection validation failed: ENTERPRISE_ARCHITECTURE lane final_toe_support_allowed is not true\nERROR: Final TOE projection validation failed: ENTERPRISE_ARCHITECTURE row 1 is missing lean_refs\nERROR: Final TOE projection validation failed: ENTERPRISE_ARCHITECTURE row 1 is missing finite_case_refs\nERROR: Final TOE projection validation failed: ENTERPRISE_ARCHITECTURE row 1 is not PASS\nERROR: Final TOE projection validation failed: ENTERPRISE_ARCHITECTURE row 1 is blocker/future-research/demoted scope\nERROR: Final TOE grand-science validation failed: all_domain_ready_no_send is not true\nERROR: Final TOE grand-science validation failed: grand_toe_claim_ledger_evidence is not PASS\nERROR: Final TOE grand-science validation failed: grand_toe_claim_ledger_evidence remains in blocker_ids\nERROR: Final TOE grand-science validation failed: modern_science_comparator_superiority is not PASS\nERROR: Final TOE grand-science validation failed: modern_science_comparator_superiority remains in blocker_ids\nERROR: Cerberus targets surface does not match the current repository HEAD.\nERROR: Cerberus run surface does not match the current repository HEAD.\nERROR: Cerberus acceptance surface does not match the current repository HEAD.\nERROR: Cerberus run fingerprint does not match the current manifest inputs.\nERROR: Cerberus acceptance fingerprint does not match the current manifest inputs.\nERROR: Cerberus acceptance certificate is not PASS.\nERROR: Cerberus LLM gate is not PASS.\nERROR: Cerberus still has open defect findings.\n",
+            "stderr_tail": "ERROR: Final TOE grand-science validation failed: all_domain_ready_no_send is not true\nERROR: Final TOE grand-science validation failed: grand_toe_claim_ledger_evidence is not PASS\nERROR: Final TOE grand-science validation failed: grand_toe_claim_ledger_evidence remains in blocker_ids\nERROR: Final TOE grand-science validation failed: modern_science_comparator_superiority is not PASS\nERROR: Final TOE grand-science validation failed: modern_science_comparator_superiority remains in blocker_ids\nERROR: Cerberus targets surface does not match the current repository HEAD.\nERROR: Cerberus run surface does not match the current repository HEAD.\nERROR: Cerberus acceptance surface does not match the current repository HEAD.\nERROR: Cerberus run fingerprint does not match the current manifest inputs.\nERROR: Cerberus acceptance fingerprint does not match the current manifest inputs.\nERROR: Cerberus acceptance certificate is not PASS.\nERROR: Cerberus LLM gate is not PASS.\nERROR: Cerberus still has open defect findings.\n",
             "stdout_tail": ""
           },
           "status": "FAIL_CLOSED"
@@ -313,7 +384,7 @@
               "--require-cerberus-clean"
             ],
             "returncode": 1,
-            "stderr_tail": "ERROR: Final TOE projection validation failed: AI lane closure_verdict is not PASS\nERROR: Final TOE projection validation failed: AI lane final_toe_support_allowed is not true\nERROR: Final TOE projection validation failed: AI row 1 is missing lean_refs\nERROR: Final TOE projection validation failed: AI row 1 is missing finite_case_refs\nERROR: Final TOE projection validation failed: AI row 1 is not PASS\nERROR: Final TOE projection validation failed: AI row 1 is blocker/future-research/demoted scope\nERROR: Final TOE projection validation failed: ENTERPRISE_ARCHITECTURE lane closure_verdict is not PASS\nERROR: Final TOE projection validation failed: ENTERPRISE_ARCHITECTURE lane final_toe_support_allowed is not true\nERROR: Final TOE projection validation failed: ENTERPRISE_ARCHITECTURE row 1 is missing lean_refs\nERROR: Final TOE projection validation failed: ENTERPRISE_ARCHITECTURE row 1 is missing finite_case_refs\nERROR: Final TOE projection validation failed: ENTERPRISE_ARCHITECTURE row 1 is not PASS\nERROR: Final TOE projection validation failed: ENTERPRISE_ARCHITECTURE row 1 is blocker/future-research/demoted scope\nERROR: Final TOE grand-science validation failed: all_domain_ready_no_send is not true\nERROR: Final TOE grand-science validation failed: grand_toe_claim_ledger_evidence is not PASS\nERROR: Final TOE grand-science validation failed: grand_toe_claim_ledger_evidence remains in blocker_ids\nERROR: Final TOE grand-science validation failed: modern_science_comparator_superiority is not PASS\nERROR: Final TOE grand-science validation failed: modern_science_comparator_superiority remains in blocker_ids\nERROR: Cerberus targets surface does not match the current repository HEAD.\nERROR: Cerberus run surface does not match the current repository HEAD.\nERROR: Cerberus acceptance surface does not match the current repository HEAD.\nERROR: Cerberus run fingerprint does not match the current manifest inputs.\nERROR: Cerberus acceptance fingerprint does not match the current manifest inputs.\nERROR: Cerberus acceptance certificate is not PASS.\nERROR: Cerberus LLM gate is not PASS.\nERROR: Cerberus still has open defect findings.\n",
+            "stderr_tail": "ERROR: Final TOE grand-science validation failed: all_domain_ready_no_send is not true\nERROR: Final TOE grand-science validation failed: grand_toe_claim_ledger_evidence is not PASS\nERROR: Final TOE grand-science validation failed: grand_toe_claim_ledger_evidence remains in blocker_ids\nERROR: Final TOE grand-science validation failed: modern_science_comparator_superiority is not PASS\nERROR: Final TOE grand-science validation failed: modern_science_comparator_superiority remains in blocker_ids\nERROR: Cerberus targets surface does not match the current repository HEAD.\nERROR: Cerberus run surface does not match the current repository HEAD.\nERROR: Cerberus acceptance surface does not match the current repository HEAD.\nERROR: Cerberus run fingerprint does not match the current manifest inputs.\nERROR: Cerberus acceptance fingerprint does not match the current manifest inputs.\nERROR: Cerberus acceptance certificate is not PASS.\nERROR: Cerberus LLM gate is not PASS.\nERROR: Cerberus still has open defect findings.\n",
             "stdout_tail": ""
           },
           "status": "FAIL_CLOSED"

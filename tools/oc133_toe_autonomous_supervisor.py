@@ -48,6 +48,12 @@ VOLATILE_KEYS = {
 }
 
 ALLOWED_DIRTY_PREFIXES = (
+    "operations/logion_release_mission/oc_core_1_3_3/OC133_ALL_DOMAIN_READINESS_COCKPIT.md",
+    "operations/logion_release_mission/oc_core_1_3_3/OC133_ALL_DOMAIN_READINESS_SCORECARD.json",
+    "operations/logion_release_mission/oc_core_1_3_3/OC133_ALL_DOMAIN_WORK_ORDERS.json",
+    "operations/logion_release_mission/oc_core_1_3_3/OC133_GRAND_SCIENCE_LOOP_latest.json",
+    "operations/logion_release_mission/oc_core_1_3_3/OC133_GRAND_SCIENCE_LOOP_latest.md",
+    "operations/logion_release_mission/oc_core_1_3_3/OC133_GRAND_SCIENCE_LOOP_STATE.json",
     "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/",
     "content/generated/",
     "releases/oc_core_1_3/editorial/",
@@ -525,6 +531,7 @@ def load_state(root: Path) -> dict[str, Any]:
 def load_capability_development_rows(root: Path) -> list[dict[str, Any]]:
     payload = read_json(root / SUPERVISOR_DIR / CAPABILITY_DEVELOPMENT_LEDGER_NAME)
     rows = payload.get("rows") or []
+    open_lanes = factory.current_open_validator_lanes(root)
     registry = read_json(root / factory.FACTORY_DIR / factory.CAPABILITY_IMPLEMENTATION_REGISTRY_NAME)
     by_source_id = {
         str(row.get("source_capability_development_id")): row
@@ -542,6 +549,15 @@ def load_capability_development_rows(root: Path) -> list[dict[str, Any]]:
             continue
         payload = dict(row)
         key = payload.get("capability_development_key") or factory.capability_development_key(payload)
+        lane_id = str(payload.get("lane_id") or "")
+        if lane_id and lane_id not in open_lanes:
+            payload["status"] = "PASS"
+            payload["superseded_by_current_validator"] = True
+            payload["capability_executor_ready"] = False
+            payload["execution_command"] = []
+            payload["next_escalation"] = "Lane no longer appears in the strict validator; stale capability-development row is retained as evidence but not executable."
+            enriched.append(payload)
+            continue
         compiled = by_source_id.get(str(payload.get("capability_development_id"))) or by_key.get(str(key))
         if compiled:
             payload["capability_development_key"] = compiled.get("capability_development_key") or key
@@ -1372,6 +1388,7 @@ def build_capability_development_ledger(rows: list[dict[str, Any]], generated_at
     normalized: list[dict[str, Any]] = []
     seen: set[str] = set()
     current_scientific_frontier_hash = factory.build_scientific_frontier(ROOT, generated_at=generated_at)["scientific_frontier_hash"]
+    open_lanes = factory.current_open_validator_lanes(ROOT)
     source_rows_by_capability_id = {
         str(row.get("capability_development_id")): row
         for row in rows
@@ -1410,6 +1427,14 @@ def build_capability_development_ledger(rows: list[dict[str, Any]], generated_at
         root_source = root_source_graph_node(payload)
         if root_source:
             payload["source_graph_node_id"] = root_source
+        lane_id = str(payload.get("lane_id") or "")
+        if lane_id and lane_id not in open_lanes:
+            payload["status"] = "PASS"
+            payload["superseded_by_current_validator"] = True
+            payload["capability_executor_ready"] = False
+            payload["execution_command"] = []
+            payload["implementation_command"] = []
+            payload["next_escalation"] = "Lane no longer appears in the strict validator; stale zero-delta row is closed as superseded evidence."
         payload["scientific_frontier_hash"] = current_scientific_frontier_hash
         payload["capability_development_key"] = factory.capability_development_key(payload)
         dedupe_key = str(payload["capability_development_key"])
@@ -1417,7 +1442,7 @@ def build_capability_development_ledger(rows: list[dict[str, Any]], generated_at
             continue
         seen.add(dedupe_key)
         compiled = registry_by_key.get(dedupe_key) or registry_by_source.get(capability_id)
-        if compiled:
+        if compiled and not payload.get("superseded_by_current_validator"):
             payload["compiled_capability_id"] = compiled.get("compiled_capability_id")
             payload["capability_executor_ready"] = compiled.get("capability_executor_ready") is True
             payload["execution_command"] = compiled.get("execution_command", payload.get("execution_command", []))
@@ -1475,6 +1500,12 @@ def write_outputs(root: Path, outputs: dict[Path, dict[str, Any]]) -> dict[str, 
 
 def commit_checkpoint(root: Path) -> dict[str, Any]:
     add_paths = [
+        "operations/logion_release_mission/oc_core_1_3_3/OC133_ALL_DOMAIN_READINESS_COCKPIT.md",
+        "operations/logion_release_mission/oc_core_1_3_3/OC133_ALL_DOMAIN_READINESS_SCORECARD.json",
+        "operations/logion_release_mission/oc_core_1_3_3/OC133_ALL_DOMAIN_WORK_ORDERS.json",
+        "operations/logion_release_mission/oc_core_1_3_3/OC133_GRAND_SCIENCE_LOOP_latest.json",
+        "operations/logion_release_mission/oc_core_1_3_3/OC133_GRAND_SCIENCE_LOOP_latest.md",
+        "operations/logion_release_mission/oc_core_1_3_3/OC133_GRAND_SCIENCE_LOOP_STATE.json",
         "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory",
         "content/generated",
         "releases/oc_core_1_3/editorial",

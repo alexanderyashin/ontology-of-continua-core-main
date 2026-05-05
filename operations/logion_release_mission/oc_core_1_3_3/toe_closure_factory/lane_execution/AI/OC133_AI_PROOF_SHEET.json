@@ -1,16 +1,34 @@
 {
-  "claim_id": "OC133-GRAND-TOE-FORMAL-BLOCKER",
-  "finite_case_refs": [],
+  "claim_id": "T133-HYBRID",
+  "finite_case_refs": [
+    "FM-T133-HYBRID-GUARD-MISSING-NEG",
+    "FM-T133-HYBRID-GUARD-NONBOOLEAN-NEG",
+    "FM-T133-HYBRID-GUARD-VALUE-MISMATCH-NEG",
+    "FM-T133-HYBRID-NEG",
+    "FM-T133-HYBRID-NO-GUARD-STEP-NEG",
+    "FM-T133-HYBRID-NO-GUARD-STEP-POS",
+    "FM-T133-HYBRID-POS",
+    "FM-T133-HYBRID-PROOF-NO-RULE-NEG",
+    "FM-T133-HYBRID-PROOF-UPDATE-NEG",
+    "FM-T133-HYBRID-PROOF-UPDATE-POS",
+    "FM-T133-HYBRID-RESET-SOURCE-MODE-NEG",
+    "FM-T133-HYBRID-RESET-TARGET-MODE-NEG",
+    "FM-T133-HYBRID-SMOOTH-CHART-NEG",
+    "FM-T133-HYBRID-SMOOTH-CHART-POS",
+    "FM-T133-HYBRID-SMOOTH-LOCAL-LAW-NEG"
+  ],
   "formal_boundary_refs": [
-    "proofs/proof_sheets/GRAND_TOE_FORMAL_BLOCKER.md",
-    "claims/GRAND_TOE_FORMAL_OBLIGATION_LEDGER_1_3_3.json"
+    "content/OC_1_3_3_OPERATOR_SEMANTICS.tex",
+    "proofs/proof_sheets/T133-HYBRID.md"
   ],
   "generated_at": "2026-05-05T17:47:11Z",
   "lane_id": "AI",
-  "lean_refs": [],
-  "public_claim_scope": "AI/agentic-system material may be used as a bounded application and research lane only; it is not final TOE evidence in this release.",
+  "lean_refs": [
+    "formal/lean/OC133V12.lean::integrated_operator_semantics"
+  ],
+  "public_claim_scope": "Bounded AI and agentic-system projection: an AI workflow is inside the OC formal projection only when its inference, planning, or tool-use step is represented as a declared typed update route with explicit source and target state types, admissible operator obligations, evidence rows, comparator baselines, and falsifier conditions.",
   "repair_strategy": "Bind this projection to explicit theorem/proof, Lean declaration, and passing finite case before promotion.",
   "schema_id": "OC133_TOE_PROJECTION_PROOF_SHEET_v1",
-  "status": "SOURCE_GAP_OPEN",
-  "why_it_failed": "Projection proof sheet lacks a non-blocker claim, bound Lean refs, or finite witnesses."
+  "status": "PASS",
+  "why_it_failed": "Proof-sheet support is available for guarded validation."
 }
