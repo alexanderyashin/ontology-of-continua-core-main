@@ -12,6 +12,7 @@ Root-cause coverage: `PASS`
 Capability backlog: `63`
 Lane subwork orders: `57`
 Delta trace: `CAPABILITY_BACKLOG_OPEN`
+Research wave: `CAPABILITY_BACKLOG_OPEN` / steps `10`
 Problem explainability: `PASS`
 Latest execution: `FAIL_CLOSED`
 

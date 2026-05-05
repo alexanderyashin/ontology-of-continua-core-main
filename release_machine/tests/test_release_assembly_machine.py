@@ -2000,6 +2000,74 @@ class ReleaseAssemblyMachineTests(unittest.TestCase):
         self.assertEqual(register["broad_modern_science_superiority_certified_total"], 0)
         self.assertFalse(register["broad_claim_predicates"]["coverage_extends_to_all_of_modern_science"])
 
+    def test_r017_toe_research_wave_executes_dependency_order_and_records_validator_deltas(self) -> None:
+        factory_dir = ROOT / "operations" / "logion_release_mission" / "oc_core_1_3_3" / "toe_closure_factory"
+        wave = read_json(factory_dir / "OC133_TOE_RESEARCH_WAVE_EXECUTION.json")
+
+        self.assertEqual(wave["schema_id"], "OC133_TOE_RESEARCH_WAVE_EXECUTION_v1")
+        self.assertEqual(wave["status"], "CAPABILITY_BACKLOG_OPEN")
+        self.assertEqual(wave["toe_problem_explainability_status"], "PASS")
+        self.assertGreater(wave["before_validator_error_total"], 0)
+        self.assertGreater(wave["after_validator_error_total"], 0)
+        self.assertFalse(wave["r017_promotion_allowed"])
+        self.assertEqual(wave["supervisor_state"], "INTERNAL_RUN_STATE_CAPABILITY_BACKLOG_OPEN")
+        self.assertGreaterEqual(wave["research_wave_step_total"], 10)
+
+        purposes = [row["purpose"] for row in wave["rows"]]
+        self.assertEqual(
+            purposes[:10],
+            [
+                "sync_spot_before_research_wave",
+                "ai_research_lane",
+                "enterprise_architecture_research_lane",
+                "grand_toe_claim_ledger_evidence_research_lane",
+                "modern_science_comparator_superiority_research_lane",
+                "sync_spot_after_research_lanes",
+                "grand_science_scorecard_sync",
+                "science_validator_before_cerberus",
+                "canonical_cerberus_after_science_clear",
+                "final_validator",
+            ],
+        )
+
+        required = {
+            "research_wave_step_id",
+            "before_validator_error_total",
+            "after_validator_error_total",
+            "validator_error_delta",
+            "changed_artifact_total",
+            "changed_artifacts",
+            "why_it_failed",
+            "repair_strategy",
+            "required_capability",
+            "execution_command",
+            "pass_predicate",
+            "next_escalation",
+        }
+        for row in wave["rows"]:
+            self.assertTrue(required.issubset(row))
+            self.assertIsInstance(row["changed_artifacts"], list)
+            self.assertIsNotNone(row["before_validator_error_total"])
+            self.assertIsNotNone(row["after_validator_error_total"])
+            self.assertIsNotNone(row["validator_error_delta"])
+            if row["status"] != "PASS":
+                for field in ["why_it_failed", "repair_strategy", "required_capability", "execution_command", "pass_predicate", "next_escalation"]:
+                    self.assertTrue(row[field], field)
+
+        rows = {row["purpose"]: row for row in wave["rows"]}
+        self.assertEqual(rows["ai_research_lane"]["status"], "FAIL_CLOSED")
+        self.assertFalse(rows["ai_research_lane"]["result"]["lane_result"]["final_toe_support_allowed"])
+        self.assertEqual(rows["enterprise_architecture_research_lane"]["status"], "FAIL_CLOSED")
+        self.assertFalse(rows["enterprise_architecture_research_lane"]["result"]["lane_result"]["final_toe_support_allowed"])
+        self.assertEqual(rows["grand_toe_claim_ledger_evidence_research_lane"]["status"], "FAIL_CLOSED")
+        grand_stdout = "\n".join(command["stdout_tail"] for command in rows["grand_toe_claim_ledger_evidence_research_lane"]["result"]["command_results"])
+        self.assertIn("ADV-NOSEND-PUBLISH", grand_stdout)
+        self.assertIn("FM-GRAND-TOE-FORMAL-HYPOTHETICAL-ACCEPT", grand_stdout)
+        comparator_stdout = "\n".join(command["stdout_tail"] for command in rows["modern_science_comparator_superiority_research_lane"]["result"]["command_results"])
+        self.assertIn('"coverage_gap_total": 35', comparator_stdout)
+        self.assertEqual(rows["canonical_cerberus_after_science_clear"]["status"], "SKIPPED_DETERMINISTIC_SCIENCE_BLOCKERS_REMAIN")
+        self.assertIn("science validator remains red", rows["canonical_cerberus_after_science_clear"]["result"]["stderr_tail"])
+
     def test_r017_toe_closure_factory_artifacts_are_idempotent_and_checked(self) -> None:
         factory_dir = ROOT / "operations" / "logion_release_mission" / "oc_core_1_3_3" / "toe_closure_factory"
         cockpit = read_json(factory_dir / "OC133_TOE_CLOSURE_COCKPIT.json")
@@ -2012,6 +2080,7 @@ class ReleaseAssemblyMachineTests(unittest.TestCase):
         subwork = read_json(factory_dir / "OC133_TOE_LANE_SUBWORK_ORDERS.json")
         delta = read_json(factory_dir / "OC133_TOE_VALIDATOR_DELTA_TRACE.json")
         explainability = read_json(factory_dir / "OC133_TOE_PROBLEM_EXPLAINABILITY_GATE.json")
+        research_wave = read_json(factory_dir / "OC133_TOE_RESEARCH_WAVE_EXECUTION.json")
 
         self.assertEqual(cockpit["current_promotion_gate"], "R017_BLOCKED_BY_TOE_CLOSURE_FACTORY")
         self.assertFalse(cockpit["r017_promotion_allowed"])
@@ -2023,6 +2092,10 @@ class ReleaseAssemblyMachineTests(unittest.TestCase):
         self.assertEqual(subwork["status"], "OPEN")
         self.assertIn(delta["status"], {"PROGRESS_REMAINS_BLOCKED", "CAPABILITY_BACKLOG_OPEN"})
         self.assertEqual(explainability["toe_problem_explainability_status"], "PASS")
+        self.assertEqual(research_wave["toe_problem_explainability_status"], "PASS")
+        self.assertEqual(cockpit["research_wave_status"], research_wave["status"])
+        self.assertEqual(cockpit["research_wave_step_total"], research_wave["research_wave_step_total"])
+        self.assertEqual(cockpit["research_wave_validator_delta"], research_wave["validator_error_delta"])
         self.assertIn(state["status"], {"OPEN", "LOCAL_CAPABILITY_EXHAUSTED"})
         self.assertEqual(cockpit["validator_error_total"], obligations["validator_error_total"])
         self.assertEqual(cockpit["open_obligation_total"], obligations["open_work_order_total"])
@@ -2037,6 +2110,8 @@ class ReleaseAssemblyMachineTests(unittest.TestCase):
             trace_rows = list(cockpit["execution_trace"])
             if trace_rows and trace_rows[0]["purpose"].startswith("until_final_pass_iteration_"):
                 trace_rows = trace_rows[0]["result"]["cycle_trace"]
+            if trace_rows and trace_rows[0]["purpose"].startswith("research_wave"):
+                trace_rows = trace_rows[0]["result"]["wave_trace"]
             trace_by_purpose = {row["purpose"]: row for row in trace_rows}
             self.assertIn("science_validator_before_cerberus", trace_by_purpose)
             self.assertIn("canonical_cerberus_after_science_clear", trace_by_purpose)

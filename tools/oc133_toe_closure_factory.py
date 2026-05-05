@@ -41,6 +41,7 @@ CAPABILITY_BACKLOG_NAME = "OC133_TOE_CAPABILITY_BACKLOG.json"
 SUBWORK_ORDERS_NAME = "OC133_TOE_LANE_SUBWORK_ORDERS.json"
 VALIDATOR_DELTA_TRACE_NAME = "OC133_TOE_VALIDATOR_DELTA_TRACE.json"
 PROBLEM_EXPLAINABILITY_GATE_NAME = "OC133_TOE_PROBLEM_EXPLAINABILITY_GATE.json"
+RESEARCH_WAVE_NAME = "OC133_TOE_RESEARCH_WAVE_EXECUTION.json"
 LANE_EXECUTION_DIR = FACTORY_DIR / "lane_execution"
 EXPLAINABILITY_FIELDS = [
     "why_it_failed",
@@ -161,6 +162,10 @@ def explainability_missing_ids(payloads: list[dict[str, Any]]) -> list[str]:
 def current_validator_errors(root: Path) -> list[str]:
     parts = current_validator_error_parts(root)
     return parts["science_errors"] + parts["cerberus_errors"]
+
+
+def validator_error_total(parts: dict[str, list[str]]) -> int:
+    return len(parts.get("science_errors", [])) + len(parts.get("cerberus_errors", []))
 
 
 def current_validator_error_parts(root: Path) -> dict[str, list[str]]:
@@ -1365,6 +1370,69 @@ def run_command(root: Path, cmd: list[str], timeout: int) -> dict[str, Any]:
     }
 
 
+def safe_run_command(root: Path, cmd: list[str], timeout: int) -> dict[str, Any]:
+    try:
+        return run_command(root, cmd, timeout)
+    except subprocess.TimeoutExpired as exc:
+        return {
+            "cmd": cmd,
+            "returncode": 124,
+            "stdout_tail": (exc.stdout or "")[-3000:] if isinstance(exc.stdout, str) else "",
+            "stderr_tail": (exc.stderr or "timeout")[-3000:] if isinstance(exc.stderr, str) else "timeout",
+        }
+
+
+def git_status_rows(root: Path) -> list[str]:
+    completed = subprocess.run(
+        ["git", "status", "--short"],
+        cwd=root,
+        text=True,
+        encoding="utf-8",
+        errors="replace",
+        capture_output=True,
+        timeout=60,
+    )
+    if completed.returncode != 0:
+        return []
+    ignored_prefixes = ("?? _codex_r009_run/", "?? _codex_r010_run/")
+    return sorted(
+        line.strip()
+        for line in completed.stdout.splitlines()
+        if line.strip() and not line.startswith(ignored_prefixes)
+    )
+
+
+def changed_artifacts(before_status: list[str], after_status: list[str], extra_refs: list[str] | None = None) -> list[str]:
+    before = set(before_status)
+    after = set(after_status)
+    rows = sorted(after - before)
+    for ref in extra_refs or []:
+        if ref and ref not in rows:
+            rows.append(ref)
+    return rows
+
+
+def artifact_refs_from_lane_attempt(result: dict[str, Any]) -> list[str]:
+    refs: list[str] = []
+    for command_result in result.get("command_results", []) or []:
+        if not isinstance(command_result, dict):
+            continue
+        stdout = command_result.get("stdout_tail")
+        if not isinstance(stdout, str) or not stdout.strip().startswith("{"):
+            continue
+        try:
+            payload = json.loads(stdout)
+        except Exception:
+            continue
+        artifact_ref = payload.get("artifact_ref")
+        if isinstance(artifact_ref, str):
+            refs.append(artifact_ref)
+        artifact_refs = payload.get("artifact_refs")
+        if isinstance(artifact_refs, dict):
+            refs.extend(str(value) for value in artifact_refs.values() if value)
+    return refs
+
+
 def lane_registry_by_id() -> dict[str, dict[str, Any]]:
     return {row["lane_id"]: row for row in lane_registry_rows()}
 
@@ -1784,6 +1852,346 @@ def execute_until_final_pass(root: Path, timeout: int, max_iterations: int) -> l
     return trace
 
 
+def research_wave_step(
+    *,
+    step_index: int,
+    purpose: str,
+    status: str,
+    before_parts: dict[str, list[str]],
+    after_parts: dict[str, list[str]],
+    result: dict[str, Any],
+    changed: list[str],
+    defaults: dict[str, Any],
+    lane_id: str | None = None,
+) -> dict[str, Any]:
+    before_total = validator_error_total(before_parts)
+    after_total = validator_error_total(after_parts)
+    row = normalize_problem_row(
+        {
+            "research_wave_step_id": f"R017-RESEARCH-WAVE-{step_index:03d}",
+            "step_index": step_index,
+            "purpose": purpose,
+            "lane_id": lane_id,
+            "status": status,
+            "before_validator_error_total": before_total,
+            "before_science_error_total": len(before_parts.get("science_errors", [])),
+            "before_cerberus_error_total": len(before_parts.get("cerberus_errors", [])),
+            "after_validator_error_total": after_total,
+            "after_science_error_total": len(after_parts.get("science_errors", [])),
+            "after_cerberus_error_total": len(after_parts.get("cerberus_errors", [])),
+            "validator_error_delta": before_total - after_total,
+            "changed_artifact_total": len(changed),
+            "changed_artifacts": changed[:80],
+            "result": result,
+        },
+        defaults,
+    )
+    row["pass_fail_reason"] = (
+        "Strict validator reached PASS for this step."
+        if status == "PASS"
+        else row.get("why_it_failed", "Step remains blocked by validator or lane predicates.")
+    )
+    return row
+
+
+def execute_research_wave_command_step(
+    root: Path,
+    *,
+    step_index: int,
+    purpose: str,
+    cmd: list[str],
+    timeout: int,
+    defaults: dict[str, Any],
+) -> dict[str, Any]:
+    before_parts = current_validator_error_parts(root)
+    before_status = git_status_rows(root)
+    result = safe_run_command(root, cmd, timeout)
+    after_parts = current_validator_error_parts(root)
+    after_status = git_status_rows(root)
+    return research_wave_step(
+        step_index=step_index,
+        purpose=purpose,
+        status="PASS" if result.get("returncode") == 0 else "FAIL_CLOSED",
+        before_parts=before_parts,
+        after_parts=after_parts,
+        result=result,
+        changed=changed_artifacts(before_status, after_status),
+        defaults=defaults,
+    )
+
+
+def execute_research_wave_lane_step(
+    root: Path,
+    *,
+    step_index: int,
+    lane_id: str,
+    timeout: int,
+) -> dict[str, Any]:
+    lane = lane_registry_by_id()[lane_id]
+    before_parts = current_validator_error_parts(root)
+    before_status = git_status_rows(root)
+    result = execute_lane_attempt(root, lane_id, timeout)
+    after_parts = current_validator_error_parts(root)
+    after_status = git_status_rows(root)
+    return research_wave_step(
+        step_index=step_index,
+        purpose=f"{lane_id.lower()}_research_lane",
+        lane_id=lane_id,
+        status=result.get("status", "FAIL_CLOSED"),
+        before_parts=before_parts,
+        after_parts=after_parts,
+        result=result,
+        changed=changed_artifacts(before_status, after_status, artifact_refs_from_lane_attempt(result)),
+        defaults={
+            "why_it_failed": result.get("why_it_failed") or "Lane predicates remain fail-closed after this research attempt.",
+            "repair_strategy": lane["closure_condition"],
+            "required_capability": lane["owner_capability"],
+            "execution_command": [sys.executable, "tools/oc133_toe_closure_factory.py", "--execute-capability-lane", lane_id, "--write"],
+            "pass_predicate": lane["pass_predicate"],
+            "next_escalation": result.get("next_escalation") or "Use this lane's subwork orders and capability artifacts for the next source-bound research delta.",
+        },
+    )
+
+
+def execute_research_wave_once(root: Path, timeout: int, iteration: int = 1) -> dict[str, Any]:
+    generated_at = utc_now()
+    before_parts = current_validator_error_parts(root)
+    rows: list[dict[str, Any]] = []
+    defaults = {
+        "why_it_failed": "This research-wave step did not close the strict final TOE validator.",
+        "repair_strategy": "Execute the next dependency-ordered research lane, sync SPOT/projections, and rerun the validator.",
+        "required_capability": "Research/TOEClosureFactory",
+        "execution_command": [sys.executable, "tools/oc133_toe_closure_factory.py", "--execute-research-wave", "--write", "--until-final-pass"],
+        "pass_predicate": "Strict final TOE validator returns PASS without weakening gates.",
+        "next_escalation": "Create or execute the next source-bound capability work order; do not assemble r017.",
+    }
+
+    rows.append(
+        execute_research_wave_command_step(
+            root,
+            step_index=len(rows) + 1,
+            purpose="sync_spot_before_research_wave",
+            cmd=[sys.executable, "tools/build_oc_core_1_3_science_spot.py"],
+            timeout=timeout,
+            defaults=defaults,
+        )
+    )
+    for lane_id in [
+        "AI",
+        "ENTERPRISE_ARCHITECTURE",
+        "GRAND_TOE_CLAIM_LEDGER_EVIDENCE",
+        "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+    ]:
+        rows.append(execute_research_wave_lane_step(root, step_index=len(rows) + 1, lane_id=lane_id, timeout=timeout))
+
+    rows.append(
+        execute_research_wave_command_step(
+            root,
+            step_index=len(rows) + 1,
+            purpose="sync_spot_after_research_lanes",
+            cmd=[sys.executable, "tools/build_oc_core_1_3_science_spot.py"],
+            timeout=timeout,
+            defaults=defaults,
+        )
+    )
+    rows.append(
+        execute_research_wave_command_step(
+            root,
+            step_index=len(rows) + 1,
+            purpose="grand_science_scorecard_sync",
+            cmd=[sys.executable, "tools/oc133_grand_science_research_loop.py", "--execute", "--allow-blocked-exit-zero"],
+            timeout=timeout,
+            defaults=defaults,
+        )
+    )
+    rows.append(
+        execute_research_wave_command_step(
+            root,
+            step_index=len(rows) + 1,
+            purpose="science_validator_before_cerberus",
+            cmd=[sys.executable, "tools/validate_oc_core_1_3_science_spot.py", "--require-final-toe-pass"],
+            timeout=timeout,
+            defaults=defaults,
+        )
+    )
+
+    if rows[-1]["status"] == "PASS":
+        cerberus_lane = lane_registry_by_id()["CERBERUS_RELEASE_REVIEW_GATE"]
+        rows.append(
+            execute_research_wave_command_step(
+                root,
+                step_index=len(rows) + 1,
+                purpose="canonical_cerberus_after_science_clear",
+                cmd=cerberus_lane["execution_command"],
+                timeout=timeout,
+                defaults={
+                    "why_it_failed": "Cerberus did not reach clean acceptance for the current science surface.",
+                    "repair_strategy": cerberus_lane["closure_condition"],
+                    "required_capability": cerberus_lane["owner_capability"],
+                    "execution_command": cerberus_lane["execution_command"],
+                    "pass_predicate": cerberus_lane["pass_predicate"],
+                    "next_escalation": "Refresh deterministic targets and rerun the clean Cerberus gate only after science stays green.",
+                },
+            )
+        )
+    else:
+        before_parts_for_skip = current_validator_error_parts(root)
+        rows.append(
+            research_wave_step(
+                step_index=len(rows) + 1,
+                purpose="canonical_cerberus_after_science_clear",
+                status="SKIPPED_DETERMINISTIC_SCIENCE_BLOCKERS_REMAIN",
+                before_parts=before_parts_for_skip,
+                after_parts=before_parts_for_skip,
+                result={
+                    "cmd": lane_registry_by_id()["CERBERUS_RELEASE_REVIEW_GATE"]["execution_command"],
+                    "returncode": None,
+                    "stdout_tail": "",
+                    "stderr_tail": "Skipped because science validator remains red; expensive Cerberus/LLM gate is not run while deterministic science blockers remain.",
+                },
+                changed=[],
+                defaults={
+                    "why_it_failed": "Science validator errors remain, so the Cerberus/LLM gate is deliberately skipped to avoid wasting expensive review.",
+                    "repair_strategy": "Close science lanes first, then refresh Cerberus fingerprints and run clean acceptance.",
+                    "required_capability": "Review/Cerberus",
+                    "execution_command": lane_registry_by_id()["CERBERUS_RELEASE_REVIEW_GATE"]["execution_command"],
+                    "pass_predicate": "Science validator PASS must precede canonical Cerberus clean review.",
+                    "next_escalation": "Return to AI/EA, grand-promotion, or comparator capability lanes based on current validator errors.",
+                },
+            )
+        )
+
+    rows.append(
+        execute_research_wave_command_step(
+            root,
+            step_index=len(rows) + 1,
+            purpose="final_validator",
+            cmd=[sys.executable, "tools/validate_oc_core_1_3_science_spot.py", "--require-final-toe-pass", "--require-cerberus-clean"],
+            timeout=timeout,
+            defaults=defaults,
+        )
+    )
+    if rows[-1]["status"] == "PASS":
+        rows.append(
+            execute_research_wave_command_step(
+                root,
+                step_index=len(rows) + 1,
+                purpose="assemble_recovery_r017",
+                cmd=[
+                    sys.executable,
+                    "tools/assemble_oc_core_release_package.py",
+                    "--release",
+                    RELEASE_ID,
+                    "--structure-source",
+                    "recovered_l10c",
+                    "--assembly-revision",
+                    "recovery_r017",
+                    "--write",
+                ],
+                timeout=timeout,
+                defaults=defaults,
+            )
+        )
+
+    after_parts = current_validator_error_parts(root)
+    before_total = validator_error_total(before_parts)
+    after_total = validator_error_total(after_parts)
+    missing = explainability_missing_ids([{"schema_id": "OC133_TOE_RESEARCH_WAVE_EXECUTION_v1", "rows": rows}])
+    payload = {
+        "schema_id": "OC133_TOE_RESEARCH_WAVE_EXECUTION_v1",
+        "release_id": RELEASE_ID,
+        "version": VERSION,
+        "generated_at": generated_at,
+        "iteration": iteration,
+        "status": "PASS" if after_total == 0 and all(row["status"] == "PASS" for row in rows) else "CAPABILITY_BACKLOG_OPEN",
+        "before_validator_error_total": before_total,
+        "before_science_error_total": len(before_parts["science_errors"]),
+        "before_cerberus_error_total": len(before_parts["cerberus_errors"]),
+        "after_validator_error_total": after_total,
+        "after_science_error_total": len(after_parts["science_errors"]),
+        "after_cerberus_error_total": len(after_parts["cerberus_errors"]),
+        "validator_error_delta": before_total - after_total,
+        "research_wave_step_total": len(rows),
+        "dependency_order": [
+            "sync_spot",
+            "AI",
+            "ENTERPRISE_ARCHITECTURE",
+            "GRAND_TOE_CLAIM_LEDGER_EVIDENCE",
+            "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+            "scorecard_sync",
+            "Cerberus after science PASS",
+            "final_validator",
+        ],
+        "changed_artifact_total": sum(row.get("changed_artifact_total", 0) for row in rows),
+        "toe_problem_explainability_status": "PASS" if not missing else "FAIL",
+        "explainability_missing_total": len(missing),
+        "explainability_missing_ids": missing,
+        "r017_promotion_allowed": after_total == 0 and all(row["status"] == "PASS" for row in rows),
+        "no_fake_closure_policy": "Unsupported, demoted, future-research, stale, or blocker rows cannot satisfy r017.",
+        "rows": rows,
+    }
+    payload["artifact_hash"] = artifact_hash(payload)
+    return payload
+
+
+def execute_research_wave_until_final_pass(root: Path, timeout: int, max_iterations: int) -> dict[str, Any]:
+    generated_at = utc_now()
+    iterations: list[dict[str, Any]] = []
+    previous_total = validator_error_total(current_validator_error_parts(root))
+    for iteration in range(1, max_iterations + 1):
+        wave = execute_research_wave_once(root, timeout, iteration=iteration)
+        iterations.append(wave)
+        current_total = validator_error_total(current_validator_error_parts(root))
+        if current_total == 0 and wave.get("r017_promotion_allowed") is True:
+            break
+        if previous_total - current_total <= 0:
+            break
+        previous_total = current_total
+
+    latest = iterations[-1] if iterations else execute_research_wave_once(root, timeout, iteration=1)
+    rows: list[dict[str, Any]] = []
+    for wave in iterations:
+        rows.extend(wave.get("rows", []))
+    missing = explainability_missing_ids([{"schema_id": "OC133_TOE_RESEARCH_WAVE_EXECUTION_v1", "rows": rows}])
+    payload = {
+        "schema_id": "OC133_TOE_RESEARCH_WAVE_EXECUTION_v1",
+        "release_id": RELEASE_ID,
+        "version": VERSION,
+        "generated_at": generated_at,
+        "status": "PASS" if latest.get("r017_promotion_allowed") is True else "CAPABILITY_BACKLOG_OPEN",
+        "iteration_total": len(iterations),
+        "before_validator_error_total": iterations[0]["before_validator_error_total"] if iterations else latest["before_validator_error_total"],
+        "after_validator_error_total": latest["after_validator_error_total"],
+        "before_science_error_total": iterations[0]["before_science_error_total"] if iterations else latest["before_science_error_total"],
+        "after_science_error_total": latest["after_science_error_total"],
+        "before_cerberus_error_total": iterations[0]["before_cerberus_error_total"] if iterations else latest["before_cerberus_error_total"],
+        "after_cerberus_error_total": latest["after_cerberus_error_total"],
+        "validator_error_delta": (iterations[0]["before_validator_error_total"] if iterations else latest["before_validator_error_total"]) - latest["after_validator_error_total"],
+        "research_wave_step_total": len(rows),
+        "changed_artifact_total": sum(row.get("changed_artifact_total", 0) for row in rows),
+        "toe_problem_explainability_status": "PASS" if not missing else "FAIL",
+        "explainability_missing_total": len(missing),
+        "explainability_missing_ids": missing,
+        "r017_promotion_allowed": latest.get("r017_promotion_allowed") is True,
+        "supervisor_state": "FINAL_PASS" if latest.get("r017_promotion_allowed") is True else "INTERNAL_RUN_STATE_CAPABILITY_BACKLOG_OPEN",
+        "no_progress_policy": "No-progress does not mint r017; it leaves an explicit capability backlog and keeps the internal TOE-closure run alive.",
+        "iteration_rows": [
+            {
+                "iteration": wave["iteration"],
+                "status": wave["status"],
+                "before_validator_error_total": wave["before_validator_error_total"],
+                "after_validator_error_total": wave["after_validator_error_total"],
+                "validator_error_delta": wave["validator_error_delta"],
+                "research_wave_step_total": wave["research_wave_step_total"],
+            }
+            for wave in iterations
+        ],
+        "rows": rows,
+    }
+    payload["artifact_hash"] = artifact_hash(payload)
+    return payload
+
+
 def build_closure_state(
     root: Path,
     validator_parts: dict[str, list[str]],
@@ -1794,6 +2202,7 @@ def build_closure_state(
     root_causes: dict[str, Any] | None = None,
     capability_backlog: dict[str, Any] | None = None,
     subwork_orders: dict[str, Any] | None = None,
+    research_wave: dict[str, Any] | None = None,
     explainability_gate: dict[str, Any] | None = None,
     generated_at: str | None = None,
 ) -> dict[str, Any]:
@@ -1802,6 +2211,7 @@ def build_closure_state(
     root_causes = root_causes or {}
     capability_backlog = capability_backlog or {}
     subwork_orders = subwork_orders or {}
+    research_wave = research_wave or {}
     explainability_gate = explainability_gate or build_problem_explainability_gate([root_causes, capability_backlog, subwork_orders], generated_at=generated_at)
     payload = {
         "schema_id": "OC133_TOE_CLOSURE_STATE_v1",
@@ -1822,6 +2232,9 @@ def build_closure_state(
         "root_cause_total": root_causes.get("root_cause_total"),
         "capability_backlog_total": capability_backlog.get("capability_total"),
         "lane_subwork_order_total": subwork_orders.get("subwork_order_total"),
+        "research_wave_status": research_wave.get("status", "MISSING"),
+        "research_wave_step_total": research_wave.get("research_wave_step_total", 0),
+        "research_wave_validator_delta": research_wave.get("validator_error_delta", 0),
         "toe_problem_explainability_status": explainability_gate.get("toe_problem_explainability_status", "MISSING"),
         "toe_problem_explainability_missing_total": explainability_gate.get("missing_total", 0),
         "no_fake_closure_policy": "r017 cannot be assembled unless the strict final validator and all lane gates pass.",
@@ -1843,6 +2256,7 @@ def build_cockpit(
     capability_backlog: dict[str, Any] | None = None,
     subwork_orders: dict[str, Any] | None = None,
     delta_trace: dict[str, Any] | None = None,
+    research_wave: dict[str, Any] | None = None,
     explainability_gate: dict[str, Any] | None = None,
     generated_at: str | None = None,
 ) -> dict[str, Any]:
@@ -1851,7 +2265,8 @@ def build_cockpit(
     capability_backlog = capability_backlog or {}
     subwork_orders = subwork_orders or {}
     delta_trace = delta_trace or {}
-    explainability_gate = explainability_gate or build_problem_explainability_gate([root_causes, capability_backlog, subwork_orders, delta_trace], generated_at=generated_at)
+    research_wave = research_wave or {}
+    explainability_gate = explainability_gate or build_problem_explainability_gate([root_causes, capability_backlog, subwork_orders, delta_trace, research_wave], generated_at=generated_at)
     promotion_allowed = not validator_errors and lanes.get("status") == "PASS" and obligations.get("open_work_order_total") == 0
     latest_execution_status = "NOT_RUN"
     if execution_trace:
@@ -1880,6 +2295,10 @@ def build_cockpit(
         "lane_subwork_order_total": subwork_orders.get("subwork_order_total", 0),
         "validator_delta_trace_status": delta_trace.get("status", "MISSING"),
         "no_progress_creates_backlog": delta_trace.get("no_progress_creates_backlog", False),
+        "research_wave_status": research_wave.get("status", "MISSING"),
+        "research_wave_step_total": research_wave.get("research_wave_step_total", 0),
+        "research_wave_validator_delta": research_wave.get("validator_error_delta", 0),
+        "research_wave_changed_artifact_total": research_wave.get("changed_artifact_total", 0),
         "toe_problem_explainability_status": explainability_gate.get("toe_problem_explainability_status", "MISSING"),
         "toe_problem_explainability_missing_total": explainability_gate.get("missing_total", 0),
         "local_external_compute_policy": "deterministic/static first; governed local LLM for small chunks; external Cerberus only after deterministic blockers are zero",
@@ -1912,6 +2331,7 @@ def render_cockpit_md(cockpit: dict[str, Any], lanes: dict[str, Any], obligation
         f"Capability backlog: `{cockpit.get('capability_backlog_total', 0)}`",
         f"Lane subwork orders: `{cockpit.get('lane_subwork_order_total', 0)}`",
         f"Delta trace: `{cockpit.get('validator_delta_trace_status', 'MISSING')}`",
+        f"Research wave: `{cockpit.get('research_wave_status', 'MISSING')}` / steps `{cockpit.get('research_wave_step_total', 0)}`",
         f"Problem explainability: `{cockpit.get('toe_problem_explainability_status', 'MISSING')}`",
         f"Latest execution: `{cockpit['latest_execution_status']}`",
         "",
@@ -1938,21 +2358,94 @@ def existing_execution_trace(path: Path) -> list[dict[str, Any]]:
     return trace if isinstance(trace, list) else []
 
 
+def build_research_wave_not_run(root: Path, *, generated_at: str | None = None) -> dict[str, Any]:
+    parts = current_validator_error_parts(root)
+    total = validator_error_total(parts)
+    payload = {
+        "schema_id": "OC133_TOE_RESEARCH_WAVE_EXECUTION_v1",
+        "release_id": RELEASE_ID,
+        "version": VERSION,
+        "generated_at": generated_at or utc_now(),
+        "status": "NOT_RUN",
+        "iteration_total": 0,
+        "before_validator_error_total": total,
+        "after_validator_error_total": total,
+        "before_science_error_total": len(parts["science_errors"]),
+        "after_science_error_total": len(parts["science_errors"]),
+        "before_cerberus_error_total": len(parts["cerberus_errors"]),
+        "after_cerberus_error_total": len(parts["cerberus_errors"]),
+        "validator_error_delta": 0,
+        "research_wave_step_total": 0,
+        "changed_artifact_total": 0,
+        "toe_problem_explainability_status": "PASS",
+        "explainability_missing_total": 0,
+        "explainability_missing_ids": [],
+        "r017_promotion_allowed": False,
+        "supervisor_state": "NOT_RUN",
+        "no_progress_policy": "Research wave has not run yet; r017 remains fail-closed.",
+        "iteration_rows": [],
+        "rows": [],
+    }
+    payload["artifact_hash"] = artifact_hash(payload)
+    return payload
+
+
+def load_or_build_research_wave(root: Path, *, preserve_existing_generated_at: bool) -> dict[str, Any]:
+    path = root / FACTORY_DIR / RESEARCH_WAVE_NAME
+    if path.exists():
+        payload = read_json(path)
+        if payload:
+            return payload
+    generated_at = existing_generated_at(path) if preserve_existing_generated_at else None
+    return build_research_wave_not_run(root, generated_at=generated_at)
+
+
+def execution_trace_from_research_wave(research_wave: dict[str, Any]) -> list[dict[str, Any]]:
+    if research_wave.get("status") == "NOT_RUN":
+        return []
+    return [
+        {
+            "step_index": 1,
+            "purpose": "research_wave_until_final_pass" if research_wave.get("iteration_total") else "research_wave",
+            "status": research_wave.get("status", "FAIL_CLOSED"),
+            "result": {
+                "before_validator_error_total": research_wave.get("before_validator_error_total"),
+                "after_validator_error_total": research_wave.get("after_validator_error_total"),
+                "validator_error_delta": research_wave.get("validator_error_delta"),
+                "research_wave_step_total": research_wave.get("research_wave_step_total"),
+                "changed_artifact_total": research_wave.get("changed_artifact_total"),
+                "supervisor_state": research_wave.get("supervisor_state"),
+                "wave_trace": research_wave.get("rows", []),
+            },
+        }
+    ]
+
+
 def expected_files(
     root: Path,
     *,
     execute: bool = False,
+    execute_research_wave: bool = False,
     until_final_pass: bool = False,
     timeout: int = 900,
     max_iterations: int = 6,
     preserve_existing_generated_at: bool = False,
 ) -> dict[Path, str]:
     base = root / FACTORY_DIR
-    if until_final_pass:
+    if execute_research_wave and until_final_pass:
+        research_wave = execute_research_wave_until_final_pass(root, timeout, max_iterations)
+        execution_trace = execution_trace_from_research_wave(research_wave)
+    elif execute_research_wave:
+        research_wave = execute_research_wave_once(root, timeout, iteration=1)
+        execution_trace = execution_trace_from_research_wave(research_wave)
+    elif until_final_pass:
+        research_wave = load_or_build_research_wave(root, preserve_existing_generated_at=preserve_existing_generated_at)
         execution_trace = execute_until_final_pass(root, timeout, max_iterations)
     elif execute:
+        research_wave = load_or_build_research_wave(root, preserve_existing_generated_at=preserve_existing_generated_at)
         execution_trace = execute_closure_cycle(root, timeout)
     else:
+        research_wave = load_or_build_research_wave(root, preserve_existing_generated_at=preserve_existing_generated_at)
         execution_trace = existing_execution_trace(base / COCKPIT_NAME) if preserve_existing_generated_at else []
     validator_parts = current_validator_error_parts(root)
     validator_errors = validator_parts["science_errors"] + validator_parts["cerberus_errors"]
@@ -1984,7 +2477,7 @@ def expected_files(
         generated_at=delta_trace_generated_at,
     )
     explainability_gate = build_problem_explainability_gate(
-        [root_causes, capability_backlog, subwork_orders, delta_trace],
+        [root_causes, capability_backlog, subwork_orders, delta_trace, research_wave],
         generated_at=explainability_generated_at,
     )
     state = build_closure_state(
@@ -1996,6 +2489,7 @@ def expected_files(
         root_causes=root_causes,
         capability_backlog=capability_backlog,
         subwork_orders=subwork_orders,
+        research_wave=research_wave,
         explainability_gate=explainability_gate,
         generated_at=state_generated_at,
     )
@@ -2010,6 +2504,7 @@ def expected_files(
         capability_backlog=capability_backlog,
         subwork_orders=subwork_orders,
         delta_trace=delta_trace,
+        research_wave=research_wave,
         explainability_gate=explainability_gate,
         generated_at=cockpit_generated_at,
     )
@@ -2022,6 +2517,7 @@ def expected_files(
         base / SUBWORK_ORDERS_NAME: stable_json(subwork_orders),
         base / VALIDATOR_DELTA_TRACE_NAME: stable_json(delta_trace),
         base / PROBLEM_EXPLAINABILITY_GATE_NAME: stable_json(explainability_gate),
+        base / RESEARCH_WAVE_NAME: stable_json(research_wave),
         base / STATE_NAME: stable_json(state),
         base / COCKPIT_NAME: stable_json(cockpit),
         base / COCKPIT_MD_NAME: render_cockpit_md(cockpit, lanes, obligations),
@@ -2033,6 +2529,7 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--write", action="store_true")
     parser.add_argument("--check", action="store_true")
     parser.add_argument("--execute", action="store_true", help="Run the sync/research/Cerberus/validator cycle before writing outputs.")
+    parser.add_argument("--execute-research-wave", action="store_true", help="Run dependency-ordered TOE research lanes with validator delta tracing before writing outputs.")
     parser.add_argument("--until-final-pass", action="store_true", help="Iterate closure cycles until final validator PASS or honest local capability exhaustion.")
     parser.add_argument("--emit-root-cause-ledger", action="store_true", help="Emit only the current root-cause ledger.")
     parser.add_argument("--max-iterations", type=int, default=6)
@@ -2061,11 +2558,12 @@ def main(argv: list[str] | None = None) -> int:
         return 1 if args.check and result["state"] != "PASS" else 0
     if not args.write and not args.check:
         args.check = True
-    preserve_existing_generated_at = args.check and not args.write and not args.execute and not args.until_final_pass
+    preserve_existing_generated_at = args.check and not args.write and not args.execute and not args.execute_research_wave and not args.until_final_pass
     result = validation_result(
         expected_files(
             ROOT,
             execute=args.execute,
+            execute_research_wave=args.execute_research_wave,
             until_final_pass=args.until_final_pass,
             timeout=args.timeout,
             max_iterations=args.max_iterations,
