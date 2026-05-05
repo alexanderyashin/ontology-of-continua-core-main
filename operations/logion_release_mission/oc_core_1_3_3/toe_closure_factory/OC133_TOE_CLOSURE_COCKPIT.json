@@ -1,5 +1,7 @@
 {
-  "artifact_hash": "92847f6f511382a9220bc237deea6612aa58e2ee998d41685bbf33c62f073cf6",
+  "artifact_hash": "d3ec56b8b82464d10de4a39865c9e0e2129a0f5a53597f975a6edb35ef8b6a5b",
+  "capability_backlog_status": "OPEN",
+  "capability_backlog_total": 63,
   "cerberus_error_total": 8,
   "cerberus_state": "FAIL",
   "comparator_coverage_status": "FAIL",
@@ -31,7 +33,7 @@
             "result": {
               "after_validator_error_total": 19,
               "before_validator_error_total": 19,
-              "exhausted_lane_total": 2,
+              "capability_backlog_lane_total": 2,
               "fail_closed_lane_total": 4,
               "lane_total": 4,
               "pass_lane_total": 0,
@@ -45,18 +47,16 @@
                   "command_results": [
                     {
                       "cmd": [
-                        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
-                        "tools/oc133_toe_closure_factory.py",
-                        "--execute-lane",
-                        "AI",
-                        "--write"
+                        "internal",
+                        "build_projection_lane_subwork",
+                        "AI"
                       ],
-                      "returncode": null,
-                      "stderr_tail": "AI has a registered projection lane, but no source-grounded dedicated research capability exists yet to create PASS-grade claim/formal/evidence/comparator/falsifier artifacts.",
-                      "stdout_tail": ""
+                      "returncode": 0,
+                      "stderr_tail": "AI source-gap diagnostic executed. The lane remains fail-closed until the claim/formal/evidence/comparator/falsifier artifacts exist and pass static validation.",
+                      "stdout_tail": "{\"lane_id\": \"AI\", \"subwork_order_total\": 6, \"subwork_order_ids\": [\"R017-AI-CLAIM_GRAPH-001\", \"R017-AI-FORMAL_BOUNDARY-002\", \"R017-AI-BENCHMARK_SIMULATION-003\", \"R017-AI-COMPARATOR_BASELINE-004\", \"R017-AI-FALSIFIER-005\", \"R017-AI-PROJECTION_PASS_WRITER-006\"]}"
                     }
                   ],
-                  "execution_state": "CAPABILITY_MISSING_OR_EXHAUSTED",
+                  "execution_state": "EXECUTED_SOURCE_GAP_DIAGNOSTIC",
                   "finding_class": "AI_DOMAIN_TOE_PROJECTION_LANE",
                   "lane_id": "AI",
                   "lane_result": {
@@ -79,7 +79,7 @@
                   "no_fake_closure_policy": "Future-research or demoted AI rows cannot count as TOE closure.",
                   "owner_capability": "Research/AIProjection",
                   "pass_predicate": "AI lane closure_verdict == PASS and final_toe_support_allowed == true",
-                  "status": "CAPABILITY_MISSING_OR_EXHAUSTED",
+                  "status": "FAIL_CLOSED",
                   "validator_binding": "validate_final_toe_projection_lanes::AI",
                   "validator_error_delta": 0
                 },
@@ -92,18 +92,16 @@
                   "command_results": [
                     {
                       "cmd": [
-                        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
-                        "tools/oc133_toe_closure_factory.py",
-                        "--execute-lane",
-                        "ENTERPRISE_ARCHITECTURE",
-                        "--write"
+                        "internal",
+                        "build_projection_lane_subwork",
+                        "ENTERPRISE_ARCHITECTURE"
                       ],
-                      "returncode": null,
-                      "stderr_tail": "ENTERPRISE_ARCHITECTURE has a registered projection lane, but no source-grounded dedicated research capability exists yet to create PASS-grade claim/formal/evidence/comparator/falsifier artifacts.",
-                      "stdout_tail": ""
+                      "returncode": 0,
+                      "stderr_tail": "ENTERPRISE_ARCHITECTURE source-gap diagnostic executed. The lane remains fail-closed until the claim/formal/evidence/comparator/falsifier artifacts exist and pass static validation.",
+                      "stdout_tail": "{\"lane_id\": \"ENTERPRISE_ARCHITECTURE\", \"subwork_order_total\": 6, \"subwork_order_ids\": [\"R017-ENTERPRISE_ARCHITECTURE-CLAIM_GRAPH-001\", \"R017-ENTERPRISE_ARCHITECTURE-ARCHITECTURE_CASES-002\", \"R017-ENTERPRISE_ARCHITECTURE-FORMAL_BOUNDARY-003\", \"R017-ENTERPRISE_ARCHITECTURE-COMPARATOR_ALTERNATIVES-004\", \"R017-ENTERPRISE_ARCHITECTURE-FALSIFIER-005\", \"R017-ENTERPRISE_ARCHITECTURE-PROJECTION_PASS_WRITER-006\"]}"
                     }
                   ],
-                  "execution_state": "CAPABILITY_MISSING_OR_EXHAUSTED",
+                  "execution_state": "EXECUTED_SOURCE_GAP_DIAGNOSTIC",
                   "finding_class": "ENTERPRISE_ARCHITECTURE_DOMAIN_TOE_PROJECTION_LANE",
                   "lane_id": "ENTERPRISE_ARCHITECTURE",
                   "lane_result": {
@@ -126,7 +124,7 @@
                   "no_fake_closure_policy": "Future-research or demoted EA rows cannot count as TOE closure.",
                   "owner_capability": "Research/EnterpriseArchitectureProjection",
                   "pass_predicate": "ENTERPRISE_ARCHITECTURE lane closure_verdict == PASS and final_toe_support_allowed == true",
-                  "status": "CAPABILITY_MISSING_OR_EXHAUSTED",
+                  "status": "FAIL_CLOSED",
                   "validator_binding": "validate_final_toe_projection_lanes::ENTERPRISE_ARCHITECTURE",
                   "validator_error_delta": 0
                 },
@@ -226,10 +224,10 @@
                 }
               ],
               "schema_id": "OC133_TOE_ACTIVE_LANE_EXECUTION_v1",
-              "status": "LOCAL_CAPABILITY_EXHAUSTED",
+              "status": "CAPABILITY_BACKLOG_OPEN",
               "validator_error_delta": 0
             },
-            "status": "LOCAL_CAPABILITY_EXHAUSTED",
+            "status": "CAPABILITY_BACKLOG_OPEN",
             "step_index": 2
           },
           {
@@ -315,13 +313,14 @@
         "iteration": 1,
         "validator_error_delta": 0
       },
-      "status": "NO_PROGRESS_STOP",
+      "status": "CAPABILITY_BACKLOG_OPEN",
       "step_index": 1
     },
     {
-      "purpose": "until_final_pass_stop",
+      "purpose": "until_final_pass_capability_backlog",
       "result": {
-        "reason": "No validator-error reduction in the latest iteration; r017 remains blocked instead of faking TOE closure.",
+        "open_subwork_order_total": 56,
+        "reason": "No validator-error reduction in the latest iteration; the factory emits executable capability backlog and keeps r017 blocked instead of stopping with a fake terminal state.",
         "remaining_validator_errors": [
           "Final TOE projection validation failed: AI lane closure_verdict is not PASS",
           "Final TOE projection validation failed: AI lane final_toe_support_allowed is not true",
@@ -342,27 +341,34 @@
           "Cerberus acceptance certificate is not PASS.",
           "Cerberus LLM gate is not PASS.",
           "Cerberus still has open defect findings."
-        ]
+        ],
+        "subwork_order_total": 57
       },
-      "status": "LOCAL_CAPABILITY_EXHAUSTED",
+      "status": "CAPABILITY_BACKLOG_OPEN",
       "step_index": 2
     }
   ],
   "fail_lane_total": 5,
-  "generated_at": "2026-05-05T16:48:38Z",
+  "generated_at": "2026-05-05T17:12:27Z",
   "lane_dispatcher_status": "BLOCKED",
+  "lane_subwork_order_status": "OPEN",
+  "lane_subwork_order_total": 57,
   "lane_total": 5,
   "latest_execution_status": "FAIL_CLOSED",
   "local_external_compute_policy": "deterministic/static first; governed local LLM for small chunks; external Cerberus only after deterministic blockers are zero",
+  "no_progress_creates_backlog": true,
   "ollama_usage_policy": "No direct unmanaged Ollama calls are made by this factory.",
   "open_obligation_total": 21,
   "pass_lane_total": 0,
   "proof_data_simulation_coverage_status": "INCOMPLETE",
   "r017_promotion_allowed": false,
   "release_id": "oc_core_1_3_3",
+  "root_cause_coverage_status": "PASS",
+  "root_cause_total": 19,
   "schema_id": "OC133_TOE_CLOSURE_COCKPIT_v1",
   "science_validator_error_total": 11,
   "status": "OPEN",
+  "validator_delta_trace_status": "CAPABILITY_BACKLOG_OPEN",
   "validator_error_total": 19,
   "validator_errors": [
     "Final TOE projection validation failed: AI lane closure_verdict is not PASS",

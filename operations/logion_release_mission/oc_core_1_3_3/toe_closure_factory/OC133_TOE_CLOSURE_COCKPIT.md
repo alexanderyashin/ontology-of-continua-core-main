@@ -8,6 +8,10 @@ Cerberus errors: `8`
 Open obligations: `21`
 Lanes: `0/5` PASS
 Lane dispatcher: `BLOCKED`
+Root-cause coverage: `PASS`
+Capability backlog: `63`
+Lane subwork orders: `57`
+Delta trace: `CAPABILITY_BACKLOG_OPEN`
 Latest execution: `FAIL_CLOSED`
 
 ## Lane Results

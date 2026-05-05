@@ -1,0 +1,1076 @@
+{
+  "artifact_hash": "a7c266ee489d88260cf2f098618430036e1dddfafc9d4b876c30f28793b4d508",
+  "capability_total": 63,
+  "generated_at": "2026-05-05T17:12:27Z",
+  "open_capability_total": 62,
+  "release_id": "oc_core_1_3_3",
+  "rows": [
+    {
+      "capability_backlog_id": "R017-CAPABILITY-001",
+      "execution_command": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "tools/oc133_toe_closure_factory.py",
+        "--execute-capability-lane",
+        "AI",
+        "--write"
+      ],
+      "next_action": "Execute the AI projection capability lane: inventory AI claims from the canonical corpus, bind formal boundaries and finite witnesses, add benchmark/simulation evidence, comparator baselines, and falsifier rows, then rewrite ai.json only when all required refs exist.",
+      "pass_predicate": "AI projection has PASS rows with theorem/proof or finite witnesses, evidence/simulation anchors, comparator baselines, falsifiers, and final TOE support allowed.",
+      "required_capability": "Research/AIProjection",
+      "root_cause_class": "MISSING_EXECUTABLE_AI_TOE_PROJECTION_SUPPORT",
+      "status": "OPEN",
+      "why_needed": "The AI lane is present, but it contains bounded future-research rows rather than dedicated PASS-grade claim, formal-boundary, evidence/simulation, comparator, and falsifier bindings."
+    },
+    {
+      "capability_backlog_id": "R017-CAPABILITY-002",
+      "execution_command": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "tools/oc133_toe_closure_factory.py",
+        "--execute-capability-lane",
+        "ENTERPRISE_ARCHITECTURE",
+        "--write"
+      ],
+      "next_action": "Execute the EA projection capability lane: inventory EA claims from the canonical corpus, bind architecture cases and operational metrics, add comparator alternatives and falsifiers, then rewrite enterprise_architecture.json only when all required refs exist.",
+      "pass_predicate": "EA projection has PASS rows with operational metrics, case anchors, comparator alternatives, falsifiers, and final TOE support allowed.",
+      "required_capability": "Research/EnterpriseArchitectureProjection",
+      "root_cause_class": "MISSING_EXECUTABLE_EA_TOE_PROJECTION_SUPPORT",
+      "status": "OPEN",
+      "why_needed": "The EA lane is present, but it contains bounded future-research rows rather than dedicated PASS-grade architecture cases, operational metrics, comparator alternatives, and falsifier bindings."
+    },
+    {
+      "capability_backlog_id": "R017-CAPABILITY-003",
+      "execution_command": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "tools/oc133_toe_closure_factory.py",
+        "--execute",
+        "--write"
+      ],
+      "next_action": "Close parent lanes first, rebuild the SPOT and scorecard, then rerun the final TOE validator.",
+      "pass_predicate": "All-domain readiness is true only after all final TOE checks pass and blocker_ids is empty.",
+      "required_capability": "Research/ScorecardSync",
+      "root_cause_class": "DOWNSTREAM_SCORECARD_BLOCKED_BY_OPEN_LANES",
+      "status": "OPEN",
+      "why_needed": "The all-domain readiness flag is downstream of AI, EA, grand promotion, comparator, and Cerberus gates; it cannot turn green while any parent lane remains red."
+    },
+    {
+      "capability_backlog_id": "R017-CAPABILITY-004",
+      "execution_command": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "tools/oc133_toe_closure_factory.py",
+        "--execute-capability-lane",
+        "GRAND_TOE_CLAIM_LEDGER_EVIDENCE",
+        "--write"
+      ],
+      "next_action": "Split grand closure into sublanes for promoted claim row, theorem/proof refs, Lean refs, finite positive/negative controls, finite failure repair, empirical pack, comparator pack, and promotion contract refresh.",
+      "pass_predicate": "A promoted grand TOE claim row exists only if theorem/proof/Lean/finite/evidence/comparator dependencies are satisfied.",
+      "required_capability": "Research/FormalScience",
+      "root_cause_class": "GRAND_PROMOTION_CONTRACT_DEPENDENCY_FAILURE",
+      "status": "OPEN",
+      "why_needed": "The grand TOE promotion contract is blocked by missing dedicated promoted-claim evidence, comparator superiority, empirical superiority, and finite model failures."
+    },
+    {
+      "capability_backlog_id": "R017-CAPABILITY-005",
+      "execution_command": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "tools/oc133_toe_closure_factory.py",
+        "--execute-capability-lane",
+        "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+        "--write"
+      ],
+      "next_action": "Expand comparator work into per-gap source-backed benchmark/comparator rows and keep broad superiority blocked until all broad coverage predicates pass.",
+      "pass_predicate": "Modern-science superiority is PASS only when each required domain has source-backed benchmark rows and honest superiority certification.",
+      "required_capability": "Research/PriorArt",
+      "root_cause_class": "BROAD_COMPARATOR_COVERAGE_GAP",
+      "status": "OPEN",
+      "why_needed": "The current comparator evidence certifies only benchmark-scoped superiority; broad modern-science superiority is blocked by uncovered domains and missing source-backed comparator predicates."
+    },
+    {
+      "capability_backlog_id": "R017-CAPABILITY-006",
+      "execution_command": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "tools/oc133_toe_closure_factory.py",
+        "--execute-capability-lane",
+        "CERBERUS_RELEASE_REVIEW_GATE",
+        "--write"
+      ],
+      "next_action": "Skip expensive Cerberus while deterministic science gates are red; after science PASS, refresh Cerberus targets/run/acceptance and clear open findings.",
+      "pass_predicate": "Cerberus acceptance is PASS, LLM gate is PASS, and open defect findings are zero.",
+      "required_capability": "Review/Cerberus",
+      "root_cause_class": "STALE_OR_UNCLEAN_CERBERUS_SURFACE",
+      "status": "OPEN",
+      "why_needed": "Cerberus targets/run/acceptance fingerprints or open findings do not bind cleanly to the current repository state."
+    },
+    {
+      "capability_backlog_id": "R017-CAPABILITY-007",
+      "execution_command": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "tools/oc133_toe_closure_factory.py",
+        "--execute-capability-lane",
+        "AI",
+        "--write"
+      ],
+      "next_action": "Extract source-grounded AI/agentic-system claims from canonical SPOT and claim ledgers.",
+      "pass_predicate": "The lane may PASS only when claim id, public scope, formal/evidence/comparator/falsifier refs, row PASS, lane PASS, and final TOE support are all true.",
+      "required_capability": "Research/AIProjection",
+      "root_cause_class": "AI_DOMAIN_TOE_PROJECTION_LANE",
+      "source_subwork_order_id": "R017-AI-CLAIM_GRAPH-001",
+      "status": "OPEN",
+      "why_needed": "The current projection lane is bounded future research and lacks PASS-grade source-bound projection rows."
+    },
+    {
+      "capability_backlog_id": "R017-CAPABILITY-008",
+      "execution_command": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "tools/oc133_toe_closure_factory.py",
+        "--execute-capability-lane",
+        "AI",
+        "--write"
+      ],
+      "next_action": "Bind each AI claim to a theorem, proof sheet, Lean ref, finite case, or explicit formal boundary.",
+      "pass_predicate": "The lane may PASS only when claim id, public scope, formal/evidence/comparator/falsifier refs, row PASS, lane PASS, and final TOE support are all true.",
+      "required_capability": "Research/AIProjection",
+      "root_cause_class": "AI_DOMAIN_TOE_PROJECTION_LANE",
+      "source_subwork_order_id": "R017-AI-FORMAL_BOUNDARY-002",
+      "status": "OPEN",
+      "why_needed": "The current projection lane is bounded future research and lacks PASS-grade source-bound projection rows."
+    },
+    {
+      "capability_backlog_id": "R017-CAPABILITY-009",
+      "execution_command": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "tools/oc133_toe_closure_factory.py",
+        "--execute-capability-lane",
+        "AI",
+        "--write"
+      ],
+      "next_action": "Bind benchmark or simulation evidence with replayable source refs.",
+      "pass_predicate": "The lane may PASS only when claim id, public scope, formal/evidence/comparator/falsifier refs, row PASS, lane PASS, and final TOE support are all true.",
+      "required_capability": "Research/AIProjection",
+      "root_cause_class": "AI_DOMAIN_TOE_PROJECTION_LANE",
+      "source_subwork_order_id": "R017-AI-BENCHMARK_SIMULATION-003",
+      "status": "OPEN",
+      "why_needed": "The current projection lane is bounded future research and lacks PASS-grade source-bound projection rows."
+    },
+    {
+      "capability_backlog_id": "R017-CAPABILITY-010",
+      "execution_command": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "tools/oc133_toe_closure_factory.py",
+        "--execute-capability-lane",
+        "AI",
+        "--write"
+      ],
+      "next_action": "Bind comparator baselines against relevant AI/system-design alternatives.",
+      "pass_predicate": "The lane may PASS only when claim id, public scope, formal/evidence/comparator/falsifier refs, row PASS, lane PASS, and final TOE support are all true.",
+      "required_capability": "Research/AIProjection",
+      "root_cause_class": "AI_DOMAIN_TOE_PROJECTION_LANE",
+      "source_subwork_order_id": "R017-AI-COMPARATOR_BASELINE-004",
+      "status": "OPEN",
+      "why_needed": "The current projection lane is bounded future research and lacks PASS-grade source-bound projection rows."
+    },
+    {
+      "capability_backlog_id": "R017-CAPABILITY-011",
+      "execution_command": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "tools/oc133_toe_closure_factory.py",
+        "--execute-capability-lane",
+        "AI",
+        "--write"
+      ],
+      "next_action": "Bind falsifier rows and scope limits for each promoted AI claim.",
+      "pass_predicate": "The lane may PASS only when claim id, public scope, formal/evidence/comparator/falsifier refs, row PASS, lane PASS, and final TOE support are all true.",
+      "required_capability": "Research/AIProjection",
+      "root_cause_class": "AI_DOMAIN_TOE_PROJECTION_LANE",
+      "source_subwork_order_id": "R017-AI-FALSIFIER-005",
+      "status": "OPEN",
+      "why_needed": "The current projection lane is bounded future research and lacks PASS-grade source-bound projection rows."
+    },
+    {
+      "capability_backlog_id": "R017-CAPABILITY-012",
+      "execution_command": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "tools/oc133_toe_closure_factory.py",
+        "--execute-capability-lane",
+        "AI",
+        "--write"
+      ],
+      "next_action": "Rewrite ai.json only if every required field and ref passes static validation.",
+      "pass_predicate": "The lane may PASS only when claim id, public scope, formal/evidence/comparator/falsifier refs, row PASS, lane PASS, and final TOE support are all true.",
+      "required_capability": "Research/AIProjection",
+      "root_cause_class": "AI_DOMAIN_TOE_PROJECTION_LANE",
+      "source_subwork_order_id": "R017-AI-PROJECTION_PASS_WRITER-006",
+      "status": "OPEN",
+      "why_needed": "The current projection lane is bounded future research and lacks PASS-grade source-bound projection rows."
+    },
+    {
+      "capability_backlog_id": "R017-CAPABILITY-013",
+      "execution_command": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "tools/oc133_toe_closure_factory.py",
+        "--execute-capability-lane",
+        "ENTERPRISE_ARCHITECTURE",
+        "--write"
+      ],
+      "next_action": "Extract source-grounded enterprise-architecture claims from canonical SPOT and public payload sources.",
+      "pass_predicate": "The lane may PASS only when claim id, public scope, formal/evidence/comparator/falsifier refs, row PASS, lane PASS, and final TOE support are all true.",
+      "required_capability": "Research/EnterpriseArchitectureProjection",
+      "root_cause_class": "ENTERPRISE_ARCHITECTURE_DOMAIN_TOE_PROJECTION_LANE",
+      "source_subwork_order_id": "R017-ENTERPRISE_ARCHITECTURE-CLAIM_GRAPH-001",
+      "status": "OPEN",
+      "why_needed": "The current projection lane is bounded future research and lacks PASS-grade source-bound projection rows."
+    },
+    {
+      "capability_backlog_id": "R017-CAPABILITY-014",
+      "execution_command": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "tools/oc133_toe_closure_factory.py",
+        "--execute-capability-lane",
+        "ENTERPRISE_ARCHITECTURE",
+        "--write"
+      ],
+      "next_action": "Bind architecture cases, operational metrics, and decision records.",
+      "pass_predicate": "The lane may PASS only when claim id, public scope, formal/evidence/comparator/falsifier refs, row PASS, lane PASS, and final TOE support are all true.",
+      "required_capability": "Research/EnterpriseArchitectureProjection",
+      "root_cause_class": "ENTERPRISE_ARCHITECTURE_DOMAIN_TOE_PROJECTION_LANE",
+      "source_subwork_order_id": "R017-ENTERPRISE_ARCHITECTURE-ARCHITECTURE_CASES-002",
+      "status": "OPEN",
+      "why_needed": "The current projection lane is bounded future research and lacks PASS-grade source-bound projection rows."
+    },
+    {
+      "capability_backlog_id": "R017-CAPABILITY-015",
+      "execution_command": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "tools/oc133_toe_closure_factory.py",
+        "--execute-capability-lane",
+        "ENTERPRISE_ARCHITECTURE",
+        "--write"
+      ],
+      "next_action": "Bind each EA claim to a formal boundary, theorem/proof packet, finite witness, or explicit non-promotion boundary.",
+      "pass_predicate": "The lane may PASS only when claim id, public scope, formal/evidence/comparator/falsifier refs, row PASS, lane PASS, and final TOE support are all true.",
+      "required_capability": "Research/EnterpriseArchitectureProjection",
+      "root_cause_class": "ENTERPRISE_ARCHITECTURE_DOMAIN_TOE_PROJECTION_LANE",
+      "source_subwork_order_id": "R017-ENTERPRISE_ARCHITECTURE-FORMAL_BOUNDARY-003",
+      "status": "OPEN",
+      "why_needed": "The current projection lane is bounded future research and lacks PASS-grade source-bound projection rows."
+    },
+    {
+      "capability_backlog_id": "R017-CAPABILITY-016",
+      "execution_command": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "tools/oc133_toe_closure_factory.py",
+        "--execute-capability-lane",
+        "ENTERPRISE_ARCHITECTURE",
+        "--write"
+      ],
+      "next_action": "Bind comparator alternatives such as TOGAF, Zachman, DDD, capability maps, and systems-engineering baselines.",
+      "pass_predicate": "The lane may PASS only when claim id, public scope, formal/evidence/comparator/falsifier refs, row PASS, lane PASS, and final TOE support are all true.",
+      "required_capability": "Research/EnterpriseArchitectureProjection",
+      "root_cause_class": "ENTERPRISE_ARCHITECTURE_DOMAIN_TOE_PROJECTION_LANE",
+      "source_subwork_order_id": "R017-ENTERPRISE_ARCHITECTURE-COMPARATOR_ALTERNATIVES-004",
+      "status": "OPEN",
+      "why_needed": "The current projection lane is bounded future research and lacks PASS-grade source-bound projection rows."
+    },
+    {
+      "capability_backlog_id": "R017-CAPABILITY-017",
+      "execution_command": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "tools/oc133_toe_closure_factory.py",
+        "--execute-capability-lane",
+        "ENTERPRISE_ARCHITECTURE",
+        "--write"
+      ],
+      "next_action": "Bind falsifier rows and scope limits for each promoted EA claim.",
+      "pass_predicate": "The lane may PASS only when claim id, public scope, formal/evidence/comparator/falsifier refs, row PASS, lane PASS, and final TOE support are all true.",
+      "required_capability": "Research/EnterpriseArchitectureProjection",
+      "root_cause_class": "ENTERPRISE_ARCHITECTURE_DOMAIN_TOE_PROJECTION_LANE",
+      "source_subwork_order_id": "R017-ENTERPRISE_ARCHITECTURE-FALSIFIER-005",
+      "status": "OPEN",
+      "why_needed": "The current projection lane is bounded future research and lacks PASS-grade source-bound projection rows."
+    },
+    {
+      "capability_backlog_id": "R017-CAPABILITY-018",
+      "execution_command": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "tools/oc133_toe_closure_factory.py",
+        "--execute-capability-lane",
+        "ENTERPRISE_ARCHITECTURE",
+        "--write"
+      ],
+      "next_action": "Rewrite enterprise_architecture.json only if every required field and ref passes static validation.",
+      "pass_predicate": "The lane may PASS only when claim id, public scope, formal/evidence/comparator/falsifier refs, row PASS, lane PASS, and final TOE support are all true.",
+      "required_capability": "Research/EnterpriseArchitectureProjection",
+      "root_cause_class": "ENTERPRISE_ARCHITECTURE_DOMAIN_TOE_PROJECTION_LANE",
+      "source_subwork_order_id": "R017-ENTERPRISE_ARCHITECTURE-PROJECTION_PASS_WRITER-006",
+      "status": "OPEN",
+      "why_needed": "The current projection lane is bounded future research and lacks PASS-grade source-bound projection rows."
+    },
+    {
+      "capability_backlog_id": "R017-CAPABILITY-019",
+      "execution_command": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "tools/oc133_toe_closure_factory.py",
+        "--execute-capability-lane",
+        "GRAND_TOE_CLAIM_LEDGER_EVIDENCE",
+        "--write"
+      ],
+      "next_action": "Create a dedicated promoted grand TOE claim row only if all formal, finite, empirical, comparator, and falsifier dependencies pass.",
+      "pass_predicate": "Grand promotion contract verdict is PASS and grand_toe_claim_ledger_evidence is not in blocker_ids.",
+      "required_capability": "Research/FormalScience",
+      "root_cause_class": "GRAND_TOE_CLAIM_LEDGER_EVIDENCE",
+      "source_subwork_order_id": "R017-GRAND-PROMOTED_CLAIM_ROW-001",
+      "status": "OPEN",
+      "why_needed": "The grand promotion contract is blocked by missing or failing promotion dependencies."
+    },
+    {
+      "capability_backlog_id": "R017-CAPABILITY-020",
+      "execution_command": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "tools/oc133_toe_closure_factory.py",
+        "--execute-capability-lane",
+        "GRAND_TOE_CLAIM_LEDGER_EVIDENCE",
+        "--write"
+      ],
+      "next_action": "Bind theorem and proof-sheet refs to the promoted claim route.",
+      "pass_predicate": "Grand promotion contract verdict is PASS and grand_toe_claim_ledger_evidence is not in blocker_ids.",
+      "required_capability": "Research/FormalScience",
+      "root_cause_class": "GRAND_TOE_CLAIM_LEDGER_EVIDENCE",
+      "source_subwork_order_id": "R017-GRAND-THEOREM_PROOF_REFS-002",
+      "status": "OPEN",
+      "why_needed": "The grand promotion contract is blocked by missing or failing promotion dependencies."
+    },
+    {
+      "capability_backlog_id": "R017-CAPABILITY-021",
+      "execution_command": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "tools/oc133_toe_closure_factory.py",
+        "--execute-capability-lane",
+        "GRAND_TOE_CLAIM_LEDGER_EVIDENCE",
+        "--write"
+      ],
+      "next_action": "Bind Lean refs and certificate hashes to the promotion route.",
+      "pass_predicate": "Grand promotion contract verdict is PASS and grand_toe_claim_ledger_evidence is not in blocker_ids.",
+      "required_capability": "Research/FormalScience",
+      "root_cause_class": "GRAND_TOE_CLAIM_LEDGER_EVIDENCE",
+      "source_subwork_order_id": "R017-GRAND-LEAN_REFS-003",
+      "status": "OPEN",
+      "why_needed": "The grand promotion contract is blocked by missing or failing promotion dependencies."
+    },
+    {
+      "capability_backlog_id": "R017-CAPABILITY-022",
+      "execution_command": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "tools/oc133_toe_closure_factory.py",
+        "--execute-capability-lane",
+        "GRAND_TOE_CLAIM_LEDGER_EVIDENCE",
+        "--write"
+      ],
+      "next_action": "Bind finite positive and negative controls to the promotion route.",
+      "pass_predicate": "Grand promotion contract verdict is PASS and grand_toe_claim_ledger_evidence is not in blocker_ids.",
+      "required_capability": "Research/FormalScience",
+      "root_cause_class": "GRAND_TOE_CLAIM_LEDGER_EVIDENCE",
+      "source_subwork_order_id": "R017-GRAND-FINITE_CONTROL_SET-004",
+      "status": "OPEN",
+      "why_needed": "The grand promotion contract is blocked by missing or failing promotion dependencies."
+    },
+    {
+      "capability_backlog_id": "R017-CAPABILITY-023",
+      "execution_command": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "tools/oc133_toe_closure_factory.py",
+        "--execute-capability-lane",
+        "GRAND_TOE_CLAIM_LEDGER_EVIDENCE",
+        "--write"
+      ],
+      "next_action": "Bind the all-domain empirical pack and replay evidence.",
+      "pass_predicate": "Grand promotion contract verdict is PASS and grand_toe_claim_ledger_evidence is not in blocker_ids.",
+      "required_capability": "Research/FormalScience",
+      "root_cause_class": "GRAND_TOE_CLAIM_LEDGER_EVIDENCE",
+      "source_subwork_order_id": "R017-GRAND-EMPIRICAL_PACK-005",
+      "status": "OPEN",
+      "why_needed": "The grand promotion contract is blocked by missing or failing promotion dependencies."
+    },
+    {
+      "capability_backlog_id": "R017-CAPABILITY-024",
+      "execution_command": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "tools/oc133_toe_closure_factory.py",
+        "--execute-capability-lane",
+        "GRAND_TOE_CLAIM_LEDGER_EVIDENCE",
+        "--write"
+      ],
+      "next_action": "Bind modern-science comparator PASS evidence.",
+      "pass_predicate": "Grand promotion contract verdict is PASS and grand_toe_claim_ledger_evidence is not in blocker_ids.",
+      "required_capability": "Research/FormalScience",
+      "root_cause_class": "GRAND_TOE_CLAIM_LEDGER_EVIDENCE",
+      "source_subwork_order_id": "R017-GRAND-COMPARATOR_PACK-006",
+      "status": "OPEN",
+      "why_needed": "The grand promotion contract is blocked by missing or failing promotion dependencies."
+    },
+    {
+      "capability_backlog_id": "R017-CAPABILITY-025",
+      "execution_command": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "tools/oc133_toe_closure_factory.py",
+        "--execute-capability-lane",
+        "GRAND_TOE_CLAIM_LEDGER_EVIDENCE",
+        "--write"
+      ],
+      "next_action": "Refresh the grand promotion contract after all dependencies pass.",
+      "pass_predicate": "Grand promotion contract verdict is PASS and grand_toe_claim_ledger_evidence is not in blocker_ids.",
+      "required_capability": "Research/FormalScience",
+      "root_cause_class": "GRAND_TOE_CLAIM_LEDGER_EVIDENCE",
+      "source_subwork_order_id": "R017-GRAND-PROMOTION_CONTRACT_REFRESH-007",
+      "status": "OPEN",
+      "why_needed": "The grand promotion contract is blocked by missing or failing promotion dependencies."
+    },
+    {
+      "capability_backlog_id": "R017-CAPABILITY-026",
+      "execution_command": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "tools/oc133_toe_closure_factory.py",
+        "--execute-capability-lane",
+        "GRAND_TOE_CLAIM_LEDGER_EVIDENCE",
+        "--write"
+      ],
+      "next_action": "Diagnose whether the model, expectation, theorem binding, or promotion claim is wrong; then repair the source or keep the claim blocked.",
+      "pass_predicate": "Finite model case ADV-NOSEND-PUBLISH passes without weakening the finite-check gate.",
+      "required_capability": "Research/FiniteModelChecks",
+      "root_cause_class": "GRAND_TOE_CLAIM_LEDGER_EVIDENCE",
+      "source_subwork_order_id": "R017-FINITE-FAILURE-ADV-NOSEND-PUBLISH",
+      "status": "OPEN",
+      "why_needed": "Finite model case ADV-NOSEND-PUBLISH did not pass: expected NO_ACTION but observed REJECT_PUBLIC_ACTION."
+    },
+    {
+      "capability_backlog_id": "R017-CAPABILITY-027",
+      "execution_command": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "tools/oc133_toe_closure_factory.py",
+        "--execute-capability-lane",
+        "GRAND_TOE_CLAIM_LEDGER_EVIDENCE",
+        "--write"
+      ],
+      "next_action": "Diagnose whether the model, expectation, theorem binding, or promotion claim is wrong; then repair the source or keep the claim blocked.",
+      "pass_predicate": "Finite model case FM-GRAND-TOE-FORMAL-HYPOTHETICAL-ACCEPT passes without weakening the finite-check gate.",
+      "required_capability": "Research/FiniteModelChecks",
+      "root_cause_class": "GRAND_TOE_CLAIM_LEDGER_EVIDENCE",
+      "source_subwork_order_id": "R017-FINITE-FAILURE-FM-GRAND-TOE-FORMAL-HYPOTHETICAL-ACCEPT",
+      "status": "OPEN",
+      "why_needed": "Finite model case FM-GRAND-TOE-FORMAL-HYPOTHETICAL-ACCEPT did not pass: expected ACCEPT_PROMOTION but observed REJECT_PROMOTION."
+    },
+    {
+      "capability_backlog_id": "R017-CAPABILITY-028",
+      "execution_command": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "tools/oc133_toe_closure_factory.py",
+        "--execute-capability-lane",
+        "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+        "--write"
+      ],
+      "next_action": "Bind a source-backed comparator row, evidence pack, baseline, uncertainty/fairness statement, and falsifier for this coverage gap.",
+      "pass_predicate": "coverage_extends_to_all_of_modern_science can only turn true after every required coverage gap has source-backed comparator support.",
+      "required_capability": null,
+      "root_cause_class": null,
+      "source_subwork_order_id": "R017-COMPARATOR-COVERAGE-GAP-001",
+      "status": "OPEN",
+      "why_needed": "Broad superiority is blocked because current evidence is benchmark-scoped and does not cover all of modern science."
+    },
+    {
+      "capability_backlog_id": "R017-CAPABILITY-029",
+      "execution_command": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "tools/oc133_toe_closure_factory.py",
+        "--execute-capability-lane",
+        "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+        "--write"
+      ],
+      "next_action": "Bind a source-backed comparator row, evidence pack, baseline, uncertainty/fairness statement, and falsifier for this coverage gap.",
+      "pass_predicate": "coverage_extends_to_all_of_modern_science can only turn true after every required coverage gap has source-backed comparator support.",
+      "required_capability": null,
+      "root_cause_class": null,
+      "source_subwork_order_id": "R017-COMPARATOR-COVERAGE-GAP-002",
+      "status": "OPEN",
+      "why_needed": "Broad superiority is blocked because current evidence is benchmark-scoped and does not cover all of modern science."
+    },
+    {
+      "capability_backlog_id": "R017-CAPABILITY-030",
+      "execution_command": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "tools/oc133_toe_closure_factory.py",
+        "--execute-capability-lane",
+        "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+        "--write"
+      ],
+      "next_action": "Bind a source-backed comparator row, evidence pack, baseline, uncertainty/fairness statement, and falsifier for this coverage gap.",
+      "pass_predicate": "coverage_extends_to_all_of_modern_science can only turn true after every required coverage gap has source-backed comparator support.",
+      "required_capability": null,
+      "root_cause_class": null,
+      "source_subwork_order_id": "R017-COMPARATOR-COVERAGE-GAP-003",
+      "status": "OPEN",
+      "why_needed": "Broad superiority is blocked because current evidence is benchmark-scoped and does not cover all of modern science."
+    },
+    {
+      "capability_backlog_id": "R017-CAPABILITY-031",
+      "execution_command": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "tools/oc133_toe_closure_factory.py",
+        "--execute-capability-lane",
+        "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+        "--write"
+      ],
+      "next_action": "Bind a source-backed comparator row, evidence pack, baseline, uncertainty/fairness statement, and falsifier for this coverage gap.",
+      "pass_predicate": "coverage_extends_to_all_of_modern_science can only turn true after every required coverage gap has source-backed comparator support.",
+      "required_capability": null,
+      "root_cause_class": null,
+      "source_subwork_order_id": "R017-COMPARATOR-COVERAGE-GAP-004",
+      "status": "OPEN",
+      "why_needed": "Broad superiority is blocked because current evidence is benchmark-scoped and does not cover all of modern science."
+    },
+    {
+      "capability_backlog_id": "R017-CAPABILITY-032",
+      "execution_command": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "tools/oc133_toe_closure_factory.py",
+        "--execute-capability-lane",
+        "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+        "--write"
+      ],
+      "next_action": "Bind a source-backed comparator row, evidence pack, baseline, uncertainty/fairness statement, and falsifier for this coverage gap.",
+      "pass_predicate": "coverage_extends_to_all_of_modern_science can only turn true after every required coverage gap has source-backed comparator support.",
+      "required_capability": null,
+      "root_cause_class": null,
+      "source_subwork_order_id": "R017-COMPARATOR-COVERAGE-GAP-005",
+      "status": "OPEN",
+      "why_needed": "Broad superiority is blocked because current evidence is benchmark-scoped and does not cover all of modern science."
+    },
+    {
+      "capability_backlog_id": "R017-CAPABILITY-033",
+      "execution_command": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "tools/oc133_toe_closure_factory.py",
+        "--execute-capability-lane",
+        "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+        "--write"
+      ],
+      "next_action": "Bind a source-backed comparator row, evidence pack, baseline, uncertainty/fairness statement, and falsifier for this coverage gap.",
+      "pass_predicate": "coverage_extends_to_all_of_modern_science can only turn true after every required coverage gap has source-backed comparator support.",
+      "required_capability": null,
+      "root_cause_class": null,
+      "source_subwork_order_id": "R017-COMPARATOR-COVERAGE-GAP-006",
+      "status": "OPEN",
+      "why_needed": "Broad superiority is blocked because current evidence is benchmark-scoped and does not cover all of modern science."
+    },
+    {
+      "capability_backlog_id": "R017-CAPABILITY-034",
+      "execution_command": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "tools/oc133_toe_closure_factory.py",
+        "--execute-capability-lane",
+        "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+        "--write"
+      ],
+      "next_action": "Bind a source-backed comparator row, evidence pack, baseline, uncertainty/fairness statement, and falsifier for this coverage gap.",
+      "pass_predicate": "coverage_extends_to_all_of_modern_science can only turn true after every required coverage gap has source-backed comparator support.",
+      "required_capability": null,
+      "root_cause_class": null,
+      "source_subwork_order_id": "R017-COMPARATOR-COVERAGE-GAP-007",
+      "status": "OPEN",
+      "why_needed": "Broad superiority is blocked because current evidence is benchmark-scoped and does not cover all of modern science."
+    },
+    {
+      "capability_backlog_id": "R017-CAPABILITY-035",
+      "execution_command": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "tools/oc133_toe_closure_factory.py",
+        "--execute-capability-lane",
+        "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+        "--write"
+      ],
+      "next_action": "Bind a source-backed comparator row, evidence pack, baseline, uncertainty/fairness statement, and falsifier for this coverage gap.",
+      "pass_predicate": "coverage_extends_to_all_of_modern_science can only turn true after every required coverage gap has source-backed comparator support.",
+      "required_capability": null,
+      "root_cause_class": null,
+      "source_subwork_order_id": "R017-COMPARATOR-COVERAGE-GAP-008",
+      "status": "OPEN",
+      "why_needed": "Broad superiority is blocked because current evidence is benchmark-scoped and does not cover all of modern science."
+    },
+    {
+      "capability_backlog_id": "R017-CAPABILITY-036",
+      "execution_command": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "tools/oc133_toe_closure_factory.py",
+        "--execute-capability-lane",
+        "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+        "--write"
+      ],
+      "next_action": "Bind a source-backed comparator row, evidence pack, baseline, uncertainty/fairness statement, and falsifier for this coverage gap.",
+      "pass_predicate": "coverage_extends_to_all_of_modern_science can only turn true after every required coverage gap has source-backed comparator support.",
+      "required_capability": null,
+      "root_cause_class": null,
+      "source_subwork_order_id": "R017-COMPARATOR-COVERAGE-GAP-009",
+      "status": "OPEN",
+      "why_needed": "Broad superiority is blocked because current evidence is benchmark-scoped and does not cover all of modern science."
+    },
+    {
+      "capability_backlog_id": "R017-CAPABILITY-037",
+      "execution_command": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "tools/oc133_toe_closure_factory.py",
+        "--execute-capability-lane",
+        "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+        "--write"
+      ],
+      "next_action": "Bind a source-backed comparator row, evidence pack, baseline, uncertainty/fairness statement, and falsifier for this coverage gap.",
+      "pass_predicate": "coverage_extends_to_all_of_modern_science can only turn true after every required coverage gap has source-backed comparator support.",
+      "required_capability": null,
+      "root_cause_class": null,
+      "source_subwork_order_id": "R017-COMPARATOR-COVERAGE-GAP-010",
+      "status": "OPEN",
+      "why_needed": "Broad superiority is blocked because current evidence is benchmark-scoped and does not cover all of modern science."
+    },
+    {
+      "capability_backlog_id": "R017-CAPABILITY-038",
+      "execution_command": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "tools/oc133_toe_closure_factory.py",
+        "--execute-capability-lane",
+        "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+        "--write"
+      ],
+      "next_action": "Bind a source-backed comparator row, evidence pack, baseline, uncertainty/fairness statement, and falsifier for this coverage gap.",
+      "pass_predicate": "coverage_extends_to_all_of_modern_science can only turn true after every required coverage gap has source-backed comparator support.",
+      "required_capability": null,
+      "root_cause_class": null,
+      "source_subwork_order_id": "R017-COMPARATOR-COVERAGE-GAP-011",
+      "status": "OPEN",
+      "why_needed": "Broad superiority is blocked because current evidence is benchmark-scoped and does not cover all of modern science."
+    },
+    {
+      "capability_backlog_id": "R017-CAPABILITY-039",
+      "execution_command": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "tools/oc133_toe_closure_factory.py",
+        "--execute-capability-lane",
+        "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+        "--write"
+      ],
+      "next_action": "Bind a source-backed comparator row, evidence pack, baseline, uncertainty/fairness statement, and falsifier for this coverage gap.",
+      "pass_predicate": "coverage_extends_to_all_of_modern_science can only turn true after every required coverage gap has source-backed comparator support.",
+      "required_capability": null,
+      "root_cause_class": null,
+      "source_subwork_order_id": "R017-COMPARATOR-COVERAGE-GAP-012",
+      "status": "OPEN",
+      "why_needed": "Broad superiority is blocked because current evidence is benchmark-scoped and does not cover all of modern science."
+    },
+    {
+      "capability_backlog_id": "R017-CAPABILITY-040",
+      "execution_command": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "tools/oc133_toe_closure_factory.py",
+        "--execute-capability-lane",
+        "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+        "--write"
+      ],
+      "next_action": "Bind a source-backed comparator row, evidence pack, baseline, uncertainty/fairness statement, and falsifier for this coverage gap.",
+      "pass_predicate": "coverage_extends_to_all_of_modern_science can only turn true after every required coverage gap has source-backed comparator support.",
+      "required_capability": null,
+      "root_cause_class": null,
+      "source_subwork_order_id": "R017-COMPARATOR-COVERAGE-GAP-013",
+      "status": "OPEN",
+      "why_needed": "Broad superiority is blocked because current evidence is benchmark-scoped and does not cover all of modern science."
+    },
+    {
+      "capability_backlog_id": "R017-CAPABILITY-041",
+      "execution_command": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "tools/oc133_toe_closure_factory.py",
+        "--execute-capability-lane",
+        "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+        "--write"
+      ],
+      "next_action": "Bind a source-backed comparator row, evidence pack, baseline, uncertainty/fairness statement, and falsifier for this coverage gap.",
+      "pass_predicate": "coverage_extends_to_all_of_modern_science can only turn true after every required coverage gap has source-backed comparator support.",
+      "required_capability": null,
+      "root_cause_class": null,
+      "source_subwork_order_id": "R017-COMPARATOR-COVERAGE-GAP-014",
+      "status": "OPEN",
+      "why_needed": "Broad superiority is blocked because current evidence is benchmark-scoped and does not cover all of modern science."
+    },
+    {
+      "capability_backlog_id": "R017-CAPABILITY-042",
+      "execution_command": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "tools/oc133_toe_closure_factory.py",
+        "--execute-capability-lane",
+        "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+        "--write"
+      ],
+      "next_action": "Bind a source-backed comparator row, evidence pack, baseline, uncertainty/fairness statement, and falsifier for this coverage gap.",
+      "pass_predicate": "coverage_extends_to_all_of_modern_science can only turn true after every required coverage gap has source-backed comparator support.",
+      "required_capability": null,
+      "root_cause_class": null,
+      "source_subwork_order_id": "R017-COMPARATOR-COVERAGE-GAP-015",
+      "status": "OPEN",
+      "why_needed": "Broad superiority is blocked because current evidence is benchmark-scoped and does not cover all of modern science."
+    },
+    {
+      "capability_backlog_id": "R017-CAPABILITY-043",
+      "execution_command": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "tools/oc133_toe_closure_factory.py",
+        "--execute-capability-lane",
+        "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+        "--write"
+      ],
+      "next_action": "Bind a source-backed comparator row, evidence pack, baseline, uncertainty/fairness statement, and falsifier for this coverage gap.",
+      "pass_predicate": "coverage_extends_to_all_of_modern_science can only turn true after every required coverage gap has source-backed comparator support.",
+      "required_capability": null,
+      "root_cause_class": null,
+      "source_subwork_order_id": "R017-COMPARATOR-COVERAGE-GAP-016",
+      "status": "OPEN",
+      "why_needed": "Broad superiority is blocked because current evidence is benchmark-scoped and does not cover all of modern science."
+    },
+    {
+      "capability_backlog_id": "R017-CAPABILITY-044",
+      "execution_command": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "tools/oc133_toe_closure_factory.py",
+        "--execute-capability-lane",
+        "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+        "--write"
+      ],
+      "next_action": "Bind a source-backed comparator row, evidence pack, baseline, uncertainty/fairness statement, and falsifier for this coverage gap.",
+      "pass_predicate": "coverage_extends_to_all_of_modern_science can only turn true after every required coverage gap has source-backed comparator support.",
+      "required_capability": null,
+      "root_cause_class": null,
+      "source_subwork_order_id": "R017-COMPARATOR-COVERAGE-GAP-017",
+      "status": "OPEN",
+      "why_needed": "Broad superiority is blocked because current evidence is benchmark-scoped and does not cover all of modern science."
+    },
+    {
+      "capability_backlog_id": "R017-CAPABILITY-045",
+      "execution_command": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "tools/oc133_toe_closure_factory.py",
+        "--execute-capability-lane",
+        "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+        "--write"
+      ],
+      "next_action": "Bind a source-backed comparator row, evidence pack, baseline, uncertainty/fairness statement, and falsifier for this coverage gap.",
+      "pass_predicate": "coverage_extends_to_all_of_modern_science can only turn true after every required coverage gap has source-backed comparator support.",
+      "required_capability": null,
+      "root_cause_class": null,
+      "source_subwork_order_id": "R017-COMPARATOR-COVERAGE-GAP-018",
+      "status": "OPEN",
+      "why_needed": "Broad superiority is blocked because current evidence is benchmark-scoped and does not cover all of modern science."
+    },
+    {
+      "capability_backlog_id": "R017-CAPABILITY-046",
+      "execution_command": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "tools/oc133_toe_closure_factory.py",
+        "--execute-capability-lane",
+        "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+        "--write"
+      ],
+      "next_action": "Bind a source-backed comparator row, evidence pack, baseline, uncertainty/fairness statement, and falsifier for this coverage gap.",
+      "pass_predicate": "coverage_extends_to_all_of_modern_science can only turn true after every required coverage gap has source-backed comparator support.",
+      "required_capability": null,
+      "root_cause_class": null,
+      "source_subwork_order_id": "R017-COMPARATOR-COVERAGE-GAP-019",
+      "status": "OPEN",
+      "why_needed": "Broad superiority is blocked because current evidence is benchmark-scoped and does not cover all of modern science."
+    },
+    {
+      "capability_backlog_id": "R017-CAPABILITY-047",
+      "execution_command": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "tools/oc133_toe_closure_factory.py",
+        "--execute-capability-lane",
+        "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+        "--write"
+      ],
+      "next_action": "Bind a source-backed comparator row, evidence pack, baseline, uncertainty/fairness statement, and falsifier for this coverage gap.",
+      "pass_predicate": "coverage_extends_to_all_of_modern_science can only turn true after every required coverage gap has source-backed comparator support.",
+      "required_capability": null,
+      "root_cause_class": null,
+      "source_subwork_order_id": "R017-COMPARATOR-COVERAGE-GAP-020",
+      "status": "OPEN",
+      "why_needed": "Broad superiority is blocked because current evidence is benchmark-scoped and does not cover all of modern science."
+    },
+    {
+      "capability_backlog_id": "R017-CAPABILITY-048",
+      "execution_command": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "tools/oc133_toe_closure_factory.py",
+        "--execute-capability-lane",
+        "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+        "--write"
+      ],
+      "next_action": "Bind a source-backed comparator row, evidence pack, baseline, uncertainty/fairness statement, and falsifier for this coverage gap.",
+      "pass_predicate": "coverage_extends_to_all_of_modern_science can only turn true after every required coverage gap has source-backed comparator support.",
+      "required_capability": null,
+      "root_cause_class": null,
+      "source_subwork_order_id": "R017-COMPARATOR-COVERAGE-GAP-021",
+      "status": "OPEN",
+      "why_needed": "Broad superiority is blocked because current evidence is benchmark-scoped and does not cover all of modern science."
+    },
+    {
+      "capability_backlog_id": "R017-CAPABILITY-049",
+      "execution_command": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "tools/oc133_toe_closure_factory.py",
+        "--execute-capability-lane",
+        "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+        "--write"
+      ],
+      "next_action": "Bind a source-backed comparator row, evidence pack, baseline, uncertainty/fairness statement, and falsifier for this coverage gap.",
+      "pass_predicate": "coverage_extends_to_all_of_modern_science can only turn true after every required coverage gap has source-backed comparator support.",
+      "required_capability": null,
+      "root_cause_class": null,
+      "source_subwork_order_id": "R017-COMPARATOR-COVERAGE-GAP-022",
+      "status": "OPEN",
+      "why_needed": "Broad superiority is blocked because current evidence is benchmark-scoped and does not cover all of modern science."
+    },
+    {
+      "capability_backlog_id": "R017-CAPABILITY-050",
+      "execution_command": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "tools/oc133_toe_closure_factory.py",
+        "--execute-capability-lane",
+        "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+        "--write"
+      ],
+      "next_action": "Bind a source-backed comparator row, evidence pack, baseline, uncertainty/fairness statement, and falsifier for this coverage gap.",
+      "pass_predicate": "coverage_extends_to_all_of_modern_science can only turn true after every required coverage gap has source-backed comparator support.",
+      "required_capability": null,
+      "root_cause_class": null,
+      "source_subwork_order_id": "R017-COMPARATOR-COVERAGE-GAP-023",
+      "status": "OPEN",
+      "why_needed": "Broad superiority is blocked because current evidence is benchmark-scoped and does not cover all of modern science."
+    },
+    {
+      "capability_backlog_id": "R017-CAPABILITY-051",
+      "execution_command": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "tools/oc133_toe_closure_factory.py",
+        "--execute-capability-lane",
+        "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+        "--write"
+      ],
+      "next_action": "Bind a source-backed comparator row, evidence pack, baseline, uncertainty/fairness statement, and falsifier for this coverage gap.",
+      "pass_predicate": "coverage_extends_to_all_of_modern_science can only turn true after every required coverage gap has source-backed comparator support.",
+      "required_capability": null,
+      "root_cause_class": null,
+      "source_subwork_order_id": "R017-COMPARATOR-COVERAGE-GAP-024",
+      "status": "OPEN",
+      "why_needed": "Broad superiority is blocked because current evidence is benchmark-scoped and does not cover all of modern science."
+    },
+    {
+      "capability_backlog_id": "R017-CAPABILITY-052",
+      "execution_command": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "tools/oc133_toe_closure_factory.py",
+        "--execute-capability-lane",
+        "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+        "--write"
+      ],
+      "next_action": "Bind a source-backed comparator row, evidence pack, baseline, uncertainty/fairness statement, and falsifier for this coverage gap.",
+      "pass_predicate": "coverage_extends_to_all_of_modern_science can only turn true after every required coverage gap has source-backed comparator support.",
+      "required_capability": null,
+      "root_cause_class": null,
+      "source_subwork_order_id": "R017-COMPARATOR-COVERAGE-GAP-025",
+      "status": "OPEN",
+      "why_needed": "Broad superiority is blocked because current evidence is benchmark-scoped and does not cover all of modern science."
+    },
+    {
+      "capability_backlog_id": "R017-CAPABILITY-053",
+      "execution_command": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "tools/oc133_toe_closure_factory.py",
+        "--execute-capability-lane",
+        "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+        "--write"
+      ],
+      "next_action": "Bind a source-backed comparator row, evidence pack, baseline, uncertainty/fairness statement, and falsifier for this coverage gap.",
+      "pass_predicate": "coverage_extends_to_all_of_modern_science can only turn true after every required coverage gap has source-backed comparator support.",
+      "required_capability": null,
+      "root_cause_class": null,
+      "source_subwork_order_id": "R017-COMPARATOR-COVERAGE-GAP-026",
+      "status": "OPEN",
+      "why_needed": "Broad superiority is blocked because current evidence is benchmark-scoped and does not cover all of modern science."
+    },
+    {
+      "capability_backlog_id": "R017-CAPABILITY-054",
+      "execution_command": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "tools/oc133_toe_closure_factory.py",
+        "--execute-capability-lane",
+        "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+        "--write"
+      ],
+      "next_action": "Bind a source-backed comparator row, evidence pack, baseline, uncertainty/fairness statement, and falsifier for this coverage gap.",
+      "pass_predicate": "coverage_extends_to_all_of_modern_science can only turn true after every required coverage gap has source-backed comparator support.",
+      "required_capability": null,
+      "root_cause_class": null,
+      "source_subwork_order_id": "R017-COMPARATOR-COVERAGE-GAP-027",
+      "status": "OPEN",
+      "why_needed": "Broad superiority is blocked because current evidence is benchmark-scoped and does not cover all of modern science."
+    },
+    {
+      "capability_backlog_id": "R017-CAPABILITY-055",
+      "execution_command": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "tools/oc133_toe_closure_factory.py",
+        "--execute-capability-lane",
+        "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+        "--write"
+      ],
+      "next_action": "Bind a source-backed comparator row, evidence pack, baseline, uncertainty/fairness statement, and falsifier for this coverage gap.",
+      "pass_predicate": "coverage_extends_to_all_of_modern_science can only turn true after every required coverage gap has source-backed comparator support.",
+      "required_capability": null,
+      "root_cause_class": null,
+      "source_subwork_order_id": "R017-COMPARATOR-COVERAGE-GAP-028",
+      "status": "OPEN",
+      "why_needed": "Broad superiority is blocked because current evidence is benchmark-scoped and does not cover all of modern science."
+    },
+    {
+      "capability_backlog_id": "R017-CAPABILITY-056",
+      "execution_command": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "tools/oc133_toe_closure_factory.py",
+        "--execute-capability-lane",
+        "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+        "--write"
+      ],
+      "next_action": "Bind a source-backed comparator row, evidence pack, baseline, uncertainty/fairness statement, and falsifier for this coverage gap.",
+      "pass_predicate": "coverage_extends_to_all_of_modern_science can only turn true after every required coverage gap has source-backed comparator support.",
+      "required_capability": null,
+      "root_cause_class": null,
+      "source_subwork_order_id": "R017-COMPARATOR-COVERAGE-GAP-029",
+      "status": "OPEN",
+      "why_needed": "Broad superiority is blocked because current evidence is benchmark-scoped and does not cover all of modern science."
+    },
+    {
+      "capability_backlog_id": "R017-CAPABILITY-057",
+      "execution_command": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "tools/oc133_toe_closure_factory.py",
+        "--execute-capability-lane",
+        "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+        "--write"
+      ],
+      "next_action": "Bind a source-backed comparator row, evidence pack, baseline, uncertainty/fairness statement, and falsifier for this coverage gap.",
+      "pass_predicate": "coverage_extends_to_all_of_modern_science can only turn true after every required coverage gap has source-backed comparator support.",
+      "required_capability": null,
+      "root_cause_class": null,
+      "source_subwork_order_id": "R017-COMPARATOR-COVERAGE-GAP-030",
+      "status": "OPEN",
+      "why_needed": "Broad superiority is blocked because current evidence is benchmark-scoped and does not cover all of modern science."
+    },
+    {
+      "capability_backlog_id": "R017-CAPABILITY-058",
+      "execution_command": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "tools/oc133_toe_closure_factory.py",
+        "--execute-capability-lane",
+        "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+        "--write"
+      ],
+      "next_action": "Bind a source-backed comparator row, evidence pack, baseline, uncertainty/fairness statement, and falsifier for this coverage gap.",
+      "pass_predicate": "coverage_extends_to_all_of_modern_science can only turn true after every required coverage gap has source-backed comparator support.",
+      "required_capability": null,
+      "root_cause_class": null,
+      "source_subwork_order_id": "R017-COMPARATOR-COVERAGE-GAP-031",
+      "status": "OPEN",
+      "why_needed": "Broad superiority is blocked because current evidence is benchmark-scoped and does not cover all of modern science."
+    },
+    {
+      "capability_backlog_id": "R017-CAPABILITY-059",
+      "execution_command": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "tools/oc133_toe_closure_factory.py",
+        "--execute-capability-lane",
+        "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+        "--write"
+      ],
+      "next_action": "Bind a source-backed comparator row, evidence pack, baseline, uncertainty/fairness statement, and falsifier for this coverage gap.",
+      "pass_predicate": "coverage_extends_to_all_of_modern_science can only turn true after every required coverage gap has source-backed comparator support.",
+      "required_capability": null,
+      "root_cause_class": null,
+      "source_subwork_order_id": "R017-COMPARATOR-COVERAGE-GAP-032",
+      "status": "OPEN",
+      "why_needed": "Broad superiority is blocked because current evidence is benchmark-scoped and does not cover all of modern science."
+    },
+    {
+      "capability_backlog_id": "R017-CAPABILITY-060",
+      "execution_command": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "tools/oc133_toe_closure_factory.py",
+        "--execute-capability-lane",
+        "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+        "--write"
+      ],
+      "next_action": "Bind a source-backed comparator row, evidence pack, baseline, uncertainty/fairness statement, and falsifier for this coverage gap.",
+      "pass_predicate": "coverage_extends_to_all_of_modern_science can only turn true after every required coverage gap has source-backed comparator support.",
+      "required_capability": null,
+      "root_cause_class": null,
+      "source_subwork_order_id": "R017-COMPARATOR-COVERAGE-GAP-033",
+      "status": "OPEN",
+      "why_needed": "Broad superiority is blocked because current evidence is benchmark-scoped and does not cover all of modern science."
+    },
+    {
+      "capability_backlog_id": "R017-CAPABILITY-061",
+      "execution_command": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "tools/oc133_toe_closure_factory.py",
+        "--execute-capability-lane",
+        "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+        "--write"
+      ],
+      "next_action": "Bind a source-backed comparator row, evidence pack, baseline, uncertainty/fairness statement, and falsifier for this coverage gap.",
+      "pass_predicate": "coverage_extends_to_all_of_modern_science can only turn true after every required coverage gap has source-backed comparator support.",
+      "required_capability": null,
+      "root_cause_class": null,
+      "source_subwork_order_id": "R017-COMPARATOR-COVERAGE-GAP-034",
+      "status": "OPEN",
+      "why_needed": "Broad superiority is blocked because current evidence is benchmark-scoped and does not cover all of modern science."
+    },
+    {
+      "capability_backlog_id": "R017-CAPABILITY-062",
+      "execution_command": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "tools/oc133_toe_closure_factory.py",
+        "--execute-capability-lane",
+        "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+        "--write"
+      ],
+      "next_action": "Bind a source-backed comparator row, evidence pack, baseline, uncertainty/fairness statement, and falsifier for this coverage gap.",
+      "pass_predicate": "coverage_extends_to_all_of_modern_science can only turn true after every required coverage gap has source-backed comparator support.",
+      "required_capability": null,
+      "root_cause_class": null,
+      "source_subwork_order_id": "R017-COMPARATOR-COVERAGE-GAP-035",
+      "status": "OPEN",
+      "why_needed": "Broad superiority is blocked because current evidence is benchmark-scoped and does not cover all of modern science."
+    },
+    {
+      "capability_backlog_id": "R017-CAPABILITY-063",
+      "execution_command": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "tools/oc133_toe_closure_factory.py",
+        "--execute-capability-lane",
+        "CERBERUS_RELEASE_REVIEW_GATE",
+        "--write"
+      ],
+      "next_action": "After deterministic science PASS, refresh Cerberus target/run/acceptance surfaces and rerun clean acceptance.",
+      "pass_predicate": "Cerberus acceptance PASS, LLM gate PASS, fingerprint match, and open defect findings zero.",
+      "required_capability": "Review/Cerberus",
+      "root_cause_class": "CERBERUS_RELEASE_REVIEW_GATE",
+      "source_subwork_order_id": "R017-CERBERUS-DETERMINISTIC-FINGERPRINT-REFRESH",
+      "status": "BLOCKED_BY_SCIENCE_VALIDATOR",
+      "why_needed": "Cerberus targets/run/acceptance fingerprints or open findings do not bind cleanly to current HEAD."
+    }
+  ],
+  "schema_id": "OC133_TOE_CAPABILITY_BACKLOG_v1",
+  "status": "OPEN",
+  "version": "1.3.3"
+}

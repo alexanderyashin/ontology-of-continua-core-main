@@ -12,6 +12,9 @@ from typing import Any
 ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
+TOOLS_DIR = ROOT / "tools"
+if str(TOOLS_DIR) not in sys.path:
+    sys.path.insert(0, str(TOOLS_DIR))
 
 from oc_core_1_3_cerberus_lib import validate_existing_cerberus_bundle
 from oc_core_1_3_science_spot_lib import (
@@ -33,6 +36,10 @@ COCKPIT_NAME = "OC133_TOE_CLOSURE_COCKPIT.json"
 COCKPIT_MD_NAME = "OC133_TOE_CLOSURE_COCKPIT.md"
 REGISTRY_NAME = "OC133_TOE_LANE_CAPABILITY_REGISTRY.json"
 STATE_NAME = "OC133_TOE_CLOSURE_STATE.json"
+ROOT_CAUSE_LEDGER_NAME = "OC133_TOE_ROOT_CAUSE_LEDGER.json"
+CAPABILITY_BACKLOG_NAME = "OC133_TOE_CAPABILITY_BACKLOG.json"
+SUBWORK_ORDERS_NAME = "OC133_TOE_LANE_SUBWORK_ORDERS.json"
+VALIDATOR_DELTA_TRACE_NAME = "OC133_TOE_VALIDATOR_DELTA_TRACE.json"
 
 GRAND_SCORECARD = MISSION_DIR / "OC133_ALL_DOMAIN_READINESS_SCORECARD.json"
 GRAND_LOOP_REPORT = MISSION_DIR / "OC133_GRAND_SCIENCE_LOOP_latest.json"
@@ -275,12 +282,129 @@ def classify_validator_error(error: str) -> tuple[str, str, str, str, str]:
     )
 
 
+def root_cause_for_error(error: str) -> dict[str, Any]:
+    finding_class, severity, route, closure, effect = classify_validator_error(error)
+    lowered = error.lower()
+    if finding_class == "AI_DOMAIN_TOE_PROJECTION_LANE":
+        return {
+            "root_cause_class": "MISSING_EXECUTABLE_AI_TOE_PROJECTION_SUPPORT",
+            "root_cause_evidence": [
+                "releases/oc_core_1_3/editorial/science_sources/toe_projection_lanes/ai.json::closure_verdict=FAIL_CLOSED",
+                "tools/oc133_toe_closure_factory.py::AI lane previously had no dedicated source-grounded capability",
+            ],
+            "why_it_failed": "The AI lane is present, but it contains bounded future-research rows rather than dedicated PASS-grade claim, formal-boundary, evidence/simulation, comparator, and falsifier bindings.",
+            "repair_strategy": "Execute the AI projection capability lane: inventory AI claims from the canonical corpus, bind formal boundaries and finite witnesses, add benchmark/simulation evidence, comparator baselines, and falsifier rows, then rewrite ai.json only when all required refs exist.",
+            "required_capability": "Research/AIProjection",
+        }
+    if finding_class == "ENTERPRISE_ARCHITECTURE_DOMAIN_TOE_PROJECTION_LANE":
+        return {
+            "root_cause_class": "MISSING_EXECUTABLE_EA_TOE_PROJECTION_SUPPORT",
+            "root_cause_evidence": [
+                "releases/oc_core_1_3/editorial/science_sources/toe_projection_lanes/enterprise_architecture.json::closure_verdict=FAIL_CLOSED",
+                "tools/oc133_toe_closure_factory.py::EA lane previously had no dedicated source-grounded capability",
+            ],
+            "why_it_failed": "The EA lane is present, but it contains bounded future-research rows rather than dedicated PASS-grade architecture cases, operational metrics, comparator alternatives, and falsifier bindings.",
+            "repair_strategy": "Execute the EA projection capability lane: inventory EA claims from the canonical corpus, bind architecture cases and operational metrics, add comparator alternatives and falsifiers, then rewrite enterprise_architecture.json only when all required refs exist.",
+            "required_capability": "Research/EnterpriseArchitectureProjection",
+        }
+    if finding_class == "GRAND_TOE_CLAIM_LEDGER_EVIDENCE":
+        return {
+            "root_cause_class": "GRAND_PROMOTION_CONTRACT_DEPENDENCY_FAILURE",
+            "root_cause_evidence": [
+                str(GRAND_SCORECARD),
+                str(GRAND_PROMOTION_REPORT),
+                str(FINITE_CHECK_REPORT),
+            ],
+            "why_it_failed": "The grand TOE promotion contract is blocked by missing dedicated promoted-claim evidence, comparator superiority, empirical superiority, and finite model failures.",
+            "repair_strategy": "Split grand closure into sublanes for promoted claim row, theorem/proof refs, Lean refs, finite positive/negative controls, finite failure repair, empirical pack, comparator pack, and promotion contract refresh.",
+            "required_capability": "Research/FormalScience",
+        }
+    if finding_class == "MODERN_SCIENCE_COMPARATOR_SUPERIORITY":
+        return {
+            "root_cause_class": "BROAD_COMPARATOR_COVERAGE_GAP",
+            "root_cause_evidence": [
+                str(COMPARATOR_REGISTER),
+                "comparators/OC_1_3_3_MODERN_SCIENCE_SUPERIORITY_REGISTER.json::coverage_extends_to_all_of_modern_science=false",
+            ],
+            "why_it_failed": "The current comparator evidence certifies only benchmark-scoped superiority; broad modern-science superiority is blocked by uncovered domains and missing source-backed comparator predicates.",
+            "repair_strategy": "Expand comparator work into per-gap source-backed benchmark/comparator rows and keep broad superiority blocked until all broad coverage predicates pass.",
+            "required_capability": "Research/PriorArt",
+        }
+    if finding_class == "ALL_DOMAIN_READINESS_SCORECARD":
+        return {
+            "root_cause_class": "DOWNSTREAM_SCORECARD_BLOCKED_BY_OPEN_LANES",
+            "root_cause_evidence": [str(GRAND_SCORECARD)],
+            "why_it_failed": "The all-domain readiness flag is downstream of AI, EA, grand promotion, comparator, and Cerberus gates; it cannot turn green while any parent lane remains red.",
+            "repair_strategy": "Close parent lanes first, rebuild the SPOT and scorecard, then rerun the final TOE validator.",
+            "required_capability": "Research/ScorecardSync",
+        }
+    if finding_class == "CERBERUS_RELEASE_REVIEW_GATE":
+        return {
+            "root_cause_class": "STALE_OR_UNCLEAN_CERBERUS_SURFACE",
+            "root_cause_evidence": [
+                str(CERBERUS_ACCEPTANCE),
+                str(CERBERUS_FINDINGS),
+            ],
+            "why_it_failed": "Cerberus targets/run/acceptance fingerprints or open findings do not bind cleanly to the current repository state.",
+            "repair_strategy": "Skip expensive Cerberus while deterministic science gates are red; after science PASS, refresh Cerberus targets/run/acceptance and clear open findings.",
+            "required_capability": "Review/Cerberus",
+        }
+    return {
+        "root_cause_class": "UNCLASSIFIED_TOE_VALIDATOR_BLOCKER",
+        "root_cause_evidence": ["tools/validate_oc_core_1_3_science_spot.py"],
+        "why_it_failed": "The strict validator emitted an unclassified blocker; the factory must classify it before promotion.",
+        "repair_strategy": "Add a classifier, evidence refs, and executable lane or sublane for this validator message, then rerun the final validator.",
+        "required_capability": "Research/ValidatorClassifier",
+    }
+
+
+def execution_command_for_finding(finding_class: str) -> list[str]:
+    lane_by_finding = {row["finding_class"]: row["lane_id"] for row in lane_registry_rows()}
+    lane_id = lane_by_finding.get(finding_class)
+    if lane_id:
+        return [sys.executable, "tools/oc133_toe_closure_factory.py", "--execute-capability-lane", lane_id, "--write"]
+    return [sys.executable, "tools/oc133_toe_closure_factory.py", "--execute", "--write"]
+
+
+def root_cause_row_for_error(index: int, error: str) -> dict[str, Any]:
+    finding_class, severity, route, closure, effect = classify_validator_error(error)
+    root_cause = root_cause_for_error(error)
+    return {
+        "problem_id": f"R017-ROOT-CAUSE-{index:03d}",
+        "source_validator_message": error,
+        "symptom": error,
+        "severity": severity,
+        "finding_class": finding_class,
+        "root_cause_class": root_cause["root_cause_class"],
+        "root_cause_evidence": root_cause["root_cause_evidence"],
+        "why_it_failed": root_cause["why_it_failed"],
+        "repair_strategy": root_cause["repair_strategy"],
+        "research_route": route,
+        "required_capability": root_cause["required_capability"],
+        "execution_command": execution_command_for_finding(finding_class),
+        "pass_predicate": closure,
+        "expected_validator_delta": 1,
+        "actual_validator_delta": 0,
+        "next_escalation": "Create or execute the required capability lane; if source support is absent, produce a source-gap work order rather than passing.",
+        "claim_effect": effect,
+        "status": "OPEN",
+        "blocks_r017": True,
+        "fake_closure_rejected": True,
+    }
+
+
 def work_order_for_error(index: int, error: str) -> dict[str, Any]:
     finding_class, severity, route, closure, effect = classify_validator_error(error)
+    root_cause = root_cause_for_error(error)
     return {
         "work_order_id": f"R017-TOE-CLOSURE-{index:03d}",
         "source_validator_message": error,
         "finding_class": finding_class,
+        "root_cause_class": root_cause["root_cause_class"],
+        "root_cause_evidence": root_cause["root_cause_evidence"],
+        "why_it_failed": root_cause["why_it_failed"],
+        "repair_strategy": root_cause["repair_strategy"],
+        "required_capability": root_cause["required_capability"],
         "severity": severity,
         "status": "OPEN",
         "blocks_r017": True,
@@ -324,11 +448,17 @@ def active_lane_work_orders(start_index: int) -> list[dict[str, Any]]:
     ]
     output: list[dict[str, Any]] = []
     for offset, (lane_id, finding_class, closure) in enumerate(rows):
+        root_cause = root_cause_for_error(f"{lane_id} lane closure_verdict is not PASS")
         output.append(
             {
                 "work_order_id": f"R017-TOE-LANE-{lane_id}-{start_index + offset:03d}",
                 "source_validator_message": f"{lane_id} lane active closure obligation",
                 "finding_class": finding_class,
+                "root_cause_class": root_cause["root_cause_class"],
+                "root_cause_evidence": root_cause["root_cause_evidence"],
+                "why_it_failed": root_cause["why_it_failed"],
+                "repair_strategy": root_cause["repair_strategy"],
+                "required_capability": root_cause["required_capability"],
                 "severity": "HIGH",
                 "status": "OPEN",
                 "blocks_r017": True,
@@ -363,6 +493,322 @@ def build_obligations(root: Path, validator_errors: list[str], *, generated_at: 
         "open_work_order_total": len([row for row in rows if row["status"] == "OPEN"]),
         "r017_promotion_allowed": False if rows else True,
         "fake_closure_policy": "A demoted, future-research, blocked, or missing-evidence row cannot count as TOE closure.",
+        "rows": rows,
+    }
+    payload["artifact_hash"] = artifact_hash(payload)
+    return payload
+
+
+def failed_finite_rows(root: Path) -> list[dict[str, Any]]:
+    finite = read_json(root / FINITE_CHECK_REPORT)
+    rows = finite.get("rows", [])
+    if not isinstance(rows, list):
+        return []
+    return [row for row in rows if isinstance(row, dict) and row.get("passed") is not True]
+
+
+def comparator_gap_total(root: Path) -> int:
+    register = read_json(root / COMPARATOR_REGISTER)
+    try:
+        return int(register.get("coverage_gap_total") or 0)
+    except Exception:
+        return 0
+
+
+def comparator_gap_rows(root: Path) -> list[dict[str, Any]]:
+    register = read_json(root / COMPARATOR_REGISTER)
+    gap_total = comparator_gap_total(root)
+    blockers = register.get("broad_claim_blockers")
+    if not isinstance(blockers, list) or not blockers:
+        blockers = ["coverage_extends_to_all_of_modern_science"]
+    matrix_summary = register.get("domain_evidence_matrix_summary", {})
+    domains = matrix_summary.get("domains") if isinstance(matrix_summary, dict) else None
+    if not isinstance(domains, list) or not domains:
+        domains = ["physics", "chemistry", "biology", "systems"]
+    rows: list[dict[str, Any]] = []
+    for index in range(1, max(gap_total, 1) + 1):
+        domain = str(domains[(index - 1) % len(domains)])
+        rows.append(
+            {
+                "subwork_order_id": f"R017-COMPARATOR-COVERAGE-GAP-{index:03d}",
+                "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+                "status": "OPEN",
+                "domain": domain,
+                "root_cause_class": "BROAD_COMPARATOR_COVERAGE_GAP",
+                "why_it_failed": "Broad superiority is blocked because current evidence is benchmark-scoped and does not cover all of modern science.",
+                "repair_strategy": "Bind a source-backed comparator row, evidence pack, baseline, uncertainty/fairness statement, and falsifier for this coverage gap.",
+                "closure_condition": "coverage_extends_to_all_of_modern_science can only turn true after every required coverage gap has source-backed comparator support.",
+                "source_refs": [str(COMPARATOR_REGISTER)],
+                "blockers": blockers,
+            }
+        )
+    return rows
+
+
+def projection_lane_subwork(lane_id: str) -> list[dict[str, Any]]:
+    if lane_id == "AI":
+        capability = "Research/AIProjection"
+        work = [
+            ("CLAIM_GRAPH", "Extract source-grounded AI/agentic-system claims from canonical SPOT and claim ledgers."),
+            ("FORMAL_BOUNDARY", "Bind each AI claim to a theorem, proof sheet, Lean ref, finite case, or explicit formal boundary."),
+            ("BENCHMARK_SIMULATION", "Bind benchmark or simulation evidence with replayable source refs."),
+            ("COMPARATOR_BASELINE", "Bind comparator baselines against relevant AI/system-design alternatives."),
+            ("FALSIFIER", "Bind falsifier rows and scope limits for each promoted AI claim."),
+            ("PROJECTION_PASS_WRITER", "Rewrite ai.json only if every required field and ref passes static validation."),
+        ]
+    else:
+        capability = "Research/EnterpriseArchitectureProjection"
+        work = [
+            ("CLAIM_GRAPH", "Extract source-grounded enterprise-architecture claims from canonical SPOT and public payload sources."),
+            ("ARCHITECTURE_CASES", "Bind architecture cases, operational metrics, and decision records."),
+            ("FORMAL_BOUNDARY", "Bind each EA claim to a formal boundary, theorem/proof packet, finite witness, or explicit non-promotion boundary."),
+            ("COMPARATOR_ALTERNATIVES", "Bind comparator alternatives such as TOGAF, Zachman, DDD, capability maps, and systems-engineering baselines."),
+            ("FALSIFIER", "Bind falsifier rows and scope limits for each promoted EA claim."),
+            ("PROJECTION_PASS_WRITER", "Rewrite enterprise_architecture.json only if every required field and ref passes static validation."),
+        ]
+    finding_class = "AI_DOMAIN_TOE_PROJECTION_LANE" if lane_id == "AI" else "ENTERPRISE_ARCHITECTURE_DOMAIN_TOE_PROJECTION_LANE"
+    rows = []
+    for index, (step_id, description) in enumerate(work, start=1):
+        rows.append(
+            {
+                "subwork_order_id": f"R017-{lane_id}-{step_id}-{index:03d}",
+                "lane_id": lane_id,
+                "status": "OPEN",
+                "finding_class": finding_class,
+                "required_capability": capability,
+                "why_it_failed": "The current projection lane is bounded future research and lacks PASS-grade source-bound projection rows.",
+                "repair_strategy": description,
+                "closure_condition": "The lane may PASS only when claim id, public scope, formal/evidence/comparator/falsifier refs, row PASS, lane PASS, and final TOE support are all true.",
+                "source_refs": [str(FINAL_TOE_PROJECTION_LANE_TARGETS[lane_id].relative_to(REPO_ROOT))],
+                "fake_closure_rejected": True,
+            }
+        )
+    return rows
+
+
+def grand_claim_subwork(root: Path) -> list[dict[str, Any]]:
+    rows = [
+        ("PROMOTED_CLAIM_ROW", "Create a dedicated promoted grand TOE claim row only if all formal, finite, empirical, comparator, and falsifier dependencies pass."),
+        ("THEOREM_PROOF_REFS", "Bind theorem and proof-sheet refs to the promoted claim route."),
+        ("LEAN_REFS", "Bind Lean refs and certificate hashes to the promotion route."),
+        ("FINITE_CONTROL_SET", "Bind finite positive and negative controls to the promotion route."),
+        ("EMPIRICAL_PACK", "Bind the all-domain empirical pack and replay evidence."),
+        ("COMPARATOR_PACK", "Bind modern-science comparator PASS evidence."),
+        ("PROMOTION_CONTRACT_REFRESH", "Refresh the grand promotion contract after all dependencies pass."),
+    ]
+    output: list[dict[str, Any]] = []
+    for index, (step_id, strategy) in enumerate(rows, start=1):
+        output.append(
+            {
+                "subwork_order_id": f"R017-GRAND-{step_id}-{index:03d}",
+                "lane_id": "GRAND_TOE_CLAIM_LEDGER_EVIDENCE",
+                "status": "OPEN",
+                "finding_class": "GRAND_TOE_CLAIM_LEDGER_EVIDENCE",
+                "required_capability": "Research/FormalScience",
+                "why_it_failed": "The grand promotion contract is blocked by missing or failing promotion dependencies.",
+                "repair_strategy": strategy,
+                "closure_condition": "Grand promotion contract verdict is PASS and grand_toe_claim_ledger_evidence is not in blocker_ids.",
+                "source_refs": [str(GRAND_SCORECARD), str(GRAND_PROMOTION_REPORT), str(FINITE_CHECK_REPORT)],
+                "fake_closure_rejected": True,
+            }
+        )
+    for failed in failed_finite_rows(root):
+        case_id = str(failed.get("case_id") or "UNKNOWN")
+        output.append(
+            {
+                "subwork_order_id": f"R017-FINITE-FAILURE-{case_id}",
+                "lane_id": "GRAND_TOE_CLAIM_LEDGER_EVIDENCE",
+                "status": "OPEN",
+                "finding_class": "GRAND_TOE_CLAIM_LEDGER_EVIDENCE",
+                "required_capability": "Research/FiniteModelChecks",
+                "why_it_failed": f"Finite model case {case_id} did not pass: expected {failed.get('effective_expected_verdict') or failed.get('expected_verdict')} but observed {failed.get('observed_verdict')}.",
+                "repair_strategy": "Diagnose whether the model, expectation, theorem binding, or promotion claim is wrong; then repair the source or keep the claim blocked.",
+                "closure_condition": f"Finite model case {case_id} passes without weakening the finite-check gate.",
+                "source_refs": [str(FINITE_CHECK_REPORT), str(failed.get("lean_theorem_ref") or "NO_LEAN_REF_BOUND")],
+                "finite_case": failed,
+                "fake_closure_rejected": True,
+            }
+        )
+    return output
+
+
+def build_lane_subwork_orders(root: Path, validator_errors: list[str], *, generated_at: str | None = None) -> dict[str, Any]:
+    rows: list[dict[str, Any]] = []
+    classes = error_classes(validator_errors)
+    if "AI_DOMAIN_TOE_PROJECTION_LANE" in classes or lane_result_by_id(root, "AI").get("status") != "PASS":
+        rows.extend(projection_lane_subwork("AI"))
+    if "ENTERPRISE_ARCHITECTURE_DOMAIN_TOE_PROJECTION_LANE" in classes or lane_result_by_id(root, "ENTERPRISE_ARCHITECTURE").get("status") != "PASS":
+        rows.extend(projection_lane_subwork("ENTERPRISE_ARCHITECTURE"))
+    if "GRAND_TOE_CLAIM_LEDGER_EVIDENCE" in classes or lane_result_by_id(root, "GRAND_TOE_CLAIM_LEDGER_EVIDENCE").get("status") != "PASS":
+        rows.extend(grand_claim_subwork(root))
+    if "MODERN_SCIENCE_COMPARATOR_SUPERIORITY" in classes or lane_result_by_id(root, "MODERN_SCIENCE_COMPARATOR_SUPERIORITY").get("status") != "PASS":
+        rows.extend(comparator_gap_rows(root))
+    if "CERBERUS_RELEASE_REVIEW_GATE" in classes or lane_result_by_id(root, "CERBERUS_RELEASE_REVIEW_GATE").get("status") != "PASS":
+        rows.extend(
+            [
+                {
+                    "subwork_order_id": "R017-CERBERUS-DETERMINISTIC-FINGERPRINT-REFRESH",
+                    "lane_id": "CERBERUS_RELEASE_REVIEW_GATE",
+                    "status": "BLOCKED_BY_SCIENCE_VALIDATOR" if science_errors(root) else "OPEN",
+                    "finding_class": "CERBERUS_RELEASE_REVIEW_GATE",
+                    "required_capability": "Review/Cerberus",
+                    "why_it_failed": "Cerberus targets/run/acceptance fingerprints or open findings do not bind cleanly to current HEAD.",
+                    "repair_strategy": "After deterministic science PASS, refresh Cerberus target/run/acceptance surfaces and rerun clean acceptance.",
+                    "closure_condition": "Cerberus acceptance PASS, LLM gate PASS, fingerprint match, and open defect findings zero.",
+                    "source_refs": [str(CERBERUS_ACCEPTANCE), str(CERBERUS_FINDINGS)],
+                    "fake_closure_rejected": True,
+                }
+            ]
+        )
+    payload = {
+        "schema_id": "OC133_TOE_LANE_SUBWORK_ORDERS_v1",
+        "release_id": RELEASE_ID,
+        "version": VERSION,
+        "generated_at": generated_at or utc_now(),
+        "status": "OPEN" if rows else "PASS",
+        "subwork_order_total": len(rows),
+        "open_subwork_order_total": sum(1 for row in rows if row.get("status") == "OPEN"),
+        "blocked_subwork_order_total": sum(1 for row in rows if str(row.get("status", "")).startswith("BLOCKED")),
+        "rows": rows,
+    }
+    payload["artifact_hash"] = artifact_hash(payload)
+    return payload
+
+
+def build_root_cause_ledger(
+    root: Path,
+    validator_errors: list[str],
+    execution_trace: list[dict[str, Any]],
+    *,
+    generated_at: str | None = None,
+) -> dict[str, Any]:
+    rows = [root_cause_row_for_error(index + 1, error) for index, error in enumerate(validator_errors)]
+    required = [
+        "problem_id",
+        "symptom",
+        "root_cause_class",
+        "root_cause_evidence",
+        "why_it_failed",
+        "repair_strategy",
+        "required_capability",
+        "execution_command",
+        "pass_predicate",
+        "expected_validator_delta",
+        "actual_validator_delta",
+        "next_escalation",
+    ]
+    incomplete = [
+        row["problem_id"]
+        for row in rows
+        if any(row.get(field) is None or row.get(field) == "" or row.get(field) == [] for field in required)
+    ]
+    payload = {
+        "schema_id": "OC133_TOE_ROOT_CAUSE_LEDGER_v1",
+        "release_id": RELEASE_ID,
+        "version": VERSION,
+        "generated_at": generated_at or utc_now(),
+        "status": "PASS" if not rows else "OPEN",
+        "root_cause_coverage_status": "PASS" if len(rows) == len(validator_errors) and not incomplete else "FAIL",
+        "validator_error_total": len(validator_errors),
+        "root_cause_total": len(rows),
+        "incomplete_root_cause_total": len(incomplete),
+        "incomplete_problem_ids": incomplete,
+        "execution_trace_step_total": len(execution_trace),
+        "rows": rows,
+    }
+    payload["artifact_hash"] = artifact_hash(payload)
+    return payload
+
+
+def build_capability_backlog(
+    root: Path,
+    root_causes: dict[str, Any],
+    subwork_orders: dict[str, Any],
+    *,
+    generated_at: str | None = None,
+) -> dict[str, Any]:
+    rows: list[dict[str, Any]] = []
+    seen: set[tuple[str, str]] = set()
+    for row in root_causes.get("rows", []):
+        key = (str(row.get("required_capability")), str(row.get("root_cause_class")))
+        if key in seen:
+            continue
+        seen.add(key)
+        rows.append(
+            {
+                "capability_backlog_id": f"R017-CAPABILITY-{len(rows) + 1:03d}",
+                "required_capability": row.get("required_capability"),
+                "root_cause_class": row.get("root_cause_class"),
+                "status": "OPEN",
+                "why_needed": row.get("why_it_failed"),
+                "next_action": row.get("repair_strategy"),
+                "execution_command": row.get("execution_command"),
+                "pass_predicate": row.get("pass_predicate"),
+            }
+        )
+    for row in subwork_orders.get("rows", []):
+        key = (str(row.get("required_capability")), str(row.get("subwork_order_id")))
+        if key in seen:
+            continue
+        seen.add(key)
+        rows.append(
+            {
+                "capability_backlog_id": f"R017-CAPABILITY-{len(rows) + 1:03d}",
+                "required_capability": row.get("required_capability"),
+                "root_cause_class": row.get("finding_class"),
+                "status": row.get("status", "OPEN"),
+                "why_needed": row.get("why_it_failed"),
+                "next_action": row.get("repair_strategy"),
+                "execution_command": [sys.executable, "tools/oc133_toe_closure_factory.py", "--execute-capability-lane", row.get("lane_id", ""), "--write"],
+                "pass_predicate": row.get("closure_condition"),
+                "source_subwork_order_id": row.get("subwork_order_id"),
+            }
+        )
+    payload = {
+        "schema_id": "OC133_TOE_CAPABILITY_BACKLOG_v1",
+        "release_id": RELEASE_ID,
+        "version": VERSION,
+        "generated_at": generated_at or utc_now(),
+        "status": "OPEN" if rows else "PASS",
+        "capability_total": len(rows),
+        "open_capability_total": sum(1 for row in rows if row.get("status") == "OPEN"),
+        "rows": rows,
+    }
+    payload["artifact_hash"] = artifact_hash(payload)
+    return payload
+
+
+def build_validator_delta_trace(
+    execution_trace: list[dict[str, Any]],
+    root_causes: dict[str, Any],
+    capability_backlog: dict[str, Any],
+    *,
+    generated_at: str | None = None,
+) -> dict[str, Any]:
+    rows: list[dict[str, Any]] = []
+    for index, step in enumerate(execution_trace, start=1):
+        result = step.get("result", {}) if isinstance(step.get("result"), dict) else {}
+        rows.append(
+            {
+                "delta_trace_id": f"R017-VALIDATOR-DELTA-{index:03d}",
+                "purpose": step.get("purpose"),
+                "status": step.get("status"),
+                "before_validator_error_total": result.get("before_validator_error_total"),
+                "after_validator_error_total": result.get("after_validator_error_total"),
+                "validator_error_delta": result.get("validator_error_delta"),
+            }
+        )
+    no_progress = any((row.get("validator_error_delta") in (0, None)) and row.get("status") not in {"PASS"} for row in rows)
+    payload = {
+        "schema_id": "OC133_TOE_VALIDATOR_DELTA_TRACE_v1",
+        "release_id": RELEASE_ID,
+        "version": VERSION,
+        "generated_at": generated_at or utc_now(),
+        "status": "PASS" if root_causes.get("validator_error_total") == 0 else "CAPABILITY_BACKLOG_OPEN" if no_progress else "PROGRESS_REMAINS_BLOCKED",
+        "trace_row_total": len(rows),
+        "root_cause_total": root_causes.get("root_cause_total"),
+        "capability_backlog_total": capability_backlog.get("capability_total"),
+        "no_progress_creates_backlog": True,
         "rows": rows,
     }
     payload["artifact_hash"] = artifact_hash(payload)
@@ -591,15 +1037,23 @@ def execute_lane_attempt(root: Path, lane_id: str, timeout: int) -> dict[str, An
     execution_state = "EXECUTED"
 
     if lane_id in {"AI", "ENTERPRISE_ARCHITECTURE"}:
-        execution_state = "CAPABILITY_MISSING_OR_EXHAUSTED"
+        execution_state = "EXECUTED_SOURCE_GAP_DIAGNOSTIC"
+        subwork = projection_lane_subwork(lane_id)
         command_results.append(
             {
-                "cmd": lane["execution_command"],
-                "returncode": None,
-                "stdout_tail": "",
+                "cmd": ["internal", "build_projection_lane_subwork", lane_id],
+                "returncode": 0,
+                "stdout_tail": json.dumps(
+                    {
+                        "lane_id": lane_id,
+                        "subwork_order_total": len(subwork),
+                        "subwork_order_ids": [row["subwork_order_id"] for row in subwork],
+                    },
+                    ensure_ascii=False,
+                ),
                 "stderr_tail": (
-                    f"{lane_id} has a registered projection lane, but no source-grounded dedicated "
-                    "research capability exists yet to create PASS-grade claim/formal/evidence/comparator/falsifier artifacts."
+                    f"{lane_id} source-gap diagnostic executed. The lane remains fail-closed until the "
+                    "claim/formal/evidence/comparator/falsifier artifacts exist and pass static validation."
                 ),
             }
         )
@@ -630,7 +1084,7 @@ def execute_lane_attempt(root: Path, lane_id: str, timeout: int) -> dict[str, An
     after_total = len(after_parts["science_errors"]) + len(after_parts["cerberus_errors"])
     lane_result = lane_result_by_id(root, lane_id)
     closure_status = "PASS" if lane_result.get("status") == "PASS" else "FAIL_CLOSED"
-    if execution_state in {"CAPABILITY_MISSING_OR_EXHAUSTED", "SKIPPED_DETERMINISTIC_SCIENCE_BLOCKERS_REMAIN"}:
+    if execution_state in {"SKIPPED_DETERMINISTIC_SCIENCE_BLOCKERS_REMAIN"}:
         closure_status = execution_state
     return {
         "lane_id": lane_id,
@@ -660,17 +1114,17 @@ def execute_active_lanes(root: Path, timeout: int) -> dict[str, Any]:
     before_total = len(before_parts["science_errors"]) + len(before_parts["cerberus_errors"])
     after_total = len(after_parts["science_errors"]) + len(after_parts["cerberus_errors"])
     pass_total = sum(1 for row in rows if row["status"] == "PASS")
-    exhausted_total = sum(1 for row in rows if row["status"] == "CAPABILITY_MISSING_OR_EXHAUSTED")
+    backlog_total = sum(1 for row in rows if row["execution_state"] == "EXECUTED_SOURCE_GAP_DIAGNOSTIC")
     return {
         "schema_id": "OC133_TOE_ACTIVE_LANE_EXECUTION_v1",
         "lane_total": len(rows),
         "pass_lane_total": pass_total,
-        "exhausted_lane_total": exhausted_total,
+        "capability_backlog_lane_total": backlog_total,
         "fail_closed_lane_total": len(rows) - pass_total,
         "before_validator_error_total": before_total,
         "after_validator_error_total": after_total,
         "validator_error_delta": before_total - after_total,
-        "status": "PASS" if after_total == 0 else "LOCAL_CAPABILITY_EXHAUSTED" if exhausted_total else "FAIL_CLOSED",
+        "status": "PASS" if after_total == 0 else "CAPABILITY_BACKLOG_OPEN" if backlog_total else "FAIL_CLOSED",
         "rows": rows,
     }
 
@@ -853,7 +1307,7 @@ def execute_until_final_pass(root: Path, timeout: int, max_iterations: int) -> l
             {
                 "step_index": len(trace) + 1,
                 "purpose": f"until_final_pass_iteration_{iteration}",
-                "status": "PASS" if current_total == 0 else "NO_PROGRESS_STOP" if delta <= 0 else "PROGRESS_REMAINS_BLOCKED",
+                "status": "PASS" if current_total == 0 else "CAPABILITY_BACKLOG_OPEN" if delta <= 0 else "PROGRESS_REMAINS_BLOCKED",
                 "result": {
                     "iteration": iteration,
                     "before_validator_error_total": previous_total,
@@ -866,14 +1320,18 @@ def execute_until_final_pass(root: Path, timeout: int, max_iterations: int) -> l
         if current_total == 0:
             break
         if delta <= 0:
+            remaining = current_validator_errors(root)
+            subwork = build_lane_subwork_orders(root, remaining)
             trace.append(
                 {
                     "step_index": len(trace) + 1,
-                    "purpose": "until_final_pass_stop",
-                    "status": "LOCAL_CAPABILITY_EXHAUSTED",
+                    "purpose": "until_final_pass_capability_backlog",
+                    "status": "CAPABILITY_BACKLOG_OPEN",
                     "result": {
-                        "reason": "No validator-error reduction in the latest iteration; r017 remains blocked instead of faking TOE closure.",
-                        "remaining_validator_errors": current_validator_errors(root),
+                        "reason": "No validator-error reduction in the latest iteration; the factory emits executable capability backlog and keeps r017 blocked instead of stopping with a fake terminal state.",
+                        "remaining_validator_errors": remaining,
+                        "subwork_order_total": subwork.get("subwork_order_total"),
+                        "open_subwork_order_total": subwork.get("open_subwork_order_total"),
                     },
                 }
             )
@@ -889,10 +1347,16 @@ def build_closure_state(
     registry: dict[str, Any],
     execution_trace: list[dict[str, Any]],
     *,
+    root_causes: dict[str, Any] | None = None,
+    capability_backlog: dict[str, Any] | None = None,
+    subwork_orders: dict[str, Any] | None = None,
     generated_at: str | None = None,
 ) -> dict[str, Any]:
     validator_errors = validator_parts["science_errors"] + validator_parts["cerberus_errors"]
     local_exhausted = any(row.get("status") in {"LOCAL_CAPABILITY_EXHAUSTED", "NO_PROGRESS_STOP"} for row in execution_trace)
+    root_causes = root_causes or {}
+    capability_backlog = capability_backlog or {}
+    subwork_orders = subwork_orders or {}
     payload = {
         "schema_id": "OC133_TOE_CLOSURE_STATE_v1",
         "release_id": RELEASE_ID,
@@ -908,6 +1372,10 @@ def build_closure_state(
         "pass_lane_total": lanes.get("pass_lane_total"),
         "fail_lane_total": lanes.get("fail_lane_total"),
         "local_capability_exhausted": local_exhausted,
+        "root_cause_coverage_status": root_causes.get("root_cause_coverage_status"),
+        "root_cause_total": root_causes.get("root_cause_total"),
+        "capability_backlog_total": capability_backlog.get("capability_total"),
+        "lane_subwork_order_total": subwork_orders.get("subwork_order_total"),
         "no_fake_closure_policy": "r017 cannot be assembled unless the strict final validator and all lane gates pass.",
         "execution_trace": execution_trace,
     }
@@ -923,9 +1391,17 @@ def build_cockpit(
     execution_trace: list[dict[str, Any]],
     *,
     validator_parts: dict[str, list[str]] | None = None,
+    root_causes: dict[str, Any] | None = None,
+    capability_backlog: dict[str, Any] | None = None,
+    subwork_orders: dict[str, Any] | None = None,
+    delta_trace: dict[str, Any] | None = None,
     generated_at: str | None = None,
 ) -> dict[str, Any]:
     validator_parts = validator_parts or {"science_errors": validator_errors, "cerberus_errors": []}
+    root_causes = root_causes or {}
+    capability_backlog = capability_backlog or {}
+    subwork_orders = subwork_orders or {}
+    delta_trace = delta_trace or {}
     promotion_allowed = not validator_errors and lanes.get("status") == "PASS" and obligations.get("open_work_order_total") == 0
     latest_execution_status = "NOT_RUN"
     if execution_trace:
@@ -946,6 +1422,14 @@ def build_cockpit(
         "pass_lane_total": lanes.get("pass_lane_total"),
         "fail_lane_total": lanes.get("fail_lane_total"),
         "lane_dispatcher_status": "PASS" if lanes.get("status") == "PASS" else "BLOCKED",
+        "root_cause_coverage_status": root_causes.get("root_cause_coverage_status", "MISSING"),
+        "root_cause_total": root_causes.get("root_cause_total", 0),
+        "capability_backlog_status": capability_backlog.get("status", "MISSING"),
+        "capability_backlog_total": capability_backlog.get("capability_total", 0),
+        "lane_subwork_order_status": subwork_orders.get("status", "MISSING"),
+        "lane_subwork_order_total": subwork_orders.get("subwork_order_total", 0),
+        "validator_delta_trace_status": delta_trace.get("status", "MISSING"),
+        "no_progress_creates_backlog": delta_trace.get("no_progress_creates_backlog", False),
         "local_external_compute_policy": "deterministic/static first; governed local LLM for small chunks; external Cerberus only after deterministic blockers are zero",
         "ollama_usage_policy": "No direct unmanaged Ollama calls are made by this factory.",
         "proof_data_simulation_coverage_status": "PASS" if lanes.get("status") == "PASS" else "INCOMPLETE",
@@ -972,6 +1456,10 @@ def render_cockpit_md(cockpit: dict[str, Any], lanes: dict[str, Any], obligation
         f"Open obligations: `{cockpit['open_obligation_total']}`",
         f"Lanes: `{cockpit['pass_lane_total']}/{cockpit['lane_total']}` PASS",
         f"Lane dispatcher: `{cockpit.get('lane_dispatcher_status', 'BLOCKED')}`",
+        f"Root-cause coverage: `{cockpit.get('root_cause_coverage_status', 'MISSING')}`",
+        f"Capability backlog: `{cockpit.get('capability_backlog_total', 0)}`",
+        f"Lane subwork orders: `{cockpit.get('lane_subwork_order_total', 0)}`",
+        f"Delta trace: `{cockpit.get('validator_delta_trace_status', 'MISSING')}`",
         f"Latest execution: `{cockpit['latest_execution_status']}`",
         "",
         "## Lane Results",
@@ -1020,15 +1508,36 @@ def expected_files(
     cockpit_generated_at = existing_generated_at(base / COCKPIT_NAME) if preserve_existing_generated_at else None
     registry_generated_at = existing_generated_at(base / REGISTRY_NAME) if preserve_existing_generated_at else None
     state_generated_at = existing_generated_at(base / STATE_NAME) if preserve_existing_generated_at else None
+    root_cause_generated_at = existing_generated_at(base / ROOT_CAUSE_LEDGER_NAME) if preserve_existing_generated_at else None
+    backlog_generated_at = existing_generated_at(base / CAPABILITY_BACKLOG_NAME) if preserve_existing_generated_at else None
+    subwork_generated_at = existing_generated_at(base / SUBWORK_ORDERS_NAME) if preserve_existing_generated_at else None
+    delta_trace_generated_at = existing_generated_at(base / VALIDATOR_DELTA_TRACE_NAME) if preserve_existing_generated_at else None
     obligations = build_obligations(root, validator_errors, generated_at=obligations_generated_at)
     lanes = build_lane_results(root, generated_at=lanes_generated_at)
     registry = build_lane_capability_registry(generated_at=registry_generated_at)
+    subwork_orders = build_lane_subwork_orders(root, validator_errors, generated_at=subwork_generated_at)
+    root_causes = build_root_cause_ledger(root, validator_errors, execution_trace, generated_at=root_cause_generated_at)
+    capability_backlog = build_capability_backlog(
+        root,
+        root_causes,
+        subwork_orders,
+        generated_at=backlog_generated_at,
+    )
+    delta_trace = build_validator_delta_trace(
+        execution_trace,
+        root_causes,
+        capability_backlog,
+        generated_at=delta_trace_generated_at,
+    )
     state = build_closure_state(
         root,
         validator_parts,
         lanes,
         registry,
         execution_trace,
+        root_causes=root_causes,
+        capability_backlog=capability_backlog,
+        subwork_orders=subwork_orders,
         generated_at=state_generated_at,
     )
     cockpit = build_cockpit(
@@ -1038,12 +1547,20 @@ def expected_files(
         validator_errors,
         execution_trace,
         validator_parts=validator_parts,
+        root_causes=root_causes,
+        capability_backlog=capability_backlog,
+        subwork_orders=subwork_orders,
+        delta_trace=delta_trace,
         generated_at=cockpit_generated_at,
     )
     return {
         base / OBLIGATIONS_NAME: stable_json(obligations),
         base / LANES_NAME: stable_json(lanes),
         base / REGISTRY_NAME: stable_json(registry),
+        base / ROOT_CAUSE_LEDGER_NAME: stable_json(root_causes),
+        base / CAPABILITY_BACKLOG_NAME: stable_json(capability_backlog),
+        base / SUBWORK_ORDERS_NAME: stable_json(subwork_orders),
+        base / VALIDATOR_DELTA_TRACE_NAME: stable_json(delta_trace),
         base / STATE_NAME: stable_json(state),
         base / COCKPIT_NAME: stable_json(cockpit),
         base / COCKPIT_MD_NAME: render_cockpit_md(cockpit, lanes, obligations),
@@ -1056,15 +1573,28 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--check", action="store_true")
     parser.add_argument("--execute", action="store_true", help="Run the sync/research/Cerberus/validator cycle before writing outputs.")
     parser.add_argument("--until-final-pass", action="store_true", help="Iterate closure cycles until final validator PASS or honest local capability exhaustion.")
+    parser.add_argument("--emit-root-cause-ledger", action="store_true", help="Emit only the current root-cause ledger.")
     parser.add_argument("--max-iterations", type=int, default=6)
     parser.add_argument("--execute-lane", choices=[row["lane_id"] for row in lane_registry_rows()])
+    parser.add_argument("--execute-capability-lane", choices=[row["lane_id"] for row in lane_registry_rows()])
     parser.add_argument("--timeout", type=int, default=900)
     args = parser.parse_args(argv)
-    if args.execute_lane:
-        payload = execute_lane_attempt(ROOT, args.execute_lane, args.timeout)
+    lane_arg = args.execute_lane or args.execute_capability_lane
+    if lane_arg:
+        payload = execute_lane_attempt(ROOT, lane_arg, args.timeout)
         payload["generated_at"] = utc_now()
         payload["artifact_hash"] = artifact_hash(payload)
-        path = ROOT / FACTORY_DIR / f"OC133_TOE_LANE_EXECUTION_{args.execute_lane}.json"
+        path = ROOT / FACTORY_DIR / f"OC133_TOE_LANE_EXECUTION_{lane_arg}.json"
+        result = validation_result({path: stable_json(payload)}, write=args.write)
+        print(json.dumps(result if args.write or args.check else payload, ensure_ascii=False, indent=2, sort_keys=True))
+        return 1 if args.check and result["state"] != "PASS" else 0
+    if args.emit_root_cause_ledger:
+        parts = current_validator_error_parts(ROOT)
+        errors = parts["science_errors"] + parts["cerberus_errors"]
+        path = ROOT / FACTORY_DIR / ROOT_CAUSE_LEDGER_NAME
+        generated_at = existing_generated_at(path) if args.check and not args.write else None
+        execution_trace = existing_execution_trace(ROOT / FACTORY_DIR / COCKPIT_NAME) if args.check and not args.write else []
+        payload = build_root_cause_ledger(ROOT, errors, execution_trace, generated_at=generated_at)
         result = validation_result({path: stable_json(payload)}, write=args.write)
         print(json.dumps(result if args.write or args.check else payload, ensure_ascii=False, indent=2, sort_keys=True))
         return 1 if args.check and result["state"] != "PASS" else 0

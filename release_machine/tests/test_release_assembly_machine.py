@@ -1757,7 +1757,23 @@ class ReleaseAssemblyMachineTests(unittest.TestCase):
         parts = module.current_validator_error_parts(ROOT)
         obligations = module.build_obligations(ROOT, errors, generated_at="TEST")
         lanes = module.build_lane_results(ROOT, generated_at="TEST")
-        cockpit = module.build_cockpit(ROOT, obligations, lanes, errors, [], validator_parts=parts, generated_at="TEST")
+        subwork = module.build_lane_subwork_orders(ROOT, errors, generated_at="TEST")
+        root_causes = module.build_root_cause_ledger(ROOT, errors, [], generated_at="TEST")
+        backlog = module.build_capability_backlog(ROOT, root_causes, subwork, generated_at="TEST")
+        delta_trace = module.build_validator_delta_trace([], root_causes, backlog, generated_at="TEST")
+        cockpit = module.build_cockpit(
+            ROOT,
+            obligations,
+            lanes,
+            errors,
+            [],
+            validator_parts=parts,
+            root_causes=root_causes,
+            capability_backlog=backlog,
+            subwork_orders=subwork,
+            delta_trace=delta_trace,
+            generated_at="TEST",
+        )
 
         self.assertGreaterEqual(len(errors), 1)
         self.assertEqual(obligations["status"], "OPEN")
@@ -1777,6 +1793,10 @@ class ReleaseAssemblyMachineTests(unittest.TestCase):
             self.assertTrue(row["fake_closure_rejected"])
             self.assertTrue(row["closure_condition"])
             self.assertTrue(row["validator_binding"])
+            self.assertTrue(row["root_cause_class"])
+            self.assertTrue(row["why_it_failed"])
+            self.assertTrue(row["repair_strategy"])
+            self.assertTrue(row["required_capability"])
 
         lane_rows = {row["lane_id"]: row for row in lanes["rows"]}
         for lane_id in [
@@ -1796,6 +1816,11 @@ class ReleaseAssemblyMachineTests(unittest.TestCase):
         self.assertFalse(cockpit["r017_promotion_allowed"])
         self.assertEqual(cockpit["latest_execution_status"], "NOT_RUN")
         self.assertEqual(cockpit["fail_lane_total"], 5)
+        self.assertEqual(cockpit["root_cause_coverage_status"], "PASS")
+        self.assertGreater(cockpit["root_cause_total"], 0)
+        self.assertGreater(cockpit["capability_backlog_total"], 0)
+        self.assertGreater(cockpit["lane_subwork_order_total"], 0)
+        self.assertTrue(cockpit["no_progress_creates_backlog"])
         self.assertEqual(cockpit["proof_data_simulation_coverage_status"], "INCOMPLETE")
         self.assertGreater(cockpit["science_validator_error_total"], 0)
         self.assertGreater(cockpit["cerberus_error_total"], 0)
@@ -1853,7 +1878,7 @@ class ReleaseAssemblyMachineTests(unittest.TestCase):
         self.assertGreater(state["science_validator_error_total"], 0)
         self.assertGreater(state["cerberus_error_total"], 0)
 
-    def test_r017_toe_closure_factory_ai_ea_lane_attempts_exhaust_instead_of_passing(self) -> None:
+    def test_r017_toe_closure_factory_ai_ea_lane_attempts_execute_diagnostics_instead_of_passing(self) -> None:
         factory_path = ROOT / "tools" / "oc133_toe_closure_factory.py"
         spec = importlib.util.spec_from_file_location("oc133_toe_closure_factory", factory_path)
         module = importlib.util.module_from_spec(spec)
@@ -1863,10 +1888,60 @@ class ReleaseAssemblyMachineTests(unittest.TestCase):
 
         for lane_id in ["AI", "ENTERPRISE_ARCHITECTURE"]:
             result = module.execute_lane_attempt(ROOT, lane_id, timeout=1)
-            self.assertEqual(result["status"], "CAPABILITY_MISSING_OR_EXHAUSTED")
-            self.assertEqual(result["execution_state"], "CAPABILITY_MISSING_OR_EXHAUSTED")
+            self.assertEqual(result["status"], "FAIL_CLOSED")
+            self.assertEqual(result["execution_state"], "EXECUTED_SOURCE_GAP_DIAGNOSTIC")
+            self.assertEqual(result["command_results"][0]["returncode"], 0)
+            self.assertIn("subwork_order_total", result["command_results"][0]["stdout_tail"])
             self.assertFalse(result["lane_result"]["final_toe_support_allowed"])
             self.assertIn("cannot count as TOE closure", result["no_fake_closure_policy"])
+
+    def test_r017_toe_closure_factory_emits_root_cause_backlog_subwork_and_delta_trace(self) -> None:
+        factory_dir = ROOT / "operations" / "logion_release_mission" / "oc_core_1_3_3" / "toe_closure_factory"
+        root_causes = read_json(factory_dir / "OC133_TOE_ROOT_CAUSE_LEDGER.json")
+        backlog = read_json(factory_dir / "OC133_TOE_CAPABILITY_BACKLOG.json")
+        subwork = read_json(factory_dir / "OC133_TOE_LANE_SUBWORK_ORDERS.json")
+        delta = read_json(factory_dir / "OC133_TOE_VALIDATOR_DELTA_TRACE.json")
+
+        self.assertEqual(root_causes["root_cause_coverage_status"], "PASS")
+        self.assertGreater(root_causes["root_cause_total"], 0)
+        self.assertEqual(root_causes["incomplete_root_cause_total"], 0)
+        required = {
+            "problem_id",
+            "symptom",
+            "root_cause_class",
+            "root_cause_evidence",
+            "why_it_failed",
+            "repair_strategy",
+            "required_capability",
+            "execution_command",
+            "pass_predicate",
+            "expected_validator_delta",
+            "actual_validator_delta",
+            "next_escalation",
+        }
+        for row in root_causes["rows"]:
+            self.assertTrue(required.issubset(row))
+            for field in required:
+                self.assertIsNotNone(row[field], field)
+            self.assertTrue(row["why_it_failed"])
+            self.assertTrue(row["repair_strategy"])
+
+        self.assertEqual(backlog["status"], "OPEN")
+        self.assertGreater(backlog["capability_total"], 0)
+        backlog_capabilities = {row["required_capability"] for row in backlog["rows"]}
+        self.assertIn("Research/AIProjection", backlog_capabilities)
+        self.assertIn("Research/EnterpriseArchitectureProjection", backlog_capabilities)
+        self.assertIn("Research/FormalScience", backlog_capabilities)
+        self.assertIn("Research/PriorArt", backlog_capabilities)
+
+        self.assertEqual(subwork["status"], "OPEN")
+        self.assertGreater(subwork["subwork_order_total"], 0)
+        subwork_ids = {row["subwork_order_id"] for row in subwork["rows"]}
+        self.assertTrue(any(row_id.startswith("R017-AI-") for row_id in subwork_ids))
+        self.assertTrue(any(row_id.startswith("R017-ENTERPRISE_ARCHITECTURE-") for row_id in subwork_ids))
+        self.assertTrue(any(row_id.startswith("R017-FINITE-FAILURE-") for row_id in subwork_ids))
+        self.assertTrue(any(row_id.startswith("R017-COMPARATOR-COVERAGE-GAP-") for row_id in subwork_ids))
+        self.assertEqual(delta["no_progress_creates_backlog"], True)
 
     def test_r017_modern_science_benchmark_scoped_superiority_does_not_count_as_broad_pass(self) -> None:
         register = read_json(ROOT / "comparators" / "OC_1_3_3_MODERN_SCIENCE_SUPERIORITY_REGISTER.json")
@@ -1882,18 +1957,29 @@ class ReleaseAssemblyMachineTests(unittest.TestCase):
         lanes = read_json(factory_dir / "OC133_TOE_LANE_RESULTS.json")
         registry = read_json(factory_dir / "OC133_TOE_LANE_CAPABILITY_REGISTRY.json")
         state = read_json(factory_dir / "OC133_TOE_CLOSURE_STATE.json")
+        root_causes = read_json(factory_dir / "OC133_TOE_ROOT_CAUSE_LEDGER.json")
+        backlog = read_json(factory_dir / "OC133_TOE_CAPABILITY_BACKLOG.json")
+        subwork = read_json(factory_dir / "OC133_TOE_LANE_SUBWORK_ORDERS.json")
+        delta = read_json(factory_dir / "OC133_TOE_VALIDATOR_DELTA_TRACE.json")
 
         self.assertEqual(cockpit["current_promotion_gate"], "R017_BLOCKED_BY_TOE_CLOSURE_FACTORY")
         self.assertFalse(cockpit["r017_promotion_allowed"])
         self.assertEqual(obligations["status"], "OPEN")
         self.assertEqual(lanes["status"], "FAIL")
         self.assertEqual(registry["status"], "PASS")
+        self.assertEqual(root_causes["root_cause_coverage_status"], "PASS")
+        self.assertEqual(backlog["status"], "OPEN")
+        self.assertEqual(subwork["status"], "OPEN")
+        self.assertIn(delta["status"], {"PROGRESS_REMAINS_BLOCKED", "CAPABILITY_BACKLOG_OPEN"})
         self.assertIn(state["status"], {"OPEN", "LOCAL_CAPABILITY_EXHAUSTED"})
         self.assertEqual(cockpit["validator_error_total"], obligations["validator_error_total"])
         self.assertEqual(cockpit["open_obligation_total"], obligations["open_work_order_total"])
         self.assertEqual(cockpit["fail_lane_total"], lanes["fail_lane_total"])
         self.assertEqual(cockpit["science_validator_error_total"], state["science_validator_error_total"])
         self.assertEqual(cockpit["cerberus_error_total"], state["cerberus_error_total"])
+        self.assertEqual(cockpit["root_cause_total"], root_causes["root_cause_total"])
+        self.assertEqual(cockpit["capability_backlog_total"], backlog["capability_total"])
+        self.assertEqual(cockpit["lane_subwork_order_total"], subwork["subwork_order_total"])
         if cockpit["execution_step_total"]:
             trace_rows = list(cockpit["execution_trace"])
             if trace_rows and trace_rows[0]["purpose"].startswith("until_final_pass_iteration_"):
