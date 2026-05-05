@@ -1,5 +1,5 @@
 {
-  "artifact_hash": "0151cc132a73adcc6cc04cbbdedfcb7c37b27383a43473b18080f3ac42259758",
+  "artifact_hash": "2d638360e66c87127c8ce0a5842542e489814ff1961e3c0e71578d66a9787247",
   "artifact_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/OC133_MODERN_SCIENCE_COMPARATOR_SCORING_EXECUTOR_BACKLOG.json",
   "execution_command": [
     "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
@@ -11,12 +11,12 @@
   "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
   "next_escalation": "Implement lane-specific scoring executors for the earliest open subtask in each gap.",
   "no_fake_closure_policy": "This backlog is an internal research-control graph artifact. It is not a public claim and cannot promote modern_science_comparator_superiority.",
-  "open_scoring_gap_total": 35,
+  "open_scoring_gap_total": 32,
   "pass_predicate": "All scoring subtasks are replaced by passing target-hidden evidence packs, material OC-vs-comparator superiority, and clean replay records.",
   "repair_strategy": "Execute subtasks in source -> target -> model -> comparator -> uncertainty -> falsifier -> replay order; never count a diagnostic work order as evidence.",
   "required_capability": "Research/ScoringExecutor",
   "root_cause_counts": {
-    "EXECUTABLE_SPEC_MISSING_FOR_SCORING": 6,
+    "EXECUTABLE_SPEC_MISSING_FOR_SCORING": 3,
     "SCORING_EVIDENCE_NOT_MATERIALIZED": 27,
     "SCORING_PACK_FAIL_CLOSED": 2
   },
@@ -5917,68 +5917,6 @@
       "why_it_failed": "The lane declares no executable evidence pack for the OC-vs-comparator scoring row."
     },
     {
-      "domain_class_id": "formal_mathematics_and_logic",
-      "execution_command": [
-        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
-        "tools/oc133_toe_closure_factory.py",
-        "--compile-comparator-scoring-backlog",
-        "--write"
-      ],
-      "gap_id": "MS-COV-GAP-FORMAL_MATHEMATICS_AND_LOGIC-STATISTICAL_INFERENCE_IDENTIFIABILITY",
-      "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
-      "missing_artifact_type": "oc_prediction_scoring_row",
-      "next_escalation": "If no deterministic executor exists for this subartifact, create a lane-specific acquisition/scoring tool and keep r017 blocked.",
-      "no_fake_closure_policy": "Subtasks describe required scientific work; they cannot close broad TOE superiority without a passing evidence pack and replay record.",
-      "pass_predicate": "Coverage lane has a complete executable_work_order with source, target, OC scoring rule, comparator, uncertainty, falsifier, and replay requirements.",
-      "phenomenon_class_id": "statistical_inference_identifiability",
-      "repair_strategy": "Build `executable_scoring_spec_generation` for gap `MS-COV-GAP-FORMAL_MATHEMATICS_AND_LOGIC-STATISTICAL_INFERENCE_IDENTIFIABILITY` from governed open/free sources, then rerun the target-hidden scorer and strict validator.",
-      "required_capability": "Research/BenchmarkDesign",
-      "required_source_block": {
-        "artifact_id": "executable_scoring_spec_generation",
-        "pass_predicate": "Coverage lane has a complete executable_work_order with source, target, OC scoring rule, comparator, uncertainty, falsifier, and replay requirements.",
-        "required_capability": "Research/BenchmarkDesign"
-      },
-      "root_cause_class": "EXECUTABLE_SPEC_MISSING_FOR_SCORING",
-      "scoring_subartifact_id": "executable_scoring_spec_generation",
-      "source_work_order_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/scoring_work_orders/scoring_ce94088abe217c67.json",
-      "status": "OPEN",
-      "subwork_hash": "97049bdc625beeafc51310215de5efa31f3bda7b50ca12ae0e734e6285dd2d5a",
-      "subwork_order_id": "R017-SCORING-2e73306817027613",
-      "validator_binding": "comparator_gap::MS-COV-GAP-FORMAL_MATHEMATICS_AND_LOGIC-STATISTICAL_INFERENCE_IDENTIFIABILITY::oc_prediction_scoring_row::executable_scoring_spec_generation",
-      "why_it_failed": "No executable comparator specification is bound to this gap, so the system cannot build a target-hidden OC scoring row."
-    },
-    {
-      "domain_class_id": "formal_mathematics_and_logic",
-      "execution_command": [
-        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
-        "tools/oc133_toe_closure_factory.py",
-        "--compile-comparator-scoring-backlog",
-        "--write"
-      ],
-      "gap_id": "MS-COV-GAP-FORMAL_MATHEMATICS_AND_LOGIC-FORMAL_THEOREM_RECONSTRUCTION",
-      "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
-      "missing_artifact_type": "oc_prediction_scoring_row",
-      "next_escalation": "If no deterministic executor exists for this subartifact, create a lane-specific acquisition/scoring tool and keep r017 blocked.",
-      "no_fake_closure_policy": "Subtasks describe required scientific work; they cannot close broad TOE superiority without a passing evidence pack and replay record.",
-      "pass_predicate": "Coverage lane has a complete executable_work_order with source, target, OC scoring rule, comparator, uncertainty, falsifier, and replay requirements.",
-      "phenomenon_class_id": "formal_theorem_reconstruction",
-      "repair_strategy": "Build `executable_scoring_spec_generation` for gap `MS-COV-GAP-FORMAL_MATHEMATICS_AND_LOGIC-FORMAL_THEOREM_RECONSTRUCTION` from governed open/free sources, then rerun the target-hidden scorer and strict validator.",
-      "required_capability": "Research/BenchmarkDesign",
-      "required_source_block": {
-        "artifact_id": "executable_scoring_spec_generation",
-        "pass_predicate": "Coverage lane has a complete executable_work_order with source, target, OC scoring rule, comparator, uncertainty, falsifier, and replay requirements.",
-        "required_capability": "Research/BenchmarkDesign"
-      },
-      "root_cause_class": "EXECUTABLE_SPEC_MISSING_FOR_SCORING",
-      "scoring_subartifact_id": "executable_scoring_spec_generation",
-      "source_work_order_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/scoring_work_orders/scoring_d24b3af373ba30ec.json",
-      "status": "OPEN",
-      "subwork_hash": "100dca4157208f3b931181049e197117e1c644626000885b512f6bb4305b6d2d",
-      "subwork_order_id": "R017-SCORING-7d7534b5f733aed4",
-      "validator_binding": "comparator_gap::MS-COV-GAP-FORMAL_MATHEMATICS_AND_LOGIC-FORMAL_THEOREM_RECONSTRUCTION::oc_prediction_scoring_row::executable_scoring_spec_generation",
-      "why_it_failed": "No executable comparator specification is bound to this gap, so the system cannot build a target-hidden OC scoring row."
-    },
-    {
       "domain_class_id": "chemical_sciences",
       "execution_command": [
         "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
@@ -6237,37 +6175,6 @@
       "subwork_order_id": "R017-SCORING-3f530998d3cdc7b8",
       "validator_binding": "comparator_gap::MS-COV-GAP-CHEMICAL_SCIENCES-THERMOCHEMISTRY_AND_PHASE_BEHAVIOR::oc_prediction_scoring_row::independent_replay",
       "why_it_failed": "The lane declares no executable evidence pack for the OC-vs-comparator scoring row."
-    },
-    {
-      "domain_class_id": "formal_mathematics_and_logic",
-      "execution_command": [
-        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
-        "tools/oc133_toe_closure_factory.py",
-        "--compile-comparator-scoring-backlog",
-        "--write"
-      ],
-      "gap_id": "MS-COV-GAP-FORMAL_MATHEMATICS_AND_LOGIC-COMPUTATIONAL_COMPLEXITY_AND_ALGORITHMIC_PROOF",
-      "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
-      "missing_artifact_type": "oc_prediction_scoring_row",
-      "next_escalation": "If no deterministic executor exists for this subartifact, create a lane-specific acquisition/scoring tool and keep r017 blocked.",
-      "no_fake_closure_policy": "Subtasks describe required scientific work; they cannot close broad TOE superiority without a passing evidence pack and replay record.",
-      "pass_predicate": "Coverage lane has a complete executable_work_order with source, target, OC scoring rule, comparator, uncertainty, falsifier, and replay requirements.",
-      "phenomenon_class_id": "computational_complexity_and_algorithmic_proof",
-      "repair_strategy": "Build `executable_scoring_spec_generation` for gap `MS-COV-GAP-FORMAL_MATHEMATICS_AND_LOGIC-COMPUTATIONAL_COMPLEXITY_AND_ALGORITHMIC_PROOF` from governed open/free sources, then rerun the target-hidden scorer and strict validator.",
-      "required_capability": "Research/BenchmarkDesign",
-      "required_source_block": {
-        "artifact_id": "executable_scoring_spec_generation",
-        "pass_predicate": "Coverage lane has a complete executable_work_order with source, target, OC scoring rule, comparator, uncertainty, falsifier, and replay requirements.",
-        "required_capability": "Research/BenchmarkDesign"
-      },
-      "root_cause_class": "EXECUTABLE_SPEC_MISSING_FOR_SCORING",
-      "scoring_subartifact_id": "executable_scoring_spec_generation",
-      "source_work_order_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/scoring_work_orders/scoring_e892ff669caa35e6.json",
-      "status": "OPEN",
-      "subwork_hash": "00544d77b5d6f379a607ce300791874d79db4660ca4071297bf00f976ff81b04",
-      "subwork_order_id": "R017-SCORING-e5e0ddc6f7c8d640",
-      "validator_binding": "comparator_gap::MS-COV-GAP-FORMAL_MATHEMATICS_AND_LOGIC-COMPUTATIONAL_COMPLEXITY_AND_ALGORITHMIC_PROOF::oc_prediction_scoring_row::executable_scoring_spec_generation",
-      "why_it_failed": "No executable comparator specification is bound to this gap, so the system cannot build a target-hidden OC scoring row."
     },
     {
       "domain_class_id": "physical_sciences",
@@ -7303,7 +7210,13 @@
   ],
   "schema_id": "OC133_MODERN_SCIENCE_COMPARATOR_SCORING_EXECUTOR_BACKLOG_v1",
   "scoring_work_order_total": 35,
+  "stale_scoring_work_order_refs": [
+    "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/scoring_work_orders/scoring_ce94088abe217c67.json",
+    "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/scoring_work_orders/scoring_d24b3af373ba30ec.json",
+    "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/scoring_work_orders/scoring_e892ff669caa35e6.json"
+  ],
+  "stale_scoring_work_order_total": 3,
   "status": "OPEN",
-  "subwork_order_total": 199,
+  "subwork_order_total": 196,
   "why_it_failed": "Comparator broad coverage still lacks strict OC prediction scoring evidence for one or more gaps."
 }

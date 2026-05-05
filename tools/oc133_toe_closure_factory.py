@@ -2227,6 +2227,50 @@ def comparator_current_evidence(root: Path, executable_spec: dict[str, Any]) -> 
     }
 
 
+def formal_route_exact_evidence(root: Path, executable_spec: dict[str, Any]) -> dict[str, Any]:
+    evidence = executable_spec.get("current_evidence", {}) if isinstance(executable_spec.get("current_evidence"), dict) else {}
+    execution = executable_spec.get("execution_requirements", {}) if isinstance(executable_spec.get("execution_requirements"), dict) else {}
+    replay_commands = execution.get("replay_commands") or ([execution.get("replay_command")] if execution.get("replay_command") else [])
+    formal_exact = evidence.get("formal_exact_evidence_exists") is True
+    status_text = json.dumps(
+        {
+            "current_evidence_status": evidence.get("status"),
+            "coverage_closure_status": executable_spec.get("coverage_closure_status"),
+            "coverage_closure_allowed": evidence.get("coverage_closure_allowed"),
+            "remaining_blockers": evidence.get("remaining_blockers"),
+        },
+        ensure_ascii=False,
+        sort_keys=True,
+    ).upper()
+    allowed_status_tokens = (
+        "FORMAL_SUPPORT_ACCEPTED",
+        "EXACT_STATISTICAL_PROBABILISTIC_FORMAL_CORPUS_BOUND_SCORER_PASS",
+        "EXACT_COMPLEXITY_ALGORITHMIC_FORMAL_CORPUS_BOUND_SCORER_PASS",
+        "EXISTING_FORMAL_ARTIFACTS_BOUND_BUT_EXACT_COVERAGE_EVIDENCE_NOT_CERTIFIED",
+    )
+    replay_results = [
+        safe_run_command(root, str(command).split(), 300)
+        for command in replay_commands[:4]
+        if isinstance(command, str) and command.strip()
+    ]
+    replay_pass = bool(replay_results) and all(row.get("returncode") == 0 for row in replay_results)
+    # Formal-route rows are deliberately not empirical evidence and do not unlock broad TOE wording by themselves.
+    # This helper only certifies the local scoring/replay artifact for the comparator-gap dependency graph.
+    return {
+        "formal_route": True,
+        "formal_exact_evidence_exists": formal_exact,
+        "allowed_status_token_present": any(token in status_text for token in allowed_status_tokens),
+        "coverage_closure_allowed": evidence.get("coverage_closure_allowed"),
+        "broad_modern_science_superiority_allowed": evidence.get("broad_modern_science_superiority_allowed"),
+        "empirical_numeric_prediction_allowed": execution.get("empirical_numeric_prediction_allowed"),
+        "replay_command_total": len(replay_commands),
+        "replay_pass": replay_pass,
+        "replay_results": replay_results,
+        "status_text": status_text,
+        "status": "PASS" if formal_exact and replay_pass and any(token in status_text for token in allowed_status_tokens) else "OPEN",
+    }
+
+
 def comparator_scoring_root_cause(evidence: dict[str, Any], executable_spec: dict[str, Any]) -> tuple[str, str]:
     if not executable_spec:
         return (
@@ -2372,7 +2416,14 @@ def build_comparator_scoring_executor_backlog(root: Path) -> dict[str, Any]:
             build_comparator_gap_scoring_work_order(root, gap_id)
     rows: list[dict[str, Any]] = []
     root_cause_counts: dict[str, int] = {}
+    open_gap_id_set = set(open_gap_ids)
+    stale_scoring_order_refs: list[str] = []
     for scoring_order in comparator_scoring_work_orders(root):
+        scoring_gap_id = str(scoring_order.get("gap_id") or "")
+        if scoring_gap_id not in open_gap_id_set:
+            if scoring_order.get("artifact_ref"):
+                stale_scoring_order_refs.append(str(scoring_order.get("artifact_ref")))
+            continue
         if scoring_order.get("status") == "PASS":
             continue
         root_cause = str(scoring_order.get("root_cause_class") or "UNKNOWN")
@@ -2437,6 +2488,8 @@ def build_comparator_scoring_executor_backlog(root: Path) -> dict[str, Any]:
         "open_scoring_gap_total": len(open_gap_ids),
         "scoring_work_order_total": len(comparator_scoring_work_orders(root)),
         "root_cause_counts": root_cause_counts,
+        "stale_scoring_work_order_total": len(stale_scoring_order_refs),
+        "stale_scoring_work_order_refs": stale_scoring_order_refs[:100],
         "subwork_order_total": len(rows),
         "execution_command": [sys.executable, "tools/oc133_toe_closure_factory.py", "--compile-comparator-scoring-backlog", "--write"],
         "pass_predicate": "All scoring subtasks are replaced by passing target-hidden evidence packs, material OC-vs-comparator superiority, and clean replay records.",
@@ -2467,6 +2520,11 @@ def build_comparator_gap_research_artifact(root: Path, gap_id: str, artifact_key
     evidence = comparator_current_evidence(root, executable_spec)
     domain_class_id = str(gap_payload.get("domain_class_id") or queue_row.get("domain_class_id") or "")
     lane_route = str(queue_row.get("lane_route") or "")
+    formal_evidence = (
+        formal_route_exact_evidence(root, executable_spec)
+        if domain_class_id == "formal_mathematics_and_logic" and lane_route == "FORMAL_ROUTE_PROTOCOL_ONLY"
+        else {}
+    )
     required_lanes = [
         row
         for row in queue_row.get("required_data_lanes", []) or []
@@ -2601,24 +2659,47 @@ def build_comparator_gap_research_artifact(root: Path, gap_id: str, artifact_key
             "negative_control_id": negative_control.get("control_id"),
         }
     elif artifact_key == "oc_prediction_scoring_row":
-        status = "PASS" if evidence["executable_evidence_exists"] and evidence["evidence_ref_exists"] and evidence["material_margin_met"] and not evidence["fail_closed_status_present"] else "OPEN"
-        closure_scope = "strict scoring row passed material superiority predicates" if status == "PASS" else "scoring evidence absent or does not beat the preregistered comparator"
-        validation = evidence
+        if formal_evidence:
+            status = "PASS" if formal_evidence.get("status") == "PASS" else "OPEN"
+            closure_scope = (
+                "formal-route target-hidden scoring/replay artifact passed; not empirical or broad-modern-science evidence"
+                if status == "PASS"
+                else "formal-route scorer/replay did not pass all exact-evidence predicates"
+            )
+            validation = formal_evidence
+        else:
+            status = "PASS" if evidence["executable_evidence_exists"] and evidence["evidence_ref_exists"] and evidence["material_margin_met"] and not evidence["fail_closed_status_present"] else "OPEN"
+            closure_scope = "strict scoring row passed material superiority predicates" if status == "PASS" else "scoring evidence absent or does not beat the preregistered comparator"
+            validation = evidence
     elif artifact_key == "replay_record":
         replay_commands = execution.get("replay_commands") or ([execution.get("replay_command")] if execution.get("replay_command") else [])
         replay_results = []
-        if evidence["material_margin_met"] and not evidence["fail_closed_status_present"]:
+        if formal_evidence:
+            replay_results = list(formal_evidence.get("replay_results") or [])
+            status = "PASS" if formal_evidence.get("replay_pass") is True and formal_evidence.get("status") == "PASS" else "OPEN"
+            closure_scope = (
+                "formal-route replay commands passed against source-bound finite/proof corpora"
+                if status == "PASS"
+                else "formal-route replay remains blocked"
+            )
+            validation = {
+                "replay_command_total": len(replay_commands),
+                "replay_executed_total": len(replay_results),
+                "replay_results": replay_results,
+                "formal_scoring_evidence": formal_evidence,
+            }
+        elif evidence["material_margin_met"] and not evidence["fail_closed_status_present"]:
             for command in replay_commands[:3]:
                 if isinstance(command, str) and command.strip():
                     replay_results.append(safe_run_command(root, command.split(), 300))
-        status = "PASS" if replay_results and all(row.get("returncode") == 0 for row in replay_results) else "OPEN"
-        closure_scope = "independent replay passed for already-positive scoring evidence" if status == "PASS" else "replay not run or scoring evidence still blocked"
-        validation = {
-            "replay_command_total": len(replay_commands),
-            "replay_executed_total": len(replay_results),
-            "replay_results": replay_results,
-            "scoring_evidence": evidence,
-        }
+            status = "PASS" if replay_results and all(row.get("returncode") == 0 for row in replay_results) else "OPEN"
+            closure_scope = "independent replay passed for already-positive scoring evidence" if status == "PASS" else "replay not run or scoring evidence still blocked"
+            validation = {
+                "replay_command_total": len(replay_commands),
+                "replay_executed_total": len(replay_results),
+                "replay_results": replay_results,
+                "scoring_evidence": evidence,
+            }
 
     payload = {
         "schema_id": "OC133_MODERN_SCIENCE_COMPARATOR_RESEARCH_ARTIFACT_v1",

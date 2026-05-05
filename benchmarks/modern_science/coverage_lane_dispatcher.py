@@ -1004,7 +1004,22 @@ def executable_lane_spec(
     if isinstance(spec, dict):
         return canonical_executable_spec(spec, domain_class_id=str(work_order.get("domain_class_id", "")), phenomenon_class_id=str(work_order.get("phenomenon_class_id", "")))
     if executable_spec_registry is not None:
-        default = executable_spec_registry.get(lane_key(work_order))
+        work_order_key = lane_key(work_order)
+        default = executable_spec_registry.get(work_order_key)
+        if default is None:
+            default = next(
+                (
+                    spec
+                    for spec in executable_spec_registry.values()
+                    if (
+                        str(spec.get("source_domain_class_id") or spec.get("domain_class_id"))
+                        == work_order_key[0]
+                        and str(spec.get("source_phenomenon_class_id") or spec.get("phenomenon_class_id"))
+                        == work_order_key[1]
+                    )
+                ),
+                None,
+            )
         return copy.deepcopy(default) if isinstance(default, dict) else None
     default = DEFAULT_EXECUTABLE_LANE_SPECS.get(lane_key(work_order))
     if isinstance(default, dict):
@@ -1585,13 +1600,14 @@ def build_queue(root: Path | None = None) -> dict[str, Any]:
     root = root or repo_root()
     work_orders_payload = build_concrete_work_orders(root)
     coverage_register = load_json(root / COVERAGE_REGISTER_REL)
+    executable_spec_registry = load_executable_spec_registry(root)
     gap_by_key = {
         (str(row.get("domain_class_id")), str(row.get("phenomenon_class_id"))): row
         for row in coverage_register.get("coverage_gap_rows", [])
         if isinstance(row, dict)
     }
     rows = [
-        build_dispatch_row(index, work_order, gap_by_key)
+        build_dispatch_row_with_registry(index, work_order, gap_by_key, executable_spec_registry)
         for index, work_order in enumerate(sorted_work_orders(work_orders_payload.get("work_orders", [])), start=1)
         if isinstance(work_order, dict)
     ]
@@ -1620,6 +1636,43 @@ def build_queue(root: Path | None = None) -> dict[str, Any]:
             "release_promotion_allowed": False,
         },
     }
+
+
+def build_dispatch_row_with_registry(
+    index: int,
+    work_order: dict[str, Any],
+    gap_by_key: dict[tuple[str, str], dict[str, Any]],
+    executable_spec_registry: dict[tuple[str, str], dict[str, Any]],
+) -> dict[str, Any]:
+    row = build_dispatch_row(index, work_order, gap_by_key)
+    spec = executable_lane_spec(work_order, executable_spec_registry)
+    if not isinstance(spec, dict):
+        return row
+    evidence = spec.get("current_evidence", {}) if isinstance(spec.get("current_evidence"), dict) else {}
+    executable_evidence_exists = evidence.get("executable_evidence_exists") is True and bool(evidence.get("executable_evidence_ref"))
+    row["executable_work_order"] = spec
+    row["execution_state"] = (
+        "FAIL_CLOSED_EXECUTABLE_SPEC_READY_EVIDENCE_MISSING"
+        if not executable_evidence_exists
+        else "EVIDENCE_BOUND_PENDING_REVIEW"
+    )
+    row["evidence_gate"] = {
+        "executable_evidence_exists": executable_evidence_exists,
+        "executable_evidence_ref": evidence.get("executable_evidence_ref"),
+        "closure_allowed": False,
+        "status": "EVIDENCE_BOUND_PENDING_REVIEW" if executable_evidence_exists else "FAIL_CLOSED_NO_EXECUTABLE_EVIDENCE",
+    }
+    predicates = list(row.get("expected_acceptance_predicates") or [])
+    for predicate in ("EXECUTABLE_LANE_SPEC_DECLARED", "FAIL_CLOSED_UNLESS_EXECUTABLE_EVIDENCE_BOUND"):
+        if predicate not in predicates:
+            predicates.append(predicate)
+    row["expected_acceptance_predicates"] = predicates
+    if not executable_evidence_exists:
+        row["coverage_closure"]["current_status"] = str(
+            spec.get("coverage_closure_status", "OPEN_FAIL_CLOSED_NO_EXECUTABLE_EVIDENCE")
+        )
+        row["coverage_closure"]["reason"] = evidence.get("reason") or row["coverage_closure"].get("reason")
+    return row
 
 
 def build_telemetry(queue: dict[str, Any]) -> dict[str, Any]:

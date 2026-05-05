@@ -565,6 +565,7 @@ def scorer_source(spec: dict[str, Any]) -> str:
 import argparse
 import hashlib
 import json
+import os
 from pathlib import Path
 from typing import Any
 
@@ -581,7 +582,16 @@ def sha256_object(payload: Any) -> str:
 
 
 def read_json(path: Path) -> Any:
-    return json.loads(path.read_text(encoding="utf-8"))
+    with open(io_path(path), "r", encoding="utf-8") as handle:
+        return json.load(handle)
+
+
+def io_path(path: Path) -> str:
+    text = str(path)
+    if os.name == "nt":
+        absolute = str(path.resolve())
+        return absolute if absolute.startswith("\\\\\\\\?\\\\") else "\\\\\\\\?\\\\" + absolute
+    return text
 
 
 def row_hash(row: dict[str, Any]) -> str:

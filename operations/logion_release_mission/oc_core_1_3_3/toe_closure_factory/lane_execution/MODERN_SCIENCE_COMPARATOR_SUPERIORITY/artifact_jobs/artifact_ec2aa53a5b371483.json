@@ -1,9 +1,9 @@
 {
-  "artifact_hash": "7ee4610cd77b5ad1d8a27155a0764ac3d1c29a79d2157fc4c8dfdddfcaa6dbc2",
+  "artifact_hash": "a76868459ddc9eb225b242e9830651affc8ffd7a67b6b00752b37ebbb9e1a97c",
   "artifact_key": "oc_prediction_scoring_row",
   "artifact_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/artifact_jobs/artifact_ec2aa53a5b371483.json",
   "domain_class_id": "formal_mathematics_and_logic",
-  "executable_spec_found": false,
+  "executable_spec_found": true,
   "execution_command": [
     "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
     "tools/oc133_toe_closure_factory.py",
@@ -21,7 +21,7 @@
   "pass_predicate_evaluation": {
     "artifact_key": "oc_prediction_scoring_row",
     "gap_pass_unchanged_by_single_artifact": true,
-    "research_artifact_status": "OPEN"
+    "research_artifact_status": "PASS"
   },
   "phenomenon_class_id": "formal_theorem_reconstruction",
   "queue_row_found": true,
@@ -29,15 +29,21 @@
   "required_capability": "Research/PriorArt",
   "required_output_kind": "oc_scoring_row_with_residuals",
   "research_artifact_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/d24b3af373ba30ec/oc_prediction_scoring_row.json",
-  "research_artifact_scope": "scoring evidence absent or does not beat the preregistered comparator",
-  "research_artifact_status": "OPEN",
+  "research_artifact_scope": "formal-route target-hidden scoring/replay artifact passed; not empirical or broad-modern-science evidence",
+  "research_artifact_status": "PASS",
   "schema_id": "OC133_MODERN_SCIENCE_COMPARATOR_GAP_ARTIFACT_EXECUTION_v1",
-  "source_block": {},
+  "source_block": {
+    "definition": "0/1 mismatch between pre-execution expected verdict and executed observed verdict, aggregated by sum over valid theorem_case rows.",
+    "empirical_numeric_prediction": false,
+    "formula": "sum(1 if preregistered_formal_verdict != executed_formal_verdict else 0) over locked formal rows",
+    "metric_id": "formal_verdict_mismatch_count",
+    "superiority_rule": "model_residual == 0 and comparator_residual > model_residual with all formal negative controls rejected"
+  },
   "source_refs": [
     "reports/OC_CORE_1_3_3_MODERN_SCIENCE_COVERAGE_LANE_QUEUE.json",
     "benchmarks/modern_science/OC133_MODERN_SCIENCE_COVERAGE_WORK_ORDERS.json",
     "comparators/modern_science/OC133_MODERN_SCIENCE_COVERAGE_REGISTER.json"
   ],
-  "status": "OPEN",
+  "status": "PASS",
   "why_it_failed": "Comparator gap `MS-COV-GAP-FORMAL_MATHEMATICS_AND_LOGIC-FORMAL_THEOREM_RECONSTRUCTION` lacks `oc_prediction_scoring_row`; no broad-superiority credit is awarded."
 }

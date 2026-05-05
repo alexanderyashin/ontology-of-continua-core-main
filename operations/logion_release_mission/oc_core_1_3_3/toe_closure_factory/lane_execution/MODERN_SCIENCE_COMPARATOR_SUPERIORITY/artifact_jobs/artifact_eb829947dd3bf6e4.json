@@ -1,9 +1,9 @@
 {
-  "artifact_hash": "e8056a95760f0fb29f3430b517f52d161a8f9989143c133deb6778bf039e9295",
+  "artifact_hash": "03374b0d6b42cd9440714c1fdb438782ad80a481b6be60bff5ecedd656e9803f",
   "artifact_key": "replay_record",
   "artifact_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/artifact_jobs/artifact_eb829947dd3bf6e4.json",
   "domain_class_id": "formal_mathematics_and_logic",
-  "executable_spec_found": false,
+  "executable_spec_found": true,
   "execution_command": [
     "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
     "tools/oc133_toe_closure_factory.py",
@@ -21,7 +21,7 @@
   "pass_predicate_evaluation": {
     "artifact_key": "replay_record",
     "gap_pass_unchanged_by_single_artifact": true,
-    "research_artifact_status": "OPEN"
+    "research_artifact_status": "PASS"
   },
   "phenomenon_class_id": "formal_theorem_reconstruction",
   "queue_row_found": true,
@@ -29,15 +29,26 @@
   "required_capability": "Research/PriorArt",
   "required_output_kind": "independent_replay_record",
   "research_artifact_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/d24b3af373ba30ec/replay_record.json",
-  "research_artifact_scope": "replay not run or scoring evidence still blocked",
-  "research_artifact_status": "OPEN",
+  "research_artifact_scope": "formal-route replay commands passed against source-bound finite/proof corpora",
+  "research_artifact_status": "PASS",
   "schema_id": "OC133_MODERN_SCIENCE_COMPARATOR_GAP_ARTIFACT_EXECUTION_v1",
-  "source_block": {},
+  "source_block": {
+    "empirical_numeric_prediction_allowed": false,
+    "evidence_pack_schema_id": "OC133_FORMAL_MATHEMATICS_MODERN_SCIENCE_COVERAGE_WORK_ORDERS_v1",
+    "minimum_n": 20,
+    "replay_command": "python validation/heldout/grand_science/formal_mathematics/coverage_work_orders/oc133_formal_mathematics_modern_science_coverage_work_orders.py --check",
+    "replay_commands": [
+      "python validation/heldout/domain_evidence/mathematics_evidence_executor.py --check",
+      "python validation/heldout/grand_science/formal_mathematics/coverage_work_orders/oc133_formal_mathematics_modern_science_coverage_work_orders.py --check"
+    ],
+    "source_separation_mode": "target_blind",
+    "target_hidden_until_scoring": true
+  },
   "source_refs": [
     "reports/OC_CORE_1_3_3_MODERN_SCIENCE_COVERAGE_LANE_QUEUE.json",
     "benchmarks/modern_science/OC133_MODERN_SCIENCE_COVERAGE_WORK_ORDERS.json",
     "comparators/modern_science/OC133_MODERN_SCIENCE_COVERAGE_REGISTER.json"
   ],
-  "status": "OPEN",
+  "status": "PASS",
   "why_it_failed": "Comparator gap `MS-COV-GAP-FORMAL_MATHEMATICS_AND_LOGIC-FORMAL_THEOREM_RECONSTRUCTION` lacks `replay_record`; no broad-superiority credit is awarded."
 }

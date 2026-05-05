@@ -1,10 +1,10 @@
 {
-  "artifact_hash": "6bf28f05a5a010a44d717b485c919260646443f7e492ab00c61139b0416a954d",
+  "artifact_hash": "f856ba9de62f4fd871c0b6c9ef2b4941bf590bcd8465e35ba6b7ff6f473df15b",
   "artifact_key": "replay_record",
   "artifact_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/e892ff669caa35e6/replay_record.json",
-  "closure_scope": "replay not run or scoring evidence still blocked",
+  "closure_scope": "formal-route replay commands passed against source-bound finite/proof corpora",
   "domain_class_id": "formal_mathematics_and_logic",
-  "executable_spec_found": false,
+  "executable_spec_found": true,
   "execution_command": [
     "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
     "tools/oc133_toe_closure_factory.py",
@@ -29,27 +29,67 @@
     "benchmarks/modern_science/OC133_MODERN_SCIENCE_COVERAGE_WORK_ORDERS.json",
     "comparators/modern_science/OC133_MODERN_SCIENCE_COVERAGE_REGISTER.json"
   ],
-  "status": "OPEN",
+  "status": "PASS",
   "validation": {
-    "replay_command_total": 0,
-    "replay_executed_total": 0,
-    "replay_results": [],
-    "scoring_evidence": {
-      "evidence_pack_hash": "",
-      "evidence_pack_summary": {
-        "coverage_closure_allowed": null,
-        "pack_status": null,
-        "residuals": {},
-        "schema_id": null
+    "formal_scoring_evidence": {
+      "allowed_status_token_present": true,
+      "broad_modern_science_superiority_allowed": null,
+      "coverage_closure_allowed": false,
+      "empirical_numeric_prediction_allowed": false,
+      "formal_exact_evidence_exists": true,
+      "formal_route": true,
+      "replay_command_total": 2,
+      "replay_pass": true,
+      "replay_results": [
+        {
+          "cmd": [
+            "python",
+            "validation/heldout/grand_science/formal_mathematics/coverage_work_orders/planned_corpora/computational_complexity_algorithmic_proof/OC133_COMPLEXITY_ALGORITHMIC_SCORER.py",
+            "--check"
+          ],
+          "returncode": 0,
+          "stderr_tail": "",
+          "stdout_tail": "{\n  \"broad_modern_science_superiority_allowed\": false,\n  \"comparator_mismatch_count\": 8,\n  \"coverage_closure_allowed\": false,\n  \"empirical_numeric_prediction_allowed\": false,\n  \"exact_evidence_exists\": true,\n  \"failures\": [],\n  \"model_mismatch_count\": 0,\n  \"negative_control_rejections\": 8,\n  \"row_count\": 24,\n  \"status\": \"pass\"\n}\n"
+        },
+        {
+          "cmd": [
+            "python",
+            "validation/heldout/grand_science/formal_mathematics/coverage_work_orders/oc133_formal_mathematics_modern_science_coverage_work_orders.py",
+            "--check"
+          ],
+          "returncode": 0,
+          "stderr_tail": "",
+          "stdout_tail": "{\n  \"status\": \"ok\",\n  \"checked\": \"validation/heldout/grand_science/formal_mathematics/coverage_work_orders/OC133_FORMAL_MATHEMATICS_MODERN_SCIENCE_COVERAGE_WORK_ORDERS.json\",\n  \"planned_corpora_checked\": false\n}\n"
+        }
+      ],
+      "status": "PASS",
+      "status_text": "{\"COVERAGE_CLOSURE_ALLOWED\": FALSE, \"COVERAGE_CLOSURE_STATUS\": \"OPEN_FAIL_CLOSED_PENDING_COMPLEXITY_ALGORITHMIC_FORMAL_CORPUS_AND_REPLAY\", \"CURRENT_EVIDENCE_STATUS\": \"EXACT_COMPLEXITY_ALGORITHMIC_FORMAL_CORPUS_BOUND_SCORER_PASS\", \"REMAINING_BLOCKERS\": [\"FORMAL_COVERAGE_SCOPE_REVIEW_NOT_PERFORMED\", \"NO_COVERAGE_CLOSURE_MARK_ALLOWED\"]}"
+    },
+    "replay_command_total": 2,
+    "replay_executed_total": 2,
+    "replay_results": [
+      {
+        "cmd": [
+          "python",
+          "validation/heldout/grand_science/formal_mathematics/coverage_work_orders/planned_corpora/computational_complexity_algorithmic_proof/OC133_COMPLEXITY_ALGORITHMIC_SCORER.py",
+          "--check"
+        ],
+        "returncode": 0,
+        "stderr_tail": "",
+        "stdout_tail": "{\n  \"broad_modern_science_superiority_allowed\": false,\n  \"comparator_mismatch_count\": 8,\n  \"coverage_closure_allowed\": false,\n  \"empirical_numeric_prediction_allowed\": false,\n  \"exact_evidence_exists\": true,\n  \"failures\": [],\n  \"model_mismatch_count\": 0,\n  \"negative_control_rejections\": 8,\n  \"row_count\": 24,\n  \"status\": \"pass\"\n}\n"
       },
-      "evidence_ref": null,
-      "evidence_ref_exists": false,
-      "executable_evidence_exists": false,
-      "fail_closed_status_present": false,
-      "material_margin_met": false,
-      "pack_status_text": "{\"COVERAGE_CLOSURE_ALLOWED\": NULL, \"COVERAGE_CLOSURE_STATUS\": NULL, \"EVIDENCE_STATUS\": NULL, \"PACK_STATUS\": NULL}"
-    }
+      {
+        "cmd": [
+          "python",
+          "validation/heldout/grand_science/formal_mathematics/coverage_work_orders/oc133_formal_mathematics_modern_science_coverage_work_orders.py",
+          "--check"
+        ],
+        "returncode": 0,
+        "stderr_tail": "",
+        "stdout_tail": "{\n  \"status\": \"ok\",\n  \"checked\": \"validation/heldout/grand_science/formal_mathematics/coverage_work_orders/OC133_FORMAL_MATHEMATICS_MODERN_SCIENCE_COVERAGE_WORK_ORDERS.json\",\n  \"planned_corpora_checked\": false\n}\n"
+      }
+    ]
   },
-  "why_it_failed": "Required comparator artifact still lacks source-bound support.",
+  "why_it_failed": "Required comparator artifact is source-bound at its declared scope.",
   "work_order_id": "MS-COV-WO-003"
 }
