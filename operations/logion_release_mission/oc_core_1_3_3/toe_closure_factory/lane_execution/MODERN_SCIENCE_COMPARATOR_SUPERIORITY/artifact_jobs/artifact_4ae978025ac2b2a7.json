@@ -1,0 +1,43 @@
+{
+  "artifact_hash": "737588f78990b5064b369e8a4fb7251cadc41f28cc82ede5a108e0f017f526b9",
+  "artifact_key": "replay_record",
+  "artifact_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/artifact_jobs/artifact_4ae978025ac2b2a7.json",
+  "domain_class_id": "medical_health_sciences",
+  "executable_spec_found": false,
+  "execution_command": [
+    "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+    "tools/oc133_toe_closure_factory.py",
+    "--execute-comparator-gap-artifact",
+    "MS-COV-GAP-MEDICAL_HEALTH_SCIENCES-CLINICAL_OUTCOMES_AND_BIOMARKERS",
+    "replay_record",
+    "--write"
+  ],
+  "gap_id": "MS-COV-GAP-MEDICAL_HEALTH_SCIENCES-CLINICAL_OUTCOMES_AND_BIOMARKERS",
+  "generated_at": "2026-05-05T22:48:10Z",
+  "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+  "next_escalation": "If source acquisition is unavailable or evidence cannot be scored, create a lower-level governed acquisition/scoring/replay work order and keep r017 blocked.",
+  "no_fake_closure_policy": "This artifact job is an executable research obligation. It does not mark the coverage gap PASS unless the concrete evidence artifact exists and the coverage register closes.",
+  "pass_predicate": "clean-checkout replay command passes and binds the generated evidence pack",
+  "pass_predicate_evaluation": {
+    "artifact_key": "replay_record",
+    "gap_pass_unchanged_by_single_artifact": true,
+    "research_artifact_status": "OPEN"
+  },
+  "phenomenon_class_id": "clinical_outcomes_and_biomarkers",
+  "queue_row_found": true,
+  "repair_strategy": "Create the required artifact from governed open/free sources, bind hashes, then rerun the comparator gap and strict validator.",
+  "required_capability": "Research/PriorArt",
+  "required_output_kind": "independent_replay_record",
+  "research_artifact_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/c8f37f6962a1ece5/replay_record.json",
+  "research_artifact_scope": "replay not run or scoring evidence still blocked",
+  "research_artifact_status": "OPEN",
+  "schema_id": "OC133_MODERN_SCIENCE_COMPARATOR_GAP_ARTIFACT_EXECUTION_v1",
+  "source_block": {},
+  "source_refs": [
+    "reports/OC_CORE_1_3_3_MODERN_SCIENCE_COVERAGE_LANE_QUEUE.json",
+    "benchmarks/modern_science/OC133_MODERN_SCIENCE_COVERAGE_WORK_ORDERS.json",
+    "comparators/modern_science/OC133_MODERN_SCIENCE_COVERAGE_REGISTER.json"
+  ],
+  "status": "OPEN",
+  "why_it_failed": "Comparator gap `MS-COV-GAP-MEDICAL_HEALTH_SCIENCES-CLINICAL_OUTCOMES_AND_BIOMARKERS` lacks `replay_record`; no broad-superiority credit is awarded."
+}

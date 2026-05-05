@@ -1,0 +1,136 @@
+{
+  "artifact_hash": "a908c83f286823acc5e8c7e2d4cf0c7325bb0b4b86e3692c4b969021e31ad292",
+  "artifact_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/scoring_work_orders/scoring_b0e7d011bb178b87.json",
+  "current_evidence": {
+    "evidence_pack_hash": "",
+    "evidence_pack_summary": {
+      "coverage_closure_allowed": null,
+      "pack_status": null,
+      "residuals": {},
+      "schema_id": null
+    },
+    "evidence_ref": null,
+    "evidence_ref_exists": false,
+    "executable_evidence_exists": false,
+    "fail_closed_status_present": true,
+    "material_margin_met": false,
+    "pack_status_text": "{\"COVERAGE_CLOSURE_ALLOWED\": NULL, \"COVERAGE_CLOSURE_STATUS\": \"OPEN_FAIL_CLOSED_EXECUTABLE_SPEC_ONLY\", \"EVIDENCE_STATUS\": NULL, \"PACK_STATUS\": NULL}"
+  },
+  "domain_class_id": "computer_information_sciences",
+  "executable_spec_found": true,
+  "execution_command": [
+    "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+    "tools/oc133_toe_closure_factory.py",
+    "--execute-comparator-scoring-work-order",
+    "MS-COV-GAP-COMPUTER_INFORMATION_SCIENCES-MACHINE_LEARNING_GENERALIZATION_AND_EVALUATION",
+    "--write"
+  ],
+  "gap_id": "MS-COV-GAP-COMPUTER_INFORMATION_SCIENCES-MACHINE_LEARNING_GENERALIZATION_AND_EVALUATION",
+  "generated_at": "2026-05-05T23:02:57Z",
+  "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+  "next_escalation": "If this work order remains OPEN, implement the listed artifact executor with the exact source/target/model/comparator/falsifier fields; do not promote broad superiority.",
+  "no_fake_closure_policy": "A scoring work order is not scoring evidence. It narrows the research task and cannot close modern_science_comparator_superiority until its evidence pack passes.",
+  "pass_predicate": "oc_prediction_scoring_row PASS requires executable evidence, existing evidence ref, material OC margin over comparator, no fail-closed status, then replay_record PASS.",
+  "phenomenon_class_id": "machine_learning_generalization_and_evaluation",
+  "proof_lane_requirements": [
+    "domain-scope survey explaining why the lane is representative of the phenomenon class",
+    "negative controls rejected",
+    "falsifiers declared and executable",
+    "independent clean-checkout replay bound to coverage register and report",
+    "executable lane spec declares exact official source, target variable, formula/model, comparator, uncertainty, residual metric, negative control, and falsifier",
+    "source snapshot and target projection are locked before scoring",
+    "strict evidence pack exists and validates under independent replay",
+    "coverage remains open until every closure predicate is reviewed",
+    "fail-closed evidence gate: executable evidence is not yet bound"
+  ],
+  "queue_row_found": true,
+  "repair_strategy": "Materialize a target-hidden scoring pack from the declared source, target, OC model, incumbent comparator, uncertainty rule, falsifier, and replay command; broad superiority remains blocked until the scoring row beats the comparator and replay passes.",
+  "required_capability": "Research/ScoringExecutor",
+  "required_next_artifacts": [
+    {
+      "artifact_id": "source_snapshot_acquisition",
+      "pass_predicate": "Open/free source snapshot exists locally, is hash-bound, and satisfies source separation policy.",
+      "required_source": {
+        "lane_role": "official_data_source",
+        "required_local_snapshot_ref": null,
+        "required_lock_ref": null,
+        "requirement": "Acquire and hash OpenML Curated Classification benchmark suite 2018 from https://www.openml.org/api/v1/json/study/99.",
+        "source_id": "OPENML_CC18_BENCHMARK_SUITE"
+      }
+    },
+    {
+      "artifact_id": "target_hidden_task_table",
+      "pass_predicate": "Target table is locked before scoring and hidden fields do not leak into model selection.",
+      "required_target": {
+        "lane_role": "target_variable",
+        "requirement": "Test labels and final fold metrics are sealed until all candidate model outputs are written.",
+        "target_fields": [
+          "fold_test_labels",
+          "fold_balanced_accuracy",
+          "fold_log_loss"
+        ],
+        "target_name": "heldout_openml_task_generalization_score",
+        "unit": "balanced accuracy error or multiclass log-loss on official holdout fold"
+      }
+    },
+    {
+      "artifact_id": "oc_formula_or_model",
+      "pass_predicate": "OC prediction/scoring rule is preregistered before target unsealing.",
+      "required_model": {
+        "lane_role": "formula_or_model",
+        "required_inputs": [],
+        "requirement": "Select the model family and hyperparameters using only training/validation folds from a fixed manifest of logistic regression, random forest, and gradient boosting candidates, then score the heldout fold once."
+      }
+    },
+    {
+      "artifact_id": "incumbent_comparator_scoring",
+      "pass_predicate": "Incumbent comparator is scored on the same held-out targets.",
+      "required_comparator": {
+        "baseline_name": "OpenML dummy, majority, logistic-regression, and random-forest baselines",
+        "lane_role": "incumbent_comparator",
+        "pre_registered": true,
+        "requirement": "Score preregistered DummyClassifier, majority-class, logistic-regression, and random-forest baselines on the same task folds; compare against the strongest admissible baseline."
+      }
+    },
+    {
+      "artifact_id": "residuals_materiality_uncertainty",
+      "pass_predicate": "OC residual advantage exceeds preregistered materiality threshold under uncertainty.",
+      "required_uncertainty": {
+        "lane_role": "uncertainty_policy",
+        "metric": "per-task generalization residual: 1 - balanced_accuracy, with log-loss as secondary metric",
+        "requirement": "paired bootstrap over tasks/folds plus binomial label uncertainty for accuracy"
+      }
+    },
+    {
+      "artifact_id": "controls_and_falsifiers",
+      "pass_predicate": "Negative controls and falsifiers are declared and replayed without post-hoc adjustment.",
+      "required_falsifier": {
+        "falsifier_id": "CS-ML-GENERALIZATION-FALSIFIER",
+        "lane_role": "falsifier",
+        "requirement": "Holdout labels leak into model selection, fewer than 20 tasks/folds are scored, comparator ties or beats within uncertainty, or any OpenML task/version hash changes."
+      }
+    },
+    {
+      "artifact_id": "independent_replay",
+      "pass_predicate": "Clean replay regenerates the evidence pack hash and result verdict.",
+      "required_execution": {
+        "evidence_pack_schema_id": "OC133_GRAND_EMPIRICAL_EVIDENCE_v1",
+        "minimum_n": 20,
+        "replay_command": "python validation/heldout/grand_science/cs/coverage_work_orders/oc133_cs_modern_science_coverage_work_orders.py --check",
+        "source_separation_mode": "target_blind",
+        "target_hidden_until_scoring": true
+      }
+    }
+  ],
+  "root_cause_class": "SCORING_EVIDENCE_NOT_MATERIALIZED",
+  "schema_id": "OC133_MODERN_SCIENCE_COMPARATOR_SCORING_WORK_ORDER_v1",
+  "source_refs": [
+    "reports/OC_CORE_1_3_3_MODERN_SCIENCE_COVERAGE_LANE_QUEUE.json",
+    "benchmarks/modern_science/OC133_MODERN_SCIENCE_COVERAGE_WORK_ORDERS.json",
+    "comparators/modern_science/OC133_MODERN_SCIENCE_COVERAGE_REGISTER.json"
+  ],
+  "status": "OPEN",
+  "validator_binding": "comparator_gap::MS-COV-GAP-COMPUTER_INFORMATION_SCIENCES-MACHINE_LEARNING_GENERALIZATION_AND_EVALUATION::oc_prediction_scoring_row",
+  "why_it_failed": "The lane declares no executable evidence pack for the OC-vs-comparator scoring row.",
+  "work_order_id": "MS-COV-WO-026"
+}

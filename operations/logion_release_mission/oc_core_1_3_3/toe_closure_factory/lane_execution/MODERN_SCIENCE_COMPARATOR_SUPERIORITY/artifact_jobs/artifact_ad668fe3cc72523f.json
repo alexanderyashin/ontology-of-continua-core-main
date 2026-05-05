@@ -1,0 +1,47 @@
+{
+  "artifact_hash": "d80d0a03ab17d75605be4d86819ac4003a642df2413a19baa8e1bee115dda136",
+  "artifact_key": "oc_prediction_scoring_row",
+  "artifact_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/artifact_jobs/artifact_ad668fe3cc72523f.json",
+  "domain_class_id": "social_economic_political_sciences",
+  "executable_spec_found": true,
+  "execution_command": [
+    "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+    "tools/oc133_toe_closure_factory.py",
+    "--execute-comparator-gap-artifact",
+    "MS-COV-GAP-SOCIAL_ECONOMIC_POLITICAL_SCIENCES-ECONOMIC_INDICATOR_AND_MARKET_OBSERVABLES",
+    "oc_prediction_scoring_row",
+    "--write"
+  ],
+  "gap_id": "MS-COV-GAP-SOCIAL_ECONOMIC_POLITICAL_SCIENCES-ECONOMIC_INDICATOR_AND_MARKET_OBSERVABLES",
+  "generated_at": "2026-05-05T22:48:03Z",
+  "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+  "next_escalation": "If source acquisition is unavailable or evidence cannot be scored, create a lower-level governed acquisition/scoring/replay work order and keep r017 blocked.",
+  "no_fake_closure_policy": "This artifact job is an executable research obligation. It does not mark the coverage gap PASS unless the concrete evidence artifact exists and the coverage register closes.",
+  "pass_predicate": "OC score row has model output, comparator output, residual, materiality threshold, uncertainty, and pack hash",
+  "pass_predicate_evaluation": {
+    "artifact_key": "oc_prediction_scoring_row",
+    "gap_pass_unchanged_by_single_artifact": true,
+    "research_artifact_status": "OPEN"
+  },
+  "phenomenon_class_id": "economic_indicator_and_market_observables",
+  "queue_row_found": true,
+  "repair_strategy": "Create the required artifact from governed open/free sources, bind hashes, then rerun the comparator gap and strict validator.",
+  "required_capability": "Research/PriorArt",
+  "required_output_kind": "oc_scoring_row_with_residuals",
+  "research_artifact_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/fc08158de1496fae/oc_prediction_scoring_row.json",
+  "research_artifact_scope": "scoring evidence absent or does not beat the preregistered comparator",
+  "research_artifact_status": "OPEN",
+  "schema_id": "OC133_MODERN_SCIENCE_COMPARATOR_GAP_ARTIFACT_EXECUTION_v1",
+  "source_block": {
+    "formula": "absolute residual per heldout country/indicator/year; aggregate mean absolute residual",
+    "metric_id": "OC133-SYSTEMS-COVERAGE-ECONOMIC-INDICATOR-MARKET-OBSERVABLES_domain_local_residual",
+    "superiority_rule": "every row and aggregate residual margin must exceed preregistered materiality thresholds"
+  },
+  "source_refs": [
+    "reports/OC_CORE_1_3_3_MODERN_SCIENCE_COVERAGE_LANE_QUEUE.json",
+    "benchmarks/modern_science/OC133_MODERN_SCIENCE_COVERAGE_WORK_ORDERS.json",
+    "comparators/modern_science/OC133_MODERN_SCIENCE_COVERAGE_REGISTER.json"
+  ],
+  "status": "OPEN",
+  "why_it_failed": "Comparator gap `MS-COV-GAP-SOCIAL_ECONOMIC_POLITICAL_SCIENCES-ECONOMIC_INDICATOR_AND_MARKET_OBSERVABLES` lacks `oc_prediction_scoring_row`; no broad-superiority credit is awarded."
+}

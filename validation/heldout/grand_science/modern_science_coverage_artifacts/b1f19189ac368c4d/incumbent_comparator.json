@@ -1,0 +1,40 @@
+{
+  "artifact_hash": "a1c2b329a1ee83ab8b8de087fa83e6cc5fdbbf0e87ca11758b40f7d72d0876c3",
+  "artifact_key": "incumbent_comparator",
+  "artifact_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/b1f19189ac368c4d/incumbent_comparator.json",
+  "closure_scope": "incumbent comparator preregistered; scoring superiority not asserted",
+  "domain_class_id": "agricultural_food_sciences",
+  "executable_spec_found": true,
+  "execution_command": [
+    "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+    "tools/oc133_toe_closure_factory.py",
+    "--execute-comparator-gap-artifact",
+    "MS-COV-GAP-AGRICULTURAL_FOOD_SCIENCES-FOOD_CHEMISTRY_SAFETY_AND_NUTRITION",
+    "incumbent_comparator",
+    "--write"
+  ],
+  "gap_id": "MS-COV-GAP-AGRICULTURAL_FOOD_SCIENCES-FOOD_CHEMISTRY_SAFETY_AND_NUTRITION",
+  "generated_at": "2026-05-05T22:46:47Z",
+  "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+  "next_escalation": "If this row remains OPEN, create a narrower acquisition/scoring/replay executor for the exact failed validation field.",
+  "no_fake_closure_policy": "This artifact can reduce a missing-artifact count only at its own scope. It cannot mark the coverage gap or broad TOE superiority PASS by itself.",
+  "pass_predicate": "incumbent_comparator status == PASS and the strict comparator gap row no longer lists it as missing.",
+  "phenomenon_class_id": "food_chemistry_safety_and_nutrition",
+  "queue_row_found": true,
+  "repair_strategy": "Continue to the next missing artifact; do not close broad superiority until all source, benchmark, comparator, scoring, uncertainty, falsifier, and replay artifacts pass.",
+  "required_capability": "Research/PriorArt",
+  "schema_id": "OC133_MODERN_SCIENCE_COMPARATOR_RESEARCH_ARTIFACT_v1",
+  "source_refs": [
+    "reports/OC_CORE_1_3_3_MODERN_SCIENCE_COVERAGE_LANE_QUEUE.json",
+    "benchmarks/modern_science/OC133_MODERN_SCIENCE_COVERAGE_WORK_ORDERS.json",
+    "comparators/modern_science/OC133_MODERN_SCIENCE_COVERAGE_REGISTER.json"
+  ],
+  "status": "PASS",
+  "validation": {
+    "baseline_name_present": true,
+    "pre_registered": true,
+    "prediction_rule_present": true
+  },
+  "why_it_failed": "Required comparator artifact is source-bound at its declared scope.",
+  "work_order_id": "MS-COV-WO-020"
+}

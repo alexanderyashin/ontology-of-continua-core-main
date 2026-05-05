@@ -1,0 +1,143 @@
+{
+  "artifact_hash": "06c20f211206026f9bd07243cb8193c31c374d71071df9d7fd064b456cd1d6de",
+  "artifact_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/scoring_work_orders/scoring_a7777e969d546a74.json",
+  "current_evidence": {
+    "evidence_pack_hash": "",
+    "evidence_pack_summary": {
+      "coverage_closure_allowed": null,
+      "pack_status": null,
+      "residuals": {},
+      "schema_id": null
+    },
+    "evidence_ref": null,
+    "evidence_ref_exists": false,
+    "executable_evidence_exists": false,
+    "fail_closed_status_present": true,
+    "material_margin_met": false,
+    "pack_status_text": "{\"COVERAGE_CLOSURE_ALLOWED\": NULL, \"COVERAGE_CLOSURE_STATUS\": \"OPEN_FAIL_CLOSED_NO_EXECUTABLE_EVIDENCE\", \"EVIDENCE_STATUS\": NULL, \"PACK_STATUS\": NULL}"
+  },
+  "domain_class_id": "physical_sciences",
+  "executable_spec_found": true,
+  "execution_command": [
+    "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+    "tools/oc133_toe_closure_factory.py",
+    "--execute-comparator-scoring-work-order",
+    "MS-COV-GAP-PHYSICAL_SCIENCES-DYNAMICAL_LAWS_AND_CONSERVATION",
+    "--write"
+  ],
+  "gap_id": "MS-COV-GAP-PHYSICAL_SCIENCES-DYNAMICAL_LAWS_AND_CONSERVATION",
+  "generated_at": "2026-05-05T23:04:32Z",
+  "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+  "next_escalation": "If this work order remains OPEN, implement the listed artifact executor with the exact source/target/model/comparator/falsifier fields; do not promote broad superiority.",
+  "no_fake_closure_policy": "A scoring work order is not scoring evidence. It narrows the research task and cannot close modern_science_comparator_superiority until its evidence pack passes.",
+  "pass_predicate": "oc_prediction_scoring_row PASS requires executable evidence, existing evidence ref, material OC margin over comparator, no fail-closed status, then replay_record PASS.",
+  "phenomenon_class_id": "dynamical_laws_and_conservation",
+  "proof_lane_requirements": [
+    "domain-scope survey explaining why the lane is representative of the phenomenon class",
+    "negative controls rejected",
+    "falsifiers declared and executable",
+    "independent clean-checkout replay bound to coverage register and report",
+    "executable lane spec declares exact official source, target variable, formula/model, comparator, uncertainty, residual metric, negative control, and falsifier",
+    "source snapshot and target projection are locked before scoring",
+    "strict evidence pack exists and validates under independent replay",
+    "coverage remains open until every closure predicate is reviewed",
+    "fail-closed evidence gate: executable evidence is not yet bound"
+  ],
+  "queue_row_found": true,
+  "repair_strategy": "Materialize a target-hidden scoring pack from the declared source, target, OC model, incumbent comparator, uncertainty rule, falsifier, and replay command; broad superiority remains blocked until the scoring row beats the comparator and replay passes.",
+  "required_capability": "Research/ScoringExecutor",
+  "required_next_artifacts": [
+    {
+      "artifact_id": "source_snapshot_acquisition",
+      "pass_predicate": "Open/free source snapshot exists locally, is hash-bound, and satisfies source separation policy.",
+      "required_source": {
+        "lane_role": "official_data_source",
+        "required_local_snapshot_ref": "validation/heldout/grand_science/physics_chemistry/dynamics_jpl_horizons/OC133_PHYSICS_JPL_HORIZONS_EARTH_SUN_VECTORS.json",
+        "required_lock_ref": "validation/heldout/grand_science/physics_chemistry/dynamics_jpl_horizons/OC133_PHYSICS_JPL_HORIZONS_EARTH_SUN_VECTORS.lock.json",
+        "requirement": "Acquire and hash NASA/JPL Solar System Dynamics HORIZONS API vector ephemerides from https://ssd.jpl.nasa.gov/api/horizons.api?format=json&COMMAND='399'&OBJ_DATA='NO'&MAKE_EPHEM='YES'&EPHEM_TYPE='VECTORS'&CENTER='500@10'&START_TIME='2026-Jan-01'&STOP_TIME='2026-Jan-21'&STEP_SIZE='1%20d'&VEC_TABLE='3'&OUT_UNITS='KM-S'&CSV_FORMAT='YES'.",
+        "source_id": "physics_jpl_horizons_state_vectors_earth_sun_v1"
+      }
+    },
+    {
+      "artifact_id": "target_hidden_task_table",
+      "pass_predicate": "Target table is locked before scoring and hidden fields do not leak into model selection.",
+      "required_target": {
+        "lane_role": "target_variable",
+        "requirement": "For each epoch after the first, hide the official HORIZONS vector row until the predeclared dynamical propagation is materialized from prior visible rows.",
+        "target_fields": [
+          "X",
+          "Y",
+          "Z",
+          "VX",
+          "VY",
+          "VZ"
+        ],
+        "target_name": "next_epoch_heliocentric_cartesian_state_vector",
+        "unit": "km and km/s"
+      }
+    },
+    {
+      "artifact_id": "oc_formula_or_model",
+      "pass_predicate": "OC prediction/scoring rule is preregistered before target unsealing.",
+      "required_model": {
+        "lane_role": "formula_or_model",
+        "required_inputs": [
+          "prior_epoch_XYZ_VXYZ",
+          "delta_t_seconds",
+          "solar_GM_km3_s2"
+        ],
+        "requirement": "Two-body Kepler/Newton propagation from the previous heliocentric state vector using the predeclared solar GM constant and fixed integration step."
+      }
+    },
+    {
+      "artifact_id": "incumbent_comparator_scoring",
+      "pass_predicate": "Incumbent comparator is scored on the same held-out targets.",
+      "required_comparator": {
+        "baseline_name": "constant-velocity Cartesian extrapolation baseline",
+        "lane_role": "incumbent_comparator",
+        "pre_registered": true,
+        "requirement": "Propagate the previous vector by linear X,Y,Z += VX,VY,VZ*delta_t and keep velocity unchanged."
+      }
+    },
+    {
+      "artifact_id": "residuals_materiality_uncertainty",
+      "pass_predicate": "OC residual advantage exceeds preregistered materiality threshold under uncertainty.",
+      "required_uncertainty": {
+        "lane_role": "uncertainty_policy",
+        "metric": "componentwise absolute error with vector RMSE aggregation",
+        "requirement": "Use HORIZONS output precision from the locked snapshot plus a preregistered numerical integration tolerance; do not tune tolerance after target opening."
+      }
+    },
+    {
+      "artifact_id": "controls_and_falsifiers",
+      "pass_predicate": "Negative controls and falsifiers are declared and replayed without post-hoc adjustment.",
+      "required_falsifier": {
+        "falsifier_id": "PHYS-DYNAMICS-HORIZONS-STATE-FALSIFIER",
+        "lane_role": "falsifier",
+        "requirement": "model vector RMSE exceeds the declared uncertainty, comparator is not worse, target vector appears in visible inputs, or fewer than 20 locked official epochs are scored"
+      }
+    },
+    {
+      "artifact_id": "independent_replay",
+      "pass_predicate": "Clean replay regenerates the evidence pack hash and result verdict.",
+      "required_execution": {
+        "evidence_pack_schema_id": "OC133_GRAND_EMPIRICAL_EVIDENCE_v1",
+        "minimum_n": 20,
+        "replay_command": "python benchmarks/modern_science/coverage_lane_dispatcher.py --check",
+        "source_separation_mode": "prospective",
+        "target_hidden_until_scoring": true
+      }
+    }
+  ],
+  "root_cause_class": "SCORING_EVIDENCE_NOT_MATERIALIZED",
+  "schema_id": "OC133_MODERN_SCIENCE_COMPARATOR_SCORING_WORK_ORDER_v1",
+  "source_refs": [
+    "reports/OC_CORE_1_3_3_MODERN_SCIENCE_COVERAGE_LANE_QUEUE.json",
+    "benchmarks/modern_science/OC133_MODERN_SCIENCE_COVERAGE_WORK_ORDERS.json",
+    "comparators/modern_science/OC133_MODERN_SCIENCE_COVERAGE_REGISTER.json"
+  ],
+  "status": "OPEN",
+  "validator_binding": "comparator_gap::MS-COV-GAP-PHYSICAL_SCIENCES-DYNAMICAL_LAWS_AND_CONSERVATION::oc_prediction_scoring_row",
+  "why_it_failed": "The lane declares no executable evidence pack for the OC-vs-comparator scoring row.",
+  "work_order_id": "MS-COV-WO-004"
+}

@@ -1,0 +1,139 @@
+{
+  "artifact_hash": "97cbbba1a73094f5e546a6ea089155fa22b5141f2e91dcceecef64b7b3c1996d",
+  "artifact_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/scoring_work_orders/scoring_f0ee7d5ec5503167.json",
+  "current_evidence": {
+    "evidence_pack_hash": "",
+    "evidence_pack_summary": {
+      "coverage_closure_allowed": null,
+      "pack_status": null,
+      "residuals": {},
+      "schema_id": null
+    },
+    "evidence_ref": null,
+    "evidence_ref_exists": false,
+    "executable_evidence_exists": false,
+    "fail_closed_status_present": true,
+    "material_margin_met": false,
+    "pack_status_text": "{\"COVERAGE_CLOSURE_ALLOWED\": NULL, \"COVERAGE_CLOSURE_STATUS\": \"OPEN_FAIL_CLOSED_NO_EXECUTABLE_EVIDENCE\", \"EVIDENCE_STATUS\": NULL, \"PACK_STATUS\": NULL}"
+  },
+  "domain_class_id": "physical_sciences",
+  "executable_spec_found": true,
+  "execution_command": [
+    "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+    "tools/oc133_toe_closure_factory.py",
+    "--execute-comparator-scoring-work-order",
+    "MS-COV-GAP-PHYSICAL_SCIENCES-ASTRONOMICAL_AND_COSMOLOGICAL_OBSERVABLES",
+    "--write"
+  ],
+  "gap_id": "MS-COV-GAP-PHYSICAL_SCIENCES-ASTRONOMICAL_AND_COSMOLOGICAL_OBSERVABLES",
+  "generated_at": "2026-05-05T23:04:25Z",
+  "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+  "next_escalation": "If this work order remains OPEN, implement the listed artifact executor with the exact source/target/model/comparator/falsifier fields; do not promote broad superiority.",
+  "no_fake_closure_policy": "A scoring work order is not scoring evidence. It narrows the research task and cannot close modern_science_comparator_superiority until its evidence pack passes.",
+  "pass_predicate": "oc_prediction_scoring_row PASS requires executable evidence, existing evidence ref, material OC margin over comparator, no fail-closed status, then replay_record PASS.",
+  "phenomenon_class_id": "astronomical_and_cosmological_observables",
+  "proof_lane_requirements": [
+    "domain-scope survey explaining why the lane is representative of the phenomenon class",
+    "negative controls rejected",
+    "falsifiers declared and executable",
+    "independent clean-checkout replay bound to coverage register and report",
+    "executable lane spec declares exact official source, target variable, formula/model, comparator, uncertainty, residual metric, negative control, and falsifier",
+    "source snapshot and target projection are locked before scoring",
+    "strict evidence pack exists and validates under independent replay",
+    "coverage remains open until every closure predicate is reviewed",
+    "fail-closed evidence gate: executable evidence is not yet bound"
+  ],
+  "queue_row_found": true,
+  "repair_strategy": "Materialize a target-hidden scoring pack from the declared source, target, OC model, incumbent comparator, uncertainty rule, falsifier, and replay command; broad superiority remains blocked until the scoring row beats the comparator and replay passes.",
+  "required_capability": "Research/ScoringExecutor",
+  "required_next_artifacts": [
+    {
+      "artifact_id": "source_snapshot_acquisition",
+      "pass_predicate": "Open/free source snapshot exists locally, is hash-bound, and satisfies source separation policy.",
+      "required_source": {
+        "lane_role": "official_data_source",
+        "required_local_snapshot_ref": "validation/heldout/grand_science/physics_chemistry/nasa_exoplanet_archive/OC133_NASA_EXOPLANET_PS_COMPOSITE_KEPLER.json",
+        "required_lock_ref": "validation/heldout/grand_science/physics_chemistry/nasa_exoplanet_archive/OC133_NASA_EXOPLANET_PS_COMPOSITE_KEPLER.lock.json",
+        "requirement": "Acquire and hash NASA Exoplanet Archive TAP Planetary Systems Composite Parameters from https://exoplanetarchive.ipac.caltech.edu/TAP/sync?query=select+pl_name,pl_orbper,st_mass,pl_orbsmax,pl_orbsmaxerr1,pl_orbsmaxerr2+from+pscomppars+where+pl_orbper+is+not+null+and+st_mass+is+not+null+and+pl_orbsmax+is+not+null&format=json.",
+        "source_id": "physics_nasa_exoplanet_archive_pscomppars_kepler_v1"
+      }
+    },
+    {
+      "artifact_id": "target_hidden_task_table",
+      "pass_predicate": "Target table is locked before scoring and hidden fields do not leak into model selection.",
+      "required_target": {
+        "lane_role": "target_variable",
+        "requirement": "Hide semi-major-axis target columns until the Kepler-law calculation is materialized from visible orbital period and stellar mass columns.",
+        "target_fields": [
+          "pl_orbsmax",
+          "pl_orbsmaxerr1",
+          "pl_orbsmaxerr2"
+        ],
+        "target_name": "pl_orbsmax",
+        "unit": "AU"
+      }
+    },
+    {
+      "artifact_id": "oc_formula_or_model",
+      "pass_predicate": "OC prediction/scoring rule is preregistered before target unsealing.",
+      "required_model": {
+        "lane_role": "formula_or_model",
+        "required_inputs": [
+          "pl_orbper",
+          "st_mass"
+        ],
+        "requirement": "Kepler third-law semi-major axis: ((G * st_mass * M_sun * (pl_orbper_days*86400)^2)/(4*pi^2))^(1/3) / AU"
+      }
+    },
+    {
+      "artifact_id": "incumbent_comparator_scoring",
+      "pass_predicate": "Incumbent comparator is scored on the same held-out targets.",
+      "required_comparator": {
+        "baseline_name": "period-only median stellar-mass Kepler baseline",
+        "lane_role": "incumbent_comparator",
+        "pre_registered": true,
+        "requirement": "Use the same formula but replace each hidden row's stellar mass with the preregistered visible-panel median stellar mass."
+      }
+    },
+    {
+      "artifact_id": "residuals_materiality_uncertainty",
+      "pass_predicate": "OC residual advantage exceeds preregistered materiality threshold under uncertainty.",
+      "required_uncertainty": {
+        "lane_role": "uncertainty_policy",
+        "metric": "absolute_AU_error_with_archive_errorbar_or_materiality_floor",
+        "requirement": "Use pl_orbsmaxerr1/pl_orbsmaxerr2 when present and a preregistered AU materiality floor otherwise."
+      }
+    },
+    {
+      "artifact_id": "controls_and_falsifiers",
+      "pass_predicate": "Negative controls and falsifiers are declared and replayed without post-hoc adjustment.",
+      "required_falsifier": {
+        "falsifier_id": "PHYS-ASTRO-EXOPLANET-KEPLER-FALSIFIER",
+        "lane_role": "falsifier",
+        "requirement": "target semi-major-axis leaks into visible inputs, N<20, residuals exceed uncertainty policy, or comparator is not worse"
+      }
+    },
+    {
+      "artifact_id": "independent_replay",
+      "pass_predicate": "Clean replay regenerates the evidence pack hash and result verdict.",
+      "required_execution": {
+        "evidence_pack_schema_id": "OC133_GRAND_EMPIRICAL_EVIDENCE_v1",
+        "minimum_n": 20,
+        "replay_command": "python benchmarks/modern_science/coverage_lane_dispatcher.py --check",
+        "source_separation_mode": "target_blind",
+        "target_hidden_until_scoring": true
+      }
+    }
+  ],
+  "root_cause_class": "SCORING_EVIDENCE_NOT_MATERIALIZED",
+  "schema_id": "OC133_MODERN_SCIENCE_COMPARATOR_SCORING_WORK_ORDER_v1",
+  "source_refs": [
+    "reports/OC_CORE_1_3_3_MODERN_SCIENCE_COVERAGE_LANE_QUEUE.json",
+    "benchmarks/modern_science/OC133_MODERN_SCIENCE_COVERAGE_WORK_ORDERS.json",
+    "comparators/modern_science/OC133_MODERN_SCIENCE_COVERAGE_REGISTER.json"
+  ],
+  "status": "OPEN",
+  "validator_binding": "comparator_gap::MS-COV-GAP-PHYSICAL_SCIENCES-ASTRONOMICAL_AND_COSMOLOGICAL_OBSERVABLES::oc_prediction_scoring_row",
+  "why_it_failed": "The lane declares no executable evidence pack for the OC-vs-comparator scoring row.",
+  "work_order_id": "MS-COV-WO-006"
+}

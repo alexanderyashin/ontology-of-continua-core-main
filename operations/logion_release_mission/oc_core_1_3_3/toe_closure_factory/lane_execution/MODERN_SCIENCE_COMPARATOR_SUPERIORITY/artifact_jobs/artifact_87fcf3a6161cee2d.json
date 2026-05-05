@@ -1,0 +1,53 @@
+{
+  "artifact_hash": "2b9ff1595dfc0c3ff34d1c249c1cd7c01a6d682b9aa04ef57c8aeb4bbd265868",
+  "artifact_key": "verified_open_source_capsule",
+  "artifact_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/artifact_jobs/artifact_87fcf3a6161cee2d.json",
+  "domain_class_id": "physical_sciences",
+  "executable_spec_found": true,
+  "execution_command": [
+    "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+    "tools/oc133_toe_closure_factory.py",
+    "--execute-comparator-gap-artifact",
+    "MS-COV-GAP-PHYSICAL_SCIENCES-ASTRONOMICAL_AND_COSMOLOGICAL_OBSERVABLES",
+    "verified_open_source_capsule",
+    "--write"
+  ],
+  "gap_id": "MS-COV-GAP-PHYSICAL_SCIENCES-ASTRONOMICAL_AND_COSMOLOGICAL_OBSERVABLES",
+  "generated_at": "2026-05-05T22:36:46Z",
+  "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+  "next_escalation": "If source acquisition is unavailable or evidence cannot be scored, create a lower-level governed acquisition/scoring/replay work order and keep r017 blocked.",
+  "no_fake_closure_policy": "This artifact job is an executable research obligation. It does not mark the coverage gap PASS unless the concrete evidence artifact exists and the coverage register closes.",
+  "pass_predicate": "official source capsule exists, local snapshot/cache is locked, hash-bound, and source license/open-access status is recorded",
+  "pass_predicate_evaluation": {
+    "artifact_key": "verified_open_source_capsule",
+    "gap_pass_unchanged_by_single_artifact": true,
+    "research_artifact_status": "PASS"
+  },
+  "phenomenon_class_id": "astronomical_and_cosmological_observables",
+  "queue_row_found": true,
+  "repair_strategy": "Create the required artifact from governed open/free sources, bind hashes, then rerun the comparator gap and strict validator.",
+  "required_capability": "Research/PriorArt",
+  "required_output_kind": "source_capsule_and_snapshot_lock",
+  "research_artifact_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/MS-COV-GAP-PHYSICAL_SCIENCES-ASTRONOMICAL_AND_COSMOLOGICAL_OBSERVABLES/verified_open_source_capsule.json",
+  "research_artifact_scope": "source_identity_and_open_url_bound; target/scoring/replay remain separate",
+  "research_artifact_status": "PASS",
+  "schema_id": "OC133_MODERN_SCIENCE_COMPARATOR_GAP_ARTIFACT_EXECUTION_v1",
+  "source_block": {
+    "minimum_rows_required": 20,
+    "official_documentation_url": "https://exoplanetarchive.ipac.caltech.edu/docs/TAP/usingTAP.html",
+    "official_endpoint_url": "https://exoplanetarchive.ipac.caltech.edu/TAP/sync?query=select+pl_name,pl_orbper,st_mass,pl_orbsmax,pl_orbsmaxerr1,pl_orbsmaxerr2+from+pscomppars+where+pl_orbper+is+not+null+and+st_mass+is+not+null+and+pl_orbsmax+is+not+null&format=json",
+    "required_local_snapshot_ref": "validation/heldout/grand_science/physics_chemistry/nasa_exoplanet_archive/OC133_NASA_EXOPLANET_PS_COMPOSITE_KEPLER.json",
+    "required_lock_ref": "validation/heldout/grand_science/physics_chemistry/nasa_exoplanet_archive/OC133_NASA_EXOPLANET_PS_COMPOSITE_KEPLER.lock.json",
+    "snapshot_status": "NOT_ACQUIRED_FOR_THIS_COVERAGE_CLASS",
+    "source_authority": "NASA Exoplanet Archive / IPAC",
+    "source_id": "physics_nasa_exoplanet_archive_pscomppars_kepler_v1",
+    "source_name": "NASA Exoplanet Archive TAP Planetary Systems Composite Parameters"
+  },
+  "source_refs": [
+    "reports/OC_CORE_1_3_3_MODERN_SCIENCE_COVERAGE_LANE_QUEUE.json",
+    "benchmarks/modern_science/OC133_MODERN_SCIENCE_COVERAGE_WORK_ORDERS.json",
+    "comparators/modern_science/OC133_MODERN_SCIENCE_COVERAGE_REGISTER.json"
+  ],
+  "status": "PASS",
+  "why_it_failed": "Comparator gap `MS-COV-GAP-PHYSICAL_SCIENCES-ASTRONOMICAL_AND_COSMOLOGICAL_OBSERVABLES` lacks `verified_open_source_capsule`; no broad-superiority credit is awarded."
+}

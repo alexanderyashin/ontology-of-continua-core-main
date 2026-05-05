@@ -1,0 +1,155 @@
+{
+  "artifact_hash": "67368a3d6acc413e905353f37940b02ce284075be79f8bbe49b0711802e0c424",
+  "artifact_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/scoring_work_orders/scoring_b1f19189ac368c4d.json",
+  "current_evidence": {
+    "evidence_pack_hash": "4a49228720d27fa1ea2a13ca9c912cb489f16244bb961cf0446be2f8ea9d932a",
+    "evidence_pack_summary": {
+      "coverage_closure_allowed": false,
+      "pack_status": null,
+      "residuals": {
+        "comparator": {
+          "max_absolute_error": 1146.0,
+          "mean_absolute_error": 324.6,
+          "median_absolute_error": 201.0
+        },
+        "material_margin_met": false,
+        "material_margin_required_mg_per_100g": 26.442553,
+        "model": {
+          "max_absolute_error": 1953.894,
+          "mean_absolute_error": 528.851068,
+          "median_absolute_error": 271.1601
+        },
+        "superiority_margin_mg_per_100g": -204.251068
+      },
+      "schema_id": "OC133_AGRICULTURE_FDC_SODIUM_SCORING_PACK_v1"
+    },
+    "evidence_ref": "validation/heldout/grand_science/agriculture/coverage_work_orders/OC133_AGRICULTURE_FDC_SODIUM_SCORING_PACK.json",
+    "evidence_ref_exists": true,
+    "executable_evidence_exists": true,
+    "fail_closed_status_present": true,
+    "material_margin_met": false,
+    "pack_status_text": "{\"COVERAGE_CLOSURE_ALLOWED\": FALSE, \"COVERAGE_CLOSURE_STATUS\": \"OPEN_FAIL_CLOSED_SCORER_READY_STRICT_EVIDENCE_PACK_NO_COVERAGE_CLOSURE\", \"EVIDENCE_STATUS\": NULL, \"PACK_STATUS\": NULL}"
+  },
+  "domain_class_id": "agricultural_food_sciences",
+  "executable_spec_found": true,
+  "execution_command": [
+    "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+    "tools/oc133_toe_closure_factory.py",
+    "--execute-comparator-scoring-work-order",
+    "MS-COV-GAP-AGRICULTURAL_FOOD_SCIENCES-FOOD_CHEMISTRY_SAFETY_AND_NUTRITION",
+    "--write"
+  ],
+  "gap_id": "MS-COV-GAP-AGRICULTURAL_FOOD_SCIENCES-FOOD_CHEMISTRY_SAFETY_AND_NUTRITION",
+  "generated_at": "2026-05-05T23:05:29Z",
+  "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+  "next_escalation": "If this work order remains OPEN, implement the listed artifact executor with the exact source/target/model/comparator/falsifier fields; do not promote broad superiority.",
+  "no_fake_closure_policy": "A scoring work order is not scoring evidence. It narrows the research task and cannot close modern_science_comparator_superiority until its evidence pack passes.",
+  "pass_predicate": "oc_prediction_scoring_row PASS requires executable evidence, existing evidence ref, material OC margin over comparator, no fail-closed status, then replay_record PASS.",
+  "phenomenon_class_id": "food_chemistry_safety_and_nutrition",
+  "proof_lane_requirements": [
+    "domain-scope survey explaining why the lane is representative of the phenomenon class",
+    "negative controls rejected",
+    "falsifiers declared and executable",
+    "independent clean-checkout replay bound to coverage register and report",
+    "executable lane spec declares exact official source, target variable, formula/model, comparator, uncertainty, residual metric, negative control, and falsifier",
+    "source snapshot and target projection are locked before scoring",
+    "strict evidence pack exists and validates under independent replay",
+    "coverage remains open until every closure predicate is reviewed"
+  ],
+  "queue_row_found": true,
+  "repair_strategy": "Materialize a target-hidden scoring pack from the declared source, target, OC model, incumbent comparator, uncertainty rule, falsifier, and replay command; broad superiority remains blocked until the scoring row beats the comparator and replay passes.",
+  "required_capability": "Research/ScoringExecutor",
+  "required_next_artifacts": [
+    {
+      "artifact_id": "source_snapshot_acquisition",
+      "pass_predicate": "Open/free source snapshot exists locally, is hash-bound, and satisfies source separation policy.",
+      "required_source": {
+        "lane_role": "official_data_source",
+        "required_local_snapshot_ref": "validation/heldout/grand_science/agriculture/coverage_work_orders/raw/OC133_AGRICULTURE_FDC_FOUNDATION_FOODS_LIST_25.compact.json",
+        "required_lock_ref": "validation/heldout/grand_science/agriculture/coverage_work_orders/locks/OC133-AGRI-FDC-FOUNDATION-FOODS-LIST-0001.lock.json",
+        "requirement": "Acquire and hash USDA FoodData Central API from https://api.nal.usda.gov/fdc/v1/foods/list.",
+        "source_id": "USDA_FOODDATA_CENTRAL_API"
+      }
+    },
+    {
+      "artifact_id": "target_hidden_task_table",
+      "pass_predicate": "Target table is locked before scoring and hidden fields do not leak into model selection.",
+      "required_target": {
+        "lane_role": "target_variable",
+        "requirement": "Target values remain hidden until scoring according to the domain-local work order.",
+        "target_fields": [
+          "foodNutrients[number=307].amount"
+        ],
+        "target_name": "heldout_food_sodium_content",
+        "unit": "mg per 100 g edible portion"
+      }
+    },
+    {
+      "artifact_id": "oc_formula_or_model",
+      "pass_predicate": "OC prediction/scoring rule is preregistered before target unsealing.",
+      "required_model": {
+        "lane_role": "formula_or_model",
+        "required_inputs": [
+          "fdcId",
+          "description",
+          "dataType",
+          "publicationDate",
+          "ndbNumber",
+          "selected_nutrients[203,204,205,207,208,301]",
+          "pre-registered nutrient selector excluding number 307"
+        ],
+        "requirement": "predict sodium_mg_per_100g = max(0, 393.37 * visible_ash_g_per_100g), using the sodium mass fraction of sodium chloride as a fixed visible-ash proxy; nutrient 307 is excluded from visible inputs and is unsealed only for scoring"
+      }
+    },
+    {
+      "artifact_id": "incumbent_comparator_scoring",
+      "pass_predicate": "Incumbent comparator is scored on the same held-out targets.",
+      "required_comparator": {
+        "baseline_name": "FoodData Central visible calcium mineral baseline",
+        "lane_role": "incumbent_comparator",
+        "pre_registered": true,
+        "requirement": "predict sodium_mg_per_100g = visible calcium_mg_per_100g from nutrient 301"
+      }
+    },
+    {
+      "artifact_id": "residuals_materiality_uncertainty",
+      "pass_predicate": "OC residual advantage exceeds preregistered materiality threshold under uncertainty.",
+      "required_uncertainty": {
+        "lane_role": "uncertainty_policy",
+        "metric": "absolute sodium residual in mg per 100 g; aggregate MAE across heldout FDC food rows",
+        "requirement": "deterministic jackknife interval over row-level absolute sodium residuals after prediction materialization"
+      }
+    },
+    {
+      "artifact_id": "controls_and_falsifiers",
+      "pass_predicate": "Negative controls and falsifiers are declared and replayed without post-hoc adjustment.",
+      "required_falsifier": {
+        "falsifier_id": "AGRI-FDC-FOOD-CHEMISTRY-FALSIFIER",
+        "lane_role": "falsifier",
+        "requirement": "FDC source snapshot hash is missing or changes during replay; nutrient number 307 appears in visible model or comparator inputs; visible ash nutrient 207 or calcium nutrient 301 is missing; N is below 20; target-hidden task table, hidden target lock, scoring pack, or replay hash is missing or changes during replay; sodium shuffle negative control is not rejected"
+      }
+    },
+    {
+      "artifact_id": "independent_replay",
+      "pass_predicate": "Clean replay regenerates the evidence pack hash and result verdict.",
+      "required_execution": {
+        "evidence_pack_schema_id": "OC133_GRAND_EMPIRICAL_EVIDENCE_v1",
+        "minimum_n": 20,
+        "replay_command": "python validation/heldout/grand_science/agriculture/coverage_work_orders/oc133_agriculture_modern_science_coverage_work_orders.py --score-fdc --write-scoring",
+        "source_separation_mode": "target_blind",
+        "target_hidden_until_scoring": true
+      }
+    }
+  ],
+  "root_cause_class": "SCORING_PACK_FAIL_CLOSED",
+  "schema_id": "OC133_MODERN_SCIENCE_COMPARATOR_SCORING_WORK_ORDER_v1",
+  "source_refs": [
+    "reports/OC_CORE_1_3_3_MODERN_SCIENCE_COVERAGE_LANE_QUEUE.json",
+    "benchmarks/modern_science/OC133_MODERN_SCIENCE_COVERAGE_WORK_ORDERS.json",
+    "comparators/modern_science/OC133_MODERN_SCIENCE_COVERAGE_REGISTER.json"
+  ],
+  "status": "OPEN",
+  "validator_binding": "comparator_gap::MS-COV-GAP-AGRICULTURAL_FOOD_SCIENCES-FOOD_CHEMISTRY_SAFETY_AND_NUTRITION::oc_prediction_scoring_row",
+  "why_it_failed": "The current evidence pack carries a fail-closed status token, so broad comparator credit is prohibited.",
+  "work_order_id": "MS-COV-WO-020"
+}

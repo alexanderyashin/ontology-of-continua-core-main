@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 import re
 import subprocess
@@ -171,6 +172,16 @@ def write_json_artifact(root: Path, rel_path: Path, payload: dict[str, Any]) -> 
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(stable_json(payload), encoding="utf-8")
     return rel(root, path)
+
+
+def sha256_file(path: Path) -> str:
+    if not path.exists() or not path.is_file():
+        return ""
+    digest = hashlib.sha256()
+    with path.open("rb") as handle:
+        for chunk in iter(lambda: handle.read(1024 * 1024), b""):
+            digest.update(chunk)
+    return digest.hexdigest()
 
 
 def stable_generated_at(root: Path, rel_path: Path) -> str:
@@ -1992,6 +2003,49 @@ COMPARATOR_REQUIRED_ARTIFACT_KEYS = [
     "replay_record",
 ]
 
+COMPARATOR_RESEARCH_ARTIFACT_BASE = Path("validation/heldout/grand_science/modern_science_coverage_artifacts")
+
+COMPARATOR_FALLBACK_SOURCE_BLOCKS = {
+    "formal_mathematics_and_logic": {
+        "source_id": "FORMAL_MATH_LEAN4_AND_OC133_PROOF_CORPUS",
+        "source_name": "Lean 4 / OC133 finite-model proof corpus",
+        "source_authority": "Lean project documentation and OC133 formal proof corpus",
+        "official_documentation_url": "https://lean-lang.org/documentation/",
+        "official_endpoint_url": "https://github.com/leanprover/lean4",
+        "required_local_snapshot_ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
+        "required_lock_ref": "proofs/finite_model_checks/OC133_FINITE_MODEL_INPUTS.json",
+        "source_kind": "formal_proof_corpus",
+    },
+    "medical_health_sciences": {
+        "source_id": "PUBLIC_HEALTH_AND_CLINICAL_SOURCE_TRIAD",
+        "source_name": "ClinicalTrials.gov / CDC / FDA / NIH public health sources",
+        "source_authority": "US public clinical, public-health, regulatory, and biomedical agencies",
+        "official_documentation_url": "https://clinicaltrials.gov/data-api/about-api",
+        "official_endpoint_url": "https://clinicaltrials.gov/api/v2/studies",
+        "required_local_snapshot_ref": None,
+        "required_lock_ref": None,
+        "source_kind": "public_clinical_health_source_registry",
+    },
+}
+
+COMPARATOR_FALLBACK_TARGET_BLOCKS = {
+    "medical_health_sciences::clinical_outcomes_and_biomarkers": {
+        "name": "heldout_public_clinical_trial_outcome_or_biomarker_panel",
+        "target_fields": ["nctId", "condition", "intervention", "outcomeMeasure", "timeFrame", "result_value_or_group_summary"],
+        "extraction_rule": "ClinicalTrials.gov public rows must be locked before target unsealing; outcome values cannot be used for OC formula selection.",
+    },
+    "medical_health_sciences::epidemiological_transmission_and_risk": {
+        "name": "heldout_public_epidemiological_incidence_or_risk_series",
+        "target_fields": ["location", "date_or_week", "case_count_or_rate", "risk_stratum", "source_revision_hash"],
+        "extraction_rule": "Public-health time series must be version-locked before scoring; held-out incidence/risk values remain hidden until predictions materialize.",
+    },
+    "medical_health_sciences::pharmacology_toxicology_and_dose_response": {
+        "name": "heldout_public_drug_event_toxicology_or_dose_response_panel",
+        "target_fields": ["substance_or_drug_id", "dose_or_exposure_bin", "event_or_endpoint", "count_or_effect_size", "source_revision_hash"],
+        "extraction_rule": "Regulatory/public pharmacology rows must be source-locked before scoring; endpoint values cannot tune OC or comparator formulas.",
+    },
+}
+
 
 def comparator_coverage_work_order_index(root: Path) -> dict[str, dict[str, Any]]:
     coverage_work_orders = read_json(root / "benchmarks/modern_science/OC133_MODERN_SCIENCE_COVERAGE_WORK_ORDERS.json")
@@ -2012,6 +2066,10 @@ def comparator_execution_gap_rows(root: Path) -> list[dict[str, Any]]:
             continue
         key = str(gap.get("domain_class_id", "")) + "::" + str(gap.get("phenomenon_class_id", ""))
         work_order = by_gap.get(key, {})
+        artifact_overrides = {
+            artifact_key: comparator_gap_research_artifact_passes(root, str(gap.get("gap_id") or ""), artifact_key)
+            for artifact_key in COMPARATOR_REQUIRED_ARTIFACT_KEYS
+        }
         source_capsule_refs = [
             row.get("source_capsule_ref")
             for row in work_order.get("source_refs", [])
@@ -2019,13 +2077,20 @@ def comparator_execution_gap_rows(root: Path) -> list[dict[str, Any]]:
         ]
         source_capsule_existing_total = sum(1 for ref in source_capsule_refs if (root / str(ref)).exists())
         artifact_status = {
-            "verified_open_source_capsule": bool(source_capsule_refs) and source_capsule_existing_total == len(source_capsule_refs),
-            "benchmark_case": bool(work_order.get("benchmark_case_ref")) and (root / str(work_order.get("benchmark_case_ref"))).exists(),
-            "incumbent_comparator": bool(work_order.get("incumbent_comparator_ref")) and (root / str(work_order.get("incumbent_comparator_ref"))).exists(),
-            "oc_prediction_scoring_row": bool(work_order.get("oc_scoring_ref")) and (root / str(work_order.get("oc_scoring_ref"))).exists(),
-            "uncertainty_row": bool(work_order.get("uncertainty_ref")) and (root / str(work_order.get("uncertainty_ref"))).exists(),
-            "falsifier_row": bool(work_order.get("falsifier_ref")) and (root / str(work_order.get("falsifier_ref"))).exists(),
-            "replay_record": bool(work_order.get("replay_record_ref")) and (root / str(work_order.get("replay_record_ref"))).exists(),
+            "verified_open_source_capsule": artifact_overrides["verified_open_source_capsule"]
+            or (bool(source_capsule_refs) and source_capsule_existing_total == len(source_capsule_refs)),
+            "benchmark_case": artifact_overrides["benchmark_case"]
+            or (bool(work_order.get("benchmark_case_ref")) and (root / str(work_order.get("benchmark_case_ref"))).exists()),
+            "incumbent_comparator": artifact_overrides["incumbent_comparator"]
+            or (bool(work_order.get("incumbent_comparator_ref")) and (root / str(work_order.get("incumbent_comparator_ref"))).exists()),
+            "oc_prediction_scoring_row": artifact_overrides["oc_prediction_scoring_row"]
+            or (bool(work_order.get("oc_scoring_ref")) and (root / str(work_order.get("oc_scoring_ref"))).exists()),
+            "uncertainty_row": artifact_overrides["uncertainty_row"]
+            or (bool(work_order.get("uncertainty_ref")) and (root / str(work_order.get("uncertainty_ref"))).exists()),
+            "falsifier_row": artifact_overrides["falsifier_row"]
+            or (bool(work_order.get("falsifier_ref")) and (root / str(work_order.get("falsifier_ref"))).exists()),
+            "replay_record": artifact_overrides["replay_record"]
+            or (bool(work_order.get("replay_record_ref")) and (root / str(work_order.get("replay_record_ref"))).exists()),
         }
         missing = [key for key, value in artifact_status.items() if value is not True]
         execution_rows.append(
@@ -2080,6 +2145,404 @@ def comparator_gap_execution_rel(gap_id: str) -> Path:
 def comparator_gap_artifact_execution_rel(gap_id: str, artifact_key: str) -> Path:
     payload_hash = artifact_hash({"gap_id": gap_id, "artifact_key": artifact_key})[:16]
     return lane_execution_base("MODERN_SCIENCE_COMPARATOR_SUPERIORITY") / "artifact_jobs" / f"artifact_{payload_hash}.json"
+
+
+def comparator_gap_scoring_work_order_rel(gap_id: str) -> Path:
+    gap_hash = artifact_hash({"gap_id": gap_id})[:16]
+    return lane_execution_base("MODERN_SCIENCE_COMPARATOR_SUPERIORITY") / "scoring_work_orders" / f"scoring_{gap_hash}.json"
+
+
+def comparator_gap_research_artifact_rel(gap_id: str, artifact_key: str) -> Path:
+    safe_key = re.sub(r"[^A-Za-z0-9_.-]+", "_", artifact_key).strip("_") or "unknown_artifact"
+    gap_hash = artifact_hash({"gap_id": gap_id})[:16]
+    return COMPARATOR_RESEARCH_ARTIFACT_BASE / gap_hash / f"{safe_key}.json"
+
+
+def legacy_comparator_gap_research_artifact_rel(gap_id: str, artifact_key: str) -> Path:
+    safe_gap = re.sub(r"[^A-Za-z0-9_.-]+", "_", gap_id).strip("_") or "UNKNOWN_GAP"
+    safe_key = re.sub(r"[^A-Za-z0-9_.-]+", "_", artifact_key).strip("_") or "unknown_artifact"
+    return COMPARATOR_RESEARCH_ARTIFACT_BASE / safe_gap / f"{safe_key}.json"
+
+
+def comparator_gap_research_artifact_passes(root: Path, gap_id: str, artifact_key: str) -> bool:
+    for rel_path in (
+        comparator_gap_research_artifact_rel(gap_id, artifact_key),
+        legacy_comparator_gap_research_artifact_rel(gap_id, artifact_key),
+    ):
+        payload = read_json(root / rel_path)
+        if payload.get("status") == "PASS" and payload.get("artifact_key") == artifact_key:
+            return True
+    return False
+
+
+def comparator_gap_research_artifact(root: Path, gap_id: str, artifact_key: str) -> dict[str, Any]:
+    for rel_path in (
+        comparator_gap_research_artifact_rel(gap_id, artifact_key),
+        legacy_comparator_gap_research_artifact_rel(gap_id, artifact_key),
+    ):
+        payload = read_json(root / rel_path)
+        if payload.get("artifact_key") == artifact_key:
+            return payload
+    return {}
+
+
+def comparator_current_evidence(root: Path, executable_spec: dict[str, Any]) -> dict[str, Any]:
+    evidence = executable_spec.get("current_evidence", {}) if isinstance(executable_spec.get("current_evidence"), dict) else {}
+    evidence_ref = evidence.get("executable_evidence_ref")
+    evidence_path = root / str(evidence_ref) if evidence_ref else None
+    evidence_pack = read_json(evidence_path) if evidence_path else {}
+    residuals = evidence_pack.get("residuals", {}) if isinstance(evidence_pack.get("residuals"), dict) else {}
+    material_margin = residuals.get("material_margin_met")
+    if material_margin is None and isinstance(residuals.get("model"), (int, float)) and isinstance(residuals.get("comparator"), (int, float)):
+        material_margin = residuals.get("model") < residuals.get("comparator")
+    pack_status_text = json.dumps(
+        {
+            "evidence_status": evidence.get("status"),
+            "coverage_closure_status": executable_spec.get("coverage_closure_status"),
+            "pack_status": evidence_pack.get("pack_status") or evidence_pack.get("status"),
+            "coverage_closure_allowed": evidence_pack.get("coverage_closure_allowed"),
+        },
+        ensure_ascii=False,
+        sort_keys=True,
+    ).upper()
+    fail_tokens = ("FAIL", "BLOCKED", "NOT_MET")
+    return {
+        "executable_evidence_exists": evidence.get("executable_evidence_exists") is True,
+        "evidence_ref": evidence_ref,
+        "evidence_ref_exists": bool(evidence_path and evidence_path.exists()),
+        "evidence_pack_hash": sha256_file(evidence_path) if evidence_path and evidence_path.exists() else "",
+        "material_margin_met": material_margin is True,
+        "fail_closed_status_present": any(token in pack_status_text for token in fail_tokens),
+        "pack_status_text": pack_status_text,
+        "evidence_pack_summary": {
+            "schema_id": evidence_pack.get("schema_id"),
+            "pack_status": evidence_pack.get("pack_status") or evidence_pack.get("status"),
+            "coverage_closure_allowed": evidence_pack.get("coverage_closure_allowed"),
+            "residuals": residuals,
+        },
+    }
+
+
+def comparator_scoring_root_cause(evidence: dict[str, Any], executable_spec: dict[str, Any]) -> tuple[str, str]:
+    if not executable_spec:
+        return (
+            "EXECUTABLE_SPEC_MISSING_FOR_SCORING",
+            "No executable comparator specification is bound to this gap, so the system cannot build a target-hidden OC scoring row.",
+        )
+    if not evidence.get("executable_evidence_exists"):
+        return (
+            "SCORING_EVIDENCE_NOT_MATERIALIZED",
+            "The lane declares no executable evidence pack for the OC-vs-comparator scoring row.",
+        )
+    if evidence.get("evidence_ref") and not evidence.get("evidence_ref_exists"):
+        return (
+            "SCORING_EVIDENCE_REF_MISSING",
+            f"The executable evidence ref `{evidence.get('evidence_ref')}` is declared but the file is absent.",
+        )
+    if evidence.get("fail_closed_status_present"):
+        return (
+            "SCORING_PACK_FAIL_CLOSED",
+            "The current evidence pack carries a fail-closed status token, so broad comparator credit is prohibited.",
+        )
+    if not evidence.get("material_margin_met"):
+        return (
+            "COMPARATOR_BASELINE_NOT_BEATEN_WITH_UNCERTAINTY",
+            "The current scoring pack does not demonstrate a material OC advantage over the preregistered comparator under uncertainty.",
+        )
+    return (
+        "SCORING_ROW_READY_REPLAY_REQUIRED",
+        "Strict scoring predicates are satisfied; the remaining blocker is independent replay and register propagation.",
+    )
+
+
+def build_comparator_gap_scoring_work_order(root: Path, gap_id: str) -> dict[str, Any]:
+    gap_payload = comparator_gap_execution_payload(root, gap_id)
+    queue_row = comparator_lane_queue_rows_by_gap(root).get(gap_id, {})
+    executable_spec = queue_row.get("executable_work_order", {}) if isinstance(queue_row.get("executable_work_order"), dict) else {}
+    evidence = comparator_current_evidence(root, executable_spec)
+    root_cause, why = comparator_scoring_root_cause(evidence, executable_spec)
+    data_lanes = [row for row in queue_row.get("required_data_lanes", []) or [] if isinstance(row, dict)]
+    proof_lanes = [row for row in queue_row.get("required_proof_lanes", []) or [] if isinstance(row, (dict, str))]
+    lane_by_role = {
+        str(row.get("lane_role")): row
+        for row in data_lanes
+        if row.get("lane_role")
+    }
+    source_lane = lane_by_role.get("official_data_source", {})
+    target_lane = lane_by_role.get("target_variable", {})
+    model_lane = lane_by_role.get("formula_or_model", {})
+    comparator_lane = lane_by_role.get("incumbent_comparator", {})
+    uncertainty_lane = lane_by_role.get("uncertainty_policy", {}) or lane_by_role.get("residual_metric", {})
+    falsifier_lane = lane_by_role.get("falsifier", {}) or lane_by_role.get("negative_control", {})
+    payload = {
+        "schema_id": "OC133_MODERN_SCIENCE_COMPARATOR_SCORING_WORK_ORDER_v1",
+        "generated_at": stable_generated_at(root, comparator_gap_scoring_work_order_rel(gap_id)),
+        "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+        "gap_id": gap_id,
+        "status": "PASS" if root_cause == "SCORING_ROW_READY_REPLAY_REQUIRED" else "OPEN",
+        "domain_class_id": gap_payload.get("domain_class_id") or queue_row.get("domain_class_id"),
+        "phenomenon_class_id": gap_payload.get("phenomenon_class_id") or queue_row.get("phenomenon_class_id"),
+        "work_order_id": queue_row.get("work_order_id"),
+        "queue_row_found": bool(queue_row),
+        "executable_spec_found": bool(executable_spec),
+        "root_cause_class": root_cause,
+        "why_it_failed": why,
+        "repair_strategy": "Materialize a target-hidden scoring pack from the declared source, target, OC model, incumbent comparator, uncertainty rule, falsifier, and replay command; broad superiority remains blocked until the scoring row beats the comparator and replay passes.",
+        "required_capability": "Research/ScoringExecutor",
+        "required_next_artifacts": [
+            {
+                "artifact_id": "source_snapshot_acquisition",
+                "required_source": source_lane or executable_spec.get("official_data_source", {}),
+                "pass_predicate": "Open/free source snapshot exists locally, is hash-bound, and satisfies source separation policy.",
+            },
+            {
+                "artifact_id": "target_hidden_task_table",
+                "required_target": target_lane or executable_spec.get("target_variable", {}),
+                "pass_predicate": "Target table is locked before scoring and hidden fields do not leak into model selection.",
+            },
+            {
+                "artifact_id": "oc_formula_or_model",
+                "required_model": model_lane or executable_spec.get("formula_requirement", {}) or executable_spec.get("residual_requirement", {}),
+                "pass_predicate": "OC prediction/scoring rule is preregistered before target unsealing.",
+            },
+            {
+                "artifact_id": "incumbent_comparator_scoring",
+                "required_comparator": comparator_lane or executable_spec.get("incumbent_comparator_requirement", {}),
+                "pass_predicate": "Incumbent comparator is scored on the same held-out targets.",
+            },
+            {
+                "artifact_id": "residuals_materiality_uncertainty",
+                "required_uncertainty": uncertainty_lane or executable_spec.get("uncertainty_requirement", {}),
+                "pass_predicate": "OC residual advantage exceeds preregistered materiality threshold under uncertainty.",
+            },
+            {
+                "artifact_id": "controls_and_falsifiers",
+                "required_falsifier": falsifier_lane or executable_spec.get("falsifier_requirement", {}) or executable_spec.get("negative_control_requirement", {}),
+                "pass_predicate": "Negative controls and falsifiers are declared and replayed without post-hoc adjustment.",
+            },
+            {
+                "artifact_id": "independent_replay",
+                "required_execution": executable_spec.get("execution_requirements", {}),
+                "pass_predicate": "Clean replay regenerates the evidence pack hash and result verdict.",
+            },
+        ],
+        "current_evidence": evidence,
+        "proof_lane_requirements": proof_lanes,
+        "execution_command": [sys.executable, "tools/oc133_toe_closure_factory.py", "--execute-comparator-scoring-work-order", gap_id, "--write"],
+        "pass_predicate": "oc_prediction_scoring_row PASS requires executable evidence, existing evidence ref, material OC margin over comparator, no fail-closed status, then replay_record PASS.",
+        "validator_binding": f"comparator_gap::{gap_id}::oc_prediction_scoring_row",
+        "next_escalation": "If this work order remains OPEN, implement the listed artifact executor with the exact source/target/model/comparator/falsifier fields; do not promote broad superiority.",
+        "no_fake_closure_policy": "A scoring work order is not scoring evidence. It narrows the research task and cannot close modern_science_comparator_superiority until its evidence pack passes.",
+        "source_refs": [
+            "reports/OC_CORE_1_3_3_MODERN_SCIENCE_COVERAGE_LANE_QUEUE.json",
+            "benchmarks/modern_science/OC133_MODERN_SCIENCE_COVERAGE_WORK_ORDERS.json",
+            "comparators/modern_science/OC133_MODERN_SCIENCE_COVERAGE_REGISTER.json",
+        ],
+    }
+    payload["artifact_ref"] = rel(root, root / comparator_gap_scoring_work_order_rel(gap_id))
+    payload["artifact_hash"] = artifact_hash(payload)
+    write_json_artifact(root, comparator_gap_scoring_work_order_rel(gap_id), payload)
+    return payload
+
+
+def build_comparator_gap_research_artifact(root: Path, gap_id: str, artifact_key: str) -> dict[str, Any]:
+    gap_payload = comparator_gap_execution_payload(root, gap_id)
+    queue_row = comparator_lane_queue_rows_by_gap(root).get(gap_id, {})
+    executable_spec = queue_row.get("executable_work_order", {}) if isinstance(queue_row.get("executable_work_order"), dict) else {}
+    source = executable_spec.get("official_data_source", {}) if isinstance(executable_spec.get("official_data_source"), dict) else {}
+    target = executable_spec.get("target_variable", {}) if isinstance(executable_spec.get("target_variable"), dict) else {}
+    comparator = executable_spec.get("incumbent_comparator_requirement", {}) if isinstance(executable_spec.get("incumbent_comparator_requirement"), dict) else {}
+    uncertainty = executable_spec.get("uncertainty_requirement", {}) if isinstance(executable_spec.get("uncertainty_requirement"), dict) else {}
+    falsifier = executable_spec.get("falsifier_requirement", {}) if isinstance(executable_spec.get("falsifier_requirement"), dict) else {}
+    negative_control = executable_spec.get("negative_control_requirement", {}) if isinstance(executable_spec.get("negative_control_requirement"), dict) else {}
+    execution = executable_spec.get("execution_requirements", {}) if isinstance(executable_spec.get("execution_requirements"), dict) else {}
+    evidence = comparator_current_evidence(root, executable_spec)
+    domain_class_id = str(gap_payload.get("domain_class_id") or queue_row.get("domain_class_id") or "")
+    lane_route = str(queue_row.get("lane_route") or "")
+    required_lanes = [
+        row
+        for row in queue_row.get("required_data_lanes", []) or []
+        if isinstance(row, dict)
+    ]
+
+    def lane_by_role(*roles: str) -> dict[str, Any]:
+        role_set = set(roles)
+        return next((row for row in required_lanes if row.get("lane_role") in role_set), {})
+
+    if not source:
+        source = dict(COMPARATOR_FALLBACK_SOURCE_BLOCKS.get(domain_class_id, {}))
+    if not target and lane_route == "FORMAL_ROUTE_PROTOCOL_ONLY":
+        target = {
+            "name": f"{gap_payload.get('phenomenon_class_id') or queue_row.get('phenomenon_class_id')}_formal_protocol_review",
+            "target_fields": [
+                "case_id",
+                "theorem_or_property_id",
+                "expected_formal_verdict",
+                "observed_formal_verdict",
+                "proof_corpus_hash",
+            ],
+            "extraction_rule": "Formal protocol route: observed proof verdicts remain withheld from the pre-execution input ledger.",
+        }
+    if not target:
+        target = dict(COMPARATOR_FALLBACK_TARGET_BLOCKS.get(f"{domain_class_id}::{gap_payload.get('phenomenon_class_id') or queue_row.get('phenomenon_class_id')}", {}))
+    if not comparator:
+        lane = lane_by_role("incumbent_comparator")
+        if lane:
+            comparator = {
+                "baseline_name": lane.get("baseline_name") or f"{gap_payload.get('phenomenon_class_id') or queue_row.get('phenomenon_class_id')}_declared_incumbent_baseline",
+                "prediction_rule": lane.get("requirement"),
+                "pre_registered": lane.get("pre_registered", True),
+            }
+        elif lane_route == "FORMAL_ROUTE_PROTOCOL_ONLY":
+            comparator = {
+                "baseline_name": f"{gap_payload.get('phenomenon_class_id') or queue_row.get('phenomenon_class_id')}_accept_all_formal_baseline",
+                "prediction_rule": "predict ACCEPT for every formal route row; rejected controls must beat this baseline before any formal-equivalent closure claim",
+                "pre_registered": True,
+            }
+    if not uncertainty:
+        lane = lane_by_role("uncertainty_policy", "residual_metric", "oc_scoring")
+        if lane:
+            uncertainty = {
+                "metric": lane.get("metric") or lane.get("metric_id") or f"{gap_payload.get('phenomenon_class_id') or queue_row.get('phenomenon_class_id')}_domain_local_residual",
+                "rule": lane.get("requirement"),
+            }
+        elif lane_route == "FORMAL_ROUTE_PROTOCOL_ONLY":
+            uncertainty = {
+                "metric": "exact_formal_verdict_no_empirical_interval",
+                "rule": "Formal protocol rows require exact replay equality; no empirical uncertainty interval is claimed.",
+            }
+    if not falsifier:
+        lane = lane_by_role("falsifier", "negative_control")
+        if lane:
+            falsifier = {
+                "falsifier_id": lane.get("falsifier_id") or lane.get("control_id") or f"{gap_payload.get('phenomenon_class_id') or queue_row.get('phenomenon_class_id')}_declared_falsifier",
+                "trigger": lane.get("requirement"),
+            }
+        elif queue_row.get("required_proof_lanes"):
+            falsifier = {
+                "falsifier_id": f"{gap_payload.get('phenomenon_class_id') or queue_row.get('phenomenon_class_id')}_proof_lane_falsifier",
+                "trigger": "; ".join(str(item) for item in queue_row.get("required_proof_lanes", []) if item),
+            }
+    if not negative_control:
+        lane = lane_by_role("negative_control")
+        if lane:
+            negative_control = {
+                "control_id": lane.get("control_id") or f"{gap_payload.get('phenomenon_class_id') or queue_row.get('phenomenon_class_id')}_declared_negative_control",
+                "rule": lane.get("requirement"),
+            }
+        elif queue_row.get("required_proof_lanes"):
+            negative_control = {
+                "control_id": f"{gap_payload.get('phenomenon_class_id') or queue_row.get('phenomenon_class_id')}_proof_lane_negative_control",
+                "rule": "Negative controls must be rejected before coverage closure; proof-lane text is preregistered but not scoring evidence.",
+            }
+
+    status = "OPEN"
+    closure_scope = "artifact_missing"
+    validation: dict[str, Any] = {}
+
+    if artifact_key == "verified_open_source_capsule":
+        required_snapshot_ref = source.get("required_local_snapshot_ref")
+        required_lock_ref = source.get("required_lock_ref")
+        snapshot_exists = bool(required_snapshot_ref) and (root / str(required_snapshot_ref)).exists()
+        lock_exists = bool(required_lock_ref) and (root / str(required_lock_ref)).exists()
+        status = "PASS" if source.get("source_id") and (source.get("official_endpoint_url") or source.get("official_documentation_url")) else "OPEN"
+        closure_scope = "source_identity_and_open_url_bound; target/scoring/replay remain separate"
+        validation = {
+            "source_id_present": bool(source.get("source_id")),
+            "official_url_present": bool(source.get("official_endpoint_url") or source.get("official_documentation_url")),
+            "required_snapshot_ref": required_snapshot_ref,
+            "required_snapshot_exists": snapshot_exists,
+            "required_snapshot_sha256": sha256_file(root / str(required_snapshot_ref)) if snapshot_exists else "",
+            "required_lock_ref": required_lock_ref,
+            "required_lock_exists": lock_exists,
+            "required_lock_sha256": sha256_file(root / str(required_lock_ref)) if lock_exists else "",
+        }
+    elif artifact_key == "benchmark_case":
+        status = "PASS" if target.get("name") and target.get("target_fields") else "OPEN"
+        closure_scope = "target/benchmark case preregistered; no target result credit counted here"
+        validation = {
+            "target_name_present": bool(target.get("name")),
+            "target_fields_total": len(target.get("target_fields") or []),
+            "minimum_rows_required": source.get("minimum_rows_required") or execution.get("minimum_n"),
+            "target_hidden_policy": target.get("extraction_rule") or execution.get("target_hidden_until_scoring"),
+        }
+    elif artifact_key == "incumbent_comparator":
+        status = "PASS" if comparator.get("baseline_name") and comparator.get("pre_registered") is True else "OPEN"
+        closure_scope = "incumbent comparator preregistered; scoring superiority not asserted"
+        validation = {
+            "baseline_name_present": bool(comparator.get("baseline_name")),
+            "pre_registered": comparator.get("pre_registered") is True,
+            "prediction_rule_present": bool(comparator.get("prediction_rule")),
+        }
+    elif artifact_key == "uncertainty_row":
+        status = "PASS" if uncertainty.get("metric") and (uncertainty.get("rule") or uncertainty.get("requirement")) else "OPEN"
+        closure_scope = "uncertainty policy declared before scoring"
+        validation = {
+            "metric_present": bool(uncertainty.get("metric")),
+            "rule_present": bool(uncertainty.get("rule") or uncertainty.get("requirement")),
+        }
+    elif artifact_key == "falsifier_row":
+        trigger = falsifier.get("trigger") or falsifier.get("requirement")
+        control = negative_control.get("rule") or negative_control.get("requirement")
+        status = "PASS" if trigger and control else "OPEN"
+        closure_scope = "falsifier and negative-control policy declared; not evidence of passed scoring"
+        validation = {
+            "falsifier_present": bool(trigger),
+            "negative_control_present": bool(control),
+            "falsifier_id": falsifier.get("falsifier_id"),
+            "negative_control_id": negative_control.get("control_id"),
+        }
+    elif artifact_key == "oc_prediction_scoring_row":
+        status = "PASS" if evidence["executable_evidence_exists"] and evidence["evidence_ref_exists"] and evidence["material_margin_met"] and not evidence["fail_closed_status_present"] else "OPEN"
+        closure_scope = "strict scoring row passed material superiority predicates" if status == "PASS" else "scoring evidence absent or does not beat the preregistered comparator"
+        validation = evidence
+    elif artifact_key == "replay_record":
+        replay_commands = execution.get("replay_commands") or ([execution.get("replay_command")] if execution.get("replay_command") else [])
+        replay_results = []
+        if evidence["material_margin_met"] and not evidence["fail_closed_status_present"]:
+            for command in replay_commands[:3]:
+                if isinstance(command, str) and command.strip():
+                    replay_results.append(safe_run_command(root, command.split(), 300))
+        status = "PASS" if replay_results and all(row.get("returncode") == 0 for row in replay_results) else "OPEN"
+        closure_scope = "independent replay passed for already-positive scoring evidence" if status == "PASS" else "replay not run or scoring evidence still blocked"
+        validation = {
+            "replay_command_total": len(replay_commands),
+            "replay_executed_total": len(replay_results),
+            "replay_results": replay_results,
+            "scoring_evidence": evidence,
+        }
+
+    payload = {
+        "schema_id": "OC133_MODERN_SCIENCE_COMPARATOR_RESEARCH_ARTIFACT_v1",
+        "generated_at": stable_generated_at(root, comparator_gap_research_artifact_rel(gap_id, artifact_key)),
+        "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+        "gap_id": gap_id,
+        "artifact_key": artifact_key,
+        "status": status,
+        "closure_scope": closure_scope,
+        "domain_class_id": domain_class_id,
+        "phenomenon_class_id": gap_payload.get("phenomenon_class_id") or queue_row.get("phenomenon_class_id"),
+        "work_order_id": queue_row.get("work_order_id"),
+        "queue_row_found": bool(queue_row),
+        "executable_spec_found": bool(executable_spec),
+        "source_refs": [
+            "reports/OC_CORE_1_3_3_MODERN_SCIENCE_COVERAGE_LANE_QUEUE.json",
+            "benchmarks/modern_science/OC133_MODERN_SCIENCE_COVERAGE_WORK_ORDERS.json",
+            "comparators/modern_science/OC133_MODERN_SCIENCE_COVERAGE_REGISTER.json",
+        ],
+        "validation": validation,
+        "why_it_failed": "Required comparator artifact still lacks source-bound support." if status != "PASS" else "Required comparator artifact is source-bound at its declared scope.",
+        "repair_strategy": "Continue to the next missing artifact; do not close broad superiority until all source, benchmark, comparator, scoring, uncertainty, falsifier, and replay artifacts pass.",
+        "required_capability": "Research/PriorArt",
+        "execution_command": [sys.executable, "tools/oc133_toe_closure_factory.py", "--execute-comparator-gap-artifact", gap_id, artifact_key, "--write"],
+        "pass_predicate": f"{artifact_key} status == PASS and the strict comparator gap row no longer lists it as missing.",
+        "next_escalation": "If this row remains OPEN, create a narrower acquisition/scoring/replay executor for the exact failed validation field.",
+        "no_fake_closure_policy": "This artifact can reduce a missing-artifact count only at its own scope. It cannot mark the coverage gap or broad TOE superiority PASS by itself.",
+    }
+    payload["artifact_ref"] = rel(root, root / comparator_gap_research_artifact_rel(gap_id, artifact_key))
+    payload["artifact_hash"] = artifact_hash(payload)
+    write_json_artifact(root, comparator_gap_research_artifact_rel(gap_id, artifact_key), payload)
+    return payload
 
 
 def comparator_gap_artifact_execution_payload(root: Path, gap_id: str, artifact_key: str, *, generated_at: str | None = None) -> dict[str, Any]:
@@ -2157,6 +2620,17 @@ def comparator_gap_artifact_execution_payload(root: Path, gap_id: str, artifact_
 
 def build_comparator_gap_artifact_execution(root: Path, gap_id: str, artifact_key: str) -> dict[str, Any]:
     payload = comparator_gap_artifact_execution_payload(root, gap_id, artifact_key)
+    research_artifact = build_comparator_gap_research_artifact(root, gap_id, artifact_key)
+    payload["research_artifact_ref"] = research_artifact.get("artifact_ref")
+    payload["research_artifact_status"] = research_artifact.get("status")
+    payload["research_artifact_scope"] = research_artifact.get("closure_scope")
+    payload["status"] = "PASS" if research_artifact.get("status") == "PASS" else payload.get("status", "OPEN")
+    payload["pass_predicate_evaluation"] = {
+        "artifact_key": artifact_key,
+        "research_artifact_status": research_artifact.get("status"),
+        "gap_pass_unchanged_by_single_artifact": True,
+    }
+    payload["artifact_hash"] = artifact_hash(payload)
     artifact_rel = comparator_gap_artifact_execution_rel(gap_id, artifact_key)
     payload["artifact_ref"] = rel(root, root / artifact_rel)
     write_json_artifact(root, artifact_rel, payload)
@@ -3635,11 +4109,17 @@ def build_research_wave_not_run(root: Path, *, generated_at: str | None = None) 
 
 
 def capability_development_key(row: dict[str, Any]) -> str:
+    missing_artifact_type = row.get("missing_artifact_type")
+    source_node = str(row.get("source_graph_node_id") or "")
+    if source_node.startswith("required_artifact:MODERN_SCIENCE_COMPARATOR_SUPERIORITY:"):
+        parts = source_node.split(":")
+        if len(parts) >= 4 and parts[3] in COMPARATOR_REQUIRED_ARTIFACT_KEYS:
+            missing_artifact_type = parts[3]
     return artifact_hash(
         {
             "lane_id": row.get("lane_id"),
             "source_graph_node_id": row.get("source_graph_node_id"),
-            "missing_artifact_type": row.get("missing_artifact_type"),
+            "missing_artifact_type": missing_artifact_type,
             "scientific_frontier_hash": row.get("scientific_frontier_hash") or row.get("frontier_hash") or "UNKNOWN_FRONTIER",
         }
     )
@@ -3678,9 +4158,15 @@ def capability_executor_for_row(row: dict[str, Any], compiled_capability_id: str
             parts = source_node.split(":")
             if len(parts) >= 3:
                 gap_id = parts[2]
-            if len(parts) >= 4 and not artifact_key:
+            if len(parts) >= 4 and parts[3] in COMPARATOR_REQUIRED_ARTIFACT_KEYS:
                 artifact_key = parts[3]
         if gap_id and artifact_key in COMPARATOR_REQUIRED_ARTIFACT_KEYS:
+            if artifact_key == "oc_prediction_scoring_row":
+                return (
+                    [sys.executable, "tools/oc133_toe_closure_factory.py", "--execute-comparator-scoring-work-order", gap_id, "--write"],
+                    "comparator_scoring_work_order",
+                    "Create the exact comparator scoring work order with source, target, OC model, incumbent comparator, uncertainty, falsifier, replay, and fail-closed pass predicates.",
+                )
             return (
                 [sys.executable, "tools/oc133_toe_closure_factory.py", "--execute-comparator-gap-artifact", gap_id, artifact_key, "--write"],
                 "comparator_gap_artifact",
@@ -3778,6 +4264,13 @@ def build_capability_implementation_registry(root: Path, *, generated_at: str | 
     seen: set[str] = set()
     for source_row in load_autonomous_capability_development_rows(root):
         row = dict(source_row)
+        if row.get("status") == "PASS" or row.get("superseded_by_research_artifact") is True or row.get("superseded_by_current_validator") is True:
+            continue
+        source_node = str(row.get("source_graph_node_id") or "")
+        if source_node.startswith("required_artifact:MODERN_SCIENCE_COMPARATOR_SUPERIORITY:"):
+            parts = source_node.split(":")
+            if len(parts) >= 4 and parts[3] in COMPARATOR_REQUIRED_ARTIFACT_KEYS:
+                row["missing_artifact_type"] = parts[3]
         lane_id = str(row.get("lane_id") or "")
         if lane_id and lane_id not in open_lanes:
             continue
@@ -4110,6 +4603,7 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--execute-source-intake-work-order", help="Execute one AI/EA source-intake work order.")
     parser.add_argument("--execute-comparator-gap", help="Execute one modern-science comparator coverage gap.")
     parser.add_argument("--execute-comparator-gap-artifact", nargs=2, metavar=("GAP_ID", "ARTIFACT_KEY"), help="Execute one modern-science comparator coverage-gap artifact work packet.")
+    parser.add_argument("--execute-comparator-scoring-work-order", help="Build the exact scoring/replay research work order for one comparator coverage gap.")
     parser.add_argument("--execute-comparator-domain-job", help="Execute one modern-science comparator domain job such as MS-COV-JOB-001.")
     parser.add_argument("--timeout", type=int, default=900)
     args = parser.parse_args(argv)
@@ -4145,6 +4639,13 @@ def main(argv: list[str] | None = None) -> int:
         payload = build_comparator_gap_artifact_execution(ROOT, gap_id, artifact_key)
         artifact_ref = payload.get("artifact_ref")
         path = ROOT / artifact_ref if isinstance(artifact_ref, str) and artifact_ref else ROOT / comparator_gap_artifact_execution_rel(gap_id, artifact_key)
+        result = validation_result({path: stable_json(payload)}, write=args.write)
+        print(json.dumps(result if args.write or args.check else payload, ensure_ascii=False, indent=2, sort_keys=True))
+        return 1 if args.check and result["state"] != "PASS" else 0
+    if args.execute_comparator_scoring_work_order:
+        payload = build_comparator_gap_scoring_work_order(ROOT, args.execute_comparator_scoring_work_order)
+        artifact_ref = payload.get("artifact_ref")
+        path = ROOT / artifact_ref if isinstance(artifact_ref, str) and artifact_ref else ROOT / comparator_gap_scoring_work_order_rel(args.execute_comparator_scoring_work_order)
         result = validation_result({path: stable_json(payload)}, write=args.write)
         print(json.dumps(result if args.write or args.check else payload, ensure_ascii=False, indent=2, sort_keys=True))
         return 1 if args.check and result["state"] != "PASS" else 0

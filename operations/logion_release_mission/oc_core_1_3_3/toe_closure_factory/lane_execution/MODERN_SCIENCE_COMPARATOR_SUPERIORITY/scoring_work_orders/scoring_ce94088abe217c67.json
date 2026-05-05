@@ -1,0 +1,92 @@
+{
+  "artifact_hash": "00cd493134cc971f49f86dc43f2f95436b3495315bc2b9272e6240cd7b3f5d89",
+  "artifact_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/scoring_work_orders/scoring_ce94088abe217c67.json",
+  "current_evidence": {
+    "evidence_pack_hash": "",
+    "evidence_pack_summary": {
+      "coverage_closure_allowed": null,
+      "pack_status": null,
+      "residuals": {},
+      "schema_id": null
+    },
+    "evidence_ref": null,
+    "evidence_ref_exists": false,
+    "executable_evidence_exists": false,
+    "fail_closed_status_present": false,
+    "material_margin_met": false,
+    "pack_status_text": "{\"COVERAGE_CLOSURE_ALLOWED\": NULL, \"COVERAGE_CLOSURE_STATUS\": NULL, \"EVIDENCE_STATUS\": NULL, \"PACK_STATUS\": NULL}"
+  },
+  "domain_class_id": "formal_mathematics_and_logic",
+  "executable_spec_found": false,
+  "execution_command": [
+    "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+    "tools/oc133_toe_closure_factory.py",
+    "--execute-comparator-scoring-work-order",
+    "MS-COV-GAP-FORMAL_MATHEMATICS_AND_LOGIC-STATISTICAL_INFERENCE_IDENTIFIABILITY",
+    "--write"
+  ],
+  "gap_id": "MS-COV-GAP-FORMAL_MATHEMATICS_AND_LOGIC-STATISTICAL_INFERENCE_IDENTIFIABILITY",
+  "generated_at": "2026-05-05T23:04:12Z",
+  "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+  "next_escalation": "If this work order remains OPEN, implement the listed artifact executor with the exact source/target/model/comparator/falsifier fields; do not promote broad superiority.",
+  "no_fake_closure_policy": "A scoring work order is not scoring evidence. It narrows the research task and cannot close modern_science_comparator_superiority until its evidence pack passes.",
+  "pass_predicate": "oc_prediction_scoring_row PASS requires executable evidence, existing evidence ref, material OC margin over comparator, no fail-closed status, then replay_record PASS.",
+  "phenomenon_class_id": "statistical_inference_identifiability",
+  "proof_lane_requirements": [
+    "formal route review showing why no empirical protocol is being asserted",
+    "proof-corpus hash binding and replay command declared",
+    "scope text blocks empirical, theorem-prover, and broad modern-science superiority claims",
+    "coverage register remains open until a reviewed formal-equivalent closure predicate exists"
+  ],
+  "queue_row_found": true,
+  "repair_strategy": "Materialize a target-hidden scoring pack from the declared source, target, OC model, incumbent comparator, uncertainty rule, falsifier, and replay command; broad superiority remains blocked until the scoring row beats the comparator and replay passes.",
+  "required_capability": "Research/ScoringExecutor",
+  "required_next_artifacts": [
+    {
+      "artifact_id": "source_snapshot_acquisition",
+      "pass_predicate": "Open/free source snapshot exists locally, is hash-bound, and satisfies source separation policy.",
+      "required_source": {}
+    },
+    {
+      "artifact_id": "target_hidden_task_table",
+      "pass_predicate": "Target table is locked before scoring and hidden fields do not leak into model selection.",
+      "required_target": {}
+    },
+    {
+      "artifact_id": "oc_formula_or_model",
+      "pass_predicate": "OC prediction/scoring rule is preregistered before target unsealing.",
+      "required_model": {}
+    },
+    {
+      "artifact_id": "incumbent_comparator_scoring",
+      "pass_predicate": "Incumbent comparator is scored on the same held-out targets.",
+      "required_comparator": {}
+    },
+    {
+      "artifact_id": "residuals_materiality_uncertainty",
+      "pass_predicate": "OC residual advantage exceeds preregistered materiality threshold under uncertainty.",
+      "required_uncertainty": {}
+    },
+    {
+      "artifact_id": "controls_and_falsifiers",
+      "pass_predicate": "Negative controls and falsifiers are declared and replayed without post-hoc adjustment.",
+      "required_falsifier": {}
+    },
+    {
+      "artifact_id": "independent_replay",
+      "pass_predicate": "Clean replay regenerates the evidence pack hash and result verdict.",
+      "required_execution": {}
+    }
+  ],
+  "root_cause_class": "EXECUTABLE_SPEC_MISSING_FOR_SCORING",
+  "schema_id": "OC133_MODERN_SCIENCE_COMPARATOR_SCORING_WORK_ORDER_v1",
+  "source_refs": [
+    "reports/OC_CORE_1_3_3_MODERN_SCIENCE_COVERAGE_LANE_QUEUE.json",
+    "benchmarks/modern_science/OC133_MODERN_SCIENCE_COVERAGE_WORK_ORDERS.json",
+    "comparators/modern_science/OC133_MODERN_SCIENCE_COVERAGE_REGISTER.json"
+  ],
+  "status": "OPEN",
+  "validator_binding": "comparator_gap::MS-COV-GAP-FORMAL_MATHEMATICS_AND_LOGIC-STATISTICAL_INFERENCE_IDENTIFIABILITY::oc_prediction_scoring_row",
+  "why_it_failed": "No executable comparator specification is bound to this gap, so the system cannot build a target-hidden OC scoring row.",
+  "work_order_id": "MS-COV-WO-002"
+}

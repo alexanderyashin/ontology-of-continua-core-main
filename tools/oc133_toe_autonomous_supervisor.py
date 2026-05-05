@@ -55,9 +55,12 @@ ALLOWED_DIRTY_PREFIXES = (
     "operations/logion_release_mission/oc_core_1_3_3/OC133_GRAND_SCIENCE_LOOP_latest.md",
     "operations/logion_release_mission/oc_core_1_3_3/OC133_GRAND_SCIENCE_LOOP_STATE.json",
     "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/",
+    "benchmarks/modern_science/",
+    "comparators/modern_science/",
     "content/generated/",
     "releases/oc_core_1_3/editorial/",
     "releases/oc_core_1_3/monograph/source/content/generated/",
+    "validation/heldout/grand_science/",
     "tools/oc133_toe_autonomous_supervisor.py",
     "tools/oc133_toe_closure_factory.py",
     "release_machine/tests/test_release_assembly_machine.py",
@@ -403,7 +406,11 @@ def build_blocking_graph(
         )
         edges.append(graph_edge(capability_id, lane_node_id, "produces"))
         if action.get("required_artifact"):
-            artifact_id = f"required_artifact:{lane_id}:{action.get('required_artifact')}"
+            artifact_id = (
+                f"required_artifact:{lane_id}:{action.get('gap_id')}:{action.get('required_artifact')}"
+                if action.get("gap_id")
+                else f"required_artifact:{lane_id}:{action.get('required_artifact')}"
+            )
             nodes.setdefault(
                 artifact_id,
                 graph_node(
@@ -411,6 +418,7 @@ def build_blocking_graph(
                     "required_artifact",
                     "OPEN",
                     lane_id=lane_id,
+                    gap_id=action.get("gap_id"),
                     artifact_key=action.get("required_artifact"),
                     why_it_failed=f"{lane_id} lacks required artifact `{action.get('required_artifact')}`.",
                     repair_strategy="Create or bind this artifact from canonical source/evidence surfaces.",
@@ -641,27 +649,42 @@ def projection_actions(root: Path, lane_id: str) -> list[dict[str, Any]]:
 
 def comparator_actions(root: Path) -> list[dict[str, Any]]:
     actions = []
-    gap_dir = root / factory.lane_execution_base("MODERN_SCIENCE_COMPARATOR_SUPERIORITY") / "gap_jobs"
-    for path in sorted(gap_dir.glob("*.json")):
-        payload = read_json(path)
+    for payload in sorted(factory.comparator_execution_gap_rows(root), key=lambda row: str(row.get("gap_id"))):
         if payload.get("status") == "PASS":
             continue
-        gap_id = str(payload.get("gap_id") or path.stem)
-        action = action_defaults(
-            f"AUTO-R017-COMPARATOR-GAP-{artifact_hash({'gap_id': gap_id})[:12]}",
-            "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
-            "comparator_gap",
-            [sys.executable, "tools/oc133_toe_closure_factory.py", "--execute-comparator-gap", gap_id, "--write"],
-        )
-        action.update(
-            {
-                "gap_id": gap_id,
-                "missing_artifacts": payload.get("missing_artifacts", []),
-                "missing_artifact_total": payload.get("missing_artifact_total", 0),
-                "source_ref": path.relative_to(root).as_posix(),
-            }
-        )
-        actions.append(action)
+        gap_id = str(payload.get("gap_id") or "")
+        if not gap_id:
+            continue
+        missing_artifacts = list(payload.get("missing_artifacts") or [])
+        for artifact_key in sorted(missing_artifacts, key=lambda key: ARTIFACT_PRIORITY.get(str(key), 80)):
+            if artifact_key == "oc_prediction_scoring_row":
+                command = [sys.executable, "tools/oc133_toe_closure_factory.py", "--execute-comparator-scoring-work-order", gap_id, "--write"]
+                executor_type = "comparator_scoring_work_order"
+                repair_strategy = "Build the exact scoring work order before attempting broad superiority; this narrows the source/target/model/comparator/falsifier/replay gap without faking evidence."
+            else:
+                command = [sys.executable, "tools/oc133_toe_closure_factory.py", "--execute-comparator-gap-artifact", gap_id, str(artifact_key), "--write"]
+                executor_type = "comparator_gap_artifact"
+                repair_strategy = "Create the exact comparator gap artifact work packet before rerunning broad-coverage closure."
+            action = action_defaults(
+                f"AUTO-R017-COMPARATOR-GAP-{artifact_hash({'gap_id': gap_id, 'artifact_key': artifact_key})[:12]}",
+                "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+                executor_type,
+                command,
+            )
+            action.update(
+                {
+                    "gap_id": gap_id,
+                    "required_artifact": artifact_key,
+                    "missing_artifact_type": artifact_key,
+                    "missing_artifact_total": len(missing_artifacts),
+                    "source_ref": "live::factory.comparator_execution_gap_rows",
+                    "why_it_failed": f"Comparator gap `{gap_id}` lacks `{artifact_key}`.",
+                    "repair_strategy": repair_strategy,
+                    "pass_predicate": f"Comparator gap `{gap_id}` has `{artifact_key}` and strict coverage register no longer lists it as missing.",
+                    "next_escalation": "If this exact artifact action produces zero validator delta, compile a narrower capability-development work order for its failed validation field.",
+                }
+            )
+            actions.append(action)
     return actions
 
 
@@ -724,9 +747,9 @@ LANE_PRIORITY = {
 }
 
 NODE_TYPE_PRIORITY = {
+    "capability_development": 5,
     "required_artifact": 10,
     "executor_capability": 20,
-    "capability_development": 30,
     "closure_lane": 40,
     "validator_error": 50,
 }
@@ -739,6 +762,13 @@ ARTIFACT_PRIORITY = {
     "evidence_or_simulation_refs": 50,
     "comparator_refs": 60,
     "falsifier_refs": 70,
+    "verified_open_source_capsule": 10,
+    "benchmark_case": 20,
+    "incumbent_comparator": 30,
+    "oc_prediction_scoring_row": 40,
+    "uncertainty_row": 50,
+    "falsifier_row": 60,
+    "replay_record": 70,
 }
 
 
@@ -750,7 +780,7 @@ def graph_priority_tuple(node: dict[str, Any], science_error_total: int) -> tupl
     node_priority = NODE_TYPE_PRIORITY.get(str(node.get("node_type")), 90)
     artifact_key = str(node.get("artifact_key") or node.get("missing_artifact_type") or "")
     artifact_priority = ARTIFACT_PRIORITY.get(artifact_key, 80)
-    return (lane_priority, node_priority, artifact_priority, str(node.get("node_id")))
+    return (lane_priority, artifact_priority, node_priority, str(node.get("node_id")))
 
 
 def action_by_id(actions: list[dict[str, Any]]) -> dict[str, dict[str, Any]]:
@@ -817,6 +847,9 @@ def graph_action_for_node(
                 "graph_node_id": node_id,
                 "graph_node_type": node_type,
                 "graph_dependency_path": [node_id, capability_node_id] if node_id != capability_node_id else [node_id],
+                "required_artifact": node.get("artifact_key") or payload.get("required_artifact"),
+                "gap_id": node.get("gap_id") or payload.get("gap_id"),
+                "missing_artifact_type": node.get("artifact_key") or payload.get("missing_artifact_type"),
                 "validator_binding": node.get("validator_binding") or payload.get("validator_binding"),
             }
         )
@@ -1034,8 +1067,8 @@ def escalation_rows(queue: dict[str, Any], action_results: list[dict[str, Any]],
             continue
         missing_artifact_type = (
             action.get("required_artifact")
-            or (action.get("missing_artifacts") or [None])[0]
             or action.get("missing_artifact_type")
+            or (action.get("missing_artifacts") or [None])[0]
             or action.get("executor_type")
         )
         row = {
@@ -1168,6 +1201,10 @@ def run_supervisor(root: Path, args: argparse.Namespace) -> dict[str, dict[str, 
         frontier_repeated = frontier_before == frontier_after
         escalations = escalation_rows(queue, action_results, frontier_repeated or before_total - after_total <= 0)
         all_escalations.extend(escalations)
+        if args.write and all_escalations:
+            live_capability_development = build_capability_development_ledger(all_escalations, generated_at)
+            write_json(root, SUPERVISOR_DIR / CAPABILITY_DEVELOPMENT_LEDGER_NAME, live_capability_development)
+            factory.compile_capability_backlog(root, write=True)
         all_action_results.extend(action_results)
         wave_id = f"R017-AUTO-WAVE-{iteration + 5:03d}"
         wave_rows.append(
@@ -1427,6 +1464,20 @@ def build_capability_development_ledger(rows: list[dict[str, Any]], generated_at
         root_source = root_source_graph_node(payload)
         if root_source:
             payload["source_graph_node_id"] = root_source
+        if isinstance(root_source, str) and root_source.startswith("required_artifact:MODERN_SCIENCE_COMPARATOR_SUPERIORITY:"):
+            parts = root_source.split(":")
+            if len(parts) >= 4:
+                gap_id = parts[2]
+                artifact_key = parts[3]
+                payload["gap_id"] = gap_id
+                payload["missing_artifact_type"] = artifact_key
+                if factory.comparator_gap_research_artifact_passes(ROOT, gap_id, artifact_key):
+                    payload["status"] = "PASS"
+                    payload["superseded_by_research_artifact"] = True
+                    payload["capability_executor_ready"] = False
+                    payload["execution_command"] = []
+                    payload["implementation_command"] = []
+                    payload["next_escalation"] = "Comparator research artifact now exists and passes at this scope; advance to the next missing artifact."
         lane_id = str(payload.get("lane_id") or "")
         if lane_id and lane_id not in open_lanes:
             payload["status"] = "PASS"

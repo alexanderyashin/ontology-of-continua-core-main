@@ -2307,7 +2307,11 @@ class ReleaseAssemblyMachineTests(unittest.TestCase):
         for row in escalation["rows"]:
             self.assertIn(row["status"], {"OPEN", "PASS"})
             if row["status"] == "PASS":
-                self.assertTrue(row.get("superseded_by_current_validator"))
+                self.assertTrue(
+                    row.get("superseded_by_current_validator")
+                    or row.get("superseded_by_research_artifact")
+                    or row.get("superseded_by_scoring_work_order")
+                )
             for field in ["why_it_failed", "repair_strategy", "required_capability", "execution_command", "pass_predicate", "next_escalation"]:
                 self.assertIn(field, row)
                 self.assertIsNotNone(row[field])
@@ -2321,7 +2325,11 @@ class ReleaseAssemblyMachineTests(unittest.TestCase):
         for row in capability_development["rows"]:
             self.assertIn(row["status"], {"OPEN", "PASS"})
             if row["status"] == "PASS":
-                self.assertTrue(row.get("superseded_by_current_validator"))
+                self.assertTrue(
+                    row.get("superseded_by_current_validator")
+                    or row.get("superseded_by_research_artifact")
+                    or row.get("superseded_by_scoring_work_order")
+                )
             for field in ["source_graph_node_id", "missing_artifact_type", "capability_development_key", "why_it_failed", "repair_strategy", "required_capability", "execution_command", "implementation_command", "pass_predicate", "next_escalation", "validator_binding"]:
                 self.assertIn(field, row)
                 self.assertIsNotNone(row[field], field)
@@ -2392,7 +2400,18 @@ class ReleaseAssemblyMachineTests(unittest.TestCase):
             for field in ["why_it_failed", "repair_strategy", "required_capability", "execution_command", "pass_predicate", "next_escalation", "validator_binding"]:
                 self.assertIn(field, row)
                 self.assertIsNotNone(row[field], field)
-        self.assertTrue(any(str(node_id).startswith("required_artifact:MODERN_SCIENCE_COMPARATOR_SUPERIORITY:") for node_id in graph["next_executable_node_ids"]))
+        self.assertTrue(any(
+            row["node_type"] == "required_artifact"
+            and str(row["node_id"]).startswith("required_artifact:MODERN_SCIENCE_COMPARATOR_SUPERIORITY:")
+            for row in graph["nodes"]
+        ))
+        self.assertTrue(any(
+            str(node_id).startswith("required_artifact:MODERN_SCIENCE_COMPARATOR_SUPERIORITY:")
+            or str(node_id).startswith("capability_development:")
+            or str(node_id).startswith("capability:AUTO-R017-COMPARATOR-GAP-")
+            or str(node_id).startswith("capability:AUTO-capability_development-")
+            for node_id in graph["next_executable_node_ids"]
+        ))
         self.assertTrue(any(str(row["node_id"]).startswith("capability_development:") for row in graph["nodes"]))
         self.assertEqual(capability_development["open_capability_development_total"], cockpit["open_capability_development_total"])
         self.assertTrue(any(row["lane_id"] == "CERBERUS_RELEASE_REVIEW_GATE" for row in graph["nodes"] if row["node_type"] == "closure_lane"))

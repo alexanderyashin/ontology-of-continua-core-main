@@ -1,0 +1,137 @@
+{
+  "artifact_hash": "8219ce4ef0a20e5e82628587e646c03b388ba122d282c3bdca3ee1617b438ce3",
+  "artifact_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/scoring_work_orders/scoring_59532ab68d232897.json",
+  "current_evidence": {
+    "evidence_pack_hash": "9e0c4795f79c9392c34e4530aa04bd864d5620147ba762bedabd215a8a61f04f",
+    "evidence_pack_summary": {
+      "coverage_closure_allowed": false,
+      "pack_status": "SCORER_READY_FAIL_CLOSED_STRICT_EVIDENCE_NOT_MET",
+      "residuals": {},
+      "schema_id": "OC133_EARTH_SPACE_USGS_HYDROLOGY_TARGET_HIDDEN_REPLAY_SCORER_v1"
+    },
+    "evidence_ref": "validation/heldout/grand_science/earth_space/coverage_work_orders/OC133_EARTH_SPACE_USGS_HYDROLOGY_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
+    "evidence_ref_exists": true,
+    "executable_evidence_exists": true,
+    "fail_closed_status_present": true,
+    "material_margin_met": false,
+    "pack_status_text": "{\"COVERAGE_CLOSURE_ALLOWED\": FALSE, \"COVERAGE_CLOSURE_STATUS\": \"OPEN_FAIL_CLOSED_SCORER_READY_FAIL_CLOSED_STRICT_EVIDENCE_NOT_MET\", \"EVIDENCE_STATUS\": NULL, \"PACK_STATUS\": \"SCORER_READY_FAIL_CLOSED_STRICT_EVIDENCE_NOT_MET\"}"
+  },
+  "domain_class_id": "earth_space_environmental_sciences",
+  "executable_spec_found": true,
+  "execution_command": [
+    "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+    "tools/oc133_toe_closure_factory.py",
+    "--execute-comparator-scoring-work-order",
+    "MS-COV-GAP-EARTH_SPACE_ENVIRONMENTAL_SCIENCES-GEOCHEMISTRY_AND_HYDROLOGY_OBSERVABLES",
+    "--write"
+  ],
+  "gap_id": "MS-COV-GAP-EARTH_SPACE_ENVIRONMENTAL_SCIENCES-GEOCHEMISTRY_AND_HYDROLOGY_OBSERVABLES",
+  "generated_at": "2026-05-05T23:03:07Z",
+  "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+  "next_escalation": "If this work order remains OPEN, implement the listed artifact executor with the exact source/target/model/comparator/falsifier fields; do not promote broad superiority.",
+  "no_fake_closure_policy": "A scoring work order is not scoring evidence. It narrows the research task and cannot close modern_science_comparator_superiority until its evidence pack passes.",
+  "pass_predicate": "oc_prediction_scoring_row PASS requires executable evidence, existing evidence ref, material OC margin over comparator, no fail-closed status, then replay_record PASS.",
+  "phenomenon_class_id": "geochemistry_and_hydrology_observables",
+  "proof_lane_requirements": [
+    "domain-scope survey explaining why the lane is representative of the phenomenon class",
+    "negative controls rejected",
+    "falsifiers declared and executable",
+    "independent clean-checkout replay bound to coverage register and report",
+    "executable lane spec declares exact official source, target variable, formula/model, comparator, uncertainty, residual metric, negative control, and falsifier",
+    "source snapshot and target projection are locked before scoring",
+    "strict evidence pack exists and validates under independent replay",
+    "coverage remains open until every closure predicate is reviewed"
+  ],
+  "queue_row_found": true,
+  "repair_strategy": "Materialize a target-hidden scoring pack from the declared source, target, OC model, incumbent comparator, uncertainty rule, falsifier, and replay command; broad superiority remains blocked until the scoring row beats the comparator and replay passes.",
+  "required_capability": "Research/ScoringExecutor",
+  "required_next_artifacts": [
+    {
+      "artifact_id": "source_snapshot_acquisition",
+      "pass_predicate": "Open/free source snapshot exists locally, is hash-bound, and satisfies source separation policy.",
+      "required_source": {
+        "lane_role": "official_data_source",
+        "required_local_snapshot_ref": "validation/heldout/grand_science/earth_space/coverage_work_orders/raw/usgs_potomac_daily_discharge_2024_01_01_2024_02_09.json",
+        "required_lock_ref": null,
+        "requirement": "Acquire and hash USGS Water Services Daily Values API mean discharge from https://waterservices.usgs.gov/nwis/dv/?format=json&sites=01646500&startDT=2024-01-01&endDT=2024-02-09&parameterCd=00060&statCd=00003&siteStatus=all.",
+        "source_id": "earth_usgs_nwis_daily_values_discharge_v1"
+      }
+    },
+    {
+      "artifact_id": "target_hidden_task_table",
+      "pass_predicate": "Target table is locked before scoring and hidden fields do not leak into model selection.",
+      "required_target": {
+        "lane_role": "target_variable",
+        "requirement": "USGS_DV[site=01646500, parameterCd=00060, statCd=00003, date].value",
+        "target_fields": [
+          "value.timeSeries[0].values[0].value[].value"
+        ],
+        "target_name": "daily_mean_streamflow_discharge",
+        "unit": "cubic feet per second"
+      }
+    },
+    {
+      "artifact_id": "oc_formula_or_model",
+      "pass_predicate": "OC prediction/scoring rule is preregistered before target unsealing.",
+      "required_model": {
+        "lane_role": "formula_or_model",
+        "required_inputs": [
+          "prior daily discharge",
+          "training-only median log-flow delta",
+          "date order"
+        ],
+        "requirement": "log1p(Q_hat_t) = log1p(Q_t_minus_1) + median(diff(log1p(Q_visible_training)))"
+      }
+    },
+    {
+      "artifact_id": "incumbent_comparator_scoring",
+      "pass_predicate": "Incumbent comparator is scored on the same held-out targets.",
+      "required_comparator": {
+        "baseline_name": "USGS-LAST-OBSERVATION-CARRY-FORWARD",
+        "lane_role": "incumbent_comparator",
+        "pre_registered": true,
+        "requirement": "Predict every hidden discharge row as the last visible discharge value, with no target rows used for tuning."
+      }
+    },
+    {
+      "artifact_id": "residuals_materiality_uncertainty",
+      "pass_predicate": "OC residual advantage exceeds preregistered materiality threshold under uncertainty.",
+      "required_uncertainty": {
+        "lane_role": "uncertainty_policy",
+        "metric": "absolute residual in cfs per heldout date plus aggregate MAE over hidden dates",
+        "requirement": "training-only median absolute deviation of one-step log-flow residuals"
+      }
+    },
+    {
+      "artifact_id": "controls_and_falsifiers",
+      "pass_predicate": "Negative controls and falsifiers are declared and replayed without post-hoc adjustment.",
+      "required_falsifier": {
+        "falsifier_id": "USGS-HYDROLOGY-FAIL-CLOSED-FALSIFIER",
+        "lane_role": "falsifier",
+        "requirement": "source snapshot hash or metadata hash does not match stored bytes; hidden discharge target rows are read before prediction materialization; carry-forward comparator ties or beats the model within uncertainty; fewer than 20 hidden daily values are scored"
+      }
+    },
+    {
+      "artifact_id": "independent_replay",
+      "pass_predicate": "Clean replay regenerates the evidence pack hash and result verdict.",
+      "required_execution": {
+        "evidence_pack_schema_id": "OC133_GRAND_EMPIRICAL_EVIDENCE_v1",
+        "minimum_n": 20,
+        "replay_command": "python validation/heldout/grand_science/earth_space/coverage_work_orders/oc133_earth_space_modern_science_coverage_work_orders.py --score-usgs-hydrology --write && python validation/heldout/grand_science/earth_space/coverage_work_orders/oc133_earth_space_modern_science_coverage_work_orders.py --check",
+        "source_separation_mode": "target_blind",
+        "target_hidden_until_scoring": true
+      }
+    }
+  ],
+  "root_cause_class": "SCORING_PACK_FAIL_CLOSED",
+  "schema_id": "OC133_MODERN_SCIENCE_COMPARATOR_SCORING_WORK_ORDER_v1",
+  "source_refs": [
+    "reports/OC_CORE_1_3_3_MODERN_SCIENCE_COVERAGE_LANE_QUEUE.json",
+    "benchmarks/modern_science/OC133_MODERN_SCIENCE_COVERAGE_WORK_ORDERS.json",
+    "comparators/modern_science/OC133_MODERN_SCIENCE_COVERAGE_REGISTER.json"
+  ],
+  "status": "OPEN",
+  "validator_binding": "comparator_gap::MS-COV-GAP-EARTH_SPACE_ENVIRONMENTAL_SCIENCES-GEOCHEMISTRY_AND_HYDROLOGY_OBSERVABLES::oc_prediction_scoring_row",
+  "why_it_failed": "The current evidence pack carries a fail-closed status token, so broad comparator credit is prohibited.",
+  "work_order_id": "MS-COV-WO-011"
+}

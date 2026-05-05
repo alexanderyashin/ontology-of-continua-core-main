@@ -1,0 +1,55 @@
+{
+  "artifact_hash": "3cbd7f19265c11b4aab37f932fa0481937a2b675535bf065b58158b1749c5a1b",
+  "artifact_key": "replay_record",
+  "artifact_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/59532ab68d232897/replay_record.json",
+  "closure_scope": "replay not run or scoring evidence still blocked",
+  "domain_class_id": "earth_space_environmental_sciences",
+  "executable_spec_found": true,
+  "execution_command": [
+    "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+    "tools/oc133_toe_closure_factory.py",
+    "--execute-comparator-gap-artifact",
+    "MS-COV-GAP-EARTH_SPACE_ENVIRONMENTAL_SCIENCES-GEOCHEMISTRY_AND_HYDROLOGY_OBSERVABLES",
+    "replay_record",
+    "--write"
+  ],
+  "gap_id": "MS-COV-GAP-EARTH_SPACE_ENVIRONMENTAL_SCIENCES-GEOCHEMISTRY_AND_HYDROLOGY_OBSERVABLES",
+  "generated_at": "2026-05-05T22:48:08Z",
+  "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+  "next_escalation": "If this row remains OPEN, create a narrower acquisition/scoring/replay executor for the exact failed validation field.",
+  "no_fake_closure_policy": "This artifact can reduce a missing-artifact count only at its own scope. It cannot mark the coverage gap or broad TOE superiority PASS by itself.",
+  "pass_predicate": "replay_record status == PASS and the strict comparator gap row no longer lists it as missing.",
+  "phenomenon_class_id": "geochemistry_and_hydrology_observables",
+  "queue_row_found": true,
+  "repair_strategy": "Continue to the next missing artifact; do not close broad superiority until all source, benchmark, comparator, scoring, uncertainty, falsifier, and replay artifacts pass.",
+  "required_capability": "Research/PriorArt",
+  "schema_id": "OC133_MODERN_SCIENCE_COMPARATOR_RESEARCH_ARTIFACT_v1",
+  "source_refs": [
+    "reports/OC_CORE_1_3_3_MODERN_SCIENCE_COVERAGE_LANE_QUEUE.json",
+    "benchmarks/modern_science/OC133_MODERN_SCIENCE_COVERAGE_WORK_ORDERS.json",
+    "comparators/modern_science/OC133_MODERN_SCIENCE_COVERAGE_REGISTER.json"
+  ],
+  "status": "OPEN",
+  "validation": {
+    "replay_command_total": 1,
+    "replay_executed_total": 0,
+    "replay_results": [],
+    "scoring_evidence": {
+      "evidence_pack_hash": "9e0c4795f79c9392c34e4530aa04bd864d5620147ba762bedabd215a8a61f04f",
+      "evidence_pack_summary": {
+        "coverage_closure_allowed": false,
+        "pack_status": "SCORER_READY_FAIL_CLOSED_STRICT_EVIDENCE_NOT_MET",
+        "residuals": {},
+        "schema_id": "OC133_EARTH_SPACE_USGS_HYDROLOGY_TARGET_HIDDEN_REPLAY_SCORER_v1"
+      },
+      "evidence_ref": "validation/heldout/grand_science/earth_space/coverage_work_orders/OC133_EARTH_SPACE_USGS_HYDROLOGY_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
+      "evidence_ref_exists": true,
+      "executable_evidence_exists": true,
+      "fail_closed_status_present": true,
+      "material_margin_met": false,
+      "pack_status_text": "{\"COVERAGE_CLOSURE_ALLOWED\": FALSE, \"COVERAGE_CLOSURE_STATUS\": \"OPEN_FAIL_CLOSED_SCORER_READY_FAIL_CLOSED_STRICT_EVIDENCE_NOT_MET\", \"EVIDENCE_STATUS\": NULL, \"PACK_STATUS\": \"SCORER_READY_FAIL_CLOSED_STRICT_EVIDENCE_NOT_MET\"}"
+    }
+  },
+  "why_it_failed": "Required comparator artifact still lacks source-bound support.",
+  "work_order_id": "MS-COV-WO-011"
+}

@@ -1,0 +1,45 @@
+{
+  "artifact_hash": "0706fce646004d3f96db640a40b50c7c28b2f3075ab5b6269854dc1dc389977d",
+  "artifact_key": "verified_open_source_capsule",
+  "artifact_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/e892ff669caa35e6/verified_open_source_capsule.json",
+  "closure_scope": "source_identity_and_open_url_bound; target/scoring/replay remain separate",
+  "domain_class_id": "formal_mathematics_and_logic",
+  "executable_spec_found": false,
+  "execution_command": [
+    "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+    "tools/oc133_toe_closure_factory.py",
+    "--execute-comparator-gap-artifact",
+    "MS-COV-GAP-FORMAL_MATHEMATICS_AND_LOGIC-COMPUTATIONAL_COMPLEXITY_AND_ALGORITHMIC_PROOF",
+    "verified_open_source_capsule",
+    "--write"
+  ],
+  "gap_id": "MS-COV-GAP-FORMAL_MATHEMATICS_AND_LOGIC-COMPUTATIONAL_COMPLEXITY_AND_ALGORITHMIC_PROOF",
+  "generated_at": "2026-05-05T22:45:11Z",
+  "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+  "next_escalation": "If this row remains OPEN, create a narrower acquisition/scoring/replay executor for the exact failed validation field.",
+  "no_fake_closure_policy": "This artifact can reduce a missing-artifact count only at its own scope. It cannot mark the coverage gap or broad TOE superiority PASS by itself.",
+  "pass_predicate": "verified_open_source_capsule status == PASS and the strict comparator gap row no longer lists it as missing.",
+  "phenomenon_class_id": "computational_complexity_and_algorithmic_proof",
+  "queue_row_found": true,
+  "repair_strategy": "Continue to the next missing artifact; do not close broad superiority until all source, benchmark, comparator, scoring, uncertainty, falsifier, and replay artifacts pass.",
+  "required_capability": "Research/PriorArt",
+  "schema_id": "OC133_MODERN_SCIENCE_COMPARATOR_RESEARCH_ARTIFACT_v1",
+  "source_refs": [
+    "reports/OC_CORE_1_3_3_MODERN_SCIENCE_COVERAGE_LANE_QUEUE.json",
+    "benchmarks/modern_science/OC133_MODERN_SCIENCE_COVERAGE_WORK_ORDERS.json",
+    "comparators/modern_science/OC133_MODERN_SCIENCE_COVERAGE_REGISTER.json"
+  ],
+  "status": "PASS",
+  "validation": {
+    "official_url_present": true,
+    "required_lock_exists": true,
+    "required_lock_ref": "proofs/finite_model_checks/OC133_FINITE_MODEL_INPUTS.json",
+    "required_lock_sha256": "3468635fe012d89a796fe31ae1b023d01787b8623d9693354b15f1bd9cfa62f0",
+    "required_snapshot_exists": true,
+    "required_snapshot_ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
+    "required_snapshot_sha256": "1b81546ec3865c5d6070bc24a3dfb79e6f09146629e8e3ca11acd0d1b6783d5b",
+    "source_id_present": true
+  },
+  "why_it_failed": "Required comparator artifact is source-bound at its declared scope.",
+  "work_order_id": "MS-COV-WO-003"
+}

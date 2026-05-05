@@ -1,0 +1,46 @@
+{
+  "artifact_hash": "17647fac0f4f943b7c6961b0b92a494188f0a657b901ffccf7e1186068fd08db",
+  "artifact_key": "falsifier_row",
+  "artifact_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/artifact_jobs/artifact_8e71846b10cfcfb6.json",
+  "domain_class_id": "agricultural_food_sciences",
+  "executable_spec_found": true,
+  "execution_command": [
+    "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+    "tools/oc133_toe_closure_factory.py",
+    "--execute-comparator-gap-artifact",
+    "MS-COV-GAP-AGRICULTURAL_FOOD_SCIENCES-ANIMAL_HEALTH_AND_PRODUCTION_SYSTEMS",
+    "falsifier_row",
+    "--write"
+  ],
+  "gap_id": "MS-COV-GAP-AGRICULTURAL_FOOD_SCIENCES-ANIMAL_HEALTH_AND_PRODUCTION_SYSTEMS",
+  "generated_at": "2026-05-05T22:47:09Z",
+  "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+  "next_escalation": "If source acquisition is unavailable or evidence cannot be scored, create a lower-level governed acquisition/scoring/replay work order and keep r017 blocked.",
+  "no_fake_closure_policy": "This artifact job is an executable research obligation. It does not mark the coverage gap PASS unless the concrete evidence artifact exists and the coverage register closes.",
+  "pass_predicate": "falsifier trigger and negative controls are executable and not post-hoc",
+  "pass_predicate_evaluation": {
+    "artifact_key": "falsifier_row",
+    "gap_pass_unchanged_by_single_artifact": true,
+    "research_artifact_status": "PASS"
+  },
+  "phenomenon_class_id": "animal_health_and_production_systems",
+  "queue_row_found": true,
+  "repair_strategy": "Create the required artifact from governed open/free sources, bind hashes, then rerun the comparator gap and strict validator.",
+  "required_capability": "Research/PriorArt",
+  "required_output_kind": "falsifier_and_negative_control_row",
+  "research_artifact_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/3b8c55c1eafe2517/falsifier_row.json",
+  "research_artifact_scope": "falsifier and negative-control policy declared; not evidence of passed scoring",
+  "research_artifact_status": "PASS",
+  "schema_id": "OC133_MODERN_SCIENCE_COMPARATOR_GAP_ARTIFACT_EXECUTION_v1",
+  "source_block": {
+    "falsifier_id": "AGRI-ANIMAL-FAOSTAT-WOAH-FALSIFIER",
+    "trigger": "FAOSTAT or WOAH snapshot hash is missing or changes during replay; heldout livestock or disease values leak into formula selection; N is below 20; carry-forward or rolling-mean comparator ties or beats the model within uncertainty; country/year disease shuffle is not rejected"
+  },
+  "source_refs": [
+    "reports/OC_CORE_1_3_3_MODERN_SCIENCE_COVERAGE_LANE_QUEUE.json",
+    "benchmarks/modern_science/OC133_MODERN_SCIENCE_COVERAGE_WORK_ORDERS.json",
+    "comparators/modern_science/OC133_MODERN_SCIENCE_COVERAGE_REGISTER.json"
+  ],
+  "status": "PASS",
+  "why_it_failed": "Comparator gap `MS-COV-GAP-AGRICULTURAL_FOOD_SCIENCES-ANIMAL_HEALTH_AND_PRODUCTION_SYSTEMS` lacks `falsifier_row`; no broad-superiority credit is awarded."
+}
