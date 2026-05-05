@@ -1,5 +1,5 @@
 {
-  "artifact_hash": "787534054d8477bd6b7ec84af431967588935cbac17e2f8f2714ee6a66da53cf",
+  "artifact_hash": "c1417ebb31e89d77e2e98b1bc5b33f306b7699dc2c75d2438fbb400d3937c7bc",
   "artifact_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/scoring_work_orders/scoring_c8f37f6962a1ece5.json",
   "current_evidence": {
     "evidence_pack_hash": "",
@@ -12,12 +12,12 @@
     "evidence_ref": null,
     "evidence_ref_exists": false,
     "executable_evidence_exists": false,
-    "fail_closed_status_present": false,
+    "fail_closed_status_present": true,
     "material_margin_met": false,
-    "pack_status_text": "{\"COVERAGE_CLOSURE_ALLOWED\": NULL, \"COVERAGE_CLOSURE_STATUS\": NULL, \"EVIDENCE_STATUS\": NULL, \"PACK_STATUS\": NULL}"
+    "pack_status_text": "{\"COVERAGE_CLOSURE_ALLOWED\": NULL, \"COVERAGE_CLOSURE_STATUS\": \"OPEN_FAIL_CLOSED_MEDICAL_SOURCE_EVIDENCE_NOT_ACQUIRED\", \"EVIDENCE_STATUS\": NULL, \"PACK_STATUS\": NULL}"
   },
   "domain_class_id": "medical_health_sciences",
-  "executable_spec_found": false,
+  "executable_spec_found": true,
   "execution_command": [
     "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
     "tools/oc133_toe_closure_factory.py",
@@ -36,7 +36,12 @@
     "domain-scope survey explaining why the lane is representative of the phenomenon class",
     "negative controls rejected",
     "falsifiers declared and executable",
-    "independent clean-checkout replay bound to coverage register and report"
+    "independent clean-checkout replay bound to coverage register and report",
+    "executable lane spec declares exact official source, target variable, formula/model, comparator, uncertainty, residual metric, negative control, and falsifier",
+    "source snapshot and target projection are locked before scoring",
+    "strict evidence pack exists and validates under independent replay",
+    "coverage remains open until every closure predicate is reviewed",
+    "fail-closed evidence gate: executable evidence is not yet bound"
   ],
   "queue_row_found": true,
   "repair_strategy": "Materialize a target-hidden scoring pack from the declared source, target, OC model, incumbent comparator, uncertainty rule, falsifier, and replay command; broad superiority remains blocked until the scoring row beats the comparator and replay passes.",
@@ -45,43 +50,87 @@
     {
       "artifact_id": "source_snapshot_acquisition",
       "pass_predicate": "Open/free source snapshot exists locally, is hash-bound, and satisfies source separation policy.",
-      "required_source": {}
+      "required_source": {
+        "lane_role": "official_data_source",
+        "required_local_snapshot_ref": "validation/heldout/grand_science/medical_health/clinical_trials_outcomes/OC133_CLINICALTRIALS_OUTCOMES_SNAPSHOT.json",
+        "required_lock_ref": "validation/heldout/grand_science/medical_health/clinical_trials_outcomes/OC133_CLINICALTRIALS_OUTCOMES_SNAPSHOT.lock.json",
+        "requirement": "Acquire and hash ClinicalTrials.gov API v2 studies and reported outcome modules from https://clinicaltrials.gov/api/v2/studies?query.term=completed%20interventional%20phase%203&format=json&pageSize=100.",
+        "source_id": "clinicaltrials_gov_v2_study_outcomes_v1"
+      }
     },
     {
       "artifact_id": "target_hidden_task_table",
       "pass_predicate": "Target table is locked before scoring and hidden fields do not leak into model selection.",
-      "required_target": {}
+      "required_target": {
+        "lane_role": "target_variable",
+        "requirement": "Lock completed interventional trials and hide reported primary outcome direction and biomarker shift fields until the OC scoring pack is preregistered.",
+        "target_fields": [
+          "protocolSection.identificationModule.nctId",
+          "protocolSection.conditionsModule.conditions",
+          "protocolSection.designModule.phases",
+          "resultsSection.outcomeMeasuresModule.outcomeMeasures"
+        ],
+        "target_name": "held_out_primary_outcome_effect_direction_and_biomarker_shift",
+        "unit": "directional effect class with reported outcome measure units retained per study"
+      }
     },
     {
       "artifact_id": "oc_formula_or_model",
       "pass_predicate": "OC prediction/scoring rule is preregistered before target unsealing.",
-      "required_model": {}
+      "required_model": {
+        "lane_role": "formula_or_model",
+        "required_inputs": [
+          "condition class",
+          "intervention class",
+          "trial phase",
+          "enrollment scale",
+          "baseline biomarker context",
+          "declared primary outcome measure"
+        ],
+        "requirement": "OC continuum-state prediction over disease context, intervention boundary, biomarker axis, threshold shift, and outcome-cycle response."
+      }
     },
     {
       "artifact_id": "incumbent_comparator_scoring",
       "pass_predicate": "Incumbent comparator is scored on the same held-out targets.",
       "required_comparator": {
+        "baseline_name": "condition-intervention historical majority and phase-stratified outcome baseline",
         "lane_role": "incumbent_comparator",
-        "requirement": "Declare preregistered modern-science comparator baselines and score them on the same held-out targets."
+        "pre_registered": true,
+        "requirement": "Predict the held-out outcome direction from condition, intervention class, phase, and historical public outcome frequencies locked before the target slice."
       }
     },
     {
       "artifact_id": "residuals_materiality_uncertainty",
       "pass_predicate": "OC residual advantage exceeds preregistered materiality threshold under uncertainty.",
-      "required_uncertainty": {}
+      "required_uncertainty": {
+        "lane_role": "uncertainty_policy",
+        "metric": "bootstrap confidence interval over held-out outcome-direction residuals",
+        "requirement": "Report 95 percent bootstrap intervals and fail closed when intervals cross the materiality threshold."
+      }
     },
     {
       "artifact_id": "controls_and_falsifiers",
       "pass_predicate": "Negative controls and falsifiers are declared and replayed without post-hoc adjustment.",
-      "required_falsifier": {}
+      "required_falsifier": {
+        "falsifier_id": "medical_clinical_outcome_no_material_advantage",
+        "lane_role": "falsifier",
+        "requirement": "Trigger if OC does not beat the preregistered comparator, if target fields leak into design, or if the negative control retains advantage."
+      }
     },
     {
       "artifact_id": "independent_replay",
       "pass_predicate": "Clean replay regenerates the evidence pack hash and result verdict.",
-      "required_execution": {}
+      "required_execution": {
+        "evidence_pack_schema_id": "OC133_GRAND_EMPIRICAL_EVIDENCE_v1",
+        "minimum_n": 100,
+        "replay_command": "python validation/heldout/grand_science/medical_health/clinical_trials_outcomes/run_clinical_outcome_replay.py --check",
+        "source_separation_mode": "target_blind",
+        "target_hidden_until_scoring": true
+      }
     }
   ],
-  "root_cause_class": "EXECUTABLE_SPEC_MISSING_FOR_SCORING",
+  "root_cause_class": "SCORING_EVIDENCE_NOT_MATERIALIZED",
   "schema_id": "OC133_MODERN_SCIENCE_COMPARATOR_SCORING_WORK_ORDER_v1",
   "source_refs": [
     "reports/OC_CORE_1_3_3_MODERN_SCIENCE_COVERAGE_LANE_QUEUE.json",
@@ -90,6 +139,6 @@
   ],
   "status": "OPEN",
   "validator_binding": "comparator_gap::MS-COV-GAP-MEDICAL_HEALTH_SCIENCES-CLINICAL_OUTCOMES_AND_BIOMARKERS::oc_prediction_scoring_row",
-  "why_it_failed": "No executable comparator specification is bound to this gap, so the system cannot build a target-hidden OC scoring row.",
+  "why_it_failed": "The lane declares no executable evidence pack for the OC-vs-comparator scoring row.",
   "work_order_id": "MS-COV-WO-016"
 }

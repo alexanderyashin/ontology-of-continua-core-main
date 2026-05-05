@@ -2411,9 +2411,11 @@ def build_comparator_scoring_executor_backlog(root: Path) -> dict[str, Any]:
         if row.get("status") != "PASS" and "oc_prediction_scoring_row" in set(row.get("missing_artifacts") or [])
     ]
     for gap_id in open_gap_ids:
-        existing = read_json(root / comparator_gap_scoring_work_order_rel(gap_id))
-        if not existing:
-            build_comparator_gap_scoring_work_order(root, gap_id)
+        # Rebuild every open scoring work order from the current dispatcher frontier.
+        # Otherwise a repaired executable spec can leave an old root-cause row
+        # stuck in the backlog and the autonomous graph will keep selecting a
+        # capability that has already been implemented.
+        build_comparator_gap_scoring_work_order(root, gap_id)
     rows: list[dict[str, Any]] = []
     root_cause_counts: dict[str, int] = {}
     open_gap_id_set = set(open_gap_ids)

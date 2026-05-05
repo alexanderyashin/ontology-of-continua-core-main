@@ -2437,6 +2437,43 @@ class ReleaseAssemblyMachineTests(unittest.TestCase):
         self.assertFalse(selected)
         self.assertTrue(any(row["status"] == "CAPABILITY_ESCALATION_REQUIRED" for row in repeated_queue["rows"]))
 
+    def test_medical_modern_science_gaps_have_executable_fail_closed_specs(self) -> None:
+        queue = read_json(ROOT / "reports" / "OC_CORE_1_3_3_MODERN_SCIENCE_COVERAGE_LANE_QUEUE.json")
+        backlog = read_json(
+            ROOT
+            / "operations"
+            / "logion_release_mission"
+            / "oc_core_1_3_3"
+            / "toe_closure_factory"
+            / "lane_execution"
+            / "MODERN_SCIENCE_COMPARATOR_SUPERIORITY"
+            / "OC133_MODERN_SCIENCE_COMPARATOR_SCORING_EXECUTOR_BACKLOG.json"
+        )
+        medical_lanes = [
+            row
+            for row in queue["lanes"]
+            if row["domain_class_id"] == "medical_health_sciences"
+        ]
+
+        self.assertEqual(len(medical_lanes), 3)
+        for row in medical_lanes:
+            spec = row.get("executable_work_order")
+            self.assertIsInstance(spec, dict)
+            self.assertEqual(spec["domain_class_id"], "medical_health_sciences")
+            self.assertTrue(str(spec["coverage_closure_status"]).startswith("OPEN_FAIL_CLOSED"))
+            self.assertFalse(spec["current_evidence"]["executable_evidence_exists"])
+            self.assertEqual(row["execution_state"], "FAIL_CLOSED_EXECUTABLE_SPEC_READY_EVIDENCE_MISSING")
+            self.assertIn("EXECUTABLE_LANE_SPEC_DECLARED", row["expected_acceptance_predicates"])
+            self.assertIn("FAIL_CLOSED_UNLESS_EXECUTABLE_EVIDENCE_BOUND", row["expected_acceptance_predicates"])
+
+        medical_root_causes = {
+            row["root_cause_class"]
+            for row in backlog["rows"]
+            if row["domain_class_id"] == "medical_health_sciences"
+        }
+        self.assertEqual(medical_root_causes, {"SCORING_EVIDENCE_NOT_MATERIALIZED"})
+        self.assertNotIn("EXECUTABLE_SPEC_MISSING_FOR_SCORING", backlog["root_cause_counts"])
+
     def test_recovery_r017_is_fail_closed_until_final_toe_validator_passes(self) -> None:
         tools_dir = ROOT / "tools"
         if str(tools_dir) not in sys.path:

@@ -878,6 +878,247 @@ def domain_local_executable_spec(row: dict[str, Any], *, source_ref: str) -> dic
     return canonical_executable_spec(spec)
 
 
+MEDICAL_EXECUTABLE_SPEC_TEMPLATES: dict[str, dict[str, Any]] = {
+    "clinical_outcomes_and_biomarkers": {
+        "source_plan_id": "MS-MED-CLINICALTRIALS-OUTCOMES-v1",
+        "official_data_source": {
+            "source_id": "clinicaltrials_gov_v2_study_outcomes_v1",
+            "source_name": "ClinicalTrials.gov API v2 studies and reported outcome modules",
+            "source_authority": "U.S. National Library of Medicine, ClinicalTrials.gov",
+            "official_documentation_url": "https://clinicaltrials.gov/data-about-studies/learn-about-api",
+            "official_endpoint_url": "https://clinicaltrials.gov/api/v2/studies?query.term=completed%20interventional%20phase%203&format=json&pageSize=100",
+            "required_local_snapshot_ref": "validation/heldout/grand_science/medical_health/clinical_trials_outcomes/OC133_CLINICALTRIALS_OUTCOMES_SNAPSHOT.json",
+            "required_lock_ref": "validation/heldout/grand_science/medical_health/clinical_trials_outcomes/OC133_CLINICALTRIALS_OUTCOMES_SNAPSHOT.lock.json",
+            "minimum_rows_required": 100,
+            "snapshot_status": "NOT_ACQUIRED_FOR_THIS_COVERAGE_CLASS",
+        },
+        "target_variable": {
+            "name": "held_out_primary_outcome_effect_direction_and_biomarker_shift",
+            "unit": "directional effect class with reported outcome measure units retained per study",
+            "target_fields": [
+                "protocolSection.identificationModule.nctId",
+                "protocolSection.conditionsModule.conditions",
+                "protocolSection.designModule.phases",
+                "resultsSection.outcomeMeasuresModule.outcomeMeasures",
+            ],
+            "extraction_rule": "Lock completed interventional trials and hide reported primary outcome direction and biomarker shift fields until the OC scoring pack is preregistered.",
+        },
+        "formula_requirement": {
+            "formula_or_model": "OC continuum-state prediction over disease context, intervention boundary, biomarker axis, threshold shift, and outcome-cycle response.",
+            "required_inputs": [
+                "condition class",
+                "intervention class",
+                "trial phase",
+                "enrollment scale",
+                "baseline biomarker context",
+                "declared primary outcome measure",
+            ],
+            "target_values_may_be_used_for_model_design": False,
+        },
+        "incumbent_comparator_requirement": {
+            "baseline_name": "condition-intervention historical majority and phase-stratified outcome baseline",
+            "prediction_rule": "Predict the held-out outcome direction from condition, intervention class, phase, and historical public outcome frequencies locked before the target slice.",
+            "pre_registered": True,
+            "target_values_used_for_baseline_design": False,
+            "required_material_margin": "OC residual must improve over the phase-stratified baseline by the preregistered material margin under bootstrap uncertainty.",
+        },
+        "uncertainty_requirement": {
+            "metric": "bootstrap confidence interval over held-out outcome-direction residuals",
+            "rule": "Report 95 percent bootstrap intervals and fail closed when intervals cross the materiality threshold.",
+        },
+        "residual_requirement": {
+            "metric_id": "medical_clinical_outcome_direction_residual",
+            "formula": "mean_absolute_error(oc_direction_score, held_out_outcome_direction)",
+            "superiority_rule": "OC must beat the preregistered baseline with positive material margin and no target leakage.",
+        },
+        "negative_control_requirement": {
+            "control_id": "medical_clinical_trial_label_permutation_control",
+            "rule": "Permuted outcome labels must destroy material OC advantage over the comparator.",
+        },
+        "falsifier_requirement": {
+            "falsifier_id": "medical_clinical_outcome_no_material_advantage",
+            "trigger": "Trigger if OC does not beat the preregistered comparator, if target fields leak into design, or if the negative control retains advantage.",
+        },
+        "execution_requirements": {
+            "minimum_n": 100,
+            "source_separation_mode": "target_blind",
+            "target_hidden_until_scoring": True,
+            "evidence_pack_schema_id": "OC133_GRAND_EMPIRICAL_EVIDENCE_v1",
+            "replay_command": "python validation/heldout/grand_science/medical_health/clinical_trials_outcomes/run_clinical_outcome_replay.py --check",
+        },
+    },
+    "epidemiological_transmission_and_risk": {
+        "source_plan_id": "MS-MED-CDC-EPIDEMIOLOGY-RISK-v1",
+        "official_data_source": {
+            "source_id": "cdc_open_data_epidemiology_timeseries_v1",
+            "source_name": "CDC Open Data Socrata API epidemiology time-series datasets",
+            "source_authority": "U.S. Centers for Disease Control and Prevention",
+            "official_documentation_url": "https://open.cdc.gov/data.html",
+            "official_endpoint_url": "https://data.cdc.gov/resource/n8mc-b4w4.json?$limit=5000",
+            "required_local_snapshot_ref": "validation/heldout/grand_science/medical_health/epidemiology_risk/OC133_CDC_EPIDEMIOLOGY_RISK_SNAPSHOT.json",
+            "required_lock_ref": "validation/heldout/grand_science/medical_health/epidemiology_risk/OC133_CDC_EPIDEMIOLOGY_RISK_SNAPSHOT.lock.json",
+            "minimum_rows_required": 500,
+            "snapshot_status": "NOT_ACQUIRED_FOR_THIS_COVERAGE_CLASS",
+        },
+        "target_variable": {
+            "name": "held_out_transmission_risk_change_by_region_and_week",
+            "unit": "weekly regional risk-change class",
+            "target_fields": [
+                "case_month",
+                "res_state",
+                "age_group",
+                "sex",
+                "case_positive_specimen_interval",
+            ],
+            "extraction_rule": "Lock source snapshots by reporting week, hide future regional risk-change labels, and score only against the held-out temporal slice.",
+        },
+        "formula_requirement": {
+            "formula_or_model": "OC flow-threshold-cycle model over contact context, boundary intensity, population susceptibility, and regional feedback lag.",
+            "required_inputs": [
+                "region",
+                "reporting week",
+                "age-group structure",
+                "case interval distribution",
+                "prior risk class",
+            ],
+            "target_values_may_be_used_for_model_design": False,
+        },
+        "incumbent_comparator_requirement": {
+            "baseline_name": "autoregressive regional risk baseline",
+            "prediction_rule": "Predict held-out risk change from lagged regional counts and demographic strata without access to future target labels.",
+            "pre_registered": True,
+            "target_values_used_for_baseline_design": False,
+            "required_material_margin": "OC residual must beat the autoregressive baseline under the declared temporal holdout and uncertainty policy.",
+        },
+        "uncertainty_requirement": {
+            "metric": "rolling-origin interval error with regional bootstrap",
+            "rule": "Report temporal bootstrap intervals and fail closed on unstable advantage or coverage drift.",
+        },
+        "residual_requirement": {
+            "metric_id": "medical_epidemiology_risk_residual",
+            "formula": "weighted_absolute_error(oc_risk_change_score, held_out_risk_change)",
+            "superiority_rule": "OC must beat the autoregressive comparator across the locked regional-week holdout.",
+        },
+        "negative_control_requirement": {
+            "control_id": "medical_epidemiology_time_shuffle_control",
+            "rule": "A shuffled temporal target control must remove material OC advantage.",
+        },
+        "falsifier_requirement": {
+            "falsifier_id": "medical_epidemiology_no_temporal_generalization",
+            "trigger": "Trigger if the temporal holdout fails, if future labels leak, or if OC advantage is not material after uncertainty adjustment.",
+        },
+        "execution_requirements": {
+            "minimum_n": 500,
+            "source_separation_mode": "target_blind",
+            "target_hidden_until_scoring": True,
+            "evidence_pack_schema_id": "OC133_GRAND_EMPIRICAL_EVIDENCE_v1",
+            "replay_command": "python validation/heldout/grand_science/medical_health/epidemiology_risk/run_epidemiology_risk_replay.py --check",
+        },
+    },
+    "pharmacology_toxicology_and_dose_response": {
+        "source_plan_id": "MS-MED-OPENFDA-DOSE-RESPONSE-v1",
+        "official_data_source": {
+            "source_id": "openfda_faers_drug_event_v1",
+            "source_name": "openFDA drug adverse event endpoint",
+            "source_authority": "U.S. Food and Drug Administration openFDA",
+            "official_documentation_url": "https://open.fda.gov/apis/drug/event/how-to-use-the-endpoint/",
+            "official_endpoint_url": "https://api.fda.gov/drug/event.json?search=receivedate:[20240101+TO+20241231]&limit=100",
+            "required_local_snapshot_ref": "validation/heldout/grand_science/medical_health/pharmacology_toxicology/OC133_OPENFDA_DRUG_EVENT_SNAPSHOT.json",
+            "required_lock_ref": "validation/heldout/grand_science/medical_health/pharmacology_toxicology/OC133_OPENFDA_DRUG_EVENT_SNAPSHOT.lock.json",
+            "minimum_rows_required": 100,
+            "snapshot_status": "NOT_ACQUIRED_FOR_THIS_COVERAGE_CLASS",
+        },
+        "target_variable": {
+            "name": "held_out_adverse_event_severity_and_dose_response_class",
+            "unit": "severity or dose-response class derived from locked adverse-event reports",
+            "target_fields": [
+                "safetyreportid",
+                "patient.drug.medicinalproduct",
+                "patient.drug.drugstructuredosagenumb",
+                "patient.reaction.reactionmeddrapt",
+                "serious",
+            ],
+            "extraction_rule": "Lock adverse-event reports and hide severity and dose-response class labels until OC and comparator scoring rows are preregistered.",
+        },
+        "formula_requirement": {
+            "formula_or_model": "OC threshold-response model over compound context, dose axis, organism boundary, adverse-event state, and feedback severity.",
+            "required_inputs": [
+                "drug class",
+                "reported dose field",
+                "reaction term",
+                "seriousness indicator availability",
+                "case report context",
+            ],
+            "target_values_may_be_used_for_model_design": False,
+        },
+        "incumbent_comparator_requirement": {
+            "baseline_name": "drug-class frequency and dose-bin adverse-event baseline",
+            "prediction_rule": "Predict held-out severity and dose-response class from drug class and preregistered dose bins without target-label access.",
+            "pre_registered": True,
+            "target_values_used_for_baseline_design": False,
+            "required_material_margin": "OC residual must beat the frequency dose-bin baseline under the declared pharmacovigilance uncertainty policy.",
+        },
+        "uncertainty_requirement": {
+            "metric": "stratified bootstrap interval for severity and dose-response classification residuals",
+            "rule": "Report stratified bootstrap uncertainty and fail closed when sparse dose strata make materiality unverifiable.",
+        },
+        "residual_requirement": {
+            "metric_id": "medical_pharmacology_dose_response_residual",
+            "formula": "classification_loss(oc_dose_response_score, held_out_severity_or_response_class)",
+            "superiority_rule": "OC must beat the preregistered drug-class frequency comparator after sparse-strata controls.",
+        },
+        "negative_control_requirement": {
+            "control_id": "medical_pharmacology_drug_label_shuffle_control",
+            "rule": "Shuffled drug-event labels must eliminate material OC advantage.",
+        },
+        "falsifier_requirement": {
+            "falsifier_id": "medical_pharmacology_no_dose_threshold_signal",
+            "trigger": "Trigger if dose bins provide no target-blind signal, if sparse strata dominate, or if OC fails to beat the preregistered comparator.",
+        },
+        "execution_requirements": {
+            "minimum_n": 100,
+            "source_separation_mode": "target_blind",
+            "target_hidden_until_scoring": True,
+            "evidence_pack_schema_id": "OC133_GRAND_EMPIRICAL_EVIDENCE_v1",
+            "replay_command": "python validation/heldout/grand_science/medical_health/pharmacology_toxicology/run_pharmacology_toxicology_replay.py --check",
+        },
+    },
+}
+
+
+def medical_health_executable_spec(work_order: dict[str, Any]) -> dict[str, Any] | None:
+    if str(work_order.get("domain_class_id", "")) != "medical_health_sciences":
+        return None
+    phenomenon_class_id = str(work_order.get("phenomenon_class_id", ""))
+    template = MEDICAL_EXECUTABLE_SPEC_TEMPLATES.get(phenomenon_class_id)
+    if not isinstance(template, dict):
+        return None
+    spec = copy.deepcopy(template)
+    spec.update(
+        {
+            "spec_schema_id": EXECUTABLE_SPEC_SCHEMA_ID,
+            "domain_class_id": "medical_health_sciences",
+            "phenomenon_class_id": phenomenon_class_id,
+            "coverage_closure_status": "OPEN_FAIL_CLOSED_MEDICAL_SOURCE_EVIDENCE_NOT_ACQUIRED",
+            "current_evidence": {
+                "executable_evidence_exists": False,
+                "executable_evidence_ref": None,
+                "reason": (
+                    "Medical-health executable spec is declared, but source snapshots, target-blind "
+                    "scoring packs, comparator rows, controls, falsifiers, and replay reports are not yet bound."
+                ),
+            },
+            "closure_predicates_required": list(EXECUTABLE_SPEC_REQUIRED_PREDICATES),
+            "domain_source_policy": {
+                "ethics_boundary": "Only public, deidentified, aggregate, registry, or regulatory records may be used.",
+                "clinical_claim_boundary": "No patient-care, diagnostic, or therapeutic claim is promoted by this coverage lane.",
+                "broad_superiority_allowed_without_replay": False,
+            },
+        }
+    )
+    return canonical_executable_spec(spec)
+
+
 def load_domain_local_executable_specs(root: Path | None = None) -> dict[tuple[str, str], dict[str, Any]]:
     root = root or repo_root()
     specs: dict[tuple[str, str], dict[str, Any]] = {}
@@ -1020,11 +1261,15 @@ def executable_lane_spec(
                 ),
                 None,
             )
-        return copy.deepcopy(default) if isinstance(default, dict) else None
+        if isinstance(default, dict):
+            return copy.deepcopy(default)
     default = DEFAULT_EXECUTABLE_LANE_SPECS.get(lane_key(work_order))
     if isinstance(default, dict):
         domain_class_id, phenomenon_class_id = lane_key(work_order)
         return canonical_executable_spec(default, domain_class_id=domain_class_id, phenomenon_class_id=phenomenon_class_id)
+    medical = medical_health_executable_spec(work_order)
+    if isinstance(medical, dict):
+        return medical
     return None
 
 

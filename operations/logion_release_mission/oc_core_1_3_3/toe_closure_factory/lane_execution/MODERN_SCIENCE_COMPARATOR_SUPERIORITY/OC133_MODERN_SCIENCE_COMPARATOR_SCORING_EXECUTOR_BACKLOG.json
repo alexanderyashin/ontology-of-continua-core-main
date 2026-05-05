@@ -1,5 +1,5 @@
 {
-  "artifact_hash": "2d638360e66c87127c8ce0a5842542e489814ff1961e3c0e71578d66a9787247",
+  "artifact_hash": "5edce66e1a1f130ff14720004c260551faad2cd9966f534a669aba583ad2ee3a",
   "artifact_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/OC133_MODERN_SCIENCE_COMPARATOR_SCORING_EXECUTOR_BACKLOG.json",
   "execution_command": [
     "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
@@ -16,8 +16,7 @@
   "repair_strategy": "Execute subtasks in source -> target -> model -> comparator -> uncertainty -> falsifier -> replay order; never count a diagnostic work order as evidence.",
   "required_capability": "Research/ScoringExecutor",
   "root_cause_counts": {
-    "EXECUTABLE_SPEC_MISSING_FOR_SCORING": 3,
-    "SCORING_EVIDENCE_NOT_MATERIALIZED": 27,
+    "SCORING_EVIDENCE_NOT_MATERIALIZED": 30,
     "SCORING_PACK_FAIL_CLOSED": 2
   },
   "rows": [
@@ -1333,23 +1332,256 @@
       "missing_artifact_type": "oc_prediction_scoring_row",
       "next_escalation": "If no deterministic executor exists for this subartifact, create a lane-specific acquisition/scoring tool and keep r017 blocked.",
       "no_fake_closure_policy": "Subtasks describe required scientific work; they cannot close broad TOE superiority without a passing evidence pack and replay record.",
-      "pass_predicate": "Coverage lane has a complete executable_work_order with source, target, OC scoring rule, comparator, uncertainty, falsifier, and replay requirements.",
+      "pass_predicate": "Open/free source snapshot exists locally, is hash-bound, and satisfies source separation policy.",
       "phenomenon_class_id": "pharmacology_toxicology_and_dose_response",
-      "repair_strategy": "Build `executable_scoring_spec_generation` for gap `MS-COV-GAP-MEDICAL_HEALTH_SCIENCES-PHARMACOLOGY_TOXICOLOGY_AND_DOSE_RESPONSE` from governed open/free sources, then rerun the target-hidden scorer and strict validator.",
-      "required_capability": "Research/BenchmarkDesign",
+      "repair_strategy": "Build `source_snapshot_acquisition` for gap `MS-COV-GAP-MEDICAL_HEALTH_SCIENCES-PHARMACOLOGY_TOXICOLOGY_AND_DOSE_RESPONSE` from governed open/free sources, then rerun the target-hidden scorer and strict validator.",
+      "required_capability": "Research/ScoringExecutor",
       "required_source_block": {
-        "artifact_id": "executable_scoring_spec_generation",
-        "pass_predicate": "Coverage lane has a complete executable_work_order with source, target, OC scoring rule, comparator, uncertainty, falsifier, and replay requirements.",
-        "required_capability": "Research/BenchmarkDesign"
+        "artifact_id": "source_snapshot_acquisition",
+        "pass_predicate": "Open/free source snapshot exists locally, is hash-bound, and satisfies source separation policy.",
+        "required_source": {
+          "lane_role": "official_data_source",
+          "required_local_snapshot_ref": "validation/heldout/grand_science/medical_health/pharmacology_toxicology/OC133_OPENFDA_DRUG_EVENT_SNAPSHOT.json",
+          "required_lock_ref": "validation/heldout/grand_science/medical_health/pharmacology_toxicology/OC133_OPENFDA_DRUG_EVENT_SNAPSHOT.lock.json",
+          "requirement": "Acquire and hash openFDA drug adverse event endpoint from https://api.fda.gov/drug/event.json?search=receivedate:[20240101+TO+20241231]&limit=100.",
+          "source_id": "openfda_faers_drug_event_v1"
+        }
       },
-      "root_cause_class": "EXECUTABLE_SPEC_MISSING_FOR_SCORING",
-      "scoring_subartifact_id": "executable_scoring_spec_generation",
+      "root_cause_class": "SCORING_EVIDENCE_NOT_MATERIALIZED",
+      "scoring_subartifact_id": "source_snapshot_acquisition",
       "source_work_order_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/scoring_work_orders/scoring_37c095c180c5f414.json",
       "status": "OPEN",
-      "subwork_hash": "b30012d3e17c278a46ea075e434a3c67f6e6a9c254f5aab8c0b397e67c3392d2",
-      "subwork_order_id": "R017-SCORING-f0d0efbb812ed924",
-      "validator_binding": "comparator_gap::MS-COV-GAP-MEDICAL_HEALTH_SCIENCES-PHARMACOLOGY_TOXICOLOGY_AND_DOSE_RESPONSE::oc_prediction_scoring_row::executable_scoring_spec_generation",
-      "why_it_failed": "No executable comparator specification is bound to this gap, so the system cannot build a target-hidden OC scoring row."
+      "subwork_hash": "5acb2256e140ac28b8ab4df313ddfb149afeef3a6ad344cdba43efd925e48ed0",
+      "subwork_order_id": "R017-SCORING-f404ab4db483515e",
+      "validator_binding": "comparator_gap::MS-COV-GAP-MEDICAL_HEALTH_SCIENCES-PHARMACOLOGY_TOXICOLOGY_AND_DOSE_RESPONSE::oc_prediction_scoring_row::source_snapshot_acquisition",
+      "why_it_failed": "The lane declares no executable evidence pack for the OC-vs-comparator scoring row."
+    },
+    {
+      "domain_class_id": "medical_health_sciences",
+      "execution_command": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "tools/oc133_toe_closure_factory.py",
+        "--compile-comparator-scoring-backlog",
+        "--write"
+      ],
+      "gap_id": "MS-COV-GAP-MEDICAL_HEALTH_SCIENCES-PHARMACOLOGY_TOXICOLOGY_AND_DOSE_RESPONSE",
+      "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+      "missing_artifact_type": "oc_prediction_scoring_row",
+      "next_escalation": "If no deterministic executor exists for this subartifact, create a lane-specific acquisition/scoring tool and keep r017 blocked.",
+      "no_fake_closure_policy": "Subtasks describe required scientific work; they cannot close broad TOE superiority without a passing evidence pack and replay record.",
+      "pass_predicate": "Target table is locked before scoring and hidden fields do not leak into model selection.",
+      "phenomenon_class_id": "pharmacology_toxicology_and_dose_response",
+      "repair_strategy": "Build `target_hidden_task_table` for gap `MS-COV-GAP-MEDICAL_HEALTH_SCIENCES-PHARMACOLOGY_TOXICOLOGY_AND_DOSE_RESPONSE` from governed open/free sources, then rerun the target-hidden scorer and strict validator.",
+      "required_capability": "Research/ScoringExecutor",
+      "required_source_block": {
+        "artifact_id": "target_hidden_task_table",
+        "pass_predicate": "Target table is locked before scoring and hidden fields do not leak into model selection.",
+        "required_target": {
+          "lane_role": "target_variable",
+          "requirement": "Lock adverse-event reports and hide severity and dose-response class labels until OC and comparator scoring rows are preregistered.",
+          "target_fields": [
+            "safetyreportid",
+            "patient.drug.medicinalproduct",
+            "patient.drug.drugstructuredosagenumb",
+            "patient.reaction.reactionmeddrapt",
+            "serious"
+          ],
+          "target_name": "held_out_adverse_event_severity_and_dose_response_class",
+          "unit": "severity or dose-response class derived from locked adverse-event reports"
+        }
+      },
+      "root_cause_class": "SCORING_EVIDENCE_NOT_MATERIALIZED",
+      "scoring_subartifact_id": "target_hidden_task_table",
+      "source_work_order_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/scoring_work_orders/scoring_37c095c180c5f414.json",
+      "status": "OPEN",
+      "subwork_hash": "446e6a6014ed7b69d8159e6a844c37dc2e75b3216a3d371ffa2840b6499d758a",
+      "subwork_order_id": "R017-SCORING-85224adb7db07f51",
+      "validator_binding": "comparator_gap::MS-COV-GAP-MEDICAL_HEALTH_SCIENCES-PHARMACOLOGY_TOXICOLOGY_AND_DOSE_RESPONSE::oc_prediction_scoring_row::target_hidden_task_table",
+      "why_it_failed": "The lane declares no executable evidence pack for the OC-vs-comparator scoring row."
+    },
+    {
+      "domain_class_id": "medical_health_sciences",
+      "execution_command": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "tools/oc133_toe_closure_factory.py",
+        "--compile-comparator-scoring-backlog",
+        "--write"
+      ],
+      "gap_id": "MS-COV-GAP-MEDICAL_HEALTH_SCIENCES-PHARMACOLOGY_TOXICOLOGY_AND_DOSE_RESPONSE",
+      "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+      "missing_artifact_type": "oc_prediction_scoring_row",
+      "next_escalation": "If no deterministic executor exists for this subartifact, create a lane-specific acquisition/scoring tool and keep r017 blocked.",
+      "no_fake_closure_policy": "Subtasks describe required scientific work; they cannot close broad TOE superiority without a passing evidence pack and replay record.",
+      "pass_predicate": "OC prediction/scoring rule is preregistered before target unsealing.",
+      "phenomenon_class_id": "pharmacology_toxicology_and_dose_response",
+      "repair_strategy": "Build `oc_formula_or_model` for gap `MS-COV-GAP-MEDICAL_HEALTH_SCIENCES-PHARMACOLOGY_TOXICOLOGY_AND_DOSE_RESPONSE` from governed open/free sources, then rerun the target-hidden scorer and strict validator.",
+      "required_capability": "Research/ScoringExecutor",
+      "required_source_block": {
+        "artifact_id": "oc_formula_or_model",
+        "pass_predicate": "OC prediction/scoring rule is preregistered before target unsealing.",
+        "required_model": {
+          "lane_role": "formula_or_model",
+          "required_inputs": [
+            "drug class",
+            "reported dose field",
+            "reaction term",
+            "seriousness indicator availability",
+            "case report context"
+          ],
+          "requirement": "OC threshold-response model over compound context, dose axis, organism boundary, adverse-event state, and feedback severity."
+        }
+      },
+      "root_cause_class": "SCORING_EVIDENCE_NOT_MATERIALIZED",
+      "scoring_subartifact_id": "oc_formula_or_model",
+      "source_work_order_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/scoring_work_orders/scoring_37c095c180c5f414.json",
+      "status": "OPEN",
+      "subwork_hash": "a6d1e9338563248f89555f8ac9e140be661cce6c68dbef251150a95f025e668b",
+      "subwork_order_id": "R017-SCORING-e2b5199e71a4b965",
+      "validator_binding": "comparator_gap::MS-COV-GAP-MEDICAL_HEALTH_SCIENCES-PHARMACOLOGY_TOXICOLOGY_AND_DOSE_RESPONSE::oc_prediction_scoring_row::oc_formula_or_model",
+      "why_it_failed": "The lane declares no executable evidence pack for the OC-vs-comparator scoring row."
+    },
+    {
+      "domain_class_id": "medical_health_sciences",
+      "execution_command": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "tools/oc133_toe_closure_factory.py",
+        "--compile-comparator-scoring-backlog",
+        "--write"
+      ],
+      "gap_id": "MS-COV-GAP-MEDICAL_HEALTH_SCIENCES-PHARMACOLOGY_TOXICOLOGY_AND_DOSE_RESPONSE",
+      "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+      "missing_artifact_type": "oc_prediction_scoring_row",
+      "next_escalation": "If no deterministic executor exists for this subartifact, create a lane-specific acquisition/scoring tool and keep r017 blocked.",
+      "no_fake_closure_policy": "Subtasks describe required scientific work; they cannot close broad TOE superiority without a passing evidence pack and replay record.",
+      "pass_predicate": "Incumbent comparator is scored on the same held-out targets.",
+      "phenomenon_class_id": "pharmacology_toxicology_and_dose_response",
+      "repair_strategy": "Build `incumbent_comparator_scoring` for gap `MS-COV-GAP-MEDICAL_HEALTH_SCIENCES-PHARMACOLOGY_TOXICOLOGY_AND_DOSE_RESPONSE` from governed open/free sources, then rerun the target-hidden scorer and strict validator.",
+      "required_capability": "Research/ScoringExecutor",
+      "required_source_block": {
+        "artifact_id": "incumbent_comparator_scoring",
+        "pass_predicate": "Incumbent comparator is scored on the same held-out targets.",
+        "required_comparator": {
+          "baseline_name": "drug-class frequency and dose-bin adverse-event baseline",
+          "lane_role": "incumbent_comparator",
+          "pre_registered": true,
+          "requirement": "Predict held-out severity and dose-response class from drug class and preregistered dose bins without target-label access."
+        }
+      },
+      "root_cause_class": "SCORING_EVIDENCE_NOT_MATERIALIZED",
+      "scoring_subartifact_id": "incumbent_comparator_scoring",
+      "source_work_order_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/scoring_work_orders/scoring_37c095c180c5f414.json",
+      "status": "OPEN",
+      "subwork_hash": "3c3a4b0a15fc948d1dd198637af6534931fabbd02f75a7ab84841a8b2533aacf",
+      "subwork_order_id": "R017-SCORING-2ed1589083c1e9eb",
+      "validator_binding": "comparator_gap::MS-COV-GAP-MEDICAL_HEALTH_SCIENCES-PHARMACOLOGY_TOXICOLOGY_AND_DOSE_RESPONSE::oc_prediction_scoring_row::incumbent_comparator_scoring",
+      "why_it_failed": "The lane declares no executable evidence pack for the OC-vs-comparator scoring row."
+    },
+    {
+      "domain_class_id": "medical_health_sciences",
+      "execution_command": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "tools/oc133_toe_closure_factory.py",
+        "--compile-comparator-scoring-backlog",
+        "--write"
+      ],
+      "gap_id": "MS-COV-GAP-MEDICAL_HEALTH_SCIENCES-PHARMACOLOGY_TOXICOLOGY_AND_DOSE_RESPONSE",
+      "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+      "missing_artifact_type": "oc_prediction_scoring_row",
+      "next_escalation": "If no deterministic executor exists for this subartifact, create a lane-specific acquisition/scoring tool and keep r017 blocked.",
+      "no_fake_closure_policy": "Subtasks describe required scientific work; they cannot close broad TOE superiority without a passing evidence pack and replay record.",
+      "pass_predicate": "OC residual advantage exceeds preregistered materiality threshold under uncertainty.",
+      "phenomenon_class_id": "pharmacology_toxicology_and_dose_response",
+      "repair_strategy": "Build `residuals_materiality_uncertainty` for gap `MS-COV-GAP-MEDICAL_HEALTH_SCIENCES-PHARMACOLOGY_TOXICOLOGY_AND_DOSE_RESPONSE` from governed open/free sources, then rerun the target-hidden scorer and strict validator.",
+      "required_capability": "Research/ScoringExecutor",
+      "required_source_block": {
+        "artifact_id": "residuals_materiality_uncertainty",
+        "pass_predicate": "OC residual advantage exceeds preregistered materiality threshold under uncertainty.",
+        "required_uncertainty": {
+          "lane_role": "uncertainty_policy",
+          "metric": "stratified bootstrap interval for severity and dose-response classification residuals",
+          "requirement": "Report stratified bootstrap uncertainty and fail closed when sparse dose strata make materiality unverifiable."
+        }
+      },
+      "root_cause_class": "SCORING_EVIDENCE_NOT_MATERIALIZED",
+      "scoring_subartifact_id": "residuals_materiality_uncertainty",
+      "source_work_order_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/scoring_work_orders/scoring_37c095c180c5f414.json",
+      "status": "OPEN",
+      "subwork_hash": "86f5dd57dc404b969fde8c2b0ef72258d76001d811e9bcbef4aa4b5e76f40e73",
+      "subwork_order_id": "R017-SCORING-4539794c3d4794fd",
+      "validator_binding": "comparator_gap::MS-COV-GAP-MEDICAL_HEALTH_SCIENCES-PHARMACOLOGY_TOXICOLOGY_AND_DOSE_RESPONSE::oc_prediction_scoring_row::residuals_materiality_uncertainty",
+      "why_it_failed": "The lane declares no executable evidence pack for the OC-vs-comparator scoring row."
+    },
+    {
+      "domain_class_id": "medical_health_sciences",
+      "execution_command": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "tools/oc133_toe_closure_factory.py",
+        "--compile-comparator-scoring-backlog",
+        "--write"
+      ],
+      "gap_id": "MS-COV-GAP-MEDICAL_HEALTH_SCIENCES-PHARMACOLOGY_TOXICOLOGY_AND_DOSE_RESPONSE",
+      "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+      "missing_artifact_type": "oc_prediction_scoring_row",
+      "next_escalation": "If no deterministic executor exists for this subartifact, create a lane-specific acquisition/scoring tool and keep r017 blocked.",
+      "no_fake_closure_policy": "Subtasks describe required scientific work; they cannot close broad TOE superiority without a passing evidence pack and replay record.",
+      "pass_predicate": "Negative controls and falsifiers are declared and replayed without post-hoc adjustment.",
+      "phenomenon_class_id": "pharmacology_toxicology_and_dose_response",
+      "repair_strategy": "Build `controls_and_falsifiers` for gap `MS-COV-GAP-MEDICAL_HEALTH_SCIENCES-PHARMACOLOGY_TOXICOLOGY_AND_DOSE_RESPONSE` from governed open/free sources, then rerun the target-hidden scorer and strict validator.",
+      "required_capability": "Research/ScoringExecutor",
+      "required_source_block": {
+        "artifact_id": "controls_and_falsifiers",
+        "pass_predicate": "Negative controls and falsifiers are declared and replayed without post-hoc adjustment.",
+        "required_falsifier": {
+          "falsifier_id": "medical_pharmacology_no_dose_threshold_signal",
+          "lane_role": "falsifier",
+          "requirement": "Trigger if dose bins provide no target-blind signal, if sparse strata dominate, or if OC fails to beat the preregistered comparator."
+        }
+      },
+      "root_cause_class": "SCORING_EVIDENCE_NOT_MATERIALIZED",
+      "scoring_subartifact_id": "controls_and_falsifiers",
+      "source_work_order_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/scoring_work_orders/scoring_37c095c180c5f414.json",
+      "status": "OPEN",
+      "subwork_hash": "98ad8a2a141d41b376f51d326f223f43de53526918873796761a1a32feff18c3",
+      "subwork_order_id": "R017-SCORING-a94660da7b18ac7e",
+      "validator_binding": "comparator_gap::MS-COV-GAP-MEDICAL_HEALTH_SCIENCES-PHARMACOLOGY_TOXICOLOGY_AND_DOSE_RESPONSE::oc_prediction_scoring_row::controls_and_falsifiers",
+      "why_it_failed": "The lane declares no executable evidence pack for the OC-vs-comparator scoring row."
+    },
+    {
+      "domain_class_id": "medical_health_sciences",
+      "execution_command": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "tools/oc133_toe_closure_factory.py",
+        "--compile-comparator-scoring-backlog",
+        "--write"
+      ],
+      "gap_id": "MS-COV-GAP-MEDICAL_HEALTH_SCIENCES-PHARMACOLOGY_TOXICOLOGY_AND_DOSE_RESPONSE",
+      "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+      "missing_artifact_type": "oc_prediction_scoring_row",
+      "next_escalation": "If no deterministic executor exists for this subartifact, create a lane-specific acquisition/scoring tool and keep r017 blocked.",
+      "no_fake_closure_policy": "Subtasks describe required scientific work; they cannot close broad TOE superiority without a passing evidence pack and replay record.",
+      "pass_predicate": "Clean replay regenerates the evidence pack hash and result verdict.",
+      "phenomenon_class_id": "pharmacology_toxicology_and_dose_response",
+      "repair_strategy": "Build `independent_replay` for gap `MS-COV-GAP-MEDICAL_HEALTH_SCIENCES-PHARMACOLOGY_TOXICOLOGY_AND_DOSE_RESPONSE` from governed open/free sources, then rerun the target-hidden scorer and strict validator.",
+      "required_capability": "Research/ScoringExecutor",
+      "required_source_block": {
+        "artifact_id": "independent_replay",
+        "pass_predicate": "Clean replay regenerates the evidence pack hash and result verdict.",
+        "required_execution": {
+          "evidence_pack_schema_id": "OC133_GRAND_EMPIRICAL_EVIDENCE_v1",
+          "minimum_n": 100,
+          "replay_command": "python validation/heldout/grand_science/medical_health/pharmacology_toxicology/run_pharmacology_toxicology_replay.py --check",
+          "source_separation_mode": "target_blind",
+          "target_hidden_until_scoring": true
+        }
+      },
+      "root_cause_class": "SCORING_EVIDENCE_NOT_MATERIALIZED",
+      "scoring_subartifact_id": "independent_replay",
+      "source_work_order_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/scoring_work_orders/scoring_37c095c180c5f414.json",
+      "status": "OPEN",
+      "subwork_hash": "fcc8b5662d5e44224f960b9ba1f002f96c1a367efa572c79b0151edf6f77f0ba",
+      "subwork_order_id": "R017-SCORING-7b5c3d503407fefa",
+      "validator_binding": "comparator_gap::MS-COV-GAP-MEDICAL_HEALTH_SCIENCES-PHARMACOLOGY_TOXICOLOGY_AND_DOSE_RESPONSE::oc_prediction_scoring_row::independent_replay",
+      "why_it_failed": "The lane declares no executable evidence pack for the OC-vs-comparator scoring row."
     },
     {
       "domain_class_id": "cognitive_behavioral_neurosciences",
@@ -5611,23 +5843,256 @@
       "missing_artifact_type": "oc_prediction_scoring_row",
       "next_escalation": "If no deterministic executor exists for this subartifact, create a lane-specific acquisition/scoring tool and keep r017 blocked.",
       "no_fake_closure_policy": "Subtasks describe required scientific work; they cannot close broad TOE superiority without a passing evidence pack and replay record.",
-      "pass_predicate": "Coverage lane has a complete executable_work_order with source, target, OC scoring rule, comparator, uncertainty, falsifier, and replay requirements.",
+      "pass_predicate": "Open/free source snapshot exists locally, is hash-bound, and satisfies source separation policy.",
       "phenomenon_class_id": "epidemiological_transmission_and_risk",
-      "repair_strategy": "Build `executable_scoring_spec_generation` for gap `MS-COV-GAP-MEDICAL_HEALTH_SCIENCES-EPIDEMIOLOGICAL_TRANSMISSION_AND_RISK` from governed open/free sources, then rerun the target-hidden scorer and strict validator.",
-      "required_capability": "Research/BenchmarkDesign",
+      "repair_strategy": "Build `source_snapshot_acquisition` for gap `MS-COV-GAP-MEDICAL_HEALTH_SCIENCES-EPIDEMIOLOGICAL_TRANSMISSION_AND_RISK` from governed open/free sources, then rerun the target-hidden scorer and strict validator.",
+      "required_capability": "Research/ScoringExecutor",
       "required_source_block": {
-        "artifact_id": "executable_scoring_spec_generation",
-        "pass_predicate": "Coverage lane has a complete executable_work_order with source, target, OC scoring rule, comparator, uncertainty, falsifier, and replay requirements.",
-        "required_capability": "Research/BenchmarkDesign"
+        "artifact_id": "source_snapshot_acquisition",
+        "pass_predicate": "Open/free source snapshot exists locally, is hash-bound, and satisfies source separation policy.",
+        "required_source": {
+          "lane_role": "official_data_source",
+          "required_local_snapshot_ref": "validation/heldout/grand_science/medical_health/epidemiology_risk/OC133_CDC_EPIDEMIOLOGY_RISK_SNAPSHOT.json",
+          "required_lock_ref": "validation/heldout/grand_science/medical_health/epidemiology_risk/OC133_CDC_EPIDEMIOLOGY_RISK_SNAPSHOT.lock.json",
+          "requirement": "Acquire and hash CDC Open Data Socrata API epidemiology time-series datasets from https://data.cdc.gov/resource/n8mc-b4w4.json?$limit=5000.",
+          "source_id": "cdc_open_data_epidemiology_timeseries_v1"
+        }
       },
-      "root_cause_class": "EXECUTABLE_SPEC_MISSING_FOR_SCORING",
-      "scoring_subartifact_id": "executable_scoring_spec_generation",
+      "root_cause_class": "SCORING_EVIDENCE_NOT_MATERIALIZED",
+      "scoring_subartifact_id": "source_snapshot_acquisition",
       "source_work_order_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/scoring_work_orders/scoring_bde33a9d37378831.json",
       "status": "OPEN",
-      "subwork_hash": "44cf29d1fc185cd5db46594890ce3f723e1bb8d322139a4e9fb117f494ad2cb9",
-      "subwork_order_id": "R017-SCORING-22a51acc047dcb32",
-      "validator_binding": "comparator_gap::MS-COV-GAP-MEDICAL_HEALTH_SCIENCES-EPIDEMIOLOGICAL_TRANSMISSION_AND_RISK::oc_prediction_scoring_row::executable_scoring_spec_generation",
-      "why_it_failed": "No executable comparator specification is bound to this gap, so the system cannot build a target-hidden OC scoring row."
+      "subwork_hash": "7f73872db4c7537561c1ddef774f90d1b52bc525a9eb6684a271aeb233ea5750",
+      "subwork_order_id": "R017-SCORING-b5ae1409bc16e138",
+      "validator_binding": "comparator_gap::MS-COV-GAP-MEDICAL_HEALTH_SCIENCES-EPIDEMIOLOGICAL_TRANSMISSION_AND_RISK::oc_prediction_scoring_row::source_snapshot_acquisition",
+      "why_it_failed": "The lane declares no executable evidence pack for the OC-vs-comparator scoring row."
+    },
+    {
+      "domain_class_id": "medical_health_sciences",
+      "execution_command": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "tools/oc133_toe_closure_factory.py",
+        "--compile-comparator-scoring-backlog",
+        "--write"
+      ],
+      "gap_id": "MS-COV-GAP-MEDICAL_HEALTH_SCIENCES-EPIDEMIOLOGICAL_TRANSMISSION_AND_RISK",
+      "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+      "missing_artifact_type": "oc_prediction_scoring_row",
+      "next_escalation": "If no deterministic executor exists for this subartifact, create a lane-specific acquisition/scoring tool and keep r017 blocked.",
+      "no_fake_closure_policy": "Subtasks describe required scientific work; they cannot close broad TOE superiority without a passing evidence pack and replay record.",
+      "pass_predicate": "Target table is locked before scoring and hidden fields do not leak into model selection.",
+      "phenomenon_class_id": "epidemiological_transmission_and_risk",
+      "repair_strategy": "Build `target_hidden_task_table` for gap `MS-COV-GAP-MEDICAL_HEALTH_SCIENCES-EPIDEMIOLOGICAL_TRANSMISSION_AND_RISK` from governed open/free sources, then rerun the target-hidden scorer and strict validator.",
+      "required_capability": "Research/ScoringExecutor",
+      "required_source_block": {
+        "artifact_id": "target_hidden_task_table",
+        "pass_predicate": "Target table is locked before scoring and hidden fields do not leak into model selection.",
+        "required_target": {
+          "lane_role": "target_variable",
+          "requirement": "Lock source snapshots by reporting week, hide future regional risk-change labels, and score only against the held-out temporal slice.",
+          "target_fields": [
+            "case_month",
+            "res_state",
+            "age_group",
+            "sex",
+            "case_positive_specimen_interval"
+          ],
+          "target_name": "held_out_transmission_risk_change_by_region_and_week",
+          "unit": "weekly regional risk-change class"
+        }
+      },
+      "root_cause_class": "SCORING_EVIDENCE_NOT_MATERIALIZED",
+      "scoring_subartifact_id": "target_hidden_task_table",
+      "source_work_order_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/scoring_work_orders/scoring_bde33a9d37378831.json",
+      "status": "OPEN",
+      "subwork_hash": "096f8469bedd761f9467b73adb8ce397dbc1a2c1cbba16e0ce6f82a6e59b990e",
+      "subwork_order_id": "R017-SCORING-45ab0ff59841ca1f",
+      "validator_binding": "comparator_gap::MS-COV-GAP-MEDICAL_HEALTH_SCIENCES-EPIDEMIOLOGICAL_TRANSMISSION_AND_RISK::oc_prediction_scoring_row::target_hidden_task_table",
+      "why_it_failed": "The lane declares no executable evidence pack for the OC-vs-comparator scoring row."
+    },
+    {
+      "domain_class_id": "medical_health_sciences",
+      "execution_command": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "tools/oc133_toe_closure_factory.py",
+        "--compile-comparator-scoring-backlog",
+        "--write"
+      ],
+      "gap_id": "MS-COV-GAP-MEDICAL_HEALTH_SCIENCES-EPIDEMIOLOGICAL_TRANSMISSION_AND_RISK",
+      "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+      "missing_artifact_type": "oc_prediction_scoring_row",
+      "next_escalation": "If no deterministic executor exists for this subartifact, create a lane-specific acquisition/scoring tool and keep r017 blocked.",
+      "no_fake_closure_policy": "Subtasks describe required scientific work; they cannot close broad TOE superiority without a passing evidence pack and replay record.",
+      "pass_predicate": "OC prediction/scoring rule is preregistered before target unsealing.",
+      "phenomenon_class_id": "epidemiological_transmission_and_risk",
+      "repair_strategy": "Build `oc_formula_or_model` for gap `MS-COV-GAP-MEDICAL_HEALTH_SCIENCES-EPIDEMIOLOGICAL_TRANSMISSION_AND_RISK` from governed open/free sources, then rerun the target-hidden scorer and strict validator.",
+      "required_capability": "Research/ScoringExecutor",
+      "required_source_block": {
+        "artifact_id": "oc_formula_or_model",
+        "pass_predicate": "OC prediction/scoring rule is preregistered before target unsealing.",
+        "required_model": {
+          "lane_role": "formula_or_model",
+          "required_inputs": [
+            "region",
+            "reporting week",
+            "age-group structure",
+            "case interval distribution",
+            "prior risk class"
+          ],
+          "requirement": "OC flow-threshold-cycle model over contact context, boundary intensity, population susceptibility, and regional feedback lag."
+        }
+      },
+      "root_cause_class": "SCORING_EVIDENCE_NOT_MATERIALIZED",
+      "scoring_subartifact_id": "oc_formula_or_model",
+      "source_work_order_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/scoring_work_orders/scoring_bde33a9d37378831.json",
+      "status": "OPEN",
+      "subwork_hash": "f02c3bb0990e593a663b56b195028a59020b2da232165e0578c05f172c36695e",
+      "subwork_order_id": "R017-SCORING-407ab8cfdf66a78b",
+      "validator_binding": "comparator_gap::MS-COV-GAP-MEDICAL_HEALTH_SCIENCES-EPIDEMIOLOGICAL_TRANSMISSION_AND_RISK::oc_prediction_scoring_row::oc_formula_or_model",
+      "why_it_failed": "The lane declares no executable evidence pack for the OC-vs-comparator scoring row."
+    },
+    {
+      "domain_class_id": "medical_health_sciences",
+      "execution_command": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "tools/oc133_toe_closure_factory.py",
+        "--compile-comparator-scoring-backlog",
+        "--write"
+      ],
+      "gap_id": "MS-COV-GAP-MEDICAL_HEALTH_SCIENCES-EPIDEMIOLOGICAL_TRANSMISSION_AND_RISK",
+      "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+      "missing_artifact_type": "oc_prediction_scoring_row",
+      "next_escalation": "If no deterministic executor exists for this subartifact, create a lane-specific acquisition/scoring tool and keep r017 blocked.",
+      "no_fake_closure_policy": "Subtasks describe required scientific work; they cannot close broad TOE superiority without a passing evidence pack and replay record.",
+      "pass_predicate": "Incumbent comparator is scored on the same held-out targets.",
+      "phenomenon_class_id": "epidemiological_transmission_and_risk",
+      "repair_strategy": "Build `incumbent_comparator_scoring` for gap `MS-COV-GAP-MEDICAL_HEALTH_SCIENCES-EPIDEMIOLOGICAL_TRANSMISSION_AND_RISK` from governed open/free sources, then rerun the target-hidden scorer and strict validator.",
+      "required_capability": "Research/ScoringExecutor",
+      "required_source_block": {
+        "artifact_id": "incumbent_comparator_scoring",
+        "pass_predicate": "Incumbent comparator is scored on the same held-out targets.",
+        "required_comparator": {
+          "baseline_name": "autoregressive regional risk baseline",
+          "lane_role": "incumbent_comparator",
+          "pre_registered": true,
+          "requirement": "Predict held-out risk change from lagged regional counts and demographic strata without access to future target labels."
+        }
+      },
+      "root_cause_class": "SCORING_EVIDENCE_NOT_MATERIALIZED",
+      "scoring_subartifact_id": "incumbent_comparator_scoring",
+      "source_work_order_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/scoring_work_orders/scoring_bde33a9d37378831.json",
+      "status": "OPEN",
+      "subwork_hash": "c29899bccfd0240508fdde87b97160a6df0a27aec1d04caad21c38bb988c9dc8",
+      "subwork_order_id": "R017-SCORING-463e380d97c48416",
+      "validator_binding": "comparator_gap::MS-COV-GAP-MEDICAL_HEALTH_SCIENCES-EPIDEMIOLOGICAL_TRANSMISSION_AND_RISK::oc_prediction_scoring_row::incumbent_comparator_scoring",
+      "why_it_failed": "The lane declares no executable evidence pack for the OC-vs-comparator scoring row."
+    },
+    {
+      "domain_class_id": "medical_health_sciences",
+      "execution_command": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "tools/oc133_toe_closure_factory.py",
+        "--compile-comparator-scoring-backlog",
+        "--write"
+      ],
+      "gap_id": "MS-COV-GAP-MEDICAL_HEALTH_SCIENCES-EPIDEMIOLOGICAL_TRANSMISSION_AND_RISK",
+      "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+      "missing_artifact_type": "oc_prediction_scoring_row",
+      "next_escalation": "If no deterministic executor exists for this subartifact, create a lane-specific acquisition/scoring tool and keep r017 blocked.",
+      "no_fake_closure_policy": "Subtasks describe required scientific work; they cannot close broad TOE superiority without a passing evidence pack and replay record.",
+      "pass_predicate": "OC residual advantage exceeds preregistered materiality threshold under uncertainty.",
+      "phenomenon_class_id": "epidemiological_transmission_and_risk",
+      "repair_strategy": "Build `residuals_materiality_uncertainty` for gap `MS-COV-GAP-MEDICAL_HEALTH_SCIENCES-EPIDEMIOLOGICAL_TRANSMISSION_AND_RISK` from governed open/free sources, then rerun the target-hidden scorer and strict validator.",
+      "required_capability": "Research/ScoringExecutor",
+      "required_source_block": {
+        "artifact_id": "residuals_materiality_uncertainty",
+        "pass_predicate": "OC residual advantage exceeds preregistered materiality threshold under uncertainty.",
+        "required_uncertainty": {
+          "lane_role": "uncertainty_policy",
+          "metric": "rolling-origin interval error with regional bootstrap",
+          "requirement": "Report temporal bootstrap intervals and fail closed on unstable advantage or coverage drift."
+        }
+      },
+      "root_cause_class": "SCORING_EVIDENCE_NOT_MATERIALIZED",
+      "scoring_subartifact_id": "residuals_materiality_uncertainty",
+      "source_work_order_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/scoring_work_orders/scoring_bde33a9d37378831.json",
+      "status": "OPEN",
+      "subwork_hash": "987db992e05ad15da21733afdc3f7ba1180bfc2b57684e4a61ed527f6f3c95cc",
+      "subwork_order_id": "R017-SCORING-4a1c0acded331460",
+      "validator_binding": "comparator_gap::MS-COV-GAP-MEDICAL_HEALTH_SCIENCES-EPIDEMIOLOGICAL_TRANSMISSION_AND_RISK::oc_prediction_scoring_row::residuals_materiality_uncertainty",
+      "why_it_failed": "The lane declares no executable evidence pack for the OC-vs-comparator scoring row."
+    },
+    {
+      "domain_class_id": "medical_health_sciences",
+      "execution_command": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "tools/oc133_toe_closure_factory.py",
+        "--compile-comparator-scoring-backlog",
+        "--write"
+      ],
+      "gap_id": "MS-COV-GAP-MEDICAL_HEALTH_SCIENCES-EPIDEMIOLOGICAL_TRANSMISSION_AND_RISK",
+      "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+      "missing_artifact_type": "oc_prediction_scoring_row",
+      "next_escalation": "If no deterministic executor exists for this subartifact, create a lane-specific acquisition/scoring tool and keep r017 blocked.",
+      "no_fake_closure_policy": "Subtasks describe required scientific work; they cannot close broad TOE superiority without a passing evidence pack and replay record.",
+      "pass_predicate": "Negative controls and falsifiers are declared and replayed without post-hoc adjustment.",
+      "phenomenon_class_id": "epidemiological_transmission_and_risk",
+      "repair_strategy": "Build `controls_and_falsifiers` for gap `MS-COV-GAP-MEDICAL_HEALTH_SCIENCES-EPIDEMIOLOGICAL_TRANSMISSION_AND_RISK` from governed open/free sources, then rerun the target-hidden scorer and strict validator.",
+      "required_capability": "Research/ScoringExecutor",
+      "required_source_block": {
+        "artifact_id": "controls_and_falsifiers",
+        "pass_predicate": "Negative controls and falsifiers are declared and replayed without post-hoc adjustment.",
+        "required_falsifier": {
+          "falsifier_id": "medical_epidemiology_no_temporal_generalization",
+          "lane_role": "falsifier",
+          "requirement": "Trigger if the temporal holdout fails, if future labels leak, or if OC advantage is not material after uncertainty adjustment."
+        }
+      },
+      "root_cause_class": "SCORING_EVIDENCE_NOT_MATERIALIZED",
+      "scoring_subartifact_id": "controls_and_falsifiers",
+      "source_work_order_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/scoring_work_orders/scoring_bde33a9d37378831.json",
+      "status": "OPEN",
+      "subwork_hash": "6a57f5d6eddfe5945ad0d0f545acf04d8e2fd461d855a825e00061a61f570b67",
+      "subwork_order_id": "R017-SCORING-9e8bcf6ff9b74c26",
+      "validator_binding": "comparator_gap::MS-COV-GAP-MEDICAL_HEALTH_SCIENCES-EPIDEMIOLOGICAL_TRANSMISSION_AND_RISK::oc_prediction_scoring_row::controls_and_falsifiers",
+      "why_it_failed": "The lane declares no executable evidence pack for the OC-vs-comparator scoring row."
+    },
+    {
+      "domain_class_id": "medical_health_sciences",
+      "execution_command": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "tools/oc133_toe_closure_factory.py",
+        "--compile-comparator-scoring-backlog",
+        "--write"
+      ],
+      "gap_id": "MS-COV-GAP-MEDICAL_HEALTH_SCIENCES-EPIDEMIOLOGICAL_TRANSMISSION_AND_RISK",
+      "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+      "missing_artifact_type": "oc_prediction_scoring_row",
+      "next_escalation": "If no deterministic executor exists for this subartifact, create a lane-specific acquisition/scoring tool and keep r017 blocked.",
+      "no_fake_closure_policy": "Subtasks describe required scientific work; they cannot close broad TOE superiority without a passing evidence pack and replay record.",
+      "pass_predicate": "Clean replay regenerates the evidence pack hash and result verdict.",
+      "phenomenon_class_id": "epidemiological_transmission_and_risk",
+      "repair_strategy": "Build `independent_replay` for gap `MS-COV-GAP-MEDICAL_HEALTH_SCIENCES-EPIDEMIOLOGICAL_TRANSMISSION_AND_RISK` from governed open/free sources, then rerun the target-hidden scorer and strict validator.",
+      "required_capability": "Research/ScoringExecutor",
+      "required_source_block": {
+        "artifact_id": "independent_replay",
+        "pass_predicate": "Clean replay regenerates the evidence pack hash and result verdict.",
+        "required_execution": {
+          "evidence_pack_schema_id": "OC133_GRAND_EMPIRICAL_EVIDENCE_v1",
+          "minimum_n": 500,
+          "replay_command": "python validation/heldout/grand_science/medical_health/epidemiology_risk/run_epidemiology_risk_replay.py --check",
+          "source_separation_mode": "target_blind",
+          "target_hidden_until_scoring": true
+        }
+      },
+      "root_cause_class": "SCORING_EVIDENCE_NOT_MATERIALIZED",
+      "scoring_subartifact_id": "independent_replay",
+      "source_work_order_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/scoring_work_orders/scoring_bde33a9d37378831.json",
+      "status": "OPEN",
+      "subwork_hash": "dcf1ecdbc0c636a1d6c523976d7be8c1f670c9acb1900a729882c90045efa0c1",
+      "subwork_order_id": "R017-SCORING-ea13bc6230863016",
+      "validator_binding": "comparator_gap::MS-COV-GAP-MEDICAL_HEALTH_SCIENCES-EPIDEMIOLOGICAL_TRANSMISSION_AND_RISK::oc_prediction_scoring_row::independent_replay",
+      "why_it_failed": "The lane declares no executable evidence pack for the OC-vs-comparator scoring row."
     },
     {
       "domain_class_id": "medical_health_sciences",
@@ -5642,23 +6107,256 @@
       "missing_artifact_type": "oc_prediction_scoring_row",
       "next_escalation": "If no deterministic executor exists for this subartifact, create a lane-specific acquisition/scoring tool and keep r017 blocked.",
       "no_fake_closure_policy": "Subtasks describe required scientific work; they cannot close broad TOE superiority without a passing evidence pack and replay record.",
-      "pass_predicate": "Coverage lane has a complete executable_work_order with source, target, OC scoring rule, comparator, uncertainty, falsifier, and replay requirements.",
+      "pass_predicate": "Open/free source snapshot exists locally, is hash-bound, and satisfies source separation policy.",
       "phenomenon_class_id": "clinical_outcomes_and_biomarkers",
-      "repair_strategy": "Build `executable_scoring_spec_generation` for gap `MS-COV-GAP-MEDICAL_HEALTH_SCIENCES-CLINICAL_OUTCOMES_AND_BIOMARKERS` from governed open/free sources, then rerun the target-hidden scorer and strict validator.",
-      "required_capability": "Research/BenchmarkDesign",
+      "repair_strategy": "Build `source_snapshot_acquisition` for gap `MS-COV-GAP-MEDICAL_HEALTH_SCIENCES-CLINICAL_OUTCOMES_AND_BIOMARKERS` from governed open/free sources, then rerun the target-hidden scorer and strict validator.",
+      "required_capability": "Research/ScoringExecutor",
       "required_source_block": {
-        "artifact_id": "executable_scoring_spec_generation",
-        "pass_predicate": "Coverage lane has a complete executable_work_order with source, target, OC scoring rule, comparator, uncertainty, falsifier, and replay requirements.",
-        "required_capability": "Research/BenchmarkDesign"
+        "artifact_id": "source_snapshot_acquisition",
+        "pass_predicate": "Open/free source snapshot exists locally, is hash-bound, and satisfies source separation policy.",
+        "required_source": {
+          "lane_role": "official_data_source",
+          "required_local_snapshot_ref": "validation/heldout/grand_science/medical_health/clinical_trials_outcomes/OC133_CLINICALTRIALS_OUTCOMES_SNAPSHOT.json",
+          "required_lock_ref": "validation/heldout/grand_science/medical_health/clinical_trials_outcomes/OC133_CLINICALTRIALS_OUTCOMES_SNAPSHOT.lock.json",
+          "requirement": "Acquire and hash ClinicalTrials.gov API v2 studies and reported outcome modules from https://clinicaltrials.gov/api/v2/studies?query.term=completed%20interventional%20phase%203&format=json&pageSize=100.",
+          "source_id": "clinicaltrials_gov_v2_study_outcomes_v1"
+        }
       },
-      "root_cause_class": "EXECUTABLE_SPEC_MISSING_FOR_SCORING",
-      "scoring_subartifact_id": "executable_scoring_spec_generation",
+      "root_cause_class": "SCORING_EVIDENCE_NOT_MATERIALIZED",
+      "scoring_subartifact_id": "source_snapshot_acquisition",
       "source_work_order_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/scoring_work_orders/scoring_c8f37f6962a1ece5.json",
       "status": "OPEN",
-      "subwork_hash": "4cca6de91941c7b7e59fafc038bac7a743b1b2272b4a89ec7c97aa532aa60d94",
-      "subwork_order_id": "R017-SCORING-84dfd66183e8c98e",
-      "validator_binding": "comparator_gap::MS-COV-GAP-MEDICAL_HEALTH_SCIENCES-CLINICAL_OUTCOMES_AND_BIOMARKERS::oc_prediction_scoring_row::executable_scoring_spec_generation",
-      "why_it_failed": "No executable comparator specification is bound to this gap, so the system cannot build a target-hidden OC scoring row."
+      "subwork_hash": "51f2fb881c4ec1c38ef730278e9c090a4b492db3a477572dc20591970eea73b9",
+      "subwork_order_id": "R017-SCORING-02ce4ad5589868f8",
+      "validator_binding": "comparator_gap::MS-COV-GAP-MEDICAL_HEALTH_SCIENCES-CLINICAL_OUTCOMES_AND_BIOMARKERS::oc_prediction_scoring_row::source_snapshot_acquisition",
+      "why_it_failed": "The lane declares no executable evidence pack for the OC-vs-comparator scoring row."
+    },
+    {
+      "domain_class_id": "medical_health_sciences",
+      "execution_command": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "tools/oc133_toe_closure_factory.py",
+        "--compile-comparator-scoring-backlog",
+        "--write"
+      ],
+      "gap_id": "MS-COV-GAP-MEDICAL_HEALTH_SCIENCES-CLINICAL_OUTCOMES_AND_BIOMARKERS",
+      "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+      "missing_artifact_type": "oc_prediction_scoring_row",
+      "next_escalation": "If no deterministic executor exists for this subartifact, create a lane-specific acquisition/scoring tool and keep r017 blocked.",
+      "no_fake_closure_policy": "Subtasks describe required scientific work; they cannot close broad TOE superiority without a passing evidence pack and replay record.",
+      "pass_predicate": "Target table is locked before scoring and hidden fields do not leak into model selection.",
+      "phenomenon_class_id": "clinical_outcomes_and_biomarkers",
+      "repair_strategy": "Build `target_hidden_task_table` for gap `MS-COV-GAP-MEDICAL_HEALTH_SCIENCES-CLINICAL_OUTCOMES_AND_BIOMARKERS` from governed open/free sources, then rerun the target-hidden scorer and strict validator.",
+      "required_capability": "Research/ScoringExecutor",
+      "required_source_block": {
+        "artifact_id": "target_hidden_task_table",
+        "pass_predicate": "Target table is locked before scoring and hidden fields do not leak into model selection.",
+        "required_target": {
+          "lane_role": "target_variable",
+          "requirement": "Lock completed interventional trials and hide reported primary outcome direction and biomarker shift fields until the OC scoring pack is preregistered.",
+          "target_fields": [
+            "protocolSection.identificationModule.nctId",
+            "protocolSection.conditionsModule.conditions",
+            "protocolSection.designModule.phases",
+            "resultsSection.outcomeMeasuresModule.outcomeMeasures"
+          ],
+          "target_name": "held_out_primary_outcome_effect_direction_and_biomarker_shift",
+          "unit": "directional effect class with reported outcome measure units retained per study"
+        }
+      },
+      "root_cause_class": "SCORING_EVIDENCE_NOT_MATERIALIZED",
+      "scoring_subartifact_id": "target_hidden_task_table",
+      "source_work_order_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/scoring_work_orders/scoring_c8f37f6962a1ece5.json",
+      "status": "OPEN",
+      "subwork_hash": "eac1d1cf61bd9e7c0563b82c24c51917fa41a1b87144e3f3c33c7387688a45c6",
+      "subwork_order_id": "R017-SCORING-88ed91ff9e3d3da0",
+      "validator_binding": "comparator_gap::MS-COV-GAP-MEDICAL_HEALTH_SCIENCES-CLINICAL_OUTCOMES_AND_BIOMARKERS::oc_prediction_scoring_row::target_hidden_task_table",
+      "why_it_failed": "The lane declares no executable evidence pack for the OC-vs-comparator scoring row."
+    },
+    {
+      "domain_class_id": "medical_health_sciences",
+      "execution_command": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "tools/oc133_toe_closure_factory.py",
+        "--compile-comparator-scoring-backlog",
+        "--write"
+      ],
+      "gap_id": "MS-COV-GAP-MEDICAL_HEALTH_SCIENCES-CLINICAL_OUTCOMES_AND_BIOMARKERS",
+      "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+      "missing_artifact_type": "oc_prediction_scoring_row",
+      "next_escalation": "If no deterministic executor exists for this subartifact, create a lane-specific acquisition/scoring tool and keep r017 blocked.",
+      "no_fake_closure_policy": "Subtasks describe required scientific work; they cannot close broad TOE superiority without a passing evidence pack and replay record.",
+      "pass_predicate": "OC prediction/scoring rule is preregistered before target unsealing.",
+      "phenomenon_class_id": "clinical_outcomes_and_biomarkers",
+      "repair_strategy": "Build `oc_formula_or_model` for gap `MS-COV-GAP-MEDICAL_HEALTH_SCIENCES-CLINICAL_OUTCOMES_AND_BIOMARKERS` from governed open/free sources, then rerun the target-hidden scorer and strict validator.",
+      "required_capability": "Research/ScoringExecutor",
+      "required_source_block": {
+        "artifact_id": "oc_formula_or_model",
+        "pass_predicate": "OC prediction/scoring rule is preregistered before target unsealing.",
+        "required_model": {
+          "lane_role": "formula_or_model",
+          "required_inputs": [
+            "condition class",
+            "intervention class",
+            "trial phase",
+            "enrollment scale",
+            "baseline biomarker context",
+            "declared primary outcome measure"
+          ],
+          "requirement": "OC continuum-state prediction over disease context, intervention boundary, biomarker axis, threshold shift, and outcome-cycle response."
+        }
+      },
+      "root_cause_class": "SCORING_EVIDENCE_NOT_MATERIALIZED",
+      "scoring_subartifact_id": "oc_formula_or_model",
+      "source_work_order_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/scoring_work_orders/scoring_c8f37f6962a1ece5.json",
+      "status": "OPEN",
+      "subwork_hash": "4c5f0c4a202f6e642153f594f9b3b206b6ccc466d4658c6ed6df9b2dc1be8832",
+      "subwork_order_id": "R017-SCORING-d44e32d273ceb6bd",
+      "validator_binding": "comparator_gap::MS-COV-GAP-MEDICAL_HEALTH_SCIENCES-CLINICAL_OUTCOMES_AND_BIOMARKERS::oc_prediction_scoring_row::oc_formula_or_model",
+      "why_it_failed": "The lane declares no executable evidence pack for the OC-vs-comparator scoring row."
+    },
+    {
+      "domain_class_id": "medical_health_sciences",
+      "execution_command": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "tools/oc133_toe_closure_factory.py",
+        "--compile-comparator-scoring-backlog",
+        "--write"
+      ],
+      "gap_id": "MS-COV-GAP-MEDICAL_HEALTH_SCIENCES-CLINICAL_OUTCOMES_AND_BIOMARKERS",
+      "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+      "missing_artifact_type": "oc_prediction_scoring_row",
+      "next_escalation": "If no deterministic executor exists for this subartifact, create a lane-specific acquisition/scoring tool and keep r017 blocked.",
+      "no_fake_closure_policy": "Subtasks describe required scientific work; they cannot close broad TOE superiority without a passing evidence pack and replay record.",
+      "pass_predicate": "Incumbent comparator is scored on the same held-out targets.",
+      "phenomenon_class_id": "clinical_outcomes_and_biomarkers",
+      "repair_strategy": "Build `incumbent_comparator_scoring` for gap `MS-COV-GAP-MEDICAL_HEALTH_SCIENCES-CLINICAL_OUTCOMES_AND_BIOMARKERS` from governed open/free sources, then rerun the target-hidden scorer and strict validator.",
+      "required_capability": "Research/ScoringExecutor",
+      "required_source_block": {
+        "artifact_id": "incumbent_comparator_scoring",
+        "pass_predicate": "Incumbent comparator is scored on the same held-out targets.",
+        "required_comparator": {
+          "baseline_name": "condition-intervention historical majority and phase-stratified outcome baseline",
+          "lane_role": "incumbent_comparator",
+          "pre_registered": true,
+          "requirement": "Predict the held-out outcome direction from condition, intervention class, phase, and historical public outcome frequencies locked before the target slice."
+        }
+      },
+      "root_cause_class": "SCORING_EVIDENCE_NOT_MATERIALIZED",
+      "scoring_subartifact_id": "incumbent_comparator_scoring",
+      "source_work_order_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/scoring_work_orders/scoring_c8f37f6962a1ece5.json",
+      "status": "OPEN",
+      "subwork_hash": "0948e6809eec414893295df4899a13bb6b3353727b9fb40e680baccc0f7a3c59",
+      "subwork_order_id": "R017-SCORING-9528380fd3689feb",
+      "validator_binding": "comparator_gap::MS-COV-GAP-MEDICAL_HEALTH_SCIENCES-CLINICAL_OUTCOMES_AND_BIOMARKERS::oc_prediction_scoring_row::incumbent_comparator_scoring",
+      "why_it_failed": "The lane declares no executable evidence pack for the OC-vs-comparator scoring row."
+    },
+    {
+      "domain_class_id": "medical_health_sciences",
+      "execution_command": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "tools/oc133_toe_closure_factory.py",
+        "--compile-comparator-scoring-backlog",
+        "--write"
+      ],
+      "gap_id": "MS-COV-GAP-MEDICAL_HEALTH_SCIENCES-CLINICAL_OUTCOMES_AND_BIOMARKERS",
+      "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+      "missing_artifact_type": "oc_prediction_scoring_row",
+      "next_escalation": "If no deterministic executor exists for this subartifact, create a lane-specific acquisition/scoring tool and keep r017 blocked.",
+      "no_fake_closure_policy": "Subtasks describe required scientific work; they cannot close broad TOE superiority without a passing evidence pack and replay record.",
+      "pass_predicate": "OC residual advantage exceeds preregistered materiality threshold under uncertainty.",
+      "phenomenon_class_id": "clinical_outcomes_and_biomarkers",
+      "repair_strategy": "Build `residuals_materiality_uncertainty` for gap `MS-COV-GAP-MEDICAL_HEALTH_SCIENCES-CLINICAL_OUTCOMES_AND_BIOMARKERS` from governed open/free sources, then rerun the target-hidden scorer and strict validator.",
+      "required_capability": "Research/ScoringExecutor",
+      "required_source_block": {
+        "artifact_id": "residuals_materiality_uncertainty",
+        "pass_predicate": "OC residual advantage exceeds preregistered materiality threshold under uncertainty.",
+        "required_uncertainty": {
+          "lane_role": "uncertainty_policy",
+          "metric": "bootstrap confidence interval over held-out outcome-direction residuals",
+          "requirement": "Report 95 percent bootstrap intervals and fail closed when intervals cross the materiality threshold."
+        }
+      },
+      "root_cause_class": "SCORING_EVIDENCE_NOT_MATERIALIZED",
+      "scoring_subartifact_id": "residuals_materiality_uncertainty",
+      "source_work_order_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/scoring_work_orders/scoring_c8f37f6962a1ece5.json",
+      "status": "OPEN",
+      "subwork_hash": "918929503a8af8c6106bca033352f440889ae376042c1cbe3ec9daca59d2846e",
+      "subwork_order_id": "R017-SCORING-34748b04fee3485e",
+      "validator_binding": "comparator_gap::MS-COV-GAP-MEDICAL_HEALTH_SCIENCES-CLINICAL_OUTCOMES_AND_BIOMARKERS::oc_prediction_scoring_row::residuals_materiality_uncertainty",
+      "why_it_failed": "The lane declares no executable evidence pack for the OC-vs-comparator scoring row."
+    },
+    {
+      "domain_class_id": "medical_health_sciences",
+      "execution_command": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "tools/oc133_toe_closure_factory.py",
+        "--compile-comparator-scoring-backlog",
+        "--write"
+      ],
+      "gap_id": "MS-COV-GAP-MEDICAL_HEALTH_SCIENCES-CLINICAL_OUTCOMES_AND_BIOMARKERS",
+      "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+      "missing_artifact_type": "oc_prediction_scoring_row",
+      "next_escalation": "If no deterministic executor exists for this subartifact, create a lane-specific acquisition/scoring tool and keep r017 blocked.",
+      "no_fake_closure_policy": "Subtasks describe required scientific work; they cannot close broad TOE superiority without a passing evidence pack and replay record.",
+      "pass_predicate": "Negative controls and falsifiers are declared and replayed without post-hoc adjustment.",
+      "phenomenon_class_id": "clinical_outcomes_and_biomarkers",
+      "repair_strategy": "Build `controls_and_falsifiers` for gap `MS-COV-GAP-MEDICAL_HEALTH_SCIENCES-CLINICAL_OUTCOMES_AND_BIOMARKERS` from governed open/free sources, then rerun the target-hidden scorer and strict validator.",
+      "required_capability": "Research/ScoringExecutor",
+      "required_source_block": {
+        "artifact_id": "controls_and_falsifiers",
+        "pass_predicate": "Negative controls and falsifiers are declared and replayed without post-hoc adjustment.",
+        "required_falsifier": {
+          "falsifier_id": "medical_clinical_outcome_no_material_advantage",
+          "lane_role": "falsifier",
+          "requirement": "Trigger if OC does not beat the preregistered comparator, if target fields leak into design, or if the negative control retains advantage."
+        }
+      },
+      "root_cause_class": "SCORING_EVIDENCE_NOT_MATERIALIZED",
+      "scoring_subartifact_id": "controls_and_falsifiers",
+      "source_work_order_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/scoring_work_orders/scoring_c8f37f6962a1ece5.json",
+      "status": "OPEN",
+      "subwork_hash": "0ab32e51f5fc5d10ed11ccf44ebaae71b0f3d37134522b46354b2e8736eaa486",
+      "subwork_order_id": "R017-SCORING-ec7d9c9b18f1f8b5",
+      "validator_binding": "comparator_gap::MS-COV-GAP-MEDICAL_HEALTH_SCIENCES-CLINICAL_OUTCOMES_AND_BIOMARKERS::oc_prediction_scoring_row::controls_and_falsifiers",
+      "why_it_failed": "The lane declares no executable evidence pack for the OC-vs-comparator scoring row."
+    },
+    {
+      "domain_class_id": "medical_health_sciences",
+      "execution_command": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "tools/oc133_toe_closure_factory.py",
+        "--compile-comparator-scoring-backlog",
+        "--write"
+      ],
+      "gap_id": "MS-COV-GAP-MEDICAL_HEALTH_SCIENCES-CLINICAL_OUTCOMES_AND_BIOMARKERS",
+      "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+      "missing_artifact_type": "oc_prediction_scoring_row",
+      "next_escalation": "If no deterministic executor exists for this subartifact, create a lane-specific acquisition/scoring tool and keep r017 blocked.",
+      "no_fake_closure_policy": "Subtasks describe required scientific work; they cannot close broad TOE superiority without a passing evidence pack and replay record.",
+      "pass_predicate": "Clean replay regenerates the evidence pack hash and result verdict.",
+      "phenomenon_class_id": "clinical_outcomes_and_biomarkers",
+      "repair_strategy": "Build `independent_replay` for gap `MS-COV-GAP-MEDICAL_HEALTH_SCIENCES-CLINICAL_OUTCOMES_AND_BIOMARKERS` from governed open/free sources, then rerun the target-hidden scorer and strict validator.",
+      "required_capability": "Research/ScoringExecutor",
+      "required_source_block": {
+        "artifact_id": "independent_replay",
+        "pass_predicate": "Clean replay regenerates the evidence pack hash and result verdict.",
+        "required_execution": {
+          "evidence_pack_schema_id": "OC133_GRAND_EMPIRICAL_EVIDENCE_v1",
+          "minimum_n": 100,
+          "replay_command": "python validation/heldout/grand_science/medical_health/clinical_trials_outcomes/run_clinical_outcome_replay.py --check",
+          "source_separation_mode": "target_blind",
+          "target_hidden_until_scoring": true
+        }
+      },
+      "root_cause_class": "SCORING_EVIDENCE_NOT_MATERIALIZED",
+      "scoring_subartifact_id": "independent_replay",
+      "source_work_order_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/scoring_work_orders/scoring_c8f37f6962a1ece5.json",
+      "status": "OPEN",
+      "subwork_hash": "040baf302319d34df9386b14e2092a43d7285e8179c1417c7acfffdcb7e490c7",
+      "subwork_order_id": "R017-SCORING-3bcd873c6eef75ac",
+      "validator_binding": "comparator_gap::MS-COV-GAP-MEDICAL_HEALTH_SCIENCES-CLINICAL_OUTCOMES_AND_BIOMARKERS::oc_prediction_scoring_row::independent_replay",
+      "why_it_failed": "The lane declares no executable evidence pack for the OC-vs-comparator scoring row."
     },
     {
       "domain_class_id": "cognitive_behavioral_neurosciences",
@@ -7217,6 +7915,6 @@
   ],
   "stale_scoring_work_order_total": 3,
   "status": "OPEN",
-  "subwork_order_total": 196,
+  "subwork_order_total": 214,
   "why_it_failed": "Comparator broad coverage still lacks strict OC prediction scoring evidence for one or more gaps."
 }

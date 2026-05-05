@@ -1,5 +1,5 @@
 {
-  "artifact_hash": "186a951520f0b347c1f648c0a25392193e3881518272cb7e8ae3ad291ad0062f",
+  "artifact_hash": "f408224221bb67858e1797f7660e6b630290b0af486896404dce55e0a70750d7",
   "artifact_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/scoring_work_orders/scoring_37c095c180c5f414.json",
   "current_evidence": {
     "evidence_pack_hash": "",
@@ -12,12 +12,12 @@
     "evidence_ref": null,
     "evidence_ref_exists": false,
     "executable_evidence_exists": false,
-    "fail_closed_status_present": false,
+    "fail_closed_status_present": true,
     "material_margin_met": false,
-    "pack_status_text": "{\"COVERAGE_CLOSURE_ALLOWED\": NULL, \"COVERAGE_CLOSURE_STATUS\": NULL, \"EVIDENCE_STATUS\": NULL, \"PACK_STATUS\": NULL}"
+    "pack_status_text": "{\"COVERAGE_CLOSURE_ALLOWED\": NULL, \"COVERAGE_CLOSURE_STATUS\": \"OPEN_FAIL_CLOSED_MEDICAL_SOURCE_EVIDENCE_NOT_ACQUIRED\", \"EVIDENCE_STATUS\": NULL, \"PACK_STATUS\": NULL}"
   },
   "domain_class_id": "medical_health_sciences",
-  "executable_spec_found": false,
+  "executable_spec_found": true,
   "execution_command": [
     "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
     "tools/oc133_toe_closure_factory.py",
@@ -36,7 +36,12 @@
     "domain-scope survey explaining why the lane is representative of the phenomenon class",
     "negative controls rejected",
     "falsifiers declared and executable",
-    "independent clean-checkout replay bound to coverage register and report"
+    "independent clean-checkout replay bound to coverage register and report",
+    "executable lane spec declares exact official source, target variable, formula/model, comparator, uncertainty, residual metric, negative control, and falsifier",
+    "source snapshot and target projection are locked before scoring",
+    "strict evidence pack exists and validates under independent replay",
+    "coverage remains open until every closure predicate is reviewed",
+    "fail-closed evidence gate: executable evidence is not yet bound"
   ],
   "queue_row_found": true,
   "repair_strategy": "Materialize a target-hidden scoring pack from the declared source, target, OC model, incumbent comparator, uncertainty rule, falsifier, and replay command; broad superiority remains blocked until the scoring row beats the comparator and replay passes.",
@@ -45,43 +50,87 @@
     {
       "artifact_id": "source_snapshot_acquisition",
       "pass_predicate": "Open/free source snapshot exists locally, is hash-bound, and satisfies source separation policy.",
-      "required_source": {}
+      "required_source": {
+        "lane_role": "official_data_source",
+        "required_local_snapshot_ref": "validation/heldout/grand_science/medical_health/pharmacology_toxicology/OC133_OPENFDA_DRUG_EVENT_SNAPSHOT.json",
+        "required_lock_ref": "validation/heldout/grand_science/medical_health/pharmacology_toxicology/OC133_OPENFDA_DRUG_EVENT_SNAPSHOT.lock.json",
+        "requirement": "Acquire and hash openFDA drug adverse event endpoint from https://api.fda.gov/drug/event.json?search=receivedate:[20240101+TO+20241231]&limit=100.",
+        "source_id": "openfda_faers_drug_event_v1"
+      }
     },
     {
       "artifact_id": "target_hidden_task_table",
       "pass_predicate": "Target table is locked before scoring and hidden fields do not leak into model selection.",
-      "required_target": {}
+      "required_target": {
+        "lane_role": "target_variable",
+        "requirement": "Lock adverse-event reports and hide severity and dose-response class labels until OC and comparator scoring rows are preregistered.",
+        "target_fields": [
+          "safetyreportid",
+          "patient.drug.medicinalproduct",
+          "patient.drug.drugstructuredosagenumb",
+          "patient.reaction.reactionmeddrapt",
+          "serious"
+        ],
+        "target_name": "held_out_adverse_event_severity_and_dose_response_class",
+        "unit": "severity or dose-response class derived from locked adverse-event reports"
+      }
     },
     {
       "artifact_id": "oc_formula_or_model",
       "pass_predicate": "OC prediction/scoring rule is preregistered before target unsealing.",
-      "required_model": {}
+      "required_model": {
+        "lane_role": "formula_or_model",
+        "required_inputs": [
+          "drug class",
+          "reported dose field",
+          "reaction term",
+          "seriousness indicator availability",
+          "case report context"
+        ],
+        "requirement": "OC threshold-response model over compound context, dose axis, organism boundary, adverse-event state, and feedback severity."
+      }
     },
     {
       "artifact_id": "incumbent_comparator_scoring",
       "pass_predicate": "Incumbent comparator is scored on the same held-out targets.",
       "required_comparator": {
+        "baseline_name": "drug-class frequency and dose-bin adverse-event baseline",
         "lane_role": "incumbent_comparator",
-        "requirement": "Declare preregistered modern-science comparator baselines and score them on the same held-out targets."
+        "pre_registered": true,
+        "requirement": "Predict held-out severity and dose-response class from drug class and preregistered dose bins without target-label access."
       }
     },
     {
       "artifact_id": "residuals_materiality_uncertainty",
       "pass_predicate": "OC residual advantage exceeds preregistered materiality threshold under uncertainty.",
-      "required_uncertainty": {}
+      "required_uncertainty": {
+        "lane_role": "uncertainty_policy",
+        "metric": "stratified bootstrap interval for severity and dose-response classification residuals",
+        "requirement": "Report stratified bootstrap uncertainty and fail closed when sparse dose strata make materiality unverifiable."
+      }
     },
     {
       "artifact_id": "controls_and_falsifiers",
       "pass_predicate": "Negative controls and falsifiers are declared and replayed without post-hoc adjustment.",
-      "required_falsifier": {}
+      "required_falsifier": {
+        "falsifier_id": "medical_pharmacology_no_dose_threshold_signal",
+        "lane_role": "falsifier",
+        "requirement": "Trigger if dose bins provide no target-blind signal, if sparse strata dominate, or if OC fails to beat the preregistered comparator."
+      }
     },
     {
       "artifact_id": "independent_replay",
       "pass_predicate": "Clean replay regenerates the evidence pack hash and result verdict.",
-      "required_execution": {}
+      "required_execution": {
+        "evidence_pack_schema_id": "OC133_GRAND_EMPIRICAL_EVIDENCE_v1",
+        "minimum_n": 100,
+        "replay_command": "python validation/heldout/grand_science/medical_health/pharmacology_toxicology/run_pharmacology_toxicology_replay.py --check",
+        "source_separation_mode": "target_blind",
+        "target_hidden_until_scoring": true
+      }
     }
   ],
-  "root_cause_class": "EXECUTABLE_SPEC_MISSING_FOR_SCORING",
+  "root_cause_class": "SCORING_EVIDENCE_NOT_MATERIALIZED",
   "schema_id": "OC133_MODERN_SCIENCE_COMPARATOR_SCORING_WORK_ORDER_v1",
   "source_refs": [
     "reports/OC_CORE_1_3_3_MODERN_SCIENCE_COVERAGE_LANE_QUEUE.json",
@@ -90,6 +139,6 @@
   ],
   "status": "OPEN",
   "validator_binding": "comparator_gap::MS-COV-GAP-MEDICAL_HEALTH_SCIENCES-PHARMACOLOGY_TOXICOLOGY_AND_DOSE_RESPONSE::oc_prediction_scoring_row",
-  "why_it_failed": "No executable comparator specification is bound to this gap, so the system cannot build a target-hidden OC scoring row.",
+  "why_it_failed": "The lane declares no executable evidence pack for the OC-vs-comparator scoring row.",
   "work_order_id": "MS-COV-WO-018"
 }
