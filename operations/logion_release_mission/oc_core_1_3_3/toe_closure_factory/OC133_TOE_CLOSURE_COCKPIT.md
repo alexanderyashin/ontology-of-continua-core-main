@@ -3,8 +3,11 @@
 Status: `OPEN`
 Promotion gate: `R017_BLOCKED_BY_TOE_CLOSURE_FACTORY`
 Validator errors: `19`
+Science errors: `11`
+Cerberus errors: `8`
 Open obligations: `21`
 Lanes: `0/5` PASS
+Lane dispatcher: `BLOCKED`
 Latest execution: `FAIL_CLOSED`
 
 ## Lane Results

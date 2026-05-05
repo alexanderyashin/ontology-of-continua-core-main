@@ -1754,9 +1754,10 @@ class ReleaseAssemblyMachineTests(unittest.TestCase):
         spec.loader.exec_module(module)
 
         errors = module.current_validator_errors(ROOT)
+        parts = module.current_validator_error_parts(ROOT)
         obligations = module.build_obligations(ROOT, errors, generated_at="TEST")
         lanes = module.build_lane_results(ROOT, generated_at="TEST")
-        cockpit = module.build_cockpit(ROOT, obligations, lanes, errors, [], generated_at="TEST")
+        cockpit = module.build_cockpit(ROOT, obligations, lanes, errors, [], validator_parts=parts, generated_at="TEST")
 
         self.assertGreaterEqual(len(errors), 1)
         self.assertEqual(obligations["status"], "OPEN")
@@ -1796,6 +1797,8 @@ class ReleaseAssemblyMachineTests(unittest.TestCase):
         self.assertEqual(cockpit["latest_execution_status"], "NOT_RUN")
         self.assertEqual(cockpit["fail_lane_total"], 5)
         self.assertEqual(cockpit["proof_data_simulation_coverage_status"], "INCOMPLETE")
+        self.assertGreater(cockpit["science_validator_error_total"], 0)
+        self.assertGreater(cockpit["cerberus_error_total"], 0)
 
     def test_r017_toe_closure_factory_rejects_future_research_or_demoted_rows_as_closure(self) -> None:
         factory_path = ROOT / "tools" / "oc133_toe_closure_factory.py"
@@ -1821,21 +1824,81 @@ class ReleaseAssemblyMachineTests(unittest.TestCase):
             self.assertFalse(result["final_toe_support_allowed"])
             self.assertGreater(result["finding_total"], 0)
 
+    def test_r017_toe_closure_factory_registry_is_decision_complete_and_no_fake_pass(self) -> None:
+        factory_dir = ROOT / "operations" / "logion_release_mission" / "oc_core_1_3_3" / "toe_closure_factory"
+        registry = read_json(factory_dir / "OC133_TOE_LANE_CAPABILITY_REGISTRY.json")
+        state = read_json(factory_dir / "OC133_TOE_CLOSURE_STATE.json")
+
+        self.assertEqual(registry["status"], "PASS")
+        rows = {row["lane_id"]: row for row in registry["rows"]}
+        for lane_id in [
+            "AI",
+            "ENTERPRISE_ARCHITECTURE",
+            "GRAND_TOE_CLAIM_LEDGER_EVIDENCE",
+            "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+            "CERBERUS_RELEASE_REVIEW_GATE",
+        ]:
+            self.assertIn(lane_id, rows)
+            row = rows[lane_id]
+            self.assertTrue(row["closure_condition"])
+            self.assertTrue(row["required_artifacts"])
+            self.assertTrue(row["execution_command"])
+            self.assertTrue(row["validator_binding"])
+            self.assertTrue(row["pass_predicate"])
+            self.assertTrue(row["no_fake_closure_policy"])
+
+        self.assertIn(state["status"], {"OPEN", "LOCAL_CAPABILITY_EXHAUSTED"})
+        self.assertFalse(state["r017_promotion_allowed"])
+        self.assertEqual(state["lane_registry_status"], "PASS")
+        self.assertGreater(state["science_validator_error_total"], 0)
+        self.assertGreater(state["cerberus_error_total"], 0)
+
+    def test_r017_toe_closure_factory_ai_ea_lane_attempts_exhaust_instead_of_passing(self) -> None:
+        factory_path = ROOT / "tools" / "oc133_toe_closure_factory.py"
+        spec = importlib.util.spec_from_file_location("oc133_toe_closure_factory", factory_path)
+        module = importlib.util.module_from_spec(spec)
+        self.assertIsNotNone(spec)
+        self.assertIsNotNone(spec.loader)
+        spec.loader.exec_module(module)
+
+        for lane_id in ["AI", "ENTERPRISE_ARCHITECTURE"]:
+            result = module.execute_lane_attempt(ROOT, lane_id, timeout=1)
+            self.assertEqual(result["status"], "CAPABILITY_MISSING_OR_EXHAUSTED")
+            self.assertEqual(result["execution_state"], "CAPABILITY_MISSING_OR_EXHAUSTED")
+            self.assertFalse(result["lane_result"]["final_toe_support_allowed"])
+            self.assertIn("cannot count as TOE closure", result["no_fake_closure_policy"])
+
+    def test_r017_modern_science_benchmark_scoped_superiority_does_not_count_as_broad_pass(self) -> None:
+        register = read_json(ROOT / "comparators" / "OC_1_3_3_MODERN_SCIENCE_SUPERIORITY_REGISTER.json")
+        self.assertEqual(register["modern_science_comparator_superiority"]["state"], "FAIL")
+        self.assertEqual(register["benchmark_scoped_superiority_certified_total"], 4)
+        self.assertEqual(register["broad_modern_science_superiority_certified_total"], 0)
+        self.assertFalse(register["broad_claim_predicates"]["coverage_extends_to_all_of_modern_science"])
+
     def test_r017_toe_closure_factory_artifacts_are_idempotent_and_checked(self) -> None:
         factory_dir = ROOT / "operations" / "logion_release_mission" / "oc_core_1_3_3" / "toe_closure_factory"
         cockpit = read_json(factory_dir / "OC133_TOE_CLOSURE_COCKPIT.json")
         obligations = read_json(factory_dir / "OC133_TOE_CLOSURE_OBLIGATIONS.json")
         lanes = read_json(factory_dir / "OC133_TOE_LANE_RESULTS.json")
+        registry = read_json(factory_dir / "OC133_TOE_LANE_CAPABILITY_REGISTRY.json")
+        state = read_json(factory_dir / "OC133_TOE_CLOSURE_STATE.json")
 
         self.assertEqual(cockpit["current_promotion_gate"], "R017_BLOCKED_BY_TOE_CLOSURE_FACTORY")
         self.assertFalse(cockpit["r017_promotion_allowed"])
         self.assertEqual(obligations["status"], "OPEN")
         self.assertEqual(lanes["status"], "FAIL")
+        self.assertEqual(registry["status"], "PASS")
+        self.assertIn(state["status"], {"OPEN", "LOCAL_CAPABILITY_EXHAUSTED"})
         self.assertEqual(cockpit["validator_error_total"], obligations["validator_error_total"])
         self.assertEqual(cockpit["open_obligation_total"], obligations["open_work_order_total"])
         self.assertEqual(cockpit["fail_lane_total"], lanes["fail_lane_total"])
+        self.assertEqual(cockpit["science_validator_error_total"], state["science_validator_error_total"])
+        self.assertEqual(cockpit["cerberus_error_total"], state["cerberus_error_total"])
         if cockpit["execution_step_total"]:
-            trace_by_purpose = {row["purpose"]: row for row in cockpit["execution_trace"]}
+            trace_rows = list(cockpit["execution_trace"])
+            if trace_rows and trace_rows[0]["purpose"].startswith("until_final_pass_iteration_"):
+                trace_rows = trace_rows[0]["result"]["cycle_trace"]
+            trace_by_purpose = {row["purpose"]: row for row in trace_rows}
             self.assertIn("science_validator_before_cerberus", trace_by_purpose)
             self.assertIn("canonical_cerberus_after_science_clear", trace_by_purpose)
             self.assertEqual(trace_by_purpose["science_validator_before_cerberus"]["status"], "FAIL_CLOSED")

@@ -1,0 +1,130 @@
+{
+  "artifact_hash": "a2c57a310af14a77f76376a23fd16d0692e685982220ddd072c88def6ec8433e",
+  "generated_at": "2026-05-05T16:48:38Z",
+  "lane_total": 5,
+  "release_id": "oc_core_1_3_3",
+  "rows": [
+    {
+      "claim_effect": "AI remains a bounded projection until the dedicated lane passes.",
+      "closure_condition": "AI projection lane has claim id, public scope, formal boundary, evidence/simulation refs, comparator refs, falsifiers, row PASS, lane PASS, and final TOE support allowed.",
+      "execution_command": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "tools/oc133_toe_closure_factory.py",
+        "--execute-lane",
+        "AI",
+        "--write"
+      ],
+      "finding_class": "AI_DOMAIN_TOE_PROJECTION_LANE",
+      "lane_id": "AI",
+      "no_fake_closure_policy": "Future-research or demoted AI rows cannot count as TOE closure.",
+      "owner_capability": "Research/AIProjection",
+      "pass_predicate": "AI lane closure_verdict == PASS and final_toe_support_allowed == true",
+      "required_artifacts": [
+        "releases/oc_core_1_3/editorial/science_sources/toe_projection_lanes/ai.json",
+        "AI-domain claim ledger or source-bound claim row",
+        "AI formal-boundary/proof mapping",
+        "AI benchmark/simulation evidence pack",
+        "AI comparator and falsifier rows"
+      ],
+      "validator_binding": "validate_final_toe_projection_lanes::AI"
+    },
+    {
+      "claim_effect": "EA remains a bounded projection until the dedicated lane passes.",
+      "closure_condition": "EA projection lane has claim id, public scope, operational evidence, architecture cases, comparator alternatives, falsifiers, row PASS, lane PASS, and final TOE support allowed.",
+      "execution_command": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "tools/oc133_toe_closure_factory.py",
+        "--execute-lane",
+        "ENTERPRISE_ARCHITECTURE",
+        "--write"
+      ],
+      "finding_class": "ENTERPRISE_ARCHITECTURE_DOMAIN_TOE_PROJECTION_LANE",
+      "lane_id": "ENTERPRISE_ARCHITECTURE",
+      "no_fake_closure_policy": "Future-research or demoted EA rows cannot count as TOE closure.",
+      "owner_capability": "Research/EnterpriseArchitectureProjection",
+      "pass_predicate": "ENTERPRISE_ARCHITECTURE lane closure_verdict == PASS and final_toe_support_allowed == true",
+      "required_artifacts": [
+        "releases/oc_core_1_3/editorial/science_sources/toe_projection_lanes/enterprise_architecture.json",
+        "EA-domain claim ledger or source-bound claim row",
+        "EA architecture case and operational-metric evidence pack",
+        "EA comparator and falsifier rows"
+      ],
+      "validator_binding": "validate_final_toe_projection_lanes::ENTERPRISE_ARCHITECTURE"
+    },
+    {
+      "claim_effect": "Grand TOE promotion remains blocked until formal, finite, empirical, and comparator dependencies all pass.",
+      "closure_condition": "Grand TOE claim promotion contract passes with dedicated promoted claim row, Lean refs, finite refs, positive/negative finite controls, empirical pack, and comparator PASS.",
+      "execution_command": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "tools/oc133_capability_repair_executor.py",
+        "--profile",
+        "v12_grand_formal_science_research_program"
+      ],
+      "finding_class": "GRAND_TOE_CLAIM_LEDGER_EVIDENCE",
+      "lane_id": "GRAND_TOE_CLAIM_LEDGER_EVIDENCE",
+      "no_fake_closure_policy": "A blocker proof, artifact existence, or demoted grand claim cannot count as TOE closure.",
+      "owner_capability": "Research/FormalScience",
+      "pass_predicate": "grand_toe_claim_ledger_evidence.state == PASS and grand promotion contract verdict == PASS",
+      "required_artifacts": [
+        "claims/CLAIM_LEDGER_1_3_3.json::dedicated promoted grand claim row",
+        "proofs/grand_promotion/OC133_GRAND_PROMOTION_CONTRACT_REPORT.json",
+        "formal/lean/OC133V12.lean",
+        "proofs/FINITE_MODEL_CHECKS_1_3_3.json"
+      ],
+      "validator_binding": "validate_final_toe_grand_science_scorecard::grand_toe_claim_ledger_evidence"
+    },
+    {
+      "claim_effect": "Broad superiority language remains blocked while only benchmark-scoped superiority is certified.",
+      "closure_condition": "Modern-science superiority passes only if broad coverage predicates and source-backed comparator baselines pass, not merely benchmark-scoped baselines.",
+      "execution_command": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "tools/oc133_capability_repair_executor.py",
+        "--profile",
+        "v12_modern_science_comparator_research_program"
+      ],
+      "finding_class": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+      "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+      "no_fake_closure_policy": "Benchmark-scoped superiority cannot be upgraded to broad modern-science superiority.",
+      "owner_capability": "Research/PriorArt",
+      "pass_predicate": "modern_science_comparator_superiority.state == PASS and broad modern-science coverage is certified",
+      "required_artifacts": [
+        "comparators/OC_1_3_3_MODERN_SCIENCE_SUPERIORITY_REGISTER.json",
+        "benchmarks/modern_science/OC133_MODERN_SCIENCE_BENCHMARK_LANES.json",
+        "comparators/modern_science/OC133_MODERN_SCIENCE_COVERAGE_REGISTER.json",
+        "benchmarks/modern_science/OC133_MODERN_SCIENCE_COVERAGE_WORK_ORDERS.json"
+      ],
+      "validator_binding": "validate_final_toe_grand_science_scorecard::modern_science_comparator_superiority"
+    },
+    {
+      "claim_effect": "No external reasoning spend while deterministic science blockers remain.",
+      "closure_condition": "Cerberus targets/run/acceptance fingerprints bind to current HEAD, acceptance PASS, LLM gate PASS, and open defect findings zero.",
+      "execution_command": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "tools/run_oc_core_1_3_cerberus_review.py",
+        "--codex-model",
+        "gpt-5.4-mini",
+        "--llm-workers",
+        "1",
+        "--llm-batch-max-chars",
+        "6000",
+        "--llm-timeout-seconds",
+        "300",
+        "--build-mode",
+        "full"
+      ],
+      "finding_class": "CERBERUS_RELEASE_REVIEW_GATE",
+      "lane_id": "CERBERUS_RELEASE_REVIEW_GATE",
+      "no_fake_closure_policy": "Stale fingerprints or skipped LLM gate cannot count as clean Cerberus.",
+      "owner_capability": "Review/Cerberus",
+      "pass_predicate": "Cerberus acceptance PASS, LLM gate PASS, and open defect findings == 0",
+      "required_artifacts": [
+        "releases/oc_core_1_3/editorial/OC_CORE_1_3_CERBERUS_ACCEPTANCE_CERT_latest.json",
+        "releases/oc_core_1_3/editorial/OC_CORE_1_3_CERBERUS_REVIEW_FINDINGS_latest.json"
+      ],
+      "validator_binding": "validate_existing_cerberus_bundle(require_clean=True)"
+    }
+  ],
+  "schema_id": "OC133_TOE_LANE_CAPABILITY_REGISTRY_v1",
+  "status": "PASS",
+  "version": "1.3.3"
+}
