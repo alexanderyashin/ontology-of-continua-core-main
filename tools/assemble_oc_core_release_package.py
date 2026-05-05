@@ -29,6 +29,11 @@ if str(ROOT) not in sys.path:
 
 from release_machine.versioning import version_from_release_id
 from release_machine import science_monolith
+from oc133_r016_machine_self_audit import (
+    R016_MACHINE_STATUS_KEYS,
+    build_r016_machine_self_audit,
+    r017_toe_gate_errors,
+)
 
 
 ASSEMBLY_STATUS = "OC_CORE_RELEASE_PACKAGE_REVIEW_ARTIFACTS_ASSEMBLED"
@@ -55,9 +60,11 @@ PUBLICATION_BODY_REVISIONS = {
     "recovery_r013",
     "recovery_r014",
     "recovery_r015",
+    "recovery_r016",
+    "recovery_r017",
 }
 PUBLICATION_DATE = "4 May 2026"
-CURRENT_RECOVERY_REVISION = "recovery_r015"
+CURRENT_RECOVERY_REVISION = "recovery_r016"
 R007_REVISION = "recovery_r007"
 R008_REVISION = "recovery_r008"
 R009_REVISION = "recovery_r009"
@@ -67,6 +74,8 @@ R012_REVISION = "recovery_r012"
 R013_REVISION = "recovery_r013"
 R014_REVISION = "recovery_r014"
 R015_REVISION = "recovery_r015"
+R016_REVISION = "recovery_r016"
+R017_REVISION = "recovery_r017"
 R007_TRANSLATOR_STATUS = "PUBLICATION_TRANSLATOR_R007"
 R008_TRANSLATOR_STATUS = "PUBLICATION_TRANSLATOR_R008"
 R009_TRANSLATOR_STATUS = "PUBLICATION_TRANSLATOR_R009"
@@ -76,6 +85,8 @@ R012_TRANSLATOR_STATUS = "PUBLICATION_TRANSLATOR_R012_FIGURE_VISUAL_QA_SPOT"
 R013_TRANSLATOR_STATUS = "PUBLICATION_TRANSLATOR_R013_TABLE_RENDERED_QA_SPOT"
 R014_TRANSLATOR_STATUS = "PUBLICATION_TRANSLATOR_R014_FULL_QUALITY_CLOSURE"
 R015_TRANSLATOR_STATUS = "PUBLICATION_TRANSLATOR_R015_SCIENTIFIC_REVIEW_GATE"
+R016_TRANSLATOR_STATUS = "PUBLICATION_TRANSLATOR_R016_MACHINE_SELF_AUDITED_TOE_GATE"
+R017_TRANSLATOR_STATUS = "PUBLICATION_TRANSLATOR_R017_FINAL_TOE_CLOSED_PACKAGE"
 GOVERNED_TEXT_REVISIONS = {
     R007_REVISION,
     R008_REVISION,
@@ -86,6 +97,8 @@ GOVERNED_TEXT_REVISIONS = {
     R013_REVISION,
     R014_REVISION,
     R015_REVISION,
+    R016_REVISION,
+    R017_REVISION,
 }
 COMMON_LLM_SERVICE_REVISIONS = {
     R008_REVISION,
@@ -96,12 +109,14 @@ COMMON_LLM_SERVICE_REVISIONS = {
     R013_REVISION,
     R014_REVISION,
     R015_REVISION,
+    R016_REVISION,
+    R017_REVISION,
 }
-JOURNAL_SPOT_REVISIONS = {R011_REVISION, R012_REVISION, R013_REVISION, R014_REVISION, R015_REVISION}
-VISUAL_QA_REVISIONS = {R012_REVISION, R013_REVISION, R014_REVISION, R015_REVISION}
-TABLE_QA_REVISIONS = {R013_REVISION, R014_REVISION, R015_REVISION}
+JOURNAL_SPOT_REVISIONS = {R011_REVISION, R012_REVISION, R013_REVISION, R014_REVISION, R015_REVISION, R016_REVISION, R017_REVISION}
+VISUAL_QA_REVISIONS = {R012_REVISION, R013_REVISION, R014_REVISION, R015_REVISION, R016_REVISION, R017_REVISION}
+TABLE_QA_REVISIONS = {R013_REVISION, R014_REVISION, R015_REVISION, R016_REVISION, R017_REVISION}
 PUBLIC_REVIEW_REVISION_ALIASES = {
-    "oc_core_1_3_3_review_current": R015_REVISION,
+    "oc_core_1_3_3_review_current": R016_REVISION,
 }
 R014_CHECKSUM_BOUND_PUBLIC_EVIDENCE_PATHS = [
     "comparators/OC_1_3_3_COMPARATOR_MATRIX.md",
@@ -136,6 +151,13 @@ R015_CHECKSUM_BOUND_PUBLIC_EVIDENCE_PATHS = [
     "proofs/proof_sheets/T133-OMEGA-STATUS.md",
     "formal/lean/OC133V12.lean",
     "formal/lean/LEAN_BUILD_CERTIFICATE_1_3_3.json",
+]
+R016_CHECKSUM_BOUND_PUBLIC_EVIDENCE_PATHS = [
+    *R015_CHECKSUM_BOUND_PUBLIC_EVIDENCE_PATHS,
+    "releases/oc_core_1_3/editorial/OC_CORE_1_3_SCIENCE_SPOT_latest.json",
+    "releases/oc_core_1_3/editorial/OC_CORE_1_3_UNIFIED_SYNTHESIS_latest.json",
+    "content/generated/oc_core_1_3_toe_synthesis_generated.tex",
+    "content/generated/oc_core_1_3_operationalization_program_generated.tex",
 ]
 PUBLIC_PAYLOAD_SOURCE_BY_ARTIFACT = {
     "release_guide": ROOT / "releases" / "oc_core_1_3_3" / "public_payload" / "sources" / "00_OC_CORE_1_3_3_RELEASE_GUIDE_EN.md",
@@ -2256,7 +2278,7 @@ def governed_llm_trace_for_revision(
     base: Path,
     write: bool,
 ) -> dict[str, Any]:
-    if assembly_revision in {R009_REVISION, R010_REVISION, R011_REVISION, R012_REVISION, R013_REVISION, R014_REVISION, R015_REVISION}:
+    if assembly_revision in {R009_REVISION, R010_REVISION, R011_REVISION, R012_REVISION, R013_REVISION, R014_REVISION, R015_REVISION, R016_REVISION, R017_REVISION}:
         return {
             "schema_id": "OC_CORE_R009_LOGION_LLM_SERVICE_UNTIL_DONE_TRACE_v1",
             "status": "NOT_RUN_YET",
@@ -4043,7 +4065,7 @@ def render_publication_payload_markdown(
         body = publication_translated_payload_body_r013(artifact_type_id, version)
     elif assembly_revision == R014_REVISION:
         body = publication_translated_payload_body_r014(artifact_type_id, version)
-    elif assembly_revision == R015_REVISION:
+    elif assembly_revision in {R015_REVISION, R016_REVISION, R017_REVISION}:
         body = publication_translated_payload_body_r015(artifact_type_id, version)
     elif source is None or not source.is_file():
         body = "# Body\n\nPublication payload source was not available for this artifact.\n"
@@ -4064,7 +4086,7 @@ def render_publication_payload_markdown(
         ]
     )
     text = render_publication_frontmatter(artifact_type_id, version, instance) + "\n" + body + backmatter
-    if assembly_revision in {R014_REVISION, R015_REVISION}:
+    if assembly_revision in {R014_REVISION, R015_REVISION, R016_REVISION, R017_REVISION}:
         text = _r014_demote_retrospective_replay_language(text)
     return text.rstrip() + "\n", source
 
@@ -8088,7 +8110,7 @@ def build_publication_master_monograph(
     }
     frontmatter_text = frontmatter_path.read_text(encoding="utf-8", errors="replace") if frontmatter_path.is_file() else ""
     reusable_existing_build = (
-        not any(revision in str(base) for revision in ("recovery_r005", "recovery_r006", "recovery_r008", "recovery_r012", "recovery_r013", "recovery_r014", "recovery_r015"))
+        not any(revision in str(base) for revision in ("recovery_r005", "recovery_r006", "recovery_r008", "recovery_r012", "recovery_r013", "recovery_r014", "recovery_r015", "recovery_r016", "recovery_r017"))
         and
         source_dir.is_dir()
         and entry_path.is_file()
@@ -8117,20 +8139,20 @@ def build_publication_master_monograph(
         science_monolith._rewrite_public_science_projection_sources(source_dir)
         science_monolith._rewrite_entrypoint_for_integrated_133(source_dir)
         science_monolith._apply_r005_publication_layout_standard(source_dir)
-        if assembly_revision in {R008_REVISION, R009_REVISION, R010_REVISION, R011_REVISION, R012_REVISION, R013_REVISION, R014_REVISION, R015_REVISION}:
+        if assembly_revision in {R008_REVISION, R009_REVISION, R010_REVISION, R011_REVISION, R012_REVISION, R013_REVISION, R014_REVISION, R015_REVISION, R016_REVISION, R017_REVISION}:
             apply_r008_monograph_overrides(source_dir)
         if assembly_revision in VISUAL_QA_REVISIONS:
             apply_r012_visual_overrides(source_dir)
         if assembly_revision in TABLE_QA_REVISIONS:
             apply_r013_table_overrides(source_dir)
-        if assembly_revision in {R014_REVISION, R015_REVISION}:
+        if assembly_revision in {R014_REVISION, R015_REVISION, R016_REVISION, R017_REVISION}:
             apply_r014_cerberus_overrides(source_dir)
-        if assembly_revision == R015_REVISION:
+        if assembly_revision in {R015_REVISION, R016_REVISION, R017_REVISION}:
             apply_r015_scientific_review_overrides(source_dir)
         science_monolith._sanitize_source_tree(source_dir)
-        if assembly_revision in {R014_REVISION, R015_REVISION}:
+        if assembly_revision in {R014_REVISION, R015_REVISION, R016_REVISION, R017_REVISION}:
             apply_r014_cerberus_overrides(source_dir)
-        if assembly_revision == R015_REVISION:
+        if assembly_revision in {R015_REVISION, R016_REVISION, R017_REVISION}:
             apply_r015_scientific_review_overrides(source_dir)
         trim_generated_text_whitespace(source_dir)
         entry_path = source_dir / science_monolith.BASE_ENTRYPOINT
@@ -8264,6 +8286,14 @@ def assemble_release(
     assembly_revision: str | None = None,
 ) -> dict[str, Any]:
     version = version_from_release_id(release_id)
+    if assembly_revision == R017_REVISION:
+        toe_errors = r017_toe_gate_errors()
+        if toe_errors:
+            joined = "\n".join(f"- {error}" for error in toe_errors[:30])
+            raise RuntimeError(
+                "recovery_r017 is fail-closed and cannot be assembled until final TOE validation passes.\n"
+                + joined
+            )
     paths = assembly_paths(release_id, version, assembly_revision)
     base = generated_dir(release_id, assembly_revision)
     governed_trace = governed_llm_trace_for_revision(assembly_revision, version=version, base=base, write=write)
@@ -8298,6 +8328,7 @@ def assemble_release(
     visual_quality_trace: dict[str, Any] | None = None
     table_quality_trace: dict[str, Any] | None = None
     scientific_review_gate_trace: dict[str, Any] | None = None
+    machine_self_audit_trace: dict[str, Any] | None = None
     for artifact in package["artifact_types"]:
         artifact_id = artifact["artifact_type_id"]
         source_path = base / "sources" / f"{artifact_id}_{version}.md"
@@ -8358,6 +8389,10 @@ def assemble_release(
                     public_translation_source = "science_monolith_full_quality_closure_r014"
                 elif assembly_revision == R015_REVISION:
                     public_translation_source = "science_monolith_scientific_review_gate_r015"
+                elif assembly_revision == R016_REVISION:
+                    public_translation_source = "science_monolith_machine_self_audited_toe_gate_r016"
+                elif assembly_revision == R017_REVISION:
+                    public_translation_source = "science_monolith_final_toe_closed_package_r017"
                 visual_quality = built.get("visual_quality")
                 table_quality = built.get("table_quality")
                 figure_total = int(built["counts"].get("figure_total") or 0)
@@ -8423,6 +8458,14 @@ def assemble_release(
                         document_body_source = "curated_public_payload_markdown_scientific_review_gate_r015"
                         document_structure_source = "curated_public_payload_hierarchy_r015"
                         public_translation_source = "scientific_review_gate_publication_translator_r015"
+                    elif assembly_revision == R016_REVISION:
+                        document_body_source = "curated_public_payload_markdown_machine_self_audited_r016"
+                        document_structure_source = "curated_public_payload_hierarchy_r016"
+                        public_translation_source = "machine_self_audited_publication_translator_r016"
+                    elif assembly_revision == R017_REVISION:
+                        document_body_source = "curated_public_payload_markdown_final_toe_closed_r017"
+                        document_structure_source = "curated_public_payload_hierarchy_r017"
+                        public_translation_source = "final_toe_closed_publication_translator_r017"
                     source_payload_origin = rel(source_payload) if source_payload else None
                     asset_files, assets_changed = copy_public_payload_assets(base, write=write)
                     generated_files.extend(asset_files)
@@ -8473,6 +8516,8 @@ def assemble_release(
                         else R013_TRANSLATOR_STATUS if assembly_revision == R013_REVISION and artifact_id in TEXT_ARTIFACTS
                         else R014_TRANSLATOR_STATUS if assembly_revision == R014_REVISION and artifact_id in TEXT_ARTIFACTS
                         else R015_TRANSLATOR_STATUS if assembly_revision == R015_REVISION and artifact_id in TEXT_ARTIFACTS
+                        else R016_TRANSLATOR_STATUS if assembly_revision == R016_REVISION and artifact_id in TEXT_ARTIFACTS
+                        else R017_TRANSLATOR_STATUS if assembly_revision == R017_REVISION and artifact_id in TEXT_ARTIFACTS
                         else None
                     ),
                     "public_translation_source": public_translation_source,
@@ -8556,6 +8601,8 @@ def assemble_release(
                             if assembly_revision == R014_REVISION
                             else "r015 checksum-binds claim ledgers, proof sheets, theorem registry, proof dependency graph, Lean inventory/certificate, finite checks, replay QA, comparator, and prior-art public evidence files named by reader-facing PDFs"
                             if assembly_revision == R015_REVISION
+                            else "r016/r017 checksum-bind source review, machine self-audit, TOE-gap, claim, theorem, proof-sheet, Lean-inventory, finite-check, replay, comparator, and prior-art public evidence files named by reader-facing PDFs"
+                            if assembly_revision in {R016_REVISION, R017_REVISION}
                             else "version-pinned public repository or release-corpus path; not all referenced evidence files are embedded in the review zip"
                         ),
                     }
@@ -8579,6 +8626,8 @@ def assemble_release(
                     if assembly_revision == R014_REVISION
                     else "The review package embeds this manifest, package checksums, and the r015 checksum-bound claim, theorem, proof-sheet, Lean-inventory, finite-check, replay, comparator, and prior-art evidence files required by the reader-facing scientific support route."
                     if assembly_revision == R015_REVISION
+                    else "The review package embeds this manifest, package checksums, r016 machine self-audit/TOE-gap reports, and checksum-bound source-support files required by the reader-facing scientific support route."
+                    if assembly_revision in {R016_REVISION, R017_REVISION}
                     else "The review package embeds this manifest and checksums; large evidence families are referenced by version-pinned public paths and hashes."
                 ),
                 "checksum_bound_public_evidence_paths": (
@@ -8586,6 +8635,8 @@ def assemble_release(
                     if assembly_revision == R014_REVISION
                     else [item for item in R015_CHECKSUM_BOUND_PUBLIC_EVIDENCE_PATHS if (ROOT / item).is_file()]
                     if assembly_revision == R015_REVISION
+                    else [item for item in R016_CHECKSUM_BOUND_PUBLIC_EVIDENCE_PATHS if (ROOT / item).is_file()]
+                    if assembly_revision in {R016_REVISION, R017_REVISION}
                     else []
                 ),
                 "public_review_revision_aliases": (
@@ -8598,7 +8649,7 @@ def assemble_release(
                             "alias_policy": "reader-facing PDFs use the stable alias; exact internal recovery labels are retained in package metadata and checksums",
                         }
                     }
-                    if assembly_revision in {R014_REVISION, R015_REVISION}
+                    if assembly_revision in {R014_REVISION, R015_REVISION, R016_REVISION, R017_REVISION}
                     else {}
                 ),
                 "concept_doi": CONCEPT_DOI,
@@ -8995,6 +9046,10 @@ def assemble_release(
                     else R014_TRANSLATOR_STATUS
                     if assembly_revision == R014_REVISION
                     else R015_TRANSLATOR_STATUS
+                    if assembly_revision == R015_REVISION
+                    else R016_TRANSLATOR_STATUS
+                    if assembly_revision == R016_REVISION
+                    else R017_TRANSLATOR_STATUS
                 )
                 row["logion_llm_service_status"] = governed_trace.get("service_status")
                 row["logion_llm_service_ledger_ref"] = governed_trace.get("service_ledger_ref")
@@ -9025,7 +9080,7 @@ def assemble_release(
                 ]:
                     row[gate_key] = governed_trace.get(gate_key)
         generated_files.extend(path for path in r011_generated if path.is_file())
-    if assembly_revision == R015_REVISION:
+    if assembly_revision in {R015_REVISION, R016_REVISION, R017_REVISION}:
         r015_gate = build_r015_scientific_review_gate(base, version, write=write)
         scientific_review_gate_trace = r015_gate.get("summary")
         if isinstance(scientific_review_gate_trace, dict):
@@ -9045,11 +9100,29 @@ def assemble_release(
             row["ollama_invocation_total"] = governed_trace.get("ollama_invocation_total")
             row["unmanaged_ollama_call_total"] = governed_trace.get("unmanaged_ollama_call_total")
             row["v_model_lowest_checked_level"] = "L10"
-            row["public_translation_status"] = R015_TRANSLATOR_STATUS
+            row["public_translation_status"] = (
+                R015_TRANSLATOR_STATUS
+                if assembly_revision == R015_REVISION
+                else R016_TRANSLATOR_STATUS
+                if assembly_revision == R016_REVISION
+                else R017_TRANSLATOR_STATUS
+            )
             if row.get("artifact_type_id") == "master_monograph":
-                row["public_translation_source"] = "science_monolith_scientific_review_gate_r015"
+                row["public_translation_source"] = (
+                    "science_monolith_scientific_review_gate_r015"
+                    if assembly_revision == R015_REVISION
+                    else "science_monolith_machine_self_audited_toe_gate_r016"
+                    if assembly_revision == R016_REVISION
+                    else "science_monolith_final_toe_closed_package_r017"
+                )
             else:
-                row["public_translation_source"] = "scientific_review_gate_publication_translator_r015"
+                row["public_translation_source"] = (
+                    "scientific_review_gate_publication_translator_r015"
+                    if assembly_revision == R015_REVISION
+                    else "machine_self_audited_publication_translator_r016"
+                    if assembly_revision == R016_REVISION
+                    else "final_toe_closed_publication_translator_r017"
+                )
             row["logion_llm_service_status"] = governed_trace.get("service_status")
             row["logion_llm_service_ledger_ref"] = governed_trace.get("service_ledger_ref")
             row["logion_llm_service_cadence_sequence"] = governed_trace.get("cadence_sequence")
@@ -9067,11 +9140,35 @@ def assemble_release(
                 row[gate_key] = governed_trace.get(gate_key)
             row["critical_scientific_vulnerability_total"] = governed_trace.get("critical_scientific_vulnerability_total")
             row["high_scientific_vulnerability_total"] = governed_trace.get("high_scientific_vulnerability_total")
+    if assembly_revision in {R016_REVISION, R017_REVISION}:
+        r016_machine = build_r016_machine_self_audit(
+            base=base,
+            version=version,
+            assembly_revision=assembly_revision,
+            artifact_rows=artifact_rows,
+            governed_trace=governed_trace,
+            write=write,
+        )
+        machine_self_audit_trace = r016_machine.get("summary")
+        if isinstance(machine_self_audit_trace, dict):
+            governed_trace.update(machine_self_audit_trace)
+            governed_trace["status"] = "PASS" if machine_self_audit_trace.get("status") == "PASS" else "REPAIR_REQUIRED"
+            governed_trace["service_status"] = "PASS" if machine_self_audit_trace.get("status") == "PASS" else governed_trace.get("service_status")
+        generated_files.extend(path for path in r016_machine.get("generated_files", []) if isinstance(path, Path) and path.is_file())
+        for row in artifact_rows:
+            if row.get("artifact_type_id") not in TEXT_ARTIFACTS:
+                continue
+            for gate_key in R016_MACHINE_STATUS_KEYS:
+                row[gate_key] = governed_trace.get(gate_key)
+            row["toe_final_pass_status"] = governed_trace.get("toe_final_pass_status")
+            row["r017_promotion_gate"] = governed_trace.get("r017_promotion_gate")
     generated_files.extend([paths["terminal_contracts_json"], paths["terminal_contracts_md"], paths["transition_records_json"], paths["transition_records_md"], paths["source_bindings_json"], paths["source_bindings_md"]])
     if assembly_revision == R014_REVISION:
         generated_files.extend(ROOT / item for item in R014_CHECKSUM_BOUND_PUBLIC_EVIDENCE_PATHS if (ROOT / item).is_file())
     if assembly_revision == R015_REVISION:
         generated_files.extend(ROOT / item for item in R015_CHECKSUM_BOUND_PUBLIC_EVIDENCE_PATHS if (ROOT / item).is_file())
+    if assembly_revision in {R016_REVISION, R017_REVISION}:
+        generated_files.extend(ROOT / item for item in R016_CHECKSUM_BOUND_PUBLIC_EVIDENCE_PATHS if (ROOT / item).is_file())
     if assembly_revision == R008_REVISION:
         generated_files.extend(path for path in r008_service_output_paths(base, version).values() if path.is_file())
     manifest_rows = []
@@ -9105,7 +9202,7 @@ def assemble_release(
                     "alias_policy": "stable public review alias for commands; internal revision id remains package metadata",
                 }
             }
-            if assembly_revision in {R014_REVISION, R015_REVISION}
+            if assembly_revision in {R014_REVISION, R015_REVISION, R016_REVISION, R017_REVISION}
             else {}
         ),
     }
@@ -9143,13 +9240,14 @@ def assemble_release(
                     "reader_facing_identity_policy": "do not print internal recovery labels on title pages or public identity surfaces",
                 }
             }
-            if assembly_revision in {R014_REVISION, R015_REVISION}
+            if assembly_revision in {R014_REVISION, R015_REVISION, R016_REVISION, R017_REVISION}
             else {}
         ),
         "governed_ollama_trace": governed_trace,
         "visual_quality_trace": visual_quality_trace,
         "table_quality_trace": table_quality_trace,
         "scientific_review_gate_trace": scientific_review_gate_trace,
+        "machine_self_audit_trace": machine_self_audit_trace,
         "publication_translation_pipeline": {
             "status": (
                 R007_TRANSLATOR_STATUS if assembly_revision == R007_REVISION
@@ -9161,6 +9259,8 @@ def assemble_release(
                 else R013_TRANSLATOR_STATUS if assembly_revision == R013_REVISION
                 else R014_TRANSLATOR_STATUS if assembly_revision == R014_REVISION
                 else R015_TRANSLATOR_STATUS if assembly_revision == R015_REVISION
+                else R016_TRANSLATOR_STATUS if assembly_revision == R016_REVISION
+                else R017_TRANSLATOR_STATUS if assembly_revision == R017_REVISION
                 else "NOT_APPLICABLE"
             ),
             "strategy": (
@@ -9173,22 +9273,27 @@ def assemble_release(
                 else "deterministic_table_registry_geometry_and_rendered_bbox_table_qa" if assembly_revision == R013_REVISION
                 else "full_quality_closure_with_scoped_cerberus_and_l10_coverage_assessment" if assembly_revision == R014_REVISION
                 else "source_level_scientific_review_pingpong_before_editorial_assembly" if assembly_revision == R015_REVISION
+                else "machine_self_audit_full_package_assessment_and_toe_gap_routing" if assembly_revision == R016_REVISION
+                else "final_toe_closed_full_package_projection" if assembly_revision == R017_REVISION
                 else None
             ),
             "v_model_flow": "L10_to_L9_L8_to_document_review" if assembly_revision in GOVERNED_TEXT_REVISIONS else None,
             "lower_level_blockers_required_zero_before_global_review": True if assembly_revision in GOVERNED_TEXT_REVISIONS else None,
             "common_llm_service_required": True if assembly_revision in COMMON_LLM_SERVICE_REVISIONS else None,
             "service_status": governed_trace.get("service_status") if assembly_revision in COMMON_LLM_SERVICE_REVISIONS else None,
-            "queue_status": governed_trace.get("queue_status") if assembly_revision in {R009_REVISION, R011_REVISION, R012_REVISION, R013_REVISION, R014_REVISION, R015_REVISION} else None,
+            "queue_status": governed_trace.get("queue_status") if assembly_revision in {R009_REVISION, R011_REVISION, R012_REVISION, R013_REVISION, R014_REVISION, R015_REVISION, R016_REVISION, R017_REVISION} else None,
             "source_grounded_repair_status": governed_trace.get("source_grounded_repair_status") if assembly_revision == R010_REVISION else ("PASS" if assembly_revision in JOURNAL_SPOT_REVISIONS else None),
             "local_editorial_capability_boundary_status": governed_trace.get("local_editorial_capability_boundary_status") if assembly_revision == R010_REVISION else None,
             "scientific_journal_submission_ready_status": governed_trace.get("scientific_journal_submission_ready_status") if assembly_revision in JOURNAL_SPOT_REVISIONS else None,
             "journal_requirements_trace_status": governed_trace.get("journal_requirements_trace_status") if assembly_revision in JOURNAL_SPOT_REVISIONS else None,
             "visual_cockpit_status": (visual_quality_trace or {}).get("visual_cockpit_status") if assembly_revision in VISUAL_QA_REVISIONS else None,
             "table_cockpit_status": (table_quality_trace or {}).get("table_cockpit_status") if assembly_revision in TABLE_QA_REVISIONS else None,
-            "scientific_source_review_status": governed_trace.get("scientific_source_review_status") if assembly_revision == R015_REVISION else None,
-            "research_pingpong_status": governed_trace.get("research_pingpong_status") if assembly_revision == R015_REVISION else None,
-            "editorial_input_gate_status": governed_trace.get("editorial_input_gate_status") if assembly_revision == R015_REVISION else None,
+            "scientific_source_review_status": governed_trace.get("scientific_source_review_status") if assembly_revision in {R015_REVISION, R016_REVISION, R017_REVISION} else None,
+            "research_pingpong_status": governed_trace.get("research_pingpong_status") if assembly_revision in {R015_REVISION, R016_REVISION, R017_REVISION} else None,
+            "editorial_input_gate_status": governed_trace.get("editorial_input_gate_status") if assembly_revision in {R015_REVISION, R016_REVISION, R017_REVISION} else None,
+            "machine_self_audit_status": governed_trace.get("machine_self_audit_status") if assembly_revision in {R016_REVISION, R017_REVISION} else None,
+            "toe_gap_assessment_status": governed_trace.get("toe_gap_assessment_status") if assembly_revision in {R016_REVISION, R017_REVISION} else None,
+            "r017_promotion_gate": governed_trace.get("r017_promotion_gate") if assembly_revision in {R016_REVISION, R017_REVISION} else None,
         },
         "structure_source": structure_source,
         "assembly_revision": assembly_revision,
@@ -9224,16 +9329,20 @@ def assemble_release(
             "zero_internal_leak_status": governed_trace.get("zero_internal_leak_status") if assembly_revision in JOURNAL_SPOT_REVISIONS else None,
             "zero_fabrication_risk_status": governed_trace.get("zero_fabrication_risk_status") if assembly_revision in JOURNAL_SPOT_REVISIONS else None,
             "scientific_journal_submission_ready_status": governed_trace.get("scientific_journal_submission_ready_status") if assembly_revision in JOURNAL_SPOT_REVISIONS else None,
-            "scientific_source_review_status": governed_trace.get("scientific_source_review_status") if assembly_revision == R015_REVISION else None,
-            "research_pingpong_status": governed_trace.get("research_pingpong_status") if assembly_revision == R015_REVISION else None,
-            "critical_scientific_vulnerability_total": governed_trace.get("critical_scientific_vulnerability_total") if assembly_revision == R015_REVISION else None,
-            "high_scientific_vulnerability_total": governed_trace.get("high_scientific_vulnerability_total") if assembly_revision == R015_REVISION else None,
-            "future_research_register_status": governed_trace.get("future_research_register_status") if assembly_revision == R015_REVISION else None,
-            "claim_support_ceiling_status": governed_trace.get("claim_support_ceiling_status") if assembly_revision == R015_REVISION else None,
-            "proof_sheet_binding_status": governed_trace.get("proof_sheet_binding_status") if assembly_revision == R015_REVISION else None,
-            "lean_certificate_boundary_status": governed_trace.get("lean_certificate_boundary_status") if assembly_revision == R015_REVISION else None,
-            "delta_rebuild_status": governed_trace.get("delta_rebuild_status") if assembly_revision == R015_REVISION else None,
-            "editorial_input_gate_status": governed_trace.get("editorial_input_gate_status") if assembly_revision == R015_REVISION else None,
+            "scientific_source_review_status": governed_trace.get("scientific_source_review_status") if assembly_revision in {R015_REVISION, R016_REVISION, R017_REVISION} else None,
+            "research_pingpong_status": governed_trace.get("research_pingpong_status") if assembly_revision in {R015_REVISION, R016_REVISION, R017_REVISION} else None,
+            "critical_scientific_vulnerability_total": governed_trace.get("critical_scientific_vulnerability_total") if assembly_revision in {R015_REVISION, R016_REVISION, R017_REVISION} else None,
+            "high_scientific_vulnerability_total": governed_trace.get("high_scientific_vulnerability_total") if assembly_revision in {R015_REVISION, R016_REVISION, R017_REVISION} else None,
+            "future_research_register_status": governed_trace.get("future_research_register_status") if assembly_revision in {R015_REVISION, R016_REVISION, R017_REVISION} else None,
+            "claim_support_ceiling_status": governed_trace.get("claim_support_ceiling_status") if assembly_revision in {R015_REVISION, R016_REVISION, R017_REVISION} else None,
+            "proof_sheet_binding_status": governed_trace.get("proof_sheet_binding_status") if assembly_revision in {R015_REVISION, R016_REVISION, R017_REVISION} else None,
+            "lean_certificate_boundary_status": governed_trace.get("lean_certificate_boundary_status") if assembly_revision in {R015_REVISION, R016_REVISION, R017_REVISION} else None,
+            "delta_rebuild_status": governed_trace.get("delta_rebuild_status") if assembly_revision in {R015_REVISION, R016_REVISION, R017_REVISION} else None,
+            "editorial_input_gate_status": governed_trace.get("editorial_input_gate_status") if assembly_revision in {R015_REVISION, R016_REVISION, R017_REVISION} else None,
+            **({key: governed_trace.get(key) for key in R016_MACHINE_STATUS_KEYS} if assembly_revision in {R016_REVISION, R017_REVISION} else {}),
+            "toe_final_pass_status": governed_trace.get("toe_final_pass_status") if assembly_revision in {R016_REVISION, R017_REVISION} else None,
+            "r017_promotion_gate": governed_trace.get("r017_promotion_gate") if assembly_revision in {R016_REVISION, R017_REVISION} else None,
+            "toe_validator_error_total": governed_trace.get("toe_validator_error_total") if assembly_revision in {R016_REVISION, R017_REVISION} else None,
             **({key: (visual_quality_trace or {}).get(key) for key in [
                 "figure_spec_coverage_status",
                 "diagram_geometry_status",

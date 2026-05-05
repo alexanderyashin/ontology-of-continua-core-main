@@ -122,6 +122,15 @@ FORM_STATUS_KEYS = [
     "lean_certificate_boundary_status",
     "delta_rebuild_status",
     "editorial_input_gate_status",
+    "machine_self_audit_status",
+    "filter_regression_status",
+    "reviewer_routing_status",
+    "cockpit_observability_status",
+    "artifact_precision_status",
+    "journal_projection_consistency_status",
+    "zenodo_readiness_assessment_status",
+    "toe_gap_assessment_status",
+    "r017_final_gate_status",
     "form_quality_status",
 ]
 

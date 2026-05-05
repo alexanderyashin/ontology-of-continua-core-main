@@ -1,0 +1,179 @@
+\section{Inline Visual Route: Proof and Formalization}
+
+These figures are placed in the main argument as visual proof-of-reading aids: each one separates objects, direction, quantitative or formal anchor, and evidence route.
+
+\subsection{Axiom to theorem}
+
+This figure is included because the reader must see how Axiom set is constrained by Theorem route. The highlighted review variable is proof status, and the formal anchor is $\Gamma\vdash T$. The nearby prose names the proof, evidence row, table, replay check, or appendix that carries the claim.
+
+\begin{figure}[!htbp]
+\centering
+\resizebox{0.96\textwidth}{!}{%
+\begin{tikzpicture}[x=1cm,y=1cm,>=Latex,every node/.style={font=\small}]
+  \definecolor{ocBlue}{HTML}{173B57}
+\definecolor{ocGold}{HTML}{A77D2A}
+\definecolor{ocGreen}{HTML}{4B7F52}
+\definecolor{ocRed}{HTML}{8E3B32}
+\definecolor{ocGray}{HTML}{ECEFF1}
+  \draw[rounded corners=10pt,fill=ocGray!35,draw=ocBlue,line width=0.9pt] (-6.8,-3.4) rectangle (6.8,3.4);
+  \node[font=\bfseries\large,ocBlue] at (0,3.0) {Axiom to theorem};
+  \node[draw,rounded corners=5pt,fill=blue!7,text width=0.24\textwidth,align=center,minimum height=1.05cm] (a) at (-4.35,1.0) {Axiom set};
+  \node[draw,rounded corners=5pt,fill=green!8,text width=0.24\textwidth,align=center,minimum height=1.05cm] (b) at (4.35,1.0) {Theorem route};
+  \draw[->,line width=1.0pt,ocGreen] (a.east) -- node[above,fill=ocGray!35,inner sep=2pt,align=center] {derivation} (b.west);
+  \node[draw,rounded corners=5pt,fill=orange!10,text width=0.28\textwidth,align=center,minimum height=0.9cm] (r) at (-4.35,-1.45) {proof status};
+  \node[draw,rounded corners=5pt,fill=white,text width=0.28\textwidth,align=center,minimum height=0.9cm] (m) at (0,-1.45) {proof status};
+  \node[draw,rounded corners=5pt,fill=red!6,text width=0.28\textwidth,align=center,minimum height=0.9cm] (f) at (4.35,-1.45) {formal anchor: \( \Gamma\vdash T \)};
+  \draw[->,dashed,ocGold] (r.north) -- (a.south);
+  \draw[->,dashed,ocGold] (m.north) -- ($(a)!0.5!(b)$);
+  \draw[->,dashed,ocGold] (f.north) -- (b.south);
+\end{tikzpicture}}
+\caption{Axiom to theorem. This figure shows the reading relation from Axiom set to Theorem route; the review variable is proof status, the formal anchor is \( \Gamma\vdash T \), and the evidence link is the named proof, table, replay row, or appendix section cited near the figure.}
+\label{fig:r012-inline-28b_oc133_inline_figures_proof_route-1}
+\end{figure}
+
+\subsection{Formalization inventory}
+
+This figure is included because the reader must see how Human theorem is constrained by Formalized fragment. The highlighted review variable is checked lemmas where binding is clean, and the formal anchor is $L\subseteq T$. The nearby prose names the proof, evidence row, table, replay check, or appendix that carries the claim.
+
+\begin{figure}[!htbp]
+\centering
+\resizebox{0.96\textwidth}{!}{%
+\begin{tikzpicture}[x=1cm,y=1cm,>=Latex,every node/.style={font=\small}]
+  \definecolor{ocBlue}{HTML}{173B57}
+\definecolor{ocGold}{HTML}{A77D2A}
+\definecolor{ocGreen}{HTML}{4B7F52}
+\definecolor{ocRed}{HTML}{8E3B32}
+\definecolor{ocGray}{HTML}{ECEFF1}
+  \draw[rounded corners=10pt,fill=ocGray!35,draw=ocBlue,line width=0.9pt] (-6.8,-3.4) rectangle (6.8,3.4);
+  \node[font=\bfseries\large,ocBlue] at (0,3.0) {Formalization inventory};
+  \node[draw,rounded corners=5pt,fill=blue!7,text width=0.24\textwidth,align=center,minimum height=1.05cm] (a) at (-4.35,1.0) {Human theorem};
+  \node[draw,rounded corners=5pt,fill=green!8,text width=0.24\textwidth,align=center,minimum height=1.05cm] (b) at (4.35,1.0) {Formalized fragment};
+  \draw[->,line width=1.0pt,ocGreen] (a.east) -- node[above,fill=ocGray!35,inner sep=2pt,align=center] {formal subset} (b.west);
+  \node[draw,rounded corners=5pt,fill=orange!10,text width=0.28\textwidth,align=center,minimum height=0.9cm] (r) at (-4.35,-1.45) {checked lemmas where binding is clean};
+  \node[draw,rounded corners=5pt,fill=white,text width=0.28\textwidth,align=center,minimum height=0.9cm] (m) at (0,-1.45) {checked lemmas where binding is clean};
+  \node[draw,rounded corners=5pt,fill=red!6,text width=0.28\textwidth,align=center,minimum height=0.9cm] (f) at (4.35,-1.45) {formal anchor: \( L\subseteq T \)};
+  \draw[->,dashed,ocGold] (r.north) -- (a.south);
+  \draw[->,dashed,ocGold] (m.north) -- ($(a)!0.5!(b)$);
+  \draw[->,dashed,ocGold] (f.north) -- (b.south);
+\end{tikzpicture}}
+\caption{Formalization inventory. This figure shows the reading relation from Human theorem to Formalized fragment; the review variable is checked lemmas where binding is clean, the formal anchor is \( L\subseteq T \), and the evidence link is the named proof, table, replay row, or appendix section cited near the figure.}
+\label{fig:r012-inline-28b_oc133_inline_figures_proof_route-2}
+\end{figure}
+
+\subsection{Finite semantics}
+
+This figure is included because the reader must see how Model instance is constrained by Finite witness. The highlighted review variable is model count, and the formal anchor is $M\models\varphi$. The nearby prose names the proof, evidence row, table, replay check, or appendix that carries the claim.
+
+\begin{figure}[!htbp]
+\centering
+\resizebox{0.96\textwidth}{!}{%
+\begin{tikzpicture}[x=1cm,y=1cm,>=Latex,every node/.style={font=\small}]
+  \definecolor{ocBlue}{HTML}{173B57}
+\definecolor{ocGold}{HTML}{A77D2A}
+\definecolor{ocGreen}{HTML}{4B7F52}
+\definecolor{ocRed}{HTML}{8E3B32}
+\definecolor{ocGray}{HTML}{ECEFF1}
+  \draw[rounded corners=10pt,fill=ocGray!35,draw=ocBlue,line width=0.9pt] (-6.8,-3.4) rectangle (6.8,3.4);
+  \node[font=\bfseries\large,ocBlue] at (0,3.0) {Finite semantics};
+  \node[draw,rounded corners=5pt,fill=blue!7,text width=0.24\textwidth,align=center,minimum height=1.05cm] (a) at (-4.35,1.0) {Model instance};
+  \node[draw,rounded corners=5pt,fill=green!8,text width=0.24\textwidth,align=center,minimum height=1.05cm] (b) at (4.35,1.0) {Finite witness};
+  \draw[->,line width=1.0pt,ocGreen] (a.east) -- node[above,fill=ocGray!35,inner sep=2pt,align=center] {satisfaction} (b.west);
+  \node[draw,rounded corners=5pt,fill=orange!10,text width=0.28\textwidth,align=center,minimum height=0.9cm] (r) at (-4.35,-1.45) {model count};
+  \node[draw,rounded corners=5pt,fill=white,text width=0.28\textwidth,align=center,minimum height=0.9cm] (m) at (0,-1.45) {model count};
+  \node[draw,rounded corners=5pt,fill=red!6,text width=0.28\textwidth,align=center,minimum height=0.9cm] (f) at (4.35,-1.45) {formal anchor: \( M\models\varphi \)};
+  \draw[->,dashed,ocGold] (r.north) -- (a.south);
+  \draw[->,dashed,ocGold] (m.north) -- ($(a)!0.5!(b)$);
+  \draw[->,dashed,ocGold] (f.north) -- (b.south);
+\end{tikzpicture}}
+\caption{Finite semantics. This figure shows the reading relation from Model instance to Finite witness; the review variable is model count, the formal anchor is \( M\models\varphi \), and the evidence link is the named proof, table, replay row, or appendix section cited near the figure.}
+\label{fig:r012-inline-28b_oc133_inline_figures_proof_route-3}
+\end{figure}
+
+\subsection{Negative control}
+
+This figure is included because the reader must see how Claim route is constrained by Permuted label. The highlighted review variable is expected failure, and the formal anchor is $control(T)=0$. The nearby prose names the proof, evidence row, table, replay check, or appendix that carries the claim.
+
+\begin{figure}[!htbp]
+\centering
+\resizebox{0.96\textwidth}{!}{%
+\begin{tikzpicture}[x=1cm,y=1cm,>=Latex,every node/.style={font=\small}]
+  \definecolor{ocBlue}{HTML}{173B57}
+\definecolor{ocGold}{HTML}{A77D2A}
+\definecolor{ocGreen}{HTML}{4B7F52}
+\definecolor{ocRed}{HTML}{8E3B32}
+\definecolor{ocGray}{HTML}{ECEFF1}
+  \draw[rounded corners=10pt,fill=ocGray!35,draw=ocBlue,line width=0.9pt] (-6.8,-3.4) rectangle (6.8,3.4);
+  \node[font=\bfseries\large,ocBlue] at (0,3.0) {Negative control};
+  \node[draw,rounded corners=5pt,fill=blue!7,text width=0.24\textwidth,align=center,minimum height=1.05cm] (a) at (-4.35,1.0) {Claim route};
+  \node[draw,rounded corners=5pt,fill=green!8,text width=0.24\textwidth,align=center,minimum height=1.05cm] (b) at (4.35,1.0) {Permuted label};
+  \draw[->,line width=1.0pt,ocGreen] (a.east) -- node[above,fill=ocGray!35,inner sep=2pt,align=center] {control contrast} (b.west);
+  \node[draw,rounded corners=5pt,fill=orange!10,text width=0.28\textwidth,align=center,minimum height=0.9cm] (r) at (-4.35,-1.45) {expected failure};
+  \node[draw,rounded corners=5pt,fill=white,text width=0.28\textwidth,align=center,minimum height=0.9cm] (m) at (0,-1.45) {expected failure};
+  \node[draw,rounded corners=5pt,fill=red!6,text width=0.28\textwidth,align=center,minimum height=0.9cm] (f) at (4.35,-1.45) {formal anchor: \( control(T)=0 \)};
+  \draw[->,dashed,ocGold] (r.north) -- (a.south);
+  \draw[->,dashed,ocGold] (m.north) -- ($(a)!0.5!(b)$);
+  \draw[->,dashed,ocGold] (f.north) -- (b.south);
+\end{tikzpicture}}
+\caption{Negative control. This figure shows the reading relation from Claim route to Permuted label; the review variable is expected failure, the formal anchor is \( control(T)=0 \), and the evidence link is the named proof, table, replay row, or appendix section cited near the figure.}
+\label{fig:r012-inline-28b_oc133_inline_figures_proof_route-4}
+\end{figure}
+
+\subsection{Assumption register}
+
+This figure is included because the reader must see how Assumption is constrained by Proof dependency. The highlighted review variable is open assumption total, and the formal anchor is $A_i\Rightarrow T_j$. The nearby prose names the proof, evidence row, table, replay check, or appendix that carries the claim.
+
+\begin{figure}[!htbp]
+\centering
+\resizebox{0.96\textwidth}{!}{%
+\begin{tikzpicture}[x=1cm,y=1cm,>=Latex,every node/.style={font=\small}]
+  \definecolor{ocBlue}{HTML}{173B57}
+\definecolor{ocGold}{HTML}{A77D2A}
+\definecolor{ocGreen}{HTML}{4B7F52}
+\definecolor{ocRed}{HTML}{8E3B32}
+\definecolor{ocGray}{HTML}{ECEFF1}
+  \draw[rounded corners=10pt,fill=ocGray!35,draw=ocBlue,line width=0.9pt] (-6.8,-3.4) rectangle (6.8,3.4);
+  \node[font=\bfseries\large,ocBlue] at (0,3.0) {Assumption register};
+  \node[draw,rounded corners=5pt,fill=blue!7,text width=0.24\textwidth,align=center,minimum height=1.05cm] (a) at (-4.35,1.0) {Assumption};
+  \node[draw,rounded corners=5pt,fill=green!8,text width=0.24\textwidth,align=center,minimum height=1.05cm] (b) at (4.35,1.0) {Proof dependency};
+  \draw[->,line width=1.0pt,ocGreen] (a.east) -- node[above,fill=ocGray!35,inner sep=2pt,align=center] {dependency edge} (b.west);
+  \node[draw,rounded corners=5pt,fill=orange!10,text width=0.28\textwidth,align=center,minimum height=0.9cm] (r) at (-4.35,-1.45) {open assumption total};
+  \node[draw,rounded corners=5pt,fill=white,text width=0.28\textwidth,align=center,minimum height=0.9cm] (m) at (0,-1.45) {open assumption total};
+  \node[draw,rounded corners=5pt,fill=red!6,text width=0.28\textwidth,align=center,minimum height=0.9cm] (f) at (4.35,-1.45) {formal anchor: \( A_i\Rightarrow T_j \)};
+  \draw[->,dashed,ocGold] (r.north) -- (a.south);
+  \draw[->,dashed,ocGold] (m.north) -- ($(a)!0.5!(b)$);
+  \draw[->,dashed,ocGold] (f.north) -- (b.south);
+\end{tikzpicture}}
+\caption{Assumption register. This figure shows the reading relation from Assumption to Proof dependency; the review variable is open assumption total, the formal anchor is \( A_i\Rightarrow T_j \), and the evidence link is the named proof, table, replay row, or appendix section cited near the figure.}
+\label{fig:r012-inline-28b_oc133_inline_figures_proof_route-5}
+\end{figure}
+
+\subsection{Proof closure}
+
+This figure is included because the reader must see how Local proof is constrained by Release claim. The highlighted review variable is closure status, and the formal anchor is $status\in\{open,closed\}$. The nearby prose names the proof, evidence row, table, replay check, or appendix that carries the claim.
+
+\begin{figure}[!htbp]
+\centering
+\resizebox{0.96\textwidth}{!}{%
+\begin{tikzpicture}[x=1cm,y=1cm,>=Latex,every node/.style={font=\small}]
+  \definecolor{ocBlue}{HTML}{173B57}
+\definecolor{ocGold}{HTML}{A77D2A}
+\definecolor{ocGreen}{HTML}{4B7F52}
+\definecolor{ocRed}{HTML}{8E3B32}
+\definecolor{ocGray}{HTML}{ECEFF1}
+  \draw[rounded corners=10pt,fill=ocGray!35,draw=ocBlue,line width=0.9pt] (-6.8,-3.4) rectangle (6.8,3.4);
+  \node[font=\bfseries\large,ocBlue] at (0,3.0) {Proof closure};
+  \node[draw,rounded corners=5pt,fill=blue!7,text width=0.24\textwidth,align=center,minimum height=1.05cm] (a) at (-4.35,1.0) {Local proof};
+  \node[draw,rounded corners=5pt,fill=green!8,text width=0.24\textwidth,align=center,minimum height=1.05cm] (b) at (4.35,1.0) {Release claim};
+  \draw[->,line width=1.0pt,ocGreen] (a.east) -- node[above,fill=ocGray!35,inner sep=2pt,align=center] {promotion boundary} (b.west);
+  \node[draw,rounded corners=5pt,fill=orange!10,text width=0.28\textwidth,align=center,minimum height=0.9cm] (r) at (-4.35,-1.45) {closure status};
+  \node[draw,rounded corners=5pt,fill=white,text width=0.28\textwidth,align=center,minimum height=0.9cm] (m) at (0,-1.45) {closure status};
+  \node[draw,rounded corners=5pt,fill=red!6,text width=0.28\textwidth,align=center,minimum height=0.9cm] (f) at (4.35,-1.45) {formal anchor: \( status\in\{open,closed\} \)};
+  \draw[->,dashed,ocGold] (r.north) -- (a.south);
+  \draw[->,dashed,ocGold] (m.north) -- ($(a)!0.5!(b)$);
+  \draw[->,dashed,ocGold] (f.north) -- (b.south);
+\end{tikzpicture}}
+\caption{Proof closure. This figure shows the reading relation from Local proof to Release claim; the review variable is closure status, the formal anchor is \( status\in\{open,closed\} \), and the evidence link is the named proof, table, replay row, or appendix section cited near the figure.}
+\label{fig:r012-inline-28b_oc133_inline_figures_proof_route-6}
+\end{figure}
+
+\clearpage

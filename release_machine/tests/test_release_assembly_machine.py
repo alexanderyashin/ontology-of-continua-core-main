@@ -130,6 +130,17 @@ R015_FORM_STATUS_KEYS = R014_FORM_STATUS_KEYS + [
     "delta_rebuild_status",
     "editorial_input_gate_status",
 ]
+R016_FORM_STATUS_KEYS = R015_FORM_STATUS_KEYS + [
+    "machine_self_audit_status",
+    "filter_regression_status",
+    "reviewer_routing_status",
+    "cockpit_observability_status",
+    "artifact_precision_status",
+    "journal_projection_consistency_status",
+    "zenodo_readiness_assessment_status",
+    "toe_gap_assessment_status",
+    "r017_final_gate_status",
+]
 
 
 def read_json(path: Path) -> dict:
@@ -1648,6 +1659,86 @@ class ReleaseAssemblyMachineTests(unittest.TestCase):
             self.assertEqual(machine["summary"][key], "PASS", key)
             self.assertEqual(comparison["summary"][key], "PASS", key)
             self.assertEqual(quality["summary"][key], "PASS", key)
+
+    def test_recovery_r015_fails_recovery_r016_machine_self_audit_when_reaudited(self) -> None:
+        tools_dir = ROOT / "tools"
+        if str(tools_dir) not in sys.path:
+            sys.path.insert(0, str(tools_dir))
+        from audit_oc_core_release_assembly_machine import build_audit
+
+        audit = build_audit("oc_core_1_3_3", "recovery_r015")
+        finding_kinds = {finding["kind"] for finding in audit["findings"]}
+        self.assertIn("publication_r016_machine_self_audit_missing", finding_kinds)
+        for key in [
+            "machine_self_audit_status",
+            "filter_regression_status",
+            "toe_gap_assessment_status",
+            "form_quality_status",
+        ]:
+            self.assertEqual(audit["summary"][key], "FAIL", key)
+
+    def test_recovery_r016_machine_self_audit_package_passes_and_blocks_r017(self) -> None:
+        base = ROOT / "releases" / "oc_core_1_3_3" / "editorial" / "generated_artifacts_recovered" / "recovery_r016"
+        assembly = read_json(base / "package_assembly" / "OC_CORE_RELEASE_PACKAGE_ASSEMBLY_1.3.3.json")
+        machine = read_json(base / "package_assembly" / "OC_CORE_RELEASE_ASSEMBLY_MACHINE_AUDIT_1.3.3.json")
+        comparison = read_json(base / "package_assembly" / "OC_CORE_RELEASE_ASSEMBLY_REVISION_COMPARISON_1.3.3.recovery_r016.json")
+        quality = read_json(
+            ROOT
+            / "releases"
+            / "oc_core_1_3_3"
+            / "editorial"
+            / "quality_validation"
+            / "recovery_r016"
+            / "OC_CORE_RELEASE_QUALITY_AUDIT_1.3.3.json"
+        )
+        cerberus = read_json(
+            ROOT
+            / "releases"
+            / "oc_core_1_3_3"
+            / "editorial"
+            / "quality_validation"
+            / "recovery_r016"
+            / "cerberus"
+            / "OC133_EDITORIAL_CERBERUS_SUMMARY.json"
+        )
+        cockpit = read_json(base / "machine_self_audit" / "OC133_R016_MACHINE_SELF_AUDIT_COCKPIT_1.3.3.json")
+        work_orders = read_json(base / "machine_self_audit" / "OC133_R016_TOE_GAP_WORK_ORDERS_1.3.3.json")
+
+        self.assertEqual(assembly["assembly_revision"], "recovery_r016")
+        self.assertEqual(assembly["publication_translation_pipeline"]["status"], "PUBLICATION_TRANSLATOR_R016_MACHINE_SELF_AUDITED_TOE_GATE")
+        self.assertEqual(machine["status"], "PASS")
+        self.assertEqual(comparison["status"], "PASS")
+        self.assertEqual(quality["status"], "QUALITY_VALIDATION_PASS")
+        self.assertEqual(cerberus["state"], "PASS")
+        self.assertEqual(cockpit["status"], "PASS")
+        self.assertEqual(cockpit["machine_self_audit_status"], "PASS")
+        self.assertEqual(cockpit["journal_package_total"], 8)
+        self.assertEqual(cockpit["toe_gap_assessment_status"], "PASS")
+        self.assertEqual(cockpit["toe_final_pass_status"], "FAIL")
+        self.assertEqual(cockpit["r017_promotion_gate"], "R017_BLOCKED_BY_TOE_VALIDATOR")
+        self.assertFalse(cockpit["r017_promotion_allowed"])
+        self.assertGreater(cockpit["toe_validator_error_total"], 0)
+        self.assertGreaterEqual(work_orders["work_order_total"], work_orders["toe_validator_error_total"])
+        self.assertTrue(any(row["work_order_id"] == "R016-TOE-AI-001" for row in work_orders["rows"]))
+        self.assertTrue(any(row["work_order_id"] == "R016-TOE-EA-001" for row in work_orders["rows"]))
+        for key in R016_FORM_STATUS_KEYS:
+            self.assertEqual(machine["summary"][key], "PASS", key)
+            self.assertEqual(comparison["summary"][key], "PASS", key)
+            self.assertEqual(quality["summary"][key], "PASS", key)
+
+    def test_recovery_r017_is_fail_closed_until_final_toe_validator_passes(self) -> None:
+        tools_dir = ROOT / "tools"
+        if str(tools_dir) not in sys.path:
+            sys.path.insert(0, str(tools_dir))
+        from assemble_oc_core_release_package import assemble_release
+
+        with self.assertRaisesRegex(RuntimeError, "recovery_r017 is fail-closed"):
+            assemble_release(
+                "oc_core_1_3_3",
+                write=False,
+                structure_source="recovered_l10c",
+                assembly_revision="recovery_r017",
+            )
 
 
 if __name__ == "__main__":

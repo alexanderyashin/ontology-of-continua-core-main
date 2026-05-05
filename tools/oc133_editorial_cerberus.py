@@ -760,7 +760,7 @@ def summarize(rows: list[dict[str, Any]], bundle: dict[str, Any], *, out_dir: Pa
 
 
 def r015_source_gate_summary(*, assembly_revision: str | None, out_dir: Path) -> dict[str, Any] | None:
-    if assembly_revision != "recovery_r015":
+    if assembly_revision not in {"recovery_r015", "recovery_r016", "recovery_r017"}:
         return None
     bundle = compact_bundle(assembly_revision)
     assembly = assembly_record(assembly_revision)
@@ -775,6 +775,15 @@ def r015_source_gate_summary(*, assembly_revision: str | None, out_dir: Path) ->
         and int(trace.get("high_scientific_vulnerability_total") or 0) == 0
         and trace.get("editorial_input_gate_status") == "PASS"
     )
+    machine_trace = assembly.get("machine_self_audit_trace") if isinstance(assembly.get("machine_self_audit_trace"), dict) else {}
+    machine_pass = True
+    if assembly_revision in {"recovery_r016", "recovery_r017"}:
+        machine_pass = (
+            machine_trace.get("status") == "PASS"
+            and machine_trace.get("machine_self_audit_status") == "PASS"
+            and machine_trace.get("toe_gap_assessment_status") == "PASS"
+            and machine_trace.get("publication_actions_performed") is False
+        )
     local_pass = local_first_review.get("state") == "PASS"
     findings: list[dict[str, Any]] = []
     if not trace_pass:
@@ -788,6 +797,19 @@ def r015_source_gate_summary(*, assembly_revision: str | None, out_dir: Path) ->
                 "issue": "r015 scientific source review terminal gate is not PASS.",
                 "evidence": json.dumps(trace, ensure_ascii=False)[:1200],
                 "required_repair": "Run source-level scientific review and research ping-pong until critical/high scientific blockers are zero before Cerberus can pass.",
+            }
+        )
+    if not machine_pass:
+        findings.append(
+            {
+                "finding_id": "R016-MACHINE-SELF-AUDIT-001",
+                "severity": "CRITICAL",
+                "status": "OPEN",
+                "artifact": "machine_self_audit",
+                "role_id": "machine_self_audit_gate",
+                "issue": "r016/r017 machine self-audit and TOE-gap cockpit are not PASS.",
+                "evidence": json.dumps(machine_trace, ensure_ascii=False)[:1200],
+                "required_repair": "Run r016 machine self-audit, route TOE validator blockers to research work orders, and keep r017 blocked until final TOE validation passes.",
             }
         )
     if not local_pass:
@@ -826,8 +848,11 @@ def r015_source_gate_summary(*, assembly_revision: str | None, out_dir: Path) ->
         },
         "cerberus_priority_routing": bundle.get("cerberus_priority_routing"),
         "local_first_review": local_first_review,
-        "external_reasoning_run_status": "SOURCE_LEVEL_SCIENTIFIC_REVIEW_GATE_CONSUMED",
+        "external_reasoning_run_status": "SOURCE_LEVEL_SCIENTIFIC_REVIEW_GATE_CONSUMED"
+        if assembly_revision == "recovery_r015"
+        else "SOURCE_LEVEL_SCIENTIFIC_REVIEW_AND_MACHINE_SELF_AUDIT_CONSUMED",
         "scientific_review_gate": trace,
+        "machine_self_audit_gate": machine_trace,
         "role_ids": sorted(ROLES),
         "role_total": len(ROLES),
         "critical_open_total": critical,

@@ -1,0 +1,330 @@
+% ====================================================================
+% DATEI: content/09_thresholds.tex
+% Erweiterte Schwellenwertlandschaft — Core 1.3.3 (Abschlussversion)
+% ====================================================================
+
+\section{Erweiterte Schwellenwertlandschaft}
+\label{sec:thresholds-extended}
+
+Dieses Kapitel rekonstruiert die vollständige Theorie der Schwellenwerte in der Ontologie der
+Kontinua (OC) und konsolidiert strukturelle Elemente aus den Läufen Physik,
+Chemie, Biologie und Kognition.
+Schwellenwerte sind der zentrale Mechanismus, über den
+qualitative Veränderungen, Dimensionalemergenz, Kollaps und Tod erzeugt werden.
+
+Schwellenwerte sind universell: Sie gelten für physische, chemische, biologische,
+kognitive, soziale und theoretische Kontinua im gesamten Hierarchiebereich
+\(K_0\)–\(K_{10}\).
+
+\subsection{Definition eines Schwellenwerts}
+
+Ein \emph{Schwellenwert} wird durch eine Nebenbedingungsfunktion dargestellt durch
+\[
+   f_k : \Omega(K) \rightarrow \mathbb{R}
+\]
+mit der Eigenschaft
+\[
+   f_k(s) \le 0
+   \quad\text{für alle zulässigen Zustände } s\in\Omega(K).
+\]
+
+Schwellenwerte trennen qualitativ unterschiedliche dynamische Regime:
+\begin{itemize}
+    \item \( f_k(s) < 0 \): sicheres Regime (Inneres),
+    \item \( f_k(s) = 0 \): Randregime,
+    \item \( f_k(s) > 0 \): verbotendes Regime (außerhalb von \(\Omega(K)\)).
+\end{itemize}
+
+Damit legen Schwellenwerte gemeinsam fest:
+\begin{itemize}
+    \item die Gestalt der zulässigen Menge \(\Omega(K)\),
+    \item den Rand \(\partial\Omega(K)\),
+    \item die Bedingungen, unter denen das Kontinuum existiert oder kollabiert.
+\end{itemize}
+
+Schwellenwerte sind keine statischen Konstanten.
+Sie hängen von Potentialen \(P(t)\), Flüssen \(J(t)\), Achsen \(A(K)\), Umwelt-\
+bedingungen und der Struktur des Einbettungsraums \(M\) ab.
+Auf struktureller Ebene ist dies durch den Schwellenwert-Evolutionsoperator
+\(H\) der allgemeinen Evolutionsmaschine kodiert:
+\[
+  \frac{d\Theta_k}{dt}
+   = H_k\big(\Theta_k, P, J, A, M\big),
+\]
+wobei \(\Theta_k\) die Parametermenge bezeichnet, die die Nebenbedingung \(f_k\) bestimmt.
+
+\subsection{Taxonomie der Schwellenwerte}
+
+OC unterscheidet sieben universelle Klassen von Schwellenwerten. Diese Taxonomie wurde
+in archival source corpus stabilisiert und in den Domänenläufen präzisiert.
+
+\paragraph{1. Existenz-Schwellenwerte \(\Theta_{\rm exist}\).}
+Bedingungen, die für \(\Omega(K)\neq\emptyset\) erforderlich sind.
+Beispiele:
+\begin{itemize}
+    \item minimale Energiebedingungen für gebundene physische Zustände (\(K_2\)),
+    \item minimale katalytische Verschlussbedingung (RAF-Existenz) in \(K_3\),
+    \item minimale Membrankontinuität und Integrität in \(K_4\),
+    \item minimale Kohärenz interner Modelle in \(K_6\),
+    \item minimale Legitimität und Vertrauen für Institutionen in \(K_7\).
+\end{itemize}
+
+\paragraph{2. Stabilitäts-Schwellenwerte \(\Theta_{\rm stab}\).}
+Bedingungen, unter denen Flüsse beschränkt bleiben und Zyklen stabil sind.
+Beispiele:
+\begin{itemize}
+    \item Konfinierung und Beschränktheitsbedingungen in der Physik (\(K_2\)),
+    \item osmotische Homöostasebedingungen in Protokellen (\(K_4\)),
+    \item Stabilität des Membranpotentials in Neuronen (\(K_5\)),
+    \item normative Stabilität in sozialen Kontinua (\(K_7\)).
+\end{itemize}
+
+\paragraph{3. Kritische Schwellenwerte \(\Theta_{\rm crit}\).}
+Oberflächen qualitativer Veränderungen bei fester Dimensionalität.
+Beispiele:
+\begin{itemize}
+    \item Phasenübergänge und BKT-artige Schwellenwerte (\(K_2\)),
+    \item Auftreten katalytischer Netzwerke (\(K_3\)),
+    \item metabolischer Umschaltvorgang in \(K_4\),
+    \item Initiierungsschwelle von Aktionsspitzen in \(K_5\),
+    \item Vorhersagefehler-Bifurkationen in \(K_6\),
+    \item institutionelle Bifurkationen in \(K_7\).
+\end{itemize}
+
+\paragraph{4. Dimensionalitäts-Schwellenwerte \(\Theta_{\rm dim}\).}
+Nebenbedingungen, die die Erzeugung neuer Achsen auslösen.
+Dimensionalitäts-Schwellenwerte sind zentral in OC:
+\[
+   T(K,t) > \Theta_{\rm dim}(K)
+   \quad\Rightarrow\quad
+   \text{Auftreten einer neuen Achse } A_{\rm new}.
+\]
+
+Sie steuern die Übergänge \(K_x \to K_{x+1}\) in der gesamten Hierarchie.
+
+\paragraph{5. Todes-Schwellenwerte \(\Theta_{\rm death}\).}
+Werte, jenseits derer kein zulässiger Zustand mehr existiert.
+Äquivalent dazu gilt:
+\[
+   \forall s\in\overline{\Omega(K)}:\ \exists k\ \text{mit } f_k(s) > 0
+   \quad\Longleftrightarrow\quad
+   \Omega(K)=\emptyset.
+\]
+
+\paragraph{6. Expressivitäts-Schwellenwerte \(\Theta_{\rm expr}\).}
+Schwellenwerte für Darstellungskapazität. Ein Kontinuum kollabiert, wenn
+\[
+   \dim\big(A(K)\big)
+   <
+   \dim\big({\rm Differences}(K)\big),
+\]
+wohingegen \(\mathrm{Differences}(K)\) die effektive Dimension strukturell relevanter
+Unterscheidungen bezeichnet, die durch den Einbettungsraum und
+Randbedingungen erzwungen werden. Diese Klasse ist für kognitive, soziale und
+meta-theoretische Kollapse zentral.
+
+\paragraph{7. Einbettungsschwellenwerte \(\Theta_{\rm embed}\).}
+Bedingungen durch den Einbettungsraum \(M_x\).
+Ein Kontinuum kann nicht als lebendes Kontinuum existieren, wenn der Einbettungsraum
+seine Achsen, Schwellenwerte oder Flüsse nicht trägt; formal wird dies durch die
+Kompatibilitätsbedingungen in Satz~4 und Satz~5 (Ergebniskapitel) erfasst.
+
+\subsection{Schwellenwert-Geometrie}
+
+Schwellenwerte induzieren eine geschichtete Geometrie auf \(\Omega(K)\).
+Für jede Schwellenwertfunktion \(f_k\) betrachten wir die Niveaumengen
+\[
+  \Sigma_k(c) = \{\, s \in \Omega(K) \mid f_k(s) = c \,\}.
+\]
+
+Insbesondere:
+\begin{itemize}
+    \item \(\Sigma_k(0)\) definiert Komponenten des Randes \(\partial\Omega(K)\),
+    \item \(\Sigma_k(c<0)\) definiert sichere Regionen,
+    \item \(\Sigma_k(c>0)\) definiert verbotene Regionen.
+\end{itemize}
+
+Interaktionen zwischen Schwellenwerten erzeugen:
+\begin{itemize}
+    \item Mehrfach-Schwellenwert-Schnittmengen,
+    \item Spitzen- und Faltstrukturen (katastrophentheoretische Geometrien),
+    \item Regionen mit konzentrierter Krümmung,
+    \item heterogene Struktur auf Patches am Rand
+          (vgl. the boundary geometry chapter).
+\end{itemize}
+
+Die gemeinsame Schwellenwert-Geometrie bestimmt:
+\begin{itemize}
+    \item die globale Gestalt von \(\Omega(K)\),
+    \item zulässige Trajektorien und Zyklusstruktur,
+    \item die verfügbaren Übergänge des Kontinuums.
+\end{itemize}
+
+\subsection{Dimensionalitäts-Schwellenwerte}
+
+Dimensionalitäts-Schwellenwerte nehmen in OC eine privilegierte Rolle ein, da sie
+entscheiden, wann neue Unterschiede innerhalb der aktuellen Achsen nicht mehr
+repräsentierbar sind.
+
+Sei \(T(K,t)\) die strukturelle Spannung.
+Dann gilt schematisch:
+\[
+  T(K,t) < \Theta_{\rm dim}(K)
+   \quad\Rightarrow\quad
+   \text{alle relevanten Unterschiede können innerhalb von } A(K) \text{ ausgedrückt werden},
+\]
+\[
+  T(K,t) = \Theta_{\rm dim}(K)
+   \quad\Rightarrow\quad
+   \text{Projektion auf } A(K)\ \text{scheitert},
+\]
+\[
+  T(K,t) > \Theta_{\rm dim}(K)
+   \quad\Rightarrow\quad
+   \text{eine neue Achse } A_{\rm new} \text{ ist strukturell erforderlich}.
+\]
+
+Dimensionalitäts-Schwellenwerte regeln insbesondere:
+\begin{itemize}
+    \item Entstehung von \(K_1\) aus der strukturellen Grundlage \(K_0\),
+    \item Auftreten chemischer Achsen in \(K_3\),
+    \item Membranachsen in \(K_4\),
+    \item Erregbarkeitsachsen in \(K_5\),
+    \item kognitive repräsentationale Achsen in \(K_6\),
+    \item soziale normative Achsen in \(K_7\),
+    \item meta-logische Achsen in \(K_9\)–\(K_{10}\).
+\end{itemize}
+
+\subsection{Schwellenwert-Kaskaden}
+
+Schwellenwerte interagieren häufig in Kaskaden der Form
+\[
+  \Theta_{\rm grad}
+  \;\longrightarrow\;
+  \Theta_{\rm perm}
+  \;\longrightarrow\;
+  \Theta_{\rm mem},
+\]
+oder allgemeiner: Gradienten \(\to\) Permeabilität \(\to\) strukturelles Versagen.
+
+Repräsentative Beispiele:
+
+\begin{itemize}
+    \item \textbf{Vesikelriss (\(K_4\)).}
+          Osmotische Gradienten überschreiten \(\Theta_{\rm grad}\), die Permeabilität steigt
+          (\(\Theta_{\rm perm}\)), und die Membranintegrität geht verloren
+          (\(\Theta_{\rm mem}\)).
+    \item \textbf{Aktionspotenziale (\(K_5\)).}
+          Die Depolarisation überschreitet eine Gradienten-Schwelle, Kanäle öffnen sich bei
+          \(\Theta_{\rm crit}\), und ein Spike-Zyklus wird aktiviert.
+    \item \textbf{Institutioneller Kollaps (\(K_7\)).}
+          Vertrauensdefizite überschreiten \(\Theta_{\rm grad}\), normative Kohärenz
+          versagt (\(\Theta_{\rm expr}\)), und der institutionelle Tod folgt
+          (\(\Theta_{\rm death}\)).
+\end{itemize}
+
+Solche Kaskaden sind zentral für frühe Lebensformen, neuronale Systeme sowie
+soziale und infrastrukturelle Dynamiken.
+
+\subsection{Todes-Schwellenwerte}
+
+Todes-Schwellenwerte bestimmen, wann ein Kontinuum als lebendes Kontinuum aufhört zu
+gelten.
+Die folgenden strukturellen Bedingungen sind äquivalente Manifestationen von Tod:
+\begin{itemize}
+    \item vollständige Verletzung von Schwellenwerten in allen Zuständen:
+          \(\forall s:\ \exists k \text{ mit } f_k(s) > 0\);
+    \item Verschwinden unterstützender Zyklen: \(C(K)=\emptyset\);
+    \item Kollaps des zulässigen Zustandsraums: \(\Omega(K)=\emptyset\);
+    \item Repräsentationsversagen, z.\,B. \(\Theta_{\rm expr}\) überschritten;
+    \item Unvereinbarkeit mit dem Einbettungsraum (keine Konfiguration erfüllt
+          sowohl interne als auch Einbettungs-Bedingungen).
+\end{itemize}
+
+Sobald \(\Omega(K)=\emptyset\), ist der Tod strukturell irreversibel:
+Kein Operator innerhalb derselben Ebene kann \(\Omega(K)\) erneut erzeugen;
+jede scheinbare Erholung entspricht der Geburt eines neuen Kontinuums \(K'\).
+
+\subsection{Beispiele über Ebenen}
+
+Die Schwellenwert-Taxonomie manifestiert sich auf jeder Ebene der Hierarchie unterschiedlich.
+
+\paragraph{\texorpdfstring{\(K_1\)}{K_1} (Geometrische Kontinua).}
+\begin{itemize}
+    \item \(\Theta_{\rm exist}\): Differenzierbarkeits- und Regularitätsbedingungen,
+          die die klassische Region \(\Omega_{\rm cl}\) festlegen,
+    \item \(\Theta_{\rm crit}\): klassische Bifurkationen und Stabilitätsverlust.
+\end{itemize}
+
+\paragraph{\texorpdfstring{\(K_2\)}{K_2} (Physikalische Kontinua).}
+\begin{itemize}
+    \item \(\Theta_{\rm crit}\): Phasenübergänge, einschließlich BKT-Schwellen,
+    \item \(\Theta_{\rm dim}\): Kohärenz-Schwellenwerte im Zusammenhang mit
+          Massenentstehung und Ordnung,
+    \item \(\Theta_{\rm death}\): Konfinenz-/Entkopplungsgrenzen, an denen das
+          betreffende Kontinuum aufhört zu existieren.
+\end{itemize}
+
+\paragraph{\texorpdfstring{\(K_3\)}{K_3} (Chemische Kontinua).}
+\begin{itemize}
+    \item \(\Theta_{\rm exist}\): katalytischer Abschluss und RAF-Existenz,
+    \item \(\Theta_{\rm crit}\): Perkolation von Reaktionsnetzwerken,
+    \item \(\Theta_{\rm expr}\): unzureichende chemische Achsen zur Repräsentation der erforderlichen
+          Reaktionsvielfalt.
+\end{itemize}
+
+\paragraph{\texorpdfstring{\(K_4\)}{K_4} (Präbiotische/biologische Membrankontinua).}
+\begin{itemize}
+    \item \(\Theta_{\rm grad}\): osmotische Druckgrenzen,
+    \item \(\Theta_{\rm perm}\): Permeabilitäts-Schwellenwerte,
+    \item \(\Theta_{\rm mem}\): Membranruptur- und Krümmungsschwellen.
+\end{itemize}
+
+\paragraph{\texorpdfstring{\(K_5\)}{K_5} (Erregbare Kontinua).}
+\begin{itemize}
+    \item \(\Theta_{\rm crit}\): Auslöseschwellen für Spikes,
+    \item \(\Theta_{\rm stab}\): Refraktärbedingungen und Erregbarkeitsgrenzen,
+    \item \(\Theta_{\rm death}\): Verlust der Erregbarkeit und Zusammenbruch erregbarer Zyklen.
+\end{itemize}
+
+\paragraph{\texorpdfstring{\(K_6\)}{K_6} (Kognitive Kontinua).}
+\begin{itemize}
+    \item \(\Theta_{\rm expr}\): Grenzen der Bindungskapazität und repräsentationalen
+          Komplexität,
+    \item \(\Theta_{\rm crit}\): Schwellen für Vorhersagefehler,
+    \item \(\Theta_{\rm stab}\): Gedächtniskohärenz und Modellstabilitätsgrenzen.
+\end{itemize}
+
+\paragraph{\texorpdfstring{\(K_7\)}{K_7}–\texorpdfstring{\(K_8\)}{K_8} (Soziale und zivilisatorische Kontinua).}
+\begin{itemize}
+    \item \(\Theta_{\rm exist}\): Schwellen für Vertrauen und Legitimität,
+    \item \(\Theta_{\rm expr}\): institutionelle Kapazität und expressive Grenzen,
+    \item \(\Theta_{\rm death}\): systemischer Kollaps und Zusammenbruch institutioneller
+          sowie infrastruktureller Zyklen.
+\end{itemize}
+
+\paragraph{\texorpdfstring{\(K_9\)}{K_9}–\(K_{10}\) (Theoretische und meta-theoretische Kontinua).}
+\begin{itemize}
+    \item \(\Theta_{\rm expr}\): expressive Kapazität von Theorien und
+          Metasprachen,
+    \item \(\Theta_{\rm dim}\): Schwellen für Metaebenen-Expansion,
+    \item \(\Theta_{\rm death}\): Inkonsistenz, Inkohärenz oder strukturelle
+          Unvereinbarkeit im Modellraum.
+\end{itemize}
+
+\subsection{Zusammenfassung}
+
+Die erweiterte Schwellenwertlandschaft liefert das strukturelle Rückgrat für alle
+qualitativen Änderungen in OC. Schwellenwerte:
+\begin{itemize}
+    \item prägen \(\Omega(K)\) und definieren \(\partial\Omega(K)\),
+    \item steuern Phasenübergänge, Emergenz neuer Dimensionen und Kollaps,
+    \item vermitteln Kaskaden, die Gradienten, Permeabilität und strukturelles Versagen verbinden,
+    \item kodieren expressive und Einbettungsbeschränkungen, die Kontinua töten können,
+          selbst ohne energetische Überlastung.
+\end{itemize}
+
+Zusammen mit der Rand- und Patch-Geometrie aus
+Abschnitt~the boundary geometry chapter vervollständigt die Schwellenwertlandschaft die
+Beschreibung, wie Kontinua im OC-Rahmen entstehen, aufrechterhalten werden und
+zerstört werden.

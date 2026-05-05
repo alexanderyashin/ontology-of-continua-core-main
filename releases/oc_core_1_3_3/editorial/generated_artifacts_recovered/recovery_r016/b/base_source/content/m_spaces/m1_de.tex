@@ -1,0 +1,170 @@
+% ================================================================
+% ==== FILE: content/m_spaces/m1.tex
+% ================================================================
+
+% ==============================
+%  Ontology of Continua — Core
+%  Meta-Space: M1
+%  FULL MODULE — FINAL
+% ==============================
+
+\subsubsection{\texorpdfstring{$M_1$}{M_1} Übersicht}
+\label{sec:m1-overview}
+
+$M_1$ ist der Metaraum, der die Zulässigkeitsstruktur für die bereitstellt
+eindimensionales Kontinuum $K_1$.
+Im Gegensatz zu $M_0$, das nur Proto-Differenzen regelt, führt $M_1$ das ein
+erste echte geometrische und dynamische Zulässigkeitsbedingungen:
+\[
+\Omega(K_1) \subseteq \Omega(M_1).
+\]
+
+$M_1$ ist der minimale Metaraum, in dem Folgendes wohldefiniert ist:
+
+\begin{itemize}
+    \item eine messbare Achse $A_1$;
+    \item ein kontinuierliches Feld $\phi(x)$ über einem eindimensionalen Bereich;
+    \item Protodynamik über Flüsse $J_1=(\partial_x \phi, \partial_t \phi)$;
+    \item zulässige Energiefunktionen und -wirkungen;
+    \item wohlgeformte Strukturspannung $T_1$ und eine sinnvolle Schwelle $\Theta_1$;
+    \item die Existenz- und Kollapsregeln von $K_1$.
+\end{itemize}
+
+Somit ist $M_1$ die Metastruktur, die $K_1$ mathematisch und physikalisch möglich macht.
+
+\subsubsection*{1. Struktur von \texorpdfstring{$\Omega(M_1)$}{\Omega(M_1)}}
+
+\[
+\Omega(M_1)
+=
+\Big\{
+\phi : X \to V \ \big|\
+\phi \in C^{0}(X,V),\
+\partial_x \phi,\ \partial_t \phi\ \text{wohldefiniert in } H^1
+\Big\}.
+\]
+
+$M_1$ erzwingt:
+
+\begin{enumerate}
+    \item \textbf{Kontinuität:}
+    Felder müssen kontinuierliche Darstellungen zulassen. Diskontinuierliche Abbildungen liegen außerhalb von $\partial\Omega(M_1)$.
+
+    \item \textbf{Sobolev-Regularität:}
+    Erste Ableitungen müssen im schwachen Sinne existieren:
+    \[
+    \partial_x \phi,\ \partial_t \phi \in H^1.
+    \]
+
+    \item \textbf{Metrikkompatibilität:}
+    Die zulässige metrische Struktur von $X$ und $V$ ist durch $M_1$ festgelegt und wird zur Berechnung von Energie und Spannung benötigt.
+
+    \item \textbf{Topologische Zulässigkeit:}
+    $X$ muss eine eindimensionale topologische Mannigfaltigkeit sein
+    (offenes Intervall, Kreis, Halblinie usw.).
+\end{enumerate}
+
+Jeder Verstoß gegen diese Einschränkungen führt zu einer Konfiguration an der Grenze
+$\partial\Omega(M_1)$, was die Existenz von $K_1$ unmöglich macht.
+
+\subsubsection*{2. Zulässige Achsen in \texorpdfstring{$M_1$}{M_1}}
+
+$M_1$ erlaubt genau eine Strukturachse:
+\[
+A_1 : X \to \mathbb{R},
+\]
+stellt die erste messbare Dimension dar.
+
+Folgendes ist in $M_1$ verboten:
+
+\begin{itemize}
+    \item zusätzliche unabhängige Achsen;
+    \item inkompatible nichtlineare Struktur für $A_1$;
+    \item Schwingachsen ohne zulässige Dynamik.
+\end{itemize}
+
+Diese Verbote definieren den Umfang möglicher $K_1$-Entwicklungen.
+
+\subsubsection*{3. Zulässige Potenziale und Energien}
+
+$M_1$ erfordert die Existenz einer wohldefinierten Energiefunktion
+im Einklang mit der universellen Operatorstruktur:
+\[
+E[\phi] = \int_X \left(
+\frac{1}{2} |\partial_x \phi|^2 + V(\phi)
+\right)\,dx,
+\]
+mit:
+
+\begin{itemize}
+    \item $V(\phi)$ nach unten begrenzt,
+    \item Koerzitivfeldstärke zur Verhinderung eines Zusammenbruchs,
+    \item Differenzierbarkeit zur Definition von Flüssen.
+\end{itemize}
+
+Zulässige Potentiale $P(M_1)$ sind genau diejenigen, die die oben genannten Bedingungen erfüllen.
+
+\subsubsection*{4. Schwellen und strukturelle Spannungen}
+
+$M_1$ definiert den Schwellenwert:
+\[
+\Theta_1 = \inf \{ T_1(\phi) : \phi \in \Omega(M_1) \},
+\]
+und das Strukturspannungsfunktional:
+\[
+T_1(\phi) =
+\int_X \left(
+|\partial_x \phi|^2 + W(\phi)
+\right)\, dx,
+\]
+wobei $W$ Bedingungen zur Durchsetzung von Einschränkungen enthält.
+
+Eine Verletzung von $T_1 < \Theta_1$ führt zum Zusammenbruch von $K_1$.
+
+\subsubsection*{5. Zulässige Flüsse und Protodynamik}
+
+Zulässige Flüsse sind:
+\[
+J_1 = (\partial_x \phi,\ \partial_t \phi),
+\]
+wobei $\partial_t\phi$ zum zulässigen Tangentenraum von $\Omega(M_1)$ gehört.
+
+$M_1$ verbietet Flüsse, die:
+\begin{itemize}
+    \item Spannungserhöhung ohne zulässigen Ausgleich,
+    \item verursachen nichtphysikalische Diskontinuitäten,
+    \item verstößt gegen das Aktionsprinzip oder Erhaltungsbeschränkungen.
+\end{itemize}
+
+\subsubsection*{6. Zusammenbruch und Grenze von \texorpdfstring{$M_1$}{M_1}}
+
+Eine Konfiguration liegt auf der Grenze $\partial\Omega(M_1)$, wenn:
+
+\begin{itemize}
+    \item-Kontinuität schlägt fehl,
+    \item Sobolev-Regularität schlägt fehl,
+    \item Energie wird unbegrenzt,
+    \item $T_1 \ge \Theta_1$,
+    \item $A_1$ wird nicht messbar.
+\end{itemize}
+
+Der Kollaps von $K_1$ tritt auf, wenn seine zulässigen Konfigurationen diese Grenze überschreiten.
+
+\subsubsection*{7. Beziehung zu \texorpdfstring{$K_0$}{K_0} und \texorpdfstring{$K_2$}{K_2}}
+
+$M_1$ ist der minimale Raum, der den Übergang $K_0 \to K_1$ über den Operator $\Psi_{0\to1}$ ermöglicht.
+
+Ein Übergang $K_1 \to K_2$ ist nur zulässig, wenn:
+\[
+A_2 \in A(M_2),\qquad
+\Omega(K_2) \subseteq \Omega(M_2),\qquad
+T_1 \ge \Theta_{\text{dim}}.
+\]
+
+Somit regelt $M_1$:
+
+\begin{itemize}
+    \item Existenz und Stabilität von $K_1$,
+    \item der zulässige Bereich für das erste dynamische Kontinuum,
+    \item die strukturelle Möglichkeit höherdimensionaler Kontinua.
+\end{itemize}

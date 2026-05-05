@@ -1,0 +1,299 @@
+{
+  "schema_id": "OC133_EDITORIAL_CERBERUS_SUMMARY_v1",
+  "release_id": "oc_core_1_3_3",
+  "version": "1.3.3",
+  "assembly_revision": "recovery_r016",
+  "generated_at": "2026-05-05T14:28:51Z",
+  "state": "PASS",
+  "severity_phases": [
+    "source_level_scientific_review_gate"
+  ],
+  "severity_policy": {
+    "source_level_scientific_review_gate": {
+      "allowed_severities": [
+        "CRITICAL",
+        "HIGH"
+      ],
+      "blocking_severities": [
+        "CRITICAL",
+        "HIGH"
+      ],
+      "instruction": "r015 Cerberus consumes the source-level scientific review gate before any PDF-exit review can pass."
+    }
+  },
+  "cerberus_priority_routing": {
+    "schema_id": "OC133_CERBERUS_PRIORITY_ROUTING_v1",
+    "policy": "cheap_local_first_then_expensive_external_reasoning",
+    "cheap_first_ladder": [
+      {
+        "tier": "L10_static_public_surface",
+        "engine": "deterministic_regex_and_path_checks",
+        "role": "Reject metadata leaks, malformed paths, raw generator labels, TeX filename leaks, and already-known bad wording classes before any expensive review."
+      },
+      {
+        "tier": "L10_governed_ollama_chunks",
+        "engine": "Logion governed local LLM service",
+        "role": "Inspect small reader-facing chunks for cheap prose defects, forbidden public terms, weak local readability, and local leakage under host safety policy."
+      },
+      {
+        "tier": "L9_chapter_aggregation",
+        "engine": "deterministic aggregation plus governed local checker",
+        "role": "Aggregate only clean L10 chunks into chapter/document-local findings; repeated cheap defects become static regression tests."
+      },
+      {
+        "tier": "L8_document_projection",
+        "engine": "release assembly machine",
+        "role": "Check document-level form, layout, figure/table gates, journal package projections, and source-grounding before external reasoning."
+      },
+      {
+        "tier": "external_cerberus_reasoning",
+        "engine": "Codex/external high-reasoning review",
+        "role": "Spend expensive reasoning only on conceptual vulnerabilities, scientific adequacy, argument order, claim/evidence fit, and journal-readiness."
+      }
+    ],
+    "external_review_enabled": true,
+    "external_review_instruction": "Do not spend external reasoning on simple metadata leaks, malformed paths, raw generator labels, TeX filename leaks, or known wording classes; those are local L10/L9 obligations. External Cerberus reviews conceptual, scientific, structural, evidence, and journal-readiness risks."
+  },
+  "local_first_review": {
+    "schema_id": "OC133_CERBERUS_CHEAP_FIRST_LOCAL_REVIEW_v1",
+    "state": "PASS",
+    "assembly_revision": "recovery_r016",
+    "cheap_first_ladder": [
+      {
+        "tier": "L10_static_public_surface",
+        "engine": "deterministic_regex_and_path_checks",
+        "role": "Reject metadata leaks, malformed paths, raw generator labels, TeX filename leaks, and already-known bad wording classes before any expensive review."
+      },
+      {
+        "tier": "L10_governed_ollama_chunks",
+        "engine": "Logion governed local LLM service",
+        "role": "Inspect small reader-facing chunks for cheap prose defects, forbidden public terms, weak local readability, and local leakage under host safety policy."
+      },
+      {
+        "tier": "L9_chapter_aggregation",
+        "engine": "deterministic aggregation plus governed local checker",
+        "role": "Aggregate only clean L10 chunks into chapter/document-local findings; repeated cheap defects become static regression tests."
+      },
+      {
+        "tier": "L8_document_projection",
+        "engine": "release assembly machine",
+        "role": "Check document-level form, layout, figure/table gates, journal package projections, and source-grounding before external reasoning."
+      },
+      {
+        "tier": "external_cerberus_reasoning",
+        "engine": "Codex/external high-reasoning review",
+        "role": "Spend expensive reasoning only on conceptual vulnerabilities, scientific adequacy, argument order, claim/evidence fit, and journal-readiness."
+      }
+    ],
+    "l10_static_packet_total": 247,
+    "l10_static_blocker_total": 0,
+    "local_ollama_queue_status": "PASS",
+    "governed_service_status": "PASS",
+    "governed_queue_status": "DONE",
+    "ollama_invocation_total": 20,
+    "unmanaged_ollama_call_total": 0,
+    "external_reasoning_gate_status": "PASS",
+    "external_reasoning_scope": [
+      "scientific adequacy and claim/evidence fit",
+      "conceptual vulnerabilities and logical inconsistencies",
+      "argument order, didactic completeness, and reader confidence",
+      "journal-readiness and venue-facing package completeness"
+    ],
+    "findings": []
+  },
+  "external_reasoning_run_status": "SOURCE_LEVEL_SCIENTIFIC_REVIEW_AND_MACHINE_SELF_AUDIT_CONSUMED",
+  "scientific_review_gate": {
+    "artifact_hash": "a3bed8594720394cab4d1d0c2388e09bd24f5fc1fd78dfdfadb6cc8812dc1cc5",
+    "cadence_sequence": [
+      "substantive_7b_then_two_cheap_cycles",
+      "thermal_debt_cheap_model_2",
+      "thermal_debt_cheap_model_1",
+      "substantive_7b_then_two_cheap_cycles",
+      "thermal_debt_cheap_model_2",
+      "thermal_debt_cheap_model_1",
+      "substantive_7b_then_two_cheap_cycles",
+      "thermal_debt_cheap_model_2",
+      "thermal_debt_cheap_model_1",
+      "substantive_7b_then_two_cheap_cycles",
+      "thermal_debt_cheap_model_2",
+      "thermal_debt_cheap_model_1",
+      "substantive_7b_then_two_cheap_cycles",
+      "thermal_debt_cheap_model_2",
+      "thermal_debt_cheap_model_1",
+      "substantive_7b_then_two_cheap_cycles",
+      "thermal_debt_cheap_model_2",
+      "thermal_debt_cheap_model_1",
+      "substantive_7b_then_two_cheap_cycles",
+      "thermal_debt_cheap_model_2"
+    ],
+    "claim_support_ceiling_status": "PASS",
+    "critical_scientific_vulnerability_total": 0,
+    "delta_rebuild_status": "PASS",
+    "editorial_input_gate_status": "PASS",
+    "future_research_register_status": "PASS",
+    "high_scientific_vulnerability_total": 0,
+    "host_sample_total": 20,
+    "lean_certificate_boundary_status": "PASS",
+    "local_vs_external_compute": {
+      "codex_gated_external_scientific_review_total": 7,
+      "external_review_policy": "Codex-gated after local/static packet review",
+      "governed_local_packet_total": 20
+    },
+    "model_sequence": [
+      "qwen2.5-coder:7b",
+      "qwen2.5-coder:3b",
+      "qwen2.5-coder:3b",
+      "qwen2.5-coder:7b",
+      "qwen2.5-coder:3b",
+      "qwen2.5-coder:3b",
+      "qwen2.5-coder:7b",
+      "qwen2.5-coder:3b",
+      "qwen2.5-coder:3b",
+      "qwen2.5-coder:7b",
+      "qwen2.5-coder:3b",
+      "qwen2.5-coder:3b",
+      "qwen2.5-coder:7b",
+      "qwen2.5-coder:3b",
+      "qwen2.5-coder:3b",
+      "qwen2.5-coder:7b",
+      "qwen2.5-coder:3b",
+      "qwen2.5-coder:3b",
+      "qwen2.5-coder:7b",
+      "qwen2.5-coder:3b"
+    ],
+    "ollama_invocation_total": 20,
+    "proof_sheet_binding_status": "PASS",
+    "publication_actions_performed": false,
+    "quality_process_metrics": {
+      "closure_rate": 1.0,
+      "delta_rebuild_count": 1,
+      "full_rebuild_count": 1,
+      "future_research_item_total": 4,
+      "unresolved_repairable_defect_total": 0
+    },
+    "queue_status": "DONE",
+    "release_id": "oc_core_1_3_3",
+    "research_pingpong_status": "PASS",
+    "schema_id": "OC133_R015_SCIENTIFIC_REVIEW_TERMINAL_REPORT_v1",
+    "scientific_source_review_status": "PASS",
+    "service_ledger_ref": "logion_local/runtime/observability/logion_llm/LOGION_LLM_SERVICE_LEDGER.ndjson",
+    "service_state_ref": "logion_local/runtime/state/LOGION_LLM_SERVICE_STATE_latest.json",
+    "source_l10_packet_total": 13,
+    "source_packet_done_total": 20,
+    "source_packet_total": 20,
+    "status": "PASS",
+    "unmanaged_ollama_call_total": 0,
+    "version": "1.3.3"
+  },
+  "machine_self_audit_gate": {
+    "artifact_hash": "97a9fb0fd0b211d83aa95f265971e57b909814952b86bc554122e6cf2945e7e9",
+    "artifact_precision_status": "PASS",
+    "assembly_revision": "recovery_r016",
+    "closure_rate": 1.0,
+    "cockpit_observability_status": "PASS",
+    "cost_estimate": {
+      "external_publication_action_cost": 0,
+      "local_llm_calls": 20
+    },
+    "current_promotion_gate": "r016_assessment_pass_r017_blocked",
+    "delta_rebuild_count": 1,
+    "external_reasoning_review_total": 7,
+    "filter_regression_status": "PASS",
+    "full_rebuild_count": 1,
+    "journal_package_total": 8,
+    "journal_projection_consistency_status": "PASS",
+    "l10_l9_l8_pass_rate": 1.0,
+    "local_ollama_invocation_total": 20,
+    "machine_self_audit_status": "PASS",
+    "publication_actions_performed": false,
+    "queue_depth": 20,
+    "r017_promotion_allowed": false,
+    "r017_promotion_gate": "R017_BLOCKED_BY_TOE_VALIDATOR",
+    "reader_pdf_ok_total": 5,
+    "reader_pdf_total": 5,
+    "readiness_report": {
+      "artifact_hash": "cfb6d016bb0db2db14f1ec7b95c3b879b32aa509a96d62975bc2a8fb750b7ff7",
+      "distance_to_toe": {
+        "ai_lane_required": true,
+        "enterprise_architecture_lane_required": true,
+        "validator_error_total": 15,
+        "work_order_total": 17
+      },
+      "journal_package_readiness": "OWNER_REVIEW_READY_NO_SEND",
+      "no_send_policy": "No Zenodo, DOI, GitHub release, or journal submission action is performed by r016.",
+      "publication_actions_performed": false,
+      "r017_promotion_allowed": false,
+      "schema_id": "OC133_R016_ZENODO_JOURNAL_TOE_READINESS_REPORT_v1",
+      "status": "ASSESSMENT_COMPLETE",
+      "theory_maturity_assessment": "bounded_scientific_release_with_final_toe_closure_blocked",
+      "toe_final_readiness": "BLOCKED_BY_TOE_VALIDATOR",
+      "zenodo_readiness": "OWNER_REVIEW_READY_NO_SEND"
+    },
+    "release_id": "oc_core_1_3_3",
+    "reviewer_routing_status": "PASS",
+    "schema_id": "OC133_R016_MACHINE_SELF_AUDIT_COCKPIT_v1",
+    "status": "PASS",
+    "toe_final_pass_status": "FAIL",
+    "toe_gap_assessment_status": "PASS",
+    "toe_research_work_order_total": 17,
+    "toe_validator_error_total": 15,
+    "toe_validator_errors": [
+      "Surface mismatch for FOUNDATIONAL_CONSISTENCY_DOSSIER_latest.json",
+      "Surface mismatch for DOMAIN_EMPIRICAL_EXECUTION_PROTOCOLS_latest.json",
+      "Surface mismatch for EMPIRICAL_DOMAIN_VALIDATION_MATRIX_latest.json",
+      "Surface mismatch for DOMAIN_HARD_CLOSURE_COMMAND_BOARD_latest.json",
+      "Surface mismatch for DOMAIN_HARD_CLOSURE_EXECUTION_PROGRAM_latest.json",
+      "Surface mismatch for INSTITUTE_RUN_MEASUREMENT_PROGRAM_latest.json",
+      "Surface mismatch for SCIENCE_OPERATIONALIZATION_AUTOPROPAGATION_CONTRACT_latest.json",
+      "Generated TeX mismatch for C:\\Users\\Megaport\\work\\logion_local\\repos\\ontology-of-continua-core-main\\content\\generated\\oc_core_1_3_operationalization_program_generated.tex",
+      "Generated source TeX mismatch for C:\\Users\\Megaport\\work\\logion_local\\repos\\ontology-of-continua-core-main\\releases\\oc_core_1_3\\monograph\\source\\content\\generated\\oc_core_1_3_operationalization_program_generated.tex",
+      "Generated source TeX mismatch for C:\\Users\\Megaport\\work\\logion_local\\repos\\ontology-of-continua-core-main\\releases\\oc_core_1_3\\monograph\\source\\appendix\\generated\\oc_core_1_3_proof_machinery_appendix_generated.tex",
+      "Legacy domain packet mismatch for C:\\Users\\Megaport\\work\\logion_local\\repos\\ontology-of-continua-core-main\\releases\\oc_core_1_3\\editorial\\domain_packets\\mathematics_domain_packet.md",
+      "Legacy domain packet mismatch for C:\\Users\\Megaport\\work\\logion_local\\repos\\ontology-of-continua-core-main\\releases\\oc_core_1_3\\editorial\\domain_packets\\physics_domain_packet.md",
+      "Legacy domain packet mismatch for C:\\Users\\Megaport\\work\\logion_local\\repos\\ontology-of-continua-core-main\\releases\\oc_core_1_3\\editorial\\domain_packets\\chemistry_domain_packet.md",
+      "Legacy domain packet mismatch for C:\\Users\\Megaport\\work\\logion_local\\repos\\ontology-of-continua-core-main\\releases\\oc_core_1_3\\editorial\\domain_packets\\biology_domain_packet.md",
+      "Legacy domain packet mismatch for C:\\Users\\Megaport\\work\\logion_local\\repos\\ontology-of-continua-core-main\\releases\\oc_core_1_3\\editorial\\domain_packets\\systems_civilizational_projection_domain_packet.md"
+    ],
+    "unmanaged_ollama_call_total": 0,
+    "unresolved_critical_high_count": 0,
+    "version": "1.3.3",
+    "zenodo_readiness_assessment_status": "PASS"
+  },
+  "role_ids": [
+    "bibliography_metadata_editor",
+    "claim_evidence_prosecutor",
+    "hostile_reader",
+    "journal_editor",
+    "layout_toc_page_flow_reviewer",
+    "scientific_copyeditor",
+    "technical_editor"
+  ],
+  "role_total": 7,
+  "critical_open_total": 0,
+  "high_open_total": 0,
+  "parse_failure_total": 0,
+  "finding_total": 0,
+  "findings": [],
+  "waterfall_policy": {
+    "active_phases": [
+      "source_level_scientific_review_gate"
+    ],
+    "current_release_blocker_rule": "PDF editorial Cerberus cannot pass until source-level scientific review and cheap local preflight both pass.",
+    "next_phase_allowed": true
+  },
+  "pdf_hashes": {
+    "guide": "8668754c08436a117d6106ac5fbb76569117458d7837785585844ef777803252",
+    "master": "79eb70fde9fe4efe3a853ad4b901e71369655b74324d566aabf811480a0d46c6",
+    "journal": "ae860ab97067835582db0be1d8f910dde209e2d62366732664d112157458e0c3",
+    "methods": "d5eba04c791d6a1441a8ca3b6c3b1beb33c4ba75160e65c68cbae482acb05342",
+    "reviewer": "8a4e448efa619dee7edc662580952311e0d065a9466b78a4ce398fcd7be0cb43"
+  },
+  "pdf_text_chars": {
+    "guide": 16584,
+    "master": 1372703,
+    "journal": 32950,
+    "methods": 24495,
+    "reviewer": 23236
+  },
+  "coverage_note": "r015 scopes Cerberus to a source-level scientific review gate followed by current public PDF hash and cheap-local preflight verification."
+}

@@ -1,0 +1,410 @@
+% ====================================================================
+% FILE: content/13_branching_topology_de.tex
+% Ontologische Verzweigung und globale Topologie
+% Vollversion fuer Core 1.3.3 wiederhergestellt
+% ====================================================================
+
+\section{Ontologische Verzweigung und globale Topologie}
+\label{sec:branching-topology}
+
+Dieser Abschnitt rekonstruiert die Theorie der ontologischen Verzweigung und der
+globalen Topologie von Kontinua. Er elaboriert Axiom~21 (Ontologische Verzweigung)
+und integriert es mit der dimensionsbezogenen Hierarchie \(K_0\)–\(K_{10}\), den
+Geburtsoperatoren \(\Psi_{x\to x+1}\) (Abschnitt~the operator semantics chapter) und der
+Kollaps--Wiedergeburt-Struktur (Abschnitt~the lifecycle and rebirth chapter).
+
+Informell ist eine \emph{Verzweigung} ein maximaler Entwicklungspfad, auf dem ein
+Kontinuum sukzessive dimensionale Geburten vollzieht, die mit einer gegebenen
+Menge von Achsen und Einbettungsraeumen konsistent sind. Die Gesamtheit
+solcher Verzweigungen besitzt eine natuerliche gerichtete Topologie, die eine
+globale Sicht auf alle im Rahmen der OC-Axiome zulaessigen ontogenen Trajektorien
+liefert.
+
+\subsection{Definition ontologischer Verzweigungen}
+
+Ein Kontinuumsniveau \(K_x\) ist durch
+\[
+  K_x =
+  \big(
+    \Omega_x, A_x, P_x(t), J_x(t),
+    \Theta_x, \partial\Omega_x, C_x, k_x(t)
+  \big)
+\]
+eingebettet in einen Raum \(M_x\) mit Achsenmenge \(A(M_x)\). Dimensionale Geburt
+von \(K_x\) zu \(K_{x+1}\) wird vermittels eines Geburtsoperators
+\(\Psi_{x\to x+1}\) (Abschnitt~the operator semantics chapter).
+
+\paragraph{Definition 13.1 (Ontologische Verzweigung).}
+Eine \emph{ontologische Verzweigung} \(B\) ist eine endliche oder abzählbare
+Sequenz von Kontinua
+\[
+  B = (K_{x_0}, K_{x_1}, K_{x_2}, \dots),
+\]
+zusammen mit Einbettungsraeumen \((M_{x_0}, M_{x_1}, \dots)\), so dass gilt:
+\begin{enumerate}
+  \item \textbf{Monotone Niveaus.}\quad
+        \(x_0 < x_1 < x_2 < \dots\) und jeder Schritt
+        \(K_{x_i} \to K_{x_{i+1}}\) ist ein dimensionaler Übergang
+        (keine rein parametrische Evolution);
+  \item \textbf{Geburt-Kompatibilitaet.}\quad
+ae
+        Für jedes \(i\) gibt es einen Geburtsoperator
+        \(\Psi_{x_i\to x_{i+1}}\) mit
+        \[
+          (K_{x_{i+1}}, M_{x_{i+1}}) =
+            \Psi_{x_i\to x_{i+1}}(K_{x_i}, M_{x_i}),
+        \]
+        wobei \(\Psi_{x_i\to x_{i+1}}\) die allgemeinen Geburtbedingungen aus
+        Abschnitt~the operator semantics chapter erfuellt;
+  \item \textbf{Achsen-Monotonie.}\quad
+        Die Achsenmengen wachsen monoton:
+        \[
+          A_{x_i} \subset A_{x_{i+1}}
+          \subseteq A(M_{x_{i+1}}),
+        \]
+        und jede neue Achse ist nicht im strukturellen Spannungsraum der
+        vorherigen Achsen darstellbar;
+  \item \textbf{Einbettungs-Monotonie.}\quad
+        Einbettungsraeume bilden eine Inklusionskette
+        \[
+          M_{x_0} \subset M_{x_1} \subset M_{x_2} \subset \dots
+        \]
+        mit \(A(M_{x_i}) \subseteq A(M_{x_{i+1}})\);
+  \item \textbf{Maximalitaet.}\quad
+        Die Verzweigung ist maximal mit Blick auf Erweiterung in steigender
+        Niveau-Richtung: Es gibt kein Kontinuum \(K_{x^{\ast}}\) mit
+        \(x^{\ast} > \sup_i x_i\), fuer das die Sequenz strikt erweitert werden
+        kann unter Erhaltung der obigen Bedingungen.
+\end{enumerate}
+
+Wenn \(x_0 = 0\), ist die Verzweigung \emph{verwurzelt} im strukturellen
+Substrat \(K_0\). Allgemeiner können Verzweigungen bezogen auf ein beliebiges
+Ausgangsniveau \(K_{x_0}\) definiert werden, das als wirksame Wurzel fuer ein
+restraines Bereichsgebiet dient (z. B. Chemie, Kognition, soziale Systeme).
+
+\paragraph{Bemerkung 13.2 (Verzweigungs-Identitaet).}
+Zwei Verzweigungen \(B\) und \(B'\) gelten als verschieden, wenn sie in
+mindestens einem Punkt differieren:
+\begin{itemize}
+  \item in der Niveaereihe \(x_i\) (z. B. ausgelassene oder eingefuegte
+        Ebenen),
+  \item in den Achsenmengen \(A_{x_i}\) (verschiedene emergente Freiheitsgrade),
+  \item in den Schwellenfamilien \(\Theta_{x_i}\) oder Einbettungsraeumen
+        \(M_{x_i}\).
+\end{itemize}
+Verzweigungen kodieren daher \emph{Entwicklungsgeschichte(n)} im Raum der
+Kontinua, nicht bloss statische Ebenensammlungen.
+
+\subsection{Verzweigungstopologie}
+
+Die Menge aller Verzweigungen ist mit einer natuerlichen gerichteten Struktur
+versehen.
+
+\paragraph{Definition 13.3 (Verzweigungsgraph).}
+Sei \(\mathcal{K}\) die Klasse aller unter den OC-Axiomen zulaessigen
+Kontinua und sei \(\mathcal{B}\) die Menge aller Verzweigungen. Der
+\emph{Verzweigungsgraph} \(\mathcal{G}\) ist der gerichtete Graph, dessen:
+\begin{itemize}
+  \item Knoten Kontinua \(K_x\in\mathcal{K}\) sind,
+  \item gerichtete Kanten \(K_x \to K_y\) den Geburtsoperatoren
+        \(\Psi_{x\to y}\) mit \(y > x\) entsprechen.
+\end{itemize}
+Eine Verzweigung \(B\) ist dann ein gerichteter Pfad in \(\mathcal{G}\), der
+bezueglich Erweiterung maximal ist.
+
+Da Geburtsoperatoren die Dimensionalitaet nicht reduzieren koennen (Monotonie
+der Dimension), ist \(\mathcal{G}\) ein gerichteter azyklischer Graph (DAG).
+In der \emph{Zustandsdynamik} eines gegebenen Kontinuums \(K_x\) (uber interne
+Zyklen \(C_x\)) koennen zwar Zyklen existieren, nicht jedoch in der
+vertikalen Geburtstruktur.
+
+\paragraph{Globale Topologie.}
+Die globale topologische Struktur von \(\mathcal{G}\) ist eingeschraenkt durch:
+\begin{itemize}
+  \item \textbf{Gemeinsame Praefixe.}\quad
+        Unterschiedliche Verzweigungen teilen gemeinsame Anfangssegmente, wenn sie
+        in tieferen Ebenen uebereinstimmen (z. B. teilen alle physikalischen,
+        chemischen und biologischen Verzweigungen \(K_0\)–\(K_2\));
+  \item \textbf{Verzweigungs-Divergenz.}\quad
+        Verzweigungen divergieren, wenn Geburtsoperatoren auf einem Niveau \(K_x\)
+        verschiedene neue Achsen oder Schwellenstrukturen waehlen, was zu
+distincten Weiterbildungen \(K_{x+1}^{(a)}\), \(K_{x+1}^{(b)}\), usw. führt;
+  \item \textbf{Moegliche Fusionen.}\quad
+        Durch Interaktionsoperatoren \(E_{\mathrm{int}}\) koennen unterschiedliche
+        Verzweigungen spaeter Kontinua auf einer gemeinsamen Erweiterung erzeugen,
+        wodurch eine DAG-artige statt rein baumartige Topologie entsteht;
+  \item \textbf{Hypergraph-Struktur.}\quad
+        Wenn Geburtsoperatoren mehrere Kontinua als Eingang erhalten (z. B.
+        Fusionsereignisse), kann der Verzweigungsgraph zu einem gerichteten
+        Hypergraphen erweitert werden mit Hyperkanten
+        \((K_{x}^{(a)}, K_{x}^{(b)},\dots) \to K_{y}\).
+\end{itemize}
+
+Die Topologie der Verzweigungen interpoliert damit zwischen baumartigen
+Strukturen (reine Spaltung, keine Fusion) und hypergraph-artigen Strukturen
+(Verzweigungsfusion und kollektive Geburt). OC fixiert nicht eine einzige
+globale Form, sondern beschraenkt alle zulaessigen Formen durch
+Dimensions-Monotonie, Einbettungs-Kompatibilitaet und
+Schwellenwertbedingungen.
+
+\subsection{Verzweigungsbedingungen}
+
+Verzweigung ist nicht an beliebiger Stelle moeglich; sie wird strukturell durch
+spezifische Schwellen- und Einbettungsbedingungen ausgeloest.
+
+\paragraph{Axiom 21 (Ontologische Verzweigung).}
+Sei \(K_x\) ein Kontinuum auf Niveau \(x\) mit Einbettungsraum \(M_x\). Ein
+Verzweigungsereignis in \(K_x\) ist erlaubt, wenn mindestens zwei unterschiedliche
+Geburtsoperatoren
+\[
+  \Psi_{x\to x+1}^{(a)},\ \Psi_{x\to x+1}^{(b)},\dots
+\]
+existieren, so dass:
+\begin{enumerate}
+  \item \textbf{Unterscheidbare neue Achsen.}\quad
+        Jeder Geburtsoperator waehlt eine strukturell verschiedene neue Achse
+        \(A_{\mathrm{new}}^{(a)}\), \(A_{\mathrm{new}}^{(b)}\), \dots,
+        die sich gegenseitig nicht im strukturellen Spannungsraum repräsentieren
+        lassen, d. h.
+        \[
+          A_{\mathrm{new}}^{(a)} \notin \mathrm{span}_{\mathrm{str}}
+            \big(A_x \cup \{A_{\mathrm{new}}^{(b)}\}\big), \ \text{etc.};
+        \]
+  \item \textbf{Dimensionale Spannung.}\quad
+        Strukturelle Spannung ueberschreitet den dimensionalen Schwellenwert entlang
+        mehrerer nicht-aequivalenter Unterschiedsrichtungen:
+        \[
+          T(K_x,t) > \Theta_{\mathrm{dim}}^{(a)}(K_x)
+          \quad\text{and}
+          T(K_x,t) > \Theta_{\mathrm{dim}}^{(b)}(K_x),
+        \]
+        wobei die Hochstellungen die unterschiedlichen dimensionalen Kanaele bezeichnen;
+  \item \textbf{Einbettungs-Kapazitaet.}\quad
+        Der Einbettungsraum \(M_x\) stuetzt alle Kandidatenachsen, d. h.
+        \[
+          A_{\mathrm{new}}^{(a)}, A_{\mathrm{new}}^{(b)}, \dots
+          \in A(M_x);
+        \]
+  \item \textbf{Nichtleere zulaessige Regionen.}\quad
+        Jedes Kandidatenkontinuum
+        \(K_{x+1}^{(a)} = \Psi_{x\to x+1}^{(a)}(K_x, M_x)\), usw., besitzt ein
+        nichtleeres zulaessiges Set \(\Omega_{x+1}^{(a)}\neq\emptyset\).
+\end{enumerate}
+
+In vielen konkreten Systemen werden diese Bedingungen realisiert durch:
+\begin{itemize}
+  \item Inkonsistenzen in Potenzialen \(P_x(t)\), die in einer einzelnen
+        Erweiterung nicht vereinbar sind;
+  \item Konkurrenz zwischen Zykluskomplexen \(C_x^{(a)}\), \(C_x^{(b)}\), deren
+        gleichzeitige Stabilisierung die Stabilitaetsschwelle verletzen wuerde;
+  \item Randgeometrien, die unterschiedliche, wechselseitig ausschliessende
+        Wieder-Schliessungen zulassen (z. B. alternative Membranarchitekturen
+        oder institutionelle Strukturen).
+\end{itemize}
+
+\paragraph{Schwellenwert der Verzweigung.}
+Zur Bequemlichkeit kann ein \emph{Verzweigungs-Schwellenwert}
+\(\Theta_{\mathrm{branch}}(K_x)\) als effektive Kombination aus dimensionalen und
+Einbettungs-Schwellen eingefuehrt werden, so dass
+\[
+  T_{\mathrm{branch}}(K_x,t) > \Theta_{\mathrm{branch}}(K_x)
+  \quad\Rightarrow\quad
+  \text{Verzweigungsereignis moeglich.}
+\]
+Core~1.3.3 behandelt \(\Theta_{\mathrm{branch}}\) als abgeleitete Grösse statt als neue
+primitive Schwellenklasse: Sie kodiert die gleichzeitige Erfuellung der Bedingungen
+mehrerer Geburtsoperatoren.
+
+\subsection{Verzweigungsinteraktion}
+
+Verzweigungen entwickeln sich im Allgemeinen nicht isoliert. Wenn Kontinua aus
+unterschiedlichen Verzweigungen in einem gemeinsamen Einbettungsraum koexistieren,
+dann koennen sie durch den Interaktionsoperator \(E_{\mathrm{int}}\)
+(Abschnitt~the operator semantics chapter) wechselwirken.
+
+\paragraph{Definition 13.4 (Verzweigungsinteraktion).}
+Seien \(B^{(a)}\) und \(B^{(b)}\) zwei Verzweigungen mit Kontinua
+\(\{K_x^{(a)}\}\) und \(\{K_y^{(b)}\}\), jeweils eingebettet in einen gemeinsamen
+oder ueberlappenden Raum \(M\). Eine \emph{Verzweigungsinteraktion} ist eine
+Familie von Interaktionsoperatoren
+\[
+\begin{aligned}
+  E_{\mathrm{int}}^{x,y}:\quad
+    &(K_x^{(a)}, K_y^{(b)}, M)\
+    &\longrightarrow (K_x^{(a)\prime}, K_y^{(b)\prime}, M'),
+\end{aligned}
+\]
+definiert fuer relevante Ebenenpaare \((x,y)\).
+
+Typische Regime sind:
+
+\begin{itemize}
+  \item \textbf{Koexistenz.}\quad
+        Fluesse sind schwach gekoppelt und erlauben beiden Verzweigungen, ihre
+        Continuumness zu erhalten oder zu erhoehen:
+        \[
+          k^{(a)}(t+dt) \ge k^{(a)}(t),\quad
+          k^{(b)}(t+dt) \ge k^{(b)}(t).
+        \]
+  \item \textbf{Interferenz.}\quad
+        Querverzweigungs-Fluesse \(J^{(a\leftrightarrow b)}\) erzeugen
+        strukturelle Spannung, die eine oder beide Verzweigungen naeher an die
+        Todes-Schwellen dringt, ohne sofortigen Kollaps.
+  \item \textbf{Suppression.}\quad
+        Eine Verzweigung treibt die andere unter ihre Viabilitaetsschwellen,
+        was zum Kollaps der unterdrueckten Verzweigung fuehrt, waehrend der
+        Unterdruecker lebensfaehig bleibt oder sogar staerker wird.
+  \item \textbf{Parasitismus.}\quad
+a
+        Eine Verzweigung entnimmt unterstuetzende Fluesse von einer anderen und
+        steigert ihre eigene Continuumness, waehrend die Zykluskomplexe der
+        anderen ausgehöhlt werden.
+  \item \textbf{Fusion.}\quad
+        Durch starke Kopplung und gemeinsame Randstrukturen koennen zwei
+        Verzweigungen ein neues Kontinuum erzeugen, das auf einer gemeinsamen
+        Erweiterungs-Verzweigung liegt. Formal entspricht dies einem
+        zusammengesetzten Geburtsoperator, gespeist aus sowohl \(B^{(a)}\) als auch
+        \(B^{(b)}\).
+\end{itemize}
+
+Gemeinsame Randstrukturen sind besonders wichtig. Wenn
+\(\partial\Omega^{(a)}\cap\partial\Omega^{(b)}\neq\emptyset\), dann:
+\begin{itemize}
+  \item Querverzweigungs-Fluesse, begrenzt auf die Schnittmenge, koennen
+        Kopplung vermitteln;
+  \item Teilzustände auf dem gemeinsamen Rand koennen beide Verzweigungen
+        synchronisieren oder destabilisieren;
+  \item neue Kontinua koennen am gemeinsamen Rand entstehen und neue
+        Verzweigungen oder Verzweigungsfusionszustaende initiieren.
+\end{itemize}
+
+\subsection{Kollaps von Verzweigungen}
+
+Verzweigungen koennen in mehreren Varianten enden; so wird der Kollapsbegriff von
+individuellen Kontinua (Abschnitt~the lifecycle and rebirth chapter) auf ganze
+Entwicklungspfade erweitert.
+
+\paragraph{Definition 13.5 (Verzweigungs-Kollaps).}
+Eine Verzweigung \(B = (K_{x_0}, K_{x_1}, \dots)\) \emph{kollabiert} auf Niveau
+\(x_n\), wenn:
+\begin{enumerate}
+  \item das Kontinuum \(K_{x_n}\) im Sinn von Definition~12.1 kollabiert
+        (leere zulaessige Menge, \(k\to 0\), Schwellenverletzung);
+  \item es kein Kontinuum \(K_{x_{n+1}}\) mit \(x_{n+1}>x_n\) gibt, auf
+        dem ein Geburtsoperator \(\Psi_{x_n\to x_{n+1}}\) auf irgendeiner Restmenge
+        von \(K_{x_n}\) definiert werden kann
+        (Abschnitt~the lifecycle and rebirth chapter);
+  \item die Verzweigung nicht weiter erweitert werden kann, wobei die Axiome der
+        dimensionalen Monotonie und der Einbettungs-Kompatibilitaet eingehalten
+        bleiben.
+\end{enumerate}
+
+Drei strukturell unterschiedliche Szenarien sind relevant:
+
+\begin{itemize}
+  \item \textbf{Terminaler Kollaps.}\quad
+        Das letzte Kontinuum auf der Verzweigung kollabiert und kein
+        Wiederaufbau auf höheren Niveaus ist moeglich. Die Verzweigung ist
+        endlich und endet bei \(x_n\).
+  \item \textbf{Fusions-Kollaps.}\quad
+        Die Verzweigung wird über Fusion in eine stabilere Verzweigung absorbiert:
+        Kontinua in \(B\) verlieren ihre Identitaet als unabhängige Knoten im
+        Verzweigungsgraph und werden Teilstruktur eines Kontinuums in einer
+        anderen Verzweigung. Aus der Perspektive von \(B\) ist dies ein
+        Kollaps durch Verlust der Verzweigungs-Identitaet.
+  \item \textbf{Asymptotisches Ausdünnen.}\quad
+        Die Verzweigung endet nicht in einem einzelnen dramatischen Kollaps,
+        sondern geht in ein Regime ueber, in dem die höheren Niveaus zunehmend
+        marginal sind (\(k_{x_i}\to 0\) fuer \(i\to\infty\)) und keine
+        weiteren dimensionalen Geburten stützen. Die Verzweigung ist im Index
+        unendlich, aber in effektiver Komplexitaet endlich.
+\end{itemize}
+
+\paragraph{Globale Restriktionen.}
+Die OC-Axiome erzwingen Restriktionen, die unkontrollierte unendliche
+Verzweigungs-Kaskaden auf endlichen Niveaus verhindern:
+\begin{itemize}
+  \item der Einbettungsraum auf jedem Niveau hat eine endliche Achsenkapazität
+        je nach Domäne, wodurch die Zahl unterschiedlicher Geburtskanäle
+        eingeschraenkt ist;
+  \item dimensionsbezogene Schwellen erfordern nichttriviale strukturelle
+        Spannung; wiederholte Verzweigung ohne ausreichend starke stützende
+        Fluesse wuerde Verzweigungen in Richtung Kollaps bewegen;
+  \item Monotonie-Saetze der Komplexitaet beschraenken viable Verzweigungen auf
+        solche, deren Komplexitaetswachstum zu Verfuegung stehenden Zyklen und
+        Schwellen kompatibel ist.
+\end{itemize}
+
+\subsection{Konsequenzen fuer die K-Level-Hierarchie}
+
+Die Verzweigungsstruktur verfeinert die vertikale Hierarchie \(K_0\)–\(K_{10}\),
+indem sie festlegt, welche Sequenzen von Ebenen und Achsen wirklich
+realisierbar sind.
+
+\paragraph{Ontogenetische Entwicklungspfade.}
+Jede Verzweigung definiert einen \emph{ontogenetischen Entwicklungspfad}:
+\begin{itemize}
+  \item in physikalischen Domänen beschreiben Verzweigungen Wege, in denen feldtheoretische
+        Kontinua auf \(K_2\) chemische, protocellulaere und biologische
+        Kontinua auf \(K_3\)–\(K_5\) hervorbringen;
+  \item in kognitiven und sozialen Domänen beschreiben Verzweigungen wie neuronale
+        Kontinua \(K_5\) kognitive Kontinua \(K_6\) unterstuetzen koennen,
+        die wiederum soziale und zivilisatorische Kontinua auf \(K_7\)–\(K_8\)
+        stützen;
+  \item in theoretischen Domänen verbinden Verzweigungen empirische Kontinua mit
+        theoretischen und meta-theoretischen Kontinua \(K_9\)–\(K_{10}\).
+\end{itemize}
+Die Vielfalt beobachteter physikalischer, chemischer, biologischer und sozialer
+Systeme entspricht der Vielzahl von Verzweigungen, die mit einem gemeinsamen
+Substrat vereinbar sind.
+
+\paragraph{Zulaessige vs. verbotene Übergänge.}
+Die Verzweigungstopologie kodifiziert, welche Übergange zwischen Niveaus
+erlaubt sind:
+\begin{itemize}
+  \item Kanten im Verzweigungsgraphen \(\mathcal{G}\) entsprechen zulaessigen
+dimensionalen Geburtsoperatoren;
+  \item das Fehlen einer Kante \(K_x \to K_y\) (mit \(y>x\)) drückt eine
+        strukturelle Unmoeglichkeit aus: Kein Einbettungsraum und keine
+        Schwellenlandschaft kann diesen direkten Übergang tragen, sofern nicht
+        die erforderlichen Zwischenebenen durchlaufen werden;
+  \item verbotene Übergänge verletzen typischerweise entweder die dimensionsbezogene
+        Monotonie (versuchte Vereinfachung von Achsen) oder Einbettungs-Schwellen
+        (versuchte Realisierung von Achsen ohne Stuetze in \(M_x\)).
+\end{itemize}
+
+\paragraph{Vertikale Kohärenz.}
+Da Verzweigungen auf tiefere Niveaus reduzierbar sein muessen, wenn
+zusätzliche Achsen eingefroren sind (Abschnitt~the operator semantics chapter), erzwingt
+die Verzweigungsstruktur vertikale Kohärenz:
+\begin{itemize}
+  \item jedes hoehere Kontinuum \(K_y\) reduziert zu einem niederen Kontinuum
+        \(K_x\) entlang einer Verzweigung, wenn zusätzliche Achsen konstant
+        gehalten werden;
+  \item umgekehrt wirken untere Niveaus als notwendige Schichten fuer hoehere;
+  \item Verzweigungen dokumentieren diese Kohärenz als gemeinsame Praefixe
+        ueber Domänen (z. B. muessen alle biologischen Verzweigungen
+        physikalische und chemische Ebenen enthalten).
+\end{itemize}
+
+\paragraph{Globales Bild.}
+Zusammen mit der verticalen Hierarchie \(K_0\)–\(K_{10}\), der
+Schwellenlandschaft und der Verzweigungstopologie bildet sich das globale
+strukturelle Bild von OC.
+Die operative Struktur wird von \(F\), \(G\), \(H\), \(Q\), \(R\),\
+\(S\), \(U\), \(\Psi\) und \(E_{\mathrm{int}}\) getragen:
+\begin{itemize}
+  \item Kontinua sind lokale Objekte mit interner Dynamik;
+  \item Verzweigungen sind globale Entwicklungspfade durch die Ebenen;
+  \item der Verzweigungsgraph kodiert, welche Pfade strukturell erlaubt sind;
+  \item Kollaps und Wiedergeburt schneiden und rekonfigurieren Verzweigungen
+        ueber die Zeit.
+\end{itemize}
+
+Core~1.3.3 fixiert dieses globale Bild auf strukturellem Niveau. Spätere Erweiterungen
+und domänenspezifische Studien können Verzweidigungswahrscheinlichkeiten
+quantifizieren, konkrete Beispiele von Verzweigung in konkreten Systemen explizit
+untersuchen und empirische Kriterien zur Identifikation von Verzweigungsstruktur
+in Realwelt-Daten entwickeln.
+
+% END OF FILE

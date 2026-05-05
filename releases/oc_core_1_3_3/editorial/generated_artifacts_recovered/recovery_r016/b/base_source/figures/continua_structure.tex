@@ -1,0 +1,32 @@
+% FILE: figures/continua_structure.tex
+% Structural diagram of a continuum K
+
+\begin{tikzpicture}[node distance=1.4cm,>=latex,thick]
+
+% Main node for K
+\node[draw, rounded corners, fill=gray!10, inner sep=8pt] (K) {$K$};
+
+% Components
+\node[draw, left=of K, rounded corners, fill=blue!10]  (Omega) {$\Omega(K)$};
+\node[draw, right=of K, rounded corners, fill=blue!10] (A)     {$A(K)$};
+
+\node[draw, above=of K, rounded corners, fill=green!10] (P)  {$P(t)$};
+\node[draw, below=of K, rounded corners, fill=green!10] (J)  {$J(t)$};
+
+\node[draw, below left=of K, rounded corners, fill=yellow!15] (Theta) {$\Theta(K)$};
+\node[draw, below right=of K, rounded corners, fill=yellow!15] (Boundary) {$\partial\Omega(K)$};
+
+\node[draw, above left=of K, rounded corners, fill=red!10] (C) {$C(K)$};
+\node[draw, above right=of K, rounded corners, fill=red!10] (k) {$k(t)$};
+
+% Connections
+\draw[->] (P) -- (K);
+\draw[->] (J) -- (K);
+\draw[->] (Omega) -- (K);
+\draw[->] (A) -- (K);
+\draw[->] (Theta) -- (K);
+\draw[->] (Boundary) -- (K);
+\draw[->] (C) -- (K);
+\draw[->] (k) -- (K);
+
+\end{tikzpicture}

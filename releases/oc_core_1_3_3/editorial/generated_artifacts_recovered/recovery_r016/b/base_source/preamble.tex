@@ -1,0 +1,310 @@
+% =============================================
+%  Ontology of Continua --- Core 1.3.3 Canonical Master Monograph
+%  Stable LaTeX Preamble (XeLaTeX, do not edit lightly)
+% =============================================
+
+% --- Engine & fonts (XeLaTeX) -----------------
+
+\usepackage{fontspec}
+
+% Global font defaults. The flagship build uses TeX-distributed fonts so the
+% manuscript remains reproducible on a standard XeLaTeX installation without
+% depending on host operating-system font availability.
+\defaultfontfeatures{Ligatures=TeX}
+
+\setmainfont{TeX Gyre Termes}
+\setsansfont{TeX Gyre Heros}
+\setmonofont[Ligatures=NoCommon]{TeX Gyre Cursor}
+
+% --- Languages (Polyglossia) ------------------
+
+\usepackage{polyglossia}
+
+% The English master build is the default when no translation shell overrides
+% \ocdefaultlanguage before loading this shared preamble.
+\providecommand{\ocdefaultlanguage}{english}
+\setdefaultlanguage{\ocdefaultlanguage}
+\setotherlanguages{english,german,russian}
+
+% Support for Cyrillic if Russian text is used. The CMU Unicode fonts ship
+% with MiKTeX/TeX Live and avoid falling back to Latin-only TeX Gyre faces.
+\newfontfamily\cyrillicfont[
+  UprightFont    = cmunrm.otf,
+  BoldFont       = cmunbx.otf,
+  ItalicFont     = cmunti.otf,
+  BoldItalicFont = cmunbi.otf
+]{cmunrm.otf}
+\newfontfamily\cyrillicfontsf[
+  UprightFont    = cmunss.otf,
+  BoldFont       = cmunsx.otf,
+  ItalicFont     = cmunso.otf,
+  BoldItalicFont = cmunbxo.otf
+]{cmunss.otf}
+\newfontfamily\cyrillicfonttt[
+  UprightFont    = cmuntt.otf,
+  BoldFont       = cmuntb.otf,
+  ItalicFont     = cmunit.otf,
+  BoldItalicFont = cmunbto.otf
+]{cmuntt.otf}
+
+% --- Unicode helpers --------------------------
+
+\usepackage{newunicodechar}
+% Add explicit mappings here if later source files introduce special Unicode.
+% \newunicodechar{…}{\ldots}
+\newunicodechar{₀}{\ensuremath{_0}}
+\newunicodechar{₁}{\ensuremath{_1}}
+\newunicodechar{₂}{\ensuremath{_2}}
+\newunicodechar{₃}{\ensuremath{_3}}
+\newunicodechar{₄}{\ensuremath{_4}}
+\newunicodechar{₅}{\ensuremath{_5}}
+\newunicodechar{₆}{\ensuremath{_6}}
+\newunicodechar{₇}{\ensuremath{_7}}
+\newunicodechar{₈}{\ensuremath{_8}}
+\newunicodechar{₉}{\ensuremath{_9}}
+\newunicodechar{′}{\ensuremath{'}}
+
+% --- Page layout ------------------------------
+
+\usepackage[a4paper,margin=2.5cm]{geometry}
+
+% --- Mathematics ------------------------------
+
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{mathtools}
+\usepackage{centernot} % used by some OC macros
+
+% --- OC Core: custom Greek macros (future-proof) ----
+%
+% LaTeX does not define macros such as \Alpha, \Beta, or \Chi.
+% Define them once with \providecommand so that:
+%   - current content, for example \Chi, compiles;
+%   - later explicit redefinitions are not overwritten.
+
+\providecommand{\Alpha}{\mathrm{A}}
+\providecommand{\Beta}{\mathrm{B}}
+\providecommand{\Epsilon}{\mathrm{E}}
+\providecommand{\Zeta}{\mathrm{Z}}
+\providecommand{\Eta}{\mathrm{H}}
+\providecommand{\Iota}{\mathrm{I}}
+\providecommand{\Kappa}{\mathrm{K}}
+\providecommand{\Mu}{\mathrm{M}}
+\providecommand{\Nu}{\mathrm{N}}
+\providecommand{\Omicron}{\mathrm{O}}
+\providecommand{\Rho}{\mathrm{P}}
+\providecommand{\Tau}{\mathrm{T}}
+\providecommand{\Chi}{\mathrm{X}}
+
+% --- OC Core: operator macros -----------------
+% Formal operators used in the Core (Ω, Ψ, Φ, U, Λ, Χ, ...)
+
+\DeclareMathOperator{\OmegaOp}{\Omega}
+\DeclareMathOperator{\PsiOp}{\Psi}
+\DeclareMathOperator{\PhiOp}{\Phi}
+\DeclareMathOperator{\UOp}{U}
+\DeclareMathOperator{\LambdaOp}{\Lambda}
+\DeclareMathOperator{\ChiOp}{\Chi}
+
+% --- Graphics & TikZ --------------------------
+
+\usepackage{graphicx}
+\graphicspath{{figures/}}
+
+% TikZ for structural and technical diagrams
+\usepackage{tikz}
+\usetikzlibrary{
+  positioning,              % node distance, left=of, etc.
+  arrows,                   % >=latex arrow tips
+  arrows.meta,              % modern arrow tips
+  calc,                     % coordinate calculations
+  decorations.pathreplacing,% braces and similar
+  decorations.pathmorphing  % wiggly / snake-style paths
+}
+
+% --- Tables -----------------------------------
+
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{longtable}
+\usepackage{ragged2e}
+
+% --- Hyperlinks & PDF metadata ----------------
+
+\usepackage{hyperref}
+\usepackage{xurl}
+\usepackage{enumitem}
+\usepackage{microtype}
+\usepackage{seqsplit}
+
+\providecommand{\ocpdftitle}{Ontology of Continua --- Core 1.3.3 Canonical Master Monograph}
+\providecommand{\ocpdfsubject}{Continuum ontology and closure}
+\providecommand{\ocpdfkeywords}{Ontology of Continua, Core 1.3.3, K-level hierarchy, bounded theorem routes, retrospective replay QA, falsifiability, source-governed evidence}
+\providecommand{\ocpdflang}{en}
+
+\hypersetup{
+  unicode      = true,
+  colorlinks   = true,
+  linkcolor    = blue,
+  citecolor    = blue,
+  urlcolor     = blue,
+  pdftitle     = {\ocpdftitle},
+  pdfauthor    = {Alexander Yashin},
+  pdfsubject   = {\ocpdfsubject},
+  pdfkeywords  = {\ocpdfkeywords},
+  pdfcreator   = {XeLaTeX},
+  pdfproducer  = {XeLaTeX with OC Core 1.3.3 build scripts},
+  pdflang      = {\ocpdflang}
+}
+\pdfstringdefDisableCommands{%
+  \def\({}%
+  \def\){}%
+  \def\ensuremath#1{#1}%
+  \def\₀{0}%
+  \def\₁{1}%
+  \def\₂{2}%
+  \def\₃{3}%
+  \def\₄{4}%
+  \def\₅{5}%
+  \def\₆{6}%
+  \def\₇{7}%
+  \def\₈{8}%
+  \def\₉{9}%
+  \def\′{'}%
+  \def\Omega{Omega}%
+  \def\Theta{Theta}%
+  \def\Delta{Delta}%
+  \def\Lambda{Lambda}%
+  \def\Phi{Phi}%
+  \def\Psi{Psi}%
+  \def\alpha{alpha}%
+  \def\beta{beta}%
+  \def\gamma{gamma}%
+  \def\sigma{sigma}%
+  \def\mathbb#1{#1}%
+  \def\partial{partial }%
+  \def\mathcal#1{#1}%
+  \def\mathrm#1{#1}%
+  \def\texttt#1{#1}%
+  \def\occode#1{#1}%
+  \def\texorpdfstring#1#2{#2}%
+  \def\Chi{Chi}%
+  \def\chi{chi}%
+  \def\tau{tau}%
+  \def\rho{rho}%
+  \def\equiv{ equivalent }%
+  \def\to{ to }%
+  \def\mapsto{ maps to }%
+  \def\subset{subset }%
+  \def\in{ in }%
+  \def\not{not }%
+  \def\leq{ less than or equal to }%
+  \def\geq{ greater than or equal to }%
+  \def\sim{ related to }%
+}
+\Urlmuskip=0mu plus 1mu\relax
+\setlength{\emergencystretch}{2em}
+
+% --- Clever references ------------------------
+
+\usepackage[nameinlink,capitalize]{cleveref}
+
+% --- Quotations -------------------------------
+
+\usepackage{csquotes}
+
+% --- Bibliography (biber + biblatex) ----------
+
+\usepackage[
+  backend=biber,
+  style=authoryear,
+  sorting=nyt
+]{biblatex}
+
+\addbibresource{bib/references.bib}
+
+% --- Numbering --------------------------------
+
+\numberwithin{equation}{section}
+
+% --- Theorem-like environments ----------------
+
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+
+% --- Section numbering & TOC depth ------------
+% Number sections through \subsubsection and include table-of-contents entries through \subsection.
+\setcounter{secnumdepth}{3}
+\setcounter{tocdepth}{2}
+
+% --- OC editorial helpers ---------------------
+
+\makeatletter
+\newcommand{\occode}[1]{%
+  \begingroup
+  \small\ttfamily
+  \addfontfeatures{Ligatures=NoCommon}%
+  \edef\oc@detok{\detokenize{#1}}%
+  \expandafter\seqsplit\expandafter{\oc@detok}%
+  \endgroup
+}
+\makeatother
+\newcommand{\ocvolumeblock}[2]{%
+  \clearpage
+  \phantomsection
+  \addcontentsline{toc}{section}{#1}
+  \thispagestyle{empty}
+  \vspace*{\fill}
+  \begin{center}
+    {\Large\bfseries #1\par}
+    \vspace{0.8cm}
+    \begin{minipage}{0.78\textwidth}
+      \RaggedRight
+      #2
+    \end{minipage}
+  \end{center}
+  \vspace*{\fill}
+  \clearpage
+}
+\setlist[itemize]{leftmargin=1.4em, itemsep=0.2em, topsep=0.3em}
+\newcolumntype{L}[1]{>{\RaggedRight\arraybackslash}p{#1}}
+
+
+
+% R005_LAYOUT_STANDARD
+% R006_LAYOUT_STANDARD
+% R007_LAYOUT_STANDARD
+% R008_LAYOUT_STANDARD
+\usepackage{graphicx}
+\usepackage{caption}
+\captionsetup{font=small,labelfont=bf,justification=RaggedRight,singlelinecheck=false,skip=6pt}
+\setlength{\parskip}{0.35em}
+\renewcommand{\arraystretch}{1.22}
+\setlength{\tabcolsep}{5.5pt}
+\newcommand{\ocrulebox}[2]{%
+  \par\medskip
+  \noindent\fbox{\begin{minipage}{0.94\textwidth}\textbf{#1}\par\smallskip #2\end{minipage}}%
+  \par\medskip
+}
+\renewcommand{\ocvolumeblock}[2]{%
+  \clearpage
+  \phantomsection
+  \addcontentsline{toc}{section}{#1}
+  \section*{#1}
+  \ocrulebox{#1}{#2}
+}
+
+% R013_TABLE_LAYOUT_STANDARD
+\setlength{\LTpre}{0.35em}
+\setlength{\LTpost}{0.75em}
+\renewcommand{\arraystretch}{1.34}
+\setlength{\tabcolsep}{4.2pt}
+\emergencystretch=3em
+\newcommand{\octablefont}{\footnotesize\RaggedRight\sloppy}
+\newenvironment{octablescope}{\begingroup\octablefont\setlength{\tabcolsep}{4.0pt}\renewcommand{\arraystretch}{1.34}}{\endgroup}
