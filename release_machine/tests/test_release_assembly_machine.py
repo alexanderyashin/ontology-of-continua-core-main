@@ -2246,6 +2246,9 @@ class ReleaseAssemblyMachineTests(unittest.TestCase):
         frontier = read_json(supervisor_dir / "OC133_TOE_AUTONOMOUS_FRONTIER_HASHES.json")
         terminal = read_json(supervisor_dir / "OC133_TOE_AUTONOMOUS_TERMINAL_VALIDATION_REPORT.json")
         heartbeat = read_json(supervisor_dir / "OC133_TOE_AUTONOMOUS_HEARTBEAT.json")
+        factory_dir = ROOT / "operations" / "logion_release_mission" / "oc_core_1_3_3" / "toe_closure_factory"
+        registry = read_json(factory_dir / "OC133_TOE_CAPABILITY_IMPLEMENTATION_REGISTRY.json")
+        frontier_science = read_json(factory_dir / "OC133_TOE_SCIENTIFIC_FRONTIER.json")
 
         self.assertEqual(state["schema_id"], "OC133_TOE_AUTONOMOUS_SUPERVISOR_STATE_v1")
         self.assertEqual(state["status"], "INTERNAL_AUTONOMOUS_RUN_STATE_OPEN")
@@ -2304,12 +2307,19 @@ class ReleaseAssemblyMachineTests(unittest.TestCase):
         self.assertEqual(capability_development["status"], "OPEN")
         self.assertGreater(capability_development["capability_development_total"], 0)
         self.assertTrue(capability_development["zero_delta_creates_capability_work"])
+        keys = [row["capability_development_key"] for row in capability_development["rows"]]
+        self.assertEqual(len(keys), len(set(keys)))
         for row in capability_development["rows"]:
             self.assertEqual(row["status"], "OPEN")
-            self.assertFalse(row["capability_executor_ready"])
-            for field in ["source_graph_node_id", "missing_artifact_type", "why_it_failed", "repair_strategy", "required_capability", "execution_command", "implementation_command", "pass_predicate", "next_escalation", "validator_binding"]:
+            for field in ["source_graph_node_id", "missing_artifact_type", "capability_development_key", "why_it_failed", "repair_strategy", "required_capability", "execution_command", "implementation_command", "pass_predicate", "next_escalation", "validator_binding"]:
                 self.assertIn(field, row)
                 self.assertIsNotNone(row[field], field)
+        self.assertTrue(any(row["capability_executor_ready"] for row in capability_development["rows"]))
+        self.assertEqual(registry["schema_id"], "OC133_TOE_CAPABILITY_IMPLEMENTATION_REGISTRY_v1")
+        self.assertGreater(registry["compiled_capability_total"], 0)
+        self.assertEqual(registry["compiled_capability_total"], registry["ready_capability_total"] + registry["blocked_capability_total"])
+        self.assertEqual(frontier_science["schema_id"], "OC133_TOE_SCIENTIFIC_FRONTIER_v1")
+        self.assertIn("excludes supervisor bookkeeping", frontier_science["frontier_policy"])
 
         self.assertEqual(frontier["status"], "PASS")
         self.assertEqual(frontier["frontier_row_total"], waves["wave_total"])
@@ -2324,6 +2334,8 @@ class ReleaseAssemblyMachineTests(unittest.TestCase):
         factory_dir = ROOT / "operations" / "logion_release_mission" / "oc_core_1_3_3" / "toe_closure_factory"
         graph = read_json(factory_dir / "OC133_TOE_BLOCKING_GRAPH.json")
         support = read_json(factory_dir / "OC133_TOE_SUPPORT_REFERENCE_INDEX.json")
+        scientific_frontier = read_json(factory_dir / "OC133_TOE_SCIENTIFIC_FRONTIER.json")
+        capability_registry = read_json(factory_dir / "OC133_TOE_CAPABILITY_IMPLEMENTATION_REGISTRY.json")
         cockpit = read_json(factory_dir / "autonomous_supervisor" / "OC133_TOE_AUTONOMOUS_COCKPIT.json")
         queue = read_json(factory_dir / "autonomous_supervisor" / "OC133_TOE_AUTONOMOUS_NEXT_ACTION_QUEUE.json")
         capability_development = read_json(factory_dir / "autonomous_supervisor" / "OC133_TOE_AUTONOMOUS_CAPABILITY_DEVELOPMENT_LEDGER.json")
@@ -2337,6 +2349,12 @@ class ReleaseAssemblyMachineTests(unittest.TestCase):
         self.assertGreater(support["passing_finite_case_total"], 0)
         self.assertGreater(support["existing_source_ref_total"], 0)
         self.assertIn("no fake", support["no_fake_closure_policy"].lower())
+        self.assertEqual(scientific_frontier["schema_id"], "OC133_TOE_SCIENTIFIC_FRONTIER_v1")
+        self.assertGreater(scientific_frontier["validator_error_total"], 0)
+        self.assertEqual(capability_registry["schema_id"], "OC133_TOE_CAPABILITY_IMPLEMENTATION_REGISTRY_v1")
+        self.assertGreater(capability_registry["compiled_capability_total"], 0)
+        self.assertTrue(all(row["execution_command"] for row in capability_registry["rows"]))
+        self.assertTrue(all(row["self_test_command"] for row in capability_registry["rows"]))
 
         self.assertEqual(graph["schema_id"], "OC133_TOE_BLOCKING_GRAPH_v1")
         self.assertEqual(graph["status"], "OPEN")

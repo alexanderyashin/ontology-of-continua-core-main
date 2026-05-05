@@ -43,6 +43,11 @@ SUBWORK_ORDERS_NAME = "OC133_TOE_LANE_SUBWORK_ORDERS.json"
 VALIDATOR_DELTA_TRACE_NAME = "OC133_TOE_VALIDATOR_DELTA_TRACE.json"
 PROBLEM_EXPLAINABILITY_GATE_NAME = "OC133_TOE_PROBLEM_EXPLAINABILITY_GATE.json"
 RESEARCH_WAVE_NAME = "OC133_TOE_RESEARCH_WAVE_EXECUTION.json"
+CAPABILITY_IMPLEMENTATION_REGISTRY_NAME = "OC133_TOE_CAPABILITY_IMPLEMENTATION_REGISTRY.json"
+CAPABILITY_IMPLEMENTATION_DIR = FACTORY_DIR / "capability_implementation"
+AUTONOMOUS_SUPERVISOR_DIR = FACTORY_DIR / "autonomous_supervisor"
+AUTONOMOUS_CAPABILITY_DEVELOPMENT_LEDGER_NAME = "OC133_TOE_AUTONOMOUS_CAPABILITY_DEVELOPMENT_LEDGER.json"
+SCIENTIFIC_FRONTIER_NAME = "OC133_TOE_SCIENTIFIC_FRONTIER.json"
 LANE_EXECUTION_DIR = FACTORY_DIR / "lane_execution"
 EXPLAINABILITY_FIELDS = [
     "why_it_failed",
@@ -3471,6 +3476,296 @@ def build_research_wave_not_run(root: Path, *, generated_at: str | None = None) 
     return payload
 
 
+def capability_development_key(row: dict[str, Any]) -> str:
+    return artifact_hash(
+        {
+            "lane_id": row.get("lane_id"),
+            "source_graph_node_id": row.get("source_graph_node_id"),
+            "missing_artifact_type": row.get("missing_artifact_type"),
+            "scientific_frontier_hash": row.get("scientific_frontier_hash") or row.get("frontier_hash") or "UNKNOWN_FRONTIER",
+        }
+    )
+
+
+def load_autonomous_capability_development_rows(root: Path) -> list[dict[str, Any]]:
+    payload = read_json(root / AUTONOMOUS_SUPERVISOR_DIR / AUTONOMOUS_CAPABILITY_DEVELOPMENT_LEDGER_NAME)
+    rows = payload.get("rows") or []
+    return [row for row in rows if isinstance(row, dict)]
+
+
+def capability_executor_for_row(row: dict[str, Any], compiled_capability_id: str) -> tuple[list[str], str, str]:
+    lane_id = str(row.get("lane_id") or "TOE_CLOSURE_FACTORY")
+    missing = str(row.get("missing_artifact_type") or row.get("required_artifact") or row.get("executor_type") or "unknown")
+    if lane_id in {"AI", "ENTERPRISE_ARCHITECTURE"}:
+        work_order_id = str(row.get("work_order_id") or "")
+        source_action_id = str(row.get("source_action_id") or "")
+        if source_action_id.startswith("AUTO-"):
+            work_order_id = source_action_id.removeprefix("AUTO-")
+        if work_order_id.startswith("R017-"):
+            return (
+                [sys.executable, "tools/oc133_toe_closure_factory.py", "--execute-source-intake-work-order", work_order_id, "--write"],
+                "projection_source_intake",
+                "Execute the exact AI/EA source-intake work order and preserve fail-closed support-pack output.",
+            )
+        return (
+            [sys.executable, "tools/oc133_toe_closure_factory.py", "--execute-capability-lane", lane_id, "--write"],
+            "projection_lane_capability",
+            "Rebuild the lane support pack, proof sheet, guarded writer report, and source-intake work orders.",
+        )
+    if lane_id == "MODERN_SCIENCE_COMPARATOR_SUPERIORITY":
+        gap_id = str(row.get("gap_id") or "")
+        source_node = str(row.get("source_graph_node_id") or "")
+        if not gap_id and source_node.startswith("required_artifact:MODERN_SCIENCE_COMPARATOR_SUPERIORITY:"):
+            parts = source_node.split(":")
+            if len(parts) >= 3:
+                gap_id = parts[2]
+        if gap_id:
+            return (
+                [sys.executable, "tools/oc133_toe_closure_factory.py", "--execute-comparator-gap", gap_id, "--write"],
+                "comparator_gap",
+                "Execute the comparator gap job for the exact missing broad-coverage artifact.",
+            )
+        return (
+            [sys.executable, "tools/oc133_toe_closure_factory.py", "--execute-capability-lane", lane_id, "--write"],
+            "comparator_lane_capability",
+            "Rebuild comparator diagnostics and domain/gap execution reports.",
+        )
+    if lane_id == "GRAND_TOE_CLAIM_LEDGER_EVIDENCE":
+        return (
+            [sys.executable, "tools/oc133_toe_closure_factory.py", "--execute-capability-lane", lane_id, "--write"],
+            "grand_promotion_capability",
+            "Rebuild grand promotion diagnostics, prerequisite plan, and derivation report.",
+        )
+    if lane_id == "CERBERUS_RELEASE_REVIEW_GATE":
+        return (
+            lane_registry_by_id().get(lane_id, {}).get("execution_command", []),
+            "cerberus_refresh",
+            "Refresh Cerberus fingerprints and clean gate after science validator is green.",
+        )
+    return (
+        list(row.get("execution_command") or []),
+        f"generic_{missing}",
+        "Execute the original row command under capability-development tracking.",
+    )
+
+
+def build_scientific_frontier(root: Path, *, generated_at: str | None = None) -> dict[str, Any]:
+    refs = [
+        FINAL_TOE_PROJECTION_LANE_TARGETS["AI"],
+        FINAL_TOE_PROJECTION_LANE_TARGETS["ENTERPRISE_ARCHITECTURE"],
+        GRAND_SCORECARD,
+        GRAND_PROMOTION_REPORT,
+        COMPARATOR_REGISTER,
+        FINITE_CHECK_REPORT,
+        CERBERUS_ACCEPTANCE,
+        CERBERUS_FINDINGS,
+    ]
+    parts = current_validator_error_parts(root)
+    ref_rows = []
+    for ref in refs:
+        path = root / ref
+        ref_rows.append(
+            {
+                "ref": str(ref).replace("\\", "/"),
+                "exists": path.exists(),
+                "content_hash": artifact_hash({"payload": read_json(path)}) if path.suffix.lower() == ".json" and path.exists() else artifact_hash({"missing": not path.exists(), "ref": str(ref)}),
+            }
+        )
+    payload = {
+        "schema_id": "OC133_TOE_SCIENTIFIC_FRONTIER_v1",
+        "generated_at": generated_at or utc_now(),
+        "status": "OPEN" if validator_error_total(parts) else "PASS",
+        "validator_error_total": validator_error_total(parts),
+        "science_validator_error_total": len(parts["science_errors"]),
+        "cerberus_error_total": len(parts["cerberus_errors"]),
+        "frontier_policy": "Scientific frontier excludes supervisor bookkeeping, blocking-graph, capability-backlog, and diagnostic artifacts.",
+        "refs": ref_rows,
+    }
+    payload["scientific_frontier_hash"] = artifact_hash({"validator_parts": parts, "refs": ref_rows})
+    payload["artifact_hash"] = artifact_hash(payload)
+    return payload
+
+
+def build_capability_implementation_registry(root: Path, *, generated_at: str | None = None) -> dict[str, Any]:
+    generated_at = generated_at or utc_now()
+    frontier = build_scientific_frontier(root, generated_at=generated_at)
+    rows: list[dict[str, Any]] = []
+    seen: set[str] = set()
+    for source_row in load_autonomous_capability_development_rows(root):
+        row = dict(source_row)
+        row["scientific_frontier_hash"] = frontier["scientific_frontier_hash"]
+        key = capability_development_key(row)
+        if key in seen:
+            continue
+        seen.add(key)
+        compiled_capability_id = f"R017-CAPDEV-{key[:12]}"
+        executor_command, executor_type, strategy = capability_executor_for_row(row, compiled_capability_id)
+        ready = bool(executor_command) and not (
+            row.get("lane_id") == "CERBERUS_RELEASE_REVIEW_GATE"
+            and frontier.get("science_validator_error_total", 0)
+        )
+        rows.append(
+            normalize_problem_row(
+                {
+                    "compiled_capability_id": compiled_capability_id,
+                    "capability_development_key": key,
+                    "source_capability_development_id": row.get("capability_development_id"),
+                    "source_graph_node_id": row.get("source_graph_node_id"),
+                    "lane_id": row.get("lane_id"),
+                    "executor_type": executor_type,
+                    "missing_artifact_type": row.get("missing_artifact_type"),
+                    "status": "READY" if ready else "BLOCKED",
+                    "capability_executor_ready": ready,
+                    "scientific_frontier_hash": frontier["scientific_frontier_hash"],
+                    "executor_command": executor_command,
+                    "execution_command": [sys.executable, "tools/oc133_toe_closure_factory.py", "--execute-capability-development", compiled_capability_id, "--write"],
+                    "self_test_command": [sys.executable, "tools/oc133_toe_closure_factory.py", "--check"],
+                    "output_artifact_ref": (CAPABILITY_IMPLEMENTATION_DIR / f"{compiled_capability_id}.json").as_posix(),
+                    "validator_binding": row.get("validator_binding"),
+                    "why_it_failed": row.get("why_it_failed") or "The graph dependency has not closed the strict TOE validator.",
+                    "repair_strategy": strategy,
+                    "required_capability": row.get("required_capability") or "Research/TOEClosureFactory",
+                    "pass_predicate": row.get("pass_predicate") or "The compiled capability executes and strict validator errors decrease or disappear.",
+                    "next_escalation": "If this compiled capability produces zero validator delta, generate a lower-level upstream research obligation for the exact missing source/evidence object.",
+                },
+                {
+                    "execution_command": [sys.executable, "tools/oc133_toe_closure_factory.py", "--execute-capability-development", compiled_capability_id, "--write"],
+                },
+            )
+        )
+    payload = {
+        "schema_id": "OC133_TOE_CAPABILITY_IMPLEMENTATION_REGISTRY_v1",
+        "generated_at": generated_at,
+        "status": "OPEN" if rows else "PASS",
+        "scientific_frontier_ref": (FACTORY_DIR / SCIENTIFIC_FRONTIER_NAME).as_posix(),
+        "scientific_frontier_hash": frontier["scientific_frontier_hash"],
+        "source_capability_development_total": len(load_autonomous_capability_development_rows(root)),
+        "compiled_capability_total": len(rows),
+        "ready_capability_total": sum(1 for row in rows if row.get("capability_executor_ready") is True),
+        "blocked_capability_total": sum(1 for row in rows if row.get("capability_executor_ready") is not True),
+        "dedupe_policy": "Rows are keyed by lane_id + source_graph_node_id + missing_artifact_type + scientific_frontier_hash.",
+        "no_fake_closure_policy": "Compiled capabilities execute research commands only; PASS still requires strict validator closure.",
+        "rows": rows,
+    }
+    payload["artifact_hash"] = artifact_hash(payload)
+    return payload
+
+
+def compile_capability_backlog(root: Path, *, write: bool = False) -> dict[str, Any]:
+    generated_at = utc_now()
+    frontier = build_scientific_frontier(root, generated_at=generated_at)
+    registry = build_capability_implementation_registry(root, generated_at=generated_at)
+    files = {
+        root / FACTORY_DIR / SCIENTIFIC_FRONTIER_NAME: stable_json(frontier),
+        root / FACTORY_DIR / CAPABILITY_IMPLEMENTATION_REGISTRY_NAME: stable_json(registry),
+    }
+    result = validation_result(files, write=write)
+    payload = {
+        "schema_id": "OC133_TOE_CAPABILITY_BACKLOG_COMPILATION_v1",
+        "generated_at": generated_at,
+        "status": "PASS" if result["state"] == "PASS" else "FAIL",
+        "scientific_frontier_ref": (FACTORY_DIR / SCIENTIFIC_FRONTIER_NAME).as_posix(),
+        "capability_implementation_registry_ref": (FACTORY_DIR / CAPABILITY_IMPLEMENTATION_REGISTRY_NAME).as_posix(),
+        "compiled_capability_total": registry["compiled_capability_total"],
+        "ready_capability_total": registry["ready_capability_total"],
+        "blocked_capability_total": registry["blocked_capability_total"],
+        "validation_result": result,
+    }
+    payload["artifact_hash"] = artifact_hash(payload)
+    return payload
+
+
+def execute_capability_development(root: Path, capability_id: str, timeout: int, *, write: bool = False) -> dict[str, Any]:
+    registry = read_json(root / FACTORY_DIR / CAPABILITY_IMPLEMENTATION_REGISTRY_NAME)
+    if not registry:
+        compile_capability_backlog(root, write=True)
+        registry = read_json(root / FACTORY_DIR / CAPABILITY_IMPLEMENTATION_REGISTRY_NAME)
+    rows = registry.get("rows") or []
+    match = next(
+        (
+            row
+            for row in rows
+            if row.get("compiled_capability_id") == capability_id
+            or row.get("source_capability_development_id") == capability_id
+        ),
+        None,
+    )
+    before_parts = current_validator_error_parts(root)
+    before_total = validator_error_total(before_parts)
+    generated_at = utc_now()
+    if not match:
+        payload = {
+            "schema_id": "OC133_TOE_CAPABILITY_DEVELOPMENT_EXECUTION_v1",
+            "generated_at": generated_at,
+            "compiled_capability_id": capability_id,
+            "status": "FAIL_CLOSED",
+            "why_it_failed": "Compiled capability id is not present in the implementation registry.",
+            "repair_strategy": "Run --compile-capability-backlog --write before executing capability development.",
+            "required_capability": "Research/TOEClosureFactory",
+            "execution_command": [sys.executable, "tools/oc133_toe_closure_factory.py", "--execute-capability-development", capability_id, "--write"],
+            "pass_predicate": "Capability id exists, executor is ready, and strict validator delta is positive.",
+            "next_escalation": "Rebuild the capability implementation registry from the current graph.",
+            "before_validator_error_total": before_total,
+            "after_validator_error_total": before_total,
+            "validator_error_delta": 0,
+            "command_results": [],
+        }
+    elif match.get("capability_executor_ready") is not True:
+        payload = {
+            "schema_id": "OC133_TOE_CAPABILITY_DEVELOPMENT_EXECUTION_v1",
+            "generated_at": generated_at,
+            "compiled_capability_id": capability_id,
+            "status": "BLOCKED",
+            "why_it_failed": "Capability exists but has no safe ready executor for the current scientific frontier.",
+            "repair_strategy": match.get("repair_strategy"),
+            "required_capability": match.get("required_capability"),
+            "execution_command": [sys.executable, "tools/oc133_toe_closure_factory.py", "--execute-capability-development", capability_id, "--write"],
+            "pass_predicate": match.get("pass_predicate"),
+            "next_escalation": match.get("next_escalation"),
+            "before_validator_error_total": before_total,
+            "after_validator_error_total": before_total,
+            "validator_error_delta": 0,
+            "registry_row": match,
+            "command_results": [],
+        }
+    else:
+        command = list(match.get("executor_command") or [])
+        result = safe_run_command(root, command, timeout) if command else {
+            "cmd": command,
+            "returncode": None,
+            "stdout_tail": "",
+            "stderr_tail": "No executor command was compiled.",
+        }
+        after_parts = current_validator_error_parts(root)
+        after_total = validator_error_total(after_parts)
+        payload = {
+            "schema_id": "OC133_TOE_CAPABILITY_DEVELOPMENT_EXECUTION_v1",
+            "generated_at": generated_at,
+            "compiled_capability_id": capability_id,
+            "capability_development_key": match.get("capability_development_key"),
+            "source_graph_node_id": match.get("source_graph_node_id"),
+            "lane_id": match.get("lane_id"),
+            "executor_type": match.get("executor_type"),
+            "status": "PASS" if result.get("returncode") == 0 and before_total - after_total > 0 else "ZERO_DELTA_OPEN" if result.get("returncode") == 0 else "FAIL_CLOSED",
+            "why_it_failed": "Compiled capability executed but did not reduce strict validator errors." if result.get("returncode") == 0 and before_total - after_total <= 0 else match.get("why_it_failed"),
+            "repair_strategy": match.get("repair_strategy"),
+            "required_capability": match.get("required_capability"),
+            "execution_command": [sys.executable, "tools/oc133_toe_closure_factory.py", "--execute-capability-development", capability_id, "--write"],
+            "executor_command": command,
+            "pass_predicate": match.get("pass_predicate"),
+            "next_escalation": match.get("next_escalation"),
+            "before_validator_error_total": before_total,
+            "after_validator_error_total": after_total,
+            "validator_error_delta": before_total - after_total,
+            "command_results": [result],
+            "no_fake_closure_policy": "Zero delta remains OPEN and cannot satisfy r017.",
+        }
+    payload["artifact_hash"] = artifact_hash(payload)
+    if write:
+        write_json_artifact(root, CAPABILITY_IMPLEMENTATION_DIR / f"{capability_id}.json", payload)
+    return payload
+
+
 def load_or_build_research_wave(root: Path, *, preserve_existing_generated_at: bool) -> dict[str, Any]:
     path = root / FACTORY_DIR / RESEARCH_WAVE_NAME
     if path.exists():
@@ -3540,9 +3835,13 @@ def expected_files(
     subwork_generated_at = existing_generated_at(base / SUBWORK_ORDERS_NAME) if preserve_existing_generated_at else None
     delta_trace_generated_at = existing_generated_at(base / VALIDATOR_DELTA_TRACE_NAME) if preserve_existing_generated_at else None
     explainability_generated_at = existing_generated_at(base / PROBLEM_EXPLAINABILITY_GATE_NAME) if preserve_existing_generated_at else None
+    scientific_frontier_generated_at = existing_generated_at(base / SCIENTIFIC_FRONTIER_NAME) if preserve_existing_generated_at else None
+    capability_registry_generated_at = existing_generated_at(base / CAPABILITY_IMPLEMENTATION_REGISTRY_NAME) if preserve_existing_generated_at else None
     obligations = build_obligations(root, validator_errors, generated_at=obligations_generated_at)
     lanes = build_lane_results(root, generated_at=lanes_generated_at)
     registry = build_lane_capability_registry(generated_at=registry_generated_at)
+    scientific_frontier = build_scientific_frontier(root, generated_at=scientific_frontier_generated_at)
+    capability_implementation_registry = build_capability_implementation_registry(root, generated_at=capability_registry_generated_at)
     subwork_orders = build_lane_subwork_orders(root, validator_errors, generated_at=subwork_generated_at)
     root_causes = build_root_cause_ledger(root, validator_errors, execution_trace, generated_at=root_cause_generated_at)
     capability_backlog = build_capability_backlog(
@@ -3599,6 +3898,8 @@ def expected_files(
         base / VALIDATOR_DELTA_TRACE_NAME: stable_json(delta_trace),
         base / PROBLEM_EXPLAINABILITY_GATE_NAME: stable_json(explainability_gate),
         base / RESEARCH_WAVE_NAME: stable_json(research_wave),
+        base / SCIENTIFIC_FRONTIER_NAME: stable_json(scientific_frontier),
+        base / CAPABILITY_IMPLEMENTATION_REGISTRY_NAME: stable_json(capability_implementation_registry),
         base / STATE_NAME: stable_json(state),
         base / COCKPIT_NAME: stable_json(cockpit),
         base / COCKPIT_MD_NAME: render_cockpit_md(cockpit, lanes, obligations),
@@ -3616,11 +3917,25 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--max-iterations", type=int, default=6)
     parser.add_argument("--execute-lane", choices=[row["lane_id"] for row in lane_registry_rows()])
     parser.add_argument("--execute-capability-lane", choices=[row["lane_id"] for row in lane_registry_rows()])
+    parser.add_argument("--compile-capability-backlog", action="store_true", help="Compile autonomous capability-development rows into executable capability registry entries.")
+    parser.add_argument("--execute-capability-development", help="Execute one compiled autonomous capability-development entry.")
     parser.add_argument("--execute-source-intake-work-order", help="Execute one AI/EA source-intake work order.")
     parser.add_argument("--execute-comparator-gap", help="Execute one modern-science comparator coverage gap.")
     parser.add_argument("--execute-comparator-domain-job", help="Execute one modern-science comparator domain job such as MS-COV-JOB-001.")
     parser.add_argument("--timeout", type=int, default=900)
     args = parser.parse_args(argv)
+    if args.compile_capability_backlog:
+        payload = compile_capability_backlog(ROOT, write=args.write)
+        print(json.dumps(payload, ensure_ascii=False, indent=2, sort_keys=True))
+        return 0 if payload.get("status") == "PASS" else 1
+    if args.execute_capability_development:
+        payload = execute_capability_development(ROOT, args.execute_capability_development, args.timeout, write=args.write)
+        path = ROOT / CAPABILITY_IMPLEMENTATION_DIR / f"{args.execute_capability_development}.json"
+        result = validation_result({path: stable_json(payload)}, write=args.write)
+        print(json.dumps(result if args.write or args.check else payload, ensure_ascii=False, indent=2, sort_keys=True))
+        if args.check and result["state"] != "PASS":
+            return 1
+        return 0 if payload.get("status") == "PASS" else 1
     if args.execute_source_intake_work_order:
         payload = build_projection_source_intake_execution(ROOT, args.execute_source_intake_work_order)
         lane_id = payload.get("lane_id") or "UNKNOWN"

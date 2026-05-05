@@ -1,13 +1,13 @@
 {
-  "action_total": 45,
-  "artifact_hash": "fbd2f37c6047cfd31d656c2efb6b66e18b47c27f9abfda85aca343809fcef63b",
-  "blocking_graph_frontier_hash": "602f1ed95d6525881625b86849334ece4a1cb2e3e7df5d8775f7b7008e6ad6af",
+  "action_total": 55,
+  "artifact_hash": "cd8514f99b25b0e3edc5ae01746da8839f366374d39fa4bfa98888d522141c35",
+  "blocking_graph_frontier_hash": "6a6b046e2cf605dec8d4bbe88437d6a57a7aef00189bcea7de28336b5782c5dc",
   "blocking_graph_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/OC133_TOE_BLOCKING_GRAPH.json",
   "cerberus_error_total": 8,
-  "executable_action_total": 42,
+  "executable_action_total": 43,
   "frontier_hash": "bbf0197d69bd90939d683525326901acf82cc6d53ff97de2aa09ae0e831c7240",
-  "generated_at": "2026-05-05T20:50:46Z",
-  "graph_candidate_node_total": 306,
+  "generated_at": "2026-05-05T21:07:40Z",
+  "graph_candidate_node_total": 308,
   "planner_mode": "GRAPH_RESOLVER",
   "rows": [
     {
@@ -90,7 +90,7 @@
     },
     {
       "action_id": "AUTO-R017-AI-SOURCE-INTAKE-LEAN_BINDING-003",
-      "already_attempted_on_frontier": false,
+      "already_attempted_on_frontier": true,
       "execution_command": [
         "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
         "tools/oc133_toe_closure_factory.py",
@@ -114,22 +114,22 @@
       ],
       "lane_id": "AI",
       "missing_support_key": "lean_refs_exist",
-      "next_escalation": "If this action produces no validator delta, split the missing artifact class into a narrower capability work order.",
+      "next_escalation": "This exact action has already been tried on this semantic frontier; create a narrower capability work order instead of rerunning it.",
       "pass_predicate": "The referenced lane disappears from strict TOE validator errors without weakening gates.",
       "planner_mode": "GRAPH_RESOLVER",
       "repair_strategy": "Execute this action, sync SPOT/projections, rerun validators, and keep r017 blocked unless the strict terminal gate passes.",
       "required_artifact": "lean_refs",
       "required_capability": "Research/AIProjection",
-      "selected_for_execution": true,
+      "selected_for_execution": false,
       "source_ref": null,
-      "status": "OPEN",
+      "status": "CAPABILITY_ESCALATION_REQUIRED",
       "validator_binding": "support_artifact::AI::lean_refs",
       "why_it_failed": "The strict final TOE validator still reports this lane as open.",
       "work_order_id": "R017-AI-SOURCE-INTAKE-LEAN_BINDING-003"
     },
     {
       "action_id": "AUTO-R017-AI-SOURCE-INTAKE-FINITE_CASE_BINDING-004",
-      "already_attempted_on_frontier": false,
+      "already_attempted_on_frontier": true,
       "execution_command": [
         "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
         "tools/oc133_toe_closure_factory.py",
@@ -153,18 +153,378 @@
       ],
       "lane_id": "AI",
       "missing_support_key": "finite_case_refs_present",
-      "next_escalation": "If this action produces no validator delta, split the missing artifact class into a narrower capability work order.",
+      "next_escalation": "This exact action has already been tried on this semantic frontier; create a narrower capability work order instead of rerunning it.",
       "pass_predicate": "The referenced lane disappears from strict TOE validator errors without weakening gates.",
       "planner_mode": "GRAPH_RESOLVER",
       "repair_strategy": "Execute this action, sync SPOT/projections, rerun validators, and keep r017 blocked unless the strict terminal gate passes.",
       "required_artifact": "finite_case_refs",
       "required_capability": "Research/AIProjection",
-      "selected_for_execution": true,
+      "selected_for_execution": false,
       "source_ref": null,
-      "status": "OPEN",
+      "status": "CAPABILITY_ESCALATION_REQUIRED",
       "validator_binding": "support_artifact::AI::finite_case_refs",
       "why_it_failed": "The strict final TOE validator still reports this lane as open.",
       "work_order_id": "R017-AI-SOURCE-INTAKE-FINITE_CASE_BINDING-004"
+    },
+    {
+      "action_id": "AUTO-capability_development-AUTO-R017-CAPABILITY-DEVELOPMENT-0001-d34a5a39",
+      "already_attempted_on_frontier": true,
+      "execution_command": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "tools/oc133_toe_closure_factory.py",
+        "--execute-capability-development",
+        "R017-CAPDEV-2ce86b903927",
+        "--write"
+      ],
+      "executor_type": "capability_development",
+      "frontier_signature": "bbf0197d69bd90939d683525326901acf82cc6d53ff97de2aa09ae0e831c7240::AUTO-capability_development-AUTO-R017-CAPABILITY-DEVELOPMENT-0001-d34a5a39",
+      "graph_dependency_path": [
+        "capability_development:AUTO-R017-CAPABILITY-DEVELOPMENT-0001-d34a5a39"
+      ],
+      "graph_node_id": "capability_development:AUTO-R017-CAPABILITY-DEVELOPMENT-0001-d34a5a39",
+      "graph_node_type": "capability_development",
+      "graph_priority": [
+        10,
+        30,
+        10,
+        "capability_development:AUTO-R017-CAPABILITY-DEVELOPMENT-0001-d34a5a39"
+      ],
+      "lane_id": "AI",
+      "missing_artifact_type": "source_grounded_non_blocker_candidate",
+      "next_escalation": "This exact action has already been tried on this semantic frontier; create a narrower capability work order instead of rerunning it.",
+      "pass_predicate": "The referenced lane disappears from strict TOE validator errors without weakening gates.",
+      "planner_mode": "GRAPH_RESOLVER",
+      "repair_strategy": "Create a narrower source-bound executor for the exact missing artifact class before rerunning the same action.",
+      "required_capability": "Research/AIProjection",
+      "selected_for_execution": false,
+      "source_graph_node_id": "required_artifact:AI:source_grounded_non_blocker_candidate",
+      "status": "CAPABILITY_ESCALATION_REQUIRED",
+      "validator_binding": "support_artifact::AI::source_grounded_non_blocker_candidate",
+      "why_it_failed": "The action did not reduce strict validator errors on this semantic frontier."
+    },
+    {
+      "action_id": "AUTO-capability_development-AUTO-R017-CAPABILITY-DEVELOPMENT-0005-069ec53d",
+      "already_attempted_on_frontier": true,
+      "execution_command": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "tools/oc133_toe_closure_factory.py",
+        "--execute-capability-development",
+        "R017-CAPDEV-655773b2f94a",
+        "--write"
+      ],
+      "executor_type": "capability_development",
+      "frontier_signature": "bbf0197d69bd90939d683525326901acf82cc6d53ff97de2aa09ae0e831c7240::AUTO-capability_development-AUTO-R017-CAPABILITY-DEVELOPMENT-0005-069ec53d",
+      "graph_dependency_path": [
+        "capability_development:AUTO-R017-CAPABILITY-DEVELOPMENT-0005-069ec53d"
+      ],
+      "graph_node_id": "capability_development:AUTO-R017-CAPABILITY-DEVELOPMENT-0005-069ec53d",
+      "graph_node_type": "capability_development",
+      "graph_priority": [
+        10,
+        30,
+        10,
+        "capability_development:AUTO-R017-CAPABILITY-DEVELOPMENT-0005-069ec53d"
+      ],
+      "lane_id": "AI",
+      "missing_artifact_type": "source_grounded_non_blocker_candidate",
+      "next_escalation": "This exact action has already been tried on this semantic frontier; create a narrower capability work order instead of rerunning it.",
+      "pass_predicate": "The referenced lane disappears from strict TOE validator errors without weakening gates.",
+      "planner_mode": "GRAPH_RESOLVER",
+      "repair_strategy": "Create a narrower source-bound executor for the exact missing artifact class before rerunning the same action.",
+      "required_capability": "Research/AIProjection",
+      "selected_for_execution": false,
+      "source_graph_node_id": "capability_development:AUTO-R017-CAPABILITY-DEVELOPMENT-0001-d34a5a39",
+      "status": "CAPABILITY_ESCALATION_REQUIRED",
+      "validator_binding": "support_artifact::AI::source_grounded_non_blocker_candidate",
+      "why_it_failed": "The action did not reduce strict validator errors on this semantic frontier."
+    },
+    {
+      "action_id": "AUTO-capability_development-AUTO-R017-CAPABILITY-DEVELOPMENT-0005-697e4bb4",
+      "already_attempted_on_frontier": true,
+      "execution_command": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "tools/oc133_toe_closure_factory.py",
+        "--execute-capability-development",
+        "R017-CAPDEV-8adbd9304250",
+        "--write"
+      ],
+      "executor_type": "capability_development",
+      "frontier_signature": "bbf0197d69bd90939d683525326901acf82cc6d53ff97de2aa09ae0e831c7240::AUTO-capability_development-AUTO-R017-CAPABILITY-DEVELOPMENT-0005-697e4bb4",
+      "graph_dependency_path": [
+        "capability_development:AUTO-R017-CAPABILITY-DEVELOPMENT-0005-697e4bb4"
+      ],
+      "graph_node_id": "capability_development:AUTO-R017-CAPABILITY-DEVELOPMENT-0005-697e4bb4",
+      "graph_node_type": "capability_development",
+      "graph_priority": [
+        10,
+        30,
+        10,
+        "capability_development:AUTO-R017-CAPABILITY-DEVELOPMENT-0005-697e4bb4"
+      ],
+      "lane_id": "AI",
+      "missing_artifact_type": "source_grounded_non_blocker_candidate",
+      "next_escalation": "This exact action has already been tried on this semantic frontier; create a narrower capability work order instead of rerunning it.",
+      "pass_predicate": "The referenced lane disappears from strict TOE validator errors without weakening gates.",
+      "planner_mode": "GRAPH_RESOLVER",
+      "repair_strategy": "Create a narrower source-bound executor for the exact missing artifact class before rerunning the same action.",
+      "required_capability": "Research/AIProjection",
+      "selected_for_execution": false,
+      "source_graph_node_id": "capability_development:AUTO-R017-CAPABILITY-DEVELOPMENT-0001-9069cbf6",
+      "status": "CAPABILITY_ESCALATION_REQUIRED",
+      "validator_binding": "support_artifact::AI::source_grounded_non_blocker_candidate",
+      "why_it_failed": "The action did not reduce strict validator errors on this semantic frontier."
+    },
+    {
+      "action_id": "AUTO-capability_development-AUTO-R017-CAPABILITY-DEVELOPMENT-0007-76dcdd35",
+      "already_attempted_on_frontier": true,
+      "execution_command": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "tools/oc133_toe_closure_factory.py",
+        "--execute-capability-development",
+        "R017-CAPDEV-49d810e57071",
+        "--write"
+      ],
+      "executor_type": "capability_development",
+      "frontier_signature": "bbf0197d69bd90939d683525326901acf82cc6d53ff97de2aa09ae0e831c7240::AUTO-capability_development-AUTO-R017-CAPABILITY-DEVELOPMENT-0007-76dcdd35",
+      "graph_dependency_path": [
+        "capability_development:AUTO-R017-CAPABILITY-DEVELOPMENT-0007-76dcdd35"
+      ],
+      "graph_node_id": "capability_development:AUTO-R017-CAPABILITY-DEVELOPMENT-0007-76dcdd35",
+      "graph_node_type": "capability_development",
+      "graph_priority": [
+        10,
+        30,
+        10,
+        "capability_development:AUTO-R017-CAPABILITY-DEVELOPMENT-0007-76dcdd35"
+      ],
+      "lane_id": "AI",
+      "missing_artifact_type": "source_grounded_non_blocker_candidate",
+      "next_escalation": "This exact action has already been tried on this semantic frontier; create a narrower capability work order instead of rerunning it.",
+      "pass_predicate": "The referenced lane disappears from strict TOE validator errors without weakening gates.",
+      "planner_mode": "GRAPH_RESOLVER",
+      "repair_strategy": "Create a narrower source-bound executor for the exact missing artifact class before rerunning the same action.",
+      "required_capability": "Research/AIProjection",
+      "selected_for_execution": false,
+      "source_graph_node_id": "capability_development:AUTO-R017-CAPABILITY-DEVELOPMENT-0005-069ec53d",
+      "status": "CAPABILITY_ESCALATION_REQUIRED",
+      "validator_binding": "support_artifact::AI::source_grounded_non_blocker_candidate",
+      "why_it_failed": "The action did not reduce strict validator errors on this semantic frontier."
+    },
+    {
+      "action_id": "AUTO-capability_development-AUTO-R017-CAPABILITY-DEVELOPMENT-0008-4226bb15",
+      "already_attempted_on_frontier": true,
+      "execution_command": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "tools/oc133_toe_closure_factory.py",
+        "--execute-capability-development",
+        "R017-CAPDEV-3f2aa489774a",
+        "--write"
+      ],
+      "executor_type": "capability_development",
+      "frontier_signature": "bbf0197d69bd90939d683525326901acf82cc6d53ff97de2aa09ae0e831c7240::AUTO-capability_development-AUTO-R017-CAPABILITY-DEVELOPMENT-0008-4226bb15",
+      "graph_dependency_path": [
+        "capability_development:AUTO-R017-CAPABILITY-DEVELOPMENT-0008-4226bb15"
+      ],
+      "graph_node_id": "capability_development:AUTO-R017-CAPABILITY-DEVELOPMENT-0008-4226bb15",
+      "graph_node_type": "capability_development",
+      "graph_priority": [
+        10,
+        30,
+        10,
+        "capability_development:AUTO-R017-CAPABILITY-DEVELOPMENT-0008-4226bb15"
+      ],
+      "lane_id": "AI",
+      "missing_artifact_type": "source_grounded_non_blocker_candidate",
+      "next_escalation": "This exact action has already been tried on this semantic frontier; create a narrower capability work order instead of rerunning it.",
+      "pass_predicate": "The referenced lane disappears from strict TOE validator errors without weakening gates.",
+      "planner_mode": "GRAPH_RESOLVER",
+      "repair_strategy": "Create a narrower source-bound executor for the exact missing artifact class before rerunning the same action.",
+      "required_capability": "Research/AIProjection",
+      "selected_for_execution": false,
+      "source_graph_node_id": "capability_development:AUTO-R017-CAPABILITY-DEVELOPMENT-0005-697e4bb4",
+      "status": "CAPABILITY_ESCALATION_REQUIRED",
+      "validator_binding": "support_artifact::AI::source_grounded_non_blocker_candidate",
+      "why_it_failed": "The action did not reduce strict validator errors on this semantic frontier."
+    },
+    {
+      "action_id": "AUTO-capability_development-AUTO-R017-CAPABILITY-DEVELOPMENT-0009-d8790750",
+      "already_attempted_on_frontier": true,
+      "execution_command": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "tools/oc133_toe_closure_factory.py",
+        "--execute-capability-development",
+        "R017-CAPDEV-393a99ee6136",
+        "--write"
+      ],
+      "executor_type": "capability_development",
+      "frontier_signature": "bbf0197d69bd90939d683525326901acf82cc6d53ff97de2aa09ae0e831c7240::AUTO-capability_development-AUTO-R017-CAPABILITY-DEVELOPMENT-0009-d8790750",
+      "graph_dependency_path": [
+        "capability_development:AUTO-R017-CAPABILITY-DEVELOPMENT-0009-d8790750"
+      ],
+      "graph_node_id": "capability_development:AUTO-R017-CAPABILITY-DEVELOPMENT-0009-d8790750",
+      "graph_node_type": "capability_development",
+      "graph_priority": [
+        10,
+        30,
+        10,
+        "capability_development:AUTO-R017-CAPABILITY-DEVELOPMENT-0009-d8790750"
+      ],
+      "lane_id": "AI",
+      "missing_artifact_type": "source_grounded_non_blocker_candidate",
+      "next_escalation": "This exact action has already been tried on this semantic frontier; create a narrower capability work order instead of rerunning it.",
+      "pass_predicate": "The referenced lane disappears from strict TOE validator errors without weakening gates.",
+      "planner_mode": "GRAPH_RESOLVER",
+      "repair_strategy": "Create a narrower source-bound executor for the exact missing artifact class before rerunning the same action.",
+      "required_capability": "Research/AIProjection",
+      "selected_for_execution": false,
+      "source_graph_node_id": "capability_development:AUTO-R017-CAPABILITY-DEVELOPMENT-0007-76dcdd35",
+      "status": "CAPABILITY_ESCALATION_REQUIRED",
+      "validator_binding": "support_artifact::AI::source_grounded_non_blocker_candidate",
+      "why_it_failed": "The action did not reduce strict validator errors on this semantic frontier."
+    },
+    {
+      "action_id": "AUTO-capability_development-AUTO-R017-CAPABILITY-DEVELOPMENT-0002-9e775d34",
+      "already_attempted_on_frontier": true,
+      "execution_command": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "tools/oc133_toe_closure_factory.py",
+        "--execute-capability-development",
+        "R017-CAPDEV-e38d0dd40d4d",
+        "--write"
+      ],
+      "executor_type": "capability_development",
+      "frontier_signature": "bbf0197d69bd90939d683525326901acf82cc6d53ff97de2aa09ae0e831c7240::AUTO-capability_development-AUTO-R017-CAPABILITY-DEVELOPMENT-0002-9e775d34",
+      "graph_dependency_path": [
+        "capability_development:AUTO-R017-CAPABILITY-DEVELOPMENT-0002-9e775d34"
+      ],
+      "graph_node_id": "capability_development:AUTO-R017-CAPABILITY-DEVELOPMENT-0002-9e775d34",
+      "graph_node_type": "capability_development",
+      "graph_priority": [
+        10,
+        30,
+        20,
+        "capability_development:AUTO-R017-CAPABILITY-DEVELOPMENT-0002-9e775d34"
+      ],
+      "lane_id": "AI",
+      "missing_artifact_type": "non_blocker_public_claim_scope",
+      "next_escalation": "This exact action has already been tried on this semantic frontier; create a narrower capability work order instead of rerunning it.",
+      "pass_predicate": "The referenced lane disappears from strict TOE validator errors without weakening gates.",
+      "planner_mode": "GRAPH_RESOLVER",
+      "repair_strategy": "Create a narrower source-bound executor for the exact missing artifact class before rerunning the same action.",
+      "required_capability": "Research/AIProjection",
+      "selected_for_execution": false,
+      "source_graph_node_id": "required_artifact:AI:non_blocker_public_claim_scope",
+      "status": "CAPABILITY_ESCALATION_REQUIRED",
+      "validator_binding": "support_artifact::AI::non_blocker_public_claim_scope",
+      "why_it_failed": "The action did not reduce strict validator errors on this semantic frontier."
+    },
+    {
+      "action_id": "AUTO-capability_development-AUTO-R017-CAPABILITY-DEVELOPMENT-0006-c9c663b0",
+      "already_attempted_on_frontier": false,
+      "execution_command": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "tools/oc133_toe_closure_factory.py",
+        "--execute-capability-development",
+        "R017-CAPDEV-5ee9aa73302b",
+        "--write"
+      ],
+      "executor_type": "capability_development",
+      "frontier_signature": "bbf0197d69bd90939d683525326901acf82cc6d53ff97de2aa09ae0e831c7240::AUTO-capability_development-AUTO-R017-CAPABILITY-DEVELOPMENT-0006-c9c663b0",
+      "graph_dependency_path": [
+        "capability_development:AUTO-R017-CAPABILITY-DEVELOPMENT-0006-c9c663b0"
+      ],
+      "graph_node_id": "capability_development:AUTO-R017-CAPABILITY-DEVELOPMENT-0006-c9c663b0",
+      "graph_node_type": "capability_development",
+      "graph_priority": [
+        10,
+        30,
+        20,
+        "capability_development:AUTO-R017-CAPABILITY-DEVELOPMENT-0006-c9c663b0"
+      ],
+      "lane_id": "AI",
+      "missing_artifact_type": "non_blocker_public_claim_scope",
+      "next_escalation": "If this action produces no validator delta, split the missing artifact class into a narrower capability work order.",
+      "pass_predicate": "The referenced lane disappears from strict TOE validator errors without weakening gates.",
+      "planner_mode": "GRAPH_RESOLVER",
+      "repair_strategy": "Create a narrower source-bound executor for the exact missing artifact class before rerunning the same action.",
+      "required_capability": "Research/AIProjection",
+      "selected_for_execution": true,
+      "source_graph_node_id": "capability_development:AUTO-R017-CAPABILITY-DEVELOPMENT-0002-9e775d34",
+      "status": "OPEN",
+      "validator_binding": "support_artifact::AI::non_blocker_public_claim_scope",
+      "why_it_failed": "The action did not reduce strict validator errors on this semantic frontier."
+    },
+    {
+      "action_id": "AUTO-capability_development-AUTO-R017-CAPABILITY-DEVELOPMENT-0003-2199287f",
+      "already_attempted_on_frontier": false,
+      "execution_command": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "tools/oc133_toe_closure_factory.py",
+        "--execute-capability-development",
+        "R017-CAPDEV-24058711fd79",
+        "--write"
+      ],
+      "executor_type": "capability_development",
+      "frontier_signature": "bbf0197d69bd90939d683525326901acf82cc6d53ff97de2aa09ae0e831c7240::AUTO-capability_development-AUTO-R017-CAPABILITY-DEVELOPMENT-0003-2199287f",
+      "graph_dependency_path": [
+        "capability_development:AUTO-R017-CAPABILITY-DEVELOPMENT-0003-2199287f"
+      ],
+      "graph_node_id": "capability_development:AUTO-R017-CAPABILITY-DEVELOPMENT-0003-2199287f",
+      "graph_node_type": "capability_development",
+      "graph_priority": [
+        10,
+        30,
+        30,
+        "capability_development:AUTO-R017-CAPABILITY-DEVELOPMENT-0003-2199287f"
+      ],
+      "lane_id": "AI",
+      "missing_artifact_type": "lean_refs",
+      "next_escalation": "If this action produces no validator delta, split the missing artifact class into a narrower capability work order.",
+      "pass_predicate": "The referenced lane disappears from strict TOE validator errors without weakening gates.",
+      "planner_mode": "GRAPH_RESOLVER",
+      "repair_strategy": "Create a narrower source-bound executor for the exact missing artifact class before rerunning the same action.",
+      "required_capability": "Research/AIProjection",
+      "selected_for_execution": true,
+      "source_graph_node_id": "required_artifact:AI:lean_refs",
+      "status": "OPEN",
+      "validator_binding": "support_artifact::AI::lean_refs",
+      "why_it_failed": "The action did not reduce strict validator errors on this semantic frontier."
+    },
+    {
+      "action_id": "AUTO-capability_development-AUTO-R017-CAPABILITY-DEVELOPMENT-0004-89f82c35",
+      "already_attempted_on_frontier": false,
+      "execution_command": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "tools/oc133_toe_closure_factory.py",
+        "--execute-capability-development",
+        "R017-CAPDEV-6f1ebe44a981",
+        "--write"
+      ],
+      "executor_type": "capability_development",
+      "frontier_signature": "bbf0197d69bd90939d683525326901acf82cc6d53ff97de2aa09ae0e831c7240::AUTO-capability_development-AUTO-R017-CAPABILITY-DEVELOPMENT-0004-89f82c35",
+      "graph_dependency_path": [
+        "capability_development:AUTO-R017-CAPABILITY-DEVELOPMENT-0004-89f82c35"
+      ],
+      "graph_node_id": "capability_development:AUTO-R017-CAPABILITY-DEVELOPMENT-0004-89f82c35",
+      "graph_node_type": "capability_development",
+      "graph_priority": [
+        10,
+        30,
+        40,
+        "capability_development:AUTO-R017-CAPABILITY-DEVELOPMENT-0004-89f82c35"
+      ],
+      "lane_id": "AI",
+      "missing_artifact_type": "finite_case_refs",
+      "next_escalation": "If this action produces no validator delta, split the missing artifact class into a narrower capability work order.",
+      "pass_predicate": "The referenced lane disappears from strict TOE validator errors without weakening gates.",
+      "planner_mode": "GRAPH_RESOLVER",
+      "repair_strategy": "Create a narrower source-bound executor for the exact missing artifact class before rerunning the same action.",
+      "required_capability": "Research/AIProjection",
+      "selected_for_execution": false,
+      "source_graph_node_id": "required_artifact:AI:finite_case_refs",
+      "status": "OPEN",
+      "validator_binding": "support_artifact::AI::finite_case_refs",
+      "why_it_failed": "The action did not reduce strict validator errors on this semantic frontier."
     },
     {
       "action_id": "AUTO-R017-ENTERPRISE_ARCHITECTURE-SOURCE-INTAKE-SOURCE_DISCOVERY-001",
@@ -2037,6 +2397,16 @@
     "required_artifact:AI:non_blocker_public_claim_scope",
     "required_artifact:AI:lean_refs",
     "required_artifact:AI:finite_case_refs",
+    "capability_development:AUTO-R017-CAPABILITY-DEVELOPMENT-0001-d34a5a39",
+    "capability_development:AUTO-R017-CAPABILITY-DEVELOPMENT-0005-069ec53d",
+    "capability_development:AUTO-R017-CAPABILITY-DEVELOPMENT-0005-697e4bb4",
+    "capability_development:AUTO-R017-CAPABILITY-DEVELOPMENT-0007-76dcdd35",
+    "capability_development:AUTO-R017-CAPABILITY-DEVELOPMENT-0008-4226bb15",
+    "capability_development:AUTO-R017-CAPABILITY-DEVELOPMENT-0009-d8790750",
+    "capability_development:AUTO-R017-CAPABILITY-DEVELOPMENT-0002-9e775d34",
+    "capability_development:AUTO-R017-CAPABILITY-DEVELOPMENT-0006-c9c663b0",
+    "capability_development:AUTO-R017-CAPABILITY-DEVELOPMENT-0003-2199287f",
+    "capability_development:AUTO-R017-CAPABILITY-DEVELOPMENT-0004-89f82c35",
     "required_artifact:ENTERPRISE_ARCHITECTURE:source_grounded_non_blocker_candidate",
     "required_artifact:ENTERPRISE_ARCHITECTURE:non_blocker_public_claim_scope",
     "required_artifact:ENTERPRISE_ARCHITECTURE:lean_refs",

@@ -525,7 +525,36 @@ def load_state(root: Path) -> dict[str, Any]:
 def load_capability_development_rows(root: Path) -> list[dict[str, Any]]:
     payload = read_json(root / SUPERVISOR_DIR / CAPABILITY_DEVELOPMENT_LEDGER_NAME)
     rows = payload.get("rows") or []
-    return [row for row in rows if isinstance(row, dict)]
+    registry = read_json(root / factory.FACTORY_DIR / factory.CAPABILITY_IMPLEMENTATION_REGISTRY_NAME)
+    by_source_id = {
+        str(row.get("source_capability_development_id")): row
+        for row in registry.get("rows", []) or []
+        if isinstance(row, dict) and row.get("source_capability_development_id")
+    }
+    by_key = {
+        str(row.get("capability_development_key")): row
+        for row in registry.get("rows", []) or []
+        if isinstance(row, dict) and row.get("capability_development_key")
+    }
+    enriched: list[dict[str, Any]] = []
+    for row in rows:
+        if not isinstance(row, dict):
+            continue
+        payload = dict(row)
+        key = payload.get("capability_development_key") or factory.capability_development_key(payload)
+        compiled = by_source_id.get(str(payload.get("capability_development_id"))) or by_key.get(str(key))
+        if compiled:
+            payload["capability_development_key"] = compiled.get("capability_development_key") or key
+            payload["compiled_capability_id"] = compiled.get("compiled_capability_id")
+            payload["capability_executor_ready"] = compiled.get("capability_executor_ready") is True
+            payload["execution_command"] = compiled.get("execution_command", payload.get("execution_command", []))
+            payload["implementation_command"] = compiled.get("executor_command", payload.get("implementation_command", []))
+            payload["compiled_capability_ref"] = (factory.FACTORY_DIR / factory.CAPABILITY_IMPLEMENTATION_REGISTRY_NAME).as_posix()
+            payload["scientific_frontier_hash"] = compiled.get("scientific_frontier_hash") or payload.get("scientific_frontier_hash")
+        else:
+            payload["capability_development_key"] = key
+        enriched.append(payload)
+    return enriched
 
 
 def existing_attempt_signatures(state: dict[str, Any]) -> set[str]:
@@ -750,6 +779,7 @@ def graph_action_for_node(
                 "graph_node_id": node_id,
                 "graph_node_type": node_type,
                 "graph_dependency_path": [node_id],
+                "source_graph_node_id": node.get("source_graph_node_id"),
                 "missing_artifact_type": node.get("missing_artifact_type"),
                 "why_it_failed": node.get("why_it_failed"),
                 "repair_strategy": node.get("repair_strategy"),
@@ -996,7 +1026,7 @@ def escalation_rows(queue: dict[str, Any], action_results: list[dict[str, Any]],
             "capability_escalation_id": f"AUTO-R017-CAPABILITY-ESCALATION-{index:04d}",
             "capability_development_id": f"AUTO-R017-CAPABILITY-DEVELOPMENT-{index:04d}-{artifact_hash(action)[:8]}",
             "source_action_id": action["action_id"],
-            "source_graph_node_id": action.get("graph_node_id"),
+            "source_graph_node_id": action.get("source_graph_node_id") or action.get("graph_node_id"),
             "source_graph_node_type": action.get("graph_node_type"),
             "graph_dependency_path": action.get("graph_dependency_path", []),
             "lane_id": action["lane_id"],
@@ -1004,6 +1034,15 @@ def escalation_rows(queue: dict[str, Any], action_results: list[dict[str, Any]],
             "missing_artifact_type": missing_artifact_type,
             "implementation_gap_class": "ZERO_DELTA_GRAPH_DEPENDENCY",
             "capability_executor_ready": False,
+            "scientific_frontier_hash": queue.get("frontier_hash"),
+            "capability_development_key": factory.capability_development_key(
+                {
+                    "lane_id": action["lane_id"],
+                    "source_graph_node_id": action.get("source_graph_node_id") or action.get("graph_node_id"),
+                    "missing_artifact_type": missing_artifact_type,
+                    "scientific_frontier_hash": queue.get("frontier_hash"),
+                }
+            ),
             "status": "OPEN",
             "frontier_repeated": frontier_repeated,
             "why_it_failed": "The action did not reduce strict validator errors on this semantic frontier.",
@@ -1079,6 +1118,8 @@ def run_supervisor(root: Path, args: argparse.Namespace) -> dict[str, dict[str, 
     max_iterations = int(args.max_iterations)
     while True:
         iteration += 1
+        if args.write:
+            factory.compile_capability_backlog(root, write=True)
         before_parts = factory.current_validator_error_parts(root)
         before_total = factory.validator_error_total(before_parts)
         frontier_before = semantic_frontier_hash(root)
@@ -1217,6 +1258,7 @@ def build_outputs(
     gate: dict[str, Any],
 ) -> dict[Path, dict[str, Any]]:
     support_index = build_support_reference_index(root, state["generated_at"])
+    scientific_frontier = factory.build_scientific_frontier(root, generated_at=state["generated_at"])
     capability_development = build_capability_development_ledger(escalation_rows_payload, state["generated_at"])
     blocking_graph = build_blocking_graph(
         root,
@@ -1299,6 +1341,7 @@ def build_outputs(
     cockpit["artifact_hash"] = artifact_hash(cockpit)
     return {
         factory.FACTORY_DIR / SUPPORT_INDEX_NAME: support_index,
+        factory.FACTORY_DIR / factory.SCIENTIFIC_FRONTIER_NAME: scientific_frontier,
         factory.FACTORY_DIR / BLOCKING_GRAPH_NAME: blocking_graph,
         SUPERVISOR_DIR / STATE_NAME: state,
         SUPERVISOR_DIR / COCKPIT_NAME: cockpit,
@@ -1328,13 +1371,59 @@ def build_commit_ledger(rows: list[dict[str, Any]]) -> dict[str, Any]:
 def build_capability_development_ledger(rows: list[dict[str, Any]], generated_at: str) -> dict[str, Any]:
     normalized: list[dict[str, Any]] = []
     seen: set[str] = set()
+    current_scientific_frontier_hash = factory.build_scientific_frontier(ROOT, generated_at=generated_at)["scientific_frontier_hash"]
+    source_rows_by_capability_id = {
+        str(row.get("capability_development_id")): row
+        for row in rows
+        if isinstance(row, dict) and row.get("capability_development_id")
+    }
+
+    def root_source_graph_node(row: dict[str, Any]) -> str | None:
+        source_node = row.get("source_graph_node_id")
+        visited: set[str] = set()
+        while isinstance(source_node, str) and source_node.startswith("capability_development:"):
+            capability_id = source_node.removeprefix("capability_development:")
+            if capability_id in visited:
+                break
+            visited.add(capability_id)
+            parent = source_rows_by_capability_id.get(capability_id)
+            if not parent:
+                break
+            source_node = parent.get("source_graph_node_id")
+        return str(source_node) if source_node else None
+
+    registry = read_json(ROOT / factory.FACTORY_DIR / factory.CAPABILITY_IMPLEMENTATION_REGISTRY_NAME)
+    registry_by_key = {
+        str(row.get("capability_development_key")): row
+        for row in registry.get("rows", []) or []
+        if isinstance(row, dict) and row.get("capability_development_key")
+    }
+    registry_by_source = {
+        str(row.get("source_capability_development_id")): row
+        for row in registry.get("rows", []) or []
+        if isinstance(row, dict) and row.get("source_capability_development_id")
+    }
     for row in rows:
         capability_id = str(row.get("capability_development_id") or row.get("capability_escalation_id") or artifact_hash(row)[:16])
-        if capability_id in seen:
-            continue
-        seen.add(capability_id)
         payload = dict(row)
         payload["capability_development_id"] = capability_id
+        root_source = root_source_graph_node(payload)
+        if root_source:
+            payload["source_graph_node_id"] = root_source
+        payload["scientific_frontier_hash"] = current_scientific_frontier_hash
+        payload["capability_development_key"] = factory.capability_development_key(payload)
+        dedupe_key = str(payload["capability_development_key"])
+        if dedupe_key in seen:
+            continue
+        seen.add(dedupe_key)
+        compiled = registry_by_key.get(dedupe_key) or registry_by_source.get(capability_id)
+        if compiled:
+            payload["compiled_capability_id"] = compiled.get("compiled_capability_id")
+            payload["capability_executor_ready"] = compiled.get("capability_executor_ready") is True
+            payload["execution_command"] = compiled.get("execution_command", payload.get("execution_command", []))
+            payload["implementation_command"] = compiled.get("executor_command", payload.get("implementation_command", []))
+            payload["compiled_capability_ref"] = (factory.FACTORY_DIR / factory.CAPABILITY_IMPLEMENTATION_REGISTRY_NAME).as_posix()
+            payload["scientific_frontier_hash"] = compiled.get("scientific_frontier_hash") or payload.get("scientific_frontier_hash")
         payload.setdefault("status", "OPEN")
         payload.setdefault("why_it_failed", "A graph-selected action produced zero validator delta.")
         payload.setdefault("repair_strategy", "Implement a narrower source-bound capability for this exact missing artifact.")
@@ -1433,6 +1522,8 @@ def main(argv: list[str] | None = None) -> int:
     if args.check:
         paths = [
             factory.FACTORY_DIR / SUPPORT_INDEX_NAME,
+            factory.FACTORY_DIR / factory.SCIENTIFIC_FRONTIER_NAME,
+            factory.FACTORY_DIR / factory.CAPABILITY_IMPLEMENTATION_REGISTRY_NAME,
             factory.FACTORY_DIR / BLOCKING_GRAPH_NAME,
             SUPERVISOR_DIR / STATE_NAME,
             SUPERVISOR_DIR / COCKPIT_NAME,

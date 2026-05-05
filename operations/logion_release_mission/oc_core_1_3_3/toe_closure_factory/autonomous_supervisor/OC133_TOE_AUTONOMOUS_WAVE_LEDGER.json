@@ -1,106 +1,113 @@
 {
-  "artifact_hash": "6e24654a25f61ad078de73a652faca43ede759007993eddae6d9d75f9a98ae5f",
-  "generated_at": "2026-05-05T20:50:42Z",
+  "artifact_hash": "fccccdd689cd54023b6e84b9eb3b9e63e0f071cc62f96ce381597abc9c159fea",
+  "generated_at": "2026-05-05T21:07:34Z",
   "rows": [
     {
       "action_results": [
         {
-          "action_id": "AUTO-R017-AI-SOURCE-INTAKE-LEAN_BINDING-003",
+          "action_id": "AUTO-capability_development-AUTO-R017-CAPABILITY-DEVELOPMENT-0006-c9c663b0",
           "after_validator_error_total": 25,
           "before_validator_error_total": 25,
           "execution_command": [
             "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
             "tools/oc133_toe_closure_factory.py",
-            "--execute-source-intake-work-order",
-            "R017-AI-SOURCE-INTAKE-LEAN_BINDING-003",
+            "--execute-capability-development",
+            "R017-CAPDEV-5ee9aa73302b",
             "--write"
           ],
-          "executor_type": "source_intake_work_order",
+          "executor_type": "capability_development",
           "frontier_hash_after": "bbf0197d69bd90939d683525326901acf82cc6d53ff97de2aa09ae0e831c7240",
           "frontier_hash_before": "bbf0197d69bd90939d683525326901acf82cc6d53ff97de2aa09ae0e831c7240",
-          "frontier_signature": "bbf0197d69bd90939d683525326901acf82cc6d53ff97de2aa09ae0e831c7240::AUTO-R017-AI-SOURCE-INTAKE-LEAN_BINDING-003",
+          "frontier_signature": "bbf0197d69bd90939d683525326901acf82cc6d53ff97de2aa09ae0e831c7240::AUTO-capability_development-AUTO-R017-CAPABILITY-DEVELOPMENT-0006-c9c663b0",
           "graph_dependency_path": [
-            "required_artifact:AI:lean_refs",
-            "capability:AUTO-R017-AI-SOURCE-INTAKE-LEAN_BINDING-003"
+            "capability_development:AUTO-R017-CAPABILITY-DEVELOPMENT-0006-c9c663b0"
           ],
-          "graph_node_id": "required_artifact:AI:lean_refs",
-          "graph_node_type": "required_artifact",
+          "graph_node_id": "capability_development:AUTO-R017-CAPABILITY-DEVELOPMENT-0006-c9c663b0",
+          "graph_node_type": "capability_development",
           "lane_id": "AI",
           "next_escalation": "If this action produces no validator delta, split the missing artifact class into a narrower capability work order.",
           "pass_predicate": "The referenced lane disappears from strict TOE validator errors without weakening gates.",
           "planner_mode": "GRAPH_RESOLVER",
-          "repair_strategy": "Execute this action, sync SPOT/projections, rerun validators, and keep r017 blocked unless the strict terminal gate passes.",
+          "repair_strategy": "Create a narrower source-bound executor for the exact missing artifact class before rerunning the same action.",
           "required_capability": "Research/AIProjection",
           "result": {
             "cmd": [
               "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
               "tools/oc133_toe_closure_factory.py",
-              "--execute-source-intake-work-order",
-              "R017-AI-SOURCE-INTAKE-LEAN_BINDING-003",
+              "--execute-capability-development",
+              "R017-CAPDEV-5ee9aa73302b",
               "--write"
             ],
-            "returncode": 0,
+            "returncode": 1,
             "stderr_tail": "",
             "stdout_tail": "{\n  \"changed\": [],\n  \"missing\": [],\n  \"state\": \"PASS\"\n}\n"
           },
-          "status": "PASS",
+          "status": "FAIL_CLOSED",
           "validator_error_delta": 0,
-          "why_it_failed": "The strict final TOE validator still reports this lane as open."
+          "why_it_failed": "The action did not reduce strict validator errors on this semantic frontier."
         },
         {
-          "action_id": "AUTO-R017-AI-SOURCE-INTAKE-FINITE_CASE_BINDING-004",
+          "action_id": "AUTO-capability_development-AUTO-R017-CAPABILITY-DEVELOPMENT-0003-2199287f",
           "after_validator_error_total": 25,
           "before_validator_error_total": 25,
           "execution_command": [
             "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
             "tools/oc133_toe_closure_factory.py",
-            "--execute-source-intake-work-order",
-            "R017-AI-SOURCE-INTAKE-FINITE_CASE_BINDING-004",
+            "--execute-capability-development",
+            "R017-CAPDEV-24058711fd79",
             "--write"
           ],
-          "executor_type": "source_intake_work_order",
+          "executor_type": "capability_development",
           "frontier_hash_after": "bbf0197d69bd90939d683525326901acf82cc6d53ff97de2aa09ae0e831c7240",
           "frontier_hash_before": "bbf0197d69bd90939d683525326901acf82cc6d53ff97de2aa09ae0e831c7240",
-          "frontier_signature": "bbf0197d69bd90939d683525326901acf82cc6d53ff97de2aa09ae0e831c7240::AUTO-R017-AI-SOURCE-INTAKE-FINITE_CASE_BINDING-004",
+          "frontier_signature": "bbf0197d69bd90939d683525326901acf82cc6d53ff97de2aa09ae0e831c7240::AUTO-capability_development-AUTO-R017-CAPABILITY-DEVELOPMENT-0003-2199287f",
           "graph_dependency_path": [
-            "required_artifact:AI:finite_case_refs",
-            "capability:AUTO-R017-AI-SOURCE-INTAKE-FINITE_CASE_BINDING-004"
+            "capability_development:AUTO-R017-CAPABILITY-DEVELOPMENT-0003-2199287f"
           ],
-          "graph_node_id": "required_artifact:AI:finite_case_refs",
-          "graph_node_type": "required_artifact",
+          "graph_node_id": "capability_development:AUTO-R017-CAPABILITY-DEVELOPMENT-0003-2199287f",
+          "graph_node_type": "capability_development",
           "lane_id": "AI",
           "next_escalation": "If this action produces no validator delta, split the missing artifact class into a narrower capability work order.",
           "pass_predicate": "The referenced lane disappears from strict TOE validator errors without weakening gates.",
           "planner_mode": "GRAPH_RESOLVER",
-          "repair_strategy": "Execute this action, sync SPOT/projections, rerun validators, and keep r017 blocked unless the strict terminal gate passes.",
+          "repair_strategy": "Create a narrower source-bound executor for the exact missing artifact class before rerunning the same action.",
           "required_capability": "Research/AIProjection",
           "result": {
             "cmd": [
               "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
               "tools/oc133_toe_closure_factory.py",
-              "--execute-source-intake-work-order",
-              "R017-AI-SOURCE-INTAKE-FINITE_CASE_BINDING-004",
+              "--execute-capability-development",
+              "R017-CAPDEV-24058711fd79",
               "--write"
             ],
-            "returncode": 0,
+            "returncode": 1,
             "stderr_tail": "",
             "stdout_tail": "{\n  \"changed\": [],\n  \"missing\": [],\n  \"state\": \"PASS\"\n}\n"
           },
-          "status": "PASS",
+          "status": "FAIL_CLOSED",
           "validator_error_delta": 0,
-          "why_it_failed": "The strict final TOE validator still reports this lane as open."
+          "why_it_failed": "The action did not reduce strict validator errors on this semantic frontier."
         }
       ],
-      "active_executor": "source_intake_work_order",
+      "active_executor": "capability_development",
       "after_validator_error_total": 25,
       "before_validator_error_total": 25,
       "capability_escalation_ids": [
         "AUTO-R017-CAPABILITY-ESCALATION-0001",
         "AUTO-R017-CAPABILITY-ESCALATION-0002",
         "AUTO-R017-CAPABILITY-ESCALATION-0003",
-        "AUTO-R017-CAPABILITY-ESCALATION-0004"
+        "AUTO-R017-CAPABILITY-ESCALATION-0004",
+        "AUTO-R017-CAPABILITY-ESCALATION-0005",
+        "AUTO-R017-CAPABILITY-ESCALATION-0006",
+        "AUTO-R017-CAPABILITY-ESCALATION-0007",
+        "AUTO-R017-CAPABILITY-ESCALATION-0008",
+        "AUTO-R017-CAPABILITY-ESCALATION-0009",
+        "AUTO-R017-CAPABILITY-ESCALATION-0010",
+        "AUTO-R017-CAPABILITY-ESCALATION-0011",
+        "AUTO-R017-CAPABILITY-ESCALATION-0012",
+        "AUTO-R017-CAPABILITY-ESCALATION-0013"
       ],
-      "commit_sha": "c297ca66",
+      "commit_sha": "4ace51fb",
       "executor_selected": "graph_resolver",
       "frontier_hash_after": "bbf0197d69bd90939d683525326901acf82cc6d53ff97de2aa09ae0e831c7240",
       "frontier_hash_before": "bbf0197d69bd90939d683525326901acf82cc6d53ff97de2aa09ae0e831c7240",
@@ -111,6 +118,16 @@
         "AUTO-R017-AI-SOURCE-INTAKE-CLAIM_SCOPE-002",
         "AUTO-R017-AI-SOURCE-INTAKE-LEAN_BINDING-003",
         "AUTO-R017-AI-SOURCE-INTAKE-FINITE_CASE_BINDING-004",
+        "AUTO-capability_development-AUTO-R017-CAPABILITY-DEVELOPMENT-0001-d34a5a39",
+        "AUTO-capability_development-AUTO-R017-CAPABILITY-DEVELOPMENT-0005-069ec53d",
+        "AUTO-capability_development-AUTO-R017-CAPABILITY-DEVELOPMENT-0005-697e4bb4",
+        "AUTO-capability_development-AUTO-R017-CAPABILITY-DEVELOPMENT-0007-76dcdd35",
+        "AUTO-capability_development-AUTO-R017-CAPABILITY-DEVELOPMENT-0008-4226bb15",
+        "AUTO-capability_development-AUTO-R017-CAPABILITY-DEVELOPMENT-0009-d8790750",
+        "AUTO-capability_development-AUTO-R017-CAPABILITY-DEVELOPMENT-0002-9e775d34",
+        "AUTO-capability_development-AUTO-R017-CAPABILITY-DEVELOPMENT-0006-c9c663b0",
+        "AUTO-capability_development-AUTO-R017-CAPABILITY-DEVELOPMENT-0003-2199287f",
+        "AUTO-capability_development-AUTO-R017-CAPABILITY-DEVELOPMENT-0004-89f82c35",
         "AUTO-R017-ENTERPRISE_ARCHITECTURE-SOURCE-INTAKE-SOURCE_DISCOVERY-001",
         "AUTO-R017-ENTERPRISE_ARCHITECTURE-SOURCE-INTAKE-CLAIM_SCOPE-002",
         "AUTO-R017-ENTERPRISE_ARCHITECTURE-SOURCE-INTAKE-LEAN_BINDING-003",
@@ -158,6 +175,16 @@
         "required_artifact:AI:non_blocker_public_claim_scope",
         "required_artifact:AI:lean_refs",
         "required_artifact:AI:finite_case_refs",
+        "capability_development:AUTO-R017-CAPABILITY-DEVELOPMENT-0001-d34a5a39",
+        "capability_development:AUTO-R017-CAPABILITY-DEVELOPMENT-0005-069ec53d",
+        "capability_development:AUTO-R017-CAPABILITY-DEVELOPMENT-0005-697e4bb4",
+        "capability_development:AUTO-R017-CAPABILITY-DEVELOPMENT-0007-76dcdd35",
+        "capability_development:AUTO-R017-CAPABILITY-DEVELOPMENT-0008-4226bb15",
+        "capability_development:AUTO-R017-CAPABILITY-DEVELOPMENT-0009-d8790750",
+        "capability_development:AUTO-R017-CAPABILITY-DEVELOPMENT-0002-9e775d34",
+        "capability_development:AUTO-R017-CAPABILITY-DEVELOPMENT-0006-c9c663b0",
+        "capability_development:AUTO-R017-CAPABILITY-DEVELOPMENT-0003-2199287f",
+        "capability_development:AUTO-R017-CAPABILITY-DEVELOPMENT-0004-89f82c35",
         "required_artifact:ENTERPRISE_ARCHITECTURE:source_grounded_non_blocker_candidate",
         "required_artifact:ENTERPRISE_ARCHITECTURE:non_blocker_public_claim_scope",
         "required_artifact:ENTERPRISE_ARCHITECTURE:lean_refs",
@@ -201,12 +228,12 @@
         "capability:AUTO-R017-CERBERUS-CLEAN-REFRESH"
       ],
       "selected_action_ids": [
-        "AUTO-R017-AI-SOURCE-INTAKE-LEAN_BINDING-003",
-        "AUTO-R017-AI-SOURCE-INTAKE-FINITE_CASE_BINDING-004"
+        "AUTO-capability_development-AUTO-R017-CAPABILITY-DEVELOPMENT-0006-c9c663b0",
+        "AUTO-capability_development-AUTO-R017-CAPABILITY-DEVELOPMENT-0003-2199287f"
       ],
       "selected_graph_node_ids": [
-        "required_artifact:AI:lean_refs",
-        "required_artifact:AI:finite_case_refs"
+        "capability_development:AUTO-R017-CAPABILITY-DEVELOPMENT-0006-c9c663b0",
+        "capability_development:AUTO-R017-CAPABILITY-DEVELOPMENT-0003-2199287f"
       ],
       "status": "INTERNAL_AUTONOMOUS_RUN_STATE_OPEN",
       "terminal_gate": "R017_BLOCKED_BY_TOE_AUTONOMOUS_SUPERVISOR",
