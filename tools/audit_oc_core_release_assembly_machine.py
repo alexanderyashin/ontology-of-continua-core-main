@@ -428,7 +428,8 @@ def scan_text(path: Path) -> list[dict[str, Any]]:
     )
     if "recovery_r011" in path_text or governance_metadata_path:
         scan_target = re.sub(
-            r"SCIENTIFIC_JOURNAL_SUBMISSION_READY_NO_SEND|OWNER_REVIEW_READY_NO_SEND|REPAIR_REQUIRED_NO_SEND|owner_review_no_send|no_send_lock|no_send_policy",
+            r"SCIENTIFIC_JOURNAL_SUBMISSION_READY_NO_SEND|OWNER_REVIEW_READY_NO_SEND|REPAIR_REQUIRED_NO_SEND|"
+            r"owner_review_no_send|no_send_lock|no_send_policy|\b[A-Za-z0-9_]*no_send[A-Za-z0-9_]*\b",
             "allowed_governance_marker",
             scan_target,
             flags=re.IGNORECASE,

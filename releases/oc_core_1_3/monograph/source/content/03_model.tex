@@ -23,33 +23,44 @@ It is not a physical space; it carries no time, energy, geometry, or dynamics.
 Its role is to provide the minimal conditions under which any higher-level continuum is logically possible.
 
 \paragraph{Specification of \texorpdfstring{\(K_0\)}{K\_0}}
-\(K_0\) is specified by a triple
+\(K_0\) is specified by a resolution-relative tuple
 \[
-    K_0 = (S,\Delta,\mathcal{C}),
+    K_0 = (S,\mathcal{R},\{\Delta_\rho\}_{\rho\in\mathcal{R}},\mathcal{C}),
 \]
 where:
 \begin{itemize}
-    \item \(S\) is a set of states;
-    \item \(\Delta : S \times S \to \mathbb{R}_{\ge 0}\) is a structural difference function;
+    \item \(S\) is a raw carrier of states, which may be finite, countable, continuous, or typed-combinatorial;
+    \item \(\mathcal{R}\) is the family of admissible resolution regimes;
+    \item each \(\rho\in\mathcal{R}\) induces a quotient \(S_\rho=S/{\sim_\rho}\) and a structural difference function \(\Delta_\rho:S_\rho\times S_\rho\to\mathbb{R}_{\ge 0}\);
     \item \(\mathcal{C}\) is a structural relation (or family of relations) preserving distinguishability.
 \end{itemize}
 There is no time parameter and no evolution operator at this level.
 
 \paragraph{Axiom 0.1 (Difference and distinguishability).}
-For all \(s_1,s_2 \in S\),
+For every resolution regime \(\rho\in\mathcal{R}\) and all resolved classes
+\([s_1]_\rho,[s_2]_\rho\in S_\rho\),
 \[
-    \Delta(s_1,s_2) = 0 \;\Rightarrow\; s_1 = s_2.
+    \Delta_\rho([s_1]_\rho,[s_2]_\rho) = 0
+    \;\Rightarrow\;
+    [s_1]_\rho = [s_2]_\rho.
 \]
-Nonzero structural difference is the minimal condition for distinguishability.
-A continuum cannot exist without at least two distinguishable states.
+Nonzero resolved structural difference is the minimal condition for
+distinguishability at regime \(\rho\). A continuum cannot exist without at
+least two states distinguishable in some declared resolution regime.
 
-\paragraph{Axiom 0.2 (Nontrivial threshold \texorpdfstring{$\Theta_0$}{Theta\_0}).}
-There exists \(\varepsilon > 0\) such that
+\paragraph{Axiom 0.2 (Resolution-relative threshold \texorpdfstring{$\Theta_{0,\rho}$}{Theta\_0,rho}).}
+For each active resolution regime \(\rho\) there exists
+\(\varepsilon_\rho>0\) such that
 \[
-    \forall s_1,s_2\in S,\qquad
-    s_1 \neq s_2 \Rightarrow \Delta(s_1,s_2) \ge \varepsilon.
+    \forall [s_1]_\rho,[s_2]_\rho\in S_\rho,\qquad
+    [s_1]_\rho\neq [s_2]_\rho
+    \Rightarrow
+    \Delta_\rho([s_1]_\rho,[s_2]_\rho)\ge\varepsilon_\rho.
 \]
-The value \(\Theta_0 = \varepsilon\) acts as a minimal structural threshold: differences smaller than \(\varepsilon\) are not resolved at the level of \(K_0\).
+The value \(\Theta_{0,\rho}=\varepsilon_\rho\) is a threshold on resolved
+classes, not on raw states. Raw points inside a single \(\rho\)-class may be
+arbitrarily close or even continuous; no theorem in Core~1.3.3 may infer
+global raw-state uniform discreteness from \(K_0\).
 
 \paragraph{Axiom 0.3 (Logical substrate).}
 \(K_0\) carries no time parameter and no dynamical operator.
@@ -132,45 +143,6 @@ where:
     \item \(k(K,t)\) is the measure of continuumness.
 \end{itemize}
 
-\subsection{Global minimality of the OC verdict interface}
-\label{sec:oc13-global-verdict-minimality}
-
-The tuple above is minimal in the following verdict-invariant sense. An
-equivalent axiomatisation may rename a component or derive it from other
-primitive data, but it must preserve the information carried by the
-corresponding OC distinction if it is to preserve the same live, dead, residue,
-rebirth, domain, support, and falsifier verdicts.
-
-\paragraph{Theorem (global verdict-invariant minimality).}
-For the class of OC-compatible verdict-preserving representations, each
-primitive distinction represented by the OC interface is necessary up to
-definitional equivalence. If a representation removes the distinction and does
-not re-encode a functionally equivalent invariant, then there exists a pair of
-admissible histories that it cannot distinguish while OC assigns different
-required verdicts.
-
-\paragraph{Proof.}
-Let \(\pi_p\) be one primitive distinction: identity carrier, admissible
-realisation, collapse threshold, residue relation, rebirth predicate,
-\(K\)-level boundary, support class, or falsifier. For each \(\pi_p\) the
-release records a separating witness pair \((H_a,H_b)\) such that \(H_a\) and
-\(H_b\) agree on all other retained distinctions, but the OC verdict map
-requires \(V(H_a)\neq V(H_b)\). Suppose a representation \(R\) removes
-\(\pi_p\) and carries no functionally equivalent invariant. Then
-\(R(H_a)=R(H_b)\). Any downstream verdict decoder \(D\) must therefore satisfy
-\[
-    D(R(H_a))=D(R(H_b)),
-\]
-contradicting the verdict-preservation requirement. Hence every
-verdict-preserving OC representation must preserve \(\pi_p\) up to definitional
-equivalence. Applying the argument to the independent witness pairs for all
-eight distinctions proves the global lower bound for the OC verdict class.
-
-Consequently \(\partial\Omega\), \(J\), and \(k\) may be derived in local
-models only when the derivation still preserves the boundary, flow, and
-continuumness verdict information. Derivation is allowed; information loss is
-not.
-
 Every continuum is assumed to be embedded in a surrounding meta-space \(M\) such that
 \[
     \Omega(K)\subseteq\Omega(M), \qquad A(K)\subseteq A(M).
@@ -178,7 +150,21 @@ Every continuum is assumed to be embedded in a surrounding meta-space \(M\) such
 The meta-space provides additional admissible states and axes that can host future dimensional extensions of \(K\).
 
 \paragraph{State space and boundary}
-Thresholds are represented as functions \(f_i : \overline{\Omega(K)} \to \mathbb{R}\) with
+Boundaries are represented first as typed admissibility classifiers
+\[
+    b_i:\Omega_{\mathrm{cand}}(K)\to \mathbf{Status}_i,
+    \qquad
+    \mathrm{fail}_i:\mathbf{Status}_i\to\{\top,\bot\}.
+\]
+The admissible state set is
+\[
+    \Omega(K)=\{s\in\Omega_{\mathrm{cand}}(K)\mid
+    \neg\mathrm{fail}_i(b_i(s))\ \forall i\}.
+\]
+The older real-valued threshold notation is the quantitative special case in
+which \(\mathbf{Status}_i=\mathbb{R}\) and \(\mathrm{fail}_i(x)\) means
+\(x>0\). In that special case one may write functions
+\(f_i : \overline{\Omega(K)} \to \mathbb{R}\) with
 \[
     f_i(s) \le 0 \quad\text{for all } s \in \Omega(K),
 \]
@@ -186,7 +172,10 @@ and the boundary is defined as
 \[
     \partial\Omega(K) = \{ s \in \overline{\Omega(K)} \mid \exists\, i: f_i(s) = 0 \}.
 \]
-This definition requires no metric and applies equally to geometric, topological, energetic, informational, or logical continua.
+This displayed boundary equation is therefore not primitive for all domains. It
+is the metric or real-valued specialization of the classifier boundary and
+must not be used to force logical, proof-theoretic, social, or categorical
+boundaries into artificial numerical geometry.
 
 The boundary is dynamic. The notation below is an update map, not a derivative
 of a set-valued object:
@@ -223,11 +212,14 @@ with corresponding boundary components given by the equalities.
 Potentials \(P(t)\) encode the internal configuration of constraints and driving forces within a continuum.
 They may correspond to energy landscapes, chemical concentrations, membrane gradients, representational or informational structures, or institutional and normative pressures.
 
-The aggregate flow vector \(J(t)\) describes the rate of change of potentials:
+The aggregate flow vector \(J(t)\) describes typed potential update. In smooth
+realizations this update can be written as a derivative,
 \[
     \frac{dP}{dt} = J(t),
 \]
-with \(J(t)\) decomposed into structurally distinct components:
+but in discrete, proof-replay, stochastic, logical, or governance realizations
+\(J\) is a transition/update component rather than a differential object. With
+that typing fixed, \(J(t)\) decomposes into structurally distinct components:
 \begin{itemize}
     \item \textbf{supporting flows} \(J_{\mathrm{support}}\), which maintain cycles and stabilise \(k(K,t)\);
     \item \textbf{critical flows} \(J_{\mathrm{critical}}\), which move the system towards or across critical thresholds \(\Theta_{\mathrm{crit}}\) and \(\Theta_{\mathrm{dim}}\);
@@ -240,8 +232,11 @@ Dimensional transitions occur when \(T(K,t)\) exceeds \(\Theta_{\mathrm{dim}}(K)
 
 \subsection{Cycles and continuumness}
 
-Cycles \(C(K)\) are closed trajectories in \(\Omega(K)\) that remain at a finite distance from the boundary and preserve continuumness.
-At a structural level, cycles satisfy
+Cycles \(C(K)\) are declared cycle modes: maintenance recurrences, renewal
+loops, proof replays, regulatory updates, periodic orbits, or degenerate
+fixed-point maintenance checks. A closed trajectory in \(\Omega(K)\) is only
+the smooth or geometric special case.
+When a quantitative trajectory realization is declared, cycles may satisfy
 \[
     L(C) = \int_C d\ell_K < \infty,\qquad
     S(C) = \min_{s \in C} \delta_{\partial\Omega}(s) > 0,
@@ -249,8 +244,8 @@ At a structural level, cycles satisfy
 where \(d\ell_K\) is the chosen structural length element for the realised
 continuum and \(\delta_{\partial\Omega}(s)\) is the corresponding boundary
 clearance.
-The boundary definition above is metric-free; these cycle estimates add a
-structural gauge only when quantitative clearance or length is being measured.
+The classifier boundary definition above is metric-free; these cycle estimates
+add a structural gauge only when quantitative clearance or length is being measured.
 In metric realisations this gauge may be an induced distance. In non-metric
 realisations it is any level-admissible separation functional that vanishes
 exactly on the boundary and is positive on structurally interior states.
@@ -485,3 +480,52 @@ It has also fixed the evolution operator, the embedding into meta-spaces, the
 structural conditions for birth, life, and death, the interaction operator, and
 the vertical hierarchy \(K_0\)–\(K_{12}\).
 All further developments in the Core and in extension papers rely on this structure as their common foundation.
+
+
+\subsection{Minimality route for the OC verdict interface}
+\label{sec:oc13-global-verdict-minimality}
+
+The tuple \(K=(\Omega,A,P,J,\Theta,\partial\Omega,C,k)\) is the public interface
+used by this release. Core 1.3.3 no longer promotes a public theorem of global
+verdict-invariant minimality. Instead it records a route: each tuple component
+has a witness-replay row in \texttt{proofs/minimality/WITNESS\_PAIRS.json}, and the
+claim ledger marks \(T133\)-MIN as
+\(\mathrm{DEMOTED\_TO\_ROUTE\_NO\_PUBLIC\_PROMOTION}\).
+
+\paragraph{Route status.}
+The route says what a future minimality theorem would need to prove: for a
+primitive distinction \(\pi_p\), provide formal histories \(H_a,H_b\), a
+forgetful map that removes only \(\pi_p\), and a verdict function
+\(V_{\mathrm{OC}}\) such that all other components agree while
+\(V_{\mathrm{OC}}(H_a)\neq V_{\mathrm{OC}}(H_b)\).  Core 1.3.3 supplies
+machine-readable witness fixtures and an executable replay check for that
+route, but it does not claim a complete formal lower-bound theorem.
+
+\paragraph{Use in this release.}
+\(\partial\Omega\), \(J\), and \(k\) may be derived in local models only when
+the derivation still preserves the boundary, flow, and continuumness verdict
+information. Derivation is allowed; information loss is not. This is a route
+constraint for reviewer orientation, not a promoted minimality proof.
+
+% OC_CORE_1_3_3_SCIENTIFIC_CLOSURE_BRIDGE
+
+\subsection{OC Core 1.3.3 scientific closure bridge}
+\label{sec:oc133-scientific-closure-bridge}
+
+Core 1.3.3 repairs the known reviewer attack surfaces by typing the continuum
+carrier separately from live realizations, replacing global \(K_0\)
+discreteness with resolution-relative quotient distinguishability, treating
+boundaries as admissibility classifiers, and reading \(F,G,H,Q,R,S,U\) as
+hybrid update components rather than universal derivatives.  The public tuple
+\[
+K=(\Omega,A,P,J,\Theta,\partial\Omega,C,k)
+\]
+is preserved as the interface, but load-bearing statements now distinguish
+\(\Omega_{\mathrm{law}}(K)\), \(\Omega_t(K)\), and
+\(\Omega_{\mathrm{res}}(K,t)\).  A carrier may persist while live admissibility
+is empty, so death, residue, and rebirth no longer create a type contradiction.
+
+Continuumness \(k\) is a diagnostic scalar governed by explicit zero-cause
+families.  Live status is a predicate, collapse cause is typed, and the old
+multiplicative formula is retained only as a lawful local aggregator under its
+declared assumptions.

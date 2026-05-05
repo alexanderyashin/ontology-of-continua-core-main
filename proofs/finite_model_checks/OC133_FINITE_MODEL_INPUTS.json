@@ -6207,6 +6207,316 @@
         ]
       },
       "negative_control_id": "ADV-NOSEND-PUBLISH-HYPOTHETICAL-OWNER-APPROVED-CONTROL"
+    },
+    {
+      "case_id": "FM-GRAND-TOE-FORMAL-CURRENT-REJECT",
+      "theorem_id": "OC133-GRAND-TOE-FORMAL-BLOCKER",
+      "case_type": "grand_toe_formal_obligation",
+      "expected_verdict": "REJECT_PROMOTION",
+      "model": {
+        "mode": "current_claim_ledger",
+        "claim_ledger_ref": "claims/CLAIM_LEDGER_1_3_3.json",
+        "requested_claim_classes": [
+          "numerically_proven_toe",
+          "all_domain_numerical_prediction",
+          "predicts_better_than_modern_science"
+        ],
+        "required_promotion_theorem_ids": [
+          "OC133-GRAND-TOE-HYPOTHETICAL-PROMOTION"
+        ],
+        "blocking_theorem_ids": [
+          "OC133-GRAND-TOE-FORMAL-BLOCKER"
+        ],
+        "required_lean_refs": [
+          "formal/lean/OC133V12.lean::grand_toe_promotion_requires_all_formal_obligations",
+          "formal/lean/OC133V12.lean::grand_toe_promotion_requires_theorem_obligation_mapping",
+          "formal/lean/OC133V12.lean::grand_toe_complete_formal_obligations_accept_control",
+          "formal/lean/OC133V12.lean::grand_toe_current_artifact_class_cannot_promote",
+          "formal/lean/OC133V12.lean::grand_toe_current_artifact_class_missing_dedicated_claim",
+          "formal/lean/OC133V12.lean::grand_toe_missing_finite_cases_blocks_promotion",
+          "formal/lean/OC133V12.lean::grand_toe_missing_theorem_proof_mapping_blocks_promotion",
+          "formal/lean/OC133V12.lean::grand_toe_missing_lean_mapping_blocks_promotion",
+          "formal/lean/OC133V12.lean::grand_toe_missing_finite_case_mapping_blocks_promotion",
+          "formal/lean/OC133V12.lean::grand_toe_missing_claim_ledger_boundary_blocks_promotion"
+        ],
+        "required_finite_case_ids": [
+          "FM-GRAND-TOE-FORMAL-CURRENT-REJECT",
+          "FM-GRAND-TOE-FORMAL-HYPOTHETICAL-ACCEPT",
+          "FM-GRAND-TOE-FORMAL-MISSING-FINITE-REJECT"
+        ],
+        "proof_sheet_refs": [
+          "proofs/proof_sheets/GRAND_TOE_FORMAL_BLOCKER.md"
+        ],
+        "current_artifact_class": "bounded theorem rows plus replay/baseline support; no dedicated promoted grand TOE/all-domain claim row"
+      },
+      "negative_control_id": "FM-GRAND-TOE-FORMAL-HYPOTHETICAL-ACCEPT",
+      "lean_ref": "formal/lean/OC133V12.lean::grand_toe_current_artifact_class_cannot_promote"
+    },
+    {
+      "case_id": "FM-GRAND-TOE-FORMAL-HYPOTHETICAL-ACCEPT",
+      "theorem_id": "OC133-GRAND-TOE-FORMAL-BLOCKER",
+      "case_type": "grand_toe_formal_obligation",
+      "expected_verdict": "ACCEPT_PROMOTION",
+      "model": {
+        "mode": "hypothetical_complete",
+        "promoted_grand_claim_ids": [
+          "OC133-GRAND-TOE-HYPOTHETICAL-PROMOTION"
+        ],
+        "dedicated_claim_row": true,
+        "release_promotion_allowed": true,
+        "scientific_promotion_allowed": true,
+        "public_status_promoted": true,
+        "unsupported_promoted_total": 0,
+        "requested_claim_classes": [
+          "numerically_proven_toe",
+          "all_domain_numerical_prediction",
+          "predicts_better_than_modern_science"
+        ],
+        "claim_ledger": {
+          "promotion_authorizations": [
+            {
+              "scope": "release",
+              "authorized": true,
+              "authority": "finite_hypothetical_control"
+            }
+          ],
+          "unsupported_promoted_total": 0,
+          "rows": [
+            {
+              "claim_id": "OC133-GRAND-TOE-HYPOTHETICAL-PROMOTION",
+              "claim": "Hypothetical grand TOE all-domain numerical prediction that predicts better than modern science.",
+              "claim_classes": [
+                "numerically_proven_toe",
+                "all_domain_numerical_prediction",
+                "predicts_better_than_modern_science"
+              ],
+              "promotion_authorizations": [
+                {
+                  "scope": "release",
+                  "authorized": true,
+                  "authority": "finite_hypothetical_control"
+                },
+                {
+                  "scope": "scientific",
+                  "authorized": true,
+                  "authority": "finite_hypothetical_control"
+                },
+                {
+                  "scope": "public",
+                  "authorized": true,
+                  "authority": "finite_hypothetical_control"
+                }
+              ],
+              "promotion_theorem_ids": [
+                "OC133-GRAND-TOE-HYPOTHETICAL-PROMOTION"
+              ],
+              "proof_sheet_refs": [
+                "proofs/proof_sheets/GRAND_TOE_FORMAL_BLOCKER.md"
+              ],
+              "lean_refs": [
+                "formal/lean/OC133V12.lean::grand_toe_promotion_requires_all_formal_obligations",
+                "formal/lean/OC133V12.lean::grand_toe_promotion_requires_theorem_obligation_mapping",
+                "formal/lean/OC133V12.lean::grand_toe_complete_formal_obligations_accept_control",
+                "formal/lean/OC133V12.lean::grand_toe_current_artifact_class_cannot_promote",
+                "formal/lean/OC133V12.lean::grand_toe_current_artifact_class_missing_dedicated_claim",
+                "formal/lean/OC133V12.lean::grand_toe_missing_finite_cases_blocks_promotion",
+                "formal/lean/OC133V12.lean::grand_toe_missing_theorem_proof_mapping_blocks_promotion",
+                "formal/lean/OC133V12.lean::grand_toe_missing_lean_mapping_blocks_promotion",
+                "formal/lean/OC133V12.lean::grand_toe_missing_finite_case_mapping_blocks_promotion",
+                "formal/lean/OC133V12.lean::grand_toe_missing_claim_ledger_boundary_blocks_promotion"
+              ],
+              "finite_case_ids": [
+                "FM-GRAND-TOE-FORMAL-CURRENT-REJECT",
+                "FM-GRAND-TOE-FORMAL-HYPOTHETICAL-ACCEPT",
+                "FM-GRAND-TOE-FORMAL-MISSING-FINITE-REJECT"
+              ]
+            }
+          ]
+        },
+        "theorem_obligation_rows": [
+          {
+            "theorem_id": "OC133-GRAND-TOE-HYPOTHETICAL-PROMOTION",
+            "proof_sheet_refs": [
+              "proofs/proof_sheets/GRAND_TOE_FORMAL_BLOCKER.md"
+            ],
+            "lean_refs": [
+              "formal/lean/OC133V12.lean::grand_toe_promotion_requires_all_formal_obligations",
+              "formal/lean/OC133V12.lean::grand_toe_promotion_requires_theorem_obligation_mapping",
+              "formal/lean/OC133V12.lean::grand_toe_complete_formal_obligations_accept_control",
+              "formal/lean/OC133V12.lean::grand_toe_current_artifact_class_cannot_promote",
+              "formal/lean/OC133V12.lean::grand_toe_current_artifact_class_missing_dedicated_claim",
+              "formal/lean/OC133V12.lean::grand_toe_missing_finite_cases_blocks_promotion",
+              "formal/lean/OC133V12.lean::grand_toe_missing_theorem_proof_mapping_blocks_promotion",
+              "formal/lean/OC133V12.lean::grand_toe_missing_lean_mapping_blocks_promotion",
+              "formal/lean/OC133V12.lean::grand_toe_missing_finite_case_mapping_blocks_promotion",
+              "formal/lean/OC133V12.lean::grand_toe_missing_claim_ledger_boundary_blocks_promotion"
+            ],
+            "finite_case_ids": [
+              "FM-GRAND-TOE-FORMAL-CURRENT-REJECT",
+              "FM-GRAND-TOE-FORMAL-HYPOTHETICAL-ACCEPT",
+              "FM-GRAND-TOE-FORMAL-MISSING-FINITE-REJECT"
+            ]
+          }
+        ],
+        "required_promotion_theorem_ids": [
+          "OC133-GRAND-TOE-HYPOTHETICAL-PROMOTION"
+        ],
+        "blocking_theorem_ids": [
+          "OC133-GRAND-TOE-FORMAL-BLOCKER"
+        ],
+        "required_lean_refs": [
+          "formal/lean/OC133V12.lean::grand_toe_promotion_requires_all_formal_obligations",
+          "formal/lean/OC133V12.lean::grand_toe_promotion_requires_theorem_obligation_mapping",
+          "formal/lean/OC133V12.lean::grand_toe_complete_formal_obligations_accept_control",
+          "formal/lean/OC133V12.lean::grand_toe_current_artifact_class_cannot_promote",
+          "formal/lean/OC133V12.lean::grand_toe_current_artifact_class_missing_dedicated_claim",
+          "formal/lean/OC133V12.lean::grand_toe_missing_finite_cases_blocks_promotion",
+          "formal/lean/OC133V12.lean::grand_toe_missing_theorem_proof_mapping_blocks_promotion",
+          "formal/lean/OC133V12.lean::grand_toe_missing_lean_mapping_blocks_promotion",
+          "formal/lean/OC133V12.lean::grand_toe_missing_finite_case_mapping_blocks_promotion",
+          "formal/lean/OC133V12.lean::grand_toe_missing_claim_ledger_boundary_blocks_promotion"
+        ],
+        "required_finite_case_ids": [
+          "FM-GRAND-TOE-FORMAL-CURRENT-REJECT",
+          "FM-GRAND-TOE-FORMAL-HYPOTHETICAL-ACCEPT",
+          "FM-GRAND-TOE-FORMAL-MISSING-FINITE-REJECT"
+        ],
+        "proof_sheet_refs": [
+          "proofs/proof_sheets/GRAND_TOE_FORMAL_BLOCKER.md"
+        ],
+        "control_policy": "hypothetical only; not a current release promotion"
+      },
+      "negative_control_id": "FM-GRAND-TOE-FORMAL-MISSING-FINITE-REJECT",
+      "lean_ref": "formal/lean/OC133V12.lean::grand_toe_complete_formal_obligations_accept_control"
+    },
+    {
+      "case_id": "FM-GRAND-TOE-FORMAL-MISSING-FINITE-REJECT",
+      "theorem_id": "OC133-GRAND-TOE-FORMAL-BLOCKER",
+      "case_type": "grand_toe_formal_obligation",
+      "expected_verdict": "REJECT_PROMOTION",
+      "model": {
+        "mode": "hypothetical_missing_finite",
+        "promoted_grand_claim_ids": [
+          "OC133-GRAND-TOE-HYPOTHETICAL-PROMOTION"
+        ],
+        "dedicated_claim_row": true,
+        "release_promotion_allowed": true,
+        "scientific_promotion_allowed": true,
+        "public_status_promoted": true,
+        "unsupported_promoted_total": 0,
+        "requested_claim_classes": [
+          "numerically_proven_toe",
+          "all_domain_numerical_prediction",
+          "predicts_better_than_modern_science"
+        ],
+        "claim_ledger": {
+          "promotion_authorizations": [
+            {
+              "scope": "release",
+              "authorized": true,
+              "authority": "finite_hypothetical_control"
+            }
+          ],
+          "unsupported_promoted_total": 0,
+          "rows": [
+            {
+              "claim_id": "OC133-GRAND-TOE-HYPOTHETICAL-PROMOTION",
+              "claim": "Hypothetical grand TOE all-domain numerical prediction that predicts better than modern science.",
+              "claim_classes": [
+                "numerically_proven_toe",
+                "all_domain_numerical_prediction",
+                "predicts_better_than_modern_science"
+              ],
+              "promotion_authorizations": [
+                {
+                  "scope": "release",
+                  "authorized": true,
+                  "authority": "finite_hypothetical_control"
+                },
+                {
+                  "scope": "scientific",
+                  "authorized": true,
+                  "authority": "finite_hypothetical_control"
+                },
+                {
+                  "scope": "public",
+                  "authorized": true,
+                  "authority": "finite_hypothetical_control"
+                }
+              ],
+              "promotion_theorem_ids": [
+                "OC133-GRAND-TOE-HYPOTHETICAL-PROMOTION"
+              ],
+              "proof_sheet_refs": [
+                "proofs/proof_sheets/GRAND_TOE_FORMAL_BLOCKER.md"
+              ],
+              "lean_refs": [
+                "formal/lean/OC133V12.lean::grand_toe_promotion_requires_all_formal_obligations",
+                "formal/lean/OC133V12.lean::grand_toe_promotion_requires_theorem_obligation_mapping",
+                "formal/lean/OC133V12.lean::grand_toe_complete_formal_obligations_accept_control",
+                "formal/lean/OC133V12.lean::grand_toe_current_artifact_class_cannot_promote",
+                "formal/lean/OC133V12.lean::grand_toe_current_artifact_class_missing_dedicated_claim",
+                "formal/lean/OC133V12.lean::grand_toe_missing_finite_cases_blocks_promotion",
+                "formal/lean/OC133V12.lean::grand_toe_missing_theorem_proof_mapping_blocks_promotion",
+                "formal/lean/OC133V12.lean::grand_toe_missing_lean_mapping_blocks_promotion",
+                "formal/lean/OC133V12.lean::grand_toe_missing_finite_case_mapping_blocks_promotion",
+                "formal/lean/OC133V12.lean::grand_toe_missing_claim_ledger_boundary_blocks_promotion"
+              ],
+              "finite_case_ids": []
+            }
+          ]
+        },
+        "theorem_obligation_rows": [
+          {
+            "theorem_id": "OC133-GRAND-TOE-HYPOTHETICAL-PROMOTION",
+            "proof_sheet_refs": [
+              "proofs/proof_sheets/GRAND_TOE_FORMAL_BLOCKER.md"
+            ],
+            "lean_refs": [
+              "formal/lean/OC133V12.lean::grand_toe_promotion_requires_all_formal_obligations",
+              "formal/lean/OC133V12.lean::grand_toe_promotion_requires_theorem_obligation_mapping",
+              "formal/lean/OC133V12.lean::grand_toe_complete_formal_obligations_accept_control",
+              "formal/lean/OC133V12.lean::grand_toe_current_artifact_class_cannot_promote",
+              "formal/lean/OC133V12.lean::grand_toe_current_artifact_class_missing_dedicated_claim",
+              "formal/lean/OC133V12.lean::grand_toe_missing_finite_cases_blocks_promotion",
+              "formal/lean/OC133V12.lean::grand_toe_missing_theorem_proof_mapping_blocks_promotion",
+              "formal/lean/OC133V12.lean::grand_toe_missing_lean_mapping_blocks_promotion",
+              "formal/lean/OC133V12.lean::grand_toe_missing_finite_case_mapping_blocks_promotion",
+              "formal/lean/OC133V12.lean::grand_toe_missing_claim_ledger_boundary_blocks_promotion"
+            ],
+            "finite_case_ids": []
+          }
+        ],
+        "required_promotion_theorem_ids": [
+          "OC133-GRAND-TOE-HYPOTHETICAL-PROMOTION"
+        ],
+        "blocking_theorem_ids": [
+          "OC133-GRAND-TOE-FORMAL-BLOCKER"
+        ],
+        "required_lean_refs": [
+          "formal/lean/OC133V12.lean::grand_toe_promotion_requires_all_formal_obligations",
+          "formal/lean/OC133V12.lean::grand_toe_promotion_requires_theorem_obligation_mapping",
+          "formal/lean/OC133V12.lean::grand_toe_complete_formal_obligations_accept_control",
+          "formal/lean/OC133V12.lean::grand_toe_current_artifact_class_cannot_promote",
+          "formal/lean/OC133V12.lean::grand_toe_current_artifact_class_missing_dedicated_claim",
+          "formal/lean/OC133V12.lean::grand_toe_missing_finite_cases_blocks_promotion",
+          "formal/lean/OC133V12.lean::grand_toe_missing_theorem_proof_mapping_blocks_promotion",
+          "formal/lean/OC133V12.lean::grand_toe_missing_lean_mapping_blocks_promotion",
+          "formal/lean/OC133V12.lean::grand_toe_missing_finite_case_mapping_blocks_promotion",
+          "formal/lean/OC133V12.lean::grand_toe_missing_claim_ledger_boundary_blocks_promotion"
+        ],
+        "required_finite_case_ids": [
+          "FM-GRAND-TOE-FORMAL-CURRENT-REJECT",
+          "FM-GRAND-TOE-FORMAL-HYPOTHETICAL-ACCEPT",
+          "FM-GRAND-TOE-FORMAL-MISSING-FINITE-REJECT"
+        ],
+        "proof_sheet_refs": [
+          "proofs/proof_sheets/GRAND_TOE_FORMAL_BLOCKER.md"
+        ],
+        "negative_control_isolated_dimension": "finite_case_ids_missing_only"
+      },
+      "negative_control_id": "",
+      "lean_ref": "formal/lean/OC133V12.lean::grand_toe_missing_finite_cases_blocks_promotion"
     }
   ],
   "public_metadata_ref_total": 9,

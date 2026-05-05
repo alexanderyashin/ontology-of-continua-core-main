@@ -1726,6 +1726,25 @@ class ReleaseAssemblyMachineTests(unittest.TestCase):
             self.assertEqual(comparison["summary"][key], "PASS", key)
             self.assertEqual(quality["summary"][key], "PASS", key)
 
+    def test_final_toe_projection_lanes_block_r017_unless_ai_ea_are_anchored(self) -> None:
+        tools_dir = ROOT / "tools"
+        if str(tools_dir) not in sys.path:
+            sys.path.insert(0, str(tools_dir))
+        from oc_core_1_3_science_spot_lib import (
+            FINAL_TOE_PROJECTION_LANE_TARGETS,
+            validate_final_toe_grand_science_scorecard,
+            validate_final_toe_projection_lanes,
+        )
+
+        errors = validate_final_toe_projection_lanes(ROOT)
+        self.assertTrue(FINAL_TOE_PROJECTION_LANE_TARGETS["AI"].exists())
+        self.assertTrue(FINAL_TOE_PROJECTION_LANE_TARGETS["ENTERPRISE_ARCHITECTURE"].exists())
+        self.assertTrue(any("AI lane closure_verdict is not PASS" in error for error in errors))
+        self.assertTrue(any("ENTERPRISE_ARCHITECTURE lane closure_verdict is not PASS" in error for error in errors))
+        scorecard_errors = validate_final_toe_grand_science_scorecard(ROOT)
+        self.assertTrue(any("grand_toe_claim_ledger_evidence is not PASS" in error for error in scorecard_errors))
+        self.assertTrue(any("modern_science_comparator_superiority is not PASS" in error for error in scorecard_errors))
+
     def test_recovery_r017_is_fail_closed_until_final_toe_validator_passes(self) -> None:
         tools_dir = ROOT / "tools"
         if str(tools_dir) not in sys.path:

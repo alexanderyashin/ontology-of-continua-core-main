@@ -213,6 +213,7 @@ EXPECTED_APPENDIX_ORDER = [
     "appendix/P_oc_core_1_3_reference_benchmark_atlas.tex",
     "appendix/Q_oc_core_1_3_toe_support_dossiers.tex",
     "appendix/R_oc_core_1_3_practical_utility_model_comparison_atlas.tex",
+    "appendix/S_oc_core_1_3_external_criticism_closure.tex",
 ]
 PRIMARY_CITATION_TARGETS = [
     "content/14_disciplines_extended.tex",

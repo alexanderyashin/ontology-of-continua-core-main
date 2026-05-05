@@ -1,7 +1,7 @@
 # OC Core Release Remediation Delta 1.3.3.r001
 
 Status: `NO_DELTA_REQUIRED`
-Artifact hash: `358bff872ce368c40ad47a3b2c8a124b88133a2a855b2f51edfea0ebd9b34f0a`
+Artifact hash: `c4678d2243c122640e0f2722a56a2fdadba889baf21cf60959e09b52354935cb`
 Affected nodes: `0`
 
 ## Delta Items

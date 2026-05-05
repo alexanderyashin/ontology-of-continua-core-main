@@ -3,7 +3,7 @@
 Status: `PASS`
 Baseline revision: `recovery_r015`
 Candidate revision: `recovery_r016`
-Artifact hash: `17ed880406a33c8d7f0b252d722cf440b0bf8d921c406a7a51d7a4fed7518be6`
+Artifact hash: `19b66f01363058ba895addc2f54cc9ea2bad7cbfd28ddaf510f548b00b5a499a`
 
 ## Summary
 
@@ -13,7 +13,7 @@ Artifact hash: `17ed880406a33c8d7f0b252d722cf440b0bf8d921c406a7a51d7a4fed7518be6
 - `baseline_terminal_node_total`: 5386
 - `candidate_terminal_node_total`: 5386
 - `old_public_master_pages`: 650
-- `candidate_master_pages`: 652
+- `candidate_master_pages`: 656
 - `frontmatter_body_excluded_total`: 108
 - `title_page_status`: PASS
 - `toc_semantic_status`: PASS
@@ -140,12 +140,12 @@ Artifact hash: `17ed880406a33c8d7f0b252d722cf440b0bf8d921c406a7a51d7a4fed7518be6
 - `PASS` `blocked_terminal_total`: baseline=`0` candidate=`0`
 - `PASS` `transition_record_coverage`: baseline=`5385` candidate=`5385`
 - `PASS` `old_public_page_baseline::journal_core_article`: baseline=`13` candidate=`13`
-- `PASS` `old_public_page_baseline::master_monograph`: baseline=`650` candidate=`652`
+- `PASS` `old_public_page_baseline::master_monograph`: baseline=`650` candidate=`656`
 - `PASS_EXPLAINED` `old_public_page_baseline::methods_repro_companion`: baseline=`17` candidate=`11`
 - `PASS_EXPLAINED` `old_public_page_baseline::release_guide`: baseline=`9` candidate=`8`
 - `PASS_EXPLAINED` `old_public_page_baseline::reviewer_attack_response_map`: baseline=`19` candidate=`12`
 - `PASS` `assembly_page_delta::journal_core_article`: baseline=`13` candidate=`13`
-- `PASS` `assembly_page_delta::master_monograph`: baseline=`652` candidate=`652`
+- `PASS` `assembly_page_delta::master_monograph`: baseline=`652` candidate=`656`
 - `PASS` `assembly_page_delta::methods_repro_companion`: baseline=`11` candidate=`11`
 - `PASS` `assembly_page_delta::release_guide`: baseline=`8` candidate=`8`
 - `PASS` `assembly_page_delta::reviewer_attack_response_map`: baseline=`12` candidate=`12`

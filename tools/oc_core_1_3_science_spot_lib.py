@@ -1122,6 +1122,29 @@ SCIENCE_SURFACE_TARGETS = {
     "practical_utility": EDITORIAL_DIR / "OC_CORE_1_3_PRACTICAL_UTILITY_ATLAS_latest.json",
 }
 
+FINAL_TOE_PROJECTION_LANE_TARGETS = {
+    "AI": EDITORIAL_DIR / "science_sources" / "toe_projection_lanes" / "ai.json",
+    "ENTERPRISE_ARCHITECTURE": EDITORIAL_DIR / "science_sources" / "toe_projection_lanes" / "enterprise_architecture.json",
+}
+
+FINAL_TOE_PROJECTION_REQUIRED_ROW_FIELDS = [
+    "claim_id",
+    "projection_id",
+    "public_claim_scope",
+    "theorem_or_formal_boundary_refs",
+    "evidence_or_simulation_refs",
+    "comparator_refs",
+    "falsifier_refs",
+    "closure_verdict",
+]
+
+FINAL_TOE_GRAND_SCIENCE_SCORECARD = REPO_ROOT / "operations" / "logion_release_mission" / "oc_core_1_3_3" / "OC133_ALL_DOMAIN_READINESS_SCORECARD.json"
+FINAL_TOE_REQUIRED_GRAND_CHECKS = [
+    "grand_toe_claim_ledger_evidence",
+    "grand_toe_empirical_superiority",
+    "modern_science_comparator_superiority",
+]
+
 TEMPLATE_SYNC_MAP = {
     REPO_ROOT / "oc_core_1_3_master_monograph.tex": MONOGRAPH_SOURCE_DIR / "oc_core_1_3_master_monograph.tex",
     REPO_ROOT / "content" / "frontmatter_oc_core_1_3_master.tex": MONOGRAPH_SOURCE_DIR / "content" / "frontmatter_oc_core_1_3_master.tex",
@@ -6499,6 +6522,74 @@ def validate_spot_structure(
     return errors
 
 
+def validate_final_toe_projection_lanes(repo_root: Path | None = None) -> list[str]:
+    repo_root = repo_root or REPO_ROOT
+    errors: list[str] = []
+    for lane_id, target_path in FINAL_TOE_PROJECTION_LANE_TARGETS.items():
+        if not target_path.exists():
+            errors.append(f"Final TOE projection validation failed: {lane_id} lane is missing: {target_path}")
+            continue
+        try:
+            payload = load_json(target_path)
+        except Exception as exc:
+            errors.append(f"Final TOE projection validation failed: {lane_id} lane is unreadable: {exc}")
+            continue
+        if payload.get("closure_verdict") != "PASS":
+            errors.append(f"Final TOE projection validation failed: {lane_id} lane closure_verdict is not PASS")
+        if payload.get("final_toe_support_allowed") is not True:
+            errors.append(f"Final TOE projection validation failed: {lane_id} lane final_toe_support_allowed is not true")
+        rows = payload.get("rows", [])
+        if not isinstance(rows, list) or not rows:
+            errors.append(f"Final TOE projection validation failed: {lane_id} lane has no projection rows")
+            continue
+        for index, row in enumerate(rows, start=1):
+            if not isinstance(row, dict):
+                errors.append(f"Final TOE projection validation failed: {lane_id} row {index} is not an object")
+                continue
+            for field in FINAL_TOE_PROJECTION_REQUIRED_ROW_FIELDS:
+                if not row.get(field):
+                    errors.append(f"Final TOE projection validation failed: {lane_id} row {index} is missing {field}")
+            if row.get("closure_verdict") != "PASS":
+                errors.append(f"Final TOE projection validation failed: {lane_id} row {index} is not PASS")
+            for ref_field in [
+                "theorem_or_formal_boundary_refs",
+                "evidence_or_simulation_refs",
+                "comparator_refs",
+                "falsifier_refs",
+            ]:
+                refs = row.get(ref_field, [])
+                if not isinstance(refs, list):
+                    errors.append(f"Final TOE projection validation failed: {lane_id} row {index} {ref_field} is not a list")
+                    continue
+                for ref in refs:
+                    ref_path = str(ref).split("::", 1)[0].strip()
+                    if ref_path and not (repo_root / ref_path).exists():
+                        errors.append(f"Final TOE projection validation failed: {lane_id} row {index} ref is missing: {ref}")
+    return errors
+
+
+def validate_final_toe_grand_science_scorecard(repo_root: Path | None = None) -> list[str]:
+    repo_root = repo_root or REPO_ROOT
+    scorecard_path = repo_root / FINAL_TOE_GRAND_SCIENCE_SCORECARD.relative_to(REPO_ROOT)
+    errors: list[str] = []
+    if not scorecard_path.exists():
+        return [f"Final TOE grand-science validation failed: scorecard is missing: {scorecard_path}"]
+    try:
+        scorecard = load_json(scorecard_path)
+    except Exception as exc:
+        return [f"Final TOE grand-science validation failed: scorecard is unreadable: {exc}"]
+    blocker_ids = set(scorecard.get("blocker_ids", []))
+    if scorecard.get("all_domain_ready_no_send") is not True:
+        errors.append("Final TOE grand-science validation failed: all_domain_ready_no_send is not true")
+    for check_id in FINAL_TOE_REQUIRED_GRAND_CHECKS:
+        check = (scorecard.get("checks") or {}).get(check_id, {})
+        if check.get("state") != "PASS":
+            errors.append(f"Final TOE grand-science validation failed: {check_id} is not PASS")
+        if check_id in blocker_ids:
+            errors.append(f"Final TOE grand-science validation failed: {check_id} remains in blocker_ids")
+    return errors
+
+
 def validate_existing_bundle(repo_root: Path | None = None, require_final_toe_pass: bool = False) -> list[str]:
     repo_root = repo_root or REPO_ROOT
     errors: list[str] = []
@@ -6641,6 +6732,8 @@ def validate_existing_bundle(repo_root: Path | None = None, require_final_toe_pa
         for row in spot.get("toe_synthesis_registry", {}).get("empirical_prediction_rows", []):
             if row.get("closure_verdict") != "PASS":
                 errors.append(f"Final synthesis validation failed: {row.get('domain_id', 'UNKNOWN_DOMAIN')} is not PASS")
+        errors.extend(validate_final_toe_projection_lanes(repo_root))
+        errors.extend(validate_final_toe_grand_science_scorecard(repo_root))
     return errors
 
 

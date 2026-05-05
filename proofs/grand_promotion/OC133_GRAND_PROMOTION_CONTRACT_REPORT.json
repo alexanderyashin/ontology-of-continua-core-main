@@ -11,7 +11,8 @@
   "open_blockers": [
     "grand_toe_claim_ledger_evidence",
     "grand_toe_empirical_superiority",
-    "modern_science_comparator_superiority"
+    "modern_science_comparator_superiority",
+    "grand_promotion_finite_checks_not_passing"
   ],
   "failed_gate_predicates": [
     "dedicated_claim_row",
@@ -19,6 +20,10 @@
     "scientific_promotion_allowed",
     "public_status_promoted",
     "promotion_theorem_ids_bound",
+    "claim_lean_refs_bound",
+    "finite_refs_bound",
+    "finite_positive_negative_controls_bound",
+    "finite_checks_passed",
     "all_domain_empirical_pack_valid",
     "modern_science_superiority_certified"
   ],
@@ -29,11 +34,11 @@
     "public_status_promoted": false,
     "promotion_theorem_ids_bound": false,
     "proof_refs_bound": true,
-    "claim_lean_refs_bound": true,
-    "finite_refs_bound": true,
-    "finite_positive_negative_controls_bound": true,
+    "claim_lean_refs_bound": false,
+    "finite_refs_bound": false,
+    "finite_positive_negative_controls_bound": false,
     "unsupported_promoted_total_zero": true,
-    "finite_checks_passed": true,
+    "finite_checks_passed": false,
     "contract_lean_refs_bound": true,
     "all_domain_empirical_pack_valid": false,
     "modern_science_superiority_certified": false
@@ -60,10 +65,15 @@
     "promotion_theorem_ids": [],
     "claim_lean_refs": [
       "formal/lean/OC133V12.lean::grand_toe_promotion_requires_all_formal_obligations",
+      "formal/lean/OC133V12.lean::grand_toe_promotion_requires_theorem_obligation_mapping",
       "formal/lean/OC133V12.lean::grand_toe_complete_formal_obligations_accept_control",
       "formal/lean/OC133V12.lean::grand_toe_current_artifact_class_cannot_promote",
       "formal/lean/OC133V12.lean::grand_toe_current_artifact_class_missing_dedicated_claim",
-      "formal/lean/OC133V12.lean::grand_toe_missing_finite_cases_blocks_promotion"
+      "formal/lean/OC133V12.lean::grand_toe_missing_finite_cases_blocks_promotion",
+      "formal/lean/OC133V12.lean::grand_toe_missing_theorem_proof_mapping_blocks_promotion",
+      "formal/lean/OC133V12.lean::grand_toe_missing_lean_mapping_blocks_promotion",
+      "formal/lean/OC133V12.lean::grand_toe_missing_finite_case_mapping_blocks_promotion",
+      "formal/lean/OC133V12.lean::grand_toe_missing_claim_ledger_boundary_blocks_promotion"
     ],
     "finite_case_ids": [
       "FM-GRAND-TOE-FORMAL-CURRENT-REJECT",
@@ -86,9 +96,9 @@
       "public_status_promoted": false,
       "promotion_theorem_ids_bound": false,
       "proof_refs_bound": true,
-      "claim_lean_refs_bound": true,
-      "finite_refs_bound": true,
-      "finite_positive_negative_controls_bound": true,
+      "claim_lean_refs_bound": false,
+      "finite_refs_bound": false,
+      "finite_positive_negative_controls_bound": false,
       "unsupported_promoted_total_zero": true
     },
     "failed_formal_gate_predicates": [
@@ -96,16 +106,22 @@
       "release_promotion_allowed",
       "scientific_promotion_allowed",
       "public_status_promoted",
-      "promotion_theorem_ids_bound"
+      "promotion_theorem_ids_bound",
+      "claim_lean_refs_bound",
+      "finite_refs_bound",
+      "finite_positive_negative_controls_bound"
     ]
   },
   "finite_checks_assessment": {
     "finite_checks_ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
-    "finite_checks_passed": true,
+    "finite_checks_passed": false,
     "case_total": 149,
-    "passed_total": 149,
-    "failure_total": 0,
-    "failed_case_ids": []
+    "passed_total": 147,
+    "failure_total": 2,
+    "failed_case_ids": [
+      "ADV-NOSEND-PUBLISH",
+      "FM-GRAND-TOE-FORMAL-HYPOTHETICAL-ACCEPT"
+    ]
   },
   "contract_lean_assessment": {
     "contract_lean_refs": [
@@ -152,127 +168,67 @@
   "grand_empirical_assessment": {
     "grand_empirical_report_ref": "reports/OC_CORE_1_3_3_GRAND_EMPIRICAL_REPORT.json",
     "all_domain_empirical_pack_valid": false,
-    "verdict": "BLOCKED_PENDING_GENUINE_PER_DOMAIN_EVIDENCE",
+    "verdict": "EMPIRICAL_DOMAIN_SUPPORT_ALLOWED",
     "grand_toe_support_allowed": false,
-    "domain_predictive_superiority_supported": false,
-    "blocked_domain_total": 5,
-    "valid_evidence_pack_total": 0,
+    "domain_predictive_superiority_supported": true,
+    "blocked_domain_total": 0,
+    "valid_evidence_pack_total": 4,
     "domain_rows": [
       {
         "domain": "biology",
         "grand_toe_support_allowed": false,
-        "valid_n": 0,
+        "valid_n": 30,
         "minimum_n": 20,
-        "valid_pack_total": 0,
-        "status": "BLOCKED",
-        "blockers": [
-          "GENUINE_EVIDENCE_N_BELOW_MINIMUM::0/20",
-          "NO_VALID_PROSPECTIVE_OR_TARGET_BLIND_EVIDENCE_PACK",
-          "CANDIDATE_EVIDENCE_PACKS_INVALID::3"
-        ]
+        "valid_pack_total": 1,
+        "status": "EVIDENCE_SUFFICIENT_PENDING_REVIEW",
+        "blockers": []
       },
       {
         "domain": "chemistry",
         "grand_toe_support_allowed": false,
-        "valid_n": 0,
+        "valid_n": 20,
         "minimum_n": 20,
-        "valid_pack_total": 0,
-        "status": "BLOCKED",
-        "blockers": [
-          "GENUINE_EVIDENCE_N_BELOW_MINIMUM::0/20",
-          "NO_VALID_PROSPECTIVE_OR_TARGET_BLIND_EVIDENCE_PACK",
-          "CANDIDATE_EVIDENCE_PACKS_INVALID::1"
-        ]
-      },
-      {
-        "domain": "mathematics",
-        "grand_toe_support_allowed": false,
-        "valid_n": 0,
-        "minimum_n": 20,
-        "valid_pack_total": 0,
-        "status": "BLOCKED",
-        "blockers": [
-          "GENUINE_EVIDENCE_N_BELOW_MINIMUM::0/20",
-          "NO_VALID_PROSPECTIVE_OR_TARGET_BLIND_EVIDENCE_PACK",
-          "CANDIDATE_EVIDENCE_PACKS_INVALID::1",
-          "CURRENT_FORMAL_CORPUS_BASELINE_IS_NOT_EMPIRICAL_GRAND_SCIENCE_EVIDENCE"
-        ]
+        "valid_pack_total": 1,
+        "status": "EVIDENCE_SUFFICIENT_PENDING_REVIEW",
+        "blockers": []
       },
       {
         "domain": "physics",
         "grand_toe_support_allowed": false,
-        "valid_n": 0,
+        "valid_n": 44,
         "minimum_n": 20,
-        "valid_pack_total": 0,
-        "status": "BLOCKED",
-        "blockers": [
-          "GENUINE_EVIDENCE_N_BELOW_MINIMUM::0/20",
-          "NO_VALID_PROSPECTIVE_OR_TARGET_BLIND_EVIDENCE_PACK",
-          "CANDIDATE_EVIDENCE_PACKS_INVALID::1"
-        ]
+        "valid_pack_total": 1,
+        "status": "EVIDENCE_SUFFICIENT_PENDING_REVIEW",
+        "blockers": []
       },
       {
         "domain": "systems",
         "grand_toe_support_allowed": false,
-        "valid_n": 0,
+        "valid_n": 20,
         "minimum_n": 20,
-        "valid_pack_total": 0,
-        "status": "BLOCKED",
-        "blockers": [
-          "GENUINE_EVIDENCE_N_BELOW_MINIMUM::0/20",
-          "NO_VALID_PROSPECTIVE_OR_TARGET_BLIND_EVIDENCE_PACK",
-          "CANDIDATE_EVIDENCE_PACKS_INVALID::4"
-        ]
+        "valid_pack_total": 1,
+        "status": "EVIDENCE_SUFFICIENT_PENDING_REVIEW",
+        "blockers": []
       }
     ],
-    "failed_predicates": [
-      "biology::GENUINE_EVIDENCE_N_BELOW_MINIMUM::0/20",
-      "biology::NO_VALID_PROSPECTIVE_OR_TARGET_BLIND_EVIDENCE_PACK",
-      "biology::CANDIDATE_EVIDENCE_PACKS_INVALID::3",
-      "chemistry::GENUINE_EVIDENCE_N_BELOW_MINIMUM::0/20",
-      "chemistry::NO_VALID_PROSPECTIVE_OR_TARGET_BLIND_EVIDENCE_PACK",
-      "chemistry::CANDIDATE_EVIDENCE_PACKS_INVALID::1",
-      "mathematics::GENUINE_EVIDENCE_N_BELOW_MINIMUM::0/20",
-      "mathematics::NO_VALID_PROSPECTIVE_OR_TARGET_BLIND_EVIDENCE_PACK",
-      "mathematics::CANDIDATE_EVIDENCE_PACKS_INVALID::1",
-      "mathematics::CURRENT_FORMAL_CORPUS_BASELINE_IS_NOT_EMPIRICAL_GRAND_SCIENCE_EVIDENCE",
-      "physics::GENUINE_EVIDENCE_N_BELOW_MINIMUM::0/20",
-      "physics::NO_VALID_PROSPECTIVE_OR_TARGET_BLIND_EVIDENCE_PACK",
-      "physics::CANDIDATE_EVIDENCE_PACKS_INVALID::1",
-      "systems::GENUINE_EVIDENCE_N_BELOW_MINIMUM::0/20",
-      "systems::NO_VALID_PROSPECTIVE_OR_TARGET_BLIND_EVIDENCE_PACK",
-      "systems::CANDIDATE_EVIDENCE_PACKS_INVALID::4"
-    ]
+    "failed_predicates": []
   },
   "modern_science_assessment": {
     "modern_science_report_ref": "reports/OC_CORE_1_3_3_MODERN_SCIENCE_SUPERIORITY_REPORT.json",
     "modern_science_register_ref": "comparators/OC_1_3_3_MODERN_SCIENCE_SUPERIORITY_REGISTER.json",
     "modern_science_superiority_certified": false,
-    "verdict": "BLOCKED_NO_MODERN_SCIENCE_SUPERIORITY_CERTIFIED",
+    "verdict": "BROAD_MODERN_SCIENCE_SUPERIORITY_BLOCKED_BENCHMARK_SCOPED_BASELINES_CERTIFIED",
     "release_promotion_allowed": false,
-    "row_total": 5,
+    "row_total": 4,
     "superiority_certified_total": 0,
-    "blocked_superiority_total": 5,
-    "matrix_row_total": 5,
+    "blocked_superiority_total": 4,
+    "matrix_row_total": 4,
     "matrix_certified": false,
     "failed_predicates": [
-      "No lane has clean-checkout independent replay recorded in this register.",
-      "Physics and chemistry lanes remain exact-standard or curated-field reconstruction, not superiority evidence.",
-      "Biology lacks a biological mechanism benchmark beyond API/query accounting.",
-      "Systems lacks a prospective or time-locked protocol beyond retrospective pinned WDI rows.",
-      "Mathematics lacks public claim scope matching strong enough to certify superiority over Lean/formal mathematics.",
-      "physics::independent_replay_passes_from_clean_checkout",
-      "physics::result_is_not_merely_exact_standard_replay",
-      "physics::domain_relevance_exceeds_exact_standard_replay",
-      "chemistry::independent_replay_passes_from_clean_checkout",
-      "chemistry::not_a_curated_field_copy",
-      "chemistry::domain_relevance_exceeds_curated_field_reconstruction",
-      "biology::independent_replay_passes_from_clean_checkout",
-      "biology::biological_mechanism_test_present",
-      "systems::independent_replay_passes_from_clean_checkout",
-      "systems::prospective_or_time-locked_protocol_present",
-      "mathematics::independent_replay_passes_from_clean_checkout",
-      "mathematics::machine_checked_theorem_scope_matches_public_claim"
+      "Current strict evidence packs support only benchmark-scoped superiority over declared preregistered comparator baselines.",
+      "No artifact in this register surveys or defeats all modern-science incumbents across a domain, much less all of modern science.",
+      "The broad wording 'predicts better than modern science' remains blocked.",
+      "Independent clean temp-tree replay is bound to the register for the current strict packs; broad coverage remains blocked."
     ]
   },
   "pass_condition": "PASS requires a dedicated promoted grand claim row with theorem IDs, proof refs, Lean refs, finite positive and negative refs, zero unsupported promoted claims, a passing finite report, valid all-domain empirical evidence packs, and certified modern-science superiority.",

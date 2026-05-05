@@ -2,11 +2,13 @@
   "schema_id": "OC133_CLAIM_LEDGER_FULL_v12",
   "release_id": "oc_core_1_3_3",
   "version": "1.3.3",
-  "claim_total": 18,
+  "claim_total": 19,
   "unsupported_promoted_total": 0,
   "demoted_public_claim_total": 0,
-  "formal_consistency_limited_claim_total": 0,
-  "formal_consistency_limited_claim_ids": [],
+  "formal_consistency_limited_claim_total": 1,
+  "formal_consistency_limited_claim_ids": [
+    "OC133-GRAND-TOE-FORMAL-BLOCKER"
+  ],
   "adversarial_review_blocker_total": 0,
   "prior_cerberus_open_total_at_generation": 0,
   "fresh_cerberus_required_for_release": true,
@@ -17,7 +19,7 @@
   "scientific_promotion_wording_violation_total": 0,
   "scientific_promotion_wording_violations": [],
   "scientific_promotion_wording_lint_rule": "If scientific_promotion_allowed=false or evidence_ceiling=FORMAL_RELEASE_CONSISTENCY_CHECK_NOT_INDEPENDENT_SCIENTIFIC_THEOREM, promotion_condition must use explicit non-promotion language.",
-  "promotion_condition": "Current ledger rows are no-send owner-review obligations, replay-QA quarantine rows, non-promoted prior-art positioning notes, and a bounded governance control. Scientific promotion remains false until G57/G58/G70 pass after fresh zero critical/high Cerberus review.",
+  "promotion_condition": "Current ledger rows are no-send owner-review obligations, replay-QA quarantine rows, non-promoted prior-art positioning notes, a bounded governance control, and a machine-checked grand TOE formal non-promotion blocker. Scientific promotion remains false until G57/G58/G70 pass after fresh zero critical/high Cerberus review and the grand TOE formal/empirical/comparator blockers close.",
   "absolute_overclaim_policy": "BLOCK_PUBLIC_PROMOTION",
   "rows": [
     {
@@ -169,6 +171,48 @@
       "fresh_cerberus_required_for_release": true,
       "promotion_condition": "Eligible only as a bounded no-send scientific claim after G57, G58, and G70 pass with fresh zero critical/high Cerberus findings.",
       "scope_limit": "Bounded to stated theorem assumptions, finite witnesses, and public falsifier boundary."
+    },
+    {
+      "claim_id": "OC133-GRAND-TOE-FORMAL-BLOCKER",
+      "claim": "The current OC133 v12 artifact class cannot promote a dedicated grand TOE/all-domain claim because no promoted grand claim-ledger row is bound to theorem, proof-sheet, Lean, and finite-model obligations.",
+      "support": "LEAN_SUBSET_FINITE_NEGATIVE_OBLIGATION_PROOF",
+      "evidence_ref": "proofs/proof_sheets/GRAND_TOE_FORMAL_BLOCKER.md",
+      "supporting_evidence_refs": [
+        "formal/lean/OC133V12.lean::grand_toe_promotion_requires_all_formal_obligations",
+        "formal/lean/OC133V12.lean::grand_toe_promotion_requires_theorem_obligation_mapping",
+        "formal/lean/OC133V12.lean::grand_toe_complete_formal_obligations_accept_control",
+        "formal/lean/OC133V12.lean::grand_toe_current_artifact_class_cannot_promote",
+        "formal/lean/OC133V12.lean::grand_toe_current_artifact_class_missing_dedicated_claim",
+        "formal/lean/OC133V12.lean::grand_toe_missing_finite_cases_blocks_promotion",
+        "formal/lean/OC133V12.lean::grand_toe_missing_theorem_proof_mapping_blocks_promotion",
+        "formal/lean/OC133V12.lean::grand_toe_missing_lean_mapping_blocks_promotion",
+        "formal/lean/OC133V12.lean::grand_toe_missing_finite_case_mapping_blocks_promotion",
+        "formal/lean/OC133V12.lean::grand_toe_missing_claim_ledger_boundary_blocks_promotion",
+        "proofs/finite_model_checks/OC133_FINITE_MODEL_INPUTS.json::FM-GRAND-TOE-FORMAL-CURRENT-REJECT",
+        "proofs/finite_model_checks/OC133_FINITE_MODEL_INPUTS.json::FM-GRAND-TOE-FORMAL-HYPOTHETICAL-ACCEPT",
+        "proofs/finite_model_checks/OC133_FINITE_MODEL_INPUTS.json::FM-GRAND-TOE-FORMAL-MISSING-FINITE-REJECT",
+        "proofs/FINITE_MODEL_CHECKS_1_3_3.json::FM-GRAND-TOE-FORMAL-CURRENT-REJECT",
+        "proofs/FINITE_MODEL_CHECKS_1_3_3.json::FM-GRAND-TOE-FORMAL-HYPOTHETICAL-ACCEPT",
+        "proofs/FINITE_MODEL_CHECKS_1_3_3.json::FM-GRAND-TOE-FORMAL-MISSING-FINITE-REJECT",
+        "claims/GRAND_TOE_FORMAL_OBLIGATION_LEDGER_1_3_3.json",
+        "proofs/GRAND_TOE_FORMAL_OBLIGATION_LEDGER_1_3_3.json"
+      ],
+      "public_status": "FORMAL_BLOCKER_NOT_PROMOTED_V12",
+      "release_promotion_allowed": false,
+      "scientific_promotion_allowed": false,
+      "grand_toe_promotion_allowed": false,
+      "evidence_ceiling": "FORMAL_NONPROMOTION_OBLIGATION_PROOF_NOT_GRAND_THEOREM",
+      "blocker_id": "grand_toe_claim_ledger_evidence",
+      "current_reject_case": "FM-GRAND-TOE-FORMAL-CURRENT-REJECT",
+      "positive_hypothetical_accept_case": "FM-GRAND-TOE-FORMAL-HYPOTHETICAL-ACCEPT",
+      "negative_control_cases": [
+        "FM-GRAND-TOE-FORMAL-MISSING-FINITE-REJECT"
+      ],
+      "adversarial_review_blocker_total": 0,
+      "prior_cerberus_open_total_at_generation": 0,
+      "fresh_cerberus_required_for_release": true,
+      "promotion_condition": "Not promotable in the current artifact class; requires a future dedicated promoted grand claim row with theorem/proof/Lean/finite IDs plus separate empirical and comparator closure.",
+      "scope_limit": "This row is a blocker proof and work-order decomposition only. It is not a TOE theorem, empirical law, modern-science superiority claim, or public release authorization."
     },
     {
       "claim_id": "OC133-NUM-PHYS-C",

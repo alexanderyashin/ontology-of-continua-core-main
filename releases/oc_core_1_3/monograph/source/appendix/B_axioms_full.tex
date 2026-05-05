@@ -14,19 +14,26 @@ load-bearing formal rows.
 \subsection{Level \texorpdfstring{$K_0$}{K0} Axioms}
 
 \paragraph{Axiom 0.1 (Difference and distinguishability).}
-\(K_0 = (S,\Delta,\mathcal{C})\) with a difference function
-\(\Delta : S\times S \to \mathbb{R}_{\ge 0}\) such that
+\(K_0 = (S,\mathcal{R},\{\Delta_\rho\}_{\rho\in\mathcal{R}},\mathcal{C})\)
+with raw carrier \(S\), resolution regimes \(\rho\), quotients
+\(S_\rho=S/{\sim_\rho}\), and difference functions
+\(\Delta_\rho:S_\rho\times S_\rho\to\mathbb{R}_{\ge 0}\) such that
 \[
-  \Delta(s_1,s_2) = 0 \;\Rightarrow\; s_1 = s_2.
+  \Delta_\rho([s_1]_\rho,[s_2]_\rho)=0
+  \;\Rightarrow\;
+  [s_1]_\rho=[s_2]_\rho.
 \]
 
-\paragraph{Axiom 0.2 (Nontrivial threshold \texorpdfstring{\(\Theta_0\)}{\Theta_0}).}
-There exists \(\varepsilon>0\) such that
+\paragraph{Axiom 0.2 (Resolution-relative threshold \texorpdfstring{\(\Theta_{0,\rho}\)}{\Theta_0,rho}).}
+For each active \(\rho\) there exists \(\varepsilon_\rho>0\) such that
 \[
-  s_1\neq s_2 \;\Rightarrow\; \Delta(s_1,s_2)\ge\varepsilon.
+  [s_1]_\rho\neq[s_2]_\rho
+  \;\Rightarrow\;
+  \Delta_\rho([s_1]_\rho,[s_2]_\rho)\ge\varepsilon_\rho.
 \]
-The quantity \(\Theta_0=\varepsilon\) is the minimal structural threshold of
-distinguishability.
+The quantity \(\Theta_{0,\rho}=\varepsilon_\rho\) is a threshold on resolved
+quotient classes only. It does not impose uniform discreteness on the raw
+carrier \(S\).
 
 \paragraph{Axiom 0.3 (No dynamics at \texorpdfstring{\(K_0\)}{K_0}).}
 \(K_0\) carries no time parameter and no evolution operator.  It specifies only
@@ -55,9 +62,20 @@ Any continuum \(K\) is specified by a tuple
 \]
 with nonempty \(\Omega(K)\) and finite axis set \(A(K)\).
 
-\paragraph{Axiom 1.2 (Boundary via thresholds).}
-There exists a family of functions
-\(f_k : \overline{\Omega(K)}\to\mathbb{R}\) such that
+\paragraph{Axiom 1.2 (Boundary via typed classifiers).}
+There exists a family of typed admissibility classifiers
+\[
+  b_i:\Omega_{\mathrm{cand}}(K)\to\mathbf{Status}_i,
+  \qquad
+  \mathrm{fail}_i:\mathbf{Status}_i\to\{\top,\bot\},
+\]
+such that
+\[
+  \Omega(K)=\{s\mid \neg\mathrm{fail}_i(b_i(s))\ \forall i\}.
+\]
+The older real-valued threshold form is recovered only in the quantitative
+special case \(b_i=f_i:\overline{\Omega(K)}\to\mathbb{R}\) with
+\(\mathrm{fail}_i(x)\) meaning \(x>0\):
 \[
   \Omega(K) = \big\{ s \mid f_k(s)\le 0 \ \forall k \big\},
   \qquad
@@ -80,15 +98,17 @@ expressive and embedding thresholds:
   \big).
 \]
 
-\paragraph{Axiom 1.4 (Continuumness).}
-Continuumness \(k(K,t)\) is a scalar functional of the continuum components,
-satisfying \(0\le k\le 1\) and
+\paragraph{Axiom 1.4 (Continuumness zero causes).}
+Continuumness \(k(K,t)\) is a diagnostic scalar functional of the continuum
+components, satisfying \(0\le k\le 1\). Its zero condition is governed by the
+declared zero-cause family:
 \[
-  k(K,t) = 0 \quad\Longleftrightarrow\quad
-  \Omega(K) = \emptyset
-  \ \text{ or }\
-  C(K)=\emptyset.
+  k(K,t)=0
+  \quad\Longleftrightarrow\quad
+  \exists z\in Z_K:\ z(K,t)=\top.
 \]
+The old empty-\(\Omega\) or empty-\(C\) clause is a special case where those
+are the only declared zero causes.
 
 \paragraph{Axiom 1.5 (Evolution operator).}
 There exists an evolution operator
@@ -188,3 +208,26 @@ that is required for Core~1.3. Additional technical axioms introduced in
 extension papers (for example, detailed forms of structural tension, specific
 boundary conditions or renormalisation schemes) are compatible with this list
 but are not reproduced here.
+
+% OC_CORE_1_3_3_SCIENTIFIC_CLOSURE_BRIDGE
+
+\subsection{OC Core 1.3.3 scientific closure bridge}
+\label{sec:oc133-scientific-closure-bridge}
+
+Core 1.3.3 repairs the known reviewer attack surfaces by typing the continuum
+carrier separately from live realizations, replacing global \(K_0\)
+discreteness with resolution-relative quotient distinguishability, treating
+boundaries as admissibility classifiers, and reading \(F,G,H,Q,R,S,U\) as
+hybrid update components rather than universal derivatives.  The public tuple
+\[
+K=(\Omega,A,P,J,\Theta,\partial\Omega,C,k)
+\]
+is preserved as the interface, but load-bearing statements now distinguish
+\(\Omega_{\mathrm{law}}(K)\), \(\Omega_t(K)\), and
+\(\Omega_{\mathrm{res}}(K,t)\).  A carrier may persist while live admissibility
+is empty, so death, residue, and rebirth no longer create a type contradiction.
+
+Continuumness \(k\) is a diagnostic scalar governed by explicit zero-cause
+families.  Live status is a predicate, collapse cause is typed, and the old
+multiplicative formula is retained only as a lawful local aggregator under its
+declared assumptions.

@@ -73,7 +73,14 @@ Failed promotion predicates: `dedicated_claim_row, claim_ledger_promotion_bounda
 
 ## Machine Non-Promotion Proof Gaps
 
-- `NONE`
+- `lean::formal/lean/OC133V12.lean::grand_toe_promotion_requires_theorem_obligation_mapping::declaration_missing`
+- `lean::formal/lean/OC133V12.lean::grand_toe_missing_theorem_proof_mapping_blocks_promotion::declaration_missing`
+- `lean::formal/lean/OC133V12.lean::grand_toe_missing_lean_mapping_blocks_promotion::declaration_missing`
+- `lean::formal/lean/OC133V12.lean::grand_toe_missing_finite_case_mapping_blocks_promotion::declaration_missing`
+- `lean::formal/lean/OC133V12.lean::grand_toe_missing_claim_ledger_boundary_blocks_promotion::declaration_missing`
+- `finite_model::proofs/FINITE_MODEL_CHECKS_1_3_3.json::FM-GRAND-TOE-FORMAL-CURRENT-REJECT::case_missing`
+- `finite_model::proofs/FINITE_MODEL_CHECKS_1_3_3.json::FM-GRAND-TOE-FORMAL-HYPOTHETICAL-ACCEPT::case_missing`
+- `finite_model::proofs/FINITE_MODEL_CHECKS_1_3_3.json::FM-GRAND-TOE-FORMAL-MISSING-FINITE-REJECT::case_missing`
 
 ## Work-Order Decomposition
 

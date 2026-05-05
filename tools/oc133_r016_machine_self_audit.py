@@ -61,6 +61,10 @@ def classify_toe_gap(error: str) -> str:
         return "STALE_GENERATED_TEX_PROJECTION"
     if "legacy domain packet mismatch" in text:
         return "STALE_LEGACY_DOMAIN_PACKET"
+    if "final toe projection validation failed" in text and "ai" in text:
+        return "AI_DOMAIN_TOE_PROJECTION_LANE"
+    if "final toe projection validation failed" in text and ("enterprise_architecture" in text or "enterprise architecture" in text):
+        return "ENTERPRISE_ARCHITECTURE_DOMAIN_TOE_PROJECTION_LANE"
     if "bridge-only domains remain" in text:
         return "BRIDGE_ONLY_DOMAIN_REMAINS"
     if "hostile-review blockers" in text:

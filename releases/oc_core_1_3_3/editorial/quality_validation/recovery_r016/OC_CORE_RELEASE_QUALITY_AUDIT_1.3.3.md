@@ -1,7 +1,7 @@
 # OC Core Release Quality Audit 1.3.3
 
 Status: `QUALITY_VALIDATION_PASS`
-Artifact hash: `3ff7f10c267322818dceda798abbfae134f43e84b9c37d9a2e0562c84caa72c1`
+Artifact hash: `1781fc11a58f739d522a22905658a5e9a22483af710ea10ae98248c5c6999558`
 
 ## Summary
 
@@ -136,7 +136,7 @@ Artifact hash: `3ff7f10c267322818dceda798abbfae134f43e84b9c37d9a2e0562c84caa72c1
 - `form_quality_status`: PASS
 - `recovered_package_regression_applicable`: True
 - `old_public_master_baseline_pages`: 650
-- `recovered_master_pages`: 652
+- `recovered_master_pages`: 656
 - `recovered_master_baseline_pass`: True
 - `blocking_vulnerability_total`: 0
 - `vulnerability_total`: 0
