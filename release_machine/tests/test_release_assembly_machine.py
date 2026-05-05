@@ -2228,6 +2228,70 @@ class ReleaseAssemblyMachineTests(unittest.TestCase):
                 trace_by_purpose["canonical_cerberus_after_science_clear"]["result"]["stderr_tail"],
             )
 
+    def test_r017_autonomous_supervisor_keeps_zero_delta_run_open_and_escalates(self) -> None:
+        supervisor_dir = (
+            ROOT
+            / "operations"
+            / "logion_release_mission"
+            / "oc_core_1_3_3"
+            / "toe_closure_factory"
+            / "autonomous_supervisor"
+        )
+        state = read_json(supervisor_dir / "OC133_TOE_AUTONOMOUS_SUPERVISOR_STATE.json")
+        cockpit = read_json(supervisor_dir / "OC133_TOE_AUTONOMOUS_COCKPIT.json")
+        waves = read_json(supervisor_dir / "OC133_TOE_AUTONOMOUS_WAVE_LEDGER.json")
+        queue = read_json(supervisor_dir / "OC133_TOE_AUTONOMOUS_NEXT_ACTION_QUEUE.json")
+        escalation = read_json(supervisor_dir / "OC133_TOE_AUTONOMOUS_CAPABILITY_ESCALATION_LEDGER.json")
+        frontier = read_json(supervisor_dir / "OC133_TOE_AUTONOMOUS_FRONTIER_HASHES.json")
+        terminal = read_json(supervisor_dir / "OC133_TOE_AUTONOMOUS_TERMINAL_VALIDATION_REPORT.json")
+
+        self.assertEqual(state["schema_id"], "OC133_TOE_AUTONOMOUS_SUPERVISOR_STATE_v1")
+        self.assertEqual(state["status"], "INTERNAL_AUTONOMOUS_RUN_STATE_OPEN")
+        self.assertFalse(state["r017_promotion_allowed"])
+        self.assertFalse(state["terminal_stop_on_zero_delta"])
+        self.assertEqual(state["zero_delta_continue_policy"], "PASS")
+        self.assertGreaterEqual(state["iteration_total"], 2)
+        self.assertEqual(cockpit["current_promotion_gate"], "R017_BLOCKED_BY_TOE_AUTONOMOUS_SUPERVISOR")
+        self.assertEqual(cockpit["validator_error_total"], state["validator_error_total"])
+        self.assertEqual(cockpit["worktree_gate_status"], "PASS")
+
+        self.assertEqual(waves["schema_id"], "OC133_TOE_AUTONOMOUS_WAVE_LEDGER_v1")
+        self.assertGreaterEqual(waves["wave_total"], 2)
+        self.assertFalse(waves["terminal_stop_on_zero_delta"])
+        self.assertTrue(all(row["validator_error_delta"] == 0 for row in waves["rows"][:2]))
+        self.assertTrue(all(row["terminal_gate"] == "R017_BLOCKED_BY_TOE_AUTONOMOUS_SUPERVISOR" for row in waves["rows"]))
+        self.assertTrue(any(row["selected_action_ids"] for row in waves["rows"]))
+        self.assertTrue(any(
+            validation["status"] == "SKIPPED_DETERMINISTIC_SCIENCE_BLOCKERS_REMAIN"
+            for row in waves["rows"]
+            for validation in row["validation_rows"]
+            if validation["purpose"] == "canonical_cerberus_after_science_clear"
+        ))
+
+        self.assertEqual(queue["schema_id"], "OC133_TOE_AUTONOMOUS_NEXT_ACTION_QUEUE_v1")
+        self.assertEqual(queue["status"], "OPEN")
+        self.assertGreater(queue["action_total"], 0)
+        self.assertTrue(any(row["lane_id"] == "AI" for row in queue["rows"]))
+        self.assertTrue(any(row["lane_id"] == "ENTERPRISE_ARCHITECTURE" for row in queue["rows"]))
+        self.assertTrue(any(row["lane_id"] == "MODERN_SCIENCE_COMPARATOR_SUPERIORITY" for row in queue["rows"]))
+        self.assertTrue(any(row["status"] == "CAPABILITY_ESCALATION_REQUIRED" for row in queue["rows"]))
+        self.assertFalse(queue["terminal_stop_on_zero_delta"])
+
+        self.assertEqual(escalation["status"], "OPEN")
+        self.assertGreater(escalation["capability_escalation_total"], 0)
+        self.assertTrue(escalation["zero_delta_creates_capability_work"])
+        for row in escalation["rows"]:
+            self.assertEqual(row["status"], "OPEN")
+            for field in ["why_it_failed", "repair_strategy", "required_capability", "execution_command", "pass_predicate", "next_escalation"]:
+                self.assertIn(field, row)
+                self.assertIsNotNone(row[field])
+
+        self.assertEqual(frontier["status"], "PASS")
+        self.assertEqual(frontier["frontier_row_total"], waves["wave_total"])
+        self.assertEqual(terminal["status"], "BLOCKED")
+        self.assertFalse(terminal["final_validator_passed"])
+        self.assertFalse(terminal["r017_assembly_attempted"])
+
     def test_recovery_r017_is_fail_closed_until_final_toe_validator_passes(self) -> None:
         tools_dir = ROOT / "tools"
         if str(tools_dir) not in sys.path:

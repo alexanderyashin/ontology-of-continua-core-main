@@ -219,6 +219,28 @@ def validator_error_total(parts: dict[str, list[str]]) -> int:
     return len(parts.get("science_errors", [])) + len(parts.get("cerberus_errors", []))
 
 
+def git_head(root: Path) -> str:
+    completed = subprocess.run(
+        ["git", "rev-parse", "--short", "HEAD"],
+        cwd=root,
+        text=True,
+        encoding="utf-8",
+        errors="replace",
+        capture_output=True,
+        timeout=60,
+    )
+    return completed.stdout.strip() if completed.returncode == 0 else "UNKNOWN"
+
+
+def closure_frontier_hash(root: Path, validator_parts: dict[str, list[str]] | None = None) -> str:
+    return artifact_hash(
+        {
+            "validator_parts": validator_parts or current_validator_error_parts(root),
+            "tracked_status_rows": git_status_rows(root),
+        }
+    )
+
+
 def current_validator_error_parts(root: Path) -> dict[str, list[str]]:
     """Return science and Cerberus failures separately so compute is routed cheaply."""
     return {
@@ -2993,6 +3015,7 @@ def execute_research_wave_lane_step(
 def execute_research_wave_once(root: Path, timeout: int, iteration: int = 1) -> dict[str, Any]:
     generated_at = utc_now()
     before_parts = current_validator_error_parts(root)
+    frontier_before = closure_frontier_hash(root, before_parts)
     rows: list[dict[str, Any]] = []
     defaults = {
         "why_it_failed": "This research-wave step did not close the strict final TOE validator.",
@@ -3131,6 +3154,7 @@ def execute_research_wave_once(root: Path, timeout: int, iteration: int = 1) -> 
         )
 
     after_parts = current_validator_error_parts(root)
+    frontier_after = closure_frontier_hash(root, after_parts)
     before_total = validator_error_total(before_parts)
     after_total = validator_error_total(after_parts)
     missing = explainability_missing_ids([{"schema_id": "OC133_TOE_RESEARCH_WAVE_EXECUTION_v1", "rows": rows}])
@@ -3139,7 +3163,15 @@ def execute_research_wave_once(root: Path, timeout: int, iteration: int = 1) -> 
         "release_id": RELEASE_ID,
         "version": VERSION,
         "generated_at": generated_at,
+        "wave_id": f"R017-WAVE-{iteration:03d}",
         "iteration": iteration,
+        "frontier_hash_before": frontier_before,
+        "frontier_hash_after": frontier_after,
+        "next_action_ids": [],
+        "executor_selected": "dependency_ordered_research_wave",
+        "capability_escalation_ids": [],
+        "commit_sha": git_head(root),
+        "terminal_gate": "R017_READY_TO_ASSEMBLE" if after_total == 0 else "R017_BLOCKED_BY_TOE_CLOSURE_FACTORY",
         "status": "PASS" if after_total == 0 and all(row["status"] == "PASS" for row in rows) else "CAPABILITY_BACKLOG_OPEN",
         "before_validator_error_total": before_total,
         "before_science_error_total": len(before_parts["science_errors"]),
@@ -3174,7 +3206,9 @@ def execute_research_wave_once(root: Path, timeout: int, iteration: int = 1) -> 
 def execute_research_wave_until_final_pass(root: Path, timeout: int, max_iterations: int) -> dict[str, Any]:
     generated_at = utc_now()
     iterations: list[dict[str, Any]] = []
-    previous_total = validator_error_total(current_validator_error_parts(root))
+    initial_parts = current_validator_error_parts(root)
+    frontier_before = closure_frontier_hash(root, initial_parts)
+    previous_total = validator_error_total(initial_parts)
     for iteration in range(1, max_iterations + 1):
         wave = execute_research_wave_once(root, timeout, iteration=iteration)
         iterations.append(wave)
@@ -3186,6 +3220,8 @@ def execute_research_wave_until_final_pass(root: Path, timeout: int, max_iterati
         previous_total = current_total
 
     latest = iterations[-1] if iterations else execute_research_wave_once(root, timeout, iteration=1)
+    final_parts = current_validator_error_parts(root)
+    frontier_after = closure_frontier_hash(root, final_parts)
     rows: list[dict[str, Any]] = []
     for wave in iterations:
         rows.extend(wave.get("rows", []))
@@ -3195,6 +3231,14 @@ def execute_research_wave_until_final_pass(root: Path, timeout: int, max_iterati
         "release_id": RELEASE_ID,
         "version": VERSION,
         "generated_at": generated_at,
+        "wave_id": "R017-WAVE-SUPERVISED",
+        "frontier_hash_before": frontier_before,
+        "frontier_hash_after": frontier_after,
+        "next_action_ids": [],
+        "executor_selected": "until_final_pass_research_wave_supervisor",
+        "capability_escalation_ids": [],
+        "commit_sha": git_head(root),
+        "terminal_gate": "R017_READY_TO_ASSEMBLE" if latest.get("r017_promotion_allowed") is True else "R017_BLOCKED_BY_TOE_CLOSURE_FACTORY",
         "status": "PASS" if latest.get("r017_promotion_allowed") is True else "CAPABILITY_BACKLOG_OPEN",
         "iteration_total": len(iterations),
         "before_validator_error_total": iterations[0]["before_validator_error_total"] if iterations else latest["before_validator_error_total"],

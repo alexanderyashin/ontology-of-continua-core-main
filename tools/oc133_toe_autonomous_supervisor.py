@@ -1,0 +1,811 @@
+from __future__ import annotations
+
+import argparse
+import json
+import subprocess
+import sys
+import time
+from datetime import datetime, timezone
+from pathlib import Path
+from typing import Any
+
+
+ROOT = Path(__file__).resolve().parents[1]
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
+TOOLS_DIR = ROOT / "tools"
+if str(TOOLS_DIR) not in sys.path:
+    sys.path.insert(0, str(TOOLS_DIR))
+
+from oc_core_release_assembly_lib import artifact_hash, stable_json, validation_result
+
+import oc133_toe_closure_factory as factory
+
+
+SUPERVISOR_DIR = factory.FACTORY_DIR / "autonomous_supervisor"
+STATE_NAME = "OC133_TOE_AUTONOMOUS_SUPERVISOR_STATE.json"
+COCKPIT_NAME = "OC133_TOE_AUTONOMOUS_COCKPIT.json"
+WAVE_LEDGER_NAME = "OC133_TOE_AUTONOMOUS_WAVE_LEDGER.json"
+NEXT_ACTION_QUEUE_NAME = "OC133_TOE_AUTONOMOUS_NEXT_ACTION_QUEUE.json"
+ESCALATION_LEDGER_NAME = "OC133_TOE_AUTONOMOUS_CAPABILITY_ESCALATION_LEDGER.json"
+FRONTIER_HASHES_NAME = "OC133_TOE_AUTONOMOUS_FRONTIER_HASHES.json"
+COMMIT_LEDGER_NAME = "OC133_TOE_AUTONOMOUS_COMMIT_LEDGER.json"
+TERMINAL_VALIDATION_NAME = "OC133_TOE_AUTONOMOUS_TERMINAL_VALIDATION_REPORT.json"
+
+VOLATILE_KEYS = {
+    "artifact_hash",
+    "generated_at",
+    "ts_utc",
+    "stdout_tail",
+    "stderr_tail",
+    "commit_sha",
+    "frontier_hash_before",
+    "frontier_hash_after",
+}
+
+ALLOWED_DIRTY_PREFIXES = (
+    "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/",
+    "content/generated/",
+    "releases/oc_core_1_3/editorial/",
+    "releases/oc_core_1_3/monograph/source/content/generated/",
+    "tools/oc133_toe_autonomous_supervisor.py",
+    "tools/oc133_toe_closure_factory.py",
+    "release_machine/tests/test_release_assembly_machine.py",
+)
+IGNORED_STATUS_PREFIXES = ("?? _codex_r009_run/", "?? _codex_r010_run/")
+
+
+def utc_now() -> str:
+    return datetime.now(timezone.utc).replace(microsecond=0).isoformat().replace("+00:00", "Z")
+
+
+def read_json(path: Path) -> dict[str, Any]:
+    if not path.exists():
+        return {}
+    try:
+        payload = json.loads(path.read_text(encoding="utf-8"))
+    except Exception:
+        return {}
+    return payload if isinstance(payload, dict) else {}
+
+
+def write_json(root: Path, rel_path: Path, payload: dict[str, Any]) -> str:
+    path = root / rel_path
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(stable_json(payload), encoding="utf-8")
+    return rel_path.as_posix()
+
+
+def strip_volatile(value: Any) -> Any:
+    if isinstance(value, dict):
+        return {
+            key: strip_volatile(item)
+            for key, item in sorted(value.items())
+            if key not in VOLATILE_KEYS
+        }
+    if isinstance(value, list):
+        return [strip_volatile(item) for item in value]
+    return value
+
+
+def git_status_rows(root: Path) -> list[str]:
+    completed = subprocess.run(
+        ["git", "status", "--short"],
+        cwd=root,
+        text=True,
+        encoding="utf-8",
+        errors="replace",
+        capture_output=True,
+        timeout=60,
+    )
+    if completed.returncode != 0:
+        return []
+    return sorted(line.strip() for line in completed.stdout.splitlines() if line.strip())
+
+
+def normalized_status_path(row: str) -> str:
+    parts = row.split(maxsplit=1)
+    return parts[1].strip() if len(parts) == 2 else row
+
+
+def worktree_gate(root: Path) -> dict[str, Any]:
+    rows = git_status_rows(root)
+    unexpected = []
+    allowed = []
+    ignored = []
+    for row in rows:
+        if row.startswith(IGNORED_STATUS_PREFIXES):
+            ignored.append(row)
+            continue
+        path = normalized_status_path(row).replace("\\", "/")
+        if path.startswith(ALLOWED_DIRTY_PREFIXES):
+            allowed.append(row)
+        else:
+            unexpected.append(row)
+    return {
+        "status": "PASS" if not unexpected else "FAIL",
+        "unexpected_dirty_total": len(unexpected),
+        "unexpected_dirty_rows": unexpected,
+        "allowed_dirty_total": len(allowed),
+        "ignored_dirty_total": len(ignored),
+        "allowed_dirty_prefixes": list(ALLOWED_DIRTY_PREFIXES),
+        "ignored_status_prefixes": list(IGNORED_STATUS_PREFIXES),
+    }
+
+
+def semantic_payload(root: Path, rel_path: str | Path) -> Any:
+    path = root / rel_path
+    if path.is_dir():
+        rows = []
+        for child in sorted(path.rglob("*")):
+            if child.is_file():
+                rows.append(
+                    {
+                        "ref": child.relative_to(root).as_posix(),
+                        "payload": semantic_payload(root, child.relative_to(root)),
+                    }
+                )
+        return rows
+    if not path.exists():
+        return {"missing": True}
+    if path.suffix.lower() == ".json":
+        return strip_volatile(read_json(path))
+    return {"text_hash": artifact_hash({"text": path.read_text(encoding="utf-8", errors="replace")})}
+
+
+def semantic_frontier_hash(root: Path) -> str:
+    refs = [
+        factory.FACTORY_DIR / factory.CAPABILITY_BACKLOG_NAME,
+        factory.FACTORY_DIR / factory.SUBWORK_ORDERS_NAME,
+        factory.FACTORY_DIR / factory.ROOT_CAUSE_LEDGER_NAME,
+        factory.FACTORY_DIR / factory.LANES_NAME,
+        factory.FACTORY_DIR / "lane_execution/AI/OC133_AI_PROJECTION_SUPPORT_PACK.json",
+        factory.FACTORY_DIR / "lane_execution/ENTERPRISE_ARCHITECTURE/OC133_EA_PROJECTION_SUPPORT_PACK.json",
+        factory.FACTORY_DIR / "lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/gap_jobs",
+        factory.FACTORY_DIR / "lane_execution/GRAND_TOE_CLAIM_LEDGER_EVIDENCE/OC133_GRAND_PROMOTION_DERIVATION_REPORT.json",
+        "releases/oc_core_1_3/editorial/science_sources/toe_projection_lanes/ai.json",
+        "releases/oc_core_1_3/editorial/science_sources/toe_projection_lanes/enterprise_architecture.json",
+        factory.GRAND_SCORECARD,
+        factory.GRAND_PROMOTION_REPORT,
+        factory.COMPARATOR_REGISTER,
+        factory.FINITE_CHECK_REPORT,
+        factory.CERBERUS_ACCEPTANCE,
+        factory.CERBERUS_FINDINGS,
+    ]
+    return artifact_hash(
+        {
+            "validator_parts": factory.current_validator_error_parts(root),
+            "refs": {str(ref).replace("\\", "/"): semantic_payload(root, ref) for ref in refs},
+        }
+    )
+
+
+def load_state(root: Path) -> dict[str, Any]:
+    return read_json(root / SUPERVISOR_DIR / STATE_NAME)
+
+
+def existing_attempt_signatures(state: dict[str, Any]) -> set[str]:
+    rows = state.get("attempted_action_signatures") or []
+    return {str(row) for row in rows if row}
+
+
+def action_defaults(action_id: str, lane_id: str, executor_type: str, command: list[str] | None) -> dict[str, Any]:
+    return {
+        "action_id": action_id,
+        "lane_id": lane_id,
+        "executor_type": executor_type,
+        "execution_command": command or [],
+        "status": "OPEN",
+        "why_it_failed": "The strict final TOE validator still reports this lane as open.",
+        "repair_strategy": "Execute this action, sync SPOT/projections, rerun validators, and keep r017 blocked unless the strict terminal gate passes.",
+        "required_capability": {
+            "AI": "Research/AIProjection",
+            "ENTERPRISE_ARCHITECTURE": "Research/EnterpriseArchitectureProjection",
+            "MODERN_SCIENCE_COMPARATOR_SUPERIORITY": "Research/PriorArt",
+            "GRAND_TOE_CLAIM_LEDGER_EVIDENCE": "Research/FormalScience",
+            "CERBERUS_RELEASE_REVIEW_GATE": "Review/Cerberus",
+        }.get(lane_id, "Research/TOEClosureFactory"),
+        "pass_predicate": "The referenced lane disappears from strict TOE validator errors without weakening gates.",
+        "next_escalation": "If this action produces no validator delta, split the missing artifact class into a narrower capability work order.",
+    }
+
+
+def projection_actions(root: Path, lane_id: str) -> list[dict[str, Any]]:
+    prefix = factory.projection_lane_prefix(lane_id)
+    work_orders = read_json(root / factory.lane_execution_base(lane_id) / f"OC133_{prefix}_SOURCE_INTAKE_WORK_ORDERS.json")
+    rows = work_orders.get("rows") or []
+    actions = []
+    for index, row in enumerate(rows, start=1):
+        work_order_id = str(row.get("work_order_id") or f"R017-{lane_id}-SOURCE-INTAKE-{index:03d}")
+        action = action_defaults(
+            f"AUTO-{work_order_id}",
+            lane_id,
+            "source_intake_work_order",
+            [sys.executable, "tools/oc133_toe_closure_factory.py", "--execute-source-intake-work-order", work_order_id, "--write"],
+        )
+        action.update(
+            {
+                "work_order_id": work_order_id,
+                "required_artifact": row.get("required_artifact"),
+                "missing_support_key": row.get("missing_support_key"),
+                "source_ref": row.get("source_ref"),
+            }
+        )
+        actions.append(action)
+    if not actions:
+        action = action_defaults(
+            f"AUTO-R017-{lane_id}-SOURCE-DISCOVERY-CAPABILITY",
+            lane_id,
+            "capability_escalation",
+            None,
+        )
+        action.update(
+            {
+                "status": "CAPABILITY_BACKLOG_OPEN",
+                "why_it_failed": f"{lane_id} has no source-intake work orders to execute.",
+                "repair_strategy": "Add source discovery/mining capability for this projection lane before attempting guarded PASS.",
+            }
+        )
+        actions.append(action)
+    return actions
+
+
+def comparator_actions(root: Path) -> list[dict[str, Any]]:
+    actions = []
+    gap_dir = root / factory.lane_execution_base("MODERN_SCIENCE_COMPARATOR_SUPERIORITY") / "gap_jobs"
+    for path in sorted(gap_dir.glob("*.json")):
+        payload = read_json(path)
+        if payload.get("status") == "PASS":
+            continue
+        gap_id = str(payload.get("gap_id") or path.stem)
+        action = action_defaults(
+            f"AUTO-R017-COMPARATOR-GAP-{artifact_hash({'gap_id': gap_id})[:12]}",
+            "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+            "comparator_gap",
+            [sys.executable, "tools/oc133_toe_closure_factory.py", "--execute-comparator-gap", gap_id, "--write"],
+        )
+        action.update(
+            {
+                "gap_id": gap_id,
+                "missing_artifacts": payload.get("missing_artifacts", []),
+                "missing_artifact_total": payload.get("missing_artifact_total", 0),
+                "source_ref": path.relative_to(root).as_posix(),
+            }
+        )
+        actions.append(action)
+    return actions
+
+
+def grand_actions() -> list[dict[str, Any]]:
+    action = action_defaults(
+        "AUTO-R017-GRAND-PROMOTION-DERIVATION",
+        "GRAND_TOE_CLAIM_LEDGER_EVIDENCE",
+        "grand_promotion_derivation",
+        [sys.executable, "tools/oc133_toe_closure_factory.py", "--execute-lane", "GRAND_TOE_CLAIM_LEDGER_EVIDENCE", "--write"],
+    )
+    return [action]
+
+
+def cerberus_actions(science_error_total: int) -> list[dict[str, Any]]:
+    lane = factory.lane_registry_by_id()["CERBERUS_RELEASE_REVIEW_GATE"]
+    action = action_defaults(
+        "AUTO-R017-CERBERUS-CLEAN-REFRESH",
+        "CERBERUS_RELEASE_REVIEW_GATE",
+        "cerberus_gate",
+        lane["execution_command"],
+    )
+    if science_error_total:
+        action.update(
+            {
+                "status": "BLOCKED_BY_SCIENCE_ERRORS",
+                "executor_type": "skip_until_science_pass",
+                "execution_command": [],
+                "why_it_failed": "Science validator errors remain, so Cerberus is deliberately not run.",
+                "repair_strategy": "Close deterministic science lanes before spending external/Cerberus review compute.",
+            }
+        )
+    return [action]
+
+
+def plan_next_actions(root: Path, state: dict[str, Any], frontier_hash: str) -> dict[str, Any]:
+    parts = factory.current_validator_error_parts(root)
+    science_errors = parts["science_errors"]
+    cerberus_errors = parts["cerberus_errors"]
+    actions: list[dict[str, Any]] = []
+    science_text = "\n".join(science_errors).lower()
+    if "ai lane" in science_text or "ai row" in science_text:
+        actions.extend(projection_actions(root, "AI"))
+    if "enterprise_architecture" in science_text or "enterprise architecture" in science_text:
+        actions.extend(projection_actions(root, "ENTERPRISE_ARCHITECTURE"))
+    if "modern_science_comparator_superiority" in science_text:
+        actions.extend(comparator_actions(root))
+    if "grand_toe_claim_ledger_evidence" in science_text or "all_domain_ready_no_send" in science_text:
+        actions.extend(grand_actions())
+    if cerberus_errors:
+        actions.extend(cerberus_actions(len(science_errors)))
+
+    attempted = existing_attempt_signatures(state)
+    for action in actions:
+        signature = f"{frontier_hash}::{action['action_id']}"
+        action["frontier_signature"] = signature
+        action["already_attempted_on_frontier"] = signature in attempted
+        action["selected_for_execution"] = False
+        if action["already_attempted_on_frontier"] and action["executor_type"] != "skip_until_science_pass":
+            action["status"] = "CAPABILITY_ESCALATION_REQUIRED"
+            action["next_escalation"] = "This exact action has already been tried on this semantic frontier; create a narrower capability work order instead of rerunning it."
+
+    payload = {
+        "schema_id": "OC133_TOE_AUTONOMOUS_NEXT_ACTION_QUEUE_v1",
+        "generated_at": utc_now(),
+        "status": "OPEN" if actions else "PASS",
+        "frontier_hash": frontier_hash,
+        "validator_error_total": factory.validator_error_total(parts),
+        "science_validator_error_total": len(science_errors),
+        "cerberus_error_total": len(cerberus_errors),
+        "action_total": len(actions),
+        "executable_action_total": sum(
+            1
+            for action in actions
+            if action["execution_command"] and not action.get("already_attempted_on_frontier")
+        ),
+        "zero_delta_continue_policy": "PASS",
+        "terminal_stop_on_zero_delta": False,
+        "rows": actions,
+    }
+    payload["artifact_hash"] = artifact_hash(payload)
+    return payload
+
+
+def select_actions(queue: dict[str, Any], max_actions: int) -> list[dict[str, Any]]:
+    selected = []
+    for action in queue.get("rows", []) or []:
+        if not action.get("execution_command"):
+            continue
+        if action.get("already_attempted_on_frontier"):
+            continue
+        selected.append(action)
+        if max_actions > 0 and len(selected) >= max_actions:
+            break
+    return selected
+
+
+def run_action(root: Path, action: dict[str, Any], timeout: int) -> dict[str, Any]:
+    before_parts = factory.current_validator_error_parts(root)
+    before_frontier = semantic_frontier_hash(root)
+    result = factory.safe_run_command(root, list(action["execution_command"]), timeout)
+    after_parts = factory.current_validator_error_parts(root)
+    after_frontier = semantic_frontier_hash(root)
+    before_total = factory.validator_error_total(before_parts)
+    after_total = factory.validator_error_total(after_parts)
+    return {
+        "action_id": action["action_id"],
+        "lane_id": action["lane_id"],
+        "executor_type": action["executor_type"],
+        "status": "PASS" if result["returncode"] == 0 else "FAIL_CLOSED",
+        "frontier_signature": action["frontier_signature"],
+        "frontier_hash_before": before_frontier,
+        "frontier_hash_after": after_frontier,
+        "before_validator_error_total": before_total,
+        "after_validator_error_total": after_total,
+        "validator_error_delta": before_total - after_total,
+        "result": result,
+        "why_it_failed": action["why_it_failed"],
+        "repair_strategy": action["repair_strategy"],
+        "required_capability": action["required_capability"],
+        "execution_command": action["execution_command"],
+        "pass_predicate": action["pass_predicate"],
+        "next_escalation": action["next_escalation"],
+    }
+
+
+def sync_and_validate(root: Path, timeout: int) -> list[dict[str, Any]]:
+    rows = []
+    commands = [
+        ("sync_spot", [sys.executable, "tools/build_oc_core_1_3_science_spot.py"]),
+        ("grand_science_scorecard_sync", [sys.executable, "tools/oc133_grand_science_research_loop.py", "--execute", "--allow-blocked-exit-zero"]),
+        ("science_validator_before_cerberus", [sys.executable, "tools/validate_oc_core_1_3_science_spot.py", "--require-final-toe-pass"]),
+    ]
+    for purpose, cmd in commands:
+        result = factory.safe_run_command(root, cmd, timeout)
+        rows.append({"purpose": purpose, "status": "PASS" if result["returncode"] == 0 else "FAIL_CLOSED", "result": result})
+    if rows[-1]["status"] == "PASS":
+        cerberus_cmd = factory.lane_registry_by_id()["CERBERUS_RELEASE_REVIEW_GATE"]["execution_command"]
+        result = factory.safe_run_command(root, cerberus_cmd, timeout)
+        rows.append({"purpose": "canonical_cerberus_after_science_clear", "status": "PASS" if result["returncode"] == 0 else "FAIL_CLOSED", "result": result})
+    else:
+        rows.append(
+            {
+                "purpose": "canonical_cerberus_after_science_clear",
+                "status": "SKIPPED_DETERMINISTIC_SCIENCE_BLOCKERS_REMAIN",
+                "result": {
+                    "cmd": factory.lane_registry_by_id()["CERBERUS_RELEASE_REVIEW_GATE"]["execution_command"],
+                    "returncode": None,
+                    "stdout_tail": "",
+                    "stderr_tail": "Skipped because science validator remains red; expensive Cerberus/LLM gate is not run.",
+                },
+            }
+        )
+    final_cmd = [sys.executable, "tools/validate_oc_core_1_3_science_spot.py", "--require-final-toe-pass", "--require-cerberus-clean"]
+    result = factory.safe_run_command(root, final_cmd, timeout)
+    rows.append({"purpose": "final_validator", "status": "PASS" if result["returncode"] == 0 else "FAIL_CLOSED", "result": result})
+    return rows
+
+
+def terminal_validation(root: Path, timeout: int, final_validator_passed: bool) -> dict[str, Any]:
+    rows = []
+    if final_validator_passed:
+        commands = [
+            ("assemble_recovery_r017", [sys.executable, "tools/assemble_oc_core_release_package.py", "--release", factory.RELEASE_ID, "--structure-source", "recovered_l10c", "--assembly-revision", "recovery_r017", "--write"]),
+            ("machine_audit_write", [sys.executable, "tools/audit_oc_core_release_assembly_machine.py", "--release", factory.RELEASE_ID, "--assembly-revision", "recovery_r017", "--write"]),
+            ("machine_audit_check", [sys.executable, "tools/audit_oc_core_release_assembly_machine.py", "--release", factory.RELEASE_ID, "--assembly-revision", "recovery_r017", "--check"]),
+            ("quality_audit_write", [sys.executable, "tools/audit_oc_core_release_quality.py", "--release", factory.RELEASE_ID, "--assembly-revision", "recovery_r017", "--write"]),
+            ("quality_audit_check", [sys.executable, "tools/audit_oc_core_release_quality.py", "--release", factory.RELEASE_ID, "--assembly-revision", "recovery_r017", "--check"]),
+            ("compare_r016_r017_write", [sys.executable, "tools/compare_oc_core_assembly_revisions.py", "--release", factory.RELEASE_ID, "--baseline-revision", "recovery_r016", "--candidate-revision", "recovery_r017", "--write"]),
+            ("compare_r016_r017_check", [sys.executable, "tools/compare_oc_core_assembly_revisions.py", "--release", factory.RELEASE_ID, "--baseline-revision", "recovery_r016", "--candidate-revision", "recovery_r017", "--check"]),
+            ("release_machine_pytest", [sys.executable, "-m", "pytest", "release_machine/tests/test_release_assembly_machine.py", "-q"]),
+        ]
+        for purpose, cmd in commands:
+            result = factory.safe_run_command(root, cmd, timeout)
+            rows.append({"purpose": purpose, "status": "PASS" if result["returncode"] == 0 else "FAIL_CLOSED", "result": result})
+            if result["returncode"] != 0:
+                break
+    payload = {
+        "schema_id": "OC133_TOE_AUTONOMOUS_TERMINAL_VALIDATION_REPORT_v1",
+        "generated_at": utc_now(),
+        "status": "PASS" if final_validator_passed and rows and all(row["status"] == "PASS" for row in rows) else "BLOCKED",
+        "final_validator_passed": final_validator_passed,
+        "terminal_command_total": len(rows),
+        "r017_assembly_attempted": bool(rows),
+        "no_fake_closure_policy": "Terminal r017 assembly is attempted only after strict final TOE validator PASS.",
+        "rows": rows,
+    }
+    payload["artifact_hash"] = artifact_hash(payload)
+    return payload
+
+
+def escalation_rows(queue: dict[str, Any], action_results: list[dict[str, Any]], frontier_repeated: bool) -> list[dict[str, Any]]:
+    rows = []
+    attempted_ids = {row["action_id"] for row in action_results}
+    for index, action in enumerate(queue.get("rows", []) or [], start=1):
+        needs_escalation = action.get("already_attempted_on_frontier") or action["action_id"] in attempted_ids
+        if not needs_escalation:
+            continue
+        row = {
+            "capability_escalation_id": f"AUTO-R017-CAPABILITY-ESCALATION-{index:04d}",
+            "source_action_id": action["action_id"],
+            "lane_id": action["lane_id"],
+            "executor_type": action["executor_type"],
+            "status": "OPEN",
+            "frontier_repeated": frontier_repeated,
+            "why_it_failed": "The action did not reduce strict validator errors on this semantic frontier.",
+            "repair_strategy": "Create a narrower source-bound executor for the exact missing artifact class before rerunning the same action.",
+            "required_capability": action["required_capability"],
+            "execution_command": action.get("execution_command", []),
+            "pass_predicate": action["pass_predicate"],
+            "next_escalation": action["next_escalation"],
+        }
+        rows.append(row)
+    return rows
+
+
+def run_supervisor(root: Path, args: argparse.Namespace) -> dict[str, dict[str, Any]]:
+    generated_at = utc_now()
+    prior_state = load_state(root) if args.resume else {}
+    attempted = existing_attempt_signatures(prior_state)
+    gate = worktree_gate(root)
+    if gate["status"] != "PASS":
+        parts = factory.current_validator_error_parts(root)
+        state = {
+            "schema_id": "OC133_TOE_AUTONOMOUS_SUPERVISOR_STATE_v1",
+            "generated_at": generated_at,
+            "status": "REFUSED_UNEXPECTED_DIRTY_WORKTREE",
+            "current_promotion_gate": "R017_BLOCKED_BY_UNEXPECTED_DIRTY_WORKTREE",
+            "r017_promotion_allowed": False,
+            "iteration_total": 0,
+            "latest_wave_id": None,
+            "validator_error_total": factory.validator_error_total(parts),
+            "science_validator_error_total": len(parts["science_errors"]),
+            "cerberus_error_total": len(parts["cerberus_errors"]),
+            "capability_escalation_total": 0,
+            "worktree_gate": gate,
+            "attempted_action_signatures": sorted(attempted),
+            "attempted_action_signature_total": len(attempted),
+            "zero_delta_continue_policy": "PASS",
+            "terminal_stop_on_zero_delta": False,
+            "terminal_validation_status": "BLOCKED",
+            "commit_checkpoint_requested": bool(args.commit_checkpoints),
+            "no_publication_action_policy": "No Zenodo, DOI, GitHub release, journal submission, or public upload action is performed.",
+        }
+        state["artifact_hash"] = artifact_hash(state)
+        outputs = build_outputs(root, state, [], {}, [], [], [], terminal_validation(root, args.timeout, False), gate)
+        if args.write:
+            write_outputs(root, outputs)
+        return outputs
+
+    wave_rows = []
+    frontier_rows = []
+    all_action_results = []
+    all_escalations = []
+    commit_rows: list[dict[str, Any]] = []
+    terminal_report = terminal_validation(root, args.timeout, False)
+    iteration = 0
+    max_iterations = int(args.max_iterations)
+    while True:
+        iteration += 1
+        before_parts = factory.current_validator_error_parts(root)
+        before_total = factory.validator_error_total(before_parts)
+        frontier_before = semantic_frontier_hash(root)
+        queue = plan_next_actions(root, {"attempted_action_signatures": sorted(attempted)}, frontier_before)
+        selected = select_actions(queue, int(args.max_actions_per_iteration))
+        if not args.write:
+            selected = []
+        for action in queue["rows"]:
+            action["selected_for_execution"] = action["action_id"] in {row["action_id"] for row in selected}
+        action_results = [run_action(root, action, args.timeout) for action in selected]
+        attempted.update(row["frontier_signature"] for row in action_results if row.get("frontier_signature"))
+        validation_rows = sync_and_validate(root, args.timeout) if args.write else [
+            {
+                "purpose": "dry_run_no_write",
+                "status": "SKIPPED_DRY_RUN",
+                "result": {
+                    "cmd": [],
+                    "returncode": None,
+                    "stdout_tail": "",
+                    "stderr_tail": "Autonomous supervisor was run without --write; no mutation or validators were executed.",
+                },
+            }
+        ]
+        after_parts = factory.current_validator_error_parts(root)
+        after_total = factory.validator_error_total(after_parts)
+        frontier_after = semantic_frontier_hash(root)
+        final_passed = validation_rows[-1]["status"] == "PASS"
+        if final_passed:
+            terminal_report = terminal_validation(root, args.timeout, True)
+        frontier_repeated = frontier_before == frontier_after
+        escalations = escalation_rows(queue, action_results, frontier_repeated or before_total - after_total <= 0)
+        all_escalations.extend(escalations)
+        all_action_results.extend(action_results)
+        wave_id = f"R017-AUTO-WAVE-{iteration + 5:03d}"
+        wave_rows.append(
+            {
+                "wave_id": wave_id,
+                "iteration": iteration,
+                "status": "PASS" if final_passed else "INTERNAL_AUTONOMOUS_RUN_STATE_OPEN",
+                "frontier_hash_before": frontier_before,
+                "frontier_hash_after": frontier_after,
+                "frontier_repeated": frontier_repeated,
+                "before_validator_error_total": before_total,
+                "after_validator_error_total": after_total,
+                "validator_error_delta": before_total - after_total,
+                "next_action_ids": [action["action_id"] for action in queue["rows"]],
+                "selected_action_ids": [action["action_id"] for action in selected],
+                "executor_selected": "autonomous_next_action_router",
+                "capability_escalation_ids": [row["capability_escalation_id"] for row in escalations],
+                "commit_sha": factory.git_head(root),
+                "terminal_gate": "R017_READY_TO_ASSEMBLE" if final_passed else "R017_BLOCKED_BY_TOE_AUTONOMOUS_SUPERVISOR",
+                "action_results": action_results,
+                "validation_rows": validation_rows,
+            }
+        )
+        frontier_rows.append(
+            {
+                "wave_id": wave_id,
+                "frontier_hash_before": frontier_before,
+                "frontier_hash_after": frontier_after,
+                "frontier_repeated": frontier_repeated,
+                "validator_error_delta": before_total - after_total,
+            }
+        )
+        if final_passed and terminal_report["status"] == "PASS":
+            break
+        if max_iterations > 0 and iteration >= max_iterations:
+            break
+        if max_iterations == 0 and not selected:
+            time.sleep(max(0, int(args.sleep_on_cooldown_seconds)))
+        if not args.until_r017_pass and iteration >= 1:
+            break
+
+    current_parts = factory.current_validator_error_parts(root)
+    current_total = factory.validator_error_total(current_parts)
+    state = {
+        "schema_id": "OC133_TOE_AUTONOMOUS_SUPERVISOR_STATE_v1",
+        "generated_at": generated_at,
+        "status": "PASS" if terminal_report.get("status") == "PASS" else "INTERNAL_AUTONOMOUS_RUN_STATE_OPEN",
+        "release_id": factory.RELEASE_ID,
+        "version": factory.VERSION,
+        "r017_promotion_allowed": terminal_report.get("status") == "PASS",
+        "current_promotion_gate": "R017_READY_TO_ASSEMBLE" if terminal_report.get("status") == "PASS" else "R017_BLOCKED_BY_TOE_AUTONOMOUS_SUPERVISOR",
+        "iteration_total": len(wave_rows),
+        "latest_wave_id": wave_rows[-1]["wave_id"] if wave_rows else None,
+        "validator_error_total": current_total,
+        "science_validator_error_total": len(current_parts["science_errors"]),
+        "cerberus_error_total": len(current_parts["cerberus_errors"]),
+        "attempted_action_signatures": sorted(attempted),
+        "attempted_action_signature_total": len(attempted),
+        "capability_escalation_total": len(all_escalations),
+        "zero_delta_continue_policy": "PASS",
+        "terminal_stop_on_zero_delta": False,
+        "worktree_gate": gate,
+        "terminal_validation_status": terminal_report.get("status"),
+        "commit_checkpoint_requested": bool(args.commit_checkpoints),
+        "no_publication_action_policy": "No Zenodo, DOI, GitHub release, journal submission, or public upload action is performed.",
+    }
+    state["artifact_hash"] = artifact_hash(state)
+    outputs = build_outputs(root, state, wave_rows, queue if wave_rows else {}, all_action_results, all_escalations, frontier_rows, terminal_report, gate)
+    if args.write:
+        write_outputs(root, outputs)
+    if args.commit_checkpoints and args.write:
+        commit_rows.append(commit_checkpoint(root))
+        outputs[SUPERVISOR_DIR / COMMIT_LEDGER_NAME] = build_commit_ledger(commit_rows)
+    return outputs
+
+
+def build_outputs(
+    root: Path,
+    state: dict[str, Any],
+    wave_rows: list[dict[str, Any]],
+    queue: dict[str, Any],
+    action_results: list[dict[str, Any]],
+    escalation_rows_payload: list[dict[str, Any]],
+    frontier_rows: list[dict[str, Any]],
+    terminal_report: dict[str, Any],
+    gate: dict[str, Any],
+) -> dict[Path, dict[str, Any]]:
+    wave_ledger = {
+        "schema_id": "OC133_TOE_AUTONOMOUS_WAVE_LEDGER_v1",
+        "generated_at": state["generated_at"],
+        "status": "PASS" if state["r017_promotion_allowed"] else "INTERNAL_AUTONOMOUS_RUN_STATE_OPEN",
+        "wave_total": len(wave_rows),
+        "zero_delta_continue_policy": "PASS",
+        "terminal_stop_on_zero_delta": False,
+        "rows": wave_rows,
+    }
+    wave_ledger["artifact_hash"] = artifact_hash(wave_ledger)
+    queue_payload = queue or {
+        "schema_id": "OC133_TOE_AUTONOMOUS_NEXT_ACTION_QUEUE_v1",
+        "generated_at": state["generated_at"],
+        "status": "MISSING",
+        "rows": [],
+    }
+    queue_payload["artifact_hash"] = artifact_hash(queue_payload)
+    escalation = {
+        "schema_id": "OC133_TOE_AUTONOMOUS_CAPABILITY_ESCALATION_LEDGER_v1",
+        "generated_at": state["generated_at"],
+        "status": "OPEN" if escalation_rows_payload else "PASS",
+        "capability_escalation_total": len(escalation_rows_payload),
+        "zero_delta_creates_capability_work": True,
+        "rows": escalation_rows_payload,
+    }
+    escalation["artifact_hash"] = artifact_hash(escalation)
+    frontier = {
+        "schema_id": "OC133_TOE_AUTONOMOUS_FRONTIER_HASHES_v1",
+        "generated_at": state["generated_at"],
+        "status": "PASS",
+        "frontier_row_total": len(frontier_rows),
+        "rows": frontier_rows,
+    }
+    frontier["artifact_hash"] = artifact_hash(frontier)
+    commit_ledger = build_commit_ledger([])
+    cockpit = {
+        "schema_id": "OC133_TOE_AUTONOMOUS_COCKPIT_v1",
+        "generated_at": state["generated_at"],
+        "status": state["status"],
+        "current_promotion_gate": state["current_promotion_gate"],
+        "r017_promotion_allowed": state["r017_promotion_allowed"],
+        "validator_error_total": state["validator_error_total"],
+        "science_validator_error_total": state["science_validator_error_total"],
+        "cerberus_error_total": state["cerberus_error_total"],
+        "iteration_total": state["iteration_total"],
+        "latest_wave_id": state["latest_wave_id"],
+        "next_action_total": int(queue_payload.get("action_total") or 0),
+        "executable_action_total": int(queue_payload.get("executable_action_total") or 0),
+        "capability_escalation_total": state["capability_escalation_total"],
+        "worktree_gate_status": gate["status"],
+        "terminal_validation_status": terminal_report["status"],
+        "zero_delta_continue_policy": "PASS",
+        "terminal_stop_on_zero_delta": False,
+        "local_external_compute_policy": "deterministic/static first; governed local LLM only through Logion service; external Cerberus only after deterministic science blockers are zero",
+        "no_publication_action_policy": state["no_publication_action_policy"],
+    }
+    cockpit["artifact_hash"] = artifact_hash(cockpit)
+    return {
+        SUPERVISOR_DIR / STATE_NAME: state,
+        SUPERVISOR_DIR / COCKPIT_NAME: cockpit,
+        SUPERVISOR_DIR / WAVE_LEDGER_NAME: wave_ledger,
+        SUPERVISOR_DIR / NEXT_ACTION_QUEUE_NAME: queue_payload,
+        SUPERVISOR_DIR / ESCALATION_LEDGER_NAME: escalation,
+        SUPERVISOR_DIR / FRONTIER_HASHES_NAME: frontier,
+        SUPERVISOR_DIR / COMMIT_LEDGER_NAME: commit_ledger,
+        SUPERVISOR_DIR / TERMINAL_VALIDATION_NAME: terminal_report,
+    }
+
+
+def build_commit_ledger(rows: list[dict[str, Any]]) -> dict[str, Any]:
+    payload = {
+        "schema_id": "OC133_TOE_AUTONOMOUS_COMMIT_LEDGER_v1",
+        "generated_at": utc_now(),
+        "status": "PASS" if rows else "NO_CHECKPOINT_COMMIT_REQUESTED_OR_CREATED",
+        "commit_total": len(rows),
+        "rows": rows,
+    }
+    payload["artifact_hash"] = artifact_hash(payload)
+    return payload
+
+
+def write_outputs(root: Path, outputs: dict[Path, dict[str, Any]]) -> dict[str, Any]:
+    files = {root / path: stable_json(payload) for path, payload in outputs.items()}
+    return validation_result(files, write=True)
+
+
+def commit_checkpoint(root: Path) -> dict[str, Any]:
+    add_paths = [
+        "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory",
+        "content/generated",
+        "releases/oc_core_1_3/editorial",
+        "releases/oc_core_1_3/monograph/source/content/generated",
+        "tools/oc133_toe_autonomous_supervisor.py",
+        "tools/oc133_toe_closure_factory.py",
+        "release_machine/tests/test_release_assembly_machine.py",
+    ]
+    checks = [
+        factory.safe_run_command(root, [sys.executable, "-m", "py_compile", "tools/oc133_toe_autonomous_supervisor.py", "tools/oc133_toe_closure_factory.py"], 120),
+        factory.safe_run_command(root, [sys.executable, "tools/oc133_toe_closure_factory.py", "--check"], 300),
+    ]
+    if any(row["returncode"] != 0 for row in checks):
+        return {
+            "status": "SKIPPED_CHECKS_FAILED",
+            "checks": checks,
+            "commit_sha": None,
+        }
+    add = factory.safe_run_command(root, ["git", "add", *add_paths], 120)
+    diff = factory.safe_run_command(root, ["git", "diff", "--cached", "--quiet"], 120)
+    if diff["returncode"] == 0:
+        return {"status": "SKIPPED_NO_STAGED_CHANGES", "checks": checks, "git_add": add, "commit_sha": None}
+    commit = factory.safe_run_command(root, ["git", "commit", "-m", "Advance r017 autonomous TOE closure supervisor"], 120)
+    return {
+        "status": "PASS" if commit["returncode"] == 0 else "FAIL",
+        "checks": checks,
+        "git_add": add,
+        "git_commit": commit,
+        "commit_sha": factory.git_head(root) if commit["returncode"] == 0 else None,
+    }
+
+
+def main(argv: list[str] | None = None) -> int:
+    parser = argparse.ArgumentParser(description="Autonomously supervise OC Core 1.3.3 r017 TOE closure waves.")
+    parser.add_argument("--write", action="store_true")
+    parser.add_argument("--check", action="store_true")
+    parser.add_argument("--until-r017-pass", action="store_true")
+    parser.add_argument("--max-iterations", type=int, default=1, help="0 means unlimited/resumable.")
+    parser.add_argument("--max-actions-per-iteration", type=int, default=12)
+    parser.add_argument("--commit-checkpoints", action="store_true")
+    parser.add_argument("--sleep-on-cooldown-seconds", type=int, default=300)
+    parser.add_argument("--resume", action="store_true")
+    parser.add_argument("--timeout", type=int, default=900)
+    args = parser.parse_args(argv)
+    if args.check:
+        paths = [
+            SUPERVISOR_DIR / STATE_NAME,
+            SUPERVISOR_DIR / COCKPIT_NAME,
+            SUPERVISOR_DIR / WAVE_LEDGER_NAME,
+            SUPERVISOR_DIR / NEXT_ACTION_QUEUE_NAME,
+            SUPERVISOR_DIR / ESCALATION_LEDGER_NAME,
+            SUPERVISOR_DIR / FRONTIER_HASHES_NAME,
+            SUPERVISOR_DIR / COMMIT_LEDGER_NAME,
+            SUPERVISOR_DIR / TERMINAL_VALIDATION_NAME,
+        ]
+        files = {
+            ROOT / path: stable_json(read_json(ROOT / path))
+            for path in paths
+            if (ROOT / path).exists()
+        }
+        result = validation_result(files | {ROOT / path: files.get(ROOT / path, "") for path in paths if not (ROOT / path).exists()}, write=False)
+        print(json.dumps(result, ensure_ascii=False, indent=2, sort_keys=True))
+        return 1 if result["state"] != "PASS" else 0
+    outputs = run_supervisor(ROOT, args)
+    print(json.dumps(outputs[SUPERVISOR_DIR / COCKPIT_NAME], ensure_ascii=False, indent=2, sort_keys=True))
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())
