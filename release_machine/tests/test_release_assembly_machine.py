@@ -1954,7 +1954,8 @@ class ReleaseAssemblyMachineTests(unittest.TestCase):
         subwork_ids = {row["subwork_order_id"] for row in subwork["rows"]}
         self.assertTrue(any(row_id.startswith("R017-AI-") for row_id in subwork_ids))
         self.assertTrue(any(row_id.startswith("R017-ENTERPRISE_ARCHITECTURE-") for row_id in subwork_ids))
-        self.assertTrue(any(row_id.startswith("R017-FINITE-FAILURE-") for row_id in subwork_ids))
+        self.assertTrue(any(row_id.startswith("R017-GRAND-") for row_id in subwork_ids))
+        self.assertFalse(any(row_id.startswith("R017-FINITE-FAILURE-") for row_id in subwork_ids))
         self.assertTrue(any(row_id.startswith("R017-COMPARATOR-COVERAGE-GAP-") for row_id in subwork_ids))
         self.assertEqual(delta["no_progress_creates_backlog"], True)
         self.assertEqual(delta["toe_problem_explainability_status"], "PASS")
@@ -1967,6 +1968,12 @@ class ReleaseAssemblyMachineTests(unittest.TestCase):
         ea = read_json(factory_dir / "lane_execution" / "ENTERPRISE_ARCHITECTURE" / "OC133_EA_PROJECTION_CAPABILITY_REPORT.json")
         grand = read_json(factory_dir / "lane_execution" / "GRAND_TOE_CLAIM_LEDGER_EVIDENCE" / "OC133_GRAND_PROMOTION_SUBLANE_DIAGNOSIS.json")
         comparator = read_json(factory_dir / "lane_execution" / "MODERN_SCIENCE_COMPARATOR_SUPERIORITY" / "OC133_MODERN_SCIENCE_BROAD_COVERAGE_WORK_ORDERS.json")
+        comparator_execution = read_json(
+            factory_dir
+            / "lane_execution"
+            / "MODERN_SCIENCE_COMPARATOR_SUPERIORITY"
+            / "OC133_MODERN_SCIENCE_BROAD_COVERAGE_EXECUTION_REPORT.json"
+        )
 
         for payload, lane_id in [(ai, "AI"), (ea, "ENTERPRISE_ARCHITECTURE")]:
             self.assertEqual(payload["lane_id"], lane_id)
@@ -1981,16 +1988,27 @@ class ReleaseAssemblyMachineTests(unittest.TestCase):
                 "falsifier_ref",
                 "candidate_projection_ref",
                 "guarded_writer_report_ref",
+                "source_mining_report_ref",
             ]:
                 self.assertTrue((ROOT / refs[ref]).exists(), ref)
             self.assertFalse(payload["support_checks"]["claim_not_blocker"])
+            self.assertFalse(payload["support_checks"]["source_mined_candidate_available"])
+            self.assertFalse(payload["support_checks"]["lean_refs_exist"])
+            self.assertFalse(payload["support_checks"]["finite_case_refs_present"])
+            source_mining = read_json(ROOT / refs["source_mining_report_ref"])
+            self.assertEqual(source_mining["status"], "SOURCE_GAP_OPEN")
+            self.assertEqual(source_mining["candidate_total"], 0)
 
         self.assertEqual(grand["status"], "FAIL_CLOSED")
-        self.assertEqual(grand["finite_failure_total"], 2)
-        self.assertIn("ADV-NOSEND-PUBLISH", grand["finite_failure_ids"])
-        self.assertIn("FM-GRAND-TOE-FORMAL-HYPOTHETICAL-ACCEPT", grand["finite_failure_ids"])
+        self.assertEqual(grand["finite_failure_total"], 0)
+        self.assertEqual(grand["finite_failure_ids"], [])
         self.assertEqual(comparator["status"], "OPEN")
         self.assertEqual(comparator["coverage_gap_total"], 35)
+        self.assertTrue((ROOT / comparator["execution_report_ref"]).exists())
+        self.assertEqual(comparator_execution["status"], "OPEN")
+        self.assertEqual(comparator_execution["coverage_gap_total"], 35)
+        self.assertEqual(comparator_execution["open_gap_total"], 35)
+        self.assertFalse(comparator_execution["broad_pass_allowed"])
         self.assertFalse(comparator["broad_claim_predicates"]["coverage_extends_to_all_of_modern_science"])
 
     def test_r017_modern_science_benchmark_scoped_superiority_does_not_count_as_broad_pass(self) -> None:
@@ -2061,8 +2079,8 @@ class ReleaseAssemblyMachineTests(unittest.TestCase):
         self.assertFalse(rows["enterprise_architecture_research_lane"]["result"]["lane_result"]["final_toe_support_allowed"])
         self.assertEqual(rows["grand_toe_claim_ledger_evidence_research_lane"]["status"], "FAIL_CLOSED")
         grand_stdout = "\n".join(command["stdout_tail"] for command in rows["grand_toe_claim_ledger_evidence_research_lane"]["result"]["command_results"])
-        self.assertIn("ADV-NOSEND-PUBLISH", grand_stdout)
-        self.assertIn("FM-GRAND-TOE-FORMAL-HYPOTHETICAL-ACCEPT", grand_stdout)
+        self.assertIn('"finite_failure_ids": []', grand_stdout)
+        self.assertIn('"diagnostic_status": "FAIL_CLOSED"', grand_stdout)
         comparator_stdout = "\n".join(command["stdout_tail"] for command in rows["modern_science_comparator_superiority_research_lane"]["result"]["command_results"])
         self.assertIn('"coverage_gap_total": 35', comparator_stdout)
         self.assertEqual(rows["canonical_cerberus_after_science_clear"]["status"], "SKIPPED_DETERMINISTIC_SCIENCE_BLOCKERS_REMAIN")

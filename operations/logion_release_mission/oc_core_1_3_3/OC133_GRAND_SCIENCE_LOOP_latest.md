@@ -22,7 +22,7 @@
 ### OC133-GRAND-FORMAL-001
 - Owner: `Research/FormalScience`
 - Profile: `v12_grand_formal_science_research_program`
-- Action state: `COMMAND_FAIL`
+- Action state: `COMMAND_PASS`
 - Execution state: `BLOCKED`
 - Blocker check: `grand_toe_claim_ledger_evidence`
 - Blocker still present: `True`

@@ -1,0 +1,109 @@
+{
+  "artifact_hash": "9f5cd8225ab75b3dcd223876ea55d51cd61a8d81557d2a6c4790ff17a1987f06",
+  "candidate_rows": [],
+  "candidate_total": 0,
+  "execution_command": [
+    "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+    "tools/oc133_toe_closure_factory.py",
+    "--execute-capability-lane",
+    "AI",
+    "--write"
+  ],
+  "generated_at": "2026-05-05T17:47:11Z",
+  "lane_id": "AI",
+  "next_escalation": "Route missing candidate support to the research corpus rather than manually editing the projection lane.",
+  "pass_predicate": "candidate_total > 0 and every candidate support predicate is true.",
+  "rejected_candidate_rows": [
+    {
+      "claim_id": "OC133-AI-MINED-001",
+      "closure_verdict": "FAIL_CLOSED",
+      "comparator_refs": [
+        "comparators/OC_1_3_3_MODERN_SCIENCE_SUPERIORITY_REGISTER.json"
+      ],
+      "evidence_or_simulation_refs": [
+        "reports/OC_CORE_1_3_3_GRAND_EMPIRICAL_REPORT.json",
+        "validation/heldout/grand_science_evidence_registry.json"
+      ],
+      "falsifier_refs": [
+        "validation/target_blind/OC133_TARGET_BLIND_PREDICTION_TABLE.json"
+      ],
+      "finite_case_refs": [],
+      "lean_refs": [],
+      "projection_id": "OC133-FINAL-TOE-AI-001",
+      "public_claim_scope": "machine learning generalization and evaluation",
+      "source_claim_public_status": null,
+      "source_json_path": "$.lanes[11]",
+      "source_refs": [
+        "claims/CLAIM_LEDGER_1_3_3.json",
+        "proofs/THEOREM_REGISTRY_1_3_3.json",
+        "proofs/FINITE_MODEL_CHECKS_1_3_3.json"
+      ],
+      "support_checks": {
+        "claim_id_present": true,
+        "claim_not_blocker": true,
+        "comparator_refs_exist": true,
+        "evidence_refs_exist": true,
+        "falsifier_refs_exist": true,
+        "finite_case_refs_present": false,
+        "formal_refs_exist": false,
+        "lean_refs_exist": false,
+        "public_claim_scope_present": true
+      },
+      "theorem_or_formal_boundary_refs": []
+    }
+  ],
+  "rejected_candidate_total": 1,
+  "repair_strategy": "Create source-bound AI/EA claim, theorem/proof boundary, Lean/finite witness, evidence pack, comparator row, and falsifier before guarded promotion.",
+  "required_capability": "Research/AIProjection",
+  "scanned_sources": [
+    {
+      "matched_row_total": 0,
+      "row_total": 19,
+      "source_ref": "claims/CLAIM_LEDGER_1_3_3.json"
+    },
+    {
+      "matched_row_total": 0,
+      "row_total": 18,
+      "source_ref": "claims/CLAIM_LEDGER_FULL.json"
+    },
+    {
+      "matched_row_total": 0,
+      "row_total": 10,
+      "source_ref": "proofs/THEOREM_REGISTRY_1_3_3.json"
+    },
+    {
+      "matched_row_total": 0,
+      "row_total": 10,
+      "source_ref": "proofs/THEOREM_INVENTORY_1_3_3.json"
+    },
+    {
+      "matched_row_total": 0,
+      "row_total": 16,
+      "source_ref": "reports/OC_CORE_1_3_3_DOMAIN_VALIDATION_REPORT.json"
+    },
+    {
+      "matched_row_total": 0,
+      "row_total": 29,
+      "source_ref": "reports/OC_CORE_1_3_3_GRAND_EMPIRICAL_REPORT.json"
+    },
+    {
+      "matched_row_total": 1,
+      "row_total": 457,
+      "source_ref": "reports/OC_CORE_1_3_3_MODERN_SCIENCE_COVERAGE_LANE_QUEUE.json"
+    },
+    {
+      "matched_row_total": 0,
+      "row_total": 54,
+      "source_ref": "releases/oc_core_1_3/editorial/OC_CORE_1_3_PRACTICAL_UTILITY_ATLAS_latest.json"
+    },
+    {
+      "matched_row_total": 0,
+      "row_total": 95,
+      "source_ref": "releases/oc_core_1_3/editorial/OC_CORE_1_3_UNIFIED_SYNTHESIS_latest.json"
+    }
+  ],
+  "schema_id": "OC133_TOE_PROJECTION_SOURCE_MINING_REPORT_v1",
+  "source_ref_total": 9,
+  "status": "SOURCE_GAP_OPEN",
+  "why_it_failed": "No canonical non-blocker projection row has complete claim/formal/Lean/finite/evidence/comparator/falsifier support."
+}

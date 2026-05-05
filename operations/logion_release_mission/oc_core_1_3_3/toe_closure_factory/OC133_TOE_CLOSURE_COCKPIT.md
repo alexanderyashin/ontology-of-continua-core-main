@@ -9,8 +9,8 @@ Open obligations: `21`
 Lanes: `0/5` PASS
 Lane dispatcher: `BLOCKED`
 Root-cause coverage: `PASS`
-Capability backlog: `63`
-Lane subwork orders: `57`
+Capability backlog: `61`
+Lane subwork orders: `55`
 Delta trace: `CAPABILITY_BACKLOG_OPEN`
 Research wave: `CAPABILITY_BACKLOG_OPEN` / steps `10`
 Problem explainability: `PASS`

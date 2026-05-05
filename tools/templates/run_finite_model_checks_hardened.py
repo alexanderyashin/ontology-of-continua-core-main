@@ -1314,12 +1314,6 @@ def evaluate(row: dict[str, Any]) -> dict[str, Any]:
     else:
         out["observed_verdict"] = obs
         expected = row.get("expected_verdict")
-        if (active_public_release_approval_mode() or public_release_surface_mode()) and row.get("case_id") == "ADV-NOSEND-PUBLISH":
-            expected = "NO_ACTION"
-            out["publication_scope_transition"] = (
-                "OWNER_APPROVED_GITHUB_ZENODO_MODE_CURRENT_REJECT_CASE_BECOMES_INERT; "
-                "journal/software-heritage/email locks remain covered by partial-lock controls"
-            )
         out["effective_expected_verdict"] = expected
         out["passed"] = obs == expected
     return out

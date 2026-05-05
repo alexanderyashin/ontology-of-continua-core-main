@@ -1698,6 +1698,21 @@ def completeGrandToeFormalControl : GrandToeFormalObligationLayer :=
 def missingFiniteGrandToeFormalControl : GrandToeFormalObligationLayer :=
   { completeGrandToeFormalControl with finiteCaseIdsBound := false }
 
+def missingTheoremProofGrandToeFormalControl : GrandToeFormalObligationLayer :=
+  { completeGrandToeFormalControl with theoremIdsBound := false, proofSheetRefsBound := false }
+
+def missingLeanGrandToeFormalControl : GrandToeFormalObligationLayer :=
+  { completeGrandToeFormalControl with leanTheoremIdsBound := false }
+
+def missingClaimBoundaryGrandToeFormalControl : GrandToeFormalObligationLayer :=
+  {
+    completeGrandToeFormalControl with
+    dedicatedClaimRow := false,
+    releasePromotionAllowed := false,
+    scientificPromotionAllowed := false,
+    publicStatusPromoted := false
+  }
+
 theorem grand_toe_promotion_requires_all_formal_obligations
     (o : GrandToeFormalObligationLayer) :
     grandToeFormalPromotionAllowed o = true ->
@@ -1707,6 +1722,13 @@ theorem grand_toe_promotion_requires_all_formal_obligations
 
 theorem grand_toe_complete_formal_obligations_accept_control :
     grandToeFormalPromotionAllowed completeGrandToeFormalControl = true := by
+  native_decide
+
+theorem grand_toe_promotion_requires_theorem_obligation_mapping :
+    grandToeFormalPromotionAllowed completeGrandToeFormalControl = true ->
+    completeGrandToeFormalControl.theoremIdsBound = true /\
+    completeGrandToeFormalControl.proofSheetRefsBound = true := by
+  intro _
   native_decide
 
 theorem grand_toe_current_artifact_class_cannot_promote :
@@ -1723,6 +1745,22 @@ theorem grand_toe_current_artifact_class_missing_dedicated_claim :
 
 theorem grand_toe_missing_finite_cases_blocks_promotion :
     grandToeFormalPromotionAllowed missingFiniteGrandToeFormalControl = false := by
+  native_decide
+
+theorem grand_toe_missing_theorem_proof_mapping_blocks_promotion :
+    grandToeFormalPromotionAllowed missingTheoremProofGrandToeFormalControl = false := by
+  native_decide
+
+theorem grand_toe_missing_lean_mapping_blocks_promotion :
+    grandToeFormalPromotionAllowed missingLeanGrandToeFormalControl = false := by
+  native_decide
+
+theorem grand_toe_missing_finite_case_mapping_blocks_promotion :
+    grandToeFormalPromotionAllowed missingFiniteGrandToeFormalControl = false := by
+  native_decide
+
+theorem grand_toe_missing_claim_ledger_boundary_blocks_promotion :
+    grandToeFormalPromotionAllowed missingClaimBoundaryGrandToeFormalControl = false := by
   native_decide
 
 end OC133V12
