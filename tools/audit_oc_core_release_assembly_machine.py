@@ -28,6 +28,8 @@ from assemble_oc_core_release_package import (
     R012_TRANSLATOR_STATUS,
     R013_REVISION,
     R013_TRANSLATOR_STATUS,
+    R014_REVISION,
+    R014_TRANSLATOR_STATUS,
     TEXT_ARTIFACTS,
     assembly_paths,
     artifact_title,
@@ -105,6 +107,56 @@ TITLE_PAGE_BODY_MARKER_RE = re.compile(
     re.IGNORECASE,
 )
 PUBLIC_READER_INTERNAL_RE = re.compile(r"\b(Logion|ESTRA)\b", re.IGNORECASE)
+R014_CERBERUS_PUBLIC_LEAK_RE = re.compile(
+    r"("
+    r"source route|Synthesis checkpoint|Content:\s*Oc133|repository path(?:\s+repository path)?|"
+    r"raw generator labels?|control sheet|control-plane|route/control|Recorded content:|"
+    r"source-digest|source digest|public source route|route-source digest|"
+    r"release\s+SPOT|SPOT\s+source|quality\s+ledgers?|requirements\s+matrices|"
+    r"Lean-checked\s+subset|Lean\s+subset|All\s+phenomena\s+must|must\s+hold\s+in\s+any\s+admissible\s+real|active\s+bounded\s+numeric\s+packet|"
+    r"closed\s+synthesis\s+stack|BOUNDED_SYNTHESIS_REVIEW_RECORDED|release\s+gate\s+now\s+reports|hostile-review\s+blockers|"
+    r"science-state\s+register|broader-promotion\s+limits:\s*none\s+remain|Core\s+v2\.6|"
+    r"\br014\b|corresponding\s+evidence-package\s+record|Appendix~?the\s+Synthesis\s+Support\s+Appendix|Appendix\s+the\s+Synthesis\s+Support\s+Appendix|"
+    r"TRACE_COMPLETE|EVIDENCE_COMPLETE|PASS_31_OF_31_TERMINALIZED|proof-routed\s*\+\s*empirical\s*/\s*held-out\s+validated|"
+    r"held-out\s+validated|lawfully\s+generates?|usable\s+now|usable-now|already\s+cleared|bounded\s+theorem-route|bounded\s+theorem\s+route|"
+    r"Open\s+gaps:\s*none|unified-synthesis\s+naming|"
+    r"closed\s+practical\s+value|formally\s+proved|active\s+and\s+replayable|blocks\s+0\s+of\s+5|proved\s+Core\s+kernel|"
+    r"All\s+live\s+continua\s+maintain\s+supporting\s+flows|Complexity\s+grows\s+monotonically|"
+    r"(?:proof-routed|theorem-native)\s+domain\s+lanes\s+are\s+usable|operationally\s+supported\s+within\s+bounds|"
+    r"held-out\s+case\s+total|promoted\s+(?:physics|chemistry|biological|systems|domain|systems)?\s*packet|"
+    r"direct\s+empirical\s+grounding|foundation\s+for\s+all\s+physical\s+continua|"
+    r"theorem\s+packet\s+is\s+recorded|parameter\s+law\s+is\s+recorded|\d+\s+covered\s+cases;\s+\d+\s+held-out\s+cases|"
+    r"dimensional\s+monotonicity\s+for\s+live\s+continua|monotonic\s+growth\s+of\s+structural\s+complexity|"
+    r"stops\s+evolving\s+structurally\s+does\s+so\s+only\s+at\s+the\s+moment\s+of\s+collapse|"
+    r"\browId\b|\x0f|\x16|"
+    r"empirical\s+foundation\s+for|civilisational-scale\s+validation|tests\s+cross-level\s+invariants\s+that\s+hold\s+across|"
+    r"Theorem\s+\d+\s+means|Theorems\s+\d+\s+and\s+\d+\s+allow|all\s+these\s+domains\s+can\s+be\s+analysed\s+with\s+a\s+single\s+structural\s+toolkit|"
+    r"empirical\s+and\s+computational\s+foundation|empirically\s+validate|experiments?\s+(?:for\s+K\d+\s+)?validate|Predictions\s+validated|empirical\s+results\s+anchor|"
+    r"\btarget-blind\s+replay\b|\btarget-blind\s+table\b|\btarget-blind\s+split\b|\btarget-blind\s+row\b|"
+    r"proof_sheets_public|limit\s+continuum|global\s+structural\s+fixed\s+point|all\s+operators\s+.*act\s+as\s+symmetries|"
+    r"entire\s+ladder\s+K0.*K11\s+becomes\s+representable\s+inside\s+one\s+invariant\s+continuum|"
+    r"maximum\s+possible\s+value\s+among\s+all\s+K-levels|most\s+energy-stable\s+admissible\s+continuum|Operator\s+algebra\s+becomes\s+Abelian|"
+    r"Any\s+admissible\s+recursive\s+meta-hierarchy\s+eventually\s+converges|No\s+new\s+axes\s+or\s+potentials\s+can\s+emerge|"
+    r"terminal\s+environment\s+for\s+Core|terminal\s+meta-space\s+for\s+the\s+Core|necessary\s+and\s+sufficient\s+for\s+the\s+existence\s+of\s+K12|"
+    r"branching\s+reaches\s+closure|all\s+flows\s+are\s+symmetry\s+flows|no\s+new\s+time\s+directions\s+can\s+arise|all\s+branches\s+close|"
+    r"FINITE_MODEL_CHECKS_1_3_\b|TARGET_BLIND_PR\b|COMPARATOR_MATRIX\.jso\b|T133-CYCL(?!E)|"
+    r"ILLUSTRATIVE_[A-Z0-9_]+|terminal text contracts?|generated terminal prose|"
+    r"OC13::EXECUTION::|OPEN_DATA_COVERAGE_LT_1_0_OR_|TARGET_BLIND_PR\b|COMPARATOR_MATRIX\.jso\b|textbackslash|"
+    r"\ufffd|--assembly-revis\b|<pack\b"
+    r")",
+    re.IGNORECASE,
+)
+R014_PLACEHOLDER_HEADING_RE = re.compile(
+    r"\b(scoped Falsifiability Criteria|scoped Prediction Constraints|Process Schema Under scoped|boundary\.\.)\b",
+    re.IGNORECASE,
+)
+R014_INTERNAL_SOURCE_REF_RE = re.compile(
+    r"(?<!\\path\{)\b(?:content|appendix|source|validation)[\\/][A-Za-z0-9_.\\/-]+\.tex\b",
+    re.IGNORECASE,
+)
+R014_TARGET_PATH = "validation/target_blind/OC133_TARGET_BLIND_PREDICTION_TABLE.json"
+R014_TARGET_PATH_RE = re.compile(r"validation/target[_\s/-]+blind[/\s]+OC133[_\s-]+TARGET[_\s-]+BLIND[_\s-]+PREDICTION[_\s-]+TABLE\.json", re.IGNORECASE)
+R014_TRUNCATED_TARGET_PATH_RE = re.compile(r"validation/target[_\s/-]+blind[/\s]+OC133[_\s-]+TARGET(?![_\s-]+BLIND[_\s-]+PREDICTION[_\s-]+TABLE\.json)", re.IGNORECASE)
 PUBLICATION_TECHNICAL_RE = re.compile(
     r"\b("
     r"L10C?|terminal text contracts?|generated terminal prose|definition_model|"
@@ -286,6 +338,14 @@ R012_FINDING_KINDS = {
     "publication_r012_visual_cockpit_failed",
 }
 R013_FINDING_KINDS = TABLE_FINDING_KINDS
+R014_FINDING_KINDS = {
+    "publication_r014_cerberus_closure_missing",
+    "publication_r014_public_cerberus_leak",
+    "publication_r014_placeholder_heading_leak",
+    "publication_r014_methods_path_integrity_failed",
+    "publication_r014_reviewer_map_argument_missing",
+    "publication_r014_duplicate_integrated_source",
+}
 FORM_FINDING_KINDS = (
     TITLE_PAGE_FINDING_KINDS
     | TOC_FORM_FINDING_KINDS
@@ -309,6 +369,7 @@ FORM_FINDING_KINDS = (
     | R011_FINDING_KINDS
     | R012_FINDING_KINDS
     | R013_FINDING_KINDS
+    | R014_FINDING_KINDS
 )
 
 
@@ -1035,8 +1096,21 @@ def collect_publication_frontmatter_findings(
     )
     if delta:
         delta_norm = normalize_surface(delta).lower()
-        anchors = ["typed foundation", "lean", "finite", "target-blind", "prior-art", "review"]
-        missing = [anchor for anchor in anchors if anchor not in delta_norm]
+        anchor_groups = {
+            "typed foundation": ["typed foundation"],
+            "lean": ["lean"],
+            "finite": ["finite"],
+            "replay evidence": [
+                "retrospective replay",
+                "retrospective bounded replay",
+                "bounded retrospective replay",
+                "target-blind",
+                "target blind",
+            ],
+            "prior-art": ["prior-art", "prior art", "prior- art", "priorart"],
+            "review": ["review"],
+        }
+        missing = [anchor for anchor, variants in anchor_groups.items() if not any(variant in delta_norm for variant in variants)]
         if missing:
             findings.append({"kind": "publication_release_delta_missing_anchor", "artifact_type_id": artifact_type_id, "path": str(path.relative_to(ROOT)), "source_kind": source_kind, "missing": missing})
         policy_anchors = ["continuing scientific program", "meaningful scientific", "regular", "version", "1.3.3"]
@@ -1240,6 +1314,7 @@ def collect_publication_content_richness_findings(row: dict[str, Any]) -> list[d
             "curated_public_payload_markdown_journal_requirements_spot_r011",
             "curated_public_payload_markdown_figure_visual_qa_r012",
             "curated_public_payload_markdown_table_rendered_qa_r013",
+            "curated_public_payload_markdown_full_quality_closure_r014",
         }:
             findings.append({"kind": "publication_body_source_not_curated_payload", "artifact_type_id": artifact_type_id, "document_body_source": row.get("document_body_source")})
     return findings
@@ -1251,7 +1326,7 @@ def collect_r007_translation_findings(row: dict[str, Any]) -> list[dict[str, Any
         return []
     findings: list[dict[str, Any]] = []
     translation_status = row.get("public_translation_status")
-    if translation_status not in {"PUBLICATION_TRANSLATOR_R007", R008_TRANSLATOR_STATUS, R009_TRANSLATOR_STATUS, R010_TRANSLATOR_STATUS, R011_TRANSLATOR_STATUS, R012_TRANSLATOR_STATUS, R013_TRANSLATOR_STATUS}:
+    if translation_status not in {"PUBLICATION_TRANSLATOR_R007", R008_TRANSLATOR_STATUS, R009_TRANSLATOR_STATUS, R010_TRANSLATOR_STATUS, R011_TRANSLATOR_STATUS, R012_TRANSLATOR_STATUS, R013_TRANSLATOR_STATUS, R014_TRANSLATOR_STATUS}:
         findings.append({"kind": "publication_translation_missing", "artifact_type_id": artifact_type_id, "public_translation_status": row.get("public_translation_status")})
     source = str(row.get("public_translation_source") or "")
     expected_sources = {
@@ -1269,6 +1344,8 @@ def collect_r007_translation_findings(row: dict[str, Any]) -> list[dict[str, Any
         "figure_visual_qa_publication_translator_r012",
         "science_monolith_table_rendered_qa_spot_r013",
         "table_rendered_qa_publication_translator_r013",
+        "science_monolith_full_quality_closure_r014",
+        "full_quality_closure_publication_translator_r014",
     }
     if source not in expected_sources:
         findings.append({"kind": "publication_all_reader_pdf_translation_missing", "artifact_type_id": artifact_type_id, "public_translation_source": row.get("public_translation_source")})
@@ -1280,7 +1357,7 @@ def collect_r007_translation_findings(row: dict[str, Any]) -> list[dict[str, Any
         findings.append({"kind": "publication_ollama_governance_trace_missing", "artifact_type_id": artifact_type_id, "governed_ollama_status": governed_status})
     if int(row.get("unmanaged_ollama_call_total") or 0) != 0:
         findings.append({"kind": "publication_ollama_governance_bypass", "artifact_type_id": artifact_type_id, "unmanaged_ollama_call_total": row.get("unmanaged_ollama_call_total")})
-    if translation_status in {R008_TRANSLATOR_STATUS, R009_TRANSLATOR_STATUS, R010_TRANSLATOR_STATUS, R011_TRANSLATOR_STATUS, R012_TRANSLATOR_STATUS, R013_TRANSLATOR_STATUS}:
+    if translation_status in {R008_TRANSLATOR_STATUS, R009_TRANSLATOR_STATUS, R010_TRANSLATOR_STATUS, R011_TRANSLATOR_STATUS, R012_TRANSLATOR_STATUS, R013_TRANSLATOR_STATUS, R014_TRANSLATOR_STATUS}:
         if not row.get("logion_llm_service_status"):
             findings.append({"kind": "publication_common_llm_service_missing", "artifact_type_id": artifact_type_id})
         if not row.get("logion_llm_service_ledger_ref"):
@@ -1353,7 +1430,7 @@ def collect_r009_queue_findings(assembly: dict[str, Any]) -> list[dict[str, Any]
 
 
 def collect_r011_journal_spot_findings(assembly: dict[str, Any]) -> list[dict[str, Any]]:
-    if assembly.get("assembly_revision") not in {R011_REVISION, R012_REVISION, R013_REVISION}:
+    if assembly.get("assembly_revision") not in {R011_REVISION, R012_REVISION, R013_REVISION, R014_REVISION}:
         return []
     trace = assembly.get("governed_ollama_trace") if isinstance(assembly.get("governed_ollama_trace"), dict) else {}
     findings: list[dict[str, Any]] = []
@@ -1445,7 +1522,7 @@ def collect_r012_visual_findings(assembly: dict[str, Any]) -> list[dict[str, Any
             {"kind": "publication_r012_rendered_bbox_failed", "artifact_type_id": "assembly", "reason": "r011 has no rendered bbox ledger"},
             {"kind": "publication_r012_visual_cockpit_failed", "artifact_type_id": "assembly", "reason": "r011 has no visual QA cockpit"},
         ]
-    if assembly.get("assembly_revision") not in {R012_REVISION, R013_REVISION}:
+    if assembly.get("assembly_revision") not in {R012_REVISION, R013_REVISION, R014_REVISION}:
         return []
     trace = assembly.get("visual_quality_trace") if isinstance(assembly.get("visual_quality_trace"), dict) else {}
     findings: list[dict[str, Any]] = []
@@ -1488,7 +1565,7 @@ def collect_r013_table_findings(assembly: dict[str, Any]) -> list[dict[str, Any]
             {"kind": "publication_r013_rendered_table_bbox_failed", "artifact_type_id": "assembly", "reason": "r012 has no rendered table bbox ledger"},
             {"kind": "publication_r013_table_cockpit_failed", "artifact_type_id": "assembly", "reason": "r012 has no table QA cockpit"},
         ]
-    if assembly.get("assembly_revision") != R013_REVISION:
+    if assembly.get("assembly_revision") not in {R013_REVISION, R014_REVISION}:
         return []
     trace = assembly.get("table_quality_trace") if isinstance(assembly.get("table_quality_trace"), dict) else {}
     findings: list[dict[str, Any]] = []
@@ -1508,7 +1585,7 @@ def collect_r013_table_findings(assembly: dict[str, Any]) -> list[dict[str, Any]
         if trace.get(key) != "PASS":
             findings.append({"kind": kind, "artifact_type_id": "assembly", key: trace.get(key)})
     version = assembly.get("release_identity", {}).get("version") or "1.3.3"
-    base = assembly_paths("oc_core_1_3_3", str(version), R013_REVISION)["assembly_json"].parents[1]
+    base = assembly_paths("oc_core_1_3_3", str(version), str(assembly.get("assembly_revision") or R013_REVISION))["assembly_json"].parents[1]
     table_root = base / "table_quality"
     required_files = [
         table_root / f"OC133_R013_TABLE_REGISTRY_{version}.json",
@@ -1530,6 +1607,86 @@ def collect_r013_table_findings(assembly: dict[str, Any]) -> list[dict[str, Any]
                 "compiled_reader_table_total": trace.get("compiled_reader_table_total"),
             }
         )
+    return findings
+
+
+def collect_r014_quality_closure_findings(assembly: dict[str, Any]) -> list[dict[str, Any]]:
+    revision = assembly.get("assembly_revision")
+    if revision == R013_REVISION:
+        return [
+            {
+                "kind": "publication_r014_cerberus_closure_missing",
+                "artifact_type_id": "assembly",
+                "reason": "r013 is frozen as the pre-r014 Cerberus/global quality fixture",
+            }
+        ]
+    if revision != R014_REVISION:
+        return []
+    findings: list[dict[str, Any]] = []
+    version = assembly.get("release_identity", {}).get("version") or "1.3.3"
+    base = assembly_paths("oc_core_1_3_3", str(version), R014_REVISION)["assembly_json"].parents[1]
+    integrated_inputs = base / "b" / "base_source" / "content" / "_auto_core_inputs_1_3_3_integrated.tex"
+    if integrated_inputs.is_file():
+        input_text = integrated_inputs.read_text(encoding="utf-8", errors="replace")
+        refs = re.findall(r"\\input\{(content/27[abcd]_oc_core_1_3_3_[^}]+\.tex)\}", input_text)
+        duplicates = sorted({ref for ref in refs if refs.count(ref) > 1})
+        if duplicates:
+            findings.append(
+                {
+                    "kind": "publication_r014_duplicate_integrated_source",
+                    "artifact_type_id": "master_monograph",
+                    "path": str(integrated_inputs.relative_to(ROOT)),
+                    "duplicates": duplicates,
+                }
+            )
+    for row in assembly.get("artifact_rows", []):
+        artifact_type_id = row.get("artifact_type_id")
+        if artifact_type_id not in TEXT_ARTIFACTS:
+            continue
+        pdf_path = ROOT / str(row.get("pdf_path") or "")
+        text = pdf_text_pages(pdf_path, first=1, last=2400)
+        normalized = normalize_surface(text)
+        for regex, kind in [
+            (R014_CERBERUS_PUBLIC_LEAK_RE, "publication_r014_public_cerberus_leak"),
+            (R014_PLACEHOLDER_HEADING_RE, "publication_r014_placeholder_heading_leak"),
+            (R014_INTERNAL_SOURCE_REF_RE, "publication_r014_public_cerberus_leak"),
+        ]:
+            match = regex.search(normalized)
+            if match:
+                findings.append(
+                    {
+                        "kind": kind,
+                        "artifact_type_id": artifact_type_id,
+                        "path": str(pdf_path.relative_to(ROOT)),
+                        "match": match.group(0),
+                        "context": normalized[max(0, match.start() - 120): match.end() + 160],
+                    }
+                )
+        if artifact_type_id == "methods_repro_companion":
+            path_ok = R014_TARGET_PATH_RE.search(normalized.replace("\\_", "_")) is not None
+            truncated = R014_TRUNCATED_TARGET_PATH_RE.search(normalized.replace("\\_", "_"))
+            if not path_ok or truncated:
+                findings.append(
+                    {
+                        "kind": "publication_r014_methods_path_integrity_failed",
+                        "artifact_type_id": artifact_type_id,
+                        "path": str(pdf_path.relative_to(ROOT)),
+                        "expected_path": R014_TARGET_PATH,
+                        "truncated_match": None if not truncated else truncated.group(0),
+                    }
+                )
+        if artifact_type_id == "reviewer_attack_response_map":
+            required = ["Objection", "Threatened claim", "Evidence answer", "Residual risk", "Reopening condition"]
+            missing = [label for label in required if label not in normalized]
+            if missing:
+                findings.append(
+                    {
+                        "kind": "publication_r014_reviewer_map_argument_missing",
+                        "artifact_type_id": artifact_type_id,
+                        "path": str(pdf_path.relative_to(ROOT)),
+                        "missing": missing,
+                    }
+                )
     return findings
 
 
@@ -1612,6 +1769,14 @@ def form_statuses(findings: list[dict[str, Any]]) -> dict[str, str | int]:
     table_caption_argument_status = "FAIL" if kinds & {"publication_r013_table_caption_argument_failed"} else "PASS"
     table_semantic_anchor_status = "FAIL" if kinds & {"publication_r013_table_semantic_anchor_failed"} else "PASS"
     table_cockpit_status = "FAIL" if kinds & {"publication_r013_table_cockpit_failed"} else "PASS"
+    cerberus_static_leak_status = "FAIL" if kinds & {"publication_r014_public_cerberus_leak", "publication_r014_placeholder_heading_leak", "publication_r014_cerberus_closure_missing", "publication_r014_duplicate_integrated_source"} else "PASS"
+    methods_path_integrity_status = "FAIL" if kinds & {"publication_r014_methods_path_integrity_failed", "publication_r014_cerberus_closure_missing"} else "PASS"
+    reviewer_map_argument_status = "FAIL" if kinds & {"publication_r014_reviewer_map_argument_missing", "publication_r014_cerberus_closure_missing"} else "PASS"
+    r014_quality_closure_status = "PASS" if (
+        cerberus_static_leak_status == "PASS"
+        and methods_path_integrity_status == "PASS"
+        and reviewer_map_argument_status == "PASS"
+    ) else "FAIL"
     form_status = "PASS" if all(
         status == "PASS"
         for status in [
@@ -1692,6 +1857,10 @@ def form_statuses(findings: list[dict[str, Any]]) -> dict[str, str | int]:
             table_caption_argument_status,
             table_semantic_anchor_status,
             table_cockpit_status,
+            cerberus_static_leak_status,
+            methods_path_integrity_status,
+            reviewer_map_argument_status,
+            r014_quality_closure_status,
         ]
     ) else "FAIL"
     return {
@@ -1781,6 +1950,10 @@ def form_statuses(findings: list[dict[str, Any]]) -> dict[str, str | int]:
         "table_caption_argument_status": table_caption_argument_status,
         "table_semantic_anchor_status": table_semantic_anchor_status,
         "table_cockpit_status": table_cockpit_status,
+        "cerberus_static_leak_status": cerberus_static_leak_status,
+        "methods_path_integrity_status": methods_path_integrity_status,
+        "reviewer_map_argument_status": reviewer_map_argument_status,
+        "r014_quality_closure_status": r014_quality_closure_status,
         "form_quality_status": form_status,
         "form_finding_total": sum(1 for finding in findings if finding.get("kind") in FORM_FINDING_KINDS),
     }
@@ -1799,11 +1972,14 @@ def frontmatter_findings_for_source(path: Path, artifact_type_id: str, version: 
         ("acknowledgements", "reviewers and critics whose questions"),
         ("acknowledgement_boundary", "does not imply authorship"),
         ("abstract", "Abstract"),
-        ("release_delta", "Version 1.3.3 Release Delta"),
-        ("reader_routes", "Reader Routes"),
         ("table_of_contents", "\\tableofcontents"),
         ("author_orcid", "ORCID 0009-0008-6166-0914"),
     ]
+    if artifact_type_id != "journal_core_article":
+        required_pairs[4:4] = [
+            ("release_delta", "Version 1.3.3 Release Delta"),
+            ("reader_routes", "Reader Routes"),
+        ]
     if not artifact_title_present(front, artifact_type_id, version):
         findings.append(
             {
@@ -1837,15 +2013,21 @@ def frontmatter_findings_for_source(path: Path, artifact_type_id: str, version: 
                 }
             )
     previous_index = -1
-    for label_group in [
+    order_groups = [
         ["\\begin{titlepage}"],
         [DEDICATION_TEXT],
         ["# Acknowledgements", r"\textbf{Acknowledgements", "Acknowledgements"],
         ["# Abstract", r"\begin{abstract}", "Abstract"],
-        ["# Version 1.3.3 Release Delta", r"\section*{Version 1.3.3 Release Delta}", "Version 1.3.3 Release Delta"],
-        ["# Reader Routes", r"\section*{Reader Routes}", "Reader Routes", "# Reader Contract", r"\section*{Reader Contract}", "Reader Contract"],
-        ["\\tableofcontents"],
-    ]:
+    ]
+    if artifact_type_id != "journal_core_article":
+        order_groups.extend(
+            [
+                ["# Version 1.3.3 Release Delta", r"\section*{Version 1.3.3 Release Delta}", "Version 1.3.3 Release Delta"],
+                ["# Reader Routes", r"\section*{Reader Routes}", "Reader Routes", "# Reader Contract", r"\section*{Reader Contract}", "Reader Contract"],
+            ]
+        )
+    order_groups.append(["\\tableofcontents"])
+    for label_group in order_groups:
         label_index = min([index for index in (text.find(label) for label in label_group) if index >= 0] or [-1])
         if label_index < 0 or label_index <= previous_index:
             findings.append(
@@ -1893,11 +2075,14 @@ def frontmatter_findings_for_pdf(path: Path, artifact_type_id: str, version: str
         ("dedication", DEDICATION_TEXT),
         ("acknowledgements", "reviewers and critics whose questions"),
         ("abstract", "Abstract"),
-        ("release_delta", "Version 1.3.3 Release Delta"),
-        ("reader_routes", "Reader Routes"),
         ("table_of_contents", "Table of Contents"),
         ("author_orcid", "ORCID 0009-0008-6166-0914"),
     ]
+    if artifact_type_id != "journal_core_article":
+        required[3:3] = [
+            ("release_delta", "Version 1.3.3 Release Delta"),
+            ("reader_routes", "Reader Routes"),
+        ]
     if not artifact_title_present(text, artifact_type_id, version):
         findings.append(
             {
@@ -1968,6 +2153,7 @@ def build_audit(release_id: str, assembly_revision: str | None = None) -> dict[s
     findings.extend(collect_r011_journal_spot_findings(assembly))
     findings.extend(collect_r012_visual_findings(assembly))
     findings.extend(collect_r013_table_findings(assembly))
+    findings.extend(collect_r014_quality_closure_findings(assembly))
 
     scan_paths = [
         paths["terminal_contracts_json"],

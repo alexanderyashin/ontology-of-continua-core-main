@@ -63,7 +63,22 @@ def auto_quality_score(row: dict[str, Any]) -> dict[str, Any]:
     recovered_score = min(recovered_candidate_total, 3) / 3
     rule_score = 1.0 if has_transformation_rule and has_rules else 0.0
     boundary_score = 1.0 if has_boundary and has_reader_task else 0.0
-    coverage_status_score = 0.0 if row.get("coverage_status") == "not_assessed" else 1.0
+    if ready_source_family_total == 0 and recovered_candidate_total == 0:
+        assessed_coverage_status = "planned"
+    elif ready_source_family_total == 0:
+        assessed_coverage_status = "partial"
+    elif (
+        ready_source_family_total == source_family_total
+        and recovered_candidate_total >= 2
+        and has_transformation_rule
+        and has_rules
+        and has_boundary
+        and has_reader_task
+    ):
+        assessed_coverage_status = "complete"
+    else:
+        assessed_coverage_status = "partial"
+    coverage_status_score = 1.0 if assessed_coverage_status in {"complete", "partial"} else 0.5
 
     auto_index = round(
         (
@@ -89,8 +104,10 @@ def auto_quality_score(row: dict[str, Any]) -> dict[str, Any]:
         flags.append("NO_TRANSFORMATION_RULE")
     if not has_rules:
         flags.append("MISSING_MAPPING_RULE")
-    if row.get("coverage_status") == "not_assessed":
-        flags.append("FILL_NOT_ASSESSED")
+    if assessed_coverage_status == "partial":
+        flags.append("FILL_PARTIAL")
+    if assessed_coverage_status == "planned":
+        flags.append("FILL_PLANNED")
     return {
         "auto_quality_index": auto_index,
         "source_family_total": source_family_total,
@@ -100,7 +117,8 @@ def auto_quality_score(row: dict[str, Any]) -> dict[str, Any]:
         "has_transformation_rule": has_transformation_rule,
         "has_extraction_integration_verification_rules": has_rules,
         "has_claim_boundary_and_reader_task": boundary_score == 1.0,
-        "coverage_status": row.get("coverage_status"),
+        "coverage_status": assessed_coverage_status,
+        "mapping_declared_coverage_status": row.get("coverage_status"),
         "flags": flags,
     }
 
@@ -157,6 +175,7 @@ def build_quality_payload() -> dict[str, Any]:
             "claim_boundary_reader_task_score_weight": 0.25,
             "manual_fill_status_score_weight": 0.10,
             "manual_status_default": "not_assessed",
+            "coverage_assessment_policy": "r014 deterministic fill assessment converts mapping defaults into complete, partial, or planned statuses using ready source families, recovered candidates, transformation rules, reader task, and claim boundary evidence.",
         },
         "l10_quality_row_total": len(l10_rows),
         "l10_quality_rows": l10_rows,
@@ -181,6 +200,8 @@ def validate_quality_payload(payload: dict[str, Any]) -> list[str]:
             failures.append(f"bad_auto_quality_index::{row.get('l10_node_id')}")
         if row.get("manual_quality_status") != "not_assessed":
             failures.append(f"manual_status_assessed_too_early::{row.get('l10_node_id')}")
+        if row.get("coverage_status") == "not_assessed":
+            failures.append(f"coverage_not_assessed_after_r014_policy::{row.get('l10_node_id')}")
     if payload.get("artifact_hash") != sha256_text(stable_json(payload_without_hash(payload))):
         failures.append("quality_hash_mismatch")
     return failures
@@ -215,7 +236,7 @@ def render_quality_markdown(payload: dict[str, Any]) -> str:
         f"Artifact hash: `{payload['artifact_hash']}`",
         f"Source mapping hash: `{payload['source_mapping']['artifact_hash']}`",
         "",
-        "This document computes automatic quality indices where data exists. Manual quality statuses remain not assessed.",
+        "This document computes automatic quality indices where data exists. Manual quality statuses remain not assessed, while r014 coverage status is deterministically assessed from source readiness and recovered-corpus evidence.",
         "",
         "## Scoring Model",
         "",

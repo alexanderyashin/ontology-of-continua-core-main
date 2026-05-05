@@ -1,7 +1,7 @@
 # OC Core Release Review Package 1.3.3
 
 Status: `REVIEW_PACKAGE_ASSEMBLED_NO_PUBLICATION_ACTION`
-Artifact hash: `9a90a534b8296bb8b70d740d5cd4469d2951d262f438edd88541e9049d99feb6`
+Artifact hash: `7cc7384faddd9dffb230ab0947ab6c5d93e7cdccf171006e7eba5616fa7386e2`
 Scope: review-space artifact assembly only; no public record update, tag movement, or publication action
 
 ## Artifact Rows

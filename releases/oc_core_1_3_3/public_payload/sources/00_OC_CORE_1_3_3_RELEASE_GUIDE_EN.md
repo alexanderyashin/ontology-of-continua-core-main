@@ -1,7 +1,7 @@
 ---
 title: OC Core 1.3.3 Release Guide
 author: Alexander Yashin
-date: 2026-05-01
+date: 2026-05-04
 header-includes:
  - \usepackage{tikz}
  - \usetikzlibrary{arrows.meta,positioning}
@@ -17,11 +17,9 @@ header-includes:
 
 **Methodological framework.** ESTRA is the methodological framework used in the work; it is not an author or affiliation.
 
-**Version.** Version 1.3.3; tag `v1.3.3`; release date 2026-05-01.
+**Version.** Version 1.3.3; manuscript revision date 2026-05-04.
 
-**DOI.** 10.5281/zenodo.19965913.
-
-**Zenodo record.** https://zenodo.org/records/19965913.
+**Concept DOI.** 10.5281/zenodo.17899134.
 
 **Keywords.** Ontology of Continua; typed model core; formal methods; proof governance; finite semantic checks; target-blind replay QA; reproducible research; scientific release engineering.
 

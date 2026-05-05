@@ -1,6 +1,6 @@
 # OC Core Current Release Aggregator Audit
 
 Status: `PASS`
-Artifact hash: `c00cfd1be5cd93c7db31951b4f46f13041842960e3c03a4fad962589863bb8b7`
-Aggregator hash: `945d3c08d6b5c8e67e5cca404c09da6138c7f0478ba16b9993ce60405cbcc3ac`
+Artifact hash: `7e04456c770178059e032af8082c1122e3500609ba285df6222dec59965c0381`
+Aggregator hash: `940f4d37a05902932571c4f5dc9e3335c81c04efbbaaa68ea1549ed5ee64e315`
 Failures: `0`

@@ -364,6 +364,7 @@ def _public_clean(value: Any) -> str:
         "universal classes of thresholds": "recurring classes of thresholds",
         "No single embedding space Mx is universal for all possible continua": "No single embedding space Mx is sufficient for every declared continuum class",
         "Process Schema Under scoped": "Process Schema Under Declared Scope",
+        "control-plane record": "private editorial record",
         "source route": "source record",
         "Source route": "Source record",
     }
@@ -1607,8 +1608,8 @@ This policy is a commitment to system without pretending that research can be
 made mechanical. The author intends to make future public updates regular
 enough for readers, reviewers, and auditors to follow the development of the
 model, while preserving the difference between a public scientific result and
-private working material. No internal route, unpublished process detail, or
-control-plane record is promoted as reader-facing evidence merely because it
+private working material. No unpublished working note or private editorial
+record is promoted as reader-facing evidence merely because it
 helped produce the release.
 
 Version~1.3.3 is the release in which the OC Core corpus is reorganized from
@@ -2317,10 +2318,10 @@ def _rewrite_public_appendix_wrappers(source_dir: Path) -> None:
                     "release supplies theorem, replay, comparator, negative-control, and falsifier evidence."
                 ),
                 digest_block(
-                    "K-level synthesis source digest",
-                    "The full synthesis support route is represented here as a reading digest. The exact source and "
-                    "checksum remain in the evidence package; this text explains how a reviewer should use the source "
-                    "without turning the monograph into a generated dossier.",
+                    "K-level synthesis evidence summary",
+                    "The full synthesis support route is represented here as a reviewer-facing evidence summary. The "
+                    "machine-readable checksum remains in the evidence package; this text explains how a reviewer should "
+                    "use the record without turning the monograph into a generated dossier.",
                     input_refs("content/_auto_core_platinum_toe_support_inputs.tex"),
                 ),
             ]
@@ -2780,8 +2781,8 @@ def _rewrite_public_science_projection_sources(source_dir: Path) -> None:
         "one declared model-core kernel, one declared K-level ladder, one declared theorem-to-observable grammar, and one atlas": "a declared model-core kernel, a K-level witness taxonomy, a theorem-to-observable grammar, and a bounded comparison atlas",
         "The final promotion rule is parallel": "The bounded promotion rule is parallel",
         "hostile-review blocker total must be zero": "adversarial-review blocker total must be zero before the corresponding wording is promoted",
-        "The minimality ledger currently records `2` components marked necessary under the current proof stack and `2` frontier components whose strict irreducibility is not yet fully closed.": "The current 1.3.3 minimality witness route records component-wise keep/drop witnesses for all 11 declared release-tuple components in the finite semantic suite, with Lean binding for the corresponding typed witness schema. Frontier candidates beyond that declared tuple remain research obligations rather than part of the promoted T133-MIN theorem.",
-        "The minimality register currently records `2` components marked necessary under the current proof stack and `2` frontier components whose strict irreducibility is not yet fully closed.": "The current 1.3.3 minimality witness route records component-wise keep/drop witnesses for all 11 declared release-tuple components in the finite semantic suite, with Lean binding for the corresponding typed witness schema. Frontier candidates beyond that declared tuple remain research obligations rather than part of the promoted T133-MIN theorem.",
+        "The minimality ledger currently records `2` components marked necessary under the current proof stack and `2` frontier components whose strict irreducibility is not yet fully closed.": "The current 1.3.3 minimality witness route records component-wise keep/drop witnesses for all nine canonical release-tuple components in the finite semantic suite, with source-inspected witness records for the corresponding typed witness schema. Frontier candidates beyond that declared tuple remain research obligations rather than part of the promoted T133-MIN theorem.",
+        "The minimality register currently records `2` components marked necessary under the current proof stack and `2` frontier components whose strict irreducibility is not yet fully closed.": "The current 1.3.3 minimality witness route records component-wise keep/drop witnesses for all nine canonical release-tuple components in the finite semantic suite, with source-inspected witness records for the corresponding typed witness schema. Frontier candidates beyond that declared tuple remain research obligations rather than part of the promoted T133-MIN theorem.",
         "The strongest honest metaresult remains `STRONGEST_IMPOSSIBILITY_BOUNDARY` rather than a blurred uniqueness slogan.": "The strongest honest metaresult remains component-wise independence for the declared semantic verdict suite, not unrestricted uniqueness among all possible theories.",
         "Technical Derivation Appendix": "Technical Derivation Digest",
         "Reference and Benchmark Atlas": "Reference and Benchmark Digest",
@@ -4364,7 +4365,7 @@ def _positive_obligation_playbooks() -> str:
             "Claim adequacy playbook",
             "A promoted claim is adequate only when a reader can identify the object, the assumption set, the proof or "
             "data route, the prior-art relation, the reviewer attack surface, and the reopening condition. The standard "
-            "is positive: absence of forbidden wording is not enough. The manuscript must teach the claim well enough "
+            "is positive: absence of forbidden wording is not enough. The manuscript must explain the claim well enough "
             "that a hostile reviewer can reconstruct why the release believes it, what would make it false, and which "
             "artifact carries the burden of support."
         ),
@@ -4495,7 +4496,7 @@ def _positive_obligation_playbooks() -> str:
                 "Compression is allowed; loss of claim/evidence alignment is not."
             ),
             _tex_paragraph(
-                "A methods and reproducibility companion is not a command list. It must teach what each command checks, "
+            "A methods and reproducibility companion is not a command list. It must explain what each command checks, "
                 "which input it consumes, which output it produces, what mismatch means, and which scientific claim is "
                 "threatened by a failure. Without that interpretation layer, reproducibility becomes a mechanical ritual "
                 "rather than a scientific method."
@@ -4670,8 +4671,8 @@ def _integrated_claim_argument_sections(claim_rows: list[dict[str, Any]], proof_
         r"\section{Claim-by-Claim Integrated Argument}",
         r"\label{sec:oc133-claim-by-claim-integrated-argument}",
         _tex_paragraph(
-            "This section is the prose counterpart to the claim and theorem registers. It is intentionally longer than a "
-            "manifest because a publication-grade monograph must teach the reader why each promoted claim exists, what "
+            "The following integrated argument turns the claim and theorem registers into a reader-facing scientific route. It is intentionally longer than a "
+            "manifest because a publication-grade monograph must explain why each promoted claim exists, what "
             "problem it solves, which evidence carries it, and where the claim stops. The register remains available for "
             "audit; the argument below is written for scientific reading."
         ),
@@ -4713,6 +4714,30 @@ def _integrated_claim_argument_sections(claim_rows: list[dict[str, Any]], proof_
         "The reviewer-facing issue is whether the construction changes the space of admissible explanations.",
         "The practical reading starts with the error that the claim prevents.",
     ]
+    support_openers = [
+        "The supporting material should be read through",
+        "The evidence ceiling for this claim is",
+        "The public warrant currently available is",
+        "The reviewable support route is",
+        "The claim is carried, if it is carried at all, by",
+        "The strongest visible support for this wording is",
+    ]
+    boundary_openers = [
+        "The safe reading boundary is",
+        "The claim stops at",
+        "The current release keeps the wording inside",
+        "The adversarial boundary is",
+        "The public sentence is allowed only within",
+        "The reviewer should not read beyond",
+    ]
+    worked_readings = [
+        "A concrete reading starts by locating the typed field or operator that does the work, then looking for the positive case and the negative case that would have collapsed the distinction.",
+        "The practical test is to ask what changes if the distinction is removed: which witness disappears, which counterexample becomes possible, and which comparator absorbs the claim.",
+        "The reader can inspect the claim by following the construction from named object to witness to reopening condition instead of treating the identifier as a proof.",
+        "A useful check is to translate the claim into one positive scenario and one failure scenario; if the failure scenario cannot be stated, the public wording is too strong.",
+        "The local example is deliberately modest: it asks which boundary, morphism, status predicate, or operator prevents the claim from becoming a slogan.",
+        "The subsection should leave the reader with an inspectable contrast between the case where the claim works and the case where the claim must be demoted.",
+    ]
     for idx, row in enumerate(promoted[:12], start=1):
         cid = _public_clean(row.get("claim_id") or f"claim-{idx}")
         proof = proof_by_id.get(cid, {})
@@ -4737,22 +4762,19 @@ def _integrated_claim_argument_sections(claim_rows: list[dict[str, Any]], proof_
                     "decorate the theory with another label."
                 ),
                 _tex_paragraph(
-                    f"The support class is {support}. The proof route is {evidence}; the formal route is {lean}. In the "
-                    "public reading, this means that the claim is carried by a named theorem boundary, not by the fact that "
+                    f"{support_openers[(idx - 1) % len(support_openers)]} {support}. The proof route is {evidence}; the formal route is {lean}. In the "
+                    "public reading, the claim is carried by a named theorem boundary, not by the fact that "
                     "a row exists. If the proof sheet, Lean reference, finite witness, or mutation control does not carry "
                     "the visible wording, the visible wording is the part that must move."
                 ),
                 _tex_paragraph(
-                    f"The release boundary is {scope}. This boundary is not decorative. It prevents a bounded model-core "
-                    "statement from becoming a claim about unrestricted totality, all-domain prediction, or global priority. The "
+                    f"{boundary_openers[(idx - 1) % len(boundary_openers)]} {scope}. This boundary is not decorative. It prevents a bounded model-core "
+                    "statement from becoming a claim about unrestricted totality, full-domain prediction, or global priority. The "
                     "scientific value of the claim is that it is strong enough to test a real structural distinction and "
                     "narrow enough that an adversarial reviewer can name the condition that would reopen it."
                 ),
                 _tex_paragraph(
-                    "A worked reading asks three local questions. Which typed field, operator, boundary, status predicate, "
-                    "or morphism is doing the work? Which situation is the positive case? Which negative case would have "
-                    "collapsed the distinction if the claim were only a slogan? The answer to those questions is the "
-                    "practical content of this subsection."
+                    worked_readings[(idx - 1) % len(worked_readings)]
                 ),
                 _tex_paragraph(
                     f"For {cid}, the corresponding falsifier is concrete rather than slogan-like: find a model satisfying the "
@@ -4761,7 +4783,7 @@ def _integrated_claim_argument_sections(claim_rows: list[dict[str, Any]], proof_
                     "wording requires an assumption absent from the proof sheet."
                 ),
                 _tex_paragraph(
-                    "The prior-art and empirical boundaries are local to the claim. Earlier formalisms may already carry "
+                    "The prior-art and empirical boundaries remain local to this claim. Earlier formalisms may already carry "
                     "part of the distinction; when they do, OC claims integration only for that part. Numeric replay rows "
                     "can demonstrate artifact discipline, comparator behavior, and falsifier plumbing, but they do not by "
                     "themselves complete a domain science. The reader should therefore leave with four handles: the "
@@ -5291,6 +5313,13 @@ def _generate_integrated_science_tex(
             "distinction or merely renamed one."
         ),
         _tex_paragraph(
+            r"For release 1.3.3 this is the canonical public tuple. Some local proof, legacy, or didactic sections write "
+            r"the same object with spelled-out names, with \(\partial\Omega\) written as a boundary operator, or with a "
+            r"different order for local derivational convenience. Those are projections of the same public object, not "
+            r"separate definitions. A local projection is acceptable only when it states which components of "
+            r"\(K=(\Omega,\partial\Omega,A,\Theta,P,J,C,k,M)\) it keeps, derives, or suppresses."
+        ),
+        _tex_paragraph(
             "A worked example can be read before the theorem material. Consider an AI-enabled enterprise service. Its lower "
             "continua include compute, data, model weights, prompts, monitoring, security controls, teams, contracts, and "
             "user trust. The service remains live only while its admissible technical, organizational, legal, and economic "
@@ -5301,7 +5330,8 @@ def _generate_integrated_science_tex(
         r"\subsection{Evidence and Proof Anchors}",
         _tex_paragraph(
             "The release binds the model grammar to several evidence classes. The theorem route names formal statements and "
-            "their assumptions. Proof sheets and the Lean subset record which parts are mechanized or proof-oriented. Finite "
+            "their assumptions. Proof sheets and the formalization inventory record which parts are proof-oriented; a Lean "
+            "certificate is not promoted as machine-checked support unless its source binding is clean for the cited revision. Finite "
             "semantic checks show bounded model behavior under explicit cases. Target-blind replay rows and numeric tables "
             "show how selected claims are reconstructed under fixed inputs, formulas, comparators, residuals, and negative "
             "controls. Prior-art and novelty material then ask what existing traditions already explain and what residual "
@@ -5423,13 +5453,13 @@ def _generate_integrated_science_tex(
                     "to test whether those typed components solve specific ambiguity classes that appear when persistence, "
                     "death, rebirth, boundary, update, and cross-level reduction are discussed without a common grammar."
                 ),
-                _tex_paragraph(
-                    "The proof layer then gives the argument its ceiling. The promoted theorem surface is not a claim "
-                    "that OC has completed every possible domain science. It is a claim that named theorem statements have "
-                    "named assumptions, proof sheets, Lean-subset references where available, finite semantic witnesses, "
-                    "negative controls, and counterexample boundaries. A theorem identifier is therefore a citation handle, "
-                    "not the argument itself: the argument is the chain from definition to lemma to proof sheet to finite "
-                    "witness to explicit reopening condition."
+        _tex_paragraph(
+            "The proof layer then gives the argument its ceiling. The promoted theorem surface is not a claim "
+            "that OC has completed every possible domain science. It is a claim that named theorem statements have "
+            "named assumptions, proof sheets, formalization references where available, finite semantic witnesses, "
+            "negative controls, and counterexample boundaries. A theorem identifier is therefore a citation handle, "
+            "not the argument itself: the argument is the chain from definition to lemma to proof sheet to finite "
+            "witness to explicit reopening condition."
                 ),
                 _tex_paragraph(
                     "The empirical layer has the same discipline. Physics, chemistry, biology, systems, and mathematics "
@@ -5501,28 +5531,29 @@ def _generate_integrated_science_tex(
         _tex_paragraph(
             "This appendix is a reader-facing evidence map. It deliberately does not reproduce the raw provenance "
             "registers, source-path digests, or machine rows inside the monograph. Those complete registers remain in "
-            "the public evidence package, where they can be checked by hash. The monograph records what each evidence "
+            "the version-pinned evidence corpus, where they can be checked by hash. The monograph records what each evidence "
             "class does for the scientific argument and how a reader should use it."
         ),
         r"\subsection{Public Evidence Package Contents}",
         _tex_paragraph(
-            "The public evidence package contains the claim register, theorem registry, proof dependency graph, finite-model "
-            "semantic checks, Lean source and certificate, target-blind prediction table, numeric replay QA table, domain "
+            "The public evidence manifest identifies the claim register, theorem registry, proof dependency graph, finite-model "
+            "semantic checks, formalization inventory, target-blind prediction table, numeric replay QA table, domain "
             "evidence-boundary report, counterexample report, comparator and novelty registers, adversarial-review summary, "
-            "and journal owner-review package index. The canonical filenames include: "
+            "and journal owner-review package index. The review package embeds the manifest and checksums; larger evidence files "
+            "remain version-pinned public repository or corpus artifacts. The canonical filenames include: "
             + ", ".join(_tex_escape(name) for name in evidence_names)
             + "."
         ),
         _tex_paragraph(
-            "For exact SHA-256 values and source paths, use the corpus ledger and checksums files distributed in the release "
-            "zip. Keeping those details in machine-readable artifacts avoids turning the scientific monograph into a raw "
+            "For exact SHA-256 values and public paths, use the corpus ledger, source-binding manifest, and checksums files for the same revision. "
+            "Keeping those details in machine-readable artifacts avoids turning the scientific monograph into a raw "
             "hash catalogue while preserving reproducibility."
         ),
         r"\subsection{Verification Summary}",
         r"\begin{itemize}[leftmargin=1.8em]",
-        _tex_item("Lean formal subset", f"certificate recorded with {lean_cert.get('theorem_ref_total')} theorem references"),
-        _tex_item("Finite semantic evidence", f"{finite.get('case_total') or len(finite_rows)} cases with issue count {finite.get('failure_total')}"),
-        _tex_item("Bounded replay lanes", f"{target.get('lane_total') or len(empirical_rows)} lanes with issue count {target.get('failure_total')}"),
+        _tex_item("Formalization inventory", "Lean-related files are cited as formalization inventory unless certificate binding and source-manifest checks are clean for the cited revision"),
+        _tex_item("Finite semantic evidence", f"{finite.get('case_total') or len(finite_rows)} cases; any nonzero issue count is treated as a limitation and not as machine-checked closure"),
+        _tex_item("Bounded replay lanes", f"{target.get('lane_total') or len(empirical_rows)} lanes; promotion beyond replay support requires row-level comparator, negative-control, residual, and falsifier evidence"),
         _tex_item("Empirical promotion policy", validation.get("empirical_promotion_policy")),
         _tex_item("Adversarial review", f"open critical/high findings are recorded as {cerberus.get('critical_open_total')}/{cerberus.get('high_open_total')} for the referenced review run"),
         _tex_item("Journal owner-review packets", packages.get("package_total")),
@@ -5531,7 +5562,7 @@ def _generate_integrated_science_tex(
         _tex_paragraph(
             "A future release must fail if a primary scientific role is filled by an internal process memo, raw metadata wall, "
             "append-only surrogate, or verification package. The public manuscript must be a coherent text. "
-            "Long registers may be cited and archived, but the public PDFs must teach the reader how claims, proofs, "
+            "Long registers may be cited and archived, but the public PDFs must explain how claims, proofs, "
             "data, review, and release boundaries fit together."
         ),
     ]
@@ -5571,8 +5602,8 @@ def _rewrite_entrypoint_for_integrated_133(source_dir: Path) -> dict[str, Any]:
 
     formal_refs = [
         INTEGRATED_MODEL_REF.as_posix(),
+        INTEGRATED_PROOF_REF.as_posix(),
         R005_INLINE_FIGURE_REFS[0].as_posix(),
-        "content/27a_oc_core_1_3_3_typed_foundation_and_claims.tex",
         "content/03_model.tex",
         "content/04_results.tex",
         "content/05_discussion.tex",
@@ -5601,9 +5632,7 @@ def _rewrite_entrypoint_for_integrated_133(source_dir: Path) -> dict[str, Any]:
         "content/complexity_S.tex",
     ]
     evidence_refs = [
-        INTEGRATED_PROOF_REF.as_posix(),
         R005_INLINE_FIGURE_REFS[1].as_posix(),
-        "content/27b_oc_core_1_3_3_proof_and_formalization.tex",
         "content/experiments/experiments_master.tex",
         *[f"content/experiments/experiments_k{index}" for index in range(13)],
         "content/falsifiability/falsifiability_master.tex",
@@ -5612,14 +5641,12 @@ def _rewrite_entrypoint_for_integrated_133(source_dir: Path) -> dict[str, Any]:
         "content/predictions/predictions_master.tex",
         INTEGRATED_EVIDENCE_REF.as_posix(),
         R005_INLINE_FIGURE_REFS[2].as_posix(),
-        "content/27c_oc_core_1_3_3_methods_evidence_and_comparators.tex",
         *[f"content/predictions/predictions_k{index}.tex" for index in range(13)],
     ]
     domain_refs = [
         "content/14_disciplines_extended.tex",
         INTEGRATED_REVIEW_REF.as_posix(),
         R005_INLINE_FIGURE_REFS[3].as_posix(),
-        "content/27d_oc_core_1_3_3_review_boundaries_and_journal_map.tex",
     ]
 
     def part_block(title: str, refs: list[str]) -> str:

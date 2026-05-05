@@ -1,0 +1,112 @@
+\section{Domain Replay Reports}
+\label{sec:oc-core-1-3-domain-replay-reports}
+
+This appendix collects the replay packets that the bounded replay QA program
+actually executes. The summary table gives the operational overview. The domain
+notes that follow explain what each replay lane is meant to verify and what
+would count as a real failure rather than as cosmetic noise.
+
+\begingroup
+\footnotesize
+\RaggedRight
+\setlength{\tabcolsep}{2pt}
+\setlength{\LTleft}{0pt}
+\setlength{\LTright}{0pt}
+
+\begin{table}[htbp]
+\centering
+\begin{tabular}{@{}L{0.15\textwidth}L{0.13\textwidth}L{0.20\textwidth}L{0.27\textwidth}L{0.13\textwidth}@{}}
+\toprule
+Domain & Replay state & Caseset summary & Key metric snapshot & Wave \\
+\midrule
+Mathematics & replayable under the bounded public protocol & Deterministic strict replay; minimum 31 cases & No divergence; no surviving counterexample & not required \\
+Physics & replayable under the bounded public protocol & 30 covered / 20 held-out cases & Mean abs.\ 0.188136 sigma; p95 0.64778 sigma; max 1.48 sigma; tail breaches 0 & Physics institute-run wave 1a \\
+Chemistry & replayable under the bounded public protocol & 30 covered / 19 held-out cases & Mean abs.\ 0.533285 sigma; p95 1.0 sigma; max 1.597772 sigma; tail breaches 0 & Chemistry institute-run wave 2a \\
+Biology & replayable under the bounded public protocol & 30 covered / 16 held-out cases & Mean abs.\ 0.444222 sigma; p95 1.030033 sigma; max 1.438582 sigma; tail breaches 0 & Biology institute-run wave 3a \\
+Systems / Civilizational projection & replayable under the bounded public protocol & 30 covered / 18 held-out cases & Mean abs.\ 0.56097 sigma; p95 1.924704 sigma; max 2.25395 sigma; tail breaches 0 & Systems institute-run wave 4a \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\paragraph{Mathematics.}
+The mathematics anchor is a deterministic replay lane rather than an empirical
+benchmark family. It currently sits at verdict bounded review evidence recorded with replay state
+replayable under the bounded public protocol. No parameterized cases are required because the lane
+tests strict finite-review route registers and counterexample traces directly. Promotion
+fails on the first replay divergence or on the first surviving counterexample.
+Replay command:
+the public evidence replay route. The
+lawful next action remains continue replay review.
+
+\paragraph{Physics.}
+The bounded physics review packet is
+\occode{OC13::PHYSICS::FOUNDATIONAL_CONSTANTS_AND_SPECTRA}, executed through
+physics constants, spectra, and transport replay. Held-out
+residuals must remain within the declared tolerance band for every promoted
+benchmark family. Any family outside tolerance, or any broken sign/order
+constraint, falsifies the packet. Replay command:
+\occode{public evidence replay route --domain-id PHYSICS}.
+The current official replay basis is \occode{PARTIAL_OFFICIAL_PRIMARY_DATA},
+with 30 covered cases, 20 held-out cases, mean absolute normalized error
+0.188136 sigma, p95 0.64778 sigma, maximum 1.48 sigma, and zero tail breaches.
+\begin{itemize}[leftmargin=1.5em,nosep]
+\item \occode{PHY_BENCH_001}: \occode{fine_structure_constant_residual} from \url{https://physics.nist.gov/cuu/Constants/index.html}; held-out policy: leave one family out for residual verification.
+\item \occode{PHY_BENCH_002}: \occode{hydrogen_balmer_line_residual} from \url{https://physics.nist.gov/PhysRefData/ASD/lines_form.html}; held-out policy: reserve transitions not used during packet fitting.
+\item \occode{PHY_BENCH_003}: \occode{transport_scaling_residual} from \url{https://science.osti.gov/-/media/fes/pdf/workshop-reports/FES_Grand_Challenges_Report_final.pdf}; held-out policy: hold out one transport-regime family.
+\end{itemize}
+
+\paragraph{Chemistry.}
+The bounded chemistry review packet is
+\occode{OC13::CHEMISTRY::THERMOCHEMISTRY_AND_SPECTRA}, executed through
+chemistry thermochemistry, spectra, and kinetics replay. The
+declared thermochemical, spectral, and kinetic benchmark families must remain
+within tolerance on held-out compounds or reaction classes. A held-out family
+outside tolerance falsifies the packet. Replay command:
+\occode{public evidence replay route --domain-id CHEMISTRY}.
+The official replay basis remains
+\occode{PARTIAL_OFFICIAL_PRIMARY_DATA}, with 30 covered cases, 19 held-out
+cases, mean absolute normalized error 0.533285 sigma, p95 1.0 sigma, maximum
+1.597772 sigma, and zero tail breaches.
+\begin{itemize}[leftmargin=1.5em,nosep]
+\item \occode{CHEM_BENCH_001}: \occode{gas_phase_enthalpy_residual} from \url{https://webbook.nist.gov/chemistry/}; held-out policy: hold out one compound family from calibration.
+\item \occode{CHEM_BENCH_002}: \occode{spectral_transition_residual} from \url{https://webbook.nist.gov/chemistry/}; held-out policy: hold out one spectral family.
+\item \occode{CHEM_BENCH_003}: \occode{kinetic_or_equilibrium_residual} from \url{https://science.osti.gov/bes/efrc/Research/Grand-Challenges}; held-out policy: hold out one reaction-class envelope.
+\end{itemize}
+
+\paragraph{Biology.}
+The promoted biology packet is
+\occode{OC13::BIOLOGY::STATE_TRANSITION_AND_RESPONSE_SIGNATURES}, executed
+through
+biology state-transition and response-signature replay.
+The bounded measurable signatures must reproduce the held-out dataset families
+without widening the claim boundary. If the signature family fails on the
+held-out datasets, the biological lane loses promotion for the affected packet.
+Replay command:
+\occode{public evidence replay route --domain-id BIOLOGY}.
+The official replay basis is \occode{OFFICIAL_OPEN_PRIMARY_DATA}, with 30
+covered cases, 16 held-out cases, mean absolute normalized error 0.444222
+sigma, p95 1.030033 sigma, maximum 1.438582 sigma, and zero tail breaches.
+\begin{itemize}[leftmargin=1.5em,nosep]
+\item \occode{BIO_BENCH_001}: \occode{expression_signature_residual} from \url{https://www.ncbi.nlm.nih.gov/geo/}; held-out policy: reserve one time-series family for held-out replay.
+\item \occode{BIO_BENCH_002}: \occode{state_transition_order_error} from \url{https://www.ncbi.nlm.nih.gov/geo/}; held-out policy: reserve one cell-state transition family.
+\item \occode{BIO_BENCH_003}: \occode{response_onset_residual} from \url{https://www.ncbi.nlm.nih.gov/geo/}; held-out policy: reserve one response-signature family.
+\end{itemize}
+
+\paragraph{Systems / Civilizational projection.}
+The bounded systems review packet is
+\occode{OC13::SYSTEMS::K8_MACRO_PROCESS_AND_REGIME_SHIFT}, executed through
+systems macro-trajectory and regime-shift replay. The
+declared trajectory and regime-change observables must remain within tolerance
+on held-out intervals; a missed turning point or an out-of-band trajectory
+falsifies the packet. Replay command:
+\occode{public evidence replay route --domain-id SYSTEMS_CIVILIZATIONAL_PROJECTION}.
+The official replay basis is \occode{OFFICIAL_OPEN_PRIMARY_DATA}, with 30
+covered cases, 18 held-out cases, mean absolute normalized error 0.56097
+sigma, p95 1.924704 sigma, maximum 2.25395 sigma, and zero tail breaches.
+\begin{itemize}[leftmargin=1.5em,nosep]
+\item \occode{SYS_BENCH_001}: \occode{population_trajectory_residual} from \url{https://api.worldbank.org/v2/en/indicator/SP.POP.TOTL?format=json}; held-out policy: leave out one interval family.
+\item \occode{SYS_BENCH_002}: \occode{gdp_growth_turning_point_error} from \url{https://api.worldbank.org/v2/en/indicator/NY.GDP.MKTP.KD.ZG?format=json}; held-out policy: reserve one held-out macro interval.
+\item \occode{SYS_BENCH_003}: \occode{process_system_regime_score} from \url{https://api.worldbank.org/v2/en/indicator/EG.USE.PCAP.KG.OE?format=json}; held-out policy: reserve one resource-intensity curve family.
+\end{itemize}
+
+\endgroup

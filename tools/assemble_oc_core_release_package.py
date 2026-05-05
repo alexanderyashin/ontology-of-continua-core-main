@@ -53,9 +53,10 @@ PUBLICATION_BODY_REVISIONS = {
     "recovery_r011",
     "recovery_r012",
     "recovery_r013",
+    "recovery_r014",
 }
 PUBLICATION_DATE = "4 May 2026"
-CURRENT_RECOVERY_REVISION = "recovery_r013"
+CURRENT_RECOVERY_REVISION = "recovery_r014"
 R007_REVISION = "recovery_r007"
 R008_REVISION = "recovery_r008"
 R009_REVISION = "recovery_r009"
@@ -63,6 +64,7 @@ R010_REVISION = "recovery_r010"
 R011_REVISION = "recovery_r011"
 R012_REVISION = "recovery_r012"
 R013_REVISION = "recovery_r013"
+R014_REVISION = "recovery_r014"
 R007_TRANSLATOR_STATUS = "PUBLICATION_TRANSLATOR_R007"
 R008_TRANSLATOR_STATUS = "PUBLICATION_TRANSLATOR_R008"
 R009_TRANSLATOR_STATUS = "PUBLICATION_TRANSLATOR_R009"
@@ -70,6 +72,43 @@ R010_TRANSLATOR_STATUS = "PUBLICATION_TRANSLATOR_R010_SOURCE_GROUNDED_REPAIR"
 R011_TRANSLATOR_STATUS = "PUBLICATION_TRANSLATOR_R011_JOURNAL_REQUIREMENTS_SPOT"
 R012_TRANSLATOR_STATUS = "PUBLICATION_TRANSLATOR_R012_FIGURE_VISUAL_QA_SPOT"
 R013_TRANSLATOR_STATUS = "PUBLICATION_TRANSLATOR_R013_TABLE_RENDERED_QA_SPOT"
+R014_TRANSLATOR_STATUS = "PUBLICATION_TRANSLATOR_R014_FULL_QUALITY_CLOSURE"
+GOVERNED_TEXT_REVISIONS = {
+    R007_REVISION,
+    R008_REVISION,
+    R009_REVISION,
+    R010_REVISION,
+    R011_REVISION,
+    R012_REVISION,
+    R013_REVISION,
+    R014_REVISION,
+}
+COMMON_LLM_SERVICE_REVISIONS = {
+    R008_REVISION,
+    R009_REVISION,
+    R010_REVISION,
+    R011_REVISION,
+    R012_REVISION,
+    R013_REVISION,
+    R014_REVISION,
+}
+JOURNAL_SPOT_REVISIONS = {R011_REVISION, R012_REVISION, R013_REVISION, R014_REVISION}
+VISUAL_QA_REVISIONS = {R012_REVISION, R013_REVISION, R014_REVISION}
+TABLE_QA_REVISIONS = {R013_REVISION, R014_REVISION}
+PUBLIC_REVIEW_REVISION_ALIASES = {
+    "oc_core_1_3_3_review_current": R014_REVISION,
+}
+R014_CHECKSUM_BOUND_PUBLIC_EVIDENCE_PATHS = [
+    "comparators/OC_1_3_3_COMPARATOR_MATRIX.md",
+    "comparators/OC_1_3_3_NOVELTY_AND_PRIORITY_REGISTER.json",
+    "docs/OC_1_3_3_PRIOR_ART_COMPARATOR_MATRIX.json",
+    "docs/OC_1_3_3_PRIOR_ART_COMPARATOR_MATRIX.md",
+    "docs/OC_1_3_3_REVIEWER_COMPARATOR_BRIEF.md",
+    "validation/target_blind/OC133_TARGET_BLIND_PREDICTION_TABLE.json",
+    "validation/numeric_replay_qa/OC133_NUMERIC_REPLAY_QA_TABLE.json",
+    "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
+    "proofs/FINITE_MODEL_CHECKS_1_3_3.md",
+]
 PUBLIC_PAYLOAD_SOURCE_BY_ARTIFACT = {
     "release_guide": ROOT / "releases" / "oc_core_1_3_3" / "public_payload" / "sources" / "00_OC_CORE_1_3_3_RELEASE_GUIDE_EN.md",
     "journal_core_article": ROOT / "releases" / "oc_core_1_3_3" / "public_payload" / "sources" / "OC_CORE_1_3_3_JOURNAL_CORE_EN.md",
@@ -154,6 +193,7 @@ READER_CHAPTER_TITLES = {
 
 def generated_dir(release_id: str, assembly_revision: str | None = None) -> Path:
     if assembly_revision:
+        assembly_revision = PUBLIC_REVIEW_REVISION_ALIASES.get(assembly_revision, assembly_revision)
         return ROOT / "releases" / release_id / "editorial" / "generated_artifacts_recovered" / assembly_revision
     return ROOT / "releases" / release_id / "editorial" / "generated_artifacts"
 
@@ -1245,7 +1285,7 @@ def r011_release_spot_map(version: str, artifact_rows: list[dict[str, Any]]) -> 
         ],
         "evidence_anchors": [
             "theorem and proof route",
-            "Lean subset",
+            "Formalization inventory",
             "finite semantics",
             "target-blind replay QA",
             "numeric tables",
@@ -1440,7 +1480,7 @@ def r011_journal_package_payloads(venue: dict[str, Any], version: str, spot: dic
         "checklist_md": checklist,
         "repro_data_statement_md": (
             "# Reproducibility and Data Statement\n\n"
-            "All reproducibility claims in this package are derived from the release SPOT: theorem/proof route, Lean subset, finite semantics, target-blind replay QA, numeric tables, and evidence trails. Data and code references must be inspected by the owner before any venue action.\n"
+            "All reproducibility claims in this package are derived from the release source corpus: theorem/proof route, formalization inventory, finite semantics, target-blind replay QA, numeric tables, and evidence trails. Data and code references must be inspected by the owner before any venue action.\n"
         ),
         "data_code_si_manifest_md": (
             "# Data, Code, and Supporting Information Manifest\n\n"
@@ -1476,7 +1516,7 @@ def r011_editorial_queue(version: str, acceptance: dict[str, Any], spot: dict[st
             f"Record: {record.get('record_id')} artifact={record.get('artifact_type_id')} "
             f"classes={record.get('blocker_classes_from_r010')}. "
             f"Release SPOT hash: {spot.get('artifact_hash')}. "
-            "Evidence anchors: theorem/proof route; Lean subset; finite semantics; target-blind replay QA; numeric tables; figures; bibliography."
+            "Evidence anchors: theorem/proof route; formalization inventory; finite semantics; target-blind replay QA; numeric tables; figures; bibliography."
         )
         requests.append(
             {
@@ -1629,7 +1669,7 @@ def governed_llm_trace_for_revision(
     base: Path,
     write: bool,
 ) -> dict[str, Any]:
-    if assembly_revision in {R009_REVISION, R010_REVISION, R011_REVISION, R012_REVISION, R013_REVISION}:
+    if assembly_revision in {R009_REVISION, R010_REVISION, R011_REVISION, R012_REVISION, R013_REVISION, R014_REVISION}:
         return {
             "schema_id": "OC_CORE_R009_LOGION_LLM_SERVICE_UNTIL_DONE_TRACE_v1",
             "status": "NOT_RUN_YET",
@@ -1851,6 +1891,39 @@ def source_inventory_by_family() -> dict[str, list[str]]:
     rows: dict[str, list[str]] = {}
     for family in inventory.get("source_families", []):
         rows[family["id"]] = [path for path in family.get("matched_paths_sample", []) if isinstance(path, str)]
+    # The frozen L10 mapping inventory samples some source families too
+    # narrowly. r014 needs these public comparator/novelty records bound
+    # deterministically because the monograph and journal projection cite the
+    # prior-art boundary as load-bearing evidence.
+    explicit_family_paths = {
+        "prior_art_novelty_and_comparator": [
+            "comparators/OC_1_3_3_COMPARATOR_MATRIX.md",
+            "comparators/OC_1_3_3_NOVELTY_AND_PRIORITY_REGISTER.json",
+            "docs/OC_1_3_3_PRIOR_ART_COMPARATOR_MATRIX.json",
+            "docs/OC_1_3_3_PRIOR_ART_COMPARATOR_MATRIX.md",
+            "docs/OC_1_3_3_REVIEWER_COMPARATOR_BRIEF.md",
+            "appendix/OC_1_3_3_COMPARATOR_AND_NOVELTY_MATRIX.tex",
+        ],
+        "formal_proof_and_finite_witness": [
+            "proofs/proof_sheets/T133-OMEGA-STATUS.md",
+            "proofs/proof_sheets/T133-K-ZERO.md",
+            "proofs/proof_sheets/T133-BOUNDARY.md",
+            "proofs/proof_sheets/T133-K0-RES.md",
+            "proofs/proof_sheets/T133-KLEVEL.md",
+            "proofs/proof_sheets/T133-DIM.md",
+            "proofs/proof_sheets/T133-MIN.md",
+            "proofs/proof_sheets/T133-HYBRID.md",
+            "proofs/proof_sheets/T133-ID.md",
+            "proofs/proof_sheets/T133-CYCLE.md",
+            "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
+            "proofs/FINITE_MODEL_CHECKS_1_3_3.md",
+        ],
+    }
+    for family_id, candidate_paths in explicit_family_paths.items():
+        bucket = rows.setdefault(family_id, [])
+        for candidate in candidate_paths:
+            if candidate not in bucket and (ROOT / candidate).is_file():
+                bucket.append(candidate)
     return rows
 
 
@@ -2395,6 +2468,16 @@ def normal_acknowledgements() -> str:
     )
 
 
+def ai_assistance_disclosure() -> str:
+    return (
+        "AI-assisted tools were used as governed editorial and engineering instruments during preparation of this "
+        "release package. Their roles were limited to bounded prose critique, formatting checks, source-path hygiene, "
+        "figure and table QA support, and code/release-machine assistance under human review. They are not authors, "
+        "do not provide scientific authority, and did not license any unsupported claim. The author retains full "
+        "responsibility for the manuscript, evidence interpretation, claim boundaries, and final publication decisions."
+    )
+
+
 def publication_abstract(artifact_type_id: str) -> str:
     role_sentence = {
         "release_guide": "This release guide is the entry document for the OC Core 1.3.3 public package.",
@@ -2431,7 +2514,7 @@ def publication_abstract(artifact_type_id: str) -> str:
             (
                 "The package contains a full monograph, a compact article route, a methods and reproducibility companion, "
                 "a reviewer attack-and-response map, release navigation, public evidence anchors, finite-model outputs, "
-                "Lean subset evidence, bounded target-blind replay QA, comparator and prior-art material, and appendices for "
+                "formalization inventory, bounded target-blind replay QA, comparator and prior-art material, and appendices for "
                 "proof, figures, tables, numeric rows, and source trace. The monograph is the canonical reading spine; the "
                 "other documents are curated routes for first reading, editorial review, replay, and hostile criticism."
             ),
@@ -2478,7 +2561,7 @@ def publication_release_delta() -> str:
                 "This policy is also a commitment to regularity without pretending that research can be made mechanical. "
                 "The author intends to make future public updates systematic enough for readers, reviewers, and auditors to "
                 "follow the development of the model, while preserving the difference between a public scientific result and "
-                "private working material. No internal route, unpublished process detail, or control-plane record is promoted "
+                "private working material. No unpublished working note or private editorial record is promoted "
                 "as reader-facing evidence merely because it helped produce the release."
             ),
             (
@@ -2494,7 +2577,7 @@ def publication_release_delta() -> str:
                 "unrestricted theory of every phenomenon."
             ),
             (
-                "The verification delta adds and consolidates a Lean-checked subset, structured proof sheets, finite semantic "
+                "The verification delta adds and consolidates a Lean-oriented formalization inventory, structured proof sheets, finite semantic "
                 "checks, finite witness interpretation, bounded target-blind replay QA, comparator and prior-art positioning, "
                 "negative-control and falsifier language, and adversarial-review response material. Where a stronger claim is "
                 "not yet earned, the release records the limitation instead of hiding it inside a source-control record."
@@ -2533,7 +2616,7 @@ def publication_reader_contract(artifact_type_id: str) -> str:
             ),
             (
                 "Scientific reviewers and formal critics may wish to start with the abstract, release delta, model-foundation "
-                "route, theorem/proof integration route, Lean subset, finite semantic witnesses, proof machinery, and "
+                "route, theorem/proof integration route, formalization inventory, finite semantic witnesses, proof machinery, and "
                 "falsifiability sections. This route is meant to make the work attackable in the best sense: every promoted "
                 "claim should expose its assumptions, proof or executable evidence, counterexample boundary, and reopening "
                 "condition."
@@ -2566,7 +2649,7 @@ def publication_reader_contract(artifact_type_id: str) -> str:
             ),
             (
                 f"{route} In the full package, the conceptual model and formulas live in the monograph's scientific body; "
-                "the proof route and Lean subset live in theorem, proof, and formalization sections; numeric evidence and "
+                "the proof route and formalization inventory live in theorem, proof, and formalization sections; numeric evidence and "
                 "target-blind replay QA live in the methods/evidence route; figures and tables live inline in the monograph; "
                 "appendices carry source trace, proof machinery, comparison rows, audit trail, and machine-readable table "
                 "references; prior-art comparison and reviewer objections live in the article and attack-response map."
@@ -2583,6 +2666,39 @@ def publication_reader_contract(artifact_type_id: str) -> str:
 
 def render_publication_frontmatter(artifact_type_id: str, version: str, instance: dict[str, Any]) -> str:
     profile = artifact_frontmatter_profile(artifact_type_id, version, instance)
+    if False and artifact_type_id == "journal_core_article":
+        lines = [
+            "---",
+            f"document_title: \"{profile['title']}\"",
+            f"document_version: \"{profile['version']}\"",
+            f"release_id: \"{profile['release_id']}\"",
+            f"concept_doi: \"{profile['concept_doi']}\"",
+            "---",
+            "",
+            render_title_page(profile),
+            "",
+            "# Acknowledgements {.unnumbered}",
+            "",
+            normal_acknowledgements(),
+            "",
+            "# Abstract {.unnumbered}",
+            "",
+            publication_abstract(artifact_type_id),
+            "",
+            r"```{=latex}",
+            r"\clearpage",
+            r"\renewcommand*\contentsname{Table of Contents}",
+            r"\setcounter{tocdepth}{2}",
+            r"\setcounter{secnumdepth}{2}",
+            r"\makeatletter",
+            r"\renewcommand*\l@section[2]{\addvspace{0.45em}\begingroup\bfseries\large\@dottedtocline{1}{0em}{4.8em}{#1}{#2}\endgroup}",
+            r"\renewcommand*\l@subsection[2]{\@dottedtocline{2}{2.0em}{5.8em}{\small #1}{\small #2}}",
+            r"\makeatother",
+            r"\tableofcontents",
+            r"\clearpage",
+            r"```",
+        ]
+        return "\n".join(lines).rstrip() + "\n"
     lines = [
         "---",
         f"document_title: \"{profile['title']}\"",
@@ -2596,6 +2712,10 @@ def render_publication_frontmatter(artifact_type_id: str, version: str, instance
         "# Acknowledgements {.unnumbered}",
         "",
         normal_acknowledgements(),
+        "",
+        "# AI Assistance Disclosure {.unnumbered}",
+        "",
+        ai_assistance_disclosure(),
         "",
         "# Abstract {.unnumbered}",
         "",
@@ -2886,6 +3006,395 @@ def publication_translated_payload_body_r013(artifact_type_id: str, version: str
     return body
 
 
+def r014_sidecar_quality_closure_body(artifact_type_id: str, version: str) -> str:
+    if artifact_type_id == "journal_core_article":
+        return r"""
+
+# Introduction
+
+OC Core 1.3.3 studies systems that remain identifiable while their states, boundaries, flows, and constraints change. The motivating problem is not that individual disciplines lack models. Physics, biology, cybernetics, enterprise architecture, formal methods, and complex-systems research all have strong local languages. The problem is that cross-domain work often has to translate persistence, failure, recovery, constraint, and evidence by hand each time a system crosses a disciplinary boundary. OC asks whether a typed continuum grammar can reduce that translation burden without erasing domain science.
+
+This article defends one central contribution: a publication-bounded model grammar for speaking about continua as systems that persist through change. It does not claim final theory status, unrestricted prediction across all sciences, or completed empirical validation of every domain. It asks a narrower and reviewable question: can a common typed object help reviewers inspect when a systems claim is defined, formally bounded, evidenced, comparable to prior work, and falsifiable?
+
+The article makes four bounded claims. First, a continuum can be treated as a typed object with admissible states, boundary, axes, thresholds, potentials, flows, cycles, continuumness, and embedding context. Second, K-levels should be read as witness-bearing system strata, not as names. Third, public claims should be promoted only when prose, formula, proof or finite witness, evidence row, comparator boundary, and falsifier remain aligned. Fourth, domain examples in this release are bounded replay and comparator examples, not completed domain validation.
+
+# Related Work and Residual Delta
+
+OC is not written against an empty field. General systems theory, especially the
+tradition descending from Bertalanffy and later systems research, supplies the
+basic conviction that organisms, institutions, machines, and scientific
+models can share structural questions without becoming the same object. OC
+accepts that inheritance. Its residual delta is not the idea of cross-domain
+systems language; it is the stricter requirement that each cross-domain claim
+name a typed continuum object, a witness-bearing level, an evidence ceiling,
+and a reopening condition.
+
+Cybernetics and control theory already make feedback, regulation,
+communication, and stability central. OC overlaps with that tradition whenever
+flows, thresholds, and cycles are used to describe persistence or failure. The
+residual delta is that the OC release treats feedback-like language as one
+component of a larger tuple rather than as the whole model. A cybernetic
+reading may explain a local feedback loop better; OC claims only the bounded
+integration surface in which that loop can be compared with boundary,
+embedding, continuumness, and demotion rules.
+
+Autopoiesis, organizational closure, and RAF-style autocatalytic theories are
+important predecessors for self-production, boundary maintenance, and
+chemical or biological closure. OC does not claim invention of those ideas.
+Its residual delta is the typed placement of closure-like phenomena as
+witnesses inside a K-level grammar with explicit reduction and demotion tests.
+If a RAF or autopoietic account explains the same case with less burden and
+equal evidence, the OC claim must be narrowed to a translation or packaging
+role.
+
+Dynamical systems, complexity science, and network science provide mature
+languages for state spaces, attractors, bifurcations, critical transitions,
+emergence, and distributed organization. OC reuses that neighborhood rather
+than replacing it. The article's bounded claim is that a continuum tuple can
+make explicit which state space, boundary, axis, threshold, potential, flow,
+cycle, continuumness measure, and embedding context a systems sentence is
+using. It does not claim that the tuple is a better local dynamics model than
+the best domain-specific equation.
+
+Hybrid systems, formal verification, type-theoretic modeling, and
+category-oriented modeling supply the discipline for typed transitions,
+guards, resets, compositional maps, and machine-auditable proof surfaces. OC
+depends on that discipline when it separates theorem routes, finite semantic
+witnesses, and formalization inventory from empirical rows. The residual delta
+is release-governed claim promotion: a public sentence is not allowed to
+inherit more certainty than the weakest supporting artifact actually carries.
+
+Formal ontology, identity-over-time debates, and persistence theory sharpen
+the question of what remains the same through change. OC's contribution here
+is modest: it offers continuumness and boundary crossing as reviewable
+interfaces between identity language and systems modeling. A philosophical
+reader may reject the metaphysics while still auditing whether the release
+keeps its identity claims within the stated tuple and evidence rows.
+
+Finally, reproducible-research and artifact-evaluation practice supplies the
+norm that scientific prose should be inspectable against files, commands,
+checksums, and failure meanings. OC adopts that norm as part of the scientific
+object. Its residual delta is not reproducibility itself, but the use of
+reproducibility as a claim-boundary mechanism: when a proof sheet, finite
+witness, replay row, or comparator row is weaker than the prose, the prose is
+demoted.
+
+# Claim Set and Canonical Model Object
+
+The canonical public tuple for this release is `K=(Omega, partialOmega, A, Theta, P, J, C, k, M)`. This is the article's text-extractable rendering of the monograph's mathematical tuple. Here `Omega` is the admissible state region, `partialOmega` is the declared boundary, `A` are axes of observation or measurement, `Theta` are threshold conditions, `P` are potentials or admissibility weights, `J` are flows, `C` are cycles, `k` is continuumness, and `M` is embedding context. For compact prose the article may gloss `Omega` as a state region, `partialOmega` as a boundary, and `Theta` as thresholds; those glosses are not alternate tuple definitions. Older or local surfaces that use spelled-out names or a different local order are projections of the same release tuple, not competing definitions.
+
+| Component | Public role | Reader test | Evidence anchor |
+| --- | --- | --- | --- |
+| `Omega` | admissible state region | what states still count as the same continuum? | definition and finite witness route |
+| `partialOmega` | boundary | what crossing changes identity, liveness, or admissibility? | boundary theorem route and falsifier rows |
+| `A` | axes | which distinctions are measured or observed? | K-level witness and ablation checks |
+| `Theta` | thresholds | what changes regime rather than degree only? | threshold and lifecycle claims |
+| P | potentials | what makes a state more or less admissible? | formal model and replay examples |
+| J | flows | what moves through or updates the continuum? | operator and replay rows |
+| C | cycles | what sustains recurrence or liveness? | cycle and liveness sections |
+| k | continuumness | what supports persistence through change? | continuumness formula and finite cases |
+| M | embedding context | what larger environment constrains the system? | domain and enterprise examples |
+
+A public claim about such a `K` is acceptable only when the manuscript can say what would make `K` fail, demote, split, persist, or require a narrower domain statement.
+
+# Evidence and Methods Summary
+
+The evidence surface is intentionally mixed. Formal claims point to theorem rows, proof sheets, formalization inventory where present, and finite semantic witnesses. The current article does not rely on a clean machine-checked Lean certificate as promoted support unless the certificate binding and source manifest are clean for the cited revision. Empirical or replay-facing claims point to target-blind or numeric replay rows with source snapshots, reconstruction rules, comparator conditions, residuals, negative controls, and falsifiers. The article does not promote these rows as completed domain validation; it treats them as bounded checks on the public wording.
+
+| Claim id | Defended statement | Required anchor | Reopening condition |
+| --- | --- | --- | --- |
+| A1 | a continuum can be represented as a typed tuple | tuple definition and component table | any component is removable without loss in the stated case |
+| A2 | K-levels are witness disciplines, not labels | K0--K12 witness taxonomy and demotion rule | an alleged level adds no retained witness or observable consequence |
+| A3 | evidence must cap prose | proof sheet, finite witness, replay row, or comparator boundary | the cited anchor no longer supports the wording |
+| A4 | domain examples are bounded replay examples | source snapshot, formula, comparator, residual, negative control, falsifier | replay cannot be reproduced or a comparator explains the case with less burden |
+
+The four article claims are intentionally traceable back to exact public anchors rather than to a general impression of the release. A reader can therefore reopen the article without reading the monograph as a black box. The following anchor list is printed as prose instead of a wide table so that the PDF text layer preserves the file names and reopening tests.
+
+## Article Claim Anchors
+
+### A1: canonical continuum tuple
+
+Monograph route: canonical tuple definition and component table.
+Theorem/proof anchors: `T133-OMEGA-STATUS`, `T133-K-ZERO`, and `T133-BOUNDARY`.
+Proof-sheet directory: `proofs/proof_sheets/`.
+Proof-sheet files: `T133-OMEGA-STATUS.md`; `T133-K-ZERO.md`; `T133-BOUNDARY.md`.
+Finite-check directory: `proofs/`.
+Finite-check file: `FINITE_MODEL_CHECKS_1_3_3.json`.
+Reopening condition: a tuple component can be removed from the stated case without changing the verdict, boundary, liveness, or obstruction witness.
+
+### A2: K-level witness discipline
+
+Monograph route: K0--K12 hierarchy, K-level tables, and demotion rule.
+Theorem/proof anchors: `T133-K0-RES`, `T133-KLEVEL`, and `T133-DIM`.
+Proof-sheet directory: `proofs/proof_sheets/`.
+Proof-sheet files: `T133-K0-RES.md`; `T133-KLEVEL.md`; `T133-DIM.md`.
+Additional evidence: Appendix C K-level tables.
+Reopening condition: an alleged level adds no retained witness, constraint relation, observable consequence, or demotion criterion.
+
+### A3: evidence promotion discipline
+
+Monograph route: evidence promotion discipline and proof route.
+Theorem/proof anchors: `T133-MIN`, `T133-HYBRID`, `T133-ID`, and `T133-CYCLE`.
+Proof-sheet directory: `proofs/proof_sheets/`.
+Proof-sheet files: `T133-MIN.md`; `T133-HYBRID.md`; `T133-ID.md`; `T133-CYCLE.md`.
+Additional evidence: theorem registry and finite checks.
+Reopening condition: the cited proof sheet, finite witness, or formalization inventory no longer supports the exact public wording.
+
+### A4: bounded replay and comparator route
+
+Monograph route: replay, comparator, and limitation chapters.
+Theorem/proof anchors: `T133-BOUNDARY`, `T133-CYCLE`, and `T133-HYBRID`.
+Target-blind directory: `validation/target_blind/`.
+Target-blind file: `OC133_TARGET_BLIND_PREDICTION_TABLE.json`.
+Prior-art directory: `docs/`.
+Prior-art file: `OC_1_3_3_PRIOR_ART_COMPARATOR_MATRIX.json`.
+Comparator directory: `comparators/`.
+Comparator file: `OC_1_3_3_COMPARATOR_MATRIX.md`.
+Reopening condition: replay fails, the source snapshot is missing, a negative control succeeds, or a comparator explains the row with less burden.
+
+# Methods
+
+The article method is a source-grounded review method. Each public sentence is read against a typed object, a claim class, an evidence class, and a reopening condition. Formal statements are routed to definitions, theorem rows, proof sheets, finite semantic witnesses, or formalization inventory where the binding is clean. Replay-facing statements are routed to source snapshots, reconstruction rules, residuals or uncertainty bands, negative controls, comparator boundaries, and falsifiers. Literature-facing statements are routed to the prior-art comparator matrix rather than to broad novelty rhetoric.
+
+This method is intentionally conservative. If a source row is missing, if a formal anchor does not bind to the wording, or if a comparator explains the same row with less burden, the public claim is narrowed. The result is not a proof that OC is the final language of systems. It is a procedure for making an ambitious systems vocabulary inspectable by reviewers.
+
+# Results and Evidence Boundary
+
+The result of the release is a bounded model-core package. Claim A1 is supported when the tuple components remain distinguishable in definition, example, finite witness, and falsifier. Claim A2 is supported when K-levels carry retained witnesses and demotion criteria rather than behaving as labels. Claim A3 is supported when prose does not outrun the proof, finite witness, replay row, or comparator boundary. Claim A4 is supported only as bounded replay/comparator evidence, not as completed empirical validation of the represented domains.
+
+These results are deliberately phrased as reviewer-inspectable conditions. They are not universal laws of all systems, and they do not substitute for domain science. Their value is that they make it easier to say exactly where a cross-domain claim is strong, weak, illustrative, unproven, or false.
+
+The target-blind table is not homogeneous. In this release the mathematics replay row is demoted because the finite-model source records certificate/source-binding failures. The physics, chemistry, biology, and systems rows remain bounded replay examples under their own source snapshots and falsifiers; the mathematics row instead demonstrates the demotion rule that prevents a broken support binding from becoming public proof rhetoric.
+
+# Discussion
+
+The article should be judged by whether it reduces ambiguity without hiding uncertainty. A skeptical reader need not accept the full OC program in order to test the release. The reader can ask whether the tuple preserves useful distinctions, whether the K hierarchy carries genuine witnesses, whether evidence caps the prose, and whether the replay/comparator examples remain bounded.
+
+If those tests fail, the release should narrow or demote the relevant statement. If they pass, the contribution is still modest but useful: a typed, source-grounded grammar for cross-domain systems claims that can be criticized without first translating every discipline into every other discipline by hand.
+
+# Article Figure and Table Route
+
+\begin{figure}[htbp]
+\centering
+\fbox{\begin{minipage}{0.90\linewidth}
+\small
+\textbf{Continuum reading path.}
+State region `Omega` is inspected against boundary `partialOmega`. Axes `A` make differences visible. Thresholds `Theta` mark regime change. Potentials `P` and flows `J` move the system. Cycles `C` support recurrence. Continuumness `k` asks whether identity persists through change. Embedding context `M` records the larger system that can constrain or invalidate the local reading.
+\end{minipage}}
+\caption{Article-local schematic of the continuum tuple. The figure demonstrates how the components of `K=(Omega, partialOmega, A, Theta, P, J, C, k, M)` are read as a review path: state, boundary, observation, threshold, potential, flow, cycle, persistence, and context. The figure supports claim A1 and the falsifier rule that any missing component must either be justified as derived or the claim must be narrowed.}
+\end{figure}
+
+The article contains the minimum visual and tabular route needed to review its central contribution. The monograph expands that route with larger diagrams, K0--K12 tables, proof/evidence maps, and domain examples. A shortened journal projection may omit secondary material, but it may not invent a claim not present in the release source.
+
+# Limitations
+
+The release does not claim final theory, unrestricted all-domain prediction, superiority over all predecessors, or complete empirical validation. Its strongest current value is architectural and methodological: it gives reviewers a way to inspect whether a cross-domain systems claim is formally named, bounded, evidenced, and reopenable. If a domain example lacks source snapshot, formula, comparator, negative control, residual, and falsifier, it remains an illustrative route rather than a promoted empirical result.
+
+# Conclusion
+
+OC Core 1.3.3 is ready for external criticism only where it remains source-grounded and bounded. The article therefore presents a model-core contribution, not a final theory of all systems. Its value is tested by whether the common grammar helps reviewers compare persistence, boundary, failure, recovery, and evidence across domains without losing the local science that made those domains credible in the first place.
+
+# References
+
+- Bertalanffy, L. von. *General System Theory*. George Braziller, 1968.
+- Wiener, N. *Cybernetics*. MIT Press, 1948.
+- Ashby, W. R. *An Introduction to Cybernetics*. Chapman & Hall, 1956.
+- Rosen, R. *Anticipatory Systems*. Pergamon Press, 1985.
+- Simon, H. A. "The Architecture of Complexity." *Proceedings of the American Philosophical Society*, 1962.
+- Forrester, J. W. *Industrial Dynamics*. MIT Press, 1961.
+- Checkland, P. *Systems Thinking, Systems Practice*. Wiley, 1981.
+- Luhmann, N. *Social Systems*. Stanford University Press, 1995.
+- Maturana, H. R., and Varela, F. J. *Autopoiesis and Cognition*. Reidel, 1980.
+- Varela, F. J., Thompson, E., and Rosch, E. *The Embodied Mind*. MIT Press, 1991.
+- Prigogine, I., and Stengers, I. *Order Out of Chaos*. Bantam, 1984.
+- Holland, J. H. *Hidden Order*. Addison-Wesley, 1995.
+- Barabasi, A.-L. *Network Science*. Cambridge University Press, 2016.
+- Harel, D. "Statecharts: A Visual Formalism for Complex Systems." *Science of Computer Programming*, 1987.
+- Clarke, E. M., Grumberg, O., and Peled, D. A. *Model Checking*. MIT Press, 1999.
+- Awodey, S. *Category Theory*. Oxford University Press, 2010.
+- Spivak, D. I. *Category Theory for the Sciences*. MIT Press, 2014.
+- Baez, J. C., and Fong, B. *A Compositional Framework for Passive Linear Networks*. Theory and Applications of Categories, 2015.
+- Univalent Foundations Program. *Homotopy Type Theory: Univalent Foundations of Mathematics*. Institute for Advanced Study, 2013.
+- Nipkow, T., Paulson, L. C., and Wenzel, M. *Isabelle/HOL: A Proof Assistant for Higher-Order Logic*. Springer, 2002.
+- de Moura, L., et al. "The Lean Theorem Prover." *CADE*, 2015.
+- Guarino, N., Oberle, D., and Staab, S. "What Is an Ontology?" In *Handbook on Ontologies*. Springer, 2009.
+- Lewis, D. *On the Plurality of Worlds*. Blackwell, 1986.
+- van Fraassen, B. C. *The Scientific Image*. Oxford University Press, 1980.
+- Stodden, V., Leisch, F., and Peng, R. D., eds. *Implementing Reproducible Research*. CRC Press, 2014.
+"""
+    if artifact_type_id == "methods_repro_companion":
+        return r"""
+
+## Public Reproducibility Protocol
+
+The public replay route is intentionally procedural. A reviewer should identify the claim class, inspect the source snapshot, run or reproduce the bounded check, compare the expected output, and then decide whether the public wording remains justified.
+
+| Step | Reader action | Required public evidence |
+| --- | --- | --- |
+| 1 | Locate the claim row | claim id, title, assumption set, promoted wording |
+| 2 | Locate the input | source snapshot, hash, date or fixture identity |
+| 3 | Locate the method | formula, reconstruction rule, finite witness, or proof sheet |
+| 4 | Run or inspect the check | command, expected output, residual or theorem status |
+| 5 | Interpret failure | negative control, comparator, falsifier, reopening condition |
+
+Representative command surfaces are intentionally printed as public commands, not private build instructions:
+
+```text
+python tools/audit_oc_core_release_assembly_machine.py
+  --release oc_core_1_3_3
+  --assembly-revision oc_core_1_3_3_review_current
+  --check
+
+python tools/audit_oc_core_release_quality.py
+  --release oc_core_1_3_3
+  --assembly-revision oc_core_1_3_3_review_current
+  --check
+
+python -m pytest release_machine/tests/test_release_assembly_machine.py -q
+```
+
+The alias `oc_core_1_3_3_review_current` is the public review alias for the assembly identifier recorded in the review manifest. Internal recovery labels remain outside title pages and reader-facing identity surfaces. The assembly metadata field `public_review_revision_aliases` binds the alias to the exact internal assembly revision, review ZIP, manifest hash, and artifact hashes used by the audit; reviewers should inspect that JSON binding rather than relying on prose.
+
+## Public Review Alias Binding
+
+The alias binding is part of the package assembly metadata, not a title-page identity claim. A reviewer should check the following public fields:
+
+| Field | Expected role |
+| --- | --- |
+| `public_review_revision_aliases.oc_core_1_3_3_review_current` | resolves the public alias to the exact internal assembly revision and review package |
+| `package/OC_CORE_RELEASE_PACKAGE_MANIFEST_1.3.3.json` | lists every packaged file with checksum |
+| `package_assembly/OC_CORE_RELEASE_PACKAGE_ASSEMBLY_1.3.3.json` | records artifact paths, hashes, and audit state |
+| scoped editorial Cerberus summary path named in the alias binding | records the scoped editorial review result for the same artifact hashes |
+
+The target-blind replay file is the principal prediction-row anchor:
+
+```text
+validation/target_blind/OC133_TARGET_BLIND_PREDICTION_TABLE.json
+```
+
+The replay result should be read as bounded support. It becomes stronger only when the table row carries source snapshot, formula, observed value or theorem result, comparator, residual or uncertainty, negative control, falsifier, and a clear failure interpretation.
+
+One mathematics replay row is explicitly demoted in this release because the finite-model source currently records certificate/source-binding failures. That row is a demotion boundary, not a support row, until `source_manifest_binding_ok` is true and `certificate_binding_failure_total` is zero in the finite-model checks. This is intentional: the table must not promote a replay row that the underlying finite-check source cannot presently support.
+
+## Failure Interpretation Matrix
+
+| Failure class | Scientific meaning | Public response |
+| --- | --- | --- |
+| Missing source snapshot | Evidence cannot be inspected | demote or suspend the claim |
+| Hash mismatch | The row no longer identifies the same artifact | rerun and disclose drift |
+| Formula mismatch | The method no longer supports the wording | narrow the claim |
+| Comparator succeeds | OC may not add residual delta | update prior-art boundary |
+| Negative control succeeds | The check is not discriminating | reopen the evidence route |
+| Falsifier triggers | The promoted wording is false or too broad | retract, repair, or demote |
+"""
+    if artifact_type_id == "reviewer_attack_response_map":
+        blocks = []
+        for claim_id, claim, objection, evidence, residual, reopen in [
+            ("C1", "continuum tuple", "the tuple is only vocabulary", "definition, continuum figure, and tuple formula", "domain instantiation remains partial", "a tuple component can be removed without changing any witness"),
+            ("C2", "boundary semantics", "boundaries are metaphorical", "boundary theorem route and falsifier tables", "some domains need richer boundary geometry", "a declared boundary fails to separate admissible and inadmissible states"),
+            ("C3", "continuumness", "liveness is undefined", "continuumness formula, lifecycle figures, finite witness", "empirical liveness proxies remain domain-bound", "a live/dead distinction cannot be reproduced under stated assumptions"),
+            ("C4", "K-level hierarchy", "levels are labels", "K0--K12 figure, K-level tables, demotion controls", "some examples are didactic rather than validated", "an adjacent K transition lacks retained witness or demotion criterion"),
+            ("C5", "operator semantics", "operators are overloaded", "operator chapter and proof dependency rows", "operator families require domain adapters", "an operator changes the claim type without a declared rule"),
+            ("C6", "proof route", "proofs do not cover prose", "proof sheets, formalization inventory where present, finite semantics", "not every statement is mechanized", "a dependency or assumption mismatch is found"),
+            ("C7", "target-blind replay", "replay is overread", "prediction table, residuals, negative controls", "replay is bounded support only", "source, formula, comparator, or falsifier is missing"),
+            ("C8", "prior-art delta", "predecessors already solve it", "bibliography and comparator boundary", "stronger comparators may narrow OC", "a comparator explains the same claim with less burden"),
+            ("C9", "figure route", "figures are decorative", "visual registry, rendered bbox, semantic captions", "some visuals remain summary maps", "a figure implies a claim without evidence anchor"),
+            ("C10", "table route", "tables are opaque", "table registry, longtable layout, rendered bbox", "source sidecars may need separate review", "a reader-facing table lacks source or evidence anchor"),
+            ("C11", "journal projection", "venue package diverges from release", "venue requirements checklist and public source correspondence record", "venue adaptation can still lose nuance", "a projection introduces unsupported wording"),
+            ("C12", "release identity", "metadata conflict weakens citation", "title page DOI, citation block, manifest", "future deposits may add records", "two public DOIs or dates identify the same revision surface"),
+        ]:
+            blocks.append(
+                "\n".join(
+                    [
+                        f"### {claim_id}: {claim}",
+                        "",
+                        f"Objection: {objection}.",
+                        "",
+                        f"Threatened claim: {claim}.",
+                        "",
+                        f"Evidence answer: {evidence}.",
+                        "",
+                        f"Residual risk: {residual}.",
+                        "",
+                        f"Reopening condition: {reopen}.",
+                    ]
+                )
+            )
+        return "\n\n## Claim-by-Claim Attack Records\n\n" + "\n\n".join(blocks) + "\n"
+    return ""
+
+
+def publication_translated_payload_body_r014(artifact_type_id: str, version: str) -> str:
+    if artifact_type_id == "journal_core_article":
+        return _r014_demote_retrospective_replay_language(
+            r014_sidecar_quality_closure_body(artifact_type_id, version)
+        ).strip() + "\n"
+    body = publication_translated_payload_body(artifact_type_id, version)
+    body = re.sub(r"<!--\s*PUBLICATION_TRANSLATOR_R007:.*?-->\s*", "", body, count=1, flags=re.S)
+    body = body.replace("scoped claim", "bounded claim")
+    body = body.replace("scoped target-blind replay QA", "bounded target-blind replay QA")
+    body = body.replace("Lean-checked subset", "Lean-oriented formalization inventory")
+    body = body.replace("Lean checked subset", "Lean-oriented formalization inventory")
+    body = body.replace("Lean subset", "Lean-oriented formalization inventory")
+    body = body.replace("Lean support licenses selected mechanized-subset language.", "Formalization references license only source-inspection language unless certificate binding is clean for the cited revision.")
+    body = body.replace("Lean theorem name is not build-certified", "formalization reference is not build-certified")
+    body = body.replace("public evidence package", "public evidence manifest")
+    body = body.replace("release SPOT", "release source corpus")
+    body = body.replace("SPOT source map", "public source correspondence record")
+    body = body.replace("requirements matrices", "venue requirements checklists")
+    if artifact_type_id == "methods_repro_companion":
+        body += r"""
+
+## Target-Blind Path Integrity
+
+The target-blind replay table is a reader-facing reproducibility anchor. Its public path is printed exactly so that an auditor can compare the prose, the PDF extraction, and the machine-readable evidence package without guessing which file is meant:
+
+\begin{center}
+{\scriptsize\texttt{validation/target\_blind/OC133\_TARGET\_BLIND\_PREDICTION\_TABLE.json}}
+\end{center}
+
+This table is not a broad empirical triumph claim. It records the bounded prediction rows, their source snapshots, their reconstruction rule, their comparator, the negative-control condition, and the condition under which the claim must be reopened.
+
+The directory name contains the historical phrase `target_blind`; the public
+claim does not rely on that path name. Until checksum-bound split locks,
+raw snapshots, pre-run projection records, timestamps, and runner evidence are
+present in the public package, this file is interpreted as retrospective
+bounded replay QA rather than as an independently auditable prospective-blind
+study.
+
+## Reader-Facing Audit Trail
+
+The audit trail is read from the scientific claim outward. First, identify the claim and its declared assumptions. Second, inspect the formula or finite witness used to support it. Third, compare the output with the named source snapshot and comparator. Fourth, check the residual, uncertainty, negative control, and falsifier. Fifth, decide whether the public wording is still narrow enough. The companion keeps this order visible because a reproducible artifact is useful only when a reviewer can say what claim it supports and what failure would mean.
+"""
+    elif artifact_type_id == "reviewer_attack_response_map":
+        body += """
+
+## Objection-Response Records
+
+### Objection 1: The theory sounds too ambitious
+
+Threatened claim: OC Core is a bounded model-core grammar for system architecture, not a completed replacement for physics, biology, economics, or engineering. Evidence answer: the monograph ties promoted claims to formal definitions, proof sheets, finite witnesses, comparator boundaries, figures, tables, and replay rows. Residual risk: a broader reader may still hear the title as a totalizing claim. Reopening condition: if public wording implies unrestricted all-domain closure, that wording must be narrowed or removed.
+
+### Objection 2: K-levels may be names rather than earned distinctions
+
+Threatened claim: K-levels are useful only where a level adds a non-inert witness, observable consequence, or constraint relation. Evidence answer: the K0--K12 hierarchy figure, K-level tables, finite witness route, and demotion language make the distinction testable. Residual risk: some domain examples remain illustrative rather than fully validated. Reopening condition: if an alleged level can be projected away without changing any witness, proof route, replay row, comparator boundary, or model-card consequence, the claim is demoted.
+
+### Objection 3: The formal route may not support the prose
+
+Threatened claim: the public theorem language must stay inside declared assumptions and proof status. Evidence answer: theorem rows identify proof sheets, Lean declarations where present, finite semantic witnesses, and counterexample boundaries. Residual risk: not every scientific statement has a complete mechanized proof. Reopening condition: if an assumption is lost, a finite witness fails, or a proof dependency no longer matches the statement, the promoted wording is reopened.
+
+### Objection 4: Replay rows may be overread as empirical validation
+
+Threatened claim: replay QA demonstrates bounded source/formula/comparator/falsifier discipline, not completed domain validation. Evidence answer: the methods companion names the target-blind and numeric replay tables and explains residuals, negative controls, and falsifiers. Residual risk: readers may still confuse reproducibility plumbing with domain success. Reopening condition: if a replay row lacks source snapshot, formula, comparator, residual or uncertainty, negative control, falsifier, and failure interpretation, it cannot carry promoted public wording.
+
+### Objection 5: Prior art may already cover the residual delta
+
+Threatened claim: OC is positioned as a synthesis and typed grammar with explicit evidence governance, not as a priority claim over all predecessors. Evidence answer: the bibliography and comparator material place the work near systems theory, cybernetics, autopoiesis, dynamical systems, hybrid systems, formal methods, reproducibility, and identity-over-time debates. Residual risk: a stronger comparator could reduce the claimed delta. Reopening condition: if a prior or parallel framework explains the same bounded claim with less burden and equal evidence, the OC contribution must be narrowed.
+"""
+    body += r014_sidecar_quality_closure_body(artifact_type_id, version)
+    return _r014_demote_retrospective_replay_language(body).strip() + "\n"
+
+
 def render_publication_payload_markdown(
     artifact_type_id: str,
     version: str,
@@ -2907,6 +3416,8 @@ def render_publication_payload_markdown(
         body = publication_translated_payload_body_r012(artifact_type_id, version)
     elif assembly_revision == R013_REVISION:
         body = publication_translated_payload_body_r013(artifact_type_id, version)
+    elif assembly_revision == R014_REVISION:
+        body = publication_translated_payload_body_r014(artifact_type_id, version)
     elif source is None or not source.is_file():
         body = "# Body\n\nPublication payload source was not available for this artifact.\n"
     else:
@@ -2926,6 +3437,8 @@ def render_publication_payload_markdown(
         ]
     )
     text = render_publication_frontmatter(artifact_type_id, version, instance) + "\n" + body + backmatter
+    if assembly_revision == R014_REVISION:
+        text = _r014_demote_retrospective_replay_language(text)
     return text.rstrip() + "\n", source
 
 
@@ -2955,10 +3468,23 @@ def source_content_counts(source_text: str) -> dict[str, int]:
     table_total = len(re.findall(r"(?m)^\s*\|.+\|\s*$", source_text)) // 3
     table_total += len(re.findall(r"\\begin\{(?:table|longtable|tabular)", source_text))
     formula_marker_total = len(re.findall(r"\$\$|\\\[|\\\(|\\begin\{(?:equation|align|gather|multline)", source_text))
+    reference_block = ""
+    match = re.search(r"(?ims)^#\s+References\s*$([\s\S]*)", source_text)
+    if match:
+        reference_block = match.group(1)
+    reference_lines = sorted(
+        {
+            re.sub(r"\s+", " ", line.strip())
+            for line in reference_block.splitlines()
+            if re.match(r"^\s*-\s+\S", line)
+        }
+    )
     return {
         "figure_total": figure_total,
         "table_total": table_total,
         "formula_marker_total": formula_marker_total,
+        "bibliography_entry_total": len(reference_lines),
+        "verified_bibliography_entry_total": len(reference_lines),
     }
 
 
@@ -3025,7 +3551,7 @@ def trim_generated_text_whitespace(root_dir: Path) -> None:
 
 
 def r008_continuum_figure_tex() -> str:
-    return r"""\begin{figure}[p]
+    return r"""\begin{figure}[!htbp]
 \centering
 \resizebox{0.96\textwidth}{!}{%
 \begin{tikzpicture}[x=1cm,y=1cm, every node/.style={font=\small}]
@@ -3068,7 +3594,7 @@ def r008_continuum_figure_tex() -> str:
 
 def r008_k_hierarchy_figure_tex() -> str:
     return r"""% R008_K_LEVELS_PRESENT: K0 K1 K2 K3 K4 K5 K6 K7 K8 K9 K10 K11 K12.
-\begin{figure}[p]
+\begin{figure}[!htbp]
 \centering
 \resizebox{0.98\textwidth}{!}{%
 \begin{tikzpicture}[x=1cm,y=0.82cm, every node/.style={font=\scriptsize}]
@@ -3079,17 +3605,17 @@ def r008_k_hierarchy_figure_tex() -> str:
   \foreach \i/\human/\role in {
     0/{K0 resolution boundary}/{minimal difference; null/non-null continuumness},
     1/{K1 first carrier}/{first structured coordinate or interface},
-    2/{K2 process closure}/{routine, reaction, or closed operational loop},
-    3/{K3 organized substrate}/{stable physical or deployment substrate},
-    4/{K4 binding system}/{component binding and compositional integration},
-    5/{K5 liveness system}/{regulated live process, organism, or service health},
+    2/{K2 physical fields and phases}/{field, phase, and large-scale physical constraints},
+    3/{K3 molecular and chemical organization}/{reaction closure and molecular support},
+    4/{K4 protocellular membrane system}/{compartment gradients and membrane thresholds},
+    5/{K5 excitable biological system}/{regulated persistence and bioelectric organization},
     6/{K6 cognition and agency}/{memory, representation, policy, or agent control},
     7/{K7 social coordination}/{team, institution, trust, authority, governance},
     8/{K8 economic/civilizational system}/{market, platform, ecology, regulation},
     9/{K9 theory-level system}/{formal model or architecture doctrine},
     10/{K10 comparator/meta-theory}/{verification regime and comparison frame},
-    11/{K11 method/publication quality}/{reproducibility, review, and evidence practice},
-    12/{K12 cross-domain synthesis}/{bounded synthesis under declared assumptions}
+    11/{K11 provisional review-quality witness}/{frontier reproducibility obligation},
+    12/{K12 provisional synthesis witness}/{frontier integration obligation}
   }{
     \pgfmathsetmacro{\y}{13-\i}
     \node[draw, rounded corners=3pt, fill=blue!5, text width=0.23\textwidth, align=center, minimum height=0.58cm] (k\i) at (-4.7,\y) {\textbf{\human}};
@@ -3244,17 +3770,17 @@ def r012_k_hierarchy_spec() -> dict[str, Any]:
     levels = [
         ("K0", "resolution boundary", "distinction floor", "bit / admissible null"),
         ("K1", "first carrier", "coordinate interface", "signal / address"),
-        ("K2", "process closure", "lawful loop", "routine / reaction"),
-        ("K3", "organized substrate", "stable support", "deployment substrate"),
-        ("K4", "binding system", "component integration", "module / membrane"),
-        ("K5", "liveness system", "regulated persistence", "organism / service health"),
+        ("K2", "physical fields and phases", "field/phase constraints", "physical continuum"),
+        ("K3", "molecular and chemical organization", "reaction closure", "chemical network"),
+        ("K4", "protocellular membrane system", "compartment gradients", "membrane / protocell"),
+        ("K5", "excitable biological system", "regulated persistence", "cell / bioelectric system"),
         ("K6", "cognition and agency", "memory and policy", "agent controller"),
         ("K7", "social coordination", "authority and trust", "team / institution"),
         ("K8", "civilizational system", "market and regulation", "platform / economy"),
         ("K9", "theory-level system", "formal doctrine", "model architecture"),
         ("K10", "comparator regime", "verification frame", "benchmark / meta-theory"),
-        ("K11", "publication quality", "reproducible review", "evidence practice"),
-        ("K12", "cross-domain synthesis", "bounded integration", "unified atlas"),
+        ("K11", "provisional review-quality witness", "frontier reproducibility obligation", "evidence practice"),
+        ("K12", "provisional synthesis witness", "frontier integration obligation", "unified atlas"),
     ]
     nodes: list[dict[str, Any]] = []
     for index, (kid, name, role, example) in enumerate(levels):
@@ -3300,7 +3826,7 @@ R012_INLINE_FIGURE_GROUPS: dict[str, dict[str, Any]] = {
         "source_rel": "content/28b_oc133_inline_figures_proof_route.tex",
         "topics": [
             ("axiom-to-theorem", "Axiom to theorem", "Axiom set", "Theorem route", "derivation", "proof status", r"\Gamma\vdash T"),
-            ("lean-subset", "Lean subset", "Human theorem", "Mechanized subset", "formal subset", "checked lemmas", r"L\subseteq T"),
+            ("formalization-inventory", "Formalization inventory", "Human theorem", "Formalized fragment", "formal subset", "checked lemmas where binding is clean", r"L\subseteq T"),
             ("finite-semantics", "Finite semantics", "Model instance", "Finite witness", "satisfaction", "model count", r"M\models\varphi"),
             ("negative-control", "Negative control", "Claim route", "Permuted label", "control contrast", "expected failure", r"control(T)=0"),
             ("assumption-ledger", "Assumption ledger", "Assumption", "Proof dependency", "dependency edge", "open assumption total", r"A_i\Rightarrow T_j"),
@@ -3315,7 +3841,7 @@ R012_INLINE_FIGURE_GROUPS: dict[str, dict[str, Any]] = {
             ("target-blind-replay", "Target-blind replay", "Held-out target", "Replay verdict", "blind evaluation", "pass/fail row", r"score_T"),
             ("benchmark-qa", "Benchmark QA", "Benchmark case", "QA verdict", "audit pass", "case total", r"Q(B_i)"),
             ("evidence-trail", "Evidence trail", "Claim", "Evidence bundle", "traceability", "source hash", r"claim\leftrightarrow evidence"),
-            ("numeric-falsifier", "Numeric falsifier", "Prediction", "Observed bound", "threshold check", "delta", r"|\hat{x}-x|<\epsilon"),
+            ("numeric-falsifier", "Numeric falsifier", "Prediction", "Observed bound", "threshold check", "delta", r"|x_{\mathrm{hat}}-x|<e_{\mathrm{bound}}"),
             ("repro-route", "Reproducibility route", "Scripted check", "Reader audit", "replay command", "audit status", r"run\rightarrow verdict"),
         ],
     },
@@ -3335,24 +3861,24 @@ R012_INLINE_FIGURE_GROUPS: dict[str, dict[str, Any]] = {
         "section": "Inline Visual Route: Reader Routes",
         "source_rel": "content/28e_oc133_inline_figures_reader_routes.tex",
         "topics": [
-            ("scientific-reviewer-route", "Scientific reviewer route", "Claim", "Proof/evidence", "review path", "attack points", r"C\Rightarrow E"),
-            ("theorist-route", "Theorist route", "Concept", "Formal core", "reading path", "model anchors", r"K=(\Omega,\ldots,M)"),
-            ("practitioner-route", "Practitioner route", "Use case", "Domain route", "application", "decision row", r"P_D(K)"),
-            ("executive-route", "Executive route", "Strategic question", "Bounded answer", "summary", "option set", r"V(K)"),
-            ("auditor-route", "Auditor route", "Evidence item", "Audit trail", "verification", "hash/check", r"H(source)"),
-            ("journal-route", "Journal route", "Venue", "Projection package", "format compliance", "checklist", r"SPOT\to venue"),
+            ("scientific-reviewer-route", "Reviewer attack route", "A promoted OC claim", "The exact proof, finite witness, replay row, or comparator that caps it", "claim-to-anchor inspection", "attack point count", r"C_{\mathrm{public}}\Rightarrow E_{\mathrm{bounded}}"),
+            ("theorist-route", "Theorist model route", "Continuum intuition", "Canonical tuple and K-level witness discipline", "concept-to-formal-object reading", "model anchors", r"K=(\Omega,\partial\Omega,A,\Theta,P,J,C,k,M)"),
+            ("practitioner-route", "Applied architecture route", "Enterprise or AI system boundary", "Domain-bounded projection and falsifier", "application mapping", "decision row", r"P_D(K)\rightarrow F_D"),
+            ("executive-route", "Strategy route", "Cross-domain decision question", "Bounded answer plus residual risk", "decision compression", "option set", r"V(K\mid E,R)"),
+            ("auditor-route", "Evidence audit route", "Named evidence row", "Checksum, source snapshot, and reviewer verdict", "verification", "hash/check", r"H(\mathrm{source})=\mathrm{expected}"),
+            ("journal-route", "Venue projection route", "Release claim set", "Journal-specific manuscript package without new claims", "format compliance", "checklist", r"R_{\mathrm{release}}\rightarrow J_{\mathrm{venue}}"),
         ],
     },
     "28f_oc133_inline_figures_appendix_route.tex": {
         "section": "Inline Visual Route: Appendices and Support Maps",
         "source_rel": "content/28f_oc133_inline_figures_appendix_route.tex",
         "topics": [
-            ("notation-map", "Notation map", "Symbol", "Definition", "lookup route", "symbol count", r"s\mapsto def(s)"),
-            ("axiom-map", "Axiom map", "Axiom", "Dependent theorem", "dependency route", "theorem count", r"A_i\to T_j"),
-            ("table-reference", "Machine-readable table reference", "Table row", "Reader row", "reference map", "row id", r"row_id"),
-            ("audit-trail", "Audit trail", "Source action", "Review trace", "audit route", "trace count", r"trace(source)"),
-            ("comparison-rows", "Reader-facing comparison rows", "Comparator", "OC contribution", "comparison", "delta row", r"model_A\Delta model_B"),
-            ("appendix-closure", "Appendix closure", "Main claim", "Support annex", "support route", "annex status", r"claim\to appendix"),
+            ("notation-map", "Notation normalization map", "Symbol in prose", "Defined mathematical role", "lookup route", "notation coverage", r"s\mapsto \mathrm{definition}(s)"),
+            ("axiom-map", "Axiom dependency map", "Declared assumption", "Dependent theorem", "dependency route", "theorem dependency", r"A_i\rightarrow T_j"),
+            ("table-reference", "Target-blind table row map", "Prediction row with source snapshot", "Reader-facing bounded replay claim", "row-to-claim reference", "row seven: observed x, estimate xhat, residual e", r"\mathrm{row\ 7:}\ x,\ x_{\mathrm{hat}},\ e"),
+            ("audit-trail", "Checksum and review trace map", "Source snapshot", "Review trace with hash and verdict", "audit path", "hash and status", r"H(\mathrm{source})=\mathrm{traceHash}"),
+            ("comparison-rows", "Comparator-boundary map", "Comparator explanation", "OC residual contribution after prior art", "comparison", "residual delta", r"\Delta(\mathrm{OC},\mathrm{comparator})"),
+            ("appendix-closure", "Appendix support map", "Main claim with reopening condition", "Named appendix evidence support", "support route", "support status", r"\mathrm{claim}\rightarrow\mathrm{appendix}\rightarrow\mathrm{falsifier}"),
         ],
     },
 }
@@ -3367,9 +3893,13 @@ def r012_inline_figure_tex(spec: dict[str, Any]) -> str:
     metric = latex_escape(topic["metric"])
     formula = topic["formula"]
     title = latex_escape(topic["title"])
-    caption = latex_escape(topic["caption"])
+    caption = (
+        f"{title}. This figure shows the reading relation from {left} to {right}; "
+        f"the review variable is {review}, the formal anchor is \\( {formula} \\), "
+        "and the evidence link is the named proof, table, replay row, or appendix section cited near the figure."
+    )
     label = spec["label"]
-    return rf"""\begin{{figure}}[p]
+    return rf"""\begin{{figure}}[!htbp]
 \centering
 \resizebox{{0.96\textwidth}}{{!}}{{%
 \begin{{tikzpicture}}[x=1cm,y=1cm,>=Latex,every node/.style={{font=\small}}]
@@ -3393,7 +3923,7 @@ def r012_inline_figure_tex(spec: dict[str, Any]) -> str:
 
 def r012_continuum_figure_tex() -> str:
     return rf"""% R012_VISUAL_SPEC: r012_continuum_demonstrator; geometry ledger required.
-\begin{{figure}}[p]
+\begin{{figure}}[!htbp]
 \centering
 \resizebox{{0.98\textwidth}}{{!}}{{%
 \begin{{tikzpicture}}[x=1cm,y=1cm,>=Latex,every node/.style={{font=\small}}]
@@ -3434,7 +3964,7 @@ def r012_continuum_figure_tex() -> str:
 def r012_k_hierarchy_figure_tex() -> str:
     return r"""% R012_K_LEVELS_PRESENT: K0 K1 K2 K3 K4 K5 K6 K7 K8 K9 K10 K11 K12.
 % R012_VISUAL_SPEC: r012_k0_k12_hierarchy; rendered bbox ledger required.
-\begin{figure}[p]
+\begin{figure}[!htbp]
 \centering
 \resizebox{0.98\textwidth}{!}{%
 \begin{tikzpicture}[x=1cm,y=0.86cm,>=Latex,every node/.style={font=\scriptsize}]
@@ -3480,7 +4010,7 @@ def r012_k_hierarchy_figure_tex() -> str:
   \draw[->,thick,ocGreen] (-6.8,-0.05) -- (-6.8,13.25) node[midway,left,align=center] {composition};
   \draw[->,thick,ocGold] (6.8,13.25) -- (6.8,-0.05) node[midway,right,align=center] {constraint};
 \end{tikzpicture}}
-\caption{This figure demonstrates the complete K0--K12 teaching hierarchy. Every level is numbered, named, tied to a human example, and placed between upward composition and downward constraint; the formal anchor is \(K_i \subset K_{i+1}\) under declared composition and constraint relations, with evidence support in the K-level parameter tables and theorem-native hierarchy route.}
+\caption{This figure demonstrates the K-level teaching hierarchy used by this release. K0--K10 are the current core grammar; K11 and K12 are shown as provisional upper-taxonomy witnesses that remain under review rather than promoted irreducibility theorems. Every level is numbered, named, tied to a human example, and placed between upward composition and downward constraint; the formal anchor is \(K_i \subset K_{i+1}\) under declared composition and constraint relations, with evidence support in the K-level parameter tables and hierarchy-route boundary.}
 \label{fig:r012-k0-k12-hierarchy}
 \end{figure}"""
 
@@ -3623,12 +4153,18 @@ def r012_render_inline_group(filename: str, group: dict[str, Any], specs: list[d
     figures = [spec for spec in specs if spec["source_rel"] == group["source_rel"] and spec["figure_type"] == "inline_didactic_route"]
     lines = [rf"\section{{{latex_escape(group['section'])}}}", "", "These figures are placed in the main argument as visual proof-of-reading aids: each one separates objects, direction, quantitative or formal anchor, and evidence route.", ""]
     for spec in figures:
-        lines.append(rf"\subsection{{{latex_escape(spec['topic']['title'])}}}")
+        topic = spec["topic"]
+        lines.append(rf"\subsection{{{latex_escape(topic['title'])}}}")
         lines.append("")
-        lines.append("The diagram below is generated from the r012 figure registry, so its objects, arrows, formula anchor, and evidence link are checked before the release audit can pass.")
+        lines.append(
+            f"This figure is included because the reader must see how {latex_escape(topic['left'])} is constrained by {latex_escape(topic['right'])}. "
+            f"The highlighted review variable is {latex_escape(topic['review'])}, and the formal anchor is ${topic['formula']}$. "
+            "The nearby prose names the proof, evidence row, table, replay check, or appendix that carries the claim."
+        )
         lines.append("")
         lines.append(r012_inline_figure_tex(spec))
         lines.append("")
+    lines.append(r"\clearpage")
     return "\n".join(lines).rstrip() + "\n"
 
 
@@ -4584,6 +5120,2188 @@ def build_r013_table_quality(base: Path, version: str, source_dir: Path, *, writ
     return {"paths": paths, "registry": registry_public, "geometry": geometry, "rendered": rendered, "cockpit": cockpit}
 
 
+def _r014_public_file_path(path: str) -> str:
+    return r"\path{" + path.replace("_", r"\_") + "}"
+
+
+R014_KLEVEL_NAMES = {
+    0: "resolution-relative distinguishability",
+    1: "primitive ordering and one-axis continuity",
+    2: "physical field and spacetime models",
+    3: "chemical reaction and molecular systems",
+    4: "compartmental and protocellular systems",
+    5: "excitable bioelectrical systems",
+    6: "cognitive and representational systems",
+    7: "social and institutional systems",
+    8: "civilizational and infrastructure systems",
+    9: "theory and knowledge systems",
+    10: "meta-theoretical modeling systems",
+    11: "recursive model-space systems",
+    12: "upper coherence and compatibility systems",
+}
+
+
+def _r014_bounded_prediction_master_text() -> str:
+    return r"""% R014_BOUNDED_PREDICTION_REVIEW
+\subsubsection{Predictions as Bounded Research Targets}
+\label{sec:predictions-bounded-r014}
+
+The prediction chapters in Core 1.3.3 are not promoted as a completed
+cross-domain empirical theory. They are a review surface for asking whether a
+candidate statement has a declared level, a formal vocabulary, an evidence row,
+a comparator, and a falsifier. A row may therefore be read as a target for
+future test design only when it names the assumptions under which the target is
+meant to operate.
+
+The release uses the following conservative rule. A candidate prediction at
+level \(K_x\) is public-supporting only if it preserves the tuple components
+\[
+  (\Omega,\partial\Omega,A,\Theta,P,J,C,k,M)
+\]
+or explicitly states which component is derived in the local model. It must also
+state what would reopen the row: a missing source snapshot, a failed finite
+witness, a successful negative control, a stronger comparator, or a domain
+observation that requires variables outside the declared tuple.
+
+Consequently, the K-level prediction sections below should be read as bounded
+review checklists. They do not claim unrestricted prediction across physics,
+chemistry, biology, cognition, society, civilization, or meta-theory. They say
+what kind of evidence would be needed before a level-specific statement could be
+promoted beyond illustrative or programmatic status.
+
+\paragraph{Review checklist.}
+The reviewer should ask six questions before treating any row as public
+support. First, is the target level \(K_x\) named with enough precision that an
+adjacent level would make a different claim? Second, is the tuple component
+being tested visible in the prose or formula? Third, is the source family known:
+proof sheet, finite witness, replay table, comparator register, figure, table,
+or domain note? Fourth, does the row identify what a negative control would
+look like? Fifth, is the comparator boundary strong enough to prevent the row
+from merely renaming a standard account? Sixth, does the text say what finding
+would force demotion?
+
+These questions matter because a prediction surface can fail in several
+different ways. It can be formally named but evidentially empty. It can be
+empirically suggestive but too broad for the tuple. It can be clear inside one
+domain and misleading when copied into another. It can be useful as a design
+heuristic but not yet usable as a scientific result. Core 1.3.3 keeps those
+states separate so that the reader can criticize the release without guessing
+whether an example, theorem route, replay row, or future research target is
+being used.
+
+\paragraph{Promotion boundary.}
+A prediction row moves upward only when the support moves upward. A bounded
+example remains an example. A formula without source data remains a formal
+anchor. A replay row without comparator and negative control remains a replay
+exercise. A proof-sheet reference remains a proof/evidence anchor inside its
+assumptions, not an empirical closure claim about a whole domain. This
+separation is deliberately conservative: it makes the current release less
+spectacular, but more inspectable.
+
+\paragraph{Prediction review taxonomy.}
+The release uses five kinds of prediction-adjacent material. The first kind is
+a theorem-route constraint. It says that if a reader accepts the declared
+definitions and assumptions, a stated obstruction, boundary, identity, or
+continuumness result follows inside the formal route. This kind of row is
+reviewed by checking definitions, proof-sheet dependencies, finite witnesses,
+and assumption drift. It is not reviewed by asking whether the same sentence is
+already source-bound by completed domain evidence.
+
+The second kind is a finite or computational witness. It says that a small
+model, countermodel, keep/drop pair, or semantic check illustrates that the
+formal condition is non-vacuous or that a rejected inference fails. This kind of
+row is useful because it prevents purely verbal closure, but it is still local:
+it supports the existence or non-existence of a pattern under the declared
+encoding rather than a broad empirical law.
+
+The third kind is a replay row. A replay row connects a source snapshot, a
+formula or reconstruction rule, an observed value or expected finite result, a
+comparator, a residual or uncertainty statement, a negative control, and a
+falsifier. This is the closest current surface to empirical testing, but it is
+bounded by its source and method. A replay row does not validate a whole domain
+merely because the command or table exists.
+
+The fourth kind is a comparator-boundary row. It asks whether a standard
+framework, predecessor theory, domain method, or simpler model already explains
+the same target with less burden. This row is especially important for a theory
+with a broad title. It keeps novelty language modest and forces OC to say what
+residual work the tuple, K-levels, proof/evidence discipline, or reopening rule
+actually add.
+
+The fifth kind is an illustrative or planned-work row. It may be useful for
+teaching, domain orientation, or future experiment design, but it should not be
+quoted as promoted support. Its value is that it shows where a better source
+snapshot, formula, comparator, or falsifier would be needed. In Core 1.3.3, a
+large part of the high-level social, civilizational, and meta-theoretical
+material is intentionally handled this way unless the specific row carries its
+own support package.
+
+\paragraph{How to criticize these rows.}
+A reviewer can criticize a prediction row without accepting OC's larger
+ambition. The strongest criticism is not "this sounds broad" but "this exact row
+has no source, no formal anchor, no comparator, no negative control, or no
+reopening condition." The release is designed so that such a criticism can be
+localized. If the problem is formal, the theorem route is reopened. If the
+problem is empirical, the replay row is demoted. If the problem is novelty, the
+comparator boundary is narrowed. If the problem is didactic, the example is
+rewritten without changing the scientific claim.
+
+This localization is part of the scientific method of the release. It prevents
+one weak example from silently invalidating the entire tuple, and it prevents
+one formal proof from silently licensing an entire empirical domain. The
+manuscript is therefore deliberately redundant in its claim surfaces: prose,
+formula, figure, table, proof sheet, replay row, comparator row, and falsifier
+are different review instruments.
+"""
+
+
+def _r014_bounded_prediction_level_text(level: int) -> str:
+    label = R014_KLEVEL_NAMES.get(level, "continuum systems")
+    return (
+        r"""% R014_BOUNDED_PREDICTION_REVIEW
+\subsubsection{Bounded Prediction Review for \texorpdfstring{$K___LEVEL__$}{K___LEVEL__}}
+\label{sec:predictions-k__LEVEL__-r014}
+
+At \(K___LEVEL__\), prediction language is treated as a source-grounded review
+target for __LABEL__, not as an unrestricted theorem about every system in that
+domain. A promoted statement has to name its level, tuple components, evidence
+anchor, comparator boundary, and falsifier before it can carry scientific
+weight.
+
+\paragraph{Claim.}
+A \(K___LEVEL__\) prediction may be considered only under declared assumptions
+about the admissible state region \(\Omega\), boundary \(\partial\Omega\), axes
+\(A\), thresholds \(\Theta\), potentials \(P\), flows \(J\), cycles \(C\),
+continuumness \(k\), and embedding context \(M\). If a local model uses a
+projection of this tuple, the projection has to preserve the verdict-relevant
+information.
+
+\paragraph{Intuition.}
+The level tells the reviewer what kind of witness is being requested. For low
+levels the witness may be structural, topological, or finite-semantic. For
+physical and chemical levels it may involve measured parameters or replayable
+formula rows. For social, civilizational, or meta-theoretical levels the row is
+normally illustrative until it carries source snapshots, comparators, negative
+controls, and reopening conditions.
+
+\paragraph{Worked example.}
+A safe \(K___LEVEL__\) row has the form
+\[
+  \mathcal{P}_{__LEVEL__}:
+  (K___LEVEL__, A_x, \Theta_x, P_x, J_x, C_x, k_x, M_x)
+  \longrightarrow
+  \{\mathrm{supported},\mathrm{illustrative},\mathrm{reopened}\}.
+\]
+The row is supported only inside the declared source family. If the source
+family changes, if the comparator explains the observation with less burden, or
+if the negative control succeeds, the row is reopened.
+
+\paragraph{Formal anchor.}
+The formal anchor is the canonical tuple
+\[
+  K=(\Omega,\partial\Omega,A,\Theta,P,J,C,k,M).
+\]
+The row may cite proof sheets, finite semantic witnesses, or the formalization
+inventory, but it may not infer broader empirical closure merely from their
+existence.
+
+\paragraph{Evidence and limitation.}
+For \(K___LEVEL__\), the current release records prediction rows as bounded
+targets unless an explicit source/evidence row upgrades the statement. The
+limitation is therefore part of the claim: without source snapshot, formula or
+finite witness, comparator, residual or uncertainty, negative control, and
+falsifier, the statement remains illustrative.
+"""
+        .replace("__LEVEL__", str(level))
+        .replace("__LABEL__", label)
+    )
+
+
+def _r014_demote_retrospective_replay_language(text: str) -> str:
+    """Keep replay rows useful while removing unaudited prospective-blind claims."""
+    replacements = {
+        "bounded target-blind replay QA": "bounded retrospective replay QA",
+        "target-blind replay QA": "retrospective bounded replay QA",
+        "target-blind replay rows": "retrospective bounded replay rows",
+        "target-blind replay row": "retrospective bounded replay row",
+        "target-blind replay table": "retrospective bounded replay table",
+        "target-blind replay file": "retrospective bounded replay file",
+        "target-blind replay": "retrospective bounded replay",
+        "target-blind table": "retrospective bounded replay table",
+        "target-blind rows": "retrospective replay rows",
+        "target-blind row": "retrospective replay row",
+        "target-blind split": "retrospective split record",
+        "target-blind or held-out target": "retrospective split or held-out target",
+        "Target-Blind Path Integrity": "Retrospective Replay Path Integrity",
+        "Target-blind directory": "Retrospective replay directory",
+        "Target-blind file": "Retrospective replay file",
+        "Target-blind tables": "Retrospective replay tables",
+        "Target-blind": "Retrospective replay",
+        "target-blind": "retrospective replay",
+    }
+    for old, new in replacements.items():
+        text = text.replace(old, new)
+    text = text.replace(
+        "The retrospective bounded replay table is a reader-facing reproducibility anchor.",
+        "The retrospective bounded replay table is a reader-facing reproducibility anchor, but it is not presented as an independently auditable prospective-blind study in this package.",
+    )
+    text = text.replace(
+        "This table is not a broad empirical triumph claim. It records the bounded prediction rows, their source snapshots, their reconstruction rule, their comparator, the negative-control condition, and the condition under which the claim must be reopened.",
+        "This table is not a broad empirical triumph claim and not a prospective-blinding proof. It records bounded reconstruction rows, source references where available, reconstruction rules, comparators, negative-control conditions, and reopening conditions. Prospective blinded-study promotion requires checksum-bound split locks, raw snapshots, pre-run projection records, timestamps, and runner evidence in a future evidence package.",
+    )
+    return text
+
+
+def _r014_discussion_tex() -> str:
+    return r"""% FILE: content/05_discussion.tex
+
+\section{Discussion}
+\label{sec:discussion}
+
+This discussion interprets the formal and evidence surfaces of Core~1.3.3. It
+does not introduce new axioms, new theorem claims, or new empirical validation
+claims. Its task is narrower: to explain how a reader should understand the
+model grammar, what the present release can support, and where the manuscript
+must remain conditional.
+
+\subsection{Conceptual structure of the OC framework}
+
+OC treats a continuum as a typed object that can remain identifiable while its
+states, boundary, flows, cycles, and embedding constraints change. The public
+tuple convention for this release is
+\[
+  K=\big(\Omega(K),\partial\Omega(K),A(K),\Theta(K),P(K),J(K),C(K),k(K),M(K)\big).
+\]
+Here \(\Omega(K)\) is the admissible state region, \(\partial\Omega(K)\) is the
+declared boundary, \(A(K)\) are axes of observable difference, \(\Theta(K)\)
+are thresholds, \(P(K)\) are potentials or admissibility weights, \(J(K)\) are
+flows, \(C(K)\) are cycles, \(k(K)\) is continuumness, and \(M(K)\) is the
+embedding context. Shorter local displays in older source material are read as
+projections of this release tuple, not as competing definitions.
+
+The conceptual value of the tuple is that it forces a systems claim to name
+what persists, what changes, what boundary would be crossed, what evidence
+would demote the claim, and what larger context constrains the local system.
+That value is methodological before it is empirical. A domain instantiation
+must still supply its own data, comparator, uncertainty, negative control, and
+falsifier before a stronger domain claim can be promoted.
+
+\subsection{How to read the theorem route}
+
+The theorem and proof material in this release should be read through its stated
+support status. A theorem-roadmap entry, proof-sheet row, finite-witness row, or
+formalization inventory entry can support public prose only at the strength
+declared for that row. Historical theorem numbering is retained as lineage and
+orientation; it is not re-promoted by this discussion.
+
+Consequently, dimensional-growth, threshold-emergence, collapse, embedding,
+complexity, and non-stabilization statements are interpreted under named
+assumptions and current evidence boundaries. If a proof sheet supports a local
+claim, the prose remains local. If a finite witness demonstrates only a finite
+case, the prose remains finite-case language. If a domain example lacks a
+source snapshot, comparator, residual, negative control, or falsifier, it
+remains illustrative or protocol-facing rather than empirical support.
+
+\subsection{Relation to established scientific traditions}
+
+OC is closest to a family of mature traditions rather than to an empty space.
+General systems theory supplies the ambition of cross-domain language.
+Cybernetics supplies feedback, control, and communication. Dynamical systems
+and complexity science supply state spaces, attractors, phase transitions, and
+networked organization. Autopoiesis and RAF-style chemical closure supply
+important predecessors for organizational persistence and self-production.
+Hybrid systems, formal verification, type-theoretic modeling, and category-
+oriented modeling supply discipline for transitions, compositionality, and
+machine-auditable claims. Formal ontology and identity-over-time debates supply
+the persistence problem. Reproducible-research practice supplies the artifact
+standard.
+
+The residual contribution claimed here is therefore bounded. Core~1.3.3 does
+not claim to replace those traditions or to win every same-claim comparison. It
+claims that typed continuum objects, K-level witness discipline, evidence
+promotion rules, finite checks, replay rows, comparator rows, and reopening
+conditions can be packaged as one reviewable model-core surface.
+
+\subsection{Implications for the continuum hierarchy}
+
+The hierarchy should be read as witness discipline, not as a loose taxonomy.
+The current core grammar is strongest through \(K_0\)--\(K_{10}\). \(K_{11}\)
+and \(K_{12}\) are retained as provisional upper-taxonomy candidates and
+future-proof obligations. A K-level distinction is meaningful only when it adds
+a non-inert witness, observable consequence, constraint relation, proof route,
+or demotion criterion that would change the verdict if removed.
+
+This gives the hierarchy a useful role while keeping it honest. Physical,
+chemical, biological, cognitive, social, theoretical, and meta-theoretical
+examples can be compared with the same vocabulary, but each example carries
+its own burden. The release does not infer completed domain validation merely
+from the fact that the example can be described in OC terms.
+
+\subsection{Worked demotion examples}
+
+The release uses demotion as a scientific instrument rather than as a
+confession of failure. A physical example may show that a threshold vocabulary
+fits a phase-transition case; that does not make the same sentence a universal
+law for all physical systems. The promoted sentence is therefore the bounded
+one: the tuple helps state the case, the threshold row names the support, and a
+future reviewer can reopen the row if a standard physical model explains the
+same target with less burden.
+
+A chemical or biological example may make cycles, boundaries, and flows
+visually compelling. That is useful for teaching, but it is not enough for a
+domain claim. The public claim becomes stronger only when the source snapshot,
+formula or reconstruction rule, comparator, residual or uncertainty, negative
+control, and falsifier are present. Without those objects, the example remains
+an orientation device or a proposed protocol.
+
+A social or civilizational example is even more fragile. It may be tempting to
+read institutional stress, infrastructure failure, or macro-trajectory change
+as direct evidence for the whole hierarchy. Core~1.3.3 does not license that
+move. The safer reading is that the example shows how OC would structure a
+research design: name the state region, name the boundary, name the flows,
+name the comparator, and state what observation would make the OC reading
+unnecessary.
+
+The same rule applies to formal material. A finite witness can show that a
+semantic pattern is non-vacuous or that an attempted reduction fails in the
+declared encoding. It does not automatically prove a broad theorem. A proof
+sheet can support a theorem-bound sentence under declared assumptions. It does
+not automatically support an empirical sentence. This separation is what lets
+the manuscript be ambitious in scope while conservative in promoted claims.
+
+\subsection{How this discussion should be audited}
+
+A reviewer can audit this discussion by following a simple sequence. First,
+identify the exact sentence that appears to carry a scientific claim. Second,
+classify the sentence as definitional, theorem-bound, finite-witness-bound,
+replay-bound, comparator-bound, illustrative, or planned. Third, inspect the
+artifact named by that support class. Fourth, ask whether the public sentence
+is weaker than or equal to the artifact. Fifth, check whether a negative case
+or comparator would demote the wording.
+
+If the sentence fails that sequence, the correct repair is not rhetorical
+defense. The sentence should be narrowed, moved to future work, tied to a
+specific source row, or removed. This makes the discussion less dramatic than a
+manifesto, but far more useful to a hostile reviewer. It also makes the release
+machine easier to improve: each repeated failure class can become a static
+lower-level test before expensive global review is invoked.
+
+\subsection{Comparator reading examples}
+
+The comparator discipline is easiest to understand through examples. If a
+reviewer reads a threshold sentence near physics, the first question is not
+whether OC has replaced statistical mechanics, phase-transition theory, or a
+specific physical model. It has not. The first question is whether OC has
+named the same target in a way that exposes state region, boundary, axes,
+threshold, potential, flow, cycle, continuumness, and embedding context. If a
+standard physical model already gives the stronger local explanation, OC may
+still serve as a translation layer, but the local model keeps priority for the
+local mechanism.
+
+If a reviewer reads a closure sentence near chemistry or early life, the same
+principle applies. RAF theory, autocatalytic-set theory, chemical kinetics,
+reaction networks, membrane models, and thermodynamic constraints already
+carry deep local content. OC is not entitled to claim that content as its own.
+The safe contribution is a typed statement of what is being treated as a
+cycle, what boundary is doing explanatory work, what lower-level projection
+would lose the witness, and what demotion rule prevents a metaphor of closure
+from becoming a false theorem.
+
+If a reviewer reads a liveness sentence near biology, the comparator family is
+again strong: biophysics, systems biology, excitable-media models,
+developmental biology, autopoiesis, and physiology already contain mature
+models of organization and persistence. OC may help organize liveness,
+residue, death, and recovery as public review predicates, but it cannot turn a
+biological analogy into a supported biological law. The correct audit asks
+whether the biological sentence has a source row, measurable object,
+comparator, residual or uncertainty, negative control, and falsifier. Without
+those, the sentence remains didactic or planned.
+
+If a reviewer reads a cognition or social-systems sentence, the required
+humility is even stronger. Cognitive science, neuroscience, institutional
+analysis, economics, organization theory, security engineering, and enterprise
+architecture already have local languages. OC can be useful when it lets those
+languages share a boundary and evidence vocabulary. It is not useful when it
+pretends that one broad ontology has already solved the empirical burden of
+each field. The release therefore treats many higher-level examples as
+research designs, not as completed support.
+
+This comparator rule is deliberately asymmetric. OC may borrow pressure from
+existing fields only when it also accepts their right to defeat or narrow an OC
+claim. A comparator does not have to accept the OC tuple in order to reopen the
+sentence. It only has to show that the same bounded target can be explained
+with less burden, equal or better evidence, or a cleaner falsifier. This is how
+the release avoids becoming a universal vocabulary that cannot lose.
+
+\subsection{Why bounded language is not weakness}
+
+The bounded language of this manuscript can make the theory look less dramatic
+than its title. That is intentional. A title can name an ambitious program; a
+scientific release must state only what it can defend. The most important
+discipline in Core~1.3.3 is therefore not a single equation or diagram, but
+the rule that every public sentence can be reopened by evidence.
+
+Bounded language also helps practical readers. An engineer, architect, or
+executive does not need a metaphysical victory claim in order to use the model
+carefully. Such a reader needs to know which distinction is being made, which
+failure mode matters, which source or example is illustrative, and what would
+make the model unhelpful in the present case. The same humility that protects
+the manuscript from overclaiming also makes it easier to use in real design
+work.
+
+For formal readers, bounded language protects proof status. A proof sheet is
+strong only inside its assumptions. A finite witness is strong only for the
+declared encoding. A formalization inventory entry is not a certificate unless
+the certificate and source binding are clean for the cited revision. These
+distinctions may seem bureaucratic, but they are the difference between a
+reviewable scientific package and a large manuscript that asks the reader to
+trust its tone.
+
+For empirical readers, bounded language protects measurement. A replay row may
+be useful even when it is not a prospective study. It may show that a formula,
+source snapshot, comparator, residual, negative control, and falsifier can be
+kept aligned. That is valuable artifact discipline. It becomes stronger
+empirical support only when the public evidence package carries the stronger
+design. The release therefore preserves useful replay material while refusing
+to let it masquerade as broader proof.
+
+\subsection{Machine responsibility}
+
+The release machine should catch most of the small failures before a human
+expert reads the document. Metadata leaks, malformed file names, unsupported
+status words, weak captions, table collisions, figure overlaps, broken paths,
+and repeated overclaim phrases are lower-level defects. They belong to static
+checks, rendered-surface checks, and governed local review. A high-reasoning
+reviewer should not spend expensive attention finding those defects page by
+page.
+
+The higher-level reviewer is reserved for harder questions: whether the
+argument order makes sense, whether the concept is coherent, whether a claim
+quietly outruns its source row, whether a comparator has been treated fairly,
+whether a proof status changed meaning in prose, and whether the manuscript
+would survive a hostile scientific editor. This division of labor is now part
+of the package's quality policy. It is also a practical V-model: small objects
+first, then sections, then chapters, then the whole document.
+
+This policy does not make the machine infallible. It makes failure cheaper and
+more local. When a repeated class of defect is found by a reviewer, it becomes
+a static lower-level test in the next run. The goal is not to remove human
+judgment. The goal is to reserve human judgment for the parts of the manuscript
+where judgment is actually needed.
+
+\subsection{Limits and future work}
+
+Several boundaries remain open. Quantitative threshold functions must be
+calibrated domain by domain. Expressive-capacity measures for cognitive,
+social, and theoretical systems require more mature operational definitions.
+Inter-continuum interaction remains schematic for many complex cases.
+Prospective empirical tests require stronger source snapshots, split locks,
+pre-run records, comparators, uncertainty models, negative controls, and
+falsifiers than the present package can always provide.
+
+These limits do not make the release empty. They define the scientific program
+that follows from the model core. The useful result of Core~1.3.3 is a bounded,
+reviewable language for saying exactly what a continuum claim currently means,
+what evidence supports it, and what finding would reopen it.
+"""
+
+
+def _r014_k12_provisional_tex() -> str:
+    return r"""% ================================================================
+% ==== FILE: content/k_levels/k12.tex
+% ================================================================
+
+\paragraph{Canonical tuple projection note.}
+Local K-level displays in this module are projections of the canonical public
+tuple \(K=(\Omega,\partial\Omega,A,\Theta,P,J,C,k,M)\). When a display omits
+\(M\), reorders components, or uses level-indexed shorthand, the omitted
+embedding context is inherited from the surrounding level discussion rather
+than introduced as a competing definition.
+
+\subsubsection{\texorpdfstring{$K_{12}$}{K12} as a Provisional Upper-Coherence Candidate}
+\label{sec:k12-overview}
+
+\(K_{12}\) is retained in Core~1.3.3 as an upper-taxonomy research candidate.
+It is not promoted as a completed limit theorem, a final level of reality, or a
+proof that all branches, flows, operators, or time directions have globally
+closed. The public role of the module is to state what an upper-coherence claim
+would have to prove before stronger wording could be licensed.
+
+A cautious candidate state description is
+\[
+\Omega(K_{12}) =
+\{\Omega^*,A^*,P^*,\Theta^*,J^*,C^*,\mu^{(12)}\},
+\]
+where the starred objects denote proposed upper-level projections of the lower
+K-level vocabulary. In this release they are research objects. They become
+support-carrying only when a later proof or evidence package names the
+operator assumptions, the convergence criterion, the boundary condition, the
+negative case, and the demotion rule.
+
+\subsubsection{Candidate Components and Required Proof Obligations}
+
+\begin{itemize}
+\item \(\Omega^*\) would have to identify admissible upper-coherence states
+      without absorbing incompatible \(K_0\)--\(K_{11}\) witnesses by rhetoric.
+\item \(A^*\) would have to show which upper-level axes are retained and which
+      apparent axes are demoted as inert.
+\item \(\Theta^*\) would have to state threshold conditions under which an
+      upper-coherence reading is allowed or rejected.
+\item \(P^*\) and \(J^*\) would have to specify potentials and flows under
+      explicit operator assumptions rather than by global-invariance language.
+\item \(C^*\) would have to identify cycles that support the candidate reading
+      and cases where such cycles fail.
+\item \(M_{12}\) would have to name the embedding context that makes the
+      candidate admissible.
+\end{itemize}
+
+These requirements are intentionally strict. They prevent the upper taxonomy
+from turning into a totalizing closure claim.
+
+\subsubsection{Promotion Checklist}
+
+An upper-coherence statement may be promoted only after it passes a checklist
+that is stronger than ordinary exposition. The statement must identify the
+candidate object, the lower-level witnesses retained by projection, the
+operator assumptions, the convergence or non-convergence criterion, the
+boundary condition, the finite or formal witness if one exists, the comparator
+that could explain the same structure with less burden, and the condition under
+which the claim is demoted.
+
+\begin{center}
+\begin{tabular}{p{0.25\linewidth}p{0.62\linewidth}}
+\toprule
+Review item & Required public answer \\
+\midrule
+Object & What is the specific \(K_{12}\) candidate, and which lower-level
+witnesses does it retain? \\
+Assumptions & Which operator, embedding, and projection assumptions are being
+used? \\
+Support & Is the statement definitional, proof-bound, finite-witness-bound, or
+planned? \\
+Negative case & What named case would show that the upper-coherence reading is
+unnecessary or false? \\
+Demotion rule & What weaker sentence remains if the strong reading fails? \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+This checklist is part of the public claim boundary. It protects the manuscript
+from treating an attractive upper-level picture as completed science. It also
+gives future work a precise route: every stronger \(K_{12}\) sentence must
+bring the missing proof, finite witness, comparator, or negative case with it.
+
+\subsubsection{Boundary and Falsifiability}
+
+The candidate boundary \(\partial\Omega(K_{12})\) is crossed whenever the
+declared upper-coherence reading loses one of its required witnesses. Examples
+include recursive divergence, incompatible projections, operator assumptions
+that cannot be stated, a missing demotion rule, or a lower-level witness that
+changes the verdict after projection.
+
+The candidate is falsified or demoted if:
+\begin{itemize}
+\item a proposed upper-level axis can be removed without changing any witness;
+\item a claimed convergence criterion fails on a named counterexample;
+\item an operator-symmetry statement is used without explicit operators;
+\item a branch- or cycle-stability claim lacks a proof route or evidence row;
+\item a lower-level domain example is used as universal evidence.
+\end{itemize}
+
+\subsubsection{Research Tests}
+
+Future work may test explicitly modeled recursive meta-hierarchies, candidate
+fixed-point behavior, operator assumptions, and branching constraints. Such
+tests should be reported as research tests until they include source snapshots,
+formal assumptions, negative controls, and reopening conditions. The present
+release therefore treats \(K_{12}\) as a disciplined frontier object: useful
+for organizing upper-bound questions, but not a current proof of global
+closure, terminality, or universal invariance.
+
+\subsubsection{Reader Guidance for the Upper Taxonomy}
+
+A reader should use the \(K_{12}\) module as a map of questions rather than as
+an answer sheet. The module asks what it would mean for a family of
+meta-frameworks to become mutually inspectable, what kind of embedding context
+would be required, which lower-level witnesses must remain visible, and which
+operator assumptions would have to be stated before a stronger result could be
+claimed. These questions are useful even while the answers remain provisional.
+
+The safest reading is comparative. If an existing metatheory, formal ontology,
+category-theoretic construction, type-theoretic universe, or scientific
+unification program explains the same upper-level relation with a cleaner
+support structure, the OC wording should become narrower. The K12 vocabulary
+then remains a translation aid or a research prompt, not a priority claim and
+not a proof of unique adequacy.
+
+The module also protects the lower levels. Without an explicit upper-bound
+frontier, broad synthesis language tends to leak backward into the formal core
+and make \(K_0\)--\(K_{10}\) sound stronger than their evidence permits. By
+keeping \(K_{12}\) provisional, the release can state a future direction
+without allowing that direction to inflate current theorem, replay, or
+comparator claims.
+
+For practical readers, this means that \(K_{12}\) should not be used as an
+enterprise, engineering, or scientific decision rule. It may help structure
+questions about governance, evidence integration, and cross-domain
+compatibility, but any operational recommendation must be grounded in a lower
+level, a named source row, a comparator, a negative case, and a reopening
+condition. The upper taxonomy is a research boundary, not an authorization
+surface.
+
+For formal readers, the frontier status is equally important. A future proof
+would need to name the exact object, the universe or meta-space in which it
+lives, the morphisms or operators allowed, the fixed or non-fixed points under
+review, and the demotion condition for every retained witness. Until that
+work is present, \(K_{12}\) is a disciplined conjectural scaffold. It is useful
+because it says what would have to be proved, not because it has already been
+proved.
+"""
+
+
+def _r014_demote_experiment_chapter(text: str) -> str:
+    text = text.replace(
+        "empirical and computational foundation for testing structural predictions",
+        "proposed empirical and computational protocol surface for testing structural predictions",
+    )
+    text = text.replace("empirical and computational foundation", "proposed empirical and computational protocol surface")
+    text = re.sub(
+        r"\bprovide\s+the\s+empirical\s+and\s+computational\s+foundation\s+for\b",
+        "provide proposed empirical and computational protocol context for",
+        text,
+        flags=re.I,
+    )
+    text = re.sub(
+        r"\bprovides\s+the\s+empirical\s+and\s+computational\s+foundation\s+for\b",
+        "provides proposed empirical and computational protocol context for",
+        text,
+        flags=re.I,
+    )
+    text = text.replace("direct empirical grounding", "proposed empirical-test grounding")
+    text = text.replace("foundation for all physical continua", "modeling bridge for review of physical-continuum cases")
+    text = re.sub(r"\bempirically\s+validate\b", "empirically probe", text, flags=re.I)
+    text = re.sub(r"\bThese\s+empirical\s+results\s+anchor\b", "These proposed protocol outputs would anchor, if completed and source-bound,", text, flags=re.I)
+    text = re.sub(r"\bempirical\s+results\s+anchor\b", "proposed protocol outputs would anchor, if completed and source-bound,", text, flags=re.I)
+    text = re.sub(r"\bThe\s+experiments\s+for\s+(\$K(?:_\{?\d+\}?|\d+)\$)\s+validate\b", r"The proposed experiments for \1 probe", text, flags=re.I)
+    text = re.sub(r"\bExperiments\s+for\s+(\$K(?:_\{?\d+\}?|\d+)\$)\s+validate\b", r"Proposed experiments for \1 probe", text, flags=re.I)
+    text = re.sub(r"\bExperiments\s+at\s+this\s+level\s+validate\b", "Proposed experiments at this level probe", text, flags=re.I)
+    text = re.sub(r"\bExperiments\s+validate\b", "Proposed experiments probe", text, flags=re.I)
+    text = re.sub(r"\bexperiments\s+validate\b", "proposed experiments probe", text, flags=re.I)
+    text = re.sub(r"\btests\s+that\s+validate\b", "tests that would probe", text, flags=re.I)
+    text = re.sub(r"\bmust\s+validate\b", "must probe", text, flags=re.I)
+    text = re.sub(r"\baim\s+to\s+validate\b", "aim to probe", text, flags=re.I)
+    text = re.sub(r"\baims\s+to\s+validate\b", "aims to probe", text, flags=re.I)
+    text = re.sub(r"\bgoals\s+are\s+to\s+validate\b", "goals are to probe", text, flags=re.I)
+    text = re.sub(r"\bgoal\s+is\s+to\s+validate\b", "goal is to probe", text, flags=re.I)
+    text = re.sub(r"\bcentral\s+goal\s+is\s+to\s+empirically\s+probe\b", "central goal is to specify a protocol for empirically probing", text, flags=re.I)
+    text = re.sub(r"\bcentral\s+goal\s+is\s+to\s+probe\b", "central goal is to specify a protocol for probing", text, flags=re.I)
+    text = re.sub(r"\\paragraph\{Predictions validated:\}", r"\\paragraph{Predictions under review:}", text)
+    text = re.sub(r"\\paragraph\{Core predictions validated:\}", r"\\paragraph{Core predictions under review:}", text)
+    text = re.sub(r"\bvalidated\b", "probed", text, flags=re.I)
+    text = re.sub(r"\bvalidates\b", "probes", text, flags=re.I)
+    text = re.sub(r"\bvalidate\b", "probe", text, flags=re.I)
+    text = re.sub(r"\bvalidation\b", "protocol review", text, flags=re.I)
+    notice = (
+        "The experiment chapters in this release specify proposed protocols and review designs. "
+        "They do not report completed empirical support unless a row names a public source snapshot, "
+        "formula or reconstruction rule, comparator, residual or uncertainty, negative control, falsifier, "
+        "and replay hash."
+    )
+    if "proposed protocols and review designs" not in text:
+        lines = text.splitlines()
+        insert_at = None
+        for index, line in enumerate(lines):
+            if line.startswith("\\section{") or line.startswith("\\subsection{") or line.startswith("\\subsubsection{"):
+                insert_at = index + 1
+                break
+        if insert_at is not None:
+            lines[insert_at:insert_at] = ["", notice]
+            text = "\n".join(lines) + ("\n" if text.endswith("\n") else "")
+        else:
+            text = notice + "\n\n" + text
+    return text
+
+
+def _r014_methods_evidence_chapter_tex() -> str:
+    return r"""\section{Methods, Evidence, and Comparator Discipline}
+\label{sec:oc133-methods-evidence-comparators}
+
+This chapter explains how Core 1.3.3 asks to be reviewed. It is not a dump of
+the evidence register. The public claim is always read through four questions:
+what object is being named, what support class is actually present, what would
+reopen the wording, and which comparator could explain the same observation
+with less theoretical burden. The value of this discipline is that a reviewer
+can attack a precise relation instead of arguing against a slogan.
+
+\subsection{Claim wording and support class}
+
+A sentence in the manuscript may be definitional, theorem-bound, finite-witness
+bound, replay-bound, comparator-bound, illustrative, or planned. These classes
+are intentionally different. A definition may introduce vocabulary without
+proving empirical reach. A theorem-bound sentence may be strong inside stated
+assumptions but silent outside them. A replay-bound sentence can support a
+case row without becoming a completed domain validation. When the support class
+changes, the public wording must change with it.
+
+\subsection{The canonical model object}
+
+The model object inspected across this release is
+\[
+  K=(\Omega,\partial\Omega,A,\Theta,P,J,C,k,M).
+\]
+The tuple is not merely notation. It gives a reviewer nine inspection points:
+the admissible state region, the boundary, observable axes, threshold
+conditions, potentials, flows, cycles, continuumness, and embedding context.
+The article, monograph, figures, and tables may use prose glosses for these
+components, but they do not promote an alternate canonical tuple.
+
+\subsection{Formal and finite-witness support}
+
+Formal support is cited only where the present release has a theorem row, proof
+sheet, finite semantic witness, or formalization inventory entry that matches
+the public statement. The current public boundary is deliberately cautious:
+formalization inventory can orient the reviewer, but it is not described as a
+clean machine-checked certificate unless the binding is clean for the exact
+claim. If a proof sheet supports only a finite witness or a stated assumption
+class, the public sentence remains inside that class.
+
+\subsection{Replay and numeric support}
+
+Replay rows are treated as bounded scientific checks. A row becomes
+reader-facing support only when it names a source snapshot, reconstruction rule
+or formula, observed or derived value, residual or uncertainty, comparator,
+negative control, and falsifier. Missing pieces do not disappear; they demote
+the row to an illustrative example or a planned measurement. The principal
+prediction-row anchor is
+\path{validation/target_blind/OC133_TARGET_BLIND_PREDICTION_TABLE.json}.
+
+\subsection{Comparator discipline}
+
+Prior systems theory, cybernetics, autopoiesis, dynamical systems, complexity
+science, formal verification, formal ontology, category-theoretic modeling, and
+reproducibility research are not treated as background scenery. They are active
+comparators. The relevant public comparator anchors are
+\path{docs/OC_1_3_3_PRIOR_ART_COMPARATOR_MATRIX.json} and
+\path{comparators/OC_1_3_3_COMPARATOR_MATRIX.md}. If a comparator explains a
+row with less burden, the OC claim narrows to its residual contribution.
+
+\subsection{Reopening conditions}
+
+Every promoted claim should be reopenable. A tuple claim reopens if a component
+can be removed without changing the verdict. A K-level claim reopens if the
+level adds no retained witness or demotion criterion. A proof claim reopens if
+the dependency or assumption class is mismatched. A replay claim reopens if the
+source snapshot, formula, comparator, residual, negative control, or falsifier
+is missing or fails. This is not a weakness of the release; it is the mechanism
+that keeps strong prose from outrunning visible evidence.
+
+\subsection{Lifecycle and identity claims}
+
+Lifecycle claims are especially easy to overread, so this release separates
+death, residue, rebirth, and identity continuation. A residue is not a live
+continuation merely because it carries traces of the source. A rebirth relation
+is not same-identity survival unless endpoint-bound identity evidence is
+explicitly present. The reviewer should therefore ask which token continues,
+which invariant is declared, which endpoint evidence is available, and which
+condition would make the identity claim false.
+
+\subsection{K-level claims}
+
+K-levels are witness disciplines rather than labels. A level must add an
+observable or formal obligation: a retained witness, a constraint relation, a
+demotion criterion, or a finite row that would fail if the level were merely a
+name. The K0--K12 hierarchy is therefore inspected as a nested system grammar:
+lower continua compose the next level, while higher contexts constrain the
+admissible behaviour of lower ones.
+
+\subsection{Article projection boundary}
+
+The compact journal article is a projection from the release, not a parallel
+theory. It may shorten examples and omit supporting appendices, but it may not
+introduce unsupported scientific claims. Its four claims are the tuple, the
+K-level witness discipline, the evidence-promotion rule, and the bounded
+replay/comparator route. Each claim has a reopening condition printed in the
+article so that the article can be criticized without treating the monograph as
+a black box.
+
+\subsection{Public reading rule}
+
+The public reading rule is simple: do not infer broader closure from an anchor
+than the anchor can carry. The release is strongest when it states exactly what
+is definitional, what is theorem-bound, what is finite-witness-bound, what is a
+bounded replay, and what remains future work. This rule is the bridge between
+ambition and reviewability.
+
+\subsection{Worked review example: tuple redundancy}
+
+Suppose a critic argues that the boundary component can be absorbed into the
+state region. The manuscript should not answer with rhetoric. It should ask
+whether the case still distinguishes an admissible live state from a state that
+forces demotion, death, split, or narrower wording. If that distinction remains
+visible after removing \(\partial\Omega\), then the tuple row is too broad. If
+the distinction disappears, the boundary component has earned local work in
+that case. The same test applies to thresholds, flows, cycles, and embedding
+context. Redundancy is not settled by how elegant the tuple looks; it is settled
+by whether a component changes the review verdict.
+
+\subsection{Worked review example: K-level promotion}
+
+Suppose a section names a system as K7 because people, institutions, or
+authority are involved. That is not enough. K7 promotion requires a retained
+witness of social coordination: authority, trust, obligation, delegation,
+norm-enforcement, or another declared coordination relation that cannot be
+reduced to a lower-level component without loss in the stated case. If the row
+only says that humans are present, it is an example candidate, not a promoted
+K-level claim. If it also states the coordination witness, the lower-level
+composition, the higher-level constraint, and the demotion condition, the row
+can be reviewed as a K7 statement.
+
+\subsection{Worked review example: replay support}
+
+Suppose a target-blind replay row reports a bounded match. The public conclusion
+is still not ``the domain is validated.'' The conclusion is that the row, under
+its source snapshot and reconstruction rule, did not trigger the named
+falsifier and did not lose immediately to the declared comparator. The reviewer
+then asks whether the case is representative, whether the residual is small for
+the right reason, whether a negative control would fail, and whether a rival
+model explains the row with less burden. Only after those questions survive can
+the wording move beyond illustrative support.
+
+\subsection{Worked review example: comparator pressure}
+
+Suppose a cybernetic or dynamical-systems account already explains feedback,
+state transitions, and attractor behaviour in a case. OC does not earn novelty
+by renaming those concepts. It earns residual value only if the continuum tuple,
+K-level witness discipline, lifecycle boundary, or evidence-promotion rule
+adds an inspection point that the comparator does not already supply for the
+same row. If no residual point remains, the honest action is to credit the
+comparator and narrow the OC sentence.
+
+\subsection{Worked review example: figure and table claims}
+
+A diagram may make a claim by implication even when the caption is cautious. A
+K-level figure, for example, can imply a complete hierarchy; a replay table can
+imply empirical validation; a comparator table can imply novelty. In this
+release a visual or table is treated as public argument only if its caption
+states what it demonstrates, which variables or numbers matter, which formula
+or evidence row supports it, and what would reopen it. A beautiful picture that
+cannot answer those questions remains decoration and should not carry a claim.
+
+\subsection{How to read absence}
+
+Absence is also evidence. If a source snapshot is absent, the claim is not
+inspectable. If a proof dependency is absent, the theorem wording is not
+closed. If a comparator row is absent, novelty is not yet bounded. If a
+falsifier is absent, the reader cannot tell what would make the claim false.
+The manuscript therefore treats missing anchors as demotion signals rather than
+as blank spaces to be filled by confidence.
+
+\subsection{Claim-classification checklist}
+
+The following checklist is the practical reading instrument for this chapter.
+It is written for a reviewer who wants to decide quickly whether a paragraph is
+claiming more than the release can support.
+
+\begin{enumerate}
+\item Is the sentence a definition, a theorem-bound statement, a finite-witness
+      statement, a replay statement, a comparator statement, an illustration,
+      or a planned research statement?
+\item Does the sentence name or imply the canonical object
+      \(K=(\Omega,\partial\Omega,A,\Theta,P,J,C,k,M)\), a K-level, a lifecycle
+      relation, a proof relation, a replay row, a comparator row, or a journal
+      projection?
+\item Is the cited support class sufficient for the verb being used? Words such
+      as proves, validates, explains, supports, illustrates, bounds, and
+      suggests do not carry the same scientific force.
+\item Does the paragraph state the reopening condition, or is the reader forced
+      to infer it?
+\item If the paragraph were moved into a journal article without the monograph,
+      would the claim still be inspectable?
+\end{enumerate}
+
+If the answer to the final question is no, the correct repair is not merely a
+footnote. The public sentence should be narrowed, the source anchor should be
+made visible, or the material should be moved to an appendix where its support
+class can be explained without pretending to be a compact journal result.
+
+\subsection{Evidence verbs}
+
+The manuscript uses evidence verbs conservatively. A definition \emph{names} a
+distinction. A theorem-bound row \emph{establishes} a result only under its
+assumptions. A finite witness \emph{shows consistency or counterexample
+behaviour} in the finite case. A replay row \emph{supports} a bounded reading
+only when its source snapshot and reconstruction rule are visible. A comparator
+row \emph{bounds} novelty; it does not make novelty automatic. An illustrative
+example \emph{orients} a reader; it does not validate a domain. This verb
+discipline is intentionally plain because it is one of the easiest ways to
+prevent overclaim.
+
+\subsection{Promotion and demotion}
+
+Promotion is reversible. A claim may move from planned to illustrative, from
+illustrative to replay-bound, from replay-bound to stronger domain evidence, or
+from theorem-oriented prose to formal support as the corpus improves. It can
+also move downward. If a source row is missing, a replay row fails, a comparator
+absorbs the residual contribution, or a proof dependency does not match the
+public wording, demotion is the honest scientific action. The release is
+therefore not a static monument; it is a bounded review surface whose claims
+can strengthen or narrow as evidence changes.
+
+\subsection{Minimal reader audit}
+
+A reviewer who has only one hour should not start by reading every appendix.
+The minimal audit is narrower. First, inspect the abstract and release delta to
+see what kind of claim the release makes. Second, inspect the canonical tuple
+and ask whether each component carries a distinct review question. Third, read
+the K-level primer and ask whether levels are witness-bearing or merely named.
+Fourth, inspect one theorem-bound claim and one replay-bound claim and check
+whether the verbs match the support class. Fifth, inspect one comparator row and
+ask whether OC has residual value after prior art is credited. If the release
+survives those five checks, a deeper read is warranted. If it fails one of them,
+the failure identifies the repair target without requiring the reviewer to
+survey the whole manuscript.
+
+\subsection{Why this discipline matters}
+
+The manuscript is ambitious, and ambition invites a fair suspicion that the
+language may be doing more work than the evidence. The evidence discipline in
+this chapter is designed to answer that suspicion directly. It does not ask the
+reader to trust the author's confidence. It asks the reader to inspect the
+claim class, the support class, the comparator, and the reopening condition. In
+that sense the publication surface is intentionally adversarial: a good
+objection should find a named place to land, and a named place to land should
+make the next repair possible.
+
+\subsection{Boundary between manuscript and evidence files}
+
+The manuscript explains the scientific argument. Evidence files preserve the
+machine-readable details needed for replay, checksum comparison, and long-form
+inspection. The two surfaces should not be confused. When a file name appears
+in the manuscript, it is there as a stable public anchor, not as a substitute
+for explanation. When a paragraph explains a theorem, replay, or comparator, it
+must remain readable even before the reader opens the underlying file. This is
+the standard used here: prose teaches the claim; evidence files make the claim
+auditable.
+"""
+
+
+def _r014_review_boundaries_chapter_tex() -> str:
+    return r"""\section{Review Boundaries and Journal Projection Map}
+\label{sec:oc133-review-boundaries-journal-map}
+
+This chapter translates likely reviewer objections into the form used by the
+release. Each objection threatens a particular claim, calls for a particular
+kind of evidence, leaves a residual risk, and has a reopening condition. The
+purpose is not to win by phrasing; it is to make criticism precise enough that
+the manuscript can be repaired when the criticism is correct.
+
+\subsection{The tuple may be only vocabulary}
+
+The threatened claim is that \(K=(\Omega,\partial\Omega,A,\Theta,P,J,C,k,M)\)
+is a useful typed model object rather than a decorative list. The answer is the
+component discipline: each component names a distinct review question about
+state, boundary, observation, threshold, potential, flow, cycle, persistence,
+or context. The residual risk is redundancy. The reopening condition is a case
+where a component can be removed without changing any verdict, witness,
+boundary, or falsifier.
+
+\subsection{Boundaries may be metaphorical}
+
+The threatened claim is that \(\partial\Omega\) can do scientific work. The
+answer is to read boundaries as typed admissibility conditions: they separate
+states, events, or relations that preserve the declared continuum from those
+that demote, split, kill, or require a narrower claim. The residual risk is that
+some domains need richer boundary geometry. The reopening condition is a
+declared boundary that fails to separate admissible and inadmissible states in
+the cited case.
+
+\subsection{Continuumness may be underdefined}
+
+The threatened claim is that \(k\) names persistence through change. The answer
+is that \(k\) is always read together with state region, boundary, cycles, and
+context; it is not a mystical liveness score. The residual risk is that
+empirical proxies for liveness remain domain-bound. The reopening condition is
+a live/dead distinction that cannot be reproduced under the stated assumptions.
+
+\subsection{K-levels may be labels}
+
+The threatened claim is that K-levels are nested witness strata. The answer is
+the retained-witness and demotion discipline: an alleged level must add a
+constraint, observable consequence, or failure criterion. The residual risk is
+that some didactic examples are ahead of domain validation. The reopening
+condition is an adjacent K transition that adds no retained witness.
+
+\subsection{Operator claims may be too broad}
+
+The threatened claim is that operators preserve type discipline across updates.
+The answer is to keep operator claims within declared update families and
+assumption classes. The residual risk is domain adapter complexity. The
+reopening condition is an operator that silently changes the claim type without
+a declared rule.
+
+\subsection{Formal support may not cover prose}
+
+The threatened claim is that proof, finite witnesses, and formalization
+inventory support the public wording. The answer is alignment: the public
+sentence must stay within the exact support class. The residual risk is partial
+mechanization. The reopening condition is a dependency, assumption, or
+formalization mismatch.
+
+\subsection{Replay rows may be overread}
+
+The threatened claim is that replay examples provide bounded support. The
+answer is the replay evidence pattern: source snapshot, formula, residual,
+comparator, negative control, and falsifier. The residual risk is that a row is
+illustrative rather than validation-grade. The reopening condition is any
+missing or failed replay component.
+
+\subsection{Prior art may absorb the delta}
+
+The threatened claim is that OC contributes residual structure beyond existing
+systems theory, cybernetics, autopoiesis, dynamical systems, complexity science,
+formal verification, formal ontology, and compositional modeling. The answer is
+the comparator matrix. The residual risk is real: a stronger comparator can
+narrow OC. The reopening condition is a comparator that explains the same row
+with less burden.
+
+\subsection{Figures and tables may imply too much}
+
+The threatened claim is that visuals and tables are argument surfaces. The
+answer is that each reader-facing figure or table must have a semantic role,
+caption, formula or evidence anchor, and rendered-layout check. The residual
+risk is visual compression. The reopening condition is a figure or table that
+implies a claim without its support anchor.
+
+\subsection{Journal projections may drift}
+
+The threatened claim is that venue-specific article packages remain projections
+from the same release. The answer is a no-send journal package discipline:
+venue requirements, component manifests, source maps, and disclosure statements
+are generated from the release package. The residual risk is loss of nuance
+during shortening. The reopening condition is a projection that introduces a
+claim not present in the release or drops a necessary limitation.
+
+\subsection{Foundations-of-science review stance}
+
+For a foundations-oriented venue, the central editorial question is whether the
+manuscript has a real conceptual object and a serious relation to prior systems
+thought. The projection should foreground the tuple, the continuity problem,
+the prior-art comparator matrix, and the limits of present proof. It should not
+pretend that the current release has completed every empirical domain. A
+foundations reviewer can therefore attack the model grammar, the identity
+conditions, the ontology of boundaries, and the relation to existing systems
+theory.
+
+\subsection{Physics-oriented review stance}
+
+For a physics-oriented venue, the central editorial question is whether the
+formal language respects the difference between mathematical structure and
+physical validation. The projection should foreground state space, boundary,
+threshold, flow, finite witness, and falsifier discipline, while treating
+high-level numeric ranges as illustrative unless they have row-level source and
+derivation. A physics reviewer can therefore attack dimensional consistency,
+observable definition, benchmark selection, and whether any physical claim has
+been promoted beyond its evidence.
+
+\subsection{Biotheory and systems-biology stance}
+
+For a biotheory venue, the central question is whether continuumness, liveness,
+residue, rebirth, and identity are operational rather than metaphorical. The
+projection should foreground lifecycle distinctions, cycles, maintenance,
+boundary crossing, and demotion conditions. A reviewer can ask whether the
+model distinguishes organism, trace, residue, population renewal, and identity
+continuation without smuggling metaphysics into biological evidence.
+
+\subsection{Management and enterprise stance}
+
+For a management, flexible-systems, or enterprise-architecture venue, the
+central question is whether the model helps decision-makers inspect complex
+systems without losing scientific discipline. The projection should foreground
+domain projection, enterprise examples, AI and security routes, reader-facing
+tables, and limitations. A reviewer can ask whether the model improves
+architecture reasoning, whether it identifies falsifiers, and whether it avoids
+turning strategy language into unsupported universals.
+
+\subsection{Computational-biology and reproducibility stance}
+
+For a computational or reproducibility venue, the central question is whether
+the package is inspectable. The projection should foreground source snapshots,
+commands, target-blind rows, finite checks, table layout, data/code statements,
+and failure interpretation. A reviewer can ask whether an independent reader
+can reproduce the bounded check, whether hashes bind to the right files, and
+whether the claim wording changes when a replay row fails.
+
+\subsection{Chemistry and interdisciplinary-data stance}
+
+For an interdisciplinary data venue, the central question is whether examples,
+tables, and source files are sufficiently explicit for external reuse. The
+projection should foreground the data/code manifest, evidence anchors, SI
+boundary, visual/table quality, and conservative interpretation of replay
+examples. A reviewer can ask whether each table has a source, whether each
+figure demonstrates a claim, and whether domain examples are demoted when
+source or comparator support is incomplete.
+"""
+
+
+def apply_r014_high_reasoning_closure(source_dir: Path) -> None:
+    pred_dir = source_dir / "content" / "predictions"
+    if pred_dir.is_dir():
+        for path in sorted(pred_dir.glob("predictions_*.tex")):
+            if path.name.startswith("predictions_master"):
+                text = _r014_bounded_prediction_master_text()
+            else:
+                match = re.search(r"predictions_k(\d+)", path.name)
+                if not match:
+                    continue
+                text = _r014_bounded_prediction_level_text(int(match.group(1)))
+            write_text_if_changed(path, text)
+
+    methods_chapter = source_dir / "content" / "27c_oc_core_1_3_3_methods_evidence_and_comparators.tex"
+    if methods_chapter.is_file():
+        write_text_if_changed(methods_chapter, _r014_methods_evidence_chapter_tex())
+
+    review_chapter = source_dir / "content" / "27d_oc_core_1_3_3_review_boundaries_and_journal_map.tex"
+    if review_chapter.is_file():
+        write_text_if_changed(review_chapter, _r014_review_boundaries_chapter_tex())
+
+    discussion_chapter = source_dir / "content" / "05_discussion.tex"
+    if discussion_chapter.is_file():
+        write_text_if_changed(discussion_chapter, _r014_discussion_tex())
+
+    k12_chapter = source_dir / "content" / "k_levels" / "k12.tex"
+    if k12_chapter.is_file():
+        write_text_if_changed(k12_chapter, _r014_k12_provisional_tex())
+
+    experiments_dir = source_dir / "content" / "experiments"
+    if experiments_dir.is_dir():
+        for path in sorted(experiments_dir.glob("*.tex")):
+            text = path.read_text(encoding="utf-8", errors="replace")
+            demoted = _r014_demote_experiment_chapter(text)
+            if demoted != text:
+                write_text_if_changed(path, demoted)
+
+    appendix_d = source_dir / "appendix" / "D_oc_core_1_3_source_audit_appendix.tex"
+    if appendix_d.is_file():
+        write_text_if_changed(
+            appendix_d,
+            r"""\section{Appendix D -- Version 1.3.3 Provenance and Corpus Boundary}
+\label{sec:oc133-provenance-corpus-boundary}
+
+This appendix records what the current manuscript is and what it is not. Core
+1.3.3 is a bounded review manuscript built from the public release corpus,
+proof sheets, finite checks, comparator material, figures, tables, and
+reproducibility companions available for this version. It is not a republication
+of an earlier baseline and it is not a claim that every historical source file
+has the same evidential status.
+
+\subsection{Purpose}
+
+The main body is written for scientific reading. This appendix is written for
+provenance review. It lets a reviewer distinguish between the monograph, the
+compact article projection, the methods companion, the reviewer map, and the
+machine-readable evidence manifests. Those objects support one another, but
+none of them should be mistaken for the whole theory.
+
+\subsection{Current-version boundary}
+
+The present version promotes only bounded claims tied to source and evidence
+anchors. Historical material is retained when it explains lineage or provides a
+source witness, but it does not automatically promote present-version claims.
+When an older statement is broader than the 1.3.3 evidence surface, the public
+text narrows it, marks it as illustrative, or moves it into a provenance role.
+
+\subsection{Review questions}
+
+\begin{itemize}
+\item Which public corpus object supports the present statement?
+\item Which proof sheet, finite check, table, figure, comparator, or replay row
+      is being invoked?
+\item Is the cited material a promoted support row, an illustrative example, a
+      historical source witness, or a planned research route?
+\item What finding would reopen the wording?
+\end{itemize}
+
+Those questions are the governing boundary of the appendix. They protect the
+reader from hidden workflow dependency while keeping internal editorial control
+material outside the publication text.
+""",
+        )
+
+    k1_paths = sorted((source_dir / "content" / "k_levels").glob("k1*.tex"))
+    for path in k1_paths:
+        text = path.read_text(encoding="utf-8", errors="replace")
+        original = text
+        text = re.sub(
+            r"\\subsubsection\{Time\s+\\texorpdfstring\{\$\\tau\(K_1\)\$\}\{\\tau\(K_1\)\}\}.*?(?=\n% ================================================================\n\\subsubsection)",
+            lambda _match: r"""\subsubsection{Ordering Coordinate \texorpdfstring{$\lambda(K_1)$}{lambda(K_1)}}
+
+\(K_1\) has a primitive ordering coordinate, denoted here by
+\(\lambda(K_1)\). This coordinate orders configurations along the first axis,
+but it is not yet promoted as domain-level physical time. Physical temporal
+phenomena require additional witness structure supplied at later levels.
+
+Thus the public convention is
+\[
+\lambda(K_1) \text{ orders one-axis configurations, while physical time is not promoted at } K_1.
+\]
+""",
+            text,
+            flags=re.S,
+        )
+        text = text.replace(r"\tau(K_1) \text{ cannot emerge.}", r"\lambda(K_1) \text{ is the local ordering coordinate.}")
+        text = text.replace("no temporal phenomena appear at $K_1$;", "no domain-level temporal phenomena are promoted at $K_1$;")
+        text = text.replace("absence of emergent time,", "absence of promoted domain-level physical time,")
+        text = text.replace("collapse under excessive gradients is universal;", "collapse under excessive gradients is a bounded model condition;")
+        if text != original:
+            write_text_if_changed(path, text)
+
+    model_path = source_dir / "content" / "03_model.tex"
+    if model_path.is_file():
+        text = model_path.read_text(encoding="utf-8", errors="replace")
+        original = text
+        text = text.replace(
+            "Level \\(K_1\\) is the simplest genuine continuum: it introduces time, a one-dimensional axis, and basic geometric structure.",
+            "Level \\(K_1\\) is the simplest genuine continuum: it introduces a primitive ordering coordinate, a one-dimensional axis, and basic geometric structure.",
+        )
+        text = text.replace("P_1(t),J_1(t)", r"P_1(\lambda),J_1(\lambda)")
+        text = text.replace("P_1(t)", r"P_1(\lambda)")
+        text = text.replace("J_1(t)", r"J_1(\lambda)")
+        text = text.replace("k_1(t)", r"k_1(\lambda)")
+        text = text.replace("In this time-dependent analytic example,", "In this ordering-dependent analytic example,")
+        text = text.replace("where \\(I\\) is the time interval", "where \\(I\\) is the local ordering interval")
+        text = text.replace(
+            r"K = \big(\Omega(K), A(K), P(t), J(t), \Theta(K), \partial\Omega(K), C(K), k(K,t)\big),",
+            r"K = \big(\Omega(K), \partial\Omega(K), A(K), \Theta(K), P(t), J(t), C(K), k(K,t), M(K)\big),",
+        )
+        text = text.replace(
+            r"\item \(\Omega(K)\) is a nonempty set of admissible states;",
+            r"\item \(\Omega(K)\) is a nonempty set of admissible states;",
+        )
+        text = text.replace(
+            r"    \item \(k(K,t)\) is the measure of continuumness.",
+            r"    \item \(k(K,t)\) is the measure of continuumness;"
+            "\n"
+            r"    \item \(M(K)\) is the embedding context or meta-space that constrains the local continuum.",
+        )
+        text = text.replace("R014 tuple projection convention", "Public tuple projection convention")
+        if "Public tuple projection convention" not in text:
+            text = text.replace(
+                "The meta-space provides additional admissible states and axes that can host future dimensional extensions of \\(K\\).",
+                "The meta-space provides additional admissible states and axes that can host future dimensional extensions of \\(K\\).\n\n"
+                "\\paragraph{Public tuple projection convention.}\n"
+                "The canonical public tuple is \\(K=(\\Omega,\\partial\\Omega,A,\\Theta,P,J,C,k,M)\\). "
+                "Older local displays may use a shorter or differently ordered tuple when a component is derived in that local model. "
+                "Those displays are projections of the canonical release tuple, not competing definitions.",
+            )
+        tuple_replacements = {
+            r"K=(\Omega,A,P,J,\Theta,\partial\Omega,C,k)": r"K=(\Omega,\partial\Omega,A,\Theta,P,J,C,k,M)",
+            r"(\Omega,A,P,J,\Theta,\partial\Omega,C,k)": r"(\Omega,\partial\Omega,A,\Theta,P,J,C,k,M)",
+            r"(\Omega',A',P',J',\Theta',\partial\Omega',C',k')": r"(\Omega',\partial\Omega',A',\Theta',P',J',C',k',M')",
+        }
+        for old, new in tuple_replacements.items():
+            text = text.replace(old, new)
+        if text != original:
+            write_text_if_changed(model_path, text)
+
+    toe_paths = sorted((source_dir / "appendix").glob("toe_data*.tex"))
+    for path in toe_paths:
+        text = path.read_text(encoding="utf-8", errors="replace")
+        original = text
+        note = (
+            "The numerical rows in this subsection are calibration and review aids. "
+            "A row is promoted as empirical support only when the surrounding manuscript names its source snapshot, formula or reconstruction rule, comparator, residual or uncertainty, negative control, and falsifier. "
+            "Otherwise the value is an illustrative range or literature-facing placeholder, not a theorem value and not a completed validation result."
+        )
+        if "calibration and review aids" not in text:
+            text = text.replace(
+                "table records the corresponding functional form, numerical estimate, or bounded\nrange rather than leaving the row implicit.",
+                "table records the corresponding functional form, numerical estimate, or bounded\nrange rather than leaving the row implicit.\n\n" + note,
+            )
+        text = text.replace("Universal integration capacity", "Illustrative universal integration capacity")
+        text = text.replace("Cross-continuum compatibility", "Illustrative cross-continuum compatibility")
+        text = text.replace("Structural reachability", "Illustrative structural reachability")
+        text = text.replace("Global tension budget", "Illustrative global tension budget")
+        if "Illustrative, non-promoted numeric review surface:" not in text:
+            text = text.replace(r"\caption{", r"\caption{Illustrative, non-promoted numeric review surface: ")
+        if text != original:
+            write_text_if_changed(path, text)
+
+    notation_path = source_dir / "appendix" / "A_notation.tex"
+    if notation_path.is_file():
+        text = notation_path.read_text(encoding="utf-8", errors="replace")
+        original = text
+        text = re.sub(r"\\section\{Notation and Symbols\}", r"\\section{Appendix A -- Notation and Symbols}", text, count=1)
+        if text != original:
+            write_text_if_changed(notation_path, text)
+
+    frontmatter_path = source_dir / "content" / "frontmatter_oc_core_1_3_master.tex"
+    if frontmatter_path.is_file():
+        text = frontmatter_path.read_text(encoding="utf-8", errors="replace")
+        original = text
+        if "AI Assistance Disclosure" not in text:
+            disclosure = latex_escape(ai_assistance_disclosure())
+            text = text.replace(
+                "\\end{itemize}\n\n\\clearpage\n\\begin{abstract}",
+                "\\end{itemize}\n\n\\clearpage\n\\noindent\\textbf{AI Assistance Disclosure.}\n"
+                + disclosure
+                + "\n\n\\clearpage\n\\begin{abstract}",
+            )
+        if text != original:
+            write_text_if_changed(frontmatter_path, text)
+
+    theorem_roadmap = source_dir / "content" / "20_oc_core_1_3_theorem_roadmap.tex"
+    if theorem_roadmap.is_file():
+        text = theorem_roadmap.read_text(encoding="utf-8", errors="replace")
+        original = text
+        if "Proof Status Vocabulary" not in text:
+            text += r"""
+
+\subsection{Proof Status Vocabulary}
+
+The release separates proof-related statuses because a formal reviewer must be
+able to see what is actually being claimed. A \emph{proved theorem} has a
+stated theorem, assumptions, proof route, and counterexample boundary in the
+present release. A \emph{proof-sheet support row} is a structured human proof
+record that can support bounded prose but is not stronger than its assumptions.
+A \emph{finite-witness row} shows a positive or negative finite semantic case;
+it does not by itself prove an unrestricted theorem. A \emph{formalization
+inventory entry} records a mechanization or intended mechanization surface, but
+is not described as a clean certificate unless source binding, build status,
+and certificate checks are clean for the cited revision. A \emph{source-witness
+row} records lineage or evidence location and may orient the reader, but it is
+not promoted as a new primitive theorem.
+
+Whenever these statuses disagree, the public wording follows the weakest
+status needed for the sentence. This is the theorem-route ceiling for Core
+1.3.3: registry presence, source lineage, finite examples, proof sheets, and
+formalization inventory are useful only when the manuscript states exactly what
+support class they provide.
+"""
+        if text != original:
+            write_text_if_changed(theorem_roadmap, text)
+
+    for path in sorted((source_dir / "content").rglob("*.tex")) + sorted((source_dir / "appendix").rglob("*.tex")):
+        text = path.read_text(encoding="utf-8", errors="replace")
+        original = text
+        text = text.replace(
+            "all 11 declared release-tuple components in the finite semantic suite, with Lean binding for the corresponding typed witness schema",
+            "all nine canonical release-tuple components in the finite semantic suite, with source-inspected witness records for the corresponding typed witness schema",
+        )
+        text = text.replace(
+            "all 11 declared release-tuple components",
+            "all nine canonical release-tuple components",
+        )
+        text = text.replace("with Lean binding for", "with source-inspected records for")
+        text = text.replace(r"K=(\Omega,A,P,J,\Theta,\partial\Omega,C,k)", r"K=(\Omega,\partial\Omega,A,\Theta,P,J,C,k,M)")
+        text = text.replace(r"(\Omega,A,P,J,\Theta,\partial\Omega,C,k)", r"(\Omega,\partial\Omega,A,\Theta,P,J,C,k,M)")
+        text = text.replace(r"(\Omega',A',P',J',\Theta',\partial\Omega',C',k')", r"(\Omega',\partial\Omega',A',\Theta',P',J',C',k',M')")
+        text = text.replace(
+            r"\textbackslash{}(K=(\textbackslash{}Omega,\textbackslash{}partial\textbackslash{}Omega,A,\textbackslash{}Theta,P,J,C,k,M)\textbackslash{})",
+            r"\(K=(\Omega,\partial\Omega,A,\Theta,P,J,C,k,M)\)",
+        )
+        text = text.replace(
+            r"\textbackslash{}(\textbackslash{}partial\textbackslash{}Omega\textbackslash{})",
+            r"\(\partial\Omega\)",
+        )
+        text = text.replace(r"\textbackslash{}\_", r"\_")
+        text = text.replace(r"\textbackslash{}Omega", r"\Omega")
+        text = text.replace(r"\textbackslash{}partial", r"\partial")
+        text = text.replace(r"\textbackslash{}Theta", r"\Theta")
+        text = _r014_demote_retrospective_replay_language(text)
+        if "\\begin{longtable}" in text or "\\begin{tabular" in text:
+            text = re.sub(
+                r"(Mathematics\s*&[^\\\\]*?&\s*\\occode\{TRACE_REVIEWED\}\s*&\s*)\\occode\{EVIDENCE_BOUNDED\}(\s*&\s*)bounded review evidence recorded(\s*&\s*)(?:none|keine|нет)(\s*&)",
+                lambda match: (
+                    match.group(1)
+                    + r"\occode{EVIDENCE_DEMOTED_PENDING_BINDING}"
+                    + match.group(2)
+                    + "demoted review row pending finite-source binding"
+                    + match.group(3)
+                    + "source-binding failure remains open"
+                    + match.group(4)
+                ),
+                text,
+                flags=re.I | re.S,
+            )
+            text = re.sub(
+                r"(Mathematics\s*&[^\\\\]*?&[^\\\\]*?&[^\\\\]*?&[^\\\\]*?&\s*)replayable under the bounded public protocol(\s*&\s*)bounded review evidence recorded",
+                r"\1demoted pending finite-source binding\2not support-carrying until source_manifest_binding_ok is true and certificate_binding_failure_total is zero",
+                text,
+                flags=re.I | re.S,
+            )
+        text = re.sub(
+            r"\bProtocol mathematics anchor replay runs under evidence bar ([^.]+?) and currently reports readiness bounded review evidence recorded\.",
+            "Protocol mathematics anchor replay is demoted pending finite-source binding and is not support-carrying until source_manifest_binding_ok is true and certificate_binding_failure_total is zero.",
+            text,
+            flags=re.I,
+        )
+        text = re.sub(
+            r"\bMathematics\s+remains\s+the\s+formal\s+anchor\b[^.]*\.",
+            "Mathematics remains a formal review lane, but the current replay row is demoted pending finite-source binding and is not support-carrying in this release.",
+            text,
+            flags=re.I,
+        )
+        if text != original:
+            write_text_if_changed(path, text)
+
+
+def apply_r014_cerberus_overrides(source_dir: Path) -> None:
+    replacements = {
+        "Process Schema Under scoped": "Process Schema Under Declared Scope",
+        "scoped Falsifiability Criteria": "Domain-Bounded Falsifiability Criteria",
+        "scoped Prediction Constraints": "Domain-Bounded Prediction Constraints",
+        "scoped unrestricted comparative claim": "unrestricted comparative claim",
+        "scoped claim": "bounded claim",
+        "scoped target-blind replay QA": "bounded target-blind replay QA",
+        "boundary..": "boundary.",
+        "Recorded content:": "Evidence note:",
+        "Content: Oc133": "Evidence note: OC Core 1.3.3",
+        "ILLUSTRATIVE\\_PRIOR\\_ART\\_POSITIONING\\_ONLY\\_NO\\_UNIQUENESS\\_PROMOTION": (
+            "This row is illustrative prior-art positioning only and does not promote a uniqueness or priority claim."
+        ),
+        "science monolith corpus register": "release corpus index",
+        "internal science-state register": "public evidence-state summary",
+        "canonical science-state register": "public evidence-state summary",
+        "science-state register": "evidence-state summary",
+        "OC_CORE_1_3_SCIENCE_SPOT": "the public evidence-state summary",
+        "source module": "technical module",
+        "source-specific": "module-specific",
+        "source files": "technical files",
+        "source role": "corpus role",
+        "source digest": "evidence summary",
+        "source-first enlargement": "source-grounded clarification",
+        "journal-core bridge": "article projection boundary",
+        "legacy-route": "historical evidence route",
+        "raw source dump": "unintegrated technical dossier",
+        "source dump": "unintegrated technical dossier",
+        "control-plane record": "private editorial record",
+        "bounded evidence recorded": "bounded support row recorded",
+        "maintain replay discipline": "continue replay review",
+        "full promotion bar": "current public-support criterion",
+        "full validation bar": "bounded replay QA criterion",
+        "fail-closed": "not yet public-supporting",
+        "proof-routed closure": "proof-routed support",
+        "hostile-review backlog is closed": "hostile-review backlog has no surviving public blocker in the inspected row",
+        "closed stack synthesis": "bounded synthesis support surface",
+        "legally contributes to the closed synthesis stack": "contributes only as a bounded support row",
+        "therefore legally contributes to the closed synthesis stack": "therefore contributes only as a bounded support row",
+        "contributes lawfully to the closed synthesis stack": "contributes only as a bounded support row",
+        "closed synthesis stack": "bounded review surface",
+        "closed synthesis summary": "bounded synthesis summary",
+        "promoted synthesis": "bounded synthesis review",
+        "lawfully promoted bounded synthesis": "bounded, non-final synthesis review",
+        "empirical held-out prediction summaries": "bounded held-out replay protocol summaries",
+        "held-out prediction summaries": "held-out replay protocol summaries",
+        "K0--K12 parameter laws": "K0--K12 parameter candidates",
+        "Exact validator: \\occode{BOUNDED_SYNTHESIS_REVIEW_RECORDED}.": "Review status: this synthesis remains bounded and reopenable by row-level evidence.",
+        "No release blocker remains in the internal science-state register.": "No global closure is promoted here; every row remains reopenable by its stated evidence boundary.",
+        "broader-promotion limits: none remain at this level.": "broader-promotion limits: row-level evidence remains required before any domain-validation or closure claim.",
+        "Core v2.6": "Core 1.3.3 historical source lineage, not a promoted current-version claim",
+        "limit continuum": "bounded synthesis candidate",
+        "global structural fixed point": "future structural fixed-point proof obligation",
+        "The diagram below is generated from the r012 figure registry, so its objects, arrows, formula anchor, and evidence link are checked before the release audit can pass.": (
+            "The diagram separates the objects, direction of dependence, formula anchor, and evidence link so that the reader can inspect the argument visually before returning to the prose."
+        ),
+        "full-scope synthesis": "bounded cross-domain synthesis",
+        "full-scope": "bounded cross-domain",
+        "unified-science synthesis": "cross-domain synthesis",
+        "unified-science": "cross-domain",
+        "validated anchor active": "mathematical anchor active",
+        "bounded replay QA bar": "bounded replay QA protocol",
+        "Lean-checked subset": "Lean-oriented formalization inventory",
+        "Lean checked subset": "Lean-oriented formalization inventory",
+        "Lean subset": "Lean-oriented formalization inventory",
+        "Lean declarations": "formalization references",
+        "Lean declaration": "formalization reference",
+        "The r014 public model": "This public model",
+        "the r014 public model": "this public model",
+        "corresponding evidence-package record": "named public evidence row",
+        "Appendix~the Synthesis Support Appendix": "the Synthesis Support Appendix",
+        "Appendix the Synthesis Support Appendix": "the Synthesis Support Appendix",
+        "bounded theorem route": "bounded review route",
+        "bounded theorem-route": "bounded review-route",
+        "bounded theorem-routed": "bounded review-routed",
+        "boundedtheoremroute": "bounded review route",
+        "TRACE_COMPLETE": "TRACE_REVIEWED",
+        "EVIDENCE_COMPLETE": "EVIDENCE_BOUNDED",
+        "PASS_31_OF_31_TERMINALIZED": "31 finite cases recorded; source-binding demotion applies",
+        "proof-routed + empirical / held-out validated": "bounded replay/comparator example",
+        "held-out validated": "held-out replay reviewed",
+        "usable-now practical claims": "operational claims ready for use",
+        "usable-now practical claim": "operational claim ready for use",
+        "usable-now rows": "bounded-review rows",
+        "usable-now row": "bounded-review row",
+        "usable-now claim": "operational claim ready for use",
+        "usable-now claims": "operational claims ready for use",
+        "usable now": "available for bounded review",
+        "closed practical value": "bounded practical value",
+        "formally proved": "formally bounded review support",
+        "theorem-native domain lanes are usable under explicit theorem, data-route, and falsifier discipline": (
+            "domain lanes are retained as bounded review protocols under explicit theorem, data-route, and falsifier discipline"
+        ),
+        "proof-routed domain lanes are usable under explicit theorem, data-route, and falsifier discipline": (
+            "domain lanes are retained as bounded review protocols under explicit theorem, data-route, and falsifier discipline"
+        ),
+        "operationally supported within bounds": "bounded as a route-selection example",
+        "lawful packet selection": "bounded packet-selection review",
+        "bounded residual prediction": "bounded residual-check protocol",
+        "anomaly screening": "anomaly-screening protocol",
+        "state-transition auditing": "state-transition audit protocol",
+        "regime-shift monitoring": "regime-shift monitoring protocol",
+        "promoted packet": "bounded review packet",
+        "promoted physics packet": "bounded physics review packet",
+        "promoted chemistry packet": "bounded chemistry review packet",
+        "promoted biological packet": "bounded biology review packet",
+        "promoted systems packet": "bounded systems review packet",
+        "promoted tolerance band": "declared review tolerance band",
+        "closed packet": "bounded review packet",
+        "closed empirical domains": "bounded replay domains",
+        "lawful domain packet": "bounded domain review packet",
+        "already cleared": "has recorded bounded review evidence under declared assumptions",
+        "lawfully generate": "are used to formulate",
+        "lawfully generates": "is used to formulate",
+        "Open gaps: none": "Open gaps: row-level promotion remains conditional on source, comparator, negative-control, and falsifier checks",
+        "bounded support row under declared assumptions": "bounded review row under declared assumptions; not a completed domain-validation claim",
+        "bounded evidence recorded": "bounded review evidence recorded",
+        "theorem packet recorded": "theorem packet listed for review",
+        "parameter law recorded": "parameter candidate listed for review",
+        "strict closure": "strict finite-review route",
+    }
+    for tex_path in sorted((source_dir / "content").rglob("*.tex")) + sorted((source_dir / "appendix").rglob("*.tex")):
+        text = tex_path.read_text(encoding="utf-8", errors="replace")
+        original = text
+        for old, new in replacements.items():
+            text = text.replace(old, new)
+        text = re.sub(r"\\section\{Appendix\s+[A-Z]\s+--\s+([^}]+)\}", r"\\section{\1}", text)
+        text = re.sub(
+            r"Synthesis checkpoint(?: after)?\s*(\d+)?(?: indexed modules in [^.]+)?\.\s*",
+            lambda match: (
+                f"Integration checkpoint {match.group(1)}. "
+                if match.group(1)
+                else "Integration checkpoint. "
+            ),
+            text,
+        )
+        text = text.replace(
+            "repository path validation/numeric\\_replay\\_qa/OC133\\_NUMERIC\\_REPLAY\\_QA\\_TABLE.json",
+            "evidence file " + _r014_public_file_path("validation/numeric_replay_qa/OC133_NUMERIC_REPLAY_QA_TABLE.json"),
+        )
+        text = text.replace(
+            "repository path comparators/OC\\_1\\_3\\_3\\_NOVELTY\\_AND\\_PRIORITY\\_REGISTER.json",
+            "evidence file " + _r014_public_file_path("comparators/OC_1_3_3_NOVELTY_AND_PRIORITY_REGISTER.json"),
+        )
+        text = re.sub(r"\brepository path\s+", "evidence file ", text, flags=re.I)
+        text = re.sub(r"\bpublic proof sheet\b", "public proof record", text, flags=re.I)
+        text = re.sub(r"\bcurrent formal profile\b", "declared formal profile", text, flags=re.I)
+        text = re.sub(r"\bAppendix~?the\s+oc\s+core\s+1\s+3\s+synthesis\s+support\s+dossiers\s+discussion\b", "the Synthesis Support Appendix", text, flags=re.I)
+        text = re.sub(r"\bthe\s+oc\s+core\s+1\s+3\s+synthesis\s+support\s+dossiers\s+discussion\b", "the Synthesis Support Appendix", text, flags=re.I)
+        text = re.sub(r"\bthe\s+corresponding\s+evidence-package\s+record\b", "the named public evidence row", text, flags=re.I)
+        text = re.sub(r"\b(is|are)\s+closed\s+as\s+bounded\s+(?:theorem|review)\s+route\b", r"\1 represented by a bounded review row", text, flags=re.I)
+        text = re.sub(r"\bclosed\s+as\s+support-only\s+row\b", "represented as a support-only row", text, flags=re.I)
+        text = re.sub(r"\bEvery process is expressible as a composition of these\b", "Within the declared operator vocabulary, a reviewed process may be represented as a composition of these", text, flags=re.I)
+        text = re.sub(r"\bEvery process in OC follows the structure\b", "This public model treats the following as a proposed process schema under declared scope", text, flags=re.I)
+        text = re.sub(r"\bThis schema is invariant from K0 to K12\b", "The schema is used as a review heuristic across K0--K12; invariance remains an evidence obligation whenever it is promoted beyond definition", text, flags=re.I)
+        text = re.sub(r"\bAt present\s+5\s+of\s+these\s+lanes\s+satisfy\s+the\s+bounded\s+replay\s+QA\s+protocol,\s+while\s+0\s+lanes\s+remain\s+not\s+yet\s+public-supporting\.", "At present the matrix records five lanes as candidate bounded replay-QA routes; none are promoted as completed domain validation merely by appearing in the matrix.", text, flags=re.I)
+        text = re.sub(r"\bAt present\s+5\s+of\s+these\s+lanes\s+satisfy\s+the\s+bounded\s+replay\s+QA\s+bar,\s+while\s+0\s+lanes\s+remain\s+not\s+yet\s+public-supporting\.", "At present the matrix records five lanes as candidate bounded replay-QA routes; none are promoted as completed domain validation merely by appearing in the matrix.", text, flags=re.I)
+        text = re.sub(r"\bmathematics first as the validated anchor\b", "mathematics first as the inspected formal anchor", text, flags=re.I)
+        text = re.sub(r"\bphysics,\s+chemistry,\s+biology,\s+and\s+systems/civilizational\s+projection\s+as\s+bounded\s+replay\s+QA\s+program\b", "physics, chemistry, biology, and systems/civilizational projection as candidate bounded replay-QA programs", text, flags=re.I)
+        text = re.sub(r"\bExperiments\s+validate\b", "Experiments probe", text, flags=re.I)
+        text = re.sub(r"\bexperiments\s+validate\b", "experiments probe", text, flags=re.I)
+        text = re.sub(r"\bvalidate\s+the\b", "test the", text, flags=re.I)
+        text = re.sub(r"\bvalidates\s+the\b", "tests the", text, flags=re.I)
+        text = re.sub(r"\bvalidated\s+the\b", "tested the", text, flags=re.I)
+        text = re.sub(r"\bvalidate\s+cognitive\s+continua\b", "probe cognitive-continuum hypotheses", text, flags=re.I)
+        text = re.sub(r"\bempirically\s+validate\s+social\s+continua\b", "probe social-continuum hypotheses", text, flags=re.I)
+        text = re.sub(r"\bvalidate\s+meta-theories\b", "probe meta-theory candidates", text, flags=re.I)
+        text = re.sub(r"\bconfirm\s+OC\s+predictions\b", "test OC prediction protocols", text, flags=re.I)
+        text = re.sub(r"\bconfirms?\b", "supports", text, flags=re.I)
+        text = re.sub(r"\bconfirmation\b", "support", text, flags=re.I)
+        text = re.sub(
+            r"that\s+must\s+hold\s+in\s+any\s+admissible\s+real\s+physical,\s*chemical,\s*biological,\s*cognitive,\s*social\s+or\s+meta-theoretical\s+instantiation",
+            "that may be tested as bounded constraints inside a declared physical, chemical, biological, cognitive, social, or meta-theoretical instantiation",
+            text,
+            flags=re.I | re.S,
+        )
+        text = re.sub(
+            r"All\s+phenomena\s+must\s+emerge\s+at\s+threshold\s+crossings\s+definable\s+in\s+terms\s+of\s*P\s*,\s*J\s*,\s*(?:and\s*)?\\?Theta\.",
+            lambda _match: "Promoted examples should state whether threshold crossings in P, J, and \\Theta explain the observed regime change; cases that require additional variables remain outside the promoted prediction.",
+            text,
+            flags=re.I | re.S,
+        )
+        text = re.sub(
+            r"Predictions\s+must\s+not\s+violate\s+the\s+monotonicity\s+of\s+axes,\s+thresholds\s+or\s+(?:embedding\s+spaces|dimensionality)\s*:?\s*.*?\.",
+            "Predictions must state the declared axis, threshold, dimensional, and embedding assumptions and identify any case where those assumptions fail.",
+            text,
+            flags=re.I | re.S,
+        )
+        text = re.sub(
+            r"(Predictions must state the declared axis, threshold, dimensional, and embedding assumptions and identify any case where those assumptions fail\.)\s*\\\]",
+            r"\1",
+            text,
+            flags=re.I,
+        )
+        text = re.sub(
+            r"All\s+phenomena\s+must\s+emerge\s+at\s+threshold\s+crossings\s+definable\s+in\s+terms\s+of\s*\$P\$\s*,\s*\$J\$\s*,\s*\$\\Theta\$\s*\.",
+            lambda _match: "Promoted examples should state whether threshold crossings in $P$, $J$, and $\\Theta$ explain the observed regime change; cases that require additional variables remain outside the promoted prediction.",
+            text,
+            flags=re.I | re.S,
+        )
+        text = re.sub(
+            r"\bmust\s+not\s+violate\s+the\s+monotonicity\s+of\s+axes,\s+thresholds\s+or\s+embedding\s+spaces\b",
+            "must state the declared axis, threshold, and embedding assumptions and identify any case where those assumptions fail",
+            text,
+            flags=re.I,
+        )
+        text = re.sub(
+            r"\bEmbedding\s+spaces\s+form\s+a\s+monotonic\s+sequence\b",
+            "Embedding-space nesting is a declared modeling assumption, not an unrestricted empirical theorem",
+            text,
+            flags=re.I,
+        )
+        text = re.sub(
+            r"\bAxes\s+are\s+monotonic\b",
+            "Axis growth is treated as a witness obligation",
+            text,
+            flags=re.I,
+        )
+        text = re.sub(
+            r"\bGlobal\s+tension\s+budget\b",
+            "Illustrative tension-budget parameter",
+            text,
+            flags=re.I,
+        )
+        text = re.sub(
+            r"\bCuni\b",
+            "illustrative Cuni range",
+            text,
+            flags=re.I,
+        )
+        text = re.sub(
+            r"\bbounded\s+support\s+row\s+recorded\b",
+            "bounded support row under declared assumptions",
+            text,
+            flags=re.I,
+        )
+        text = re.sub(
+            r"\bactive\s+bounded\s+numeric\s+packet(?:\s+awaiting\s+domain-specific\s+promotion\s+review)+\b",
+            "bounded numeric replay packet awaiting domain-specific promotion review",
+            text,
+            flags=re.I,
+        )
+        text = re.sub(
+            r"\bactive\s+bounded\s+numeric\s+packet\b",
+            "bounded numeric replay packet awaiting domain-specific promotion review",
+            text,
+            flags=re.I,
+        )
+        text = text.replace(
+            r"\epsilon = D(x_{\text{new}}, x_{\text{old}}).",
+            r"e_{\mathrm{err}} = D(x_{\text{new}}, x_{\text{old}}).",
+        )
+        text = text.replace(
+            r"T_6 = F(\epsilon, C_{\text{cons}}, \Theta_{\text{cog}}, J_{\text{info}}, P_{\text{cog}}).",
+            r"T_6 = F(e_{\mathrm{err}}, C_{\text{cons}}, \Theta_{\text{cog}}, J_{\text{info}}, P_{\text{cog}}).",
+        )
+        text = text.replace(
+            r"\(\preceq_K\)",
+            r"the \(K\)-order relation",
+        )
+        text = text.replace(
+            "All live continua maintain supporting flows and stable cycles.",
+            "Within the current theorem boundary, inspected live-continuum examples are modeled with supporting flows and stable cycles only when their assumptions are stated.",
+        )
+        text = text.replace(
+            r"\paragraph{Complexity grows monotonically for live continua.}",
+            r"\paragraph{Complexity growth remains a bounded hypothesis.}",
+        )
+        text = text.replace(
+            "The practical utility atlas currently tracks \\occode{6} bounded-review rows, \\occode{3} frontier-program rows, and \\occode{1} hypothesis-only row.",
+            "The practical utility atlas currently tracks bounded review protocols, frontier-program rows, and hypothesis-only rows; it does not promote operational proof merely from row presence.",
+        )
+        text = text.replace(
+            "Its bounded practical value is not unrestricted scoped prediction; it is bounded packet-selection review, bounded residual-check protocol, anomaly-screening protocol, state-transition audit protocol, regime-shift monitoring protocol, and cross-domain route selection within one source-bound routing framework.",
+            "Its practical value in this release is methodological: it shows how packet selection, residual checks, anomaly screens, state-transition audits, regime-shift monitors, and cross-domain route selection should be bounded before any operational claim is promoted.",
+        )
+        text = text.replace(
+            "Every practical claim below is explicitly labeled so the reader can see what is already usable, what is bounded, and what still remains exploratory.",
+            "Every practical row below is labeled so the reader can distinguish a bounded review protocol from a frontier program, a hypothesis, or an operational claim that still requires external deployment evidence.",
+        )
+        text = text.replace(
+            r"\subsection{What is already usable now}",
+            r"\subsection{Bounded practical review protocols}",
+        )
+        text = text.replace(
+            r"\subsection{What OC predicts across the bounded replay domains}",
+            r"\subsection{What OC currently tests across bounded replay domains}",
+        )
+        text = text.replace(
+            "For this domain, OC currently uses the bounded review packet to audit",
+            "For this domain, OC currently records a bounded review protocol for auditing",
+        )
+        text = text.replace(
+            "For this domain, OC currently uses the bounded review packet to screen",
+            "For this domain, OC currently records a bounded review protocol for screening",
+        )
+        text = text.replace(
+            "For this domain, OC currently uses the bounded review packet to monitor",
+            "For this domain, OC currently records a bounded review protocol for monitoring",
+        )
+        text = text.replace(
+            "Held-out case total:",
+            "Inventory count, not domain-validation total:",
+        )
+        text = text.replace(
+            "A pass or fail residual verdict, anomaly prioritisation, and a decision about whether the family remains inside the bounded review packet.",
+            "A provisional residual-check record, anomaly-prioritisation note, and review decision about whether the family stays inside the declared assumptions.",
+        )
+        text = text.replace(
+            "A pass or fail trajectory verdict, a turning-point or regime-shift alert, and a decision about whether the lane remains inside the bounded systems review packet.",
+            "A provisional trajectory-check record, turning-point or regime-shift note, and review decision about whether the lane stays inside the declared assumptions.",
+        )
+        text = re.sub(
+            r"\bA bounded inclusion, anomaly, or escalation verdict for the target ([^.]+)\.",
+            r"A provisional inclusion, anomaly, or escalation record for the target \1.",
+            text,
+            flags=re.I,
+        )
+        if "content/experiments" in tex_path.as_posix().replace("\\", "/"):
+            experiment_replacements = {
+                "direct empirical grounding": "proposed empirical-test grounding",
+                "provide direct empirical grounding": "propose empirical-test grounding",
+                "provides direct empirical grounding": "proposes empirical-test grounding",
+                "establishes": "tests",
+                "establish": "test",
+                "validity of the K1-to-K2 operator": "review status of the K1-to-K2 operator",
+                "foundation for all physical continua": "modeling bridge into physical-continuum examples under declared assumptions",
+                "foundation for all physical systems": "modeling bridge into physical-system examples under declared assumptions",
+            }
+            for old, new in experiment_replacements.items():
+                text = text.replace(old, new)
+        text = re.sub(
+            r"\\paragraph\{Axiom 1\.1 \(Continuum data\)\}\s*Any continuum \(K\) is specified by a tuple\s*\\\[\s*K\s*=\s*\\big\(\s*\\Omega\(K\), A\(K\), P\(t\), J\(t\),\s*\\Theta\(K\), \\partial\\Omega\(K\), C\(K\), k\(K,t\)\s*\\big\)\s*\\\]\s*with nonempty \\?\(?\\Omega\(K\\?\)?\\?\)? and finite axis set \\?\(?A\(K\\?\)?\\?\)?\.",
+            lambda _match: (
+                r"\paragraph{Axiom 1.1 (Continuum data)}" "\n"
+                r"Any continuum \(K\) is specified by the canonical public tuple" "\n"
+                r"\[" "\n"
+                r"  K = \big(" "\n"
+                r"    \Omega(K), \partial\Omega(K), A(K), \Theta(K)," "\n"
+                r"    P(t), J(t), C(K), k(K,t), M(K)" "\n"
+                r"  \big)" "\n"
+                r"\]" "\n"
+                r"with nonempty \(\Omega(K)\), finite axis set \(A(K)\), and explicit embedding context \(M(K)\). "
+                r"Older eight-component displays in local source modules are projections of this tuple and may suppress \(M(K)\) only when the surrounding text states the projection role."
+            ),
+            text,
+            flags=re.I | re.S,
+        )
+        text = re.sub(
+            r"\\paragraph\{Axiom 1\.4 \(Continuumness\)\}.*?\\paragraph\{Axiom 1\.5 \(Evolution operator\)\}",
+            lambda _match: (
+                r"\paragraph{Axiom 1.4 (Continuumness zero causes)}" "\n"
+                r"Continuumness \(k(K,t)\) is a diagnostic scalar functional of the continuum components, satisfying \(0\le k\le 1\). Its zero condition is governed by the declared zero-cause family:" "\n"
+                r"\[" "\n"
+                r"  k(K,t)=0" "\n"
+                r"  \quad\Longleftrightarrow\quad" "\n"
+                r"  \exists z\in Z_K:\ z(K,t)=\top." "\n"
+                r"\]" "\n"
+                r"The old empty-\(\Omega\) or empty-\(C\) clause is a special case where those are the only declared zero causes." "\n\n"
+                r"\paragraph{Axiom 1.5 (Evolution operator)}"
+            ),
+            text,
+            flags=re.I | re.S,
+        )
+        if "/content/k_levels/" in tex_path.as_posix().replace("\\", "/"):
+            projection_note = (
+                "\n\n\\paragraph{Canonical tuple projection note.}\n"
+                "Local K-level displays in this module are projections of the canonical public tuple "
+                "\\(K=(\\Omega,\\partial\\Omega,A,\\Theta,P,J,C,k,M)\\). "
+                "When a display omits \\(M\\), reorders components, or uses level-indexed shorthand, "
+                "the omitted embedding context is inherited from the surrounding level discussion rather than introduced as a competing definition.\n"
+            )
+            if "Canonical tuple projection note" not in text:
+                section_positions = [
+                    pos
+                    for token in ("\\section", "\\subsection", "\\subsubsection")
+                    if (pos := text.find(token)) >= 0
+                ]
+                insert_at = min(section_positions) if section_positions else 0
+                text = text[:insert_at] + projection_note + "\n" + text[insert_at:]
+        text = re.sub(
+            r"\\item\s+(Mathematics|Physics|Chemistry|Biology|Systems\s*/\s*Civilizational projection)\s+is\s+(?:closed|represented)[^.]*?\.\s+The theorem packet is recorded and the parameter law is recorded\.\s+The key replay metrics are.*?The closure dossier anchor is listed in the Synthesis Support Appendix\.",
+            lambda match: (
+                rf"\item {match.group(1)} is retained only as a non-promotional replay-inventory lane. "
+                "This release does not use covered-case counts, held-out-case counts, theorem-packet labels, or parameter-law labels as public support. "
+                "Promotion requires public source rows, theorem-to-observable bindings, residuals, comparators, negative controls, falsifiers, and source snapshots in the review package."
+            ),
+            text,
+            flags=re.I | re.S,
+        )
+        text = re.sub(
+            r"\b\d+\s+covered\s+cases;\s+\d+\s+held-out\s+cases;[^.]*\.",
+            "covered-case and held-out-case counts are retained only in non-promotional replay inventory until full public evidence rows are shipped.",
+            text,
+            flags=re.I,
+        )
+        text = re.sub(
+            r"\bInventory count, not domain-validation total:\s*\d+\.",
+            "Inventory counts are retained outside the public support claim and are not used as domain validation in this release.",
+            text,
+            flags=re.I,
+        )
+        text = re.sub(
+            r"\bOne shared consequence is dimensional monotonicity for live continua\.",
+            "One reviewed consequence is a dimensional-monotonicity hypothesis under the named live-continuum assumptions.",
+            text,
+            flags=re.I,
+        )
+        text = re.sub(
+            r"\band monotonic growth of structural complexity\b",
+            "and bounded hypotheses about structural-complexity growth",
+            text,
+            flags=re.I,
+        )
+        text = re.sub(
+            r"\bmonotonic growth of structural complexity\b",
+            "bounded structural-complexity growth hypothesis",
+            text,
+            flags=re.I,
+        )
+        text = re.sub(
+            r"\bA continuum that stops evolving structurally does so only at the moment of collapse\.",
+            "A continuum that appears to stop evolving structurally is treated as a case requiring the named stabilization, collapse, or modeling-assumption test; the present release does not promote a universal no-stabilization theorem.",
+            text,
+            flags=re.I,
+        )
+        text = re.sub(
+            r"\bThis ontology is staged from K0 through K12 under declared assumptions\b",
+            "This ontology is staged from K0 through K10 as the current core grammar, with K11 and K12 retained as provisional upper-taxonomy witnesses under declared assumptions",
+            text,
+            flags=re.I,
+        )
+        text = re.sub(
+            r"\bK0--K12 witness taxonomy\b",
+            "K0--K10 core witness taxonomy with provisional K11/K12 upper-taxonomy entries",
+            text,
+            flags=re.I,
+        )
+        text = re.sub(
+            r"\bK0--K12 hierarchy, K-level tables, and demotion rule\b",
+            "K0--K10 core hierarchy, provisional K11/K12 entries, K-level tables, and demotion rule",
+            text,
+            flags=re.I,
+        )
+        text = re.sub(
+            r"\bK0--K12 figure, K-level tables, demotion controls\b",
+            "K0--K10 core figure with provisional K11/K12 entries, K-level tables, and demotion controls",
+            text,
+            flags=re.I,
+        )
+        text = re.sub(
+            r"\bthe K0--K12 hierarchy figure, K-level tables, finite witness route, and demotion language\b",
+            "the K0--K10 hierarchy figure with provisional K11/K12 entries, K-level tables, finite witness route, and demotion language",
+            text,
+            flags=re.I,
+        )
+        text = re.sub(
+            r"HOSTILE::K11_K12_IRREDUCIBILITY\}([^&]+)&\s*bounded review evidence recorded\s*&\s*\\occode\{UPPER_TAXONOMY_REVIEW_REQUIRED\}",
+            lambda match: r"HOSTILE::K11_K12_IRREDUCIBILITY}" + match.group(1) + r"& demotion boundary recorded & \occode{UPPER_TAXONOMY_REVIEW_REQUIRED}",
+            text,
+            flags=re.I,
+        )
+        text = re.sub(
+            r"\bthe\s+mathematical\s+anchor\s+is\s+active\s+and\s+replayable\b",
+            "the mathematics lane is demoted pending finite-source binding and is not support-carrying in this release",
+            text,
+            flags=re.I,
+        )
+        text = re.sub(
+            r"\bmathematical\s+anchor\s+active\b",
+            "mathematics lane pending finite-source binding",
+            text,
+            flags=re.I,
+        )
+        text = re.sub(
+            r"\bmathematical\s+anchor\s+is\s+active\b",
+            "mathematics lane is pending finite-source binding",
+            text,
+            flags=re.I,
+        )
+        text = re.sub(
+            r"\bThe\s+current\s+matrix\s+still\s+blocks\s+0\s+of\s+5\s+checked\s+lanes\b[^.]*\.",
+            "The current matrix demotes the mathematics lane and treats the remaining lanes as bounded replay examples, not completed support lanes.",
+            text,
+            flags=re.I,
+        )
+        text = re.sub(
+            r"\bThis\s+does\s+not\s+diminish\s+the\s+proved\s+Core\s+kernel\b[^.]*\.",
+            "This preserves the bounded model-core argument without promoting a proved operational kernel.",
+            text,
+            flags=re.I,
+        )
+        text = re.sub(
+            r"Mathematics\s*&\s*\\occode\{bounded review route\}\s*&\s*\\occode\{TRACE_REVIEWED\}\s*&\s*\\occode\{EVIDENCE_BOUNDED\}\s*&\s*bounded review evidence recorded\s*&\s*(?:none|нет|keine)\s*&",
+            lambda _match: (
+                r"Mathematics & \occode{bounded review route} & \occode{TRACE_REVIEWED} & "
+                r"\occode{EVIDENCE_DEMOTED_PENDING_BINDING} & demoted review row pending finite-source binding & "
+                r"source-binding failure remains open &"
+            ),
+            text,
+            flags=re.I,
+        )
+        text = re.sub(
+            r"\bMAINTENANCE_ONLY\b",
+            "continue reviewer maintenance; not a new domain-validation promotion",
+            text,
+            flags=re.I,
+        )
+        protocol_labels = {
+            "MATHEMATICS::ANCHOR_REPLAY": "mathematics anchor replay",
+            "PHYSICS::CONSTANTS_SPECTRA_TRANSPORT": "physics constants, spectra, and transport replay",
+            "CHEMISTRY::THERMOCHEMISTRY_SPECTRA_KINETICS": "chemistry thermochemistry, spectra, and kinetics replay",
+            "BIOLOGY::STATE_TRANSITIONS_AND_RESPONSE_SIGNATURES": "biology state-transition and response-signature replay",
+            "SYSTEMS::MACRO_TRAJECTORIES_AND_REGIME_SHIFTS": "systems macro-trajectory and regime-shift replay",
+        }
+        for protocol_id, public_label in protocol_labels.items():
+            escaped_id = protocol_id.replace("_", r"\_")
+            text = text.replace(rf"\occode{{OC13::EXECUTION::{protocol_id}}}", public_label)
+            text = text.replace(rf"\occode{{OC13::EXECUTION::{escaped_id}}}", public_label)
+            text = text.replace(f"`OC13::EXECUTION::{protocol_id}`", public_label)
+            text = text.replace(f"`OC13::EXECUTION::{escaped_id}`", public_label)
+            text = text.replace(f"OC13::EXECUTION::{protocol_id}", public_label)
+            text = text.replace(f"OC13::EXECUTION::{escaped_id}", public_label)
+        trigger_labels = {
+            "OPEN_DATA_COVERAGE_LT_1_0_OR_HELD_OUT_CASES_LT_30_OR_RESIDUAL_BREACH_PERSISTS": "open-data coverage, held-out case, or residual-breach trigger",
+            "OPEN_DATA_COVERAGE_LT_1_0_OR_HELD_OUT_CASES_LT_30_OR_SIGNATURE_CLASS_UNDERCONSTRAINED": "open-data coverage, held-out case, or signature-underconstraint trigger",
+            "OPEN_DATA_COVERAGE_LT_1_0_OR_HELD_OUT_INTERVAL_COUNT_LT_30_OR_TURNING_POINT_BREACH_PERSISTS": "open-data coverage, held-out interval, or turning-point breach trigger",
+        }
+        for trigger_id, public_label in trigger_labels.items():
+            escaped_trigger_id = trigger_id.replace("_", r"\_")
+            text = text.replace(rf"\occode{{{trigger_id}}}", public_label)
+            text = text.replace(rf"\occode{{{escaped_trigger_id}}}", public_label)
+            text = text.replace(f"`{trigger_id}`", public_label)
+            text = text.replace(f"`{escaped_trigger_id}`", public_label)
+            text = text.replace(trigger_id, public_label)
+            text = text.replace(escaped_trigger_id, public_label)
+        text = re.sub(r"\bThe scientific science-state register therefore sets the Core~1\.3\.3 science verdict, within scope current bounded science surface, to bounded support row recorded\.", "The public science-state register therefore records bounded support rows inside the declared current science surface; it does not promote full-domain validation.", text, flags=re.I)
+        text = re.sub(
+            r"\b(?:The\s+)?release gate now reports\s+0\s+bridge-only domains,\s+0\s+hostile-review blockers\b[^.]*\.",
+            "The public synthesis remains a bounded review surface; bridge status and hostile-review status do not by themselves promote domain validation.",
+            text,
+            flags=re.I,
+        )
+        text = re.sub(
+            r"\bExact validator:\s*\\occode\{BOUNDED_SYNTHESIS_REVIEW_RECORDED\}\.",
+            "Review status: this synthesis remains bounded and reopenable by row-level evidence.",
+            text,
+            flags=re.I,
+        )
+        text = re.sub(
+            r"\bNo release blocker remains in the internal science-state register\.",
+            "No global closure is promoted here; every row remains reopenable by its stated evidence boundary.",
+            text,
+            flags=re.I,
+        )
+        text = re.sub(
+            r"\bThese results form the empirical foundation for\b",
+            "These results form an illustrative evidence route for",
+            text,
+            flags=re.I,
+        )
+        text = re.sub(
+            r"\bprovide the empirical foundation for\b",
+            "provide an illustrative evidence route for",
+            text,
+            flags=re.I,
+        )
+        text = re.sub(
+            r"\band\s+provide\s+the\s+empirical\s+foundation\s+for\b",
+            "and provide an illustrative evidence route for",
+            text,
+            flags=re.I,
+        )
+        text = re.sub(
+            r"\bform the empirical foundation for\b",
+            "form an illustrative evidence route for",
+            text,
+            flags=re.I,
+        )
+        text = re.sub(
+            r"\bExperiments for\s+\$K_8\$\s+establish civilisational-scale validation for the Ontology of Continua:",
+            "Experiments for $K_8$ define a proposed civilisational-scale validation route for the Ontology of Continua:",
+            text,
+            flags=re.I,
+        )
+        text = re.sub(
+            r"\bExperiments for\s+\$K_8\$\s+define\s+a\s+proposed\s+civilisational-scale\s+validation\s+route\s+for\s+the\s+Ontology\s+of\s+Continua:",
+            "Experiments for $K_8$ define a proposed systems-scale research route for the Ontology of Continua:",
+            text,
+            flags=re.I,
+        )
+        text = re.sub(
+            r"\bcivilisational-scale\s+validation\s+route\b",
+            "systems-scale research route",
+            text,
+            flags=re.I,
+        )
+        text = re.sub(
+            r"\bcivilisational-scale\s+validation\b",
+            "systems-scale research",
+            text,
+            flags=re.I,
+        )
+        text = re.sub(
+            r"\btests cross-level invariants that hold across physics, chemistry, biology, cognition, social systems, and meta-theoretical continua\b",
+            "proposes cross-level invariant tests across physics, chemistry, biology, cognition, social systems, and meta-theoretical continua",
+            text,
+            flags=re.I,
+        )
+        text = re.sub(
+            r"\bglobal structural fixed point exists\b",
+            "a global structural fixed point remains a future proof obligation",
+            text,
+            flags=re.I,
+        )
+        text = re.sub(
+            r"\bfuture structural fixed-point proof obligation exists\b",
+            "a structural fixed-point statement remains a future proof obligation",
+            text,
+            flags=re.I,
+        )
+        text = re.sub(
+            r"\ball operators\s*\$?\([^)]*\)\$?\s*act as symmetries\b",
+            "operator symmetry remains a future proof obligation for explicitly declared operators",
+            text,
+            flags=re.I,
+        )
+        text = re.sub(
+            r"\bstable under all operators\s*\$?\([^)]*\)\$?",
+            "stable only under explicitly declared operator assumptions",
+            text,
+            flags=re.I,
+        )
+        text = re.sub(
+            r"\bAll thresholds become\s+\\emph\{globally stable constants\}\s+for the limit continuum\.",
+            "Global threshold stability is not promoted as a current theorem; any such claim requires a separate proof and domain-specific evidence.",
+            text,
+            flags=re.I,
+        )
+        text = re.sub(
+            r"\bAll thresholds become\s+\\emph\{globally stable constants\}\s+for the bounded synthesis candidate\.",
+            "Global threshold stability is not promoted as a current theorem; any such claim requires a separate proof and domain-specific evidence.",
+            text,
+            flags=re.I,
+        )
+        text = re.sub(
+            r"\ball operators\b[^.]{0,160}\bact as symmetries\b",
+            "operator symmetry remains a future proof obligation for explicitly declared operators",
+            text,
+            flags=re.I,
+        )
+        text = re.sub(
+            r"\bthe entire ladder\s+\$?K0.*?K11\$?\s+becomes representable inside one invariant continuum\b",
+            "the K0--K11 ladder is treated as a bounded synthesis candidate, not as a promoted invariant continuum",
+            text,
+            flags=re.I | re.S,
+        )
+        text = re.sub(
+            r"\bthe entire ladder\s+\$K_0\\dots\s+K_\{11\}\$\s+becomes representable inside one\s+invariant continuum\.",
+            "the K0--K11 ladder is treated as a bounded synthesis candidate rather than a promoted invariant continuum.",
+            text,
+            flags=re.I | re.S,
+        )
+        text = re.sub(
+            r"\$k_\{12\}\$ attains the maximum possible value among all \$K\$-levels:\s*\\\[\s*k_\{12\}\s*=\s*\\max_\{i=0\\dots12\}\s*k\(K_i\)\.\s*\\\]",
+            "$k_{12}$ is retained as a candidate upper-coherence parameter in the historical K12 module; this release does not promote a theorem that it is maximal among all possible continuum levels.",
+            text,
+            flags=re.I | re.S,
+        )
+        text = re.sub(
+            r"\$K_\{12\}\$ is the most energy-stable admissible continuum\.",
+            "$K_{12}$ is treated as an upper-coherence stability candidate, not as a proved most-stable admissible continuum.",
+            text,
+            flags=re.I,
+        )
+        text = re.sub(
+            r"Operator algebra becomes Abelian up to equivalence classes:\s*\\\[\s*\[\\Psi,\\Phi\]=\[\\Phi,\\Lambda\]=\\dots = 0\.\s*\\\]",
+            "The historical K12 source proposes an Abelian limit condition as a future proof obligation; the current release does not promote this operator-algebra statement as a proved theorem.",
+            text,
+            flags=re.I | re.S,
+        )
+        text = re.sub(
+            r"\\item Any admissible recursive meta-hierarchy eventually converges to\s+structures representable in \$K_\{12\}\$\.",
+            lambda _match: r"\item Some explicitly modeled recursive meta-hierarchies may be tested for convergence to structures representable in $K_{12}$.",
+            text,
+            flags=re.I,
+        )
+        text = re.sub(
+            r"\\item No new axes or potentials can emerge beyond this level\.",
+            lambda _match: r"\item The no-new-axis/no-new-potential condition is a falsifiable upper-bound hypothesis, not a promoted universal theorem.",
+            text,
+            flags=re.I,
+        )
+        text = re.sub(
+            r"\\item All operator actions reduce to global symmetries\.",
+            lambda _match: r"\item Operator-action symmetry is a future proof obligation for explicitly declared operators.",
+            text,
+            flags=re.I,
+        )
+        text = re.sub(
+            r"This makes \$M_\{12\}\$ the terminal environment for Core~1\.3\.3\.",
+            "$M_{12}$ is therefore used as an upper-bound meta-space candidate for the current taxonomy, not as a terminal theorem about all possible meta-spaces.",
+            text,
+            flags=re.I,
+        )
+        text = re.sub(
+            r"\$M_\{12\}\$ is thus the terminal meta-space for the Core\.",
+            "$M_{12}$ is thus the upper-bound meta-space candidate used by this release.",
+            text,
+            flags=re.I,
+        )
+        text = re.sub(
+            r"\\Omega\(K_\{12\}\) \\subseteq \\Omega\(M_\{12\}\)\s*\\quad \\text\{is necessary and sufficient for the existence of \}K_\{12\}\.",
+            lambda _match: r"\Omega(K_{12}) \subseteq \Omega(M_{12})\quad \text{is treated here as a modeling condition for K12 admissibility, not as a completed necessary-and-sufficient theorem.}",
+            text,
+            flags=re.I | re.S,
+        )
+        text = re.sub(r"\bAt present\s+\\occode\{5\}\s+lanes\s+satisfy\s+the\s+current public-support criterion,\s+while\s+\\occode\{0\}\s+lanes\s+remain\s+not yet public-supporting\.", "At present the five inspected lanes have public support rows, while broader domain promotion remains conditional on row-level replay, comparator, negative-control, and falsifier evidence.", text, flags=re.I)
+        text = re.sub(r"\\subsection\{Process\s+Schema\s+Under\s+scoped\}", r"\\subsection{Process Schema Under Declared Scope}", text, flags=re.I)
+        text = re.sub(r"\bProcess\s+Schema\s+Under\s+scoped\b", "Process Schema Under Declared Scope", text, flags=re.I)
+        text = re.sub(r"\bcontent/OC\\_1\\_3\\_3\\_([A-Z0-9\\_]+)\.tex\b", r"the \1 corpus appendix", text)
+        text = re.sub(r"\bcontent/OC_1_3_3_([A-Z0-9_]+)\.tex\b", r"the \1 corpus appendix", text)
+        if text != original:
+            write_text_if_changed(tex_path, text)
+
+    entry = source_dir / science_monolith.BASE_ENTRYPOINT
+    if entry.is_file():
+        text = entry.read_text(encoding="utf-8", errors="replace")
+        if "% R014_FULL_QUALITY_CLOSURE" not in text:
+            text = text.replace("% R013_TABLE_LAYOUT_STANDARD", "% R013_TABLE_LAYOUT_STANDARD\n% R014_FULL_QUALITY_CLOSURE")
+            write_text_if_changed(entry, text)
+        appendix_index = 0
+        for ref in re.findall(r"\\input\{([^}]+)\}", text):
+            if not ref.startswith("appendix/"):
+                continue
+            appendix_path = source_dir / (ref if ref.endswith(".tex") else f"{ref}.tex")
+            if not appendix_path.is_file():
+                continue
+            appendix_index += 1
+            letter = chr(ord("A") + appendix_index - 1)
+            appendix_text = appendix_path.read_text(encoding="utf-8", errors="replace")
+            original_appendix_text = appendix_text
+
+            def replace_appendix_heading(match: re.Match[str]) -> str:
+                title = match.group(1).strip()
+                title = re.sub(r"^Appendix\s+[A-Z]\s+--\s+", "", title).strip()
+                if not title:
+                    title = "Reference Material"
+                return rf"\section{{Appendix {letter} -- {title}}}"
+
+            appendix_text = re.sub(r"\\section\{([^}]+)\}", replace_appendix_heading, appendix_text, count=1)
+            if appendix_text != original_appendix_text:
+                write_text_if_changed(appendix_path, appendix_text)
+    apply_r014_high_reasoning_closure(source_dir)
+
+
 def pdf_toc_page_total(path: Path) -> int:
     if not path.is_file():
         return 0
@@ -4653,7 +7371,7 @@ def build_publication_master_monograph(
     }
     frontmatter_text = frontmatter_path.read_text(encoding="utf-8", errors="replace") if frontmatter_path.is_file() else ""
     reusable_existing_build = (
-        not any(revision in str(base) for revision in ("recovery_r005", "recovery_r006", "recovery_r008", "recovery_r012", "recovery_r013"))
+        not any(revision in str(base) for revision in ("recovery_r005", "recovery_r006", "recovery_r008", "recovery_r012", "recovery_r013", "recovery_r014"))
         and
         source_dir.is_dir()
         and entry_path.is_file()
@@ -4682,13 +7400,17 @@ def build_publication_master_monograph(
         science_monolith._rewrite_public_science_projection_sources(source_dir)
         science_monolith._rewrite_entrypoint_for_integrated_133(source_dir)
         science_monolith._apply_r005_publication_layout_standard(source_dir)
-        if assembly_revision in {R008_REVISION, R009_REVISION, R010_REVISION, R011_REVISION, R012_REVISION, R013_REVISION}:
+        if assembly_revision in {R008_REVISION, R009_REVISION, R010_REVISION, R011_REVISION, R012_REVISION, R013_REVISION, R014_REVISION}:
             apply_r008_monograph_overrides(source_dir)
-        if assembly_revision in {R012_REVISION, R013_REVISION}:
+        if assembly_revision in VISUAL_QA_REVISIONS:
             apply_r012_visual_overrides(source_dir)
-        if assembly_revision == R013_REVISION:
+        if assembly_revision in TABLE_QA_REVISIONS:
             apply_r013_table_overrides(source_dir)
+        if assembly_revision == R014_REVISION:
+            apply_r014_cerberus_overrides(source_dir)
         science_monolith._sanitize_source_tree(source_dir)
+        if assembly_revision == R014_REVISION:
+            apply_r014_cerberus_overrides(source_dir)
         trim_generated_text_whitespace(source_dir)
         entry_path = source_dir / science_monolith.BASE_ENTRYPOINT
         counts = tex_corpus_counts(source_dir)
@@ -4704,10 +7426,10 @@ def build_publication_master_monograph(
                 trim_generated_text_whitespace(source_dir)
             counts = tex_corpus_counts(source_dir)
     visual_quality: dict[str, Any] | None = None
-    if assembly_revision in {R012_REVISION, R013_REVISION} and source_dir.is_dir():
+    if assembly_revision in VISUAL_QA_REVISIONS and source_dir.is_dir():
         visual_quality = build_r012_visual_quality(base, version, source_dir, write=write, source_figure_total=int(counts.get("figure_total") or 0))
     table_quality: dict[str, Any] | None = None
-    if assembly_revision == R013_REVISION and source_dir.is_dir():
+    if assembly_revision in TABLE_QA_REVISIONS and source_dir.is_dir():
         table_quality = build_r013_table_quality(base, version, source_dir, write=write, source_table_total=r013_all_source_table_total(source_dir))
     if source_dir.is_dir():
         generated_source_files = [
@@ -4755,6 +7477,10 @@ def build_pdf(source: Path, output: Path) -> dict[str, Any]:
         resource_path,
         "--number-sections",
         "--pdf-engine=xelatex",
+        "-V",
+        "mainfont=TeX Gyre Termes",
+        "-V",
+        "mathfont=Latin Modern Math",
         "-V",
         "geometry:margin=1in",
         "-V",
@@ -4906,6 +7632,8 @@ def assemble_release(
                     public_translation_source = "science_monolith_figure_visual_qa_spot_r012"
                 elif assembly_revision == R013_REVISION:
                     public_translation_source = "science_monolith_table_rendered_qa_spot_r013"
+                elif assembly_revision == R014_REVISION:
+                    public_translation_source = "science_monolith_full_quality_closure_r014"
                 visual_quality = built.get("visual_quality")
                 table_quality = built.get("table_quality")
                 figure_total = int(built["counts"].get("figure_total") or 0)
@@ -4963,6 +7691,10 @@ def assemble_release(
                         document_body_source = "curated_public_payload_markdown_table_rendered_qa_r013"
                         document_structure_source = "curated_public_payload_hierarchy_r013"
                         public_translation_source = "table_rendered_qa_publication_translator_r013"
+                    elif assembly_revision == R014_REVISION:
+                        document_body_source = "curated_public_payload_markdown_full_quality_closure_r014"
+                        document_structure_source = "curated_public_payload_hierarchy_r014"
+                        public_translation_source = "full_quality_closure_publication_translator_r014"
                     source_payload_origin = rel(source_payload) if source_payload else None
                     asset_files, assets_changed = copy_public_payload_assets(base, write=write)
                     generated_files.extend(asset_files)
@@ -4973,6 +7705,8 @@ def assemble_release(
                 inline_figure_total = counts["figure_total"]
                 table_total = counts["table_total"]
                 formula_marker_total = counts["formula_marker_total"]
+                bibliography_entry_total = counts.get("bibliography_entry_total", 0)
+                verified_bibliography_entry_total = counts.get("verified_bibliography_entry_total", 0)
                 if write and write_text_if_changed(source_path, text):
                     source_changed = True
                     changed.append(rel(source_path))
@@ -5009,19 +7743,20 @@ def assemble_release(
                         else R011_TRANSLATOR_STATUS if assembly_revision == R011_REVISION and artifact_id in TEXT_ARTIFACTS
                         else R012_TRANSLATOR_STATUS if assembly_revision == R012_REVISION and artifact_id in TEXT_ARTIFACTS
                         else R013_TRANSLATOR_STATUS if assembly_revision == R013_REVISION and artifact_id in TEXT_ARTIFACTS
+                        else R014_TRANSLATOR_STATUS if assembly_revision == R014_REVISION and artifact_id in TEXT_ARTIFACTS
                         else None
                     ),
                     "public_translation_source": public_translation_source,
-                    "governed_ollama_status": governed_trace["status"] if assembly_revision in {R007_REVISION, R008_REVISION, R009_REVISION, R010_REVISION, R011_REVISION, R012_REVISION, R013_REVISION} and artifact_id in TEXT_ARTIFACTS else None,
-                    "ollama_invocation_total": governed_trace["ollama_invocation_total"] if assembly_revision in {R007_REVISION, R008_REVISION, R009_REVISION, R010_REVISION, R011_REVISION, R012_REVISION, R013_REVISION} and artifact_id in TEXT_ARTIFACTS else None,
-                    "unmanaged_ollama_call_total": governed_trace["unmanaged_ollama_call_total"] if assembly_revision in {R007_REVISION, R008_REVISION, R009_REVISION, R010_REVISION, R011_REVISION, R012_REVISION, R013_REVISION} and artifact_id in TEXT_ARTIFACTS else None,
-                    "v_model_lowest_checked_level": (governed_trace.get("v_model_lowest_checked_level") or "L10") if assembly_revision in {R007_REVISION, R008_REVISION, R009_REVISION, R010_REVISION, R011_REVISION, R012_REVISION, R013_REVISION} and artifact_id in TEXT_ARTIFACTS else None,
-                    "instruction_packet_total": len(rows) if assembly_revision in {R007_REVISION, R008_REVISION, R009_REVISION, R010_REVISION, R011_REVISION, R012_REVISION, R013_REVISION} and artifact_id in TEXT_ARTIFACTS else None,
-                    "public_translation_packet_total": len(rows) if assembly_revision in {R007_REVISION, R008_REVISION, R009_REVISION, R010_REVISION, R011_REVISION, R012_REVISION, R013_REVISION} and artifact_id in TEXT_ARTIFACTS else None,
-                    "logion_llm_service_status": governed_trace.get("service_status") if assembly_revision in {R008_REVISION, R009_REVISION, R010_REVISION, R011_REVISION, R012_REVISION, R013_REVISION} and artifact_id in TEXT_ARTIFACTS else None,
-                    "logion_llm_service_ledger_ref": governed_trace.get("service_ledger_ref") if assembly_revision in {R008_REVISION, R009_REVISION, R010_REVISION, R011_REVISION, R012_REVISION, R013_REVISION} and artifact_id in TEXT_ARTIFACTS else None,
-                    "logion_llm_service_cadence_sequence": governed_trace.get("cadence_sequence") if assembly_revision in {R008_REVISION, R009_REVISION, R010_REVISION, R011_REVISION, R012_REVISION, R013_REVISION} and artifact_id in TEXT_ARTIFACTS else None,
-                    "logion_llm_service_model_sequence": governed_trace.get("model_sequence") if assembly_revision in {R008_REVISION, R009_REVISION, R010_REVISION, R011_REVISION, R012_REVISION, R013_REVISION} and artifact_id in TEXT_ARTIFACTS else None,
+                    "governed_ollama_status": governed_trace["status"] if assembly_revision in GOVERNED_TEXT_REVISIONS and artifact_id in TEXT_ARTIFACTS else None,
+                    "ollama_invocation_total": governed_trace["ollama_invocation_total"] if assembly_revision in GOVERNED_TEXT_REVISIONS and artifact_id in TEXT_ARTIFACTS else None,
+                    "unmanaged_ollama_call_total": governed_trace["unmanaged_ollama_call_total"] if assembly_revision in GOVERNED_TEXT_REVISIONS and artifact_id in TEXT_ARTIFACTS else None,
+                    "v_model_lowest_checked_level": (governed_trace.get("v_model_lowest_checked_level") or "L10") if assembly_revision in GOVERNED_TEXT_REVISIONS and artifact_id in TEXT_ARTIFACTS else None,
+                    "instruction_packet_total": len(rows) if assembly_revision in GOVERNED_TEXT_REVISIONS and artifact_id in TEXT_ARTIFACTS else None,
+                    "public_translation_packet_total": len(rows) if assembly_revision in GOVERNED_TEXT_REVISIONS and artifact_id in TEXT_ARTIFACTS else None,
+                    "logion_llm_service_status": governed_trace.get("service_status") if assembly_revision in COMMON_LLM_SERVICE_REVISIONS and artifact_id in TEXT_ARTIFACTS else None,
+                    "logion_llm_service_ledger_ref": governed_trace.get("service_ledger_ref") if assembly_revision in COMMON_LLM_SERVICE_REVISIONS and artifact_id in TEXT_ARTIFACTS else None,
+                    "logion_llm_service_cadence_sequence": governed_trace.get("cadence_sequence") if assembly_revision in COMMON_LLM_SERVICE_REVISIONS and artifact_id in TEXT_ARTIFACTS else None,
+                    "logion_llm_service_model_sequence": governed_trace.get("model_sequence") if assembly_revision in COMMON_LLM_SERVICE_REVISIONS and artifact_id in TEXT_ARTIFACTS else None,
                     "source_payload_origin": source_payload_origin,
                     "visual_quality_status": (visual_quality or {}).get("cockpit", {}).get("status") if visual_quality else None,
                     "figure_spec_registry_ref": rel((visual_quality or {}).get("paths", {}).get("registry_json")) if visual_quality else None,
@@ -5077,13 +7812,60 @@ def assemble_release(
                 }
             )
         elif artifact_id == "public_evidence_bundle":
+            source_family_refs = []
+            for family in source_bindings.get("source_families", []):
+                if not isinstance(family, dict):
+                    continue
+                candidate_paths = family.get("candidate_paths") if isinstance(family.get("candidate_paths"), list) else []
+                source_family_refs.append(
+                    {
+                        "source_family_id": family.get("source_family_id"),
+                        "candidate_path_total": len(candidate_paths),
+                        "candidate_paths": candidate_paths[:20],
+                        "path_policy": (
+                            "r014 checksum-binds the comparator, prior-art, target-blind, numeric-replay, and finite-model public evidence files named by reader-facing PDFs"
+                            if assembly_revision == R014_REVISION
+                            else "version-pinned public repository or release-corpus path; not all referenced evidence files are embedded in the review zip"
+                        ),
+                    }
+                )
             payload = {
                 "schema_id": "OC_CORE_PUBLIC_EVIDENCE_BUNDLE_REVIEW_v1",
                 "release_id": release_id,
                 "version": version,
+                "title": "OC Core 1.3.3 Public Evidence Bundle Manifest",
+                "description": (
+                    "Reader-facing evidence index for OC Core 1.3.3. This manifest names the evidence families, "
+                    "source-binding hash, and policy for locating version-pinned public repository or release-corpus "
+                    "artifacts. It is an index, not a claim that every referenced source file is embedded in the review zip."
+                ),
                 "terminal_text_contracts_hash": terminal_contracts["artifact_hash"],
                 "transition_records_hash": transitions["artifact_hash"],
                 "source_bindings_hash": source_bindings["artifact_hash"],
+                "source_family_refs": source_family_refs,
+                "embedded_manifest_policy": (
+                    "The review package embeds this manifest, package checksums, and the r014 checksum-bound public evidence files required by the reader-facing comparator, prior-art, target-blind, numeric-replay, and finite-model references."
+                    if assembly_revision == R014_REVISION
+                    else "The review package embeds this manifest and checksums; large evidence families are referenced by version-pinned public paths and hashes."
+                ),
+                "checksum_bound_public_evidence_paths": (
+                    [item for item in R014_CHECKSUM_BOUND_PUBLIC_EVIDENCE_PATHS if (ROOT / item).is_file()]
+                    if assembly_revision == R014_REVISION
+                    else []
+                ),
+                "public_review_revision_aliases": (
+                    {
+                        "oc_core_1_3_3_review_current": {
+                            "assembly_revision": assembly_revision,
+                            "assembly_json": rel(paths["assembly_json"]),
+                            "package_manifest_json": rel(paths["manifest_json"]),
+                            "review_zip": rel(paths["review_zip"]),
+                            "alias_policy": "reader-facing PDFs use the stable alias; exact internal recovery labels are retained in package metadata and checksums",
+                        }
+                    }
+                    if assembly_revision == R014_REVISION
+                    else {}
+                ),
                 "concept_doi": CONCEPT_DOI,
             }
             payload["artifact_hash"] = artifact_hash(payload)
@@ -5104,6 +7886,53 @@ def assemble_release(
                     "artifact_generation_profile_hash": profile["artifact_hash"],
                 },
             }
+            if artifact_id == "citation_metadata":
+                payload.update(
+                    {
+                        "title": "Ontology of Continua Core 1.3.3",
+                        "creator": AUTHOR_DISPLAY,
+                        "creators": [
+                            {
+                                "name": AUTHOR_DISPLAY,
+                                "orcid": AUTHOR_ORCID,
+                                "role": "author",
+                            }
+                        ],
+                        "orcid": AUTHOR_ORCID,
+                        "date": PUBLICATION_DATE,
+                        "license": "cc-by-4.0",
+                        "keywords": [
+                            "Ontology of Continua",
+                            "continuum ontology",
+                            "systems theory",
+                            "formal methods",
+                            "finite semantic checks",
+                            "reproducible research",
+                            "falsifiability",
+                            "evidence-bound scientific publishing",
+                        ],
+                        "description": (
+                            "OC Core 1.3.3 is a bounded public manuscript and review package for the Ontology of Continua. "
+                            "It presents a typed continuum model core, K-level witness discipline, proof/evidence boundaries, "
+                            "reader-facing limitations, and no-send journal owner-review projections."
+                        ),
+                        "release_doi_policy": "Concept DOI only on the reader-facing identity surface; no version DOI or publication action is performed in this repair pass.",
+                        "repository_relation": "Open repository reference appears only in the final citation/repository block of reader-facing PDFs.",
+                        "reading_order": [
+                            "master_monograph",
+                            "journal_core_article",
+                            "methods_repro_companion",
+                            "release_guide",
+                            "reviewer_attack_response_map",
+                            "public_evidence_bundle",
+                        ],
+                        "file_set": [
+                            {"path": rel(path), "sha256": sha256_file(path)}
+                            for path in generated_files
+                            if path.is_file()
+                        ],
+                    }
+                )
             payload["artifact_hash"] = artifact_hash(payload)
             if write and write_json_if_changed(json_path, payload):
                 changed.append(rel(json_path))
@@ -5254,7 +8083,7 @@ def assemble_release(
                 row["accepted_candidate_promoted_total"] = governed_trace.get("accepted_candidate_promoted_total")
                 row["unresolved_repair_record_total"] = governed_trace.get("unresolved_repair_record_total")
         generated_files.extend(path for path in repair_paths.values() if path.is_file())
-    if assembly_revision in {R011_REVISION, R012_REVISION, R013_REVISION}:
+    if assembly_revision in JOURNAL_SPOT_REVISIONS:
         r011_paths = r011_output_paths(base, version)
         venues = r011_journal_venues()
         spot_payload = r011_release_spot_map(version, artifact_rows)
@@ -5427,6 +8256,8 @@ def assemble_release(
                     else R012_TRANSLATOR_STATUS
                     if assembly_revision == R012_REVISION
                     else R013_TRANSLATOR_STATUS
+                    if assembly_revision == R013_REVISION
+                    else R014_TRANSLATOR_STATUS
                 )
                 row["logion_llm_service_status"] = governed_trace.get("service_status")
                 row["logion_llm_service_ledger_ref"] = governed_trace.get("service_ledger_ref")
@@ -5458,6 +8289,8 @@ def assemble_release(
                     row[gate_key] = governed_trace.get(gate_key)
         generated_files.extend(path for path in r011_generated if path.is_file())
     generated_files.extend([paths["terminal_contracts_json"], paths["terminal_contracts_md"], paths["transition_records_json"], paths["transition_records_md"], paths["source_bindings_json"], paths["source_bindings_md"]])
+    if assembly_revision == R014_REVISION:
+        generated_files.extend(ROOT / item for item in R014_CHECKSUM_BOUND_PUBLIC_EVIDENCE_PATHS if (ROOT / item).is_file())
     if assembly_revision == R008_REVISION:
         generated_files.extend(path for path in r008_service_output_paths(base, version).values() if path.is_file())
     manifest_rows = []
@@ -5482,6 +8315,18 @@ def assemble_release(
         },
         "file_total": len(manifest_rows),
         "files": manifest_rows,
+        "public_review_revision_aliases": (
+            {
+                "oc_core_1_3_3_review_current": {
+                    "assembly_revision": assembly_revision,
+                    "assembly_json": rel(paths["assembly_json"]),
+                    "review_zip": rel(paths["review_zip"]),
+                    "alias_policy": "stable public review alias for commands; internal revision id remains package metadata",
+                }
+            }
+            if assembly_revision == R014_REVISION
+            else {}
+        ),
     }
     manifest["artifact_hash"] = artifact_hash(manifest)
     checksums = "\n".join(f"{row['sha256']}  {row['path']}" for row in manifest_rows) + "\n"
@@ -5504,6 +8349,22 @@ def assemble_release(
         "concept_doi": CONCEPT_DOI,
         "release_record_doi": None,
         "publication_actions_performed": False,
+        "public_review_revision_aliases": (
+            {
+                "oc_core_1_3_3_review_current": {
+                    "assembly_revision": assembly_revision,
+                    "assembly_json": rel(paths["assembly_json"]),
+                    "package_manifest_json": rel(paths["manifest_json"]),
+                    "package_manifest_hash": manifest["artifact_hash"],
+                    "review_zip": zip_payload.get("path"),
+                    "review_zip_sha256": zip_payload.get("sha256"),
+                    "artifact_hash_policy": "artifact rows and manifest files in this assembly bind the stable public alias to the exact reviewed files",
+                    "reader_facing_identity_policy": "do not print internal recovery labels on title pages or public identity surfaces",
+                }
+            }
+            if assembly_revision == R014_REVISION
+            else {}
+        ),
         "governed_ollama_trace": governed_trace,
         "visual_quality_trace": visual_quality_trace,
         "table_quality_trace": table_quality_trace,
@@ -5516,6 +8377,7 @@ def assemble_release(
                 else R011_TRANSLATOR_STATUS if assembly_revision == R011_REVISION
                 else R012_TRANSLATOR_STATUS if assembly_revision == R012_REVISION
                 else R013_TRANSLATOR_STATUS if assembly_revision == R013_REVISION
+                else R014_TRANSLATOR_STATUS if assembly_revision == R014_REVISION
                 else "NOT_APPLICABLE"
             ),
             "strategy": (
@@ -5526,19 +8388,20 @@ def assemble_release(
                 else "journal_requirements_spot_projection_with_bounded_synthesis_and_owner_review_no_send" if assembly_revision == R011_REVISION
                 else "deterministic_figure_registry_geometry_and_rendered_bbox_visual_qa" if assembly_revision == R012_REVISION
                 else "deterministic_table_registry_geometry_and_rendered_bbox_table_qa" if assembly_revision == R013_REVISION
+                else "full_quality_closure_with_scoped_cerberus_and_l10_coverage_assessment" if assembly_revision == R014_REVISION
                 else None
             ),
-            "v_model_flow": "L10_to_L9_L8_to_document_review" if assembly_revision in {R007_REVISION, R008_REVISION, R009_REVISION, R010_REVISION, R011_REVISION, R012_REVISION, R013_REVISION} else None,
-            "lower_level_blockers_required_zero_before_global_review": True if assembly_revision in {R007_REVISION, R008_REVISION, R009_REVISION, R010_REVISION, R011_REVISION, R012_REVISION, R013_REVISION} else None,
-            "common_llm_service_required": True if assembly_revision in {R008_REVISION, R009_REVISION, R010_REVISION, R011_REVISION, R012_REVISION, R013_REVISION} else None,
-            "service_status": governed_trace.get("service_status") if assembly_revision in {R008_REVISION, R009_REVISION, R010_REVISION, R011_REVISION, R012_REVISION, R013_REVISION} else None,
-            "queue_status": governed_trace.get("queue_status") if assembly_revision in {R009_REVISION, R011_REVISION, R012_REVISION, R013_REVISION} else None,
-            "source_grounded_repair_status": governed_trace.get("source_grounded_repair_status") if assembly_revision == R010_REVISION else ("PASS" if assembly_revision in {R011_REVISION, R012_REVISION, R013_REVISION} else None),
+            "v_model_flow": "L10_to_L9_L8_to_document_review" if assembly_revision in GOVERNED_TEXT_REVISIONS else None,
+            "lower_level_blockers_required_zero_before_global_review": True if assembly_revision in GOVERNED_TEXT_REVISIONS else None,
+            "common_llm_service_required": True if assembly_revision in COMMON_LLM_SERVICE_REVISIONS else None,
+            "service_status": governed_trace.get("service_status") if assembly_revision in COMMON_LLM_SERVICE_REVISIONS else None,
+            "queue_status": governed_trace.get("queue_status") if assembly_revision in {R009_REVISION, R011_REVISION, R012_REVISION, R013_REVISION, R014_REVISION} else None,
+            "source_grounded_repair_status": governed_trace.get("source_grounded_repair_status") if assembly_revision == R010_REVISION else ("PASS" if assembly_revision in JOURNAL_SPOT_REVISIONS else None),
             "local_editorial_capability_boundary_status": governed_trace.get("local_editorial_capability_boundary_status") if assembly_revision == R010_REVISION else None,
-            "scientific_journal_submission_ready_status": governed_trace.get("scientific_journal_submission_ready_status") if assembly_revision in {R011_REVISION, R012_REVISION, R013_REVISION} else None,
-            "journal_requirements_trace_status": governed_trace.get("journal_requirements_trace_status") if assembly_revision in {R011_REVISION, R012_REVISION, R013_REVISION} else None,
-            "visual_cockpit_status": (visual_quality_trace or {}).get("visual_cockpit_status") if assembly_revision in {R012_REVISION, R013_REVISION} else None,
-            "table_cockpit_status": (table_quality_trace or {}).get("table_cockpit_status") if assembly_revision == R013_REVISION else None,
+            "scientific_journal_submission_ready_status": governed_trace.get("scientific_journal_submission_ready_status") if assembly_revision in JOURNAL_SPOT_REVISIONS else None,
+            "journal_requirements_trace_status": governed_trace.get("journal_requirements_trace_status") if assembly_revision in JOURNAL_SPOT_REVISIONS else None,
+            "visual_cockpit_status": (visual_quality_trace or {}).get("visual_cockpit_status") if assembly_revision in VISUAL_QA_REVISIONS else None,
+            "table_cockpit_status": (table_quality_trace or {}).get("table_cockpit_status") if assembly_revision in TABLE_QA_REVISIONS else None,
         },
         "structure_source": structure_source,
         "assembly_revision": assembly_revision,
@@ -5564,16 +8427,16 @@ def assemble_release(
             "source_grounded_repair_status": governed_trace.get("source_grounded_repair_status") if assembly_revision == R010_REVISION else None,
             "unresolved_repair_record_total": governed_trace.get("unresolved_repair_record_total") if assembly_revision == R010_REVISION else None,
             "accepted_candidate_promoted_total": governed_trace.get("accepted_candidate_promoted_total") if assembly_revision == R010_REVISION else None,
-            "journal_requirements_trace_status": governed_trace.get("journal_requirements_trace_status") if assembly_revision in {R011_REVISION, R012_REVISION, R013_REVISION} else None,
-            "release_spot_completeness_status": governed_trace.get("release_spot_completeness_status") if assembly_revision in {R011_REVISION, R012_REVISION, R013_REVISION} else None,
-            "bounded_synthesis_status": governed_trace.get("bounded_synthesis_status") if assembly_revision in {R011_REVISION, R012_REVISION, R013_REVISION} else None,
-            "source_gap_zero_status": governed_trace.get("source_gap_zero_status") if assembly_revision in {R011_REVISION, R012_REVISION, R013_REVISION} else None,
-            "all_venue_projection_status": governed_trace.get("all_venue_projection_status") if assembly_revision in {R011_REVISION, R012_REVISION, R013_REVISION} else None,
-            "submission_component_status": governed_trace.get("submission_component_status") if assembly_revision in {R011_REVISION, R012_REVISION, R013_REVISION} else None,
-            "journal_format_compliance_status": governed_trace.get("journal_format_compliance_status") if assembly_revision in {R011_REVISION, R012_REVISION, R013_REVISION} else None,
-            "zero_internal_leak_status": governed_trace.get("zero_internal_leak_status") if assembly_revision in {R011_REVISION, R012_REVISION, R013_REVISION} else None,
-            "zero_fabrication_risk_status": governed_trace.get("zero_fabrication_risk_status") if assembly_revision in {R011_REVISION, R012_REVISION, R013_REVISION} else None,
-            "scientific_journal_submission_ready_status": governed_trace.get("scientific_journal_submission_ready_status") if assembly_revision in {R011_REVISION, R012_REVISION, R013_REVISION} else None,
+            "journal_requirements_trace_status": governed_trace.get("journal_requirements_trace_status") if assembly_revision in JOURNAL_SPOT_REVISIONS else None,
+            "release_spot_completeness_status": governed_trace.get("release_spot_completeness_status") if assembly_revision in JOURNAL_SPOT_REVISIONS else None,
+            "bounded_synthesis_status": governed_trace.get("bounded_synthesis_status") if assembly_revision in JOURNAL_SPOT_REVISIONS else None,
+            "source_gap_zero_status": governed_trace.get("source_gap_zero_status") if assembly_revision in JOURNAL_SPOT_REVISIONS else None,
+            "all_venue_projection_status": governed_trace.get("all_venue_projection_status") if assembly_revision in JOURNAL_SPOT_REVISIONS else None,
+            "submission_component_status": governed_trace.get("submission_component_status") if assembly_revision in JOURNAL_SPOT_REVISIONS else None,
+            "journal_format_compliance_status": governed_trace.get("journal_format_compliance_status") if assembly_revision in JOURNAL_SPOT_REVISIONS else None,
+            "zero_internal_leak_status": governed_trace.get("zero_internal_leak_status") if assembly_revision in JOURNAL_SPOT_REVISIONS else None,
+            "zero_fabrication_risk_status": governed_trace.get("zero_fabrication_risk_status") if assembly_revision in JOURNAL_SPOT_REVISIONS else None,
+            "scientific_journal_submission_ready_status": governed_trace.get("scientific_journal_submission_ready_status") if assembly_revision in JOURNAL_SPOT_REVISIONS else None,
             **({key: (visual_quality_trace or {}).get(key) for key in [
                 "figure_spec_coverage_status",
                 "diagram_geometry_status",
@@ -5584,7 +8447,7 @@ def assemble_release(
                 "continuum_visual_status",
                 "caption_argument_status",
                 "visual_cockpit_status",
-            ]} if assembly_revision in {R012_REVISION, R013_REVISION} else {}),
+            ]} if assembly_revision in VISUAL_QA_REVISIONS else {}),
             **({key: (table_quality_trace or {}).get(key) for key in [
                 "table_spec_coverage_status",
                 "compiled_table_coverage_status",
@@ -5596,7 +8459,7 @@ def assemble_release(
                 "table_caption_argument_status",
                 "table_semantic_anchor_status",
                 "table_cockpit_status",
-            ]} if assembly_revision == R013_REVISION else {}),
+            ]} if assembly_revision in TABLE_QA_REVISIONS else {}),
         },
         "artifact_rows": artifact_rows,
         "review_zip": zip_payload,

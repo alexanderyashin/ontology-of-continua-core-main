@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 import sys
 from collections import Counter, defaultdict
@@ -109,6 +110,10 @@ FORM_STATUS_KEYS = [
     "table_caption_argument_status",
     "table_semantic_anchor_status",
     "table_cockpit_status",
+    "cerberus_static_leak_status",
+    "methods_path_integrity_status",
+    "reviewer_map_argument_status",
+    "r014_quality_closure_status",
     "form_quality_status",
 ]
 
@@ -135,8 +140,39 @@ def quality_paths(release_id: str, version: str, assembly_revision: str | None =
     }
 
 
-def editorial_cerberus_path() -> Path:
+def editorial_cerberus_path(release_id: str = "oc_core_1_3_3", assembly_revision: str | None = None) -> Path:
+    if assembly_revision:
+        return quality_dir(release_id, assembly_revision) / "cerberus" / "OC133_EDITORIAL_CERBERUS_SUMMARY.json"
     return ROOT / "reviews" / "oc133_llm_cerberus" / "editorial_release_review" / "OC133_EDITORIAL_CERBERUS_SUMMARY.json"
+
+
+def sha256_file(path: Path) -> str:
+    h = hashlib.sha256()
+    with path.open("rb") as handle:
+        for chunk in iter(lambda: handle.read(1024 * 1024), b""):
+            h.update(chunk)
+    return h.hexdigest()
+
+
+def expected_cerberus_pdf_hashes(package_assembly: dict[str, Any] | None) -> dict[str, str]:
+    if not package_assembly:
+        return {}
+    artifact_to_key = {
+        "release_guide": "guide",
+        "master_monograph": "master",
+        "journal_core_article": "journal",
+        "methods_repro_companion": "methods",
+        "reviewer_attack_response_map": "reviewer",
+    }
+    hashes: dict[str, str] = {}
+    for row in package_assembly.get("artifact_rows", []):
+        key = artifact_to_key.get(str(row.get("artifact_type_id")))
+        if not key:
+            continue
+        pdf_path = ROOT / str(row.get("pdf_path") or "")
+        if pdf_path.is_file():
+            hashes[key] = sha256_file(pdf_path)
+    return hashes
 
 
 def _projection_by_node(matrix: dict[str, Any]) -> dict[str, list[dict[str, Any]]]:
@@ -359,8 +395,12 @@ def _recovery_regression_summary(package_assembly: dict[str, Any] | None) -> dic
     }
 
 
-def _cerberus_vulnerability() -> dict[str, Any] | None:
-    path = editorial_cerberus_path()
+def _cerberus_vulnerability(
+    release_id: str,
+    assembly_revision: str | None = None,
+    package_assembly: dict[str, Any] | None = None,
+) -> dict[str, Any] | None:
+    path = editorial_cerberus_path(release_id, assembly_revision)
     if not path.exists():
         return {
             "vulnerability_id": "VULN-CERB-000",
@@ -368,14 +408,54 @@ def _cerberus_vulnerability() -> dict[str, Any] | None:
             "severity": "CRITICAL",
             "release_blocking": True,
             "affected_node_ids": [],
-            "affected_artifacts": ["reviews/oc133_llm_cerberus/editorial_release_review/OC133_EDITORIAL_CERBERUS_SUMMARY.json"],
+            "affected_artifacts": [str(path.relative_to(ROOT))],
             "finding_total": 1,
             "findings": [],
             "required_repair": "Run mandatory editorial Cerberus review and materialize structured summary.",
             "verification_rule": "Editorial Cerberus summary must exist with critical_open_total=0, high_open_total=0, parse_failure_total=0, all required roles present, and current PDF hashes.",
         }
     summary = read_json(path)
-    if summary.get("state") == "PASS" and int(summary.get("critical_open_total", 0)) == 0 and int(summary.get("high_open_total", 0)) == 0:
+    required_roles = {
+        "scientific_copyeditor",
+        "technical_editor",
+        "journal_editor",
+        "layout_toc_page_flow_reviewer",
+        "hostile_reader",
+        "bibliography_metadata_editor",
+        "claim_evidence_prosecutor",
+    }
+    role_ids = set(summary.get("role_ids") or [])
+    missing_roles = sorted(required_roles - role_ids)
+    expected_hashes = expected_cerberus_pdf_hashes(package_assembly)
+    observed_hashes = summary.get("pdf_hashes") if isinstance(summary.get("pdf_hashes"), dict) else {}
+    hash_mismatch = {
+        key: {"expected": expected, "observed": observed_hashes.get(key)}
+        for key, expected in sorted(expected_hashes.items())
+        if observed_hashes.get(key) != expected
+    }
+    revision_mismatch = None
+    if assembly_revision and summary.get("assembly_revision") != assembly_revision:
+        revision_mismatch = {"expected": assembly_revision, "observed": summary.get("assembly_revision")}
+    parse_failure_total = int(summary.get("parse_failure_total", 0))
+    require_priority_routing = assembly_revision == "recovery_r014"
+    local_first = summary.get("local_first_review") if isinstance(summary.get("local_first_review"), dict) else {}
+    routing = summary.get("cerberus_priority_routing") if isinstance(summary.get("cerberus_priority_routing"), dict) else {}
+    local_first_mismatch = None
+    if require_priority_routing:
+        if local_first.get("state") != "PASS":
+            local_first_mismatch = {"expected": "PASS", "observed": local_first.get("state")}
+        elif routing.get("external_review_enabled") is not True:
+            local_first_mismatch = {"expected": "external_review_enabled true", "observed": routing.get("external_review_enabled")}
+    if (
+        summary.get("state") == "PASS"
+        and int(summary.get("critical_open_total", 0)) == 0
+        and int(summary.get("high_open_total", 0)) == 0
+        and parse_failure_total == 0
+        and not missing_roles
+        and not hash_mismatch
+        and not revision_mismatch
+        and not local_first_mismatch
+    ):
         return None
     findings = summary.get("findings", [])
     artifacts = sorted({finding.get("artifact", "unknown") for finding in findings})
@@ -385,13 +465,20 @@ def _cerberus_vulnerability() -> dict[str, Any] | None:
         "severity": "CRITICAL" if int(summary.get("critical_open_total", 0)) else "HIGH",
         "release_blocking": True,
         "affected_node_ids": [],
-        "affected_artifacts": artifacts,
-        "finding_total": len(findings),
+        "affected_artifacts": sorted(set(artifacts + [str(path.relative_to(ROOT))])),
+        "finding_total": len(findings)
+        + len(missing_roles)
+        + len(hash_mismatch)
+        + (1 if revision_mismatch else 0)
+        + (1 if local_first_mismatch else 0)
+        + parse_failure_total,
         "critical_open_total": summary.get("critical_open_total", 0),
         "high_open_total": summary.get("high_open_total", 0),
-        "parse_failure_total": summary.get("parse_failure_total", 0),
-        "missing_roles": summary.get("missing_roles", []),
-        "hash_mismatch": summary.get("hash_mismatch", {}),
+        "parse_failure_total": parse_failure_total,
+        "missing_roles": missing_roles,
+        "hash_mismatch": hash_mismatch,
+        "revision_mismatch": revision_mismatch,
+        "local_first_mismatch": local_first_mismatch,
         "findings": findings,
         "required_repair": "Convert open editorial/Cerberus findings into minimal release remediation deltas, regenerate affected artifacts only, and rerun the affected roles.",
         "verification_rule": "Fresh editorial Cerberus summary must pass with zero critical/high findings, zero parse failures, all required roles, and current artifact hashes.",
@@ -422,7 +509,14 @@ def build_audit_payload(release_id: str, assembly_revision: str | None = None) -
     scientific_not_assessed_nodes = [row["aggregator_node_id"] for row in l10_rows if row.get("scientific_coverage_status") == "not_assessed"]
     missing_metric_rows = [row for row in l10_rows if row["missing_required_metric_ids"]]
     artifact_failures = [row for row in artifact_rows if row["state"] != "PASS"]
-    vulnerabilities = build_vulnerability_rows(release_id, l10_rows, artifact_rows, recovery_regression)
+    vulnerabilities = build_vulnerability_rows(
+        release_id,
+        l10_rows,
+        artifact_rows,
+        recovery_regression,
+        assembly_revision=assembly_revision,
+        package_assembly=package_assembly,
+    )
     blocking_total = sum(1 for row in vulnerabilities if row["release_blocking"])
     family_counts: Counter[str] = Counter()
     for row in matrix["projection_rows"]:
@@ -484,6 +578,9 @@ def build_vulnerability_rows(
     l10_rows: list[dict[str, Any]],
     artifact_rows: list[dict[str, Any]],
     recovery_regression: dict[str, Any] | None = None,
+    *,
+    assembly_revision: str | None = None,
+    package_assembly: dict[str, Any] | None = None,
 ) -> list[dict[str, Any]]:
     vulnerabilities: list[dict[str, Any]] = []
     not_assessed = [row["aggregator_node_id"] for row in l10_rows if row["quality_state"] == "NOT_ASSESSED"]
@@ -516,6 +613,22 @@ def build_vulnerability_rows(
                 "finding_total": len(missing_required),
                 "required_repair": "Repair projection rules so every L10 terminal node has required positive, traceability, didactic, structure, and safety metrics.",
                 "verification_rule": "python tools/build_oc_core_l10_quality_projection_matrix.py --check must pass with no node_missing_required_metrics failures.",
+            }
+        )
+    scientific_not_assessed = [row["aggregator_node_id"] for row in l10_rows if row.get("scientific_coverage_status") == "not_assessed"]
+    if scientific_not_assessed:
+        vulnerabilities.append(
+            {
+                "vulnerability_id": "VULN-QA-003",
+                "root_class": "l10_scientific_coverage_not_assessed",
+                "severity": "CRITICAL",
+                "release_blocking": True,
+                "affected_node_ids": scientific_not_assessed,
+                "affected_node_total": len(scientific_not_assessed),
+                "affected_artifacts": [f"releases/{release_id}/editorial/quality_validation"],
+                "finding_total": len(scientific_not_assessed),
+                "required_repair": "Replace blanket scientific coverage not_assessed values with deterministic complete/partial/planned/missing assessments and source/evidence notes.",
+                "verification_rule": f"python tools/audit_oc_core_release_quality.py --release {release_id} --assembly-revision {assembly_revision or '<revision>'} --check must report scientific_coverage_not_assessed_l10_total=0.",
             }
         )
     form_failed_artifacts = [row for row in artifact_rows if row.get("form_quality_status") == "FAIL"]
@@ -564,7 +677,7 @@ def build_vulnerability_rows(
                 "verification_rule": f"python tools/assemble_oc_core_release_package.py --release {release_id} --structure-source recovered_l10c --assembly-revision recovery_r001 --check must pass and recovered_master_pages must be >= {OLD_MASTER_BASELINE_PAGES}.",
             }
         )
-    cerberus = _cerberus_vulnerability()
+    cerberus = _cerberus_vulnerability(release_id, assembly_revision, package_assembly)
     if cerberus:
         vulnerabilities.append(cerberus)
     return vulnerabilities
@@ -573,7 +686,16 @@ def build_vulnerability_rows(
 def build_protocol_payload(release_id: str, audit: dict[str, Any]) -> dict[str, Any]:
     l10_rows = audit["l10_quality_rows"]
     artifact_rows = audit["artifact_quality_rows"]
-    vulnerabilities = build_vulnerability_rows(release_id, l10_rows, artifact_rows, audit.get("release_package_regression"))
+    assembly_revision = audit.get("assembly_revision")
+    package_assembly = _release_package_assembly(release_id, assembly_revision)
+    vulnerabilities = build_vulnerability_rows(
+        release_id,
+        l10_rows,
+        artifact_rows,
+        audit.get("release_package_regression"),
+        assembly_revision=assembly_revision,
+        package_assembly=package_assembly,
+    )
     severity_counts = Counter(row["severity"] for row in vulnerabilities)
     payload: dict[str, Any] = {
         "schema_id": "OC_CORE_RELEASE_VULNERABILITY_PROTOCOL_v1",
@@ -600,6 +722,7 @@ def build_delta_payload(release_id: str, audit: dict[str, Any], protocol: dict[s
     affected_artifacts = sorted({artifact for row in blocking for artifact in row.get("affected_artifacts", [])})
     delta_items: list[dict[str, Any]] = []
     qa_ids = [row["vulnerability_id"] for row in blocking if row["root_class"] == "l10_quality_scores_not_assessed"]
+    scientific_qa_ids = [row["vulnerability_id"] for row in blocking if row["root_class"] == "l10_scientific_coverage_not_assessed"]
     if qa_ids:
         delta_items.append(
             {
@@ -612,6 +735,19 @@ def build_delta_payload(release_id: str, audit: dict[str, Any], protocol: dict[s
                     f"python tools/audit_oc_core_release_quality.py --release {release_id} --check",
                 ],
                 "closure_evidence": "not_assessed_l10_total becomes 0 or each remaining not_assessed row is justified by an explicit blocker protocol row.",
+            }
+        )
+    if scientific_qa_ids:
+        delta_items.append(
+            {
+                "delta_item_id": "DELTA-r001-SCIENTIFIC-COVERAGE",
+                "source_vulnerability_ids": scientific_qa_ids,
+                "minimal_source_delta": "Assess each terminal L10 scientific coverage row deterministically from existing source and evidence anchors; demote unsupported public claims instead of overclaiming.",
+                "expected_output_delta": "scientific_coverage_not_assessed_l10_total becomes 0 and scientific_full_coverage_claim_allowed becomes true only when no blocking rows remain.",
+                "verification_commands": [
+                    f"python tools/audit_oc_core_release_quality.py --release {release_id} --check",
+                ],
+                "closure_evidence": "All L10 coverage statuses are complete, partial, planned, or missing with no promoted missing claims.",
             }
         )
     cerb_ids = [row["vulnerability_id"] for row in blocking if row["root_class"].startswith("editorial_cerberus")]

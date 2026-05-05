@@ -1,0 +1,249 @@
+% GENERATED_BY: oc_core_monograph_translation_draft_pipeline_v1.py
+% AI_ASSISTED_TRANSLATION_DRAFT: TRUE
+% THEOREM_REVIEW_STATUS: PENDING
+% THEOREM_REVIEW_MODE: FORMAL_AI_GATE__CODEX_CLI_CHATGPT
+% THEOREM_REVIEW_REVIEWER_ID:
+% THEOREM_REVIEW_AUTHORITY_CLASS:
+% THEOREM_REVIEWED_AT:
+% THEOREM_REVIEW_DOSSIER_REF:
+% SOURCE_LANGUAGE: EN
+% TARGET_LANGUAGE: RU
+% SOURCE_EN_REF: content/19_oc_core_1_3_foundational_consistency.tex
+\section{Досье базовой согласованности Core 1.3.3}
+\label{sec:oc13-foundational-consistency}
+
+Core 1.3.3 добавляет явный слой согласованности к унаследованному монографическому каркасу.
+Его цель не в том, чтобы заменить формальные главы редакторским комментарием,
+а в том, чтобы сделать три вещи читаемыми в одном месте:
+
+\begin{itemize}
+\item почему нынешняя иерархия фиксируется как \(K_0\) through \(K_{12}\), а
+      не произвольным отсечением;
+\item какие утверждения в томе являются аксиоматическими, выводными,
+      структурными или интерпретативными;
+\item как связаны между собой мастер-монография и более узкая журнальная
+      экстракция core без бесшумного дрейфа в охвате или нотации.
+\end{itemize}
+
+\subsection{Почему иерархия фиксируется как \texorpdfstring{$K_0$--$K_{12}$}{K0-K12}}
+
+Core 1.2 уже содержит достаточно структуры, чтобы потребовать иерархию
+больше \(K_{10}\). Смысл не в том, что более высокие метки риторически
+привлекательны. Смысл в том, что сам исходный корпус уже различает:
+
+\begin{enumerate}
+\item континуумы нижнего уровня, чьи оси, пороги и потоки являются внутренними
+      для данного класса моделей;
+\item теоретические и метатеоретические континуумы, которые организуют сами
+      теории и пространства моделей;
+\item дальнейший слой, в котором операторы, металогики и пространства моделей
+      становятся явными объектами структурной эволюции;
+\item и верхний граничный слой, в котором глобальные условия согласованности
+      между такими структурами более высокого порядка сами должны быть
+      представлены.
+\end{enumerate}
+
+Именно поэтому Core 1.3.3 фиксирует иерархию как \(K_0,\dots,K_{12}\), а не
+как \(K_0,\dots,K_{10}\). Остановка на \(K_{10}\) оставляет публичный
+исходный корпус внутренне несогласованным, потому что более поздние модули уже
+требуют \(K_{11}\) и \(K_{12}\) для формулировки межуровневых переходов и
+верхнеграничных условий, о которых заявляет фреймворк.
+
+\subsection{Научная роль верхних уровней}
+
+\paragraph{Уровень \texorpdfstring{$K_{11}$}{K11}.}
+\(K_{11}\) — это первый уровень, на котором формальные онтологии, системы
+операторов, металогики и пространства моделей сами рассматриваются как
+структурированные континуумы, подчиненные условиям допустимости,
+преобразования и коллапса.
+Этот уровень нужен, когда изучают не только теории, но и эволюцию тех
+пространств, в которых существуют теории и операторы построения теорий.
+
+\paragraph{Уровень \texorpdfstring{$K_{12}$}{K12}.}
+\(K_{12}\) не вводится как мистический слой завершения.
+Это минимально специфицированный верхний слой согласованности, необходимый
+когда требуется обсуждать глобальную совместимость, ограниченность и режимы
+сбоя по семействам объектов \(K_{11}\).
+Его роль структурная, а не триумфалистская: он не позволяет иерархии
+делать вид, будто над рекурсивно эволюционирующими метатеоретическими
+пространствами нет формальной проблемы.
+
+\subsection{Классы утверждений}
+
+Чтобы том оставался читаемым без размытия научного статуса, Core~1.3.3 использует
+в этой главе следующую лексику статуса доказательности. Это локальная
+таксономия теорем и охвата утверждений; в разделе
+the oc13 theorem discussionroadmapк ней добавляется последующая
+операциональная нагрузка контроля для replay, comparator, falsifier и
+правил эскалации.
+
+\begin{itemize}
+\item \textbf{Axiomatic statements} фиксируют первичные допущения, условия
+      допустимости или правила идентичности.
+\item \textbf{Derived statements} — это утверждения, несущие теорему, с явной
+      зависимостью от поддержки и обязательствами доказательства.
+\item \textbf{Empirical statements} требуют автономного source-owned packet,
+      canonical proof-routed trace, pinned data route, numerical parameter
+      law, observable binding, locked held-out replay procedure, comparator
+      audit и явного falsifier до promotion.
+\item \textbf{Structural statements} описывают организацию фреймворка,
+      иерархию и отображение между модулями или уровнями.
+\item \textbf{Interpretive statements} объясняют, что означает формальная
+      структура, для какого она читателя и какие последующие проекции она
+      может тестировать.
+\item \textbf{Frontier statements} могут оставаться в research program, но не
+      могут входить в положительную внешнюю науку без formal promotion.
+\end{itemize}
+Эти локальные классы не предполагаются попарно непересекающимися. Когда
+предложение может попасть более чем в один класс, его публичный статус
+определяется семантической ролью и функцией доказательства, а не поверхностной
+формулировкой:
+\begin{enumerate}
+\item явное противоречие promoted claim сначала помечает refutation-candidate
+      или surface-contradiction case для evidence-state summary audit;
+\item эмпирическое содержимое проверяется по packet, data route, replay,
+      comparator и falsifier support до того, как доверяют какой-либо
+      прозовой метке;
+\item выводное теоремное содержимое проверяется по its proof route and
+      dependency graph;
+\item допущенные первичные предпосылки остаются axiomatic premises;
+\item structural mapping и hierarchy claims остаются structural even when
+      they mention possible later use;
+\item explanatory, audience-facing, or didactic sentences remain interpretive
+      unless they assert theorem or empirical force;
+\item unpromoted research-program proposals remain frontier statements;
+\item pure structural or interpretive content keeps the evidence-state summary-recorded
+      support-only row or future-work support row class unless it is explicitly
+      attached to evidence-bearing bridge material;
+\item bridge-only support row is a stable evidence-support class for rows or
+      packets that carry bridge support under explicit scope notes; it is not a
+      bounded review-route support queue.
+\end{enumerate}
+Слова вроде ``frontier'', ``candidate'' или ``projection'' therefore
+служат диагностическими сигналами, а не самим правилом assignment класса.
+
+Эти прозаические классы представляют собой локальную таксономию статуса
+доказательства, а не замену канонической evidence-state summary-лексики научного класса и
+closure-verdict. Release verdicts вроде \texttt{bounded review evidence recorded} и
+\texttt{repair-required boundary} остаются отдельным слоем verdict. Соответствие таково:
+\begin{itemize}
+\item Axiomatic statements являются admitted premises или identity rules. Они
+      могут находиться внутри маршрута \occode{bounded review route} как named
+      assumptions, но сама аксиома от этого не превращается в proved theorem.
+\item Derived statements отображаются в \occode{bounded review route} when the
+      support route is closed.
+\item Empirical statements отображаются в \occode{bounded review route} only after
+      the source-owned packet, proof-routed trace, pinned data route,
+      numerical parameter law, observable binding, locked held-out replay
+      procedure, comparator audit, and falsifier gates pass.
+\item Structural and interpretive statements map to support-only row or
+      future-work support row as recorded by evidence-state summary unless the statement is attached
+      to an evidence-bearing bridge row.
+\item Frontier statements map to future-work support row until a later section or
+      release promotes them through the same proof-routed or empirical gates
+      used for other positive claims, or records an explicit refutation.
+\item Fail-closed bridge, frame, or extension lanes retain the class recorded
+      by evidence-state summary; closure failure by itself is not refutation.
+\item Statements map to negative-control rejection row only when evidence-state summary records an explicit
+      refutation rather than a blocked promotion.
+\end{itemize}
+Эта глава классифицирует statement classes, которые влияют на статус
+теоремы, структурный scope, интерпретацию, empirical promotion и
+frontier boundaries.
+Operational route discipline рассматривается позже в главах theorem-roadmap и
+proof-machinery.
+Editorial-bridge language — это не седьмой proof class; это
+интерпретативная и release-consistency label для утверждений, которые
+соединяют монографию, journal core, dossiers и public package, не добавляя
+теоремной силы.
+Operational statements — это более поздние exact-match, held-out replay,
+statistical-threshold, tail-breach, comparator, falsifier и escalation rules,
+связанные с empirical promotion. Structural statements проверяются иначе — по
+scope, dependency и source-boundary checks. Оба типа контроля применяются
+после того, как здесь уже зафиксированы statement class, numerical parameter
+law и observable binding, и ни один из них не становится седьмым proof-status
+class.
+
+Journal-core extraction может сужать этот корпус, но не имеет права
+смешивать эти классы друг с другом.
+Интерпретативное предложение может объяснять теорему; оно не может
+подменять теорему.
+Структурное замечание может мотивировать проекцию; оно не может
+тихо служить доказательством этой проекции.
+
+\subsection{Уровни с доказательной силой и уровни не-утверждения}
+
+Мастер-монография поэтому явно разделяет три слоя:
+
+\begin{enumerate}
+\item унаследованный formal backbone, который по-прежнему несет структуру
+      core theory;
+\item слой ремонта Core 1.3.3, который проясняет witness discipline, fate of
+      theorem, chronology и public claim boundary;
+\item bounded nonclaim layer, который указывает, что нынешний выпуск пока
+      не защищает, даже если более широкая research program все еще это
+      преследует.
+\end{enumerate}
+
+Это разделение важно для hostile review.
+Рецензент должен уметь спросить для любого звучащего сильно предложения:
+это axiomatic, derived, empirical, structural, interpretive или frontier?
+Если оно derived, чем оно поддержано?
+Если оно empirical, какой packet, data route, replay, comparator и
+falsifier его поддерживают?
+Если оно structural or interpretive, что именно оно не утверждает?
+Если оно frontier, где именно ему явно запрещен positive release authority?
+
+\subsection{Связь между мастер-монографией и journal core}
+
+Канонический evidence-state summary является научной authority выпуска, а corpus науки,
+принадлежащий исходному источнику, — это locus авторства и свидетельства,
+стоящий за этой проекцией. Мастер-монография — это flagship reader-facing
+reference, потому что она содержит полную теорию, reader ladder, appendices
+и explicit public claim boundary в одном месте.
+\emph{Journal Core} — это bounded article artifact. The
+\emph{journal-core extraction} — это операция, которая выбирает один
+защищаемый theorem-bearing route для editorial inspection, не делая вид, что
+вся монография уже сжата в этот более короткий артефакт.
+
+По этой причине правило extraction односторонне:
+
+\[
+\text{Master Monograph} \longrightarrow \text{Journal Core},
+\]
+
+с явным сохранением нотации, nonclaim boundaries и theorem scope.
+Процедура extraction может опускать детали.
+Journal Core не может расширять claim.
+Публичная граница closure остается scope
+\texttt{current bounded science surface}, указанным в
+разделе~the public claim-boundary chapter. \texttt{frame-only support row}
+closures могут быть \texttt{bounded review evidence recorded} as frame support, но они не становятся
+standalone empirical promotions. \texttt{bridge-only support row} rows — это
+scope-bounded evidence support, а не public promoted closure; они не
+перемаркировываются как proof-routed \texttt{bounded review evidence recorded} rows, если только не
+создается отдельный source-owned proof-routed packet, который проходит
+канонические gates. \texttt{frontier extension row} и \texttt{negative-control rejection row} lanes остаются
+вне public \texttt{bounded review evidence recorded} authority.
+
+\subsection{Последствие для читателя}
+
+Эта глава существует потому, что научная строгость и читаемость здесь не
+тянут в противоположные стороны.
+Чем явнее досье говорит об иерархии, классе утверждений и границе
+доказательства, тем проще это сразу для трех читателей:
+
+\begin{itemize}
+\item редактора, которому нужен чистый обзор того, что именно защищается;
+\item формального читателя, которому нужны точный scope и дисциплина
+      зависимостей;
+\item неспециалиста-научного читателя, которому нужна связная точка входа в
+      повествование перед погружением в полный технический каркас.
+\end{itemize}
+
+\paragraph{Bridge to the next chapter.}
+С зафиксированными классами утверждений, границей иерархии и relation от
+master к derivative следующая глава сужает фокус еще дальше до одной задачи:
+кратчайшего lawful proof-navigation route через несущую theorem spine.
+
+\clearpage

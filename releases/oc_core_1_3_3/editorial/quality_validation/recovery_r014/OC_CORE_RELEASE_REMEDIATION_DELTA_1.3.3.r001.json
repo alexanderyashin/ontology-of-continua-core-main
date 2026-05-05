@@ -1,0 +1,56 @@
+{
+  "affected_artifacts": [
+    "journal_core_article_1.3.3.pdf",
+    "journal_core_article_1.3.3.pdf + OC_CORE_RELEASE_PACKAGE_MANIFEST_1.3.3.json",
+    "master_monograph_1.3.3.pdf",
+    "methods_repro_companion_1.3.3.pdf",
+    "releases\\oc_core_1_3_3\\editorial\\quality_validation\\recovery_r014\\cerberus\\OC133_EDITORIAL_CERBERUS_SUMMARY.json"
+  ],
+  "affected_node_ids": [],
+  "affected_node_total": 0,
+  "allowed_write_scope": [
+    "releases/oc_core_1_3_3/editorial/quality_validation",
+    "reviews/oc133_llm_cerberus/editorial_release_review",
+    "only artifact source files explicitly named by a vulnerability row"
+  ],
+  "artifact_hash": "89972a9c5858bb137fced8a0bddef87d8ee06b5c52f960ebfd12ac93ffef6bd0",
+  "artifact_kind": "OC_CORE_RELEASE_REMEDIATION_DELTA",
+  "body_prose_included": false,
+  "delta_items": [
+    {
+      "closure_evidence": "VULN-CERB rows disappear from the vulnerability protocol.",
+      "delta_item_id": "DELTA-r001-CERBERUS-EDITORIAL",
+      "expected_output_delta": "Fresh editorial Cerberus summary with current hashes and zero critical/high findings.",
+      "minimal_source_delta": "Repair only artifact/source sections named by editorial Cerberus findings, then rerun the missing/current editorial roles.",
+      "source_vulnerability_ids": [
+        "VULN-CERB-001"
+      ],
+      "verification_commands": [
+        "python tools/audit_oc_core_release_quality.py --release oc_core_1_3_3 --check",
+        "python tools\\oc133_public_release_payload.py --generic-assembly-check"
+      ]
+    }
+  ],
+  "forbidden_write_scope": [
+    "GitHub Release",
+    "Zenodo",
+    "tag movement",
+    "DOI minting",
+    "journal submission"
+  ],
+  "parent_hashes": {
+    "release_instance_hash": "e4f7705e6230cc73932dac3f31e005f49e669bd550c2653b1e12780188e7ffb2",
+    "release_quality_audit_hash": "c263b2885872bbcff9fd97953f8999b244a4140c66a5f741427bfb568c11adda",
+    "vulnerability_protocol_hash": "be046cfbb19722038769fe48a263107dc2709755a7f783ead49f0b6995dd06b7"
+  },
+  "release_identity": {
+    "identity_source": "explicit_release_argument",
+    "release_id": "oc_core_1_3_3",
+    "version": "1.3.3",
+    "version_assigned_at_instance_layer": true
+  },
+  "remediation_revision": "r001",
+  "rollback_or_block_rule": "If a proposed delta touches nodes or artifacts not named here, block it and create a new owner-reviewed delta revision.",
+  "schema_id": "OC_CORE_RELEASE_REMEDIATION_DELTA_v1",
+  "status": "DELTA_REPAIR_REQUIRED"
+}

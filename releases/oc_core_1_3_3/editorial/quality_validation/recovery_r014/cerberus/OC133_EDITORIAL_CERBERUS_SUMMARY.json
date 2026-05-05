@@ -1,0 +1,244 @@
+{
+  "schema_id": "OC133_EDITORIAL_CERBERUS_SUMMARY_v1",
+  "release_id": "oc_core_1_3_3",
+  "version": "1.3.3",
+  "assembly_revision": "recovery_r014",
+  "generated_at": "2026-05-05T11:04:54Z",
+  "state": "FAIL",
+  "severity_phases": [
+    "release_blockers"
+  ],
+  "severity_policy": {
+    "release_blockers": {
+      "allowed_severities": [
+        "CRITICAL",
+        "HIGH"
+      ],
+      "blocking_severities": [
+        "CRITICAL",
+        "HIGH"
+      ],
+      "instruction": "Phase 1: report only defects that should block public replacement of v1.3.3. Do not report medium, low, optional, taste, wording-polish, or nice-to-have issues. A finding is CRITICAL only if it makes the release scientifically false, misleading, non-publication-grade, or structurally invalid. A finding is HIGH only if a serious journal editor or hostile expert would reasonably stop the release until repaired. If the issue can wait for post-release polish, omit it entirely in this phase."
+    }
+  },
+  "cerberus_priority_routing": {
+    "schema_id": "OC133_CERBERUS_PRIORITY_ROUTING_v1",
+    "policy": "cheap_local_first_then_expensive_external_reasoning",
+    "cheap_first_ladder": [
+      {
+        "tier": "L10_static_public_surface",
+        "engine": "deterministic_regex_and_path_checks",
+        "role": "Reject metadata leaks, malformed paths, raw generator labels, TeX filename leaks, and already-known bad wording classes before any expensive review."
+      },
+      {
+        "tier": "L10_governed_ollama_chunks",
+        "engine": "Logion governed local LLM service",
+        "role": "Inspect small reader-facing chunks for cheap prose defects, forbidden public terms, weak local readability, and local leakage under host safety policy."
+      },
+      {
+        "tier": "L9_chapter_aggregation",
+        "engine": "deterministic aggregation plus governed local checker",
+        "role": "Aggregate only clean L10 chunks into chapter/document-local findings; repeated cheap defects become static regression tests."
+      },
+      {
+        "tier": "L8_document_projection",
+        "engine": "release assembly machine",
+        "role": "Check document-level form, layout, figure/table gates, journal package projections, and source-grounding before external reasoning."
+      },
+      {
+        "tier": "external_cerberus_reasoning",
+        "engine": "Codex/external high-reasoning review",
+        "role": "Spend expensive reasoning only on conceptual vulnerabilities, scientific adequacy, argument order, claim/evidence fit, and journal-readiness."
+      }
+    ],
+    "external_review_enabled": true,
+    "external_review_instruction": "Do not spend external reasoning on simple metadata leaks, malformed paths, raw generator labels, TeX filename leaks, or known wording classes; those are local L10/L9 obligations. External Cerberus reviews conceptual, scientific, structural, evidence, and journal-readiness risks."
+  },
+  "local_first_review": {
+    "schema_id": "OC133_CERBERUS_CHEAP_FIRST_LOCAL_REVIEW_v1",
+    "state": "PASS",
+    "assembly_revision": "recovery_r014",
+    "cheap_first_ladder": [
+      {
+        "tier": "L10_static_public_surface",
+        "engine": "deterministic_regex_and_path_checks",
+        "role": "Reject metadata leaks, malformed paths, raw generator labels, TeX filename leaks, and already-known bad wording classes before any expensive review."
+      },
+      {
+        "tier": "L10_governed_ollama_chunks",
+        "engine": "Logion governed local LLM service",
+        "role": "Inspect small reader-facing chunks for cheap prose defects, forbidden public terms, weak local readability, and local leakage under host safety policy."
+      },
+      {
+        "tier": "L9_chapter_aggregation",
+        "engine": "deterministic aggregation plus governed local checker",
+        "role": "Aggregate only clean L10 chunks into chapter/document-local findings; repeated cheap defects become static regression tests."
+      },
+      {
+        "tier": "L8_document_projection",
+        "engine": "release assembly machine",
+        "role": "Check document-level form, layout, figure/table gates, journal package projections, and source-grounding before external reasoning."
+      },
+      {
+        "tier": "external_cerberus_reasoning",
+        "engine": "Codex/external high-reasoning review",
+        "role": "Spend expensive reasoning only on conceptual vulnerabilities, scientific adequacy, argument order, claim/evidence fit, and journal-readiness."
+      }
+    ],
+    "l10_static_packet_total": 246,
+    "l10_static_blocker_total": 0,
+    "local_ollama_queue_status": "PASS",
+    "governed_service_status": "PASS",
+    "governed_queue_status": "DONE",
+    "ollama_invocation_total": 24,
+    "unmanaged_ollama_call_total": 0,
+    "external_reasoning_gate_status": "PASS",
+    "external_reasoning_scope": [
+      "scientific adequacy and claim/evidence fit",
+      "conceptual vulnerabilities and logical inconsistencies",
+      "argument order, didactic completeness, and reader confidence",
+      "journal-readiness and venue-facing package completeness"
+    ],
+    "findings": []
+  },
+  "external_reasoning_run_status": "RUN",
+  "role_ids": [
+    "bibliography_metadata_editor",
+    "claim_evidence_prosecutor",
+    "hostile_reader",
+    "journal_editor",
+    "layout_toc_page_flow_reviewer",
+    "scientific_copyeditor",
+    "technical_editor"
+  ],
+  "role_total": 7,
+  "critical_open_total": 1,
+  "high_open_total": 8,
+  "parse_failure_total": 0,
+  "finding_total": 9,
+  "findings": [
+    {
+      "finding_id": "TE-HIGH-001",
+      "severity": "HIGH",
+      "status": "OPEN",
+      "artifact": "master_monograph_1.3.3.pdf",
+      "issue": "Blocking routing failure: malformed/generated cross-reference language remains in the load-bearing theorem roadmap.",
+      "evidence": "The theorem-roadmap source for the PDF contains reader-visible phrases such as 'Figure figure oc13 theorem spine', 'the sections on klevels full', and 'section oc core 1 3 practical utility' in the proof-navigation table.",
+      "required_repair": "Patch or regenerate the theorem roadmap so all figure/table/section references resolve to publication-grade labels or page/section references, then add a regression check for generated cross-reference residue in proof/evidence navigation text.",
+      "role_id": "technical_editor",
+      "severity_phase": "release_blockers"
+    },
+    {
+      "finding_id": "TE-HIGH-002",
+      "severity": "HIGH",
+      "status": "OPEN",
+      "artifact": "methods_repro_companion_1.3.3.pdf",
+      "issue": "The public reproducibility path is incomplete for the scientific checks: the companion tells readers to run or reproduce bounded checks but prints only release assembly/quality audit commands, not commands for the finite-model, replay, numeric QA, or formalization checks that carry the evidence claims.",
+      "evidence": "Section 'Public Reproducibility Protocol' requires a command at step 4, but the command block lists only audit_oc_core_release_assembly_machine.py, audit_oc_core_release_quality.py, and release_machine pytest. The actual replay anchor is only named as validation/target_blind/OC133_TARGET_BLIND_PREDICTION_TABLE.json.",
+      "required_repair": "Add a command-and-output matrix for the promoted evidence lanes: finite model checks, bounded replay/numeric QA, relevant formalization/certificate checks, expected outputs or hashes, working directory, required inputs, and failure interpretation tied to claim demotion.",
+      "role_id": "technical_editor",
+      "severity_phase": "release_blockers"
+    },
+    {
+      "finding_id": "JED-HIGH-001",
+      "severity": "HIGH",
+      "status": "OPEN",
+      "artifact": "journal_core_article_1.3.3.pdf + OC_CORE_RELEASE_PACKAGE_MANIFEST_1.3.3.json",
+      "issue": "Central theorem/proof claims are routed to proof-sheet files that are not checksum-bound in the packaged release manifest.",
+      "evidence": "The article anchors A1-A3 to proofs/proof_sheets/T133-*.md files, but the package manifest lists finite checks, replay, comparator, and source files, not those proof sheets as packaged SHA-256 evidence.",
+      "required_repair": "Either include every cited proof sheet, theorem registry/inventory, and formalization support file in the review package with hashes, or demote/rewrite the public claims so they rely only on bundled, checksum-bound evidence.",
+      "role_id": "journal_editor",
+      "severity_phase": "release_blockers"
+    },
+    {
+      "finding_id": "JED-HIGH-002",
+      "severity": "HIGH",
+      "status": "OPEN",
+      "artifact": "master_monograph_1.3.3.pdf",
+      "issue": "The master monograph still exposes an unsupported blind-study implication in a public indexing surface.",
+      "evidence": "The master keyword block uses 'target-blind replay QA', while the methods companion states the target_blind path is historical and the evidence is retrospective bounded replay QA, not prospective-blind support.",
+      "required_repair": "Replace non-path public wording with 'retrospective bounded replay QA' across keywords/metadata/body surfaces; retain target_blind only as a file path with the existing caveat.",
+      "role_id": "journal_editor",
+      "severity_phase": "release_blockers"
+    },
+    {
+      "finding_id": "OC133-R014-HOSTILE-HIGH-001",
+      "severity": "HIGH",
+      "status": "OPEN",
+      "artifact": "journal_core_article_1.3.3.pdf",
+      "issue": "Named formal proof anchors are not checksum-bound in the scoped release package.",
+      "evidence": "The article names proof-sheet files such as T133-OMEGA-STATUS.md, T133-K-ZERO.md, T133-BOUNDARY.md, T133-KLEVEL.md, etc. The public evidence bundle checksum-bound list includes comparator, prior-art, replay, numeric replay, and finite-model files, but not the named proof sheets, theorem registry, proof dependency graph, or Lean files; the package manifest search likewise exposes FINITE_MODEL_CHECKS but no proof_sheets or Lean sources.",
+      "required_repair": "Either include and checksum-bind every proof sheet, theorem registry/dependency artifact, formalization inventory, Lean source, and Lean certificate cited as public support, or demote the article/monograph wording so the exact r014 bundle claims only the evidence actually packaged and hash-bound.",
+      "role_id": "hostile_reader",
+      "severity_phase": "release_blockers"
+    },
+    {
+      "finding_id": "OC133-R014-HOSTILE-HIGH-002",
+      "severity": "HIGH",
+      "status": "OPEN",
+      "artifact": "master_monograph_1.3.3.pdf",
+      "issue": "The public formal-support wording is stronger than the bundled certificate state.",
+      "evidence": "The public PDFs repeatedly state that some claims are supported by Lean declarations/formalization inventory and formal/executable artifacts. The included finite-model evidence records source_manifest_binding_ok=false, certificate_binding_failure_total=2, failures LEAN_CERTIFICATE_NOT_CLEAN_OR_NOT_BOUND_TO_CURRENT_SOURCE and LEAN_CERTIFICATE_SOURCE_MANIFEST_HASH_MISMATCH, and machine_checked_subset_total=0.",
+      "required_repair": "Before public replacement, either repair the Lean/source-manifest binding so the certificate is clean for r014, or remove/demote all reader-facing Lean-support language to a non-promoted formalization-inventory note with explicit certificate-failure status.",
+      "role_id": "hostile_reader",
+      "severity_phase": "release_blockers"
+    },
+    {
+      "finding_id": "BIBMETA-HIGH-001",
+      "severity": "HIGH",
+      "status": "OPEN",
+      "artifact": "master_monograph_1.3.3.pdf",
+      "issue": "Master monograph keyword/public-record metadata still uses stale replay-validation language that contradicts the release's bounded retrospective replay policy.",
+      "evidence": "The scoped assembly binds master_monograph_1.3.3.pdf sha256 7e0e1e8a... to oc_core_1_3_master_monograph.tex. That source prints keyword text 'target-blind replay QA', while the companion/article/guide use 'retrospective bounded replay QA' and the methods companion explicitly says the target_blind path name is historical, not a prospective-blind claim. The PDF metadata source also sets pdfkeywords to include 'empirical validation', conflicting with repeated nonclaims of complete empirical validation.",
+      "required_repair": "Regenerate the master monograph with reader-facing and embedded PDF keywords aligned to the canonical evidence class, e.g. 'retrospective bounded replay QA' or 'bounded replay evidence'. Remove unqualified 'target-blind replay QA' and 'empirical validation' from title/keyword/public-record metadata unless explicitly qualified as historical path text or evidence-bound validation boundary. Rerun the local metadata/static gate and update hashes.",
+      "role_id": "bibliography_metadata_editor",
+      "severity_phase": "release_blockers"
+    },
+    {
+      "finding_id": "CE-OC133-R014-001",
+      "severity": "CRITICAL",
+      "status": "OPEN",
+      "artifact": "master_monograph_1.3.3.pdf",
+      "issue": "Canonical monograph still promotes unbounded K-level prediction and falsifiability claims that outrun the visible bounded model-core evidence.",
+      "evidence": "The K0/K1/K6/K7 sections state broad claims such as 'The theory predicts' inevitability of dimensional growth, emergence of time only at K2, global continuity maintenance, and cognitive/social refutation conditions. These read as all-domain empirical or structural predictions, not merely bounded model-core obligations.",
+      "required_repair": "Rewrite every K-level prediction/falsifiability section as scoped model-internal obligations, illustrative hypotheses, or future tests unless each claim has a named theorem/proof/evidence/falsifier anchor. Remove or qualify absolute wording such as predicts, must, only, all, inevitability, and empirically falsifies.",
+      "role_id": "claim_evidence_prosecutor",
+      "severity_phase": "release_blockers"
+    },
+    {
+      "finding_id": "CE-OC133-R014-002",
+      "severity": "HIGH",
+      "status": "OPEN",
+      "artifact": "master_monograph_1.3.3.pdf",
+      "issue": "Unsupported theorem labels remain in the formal core after the manuscript’s own theorem-fate correction.",
+      "evidence": "Local K-level text invokes theorem-like claims including 'Emergence of Time from C-cycles', 'Theorem of Representability 5 (BKT)', and 'Time Emergence Theorem', while the theorem roadmap later says legacy theorem labels are scaffolding unless individually proved.",
+      "required_repair": "Either add exact theorem statements, proof sheets, Lean/finite anchors, and theorem-roadmap entries for those labels, or demote them to analogy/construction-route language. Re-audit the monograph for remaining local theorem labels outside the supported theorem-fate table.",
+      "role_id": "claim_evidence_prosecutor",
+      "severity_phase": "release_blockers"
+    }
+  ],
+  "omitted_out_of_phase_total": 0,
+  "omitted_out_of_phase": [],
+  "waterfall_policy": {
+    "active_phases": [
+      "release_blockers"
+    ],
+    "current_release_blocker_rule": "CRITICAL/HIGH first; no MEDIUM/LOW or taste-polish may enter the release-blocking queue.",
+    "next_phase_allowed": false
+  },
+  "pdf_hashes": {
+    "guide": "e2319e2e3bccbea06d9eb9309e66a4bae1114445fd1d75a2131f266608bacceb",
+    "master": "7e0e1e8a73f608f7e3e13f20694df519d93dc71052270f6b151d16752f514f11",
+    "journal": "c665b25c5ebf332d35b43bc019aa7317dd1e672b536b6ccad51f44cc09854672",
+    "methods": "52698e312340313f64841ebb3ca800b41a7ecc1fe678377f0cdd81c83850634d",
+    "reviewer": "5b216b0981542d19e99e9e13b4ec75149d961ff5d7df8333250ac2f04b0ddf8f"
+  },
+  "pdf_text_chars": {
+    "guide": 16578,
+    "master": 1368227,
+    "journal": 32943,
+    "methods": 22040,
+    "reviewer": 22687
+  },
+  "coverage_note": "publication-grade public PDF manuscript set; cheap-first local L10/L9 hygiene before external high-reasoning Cerberus review"
+}

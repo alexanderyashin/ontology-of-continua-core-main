@@ -1,0 +1,239 @@
+% GENERATED_BY: oc_core_monograph_translation_draft_pipeline_v1.py
+% AI_ASSISTED_TRANSLATION_DRAFT: TRUE
+% THEOREM_REVIEW_STATUS: PENDING
+% THEOREM_REVIEW_MODE: FORMAL_AI_GATE__CODEX_CLI_CHATGPT
+% THEOREM_REVIEW_REVIEWER_ID:
+% THEOREM_REVIEW_AUTHORITY_CLASS:
+% THEOREM_REVIEWED_AT:
+% THEOREM_REVIEW_DOSSIER_REF:
+% SOURCE_LANGUAGE: EN
+% TARGET_LANGUAGE: RU
+% SOURCE_EN_REF: content/experiments/experiments_k2
+% ================================================================
+% ==== FILE: content/experiments/experiments_k2
+% ================================================================
+
+\subsubsection{Experiments for \texorpdfstring{$K_2$}{K_2}}
+
+The experiment chapters in this release specify proposed protocols and review designs. They do not report completed empirical support unless a row names a public source snapshot, formula or reconstruction rule, comparator, residual or uncertainty, negative control, falsifier, and replay hash.
+\label{sec:experiments-k2}
+
+The continuum level $K_2$ is the first level at which physical connectivity,
+percolation phenomena, spatial axes and energetic thresholds appear.
+Its experimental programme therefore focuses on empirically testing the
+structure of $\Omega(K_2)$, the behaviour of the connectivity operator,
+the emergence of continuous symmetries, and the critical thresholds that
+govern the birth and death of physical continua.
+
+Experiments at $K_2$ correspond to tests of:
+\begin{itemize}
+    \item percolation transitions,
+    \item connectivity and cluster formation,
+    \item threshold behaviour ($\Theta_{\mathrm{phys}}$),
+    \item emergence and stability of the physical axis $A_{\mathrm{phys}}$,
+    \item BKT-type transitions,
+    \item coherence collapse and restoration,
+    \item structural tension $T_2(t)$ and its critical scaling.
+\end{itemize}
+
+This section provides the canonical experimental programme validating the
+$K_1 \rightarrow K_2$ transition and the structure of physical continua.
+
+
+
+\subsubsection{Objectives of \texorpdfstring{$K_2$}{K_2} Experiments}
+
+The experimental programme aims to test the following principles:
+
+\begin{enumerate}
+    \item \textbf{Emergence of connectivity.}
+          Verification of the connectivity function $\mathrm{Conn}(p)$,
+          the critical percolation threshold $p_c$, and the transition
+          from disconnected to globally connected configurations.
+
+    \item \textbf{Existence of a physical axis.}
+          Emergence of $A_{\mathrm{phys}}$ from the underlying
+          connectivity structure, including its stability under perturbations.
+
+    \item \textbf{Threshold-induced structural transitions.}
+          Measurement of the physical threshold $\Theta_{\mathrm{phys}}$
+          at which the system undergoes collapse or a phase transition.
+
+    \item \textbf{Coherence and decoherence behaviour.}
+          Testing the coherence radius, correlation decay, and collapse
+          under critical tension.
+
+    \item \textbf{Critical scaling laws.}
+          Measurement of scaling exponents associated with $K_2$ thresholds
+          and phase transitions.
+
+    \item \textbf{protocol review of the operator $F_{1 \rightarrow 2}$.}
+          The transition from $K_1$ to $K_2$ must exhibit the predicted
+          deformation of $\partial\Omega$, growth of dimension, and
+          birth of the new axis.
+\end{enumerate}
+
+
+
+\subsubsection{Type~I Experiments: Percolation and Connectivity}
+
+These experiments test the structure of $\Omega(K_2)$ through percolation.
+
+The system is initialized on a discrete lattice or graph with occupation
+probability $p$, and the connectivity function $\mathrm{Conn}(p)$ is measured.
+
+Key observables:
+
+\begin{itemize}
+    \item size of the largest cluster,
+    \item mean cluster size,
+    \item susceptibility,
+    \item correlation length,
+    \item probability of global connectivity.
+\end{itemize}
+
+Experiments:
+
+\begin{enumerate}
+    \item Scan $p$ across the full range $[0,1]$ and measure $\mathrm{Conn}(p)$.
+    \item Estimate the critical threshold $p_c$.
+    \item test the monotonicity of the connectivity operator:
+          \[
+             \mathrm{Conn}(p_1) \le \mathrm{Conn}(p_2)
+             \quad \text{whenever} \quad p_1 < p_2.
+          \]
+    \item Observe the divergence of the correlation length at $p = p_c$.
+\end{enumerate}
+
+
+
+\subsubsection{Type~II Experiments: Emergence of the Physical Axis}
+
+The physical axis $A_{\mathrm{phys}}$ is defined as the continuous limit of
+coarse-grained connectivity structures.
+
+Experiments include:
+
+\begin{enumerate}
+    \item coarse-graining occupied clusters at progressively larger length
+          scales $s$;
+    \item demonstrating convergence of the coarse-grained embedding to a
+          smooth axis;
+    \item verifying that the emergent axis remains stable across multiple
+          realizations;
+    \item measuring the variance of the reconstructed coordinate.
+\end{enumerate}
+
+The goal is to show that $A_{\mathrm{phys}}$ is not imposed but emerges
+from the structure of $\Omega(K_2)$.
+
+
+
+\subsubsection{Type~III Experiments: Energetic Thresholds $\Theta_{\mathrm{phys}}$}
+
+$K_2$ is the first level where energy enters as a structural property of the
+continuum.
+The threshold $\Theta_{\mathrm{phys}}$ determines:
+
+\begin{itemize}
+    \item whether global connectivity persists,
+    \item whether the physical axis remains stable,
+    \item whether the continuum survives or collapses.
+\end{itemize}
+
+Experimental procedure:
+
+\begin{enumerate}
+    \item prepare a connected configuration near the percolation threshold;
+    \item apply energy injections or deformations (random or structured);
+    \item measure tension $T_2(t)$ as a function of applied perturbation;
+    \item determine the critical point where $T_2(t) = \Theta_{\mathrm{phys}}$;
+    \item observe collapse of global connectivity for $T_2 > \Theta_{\mathrm{phys}}$.
+\end{enumerate}
+
+These Experiments probe the role of energetic thresholds in the Core model.
+
+
+
+\subsubsection{Type~IV Experiments: BKT-Type Transitions}
+
+The Berezinskii–Kosterlitz–Thouless (BKT) transition is a canonical
+$K_2$-level phenomenon associated with topological excitations and
+correlation decay.
+
+Experiments:
+
+\begin{itemize}
+    \item simulate a 2D XY-model or equivalent system;
+    \item identify vortex–antivortex unbinding at the critical temperature;
+    \item measure the scoped jump in the helicity modulus;
+    \item compare the behaviour with the predicted threshold structure in
+          the Core (C.1-8: birth of the phase axis).
+\end{itemize}
+
+This experiment tests the mechanism of threshold-induced dimension change.
+
+
+
+\subsubsection{Type~V Experiments: Coherence Collapse}
+
+Coherence collapse experiments test:
+
+\begin{itemize}
+    \item coherence radius,
+    \item decay of correlation functions,
+    \item loss of global order under tension.
+\end{itemize}
+
+Procedure:
+
+\begin{enumerate}
+    \item initialize a near-ordered configuration;
+    \item introduce controlled randomness or noise;
+    \item track the decay of the correlation function $G(r)$;
+    \item identify the critical noise amplitude at which coherence
+          collapses;
+    \item compare behaviour to the tension threshold $\Theta_{\mathrm{phys}}$.
+\end{enumerate}
+
+
+
+\subsubsection{Type~VI Experiments: protocol review of the Operator $F_{1\rightarrow 2}$}
+
+The operator $F_{1\rightarrow 2}$ describes the transition from $K_1$ to $K_2$:
+\[
+   K_1 \xrightarrow{F_{1\rightarrow 2}} K_2.
+\]
+
+Experiments probe:
+
+\begin{itemize}
+    \item deformation of $\partial\Omega(K_1)$ into
+          $\partial\Omega(K_2)$;
+    \item the appearance of the connectivity structure;
+    \item the birth of the physical axis;
+    \item the increase of dimension;
+    \item the existence of a nontrivial threshold.
+\end{itemize}
+
+These experiments provide proposed empirical-test grounding for the
+dimension-birth theorems.
+
+
+
+\subsubsection{Summary}
+
+The $K_2$ experimental programme tests:
+
+\begin{itemize}
+    \item the emergence of connectivity,
+    \item the behaviour of critical thresholds,
+    \item the birth of the physical axis,
+    \item critical phenomena including BKT transitions,
+    \item coherence behaviour,
+    \item the validity of the $K_1\rightarrow K_2$ operator.
+\end{itemize}
+
+Because $K_2$ is the modeling bridge into physical-continuum examples under declared assumptions,
+its experimental programme is central to the empirical testing of the
+Ontology of Continua.
