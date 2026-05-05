@@ -1998,20 +1998,39 @@ class ReleaseAssemblyMachineTests(unittest.TestCase):
                 "candidate_projection_ref",
                 "guarded_writer_report_ref",
                 "source_mining_report_ref",
+                "source_intake_work_orders_ref",
             ]:
                 self.assertTrue((ROOT / refs[ref]).exists(), ref)
             self.assertFalse(payload["support_checks"]["claim_not_blocker"])
             self.assertFalse(payload["support_checks"]["source_mined_candidate_available"])
             self.assertFalse(payload["support_checks"]["lean_refs_exist"])
             self.assertFalse(payload["support_checks"]["finite_case_refs_present"])
+            self.assertGreater(payload["source_intake_work_order_total"], 0)
+            self.assertIn("lean_refs_exist", payload["missing_support_keys"])
+            self.assertIn("finite_case_refs_present", payload["missing_support_keys"])
             source_mining = read_json(ROOT / refs["source_mining_report_ref"])
+            source_intake = read_json(ROOT / refs["source_intake_work_orders_ref"])
             self.assertEqual(source_mining["status"], "SOURCE_GAP_OPEN")
             self.assertEqual(source_mining["candidate_total"], 0)
+            self.assertEqual(source_intake["status"], "OPEN")
+            self.assertGreater(source_intake["open_work_order_total"], 0)
+            self.assertTrue(
+                any(
+                    row["required_artifact"] in {"lean_refs", "finite_case_refs", "source_grounded_non_blocker_candidate"}
+                    for row in source_intake["rows"]
+                )
+            )
 
         self.assertEqual(grand["status"], "FAIL_CLOSED")
         self.assertEqual(grand["finite_regression_guard_status"], "PASS")
         self.assertEqual(grand["finite_failure_total"], 0)
         self.assertEqual(grand["finite_failure_ids"], [])
+        self.assertTrue((ROOT / grand["promotion_execution_plan_ref"]).exists())
+        grand_plan = read_json(ROOT / grand["promotion_execution_plan_ref"])
+        self.assertEqual(grand_plan["status"], "FAIL_CLOSED")
+        self.assertGreater(grand_plan["open_prerequisite_total"], 0)
+        self.assertTrue(any(row["predicate_id"] == "AI_projection_pass" and row["status"] == "OPEN" for row in grand_plan["rows"]))
+        self.assertTrue(any(row["predicate_id"] == "modern_science_superiority_certified" and row["status"] == "OPEN" for row in grand_plan["rows"]))
         self.assertEqual(comparator["status"], "OPEN")
         self.assertEqual(comparator["coverage_gap_total"], 35)
         self.assertTrue((ROOT / comparator["execution_report_ref"]).exists())
@@ -2030,6 +2049,20 @@ class ReleaseAssemblyMachineTests(unittest.TestCase):
             self.assertFalse(job["uncertainty_bound"])
             self.assertFalse(job["falsifier_bound"])
             self.assertFalse(job["replay_record_bound"])
+            domain_job_ref = (
+                factory_dir
+                / "lane_execution"
+                / "MODERN_SCIENCE_COMPARATOR_SUPERIORITY"
+                / "domain_jobs"
+                / f"{job['job_id']}.json"
+            )
+            self.assertTrue(domain_job_ref.exists(), job["job_id"])
+            domain_job = read_json(domain_job_ref)
+            self.assertEqual(domain_job["job_id"], job["job_id"])
+            self.assertEqual(domain_job["status"], "OPEN")
+            self.assertGreater(domain_job["open_gap_total"], 0)
+            self.assertFalse(domain_job["broad_pass_allowed"])
+            self.assertTrue(domain_job["missing_artifacts_by_gap"])
         self.assertFalse(comparator["broad_claim_predicates"]["coverage_extends_to_all_of_modern_science"])
 
     def test_r017_modern_science_benchmark_scoped_superiority_does_not_count_as_broad_pass(self) -> None:

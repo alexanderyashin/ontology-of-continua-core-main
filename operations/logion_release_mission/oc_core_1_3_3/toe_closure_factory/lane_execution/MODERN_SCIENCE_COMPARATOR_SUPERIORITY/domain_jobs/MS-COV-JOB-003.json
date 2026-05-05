@@ -1,0 +1,267 @@
+{
+  "artifact_hash": "b25f0d4d389e07068b7cf11c13c358ede57d53124342c3834b0d2e04afdc9394",
+  "artifact_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/domain_jobs/MS-COV-JOB-003.json",
+  "broad_pass_allowed": false,
+  "closed_gap_total": 0,
+  "domain_class_id": "chemical_sciences",
+  "execution_command": [
+    "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+    "tools/oc133_toe_closure_factory.py",
+    "--execute-comparator-domain-job",
+    "MS-COV-JOB-003",
+    "--write"
+  ],
+  "gap_total": 3,
+  "generated_at": "2026-05-05T19:16:57Z",
+  "job_id": "MS-COV-JOB-003",
+  "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+  "missing_artifacts_by_gap": {
+    "MS-COV-GAP-CHEMICAL_SCIENCES-MATERIALS_AND_SPECTROSCOPY_OBSERVABLES": [
+      "verified_open_source_capsule",
+      "benchmark_case",
+      "incumbent_comparator",
+      "oc_prediction_scoring_row",
+      "uncertainty_row",
+      "falsifier_row",
+      "replay_record"
+    ],
+    "MS-COV-GAP-CHEMICAL_SCIENCES-REACTION_AND_KINETICS_PREDICTION": [
+      "verified_open_source_capsule",
+      "benchmark_case",
+      "incumbent_comparator",
+      "oc_prediction_scoring_row",
+      "uncertainty_row",
+      "falsifier_row",
+      "replay_record"
+    ],
+    "MS-COV-GAP-CHEMICAL_SCIENCES-THERMOCHEMISTRY_AND_PHASE_BEHAVIOR": [
+      "verified_open_source_capsule",
+      "benchmark_case",
+      "incumbent_comparator",
+      "oc_prediction_scoring_row",
+      "uncertainty_row",
+      "falsifier_row",
+      "replay_record"
+    ]
+  },
+  "next_escalation": "If domain execution does not reduce validator errors, split each open gap into artifact-specific acquisition/replay work orders.",
+  "open_gap_total": 3,
+  "pass_predicate": "open_gap_total == 0 and every required artifact is bound for every gap.",
+  "repair_strategy": "Bind verified source capsules, benchmark cases, incumbent comparators, OC scoring, uncertainty, falsifiers, and replay records for every gap in this domain class.",
+  "required_artifacts": [
+    "verified_open_source_capsule",
+    "benchmark_case",
+    "incumbent_comparator",
+    "oc_prediction_scoring_row",
+    "uncertainty_row",
+    "falsifier_row",
+    "replay_record"
+  ],
+  "required_capability": "Research/PriorArt",
+  "rows": [
+    {
+      "acceptance_predicates": [
+        "STRICT_PACK_SCHEMA_PASS",
+        "MINIMUM_N_GE_20_OR_FORMAL_EQUIVALENT_JUSTIFIED",
+        "SOURCE_SEPARATION_PASS",
+        "COMPARATOR_PREREGISTERED",
+        "RESIDUAL_SUPERIORITY_POSITIVE",
+        "UNCERTAINTY_DECLARED",
+        "NEGATIVE_CONTROLS_REJECTED",
+        "FALSIFIERS_DECLARED",
+        "COVERAGE_REGISTER_GAP_CLOSED",
+        "OFFICIAL_SOURCE_SNAPSHOT_LOCKED",
+        "TARGET_VARIABLE_EXACTLY_DECLARED",
+        "FORMULA_OR_MODEL_PREREGISTERED",
+        "COMPARATOR_PREREGISTERED_AND_TARGET_SEPARATED",
+        "UNCERTAINTY_POLICY_DECLARED",
+        "RESIDUAL_METRIC_EXECUTABLE",
+        "NEGATIVE_CONTROLS_EXECUTABLE_AND_REJECTED",
+        "FALSIFIERS_EXECUTABLE_AND_NOT_TRIGGERED",
+        "INDEPENDENT_REPLAY_PASS",
+        "COVERAGE_REGISTER_GAP_CLOSED_BY_REVIEW",
+        "EXECUTABLE_LANE_SPEC_DECLARED",
+        "FAIL_CLOSED_UNLESS_EXECUTABLE_EVIDENCE_BOUND"
+      ],
+      "artifact_status": {
+        "benchmark_case": false,
+        "falsifier_row": false,
+        "incumbent_comparator": false,
+        "oc_prediction_scoring_row": false,
+        "replay_record": false,
+        "uncertainty_row": false,
+        "verified_open_source_capsule": false
+      },
+      "domain_class_id": "chemical_sciences",
+      "execution_command": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "tools/oc133_toe_closure_factory.py",
+        "--execute-capability-lane",
+        "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+        "--write"
+      ],
+      "gap_id": "MS-COV-GAP-CHEMICAL_SCIENCES-REACTION_AND_KINETICS_PREDICTION",
+      "missing_artifacts": [
+        "verified_open_source_capsule",
+        "benchmark_case",
+        "incumbent_comparator",
+        "oc_prediction_scoring_row",
+        "uncertainty_row",
+        "falsifier_row",
+        "replay_record"
+      ],
+      "next_escalation": "Split the gap into governed source acquisition, benchmark construction, comparator scoring, uncertainty, falsifier, and replay tasks.",
+      "pass_predicate": "Every required comparator artifact exists, acceptance predicates pass, and this gap row is marked PASS by the coverage register.",
+      "phenomenon_class_id": "reaction_and_kinetics_prediction",
+      "repair_strategy": "Execute this work order by binding source capsule, target acquisition, incumbent comparator, OC scoring, uncertainty, falsifier, and replay evidence.",
+      "required_capability": "Research/PriorArt",
+      "source_capsule_existing_total": 0,
+      "source_capsule_ref_total": 0,
+      "source_capsule_refs": [],
+      "source_refs": [
+        "comparators/modern_science/OC133_MODERN_SCIENCE_COVERAGE_REGISTER.json",
+        "benchmarks/modern_science/OC133_MODERN_SCIENCE_COVERAGE_WORK_ORDERS.json"
+      ],
+      "status": "OPEN",
+      "why_it_failed": "Coverage gap has no certified source-backed benchmark lane; broad superiority remains blocked.",
+      "work_order_id": "MS-COV-WO-007"
+    },
+    {
+      "acceptance_predicates": [
+        "STRICT_PACK_SCHEMA_PASS",
+        "MINIMUM_N_GE_20_OR_FORMAL_EQUIVALENT_JUSTIFIED",
+        "SOURCE_SEPARATION_PASS",
+        "COMPARATOR_PREREGISTERED",
+        "RESIDUAL_SUPERIORITY_POSITIVE",
+        "UNCERTAINTY_DECLARED",
+        "NEGATIVE_CONTROLS_REJECTED",
+        "FALSIFIERS_DECLARED",
+        "COVERAGE_REGISTER_GAP_CLOSED",
+        "OFFICIAL_SOURCE_SNAPSHOT_LOCKED",
+        "TARGET_VARIABLE_EXACTLY_DECLARED",
+        "FORMULA_OR_MODEL_PREREGISTERED",
+        "COMPARATOR_PREREGISTERED_AND_TARGET_SEPARATED",
+        "UNCERTAINTY_POLICY_DECLARED",
+        "RESIDUAL_METRIC_EXECUTABLE",
+        "NEGATIVE_CONTROLS_EXECUTABLE_AND_REJECTED",
+        "FALSIFIERS_EXECUTABLE_AND_NOT_TRIGGERED",
+        "INDEPENDENT_REPLAY_PASS",
+        "COVERAGE_REGISTER_GAP_CLOSED_BY_REVIEW",
+        "EXECUTABLE_LANE_SPEC_DECLARED",
+        "FAIL_CLOSED_UNLESS_EXECUTABLE_EVIDENCE_BOUND"
+      ],
+      "artifact_status": {
+        "benchmark_case": false,
+        "falsifier_row": false,
+        "incumbent_comparator": false,
+        "oc_prediction_scoring_row": false,
+        "replay_record": false,
+        "uncertainty_row": false,
+        "verified_open_source_capsule": false
+      },
+      "domain_class_id": "chemical_sciences",
+      "execution_command": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "tools/oc133_toe_closure_factory.py",
+        "--execute-capability-lane",
+        "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+        "--write"
+      ],
+      "gap_id": "MS-COV-GAP-CHEMICAL_SCIENCES-THERMOCHEMISTRY_AND_PHASE_BEHAVIOR",
+      "missing_artifacts": [
+        "verified_open_source_capsule",
+        "benchmark_case",
+        "incumbent_comparator",
+        "oc_prediction_scoring_row",
+        "uncertainty_row",
+        "falsifier_row",
+        "replay_record"
+      ],
+      "next_escalation": "Split the gap into governed source acquisition, benchmark construction, comparator scoring, uncertainty, falsifier, and replay tasks.",
+      "pass_predicate": "Every required comparator artifact exists, acceptance predicates pass, and this gap row is marked PASS by the coverage register.",
+      "phenomenon_class_id": "thermochemistry_and_phase_behavior",
+      "repair_strategy": "Execute this work order by binding source capsule, target acquisition, incumbent comparator, OC scoring, uncertainty, falsifier, and replay evidence.",
+      "required_capability": "Research/PriorArt",
+      "source_capsule_existing_total": 0,
+      "source_capsule_ref_total": 0,
+      "source_capsule_refs": [],
+      "source_refs": [
+        "comparators/modern_science/OC133_MODERN_SCIENCE_COVERAGE_REGISTER.json",
+        "benchmarks/modern_science/OC133_MODERN_SCIENCE_COVERAGE_WORK_ORDERS.json"
+      ],
+      "status": "OPEN",
+      "why_it_failed": "Coverage gap has no certified source-backed benchmark lane; broad superiority remains blocked.",
+      "work_order_id": "MS-COV-WO-008"
+    },
+    {
+      "acceptance_predicates": [
+        "STRICT_PACK_SCHEMA_PASS",
+        "MINIMUM_N_GE_20_OR_FORMAL_EQUIVALENT_JUSTIFIED",
+        "SOURCE_SEPARATION_PASS",
+        "COMPARATOR_PREREGISTERED",
+        "RESIDUAL_SUPERIORITY_POSITIVE",
+        "UNCERTAINTY_DECLARED",
+        "NEGATIVE_CONTROLS_REJECTED",
+        "FALSIFIERS_DECLARED",
+        "COVERAGE_REGISTER_GAP_CLOSED",
+        "OFFICIAL_SOURCE_SNAPSHOT_LOCKED",
+        "TARGET_VARIABLE_EXACTLY_DECLARED",
+        "FORMULA_OR_MODEL_PREREGISTERED",
+        "COMPARATOR_PREREGISTERED_AND_TARGET_SEPARATED",
+        "UNCERTAINTY_POLICY_DECLARED",
+        "RESIDUAL_METRIC_EXECUTABLE",
+        "NEGATIVE_CONTROLS_EXECUTABLE_AND_REJECTED",
+        "FALSIFIERS_EXECUTABLE_AND_NOT_TRIGGERED",
+        "INDEPENDENT_REPLAY_PASS",
+        "COVERAGE_REGISTER_GAP_CLOSED_BY_REVIEW",
+        "EXECUTABLE_LANE_SPEC_DECLARED",
+        "FAIL_CLOSED_UNLESS_EXECUTABLE_EVIDENCE_BOUND"
+      ],
+      "artifact_status": {
+        "benchmark_case": false,
+        "falsifier_row": false,
+        "incumbent_comparator": false,
+        "oc_prediction_scoring_row": false,
+        "replay_record": false,
+        "uncertainty_row": false,
+        "verified_open_source_capsule": false
+      },
+      "domain_class_id": "chemical_sciences",
+      "execution_command": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "tools/oc133_toe_closure_factory.py",
+        "--execute-capability-lane",
+        "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+        "--write"
+      ],
+      "gap_id": "MS-COV-GAP-CHEMICAL_SCIENCES-MATERIALS_AND_SPECTROSCOPY_OBSERVABLES",
+      "missing_artifacts": [
+        "verified_open_source_capsule",
+        "benchmark_case",
+        "incumbent_comparator",
+        "oc_prediction_scoring_row",
+        "uncertainty_row",
+        "falsifier_row",
+        "replay_record"
+      ],
+      "next_escalation": "Split the gap into governed source acquisition, benchmark construction, comparator scoring, uncertainty, falsifier, and replay tasks.",
+      "pass_predicate": "Every required comparator artifact exists, acceptance predicates pass, and this gap row is marked PASS by the coverage register.",
+      "phenomenon_class_id": "materials_and_spectroscopy_observables",
+      "repair_strategy": "Execute this work order by binding source capsule, target acquisition, incumbent comparator, OC scoring, uncertainty, falsifier, and replay evidence.",
+      "required_capability": "Research/PriorArt",
+      "source_capsule_existing_total": 0,
+      "source_capsule_ref_total": 0,
+      "source_capsule_refs": [],
+      "source_refs": [
+        "comparators/modern_science/OC133_MODERN_SCIENCE_COVERAGE_REGISTER.json",
+        "benchmarks/modern_science/OC133_MODERN_SCIENCE_COVERAGE_WORK_ORDERS.json"
+      ],
+      "status": "OPEN",
+      "why_it_failed": "Coverage gap has no certified source-backed benchmark lane; broad superiority remains blocked.",
+      "work_order_id": "MS-COV-WO-009"
+    }
+  ],
+  "schema_id": "OC133_MODERN_SCIENCE_COMPARATOR_DOMAIN_JOB_EXECUTION_v1",
+  "status": "OPEN",
+  "why_it_failed": "Domain job still has open broad-coverage comparator gaps."
+}
