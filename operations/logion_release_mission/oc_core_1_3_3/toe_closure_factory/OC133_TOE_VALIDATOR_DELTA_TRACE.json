@@ -1,7 +1,9 @@
 {
-  "artifact_hash": "5808ecee297f586de11b56140c1bba071f6e5db3669816baade79235c1251f47",
+  "artifact_hash": "e5e698602f8b66e21b875a616215de68581921e1a365c75e053bc7c5d1c841dd",
   "capability_backlog_total": 63,
-  "generated_at": "2026-05-05T17:12:27Z",
+  "explainability_missing_ids": [],
+  "explainability_missing_total": 0,
+  "generated_at": "2026-05-05T17:48:13Z",
   "no_progress_creates_backlog": true,
   "release_id": "oc_core_1_3_3",
   "root_cause_total": 19,
@@ -10,21 +12,46 @@
       "after_validator_error_total": 19,
       "before_validator_error_total": 19,
       "delta_trace_id": "R017-VALIDATOR-DELTA-001",
+      "execution_command": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "tools/oc133_toe_closure_factory.py",
+        "--execute",
+        "--write",
+        "--until-final-pass"
+      ],
+      "next_escalation": "If validator_error_delta is zero, generate or execute capability backlog rather than stopping.",
+      "pass_predicate": "The step reduces validator errors or the strict final TOE validator returns PASS.",
       "purpose": "until_final_pass_iteration_1",
+      "repair_strategy": "Use the validator delta and capability backlog to choose the next executable lane.",
+      "required_capability": "Research/TOEClosureFactory",
       "status": "CAPABILITY_BACKLOG_OPEN",
-      "validator_error_delta": 0
+      "validator_error_delta": 0,
+      "why_it_failed": "This supervisor step did not produce a strict final TOE PASS."
     },
     {
       "after_validator_error_total": null,
       "before_validator_error_total": null,
       "delta_trace_id": "R017-VALIDATOR-DELTA-002",
+      "execution_command": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "tools/oc133_toe_closure_factory.py",
+        "--execute",
+        "--write",
+        "--until-final-pass"
+      ],
+      "next_escalation": "If validator_error_delta is zero, generate or execute capability backlog rather than stopping.",
+      "pass_predicate": "The step reduces validator errors or the strict final TOE validator returns PASS.",
       "purpose": "until_final_pass_capability_backlog",
+      "repair_strategy": "Use the validator delta and capability backlog to choose the next executable lane.",
+      "required_capability": "Research/TOEClosureFactory",
       "status": "CAPABILITY_BACKLOG_OPEN",
-      "validator_error_delta": null
+      "validator_error_delta": null,
+      "why_it_failed": "This supervisor step did not produce a strict final TOE PASS."
     }
   ],
   "schema_id": "OC133_TOE_VALIDATOR_DELTA_TRACE_v1",
   "status": "CAPABILITY_BACKLOG_OPEN",
+  "toe_problem_explainability_status": "PASS",
   "trace_row_total": 2,
   "version": "1.3.3"
 }

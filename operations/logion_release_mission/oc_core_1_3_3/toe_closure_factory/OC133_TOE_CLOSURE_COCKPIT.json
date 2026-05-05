@@ -1,5 +1,5 @@
 {
-  "artifact_hash": "d3ec56b8b82464d10de4a39865c9e0e2129a0f5a53597f975a6edb35ef8b6a5b",
+  "artifact_hash": "538b41e6bd3a5bfdd0ae69c179ea2402a6faf749b8f0e734f4dec98ef71635fe",
   "capability_backlog_status": "OPEN",
   "capability_backlog_total": 63,
   "cerberus_error_total": 8,
@@ -48,15 +48,22 @@
                     {
                       "cmd": [
                         "internal",
-                        "build_projection_lane_subwork",
+                        "build_projection_lane_capability_artifacts",
                         "AI"
                       ],
                       "returncode": 0,
-                      "stderr_tail": "AI source-gap diagnostic executed. The lane remains fail-closed until the claim/formal/evidence/comparator/falsifier artifacts exist and pass static validation.",
-                      "stdout_tail": "{\"lane_id\": \"AI\", \"subwork_order_total\": 6, \"subwork_order_ids\": [\"R017-AI-CLAIM_GRAPH-001\", \"R017-AI-FORMAL_BOUNDARY-002\", \"R017-AI-BENCHMARK_SIMULATION-003\", \"R017-AI-COMPARATOR_BASELINE-004\", \"R017-AI-FALSIFIER-005\", \"R017-AI-PROJECTION_PASS_WRITER-006\"]}"
+                      "stderr_tail": "AI projection capability executed. Guarded writer leaves the lane fail-closed unless claim/formal/evidence/comparator/falsifier artifacts pass static validation.",
+                      "stdout_tail": "{\"lane_id\": \"AI\", \"subwork_order_total\": 6, \"subwork_order_ids\": [\"R017-AI-CLAIM_GRAPH-001\", \"R017-AI-FORMAL_BOUNDARY-002\", \"R017-AI-BENCHMARK_SIMULATION-003\", \"R017-AI-COMPARATOR_BASELINE-004\", \"R017-AI-FALSIFIER-005\", \"R017-AI-PROJECTION_PASS_WRITER-006\"], \"capability_status\": \"SOURCE_GAP_OPEN\", \"artifact_refs\": {\"claim_ledger_ref\": \"operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/AI/OC133_AI_CLAIM_LEDGER.json\", \"formal_boundary_map_ref\": \"operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/AI/OC133_AI_FORMAL_BOUNDARY_MAP.json\", \"evidence_pack_ref\": \"operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/AI/OC133_AI_EVIDENCE_PACK.json\", \"comparator_baselines_ref\": \"operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/AI/OC133_AI_COMPARATOR_BASELINES.json\", \"falsifier_ref\": \"operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/AI/OC133_AI_FALSIFIERS.json\", \"candidate_projection_ref\": \"operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/AI/OC133_AI_PROJECTION_CANDIDATE.json\", \"guarded_writer_report_ref\": \"operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/AI/OC133_AI_PROJECTION_GUARDED_WRITER_REPORT.json\", \"capability_report_ref\": \"operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/AI/OC133_AI_PROJECTION_CAPABILITY_REPORT.json\"}, \"projection_write_performed\": false}"
                     }
                   ],
-                  "execution_state": "EXECUTED_SOURCE_GAP_DIAGNOSTIC",
+                  "execution_command": [
+                    "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+                    "tools/oc133_toe_closure_factory.py",
+                    "--execute-lane",
+                    "AI",
+                    "--write"
+                  ],
+                  "execution_state": "EXECUTED_PROJECTION_CAPABILITY",
                   "finding_class": "AI_DOMAIN_TOE_PROJECTION_LANE",
                   "lane_id": "AI",
                   "lane_result": {
@@ -76,12 +83,16 @@
                     "source_ref": "releases/oc_core_1_3/editorial/science_sources/toe_projection_lanes/ai.json",
                     "status": "FAIL"
                   },
+                  "next_escalation": "Use generated lane artifacts and subwork orders to close source gaps; rerun strict final TOE validator.",
                   "no_fake_closure_policy": "Future-research or demoted AI rows cannot count as TOE closure.",
                   "owner_capability": "Research/AIProjection",
                   "pass_predicate": "AI lane closure_verdict == PASS and final_toe_support_allowed == true",
+                  "repair_strategy": "AI projection lane has claim id, public scope, formal boundary, evidence/simulation refs, comparator refs, falsifiers, row PASS, lane PASS, and final TOE support allowed.",
+                  "required_capability": "Research/AIProjection",
                   "status": "FAIL_CLOSED",
                   "validator_binding": "validate_final_toe_projection_lanes::AI",
-                  "validator_error_delta": 0
+                  "validator_error_delta": 0,
+                  "why_it_failed": "lane closure_verdict is not PASS; lane final_toe_support_allowed is not true; row 1 closure_verdict is not PASS; row 1 lean_refs is empty or not a list; row 1 finite_case_refs is empty or not a list"
                 },
                 {
                   "after_cerberus_error_total": 8,
@@ -93,15 +104,22 @@
                     {
                       "cmd": [
                         "internal",
-                        "build_projection_lane_subwork",
+                        "build_projection_lane_capability_artifacts",
                         "ENTERPRISE_ARCHITECTURE"
                       ],
                       "returncode": 0,
-                      "stderr_tail": "ENTERPRISE_ARCHITECTURE source-gap diagnostic executed. The lane remains fail-closed until the claim/formal/evidence/comparator/falsifier artifacts exist and pass static validation.",
-                      "stdout_tail": "{\"lane_id\": \"ENTERPRISE_ARCHITECTURE\", \"subwork_order_total\": 6, \"subwork_order_ids\": [\"R017-ENTERPRISE_ARCHITECTURE-CLAIM_GRAPH-001\", \"R017-ENTERPRISE_ARCHITECTURE-ARCHITECTURE_CASES-002\", \"R017-ENTERPRISE_ARCHITECTURE-FORMAL_BOUNDARY-003\", \"R017-ENTERPRISE_ARCHITECTURE-COMPARATOR_ALTERNATIVES-004\", \"R017-ENTERPRISE_ARCHITECTURE-FALSIFIER-005\", \"R017-ENTERPRISE_ARCHITECTURE-PROJECTION_PASS_WRITER-006\"]}"
+                      "stderr_tail": "ENTERPRISE_ARCHITECTURE projection capability executed. Guarded writer leaves the lane fail-closed unless claim/formal/evidence/comparator/falsifier artifacts pass static validation.",
+                      "stdout_tail": "{\"lane_id\": \"ENTERPRISE_ARCHITECTURE\", \"subwork_order_total\": 6, \"subwork_order_ids\": [\"R017-ENTERPRISE_ARCHITECTURE-CLAIM_GRAPH-001\", \"R017-ENTERPRISE_ARCHITECTURE-ARCHITECTURE_CASES-002\", \"R017-ENTERPRISE_ARCHITECTURE-FORMAL_BOUNDARY-003\", \"R017-ENTERPRISE_ARCHITECTURE-COMPARATOR_ALTERNATIVES-004\", \"R017-ENTERPRISE_ARCHITECTURE-FALSIFIER-005\", \"R017-ENTERPRISE_ARCHITECTURE-PROJECTION_PASS_WRITER-006\"], \"capability_status\": \"SOURCE_GAP_OPEN\", \"artifact_refs\": {\"claim_ledger_ref\": \"operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/ENTERPRISE_ARCHITECTURE/OC133_EA_CLAIM_LEDGER.json\", \"formal_boundary_map_ref\": \"operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/ENTERPRISE_ARCHITECTURE/OC133_EA_FORMAL_BOUNDARY_MAP.json\", \"evidence_pack_ref\": \"operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/ENTERPRISE_ARCHITECTURE/OC133_EA_EVIDENCE_PACK.json\", \"comparator_baselines_ref\": \"operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/ENTERPRISE_ARCHITECTURE/OC133_EA_COMPARATOR_BASELINES.json\", \"falsifier_ref\": \"operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/ENTERPRISE_ARCHITECTURE/OC133_EA_FALSIFIERS.json\", \"candidate_projection_ref\": \"operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/ENTERPRISE_ARCHITECTURE/OC133_EA_PROJECTION_CANDIDATE.json\", \"guarded_writer_report_ref\": \"operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/ENTERPRISE_ARCHITECTURE/OC133_EA_PROJECTION_GUARDED_WRITER_REPORT.json\", \"capability_report_ref\": \"operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/ENTERPRISE_ARCHITECTURE/OC133_EA_PROJECTION_CAPABILITY_REPORT.json\"}, \"projection_write_performed\": false}"
                     }
                   ],
-                  "execution_state": "EXECUTED_SOURCE_GAP_DIAGNOSTIC",
+                  "execution_command": [
+                    "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+                    "tools/oc133_toe_closure_factory.py",
+                    "--execute-lane",
+                    "ENTERPRISE_ARCHITECTURE",
+                    "--write"
+                  ],
+                  "execution_state": "EXECUTED_PROJECTION_CAPABILITY",
                   "finding_class": "ENTERPRISE_ARCHITECTURE_DOMAIN_TOE_PROJECTION_LANE",
                   "lane_id": "ENTERPRISE_ARCHITECTURE",
                   "lane_result": {
@@ -121,12 +139,16 @@
                     "source_ref": "releases/oc_core_1_3/editorial/science_sources/toe_projection_lanes/enterprise_architecture.json",
                     "status": "FAIL"
                   },
+                  "next_escalation": "Use generated lane artifacts and subwork orders to close source gaps; rerun strict final TOE validator.",
                   "no_fake_closure_policy": "Future-research or demoted EA rows cannot count as TOE closure.",
                   "owner_capability": "Research/EnterpriseArchitectureProjection",
                   "pass_predicate": "ENTERPRISE_ARCHITECTURE lane closure_verdict == PASS and final_toe_support_allowed == true",
+                  "repair_strategy": "EA projection lane has claim id, public scope, operational evidence, architecture cases, comparator alternatives, falsifiers, row PASS, lane PASS, and final TOE support allowed.",
+                  "required_capability": "Research/EnterpriseArchitectureProjection",
                   "status": "FAIL_CLOSED",
                   "validator_binding": "validate_final_toe_projection_lanes::ENTERPRISE_ARCHITECTURE",
-                  "validator_error_delta": 0
+                  "validator_error_delta": 0,
+                  "why_it_failed": "lane closure_verdict is not PASS; lane final_toe_support_allowed is not true; row 1 closure_verdict is not PASS; row 1 lean_refs is empty or not a list; row 1 finite_case_refs is empty or not a list"
                 },
                 {
                   "after_cerberus_error_total": 8,
@@ -145,7 +167,22 @@
                       "returncode": 1,
                       "stderr_tail": "",
                       "stdout_tail": "{\n  \"profile\": \"v12_grand_formal_science_research_program\",\n  \"state\": \"FAIL\",\n  \"ledger_ref\": \"reviews/oc133_llm_cerberus/repair/OC133_CAPABILITY_REPAIR_EXECUTION_LEDGER.json\",\n  \"work_order_total\": 1\n}\n"
+                    },
+                    {
+                      "cmd": [
+                        "internal",
+                        "build_grand_lane_diagnostics"
+                      ],
+                      "returncode": 0,
+                      "stderr_tail": "Grand promotion sublane diagnostics materialized; PASS remains blocked until finite, empirical, comparator, and promotion predicates pass.",
+                      "stdout_tail": "{\"lane_id\": \"GRAND_TOE_CLAIM_LEDGER_EVIDENCE\", \"diagnostic_status\": \"FAIL_CLOSED\", \"finite_failure_ids\": [\"ADV-NOSEND-PUBLISH\", \"FM-GRAND-TOE-FORMAL-HYPOTHETICAL-ACCEPT\"], \"artifact_ref\": \"operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/GRAND_TOE_CLAIM_LEDGER_EVIDENCE/OC133_GRAND_PROMOTION_SUBLANE_DIAGNOSIS.json\"}"
                     }
+                  ],
+                  "execution_command": [
+                    "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+                    "tools/oc133_capability_repair_executor.py",
+                    "--profile",
+                    "v12_grand_formal_science_research_program"
                   ],
                   "execution_state": "EXECUTED",
                   "finding_class": "GRAND_TOE_CLAIM_LEDGER_EVIDENCE",
@@ -169,12 +206,16 @@
                     ],
                     "status": "FAIL"
                   },
+                  "next_escalation": "Use generated lane artifacts and subwork orders to close source gaps; rerun strict final TOE validator.",
                   "no_fake_closure_policy": "A blocker proof, artifact existence, or demoted grand claim cannot count as TOE closure.",
                   "owner_capability": "Research/FormalScience",
                   "pass_predicate": "grand_toe_claim_ledger_evidence.state == PASS and grand promotion contract verdict == PASS",
+                  "repair_strategy": "Grand TOE claim promotion contract passes with dedicated promoted claim row, Lean refs, finite refs, positive/negative finite controls, empirical pack, and comparator PASS.",
+                  "required_capability": "Research/FormalScience",
                   "status": "FAIL_CLOSED",
                   "validator_binding": "validate_final_toe_grand_science_scorecard::grand_toe_claim_ledger_evidence",
-                  "validator_error_delta": 0
+                  "validator_error_delta": 0,
+                  "why_it_failed": "grand_toe_claim_ledger_evidence check is not PASS; grand_toe_claim_ledger_evidence remains in blocker_ids; grand promotion contract verdict is BLOCKED; finite model checks have failure_total=2"
                 },
                 {
                   "after_cerberus_error_total": 8,
@@ -193,7 +234,22 @@
                       "returncode": 0,
                       "stderr_tail": "",
                       "stdout_tail": "{\n  \"profile\": \"v12_modern_science_comparator_research_program\",\n  \"state\": \"SCIENTIFIC_BLOCKERS_REMAIN\",\n  \"ledger_ref\": \"reviews/oc133_llm_cerberus/repair/OC133_CAPABILITY_REPAIR_EXECUTION_LEDGER.json\",\n  \"work_order_total\": 1\n}\n"
+                    },
+                    {
+                      "cmd": [
+                        "internal",
+                        "build_comparator_lane_diagnostics"
+                      ],
+                      "returncode": 0,
+                      "stderr_tail": "Comparator broad-coverage work orders materialized; benchmark-scoped superiority is not upgraded to broad TOE superiority.",
+                      "stdout_tail": "{\"lane_id\": \"MODERN_SCIENCE_COMPARATOR_SUPERIORITY\", \"diagnostic_status\": \"OPEN\", \"coverage_gap_total\": 35, \"artifact_ref\": \"operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/OC133_MODERN_SCIENCE_BROAD_COVERAGE_WORK_ORDERS.json\"}"
                     }
+                  ],
+                  "execution_command": [
+                    "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+                    "tools/oc133_capability_repair_executor.py",
+                    "--profile",
+                    "v12_modern_science_comparator_research_program"
                   ],
                   "execution_state": "EXECUTED",
                   "finding_class": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
@@ -215,12 +271,16 @@
                     ],
                     "status": "FAIL"
                   },
+                  "next_escalation": "Use generated lane artifacts and subwork orders to close source gaps; rerun strict final TOE validator.",
                   "no_fake_closure_policy": "Benchmark-scoped superiority cannot be upgraded to broad modern-science superiority.",
                   "owner_capability": "Research/PriorArt",
                   "pass_predicate": "modern_science_comparator_superiority.state == PASS and broad modern-science coverage is certified",
+                  "repair_strategy": "Modern-science superiority passes only if broad coverage predicates and source-backed comparator baselines pass, not merely benchmark-scoped baselines.",
+                  "required_capability": "Research/PriorArt",
                   "status": "FAIL_CLOSED",
                   "validator_binding": "validate_final_toe_grand_science_scorecard::modern_science_comparator_superiority",
-                  "validator_error_delta": 0
+                  "validator_error_delta": 0,
+                  "why_it_failed": "modern_science_comparator_superiority check is not PASS; modern_science_comparator_superiority remains in blocker_ids; source-backed benchmark superiority is not certified"
                 }
               ],
               "schema_id": "OC133_TOE_ACTIVE_LANE_EXECUTION_v1",
@@ -349,7 +409,7 @@
     }
   ],
   "fail_lane_total": 5,
-  "generated_at": "2026-05-05T17:12:27Z",
+  "generated_at": "2026-05-05T17:48:13Z",
   "lane_dispatcher_status": "BLOCKED",
   "lane_subwork_order_status": "OPEN",
   "lane_subwork_order_total": 57,
@@ -368,6 +428,8 @@
   "schema_id": "OC133_TOE_CLOSURE_COCKPIT_v1",
   "science_validator_error_total": 11,
   "status": "OPEN",
+  "toe_problem_explainability_missing_total": 0,
+  "toe_problem_explainability_status": "PASS",
   "validator_delta_trace_status": "CAPABILITY_BACKLOG_OPEN",
   "validator_error_total": 19,
   "validator_errors": [

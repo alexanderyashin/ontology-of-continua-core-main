@@ -1,0 +1,36 @@
+{
+  "artifact_refs": {
+    "candidate_projection_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/AI/OC133_AI_PROJECTION_CANDIDATE.json",
+    "claim_ledger_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/AI/OC133_AI_CLAIM_LEDGER.json",
+    "comparator_baselines_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/AI/OC133_AI_COMPARATOR_BASELINES.json",
+    "evidence_pack_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/AI/OC133_AI_EVIDENCE_PACK.json",
+    "falsifier_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/AI/OC133_AI_FALSIFIERS.json",
+    "formal_boundary_map_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/AI/OC133_AI_FORMAL_BOUNDARY_MAP.json"
+  },
+  "execution_command": [
+    "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+    "tools/oc133_toe_closure_factory.py",
+    "--execute-capability-lane",
+    "AI",
+    "--write"
+  ],
+  "generated_at": "2026-05-05T17:47:11Z",
+  "lane_id": "AI",
+  "next_escalation": "Execute the listed lane subwork orders; do not edit the public projection to PASS manually.",
+  "pass_predicate": "support_checks all true and final TOE projection validator errors for this lane disappear.",
+  "projection_write_performed": false,
+  "public_projection_target_ref": "releases/oc_core_1_3/editorial/science_sources/toe_projection_lanes/ai.json",
+  "repair_strategy": "Close each source gap and rerun the guarded writer; it will write PASS projection only after static support checks pass.",
+  "required_capability": "Research/AIProjection",
+  "schema_id": "OC133_TOE_PROJECTION_GUARDED_WRITER_REPORT_v1",
+  "status": "FAIL_CLOSED",
+  "support_checks": {
+    "claim_not_blocker": false,
+    "comparator_refs_exist": true,
+    "evidence_refs_exist": true,
+    "falsifier_refs_exist": true,
+    "formal_refs_exist": true,
+    "source_payload_already_pass": false
+  },
+  "why_it_failed": "The lane still contains blocker-scope or insufficient source support, so the public projection remains fail-closed."
+}

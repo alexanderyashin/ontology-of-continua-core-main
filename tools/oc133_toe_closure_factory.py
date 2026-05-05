@@ -40,6 +40,16 @@ ROOT_CAUSE_LEDGER_NAME = "OC133_TOE_ROOT_CAUSE_LEDGER.json"
 CAPABILITY_BACKLOG_NAME = "OC133_TOE_CAPABILITY_BACKLOG.json"
 SUBWORK_ORDERS_NAME = "OC133_TOE_LANE_SUBWORK_ORDERS.json"
 VALIDATOR_DELTA_TRACE_NAME = "OC133_TOE_VALIDATOR_DELTA_TRACE.json"
+PROBLEM_EXPLAINABILITY_GATE_NAME = "OC133_TOE_PROBLEM_EXPLAINABILITY_GATE.json"
+LANE_EXECUTION_DIR = FACTORY_DIR / "lane_execution"
+EXPLAINABILITY_FIELDS = [
+    "why_it_failed",
+    "repair_strategy",
+    "required_capability",
+    "execution_command",
+    "pass_predicate",
+    "next_escalation",
+]
 
 GRAND_SCORECARD = MISSION_DIR / "OC133_ALL_DOMAIN_READINESS_SCORECARD.json"
 GRAND_LOOP_REPORT = MISSION_DIR / "OC133_GRAND_SCIENCE_LOOP_latest.json"
@@ -73,6 +83,79 @@ def rel(root: Path, path: Path) -> str:
         return path.resolve().relative_to(root.resolve()).as_posix()
     except Exception:
         return path.as_posix()
+
+
+def split_ref_path(ref: str) -> str:
+    return str(ref).split("::", 1)[0].strip()
+
+
+def refs_status(root: Path, refs: list[Any]) -> dict[str, Any]:
+    rows = []
+    for ref in refs:
+        ref_path = split_ref_path(str(ref))
+        rows.append(
+            {
+                "ref": str(ref),
+                "path": ref_path,
+                "exists": bool(ref_path) and (root / ref_path).exists(),
+            }
+        )
+    return {
+        "ref_total": len(rows),
+        "existing_ref_total": sum(1 for row in rows if row["exists"]),
+        "missing_ref_total": sum(1 for row in rows if not row["exists"]),
+        "rows": rows,
+        "status": "PASS" if rows and all(row["exists"] for row in rows) else "FAIL",
+    }
+
+
+def write_json_artifact(root: Path, rel_path: Path, payload: dict[str, Any]) -> str:
+    path = root / rel_path
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(stable_json(payload), encoding="utf-8")
+    return rel(root, path)
+
+
+def stable_generated_at(root: Path, rel_path: Path) -> str:
+    existing = read_json(root / rel_path).get("generated_at")
+    return existing if isinstance(existing, str) and existing else utc_now()
+
+
+def normalize_problem_row(row: dict[str, Any], defaults: dict[str, Any]) -> dict[str, Any]:
+    normalized = dict(row)
+    normalized.setdefault("why_it_failed", defaults.get("why_it_failed", "The row is open because its parent TOE validator condition is not satisfied."))
+    normalized.setdefault("repair_strategy", defaults.get("repair_strategy", "Execute the associated capability lane and rerun the strict final TOE validator."))
+    normalized.setdefault("required_capability", defaults.get("required_capability", normalized.get("owner_capability", "Research/TOEClosureFactory")))
+    normalized.setdefault("execution_command", defaults.get("execution_command", [sys.executable, "tools/oc133_toe_closure_factory.py", "--execute", "--write", "--until-final-pass"]))
+    normalized.setdefault("pass_predicate", defaults.get("pass_predicate", normalized.get("closure_condition", "Strict final TOE validator returns PASS.")))
+    normalized.setdefault("next_escalation", defaults.get("next_escalation", "Create the next source-bound capability work order; do not promote r017 from this row."))
+    return normalized
+
+
+def explainability_missing_ids(payloads: list[dict[str, Any]]) -> list[str]:
+    missing: list[str] = []
+    for payload in payloads:
+        for index, row in enumerate(payload.get("rows", []) or [], start=1):
+            if not isinstance(row, dict):
+                continue
+            if row.get("status") == "PASS":
+                continue
+            absent = [
+                field
+                for field in EXPLAINABILITY_FIELDS
+                if row.get(field) is None or row.get(field) == "" or row.get(field) == []
+            ]
+            if absent:
+                missing.append(
+                    str(
+                        row.get("problem_id")
+                        or row.get("capability_backlog_id")
+                        or row.get("subwork_order_id")
+                        or row.get("delta_trace_id")
+                        or f"{payload.get('schema_id', 'payload')}::{index}"
+                    )
+                )
+    return missing
 
 
 def current_validator_errors(root: Path) -> list[str]:
@@ -529,18 +612,27 @@ def comparator_gap_rows(root: Path) -> list[dict[str, Any]]:
     for index in range(1, max(gap_total, 1) + 1):
         domain = str(domains[(index - 1) % len(domains)])
         rows.append(
-            {
-                "subwork_order_id": f"R017-COMPARATOR-COVERAGE-GAP-{index:03d}",
-                "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
-                "status": "OPEN",
-                "domain": domain,
-                "root_cause_class": "BROAD_COMPARATOR_COVERAGE_GAP",
-                "why_it_failed": "Broad superiority is blocked because current evidence is benchmark-scoped and does not cover all of modern science.",
-                "repair_strategy": "Bind a source-backed comparator row, evidence pack, baseline, uncertainty/fairness statement, and falsifier for this coverage gap.",
-                "closure_condition": "coverage_extends_to_all_of_modern_science can only turn true after every required coverage gap has source-backed comparator support.",
-                "source_refs": [str(COMPARATOR_REGISTER)],
-                "blockers": blockers,
-            }
+            normalize_problem_row(
+                {
+                    "subwork_order_id": f"R017-COMPARATOR-COVERAGE-GAP-{index:03d}",
+                    "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+                    "status": "OPEN",
+                    "domain": domain,
+                    "finding_class": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+                    "root_cause_class": "BROAD_COMPARATOR_COVERAGE_GAP",
+                    "required_capability": "Research/PriorArt",
+                    "why_it_failed": "Broad superiority is blocked because current evidence is benchmark-scoped and does not cover all of modern science.",
+                    "repair_strategy": "Bind a source-backed comparator row, evidence pack, baseline, uncertainty/fairness statement, and falsifier for this coverage gap.",
+                    "closure_condition": "coverage_extends_to_all_of_modern_science can only turn true after every required coverage gap has source-backed comparator support.",
+                    "source_refs": [str(COMPARATOR_REGISTER)],
+                    "blockers": blockers,
+                },
+                {
+                    "execution_command": [sys.executable, "tools/oc133_toe_closure_factory.py", "--execute-capability-lane", "MODERN_SCIENCE_COMPARATOR_SUPERIORITY", "--write"],
+                    "pass_predicate": "Broad modern-science comparator coverage predicate passes without upgrading benchmark-scoped evidence by wording.",
+                    "next_escalation": "Acquire or bind source-backed comparator evidence for this gap through governed open-data surfaces.",
+                },
+            )
         )
     return rows
 
@@ -570,7 +662,8 @@ def projection_lane_subwork(lane_id: str) -> list[dict[str, Any]]:
     rows = []
     for index, (step_id, description) in enumerate(work, start=1):
         rows.append(
-            {
+            normalize_problem_row(
+                {
                 "subwork_order_id": f"R017-{lane_id}-{step_id}-{index:03d}",
                 "lane_id": lane_id,
                 "status": "OPEN",
@@ -581,7 +674,13 @@ def projection_lane_subwork(lane_id: str) -> list[dict[str, Any]]:
                 "closure_condition": "The lane may PASS only when claim id, public scope, formal/evidence/comparator/falsifier refs, row PASS, lane PASS, and final TOE support are all true.",
                 "source_refs": [str(FINAL_TOE_PROJECTION_LANE_TARGETS[lane_id].relative_to(REPO_ROOT))],
                 "fake_closure_rejected": True,
-            }
+                },
+                {
+                    "execution_command": [sys.executable, "tools/oc133_toe_closure_factory.py", "--execute-capability-lane", lane_id, "--write"],
+                    "pass_predicate": "Projection lane row passes static validation and strict final TOE projection validator error disappears.",
+                    "next_escalation": "Materialize source-grounded lane artifacts; if support is absent, keep the projection fail-closed and add source-gap records.",
+                },
+            )
         )
     return rows
 
@@ -599,7 +698,8 @@ def grand_claim_subwork(root: Path) -> list[dict[str, Any]]:
     output: list[dict[str, Any]] = []
     for index, (step_id, strategy) in enumerate(rows, start=1):
         output.append(
-            {
+            normalize_problem_row(
+                {
                 "subwork_order_id": f"R017-GRAND-{step_id}-{index:03d}",
                 "lane_id": "GRAND_TOE_CLAIM_LEDGER_EVIDENCE",
                 "status": "OPEN",
@@ -610,12 +710,19 @@ def grand_claim_subwork(root: Path) -> list[dict[str, Any]]:
                 "closure_condition": "Grand promotion contract verdict is PASS and grand_toe_claim_ledger_evidence is not in blocker_ids.",
                 "source_refs": [str(GRAND_SCORECARD), str(GRAND_PROMOTION_REPORT), str(FINITE_CHECK_REPORT)],
                 "fake_closure_rejected": True,
-            }
+                },
+                {
+                    "execution_command": [sys.executable, "tools/oc133_toe_closure_factory.py", "--execute-capability-lane", "GRAND_TOE_CLAIM_LEDGER_EVIDENCE", "--write"],
+                    "pass_predicate": "Grand promotion contract verdict PASS, finite checks PASS, empirical pack PASS, comparator pack PASS.",
+                    "next_escalation": "Run the grand formal-science capability and inspect finite/promotion dependency diagnostics.",
+                },
+            )
         )
     for failed in failed_finite_rows(root):
         case_id = str(failed.get("case_id") or "UNKNOWN")
         output.append(
-            {
+            normalize_problem_row(
+                {
                 "subwork_order_id": f"R017-FINITE-FAILURE-{case_id}",
                 "lane_id": "GRAND_TOE_CLAIM_LEDGER_EVIDENCE",
                 "status": "OPEN",
@@ -627,7 +734,13 @@ def grand_claim_subwork(root: Path) -> list[dict[str, Any]]:
                 "source_refs": [str(FINITE_CHECK_REPORT), str(failed.get("lean_theorem_ref") or "NO_LEAN_REF_BOUND")],
                 "finite_case": failed,
                 "fake_closure_rejected": True,
-            }
+                },
+                {
+                    "execution_command": [sys.executable, "tools/oc133_toe_closure_factory.py", "--execute-capability-lane", "GRAND_TOE_CLAIM_LEDGER_EVIDENCE", "--write"],
+                    "pass_predicate": f"Finite model case {case_id} passes and remains bound to a valid theorem/proof route.",
+                    "next_escalation": "If the expectation is scientifically wrong, demote the promoted claim; if the model is wrong, repair the finite fixture and rerun checks.",
+                },
+            )
         )
     return output
 
@@ -657,8 +770,16 @@ def build_lane_subwork_orders(root: Path, validator_errors: list[str], *, genera
                     "closure_condition": "Cerberus acceptance PASS, LLM gate PASS, fingerprint match, and open defect findings zero.",
                     "source_refs": [str(CERBERUS_ACCEPTANCE), str(CERBERUS_FINDINGS)],
                     "fake_closure_rejected": True,
-                }
+                },
             ]
+        )
+        rows[-1] = normalize_problem_row(
+            rows[-1],
+            {
+                "execution_command": lane_registry_by_id()["CERBERUS_RELEASE_REVIEW_GATE"]["execution_command"],
+                "pass_predicate": "Cerberus fingerprints bind to current HEAD, acceptance PASS, LLM gate PASS, and open defect findings zero.",
+                "next_escalation": "Wait until science validator is green, then run canonical Cerberus full gate.",
+            },
         )
     payload = {
         "schema_id": "OC133_TOE_LANE_SUBWORK_ORDERS_v1",
@@ -669,6 +790,8 @@ def build_lane_subwork_orders(root: Path, validator_errors: list[str], *, genera
         "subwork_order_total": len(rows),
         "open_subwork_order_total": sum(1 for row in rows if row.get("status") == "OPEN"),
         "blocked_subwork_order_total": sum(1 for row in rows if str(row.get("status", "")).startswith("BLOCKED")),
+        "toe_problem_explainability_status": "PASS" if not explainability_missing_ids([{"schema_id": "OC133_TOE_LANE_SUBWORK_ORDERS_v1", "rows": rows}]) else "FAIL",
+        "explainability_missing_ids": explainability_missing_ids([{"schema_id": "OC133_TOE_LANE_SUBWORK_ORDERS_v1", "rows": rows}]),
         "rows": rows,
     }
     payload["artifact_hash"] = artifact_hash(payload)
@@ -709,6 +832,7 @@ def build_root_cause_ledger(
         "generated_at": generated_at or utc_now(),
         "status": "PASS" if not rows else "OPEN",
         "root_cause_coverage_status": "PASS" if len(rows) == len(validator_errors) and not incomplete else "FAIL",
+        "toe_problem_explainability_status": "PASS" if not incomplete else "FAIL",
         "validator_error_total": len(validator_errors),
         "root_cause_total": len(rows),
         "incomplete_root_cause_total": len(incomplete),
@@ -735,16 +859,24 @@ def build_capability_backlog(
             continue
         seen.add(key)
         rows.append(
-            {
-                "capability_backlog_id": f"R017-CAPABILITY-{len(rows) + 1:03d}",
-                "required_capability": row.get("required_capability"),
-                "root_cause_class": row.get("root_cause_class"),
-                "status": "OPEN",
-                "why_needed": row.get("why_it_failed"),
-                "next_action": row.get("repair_strategy"),
-                "execution_command": row.get("execution_command"),
-                "pass_predicate": row.get("pass_predicate"),
-            }
+            normalize_problem_row(
+                {
+                    "capability_backlog_id": f"R017-CAPABILITY-{len(rows) + 1:03d}",
+                    "required_capability": row.get("required_capability"),
+                    "root_cause_class": row.get("root_cause_class"),
+                    "status": "OPEN",
+                    "why_needed": row.get("why_it_failed"),
+                    "next_action": row.get("repair_strategy"),
+                    "why_it_failed": row.get("why_it_failed"),
+                    "repair_strategy": row.get("repair_strategy"),
+                    "execution_command": row.get("execution_command"),
+                    "pass_predicate": row.get("pass_predicate"),
+                    "source_problem_id": row.get("problem_id"),
+                },
+                {
+                    "next_escalation": row.get("next_escalation"),
+                },
+            )
         )
     for row in subwork_orders.get("rows", []):
         key = (str(row.get("required_capability")), str(row.get("subwork_order_id")))
@@ -752,18 +884,26 @@ def build_capability_backlog(
             continue
         seen.add(key)
         rows.append(
-            {
-                "capability_backlog_id": f"R017-CAPABILITY-{len(rows) + 1:03d}",
-                "required_capability": row.get("required_capability"),
-                "root_cause_class": row.get("finding_class"),
-                "status": row.get("status", "OPEN"),
-                "why_needed": row.get("why_it_failed"),
-                "next_action": row.get("repair_strategy"),
-                "execution_command": [sys.executable, "tools/oc133_toe_closure_factory.py", "--execute-capability-lane", row.get("lane_id", ""), "--write"],
-                "pass_predicate": row.get("closure_condition"),
-                "source_subwork_order_id": row.get("subwork_order_id"),
-            }
+            normalize_problem_row(
+                {
+                    "capability_backlog_id": f"R017-CAPABILITY-{len(rows) + 1:03d}",
+                    "required_capability": row.get("required_capability"),
+                    "root_cause_class": row.get("finding_class"),
+                    "status": row.get("status", "OPEN"),
+                    "why_needed": row.get("why_it_failed"),
+                    "next_action": row.get("repair_strategy"),
+                    "why_it_failed": row.get("why_it_failed"),
+                    "repair_strategy": row.get("repair_strategy"),
+                    "execution_command": [sys.executable, "tools/oc133_toe_closure_factory.py", "--execute-capability-lane", row.get("lane_id", ""), "--write"],
+                    "pass_predicate": row.get("closure_condition"),
+                    "source_subwork_order_id": row.get("subwork_order_id"),
+                },
+                {
+                    "next_escalation": row.get("next_escalation"),
+                },
+            )
         )
+    missing = explainability_missing_ids([{"schema_id": "OC133_TOE_CAPABILITY_BACKLOG_v1", "rows": rows}])
     payload = {
         "schema_id": "OC133_TOE_CAPABILITY_BACKLOG_v1",
         "release_id": RELEASE_ID,
@@ -772,6 +912,9 @@ def build_capability_backlog(
         "status": "OPEN" if rows else "PASS",
         "capability_total": len(rows),
         "open_capability_total": sum(1 for row in rows if row.get("status") == "OPEN"),
+        "toe_problem_explainability_status": "PASS" if not missing else "FAIL",
+        "explainability_missing_total": len(missing),
+        "explainability_missing_ids": missing,
         "rows": rows,
     }
     payload["artifact_hash"] = artifact_hash(payload)
@@ -789,16 +932,26 @@ def build_validator_delta_trace(
     for index, step in enumerate(execution_trace, start=1):
         result = step.get("result", {}) if isinstance(step.get("result"), dict) else {}
         rows.append(
-            {
-                "delta_trace_id": f"R017-VALIDATOR-DELTA-{index:03d}",
-                "purpose": step.get("purpose"),
-                "status": step.get("status"),
-                "before_validator_error_total": result.get("before_validator_error_total"),
-                "after_validator_error_total": result.get("after_validator_error_total"),
-                "validator_error_delta": result.get("validator_error_delta"),
-            }
+            normalize_problem_row(
+                {
+                    "delta_trace_id": f"R017-VALIDATOR-DELTA-{index:03d}",
+                    "purpose": step.get("purpose"),
+                    "status": step.get("status"),
+                    "before_validator_error_total": result.get("before_validator_error_total"),
+                    "after_validator_error_total": result.get("after_validator_error_total"),
+                    "validator_error_delta": result.get("validator_error_delta"),
+                    "why_it_failed": "This supervisor step did not produce a strict final TOE PASS." if step.get("status") != "PASS" else "Step passed.",
+                    "repair_strategy": "Use the validator delta and capability backlog to choose the next executable lane.",
+                    "required_capability": "Research/TOEClosureFactory",
+                    "execution_command": [sys.executable, "tools/oc133_toe_closure_factory.py", "--execute", "--write", "--until-final-pass"],
+                    "pass_predicate": "The step reduces validator errors or the strict final TOE validator returns PASS.",
+                    "next_escalation": "If validator_error_delta is zero, generate or execute capability backlog rather than stopping.",
+                },
+                {},
+            )
         )
     no_progress = any((row.get("validator_error_delta") in (0, None)) and row.get("status") not in {"PASS"} for row in rows)
+    missing = explainability_missing_ids([{"schema_id": "OC133_TOE_VALIDATOR_DELTA_TRACE_v1", "rows": rows}])
     payload = {
         "schema_id": "OC133_TOE_VALIDATOR_DELTA_TRACE_v1",
         "release_id": RELEASE_ID,
@@ -809,9 +962,232 @@ def build_validator_delta_trace(
         "root_cause_total": root_causes.get("root_cause_total"),
         "capability_backlog_total": capability_backlog.get("capability_total"),
         "no_progress_creates_backlog": True,
+        "toe_problem_explainability_status": "PASS" if not missing else "FAIL",
+        "explainability_missing_total": len(missing),
+        "explainability_missing_ids": missing,
         "rows": rows,
     }
     payload["artifact_hash"] = artifact_hash(payload)
+    return payload
+
+
+def build_problem_explainability_gate(payloads: list[dict[str, Any]], *, generated_at: str | None = None) -> dict[str, Any]:
+    missing = explainability_missing_ids(payloads)
+    payload = {
+        "schema_id": "OC133_TOE_PROBLEM_EXPLAINABILITY_GATE_v1",
+        "generated_at": generated_at or utc_now(),
+        "status": "PASS" if not missing else "FAIL",
+        "toe_problem_explainability_status": "PASS" if not missing else "FAIL",
+        "checked_payload_total": len(payloads),
+        "missing_total": len(missing),
+        "missing_ids": missing,
+        "required_fields": EXPLAINABILITY_FIELDS,
+    }
+    payload["artifact_hash"] = artifact_hash(payload)
+    return payload
+
+
+def lane_execution_base(lane_id: str) -> Path:
+    return LANE_EXECUTION_DIR / lane_id
+
+
+def projection_lane_target_rel(lane_id: str) -> Path:
+    return FINAL_TOE_PROJECTION_LANE_TARGETS[lane_id].relative_to(REPO_ROOT)
+
+
+def build_projection_lane_capability_artifacts(root: Path, lane_id: str) -> dict[str, Any]:
+    target_rel = projection_lane_target_rel(lane_id)
+    source_payload = read_json(root / target_rel)
+    rows = source_payload.get("rows", [])
+    rows = rows if isinstance(rows, list) else []
+    first_row = rows[0] if rows and isinstance(rows[0], dict) else {}
+    is_ai = lane_id == "AI"
+    lane_title = "Artificial intelligence and agentic-system TOE projection lane" if is_ai else "Enterprise architecture and organizational-systems TOE projection lane"
+    capability = "Research/AIProjection" if is_ai else "Research/EnterpriseArchitectureProjection"
+    prefix = "AI" if is_ai else "EA"
+    formal_refs = list(first_row.get("theorem_or_formal_boundary_refs") or [])
+    evidence_refs = list(first_row.get("evidence_or_simulation_refs") or [])
+    comparator_refs = list(first_row.get("comparator_refs") or [])
+    falsifier_refs = list(first_row.get("falsifier_refs") or [])
+    claim_id = str(first_row.get("claim_id") or "")
+    public_scope = str(first_row.get("public_claim_scope") or "")
+    blocker_claim = "BLOCKER" in claim_id or "not final TOE evidence" in public_scope.lower()
+
+    base = lane_execution_base(lane_id)
+    generated_at = stable_generated_at(root, base / f"OC133_{prefix}_PROJECTION_CAPABILITY_REPORT.json")
+    claim_ledger = {
+        "schema_id": "OC133_TOE_PROJECTION_CLAIM_LEDGER_v1",
+        "generated_at": generated_at,
+        "lane_id": lane_id,
+        "status": "SOURCE_GAP_OPEN" if blocker_claim else "CANDIDATE_READY",
+        "claim_total": len(rows),
+        "rows": [
+            {
+                "claim_id": row.get("claim_id"),
+                "projection_id": row.get("projection_id"),
+                "public_claim_scope": row.get("public_claim_scope"),
+                "current_closure_verdict": row.get("closure_verdict"),
+                "root_cause_class": "MISSING_EXECUTABLE_AI_TOE_PROJECTION_SUPPORT" if is_ai else "MISSING_EXECUTABLE_EA_TOE_PROJECTION_SUPPORT",
+                "why_it_failed": "The current row is a bounded blocker/future-research row and therefore cannot support final TOE promotion." if blocker_claim else "The row still requires static source verification before promotion.",
+                "repair_strategy": "Replace blocker-scope rows with source-grounded domain claims only after formal, evidence, comparator, and falsifier support exists.",
+            }
+            for row in rows
+            if isinstance(row, dict)
+        ],
+    }
+    formal_map = {
+        "schema_id": "OC133_TOE_PROJECTION_FORMAL_BOUNDARY_MAP_v1",
+        "generated_at": generated_at,
+        "lane_id": lane_id,
+        "status": refs_status(root, formal_refs)["status"],
+        "formal_boundary_refs": formal_refs,
+        "ref_status": refs_status(root, formal_refs),
+        "promotion_boundary": "FORMAL_BLOCKER_ROW" if blocker_claim else "CANDIDATE_FORMAL_BOUNDARY",
+    }
+    evidence_pack = {
+        "schema_id": "OC133_TOE_PROJECTION_EVIDENCE_PACK_v1",
+        "generated_at": generated_at,
+        "lane_id": lane_id,
+        "status": refs_status(root, evidence_refs)["status"],
+        "evidence_or_simulation_refs": evidence_refs,
+        "ref_status": refs_status(root, evidence_refs),
+        "domain_specific_evidence_status": "SOURCE_GAP_OPEN" if blocker_claim else "CANDIDATE_READY",
+    }
+    comparator_pack = {
+        "schema_id": "OC133_TOE_PROJECTION_COMPARATOR_BASELINES_v1",
+        "generated_at": generated_at,
+        "lane_id": lane_id,
+        "status": refs_status(root, comparator_refs)["status"],
+        "comparator_refs": comparator_refs,
+        "ref_status": refs_status(root, comparator_refs),
+        "baseline_scope": "BROAD_TOE_BLOCKED_WHILE_MODERN_SCIENCE_COMPARATOR_SUPERIORITY_FAILS",
+    }
+    falsifier_pack = {
+        "schema_id": "OC133_TOE_PROJECTION_FALSIFIERS_v1",
+        "generated_at": generated_at,
+        "lane_id": lane_id,
+        "status": refs_status(root, falsifier_refs)["status"],
+        "falsifier_refs": falsifier_refs,
+        "ref_status": refs_status(root, falsifier_refs),
+    }
+    support_checks = {
+        "claim_not_blocker": not blocker_claim,
+        "formal_refs_exist": formal_map["status"] == "PASS",
+        "evidence_refs_exist": evidence_pack["status"] == "PASS",
+        "comparator_refs_exist": comparator_pack["status"] == "PASS",
+        "falsifier_refs_exist": falsifier_pack["status"] == "PASS",
+        "source_payload_already_pass": source_payload.get("closure_verdict") == "PASS" and source_payload.get("final_toe_support_allowed") is True,
+    }
+    support_pass = all(support_checks.values())
+    candidate = dict(source_payload)
+    candidate["lane_id"] = lane_id
+    candidate["title"] = candidate.get("title") or lane_title
+    candidate["guarded_writer_status"] = "PASS" if support_pass else "FAIL_CLOSED"
+    candidate["closure_verdict"] = "PASS" if support_pass else "FAIL_CLOSED"
+    candidate["final_toe_support_allowed"] = bool(support_pass)
+    candidate["status"] = "PASS" if support_pass else "SOURCE_GAP_OPEN"
+    candidate["rows"] = []
+    for row in rows:
+        if not isinstance(row, dict):
+            continue
+        new_row = dict(row)
+        new_row["closure_verdict"] = "PASS" if support_pass else "FAIL_CLOSED"
+        new_row["source_gap_status"] = "CLOSED" if support_pass else "OPEN"
+        candidate["rows"].append(new_row)
+
+    artifact_refs = {
+        "claim_ledger_ref": write_json_artifact(root, base / f"OC133_{prefix}_CLAIM_LEDGER.json", claim_ledger),
+        "formal_boundary_map_ref": write_json_artifact(root, base / f"OC133_{prefix}_FORMAL_BOUNDARY_MAP.json", formal_map),
+        "evidence_pack_ref": write_json_artifact(root, base / f"OC133_{prefix}_EVIDENCE_PACK.json", evidence_pack),
+        "comparator_baselines_ref": write_json_artifact(root, base / f"OC133_{prefix}_COMPARATOR_BASELINES.json", comparator_pack),
+        "falsifier_ref": write_json_artifact(root, base / f"OC133_{prefix}_FALSIFIERS.json", falsifier_pack),
+        "candidate_projection_ref": write_json_artifact(root, base / f"OC133_{prefix}_PROJECTION_CANDIDATE.json", candidate),
+    }
+    writer_report = {
+        "schema_id": "OC133_TOE_PROJECTION_GUARDED_WRITER_REPORT_v1",
+        "generated_at": generated_at,
+        "lane_id": lane_id,
+        "status": "PASS" if support_pass else "FAIL_CLOSED",
+        "projection_write_performed": False,
+        "public_projection_target_ref": target_rel.as_posix(),
+        "support_checks": support_checks,
+        "artifact_refs": artifact_refs,
+        "why_it_failed": "The lane still contains blocker-scope or insufficient source support, so the public projection remains fail-closed." if not support_pass else "All guarded writer predicates passed.",
+        "repair_strategy": "Close each source gap and rerun the guarded writer; it will write PASS projection only after static support checks pass.",
+        "required_capability": capability,
+        "execution_command": [sys.executable, "tools/oc133_toe_closure_factory.py", "--execute-capability-lane", lane_id, "--write"],
+        "pass_predicate": "support_checks all true and final TOE projection validator errors for this lane disappear.",
+        "next_escalation": "Execute the listed lane subwork orders; do not edit the public projection to PASS manually.",
+    }
+    artifact_refs["guarded_writer_report_ref"] = write_json_artifact(root, base / f"OC133_{prefix}_PROJECTION_GUARDED_WRITER_REPORT.json", writer_report)
+    capability_report = {
+        "schema_id": "OC133_TOE_PROJECTION_CAPABILITY_REPORT_v1",
+        "generated_at": generated_at,
+        "lane_id": lane_id,
+        "status": "PASS" if support_pass else "SOURCE_GAP_OPEN",
+        "projection_write_performed": False,
+        "support_checks": support_checks,
+        "artifact_refs": artifact_refs,
+    }
+    artifact_refs["capability_report_ref"] = write_json_artifact(root, base / f"OC133_{prefix}_PROJECTION_CAPABILITY_REPORT.json", capability_report)
+    return capability_report
+
+
+def build_grand_lane_diagnostics(root: Path) -> dict[str, Any]:
+    base = lane_execution_base("GRAND_TOE_CLAIM_LEDGER_EVIDENCE")
+    generated_at = stable_generated_at(root, base / "OC133_GRAND_PROMOTION_SUBLANE_DIAGNOSIS.json")
+    finite_failures = failed_finite_rows(root)
+    promotion = read_json(root / GRAND_PROMOTION_REPORT)
+    scorecard = read_json(root / GRAND_SCORECARD)
+    payload = {
+        "schema_id": "OC133_GRAND_PROMOTION_SUBLANE_DIAGNOSIS_v1",
+        "generated_at": generated_at,
+        "lane_id": "GRAND_TOE_CLAIM_LEDGER_EVIDENCE",
+        "status": "PASS" if not finite_failures and promotion.get("verdict") == "PASS" else "FAIL_CLOSED",
+        "promotion_verdict": promotion.get("verdict"),
+        "scorecard_blocker_ids": scorecard.get("blocker_ids", []),
+        "finite_failure_total": len(finite_failures),
+        "finite_failure_ids": [row.get("case_id") for row in finite_failures],
+        "finite_failures": finite_failures,
+        "subwork_orders": grand_claim_subwork(root),
+        "why_it_failed": "Grand TOE promotion is blocked while finite failures, comparator blockers, empirical blockers, or promotion contract blockers remain.",
+        "repair_strategy": "Resolve each finite failure and promotion dependency, then rerun grand science loop and strict final validator.",
+        "required_capability": "Research/FormalScience",
+        "execution_command": [sys.executable, "tools/oc133_toe_closure_factory.py", "--execute-capability-lane", "GRAND_TOE_CLAIM_LEDGER_EVIDENCE", "--write"],
+        "pass_predicate": "Grand promotion contract PASS, finite checks PASS, empirical pack PASS, comparator pack PASS.",
+        "next_escalation": "Repair finite cases or demote the unsupported promoted claim; do not count blocked controls as closure.",
+    }
+    artifact_rel = base / "OC133_GRAND_PROMOTION_SUBLANE_DIAGNOSIS.json"
+    payload["artifact_ref"] = rel(root, root / artifact_rel)
+    write_json_artifact(root, artifact_rel, payload)
+    return payload
+
+
+def build_comparator_lane_diagnostics(root: Path) -> dict[str, Any]:
+    base = lane_execution_base("MODERN_SCIENCE_COMPARATOR_SUPERIORITY")
+    generated_at = stable_generated_at(root, base / "OC133_MODERN_SCIENCE_BROAD_COVERAGE_WORK_ORDERS.json")
+    register = read_json(root / COMPARATOR_REGISTER)
+    gap_rows = comparator_gap_rows(root)
+    payload = {
+        "schema_id": "OC133_MODERN_SCIENCE_BROAD_COVERAGE_WORK_ORDERS_v1",
+        "generated_at": generated_at,
+        "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+        "status": "OPEN" if gap_rows else "PASS",
+        "benchmark_scoped_superiority_status": register.get("modern_science_comparator_superiority", {}).get("benchmark_scoped_state"),
+        "broad_superiority_status": register.get("modern_science_comparator_superiority", {}).get("state"),
+        "coverage_gap_total": len(gap_rows),
+        "broad_claim_predicates": register.get("broad_claim_predicates", {}),
+        "rows": gap_rows,
+        "why_it_failed": "Broad superiority is not closed because coverage_extends_to_all_of_modern_science is false.",
+        "repair_strategy": "Close each source-backed comparator coverage gap; keep broad wording blocked until broad predicates pass.",
+        "required_capability": "Research/PriorArt",
+        "execution_command": [sys.executable, "tools/oc133_toe_closure_factory.py", "--execute-capability-lane", "MODERN_SCIENCE_COMPARATOR_SUPERIORITY", "--write"],
+        "pass_predicate": "modern_science_comparator_superiority.state == PASS and coverage_extends_to_all_of_modern_science == true.",
+        "next_escalation": "Acquire or bind governed open comparator sources for every broad-coverage gap.",
+    }
+    artifact_rel = base / "OC133_MODERN_SCIENCE_BROAD_COVERAGE_WORK_ORDERS.json"
+    payload["artifact_ref"] = rel(root, root / artifact_rel)
+    write_json_artifact(root, artifact_rel, payload)
     return payload
 
 
@@ -1037,24 +1413,86 @@ def execute_lane_attempt(root: Path, lane_id: str, timeout: int) -> dict[str, An
     execution_state = "EXECUTED"
 
     if lane_id in {"AI", "ENTERPRISE_ARCHITECTURE"}:
-        execution_state = "EXECUTED_SOURCE_GAP_DIAGNOSTIC"
+        execution_state = "EXECUTED_PROJECTION_CAPABILITY"
         subwork = projection_lane_subwork(lane_id)
+        capability_report = build_projection_lane_capability_artifacts(root, lane_id)
         command_results.append(
             {
-                "cmd": ["internal", "build_projection_lane_subwork", lane_id],
+                "cmd": ["internal", "build_projection_lane_capability_artifacts", lane_id],
                 "returncode": 0,
                 "stdout_tail": json.dumps(
                     {
                         "lane_id": lane_id,
                         "subwork_order_total": len(subwork),
                         "subwork_order_ids": [row["subwork_order_id"] for row in subwork],
+                        "capability_status": capability_report["status"],
+                        "artifact_refs": capability_report["artifact_refs"],
+                        "projection_write_performed": capability_report["projection_write_performed"],
                     },
                     ensure_ascii=False,
                 ),
                 "stderr_tail": (
-                    f"{lane_id} source-gap diagnostic executed. The lane remains fail-closed until the "
-                    "claim/formal/evidence/comparator/falsifier artifacts exist and pass static validation."
+                    f"{lane_id} projection capability executed. Guarded writer leaves the lane fail-closed "
+                    "unless claim/formal/evidence/comparator/falsifier artifacts pass static validation."
                 ),
+            }
+        )
+    elif lane_id == "GRAND_TOE_CLAIM_LEDGER_EVIDENCE":
+        diagnostic = build_grand_lane_diagnostics(root)
+        try:
+            command_results.append(run_command(root, lane["execution_command"], timeout))
+        except subprocess.TimeoutExpired as exc:
+            command_results.append(
+                {
+                    "cmd": lane["execution_command"],
+                    "returncode": 124,
+                    "stdout_tail": (exc.stdout or "")[-3000:] if isinstance(exc.stdout, str) else "",
+                    "stderr_tail": (exc.stderr or "timeout")[-3000:] if isinstance(exc.stderr, str) else "timeout",
+                }
+            )
+        command_results.append(
+            {
+                "cmd": ["internal", "build_grand_lane_diagnostics"],
+                "returncode": 0,
+                "stdout_tail": json.dumps(
+                    {
+                        "lane_id": lane_id,
+                        "diagnostic_status": diagnostic["status"],
+                        "finite_failure_ids": diagnostic["finite_failure_ids"],
+                        "artifact_ref": diagnostic["artifact_ref"],
+                    },
+                    ensure_ascii=False,
+                ),
+                "stderr_tail": "Grand promotion sublane diagnostics materialized; PASS remains blocked until finite, empirical, comparator, and promotion predicates pass.",
+            }
+        )
+    elif lane_id == "MODERN_SCIENCE_COMPARATOR_SUPERIORITY":
+        diagnostic = build_comparator_lane_diagnostics(root)
+        try:
+            command_results.append(run_command(root, lane["execution_command"], timeout))
+        except subprocess.TimeoutExpired as exc:
+            command_results.append(
+                {
+                    "cmd": lane["execution_command"],
+                    "returncode": 124,
+                    "stdout_tail": (exc.stdout or "")[-3000:] if isinstance(exc.stdout, str) else "",
+                    "stderr_tail": (exc.stderr or "timeout")[-3000:] if isinstance(exc.stderr, str) else "timeout",
+                }
+            )
+        command_results.append(
+            {
+                "cmd": ["internal", "build_comparator_lane_diagnostics"],
+                "returncode": 0,
+                "stdout_tail": json.dumps(
+                    {
+                        "lane_id": lane_id,
+                        "diagnostic_status": diagnostic["status"],
+                        "coverage_gap_total": diagnostic["coverage_gap_total"],
+                        "artifact_ref": diagnostic["artifact_ref"],
+                    },
+                    ensure_ascii=False,
+                ),
+                "stderr_tail": "Comparator broad-coverage work orders materialized; benchmark-scoped superiority is not upgraded to broad TOE superiority.",
             }
         )
     elif lane_id == "CERBERUS_RELEASE_REVIEW_GATE" and before_parts["science_errors"]:
@@ -1103,6 +1541,12 @@ def execute_lane_attempt(root: Path, lane_id: str, timeout: int) -> dict[str, An
         "lane_result": lane_result,
         "command_results": command_results,
         "no_fake_closure_policy": lane["no_fake_closure_policy"],
+        "why_it_failed": "; ".join(lane_result.get("findings", [])) or "Lane has not satisfied its strict pass predicate.",
+        "repair_strategy": lane["closure_condition"],
+        "required_capability": lane["owner_capability"],
+        "execution_command": lane["execution_command"],
+        "pass_predicate": lane["pass_predicate"],
+        "next_escalation": "Use generated lane artifacts and subwork orders to close source gaps; rerun strict final TOE validator.",
     }
 
 
@@ -1114,7 +1558,7 @@ def execute_active_lanes(root: Path, timeout: int) -> dict[str, Any]:
     before_total = len(before_parts["science_errors"]) + len(before_parts["cerberus_errors"])
     after_total = len(after_parts["science_errors"]) + len(after_parts["cerberus_errors"])
     pass_total = sum(1 for row in rows if row["status"] == "PASS")
-    backlog_total = sum(1 for row in rows if row["execution_state"] == "EXECUTED_SOURCE_GAP_DIAGNOSTIC")
+    backlog_total = sum(1 for row in rows if row["execution_state"] == "EXECUTED_PROJECTION_CAPABILITY")
     return {
         "schema_id": "OC133_TOE_ACTIVE_LANE_EXECUTION_v1",
         "lane_total": len(rows),
@@ -1350,6 +1794,7 @@ def build_closure_state(
     root_causes: dict[str, Any] | None = None,
     capability_backlog: dict[str, Any] | None = None,
     subwork_orders: dict[str, Any] | None = None,
+    explainability_gate: dict[str, Any] | None = None,
     generated_at: str | None = None,
 ) -> dict[str, Any]:
     validator_errors = validator_parts["science_errors"] + validator_parts["cerberus_errors"]
@@ -1357,6 +1802,7 @@ def build_closure_state(
     root_causes = root_causes or {}
     capability_backlog = capability_backlog or {}
     subwork_orders = subwork_orders or {}
+    explainability_gate = explainability_gate or build_problem_explainability_gate([root_causes, capability_backlog, subwork_orders], generated_at=generated_at)
     payload = {
         "schema_id": "OC133_TOE_CLOSURE_STATE_v1",
         "release_id": RELEASE_ID,
@@ -1376,6 +1822,8 @@ def build_closure_state(
         "root_cause_total": root_causes.get("root_cause_total"),
         "capability_backlog_total": capability_backlog.get("capability_total"),
         "lane_subwork_order_total": subwork_orders.get("subwork_order_total"),
+        "toe_problem_explainability_status": explainability_gate.get("toe_problem_explainability_status", "MISSING"),
+        "toe_problem_explainability_missing_total": explainability_gate.get("missing_total", 0),
         "no_fake_closure_policy": "r017 cannot be assembled unless the strict final validator and all lane gates pass.",
         "execution_trace": execution_trace,
     }
@@ -1395,6 +1843,7 @@ def build_cockpit(
     capability_backlog: dict[str, Any] | None = None,
     subwork_orders: dict[str, Any] | None = None,
     delta_trace: dict[str, Any] | None = None,
+    explainability_gate: dict[str, Any] | None = None,
     generated_at: str | None = None,
 ) -> dict[str, Any]:
     validator_parts = validator_parts or {"science_errors": validator_errors, "cerberus_errors": []}
@@ -1402,6 +1851,7 @@ def build_cockpit(
     capability_backlog = capability_backlog or {}
     subwork_orders = subwork_orders or {}
     delta_trace = delta_trace or {}
+    explainability_gate = explainability_gate or build_problem_explainability_gate([root_causes, capability_backlog, subwork_orders, delta_trace], generated_at=generated_at)
     promotion_allowed = not validator_errors and lanes.get("status") == "PASS" and obligations.get("open_work_order_total") == 0
     latest_execution_status = "NOT_RUN"
     if execution_trace:
@@ -1430,6 +1880,8 @@ def build_cockpit(
         "lane_subwork_order_total": subwork_orders.get("subwork_order_total", 0),
         "validator_delta_trace_status": delta_trace.get("status", "MISSING"),
         "no_progress_creates_backlog": delta_trace.get("no_progress_creates_backlog", False),
+        "toe_problem_explainability_status": explainability_gate.get("toe_problem_explainability_status", "MISSING"),
+        "toe_problem_explainability_missing_total": explainability_gate.get("missing_total", 0),
         "local_external_compute_policy": "deterministic/static first; governed local LLM for small chunks; external Cerberus only after deterministic blockers are zero",
         "ollama_usage_policy": "No direct unmanaged Ollama calls are made by this factory.",
         "proof_data_simulation_coverage_status": "PASS" if lanes.get("status") == "PASS" else "INCOMPLETE",
@@ -1460,6 +1912,7 @@ def render_cockpit_md(cockpit: dict[str, Any], lanes: dict[str, Any], obligation
         f"Capability backlog: `{cockpit.get('capability_backlog_total', 0)}`",
         f"Lane subwork orders: `{cockpit.get('lane_subwork_order_total', 0)}`",
         f"Delta trace: `{cockpit.get('validator_delta_trace_status', 'MISSING')}`",
+        f"Problem explainability: `{cockpit.get('toe_problem_explainability_status', 'MISSING')}`",
         f"Latest execution: `{cockpit['latest_execution_status']}`",
         "",
         "## Lane Results",
@@ -1512,6 +1965,7 @@ def expected_files(
     backlog_generated_at = existing_generated_at(base / CAPABILITY_BACKLOG_NAME) if preserve_existing_generated_at else None
     subwork_generated_at = existing_generated_at(base / SUBWORK_ORDERS_NAME) if preserve_existing_generated_at else None
     delta_trace_generated_at = existing_generated_at(base / VALIDATOR_DELTA_TRACE_NAME) if preserve_existing_generated_at else None
+    explainability_generated_at = existing_generated_at(base / PROBLEM_EXPLAINABILITY_GATE_NAME) if preserve_existing_generated_at else None
     obligations = build_obligations(root, validator_errors, generated_at=obligations_generated_at)
     lanes = build_lane_results(root, generated_at=lanes_generated_at)
     registry = build_lane_capability_registry(generated_at=registry_generated_at)
@@ -1529,6 +1983,10 @@ def expected_files(
         capability_backlog,
         generated_at=delta_trace_generated_at,
     )
+    explainability_gate = build_problem_explainability_gate(
+        [root_causes, capability_backlog, subwork_orders, delta_trace],
+        generated_at=explainability_generated_at,
+    )
     state = build_closure_state(
         root,
         validator_parts,
@@ -1538,6 +1996,7 @@ def expected_files(
         root_causes=root_causes,
         capability_backlog=capability_backlog,
         subwork_orders=subwork_orders,
+        explainability_gate=explainability_gate,
         generated_at=state_generated_at,
     )
     cockpit = build_cockpit(
@@ -1551,6 +2010,7 @@ def expected_files(
         capability_backlog=capability_backlog,
         subwork_orders=subwork_orders,
         delta_trace=delta_trace,
+        explainability_gate=explainability_gate,
         generated_at=cockpit_generated_at,
     )
     return {
@@ -1561,6 +2021,7 @@ def expected_files(
         base / CAPABILITY_BACKLOG_NAME: stable_json(capability_backlog),
         base / SUBWORK_ORDERS_NAME: stable_json(subwork_orders),
         base / VALIDATOR_DELTA_TRACE_NAME: stable_json(delta_trace),
+        base / PROBLEM_EXPLAINABILITY_GATE_NAME: stable_json(explainability_gate),
         base / STATE_NAME: stable_json(state),
         base / COCKPIT_NAME: stable_json(cockpit),
         base / COCKPIT_MD_NAME: render_cockpit_md(cockpit, lanes, obligations),
