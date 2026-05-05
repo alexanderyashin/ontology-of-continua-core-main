@@ -2474,6 +2474,15 @@ class ReleaseAssemblyMachineTests(unittest.TestCase):
         self.assertEqual(medical_root_causes, {"SCORING_EVIDENCE_NOT_MATERIALIZED"})
         self.assertNotIn("EXECUTABLE_SPEC_MISSING_FOR_SCORING", backlog["root_cause_counts"])
 
+        artifact_root = ROOT / "validation" / "heldout" / "grand_science" / "modern_science_coverage_artifacts"
+        open_replay_records = [
+            read_json(path)
+            for path in artifact_root.glob("*/replay_record.json")
+            if read_json(path).get("status") == "OPEN"
+        ]
+        self.assertTrue(open_replay_records)
+        self.assertTrue(all(row.get("validation") for row in open_replay_records))
+
     def test_recovery_r017_is_fail_closed_until_final_toe_validator_passes(self) -> None:
         tools_dir = ROOT / "tools"
         if str(tools_dir) not in sys.path:

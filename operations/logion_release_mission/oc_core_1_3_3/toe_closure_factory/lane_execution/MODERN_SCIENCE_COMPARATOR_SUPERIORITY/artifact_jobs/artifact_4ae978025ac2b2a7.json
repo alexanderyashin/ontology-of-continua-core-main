@@ -1,9 +1,9 @@
 {
-  "artifact_hash": "737588f78990b5064b369e8a4fb7251cadc41f28cc82ede5a108e0f017f526b9",
+  "artifact_hash": "d457bb15b7a670b039eb2359169b5b459a9c58d41a09131dbad72f4f645cc44a",
   "artifact_key": "replay_record",
   "artifact_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/artifact_jobs/artifact_4ae978025ac2b2a7.json",
   "domain_class_id": "medical_health_sciences",
-  "executable_spec_found": false,
+  "executable_spec_found": true,
   "execution_command": [
     "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
     "tools/oc133_toe_closure_factory.py",
@@ -32,7 +32,13 @@
   "research_artifact_scope": "replay not run or scoring evidence still blocked",
   "research_artifact_status": "OPEN",
   "schema_id": "OC133_MODERN_SCIENCE_COMPARATOR_GAP_ARTIFACT_EXECUTION_v1",
-  "source_block": {},
+  "source_block": {
+    "evidence_pack_schema_id": "OC133_GRAND_EMPIRICAL_EVIDENCE_v1",
+    "minimum_n": 100,
+    "replay_command": "python validation/heldout/grand_science/medical_health/clinical_trials_outcomes/run_clinical_outcome_replay.py --check",
+    "source_separation_mode": "target_blind",
+    "target_hidden_until_scoring": true
+  },
   "source_refs": [
     "reports/OC_CORE_1_3_3_MODERN_SCIENCE_COVERAGE_LANE_QUEUE.json",
     "benchmarks/modern_science/OC133_MODERN_SCIENCE_COVERAGE_WORK_ORDERS.json",

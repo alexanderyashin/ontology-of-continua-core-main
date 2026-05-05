@@ -2702,6 +2702,15 @@ def build_comparator_gap_research_artifact(root: Path, gap_id: str, artifact_key
                 "replay_results": replay_results,
                 "scoring_evidence": evidence,
             }
+        else:
+            status = "OPEN"
+            closure_scope = "replay not run or scoring evidence still blocked"
+            validation = {
+                "replay_command_total": len(replay_commands),
+                "replay_executed_total": 0,
+                "replay_results": [],
+                "scoring_evidence": evidence,
+            }
 
     payload = {
         "schema_id": "OC133_MODERN_SCIENCE_COMPARATOR_RESEARCH_ARTIFACT_v1",

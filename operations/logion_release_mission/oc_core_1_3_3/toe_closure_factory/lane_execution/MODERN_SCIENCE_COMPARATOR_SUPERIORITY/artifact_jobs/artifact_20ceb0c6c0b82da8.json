@@ -1,9 +1,9 @@
 {
-  "artifact_hash": "6426c771264443855508322e23a4bfcfc831b11590e5b7ee8c90e569b9cefa2e",
+  "artifact_hash": "0d9036116e351a8cc007561ef3b2d7cb6816bb8da5d53dc890a1fa8baab5c1cc",
   "artifact_key": "replay_record",
   "artifact_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/artifact_jobs/artifact_20ceb0c6c0b82da8.json",
   "domain_class_id": "medical_health_sciences",
-  "executable_spec_found": false,
+  "executable_spec_found": true,
   "execution_command": [
     "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
     "tools/oc133_toe_closure_factory.py",
@@ -32,7 +32,13 @@
   "research_artifact_scope": "replay not run or scoring evidence still blocked",
   "research_artifact_status": "OPEN",
   "schema_id": "OC133_MODERN_SCIENCE_COMPARATOR_GAP_ARTIFACT_EXECUTION_v1",
-  "source_block": {},
+  "source_block": {
+    "evidence_pack_schema_id": "OC133_GRAND_EMPIRICAL_EVIDENCE_v1",
+    "minimum_n": 500,
+    "replay_command": "python validation/heldout/grand_science/medical_health/epidemiology_risk/run_epidemiology_risk_replay.py --check",
+    "source_separation_mode": "target_blind",
+    "target_hidden_until_scoring": true
+  },
   "source_refs": [
     "reports/OC_CORE_1_3_3_MODERN_SCIENCE_COVERAGE_LANE_QUEUE.json",
     "benchmarks/modern_science/OC133_MODERN_SCIENCE_COVERAGE_WORK_ORDERS.json",
