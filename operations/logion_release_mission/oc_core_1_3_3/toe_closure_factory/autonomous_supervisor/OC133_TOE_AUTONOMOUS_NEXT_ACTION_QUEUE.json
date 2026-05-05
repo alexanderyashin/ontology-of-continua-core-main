@@ -1,14 +1,15 @@
 {
   "action_total": 45,
-  "artifact_hash": "9ef474d4040bd1cf6dabdb891bbeec0162439a60bd25b6ef5ad6fc99151695b0",
+  "artifact_hash": "40a7c5c7a9def5e4e9e9d0919128cbbe4e08279d319dae4621a24020a50ddd58",
+  "blocking_graph_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/OC133_TOE_BLOCKING_GRAPH.json",
   "cerberus_error_total": 8,
-  "executable_action_total": 34,
-  "frontier_hash": "7c4d7fe5674ac46fc502f616c01069c4918e30b6905e4ebeb7262ba67b3c6e27",
-  "generated_at": "2026-05-05T19:58:24Z",
+  "executable_action_total": 44,
+  "frontier_hash": "5efd5398ae41cf657a06cd18b9ec485d895aab5380b05c42bba00ff238f291c4",
+  "generated_at": "2026-05-05T20:27:23Z",
   "rows": [
     {
       "action_id": "AUTO-R017-AI-SOURCE-INTAKE-SOURCE_DISCOVERY-001",
-      "already_attempted_on_frontier": true,
+      "already_attempted_on_frontier": false,
       "execution_command": [
         "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
         "tools/oc133_toe_closure_factory.py",
@@ -17,23 +18,23 @@
         "--write"
       ],
       "executor_type": "source_intake_work_order",
-      "frontier_signature": "7c4d7fe5674ac46fc502f616c01069c4918e30b6905e4ebeb7262ba67b3c6e27::AUTO-R017-AI-SOURCE-INTAKE-SOURCE_DISCOVERY-001",
+      "frontier_signature": "5efd5398ae41cf657a06cd18b9ec485d895aab5380b05c42bba00ff238f291c4::AUTO-R017-AI-SOURCE-INTAKE-SOURCE_DISCOVERY-001",
       "lane_id": "AI",
       "missing_support_key": "source_mined_candidate_available",
-      "next_escalation": "This exact action has already been tried on this semantic frontier; create a narrower capability work order instead of rerunning it.",
+      "next_escalation": "If this action produces no validator delta, split the missing artifact class into a narrower capability work order.",
       "pass_predicate": "The referenced lane disappears from strict TOE validator errors without weakening gates.",
       "repair_strategy": "Execute this action, sync SPOT/projections, rerun validators, and keep r017 blocked unless the strict terminal gate passes.",
       "required_artifact": "source_grounded_non_blocker_candidate",
       "required_capability": "Research/AIProjection",
-      "selected_for_execution": false,
+      "selected_for_execution": true,
       "source_ref": null,
-      "status": "CAPABILITY_ESCALATION_REQUIRED",
+      "status": "OPEN",
       "why_it_failed": "The strict final TOE validator still reports this lane as open.",
       "work_order_id": "R017-AI-SOURCE-INTAKE-SOURCE_DISCOVERY-001"
     },
     {
       "action_id": "AUTO-R017-AI-SOURCE-INTAKE-CLAIM_SCOPE-002",
-      "already_attempted_on_frontier": true,
+      "already_attempted_on_frontier": false,
       "execution_command": [
         "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
         "tools/oc133_toe_closure_factory.py",
@@ -42,23 +43,23 @@
         "--write"
       ],
       "executor_type": "source_intake_work_order",
-      "frontier_signature": "7c4d7fe5674ac46fc502f616c01069c4918e30b6905e4ebeb7262ba67b3c6e27::AUTO-R017-AI-SOURCE-INTAKE-CLAIM_SCOPE-002",
+      "frontier_signature": "5efd5398ae41cf657a06cd18b9ec485d895aab5380b05c42bba00ff238f291c4::AUTO-R017-AI-SOURCE-INTAKE-CLAIM_SCOPE-002",
       "lane_id": "AI",
       "missing_support_key": "claim_not_blocker",
-      "next_escalation": "This exact action has already been tried on this semantic frontier; create a narrower capability work order instead of rerunning it.",
+      "next_escalation": "If this action produces no validator delta, split the missing artifact class into a narrower capability work order.",
       "pass_predicate": "The referenced lane disappears from strict TOE validator errors without weakening gates.",
       "repair_strategy": "Execute this action, sync SPOT/projections, rerun validators, and keep r017 blocked unless the strict terminal gate passes.",
       "required_artifact": "non_blocker_public_claim_scope",
       "required_capability": "Research/AIProjection",
-      "selected_for_execution": false,
+      "selected_for_execution": true,
       "source_ref": null,
-      "status": "CAPABILITY_ESCALATION_REQUIRED",
+      "status": "OPEN",
       "why_it_failed": "The strict final TOE validator still reports this lane as open.",
       "work_order_id": "R017-AI-SOURCE-INTAKE-CLAIM_SCOPE-002"
     },
     {
       "action_id": "AUTO-R017-AI-SOURCE-INTAKE-LEAN_BINDING-003",
-      "already_attempted_on_frontier": true,
+      "already_attempted_on_frontier": false,
       "execution_command": [
         "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
         "tools/oc133_toe_closure_factory.py",
@@ -67,23 +68,23 @@
         "--write"
       ],
       "executor_type": "source_intake_work_order",
-      "frontier_signature": "7c4d7fe5674ac46fc502f616c01069c4918e30b6905e4ebeb7262ba67b3c6e27::AUTO-R017-AI-SOURCE-INTAKE-LEAN_BINDING-003",
+      "frontier_signature": "5efd5398ae41cf657a06cd18b9ec485d895aab5380b05c42bba00ff238f291c4::AUTO-R017-AI-SOURCE-INTAKE-LEAN_BINDING-003",
       "lane_id": "AI",
       "missing_support_key": "lean_refs_exist",
-      "next_escalation": "This exact action has already been tried on this semantic frontier; create a narrower capability work order instead of rerunning it.",
+      "next_escalation": "If this action produces no validator delta, split the missing artifact class into a narrower capability work order.",
       "pass_predicate": "The referenced lane disappears from strict TOE validator errors without weakening gates.",
       "repair_strategy": "Execute this action, sync SPOT/projections, rerun validators, and keep r017 blocked unless the strict terminal gate passes.",
       "required_artifact": "lean_refs",
       "required_capability": "Research/AIProjection",
-      "selected_for_execution": false,
+      "selected_for_execution": true,
       "source_ref": null,
-      "status": "CAPABILITY_ESCALATION_REQUIRED",
+      "status": "OPEN",
       "why_it_failed": "The strict final TOE validator still reports this lane as open.",
       "work_order_id": "R017-AI-SOURCE-INTAKE-LEAN_BINDING-003"
     },
     {
       "action_id": "AUTO-R017-AI-SOURCE-INTAKE-FINITE_CASE_BINDING-004",
-      "already_attempted_on_frontier": true,
+      "already_attempted_on_frontier": false,
       "execution_command": [
         "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
         "tools/oc133_toe_closure_factory.py",
@@ -92,23 +93,23 @@
         "--write"
       ],
       "executor_type": "source_intake_work_order",
-      "frontier_signature": "7c4d7fe5674ac46fc502f616c01069c4918e30b6905e4ebeb7262ba67b3c6e27::AUTO-R017-AI-SOURCE-INTAKE-FINITE_CASE_BINDING-004",
+      "frontier_signature": "5efd5398ae41cf657a06cd18b9ec485d895aab5380b05c42bba00ff238f291c4::AUTO-R017-AI-SOURCE-INTAKE-FINITE_CASE_BINDING-004",
       "lane_id": "AI",
       "missing_support_key": "finite_case_refs_present",
-      "next_escalation": "This exact action has already been tried on this semantic frontier; create a narrower capability work order instead of rerunning it.",
+      "next_escalation": "If this action produces no validator delta, split the missing artifact class into a narrower capability work order.",
       "pass_predicate": "The referenced lane disappears from strict TOE validator errors without weakening gates.",
       "repair_strategy": "Execute this action, sync SPOT/projections, rerun validators, and keep r017 blocked unless the strict terminal gate passes.",
       "required_artifact": "finite_case_refs",
       "required_capability": "Research/AIProjection",
-      "selected_for_execution": false,
+      "selected_for_execution": true,
       "source_ref": null,
-      "status": "CAPABILITY_ESCALATION_REQUIRED",
+      "status": "OPEN",
       "why_it_failed": "The strict final TOE validator still reports this lane as open.",
       "work_order_id": "R017-AI-SOURCE-INTAKE-FINITE_CASE_BINDING-004"
     },
     {
       "action_id": "AUTO-R017-ENTERPRISE_ARCHITECTURE-SOURCE-INTAKE-SOURCE_DISCOVERY-001",
-      "already_attempted_on_frontier": true,
+      "already_attempted_on_frontier": false,
       "execution_command": [
         "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
         "tools/oc133_toe_closure_factory.py",
@@ -117,23 +118,23 @@
         "--write"
       ],
       "executor_type": "source_intake_work_order",
-      "frontier_signature": "7c4d7fe5674ac46fc502f616c01069c4918e30b6905e4ebeb7262ba67b3c6e27::AUTO-R017-ENTERPRISE_ARCHITECTURE-SOURCE-INTAKE-SOURCE_DISCOVERY-001",
+      "frontier_signature": "5efd5398ae41cf657a06cd18b9ec485d895aab5380b05c42bba00ff238f291c4::AUTO-R017-ENTERPRISE_ARCHITECTURE-SOURCE-INTAKE-SOURCE_DISCOVERY-001",
       "lane_id": "ENTERPRISE_ARCHITECTURE",
       "missing_support_key": "source_mined_candidate_available",
-      "next_escalation": "This exact action has already been tried on this semantic frontier; create a narrower capability work order instead of rerunning it.",
+      "next_escalation": "If this action produces no validator delta, split the missing artifact class into a narrower capability work order.",
       "pass_predicate": "The referenced lane disappears from strict TOE validator errors without weakening gates.",
       "repair_strategy": "Execute this action, sync SPOT/projections, rerun validators, and keep r017 blocked unless the strict terminal gate passes.",
       "required_artifact": "source_grounded_non_blocker_candidate",
       "required_capability": "Research/EnterpriseArchitectureProjection",
-      "selected_for_execution": false,
+      "selected_for_execution": true,
       "source_ref": null,
-      "status": "CAPABILITY_ESCALATION_REQUIRED",
+      "status": "OPEN",
       "why_it_failed": "The strict final TOE validator still reports this lane as open.",
       "work_order_id": "R017-ENTERPRISE_ARCHITECTURE-SOURCE-INTAKE-SOURCE_DISCOVERY-001"
     },
     {
       "action_id": "AUTO-R017-ENTERPRISE_ARCHITECTURE-SOURCE-INTAKE-CLAIM_SCOPE-002",
-      "already_attempted_on_frontier": true,
+      "already_attempted_on_frontier": false,
       "execution_command": [
         "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
         "tools/oc133_toe_closure_factory.py",
@@ -142,23 +143,23 @@
         "--write"
       ],
       "executor_type": "source_intake_work_order",
-      "frontier_signature": "7c4d7fe5674ac46fc502f616c01069c4918e30b6905e4ebeb7262ba67b3c6e27::AUTO-R017-ENTERPRISE_ARCHITECTURE-SOURCE-INTAKE-CLAIM_SCOPE-002",
+      "frontier_signature": "5efd5398ae41cf657a06cd18b9ec485d895aab5380b05c42bba00ff238f291c4::AUTO-R017-ENTERPRISE_ARCHITECTURE-SOURCE-INTAKE-CLAIM_SCOPE-002",
       "lane_id": "ENTERPRISE_ARCHITECTURE",
       "missing_support_key": "claim_not_blocker",
-      "next_escalation": "This exact action has already been tried on this semantic frontier; create a narrower capability work order instead of rerunning it.",
+      "next_escalation": "If this action produces no validator delta, split the missing artifact class into a narrower capability work order.",
       "pass_predicate": "The referenced lane disappears from strict TOE validator errors without weakening gates.",
       "repair_strategy": "Execute this action, sync SPOT/projections, rerun validators, and keep r017 blocked unless the strict terminal gate passes.",
       "required_artifact": "non_blocker_public_claim_scope",
       "required_capability": "Research/EnterpriseArchitectureProjection",
-      "selected_for_execution": false,
+      "selected_for_execution": true,
       "source_ref": null,
-      "status": "CAPABILITY_ESCALATION_REQUIRED",
+      "status": "OPEN",
       "why_it_failed": "The strict final TOE validator still reports this lane as open.",
       "work_order_id": "R017-ENTERPRISE_ARCHITECTURE-SOURCE-INTAKE-CLAIM_SCOPE-002"
     },
     {
       "action_id": "AUTO-R017-ENTERPRISE_ARCHITECTURE-SOURCE-INTAKE-LEAN_BINDING-003",
-      "already_attempted_on_frontier": true,
+      "already_attempted_on_frontier": false,
       "execution_command": [
         "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
         "tools/oc133_toe_closure_factory.py",
@@ -167,23 +168,23 @@
         "--write"
       ],
       "executor_type": "source_intake_work_order",
-      "frontier_signature": "7c4d7fe5674ac46fc502f616c01069c4918e30b6905e4ebeb7262ba67b3c6e27::AUTO-R017-ENTERPRISE_ARCHITECTURE-SOURCE-INTAKE-LEAN_BINDING-003",
+      "frontier_signature": "5efd5398ae41cf657a06cd18b9ec485d895aab5380b05c42bba00ff238f291c4::AUTO-R017-ENTERPRISE_ARCHITECTURE-SOURCE-INTAKE-LEAN_BINDING-003",
       "lane_id": "ENTERPRISE_ARCHITECTURE",
       "missing_support_key": "lean_refs_exist",
-      "next_escalation": "This exact action has already been tried on this semantic frontier; create a narrower capability work order instead of rerunning it.",
+      "next_escalation": "If this action produces no validator delta, split the missing artifact class into a narrower capability work order.",
       "pass_predicate": "The referenced lane disappears from strict TOE validator errors without weakening gates.",
       "repair_strategy": "Execute this action, sync SPOT/projections, rerun validators, and keep r017 blocked unless the strict terminal gate passes.",
       "required_artifact": "lean_refs",
       "required_capability": "Research/EnterpriseArchitectureProjection",
-      "selected_for_execution": false,
+      "selected_for_execution": true,
       "source_ref": null,
-      "status": "CAPABILITY_ESCALATION_REQUIRED",
+      "status": "OPEN",
       "why_it_failed": "The strict final TOE validator still reports this lane as open.",
       "work_order_id": "R017-ENTERPRISE_ARCHITECTURE-SOURCE-INTAKE-LEAN_BINDING-003"
     },
     {
       "action_id": "AUTO-R017-ENTERPRISE_ARCHITECTURE-SOURCE-INTAKE-FINITE_CASE_BINDING-004",
-      "already_attempted_on_frontier": true,
+      "already_attempted_on_frontier": false,
       "execution_command": [
         "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
         "tools/oc133_toe_closure_factory.py",
@@ -192,23 +193,23 @@
         "--write"
       ],
       "executor_type": "source_intake_work_order",
-      "frontier_signature": "7c4d7fe5674ac46fc502f616c01069c4918e30b6905e4ebeb7262ba67b3c6e27::AUTO-R017-ENTERPRISE_ARCHITECTURE-SOURCE-INTAKE-FINITE_CASE_BINDING-004",
+      "frontier_signature": "5efd5398ae41cf657a06cd18b9ec485d895aab5380b05c42bba00ff238f291c4::AUTO-R017-ENTERPRISE_ARCHITECTURE-SOURCE-INTAKE-FINITE_CASE_BINDING-004",
       "lane_id": "ENTERPRISE_ARCHITECTURE",
       "missing_support_key": "finite_case_refs_present",
-      "next_escalation": "This exact action has already been tried on this semantic frontier; create a narrower capability work order instead of rerunning it.",
+      "next_escalation": "If this action produces no validator delta, split the missing artifact class into a narrower capability work order.",
       "pass_predicate": "The referenced lane disappears from strict TOE validator errors without weakening gates.",
       "repair_strategy": "Execute this action, sync SPOT/projections, rerun validators, and keep r017 blocked unless the strict terminal gate passes.",
       "required_artifact": "finite_case_refs",
       "required_capability": "Research/EnterpriseArchitectureProjection",
-      "selected_for_execution": false,
+      "selected_for_execution": true,
       "source_ref": null,
-      "status": "CAPABILITY_ESCALATION_REQUIRED",
+      "status": "OPEN",
       "why_it_failed": "The strict final TOE validator still reports this lane as open.",
       "work_order_id": "R017-ENTERPRISE_ARCHITECTURE-SOURCE-INTAKE-FINITE_CASE_BINDING-004"
     },
     {
       "action_id": "AUTO-R017-COMPARATOR-GAP-044c4b9f478c",
-      "already_attempted_on_frontier": true,
+      "already_attempted_on_frontier": false,
       "execution_command": [
         "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
         "tools/oc133_toe_closure_factory.py",
@@ -217,7 +218,7 @@
         "--write"
       ],
       "executor_type": "comparator_gap",
-      "frontier_signature": "7c4d7fe5674ac46fc502f616c01069c4918e30b6905e4ebeb7262ba67b3c6e27::AUTO-R017-COMPARATOR-GAP-044c4b9f478c",
+      "frontier_signature": "5efd5398ae41cf657a06cd18b9ec485d895aab5380b05c42bba00ff238f291c4::AUTO-R017-COMPARATOR-GAP-044c4b9f478c",
       "gap_id": "MS-COV-GAP-CHEMICAL_SCIENCES-MATERIALS_AND_SPECTROSCOPY_OBSERVABLES",
       "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
       "missing_artifact_total": 7,
@@ -230,18 +231,18 @@
         "falsifier_row",
         "replay_record"
       ],
-      "next_escalation": "This exact action has already been tried on this semantic frontier; create a narrower capability work order instead of rerunning it.",
+      "next_escalation": "If this action produces no validator delta, split the missing artifact class into a narrower capability work order.",
       "pass_predicate": "The referenced lane disappears from strict TOE validator errors without weakening gates.",
       "repair_strategy": "Execute this action, sync SPOT/projections, rerun validators, and keep r017 blocked unless the strict terminal gate passes.",
       "required_capability": "Research/PriorArt",
-      "selected_for_execution": false,
+      "selected_for_execution": true,
       "source_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/gap_jobs/gap_044c4b9f478c7bc2.json",
-      "status": "CAPABILITY_ESCALATION_REQUIRED",
+      "status": "OPEN",
       "why_it_failed": "The strict final TOE validator still reports this lane as open."
     },
     {
       "action_id": "AUTO-R017-COMPARATOR-GAP-04a29758f831",
-      "already_attempted_on_frontier": true,
+      "already_attempted_on_frontier": false,
       "execution_command": [
         "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
         "tools/oc133_toe_closure_factory.py",
@@ -250,7 +251,7 @@
         "--write"
       ],
       "executor_type": "comparator_gap",
-      "frontier_signature": "7c4d7fe5674ac46fc502f616c01069c4918e30b6905e4ebeb7262ba67b3c6e27::AUTO-R017-COMPARATOR-GAP-04a29758f831",
+      "frontier_signature": "5efd5398ae41cf657a06cd18b9ec485d895aab5380b05c42bba00ff238f291c4::AUTO-R017-COMPARATOR-GAP-04a29758f831",
       "gap_id": "MS-COV-GAP-EARTH_SPACE_ENVIRONMENTAL_SCIENCES-REMOTE_SENSING_AND_PLANETARY_MEASUREMENTS",
       "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
       "missing_artifact_total": 7,
@@ -263,13 +264,13 @@
         "falsifier_row",
         "replay_record"
       ],
-      "next_escalation": "This exact action has already been tried on this semantic frontier; create a narrower capability work order instead of rerunning it.",
+      "next_escalation": "If this action produces no validator delta, split the missing artifact class into a narrower capability work order.",
       "pass_predicate": "The referenced lane disappears from strict TOE validator errors without weakening gates.",
       "repair_strategy": "Execute this action, sync SPOT/projections, rerun validators, and keep r017 blocked unless the strict terminal gate passes.",
       "required_capability": "Research/PriorArt",
-      "selected_for_execution": false,
+      "selected_for_execution": true,
       "source_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/gap_jobs/gap_04a29758f8310992.json",
-      "status": "CAPABILITY_ESCALATION_REQUIRED",
+      "status": "OPEN",
       "why_it_failed": "The strict final TOE validator still reports this lane as open."
     },
     {
@@ -283,7 +284,7 @@
         "--write"
       ],
       "executor_type": "comparator_gap",
-      "frontier_signature": "7c4d7fe5674ac46fc502f616c01069c4918e30b6905e4ebeb7262ba67b3c6e27::AUTO-R017-COMPARATOR-GAP-0b00ee8a56e1",
+      "frontier_signature": "5efd5398ae41cf657a06cd18b9ec485d895aab5380b05c42bba00ff238f291c4::AUTO-R017-COMPARATOR-GAP-0b00ee8a56e1",
       "gap_id": "MS-COV-GAP-CHEMICAL_SCIENCES-REACTION_AND_KINETICS_PREDICTION",
       "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
       "missing_artifact_total": 7,
@@ -316,7 +317,7 @@
         "--write"
       ],
       "executor_type": "comparator_gap",
-      "frontier_signature": "7c4d7fe5674ac46fc502f616c01069c4918e30b6905e4ebeb7262ba67b3c6e27::AUTO-R017-COMPARATOR-GAP-292f561baf27",
+      "frontier_signature": "5efd5398ae41cf657a06cd18b9ec485d895aab5380b05c42bba00ff238f291c4::AUTO-R017-COMPARATOR-GAP-292f561baf27",
       "gap_id": "MS-COV-GAP-ENGINEERING_MATERIALS_SCIENCES-ENERGY_TRANSPORT_AND_MANUFACTURING_PROCESSES",
       "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
       "missing_artifact_total": 7,
@@ -349,7 +350,7 @@
         "--write"
       ],
       "executor_type": "comparator_gap",
-      "frontier_signature": "7c4d7fe5674ac46fc502f616c01069c4918e30b6905e4ebeb7262ba67b3c6e27::AUTO-R017-COMPARATOR-GAP-29bcbfd7bc87",
+      "frontier_signature": "5efd5398ae41cf657a06cd18b9ec485d895aab5380b05c42bba00ff238f291c4::AUTO-R017-COMPARATOR-GAP-29bcbfd7bc87",
       "gap_id": "MS-COV-GAP-COMPLEX_SYSTEMS_OPERATIONS_SCIENCE-RESILIENCE_RISK_AND_INTERVENTION_RESPONSE",
       "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
       "missing_artifact_total": 7,
@@ -382,7 +383,7 @@
         "--write"
       ],
       "executor_type": "comparator_gap",
-      "frontier_signature": "7c4d7fe5674ac46fc502f616c01069c4918e30b6905e4ebeb7262ba67b3c6e27::AUTO-R017-COMPARATOR-GAP-37c095c180c5",
+      "frontier_signature": "5efd5398ae41cf657a06cd18b9ec485d895aab5380b05c42bba00ff238f291c4::AUTO-R017-COMPARATOR-GAP-37c095c180c5",
       "gap_id": "MS-COV-GAP-MEDICAL_HEALTH_SCIENCES-PHARMACOLOGY_TOXICOLOGY_AND_DOSE_RESPONSE",
       "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
       "missing_artifact_total": 7,
@@ -415,7 +416,7 @@
         "--write"
       ],
       "executor_type": "comparator_gap",
-      "frontier_signature": "7c4d7fe5674ac46fc502f616c01069c4918e30b6905e4ebeb7262ba67b3c6e27::AUTO-R017-COMPARATOR-GAP-3a74fb5d8077",
+      "frontier_signature": "5efd5398ae41cf657a06cd18b9ec485d895aab5380b05c42bba00ff238f291c4::AUTO-R017-COMPARATOR-GAP-3a74fb5d8077",
       "gap_id": "MS-COV-GAP-COGNITIVE_BEHAVIORAL_NEUROSCIENCES-NEURAL_RECORDING_AND_BRAIN_NETWORK_OBSERVABLES",
       "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
       "missing_artifact_total": 7,
@@ -448,7 +449,7 @@
         "--write"
       ],
       "executor_type": "comparator_gap",
-      "frontier_signature": "7c4d7fe5674ac46fc502f616c01069c4918e30b6905e4ebeb7262ba67b3c6e27::AUTO-R017-COMPARATOR-GAP-3b8c55c1eafe",
+      "frontier_signature": "5efd5398ae41cf657a06cd18b9ec485d895aab5380b05c42bba00ff238f291c4::AUTO-R017-COMPARATOR-GAP-3b8c55c1eafe",
       "gap_id": "MS-COV-GAP-AGRICULTURAL_FOOD_SCIENCES-ANIMAL_HEALTH_AND_PRODUCTION_SYSTEMS",
       "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
       "missing_artifact_total": 7,
@@ -481,7 +482,7 @@
         "--write"
       ],
       "executor_type": "comparator_gap",
-      "frontier_signature": "7c4d7fe5674ac46fc502f616c01069c4918e30b6905e4ebeb7262ba67b3c6e27::AUTO-R017-COMPARATOR-GAP-3dcf09e69027",
+      "frontier_signature": "5efd5398ae41cf657a06cd18b9ec485d895aab5380b05c42bba00ff238f291c4::AUTO-R017-COMPARATOR-GAP-3dcf09e69027",
       "gap_id": "MS-COV-GAP-SOCIAL_ECONOMIC_POLITICAL_SCIENCES-INSTITUTIONAL_SOCIAL_NETWORK_AND_POLICY_OUTCOMES",
       "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
       "missing_artifact_total": 7,
@@ -514,7 +515,7 @@
         "--write"
       ],
       "executor_type": "comparator_gap",
-      "frontier_signature": "7c4d7fe5674ac46fc502f616c01069c4918e30b6905e4ebeb7262ba67b3c6e27::AUTO-R017-COMPARATOR-GAP-59532ab68d23",
+      "frontier_signature": "5efd5398ae41cf657a06cd18b9ec485d895aab5380b05c42bba00ff238f291c4::AUTO-R017-COMPARATOR-GAP-59532ab68d23",
       "gap_id": "MS-COV-GAP-EARTH_SPACE_ENVIRONMENTAL_SCIENCES-GEOCHEMISTRY_AND_HYDROLOGY_OBSERVABLES",
       "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
       "missing_artifact_total": 7,
@@ -547,7 +548,7 @@
         "--write"
       ],
       "executor_type": "comparator_gap",
-      "frontier_signature": "7c4d7fe5674ac46fc502f616c01069c4918e30b6905e4ebeb7262ba67b3c6e27::AUTO-R017-COMPARATOR-GAP-6fa88ac46f5c",
+      "frontier_signature": "5efd5398ae41cf657a06cd18b9ec485d895aab5380b05c42bba00ff238f291c4::AUTO-R017-COMPARATOR-GAP-6fa88ac46f5c",
       "gap_id": "MS-COV-GAP-EARTH_SPACE_ENVIRONMENTAL_SCIENCES-CLIMATE_WEATHER_GEOPHYSICAL_TIME_SERIES",
       "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
       "missing_artifact_total": 7,
@@ -580,7 +581,7 @@
         "--write"
       ],
       "executor_type": "comparator_gap",
-      "frontier_signature": "7c4d7fe5674ac46fc502f616c01069c4918e30b6905e4ebeb7262ba67b3c6e27::AUTO-R017-COMPARATOR-GAP-701e34b0c7b6",
+      "frontier_signature": "5efd5398ae41cf657a06cd18b9ec485d895aab5380b05c42bba00ff238f291c4::AUTO-R017-COMPARATOR-GAP-701e34b0c7b6",
       "gap_id": "MS-COV-GAP-COMPLEX_SYSTEMS_OPERATIONS_SCIENCE-MULTI_AGENT_SYSTEM_DYNAMICS",
       "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
       "missing_artifact_total": 7,
@@ -613,7 +614,7 @@
         "--write"
       ],
       "executor_type": "comparator_gap",
-      "frontier_signature": "7c4d7fe5674ac46fc502f616c01069c4918e30b6905e4ebeb7262ba67b3c6e27::AUTO-R017-COMPARATOR-GAP-72929588c49e",
+      "frontier_signature": "5efd5398ae41cf657a06cd18b9ec485d895aab5380b05c42bba00ff238f291c4::AUTO-R017-COMPARATOR-GAP-72929588c49e",
       "gap_id": "MS-COV-GAP-COMPLEX_SYSTEMS_OPERATIONS_SCIENCE-QUEUE_SUPPLY_CHAIN_AND_OPERATIONS_OBSERVABLES",
       "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
       "missing_artifact_total": 7,
@@ -630,7 +631,7 @@
       "pass_predicate": "The referenced lane disappears from strict TOE validator errors without weakening gates.",
       "repair_strategy": "Execute this action, sync SPOT/projections, rerun validators, and keep r017 blocked unless the strict terminal gate passes.",
       "required_capability": "Research/PriorArt",
-      "selected_for_execution": false,
+      "selected_for_execution": true,
       "source_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/gap_jobs/gap_72929588c49e2b61.json",
       "status": "OPEN",
       "why_it_failed": "The strict final TOE validator still reports this lane as open."
@@ -646,7 +647,7 @@
         "--write"
       ],
       "executor_type": "comparator_gap",
-      "frontier_signature": "7c4d7fe5674ac46fc502f616c01069c4918e30b6905e4ebeb7262ba67b3c6e27::AUTO-R017-COMPARATOR-GAP-80c7d7ec237d",
+      "frontier_signature": "5efd5398ae41cf657a06cd18b9ec485d895aab5380b05c42bba00ff238f291c4::AUTO-R017-COMPARATOR-GAP-80c7d7ec237d",
       "gap_id": "MS-COV-GAP-BIOLOGICAL_LIFE_SCIENCES-ECOLOGY_POPULATION_AND_BIODIVERSITY_OBSERVABLES",
       "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
       "missing_artifact_total": 7,
@@ -663,7 +664,7 @@
       "pass_predicate": "The referenced lane disappears from strict TOE validator errors without weakening gates.",
       "repair_strategy": "Execute this action, sync SPOT/projections, rerun validators, and keep r017 blocked unless the strict terminal gate passes.",
       "required_capability": "Research/PriorArt",
-      "selected_for_execution": false,
+      "selected_for_execution": true,
       "source_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/gap_jobs/gap_80c7d7ec237d85b3.json",
       "status": "OPEN",
       "why_it_failed": "The strict final TOE validator still reports this lane as open."
@@ -679,7 +680,7 @@
         "--write"
       ],
       "executor_type": "comparator_gap",
-      "frontier_signature": "7c4d7fe5674ac46fc502f616c01069c4918e30b6905e4ebeb7262ba67b3c6e27::AUTO-R017-COMPARATOR-GAP-81360a6338c2",
+      "frontier_signature": "5efd5398ae41cf657a06cd18b9ec485d895aab5380b05c42bba00ff238f291c4::AUTO-R017-COMPARATOR-GAP-81360a6338c2",
       "gap_id": "MS-COV-GAP-COMPUTER_INFORMATION_SCIENCES-INFORMATION_NETWORK_AND_SECURITY_OBSERVABLES",
       "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
       "missing_artifact_total": 7,
@@ -696,7 +697,7 @@
       "pass_predicate": "The referenced lane disappears from strict TOE validator errors without weakening gates.",
       "repair_strategy": "Execute this action, sync SPOT/projections, rerun validators, and keep r017 blocked unless the strict terminal gate passes.",
       "required_capability": "Research/PriorArt",
-      "selected_for_execution": false,
+      "selected_for_execution": true,
       "source_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/gap_jobs/gap_81360a6338c22458.json",
       "status": "OPEN",
       "why_it_failed": "The strict final TOE validator still reports this lane as open."
@@ -712,7 +713,7 @@
         "--write"
       ],
       "executor_type": "comparator_gap",
-      "frontier_signature": "7c4d7fe5674ac46fc502f616c01069c4918e30b6905e4ebeb7262ba67b3c6e27::AUTO-R017-COMPARATOR-GAP-8b4b8aaaa996",
+      "frontier_signature": "5efd5398ae41cf657a06cd18b9ec485d895aab5380b05c42bba00ff238f291c4::AUTO-R017-COMPARATOR-GAP-8b4b8aaaa996",
       "gap_id": "MS-COV-GAP-PHYSICAL_SCIENCES-CONDENSED_MATTER_FIELDS_AND_MEASUREMENTS",
       "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
       "missing_artifact_total": 7,
@@ -729,7 +730,7 @@
       "pass_predicate": "The referenced lane disappears from strict TOE validator errors without weakening gates.",
       "repair_strategy": "Execute this action, sync SPOT/projections, rerun validators, and keep r017 blocked unless the strict terminal gate passes.",
       "required_capability": "Research/PriorArt",
-      "selected_for_execution": false,
+      "selected_for_execution": true,
       "source_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/gap_jobs/gap_8b4b8aaaa996e50a.json",
       "status": "OPEN",
       "why_it_failed": "The strict final TOE validator still reports this lane as open."
@@ -745,7 +746,7 @@
         "--write"
       ],
       "executor_type": "comparator_gap",
-      "frontier_signature": "7c4d7fe5674ac46fc502f616c01069c4918e30b6905e4ebeb7262ba67b3c6e27::AUTO-R017-COMPARATOR-GAP-9d16b5041970",
+      "frontier_signature": "5efd5398ae41cf657a06cd18b9ec485d895aab5380b05c42bba00ff238f291c4::AUTO-R017-COMPARATOR-GAP-9d16b5041970",
       "gap_id": "MS-COV-GAP-BIOLOGICAL_LIFE_SCIENCES-CELLULAR_DEVELOPMENTAL_REGULATORY_DYNAMICS",
       "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
       "missing_artifact_total": 7,
@@ -762,7 +763,7 @@
       "pass_predicate": "The referenced lane disappears from strict TOE validator errors without weakening gates.",
       "repair_strategy": "Execute this action, sync SPOT/projections, rerun validators, and keep r017 blocked unless the strict terminal gate passes.",
       "required_capability": "Research/PriorArt",
-      "selected_for_execution": false,
+      "selected_for_execution": true,
       "source_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/gap_jobs/gap_9d16b5041970ef2a.json",
       "status": "OPEN",
       "why_it_failed": "The strict final TOE validator still reports this lane as open."
@@ -778,7 +779,7 @@
         "--write"
       ],
       "executor_type": "comparator_gap",
-      "frontier_signature": "7c4d7fe5674ac46fc502f616c01069c4918e30b6905e4ebeb7262ba67b3c6e27::AUTO-R017-COMPARATOR-GAP-a1c1bcc404d1",
+      "frontier_signature": "5efd5398ae41cf657a06cd18b9ec485d895aab5380b05c42bba00ff238f291c4::AUTO-R017-COMPARATOR-GAP-a1c1bcc404d1",
       "gap_id": "MS-COV-GAP-ENGINEERING_MATERIALS_SCIENCES-CONTROL_SYSTEMS_AND_SIGNAL_MEASUREMENT",
       "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
       "missing_artifact_total": 7,
@@ -795,7 +796,7 @@
       "pass_predicate": "The referenced lane disappears from strict TOE validator errors without weakening gates.",
       "repair_strategy": "Execute this action, sync SPOT/projections, rerun validators, and keep r017 blocked unless the strict terminal gate passes.",
       "required_capability": "Research/PriorArt",
-      "selected_for_execution": false,
+      "selected_for_execution": true,
       "source_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/gap_jobs/gap_a1c1bcc404d197ab.json",
       "status": "OPEN",
       "why_it_failed": "The strict final TOE validator still reports this lane as open."
@@ -811,7 +812,7 @@
         "--write"
       ],
       "executor_type": "comparator_gap",
-      "frontier_signature": "7c4d7fe5674ac46fc502f616c01069c4918e30b6905e4ebeb7262ba67b3c6e27::AUTO-R017-COMPARATOR-GAP-a7777e969d54",
+      "frontier_signature": "5efd5398ae41cf657a06cd18b9ec485d895aab5380b05c42bba00ff238f291c4::AUTO-R017-COMPARATOR-GAP-a7777e969d54",
       "gap_id": "MS-COV-GAP-PHYSICAL_SCIENCES-DYNAMICAL_LAWS_AND_CONSERVATION",
       "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
       "missing_artifact_total": 7,
@@ -828,7 +829,7 @@
       "pass_predicate": "The referenced lane disappears from strict TOE validator errors without weakening gates.",
       "repair_strategy": "Execute this action, sync SPOT/projections, rerun validators, and keep r017 blocked unless the strict terminal gate passes.",
       "required_capability": "Research/PriorArt",
-      "selected_for_execution": false,
+      "selected_for_execution": true,
       "source_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/gap_jobs/gap_a7777e969d546a74.json",
       "status": "OPEN",
       "why_it_failed": "The strict final TOE validator still reports this lane as open."
@@ -844,7 +845,7 @@
         "--write"
       ],
       "executor_type": "comparator_gap",
-      "frontier_signature": "7c4d7fe5674ac46fc502f616c01069c4918e30b6905e4ebeb7262ba67b3c6e27::AUTO-R017-COMPARATOR-GAP-ac1f601d3315",
+      "frontier_signature": "5efd5398ae41cf657a06cd18b9ec485d895aab5380b05c42bba00ff238f291c4::AUTO-R017-COMPARATOR-GAP-ac1f601d3315",
       "gap_id": "MS-COV-GAP-BIOLOGICAL_LIFE_SCIENCES-EVOLUTIONARY_PHYLOGENETIC_PATTERNS",
       "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
       "missing_artifact_total": 7,
@@ -861,7 +862,7 @@
       "pass_predicate": "The referenced lane disappears from strict TOE validator errors without weakening gates.",
       "repair_strategy": "Execute this action, sync SPOT/projections, rerun validators, and keep r017 blocked unless the strict terminal gate passes.",
       "required_capability": "Research/PriorArt",
-      "selected_for_execution": false,
+      "selected_for_execution": true,
       "source_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/gap_jobs/gap_ac1f601d3315235c.json",
       "status": "OPEN",
       "why_it_failed": "The strict final TOE validator still reports this lane as open."
@@ -877,7 +878,7 @@
         "--write"
       ],
       "executor_type": "comparator_gap",
-      "frontier_signature": "7c4d7fe5674ac46fc502f616c01069c4918e30b6905e4ebeb7262ba67b3c6e27::AUTO-R017-COMPARATOR-GAP-b0e7d011bb17",
+      "frontier_signature": "5efd5398ae41cf657a06cd18b9ec485d895aab5380b05c42bba00ff238f291c4::AUTO-R017-COMPARATOR-GAP-b0e7d011bb17",
       "gap_id": "MS-COV-GAP-COMPUTER_INFORMATION_SCIENCES-MACHINE_LEARNING_GENERALIZATION_AND_EVALUATION",
       "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
       "missing_artifact_total": 7,
@@ -894,7 +895,7 @@
       "pass_predicate": "The referenced lane disappears from strict TOE validator errors without weakening gates.",
       "repair_strategy": "Execute this action, sync SPOT/projections, rerun validators, and keep r017 blocked unless the strict terminal gate passes.",
       "required_capability": "Research/PriorArt",
-      "selected_for_execution": false,
+      "selected_for_execution": true,
       "source_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/gap_jobs/gap_b0e7d011bb178b87.json",
       "status": "OPEN",
       "why_it_failed": "The strict final TOE validator still reports this lane as open."
@@ -910,7 +911,7 @@
         "--write"
       ],
       "executor_type": "comparator_gap",
-      "frontier_signature": "7c4d7fe5674ac46fc502f616c01069c4918e30b6905e4ebeb7262ba67b3c6e27::AUTO-R017-COMPARATOR-GAP-b1491a46e156",
+      "frontier_signature": "5efd5398ae41cf657a06cd18b9ec485d895aab5380b05c42bba00ff238f291c4::AUTO-R017-COMPARATOR-GAP-b1491a46e156",
       "gap_id": "MS-COV-GAP-ENGINEERING_MATERIALS_SCIENCES-MATERIALS_PROPERTY_AND_FAILURE_PREDICTION",
       "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
       "missing_artifact_total": 7,
@@ -927,7 +928,7 @@
       "pass_predicate": "The referenced lane disappears from strict TOE validator errors without weakening gates.",
       "repair_strategy": "Execute this action, sync SPOT/projections, rerun validators, and keep r017 blocked unless the strict terminal gate passes.",
       "required_capability": "Research/PriorArt",
-      "selected_for_execution": false,
+      "selected_for_execution": true,
       "source_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/gap_jobs/gap_b1491a46e156e916.json",
       "status": "OPEN",
       "why_it_failed": "The strict final TOE validator still reports this lane as open."
@@ -943,7 +944,7 @@
         "--write"
       ],
       "executor_type": "comparator_gap",
-      "frontier_signature": "7c4d7fe5674ac46fc502f616c01069c4918e30b6905e4ebeb7262ba67b3c6e27::AUTO-R017-COMPARATOR-GAP-b1f19189ac36",
+      "frontier_signature": "5efd5398ae41cf657a06cd18b9ec485d895aab5380b05c42bba00ff238f291c4::AUTO-R017-COMPARATOR-GAP-b1f19189ac36",
       "gap_id": "MS-COV-GAP-AGRICULTURAL_FOOD_SCIENCES-FOOD_CHEMISTRY_SAFETY_AND_NUTRITION",
       "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
       "missing_artifact_total": 7,
@@ -960,7 +961,7 @@
       "pass_predicate": "The referenced lane disappears from strict TOE validator errors without weakening gates.",
       "repair_strategy": "Execute this action, sync SPOT/projections, rerun validators, and keep r017 blocked unless the strict terminal gate passes.",
       "required_capability": "Research/PriorArt",
-      "selected_for_execution": false,
+      "selected_for_execution": true,
       "source_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/gap_jobs/gap_b1f19189ac368c4d.json",
       "status": "OPEN",
       "why_it_failed": "The strict final TOE validator still reports this lane as open."
@@ -976,7 +977,7 @@
         "--write"
       ],
       "executor_type": "comparator_gap",
-      "frontier_signature": "7c4d7fe5674ac46fc502f616c01069c4918e30b6905e4ebeb7262ba67b3c6e27::AUTO-R017-COMPARATOR-GAP-b68311337e99",
+      "frontier_signature": "5efd5398ae41cf657a06cd18b9ec485d895aab5380b05c42bba00ff238f291c4::AUTO-R017-COMPARATOR-GAP-b68311337e99",
       "gap_id": "MS-COV-GAP-COMPUTER_INFORMATION_SCIENCES-PROGRAM_SEMANTICS_AND_VERIFICATION",
       "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
       "missing_artifact_total": 7,
@@ -993,7 +994,7 @@
       "pass_predicate": "The referenced lane disappears from strict TOE validator errors without weakening gates.",
       "repair_strategy": "Execute this action, sync SPOT/projections, rerun validators, and keep r017 blocked unless the strict terminal gate passes.",
       "required_capability": "Research/PriorArt",
-      "selected_for_execution": false,
+      "selected_for_execution": true,
       "source_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/gap_jobs/gap_b68311337e995a6c.json",
       "status": "OPEN",
       "why_it_failed": "The strict final TOE validator still reports this lane as open."
@@ -1009,7 +1010,7 @@
         "--write"
       ],
       "executor_type": "comparator_gap",
-      "frontier_signature": "7c4d7fe5674ac46fc502f616c01069c4918e30b6905e4ebeb7262ba67b3c6e27::AUTO-R017-COMPARATOR-GAP-bde33a9d3737",
+      "frontier_signature": "5efd5398ae41cf657a06cd18b9ec485d895aab5380b05c42bba00ff238f291c4::AUTO-R017-COMPARATOR-GAP-bde33a9d3737",
       "gap_id": "MS-COV-GAP-MEDICAL_HEALTH_SCIENCES-EPIDEMIOLOGICAL_TRANSMISSION_AND_RISK",
       "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
       "missing_artifact_total": 7,
@@ -1026,7 +1027,7 @@
       "pass_predicate": "The referenced lane disappears from strict TOE validator errors without weakening gates.",
       "repair_strategy": "Execute this action, sync SPOT/projections, rerun validators, and keep r017 blocked unless the strict terminal gate passes.",
       "required_capability": "Research/PriorArt",
-      "selected_for_execution": false,
+      "selected_for_execution": true,
       "source_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/gap_jobs/gap_bde33a9d37378831.json",
       "status": "OPEN",
       "why_it_failed": "The strict final TOE validator still reports this lane as open."
@@ -1042,7 +1043,7 @@
         "--write"
       ],
       "executor_type": "comparator_gap",
-      "frontier_signature": "7c4d7fe5674ac46fc502f616c01069c4918e30b6905e4ebeb7262ba67b3c6e27::AUTO-R017-COMPARATOR-GAP-c8f37f6962a1",
+      "frontier_signature": "5efd5398ae41cf657a06cd18b9ec485d895aab5380b05c42bba00ff238f291c4::AUTO-R017-COMPARATOR-GAP-c8f37f6962a1",
       "gap_id": "MS-COV-GAP-MEDICAL_HEALTH_SCIENCES-CLINICAL_OUTCOMES_AND_BIOMARKERS",
       "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
       "missing_artifact_total": 7,
@@ -1059,7 +1060,7 @@
       "pass_predicate": "The referenced lane disappears from strict TOE validator errors without weakening gates.",
       "repair_strategy": "Execute this action, sync SPOT/projections, rerun validators, and keep r017 blocked unless the strict terminal gate passes.",
       "required_capability": "Research/PriorArt",
-      "selected_for_execution": false,
+      "selected_for_execution": true,
       "source_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/gap_jobs/gap_c8f37f6962a1ece5.json",
       "status": "OPEN",
       "why_it_failed": "The strict final TOE validator still reports this lane as open."
@@ -1075,7 +1076,7 @@
         "--write"
       ],
       "executor_type": "comparator_gap",
-      "frontier_signature": "7c4d7fe5674ac46fc502f616c01069c4918e30b6905e4ebeb7262ba67b3c6e27::AUTO-R017-COMPARATOR-GAP-cdd8bd8ff796",
+      "frontier_signature": "5efd5398ae41cf657a06cd18b9ec485d895aab5380b05c42bba00ff238f291c4::AUTO-R017-COMPARATOR-GAP-cdd8bd8ff796",
       "gap_id": "MS-COV-GAP-COGNITIVE_BEHAVIORAL_NEUROSCIENCES-BEHAVIORAL_TASK_AND_PSYCHOMETRIC_PREDICTION",
       "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
       "missing_artifact_total": 7,
@@ -1092,7 +1093,7 @@
       "pass_predicate": "The referenced lane disappears from strict TOE validator errors without weakening gates.",
       "repair_strategy": "Execute this action, sync SPOT/projections, rerun validators, and keep r017 blocked unless the strict terminal gate passes.",
       "required_capability": "Research/PriorArt",
-      "selected_for_execution": false,
+      "selected_for_execution": true,
       "source_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/gap_jobs/gap_cdd8bd8ff7969c58.json",
       "status": "OPEN",
       "why_it_failed": "The strict final TOE validator still reports this lane as open."
@@ -1108,7 +1109,7 @@
         "--write"
       ],
       "executor_type": "comparator_gap",
-      "frontier_signature": "7c4d7fe5674ac46fc502f616c01069c4918e30b6905e4ebeb7262ba67b3c6e27::AUTO-R017-COMPARATOR-GAP-ce94088abe21",
+      "frontier_signature": "5efd5398ae41cf657a06cd18b9ec485d895aab5380b05c42bba00ff238f291c4::AUTO-R017-COMPARATOR-GAP-ce94088abe21",
       "gap_id": "MS-COV-GAP-FORMAL_MATHEMATICS_AND_LOGIC-STATISTICAL_INFERENCE_IDENTIFIABILITY",
       "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
       "missing_artifact_total": 7,
@@ -1125,7 +1126,7 @@
       "pass_predicate": "The referenced lane disappears from strict TOE validator errors without weakening gates.",
       "repair_strategy": "Execute this action, sync SPOT/projections, rerun validators, and keep r017 blocked unless the strict terminal gate passes.",
       "required_capability": "Research/PriorArt",
-      "selected_for_execution": false,
+      "selected_for_execution": true,
       "source_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/gap_jobs/gap_ce94088abe217c67.json",
       "status": "OPEN",
       "why_it_failed": "The strict final TOE validator still reports this lane as open."
@@ -1141,7 +1142,7 @@
         "--write"
       ],
       "executor_type": "comparator_gap",
-      "frontier_signature": "7c4d7fe5674ac46fc502f616c01069c4918e30b6905e4ebeb7262ba67b3c6e27::AUTO-R017-COMPARATOR-GAP-d24b3af373ba",
+      "frontier_signature": "5efd5398ae41cf657a06cd18b9ec485d895aab5380b05c42bba00ff238f291c4::AUTO-R017-COMPARATOR-GAP-d24b3af373ba",
       "gap_id": "MS-COV-GAP-FORMAL_MATHEMATICS_AND_LOGIC-FORMAL_THEOREM_RECONSTRUCTION",
       "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
       "missing_artifact_total": 7,
@@ -1158,7 +1159,7 @@
       "pass_predicate": "The referenced lane disappears from strict TOE validator errors without weakening gates.",
       "repair_strategy": "Execute this action, sync SPOT/projections, rerun validators, and keep r017 blocked unless the strict terminal gate passes.",
       "required_capability": "Research/PriorArt",
-      "selected_for_execution": false,
+      "selected_for_execution": true,
       "source_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/gap_jobs/gap_d24b3af373ba30ec.json",
       "status": "OPEN",
       "why_it_failed": "The strict final TOE validator still reports this lane as open."
@@ -1174,7 +1175,7 @@
         "--write"
       ],
       "executor_type": "comparator_gap",
-      "frontier_signature": "7c4d7fe5674ac46fc502f616c01069c4918e30b6905e4ebeb7262ba67b3c6e27::AUTO-R017-COMPARATOR-GAP-dd1092e4b6a8",
+      "frontier_signature": "5efd5398ae41cf657a06cd18b9ec485d895aab5380b05c42bba00ff238f291c4::AUTO-R017-COMPARATOR-GAP-dd1092e4b6a8",
       "gap_id": "MS-COV-GAP-CHEMICAL_SCIENCES-THERMOCHEMISTRY_AND_PHASE_BEHAVIOR",
       "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
       "missing_artifact_total": 7,
@@ -1191,7 +1192,7 @@
       "pass_predicate": "The referenced lane disappears from strict TOE validator errors without weakening gates.",
       "repair_strategy": "Execute this action, sync SPOT/projections, rerun validators, and keep r017 blocked unless the strict terminal gate passes.",
       "required_capability": "Research/PriorArt",
-      "selected_for_execution": false,
+      "selected_for_execution": true,
       "source_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/gap_jobs/gap_dd1092e4b6a884f7.json",
       "status": "OPEN",
       "why_it_failed": "The strict final TOE validator still reports this lane as open."
@@ -1207,7 +1208,7 @@
         "--write"
       ],
       "executor_type": "comparator_gap",
-      "frontier_signature": "7c4d7fe5674ac46fc502f616c01069c4918e30b6905e4ebeb7262ba67b3c6e27::AUTO-R017-COMPARATOR-GAP-e892ff669caa",
+      "frontier_signature": "5efd5398ae41cf657a06cd18b9ec485d895aab5380b05c42bba00ff238f291c4::AUTO-R017-COMPARATOR-GAP-e892ff669caa",
       "gap_id": "MS-COV-GAP-FORMAL_MATHEMATICS_AND_LOGIC-COMPUTATIONAL_COMPLEXITY_AND_ALGORITHMIC_PROOF",
       "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
       "missing_artifact_total": 7,
@@ -1224,7 +1225,7 @@
       "pass_predicate": "The referenced lane disappears from strict TOE validator errors without weakening gates.",
       "repair_strategy": "Execute this action, sync SPOT/projections, rerun validators, and keep r017 blocked unless the strict terminal gate passes.",
       "required_capability": "Research/PriorArt",
-      "selected_for_execution": false,
+      "selected_for_execution": true,
       "source_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/gap_jobs/gap_e892ff669caa35e6.json",
       "status": "OPEN",
       "why_it_failed": "The strict final TOE validator still reports this lane as open."
@@ -1240,7 +1241,7 @@
         "--write"
       ],
       "executor_type": "comparator_gap",
-      "frontier_signature": "7c4d7fe5674ac46fc502f616c01069c4918e30b6905e4ebeb7262ba67b3c6e27::AUTO-R017-COMPARATOR-GAP-f0ee7d5ec550",
+      "frontier_signature": "5efd5398ae41cf657a06cd18b9ec485d895aab5380b05c42bba00ff238f291c4::AUTO-R017-COMPARATOR-GAP-f0ee7d5ec550",
       "gap_id": "MS-COV-GAP-PHYSICAL_SCIENCES-ASTRONOMICAL_AND_COSMOLOGICAL_OBSERVABLES",
       "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
       "missing_artifact_total": 7,
@@ -1257,7 +1258,7 @@
       "pass_predicate": "The referenced lane disappears from strict TOE validator errors without weakening gates.",
       "repair_strategy": "Execute this action, sync SPOT/projections, rerun validators, and keep r017 blocked unless the strict terminal gate passes.",
       "required_capability": "Research/PriorArt",
-      "selected_for_execution": false,
+      "selected_for_execution": true,
       "source_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/gap_jobs/gap_f0ee7d5ec5503167.json",
       "status": "OPEN",
       "why_it_failed": "The strict final TOE validator still reports this lane as open."
@@ -1273,7 +1274,7 @@
         "--write"
       ],
       "executor_type": "comparator_gap",
-      "frontier_signature": "7c4d7fe5674ac46fc502f616c01069c4918e30b6905e4ebeb7262ba67b3c6e27::AUTO-R017-COMPARATOR-GAP-f193d7044d98",
+      "frontier_signature": "5efd5398ae41cf657a06cd18b9ec485d895aab5380b05c42bba00ff238f291c4::AUTO-R017-COMPARATOR-GAP-f193d7044d98",
       "gap_id": "MS-COV-GAP-AGRICULTURAL_FOOD_SCIENCES-CROP_YIELD_SOIL_AND_TRAIT_OBSERVABLES",
       "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
       "missing_artifact_total": 7,
@@ -1290,7 +1291,7 @@
       "pass_predicate": "The referenced lane disappears from strict TOE validator errors without weakening gates.",
       "repair_strategy": "Execute this action, sync SPOT/projections, rerun validators, and keep r017 blocked unless the strict terminal gate passes.",
       "required_capability": "Research/PriorArt",
-      "selected_for_execution": false,
+      "selected_for_execution": true,
       "source_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/gap_jobs/gap_f193d7044d98f51f.json",
       "status": "OPEN",
       "why_it_failed": "The strict final TOE validator still reports this lane as open."
@@ -1306,7 +1307,7 @@
         "--write"
       ],
       "executor_type": "comparator_gap",
-      "frontier_signature": "7c4d7fe5674ac46fc502f616c01069c4918e30b6905e4ebeb7262ba67b3c6e27::AUTO-R017-COMPARATOR-GAP-f5ba5b27c474",
+      "frontier_signature": "5efd5398ae41cf657a06cd18b9ec485d895aab5380b05c42bba00ff238f291c4::AUTO-R017-COMPARATOR-GAP-f5ba5b27c474",
       "gap_id": "MS-COV-GAP-COGNITIVE_BEHAVIORAL_NEUROSCIENCES-LEARNING_MEMORY_AND_PERCEPTION_DYNAMICS",
       "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
       "missing_artifact_total": 7,
@@ -1323,7 +1324,7 @@
       "pass_predicate": "The referenced lane disappears from strict TOE validator errors without weakening gates.",
       "repair_strategy": "Execute this action, sync SPOT/projections, rerun validators, and keep r017 blocked unless the strict terminal gate passes.",
       "required_capability": "Research/PriorArt",
-      "selected_for_execution": false,
+      "selected_for_execution": true,
       "source_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/gap_jobs/gap_f5ba5b27c4747241.json",
       "status": "OPEN",
       "why_it_failed": "The strict final TOE validator still reports this lane as open."
@@ -1339,7 +1340,7 @@
         "--write"
       ],
       "executor_type": "comparator_gap",
-      "frontier_signature": "7c4d7fe5674ac46fc502f616c01069c4918e30b6905e4ebeb7262ba67b3c6e27::AUTO-R017-COMPARATOR-GAP-fc08158de149",
+      "frontier_signature": "5efd5398ae41cf657a06cd18b9ec485d895aab5380b05c42bba00ff238f291c4::AUTO-R017-COMPARATOR-GAP-fc08158de149",
       "gap_id": "MS-COV-GAP-SOCIAL_ECONOMIC_POLITICAL_SCIENCES-ECONOMIC_INDICATOR_AND_MARKET_OBSERVABLES",
       "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
       "missing_artifact_total": 7,
@@ -1356,7 +1357,7 @@
       "pass_predicate": "The referenced lane disappears from strict TOE validator errors without weakening gates.",
       "repair_strategy": "Execute this action, sync SPOT/projections, rerun validators, and keep r017 blocked unless the strict terminal gate passes.",
       "required_capability": "Research/PriorArt",
-      "selected_for_execution": false,
+      "selected_for_execution": true,
       "source_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/gap_jobs/gap_fc08158de1496fae.json",
       "status": "OPEN",
       "why_it_failed": "The strict final TOE validator still reports this lane as open."
@@ -1372,13 +1373,13 @@
         "--write"
       ],
       "executor_type": "grand_promotion_derivation",
-      "frontier_signature": "7c4d7fe5674ac46fc502f616c01069c4918e30b6905e4ebeb7262ba67b3c6e27::AUTO-R017-GRAND-PROMOTION-DERIVATION",
+      "frontier_signature": "5efd5398ae41cf657a06cd18b9ec485d895aab5380b05c42bba00ff238f291c4::AUTO-R017-GRAND-PROMOTION-DERIVATION",
       "lane_id": "GRAND_TOE_CLAIM_LEDGER_EVIDENCE",
       "next_escalation": "If this action produces no validator delta, split the missing artifact class into a narrower capability work order.",
       "pass_predicate": "The referenced lane disappears from strict TOE validator errors without weakening gates.",
       "repair_strategy": "Execute this action, sync SPOT/projections, rerun validators, and keep r017 blocked unless the strict terminal gate passes.",
       "required_capability": "Research/FormalScience",
-      "selected_for_execution": false,
+      "selected_for_execution": true,
       "status": "OPEN",
       "why_it_failed": "The strict final TOE validator still reports this lane as open."
     },
@@ -1387,7 +1388,7 @@
       "already_attempted_on_frontier": false,
       "execution_command": [],
       "executor_type": "skip_until_science_pass",
-      "frontier_signature": "7c4d7fe5674ac46fc502f616c01069c4918e30b6905e4ebeb7262ba67b3c6e27::AUTO-R017-CERBERUS-CLEAN-REFRESH",
+      "frontier_signature": "5efd5398ae41cf657a06cd18b9ec485d895aab5380b05c42bba00ff238f291c4::AUTO-R017-CERBERUS-CLEAN-REFRESH",
       "lane_id": "CERBERUS_RELEASE_REVIEW_GATE",
       "next_escalation": "If this action produces no validator delta, split the missing artifact class into a narrower capability work order.",
       "pass_predicate": "The referenced lane disappears from strict TOE validator errors without weakening gates.",
@@ -1401,6 +1402,7 @@
   "schema_id": "OC133_TOE_AUTONOMOUS_NEXT_ACTION_QUEUE_v1",
   "science_validator_error_total": 17,
   "status": "OPEN",
+  "support_reference_index_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/OC133_TOE_SUPPORT_REFERENCE_INDEX.json",
   "terminal_stop_on_zero_delta": false,
   "validator_error_total": 25,
   "zero_delta_continue_policy": "PASS"

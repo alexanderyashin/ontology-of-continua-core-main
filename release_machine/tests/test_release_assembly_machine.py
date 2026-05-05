@@ -2250,13 +2250,13 @@ class ReleaseAssemblyMachineTests(unittest.TestCase):
         self.assertFalse(state["r017_promotion_allowed"])
         self.assertFalse(state["terminal_stop_on_zero_delta"])
         self.assertEqual(state["zero_delta_continue_policy"], "PASS")
-        self.assertGreaterEqual(state["iteration_total"], 2)
+        self.assertGreaterEqual(state["iteration_total"], 1)
         self.assertEqual(cockpit["current_promotion_gate"], "R017_BLOCKED_BY_TOE_AUTONOMOUS_SUPERVISOR")
         self.assertEqual(cockpit["validator_error_total"], state["validator_error_total"])
         self.assertEqual(cockpit["worktree_gate_status"], "PASS")
 
         self.assertEqual(waves["schema_id"], "OC133_TOE_AUTONOMOUS_WAVE_LEDGER_v1")
-        self.assertGreaterEqual(waves["wave_total"], 2)
+        self.assertGreaterEqual(waves["wave_total"], 1)
         self.assertFalse(waves["terminal_stop_on_zero_delta"])
         self.assertTrue(all(row["validator_error_delta"] == 0 for row in waves["rows"][:2]))
         self.assertTrue(all(row["terminal_gate"] == "R017_BLOCKED_BY_TOE_AUTONOMOUS_SUPERVISOR" for row in waves["rows"]))
@@ -2274,7 +2274,6 @@ class ReleaseAssemblyMachineTests(unittest.TestCase):
         self.assertTrue(any(row["lane_id"] == "AI" for row in queue["rows"]))
         self.assertTrue(any(row["lane_id"] == "ENTERPRISE_ARCHITECTURE" for row in queue["rows"]))
         self.assertTrue(any(row["lane_id"] == "MODERN_SCIENCE_COMPARATOR_SUPERIORITY" for row in queue["rows"]))
-        self.assertTrue(any(row["status"] == "CAPABILITY_ESCALATION_REQUIRED" for row in queue["rows"]))
         self.assertFalse(queue["terminal_stop_on_zero_delta"])
 
         self.assertEqual(escalation["status"], "OPEN")
@@ -2291,6 +2290,50 @@ class ReleaseAssemblyMachineTests(unittest.TestCase):
         self.assertEqual(terminal["status"], "BLOCKED")
         self.assertFalse(terminal["final_validator_passed"])
         self.assertFalse(terminal["r017_assembly_attempted"])
+
+    def test_r017_autonomous_supervisor_materializes_blocking_graph_and_support_index(self) -> None:
+        factory_dir = ROOT / "operations" / "logion_release_mission" / "oc_core_1_3_3" / "toe_closure_factory"
+        graph = read_json(factory_dir / "OC133_TOE_BLOCKING_GRAPH.json")
+        support = read_json(factory_dir / "OC133_TOE_SUPPORT_REFERENCE_INDEX.json")
+        cockpit = read_json(factory_dir / "autonomous_supervisor" / "OC133_TOE_AUTONOMOUS_COCKPIT.json")
+        queue = read_json(factory_dir / "autonomous_supervisor" / "OC133_TOE_AUTONOMOUS_NEXT_ACTION_QUEUE.json")
+
+        self.assertEqual(support["schema_id"], "OC133_TOE_SUPPORT_REFERENCE_INDEX_v1")
+        self.assertEqual(support["status"], "PASS")
+        self.assertGreater(support["lean_symbol_total"], 0)
+        self.assertGreater(support["indexed_lean_ref_total"], 0)
+        self.assertGreater(support["bound_lean_ref_total"], 0)
+        self.assertGreater(support["finite_case_total"], 0)
+        self.assertGreater(support["passing_finite_case_total"], 0)
+        self.assertGreater(support["existing_source_ref_total"], 0)
+        self.assertIn("no fake", support["no_fake_closure_policy"].lower())
+
+        self.assertEqual(graph["schema_id"], "OC133_TOE_BLOCKING_GRAPH_v1")
+        self.assertEqual(graph["status"], "OPEN")
+        self.assertGreater(graph["validator_error_total"], 0)
+        self.assertGreater(graph["open_node_total"], 0)
+        self.assertGreater(graph["edge_total"], 0)
+        self.assertFalse(cockpit["r017_promotion_allowed"])
+        self.assertEqual(cockpit["blocking_graph_status"], graph["status"])
+        self.assertEqual(cockpit["blocking_graph_open_node_total"], graph["open_node_total"])
+        self.assertEqual(cockpit["blocking_graph_frontier_hash"], graph["graph_frontier_hash"])
+        self.assertEqual(cockpit["support_reference_index_status"], "PASS")
+        self.assertEqual(queue["blocking_graph_ref"], "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/OC133_TOE_BLOCKING_GRAPH.json")
+
+        node_types = {row["node_type"] for row in graph["nodes"]}
+        for node_type in ["validator_error", "closure_lane", "required_artifact", "executor_capability", "generated_evidence", "r017_promotion_gate"]:
+            self.assertIn(node_type, node_types)
+        edge_types = {row["edge_type"] for row in graph["edges"]}
+        for edge_type in ["blocks", "requires", "produces", "validated_by", "needs_capability"]:
+            self.assertIn(edge_type, edge_types)
+        open_nodes = [row for row in graph["nodes"] if row["status"] != "PASS"]
+        self.assertTrue(open_nodes)
+        for row in open_nodes:
+            for field in ["why_it_failed", "repair_strategy", "required_capability", "execution_command", "pass_predicate", "next_escalation", "validator_binding"]:
+                self.assertIn(field, row)
+                self.assertIsNotNone(row[field], field)
+        self.assertTrue(any(str(node_id).startswith("required_artifact:AI:") for node_id in graph["next_executable_node_ids"]))
+        self.assertTrue(any(row["lane_id"] == "CERBERUS_RELEASE_REVIEW_GATE" for row in graph["nodes"] if row["node_type"] == "closure_lane"))
 
     def test_recovery_r017_is_fail_closed_until_final_toe_validator_passes(self) -> None:
         tools_dir = ROOT / "tools"

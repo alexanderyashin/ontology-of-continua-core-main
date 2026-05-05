@@ -31,6 +31,8 @@ ESCALATION_LEDGER_NAME = "OC133_TOE_AUTONOMOUS_CAPABILITY_ESCALATION_LEDGER.json
 FRONTIER_HASHES_NAME = "OC133_TOE_AUTONOMOUS_FRONTIER_HASHES.json"
 COMMIT_LEDGER_NAME = "OC133_TOE_AUTONOMOUS_COMMIT_LEDGER.json"
 TERMINAL_VALIDATION_NAME = "OC133_TOE_AUTONOMOUS_TERMINAL_VALIDATION_REPORT.json"
+BLOCKING_GRAPH_NAME = "OC133_TOE_BLOCKING_GRAPH.json"
+SUPPORT_INDEX_NAME = "OC133_TOE_SUPPORT_REFERENCE_INDEX.json"
 
 VOLATILE_KEYS = {
     "artifact_hash",
@@ -155,6 +157,8 @@ def semantic_payload(root: Path, rel_path: str | Path) -> Any:
 
 def semantic_frontier_hash(root: Path) -> str:
     refs = [
+        factory.FACTORY_DIR / BLOCKING_GRAPH_NAME,
+        factory.FACTORY_DIR / SUPPORT_INDEX_NAME,
         factory.FACTORY_DIR / factory.CAPABILITY_BACKLOG_NAME,
         factory.FACTORY_DIR / factory.SUBWORK_ORDERS_NAME,
         factory.FACTORY_DIR / factory.ROOT_CAUSE_LEDGER_NAME,
@@ -178,6 +182,309 @@ def semantic_frontier_hash(root: Path) -> str:
             "refs": {str(ref).replace("\\", "/"): semantic_payload(root, ref) for ref in refs},
         }
     )
+
+
+def iter_json_files(root: Path) -> list[Path]:
+    roots = [
+        "claims",
+        "proofs",
+        "reports",
+        "comparators",
+        "benchmarks",
+        "releases/oc_core_1_3/editorial/science_sources",
+        "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory",
+    ]
+    files: list[Path] = []
+    for rel_root in roots:
+        base = root / rel_root
+        if not base.exists():
+            continue
+        files.extend(path for path in base.rglob("*.json") if path.is_file())
+    return sorted(set(files))
+
+
+def collect_string_values(value: Any) -> list[str]:
+    if isinstance(value, dict):
+        rows: list[str] = []
+        for item in value.values():
+            rows.extend(collect_string_values(item))
+        return rows
+    if isinstance(value, list):
+        rows = []
+        for item in value:
+            rows.extend(collect_string_values(item))
+        return rows
+    return [value] if isinstance(value, str) else []
+
+
+def build_support_reference_index(root: Path, generated_at: str | None = None) -> dict[str, Any]:
+    lean_path = root / "formal/lean/OC133V12.lean"
+    lean_symbols = sorted(factory.declared_symbols(lean_path))
+    finite_rows = factory.finite_case_rows_by_id(root)
+    passing_finite = sorted(case_id for case_id, row in finite_rows.items() if row.get("passed") is True)
+    json_files = iter_json_files(root)
+    lean_ref_rows: dict[str, dict[str, Any]] = {}
+    finite_ref_rows: dict[str, dict[str, Any]] = {}
+    source_ref_rows: dict[str, dict[str, Any]] = {}
+    for path in json_files:
+        rel_path = path.relative_to(root).as_posix()
+        payload = read_json(path)
+        for text in collect_string_values(payload):
+            if text.startswith("formal/lean/") and "::" in text:
+                lean_ref_rows.setdefault(
+                    text,
+                    {
+                        "ref": text,
+                        "bound": factory.lean_ref_bound(root, text),
+                        "source_refs": [],
+                    },
+                )["source_refs"].append(rel_path)
+            if text.startswith("FM-"):
+                row = finite_rows.get(text)
+                finite_ref_rows.setdefault(
+                    text,
+                    {
+                        "case_id": text,
+                        "exists": bool(row),
+                        "passed": bool(row and row.get("passed") is True),
+                        "source_refs": [],
+                    },
+                )["source_refs"].append(rel_path)
+            if "/" in text and (text.endswith(".json") or text.endswith(".md") or text.endswith(".tex") or text.endswith(".lean")):
+                ref_path = factory.split_ref_path(text)
+                source_ref_rows.setdefault(
+                    ref_path,
+                    {
+                        "ref": ref_path,
+                        "exists": bool(ref_path) and (root / ref_path).exists(),
+                        "source_refs": [],
+                    },
+                )["source_refs"].append(rel_path)
+    payload = {
+        "schema_id": "OC133_TOE_SUPPORT_REFERENCE_INDEX_v1",
+        "generated_at": generated_at or utc_now(),
+        "status": "PASS",
+        "lean_source_ref": "formal/lean/OC133V12.lean",
+        "lean_symbol_total": len(lean_symbols),
+        "lean_symbols_sample": lean_symbols[:50],
+        "indexed_lean_ref_total": len(lean_ref_rows),
+        "bound_lean_ref_total": sum(1 for row in lean_ref_rows.values() if row["bound"]),
+        "unbound_lean_ref_total": sum(1 for row in lean_ref_rows.values() if not row["bound"]),
+        "finite_case_total": len(finite_rows),
+        "passing_finite_case_total": len(passing_finite),
+        "indexed_finite_ref_total": len(finite_ref_rows),
+        "passing_indexed_finite_ref_total": sum(1 for row in finite_ref_rows.values() if row["passed"]),
+        "source_ref_total": len(source_ref_rows),
+        "existing_source_ref_total": sum(1 for row in source_ref_rows.values() if row["exists"]),
+        "json_source_file_total": len(json_files),
+        "rows": {
+            "lean_refs": sorted(lean_ref_rows.values(), key=lambda row: row["ref"])[:500],
+            "finite_refs": sorted(finite_ref_rows.values(), key=lambda row: row["case_id"])[:500],
+            "source_refs": sorted(source_ref_rows.values(), key=lambda row: row["ref"])[:500],
+        },
+        "no_fake_closure_policy": "No fake closure: the index only records available support; lane writers still require validator-bound PASS predicates before promotion.",
+    }
+    payload["artifact_hash"] = artifact_hash(payload)
+    return payload
+
+
+def graph_node(node_id: str, node_type: str, status: str, **kwargs: Any) -> dict[str, Any]:
+    defaults = {
+        "why_it_failed": "This node remains open because its validator-bound closure predicate is not satisfied.",
+        "repair_strategy": "Resolve the lowest unresolved dependency, then rerun the strict TOE validator.",
+        "required_capability": "Research/TOEClosureFactory",
+        "execution_command": [],
+        "pass_predicate": "The node's validator-bound predicate returns PASS.",
+        "next_escalation": "Split this node into narrower source-bound capability work if it produces zero validator delta.",
+        "validator_binding": "validate_oc_core_1_3_science_spot.py --require-final-toe-pass --require-cerberus-clean",
+    }
+    payload = {"node_id": node_id, "node_type": node_type, "status": status}
+    payload.update(defaults)
+    payload.update(kwargs)
+    if status == "PASS":
+        for key in ["why_it_failed", "next_escalation"]:
+            payload[key] = payload.get(key) or "Already closed."
+    return payload
+
+
+def graph_edge(source: str, target: str, edge_type: str) -> dict[str, str]:
+    return {"source": source, "target": target, "edge_type": edge_type}
+
+
+def lane_for_error(error: str) -> str:
+    lowered = error.lower()
+    if "enterprise_architecture" in lowered or "enterprise architecture" in lowered:
+        return "ENTERPRISE_ARCHITECTURE"
+    if "ai lane" in lowered or "ai row" in lowered:
+        return "AI"
+    if "modern_science_comparator_superiority" in lowered:
+        return "MODERN_SCIENCE_COMPARATOR_SUPERIORITY"
+    if "grand_toe_claim_ledger_evidence" in lowered or "all_domain_ready_no_send" in lowered:
+        return "GRAND_TOE_CLAIM_LEDGER_EVIDENCE"
+    if "cerberus" in lowered:
+        return "CERBERUS_RELEASE_REVIEW_GATE"
+    return "TOE_CLOSURE_FACTORY"
+
+
+def build_blocking_graph(root: Path, queue: dict[str, Any], support_index: dict[str, Any], generated_at: str | None = None) -> dict[str, Any]:
+    parts = factory.current_validator_error_parts(root)
+    nodes: dict[str, dict[str, Any]] = {}
+    edges: list[dict[str, str]] = []
+    gate_id = "promotion_gate:recovery_r017"
+    nodes[gate_id] = graph_node(
+        gate_id,
+        "r017_promotion_gate",
+        "PASS" if factory.validator_error_total(parts) == 0 else "OPEN",
+        why_it_failed="Strict final TOE validator still reports open blockers.",
+        repair_strategy="Close all science blockers, refresh Cerberus only after science PASS, then assemble r017.",
+        required_capability="Research/TOEClosureFactory",
+        execution_command=[sys.executable, "tools/validate_oc_core_1_3_science_spot.py", "--require-final-toe-pass", "--require-cerberus-clean"],
+        pass_predicate="validator_error_total == 0",
+        next_escalation="Continue resolving the lowest unresolved graph dependency; do not assemble r017.",
+        validator_binding="strict_final_toe_validator",
+    )
+    for index, error in enumerate(parts["science_errors"] + parts["cerberus_errors"], start=1):
+        lane_id = lane_for_error(error)
+        error_id = f"validator_error:{index:03d}"
+        nodes[error_id] = graph_node(
+            error_id,
+            "validator_error",
+            "OPEN",
+            symptom=error,
+            lane_id=lane_id,
+            why_it_failed=error,
+            repair_strategy="Route this validator error to its owning lane and close the required support artifacts.",
+            required_capability=factory.lane_registry_by_id().get(lane_id, {}).get("owner_capability", "Research/TOEClosureFactory"),
+            execution_command=factory.lane_registry_by_id().get(lane_id, {}).get("execution_command", []),
+            pass_predicate="This exact validator error disappears from the strict validator output.",
+            validator_binding=f"strict_final_toe_validator::{lane_id}",
+        )
+        edges.append(graph_edge(error_id, gate_id, "blocks"))
+        lane_node_id = f"lane:{lane_id}"
+        if lane_node_id not in nodes:
+            nodes[lane_node_id] = graph_node(
+                lane_node_id,
+                "closure_lane",
+                "OPEN",
+                lane_id=lane_id,
+                why_it_failed=f"{lane_id} has one or more open validator errors.",
+                repair_strategy="Close required artifacts and rerun the guarded lane writer.",
+                required_capability=factory.lane_registry_by_id().get(lane_id, {}).get("owner_capability", "Research/TOEClosureFactory"),
+                execution_command=factory.lane_registry_by_id().get(lane_id, {}).get("execution_command", []),
+                pass_predicate=f"{lane_id} lane status == PASS and final_toe_support_allowed == true where applicable.",
+                validator_binding=f"lane_result::{lane_id}",
+            )
+        edges.append(graph_edge(lane_node_id, error_id, "validated_by"))
+
+    for action in queue.get("rows", []) or []:
+        lane_id = str(action.get("lane_id") or "TOE_CLOSURE_FACTORY")
+        lane_node_id = f"lane:{lane_id}"
+        action_id = str(action.get("action_id") or artifact_hash(action)[:12])
+        capability_id = f"capability:{action_id}"
+        status = "OPEN" if action.get("execution_command") and not action.get("already_attempted_on_frontier") else str(action.get("status") or "OPEN")
+        nodes[capability_id] = graph_node(
+            capability_id,
+            "executor_capability",
+            status,
+            lane_id=lane_id,
+            executor_type=action.get("executor_type"),
+            why_it_failed=action.get("why_it_failed"),
+            repair_strategy=action.get("repair_strategy"),
+            required_capability=action.get("required_capability"),
+            execution_command=action.get("execution_command", []),
+            pass_predicate=action.get("pass_predicate"),
+            next_escalation=action.get("next_escalation"),
+            validator_binding=f"action::{action_id}",
+        )
+        edges.append(graph_edge(capability_id, lane_node_id, "produces"))
+        if action.get("required_artifact"):
+            artifact_id = f"required_artifact:{lane_id}:{action.get('required_artifact')}"
+            nodes.setdefault(
+                artifact_id,
+                graph_node(
+                    artifact_id,
+                    "required_artifact",
+                    "OPEN",
+                    lane_id=lane_id,
+                    artifact_key=action.get("required_artifact"),
+                    why_it_failed=f"{lane_id} lacks required artifact `{action.get('required_artifact')}`.",
+                    repair_strategy="Create or bind this artifact from canonical source/evidence surfaces.",
+                    required_capability=action.get("required_capability"),
+                    execution_command=action.get("execution_command", []),
+                    pass_predicate=f"{action.get('required_artifact')} exists and passes lane static validation.",
+                    validator_binding=f"support_artifact::{lane_id}::{action.get('required_artifact')}",
+                ),
+            )
+            edges.append(graph_edge(lane_node_id, artifact_id, "requires"))
+            edges.append(graph_edge(artifact_id, capability_id, "needs_capability"))
+        for artifact_key in action.get("missing_artifacts") or []:
+            artifact_id = f"required_artifact:{lane_id}:{action.get('gap_id')}:{artifact_key}"
+            nodes.setdefault(
+                artifact_id,
+                graph_node(
+                    artifact_id,
+                    "required_artifact",
+                    "OPEN",
+                    lane_id=lane_id,
+                    gap_id=action.get("gap_id"),
+                    artifact_key=artifact_key,
+                    why_it_failed=f"Comparator gap `{action.get('gap_id')}` lacks `{artifact_key}`.",
+                    repair_strategy="Bind source capsule, benchmark, comparator, score, uncertainty, falsifier, and replay evidence for this gap.",
+                    required_capability=action.get("required_capability"),
+                    execution_command=action.get("execution_command", []),
+                    pass_predicate=f"Comparator gap `{action.get('gap_id')}` has `{artifact_key}` and gap status PASS.",
+                    validator_binding=f"comparator_gap::{action.get('gap_id')}::{artifact_key}",
+                ),
+            )
+            edges.append(graph_edge(lane_node_id, artifact_id, "requires"))
+            edges.append(graph_edge(artifact_id, capability_id, "needs_capability"))
+
+    support_id = "support_index:canonical_refs"
+    nodes[support_id] = graph_node(
+        support_id,
+        "generated_evidence",
+        "PASS",
+        why_it_failed="Already indexed.",
+        repair_strategy="Keep this index fresh before lane writers run.",
+        required_capability="Research/SupportIndex",
+        execution_command=[sys.executable, "tools/oc133_toe_autonomous_supervisor.py", "--write", "--max-iterations", "0"],
+        pass_predicate="support index generated and non-empty.",
+        validator_binding="support_reference_index",
+        support_summary={
+            "lean_symbol_total": support_index.get("lean_symbol_total"),
+            "passing_finite_case_total": support_index.get("passing_finite_case_total"),
+            "existing_source_ref_total": support_index.get("existing_source_ref_total"),
+        },
+    )
+    for node_id, node in list(nodes.items()):
+        if node.get("node_type") in {"required_artifact", "closure_lane"}:
+            edges.append(graph_edge(node_id, support_id, "validated_by"))
+
+    open_nodes = [node for node in nodes.values() if node.get("status") != "PASS"]
+    next_nodes = [
+        node["node_id"]
+        for node in open_nodes
+        if node.get("node_type") in {"required_artifact", "executor_capability"}
+    ][:25]
+    payload = {
+        "schema_id": "OC133_TOE_BLOCKING_GRAPH_v1",
+        "generated_at": generated_at or utc_now(),
+        "status": "OPEN" if open_nodes else "PASS",
+        "validator_error_total": factory.validator_error_total(parts),
+        "science_validator_error_total": len(parts["science_errors"]),
+        "cerberus_error_total": len(parts["cerberus_errors"]),
+        "node_total": len(nodes),
+        "open_node_total": len(open_nodes),
+        "edge_total": len(edges),
+        "edge_type_total": {edge_type: sum(1 for edge in edges if edge["edge_type"] == edge_type) for edge_type in sorted({edge["edge_type"] for edge in edges})},
+        "next_executable_node_ids": next_nodes,
+        "graph_frontier_hash": artifact_hash({"nodes": strip_volatile(list(nodes.values())), "edges": edges}),
+        "zero_delta_policy": "Zero validator delta updates this graph and selects narrower unresolved dependency nodes; it never mints r017.",
+        "nodes": sorted(nodes.values(), key=lambda row: row["node_id"]),
+        "edges": sorted(edges, key=lambda row: (row["source"], row["edge_type"], row["target"])),
+    }
+    payload["artifact_hash"] = artifact_hash(payload)
+    return payload
 
 
 def load_state(root: Path) -> dict[str, Any]:
@@ -339,6 +646,8 @@ def plan_next_actions(root: Path, state: dict[str, Any], frontier_hash: str) -> 
         "generated_at": utc_now(),
         "status": "OPEN" if actions else "PASS",
         "frontier_hash": frontier_hash,
+        "blocking_graph_ref": (factory.FACTORY_DIR / BLOCKING_GRAPH_NAME).as_posix(),
+        "support_reference_index_ref": (factory.FACTORY_DIR / SUPPORT_INDEX_NAME).as_posix(),
         "validator_error_total": factory.validator_error_total(parts),
         "science_validator_error_total": len(science_errors),
         "cerberus_error_total": len(cerberus_errors),
@@ -651,6 +960,8 @@ def build_outputs(
     terminal_report: dict[str, Any],
     gate: dict[str, Any],
 ) -> dict[Path, dict[str, Any]]:
+    support_index = build_support_reference_index(root, state["generated_at"])
+    blocking_graph = build_blocking_graph(root, queue or {}, support_index, state["generated_at"])
     wave_ledger = {
         "schema_id": "OC133_TOE_AUTONOMOUS_WAVE_LEDGER_v1",
         "generated_at": state["generated_at"],
@@ -700,6 +1011,12 @@ def build_outputs(
         "next_action_total": int(queue_payload.get("action_total") or 0),
         "executable_action_total": int(queue_payload.get("executable_action_total") or 0),
         "capability_escalation_total": state["capability_escalation_total"],
+        "blocking_graph_status": blocking_graph["status"],
+        "blocking_graph_open_node_total": blocking_graph["open_node_total"],
+        "blocking_graph_frontier_hash": blocking_graph["graph_frontier_hash"],
+        "support_reference_index_status": support_index["status"],
+        "indexed_lean_ref_total": support_index["indexed_lean_ref_total"],
+        "passing_finite_case_total": support_index["passing_finite_case_total"],
         "worktree_gate_status": gate["status"],
         "terminal_validation_status": terminal_report["status"],
         "zero_delta_continue_policy": "PASS",
@@ -709,6 +1026,8 @@ def build_outputs(
     }
     cockpit["artifact_hash"] = artifact_hash(cockpit)
     return {
+        factory.FACTORY_DIR / SUPPORT_INDEX_NAME: support_index,
+        factory.FACTORY_DIR / BLOCKING_GRAPH_NAME: blocking_graph,
         SUPERVISOR_DIR / STATE_NAME: state,
         SUPERVISOR_DIR / COCKPIT_NAME: cockpit,
         SUPERVISOR_DIR / WAVE_LEDGER_NAME: wave_ledger,
@@ -785,6 +1104,8 @@ def main(argv: list[str] | None = None) -> int:
     args = parser.parse_args(argv)
     if args.check:
         paths = [
+            factory.FACTORY_DIR / SUPPORT_INDEX_NAME,
+            factory.FACTORY_DIR / BLOCKING_GRAPH_NAME,
             SUPERVISOR_DIR / STATE_NAME,
             SUPERVISOR_DIR / COCKPIT_NAME,
             SUPERVISOR_DIR / WAVE_LEDGER_NAME,
