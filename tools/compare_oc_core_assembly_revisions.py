@@ -108,6 +108,14 @@ FORM_STATUS_KEYS = [
     "methods_path_integrity_status",
     "reviewer_map_argument_status",
     "r014_quality_closure_status",
+    "scientific_source_review_status",
+    "research_pingpong_status",
+    "future_research_register_status",
+    "claim_support_ceiling_status",
+    "proof_sheet_binding_status",
+    "lean_certificate_boundary_status",
+    "delta_rebuild_status",
+    "editorial_input_gate_status",
     "form_quality_status",
 ]
 
@@ -219,10 +227,10 @@ def build_comparison(release_id: str, candidate_revision: str | None, baseline_r
         row = candidate_rows.get(artifact_id, {})
         if (
             old_baseline_status == "FAIL"
-            and candidate_revision in {"recovery_r007", "recovery_r008", "recovery_r009", "recovery_r010", "recovery_r011", "recovery_r012", "recovery_r013", "recovery_r014"}
+            and candidate_revision in {"recovery_r007", "recovery_r008", "recovery_r009", "recovery_r010", "recovery_r011", "recovery_r012", "recovery_r013", "recovery_r014", "recovery_r015"}
             and artifact_id != "master_monograph"
-            and row.get("public_translation_status") in {"PUBLICATION_TRANSLATOR_R007", "PUBLICATION_TRANSLATOR_R008", "PUBLICATION_TRANSLATOR_R009", "PUBLICATION_TRANSLATOR_R010_SOURCE_GROUNDED_REPAIR", "PUBLICATION_TRANSLATOR_R011_JOURNAL_REQUIREMENTS_SPOT", "PUBLICATION_TRANSLATOR_R012_FIGURE_VISUAL_QA_SPOT", "PUBLICATION_TRANSLATOR_R013_TABLE_RENDERED_QA_SPOT", "PUBLICATION_TRANSLATOR_R014_FULL_QUALITY_CLOSURE"}
-            and row.get("public_translation_source") in {"deterministic_publication_translator_r007", "logion_llm_service_publication_translator_r008", "editorial_ollama_until_done_publication_translator_r009", "source_grounded_editorial_repair_publication_translator_r010", "journal_requirements_spot_publication_translator_r011", "figure_visual_qa_publication_translator_r012", "table_rendered_qa_publication_translator_r013", "full_quality_closure_publication_translator_r014"}
+            and row.get("public_translation_status") in {"PUBLICATION_TRANSLATOR_R007", "PUBLICATION_TRANSLATOR_R008", "PUBLICATION_TRANSLATOR_R009", "PUBLICATION_TRANSLATOR_R010_SOURCE_GROUNDED_REPAIR", "PUBLICATION_TRANSLATOR_R011_JOURNAL_REQUIREMENTS_SPOT", "PUBLICATION_TRANSLATOR_R012_FIGURE_VISUAL_QA_SPOT", "PUBLICATION_TRANSLATOR_R013_TABLE_RENDERED_QA_SPOT", "PUBLICATION_TRANSLATOR_R014_FULL_QUALITY_CLOSURE", "PUBLICATION_TRANSLATOR_R015_SCIENTIFIC_REVIEW_GATE"}
+            and row.get("public_translation_source") in {"deterministic_publication_translator_r007", "logion_llm_service_publication_translator_r008", "editorial_ollama_until_done_publication_translator_r009", "source_grounded_editorial_repair_publication_translator_r010", "journal_requirements_spot_publication_translator_r011", "figure_visual_qa_publication_translator_r012", "table_rendered_qa_publication_translator_r013", "full_quality_closure_publication_translator_r014", "scientific_review_gate_publication_translator_r015"}
             and candidate_audit
             and candidate_audit.get("status") == "PASS"
             and candidate_pages[artifact_id] >= 8
@@ -253,10 +261,10 @@ def build_comparison(release_id: str, candidate_revision: str | None, baseline_r
         row = candidate_rows.get(artifact_id, {})
         if (
             page_delta_status == "WARN"
-            and candidate_revision in {"recovery_r007", "recovery_r008", "recovery_r009", "recovery_r010", "recovery_r011", "recovery_r012", "recovery_r013", "recovery_r014"}
+            and candidate_revision in {"recovery_r007", "recovery_r008", "recovery_r009", "recovery_r010", "recovery_r011", "recovery_r012", "recovery_r013", "recovery_r014", "recovery_r015"}
             and artifact_id != "master_monograph"
-            and row.get("public_translation_status") in {"PUBLICATION_TRANSLATOR_R007", "PUBLICATION_TRANSLATOR_R008", "PUBLICATION_TRANSLATOR_R009", "PUBLICATION_TRANSLATOR_R010_SOURCE_GROUNDED_REPAIR", "PUBLICATION_TRANSLATOR_R011_JOURNAL_REQUIREMENTS_SPOT", "PUBLICATION_TRANSLATOR_R012_FIGURE_VISUAL_QA_SPOT", "PUBLICATION_TRANSLATOR_R013_TABLE_RENDERED_QA_SPOT", "PUBLICATION_TRANSLATOR_R014_FULL_QUALITY_CLOSURE"}
-            and row.get("public_translation_source") in {"deterministic_publication_translator_r007", "logion_llm_service_publication_translator_r008", "editorial_ollama_until_done_publication_translator_r009", "source_grounded_editorial_repair_publication_translator_r010", "journal_requirements_spot_publication_translator_r011", "figure_visual_qa_publication_translator_r012", "table_rendered_qa_publication_translator_r013", "full_quality_closure_publication_translator_r014"}
+            and row.get("public_translation_status") in {"PUBLICATION_TRANSLATOR_R007", "PUBLICATION_TRANSLATOR_R008", "PUBLICATION_TRANSLATOR_R009", "PUBLICATION_TRANSLATOR_R010_SOURCE_GROUNDED_REPAIR", "PUBLICATION_TRANSLATOR_R011_JOURNAL_REQUIREMENTS_SPOT", "PUBLICATION_TRANSLATOR_R012_FIGURE_VISUAL_QA_SPOT", "PUBLICATION_TRANSLATOR_R013_TABLE_RENDERED_QA_SPOT", "PUBLICATION_TRANSLATOR_R014_FULL_QUALITY_CLOSURE", "PUBLICATION_TRANSLATOR_R015_SCIENTIFIC_REVIEW_GATE"}
+            and row.get("public_translation_source") in {"deterministic_publication_translator_r007", "logion_llm_service_publication_translator_r008", "editorial_ollama_until_done_publication_translator_r009", "source_grounded_editorial_repair_publication_translator_r010", "journal_requirements_spot_publication_translator_r011", "figure_visual_qa_publication_translator_r012", "table_rendered_qa_publication_translator_r013", "full_quality_closure_publication_translator_r014", "scientific_review_gate_publication_translator_r015"}
             and candidate_audit
             and candidate_audit.get("status") == "PASS"
             and candidate_pages[artifact_id] >= 8

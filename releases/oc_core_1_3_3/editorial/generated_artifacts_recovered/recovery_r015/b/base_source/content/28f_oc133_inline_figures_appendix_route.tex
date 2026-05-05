@@ -1,0 +1,179 @@
+\section{Inline Visual Route: Appendices and Support Maps}
+
+These figures are placed in the main argument as visual proof-of-reading aids: each one separates objects, direction, quantitative or formal anchor, and evidence route.
+
+\subsection{Notation normalization map}
+
+This figure is included because the reader must see how Symbol in prose is constrained by Defined mathematical role. The highlighted review variable is notation coverage, and the formal anchor is $s\mapsto \mathrm{definition}(s)$. The nearby prose names the proof, evidence row, table, replay check, or appendix that carries the claim.
+
+\begin{figure}[!htbp]
+\centering
+\resizebox{0.96\textwidth}{!}{%
+\begin{tikzpicture}[x=1cm,y=1cm,>=Latex,every node/.style={font=\small}]
+  \definecolor{ocBlue}{HTML}{173B57}
+\definecolor{ocGold}{HTML}{A77D2A}
+\definecolor{ocGreen}{HTML}{4B7F52}
+\definecolor{ocRed}{HTML}{8E3B32}
+\definecolor{ocGray}{HTML}{ECEFF1}
+  \draw[rounded corners=10pt,fill=ocGray!35,draw=ocBlue,line width=0.9pt] (-6.8,-3.4) rectangle (6.8,3.4);
+  \node[font=\bfseries\large,ocBlue] at (0,3.0) {Notation normalization map};
+  \node[draw,rounded corners=5pt,fill=blue!7,text width=0.24\textwidth,align=center,minimum height=1.05cm] (a) at (-4.35,1.0) {Symbol in prose};
+  \node[draw,rounded corners=5pt,fill=green!8,text width=0.24\textwidth,align=center,minimum height=1.05cm] (b) at (4.35,1.0) {Defined mathematical role};
+  \draw[->,line width=1.0pt,ocGreen] (a.east) -- node[above,fill=ocGray!35,inner sep=2pt,align=center] {lookup route} (b.west);
+  \node[draw,rounded corners=5pt,fill=orange!10,text width=0.28\textwidth,align=center,minimum height=0.9cm] (r) at (-4.35,-1.45) {notation coverage};
+  \node[draw,rounded corners=5pt,fill=white,text width=0.28\textwidth,align=center,minimum height=0.9cm] (m) at (0,-1.45) {notation coverage};
+  \node[draw,rounded corners=5pt,fill=red!6,text width=0.28\textwidth,align=center,minimum height=0.9cm] (f) at (4.35,-1.45) {formal anchor: \( s\mapsto \mathrm{definition}(s) \)};
+  \draw[->,dashed,ocGold] (r.north) -- (a.south);
+  \draw[->,dashed,ocGold] (m.north) -- ($(a)!0.5!(b)$);
+  \draw[->,dashed,ocGold] (f.north) -- (b.south);
+\end{tikzpicture}}
+\caption{Notation normalization map. This figure shows the reading relation from Symbol in prose to Defined mathematical role; the review variable is notation coverage, the formal anchor is \( s\mapsto \mathrm{definition}(s) \), and the evidence link is the named proof, table, replay row, or appendix section cited near the figure.}
+\label{fig:r012-inline-28f_oc133_inline_figures_appendix_route-1}
+\end{figure}
+
+\subsection{Axiom dependency map}
+
+This figure is included because the reader must see how Declared assumption is constrained by Dependent theorem. The highlighted review variable is theorem dependency, and the formal anchor is $A_i\rightarrow T_j$. The nearby prose names the proof, evidence row, table, replay check, or appendix that carries the claim.
+
+\begin{figure}[!htbp]
+\centering
+\resizebox{0.96\textwidth}{!}{%
+\begin{tikzpicture}[x=1cm,y=1cm,>=Latex,every node/.style={font=\small}]
+  \definecolor{ocBlue}{HTML}{173B57}
+\definecolor{ocGold}{HTML}{A77D2A}
+\definecolor{ocGreen}{HTML}{4B7F52}
+\definecolor{ocRed}{HTML}{8E3B32}
+\definecolor{ocGray}{HTML}{ECEFF1}
+  \draw[rounded corners=10pt,fill=ocGray!35,draw=ocBlue,line width=0.9pt] (-6.8,-3.4) rectangle (6.8,3.4);
+  \node[font=\bfseries\large,ocBlue] at (0,3.0) {Axiom dependency map};
+  \node[draw,rounded corners=5pt,fill=blue!7,text width=0.24\textwidth,align=center,minimum height=1.05cm] (a) at (-4.35,1.0) {Declared assumption};
+  \node[draw,rounded corners=5pt,fill=green!8,text width=0.24\textwidth,align=center,minimum height=1.05cm] (b) at (4.35,1.0) {Dependent theorem};
+  \draw[->,line width=1.0pt,ocGreen] (a.east) -- node[above,fill=ocGray!35,inner sep=2pt,align=center] {dependency route} (b.west);
+  \node[draw,rounded corners=5pt,fill=orange!10,text width=0.28\textwidth,align=center,minimum height=0.9cm] (r) at (-4.35,-1.45) {theorem dependency};
+  \node[draw,rounded corners=5pt,fill=white,text width=0.28\textwidth,align=center,minimum height=0.9cm] (m) at (0,-1.45) {theorem dependency};
+  \node[draw,rounded corners=5pt,fill=red!6,text width=0.28\textwidth,align=center,minimum height=0.9cm] (f) at (4.35,-1.45) {formal anchor: \( A_i\rightarrow T_j \)};
+  \draw[->,dashed,ocGold] (r.north) -- (a.south);
+  \draw[->,dashed,ocGold] (m.north) -- ($(a)!0.5!(b)$);
+  \draw[->,dashed,ocGold] (f.north) -- (b.south);
+\end{tikzpicture}}
+\caption{Axiom dependency map. This figure shows the reading relation from Declared assumption to Dependent theorem; the review variable is theorem dependency, the formal anchor is \( A_i\rightarrow T_j \), and the evidence link is the named proof, table, replay row, or appendix section cited near the figure.}
+\label{fig:r012-inline-28f_oc133_inline_figures_appendix_route-2}
+\end{figure}
+
+\subsection{Retrospective replay table row map}
+
+This figure is included because the reader must see how Prediction row with source snapshot is constrained by Reader-facing bounded replay claim. The highlighted review variable is row seven: observed x, estimate xhat, residual e, and the formal anchor is $\mathrm{row\ 7:}\ x,\ x_{\mathrm{hat}},\ e$. The nearby prose names the proof, evidence row, table, replay check, or appendix that carries the claim.
+
+\begin{figure}[!htbp]
+\centering
+\resizebox{0.96\textwidth}{!}{%
+\begin{tikzpicture}[x=1cm,y=1cm,>=Latex,every node/.style={font=\small}]
+  \definecolor{ocBlue}{HTML}{173B57}
+\definecolor{ocGold}{HTML}{A77D2A}
+\definecolor{ocGreen}{HTML}{4B7F52}
+\definecolor{ocRed}{HTML}{8E3B32}
+\definecolor{ocGray}{HTML}{ECEFF1}
+  \draw[rounded corners=10pt,fill=ocGray!35,draw=ocBlue,line width=0.9pt] (-6.8,-3.4) rectangle (6.8,3.4);
+  \node[font=\bfseries\large,ocBlue] at (0,3.0) {Retrospective replay table row map};
+  \node[draw,rounded corners=5pt,fill=blue!7,text width=0.24\textwidth,align=center,minimum height=1.05cm] (a) at (-4.35,1.0) {Prediction row with source snapshot};
+  \node[draw,rounded corners=5pt,fill=green!8,text width=0.24\textwidth,align=center,minimum height=1.05cm] (b) at (4.35,1.0) {Reader-facing bounded replay claim};
+  \draw[->,line width=1.0pt,ocGreen] (a.east) -- node[above,fill=ocGray!35,inner sep=2pt,align=center] {row-to-claim reference} (b.west);
+  \node[draw,rounded corners=5pt,fill=orange!10,text width=0.28\textwidth,align=center,minimum height=0.9cm] (r) at (-4.35,-1.45) {row seven: observed x, estimate xhat, residual e};
+  \node[draw,rounded corners=5pt,fill=white,text width=0.28\textwidth,align=center,minimum height=0.9cm] (m) at (0,-1.45) {row seven: observed x, estimate xhat, residual e};
+  \node[draw,rounded corners=5pt,fill=red!6,text width=0.28\textwidth,align=center,minimum height=0.9cm] (f) at (4.35,-1.45) {formal anchor: \( \mathrm{row\ 7:}\ x,\ x_{\mathrm{hat}},\ e \)};
+  \draw[->,dashed,ocGold] (r.north) -- (a.south);
+  \draw[->,dashed,ocGold] (m.north) -- ($(a)!0.5!(b)$);
+  \draw[->,dashed,ocGold] (f.north) -- (b.south);
+\end{tikzpicture}}
+\caption{Retrospective replay table row map. This figure shows the reading relation from Prediction row with source snapshot to Reader-facing bounded replay claim; the review variable is row seven: observed x, estimate xhat, residual e, the formal anchor is \( \mathrm{row\ 7:}\ x,\ x_{\mathrm{hat}},\ e \), and the evidence link is the named proof, table, replay row, or appendix section cited near the figure.}
+\label{fig:r012-inline-28f_oc133_inline_figures_appendix_route-3}
+\end{figure}
+
+\subsection{Checksum and review trace map}
+
+This figure is included because the reader must see how Source snapshot is constrained by Review trace with hash and verdict. The highlighted review variable is hash and status, and the formal anchor is $H(\mathrm{source})=\mathrm{traceHash}$. The nearby prose names the proof, evidence row, table, replay check, or appendix that carries the claim.
+
+\begin{figure}[!htbp]
+\centering
+\resizebox{0.96\textwidth}{!}{%
+\begin{tikzpicture}[x=1cm,y=1cm,>=Latex,every node/.style={font=\small}]
+  \definecolor{ocBlue}{HTML}{173B57}
+\definecolor{ocGold}{HTML}{A77D2A}
+\definecolor{ocGreen}{HTML}{4B7F52}
+\definecolor{ocRed}{HTML}{8E3B32}
+\definecolor{ocGray}{HTML}{ECEFF1}
+  \draw[rounded corners=10pt,fill=ocGray!35,draw=ocBlue,line width=0.9pt] (-6.8,-3.4) rectangle (6.8,3.4);
+  \node[font=\bfseries\large,ocBlue] at (0,3.0) {Checksum and review trace map};
+  \node[draw,rounded corners=5pt,fill=blue!7,text width=0.24\textwidth,align=center,minimum height=1.05cm] (a) at (-4.35,1.0) {Source snapshot};
+  \node[draw,rounded corners=5pt,fill=green!8,text width=0.24\textwidth,align=center,minimum height=1.05cm] (b) at (4.35,1.0) {Review trace with hash and verdict};
+  \draw[->,line width=1.0pt,ocGreen] (a.east) -- node[above,fill=ocGray!35,inner sep=2pt,align=center] {audit path} (b.west);
+  \node[draw,rounded corners=5pt,fill=orange!10,text width=0.28\textwidth,align=center,minimum height=0.9cm] (r) at (-4.35,-1.45) {hash and status};
+  \node[draw,rounded corners=5pt,fill=white,text width=0.28\textwidth,align=center,minimum height=0.9cm] (m) at (0,-1.45) {hash and status};
+  \node[draw,rounded corners=5pt,fill=red!6,text width=0.28\textwidth,align=center,minimum height=0.9cm] (f) at (4.35,-1.45) {formal anchor: \( H(\mathrm{source})=\mathrm{traceHash} \)};
+  \draw[->,dashed,ocGold] (r.north) -- (a.south);
+  \draw[->,dashed,ocGold] (m.north) -- ($(a)!0.5!(b)$);
+  \draw[->,dashed,ocGold] (f.north) -- (b.south);
+\end{tikzpicture}}
+\caption{Checksum and review trace map. This figure shows the reading relation from Source snapshot to Review trace with hash and verdict; the review variable is hash and status, the formal anchor is \( H(\mathrm{source})=\mathrm{traceHash} \), and the evidence link is the named proof, table, replay row, or appendix section cited near the figure.}
+\label{fig:r012-inline-28f_oc133_inline_figures_appendix_route-4}
+\end{figure}
+
+\subsection{Comparator-boundary map}
+
+This figure is included because the reader must see how Comparator explanation is constrained by OC residual contribution after prior art. The highlighted review variable is residual delta, and the formal anchor is $\Delta(\mathrm{OC},\mathrm{comparator})$. The nearby prose names the proof, evidence row, table, replay check, or appendix that carries the claim.
+
+\begin{figure}[!htbp]
+\centering
+\resizebox{0.96\textwidth}{!}{%
+\begin{tikzpicture}[x=1cm,y=1cm,>=Latex,every node/.style={font=\small}]
+  \definecolor{ocBlue}{HTML}{173B57}
+\definecolor{ocGold}{HTML}{A77D2A}
+\definecolor{ocGreen}{HTML}{4B7F52}
+\definecolor{ocRed}{HTML}{8E3B32}
+\definecolor{ocGray}{HTML}{ECEFF1}
+  \draw[rounded corners=10pt,fill=ocGray!35,draw=ocBlue,line width=0.9pt] (-6.8,-3.4) rectangle (6.8,3.4);
+  \node[font=\bfseries\large,ocBlue] at (0,3.0) {Comparator-boundary map};
+  \node[draw,rounded corners=5pt,fill=blue!7,text width=0.24\textwidth,align=center,minimum height=1.05cm] (a) at (-4.35,1.0) {Comparator explanation};
+  \node[draw,rounded corners=5pt,fill=green!8,text width=0.24\textwidth,align=center,minimum height=1.05cm] (b) at (4.35,1.0) {OC residual contribution after prior art};
+  \draw[->,line width=1.0pt,ocGreen] (a.east) -- node[above,fill=ocGray!35,inner sep=2pt,align=center] {comparison} (b.west);
+  \node[draw,rounded corners=5pt,fill=orange!10,text width=0.28\textwidth,align=center,minimum height=0.9cm] (r) at (-4.35,-1.45) {residual delta};
+  \node[draw,rounded corners=5pt,fill=white,text width=0.28\textwidth,align=center,minimum height=0.9cm] (m) at (0,-1.45) {residual delta};
+  \node[draw,rounded corners=5pt,fill=red!6,text width=0.28\textwidth,align=center,minimum height=0.9cm] (f) at (4.35,-1.45) {formal anchor: \( \Delta(\mathrm{OC},\mathrm{comparator}) \)};
+  \draw[->,dashed,ocGold] (r.north) -- (a.south);
+  \draw[->,dashed,ocGold] (m.north) -- ($(a)!0.5!(b)$);
+  \draw[->,dashed,ocGold] (f.north) -- (b.south);
+\end{tikzpicture}}
+\caption{Comparator-boundary map. This figure shows the reading relation from Comparator explanation to OC residual contribution after prior art; the review variable is residual delta, the formal anchor is \( \Delta(\mathrm{OC},\mathrm{comparator}) \), and the evidence link is the named proof, table, replay row, or appendix section cited near the figure.}
+\label{fig:r012-inline-28f_oc133_inline_figures_appendix_route-5}
+\end{figure}
+
+\subsection{Appendix support map}
+
+This figure is included because the reader must see how Main claim with reopening condition is constrained by Named appendix evidence support. The highlighted review variable is support status, and the formal anchor is $\mathrm{claim}\rightarrow\mathrm{appendix}\rightarrow\mathrm{falsifier}$. The nearby prose names the proof, evidence row, table, replay check, or appendix that carries the claim.
+
+\begin{figure}[!htbp]
+\centering
+\resizebox{0.96\textwidth}{!}{%
+\begin{tikzpicture}[x=1cm,y=1cm,>=Latex,every node/.style={font=\small}]
+  \definecolor{ocBlue}{HTML}{173B57}
+\definecolor{ocGold}{HTML}{A77D2A}
+\definecolor{ocGreen}{HTML}{4B7F52}
+\definecolor{ocRed}{HTML}{8E3B32}
+\definecolor{ocGray}{HTML}{ECEFF1}
+  \draw[rounded corners=10pt,fill=ocGray!35,draw=ocBlue,line width=0.9pt] (-6.8,-3.4) rectangle (6.8,3.4);
+  \node[font=\bfseries\large,ocBlue] at (0,3.0) {Appendix support map};
+  \node[draw,rounded corners=5pt,fill=blue!7,text width=0.24\textwidth,align=center,minimum height=1.05cm] (a) at (-4.35,1.0) {Main claim with reopening condition};
+  \node[draw,rounded corners=5pt,fill=green!8,text width=0.24\textwidth,align=center,minimum height=1.05cm] (b) at (4.35,1.0) {Named appendix evidence support};
+  \draw[->,line width=1.0pt,ocGreen] (a.east) -- node[above,fill=ocGray!35,inner sep=2pt,align=center] {support route} (b.west);
+  \node[draw,rounded corners=5pt,fill=orange!10,text width=0.28\textwidth,align=center,minimum height=0.9cm] (r) at (-4.35,-1.45) {support status};
+  \node[draw,rounded corners=5pt,fill=white,text width=0.28\textwidth,align=center,minimum height=0.9cm] (m) at (0,-1.45) {support status};
+  \node[draw,rounded corners=5pt,fill=red!6,text width=0.28\textwidth,align=center,minimum height=0.9cm] (f) at (4.35,-1.45) {formal anchor: \( \mathrm{claim}\rightarrow\mathrm{appendix}\rightarrow\mathrm{falsifier} \)};
+  \draw[->,dashed,ocGold] (r.north) -- (a.south);
+  \draw[->,dashed,ocGold] (m.north) -- ($(a)!0.5!(b)$);
+  \draw[->,dashed,ocGold] (f.north) -- (b.south);
+\end{tikzpicture}}
+\caption{Appendix support map. This figure shows the reading relation from Main claim with reopening condition to Named appendix evidence support; the review variable is support status, the formal anchor is \( \mathrm{claim}\rightarrow\mathrm{appendix}\rightarrow\mathrm{falsifier} \), and the evidence link is the named proof, table, replay row, or appendix section cited near the figure.}
+\label{fig:r012-inline-28f_oc133_inline_figures_appendix_route-6}
+\end{figure}
+
+\clearpage

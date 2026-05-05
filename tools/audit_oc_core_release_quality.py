@@ -114,6 +114,14 @@ FORM_STATUS_KEYS = [
     "methods_path_integrity_status",
     "reviewer_map_argument_status",
     "r014_quality_closure_status",
+    "scientific_source_review_status",
+    "research_pingpong_status",
+    "future_research_register_status",
+    "claim_support_ceiling_status",
+    "proof_sheet_binding_status",
+    "lean_certificate_boundary_status",
+    "delta_rebuild_status",
+    "editorial_input_gate_status",
     "form_quality_status",
 ]
 

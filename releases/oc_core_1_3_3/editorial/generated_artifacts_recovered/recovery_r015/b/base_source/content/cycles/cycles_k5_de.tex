@@ -1,0 +1,284 @@
+% ================================================================
+% ==== FILE: content/cycles/cycles_k5.tex
+% ================================================================
+
+\subsubsection{Zyklen auf \texorpdfstring{$K_5$}{K_5}}
+\label{sec:cycles-k5}
+
+Ebene$K_5$entspricht dem frühen neuronalen (bioelektrischen) Kontinuum.
+Es wird durch das Vorhandensein einer erregbaren Membran, eines Ionenkanals, definiert
+Architektur, schwellenwertgesteuerte Spitzen, Erholungsdynamik und
+elektrisch-chemische Kopplung.
+Zyklen weiter$K_5$stellen die grundlegenden wiederkehrenden Prozesse dar, die beschenken
+das System mit Erregbarkeit, Signalisierung, Rhythmik und Proto-Netzwerk
+Koordinierung.
+
+\subsubsection{Überblick über die Zyklusstruktur auf \texorpdfstring{$K_5$}{K_5}}
+
+According to the representability theorem for neurons (the corresponding derivation note),
+the state space $\Omega(K_5)$ includes:
+\[
+  V_m(t),\;
+  P_{\mathrm{ion}}(t),\;
+  \{g_i(t)\},\;
+  \{w_{ij}(t)\},\;
+  \mathrm{Ca}^{2+}(t),\;
+  \mathrm{channel\ states},
+\]
+mit Schwellenwerten:
+\[
+  \Theta_{\mathrm{spike}},\;
+  \Theta_{\mathrm{exc}},\;
+  \Theta_{\mathrm{noise-elec}},\;
+  \Theta_{\mathrm{front}},\;
+  \Theta_{\mathrm{refrac}},\;
+  \Theta_{\mathrm{spatial}}.
+\]
+
+Zyklen entstehen, wenn Ströme entstehen$J(t)$, Potenziale$P(t)$, und Achsen$A(t)$
+return to an equivalent configuration after a finite time $\tau$.
+Die Zeit existiert weiter$K_5$nur weil diese Zyklen stabil und wiederkehrend sind.
+
+Die Kernfamilien der Zyklen sind:
+
+\begin{itemize}
+  \item Aktionspotentialzyklen$C_{\mathrm{spike}}$,
+  \item Oszillationszyklen unterhalb der Schwelle$C_{\mathrm{sub}}$,
+  \item Refraktär-Reset-Zyklen$C_{\mathrm{refrac}}$,
+  \item Channel-Gating-Zyklen$C_{\mathrm{gate}}$,
+  \item Kalzium/Second-Messenger-Zyklen$C_{\mathrm{Ca}}$,
+  \item synaptische Potenzierungs-/Depressionszyklen$C_{\mathrm{syn}}$,
+  \item rhythmische Zyklen vernetzen$C_{\mathrm{net}}$das erweiterte Kontinuum bilden$K_5'$.
+\end{itemize}
+
+\subsubsection{1. Aktionspotenzialzyklen$C_{\mathrm{spike}}$}
+
+Der Spike ist ein Phasenübergang, der verursacht wird durch:
+\[
+  T(t) > \Theta_{\mathrm{spike}},
+\]
+as stated in the corresponding derivation note.
+
+Ein vollständiger Zyklus besteht aus:
+\[
+  \mathrm{rest}
+  \;\to\;
+  \mathrm{depolarisation}
+  \;\to\;
+  \mathrm{overshoot}
+  \;\to\;
+  \mathrm{repolarisation}
+  \;\to\;
+  \mathrm{hyperpolarisation}
+  \;\to\;
+  \mathrm{rest}.
+\]
+
+Formal:
+\[
+  C_{\mathrm{spike}}
+  =\{(V_m(t), g_i(t), P_{\mathrm{ion}}(t))\}_{t_0}^{t_0+\tau_{\mathrm{spike}}},
+\]
+with period $\tau_{\mathrm{spike}} < \infty$.
+
+Der Spike-Zyklus ist der kanonische elektrische Zyklus$K_5$und die
+zentrales Element seiner strukturellen Identität.
+
+\subsubsection{2. Unterschwellige Oszillationszyklen$C_{\mathrm{sub}}$}
+
+Wenn das Membranpotential oszilliert, ohne sich zu kreuzen
+$\Theta_{\mathrm{spike}}$ but approaches the excitable regime:
+\[
+  |V_m(t) - V_{\mathrm{rest}}| < \Theta_{\mathrm{exc}},
+\]
+es entstehen immer wiederkehrende Schwingungen:
+\[
+  V_m(t) = V_{\mathrm{rest}} + A\sin(\omega t).
+\]
+
+Diese Zyklen sind Vorläufer der Rhythmogenese$K_5'$.
+
+\subsubsection{3. Refraktär-Reset-Zyklen$C_{\mathrm{refrac}}$}
+
+Following a spike, thresholds shift (the corresponding derivation note):
+\[
+  \Theta_{\mathrm{spike}}(t+\delta t)
+  >
+  \Theta_{\mathrm{spike}}(t).
+\]
+
+Der Refraktärzyklus ist:
+\[
+  \mathrm{spike}
+  \to
+  \mathrm{absolute\ refractory}
+  \to
+  \mathrm{relative\ refractory}
+  \to
+  \mathrm{threshold\ reset}.
+\]
+
+Its period $\tau_{\mathrm{refrac}}$ determines the maximal firing rate.
+
+\subsubsection{4. Channel-Gating-Zyklen$C_{\mathrm{gate}}$}
+
+Ionenkanäle unterliegen zyklischen Zustandsübergängen:
+\[
+  S_i \in \{\mathrm{open}, \mathrm{closed}, \mathrm{inactive}\}.
+\]
+
+Der Gating-Zyklus wird angetrieben durch:
+\[
+  g_i(t) = g_{\mathrm{max}} m(t)^p h(t)^q,
+\]
+Wo$m,h$erfüllen ihre eigenen Wiederholungsgleichungen.
+
+Der komplette Zyklus:
+\[
+  S_i^{(\mathrm{open})}
+  \to
+  S_i^{(\mathrm{inactive})}
+  \to
+  S_i^{(\mathrm{closed})}
+  \to
+  S_i^{(\mathrm{open})}.
+\]
+
+Gating cycles stabilise $C_{\mathrm{spike}}$ and $C_{\mathrm{sub}}$.
+
+\subsubsection{5. Kalzium- und Second-Messenger-Zyklen$C_{\mathrm{Ca}}$}
+
+Dynamik der Calciumkonzentration:
+\[
+  \mathrm{Ca}^{2+}(t)
+  \leftrightarrows
+  \mathrm{buffered\; Ca},\;
+  \mathrm{pumped\; Ca},
+\]
+bilden Zyklen, die Freisetzung, Sequestrierung und Pumpen umfassen.
+
+Stabilität erfordert:
+\[
+  T_{\mathrm{Ca}} < \Theta_{\mathrm{noise-elec}}.
+\]
+
+Diese Zyklen modulieren sowohl die Erregbarkeit als auch die synaptische Veränderung.
+
+\subsubsection{6. Synaptische Potenzierungs-/Depressionszyklen$C_{\mathrm{syn}}$}
+
+Anhaltende Aktivität führt zu einer zyklischen Modulation des synaptischen Gewichts:
+\[
+  w_{ij}(t+\tau) = w_{ij}(t),
+\]
+angetrieben von:
+\[
+  J_{\mathrm{pre}},\; J_{\mathrm{post}},\; [\mathrm{Ca}^{2+}],
+\]
+und Schwellenbedingungen für Plastizität:
+\[
+  T_{\mathrm{plastic}} > \Theta_{\mathrm{plastic}}.
+\]
+
+Diese Zyklen ermöglichen Gedächtnis und dauerhafte Muster.
+
+\subsubsection{7. Zyklen auf Netzwerkebene$C_{\mathrm{net}}$(Kontinuum$K_5'$)}
+
+Using the representability theorem for neural networks (the corresponding derivation note),
+Ein Netzwerk bildet ein erweitertes Kontinuum$K_5'$mit Zyklen:
+
+\[
+  C_{\mathrm{rhythm}},
+  \qquad
+  C_{\mathrm{sync}},
+  \qquad
+  C_{\mathrm{burst}}.
+\]
+
+Sie entstehen bei der kollektiven Aktivierung von Feldern
+$p_i(t)$Erfüllen Sie die Wiederholung:
+\[
+  p_i(t+\tau) = p_i(t),
+\]
+und Schwellenwertbedingungen:
+\[
+  T_{\mathrm{sync}} < \Theta_{\mathrm{front}},\qquad
+  T_{\mathrm{burst}} < \Theta_{\mathrm{spatial}}.
+\]
+
+Diese Zyklen sind die Grundlage organisierter Schwingungen und
+Protokognition in$K_5'$.
+
+\subsubsection{Metriken von Zyklen auf \texorpdfstring{$K_5$}{K_5}}
+
+Using the scoped cycle metrics (the corresponding derivation note):
+
+\paragraph{Length.}
+\[
+  L(C)=\oint d\Omega(K_5).
+\]
+
+\paragraph{Efficiency.}
+\[
+  C_{\mathrm{eff}}=\frac{\oint J\cdot dA}{L(C)},
+\]
+Wo$A$beinhaltet:
+\[
+  A_{\mathrm{exc}},\;
+  A_{\mathrm{ion}},\;
+  A_{\mathrm{syn}},\;
+  A_{\mathrm{Ca}}.
+\]
+
+\paragraph{Stability.}
+\[
+S(C) =
+    \min\limits_{t\in C}
+      d\bigl(\Omega(K_5),\partial\Omega(K_5)\bigr).
+\]
+
+\paragraph{Weight.}
+\[
+w(C) =
+    F\bigl(C_{\mathrm{eff}}, S(C), P_{\mathrm{ion}},
+      P_{\mathrm{Ca}}, w_{ij}\bigr).
+\]
+
+\subsubsection{Zusammenbruch von \texorpdfstring{$C(K_5)$}{C(K_5)}}
+
+According to the corresponding derivation note, collapse occurs if:
+
+\[
+  \Theta_{\mathrm{exc}},\;
+  \Theta_{\mathrm{spike}},\;
+  \Theta_{\mathrm{noise-elec}},\;
+  \Theta_{\mathrm{front}},\;
+  \Theta_{\mathrm{spatial}},\;
+  \Theta_{\mathrm{refrac}}
+\]
+werden verletzt.
+
+Dann:
+\[
+  C_j \to \varnothing,
+\qquad
+  \Omega(K_5)=\varnothing,
+\qquad
+  k_5\to 0.
+\]
+
+\subsubsection{Kontinuität von \texorpdfstring{$K_4$}{K_4} zu \texorpdfstring{$K_5$}{K_5}}
+
+From Polish~W3 (the corresponding derivation note), the transition is $C^1$-continuous:
+\[
+  C_{\mathrm{exc}}^{(K_4)}
+   \longrightarrow
+  C_{\mathrm{spike}}^{(K_5)},
+\]
+mit sanftem Entstehen von:
+\[
+  A_{\mathrm{exc}},\quad
+  \Theta_{\mathrm{spike}},\quad
+  C_{\mathrm{refrac}}.
+\]
+
+Dieser sanfte Übergang gewährleistet die Lebensfähigkeit der ersten Nervenzellen.

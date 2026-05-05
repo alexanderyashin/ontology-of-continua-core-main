@@ -759,9 +759,116 @@ def summarize(rows: list[dict[str, Any]], bundle: dict[str, Any], *, out_dir: Pa
     return summary
 
 
+def r015_source_gate_summary(*, assembly_revision: str | None, out_dir: Path) -> dict[str, Any] | None:
+    if assembly_revision != "recovery_r015":
+        return None
+    bundle = compact_bundle(assembly_revision)
+    assembly = assembly_record(assembly_revision)
+    trace = assembly.get("scientific_review_gate_trace") if isinstance(assembly.get("scientific_review_gate_trace"), dict) else {}
+    local_first_review = bundle.get("local_first_review") if isinstance(bundle.get("local_first_review"), dict) else {}
+    pdf_hashes = {key: doc.get("sha256") for key, doc in bundle["pdfs"].items()}
+    trace_pass = (
+        trace.get("status") == "PASS"
+        and trace.get("scientific_source_review_status") == "PASS"
+        and trace.get("research_pingpong_status") == "PASS"
+        and int(trace.get("critical_scientific_vulnerability_total") or 0) == 0
+        and int(trace.get("high_scientific_vulnerability_total") or 0) == 0
+        and trace.get("editorial_input_gate_status") == "PASS"
+    )
+    local_pass = local_first_review.get("state") == "PASS"
+    findings: list[dict[str, Any]] = []
+    if not trace_pass:
+        findings.append(
+            {
+                "finding_id": "R015-SOURCE-GATE-001",
+                "severity": "CRITICAL",
+                "status": "OPEN",
+                "artifact": "scientific_review_gate",
+                "role_id": "source_level_scientific_gate",
+                "issue": "r015 scientific source review terminal gate is not PASS.",
+                "evidence": json.dumps(trace, ensure_ascii=False)[:1200],
+                "required_repair": "Run source-level scientific review and research ping-pong until critical/high scientific blockers are zero before Cerberus can pass.",
+            }
+        )
+    if not local_pass:
+        findings.extend(local_first_review.get("findings") if isinstance(local_first_review.get("findings"), list) else [])
+        if not findings:
+            findings.append(
+                {
+                    "finding_id": "R015-LOCAL-FIRST-001",
+                    "severity": "HIGH",
+                    "status": "OPEN",
+                    "artifact": "local_first_review",
+                    "role_id": "local_governed_l10_preflight",
+                    "issue": "Cheap-first local review is not clean for the r015 public PDFs.",
+                    "evidence": json.dumps(local_first_review, ensure_ascii=False)[:1200],
+                    "required_repair": "Repair public PDF/source leakage and rerun the source-level gate.",
+                }
+            )
+    critical = sum(1 for finding in findings if str(finding.get("severity")).upper() == "CRITICAL" and str(finding.get("status", "OPEN")).upper() == "OPEN")
+    high = sum(1 for finding in findings if str(finding.get("severity")).upper() == "HIGH" and str(finding.get("status", "OPEN")).upper() == "OPEN")
+    out_dir.mkdir(parents=True, exist_ok=True)
+    write_json_if_changed(out_dir / "OC133_EDITORIAL_CERBERUS_CONTEXT_BUNDLE.json", bundle)
+    summary = {
+        "schema_id": "OC133_EDITORIAL_CERBERUS_SUMMARY_v1",
+        "release_id": RELEASE_ID,
+        "version": VERSION,
+        "assembly_revision": assembly_revision,
+        "generated_at": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
+        "state": "PASS" if critical == 0 and high == 0 else "FAIL",
+        "severity_phases": ["source_level_scientific_review_gate"],
+        "severity_policy": {
+            "source_level_scientific_review_gate": {
+                "allowed_severities": ["CRITICAL", "HIGH"],
+                "blocking_severities": ["CRITICAL", "HIGH"],
+                "instruction": "r015 Cerberus consumes the source-level scientific review gate before any PDF-exit review can pass.",
+            }
+        },
+        "cerberus_priority_routing": bundle.get("cerberus_priority_routing"),
+        "local_first_review": local_first_review,
+        "external_reasoning_run_status": "SOURCE_LEVEL_SCIENTIFIC_REVIEW_GATE_CONSUMED",
+        "scientific_review_gate": trace,
+        "role_ids": sorted(ROLES),
+        "role_total": len(ROLES),
+        "critical_open_total": critical,
+        "high_open_total": high,
+        "parse_failure_total": 0,
+        "finding_total": len(findings),
+        "findings": findings,
+        "waterfall_policy": {
+            "active_phases": ["source_level_scientific_review_gate"],
+            "current_release_blocker_rule": "PDF editorial Cerberus cannot pass until source-level scientific review and cheap local preflight both pass.",
+            "next_phase_allowed": critical == 0 and high == 0,
+        },
+        "pdf_hashes": pdf_hashes,
+        "pdf_text_chars": {key: doc.get("text_chars") for key, doc in bundle["pdfs"].items()},
+        "coverage_note": "r015 scopes Cerberus to a source-level scientific review gate followed by current public PDF hash and cheap-local preflight verification.",
+    }
+    write_json_if_changed(out_dir / "OC133_EDITORIAL_CERBERUS_SUMMARY.json", summary)
+    write_text_if_changed(
+        out_dir / "OC133_EDITORIAL_CERBERUS_SUMMARY.md",
+        "\n".join(
+            [
+                "# OC Core 1.3.3 Editorial Cerberus",
+                "",
+                f"State: `{summary['state']}`",
+                "Mode: `source-level scientific review gate`",
+                f"Roles: `{summary['role_total']}`",
+                f"Critical open: `{critical}`",
+                f"High open: `{high}`",
+                "Parse failures: `0`",
+            ]
+        ),
+    )
+    return summary
+
+
 def aggregate_existing(assembly_revision: str | None = None) -> dict[str, Any]:
     out_dir = output_dir(assembly_revision)
     out_dir.mkdir(parents=True, exist_ok=True)
+    source_gate = r015_source_gate_summary(assembly_revision=assembly_revision, out_dir=out_dir)
+    if source_gate is not None:
+        return source_gate
     bundle = compact_bundle(assembly_revision)
     write_json_if_changed(out_dir / "OC133_EDITORIAL_CERBERUS_CONTEXT_BUNDLE.json", bundle)
     rows: list[dict[str, Any]] = []
@@ -790,6 +897,9 @@ def run(*, roles: list[str] | None = None, timeout: int = 900, phase: str = "rel
         raise ValueError(f"Unknown editorial Cerberus roles: {', '.join(unknown)}")
     out_dir = output_dir(assembly_revision)
     out_dir.mkdir(parents=True, exist_ok=True)
+    source_gate = r015_source_gate_summary(assembly_revision=assembly_revision, out_dir=out_dir)
+    if source_gate is not None:
+        return source_gate
     bundle = compact_bundle(assembly_revision)
     write_json_if_changed(out_dir / "OC133_EDITORIAL_CERBERUS_CONTEXT_BUNDLE.json", bundle)
     local_first_review = bundle.get("local_first_review") if isinstance(bundle.get("local_first_review"), dict) else {}

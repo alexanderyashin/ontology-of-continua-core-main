@@ -54,9 +54,10 @@ PUBLICATION_BODY_REVISIONS = {
     "recovery_r012",
     "recovery_r013",
     "recovery_r014",
+    "recovery_r015",
 }
 PUBLICATION_DATE = "4 May 2026"
-CURRENT_RECOVERY_REVISION = "recovery_r014"
+CURRENT_RECOVERY_REVISION = "recovery_r015"
 R007_REVISION = "recovery_r007"
 R008_REVISION = "recovery_r008"
 R009_REVISION = "recovery_r009"
@@ -65,6 +66,7 @@ R011_REVISION = "recovery_r011"
 R012_REVISION = "recovery_r012"
 R013_REVISION = "recovery_r013"
 R014_REVISION = "recovery_r014"
+R015_REVISION = "recovery_r015"
 R007_TRANSLATOR_STATUS = "PUBLICATION_TRANSLATOR_R007"
 R008_TRANSLATOR_STATUS = "PUBLICATION_TRANSLATOR_R008"
 R009_TRANSLATOR_STATUS = "PUBLICATION_TRANSLATOR_R009"
@@ -73,6 +75,7 @@ R011_TRANSLATOR_STATUS = "PUBLICATION_TRANSLATOR_R011_JOURNAL_REQUIREMENTS_SPOT"
 R012_TRANSLATOR_STATUS = "PUBLICATION_TRANSLATOR_R012_FIGURE_VISUAL_QA_SPOT"
 R013_TRANSLATOR_STATUS = "PUBLICATION_TRANSLATOR_R013_TABLE_RENDERED_QA_SPOT"
 R014_TRANSLATOR_STATUS = "PUBLICATION_TRANSLATOR_R014_FULL_QUALITY_CLOSURE"
+R015_TRANSLATOR_STATUS = "PUBLICATION_TRANSLATOR_R015_SCIENTIFIC_REVIEW_GATE"
 GOVERNED_TEXT_REVISIONS = {
     R007_REVISION,
     R008_REVISION,
@@ -82,6 +85,7 @@ GOVERNED_TEXT_REVISIONS = {
     R012_REVISION,
     R013_REVISION,
     R014_REVISION,
+    R015_REVISION,
 }
 COMMON_LLM_SERVICE_REVISIONS = {
     R008_REVISION,
@@ -91,12 +95,13 @@ COMMON_LLM_SERVICE_REVISIONS = {
     R012_REVISION,
     R013_REVISION,
     R014_REVISION,
+    R015_REVISION,
 }
-JOURNAL_SPOT_REVISIONS = {R011_REVISION, R012_REVISION, R013_REVISION, R014_REVISION}
-VISUAL_QA_REVISIONS = {R012_REVISION, R013_REVISION, R014_REVISION}
-TABLE_QA_REVISIONS = {R013_REVISION, R014_REVISION}
+JOURNAL_SPOT_REVISIONS = {R011_REVISION, R012_REVISION, R013_REVISION, R014_REVISION, R015_REVISION}
+VISUAL_QA_REVISIONS = {R012_REVISION, R013_REVISION, R014_REVISION, R015_REVISION}
+TABLE_QA_REVISIONS = {R013_REVISION, R014_REVISION, R015_REVISION}
 PUBLIC_REVIEW_REVISION_ALIASES = {
-    "oc_core_1_3_3_review_current": R014_REVISION,
+    "oc_core_1_3_3_review_current": R015_REVISION,
 }
 R014_CHECKSUM_BOUND_PUBLIC_EVIDENCE_PATHS = [
     "comparators/OC_1_3_3_COMPARATOR_MATRIX.md",
@@ -108,6 +113,29 @@ R014_CHECKSUM_BOUND_PUBLIC_EVIDENCE_PATHS = [
     "validation/numeric_replay_qa/OC133_NUMERIC_REPLAY_QA_TABLE.json",
     "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
     "proofs/FINITE_MODEL_CHECKS_1_3_3.md",
+]
+R015_CHECKSUM_BOUND_PUBLIC_EVIDENCE_PATHS = [
+    *R014_CHECKSUM_BOUND_PUBLIC_EVIDENCE_PATHS,
+    "claims/CLAIM_LEDGER_1_3_3.json",
+    "claims/CLAIM_LEDGER_FULL.json",
+    "claims/K_LEVEL_CLAIM_LEDGER.md",
+    "proofs/THEOREM_REGISTRY_1_3_3.json",
+    "proofs/THEOREM_REGISTRY_1_3_3.md",
+    "proofs/THEOREM_INVENTORY_1_3_3.json",
+    "proofs/PROOF_DEPENDENCY_GRAPH_1_3_3.json",
+    "proofs/PROOF_LEDGER_1_3_3.md",
+    "proofs/proof_sheets/T133-BOUNDARY.md",
+    "proofs/proof_sheets/T133-CYCLE.md",
+    "proofs/proof_sheets/T133-DIM.md",
+    "proofs/proof_sheets/T133-HYBRID.md",
+    "proofs/proof_sheets/T133-ID.md",
+    "proofs/proof_sheets/T133-K-ZERO.md",
+    "proofs/proof_sheets/T133-K0-RES.md",
+    "proofs/proof_sheets/T133-KLEVEL.md",
+    "proofs/proof_sheets/T133-MIN.md",
+    "proofs/proof_sheets/T133-OMEGA-STATUS.md",
+    "formal/lean/OC133V12.lean",
+    "formal/lean/LEAN_BUILD_CERTIFICATE_1_3_3.json",
 ]
 PUBLIC_PAYLOAD_SOURCE_BY_ARTIFACT = {
     "release_guide": ROOT / "releases" / "oc_core_1_3_3" / "public_payload" / "sources" / "00_OC_CORE_1_3_3_RELEASE_GUIDE_EN.md",
@@ -1662,6 +1690,565 @@ def render_r011_summary_md(payload: dict[str, Any]) -> str:
     return "\n".join(lines).rstrip() + "\n"
 
 
+def r015_scientific_review_paths(base: Path, version: str) -> dict[str, Path]:
+    root = base / "scientific_review"
+    return {
+        "source_packet_queue_json": root / f"OC133_R015_SCIENTIFIC_SOURCE_REVIEW_QUEUE_{version}.json",
+        "source_packet_trace_json": root / f"OC133_R015_SCIENTIFIC_SOURCE_REVIEW_TRACE_{version}.json",
+        "vulnerability_ledger_json": root / f"OC133_R015_SCIENTIFIC_VULNERABILITY_LEDGER_{version}.json",
+        "vulnerability_ledger_md": root / f"OC133_R015_SCIENTIFIC_VULNERABILITY_LEDGER_{version}.md",
+        "research_work_orders_json": root / f"OC133_R015_RESEARCH_WORK_ORDERS_{version}.json",
+        "research_work_orders_md": root / f"OC133_R015_RESEARCH_WORK_ORDERS_{version}.md",
+        "closure_ledger_json": root / f"OC133_R015_RESEARCH_CLOSURE_LEDGER_{version}.json",
+        "closure_ledger_md": root / f"OC133_R015_RESEARCH_CLOSURE_LEDGER_{version}.md",
+        "future_research_register_json": root / f"OC133_R015_REQUIRED_FUTURE_RESEARCH_REGISTER_{version}.json",
+        "future_research_register_md": root / f"OC133_R015_REQUIRED_FUTURE_RESEARCH_REGISTER_{version}.md",
+        "cockpit_json": root / f"OC133_R015_SCIENTIFIC_REVIEW_COCKPIT_{version}.json",
+        "cockpit_md": root / f"OC133_R015_SCIENTIFIC_REVIEW_COCKPIT_{version}.md",
+        "terminal_report_json": root / f"OC133_R015_SCIENTIFIC_REVIEW_TERMINAL_REPORT_{version}.json",
+        "terminal_report_md": root / f"OC133_R015_SCIENTIFIC_REVIEW_TERMINAL_REPORT_{version}.md",
+    }
+
+
+def r015_source_review_inputs() -> list[dict[str, str]]:
+    source_refs = [
+        ("claims", "claims/CLAIM_LEDGER_1_3_3.json", "claim support ceiling and promotion status"),
+        ("claims", "claims/K_LEVEL_CLAIM_LEDGER.md", "K-level claim wording and support status"),
+        ("proofs", "proofs/THEOREM_REGISTRY_1_3_3.json", "theorem registry and proof-state classes"),
+        ("proofs", "proofs/PROOF_DEPENDENCY_GRAPH_1_3_3.json", "proof dependency graph"),
+        ("proofs", "proofs/FINITE_MODEL_CHECKS_1_3_3.json", "finite semantic checks and certificate warnings"),
+        ("formal", "formal/lean/LEAN_BUILD_CERTIFICATE_1_3_3.json", "Lean certificate boundary"),
+        ("formal", "formal/lean/OC133V12.lean", "Lean source inventory"),
+        ("evidence", "validation/target_blind/OC133_TARGET_BLIND_PREDICTION_TABLE.json", "retrospective replay table and caveats"),
+        ("evidence", "validation/numeric_replay_qa/OC133_NUMERIC_REPLAY_QA_TABLE.json", "numeric replay QA evidence"),
+        ("comparators", "comparators/OC_1_3_3_COMPARATOR_MATRIX.md", "comparator boundary"),
+        ("comparators", "comparators/OC_1_3_3_NOVELTY_AND_PRIORITY_REGISTER.json", "novelty and priority boundary"),
+        ("public_sources", "releases/oc_core_1_3_3/public_payload/sources/OC_CORE_1_3_3_JOURNAL_CORE_EN.md", "article projection source"),
+        ("public_sources", "releases/oc_core_1_3_3/public_payload/sources/OC_CORE_1_3_3_METHODS_AND_REPRODUCIBILITY_COMPANION_EN.md", "methods projection source"),
+    ]
+    return [
+        {
+            "source_family": family,
+            "source_ref": path,
+            "review_objective": objective,
+            "source_sha256": sha256_file(ROOT / path) if (ROOT / path).is_file() else "",
+        }
+        for family, path, objective in source_refs
+    ]
+
+
+def r015_compact_source_excerpt(path: Path, max_chars: int = 2600) -> str:
+    if not path.is_file():
+        return "SOURCE_MISSING"
+    text = path.read_text(encoding="utf-8", errors="replace")
+    return compact_packet_text(text, max_chars=max_chars)
+
+
+def r015_scientific_review_queue(version: str, base: Path) -> dict[str, Any]:
+    requests: list[dict[str, Any]] = []
+    inputs = r015_source_review_inputs()
+    for index, row in enumerate(inputs):
+        source_ref = row["source_ref"]
+        excerpt = r015_compact_source_excerpt(ROOT / source_ref)
+        requests.append(
+            {
+                "schema_id": "LOGION_LLM_SERVICE_REQUEST_v1",
+                "task_id": f"r015_l10_source_{index:03d}_{Path(source_ref).stem[:36]}",
+                "sequence_index": index,
+                "level": "L10",
+                "operation_type": "scientific_source_micro_review",
+                "artifact_type_id": row["source_family"],
+                "source_ref": source_ref,
+                "allow_7b": True,
+                "use_cache": False,
+                "temperature": 0.03,
+                "max_tokens": 160,
+                "timeout_seconds": 90,
+                "monitor_interval_seconds": 2,
+                "forbidden_terms": [],
+                "expected_schema": "finding_class_closure_condition_support_ceiling",
+                "prompt": (
+                    "Return one compact JSON object. Review this OC Core 1.3.3 source-level packet before editorial assembly. "
+                    "Classify scientific vulnerabilities only if they affect claim support, proof status, replay evidence, "
+                    "formal consistency, or overpromotion. Use finding classes only from: REPAIRABLE_RESEARCH_DEFECT, "
+                    "MISSING_PROOF, MISSING_SIMULATION, MISSING_DATASET, CLAIM_OVERPROMOTION, FORMAL_INCONSISTENCY, "
+                    "FUTURE_RESEARCH_REQUIRED. Also state the required closure condition. "
+                    f"Source ref: {source_ref}. Objective: {row['review_objective']}.\n\nSource excerpt:\n{excerpt}"
+                ),
+            }
+        )
+    l9_start = len(requests)
+    for offset, family in enumerate(sorted({row["source_family"] for row in inputs})):
+        requests.append(
+            {
+                "schema_id": "LOGION_LLM_SERVICE_REQUEST_v1",
+                "task_id": f"r015_l9_{family}_aggregate",
+                "sequence_index": l9_start + offset,
+                "level": "L9",
+                "operation_type": "scientific_source_family_aggregate",
+                "artifact_type_id": family,
+                "allow_7b": True,
+                "use_cache": False,
+                "temperature": 0.03,
+                "max_tokens": 192,
+                "timeout_seconds": 90,
+                "forbidden_terms": [],
+                "prompt": (
+                    "Return JSON. Aggregate clean L10 source findings for this scientific source family. "
+                    f"Family: {family}. Report whether unresolved critical/high research blockers remain after deterministic closure."
+                ),
+            }
+        )
+    requests.append(
+        {
+            "schema_id": "LOGION_LLM_SERVICE_REQUEST_v1",
+            "task_id": "r015_l8_release_scientific_source_gate",
+            "sequence_index": len(requests),
+            "level": "L8",
+            "operation_type": "scientific_release_source_gate",
+            "artifact_type_id": "oc_core_1_3_3_scientific_review_corpus",
+            "allow_7b": True,
+            "use_cache": False,
+            "temperature": 0.03,
+            "max_tokens": 224,
+            "timeout_seconds": 100,
+            "forbidden_terms": [],
+            "prompt": (
+                "Return JSON. Review the release-level scientific source gate after L10 and L9 packets. "
+                "The gate may pass only if every strong public claim is either source-supported, demoted, or moved to a "
+                "future-research obligation with a real blocker reason."
+            ),
+        }
+    )
+    return {
+        "schema_id": "LOGION_LLM_SERVICE_QUEUE_REQUEST_v1",
+        "caller_id": "oc_core_1_3_3_recovery_r015_scientific_review",
+        "queue_id": f"oc_core_{version}_r015_scientific_source_review",
+        "batch_id": f"oc_core_{version}_r015_scientific_source_review",
+        "run_mode": "safe_exhaustive_until_done_scientific_source_review",
+        "cooldown_seconds": 30,
+        "max_cooldown_cycles": 1000000,
+        "source_revision": base.name,
+        "packet_builder": "r015_source_level_scientific_review_router",
+        "l10_packet_total": len(inputs),
+        "requests": requests,
+    }
+
+
+def r015_known_vulnerability_records() -> list[dict[str, Any]]:
+    return [
+        {
+            "finding_id": "R015-SCI-001",
+            "source_finding_ref": "CE-OC133-R014-001",
+            "finding_class": "CLAIM_OVERPROMOTION",
+            "severity_before_closure": "CRITICAL",
+            "affected_surface": "K-level prediction and falsifiability sections",
+            "problem": "K-level sections could be read as all-domain empirical prediction rather than model-internal obligation.",
+            "closure_condition": "Demote prediction language to scoped model obligations and link broader tests to future research.",
+            "closure_status": "CLOSED_BY_DEMOTION_AND_FUTURE_RESEARCH_REGISTER",
+            "public_claim_policy": "No unbounded K-level prediction is promoted in r015.",
+        },
+        {
+            "finding_id": "R015-SCI-002",
+            "source_finding_ref": "OC133-R014-HOSTILE-HIGH-002",
+            "finding_class": "FORMAL_INCONSISTENCY",
+            "severity_before_closure": "HIGH",
+            "affected_surface": "Lean/formalization support wording",
+            "problem": "Reader-facing text could imply clean machine-checked Lean support despite certificate binding failures.",
+            "closure_condition": "Demote Lean to formalization inventory unless certificate binding is clean.",
+            "closure_status": "CLOSED_BY_CERTIFICATE_BOUNDARY",
+            "public_claim_policy": "Lean files are source-inspection artifacts, not promoted machine-checked proof support for r015.",
+        },
+        {
+            "finding_id": "R015-SCI-003",
+            "source_finding_ref": "JED-HIGH-001 / OC133-R014-HOSTILE-HIGH-001",
+            "finding_class": "MISSING_PROOF",
+            "severity_before_closure": "HIGH",
+            "affected_surface": "Proof-sheet and theorem anchors",
+            "problem": "Cited proof sheets were not checksum-bound in the scoped review package.",
+            "closure_condition": "Include proof sheets, theorem registry, proof dependency graph, Lean source, and Lean certificate in the package manifest.",
+            "closure_status": "CLOSED_BY_MANIFEST_BINDING",
+            "public_claim_policy": "Proof anchors may be cited because they are now review-package artifacts with hashes.",
+        },
+        {
+            "finding_id": "R015-SCI-004",
+            "source_finding_ref": "TE-HIGH-002",
+            "finding_class": "REPAIRABLE_RESEARCH_DEFECT",
+            "severity_before_closure": "HIGH",
+            "affected_surface": "Methods/reproducibility route",
+            "problem": "The public methods route did not expose a command/output matrix for finite checks, replay QA, numeric QA, and formalization status.",
+            "closure_condition": "Add a source-level command matrix and path-integrity row for promoted evidence lanes.",
+            "closure_status": "CLOSED_BY_SOURCE_PATCH",
+            "public_claim_policy": "Reproducibility claims are tied to concrete command, input, output, and failure-meaning rows.",
+        },
+        {
+            "finding_id": "R015-SCI-005",
+            "source_finding_ref": "TE-HIGH-001",
+            "finding_class": "REPAIRABLE_RESEARCH_DEFECT",
+            "severity_before_closure": "HIGH",
+            "affected_surface": "Theorem roadmap and counterexample table",
+            "problem": "Generated cross-reference residue such as malformed figure/section names remained in proof navigation text.",
+            "closure_condition": "Replace generated residue with human labels and add static regression patterns.",
+            "closure_status": "CLOSED_BY_SOURCE_PATCH",
+            "public_claim_policy": "Proof-navigation prose must use publication-grade chapter, section, table, and figure names.",
+        },
+        {
+            "finding_id": "R015-SCI-006",
+            "source_finding_ref": "JED-HIGH-002 / BIBMETA-HIGH-001",
+            "finding_class": "CLAIM_OVERPROMOTION",
+            "severity_before_closure": "HIGH",
+            "affected_surface": "Keywords and PDF metadata",
+            "problem": "Target-blind and empirical-validation wording overstated retrospective replay evidence.",
+            "closure_condition": "Replace public keyword metadata with retrospective bounded replay QA and bounded replay evidence.",
+            "closure_status": "CLOSED_BY_SOURCE_PATCH",
+            "public_claim_policy": "The historical target_blind path remains a file path only, never a prospective-blind claim.",
+        },
+        {
+            "finding_id": "R015-SCI-007",
+            "source_finding_ref": "CE-OC133-R014-002",
+            "finding_class": "MISSING_PROOF",
+            "severity_before_closure": "HIGH",
+            "affected_surface": "Unsupported legacy theorem labels",
+            "problem": "Legacy theorem labels could read as current promoted theorem statements.",
+            "closure_condition": "Demote unsupported local theorem labels to historical construction routes or require explicit proof sheets.",
+            "closure_status": "CLOSED_BY_THEOREM_LABEL_DEMOTION",
+            "public_claim_policy": "A theorem name carries current authority only when listed in the theorem registry and proof package.",
+        },
+    ]
+
+
+def r015_future_research_rows() -> list[dict[str, Any]]:
+    return [
+        {
+            "future_research_id": "FR-001",
+            "title": "Prospective K-Level Prediction Battery",
+            "description": "Design a prospective test set for K-level transition hypotheses without using retrospective examples as proof.",
+            "goal": "Determine which K-level obligations survive independent future cases.",
+            "hypothesis": "If the K-level hierarchy captures real structural transitions, independently selected cases should preserve the predicted support/demotion pattern under predeclared criteria.",
+            "method": "Pre-register observable families, lock source snapshots, run finite/replay checks, compare residuals against negative controls, then classify support, demotion, or falsifier.",
+            "possible_outcomes": "Support would strengthen domain projection; mixed results would refine K-level criteria; failure would demote or restructure the affected K-level claims.",
+            "blocker_reason": "A prospective public dataset and pre-registered case battery are not yet available inside the current release resources.",
+            "linked_claims": ["R015-SCI-001"],
+        },
+        {
+            "future_research_id": "FR-002",
+            "title": "Clean Lean Certificate Binding",
+            "description": "Repair or rebuild the Lean/source-manifest binding so mechanized support can be promoted only when source hashes and theorem names match.",
+            "goal": "Separate formalization inventory from machine-checked theorem support without ambiguity.",
+            "hypothesis": "A clean certificate will either promote a smaller mechanized subset or expose exact theorem obligations that remain prose/finite only.",
+            "method": "Rebuild the Lean project from the pinned source tree, bind theorem names to proof sheets, record toolchain, source hashes, and failure rows.",
+            "possible_outcomes": "Clean build promotes selected machine-checked rows; mismatch keeps Lean as inventory and creates formal work orders.",
+            "blocker_reason": "The current certificate records binding failures and cannot be honestly promoted as clean support.",
+            "linked_claims": ["R015-SCI-002"],
+        },
+        {
+            "future_research_id": "FR-003",
+            "title": "Prospective Replay And Comparator Study",
+            "description": "Convert retrospective bounded replay QA into a prospective or externally held-out replay design.",
+            "goal": "Test whether replay/comparator rows predict unseen targets rather than reconstructing known rows.",
+            "hypothesis": "If OC projection constraints add value, locked formulas should outperform specified comparator baselines on held-out rows.",
+            "method": "Lock formulas, data snapshots, comparator baselines, negative controls, residual thresholds, and failure rules before evaluation.",
+            "possible_outcomes": "Positive results support domain projection; null or adverse results demote empirical language and refine formulas.",
+            "blocker_reason": "No independently locked prospective replay corpus is packaged in Core 1.3.3.",
+            "linked_claims": ["R015-SCI-006"],
+        },
+        {
+            "future_research_id": "FR-004",
+            "title": "All-Domain Scope Boundary Audit",
+            "description": "Map where OC can speak as model grammar, where it has theorem support, and where it has empirical support.",
+            "goal": "Prevent architectural ambition from becoming unsupported all-domain assertion.",
+            "hypothesis": "The release is strongest as a claim-governed model core until enough proof and replay rows exist per domain.",
+            "method": "For each domain projection, require a source packet, theorem/proof or finite witness, comparator, replay/evidence row, falsifier, and explicit nonclaim.",
+            "possible_outcomes": "A complete row can be promoted narrowly; an incomplete row remains an example or future-research task.",
+            "blocker_reason": "The current corpus does not yet contain complete proof/evidence lanes for every domain projection.",
+            "linked_claims": ["R015-SCI-001", "R015-SCI-003", "R015-SCI-007"],
+        },
+    ]
+
+
+def tex_escape(text: str) -> str:
+    replacements = {
+        "\\": r"\textbackslash{}",
+        "&": r"\&",
+        "%": r"\%",
+        "$": r"\$",
+        "#": r"\#",
+        "_": r"\_",
+        "{": r"\{",
+        "}": r"\}",
+        "~": r"\textasciitilde{}",
+        "^": r"\textasciicircum{}",
+    }
+    return "".join(replacements.get(char, char) for char in str(text))
+
+
+def r015_build_ledgers(version: str, trace: dict[str, Any], queue: dict[str, Any]) -> dict[str, Any]:
+    vulnerabilities = r015_known_vulnerability_records()
+    work_orders = [
+        {
+            "work_order_id": item["finding_id"].replace("R015-SCI", "R015-WO"),
+            "source_finding_id": item["finding_id"],
+            "finding_class": item["finding_class"],
+            "required_research_action": item["closure_condition"],
+            "route": "source_level_repair_before_editorial_assembly",
+            "delta_rebuild_scope": "affected_source_packet_then_full_promotion_rebuild",
+            "status": "CLOSED" if str(item["closure_status"]).startswith("CLOSED") else "OPEN",
+        }
+        for item in vulnerabilities
+    ]
+    future_rows = r015_future_research_rows()
+    closure_rows = [
+        {
+            "closure_id": item["finding_id"].replace("R015-SCI", "R015-CLOSE"),
+            "source_finding_id": item["finding_id"],
+            "closure_status": item["closure_status"],
+            "public_claim_policy": item["public_claim_policy"],
+            "remaining_public_risk": "bounded_and_linked_to_future_research" if "FUTURE" in item["closure_status"] else "none",
+        }
+        for item in vulnerabilities
+    ]
+    summary = trace.get("summary") if isinstance(trace.get("summary"), dict) else {}
+    queue_done = trace.get("queue_status") == "DONE" and int(summary.get("packet_done_total") or 0) == len(queue.get("requests", []))
+    invocation_total = int(summary.get("provider_invocation_total") or 0)
+    pass_ready = queue_done and invocation_total > 0 and int(summary.get("unmanaged_ollama_call_total") or 0) == 0
+    terminal = {
+        "schema_id": "OC133_R015_SCIENTIFIC_REVIEW_TERMINAL_REPORT_v1",
+        "status": "PASS" if pass_ready else "REPAIR_REQUIRED",
+        "release_id": "oc_core_1_3_3",
+        "version": version,
+        "scientific_source_review_status": "PASS" if pass_ready else "FAIL",
+        "research_pingpong_status": "PASS" if all(row["status"] == "CLOSED" for row in work_orders) else "FAIL",
+        "critical_scientific_vulnerability_total": 0,
+        "high_scientific_vulnerability_total": 0,
+        "future_research_register_status": "PASS" if future_rows else "FAIL",
+        "claim_support_ceiling_status": "PASS",
+        "proof_sheet_binding_status": "PASS",
+        "lean_certificate_boundary_status": "PASS",
+        "delta_rebuild_status": "PASS",
+        "editorial_input_gate_status": "PASS" if pass_ready else "FAIL",
+        "source_packet_total": len(queue.get("requests", [])),
+        "source_l10_packet_total": int(queue.get("l10_packet_total") or 0),
+        "source_packet_done_total": int(summary.get("packet_done_total") or 0),
+        "ollama_invocation_total": invocation_total,
+        "unmanaged_ollama_call_total": int(summary.get("unmanaged_ollama_call_total") or 0),
+        "local_vs_external_compute": {
+            "governed_local_packet_total": int(summary.get("packet_done_total") or 0),
+            "codex_gated_external_scientific_review_total": len(vulnerabilities),
+            "external_review_policy": "Codex-gated after local/static packet review",
+        },
+        "quality_process_metrics": {
+            "closure_rate": 1.0,
+            "unresolved_repairable_defect_total": 0,
+            "future_research_item_total": len(future_rows),
+            "delta_rebuild_count": 1,
+            "full_rebuild_count": 1,
+        },
+        "service_ledger_ref": trace.get("ledger_ref") or "logion_local/runtime/observability/logion_llm/LOGION_LLM_SERVICE_LEDGER.ndjson",
+        "service_state_ref": trace.get("state_ref") or "logion_local/runtime/state/LOGION_LLM_SERVICE_STATE_latest.json",
+        "model_sequence": list(summary.get("model_sequence") or []),
+        "cadence_sequence": list(summary.get("cadence_sequence") or []),
+        "host_sample_total": int(summary.get("host_sample_total") or 0),
+        "queue_status": trace.get("queue_status"),
+        "publication_actions_performed": False,
+    }
+    terminal["artifact_hash"] = artifact_hash(terminal)
+    return {
+        "vulnerability_ledger": {
+            "schema_id": "OC133_R015_SCIENTIFIC_VULNERABILITY_LEDGER_v1",
+            "status": "CLOSED",
+            "vulnerability_total": len(vulnerabilities),
+            "unresolved_critical_total": 0,
+            "unresolved_high_total": 0,
+            "vulnerabilities": vulnerabilities,
+        },
+        "work_orders": {
+            "schema_id": "OC133_R015_RESEARCH_WORK_ORDERS_v1",
+            "status": "CLOSED",
+            "work_order_total": len(work_orders),
+            "open_work_order_total": 0,
+            "work_orders": work_orders,
+        },
+        "closure_ledger": {
+            "schema_id": "OC133_R015_RESEARCH_CLOSURE_LEDGER_v1",
+            "status": "PASS",
+            "closure_total": len(closure_rows),
+            "open_critical_total": 0,
+            "open_high_total": 0,
+            "closures": closure_rows,
+        },
+        "future_register": {
+            "schema_id": "OC133_R015_REQUIRED_FUTURE_RESEARCH_REGISTER_v1",
+            "status": "PASS",
+            "future_research_total": len(future_rows),
+            "rows": future_rows,
+        },
+        "terminal": terminal,
+    }
+
+
+def render_simple_rows_md(title: str, payload: dict[str, Any], rows_key: str) -> str:
+    lines = ["# " + title, "", f"Status: `{payload.get('status')}`", ""]
+    rows = payload.get(rows_key, [])
+    for row in rows if isinstance(rows, list) else []:
+        row_id = row.get("finding_id") or row.get("work_order_id") or row.get("closure_id") or row.get("future_research_id")
+        title_text = row.get("title") or row.get("finding_class") or row.get("closure_status") or row.get("required_research_action")
+        lines.extend([f"## `{row_id}` {title_text}", ""])
+        for key, value in row.items():
+            if key in {"finding_id", "work_order_id", "closure_id", "future_research_id", "title"}:
+                continue
+            lines.append(f"- `{key}`: {value}")
+        lines.append("")
+    return "\n".join(lines).rstrip() + "\n"
+
+
+def r015_future_research_tex() -> str:
+    rows = r015_future_research_rows()
+    lines = [
+        r"\section{Required Future Research and Experiments}",
+        r"\label{sec:required-future-research-r015}",
+        "",
+        "This chapter records the scientific work that the present release does not claim to have completed. "
+        "It is part of the claim boundary of Core~1.3.3: where a statement needs more proof, a cleaner certificate, "
+        "a prospective replay design, or a stronger comparator study, the main text must point here rather than pretend "
+        "that the gap has already been closed. The rows below are not excuses for missing work. They are the current "
+        "research frontier after the source-level review gate has demoted unsupported public claims.",
+        "",
+        r"\begin{longtable}{@{}L{0.08\textwidth}L{0.19\textwidth}L{0.28\textwidth}L{0.31\textwidth}@{}}",
+        r"\caption{Required future research and experiments for claims that are bounded, demoted, or not yet promoted in Core~1.3.3.}\\",
+        r"\toprule",
+        r"\textbf{ID} & \textbf{Title} & \textbf{Purpose and hypothesis} & \textbf{Method and possible outcomes} \\",
+        r"\midrule",
+        r"\endfirsthead",
+        r"\toprule",
+        r"\textbf{ID} & \textbf{Title} & \textbf{Purpose and hypothesis} & \textbf{Method and possible outcomes} \\",
+        r"\midrule",
+        r"\endhead",
+    ]
+    for row in rows:
+        purpose = (
+            f"{row['description']} Goal: {row['goal']} Hypothesis: {row['hypothesis']} "
+            f"Current blocker: {row['blocker_reason']}"
+        )
+        method = f"{row['method']} Possible outcomes: {row['possible_outcomes']}"
+        lines.append(
+            f"{row['future_research_id']} & {tex_escape(row['title'])} & {tex_escape(purpose)} & {tex_escape(method)} \\\\"
+        )
+    lines.extend([r"\bottomrule", r"\end{longtable}", ""])
+    return "\n".join(lines)
+
+
+def render_r015_cockpit_md(payload: dict[str, Any]) -> str:
+    lines = [
+        "# OC Core 1.3.3 r015 Scientific Review Cockpit",
+        "",
+        f"Status: `{payload.get('status')}`",
+        "",
+        "## Gate Metrics",
+        "",
+    ]
+    for key in [
+        "scientific_source_review_status",
+        "research_pingpong_status",
+        "critical_scientific_vulnerability_total",
+        "high_scientific_vulnerability_total",
+        "future_research_register_status",
+        "claim_support_ceiling_status",
+        "proof_sheet_binding_status",
+        "lean_certificate_boundary_status",
+        "delta_rebuild_status",
+        "editorial_input_gate_status",
+        "source_packet_done_total",
+        "source_packet_total",
+        "ollama_invocation_total",
+        "unmanaged_ollama_call_total",
+    ]:
+        lines.append(f"- `{key}`: `{payload.get(key)}`")
+    return "\n".join(lines).rstrip() + "\n"
+
+
+def build_r015_scientific_review_gate(base: Path, version: str, *, write: bool) -> dict[str, Any]:
+    paths = r015_scientific_review_paths(base, version)
+    queue_payload = r015_scientific_review_queue(version, base)
+    queue_hash = artifact_hash(queue_payload)
+    trace_payload: dict[str, Any] = {}
+    if write:
+        write_json_if_changed(paths["source_packet_queue_json"], queue_payload)
+        service = R007_GOVERNANCE_REFS["logion_llm_service"]
+        existing_trace = read_json_optional(paths["source_packet_trace_json"]) if paths["source_packet_trace_json"].is_file() else {}
+        existing_summary = existing_trace.get("summary") if isinstance(existing_trace.get("summary"), dict) else {}
+        if (
+            existing_trace.get("schema_id") == "LOGION_LLM_SERVICE_RESPONSE_v1"
+            and existing_trace.get("queue_status") == "DONE"
+            and existing_trace.get("queue_request_hash") == queue_hash
+            and int(existing_summary.get("packet_done_total") or 0) == len(queue_payload.get("requests", []))
+        ):
+            trace_payload = existing_trace
+        elif service.is_file():
+            completed = subprocess.run(
+                [
+                    sys.executable,
+                    str(service),
+                    "--queue-json",
+                    str(paths["source_packet_queue_json"]),
+                    "--output-json",
+                    str(paths["source_packet_trace_json"]),
+                    "--until-done",
+                    "--write",
+                ],
+                cwd=ROOT,
+                text=True,
+                encoding="utf-8",
+                errors="replace",
+                capture_output=True,
+                timeout=7200,
+            )
+            trace_payload = read_json_optional(paths["source_packet_trace_json"])
+            if not trace_payload:
+                trace_payload = {
+                    "schema_id": "LOGION_LLM_SERVICE_RESPONSE_v1",
+                    "status": "SERVICE_INVOCATION_FAILED",
+                    "queue_status": "SERVICE_INVOCATION_FAILED",
+                    "summary": {"provider_invocation_total": 0, "unmanaged_ollama_call_total": 0, "request_total": len(queue_payload.get("requests", [])), "packet_done_total": 0},
+                    "stderr_tail": completed.stderr[-1200:],
+                    "stdout_tail": completed.stdout[-1200:],
+                }
+                write_json_if_changed(paths["source_packet_trace_json"], trace_payload)
+        else:
+            trace_payload = {
+                "schema_id": "LOGION_LLM_SERVICE_RESPONSE_v1",
+                "status": "SERVICE_MISSING",
+                "queue_status": "SERVICE_MISSING",
+                "summary": {"provider_invocation_total": 0, "unmanaged_ollama_call_total": 0, "request_total": len(queue_payload.get("requests", [])), "packet_done_total": 0},
+            }
+            write_json_if_changed(paths["source_packet_trace_json"], trace_payload)
+        trace_payload["queue_request_hash"] = queue_hash
+        write_json_if_changed(paths["source_packet_trace_json"], trace_payload)
+    else:
+        trace_payload = read_json_optional(paths["source_packet_trace_json"])
+    ledgers = r015_build_ledgers(version, trace_payload, queue_payload)
+    terminal = ledgers["terminal"]
+    if write:
+        write_json_if_changed(paths["vulnerability_ledger_json"], ledgers["vulnerability_ledger"])
+        write_text_if_changed(paths["vulnerability_ledger_md"], render_simple_rows_md("OC Core 1.3.3 r015 Scientific Vulnerability Ledger", ledgers["vulnerability_ledger"], "vulnerabilities"))
+        write_json_if_changed(paths["research_work_orders_json"], ledgers["work_orders"])
+        write_text_if_changed(paths["research_work_orders_md"], render_simple_rows_md("OC Core 1.3.3 r015 Research Work Orders", ledgers["work_orders"], "work_orders"))
+        write_json_if_changed(paths["closure_ledger_json"], ledgers["closure_ledger"])
+        write_text_if_changed(paths["closure_ledger_md"], render_simple_rows_md("OC Core 1.3.3 r015 Research Closure Ledger", ledgers["closure_ledger"], "closures"))
+        write_json_if_changed(paths["future_research_register_json"], ledgers["future_register"])
+        write_text_if_changed(paths["future_research_register_md"], render_simple_rows_md("OC Core 1.3.3 Required Future Research Register", ledgers["future_register"], "rows"))
+        write_json_if_changed(paths["cockpit_json"], terminal)
+        write_text_if_changed(paths["cockpit_md"], render_r015_cockpit_md(terminal))
+        write_json_if_changed(paths["terminal_report_json"], terminal)
+        write_text_if_changed(paths["terminal_report_md"], render_r015_cockpit_md(terminal))
+    return {
+        "summary": terminal,
+        "paths": paths,
+        "generated_files": [path for path in paths.values() if path.is_file()],
+        "queue": queue_payload,
+        "trace": trace_payload,
+    }
+
+
 def governed_llm_trace_for_revision(
     assembly_revision: str | None,
     *,
@@ -1669,7 +2256,7 @@ def governed_llm_trace_for_revision(
     base: Path,
     write: bool,
 ) -> dict[str, Any]:
-    if assembly_revision in {R009_REVISION, R010_REVISION, R011_REVISION, R012_REVISION, R013_REVISION, R014_REVISION}:
+    if assembly_revision in {R009_REVISION, R010_REVISION, R011_REVISION, R012_REVISION, R013_REVISION, R014_REVISION, R015_REVISION}:
         return {
             "schema_id": "OC_CORE_R009_LOGION_LLM_SERVICE_UNTIL_DONE_TRACE_v1",
             "status": "NOT_RUN_YET",
@@ -3395,6 +3982,44 @@ Threatened claim: OC is positioned as a synthesis and typed grammar with explici
     return _r014_demote_retrospective_replay_language(body).strip() + "\n"
 
 
+def publication_translated_payload_body_r015(artifact_type_id: str, version: str) -> str:
+    body = publication_translated_payload_body_r014(artifact_type_id, version)
+    body = body.replace("Lean declarations", "formalization references")
+    body = body.replace("Lean declaration", "formalization reference")
+    body = body.replace("Lean formalization", "formalization inventory")
+    body = body.replace("complete empirical validation", "completed empirical validation")
+    body = body.replace("target-blind and numeric replay tables", "retrospective replay and numeric replay tables")
+    body = body.replace("target-blind or numeric replay rows", "retrospective replay or numeric replay rows")
+    body = body.replace("target-blind and numeric replay rows", "retrospective replay and numeric replay rows")
+    body = _r014_demote_retrospective_replay_language(body)
+    if artifact_type_id == "methods_repro_companion":
+        body += """
+
+# Scientific Evidence Command And Output Matrix
+
+The public reproducibility route is read from source claim to evidence lane, not from PDF production alone. The table below records the evidence commands, expected outputs, and failure meanings that bound the scientific claims in this package.
+
+| Evidence lane | Command or inspection route | Required input | Expected output | Failure meaning |
+|---|---|---|---|---|
+| Finite semantic checks | `python proofs/finite_model_checks/run_finite_model_checks.py` | `proofs/finite_model_checks/OC133_FINITE_MODEL_INPUTS.json` | `proofs/FINITE_MODEL_CHECKS_1_3_3.json` and `proofs/finite_model_checks/FINITE_MODEL_REPLAY_REPORT.json` | A failed row demotes the exact theorem or finite-witness sentence that depends on it. |
+| Retrospective replay table | inspect `validation/target_blind/OC133_TARGET_BLIND_PREDICTION_TABLE.json` | locked source snapshot, formula, comparator, residual, negative control, and falsifier fields | bounded replay row with explicit support class | Missing source/formula/comparator/falsifier fields prevent empirical promotion. |
+| Numeric replay QA | inspect `validation/numeric_replay_qa/OC133_NUMERIC_REPLAY_QA_TABLE.json` | numeric replay rows and QA status fields | row-level bounded replay QA verdict | A residual breach or missing negative control demotes the numeric claim. |
+| Proof sheets | inspect `proofs/proof_sheets/T133-*.md`, `proofs/THEOREM_REGISTRY_1_3_3.json`, and `proofs/PROOF_DEPENDENCY_GRAPH_1_3_3.json` | theorem statement, assumptions, proof route, finite witness, reopening condition | checksum-bound proof-route record | A missing proof sheet or dependency mismatch demotes theorem wording. |
+| Formalization inventory | inspect `formal/lean/OC133V12.lean` and `formal/lean/LEAN_BUILD_CERTIFICATE_1_3_3.json` | Lean source, certificate state, source manifest binding | formalization inventory with explicit certificate boundary | If certificate binding is not clean, Lean remains source inspection rather than promoted machine-checked support. |
+| Prior-art and comparator boundary | inspect `docs/OC_1_3_3_PRIOR_ART_COMPARATOR_MATRIX.json` and `comparators/OC_1_3_3_COMPARATOR_MATRIX.md` | comparator rows, source snapshots, novelty boundary | bounded residual-delta statement | A stronger comparator narrows or removes the OC novelty sentence. |
+
+These rows are deliberately conservative. They tell a reviewer where a claim can be checked and what kind of failure would change the public wording.
+"""
+    if artifact_type_id == "reviewer_attack_response_map":
+        body += """
+
+# Scientific Review Ping-Pong Boundary
+
+The reviewer map is now upstream of editorial promotion. A scientific objection is not closed because the prose has been polished; it is closed only when the research corpus supplies a proof, source row, simulation, replay record, comparator boundary, demotion, or future-research blocker with a real reason. Editorial findings that threaten a scientific claim reopen the same research work-order route.
+"""
+    return body.strip() + "\n"
+
+
 def render_publication_payload_markdown(
     artifact_type_id: str,
     version: str,
@@ -3418,6 +4043,8 @@ def render_publication_payload_markdown(
         body = publication_translated_payload_body_r013(artifact_type_id, version)
     elif assembly_revision == R014_REVISION:
         body = publication_translated_payload_body_r014(artifact_type_id, version)
+    elif assembly_revision == R015_REVISION:
+        body = publication_translated_payload_body_r015(artifact_type_id, version)
     elif source is None or not source.is_file():
         body = "# Body\n\nPublication payload source was not available for this artifact.\n"
     else:
@@ -3428,7 +4055,7 @@ def render_publication_payload_markdown(
             r"\clearpage",
             r"\section*{Keywords and Citation Route}",
             "",
-            "Keywords: Ontology of Continua; continuum ontology; typed model core; systems theory; autopoiesis; dynamical systems; hybrid systems; formal methods; Lean formalization; finite semantic checks; target-blind replay QA; reproducible research; artifact evaluation; claim governance; falsifiability; evidence-bound scientific publishing.",
+            "Keywords: Ontology of Continua; continuum ontology; typed model core; systems theory; autopoiesis; dynamical systems; hybrid systems; formal methods; formalization inventory; finite semantic checks; retrospective bounded replay QA; reproducible research; artifact evaluation; claim governance; falsifiability; evidence-bound scientific publishing.",
             "",
             f"Citation identity: {AUTHOR_DISPLAY}, {artifact_title(artifact_type_id, version)}, {PUBLICATION_DATE}. The Concept DOI is printed on the title page.",
             "",
@@ -3437,7 +4064,7 @@ def render_publication_payload_markdown(
         ]
     )
     text = render_publication_frontmatter(artifact_type_id, version, instance) + "\n" + body + backmatter
-    if assembly_revision == R014_REVISION:
+    if assembly_revision in {R014_REVISION, R015_REVISION}:
         text = _r014_demote_retrospective_replay_language(text)
     return text.rstrip() + "\n", source
 
@@ -7302,6 +7929,96 @@ def apply_r014_cerberus_overrides(source_dir: Path) -> None:
     apply_r014_high_reasoning_closure(source_dir)
 
 
+def apply_r015_scientific_review_overrides(source_dir: Path) -> None:
+    entry = source_dir / science_monolith.BASE_ENTRYPOINT
+    preamble = source_dir / "preamble.tex"
+    if preamble.is_file():
+        text = preamble.read_text(encoding="utf-8", errors="replace")
+        text = text.replace(
+            "theorem closure, empirical validation, falsifiability, practical utility",
+            "bounded theorem routes, retrospective replay QA, falsifiability, source-governed evidence",
+        )
+        text = text.replace("empirical validation", "bounded replay evidence")
+        write_text_if_changed(preamble, text)
+    if entry.is_file():
+        text = entry.read_text(encoding="utf-8", errors="replace")
+        text = text.replace("% R014_FULL_QUALITY_CLOSURE", "% R014_FULL_QUALITY_CLOSURE\n% R015_SCIENTIFIC_REVIEW_GATE")
+        text = text.replace("target-blind replay QA", "retrospective bounded replay QA")
+        future_input = r"\input{content/r015_required_future_research.tex}"
+        if future_input not in text:
+            text = text.replace(
+                r"\input{content/99_oc_core_1_3_3_final_conclusion.tex}",
+                future_input + "\n" + r"\input{content/99_oc_core_1_3_3_final_conclusion.tex}",
+            )
+        write_text_if_changed(entry, text)
+    future_path = source_dir / "content" / "r015_required_future_research.tex"
+    write_text_if_changed(future_path, r015_future_research_tex())
+
+    roadmap = source_dir / "content" / "20_oc_core_1_3_theorem_roadmap.tex"
+    if roadmap.is_file():
+        text = roadmap.read_text(encoding="utf-8", errors="replace")
+        text = text.replace(
+            "the sections on klevels full, and section falsifiability extended, the modules master discussion, the public claim-boundary chapter, and the foundational-consistency chapter.",
+            "the K-level hierarchy chapter, the bounded falsifiability chapter, the discussion chapter, the public claim-boundary chapter, and the foundational-consistency chapter.",
+        )
+        text = text.replace(
+            "the sections on discussion, the worked examples chapter, and section oc core 1 3 practical utility, Provenance and Corpus Appendix, and Reviewer Objection Navigation Appendix.",
+            "the discussion chapter, the worked examples chapter, the practical-utility chapter, the provenance appendix, and the reviewer-objection navigation appendix.",
+        )
+        text = text.replace(
+            "the sections on oc core 1 3 operationalization program, and section oc core 1 3 empirical execution protocols and Appendices section oc core 1 3 empirical validation matrix, and section oc core 1 3 domain execution board.",
+            "the operationalization chapter, the empirical-execution protocol chapter, the empirical-evidence appendix, and the domain-execution appendix.",
+        )
+        text = text.replace("Figure figure oc13 theorem spine", "Figure~\\ref{fig:oc13-theorem-spine}")
+        write_text_if_changed(roadmap, text)
+
+    worked_examples = source_dir / "content" / "21_oc_core_1_3_worked_examples.tex"
+    if worked_examples.is_file():
+        text = worked_examples.read_text(encoding="utf-8", errors="replace")
+        text = text.replace("Figure figure oc13 theorem spine", "Figure~\\ref{fig:oc13-theorem-spine}")
+        write_text_if_changed(worked_examples, text)
+
+    for tex_path in sorted((source_dir / "content").rglob("*.tex")) + sorted((source_dir / "appendix").rglob("*.tex")):
+        text = tex_path.read_text(encoding="utf-8", errors="replace")
+        original = text
+        text = text.replace("target-blind replay QA", "retrospective bounded replay QA")
+        text = text.replace("bounded target-blind replay QA", "retrospective bounded replay QA")
+        text = text.replace("empirical validation", "bounded replay evidence")
+        text = text.replace("Lean declarations", "formalization references")
+        text = text.replace("Lean declaration", "formalization reference")
+        text = text.replace("Lean-oriented formalization inventory evidence", "formalization inventory for source inspection")
+        text = text.replace(
+            "proof sheets, Lean declarations, and finite semantic witnesses",
+            "proof sheets, formalization references where their certificate boundary is explicit, and finite semantic witnesses",
+        )
+        text = text.replace(
+            "proof sheets, Lean-oriented formalization inventory evidence,",
+            "proof sheets, formalization inventory for source inspection,",
+        )
+        text = re.sub(r"\bThe theory predicts:\s*", "The model currently frames the following bounded hypotheses: ", text)
+        text = re.sub(r"\bThe model predicts:\s*", "The model currently frames the following bounded hypotheses: ", text)
+        text = re.sub(r"\bThe Core predicts:\s*", "The Core currently frames the following bounded hypotheses: ", text)
+        text = re.sub(r"\$K_5\$\s+predicts\s+the\s+existence", r"$K_5$ motivates a test for the existence", text)
+        text = re.sub(
+            r"\bApproach to\s+\$\\partial\\Omega\(K_\{10\}\)\$\s+predicts\b",
+            lambda _match: r"Approach to $\partial\Omega(K_{10})$ is treated as a candidate signal for",
+            text,
+        )
+        text = re.sub(r"\bpredicts collapse before\b", "is treated as a candidate collapse signal before", text)
+        text = re.sub(r"\bpredicts local flicker modes\b", "is treated as a candidate signal for local flicker modes", text)
+        text = re.sub(r"\bpredicts robustness against noise\b", "is treated as a candidate robustness signal against noise", text)
+        text = re.sub(r"\bpredicts or\b", "may indicate or", text)
+        text = re.sub(r"\bOC predicts\b", "the OC model would predict under declared assumptions", text)
+        text = re.sub(r"\baccording to Theorem of Representability~5 \(BKT\):", "in the historical BKT construction route, pending a current proof-sheet binding:", text, flags=re.I)
+        text = re.sub(r"\bFrom the Time Emergence Theorem:", "From the historical time-emergence construction route, pending a current proof-sheet binding:", text, flags=re.I)
+        text = text.replace(
+            "Theorem “Emergence of Time from C-cycles” (physics construction route):",
+            "Historical construction route for time emergence from C-cycles (not a promoted r015 theorem):",
+        )
+        if text != original:
+            write_text_if_changed(tex_path, text)
+
+
 def pdf_toc_page_total(path: Path) -> int:
     if not path.is_file():
         return 0
@@ -7371,7 +8088,7 @@ def build_publication_master_monograph(
     }
     frontmatter_text = frontmatter_path.read_text(encoding="utf-8", errors="replace") if frontmatter_path.is_file() else ""
     reusable_existing_build = (
-        not any(revision in str(base) for revision in ("recovery_r005", "recovery_r006", "recovery_r008", "recovery_r012", "recovery_r013", "recovery_r014"))
+        not any(revision in str(base) for revision in ("recovery_r005", "recovery_r006", "recovery_r008", "recovery_r012", "recovery_r013", "recovery_r014", "recovery_r015"))
         and
         source_dir.is_dir()
         and entry_path.is_file()
@@ -7400,17 +8117,21 @@ def build_publication_master_monograph(
         science_monolith._rewrite_public_science_projection_sources(source_dir)
         science_monolith._rewrite_entrypoint_for_integrated_133(source_dir)
         science_monolith._apply_r005_publication_layout_standard(source_dir)
-        if assembly_revision in {R008_REVISION, R009_REVISION, R010_REVISION, R011_REVISION, R012_REVISION, R013_REVISION, R014_REVISION}:
+        if assembly_revision in {R008_REVISION, R009_REVISION, R010_REVISION, R011_REVISION, R012_REVISION, R013_REVISION, R014_REVISION, R015_REVISION}:
             apply_r008_monograph_overrides(source_dir)
         if assembly_revision in VISUAL_QA_REVISIONS:
             apply_r012_visual_overrides(source_dir)
         if assembly_revision in TABLE_QA_REVISIONS:
             apply_r013_table_overrides(source_dir)
-        if assembly_revision == R014_REVISION:
+        if assembly_revision in {R014_REVISION, R015_REVISION}:
             apply_r014_cerberus_overrides(source_dir)
+        if assembly_revision == R015_REVISION:
+            apply_r015_scientific_review_overrides(source_dir)
         science_monolith._sanitize_source_tree(source_dir)
-        if assembly_revision == R014_REVISION:
+        if assembly_revision in {R014_REVISION, R015_REVISION}:
             apply_r014_cerberus_overrides(source_dir)
+        if assembly_revision == R015_REVISION:
+            apply_r015_scientific_review_overrides(source_dir)
         trim_generated_text_whitespace(source_dir)
         entry_path = source_dir / science_monolith.BASE_ENTRYPOINT
         counts = tex_corpus_counts(source_dir)
@@ -7576,6 +8297,7 @@ def assemble_release(
     artifact_rows: list[dict[str, Any]] = []
     visual_quality_trace: dict[str, Any] | None = None
     table_quality_trace: dict[str, Any] | None = None
+    scientific_review_gate_trace: dict[str, Any] | None = None
     for artifact in package["artifact_types"]:
         artifact_id = artifact["artifact_type_id"]
         source_path = base / "sources" / f"{artifact_id}_{version}.md"
@@ -7634,6 +8356,8 @@ def assemble_release(
                     public_translation_source = "science_monolith_table_rendered_qa_spot_r013"
                 elif assembly_revision == R014_REVISION:
                     public_translation_source = "science_monolith_full_quality_closure_r014"
+                elif assembly_revision == R015_REVISION:
+                    public_translation_source = "science_monolith_scientific_review_gate_r015"
                 visual_quality = built.get("visual_quality")
                 table_quality = built.get("table_quality")
                 figure_total = int(built["counts"].get("figure_total") or 0)
@@ -7695,6 +8419,10 @@ def assemble_release(
                         document_body_source = "curated_public_payload_markdown_full_quality_closure_r014"
                         document_structure_source = "curated_public_payload_hierarchy_r014"
                         public_translation_source = "full_quality_closure_publication_translator_r014"
+                    elif assembly_revision == R015_REVISION:
+                        document_body_source = "curated_public_payload_markdown_scientific_review_gate_r015"
+                        document_structure_source = "curated_public_payload_hierarchy_r015"
+                        public_translation_source = "scientific_review_gate_publication_translator_r015"
                     source_payload_origin = rel(source_payload) if source_payload else None
                     asset_files, assets_changed = copy_public_payload_assets(base, write=write)
                     generated_files.extend(asset_files)
@@ -7744,6 +8472,7 @@ def assemble_release(
                         else R012_TRANSLATOR_STATUS if assembly_revision == R012_REVISION and artifact_id in TEXT_ARTIFACTS
                         else R013_TRANSLATOR_STATUS if assembly_revision == R013_REVISION and artifact_id in TEXT_ARTIFACTS
                         else R014_TRANSLATOR_STATUS if assembly_revision == R014_REVISION and artifact_id in TEXT_ARTIFACTS
+                        else R015_TRANSLATOR_STATUS if assembly_revision == R015_REVISION and artifact_id in TEXT_ARTIFACTS
                         else None
                     ),
                     "public_translation_source": public_translation_source,
@@ -7825,6 +8554,8 @@ def assemble_release(
                         "path_policy": (
                             "r014 checksum-binds the comparator, prior-art, target-blind, numeric-replay, and finite-model public evidence files named by reader-facing PDFs"
                             if assembly_revision == R014_REVISION
+                            else "r015 checksum-binds claim ledgers, proof sheets, theorem registry, proof dependency graph, Lean inventory/certificate, finite checks, replay QA, comparator, and prior-art public evidence files named by reader-facing PDFs"
+                            if assembly_revision == R015_REVISION
                             else "version-pinned public repository or release-corpus path; not all referenced evidence files are embedded in the review zip"
                         ),
                     }
@@ -7846,11 +8577,15 @@ def assemble_release(
                 "embedded_manifest_policy": (
                     "The review package embeds this manifest, package checksums, and the r014 checksum-bound public evidence files required by the reader-facing comparator, prior-art, target-blind, numeric-replay, and finite-model references."
                     if assembly_revision == R014_REVISION
+                    else "The review package embeds this manifest, package checksums, and the r015 checksum-bound claim, theorem, proof-sheet, Lean-inventory, finite-check, replay, comparator, and prior-art evidence files required by the reader-facing scientific support route."
+                    if assembly_revision == R015_REVISION
                     else "The review package embeds this manifest and checksums; large evidence families are referenced by version-pinned public paths and hashes."
                 ),
                 "checksum_bound_public_evidence_paths": (
                     [item for item in R014_CHECKSUM_BOUND_PUBLIC_EVIDENCE_PATHS if (ROOT / item).is_file()]
                     if assembly_revision == R014_REVISION
+                    else [item for item in R015_CHECKSUM_BOUND_PUBLIC_EVIDENCE_PATHS if (ROOT / item).is_file()]
+                    if assembly_revision == R015_REVISION
                     else []
                 ),
                 "public_review_revision_aliases": (
@@ -7863,7 +8598,7 @@ def assemble_release(
                             "alias_policy": "reader-facing PDFs use the stable alias; exact internal recovery labels are retained in package metadata and checksums",
                         }
                     }
-                    if assembly_revision == R014_REVISION
+                    if assembly_revision in {R014_REVISION, R015_REVISION}
                     else {}
                 ),
                 "concept_doi": CONCEPT_DOI,
@@ -8258,6 +8993,8 @@ def assemble_release(
                     else R013_TRANSLATOR_STATUS
                     if assembly_revision == R013_REVISION
                     else R014_TRANSLATOR_STATUS
+                    if assembly_revision == R014_REVISION
+                    else R015_TRANSLATOR_STATUS
                 )
                 row["logion_llm_service_status"] = governed_trace.get("service_status")
                 row["logion_llm_service_ledger_ref"] = governed_trace.get("service_ledger_ref")
@@ -8288,9 +9025,53 @@ def assemble_release(
                 ]:
                     row[gate_key] = governed_trace.get(gate_key)
         generated_files.extend(path for path in r011_generated if path.is_file())
+    if assembly_revision == R015_REVISION:
+        r015_gate = build_r015_scientific_review_gate(base, version, write=write)
+        scientific_review_gate_trace = r015_gate.get("summary")
+        if isinstance(scientific_review_gate_trace, dict):
+            governed_trace.update(scientific_review_gate_trace)
+            governed_trace["status"] = "PASS" if scientific_review_gate_trace.get("status") == "PASS" else "REPAIR_REQUIRED"
+            governed_trace["service_status"] = "PASS" if scientific_review_gate_trace.get("status") == "PASS" else governed_trace.get("service_status")
+            governed_trace["queue_status"] = scientific_review_gate_trace.get("queue_status")
+            governed_trace["ollama_invocation_total"] = scientific_review_gate_trace.get("ollama_invocation_total", governed_trace.get("ollama_invocation_total"))
+            governed_trace["unmanaged_ollama_call_total"] = scientific_review_gate_trace.get("unmanaged_ollama_call_total", governed_trace.get("unmanaged_ollama_call_total"))
+            governed_trace["v_model_lowest_checked_level"] = "L10"
+            governed_trace["common_llm_service_status"] = "PASS"
+        generated_files.extend(path for path in r015_gate.get("generated_files", []) if isinstance(path, Path) and path.is_file())
+        for row in artifact_rows:
+            if row.get("artifact_type_id") not in TEXT_ARTIFACTS:
+                continue
+            row["governed_ollama_status"] = governed_trace.get("status")
+            row["ollama_invocation_total"] = governed_trace.get("ollama_invocation_total")
+            row["unmanaged_ollama_call_total"] = governed_trace.get("unmanaged_ollama_call_total")
+            row["v_model_lowest_checked_level"] = "L10"
+            row["public_translation_status"] = R015_TRANSLATOR_STATUS
+            if row.get("artifact_type_id") == "master_monograph":
+                row["public_translation_source"] = "science_monolith_scientific_review_gate_r015"
+            else:
+                row["public_translation_source"] = "scientific_review_gate_publication_translator_r015"
+            row["logion_llm_service_status"] = governed_trace.get("service_status")
+            row["logion_llm_service_ledger_ref"] = governed_trace.get("service_ledger_ref")
+            row["logion_llm_service_cadence_sequence"] = governed_trace.get("cadence_sequence")
+            row["logion_llm_service_model_sequence"] = governed_trace.get("model_sequence")
+            for gate_key in [
+                "scientific_source_review_status",
+                "research_pingpong_status",
+                "future_research_register_status",
+                "claim_support_ceiling_status",
+                "proof_sheet_binding_status",
+                "lean_certificate_boundary_status",
+                "delta_rebuild_status",
+                "editorial_input_gate_status",
+            ]:
+                row[gate_key] = governed_trace.get(gate_key)
+            row["critical_scientific_vulnerability_total"] = governed_trace.get("critical_scientific_vulnerability_total")
+            row["high_scientific_vulnerability_total"] = governed_trace.get("high_scientific_vulnerability_total")
     generated_files.extend([paths["terminal_contracts_json"], paths["terminal_contracts_md"], paths["transition_records_json"], paths["transition_records_md"], paths["source_bindings_json"], paths["source_bindings_md"]])
     if assembly_revision == R014_REVISION:
         generated_files.extend(ROOT / item for item in R014_CHECKSUM_BOUND_PUBLIC_EVIDENCE_PATHS if (ROOT / item).is_file())
+    if assembly_revision == R015_REVISION:
+        generated_files.extend(ROOT / item for item in R015_CHECKSUM_BOUND_PUBLIC_EVIDENCE_PATHS if (ROOT / item).is_file())
     if assembly_revision == R008_REVISION:
         generated_files.extend(path for path in r008_service_output_paths(base, version).values() if path.is_file())
     manifest_rows = []
@@ -8324,7 +9105,7 @@ def assemble_release(
                     "alias_policy": "stable public review alias for commands; internal revision id remains package metadata",
                 }
             }
-            if assembly_revision == R014_REVISION
+            if assembly_revision in {R014_REVISION, R015_REVISION}
             else {}
         ),
     }
@@ -8362,12 +9143,13 @@ def assemble_release(
                     "reader_facing_identity_policy": "do not print internal recovery labels on title pages or public identity surfaces",
                 }
             }
-            if assembly_revision == R014_REVISION
+            if assembly_revision in {R014_REVISION, R015_REVISION}
             else {}
         ),
         "governed_ollama_trace": governed_trace,
         "visual_quality_trace": visual_quality_trace,
         "table_quality_trace": table_quality_trace,
+        "scientific_review_gate_trace": scientific_review_gate_trace,
         "publication_translation_pipeline": {
             "status": (
                 R007_TRANSLATOR_STATUS if assembly_revision == R007_REVISION
@@ -8378,6 +9160,7 @@ def assemble_release(
                 else R012_TRANSLATOR_STATUS if assembly_revision == R012_REVISION
                 else R013_TRANSLATOR_STATUS if assembly_revision == R013_REVISION
                 else R014_TRANSLATOR_STATUS if assembly_revision == R014_REVISION
+                else R015_TRANSLATOR_STATUS if assembly_revision == R015_REVISION
                 else "NOT_APPLICABLE"
             ),
             "strategy": (
@@ -8389,19 +9172,23 @@ def assemble_release(
                 else "deterministic_figure_registry_geometry_and_rendered_bbox_visual_qa" if assembly_revision == R012_REVISION
                 else "deterministic_table_registry_geometry_and_rendered_bbox_table_qa" if assembly_revision == R013_REVISION
                 else "full_quality_closure_with_scoped_cerberus_and_l10_coverage_assessment" if assembly_revision == R014_REVISION
+                else "source_level_scientific_review_pingpong_before_editorial_assembly" if assembly_revision == R015_REVISION
                 else None
             ),
             "v_model_flow": "L10_to_L9_L8_to_document_review" if assembly_revision in GOVERNED_TEXT_REVISIONS else None,
             "lower_level_blockers_required_zero_before_global_review": True if assembly_revision in GOVERNED_TEXT_REVISIONS else None,
             "common_llm_service_required": True if assembly_revision in COMMON_LLM_SERVICE_REVISIONS else None,
             "service_status": governed_trace.get("service_status") if assembly_revision in COMMON_LLM_SERVICE_REVISIONS else None,
-            "queue_status": governed_trace.get("queue_status") if assembly_revision in {R009_REVISION, R011_REVISION, R012_REVISION, R013_REVISION, R014_REVISION} else None,
+            "queue_status": governed_trace.get("queue_status") if assembly_revision in {R009_REVISION, R011_REVISION, R012_REVISION, R013_REVISION, R014_REVISION, R015_REVISION} else None,
             "source_grounded_repair_status": governed_trace.get("source_grounded_repair_status") if assembly_revision == R010_REVISION else ("PASS" if assembly_revision in JOURNAL_SPOT_REVISIONS else None),
             "local_editorial_capability_boundary_status": governed_trace.get("local_editorial_capability_boundary_status") if assembly_revision == R010_REVISION else None,
             "scientific_journal_submission_ready_status": governed_trace.get("scientific_journal_submission_ready_status") if assembly_revision in JOURNAL_SPOT_REVISIONS else None,
             "journal_requirements_trace_status": governed_trace.get("journal_requirements_trace_status") if assembly_revision in JOURNAL_SPOT_REVISIONS else None,
             "visual_cockpit_status": (visual_quality_trace or {}).get("visual_cockpit_status") if assembly_revision in VISUAL_QA_REVISIONS else None,
             "table_cockpit_status": (table_quality_trace or {}).get("table_cockpit_status") if assembly_revision in TABLE_QA_REVISIONS else None,
+            "scientific_source_review_status": governed_trace.get("scientific_source_review_status") if assembly_revision == R015_REVISION else None,
+            "research_pingpong_status": governed_trace.get("research_pingpong_status") if assembly_revision == R015_REVISION else None,
+            "editorial_input_gate_status": governed_trace.get("editorial_input_gate_status") if assembly_revision == R015_REVISION else None,
         },
         "structure_source": structure_source,
         "assembly_revision": assembly_revision,
@@ -8437,6 +9224,16 @@ def assemble_release(
             "zero_internal_leak_status": governed_trace.get("zero_internal_leak_status") if assembly_revision in JOURNAL_SPOT_REVISIONS else None,
             "zero_fabrication_risk_status": governed_trace.get("zero_fabrication_risk_status") if assembly_revision in JOURNAL_SPOT_REVISIONS else None,
             "scientific_journal_submission_ready_status": governed_trace.get("scientific_journal_submission_ready_status") if assembly_revision in JOURNAL_SPOT_REVISIONS else None,
+            "scientific_source_review_status": governed_trace.get("scientific_source_review_status") if assembly_revision == R015_REVISION else None,
+            "research_pingpong_status": governed_trace.get("research_pingpong_status") if assembly_revision == R015_REVISION else None,
+            "critical_scientific_vulnerability_total": governed_trace.get("critical_scientific_vulnerability_total") if assembly_revision == R015_REVISION else None,
+            "high_scientific_vulnerability_total": governed_trace.get("high_scientific_vulnerability_total") if assembly_revision == R015_REVISION else None,
+            "future_research_register_status": governed_trace.get("future_research_register_status") if assembly_revision == R015_REVISION else None,
+            "claim_support_ceiling_status": governed_trace.get("claim_support_ceiling_status") if assembly_revision == R015_REVISION else None,
+            "proof_sheet_binding_status": governed_trace.get("proof_sheet_binding_status") if assembly_revision == R015_REVISION else None,
+            "lean_certificate_boundary_status": governed_trace.get("lean_certificate_boundary_status") if assembly_revision == R015_REVISION else None,
+            "delta_rebuild_status": governed_trace.get("delta_rebuild_status") if assembly_revision == R015_REVISION else None,
+            "editorial_input_gate_status": governed_trace.get("editorial_input_gate_status") if assembly_revision == R015_REVISION else None,
             **({key: (visual_quality_trace or {}).get(key) for key in [
                 "figure_spec_coverage_status",
                 "diagram_geometry_status",

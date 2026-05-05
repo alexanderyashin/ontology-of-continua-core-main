@@ -114,6 +114,22 @@ R013_FORM_STATUS_KEYS = R012_FORM_STATUS_KEYS + [
     "table_semantic_anchor_status",
     "table_cockpit_status",
 ]
+R014_FORM_STATUS_KEYS = R013_FORM_STATUS_KEYS + [
+    "cerberus_static_leak_status",
+    "methods_path_integrity_status",
+    "reviewer_map_argument_status",
+    "r014_quality_closure_status",
+]
+R015_FORM_STATUS_KEYS = R014_FORM_STATUS_KEYS + [
+    "scientific_source_review_status",
+    "research_pingpong_status",
+    "future_research_register_status",
+    "claim_support_ceiling_status",
+    "proof_sheet_binding_status",
+    "lean_certificate_boundary_status",
+    "delta_rebuild_status",
+    "editorial_input_gate_status",
+]
 
 
 def read_json(path: Path) -> dict:
@@ -1524,6 +1540,114 @@ class ReleaseAssemblyMachineTests(unittest.TestCase):
         self.assertEqual(machine["status"], "PASS")
         self.assertEqual(comparison["status"], "PASS")
         self.assertEqual(quality["summary"]["artifact_failure_total"], 0)
+
+    def test_recovery_r014_fails_recovery_r015_scientific_gate_when_reaudited(self) -> None:
+        tools_dir = ROOT / "tools"
+        if str(tools_dir) not in sys.path:
+            sys.path.insert(0, str(tools_dir))
+        from audit_oc_core_release_assembly_machine import build_audit
+
+        audit = build_audit("oc_core_1_3_3", "recovery_r014")
+        finding_kinds = {finding["kind"] for finding in audit["findings"]}
+        self.assertIn("publication_r015_scientific_review_missing", finding_kinds)
+        for key in [
+            "scientific_source_review_status",
+            "research_pingpong_status",
+            "form_quality_status",
+        ]:
+            self.assertEqual(audit["summary"][key], "FAIL", key)
+
+    def test_recovery_r015_scientific_review_gate_package_passes(self) -> None:
+        base = ROOT / "releases" / "oc_core_1_3_3" / "editorial" / "generated_artifacts_recovered" / "recovery_r015"
+        assembly = read_json(base / "package_assembly" / "OC_CORE_RELEASE_PACKAGE_ASSEMBLY_1.3.3.json")
+        machine = read_json(base / "package_assembly" / "OC_CORE_RELEASE_ASSEMBLY_MACHINE_AUDIT_1.3.3.json")
+        comparison = read_json(base / "package_assembly" / "OC_CORE_RELEASE_ASSEMBLY_REVISION_COMPARISON_1.3.3.recovery_r015.json")
+        quality = read_json(
+            ROOT
+            / "releases"
+            / "oc_core_1_3_3"
+            / "editorial"
+            / "quality_validation"
+            / "recovery_r015"
+            / "OC_CORE_RELEASE_QUALITY_AUDIT_1.3.3.json"
+        )
+        cerberus = read_json(
+            ROOT
+            / "releases"
+            / "oc_core_1_3_3"
+            / "editorial"
+            / "quality_validation"
+            / "recovery_r015"
+            / "cerberus"
+            / "OC133_EDITORIAL_CERBERUS_SUMMARY.json"
+        )
+        review_root = base / "scientific_review"
+        terminal = read_json(review_root / "OC133_R015_SCIENTIFIC_REVIEW_TERMINAL_REPORT_1.3.3.json")
+        future = read_json(review_root / "OC133_R015_REQUIRED_FUTURE_RESEARCH_REGISTER_1.3.3.json")
+        queue = read_json(review_root / "OC133_R015_SCIENTIFIC_SOURCE_REVIEW_QUEUE_1.3.3.json")
+        trace = read_json(review_root / "OC133_R015_SCIENTIFIC_SOURCE_REVIEW_TRACE_1.3.3.json")
+        manifest = read_json(base / "package" / "OC_CORE_RELEASE_PACKAGE_MANIFEST_1.3.3.json")
+
+        self.assertEqual(assembly["assembly_revision"], "recovery_r015")
+        self.assertEqual(assembly["publication_translation_pipeline"]["status"], "PUBLICATION_TRANSLATOR_R015_SCIENTIFIC_REVIEW_GATE")
+        self.assertEqual(machine["status"], "PASS")
+        self.assertEqual(comparison["status"], "PASS")
+        self.assertEqual(quality["status"], "QUALITY_VALIDATION_PASS")
+        self.assertEqual(quality["summary"]["blocking_vulnerability_total"], 0)
+        self.assertEqual(quality["summary"]["vulnerability_total"], 0)
+        self.assertEqual(quality["summary"]["artifact_failure_total"], 0)
+        self.assertEqual(quality["summary"]["scientific_coverage_not_assessed_l10_total"], 0)
+        self.assertTrue(quality["summary"]["scientific_full_coverage_claim_allowed"])
+
+        self.assertEqual(cerberus["state"], "PASS")
+        self.assertEqual(cerberus["critical_open_total"], 0)
+        self.assertEqual(cerberus["high_open_total"], 0)
+        self.assertEqual(cerberus["parse_failure_total"], 0)
+        self.assertEqual(cerberus["external_reasoning_run_status"], "SOURCE_LEVEL_SCIENTIFIC_REVIEW_GATE_CONSUMED")
+
+        self.assertEqual(terminal["status"], "PASS")
+        self.assertEqual(terminal["scientific_source_review_status"], "PASS")
+        self.assertEqual(terminal["research_pingpong_status"], "PASS")
+        self.assertEqual(terminal["critical_scientific_vulnerability_total"], 0)
+        self.assertEqual(terminal["high_scientific_vulnerability_total"], 0)
+        self.assertEqual(terminal["queue_status"], "DONE")
+        self.assertGreater(terminal["ollama_invocation_total"], 0)
+        self.assertEqual(terminal["unmanaged_ollama_call_total"], 0)
+        self.assertEqual(trace["queue_status"], "DONE")
+        self.assertEqual((trace["summary"] or {})["packet_done_total"], len(queue["requests"]))
+        self.assertEqual(queue["requests"][0]["level"], "L10")
+        self.assertEqual(queue["requests"][-1]["level"], "L8")
+
+        self.assertEqual(future["status"], "PASS")
+        self.assertGreaterEqual(future["future_research_total"], 4)
+        required_fields = {"future_research_id", "title", "description", "goal", "hypothesis", "method", "possible_outcomes", "blocker_reason", "linked_claims"}
+        for row in future["rows"]:
+            self.assertTrue(required_fields.issubset(row), row)
+            self.assertNotIn(str(row["blocker_reason"]).strip().lower(), {"", "no time yet", "todo"})
+
+        manifest_paths = {row["path"] for row in manifest["files"]}
+        self.assertIn("proofs/PROOF_DEPENDENCY_GRAPH_1_3_3.json", manifest_paths)
+        self.assertIn("formal/lean/LEAN_BUILD_CERTIFICATE_1_3_3.json", manifest_paths)
+        self.assertTrue(any(path.startswith("proofs/proof_sheets/T133-") for path in manifest_paths))
+
+        future_tex = (base / "b" / "base_source" / "content" / "r015_required_future_research.tex").read_text(encoding="utf-8")
+        self.assertIn("Required Future Research and Experiments", future_tex)
+        self.assertIn("Prospective K-Level Prediction Battery", future_tex)
+        self.assertIn("Clean Lean Certificate Binding", future_tex)
+
+        rows = {row["artifact_type_id"]: row for row in assembly["artifact_rows"]}
+        self.assertEqual(rows["master_monograph"]["public_translation_source"], "science_monolith_scientific_review_gate_r015")
+        for artifact_id in ["release_guide", "journal_core_article", "methods_repro_companion", "reviewer_attack_response_map"]:
+            row = rows[artifact_id]
+            self.assertEqual(row["public_translation_status"], "PUBLICATION_TRANSLATOR_R015_SCIENTIFIC_REVIEW_GATE")
+            self.assertEqual(row["public_translation_source"], "scientific_review_gate_publication_translator_r015")
+            self.assertEqual(row["scientific_source_review_status"], "PASS")
+            self.assertEqual(row["research_pingpong_status"], "PASS")
+
+        for key in R015_FORM_STATUS_KEYS:
+            self.assertEqual(machine["summary"][key], "PASS", key)
+            self.assertEqual(comparison["summary"][key], "PASS", key)
+            self.assertEqual(quality["summary"][key], "PASS", key)
 
 
 if __name__ == "__main__":

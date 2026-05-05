@@ -1,0 +1,179 @@
+\section{Inline Visual Route: Model Foundation}
+
+These figures are placed in the main argument as visual proof-of-reading aids: each one separates objects, direction, quantitative or formal anchor, and evidence route.
+
+\subsection{Carrier to realization}
+
+This figure is included because the reader must see how Carrier C is constrained by Realization R\_t. The highlighted review variable is status at t=0,1, and the formal anchor is $R_t=\rho(C,t)$. The nearby prose names the proof, evidence row, table, replay check, or appendix that carries the claim.
+
+\begin{figure}[!htbp]
+\centering
+\resizebox{0.96\textwidth}{!}{%
+\begin{tikzpicture}[x=1cm,y=1cm,>=Latex,every node/.style={font=\small}]
+  \definecolor{ocBlue}{HTML}{173B57}
+\definecolor{ocGold}{HTML}{A77D2A}
+\definecolor{ocGreen}{HTML}{4B7F52}
+\definecolor{ocRed}{HTML}{8E3B32}
+\definecolor{ocGray}{HTML}{ECEFF1}
+  \draw[rounded corners=10pt,fill=ocGray!35,draw=ocBlue,line width=0.9pt] (-6.8,-3.4) rectangle (6.8,3.4);
+  \node[font=\bfseries\large,ocBlue] at (0,3.0) {Carrier to realization};
+  \node[draw,rounded corners=5pt,fill=blue!7,text width=0.24\textwidth,align=center,minimum height=1.05cm] (a) at (-4.35,1.0) {Carrier C};
+  \node[draw,rounded corners=5pt,fill=green!8,text width=0.24\textwidth,align=center,minimum height=1.05cm] (b) at (4.35,1.0) {Realization R\_t};
+  \draw[->,line width=1.0pt,ocGreen] (a.east) -- node[above,fill=ocGray!35,inner sep=2pt,align=center] {lawful realization} (b.west);
+  \node[draw,rounded corners=5pt,fill=orange!10,text width=0.28\textwidth,align=center,minimum height=0.9cm] (r) at (-4.35,-1.45) {status at t=0,1};
+  \node[draw,rounded corners=5pt,fill=white,text width=0.28\textwidth,align=center,minimum height=0.9cm] (m) at (0,-1.45) {status at t=0,1};
+  \node[draw,rounded corners=5pt,fill=red!6,text width=0.28\textwidth,align=center,minimum height=0.9cm] (f) at (4.35,-1.45) {formal anchor: \( R_t=\rho(C,t) \)};
+  \draw[->,dashed,ocGold] (r.north) -- (a.south);
+  \draw[->,dashed,ocGold] (m.north) -- ($(a)!0.5!(b)$);
+  \draw[->,dashed,ocGold] (f.north) -- (b.south);
+\end{tikzpicture}}
+\caption{Carrier to realization. This figure shows the reading relation from Carrier C to Realization R\_t; the review variable is status at t=0,1, the formal anchor is \( R_t=\rho(C,t) \), and the evidence link is the named proof, table, replay row, or appendix section cited near the figure.}
+\label{fig:r012-inline-28a_oc133_inline_figures_foundation-1}
+\end{figure}
+
+\subsection{Liveness status split}
+
+This figure is included because the reader must see how Live state is constrained by Death boundary. The highlighted review variable is binary status, and the formal anchor is $live(x,t)\in\{0,1\}$. The nearby prose names the proof, evidence row, table, replay check, or appendix that carries the claim.
+
+\begin{figure}[!htbp]
+\centering
+\resizebox{0.96\textwidth}{!}{%
+\begin{tikzpicture}[x=1cm,y=1cm,>=Latex,every node/.style={font=\small}]
+  \definecolor{ocBlue}{HTML}{173B57}
+\definecolor{ocGold}{HTML}{A77D2A}
+\definecolor{ocGreen}{HTML}{4B7F52}
+\definecolor{ocRed}{HTML}{8E3B32}
+\definecolor{ocGray}{HTML}{ECEFF1}
+  \draw[rounded corners=10pt,fill=ocGray!35,draw=ocBlue,line width=0.9pt] (-6.8,-3.4) rectangle (6.8,3.4);
+  \node[font=\bfseries\large,ocBlue] at (0,3.0) {Liveness status split};
+  \node[draw,rounded corners=5pt,fill=blue!7,text width=0.24\textwidth,align=center,minimum height=1.05cm] (a) at (-4.35,1.0) {Live state};
+  \node[draw,rounded corners=5pt,fill=green!8,text width=0.24\textwidth,align=center,minimum height=1.05cm] (b) at (4.35,1.0) {Death boundary};
+  \draw[->,line width=1.0pt,ocGreen] (a.east) -- node[above,fill=ocGray!35,inner sep=2pt,align=center] {status predicate} (b.west);
+  \node[draw,rounded corners=5pt,fill=orange!10,text width=0.28\textwidth,align=center,minimum height=0.9cm] (r) at (-4.35,-1.45) {binary status};
+  \node[draw,rounded corners=5pt,fill=white,text width=0.28\textwidth,align=center,minimum height=0.9cm] (m) at (0,-1.45) {binary status};
+  \node[draw,rounded corners=5pt,fill=red!6,text width=0.28\textwidth,align=center,minimum height=0.9cm] (f) at (4.35,-1.45) {formal anchor: \( live(x,t)\in\{0,1\} \)};
+  \draw[->,dashed,ocGold] (r.north) -- (a.south);
+  \draw[->,dashed,ocGold] (m.north) -- ($(a)!0.5!(b)$);
+  \draw[->,dashed,ocGold] (f.north) -- (b.south);
+\end{tikzpicture}}
+\caption{Liveness status split. This figure shows the reading relation from Live state to Death boundary; the review variable is binary status, the formal anchor is \( live(x,t)\in\{0,1\} \), and the evidence link is the named proof, table, replay row, or appendix section cited near the figure.}
+\label{fig:r012-inline-28a_oc133_inline_figures_foundation-2}
+\end{figure}
+
+\subsection{Residue after collapse}
+
+This figure is included because the reader must see how Collapse event is constrained by Residue class. The highlighted review variable is survivor count, and the formal anchor is $residue(x,t)>0$. The nearby prose names the proof, evidence row, table, replay check, or appendix that carries the claim.
+
+\begin{figure}[!htbp]
+\centering
+\resizebox{0.96\textwidth}{!}{%
+\begin{tikzpicture}[x=1cm,y=1cm,>=Latex,every node/.style={font=\small}]
+  \definecolor{ocBlue}{HTML}{173B57}
+\definecolor{ocGold}{HTML}{A77D2A}
+\definecolor{ocGreen}{HTML}{4B7F52}
+\definecolor{ocRed}{HTML}{8E3B32}
+\definecolor{ocGray}{HTML}{ECEFF1}
+  \draw[rounded corners=10pt,fill=ocGray!35,draw=ocBlue,line width=0.9pt] (-6.8,-3.4) rectangle (6.8,3.4);
+  \node[font=\bfseries\large,ocBlue] at (0,3.0) {Residue after collapse};
+  \node[draw,rounded corners=5pt,fill=blue!7,text width=0.24\textwidth,align=center,minimum height=1.05cm] (a) at (-4.35,1.0) {Collapse event};
+  \node[draw,rounded corners=5pt,fill=green!8,text width=0.24\textwidth,align=center,minimum height=1.05cm] (b) at (4.35,1.0) {Residue class};
+  \draw[->,line width=1.0pt,ocGreen] (a.east) -- node[above,fill=ocGray!35,inner sep=2pt,align=center] {classification} (b.west);
+  \node[draw,rounded corners=5pt,fill=orange!10,text width=0.28\textwidth,align=center,minimum height=0.9cm] (r) at (-4.35,-1.45) {survivor count};
+  \node[draw,rounded corners=5pt,fill=white,text width=0.28\textwidth,align=center,minimum height=0.9cm] (m) at (0,-1.45) {survivor count};
+  \node[draw,rounded corners=5pt,fill=red!6,text width=0.28\textwidth,align=center,minimum height=0.9cm] (f) at (4.35,-1.45) {formal anchor: \( residue(x,t)>0 \)};
+  \draw[->,dashed,ocGold] (r.north) -- (a.south);
+  \draw[->,dashed,ocGold] (m.north) -- ($(a)!0.5!(b)$);
+  \draw[->,dashed,ocGold] (f.north) -- (b.south);
+\end{tikzpicture}}
+\caption{Residue after collapse. This figure shows the reading relation from Collapse event to Residue class; the review variable is survivor count, the formal anchor is \( residue(x,t)>0 \), and the evidence link is the named proof, table, replay row, or appendix section cited near the figure.}
+\label{fig:r012-inline-28a_oc133_inline_figures_foundation-3}
+\end{figure}
+
+\subsection{Rebirth continuation}
+
+This figure is included because the reader must see how Residual carrier is constrained by New realization. The highlighted review variable is continuation index, and the formal anchor is $C_{t+1}=F(C_t)$. The nearby prose names the proof, evidence row, table, replay check, or appendix that carries the claim.
+
+\begin{figure}[!htbp]
+\centering
+\resizebox{0.96\textwidth}{!}{%
+\begin{tikzpicture}[x=1cm,y=1cm,>=Latex,every node/.style={font=\small}]
+  \definecolor{ocBlue}{HTML}{173B57}
+\definecolor{ocGold}{HTML}{A77D2A}
+\definecolor{ocGreen}{HTML}{4B7F52}
+\definecolor{ocRed}{HTML}{8E3B32}
+\definecolor{ocGray}{HTML}{ECEFF1}
+  \draw[rounded corners=10pt,fill=ocGray!35,draw=ocBlue,line width=0.9pt] (-6.8,-3.4) rectangle (6.8,3.4);
+  \node[font=\bfseries\large,ocBlue] at (0,3.0) {Rebirth continuation};
+  \node[draw,rounded corners=5pt,fill=blue!7,text width=0.24\textwidth,align=center,minimum height=1.05cm] (a) at (-4.35,1.0) {Residual carrier};
+  \node[draw,rounded corners=5pt,fill=green!8,text width=0.24\textwidth,align=center,minimum height=1.05cm] (b) at (4.35,1.0) {New realization};
+  \draw[->,line width=1.0pt,ocGreen] (a.east) -- node[above,fill=ocGray!35,inner sep=2pt,align=center] {continuation rule} (b.west);
+  \node[draw,rounded corners=5pt,fill=orange!10,text width=0.28\textwidth,align=center,minimum height=0.9cm] (r) at (-4.35,-1.45) {continuation index};
+  \node[draw,rounded corners=5pt,fill=white,text width=0.28\textwidth,align=center,minimum height=0.9cm] (m) at (0,-1.45) {continuation index};
+  \node[draw,rounded corners=5pt,fill=red!6,text width=0.28\textwidth,align=center,minimum height=0.9cm] (f) at (4.35,-1.45) {formal anchor: \( C_{t+1}=F(C_t) \)};
+  \draw[->,dashed,ocGold] (r.north) -- (a.south);
+  \draw[->,dashed,ocGold] (m.north) -- ($(a)!0.5!(b)$);
+  \draw[->,dashed,ocGold] (f.north) -- (b.south);
+\end{tikzpicture}}
+\caption{Rebirth continuation. This figure shows the reading relation from Residual carrier to New realization; the review variable is continuation index, the formal anchor is \( C_{t+1}=F(C_t) \), and the evidence link is the named proof, table, replay row, or appendix section cited near the figure.}
+\label{fig:r012-inline-28a_oc133_inline_figures_foundation-4}
+\end{figure}
+
+\subsection{Type discipline}
+
+This figure is included because the reader must see how Claim type is constrained by Allowed evidence. The highlighted review variable is claim family, and the formal anchor is $claim\mapsto evidence$. The nearby prose names the proof, evidence row, table, replay check, or appendix that carries the claim.
+
+\begin{figure}[!htbp]
+\centering
+\resizebox{0.96\textwidth}{!}{%
+\begin{tikzpicture}[x=1cm,y=1cm,>=Latex,every node/.style={font=\small}]
+  \definecolor{ocBlue}{HTML}{173B57}
+\definecolor{ocGold}{HTML}{A77D2A}
+\definecolor{ocGreen}{HTML}{4B7F52}
+\definecolor{ocRed}{HTML}{8E3B32}
+\definecolor{ocGray}{HTML}{ECEFF1}
+  \draw[rounded corners=10pt,fill=ocGray!35,draw=ocBlue,line width=0.9pt] (-6.8,-3.4) rectangle (6.8,3.4);
+  \node[font=\bfseries\large,ocBlue] at (0,3.0) {Type discipline};
+  \node[draw,rounded corners=5pt,fill=blue!7,text width=0.24\textwidth,align=center,minimum height=1.05cm] (a) at (-4.35,1.0) {Claim type};
+  \node[draw,rounded corners=5pt,fill=green!8,text width=0.24\textwidth,align=center,minimum height=1.05cm] (b) at (4.35,1.0) {Allowed evidence};
+  \draw[->,line width=1.0pt,ocGreen] (a.east) -- node[above,fill=ocGray!35,inner sep=2pt,align=center] {admissibility check} (b.west);
+  \node[draw,rounded corners=5pt,fill=orange!10,text width=0.28\textwidth,align=center,minimum height=0.9cm] (r) at (-4.35,-1.45) {claim family};
+  \node[draw,rounded corners=5pt,fill=white,text width=0.28\textwidth,align=center,minimum height=0.9cm] (m) at (0,-1.45) {claim family};
+  \node[draw,rounded corners=5pt,fill=red!6,text width=0.28\textwidth,align=center,minimum height=0.9cm] (f) at (4.35,-1.45) {formal anchor: \( claim\mapsto evidence \)};
+  \draw[->,dashed,ocGold] (r.north) -- (a.south);
+  \draw[->,dashed,ocGold] (m.north) -- ($(a)!0.5!(b)$);
+  \draw[->,dashed,ocGold] (f.north) -- (b.south);
+\end{tikzpicture}}
+\caption{Type discipline. This figure shows the reading relation from Claim type to Allowed evidence; the review variable is claim family, the formal anchor is \( claim\mapsto evidence \), and the evidence link is the named proof, table, replay row, or appendix section cited near the figure.}
+\label{fig:r012-inline-28a_oc133_inline_figures_foundation-5}
+\end{figure}
+
+\subsection{Boundary test}
+
+This figure is included because the reader must see how Assumption is constrained by Falsifier. The highlighted review variable is negative control, and the formal anchor is $\partial\Omega \neq \varnothing$. The nearby prose names the proof, evidence row, table, replay check, or appendix that carries the claim.
+
+\begin{figure}[!htbp]
+\centering
+\resizebox{0.96\textwidth}{!}{%
+\begin{tikzpicture}[x=1cm,y=1cm,>=Latex,every node/.style={font=\small}]
+  \definecolor{ocBlue}{HTML}{173B57}
+\definecolor{ocGold}{HTML}{A77D2A}
+\definecolor{ocGreen}{HTML}{4B7F52}
+\definecolor{ocRed}{HTML}{8E3B32}
+\definecolor{ocGray}{HTML}{ECEFF1}
+  \draw[rounded corners=10pt,fill=ocGray!35,draw=ocBlue,line width=0.9pt] (-6.8,-3.4) rectangle (6.8,3.4);
+  \node[font=\bfseries\large,ocBlue] at (0,3.0) {Boundary test};
+  \node[draw,rounded corners=5pt,fill=blue!7,text width=0.24\textwidth,align=center,minimum height=1.05cm] (a) at (-4.35,1.0) {Assumption};
+  \node[draw,rounded corners=5pt,fill=green!8,text width=0.24\textwidth,align=center,minimum height=1.05cm] (b) at (4.35,1.0) {Falsifier};
+  \draw[->,line width=1.0pt,ocGreen] (a.east) -- node[above,fill=ocGray!35,inner sep=2pt,align=center] {stress test} (b.west);
+  \node[draw,rounded corners=5pt,fill=orange!10,text width=0.28\textwidth,align=center,minimum height=0.9cm] (r) at (-4.35,-1.45) {negative control};
+  \node[draw,rounded corners=5pt,fill=white,text width=0.28\textwidth,align=center,minimum height=0.9cm] (m) at (0,-1.45) {negative control};
+  \node[draw,rounded corners=5pt,fill=red!6,text width=0.28\textwidth,align=center,minimum height=0.9cm] (f) at (4.35,-1.45) {formal anchor: \( \partial\Omega \neq \varnothing \)};
+  \draw[->,dashed,ocGold] (r.north) -- (a.south);
+  \draw[->,dashed,ocGold] (m.north) -- ($(a)!0.5!(b)$);
+  \draw[->,dashed,ocGold] (f.north) -- (b.south);
+\end{tikzpicture}}
+\caption{Boundary test. This figure shows the reading relation from Assumption to Falsifier; the review variable is negative control, the formal anchor is \( \partial\Omega \neq \varnothing \), and the evidence link is the named proof, table, replay row, or appendix section cited near the figure.}
+\label{fig:r012-inline-28a_oc133_inline_figures_foundation-6}
+\end{figure}
+
+\clearpage

@@ -1,0 +1,445 @@
+% ====================================================================
+% DATEI: content/12_collapse_rebirth_de.tex
+% Kollaps und Wiedergeburt von Kontinua
+% Core 1.3.3 — kanonische Version
+% ====================================================================
+
+\section{Kollaps und Wiedergeburt von Kontinua}
+\label{sec:collapse-rebirth}
+
+Dieser Abschnitt entwickelt die strukturelle Theorie von Kollaps und
+Wiedergeburt in der Ontology of Continua (OC). Er verfeinert die allgemeine
+Todesbedingung \(\Omega(K)=\emptyset\) und \(k(K,t)\to 0\) aus
+Abschnitt~the historical result-boundary chapter zu expliziten Kriterien, dynamischen Signaturen und
+restriktierten Szenarien für die Entstehung neuer Kontinua nach einem Kollaps.
+
+Es werden keine neuen Axiome eingeführt; die Diskussion fasst die
+Folgerungen des allgemeinen Rahmens aus Abschnitt~the formal model chapter, der
+strukturellen Ergebnisse aus Abschnitt~the historical result-boundary chapter, der erweiterten
+Randbehandlung aus Abschnitt~the boundary geometry chapter, der
+Schwellwertlandschaft aus Abschnitt~the threshold landscape chapter, der
+vollständigen Ebenenhierarchie aus Abschnitt~the K-level witness taxonomy chapter und der
+Operatorfamilie aus Abschnitt~the operator semantics chapter zusammen.
+
+\subsection{Formale Kriterien für Kollaps}
+
+Sei
+\[
+  K(t) =
+  \big(
+    \Omega(t), A(t), P(t), J(t),
+    \Theta(t), \partial\Omega(t), C(t), k(t)
+  \big)
+\]
+ein Kontinuum, eingebettet in einen Raum \(M\). Der strukturelle Kollapsbegriff
+muss vorübergehende Exkursionen zur Grenze von einem echten Ende des
+Kontinuums unterscheiden.
+
+\paragraph{Definition 12.1 (Kollaps).}
+Ein Kontinuum \(K\) \emph{kollabiert} zum Zeitpunkt \(t^{\ast}\), wenn folgende
+Bedingungen erfüllt sind:
+\begin{enumerate}
+  \item der zulässige Zustandsraum wird leer:
+        \[
+          \Omega\big(K(t^{\ast})\big) = \emptyset;
+        \]
+  \item die Continuumness fällt auf Null:
+        \[
+          \lim_{t \nearrow t^{\ast}} k\big(K,t\big) = 0;
+        \]
+  \item mindestens ein Existenz- oder Stabilitätsschwellwert ist für alle
+        Kandidatenkonfigurationen verletzt:
+        \[
+          \forall s \in \Omega(M):
+          \quad
+          \exists \theta \in \Theta_{\mathrm{exist}} \cup \Theta_{\mathrm{stab}}
+          \ \text{so dass}\ \theta(s) > 0.
+        \]
+\end{enumerate}
+
+Diese Bedingungen entsprechen den äquivalenten Charakterisierungen des Todes aus
+Satz~3 und Satz~9 in Abschnitt~the historical result-boundary chapter. Insbesondere fallen das
+Verschwinden von \(\Omega\) und \(k\) mit dem Verschwinden des maximalen
+strukturell stabilen Zykluskomplexes \(C_{\max}(K)\) zusammen.
+
+\paragraph{Proposition 12.2 (Randzerstörung).}
+Zum Kollapszeitpunkt \(t^{\ast}\) ist \(\partial\Omega\) keine wohldefinierte
+trennende Oberfläche mehr zwischen zulässigen und unzulässigen Zuständen.
+Formal gilt entweder
+\begin{equation}
+  \partial\Omega\big(K(t^{\ast})\big) = \emptyset
+  \quad\text{oder}\quad
+  \partial\Omega\big(K(t^{\ast})\big) = \Omega(M),
+\end{equation}
+je nachdem, ob die Einbettungsrestriktionen trivial streng oder trivial locker
+werden. In beiden Fällen geht die strukturelle Rolle von \(\partial\Omega\)
+als Viabilitätsgrenze verloren.
+
+Die Operator-Perspektive lautet:
+\begin{itemize}
+  \item der Randoperator \(R\) ist undefiniert, sobald \(\Omega(K)=\emptyset\);
+  \item der Continuumness-Operator \(U\) liefert \(k=0\) und bleibt danach für
+        dieses Kontinuum konstant.
+\end{itemize}
+
+\subsection{Interner vs. externer Kollaps}
+
+Kollaps kann durch innere Dynamik des Kontinuums oder durch äußere Veränderungen
+seines Einbettungsraums ausgelöst werden. Diese Unterscheidung ist strukturell
+nicht kausal: sie hängt davon ab, ob die Operatoren auf \(K\) oder auf \(M\) für
+die Verletzung von Schwellwerten verantwortlich sind.
+
+\paragraph{Definition 12.3 (Innerer Kollaps).}
+\emph{Innerer Kollaps} liegt vor, wenn der Kollaps ausschließlich durch den
+inneren Evolutionsoperator \(E=(F,G,H,Q,R,S,U)\) auf \(K\) ausgelöst wird,
+während der Einbettungsraum \(M\) im relevanten Zeitintervall strukturell
+statisch bleibt. Typische Signaturen sind:
+\begin{itemize}
+  \item destruierende Flüsse \(J_{\mathrm{kill}}\) dominieren stützende Flüsse;
+  \item interne Schwellwerte \(\Theta_{\mathrm{stab}}\) oder
+        \(\Theta_{\mathrm{crit}}\) werden wegen interner Spannungsakkumulation
+        überschritten;
+  \item Zykluszerfall, getrieben durch interne Imbalancen.
+\end{itemize}
+
+\paragraph{Definition 12.4 (Externer Kollaps).}
+\emph{Externer Kollaps} liegt vor, wenn sich \(M\) derart ändert, dass keine
+Konfiguration von \(K\) mit den neuen Restriktionen kompatibel bleibt.
+Formal existiert ein Zeitintervall \([t_0,t^{\ast}]\), sodass:
+\[
+  \Omega(K(t_0))\neq\emptyset,
+  \quad
+  E\ \text{bleibt innerhalb des vorherigen zulässigen Bereichs},
+\]
+aber eine durch den eigenen Evolutionsoperator \(E_M\) induzierte Änderung von
+\(M\) liefert
+\[
+  \Omega(K(t^{\ast})) =
+    \big\{ s \in \Omega(M(t^{\ast})) \mid
+           \Theta(K(t_0))(s)\le 0 \big\} = \emptyset.
+\]
+
+Folgerung~3.1 in Abschnitt~the historical result-boundary chapter kann wie folgt neu formuliert
+werden: Externer Kollaps ist äquivalent zum Verlust gemeinsamer Lösungen der
+Restriktionen von \(K\) und \(M\).
+
+\paragraph{Gemischter Kollaps.}
+In realen Systemen wirken oft beide Mechanismen zusammen. So kann eine
+Protokolle intern Ressourcen verzehren, während eine externe Änderung der
+osmotischen Bedingungen gleichzeitig die Viabilitätsbereiche verengt.
+OC versucht nicht, diese Fälle hart zu trennen; die Unterscheidung intern/extern
+ist vor allem ein Analysewerkzeug.
+
+\paragraph{Kollapsdynamik}
+
+Kollaps ist im Allgemeinen kein instantanes Ereignis auf der Ebene beobachtbarer
+Größen. Der strukturelle Rahmen sagt eine charakteristische Annäherung an den
+Kollaps vorher, gesteuert durch Schwellwerte, Spannung und Randgeometrie.
+
+\paragraph{Kritische Verlangsamung.}
+In der Nähe stabiler oder kritischer Schwellwerte \(\Theta_{\mathrm{stab}}\) und
+\(\Theta_{\mathrm{crit}}\) relaxieren kleine Störungen zunehmend langsamer.
+In der Operator-Sprache entspricht dies:
+\begin{itemize}
+  \item Realteile von Eigenwerten des linearen Flussoperators \(F\) nähern sich
+        null;
+  \item Zeitskalen der Zykluswiederherstellung, kodiert in \(Q\), divergieren;
+  \item die Randbewegung unter \(R\) wird träge, bleibt aber auf Kontraktion von
+        \(\Omega\) ausgerichtet.
+\end{itemize}
+Kritische Verlangsamung tritt bei physischen Phasenübergängen, ökologischen
+Kollapsen, Finanzkrisen, Protokolleversagen und kognitiver Überlastung auf.
+
+\paragraph{Divergenz der strukturellen Spannung.}
+Die strukturelle Spannung \(T(K,t)\) nähert sich beim Kollaps dem Todesschwellwert
+\(\Theta_{\mathrm{death}}(K)\):
+\[
+  \lim_{t\nearrow t^{\ast}} T\big(K,t\big)
+    = \Theta_{\mathrm{death}}(K).
+\]
+Unterhalb dieses Schwellenwertes kann das System noch Zyklen erhalten, jedoch mit
+immer enger werdenden Margen. Am Grenzwert zwingt jede weitere Störung
+Trajektorien dazu, \(\partial\Omega\) zu überschreiten oder den
+Einbettungsbereich zu verlassen.
+
+\paragraph{Patch-Versagen und randgetriebener Kollaps.}
+Das Patch-Modell der Grenzen aus
+Abschnitt~the boundary geometry chapter liefert ein detailreicheres Bild.
+Schreibt man den Rand als Sammlung von Patches \(\{P_i\}\) mit lokalen Zuständen
+\(\sigma_i\) und Schwellwertvektoren \(\Theta_i\), kann Kollaps über
+Folgendes verlaufen:
+\begin{itemize}
+  \item lokal verlierender Integritätsverlust (z.\,B. Membranruptur an einzelnen
+        Patches, institutionelles Versagen in einzelnen Domänen);
+  \item Weitergabe der Störung über Kopplung von Patches, die zu einem globalen
+        Durchbruch des Randes und unkontrolliertem Austausch mit dem
+        Einbettungsraum führt;
+  \item schließlich Zerstörung aller Patches, die ein nichtleeres
+        \(\Omega(K)\) stützen.
+\end{itemize}
+Aus Operator-Sicht handelt es sich dabei um eine gekoppelte Instabilität von
+\(R\), \(H\) und \(Q\).
+
+\paragraph{Zykluszerfall.}
+Mit Annäherung an den Kollaps eliminiert der Zyklusoperator \(Q\) zunehmend
+mehr Zyklen aus dem strukturstabilen Komplex. Die Folge
+\[
+  C_{\max}(t_0)
+  \supset C_{\max}(t_1)
+  \supset \dots
+  \supset C_{\max}(t_n)
+\]
+verkleinert sich bis sie am Zeitpunkt \(t^{\ast}\) leer wird. Operativ:
+\begin{itemize}
+  \item Amplituden zentraler Zyklen nehmen ab;
+  \item Zyklusperioden verlängern sich oder werden unregelmäßig;
+  \item Zyklen tangieren immer häufiger \(\partial\Omega\) und werden durch
+        Schwellwertüberschreitungen zerstört.
+\end{itemize}
+
+\subsection{Post-Kollaps-Rest}
+
+Auch bei einem Kollaps kann der Kontinuumstrace im Einbettungsraum fortbestehen.
+OC trennt strikt zwischen dem \emph{Kontinuum} und seinem
+\emph{Residuum}.
+
+\paragraph{Definition 12.5 (Residuum).}
+Das \emph{Residuum} eines kollabierten Kontinuums \(K\) ist die Menge von
+Strukturen im Einbettungsraum, die nach \(\Omega(K)=\emptyset\) verbleiben; Beispiele:
+\begin{itemize}
+  \item materielle Reste (z.\,B. Reaktionsprodukte, zerstörte Infrastruktur);
+  \item topologische Reste (z.\,B. Defekte, Narben in Feldkonfigurationen);
+  \item informationelle Reste (z.\,B. Dokumente, Datenspuren);
+  \item normative Reste (z.\,B. teilweise erhaltene Rechtsrahmen).
+\end{itemize}
+
+Residuen sind nicht mehr durch das ursprüngliche Tupel
+\((\Omega,\partial\Omega,A,\Theta,P,J,C,k,M)\) organisiert. Sie können jedoch das
+Substrat für neue Kontinua bilden.
+
+\paragraph{Wiederherstellungslimits.}
+Da der Tod strukturell irreversibel ist (Satz~3 und Korollar~3.2 in
+Abschnitt~the historical result-boundary chapter), kann kein Operator derselben Ebene den
+Ausgangszustand aus dem Residuum rekonstruieren. Es werden zwei Fälle
+unterschieden:
+\begin{itemize}
+  \item \emph{Rekonstruktion.}\
+        Ein externer Akteur (z.\,B. Experimentator, Ingenieur, Institution)
+        kann ein neues Kontinuum \(K'\) aufbauen, das in einzelnen Variablen
+        \(K\) ähnelt; strukturell ist dies ein neues Geburtsereignis, keine
+        Wiederherstellung.
+  \item \emph{Spontane Reorganisation.}\
+        Unter geeigneten Bedingungen können sich Residuuen zu einem neuen
+        Kontinuum umorganisieren (siehe unten). Auch das ist eine neue
+        Entität mit eigener Identität, selbst wenn viele Komponenten geerbt sind.
+\end{itemize}
+
+\subsection{Mechanismen der Wiedergeburt}
+
+Wiedergeburt ist das Auftreten eines neuen Kontinuums nach dem Kollaps eines
+vorherigen. OC behandelt Wiedergeburt als Spezialfall von Geburt, gesteuert durch
+die gleichen Operatoren \(\Psi_{x\to x+1}\), aber mit Anfangsbedingungen aus
+Residuuen.
+
+\paragraph{Definition 12.6 (Wiedergeburt).}
+Ein \emph{Wiedergeburtsevent} liegt vor, wenn nach dem Kollaps von \(K\) ein
+neues Kontinuum \(K'\) im gleichen oder einem benachbarten
+Einbettungsraum erscheint, sodass:
+\begin{enumerate}
+  \item es ein Zeitintervall gibt mit
+        \(\Omega(K)=\emptyset\) und \(k(K,t)=0\), während
+        \(\Omega(K')\neq\emptyset\);
+  \item mindestens ein strukturelles Element von \(K'\) (Achsen, Potentiale,
+        Randkomponenten, Residuen in \(\Omega(M)\)) vom Residuum von \(K\)
+        übernommen wird;
+  \item \(K'\) die Geburtsbedingungen auf einem Niveau \(K_y\) erfüllt, das
+        dem ursprünglichen Niveau von \(K\) entsprechen kann oder ein anderes
+        sein kann.
+\end{enumerate}
+
+Wiedergeburt ist deshalb strukturell selten und eingeschränkt. Die folgenden
+Regime sind typisch.
+
+\paragraph{Dimensionsbezogene Wiedergeburt.}
+Nach dem Kollaps eines Kontinuums \(K_x\) können Residuuen die Geburt eines neuen
+Kontinuums auf einem anderen Niveau tragen:
+\begin{itemize}
+  \item \emph{Aufwärts-Wiedergeburt} (\(K_x\to K_{x+1}\)):
+        Kollaps einer überbeanspruchten Struktur auf Niveau \(K_x\) schafft
+        Bedingungen für ein höherdimensionales Kontinuum (z.\,B. der
+        Zusammenbruch eines einfachen institutionellen Rahmens, der eine
+        komplexere Governance-Struktur ermöglicht);
+  \item \emph{Seitwärts-Wiedergeburt} (\(K_x\to K_x'\)):
+        Residuuen tragen ein neues Kontinuum auf demselben Niveau, aber mit
+        anderen Achsen oder Schwellwerten (z.\,B. Reorganisation einer
+        fehlgeschlagenen Protokolle zu einer neuen Protokolle mit
+        veränderter Zusammensetzung).
+\end{itemize}
+Abwärts-Wiedergeburt (\(K_x\to K_{x-1}\)) gilt nicht als Wiedergeburt des
+gleichen Kontinuums: Untere Ebenen können als unabhängige Entitäten bestehen
+bleiben, doch das kollabierte höherstufige Kontinuum wird nicht
+wiederbegründet.
+
+\paragraph{Formale Bedingungen.}
+Sei \(K\) zum Zeitpunkt \(t^{\ast}\) kollabiert und \(R_{\mathrm{res}}\) sein
+Residuum in \(M\). Ein Wiedergeburtsevent ist möglich, wenn:
+\begin{enumerate}
+  \item das Residuum eine nichtleere Kandidatenzustandsmenge
+        \(\Omega_{\mathrm{res}}\subseteq \Omega(M)\) definiert;
+  \item Achsen \(A_{\mathrm{res}}\subseteq A(M)\) und Schwellwerte
+        \(\Theta_{\mathrm{res}}\) existieren mit
+        \[
+          \Omega(K') =
+            \{ s\in \Omega_{\mathrm{res}}
+               \mid \Theta_{\mathrm{res}}(s)\le 0
+            \}
+          \neq \emptyset;
+        \]
+  \item die strukturelle Spannung auf Basis von
+        \((\Omega_{\mathrm{res}},A_{\mathrm{res}},\Theta_{\mathrm{res}})\)
+        den zugehörigen Dimensionsschwellwert überschreitet (falls ein
+        Niveauanstieg stattfindet) und ein passender Geburtsoperator
+        \(\Psi\) definiert ist.
+\end{enumerate}
+
+\paragraph{Beispiele über \texorpdfstring{\(K_3\)}{K_3}–\texorpdfstring{\(K_5\)}{K_5}.}
+Im chemischen und protocellulären Regime:
+\begin{itemize}
+  \item der Kollaps einer Protokolle (Membranruptur, Gradientenverlust) lässt
+        Reste aus Lipiden, Nukleotiden und Katalysatoren in der Umgebung;
+  \item diese Reste können unter günstigen Bedingungen in neue Vesikel und
+        Netzwerke re-kombinieren;
+  \item die neuen Protokollen bilden neue Kontinua \(K_4'\) mit eigenen
+        Schwellwerten und Zyklen, selbst wenn sie Komponenten der kollabierten
+        Vorläufer übernehmen.
+\end{itemize}
+
+In frühen bioelektrischen Systemen:
+\begin{itemize}
+  \item Kollaps der Erregbarkeit in einem primitiven Netzwerk (z.\,B. wegen
+        Kanalausfall) kann Membranfragmente und Kanäle hinterlassen, die neue
+        erregbare Patches bilden;
+  \item regenerierte erregbare Domänen definieren neue \(K_5'\)-Kontinua.
+\end{itemize}
+
+\paragraph{Wiedergeburt auf höheren Ebenen.}
+Auf kognitiver, sozialer und zivilisatorischer Ebene:
+\begin{itemize}
+  \item kognitiver Kollaps (Verlust kohärenter interner Modelle) kann von der
+        Wiederaufbauung neuer Modelle mit intakten Repräsentationen als
+        Ausgangspunkt folgen; strukturell ist dies die Geburt eines neuen
+        kognitiven Kontinuums \(K_6'\);
+  \item institutioneller Kollaps (z.\,B. Scheitern eines Regierungsregimes)
+        hinterlässt rechtliche, organisatorische und infrastrukturelle Reste,
+        die für die Bildung neuer Institutionen \(K_7'\) verwendet werden können;
+  \item zivilisatorischer Kollaps hinterlässt materielle Infrastruktur,
+        kulturelle Artefakte und Bevölkerungsverteilungen, die emergente
+        Zivilisationen \(K_8'\) tragen können.
+\end{itemize}
+
+In allen Fällen fordert OC, dass das neue Kontinuum eine eigene Identität hat; die
+strukturelle Irreversibilität des Todes bleibt unberührt.
+
+\subsection{Kollaps in höherstufigen Kontinua}
+
+Höhere Ebenen \(K_6\)–\(K_{10}\) zeigen Kollapsphänomene, die weniger
+offensichtlich physisch sind, aber strukturell analog wirken.
+
+\paragraph{Kognitiver Kollaps (\texorpdfstring{\(K_6\)}{K_6}).}
+Für kognitive Kontinua sind die Kernelemente:
+\begin{itemize}
+  \item Achsen für Konzepte, Merkmale und Modellparameter;
+  \item Potentiale, die Vorhersagefehler, Wert und Vertrauen messen;
+  \item Zyklen, die Aufmerksamkeits-Schleifen, Vorhersage--Korrektur-Zyklen
+        und Lernzyklen repräsentieren.
+\end{itemize}
+Kognitiver Kollaps liegt vor, wenn:
+\begin{itemize}
+  \item Vorhersagefehler und innere Spannung die Ausdrücklichkeitsschwellen
+        \(\Theta_{\mathrm{expr}}\) überschreiten;
+  \item kein kohärentes internes Modell innerhalb gegebener Achsen und
+        Schwellwerte gehalten werden kann;
+  \item alle strukturstabilen kognitiven Zyklen verschwinden und
+        \(C_{\max}(K_6)=\emptyset\) sowie \(k(K_6,t)\to 0\) gilt.
+\end{itemize}
+Beispiele sind vollständiger Zusammenbruch eines konzeptuellen Schemas, starke
+Überlastung oder pathologische Zustände, in denen das System kein stabiles Modell
+seiner Umwelt aufrechterhalten kann.
+
+\paragraph{Institutioneller Kollaps (\texorpdfstring{\(K_7\)}{K_7}).}
+Für soziale Kontinua sind die relevanten Komponenten:
+\begin{itemize}
+  \item soziale Graphen, Rollenstrukturen und institutionelle Anordnungen in
+        \(\Omega(K_7)\);
+  \item Vertrauen, Legitimität und Ressourcenschwellwerte in \(\Theta(K_7)\);
+  \item Zyklen, die institutionelle Routinen und Governance-Schleifen
+        repräsentieren.
+\end{itemize}
+Institutioneller Kollaps liegt vor, wenn:
+\begin{itemize}
+  \item Vertrauen und Legitimität unter Existenzschwellwerte sinken;
+  \item zentrale Zyklen (z.\,B. Steuererhebung, Rechtsdurchsetzung,
+        Entscheidungs-Loop) brechen;
+  \item soziale Graphen stärker fragmentieren, als mit institutioneller
+        Funktionsweise vereinbar ist.
+\end{itemize}
+Das Residuum kann juristische Texte, physische Gebäude und fragmentierte
+Netzwerke umfassen, aus denen später neue Institutionen \(K_7'\) aufgebaut
+werden können.
+
+\paragraph{Zivilisatorischer Kollaps (\texorpdfstring{\(K_8\)}{K_8}).}
+Auf der Ebene der Zivilisation:
+\begin{itemize}
+  \item Achsen repräsentieren Infrastrukturen, Sektoren, Regionen und
+        großskalige Organisationsformen;
+  \item Potentiale umfassen Energieverfügbarkeit, Ressourcenbestände und
+        Risikogradienten;
+  \item Zyklen beinhalten Wirtschaftszyklen, Erneuerung von Infrastruktur,
+        Wissensweitergabe.
+\end{itemize}
+Zivilisatorischer Kollaps entspricht einem Zusammenbruch dieser Zyklen über
+mehrere Sektoren hinweg, dem Überschreiten mehrerer Schwellwerte der
+erweiterten Schwellwertlandschaft und der globalen Kontraktion von
+\(\Omega(K_8)\) auf die leere Menge. Das Residuum besteht aus
+Infrastruktur, Bevölkerungsverteilungen und kulturellen Artefakten, die künftige
+Zivilisationen hervorrufen können.
+
+\paragraph{Theoretischer und meta-theoretischer Kollaps (\texorpdfstring{\(K_9\)}{K_9}–\texorpdfstring{\(K_{10}\)}{K_{10}}).}
+Auch Theorien und Meta-Theorien können strukturell kollabieren:
+\begin{itemize}
+  \item innere Inkonsistenz oder empirische Fehlgriffe können
+        \(\Theta_{\mathrm{exist}}\) oder \(\Theta_{\mathrm{stab}}\) auf
+        Niveau \(K_9\) verletzen;
+  \item Meta-theoretische Rahmen auf \(K_{10}\) können inkohärent werden oder
+        keine wachsende Modellmenge integrieren können, wodurch
+        Ausdrucksschwellen verletzt werden;
+  \item in beiden Fällen verschwinden Zykluskomplexe, die Forschungsprogramme,
+        Paradigmenzyklen und Meta-Update-Schleifen repräsentieren, bis
+        \(C_{\max}=\emptyset\) und das Framework de facto stirbt.
+\end{itemize}
+Das anschließende Auftreten neuer Theorien oder Meta-Rahmenwerke, die auf
+überlebenden Ergebnissen aufbauen, wird strukturell als Wiedergeburt
+behandelt.
+
+\subsection{Zusammenfassung}
+
+Kollaps und Wiedergeburt in OC sind keine Metaphern, sondern strukturell
+definierte Phänomene. Kollaps entspricht dem Leerenwerden des zulässigen
+Zustandsraums, dem Verschwinden stabiler Zyklen, dem Verlust einer sinnvollen
+Grenze und dem Verschwinden der Continuumness. Er kann durch interne Dynamik,
+durch externe Änderungen im Einbettungsraum oder durch deren Kopplung ausgelöst
+werden und zeigt charakteristische Signaturen wie kritische Verlangsamung,
+Divergenz struktureller Spannung, Patch-Versagen und Zykluszerfall.
+
+Wiedergeburt ist stark eingeschränkt: Ein neues Kontinuum kann aus Residuuen nur
+entstehen, wenn Einbettungsräume und Schwellwertlandschaften wieder eine
+nichtleere zulässige Region tragen und die Geburtsbedingungen erfüllt sind. Das
+neue Kontinuum besitzt stets eine eigene strukturelle Identität, auch wenn es
+Komponenten des kollabierten Vorgängers übernimmt.
+
+Diese Prinzipien gelten einheitlich vom frühen Protokolle und frühen
+bioelektrischen Systemen bis zu kognitiven und sozialen Strukturen sowie
+Theorien und meta-theoretischen Rahmenwerken. Kollaps und Wiedergeburt sind
+damit keine Sonderfälle, sondern generische Regime derselben strukturellen
+Mechanik, die Geburt, Evolution und Tod von Kontinua über die Hierarchie
+\(K_0\)–\(K_{10}\) steuert.
