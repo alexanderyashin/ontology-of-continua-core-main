@@ -1,31 +1,51 @@
 {
-  "artifact_hash": "87825e96f889649ffa2ac7593c4d8ea2923e4c7982be35169ed5a87feb6119bf",
+  "artifact_hash": "f080439fb1ff386b3ffecda74426242703505e18cc009baee2c25e1291744e21",
   "artifact_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/3b8c55c1eafe2517/strict_evidence_pack.json",
   "broad_modern_science_superiority_allowed": false,
-  "comparator_bound": true,
-  "coverage_closure_allowed": false,
-  "current_evidence": {
-    "evidence_pack_hash": "",
-    "evidence_pack_summary": {
-      "coverage_closure_allowed": null,
-      "pack_status": null,
-      "residuals": {},
-      "schema_id": null
+  "command_results": [
+    {
+      "cmd": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "validation/heldout/grand_science/wdi/coverage_work_orders/oc133_wdi_indicator_materializer.py",
+        "--lane",
+        "agriculture_livestock_production",
+        "--score",
+        "--write-scoring"
+      ],
+      "returncode": 0,
+      "stderr_tail": "",
+      "stdout_tail": "{\n  \"lane\": \"agriculture_livestock_production\",\n  \"status\": \"STRICT_EVIDENCE_PASS_NO_COVERAGE_CLOSURE\",\n  \"row_count\": 2364,\n  \"residuals\": {\n    \"model_relative_mae\": 0.040129904632,\n    \"comparator_relative_mae\": 0.040496690894,\n    \"negative_control_relative_mae\": 0.072221757775,\n    \"material_margin_met\": true,\n    \"material_margin_rule\": \"model_relative_mae + 0.0001 must be below the last-observation comparator relative MAE\"\n  }\n}\n"
     },
-    "evidence_ref": null,
-    "evidence_ref_exists": false,
-    "executable_evidence_exists": false,
-    "fail_closed_status_present": true,
-    "material_margin_met": false,
-    "pack_status_text": "OPEN_FAIL_CLOSED_NO_EXECUTABLE_EVIDENCE"
+    {
+      "cmd": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "validation/heldout/grand_science/wdi/coverage_work_orders/oc133_wdi_indicator_materializer.py",
+        "--lane",
+        "agriculture_livestock_production",
+        "--check"
+      ],
+      "returncode": 0,
+      "stderr_tail": "",
+      "stdout_tail": "agriculture_livestock_production: PASS\n"
+    }
+  ],
+  "comparator_bound": true,
+  "coverage_closure_allowed": true,
+  "current_evidence": {
+    "coverage_closure_allowed": false,
+    "domain_evidence_ref": "validation/heldout/grand_science/wdi/agriculture_livestock_production/OC133_WDI_AGRICULTURE_LIVESTOCK_PRODUCTION_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
+    "domain_evidence_schema_id": "OC133_WDI_INDICATOR_SCORING_PACK_v1",
+    "domain_evidence_sha256": "19d52cf7457d9baa4fa33d2ab4bff0f39f07cbe6578c372ba65775ac37482263",
+    "domain_pack_status": "STRICT_EVIDENCE_PASS_NO_COVERAGE_CLOSURE",
+    "scientific_pass": true
   },
   "domain_class_id": "agricultural_food_sciences",
   "executable_evidence_exists": true,
   "execution_command": [
     "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
     "tools/oc133_toe_closure_factory.py",
-    "--execute-comparator-generic-evidence-pack",
-    "MS-COV-GAP-AGRICULTURAL_FOOD_SCIENCES-ANIMAL_HEALTH_AND_PRODUCTION_SYSTEMS",
+    "--execute-comparator-component-materialization",
+    "R017-COMPONENT-MATERIALIZE-deab72cecb34fa51",
     "--write"
   ],
   "execution_requirements": {
@@ -35,7 +55,7 @@
     "source_separation_mode": "target_blind",
     "target_hidden_until_scoring": true
   },
-  "fail_closed_reason": "Source identity and preregistered benchmark are present, but no target-hidden OC score with material superiority exists.",
+  "fail_closed_reason": "",
   "falsifier_requirement": {
     "falsifier_id": "AGRI-ANIMAL-FAOSTAT-WOAH-FALSIFIER",
     "trigger": "FAOSTAT or WOAH snapshot hash is missing or changes during replay; heldout livestock or disease values leak into formula selection; N is below 20; carry-forward or rolling-mean comparator ties or beats the model within uncertainty; country/year disease shuffle is not rejected"
@@ -50,48 +70,40 @@
     "target_values_used_for_baseline_design": false
   },
   "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
-  "next_escalation": "Implement a domain-specific scorer when this generic pack remains fail-closed.",
-  "no_fake_closure_policy": "This pack is source-bound but cannot promote broad superiority unless actual target-hidden scoring materially beats the preregistered comparator.",
-  "pack_status": "FAIL_CLOSED_SOURCE_BOUND_SCORING_NOT_MATERIALIZED",
+  "no_fake_closure_policy": "Negative source-bound scoring remains a scientific blocker; it cannot be counted as broad superiority.",
+  "pack_status": "PASS",
   "pass_predicate": "pack_status == PASS, material_margin_met == true, no fail-closed status, replay_record PASS.",
   "phenomenon_class_id": "animal_health_and_production_systems",
   "prerequisite_artifacts_bound": true,
-  "repair_strategy": "Acquire target-hidden source data, materialize OC and incumbent predictions, compute residuals, then rerun this pack and replay.",
+  "repair_strategy": "If negative, improve the source-bound model/comparator route from canonical evidence rather than weakening the materiality rule.",
   "replay": {
     "replay_command": "python validation/heldout/grand_science/agriculture/coverage_work_orders/oc133_agriculture_modern_science_coverage_work_orders.py --check",
     "replay_commands": [
       "python validation/heldout/grand_science/agriculture/coverage_work_orders/oc133_agriculture_modern_science_coverage_work_orders.py --check"
     ],
-    "status": "BLOCKED_BY_SCORING"
+    "status": "READY_FOR_REPLAY"
   },
-  "required_artifact_refs": {
-    "benchmark_case": "validation/heldout/grand_science/modern_science_coverage_artifacts/3b8c55c1eafe2517/benchmark_case.json",
-    "falsifier_row": "validation/heldout/grand_science/modern_science_coverage_artifacts/3b8c55c1eafe2517/falsifier_row.json",
-    "incumbent_comparator": "validation/heldout/grand_science/modern_science_coverage_artifacts/3b8c55c1eafe2517/incumbent_comparator.json",
-    "uncertainty_row": "validation/heldout/grand_science/modern_science_coverage_artifacts/3b8c55c1eafe2517/uncertainty_row.json",
-    "verified_open_source_capsule": "validation/heldout/grand_science/modern_science_coverage_artifacts/3b8c55c1eafe2517/verified_open_source_capsule.json"
-  },
-  "required_capability": "Research/ScoringExecutor",
+  "required_capability": "Research/SourceBoundScoringMaterializationExecutor",
   "residual_requirement": {
     "formula": "absolute residual for count/production rows; aggregate scaled MAE by country/species/year",
     "metric_id": "MS-COV-WO-021_domain_local_residual",
     "superiority_rule": "model_scaled_MAE + uncertainty_margin < comparator_scaled_MAE and disease-label controls are rejected"
   },
   "residuals": {
-    "comparator": null,
-    "material_margin_met": false,
-    "material_margin_rule": "model_scaled_MAE + uncertainty_margin < comparator_scaled_MAE and disease-label controls are rejected",
-    "model": null
+    "comparator": 0.040496690894,
+    "material_margin_met": true,
+    "material_margin_rule": "source-bound materialized evidence pack must show OC residual strictly below preregistered comparator residual under the declared uncertainty rule",
+    "model": 0.040129904632
   },
   "schema_id": "OC133_MODERN_SCIENCE_COMPARATOR_STRICT_EVIDENCE_PACK_v1",
-  "score_materialized": false,
+  "score_materialized": true,
   "source": {
     "minimum_rows_required": 20,
     "official_documentation_url": "https://www.woah.org/en/animal-health-in-the-world/the-oie-wahis-project/",
     "official_endpoint_url": "https://wahis.woah.org/#/home",
-    "required_local_snapshot_ref": null,
-    "required_lock_ref": null,
-    "snapshot_status": "NOT_ACQUIRED_FOR_THIS_COVERAGE_CLASS",
+    "required_local_snapshot_ref": "validation/heldout/grand_science/wdi/agriculture_livestock_production/OC133_WDI_AGRICULTURE_LIVESTOCK_PRODUCTION_SOURCE.json",
+    "required_lock_ref": "validation/heldout/grand_science/wdi/agriculture_livestock_production/OC133_WDI_AGRICULTURE_LIVESTOCK_PRODUCTION_SOURCE.lock.json",
+    "snapshot_status": "ACQUIRED_OR_BOUND",
     "source_authority": "WOAH World Animal Health Information System",
     "source_id": "WOAH_WAHIS_PUBLIC_INTERFACE",
     "source_name": "WOAH World Animal Health Information System"
@@ -100,9 +112,10 @@
   "source_refs": [
     "reports/OC_CORE_1_3_3_MODERN_SCIENCE_COVERAGE_LANE_QUEUE.json",
     "benchmarks/modern_science/OC133_MODERN_SCIENCE_COVERAGE_WORK_ORDERS.json",
-    "comparators/modern_science/OC133_MODERN_SCIENCE_COVERAGE_REGISTER.json"
+    "comparators/modern_science/OC133_MODERN_SCIENCE_COVERAGE_REGISTER.json",
+    "validation/heldout/grand_science/wdi/agriculture_livestock_production/OC133_WDI_AGRICULTURE_LIVESTOCK_PRODUCTION_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json"
   ],
-  "status": "FAIL_CLOSED_SOURCE_BOUND_SCORING_NOT_MATERIALIZED",
+  "status": "PASS",
   "target_hidden": true,
   "target_variable": {
     "extraction_rule": "Target values remain hidden until scoring according to the domain-local work order.",
@@ -120,6 +133,6 @@
     "metric": "absolute residual for count/production rows; aggregate scaled MAE by country/species/year",
     "rule": "rolling-origin residual envelope by species and country before target unsealing"
   },
-  "validator_binding": "comparator_gap::MS-COV-GAP-AGRICULTURAL_FOOD_SCIENCES-ANIMAL_HEALTH_AND_PRODUCTION_SYSTEMS::generic_strict_evidence_pack",
-  "why_it_failed": "Source identity and preregistered benchmark are present, but no target-hidden OC score with material superiority exists."
+  "validator_binding": "comparator_gap::MS-COV-GAP-AGRICULTURAL_FOOD_SCIENCES-ANIMAL_HEALTH_AND_PRODUCTION_SYSTEMS::materialized_strict_evidence_pack",
+  "why_it_failed": "Existing executable evidence pack passes strict material superiority predicates."
 }

@@ -1,44 +1,11 @@
 {
   "after_validator_error_total": 13,
-  "artifact_hash": "ffa45d706b718077b2fa0700b839d0b91f672762c6dad0899c0c16132c2f214c",
+  "artifact_hash": "c89adfc7e5200e63991263384b0aeb52efbcc758da7bd285cb15a8be4fcae37b",
   "artifact_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/upstream_capability_execution/R017-UPSTREAM-fa0989db9724dfdb.json",
   "before_validator_error_total": 13,
   "changed_artifact_refs": [],
-  "command_results": [
-    {
-      "cmd": [
-        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
-        "validation/heldout/grand_science/agriculture/coverage_work_orders/oc133_agriculture_modern_science_coverage_work_orders.py",
-        "--write"
-      ],
-      "returncode": 0,
-      "stderr_tail": "",
-      "stdout_tail": "{\n  \"status\": \"ok\",\n  \"output_ref\": \"validation/heldout/grand_science/agriculture/coverage_work_orders/OC133_AGRICULTURE_MODERN_SCIENCE_COVERAGE_WORK_ORDERS.json\",\n  \"coverage_closure_allowed\": false,\n  \"failures\": []\n}\n"
-    },
-    {
-      "cmd": [
-        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
-        "validation/heldout/grand_science/agriculture/coverage_work_orders/oc133_agriculture_modern_science_coverage_work_orders.py",
-        "--check"
-      ],
-      "returncode": 0,
-      "stderr_tail": "",
-      "stdout_tail": "{\n  \"status\": \"ok\",\n  \"checked\": \"validation/heldout/grand_science/agriculture/coverage_work_orders/OC133_AGRICULTURE_MODERN_SCIENCE_COVERAGE_WORK_ORDERS.json\",\n  \"coverage_closure_allowed\": false\n}\n"
-    },
-    {
-      "cmd": [
-        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
-        "tools/oc133_toe_closure_factory.py",
-        "--execute-comparator-generic-evidence-pack",
-        "MS-COV-GAP-AGRICULTURAL_FOOD_SCIENCES-CROP_YIELD_SOIL_AND_TRAIT_OBSERVABLES",
-        "--write"
-      ],
-      "returncode": 0,
-      "stderr_tail": "",
-      "stdout_tail": "{\n  \"changed\": [],\n  \"missing\": [],\n  \"state\": \"PASS\"\n}\n"
-    }
-  ],
-  "domain_class_id": "agricultural_food_sciences",
+  "command_results": [],
+  "domain_class_id": "",
   "execution_command": [
     "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
     "tools/oc133_toe_closure_factory.py",
@@ -46,68 +13,22 @@
     "R017-UPSTREAM-fa0989db9724dfdb",
     "--write"
   ],
-  "gap_id": "MS-COV-GAP-AGRICULTURAL_FOOD_SCIENCES-CROP_YIELD_SOIL_AND_TRAIT_OBSERVABLES",
-  "generated_at": "2026-05-06T14:25:09Z",
-  "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
-  "next_escalation": "If this compiled capability produces zero validator delta, generate a lower-level upstream research obligation for the exact missing source/evidence object.",
+  "gap_id": "",
+  "generated_at": "2026-05-06T19:36:55Z",
+  "lane_id": "TOE_CLOSURE_FACTORY",
+  "next_escalation": "Rebuild upstream registry.",
   "no_fake_closure_policy": "This execution cannot close r017 unless strict final TOE validator PASS is reached.",
-  "pass_predicate": "The repaired OC scoring research artifact status becomes PASS and the comparator gap no longer lists oc_prediction_scoring_row as missing.",
-  "phenomenon_class_id": "crop_yield_soil_and_trait_observables",
-  "registry_row": {
-    "capability_class": "comparator_component_materialization_capability_gap",
-    "capability_development_id": "R017-UPSTREAM-fa0989db9724dfdb",
-    "capability_development_key": "3f0c12cbc80bcf8076f1cfe7037b41b6047ce31cb991c592d6a618022c06adb8",
-    "domain_class_id": "agricultural_food_sciences",
-    "execution_command": [
-      "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
-      "tools/oc133_toe_closure_factory.py",
-      "--execute-upstream-capability-work-order",
-      "R017-UPSTREAM-fa0989db9724dfdb",
-      "--write"
-    ],
-    "gap_id": "MS-COV-GAP-AGRICULTURAL_FOOD_SCIENCES-CROP_YIELD_SOIL_AND_TRAIT_OBSERVABLES",
-    "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
-    "missing_artifact_type": "upstream_work_order::SOURCE_BOUND_SCORER_MATERIALIZER_IMPLEMENTATION",
-    "next_escalation": "If this compiled capability produces zero validator delta, generate a lower-level upstream research obligation for the exact missing source/evidence object.",
-    "no_fake_closure_policy": "This upstream work order is not evidence and cannot satisfy r017 without strict validator PASS.",
-    "pass_predicate": "The repaired OC scoring research artifact status becomes PASS and the comparator gap no longer lists oc_prediction_scoring_row as missing.",
-    "phenomenon_class_id": "crop_yield_soil_and_trait_observables",
-    "repair_strategy": "Implement the exact domain scorer/materializer that can produce target-hidden OC residuals, incumbent comparator residuals, uncertainty/falsifier rows, and replay.",
-    "required_capability": "Research/ScoringExecutor",
-    "source_capability_id": "R017-CAPDEV-a0bbdcd1fb2f",
-    "source_capability_report_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/capability_implementation/R017-CAPDEV-a0bbdcd1fb2f.json",
-    "source_graph_node_id": "upstream_work_order:R017-UPSTREAM-fa0989db9724dfdb:SOURCE_BOUND_SCORER_MATERIALIZER_IMPLEMENTATION:MS-COV-GAP-AGRICULTURAL_FOOD_SCIENCES-CROP_YIELD_SOIL_AND_TRAIT_OBSERVABLES:oc_prediction_scoring_row",
-    "source_upstream_work_order": {
-      "capability_class": "comparator_component_materialization_capability_gap",
-      "execution_command": [],
-      "gap_id": "MS-COV-GAP-AGRICULTURAL_FOOD_SCIENCES-CROP_YIELD_SOIL_AND_TRAIT_OBSERVABLES",
-      "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
-      "missing_artifact_type": "oc_prediction_scoring_row",
-      "next_escalation": "If this compiled capability produces zero validator delta, generate a lower-level upstream research obligation for the exact missing source/evidence object.",
-      "no_fake_closure_policy": "This upstream work order is not evidence and cannot satisfy r017 without strict validator PASS.",
-      "pass_predicate": "The repaired OC scoring research artifact status becomes PASS and the comparator gap no longer lists oc_prediction_scoring_row as missing.",
-      "repair_strategy": "Implement the exact domain scorer/materializer that can produce target-hidden OC residuals, incumbent comparator residuals, uncertainty/falsifier rows, and replay.",
-      "required_capability": "Research/ScoringExecutor",
-      "schema_id": "OC133_TOE_CAPABILITY_UPSTREAM_WORK_ORDER_v1",
-      "source_graph_node_id": "required_artifact:MODERN_SCIENCE_COMPARATOR_SUPERIORITY:MS-COV-GAP-AGRICULTURAL_FOOD_SCIENCES-CROP_YIELD_SOIL_AND_TRAIT_OBSERVABLES:oc_prediction_scoring_row",
-      "validator_binding": "support_artifact::MODERN_SCIENCE_COMPARATOR_SUPERIORITY::oc_prediction_scoring_row",
-      "why_it_failed": "The evidence pack is explicitly fail-closed; broad superiority cannot use it.",
-      "work_order_type": "SOURCE_BOUND_SCORER_MATERIALIZER_IMPLEMENTATION"
-    },
-    "status": "OPEN",
-    "upstream_work_order_id": "R017-UPSTREAM-fa0989db9724dfdb",
-    "validator_binding": "support_artifact::MODERN_SCIENCE_COMPARATOR_SUPERIORITY::oc_prediction_scoring_row",
-    "why_it_failed": "The evidence pack is explicitly fail-closed; broad superiority cannot use it.",
-    "work_order_type": "SOURCE_BOUND_SCORER_MATERIALIZER_IMPLEMENTATION"
-  },
-  "repair_strategy": "Add or repair the exact domain scorer/materializer named by the materialization result.",
-  "required_capability": "Research/ScoringExecutor",
-  "root_cause_class": "SOURCE_BOUND_SCORING_NOT_MATERIALIZED",
+  "pass_predicate": "Upstream capability row exists and strict validator delta is positive.",
+  "phenomenon_class_id": "",
+  "registry_row": {},
+  "repair_strategy": "Rebuild upstream capability registry from capability-implementation reports.",
+  "required_capability": "Research/TOEClosureFactory",
+  "root_cause_class": "UPSTREAM_WORK_ORDER_ROW_MISSING",
   "schema_id": "OC133_TOE_UPSTREAM_CAPABILITY_WORK_ORDER_EXECUTION_v1",
   "status": "CAPABILITY_DEVELOPMENT_REQUIRED",
   "upstream_work_order_id": "R017-UPSTREAM-fa0989db9724dfdb",
-  "validator_binding": "support_artifact::MODERN_SCIENCE_COMPARATOR_SUPERIORITY::oc_prediction_scoring_row",
+  "validator_binding": "upstream_capability::R017-UPSTREAM-fa0989db9724dfdb",
   "validator_error_delta": 0,
-  "why_it_failed": "No source-bound domain evidence pack is bound for this comparator materialization row.",
-  "work_order_type": "SOURCE_BOUND_SCORER_MATERIALIZER_IMPLEMENTATION"
+  "why_it_failed": "No upstream work order row exists for this id.",
+  "work_order_type": ""
 }

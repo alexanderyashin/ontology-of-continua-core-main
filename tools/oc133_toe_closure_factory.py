@@ -2071,6 +2071,14 @@ MEDICAL_WDI_CHILD_MORTALITY_MATERIALIZER = (
     "validation/heldout/grand_science/medical/coverage_work_orders/"
     "oc133_medical_wdi_child_mortality_materializer.py"
 )
+OPENFDA_PHARMACOLOGY_MATERIALIZER = (
+    "validation/heldout/grand_science/medical_health/pharmacology_toxicology/"
+    "oc133_openfda_pharmacology_materializer.py"
+)
+OPENFDA_PHARMACOLOGY_EVIDENCE_REF = (
+    "validation/heldout/grand_science/medical_health/pharmacology_toxicology/"
+    "OC133_OPENFDA_DRUG_EVENT_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json"
+)
 WDI_INDICATOR_MATERIALIZER = (
     "validation/heldout/grand_science/wdi/coverage_work_orders/"
     "oc133_wdi_indicator_materializer.py"
@@ -2107,6 +2115,22 @@ WDI_INDICATOR_MATERIALIZED_LANES = {
         "agriculture_cereal_yield",
         "validation/heldout/grand_science/wdi/agriculture_cereal_yield/"
         "OC133_WDI_AGRICULTURE_CEREAL_YIELD_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
+    ),
+    (
+        "agricultural_food_sciences",
+        "animal_health_and_production_systems",
+    ): (
+        "agriculture_livestock_production",
+        "validation/heldout/grand_science/wdi/agriculture_livestock_production/"
+        "OC133_WDI_AGRICULTURE_LIVESTOCK_PRODUCTION_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
+    ),
+    (
+        "agricultural_food_sciences",
+        "food_chemistry_safety_and_nutrition",
+    ): (
+        "agriculture_food_nutrition_undernourishment",
+        "validation/heldout/grand_science/wdi/agriculture_food_nutrition_undernourishment/"
+        "OC133_WDI_AGRICULTURE_FOOD_NUTRITION_UNDERNOURISHMENT_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
     ),
     (
         "complex_systems_operations_science",
@@ -2655,6 +2679,38 @@ COMPARATOR_DOMAIN_IMPLEMENTED_COMMANDS[
 ] = [
     [sys.executable, MEDICAL_WDI_CHILD_MORTALITY_MATERIALIZER, "--acquire", "--write-acquisition"],
     [sys.executable, MEDICAL_WDI_CHILD_MORTALITY_MATERIALIZER, "--check"],
+]
+
+for _openfda_pharmacology_subartifact in (
+    "target_hidden_task_table",
+    "oc_formula_or_model",
+    "incumbent_comparator_scoring",
+    "residuals_materiality_uncertainty",
+    "controls_and_falsifiers",
+    "independent_replay",
+    "strict_evidence_pack_diagnosis",
+    "model_or_claim_repair_decision",
+):
+    COMPARATOR_DOMAIN_IMPLEMENTED_COMMANDS[
+        (
+            "medical_health_sciences",
+            "pharmacology_toxicology_and_dose_response",
+            _openfda_pharmacology_subartifact,
+        )
+    ] = [
+        [sys.executable, OPENFDA_PHARMACOLOGY_MATERIALIZER, "--score", "--write-scoring"],
+        [sys.executable, OPENFDA_PHARMACOLOGY_MATERIALIZER, "--check"],
+    ]
+COMPARATOR_DOMAIN_IMPLEMENTED_COMMANDS[
+    (
+        "medical_health_sciences",
+        "pharmacology_toxicology_and_dose_response",
+        "source_snapshot_acquisition",
+    )
+] = [
+    [sys.executable, OPENFDA_PHARMACOLOGY_MATERIALIZER, "--acquire", "--write-acquisition"],
+    [sys.executable, OPENFDA_PHARMACOLOGY_MATERIALIZER, "--score", "--write-scoring"],
+    [sys.executable, OPENFDA_PHARMACOLOGY_MATERIALIZER, "--check"],
 ]
 
 for (_wdi_domain, _wdi_phenomenon), (_wdi_lane, _wdi_ref) in WDI_INDICATOR_MATERIALIZED_LANES.items():
@@ -3374,6 +3430,10 @@ COMPARATOR_DOMAIN_MATERIALIZED_EVIDENCE_REFS = {
         "medical_health_sciences",
         "epidemiological_transmission_and_risk",
     ): "validation/heldout/grand_science/medical/wdi_child_mortality/OC133_WORLD_BANK_WDI_CHILD_MORTALITY_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
+    (
+        "medical_health_sciences",
+        "pharmacology_toxicology_and_dose_response",
+    ): OPENFDA_PHARMACOLOGY_EVIDENCE_REF,
     **{
         key: evidence_ref
         for key, (_lane_id, evidence_ref) in WDI_INDICATOR_MATERIALIZED_LANES.items()

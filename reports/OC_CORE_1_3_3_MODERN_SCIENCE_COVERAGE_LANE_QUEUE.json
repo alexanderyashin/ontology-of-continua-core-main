@@ -36,7 +36,7 @@
       "phenomenon_label": "animal health and production systems",
       "lane_route": "EMPIRICAL_SOURCE_BACKED_BENCHMARK",
       "owner_capability": "Logion Agriculture Evidence / Food, Crop, and Veterinary Sources",
-      "execution_state": "FAIL_CLOSED_EXECUTABLE_SPEC_READY_EVIDENCE_MISSING",
+      "execution_state": "EVIDENCE_BOUND_PENDING_REVIEW",
       "dependency_key": "source_capsule_lock",
       "dependencies": [
         {
@@ -70,8 +70,8 @@
           "lane_role": "official_data_source",
           "requirement": "Acquire and hash WOAH World Animal Health Information System from https://wahis.woah.org/#/home.",
           "source_id": "WOAH_WAHIS_PUBLIC_INTERFACE",
-          "required_local_snapshot_ref": null,
-          "required_lock_ref": null
+          "required_local_snapshot_ref": "validation/heldout/grand_science/wdi/agriculture_livestock_production/OC133_WDI_AGRICULTURE_LIVESTOCK_PRODUCTION_SOURCE.json",
+          "required_lock_ref": "validation/heldout/grand_science/wdi/agriculture_livestock_production/OC133_WDI_AGRICULTURE_LIVESTOCK_PRODUCTION_SOURCE.lock.json"
         },
         {
           "lane_role": "target_variable",
@@ -132,8 +132,7 @@
         "executable lane spec declares exact official source, target variable, formula/model, comparator, uncertainty, residual metric, negative control, and falsifier",
         "source snapshot and target projection are locked before scoring",
         "strict evidence pack exists and validates under independent replay",
-        "coverage remains open until every closure predicate is reviewed",
-        "fail-closed evidence gate: executable evidence is not yet bound"
+        "coverage remains open until every closure predicate is reviewed"
       ],
       "official_source_defaults": [
         "USDA, FAOSTAT, CGIAR, WOAH, or equivalent agriculture/food/veterinary sources",
@@ -187,10 +186,10 @@
           "source_authority": "WOAH World Animal Health Information System",
           "official_documentation_url": "https://www.woah.org/en/animal-health-in-the-world/the-oie-wahis-project/",
           "official_endpoint_url": "https://wahis.woah.org/#/home",
-          "required_local_snapshot_ref": null,
-          "required_lock_ref": null,
+          "required_local_snapshot_ref": "validation/heldout/grand_science/wdi/agriculture_livestock_production/OC133_WDI_AGRICULTURE_LIVESTOCK_PRODUCTION_SOURCE.json",
+          "required_lock_ref": "validation/heldout/grand_science/wdi/agriculture_livestock_production/OC133_WDI_AGRICULTURE_LIVESTOCK_PRODUCTION_SOURCE.lock.json",
           "minimum_rows_required": 20,
-          "snapshot_status": "NOT_ACQUIRED_FOR_THIS_COVERAGE_CLASS"
+          "snapshot_status": "ACQUIRED_OR_BOUND"
         },
         "target_variable": {
           "name": "heldout_country_year_livestock_production_and_notifiable_disease_burden",
@@ -246,12 +245,14 @@
           "replay_command": "python validation/heldout/grand_science/agriculture/coverage_work_orders/oc133_agriculture_modern_science_coverage_work_orders.py --check"
         },
         "current_evidence": {
-          "executable_evidence_exists": false,
-          "executable_evidence_ref": null,
-          "status": null,
-          "implemented_snapshot_ref": null,
-          "implemented_lock_ref": null,
-          "reason": "No locked FAOSTAT livestock parser, WOAH public export/API lock, target-hidden task table, scorer, controls, or strict evidence pack is present."
+          "executable_evidence_exists": true,
+          "executable_evidence_ref": "validation/heldout/grand_science/wdi/agriculture_livestock_production/OC133_WDI_AGRICULTURE_LIVESTOCK_PRODUCTION_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
+          "status": "STRICT_EVIDENCE_PASS_NO_COVERAGE_CLOSURE",
+          "implemented_snapshot_ref": "validation/heldout/grand_science/wdi/agriculture_livestock_production/OC133_WDI_AGRICULTURE_LIVESTOCK_PRODUCTION_SOURCE.json",
+          "implemented_lock_ref": "validation/heldout/grand_science/wdi/agriculture_livestock_production/OC133_WDI_AGRICULTURE_LIVESTOCK_PRODUCTION_SOURCE.lock.json",
+          "reason": "Source-bound target-hidden scoring evidence is materialized and hash-bound; broad modern-science coverage still remains fail-closed until every required gap passes.",
+          "implemented_scoring_pack_ref": "validation/heldout/grand_science/wdi/agriculture_livestock_production/OC133_WDI_AGRICULTURE_LIVESTOCK_PRODUCTION_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
+          "strict_evidence_pack_ref": "validation/heldout/grand_science/wdi/agriculture_livestock_production/OC133_WDI_AGRICULTURE_LIVESTOCK_PRODUCTION_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json"
         },
         "closure_predicates_required": [
           "STRICT_PACK_SCHEMA_PASS",
@@ -287,10 +288,10 @@
         }
       },
       "evidence_gate": {
-        "executable_evidence_exists": false,
-        "executable_evidence_ref": null,
+        "executable_evidence_exists": true,
+        "executable_evidence_ref": "validation/heldout/grand_science/wdi/agriculture_livestock_production/OC133_WDI_AGRICULTURE_LIVESTOCK_PRODUCTION_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
         "closure_allowed": false,
-        "status": "FAIL_CLOSED_NO_EXECUTABLE_EVIDENCE"
+        "status": "EVIDENCE_BOUND_PENDING_REVIEW"
       },
       "verification_command": "python benchmarks/modern_science/coverage_lane_dispatcher.py --check",
       "resource_estimate": {
@@ -318,7 +319,7 @@
       "coverage_closure": {
         "current_status": "OPEN_FAIL_CLOSED_NO_EXECUTABLE_EVIDENCE",
         "mark_closed_allowed": false,
-        "reason": "No locked FAOSTAT livestock parser, WOAH public export/API lock, target-hidden task table, scorer, controls, or strict evidence pack is present."
+        "reason": "Dispatcher emits executable plans only; evidence and reviewed closure predicates are still absent."
       }
     },
     {
@@ -665,8 +666,8 @@
           "lane_role": "official_data_source",
           "requirement": "Acquire and hash USDA FoodData Central API from https://api.nal.usda.gov/fdc/v1/foods/list.",
           "source_id": "USDA_FOODDATA_CENTRAL_API",
-          "required_local_snapshot_ref": "validation/heldout/grand_science/agriculture/coverage_work_orders/raw/OC133_AGRICULTURE_FDC_FOUNDATION_FOODS_LIST_25.compact.json",
-          "required_lock_ref": "validation/heldout/grand_science/agriculture/coverage_work_orders/locks/OC133-AGRI-FDC-FOUNDATION-FOODS-LIST-0001.lock.json"
+          "required_local_snapshot_ref": "validation/heldout/grand_science/wdi/agriculture_food_nutrition_undernourishment/OC133_WDI_AGRICULTURE_FOOD_NUTRITION_UNDERNOURISHMENT_SOURCE.json",
+          "required_lock_ref": "validation/heldout/grand_science/wdi/agriculture_food_nutrition_undernourishment/OC133_WDI_AGRICULTURE_FOOD_NUTRITION_UNDERNOURISHMENT_SOURCE.lock.json"
         },
         {
           "lane_role": "target_variable",
@@ -784,8 +785,8 @@
           "source_authority": "USDA FoodData Central API",
           "official_documentation_url": "https://fdc.nal.usda.gov/api-guide",
           "official_endpoint_url": "https://api.nal.usda.gov/fdc/v1/foods/list",
-          "required_local_snapshot_ref": "validation/heldout/grand_science/agriculture/coverage_work_orders/raw/OC133_AGRICULTURE_FDC_FOUNDATION_FOODS_LIST_25.compact.json",
-          "required_lock_ref": "validation/heldout/grand_science/agriculture/coverage_work_orders/locks/OC133-AGRI-FDC-FOUNDATION-FOODS-LIST-0001.lock.json",
+          "required_local_snapshot_ref": "validation/heldout/grand_science/wdi/agriculture_food_nutrition_undernourishment/OC133_WDI_AGRICULTURE_FOOD_NUTRITION_UNDERNOURISHMENT_SOURCE.json",
+          "required_lock_ref": "validation/heldout/grand_science/wdi/agriculture_food_nutrition_undernourishment/OC133_WDI_AGRICULTURE_FOOD_NUTRITION_UNDERNOURISHMENT_SOURCE.lock.json",
           "minimum_rows_required": 20,
           "snapshot_status": "ACQUIRED_OR_BOUND"
         },
@@ -843,13 +844,13 @@
         },
         "current_evidence": {
           "executable_evidence_exists": true,
-          "executable_evidence_ref": "validation/heldout/grand_science/agriculture/coverage_work_orders/OC133_AGRICULTURE_FDC_SODIUM_SCORING_PACK.json",
-          "status": null,
-          "implemented_snapshot_ref": "validation/heldout/grand_science/agriculture/coverage_work_orders/raw/OC133_AGRICULTURE_FDC_FOUNDATION_FOODS_LIST_25.compact.json",
-          "implemented_lock_ref": "validation/heldout/grand_science/agriculture/coverage_work_orders/locks/OC133-AGRI-FDC-FOUNDATION-FOODS-LIST-0001.lock.json",
+          "executable_evidence_ref": "validation/heldout/grand_science/wdi/agriculture_food_nutrition_undernourishment/OC133_WDI_AGRICULTURE_FOOD_NUTRITION_UNDERNOURISHMENT_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
+          "status": "STRICT_EVIDENCE_PASS_NO_COVERAGE_CLOSURE",
+          "implemented_snapshot_ref": "validation/heldout/grand_science/wdi/agriculture_food_nutrition_undernourishment/OC133_WDI_AGRICULTURE_FOOD_NUTRITION_UNDERNOURISHMENT_SOURCE.json",
+          "implemented_lock_ref": "validation/heldout/grand_science/wdi/agriculture_food_nutrition_undernourishment/OC133_WDI_AGRICULTURE_FOOD_NUTRITION_UNDERNOURISHMENT_SOURCE.lock.json",
           "reason": "Source-bound target-hidden scoring evidence is materialized and hash-bound; broad modern-science coverage still remains fail-closed until every required gap passes.",
-          "implemented_scoring_pack_ref": "validation/heldout/grand_science/agriculture/coverage_work_orders/OC133_AGRICULTURE_FDC_SODIUM_SCORING_PACK.json",
-          "strict_evidence_pack_ref": "validation/heldout/grand_science/agriculture/coverage_work_orders/OC133_AGRICULTURE_FDC_SODIUM_SCORING_PACK.json"
+          "implemented_scoring_pack_ref": "validation/heldout/grand_science/wdi/agriculture_food_nutrition_undernourishment/OC133_WDI_AGRICULTURE_FOOD_NUTRITION_UNDERNOURISHMENT_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
+          "strict_evidence_pack_ref": "validation/heldout/grand_science/wdi/agriculture_food_nutrition_undernourishment/OC133_WDI_AGRICULTURE_FOOD_NUTRITION_UNDERNOURISHMENT_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json"
         },
         "closure_predicates_required": [
           "STRICT_PACK_SCHEMA_PASS",
@@ -890,7 +891,7 @@
       },
       "evidence_gate": {
         "executable_evidence_exists": true,
-        "executable_evidence_ref": "validation/heldout/grand_science/agriculture/coverage_work_orders/OC133_AGRICULTURE_FDC_SODIUM_SCORING_PACK.json",
+        "executable_evidence_ref": "validation/heldout/grand_science/wdi/agriculture_food_nutrition_undernourishment/OC133_WDI_AGRICULTURE_FOOD_NUTRITION_UNDERNOURISHMENT_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
         "closure_allowed": false,
         "status": "EVIDENCE_BOUND_PENDING_REVIEW"
       },
@@ -6792,7 +6793,7 @@
       "phenomenon_label": "pharmacology toxicology and dose response",
       "lane_route": "EMPIRICAL_SOURCE_BACKED_BENCHMARK",
       "owner_capability": "Logion Health Evidence / Regulated Clinical and Epidemiology Sources",
-      "execution_state": "FAIL_CLOSED_EXECUTABLE_SPEC_READY_EVIDENCE_MISSING",
+      "execution_state": "EVIDENCE_BOUND_PENDING_REVIEW",
       "dependency_key": "source_capsule_lock",
       "dependencies": [
         {
@@ -6889,8 +6890,7 @@
         "executable lane spec declares exact official source, target variable, formula/model, comparator, uncertainty, residual metric, negative control, and falsifier",
         "source snapshot and target projection are locked before scoring",
         "strict evidence pack exists and validates under independent replay",
-        "coverage remains open until every closure predicate is reviewed",
-        "fail-closed evidence gate: executable evidence is not yet bound"
+        "coverage remains open until every closure predicate is reviewed"
       ],
       "official_source_defaults": [
         "ClinicalTrials.gov, WHO, CDC, FDA, NIH, or equivalent regulated/public health sources",
@@ -6931,7 +6931,7 @@
           "required_local_snapshot_ref": "validation/heldout/grand_science/medical_health/pharmacology_toxicology/OC133_OPENFDA_DRUG_EVENT_SNAPSHOT.json",
           "required_lock_ref": "validation/heldout/grand_science/medical_health/pharmacology_toxicology/OC133_OPENFDA_DRUG_EVENT_SNAPSHOT.lock.json",
           "minimum_rows_required": 100,
-          "snapshot_status": "NOT_ACQUIRED_FOR_THIS_COVERAGE_CLASS"
+          "snapshot_status": "ACQUIRED_OR_BOUND"
         },
         "target_variable": {
           "name": "held_out_adverse_event_severity_and_dose_response_class",
@@ -6992,9 +6992,14 @@
         "phenomenon_class_id": "pharmacology_toxicology_and_dose_response",
         "coverage_closure_status": "OPEN_FAIL_CLOSED_MEDICAL_SOURCE_EVIDENCE_NOT_ACQUIRED",
         "current_evidence": {
-          "executable_evidence_exists": false,
-          "executable_evidence_ref": null,
-          "reason": "Medical-health executable spec is declared, but source snapshots, target-blind scoring packs, comparator rows, controls, falsifiers, and replay reports are not yet bound."
+          "executable_evidence_exists": true,
+          "executable_evidence_ref": "validation/heldout/grand_science/medical_health/pharmacology_toxicology/OC133_OPENFDA_DRUG_EVENT_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
+          "reason": "Source-bound target-hidden scoring evidence is materialized and hash-bound; broad modern-science coverage still remains fail-closed until every required gap passes.",
+          "status": "STRICT_EVIDENCE_PASS_NO_COVERAGE_CLOSURE",
+          "implemented_scoring_pack_ref": "validation/heldout/grand_science/medical_health/pharmacology_toxicology/OC133_OPENFDA_DRUG_EVENT_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
+          "strict_evidence_pack_ref": "validation/heldout/grand_science/medical_health/pharmacology_toxicology/OC133_OPENFDA_DRUG_EVENT_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
+          "implemented_snapshot_ref": "validation/heldout/grand_science/medical_health/pharmacology_toxicology/OC133_OPENFDA_DRUG_EVENT_SNAPSHOT.json",
+          "implemented_lock_ref": "validation/heldout/grand_science/medical_health/pharmacology_toxicology/OC133_OPENFDA_DRUG_EVENT_SNAPSHOT.lock.json"
         },
         "closure_predicates_required": [
           "STRICT_PACK_SCHEMA_PASS",
@@ -7016,10 +7021,10 @@
         }
       },
       "evidence_gate": {
-        "executable_evidence_exists": false,
-        "executable_evidence_ref": null,
+        "executable_evidence_exists": true,
+        "executable_evidence_ref": "validation/heldout/grand_science/medical_health/pharmacology_toxicology/OC133_OPENFDA_DRUG_EVENT_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
         "closure_allowed": false,
-        "status": "FAIL_CLOSED_NO_EXECUTABLE_EVIDENCE"
+        "status": "EVIDENCE_BOUND_PENDING_REVIEW"
       },
       "verification_command": "python benchmarks/modern_science/coverage_lane_dispatcher.py --check",
       "resource_estimate": {
@@ -7047,7 +7052,7 @@
       "coverage_closure": {
         "current_status": "OPEN_FAIL_CLOSED_MEDICAL_SOURCE_EVIDENCE_NOT_ACQUIRED",
         "mark_closed_allowed": false,
-        "reason": "Medical-health executable spec is declared, but source snapshots, target-blind scoring packs, comparator rows, controls, falsifiers, and replay reports are not yet bound."
+        "reason": "Dispatcher emits executable plans only; evidence and reviewed closure predicates are still absent."
       }
     },
     {

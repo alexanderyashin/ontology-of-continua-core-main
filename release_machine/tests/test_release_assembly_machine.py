@@ -2528,16 +2528,9 @@ class ReleaseAssemblyMachineTests(unittest.TestCase):
             self.assertIsInstance(spec, dict)
             self.assertEqual(spec["domain_class_id"], "medical_health_sciences")
             self.assertTrue(str(spec["coverage_closure_status"]).startswith("OPEN_FAIL_CLOSED"))
-            if row["phenomenon_class_id"] in {
-                "clinical_outcomes_and_biomarkers",
-                "epidemiological_transmission_and_risk",
-            }:
-                self.assertTrue(spec["current_evidence"]["executable_evidence_exists"])
-                self.assertEqual(spec["current_evidence"]["status"], "STRICT_EVIDENCE_PASS_NO_COVERAGE_CLOSURE")
-                self.assertEqual(row["execution_state"], "EVIDENCE_BOUND_PENDING_REVIEW")
-            else:
-                self.assertFalse(spec["current_evidence"]["executable_evidence_exists"])
-                self.assertEqual(row["execution_state"], "FAIL_CLOSED_EXECUTABLE_SPEC_READY_EVIDENCE_MISSING")
+            self.assertTrue(spec["current_evidence"]["executable_evidence_exists"])
+            self.assertEqual(spec["current_evidence"]["status"], "STRICT_EVIDENCE_PASS_NO_COVERAGE_CLOSURE")
+            self.assertEqual(row["execution_state"], "EVIDENCE_BOUND_PENDING_REVIEW")
             self.assertIn("EXECUTABLE_LANE_SPEC_DECLARED", row["expected_acceptance_predicates"])
             self.assertIn("FAIL_CLOSED_UNLESS_EXECUTABLE_EVIDENCE_BOUND", row["expected_acceptance_predicates"])
 

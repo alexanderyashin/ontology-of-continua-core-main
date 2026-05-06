@@ -103,6 +103,10 @@ DOMAIN_LOCAL_MATERIALIZED_EVIDENCE_REFS = {
     ): "validation/heldout/grand_science/medical/wdi_child_mortality/OC133_WORLD_BANK_WDI_CHILD_MORTALITY_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
     (
         "medical_health_sciences",
+        "pharmacology_toxicology_and_dose_response",
+    ): "validation/heldout/grand_science/medical_health/pharmacology_toxicology/OC133_OPENFDA_DRUG_EVENT_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
+    (
+        "medical_health_sciences",
         "clinical_outcomes_and_biomarkers",
     ): "validation/heldout/grand_science/wdi/medical_clinical_life_expectancy/OC133_WDI_MEDICAL_CLINICAL_LIFE_EXPECTANCY_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
     (
@@ -117,6 +121,14 @@ DOMAIN_LOCAL_MATERIALIZED_EVIDENCE_REFS = {
         "agricultural_food_sciences",
         "crop_yield_soil_and_trait_observables",
     ): "validation/heldout/grand_science/wdi/agriculture_cereal_yield/OC133_WDI_AGRICULTURE_CEREAL_YIELD_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
+    (
+        "agricultural_food_sciences",
+        "animal_health_and_production_systems",
+    ): "validation/heldout/grand_science/wdi/agriculture_livestock_production/OC133_WDI_AGRICULTURE_LIVESTOCK_PRODUCTION_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
+    (
+        "agricultural_food_sciences",
+        "food_chemistry_safety_and_nutrition",
+    ): "validation/heldout/grand_science/wdi/agriculture_food_nutrition_undernourishment/OC133_WDI_AGRICULTURE_FOOD_NUTRITION_UNDERNOURISHMENT_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
     (
         "complex_systems_operations_science",
         "multi_agent_system_dynamics",

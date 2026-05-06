@@ -98,6 +98,40 @@ LANE_CONFIGS: dict[str, dict[str, Any]] = {
         "material_margin": 0.005,
         "minimum_rows": 500,
     },
+    "agriculture_livestock_production": {
+        "domain_class_id": "agricultural_food_sciences",
+        "phenomenon_class_id": "animal_health_and_production_systems",
+        "indicator": "AG.PRD.LVSK.XD",
+        "indicator_label": "Livestock production index (2014-2016 = 100)",
+        "field": "livestock_production_index",
+        "unit": "index, 2014-2016 = 100",
+        "source_id": "world_bank_wdi_livestock_production_index_v1",
+        "model_id": "AGR-WDI-LIVESTOCK-MEDIAN-DELTA-v1",
+        "comparator_id": "AGR-WDI-LIVESTOCK-LAST_OBSERVATION_BASELINE-v1",
+        "negative_control_id": "AGR-WDI-LIVESTOCK-FIVE_YEAR_MEAN_CONTROL-v1",
+        "model_rule": "Use the median recent annual livestock-production change over visible history and extrapolate one year.",
+        "comparator_rule": "Predict the held-out animal-production observable as the last visible pre-target value.",
+        "prediction_method": "median_delta",
+        "material_margin": 0.0001,
+        "minimum_rows": 500,
+    },
+    "agriculture_food_nutrition_undernourishment": {
+        "domain_class_id": "agricultural_food_sciences",
+        "phenomenon_class_id": "food_chemistry_safety_and_nutrition",
+        "indicator": "SN.ITK.DEFC.ZS",
+        "indicator_label": "Prevalence of undernourishment (% of population)",
+        "field": "prevalence_of_undernourishment_percent",
+        "unit": "percent of population",
+        "source_id": "world_bank_wdi_prevalence_of_undernourishment_v1",
+        "model_id": "AGR-WDI-UNDERNOURISHMENT-VISIBLE-CV-MOMENTUM-v1",
+        "comparator_id": "AGR-WDI-UNDERNOURISHMENT-LAST_OBSERVATION_BASELINE-v1",
+        "negative_control_id": "AGR-WDI-UNDERNOURISHMENT-FIVE_YEAR_MEAN_CONTROL-v1",
+        "model_rule": "Use only the five visible annual observations to choose the best one-step predictor by internal visible-history cross-validation, then extrapolate one year.",
+        "comparator_rule": "Predict the held-out nutrition observable as the last visible pre-target value.",
+        "prediction_method": "visible_history_cv",
+        "material_margin": 0.005,
+        "minimum_rows": 500,
+    },
 }
 
 
@@ -331,6 +365,80 @@ def median_delta_predict(history_rows: list[dict[str, Any]], field: str) -> floa
     return max(values[-1] + delta, 1e-12)
 
 
+def _median(values: list[float]) -> float:
+    ordered = sorted(values)
+    if not ordered:
+        return 0.0
+    middle = len(ordered) // 2
+    if len(ordered) % 2:
+        return ordered[middle]
+    return (ordered[middle - 1] + ordered[middle]) / 2.0
+
+
+def _linear_predict(values: list[float]) -> float:
+    n = len(values)
+    xs = list(range(n))
+    mean_x = sum(xs) / n
+    mean_y = sum(values) / n
+    denominator = sum((x - mean_x) ** 2 for x in xs)
+    slope = (
+        sum((x - mean_x) * (y - mean_y) for x, y in zip(xs, values)) / denominator
+        if denominator
+        else 0.0
+    )
+    intercept = mean_y - slope * mean_x
+    return max(intercept + slope * n, 1e-12)
+
+
+def predict_values(values: list[float], method: str) -> float:
+    if method == "last_observation":
+        return max(values[-1], 1e-12)
+    if method == "last_delta":
+        return max(values[-1] + (values[-1] - values[-2]), 1e-12)
+    if method == "damped_last_delta":
+        return max(values[-1] + 0.5 * (values[-1] - values[-2]), 1e-12)
+    if method == "mean_delta":
+        delta = sum(values[index] - values[index - 1] for index in range(1, len(values))) / (len(values) - 1)
+        return max(values[-1] + delta, 1e-12)
+    if method == "linear":
+        return _linear_predict(values)
+    deltas = [values[index] - values[index - 1] for index in range(1, len(values))]
+    return max(values[-1] + _median(deltas), 1e-12)
+
+
+def visible_history_cv_predict(history_rows: list[dict[str, Any]], field: str) -> tuple[float, str, dict[str, float]]:
+    values = [float(row[field]) for row in history_rows]
+    candidate_methods = ("median_delta", "last_delta", "mean_delta", "damped_last_delta", "linear")
+    method_errors: dict[str, float] = {}
+    for method in candidate_methods:
+        errors = []
+        for index in range(3, len(values)):
+            visible_prefix = values[:index]
+            target = values[index]
+            prediction = predict_values(visible_prefix, method)
+            denominator = abs(target) if abs(target) > 1e-12 else 1.0
+            errors.append(abs(prediction - target) / denominator)
+        method_errors[method] = sum(errors) / len(errors) if errors else float("inf")
+    selected = min(candidate_methods, key=lambda item: (method_errors[item], item))
+    return predict_values(values, selected), selected, method_errors
+
+
+def configured_model_predict(
+    history_rows: list[dict[str, Any]],
+    field: str,
+    method: str,
+) -> tuple[float, dict[str, Any]]:
+    values = [float(row[field]) for row in history_rows]
+    if method == "visible_history_cv":
+        prediction, selected_method, method_errors = visible_history_cv_predict(history_rows, field)
+        return prediction, {
+            "prediction_method": method,
+            "selected_visible_history_method": selected_method,
+            "visible_history_cv_errors": {key: round(value, 12) for key, value in method_errors.items()},
+        }
+    return predict_values(values, method), {"prediction_method": method}
+
+
 def score(root: Path, lane_id: str, *, write: bool) -> dict[str, Any]:
     config = LANE_CONFIGS[lane_id]
     lane_refs = refs(lane_id)
@@ -348,7 +456,8 @@ def score(root: Path, lane_id: str, *, write: bool) -> dict[str, Any]:
     for row in task_table["visible_rows"]:
         history = row["history_rows"]
         target = float(hidden_by_id[row["task_id"]][f"target_{field}"])
-        model_prediction = median_delta_predict(history, field)
+        prediction_method = str(config.get("prediction_method") or "median_delta")
+        model_prediction, prediction_trace = configured_model_predict(history, field, prediction_method)
         comparator_prediction = float(history[-1][field])
         negative_control_prediction = sum(float(item[field]) for item in history) / len(history)
         denominator = abs(target) if abs(target) > 1e-12 else 1.0
@@ -366,6 +475,7 @@ def score(root: Path, lane_id: str, *, write: bool) -> dict[str, Any]:
                 "model_prediction": round(model_prediction, 12),
                 "comparator_prediction": round(comparator_prediction, 12),
                 "negative_control_prediction": round(negative_control_prediction, 12),
+                "prediction_trace": prediction_trace,
                 "target_sha256": sha256_object(hidden_by_id[row["task_id"]]),
                 "model_relative_error": round(model_error, 12),
                 "comparator_relative_error": round(comparator_error, 12),
