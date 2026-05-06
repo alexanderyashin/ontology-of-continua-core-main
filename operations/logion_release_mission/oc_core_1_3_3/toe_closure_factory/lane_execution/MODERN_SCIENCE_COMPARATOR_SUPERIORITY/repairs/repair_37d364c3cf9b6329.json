@@ -1,0 +1,89 @@
+{
+  "artifact_hash": "323fad0fb5487d67976ad855398bc5352fb4b9ca2fd552f875982beb70254ded",
+  "artifact_key": "replay_record",
+  "artifact_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/repairs/repair_37d364c3cf9b6329.json",
+  "command_pass": true,
+  "command_result_total": 3,
+  "command_results": [
+    {
+      "cmd": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "validation/heldout/grand_science/engineering/coverage_work_orders/oc133_engineering_type_k_thermocouple_materializer.py",
+        "--score",
+        "--write-scoring"
+      ],
+      "returncode": 0,
+      "stderr_tail": "",
+      "stdout_tail": "{\n  \"status\": \"ok\",\n  \"pack_status\": \"STRICT_EVIDENCE_PASS_NO_COVERAGE_CLOSURE\",\n  \"scoring_pack_ref\": \"validation/heldout/grand_science/engineering/type_k_thermocouple/OC133_NIST_ITS90_TYPE_K_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json\",\n  \"row_count\": 26,\n  \"model_mae_mv\": 2.6e-11,\n  \"comparator_mae_mv\": 0.090979158388,\n  \"negative_control_rejected\": true\n}\n"
+    },
+    {
+      "cmd": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "validation/heldout/grand_science/engineering/coverage_work_orders/oc133_engineering_type_k_thermocouple_materializer.py",
+        "--check"
+      ],
+      "returncode": 0,
+      "stderr_tail": "",
+      "stdout_tail": "{\n  \"status\": \"ok\",\n  \"checked\": \"validation/heldout/grand_science/engineering/type_k_thermocouple/OC133_NIST_ITS90_TYPE_K_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json\"\n}\n"
+    },
+    {
+      "cmd": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "tools/oc133_toe_closure_factory.py",
+        "--execute-comparator-generic-evidence-pack",
+        "MS-COV-GAP-ENGINEERING_MATERIALS_SCIENCES-CONTROL_SYSTEMS_AND_SIGNAL_MEASUREMENT",
+        "--write"
+      ],
+      "returncode": 0,
+      "stderr_tail": "",
+      "stdout_tail": "{\n  \"changed\": [],\n  \"missing\": [],\n  \"state\": \"PASS\"\n}\n"
+    }
+  ],
+  "concrete_governed_commands": [
+    [
+      "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+      "validation/heldout/grand_science/engineering/coverage_work_orders/oc133_engineering_type_k_thermocouple_materializer.py",
+      "--score",
+      "--write-scoring"
+    ],
+    [
+      "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+      "validation/heldout/grand_science/engineering/coverage_work_orders/oc133_engineering_type_k_thermocouple_materializer.py",
+      "--check"
+    ],
+    [
+      "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+      "tools/oc133_toe_closure_factory.py",
+      "--execute-comparator-generic-evidence-pack",
+      "MS-COV-GAP-ENGINEERING_MATERIALS_SCIENCES-CONTROL_SYSTEMS_AND_SIGNAL_MEASUREMENT",
+      "--write"
+    ]
+  ],
+  "domain_class_id": "engineering_materials_sciences",
+  "execution_command": [
+    "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+    "tools/oc133_toe_closure_factory.py",
+    "--execute-comparator-research-artifact-repair",
+    "R017-RESEARCH-ARTIFACT-REPAIR-417998f4da3d1d24",
+    "--write"
+  ],
+  "gap_id": "MS-COV-GAP-ENGINEERING_MATERIALS_SCIENCES-CONTROL_SYSTEMS_AND_SIGNAL_MEASUREMENT",
+  "generated_at": "2026-05-06T17:24:56Z",
+  "input_research_artifact_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/a1c1bcc404d197ab/replay_record.json",
+  "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+  "next_escalation": "If CAPABILITY_DEVELOPMENT_REQUIRED, implement the exact domain scorer/replay command. If EVIDENCE_REPAIR_ATTEMPTED_REMAINS_OPEN, inspect the refreshed artifact validation and preserve fail-closed negative results.",
+  "no_fake_closure_policy": "This repair execution cannot mark broad superiority PASS unless the refreshed research artifact itself passes.",
+  "pass_predicate": "The repaired research artifact status becomes PASS and the comparator gap no longer lists this artifact as missing.",
+  "phenomenon_class_id": "control_systems_and_signal_measurement",
+  "refreshed_research_artifact_hash": "2a63433fa328a95bf8c4862081aafbbaea508d0bd918ad8a3cebe5f605dea3ab",
+  "refreshed_research_artifact_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/a1c1bcc404d197ab/replay_record.json",
+  "refreshed_research_artifact_status": "OPEN",
+  "repair_id": "R017-RESEARCH-ARTIFACT-REPAIR-417998f4da3d1d24",
+  "repair_strategy": "Run replay only after scoring evidence passes; otherwise create the exact replay executor work order.",
+  "required_capability": "Research/ScoringExecutor",
+  "root_cause_class": "REPLAY_NOT_EXECUTED",
+  "schema_id": "OC133_MODERN_SCIENCE_COMPARATOR_RESEARCH_ARTIFACT_REPAIR_EXECUTION_v1",
+  "status": "EVIDENCE_REPAIR_ATTEMPTED_REMAINS_OPEN",
+  "validator_binding": "comparator_gap::MS-COV-GAP-ENGINEERING_MATERIALS_SCIENCES-CONTROL_SYSTEMS_AND_SIGNAL_MEASUREMENT::research_artifact_repair::replay_record",
+  "why_it_failed": "Concrete repair commands ran, but the refreshed research artifact still remains OPEN under its source-bound predicate."
+}

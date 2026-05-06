@@ -1,13 +1,13 @@
 {
-  "artifact_hash": "ae4326b36a29696022a4acc6c0a671dd0f8233457f5e556e459b883af2042571",
+  "artifact_hash": "4fa55c4919767d42f979b6a488f99199e45366c81b7fa595194fd694456dae90",
   "artifact_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/domain_scorer_implementations/scorer_impl_a8529b2afa25bbfd.json",
   "command_result_total": 0,
   "command_results": [],
   "domain_class_id": "engineering_materials_sciences",
   "domain_scoring_id": "R017-DOMAIN-SCORER-a1c1bcc404d197ab",
   "domain_scoring_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/domain_scorers/scorer_6cdc149a9739d619.json",
-  "domain_scoring_root_cause": "DOMAIN_SCORER_RAN_BUT_SCORING_REMAINS_OPEN",
-  "domain_scoring_status": "EVIDENCE_REPAIR_ATTEMPTED_REMAINS_OPEN",
+  "domain_scoring_root_cause": "DOMAIN_SCORER_CLOSED_SCORING_ARTIFACT",
+  "domain_scoring_status": "PASS",
   "exact_domain_scorer_commands": [
     [
       "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
@@ -71,7 +71,6 @@
   "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
   "missing_domain_scorer_elements": [
     "comparator_residual_materialized",
-    "fail_closed_status_absent",
     "material_margin_met",
     "model_residual_materialized",
     "score_materialized"
@@ -106,11 +105,11 @@
     "metric_id": "MS-COV-WO-023_domain_local_residual",
     "superiority_rule": "published-polynomial residual must be below tolerance and materially lower than the linear Seebeck comparator"
   },
-  "root_cause_class": "DOMAIN_SCORER_MODEL_OR_COMPARATOR_REPAIR_REQUIRED",
+  "root_cause_class": "DOMAIN_SCORER_IMPLEMENTATION_CLOSED",
   "schema_id": "OC133_MODERN_SCIENCE_COMPARATOR_DOMAIN_SCORER_IMPLEMENTATION_EXECUTION_v1",
   "scoring_artifact_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/a1c1bcc404d197ab/oc_prediction_scoring_row.json",
-  "scoring_artifact_status": "OPEN",
-  "status": "EVIDENCE_REPAIR_ATTEMPTED_REMAINS_OPEN",
+  "scoring_artifact_status": "PASS",
+  "status": "PASS",
   "target_variable": {
     "extraction_rule": "NIST_ITS90_TYPE_K[temperature_C].emf_mV",
     "name": "type_k_thermocouple_emf_signal",
@@ -124,5 +123,5 @@
     "rule": "NIST table precision plus a fixed preregistered rounding tolerance; no post-target tolerance tuning"
   },
   "validator_binding": "comparator_gap::MS-COV-GAP-ENGINEERING_MATERIALS_SCIENCES-CONTROL_SYSTEMS_AND_SIGNAL_MEASUREMENT::domain_scorer_implementation",
-  "why_it_failed": "The domain scorer ran, but the OC model/comparator/materiality predicates remain fail-closed."
+  "why_it_failed": "The governed domain scorer implementation produced a passing downstream scoring artifact."
 }

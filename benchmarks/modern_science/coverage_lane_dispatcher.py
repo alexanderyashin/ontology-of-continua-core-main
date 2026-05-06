@@ -81,6 +81,10 @@ DOMAIN_LOCAL_MATERIALIZED_EVIDENCE_REFS = {
         "physical_sciences",
         "dynamical_laws_and_conservation",
     ): "validation/heldout/grand_science/physics_chemistry/dynamics_jpl_horizons/OC133_PHYSICS_JPL_HORIZONS_DYNAMICS_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
+    (
+        "engineering_materials_sciences",
+        "control_systems_and_signal_measurement",
+    ): "validation/heldout/grand_science/engineering/type_k_thermocouple/OC133_NIST_ITS90_TYPE_K_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
 }
 
 OFFICIAL_SOURCE_DEFAULTS = {

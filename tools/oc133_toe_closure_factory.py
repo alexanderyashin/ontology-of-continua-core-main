@@ -2051,6 +2051,10 @@ PHYSICS_JPL_HORIZONS_DYNAMICS_MATERIALIZER = (
     "validation/heldout/grand_science/physics_chemistry/dynamics_jpl_horizons/"
     "oc133_physics_jpl_horizons_dynamics_materializer.py"
 )
+ENGINEERING_TYPE_K_THERMOCOUPLE_MATERIALIZER = (
+    "validation/heldout/grand_science/engineering/coverage_work_orders/"
+    "oc133_engineering_type_k_thermocouple_materializer.py"
+)
 
 COMPARATOR_DOMAIN_IMPLEMENTED_COMMANDS = {
     (
@@ -2434,6 +2438,37 @@ COMPARATOR_DOMAIN_IMPLEMENTED_COMMANDS[
 ] = [
     [sys.executable, PHYSICS_JPL_HORIZONS_DYNAMICS_MATERIALIZER, "--acquire", "--write-acquisition"],
     [sys.executable, PHYSICS_JPL_HORIZONS_DYNAMICS_MATERIALIZER, "--check"],
+]
+
+for _type_k_subartifact in (
+    "target_hidden_task_table",
+    "oc_formula_or_model",
+    "incumbent_comparator_scoring",
+    "residuals_materiality_uncertainty",
+    "controls_and_falsifiers",
+    "independent_replay",
+    "strict_evidence_pack_diagnosis",
+    "model_or_claim_repair_decision",
+):
+    COMPARATOR_DOMAIN_IMPLEMENTED_COMMANDS[
+        (
+            "engineering_materials_sciences",
+            "control_systems_and_signal_measurement",
+            _type_k_subartifact,
+        )
+    ] = [
+        [sys.executable, ENGINEERING_TYPE_K_THERMOCOUPLE_MATERIALIZER, "--score", "--write-scoring"],
+        [sys.executable, ENGINEERING_TYPE_K_THERMOCOUPLE_MATERIALIZER, "--check"],
+    ]
+COMPARATOR_DOMAIN_IMPLEMENTED_COMMANDS[
+    (
+        "engineering_materials_sciences",
+        "control_systems_and_signal_measurement",
+        "source_snapshot_acquisition",
+    )
+] = [
+    [sys.executable, ENGINEERING_TYPE_K_THERMOCOUPLE_MATERIALIZER, "--acquire", "--write-acquisition"],
+    [sys.executable, ENGINEERING_TYPE_K_THERMOCOUPLE_MATERIALIZER, "--check"],
 ]
 
 
@@ -3101,6 +3136,10 @@ COMPARATOR_DOMAIN_MATERIALIZED_EVIDENCE_REFS = {
         "physical_sciences",
         "dynamical_laws_and_conservation",
     ): "validation/heldout/grand_science/physics_chemistry/dynamics_jpl_horizons/OC133_PHYSICS_JPL_HORIZONS_DYNAMICS_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
+    (
+        "engineering_materials_sciences",
+        "control_systems_and_signal_measurement",
+    ): "validation/heldout/grand_science/engineering/type_k_thermocouple/OC133_NIST_ITS90_TYPE_K_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
 }
 
 
@@ -5447,8 +5486,15 @@ def build_comparator_domain_model_component_execution(root: Path, component_work
                 "generated_at": generated_at,
                 "component_work_order_id": component_work_order_id,
                 "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+                "gap_id": "UNKNOWN_BACKLOG_ROW_MISSING",
+                "component_id": "UNKNOWN_BACKLOG_ROW_MISSING",
                 "status": "FAIL_CLOSED",
                 "root_cause_class": "DOMAIN_MODEL_COMPONENT_BACKLOG_ROW_MISSING",
+                "implementation_blueprint": {
+                    "component_id": "UNKNOWN_BACKLOG_ROW_MISSING",
+                    "required_code_surface": "current domain-model component backlog generation",
+                    "required_output": "a live component backlog row with gap id, component id, validator binding, and downstream evidence predicate",
+                },
                 "why_it_failed": "No component backlog row exists for this id.",
                 "repair_strategy": "Recompile component backlog from current domain-model repair reports.",
                 "required_capability": "Research/DomainModelComparatorRepair",

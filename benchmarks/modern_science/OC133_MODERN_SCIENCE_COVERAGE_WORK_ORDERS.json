@@ -5269,8 +5269,8 @@
           "lane_role": "official_data_source",
           "requirement": "Acquire and hash NIST SRD 60 ITS-90 Type K thermocouple reference functions and coefficients from https://srdata.nist.gov/its90/type_k/kcoefficients.html.",
           "source_id": "engineering_nist_its90_type_k_thermocouple_v1",
-          "required_local_snapshot_ref": "validation/heldout/grand_science/engineering/coverage_work_orders/raw/nist_its90_type_k_coefficients.html",
-          "required_lock_ref": null
+          "required_local_snapshot_ref": "validation/heldout/grand_science/engineering/type_k_thermocouple/OC133_NIST_ITS90_TYPE_K_COEFFICIENTS_SOURCE.json",
+          "required_lock_ref": "validation/heldout/grand_science/engineering/type_k_thermocouple/OC133_NIST_ITS90_TYPE_K_COEFFICIENTS_SOURCE.lock.json"
         },
         {
           "lane_role": "target_variable",
@@ -5326,8 +5326,7 @@
         "executable lane spec declares exact official source, target variable, formula/model, comparator, uncertainty, residual metric, negative control, and falsifier",
         "source snapshot and target projection are locked before scoring",
         "strict evidence pack exists and validates under independent replay",
-        "coverage remains open until every closure predicate is reviewed",
-        "fail-closed evidence gate: executable evidence is not yet bound"
+        "coverage remains open until every closure predicate is reviewed"
       ],
       "acceptance_predicates": [
         "STRICT_PACK_SCHEMA_PASS",
@@ -5374,8 +5373,8 @@
           "source_authority": "National Institute of Standards and Technology",
           "official_documentation_url": "https://www.nist.gov/publications/nist-60-nist-its-90-thermocouple-database",
           "official_endpoint_url": "https://srdata.nist.gov/its90/type_k/kcoefficients.html",
-          "required_local_snapshot_ref": "validation/heldout/grand_science/engineering/coverage_work_orders/raw/nist_its90_type_k_coefficients.html",
-          "required_lock_ref": null,
+          "required_local_snapshot_ref": "validation/heldout/grand_science/engineering/type_k_thermocouple/OC133_NIST_ITS90_TYPE_K_COEFFICIENTS_SOURCE.json",
+          "required_lock_ref": "validation/heldout/grand_science/engineering/type_k_thermocouple/OC133_NIST_ITS90_TYPE_K_COEFFICIENTS_SOURCE.lock.json",
           "minimum_rows_required": 20,
           "snapshot_status": "ACQUIRED_OR_BOUND"
         },
@@ -5428,12 +5427,14 @@
           "replay_command": "acquire the NIST SRD 60 Type K endpoint listed in this spec and hash response bytes && python validation/heldout/grand_science/engineering/coverage_work_orders/oc133_engineering_modern_science_coverage_work_orders.py --check"
         },
         "current_evidence": {
-          "executable_evidence_exists": false,
-          "executable_evidence_ref": null,
-          "status": null,
-          "implemented_snapshot_ref": null,
-          "implemented_lock_ref": null,
-          "reason": "NIST SRD 60 source snapshot, target-hidden scorer, negative-control replay, and strict evidence pack are not yet bound."
+          "executable_evidence_exists": true,
+          "executable_evidence_ref": "validation/heldout/grand_science/engineering/type_k_thermocouple/OC133_NIST_ITS90_TYPE_K_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
+          "status": "STRICT_EVIDENCE_PASS_NO_COVERAGE_CLOSURE",
+          "implemented_snapshot_ref": "validation/heldout/grand_science/engineering/type_k_thermocouple/OC133_NIST_ITS90_TYPE_K_COEFFICIENTS_SOURCE.json",
+          "implemented_lock_ref": "validation/heldout/grand_science/engineering/type_k_thermocouple/OC133_NIST_ITS90_TYPE_K_COEFFICIENTS_SOURCE.lock.json",
+          "reason": "Source-bound target-hidden scoring evidence is materialized and hash-bound; broad modern-science coverage still remains fail-closed until every required gap passes.",
+          "implemented_scoring_pack_ref": "validation/heldout/grand_science/engineering/type_k_thermocouple/OC133_NIST_ITS90_TYPE_K_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
+          "strict_evidence_pack_ref": "validation/heldout/grand_science/engineering/type_k_thermocouple/OC133_NIST_ITS90_TYPE_K_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json"
         },
         "closure_predicates_required": [
           "STRICT_PACK_SCHEMA_PASS",

@@ -1,8 +1,8 @@
 {
-  "artifact_hash": "15297f984518e35150074f000d529b1460009523989d2ca647f81dda07397e92",
+  "artifact_hash": "9b5b21cb55a2498c1c8808357924c77a612394f01845a369f7e73b8b30a36002",
   "capability_development_total": 158,
-  "generated_at": "2026-05-06T16:59:05Z",
-  "open_capability_development_total": 126,
+  "generated_at": "2026-05-06T17:33:57Z",
+  "open_capability_development_total": 125,
   "rows": [
     {
       "capability_class": "upstream_source_materializer_missing",
@@ -164,10 +164,10 @@
       "work_order_type": "SOURCE_BOUND_SCORER_MATERIALIZER_IMPLEMENTATION"
     },
     {
-      "capability_class": "upstream_source_materializer_missing",
+      "capability_class": "upstream_capability_work_order",
       "capability_development_id": "R017-UPSTREAM-d3e9ab0c43f8ca00",
       "capability_development_key": "4b5b7557f64c36e32232836fbf3a67eb9537746e09436a2bf02e40161e779575",
-      "capability_executor_ready": false,
+      "capability_executor_ready": true,
       "capability_id": "R017-CAPDEV-4b5b7557f64c",
       "compiled_capability_id": "R017-CAPDEV-4b5b7557f64c",
       "compiled_capability_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/OC133_TOE_CAPABILITY_IMPLEMENTATION_REGISTRY.json",
@@ -180,7 +180,13 @@
         "--write"
       ],
       "gap_id": "MS-COV-GAP-ENGINEERING_MATERIALS_SCIENCES-CONTROL_SYSTEMS_AND_SIGNAL_MEASUREMENT",
-      "implementation_command": [],
+      "implementation_command": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "tools/oc133_toe_closure_factory.py",
+        "--execute-upstream-capability-work-order",
+        "R017-UPSTREAM-d3e9ab0c43f8ca00",
+        "--write"
+      ],
       "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
       "missing_artifact_type": "upstream_work_order::SOURCE_BOUND_SCORER_MATERIALIZER_IMPLEMENTATION",
       "next_escalation": "If this compiled capability produces zero validator delta, generate a lower-level upstream research obligation for the exact missing source/evidence object.",
@@ -429,10 +435,10 @@
       "work_order_type": "SOURCE_BOUND_SCORER_MATERIALIZER_IMPLEMENTATION"
     },
     {
-      "capability_class": "upstream_source_materializer_missing",
+      "capability_class": "upstream_capability_work_order",
       "capability_development_id": "R017-UPSTREAM-7d4b9a5a2e38ae17",
       "capability_development_key": "ea75975da12fea98370fbbbfd90b1feef4f77644d6a3cfa9da8ae38fa942894a",
-      "capability_executor_ready": false,
+      "capability_executor_ready": true,
       "capability_id": "R017-CAPDEV-ea75975da12f",
       "compiled_capability_id": "R017-CAPDEV-ea75975da12f",
       "compiled_capability_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/OC133_TOE_CAPABILITY_IMPLEMENTATION_REGISTRY.json",
@@ -445,7 +451,13 @@
         "--write"
       ],
       "gap_id": "MS-COV-GAP-ENGINEERING_MATERIALS_SCIENCES-CONTROL_SYSTEMS_AND_SIGNAL_MEASUREMENT",
-      "implementation_command": [],
+      "implementation_command": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "tools/oc133_toe_closure_factory.py",
+        "--execute-upstream-capability-work-order",
+        "R017-UPSTREAM-7d4b9a5a2e38ae17",
+        "--write"
+      ],
       "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
       "missing_artifact_type": "upstream_work_order::SOURCE_BOUND_SCORER_MATERIALIZER_IMPLEMENTATION",
       "next_escalation": "If this compiled capability produces zero validator delta, generate a lower-level upstream research obligation for the exact missing source/evidence object.",
@@ -4309,7 +4321,7 @@
       "why_it_failed": "The evidence pack is explicitly fail-closed; broad superiority cannot use it."
     },
     {
-      "capability_class": "comparator_component_materialization_capability_gap",
+      "capability_class": "comparator_scoring_work_order",
       "capability_development_id": "AUTO-R017-CAPABILITY-DEVELOPMENT-0021-315b82b7",
       "capability_development_key": "15c712800966b715f470cdd9f8320e2529b4c5f02cb2307fff80c40f456586b8",
       "capability_escalation_id": "AUTO-R017-CAPABILITY-ESCALATION-0021",
@@ -4317,13 +4329,7 @@
       "capability_id": "R017-CAPDEV-15c712800966",
       "compiled_capability_id": "R017-CAPDEV-15c712800966",
       "compiled_capability_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/OC133_TOE_CAPABILITY_IMPLEMENTATION_REGISTRY.json",
-      "execution_command": [
-        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
-        "tools/oc133_toe_closure_factory.py",
-        "--execute-capability-development",
-        "R017-CAPDEV-15c712800966",
-        "--write"
-      ],
+      "execution_command": [],
       "executor_type": "comparator_research_artifact_repair",
       "frontier_repeated": true,
       "gap_id": "MS-COV-GAP-ENGINEERING_MATERIALS_SCIENCES-CONTROL_SYSTEMS_AND_SIGNAL_MEASUREMENT",
@@ -4335,7 +4341,7 @@
       "implementation_gap_class": "ZERO_DELTA_GRAPH_DEPENDENCY",
       "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
       "missing_artifact_type": "oc_prediction_scoring_row",
-      "next_escalation": "Research artifact exists but is OPEN; execute its repair row or implement the missing scorer/replay capability. Do not mark this dependency PASS until the artifact itself passes.",
+      "next_escalation": "Comparator research artifact now exists and passes at this scope; advance to the next missing artifact.",
       "pass_predicate": "The repaired OC scoring research artifact status becomes PASS and the comparator gap no longer lists oc_prediction_scoring_row as missing.",
       "repair_strategy": "Diagnose whether the model, comparator, target split, or claim scope must be repaired without flipping the verdict manually.",
       "required_capability": "Research/ScoringExecutor",
@@ -4347,7 +4353,9 @@
       "source_action_id": "AUTO-R017-COMPARATOR-GAP-920b91e8f791",
       "source_graph_node_id": "required_artifact:MODERN_SCIENCE_COMPARATOR_SUPERIORITY:MS-COV-GAP-ENGINEERING_MATERIALS_SCIENCES-CONTROL_SYSTEMS_AND_SIGNAL_MEASUREMENT:oc_prediction_scoring_row",
       "source_graph_node_type": "required_artifact",
-      "status": "OPEN",
+      "status": "PASS",
+      "superseded_by_absent_source_action": true,
+      "superseded_by_research_artifact": true,
       "validator_binding": "support_artifact::MODERN_SCIENCE_COMPARATOR_SUPERIORITY::oc_prediction_scoring_row",
       "why_it_failed": "The evidence pack is explicitly fail-closed; broad superiority cannot use it."
     },
@@ -5637,11 +5645,11 @@
       "why_it_failed": "Replay is correctly blocked because the upstream scoring evidence is not passing."
     },
     {
-      "capability_class": "comparator_component_materialization_capability_gap",
+      "capability_class": "comparator_research_artifact_repair",
       "capability_development_id": "AUTO-R017-CAPABILITY-DEVELOPMENT-0052-70953577",
       "capability_development_key": "0b24eb667b71ac92ac5e0083f01289fbad7f2fb3c3920bdfd7b98d68a48d4cf5",
       "capability_escalation_id": "AUTO-R017-CAPABILITY-ESCALATION-0052",
-      "capability_executor_ready": false,
+      "capability_executor_ready": true,
       "capability_id": "R017-CAPDEV-0b24eb667b71",
       "compiled_capability_id": "R017-CAPDEV-0b24eb667b71",
       "compiled_capability_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/OC133_TOE_CAPABILITY_IMPLEMENTATION_REGISTRY.json",
@@ -5659,17 +5667,23 @@
         "required_artifact:MODERN_SCIENCE_COMPARATOR_SUPERIORITY:MS-COV-GAP-ENGINEERING_MATERIALS_SCIENCES-CONTROL_SYSTEMS_AND_SIGNAL_MEASUREMENT:replay_record",
         "capability:AUTO-R017-COMPARATOR-GAP-ae558a449e2e"
       ],
-      "implementation_command": [],
+      "implementation_command": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "tools/oc133_toe_closure_factory.py",
+        "--execute-comparator-research-artifact-repair",
+        "R017-RESEARCH-ARTIFACT-REPAIR-417998f4da3d1d24",
+        "--write"
+      ],
       "implementation_gap_class": "ZERO_DELTA_GRAPH_DEPENDENCY",
       "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
       "missing_artifact_type": "replay_record",
       "next_escalation": "Research artifact exists but is OPEN; execute its repair row or implement the missing scorer/replay capability. Do not mark this dependency PASS until the artifact itself passes.",
       "pass_predicate": "The repaired `replay_record` research artifact status becomes PASS and the comparator gap no longer lists it as missing.",
-      "repair_strategy": "Close the OC scoring row first, then rerun replay.",
+      "repair_strategy": "Run replay only after scoring evidence passes; otherwise create the exact replay executor work order.",
       "required_capability": "Research/ScoringExecutor",
       "research_artifact_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/a1c1bcc404d197ab/replay_record.json",
-      "research_artifact_repair_id": "R017-RESEARCH-ARTIFACT-REPAIR-9ec0464204868d63",
-      "research_artifact_root_cause_class": "REPLAY_BLOCKED_BY_SCORING_ARTIFACT",
+      "research_artifact_repair_id": "R017-RESEARCH-ARTIFACT-REPAIR-417998f4da3d1d24",
+      "research_artifact_root_cause_class": "REPLAY_NOT_EXECUTED",
       "research_artifact_status": "OPEN",
       "scientific_frontier_hash": "cf7fa90cae7761e24fd499a438781aaf7ffc6da730dc3657f8d31d0ba649dc95",
       "source_action_id": "AUTO-R017-COMPARATOR-GAP-ae558a449e2e",
@@ -5677,7 +5691,7 @@
       "source_graph_node_type": "required_artifact",
       "status": "OPEN",
       "validator_binding": "support_artifact::MODERN_SCIENCE_COMPARATOR_SUPERIORITY::replay_record",
-      "why_it_failed": "Replay is correctly blocked because the upstream scoring evidence is not passing."
+      "why_it_failed": "Replay commands exist but have not executed because upstream scoring evidence remains blocked or the command is unavailable."
     },
     {
       "capability_class": "comparator_component_materialization_capability_gap",

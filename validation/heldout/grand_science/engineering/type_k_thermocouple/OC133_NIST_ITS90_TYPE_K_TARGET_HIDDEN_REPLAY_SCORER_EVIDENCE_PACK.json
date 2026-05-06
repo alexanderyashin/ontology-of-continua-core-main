@@ -1,0 +1,275 @@
+{
+  "schema_id": "OC133_ENGINEERING_TYPE_K_SCORING_PACK_v1",
+  "pack_status": "STRICT_EVIDENCE_PASS_NO_COVERAGE_CLOSURE",
+  "status": "STRICT_EVIDENCE_PASS_NO_COVERAGE_CLOSURE",
+  "source_bound": true,
+  "target_hidden": true,
+  "score_materialized": true,
+  "scientific_pass": true,
+  "coverage_closure_allowed": false,
+  "support_allowed_for_broad_coverage": false,
+  "source_snapshot_ref": "validation/heldout/grand_science/engineering/type_k_thermocouple/OC133_NIST_ITS90_TYPE_K_COEFFICIENTS_SOURCE.json",
+  "source_snapshot_sha256": "6b137c39f409bc2a38c927c4b1153e32441df6f354ce61015eab6acf1ae189c8",
+  "source_lock_ref": "validation/heldout/grand_science/engineering/type_k_thermocouple/OC133_NIST_ITS90_TYPE_K_COEFFICIENTS_SOURCE.lock.json",
+  "visible_task_table_ref": "validation/heldout/grand_science/engineering/type_k_thermocouple/OC133_NIST_ITS90_TYPE_K_TARGET_HIDDEN_TASK_TABLE.json",
+  "hidden_target_lock_ref": "validation/heldout/grand_science/engineering/type_k_thermocouple/OC133-NIST-ITS90-TYPE-K-HIDDEN-TARGETS-0001.lock.json",
+  "row_count": 26,
+  "model": "ENG-TYPE-K-ITS90-PUBLISHED-POLYNOMIAL-v1",
+  "comparator": "ENG-TYPE-K-ENDPOINT-LINEAR-BASELINE-v1",
+  "residuals": {
+    "model": 2.6e-11,
+    "comparator": 0.090979158388,
+    "material_margin_met": true,
+    "material_margin_rule": "ITS-90 Type K replay must be exact to numerical precision and beat endpoint-linear interpolation by at least 0.05 mV."
+  },
+  "negative_control": {
+    "control_id": "ENG-TYPE-K-ENDPOINT-LINEAR-NEGATIVE-CONTROL",
+    "negative_control_rejected": true
+  },
+  "falsifier": {
+    "falsifier_id": "NIST-ITS90-SIGNAL-MEASUREMENT-FAIL-CLOSED-FALSIFIER",
+    "trigger": "source hash changes, fewer than 20 temperatures score, hidden EMF leaks before scoring, or polynomial replay fails to beat endpoint-linear comparator."
+  },
+  "scored_rows": [
+    {
+      "task_id": "ENG-TYPE-K-HOLDOUT-0001",
+      "temperature_c": 0.0,
+      "model_prediction_mv": 2e-09,
+      "comparator_prediction_mv": 2e-09,
+      "target_mv_opened_after_scoring": 2e-09,
+      "model_abs_error_mv": 2.6e-11,
+      "comparator_abs_error_mv": 2.6e-11
+    },
+    {
+      "task_id": "ENG-TYPE-K-HOLDOUT-0002",
+      "temperature_c": 20.0,
+      "model_prediction_mv": 0.7981196991,
+      "comparator_prediction_mv": 0.8257714575,
+      "target_mv_opened_after_scoring": 0.7981196991,
+      "model_abs_error_mv": 3.8e-11,
+      "comparator_abs_error_mv": 0.027651758397
+    },
+    {
+      "task_id": "ENG-TYPE-K-HOLDOUT-0003",
+      "temperature_c": 40.0,
+      "model_prediction_mv": 1.6117918495,
+      "comparator_prediction_mv": 1.651542913,
+      "target_mv_opened_after_scoring": 1.6117918495,
+      "model_abs_error_mv": 1.8e-11,
+      "comparator_abs_error_mv": 0.03975106352
+    },
+    {
+      "task_id": "ENG-TYPE-K-HOLDOUT-0004",
+      "temperature_c": 60.0,
+      "model_prediction_mv": 2.4364716269,
+      "comparator_prediction_mv": 2.4773143685,
+      "target_mv_opened_after_scoring": 2.4364716269,
+      "model_abs_error_mv": 1e-12,
+      "comparator_abs_error_mv": 0.040842741642
+    },
+    {
+      "task_id": "ENG-TYPE-K-HOLDOUT-0005",
+      "temperature_c": 80.0,
+      "model_prediction_mv": 3.2666419126,
+      "comparator_prediction_mv": 3.3030858241,
+      "target_mv_opened_after_scoring": 3.2666419126,
+      "model_abs_error_mv": 3.9e-11,
+      "comparator_abs_error_mv": 0.036443911465
+    },
+    {
+      "task_id": "ENG-TYPE-K-HOLDOUT-0006",
+      "temperature_c": 100.0,
+      "model_prediction_mv": 4.0962302187,
+      "comparator_prediction_mv": 4.1288572796,
+      "target_mv_opened_after_scoring": 4.0962302187,
+      "model_abs_error_mv": 2.3e-11,
+      "comparator_abs_error_mv": 0.032627060888
+    },
+    {
+      "task_id": "ENG-TYPE-K-HOLDOUT-0007",
+      "temperature_c": 120.0,
+      "model_prediction_mv": 4.9198821743,
+      "comparator_prediction_mv": 4.9546287351,
+      "target_mv_opened_after_scoring": 4.9198821743,
+      "model_abs_error_mv": 2.1e-11,
+      "comparator_abs_error_mv": 0.034746560811
+    },
+    {
+      "task_id": "ENG-TYPE-K-HOLDOUT-0008",
+      "temperature_c": 140.0,
+      "model_prediction_mv": 5.734508099,
+      "comparator_prediction_mv": 5.7804001906,
+      "target_mv_opened_after_scoring": 5.734508099,
+      "model_abs_error_mv": 3.4e-11,
+      "comparator_abs_error_mv": 0.045892091634
+    },
+    {
+      "task_id": "ENG-TYPE-K-HOLDOUT-0009",
+      "temperature_c": 160.0,
+      "model_prediction_mv": 6.5402155335,
+      "comparator_prediction_mv": 6.6061716462,
+      "target_mv_opened_after_scoring": 6.5402155335,
+      "model_abs_error_mv": 1.7e-11,
+      "comparator_abs_error_mv": 0.065956112656
+    },
+    {
+      "task_id": "ENG-TYPE-K-HOLDOUT-0010",
+      "temperature_c": 180.0,
+      "model_prediction_mv": 7.3400231912,
+      "comparator_prediction_mv": 7.4319431017,
+      "target_mv_opened_after_scoring": 7.3400231912,
+      "model_abs_error_mv": 2.9e-11,
+      "comparator_abs_error_mv": 0.091919910479
+    },
+    {
+      "task_id": "ENG-TYPE-K-HOLDOUT-0011",
+      "temperature_c": 200.0,
+      "model_prediction_mv": 8.1384733265,
+      "comparator_prediction_mv": 8.2577145572,
+      "target_mv_opened_after_scoring": 8.1384733265,
+      "model_abs_error_mv": 1.3e-11,
+      "comparator_abs_error_mv": 0.119241230702
+    },
+    {
+      "task_id": "ENG-TYPE-K-HOLDOUT-0012",
+      "temperature_c": 220.0,
+      "model_prediction_mv": 8.9398930806,
+      "comparator_prediction_mv": 9.0834860127,
+      "target_mv_opened_after_scoring": 8.9398930806,
+      "model_abs_error_mv": 4.8e-11,
+      "comparator_abs_error_mv": 0.143592932125
+    },
+    {
+      "task_id": "ENG-TYPE-K-HOLDOUT-0013",
+      "temperature_c": 240.0,
+      "model_prediction_mv": 9.747151643,
+      "comparator_prediction_mv": 9.9092574682,
+      "target_mv_opened_after_scoring": 9.747151643,
+      "model_abs_error_mv": 1.7e-11,
+      "comparator_abs_error_mv": 0.162105825247
+    },
+    {
+      "task_id": "ENG-TYPE-K-HOLDOUT-0014",
+      "temperature_c": 260.0,
+      "model_prediction_mv": 10.5613258138,
+      "comparator_prediction_mv": 10.7350289238,
+      "target_mv_opened_after_scoring": 10.5613258138,
+      "model_abs_error_mv": 3.6e-11,
+      "comparator_abs_error_mv": 0.17370310997
+    },
+    {
+      "task_id": "ENG-TYPE-K-HOLDOUT-0015",
+      "temperature_c": 280.0,
+      "model_prediction_mv": 11.3821182136,
+      "comparator_prediction_mv": 11.5608003793,
+      "target_mv_opened_after_scoring": 11.3821182136,
+      "model_abs_error_mv": 3.8e-11,
+      "comparator_abs_error_mv": 0.178682165693
+    },
+    {
+      "task_id": "ENG-TYPE-K-HOLDOUT-0016",
+      "temperature_c": 300.0,
+      "model_prediction_mv": 12.20856553,
+      "comparator_prediction_mv": 12.3865718348,
+      "target_mv_opened_after_scoring": 12.20856553,
+      "model_abs_error_mv": 3e-12,
+      "comparator_abs_error_mv": 0.178006304816
+    },
+    {
+      "task_id": "ENG-TYPE-K-HOLDOUT-0017",
+      "temperature_c": 320.0,
+      "model_prediction_mv": 13.0396266568,
+      "comparator_prediction_mv": 13.2123432903,
+      "target_mv_opened_after_scoring": 13.0396266568,
+      "model_abs_error_mv": 3.8e-11,
+      "comparator_abs_error_mv": 0.172716633539
+    },
+    {
+      "task_id": "ENG-TYPE-K-HOLDOUT-0018",
+      "temperature_c": 340.0,
+      "model_prediction_mv": 13.8744808396,
+      "comparator_prediction_mv": 14.0381147459,
+      "target_mv_opened_after_scoring": 13.8744808396,
+      "model_abs_error_mv": 3.7e-11,
+      "comparator_abs_error_mv": 0.163633906261
+    },
+    {
+      "task_id": "ENG-TYPE-K-HOLDOUT-0019",
+      "temperature_c": 360.0,
+      "model_prediction_mv": 14.712576447,
+      "comparator_prediction_mv": 14.8638862014,
+      "target_mv_opened_after_scoring": 14.712576447,
+      "model_abs_error_mv": 1.5e-11,
+      "comparator_abs_error_mv": 0.151309754384
+    },
+    {
+      "task_id": "ENG-TYPE-K-HOLDOUT-0020",
+      "temperature_c": 380.0,
+      "model_prediction_mv": 15.5535533329,
+      "comparator_prediction_mv": 15.6896576569,
+      "target_mv_opened_after_scoring": 15.5535533329,
+      "model_abs_error_mv": 1.2e-11,
+      "comparator_abs_error_mv": 0.136104324007
+    },
+    {
+      "task_id": "ENG-TYPE-K-HOLDOUT-0021",
+      "temperature_c": 400.0,
+      "model_prediction_mv": 16.3971418503,
+      "comparator_prediction_mv": 16.5154291124,
+      "target_mv_opened_after_scoring": 16.3971418503,
+      "model_abs_error_mv": 2.4e-11,
+      "comparator_abs_error_mv": 0.11828726213
+    },
+    {
+      "task_id": "ENG-TYPE-K-HOLDOUT-0022",
+      "temperature_c": 420.0,
+      "model_prediction_mv": 17.2430879906,
+      "comparator_prediction_mv": 17.341200568,
+      "target_mv_opened_after_scoring": 17.2430879906,
+      "model_abs_error_mv": 2.1e-11,
+      "comparator_abs_error_mv": 0.098112577352
+    },
+    {
+      "task_id": "ENG-TYPE-K-HOLDOUT-0023",
+      "temperature_c": 440.0,
+      "model_prediction_mv": 18.0911130909,
+      "comparator_prediction_mv": 18.1669720235,
+      "target_mv_opened_after_scoring": 18.0911130909,
+      "model_abs_error_mv": 2.7e-11,
+      "comparator_abs_error_mv": 0.075858932575
+    },
+    {
+      "task_id": "ENG-TYPE-K-HOLDOUT-0024",
+      "temperature_c": 460.0,
+      "model_prediction_mv": 18.9408989896,
+      "comparator_prediction_mv": 18.992743479,
+      "target_mv_opened_after_scoring": 18.9408989896,
+      "model_abs_error_mv": 3.3e-11,
+      "comparator_abs_error_mv": 0.051844489398
+    },
+    {
+      "task_id": "ENG-TYPE-K-HOLDOUT-0025",
+      "temperature_c": 480.0,
+      "model_prediction_mv": 19.7920874762,
+      "comparator_prediction_mv": 19.8185149345,
+      "target_mv_opened_after_scoring": 19.7920874762,
+      "model_abs_error_mv": 3e-11,
+      "comparator_abs_error_mv": 0.026427458321
+    },
+    {
+      "task_id": "ENG-TYPE-K-HOLDOUT-0026",
+      "temperature_c": 500.0,
+      "model_prediction_mv": 20.64428639,
+      "comparator_prediction_mv": 20.64428639,
+      "target_mv_opened_after_scoring": 20.64428639,
+      "model_abs_error_mv": 4.4e-11,
+      "comparator_abs_error_mv": 4.4e-11
+    }
+  ],
+  "replay_command": {
+    "commands": [
+      "python validation/heldout/grand_science/engineering/coverage_work_orders/oc133_engineering_type_k_thermocouple_materializer.py --check"
+    ]
+  },
+  "fail_closed_reason": ""
+}

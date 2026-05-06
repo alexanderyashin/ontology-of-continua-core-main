@@ -1,10 +1,24 @@
 {
   "after_validator_error_total": 13,
-  "artifact_hash": "03981a2e53ebf424c5975424d0798369b657d028ae844dade87a49719fb4ce7c",
+  "artifact_hash": "4eef26af10e3e0f49917be5b81859a69bc5ee5688d6a5fd45e8cc365ace685e3",
   "before_validator_error_total": 13,
-  "capability_class": "comparator_component_materialization_capability_gap",
+  "capability_class": "comparator_research_artifact_repair",
+  "capability_development_key": "0b24eb667b71ac92ac5e0083f01289fbad7f2fb3c3920bdfd7b98d68a48d4cf5",
   "capability_id": "R017-CAPDEV-0b24eb667b71",
-  "command_results": [],
+  "command_results": [
+    {
+      "cmd": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "tools/oc133_toe_closure_factory.py",
+        "--execute-comparator-research-artifact-repair",
+        "R017-RESEARCH-ARTIFACT-REPAIR-417998f4da3d1d24",
+        "--write"
+      ],
+      "returncode": 0,
+      "stderr_tail": "",
+      "stdout_tail": "{\n  \"changed\": [],\n  \"missing\": [],\n  \"state\": \"PASS\"\n}\n"
+    }
+  ],
   "compiled_capability_id": "R017-CAPDEV-0b24eb667b71",
   "execution_command": [
     "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
@@ -13,64 +27,24 @@
     "R017-CAPDEV-0b24eb667b71",
     "--write"
   ],
-  "generated_at": "2026-05-06T14:13:37Z",
+  "executor_command": [
+    "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+    "tools/oc133_toe_closure_factory.py",
+    "--execute-comparator-research-artifact-repair",
+    "R017-RESEARCH-ARTIFACT-REPAIR-417998f4da3d1d24",
+    "--write"
+  ],
+  "executor_type": "comparator_research_artifact_repair",
+  "generated_at": "2026-05-06T17:24:56Z",
+  "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
   "next_escalation": "If this compiled capability produces zero validator delta, generate a lower-level upstream research obligation for the exact missing source/evidence object.",
+  "no_fake_closure_policy": "Zero delta remains OPEN and cannot satisfy r017.",
   "pass_predicate": "The repaired `replay_record` research artifact status becomes PASS and the comparator gap no longer lists it as missing.",
-  "registry_row": {
-    "capability_class": "comparator_component_materialization_capability_gap",
-    "capability_development_key": "0b24eb667b71ac92ac5e0083f01289fbad7f2fb3c3920bdfd7b98d68a48d4cf5",
-    "capability_executor_ready": false,
-    "capability_id": "R017-CAPDEV-0b24eb667b71",
-    "compiled_capability_id": "R017-CAPDEV-0b24eb667b71",
-    "execution_command": [
-      "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
-      "tools/oc133_toe_closure_factory.py",
-      "--execute-capability-development",
-      "R017-CAPDEV-0b24eb667b71",
-      "--write"
-    ],
-    "executor_command": [],
-    "executor_type": "comparator_component_materialization_capability_gap",
-    "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
-    "missing_artifact_type": "replay_record",
-    "next_escalation": "If this compiled capability produces zero validator delta, generate a lower-level upstream research obligation for the exact missing source/evidence object.",
-    "output_artifact_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/capability_implementation/R017-CAPDEV-0b24eb667b71.json",
-    "pass_predicate": "The repaired `replay_record` research artifact status becomes PASS and the comparator gap no longer lists it as missing.",
-    "repair_strategy": "Source-bound materialization report already exists and names the missing domain scorer/materializer; do not rerun the diagnostic wrapper.",
-    "required_capability": "Research/ScoringExecutor",
-    "scientific_frontier_hash": "cf7fa90cae7761e24fd499a438781aaf7ffc6da730dc3657f8d31d0ba649dc95",
-    "self_test_command": [
-      "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
-      "tools/oc133_toe_closure_factory.py",
-      "--check"
-    ],
-    "source_capability_development_id": "AUTO-R017-CAPABILITY-DEVELOPMENT-0052-70953577",
-    "source_graph_node_id": "required_artifact:MODERN_SCIENCE_COMPARATOR_SUPERIORITY:MS-COV-GAP-ENGINEERING_MATERIALS_SCIENCES-CONTROL_SYSTEMS_AND_SIGNAL_MEASUREMENT:replay_record",
-    "status": "BLOCKED",
-    "validator_binding": "support_artifact::MODERN_SCIENCE_COMPARATOR_SUPERIORITY::replay_record",
-    "why_it_failed": "Replay is correctly blocked because the upstream scoring evidence is not passing."
-  },
-  "repair_strategy": "Source-bound materialization report already exists and names the missing domain scorer/materializer; do not rerun the diagnostic wrapper.",
+  "repair_strategy": "Execute the exact repair row for an existing OPEN comparator research artifact; fail-closed evidence remains fail-closed unless the artifact itself passes.",
   "required_capability": "Research/ScoringExecutor",
   "schema_id": "OC133_TOE_CAPABILITY_DEVELOPMENT_EXECUTION_v1",
-  "status": "BLOCKED",
-  "upstream_work_order": {
-    "capability_class": "comparator_component_materialization_capability_gap",
-    "execution_command": [],
-    "gap_id": "MS-COV-GAP-ENGINEERING_MATERIALS_SCIENCES-CONTROL_SYSTEMS_AND_SIGNAL_MEASUREMENT",
-    "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
-    "missing_artifact_type": "replay_record",
-    "next_escalation": "If this compiled capability produces zero validator delta, generate a lower-level upstream research obligation for the exact missing source/evidence object.",
-    "no_fake_closure_policy": "This upstream work order is not evidence and cannot satisfy r017 without strict validator PASS.",
-    "pass_predicate": "The repaired `replay_record` research artifact status becomes PASS and the comparator gap no longer lists it as missing.",
-    "repair_strategy": "Implement the exact domain scorer/materializer that can produce target-hidden OC residuals, incumbent comparator residuals, uncertainty/falsifier rows, and replay.",
-    "required_capability": "Research/ScoringExecutor",
-    "schema_id": "OC133_TOE_CAPABILITY_UPSTREAM_WORK_ORDER_v1",
-    "source_graph_node_id": "required_artifact:MODERN_SCIENCE_COMPARATOR_SUPERIORITY:MS-COV-GAP-ENGINEERING_MATERIALS_SCIENCES-CONTROL_SYSTEMS_AND_SIGNAL_MEASUREMENT:replay_record",
-    "validator_binding": "support_artifact::MODERN_SCIENCE_COMPARATOR_SUPERIORITY::replay_record",
-    "why_it_failed": "Replay is correctly blocked because the upstream scoring evidence is not passing.",
-    "work_order_type": "SOURCE_BOUND_SCORER_MATERIALIZER_IMPLEMENTATION"
-  },
+  "source_graph_node_id": "required_artifact:MODERN_SCIENCE_COMPARATOR_SUPERIORITY:MS-COV-GAP-ENGINEERING_MATERIALS_SCIENCES-CONTROL_SYSTEMS_AND_SIGNAL_MEASUREMENT:replay_record",
+  "status": "ZERO_DELTA_OPEN",
   "validator_error_delta": 0,
-  "why_it_failed": "Capability exists but has no safe ready executor for the current scientific frontier."
+  "why_it_failed": "Compiled capability executed but did not reduce strict validator errors."
 }
