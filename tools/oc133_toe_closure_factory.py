@@ -2132,6 +2132,46 @@ UCI_TABULAR_CLASSIFIER_MATERIALIZED_LANES = {
         "validation/heldout/grand_science/uci/neuro_eeg_eye_state/"
         "OC133_UCI_NEURO_EEG_EYE_STATE_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
     ),
+    (
+        "complex_systems_operations_science",
+        "resilience_risk_and_intervention_response",
+    ): (
+        "operations_grid_stability",
+        "validation/heldout/grand_science/uci/operations_grid_stability/"
+        "OC133_UCI_OPERATIONS_GRID_STABILITY_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
+    ),
+    (
+        "engineering_materials_sciences",
+        "materials_property_and_failure_prediction",
+    ): (
+        "engineering_steel_plate_faults",
+        "validation/heldout/grand_science/uci/engineering_steel_plate_faults/"
+        "OC133_UCI_ENGINEERING_STEEL_PLATE_FAULTS_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
+    ),
+    (
+        "biological_life_sciences",
+        "cellular_developmental_regulatory_dynamics",
+    ): (
+        "biology_yeast_cellular_localization",
+        "validation/heldout/grand_science/uci/biology_yeast_cellular_localization/"
+        "OC133_UCI_BIOLOGY_YEAST_CELLULAR_LOCALIZATION_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
+    ),
+    (
+        "chemical_sciences",
+        "materials_and_spectroscopy_observables",
+    ): (
+        "chemical_wine_quality",
+        "validation/heldout/grand_science/uci/chemical_wine_quality/"
+        "OC133_UCI_CHEMICAL_WINE_QUALITY_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
+    ),
+    (
+        "physical_sciences",
+        "condensed_matter_fields_and_measurements",
+    ): (
+        "physics_superconductivity_critical_temp",
+        "validation/heldout/grand_science/uci/physics_superconductivity_critical_temp/"
+        "OC133_UCI_PHYSICS_SUPERCONDUCTIVITY_CRITICAL_TEMP_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
+    ),
 }
 WDI_INDICATOR_MATERIALIZER = (
     "validation/heldout/grand_science/wdi/coverage_work_orders/"

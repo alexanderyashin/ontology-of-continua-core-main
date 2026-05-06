@@ -1,0 +1,221 @@
+{
+  "schema_id": "OC133_UCI_TABULAR_CLASSIFIER_SCORING_PACK_v1",
+  "pack_status": "STRICT_EVIDENCE_PASS_NO_COVERAGE_CLOSURE",
+  "status": "STRICT_EVIDENCE_PASS_NO_COVERAGE_CLOSURE",
+  "lane_id": "chemical_wine_quality",
+  "domain_class_id": "chemical_sciences",
+  "phenomenon_class_id": "materials_and_spectroscopy_observables",
+  "source_bound": true,
+  "target_hidden": true,
+  "score_materialized": true,
+  "scientific_pass": true,
+  "coverage_closure_allowed": false,
+  "support_allowed_for_broad_coverage": false,
+  "source_snapshot_ref": "validation/heldout/grand_science/uci/chemical_wine_quality/OC133_UCI_CHEMICAL_WINE_QUALITY_SOURCE.dat",
+  "source_snapshot_sha256": "4a402cf041b025d4566d954c3b9ba8635a3a8a01e039005d97d6a710278cf05e",
+  "source_lock_ref": "validation/heldout/grand_science/uci/chemical_wine_quality/OC133_UCI_CHEMICAL_WINE_QUALITY_SOURCE.lock.json",
+  "visible_task_table_ref": "validation/heldout/grand_science/uci/chemical_wine_quality/OC133_UCI_CHEMICAL_WINE_QUALITY_TARGET_HIDDEN_TASK_TABLE.json",
+  "hidden_target_lock_ref": "validation/heldout/grand_science/uci/chemical_wine_quality/OC133-UCI-CHEMICAL_WINE_QUALITY-HIDDEN-TARGETS-0001.lock.json",
+  "row_count": 320,
+  "model": {
+    "model_id": "UCI-CHEMICAL_WINE_QUALITY-ridge_regression-v1",
+    "model": {
+      "model_type": "ridge_regression",
+      "feature_names": [
+        "fixed acidity",
+        "volatile acidity",
+        "citric acid",
+        "residual sugar",
+        "chlorides",
+        "free sulfur dioxide",
+        "total sulfur dioxide",
+        "density",
+        "pH",
+        "sulphates",
+        "alcohol"
+      ],
+      "intercept": 5.667513577569943,
+      "coefficients": {
+        "fixed acidity": 0.37334353850106583,
+        "volatile acidity": -1.6607635072106528,
+        "citric acid": -0.14681438321181034,
+        "residual sugar": 0.37189565357439835,
+        "chlorides": -0.8527106460351387,
+        "free sulfur dioxide": 0.1728742780571554,
+        "total sulfur dioxide": -0.7756946078082734,
+        "density": -0.32112074309681143,
+        "pH": -0.3009912086882742,
+        "sulphates": 1.2746112703315042,
+        "alcohol": 1.686956128250277
+      },
+      "ridge_lambda": 1.0,
+      "train_mae": 0.5042476949180047
+    }
+  },
+  "comparator": {
+    "comparator_id": "UCI-CHEMICAL_WINE_QUALITY-TRAINING-MEAN-v1",
+    "training_target_mean": 5.628616106333073
+  },
+  "residuals": {
+    "model": 0.497098572133,
+    "comparator": 0.67704994136,
+    "negative_control": 0.667214573633,
+    "material_margin_met": true,
+    "material_margin_rule": "mean absolute error + 0.05 must be below training-mean comparator MAE"
+  },
+  "negative_control": {
+    "control_id": "UCI-CHEMICAL_WINE_QUALITY-NEGATIVE-CONTROL-v1",
+    "negative_model": {
+      "model_type": "ridge_regression",
+      "feature_names": [
+        "fixed acidity",
+        "volatile acidity",
+        "citric acid",
+        "residual sugar",
+        "chlorides",
+        "free sulfur dioxide",
+        "total sulfur dioxide",
+        "density",
+        "pH",
+        "sulphates",
+        "alcohol"
+      ],
+      "intercept": 5.3210555155111035,
+      "coefficients": {
+        "fixed acidity": 0.16673057666282207,
+        "volatile acidity": 0.08136208327009031,
+        "citric acid": 0.22838710462652215,
+        "residual sugar": -0.04064458845892573,
+        "chlorides": -0.1699974048445859,
+        "free sulfur dioxide": -0.131424020343499,
+        "total sulfur dioxide": 0.20823642809902243,
+        "density": 0.36787565924616267,
+        "pH": -0.0736455757140104,
+        "sulphates": -0.5006428701494133,
+        "alcohol": 0.4598572525575267
+      },
+      "ridge_lambda": 1.0,
+      "train_mae": 0.6692280194207848
+    },
+    "negative_control_rejected": true
+  },
+  "falsifiers": [
+    "source lock hash is missing or stale",
+    "hidden target labels appear in visible task rows",
+    "classifier does not beat majority-class comparator",
+    "negative control is not worse than the model"
+  ],
+  "scored_rows_sha256": "7d521719f6eb91f366932637aada5d311a964790d05cea758f511b2358281447",
+  "scored_rows_sample": [
+    {
+      "task_id": "UCI-CHEMICAL_WINE_QUALITY-00000",
+      "model_prediction": 5.052568989077163,
+      "comparator_prediction": 5.628616106333073,
+      "negative_control_prediction": 5.541768671338714,
+      "target_type": "numeric_regression",
+      "model_loss": 0.05256898907716323,
+      "comparator_loss": 0.6286161063330731,
+      "negative_control_loss": 0.5417686713387138,
+      "target_sha256": "b9cb3e0853bc6372f69a74897c99ebf47824e8f6b6dd7f79f8475c400dafc3a0"
+    },
+    {
+      "task_id": "UCI-CHEMICAL_WINE_QUALITY-00005",
+      "model_prediction": 5.085369561538629,
+      "comparator_prediction": 5.628616106333073,
+      "negative_control_prediction": 5.540814584293249,
+      "target_type": "numeric_regression",
+      "model_loss": 0.08536956153862896,
+      "comparator_loss": 0.6286161063330731,
+      "negative_control_loss": 0.5408145842932486,
+      "target_sha256": "669b8cea8ed13822930d36111549a40863f6d1abc9b8571f21f95f08001b1f7a"
+    },
+    {
+      "task_id": "UCI-CHEMICAL_WINE_QUALITY-00010",
+      "model_prediction": 5.078660510677492,
+      "comparator_prediction": 5.628616106333073,
+      "negative_control_prediction": 5.5066133605988,
+      "target_type": "numeric_regression",
+      "model_loss": 0.07866051067749158,
+      "comparator_loss": 0.6286161063330731,
+      "negative_control_loss": 0.5066133605988004,
+      "target_sha256": "5793b7c3e348bb48ac2448472f0c82ac9c3048f5c332ba0111e79619e6b8cb55"
+    },
+    {
+      "task_id": "UCI-CHEMICAL_WINE_QUALITY-00015",
+      "model_prediction": 5.159498632578753,
+      "comparator_prediction": 5.628616106333073,
+      "negative_control_prediction": 5.49668656251147,
+      "target_type": "numeric_regression",
+      "model_loss": 0.15949863257875307,
+      "comparator_loss": 0.6286161063330731,
+      "negative_control_loss": 0.4966865625114698,
+      "target_sha256": "763214868fb8edb637edb5016992da91c9b914b77952356940938fb242086705"
+    },
+    {
+      "task_id": "UCI-CHEMICAL_WINE_QUALITY-00020",
+      "model_prediction": 5.575372720748458,
+      "comparator_prediction": 5.628616106333073,
+      "negative_control_prediction": 5.6215270240084925,
+      "target_type": "numeric_regression",
+      "model_loss": 0.424627279251542,
+      "comparator_loss": 0.3713838936669269,
+      "negative_control_loss": 0.37847297599150753,
+      "target_sha256": "d72a57582a9feb26a8cc856ba7e606f342248c206171f75eb7a793f240341e9d"
+    },
+    {
+      "task_id": "UCI-CHEMICAL_WINE_QUALITY-00025",
+      "model_prediction": 5.425648101530835,
+      "comparator_prediction": 5.628616106333073,
+      "negative_control_prediction": 5.477627855151123,
+      "target_type": "numeric_regression",
+      "model_loss": 0.4256481015308351,
+      "comparator_loss": 0.6286161063330731,
+      "negative_control_loss": 0.47762785515112327,
+      "target_sha256": "46f4be7af3d52d55f54d53b2ce82945245de7fe3f5c14e1b871625fbee6843af"
+    },
+    {
+      "task_id": "UCI-CHEMICAL_WINE_QUALITY-00030",
+      "model_prediction": 5.176356505699005,
+      "comparator_prediction": 5.628616106333073,
+      "negative_control_prediction": 5.575942846881503,
+      "target_type": "numeric_regression",
+      "model_loss": 0.17635650569900463,
+      "comparator_loss": 0.6286161063330731,
+      "negative_control_loss": 0.5759428468815031,
+      "target_sha256": "176fea87a51b24e569e8562cbec6de2f8f9b322143b0576ec8d7ecc6d2a6b9c8"
+    },
+    {
+      "task_id": "UCI-CHEMICAL_WINE_QUALITY-00035",
+      "model_prediction": 5.28654118471347,
+      "comparator_prediction": 5.628616106333073,
+      "negative_control_prediction": 5.576212860514052,
+      "target_type": "numeric_regression",
+      "model_loss": 0.71345881528653,
+      "comparator_loss": 0.3713838936669269,
+      "negative_control_loss": 0.42378713948594804,
+      "target_sha256": "fa6443401a3f8331a97708a328a4e7200d8d1a9580fe512c93741f807fa93e33"
+    },
+    {
+      "task_id": "UCI-CHEMICAL_WINE_QUALITY-00040",
+      "model_prediction": 5.776908884310867,
+      "comparator_prediction": 5.628616106333073,
+      "negative_control_prediction": 5.642477764811638,
+      "target_type": "numeric_regression",
+      "model_loss": 0.7769088843108669,
+      "comparator_loss": 0.6286161063330731,
+      "negative_control_loss": 0.6424777648116384,
+      "target_sha256": "8e38e15fd36d81b919b848962e95ec6cbf64c5608cea76bf7b2ca4905c65b995"
+    },
+    {
+      "task_id": "UCI-CHEMICAL_WINE_QUALITY-00045",
+      "model_prediction": 6.058503091447322,
+      "comparator_prediction": 5.628616106333073,
+      "negative_control_prediction": 5.679037873327194,
+      "target_type": "numeric_regression",
+      "model_loss": 2.0585030914473217,
+      "comparator_loss": 1.628616106333073,
+      "negative_control_loss": 1.6790378733271938,
+      "target_sha256": "e7c9135323dce3784f1893f19fbb2cca36cb9d6f1ea2fb84e1e3da33f0d32bf8"
+    }
+  ]
+}

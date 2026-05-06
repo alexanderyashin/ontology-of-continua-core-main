@@ -1,0 +1,217 @@
+{
+  "schema_id": "OC133_UCI_TABULAR_CLASSIFIER_SCORING_PACK_v1",
+  "pack_status": "STRICT_EVIDENCE_PASS_NO_COVERAGE_CLOSURE",
+  "status": "STRICT_EVIDENCE_PASS_NO_COVERAGE_CLOSURE",
+  "lane_id": "operations_grid_stability",
+  "domain_class_id": "complex_systems_operations_science",
+  "phenomenon_class_id": "resilience_risk_and_intervention_response",
+  "source_bound": true,
+  "target_hidden": true,
+  "score_materialized": true,
+  "scientific_pass": true,
+  "coverage_closure_allowed": false,
+  "support_allowed_for_broad_coverage": false,
+  "source_snapshot_ref": "validation/heldout/grand_science/uci/operations_grid_stability/OC133_UCI_OPERATIONS_GRID_STABILITY_SOURCE.dat",
+  "source_snapshot_sha256": "7afc3154fed9cd65258b3403b60381fe6b0d832bf817a1ea4866395d05a84a83",
+  "source_lock_ref": "validation/heldout/grand_science/uci/operations_grid_stability/OC133_UCI_OPERATIONS_GRID_STABILITY_SOURCE.lock.json",
+  "visible_task_table_ref": "validation/heldout/grand_science/uci/operations_grid_stability/OC133_UCI_OPERATIONS_GRID_STABILITY_TARGET_HIDDEN_TASK_TABLE.json",
+  "hidden_target_lock_ref": "validation/heldout/grand_science/uci/operations_grid_stability/OC133-UCI-OPERATIONS_GRID_STABILITY-HIDDEN-TARGETS-0001.lock.json",
+  "row_count": 2000,
+  "model": {
+    "model_id": "UCI-OPERATIONS_GRID_STABILITY-nearest_centroid_multiclass-v1",
+    "model": {
+      "stable": {
+        "tau1": 0.40805916078091914,
+        "tau2": 0.40463495358281043,
+        "tau3": 0.4099798665485424,
+        "tau4": 0.41107850128408785,
+        "p1": 0.5041502290993602,
+        "p2": 0.4975311225286554,
+        "p3": 0.4985746666408611,
+        "p4": 0.5097004508680864,
+        "g1": 0.42252428727831043,
+        "g2": 0.41652009881931035,
+        "g3": 0.4074264792879835,
+        "g4": 0.4218594225840349
+      },
+      "unstable": {
+        "tau1": 0.5482286038973601,
+        "tau2": 0.5530477662204477,
+        "tau3": 0.5539273506580961,
+        "tau4": 0.5522000484088069,
+        "p1": 0.5060199029472334,
+        "p2": 0.5011762093402947,
+        "p3": 0.5015344113914618,
+        "p4": 0.49775853578395524,
+        "g1": 0.5428533590256659,
+        "g2": 0.5464605634328962,
+        "g3": 0.5503829263643878,
+        "g4": 0.5471872004430776
+      }
+    }
+  },
+  "comparator": {
+    "comparator_id": "UCI-OPERATIONS_GRID_STABILITY-MAJORITY-CLASS-v1",
+    "majority_label": "unstable"
+  },
+  "residuals": {
+    "model": 0.2055,
+    "comparator": 0.358,
+    "negative_control": 0.6395,
+    "material_margin_met": true,
+    "material_margin_rule": "classifier loss + 0.05 must be below majority-class comparator loss"
+  },
+  "negative_control": {
+    "control_id": "UCI-OPERATIONS_GRID_STABILITY-NEGATIVE-CONTROL-v1",
+    "negative_model": {
+      "unstable": {
+        "tau1": 0.4944716122587324,
+        "tau2": 0.4991877008234382,
+        "tau3": 0.49774750776651827,
+        "tau4": 0.4999869553585039,
+        "p1": 0.503634249145517,
+        "p2": 0.5025818559138848,
+        "p3": 0.5022656778502825,
+        "p4": 0.5024321678570749,
+        "g1": 0.5007937927514792,
+        "g2": 0.49837802129014963,
+        "g3": 0.49718155158122723,
+        "g4": 0.5007014356548403
+      },
+      "stable": {
+        "tau1": 0.5023930551991169,
+        "tau2": 0.4991497239902348,
+        "tau3": 0.5085654310717795,
+        "tau4": 0.502703130135446,
+        "p1": 0.5083366243381848,
+        "p2": 0.4950644644918045,
+        "p3": 0.4972914249486608,
+        "p4": 0.5014990634560279,
+        "g1": 0.49633129476221405,
+        "g2": 0.5008963504582346,
+        "g3": 0.5007853656154581,
+        "g4": 0.503433615890115
+      }
+    },
+    "negative_control_rejected": true
+  },
+  "falsifiers": [
+    "source lock hash is missing or stale",
+    "hidden target labels appear in visible task rows",
+    "classifier does not beat majority-class comparator",
+    "negative control is not worse than the model"
+  ],
+  "scored_rows_sha256": "5cdbb5b7975c2b7152f225b1c971c7a134e035e92e86cd0bd81ff8a7fc4790be",
+  "scored_rows_sample": [
+    {
+      "task_id": "UCI-OPERATIONS_GRID_STABILITY-00000",
+      "model_prediction": "unstable",
+      "comparator_prediction": "unstable",
+      "negative_control_prediction": "stable",
+      "target_type": "classification",
+      "model_loss": 0.0,
+      "comparator_loss": 0.0,
+      "negative_control_loss": 1.0,
+      "target_sha256": "a06a77822e077f310f2a599b8d504a19b86358b5f5977f0eef625654a8ff8cfc"
+    },
+    {
+      "task_id": "UCI-OPERATIONS_GRID_STABILITY-00005",
+      "model_prediction": "stable",
+      "comparator_prediction": "unstable",
+      "negative_control_prediction": "stable",
+      "target_type": "classification",
+      "model_loss": 0.0,
+      "comparator_loss": 1.0,
+      "negative_control_loss": 0.0,
+      "target_sha256": "9dbbc71fd6074cffa60589b103722fd079bd51ff7d77674de93e03e8046c9250"
+    },
+    {
+      "task_id": "UCI-OPERATIONS_GRID_STABILITY-00010",
+      "model_prediction": "stable",
+      "comparator_prediction": "unstable",
+      "negative_control_prediction": "unstable",
+      "target_type": "classification",
+      "model_loss": 0.0,
+      "comparator_loss": 1.0,
+      "negative_control_loss": 1.0,
+      "target_sha256": "16619bb0283b8f733d0670667ac1586082f7ed763bb96d6f361e20a1e9f2d0b1"
+    },
+    {
+      "task_id": "UCI-OPERATIONS_GRID_STABILITY-00015",
+      "model_prediction": "unstable",
+      "comparator_prediction": "unstable",
+      "negative_control_prediction": "stable",
+      "target_type": "classification",
+      "model_loss": 0.0,
+      "comparator_loss": 0.0,
+      "negative_control_loss": 1.0,
+      "target_sha256": "f1bd39e6a09b73020850ea1a1a76c9d69568d05e4e0d8744011a8429b1e2e3d8"
+    },
+    {
+      "task_id": "UCI-OPERATIONS_GRID_STABILITY-00020",
+      "model_prediction": "unstable",
+      "comparator_prediction": "unstable",
+      "negative_control_prediction": "stable",
+      "target_type": "classification",
+      "model_loss": 0.0,
+      "comparator_loss": 0.0,
+      "negative_control_loss": 1.0,
+      "target_sha256": "98903056a6f82b836c291f789097f0a98c95d31c314c346b4d949baef12cad4a"
+    },
+    {
+      "task_id": "UCI-OPERATIONS_GRID_STABILITY-00025",
+      "model_prediction": "stable",
+      "comparator_prediction": "unstable",
+      "negative_control_prediction": "unstable",
+      "target_type": "classification",
+      "model_loss": 0.0,
+      "comparator_loss": 1.0,
+      "negative_control_loss": 1.0,
+      "target_sha256": "949479f83d133634fff7512c86bd5629b6af7bc7fa880352601a11c9d628d303"
+    },
+    {
+      "task_id": "UCI-OPERATIONS_GRID_STABILITY-00030",
+      "model_prediction": "stable",
+      "comparator_prediction": "unstable",
+      "negative_control_prediction": "unstable",
+      "target_type": "classification",
+      "model_loss": 1.0,
+      "comparator_loss": 0.0,
+      "negative_control_loss": 0.0,
+      "target_sha256": "6ab2832a2f901837d871067238f0f53f6c7a5356035d4d9f04fa5dbdbe5c2b25"
+    },
+    {
+      "task_id": "UCI-OPERATIONS_GRID_STABILITY-00035",
+      "model_prediction": "unstable",
+      "comparator_prediction": "unstable",
+      "negative_control_prediction": "unstable",
+      "target_type": "classification",
+      "model_loss": 0.0,
+      "comparator_loss": 0.0,
+      "negative_control_loss": 0.0,
+      "target_sha256": "1ae1e7e9816fc3a3d6a265a42f57cd115b4c99b2f2af733c6cf9d22af6e65e3b"
+    },
+    {
+      "task_id": "UCI-OPERATIONS_GRID_STABILITY-00040",
+      "model_prediction": "unstable",
+      "comparator_prediction": "unstable",
+      "negative_control_prediction": "unstable",
+      "target_type": "classification",
+      "model_loss": 0.0,
+      "comparator_loss": 0.0,
+      "negative_control_loss": 0.0,
+      "target_sha256": "75717c2739dd8761468e1d49cb594216a167baebccf18e2da4c811ec22039660"
+    },
+    {
+      "task_id": "UCI-OPERATIONS_GRID_STABILITY-00045",
+      "model_prediction": "stable",
+      "comparator_prediction": "unstable",
+      "negative_control_prediction": "unstable",
+      "target_type": "classification",
+      "model_loss": 0.0,
+      "comparator_loss": 1.0,
+      "negative_control_loss": 1.0,
+      "target_sha256": "5e02b7172c4e46949a2a3ec00c40affea2de5d2432c178575e298641c57a32b0"
+    }
+  ]
+}

@@ -12,6 +12,11 @@ from pathlib import Path
 from typing import Any
 from urllib.request import Request, urlopen
 
+try:
+    import numpy as np
+except Exception:  # pragma: no cover - the check path reports this as a capability gap.
+    np = None
+
 
 SCRIPT_REL = "validation/heldout/grand_science/uci/coverage_work_orders/oc133_uci_tabular_classifier_materializer.py"
 ROOT_REL = "validation/heldout/grand_science/uci"
@@ -72,6 +77,73 @@ LANES: dict[str, dict[str, Any]] = {
         "model_type": "decision_stump_binary",
         "material_margin": 0.02,
         "source_name": "UCI EEG Eye State data set",
+        "source_authority": "UC Irvine Machine Learning Repository",
+    },
+    "operations_grid_stability": {
+        "domain_class_id": "complex_systems_operations_science",
+        "phenomenon_class_id": "resilience_risk_and_intervention_response",
+        "source_url": "https://archive.ics.uci.edu/ml/machine-learning-databases/00471/Data_for_UCI_named.csv",
+        "source_kind": "csv_header",
+        "delimiter": ",",
+        "target_column": "stabf",
+        "exclude_columns": ["stab", "stabf"],
+        "target_name": "grid_stability_class",
+        "model_type": "nearest_centroid_multiclass",
+        "material_margin": 0.05,
+        "source_name": "UCI Electrical Grid Stability Simulated Data",
+        "source_authority": "UC Irvine Machine Learning Repository",
+    },
+    "engineering_steel_plate_faults": {
+        "domain_class_id": "engineering_materials_sciences",
+        "phenomenon_class_id": "materials_property_and_failure_prediction",
+        "source_url": "https://archive.ics.uci.edu/ml/machine-learning-databases/00198/Faults.NNA",
+        "source_kind": "space_no_header",
+        "feature_indices": list(range(27)),
+        "one_hot_label_slice": [27, 34],
+        "target_name": "steel_plate_fault_class",
+        "model_type": "nearest_centroid_multiclass",
+        "material_margin": 0.05,
+        "source_name": "UCI Steel Plates Faults data set",
+        "source_authority": "UC Irvine Machine Learning Repository",
+    },
+    "biology_yeast_cellular_localization": {
+        "domain_class_id": "biological_life_sciences",
+        "phenomenon_class_id": "cellular_developmental_regulatory_dynamics",
+        "source_url": "https://archive.ics.uci.edu/ml/machine-learning-databases/yeast/yeast.data",
+        "source_kind": "space_no_header",
+        "feature_indices": list(range(1, 9)),
+        "target_index": 9,
+        "target_name": "protein_cellular_localization_class",
+        "model_type": "nearest_centroid_multiclass",
+        "material_margin": 0.05,
+        "source_name": "UCI Yeast protein localization data set",
+        "source_authority": "UC Irvine Machine Learning Repository",
+    },
+    "chemical_wine_quality": {
+        "domain_class_id": "chemical_sciences",
+        "phenomenon_class_id": "materials_and_spectroscopy_observables",
+        "source_url": "https://archive.ics.uci.edu/ml/machine-learning-databases/wine-quality/winequality-red.csv",
+        "source_kind": "csv_header",
+        "delimiter": ";",
+        "target_column": "quality",
+        "target_name": "wine_quality_score",
+        "model_type": "ridge_regression",
+        "material_margin": 0.05,
+        "source_name": "UCI Wine Quality physicochemical data set",
+        "source_authority": "UC Irvine Machine Learning Repository",
+    },
+    "physics_superconductivity_critical_temp": {
+        "domain_class_id": "physical_sciences",
+        "phenomenon_class_id": "condensed_matter_fields_and_measurements",
+        "source_url": "https://archive.ics.uci.edu/ml/machine-learning-databases/00464/superconduct.zip",
+        "source_kind": "zip_csv_header",
+        "zip_member": "train.csv",
+        "delimiter": ",",
+        "target_column": "critical_temp",
+        "target_name": "critical_temperature_kelvin",
+        "model_type": "ridge_regression",
+        "material_margin": 1.0,
+        "source_name": "UCI Superconductivity Data data set",
         "source_authority": "UC Irvine Machine Learning Repository",
     },
 }
@@ -153,6 +225,61 @@ def parse_csv_no_header_rows(payload: bytes, config: dict[str, Any]) -> list[dic
     return rows
 
 
+def parse_csv_header_text(text: str, config: dict[str, Any]) -> list[dict[str, Any]]:
+    delimiter = str(config.get("delimiter", ","))
+    target_column = str(config["target_column"])
+    exclude_columns = set(config.get("exclude_columns", [])) | {target_column}
+    rows = []
+    for index, row in enumerate(csv.DictReader(io.StringIO(text), delimiter=delimiter)):
+        feature_names = list(config.get("feature_names") or [key for key in row.keys() if key not in exclude_columns])
+        features = {name: float(row[name]) for name in feature_names}
+        target_raw = row[target_column].strip()
+        target: str | float
+        if str(config["model_type"]).endswith("regression"):
+            target = float(target_raw)
+        else:
+            target = target_raw
+        item = {"source_row_index": index, "features": features, "target": target}
+        item["source_row_sha256"] = sha256_object(item)
+        rows.append(item)
+    return rows
+
+
+def parse_csv_header_rows(payload: bytes, config: dict[str, Any]) -> list[dict[str, Any]]:
+    return parse_csv_header_text(payload.decode("utf-8", errors="replace"), config)
+
+
+def parse_zip_csv_header_rows(payload: bytes, config: dict[str, Any]) -> list[dict[str, Any]]:
+    archive = zipfile.ZipFile(io.BytesIO(payload))
+    text = archive.read(str(config["zip_member"])).decode("utf-8", errors="replace")
+    return parse_csv_header_text(text, config)
+
+
+def parse_space_no_header_rows(payload: bytes, config: dict[str, Any]) -> list[dict[str, Any]]:
+    text = payload.decode("utf-8", errors="replace")
+    feature_indices = [int(index) for index in config["feature_indices"]]
+    rows = []
+    for source_index, line in enumerate(text.splitlines()):
+        parts = line.split()
+        if not parts:
+            continue
+        if len(parts) <= max(feature_indices):
+            continue
+        features = {f"feature_{index:02d}": float(parts[index]) for index in feature_indices}
+        if "one_hot_label_slice" in config:
+            start, stop = [int(value) for value in config["one_hot_label_slice"]]
+            labels = [float(value) for value in parts[start:stop]]
+            if 1.0 not in labels:
+                continue
+            target = f"class_{labels.index(1.0)}"
+        else:
+            target = parts[int(config["target_index"])]
+        item = {"source_row_index": source_index, "features": features, "target": target}
+        item["source_row_sha256"] = sha256_object(item)
+        rows.append(item)
+    return rows
+
+
 def parse_arff_rows(payload: bytes, config: dict[str, Any]) -> list[dict[str, Any]]:
     text = payload.decode("utf-8", errors="replace")
     attributes = []
@@ -186,8 +313,14 @@ def parse_rows(payload: bytes, config: dict[str, Any]) -> list[dict[str, Any]]:
     kind = str(config["source_kind"])
     if kind == "zip_csv":
         return parse_student_rows(payload, config)
+    if kind == "zip_csv_header":
+        return parse_zip_csv_header_rows(payload, config)
+    if kind == "csv_header":
+        return parse_csv_header_rows(payload, config)
     if kind == "csv_no_header":
         return parse_csv_no_header_rows(payload, config)
+    if kind == "space_no_header":
+        return parse_space_no_header_rows(payload, config)
     if kind == "arff":
         return parse_arff_rows(payload, config)
     raise RuntimeError(f"unsupported UCI source kind: {kind}")
@@ -378,7 +511,39 @@ def predict_centroid(row: dict[str, Any], model: dict[str, dict[str, float]]) ->
     return best_label
 
 
-def permute_targets(train_rows: list[dict[str, Any]], target_by_task: dict[str, str]) -> dict[str, str]:
+def train_ridge_regression(train_rows: list[dict[str, Any]], target_by_task: dict[str, Any]) -> dict[str, Any]:
+    if np is None:
+        raise RuntimeError("numpy is required for ridge_regression UCI lanes")
+    feature_names = list(train_rows[0]["features"].keys())
+    x_matrix = np.array(
+        [[float(row["features"][feature]) for feature in feature_names] for row in train_rows],
+        dtype=float,
+    )
+    y_vector = np.array([float(target_by_task[row["task_id"]]) for row in train_rows], dtype=float)
+    augmented = np.c_[np.ones(len(x_matrix)), x_matrix]
+    ridge_lambda = 1.0
+    normal = augmented.T @ augmented + ridge_lambda * np.eye(augmented.shape[1])
+    normal[0, 0] -= ridge_lambda
+    coefficients = np.linalg.solve(normal, augmented.T @ y_vector)
+    fitted = augmented @ coefficients
+    return {
+        "model_type": "ridge_regression",
+        "feature_names": feature_names,
+        "intercept": float(coefficients[0]),
+        "coefficients": {feature: float(value) for feature, value in zip(feature_names, coefficients[1:])},
+        "ridge_lambda": ridge_lambda,
+        "train_mae": float(np.mean(np.abs(fitted - y_vector))),
+    }
+
+
+def predict_ridge(row: dict[str, Any], model: dict[str, Any]) -> float:
+    return float(model["intercept"]) + sum(
+        float(model["coefficients"][feature]) * float(row["features"][feature])
+        for feature in model["feature_names"]
+    )
+
+
+def permute_targets(train_rows: list[dict[str, Any]], target_by_task: dict[str, Any]) -> dict[str, Any]:
     task_ids = sorted(row["task_id"] for row in train_rows)
     return {**target_by_task, **dict(zip(task_ids, reversed([target_by_task[task_id] for task_id in task_ids])))}
 
@@ -387,7 +552,7 @@ def score(root: Path, lane_id: str, *, write: bool) -> dict[str, Any]:
     config = dict(LANES[lane_id])
     paths = lane_paths(lane_id)
     task_table, target_lock = build_task_table(root, lane_id)
-    target_by_task = {row["task_id"]: str(row[config["target_name"]]) for row in target_lock["hidden_rows"]}
+    target_by_task = {row["task_id"]: row[config["target_name"]] for row in target_lock["hidden_rows"]}
     train_rows = [row for row in task_table["visible_rows"] if row["split"] == "train_visible"]
     hidden_rows = [row for row in task_table["visible_rows"] if row["split"] == "hidden_score"]
     _bounds, normalized_rows = normalize_features(train_rows + hidden_rows)
@@ -409,9 +574,24 @@ def score(root: Path, lane_id: str, *, write: bool) -> dict[str, Any]:
         negative_model = train_centroids(train_rows, permute_targets(train_rows, target_by_task))
         predict = lambda row: predict_centroid(row, model)
         negative_predict = lambda row: predict_centroid(row, negative_model)
+    elif model_type == "ridge_regression":
+        model = train_ridge_regression(train_rows, target_by_task)
+        negative_model = train_ridge_regression(train_rows, permute_targets(train_rows, target_by_task))
+        predict = lambda row: predict_ridge(row, model)
+        negative_predict = lambda row: predict_ridge(row, negative_model)
     else:
         raise RuntimeError(f"unsupported UCI model type: {model_type}")
-    majority_label = Counter(target_by_task[row["task_id"]] for row in train_rows).most_common(1)[0][0]
+    is_regression = model_type == "ridge_regression"
+    if is_regression:
+        comparator_prediction = sum(float(target_by_task[row["task_id"]]) for row in train_rows) / len(train_rows)
+        comparator = {
+            "comparator_id": f"UCI-{lane_id.upper()}-TRAINING-MEAN-v1",
+            "training_target_mean": comparator_prediction,
+        }
+    else:
+        majority_label = Counter(target_by_task[row["task_id"]] for row in train_rows).most_common(1)[0][0]
+        comparator_prediction = majority_label
+        comparator = {"comparator_id": f"UCI-{lane_id.upper()}-MAJORITY-CLASS-v1", "majority_label": majority_label}
     model_losses = []
     comparator_losses = []
     negative_losses = []
@@ -420,11 +600,15 @@ def score(root: Path, lane_id: str, *, write: bool) -> dict[str, Any]:
     for row in hidden_rows:
         target = target_by_task[row["task_id"]]
         model_prediction = predict(row)
-        comparator_prediction = majority_label
         negative_prediction = negative_predict(row)
-        model_loss = 0.0 if model_prediction == target else 1.0
-        comparator_loss = 0.0 if comparator_prediction == target else 1.0
-        negative_loss = 0.0 if negative_prediction == target else 1.0
+        if is_regression:
+            model_loss = abs(float(model_prediction) - float(target))
+            comparator_loss = abs(float(comparator_prediction) - float(target))
+            negative_loss = abs(float(negative_prediction) - float(target))
+        else:
+            model_loss = 0.0 if model_prediction == target else 1.0
+            comparator_loss = 0.0 if comparator_prediction == target else 1.0
+            negative_loss = 0.0 if negative_prediction == target else 1.0
         model_losses.append(model_loss)
         comparator_losses.append(comparator_loss)
         negative_losses.append(negative_loss)
@@ -434,9 +618,10 @@ def score(root: Path, lane_id: str, *, write: bool) -> dict[str, Any]:
                 "model_prediction": model_prediction,
                 "comparator_prediction": comparator_prediction,
                 "negative_control_prediction": negative_prediction,
-                "model_0_1_loss": model_loss,
-                "comparator_0_1_loss": comparator_loss,
-                "negative_control_0_1_loss": negative_loss,
+                "target_type": "numeric_regression" if is_regression else "classification",
+                "model_loss": model_loss,
+                "comparator_loss": comparator_loss,
+                "negative_control_loss": negative_loss,
                 "target_sha256": target_hash_by_task[row["task_id"]],
             }
         )
@@ -471,13 +656,17 @@ def score(root: Path, lane_id: str, *, write: bool) -> dict[str, Any]:
         "hidden_target_lock_ref": paths["target_lock"],
         "row_count": len(scored_rows),
         "model": {"model_id": f"UCI-{lane_id.upper()}-{model_type}-v1", "model": model},
-        "comparator": {"comparator_id": f"UCI-{lane_id.upper()}-MAJORITY-CLASS-v1", "majority_label": majority_label},
+        "comparator": comparator,
         "residuals": {
             "model": round(model_loss, 12),
             "comparator": round(comparator_loss, 12),
             "negative_control": round(negative_loss, 12),
             "material_margin_met": material_margin_met,
-            "material_margin_rule": f"classifier loss + {margin} must be below majority-class comparator loss",
+            "material_margin_rule": (
+                f"mean absolute error + {margin} must be below training-mean comparator MAE"
+                if is_regression
+                else f"classifier loss + {margin} must be below majority-class comparator loss"
+            ),
         },
         "negative_control": {
             "control_id": f"UCI-{lane_id.upper()}-NEGATIVE-CONTROL-v1",

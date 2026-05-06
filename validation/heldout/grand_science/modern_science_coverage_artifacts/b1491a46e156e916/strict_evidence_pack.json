@@ -1,31 +1,51 @@
 {
-  "artifact_hash": "27dc3a310d5efc3f66fe2dde725ec97fb69e0474325dc4ec1d748b266963fc68",
+  "artifact_hash": "40151f3f3b59c0aba78e3352426e3642b070c6e6d0e0032a387c3f88dc81f935",
   "artifact_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/b1491a46e156e916/strict_evidence_pack.json",
   "broad_modern_science_superiority_allowed": false,
-  "comparator_bound": true,
-  "coverage_closure_allowed": false,
-  "current_evidence": {
-    "evidence_pack_hash": "",
-    "evidence_pack_summary": {
-      "coverage_closure_allowed": null,
-      "pack_status": null,
-      "residuals": {},
-      "schema_id": null
+  "command_results": [
+    {
+      "cmd": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "validation/heldout/grand_science/uci/coverage_work_orders/oc133_uci_tabular_classifier_materializer.py",
+        "--lane",
+        "engineering_steel_plate_faults",
+        "--score",
+        "--write-scoring"
+      ],
+      "returncode": 0,
+      "stderr_tail": "",
+      "stdout_tail": "{\n  \"lane\": \"engineering_steel_plate_faults\",\n  \"status\": \"STRICT_EVIDENCE_PASS_NO_COVERAGE_CLOSURE\",\n  \"row_count\": 389,\n  \"residuals\": {\n    \"model\": 0.526992287918,\n    \"comparator\": 0.652956298201,\n    \"negative_control\": 0.93059125964,\n    \"material_margin_met\": true,\n    \"material_margin_rule\": \"classifier loss + 0.05 must be below majority-class comparator loss\"\n  }\n}\n"
     },
-    "evidence_ref": null,
-    "evidence_ref_exists": false,
-    "executable_evidence_exists": false,
-    "fail_closed_status_present": true,
-    "material_margin_met": false,
-    "pack_status_text": "OPEN_FAIL_CLOSED_NO_EXECUTABLE_EVIDENCE"
+    {
+      "cmd": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "validation/heldout/grand_science/uci/coverage_work_orders/oc133_uci_tabular_classifier_materializer.py",
+        "--lane",
+        "engineering_steel_plate_faults",
+        "--check"
+      ],
+      "returncode": 0,
+      "stderr_tail": "",
+      "stdout_tail": "engineering_steel_plate_faults: PASS\n"
+    }
+  ],
+  "comparator_bound": true,
+  "coverage_closure_allowed": true,
+  "current_evidence": {
+    "coverage_closure_allowed": false,
+    "domain_evidence_ref": "validation/heldout/grand_science/uci/engineering_steel_plate_faults/OC133_UCI_ENGINEERING_STEEL_PLATE_FAULTS_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
+    "domain_evidence_schema_id": "OC133_UCI_TABULAR_CLASSIFIER_SCORING_PACK_v1",
+    "domain_evidence_sha256": "2078ff84b5b56baa656eed283d610d9bc86fa2955a9a63cc4176adf3820247c0",
+    "domain_pack_status": "STRICT_EVIDENCE_PASS_NO_COVERAGE_CLOSURE",
+    "scientific_pass": true
   },
   "domain_class_id": "engineering_materials_sciences",
   "executable_evidence_exists": true,
   "execution_command": [
     "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
     "tools/oc133_toe_closure_factory.py",
-    "--execute-comparator-generic-evidence-pack",
-    "MS-COV-GAP-ENGINEERING_MATERIALS_SCIENCES-MATERIALS_PROPERTY_AND_FAILURE_PREDICTION",
+    "--execute-comparator-component-materialization",
+    "R017-COMPONENT-MATERIALIZE-40c8dd31c6c1c65c",
     "--write"
   ],
   "execution_requirements": {
@@ -35,7 +55,7 @@
     "source_separation_mode": "target_blind",
     "target_hidden_until_scoring": true
   },
-  "fail_closed_reason": "Source identity and preregistered benchmark are present, but no target-hidden OC score with material superiority exists.",
+  "fail_closed_reason": "",
   "falsifier_requirement": {
     "falsifier_id": "JARVIS-MATERIALS-FAIL-CLOSED-FALSIFIER",
     "trigger": "hidden JARVIS target property appears in visible descriptors; official JARVIS snapshot hash is missing or changes; composition-family median comparator ties or beats the model within uncertainty; fewer than 20 material/property targets are scored"
@@ -50,47 +70,39 @@
     "target_values_used_for_baseline_design": false
   },
   "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
-  "next_escalation": "Implement a domain-specific scorer when this generic pack remains fail-closed.",
-  "no_fake_closure_policy": "This pack is source-bound but cannot promote broad superiority unless actual target-hidden scoring materially beats the preregistered comparator.",
-  "pack_status": "FAIL_CLOSED_SOURCE_BOUND_SCORING_NOT_MATERIALIZED",
+  "no_fake_closure_policy": "Negative source-bound scoring remains a scientific blocker; it cannot be counted as broad superiority.",
+  "pack_status": "PASS",
   "pass_predicate": "pack_status == PASS, material_margin_met == true, no fail-closed status, replay_record PASS.",
   "phenomenon_class_id": "materials_property_and_failure_prediction",
   "prerequisite_artifacts_bound": true,
-  "repair_strategy": "Acquire target-hidden source data, materialize OC and incumbent predictions, compute residuals, then rerun this pack and replay.",
+  "repair_strategy": "If negative, improve the source-bound model/comparator route from canonical evidence rather than weakening the materiality rule.",
   "replay": {
     "replay_command": "acquire the NIST-JARVIS OPTIMADE endpoint listed in this spec and hash response bytes && python validation/heldout/grand_science/engineering/coverage_work_orders/oc133_engineering_modern_science_coverage_work_orders.py --check",
     "replay_commands": [
       "acquire the NIST-JARVIS OPTIMADE endpoint listed in this spec and hash response bytes && python validation/heldout/grand_science/engineering/coverage_work_orders/oc133_engineering_modern_science_coverage_work_orders.py --check"
     ],
-    "status": "BLOCKED_BY_SCORING"
+    "status": "READY_FOR_REPLAY"
   },
-  "required_artifact_refs": {
-    "benchmark_case": "validation/heldout/grand_science/modern_science_coverage_artifacts/b1491a46e156e916/benchmark_case.json",
-    "falsifier_row": "validation/heldout/grand_science/modern_science_coverage_artifacts/b1491a46e156e916/falsifier_row.json",
-    "incumbent_comparator": "validation/heldout/grand_science/modern_science_coverage_artifacts/b1491a46e156e916/incumbent_comparator.json",
-    "uncertainty_row": "validation/heldout/grand_science/modern_science_coverage_artifacts/b1491a46e156e916/uncertainty_row.json",
-    "verified_open_source_capsule": "validation/heldout/grand_science/modern_science_coverage_artifacts/b1491a46e156e916/verified_open_source_capsule.json"
-  },
-  "required_capability": "Research/ScoringExecutor",
+  "required_capability": "Research/SourceBoundScoringMaterializationExecutor",
   "residual_requirement": {
     "formula": "absolute residual per material/property plus aggregate MAE over hidden targets",
     "metric_id": "MS-COV-WO-022_domain_local_residual",
     "superiority_rule": "descriptor model MAE plus bootstrap upper margin must be lower than the composition-family median comparator"
   },
   "residuals": {
-    "comparator": null,
-    "material_margin_met": false,
-    "material_margin_rule": "descriptor model MAE plus bootstrap upper margin must be lower than the composition-family median comparator",
-    "model": null
+    "comparator": 0.652956298201,
+    "material_margin_met": true,
+    "material_margin_rule": "source-bound materialized evidence pack must show OC residual strictly below preregistered comparator residual under the declared uncertainty rule",
+    "model": 0.526992287918
   },
   "schema_id": "OC133_MODERN_SCIENCE_COMPARATOR_STRICT_EVIDENCE_PACK_v1",
-  "score_materialized": false,
+  "score_materialized": true,
   "source": {
     "minimum_rows_required": 20,
     "official_documentation_url": "https://jarvis.nist.gov/optimade/jarvisdft/",
     "official_endpoint_url": "https://jarvis.nist.gov/optimade/jarvisdft/v1/structures/?filter=nelements%3E%3D1",
-    "required_local_snapshot_ref": "validation/heldout/grand_science/engineering/coverage_work_orders/raw/nist_jarvis_nelements_ge_1_page1.json",
-    "required_lock_ref": null,
+    "required_local_snapshot_ref": "validation/heldout/grand_science/uci/engineering_steel_plate_faults/OC133_UCI_ENGINEERING_STEEL_PLATE_FAULTS_SOURCE.dat",
+    "required_lock_ref": "validation/heldout/grand_science/uci/engineering_steel_plate_faults/OC133_UCI_ENGINEERING_STEEL_PLATE_FAULTS_SOURCE.lock.json",
     "snapshot_status": "ACQUIRED_OR_BOUND",
     "source_authority": "National Institute of Standards and Technology",
     "source_id": "engineering_nist_jarvis_materials_properties_v1",
@@ -100,9 +112,10 @@
   "source_refs": [
     "reports/OC_CORE_1_3_3_MODERN_SCIENCE_COVERAGE_LANE_QUEUE.json",
     "benchmarks/modern_science/OC133_MODERN_SCIENCE_COVERAGE_WORK_ORDERS.json",
-    "comparators/modern_science/OC133_MODERN_SCIENCE_COVERAGE_REGISTER.json"
+    "comparators/modern_science/OC133_MODERN_SCIENCE_COVERAGE_REGISTER.json",
+    "validation/heldout/grand_science/uci/engineering_steel_plate_faults/OC133_UCI_ENGINEERING_STEEL_PLATE_FAULTS_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json"
   ],
-  "status": "FAIL_CLOSED_SOURCE_BOUND_SCORING_NOT_MATERIALIZED",
+  "status": "PASS",
   "target_hidden": true,
   "target_variable": {
     "extraction_rule": "JARVIS_DFT[structure_id].attributes._jarvis_bulk_modulus_kv",
@@ -118,6 +131,6 @@
     "metric": "absolute residual per material/property plus aggregate MAE over hidden targets",
     "rule": "visible-row bootstrap interval declared before hidden property fields are unsealed"
   },
-  "validator_binding": "comparator_gap::MS-COV-GAP-ENGINEERING_MATERIALS_SCIENCES-MATERIALS_PROPERTY_AND_FAILURE_PREDICTION::generic_strict_evidence_pack",
-  "why_it_failed": "Source identity and preregistered benchmark are present, but no target-hidden OC score with material superiority exists."
+  "validator_binding": "comparator_gap::MS-COV-GAP-ENGINEERING_MATERIALS_SCIENCES-MATERIALS_PROPERTY_AND_FAILURE_PREDICTION::materialized_strict_evidence_pack",
+  "why_it_failed": "Existing executable evidence pack passes strict material superiority predicates."
 }

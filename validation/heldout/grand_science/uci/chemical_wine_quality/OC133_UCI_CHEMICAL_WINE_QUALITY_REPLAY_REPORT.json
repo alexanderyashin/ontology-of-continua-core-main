@@ -1,0 +1,17 @@
+{
+  "schema_id": "OC133_UCI_TABULAR_CLASSIFIER_REPLAY_REPORT_v1",
+  "status": "PASS",
+  "lane_id": "chemical_wine_quality",
+  "scoring_pack_ref": "validation/heldout/grand_science/uci/chemical_wine_quality/OC133_UCI_CHEMICAL_WINE_QUALITY_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
+  "scoring_pack_sha256": "928867606748faff21451b7fbdf69253bf4e55740e499419fd62de6b06bae3a9",
+  "row_count": 320,
+  "material_margin_met": true,
+  "negative_control_rejected": true,
+  "replay_command": {
+    "commands": [
+      "python validation/heldout/grand_science/uci/coverage_work_orders/oc133_uci_tabular_classifier_materializer.py --lane chemical_wine_quality --score --write-scoring",
+      "python validation/heldout/grand_science/uci/coverage_work_orders/oc133_uci_tabular_classifier_materializer.py --lane chemical_wine_quality --check"
+    ]
+  },
+  "coverage_closure_allowed": false
+}

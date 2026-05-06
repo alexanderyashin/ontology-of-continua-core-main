@@ -130,6 +130,26 @@ DOMAIN_LOCAL_MATERIALIZED_EVIDENCE_REFS = {
         "neural_recording_and_brain_network_observables",
     ): "validation/heldout/grand_science/uci/neuro_eeg_eye_state/OC133_UCI_NEURO_EEG_EYE_STATE_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
     (
+        "complex_systems_operations_science",
+        "resilience_risk_and_intervention_response",
+    ): "validation/heldout/grand_science/uci/operations_grid_stability/OC133_UCI_OPERATIONS_GRID_STABILITY_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
+    (
+        "engineering_materials_sciences",
+        "materials_property_and_failure_prediction",
+    ): "validation/heldout/grand_science/uci/engineering_steel_plate_faults/OC133_UCI_ENGINEERING_STEEL_PLATE_FAULTS_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
+    (
+        "biological_life_sciences",
+        "cellular_developmental_regulatory_dynamics",
+    ): "validation/heldout/grand_science/uci/biology_yeast_cellular_localization/OC133_UCI_BIOLOGY_YEAST_CELLULAR_LOCALIZATION_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
+    (
+        "chemical_sciences",
+        "materials_and_spectroscopy_observables",
+    ): "validation/heldout/grand_science/uci/chemical_wine_quality/OC133_UCI_CHEMICAL_WINE_QUALITY_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
+    (
+        "physical_sciences",
+        "condensed_matter_fields_and_measurements",
+    ): "validation/heldout/grand_science/uci/physics_superconductivity_critical_temp/OC133_UCI_PHYSICS_SUPERCONDUCTIVITY_CRITICAL_TEMP_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
+    (
         "medical_health_sciences",
         "clinical_outcomes_and_biomarkers",
     ): "validation/heldout/grand_science/wdi/medical_clinical_life_expectancy/OC133_WDI_MEDICAL_CLINICAL_LIFE_EXPECTANCY_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",

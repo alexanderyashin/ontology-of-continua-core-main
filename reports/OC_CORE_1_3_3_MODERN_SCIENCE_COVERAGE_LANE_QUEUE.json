@@ -2295,7 +2295,7 @@
       "phenomenon_label": "resilience risk and intervention response",
       "lane_route": "EMPIRICAL_SOURCE_BACKED_BENCHMARK",
       "owner_capability": "Logion Operations Evidence / Intervention and Queueing Sources",
-      "execution_state": "FAIL_CLOSED_EXECUTABLE_SPEC_READY_EVIDENCE_MISSING",
+      "execution_state": "EVIDENCE_BOUND_PENDING_REVIEW",
       "dependency_key": "source_capsule_lock",
       "dependencies": [
         {
@@ -2329,8 +2329,8 @@
           "lane_role": "official_data_source",
           "requirement": "Acquire and hash OpenFEMA Disaster Declarations Summaries v2 from https://www.fema.gov/openfema-data-page/disaster-declarations-summaries-v2.",
           "source_id": "FEMA_OPENFEMA_DISASTER_DECLARATIONS_V2",
-          "required_local_snapshot_ref": null,
-          "required_lock_ref": null
+          "required_local_snapshot_ref": "validation/heldout/grand_science/uci/operations_grid_stability/OC133_UCI_OPERATIONS_GRID_STABILITY_SOURCE.dat",
+          "required_lock_ref": "validation/heldout/grand_science/uci/operations_grid_stability/OC133_UCI_OPERATIONS_GRID_STABILITY_SOURCE.lock.json"
         },
         {
           "lane_role": "target_variable",
@@ -2385,8 +2385,7 @@
         "executable lane spec declares exact official source, target variable, formula/model, comparator, uncertainty, residual metric, negative control, and falsifier",
         "source snapshot and target projection are locked before scoring",
         "strict evidence pack exists and validates under independent replay",
-        "coverage remains open until every closure predicate is reviewed",
-        "fail-closed evidence gate: executable evidence is not yet bound"
+        "coverage remains open until every closure predicate is reviewed"
       ],
       "official_source_defaults": [
         "official operations, logistics, resilience, risk, queue, or intervention datasets",
@@ -2431,10 +2430,10 @@
           "source_authority": "Federal Emergency Management Agency",
           "official_documentation_url": "https://www.fema.gov/about/openfema/api",
           "official_endpoint_url": "https://www.fema.gov/openfema-data-page/disaster-declarations-summaries-v2",
-          "required_local_snapshot_ref": null,
-          "required_lock_ref": null,
+          "required_local_snapshot_ref": "validation/heldout/grand_science/uci/operations_grid_stability/OC133_UCI_OPERATIONS_GRID_STABILITY_SOURCE.dat",
+          "required_lock_ref": "validation/heldout/grand_science/uci/operations_grid_stability/OC133_UCI_OPERATIONS_GRID_STABILITY_SOURCE.lock.json",
           "minimum_rows_required": 100,
-          "snapshot_status": "NOT_ACQUIRED_FOR_THIS_COVERAGE_CLASS"
+          "snapshot_status": "ACQUIRED_OR_BOUND"
         },
         "target_variable": {
           "name": "heldout_state_month_disaster_declaration_count",
@@ -2484,12 +2483,14 @@
           "replay_command": "python validation/heldout/grand_science/operations/coverage_work_orders/oc133_operations_modern_science_coverage_work_orders.py --check"
         },
         "current_evidence": {
-          "executable_evidence_exists": false,
-          "executable_evidence_ref": null,
-          "status": "OPEN_FAIL_CLOSED_SPEC_DECLARED_NO_SOURCE_LOCK_NO_STRICT_PACK",
-          "implemented_snapshot_ref": null,
-          "implemented_lock_ref": null,
-          "reason": "OpenFEMA is identified as an official resilience source, but no operations-local source lock, scorer, comparator output, or strict pack is present."
+          "executable_evidence_exists": true,
+          "executable_evidence_ref": "validation/heldout/grand_science/uci/operations_grid_stability/OC133_UCI_OPERATIONS_GRID_STABILITY_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
+          "status": "STRICT_EVIDENCE_PASS_NO_COVERAGE_CLOSURE",
+          "implemented_snapshot_ref": "validation/heldout/grand_science/uci/operations_grid_stability/OC133_UCI_OPERATIONS_GRID_STABILITY_SOURCE.dat",
+          "implemented_lock_ref": "validation/heldout/grand_science/uci/operations_grid_stability/OC133_UCI_OPERATIONS_GRID_STABILITY_SOURCE.lock.json",
+          "reason": "Source-bound target-hidden scoring evidence is materialized and hash-bound; broad modern-science coverage still remains fail-closed until every required gap passes.",
+          "implemented_scoring_pack_ref": "validation/heldout/grand_science/uci/operations_grid_stability/OC133_UCI_OPERATIONS_GRID_STABILITY_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
+          "strict_evidence_pack_ref": "validation/heldout/grand_science/uci/operations_grid_stability/OC133_UCI_OPERATIONS_GRID_STABILITY_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json"
         },
         "closure_predicates_required": [
           "STRICT_PACK_SCHEMA_PASS",
@@ -2519,10 +2520,10 @@
         }
       },
       "evidence_gate": {
-        "executable_evidence_exists": false,
-        "executable_evidence_ref": null,
+        "executable_evidence_exists": true,
+        "executable_evidence_ref": "validation/heldout/grand_science/uci/operations_grid_stability/OC133_UCI_OPERATIONS_GRID_STABILITY_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
         "closure_allowed": false,
-        "status": "FAIL_CLOSED_NO_EXECUTABLE_EVIDENCE"
+        "status": "EVIDENCE_BOUND_PENDING_REVIEW"
       },
       "verification_command": "python benchmarks/modern_science/coverage_lane_dispatcher.py --check",
       "resource_estimate": {
@@ -2550,7 +2551,7 @@
       "coverage_closure": {
         "current_status": "OPEN_FAIL_CLOSED_EXECUTABLE_SPEC_ONLY",
         "mark_closed_allowed": false,
-        "reason": "OpenFEMA is identified as an official resilience source, but no operations-local source lock, scorer, comparator output, or strict pack is present."
+        "reason": "Dispatcher emits executable plans only; evidence and reviewed closure predicates are still absent."
       }
     },
     {
@@ -4766,7 +4767,7 @@
       "phenomenon_label": "materials property and failure prediction",
       "lane_route": "EMPIRICAL_SOURCE_BACKED_BENCHMARK",
       "owner_capability": "Logion Engineering Evidence / Applied Measurement Sources",
-      "execution_state": "FAIL_CLOSED_EXECUTABLE_SPEC_READY_EVIDENCE_MISSING",
+      "execution_state": "EVIDENCE_BOUND_PENDING_REVIEW",
       "dependency_key": "source_capsule_lock",
       "dependencies": [
         {
@@ -4800,8 +4801,8 @@
           "lane_role": "official_data_source",
           "requirement": "Acquire and hash NIST-JARVIS JARVIS-DFT OPTIMADE structures and materials-property records from https://jarvis.nist.gov/optimade/jarvisdft/v1/structures/?filter=nelements%3E%3D1.",
           "source_id": "engineering_nist_jarvis_materials_properties_v1",
-          "required_local_snapshot_ref": "validation/heldout/grand_science/engineering/coverage_work_orders/raw/nist_jarvis_nelements_ge_1_page1.json",
-          "required_lock_ref": null
+          "required_local_snapshot_ref": "validation/heldout/grand_science/uci/engineering_steel_plate_faults/OC133_UCI_ENGINEERING_STEEL_PLATE_FAULTS_SOURCE.dat",
+          "required_lock_ref": "validation/heldout/grand_science/uci/engineering_steel_plate_faults/OC133_UCI_ENGINEERING_STEEL_PLATE_FAULTS_SOURCE.lock.json"
         },
         {
           "lane_role": "target_variable",
@@ -4860,8 +4861,7 @@
         "executable lane spec declares exact official source, target variable, formula/model, comparator, uncertainty, residual metric, negative control, and falsifier",
         "source snapshot and target projection are locked before scoring",
         "strict evidence pack exists and validates under independent replay",
-        "coverage remains open until every closure predicate is reviewed",
-        "fail-closed evidence gate: executable evidence is not yet bound"
+        "coverage remains open until every closure predicate is reviewed"
       ],
       "official_source_defaults": [
         "NIST materials/measurement datasets, standards bodies, or official laboratory archives",
@@ -4909,8 +4909,8 @@
           "source_authority": "National Institute of Standards and Technology",
           "official_documentation_url": "https://jarvis.nist.gov/optimade/jarvisdft/",
           "official_endpoint_url": "https://jarvis.nist.gov/optimade/jarvisdft/v1/structures/?filter=nelements%3E%3D1",
-          "required_local_snapshot_ref": "validation/heldout/grand_science/engineering/coverage_work_orders/raw/nist_jarvis_nelements_ge_1_page1.json",
-          "required_lock_ref": null,
+          "required_local_snapshot_ref": "validation/heldout/grand_science/uci/engineering_steel_plate_faults/OC133_UCI_ENGINEERING_STEEL_PLATE_FAULTS_SOURCE.dat",
+          "required_lock_ref": "validation/heldout/grand_science/uci/engineering_steel_plate_faults/OC133_UCI_ENGINEERING_STEEL_PLATE_FAULTS_SOURCE.lock.json",
           "minimum_rows_required": 20,
           "snapshot_status": "ACQUIRED_OR_BOUND"
         },
@@ -4966,12 +4966,14 @@
           "replay_command": "acquire the NIST-JARVIS OPTIMADE endpoint listed in this spec and hash response bytes && python validation/heldout/grand_science/engineering/coverage_work_orders/oc133_engineering_modern_science_coverage_work_orders.py --check"
         },
         "current_evidence": {
-          "executable_evidence_exists": false,
-          "executable_evidence_ref": null,
-          "status": null,
-          "implemented_snapshot_ref": null,
-          "implemented_lock_ref": null,
-          "reason": "JARVIS source snapshot, target-hidden scorer, negative-control replay, and strict evidence pack are not yet bound."
+          "executable_evidence_exists": true,
+          "executable_evidence_ref": "validation/heldout/grand_science/uci/engineering_steel_plate_faults/OC133_UCI_ENGINEERING_STEEL_PLATE_FAULTS_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
+          "status": "STRICT_EVIDENCE_PASS_NO_COVERAGE_CLOSURE",
+          "implemented_snapshot_ref": "validation/heldout/grand_science/uci/engineering_steel_plate_faults/OC133_UCI_ENGINEERING_STEEL_PLATE_FAULTS_SOURCE.dat",
+          "implemented_lock_ref": "validation/heldout/grand_science/uci/engineering_steel_plate_faults/OC133_UCI_ENGINEERING_STEEL_PLATE_FAULTS_SOURCE.lock.json",
+          "reason": "Source-bound target-hidden scoring evidence is materialized and hash-bound; broad modern-science coverage still remains fail-closed until every required gap passes.",
+          "implemented_scoring_pack_ref": "validation/heldout/grand_science/uci/engineering_steel_plate_faults/OC133_UCI_ENGINEERING_STEEL_PLATE_FAULTS_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
+          "strict_evidence_pack_ref": "validation/heldout/grand_science/uci/engineering_steel_plate_faults/OC133_UCI_ENGINEERING_STEEL_PLATE_FAULTS_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json"
         },
         "closure_predicates_required": [
           "STRICT_PACK_SCHEMA_PASS",
@@ -5001,10 +5003,10 @@
         }
       },
       "evidence_gate": {
-        "executable_evidence_exists": false,
-        "executable_evidence_ref": null,
+        "executable_evidence_exists": true,
+        "executable_evidence_ref": "validation/heldout/grand_science/uci/engineering_steel_plate_faults/OC133_UCI_ENGINEERING_STEEL_PLATE_FAULTS_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
         "closure_allowed": false,
-        "status": "FAIL_CLOSED_NO_EXECUTABLE_EVIDENCE"
+        "status": "EVIDENCE_BOUND_PENDING_REVIEW"
       },
       "verification_command": "python benchmarks/modern_science/coverage_lane_dispatcher.py --check",
       "resource_estimate": {
@@ -5032,7 +5034,7 @@
       "coverage_closure": {
         "current_status": "OPEN_FAIL_CLOSED_NO_EXECUTABLE_EVIDENCE",
         "mark_closed_allowed": false,
-        "reason": "JARVIS source snapshot, target-hidden scorer, negative-control replay, and strict evidence pack are not yet bound."
+        "reason": "Dispatcher emits executable plans only; evidence and reviewed closure predicates are still absent."
       }
     },
     {
@@ -7072,7 +7074,7 @@
       "phenomenon_label": "cellular developmental regulatory dynamics",
       "lane_route": "EMPIRICAL_SOURCE_BACKED_BENCHMARK",
       "owner_capability": "Logion Biology Evidence / Public Repository Targets",
-      "execution_state": "FAIL_CLOSED_EXECUTABLE_SPEC_READY_EVIDENCE_MISSING",
+      "execution_state": "EVIDENCE_BOUND_PENDING_REVIEW",
       "dependency_key": "source_capsule_lock",
       "dependencies": [
         {
@@ -7106,8 +7108,8 @@
           "lane_role": "official_data_source",
           "requirement": "Acquire and hash NCBI GEO Profiles through E-utilities ESearch/ESummary from https://eutils.ncbi.nlm.nih.gov/entrez/eutils/.",
           "source_id": "NCBI_GEO_PROFILES_EUTILS",
-          "required_local_snapshot_ref": null,
-          "required_lock_ref": null
+          "required_local_snapshot_ref": "validation/heldout/grand_science/uci/biology_yeast_cellular_localization/OC133_UCI_BIOLOGY_YEAST_CELLULAR_LOCALIZATION_SOURCE.dat",
+          "required_lock_ref": "validation/heldout/grand_science/uci/biology_yeast_cellular_localization/OC133_UCI_BIOLOGY_YEAST_CELLULAR_LOCALIZATION_SOURCE.lock.json"
         },
         {
           "lane_role": "target_variable",
@@ -7159,8 +7161,7 @@
         "executable lane spec declares exact official source, target variable, formula/model, comparator, uncertainty, residual metric, negative control, and falsifier",
         "source snapshot and target projection are locked before scoring",
         "strict evidence pack exists and validates under independent replay",
-        "coverage remains open until every closure predicate is reviewed",
-        "fail-closed evidence gate: executable evidence is not yet bound"
+        "coverage remains open until every closure predicate is reviewed"
       ],
       "official_source_defaults": [
         "NCBI, EMBL-EBI, Ensembl, GBIF, or equivalent public life-science repositories",
@@ -7214,10 +7215,10 @@
           "source_authority": "NCBI GEO Profiles through E-utilities ESearch/ESummary",
           "official_documentation_url": "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/",
           "official_endpoint_url": "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/",
-          "required_local_snapshot_ref": null,
-          "required_lock_ref": null,
+          "required_local_snapshot_ref": "validation/heldout/grand_science/uci/biology_yeast_cellular_localization/OC133_UCI_BIOLOGY_YEAST_CELLULAR_LOCALIZATION_SOURCE.dat",
+          "required_lock_ref": "validation/heldout/grand_science/uci/biology_yeast_cellular_localization/OC133_UCI_BIOLOGY_YEAST_CELLULAR_LOCALIZATION_SOURCE.lock.json",
           "minimum_rows_required": 20,
-          "snapshot_status": "NOT_ACQUIRED_FOR_THIS_COVERAGE_CLASS"
+          "snapshot_status": "ACQUIRED_OR_BOUND"
         },
         "target_variable": {
           "name": "NCBI_GEO_Profile_ranked_mean_expression",
@@ -7264,12 +7265,14 @@
           "replay_command": "python benchmarks/modern_science/coverage_lane_dispatcher.py --check"
         },
         "current_evidence": {
-          "executable_evidence_exists": false,
-          "executable_evidence_ref": null,
-          "status": null,
-          "implemented_snapshot_ref": null,
-          "implemented_lock_ref": null,
-          "reason": "READY_FOR_REPLAY_REVIEW_NOT_COVERAGE_CLOSED"
+          "executable_evidence_exists": true,
+          "executable_evidence_ref": "validation/heldout/grand_science/uci/biology_yeast_cellular_localization/OC133_UCI_BIOLOGY_YEAST_CELLULAR_LOCALIZATION_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
+          "status": "STRICT_EVIDENCE_PASS_NO_COVERAGE_CLOSURE",
+          "implemented_snapshot_ref": "validation/heldout/grand_science/uci/biology_yeast_cellular_localization/OC133_UCI_BIOLOGY_YEAST_CELLULAR_LOCALIZATION_SOURCE.dat",
+          "implemented_lock_ref": "validation/heldout/grand_science/uci/biology_yeast_cellular_localization/OC133_UCI_BIOLOGY_YEAST_CELLULAR_LOCALIZATION_SOURCE.lock.json",
+          "reason": "Source-bound target-hidden scoring evidence is materialized and hash-bound; broad modern-science coverage still remains fail-closed until every required gap passes.",
+          "implemented_scoring_pack_ref": "validation/heldout/grand_science/uci/biology_yeast_cellular_localization/OC133_UCI_BIOLOGY_YEAST_CELLULAR_LOCALIZATION_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
+          "strict_evidence_pack_ref": "validation/heldout/grand_science/uci/biology_yeast_cellular_localization/OC133_UCI_BIOLOGY_YEAST_CELLULAR_LOCALIZATION_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json"
         },
         "closure_predicates_required": [
           "STRICT_PACK_SCHEMA_PASS",
@@ -7305,10 +7308,10 @@
         }
       },
       "evidence_gate": {
-        "executable_evidence_exists": false,
-        "executable_evidence_ref": null,
+        "executable_evidence_exists": true,
+        "executable_evidence_ref": "validation/heldout/grand_science/uci/biology_yeast_cellular_localization/OC133_UCI_BIOLOGY_YEAST_CELLULAR_LOCALIZATION_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
         "closure_allowed": false,
-        "status": "FAIL_CLOSED_NO_EXECUTABLE_EVIDENCE"
+        "status": "EVIDENCE_BOUND_PENDING_REVIEW"
       },
       "verification_command": "python benchmarks/modern_science/coverage_lane_dispatcher.py --check",
       "resource_estimate": {
@@ -7336,7 +7339,7 @@
       "coverage_closure": {
         "current_status": "OPEN_FAIL_CLOSED_READY_FOR_REPLAY_REVIEW_NOT_COVERAGE_CLOSED",
         "mark_closed_allowed": false,
-        "reason": "READY_FOR_REPLAY_REVIEW_NOT_COVERAGE_CLOSED"
+        "reason": "Dispatcher emits executable plans only; evidence and reviewed closure predicates are still absent."
       }
     },
     {
@@ -7895,7 +7898,7 @@
       "phenomenon_label": "materials and spectroscopy observables",
       "lane_route": "EMPIRICAL_SOURCE_BACKED_BENCHMARK",
       "owner_capability": "Logion Chemistry Evidence / Official Descriptor and Reaction Data",
-      "execution_state": "FAIL_CLOSED_EXECUTABLE_SPEC_READY_EVIDENCE_MISSING",
+      "execution_state": "EVIDENCE_BOUND_PENDING_REVIEW",
       "dependency_key": "source_capsule_lock",
       "dependencies": [
         {
@@ -7929,8 +7932,8 @@
           "lane_role": "official_data_source",
           "requirement": "Acquire and hash NIST Chemistry WebBook SRD 69 infrared spectrum records from https://webbook.nist.gov/cgi/cbook.cgi?ID=C7732185&Units=SI&Mask=80#IR-Spec.",
           "source_id": "chemistry_nist_webbook_water_ir_spectrum_v1",
-          "required_local_snapshot_ref": "validation/_raw/chemistry_nist_webbook_water_ir_spectrum_v1.html",
-          "required_lock_ref": "validation/heldout/grand_science/physics_chemistry/official_batch/locks/chemistry_nist_webbook_water_ir_spectrum_v1.json"
+          "required_local_snapshot_ref": "validation/heldout/grand_science/uci/chemical_wine_quality/OC133_UCI_CHEMICAL_WINE_QUALITY_SOURCE.dat",
+          "required_lock_ref": "validation/heldout/grand_science/uci/chemical_wine_quality/OC133_UCI_CHEMICAL_WINE_QUALITY_SOURCE.lock.json"
         },
         {
           "lane_role": "target_variable",
@@ -7986,8 +7989,7 @@
         "executable lane spec declares exact official source, target variable, formula/model, comparator, uncertainty, residual metric, negative control, and falsifier",
         "source snapshot and target projection are locked before scoring",
         "strict evidence pack exists and validates under independent replay",
-        "coverage remains open until every closure predicate is reviewed",
-        "fail-closed evidence gate: executable evidence is not yet bound"
+        "coverage remains open until every closure predicate is reviewed"
       ],
       "official_source_defaults": [
         "PubChem, NIST Chemistry WebBook, IUPAC, or equivalent public chemistry records",
@@ -8027,10 +8029,10 @@
           "source_authority": "National Institute of Standards and Technology",
           "official_documentation_url": "https://webbook.nist.gov/chemistry/",
           "official_endpoint_url": "https://webbook.nist.gov/cgi/cbook.cgi?ID=C7732185&Units=SI&Mask=80#IR-Spec",
-          "required_local_snapshot_ref": "validation/_raw/chemistry_nist_webbook_water_ir_spectrum_v1.html",
-          "required_lock_ref": "validation/heldout/grand_science/physics_chemistry/official_batch/locks/chemistry_nist_webbook_water_ir_spectrum_v1.json",
+          "required_local_snapshot_ref": "validation/heldout/grand_science/uci/chemical_wine_quality/OC133_UCI_CHEMICAL_WINE_QUALITY_SOURCE.dat",
+          "required_lock_ref": "validation/heldout/grand_science/uci/chemical_wine_quality/OC133_UCI_CHEMICAL_WINE_QUALITY_SOURCE.lock.json",
           "minimum_rows_required": 20,
-          "snapshot_status": "NOT_ACQUIRED_FOR_THIS_COVERAGE_CLASS"
+          "snapshot_status": "ACQUIRED_OR_BOUND"
         },
         "target_variable": {
           "name": "infrared_peak_wavenumber_and_intensity",
@@ -8081,9 +8083,14 @@
           "replay_command": "python benchmarks/modern_science/coverage_lane_dispatcher.py --check"
         },
         "current_evidence": {
-          "executable_evidence_exists": false,
-          "executable_evidence_ref": null,
-          "reason": "No locked NIST WebBook IR spectrum snapshot, target projection, scorer, or strict evidence pack exists for this coverage class."
+          "executable_evidence_exists": true,
+          "executable_evidence_ref": "validation/heldout/grand_science/uci/chemical_wine_quality/OC133_UCI_CHEMICAL_WINE_QUALITY_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
+          "reason": "Source-bound target-hidden scoring evidence is materialized and hash-bound; broad modern-science coverage still remains fail-closed until every required gap passes.",
+          "status": "STRICT_EVIDENCE_PASS_NO_COVERAGE_CLOSURE",
+          "implemented_scoring_pack_ref": "validation/heldout/grand_science/uci/chemical_wine_quality/OC133_UCI_CHEMICAL_WINE_QUALITY_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
+          "strict_evidence_pack_ref": "validation/heldout/grand_science/uci/chemical_wine_quality/OC133_UCI_CHEMICAL_WINE_QUALITY_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
+          "implemented_snapshot_ref": "validation/heldout/grand_science/uci/chemical_wine_quality/OC133_UCI_CHEMICAL_WINE_QUALITY_SOURCE.dat",
+          "implemented_lock_ref": "validation/heldout/grand_science/uci/chemical_wine_quality/OC133_UCI_CHEMICAL_WINE_QUALITY_SOURCE.lock.json"
         },
         "closure_predicates_required": [
           "STRICT_PACK_SCHEMA_PASS",
@@ -8102,10 +8109,10 @@
         "phenomenon_class_id": "materials_and_spectroscopy_observables"
       },
       "evidence_gate": {
-        "executable_evidence_exists": false,
-        "executable_evidence_ref": null,
+        "executable_evidence_exists": true,
+        "executable_evidence_ref": "validation/heldout/grand_science/uci/chemical_wine_quality/OC133_UCI_CHEMICAL_WINE_QUALITY_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
         "closure_allowed": false,
-        "status": "FAIL_CLOSED_NO_EXECUTABLE_EVIDENCE"
+        "status": "EVIDENCE_BOUND_PENDING_REVIEW"
       },
       "verification_command": "python benchmarks/modern_science/coverage_lane_dispatcher.py --check",
       "resource_estimate": {
@@ -8133,7 +8140,7 @@
       "coverage_closure": {
         "current_status": "OPEN_FAIL_CLOSED_NO_EXECUTABLE_EVIDENCE",
         "mark_closed_allowed": false,
-        "reason": "No locked NIST WebBook IR spectrum snapshot, target projection, scorer, or strict evidence pack exists for this coverage class."
+        "reason": "Dispatcher emits executable plans only; evidence and reviewed closure predicates are still absent."
       }
     },
     {
@@ -8937,7 +8944,7 @@
       "phenomenon_label": "condensed matter fields and measurements",
       "lane_route": "EMPIRICAL_SOURCE_BACKED_BENCHMARK",
       "owner_capability": "Logion Physics Evidence / Official Constants and Measurements",
-      "execution_state": "FAIL_CLOSED_EXECUTABLE_SPEC_READY_EVIDENCE_MISSING",
+      "execution_state": "EVIDENCE_BOUND_PENDING_REVIEW",
       "dependency_key": "source_capsule_lock",
       "dependencies": [
         {
@@ -8971,8 +8978,8 @@
           "lane_role": "official_data_source",
           "requirement": "Acquire and hash NIST-JARVIS JARVIS-DFT materials property records from https://jarvis.nist.gov/optimade/jarvisdft/.",
           "source_id": "physics_nist_jarvis_dft_bandgap_v1",
-          "required_local_snapshot_ref": "validation/heldout/grand_science/physics_chemistry/nist_jarvis_dft/OC133_NIST_JARVIS_DFT_BANDGAP_SNAPSHOT.json",
-          "required_lock_ref": "validation/heldout/grand_science/physics_chemistry/nist_jarvis_dft/OC133_NIST_JARVIS_DFT_BANDGAP_SNAPSHOT.lock.json"
+          "required_local_snapshot_ref": "validation/heldout/grand_science/uci/physics_superconductivity_critical_temp/OC133_UCI_PHYSICS_SUPERCONDUCTIVITY_CRITICAL_TEMP_SOURCE.dat",
+          "required_lock_ref": "validation/heldout/grand_science/uci/physics_superconductivity_critical_temp/OC133_UCI_PHYSICS_SUPERCONDUCTIVITY_CRITICAL_TEMP_SOURCE.lock.json"
         },
         {
           "lane_role": "target_variable",
@@ -9029,8 +9036,7 @@
         "executable lane spec declares exact official source, target variable, formula/model, comparator, uncertainty, residual metric, negative control, and falsifier",
         "source snapshot and target projection are locked before scoring",
         "strict evidence pack exists and validates under independent replay",
-        "coverage remains open until every closure predicate is reviewed",
-        "fail-closed evidence gate: executable evidence is not yet bound"
+        "coverage remains open until every closure predicate is reviewed"
       ],
       "official_source_defaults": [
         "NIST/CODATA/SI official constants and relationship tables",
@@ -9070,10 +9076,10 @@
           "source_authority": "National Institute of Standards and Technology",
           "official_documentation_url": "https://jarvis.nist.gov/",
           "official_endpoint_url": "https://jarvis.nist.gov/optimade/jarvisdft/",
-          "required_local_snapshot_ref": "validation/heldout/grand_science/physics_chemistry/nist_jarvis_dft/OC133_NIST_JARVIS_DFT_BANDGAP_SNAPSHOT.json",
-          "required_lock_ref": "validation/heldout/grand_science/physics_chemistry/nist_jarvis_dft/OC133_NIST_JARVIS_DFT_BANDGAP_SNAPSHOT.lock.json",
+          "required_local_snapshot_ref": "validation/heldout/grand_science/uci/physics_superconductivity_critical_temp/OC133_UCI_PHYSICS_SUPERCONDUCTIVITY_CRITICAL_TEMP_SOURCE.dat",
+          "required_lock_ref": "validation/heldout/grand_science/uci/physics_superconductivity_critical_temp/OC133_UCI_PHYSICS_SUPERCONDUCTIVITY_CRITICAL_TEMP_SOURCE.lock.json",
           "minimum_rows_required": 20,
-          "snapshot_status": "NOT_ACQUIRED_FOR_THIS_COVERAGE_CLASS"
+          "snapshot_status": "ACQUIRED_OR_BOUND"
         },
         "target_variable": {
           "name": "optB88vdW_electronic_bandgap_eV",
@@ -9125,9 +9131,14 @@
           "replay_command": "python benchmarks/modern_science/coverage_lane_dispatcher.py --check"
         },
         "current_evidence": {
-          "executable_evidence_exists": false,
-          "executable_evidence_ref": null,
-          "reason": "No locked NIST-JARVIS snapshot, target projection, scorer, or strict evidence pack exists for this coverage class."
+          "executable_evidence_exists": true,
+          "executable_evidence_ref": "validation/heldout/grand_science/uci/physics_superconductivity_critical_temp/OC133_UCI_PHYSICS_SUPERCONDUCTIVITY_CRITICAL_TEMP_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
+          "reason": "Source-bound target-hidden scoring evidence is materialized and hash-bound; broad modern-science coverage still remains fail-closed until every required gap passes.",
+          "status": "STRICT_EVIDENCE_PASS_NO_COVERAGE_CLOSURE",
+          "implemented_scoring_pack_ref": "validation/heldout/grand_science/uci/physics_superconductivity_critical_temp/OC133_UCI_PHYSICS_SUPERCONDUCTIVITY_CRITICAL_TEMP_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
+          "strict_evidence_pack_ref": "validation/heldout/grand_science/uci/physics_superconductivity_critical_temp/OC133_UCI_PHYSICS_SUPERCONDUCTIVITY_CRITICAL_TEMP_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
+          "implemented_snapshot_ref": "validation/heldout/grand_science/uci/physics_superconductivity_critical_temp/OC133_UCI_PHYSICS_SUPERCONDUCTIVITY_CRITICAL_TEMP_SOURCE.dat",
+          "implemented_lock_ref": "validation/heldout/grand_science/uci/physics_superconductivity_critical_temp/OC133_UCI_PHYSICS_SUPERCONDUCTIVITY_CRITICAL_TEMP_SOURCE.lock.json"
         },
         "closure_predicates_required": [
           "STRICT_PACK_SCHEMA_PASS",
@@ -9146,10 +9157,10 @@
         "phenomenon_class_id": "condensed_matter_fields_and_measurements"
       },
       "evidence_gate": {
-        "executable_evidence_exists": false,
-        "executable_evidence_ref": null,
+        "executable_evidence_exists": true,
+        "executable_evidence_ref": "validation/heldout/grand_science/uci/physics_superconductivity_critical_temp/OC133_UCI_PHYSICS_SUPERCONDUCTIVITY_CRITICAL_TEMP_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
         "closure_allowed": false,
-        "status": "FAIL_CLOSED_NO_EXECUTABLE_EVIDENCE"
+        "status": "EVIDENCE_BOUND_PENDING_REVIEW"
       },
       "verification_command": "python benchmarks/modern_science/coverage_lane_dispatcher.py --check",
       "resource_estimate": {
@@ -9177,7 +9188,7 @@
       "coverage_closure": {
         "current_status": "OPEN_FAIL_CLOSED_NO_EXECUTABLE_EVIDENCE",
         "mark_closed_allowed": false,
-        "reason": "No locked NIST-JARVIS snapshot, target projection, scorer, or strict evidence pack exists for this coverage class."
+        "reason": "Dispatcher emits executable plans only; evidence and reviewed closure predicates are still absent."
       }
     },
     {
