@@ -2152,6 +2152,11 @@ def comparator_gap_scoring_work_order_rel(gap_id: str) -> Path:
     return lane_execution_base("MODERN_SCIENCE_COMPARATOR_SUPERIORITY") / "scoring_work_orders" / f"scoring_{gap_hash}.json"
 
 
+def comparator_gap_scoring_work_order_exists(root: Path, gap_id: str) -> bool:
+    payload = read_json(root / comparator_gap_scoring_work_order_rel(gap_id))
+    return payload.get("schema_id") == "OC133_MODERN_SCIENCE_COMPARATOR_SCORING_WORK_ORDER_v1" and payload.get("gap_id") == gap_id
+
+
 def comparator_gap_scoring_subartifact_rel(gap_id: str, subartifact_id: str) -> Path:
     payload_hash = artifact_hash({"gap_id": gap_id, "subartifact_id": subartifact_id})[:16]
     return (
@@ -4607,6 +4612,7 @@ def build_capability_implementation_registry(root: Path, *, generated_at: str | 
             row.get("status") == "PASS"
             or row.get("superseded_by_research_artifact") is True
             or row.get("superseded_by_current_validator") is True
+            or row.get("superseded_by_scoring_work_order") is True
             or row.get("superseded_by_scoring_subartifact_execution") is True
         ):
             continue
