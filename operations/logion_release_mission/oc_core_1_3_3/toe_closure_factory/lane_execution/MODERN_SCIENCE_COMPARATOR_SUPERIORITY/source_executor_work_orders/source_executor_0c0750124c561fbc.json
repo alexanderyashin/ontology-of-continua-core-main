@@ -1,0 +1,40 @@
+{
+  "artifact_hash": "1392eb912bf580516f80a832729285c71faa76cb8d54f022cfe09f5de90578df",
+  "artifact_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/source_executor_work_orders/source_executor_0c0750124c561fbc.json",
+  "execution_command": [
+    "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+    "tools/oc133_toe_closure_factory.py",
+    "--execute-comparator-source-executor",
+    "MS-COV-GAP-EARTH_SPACE_ENVIRONMENTAL_SCIENCES-CLIMATE_WEATHER_GEOPHYSICAL_TIME_SERIES",
+    "target_hidden_task_table",
+    "--write"
+  ],
+  "gap_id": "MS-COV-GAP-EARTH_SPACE_ENVIRONMENTAL_SCIENCES-CLIMATE_WEATHER_GEOPHYSICAL_TIME_SERIES",
+  "generated_at": "2026-05-06T00:59:51Z",
+  "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+  "next_escalation": "If no deterministic executor exists, implement the specific acquisition/scoring tool for this required_source_block; keep r017 blocked.",
+  "no_fake_closure_policy": "This work order is not evidence and cannot close comparator broad superiority by itself.",
+  "pass_predicate": "A governed source/evidence executor exists, writes a hash-bound evidence artifact, and its downstream scoring/replay predicates pass.",
+  "repair_strategy": "Implement or run the exact governed source/evidence executor named by required_source_block, then regenerate the target-hidden scoring pack and replay record.",
+  "required_capability": "Research/ScoringExecutor",
+  "required_source_block": {
+    "artifact_id": "target_hidden_task_table",
+    "pass_predicate": "Target table is locked before scoring and hidden fields do not leak into model selection.",
+    "required_target": {
+      "lane_role": "target_variable",
+      "requirement": "NOAA_COOPS[station=9414290, timestamp].data.v",
+      "target_fields": [
+        "data[].v"
+      ],
+      "target_name": "observed_six_minute_water_level_mllw",
+      "unit": "meters relative to MLLW"
+    }
+  },
+  "root_cause_class": "SCORING_EVIDENCE_NOT_MATERIALIZED",
+  "schema_id": "OC133_MODERN_SCIENCE_COMPARATOR_SOURCE_EXECUTOR_WORK_ORDER_v1",
+  "scoring_subartifact_id": "target_hidden_task_table",
+  "source_subartifact_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/scoring_subartifact_jobs/subartifact_0c0750124c561fbc.json",
+  "status": "OPEN",
+  "validator_binding": "comparator_gap::MS-COV-GAP-EARTH_SPACE_ENVIRONMENTAL_SCIENCES-CLIMATE_WEATHER_GEOPHYSICAL_TIME_SERIES::source_executor::target_hidden_task_table",
+  "why_it_failed": "The lower-level scoring subartifact has a diagnostic packet, but no source-bound acquisition/scoring executor has produced passing evidence."
+}

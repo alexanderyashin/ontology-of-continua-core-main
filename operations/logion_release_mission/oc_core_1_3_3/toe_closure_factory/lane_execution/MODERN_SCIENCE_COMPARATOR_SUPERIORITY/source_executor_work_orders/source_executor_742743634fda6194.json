@@ -1,0 +1,42 @@
+{
+  "artifact_hash": "afc56e86f98c989d7b6d8c3c4248ee697c37271c23fea4fa29515b763e706c44",
+  "artifact_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/source_executor_work_orders/source_executor_742743634fda6194.json",
+  "execution_command": [
+    "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+    "tools/oc133_toe_closure_factory.py",
+    "--execute-comparator-source-executor",
+    "MS-COV-GAP-COMPUTER_INFORMATION_SCIENCES-MACHINE_LEARNING_GENERALIZATION_AND_EVALUATION",
+    "target_hidden_task_table",
+    "--write"
+  ],
+  "gap_id": "MS-COV-GAP-COMPUTER_INFORMATION_SCIENCES-MACHINE_LEARNING_GENERALIZATION_AND_EVALUATION",
+  "generated_at": "2026-05-06T00:59:51Z",
+  "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+  "next_escalation": "If no deterministic executor exists, implement the specific acquisition/scoring tool for this required_source_block; keep r017 blocked.",
+  "no_fake_closure_policy": "This work order is not evidence and cannot close comparator broad superiority by itself.",
+  "pass_predicate": "A governed source/evidence executor exists, writes a hash-bound evidence artifact, and its downstream scoring/replay predicates pass.",
+  "repair_strategy": "Implement or run the exact governed source/evidence executor named by required_source_block, then regenerate the target-hidden scoring pack and replay record.",
+  "required_capability": "Research/ScoringExecutor",
+  "required_source_block": {
+    "artifact_id": "target_hidden_task_table",
+    "pass_predicate": "Target table is locked before scoring and hidden fields do not leak into model selection.",
+    "required_target": {
+      "lane_role": "target_variable",
+      "requirement": "Test labels and final fold metrics are sealed until all candidate model outputs are written.",
+      "target_fields": [
+        "fold_test_labels",
+        "fold_balanced_accuracy",
+        "fold_log_loss"
+      ],
+      "target_name": "heldout_openml_task_generalization_score",
+      "unit": "balanced accuracy error or multiclass log-loss on official holdout fold"
+    }
+  },
+  "root_cause_class": "SCORING_EVIDENCE_NOT_MATERIALIZED",
+  "schema_id": "OC133_MODERN_SCIENCE_COMPARATOR_SOURCE_EXECUTOR_WORK_ORDER_v1",
+  "scoring_subartifact_id": "target_hidden_task_table",
+  "source_subartifact_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/scoring_subartifact_jobs/subartifact_742743634fda6194.json",
+  "status": "OPEN",
+  "validator_binding": "comparator_gap::MS-COV-GAP-COMPUTER_INFORMATION_SCIENCES-MACHINE_LEARNING_GENERALIZATION_AND_EVALUATION::source_executor::target_hidden_task_table",
+  "why_it_failed": "The lower-level scoring subartifact has a diagnostic packet, but no source-bound acquisition/scoring executor has produced passing evidence."
+}
