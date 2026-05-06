@@ -1,0 +1,127 @@
+{
+  "artifact_hash": "c3f77cdf721da97bfa4821f806668e494fb334e63cbd8faa9c7bd8689cf5f075",
+  "artifact_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/component_mat/mat_06a31c01468b6b47.json",
+  "available_diagnostic_commands": [
+    [
+      "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+      "tools/oc133_toe_closure_factory.py",
+      "--execute-comparator-domain-scoring",
+      "R017-DOMAIN-SCORER-80c7d7ec237d85b3",
+      "--write"
+    ],
+    [
+      "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+      "tools/oc133_toe_closure_factory.py",
+      "--execute-comparator-domain-scorer-implementation",
+      "R017-DOMAIN-SCORER-IMPL-80c7d7ec237d85b3",
+      "--write"
+    ],
+    [
+      "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+      "tools/oc133_toe_closure_factory.py",
+      "--execute-comparator-domain-model-repair",
+      "R017-DOMAIN-MODEL-REPAIR-80c7d7ec237d85b3",
+      "--write"
+    ],
+    [
+      "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+      "tools/oc133_toe_closure_factory.py",
+      "--execute-comparator-domain-model-component",
+      "R017-DOMAIN-MODEL-COMPONENT-772449b447d675b2",
+      "--write"
+    ],
+    [
+      "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+      "tools/oc133_toe_closure_factory.py",
+      "--execute-comparator-generic-evidence-pack",
+      "MS-COV-GAP-BIOLOGICAL_LIFE_SCIENCES-ECOLOGY_POPULATION_AND_BIODIVERSITY_OBSERVABLES",
+      "--write"
+    ]
+  ],
+  "component_id": "incumbent_comparator_residual",
+  "domain_class_id": "biological_life_sciences",
+  "execution_command": [
+    "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+    "tools/oc133_toe_closure_factory.py",
+    "--execute-comparator-component-materialization",
+    "R017-COMPONENT-MATERIALIZE-09bf95d9c9843c92",
+    "--write"
+  ],
+  "gap_id": "MS-COV-GAP-BIOLOGICAL_LIFE_SCIENCES-ECOLOGY_POPULATION_AND_BIODIVERSITY_OBSERVABLES",
+  "generated_at": "2026-05-06T10:20:06Z",
+  "implementation_contract": {
+    "must_create": [
+      "source-bound OC prediction row",
+      "incumbent comparator prediction row",
+      "numeric OC residual",
+      "numeric comparator residual",
+      "materiality verdict",
+      "uncertainty/falsifier row",
+      "independent replay record"
+    ],
+    "must_not_do": [
+      "flip PASS without numeric residuals",
+      "count demotion/future research as TOE closure",
+      "use target values for model selection",
+      "weaken comparator or materiality predicate"
+    ]
+  },
+  "incumbent_comparator": {
+    "baseline_name": "GBIF carry-forward/trailing-mean biodiversity baseline",
+    "pre_registered": true,
+    "prediction_rule": "predict heldout occurrence count from prior-year count and trailing five-year mean only",
+    "required_material_margin": "model residual must beat comparator residual under the declared domain-local metric",
+    "target_values_used_for_baseline_design": false
+  },
+  "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+  "materialization_id": "R017-COMPONENT-MATERIALIZE-09bf95d9c9843c92",
+  "missing_source_evidence_fields": [
+    "component_report_pass",
+    "strict_evidence_pack_pass",
+    "scoring_artifact_pass",
+    "replay_artifact_pass",
+    "score_materialized",
+    "oc_model_residual",
+    "incumbent_comparator_residual",
+    "material_margin_met",
+    "fail_closed_status_clear"
+  ],
+  "next_escalation": "Develop the domain scorer/materializer capability and then rerun the component source obligation; keep broad superiority blocked until it passes.",
+  "no_fake_closure_policy": "This report is not evidence; it is an exact implementation contract for missing source-bound scoring.",
+  "obligation_id": "R017-COMPONENT-SOURCE-OBLIGATION-35e94c55828f503c",
+  "official_data_source": {
+    "minimum_rows_required": 20,
+    "official_documentation_url": "https://api.gbif.org/v1/occurrence/search",
+    "official_endpoint_url": "https://api.gbif.org/v1/occurrence/search",
+    "required_local_snapshot_ref": null,
+    "required_lock_ref": null,
+    "snapshot_status": "NOT_ACQUIRED_FOR_THIS_COVERAGE_CLASS",
+    "source_authority": "GBIF occurrence search API",
+    "source_id": "GBIF_OCCURRENCE_API",
+    "source_name": "GBIF occurrence search API"
+  },
+  "pass_predicate": "The materialization executor produces source-bound scoring, residual, materiality, uncertainty/falsifier, and replay artifacts; the source obligation and strict evidence pack then PASS.",
+  "phenomenon_class_id": "ecology_population_and_biodiversity_observables",
+  "repair_strategy": "Implement the domain/phenomenon scorer that reads the governed source snapshot, keeps targets hidden until scoring, computes OC and comparator residuals, and writes PASS or fail-closed scoring/replay artifacts.",
+  "required_capability": "Research/SourceBoundScoringMaterializationExecutor",
+  "residual_requirement": {
+    "formula": "absolute count residual per grid-cell/year; aggregate mean absolute residual",
+    "metric_id": "OC133-BIOLOGY-COVERAGE-ECOLOGY-POPULATION-BIODIVERSITY-OBSERVABLES_domain_local_residual",
+    "superiority_rule": "model residual plus uncertainty is smaller than best preregistered comparator residual"
+  },
+  "root_cause_class": "SOURCE_BOUND_SCORING_MATERIALIZER_NOT_IMPLEMENTED",
+  "schema_id": "OC133_MODERN_SCIENCE_COMPARATOR_COMPONENT_MATERIALIZATION_EXECUTION_v1",
+  "source_obligation_report_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/component_src/src_obligation_09bf95d9c9843c92.json",
+  "source_obligation_status": "SOURCE_BOUND_SCORING_MATERIALIZATION_REMAINS_OPEN",
+  "status": "CAPABILITY_DEVELOPMENT_REQUIRED",
+  "target_variable": {
+    "extraction_rule": "occurrence_count[grid_cell, target_year]",
+    "name": "heldout_grid_cell_species_occurrence_count",
+    "target_fields": [
+      "occurrence_count[grid_cell, target_year]"
+    ],
+    "unit": "GBIF occurrence records per locked grid cell and year"
+  },
+  "validator_binding": "comparator_gap::MS-COV-GAP-BIOLOGICAL_LIFE_SCIENCES-ECOLOGY_POPULATION_AND_BIODIVERSITY_OBSERVABLES::component_source_obligation::incumbent_comparator_residual",
+  "why_it_failed": "Source-bound scoring materializer is not implemented for this exact domain/component; existing commands only regenerate fail-closed diagnostics."
+}

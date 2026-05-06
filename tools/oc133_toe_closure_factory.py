@@ -2646,8 +2646,26 @@ def comparator_component_source_obligation_registry_rel() -> Path:
     )
 
 
+def comparator_component_materialization_backlog_rel() -> Path:
+    return (
+        lane_execution_base("MODERN_SCIENCE_COMPARATOR_SUPERIORITY")
+        / "COMPONENT_MATERIALIZATION_BACKLOG.json"
+    )
+
+
+def comparator_component_materialization_registry_rel() -> Path:
+    return (
+        lane_execution_base("MODERN_SCIENCE_COMPARATOR_SUPERIORITY")
+        / "COMPONENT_MATERIALIZATION_REGISTRY.json"
+    )
+
+
 def comparator_component_source_obligation_id(implementation_id: str, component_id: str) -> str:
     return f"R017-COMPONENT-SOURCE-OBLIGATION-{artifact_hash({'implementation_id': implementation_id, 'component_id': component_id})[:16]}"
+
+
+def comparator_component_materialization_id(obligation_id: str) -> str:
+    return f"R017-COMPONENT-MATERIALIZE-{artifact_hash({'obligation_id': obligation_id})[:16]}"
 
 
 def comparator_component_source_obligation_rel(obligation_id: str) -> Path:
@@ -2656,6 +2674,15 @@ def comparator_component_source_obligation_rel(obligation_id: str) -> Path:
         lane_execution_base("MODERN_SCIENCE_COMPARATOR_SUPERIORITY")
         / "component_src"
         / f"src_obligation_{safe_id}.json"
+    )
+
+
+def comparator_component_materialization_rel(materialization_id: str) -> Path:
+    safe_id = artifact_hash({"materialization_id": materialization_id})[:16]
+    return (
+        lane_execution_base("MODERN_SCIENCE_COMPARATOR_SUPERIORITY")
+        / "component_mat"
+        / f"mat_{safe_id}.json"
     )
 
 
@@ -5157,6 +5184,7 @@ def build_comparator_domain_model_component_implementation_execution(
                 "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
                 "status": "FAIL_CLOSED",
                 "root_cause_class": "DOMAIN_MODEL_COMPONENT_IMPLEMENTATION_ROW_MISSING",
+                "implementation_command_class": "MISSING_DOMAIN_MODEL_COMPONENT_IMPLEMENTATION_ROW",
                 "why_it_failed": "No component-implementation backlog row exists for this id.",
                 "repair_strategy": "Recompile component implementation backlog from current component work orders.",
                 "required_capability": "Research/DomainModelComparatorRepair",
@@ -5770,6 +5798,288 @@ def execute_comparator_component_source_obligation_batch(
         "registry_open_obligation_total": registry.get("open_obligation_total"),
         "rows": executed,
         "no_fake_closure_policy": "Batch execution never promotes broad superiority; it records source-bound scoring materialization attempts and fail-closed outcomes.",
+    }
+    payload["artifact_hash"] = artifact_hash(payload)
+    return payload
+
+
+def comparator_component_materialization_rows(root: Path) -> list[dict[str, Any]]:
+    payload = read_json(root / comparator_component_materialization_backlog_rel())
+    rows = payload.get("rows") or []
+    return [row for row in rows if isinstance(row, dict)]
+
+
+def comparator_component_materialization_rows_by_id(root: Path) -> dict[str, dict[str, Any]]:
+    return {
+        str(row.get("materialization_id")): row
+        for row in comparator_component_materialization_rows(root)
+        if row.get("materialization_id")
+    }
+
+
+def comparator_component_materialization_report(root: Path, materialization_id: str) -> dict[str, Any]:
+    payload = read_json(root / comparator_component_materialization_rel(materialization_id))
+    return payload if payload.get("materialization_id") == materialization_id else {}
+
+
+def comparator_component_materialization_completed(root: Path, materialization_id: str) -> bool:
+    payload = comparator_component_materialization_report(root, materialization_id)
+    return payload.get("status") == "PASS"
+
+
+def build_comparator_component_materialization_backlog(root: Path) -> dict[str, Any]:
+    generated_at = stable_generated_at(root, comparator_component_materialization_backlog_rel())
+    source_registry = build_comparator_component_source_obligation_registry(root)
+    rows: list[dict[str, Any]] = []
+    for row in source_registry.get("rows", []) or []:
+        if not isinstance(row, dict):
+            continue
+        obligation_id = str(row.get("obligation_id") or "")
+        if not obligation_id:
+            continue
+        report = comparator_component_source_obligation_report(root, obligation_id)
+        if report.get("status") == "PASS":
+            continue
+        if report.get("status") != "SOURCE_BOUND_SCORING_MATERIALIZATION_REMAINS_OPEN":
+            continue
+        materialization_id = comparator_component_materialization_id(obligation_id)
+        if comparator_component_materialization_completed(root, materialization_id):
+            continue
+        missing_fields = report.get("missing_source_evidence_fields") or row.get("missing_source_evidence_fields") or []
+        rows.append(
+            normalize_problem_row(
+                {
+                    "materialization_id": materialization_id,
+                    "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+                    "obligation_id": obligation_id,
+                    "implementation_id": row.get("implementation_id"),
+                    "component_work_order_id": row.get("component_work_order_id"),
+                    "gap_id": row.get("gap_id"),
+                    "domain_class_id": row.get("domain_class_id"),
+                    "phenomenon_class_id": row.get("phenomenon_class_id"),
+                    "component_id": row.get("component_id"),
+                    "status": "OPEN",
+                    "root_cause_class": "SOURCE_BOUND_SCORING_MATERIALIZATION_EXECUTOR_MISSING",
+                    "source_obligation_report_ref": report.get("artifact_ref") or row.get("report_ref"),
+                    "evidence_pack_ref": report.get("evidence_pack_ref"),
+                    "scoring_artifact_ref": report.get("scoring_artifact_ref"),
+                    "replay_artifact_ref": report.get("replay_artifact_ref"),
+                    "official_data_source": report.get("official_data_source"),
+                    "target_variable": report.get("target_variable"),
+                    "incumbent_comparator": report.get("incumbent_comparator"),
+                    "residual_requirement": report.get("residual_requirement"),
+                    "missing_source_evidence_fields": missing_fields,
+                    "required_materialization_outputs": [
+                        "source-bound OC prediction row",
+                        "incumbent comparator prediction row",
+                        "numeric OC residual",
+                        "numeric comparator residual",
+                        "materiality verdict",
+                        "uncertainty/falsifier row",
+                        "independent replay record",
+                    ],
+                    "why_it_failed": "The component source-obligation report exists, but it still lacks source-bound scoring and replay materialization.",
+                    "repair_strategy": "Implement the domain/phenomenon scorer that reads the governed source snapshot, keeps targets hidden until scoring, computes OC and comparator residuals, and writes PASS or fail-closed scoring/replay artifacts.",
+                    "required_capability": "Research/SourceBoundScoringMaterializationExecutor",
+                    "execution_command": [sys.executable, "tools/oc133_toe_closure_factory.py", "--execute-comparator-component-materialization", materialization_id, "--write"],
+                    "pass_predicate": "The materialization executor produces source-bound scoring, residual, materiality, uncertainty/falsifier, and replay artifacts; the source obligation and strict evidence pack then PASS.",
+                    "validator_binding": row.get("validator_binding") or f"comparator_component_materialization::{materialization_id}",
+                    "next_escalation": "If no domain scorer exists, create or edit the domain source acquisition/scoring script named by official_data_source and target_variable; if OC loses, keep the result fail-closed.",
+                    "no_fake_closure_policy": "This backlog is an executor-development frontier only; it cannot promote broad superiority without downstream PASS artifacts.",
+                },
+                {},
+            )
+        )
+    payload = {
+        "schema_id": "OC133_MODERN_SCIENCE_COMPARATOR_COMPONENT_MATERIALIZATION_BACKLOG_v1",
+        "generated_at": generated_at,
+        "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+        "status": "OPEN" if rows else "PASS",
+        "component_materialization_total": len(rows),
+        "open_component_materialization_total": sum(1 for row in rows if row.get("status") != "PASS"),
+        "source_obligation_registry_ref": source_registry.get("artifact_ref"),
+        "rows": rows,
+        "execution_command": [sys.executable, "tools/oc133_toe_closure_factory.py", "--compile-comparator-component-materialization-backlog", "--write"],
+        "why_it_failed": "Component source obligations remain open after available commands ran." if rows else "No component materialization obligations remain.",
+        "repair_strategy": "Compile exact domain scorer implementation work from materialized source-obligation reports.",
+        "required_capability": "Research/SourceBoundScoringMaterializationExecutor",
+        "pass_predicate": "All component materialization rows close through source-bound PASS scoring/replay evidence.",
+        "next_escalation": "Execute or implement the first materialization row.",
+        "no_fake_closure_policy": "Materialization backlog cannot promote modern_science_comparator_superiority by itself.",
+    }
+    payload["artifact_ref"] = rel(root, root / comparator_component_materialization_backlog_rel())
+    payload["artifact_hash"] = artifact_hash(payload)
+    write_json_artifact(root, comparator_component_materialization_backlog_rel(), payload)
+    return payload
+
+
+def build_comparator_component_materialization_execution(
+    root: Path,
+    materialization_id: str,
+) -> dict[str, Any]:
+    rows_by_id = comparator_component_materialization_rows_by_id(root)
+    row = rows_by_id.get(materialization_id)
+    if not row:
+        build_comparator_component_materialization_backlog(root)
+        rows_by_id = comparator_component_materialization_rows_by_id(root)
+        row = rows_by_id.get(materialization_id)
+    generated_at = stable_generated_at(root, comparator_component_materialization_rel(materialization_id))
+    if not row:
+        payload = normalize_problem_row(
+            {
+                "schema_id": "OC133_MODERN_SCIENCE_COMPARATOR_COMPONENT_MATERIALIZATION_EXECUTION_v1",
+                "generated_at": generated_at,
+                "materialization_id": materialization_id,
+                "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+                "status": "FAIL_CLOSED",
+                "root_cause_class": "COMPONENT_MATERIALIZATION_ROW_MISSING",
+                "why_it_failed": "No component materialization backlog row exists for this id.",
+                "repair_strategy": "Recompile the component materialization backlog from current component source-obligation reports.",
+                "required_capability": "Research/SourceBoundScoringMaterializationExecutor",
+                "execution_command": [sys.executable, "tools/oc133_toe_closure_factory.py", "--execute-comparator-component-materialization", materialization_id, "--write"],
+                "pass_predicate": "Backlog row exists and downstream source-bound evidence closes.",
+                "validator_binding": f"comparator_component_materialization::{materialization_id}",
+                "next_escalation": "Run --compile-comparator-component-materialization-backlog --write.",
+                "no_fake_closure_policy": "Missing materialization rows cannot close broad superiority.",
+            },
+            {},
+        )
+        payload["artifact_ref"] = rel(root, root / comparator_component_materialization_rel(materialization_id))
+        payload["artifact_hash"] = artifact_hash(payload)
+        write_json_artifact(root, comparator_component_materialization_rel(materialization_id), payload)
+        return payload
+    obligation_id = str(row.get("obligation_id") or "")
+    obligation_report = comparator_component_source_obligation_report(root, obligation_id)
+    gap_id = str(row.get("gap_id") or "")
+    exact_commands = comparator_component_source_next_commands(
+        root,
+        gap_id,
+        str(row.get("component_work_order_id") or ""),
+    )
+    # This execution is intentionally fail-closed: it records the exact missing
+    # scorer/materializer implementation contract instead of rerunning a
+    # diagnostic packet that already produced zero scientific delta.
+    downstream_pass = obligation_report.get("status") == "PASS"
+    payload = normalize_problem_row(
+        {
+            "schema_id": "OC133_MODERN_SCIENCE_COMPARATOR_COMPONENT_MATERIALIZATION_EXECUTION_v1",
+            "generated_at": generated_at,
+            "materialization_id": materialization_id,
+            "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+            "status": "PASS" if downstream_pass else "CAPABILITY_DEVELOPMENT_REQUIRED",
+            "root_cause_class": "SOURCE_BOUND_SCORING_MATERIALIZATION_CLOSED" if downstream_pass else "SOURCE_BOUND_SCORING_MATERIALIZER_NOT_IMPLEMENTED",
+            "obligation_id": obligation_id,
+            "gap_id": gap_id,
+            "domain_class_id": row.get("domain_class_id"),
+            "phenomenon_class_id": row.get("phenomenon_class_id"),
+            "component_id": row.get("component_id"),
+            "source_obligation_report_ref": obligation_report.get("artifact_ref") or row.get("source_obligation_report_ref"),
+            "source_obligation_status": obligation_report.get("status"),
+            "missing_source_evidence_fields": obligation_report.get("missing_source_evidence_fields") or row.get("missing_source_evidence_fields"),
+            "official_data_source": row.get("official_data_source"),
+            "target_variable": row.get("target_variable"),
+            "incumbent_comparator": row.get("incumbent_comparator"),
+            "residual_requirement": row.get("residual_requirement"),
+            "available_diagnostic_commands": exact_commands,
+            "implementation_contract": {
+                "must_create": row.get("required_materialization_outputs"),
+                "must_not_do": [
+                    "flip PASS without numeric residuals",
+                    "count demotion/future research as TOE closure",
+                    "use target values for model selection",
+                    "weaken comparator or materiality predicate",
+                ],
+            },
+            "why_it_failed": "Source-bound scoring materializer is not implemented for this exact domain/component; existing commands only regenerate fail-closed diagnostics." if not downstream_pass else "Source-bound scoring materialization closed downstream.",
+            "repair_strategy": row.get("repair_strategy"),
+            "required_capability": row.get("required_capability"),
+            "execution_command": [sys.executable, "tools/oc133_toe_closure_factory.py", "--execute-comparator-component-materialization", materialization_id, "--write"],
+            "pass_predicate": row.get("pass_predicate"),
+            "validator_binding": row.get("validator_binding"),
+            "next_escalation": "Develop the domain scorer/materializer capability and then rerun the component source obligation; keep broad superiority blocked until it passes.",
+            "no_fake_closure_policy": "This report is not evidence; it is an exact implementation contract for missing source-bound scoring.",
+        },
+        {},
+    )
+    payload["artifact_ref"] = rel(root, root / comparator_component_materialization_rel(materialization_id))
+    payload["artifact_hash"] = artifact_hash(payload)
+    write_json_artifact(root, comparator_component_materialization_rel(materialization_id), payload)
+    return payload
+
+
+def build_comparator_component_materialization_registry(root: Path) -> dict[str, Any]:
+    backlog = build_comparator_component_materialization_backlog(root)
+    rows: list[dict[str, Any]] = []
+    for row in backlog.get("rows", []) or []:
+        if not isinstance(row, dict):
+            continue
+        materialization_id = str(row.get("materialization_id") or "")
+        report = comparator_component_materialization_report(root, materialization_id)
+        report_status = report.get("status")
+        rows.append(
+            {
+                "materialization_id": materialization_id,
+                "obligation_id": row.get("obligation_id"),
+                "gap_id": row.get("gap_id"),
+                "domain_class_id": row.get("domain_class_id"),
+                "phenomenon_class_id": row.get("phenomenon_class_id"),
+                "component_id": row.get("component_id"),
+                "status": report_status if report_status in {"PASS", "CAPABILITY_DEVELOPMENT_REQUIRED", "FAIL_CLOSED"} else row.get("status"),
+                "missing_source_evidence_fields": report.get("missing_source_evidence_fields") or row.get("missing_source_evidence_fields"),
+                "report_ref": report.get("artifact_ref"),
+                "validator_binding": row.get("validator_binding"),
+            }
+        )
+    payload = {
+        "schema_id": "OC133_MODERN_SCIENCE_COMPARATOR_COMPONENT_MATERIALIZATION_REGISTRY_v1",
+        "generated_at": utc_now(),
+        "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+        "status": "PASS" if rows and all(row.get("status") == "PASS" for row in rows) else "OPEN" if rows else "PASS",
+        "component_materialization_total": len(rows),
+        "open_component_materialization_total": sum(1 for row in rows if row.get("status") != "PASS"),
+        "rows": rows,
+        "execution_command": [sys.executable, "tools/oc133_toe_closure_factory.py", "--compile-comparator-component-materialization-backlog", "--write"],
+        "no_fake_closure_policy": "Registry summarizes implementation contracts only; broad superiority is derived from strict comparator artifacts.",
+    }
+    payload["artifact_ref"] = rel(root, root / comparator_component_materialization_registry_rel())
+    payload["artifact_hash"] = artifact_hash(payload)
+    write_json_artifact(root, comparator_component_materialization_registry_rel(), payload)
+    return payload
+
+
+def execute_comparator_component_materialization_batch(root: Path, limit: int = 0) -> dict[str, Any]:
+    backlog = build_comparator_component_materialization_backlog(root)
+    rows = [row for row in backlog.get("rows", []) or [] if isinstance(row, dict)]
+    executed: list[dict[str, Any]] = []
+    for row in rows:
+        materialization_id = str(row.get("materialization_id") or "")
+        if not materialization_id:
+            continue
+        payload = build_comparator_component_materialization_execution(root, materialization_id)
+        executed.append(
+            {
+                "materialization_id": materialization_id,
+                "obligation_id": row.get("obligation_id"),
+                "gap_id": row.get("gap_id"),
+                "component_id": row.get("component_id"),
+                "status": payload.get("status"),
+                "root_cause_class": payload.get("root_cause_class"),
+                "artifact_ref": payload.get("artifact_ref"),
+            }
+        )
+        if limit > 0 and len(executed) >= limit:
+            break
+    registry = build_comparator_component_materialization_registry(root)
+    payload = {
+        "schema_id": "OC133_MODERN_SCIENCE_COMPARATOR_COMPONENT_MATERIALIZATION_BATCH_v1",
+        "generated_at": utc_now(),
+        "status": "PASS",
+        "requested_limit": limit,
+        "executed_total": len(executed),
+        "registry_ref": registry.get("artifact_ref"),
+        "registry_open_component_materialization_total": registry.get("open_component_materialization_total"),
+        "rows": executed,
+        "no_fake_closure_policy": "Batch execution never promotes broad superiority; it records exact source-bound materializer contracts and fail-closed outcomes.",
     }
     payload["artifact_hash"] = artifact_hash(payload)
     return payload
@@ -7854,6 +8164,20 @@ def capability_executor_for_row(row: dict[str, Any], compiled_capability_id: str
                 implementation_report = comparator_domain_model_component_implementation_report(ROOT, implementation_id)
                 if implementation_report.get("status") == "EVIDENCE_REPAIR_ATTEMPTED_REMAINS_OPEN":
                     obligation_id = comparator_component_source_obligation_id(implementation_id, component_id)
+                    obligation_report = comparator_component_source_obligation_report(ROOT, obligation_id)
+                    if obligation_report.get("status") == "SOURCE_BOUND_SCORING_MATERIALIZATION_REMAINS_OPEN":
+                        materialization_id = comparator_component_materialization_id(obligation_id)
+                        if materialization_id in comparator_component_materialization_rows_by_id(ROOT) and not comparator_component_materialization_completed(ROOT, materialization_id):
+                            return (
+                                [sys.executable, "tools/oc133_toe_closure_factory.py", "--execute-comparator-component-materialization", materialization_id, "--write"],
+                                "comparator_component_materialization",
+                                "Execute the exact materializer implementation contract after source-obligation diagnostics remained open.",
+                            )
+                        return (
+                            [sys.executable, "tools/oc133_toe_closure_factory.py", "--compile-comparator-component-materialization-backlog", "--write"],
+                            "comparator_component_materialization_backlog",
+                            "Compile open component source-obligation reports into source-bound materializer implementation contracts.",
+                        )
                     if obligation_id in comparator_component_source_obligation_rows_by_id(ROOT) and not comparator_component_source_obligation_completed(ROOT, obligation_id):
                         return (
                             [sys.executable, "tools/oc133_toe_closure_factory.py", "--execute-comparator-component-source-obligation", obligation_id, "--write"],
@@ -7901,6 +8225,20 @@ def capability_executor_for_row(row: dict[str, Any], compiled_capability_id: str
             implementation_report = comparator_domain_model_component_implementation_report(ROOT, implementation_id)
             if implementation_report.get("status") == "EVIDENCE_REPAIR_ATTEMPTED_REMAINS_OPEN":
                 obligation_id = comparator_component_source_obligation_id(implementation_id, component_id)
+                obligation_report = comparator_component_source_obligation_report(ROOT, obligation_id)
+                if obligation_report.get("status") == "SOURCE_BOUND_SCORING_MATERIALIZATION_REMAINS_OPEN":
+                    materialization_id = comparator_component_materialization_id(obligation_id)
+                    if materialization_id in comparator_component_materialization_rows_by_id(ROOT) and not comparator_component_materialization_completed(ROOT, materialization_id):
+                        return (
+                            [sys.executable, "tools/oc133_toe_closure_factory.py", "--execute-comparator-component-materialization", materialization_id, "--write"],
+                            "comparator_component_materialization",
+                            "Execute the exact materializer implementation contract produced by the exhausted source obligation.",
+                        )
+                    return (
+                        [sys.executable, "tools/oc133_toe_closure_factory.py", "--compile-comparator-component-materialization-backlog", "--write"],
+                        "comparator_component_materialization_backlog",
+                        "Compile source-obligation reports into exact materializer implementation contracts.",
+                    )
                 if obligation_id in comparator_component_source_obligation_rows_by_id(ROOT) and not comparator_component_source_obligation_completed(ROOT, obligation_id):
                     return (
                         [sys.executable, "tools/oc133_toe_closure_factory.py", "--execute-comparator-component-source-obligation", obligation_id, "--write"],
@@ -8118,6 +8456,8 @@ def build_capability_implementation_registry(root: Path, *, generated_at: str | 
             or row.get("superseded_by_domain_model_component_implementation_report") is True
             or row.get("superseded_by_component_source_obligation_backlog") is True
             or row.get("superseded_by_component_source_obligation_report") is True
+            or row.get("superseded_by_component_materialization_backlog") is True
+            or row.get("superseded_by_component_materialization_report") is True
         ):
             continue
         source_node = str(row.get("source_graph_node_id") or "")
@@ -8503,6 +8843,10 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--execute-comparator-component-source-obligation", help="Execute one component source-bound scoring materialization obligation by id.")
     parser.add_argument("--execute-comparator-component-source-obligation-batch", action="store_true", help="Execute component source-bound obligations in deterministic order.")
     parser.add_argument("--component-source-obligation-batch-limit", type=int, default=0, help="Optional cap for component source-obligation batch execution; 0 means no cap.")
+    parser.add_argument("--compile-comparator-component-materialization-backlog", action="store_true", help="Compile open component source-obligation reports into exact materializer implementation contracts.")
+    parser.add_argument("--execute-comparator-component-materialization", help="Execute one component materialization implementation contract by id.")
+    parser.add_argument("--execute-comparator-component-materialization-batch", action="store_true", help="Execute component materialization implementation contracts in deterministic order.")
+    parser.add_argument("--component-materialization-batch-limit", type=int, default=0, help="Optional cap for component materialization batch execution; 0 means no cap.")
     parser.add_argument("--compile-comparator-scoring-backlog", action="store_true", help="Compile exact lower-level scoring executor subtasks for open comparator scoring work orders.")
     parser.add_argument("--execute-comparator-domain-job", help="Execute one modern-science comparator domain job such as MS-COV-JOB-001.")
     parser.add_argument("--timeout", type=int, default=900)
@@ -8747,6 +9091,28 @@ def main(argv: list[str] | None = None) -> int:
     if args.execute_comparator_component_source_obligation_batch:
         payload = execute_comparator_component_source_obligation_batch(ROOT, timeout=args.timeout, limit=args.component_source_obligation_batch_limit)
         path = ROOT / lane_execution_base("MODERN_SCIENCE_COMPARATOR_SUPERIORITY") / "COMPONENT_SOURCE_OBLIGATION_BATCH.json"
+        result = validation_result({path: stable_json(payload)}, write=args.write)
+        print(json.dumps(result if args.write or args.check else payload, ensure_ascii=False, indent=2, sort_keys=True))
+        return 1 if args.check and result["state"] != "PASS" else 0
+    if args.compile_comparator_component_materialization_backlog:
+        payload = build_comparator_component_materialization_backlog(ROOT)
+        build_comparator_component_materialization_registry(ROOT)
+        artifact_ref = payload.get("artifact_ref")
+        path = ROOT / artifact_ref if isinstance(artifact_ref, str) and artifact_ref else ROOT / comparator_component_materialization_backlog_rel()
+        result = validation_result({path: stable_json(payload)}, write=args.write)
+        print(json.dumps(result if args.write or args.check else payload, ensure_ascii=False, indent=2, sort_keys=True))
+        return 1 if args.check and result["state"] != "PASS" else 0
+    if args.execute_comparator_component_materialization:
+        payload = build_comparator_component_materialization_execution(ROOT, args.execute_comparator_component_materialization)
+        build_comparator_component_materialization_registry(ROOT)
+        artifact_ref = payload.get("artifact_ref")
+        path = ROOT / artifact_ref if isinstance(artifact_ref, str) and artifact_ref else ROOT / comparator_component_materialization_rel(args.execute_comparator_component_materialization)
+        result = validation_result({path: stable_json(payload)}, write=args.write)
+        print(json.dumps(result if args.write or args.check else payload, ensure_ascii=False, indent=2, sort_keys=True))
+        return 1 if args.check and result["state"] != "PASS" else 0
+    if args.execute_comparator_component_materialization_batch:
+        payload = execute_comparator_component_materialization_batch(ROOT, limit=args.component_materialization_batch_limit)
+        path = ROOT / lane_execution_base("MODERN_SCIENCE_COMPARATOR_SUPERIORITY") / "COMPONENT_MATERIALIZATION_BATCH.json"
         result = validation_result({path: stable_json(payload)}, write=args.write)
         print(json.dumps(result if args.write or args.check else payload, ensure_ascii=False, indent=2, sort_keys=True))
         return 1 if args.check and result["state"] != "PASS" else 0

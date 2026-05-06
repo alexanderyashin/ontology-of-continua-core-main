@@ -1,0 +1,130 @@
+{
+  "artifact_hash": "950fbfe3d709782712fc8301f2e45e50aa31fe9b658e3e71c5da7684f5c5af9e",
+  "artifact_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/component_mat/mat_eba2c17f2de81186.json",
+  "available_diagnostic_commands": [
+    [
+      "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+      "tools/oc133_toe_closure_factory.py",
+      "--execute-comparator-domain-scoring",
+      "R017-DOMAIN-SCORER-dd1092e4b6a884f7",
+      "--write"
+    ],
+    [
+      "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+      "tools/oc133_toe_closure_factory.py",
+      "--execute-comparator-domain-scorer-implementation",
+      "R017-DOMAIN-SCORER-IMPL-dd1092e4b6a884f7",
+      "--write"
+    ],
+    [
+      "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+      "tools/oc133_toe_closure_factory.py",
+      "--execute-comparator-domain-model-repair",
+      "R017-DOMAIN-MODEL-REPAIR-dd1092e4b6a884f7",
+      "--write"
+    ],
+    [
+      "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+      "tools/oc133_toe_closure_factory.py",
+      "--execute-comparator-domain-model-component",
+      "R017-DOMAIN-MODEL-COMPONENT-dfe35f1e6d1454b5",
+      "--write"
+    ],
+    [
+      "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+      "tools/oc133_toe_closure_factory.py",
+      "--execute-comparator-generic-evidence-pack",
+      "MS-COV-GAP-CHEMICAL_SCIENCES-THERMOCHEMISTRY_AND_PHASE_BEHAVIOR",
+      "--write"
+    ]
+  ],
+  "component_id": "oc_model_residual",
+  "domain_class_id": "chemical_sciences",
+  "execution_command": [
+    "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+    "tools/oc133_toe_closure_factory.py",
+    "--execute-comparator-component-materialization",
+    "R017-COMPONENT-MATERIALIZE-3a8ba4b153fd9319",
+    "--write"
+  ],
+  "gap_id": "MS-COV-GAP-CHEMICAL_SCIENCES-THERMOCHEMISTRY_AND_PHASE_BEHAVIOR",
+  "generated_at": "2026-05-06T10:20:06Z",
+  "implementation_contract": {
+    "must_create": [
+      "source-bound OC prediction row",
+      "incumbent comparator prediction row",
+      "numeric OC residual",
+      "numeric comparator residual",
+      "materiality verdict",
+      "uncertainty/falsifier row",
+      "independent replay record"
+    ],
+    "must_not_do": [
+      "flip PASS without numeric residuals",
+      "count demotion/future research as TOE closure",
+      "use target values for model selection",
+      "weaken comparator or materiality predicate"
+    ]
+  },
+  "incumbent_comparator": {
+    "baseline_name": "constant-Cp and linear-enthalpy thermochemistry baseline",
+    "pre_registered": true,
+    "prediction_rule": "Use source-visible 298.15 K anchors or panel medians, not hidden target values, to predict all temperatures.",
+    "required_material_margin": "Shomate replay residual must beat constant/linear baseline residual",
+    "target_values_used_for_baseline_design": false
+  },
+  "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+  "materialization_id": "R017-COMPONENT-MATERIALIZE-3a8ba4b153fd9319",
+  "missing_source_evidence_fields": [
+    "component_report_pass",
+    "strict_evidence_pack_pass",
+    "scoring_artifact_pass",
+    "replay_artifact_pass",
+    "score_materialized",
+    "oc_model_residual",
+    "incumbent_comparator_residual",
+    "material_margin_met",
+    "fail_closed_status_clear"
+  ],
+  "next_escalation": "Develop the domain scorer/materializer capability and then rerun the component source obligation; keep broad superiority blocked until it passes.",
+  "no_fake_closure_policy": "This report is not evidence; it is an exact implementation contract for missing source-bound scoring.",
+  "obligation_id": "R017-COMPONENT-SOURCE-OBLIGATION-2e7e0eb7e0b62133",
+  "official_data_source": {
+    "minimum_rows_required": 20,
+    "official_documentation_url": "https://webbook.nist.gov/chemistry/",
+    "official_endpoint_url": "https://webbook.nist.gov/cgi/cbook.cgi?ID=C7732185&Units=SI&Mask=1#Thermo-Gas",
+    "required_local_snapshot_ref": "validation/_raw/chemistry_nist_webbook_water_gas_thermo_v1.html",
+    "required_lock_ref": "validation/heldout/grand_science/physics_chemistry/official_batch/locks/chemistry_nist_webbook_water_gas_thermo_v1.json",
+    "snapshot_status": "NOT_ACQUIRED_FOR_THIS_COVERAGE_CLASS",
+    "source_authority": "National Institute of Standards and Technology",
+    "source_id": "chemistry_nist_webbook_water_gas_thermo_v1",
+    "source_name": "NIST Chemistry WebBook SRD 69 gas-phase thermochemistry tables"
+  },
+  "pass_predicate": "The materialization executor produces source-bound scoring, residual, materiality, uncertainty/falsifier, and replay artifacts; the source obligation and strict evidence pack then PASS.",
+  "phenomenon_class_id": "thermochemistry_and_phase_behavior",
+  "repair_strategy": "Implement the domain/phenomenon scorer that reads the governed source snapshot, keeps targets hidden until scoring, computes OC and comparator residuals, and writes PASS or fail-closed scoring/replay artifacts.",
+  "required_capability": "Research/SourceBoundScoringMaterializationExecutor",
+  "residual_requirement": {
+    "formula": "abs(predicted_value - observed_value) / declared_uncertainty_or_precision_floor",
+    "metric_id": "thermochemistry_absolute_error_normalized_v1",
+    "superiority_rule": "normalized residual must be within tolerance and lower than comparator residual"
+  },
+  "root_cause_class": "SOURCE_BOUND_SCORING_MATERIALIZER_NOT_IMPLEMENTED",
+  "schema_id": "OC133_MODERN_SCIENCE_COMPARATOR_COMPONENT_MATERIALIZATION_EXECUTION_v1",
+  "source_obligation_report_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/component_src/src_obligation_3a8ba4b153fd9319.json",
+  "source_obligation_status": "SOURCE_BOUND_SCORING_MATERIALIZATION_REMAINS_OPEN",
+  "status": "CAPABILITY_DEVELOPMENT_REQUIRED",
+  "target_variable": {
+    "extraction_rule": "Hide tabulated thermochemistry values until Shomate-equation predictions are materialized from visible coefficients and temperature grid.",
+    "name": "Shomate_thermochemistry_table_values",
+    "target_fields": [
+      "Cp",
+      "S",
+      "H_minus_H_298",
+      "Delta_f_H"
+    ],
+    "unit": "J/mol/K, kJ/mol, or source-declared SI units"
+  },
+  "validator_binding": "comparator_gap::MS-COV-GAP-CHEMICAL_SCIENCES-THERMOCHEMISTRY_AND_PHASE_BEHAVIOR::component_source_obligation::oc_model_residual",
+  "why_it_failed": "Source-bound scoring materializer is not implemented for this exact domain/component; existing commands only regenerate fail-closed diagnostics."
+}

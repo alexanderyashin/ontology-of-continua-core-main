@@ -1,5 +1,5 @@
 {
-  "artifact_hash": "975e2e7dd21cac883043d607e184797b0cd70364068102177cfdfbb218d72241",
+  "artifact_hash": "c24fa4e31c47aa5093d31b13368ee3896cefd73b8d33a6f36368c20dad7da73c",
   "artifact_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/gap_jobs/gap_a1c1bcc404d197ab.json",
   "artifact_rows": [
     {
@@ -22,9 +22,9 @@
         "benchmarks/modern_science/OC133_MODERN_SCIENCE_COVERAGE_WORK_ORDERS.json",
         "comparators/modern_science/OC133_MODERN_SCIENCE_COVERAGE_REGISTER.json"
       ],
-      "status": "OPEN",
+      "status": "PASS",
       "subwork_order_id": "R017-COMPARATOR-GAP-MS-COV-GAP-ENGINEERING_MATERIALS_SCIENCES-CONTROL_SYSTEMS_AND_SIGNAL_MEASUREMENT-verified_open_source_capsule",
-      "why_it_failed": "Comparator gap `MS-COV-GAP-ENGINEERING_MATERIALS_SCIENCES-CONTROL_SYSTEMS_AND_SIGNAL_MEASUREMENT` lacks `verified_open_source_capsule`."
+      "why_it_failed": "Comparator gap `MS-COV-GAP-ENGINEERING_MATERIALS_SCIENCES-CONTROL_SYSTEMS_AND_SIGNAL_MEASUREMENT` has `verified_open_source_capsule` bound."
     },
     {
       "artifact_key": "benchmark_case",
@@ -46,9 +46,9 @@
         "benchmarks/modern_science/OC133_MODERN_SCIENCE_COVERAGE_WORK_ORDERS.json",
         "comparators/modern_science/OC133_MODERN_SCIENCE_COVERAGE_REGISTER.json"
       ],
-      "status": "OPEN",
+      "status": "PASS",
       "subwork_order_id": "R017-COMPARATOR-GAP-MS-COV-GAP-ENGINEERING_MATERIALS_SCIENCES-CONTROL_SYSTEMS_AND_SIGNAL_MEASUREMENT-benchmark_case",
-      "why_it_failed": "Comparator gap `MS-COV-GAP-ENGINEERING_MATERIALS_SCIENCES-CONTROL_SYSTEMS_AND_SIGNAL_MEASUREMENT` lacks `benchmark_case`."
+      "why_it_failed": "Comparator gap `MS-COV-GAP-ENGINEERING_MATERIALS_SCIENCES-CONTROL_SYSTEMS_AND_SIGNAL_MEASUREMENT` has `benchmark_case` bound."
     },
     {
       "artifact_key": "incumbent_comparator",
@@ -70,9 +70,9 @@
         "benchmarks/modern_science/OC133_MODERN_SCIENCE_COVERAGE_WORK_ORDERS.json",
         "comparators/modern_science/OC133_MODERN_SCIENCE_COVERAGE_REGISTER.json"
       ],
-      "status": "OPEN",
+      "status": "PASS",
       "subwork_order_id": "R017-COMPARATOR-GAP-MS-COV-GAP-ENGINEERING_MATERIALS_SCIENCES-CONTROL_SYSTEMS_AND_SIGNAL_MEASUREMENT-incumbent_comparator",
-      "why_it_failed": "Comparator gap `MS-COV-GAP-ENGINEERING_MATERIALS_SCIENCES-CONTROL_SYSTEMS_AND_SIGNAL_MEASUREMENT` lacks `incumbent_comparator`."
+      "why_it_failed": "Comparator gap `MS-COV-GAP-ENGINEERING_MATERIALS_SCIENCES-CONTROL_SYSTEMS_AND_SIGNAL_MEASUREMENT` has `incumbent_comparator` bound."
     },
     {
       "artifact_key": "oc_prediction_scoring_row",
@@ -118,9 +118,9 @@
         "benchmarks/modern_science/OC133_MODERN_SCIENCE_COVERAGE_WORK_ORDERS.json",
         "comparators/modern_science/OC133_MODERN_SCIENCE_COVERAGE_REGISTER.json"
       ],
-      "status": "OPEN",
+      "status": "PASS",
       "subwork_order_id": "R017-COMPARATOR-GAP-MS-COV-GAP-ENGINEERING_MATERIALS_SCIENCES-CONTROL_SYSTEMS_AND_SIGNAL_MEASUREMENT-uncertainty_row",
-      "why_it_failed": "Comparator gap `MS-COV-GAP-ENGINEERING_MATERIALS_SCIENCES-CONTROL_SYSTEMS_AND_SIGNAL_MEASUREMENT` lacks `uncertainty_row`."
+      "why_it_failed": "Comparator gap `MS-COV-GAP-ENGINEERING_MATERIALS_SCIENCES-CONTROL_SYSTEMS_AND_SIGNAL_MEASUREMENT` has `uncertainty_row` bound."
     },
     {
       "artifact_key": "falsifier_row",
@@ -142,9 +142,9 @@
         "benchmarks/modern_science/OC133_MODERN_SCIENCE_COVERAGE_WORK_ORDERS.json",
         "comparators/modern_science/OC133_MODERN_SCIENCE_COVERAGE_REGISTER.json"
       ],
-      "status": "OPEN",
+      "status": "PASS",
       "subwork_order_id": "R017-COMPARATOR-GAP-MS-COV-GAP-ENGINEERING_MATERIALS_SCIENCES-CONTROL_SYSTEMS_AND_SIGNAL_MEASUREMENT-falsifier_row",
-      "why_it_failed": "Comparator gap `MS-COV-GAP-ENGINEERING_MATERIALS_SCIENCES-CONTROL_SYSTEMS_AND_SIGNAL_MEASUREMENT` lacks `falsifier_row`."
+      "why_it_failed": "Comparator gap `MS-COV-GAP-ENGINEERING_MATERIALS_SCIENCES-CONTROL_SYSTEMS_AND_SIGNAL_MEASUREMENT` has `falsifier_row` bound."
     },
     {
       "artifact_key": "replay_record",
@@ -241,14 +241,9 @@
   "gap_id": "MS-COV-GAP-ENGINEERING_MATERIALS_SCIENCES-CONTROL_SYSTEMS_AND_SIGNAL_MEASUREMENT",
   "generated_at": "2026-05-05T19:38:13Z",
   "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
-  "missing_artifact_total": 7,
+  "missing_artifact_total": 2,
   "missing_artifacts": [
-    "verified_open_source_capsule",
-    "benchmark_case",
-    "incumbent_comparator",
     "oc_prediction_scoring_row",
-    "uncertainty_row",
-    "falsifier_row",
     "replay_record"
   ],
   "next_escalation": "Use artifact_rows as the next per-artifact work list; do not count benchmark-scoped superiority as broad closure.",
@@ -302,13 +297,13 @@
         "FAIL_CLOSED_UNLESS_EXECUTABLE_EVIDENCE_BOUND"
       ],
       "artifact_status": {
-        "benchmark_case": false,
-        "falsifier_row": false,
-        "incumbent_comparator": false,
+        "benchmark_case": true,
+        "falsifier_row": true,
+        "incumbent_comparator": true,
         "oc_prediction_scoring_row": false,
         "replay_record": false,
-        "uncertainty_row": false,
-        "verified_open_source_capsule": false
+        "uncertainty_row": true,
+        "verified_open_source_capsule": true
       },
       "domain_class_id": "engineering_materials_sciences",
       "execution_command": [
@@ -320,12 +315,7 @@
       ],
       "gap_id": "MS-COV-GAP-ENGINEERING_MATERIALS_SCIENCES-CONTROL_SYSTEMS_AND_SIGNAL_MEASUREMENT",
       "missing_artifacts": [
-        "verified_open_source_capsule",
-        "benchmark_case",
-        "incumbent_comparator",
         "oc_prediction_scoring_row",
-        "uncertainty_row",
-        "falsifier_row",
         "replay_record"
       ],
       "next_escalation": "Split the gap into governed source acquisition, benchmark construction, comparator scoring, uncertainty, falsifier, and replay tasks.",

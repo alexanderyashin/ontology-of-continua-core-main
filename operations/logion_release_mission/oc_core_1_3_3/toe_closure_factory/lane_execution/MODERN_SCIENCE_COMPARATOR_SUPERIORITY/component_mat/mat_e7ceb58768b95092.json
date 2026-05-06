@@ -1,0 +1,127 @@
+{
+  "artifact_hash": "a9153a6bb3b281ef883fc5bf9f658bacd8d97626517db2dff9673ee3569d82b6",
+  "artifact_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/component_mat/mat_e7ceb58768b95092.json",
+  "available_diagnostic_commands": [
+    [
+      "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+      "tools/oc133_toe_closure_factory.py",
+      "--execute-comparator-domain-scoring",
+      "R017-DOMAIN-SCORER-3dcf09e69027dbe9",
+      "--write"
+    ],
+    [
+      "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+      "tools/oc133_toe_closure_factory.py",
+      "--execute-comparator-domain-scorer-implementation",
+      "R017-DOMAIN-SCORER-IMPL-3dcf09e69027dbe9",
+      "--write"
+    ],
+    [
+      "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+      "tools/oc133_toe_closure_factory.py",
+      "--execute-comparator-domain-model-repair",
+      "R017-DOMAIN-MODEL-REPAIR-3dcf09e69027dbe9",
+      "--write"
+    ],
+    [
+      "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+      "tools/oc133_toe_closure_factory.py",
+      "--execute-comparator-domain-model-component",
+      "R017-DOMAIN-MODEL-COMPONENT-fd7facc3871934ba",
+      "--write"
+    ],
+    [
+      "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+      "tools/oc133_toe_closure_factory.py",
+      "--execute-comparator-generic-evidence-pack",
+      "MS-COV-GAP-SOCIAL_ECONOMIC_POLITICAL_SCIENCES-INSTITUTIONAL_SOCIAL_NETWORK_AND_POLICY_OUTCOMES",
+      "--write"
+    ]
+  ],
+  "component_id": "material_margin",
+  "domain_class_id": "social_economic_political_sciences",
+  "execution_command": [
+    "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+    "tools/oc133_toe_closure_factory.py",
+    "--execute-comparator-component-materialization",
+    "R017-COMPONENT-MATERIALIZE-2f5631eb0acfc7ff",
+    "--write"
+  ],
+  "gap_id": "MS-COV-GAP-SOCIAL_ECONOMIC_POLITICAL_SCIENCES-INSTITUTIONAL_SOCIAL_NETWORK_AND_POLICY_OUTCOMES",
+  "generated_at": "2026-05-06T10:20:07Z",
+  "implementation_contract": {
+    "must_create": [
+      "source-bound OC prediction row",
+      "incumbent comparator prediction row",
+      "numeric OC residual",
+      "numeric comparator residual",
+      "materiality verdict",
+      "uncertainty/falsifier row",
+      "independent replay record"
+    ],
+    "must_not_do": [
+      "flip PASS without numeric residuals",
+      "count demotion/future research as TOE closure",
+      "use target values for model selection",
+      "weaken comparator or materiality predicate"
+    ]
+  },
+  "incumbent_comparator": {
+    "baseline_name": "WGI governance best-of carry-forward, prior-mean, and trailing-mean comparators",
+    "pre_registered": true,
+    "prediction_rule": "score each heldout target against preregistered last-observation carry-forward, prior-training mean, and trailing-three-year mean baselines on the same source snapshot",
+    "required_material_margin": "model residual must beat comparator residual under the declared domain-local metric",
+    "target_values_used_for_baseline_design": false
+  },
+  "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+  "materialization_id": "R017-COMPONENT-MATERIALIZE-2f5631eb0acfc7ff",
+  "missing_source_evidence_fields": [
+    "component_report_pass",
+    "strict_evidence_pack_pass",
+    "scoring_artifact_pass",
+    "replay_artifact_pass",
+    "score_materialized",
+    "oc_model_residual",
+    "incumbent_comparator_residual",
+    "material_margin_met",
+    "fail_closed_status_clear"
+  ],
+  "next_escalation": "Develop the domain scorer/materializer capability and then rerun the component source obligation; keep broad superiority blocked until it passes.",
+  "no_fake_closure_policy": "This report is not evidence; it is an exact implementation contract for missing source-bound scoring.",
+  "obligation_id": "R017-COMPONENT-SOURCE-OBLIGATION-eae6a26dd4020554",
+  "official_data_source": {
+    "minimum_rows_required": 20,
+    "official_documentation_url": "https://api.worldbank.org/v2/",
+    "official_endpoint_url": "https://api.worldbank.org/v2/",
+    "required_local_snapshot_ref": null,
+    "required_lock_ref": null,
+    "snapshot_status": "NOT_ACQUIRED_FOR_THIS_COVERAGE_CLASS",
+    "source_authority": "World Bank World Development Indicators API",
+    "source_id": "WORLD_BANK_WGI_VIA_WDI_API",
+    "source_name": "World Bank World Development Indicators API"
+  },
+  "pass_predicate": "The materialization executor produces source-bound scoring, residual, materiality, uncertainty/falsifier, and replay artifacts; the source obligation and strict evidence pack then PASS.",
+  "phenomenon_class_id": "institutional_social_network_and_policy_outcomes",
+  "repair_strategy": "Implement the domain/phenomenon scorer that reads the governed source snapshot, keeps targets hidden until scoring, computes OC and comparator residuals, and writes PASS or fail-closed scoring/replay artifacts.",
+  "required_capability": "Research/SourceBoundScoringMaterializationExecutor",
+  "residual_requirement": {
+    "formula": "absolute residual per heldout country/indicator/year; aggregate mean absolute residual",
+    "metric_id": "OC133-SYSTEMS-COVERAGE-INSTITUTIONAL-SOCIAL-NETWORK-POLICY-OUTCOMES_domain_local_residual",
+    "superiority_rule": "every row and aggregate residual margin must exceed preregistered materiality thresholds"
+  },
+  "root_cause_class": "SOURCE_BOUND_SCORING_MATERIALIZER_NOT_IMPLEMENTED",
+  "schema_id": "OC133_MODERN_SCIENCE_COMPARATOR_COMPONENT_MATERIALIZATION_EXECUTION_v1",
+  "source_obligation_report_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/component_src/src_obligation_2f5631eb0acfc7ff.json",
+  "source_obligation_status": "SOURCE_BOUND_SCORING_MATERIALIZATION_REMAINS_OPEN",
+  "status": "CAPABILITY_DEVELOPMENT_REQUIRED",
+  "target_variable": {
+    "extraction_rule": "WDI[country, GE.EST or RL.EST, heldout_year].value",
+    "name": "heldout_country_year_governance_estimate",
+    "target_fields": [
+      "WDI[country, GE.EST or RL.EST, heldout_year].value"
+    ],
+    "unit": "World Bank WGI estimate units"
+  },
+  "validator_binding": "comparator_gap::MS-COV-GAP-SOCIAL_ECONOMIC_POLITICAL_SCIENCES-INSTITUTIONAL_SOCIAL_NETWORK_AND_POLICY_OUTCOMES::component_source_obligation::material_margin",
+  "why_it_failed": "Source-bound scoring materializer is not implemented for this exact domain/component; existing commands only regenerate fail-closed diagnostics."
+}

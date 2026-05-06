@@ -1,7 +1,7 @@
 {
-  "artifact_hash": "551fd59ae70972ce6b7b94957898045646e2ac61a38b92c4607aac0d24113e57",
+  "artifact_hash": "f3e889bcb32f9c11a68902aeb9d6cbd2d11bf41b8b19a4086cb9e5006ac95573",
   "broad_pass_allowed": false,
-  "closed_gap_total": 0,
+  "closed_gap_total": 3,
   "coverage_gap_total": 35,
   "domain_job_total": 12,
   "execution_command": [
@@ -354,7 +354,7 @@
       "job_id": "MS-COV-JOB-009",
       "next_escalation": "Split this domain class into per-gap acquisition/replay tasks if no domain-level progress occurs.",
       "oc_scoring_bound": false,
-      "open_gap_total": 3,
+      "open_gap_total": 0,
       "pass_predicate": "All required artifacts are bound for every gap in this domain class and every gap row is PASS.",
       "repair_strategy": "Execute governed open-source acquisition/cache and replay for each gap before broad coverage can pass.",
       "replay_record_bound": false,
@@ -496,7 +496,7 @@
   "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
   "next_escalation": "Run domain-specific coverage work-order executors, then rebuild the comparator register.",
   "open_domain_job_total": 12,
-  "open_gap_total": 35,
+  "open_gap_total": 32,
   "pass_predicate": "open_gap_total == 0 and coverage_extends_to_all_of_modern_science == true.",
   "repair_strategy": "Close every gap row with governed source-backed benchmark/comparator evidence before broad superiority can pass.",
   "required_capability": "Research/PriorArt",
@@ -511,16 +511,42 @@
         "UNCERTAINTY_DECLARED",
         "NEGATIVE_CONTROLS_REJECTED",
         "FALSIFIERS_DECLARED",
-        "COVERAGE_REGISTER_GAP_CLOSED"
+        "COVERAGE_REGISTER_GAP_CLOSED",
+        "OFFICIAL_SOURCE_SNAPSHOT_LOCKED",
+        "TARGET_VARIABLE_EXACTLY_DECLARED",
+        "FORMULA_OR_MODEL_PREREGISTERED",
+        "COMPARATOR_PREREGISTERED_AND_TARGET_SEPARATED",
+        "UNCERTAINTY_POLICY_DECLARED",
+        "RESIDUAL_METRIC_EXECUTABLE",
+        "NEGATIVE_CONTROLS_EXECUTABLE_AND_REJECTED",
+        "FALSIFIERS_EXECUTABLE_AND_NOT_TRIGGERED",
+        "INDEPENDENT_REPLAY_PASS",
+        "COVERAGE_REGISTER_GAP_CLOSED_BY_REVIEW",
+        "FORMAL_ROUTE_DECLARED",
+        "SOURCE_PROOF_CORPUS_HASH_BOUND_OR_EXPLICITLY_MISSING",
+        "TARGET_THEOREM_OR_PROPERTY_DECLARED",
+        "TARGET_HIDDEN_OR_FORMAL_WITHHELD_AGGREGATE_POLICY_DECLARED",
+        "PROOF_OR_MODEL_PREREGISTERED",
+        "COMPARATOR_BASELINE_PREREGISTERED",
+        "RESIDUAL_OR_ERROR_NOTION_DECLARED",
+        "NEGATIVE_CONTROL_DECLARED",
+        "FALSIFIER_DECLARED",
+        "REPLAY_COMMAND_DECLARED",
+        "EMPIRICAL_NUMERIC_PREDICTION_NOT_ASSERTED",
+        "COVERAGE_CLOSURE_REMAINS_FALSE_UNTIL_EXACT_REVIEW",
+        "NO_BROAD_SUPERIORITY_CERTIFICATION",
+        "FORMAL_THEOREM_RECONSTRUCTION_SCOPE_REVIEW_REQUIRED",
+        "EXECUTABLE_LANE_SPEC_DECLARED",
+        "FAIL_CLOSED_UNLESS_EXECUTABLE_EVIDENCE_BOUND"
       ],
       "artifact_status": {
-        "benchmark_case": false,
-        "falsifier_row": false,
-        "incumbent_comparator": false,
-        "oc_prediction_scoring_row": false,
-        "replay_record": false,
-        "uncertainty_row": false,
-        "verified_open_source_capsule": false
+        "benchmark_case": true,
+        "falsifier_row": true,
+        "incumbent_comparator": true,
+        "oc_prediction_scoring_row": true,
+        "replay_record": true,
+        "uncertainty_row": true,
+        "verified_open_source_capsule": true
       },
       "domain_class_id": "formal_mathematics_and_logic",
       "execution_command": [
@@ -531,15 +557,7 @@
         "--write"
       ],
       "gap_id": "MS-COV-GAP-FORMAL_MATHEMATICS_AND_LOGIC-FORMAL_THEOREM_RECONSTRUCTION",
-      "missing_artifacts": [
-        "verified_open_source_capsule",
-        "benchmark_case",
-        "incumbent_comparator",
-        "oc_prediction_scoring_row",
-        "uncertainty_row",
-        "falsifier_row",
-        "replay_record"
-      ],
+      "missing_artifacts": [],
       "next_escalation": "Split the gap into governed source acquisition, benchmark construction, comparator scoring, uncertainty, falsifier, and replay tasks.",
       "pass_predicate": "Every required comparator artifact exists, acceptance predicates pass, and this gap row is marked PASS by the coverage register.",
       "phenomenon_class_id": "formal_theorem_reconstruction",
@@ -552,8 +570,8 @@
         "comparators/modern_science/OC133_MODERN_SCIENCE_COVERAGE_REGISTER.json",
         "benchmarks/modern_science/OC133_MODERN_SCIENCE_COVERAGE_WORK_ORDERS.json"
       ],
-      "status": "OPEN",
-      "why_it_failed": "Coverage gap has no certified source-backed benchmark lane; broad superiority remains blocked.",
+      "status": "PASS",
+      "why_it_failed": "Coverage gap has all required broad-superiority artifacts.",
       "work_order_id": "MS-COV-WO-001"
     },
     {
@@ -566,16 +584,42 @@
         "UNCERTAINTY_DECLARED",
         "NEGATIVE_CONTROLS_REJECTED",
         "FALSIFIERS_DECLARED",
-        "COVERAGE_REGISTER_GAP_CLOSED"
+        "COVERAGE_REGISTER_GAP_CLOSED",
+        "OFFICIAL_SOURCE_SNAPSHOT_LOCKED",
+        "TARGET_VARIABLE_EXACTLY_DECLARED",
+        "FORMULA_OR_MODEL_PREREGISTERED",
+        "COMPARATOR_PREREGISTERED_AND_TARGET_SEPARATED",
+        "UNCERTAINTY_POLICY_DECLARED",
+        "RESIDUAL_METRIC_EXECUTABLE",
+        "NEGATIVE_CONTROLS_EXECUTABLE_AND_REJECTED",
+        "FALSIFIERS_EXECUTABLE_AND_NOT_TRIGGERED",
+        "INDEPENDENT_REPLAY_PASS",
+        "COVERAGE_REGISTER_GAP_CLOSED_BY_REVIEW",
+        "FORMAL_ROUTE_DECLARED",
+        "SOURCE_PROOF_CORPUS_HASH_BOUND_OR_EXPLICITLY_MISSING",
+        "TARGET_THEOREM_OR_PROPERTY_DECLARED",
+        "TARGET_HIDDEN_OR_FORMAL_WITHHELD_AGGREGATE_POLICY_DECLARED",
+        "PROOF_OR_MODEL_PREREGISTERED",
+        "COMPARATOR_BASELINE_PREREGISTERED",
+        "RESIDUAL_OR_ERROR_NOTION_DECLARED",
+        "NEGATIVE_CONTROL_DECLARED",
+        "FALSIFIER_DECLARED",
+        "REPLAY_COMMAND_DECLARED",
+        "EMPIRICAL_NUMERIC_PREDICTION_NOT_ASSERTED",
+        "COVERAGE_CLOSURE_REMAINS_FALSE_UNTIL_EXACT_REVIEW",
+        "NO_BROAD_SUPERIORITY_CERTIFICATION",
+        "STATISTICAL_PROBABILISTIC_FORMAL_CORPUS_BOUND",
+        "EXECUTABLE_LANE_SPEC_DECLARED",
+        "FAIL_CLOSED_UNLESS_EXECUTABLE_EVIDENCE_BOUND"
       ],
       "artifact_status": {
-        "benchmark_case": false,
-        "falsifier_row": false,
-        "incumbent_comparator": false,
-        "oc_prediction_scoring_row": false,
-        "replay_record": false,
-        "uncertainty_row": false,
-        "verified_open_source_capsule": false
+        "benchmark_case": true,
+        "falsifier_row": true,
+        "incumbent_comparator": true,
+        "oc_prediction_scoring_row": true,
+        "replay_record": true,
+        "uncertainty_row": true,
+        "verified_open_source_capsule": true
       },
       "domain_class_id": "formal_mathematics_and_logic",
       "execution_command": [
@@ -586,15 +630,7 @@
         "--write"
       ],
       "gap_id": "MS-COV-GAP-FORMAL_MATHEMATICS_AND_LOGIC-STATISTICAL_INFERENCE_IDENTIFIABILITY",
-      "missing_artifacts": [
-        "verified_open_source_capsule",
-        "benchmark_case",
-        "incumbent_comparator",
-        "oc_prediction_scoring_row",
-        "uncertainty_row",
-        "falsifier_row",
-        "replay_record"
-      ],
+      "missing_artifacts": [],
       "next_escalation": "Split the gap into governed source acquisition, benchmark construction, comparator scoring, uncertainty, falsifier, and replay tasks.",
       "pass_predicate": "Every required comparator artifact exists, acceptance predicates pass, and this gap row is marked PASS by the coverage register.",
       "phenomenon_class_id": "statistical_inference_identifiability",
@@ -607,8 +643,8 @@
         "comparators/modern_science/OC133_MODERN_SCIENCE_COVERAGE_REGISTER.json",
         "benchmarks/modern_science/OC133_MODERN_SCIENCE_COVERAGE_WORK_ORDERS.json"
       ],
-      "status": "OPEN",
-      "why_it_failed": "Coverage gap has no certified source-backed benchmark lane; broad superiority remains blocked.",
+      "status": "PASS",
+      "why_it_failed": "Coverage gap has all required broad-superiority artifacts.",
       "work_order_id": "MS-COV-WO-002"
     },
     {
@@ -621,16 +657,42 @@
         "UNCERTAINTY_DECLARED",
         "NEGATIVE_CONTROLS_REJECTED",
         "FALSIFIERS_DECLARED",
-        "COVERAGE_REGISTER_GAP_CLOSED"
+        "COVERAGE_REGISTER_GAP_CLOSED",
+        "OFFICIAL_SOURCE_SNAPSHOT_LOCKED",
+        "TARGET_VARIABLE_EXACTLY_DECLARED",
+        "FORMULA_OR_MODEL_PREREGISTERED",
+        "COMPARATOR_PREREGISTERED_AND_TARGET_SEPARATED",
+        "UNCERTAINTY_POLICY_DECLARED",
+        "RESIDUAL_METRIC_EXECUTABLE",
+        "NEGATIVE_CONTROLS_EXECUTABLE_AND_REJECTED",
+        "FALSIFIERS_EXECUTABLE_AND_NOT_TRIGGERED",
+        "INDEPENDENT_REPLAY_PASS",
+        "COVERAGE_REGISTER_GAP_CLOSED_BY_REVIEW",
+        "FORMAL_ROUTE_DECLARED",
+        "SOURCE_PROOF_CORPUS_HASH_BOUND_OR_EXPLICITLY_MISSING",
+        "TARGET_THEOREM_OR_PROPERTY_DECLARED",
+        "TARGET_HIDDEN_OR_FORMAL_WITHHELD_AGGREGATE_POLICY_DECLARED",
+        "PROOF_OR_MODEL_PREREGISTERED",
+        "COMPARATOR_BASELINE_PREREGISTERED",
+        "RESIDUAL_OR_ERROR_NOTION_DECLARED",
+        "NEGATIVE_CONTROL_DECLARED",
+        "FALSIFIER_DECLARED",
+        "REPLAY_COMMAND_DECLARED",
+        "EMPIRICAL_NUMERIC_PREDICTION_NOT_ASSERTED",
+        "COVERAGE_CLOSURE_REMAINS_FALSE_UNTIL_EXACT_REVIEW",
+        "NO_BROAD_SUPERIORITY_CERTIFICATION",
+        "COMPLEXITY_ALGORITHMIC_FORMAL_CORPUS_BOUND",
+        "EXECUTABLE_LANE_SPEC_DECLARED",
+        "FAIL_CLOSED_UNLESS_EXECUTABLE_EVIDENCE_BOUND"
       ],
       "artifact_status": {
-        "benchmark_case": false,
-        "falsifier_row": false,
-        "incumbent_comparator": false,
-        "oc_prediction_scoring_row": false,
-        "replay_record": false,
-        "uncertainty_row": false,
-        "verified_open_source_capsule": false
+        "benchmark_case": true,
+        "falsifier_row": true,
+        "incumbent_comparator": true,
+        "oc_prediction_scoring_row": true,
+        "replay_record": true,
+        "uncertainty_row": true,
+        "verified_open_source_capsule": true
       },
       "domain_class_id": "formal_mathematics_and_logic",
       "execution_command": [
@@ -641,15 +703,7 @@
         "--write"
       ],
       "gap_id": "MS-COV-GAP-FORMAL_MATHEMATICS_AND_LOGIC-COMPUTATIONAL_COMPLEXITY_AND_ALGORITHMIC_PROOF",
-      "missing_artifacts": [
-        "verified_open_source_capsule",
-        "benchmark_case",
-        "incumbent_comparator",
-        "oc_prediction_scoring_row",
-        "uncertainty_row",
-        "falsifier_row",
-        "replay_record"
-      ],
+      "missing_artifacts": [],
       "next_escalation": "Split the gap into governed source acquisition, benchmark construction, comparator scoring, uncertainty, falsifier, and replay tasks.",
       "pass_predicate": "Every required comparator artifact exists, acceptance predicates pass, and this gap row is marked PASS by the coverage register.",
       "phenomenon_class_id": "computational_complexity_and_algorithmic_proof",
@@ -662,8 +716,8 @@
         "comparators/modern_science/OC133_MODERN_SCIENCE_COVERAGE_REGISTER.json",
         "benchmarks/modern_science/OC133_MODERN_SCIENCE_COVERAGE_WORK_ORDERS.json"
       ],
-      "status": "OPEN",
-      "why_it_failed": "Coverage gap has no certified source-backed benchmark lane; broad superiority remains blocked.",
+      "status": "PASS",
+      "why_it_failed": "Coverage gap has all required broad-superiority artifacts.",
       "work_order_id": "MS-COV-WO-003"
     },
     {
@@ -691,13 +745,13 @@
         "FAIL_CLOSED_UNLESS_EXECUTABLE_EVIDENCE_BOUND"
       ],
       "artifact_status": {
-        "benchmark_case": false,
-        "falsifier_row": false,
-        "incumbent_comparator": false,
+        "benchmark_case": true,
+        "falsifier_row": true,
+        "incumbent_comparator": true,
         "oc_prediction_scoring_row": false,
         "replay_record": false,
-        "uncertainty_row": false,
-        "verified_open_source_capsule": false
+        "uncertainty_row": true,
+        "verified_open_source_capsule": true
       },
       "domain_class_id": "physical_sciences",
       "execution_command": [
@@ -709,12 +763,7 @@
       ],
       "gap_id": "MS-COV-GAP-PHYSICAL_SCIENCES-DYNAMICAL_LAWS_AND_CONSERVATION",
       "missing_artifacts": [
-        "verified_open_source_capsule",
-        "benchmark_case",
-        "incumbent_comparator",
         "oc_prediction_scoring_row",
-        "uncertainty_row",
-        "falsifier_row",
         "replay_record"
       ],
       "next_escalation": "Split the gap into governed source acquisition, benchmark construction, comparator scoring, uncertainty, falsifier, and replay tasks.",
@@ -758,13 +807,13 @@
         "FAIL_CLOSED_UNLESS_EXECUTABLE_EVIDENCE_BOUND"
       ],
       "artifact_status": {
-        "benchmark_case": false,
-        "falsifier_row": false,
-        "incumbent_comparator": false,
+        "benchmark_case": true,
+        "falsifier_row": true,
+        "incumbent_comparator": true,
         "oc_prediction_scoring_row": false,
         "replay_record": false,
-        "uncertainty_row": false,
-        "verified_open_source_capsule": false
+        "uncertainty_row": true,
+        "verified_open_source_capsule": true
       },
       "domain_class_id": "physical_sciences",
       "execution_command": [
@@ -776,12 +825,7 @@
       ],
       "gap_id": "MS-COV-GAP-PHYSICAL_SCIENCES-CONDENSED_MATTER_FIELDS_AND_MEASUREMENTS",
       "missing_artifacts": [
-        "verified_open_source_capsule",
-        "benchmark_case",
-        "incumbent_comparator",
         "oc_prediction_scoring_row",
-        "uncertainty_row",
-        "falsifier_row",
         "replay_record"
       ],
       "next_escalation": "Split the gap into governed source acquisition, benchmark construction, comparator scoring, uncertainty, falsifier, and replay tasks.",
@@ -825,13 +869,13 @@
         "FAIL_CLOSED_UNLESS_EXECUTABLE_EVIDENCE_BOUND"
       ],
       "artifact_status": {
-        "benchmark_case": false,
-        "falsifier_row": false,
-        "incumbent_comparator": false,
+        "benchmark_case": true,
+        "falsifier_row": true,
+        "incumbent_comparator": true,
         "oc_prediction_scoring_row": false,
         "replay_record": false,
-        "uncertainty_row": false,
-        "verified_open_source_capsule": false
+        "uncertainty_row": true,
+        "verified_open_source_capsule": true
       },
       "domain_class_id": "physical_sciences",
       "execution_command": [
@@ -843,12 +887,7 @@
       ],
       "gap_id": "MS-COV-GAP-PHYSICAL_SCIENCES-ASTRONOMICAL_AND_COSMOLOGICAL_OBSERVABLES",
       "missing_artifacts": [
-        "verified_open_source_capsule",
-        "benchmark_case",
-        "incumbent_comparator",
         "oc_prediction_scoring_row",
-        "uncertainty_row",
-        "falsifier_row",
         "replay_record"
       ],
       "next_escalation": "Split the gap into governed source acquisition, benchmark construction, comparator scoring, uncertainty, falsifier, and replay tasks.",
@@ -892,13 +931,13 @@
         "FAIL_CLOSED_UNLESS_EXECUTABLE_EVIDENCE_BOUND"
       ],
       "artifact_status": {
-        "benchmark_case": false,
-        "falsifier_row": false,
-        "incumbent_comparator": false,
+        "benchmark_case": true,
+        "falsifier_row": true,
+        "incumbent_comparator": true,
         "oc_prediction_scoring_row": false,
         "replay_record": false,
-        "uncertainty_row": false,
-        "verified_open_source_capsule": false
+        "uncertainty_row": true,
+        "verified_open_source_capsule": true
       },
       "domain_class_id": "chemical_sciences",
       "execution_command": [
@@ -910,12 +949,7 @@
       ],
       "gap_id": "MS-COV-GAP-CHEMICAL_SCIENCES-REACTION_AND_KINETICS_PREDICTION",
       "missing_artifacts": [
-        "verified_open_source_capsule",
-        "benchmark_case",
-        "incumbent_comparator",
         "oc_prediction_scoring_row",
-        "uncertainty_row",
-        "falsifier_row",
         "replay_record"
       ],
       "next_escalation": "Split the gap into governed source acquisition, benchmark construction, comparator scoring, uncertainty, falsifier, and replay tasks.",
@@ -959,13 +993,13 @@
         "FAIL_CLOSED_UNLESS_EXECUTABLE_EVIDENCE_BOUND"
       ],
       "artifact_status": {
-        "benchmark_case": false,
-        "falsifier_row": false,
-        "incumbent_comparator": false,
+        "benchmark_case": true,
+        "falsifier_row": true,
+        "incumbent_comparator": true,
         "oc_prediction_scoring_row": false,
         "replay_record": false,
-        "uncertainty_row": false,
-        "verified_open_source_capsule": false
+        "uncertainty_row": true,
+        "verified_open_source_capsule": true
       },
       "domain_class_id": "chemical_sciences",
       "execution_command": [
@@ -977,12 +1011,7 @@
       ],
       "gap_id": "MS-COV-GAP-CHEMICAL_SCIENCES-THERMOCHEMISTRY_AND_PHASE_BEHAVIOR",
       "missing_artifacts": [
-        "verified_open_source_capsule",
-        "benchmark_case",
-        "incumbent_comparator",
         "oc_prediction_scoring_row",
-        "uncertainty_row",
-        "falsifier_row",
         "replay_record"
       ],
       "next_escalation": "Split the gap into governed source acquisition, benchmark construction, comparator scoring, uncertainty, falsifier, and replay tasks.",
@@ -1026,13 +1055,13 @@
         "FAIL_CLOSED_UNLESS_EXECUTABLE_EVIDENCE_BOUND"
       ],
       "artifact_status": {
-        "benchmark_case": false,
-        "falsifier_row": false,
-        "incumbent_comparator": false,
+        "benchmark_case": true,
+        "falsifier_row": true,
+        "incumbent_comparator": true,
         "oc_prediction_scoring_row": false,
         "replay_record": false,
-        "uncertainty_row": false,
-        "verified_open_source_capsule": false
+        "uncertainty_row": true,
+        "verified_open_source_capsule": true
       },
       "domain_class_id": "chemical_sciences",
       "execution_command": [
@@ -1044,12 +1073,7 @@
       ],
       "gap_id": "MS-COV-GAP-CHEMICAL_SCIENCES-MATERIALS_AND_SPECTROSCOPY_OBSERVABLES",
       "missing_artifacts": [
-        "verified_open_source_capsule",
-        "benchmark_case",
-        "incumbent_comparator",
         "oc_prediction_scoring_row",
-        "uncertainty_row",
-        "falsifier_row",
         "replay_record"
       ],
       "next_escalation": "Split the gap into governed source acquisition, benchmark construction, comparator scoring, uncertainty, falsifier, and replay tasks.",
@@ -1099,13 +1123,13 @@
         "FAIL_CLOSED_UNLESS_EXECUTABLE_EVIDENCE_BOUND"
       ],
       "artifact_status": {
-        "benchmark_case": false,
-        "falsifier_row": false,
-        "incumbent_comparator": false,
+        "benchmark_case": true,
+        "falsifier_row": true,
+        "incumbent_comparator": true,
         "oc_prediction_scoring_row": false,
         "replay_record": false,
-        "uncertainty_row": false,
-        "verified_open_source_capsule": false
+        "uncertainty_row": true,
+        "verified_open_source_capsule": true
       },
       "domain_class_id": "earth_space_environmental_sciences",
       "execution_command": [
@@ -1117,12 +1141,7 @@
       ],
       "gap_id": "MS-COV-GAP-EARTH_SPACE_ENVIRONMENTAL_SCIENCES-CLIMATE_WEATHER_GEOPHYSICAL_TIME_SERIES",
       "missing_artifacts": [
-        "verified_open_source_capsule",
-        "benchmark_case",
-        "incumbent_comparator",
         "oc_prediction_scoring_row",
-        "uncertainty_row",
-        "falsifier_row",
         "replay_record"
       ],
       "next_escalation": "Split the gap into governed source acquisition, benchmark construction, comparator scoring, uncertainty, falsifier, and replay tasks.",
@@ -1172,13 +1191,13 @@
         "FAIL_CLOSED_UNLESS_EXECUTABLE_EVIDENCE_BOUND"
       ],
       "artifact_status": {
-        "benchmark_case": false,
-        "falsifier_row": false,
-        "incumbent_comparator": false,
+        "benchmark_case": true,
+        "falsifier_row": true,
+        "incumbent_comparator": true,
         "oc_prediction_scoring_row": false,
         "replay_record": false,
-        "uncertainty_row": false,
-        "verified_open_source_capsule": false
+        "uncertainty_row": true,
+        "verified_open_source_capsule": true
       },
       "domain_class_id": "earth_space_environmental_sciences",
       "execution_command": [
@@ -1190,12 +1209,7 @@
       ],
       "gap_id": "MS-COV-GAP-EARTH_SPACE_ENVIRONMENTAL_SCIENCES-GEOCHEMISTRY_AND_HYDROLOGY_OBSERVABLES",
       "missing_artifacts": [
-        "verified_open_source_capsule",
-        "benchmark_case",
-        "incumbent_comparator",
         "oc_prediction_scoring_row",
-        "uncertainty_row",
-        "falsifier_row",
         "replay_record"
       ],
       "next_escalation": "Split the gap into governed source acquisition, benchmark construction, comparator scoring, uncertainty, falsifier, and replay tasks.",
@@ -1245,13 +1259,13 @@
         "FAIL_CLOSED_UNLESS_EXECUTABLE_EVIDENCE_BOUND"
       ],
       "artifact_status": {
-        "benchmark_case": false,
-        "falsifier_row": false,
-        "incumbent_comparator": false,
+        "benchmark_case": true,
+        "falsifier_row": true,
+        "incumbent_comparator": true,
         "oc_prediction_scoring_row": false,
         "replay_record": false,
-        "uncertainty_row": false,
-        "verified_open_source_capsule": false
+        "uncertainty_row": true,
+        "verified_open_source_capsule": true
       },
       "domain_class_id": "earth_space_environmental_sciences",
       "execution_command": [
@@ -1263,12 +1277,7 @@
       ],
       "gap_id": "MS-COV-GAP-EARTH_SPACE_ENVIRONMENTAL_SCIENCES-REMOTE_SENSING_AND_PLANETARY_MEASUREMENTS",
       "missing_artifacts": [
-        "verified_open_source_capsule",
-        "benchmark_case",
-        "incumbent_comparator",
         "oc_prediction_scoring_row",
-        "uncertainty_row",
-        "falsifier_row",
         "replay_record"
       ],
       "next_escalation": "Split the gap into governed source acquisition, benchmark construction, comparator scoring, uncertainty, falsifier, and replay tasks.",
@@ -1312,13 +1321,13 @@
         "FAIL_CLOSED_UNLESS_EXECUTABLE_EVIDENCE_BOUND"
       ],
       "artifact_status": {
-        "benchmark_case": false,
-        "falsifier_row": false,
-        "incumbent_comparator": false,
+        "benchmark_case": true,
+        "falsifier_row": true,
+        "incumbent_comparator": true,
         "oc_prediction_scoring_row": false,
         "replay_record": false,
-        "uncertainty_row": false,
-        "verified_open_source_capsule": false
+        "uncertainty_row": true,
+        "verified_open_source_capsule": true
       },
       "domain_class_id": "biological_life_sciences",
       "execution_command": [
@@ -1330,12 +1339,7 @@
       ],
       "gap_id": "MS-COV-GAP-BIOLOGICAL_LIFE_SCIENCES-EVOLUTIONARY_PHYLOGENETIC_PATTERNS",
       "missing_artifacts": [
-        "verified_open_source_capsule",
-        "benchmark_case",
-        "incumbent_comparator",
         "oc_prediction_scoring_row",
-        "uncertainty_row",
-        "falsifier_row",
         "replay_record"
       ],
       "next_escalation": "Split the gap into governed source acquisition, benchmark construction, comparator scoring, uncertainty, falsifier, and replay tasks.",
@@ -1391,13 +1395,13 @@
         "FAIL_CLOSED_UNLESS_EXECUTABLE_EVIDENCE_BOUND"
       ],
       "artifact_status": {
-        "benchmark_case": false,
-        "falsifier_row": false,
-        "incumbent_comparator": false,
+        "benchmark_case": true,
+        "falsifier_row": true,
+        "incumbent_comparator": true,
         "oc_prediction_scoring_row": false,
         "replay_record": false,
-        "uncertainty_row": false,
-        "verified_open_source_capsule": false
+        "uncertainty_row": true,
+        "verified_open_source_capsule": true
       },
       "domain_class_id": "biological_life_sciences",
       "execution_command": [
@@ -1409,12 +1413,7 @@
       ],
       "gap_id": "MS-COV-GAP-BIOLOGICAL_LIFE_SCIENCES-CELLULAR_DEVELOPMENTAL_REGULATORY_DYNAMICS",
       "missing_artifacts": [
-        "verified_open_source_capsule",
-        "benchmark_case",
-        "incumbent_comparator",
         "oc_prediction_scoring_row",
-        "uncertainty_row",
-        "falsifier_row",
         "replay_record"
       ],
       "next_escalation": "Split the gap into governed source acquisition, benchmark construction, comparator scoring, uncertainty, falsifier, and replay tasks.",
@@ -1470,13 +1469,13 @@
         "FAIL_CLOSED_UNLESS_EXECUTABLE_EVIDENCE_BOUND"
       ],
       "artifact_status": {
-        "benchmark_case": false,
-        "falsifier_row": false,
-        "incumbent_comparator": false,
+        "benchmark_case": true,
+        "falsifier_row": true,
+        "incumbent_comparator": true,
         "oc_prediction_scoring_row": false,
         "replay_record": false,
-        "uncertainty_row": false,
-        "verified_open_source_capsule": false
+        "uncertainty_row": true,
+        "verified_open_source_capsule": true
       },
       "domain_class_id": "biological_life_sciences",
       "execution_command": [
@@ -1488,12 +1487,7 @@
       ],
       "gap_id": "MS-COV-GAP-BIOLOGICAL_LIFE_SCIENCES-ECOLOGY_POPULATION_AND_BIODIVERSITY_OBSERVABLES",
       "missing_artifacts": [
-        "verified_open_source_capsule",
-        "benchmark_case",
-        "incumbent_comparator",
         "oc_prediction_scoring_row",
-        "uncertainty_row",
-        "falsifier_row",
         "replay_record"
       ],
       "next_escalation": "Split the gap into governed source acquisition, benchmark construction, comparator scoring, uncertainty, falsifier, and replay tasks.",
@@ -1522,16 +1516,28 @@
         "UNCERTAINTY_DECLARED",
         "NEGATIVE_CONTROLS_REJECTED",
         "FALSIFIERS_DECLARED",
-        "COVERAGE_REGISTER_GAP_CLOSED"
+        "COVERAGE_REGISTER_GAP_CLOSED",
+        "OFFICIAL_SOURCE_SNAPSHOT_LOCKED",
+        "TARGET_VARIABLE_EXACTLY_DECLARED",
+        "FORMULA_OR_MODEL_PREREGISTERED",
+        "COMPARATOR_PREREGISTERED_AND_TARGET_SEPARATED",
+        "UNCERTAINTY_POLICY_DECLARED",
+        "RESIDUAL_METRIC_EXECUTABLE",
+        "NEGATIVE_CONTROLS_EXECUTABLE_AND_REJECTED",
+        "FALSIFIERS_EXECUTABLE_AND_NOT_TRIGGERED",
+        "INDEPENDENT_REPLAY_PASS",
+        "COVERAGE_REGISTER_GAP_CLOSED_BY_REVIEW",
+        "EXECUTABLE_LANE_SPEC_DECLARED",
+        "FAIL_CLOSED_UNLESS_EXECUTABLE_EVIDENCE_BOUND"
       ],
       "artifact_status": {
-        "benchmark_case": false,
-        "falsifier_row": false,
-        "incumbent_comparator": false,
+        "benchmark_case": true,
+        "falsifier_row": true,
+        "incumbent_comparator": true,
         "oc_prediction_scoring_row": false,
         "replay_record": false,
-        "uncertainty_row": false,
-        "verified_open_source_capsule": false
+        "uncertainty_row": true,
+        "verified_open_source_capsule": true
       },
       "domain_class_id": "medical_health_sciences",
       "execution_command": [
@@ -1543,12 +1549,7 @@
       ],
       "gap_id": "MS-COV-GAP-MEDICAL_HEALTH_SCIENCES-CLINICAL_OUTCOMES_AND_BIOMARKERS",
       "missing_artifacts": [
-        "verified_open_source_capsule",
-        "benchmark_case",
-        "incumbent_comparator",
         "oc_prediction_scoring_row",
-        "uncertainty_row",
-        "falsifier_row",
         "replay_record"
       ],
       "next_escalation": "Split the gap into governed source acquisition, benchmark construction, comparator scoring, uncertainty, falsifier, and replay tasks.",
@@ -1577,16 +1578,28 @@
         "UNCERTAINTY_DECLARED",
         "NEGATIVE_CONTROLS_REJECTED",
         "FALSIFIERS_DECLARED",
-        "COVERAGE_REGISTER_GAP_CLOSED"
+        "COVERAGE_REGISTER_GAP_CLOSED",
+        "OFFICIAL_SOURCE_SNAPSHOT_LOCKED",
+        "TARGET_VARIABLE_EXACTLY_DECLARED",
+        "FORMULA_OR_MODEL_PREREGISTERED",
+        "COMPARATOR_PREREGISTERED_AND_TARGET_SEPARATED",
+        "UNCERTAINTY_POLICY_DECLARED",
+        "RESIDUAL_METRIC_EXECUTABLE",
+        "NEGATIVE_CONTROLS_EXECUTABLE_AND_REJECTED",
+        "FALSIFIERS_EXECUTABLE_AND_NOT_TRIGGERED",
+        "INDEPENDENT_REPLAY_PASS",
+        "COVERAGE_REGISTER_GAP_CLOSED_BY_REVIEW",
+        "EXECUTABLE_LANE_SPEC_DECLARED",
+        "FAIL_CLOSED_UNLESS_EXECUTABLE_EVIDENCE_BOUND"
       ],
       "artifact_status": {
-        "benchmark_case": false,
-        "falsifier_row": false,
-        "incumbent_comparator": false,
+        "benchmark_case": true,
+        "falsifier_row": true,
+        "incumbent_comparator": true,
         "oc_prediction_scoring_row": false,
         "replay_record": false,
-        "uncertainty_row": false,
-        "verified_open_source_capsule": false
+        "uncertainty_row": true,
+        "verified_open_source_capsule": true
       },
       "domain_class_id": "medical_health_sciences",
       "execution_command": [
@@ -1598,12 +1611,7 @@
       ],
       "gap_id": "MS-COV-GAP-MEDICAL_HEALTH_SCIENCES-EPIDEMIOLOGICAL_TRANSMISSION_AND_RISK",
       "missing_artifacts": [
-        "verified_open_source_capsule",
-        "benchmark_case",
-        "incumbent_comparator",
         "oc_prediction_scoring_row",
-        "uncertainty_row",
-        "falsifier_row",
         "replay_record"
       ],
       "next_escalation": "Split the gap into governed source acquisition, benchmark construction, comparator scoring, uncertainty, falsifier, and replay tasks.",
@@ -1632,16 +1640,28 @@
         "UNCERTAINTY_DECLARED",
         "NEGATIVE_CONTROLS_REJECTED",
         "FALSIFIERS_DECLARED",
-        "COVERAGE_REGISTER_GAP_CLOSED"
+        "COVERAGE_REGISTER_GAP_CLOSED",
+        "OFFICIAL_SOURCE_SNAPSHOT_LOCKED",
+        "TARGET_VARIABLE_EXACTLY_DECLARED",
+        "FORMULA_OR_MODEL_PREREGISTERED",
+        "COMPARATOR_PREREGISTERED_AND_TARGET_SEPARATED",
+        "UNCERTAINTY_POLICY_DECLARED",
+        "RESIDUAL_METRIC_EXECUTABLE",
+        "NEGATIVE_CONTROLS_EXECUTABLE_AND_REJECTED",
+        "FALSIFIERS_EXECUTABLE_AND_NOT_TRIGGERED",
+        "INDEPENDENT_REPLAY_PASS",
+        "COVERAGE_REGISTER_GAP_CLOSED_BY_REVIEW",
+        "EXECUTABLE_LANE_SPEC_DECLARED",
+        "FAIL_CLOSED_UNLESS_EXECUTABLE_EVIDENCE_BOUND"
       ],
       "artifact_status": {
-        "benchmark_case": false,
-        "falsifier_row": false,
-        "incumbent_comparator": false,
+        "benchmark_case": true,
+        "falsifier_row": true,
+        "incumbent_comparator": true,
         "oc_prediction_scoring_row": false,
         "replay_record": false,
-        "uncertainty_row": false,
-        "verified_open_source_capsule": false
+        "uncertainty_row": true,
+        "verified_open_source_capsule": true
       },
       "domain_class_id": "medical_health_sciences",
       "execution_command": [
@@ -1653,12 +1673,7 @@
       ],
       "gap_id": "MS-COV-GAP-MEDICAL_HEALTH_SCIENCES-PHARMACOLOGY_TOXICOLOGY_AND_DOSE_RESPONSE",
       "missing_artifacts": [
-        "verified_open_source_capsule",
-        "benchmark_case",
-        "incumbent_comparator",
         "oc_prediction_scoring_row",
-        "uncertainty_row",
-        "falsifier_row",
         "replay_record"
       ],
       "next_escalation": "Split the gap into governed source acquisition, benchmark construction, comparator scoring, uncertainty, falsifier, and replay tasks.",
@@ -1714,13 +1729,13 @@
         "FAIL_CLOSED_UNLESS_EXECUTABLE_EVIDENCE_BOUND"
       ],
       "artifact_status": {
-        "benchmark_case": false,
-        "falsifier_row": false,
-        "incumbent_comparator": false,
+        "benchmark_case": true,
+        "falsifier_row": true,
+        "incumbent_comparator": true,
         "oc_prediction_scoring_row": false,
         "replay_record": false,
-        "uncertainty_row": false,
-        "verified_open_source_capsule": false
+        "uncertainty_row": true,
+        "verified_open_source_capsule": true
       },
       "domain_class_id": "agricultural_food_sciences",
       "execution_command": [
@@ -1732,12 +1747,7 @@
       ],
       "gap_id": "MS-COV-GAP-AGRICULTURAL_FOOD_SCIENCES-CROP_YIELD_SOIL_AND_TRAIT_OBSERVABLES",
       "missing_artifacts": [
-        "verified_open_source_capsule",
-        "benchmark_case",
-        "incumbent_comparator",
         "oc_prediction_scoring_row",
-        "uncertainty_row",
-        "falsifier_row",
         "replay_record"
       ],
       "next_escalation": "Split the gap into governed source acquisition, benchmark construction, comparator scoring, uncertainty, falsifier, and replay tasks.",
@@ -1797,13 +1807,13 @@
         "FAIL_CLOSED_UNLESS_EXECUTABLE_EVIDENCE_BOUND"
       ],
       "artifact_status": {
-        "benchmark_case": false,
-        "falsifier_row": false,
-        "incumbent_comparator": false,
+        "benchmark_case": true,
+        "falsifier_row": true,
+        "incumbent_comparator": true,
         "oc_prediction_scoring_row": false,
         "replay_record": false,
-        "uncertainty_row": false,
-        "verified_open_source_capsule": false
+        "uncertainty_row": true,
+        "verified_open_source_capsule": true
       },
       "domain_class_id": "agricultural_food_sciences",
       "execution_command": [
@@ -1815,12 +1825,7 @@
       ],
       "gap_id": "MS-COV-GAP-AGRICULTURAL_FOOD_SCIENCES-FOOD_CHEMISTRY_SAFETY_AND_NUTRITION",
       "missing_artifacts": [
-        "verified_open_source_capsule",
-        "benchmark_case",
-        "incumbent_comparator",
         "oc_prediction_scoring_row",
-        "uncertainty_row",
-        "falsifier_row",
         "replay_record"
       ],
       "next_escalation": "Split the gap into governed source acquisition, benchmark construction, comparator scoring, uncertainty, falsifier, and replay tasks.",
@@ -1876,13 +1881,13 @@
         "FAIL_CLOSED_UNLESS_EXECUTABLE_EVIDENCE_BOUND"
       ],
       "artifact_status": {
-        "benchmark_case": false,
-        "falsifier_row": false,
-        "incumbent_comparator": false,
+        "benchmark_case": true,
+        "falsifier_row": true,
+        "incumbent_comparator": true,
         "oc_prediction_scoring_row": false,
         "replay_record": false,
-        "uncertainty_row": false,
-        "verified_open_source_capsule": false
+        "uncertainty_row": true,
+        "verified_open_source_capsule": true
       },
       "domain_class_id": "agricultural_food_sciences",
       "execution_command": [
@@ -1894,12 +1899,7 @@
       ],
       "gap_id": "MS-COV-GAP-AGRICULTURAL_FOOD_SCIENCES-ANIMAL_HEALTH_AND_PRODUCTION_SYSTEMS",
       "missing_artifacts": [
-        "verified_open_source_capsule",
-        "benchmark_case",
-        "incumbent_comparator",
         "oc_prediction_scoring_row",
-        "uncertainty_row",
-        "falsifier_row",
         "replay_record"
       ],
       "next_escalation": "Split the gap into governed source acquisition, benchmark construction, comparator scoring, uncertainty, falsifier, and replay tasks.",
@@ -1949,13 +1949,13 @@
         "FAIL_CLOSED_UNLESS_EXECUTABLE_EVIDENCE_BOUND"
       ],
       "artifact_status": {
-        "benchmark_case": false,
-        "falsifier_row": false,
-        "incumbent_comparator": false,
+        "benchmark_case": true,
+        "falsifier_row": true,
+        "incumbent_comparator": true,
         "oc_prediction_scoring_row": false,
         "replay_record": false,
-        "uncertainty_row": false,
-        "verified_open_source_capsule": false
+        "uncertainty_row": true,
+        "verified_open_source_capsule": true
       },
       "domain_class_id": "engineering_materials_sciences",
       "execution_command": [
@@ -1967,12 +1967,7 @@
       ],
       "gap_id": "MS-COV-GAP-ENGINEERING_MATERIALS_SCIENCES-MATERIALS_PROPERTY_AND_FAILURE_PREDICTION",
       "missing_artifacts": [
-        "verified_open_source_capsule",
-        "benchmark_case",
-        "incumbent_comparator",
         "oc_prediction_scoring_row",
-        "uncertainty_row",
-        "falsifier_row",
         "replay_record"
       ],
       "next_escalation": "Split the gap into governed source acquisition, benchmark construction, comparator scoring, uncertainty, falsifier, and replay tasks.",
@@ -2022,13 +2017,13 @@
         "FAIL_CLOSED_UNLESS_EXECUTABLE_EVIDENCE_BOUND"
       ],
       "artifact_status": {
-        "benchmark_case": false,
-        "falsifier_row": false,
-        "incumbent_comparator": false,
+        "benchmark_case": true,
+        "falsifier_row": true,
+        "incumbent_comparator": true,
         "oc_prediction_scoring_row": false,
         "replay_record": false,
-        "uncertainty_row": false,
-        "verified_open_source_capsule": false
+        "uncertainty_row": true,
+        "verified_open_source_capsule": true
       },
       "domain_class_id": "engineering_materials_sciences",
       "execution_command": [
@@ -2040,12 +2035,7 @@
       ],
       "gap_id": "MS-COV-GAP-ENGINEERING_MATERIALS_SCIENCES-CONTROL_SYSTEMS_AND_SIGNAL_MEASUREMENT",
       "missing_artifacts": [
-        "verified_open_source_capsule",
-        "benchmark_case",
-        "incumbent_comparator",
         "oc_prediction_scoring_row",
-        "uncertainty_row",
-        "falsifier_row",
         "replay_record"
       ],
       "next_escalation": "Split the gap into governed source acquisition, benchmark construction, comparator scoring, uncertainty, falsifier, and replay tasks.",
@@ -2095,13 +2085,13 @@
         "FAIL_CLOSED_UNLESS_EXECUTABLE_EVIDENCE_BOUND"
       ],
       "artifact_status": {
-        "benchmark_case": false,
-        "falsifier_row": false,
-        "incumbent_comparator": false,
+        "benchmark_case": true,
+        "falsifier_row": true,
+        "incumbent_comparator": true,
         "oc_prediction_scoring_row": false,
         "replay_record": false,
-        "uncertainty_row": false,
-        "verified_open_source_capsule": false
+        "uncertainty_row": true,
+        "verified_open_source_capsule": true
       },
       "domain_class_id": "engineering_materials_sciences",
       "execution_command": [
@@ -2113,12 +2103,7 @@
       ],
       "gap_id": "MS-COV-GAP-ENGINEERING_MATERIALS_SCIENCES-ENERGY_TRANSPORT_AND_MANUFACTURING_PROCESSES",
       "missing_artifacts": [
-        "verified_open_source_capsule",
-        "benchmark_case",
-        "incumbent_comparator",
         "oc_prediction_scoring_row",
-        "uncertainty_row",
-        "falsifier_row",
         "replay_record"
       ],
       "next_escalation": "Split the gap into governed source acquisition, benchmark construction, comparator scoring, uncertainty, falsifier, and replay tasks.",
@@ -2165,13 +2150,13 @@
         "EXECUTABLE_LANE_SPEC_DECLARED"
       ],
       "artifact_status": {
-        "benchmark_case": false,
-        "falsifier_row": false,
-        "incumbent_comparator": false,
+        "benchmark_case": true,
+        "falsifier_row": true,
+        "incumbent_comparator": true,
         "oc_prediction_scoring_row": false,
         "replay_record": false,
-        "uncertainty_row": false,
-        "verified_open_source_capsule": false
+        "uncertainty_row": true,
+        "verified_open_source_capsule": true
       },
       "domain_class_id": "computer_information_sciences",
       "execution_command": [
@@ -2183,12 +2168,7 @@
       ],
       "gap_id": "MS-COV-GAP-COMPUTER_INFORMATION_SCIENCES-PROGRAM_SEMANTICS_AND_VERIFICATION",
       "missing_artifacts": [
-        "verified_open_source_capsule",
-        "benchmark_case",
-        "incumbent_comparator",
         "oc_prediction_scoring_row",
-        "uncertainty_row",
-        "falsifier_row",
         "replay_record"
       ],
       "next_escalation": "Split the gap into governed source acquisition, benchmark construction, comparator scoring, uncertainty, falsifier, and replay tasks.",
@@ -2235,13 +2215,13 @@
         "EXECUTABLE_LANE_SPEC_DECLARED"
       ],
       "artifact_status": {
-        "benchmark_case": false,
-        "falsifier_row": false,
-        "incumbent_comparator": false,
+        "benchmark_case": true,
+        "falsifier_row": true,
+        "incumbent_comparator": true,
         "oc_prediction_scoring_row": false,
         "replay_record": false,
-        "uncertainty_row": false,
-        "verified_open_source_capsule": false
+        "uncertainty_row": true,
+        "verified_open_source_capsule": true
       },
       "domain_class_id": "computer_information_sciences",
       "execution_command": [
@@ -2253,12 +2233,7 @@
       ],
       "gap_id": "MS-COV-GAP-COMPUTER_INFORMATION_SCIENCES-MACHINE_LEARNING_GENERALIZATION_AND_EVALUATION",
       "missing_artifacts": [
-        "verified_open_source_capsule",
-        "benchmark_case",
-        "incumbent_comparator",
         "oc_prediction_scoring_row",
-        "uncertainty_row",
-        "falsifier_row",
         "replay_record"
       ],
       "next_escalation": "Split the gap into governed source acquisition, benchmark construction, comparator scoring, uncertainty, falsifier, and replay tasks.",
@@ -2305,13 +2280,13 @@
         "EXECUTABLE_LANE_SPEC_DECLARED"
       ],
       "artifact_status": {
-        "benchmark_case": false,
-        "falsifier_row": false,
-        "incumbent_comparator": false,
+        "benchmark_case": true,
+        "falsifier_row": true,
+        "incumbent_comparator": true,
         "oc_prediction_scoring_row": false,
         "replay_record": false,
-        "uncertainty_row": false,
-        "verified_open_source_capsule": false
+        "uncertainty_row": true,
+        "verified_open_source_capsule": true
       },
       "domain_class_id": "computer_information_sciences",
       "execution_command": [
@@ -2323,12 +2298,7 @@
       ],
       "gap_id": "MS-COV-GAP-COMPUTER_INFORMATION_SCIENCES-INFORMATION_NETWORK_AND_SECURITY_OBSERVABLES",
       "missing_artifacts": [
-        "verified_open_source_capsule",
-        "benchmark_case",
-        "incumbent_comparator",
         "oc_prediction_scoring_row",
-        "uncertainty_row",
-        "falsifier_row",
         "replay_record"
       ],
       "next_escalation": "Split the gap into governed source acquisition, benchmark construction, comparator scoring, uncertainty, falsifier, and replay tasks.",
@@ -2375,13 +2345,13 @@
         "EXECUTABLE_LANE_SPEC_DECLARED"
       ],
       "artifact_status": {
-        "benchmark_case": false,
-        "falsifier_row": false,
-        "incumbent_comparator": false,
+        "benchmark_case": true,
+        "falsifier_row": true,
+        "incumbent_comparator": true,
         "oc_prediction_scoring_row": false,
         "replay_record": false,
-        "uncertainty_row": false,
-        "verified_open_source_capsule": false
+        "uncertainty_row": true,
+        "verified_open_source_capsule": true
       },
       "domain_class_id": "cognitive_behavioral_neurosciences",
       "execution_command": [
@@ -2393,12 +2363,7 @@
       ],
       "gap_id": "MS-COV-GAP-COGNITIVE_BEHAVIORAL_NEUROSCIENCES-NEURAL_RECORDING_AND_BRAIN_NETWORK_OBSERVABLES",
       "missing_artifacts": [
-        "verified_open_source_capsule",
-        "benchmark_case",
-        "incumbent_comparator",
         "oc_prediction_scoring_row",
-        "uncertainty_row",
-        "falsifier_row",
         "replay_record"
       ],
       "next_escalation": "Split the gap into governed source acquisition, benchmark construction, comparator scoring, uncertainty, falsifier, and replay tasks.",
@@ -2445,13 +2410,13 @@
         "EXECUTABLE_LANE_SPEC_DECLARED"
       ],
       "artifact_status": {
-        "benchmark_case": false,
-        "falsifier_row": false,
-        "incumbent_comparator": false,
+        "benchmark_case": true,
+        "falsifier_row": true,
+        "incumbent_comparator": true,
         "oc_prediction_scoring_row": false,
         "replay_record": false,
-        "uncertainty_row": false,
-        "verified_open_source_capsule": false
+        "uncertainty_row": true,
+        "verified_open_source_capsule": true
       },
       "domain_class_id": "cognitive_behavioral_neurosciences",
       "execution_command": [
@@ -2463,12 +2428,7 @@
       ],
       "gap_id": "MS-COV-GAP-COGNITIVE_BEHAVIORAL_NEUROSCIENCES-BEHAVIORAL_TASK_AND_PSYCHOMETRIC_PREDICTION",
       "missing_artifacts": [
-        "verified_open_source_capsule",
-        "benchmark_case",
-        "incumbent_comparator",
         "oc_prediction_scoring_row",
-        "uncertainty_row",
-        "falsifier_row",
         "replay_record"
       ],
       "next_escalation": "Split the gap into governed source acquisition, benchmark construction, comparator scoring, uncertainty, falsifier, and replay tasks.",
@@ -2515,13 +2475,13 @@
         "EXECUTABLE_LANE_SPEC_DECLARED"
       ],
       "artifact_status": {
-        "benchmark_case": false,
-        "falsifier_row": false,
-        "incumbent_comparator": false,
+        "benchmark_case": true,
+        "falsifier_row": true,
+        "incumbent_comparator": true,
         "oc_prediction_scoring_row": false,
         "replay_record": false,
-        "uncertainty_row": false,
-        "verified_open_source_capsule": false
+        "uncertainty_row": true,
+        "verified_open_source_capsule": true
       },
       "domain_class_id": "cognitive_behavioral_neurosciences",
       "execution_command": [
@@ -2533,12 +2493,7 @@
       ],
       "gap_id": "MS-COV-GAP-COGNITIVE_BEHAVIORAL_NEUROSCIENCES-LEARNING_MEMORY_AND_PERCEPTION_DYNAMICS",
       "missing_artifacts": [
-        "verified_open_source_capsule",
-        "benchmark_case",
-        "incumbent_comparator",
         "oc_prediction_scoring_row",
-        "uncertainty_row",
-        "falsifier_row",
         "replay_record"
       ],
       "next_escalation": "Split the gap into governed source acquisition, benchmark construction, comparator scoring, uncertainty, falsifier, and replay tasks.",
@@ -2594,13 +2549,13 @@
         "FAIL_CLOSED_UNLESS_EXECUTABLE_EVIDENCE_BOUND"
       ],
       "artifact_status": {
-        "benchmark_case": false,
-        "falsifier_row": false,
-        "incumbent_comparator": false,
+        "benchmark_case": true,
+        "falsifier_row": true,
+        "incumbent_comparator": true,
         "oc_prediction_scoring_row": false,
         "replay_record": false,
-        "uncertainty_row": false,
-        "verified_open_source_capsule": false
+        "uncertainty_row": true,
+        "verified_open_source_capsule": true
       },
       "domain_class_id": "social_economic_political_sciences",
       "execution_command": [
@@ -2612,12 +2567,7 @@
       ],
       "gap_id": "MS-COV-GAP-SOCIAL_ECONOMIC_POLITICAL_SCIENCES-ECONOMIC_INDICATOR_AND_MARKET_OBSERVABLES",
       "missing_artifacts": [
-        "verified_open_source_capsule",
-        "benchmark_case",
-        "incumbent_comparator",
         "oc_prediction_scoring_row",
-        "uncertainty_row",
-        "falsifier_row",
         "replay_record"
       ],
       "next_escalation": "Split the gap into governed source acquisition, benchmark construction, comparator scoring, uncertainty, falsifier, and replay tasks.",
@@ -2673,13 +2623,13 @@
         "FAIL_CLOSED_UNLESS_EXECUTABLE_EVIDENCE_BOUND"
       ],
       "artifact_status": {
-        "benchmark_case": false,
-        "falsifier_row": false,
-        "incumbent_comparator": false,
+        "benchmark_case": true,
+        "falsifier_row": true,
+        "incumbent_comparator": true,
         "oc_prediction_scoring_row": false,
         "replay_record": false,
-        "uncertainty_row": false,
-        "verified_open_source_capsule": false
+        "uncertainty_row": true,
+        "verified_open_source_capsule": true
       },
       "domain_class_id": "social_economic_political_sciences",
       "execution_command": [
@@ -2691,12 +2641,7 @@
       ],
       "gap_id": "MS-COV-GAP-SOCIAL_ECONOMIC_POLITICAL_SCIENCES-INSTITUTIONAL_SOCIAL_NETWORK_AND_POLICY_OUTCOMES",
       "missing_artifacts": [
-        "verified_open_source_capsule",
-        "benchmark_case",
-        "incumbent_comparator",
         "oc_prediction_scoring_row",
-        "uncertainty_row",
-        "falsifier_row",
         "replay_record"
       ],
       "next_escalation": "Split the gap into governed source acquisition, benchmark construction, comparator scoring, uncertainty, falsifier, and replay tasks.",
@@ -2743,13 +2688,13 @@
         "EXECUTABLE_LANE_SPEC_DECLARED"
       ],
       "artifact_status": {
-        "benchmark_case": false,
-        "falsifier_row": false,
-        "incumbent_comparator": false,
+        "benchmark_case": true,
+        "falsifier_row": true,
+        "incumbent_comparator": true,
         "oc_prediction_scoring_row": false,
         "replay_record": false,
-        "uncertainty_row": false,
-        "verified_open_source_capsule": false
+        "uncertainty_row": true,
+        "verified_open_source_capsule": true
       },
       "domain_class_id": "complex_systems_operations_science",
       "execution_command": [
@@ -2761,12 +2706,7 @@
       ],
       "gap_id": "MS-COV-GAP-COMPLEX_SYSTEMS_OPERATIONS_SCIENCE-MULTI_AGENT_SYSTEM_DYNAMICS",
       "missing_artifacts": [
-        "verified_open_source_capsule",
-        "benchmark_case",
-        "incumbent_comparator",
         "oc_prediction_scoring_row",
-        "uncertainty_row",
-        "falsifier_row",
         "replay_record"
       ],
       "next_escalation": "Split the gap into governed source acquisition, benchmark construction, comparator scoring, uncertainty, falsifier, and replay tasks.",
@@ -2813,13 +2753,13 @@
         "EXECUTABLE_LANE_SPEC_DECLARED"
       ],
       "artifact_status": {
-        "benchmark_case": false,
-        "falsifier_row": false,
-        "incumbent_comparator": false,
+        "benchmark_case": true,
+        "falsifier_row": true,
+        "incumbent_comparator": true,
         "oc_prediction_scoring_row": false,
         "replay_record": false,
-        "uncertainty_row": false,
-        "verified_open_source_capsule": false
+        "uncertainty_row": true,
+        "verified_open_source_capsule": true
       },
       "domain_class_id": "complex_systems_operations_science",
       "execution_command": [
@@ -2831,12 +2771,7 @@
       ],
       "gap_id": "MS-COV-GAP-COMPLEX_SYSTEMS_OPERATIONS_SCIENCE-QUEUE_SUPPLY_CHAIN_AND_OPERATIONS_OBSERVABLES",
       "missing_artifacts": [
-        "verified_open_source_capsule",
-        "benchmark_case",
-        "incumbent_comparator",
         "oc_prediction_scoring_row",
-        "uncertainty_row",
-        "falsifier_row",
         "replay_record"
       ],
       "next_escalation": "Split the gap into governed source acquisition, benchmark construction, comparator scoring, uncertainty, falsifier, and replay tasks.",
@@ -2883,13 +2818,13 @@
         "EXECUTABLE_LANE_SPEC_DECLARED"
       ],
       "artifact_status": {
-        "benchmark_case": false,
-        "falsifier_row": false,
-        "incumbent_comparator": false,
+        "benchmark_case": true,
+        "falsifier_row": true,
+        "incumbent_comparator": true,
         "oc_prediction_scoring_row": false,
         "replay_record": false,
-        "uncertainty_row": false,
-        "verified_open_source_capsule": false
+        "uncertainty_row": true,
+        "verified_open_source_capsule": true
       },
       "domain_class_id": "complex_systems_operations_science",
       "execution_command": [
@@ -2901,12 +2836,7 @@
       ],
       "gap_id": "MS-COV-GAP-COMPLEX_SYSTEMS_OPERATIONS_SCIENCE-RESILIENCE_RISK_AND_INTERVENTION_RESPONSE",
       "missing_artifacts": [
-        "verified_open_source_capsule",
-        "benchmark_case",
-        "incumbent_comparator",
         "oc_prediction_scoring_row",
-        "uncertainty_row",
-        "falsifier_row",
         "replay_record"
       ],
       "next_escalation": "Split the gap into governed source acquisition, benchmark construction, comparator scoring, uncertainty, falsifier, and replay tasks.",
@@ -2927,6 +2857,8 @@
     }
   ],
   "schema_id": "OC133_MODERN_SCIENCE_BROAD_COVERAGE_EXECUTION_REPORT_v1",
+  "scoring_backlog_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/OC133_MODERN_SCIENCE_COMPARATOR_SCORING_EXECUTOR_BACKLOG.json",
+  "scoring_subwork_order_total": 64,
   "status": "OPEN",
   "why_it_failed": "Broad modern-science coverage still has open source-backed comparator gaps."
 }

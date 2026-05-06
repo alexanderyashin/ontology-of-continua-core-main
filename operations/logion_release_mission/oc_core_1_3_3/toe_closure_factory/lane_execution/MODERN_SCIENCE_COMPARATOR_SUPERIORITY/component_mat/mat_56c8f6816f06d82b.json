@@ -1,0 +1,129 @@
+{
+  "artifact_hash": "35c22faf340310ca150b8ca53a65c4689260dce317d22e68b4442dde1b881232",
+  "artifact_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/component_mat/mat_56c8f6816f06d82b.json",
+  "available_diagnostic_commands": [
+    [
+      "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+      "tools/oc133_toe_closure_factory.py",
+      "--execute-comparator-domain-scoring",
+      "R017-DOMAIN-SCORER-f5ba5b27c4747241",
+      "--write"
+    ],
+    [
+      "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+      "tools/oc133_toe_closure_factory.py",
+      "--execute-comparator-domain-scorer-implementation",
+      "R017-DOMAIN-SCORER-IMPL-f5ba5b27c4747241",
+      "--write"
+    ],
+    [
+      "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+      "tools/oc133_toe_closure_factory.py",
+      "--execute-comparator-domain-model-repair",
+      "R017-DOMAIN-MODEL-REPAIR-f5ba5b27c4747241",
+      "--write"
+    ],
+    [
+      "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+      "tools/oc133_toe_closure_factory.py",
+      "--execute-comparator-domain-model-component",
+      "R017-DOMAIN-MODEL-COMPONENT-4eb6bc376a30f957",
+      "--write"
+    ],
+    [
+      "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+      "tools/oc133_toe_closure_factory.py",
+      "--execute-comparator-generic-evidence-pack",
+      "MS-COV-GAP-COGNITIVE_BEHAVIORAL_NEUROSCIENCES-LEARNING_MEMORY_AND_PERCEPTION_DYNAMICS",
+      "--write"
+    ]
+  ],
+  "component_id": "strict_pack_pass",
+  "domain_class_id": "cognitive_behavioral_neurosciences",
+  "execution_command": [
+    "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+    "tools/oc133_toe_closure_factory.py",
+    "--execute-comparator-component-materialization",
+    "R017-COMPONENT-MATERIALIZE-52671a34eaa1b35f",
+    "--write"
+  ],
+  "gap_id": "MS-COV-GAP-COGNITIVE_BEHAVIORAL_NEUROSCIENCES-LEARNING_MEMORY_AND_PERCEPTION_DYNAMICS",
+  "generated_at": "2026-05-06T10:20:07Z",
+  "implementation_contract": {
+    "must_create": [
+      "source-bound OC prediction row",
+      "incumbent comparator prediction row",
+      "numeric OC residual",
+      "numeric comparator residual",
+      "materiality verdict",
+      "uncertainty/falsifier row",
+      "independent replay record"
+    ],
+    "must_not_do": [
+      "flip PASS without numeric residuals",
+      "count demotion/future research as TOE closure",
+      "use target values for model selection",
+      "weaken comparator or materiality predicate"
+    ]
+  },
+  "incumbent_comparator": {
+    "baseline_name": "training-only task-phase mean and carry-forward learning comparator",
+    "pre_registered": true,
+    "prediction_rule": "predict heldout PAM accuracy/RT from training phase mean and last visible trial metric only",
+    "required_material_margin": "model residual must beat comparator residual under the declared domain-local metric",
+    "target_values_used_for_baseline_design": false
+  },
+  "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+  "materialization_id": "R017-COMPONENT-MATERIALIZE-52671a34eaa1b35f",
+  "missing_source_evidence_fields": [
+    "component_report_pass",
+    "strict_evidence_pack_pass",
+    "scoring_artifact_pass",
+    "replay_artifact_pass",
+    "score_materialized",
+    "oc_model_residual",
+    "incumbent_comparator_residual",
+    "material_margin_met",
+    "fail_closed_status_clear"
+  ],
+  "next_escalation": "Develop the domain scorer/materializer capability and then rerun the component source obligation; keep broad superiority blocked until it passes.",
+  "no_fake_closure_policy": "This report is not evidence; it is an exact implementation contract for missing source-bound scoring.",
+  "obligation_id": "R017-COMPONENT-SOURCE-OBLIGATION-a04e70729c081898",
+  "official_data_source": {
+    "minimum_rows_required": 40,
+    "official_documentation_url": "https://github.com/OpenNeuroDatasets/ds000030",
+    "official_endpoint_url": "https://openneuro.org/datasets/ds000030",
+    "required_local_snapshot_ref": null,
+    "required_lock_ref": null,
+    "snapshot_status": "NOT_ACQUIRED_FOR_THIS_COVERAGE_CLASS",
+    "source_authority": "OpenNeuro / OpenfMRI / Center for Reproducible Neuroscience",
+    "source_id": "OPENNEURO_DS000030_CNP",
+    "source_name": "UCLA Consortium for Neuropsychiatric Phenomics LA5c Study"
+  },
+  "pass_predicate": "The materialization executor produces source-bound scoring, residual, materiality, uncertainty/falsifier, and replay artifacts; the source obligation and strict evidence pack then PASS.",
+  "phenomenon_class_id": "learning_memory_and_perception_dynamics",
+  "repair_strategy": "Implement the domain/phenomenon scorer that reads the governed source snapshot, keeps targets hidden until scoring, computes OC and comparator residuals, and writes PASS or fail-closed scoring/replay artifacts.",
+  "required_capability": "Research/SourceBoundScoringMaterializationExecutor",
+  "residual_requirement": {
+    "formula": "absolute accuracy residual and RT MAE per subject/trial",
+    "metric_id": "MS-COV-WO-030_domain_local_residual",
+    "superiority_rule": "model_residual + uncertainty_upper < best_preregistered_comparator_residual"
+  },
+  "root_cause_class": "SOURCE_BOUND_SCORING_MATERIALIZER_NOT_IMPLEMENTED",
+  "schema_id": "OC133_MODERN_SCIENCE_COMPARATOR_COMPONENT_MATERIALIZATION_EXECUTION_v1",
+  "source_obligation_report_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/component_src/src_obligation_52671a34eaa1b35f.json",
+  "source_obligation_status": "SOURCE_BOUND_SCORING_MATERIALIZATION_REMAINS_OPEN",
+  "status": "CAPABILITY_DEVELOPMENT_REQUIRED",
+  "target_variable": {
+    "extraction_rule": "Paired-associate memory encoding/retrieval events are parsed into subject/trial target metrics; heldout trial and subject targets remain sealed until predictions are materialized.",
+    "name": "heldout_paired_associate_memory_performance",
+    "target_fields": [
+      "PAMenc_trial_accuracy",
+      "PAMret_trial_accuracy",
+      "PAMret_reaction_time_ms"
+    ],
+    "unit": "accuracy proportion and reaction time milliseconds"
+  },
+  "validator_binding": "comparator_gap::MS-COV-GAP-COGNITIVE_BEHAVIORAL_NEUROSCIENCES-LEARNING_MEMORY_AND_PERCEPTION_DYNAMICS::component_source_obligation::strict_pack_pass",
+  "why_it_failed": "Source-bound scoring materializer is not implemented for this exact domain/component; existing commands only regenerate fail-closed diagnostics."
+}

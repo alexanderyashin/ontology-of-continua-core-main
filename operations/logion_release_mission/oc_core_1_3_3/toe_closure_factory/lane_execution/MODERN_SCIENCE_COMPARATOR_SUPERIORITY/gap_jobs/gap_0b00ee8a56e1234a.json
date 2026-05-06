@@ -1,5 +1,5 @@
 {
-  "artifact_hash": "25f2171f49eb25eef4776ec5e3fc9b5025fa5efb4eaf8f25330799d136f3a4a4",
+  "artifact_hash": "c94206f3dcc6b4e6a985f446ca8af3ea75dea499c8a6b80cf71eb28c193776b4",
   "artifact_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/gap_jobs/gap_0b00ee8a56e1234a.json",
   "artifact_rows": [
     {
@@ -22,9 +22,9 @@
         "benchmarks/modern_science/OC133_MODERN_SCIENCE_COVERAGE_WORK_ORDERS.json",
         "comparators/modern_science/OC133_MODERN_SCIENCE_COVERAGE_REGISTER.json"
       ],
-      "status": "OPEN",
+      "status": "PASS",
       "subwork_order_id": "R017-COMPARATOR-GAP-MS-COV-GAP-CHEMICAL_SCIENCES-REACTION_AND_KINETICS_PREDICTION-verified_open_source_capsule",
-      "why_it_failed": "Comparator gap `MS-COV-GAP-CHEMICAL_SCIENCES-REACTION_AND_KINETICS_PREDICTION` lacks `verified_open_source_capsule`."
+      "why_it_failed": "Comparator gap `MS-COV-GAP-CHEMICAL_SCIENCES-REACTION_AND_KINETICS_PREDICTION` has `verified_open_source_capsule` bound."
     },
     {
       "artifact_key": "benchmark_case",
@@ -46,9 +46,9 @@
         "benchmarks/modern_science/OC133_MODERN_SCIENCE_COVERAGE_WORK_ORDERS.json",
         "comparators/modern_science/OC133_MODERN_SCIENCE_COVERAGE_REGISTER.json"
       ],
-      "status": "OPEN",
+      "status": "PASS",
       "subwork_order_id": "R017-COMPARATOR-GAP-MS-COV-GAP-CHEMICAL_SCIENCES-REACTION_AND_KINETICS_PREDICTION-benchmark_case",
-      "why_it_failed": "Comparator gap `MS-COV-GAP-CHEMICAL_SCIENCES-REACTION_AND_KINETICS_PREDICTION` lacks `benchmark_case`."
+      "why_it_failed": "Comparator gap `MS-COV-GAP-CHEMICAL_SCIENCES-REACTION_AND_KINETICS_PREDICTION` has `benchmark_case` bound."
     },
     {
       "artifact_key": "incumbent_comparator",
@@ -70,9 +70,9 @@
         "benchmarks/modern_science/OC133_MODERN_SCIENCE_COVERAGE_WORK_ORDERS.json",
         "comparators/modern_science/OC133_MODERN_SCIENCE_COVERAGE_REGISTER.json"
       ],
-      "status": "OPEN",
+      "status": "PASS",
       "subwork_order_id": "R017-COMPARATOR-GAP-MS-COV-GAP-CHEMICAL_SCIENCES-REACTION_AND_KINETICS_PREDICTION-incumbent_comparator",
-      "why_it_failed": "Comparator gap `MS-COV-GAP-CHEMICAL_SCIENCES-REACTION_AND_KINETICS_PREDICTION` lacks `incumbent_comparator`."
+      "why_it_failed": "Comparator gap `MS-COV-GAP-CHEMICAL_SCIENCES-REACTION_AND_KINETICS_PREDICTION` has `incumbent_comparator` bound."
     },
     {
       "artifact_key": "oc_prediction_scoring_row",
@@ -118,9 +118,9 @@
         "benchmarks/modern_science/OC133_MODERN_SCIENCE_COVERAGE_WORK_ORDERS.json",
         "comparators/modern_science/OC133_MODERN_SCIENCE_COVERAGE_REGISTER.json"
       ],
-      "status": "OPEN",
+      "status": "PASS",
       "subwork_order_id": "R017-COMPARATOR-GAP-MS-COV-GAP-CHEMICAL_SCIENCES-REACTION_AND_KINETICS_PREDICTION-uncertainty_row",
-      "why_it_failed": "Comparator gap `MS-COV-GAP-CHEMICAL_SCIENCES-REACTION_AND_KINETICS_PREDICTION` lacks `uncertainty_row`."
+      "why_it_failed": "Comparator gap `MS-COV-GAP-CHEMICAL_SCIENCES-REACTION_AND_KINETICS_PREDICTION` has `uncertainty_row` bound."
     },
     {
       "artifact_key": "falsifier_row",
@@ -142,9 +142,9 @@
         "benchmarks/modern_science/OC133_MODERN_SCIENCE_COVERAGE_WORK_ORDERS.json",
         "comparators/modern_science/OC133_MODERN_SCIENCE_COVERAGE_REGISTER.json"
       ],
-      "status": "OPEN",
+      "status": "PASS",
       "subwork_order_id": "R017-COMPARATOR-GAP-MS-COV-GAP-CHEMICAL_SCIENCES-REACTION_AND_KINETICS_PREDICTION-falsifier_row",
-      "why_it_failed": "Comparator gap `MS-COV-GAP-CHEMICAL_SCIENCES-REACTION_AND_KINETICS_PREDICTION` lacks `falsifier_row`."
+      "why_it_failed": "Comparator gap `MS-COV-GAP-CHEMICAL_SCIENCES-REACTION_AND_KINETICS_PREDICTION` has `falsifier_row` bound."
     },
     {
       "artifact_key": "replay_record",
@@ -235,14 +235,9 @@
   "gap_id": "MS-COV-GAP-CHEMICAL_SCIENCES-REACTION_AND_KINETICS_PREDICTION",
   "generated_at": "2026-05-05T19:38:13Z",
   "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
-  "missing_artifact_total": 7,
+  "missing_artifact_total": 2,
   "missing_artifacts": [
-    "verified_open_source_capsule",
-    "benchmark_case",
-    "incumbent_comparator",
     "oc_prediction_scoring_row",
-    "uncertainty_row",
-    "falsifier_row",
     "replay_record"
   ],
   "next_escalation": "Use artifact_rows as the next per-artifact work list; do not count benchmark-scoped superiority as broad closure.",
@@ -290,13 +285,13 @@
         "FAIL_CLOSED_UNLESS_EXECUTABLE_EVIDENCE_BOUND"
       ],
       "artifact_status": {
-        "benchmark_case": false,
-        "falsifier_row": false,
-        "incumbent_comparator": false,
+        "benchmark_case": true,
+        "falsifier_row": true,
+        "incumbent_comparator": true,
         "oc_prediction_scoring_row": false,
         "replay_record": false,
-        "uncertainty_row": false,
-        "verified_open_source_capsule": false
+        "uncertainty_row": true,
+        "verified_open_source_capsule": true
       },
       "domain_class_id": "chemical_sciences",
       "execution_command": [
@@ -308,12 +303,7 @@
       ],
       "gap_id": "MS-COV-GAP-CHEMICAL_SCIENCES-REACTION_AND_KINETICS_PREDICTION",
       "missing_artifacts": [
-        "verified_open_source_capsule",
-        "benchmark_case",
-        "incumbent_comparator",
         "oc_prediction_scoring_row",
-        "uncertainty_row",
-        "falsifier_row",
         "replay_record"
       ],
       "next_escalation": "Split the gap into governed source acquisition, benchmark construction, comparator scoring, uncertainty, falsifier, and replay tasks.",

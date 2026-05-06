@@ -1,0 +1,127 @@
+{
+  "artifact_hash": "5ce51d2bdf5b03bd91c21b51094920d2136cb62ffdc3c5226d54e34a7d790690",
+  "artifact_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/component_mat/mat_e7361587ace3fc86.json",
+  "available_diagnostic_commands": [
+    [
+      "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+      "tools/oc133_toe_closure_factory.py",
+      "--execute-comparator-domain-scoring",
+      "R017-DOMAIN-SCORER-fc08158de1496fae",
+      "--write"
+    ],
+    [
+      "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+      "tools/oc133_toe_closure_factory.py",
+      "--execute-comparator-domain-scorer-implementation",
+      "R017-DOMAIN-SCORER-IMPL-fc08158de1496fae",
+      "--write"
+    ],
+    [
+      "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+      "tools/oc133_toe_closure_factory.py",
+      "--execute-comparator-domain-model-repair",
+      "R017-DOMAIN-MODEL-REPAIR-fc08158de1496fae",
+      "--write"
+    ],
+    [
+      "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+      "tools/oc133_toe_closure_factory.py",
+      "--execute-comparator-domain-model-component",
+      "R017-DOMAIN-MODEL-COMPONENT-a95f18f66f0ee040",
+      "--write"
+    ],
+    [
+      "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+      "tools/oc133_toe_closure_factory.py",
+      "--execute-comparator-generic-evidence-pack",
+      "MS-COV-GAP-SOCIAL_ECONOMIC_POLITICAL_SCIENCES-ECONOMIC_INDICATOR_AND_MARKET_OBSERVABLES",
+      "--write"
+    ]
+  ],
+  "component_id": "strict_pack_pass",
+  "domain_class_id": "social_economic_political_sciences",
+  "execution_command": [
+    "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+    "tools/oc133_toe_closure_factory.py",
+    "--execute-comparator-component-materialization",
+    "R017-COMPONENT-MATERIALIZE-47c9f60b083a879f",
+    "--write"
+  ],
+  "gap_id": "MS-COV-GAP-SOCIAL_ECONOMIC_POLITICAL_SCIENCES-ECONOMIC_INDICATOR_AND_MARKET_OBSERVABLES",
+  "generated_at": "2026-05-06T10:20:07Z",
+  "implementation_contract": {
+    "must_create": [
+      "source-bound OC prediction row",
+      "incumbent comparator prediction row",
+      "numeric OC residual",
+      "numeric comparator residual",
+      "materiality verdict",
+      "uncertainty/falsifier row",
+      "independent replay record"
+    ],
+    "must_not_do": [
+      "flip PASS without numeric residuals",
+      "count demotion/future research as TOE closure",
+      "use target values for model selection",
+      "weaken comparator or materiality predicate"
+    ]
+  },
+  "incumbent_comparator": {
+    "baseline_name": "WDI GDP best-of carry-forward, prior-mean, and trailing-mean comparators",
+    "pre_registered": true,
+    "prediction_rule": "score each heldout target against preregistered last-observation carry-forward, prior-training mean, and trailing-three-year mean baselines on the same source snapshot",
+    "required_material_margin": "model residual must beat comparator residual under the declared domain-local metric",
+    "target_values_used_for_baseline_design": false
+  },
+  "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+  "materialization_id": "R017-COMPONENT-MATERIALIZE-47c9f60b083a879f",
+  "missing_source_evidence_fields": [
+    "component_report_pass",
+    "strict_evidence_pack_pass",
+    "scoring_artifact_pass",
+    "replay_artifact_pass",
+    "score_materialized",
+    "oc_model_residual",
+    "incumbent_comparator_residual",
+    "material_margin_met",
+    "fail_closed_status_clear"
+  ],
+  "next_escalation": "Develop the domain scorer/materializer capability and then rerun the component source obligation; keep broad superiority blocked until it passes.",
+  "no_fake_closure_policy": "This report is not evidence; it is an exact implementation contract for missing source-bound scoring.",
+  "obligation_id": "R017-COMPONENT-SOURCE-OBLIGATION-fcb848e2ae079b39",
+  "official_data_source": {
+    "minimum_rows_required": 20,
+    "official_documentation_url": "https://api.worldbank.org/v2/",
+    "official_endpoint_url": "https://api.worldbank.org/v2/",
+    "required_local_snapshot_ref": null,
+    "required_lock_ref": null,
+    "snapshot_status": "NOT_ACQUIRED_FOR_THIS_COVERAGE_CLASS",
+    "source_authority": "World Bank World Development Indicators API",
+    "source_id": "WORLD_BANK_WDI_API",
+    "source_name": "World Bank World Development Indicators API"
+  },
+  "pass_predicate": "The materialization executor produces source-bound scoring, residual, materiality, uncertainty/falsifier, and replay artifacts; the source obligation and strict evidence pack then PASS.",
+  "phenomenon_class_id": "economic_indicator_and_market_observables",
+  "repair_strategy": "Implement the domain/phenomenon scorer that reads the governed source snapshot, keeps targets hidden until scoring, computes OC and comparator residuals, and writes PASS or fail-closed scoring/replay artifacts.",
+  "required_capability": "Research/SourceBoundScoringMaterializationExecutor",
+  "residual_requirement": {
+    "formula": "absolute residual per heldout country/indicator/year; aggregate mean absolute residual",
+    "metric_id": "OC133-SYSTEMS-COVERAGE-ECONOMIC-INDICATOR-MARKET-OBSERVABLES_domain_local_residual",
+    "superiority_rule": "every row and aggregate residual margin must exceed preregistered materiality thresholds"
+  },
+  "root_cause_class": "SOURCE_BOUND_SCORING_MATERIALIZER_NOT_IMPLEMENTED",
+  "schema_id": "OC133_MODERN_SCIENCE_COMPARATOR_COMPONENT_MATERIALIZATION_EXECUTION_v1",
+  "source_obligation_report_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/component_src/src_obligation_47c9f60b083a879f.json",
+  "source_obligation_status": "SOURCE_BOUND_SCORING_MATERIALIZATION_REMAINS_OPEN",
+  "status": "CAPABILITY_DEVELOPMENT_REQUIRED",
+  "target_variable": {
+    "extraction_rule": "WDI[WLD, NY.GDP.MKTP.CD, heldout_year].value",
+    "name": "heldout_world_gdp_current_usd",
+    "target_fields": [
+      "WDI[WLD, NY.GDP.MKTP.CD, heldout_year].value"
+    ],
+    "unit": "current US dollars"
+  },
+  "validator_binding": "comparator_gap::MS-COV-GAP-SOCIAL_ECONOMIC_POLITICAL_SCIENCES-ECONOMIC_INDICATOR_AND_MARKET_OBSERVABLES::component_source_obligation::strict_pack_pass",
+  "why_it_failed": "Source-bound scoring materializer is not implemented for this exact domain/component; existing commands only regenerate fail-closed diagnostics."
+}

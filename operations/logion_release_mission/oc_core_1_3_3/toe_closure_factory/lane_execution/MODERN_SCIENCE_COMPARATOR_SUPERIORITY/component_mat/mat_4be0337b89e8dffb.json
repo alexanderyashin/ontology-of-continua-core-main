@@ -1,0 +1,127 @@
+{
+  "artifact_hash": "d7cd643f8631052b0568d5bd913e0011b94fcef79c1e103d264c602b854d1852",
+  "artifact_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/component_mat/mat_4be0337b89e8dffb.json",
+  "available_diagnostic_commands": [
+    [
+      "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+      "tools/oc133_toe_closure_factory.py",
+      "--execute-comparator-domain-scoring",
+      "R017-DOMAIN-SCORER-8b4b8aaaa996e50a",
+      "--write"
+    ],
+    [
+      "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+      "tools/oc133_toe_closure_factory.py",
+      "--execute-comparator-domain-scorer-implementation",
+      "R017-DOMAIN-SCORER-IMPL-8b4b8aaaa996e50a",
+      "--write"
+    ],
+    [
+      "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+      "tools/oc133_toe_closure_factory.py",
+      "--execute-comparator-domain-model-repair",
+      "R017-DOMAIN-MODEL-REPAIR-8b4b8aaaa996e50a",
+      "--write"
+    ],
+    [
+      "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+      "tools/oc133_toe_closure_factory.py",
+      "--execute-comparator-domain-model-component",
+      "R017-DOMAIN-MODEL-COMPONENT-acd718761dd1f170",
+      "--write"
+    ],
+    [
+      "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+      "tools/oc133_toe_closure_factory.py",
+      "--execute-comparator-generic-evidence-pack",
+      "MS-COV-GAP-PHYSICAL_SCIENCES-CONDENSED_MATTER_FIELDS_AND_MEASUREMENTS",
+      "--write"
+    ]
+  ],
+  "component_id": "incumbent_comparator_residual",
+  "domain_class_id": "physical_sciences",
+  "execution_command": [
+    "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+    "tools/oc133_toe_closure_factory.py",
+    "--execute-comparator-component-materialization",
+    "R017-COMPONENT-MATERIALIZE-7010a121aa2f0311",
+    "--write"
+  ],
+  "gap_id": "MS-COV-GAP-PHYSICAL_SCIENCES-CONDENSED_MATTER_FIELDS_AND_MEASUREMENTS",
+  "generated_at": "2026-05-06T10:20:06Z",
+  "implementation_contract": {
+    "must_create": [
+      "source-bound OC prediction row",
+      "incumbent comparator prediction row",
+      "numeric OC residual",
+      "numeric comparator residual",
+      "materiality verdict",
+      "uncertainty/falsifier row",
+      "independent replay record"
+    ],
+    "must_not_do": [
+      "flip PASS without numeric residuals",
+      "count demotion/future research as TOE closure",
+      "use target values for model selection",
+      "weaken comparator or materiality predicate"
+    ]
+  },
+  "incumbent_comparator": {
+    "baseline_name": "composition-family median bandgap baseline",
+    "pre_registered": true,
+    "prediction_rule": "Predict the median bandgap of the visible chemical-system or element-count family computed without hidden target rows.",
+    "required_material_margin": "model MAE must be lower than comparator MAE by a preregistered positive margin",
+    "target_values_used_for_baseline_design": false
+  },
+  "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+  "materialization_id": "R017-COMPONENT-MATERIALIZE-7010a121aa2f0311",
+  "missing_source_evidence_fields": [
+    "component_report_pass",
+    "strict_evidence_pack_pass",
+    "scoring_artifact_pass",
+    "replay_artifact_pass",
+    "score_materialized",
+    "oc_model_residual",
+    "incumbent_comparator_residual",
+    "material_margin_met",
+    "fail_closed_status_clear"
+  ],
+  "next_escalation": "Develop the domain scorer/materializer capability and then rerun the component source obligation; keep broad superiority blocked until it passes.",
+  "no_fake_closure_policy": "This report is not evidence; it is an exact implementation contract for missing source-bound scoring.",
+  "obligation_id": "R017-COMPONENT-SOURCE-OBLIGATION-a9bf1330de9b8a6f",
+  "official_data_source": {
+    "minimum_rows_required": 20,
+    "official_documentation_url": "https://jarvis.nist.gov/",
+    "official_endpoint_url": "https://jarvis.nist.gov/optimade/jarvisdft/",
+    "required_local_snapshot_ref": "validation/heldout/grand_science/physics_chemistry/nist_jarvis_dft/OC133_NIST_JARVIS_DFT_BANDGAP_SNAPSHOT.json",
+    "required_lock_ref": "validation/heldout/grand_science/physics_chemistry/nist_jarvis_dft/OC133_NIST_JARVIS_DFT_BANDGAP_SNAPSHOT.lock.json",
+    "snapshot_status": "NOT_ACQUIRED_FOR_THIS_COVERAGE_CLASS",
+    "source_authority": "National Institute of Standards and Technology",
+    "source_id": "physics_nist_jarvis_dft_bandgap_v1",
+    "source_name": "NIST-JARVIS JARVIS-DFT materials property records"
+  },
+  "pass_predicate": "The materialization executor produces source-bound scoring, residual, materiality, uncertainty/falsifier, and replay artifacts; the source obligation and strict evidence pack then PASS.",
+  "phenomenon_class_id": "condensed_matter_fields_and_measurements",
+  "repair_strategy": "Implement the domain/phenomenon scorer that reads the governed source snapshot, keeps targets hidden until scoring, computes OC and comparator residuals, and writes PASS or fail-closed scoring/replay artifacts.",
+  "required_capability": "Research/SourceBoundScoringMaterializationExecutor",
+  "residual_requirement": {
+    "formula": "mean(abs(predicted_bandgap_eV - observed_bandgap_eV))",
+    "metric_id": "bandgap_mae_eV_with_bootstrap_superiority_v1",
+    "superiority_rule": "model_MAE + upper_interval_margin < comparator_MAE"
+  },
+  "root_cause_class": "SOURCE_BOUND_SCORING_MATERIALIZER_NOT_IMPLEMENTED",
+  "schema_id": "OC133_MODERN_SCIENCE_COMPARATOR_COMPONENT_MATERIALIZATION_EXECUTION_v1",
+  "source_obligation_report_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/component_src/src_obligation_7010a121aa2f0311.json",
+  "source_obligation_status": "SOURCE_BOUND_SCORING_MATERIALIZATION_REMAINS_OPEN",
+  "status": "CAPABILITY_DEVELOPMENT_REQUIRED",
+  "target_variable": {
+    "extraction_rule": "Hide the JARVIS-DFT bandgap field until a predeclared composition/structure model and comparator have been materialized from visible formula and structure descriptors.",
+    "name": "optB88vdW_electronic_bandgap_eV",
+    "target_fields": [
+      "optB88vdW electronic bandgap"
+    ],
+    "unit": "eV"
+  },
+  "validator_binding": "comparator_gap::MS-COV-GAP-PHYSICAL_SCIENCES-CONDENSED_MATTER_FIELDS_AND_MEASUREMENTS::component_source_obligation::incumbent_comparator_residual",
+  "why_it_failed": "Source-bound scoring materializer is not implemented for this exact domain/component; existing commands only regenerate fail-closed diagnostics."
+}

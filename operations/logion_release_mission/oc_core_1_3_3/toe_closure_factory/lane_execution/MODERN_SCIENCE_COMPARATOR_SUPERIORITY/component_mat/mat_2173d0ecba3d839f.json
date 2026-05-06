@@ -1,0 +1,132 @@
+{
+  "artifact_hash": "2ff94e4f814b6639aa9325f6f2b6e915c7aab98a5388bb8d01bd0c61106dea99",
+  "artifact_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/component_mat/mat_2173d0ecba3d839f.json",
+  "available_diagnostic_commands": [
+    [
+      "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+      "tools/oc133_toe_closure_factory.py",
+      "--execute-comparator-domain-scoring",
+      "R017-DOMAIN-SCORER-a7777e969d546a74",
+      "--write"
+    ],
+    [
+      "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+      "tools/oc133_toe_closure_factory.py",
+      "--execute-comparator-domain-scorer-implementation",
+      "R017-DOMAIN-SCORER-IMPL-a7777e969d546a74",
+      "--write"
+    ],
+    [
+      "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+      "tools/oc133_toe_closure_factory.py",
+      "--execute-comparator-domain-model-repair",
+      "R017-DOMAIN-MODEL-REPAIR-a7777e969d546a74",
+      "--write"
+    ],
+    [
+      "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+      "tools/oc133_toe_closure_factory.py",
+      "--execute-comparator-domain-model-component",
+      "R017-DOMAIN-MODEL-COMPONENT-984babc5ff317c1c",
+      "--write"
+    ],
+    [
+      "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+      "tools/oc133_toe_closure_factory.py",
+      "--execute-comparator-generic-evidence-pack",
+      "MS-COV-GAP-PHYSICAL_SCIENCES-DYNAMICAL_LAWS_AND_CONSERVATION",
+      "--write"
+    ]
+  ],
+  "component_id": "material_margin",
+  "domain_class_id": "physical_sciences",
+  "execution_command": [
+    "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+    "tools/oc133_toe_closure_factory.py",
+    "--execute-comparator-component-materialization",
+    "R017-COMPONENT-MATERIALIZE-e0874f7c311f66ef",
+    "--write"
+  ],
+  "gap_id": "MS-COV-GAP-PHYSICAL_SCIENCES-DYNAMICAL_LAWS_AND_CONSERVATION",
+  "generated_at": "2026-05-06T10:20:06Z",
+  "implementation_contract": {
+    "must_create": [
+      "source-bound OC prediction row",
+      "incumbent comparator prediction row",
+      "numeric OC residual",
+      "numeric comparator residual",
+      "materiality verdict",
+      "uncertainty/falsifier row",
+      "independent replay record"
+    ],
+    "must_not_do": [
+      "flip PASS without numeric residuals",
+      "count demotion/future research as TOE closure",
+      "use target values for model selection",
+      "weaken comparator or materiality predicate"
+    ]
+  },
+  "incumbent_comparator": {
+    "baseline_name": "constant-velocity Cartesian extrapolation baseline",
+    "pre_registered": true,
+    "prediction_rule": "Propagate the previous vector by linear X,Y,Z += VX,VY,VZ*delta_t and keep velocity unchanged.",
+    "required_material_margin": "model vector RMSE must be lower than comparator vector RMSE on the same hidden epochs",
+    "target_values_used_for_baseline_design": false
+  },
+  "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+  "materialization_id": "R017-COMPONENT-MATERIALIZE-e0874f7c311f66ef",
+  "missing_source_evidence_fields": [
+    "component_report_pass",
+    "strict_evidence_pack_pass",
+    "scoring_artifact_pass",
+    "replay_artifact_pass",
+    "score_materialized",
+    "oc_model_residual",
+    "incumbent_comparator_residual",
+    "material_margin_met",
+    "fail_closed_status_clear"
+  ],
+  "next_escalation": "Develop the domain scorer/materializer capability and then rerun the component source obligation; keep broad superiority blocked until it passes.",
+  "no_fake_closure_policy": "This report is not evidence; it is an exact implementation contract for missing source-bound scoring.",
+  "obligation_id": "R017-COMPONENT-SOURCE-OBLIGATION-9eaa848de19f7079",
+  "official_data_source": {
+    "minimum_rows_required": 20,
+    "official_documentation_url": "https://ssd-api.jpl.nasa.gov/doc/horizons.html",
+    "official_endpoint_url": "https://ssd.jpl.nasa.gov/api/horizons.api?format=json&COMMAND='399'&OBJ_DATA='NO'&MAKE_EPHEM='YES'&EPHEM_TYPE='VECTORS'&CENTER='500@10'&START_TIME='2026-Jan-01'&STOP_TIME='2026-Jan-21'&STEP_SIZE='1%20d'&VEC_TABLE='3'&OUT_UNITS='KM-S'&CSV_FORMAT='YES'",
+    "required_local_snapshot_ref": "validation/heldout/grand_science/physics_chemistry/dynamics_jpl_horizons/OC133_PHYSICS_JPL_HORIZONS_EARTH_SUN_VECTORS.json",
+    "required_lock_ref": "validation/heldout/grand_science/physics_chemistry/dynamics_jpl_horizons/OC133_PHYSICS_JPL_HORIZONS_EARTH_SUN_VECTORS.lock.json",
+    "snapshot_status": "NOT_ACQUIRED_FOR_THIS_COVERAGE_CLASS",
+    "source_authority": "NASA Jet Propulsion Laboratory Solar System Dynamics",
+    "source_id": "physics_jpl_horizons_state_vectors_earth_sun_v1",
+    "source_name": "NASA/JPL Solar System Dynamics HORIZONS API vector ephemerides"
+  },
+  "pass_predicate": "The materialization executor produces source-bound scoring, residual, materiality, uncertainty/falsifier, and replay artifacts; the source obligation and strict evidence pack then PASS.",
+  "phenomenon_class_id": "dynamical_laws_and_conservation",
+  "repair_strategy": "Implement the domain/phenomenon scorer that reads the governed source snapshot, keeps targets hidden until scoring, computes OC and comparator residuals, and writes PASS or fail-closed scoring/replay artifacts.",
+  "required_capability": "Research/SourceBoundScoringMaterializationExecutor",
+  "residual_requirement": {
+    "formula": "sqrt(mean((predicted_component - observed_component)^2)) over X,Y,Z,VX,VY,VZ after unit normalization",
+    "metric_id": "vector_rmse_with_component_uncertainty_v1",
+    "superiority_rule": "model_residual < comparator_residual and residual_within_declared_uncertainty is true"
+  },
+  "root_cause_class": "SOURCE_BOUND_SCORING_MATERIALIZER_NOT_IMPLEMENTED",
+  "schema_id": "OC133_MODERN_SCIENCE_COMPARATOR_COMPONENT_MATERIALIZATION_EXECUTION_v1",
+  "source_obligation_report_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/component_src/src_obligation_e0874f7c311f66ef.json",
+  "source_obligation_status": "SOURCE_BOUND_SCORING_MATERIALIZATION_REMAINS_OPEN",
+  "status": "CAPABILITY_DEVELOPMENT_REQUIRED",
+  "target_variable": {
+    "extraction_rule": "For each epoch after the first, hide the official HORIZONS vector row until the predeclared dynamical propagation is materialized from prior visible rows.",
+    "name": "next_epoch_heliocentric_cartesian_state_vector",
+    "target_fields": [
+      "X",
+      "Y",
+      "Z",
+      "VX",
+      "VY",
+      "VZ"
+    ],
+    "unit": "km and km/s"
+  },
+  "validator_binding": "comparator_gap::MS-COV-GAP-PHYSICAL_SCIENCES-DYNAMICAL_LAWS_AND_CONSERVATION::component_source_obligation::material_margin",
+  "why_it_failed": "Source-bound scoring materializer is not implemented for this exact domain/component; existing commands only regenerate fail-closed diagnostics."
+}

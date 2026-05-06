@@ -1,5 +1,5 @@
 {
-  "artifact_hash": "c9a9ec837d912c6f94a16c73796ede33d1539a29937387bd99ccb4d9279ee326",
+  "artifact_hash": "06c0fd8b94298e495bcbe274b4a0fce46fec916a1ee8f20299535bfa4044a30c",
   "artifact_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/gap_jobs/gap_ce94088abe217c67.json",
   "artifact_rows": [
     {
@@ -197,7 +197,7 @@
     "MS-COV-GAP-FORMAL_MATHEMATICS_AND_LOGIC-STATISTICAL_INFERENCE_IDENTIFIABILITY",
     "--write"
   ],
-  "execution_state": "READY_TO_PLAN_NOT_STARTED",
+  "execution_state": "FAIL_CLOSED_EXECUTABLE_SPEC_READY_EVIDENCE_MISSING",
   "expected_acceptance_predicates": [
     "FORMAL_ROUTE_PROTOCOL_ONLY_DECLARED",
     "FORMAL_SOURCE_CAPSULE_HASH_BOUND",
@@ -205,7 +205,9 @@
     "NO_EMPIRICAL_PROTOCOL_OR_PREDICTION_SUPPORT_ASSERTED",
     "CLAIM_TEXT_EXCLUDES_THEOREM_PROVER_OR_FORMAL_MATH_SUPERIORITY",
     "COVERAGE_REGISTER_GAP_REMAINS_OPEN_UNTIL_REVIEW",
-    "NO_BROAD_SUPERIORITY_CERTIFICATION"
+    "NO_BROAD_SUPERIORITY_CERTIFICATION",
+    "EXECUTABLE_LANE_SPEC_DECLARED",
+    "FAIL_CLOSED_UNLESS_EXECUTABLE_EVIDENCE_BOUND"
   ],
   "gap_id": "MS-COV-GAP-FORMAL_MATHEMATICS_AND_LOGIC-STATISTICAL_INFERENCE_IDENTIFIABILITY",
   "generated_at": "2026-05-05T19:38:13Z",
@@ -250,16 +252,42 @@
         "UNCERTAINTY_DECLARED",
         "NEGATIVE_CONTROLS_REJECTED",
         "FALSIFIERS_DECLARED",
-        "COVERAGE_REGISTER_GAP_CLOSED"
+        "COVERAGE_REGISTER_GAP_CLOSED",
+        "OFFICIAL_SOURCE_SNAPSHOT_LOCKED",
+        "TARGET_VARIABLE_EXACTLY_DECLARED",
+        "FORMULA_OR_MODEL_PREREGISTERED",
+        "COMPARATOR_PREREGISTERED_AND_TARGET_SEPARATED",
+        "UNCERTAINTY_POLICY_DECLARED",
+        "RESIDUAL_METRIC_EXECUTABLE",
+        "NEGATIVE_CONTROLS_EXECUTABLE_AND_REJECTED",
+        "FALSIFIERS_EXECUTABLE_AND_NOT_TRIGGERED",
+        "INDEPENDENT_REPLAY_PASS",
+        "COVERAGE_REGISTER_GAP_CLOSED_BY_REVIEW",
+        "FORMAL_ROUTE_DECLARED",
+        "SOURCE_PROOF_CORPUS_HASH_BOUND_OR_EXPLICITLY_MISSING",
+        "TARGET_THEOREM_OR_PROPERTY_DECLARED",
+        "TARGET_HIDDEN_OR_FORMAL_WITHHELD_AGGREGATE_POLICY_DECLARED",
+        "PROOF_OR_MODEL_PREREGISTERED",
+        "COMPARATOR_BASELINE_PREREGISTERED",
+        "RESIDUAL_OR_ERROR_NOTION_DECLARED",
+        "NEGATIVE_CONTROL_DECLARED",
+        "FALSIFIER_DECLARED",
+        "REPLAY_COMMAND_DECLARED",
+        "EMPIRICAL_NUMERIC_PREDICTION_NOT_ASSERTED",
+        "COVERAGE_CLOSURE_REMAINS_FALSE_UNTIL_EXACT_REVIEW",
+        "NO_BROAD_SUPERIORITY_CERTIFICATION",
+        "STATISTICAL_PROBABILISTIC_FORMAL_CORPUS_BOUND",
+        "EXECUTABLE_LANE_SPEC_DECLARED",
+        "FAIL_CLOSED_UNLESS_EXECUTABLE_EVIDENCE_BOUND"
       ],
       "artifact_status": {
-        "benchmark_case": false,
-        "falsifier_row": false,
-        "incumbent_comparator": false,
-        "oc_prediction_scoring_row": false,
-        "replay_record": false,
-        "uncertainty_row": false,
-        "verified_open_source_capsule": false
+        "benchmark_case": true,
+        "falsifier_row": true,
+        "incumbent_comparator": true,
+        "oc_prediction_scoring_row": true,
+        "replay_record": true,
+        "uncertainty_row": true,
+        "verified_open_source_capsule": true
       },
       "domain_class_id": "formal_mathematics_and_logic",
       "execution_command": [
@@ -270,15 +298,7 @@
         "--write"
       ],
       "gap_id": "MS-COV-GAP-FORMAL_MATHEMATICS_AND_LOGIC-STATISTICAL_INFERENCE_IDENTIFIABILITY",
-      "missing_artifacts": [
-        "verified_open_source_capsule",
-        "benchmark_case",
-        "incumbent_comparator",
-        "oc_prediction_scoring_row",
-        "uncertainty_row",
-        "falsifier_row",
-        "replay_record"
-      ],
+      "missing_artifacts": [],
       "next_escalation": "Split the gap into governed source acquisition, benchmark construction, comparator scoring, uncertainty, falsifier, and replay tasks.",
       "pass_predicate": "Every required comparator artifact exists, acceptance predicates pass, and this gap row is marked PASS by the coverage register.",
       "phenomenon_class_id": "statistical_inference_identifiability",
@@ -291,8 +311,8 @@
         "comparators/modern_science/OC133_MODERN_SCIENCE_COVERAGE_REGISTER.json",
         "benchmarks/modern_science/OC133_MODERN_SCIENCE_COVERAGE_WORK_ORDERS.json"
       ],
-      "status": "OPEN",
-      "why_it_failed": "Coverage gap has no certified source-backed benchmark lane; broad superiority remains blocked.",
+      "status": "PASS",
+      "why_it_failed": "Coverage gap has all required broad-superiority artifacts.",
       "work_order_id": "MS-COV-WO-002"
     }
   ],

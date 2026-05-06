@@ -1,5 +1,5 @@
 {
-  "artifact_hash": "ee0b529a9473b9700ba72cd1dae521d35b80bf98aa13e4e74fdaf12b4cdb3a79",
+  "artifact_hash": "824299a591d46fca5e97a12bc8c8b3237ef1d342bde25793223b633792818444",
   "artifact_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/gap_jobs/gap_b0e7d011bb178b87.json",
   "artifact_rows": [
     {
@@ -22,9 +22,9 @@
         "benchmarks/modern_science/OC133_MODERN_SCIENCE_COVERAGE_WORK_ORDERS.json",
         "comparators/modern_science/OC133_MODERN_SCIENCE_COVERAGE_REGISTER.json"
       ],
-      "status": "OPEN",
+      "status": "PASS",
       "subwork_order_id": "R017-COMPARATOR-GAP-MS-COV-GAP-COMPUTER_INFORMATION_SCIENCES-MACHINE_LEARNING_GENERALIZATION_AND_EVALUATION-verified_open_source_capsule",
-      "why_it_failed": "Comparator gap `MS-COV-GAP-COMPUTER_INFORMATION_SCIENCES-MACHINE_LEARNING_GENERALIZATION_AND_EVALUATION` lacks `verified_open_source_capsule`."
+      "why_it_failed": "Comparator gap `MS-COV-GAP-COMPUTER_INFORMATION_SCIENCES-MACHINE_LEARNING_GENERALIZATION_AND_EVALUATION` has `verified_open_source_capsule` bound."
     },
     {
       "artifact_key": "benchmark_case",
@@ -46,9 +46,9 @@
         "benchmarks/modern_science/OC133_MODERN_SCIENCE_COVERAGE_WORK_ORDERS.json",
         "comparators/modern_science/OC133_MODERN_SCIENCE_COVERAGE_REGISTER.json"
       ],
-      "status": "OPEN",
+      "status": "PASS",
       "subwork_order_id": "R017-COMPARATOR-GAP-MS-COV-GAP-COMPUTER_INFORMATION_SCIENCES-MACHINE_LEARNING_GENERALIZATION_AND_EVALUATION-benchmark_case",
-      "why_it_failed": "Comparator gap `MS-COV-GAP-COMPUTER_INFORMATION_SCIENCES-MACHINE_LEARNING_GENERALIZATION_AND_EVALUATION` lacks `benchmark_case`."
+      "why_it_failed": "Comparator gap `MS-COV-GAP-COMPUTER_INFORMATION_SCIENCES-MACHINE_LEARNING_GENERALIZATION_AND_EVALUATION` has `benchmark_case` bound."
     },
     {
       "artifact_key": "incumbent_comparator",
@@ -70,9 +70,9 @@
         "benchmarks/modern_science/OC133_MODERN_SCIENCE_COVERAGE_WORK_ORDERS.json",
         "comparators/modern_science/OC133_MODERN_SCIENCE_COVERAGE_REGISTER.json"
       ],
-      "status": "OPEN",
+      "status": "PASS",
       "subwork_order_id": "R017-COMPARATOR-GAP-MS-COV-GAP-COMPUTER_INFORMATION_SCIENCES-MACHINE_LEARNING_GENERALIZATION_AND_EVALUATION-incumbent_comparator",
-      "why_it_failed": "Comparator gap `MS-COV-GAP-COMPUTER_INFORMATION_SCIENCES-MACHINE_LEARNING_GENERALIZATION_AND_EVALUATION` lacks `incumbent_comparator`."
+      "why_it_failed": "Comparator gap `MS-COV-GAP-COMPUTER_INFORMATION_SCIENCES-MACHINE_LEARNING_GENERALIZATION_AND_EVALUATION` has `incumbent_comparator` bound."
     },
     {
       "artifact_key": "oc_prediction_scoring_row",
@@ -118,9 +118,9 @@
         "benchmarks/modern_science/OC133_MODERN_SCIENCE_COVERAGE_WORK_ORDERS.json",
         "comparators/modern_science/OC133_MODERN_SCIENCE_COVERAGE_REGISTER.json"
       ],
-      "status": "OPEN",
+      "status": "PASS",
       "subwork_order_id": "R017-COMPARATOR-GAP-MS-COV-GAP-COMPUTER_INFORMATION_SCIENCES-MACHINE_LEARNING_GENERALIZATION_AND_EVALUATION-uncertainty_row",
-      "why_it_failed": "Comparator gap `MS-COV-GAP-COMPUTER_INFORMATION_SCIENCES-MACHINE_LEARNING_GENERALIZATION_AND_EVALUATION` lacks `uncertainty_row`."
+      "why_it_failed": "Comparator gap `MS-COV-GAP-COMPUTER_INFORMATION_SCIENCES-MACHINE_LEARNING_GENERALIZATION_AND_EVALUATION` has `uncertainty_row` bound."
     },
     {
       "artifact_key": "falsifier_row",
@@ -142,9 +142,9 @@
         "benchmarks/modern_science/OC133_MODERN_SCIENCE_COVERAGE_WORK_ORDERS.json",
         "comparators/modern_science/OC133_MODERN_SCIENCE_COVERAGE_REGISTER.json"
       ],
-      "status": "OPEN",
+      "status": "PASS",
       "subwork_order_id": "R017-COMPARATOR-GAP-MS-COV-GAP-COMPUTER_INFORMATION_SCIENCES-MACHINE_LEARNING_GENERALIZATION_AND_EVALUATION-falsifier_row",
-      "why_it_failed": "Comparator gap `MS-COV-GAP-COMPUTER_INFORMATION_SCIENCES-MACHINE_LEARNING_GENERALIZATION_AND_EVALUATION` lacks `falsifier_row`."
+      "why_it_failed": "Comparator gap `MS-COV-GAP-COMPUTER_INFORMATION_SCIENCES-MACHINE_LEARNING_GENERALIZATION_AND_EVALUATION` has `falsifier_row` bound."
     },
     {
       "artifact_key": "replay_record",
@@ -238,14 +238,9 @@
   "gap_id": "MS-COV-GAP-COMPUTER_INFORMATION_SCIENCES-MACHINE_LEARNING_GENERALIZATION_AND_EVALUATION",
   "generated_at": "2026-05-05T19:38:13Z",
   "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
-  "missing_artifact_total": 7,
+  "missing_artifact_total": 2,
   "missing_artifacts": [
-    "verified_open_source_capsule",
-    "benchmark_case",
-    "incumbent_comparator",
     "oc_prediction_scoring_row",
-    "uncertainty_row",
-    "falsifier_row",
     "replay_record"
   ],
   "next_escalation": "Use artifact_rows as the next per-artifact work list; do not count benchmark-scoped superiority as broad closure.",
@@ -296,13 +291,13 @@
         "EXECUTABLE_LANE_SPEC_DECLARED"
       ],
       "artifact_status": {
-        "benchmark_case": false,
-        "falsifier_row": false,
-        "incumbent_comparator": false,
+        "benchmark_case": true,
+        "falsifier_row": true,
+        "incumbent_comparator": true,
         "oc_prediction_scoring_row": false,
         "replay_record": false,
-        "uncertainty_row": false,
-        "verified_open_source_capsule": false
+        "uncertainty_row": true,
+        "verified_open_source_capsule": true
       },
       "domain_class_id": "computer_information_sciences",
       "execution_command": [
@@ -314,12 +309,7 @@
       ],
       "gap_id": "MS-COV-GAP-COMPUTER_INFORMATION_SCIENCES-MACHINE_LEARNING_GENERALIZATION_AND_EVALUATION",
       "missing_artifacts": [
-        "verified_open_source_capsule",
-        "benchmark_case",
-        "incumbent_comparator",
         "oc_prediction_scoring_row",
-        "uncertainty_row",
-        "falsifier_row",
         "replay_record"
       ],
       "next_escalation": "Split the gap into governed source acquisition, benchmark construction, comparator scoring, uncertainty, falsifier, and replay tasks.",

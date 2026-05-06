@@ -1,5 +1,5 @@
 {
-  "artifact_hash": "55b68c5ec5aa30df5e5b02329ba5e2d3d1162c456cecabe822ddd35af3b7566a",
+  "artifact_hash": "8268fe58093f11c2feadc46ff6c430c5f45ac3748016d7c9b916ec5700acdcd9",
   "artifact_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/gap_jobs/gap_a7777e969d546a74.json",
   "artifact_rows": [
     {
@@ -22,9 +22,9 @@
         "benchmarks/modern_science/OC133_MODERN_SCIENCE_COVERAGE_WORK_ORDERS.json",
         "comparators/modern_science/OC133_MODERN_SCIENCE_COVERAGE_REGISTER.json"
       ],
-      "status": "OPEN",
+      "status": "PASS",
       "subwork_order_id": "R017-COMPARATOR-GAP-MS-COV-GAP-PHYSICAL_SCIENCES-DYNAMICAL_LAWS_AND_CONSERVATION-verified_open_source_capsule",
-      "why_it_failed": "Comparator gap `MS-COV-GAP-PHYSICAL_SCIENCES-DYNAMICAL_LAWS_AND_CONSERVATION` lacks `verified_open_source_capsule`."
+      "why_it_failed": "Comparator gap `MS-COV-GAP-PHYSICAL_SCIENCES-DYNAMICAL_LAWS_AND_CONSERVATION` has `verified_open_source_capsule` bound."
     },
     {
       "artifact_key": "benchmark_case",
@@ -46,9 +46,9 @@
         "benchmarks/modern_science/OC133_MODERN_SCIENCE_COVERAGE_WORK_ORDERS.json",
         "comparators/modern_science/OC133_MODERN_SCIENCE_COVERAGE_REGISTER.json"
       ],
-      "status": "OPEN",
+      "status": "PASS",
       "subwork_order_id": "R017-COMPARATOR-GAP-MS-COV-GAP-PHYSICAL_SCIENCES-DYNAMICAL_LAWS_AND_CONSERVATION-benchmark_case",
-      "why_it_failed": "Comparator gap `MS-COV-GAP-PHYSICAL_SCIENCES-DYNAMICAL_LAWS_AND_CONSERVATION` lacks `benchmark_case`."
+      "why_it_failed": "Comparator gap `MS-COV-GAP-PHYSICAL_SCIENCES-DYNAMICAL_LAWS_AND_CONSERVATION` has `benchmark_case` bound."
     },
     {
       "artifact_key": "incumbent_comparator",
@@ -70,9 +70,9 @@
         "benchmarks/modern_science/OC133_MODERN_SCIENCE_COVERAGE_WORK_ORDERS.json",
         "comparators/modern_science/OC133_MODERN_SCIENCE_COVERAGE_REGISTER.json"
       ],
-      "status": "OPEN",
+      "status": "PASS",
       "subwork_order_id": "R017-COMPARATOR-GAP-MS-COV-GAP-PHYSICAL_SCIENCES-DYNAMICAL_LAWS_AND_CONSERVATION-incumbent_comparator",
-      "why_it_failed": "Comparator gap `MS-COV-GAP-PHYSICAL_SCIENCES-DYNAMICAL_LAWS_AND_CONSERVATION` lacks `incumbent_comparator`."
+      "why_it_failed": "Comparator gap `MS-COV-GAP-PHYSICAL_SCIENCES-DYNAMICAL_LAWS_AND_CONSERVATION` has `incumbent_comparator` bound."
     },
     {
       "artifact_key": "oc_prediction_scoring_row",
@@ -118,9 +118,9 @@
         "benchmarks/modern_science/OC133_MODERN_SCIENCE_COVERAGE_WORK_ORDERS.json",
         "comparators/modern_science/OC133_MODERN_SCIENCE_COVERAGE_REGISTER.json"
       ],
-      "status": "OPEN",
+      "status": "PASS",
       "subwork_order_id": "R017-COMPARATOR-GAP-MS-COV-GAP-PHYSICAL_SCIENCES-DYNAMICAL_LAWS_AND_CONSERVATION-uncertainty_row",
-      "why_it_failed": "Comparator gap `MS-COV-GAP-PHYSICAL_SCIENCES-DYNAMICAL_LAWS_AND_CONSERVATION` lacks `uncertainty_row`."
+      "why_it_failed": "Comparator gap `MS-COV-GAP-PHYSICAL_SCIENCES-DYNAMICAL_LAWS_AND_CONSERVATION` has `uncertainty_row` bound."
     },
     {
       "artifact_key": "falsifier_row",
@@ -142,9 +142,9 @@
         "benchmarks/modern_science/OC133_MODERN_SCIENCE_COVERAGE_WORK_ORDERS.json",
         "comparators/modern_science/OC133_MODERN_SCIENCE_COVERAGE_REGISTER.json"
       ],
-      "status": "OPEN",
+      "status": "PASS",
       "subwork_order_id": "R017-COMPARATOR-GAP-MS-COV-GAP-PHYSICAL_SCIENCES-DYNAMICAL_LAWS_AND_CONSERVATION-falsifier_row",
-      "why_it_failed": "Comparator gap `MS-COV-GAP-PHYSICAL_SCIENCES-DYNAMICAL_LAWS_AND_CONSERVATION` lacks `falsifier_row`."
+      "why_it_failed": "Comparator gap `MS-COV-GAP-PHYSICAL_SCIENCES-DYNAMICAL_LAWS_AND_CONSERVATION` has `falsifier_row` bound."
     },
     {
       "artifact_key": "replay_record",
@@ -235,14 +235,9 @@
   "gap_id": "MS-COV-GAP-PHYSICAL_SCIENCES-DYNAMICAL_LAWS_AND_CONSERVATION",
   "generated_at": "2026-05-05T19:38:13Z",
   "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
-  "missing_artifact_total": 7,
+  "missing_artifact_total": 2,
   "missing_artifacts": [
-    "verified_open_source_capsule",
-    "benchmark_case",
-    "incumbent_comparator",
     "oc_prediction_scoring_row",
-    "uncertainty_row",
-    "falsifier_row",
     "replay_record"
   ],
   "next_escalation": "Use artifact_rows as the next per-artifact work list; do not count benchmark-scoped superiority as broad closure.",
@@ -290,13 +285,13 @@
         "FAIL_CLOSED_UNLESS_EXECUTABLE_EVIDENCE_BOUND"
       ],
       "artifact_status": {
-        "benchmark_case": false,
-        "falsifier_row": false,
-        "incumbent_comparator": false,
+        "benchmark_case": true,
+        "falsifier_row": true,
+        "incumbent_comparator": true,
         "oc_prediction_scoring_row": false,
         "replay_record": false,
-        "uncertainty_row": false,
-        "verified_open_source_capsule": false
+        "uncertainty_row": true,
+        "verified_open_source_capsule": true
       },
       "domain_class_id": "physical_sciences",
       "execution_command": [
@@ -308,12 +303,7 @@
       ],
       "gap_id": "MS-COV-GAP-PHYSICAL_SCIENCES-DYNAMICAL_LAWS_AND_CONSERVATION",
       "missing_artifacts": [
-        "verified_open_source_capsule",
-        "benchmark_case",
-        "incumbent_comparator",
         "oc_prediction_scoring_row",
-        "uncertainty_row",
-        "falsifier_row",
         "replay_record"
       ],
       "next_escalation": "Split the gap into governed source acquisition, benchmark construction, comparator scoring, uncertainty, falsifier, and replay tasks.",

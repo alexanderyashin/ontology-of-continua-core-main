@@ -1,20 +1,29 @@
 {
-  "artifact_hash": "d9419d189a97489ac6f514d4fc4d29a5a2d0822cdcf600e4bbc0257a289525a5",
+  "artifact_hash": "bfe368759edd0ca3d7aef3c1d33baa86fe69a77927d1e94d9517eb61c0aad64c",
   "artifact_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/scoring_work_orders/scoring_04a29758f8310992.json",
   "current_evidence": {
-    "evidence_pack_hash": "",
+    "evidence_pack_hash": "c2eb5f8d3c71e10d1e07a076ac147f7f7adf5b21b56448eae3c8f5bbeb6ab542",
     "evidence_pack_summary": {
-      "coverage_closure_allowed": null,
-      "pack_status": null,
-      "residuals": {},
-      "schema_id": null
+      "coverage_closure_allowed": false,
+      "fail_closed_reason": "Source identity and preregistered benchmark are present, but no target-hidden OC score with material superiority exists.",
+      "pack_status": "FAIL_CLOSED_SOURCE_BOUND_SCORING_NOT_MATERIALIZED",
+      "residuals": {
+        "comparator": null,
+        "material_margin_met": false,
+        "material_margin_rule": "model MAE plus uncertainty allowance must be lower than the trailing-mean comparator MAE",
+        "model": null
+      },
+      "schema_id": "OC133_MODERN_SCIENCE_COMPARATOR_STRICT_EVIDENCE_PACK_v1",
+      "score_materialized": false,
+      "source_bound": true,
+      "target_hidden": true
     },
-    "evidence_ref": null,
-    "evidence_ref_exists": false,
-    "executable_evidence_exists": false,
+    "evidence_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/04a29758f8310992/strict_evidence_pack.json",
+    "evidence_ref_exists": true,
+    "executable_evidence_exists": true,
     "fail_closed_status_present": true,
     "material_margin_met": false,
-    "pack_status_text": "{\"COVERAGE_CLOSURE_ALLOWED\": NULL, \"COVERAGE_CLOSURE_STATUS\": \"OPEN_FAIL_CLOSED_NO_EXECUTABLE_EVIDENCE\", \"EVIDENCE_STATUS\": NULL, \"PACK_STATUS\": NULL}"
+    "pack_status_text": "{\"COVERAGE_CLOSURE_ALLOWED\": FALSE, \"EVIDENCE_STATUS\": \"FAIL_CLOSED_SOURCE_BOUND_SCORING_NOT_MATERIALIZED\", \"FAIL_CLOSED_REASON\": \"SOURCE IDENTITY AND PREREGISTERED BENCHMARK ARE PRESENT, BUT NO TARGET-HIDDEN OC SCORE WITH MATERIAL SUPERIORITY EXISTS.\", \"PACK_STATUS\": \"FAIL_CLOSED_SOURCE_BOUND_SCORING_NOT_MATERIALIZED\"}"
   },
   "domain_class_id": "earth_space_environmental_sciences",
   "executable_spec_found": true,
@@ -125,7 +134,7 @@
       }
     }
   ],
-  "root_cause_class": "SCORING_EVIDENCE_NOT_MATERIALIZED",
+  "root_cause_class": "SCORING_PACK_FAIL_CLOSED",
   "schema_id": "OC133_MODERN_SCIENCE_COMPARATOR_SCORING_WORK_ORDER_v1",
   "source_refs": [
     "reports/OC_CORE_1_3_3_MODERN_SCIENCE_COVERAGE_LANE_QUEUE.json",
@@ -134,6 +143,6 @@
   ],
   "status": "OPEN",
   "validator_binding": "comparator_gap::MS-COV-GAP-EARTH_SPACE_ENVIRONMENTAL_SCIENCES-REMOTE_SENSING_AND_PLANETARY_MEASUREMENTS::oc_prediction_scoring_row",
-  "why_it_failed": "The lane declares no executable evidence pack for the OC-vs-comparator scoring row.",
+  "why_it_failed": "The current evidence pack carries a fail-closed status token, so broad comparator credit is prohibited.",
   "work_order_id": "MS-COV-WO-012"
 }

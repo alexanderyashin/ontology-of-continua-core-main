@@ -1,0 +1,129 @@
+{
+  "artifact_hash": "df608da1264313b87f0e7f3a6713bc00bf3abf56ec54c78b2fca90351bd73120",
+  "artifact_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/component_mat/mat_48fec616fc3dfecd.json",
+  "available_diagnostic_commands": [
+    [
+      "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+      "tools/oc133_toe_closure_factory.py",
+      "--execute-comparator-domain-scoring",
+      "R017-DOMAIN-SCORER-ac1f601d3315235c",
+      "--write"
+    ],
+    [
+      "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+      "tools/oc133_toe_closure_factory.py",
+      "--execute-comparator-domain-scorer-implementation",
+      "R017-DOMAIN-SCORER-IMPL-ac1f601d3315235c",
+      "--write"
+    ],
+    [
+      "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+      "tools/oc133_toe_closure_factory.py",
+      "--execute-comparator-domain-model-repair",
+      "R017-DOMAIN-MODEL-REPAIR-ac1f601d3315235c",
+      "--write"
+    ],
+    [
+      "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+      "tools/oc133_toe_closure_factory.py",
+      "--execute-comparator-domain-model-component",
+      "R017-DOMAIN-MODEL-COMPONENT-bcc1f7882422f9a1",
+      "--write"
+    ],
+    [
+      "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+      "tools/oc133_toe_closure_factory.py",
+      "--execute-comparator-generic-evidence-pack",
+      "MS-COV-GAP-BIOLOGICAL_LIFE_SCIENCES-EVOLUTIONARY_PHYLOGENETIC_PATTERNS",
+      "--write"
+    ]
+  ],
+  "component_id": "oc_score_materialization",
+  "domain_class_id": "biological_life_sciences",
+  "execution_command": [
+    "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+    "tools/oc133_toe_closure_factory.py",
+    "--execute-comparator-component-materialization",
+    "R017-COMPONENT-MATERIALIZE-daa95262d0015e1e",
+    "--write"
+  ],
+  "gap_id": "MS-COV-GAP-BIOLOGICAL_LIFE_SCIENCES-EVOLUTIONARY_PHYLOGENETIC_PATTERNS",
+  "generated_at": "2026-05-06T10:20:06Z",
+  "implementation_contract": {
+    "must_create": [
+      "source-bound OC prediction row",
+      "incumbent comparator prediction row",
+      "numeric OC residual",
+      "numeric comparator residual",
+      "materiality verdict",
+      "uncertainty/falsifier row",
+      "independent replay record"
+    ],
+    "must_not_do": [
+      "flip PASS without numeric residuals",
+      "count demotion/future research as TOE closure",
+      "use target values for model selection",
+      "weaken comparator or materiality predicate"
+    ]
+  },
+  "incumbent_comparator": {
+    "baseline_name": "rank-only majority ancestor baseline",
+    "pre_registered": true,
+    "prediction_rule": "Predict the most frequent visible-panel ancestor at the declared rank without reading hidden pairwise lowest-common-ancestor targets.",
+    "required_material_margin": "lineage replay accuracy and tree-distance residual must beat the rank-only baseline on the same hidden taxon pairs",
+    "target_values_used_for_baseline_design": false
+  },
+  "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+  "materialization_id": "R017-COMPONENT-MATERIALIZE-daa95262d0015e1e",
+  "missing_source_evidence_fields": [
+    "component_report_pass",
+    "strict_evidence_pack_pass",
+    "scoring_artifact_pass",
+    "replay_artifact_pass",
+    "score_materialized",
+    "oc_model_residual",
+    "incumbent_comparator_residual",
+    "material_margin_met",
+    "fail_closed_status_clear"
+  ],
+  "next_escalation": "Develop the domain scorer/materializer capability and then rerun the component source obligation; keep broad superiority blocked until it passes.",
+  "no_fake_closure_policy": "This report is not evidence; it is an exact implementation contract for missing source-bound scoring.",
+  "obligation_id": "R017-COMPONENT-SOURCE-OBLIGATION-d77ac295f2b4cccc",
+  "official_data_source": {
+    "minimum_rows_required": 20,
+    "official_documentation_url": "https://www.ncbi.nlm.nih.gov/books/NBK25499/",
+    "official_endpoint_url": "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esummary.fcgi?db=taxonomy&id=9606,10090,10116,7227,7955,3702",
+    "required_local_snapshot_ref": "validation/heldout/grand_science/biology/evolutionary_phylogeny/OC133_NCBI_TAXONOMY_LINEAGE_SNAPSHOT.json",
+    "required_lock_ref": "validation/heldout/grand_science/biology/evolutionary_phylogeny/OC133_NCBI_TAXONOMY_LINEAGE_SNAPSHOT.lock.json",
+    "snapshot_status": "NOT_ACQUIRED_FOR_THIS_COVERAGE_CLASS",
+    "source_authority": "National Center for Biotechnology Information",
+    "source_id": "biology_ncbi_taxonomy_lca_lineage_v1",
+    "source_name": "NCBI Taxonomy E-utilities taxonomy lineage records"
+  },
+  "pass_predicate": "The materialization executor produces source-bound scoring, residual, materiality, uncertainty/falsifier, and replay artifacts; the source obligation and strict evidence pack then PASS.",
+  "phenomenon_class_id": "evolutionary_phylogenetic_patterns",
+  "repair_strategy": "Implement the domain/phenomenon scorer that reads the governed source snapshot, keeps targets hidden until scoring, computes OC and comparator residuals, and writes PASS or fail-closed scoring/replay artifacts.",
+  "required_capability": "Research/SourceBoundScoringMaterializationExecutor",
+  "residual_requirement": {
+    "formula": "absolute tree-distance between predicted and observed lowest-common-ancestor nodes over hidden taxon pairs",
+    "metric_id": "taxonomy_lca_tree_distance_residual_v1",
+    "superiority_rule": "mean tree-distance residual must be lower than comparator residual and exact LCA accuracy must be higher than comparator accuracy"
+  },
+  "root_cause_class": "SOURCE_BOUND_SCORING_MATERIALIZER_NOT_IMPLEMENTED",
+  "schema_id": "OC133_MODERN_SCIENCE_COMPARATOR_COMPONENT_MATERIALIZATION_EXECUTION_v1",
+  "source_obligation_report_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/component_src/src_obligation_daa95262d0015e1e.json",
+  "source_obligation_status": "SOURCE_BOUND_SCORING_MATERIALIZATION_REMAINS_OPEN",
+  "status": "CAPABILITY_DEVELOPMENT_REQUIRED",
+  "target_variable": {
+    "extraction_rule": "Hide pairwise lowest-common-ancestor targets until lineage-derived predictions are materialized from locked visible taxon identifiers and permitted lineage prefixes.",
+    "name": "lowest_common_ancestor_tax_id",
+    "target_fields": [
+      "tax_id_pair",
+      "lowest_common_ancestor_tax_id",
+      "lineage_distance"
+    ],
+    "unit": "NCBI taxonomy identifier"
+  },
+  "validator_binding": "comparator_gap::MS-COV-GAP-BIOLOGICAL_LIFE_SCIENCES-EVOLUTIONARY_PHYLOGENETIC_PATTERNS::component_source_obligation::oc_score_materialization",
+  "why_it_failed": "Source-bound scoring materializer is not implemented for this exact domain/component; existing commands only regenerate fail-closed diagnostics."
+}
