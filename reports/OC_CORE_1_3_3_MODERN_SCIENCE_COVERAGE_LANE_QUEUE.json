@@ -9431,7 +9431,7 @@
       "phenomenon_label": "economic indicator and market observables",
       "lane_route": "EMPIRICAL_SOURCE_BACKED_BENCHMARK",
       "owner_capability": "Logion Systems Evidence / Official Statistical Sources",
-      "execution_state": "FAIL_CLOSED_EXECUTABLE_SPEC_READY_EVIDENCE_MISSING",
+      "execution_state": "EVIDENCE_BOUND_PENDING_REVIEW",
       "dependency_key": "source_capsule_lock",
       "dependencies": [
         {
@@ -9465,8 +9465,8 @@
           "lane_role": "official_data_source",
           "requirement": "Acquire and hash World Bank World Development Indicators API from https://api.worldbank.org/v2/.",
           "source_id": "WORLD_BANK_WDI_API",
-          "required_local_snapshot_ref": null,
-          "required_lock_ref": null
+          "required_local_snapshot_ref": "validation/heldout/grand_science/systems/wdi_gdp/OC133_WORLD_BANK_WDI_GDP_CONSTANT_SOURCE.json",
+          "required_lock_ref": "validation/heldout/grand_science/systems/wdi_gdp/OC133_WORLD_BANK_WDI_GDP_CONSTANT_SOURCE.lock.json"
         },
         {
           "lane_role": "target_variable",
@@ -9518,8 +9518,7 @@
         "executable lane spec declares exact official source, target variable, formula/model, comparator, uncertainty, residual metric, negative control, and falsifier",
         "source snapshot and target projection are locked before scoring",
         "strict evidence pack exists and validates under independent replay",
-        "coverage remains open until every closure predicate is reviewed",
-        "fail-closed evidence gate: executable evidence is not yet bound"
+        "coverage remains open until every closure predicate is reviewed"
       ],
       "official_source_defaults": [
         "World Bank WDI, OECD, UN, Census, FRED, or equivalent official statistical sources",
@@ -9573,10 +9572,10 @@
           "source_authority": "World Bank World Development Indicators API",
           "official_documentation_url": "https://api.worldbank.org/v2/",
           "official_endpoint_url": "https://api.worldbank.org/v2/",
-          "required_local_snapshot_ref": null,
-          "required_lock_ref": null,
+          "required_local_snapshot_ref": "validation/heldout/grand_science/systems/wdi_gdp/OC133_WORLD_BANK_WDI_GDP_CONSTANT_SOURCE.json",
+          "required_lock_ref": "validation/heldout/grand_science/systems/wdi_gdp/OC133_WORLD_BANK_WDI_GDP_CONSTANT_SOURCE.lock.json",
           "minimum_rows_required": 20,
-          "snapshot_status": "NOT_ACQUIRED_FOR_THIS_COVERAGE_CLASS"
+          "snapshot_status": "ACQUIRED_OR_BOUND"
         },
         "target_variable": {
           "name": "heldout_world_gdp_current_usd",
@@ -9623,12 +9622,14 @@
           "replay_command": "python benchmarks/modern_science/coverage_lane_dispatcher.py --check"
         },
         "current_evidence": {
-          "executable_evidence_exists": false,
-          "executable_evidence_ref": null,
-          "status": null,
-          "implemented_snapshot_ref": null,
-          "implemented_lock_ref": null,
-          "reason": "FAIL_CLOSED_PENDING_GENERALIZED_WDI_INDICATOR_REPLAY"
+          "executable_evidence_exists": true,
+          "executable_evidence_ref": "validation/heldout/grand_science/systems/wdi_gdp/OC133_WORLD_BANK_WDI_GDP_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
+          "status": "STRICT_EVIDENCE_PASS_NO_COVERAGE_CLOSURE",
+          "implemented_snapshot_ref": "validation/heldout/grand_science/systems/wdi_gdp/OC133_WORLD_BANK_WDI_GDP_CONSTANT_SOURCE.json",
+          "implemented_lock_ref": "validation/heldout/grand_science/systems/wdi_gdp/OC133_WORLD_BANK_WDI_GDP_CONSTANT_SOURCE.lock.json",
+          "reason": "Source-bound target-hidden scoring evidence is materialized and hash-bound; broad modern-science coverage still remains fail-closed until every required gap passes.",
+          "implemented_scoring_pack_ref": "validation/heldout/grand_science/systems/wdi_gdp/OC133_WORLD_BANK_WDI_GDP_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
+          "strict_evidence_pack_ref": "validation/heldout/grand_science/systems/wdi_gdp/OC133_WORLD_BANK_WDI_GDP_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json"
         },
         "closure_predicates_required": [
           "STRICT_PACK_SCHEMA_PASS",
@@ -9664,10 +9665,10 @@
         }
       },
       "evidence_gate": {
-        "executable_evidence_exists": false,
-        "executable_evidence_ref": null,
+        "executable_evidence_exists": true,
+        "executable_evidence_ref": "validation/heldout/grand_science/systems/wdi_gdp/OC133_WORLD_BANK_WDI_GDP_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
         "closure_allowed": false,
-        "status": "FAIL_CLOSED_NO_EXECUTABLE_EVIDENCE"
+        "status": "EVIDENCE_BOUND_PENDING_REVIEW"
       },
       "verification_command": "python benchmarks/modern_science/coverage_lane_dispatcher.py --check",
       "resource_estimate": {
@@ -9695,7 +9696,7 @@
       "coverage_closure": {
         "current_status": "OPEN_FAIL_CLOSED_FAIL_CLOSED_PENDING_GENERALIZED_WDI_INDICATOR_REPLAY",
         "mark_closed_allowed": false,
-        "reason": "FAIL_CLOSED_PENDING_GENERALIZED_WDI_INDICATOR_REPLAY"
+        "reason": "Dispatcher emits executable plans only; evidence and reviewed closure predicates are still absent."
       }
     },
     {

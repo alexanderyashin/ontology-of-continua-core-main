@@ -2055,6 +2055,10 @@ ENGINEERING_TYPE_K_THERMOCOUPLE_MATERIALIZER = (
     "validation/heldout/grand_science/engineering/coverage_work_orders/"
     "oc133_engineering_type_k_thermocouple_materializer.py"
 )
+SYSTEMS_WDI_GDP_MATERIALIZER = (
+    "validation/heldout/grand_science/systems/coverage_work_orders/"
+    "oc133_systems_wdi_gdp_materializer.py"
+)
 
 COMPARATOR_DOMAIN_IMPLEMENTED_COMMANDS = {
     (
@@ -2469,6 +2473,37 @@ COMPARATOR_DOMAIN_IMPLEMENTED_COMMANDS[
 ] = [
     [sys.executable, ENGINEERING_TYPE_K_THERMOCOUPLE_MATERIALIZER, "--acquire", "--write-acquisition"],
     [sys.executable, ENGINEERING_TYPE_K_THERMOCOUPLE_MATERIALIZER, "--check"],
+]
+
+for _wdi_gdp_subartifact in (
+    "target_hidden_task_table",
+    "oc_formula_or_model",
+    "incumbent_comparator_scoring",
+    "residuals_materiality_uncertainty",
+    "controls_and_falsifiers",
+    "independent_replay",
+    "strict_evidence_pack_diagnosis",
+    "model_or_claim_repair_decision",
+):
+    COMPARATOR_DOMAIN_IMPLEMENTED_COMMANDS[
+        (
+            "social_economic_political_sciences",
+            "economic_indicator_and_market_observables",
+            _wdi_gdp_subartifact,
+        )
+    ] = [
+        [sys.executable, SYSTEMS_WDI_GDP_MATERIALIZER, "--score", "--write-scoring"],
+        [sys.executable, SYSTEMS_WDI_GDP_MATERIALIZER, "--check"],
+    ]
+COMPARATOR_DOMAIN_IMPLEMENTED_COMMANDS[
+    (
+        "social_economic_political_sciences",
+        "economic_indicator_and_market_observables",
+        "source_snapshot_acquisition",
+    )
+] = [
+    [sys.executable, SYSTEMS_WDI_GDP_MATERIALIZER, "--acquire", "--write-acquisition"],
+    [sys.executable, SYSTEMS_WDI_GDP_MATERIALIZER, "--check"],
 ]
 
 
@@ -3140,6 +3175,10 @@ COMPARATOR_DOMAIN_MATERIALIZED_EVIDENCE_REFS = {
         "engineering_materials_sciences",
         "control_systems_and_signal_measurement",
     ): "validation/heldout/grand_science/engineering/type_k_thermocouple/OC133_NIST_ITS90_TYPE_K_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
+    (
+        "social_economic_political_sciences",
+        "economic_indicator_and_market_observables",
+    ): "validation/heldout/grand_science/systems/wdi_gdp/OC133_WORLD_BANK_WDI_GDP_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
 }
 
 

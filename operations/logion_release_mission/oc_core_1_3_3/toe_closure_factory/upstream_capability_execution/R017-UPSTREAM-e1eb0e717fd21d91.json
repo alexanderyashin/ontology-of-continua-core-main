@@ -1,41 +1,44 @@
 {
   "after_validator_error_total": 13,
-  "artifact_hash": "39c692242fc878fdbd7561877ef2b9fa4e8379a289cc86ca117b2ae18863ee9e",
+  "artifact_hash": "f70bb6880e9575f3a8f748739be08deddcad1cb0760adec3cc083a342128f5f2",
   "artifact_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/upstream_capability_execution/R017-UPSTREAM-e1eb0e717fd21d91.json",
   "before_validator_error_total": 13,
-  "changed_artifact_refs": [],
+  "changed_artifact_refs": [
+    "validation/heldout/grand_science/systems/wdi_gdp/OC133_WORLD_BANK_WDI_GDP_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
+    "validation/heldout/grand_science/modern_science_coverage_artifacts/fc08158de1496fae/strict_evidence_pack.json"
+  ],
   "command_results": [
     {
       "cmd": [
         "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
-        "validation/heldout/grand_science/systems/coverage_work_orders/oc133_systems_civilizational_modern_science_coverage_work_orders.py",
-        "--write"
+        "validation/heldout/grand_science/systems/coverage_work_orders/oc133_systems_wdi_gdp_materializer.py",
+        "--acquire",
+        "--write-acquisition"
       ],
       "returncode": 0,
       "stderr_tail": "",
-      "stdout_tail": "{\n  \"status\": \"ok\",\n  \"output_ref\": \"validation/heldout/grand_science/systems/coverage_work_orders/OC133_SYSTEMS_CIVILIZATIONAL_MODERN_SCIENCE_COVERAGE_WORK_ORDERS.json\",\n  \"failures\": []\n}\n"
+      "stdout_tail": "{\n  \"status\": \"ok\",\n  \"snapshot_rows\": 5013\n}\n"
     },
     {
       "cmd": [
         "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
-        "validation/heldout/grand_science/systems/coverage_work_orders/oc133_systems_civilizational_modern_science_coverage_work_orders.py",
+        "validation/heldout/grand_science/systems/coverage_work_orders/oc133_systems_wdi_gdp_materializer.py",
         "--check"
       ],
       "returncode": 0,
       "stderr_tail": "",
-      "stdout_tail": "{\n  \"status\": \"ok\",\n  \"checked\": \"validation/heldout/grand_science/systems/coverage_work_orders/OC133_SYSTEMS_CIVILIZATIONAL_MODERN_SCIENCE_COVERAGE_WORK_ORDERS.json\"\n}\n"
+      "stdout_tail": "{\n  \"status\": \"ok\",\n  \"checked\": \"validation/heldout/grand_science/systems/wdi_gdp/OC133_WORLD_BANK_WDI_GDP_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json\"\n}\n"
     },
     {
       "cmd": [
         "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
-        "tools/oc133_toe_closure_factory.py",
-        "--execute-comparator-generic-evidence-pack",
-        "MS-COV-GAP-SOCIAL_ECONOMIC_POLITICAL_SCIENCES-ECONOMIC_INDICATOR_AND_MARKET_OBSERVABLES",
-        "--write"
+        "validation/heldout/grand_science/systems/coverage_work_orders/oc133_systems_wdi_gdp_materializer.py",
+        "--score",
+        "--write-scoring"
       ],
       "returncode": 0,
       "stderr_tail": "",
-      "stdout_tail": "{\n  \"changed\": [],\n  \"missing\": [],\n  \"state\": \"PASS\"\n}\n"
+      "stdout_tail": "{\n  \"status\": \"STRICT_EVIDENCE_PASS_NO_COVERAGE_CLOSURE\",\n  \"row_count\": 2509,\n  \"model_relative_mae\": 0.030271318172,\n  \"comparator_relative_mae\": 0.039999868939\n}\n"
     }
   ],
   "domain_class_id": "social_economic_political_sciences",
@@ -47,7 +50,7 @@
     "--write"
   ],
   "gap_id": "MS-COV-GAP-SOCIAL_ECONOMIC_POLITICAL_SCIENCES-ECONOMIC_INDICATOR_AND_MARKET_OBSERVABLES",
-  "generated_at": "2026-05-06T14:23:06Z",
+  "generated_at": "2026-05-06T17:53:26Z",
   "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
   "next_escalation": "If this compiled capability produces zero validator delta, generate a lower-level upstream research obligation for the exact missing source/evidence object.",
   "no_fake_closure_policy": "This execution cannot close r017 unless strict final TOE validator PASS is reached.",
@@ -108,6 +111,6 @@
   "upstream_work_order_id": "R017-UPSTREAM-e1eb0e717fd21d91",
   "validator_binding": "support_artifact::MODERN_SCIENCE_COMPARATOR_SUPERIORITY::replay_record",
   "validator_error_delta": 0,
-  "why_it_failed": "No source-bound domain evidence pack is bound for this comparator materialization row.",
+  "why_it_failed": "Governed commands ran, but strict evidence was not materialized.",
   "work_order_type": "SOURCE_BOUND_SCORER_MATERIALIZER_IMPLEMENTATION"
 }

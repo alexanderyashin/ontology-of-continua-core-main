@@ -85,6 +85,10 @@ DOMAIN_LOCAL_MATERIALIZED_EVIDENCE_REFS = {
         "engineering_materials_sciences",
         "control_systems_and_signal_measurement",
     ): "validation/heldout/grand_science/engineering/type_k_thermocouple/OC133_NIST_ITS90_TYPE_K_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
+    (
+        "social_economic_political_sciences",
+        "economic_indicator_and_market_observables",
+    ): "validation/heldout/grand_science/systems/wdi_gdp/OC133_WORLD_BANK_WDI_GDP_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
 }
 
 OFFICIAL_SOURCE_DEFAULTS = {
