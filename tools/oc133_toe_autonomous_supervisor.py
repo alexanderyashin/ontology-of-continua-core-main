@@ -1674,6 +1674,21 @@ def graph_priority_tuple(node: dict[str, Any], science_error_total: int) -> tupl
     node_priority = NODE_TYPE_PRIORITY.get(str(node.get("node_type")), 90)
     artifact_key = str(node.get("artifact_key") or node.get("missing_artifact_type") or "")
     artifact_priority = ARTIFACT_PRIORITY.get(artifact_key, 80)
+    node_id = str(node.get("node_id") or "")
+    if "COMPARATOR-COMPONENT-SOURCE-OBLIGATION" in node_id:
+        artifact_priority = 5
+    elif "COMPARATOR-COMPONENT-MATERIALIZATION" in node_id:
+        artifact_priority = 6
+    elif "COMPARATOR-DOMAIN-MODEL-COMPONENT-IMPLEMENTATION" in node_id:
+        artifact_priority = 8
+    elif "COMPARATOR-DOMAIN-MODEL-COMPONENT" in node_id:
+        artifact_priority = 10
+    elif "COMPARATOR-SOURCE-IMPLEMENTATION" in node_id:
+        artifact_priority = 12
+    elif "COMPARATOR-DOMAIN-SCORER-IMPLEMENTATION" in node_id:
+        artifact_priority = 14
+    elif node.get("node_type") == "capability_development" and str(node.get("capability_class") or "") == "upstream_capability_work_order":
+        artifact_priority = 95
     return (lane_priority, artifact_priority, node_priority, str(node.get("node_id")))
 
 

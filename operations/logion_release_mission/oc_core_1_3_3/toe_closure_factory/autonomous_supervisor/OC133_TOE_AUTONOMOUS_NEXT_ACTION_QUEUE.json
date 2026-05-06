@@ -1,13 +1,13 @@
 {
-  "action_total": 191,
-  "artifact_hash": "6e5219a019f482c65a275a3f7e4e8f8f73198d94e5714e920c04306866cb60b0",
-  "blocking_graph_frontier_hash": "1bdfeda9df25f55be7f84c5f150bb209f1bf54a7e0e7489f3aa9460d31a7b6f9",
+  "action_total": 185,
+  "artifact_hash": "791a6f18f39d5493b92f26ea7d13b722145515c710d8670f4ee9ef4341b499e9",
+  "blocking_graph_frontier_hash": "45889e31571cc641606a730f4eb18decbe1cc95a8d2a63dd3a6639c8bc267b38",
   "blocking_graph_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/OC133_TOE_BLOCKING_GRAPH.json",
   "cerberus_error_total": 8,
-  "executable_action_total": 51,
+  "executable_action_total": 43,
   "frontier_hash": "632ddf9bd86533cf0263b3665f34815254d63b53551396a7e842d5bb616569cb",
-  "generated_at": "2026-05-06T15:37:32Z",
-  "graph_candidate_node_total": 258,
+  "generated_at": "2026-05-06T15:40:32Z",
+  "graph_candidate_node_total": 246,
   "planner_mode": "GRAPH_RESOLVER",
   "rows": [
     {
@@ -4298,7 +4298,7 @@
     },
     {
       "action_id": "AUTO-capability_development-AUTO-R017-CAPABILITY-DEVELOPMENT-0050-6165d0c6",
-      "already_attempted_on_frontier": false,
+      "already_attempted_on_frontier": true,
       "capability_class": "comparator_research_artifact_repair",
       "capability_executor_ready": true,
       "capability_id": "R017-CAPDEV-c7f5cbcd02d5",
@@ -4332,14 +4332,14 @@
       ],
       "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
       "missing_artifact_type": "replay_record",
-      "next_escalation": "Research artifact exists but is OPEN; execute its repair row or implement the missing scorer/replay capability. Do not mark this dependency PASS until the artifact itself passes.",
+      "next_escalation": "This exact action has already been tried on this semantic frontier; create a narrower capability work order instead of rerunning it.",
       "pass_predicate": "The repaired `replay_record` research artifact status becomes PASS and the comparator gap no longer lists it as missing.",
       "planner_mode": "GRAPH_RESOLVER",
       "repair_strategy": "Repair the replay command or evidence hash binding without weakening the expected verdict.",
       "required_capability": "Research/ScoringExecutor",
-      "selected_for_execution": true,
+      "selected_for_execution": false,
       "source_graph_node_id": "required_artifact:MODERN_SCIENCE_COMPARATOR_SUPERIORITY:MS-COV-GAP-EARTH_SPACE_ENVIRONMENTAL_SCIENCES-CLIMATE_WEATHER_GEOPHYSICAL_TIME_SERIES:replay_record",
-      "status": "OPEN",
+      "status": "CAPABILITY_ESCALATION_REQUIRED",
       "validator_binding": "support_artifact::MODERN_SCIENCE_COMPARATOR_SUPERIORITY::replay_record",
       "why_it_failed": "The replay command did not pass against the current evidence pack."
     },
@@ -4883,288 +4883,6 @@
       "why_it_failed": "The replay command did not pass against the current evidence pack."
     },
     {
-      "action_id": "AUTO-R017-COMPARATOR-COMPONENT-SOURCE-OBLIGATION-0d317f46afb2",
-      "already_attempted_on_frontier": true,
-      "component_id": "oc_score_materialization",
-      "component_work_order_id": "R017-DOMAIN-MODEL-COMPONENT-bdd0326bbc22b1b8",
-      "domain_class_id": "computer_information_sciences",
-      "execution_command": [
-        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
-        "tools/oc133_toe_closure_factory.py",
-        "--execute-comparator-component-source-obligation",
-        "R017-COMPONENT-SOURCE-OBLIGATION-120a9f8ee6bd3ee5",
-        "--write"
-      ],
-      "executor_type": "comparator_component_source_obligation",
-      "frontier_signature": "632ddf9bd86533cf0263b3665f34815254d63b53551396a7e842d5bb616569cb::AUTO-R017-COMPARATOR-COMPONENT-SOURCE-OBLIGATION-0d317f46afb2",
-      "gap_id": "MS-COV-GAP-COMPUTER_INFORMATION_SCIENCES-INFORMATION_NETWORK_AND_SECURITY_OBSERVABLES",
-      "graph_dependency_path": [
-        "capability:AUTO-R017-COMPARATOR-COMPONENT-SOURCE-OBLIGATION-0d317f46afb2"
-      ],
-      "graph_node_id": "capability:AUTO-R017-COMPARATOR-COMPONENT-SOURCE-OBLIGATION-0d317f46afb2",
-      "graph_node_type": "executor_capability",
-      "graph_priority": [
-        30,
-        80,
-        5,
-        "capability:AUTO-R017-COMPARATOR-COMPONENT-SOURCE-OBLIGATION-0d317f46afb2"
-      ],
-      "implementation_id": "R017-DOMAIN-MODEL-COMPONENT-IMPL-ed74831f9317379f",
-      "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
-      "missing_artifact_type": "component_source_obligation::oc_score_materialization",
-      "missing_source_evidence_fields": [
-        "component_report_pass"
-      ],
-      "next_escalation": "This exact action has already been tried on this semantic frontier; create a narrower capability work order instead of rerunning it.",
-      "obligation_id": "R017-COMPONENT-SOURCE-OBLIGATION-120a9f8ee6bd3ee5",
-      "pass_predicate": "The exact component implementation, strict evidence pack, oc_prediction_scoring_row, and replay_record are all PASS without weakening materiality.",
-      "phenomenon_class_id": "information_network_and_security_observables",
-      "planner_mode": "GRAPH_RESOLVER",
-      "repair_strategy": "Materialize the named missing source/model/comparator/residual/replay fields from governed source data; preserve fail-closed science if OC does not beat the comparator.",
-      "required_artifact": "component_source_obligation::oc_score_materialization",
-      "required_capability": "Research/SourceBoundScoringMaterialization",
-      "selected_for_execution": false,
-      "source_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/component_impls/impl_0d86708fb80e738b.json",
-      "status": "CAPABILITY_ESCALATION_REQUIRED",
-      "validator_binding": "action::AUTO-R017-COMPARATOR-COMPONENT-SOURCE-OBLIGATION-0d317f46afb2",
-      "why_it_failed": "Concrete component commands executed, but source-bound scoring/replay evidence is still not materialized for this exact component."
-    },
-    {
-      "action_id": "AUTO-R017-COMPARATOR-COMPONENT-SOURCE-OBLIGATION-120da0dd658a",
-      "already_attempted_on_frontier": false,
-      "component_id": "material_margin",
-      "component_work_order_id": "R017-DOMAIN-MODEL-COMPONENT-acb77dc304b89fea",
-      "domain_class_id": "computer_information_sciences",
-      "execution_command": [
-        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
-        "tools/oc133_toe_closure_factory.py",
-        "--execute-comparator-component-source-obligation",
-        "R017-COMPONENT-SOURCE-OBLIGATION-f1a30a749a4bd240",
-        "--write"
-      ],
-      "executor_type": "comparator_component_source_obligation",
-      "frontier_signature": "632ddf9bd86533cf0263b3665f34815254d63b53551396a7e842d5bb616569cb::AUTO-R017-COMPARATOR-COMPONENT-SOURCE-OBLIGATION-120da0dd658a",
-      "gap_id": "MS-COV-GAP-COMPUTER_INFORMATION_SCIENCES-INFORMATION_NETWORK_AND_SECURITY_OBSERVABLES",
-      "graph_dependency_path": [
-        "capability:AUTO-R017-COMPARATOR-COMPONENT-SOURCE-OBLIGATION-120da0dd658a"
-      ],
-      "graph_node_id": "capability:AUTO-R017-COMPARATOR-COMPONENT-SOURCE-OBLIGATION-120da0dd658a",
-      "graph_node_type": "executor_capability",
-      "graph_priority": [
-        30,
-        80,
-        5,
-        "capability:AUTO-R017-COMPARATOR-COMPONENT-SOURCE-OBLIGATION-120da0dd658a"
-      ],
-      "implementation_id": "R017-DOMAIN-MODEL-COMPONENT-IMPL-ffb9f4ece7674b42",
-      "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
-      "missing_artifact_type": "component_source_obligation::material_margin",
-      "missing_source_evidence_fields": [
-        "component_report_pass"
-      ],
-      "next_escalation": "If the same fields remain missing after execution, implement the domain source acquisition/scoring script named by official_data_source and target_variable.",
-      "obligation_id": "R017-COMPONENT-SOURCE-OBLIGATION-f1a30a749a4bd240",
-      "pass_predicate": "The exact component implementation, strict evidence pack, oc_prediction_scoring_row, and replay_record are all PASS without weakening materiality.",
-      "phenomenon_class_id": "information_network_and_security_observables",
-      "planner_mode": "GRAPH_RESOLVER",
-      "repair_strategy": "Materialize the named missing source/model/comparator/residual/replay fields from governed source data; preserve fail-closed science if OC does not beat the comparator.",
-      "required_artifact": "component_source_obligation::material_margin",
-      "required_capability": "Research/SourceBoundScoringMaterialization",
-      "selected_for_execution": true,
-      "source_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/component_impls/impl_32b78f50bae339ca.json",
-      "status": "OPEN",
-      "validator_binding": "action::AUTO-R017-COMPARATOR-COMPONENT-SOURCE-OBLIGATION-120da0dd658a",
-      "why_it_failed": "Concrete component commands executed, but source-bound scoring/replay evidence is still not materialized for this exact component."
-    },
-    {
-      "action_id": "AUTO-R017-COMPARATOR-COMPONENT-SOURCE-OBLIGATION-306768491634",
-      "already_attempted_on_frontier": false,
-      "component_id": "incumbent_comparator_residual",
-      "component_work_order_id": "R017-DOMAIN-MODEL-COMPONENT-62af91eef1decca5",
-      "domain_class_id": "computer_information_sciences",
-      "execution_command": [
-        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
-        "tools/oc133_toe_closure_factory.py",
-        "--execute-comparator-component-source-obligation",
-        "R017-COMPONENT-SOURCE-OBLIGATION-750af27a14bff379",
-        "--write"
-      ],
-      "executor_type": "comparator_component_source_obligation",
-      "frontier_signature": "632ddf9bd86533cf0263b3665f34815254d63b53551396a7e842d5bb616569cb::AUTO-R017-COMPARATOR-COMPONENT-SOURCE-OBLIGATION-306768491634",
-      "gap_id": "MS-COV-GAP-COMPUTER_INFORMATION_SCIENCES-INFORMATION_NETWORK_AND_SECURITY_OBSERVABLES",
-      "graph_dependency_path": [
-        "capability:AUTO-R017-COMPARATOR-COMPONENT-SOURCE-OBLIGATION-306768491634"
-      ],
-      "graph_node_id": "capability:AUTO-R017-COMPARATOR-COMPONENT-SOURCE-OBLIGATION-306768491634",
-      "graph_node_type": "executor_capability",
-      "graph_priority": [
-        30,
-        80,
-        5,
-        "capability:AUTO-R017-COMPARATOR-COMPONENT-SOURCE-OBLIGATION-306768491634"
-      ],
-      "implementation_id": "R017-DOMAIN-MODEL-COMPONENT-IMPL-7efbf73a30838388",
-      "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
-      "missing_artifact_type": "component_source_obligation::incumbent_comparator_residual",
-      "missing_source_evidence_fields": [
-        "component_report_pass"
-      ],
-      "next_escalation": "If the same fields remain missing after execution, implement the domain source acquisition/scoring script named by official_data_source and target_variable.",
-      "obligation_id": "R017-COMPONENT-SOURCE-OBLIGATION-750af27a14bff379",
-      "pass_predicate": "The exact component implementation, strict evidence pack, oc_prediction_scoring_row, and replay_record are all PASS without weakening materiality.",
-      "phenomenon_class_id": "information_network_and_security_observables",
-      "planner_mode": "GRAPH_RESOLVER",
-      "repair_strategy": "Materialize the named missing source/model/comparator/residual/replay fields from governed source data; preserve fail-closed science if OC does not beat the comparator.",
-      "required_artifact": "component_source_obligation::incumbent_comparator_residual",
-      "required_capability": "Research/SourceBoundScoringMaterialization",
-      "selected_for_execution": true,
-      "source_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/component_impls/impl_5ab111e18fa82c10.json",
-      "status": "OPEN",
-      "validator_binding": "action::AUTO-R017-COMPARATOR-COMPONENT-SOURCE-OBLIGATION-306768491634",
-      "why_it_failed": "Concrete component commands executed, but source-bound scoring/replay evidence is still not materialized for this exact component."
-    },
-    {
-      "action_id": "AUTO-R017-COMPARATOR-COMPONENT-SOURCE-OBLIGATION-44c5e9118633",
-      "already_attempted_on_frontier": false,
-      "component_id": "oc_model_residual",
-      "component_work_order_id": "R017-DOMAIN-MODEL-COMPONENT-e2874eba214245ae",
-      "domain_class_id": "computer_information_sciences",
-      "execution_command": [
-        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
-        "tools/oc133_toe_closure_factory.py",
-        "--execute-comparator-component-source-obligation",
-        "R017-COMPONENT-SOURCE-OBLIGATION-3b4c6aba475eb160",
-        "--write"
-      ],
-      "executor_type": "comparator_component_source_obligation",
-      "frontier_signature": "632ddf9bd86533cf0263b3665f34815254d63b53551396a7e842d5bb616569cb::AUTO-R017-COMPARATOR-COMPONENT-SOURCE-OBLIGATION-44c5e9118633",
-      "gap_id": "MS-COV-GAP-COMPUTER_INFORMATION_SCIENCES-INFORMATION_NETWORK_AND_SECURITY_OBSERVABLES",
-      "graph_dependency_path": [
-        "capability:AUTO-R017-COMPARATOR-COMPONENT-SOURCE-OBLIGATION-44c5e9118633"
-      ],
-      "graph_node_id": "capability:AUTO-R017-COMPARATOR-COMPONENT-SOURCE-OBLIGATION-44c5e9118633",
-      "graph_node_type": "executor_capability",
-      "graph_priority": [
-        30,
-        80,
-        5,
-        "capability:AUTO-R017-COMPARATOR-COMPONENT-SOURCE-OBLIGATION-44c5e9118633"
-      ],
-      "implementation_id": "R017-DOMAIN-MODEL-COMPONENT-IMPL-aab7eac9a2c50e0a",
-      "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
-      "missing_artifact_type": "component_source_obligation::oc_model_residual",
-      "missing_source_evidence_fields": [
-        "component_report_pass"
-      ],
-      "next_escalation": "If the same fields remain missing after execution, implement the domain source acquisition/scoring script named by official_data_source and target_variable.",
-      "obligation_id": "R017-COMPONENT-SOURCE-OBLIGATION-3b4c6aba475eb160",
-      "pass_predicate": "The exact component implementation, strict evidence pack, oc_prediction_scoring_row, and replay_record are all PASS without weakening materiality.",
-      "phenomenon_class_id": "information_network_and_security_observables",
-      "planner_mode": "GRAPH_RESOLVER",
-      "repair_strategy": "Materialize the named missing source/model/comparator/residual/replay fields from governed source data; preserve fail-closed science if OC does not beat the comparator.",
-      "required_artifact": "component_source_obligation::oc_model_residual",
-      "required_capability": "Research/SourceBoundScoringMaterialization",
-      "selected_for_execution": true,
-      "source_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/component_impls/impl_8333b9eeda7bba4b.json",
-      "status": "OPEN",
-      "validator_binding": "action::AUTO-R017-COMPARATOR-COMPONENT-SOURCE-OBLIGATION-44c5e9118633",
-      "why_it_failed": "Concrete component commands executed, but source-bound scoring/replay evidence is still not materialized for this exact component."
-    },
-    {
-      "action_id": "AUTO-R017-COMPARATOR-COMPONENT-SOURCE-OBLIGATION-8347f4344f76",
-      "already_attempted_on_frontier": false,
-      "component_id": "fail_closed_status_clear",
-      "component_work_order_id": "R017-DOMAIN-MODEL-COMPONENT-90499de2ba1eb327",
-      "domain_class_id": "computer_information_sciences",
-      "execution_command": [
-        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
-        "tools/oc133_toe_closure_factory.py",
-        "--execute-comparator-component-source-obligation",
-        "R017-COMPONENT-SOURCE-OBLIGATION-7f03a6792861c5f0",
-        "--write"
-      ],
-      "executor_type": "comparator_component_source_obligation",
-      "frontier_signature": "632ddf9bd86533cf0263b3665f34815254d63b53551396a7e842d5bb616569cb::AUTO-R017-COMPARATOR-COMPONENT-SOURCE-OBLIGATION-8347f4344f76",
-      "gap_id": "MS-COV-GAP-COMPUTER_INFORMATION_SCIENCES-INFORMATION_NETWORK_AND_SECURITY_OBSERVABLES",
-      "graph_dependency_path": [
-        "capability:AUTO-R017-COMPARATOR-COMPONENT-SOURCE-OBLIGATION-8347f4344f76"
-      ],
-      "graph_node_id": "capability:AUTO-R017-COMPARATOR-COMPONENT-SOURCE-OBLIGATION-8347f4344f76",
-      "graph_node_type": "executor_capability",
-      "graph_priority": [
-        30,
-        80,
-        5,
-        "capability:AUTO-R017-COMPARATOR-COMPONENT-SOURCE-OBLIGATION-8347f4344f76"
-      ],
-      "implementation_id": "R017-DOMAIN-MODEL-COMPONENT-IMPL-39dbd5645aa5a5aa",
-      "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
-      "missing_artifact_type": "component_source_obligation::fail_closed_status_clear",
-      "missing_source_evidence_fields": [
-        "component_report_pass"
-      ],
-      "next_escalation": "If the same fields remain missing after execution, implement the domain source acquisition/scoring script named by official_data_source and target_variable.",
-      "obligation_id": "R017-COMPONENT-SOURCE-OBLIGATION-7f03a6792861c5f0",
-      "pass_predicate": "The exact component implementation, strict evidence pack, oc_prediction_scoring_row, and replay_record are all PASS without weakening materiality.",
-      "phenomenon_class_id": "information_network_and_security_observables",
-      "planner_mode": "GRAPH_RESOLVER",
-      "repair_strategy": "Materialize the named missing source/model/comparator/residual/replay fields from governed source data; preserve fail-closed science if OC does not beat the comparator.",
-      "required_artifact": "component_source_obligation::fail_closed_status_clear",
-      "required_capability": "Research/SourceBoundScoringMaterialization",
-      "selected_for_execution": true,
-      "source_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/component_impls/impl_237ec6804b3f6f69.json",
-      "status": "OPEN",
-      "validator_binding": "action::AUTO-R017-COMPARATOR-COMPONENT-SOURCE-OBLIGATION-8347f4344f76",
-      "why_it_failed": "Concrete component commands executed, but source-bound scoring/replay evidence is still not materialized for this exact component."
-    },
-    {
-      "action_id": "AUTO-R017-COMPARATOR-COMPONENT-SOURCE-OBLIGATION-87e476c219c5",
-      "already_attempted_on_frontier": false,
-      "component_id": "strict_pack_pass",
-      "component_work_order_id": "R017-DOMAIN-MODEL-COMPONENT-a3a6dffe64234792",
-      "domain_class_id": "computer_information_sciences",
-      "execution_command": [
-        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
-        "tools/oc133_toe_closure_factory.py",
-        "--execute-comparator-component-source-obligation",
-        "R017-COMPONENT-SOURCE-OBLIGATION-29f2eb81d6eb0906",
-        "--write"
-      ],
-      "executor_type": "comparator_component_source_obligation",
-      "frontier_signature": "632ddf9bd86533cf0263b3665f34815254d63b53551396a7e842d5bb616569cb::AUTO-R017-COMPARATOR-COMPONENT-SOURCE-OBLIGATION-87e476c219c5",
-      "gap_id": "MS-COV-GAP-COMPUTER_INFORMATION_SCIENCES-INFORMATION_NETWORK_AND_SECURITY_OBSERVABLES",
-      "graph_dependency_path": [
-        "capability:AUTO-R017-COMPARATOR-COMPONENT-SOURCE-OBLIGATION-87e476c219c5"
-      ],
-      "graph_node_id": "capability:AUTO-R017-COMPARATOR-COMPONENT-SOURCE-OBLIGATION-87e476c219c5",
-      "graph_node_type": "executor_capability",
-      "graph_priority": [
-        30,
-        80,
-        5,
-        "capability:AUTO-R017-COMPARATOR-COMPONENT-SOURCE-OBLIGATION-87e476c219c5"
-      ],
-      "implementation_id": "R017-DOMAIN-MODEL-COMPONENT-IMPL-f71fc60dbf9a5f44",
-      "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
-      "missing_artifact_type": "component_source_obligation::strict_pack_pass",
-      "missing_source_evidence_fields": [
-        "component_report_pass"
-      ],
-      "next_escalation": "If the same fields remain missing after execution, implement the domain source acquisition/scoring script named by official_data_source and target_variable.",
-      "obligation_id": "R017-COMPONENT-SOURCE-OBLIGATION-29f2eb81d6eb0906",
-      "pass_predicate": "The exact component implementation, strict evidence pack, oc_prediction_scoring_row, and replay_record are all PASS without weakening materiality.",
-      "phenomenon_class_id": "information_network_and_security_observables",
-      "planner_mode": "GRAPH_RESOLVER",
-      "repair_strategy": "Materialize the named missing source/model/comparator/residual/replay fields from governed source data; preserve fail-closed science if OC does not beat the comparator.",
-      "required_artifact": "component_source_obligation::strict_pack_pass",
-      "required_capability": "Research/SourceBoundScoringMaterialization",
-      "selected_for_execution": true,
-      "source_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/component_impls/impl_25b6d472eb18ce85.json",
-      "status": "OPEN",
-      "validator_binding": "action::AUTO-R017-COMPARATOR-COMPONENT-SOURCE-OBLIGATION-87e476c219c5",
-      "why_it_failed": "Concrete component commands executed, but source-bound scoring/replay evidence is still not materialized for this exact component."
-    },
-    {
       "action_id": "AUTO-capability_development-R017-UPSTREAM-05dabfe87ad45a19",
       "already_attempted_on_frontier": true,
       "capability_class": "upstream_capability_work_order",
@@ -5187,7 +4905,7 @@
       "graph_node_type": "capability_development",
       "graph_priority": [
         30,
-        80,
+        95,
         30,
         "capability_development:R017-UPSTREAM-05dabfe87ad45a19"
       ],
@@ -5234,7 +4952,7 @@
       "graph_node_type": "capability_development",
       "graph_priority": [
         30,
-        80,
+        95,
         30,
         "capability_development:R017-UPSTREAM-0617106ed43700f0"
       ],
@@ -5281,7 +4999,7 @@
       "graph_node_type": "capability_development",
       "graph_priority": [
         30,
-        80,
+        95,
         30,
         "capability_development:R017-UPSTREAM-0cc87e1b8eee3370"
       ],
@@ -5328,7 +5046,7 @@
       "graph_node_type": "capability_development",
       "graph_priority": [
         30,
-        80,
+        95,
         30,
         "capability_development:R017-UPSTREAM-13cf1bfa13884e55"
       ],
@@ -5375,7 +5093,7 @@
       "graph_node_type": "capability_development",
       "graph_priority": [
         30,
-        80,
+        95,
         30,
         "capability_development:R017-UPSTREAM-153268536cc10c76"
       ],
@@ -5422,7 +5140,7 @@
       "graph_node_type": "capability_development",
       "graph_priority": [
         30,
-        80,
+        95,
         30,
         "capability_development:R017-UPSTREAM-1582bdf02c802277"
       ],
@@ -5469,7 +5187,7 @@
       "graph_node_type": "capability_development",
       "graph_priority": [
         30,
-        80,
+        95,
         30,
         "capability_development:R017-UPSTREAM-159e772e6f472281"
       ],
@@ -5516,7 +5234,7 @@
       "graph_node_type": "capability_development",
       "graph_priority": [
         30,
-        80,
+        95,
         30,
         "capability_development:R017-UPSTREAM-15e242213453b23d"
       ],
@@ -5563,7 +5281,7 @@
       "graph_node_type": "capability_development",
       "graph_priority": [
         30,
-        80,
+        95,
         30,
         "capability_development:R017-UPSTREAM-1905a38555197559"
       ],
@@ -5610,7 +5328,7 @@
       "graph_node_type": "capability_development",
       "graph_priority": [
         30,
-        80,
+        95,
         30,
         "capability_development:R017-UPSTREAM-1c6551a651c354d8"
       ],
@@ -5657,7 +5375,7 @@
       "graph_node_type": "capability_development",
       "graph_priority": [
         30,
-        80,
+        95,
         30,
         "capability_development:R017-UPSTREAM-1ec8ed1ca3fcaa25"
       ],
@@ -5704,7 +5422,7 @@
       "graph_node_type": "capability_development",
       "graph_priority": [
         30,
-        80,
+        95,
         30,
         "capability_development:R017-UPSTREAM-21c9975337408b50"
       ],
@@ -5751,7 +5469,7 @@
       "graph_node_type": "capability_development",
       "graph_priority": [
         30,
-        80,
+        95,
         30,
         "capability_development:R017-UPSTREAM-248d48c2f3a3de49"
       ],
@@ -5798,7 +5516,7 @@
       "graph_node_type": "capability_development",
       "graph_priority": [
         30,
-        80,
+        95,
         30,
         "capability_development:R017-UPSTREAM-26ff09cdfb46fce3"
       ],
@@ -5845,7 +5563,7 @@
       "graph_node_type": "capability_development",
       "graph_priority": [
         30,
-        80,
+        95,
         30,
         "capability_development:R017-UPSTREAM-27e2864c70cd48b3"
       ],
@@ -5892,7 +5610,7 @@
       "graph_node_type": "capability_development",
       "graph_priority": [
         30,
-        80,
+        95,
         30,
         "capability_development:R017-UPSTREAM-2acffe5cc173afd8"
       ],
@@ -5939,7 +5657,7 @@
       "graph_node_type": "capability_development",
       "graph_priority": [
         30,
-        80,
+        95,
         30,
         "capability_development:R017-UPSTREAM-2b85f7a629e840f2"
       ],
@@ -5986,7 +5704,7 @@
       "graph_node_type": "capability_development",
       "graph_priority": [
         30,
-        80,
+        95,
         30,
         "capability_development:R017-UPSTREAM-2e4c4d5a214b7209"
       ],
@@ -6012,7 +5730,7 @@
     },
     {
       "action_id": "AUTO-capability_development-R017-UPSTREAM-377c940fb01d4c76",
-      "already_attempted_on_frontier": false,
+      "already_attempted_on_frontier": true,
       "capability_class": "upstream_capability_work_order",
       "capability_executor_ready": true,
       "capability_id": "R017-CAPDEV-093055955c2b",
@@ -6033,7 +5751,7 @@
       "graph_node_type": "capability_development",
       "graph_priority": [
         30,
-        80,
+        95,
         30,
         "capability_development:R017-UPSTREAM-377c940fb01d4c76"
       ],
@@ -6046,20 +5764,20 @@
       ],
       "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
       "missing_artifact_type": "upstream_work_order::SOURCE_BOUND_MODEL_OR_COMPARATOR_IMPROVEMENT",
-      "next_escalation": "If this compiled capability produces zero validator delta, generate a lower-level upstream research obligation for the exact missing source/evidence object.",
+      "next_escalation": "This exact action has already been tried on this semantic frontier; create a narrower capability work order instead of rerunning it.",
       "pass_predicate": "Comparator gap `MS-COV-GAP-AGRICULTURAL_FOOD_SCIENCES-FOOD_CHEMISTRY_SAFETY_AND_NUTRITION` has `oc_prediction_scoring_row` and strict coverage register no longer lists it as missing.",
       "planner_mode": "GRAPH_RESOLVER",
       "repair_strategy": "Investigate whether the source-bound OC model can be improved from canonical theory or whether the broad superiority claim must remain blocked by this negative result.",
       "required_capability": "Research/PriorArt",
-      "selected_for_execution": true,
+      "selected_for_execution": false,
       "source_graph_node_id": "upstream_work_order:R017-UPSTREAM-377c940fb01d4c76:SOURCE_BOUND_MODEL_OR_COMPARATOR_IMPROVEMENT:MS-COV-GAP-AGRICULTURAL_FOOD_SCIENCES-FOOD_CHEMISTRY_SAFETY_AND_NUTRITION:oc_prediction_scoring_row",
-      "status": "OPEN",
+      "status": "CAPABILITY_ESCALATION_REQUIRED",
       "validator_binding": "support_artifact::MODERN_SCIENCE_COMPARATOR_SUPERIORITY::oc_prediction_scoring_row",
       "why_it_failed": "The evidence pack is explicitly fail-closed; broad superiority cannot use it."
     },
     {
       "action_id": "AUTO-capability_development-R017-UPSTREAM-40a9533d9ef714e0",
-      "already_attempted_on_frontier": false,
+      "already_attempted_on_frontier": true,
       "capability_class": "upstream_capability_work_order",
       "capability_executor_ready": true,
       "capability_id": "R017-CAPDEV-83d5a9e32ea1",
@@ -6080,7 +5798,7 @@
       "graph_node_type": "capability_development",
       "graph_priority": [
         30,
-        80,
+        95,
         30,
         "capability_development:R017-UPSTREAM-40a9533d9ef714e0"
       ],
@@ -6093,14 +5811,14 @@
       ],
       "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
       "missing_artifact_type": "upstream_work_order::SOURCE_BOUND_SCORER_MATERIALIZER_IMPLEMENTATION",
-      "next_escalation": "If this compiled capability produces zero validator delta, generate a lower-level upstream research obligation for the exact missing source/evidence object.",
+      "next_escalation": "This exact action has already been tried on this semantic frontier; create a narrower capability work order instead of rerunning it.",
       "pass_predicate": "Comparator gap `MS-COV-GAP-COMPUTER_INFORMATION_SCIENCES-PROGRAM_SEMANTICS_AND_VERIFICATION` has `oc_prediction_scoring_row` and strict coverage register no longer lists it as missing.",
       "planner_mode": "GRAPH_RESOLVER",
       "repair_strategy": "Implement the exact domain scorer/materializer that can produce target-hidden OC residuals, incumbent comparator residuals, uncertainty/falsifier rows, and replay.",
       "required_capability": "Research/PriorArt",
-      "selected_for_execution": true,
+      "selected_for_execution": false,
       "source_graph_node_id": "upstream_work_order:R017-UPSTREAM-40a9533d9ef714e0:SOURCE_BOUND_SCORER_MATERIALIZER_IMPLEMENTATION:MS-COV-GAP-COMPUTER_INFORMATION_SCIENCES-PROGRAM_SEMANTICS_AND_VERIFICATION:oc_prediction_scoring_row",
-      "status": "OPEN",
+      "status": "CAPABILITY_ESCALATION_REQUIRED",
       "validator_binding": "support_artifact::MODERN_SCIENCE_COMPARATOR_SUPERIORITY::oc_prediction_scoring_row",
       "why_it_failed": "The evidence pack is explicitly fail-closed; broad superiority cannot use it."
     },
@@ -6127,7 +5845,7 @@
       "graph_node_type": "capability_development",
       "graph_priority": [
         30,
-        80,
+        95,
         30,
         "capability_development:R017-UPSTREAM-4d7e0e280b533414"
       ],
@@ -6145,7 +5863,7 @@
       "planner_mode": "GRAPH_RESOLVER",
       "repair_strategy": "Implement the exact domain scorer/materializer that can produce target-hidden OC residuals, incumbent comparator residuals, uncertainty/falsifier rows, and replay.",
       "required_capability": "Research/PriorArt",
-      "selected_for_execution": false,
+      "selected_for_execution": true,
       "source_graph_node_id": "upstream_work_order:R017-UPSTREAM-4d7e0e280b533414:SOURCE_BOUND_SCORER_MATERIALIZER_IMPLEMENTATION:MS-COV-GAP-COMPUTER_INFORMATION_SCIENCES-MACHINE_LEARNING_GENERALIZATION_AND_EVALUATION:oc_prediction_scoring_row",
       "status": "OPEN",
       "validator_binding": "support_artifact::MODERN_SCIENCE_COMPARATOR_SUPERIORITY::oc_prediction_scoring_row",
@@ -6174,7 +5892,7 @@
       "graph_node_type": "capability_development",
       "graph_priority": [
         30,
-        80,
+        95,
         30,
         "capability_development:R017-UPSTREAM-50cecf90531a6a61"
       ],
@@ -6192,7 +5910,7 @@
       "planner_mode": "GRAPH_RESOLVER",
       "repair_strategy": "Implement the exact domain scorer/materializer that can produce target-hidden OC residuals, incumbent comparator residuals, uncertainty/falsifier rows, and replay.",
       "required_capability": "Research/PriorArt",
-      "selected_for_execution": false,
+      "selected_for_execution": true,
       "source_graph_node_id": "upstream_work_order:R017-UPSTREAM-50cecf90531a6a61:SOURCE_BOUND_SCORER_MATERIALIZER_IMPLEMENTATION:MS-COV-GAP-ENGINEERING_MATERIALS_SCIENCES-MATERIALS_PROPERTY_AND_FAILURE_PREDICTION:replay_record",
       "status": "OPEN",
       "validator_binding": "support_artifact::MODERN_SCIENCE_COMPARATOR_SUPERIORITY::replay_record",
@@ -6221,7 +5939,7 @@
       "graph_node_type": "capability_development",
       "graph_priority": [
         30,
-        80,
+        95,
         30,
         "capability_development:R017-UPSTREAM-53829f5e02a66d31"
       ],
@@ -6239,7 +5957,7 @@
       "planner_mode": "GRAPH_RESOLVER",
       "repair_strategy": "Implement the exact domain scorer/materializer that can produce target-hidden OC residuals, incumbent comparator residuals, uncertainty/falsifier rows, and replay.",
       "required_capability": "Research/PriorArt",
-      "selected_for_execution": false,
+      "selected_for_execution": true,
       "source_graph_node_id": "upstream_work_order:R017-UPSTREAM-53829f5e02a66d31:SOURCE_BOUND_SCORER_MATERIALIZER_IMPLEMENTATION:MS-COV-GAP-COMPUTER_INFORMATION_SCIENCES-MACHINE_LEARNING_GENERALIZATION_AND_EVALUATION:replay_record",
       "status": "OPEN",
       "validator_binding": "support_artifact::MODERN_SCIENCE_COMPARATOR_SUPERIORITY::replay_record",
@@ -6268,7 +5986,7 @@
       "graph_node_type": "capability_development",
       "graph_priority": [
         30,
-        80,
+        95,
         30,
         "capability_development:R017-UPSTREAM-5bb13d15616509bb"
       ],
@@ -6315,7 +6033,7 @@
       "graph_node_type": "capability_development",
       "graph_priority": [
         30,
-        80,
+        95,
         30,
         "capability_development:R017-UPSTREAM-5e0d82accdbe8ce3"
       ],
@@ -6333,7 +6051,7 @@
       "planner_mode": "GRAPH_RESOLVER",
       "repair_strategy": "Investigate whether the source-bound OC model can be improved from canonical theory or whether the broad superiority claim must remain blocked by this negative result.",
       "required_capability": "Research/PriorArt",
-      "selected_for_execution": false,
+      "selected_for_execution": true,
       "source_graph_node_id": "upstream_work_order:R017-UPSTREAM-5e0d82accdbe8ce3:SOURCE_BOUND_MODEL_OR_COMPARATOR_IMPROVEMENT:MS-COV-GAP-EARTH_SPACE_ENVIRONMENTAL_SCIENCES-GEOCHEMISTRY_AND_HYDROLOGY_OBSERVABLES:oc_prediction_scoring_row",
       "status": "OPEN",
       "validator_binding": "support_artifact::MODERN_SCIENCE_COMPARATOR_SUPERIORITY::oc_prediction_scoring_row",
@@ -6362,7 +6080,7 @@
       "graph_node_type": "capability_development",
       "graph_priority": [
         30,
-        80,
+        95,
         30,
         "capability_development:R017-UPSTREAM-61ddd313d63b5972"
       ],
@@ -6380,7 +6098,7 @@
       "planner_mode": "GRAPH_RESOLVER",
       "repair_strategy": "Implement the exact domain scorer/materializer that can produce target-hidden OC residuals, incumbent comparator residuals, uncertainty/falsifier rows, and replay.",
       "required_capability": "Research/PriorArt",
-      "selected_for_execution": false,
+      "selected_for_execution": true,
       "source_graph_node_id": "upstream_work_order:R017-UPSTREAM-61ddd313d63b5972:SOURCE_BOUND_SCORER_MATERIALIZER_IMPLEMENTATION:MS-COV-GAP-BIOLOGICAL_LIFE_SCIENCES-EVOLUTIONARY_PHYLOGENETIC_PATTERNS:replay_record",
       "status": "OPEN",
       "validator_binding": "support_artifact::MODERN_SCIENCE_COMPARATOR_SUPERIORITY::replay_record",
@@ -6409,7 +6127,7 @@
       "graph_node_type": "capability_development",
       "graph_priority": [
         30,
-        80,
+        95,
         30,
         "capability_development:R017-UPSTREAM-7d4b9a5a2e38ae17"
       ],
@@ -6427,7 +6145,7 @@
       "planner_mode": "GRAPH_RESOLVER",
       "repair_strategy": "Implement the exact domain scorer/materializer that can produce target-hidden OC residuals, incumbent comparator residuals, uncertainty/falsifier rows, and replay.",
       "required_capability": "Research/PriorArt",
-      "selected_for_execution": false,
+      "selected_for_execution": true,
       "source_graph_node_id": "upstream_work_order:R017-UPSTREAM-7d4b9a5a2e38ae17:SOURCE_BOUND_SCORER_MATERIALIZER_IMPLEMENTATION:MS-COV-GAP-ENGINEERING_MATERIALS_SCIENCES-CONTROL_SYSTEMS_AND_SIGNAL_MEASUREMENT:oc_prediction_scoring_row",
       "status": "OPEN",
       "validator_binding": "support_artifact::MODERN_SCIENCE_COMPARATOR_SUPERIORITY::oc_prediction_scoring_row",
@@ -6456,7 +6174,7 @@
       "graph_node_type": "capability_development",
       "graph_priority": [
         30,
-        80,
+        95,
         30,
         "capability_development:R017-UPSTREAM-81680e54b9e9faa7"
       ],
@@ -6503,7 +6221,7 @@
       "graph_node_type": "capability_development",
       "graph_priority": [
         30,
-        80,
+        95,
         30,
         "capability_development:R017-UPSTREAM-83161848d20c223f"
       ],
@@ -6550,7 +6268,7 @@
       "graph_node_type": "capability_development",
       "graph_priority": [
         30,
-        80,
+        95,
         30,
         "capability_development:R017-UPSTREAM-86af2471439b4d55"
       ],
@@ -6597,7 +6315,7 @@
       "graph_node_type": "capability_development",
       "graph_priority": [
         30,
-        80,
+        95,
         30,
         "capability_development:R017-UPSTREAM-86eb29cd294ec36d"
       ],
@@ -6644,7 +6362,7 @@
       "graph_node_type": "capability_development",
       "graph_priority": [
         30,
-        80,
+        95,
         30,
         "capability_development:R017-UPSTREAM-872ed95f4635539b"
       ],
@@ -6691,7 +6409,7 @@
       "graph_node_type": "capability_development",
       "graph_priority": [
         30,
-        80,
+        95,
         30,
         "capability_development:R017-UPSTREAM-91b2fec2b5a0a2e1"
       ],
@@ -6738,7 +6456,7 @@
       "graph_node_type": "capability_development",
       "graph_priority": [
         30,
-        80,
+        95,
         30,
         "capability_development:R017-UPSTREAM-947f2f490770b815"
       ],
@@ -6785,7 +6503,7 @@
       "graph_node_type": "capability_development",
       "graph_priority": [
         30,
-        80,
+        95,
         30,
         "capability_development:R017-UPSTREAM-9a14854ba4c5eb20"
       ],
@@ -6832,7 +6550,7 @@
       "graph_node_type": "capability_development",
       "graph_priority": [
         30,
-        80,
+        95,
         30,
         "capability_development:R017-UPSTREAM-9c6e6e20460305e1"
       ],
@@ -6879,7 +6597,7 @@
       "graph_node_type": "capability_development",
       "graph_priority": [
         30,
-        80,
+        95,
         30,
         "capability_development:R017-UPSTREAM-9f5d439a98f7c1d8"
       ],
@@ -6926,7 +6644,7 @@
       "graph_node_type": "capability_development",
       "graph_priority": [
         30,
-        80,
+        95,
         30,
         "capability_development:R017-UPSTREAM-aa85d22078948335"
       ],
@@ -6973,7 +6691,7 @@
       "graph_node_type": "capability_development",
       "graph_priority": [
         30,
-        80,
+        95,
         30,
         "capability_development:R017-UPSTREAM-ac02cd18342681a9"
       ],
@@ -7020,7 +6738,7 @@
       "graph_node_type": "capability_development",
       "graph_priority": [
         30,
-        80,
+        95,
         30,
         "capability_development:R017-UPSTREAM-afec76d39697158e"
       ],
@@ -7067,7 +6785,7 @@
       "graph_node_type": "capability_development",
       "graph_priority": [
         30,
-        80,
+        95,
         30,
         "capability_development:R017-UPSTREAM-b2cb2f14989618d4"
       ],
@@ -7114,7 +6832,7 @@
       "graph_node_type": "capability_development",
       "graph_priority": [
         30,
-        80,
+        95,
         30,
         "capability_development:R017-UPSTREAM-b685bc7b6681431d"
       ],
@@ -7161,7 +6879,7 @@
       "graph_node_type": "capability_development",
       "graph_priority": [
         30,
-        80,
+        95,
         30,
         "capability_development:R017-UPSTREAM-b78d8eb8ae34fe1f"
       ],
@@ -7208,7 +6926,7 @@
       "graph_node_type": "capability_development",
       "graph_priority": [
         30,
-        80,
+        95,
         30,
         "capability_development:R017-UPSTREAM-bbc06d009a01851e"
       ],
@@ -7255,7 +6973,7 @@
       "graph_node_type": "capability_development",
       "graph_priority": [
         30,
-        80,
+        95,
         30,
         "capability_development:R017-UPSTREAM-bdfc888e8cc6d070"
       ],
@@ -7302,7 +7020,7 @@
       "graph_node_type": "capability_development",
       "graph_priority": [
         30,
-        80,
+        95,
         30,
         "capability_development:R017-UPSTREAM-be307f7ed604442d"
       ],
@@ -7349,7 +7067,7 @@
       "graph_node_type": "capability_development",
       "graph_priority": [
         30,
-        80,
+        95,
         30,
         "capability_development:R017-UPSTREAM-bfdcbdbdb212a122"
       ],
@@ -7396,7 +7114,7 @@
       "graph_node_type": "capability_development",
       "graph_priority": [
         30,
-        80,
+        95,
         30,
         "capability_development:R017-UPSTREAM-c1c5e81210beaca1"
       ],
@@ -7443,7 +7161,7 @@
       "graph_node_type": "capability_development",
       "graph_priority": [
         30,
-        80,
+        95,
         30,
         "capability_development:R017-UPSTREAM-c9f316f463a2c636"
       ],
@@ -7490,7 +7208,7 @@
       "graph_node_type": "capability_development",
       "graph_priority": [
         30,
-        80,
+        95,
         30,
         "capability_development:R017-UPSTREAM-cf78034eababb7d7"
       ],
@@ -7537,7 +7255,7 @@
       "graph_node_type": "capability_development",
       "graph_priority": [
         30,
-        80,
+        95,
         30,
         "capability_development:R017-UPSTREAM-d3e9ab0c43f8ca00"
       ],
@@ -7584,7 +7302,7 @@
       "graph_node_type": "capability_development",
       "graph_priority": [
         30,
-        80,
+        95,
         30,
         "capability_development:R017-UPSTREAM-d835bf2387123dc8"
       ],
@@ -7631,7 +7349,7 @@
       "graph_node_type": "capability_development",
       "graph_priority": [
         30,
-        80,
+        95,
         30,
         "capability_development:R017-UPSTREAM-d8dbddbbbbddfde5"
       ],
@@ -7678,7 +7396,7 @@
       "graph_node_type": "capability_development",
       "graph_priority": [
         30,
-        80,
+        95,
         30,
         "capability_development:R017-UPSTREAM-dfd8ad63c1dde2f1"
       ],
@@ -7725,7 +7443,7 @@
       "graph_node_type": "capability_development",
       "graph_priority": [
         30,
-        80,
+        95,
         30,
         "capability_development:R017-UPSTREAM-e1eb0e717fd21d91"
       ],
@@ -7772,7 +7490,7 @@
       "graph_node_type": "capability_development",
       "graph_priority": [
         30,
-        80,
+        95,
         30,
         "capability_development:R017-UPSTREAM-e2088f96e62fa674"
       ],
@@ -7819,7 +7537,7 @@
       "graph_node_type": "capability_development",
       "graph_priority": [
         30,
-        80,
+        95,
         30,
         "capability_development:R017-UPSTREAM-ee5b922648cedfe0"
       ],
@@ -7866,7 +7584,7 @@
       "graph_node_type": "capability_development",
       "graph_priority": [
         30,
-        80,
+        95,
         30,
         "capability_development:R017-UPSTREAM-f056f77f3054f806"
       ],
@@ -7913,7 +7631,7 @@
       "graph_node_type": "capability_development",
       "graph_priority": [
         30,
-        80,
+        95,
         30,
         "capability_development:R017-UPSTREAM-f355a681071d61d1"
       ],
@@ -7960,7 +7678,7 @@
       "graph_node_type": "capability_development",
       "graph_priority": [
         30,
-        80,
+        95,
         30,
         "capability_development:R017-UPSTREAM-f5db4066d2e049ea"
       ],
@@ -8007,7 +7725,7 @@
       "graph_node_type": "capability_development",
       "graph_priority": [
         30,
-        80,
+        95,
         30,
         "capability_development:R017-UPSTREAM-f7c41067fa01dc04"
       ],
@@ -8054,7 +7772,7 @@
       "graph_node_type": "capability_development",
       "graph_priority": [
         30,
-        80,
+        95,
         30,
         "capability_development:R017-UPSTREAM-f871ebf2ec128111"
       ],
@@ -8101,7 +7819,7 @@
       "graph_node_type": "capability_development",
       "graph_priority": [
         30,
-        80,
+        95,
         30,
         "capability_development:R017-UPSTREAM-fa0989db9724dfdb"
       ],
@@ -8148,7 +7866,7 @@
       "graph_node_type": "capability_development",
       "graph_priority": [
         30,
-        80,
+        95,
         30,
         "capability_development:R017-UPSTREAM-fd7e7bf99feeb393"
       ],
@@ -8333,12 +8051,6 @@
     "capability_development:AUTO-R017-CAPABILITY-DEVELOPMENT-0061-25fc864b",
     "capability_development:AUTO-R017-CAPABILITY-DEVELOPMENT-0062-0a11eae8",
     "capability_development:AUTO-R017-CAPABILITY-DEVELOPMENT-0083-dbc24d40",
-    "capability:AUTO-R017-COMPARATOR-COMPONENT-SOURCE-OBLIGATION-0d317f46afb2",
-    "capability:AUTO-R017-COMPARATOR-COMPONENT-SOURCE-OBLIGATION-120da0dd658a",
-    "capability:AUTO-R017-COMPARATOR-COMPONENT-SOURCE-OBLIGATION-306768491634",
-    "capability:AUTO-R017-COMPARATOR-COMPONENT-SOURCE-OBLIGATION-44c5e9118633",
-    "capability:AUTO-R017-COMPARATOR-COMPONENT-SOURCE-OBLIGATION-8347f4344f76",
-    "capability:AUTO-R017-COMPARATOR-COMPONENT-SOURCE-OBLIGATION-87e476c219c5",
     "capability_development:R017-UPSTREAM-05dabfe87ad45a19",
     "capability_development:R017-UPSTREAM-0617106ed43700f0",
     "capability_development:R017-UPSTREAM-0cc87e1b8eee3370",
