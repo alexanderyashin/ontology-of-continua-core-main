@@ -2154,11 +2154,10 @@ def comparator_gap_scoring_work_order_rel(gap_id: str) -> Path:
 
 def comparator_gap_scoring_subartifact_rel(gap_id: str, subartifact_id: str) -> Path:
     payload_hash = artifact_hash({"gap_id": gap_id, "subartifact_id": subartifact_id})[:16]
-    safe_subartifact = re.sub(r"[^A-Za-z0-9_.-]+", "_", subartifact_id).strip("_") or "unknown_subartifact"
     return (
         lane_execution_base("MODERN_SCIENCE_COMPARATOR_SUPERIORITY")
         / "scoring_subartifact_jobs"
-        / f"{safe_subartifact}_{payload_hash}.json"
+        / f"subartifact_{payload_hash}.json"
     )
 
 

@@ -1,8 +1,8 @@
 {
-  "artifact_hash": "671de64b490ea51604ac59dddfb09781af0d76393ec5b8cd41f79762af10daec",
-  "capability_development_total": 142,
-  "generated_at": "2026-05-06T00:12:09Z",
-  "open_capability_development_total": 69,
+  "artifact_hash": "acfbcb3e21f637b8663add9129e1a9fc495e9e8071c0f6d1553a8685f9e65e32",
+  "capability_development_total": 144,
+  "generated_at": "2026-05-06T00:15:28Z",
+  "open_capability_development_total": 71,
   "rows": [
     {
       "capability_development_id": "AUTO-R017-CAPABILITY-DEVELOPMENT-0001-056945d6",
@@ -5437,6 +5437,98 @@
       "source_graph_node_type": "required_artifact",
       "status": "OPEN",
       "validator_binding": "support_artifact::MODERN_SCIENCE_COMPARATOR_SUPERIORITY::oc_formula_or_model",
+      "why_it_failed": "The action did not reduce strict validator errors on this semantic frontier."
+    },
+    {
+      "capability_class": "comparator_scoring_subartifact",
+      "capability_development_id": "AUTO-R017-CAPABILITY-DEVELOPMENT-0137-ab568c18",
+      "capability_development_key": "801918446c6b7f4407aa22a41ff3f75d2c136bd4fe1e5d3e60a0b4129fb92fd4",
+      "capability_escalation_id": "AUTO-R017-CAPABILITY-ESCALATION-0137",
+      "capability_executor_ready": true,
+      "capability_id": "R017-CAPDEV-801918446c6b",
+      "compiled_capability_id": "R017-CAPDEV-801918446c6b",
+      "compiled_capability_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/OC133_TOE_CAPABILITY_IMPLEMENTATION_REGISTRY.json",
+      "execution_command": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "tools/oc133_toe_closure_factory.py",
+        "--execute-capability-development",
+        "R017-CAPDEV-801918446c6b",
+        "--write"
+      ],
+      "executor_type": "comparator_scoring_subartifact",
+      "frontier_repeated": true,
+      "gap_id": "MS-COV-GAP-AGRICULTURAL_FOOD_SCIENCES-ANIMAL_HEALTH_AND_PRODUCTION_SYSTEMS",
+      "graph_dependency_path": [
+        "required_artifact:MODERN_SCIENCE_COMPARATOR_SUPERIORITY:MS-COV-GAP-AGRICULTURAL_FOOD_SCIENCES-ANIMAL_HEALTH_AND_PRODUCTION_SYSTEMS:residuals_materiality_uncertainty",
+        "capability:AUTO-R017-COMPARATOR-SCORING-SUBARTIFACT-07fe33895fba"
+      ],
+      "implementation_command": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "tools/oc133_toe_closure_factory.py",
+        "--execute-comparator-scoring-subartifact",
+        "MS-COV-GAP-AGRICULTURAL_FOOD_SCIENCES-ANIMAL_HEALTH_AND_PRODUCTION_SYSTEMS",
+        "residuals_materiality_uncertainty",
+        "--write"
+      ],
+      "implementation_gap_class": "ZERO_DELTA_GRAPH_DEPENDENCY",
+      "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+      "missing_artifact_type": "residuals_materiality_uncertainty",
+      "next_escalation": "If this subartifact packet produces zero validator delta, implement the exact source acquisition/scoring executor named in required_source_block.",
+      "pass_predicate": "OC residual advantage exceeds preregistered materiality threshold under uncertainty.",
+      "repair_strategy": "Create a narrower source-bound executor for the exact missing artifact class before rerunning the same action.",
+      "required_capability": "Research/ScoringExecutor",
+      "scientific_frontier_hash": "cf7fa90cae7761e24fd499a438781aaf7ffc6da730dc3657f8d31d0ba649dc95",
+      "source_action_id": "AUTO-R017-COMPARATOR-SCORING-SUBARTIFACT-07fe33895fba",
+      "source_graph_node_id": "required_artifact:MODERN_SCIENCE_COMPARATOR_SUPERIORITY:MS-COV-GAP-AGRICULTURAL_FOOD_SCIENCES-ANIMAL_HEALTH_AND_PRODUCTION_SYSTEMS:residuals_materiality_uncertainty",
+      "source_graph_node_type": "required_artifact",
+      "status": "OPEN",
+      "validator_binding": "support_artifact::MODERN_SCIENCE_COMPARATOR_SUPERIORITY::residuals_materiality_uncertainty",
+      "why_it_failed": "The action did not reduce strict validator errors on this semantic frontier."
+    },
+    {
+      "capability_class": "comparator_scoring_subartifact",
+      "capability_development_id": "AUTO-R017-CAPABILITY-DEVELOPMENT-0138-a414218c",
+      "capability_development_key": "3f078156e5ff09cebe58513004f53d317e7682a2e9904d981450f6c94af7ddf0",
+      "capability_escalation_id": "AUTO-R017-CAPABILITY-ESCALATION-0138",
+      "capability_executor_ready": true,
+      "capability_id": "R017-CAPDEV-3f078156e5ff",
+      "compiled_capability_id": "R017-CAPDEV-3f078156e5ff",
+      "compiled_capability_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/OC133_TOE_CAPABILITY_IMPLEMENTATION_REGISTRY.json",
+      "execution_command": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "tools/oc133_toe_closure_factory.py",
+        "--execute-capability-development",
+        "R017-CAPDEV-3f078156e5ff",
+        "--write"
+      ],
+      "executor_type": "comparator_scoring_subartifact",
+      "frontier_repeated": true,
+      "gap_id": "MS-COV-GAP-AGRICULTURAL_FOOD_SCIENCES-ANIMAL_HEALTH_AND_PRODUCTION_SYSTEMS",
+      "graph_dependency_path": [
+        "required_artifact:MODERN_SCIENCE_COMPARATOR_SUPERIORITY:MS-COV-GAP-AGRICULTURAL_FOOD_SCIENCES-ANIMAL_HEALTH_AND_PRODUCTION_SYSTEMS:source_snapshot_acquisition",
+        "capability:AUTO-R017-COMPARATOR-SCORING-SUBARTIFACT-e932723bbe9f"
+      ],
+      "implementation_command": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "tools/oc133_toe_closure_factory.py",
+        "--execute-comparator-scoring-subartifact",
+        "MS-COV-GAP-AGRICULTURAL_FOOD_SCIENCES-ANIMAL_HEALTH_AND_PRODUCTION_SYSTEMS",
+        "source_snapshot_acquisition",
+        "--write"
+      ],
+      "implementation_gap_class": "ZERO_DELTA_GRAPH_DEPENDENCY",
+      "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+      "missing_artifact_type": "source_snapshot_acquisition",
+      "next_escalation": "If this subartifact packet produces zero validator delta, implement the exact source acquisition/scoring executor named in required_source_block.",
+      "pass_predicate": "Open/free source snapshot exists locally, is hash-bound, and satisfies source separation policy.",
+      "repair_strategy": "Create a narrower source-bound executor for the exact missing artifact class before rerunning the same action.",
+      "required_capability": "Research/ScoringExecutor",
+      "scientific_frontier_hash": "cf7fa90cae7761e24fd499a438781aaf7ffc6da730dc3657f8d31d0ba649dc95",
+      "source_action_id": "AUTO-R017-COMPARATOR-SCORING-SUBARTIFACT-e932723bbe9f",
+      "source_graph_node_id": "required_artifact:MODERN_SCIENCE_COMPARATOR_SUPERIORITY:MS-COV-GAP-AGRICULTURAL_FOOD_SCIENCES-ANIMAL_HEALTH_AND_PRODUCTION_SYSTEMS:source_snapshot_acquisition",
+      "source_graph_node_type": "required_artifact",
+      "status": "OPEN",
+      "validator_binding": "support_artifact::MODERN_SCIENCE_COMPARATOR_SUPERIORITY::source_snapshot_acquisition",
       "why_it_failed": "The action did not reduce strict validator errors on this semantic frontier."
     }
   ],
