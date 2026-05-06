@@ -110,6 +110,10 @@ DOMAIN_LOCAL_MATERIALIZED_EVIDENCE_REFS = {
         "thermochemistry_and_phase_behavior",
     ): "validation/heldout/grand_science/physics_chemistry/nist_webbook_thermo/OC133_NIST_WEBBOOK_THERMO_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
     (
+        "biological_life_sciences",
+        "evolutionary_phylogenetic_patterns",
+    ): "validation/heldout/grand_science/biology/evolutionary_phylogeny/OC133_NCBI_TAXONOMY_LCA_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
+    (
         "medical_health_sciences",
         "clinical_outcomes_and_biomarkers",
     ): "validation/heldout/grand_science/wdi/medical_clinical_life_expectancy/OC133_WDI_MEDICAL_CLINICAL_LIFE_EXPECTANCY_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",

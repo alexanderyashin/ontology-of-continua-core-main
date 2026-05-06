@@ -1,5 +1,5 @@
 {
-  "artifact_hash": "7f255cc1737850929f8885f6cbd07ac8a1bfd5ed70959de8d6ca134745fc9b23",
+  "artifact_hash": "d1fdb12bef8bd172792ffc124cf78c62bb72b06ca1106195cc449cc528244262",
   "artifact_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/COMPONENT_SOURCE_OBLIGATION_BACKLOG.json",
   "component_implementation_registry_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/DOMAIN_MODEL_COMPONENT_IMPLEMENTATION_REGISTRY.json",
   "component_source_obligation_total": 102,
@@ -3588,7 +3588,7 @@
       ],
       "domain_class_id": "biological_life_sciences",
       "evidence_pack_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/ac1f601d3315235c/strict_evidence_pack.json",
-      "evidence_pack_status": "FAIL_CLOSED_SOURCE_BOUND_SCORING_NOT_MATERIALIZED",
+      "evidence_pack_status": "PASS",
       "execution_command": [
         "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
         "tools/oc133_toe_closure_factory.py",
@@ -3607,15 +3607,7 @@
       },
       "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
       "missing_source_evidence_fields": [
-        "component_report_pass",
-        "strict_evidence_pack_pass",
-        "scoring_artifact_pass",
-        "replay_artifact_pass",
-        "score_materialized",
-        "oc_model_residual",
-        "incumbent_comparator_residual",
-        "material_margin_met",
-        "fail_closed_status_clear"
+        "component_report_pass"
       ],
       "next_escalation": "If the same fields remain missing after execution, implement the domain source acquisition/scoring script named by official_data_source and target_variable.",
       "no_fake_closure_policy": "This obligation cannot promote broad superiority; only downstream PASS evidence artifacts can.",
@@ -3626,7 +3618,7 @@
         "official_endpoint_url": "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esummary.fcgi?db=taxonomy&id=9606,10090,10116,7227,7955,3702",
         "required_local_snapshot_ref": "validation/heldout/grand_science/biology/evolutionary_phylogeny/OC133_NCBI_TAXONOMY_LINEAGE_SNAPSHOT.json",
         "required_lock_ref": "validation/heldout/grand_science/biology/evolutionary_phylogeny/OC133_NCBI_TAXONOMY_LINEAGE_SNAPSHOT.lock.json",
-        "snapshot_status": "NOT_ACQUIRED_FOR_THIS_COVERAGE_CLASS",
+        "snapshot_status": "ACQUIRED_OR_BOUND",
         "source_authority": "National Center for Biotechnology Information",
         "source_id": "biology_ncbi_taxonomy_lca_lineage_v1",
         "source_name": "NCBI Taxonomy E-utilities taxonomy lineage records"
@@ -3635,7 +3627,7 @@
       "phenomenon_class_id": "evolutionary_phylogenetic_patterns",
       "repair_strategy": "Materialize the named missing source/model/comparator/residual/replay fields from governed source data; preserve fail-closed science if OC does not beat the comparator.",
       "replay_artifact_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/ac1f601d3315235c/replay_record.json",
-      "replay_artifact_status": "OPEN",
+      "replay_artifact_status": "PASS",
       "required_capability": "Research/SourceBoundScoringMaterialization",
       "required_local_snapshot_ref": "validation/heldout/grand_science/biology/evolutionary_phylogeny/OC133_NCBI_TAXONOMY_LINEAGE_SNAPSHOT.json",
       "required_lock_ref": "validation/heldout/grand_science/biology/evolutionary_phylogeny/OC133_NCBI_TAXONOMY_LINEAGE_SNAPSHOT.lock.json",
@@ -3645,13 +3637,13 @@
         "superiority_rule": "mean tree-distance residual must be lower than comparator residual and exact LCA accuracy must be higher than comparator accuracy"
       },
       "scoring_artifact_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/ac1f601d3315235c/oc_prediction_scoring_row.json",
-      "scoring_artifact_status": "OPEN",
+      "scoring_artifact_status": "PASS",
       "source_component_implementation_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/component_impls/impl_5a64dec927838d9e.json",
       "source_component_implementation_status": "EVIDENCE_REPAIR_ATTEMPTED_REMAINS_OPEN",
       "source_component_root_cause": "DOMAIN_MODEL_COMPONENT_COMMAND_RAN_BUT_EVIDENCE_OPEN",
-      "source_lock_exists": false,
+      "source_lock_exists": true,
       "source_plan_id": "MS-BIO-EVOLUTION-NCBI-TAXONOMY-LCA-v1",
-      "source_snapshot_exists": false,
+      "source_snapshot_exists": true,
       "status": "OPEN",
       "target_variable": {
         "extraction_rule": "Hide pairwise lowest-common-ancestor targets until lineage-derived predictions are materialized from locked visible taxon identifiers and permitted lineage prefixes.",
@@ -3708,7 +3700,7 @@
       ],
       "domain_class_id": "biological_life_sciences",
       "evidence_pack_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/ac1f601d3315235c/strict_evidence_pack.json",
-      "evidence_pack_status": "FAIL_CLOSED_SOURCE_BOUND_SCORING_NOT_MATERIALIZED",
+      "evidence_pack_status": "PASS",
       "execution_command": [
         "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
         "tools/oc133_toe_closure_factory.py",
@@ -3727,15 +3719,7 @@
       },
       "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
       "missing_source_evidence_fields": [
-        "component_report_pass",
-        "strict_evidence_pack_pass",
-        "scoring_artifact_pass",
-        "replay_artifact_pass",
-        "score_materialized",
-        "oc_model_residual",
-        "incumbent_comparator_residual",
-        "material_margin_met",
-        "fail_closed_status_clear"
+        "component_report_pass"
       ],
       "next_escalation": "If the same fields remain missing after execution, implement the domain source acquisition/scoring script named by official_data_source and target_variable.",
       "no_fake_closure_policy": "This obligation cannot promote broad superiority; only downstream PASS evidence artifacts can.",
@@ -3746,7 +3730,7 @@
         "official_endpoint_url": "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esummary.fcgi?db=taxonomy&id=9606,10090,10116,7227,7955,3702",
         "required_local_snapshot_ref": "validation/heldout/grand_science/biology/evolutionary_phylogeny/OC133_NCBI_TAXONOMY_LINEAGE_SNAPSHOT.json",
         "required_lock_ref": "validation/heldout/grand_science/biology/evolutionary_phylogeny/OC133_NCBI_TAXONOMY_LINEAGE_SNAPSHOT.lock.json",
-        "snapshot_status": "NOT_ACQUIRED_FOR_THIS_COVERAGE_CLASS",
+        "snapshot_status": "ACQUIRED_OR_BOUND",
         "source_authority": "National Center for Biotechnology Information",
         "source_id": "biology_ncbi_taxonomy_lca_lineage_v1",
         "source_name": "NCBI Taxonomy E-utilities taxonomy lineage records"
@@ -3755,7 +3739,7 @@
       "phenomenon_class_id": "evolutionary_phylogenetic_patterns",
       "repair_strategy": "Materialize the named missing source/model/comparator/residual/replay fields from governed source data; preserve fail-closed science if OC does not beat the comparator.",
       "replay_artifact_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/ac1f601d3315235c/replay_record.json",
-      "replay_artifact_status": "OPEN",
+      "replay_artifact_status": "PASS",
       "required_capability": "Research/SourceBoundScoringMaterialization",
       "required_local_snapshot_ref": "validation/heldout/grand_science/biology/evolutionary_phylogeny/OC133_NCBI_TAXONOMY_LINEAGE_SNAPSHOT.json",
       "required_lock_ref": "validation/heldout/grand_science/biology/evolutionary_phylogeny/OC133_NCBI_TAXONOMY_LINEAGE_SNAPSHOT.lock.json",
@@ -3765,13 +3749,13 @@
         "superiority_rule": "mean tree-distance residual must be lower than comparator residual and exact LCA accuracy must be higher than comparator accuracy"
       },
       "scoring_artifact_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/ac1f601d3315235c/oc_prediction_scoring_row.json",
-      "scoring_artifact_status": "OPEN",
+      "scoring_artifact_status": "PASS",
       "source_component_implementation_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/component_impls/impl_b7db9a6ad69f4fb6.json",
       "source_component_implementation_status": "EVIDENCE_REPAIR_ATTEMPTED_REMAINS_OPEN",
       "source_component_root_cause": "DOMAIN_MODEL_COMPONENT_COMMAND_RAN_BUT_EVIDENCE_OPEN",
-      "source_lock_exists": false,
+      "source_lock_exists": true,
       "source_plan_id": "MS-BIO-EVOLUTION-NCBI-TAXONOMY-LCA-v1",
-      "source_snapshot_exists": false,
+      "source_snapshot_exists": true,
       "status": "OPEN",
       "target_variable": {
         "extraction_rule": "Hide pairwise lowest-common-ancestor targets until lineage-derived predictions are materialized from locked visible taxon identifiers and permitted lineage prefixes.",
@@ -3828,7 +3812,7 @@
       ],
       "domain_class_id": "biological_life_sciences",
       "evidence_pack_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/ac1f601d3315235c/strict_evidence_pack.json",
-      "evidence_pack_status": "FAIL_CLOSED_SOURCE_BOUND_SCORING_NOT_MATERIALIZED",
+      "evidence_pack_status": "PASS",
       "execution_command": [
         "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
         "tools/oc133_toe_closure_factory.py",
@@ -3847,15 +3831,7 @@
       },
       "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
       "missing_source_evidence_fields": [
-        "component_report_pass",
-        "strict_evidence_pack_pass",
-        "scoring_artifact_pass",
-        "replay_artifact_pass",
-        "score_materialized",
-        "oc_model_residual",
-        "incumbent_comparator_residual",
-        "material_margin_met",
-        "fail_closed_status_clear"
+        "component_report_pass"
       ],
       "next_escalation": "If the same fields remain missing after execution, implement the domain source acquisition/scoring script named by official_data_source and target_variable.",
       "no_fake_closure_policy": "This obligation cannot promote broad superiority; only downstream PASS evidence artifacts can.",
@@ -3866,7 +3842,7 @@
         "official_endpoint_url": "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esummary.fcgi?db=taxonomy&id=9606,10090,10116,7227,7955,3702",
         "required_local_snapshot_ref": "validation/heldout/grand_science/biology/evolutionary_phylogeny/OC133_NCBI_TAXONOMY_LINEAGE_SNAPSHOT.json",
         "required_lock_ref": "validation/heldout/grand_science/biology/evolutionary_phylogeny/OC133_NCBI_TAXONOMY_LINEAGE_SNAPSHOT.lock.json",
-        "snapshot_status": "NOT_ACQUIRED_FOR_THIS_COVERAGE_CLASS",
+        "snapshot_status": "ACQUIRED_OR_BOUND",
         "source_authority": "National Center for Biotechnology Information",
         "source_id": "biology_ncbi_taxonomy_lca_lineage_v1",
         "source_name": "NCBI Taxonomy E-utilities taxonomy lineage records"
@@ -3875,7 +3851,7 @@
       "phenomenon_class_id": "evolutionary_phylogenetic_patterns",
       "repair_strategy": "Materialize the named missing source/model/comparator/residual/replay fields from governed source data; preserve fail-closed science if OC does not beat the comparator.",
       "replay_artifact_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/ac1f601d3315235c/replay_record.json",
-      "replay_artifact_status": "OPEN",
+      "replay_artifact_status": "PASS",
       "required_capability": "Research/SourceBoundScoringMaterialization",
       "required_local_snapshot_ref": "validation/heldout/grand_science/biology/evolutionary_phylogeny/OC133_NCBI_TAXONOMY_LINEAGE_SNAPSHOT.json",
       "required_lock_ref": "validation/heldout/grand_science/biology/evolutionary_phylogeny/OC133_NCBI_TAXONOMY_LINEAGE_SNAPSHOT.lock.json",
@@ -3885,13 +3861,13 @@
         "superiority_rule": "mean tree-distance residual must be lower than comparator residual and exact LCA accuracy must be higher than comparator accuracy"
       },
       "scoring_artifact_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/ac1f601d3315235c/oc_prediction_scoring_row.json",
-      "scoring_artifact_status": "OPEN",
+      "scoring_artifact_status": "PASS",
       "source_component_implementation_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/component_impls/impl_b5b6d4cc8586edc3.json",
       "source_component_implementation_status": "EVIDENCE_REPAIR_ATTEMPTED_REMAINS_OPEN",
       "source_component_root_cause": "DOMAIN_MODEL_COMPONENT_COMMAND_RAN_BUT_EVIDENCE_OPEN",
-      "source_lock_exists": false,
+      "source_lock_exists": true,
       "source_plan_id": "MS-BIO-EVOLUTION-NCBI-TAXONOMY-LCA-v1",
-      "source_snapshot_exists": false,
+      "source_snapshot_exists": true,
       "status": "OPEN",
       "target_variable": {
         "extraction_rule": "Hide pairwise lowest-common-ancestor targets until lineage-derived predictions are materialized from locked visible taxon identifiers and permitted lineage prefixes.",
@@ -3948,7 +3924,7 @@
       ],
       "domain_class_id": "biological_life_sciences",
       "evidence_pack_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/ac1f601d3315235c/strict_evidence_pack.json",
-      "evidence_pack_status": "FAIL_CLOSED_SOURCE_BOUND_SCORING_NOT_MATERIALIZED",
+      "evidence_pack_status": "PASS",
       "execution_command": [
         "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
         "tools/oc133_toe_closure_factory.py",
@@ -3967,15 +3943,7 @@
       },
       "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
       "missing_source_evidence_fields": [
-        "component_report_pass",
-        "strict_evidence_pack_pass",
-        "scoring_artifact_pass",
-        "replay_artifact_pass",
-        "score_materialized",
-        "oc_model_residual",
-        "incumbent_comparator_residual",
-        "material_margin_met",
-        "fail_closed_status_clear"
+        "component_report_pass"
       ],
       "next_escalation": "If the same fields remain missing after execution, implement the domain source acquisition/scoring script named by official_data_source and target_variable.",
       "no_fake_closure_policy": "This obligation cannot promote broad superiority; only downstream PASS evidence artifacts can.",
@@ -3986,7 +3954,7 @@
         "official_endpoint_url": "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esummary.fcgi?db=taxonomy&id=9606,10090,10116,7227,7955,3702",
         "required_local_snapshot_ref": "validation/heldout/grand_science/biology/evolutionary_phylogeny/OC133_NCBI_TAXONOMY_LINEAGE_SNAPSHOT.json",
         "required_lock_ref": "validation/heldout/grand_science/biology/evolutionary_phylogeny/OC133_NCBI_TAXONOMY_LINEAGE_SNAPSHOT.lock.json",
-        "snapshot_status": "NOT_ACQUIRED_FOR_THIS_COVERAGE_CLASS",
+        "snapshot_status": "ACQUIRED_OR_BOUND",
         "source_authority": "National Center for Biotechnology Information",
         "source_id": "biology_ncbi_taxonomy_lca_lineage_v1",
         "source_name": "NCBI Taxonomy E-utilities taxonomy lineage records"
@@ -3995,7 +3963,7 @@
       "phenomenon_class_id": "evolutionary_phylogenetic_patterns",
       "repair_strategy": "Materialize the named missing source/model/comparator/residual/replay fields from governed source data; preserve fail-closed science if OC does not beat the comparator.",
       "replay_artifact_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/ac1f601d3315235c/replay_record.json",
-      "replay_artifact_status": "OPEN",
+      "replay_artifact_status": "PASS",
       "required_capability": "Research/SourceBoundScoringMaterialization",
       "required_local_snapshot_ref": "validation/heldout/grand_science/biology/evolutionary_phylogeny/OC133_NCBI_TAXONOMY_LINEAGE_SNAPSHOT.json",
       "required_lock_ref": "validation/heldout/grand_science/biology/evolutionary_phylogeny/OC133_NCBI_TAXONOMY_LINEAGE_SNAPSHOT.lock.json",
@@ -4005,13 +3973,13 @@
         "superiority_rule": "mean tree-distance residual must be lower than comparator residual and exact LCA accuracy must be higher than comparator accuracy"
       },
       "scoring_artifact_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/ac1f601d3315235c/oc_prediction_scoring_row.json",
-      "scoring_artifact_status": "OPEN",
+      "scoring_artifact_status": "PASS",
       "source_component_implementation_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/component_impls/impl_ca622423fcfcf773.json",
       "source_component_implementation_status": "EVIDENCE_REPAIR_ATTEMPTED_REMAINS_OPEN",
       "source_component_root_cause": "DOMAIN_MODEL_COMPONENT_COMMAND_RAN_BUT_EVIDENCE_OPEN",
-      "source_lock_exists": false,
+      "source_lock_exists": true,
       "source_plan_id": "MS-BIO-EVOLUTION-NCBI-TAXONOMY-LCA-v1",
-      "source_snapshot_exists": false,
+      "source_snapshot_exists": true,
       "status": "OPEN",
       "target_variable": {
         "extraction_rule": "Hide pairwise lowest-common-ancestor targets until lineage-derived predictions are materialized from locked visible taxon identifiers and permitted lineage prefixes.",
@@ -4068,7 +4036,7 @@
       ],
       "domain_class_id": "biological_life_sciences",
       "evidence_pack_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/ac1f601d3315235c/strict_evidence_pack.json",
-      "evidence_pack_status": "FAIL_CLOSED_SOURCE_BOUND_SCORING_NOT_MATERIALIZED",
+      "evidence_pack_status": "PASS",
       "execution_command": [
         "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
         "tools/oc133_toe_closure_factory.py",
@@ -4087,15 +4055,7 @@
       },
       "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
       "missing_source_evidence_fields": [
-        "component_report_pass",
-        "strict_evidence_pack_pass",
-        "scoring_artifact_pass",
-        "replay_artifact_pass",
-        "score_materialized",
-        "oc_model_residual",
-        "incumbent_comparator_residual",
-        "material_margin_met",
-        "fail_closed_status_clear"
+        "component_report_pass"
       ],
       "next_escalation": "If the same fields remain missing after execution, implement the domain source acquisition/scoring script named by official_data_source and target_variable.",
       "no_fake_closure_policy": "This obligation cannot promote broad superiority; only downstream PASS evidence artifacts can.",
@@ -4106,7 +4066,7 @@
         "official_endpoint_url": "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esummary.fcgi?db=taxonomy&id=9606,10090,10116,7227,7955,3702",
         "required_local_snapshot_ref": "validation/heldout/grand_science/biology/evolutionary_phylogeny/OC133_NCBI_TAXONOMY_LINEAGE_SNAPSHOT.json",
         "required_lock_ref": "validation/heldout/grand_science/biology/evolutionary_phylogeny/OC133_NCBI_TAXONOMY_LINEAGE_SNAPSHOT.lock.json",
-        "snapshot_status": "NOT_ACQUIRED_FOR_THIS_COVERAGE_CLASS",
+        "snapshot_status": "ACQUIRED_OR_BOUND",
         "source_authority": "National Center for Biotechnology Information",
         "source_id": "biology_ncbi_taxonomy_lca_lineage_v1",
         "source_name": "NCBI Taxonomy E-utilities taxonomy lineage records"
@@ -4115,7 +4075,7 @@
       "phenomenon_class_id": "evolutionary_phylogenetic_patterns",
       "repair_strategy": "Materialize the named missing source/model/comparator/residual/replay fields from governed source data; preserve fail-closed science if OC does not beat the comparator.",
       "replay_artifact_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/ac1f601d3315235c/replay_record.json",
-      "replay_artifact_status": "OPEN",
+      "replay_artifact_status": "PASS",
       "required_capability": "Research/SourceBoundScoringMaterialization",
       "required_local_snapshot_ref": "validation/heldout/grand_science/biology/evolutionary_phylogeny/OC133_NCBI_TAXONOMY_LINEAGE_SNAPSHOT.json",
       "required_lock_ref": "validation/heldout/grand_science/biology/evolutionary_phylogeny/OC133_NCBI_TAXONOMY_LINEAGE_SNAPSHOT.lock.json",
@@ -4125,13 +4085,13 @@
         "superiority_rule": "mean tree-distance residual must be lower than comparator residual and exact LCA accuracy must be higher than comparator accuracy"
       },
       "scoring_artifact_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/ac1f601d3315235c/oc_prediction_scoring_row.json",
-      "scoring_artifact_status": "OPEN",
+      "scoring_artifact_status": "PASS",
       "source_component_implementation_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/component_impls/impl_670b8805765ee7ac.json",
       "source_component_implementation_status": "EVIDENCE_REPAIR_ATTEMPTED_REMAINS_OPEN",
       "source_component_root_cause": "DOMAIN_MODEL_COMPONENT_COMMAND_RAN_BUT_EVIDENCE_OPEN",
-      "source_lock_exists": false,
+      "source_lock_exists": true,
       "source_plan_id": "MS-BIO-EVOLUTION-NCBI-TAXONOMY-LCA-v1",
-      "source_snapshot_exists": false,
+      "source_snapshot_exists": true,
       "status": "OPEN",
       "target_variable": {
         "extraction_rule": "Hide pairwise lowest-common-ancestor targets until lineage-derived predictions are materialized from locked visible taxon identifiers and permitted lineage prefixes.",
@@ -4188,7 +4148,7 @@
       ],
       "domain_class_id": "biological_life_sciences",
       "evidence_pack_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/ac1f601d3315235c/strict_evidence_pack.json",
-      "evidence_pack_status": "FAIL_CLOSED_SOURCE_BOUND_SCORING_NOT_MATERIALIZED",
+      "evidence_pack_status": "PASS",
       "execution_command": [
         "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
         "tools/oc133_toe_closure_factory.py",
@@ -4207,15 +4167,7 @@
       },
       "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
       "missing_source_evidence_fields": [
-        "component_report_pass",
-        "strict_evidence_pack_pass",
-        "scoring_artifact_pass",
-        "replay_artifact_pass",
-        "score_materialized",
-        "oc_model_residual",
-        "incumbent_comparator_residual",
-        "material_margin_met",
-        "fail_closed_status_clear"
+        "component_report_pass"
       ],
       "next_escalation": "If the same fields remain missing after execution, implement the domain source acquisition/scoring script named by official_data_source and target_variable.",
       "no_fake_closure_policy": "This obligation cannot promote broad superiority; only downstream PASS evidence artifacts can.",
@@ -4226,7 +4178,7 @@
         "official_endpoint_url": "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esummary.fcgi?db=taxonomy&id=9606,10090,10116,7227,7955,3702",
         "required_local_snapshot_ref": "validation/heldout/grand_science/biology/evolutionary_phylogeny/OC133_NCBI_TAXONOMY_LINEAGE_SNAPSHOT.json",
         "required_lock_ref": "validation/heldout/grand_science/biology/evolutionary_phylogeny/OC133_NCBI_TAXONOMY_LINEAGE_SNAPSHOT.lock.json",
-        "snapshot_status": "NOT_ACQUIRED_FOR_THIS_COVERAGE_CLASS",
+        "snapshot_status": "ACQUIRED_OR_BOUND",
         "source_authority": "National Center for Biotechnology Information",
         "source_id": "biology_ncbi_taxonomy_lca_lineage_v1",
         "source_name": "NCBI Taxonomy E-utilities taxonomy lineage records"
@@ -4235,7 +4187,7 @@
       "phenomenon_class_id": "evolutionary_phylogenetic_patterns",
       "repair_strategy": "Materialize the named missing source/model/comparator/residual/replay fields from governed source data; preserve fail-closed science if OC does not beat the comparator.",
       "replay_artifact_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/ac1f601d3315235c/replay_record.json",
-      "replay_artifact_status": "OPEN",
+      "replay_artifact_status": "PASS",
       "required_capability": "Research/SourceBoundScoringMaterialization",
       "required_local_snapshot_ref": "validation/heldout/grand_science/biology/evolutionary_phylogeny/OC133_NCBI_TAXONOMY_LINEAGE_SNAPSHOT.json",
       "required_lock_ref": "validation/heldout/grand_science/biology/evolutionary_phylogeny/OC133_NCBI_TAXONOMY_LINEAGE_SNAPSHOT.lock.json",
@@ -4245,13 +4197,13 @@
         "superiority_rule": "mean tree-distance residual must be lower than comparator residual and exact LCA accuracy must be higher than comparator accuracy"
       },
       "scoring_artifact_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/ac1f601d3315235c/oc_prediction_scoring_row.json",
-      "scoring_artifact_status": "OPEN",
+      "scoring_artifact_status": "PASS",
       "source_component_implementation_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/component_impls/impl_f606e0e3c78b530c.json",
       "source_component_implementation_status": "EVIDENCE_REPAIR_ATTEMPTED_REMAINS_OPEN",
       "source_component_root_cause": "DOMAIN_MODEL_COMPONENT_COMMAND_RAN_BUT_EVIDENCE_OPEN",
-      "source_lock_exists": false,
+      "source_lock_exists": true,
       "source_plan_id": "MS-BIO-EVOLUTION-NCBI-TAXONOMY-LCA-v1",
-      "source_snapshot_exists": false,
+      "source_snapshot_exists": true,
       "status": "OPEN",
       "target_variable": {
         "extraction_rule": "Hide pairwise lowest-common-ancestor targets until lineage-derived predictions are materialized from locked visible taxon identifiers and permitted lineage prefixes.",
