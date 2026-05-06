@@ -4620,6 +4620,7 @@ def build_capability_implementation_registry(root: Path, *, generated_at: str | 
             or row.get("superseded_by_current_validator") is True
             or row.get("superseded_by_scoring_work_order") is True
             or row.get("superseded_by_scoring_subartifact_execution") is True
+            or row.get("superseded_by_grand_promotion_derivation_report") is True
         ):
             continue
         source_node = str(row.get("source_graph_node_id") or "")

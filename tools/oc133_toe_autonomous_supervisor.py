@@ -1542,6 +1542,21 @@ def build_capability_development_ledger(rows: list[dict[str, Any]], generated_at
                     payload["execution_command"] = []
                     payload["implementation_command"] = []
                     payload["next_escalation"] = "Scoring subartifact packet now exists for this scope; advance to the concrete source/evidence executor named by that packet."
+        if (
+            str(payload.get("lane_id") or "") == "GRAND_TOE_CLAIM_LEDGER_EVIDENCE"
+            and str(payload.get("missing_artifact_type") or "") == "grand_promotion_derivation"
+            and (
+                ROOT
+                / factory.lane_execution_base("GRAND_TOE_CLAIM_LEDGER_EVIDENCE")
+                / "OC133_GRAND_PROMOTION_DERIVATION_REPORT.json"
+            ).exists()
+        ):
+            payload["status"] = "PASS"
+            payload["superseded_by_grand_promotion_derivation_report"] = True
+            payload["capability_executor_ready"] = False
+            payload["execution_command"] = []
+            payload["implementation_command"] = []
+            payload["next_escalation"] = "Grand promotion derivation report exists; remaining blocker is the source-bound prerequisite rows inside that report, not rerunning the lane wrapper."
         lane_id = str(payload.get("lane_id") or "")
         if lane_id and lane_id not in open_lanes:
             payload["status"] = "PASS"
