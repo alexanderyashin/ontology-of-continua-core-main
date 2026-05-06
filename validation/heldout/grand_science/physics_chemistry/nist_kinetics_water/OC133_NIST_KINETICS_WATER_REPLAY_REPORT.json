@@ -1,0 +1,16 @@
+{
+  "schema_id": "OC133_NIST_KINETICS_WATER_REPLAY_REPORT_v1",
+  "status": "PASS",
+  "scoring_pack_ref": "validation/heldout/grand_science/physics_chemistry/nist_kinetics_water/OC133_NIST_KINETICS_WATER_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
+  "scoring_pack_sha256": "09e02efb8a00ad09c8e282536263c28ae7706ea99dfb8b1547b5ce0dc9f93b28",
+  "row_count": 8,
+  "material_margin_met": true,
+  "negative_control_rejected": true,
+  "replay_command": {
+    "commands": [
+      "python validation/heldout/grand_science/physics_chemistry/nist_kinetics_water/oc133_nist_kinetics_water_materializer.py --score --write-scoring",
+      "python validation/heldout/grand_science/physics_chemistry/nist_kinetics_water/oc133_nist_kinetics_water_materializer.py --check"
+    ]
+  },
+  "coverage_closure_allowed": false
+}

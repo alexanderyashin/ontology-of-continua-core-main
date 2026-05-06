@@ -4,26 +4,114 @@
   "release_id": "oc_core_1_3_3",
   "version": "1.3.3",
   "generated_at": "2026-04-28T00:00:00Z",
-  "queue_sha256": "609123892aed57009ab992fe7a010d7e4a2a4a92e310aa357ab9ec90f5f4772a",
-  "state": "ACTIVE",
+  "queue_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+  "state": "EMPTY_OWNER_REVIEW_NO_SEND",
   "ordering_policy": "no-send/safety, blocker severity, gate unblock value, dependency unblock value, stable ID",
-  "work_order_total": 21,
+  "work_order_total": 0,
   "autonomous_dispatch": {
     "schema_id": "OC133_ALL_DOMAIN_AUTONOMOUS_DISPATCH_SUMMARY_v1",
     "ordering_policy": "no-send/safety, blocker severity, gate unblock value, dependency unblock value, stable ID",
-    "work_order_total": 21,
-    "uncovered_phenomenon_class_work_order_total": 6,
-    "broad_claim_evidence_gap_work_order_total": 15,
+    "work_order_total": 0,
+    "uncovered_phenomenon_class_work_order_total": 0,
+    "broad_claim_evidence_gap_work_order_total": 0,
     "coverage_lane_queue_ref": "reports/OC_CORE_1_3_3_MODERN_SCIENCE_COVERAGE_LANE_QUEUE.json",
     "coverage_lane_queue_size": 35,
     "coverage_lane_open_total": 35,
-    "domain_local_coverage_artifact_total": 22,
+    "domain_local_coverage_artifact_total": 36,
     "domain_local_coverage_lane_total": 29,
-    "source_acquired_lane_total": 3,
-    "scorer_ready_lane_total": 3,
-    "strict_evidence_pack_total": 3,
+    "source_acquired_lane_total": 6,
+    "scorer_ready_lane_total": 5,
+    "strict_evidence_pack_total": 6,
     "coverage_closed_total": 0,
     "nearest_to_closure": [
+      {
+        "stable_id": "domain_local_coverage::earth_space_environmental_sciences::climate_weather_geophysical_time_series::MS-COV-WO-010",
+        "artifact_ref": "validation/heldout/grand_science/earth_space/coverage_work_orders/OC133_EARTH_SPACE_MODERN_SCIENCE_COVERAGE_WORK_ORDERS.json",
+        "work_order_id": "MS-COV-WO-010",
+        "coverage_gap_id": null,
+        "domain_class_id": "earth_space_environmental_sciences",
+        "phenomenon_class_id": "climate_weather_geophysical_time_series",
+        "phenomenon_label": "climate weather geophysical time series",
+        "lane_status": "STRICT_EVIDENCE_PASS_NO_COVERAGE_CLOSURE",
+        "source_acquired": true,
+        "scorer_ready": true,
+        "strict_evidence_pack_present": true,
+        "coverage_closed": false,
+        "coverage_closure_allowed": false,
+        "broad_modern_science_superiority_allowed": false,
+        "missing_predicate_count": 1,
+        "missing_predicates": [
+          "COVERAGE_REVIEWED_OR_CLOSED"
+        ],
+        "domain_local_evidence_priority_rank": 0,
+        "source_snapshot_refs": [
+          "validation/heldout/grand_science/earth_space/coverage_work_orders/raw/noaa_coops_9414290_water_level_20240101_20240103.json"
+        ],
+        "strict_evidence_pack_refs": [
+          "validation/heldout/grand_science/earth_space/coverage_work_orders/OC133_EARTH_SPACE_NOAA_COOPS_WATER_LEVEL_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json"
+        ],
+        "replay_command": {
+          "command": "python validation/heldout/grand_science/earth_space/coverage_work_orders/oc133_earth_space_modern_science_coverage_work_orders.py --refresh-noaa-coops-source --write",
+          "argv": [
+            "python",
+            "validation/heldout/grand_science/earth_space/coverage_work_orders/oc133_earth_space_modern_science_coverage_work_orders.py",
+            "--refresh-noaa-coops-source",
+            "--write"
+          ],
+          "script_ref": "validation/heldout/grand_science/earth_space/coverage_work_orders/oc133_earth_space_modern_science_coverage_work_orders.py"
+        },
+        "replay_evidence_refs": [
+          "validation/heldout/grand_science/earth_space/coverage_work_orders/OC133_EARTH_SPACE_NOAA_COOPS_WATER_LEVEL_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
+          "validation/heldout/grand_science/earth_space/coverage_work_orders/raw/noaa_coops_9414290_water_level_20240101_20240103.json"
+        ],
+        "domain_local_replay_ready": true,
+        "remaining_blockers": [],
+        "closure_policy": "Domain-local artifacts are evidence state only; all coverage lanes remain open until reviewed closure."
+      },
+      {
+        "stable_id": "domain_local_coverage::earth_space_environmental_sciences::remote_sensing_and_planetary_measurements::MS-COV-WO-012",
+        "artifact_ref": "validation/heldout/grand_science/earth_space/coverage_work_orders/OC133_EARTH_SPACE_MODERN_SCIENCE_COVERAGE_WORK_ORDERS.json",
+        "work_order_id": "MS-COV-WO-012",
+        "coverage_gap_id": null,
+        "domain_class_id": "earth_space_environmental_sciences",
+        "phenomenon_class_id": "remote_sensing_and_planetary_measurements",
+        "phenomenon_label": "remote sensing and planetary measurements",
+        "lane_status": "STRICT_EVIDENCE_PASS_NO_COVERAGE_CLOSURE",
+        "source_acquired": true,
+        "scorer_ready": true,
+        "strict_evidence_pack_present": true,
+        "coverage_closed": false,
+        "coverage_closure_allowed": false,
+        "broad_modern_science_superiority_allowed": false,
+        "missing_predicate_count": 1,
+        "missing_predicates": [
+          "COVERAGE_REVIEWED_OR_CLOSED"
+        ],
+        "domain_local_evidence_priority_rank": 0,
+        "source_snapshot_refs": [
+          "validation/heldout/grand_science/earth_space/coverage_work_orders/raw/nasa_power_sf_daily_20240101_20240209.json"
+        ],
+        "strict_evidence_pack_refs": [
+          "validation/heldout/grand_science/earth_space/coverage_work_orders/OC133_EARTH_SPACE_NASA_POWER_REMOTE_SENSING_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json"
+        ],
+        "replay_command": {
+          "command": "python validation/heldout/grand_science/earth_space/coverage_work_orders/oc133_earth_space_modern_science_coverage_work_orders.py --score-nasa-power --write",
+          "argv": [
+            "python",
+            "validation/heldout/grand_science/earth_space/coverage_work_orders/oc133_earth_space_modern_science_coverage_work_orders.py",
+            "--score-nasa-power",
+            "--write"
+          ],
+          "script_ref": "validation/heldout/grand_science/earth_space/coverage_work_orders/oc133_earth_space_modern_science_coverage_work_orders.py"
+        },
+        "replay_evidence_refs": [
+          "validation/heldout/grand_science/earth_space/coverage_work_orders/OC133_EARTH_SPACE_NASA_POWER_REMOTE_SENSING_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
+          "validation/heldout/grand_science/earth_space/coverage_work_orders/raw/nasa_power_sf_daily_20240101_20240209.json"
+        ],
+        "domain_local_replay_ready": true,
+        "remaining_blockers": [],
+        "closure_policy": "Domain-local artifacts are evidence state only; all coverage lanes remain open until reviewed closure."
+      },
       {
         "stable_id": "domain_local_coverage::agricultural_food_sciences::food_chemistry_safety_and_nutrition::MS-COV-WO-020",
         "artifact_ref": "validation/heldout/grand_science/agriculture/coverage_work_orders/OC133_AGRICULTURE_MODERN_SCIENCE_COVERAGE_WORK_ORDERS.json",
@@ -147,6 +235,57 @@
         ],
         "domain_local_replay_ready": true,
         "remaining_blockers": [],
+        "closure_policy": "Domain-local artifacts are evidence state only; all coverage lanes remain open until reviewed closure."
+      },
+      {
+        "stable_id": "domain_local_coverage::computer_information_sciences::information_network_and_security_observables::MS-COV-WO-027",
+        "artifact_ref": "validation/heldout/grand_science/cs/coverage_work_orders/OC133_CS_MODERN_SCIENCE_COVERAGE_WORK_ORDERS.json",
+        "work_order_id": "MS-COV-WO-027",
+        "coverage_gap_id": "MS-COV-GAP-COMPUTER_INFORMATION_SCIENCES-INFORMATION_NETWORK_AND_SECURITY_OBSERVABLES",
+        "domain_class_id": "computer_information_sciences",
+        "phenomenon_class_id": "information_network_and_security_observables",
+        "phenomenon_label": "information network and security observables",
+        "lane_status": "OPEN_FAIL_CLOSED_EXECUTABLE_SPEC_ONLY",
+        "source_acquired": true,
+        "scorer_ready": false,
+        "strict_evidence_pack_present": true,
+        "coverage_closed": false,
+        "coverage_closure_allowed": false,
+        "broad_modern_science_superiority_allowed": false,
+        "missing_predicate_count": 4,
+        "missing_predicates": [
+          "TARGET_HIDDEN_SCORER_READY",
+          "COMPARATOR_RESULT_BOUND",
+          "STRICT_SCIENTIFIC_PREDICATES_PASS",
+          "COVERAGE_REVIEWED_OR_CLOSED"
+        ],
+        "domain_local_evidence_priority_rank": 1,
+        "source_snapshot_refs": [
+          "validation/heldout/grand_science/cs/coverage_work_orders/raw/security_nvd/nvd_cve_2024q1_high.compact.json"
+        ],
+        "strict_evidence_pack_refs": [
+          "validation/heldout/grand_science/cs/coverage_work_orders/OC133_CS_NVD_CVSS_SECURITY_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json"
+        ],
+        "replay_command": {
+          "command": "python validation/heldout/grand_science/cs/coverage_work_orders/oc133_cs_modern_science_coverage_work_orders.py --check",
+          "argv": [
+            "python",
+            "validation/heldout/grand_science/cs/coverage_work_orders/oc133_cs_modern_science_coverage_work_orders.py",
+            "--check"
+          ],
+          "script_ref": "validation/heldout/grand_science/cs/coverage_work_orders/oc133_cs_modern_science_coverage_work_orders.py"
+        },
+        "replay_evidence_refs": [
+          "validation/heldout/grand_science/cs/coverage_work_orders/OC133_CS_NVD_CVSS_SECURITY_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
+          "validation/heldout/grand_science/cs/coverage_work_orders/raw/security_nvd/nvd_cve_2024q1_high.compact.json"
+        ],
+        "domain_local_replay_ready": true,
+        "remaining_blockers": [
+          "NVD_CVE_SOURCE_LOCK_NOT_ACQUIRED",
+          "TARGET_HIDDEN_CVSS_TASK_TABLE_NOT_BUILT",
+          "STRICT_SECURITY_OBSERVABLES_EVIDENCE_PACK_NOT_BUILT",
+          "COVERAGE_REVIEW_NOT_PERFORMED"
+        ],
         "closure_policy": "Domain-local artifacts are evidence state only; all coverage lanes remain open until reviewed closure."
       },
       {
@@ -322,164 +461,20 @@
           "COVERAGE_REVIEW_NOT_PERFORMED"
         ],
         "closure_policy": "Domain-local artifacts are evidence state only; all coverage lanes remain open until reviewed closure."
-      },
-      {
-        "stable_id": "domain_local_coverage::cognitive_behavioral_neurosciences::behavioral_task_and_psychometric_prediction::MS-COV-WO-029",
-        "artifact_ref": "validation/heldout/grand_science/neurobehavioral/coverage_work_orders/OC133_NEUROBEHAVIORAL_MODERN_SCIENCE_COVERAGE_WORK_ORDERS.json",
-        "work_order_id": "MS-COV-WO-029",
-        "coverage_gap_id": "MS-COV-GAP-COGNITIVE_BEHAVIORAL_NEUROSCIENCES-BEHAVIORAL_TASK_AND_PSYCHOMETRIC_PREDICTION",
-        "domain_class_id": "cognitive_behavioral_neurosciences",
-        "phenomenon_class_id": "behavioral_task_and_psychometric_prediction",
-        "phenomenon_label": "behavioral task and psychometric prediction",
-        "lane_status": "OPEN_FAIL_CLOSED_EXECUTABLE_SPEC_ONLY",
-        "source_acquired": false,
-        "scorer_ready": false,
-        "strict_evidence_pack_present": false,
-        "coverage_closed": false,
-        "coverage_closure_allowed": false,
-        "broad_modern_science_superiority_allowed": false,
-        "missing_predicate_count": 8,
-        "missing_predicates": [
-          "OFFICIAL_SOURCE_SNAPSHOT_HASH_BOUND",
-          "TARGET_HIDDEN_SCORER_READY",
-          "COMPARATOR_RESULT_BOUND",
-          "NEGATIVE_CONTROL_REJECTED",
-          "INDEPENDENT_REPLAY_BOUND",
-          "STRICT_EVIDENCE_PACK_BOUND",
-          "STRICT_SCIENTIFIC_PREDICATES_PASS",
-          "COVERAGE_REVIEWED_OR_CLOSED"
-        ],
-        "domain_local_evidence_priority_rank": 50,
-        "source_snapshot_refs": [],
-        "strict_evidence_pack_refs": [],
-        "replay_command": {
-          "command": "python validation/heldout/grand_science/neurobehavioral/coverage_work_orders/oc133_neurobehavioral_modern_science_coverage_work_orders.py --check",
-          "argv": [
-            "python",
-            "validation/heldout/grand_science/neurobehavioral/coverage_work_orders/oc133_neurobehavioral_modern_science_coverage_work_orders.py",
-            "--check"
-          ],
-          "script_ref": "validation/heldout/grand_science/neurobehavioral/coverage_work_orders/oc133_neurobehavioral_modern_science_coverage_work_orders.py"
-        },
-        "replay_evidence_refs": [],
-        "domain_local_replay_ready": false,
-        "remaining_blockers": [
-          "OPENNEURO_BEHAVIOR_SOURCE_LOCK_NOT_ACQUIRED",
-          "TARGET_HIDDEN_BEHAVIOR_TABLE_NOT_BUILT",
-          "STRICT_BEHAVIORAL_EVIDENCE_PACK_NOT_BUILT",
-          "COVERAGE_REVIEW_NOT_PERFORMED"
-        ],
-        "closure_policy": "Domain-local artifacts are evidence state only; all coverage lanes remain open until reviewed closure."
-      },
-      {
-        "stable_id": "domain_local_coverage::cognitive_behavioral_neurosciences::learning_memory_and_perception_dynamics::MS-COV-WO-030",
-        "artifact_ref": "validation/heldout/grand_science/neurobehavioral/coverage_work_orders/OC133_NEUROBEHAVIORAL_MODERN_SCIENCE_COVERAGE_WORK_ORDERS.json",
-        "work_order_id": "MS-COV-WO-030",
-        "coverage_gap_id": "MS-COV-GAP-COGNITIVE_BEHAVIORAL_NEUROSCIENCES-LEARNING_MEMORY_AND_PERCEPTION_DYNAMICS",
-        "domain_class_id": "cognitive_behavioral_neurosciences",
-        "phenomenon_class_id": "learning_memory_and_perception_dynamics",
-        "phenomenon_label": "learning memory and perception dynamics",
-        "lane_status": "OPEN_FAIL_CLOSED_EXECUTABLE_SPEC_ONLY",
-        "source_acquired": false,
-        "scorer_ready": false,
-        "strict_evidence_pack_present": false,
-        "coverage_closed": false,
-        "coverage_closure_allowed": false,
-        "broad_modern_science_superiority_allowed": false,
-        "missing_predicate_count": 8,
-        "missing_predicates": [
-          "OFFICIAL_SOURCE_SNAPSHOT_HASH_BOUND",
-          "TARGET_HIDDEN_SCORER_READY",
-          "COMPARATOR_RESULT_BOUND",
-          "NEGATIVE_CONTROL_REJECTED",
-          "INDEPENDENT_REPLAY_BOUND",
-          "STRICT_EVIDENCE_PACK_BOUND",
-          "STRICT_SCIENTIFIC_PREDICATES_PASS",
-          "COVERAGE_REVIEWED_OR_CLOSED"
-        ],
-        "domain_local_evidence_priority_rank": 50,
-        "source_snapshot_refs": [],
-        "strict_evidence_pack_refs": [],
-        "replay_command": {
-          "command": "python validation/heldout/grand_science/neurobehavioral/coverage_work_orders/oc133_neurobehavioral_modern_science_coverage_work_orders.py --check",
-          "argv": [
-            "python",
-            "validation/heldout/grand_science/neurobehavioral/coverage_work_orders/oc133_neurobehavioral_modern_science_coverage_work_orders.py",
-            "--check"
-          ],
-          "script_ref": "validation/heldout/grand_science/neurobehavioral/coverage_work_orders/oc133_neurobehavioral_modern_science_coverage_work_orders.py"
-        },
-        "replay_evidence_refs": [],
-        "domain_local_replay_ready": false,
-        "remaining_blockers": [
-          "OPENNEURO_PAM_SOURCE_LOCK_NOT_ACQUIRED",
-          "TARGET_HIDDEN_PAM_TABLE_NOT_BUILT",
-          "STRICT_LEARNING_MEMORY_EVIDENCE_PACK_NOT_BUILT",
-          "COVERAGE_REVIEW_NOT_PERFORMED"
-        ],
-        "closure_policy": "Domain-local artifacts are evidence state only; all coverage lanes remain open until reviewed closure."
-      },
-      {
-        "stable_id": "domain_local_coverage::cognitive_behavioral_neurosciences::neural_recording_and_brain_network_observables::MS-COV-WO-028",
-        "artifact_ref": "validation/heldout/grand_science/neurobehavioral/coverage_work_orders/OC133_NEUROBEHAVIORAL_MODERN_SCIENCE_COVERAGE_WORK_ORDERS.json",
-        "work_order_id": "MS-COV-WO-028",
-        "coverage_gap_id": "MS-COV-GAP-COGNITIVE_BEHAVIORAL_NEUROSCIENCES-NEURAL_RECORDING_AND_BRAIN_NETWORK_OBSERVABLES",
-        "domain_class_id": "cognitive_behavioral_neurosciences",
-        "phenomenon_class_id": "neural_recording_and_brain_network_observables",
-        "phenomenon_label": "neural recording and brain network observables",
-        "lane_status": "OPEN_FAIL_CLOSED_EXECUTABLE_SPEC_ONLY",
-        "source_acquired": false,
-        "scorer_ready": false,
-        "strict_evidence_pack_present": false,
-        "coverage_closed": false,
-        "coverage_closure_allowed": false,
-        "broad_modern_science_superiority_allowed": false,
-        "missing_predicate_count": 8,
-        "missing_predicates": [
-          "OFFICIAL_SOURCE_SNAPSHOT_HASH_BOUND",
-          "TARGET_HIDDEN_SCORER_READY",
-          "COMPARATOR_RESULT_BOUND",
-          "NEGATIVE_CONTROL_REJECTED",
-          "INDEPENDENT_REPLAY_BOUND",
-          "STRICT_EVIDENCE_PACK_BOUND",
-          "STRICT_SCIENTIFIC_PREDICATES_PASS",
-          "COVERAGE_REVIEWED_OR_CLOSED"
-        ],
-        "domain_local_evidence_priority_rank": 50,
-        "source_snapshot_refs": [],
-        "strict_evidence_pack_refs": [],
-        "replay_command": {
-          "command": "python validation/heldout/grand_science/neurobehavioral/coverage_work_orders/oc133_neurobehavioral_modern_science_coverage_work_orders.py --check",
-          "argv": [
-            "python",
-            "validation/heldout/grand_science/neurobehavioral/coverage_work_orders/oc133_neurobehavioral_modern_science_coverage_work_orders.py",
-            "--check"
-          ],
-          "script_ref": "validation/heldout/grand_science/neurobehavioral/coverage_work_orders/oc133_neurobehavioral_modern_science_coverage_work_orders.py"
-        },
-        "replay_evidence_refs": [],
-        "domain_local_replay_ready": false,
-        "remaining_blockers": [
-          "OPENNEURO_DS000030_SOURCE_LOCK_NOT_ACQUIRED",
-          "CONNECTIVITY_PREPROCESSING_MANIFEST_NOT_LOCKED",
-          "STRICT_NEURAL_NETWORK_EVIDENCE_PACK_NOT_BUILT",
-          "COVERAGE_REVIEW_NOT_PERFORMED"
-        ],
-        "closure_policy": "Domain-local artifacts are evidence state only; all coverage lanes remain open until reviewed closure."
       }
     ],
-    "no_send_locked_work_order_total": 21,
+    "no_send_locked_work_order_total": 0,
     "closure_policy": "No dispatch row marks blocked scientific items closed; closure requires evidence artifacts and re-audit PASS."
   },
   "domain_local_coverage": {
     "schema_id": "OC133_DOMAIN_LOCAL_COVERAGE_ARTIFACT_SUMMARY_v1",
     "artifact_root": "validation/heldout/grand_science",
-    "domain_local_coverage_artifact_total": 22,
+    "domain_local_coverage_artifact_total": 36,
     "domain_local_coverage_work_order_artifact_total": 9,
     "domain_local_coverage_lane_total": 29,
-    "source_acquired_lane_total": 3,
-    "scorer_ready_lane_total": 3,
-    "strict_evidence_pack_total": 3,
+    "source_acquired_lane_total": 6,
+    "scorer_ready_lane_total": 5,
+    "strict_evidence_pack_total": 6,
     "coverage_closed_total": 0,
     "coverage_closure_allowed": false,
     "broad_modern_science_superiority_allowed": false,
@@ -493,8 +488,21 @@
       "validation/heldout/grand_science/agriculture/coverage_work_orders/raw/OC133_AGRICULTURE_FDC_FOUNDATION_FOODS_LIST_25.compact.json",
       "validation/heldout/grand_science/biology/coverage_work_orders/OC133_BIOLOGY_MODERN_SCIENCE_COVERAGE_WORK_ORDERS.json",
       "validation/heldout/grand_science/cs/coverage_work_orders/OC133_CS_MODERN_SCIENCE_COVERAGE_WORK_ORDERS.json",
+      "validation/heldout/grand_science/cs/coverage_work_orders/OC133_CS_NVD_CVSS_REPLAY_REPORT.json",
+      "validation/heldout/grand_science/cs/coverage_work_orders/OC133_CS_NVD_CVSS_SECURITY_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
+      "validation/heldout/grand_science/cs/coverage_work_orders/OC133_CS_NVD_CVSS_TARGET_HIDDEN_TASK_TABLE.json",
+      "validation/heldout/grand_science/cs/coverage_work_orders/locks/OC133-CS-NVD-CVSS-HIDDEN-TARGETS-0001.lock.json",
+      "validation/heldout/grand_science/cs/coverage_work_orders/raw/security_nvd/nvd_cve_2024q1_high.compact.json",
+      "validation/heldout/grand_science/cs/coverage_work_orders/raw/security_nvd/nvd_cve_2024q1_high.lock.json",
       "validation/heldout/grand_science/earth_space/coverage_work_orders/OC133_EARTH_SPACE_MODERN_SCIENCE_COVERAGE_WORK_ORDERS.json",
+      "validation/heldout/grand_science/earth_space/coverage_work_orders/OC133_EARTH_SPACE_NASA_POWER_REMOTE_SENSING_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
+      "validation/heldout/grand_science/earth_space/coverage_work_orders/OC133_EARTH_SPACE_NOAA_COOPS_WATER_LEVEL_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
       "validation/heldout/grand_science/earth_space/coverage_work_orders/OC133_EARTH_SPACE_USGS_HYDROLOGY_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
+      "validation/heldout/grand_science/earth_space/coverage_work_orders/raw/nasa_power_sf_daily_20240101_20240209.json",
+      "validation/heldout/grand_science/earth_space/coverage_work_orders/raw/nasa_power_sf_daily_20240101_20240209.metadata.json",
+      "validation/heldout/grand_science/earth_space/coverage_work_orders/raw/noaa_coops_9414290_predictions_20240101_20240103.json",
+      "validation/heldout/grand_science/earth_space/coverage_work_orders/raw/noaa_coops_9414290_water_level_20240101_20240103.json",
+      "validation/heldout/grand_science/earth_space/coverage_work_orders/raw/noaa_coops_9414290_water_level_predictions_20240101_20240103.metadata.json",
       "validation/heldout/grand_science/earth_space/coverage_work_orders/raw/usgs_potomac_daily_discharge_2024_01_01_2024_02_09.json",
       "validation/heldout/grand_science/earth_space/coverage_work_orders/raw/usgs_potomac_daily_discharge_2024_01_01_2024_02_09.metadata.json",
       "validation/heldout/grand_science/engineering/coverage_work_orders/OC133_ENGINEERING_MODERN_SCIENCE_COVERAGE_WORK_ORDERS.json",
@@ -503,6 +511,7 @@
       "validation/heldout/grand_science/formal_mathematics/coverage_work_orders/planned_corpora/statistical_probabilistic_inference/OC133_STAT_PROB_IDENTIFIABILITY_EXECUTED_PROOF_CORPUS.json",
       "validation/heldout/grand_science/formal_mathematics/coverage_work_orders/planned_corpora/statistical_probabilistic_inference/OC133_STAT_PROB_IDENTIFIABILITY_FORMAL_INPUTS.json",
       "validation/heldout/grand_science/formal_mathematics/coverage_work_orders/planned_corpora/statistical_probabilistic_inference/OC133_STAT_PROB_IDENTIFIABILITY_WITHHELD_AGGREGATES.lock.json",
+      "validation/heldout/grand_science/medical/coverage_work_orders/OC133_MEDICAL_MODERN_SCIENCE_COVERAGE_WORK_ORDERS.json",
       "validation/heldout/grand_science/neurobehavioral/coverage_work_orders/OC133_NEUROBEHAVIORAL_MODERN_SCIENCE_COVERAGE_WORK_ORDERS.json",
       "validation/heldout/grand_science/operations/coverage_work_orders/OC133_OPERATIONS_MODERN_SCIENCE_COVERAGE_WORK_ORDERS.json",
       "validation/heldout/grand_science/systems/coverage_work_orders/OC133_SYSTEMS_CIVILIZATIONAL_MODERN_SCIENCE_COVERAGE_WORK_ORDERS.json"
@@ -520,6 +529,94 @@
     ],
     "nearest_to_closure": [
       {
+        "stable_id": "domain_local_coverage::earth_space_environmental_sciences::climate_weather_geophysical_time_series::MS-COV-WO-010",
+        "artifact_ref": "validation/heldout/grand_science/earth_space/coverage_work_orders/OC133_EARTH_SPACE_MODERN_SCIENCE_COVERAGE_WORK_ORDERS.json",
+        "work_order_id": "MS-COV-WO-010",
+        "coverage_gap_id": null,
+        "domain_class_id": "earth_space_environmental_sciences",
+        "phenomenon_class_id": "climate_weather_geophysical_time_series",
+        "phenomenon_label": "climate weather geophysical time series",
+        "lane_status": "STRICT_EVIDENCE_PASS_NO_COVERAGE_CLOSURE",
+        "source_acquired": true,
+        "scorer_ready": true,
+        "strict_evidence_pack_present": true,
+        "coverage_closed": false,
+        "coverage_closure_allowed": false,
+        "broad_modern_science_superiority_allowed": false,
+        "missing_predicate_count": 1,
+        "missing_predicates": [
+          "COVERAGE_REVIEWED_OR_CLOSED"
+        ],
+        "domain_local_evidence_priority_rank": 0,
+        "source_snapshot_refs": [
+          "validation/heldout/grand_science/earth_space/coverage_work_orders/raw/noaa_coops_9414290_water_level_20240101_20240103.json"
+        ],
+        "strict_evidence_pack_refs": [
+          "validation/heldout/grand_science/earth_space/coverage_work_orders/OC133_EARTH_SPACE_NOAA_COOPS_WATER_LEVEL_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json"
+        ],
+        "replay_command": {
+          "command": "python validation/heldout/grand_science/earth_space/coverage_work_orders/oc133_earth_space_modern_science_coverage_work_orders.py --refresh-noaa-coops-source --write",
+          "argv": [
+            "python",
+            "validation/heldout/grand_science/earth_space/coverage_work_orders/oc133_earth_space_modern_science_coverage_work_orders.py",
+            "--refresh-noaa-coops-source",
+            "--write"
+          ],
+          "script_ref": "validation/heldout/grand_science/earth_space/coverage_work_orders/oc133_earth_space_modern_science_coverage_work_orders.py"
+        },
+        "replay_evidence_refs": [
+          "validation/heldout/grand_science/earth_space/coverage_work_orders/OC133_EARTH_SPACE_NOAA_COOPS_WATER_LEVEL_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
+          "validation/heldout/grand_science/earth_space/coverage_work_orders/raw/noaa_coops_9414290_water_level_20240101_20240103.json"
+        ],
+        "domain_local_replay_ready": true,
+        "remaining_blockers": [],
+        "closure_policy": "Domain-local artifacts are evidence state only; all coverage lanes remain open until reviewed closure."
+      },
+      {
+        "stable_id": "domain_local_coverage::earth_space_environmental_sciences::remote_sensing_and_planetary_measurements::MS-COV-WO-012",
+        "artifact_ref": "validation/heldout/grand_science/earth_space/coverage_work_orders/OC133_EARTH_SPACE_MODERN_SCIENCE_COVERAGE_WORK_ORDERS.json",
+        "work_order_id": "MS-COV-WO-012",
+        "coverage_gap_id": null,
+        "domain_class_id": "earth_space_environmental_sciences",
+        "phenomenon_class_id": "remote_sensing_and_planetary_measurements",
+        "phenomenon_label": "remote sensing and planetary measurements",
+        "lane_status": "STRICT_EVIDENCE_PASS_NO_COVERAGE_CLOSURE",
+        "source_acquired": true,
+        "scorer_ready": true,
+        "strict_evidence_pack_present": true,
+        "coverage_closed": false,
+        "coverage_closure_allowed": false,
+        "broad_modern_science_superiority_allowed": false,
+        "missing_predicate_count": 1,
+        "missing_predicates": [
+          "COVERAGE_REVIEWED_OR_CLOSED"
+        ],
+        "domain_local_evidence_priority_rank": 0,
+        "source_snapshot_refs": [
+          "validation/heldout/grand_science/earth_space/coverage_work_orders/raw/nasa_power_sf_daily_20240101_20240209.json"
+        ],
+        "strict_evidence_pack_refs": [
+          "validation/heldout/grand_science/earth_space/coverage_work_orders/OC133_EARTH_SPACE_NASA_POWER_REMOTE_SENSING_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json"
+        ],
+        "replay_command": {
+          "command": "python validation/heldout/grand_science/earth_space/coverage_work_orders/oc133_earth_space_modern_science_coverage_work_orders.py --score-nasa-power --write",
+          "argv": [
+            "python",
+            "validation/heldout/grand_science/earth_space/coverage_work_orders/oc133_earth_space_modern_science_coverage_work_orders.py",
+            "--score-nasa-power",
+            "--write"
+          ],
+          "script_ref": "validation/heldout/grand_science/earth_space/coverage_work_orders/oc133_earth_space_modern_science_coverage_work_orders.py"
+        },
+        "replay_evidence_refs": [
+          "validation/heldout/grand_science/earth_space/coverage_work_orders/OC133_EARTH_SPACE_NASA_POWER_REMOTE_SENSING_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
+          "validation/heldout/grand_science/earth_space/coverage_work_orders/raw/nasa_power_sf_daily_20240101_20240209.json"
+        ],
+        "domain_local_replay_ready": true,
+        "remaining_blockers": [],
+        "closure_policy": "Domain-local artifacts are evidence state only; all coverage lanes remain open until reviewed closure."
+      },
+      {
         "stable_id": "domain_local_coverage::agricultural_food_sciences::food_chemistry_safety_and_nutrition::MS-COV-WO-020",
         "artifact_ref": "validation/heldout/grand_science/agriculture/coverage_work_orders/OC133_AGRICULTURE_MODERN_SCIENCE_COVERAGE_WORK_ORDERS.json",
         "work_order_id": "MS-COV-WO-020",
@@ -642,6 +739,57 @@
         ],
         "domain_local_replay_ready": true,
         "remaining_blockers": [],
+        "closure_policy": "Domain-local artifacts are evidence state only; all coverage lanes remain open until reviewed closure."
+      },
+      {
+        "stable_id": "domain_local_coverage::computer_information_sciences::information_network_and_security_observables::MS-COV-WO-027",
+        "artifact_ref": "validation/heldout/grand_science/cs/coverage_work_orders/OC133_CS_MODERN_SCIENCE_COVERAGE_WORK_ORDERS.json",
+        "work_order_id": "MS-COV-WO-027",
+        "coverage_gap_id": "MS-COV-GAP-COMPUTER_INFORMATION_SCIENCES-INFORMATION_NETWORK_AND_SECURITY_OBSERVABLES",
+        "domain_class_id": "computer_information_sciences",
+        "phenomenon_class_id": "information_network_and_security_observables",
+        "phenomenon_label": "information network and security observables",
+        "lane_status": "OPEN_FAIL_CLOSED_EXECUTABLE_SPEC_ONLY",
+        "source_acquired": true,
+        "scorer_ready": false,
+        "strict_evidence_pack_present": true,
+        "coverage_closed": false,
+        "coverage_closure_allowed": false,
+        "broad_modern_science_superiority_allowed": false,
+        "missing_predicate_count": 4,
+        "missing_predicates": [
+          "TARGET_HIDDEN_SCORER_READY",
+          "COMPARATOR_RESULT_BOUND",
+          "STRICT_SCIENTIFIC_PREDICATES_PASS",
+          "COVERAGE_REVIEWED_OR_CLOSED"
+        ],
+        "domain_local_evidence_priority_rank": 1,
+        "source_snapshot_refs": [
+          "validation/heldout/grand_science/cs/coverage_work_orders/raw/security_nvd/nvd_cve_2024q1_high.compact.json"
+        ],
+        "strict_evidence_pack_refs": [
+          "validation/heldout/grand_science/cs/coverage_work_orders/OC133_CS_NVD_CVSS_SECURITY_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json"
+        ],
+        "replay_command": {
+          "command": "python validation/heldout/grand_science/cs/coverage_work_orders/oc133_cs_modern_science_coverage_work_orders.py --check",
+          "argv": [
+            "python",
+            "validation/heldout/grand_science/cs/coverage_work_orders/oc133_cs_modern_science_coverage_work_orders.py",
+            "--check"
+          ],
+          "script_ref": "validation/heldout/grand_science/cs/coverage_work_orders/oc133_cs_modern_science_coverage_work_orders.py"
+        },
+        "replay_evidence_refs": [
+          "validation/heldout/grand_science/cs/coverage_work_orders/OC133_CS_NVD_CVSS_SECURITY_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
+          "validation/heldout/grand_science/cs/coverage_work_orders/raw/security_nvd/nvd_cve_2024q1_high.compact.json"
+        ],
+        "domain_local_replay_ready": true,
+        "remaining_blockers": [
+          "NVD_CVE_SOURCE_LOCK_NOT_ACQUIRED",
+          "TARGET_HIDDEN_CVSS_TASK_TABLE_NOT_BUILT",
+          "STRICT_SECURITY_OBSERVABLES_EVIDENCE_PACK_NOT_BUILT",
+          "COVERAGE_REVIEW_NOT_PERFORMED"
+        ],
         "closure_policy": "Domain-local artifacts are evidence state only; all coverage lanes remain open until reviewed closure."
       },
       {
@@ -814,150 +962,6 @@
         "remaining_blockers": [
           "OFFICIAL_PHYLOGENETIC_SOURCE_SNAPSHOTS_NOT_ACQUIRED",
           "STRICT_PHYLOGENETIC_EVIDENCE_PACK_NOT_BUILT",
-          "COVERAGE_REVIEW_NOT_PERFORMED"
-        ],
-        "closure_policy": "Domain-local artifacts are evidence state only; all coverage lanes remain open until reviewed closure."
-      },
-      {
-        "stable_id": "domain_local_coverage::cognitive_behavioral_neurosciences::behavioral_task_and_psychometric_prediction::MS-COV-WO-029",
-        "artifact_ref": "validation/heldout/grand_science/neurobehavioral/coverage_work_orders/OC133_NEUROBEHAVIORAL_MODERN_SCIENCE_COVERAGE_WORK_ORDERS.json",
-        "work_order_id": "MS-COV-WO-029",
-        "coverage_gap_id": "MS-COV-GAP-COGNITIVE_BEHAVIORAL_NEUROSCIENCES-BEHAVIORAL_TASK_AND_PSYCHOMETRIC_PREDICTION",
-        "domain_class_id": "cognitive_behavioral_neurosciences",
-        "phenomenon_class_id": "behavioral_task_and_psychometric_prediction",
-        "phenomenon_label": "behavioral task and psychometric prediction",
-        "lane_status": "OPEN_FAIL_CLOSED_EXECUTABLE_SPEC_ONLY",
-        "source_acquired": false,
-        "scorer_ready": false,
-        "strict_evidence_pack_present": false,
-        "coverage_closed": false,
-        "coverage_closure_allowed": false,
-        "broad_modern_science_superiority_allowed": false,
-        "missing_predicate_count": 8,
-        "missing_predicates": [
-          "OFFICIAL_SOURCE_SNAPSHOT_HASH_BOUND",
-          "TARGET_HIDDEN_SCORER_READY",
-          "COMPARATOR_RESULT_BOUND",
-          "NEGATIVE_CONTROL_REJECTED",
-          "INDEPENDENT_REPLAY_BOUND",
-          "STRICT_EVIDENCE_PACK_BOUND",
-          "STRICT_SCIENTIFIC_PREDICATES_PASS",
-          "COVERAGE_REVIEWED_OR_CLOSED"
-        ],
-        "domain_local_evidence_priority_rank": 50,
-        "source_snapshot_refs": [],
-        "strict_evidence_pack_refs": [],
-        "replay_command": {
-          "command": "python validation/heldout/grand_science/neurobehavioral/coverage_work_orders/oc133_neurobehavioral_modern_science_coverage_work_orders.py --check",
-          "argv": [
-            "python",
-            "validation/heldout/grand_science/neurobehavioral/coverage_work_orders/oc133_neurobehavioral_modern_science_coverage_work_orders.py",
-            "--check"
-          ],
-          "script_ref": "validation/heldout/grand_science/neurobehavioral/coverage_work_orders/oc133_neurobehavioral_modern_science_coverage_work_orders.py"
-        },
-        "replay_evidence_refs": [],
-        "domain_local_replay_ready": false,
-        "remaining_blockers": [
-          "OPENNEURO_BEHAVIOR_SOURCE_LOCK_NOT_ACQUIRED",
-          "TARGET_HIDDEN_BEHAVIOR_TABLE_NOT_BUILT",
-          "STRICT_BEHAVIORAL_EVIDENCE_PACK_NOT_BUILT",
-          "COVERAGE_REVIEW_NOT_PERFORMED"
-        ],
-        "closure_policy": "Domain-local artifacts are evidence state only; all coverage lanes remain open until reviewed closure."
-      },
-      {
-        "stable_id": "domain_local_coverage::cognitive_behavioral_neurosciences::learning_memory_and_perception_dynamics::MS-COV-WO-030",
-        "artifact_ref": "validation/heldout/grand_science/neurobehavioral/coverage_work_orders/OC133_NEUROBEHAVIORAL_MODERN_SCIENCE_COVERAGE_WORK_ORDERS.json",
-        "work_order_id": "MS-COV-WO-030",
-        "coverage_gap_id": "MS-COV-GAP-COGNITIVE_BEHAVIORAL_NEUROSCIENCES-LEARNING_MEMORY_AND_PERCEPTION_DYNAMICS",
-        "domain_class_id": "cognitive_behavioral_neurosciences",
-        "phenomenon_class_id": "learning_memory_and_perception_dynamics",
-        "phenomenon_label": "learning memory and perception dynamics",
-        "lane_status": "OPEN_FAIL_CLOSED_EXECUTABLE_SPEC_ONLY",
-        "source_acquired": false,
-        "scorer_ready": false,
-        "strict_evidence_pack_present": false,
-        "coverage_closed": false,
-        "coverage_closure_allowed": false,
-        "broad_modern_science_superiority_allowed": false,
-        "missing_predicate_count": 8,
-        "missing_predicates": [
-          "OFFICIAL_SOURCE_SNAPSHOT_HASH_BOUND",
-          "TARGET_HIDDEN_SCORER_READY",
-          "COMPARATOR_RESULT_BOUND",
-          "NEGATIVE_CONTROL_REJECTED",
-          "INDEPENDENT_REPLAY_BOUND",
-          "STRICT_EVIDENCE_PACK_BOUND",
-          "STRICT_SCIENTIFIC_PREDICATES_PASS",
-          "COVERAGE_REVIEWED_OR_CLOSED"
-        ],
-        "domain_local_evidence_priority_rank": 50,
-        "source_snapshot_refs": [],
-        "strict_evidence_pack_refs": [],
-        "replay_command": {
-          "command": "python validation/heldout/grand_science/neurobehavioral/coverage_work_orders/oc133_neurobehavioral_modern_science_coverage_work_orders.py --check",
-          "argv": [
-            "python",
-            "validation/heldout/grand_science/neurobehavioral/coverage_work_orders/oc133_neurobehavioral_modern_science_coverage_work_orders.py",
-            "--check"
-          ],
-          "script_ref": "validation/heldout/grand_science/neurobehavioral/coverage_work_orders/oc133_neurobehavioral_modern_science_coverage_work_orders.py"
-        },
-        "replay_evidence_refs": [],
-        "domain_local_replay_ready": false,
-        "remaining_blockers": [
-          "OPENNEURO_PAM_SOURCE_LOCK_NOT_ACQUIRED",
-          "TARGET_HIDDEN_PAM_TABLE_NOT_BUILT",
-          "STRICT_LEARNING_MEMORY_EVIDENCE_PACK_NOT_BUILT",
-          "COVERAGE_REVIEW_NOT_PERFORMED"
-        ],
-        "closure_policy": "Domain-local artifacts are evidence state only; all coverage lanes remain open until reviewed closure."
-      },
-      {
-        "stable_id": "domain_local_coverage::cognitive_behavioral_neurosciences::neural_recording_and_brain_network_observables::MS-COV-WO-028",
-        "artifact_ref": "validation/heldout/grand_science/neurobehavioral/coverage_work_orders/OC133_NEUROBEHAVIORAL_MODERN_SCIENCE_COVERAGE_WORK_ORDERS.json",
-        "work_order_id": "MS-COV-WO-028",
-        "coverage_gap_id": "MS-COV-GAP-COGNITIVE_BEHAVIORAL_NEUROSCIENCES-NEURAL_RECORDING_AND_BRAIN_NETWORK_OBSERVABLES",
-        "domain_class_id": "cognitive_behavioral_neurosciences",
-        "phenomenon_class_id": "neural_recording_and_brain_network_observables",
-        "phenomenon_label": "neural recording and brain network observables",
-        "lane_status": "OPEN_FAIL_CLOSED_EXECUTABLE_SPEC_ONLY",
-        "source_acquired": false,
-        "scorer_ready": false,
-        "strict_evidence_pack_present": false,
-        "coverage_closed": false,
-        "coverage_closure_allowed": false,
-        "broad_modern_science_superiority_allowed": false,
-        "missing_predicate_count": 8,
-        "missing_predicates": [
-          "OFFICIAL_SOURCE_SNAPSHOT_HASH_BOUND",
-          "TARGET_HIDDEN_SCORER_READY",
-          "COMPARATOR_RESULT_BOUND",
-          "NEGATIVE_CONTROL_REJECTED",
-          "INDEPENDENT_REPLAY_BOUND",
-          "STRICT_EVIDENCE_PACK_BOUND",
-          "STRICT_SCIENTIFIC_PREDICATES_PASS",
-          "COVERAGE_REVIEWED_OR_CLOSED"
-        ],
-        "domain_local_evidence_priority_rank": 50,
-        "source_snapshot_refs": [],
-        "strict_evidence_pack_refs": [],
-        "replay_command": {
-          "command": "python validation/heldout/grand_science/neurobehavioral/coverage_work_orders/oc133_neurobehavioral_modern_science_coverage_work_orders.py --check",
-          "argv": [
-            "python",
-            "validation/heldout/grand_science/neurobehavioral/coverage_work_orders/oc133_neurobehavioral_modern_science_coverage_work_orders.py",
-            "--check"
-          ],
-          "script_ref": "validation/heldout/grand_science/neurobehavioral/coverage_work_orders/oc133_neurobehavioral_modern_science_coverage_work_orders.py"
-        },
-        "replay_evidence_refs": [],
-        "domain_local_replay_ready": false,
-        "remaining_blockers": [
-          "OPENNEURO_DS000030_SOURCE_LOCK_NOT_ACQUIRED",
-          "CONNECTIVITY_PREPROCESSING_MANIFEST_NOT_LOCKED",
-          "STRICT_NEURAL_NETWORK_EVIDENCE_PACK_NOT_BUILT",
           "COVERAGE_REVIEW_NOT_PERFORMED"
         ],
         "closure_policy": "Domain-local artifacts are evidence state only; all coverage lanes remain open until reviewed closure."
@@ -1630,26 +1634,26 @@
         "phenomenon_class_id": "information_network_and_security_observables",
         "phenomenon_label": "information network and security observables",
         "lane_status": "OPEN_FAIL_CLOSED_EXECUTABLE_SPEC_ONLY",
-        "source_acquired": false,
+        "source_acquired": true,
         "scorer_ready": false,
-        "strict_evidence_pack_present": false,
+        "strict_evidence_pack_present": true,
         "coverage_closed": false,
         "coverage_closure_allowed": false,
         "broad_modern_science_superiority_allowed": false,
-        "missing_predicate_count": 8,
+        "missing_predicate_count": 4,
         "missing_predicates": [
-          "OFFICIAL_SOURCE_SNAPSHOT_HASH_BOUND",
           "TARGET_HIDDEN_SCORER_READY",
           "COMPARATOR_RESULT_BOUND",
-          "NEGATIVE_CONTROL_REJECTED",
-          "INDEPENDENT_REPLAY_BOUND",
-          "STRICT_EVIDENCE_PACK_BOUND",
           "STRICT_SCIENTIFIC_PREDICATES_PASS",
           "COVERAGE_REVIEWED_OR_CLOSED"
         ],
-        "domain_local_evidence_priority_rank": 50,
-        "source_snapshot_refs": [],
-        "strict_evidence_pack_refs": [],
+        "domain_local_evidence_priority_rank": 1,
+        "source_snapshot_refs": [
+          "validation/heldout/grand_science/cs/coverage_work_orders/raw/security_nvd/nvd_cve_2024q1_high.compact.json"
+        ],
+        "strict_evidence_pack_refs": [
+          "validation/heldout/grand_science/cs/coverage_work_orders/OC133_CS_NVD_CVSS_SECURITY_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json"
+        ],
         "replay_command": {
           "command": "python validation/heldout/grand_science/cs/coverage_work_orders/oc133_cs_modern_science_coverage_work_orders.py --check",
           "argv": [
@@ -1659,8 +1663,11 @@
           ],
           "script_ref": "validation/heldout/grand_science/cs/coverage_work_orders/oc133_cs_modern_science_coverage_work_orders.py"
         },
-        "replay_evidence_refs": [],
-        "domain_local_replay_ready": false,
+        "replay_evidence_refs": [
+          "validation/heldout/grand_science/cs/coverage_work_orders/OC133_CS_NVD_CVSS_SECURITY_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
+          "validation/heldout/grand_science/cs/coverage_work_orders/raw/security_nvd/nvd_cve_2024q1_high.compact.json"
+        ],
+        "domain_local_replay_ready": true,
         "remaining_blockers": [
           "NVD_CVE_SOURCE_LOCK_NOT_ACQUIRED",
           "TARGET_HIDDEN_CVSS_TASK_TABLE_NOT_BUILT",
@@ -1773,38 +1780,39 @@
         "domain_class_id": "earth_space_environmental_sciences",
         "phenomenon_class_id": "climate_weather_geophysical_time_series",
         "phenomenon_label": "climate weather geophysical time series",
-        "lane_status": "OPEN_FAIL_CLOSED_NO_EXECUTABLE_EVIDENCE",
-        "source_acquired": false,
-        "scorer_ready": false,
-        "strict_evidence_pack_present": false,
+        "lane_status": "STRICT_EVIDENCE_PASS_NO_COVERAGE_CLOSURE",
+        "source_acquired": true,
+        "scorer_ready": true,
+        "strict_evidence_pack_present": true,
         "coverage_closed": false,
         "coverage_closure_allowed": false,
         "broad_modern_science_superiority_allowed": false,
-        "missing_predicate_count": 8,
+        "missing_predicate_count": 1,
         "missing_predicates": [
-          "OFFICIAL_SOURCE_SNAPSHOT_HASH_BOUND",
-          "TARGET_HIDDEN_SCORER_READY",
-          "COMPARATOR_RESULT_BOUND",
-          "NEGATIVE_CONTROL_REJECTED",
-          "INDEPENDENT_REPLAY_BOUND",
-          "STRICT_EVIDENCE_PACK_BOUND",
-          "STRICT_SCIENTIFIC_PREDICATES_PASS",
           "COVERAGE_REVIEWED_OR_CLOSED"
         ],
-        "domain_local_evidence_priority_rank": 50,
-        "source_snapshot_refs": [],
-        "strict_evidence_pack_refs": [],
+        "domain_local_evidence_priority_rank": 0,
+        "source_snapshot_refs": [
+          "validation/heldout/grand_science/earth_space/coverage_work_orders/raw/noaa_coops_9414290_water_level_20240101_20240103.json"
+        ],
+        "strict_evidence_pack_refs": [
+          "validation/heldout/grand_science/earth_space/coverage_work_orders/OC133_EARTH_SPACE_NOAA_COOPS_WATER_LEVEL_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json"
+        ],
         "replay_command": {
-          "command": "python validation/heldout/grand_science/earth_space/coverage_work_orders/oc133_earth_space_modern_science_coverage_work_orders.py --check",
+          "command": "python validation/heldout/grand_science/earth_space/coverage_work_orders/oc133_earth_space_modern_science_coverage_work_orders.py --refresh-noaa-coops-source --write",
           "argv": [
             "python",
             "validation/heldout/grand_science/earth_space/coverage_work_orders/oc133_earth_space_modern_science_coverage_work_orders.py",
-            "--check"
+            "--refresh-noaa-coops-source",
+            "--write"
           ],
           "script_ref": "validation/heldout/grand_science/earth_space/coverage_work_orders/oc133_earth_space_modern_science_coverage_work_orders.py"
         },
-        "replay_evidence_refs": [],
-        "domain_local_replay_ready": false,
+        "replay_evidence_refs": [
+          "validation/heldout/grand_science/earth_space/coverage_work_orders/OC133_EARTH_SPACE_NOAA_COOPS_WATER_LEVEL_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
+          "validation/heldout/grand_science/earth_space/coverage_work_orders/raw/noaa_coops_9414290_water_level_20240101_20240103.json"
+        ],
+        "domain_local_replay_ready": true,
         "remaining_blockers": [],
         "closure_policy": "Domain-local artifacts are evidence state only; all coverage lanes remain open until reviewed closure."
       },
@@ -1861,38 +1869,39 @@
         "domain_class_id": "earth_space_environmental_sciences",
         "phenomenon_class_id": "remote_sensing_and_planetary_measurements",
         "phenomenon_label": "remote sensing and planetary measurements",
-        "lane_status": "OPEN_FAIL_CLOSED_NO_EXECUTABLE_EVIDENCE",
-        "source_acquired": false,
-        "scorer_ready": false,
-        "strict_evidence_pack_present": false,
+        "lane_status": "STRICT_EVIDENCE_PASS_NO_COVERAGE_CLOSURE",
+        "source_acquired": true,
+        "scorer_ready": true,
+        "strict_evidence_pack_present": true,
         "coverage_closed": false,
         "coverage_closure_allowed": false,
         "broad_modern_science_superiority_allowed": false,
-        "missing_predicate_count": 8,
+        "missing_predicate_count": 1,
         "missing_predicates": [
-          "OFFICIAL_SOURCE_SNAPSHOT_HASH_BOUND",
-          "TARGET_HIDDEN_SCORER_READY",
-          "COMPARATOR_RESULT_BOUND",
-          "NEGATIVE_CONTROL_REJECTED",
-          "INDEPENDENT_REPLAY_BOUND",
-          "STRICT_EVIDENCE_PACK_BOUND",
-          "STRICT_SCIENTIFIC_PREDICATES_PASS",
           "COVERAGE_REVIEWED_OR_CLOSED"
         ],
-        "domain_local_evidence_priority_rank": 50,
-        "source_snapshot_refs": [],
-        "strict_evidence_pack_refs": [],
+        "domain_local_evidence_priority_rank": 0,
+        "source_snapshot_refs": [
+          "validation/heldout/grand_science/earth_space/coverage_work_orders/raw/nasa_power_sf_daily_20240101_20240209.json"
+        ],
+        "strict_evidence_pack_refs": [
+          "validation/heldout/grand_science/earth_space/coverage_work_orders/OC133_EARTH_SPACE_NASA_POWER_REMOTE_SENSING_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json"
+        ],
         "replay_command": {
-          "command": "python validation/heldout/grand_science/earth_space/coverage_work_orders/oc133_earth_space_modern_science_coverage_work_orders.py --check",
+          "command": "python validation/heldout/grand_science/earth_space/coverage_work_orders/oc133_earth_space_modern_science_coverage_work_orders.py --score-nasa-power --write",
           "argv": [
             "python",
             "validation/heldout/grand_science/earth_space/coverage_work_orders/oc133_earth_space_modern_science_coverage_work_orders.py",
-            "--check"
+            "--score-nasa-power",
+            "--write"
           ],
           "script_ref": "validation/heldout/grand_science/earth_space/coverage_work_orders/oc133_earth_space_modern_science_coverage_work_orders.py"
         },
-        "replay_evidence_refs": [],
-        "domain_local_replay_ready": false,
+        "replay_evidence_refs": [
+          "validation/heldout/grand_science/earth_space/coverage_work_orders/OC133_EARTH_SPACE_NASA_POWER_REMOTE_SENSING_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
+          "validation/heldout/grand_science/earth_space/coverage_work_orders/raw/nasa_power_sf_daily_20240101_20240209.json"
+        ],
+        "domain_local_replay_ready": true,
         "remaining_blockers": [],
         "closure_policy": "Domain-local artifacts are evidence state only; all coverage lanes remain open until reviewed closure."
       },
@@ -2223,2872 +2232,5 @@
     "all_domain_scientific_closure_allowed": false
   },
   "closure_policy": "No generated work order marks a blocked item closed; closure requires evidence artifacts and re-audit PASS.",
-  "rows": [
-    {
-      "work_order_id": "OC133-ALLDOMAIN-COVERAGE-MS-COV-WO-003",
-      "stable_id": "coverage_gap::formal_mathematics_and_logic::computational_complexity_and_algorithmic_proof::MS-COV-WO-003",
-      "source_work_order_id": "MS-COV-WO-003",
-      "source_dispatch_id": "MS-COV-DISPATCH-019",
-      "source_queue_rank": 19,
-      "mission_id": "OC_CORE_1_3_3_PLATINUM_RELEASE_MISSION",
-      "dispatch_class": "uncovered_phenomenon_class",
-      "blocker_id": "coverage_extends_to_all_of_modern_science",
-      "parent_blocker_id": "modern_science_comparator_superiority",
-      "coverage_gap_id": "MS-COV-GAP-FORMAL_MATHEMATICS_AND_LOGIC-COMPUTATIONAL_COMPLEXITY_AND_ALGORITHMIC_PROOF",
-      "domain_class_id": "formal_mathematics_and_logic",
-      "phenomenon_class_id": "computational_complexity_and_algorithmic_proof",
-      "phenomenon_label": "computational complexity and algorithmic proof",
-      "coverage_lane_route": "FORMAL_ROUTE_PROTOCOL_ONLY",
-      "coverage_priority": "P0",
-      "owner_capability": "Logion Formal Methods / Proof-Route Planning",
-      "title": "Build reviewed modern-science coverage lane for formal_mathematics_and_logic / computational complexity and algorithmic proof",
-      "severity": "CRITICAL",
-      "priority": 1000,
-      "ranking": {
-        "policy": "no-send/safety, blocker severity, gate unblock value, dependency unblock value, stable ID",
-        "no_send_safety_rank": 0,
-        "blocker_severity_rank": 0,
-        "gate_unblock_value": 100,
-        "dependency_unblock_value": 100,
-        "stable_id": "coverage_gap::formal_mathematics_and_logic::computational_complexity_and_algorithmic_proof::MS-COV-WO-003",
-        "domain_local_evidence_priority_rank": 50,
-        "domain_local_missing_predicate_count": 8,
-        "queue_rank": 1
-      },
-      "executor": {
-        "owner_capability": "Logion Formal Methods / Proof-Route Planning",
-        "executor_id": "planning_queue_validation::coverage_lane_dispatcher",
-        "mode": "planning_queue_validation",
-        "profile": null,
-        "entrypoint": "benchmarks/modern_science/coverage_lane_dispatcher.py",
-        "argv": [
-          "python",
-          "benchmarks/modern_science/coverage_lane_dispatcher.py",
-          "--check"
-        ],
-        "command": "python benchmarks/modern_science/coverage_lane_dispatcher.py --check",
-        "closure_policy": "Planning/check execution is not scientific closure; the lane remains open until the evidence pack, comparator, controls, falsifiers, and reviewed coverage predicates pass."
-      },
-      "artifacts": [
-        "comparators/modern_science/OC133_MODERN_SCIENCE_COVERAGE_REGISTER.json",
-        "benchmarks/modern_science/OC133_MODERN_SCIENCE_COVERAGE_WORK_ORDERS.json",
-        "reports/OC_CORE_1_3_3_MODERN_SCIENCE_COVERAGE_LANE_QUEUE.json",
-        "reports/OC_CORE_1_3_3_MODERN_SCIENCE_COVERAGE_LANE_TELEMETRY.json",
-        "benchmarks/modern_science/protocols/",
-        "comparators/modern_science/source_capsules/",
-        "validation/heldout/grand_science/"
-      ],
-      "owned_artifacts": [
-        "comparators/modern_science/OC133_MODERN_SCIENCE_COVERAGE_REGISTER.json",
-        "benchmarks/modern_science/OC133_MODERN_SCIENCE_COVERAGE_WORK_ORDERS.json",
-        "reports/OC_CORE_1_3_3_MODERN_SCIENCE_COVERAGE_LANE_QUEUE.json",
-        "reports/OC_CORE_1_3_3_MODERN_SCIENCE_COVERAGE_LANE_TELEMETRY.json",
-        "benchmarks/modern_science/protocols/",
-        "comparators/modern_science/source_capsules/",
-        "validation/heldout/grand_science/"
-      ],
-      "before_predicates": [
-        "MS-COV-GAP-FORMAL_MATHEMATICS_AND_LOGIC-COMPUTATIONAL_COMPLEXITY_AND_ALGORITHMIC_PROOF current_status == OPEN",
-        "formal_mathematics_and_logic/computational_complexity_and_algorithmic_proof lacks reviewed source-backed benchmark coverage",
-        "domain-local coverage artifact state: source_acquired=false, scorer_ready=false, missing_predicate_count=8"
-      ],
-      "after_predicates": [
-        "source capsule or formal corpus hash is bound",
-        "target-blind/prospective acquisition or formal-equivalent route is reviewed",
-        "incumbent comparator is preregistered",
-        "OC scoring, uncertainty, controls, falsifiers, and clean replay are bound",
-        "coverage register gap may close only after independent review"
-      ],
-      "before_predicate": "MS-COV-GAP-FORMAL_MATHEMATICS_AND_LOGIC-COMPUTATIONAL_COMPLEXITY_AND_ALGORITHMIC_PROOF is OPEN and no reviewed source-backed lane covers formal_mathematics_and_logic/computational_complexity_and_algorithmic_proof",
-      "after_predicate": "all lane acceptance predicates pass under review; broad superiority remains blocked until all lanes pass",
-      "verification_commands": [
-        "python benchmarks/modern_science/coverage_lane_dispatcher.py --check",
-        "python tools/oc133_modern_science_comparator_factory.py --check",
-        "python tools/oc133_logion_all_domain_readiness.py --write --allow-blocked-exit-zero"
-      ],
-      "verification_command": "python benchmarks/modern_science/coverage_lane_dispatcher.py --check && python tools/oc133_modern_science_comparator_factory.py --check && python tools/oc133_logion_all_domain_readiness.py --write --allow-blocked-exit-zero",
-      "resource_estimate": {
-        "planning_points": 5,
-        "minimum_evidence_pack_n": "formal-equivalent review only; no empirical n asserted",
-        "expected_worker_roles": [
-          "formal methods owner",
-          "protocol reviewer",
-          "release-scope reviewer"
-        ]
-      },
-      "closure_evidence_type": "formal_route_coverage_protocol_review",
-      "closure_evidence_required": [
-        "FORMAL_ROUTE_PROTOCOL_ONLY_DECLARED",
-        "FORMAL_SOURCE_CAPSULE_HASH_BOUND",
-        "PROOF_CORPUS_HASH_BOUND",
-        "NO_EMPIRICAL_PROTOCOL_OR_PREDICTION_SUPPORT_ASSERTED",
-        "CLAIM_TEXT_EXCLUDES_THEOREM_PROVER_OR_FORMAL_MATH_SUPERIORITY",
-        "COVERAGE_REGISTER_GAP_REMAINS_OPEN_UNTIL_REVIEW",
-        "NO_BROAD_SUPERIORITY_CERTIFICATION",
-        "reviewed coverage register update",
-        "no broad superiority certification from this single lane"
-      ],
-      "required_data_lanes": [
-        {
-          "lane_role": "formal_source_capsule",
-          "requirement": "Bind a proof-system or formal-corpus source capsule with stable artifact hashes."
-        },
-        {
-          "lane_role": "formal_protocol_stub",
-          "requirement": "Declare theorem/proof reconstruction obligations without empirical target acquisition or prediction support."
-        },
-        {
-          "lane_role": "scope_boundary",
-          "requirement": "Assert protocol-only handling and block theorem-prover/formal-mathematics superiority wording."
-        }
-      ],
-      "required_proof_lanes": [
-        "formal route review showing why no empirical protocol is being asserted",
-        "proof-corpus hash binding and replay command declared",
-        "scope text blocks empirical, theorem-prover, and broad modern-science superiority claims",
-        "coverage register remains open until a reviewed formal-equivalent closure predicate exists"
-      ],
-      "dependencies": [
-        {
-          "dependency_id": "formal_source_capsule_lock",
-          "required_before": "formal_protocol_stub",
-          "state": "OPEN"
-        },
-        {
-          "dependency_id": "proof_corpus_hash_binding",
-          "required_before": "formal_acceptance_review",
-          "state": "OPEN"
-        },
-        {
-          "dependency_id": "scope_text_blocks_empirical_superiority",
-          "required_before": "coverage_review",
-          "state": "OPEN"
-        }
-      ],
-      "dependency_ids": [
-        "formal_source_capsule_lock",
-        "proof_corpus_hash_binding",
-        "scope_text_blocks_empirical_superiority"
-      ],
-      "dependency_blocker_ids": [
-        "modern_science_comparator_superiority"
-      ],
-      "domain_local_coverage_evidence": {
-        "stable_id": "domain_local_coverage::formal_mathematics_and_logic::computational_complexity_and_algorithmic_proof::MS-COV-WO-003",
-        "artifact_ref": "validation/heldout/grand_science/formal_mathematics/coverage_work_orders/OC133_FORMAL_MATHEMATICS_MODERN_SCIENCE_COVERAGE_WORK_ORDERS.json",
-        "work_order_id": "MS-COV-WO-003",
-        "coverage_gap_id": "MS-COV-GAP-FORMAL_MATHEMATICS_AND_LOGIC-COMPUTATIONAL_COMPLEXITY_AND_ALGORITHMIC_PROOF",
-        "domain_class_id": "formal_mathematics_and_logic",
-        "phenomenon_class_id": "computational_complexity_and_algorithmic_proof",
-        "phenomenon_label": "computational complexity and algorithmic proof",
-        "lane_status": "FAIL_CLOSED_PENDING_COMPLEXITY_ALGORITHMIC_FORMAL_CORPUS_AND_REPLAY",
-        "source_acquired": false,
-        "scorer_ready": false,
-        "strict_evidence_pack_present": false,
-        "coverage_closed": false,
-        "coverage_closure_allowed": false,
-        "broad_modern_science_superiority_allowed": false,
-        "missing_predicate_count": 8,
-        "missing_predicates": [
-          "OFFICIAL_SOURCE_SNAPSHOT_HASH_BOUND",
-          "TARGET_HIDDEN_SCORER_READY",
-          "COMPARATOR_RESULT_BOUND",
-          "NEGATIVE_CONTROL_REJECTED",
-          "INDEPENDENT_REPLAY_BOUND",
-          "STRICT_EVIDENCE_PACK_BOUND",
-          "STRICT_SCIENTIFIC_PREDICATES_PASS",
-          "COVERAGE_REVIEWED_OR_CLOSED"
-        ],
-        "domain_local_evidence_priority_rank": 50,
-        "source_snapshot_refs": [],
-        "strict_evidence_pack_refs": [],
-        "replay_command": null,
-        "replay_evidence_refs": [],
-        "domain_local_replay_ready": false,
-        "remaining_blockers": [],
-        "closure_policy": "Domain-local artifacts are evidence state only; all coverage lanes remain open until reviewed closure."
-      },
-      "closure_control": {
-        "current_status": "OPEN",
-        "mark_closed_allowed_in_this_dispatch": false,
-        "blocked_item_closed": false,
-        "requires_reaudit_pass": true,
-        "domain_local_artifact_exists_is_not_closure": true,
-        "domain_local_coverage_closed": false
-      },
-      "implementation_policy": "Create evidence only through capability-owned lane work; this dispatch row does not close coverage.",
-      "no_send_locks": {
-        "no_send": true,
-        "public_release_action_allowed": false,
-        "publish_allowed": false,
-        "push_allowed": false,
-        "registry_write_allowed": false,
-        "journal_submission_allowed": false,
-        "email_allowed": false,
-        "coverage_closure_allowed": false,
-        "broad_modern_science_superiority_allowed": false,
-        "all_domain_scientific_closure_allowed": false
-      },
-      "no_send": true,
-      "publish_allowed": false,
-      "journal_submissions_allowed": false,
-      "queue_rank": 1,
-      "open_dependency_blocker_ids": [
-        "modern_science_comparator_superiority"
-      ],
-      "blocked_by_open_dependency_total": 1
-    },
-    {
-      "work_order_id": "OC133-ALLDOMAIN-COVERAGE-MS-COV-WO-001",
-      "stable_id": "coverage_gap::formal_mathematics_and_logic::formal_theorem_reconstruction::MS-COV-WO-001",
-      "source_work_order_id": "MS-COV-WO-001",
-      "source_dispatch_id": "MS-COV-DISPATCH-020",
-      "source_queue_rank": 20,
-      "mission_id": "OC_CORE_1_3_3_PLATINUM_RELEASE_MISSION",
-      "dispatch_class": "uncovered_phenomenon_class",
-      "blocker_id": "coverage_extends_to_all_of_modern_science",
-      "parent_blocker_id": "modern_science_comparator_superiority",
-      "coverage_gap_id": "MS-COV-GAP-FORMAL_MATHEMATICS_AND_LOGIC-FORMAL_THEOREM_RECONSTRUCTION",
-      "domain_class_id": "formal_mathematics_and_logic",
-      "phenomenon_class_id": "formal_theorem_reconstruction",
-      "phenomenon_label": "formal theorem reconstruction",
-      "coverage_lane_route": "FORMAL_ROUTE_PROTOCOL_ONLY",
-      "coverage_priority": "P0",
-      "owner_capability": "Logion Formal Methods / Proof-Route Planning",
-      "title": "Build reviewed modern-science coverage lane for formal_mathematics_and_logic / formal theorem reconstruction",
-      "severity": "CRITICAL",
-      "priority": 1000,
-      "ranking": {
-        "policy": "no-send/safety, blocker severity, gate unblock value, dependency unblock value, stable ID",
-        "no_send_safety_rank": 0,
-        "blocker_severity_rank": 0,
-        "gate_unblock_value": 100,
-        "dependency_unblock_value": 100,
-        "stable_id": "coverage_gap::formal_mathematics_and_logic::formal_theorem_reconstruction::MS-COV-WO-001",
-        "domain_local_evidence_priority_rank": 50,
-        "domain_local_missing_predicate_count": 8,
-        "queue_rank": 2
-      },
-      "executor": {
-        "owner_capability": "Logion Formal Methods / Proof-Route Planning",
-        "executor_id": "planning_queue_validation::coverage_lane_dispatcher",
-        "mode": "planning_queue_validation",
-        "profile": null,
-        "entrypoint": "benchmarks/modern_science/coverage_lane_dispatcher.py",
-        "argv": [
-          "python",
-          "benchmarks/modern_science/coverage_lane_dispatcher.py",
-          "--check"
-        ],
-        "command": "python benchmarks/modern_science/coverage_lane_dispatcher.py --check",
-        "closure_policy": "Planning/check execution is not scientific closure; the lane remains open until the evidence pack, comparator, controls, falsifiers, and reviewed coverage predicates pass."
-      },
-      "artifacts": [
-        "comparators/modern_science/OC133_MODERN_SCIENCE_COVERAGE_REGISTER.json",
-        "benchmarks/modern_science/OC133_MODERN_SCIENCE_COVERAGE_WORK_ORDERS.json",
-        "reports/OC_CORE_1_3_3_MODERN_SCIENCE_COVERAGE_LANE_QUEUE.json",
-        "reports/OC_CORE_1_3_3_MODERN_SCIENCE_COVERAGE_LANE_TELEMETRY.json",
-        "benchmarks/modern_science/protocols/",
-        "comparators/modern_science/source_capsules/",
-        "validation/heldout/grand_science/"
-      ],
-      "owned_artifacts": [
-        "comparators/modern_science/OC133_MODERN_SCIENCE_COVERAGE_REGISTER.json",
-        "benchmarks/modern_science/OC133_MODERN_SCIENCE_COVERAGE_WORK_ORDERS.json",
-        "reports/OC_CORE_1_3_3_MODERN_SCIENCE_COVERAGE_LANE_QUEUE.json",
-        "reports/OC_CORE_1_3_3_MODERN_SCIENCE_COVERAGE_LANE_TELEMETRY.json",
-        "benchmarks/modern_science/protocols/",
-        "comparators/modern_science/source_capsules/",
-        "validation/heldout/grand_science/"
-      ],
-      "before_predicates": [
-        "MS-COV-GAP-FORMAL_MATHEMATICS_AND_LOGIC-FORMAL_THEOREM_RECONSTRUCTION current_status == OPEN",
-        "formal_mathematics_and_logic/formal_theorem_reconstruction lacks reviewed source-backed benchmark coverage",
-        "domain-local coverage artifact state: source_acquired=false, scorer_ready=false, missing_predicate_count=8"
-      ],
-      "after_predicates": [
-        "source capsule or formal corpus hash is bound",
-        "target-blind/prospective acquisition or formal-equivalent route is reviewed",
-        "incumbent comparator is preregistered",
-        "OC scoring, uncertainty, controls, falsifiers, and clean replay are bound",
-        "coverage register gap may close only after independent review"
-      ],
-      "before_predicate": "MS-COV-GAP-FORMAL_MATHEMATICS_AND_LOGIC-FORMAL_THEOREM_RECONSTRUCTION is OPEN and no reviewed source-backed lane covers formal_mathematics_and_logic/formal_theorem_reconstruction",
-      "after_predicate": "all lane acceptance predicates pass under review; broad superiority remains blocked until all lanes pass",
-      "verification_commands": [
-        "python benchmarks/modern_science/coverage_lane_dispatcher.py --check",
-        "python tools/oc133_modern_science_comparator_factory.py --check",
-        "python tools/oc133_logion_all_domain_readiness.py --write --allow-blocked-exit-zero"
-      ],
-      "verification_command": "python benchmarks/modern_science/coverage_lane_dispatcher.py --check && python tools/oc133_modern_science_comparator_factory.py --check && python tools/oc133_logion_all_domain_readiness.py --write --allow-blocked-exit-zero",
-      "resource_estimate": {
-        "planning_points": 5,
-        "minimum_evidence_pack_n": "formal-equivalent review only; no empirical n asserted",
-        "expected_worker_roles": [
-          "formal methods owner",
-          "protocol reviewer",
-          "release-scope reviewer"
-        ]
-      },
-      "closure_evidence_type": "formal_route_coverage_protocol_review",
-      "closure_evidence_required": [
-        "FORMAL_ROUTE_PROTOCOL_ONLY_DECLARED",
-        "FORMAL_SOURCE_CAPSULE_HASH_BOUND",
-        "PROOF_CORPUS_HASH_BOUND",
-        "NO_EMPIRICAL_PROTOCOL_OR_PREDICTION_SUPPORT_ASSERTED",
-        "CLAIM_TEXT_EXCLUDES_THEOREM_PROVER_OR_FORMAL_MATH_SUPERIORITY",
-        "COVERAGE_REGISTER_GAP_REMAINS_OPEN_UNTIL_REVIEW",
-        "NO_BROAD_SUPERIORITY_CERTIFICATION",
-        "reviewed coverage register update",
-        "no broad superiority certification from this single lane"
-      ],
-      "required_data_lanes": [
-        {
-          "lane_role": "formal_source_capsule",
-          "requirement": "Bind a proof-system or formal-corpus source capsule with stable artifact hashes."
-        },
-        {
-          "lane_role": "formal_protocol_stub",
-          "requirement": "Declare theorem/proof reconstruction obligations without empirical target acquisition or prediction support."
-        },
-        {
-          "lane_role": "scope_boundary",
-          "requirement": "Assert protocol-only handling and block theorem-prover/formal-mathematics superiority wording."
-        }
-      ],
-      "required_proof_lanes": [
-        "formal route review showing why no empirical protocol is being asserted",
-        "proof-corpus hash binding and replay command declared",
-        "scope text blocks empirical, theorem-prover, and broad modern-science superiority claims",
-        "coverage register remains open until a reviewed formal-equivalent closure predicate exists"
-      ],
-      "dependencies": [
-        {
-          "dependency_id": "formal_source_capsule_lock",
-          "required_before": "formal_protocol_stub",
-          "state": "OPEN"
-        },
-        {
-          "dependency_id": "proof_corpus_hash_binding",
-          "required_before": "formal_acceptance_review",
-          "state": "OPEN"
-        },
-        {
-          "dependency_id": "scope_text_blocks_empirical_superiority",
-          "required_before": "coverage_review",
-          "state": "OPEN"
-        }
-      ],
-      "dependency_ids": [
-        "formal_source_capsule_lock",
-        "proof_corpus_hash_binding",
-        "scope_text_blocks_empirical_superiority"
-      ],
-      "dependency_blocker_ids": [
-        "modern_science_comparator_superiority"
-      ],
-      "domain_local_coverage_evidence": {
-        "stable_id": "domain_local_coverage::formal_mathematics_and_logic::formal_theorem_reconstruction::MS-COV-WO-001",
-        "artifact_ref": "validation/heldout/grand_science/formal_mathematics/coverage_work_orders/OC133_FORMAL_MATHEMATICS_MODERN_SCIENCE_COVERAGE_WORK_ORDERS.json",
-        "work_order_id": "MS-COV-WO-001",
-        "coverage_gap_id": "MS-COV-GAP-FORMAL_MATHEMATICS_AND_LOGIC-FORMAL_THEOREM_RECONSTRUCTION",
-        "domain_class_id": "formal_mathematics_and_logic",
-        "phenomenon_class_id": "formal_theorem_reconstruction",
-        "phenomenon_label": "formal theorem reconstruction",
-        "lane_status": "FAIL_CLOSED_EXISTING_FORMAL_ARTIFACTS_REPLAY_OR_COVERAGE_REVIEW_PENDING",
-        "source_acquired": false,
-        "scorer_ready": false,
-        "strict_evidence_pack_present": false,
-        "coverage_closed": false,
-        "coverage_closure_allowed": false,
-        "broad_modern_science_superiority_allowed": false,
-        "missing_predicate_count": 8,
-        "missing_predicates": [
-          "OFFICIAL_SOURCE_SNAPSHOT_HASH_BOUND",
-          "TARGET_HIDDEN_SCORER_READY",
-          "COMPARATOR_RESULT_BOUND",
-          "NEGATIVE_CONTROL_REJECTED",
-          "INDEPENDENT_REPLAY_BOUND",
-          "STRICT_EVIDENCE_PACK_BOUND",
-          "STRICT_SCIENTIFIC_PREDICATES_PASS",
-          "COVERAGE_REVIEWED_OR_CLOSED"
-        ],
-        "domain_local_evidence_priority_rank": 50,
-        "source_snapshot_refs": [],
-        "strict_evidence_pack_refs": [],
-        "replay_command": null,
-        "replay_evidence_refs": [],
-        "domain_local_replay_ready": false,
-        "remaining_blockers": [],
-        "closure_policy": "Domain-local artifacts are evidence state only; all coverage lanes remain open until reviewed closure."
-      },
-      "closure_control": {
-        "current_status": "OPEN",
-        "mark_closed_allowed_in_this_dispatch": false,
-        "blocked_item_closed": false,
-        "requires_reaudit_pass": true,
-        "domain_local_artifact_exists_is_not_closure": true,
-        "domain_local_coverage_closed": false
-      },
-      "implementation_policy": "Create evidence only through capability-owned lane work; this dispatch row does not close coverage.",
-      "no_send_locks": {
-        "no_send": true,
-        "public_release_action_allowed": false,
-        "publish_allowed": false,
-        "push_allowed": false,
-        "registry_write_allowed": false,
-        "journal_submission_allowed": false,
-        "email_allowed": false,
-        "coverage_closure_allowed": false,
-        "broad_modern_science_superiority_allowed": false,
-        "all_domain_scientific_closure_allowed": false
-      },
-      "no_send": true,
-      "publish_allowed": false,
-      "journal_submissions_allowed": false,
-      "queue_rank": 2,
-      "open_dependency_blocker_ids": [
-        "modern_science_comparator_superiority"
-      ],
-      "blocked_by_open_dependency_total": 1
-    },
-    {
-      "work_order_id": "OC133-ALLDOMAIN-COVERAGE-MS-COV-WO-002",
-      "stable_id": "coverage_gap::formal_mathematics_and_logic::statistical_inference_identifiability::MS-COV-WO-002",
-      "source_work_order_id": "MS-COV-WO-002",
-      "source_dispatch_id": "MS-COV-DISPATCH-021",
-      "source_queue_rank": 21,
-      "mission_id": "OC_CORE_1_3_3_PLATINUM_RELEASE_MISSION",
-      "dispatch_class": "uncovered_phenomenon_class",
-      "blocker_id": "coverage_extends_to_all_of_modern_science",
-      "parent_blocker_id": "modern_science_comparator_superiority",
-      "coverage_gap_id": "MS-COV-GAP-FORMAL_MATHEMATICS_AND_LOGIC-STATISTICAL_INFERENCE_IDENTIFIABILITY",
-      "domain_class_id": "formal_mathematics_and_logic",
-      "phenomenon_class_id": "statistical_inference_identifiability",
-      "phenomenon_label": "statistical inference identifiability",
-      "coverage_lane_route": "FORMAL_ROUTE_PROTOCOL_ONLY",
-      "coverage_priority": "P0",
-      "owner_capability": "Logion Formal Methods / Proof-Route Planning",
-      "title": "Build reviewed modern-science coverage lane for formal_mathematics_and_logic / statistical inference identifiability",
-      "severity": "CRITICAL",
-      "priority": 1000,
-      "ranking": {
-        "policy": "no-send/safety, blocker severity, gate unblock value, dependency unblock value, stable ID",
-        "no_send_safety_rank": 0,
-        "blocker_severity_rank": 0,
-        "gate_unblock_value": 100,
-        "dependency_unblock_value": 100,
-        "stable_id": "coverage_gap::formal_mathematics_and_logic::statistical_inference_identifiability::MS-COV-WO-002",
-        "domain_local_evidence_priority_rank": 50,
-        "domain_local_missing_predicate_count": 8,
-        "queue_rank": 3
-      },
-      "executor": {
-        "owner_capability": "Logion Formal Methods / Proof-Route Planning",
-        "executor_id": "planning_queue_validation::coverage_lane_dispatcher",
-        "mode": "planning_queue_validation",
-        "profile": null,
-        "entrypoint": "benchmarks/modern_science/coverage_lane_dispatcher.py",
-        "argv": [
-          "python",
-          "benchmarks/modern_science/coverage_lane_dispatcher.py",
-          "--check"
-        ],
-        "command": "python benchmarks/modern_science/coverage_lane_dispatcher.py --check",
-        "closure_policy": "Planning/check execution is not scientific closure; the lane remains open until the evidence pack, comparator, controls, falsifiers, and reviewed coverage predicates pass."
-      },
-      "artifacts": [
-        "comparators/modern_science/OC133_MODERN_SCIENCE_COVERAGE_REGISTER.json",
-        "benchmarks/modern_science/OC133_MODERN_SCIENCE_COVERAGE_WORK_ORDERS.json",
-        "reports/OC_CORE_1_3_3_MODERN_SCIENCE_COVERAGE_LANE_QUEUE.json",
-        "reports/OC_CORE_1_3_3_MODERN_SCIENCE_COVERAGE_LANE_TELEMETRY.json",
-        "benchmarks/modern_science/protocols/",
-        "comparators/modern_science/source_capsules/",
-        "validation/heldout/grand_science/"
-      ],
-      "owned_artifacts": [
-        "comparators/modern_science/OC133_MODERN_SCIENCE_COVERAGE_REGISTER.json",
-        "benchmarks/modern_science/OC133_MODERN_SCIENCE_COVERAGE_WORK_ORDERS.json",
-        "reports/OC_CORE_1_3_3_MODERN_SCIENCE_COVERAGE_LANE_QUEUE.json",
-        "reports/OC_CORE_1_3_3_MODERN_SCIENCE_COVERAGE_LANE_TELEMETRY.json",
-        "benchmarks/modern_science/protocols/",
-        "comparators/modern_science/source_capsules/",
-        "validation/heldout/grand_science/"
-      ],
-      "before_predicates": [
-        "MS-COV-GAP-FORMAL_MATHEMATICS_AND_LOGIC-STATISTICAL_INFERENCE_IDENTIFIABILITY current_status == OPEN",
-        "formal_mathematics_and_logic/statistical_inference_identifiability lacks reviewed source-backed benchmark coverage",
-        "domain-local coverage artifact state: source_acquired=false, scorer_ready=false, missing_predicate_count=8"
-      ],
-      "after_predicates": [
-        "source capsule or formal corpus hash is bound",
-        "target-blind/prospective acquisition or formal-equivalent route is reviewed",
-        "incumbent comparator is preregistered",
-        "OC scoring, uncertainty, controls, falsifiers, and clean replay are bound",
-        "coverage register gap may close only after independent review"
-      ],
-      "before_predicate": "MS-COV-GAP-FORMAL_MATHEMATICS_AND_LOGIC-STATISTICAL_INFERENCE_IDENTIFIABILITY is OPEN and no reviewed source-backed lane covers formal_mathematics_and_logic/statistical_inference_identifiability",
-      "after_predicate": "all lane acceptance predicates pass under review; broad superiority remains blocked until all lanes pass",
-      "verification_commands": [
-        "python benchmarks/modern_science/coverage_lane_dispatcher.py --check",
-        "python tools/oc133_modern_science_comparator_factory.py --check",
-        "python tools/oc133_logion_all_domain_readiness.py --write --allow-blocked-exit-zero"
-      ],
-      "verification_command": "python benchmarks/modern_science/coverage_lane_dispatcher.py --check && python tools/oc133_modern_science_comparator_factory.py --check && python tools/oc133_logion_all_domain_readiness.py --write --allow-blocked-exit-zero",
-      "resource_estimate": {
-        "planning_points": 5,
-        "minimum_evidence_pack_n": "formal-equivalent review only; no empirical n asserted",
-        "expected_worker_roles": [
-          "formal methods owner",
-          "protocol reviewer",
-          "release-scope reviewer"
-        ]
-      },
-      "closure_evidence_type": "formal_route_coverage_protocol_review",
-      "closure_evidence_required": [
-        "FORMAL_ROUTE_PROTOCOL_ONLY_DECLARED",
-        "FORMAL_SOURCE_CAPSULE_HASH_BOUND",
-        "PROOF_CORPUS_HASH_BOUND",
-        "NO_EMPIRICAL_PROTOCOL_OR_PREDICTION_SUPPORT_ASSERTED",
-        "CLAIM_TEXT_EXCLUDES_THEOREM_PROVER_OR_FORMAL_MATH_SUPERIORITY",
-        "COVERAGE_REGISTER_GAP_REMAINS_OPEN_UNTIL_REVIEW",
-        "NO_BROAD_SUPERIORITY_CERTIFICATION",
-        "reviewed coverage register update",
-        "no broad superiority certification from this single lane"
-      ],
-      "required_data_lanes": [
-        {
-          "lane_role": "formal_source_capsule",
-          "requirement": "Bind a proof-system or formal-corpus source capsule with stable artifact hashes."
-        },
-        {
-          "lane_role": "formal_protocol_stub",
-          "requirement": "Declare theorem/proof reconstruction obligations without empirical target acquisition or prediction support."
-        },
-        {
-          "lane_role": "scope_boundary",
-          "requirement": "Assert protocol-only handling and block theorem-prover/formal-mathematics superiority wording."
-        }
-      ],
-      "required_proof_lanes": [
-        "formal route review showing why no empirical protocol is being asserted",
-        "proof-corpus hash binding and replay command declared",
-        "scope text blocks empirical, theorem-prover, and broad modern-science superiority claims",
-        "coverage register remains open until a reviewed formal-equivalent closure predicate exists"
-      ],
-      "dependencies": [
-        {
-          "dependency_id": "formal_source_capsule_lock",
-          "required_before": "formal_protocol_stub",
-          "state": "OPEN"
-        },
-        {
-          "dependency_id": "proof_corpus_hash_binding",
-          "required_before": "formal_acceptance_review",
-          "state": "OPEN"
-        },
-        {
-          "dependency_id": "scope_text_blocks_empirical_superiority",
-          "required_before": "coverage_review",
-          "state": "OPEN"
-        }
-      ],
-      "dependency_ids": [
-        "formal_source_capsule_lock",
-        "proof_corpus_hash_binding",
-        "scope_text_blocks_empirical_superiority"
-      ],
-      "dependency_blocker_ids": [
-        "modern_science_comparator_superiority"
-      ],
-      "domain_local_coverage_evidence": {
-        "stable_id": "domain_local_coverage::formal_mathematics_and_logic::statistical_inference_identifiability::MS-COV-WO-002",
-        "artifact_ref": "validation/heldout/grand_science/formal_mathematics/coverage_work_orders/OC133_FORMAL_MATHEMATICS_MODERN_SCIENCE_COVERAGE_WORK_ORDERS.json",
-        "work_order_id": "MS-COV-WO-002",
-        "coverage_gap_id": "MS-COV-GAP-FORMAL_MATHEMATICS_AND_LOGIC-STATISTICAL_INFERENCE_IDENTIFIABILITY",
-        "domain_class_id": "formal_mathematics_and_logic",
-        "phenomenon_class_id": "statistical_inference_identifiability",
-        "phenomenon_label": "statistical/probabilistic inference identifiability",
-        "lane_status": "FAIL_CLOSED_PENDING_STATISTICAL_PROBABILISTIC_FORMAL_CORPUS_AND_REPLAY",
-        "source_acquired": false,
-        "scorer_ready": false,
-        "strict_evidence_pack_present": false,
-        "coverage_closed": false,
-        "coverage_closure_allowed": false,
-        "broad_modern_science_superiority_allowed": false,
-        "missing_predicate_count": 8,
-        "missing_predicates": [
-          "OFFICIAL_SOURCE_SNAPSHOT_HASH_BOUND",
-          "TARGET_HIDDEN_SCORER_READY",
-          "COMPARATOR_RESULT_BOUND",
-          "NEGATIVE_CONTROL_REJECTED",
-          "INDEPENDENT_REPLAY_BOUND",
-          "STRICT_EVIDENCE_PACK_BOUND",
-          "STRICT_SCIENTIFIC_PREDICATES_PASS",
-          "COVERAGE_REVIEWED_OR_CLOSED"
-        ],
-        "domain_local_evidence_priority_rank": 50,
-        "source_snapshot_refs": [],
-        "strict_evidence_pack_refs": [],
-        "replay_command": null,
-        "replay_evidence_refs": [],
-        "domain_local_replay_ready": false,
-        "remaining_blockers": [],
-        "closure_policy": "Domain-local artifacts are evidence state only; all coverage lanes remain open until reviewed closure."
-      },
-      "closure_control": {
-        "current_status": "OPEN",
-        "mark_closed_allowed_in_this_dispatch": false,
-        "blocked_item_closed": false,
-        "requires_reaudit_pass": true,
-        "domain_local_artifact_exists_is_not_closure": true,
-        "domain_local_coverage_closed": false
-      },
-      "implementation_policy": "Create evidence only through capability-owned lane work; this dispatch row does not close coverage.",
-      "no_send_locks": {
-        "no_send": true,
-        "public_release_action_allowed": false,
-        "publish_allowed": false,
-        "push_allowed": false,
-        "registry_write_allowed": false,
-        "journal_submission_allowed": false,
-        "email_allowed": false,
-        "coverage_closure_allowed": false,
-        "broad_modern_science_superiority_allowed": false,
-        "all_domain_scientific_closure_allowed": false
-      },
-      "no_send": true,
-      "publish_allowed": false,
-      "journal_submissions_allowed": false,
-      "queue_rank": 3,
-      "open_dependency_blocker_ids": [
-        "modern_science_comparator_superiority"
-      ],
-      "blocked_by_open_dependency_total": 1
-    },
-    {
-      "work_order_id": "OC133-ALLDOMAIN-COVERAGE-MS-COV-WO-016",
-      "stable_id": "coverage_gap::medical_health_sciences::clinical_outcomes_and_biomarkers::MS-COV-WO-016",
-      "source_work_order_id": "MS-COV-WO-016",
-      "source_dispatch_id": "MS-COV-DISPATCH-022",
-      "source_queue_rank": 22,
-      "mission_id": "OC_CORE_1_3_3_PLATINUM_RELEASE_MISSION",
-      "dispatch_class": "uncovered_phenomenon_class",
-      "blocker_id": "coverage_extends_to_all_of_modern_science",
-      "parent_blocker_id": "modern_science_comparator_superiority",
-      "coverage_gap_id": "MS-COV-GAP-MEDICAL_HEALTH_SCIENCES-CLINICAL_OUTCOMES_AND_BIOMARKERS",
-      "domain_class_id": "medical_health_sciences",
-      "phenomenon_class_id": "clinical_outcomes_and_biomarkers",
-      "phenomenon_label": "clinical outcomes and biomarkers",
-      "coverage_lane_route": "EMPIRICAL_SOURCE_BACKED_BENCHMARK",
-      "coverage_priority": "P0",
-      "owner_capability": "Logion Health Evidence / Regulated Clinical and Epidemiology Sources",
-      "title": "Build reviewed modern-science coverage lane for medical_health_sciences / clinical outcomes and biomarkers",
-      "severity": "CRITICAL",
-      "priority": 1000,
-      "ranking": {
-        "policy": "no-send/safety, blocker severity, gate unblock value, dependency unblock value, stable ID",
-        "no_send_safety_rank": 0,
-        "blocker_severity_rank": 0,
-        "gate_unblock_value": 100,
-        "dependency_unblock_value": 100,
-        "stable_id": "coverage_gap::medical_health_sciences::clinical_outcomes_and_biomarkers::MS-COV-WO-016",
-        "domain_local_evidence_priority_rank": 50,
-        "domain_local_missing_predicate_count": 999,
-        "queue_rank": 4
-      },
-      "executor": {
-        "owner_capability": "Logion Health Evidence / Regulated Clinical and Epidemiology Sources",
-        "executor_id": "planning_queue_validation::coverage_lane_dispatcher",
-        "mode": "planning_queue_validation",
-        "profile": null,
-        "entrypoint": "benchmarks/modern_science/coverage_lane_dispatcher.py",
-        "argv": [
-          "python",
-          "benchmarks/modern_science/coverage_lane_dispatcher.py",
-          "--check"
-        ],
-        "command": "python benchmarks/modern_science/coverage_lane_dispatcher.py --check",
-        "closure_policy": "Planning/check execution is not scientific closure; the lane remains open until the evidence pack, comparator, controls, falsifiers, and reviewed coverage predicates pass."
-      },
-      "artifacts": [
-        "comparators/modern_science/OC133_MODERN_SCIENCE_COVERAGE_REGISTER.json",
-        "benchmarks/modern_science/OC133_MODERN_SCIENCE_COVERAGE_WORK_ORDERS.json",
-        "reports/OC_CORE_1_3_3_MODERN_SCIENCE_COVERAGE_LANE_QUEUE.json",
-        "reports/OC_CORE_1_3_3_MODERN_SCIENCE_COVERAGE_LANE_TELEMETRY.json",
-        "benchmarks/modern_science/protocols/",
-        "comparators/modern_science/source_capsules/",
-        "validation/heldout/grand_science/"
-      ],
-      "owned_artifacts": [
-        "comparators/modern_science/OC133_MODERN_SCIENCE_COVERAGE_REGISTER.json",
-        "benchmarks/modern_science/OC133_MODERN_SCIENCE_COVERAGE_WORK_ORDERS.json",
-        "reports/OC_CORE_1_3_3_MODERN_SCIENCE_COVERAGE_LANE_QUEUE.json",
-        "reports/OC_CORE_1_3_3_MODERN_SCIENCE_COVERAGE_LANE_TELEMETRY.json",
-        "benchmarks/modern_science/protocols/",
-        "comparators/modern_science/source_capsules/",
-        "validation/heldout/grand_science/"
-      ],
-      "before_predicates": [
-        "MS-COV-GAP-MEDICAL_HEALTH_SCIENCES-CLINICAL_OUTCOMES_AND_BIOMARKERS current_status == OPEN",
-        "medical_health_sciences/clinical_outcomes_and_biomarkers lacks reviewed source-backed benchmark coverage"
-      ],
-      "after_predicates": [
-        "source capsule or formal corpus hash is bound",
-        "target-blind/prospective acquisition or formal-equivalent route is reviewed",
-        "incumbent comparator is preregistered",
-        "OC scoring, uncertainty, controls, falsifiers, and clean replay are bound",
-        "coverage register gap may close only after independent review"
-      ],
-      "before_predicate": "MS-COV-GAP-MEDICAL_HEALTH_SCIENCES-CLINICAL_OUTCOMES_AND_BIOMARKERS is OPEN and no reviewed source-backed lane covers medical_health_sciences/clinical_outcomes_and_biomarkers",
-      "after_predicate": "all lane acceptance predicates pass under review; broad superiority remains blocked until all lanes pass",
-      "verification_commands": [
-        "python benchmarks/modern_science/coverage_lane_dispatcher.py --check",
-        "python tools/oc133_modern_science_comparator_factory.py --check",
-        "python tools/oc133_logion_all_domain_readiness.py --write --allow-blocked-exit-zero"
-      ],
-      "verification_command": "python benchmarks/modern_science/coverage_lane_dispatcher.py --check && python tools/oc133_modern_science_comparator_factory.py --check && python tools/oc133_logion_all_domain_readiness.py --write --allow-blocked-exit-zero",
-      "resource_estimate": {
-        "planning_points": 8,
-        "minimum_evidence_pack_n": 20,
-        "expected_worker_roles": [
-          "source acquisition owner",
-          "comparator owner",
-          "scoring owner",
-          "replay reviewer"
-        ]
-      },
-      "closure_evidence_type": "source_backed_benchmark_coverage_evidence_pack",
-      "closure_evidence_required": [
-        "STRICT_PACK_SCHEMA_PASS",
-        "MINIMUM_N_GE_20_OR_FORMAL_EQUIVALENT_JUSTIFIED",
-        "SOURCE_SEPARATION_PASS",
-        "COMPARATOR_PREREGISTERED",
-        "RESIDUAL_SUPERIORITY_POSITIVE",
-        "UNCERTAINTY_DECLARED",
-        "NEGATIVE_CONTROLS_REJECTED",
-        "FALSIFIERS_DECLARED",
-        "COVERAGE_REGISTER_GAP_CLOSED",
-        "NO_BROAD_SUPERIORITY_CERTIFICATION",
-        "reviewed coverage register update",
-        "no broad superiority certification from this single lane"
-      ],
-      "required_data_lanes": [
-        {
-          "lane_role": "source_capsule",
-          "requirement": "Add authoritative source capsule(s) or an internally declared formal target corpus with stable hashes."
-        },
-        {
-          "lane_role": "target_acquisition",
-          "requirement": "Acquire target-blind or prospective targets with pre-target lock and target-hidden-until-scoring attestation."
-        },
-        {
-          "lane_role": "incumbent_comparator",
-          "requirement": "Declare preregistered modern-science comparator baselines and score them on the same held-out targets."
-        },
-        {
-          "lane_role": "oc_scoring",
-          "requirement": "Score OC predictions with residuals, uncertainty interval, materiality threshold, and pack hash binding."
-        }
-      ],
-      "required_proof_lanes": [
-        "domain-scope survey explaining why the lane is representative of the phenomenon class",
-        "negative controls rejected",
-        "falsifiers declared and executable",
-        "independent clean-checkout replay bound to coverage register and report"
-      ],
-      "dependencies": [
-        {
-          "dependency_id": "source_capsule_lock",
-          "required_before": "target_acquisition",
-          "state": "OPEN"
-        },
-        {
-          "dependency_id": "target_blind_or_prospective_lock",
-          "required_before": "incumbent_comparator",
-          "state": "OPEN"
-        },
-        {
-          "dependency_id": "incumbent_comparator_preregistration",
-          "required_before": "oc_scoring",
-          "state": "OPEN"
-        },
-        {
-          "dependency_id": "oc_scoring_with_uncertainty",
-          "required_before": "proof_lane_review",
-          "state": "OPEN"
-        },
-        {
-          "dependency_id": "controls_falsifiers_replay",
-          "required_before": "coverage_review",
-          "state": "OPEN"
-        }
-      ],
-      "dependency_ids": [
-        "source_capsule_lock",
-        "target_blind_or_prospective_lock",
-        "incumbent_comparator_preregistration",
-        "oc_scoring_with_uncertainty",
-        "controls_falsifiers_replay"
-      ],
-      "dependency_blocker_ids": [
-        "modern_science_comparator_superiority"
-      ],
-      "domain_local_coverage_evidence": null,
-      "closure_control": {
-        "current_status": "OPEN",
-        "mark_closed_allowed_in_this_dispatch": false,
-        "blocked_item_closed": false,
-        "requires_reaudit_pass": true
-      },
-      "implementation_policy": "Create evidence only through capability-owned lane work; this dispatch row does not close coverage.",
-      "no_send_locks": {
-        "no_send": true,
-        "public_release_action_allowed": false,
-        "publish_allowed": false,
-        "push_allowed": false,
-        "registry_write_allowed": false,
-        "journal_submission_allowed": false,
-        "email_allowed": false,
-        "coverage_closure_allowed": false,
-        "broad_modern_science_superiority_allowed": false,
-        "all_domain_scientific_closure_allowed": false
-      },
-      "no_send": true,
-      "publish_allowed": false,
-      "journal_submissions_allowed": false,
-      "queue_rank": 4,
-      "open_dependency_blocker_ids": [
-        "modern_science_comparator_superiority"
-      ],
-      "blocked_by_open_dependency_total": 1
-    },
-    {
-      "work_order_id": "OC133-ALLDOMAIN-COVERAGE-MS-COV-WO-017",
-      "stable_id": "coverage_gap::medical_health_sciences::epidemiological_transmission_and_risk::MS-COV-WO-017",
-      "source_work_order_id": "MS-COV-WO-017",
-      "source_dispatch_id": "MS-COV-DISPATCH-023",
-      "source_queue_rank": 23,
-      "mission_id": "OC_CORE_1_3_3_PLATINUM_RELEASE_MISSION",
-      "dispatch_class": "uncovered_phenomenon_class",
-      "blocker_id": "coverage_extends_to_all_of_modern_science",
-      "parent_blocker_id": "modern_science_comparator_superiority",
-      "coverage_gap_id": "MS-COV-GAP-MEDICAL_HEALTH_SCIENCES-EPIDEMIOLOGICAL_TRANSMISSION_AND_RISK",
-      "domain_class_id": "medical_health_sciences",
-      "phenomenon_class_id": "epidemiological_transmission_and_risk",
-      "phenomenon_label": "epidemiological transmission and risk",
-      "coverage_lane_route": "EMPIRICAL_SOURCE_BACKED_BENCHMARK",
-      "coverage_priority": "P0",
-      "owner_capability": "Logion Health Evidence / Regulated Clinical and Epidemiology Sources",
-      "title": "Build reviewed modern-science coverage lane for medical_health_sciences / epidemiological transmission and risk",
-      "severity": "CRITICAL",
-      "priority": 1000,
-      "ranking": {
-        "policy": "no-send/safety, blocker severity, gate unblock value, dependency unblock value, stable ID",
-        "no_send_safety_rank": 0,
-        "blocker_severity_rank": 0,
-        "gate_unblock_value": 100,
-        "dependency_unblock_value": 100,
-        "stable_id": "coverage_gap::medical_health_sciences::epidemiological_transmission_and_risk::MS-COV-WO-017",
-        "domain_local_evidence_priority_rank": 50,
-        "domain_local_missing_predicate_count": 999,
-        "queue_rank": 5
-      },
-      "executor": {
-        "owner_capability": "Logion Health Evidence / Regulated Clinical and Epidemiology Sources",
-        "executor_id": "planning_queue_validation::coverage_lane_dispatcher",
-        "mode": "planning_queue_validation",
-        "profile": null,
-        "entrypoint": "benchmarks/modern_science/coverage_lane_dispatcher.py",
-        "argv": [
-          "python",
-          "benchmarks/modern_science/coverage_lane_dispatcher.py",
-          "--check"
-        ],
-        "command": "python benchmarks/modern_science/coverage_lane_dispatcher.py --check",
-        "closure_policy": "Planning/check execution is not scientific closure; the lane remains open until the evidence pack, comparator, controls, falsifiers, and reviewed coverage predicates pass."
-      },
-      "artifacts": [
-        "comparators/modern_science/OC133_MODERN_SCIENCE_COVERAGE_REGISTER.json",
-        "benchmarks/modern_science/OC133_MODERN_SCIENCE_COVERAGE_WORK_ORDERS.json",
-        "reports/OC_CORE_1_3_3_MODERN_SCIENCE_COVERAGE_LANE_QUEUE.json",
-        "reports/OC_CORE_1_3_3_MODERN_SCIENCE_COVERAGE_LANE_TELEMETRY.json",
-        "benchmarks/modern_science/protocols/",
-        "comparators/modern_science/source_capsules/",
-        "validation/heldout/grand_science/"
-      ],
-      "owned_artifacts": [
-        "comparators/modern_science/OC133_MODERN_SCIENCE_COVERAGE_REGISTER.json",
-        "benchmarks/modern_science/OC133_MODERN_SCIENCE_COVERAGE_WORK_ORDERS.json",
-        "reports/OC_CORE_1_3_3_MODERN_SCIENCE_COVERAGE_LANE_QUEUE.json",
-        "reports/OC_CORE_1_3_3_MODERN_SCIENCE_COVERAGE_LANE_TELEMETRY.json",
-        "benchmarks/modern_science/protocols/",
-        "comparators/modern_science/source_capsules/",
-        "validation/heldout/grand_science/"
-      ],
-      "before_predicates": [
-        "MS-COV-GAP-MEDICAL_HEALTH_SCIENCES-EPIDEMIOLOGICAL_TRANSMISSION_AND_RISK current_status == OPEN",
-        "medical_health_sciences/epidemiological_transmission_and_risk lacks reviewed source-backed benchmark coverage"
-      ],
-      "after_predicates": [
-        "source capsule or formal corpus hash is bound",
-        "target-blind/prospective acquisition or formal-equivalent route is reviewed",
-        "incumbent comparator is preregistered",
-        "OC scoring, uncertainty, controls, falsifiers, and clean replay are bound",
-        "coverage register gap may close only after independent review"
-      ],
-      "before_predicate": "MS-COV-GAP-MEDICAL_HEALTH_SCIENCES-EPIDEMIOLOGICAL_TRANSMISSION_AND_RISK is OPEN and no reviewed source-backed lane covers medical_health_sciences/epidemiological_transmission_and_risk",
-      "after_predicate": "all lane acceptance predicates pass under review; broad superiority remains blocked until all lanes pass",
-      "verification_commands": [
-        "python benchmarks/modern_science/coverage_lane_dispatcher.py --check",
-        "python tools/oc133_modern_science_comparator_factory.py --check",
-        "python tools/oc133_logion_all_domain_readiness.py --write --allow-blocked-exit-zero"
-      ],
-      "verification_command": "python benchmarks/modern_science/coverage_lane_dispatcher.py --check && python tools/oc133_modern_science_comparator_factory.py --check && python tools/oc133_logion_all_domain_readiness.py --write --allow-blocked-exit-zero",
-      "resource_estimate": {
-        "planning_points": 8,
-        "minimum_evidence_pack_n": 20,
-        "expected_worker_roles": [
-          "source acquisition owner",
-          "comparator owner",
-          "scoring owner",
-          "replay reviewer"
-        ]
-      },
-      "closure_evidence_type": "source_backed_benchmark_coverage_evidence_pack",
-      "closure_evidence_required": [
-        "STRICT_PACK_SCHEMA_PASS",
-        "MINIMUM_N_GE_20_OR_FORMAL_EQUIVALENT_JUSTIFIED",
-        "SOURCE_SEPARATION_PASS",
-        "COMPARATOR_PREREGISTERED",
-        "RESIDUAL_SUPERIORITY_POSITIVE",
-        "UNCERTAINTY_DECLARED",
-        "NEGATIVE_CONTROLS_REJECTED",
-        "FALSIFIERS_DECLARED",
-        "COVERAGE_REGISTER_GAP_CLOSED",
-        "NO_BROAD_SUPERIORITY_CERTIFICATION",
-        "reviewed coverage register update",
-        "no broad superiority certification from this single lane"
-      ],
-      "required_data_lanes": [
-        {
-          "lane_role": "source_capsule",
-          "requirement": "Add authoritative source capsule(s) or an internally declared formal target corpus with stable hashes."
-        },
-        {
-          "lane_role": "target_acquisition",
-          "requirement": "Acquire target-blind or prospective targets with pre-target lock and target-hidden-until-scoring attestation."
-        },
-        {
-          "lane_role": "incumbent_comparator",
-          "requirement": "Declare preregistered modern-science comparator baselines and score them on the same held-out targets."
-        },
-        {
-          "lane_role": "oc_scoring",
-          "requirement": "Score OC predictions with residuals, uncertainty interval, materiality threshold, and pack hash binding."
-        }
-      ],
-      "required_proof_lanes": [
-        "domain-scope survey explaining why the lane is representative of the phenomenon class",
-        "negative controls rejected",
-        "falsifiers declared and executable",
-        "independent clean-checkout replay bound to coverage register and report"
-      ],
-      "dependencies": [
-        {
-          "dependency_id": "source_capsule_lock",
-          "required_before": "target_acquisition",
-          "state": "OPEN"
-        },
-        {
-          "dependency_id": "target_blind_or_prospective_lock",
-          "required_before": "incumbent_comparator",
-          "state": "OPEN"
-        },
-        {
-          "dependency_id": "incumbent_comparator_preregistration",
-          "required_before": "oc_scoring",
-          "state": "OPEN"
-        },
-        {
-          "dependency_id": "oc_scoring_with_uncertainty",
-          "required_before": "proof_lane_review",
-          "state": "OPEN"
-        },
-        {
-          "dependency_id": "controls_falsifiers_replay",
-          "required_before": "coverage_review",
-          "state": "OPEN"
-        }
-      ],
-      "dependency_ids": [
-        "source_capsule_lock",
-        "target_blind_or_prospective_lock",
-        "incumbent_comparator_preregistration",
-        "oc_scoring_with_uncertainty",
-        "controls_falsifiers_replay"
-      ],
-      "dependency_blocker_ids": [
-        "modern_science_comparator_superiority"
-      ],
-      "domain_local_coverage_evidence": null,
-      "closure_control": {
-        "current_status": "OPEN",
-        "mark_closed_allowed_in_this_dispatch": false,
-        "blocked_item_closed": false,
-        "requires_reaudit_pass": true
-      },
-      "implementation_policy": "Create evidence only through capability-owned lane work; this dispatch row does not close coverage.",
-      "no_send_locks": {
-        "no_send": true,
-        "public_release_action_allowed": false,
-        "publish_allowed": false,
-        "push_allowed": false,
-        "registry_write_allowed": false,
-        "journal_submission_allowed": false,
-        "email_allowed": false,
-        "coverage_closure_allowed": false,
-        "broad_modern_science_superiority_allowed": false,
-        "all_domain_scientific_closure_allowed": false
-      },
-      "no_send": true,
-      "publish_allowed": false,
-      "journal_submissions_allowed": false,
-      "queue_rank": 5,
-      "open_dependency_blocker_ids": [
-        "modern_science_comparator_superiority"
-      ],
-      "blocked_by_open_dependency_total": 1
-    },
-    {
-      "work_order_id": "OC133-ALLDOMAIN-COVERAGE-MS-COV-WO-018",
-      "stable_id": "coverage_gap::medical_health_sciences::pharmacology_toxicology_and_dose_response::MS-COV-WO-018",
-      "source_work_order_id": "MS-COV-WO-018",
-      "source_dispatch_id": "MS-COV-DISPATCH-024",
-      "source_queue_rank": 24,
-      "mission_id": "OC_CORE_1_3_3_PLATINUM_RELEASE_MISSION",
-      "dispatch_class": "uncovered_phenomenon_class",
-      "blocker_id": "coverage_extends_to_all_of_modern_science",
-      "parent_blocker_id": "modern_science_comparator_superiority",
-      "coverage_gap_id": "MS-COV-GAP-MEDICAL_HEALTH_SCIENCES-PHARMACOLOGY_TOXICOLOGY_AND_DOSE_RESPONSE",
-      "domain_class_id": "medical_health_sciences",
-      "phenomenon_class_id": "pharmacology_toxicology_and_dose_response",
-      "phenomenon_label": "pharmacology toxicology and dose response",
-      "coverage_lane_route": "EMPIRICAL_SOURCE_BACKED_BENCHMARK",
-      "coverage_priority": "P0",
-      "owner_capability": "Logion Health Evidence / Regulated Clinical and Epidemiology Sources",
-      "title": "Build reviewed modern-science coverage lane for medical_health_sciences / pharmacology toxicology and dose response",
-      "severity": "CRITICAL",
-      "priority": 1000,
-      "ranking": {
-        "policy": "no-send/safety, blocker severity, gate unblock value, dependency unblock value, stable ID",
-        "no_send_safety_rank": 0,
-        "blocker_severity_rank": 0,
-        "gate_unblock_value": 100,
-        "dependency_unblock_value": 100,
-        "stable_id": "coverage_gap::medical_health_sciences::pharmacology_toxicology_and_dose_response::MS-COV-WO-018",
-        "domain_local_evidence_priority_rank": 50,
-        "domain_local_missing_predicate_count": 999,
-        "queue_rank": 6
-      },
-      "executor": {
-        "owner_capability": "Logion Health Evidence / Regulated Clinical and Epidemiology Sources",
-        "executor_id": "planning_queue_validation::coverage_lane_dispatcher",
-        "mode": "planning_queue_validation",
-        "profile": null,
-        "entrypoint": "benchmarks/modern_science/coverage_lane_dispatcher.py",
-        "argv": [
-          "python",
-          "benchmarks/modern_science/coverage_lane_dispatcher.py",
-          "--check"
-        ],
-        "command": "python benchmarks/modern_science/coverage_lane_dispatcher.py --check",
-        "closure_policy": "Planning/check execution is not scientific closure; the lane remains open until the evidence pack, comparator, controls, falsifiers, and reviewed coverage predicates pass."
-      },
-      "artifacts": [
-        "comparators/modern_science/OC133_MODERN_SCIENCE_COVERAGE_REGISTER.json",
-        "benchmarks/modern_science/OC133_MODERN_SCIENCE_COVERAGE_WORK_ORDERS.json",
-        "reports/OC_CORE_1_3_3_MODERN_SCIENCE_COVERAGE_LANE_QUEUE.json",
-        "reports/OC_CORE_1_3_3_MODERN_SCIENCE_COVERAGE_LANE_TELEMETRY.json",
-        "benchmarks/modern_science/protocols/",
-        "comparators/modern_science/source_capsules/",
-        "validation/heldout/grand_science/"
-      ],
-      "owned_artifacts": [
-        "comparators/modern_science/OC133_MODERN_SCIENCE_COVERAGE_REGISTER.json",
-        "benchmarks/modern_science/OC133_MODERN_SCIENCE_COVERAGE_WORK_ORDERS.json",
-        "reports/OC_CORE_1_3_3_MODERN_SCIENCE_COVERAGE_LANE_QUEUE.json",
-        "reports/OC_CORE_1_3_3_MODERN_SCIENCE_COVERAGE_LANE_TELEMETRY.json",
-        "benchmarks/modern_science/protocols/",
-        "comparators/modern_science/source_capsules/",
-        "validation/heldout/grand_science/"
-      ],
-      "before_predicates": [
-        "MS-COV-GAP-MEDICAL_HEALTH_SCIENCES-PHARMACOLOGY_TOXICOLOGY_AND_DOSE_RESPONSE current_status == OPEN",
-        "medical_health_sciences/pharmacology_toxicology_and_dose_response lacks reviewed source-backed benchmark coverage"
-      ],
-      "after_predicates": [
-        "source capsule or formal corpus hash is bound",
-        "target-blind/prospective acquisition or formal-equivalent route is reviewed",
-        "incumbent comparator is preregistered",
-        "OC scoring, uncertainty, controls, falsifiers, and clean replay are bound",
-        "coverage register gap may close only after independent review"
-      ],
-      "before_predicate": "MS-COV-GAP-MEDICAL_HEALTH_SCIENCES-PHARMACOLOGY_TOXICOLOGY_AND_DOSE_RESPONSE is OPEN and no reviewed source-backed lane covers medical_health_sciences/pharmacology_toxicology_and_dose_response",
-      "after_predicate": "all lane acceptance predicates pass under review; broad superiority remains blocked until all lanes pass",
-      "verification_commands": [
-        "python benchmarks/modern_science/coverage_lane_dispatcher.py --check",
-        "python tools/oc133_modern_science_comparator_factory.py --check",
-        "python tools/oc133_logion_all_domain_readiness.py --write --allow-blocked-exit-zero"
-      ],
-      "verification_command": "python benchmarks/modern_science/coverage_lane_dispatcher.py --check && python tools/oc133_modern_science_comparator_factory.py --check && python tools/oc133_logion_all_domain_readiness.py --write --allow-blocked-exit-zero",
-      "resource_estimate": {
-        "planning_points": 8,
-        "minimum_evidence_pack_n": 20,
-        "expected_worker_roles": [
-          "source acquisition owner",
-          "comparator owner",
-          "scoring owner",
-          "replay reviewer"
-        ]
-      },
-      "closure_evidence_type": "source_backed_benchmark_coverage_evidence_pack",
-      "closure_evidence_required": [
-        "STRICT_PACK_SCHEMA_PASS",
-        "MINIMUM_N_GE_20_OR_FORMAL_EQUIVALENT_JUSTIFIED",
-        "SOURCE_SEPARATION_PASS",
-        "COMPARATOR_PREREGISTERED",
-        "RESIDUAL_SUPERIORITY_POSITIVE",
-        "UNCERTAINTY_DECLARED",
-        "NEGATIVE_CONTROLS_REJECTED",
-        "FALSIFIERS_DECLARED",
-        "COVERAGE_REGISTER_GAP_CLOSED",
-        "NO_BROAD_SUPERIORITY_CERTIFICATION",
-        "reviewed coverage register update",
-        "no broad superiority certification from this single lane"
-      ],
-      "required_data_lanes": [
-        {
-          "lane_role": "source_capsule",
-          "requirement": "Add authoritative source capsule(s) or an internally declared formal target corpus with stable hashes."
-        },
-        {
-          "lane_role": "target_acquisition",
-          "requirement": "Acquire target-blind or prospective targets with pre-target lock and target-hidden-until-scoring attestation."
-        },
-        {
-          "lane_role": "incumbent_comparator",
-          "requirement": "Declare preregistered modern-science comparator baselines and score them on the same held-out targets."
-        },
-        {
-          "lane_role": "oc_scoring",
-          "requirement": "Score OC predictions with residuals, uncertainty interval, materiality threshold, and pack hash binding."
-        }
-      ],
-      "required_proof_lanes": [
-        "domain-scope survey explaining why the lane is representative of the phenomenon class",
-        "negative controls rejected",
-        "falsifiers declared and executable",
-        "independent clean-checkout replay bound to coverage register and report"
-      ],
-      "dependencies": [
-        {
-          "dependency_id": "source_capsule_lock",
-          "required_before": "target_acquisition",
-          "state": "OPEN"
-        },
-        {
-          "dependency_id": "target_blind_or_prospective_lock",
-          "required_before": "incumbent_comparator",
-          "state": "OPEN"
-        },
-        {
-          "dependency_id": "incumbent_comparator_preregistration",
-          "required_before": "oc_scoring",
-          "state": "OPEN"
-        },
-        {
-          "dependency_id": "oc_scoring_with_uncertainty",
-          "required_before": "proof_lane_review",
-          "state": "OPEN"
-        },
-        {
-          "dependency_id": "controls_falsifiers_replay",
-          "required_before": "coverage_review",
-          "state": "OPEN"
-        }
-      ],
-      "dependency_ids": [
-        "source_capsule_lock",
-        "target_blind_or_prospective_lock",
-        "incumbent_comparator_preregistration",
-        "oc_scoring_with_uncertainty",
-        "controls_falsifiers_replay"
-      ],
-      "dependency_blocker_ids": [
-        "modern_science_comparator_superiority"
-      ],
-      "domain_local_coverage_evidence": null,
-      "closure_control": {
-        "current_status": "OPEN",
-        "mark_closed_allowed_in_this_dispatch": false,
-        "blocked_item_closed": false,
-        "requires_reaudit_pass": true
-      },
-      "implementation_policy": "Create evidence only through capability-owned lane work; this dispatch row does not close coverage.",
-      "no_send_locks": {
-        "no_send": true,
-        "public_release_action_allowed": false,
-        "publish_allowed": false,
-        "push_allowed": false,
-        "registry_write_allowed": false,
-        "journal_submission_allowed": false,
-        "email_allowed": false,
-        "coverage_closure_allowed": false,
-        "broad_modern_science_superiority_allowed": false,
-        "all_domain_scientific_closure_allowed": false
-      },
-      "no_send": true,
-      "publish_allowed": false,
-      "journal_submissions_allowed": false,
-      "queue_rank": 6,
-      "open_dependency_blocker_ids": [
-        "modern_science_comparator_superiority"
-      ],
-      "blocked_by_open_dependency_total": 1
-    },
-    {
-      "work_order_id": "OC133-ALLDOMAIN-BROAD-GAP-MODERN-SCIENCE-SUPERIORITY-CERTIFIED",
-      "stable_id": "broad_claim_gap::modern_science_comparator_superiority::modern_science_superiority_certified",
-      "mission_id": "OC_CORE_1_3_3_PLATINUM_RELEASE_MISSION",
-      "dispatch_class": "broad_claim_evidence_gap",
-      "blocker_id": "modern_science_comparator_superiority",
-      "broad_claim_evidence_gap_id": "modern_science_superiority_certified",
-      "owner_capability": "Research/PriorArt",
-      "title": "Certify or keep blocked the broad modern-science superiority predicate",
-      "severity": "CRITICAL",
-      "priority": 1000,
-      "ranking": {
-        "policy": "no-send/safety, blocker severity, gate unblock value, dependency unblock value, stable ID",
-        "no_send_safety_rank": 0,
-        "blocker_severity_rank": 0,
-        "gate_unblock_value": 94,
-        "dependency_unblock_value": 85,
-        "stable_id": "broad_claim_gap::modern_science_comparator_superiority::modern_science_superiority_certified",
-        "queue_rank": 7
-      },
-      "executor": {
-        "owner_capability": "Research/PriorArt",
-        "executor_id": "capability_profile::v12_modern_science_comparator_research_program",
-        "mode": "capability_profile",
-        "profile": "v12_modern_science_comparator_research_program",
-        "entrypoint": "tools/oc133_capability_repair_executor.py",
-        "argv": [
-          "python",
-          "tools/oc133_capability_repair_executor.py",
-          "--profile",
-          "v12_modern_science_comparator_research_program"
-        ],
-        "command": "python tools/oc133_capability_repair_executor.py --profile v12_modern_science_comparator_research_program",
-        "closure_policy": "Executor may refresh comparator artifacts, but closure requires all coverage lanes and broad predicates to pass."
-      },
-      "artifacts": [
-        "comparators/OC_1_3_3_MODERN_SCIENCE_SUPERIORITY_REGISTER.json",
-        "comparators/modern_science/OC133_MODERN_SCIENCE_COVERAGE_REGISTER.json",
-        "benchmarks/modern_science/OC133_MODERN_SCIENCE_COVERAGE_WORK_ORDERS.json",
-        "reports/OC_CORE_1_3_3_MODERN_SCIENCE_COVERAGE_LANE_QUEUE.json",
-        "benchmarks/modern_science/OC133_MODERN_SCIENCE_BENCHMARK_LANES.json",
-        "reports/OC_CORE_1_3_3_MODERN_SCIENCE_SUPERIORITY_REPORT.json"
-      ],
-      "owned_artifacts": [
-        "comparators/OC_1_3_3_MODERN_SCIENCE_SUPERIORITY_REGISTER.json",
-        "comparators/modern_science/OC133_MODERN_SCIENCE_COVERAGE_REGISTER.json",
-        "benchmarks/modern_science/OC133_MODERN_SCIENCE_COVERAGE_WORK_ORDERS.json",
-        "reports/OC_CORE_1_3_3_MODERN_SCIENCE_COVERAGE_LANE_QUEUE.json",
-        "benchmarks/modern_science/OC133_MODERN_SCIENCE_BENCHMARK_LANES.json",
-        "reports/OC_CORE_1_3_3_MODERN_SCIENCE_SUPERIORITY_REPORT.json"
-      ],
-      "before_predicates": [
-        "modern_science_comparator_superiority == FAIL",
-        "open_modern_science_coverage_lane_total == 35",
-        "broad_modern_science_superiority_certified == false"
-      ],
-      "after_predicates": [
-        "modern_science comparator register certifies broad superiority only after every declared coverage lane passes",
-        "unsupported broad superiority wording remains blocked if any lane or comparator predicate is open"
-      ],
-      "before_predicate": "modern_science_comparator_superiority == FAIL and open_modern_science_coverage_lane_total == 35",
-      "after_predicate": "broad modern-science superiority is certified only after every declared coverage and comparator predicate passes",
-      "verification_commands": [
-        "python benchmarks/modern_science/coverage_lane_dispatcher.py --check",
-        "python tools/oc133_modern_science_comparator_factory.py --check",
-        "python tools/oc133_logion_all_domain_readiness.py --write --allow-blocked-exit-zero"
-      ],
-      "verification_command": "python benchmarks/modern_science/coverage_lane_dispatcher.py --check && python tools/oc133_modern_science_comparator_factory.py --check && python tools/oc133_logion_all_domain_readiness.py --write --allow-blocked-exit-zero",
-      "resource_estimate": {
-        "planning_points": 8,
-        "open_coverage_lane_total": 35,
-        "expected_worker_roles": [
-          "prior-art owner",
-          "coverage lane owners",
-          "clean replay reviewer"
-        ]
-      },
-      "closure_evidence_type": "broad_modern_science_comparator_certification",
-      "closure_evidence_required": [
-        "coverage register with zero open gaps",
-        "per-lane source-backed benchmark refs",
-        "preregistered incumbent comparator refs",
-        "OC/comparator residuals and uncertainty",
-        "clean-checkout replay bound to the broad comparator register"
-      ],
-      "closure_control": {
-        "current_check_state": "FAIL",
-        "mark_closed_allowed_in_this_dispatch": false,
-        "blocked_item_closed": false,
-        "requires_reaudit_pass": true
-      },
-      "dependency_ids": [
-        "MS-COV-WO-003::formal_mathematics_and_logic::computational_complexity_and_algorithmic_proof",
-        "MS-COV-WO-001::formal_mathematics_and_logic::formal_theorem_reconstruction",
-        "MS-COV-WO-002::formal_mathematics_and_logic::statistical_inference_identifiability",
-        "MS-COV-WO-016::medical_health_sciences::clinical_outcomes_and_biomarkers",
-        "MS-COV-WO-017::medical_health_sciences::epidemiological_transmission_and_risk",
-        "MS-COV-WO-018::medical_health_sciences::pharmacology_toxicology_and_dose_response"
-      ],
-      "dependency_blocker_ids": [
-        "coverage_extends_to_all_of_modern_science"
-      ],
-      "implementation_policy": "Do not certify broad modern-science superiority while coverage gaps remain open.",
-      "no_send_locks": {
-        "no_send": true,
-        "public_release_action_allowed": false,
-        "publish_allowed": false,
-        "push_allowed": false,
-        "registry_write_allowed": false,
-        "journal_submission_allowed": false,
-        "email_allowed": false,
-        "coverage_closure_allowed": false,
-        "broad_modern_science_superiority_allowed": false,
-        "all_domain_scientific_closure_allowed": false
-      },
-      "no_send": true,
-      "publish_allowed": false,
-      "journal_submissions_allowed": false,
-      "queue_rank": 7,
-      "open_dependency_blocker_ids": [
-        "coverage_extends_to_all_of_modern_science"
-      ],
-      "blocked_by_open_dependency_total": 1
-    },
-    {
-      "work_order_id": "OC133-ALLDOMAIN-BROAD-GAP-DEDICATED-CLAIM-ROW",
-      "stable_id": "broad_claim_gap::grand_toe_claim_ledger_evidence::dedicated_claim_row",
-      "mission_id": "OC_CORE_1_3_3_PLATINUM_RELEASE_MISSION",
-      "dispatch_class": "broad_claim_evidence_gap",
-      "blocker_id": "grand_toe_claim_ledger_evidence",
-      "broad_claim_evidence_gap_id": "dedicated_claim_row",
-      "owner_capability": "Research/FormalScience",
-      "title": "Create or explicitly reject a dedicated promoted grand TOE/all-domain claim row",
-      "severity": "CRITICAL",
-      "priority": 1000,
-      "ranking": {
-        "policy": "no-send/safety, blocker severity, gate unblock value, dependency unblock value, stable ID",
-        "no_send_safety_rank": 0,
-        "blocker_severity_rank": 0,
-        "gate_unblock_value": 90,
-        "dependency_unblock_value": 70,
-        "stable_id": "broad_claim_gap::grand_toe_claim_ledger_evidence::dedicated_claim_row",
-        "queue_rank": 8
-      },
-      "executor": {
-        "owner_capability": "Research/FormalScience",
-        "executor_id": "capability_profile::v12_grand_formal_science_research_program",
-        "mode": "capability_profile",
-        "profile": "v12_grand_formal_science_research_program",
-        "entrypoint": "tools/oc133_capability_repair_executor.py",
-        "argv": [
-          "python",
-          "tools/oc133_capability_repair_executor.py",
-          "--profile",
-          "v12_grand_formal_science_research_program"
-        ],
-        "command": "python tools/oc133_capability_repair_executor.py --profile v12_grand_formal_science_research_program",
-        "closure_policy": "Executor output is evidence only; closure requires the predicate to re-audit PASS without unlocking no-send."
-      },
-      "artifacts": [
-        "claims/CLAIM_LEDGER_1_3_3.json",
-        "claims/GRAND_TOE_FORMAL_OBLIGATION_LEDGER_1_3_3.json",
-        "proofs/grand_promotion/OC133_GRAND_PROMOTION_CONTRACT_REPORT.json",
-        "proofs/THEOREM_INVENTORY_1_3_3.json",
-        "proofs/proof_sheets/",
-        "formal/lean/",
-        "proofs/FINITE_MODEL_CHECKS_1_3_3.json"
-      ],
-      "owned_artifacts": [
-        "claims/CLAIM_LEDGER_1_3_3.json",
-        "claims/GRAND_TOE_FORMAL_OBLIGATION_LEDGER_1_3_3.json",
-        "proofs/grand_promotion/OC133_GRAND_PROMOTION_CONTRACT_REPORT.json",
-        "proofs/THEOREM_INVENTORY_1_3_3.json",
-        "proofs/proof_sheets/",
-        "formal/lean/",
-        "proofs/FINITE_MODEL_CHECKS_1_3_3.json"
-      ],
-      "before_predicates": [
-        "dedicated_claim_row == false"
-      ],
-      "after_predicates": [
-        "A dedicated claim row exists only if promotion is intended and evidence-supported",
-        "Unsupported grand promotion remains demoted when evidence is absent"
-      ],
-      "before_predicate": "dedicated_claim_row == false",
-      "after_predicate": "A dedicated claim row exists only if promotion is intended and evidence-supported; Unsupported grand promotion remains demoted when evidence is absent",
-      "verification_commands": [
-        "lake build OC133V12",
-        "python proofs/finite_model_checks/run_finite_model_checks.py",
-        "python tools/oc133_grand_toe_formal_obligations.py --write",
-        "python tools/oc133_logion_all_domain_readiness.py --write --allow-blocked-exit-zero"
-      ],
-      "verification_command": "lake build OC133V12 && python proofs/finite_model_checks/run_finite_model_checks.py && python tools/oc133_grand_toe_formal_obligations.py --write && python tools/oc133_logion_all_domain_readiness.py --write --allow-blocked-exit-zero",
-      "resource_estimate": {
-        "planning_points": 5,
-        "expected_worker_roles": [
-          "formal claim owner",
-          "claim-boundary reviewer"
-        ]
-      },
-      "closure_evidence_type": "promoted_grand_claim_ledger_row",
-      "closure_evidence_required": [
-        "claim ledger row ID",
-        "requested claim classes",
-        "explicit promotion or non-promotion verdict"
-      ],
-      "closure_control": {
-        "current_check_state": "FAIL",
-        "mark_closed_allowed_in_this_dispatch": false,
-        "blocked_item_closed": false,
-        "requires_reaudit_pass": true
-      },
-      "dependency_ids": [],
-      "dependency_blocker_ids": [],
-      "implementation_policy": "Execute through Logion capability worker; planning output cannot close the scientific blocker by itself.",
-      "no_send_locks": {
-        "no_send": true,
-        "public_release_action_allowed": false,
-        "publish_allowed": false,
-        "push_allowed": false,
-        "registry_write_allowed": false,
-        "journal_submission_allowed": false,
-        "email_allowed": false,
-        "coverage_closure_allowed": false,
-        "broad_modern_science_superiority_allowed": false,
-        "all_domain_scientific_closure_allowed": false
-      },
-      "no_send": true,
-      "publish_allowed": false,
-      "journal_submissions_allowed": false,
-      "queue_rank": 8,
-      "open_dependency_blocker_ids": [],
-      "blocked_by_open_dependency_total": 0
-    },
-    {
-      "work_order_id": "OC133-ALLDOMAIN-BROAD-GAP-PROMOTION-THEOREM-IDS-BOUND",
-      "stable_id": "broad_claim_gap::grand_toe_claim_ledger_evidence::promotion_theorem_ids_bound",
-      "mission_id": "OC_CORE_1_3_3_PLATINUM_RELEASE_MISSION",
-      "dispatch_class": "broad_claim_evidence_gap",
-      "blocker_id": "grand_toe_claim_ledger_evidence",
-      "broad_claim_evidence_gap_id": "promotion_theorem_ids_bound",
-      "owner_capability": "Research/FormalScience",
-      "title": "Bind grand promotion theorem IDs distinct from bounded theorem rows",
-      "severity": "CRITICAL",
-      "priority": 1000,
-      "ranking": {
-        "policy": "no-send/safety, blocker severity, gate unblock value, dependency unblock value, stable ID",
-        "no_send_safety_rank": 0,
-        "blocker_severity_rank": 0,
-        "gate_unblock_value": 89,
-        "dependency_unblock_value": 70,
-        "stable_id": "broad_claim_gap::grand_toe_claim_ledger_evidence::promotion_theorem_ids_bound",
-        "queue_rank": 9
-      },
-      "executor": {
-        "owner_capability": "Research/FormalScience",
-        "executor_id": "capability_profile::v12_grand_formal_science_research_program",
-        "mode": "capability_profile",
-        "profile": "v12_grand_formal_science_research_program",
-        "entrypoint": "tools/oc133_capability_repair_executor.py",
-        "argv": [
-          "python",
-          "tools/oc133_capability_repair_executor.py",
-          "--profile",
-          "v12_grand_formal_science_research_program"
-        ],
-        "command": "python tools/oc133_capability_repair_executor.py --profile v12_grand_formal_science_research_program",
-        "closure_policy": "Executor output is evidence only; closure requires the predicate to re-audit PASS without unlocking no-send."
-      },
-      "artifacts": [
-        "claims/CLAIM_LEDGER_1_3_3.json",
-        "claims/GRAND_TOE_FORMAL_OBLIGATION_LEDGER_1_3_3.json",
-        "proofs/grand_promotion/OC133_GRAND_PROMOTION_CONTRACT_REPORT.json",
-        "proofs/THEOREM_INVENTORY_1_3_3.json",
-        "proofs/proof_sheets/",
-        "formal/lean/",
-        "proofs/FINITE_MODEL_CHECKS_1_3_3.json"
-      ],
-      "owned_artifacts": [
-        "claims/CLAIM_LEDGER_1_3_3.json",
-        "claims/GRAND_TOE_FORMAL_OBLIGATION_LEDGER_1_3_3.json",
-        "proofs/grand_promotion/OC133_GRAND_PROMOTION_CONTRACT_REPORT.json",
-        "proofs/THEOREM_INVENTORY_1_3_3.json",
-        "proofs/proof_sheets/",
-        "formal/lean/",
-        "proofs/FINITE_MODEL_CHECKS_1_3_3.json"
-      ],
-      "before_predicates": [
-        "promotion_theorem_ids_bound == false"
-      ],
-      "after_predicates": [
-        "grand claim row names theorem inventory IDs proving the promoted grand statement"
-      ],
-      "before_predicate": "promotion_theorem_ids_bound == false",
-      "after_predicate": "grand claim row names theorem inventory IDs proving the promoted grand statement",
-      "verification_commands": [
-        "lake build OC133V12",
-        "python proofs/finite_model_checks/run_finite_model_checks.py",
-        "python tools/oc133_grand_toe_formal_obligations.py --write",
-        "python tools/oc133_logion_all_domain_readiness.py --write --allow-blocked-exit-zero"
-      ],
-      "verification_command": "lake build OC133V12 && python proofs/finite_model_checks/run_finite_model_checks.py && python tools/oc133_grand_toe_formal_obligations.py --write && python tools/oc133_logion_all_domain_readiness.py --write --allow-blocked-exit-zero",
-      "resource_estimate": {
-        "planning_points": 8,
-        "expected_worker_roles": [
-          "formal theorem owner",
-          "proof reviewer"
-        ]
-      },
-      "closure_evidence_type": "theorem_inventory_binding",
-      "closure_evidence_required": [
-        "theorem inventory IDs",
-        "claim ledger theorem refs"
-      ],
-      "closure_control": {
-        "current_check_state": "FAIL",
-        "mark_closed_allowed_in_this_dispatch": false,
-        "blocked_item_closed": false,
-        "requires_reaudit_pass": true
-      },
-      "dependency_ids": [],
-      "dependency_blocker_ids": [],
-      "implementation_policy": "Execute through Logion capability worker; planning output cannot close the scientific blocker by itself.",
-      "no_send_locks": {
-        "no_send": true,
-        "public_release_action_allowed": false,
-        "publish_allowed": false,
-        "push_allowed": false,
-        "registry_write_allowed": false,
-        "journal_submission_allowed": false,
-        "email_allowed": false,
-        "coverage_closure_allowed": false,
-        "broad_modern_science_superiority_allowed": false,
-        "all_domain_scientific_closure_allowed": false
-      },
-      "no_send": true,
-      "publish_allowed": false,
-      "journal_submissions_allowed": false,
-      "queue_rank": 9,
-      "open_dependency_blocker_ids": [],
-      "blocked_by_open_dependency_total": 0
-    },
-    {
-      "work_order_id": "OC133-ALLDOMAIN-BROAD-GAP-FINITE-CASE-IDS-BOUND",
-      "stable_id": "broad_claim_gap::grand_toe_claim_ledger_evidence::finite_case_ids_bound",
-      "mission_id": "OC_CORE_1_3_3_PLATINUM_RELEASE_MISSION",
-      "dispatch_class": "broad_claim_evidence_gap",
-      "blocker_id": "grand_toe_claim_ledger_evidence",
-      "broad_claim_evidence_gap_id": "finite_case_ids_bound",
-      "owner_capability": "Research/FormalScience",
-      "title": "Bind finite-model witness cases for the promoted grand claim",
-      "severity": "CRITICAL",
-      "priority": 1000,
-      "ranking": {
-        "policy": "no-send/safety, blocker severity, gate unblock value, dependency unblock value, stable ID",
-        "no_send_safety_rank": 0,
-        "blocker_severity_rank": 0,
-        "gate_unblock_value": 88,
-        "dependency_unblock_value": 68,
-        "stable_id": "broad_claim_gap::grand_toe_claim_ledger_evidence::finite_case_ids_bound",
-        "queue_rank": 10
-      },
-      "executor": {
-        "owner_capability": "Research/FormalScience",
-        "executor_id": "capability_profile::v12_grand_formal_science_research_program",
-        "mode": "capability_profile",
-        "profile": "v12_grand_formal_science_research_program",
-        "entrypoint": "tools/oc133_capability_repair_executor.py",
-        "argv": [
-          "python",
-          "tools/oc133_capability_repair_executor.py",
-          "--profile",
-          "v12_grand_formal_science_research_program"
-        ],
-        "command": "python tools/oc133_capability_repair_executor.py --profile v12_grand_formal_science_research_program",
-        "closure_policy": "Executor output is evidence only; closure requires the predicate to re-audit PASS without unlocking no-send."
-      },
-      "artifacts": [
-        "claims/CLAIM_LEDGER_1_3_3.json",
-        "claims/GRAND_TOE_FORMAL_OBLIGATION_LEDGER_1_3_3.json",
-        "proofs/grand_promotion/OC133_GRAND_PROMOTION_CONTRACT_REPORT.json",
-        "proofs/THEOREM_INVENTORY_1_3_3.json",
-        "proofs/proof_sheets/",
-        "formal/lean/",
-        "proofs/FINITE_MODEL_CHECKS_1_3_3.json"
-      ],
-      "owned_artifacts": [
-        "claims/CLAIM_LEDGER_1_3_3.json",
-        "claims/GRAND_TOE_FORMAL_OBLIGATION_LEDGER_1_3_3.json",
-        "proofs/grand_promotion/OC133_GRAND_PROMOTION_CONTRACT_REPORT.json",
-        "proofs/THEOREM_INVENTORY_1_3_3.json",
-        "proofs/proof_sheets/",
-        "formal/lean/",
-        "proofs/FINITE_MODEL_CHECKS_1_3_3.json"
-      ],
-      "before_predicates": [
-        "finite_case_ids_bound == false"
-      ],
-      "after_predicates": [
-        "finite positive, current-reject, and negative cases are bound to the grand claim theorem IDs"
-      ],
-      "before_predicate": "finite_case_ids_bound == false",
-      "after_predicate": "finite positive, current-reject, and negative cases are bound to the grand claim theorem IDs",
-      "verification_commands": [
-        "lake build OC133V12",
-        "python proofs/finite_model_checks/run_finite_model_checks.py",
-        "python tools/oc133_grand_toe_formal_obligations.py --write",
-        "python tools/oc133_logion_all_domain_readiness.py --write --allow-blocked-exit-zero"
-      ],
-      "verification_command": "lake build OC133V12 && python proofs/finite_model_checks/run_finite_model_checks.py && python tools/oc133_grand_toe_formal_obligations.py --write && python tools/oc133_logion_all_domain_readiness.py --write --allow-blocked-exit-zero",
-      "resource_estimate": {
-        "planning_points": 5,
-        "expected_worker_roles": [
-          "finite-model owner",
-          "formal reviewer"
-        ]
-      },
-      "closure_evidence_type": "finite_model_case_binding",
-      "closure_evidence_required": [
-        "finite case IDs",
-        "finite input refs",
-        "finite output refs"
-      ],
-      "closure_control": {
-        "current_check_state": "FAIL",
-        "mark_closed_allowed_in_this_dispatch": false,
-        "blocked_item_closed": false,
-        "requires_reaudit_pass": true
-      },
-      "dependency_ids": [],
-      "dependency_blocker_ids": [],
-      "implementation_policy": "Execute through Logion capability worker; planning output cannot close the scientific blocker by itself.",
-      "no_send_locks": {
-        "no_send": true,
-        "public_release_action_allowed": false,
-        "publish_allowed": false,
-        "push_allowed": false,
-        "registry_write_allowed": false,
-        "journal_submission_allowed": false,
-        "email_allowed": false,
-        "coverage_closure_allowed": false,
-        "broad_modern_science_superiority_allowed": false,
-        "all_domain_scientific_closure_allowed": false
-      },
-      "no_send": true,
-      "publish_allowed": false,
-      "journal_submissions_allowed": false,
-      "queue_rank": 10,
-      "open_dependency_blocker_ids": [],
-      "blocked_by_open_dependency_total": 0
-    },
-    {
-      "work_order_id": "OC133-ALLDOMAIN-BROAD-GAP-FINITE-POSITIVE-NEGATIVE-CONTROLS-BOUND",
-      "stable_id": "broad_claim_gap::grand_toe_claim_ledger_evidence::finite_positive_negative_controls_bound",
-      "mission_id": "OC_CORE_1_3_3_PLATINUM_RELEASE_MISSION",
-      "dispatch_class": "broad_claim_evidence_gap",
-      "blocker_id": "grand_toe_claim_ledger_evidence",
-      "broad_claim_evidence_gap_id": "finite_positive_negative_controls_bound",
-      "owner_capability": "Research/FormalScience",
-      "title": "Bind finite positive and negative controls for grand promotion",
-      "severity": "CRITICAL",
-      "priority": 1000,
-      "ranking": {
-        "policy": "no-send/safety, blocker severity, gate unblock value, dependency unblock value, stable ID",
-        "no_send_safety_rank": 0,
-        "blocker_severity_rank": 0,
-        "gate_unblock_value": 88,
-        "dependency_unblock_value": 68,
-        "stable_id": "broad_claim_gap::grand_toe_claim_ledger_evidence::finite_positive_negative_controls_bound",
-        "queue_rank": 11
-      },
-      "executor": {
-        "owner_capability": "Research/FormalScience",
-        "executor_id": "capability_profile::v12_grand_formal_science_research_program",
-        "mode": "capability_profile",
-        "profile": "v12_grand_formal_science_research_program",
-        "entrypoint": "tools/oc133_capability_repair_executor.py",
-        "argv": [
-          "python",
-          "tools/oc133_capability_repair_executor.py",
-          "--profile",
-          "v12_grand_formal_science_research_program"
-        ],
-        "command": "python tools/oc133_capability_repair_executor.py --profile v12_grand_formal_science_research_program",
-        "closure_policy": "Executor output is evidence only; closure requires the predicate to re-audit PASS without unlocking no-send."
-      },
-      "artifacts": [
-        "claims/CLAIM_LEDGER_1_3_3.json",
-        "claims/GRAND_TOE_FORMAL_OBLIGATION_LEDGER_1_3_3.json",
-        "proofs/grand_promotion/OC133_GRAND_PROMOTION_CONTRACT_REPORT.json",
-        "proofs/THEOREM_INVENTORY_1_3_3.json",
-        "proofs/proof_sheets/",
-        "formal/lean/",
-        "proofs/FINITE_MODEL_CHECKS_1_3_3.json"
-      ],
-      "owned_artifacts": [
-        "claims/CLAIM_LEDGER_1_3_3.json",
-        "claims/GRAND_TOE_FORMAL_OBLIGATION_LEDGER_1_3_3.json",
-        "proofs/grand_promotion/OC133_GRAND_PROMOTION_CONTRACT_REPORT.json",
-        "proofs/THEOREM_INVENTORY_1_3_3.json",
-        "proofs/proof_sheets/",
-        "formal/lean/",
-        "proofs/FINITE_MODEL_CHECKS_1_3_3.json"
-      ],
-      "before_predicates": [
-        "finite_positive_negative_controls_bound == false"
-      ],
-      "after_predicates": [
-        "finite controls include a positive accept case and mutation/negative reject cases"
-      ],
-      "before_predicate": "finite_positive_negative_controls_bound == false",
-      "after_predicate": "finite controls include a positive accept case and mutation/negative reject cases",
-      "verification_commands": [
-        "lake build OC133V12",
-        "python proofs/finite_model_checks/run_finite_model_checks.py",
-        "python tools/oc133_grand_toe_formal_obligations.py --write",
-        "python tools/oc133_logion_all_domain_readiness.py --write --allow-blocked-exit-zero"
-      ],
-      "verification_command": "lake build OC133V12 && python proofs/finite_model_checks/run_finite_model_checks.py && python tools/oc133_grand_toe_formal_obligations.py --write && python tools/oc133_logion_all_domain_readiness.py --write --allow-blocked-exit-zero",
-      "resource_estimate": {
-        "planning_points": 5,
-        "expected_worker_roles": [
-          "finite-model owner",
-          "formal reviewer"
-        ]
-      },
-      "closure_evidence_type": "finite_positive_negative_control_binding",
-      "closure_evidence_required": [
-        "positive control finite case ID",
-        "negative control finite case IDs",
-        "mutation verdicts"
-      ],
-      "closure_control": {
-        "current_check_state": "FAIL",
-        "mark_closed_allowed_in_this_dispatch": false,
-        "blocked_item_closed": false,
-        "requires_reaudit_pass": true
-      },
-      "dependency_ids": [],
-      "dependency_blocker_ids": [],
-      "implementation_policy": "Execute through Logion capability worker; planning output cannot close the scientific blocker by itself.",
-      "no_send_locks": {
-        "no_send": true,
-        "public_release_action_allowed": false,
-        "publish_allowed": false,
-        "push_allowed": false,
-        "registry_write_allowed": false,
-        "journal_submission_allowed": false,
-        "email_allowed": false,
-        "coverage_closure_allowed": false,
-        "broad_modern_science_superiority_allowed": false,
-        "all_domain_scientific_closure_allowed": false
-      },
-      "no_send": true,
-      "publish_allowed": false,
-      "journal_submissions_allowed": false,
-      "queue_rank": 11,
-      "open_dependency_blocker_ids": [],
-      "blocked_by_open_dependency_total": 0
-    },
-    {
-      "work_order_id": "OC133-ALLDOMAIN-BROAD-GAP-LEAN-THEOREM-IDS-BOUND",
-      "stable_id": "broad_claim_gap::grand_toe_claim_ledger_evidence::lean_theorem_ids_bound",
-      "mission_id": "OC_CORE_1_3_3_PLATINUM_RELEASE_MISSION",
-      "dispatch_class": "broad_claim_evidence_gap",
-      "blocker_id": "grand_toe_claim_ledger_evidence",
-      "broad_claim_evidence_gap_id": "lean_theorem_ids_bound",
-      "owner_capability": "Research/FormalScience",
-      "title": "Bind Lean theorem obligations for the promoted grand statement",
-      "severity": "CRITICAL",
-      "priority": 1000,
-      "ranking": {
-        "policy": "no-send/safety, blocker severity, gate unblock value, dependency unblock value, stable ID",
-        "no_send_safety_rank": 0,
-        "blocker_severity_rank": 0,
-        "gate_unblock_value": 88,
-        "dependency_unblock_value": 68,
-        "stable_id": "broad_claim_gap::grand_toe_claim_ledger_evidence::lean_theorem_ids_bound",
-        "queue_rank": 12
-      },
-      "executor": {
-        "owner_capability": "Research/FormalScience",
-        "executor_id": "capability_profile::v12_grand_formal_science_research_program",
-        "mode": "capability_profile",
-        "profile": "v12_grand_formal_science_research_program",
-        "entrypoint": "tools/oc133_capability_repair_executor.py",
-        "argv": [
-          "python",
-          "tools/oc133_capability_repair_executor.py",
-          "--profile",
-          "v12_grand_formal_science_research_program"
-        ],
-        "command": "python tools/oc133_capability_repair_executor.py --profile v12_grand_formal_science_research_program",
-        "closure_policy": "Executor output is evidence only; closure requires the predicate to re-audit PASS without unlocking no-send."
-      },
-      "artifacts": [
-        "claims/CLAIM_LEDGER_1_3_3.json",
-        "claims/GRAND_TOE_FORMAL_OBLIGATION_LEDGER_1_3_3.json",
-        "proofs/grand_promotion/OC133_GRAND_PROMOTION_CONTRACT_REPORT.json",
-        "proofs/THEOREM_INVENTORY_1_3_3.json",
-        "proofs/proof_sheets/",
-        "formal/lean/",
-        "proofs/FINITE_MODEL_CHECKS_1_3_3.json"
-      ],
-      "owned_artifacts": [
-        "claims/CLAIM_LEDGER_1_3_3.json",
-        "claims/GRAND_TOE_FORMAL_OBLIGATION_LEDGER_1_3_3.json",
-        "proofs/grand_promotion/OC133_GRAND_PROMOTION_CONTRACT_REPORT.json",
-        "proofs/THEOREM_INVENTORY_1_3_3.json",
-        "proofs/proof_sheets/",
-        "formal/lean/",
-        "proofs/FINITE_MODEL_CHECKS_1_3_3.json"
-      ],
-      "before_predicates": [
-        "lean_theorem_ids_bound == false"
-      ],
-      "after_predicates": [
-        "Lean theorem IDs prove the promoted grand statement or keep non-promotion machine-proved"
-      ],
-      "before_predicate": "lean_theorem_ids_bound == false",
-      "after_predicate": "Lean theorem IDs prove the promoted grand statement or keep non-promotion machine-proved",
-      "verification_commands": [
-        "lake build OC133V12",
-        "python proofs/finite_model_checks/run_finite_model_checks.py",
-        "python tools/oc133_grand_toe_formal_obligations.py --write",
-        "python tools/oc133_logion_all_domain_readiness.py --write --allow-blocked-exit-zero"
-      ],
-      "verification_command": "lake build OC133V12 && python proofs/finite_model_checks/run_finite_model_checks.py && python tools/oc133_grand_toe_formal_obligations.py --write && python tools/oc133_logion_all_domain_readiness.py --write --allow-blocked-exit-zero",
-      "resource_estimate": {
-        "planning_points": 8,
-        "expected_worker_roles": [
-          "Lean/formal methods owner"
-        ]
-      },
-      "closure_evidence_type": "lean_theorem_binding",
-      "closure_evidence_required": [
-        "Lean theorem refs",
-        "lake build log",
-        "claim ledger Lean refs"
-      ],
-      "closure_control": {
-        "current_check_state": "FAIL",
-        "mark_closed_allowed_in_this_dispatch": false,
-        "blocked_item_closed": false,
-        "requires_reaudit_pass": true
-      },
-      "dependency_ids": [],
-      "dependency_blocker_ids": [],
-      "implementation_policy": "Execute through Logion capability worker; planning output cannot close the scientific blocker by itself.",
-      "no_send_locks": {
-        "no_send": true,
-        "public_release_action_allowed": false,
-        "publish_allowed": false,
-        "push_allowed": false,
-        "registry_write_allowed": false,
-        "journal_submission_allowed": false,
-        "email_allowed": false,
-        "coverage_closure_allowed": false,
-        "broad_modern_science_superiority_allowed": false,
-        "all_domain_scientific_closure_allowed": false
-      },
-      "no_send": true,
-      "publish_allowed": false,
-      "journal_submissions_allowed": false,
-      "queue_rank": 12,
-      "open_dependency_blocker_ids": [],
-      "blocked_by_open_dependency_total": 0
-    },
-    {
-      "work_order_id": "OC133-ALLDOMAIN-BROAD-GAP-PROOF-SHEET-REFS-BOUND",
-      "stable_id": "broad_claim_gap::grand_toe_claim_ledger_evidence::proof_sheet_refs_bound",
-      "mission_id": "OC_CORE_1_3_3_PLATINUM_RELEASE_MISSION",
-      "dispatch_class": "broad_claim_evidence_gap",
-      "blocker_id": "grand_toe_claim_ledger_evidence",
-      "broad_claim_evidence_gap_id": "proof_sheet_refs_bound",
-      "owner_capability": "Research/FormalScience",
-      "title": "Bind proof sheet references for the promoted grand claim",
-      "severity": "CRITICAL",
-      "priority": 1000,
-      "ranking": {
-        "policy": "no-send/safety, blocker severity, gate unblock value, dependency unblock value, stable ID",
-        "no_send_safety_rank": 0,
-        "blocker_severity_rank": 0,
-        "gate_unblock_value": 88,
-        "dependency_unblock_value": 68,
-        "stable_id": "broad_claim_gap::grand_toe_claim_ledger_evidence::proof_sheet_refs_bound",
-        "queue_rank": 13
-      },
-      "executor": {
-        "owner_capability": "Research/FormalScience",
-        "executor_id": "capability_profile::v12_grand_formal_science_research_program",
-        "mode": "capability_profile",
-        "profile": "v12_grand_formal_science_research_program",
-        "entrypoint": "tools/oc133_capability_repair_executor.py",
-        "argv": [
-          "python",
-          "tools/oc133_capability_repair_executor.py",
-          "--profile",
-          "v12_grand_formal_science_research_program"
-        ],
-        "command": "python tools/oc133_capability_repair_executor.py --profile v12_grand_formal_science_research_program",
-        "closure_policy": "Executor output is evidence only; closure requires the predicate to re-audit PASS without unlocking no-send."
-      },
-      "artifacts": [
-        "claims/CLAIM_LEDGER_1_3_3.json",
-        "claims/GRAND_TOE_FORMAL_OBLIGATION_LEDGER_1_3_3.json",
-        "proofs/grand_promotion/OC133_GRAND_PROMOTION_CONTRACT_REPORT.json",
-        "proofs/THEOREM_INVENTORY_1_3_3.json",
-        "proofs/proof_sheets/",
-        "formal/lean/",
-        "proofs/FINITE_MODEL_CHECKS_1_3_3.json"
-      ],
-      "owned_artifacts": [
-        "claims/CLAIM_LEDGER_1_3_3.json",
-        "claims/GRAND_TOE_FORMAL_OBLIGATION_LEDGER_1_3_3.json",
-        "proofs/grand_promotion/OC133_GRAND_PROMOTION_CONTRACT_REPORT.json",
-        "proofs/THEOREM_INVENTORY_1_3_3.json",
-        "proofs/proof_sheets/",
-        "formal/lean/",
-        "proofs/FINITE_MODEL_CHECKS_1_3_3.json"
-      ],
-      "before_predicates": [
-        "proof_sheet_refs_bound == false"
-      ],
-      "after_predicates": [
-        "proof sheets cite assumptions, proof obligations, and falsifier boundaries for the grand claim"
-      ],
-      "before_predicate": "proof_sheet_refs_bound == false",
-      "after_predicate": "proof sheets cite assumptions, proof obligations, and falsifier boundaries for the grand claim",
-      "verification_commands": [
-        "lake build OC133V12",
-        "python proofs/finite_model_checks/run_finite_model_checks.py",
-        "python tools/oc133_grand_toe_formal_obligations.py --write",
-        "python tools/oc133_logion_all_domain_readiness.py --write --allow-blocked-exit-zero"
-      ],
-      "verification_command": "lake build OC133V12 && python proofs/finite_model_checks/run_finite_model_checks.py && python tools/oc133_grand_toe_formal_obligations.py --write && python tools/oc133_logion_all_domain_readiness.py --write --allow-blocked-exit-zero",
-      "resource_estimate": {
-        "planning_points": 5,
-        "expected_worker_roles": [
-          "proof-sheet owner",
-          "formal reviewer"
-        ]
-      },
-      "closure_evidence_type": "proof_sheet_binding",
-      "closure_evidence_required": [
-        "proof sheet refs",
-        "assumption and falsifier boundary section"
-      ],
-      "closure_control": {
-        "current_check_state": "FAIL",
-        "mark_closed_allowed_in_this_dispatch": false,
-        "blocked_item_closed": false,
-        "requires_reaudit_pass": true
-      },
-      "dependency_ids": [],
-      "dependency_blocker_ids": [],
-      "implementation_policy": "Execute through Logion capability worker; planning output cannot close the scientific blocker by itself.",
-      "no_send_locks": {
-        "no_send": true,
-        "public_release_action_allowed": false,
-        "publish_allowed": false,
-        "push_allowed": false,
-        "registry_write_allowed": false,
-        "journal_submission_allowed": false,
-        "email_allowed": false,
-        "coverage_closure_allowed": false,
-        "broad_modern_science_superiority_allowed": false,
-        "all_domain_scientific_closure_allowed": false
-      },
-      "no_send": true,
-      "publish_allowed": false,
-      "journal_submissions_allowed": false,
-      "queue_rank": 13,
-      "open_dependency_blocker_ids": [],
-      "blocked_by_open_dependency_total": 0
-    },
-    {
-      "work_order_id": "OC133-ALLDOMAIN-BROAD-GAP-SCIENTIFIC-PROMOTION-ALLOWED",
-      "stable_id": "broad_claim_gap::grand_toe_claim_ledger_evidence::scientific_promotion_allowed",
-      "mission_id": "OC_CORE_1_3_3_PLATINUM_RELEASE_MISSION",
-      "dispatch_class": "broad_claim_evidence_gap",
-      "blocker_id": "grand_toe_claim_ledger_evidence",
-      "broad_claim_evidence_gap_id": "scientific_promotion_allowed",
-      "owner_capability": "Research/FormalScience",
-      "title": "Bind scientific-promotion permission to theorem and evidence references",
-      "severity": "CRITICAL",
-      "priority": 1000,
-      "ranking": {
-        "policy": "no-send/safety, blocker severity, gate unblock value, dependency unblock value, stable ID",
-        "no_send_safety_rank": 0,
-        "blocker_severity_rank": 0,
-        "gate_unblock_value": 87,
-        "dependency_unblock_value": 66,
-        "stable_id": "broad_claim_gap::grand_toe_claim_ledger_evidence::scientific_promotion_allowed",
-        "queue_rank": 14
-      },
-      "executor": {
-        "owner_capability": "Research/FormalScience",
-        "executor_id": "capability_profile::v12_grand_formal_science_research_program",
-        "mode": "capability_profile",
-        "profile": "v12_grand_formal_science_research_program",
-        "entrypoint": "tools/oc133_capability_repair_executor.py",
-        "argv": [
-          "python",
-          "tools/oc133_capability_repair_executor.py",
-          "--profile",
-          "v12_grand_formal_science_research_program"
-        ],
-        "command": "python tools/oc133_capability_repair_executor.py --profile v12_grand_formal_science_research_program",
-        "closure_policy": "Executor output is evidence only; closure requires the predicate to re-audit PASS without unlocking no-send."
-      },
-      "artifacts": [
-        "claims/CLAIM_LEDGER_1_3_3.json",
-        "claims/GRAND_TOE_FORMAL_OBLIGATION_LEDGER_1_3_3.json",
-        "proofs/grand_promotion/OC133_GRAND_PROMOTION_CONTRACT_REPORT.json",
-        "proofs/THEOREM_INVENTORY_1_3_3.json",
-        "proofs/proof_sheets/",
-        "formal/lean/",
-        "proofs/FINITE_MODEL_CHECKS_1_3_3.json"
-      ],
-      "owned_artifacts": [
-        "claims/CLAIM_LEDGER_1_3_3.json",
-        "claims/GRAND_TOE_FORMAL_OBLIGATION_LEDGER_1_3_3.json",
-        "proofs/grand_promotion/OC133_GRAND_PROMOTION_CONTRACT_REPORT.json",
-        "proofs/THEOREM_INVENTORY_1_3_3.json",
-        "proofs/proof_sheets/",
-        "formal/lean/",
-        "proofs/FINITE_MODEL_CHECKS_1_3_3.json"
-      ],
-      "before_predicates": [
-        "scientific_promotion_allowed == false"
-      ],
-      "after_predicates": [
-        "scientific_promotion_allowed is true only on a fully evidenced grand claim row"
-      ],
-      "before_predicate": "scientific_promotion_allowed == false",
-      "after_predicate": "scientific_promotion_allowed is true only on a fully evidenced grand claim row",
-      "verification_commands": [
-        "lake build OC133V12",
-        "python proofs/finite_model_checks/run_finite_model_checks.py",
-        "python tools/oc133_grand_toe_formal_obligations.py --write",
-        "python tools/oc133_logion_all_domain_readiness.py --write --allow-blocked-exit-zero"
-      ],
-      "verification_command": "lake build OC133V12 && python proofs/finite_model_checks/run_finite_model_checks.py && python tools/oc133_grand_toe_formal_obligations.py --write && python tools/oc133_logion_all_domain_readiness.py --write --allow-blocked-exit-zero",
-      "resource_estimate": {
-        "planning_points": 5,
-        "expected_worker_roles": [
-          "formal science owner"
-        ]
-      },
-      "closure_evidence_type": "scientific_promotion_gate",
-      "closure_evidence_required": [
-        "scientific promotion gate vector",
-        "theorem/proof/Lean/finite refs"
-      ],
-      "closure_control": {
-        "current_check_state": "FAIL",
-        "mark_closed_allowed_in_this_dispatch": false,
-        "blocked_item_closed": false,
-        "requires_reaudit_pass": true
-      },
-      "dependency_ids": [],
-      "dependency_blocker_ids": [],
-      "implementation_policy": "Execute through Logion capability worker; planning output cannot close the scientific blocker by itself.",
-      "no_send_locks": {
-        "no_send": true,
-        "public_release_action_allowed": false,
-        "publish_allowed": false,
-        "push_allowed": false,
-        "registry_write_allowed": false,
-        "journal_submission_allowed": false,
-        "email_allowed": false,
-        "coverage_closure_allowed": false,
-        "broad_modern_science_superiority_allowed": false,
-        "all_domain_scientific_closure_allowed": false
-      },
-      "no_send": true,
-      "publish_allowed": false,
-      "journal_submissions_allowed": false,
-      "queue_rank": 14,
-      "open_dependency_blocker_ids": [],
-      "blocked_by_open_dependency_total": 0
-    },
-    {
-      "work_order_id": "OC133-ALLDOMAIN-BROAD-GAP-RELEASE-PROMOTION-ALLOWED",
-      "stable_id": "broad_claim_gap::grand_toe_claim_ledger_evidence::release_promotion_allowed",
-      "mission_id": "OC_CORE_1_3_3_PLATINUM_RELEASE_MISSION",
-      "dispatch_class": "broad_claim_evidence_gap",
-      "blocker_id": "grand_toe_claim_ledger_evidence",
-      "broad_claim_evidence_gap_id": "release_promotion_allowed",
-      "owner_capability": "Review/ClaimBoundary",
-      "title": "Bind release-promotion permission to the grand claim evidence gate",
-      "severity": "CRITICAL",
-      "priority": 1000,
-      "ranking": {
-        "policy": "no-send/safety, blocker severity, gate unblock value, dependency unblock value, stable ID",
-        "no_send_safety_rank": 0,
-        "blocker_severity_rank": 0,
-        "gate_unblock_value": 86,
-        "dependency_unblock_value": 65,
-        "stable_id": "broad_claim_gap::grand_toe_claim_ledger_evidence::release_promotion_allowed",
-        "queue_rank": 15
-      },
-      "executor": {
-        "owner_capability": "Review/ClaimBoundary",
-        "executor_id": "capability_profile::v12_claim_boundary_overclaim_repair",
-        "mode": "capability_profile",
-        "profile": "v12_claim_boundary_overclaim_repair",
-        "entrypoint": "tools/oc133_capability_repair_executor.py",
-        "argv": [
-          "python",
-          "tools/oc133_capability_repair_executor.py",
-          "--profile",
-          "v12_claim_boundary_overclaim_repair"
-        ],
-        "command": "python tools/oc133_capability_repair_executor.py --profile v12_claim_boundary_overclaim_repair",
-        "closure_policy": "Executor output is evidence only; closure requires the predicate to re-audit PASS without unlocking no-send."
-      },
-      "artifacts": [
-        "claims/CLAIM_LEDGER_1_3_3.json",
-        "claims/GRAND_TOE_FORMAL_OBLIGATION_LEDGER_1_3_3.json",
-        "proofs/grand_promotion/OC133_GRAND_PROMOTION_CONTRACT_REPORT.json",
-        "proofs/THEOREM_INVENTORY_1_3_3.json",
-        "proofs/proof_sheets/",
-        "formal/lean/",
-        "proofs/FINITE_MODEL_CHECKS_1_3_3.json"
-      ],
-      "owned_artifacts": [
-        "claims/CLAIM_LEDGER_1_3_3.json",
-        "claims/GRAND_TOE_FORMAL_OBLIGATION_LEDGER_1_3_3.json",
-        "proofs/grand_promotion/OC133_GRAND_PROMOTION_CONTRACT_REPORT.json",
-        "proofs/THEOREM_INVENTORY_1_3_3.json",
-        "proofs/proof_sheets/",
-        "formal/lean/",
-        "proofs/FINITE_MODEL_CHECKS_1_3_3.json"
-      ],
-      "before_predicates": [
-        "release_promotion_allowed == false"
-      ],
-      "after_predicates": [
-        "release_promotion_allowed is true only after every grand promotion predicate passes"
-      ],
-      "before_predicate": "release_promotion_allowed == false",
-      "after_predicate": "release_promotion_allowed is true only after every grand promotion predicate passes",
-      "verification_commands": [
-        "lake build OC133V12",
-        "python proofs/finite_model_checks/run_finite_model_checks.py",
-        "python tools/oc133_grand_toe_formal_obligations.py --write",
-        "python tools/oc133_logion_all_domain_readiness.py --write --allow-blocked-exit-zero"
-      ],
-      "verification_command": "lake build OC133V12 && python proofs/finite_model_checks/run_finite_model_checks.py && python tools/oc133_grand_toe_formal_obligations.py --write && python tools/oc133_logion_all_domain_readiness.py --write --allow-blocked-exit-zero",
-      "resource_estimate": {
-        "planning_points": 3,
-        "expected_worker_roles": [
-          "claim-boundary reviewer"
-        ]
-      },
-      "closure_evidence_type": "claim_boundary_promotion_gate",
-      "closure_evidence_required": [
-        "claim boundary review row",
-        "promotion gate vector",
-        "no-send lock attestation"
-      ],
-      "closure_control": {
-        "current_check_state": "FAIL",
-        "mark_closed_allowed_in_this_dispatch": false,
-        "blocked_item_closed": false,
-        "requires_reaudit_pass": true
-      },
-      "dependency_ids": [],
-      "dependency_blocker_ids": [],
-      "implementation_policy": "Execute through Logion capability worker; planning output cannot close the scientific blocker by itself.",
-      "no_send_locks": {
-        "no_send": true,
-        "public_release_action_allowed": false,
-        "publish_allowed": false,
-        "push_allowed": false,
-        "registry_write_allowed": false,
-        "journal_submission_allowed": false,
-        "email_allowed": false,
-        "coverage_closure_allowed": false,
-        "broad_modern_science_superiority_allowed": false,
-        "all_domain_scientific_closure_allowed": false
-      },
-      "no_send": true,
-      "publish_allowed": false,
-      "journal_submissions_allowed": false,
-      "queue_rank": 15,
-      "open_dependency_blocker_ids": [],
-      "blocked_by_open_dependency_total": 0
-    },
-    {
-      "work_order_id": "OC133-ALLDOMAIN-BROAD-GAP-PUBLIC-STATUS-PROMOTED",
-      "stable_id": "broad_claim_gap::grand_toe_claim_ledger_evidence::public_status_promoted",
-      "mission_id": "OC_CORE_1_3_3_PLATINUM_RELEASE_MISSION",
-      "dispatch_class": "broad_claim_evidence_gap",
-      "blocker_id": "grand_toe_claim_ledger_evidence",
-      "broad_claim_evidence_gap_id": "public_status_promoted",
-      "owner_capability": "Review/ClaimBoundary",
-      "title": "Keep public promoted status locked until grand evidence gates pass",
-      "severity": "CRITICAL",
-      "priority": 1000,
-      "ranking": {
-        "policy": "no-send/safety, blocker severity, gate unblock value, dependency unblock value, stable ID",
-        "no_send_safety_rank": 0,
-        "blocker_severity_rank": 0,
-        "gate_unblock_value": 84,
-        "dependency_unblock_value": 60,
-        "stable_id": "broad_claim_gap::grand_toe_claim_ledger_evidence::public_status_promoted",
-        "queue_rank": 16
-      },
-      "executor": {
-        "owner_capability": "Review/ClaimBoundary",
-        "executor_id": "capability_profile::v12_claim_boundary_overclaim_repair",
-        "mode": "capability_profile",
-        "profile": "v12_claim_boundary_overclaim_repair",
-        "entrypoint": "tools/oc133_capability_repair_executor.py",
-        "argv": [
-          "python",
-          "tools/oc133_capability_repair_executor.py",
-          "--profile",
-          "v12_claim_boundary_overclaim_repair"
-        ],
-        "command": "python tools/oc133_capability_repair_executor.py --profile v12_claim_boundary_overclaim_repair",
-        "closure_policy": "Executor output is evidence only; closure requires the predicate to re-audit PASS without unlocking no-send."
-      },
-      "artifacts": [
-        "claims/CLAIM_LEDGER_1_3_3.json",
-        "claims/GRAND_TOE_FORMAL_OBLIGATION_LEDGER_1_3_3.json",
-        "proofs/grand_promotion/OC133_GRAND_PROMOTION_CONTRACT_REPORT.json",
-        "proofs/THEOREM_INVENTORY_1_3_3.json",
-        "proofs/proof_sheets/",
-        "formal/lean/",
-        "proofs/FINITE_MODEL_CHECKS_1_3_3.json"
-      ],
-      "owned_artifacts": [
-        "claims/CLAIM_LEDGER_1_3_3.json",
-        "claims/GRAND_TOE_FORMAL_OBLIGATION_LEDGER_1_3_3.json",
-        "proofs/grand_promotion/OC133_GRAND_PROMOTION_CONTRACT_REPORT.json",
-        "proofs/THEOREM_INVENTORY_1_3_3.json",
-        "proofs/proof_sheets/",
-        "formal/lean/",
-        "proofs/FINITE_MODEL_CHECKS_1_3_3.json"
-      ],
-      "before_predicates": [
-        "public_status_promoted == false"
-      ],
-      "after_predicates": [
-        "public status may be promoted only after scientific and release promotion gates pass"
-      ],
-      "before_predicate": "public_status_promoted == false",
-      "after_predicate": "public status may be promoted only after scientific and release promotion gates pass",
-      "verification_commands": [
-        "lake build OC133V12",
-        "python proofs/finite_model_checks/run_finite_model_checks.py",
-        "python tools/oc133_grand_toe_formal_obligations.py --write",
-        "python tools/oc133_logion_all_domain_readiness.py --write --allow-blocked-exit-zero"
-      ],
-      "verification_command": "lake build OC133V12 && python proofs/finite_model_checks/run_finite_model_checks.py && python tools/oc133_grand_toe_formal_obligations.py --write && python tools/oc133_logion_all_domain_readiness.py --write --allow-blocked-exit-zero",
-      "resource_estimate": {
-        "planning_points": 2,
-        "expected_worker_roles": [
-          "claim-boundary reviewer"
-        ]
-      },
-      "closure_evidence_type": "public_status_claim_boundary_gate",
-      "closure_evidence_required": [
-        "claim ledger public status row",
-        "owner no-send approval lock"
-      ],
-      "closure_control": {
-        "current_check_state": "FAIL",
-        "mark_closed_allowed_in_this_dispatch": false,
-        "blocked_item_closed": false,
-        "requires_reaudit_pass": true
-      },
-      "dependency_ids": [],
-      "dependency_blocker_ids": [],
-      "implementation_policy": "Execute through Logion capability worker; planning output cannot close the scientific blocker by itself.",
-      "no_send_locks": {
-        "no_send": true,
-        "public_release_action_allowed": false,
-        "publish_allowed": false,
-        "push_allowed": false,
-        "registry_write_allowed": false,
-        "journal_submission_allowed": false,
-        "email_allowed": false,
-        "coverage_closure_allowed": false,
-        "broad_modern_science_superiority_allowed": false,
-        "all_domain_scientific_closure_allowed": false
-      },
-      "no_send": true,
-      "publish_allowed": false,
-      "journal_submissions_allowed": false,
-      "queue_rank": 16,
-      "open_dependency_blocker_ids": [],
-      "blocked_by_open_dependency_total": 0
-    },
-    {
-      "work_order_id": "OC133-ALLDOMAIN-BROAD-GAP-ALL-DOMAIN-EMPIRICAL-PACK-VALID",
-      "stable_id": "broad_claim_gap::grand_toe_claim_ledger_evidence::all_domain_empirical_pack_valid",
-      "mission_id": "OC_CORE_1_3_3_PLATINUM_RELEASE_MISSION",
-      "dispatch_class": "broad_claim_evidence_gap",
-      "blocker_id": "grand_toe_claim_ledger_evidence",
-      "broad_claim_evidence_gap_id": "all_domain_empirical_pack_valid",
-      "owner_capability": "Research/FormalScience",
-      "title": "Close broad-claim predicate all_domain_empirical_pack_valid",
-      "severity": "CRITICAL",
-      "priority": 1000,
-      "ranking": {
-        "policy": "no-send/safety, blocker severity, gate unblock value, dependency unblock value, stable ID",
-        "no_send_safety_rank": 0,
-        "blocker_severity_rank": 0,
-        "gate_unblock_value": 80,
-        "dependency_unblock_value": 50,
-        "stable_id": "broad_claim_gap::grand_toe_claim_ledger_evidence::all_domain_empirical_pack_valid",
-        "queue_rank": 17
-      },
-      "executor": {
-        "owner_capability": "Research/FormalScience",
-        "executor_id": "capability_profile::v12_grand_formal_science_research_program",
-        "mode": "capability_profile",
-        "profile": "v12_grand_formal_science_research_program",
-        "entrypoint": "tools/oc133_capability_repair_executor.py",
-        "argv": [
-          "python",
-          "tools/oc133_capability_repair_executor.py",
-          "--profile",
-          "v12_grand_formal_science_research_program"
-        ],
-        "command": "python tools/oc133_capability_repair_executor.py --profile v12_grand_formal_science_research_program",
-        "closure_policy": "Executor output is evidence only; closure requires the predicate to re-audit PASS without unlocking no-send."
-      },
-      "artifacts": [
-        "claims/CLAIM_LEDGER_1_3_3.json",
-        "claims/GRAND_TOE_FORMAL_OBLIGATION_LEDGER_1_3_3.json",
-        "proofs/grand_promotion/OC133_GRAND_PROMOTION_CONTRACT_REPORT.json",
-        "proofs/THEOREM_INVENTORY_1_3_3.json",
-        "proofs/proof_sheets/",
-        "formal/lean/",
-        "proofs/FINITE_MODEL_CHECKS_1_3_3.json"
-      ],
-      "owned_artifacts": [
-        "claims/CLAIM_LEDGER_1_3_3.json",
-        "claims/GRAND_TOE_FORMAL_OBLIGATION_LEDGER_1_3_3.json",
-        "proofs/grand_promotion/OC133_GRAND_PROMOTION_CONTRACT_REPORT.json",
-        "proofs/THEOREM_INVENTORY_1_3_3.json",
-        "proofs/proof_sheets/",
-        "formal/lean/",
-        "proofs/FINITE_MODEL_CHECKS_1_3_3.json"
-      ],
-      "before_predicates": [
-        "all_domain_empirical_pack_valid == false"
-      ],
-      "after_predicates": [
-        "all_domain_empirical_pack_valid == true or the grand claim remains explicitly demoted"
-      ],
-      "before_predicate": "all_domain_empirical_pack_valid == false",
-      "after_predicate": "all_domain_empirical_pack_valid == true or the grand claim remains explicitly demoted",
-      "verification_commands": [
-        "lake build OC133V12",
-        "python proofs/finite_model_checks/run_finite_model_checks.py",
-        "python tools/oc133_grand_toe_formal_obligations.py --write",
-        "python tools/oc133_logion_all_domain_readiness.py --write --allow-blocked-exit-zero"
-      ],
-      "verification_command": "lake build OC133V12 && python proofs/finite_model_checks/run_finite_model_checks.py && python tools/oc133_grand_toe_formal_obligations.py --write && python tools/oc133_logion_all_domain_readiness.py --write --allow-blocked-exit-zero",
-      "resource_estimate": {
-        "planning_points": 3,
-        "expected_worker_roles": [
-          "formal science owner"
-        ]
-      },
-      "closure_evidence_type": "broad_claim_gate_predicate",
-      "closure_evidence_required": [
-        "predicate gate row",
-        "reviewed evidence refs"
-      ],
-      "closure_control": {
-        "current_check_state": "FAIL",
-        "mark_closed_allowed_in_this_dispatch": false,
-        "blocked_item_closed": false,
-        "requires_reaudit_pass": true
-      },
-      "dependency_ids": [],
-      "dependency_blocker_ids": [],
-      "implementation_policy": "Execute through Logion capability worker; planning output cannot close the scientific blocker by itself.",
-      "no_send_locks": {
-        "no_send": true,
-        "public_release_action_allowed": false,
-        "publish_allowed": false,
-        "push_allowed": false,
-        "registry_write_allowed": false,
-        "journal_submission_allowed": false,
-        "email_allowed": false,
-        "coverage_closure_allowed": false,
-        "broad_modern_science_superiority_allowed": false,
-        "all_domain_scientific_closure_allowed": false
-      },
-      "no_send": true,
-      "publish_allowed": false,
-      "journal_submissions_allowed": false,
-      "queue_rank": 17,
-      "open_dependency_blocker_ids": [],
-      "blocked_by_open_dependency_total": 0
-    },
-    {
-      "work_order_id": "OC133-ALLDOMAIN-BROAD-GAP-CLAIM-LEDGER-PROMOTION-BOUNDARIES-BOUND",
-      "stable_id": "broad_claim_gap::grand_toe_claim_ledger_evidence::claim_ledger_promotion_boundaries_bound",
-      "mission_id": "OC_CORE_1_3_3_PLATINUM_RELEASE_MISSION",
-      "dispatch_class": "broad_claim_evidence_gap",
-      "blocker_id": "grand_toe_claim_ledger_evidence",
-      "broad_claim_evidence_gap_id": "claim_ledger_promotion_boundaries_bound",
-      "owner_capability": "Research/FormalScience",
-      "title": "Close broad-claim predicate claim_ledger_promotion_boundaries_bound",
-      "severity": "CRITICAL",
-      "priority": 1000,
-      "ranking": {
-        "policy": "no-send/safety, blocker severity, gate unblock value, dependency unblock value, stable ID",
-        "no_send_safety_rank": 0,
-        "blocker_severity_rank": 0,
-        "gate_unblock_value": 80,
-        "dependency_unblock_value": 50,
-        "stable_id": "broad_claim_gap::grand_toe_claim_ledger_evidence::claim_ledger_promotion_boundaries_bound",
-        "queue_rank": 18
-      },
-      "executor": {
-        "owner_capability": "Research/FormalScience",
-        "executor_id": "capability_profile::v12_grand_formal_science_research_program",
-        "mode": "capability_profile",
-        "profile": "v12_grand_formal_science_research_program",
-        "entrypoint": "tools/oc133_capability_repair_executor.py",
-        "argv": [
-          "python",
-          "tools/oc133_capability_repair_executor.py",
-          "--profile",
-          "v12_grand_formal_science_research_program"
-        ],
-        "command": "python tools/oc133_capability_repair_executor.py --profile v12_grand_formal_science_research_program",
-        "closure_policy": "Executor output is evidence only; closure requires the predicate to re-audit PASS without unlocking no-send."
-      },
-      "artifacts": [
-        "claims/CLAIM_LEDGER_1_3_3.json",
-        "claims/GRAND_TOE_FORMAL_OBLIGATION_LEDGER_1_3_3.json",
-        "proofs/grand_promotion/OC133_GRAND_PROMOTION_CONTRACT_REPORT.json",
-        "proofs/THEOREM_INVENTORY_1_3_3.json",
-        "proofs/proof_sheets/",
-        "formal/lean/",
-        "proofs/FINITE_MODEL_CHECKS_1_3_3.json"
-      ],
-      "owned_artifacts": [
-        "claims/CLAIM_LEDGER_1_3_3.json",
-        "claims/GRAND_TOE_FORMAL_OBLIGATION_LEDGER_1_3_3.json",
-        "proofs/grand_promotion/OC133_GRAND_PROMOTION_CONTRACT_REPORT.json",
-        "proofs/THEOREM_INVENTORY_1_3_3.json",
-        "proofs/proof_sheets/",
-        "formal/lean/",
-        "proofs/FINITE_MODEL_CHECKS_1_3_3.json"
-      ],
-      "before_predicates": [
-        "claim_ledger_promotion_boundaries_bound == false"
-      ],
-      "after_predicates": [
-        "claim_ledger_promotion_boundaries_bound == true or the grand claim remains explicitly demoted"
-      ],
-      "before_predicate": "claim_ledger_promotion_boundaries_bound == false",
-      "after_predicate": "claim_ledger_promotion_boundaries_bound == true or the grand claim remains explicitly demoted",
-      "verification_commands": [
-        "lake build OC133V12",
-        "python proofs/finite_model_checks/run_finite_model_checks.py",
-        "python tools/oc133_grand_toe_formal_obligations.py --write",
-        "python tools/oc133_logion_all_domain_readiness.py --write --allow-blocked-exit-zero"
-      ],
-      "verification_command": "lake build OC133V12 && python proofs/finite_model_checks/run_finite_model_checks.py && python tools/oc133_grand_toe_formal_obligations.py --write && python tools/oc133_logion_all_domain_readiness.py --write --allow-blocked-exit-zero",
-      "resource_estimate": {
-        "planning_points": 3,
-        "expected_worker_roles": [
-          "formal science owner"
-        ]
-      },
-      "closure_evidence_type": "broad_claim_gate_predicate",
-      "closure_evidence_required": [
-        "predicate gate row",
-        "reviewed evidence refs"
-      ],
-      "closure_control": {
-        "current_check_state": "FAIL",
-        "mark_closed_allowed_in_this_dispatch": false,
-        "blocked_item_closed": false,
-        "requires_reaudit_pass": true
-      },
-      "dependency_ids": [],
-      "dependency_blocker_ids": [],
-      "implementation_policy": "Execute through Logion capability worker; planning output cannot close the scientific blocker by itself.",
-      "no_send_locks": {
-        "no_send": true,
-        "public_release_action_allowed": false,
-        "publish_allowed": false,
-        "push_allowed": false,
-        "registry_write_allowed": false,
-        "journal_submission_allowed": false,
-        "email_allowed": false,
-        "coverage_closure_allowed": false,
-        "broad_modern_science_superiority_allowed": false,
-        "all_domain_scientific_closure_allowed": false
-      },
-      "no_send": true,
-      "publish_allowed": false,
-      "journal_submissions_allowed": false,
-      "queue_rank": 18,
-      "open_dependency_blocker_ids": [],
-      "blocked_by_open_dependency_total": 0
-    },
-    {
-      "work_order_id": "OC133-ALLDOMAIN-BROAD-GAP-THEOREM-IDS-MAP-TO-FINITE-MODEL-CASE-IDS",
-      "stable_id": "broad_claim_gap::grand_toe_claim_ledger_evidence::theorem_ids_map_to_finite_model_case_ids",
-      "mission_id": "OC_CORE_1_3_3_PLATINUM_RELEASE_MISSION",
-      "dispatch_class": "broad_claim_evidence_gap",
-      "blocker_id": "grand_toe_claim_ledger_evidence",
-      "broad_claim_evidence_gap_id": "theorem_ids_map_to_finite_model_case_ids",
-      "owner_capability": "Research/FormalScience",
-      "title": "Close broad-claim predicate theorem_ids_map_to_finite_model_case_ids",
-      "severity": "CRITICAL",
-      "priority": 1000,
-      "ranking": {
-        "policy": "no-send/safety, blocker severity, gate unblock value, dependency unblock value, stable ID",
-        "no_send_safety_rank": 0,
-        "blocker_severity_rank": 0,
-        "gate_unblock_value": 80,
-        "dependency_unblock_value": 50,
-        "stable_id": "broad_claim_gap::grand_toe_claim_ledger_evidence::theorem_ids_map_to_finite_model_case_ids",
-        "queue_rank": 19
-      },
-      "executor": {
-        "owner_capability": "Research/FormalScience",
-        "executor_id": "capability_profile::v12_grand_formal_science_research_program",
-        "mode": "capability_profile",
-        "profile": "v12_grand_formal_science_research_program",
-        "entrypoint": "tools/oc133_capability_repair_executor.py",
-        "argv": [
-          "python",
-          "tools/oc133_capability_repair_executor.py",
-          "--profile",
-          "v12_grand_formal_science_research_program"
-        ],
-        "command": "python tools/oc133_capability_repair_executor.py --profile v12_grand_formal_science_research_program",
-        "closure_policy": "Executor output is evidence only; closure requires the predicate to re-audit PASS without unlocking no-send."
-      },
-      "artifacts": [
-        "claims/CLAIM_LEDGER_1_3_3.json",
-        "claims/GRAND_TOE_FORMAL_OBLIGATION_LEDGER_1_3_3.json",
-        "proofs/grand_promotion/OC133_GRAND_PROMOTION_CONTRACT_REPORT.json",
-        "proofs/THEOREM_INVENTORY_1_3_3.json",
-        "proofs/proof_sheets/",
-        "formal/lean/",
-        "proofs/FINITE_MODEL_CHECKS_1_3_3.json"
-      ],
-      "owned_artifacts": [
-        "claims/CLAIM_LEDGER_1_3_3.json",
-        "claims/GRAND_TOE_FORMAL_OBLIGATION_LEDGER_1_3_3.json",
-        "proofs/grand_promotion/OC133_GRAND_PROMOTION_CONTRACT_REPORT.json",
-        "proofs/THEOREM_INVENTORY_1_3_3.json",
-        "proofs/proof_sheets/",
-        "formal/lean/",
-        "proofs/FINITE_MODEL_CHECKS_1_3_3.json"
-      ],
-      "before_predicates": [
-        "theorem_ids_map_to_finite_model_case_ids == false"
-      ],
-      "after_predicates": [
-        "theorem_ids_map_to_finite_model_case_ids == true or the grand claim remains explicitly demoted"
-      ],
-      "before_predicate": "theorem_ids_map_to_finite_model_case_ids == false",
-      "after_predicate": "theorem_ids_map_to_finite_model_case_ids == true or the grand claim remains explicitly demoted",
-      "verification_commands": [
-        "lake build OC133V12",
-        "python proofs/finite_model_checks/run_finite_model_checks.py",
-        "python tools/oc133_grand_toe_formal_obligations.py --write",
-        "python tools/oc133_logion_all_domain_readiness.py --write --allow-blocked-exit-zero"
-      ],
-      "verification_command": "lake build OC133V12 && python proofs/finite_model_checks/run_finite_model_checks.py && python tools/oc133_grand_toe_formal_obligations.py --write && python tools/oc133_logion_all_domain_readiness.py --write --allow-blocked-exit-zero",
-      "resource_estimate": {
-        "planning_points": 3,
-        "expected_worker_roles": [
-          "formal science owner"
-        ]
-      },
-      "closure_evidence_type": "broad_claim_gate_predicate",
-      "closure_evidence_required": [
-        "predicate gate row",
-        "reviewed evidence refs"
-      ],
-      "closure_control": {
-        "current_check_state": "FAIL",
-        "mark_closed_allowed_in_this_dispatch": false,
-        "blocked_item_closed": false,
-        "requires_reaudit_pass": true
-      },
-      "dependency_ids": [],
-      "dependency_blocker_ids": [],
-      "implementation_policy": "Execute through Logion capability worker; planning output cannot close the scientific blocker by itself.",
-      "no_send_locks": {
-        "no_send": true,
-        "public_release_action_allowed": false,
-        "publish_allowed": false,
-        "push_allowed": false,
-        "registry_write_allowed": false,
-        "journal_submission_allowed": false,
-        "email_allowed": false,
-        "coverage_closure_allowed": false,
-        "broad_modern_science_superiority_allowed": false,
-        "all_domain_scientific_closure_allowed": false
-      },
-      "no_send": true,
-      "publish_allowed": false,
-      "journal_submissions_allowed": false,
-      "queue_rank": 19,
-      "open_dependency_blocker_ids": [],
-      "blocked_by_open_dependency_total": 0
-    },
-    {
-      "work_order_id": "OC133-ALLDOMAIN-BROAD-GAP-THEOREM-IDS-MAP-TO-LEAN-DECLARATION-IDS",
-      "stable_id": "broad_claim_gap::grand_toe_claim_ledger_evidence::theorem_ids_map_to_lean_declaration_ids",
-      "mission_id": "OC_CORE_1_3_3_PLATINUM_RELEASE_MISSION",
-      "dispatch_class": "broad_claim_evidence_gap",
-      "blocker_id": "grand_toe_claim_ledger_evidence",
-      "broad_claim_evidence_gap_id": "theorem_ids_map_to_lean_declaration_ids",
-      "owner_capability": "Research/FormalScience",
-      "title": "Close broad-claim predicate theorem_ids_map_to_lean_declaration_ids",
-      "severity": "CRITICAL",
-      "priority": 1000,
-      "ranking": {
-        "policy": "no-send/safety, blocker severity, gate unblock value, dependency unblock value, stable ID",
-        "no_send_safety_rank": 0,
-        "blocker_severity_rank": 0,
-        "gate_unblock_value": 80,
-        "dependency_unblock_value": 50,
-        "stable_id": "broad_claim_gap::grand_toe_claim_ledger_evidence::theorem_ids_map_to_lean_declaration_ids",
-        "queue_rank": 20
-      },
-      "executor": {
-        "owner_capability": "Research/FormalScience",
-        "executor_id": "capability_profile::v12_grand_formal_science_research_program",
-        "mode": "capability_profile",
-        "profile": "v12_grand_formal_science_research_program",
-        "entrypoint": "tools/oc133_capability_repair_executor.py",
-        "argv": [
-          "python",
-          "tools/oc133_capability_repair_executor.py",
-          "--profile",
-          "v12_grand_formal_science_research_program"
-        ],
-        "command": "python tools/oc133_capability_repair_executor.py --profile v12_grand_formal_science_research_program",
-        "closure_policy": "Executor output is evidence only; closure requires the predicate to re-audit PASS without unlocking no-send."
-      },
-      "artifacts": [
-        "claims/CLAIM_LEDGER_1_3_3.json",
-        "claims/GRAND_TOE_FORMAL_OBLIGATION_LEDGER_1_3_3.json",
-        "proofs/grand_promotion/OC133_GRAND_PROMOTION_CONTRACT_REPORT.json",
-        "proofs/THEOREM_INVENTORY_1_3_3.json",
-        "proofs/proof_sheets/",
-        "formal/lean/",
-        "proofs/FINITE_MODEL_CHECKS_1_3_3.json"
-      ],
-      "owned_artifacts": [
-        "claims/CLAIM_LEDGER_1_3_3.json",
-        "claims/GRAND_TOE_FORMAL_OBLIGATION_LEDGER_1_3_3.json",
-        "proofs/grand_promotion/OC133_GRAND_PROMOTION_CONTRACT_REPORT.json",
-        "proofs/THEOREM_INVENTORY_1_3_3.json",
-        "proofs/proof_sheets/",
-        "formal/lean/",
-        "proofs/FINITE_MODEL_CHECKS_1_3_3.json"
-      ],
-      "before_predicates": [
-        "theorem_ids_map_to_lean_declaration_ids == false"
-      ],
-      "after_predicates": [
-        "theorem_ids_map_to_lean_declaration_ids == true or the grand claim remains explicitly demoted"
-      ],
-      "before_predicate": "theorem_ids_map_to_lean_declaration_ids == false",
-      "after_predicate": "theorem_ids_map_to_lean_declaration_ids == true or the grand claim remains explicitly demoted",
-      "verification_commands": [
-        "lake build OC133V12",
-        "python proofs/finite_model_checks/run_finite_model_checks.py",
-        "python tools/oc133_grand_toe_formal_obligations.py --write",
-        "python tools/oc133_logion_all_domain_readiness.py --write --allow-blocked-exit-zero"
-      ],
-      "verification_command": "lake build OC133V12 && python proofs/finite_model_checks/run_finite_model_checks.py && python tools/oc133_grand_toe_formal_obligations.py --write && python tools/oc133_logion_all_domain_readiness.py --write --allow-blocked-exit-zero",
-      "resource_estimate": {
-        "planning_points": 3,
-        "expected_worker_roles": [
-          "formal science owner"
-        ]
-      },
-      "closure_evidence_type": "broad_claim_gate_predicate",
-      "closure_evidence_required": [
-        "predicate gate row",
-        "reviewed evidence refs"
-      ],
-      "closure_control": {
-        "current_check_state": "FAIL",
-        "mark_closed_allowed_in_this_dispatch": false,
-        "blocked_item_closed": false,
-        "requires_reaudit_pass": true
-      },
-      "dependency_ids": [],
-      "dependency_blocker_ids": [],
-      "implementation_policy": "Execute through Logion capability worker; planning output cannot close the scientific blocker by itself.",
-      "no_send_locks": {
-        "no_send": true,
-        "public_release_action_allowed": false,
-        "publish_allowed": false,
-        "push_allowed": false,
-        "registry_write_allowed": false,
-        "journal_submission_allowed": false,
-        "email_allowed": false,
-        "coverage_closure_allowed": false,
-        "broad_modern_science_superiority_allowed": false,
-        "all_domain_scientific_closure_allowed": false
-      },
-      "no_send": true,
-      "publish_allowed": false,
-      "journal_submissions_allowed": false,
-      "queue_rank": 20,
-      "open_dependency_blocker_ids": [],
-      "blocked_by_open_dependency_total": 0
-    },
-    {
-      "work_order_id": "OC133-ALLDOMAIN-BROAD-GAP-THEOREM-IDS-MAP-TO-PROOF-SHEET-IDS",
-      "stable_id": "broad_claim_gap::grand_toe_claim_ledger_evidence::theorem_ids_map_to_proof_sheet_ids",
-      "mission_id": "OC_CORE_1_3_3_PLATINUM_RELEASE_MISSION",
-      "dispatch_class": "broad_claim_evidence_gap",
-      "blocker_id": "grand_toe_claim_ledger_evidence",
-      "broad_claim_evidence_gap_id": "theorem_ids_map_to_proof_sheet_ids",
-      "owner_capability": "Research/FormalScience",
-      "title": "Close broad-claim predicate theorem_ids_map_to_proof_sheet_ids",
-      "severity": "CRITICAL",
-      "priority": 1000,
-      "ranking": {
-        "policy": "no-send/safety, blocker severity, gate unblock value, dependency unblock value, stable ID",
-        "no_send_safety_rank": 0,
-        "blocker_severity_rank": 0,
-        "gate_unblock_value": 80,
-        "dependency_unblock_value": 50,
-        "stable_id": "broad_claim_gap::grand_toe_claim_ledger_evidence::theorem_ids_map_to_proof_sheet_ids",
-        "queue_rank": 21
-      },
-      "executor": {
-        "owner_capability": "Research/FormalScience",
-        "executor_id": "capability_profile::v12_grand_formal_science_research_program",
-        "mode": "capability_profile",
-        "profile": "v12_grand_formal_science_research_program",
-        "entrypoint": "tools/oc133_capability_repair_executor.py",
-        "argv": [
-          "python",
-          "tools/oc133_capability_repair_executor.py",
-          "--profile",
-          "v12_grand_formal_science_research_program"
-        ],
-        "command": "python tools/oc133_capability_repair_executor.py --profile v12_grand_formal_science_research_program",
-        "closure_policy": "Executor output is evidence only; closure requires the predicate to re-audit PASS without unlocking no-send."
-      },
-      "artifacts": [
-        "claims/CLAIM_LEDGER_1_3_3.json",
-        "claims/GRAND_TOE_FORMAL_OBLIGATION_LEDGER_1_3_3.json",
-        "proofs/grand_promotion/OC133_GRAND_PROMOTION_CONTRACT_REPORT.json",
-        "proofs/THEOREM_INVENTORY_1_3_3.json",
-        "proofs/proof_sheets/",
-        "formal/lean/",
-        "proofs/FINITE_MODEL_CHECKS_1_3_3.json"
-      ],
-      "owned_artifacts": [
-        "claims/CLAIM_LEDGER_1_3_3.json",
-        "claims/GRAND_TOE_FORMAL_OBLIGATION_LEDGER_1_3_3.json",
-        "proofs/grand_promotion/OC133_GRAND_PROMOTION_CONTRACT_REPORT.json",
-        "proofs/THEOREM_INVENTORY_1_3_3.json",
-        "proofs/proof_sheets/",
-        "formal/lean/",
-        "proofs/FINITE_MODEL_CHECKS_1_3_3.json"
-      ],
-      "before_predicates": [
-        "theorem_ids_map_to_proof_sheet_ids == false"
-      ],
-      "after_predicates": [
-        "theorem_ids_map_to_proof_sheet_ids == true or the grand claim remains explicitly demoted"
-      ],
-      "before_predicate": "theorem_ids_map_to_proof_sheet_ids == false",
-      "after_predicate": "theorem_ids_map_to_proof_sheet_ids == true or the grand claim remains explicitly demoted",
-      "verification_commands": [
-        "lake build OC133V12",
-        "python proofs/finite_model_checks/run_finite_model_checks.py",
-        "python tools/oc133_grand_toe_formal_obligations.py --write",
-        "python tools/oc133_logion_all_domain_readiness.py --write --allow-blocked-exit-zero"
-      ],
-      "verification_command": "lake build OC133V12 && python proofs/finite_model_checks/run_finite_model_checks.py && python tools/oc133_grand_toe_formal_obligations.py --write && python tools/oc133_logion_all_domain_readiness.py --write --allow-blocked-exit-zero",
-      "resource_estimate": {
-        "planning_points": 3,
-        "expected_worker_roles": [
-          "formal science owner"
-        ]
-      },
-      "closure_evidence_type": "broad_claim_gate_predicate",
-      "closure_evidence_required": [
-        "predicate gate row",
-        "reviewed evidence refs"
-      ],
-      "closure_control": {
-        "current_check_state": "FAIL",
-        "mark_closed_allowed_in_this_dispatch": false,
-        "blocked_item_closed": false,
-        "requires_reaudit_pass": true
-      },
-      "dependency_ids": [],
-      "dependency_blocker_ids": [],
-      "implementation_policy": "Execute through Logion capability worker; planning output cannot close the scientific blocker by itself.",
-      "no_send_locks": {
-        "no_send": true,
-        "public_release_action_allowed": false,
-        "publish_allowed": false,
-        "push_allowed": false,
-        "registry_write_allowed": false,
-        "journal_submission_allowed": false,
-        "email_allowed": false,
-        "coverage_closure_allowed": false,
-        "broad_modern_science_superiority_allowed": false,
-        "all_domain_scientific_closure_allowed": false
-      },
-      "no_send": true,
-      "publish_allowed": false,
-      "journal_submissions_allowed": false,
-      "queue_rank": 21,
-      "open_dependency_blocker_ids": [],
-      "blocked_by_open_dependency_total": 0
-    }
-  ]
+  "rows": []
 }

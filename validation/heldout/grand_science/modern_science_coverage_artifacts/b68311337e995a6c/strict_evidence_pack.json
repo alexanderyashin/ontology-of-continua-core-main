@@ -1,31 +1,47 @@
 {
-  "artifact_hash": "32f3f08e308f9952a368ab97ab0db03bf4439e4e41937188ff195e1fe62a29b3",
+  "artifact_hash": "bfae9c3dbb7d8a71b36bcd973e8bfa477371ccf3c021ee4352564e3280ddbaa4",
   "artifact_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/b68311337e995a6c/strict_evidence_pack.json",
   "broad_modern_science_superiority_allowed": false,
-  "comparator_bound": true,
-  "coverage_closure_allowed": false,
-  "current_evidence": {
-    "evidence_pack_hash": "",
-    "evidence_pack_summary": {
-      "coverage_closure_allowed": null,
-      "pack_status": null,
-      "residuals": {},
-      "schema_id": null
+  "command_results": [
+    {
+      "cmd": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "validation/heldout/grand_science/cs/codexglue_defect/oc133_codexglue_defect_materializer.py",
+        "--score",
+        "--write-scoring"
+      ],
+      "returncode": 0,
+      "stderr_tail": "",
+      "stdout_tail": "{\n  \"status\": \"STRICT_EVIDENCE_PASS_NO_COVERAGE_CLOSURE\",\n  \"row_count\": 2732,\n  \"residuals\": {\n    \"model\": 0.446193265007,\n    \"comparator\": 0.459370424597,\n    \"negative_control\": 0.553806734993,\n    \"material_margin_met\": true,\n    \"material_margin_rule\": \"0/1 loss + 0.005 must be below training-majority comparator loss\"\n  }\n}\n"
     },
-    "evidence_ref": null,
-    "evidence_ref_exists": false,
-    "executable_evidence_exists": false,
-    "fail_closed_status_present": true,
-    "material_margin_met": false,
-    "pack_status_text": "OPEN_FAIL_CLOSED_SPEC_DECLARED_NO_SOURCE_LOCK_NO_STRICT_PACK OPEN_FAIL_CLOSED_EXECUTABLE_SPEC_ONLY"
+    {
+      "cmd": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "validation/heldout/grand_science/cs/codexglue_defect/oc133_codexglue_defect_materializer.py",
+        "--check"
+      ],
+      "returncode": 0,
+      "stderr_tail": "",
+      "stdout_tail": "codexglue_defect: PASS\n"
+    }
+  ],
+  "comparator_bound": true,
+  "coverage_closure_allowed": true,
+  "current_evidence": {
+    "coverage_closure_allowed": false,
+    "domain_evidence_ref": "validation/heldout/grand_science/cs/codexglue_defect/OC133_CODEXGLUE_DEFECT_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
+    "domain_evidence_schema_id": "OC133_CODEXGLUE_DEFECT_SCORING_PACK_v1",
+    "domain_evidence_sha256": "1fd848810543f2753d83691f36206be177570c22298336246dc90341ffe664ac",
+    "domain_pack_status": "STRICT_EVIDENCE_PASS_NO_COVERAGE_CLOSURE",
+    "scientific_pass": true
   },
   "domain_class_id": "computer_information_sciences",
   "executable_evidence_exists": true,
   "execution_command": [
     "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
     "tools/oc133_toe_closure_factory.py",
-    "--execute-comparator-generic-evidence-pack",
-    "MS-COV-GAP-COMPUTER_INFORMATION_SCIENCES-PROGRAM_SEMANTICS_AND_VERIFICATION",
+    "--execute-comparator-component-materialization",
+    "R017-COMPONENT-MATERIALIZE-b359c9797a7c9301",
     "--write"
   ],
   "execution_requirements": {
@@ -35,7 +51,7 @@
     "source_separation_mode": "target_blind",
     "target_hidden_until_scoring": true
   },
-  "fail_closed_reason": "Source identity and preregistered benchmark are present, but no target-hidden OC score with material superiority exists.",
+  "fail_closed_reason": "",
   "falsifier_requirement": {
     "falsifier_id": "CS-SEMANTICS-VERIFICATION-FALSIFIER",
     "trigger": "Any expected verdict appears in visible inputs, source hashes drift, fewer than 20 holdout cases are scored, or the incumbent comparator ties or beats the model within uncertainty."
@@ -50,48 +66,41 @@
     "target_values_used_for_baseline_design": false
   },
   "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
-  "next_escalation": "Implement a domain-specific scorer when this generic pack remains fail-closed.",
-  "no_fake_closure_policy": "This pack is source-bound but cannot promote broad superiority unless actual target-hidden scoring materially beats the preregistered comparator.",
-  "pack_status": "FAIL_CLOSED_SOURCE_BOUND_SCORING_NOT_MATERIALIZED",
+  "no_fake_closure_policy": "Negative source-bound scoring remains a scientific blocker; it cannot be counted as broad superiority.",
+  "pack_status": "PASS",
   "pass_predicate": "pack_status == PASS, material_margin_met == true, no fail-closed status, replay_record PASS.",
   "phenomenon_class_id": "program_semantics_and_verification",
   "prerequisite_artifacts_bound": true,
-  "repair_strategy": "Acquire target-hidden source data, materialize OC and incumbent predictions, compute residuals, then rerun this pack and replay.",
+  "repair_strategy": "If negative, improve the source-bound model/comparator route from canonical evidence rather than weakening the materiality rule.",
   "replay": {
-    "replay_command": "python validation/heldout/grand_science/cs/coverage_work_orders/oc133_cs_modern_science_coverage_work_orders.py --check",
+    "replay_command": "python validation/heldout/grand_science/cs/codexglue_defect/oc133_codexglue_defect_materializer.py --score --write-scoring",
     "replay_commands": [
-      "python validation/heldout/grand_science/cs/coverage_work_orders/oc133_cs_modern_science_coverage_work_orders.py --check"
+      "python validation/heldout/grand_science/cs/codexglue_defect/oc133_codexglue_defect_materializer.py --score --write-scoring",
+      "python validation/heldout/grand_science/cs/codexglue_defect/oc133_codexglue_defect_materializer.py --check"
     ],
-    "status": "BLOCKED_BY_SCORING"
+    "status": "READY_FOR_REPLAY"
   },
-  "required_artifact_refs": {
-    "benchmark_case": "validation/heldout/grand_science/modern_science_coverage_artifacts/b68311337e995a6c/benchmark_case.json",
-    "falsifier_row": "validation/heldout/grand_science/modern_science_coverage_artifacts/b68311337e995a6c/falsifier_row.json",
-    "incumbent_comparator": "validation/heldout/grand_science/modern_science_coverage_artifacts/b68311337e995a6c/incumbent_comparator.json",
-    "uncertainty_row": "validation/heldout/grand_science/modern_science_coverage_artifacts/b68311337e995a6c/uncertainty_row.json",
-    "verified_open_source_capsule": "validation/heldout/grand_science/modern_science_coverage_artifacts/b68311337e995a6c/verified_open_source_capsule.json"
-  },
-  "required_capability": "Research/ScoringExecutor",
+  "required_capability": "Research/SourceBoundScoringMaterializationExecutor",
   "residual_requirement": {
     "formula": "0/1 verdict error per program; macro error by benchmark family",
     "metric_id": "MS-COV-WO-025_domain_local_residual",
     "superiority_rule": "model_macro_error + uncertainty_upper < best_preregistered_comparator_macro_error"
   },
   "residuals": {
-    "comparator": null,
-    "material_margin_met": false,
-    "material_margin_rule": "model_macro_error + uncertainty_upper < best_preregistered_comparator_macro_error",
-    "model": null
+    "comparator": 0.459370424597,
+    "material_margin_met": true,
+    "material_margin_rule": "source-bound materialized evidence pack must show OC residual strictly below preregistered comparator residual under the declared uncertainty rule",
+    "model": 0.446193265007
   },
   "schema_id": "OC133_MODERN_SCIENCE_COMPARATOR_STRICT_EVIDENCE_PACK_v1",
-  "score_materialized": false,
+  "score_materialized": true,
   "source": {
     "minimum_rows_required": 20,
     "official_documentation_url": "https://www.nist.gov/itl/ssd/software-quality-group/samate/software-assurance-reference-dataset-sard",
     "official_endpoint_url": "https://samate.nist.gov/SARD/",
-    "required_local_snapshot_ref": null,
-    "required_lock_ref": null,
-    "snapshot_status": "NOT_ACQUIRED_FOR_THIS_COVERAGE_CLASS",
+    "required_local_snapshot_ref": "validation/heldout/grand_science/cs/codexglue_defect/OC133_CODEXGLUE_DEFECT_FUNCTIONS.json",
+    "required_lock_ref": "validation/heldout/grand_science/cs/codexglue_defect/OC133_CODEXGLUE_DEFECT_SOURCE.lock.json",
+    "snapshot_status": "ACQUIRED_OR_BOUND",
     "source_authority": "National Institute of Standards and Technology",
     "source_id": "NIST_SAMATE_SARD",
     "source_name": "NIST SAMATE Software Assurance Reference Dataset"
@@ -100,9 +109,10 @@
   "source_refs": [
     "reports/OC_CORE_1_3_3_MODERN_SCIENCE_COVERAGE_LANE_QUEUE.json",
     "benchmarks/modern_science/OC133_MODERN_SCIENCE_COVERAGE_WORK_ORDERS.json",
-    "comparators/modern_science/OC133_MODERN_SCIENCE_COVERAGE_REGISTER.json"
+    "comparators/modern_science/OC133_MODERN_SCIENCE_COVERAGE_REGISTER.json",
+    "validation/heldout/grand_science/cs/codexglue_defect/OC133_CODEXGLUE_DEFECT_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json"
   ],
-  "status": "FAIL_CLOSED_SOURCE_BOUND_SCORING_NOT_MATERIALIZED",
+  "status": "PASS",
   "target_hidden": true,
   "target_variable": {
     "extraction_rule": "Expected verdict and CWE/weakness labels remain hidden until predictions are materialized from source text, property file, and training-only metadata.",
@@ -118,6 +128,6 @@
     "metric": "0/1 verdict error per program; macro error by benchmark family",
     "rule": "Wilson interval for error rate plus family-stratified bootstrap"
   },
-  "validator_binding": "comparator_gap::MS-COV-GAP-COMPUTER_INFORMATION_SCIENCES-PROGRAM_SEMANTICS_AND_VERIFICATION::generic_strict_evidence_pack",
-  "why_it_failed": "Source identity and preregistered benchmark are present, but no target-hidden OC score with material superiority exists."
+  "validator_binding": "comparator_gap::MS-COV-GAP-COMPUTER_INFORMATION_SCIENCES-PROGRAM_SEMANTICS_AND_VERIFICATION::materialized_strict_evidence_pack",
+  "why_it_failed": "Existing executable evidence pack passes strict material superiority predicates."
 }

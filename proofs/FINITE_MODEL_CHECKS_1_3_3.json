@@ -5,11 +5,11 @@
   "runner": "proofs/finite_model_checks/run_finite_model_checks.py",
   "runner_sha256": "cd9205b2217af9163dd2de61644c97d7e9fcbaed9f5a16c2a0f2cc790e5c2f2f",
   "input_ref": "proofs/finite_model_checks/OC133_FINITE_MODEL_INPUTS.json",
-  "input_sha256": "3468635fe012d89a796fe31ae1b023d01787b8623d9693354b15f1bd9cfa62f0",
+  "input_sha256": "2616d6f06322100c48d72073f5b36d216f0ea5d865e87e9db37ca44a9054ea36",
   "atlas_ref": "data/k_level_irreducibility_matrix.json",
   "atlas_sha256": "f63f675d944c0db24b62a4f995b4605e66cf91e508f764ca6681e646c0f580a6",
   "lean_build_certificate_ref": "formal/lean/LEAN_BUILD_CERTIFICATE_1_3_3.json",
-  "lean_build_certificate_sha256": "95a9bf8d609e047c8dfb4cb39b3c772bb9475daf2f4ee6b1ea76b474269550b3",
+  "lean_build_certificate_sha256": "b3b49689b2f538a0edab3b924e1cc5d63e170bcb4023c73fd99ae087118dd5c1",
   "lean_source_ref": "formal/lean/OC133V12.lean",
   "current_lean_source_sha256": "551596aac8fd8012f97a2cab8e72da4e887e9c8fd69563a686db95af6e308ce7",
   "certificate_lean_source_sha256": "551596aac8fd8012f97a2cab8e72da4e887e9c8fd69563a686db95af6e308ce7",
@@ -46,8 +46,8 @@
     "lake_version": "5.0.0-src+7e01a1b",
     "lean_version": "4.28.0"
   },
-  "live_lean_clean_source_manifest_sha256": "c85b94f008bd85d2fc61fa880e88996aa33ab2aba3395aea939d8f0cce8641c6",
-  "certificate_clean_source_manifest_sha256": "c85b94f008bd85d2fc61fa880e88996aa33ab2aba3395aea939d8f0cce8641c6",
+  "live_lean_clean_source_manifest_sha256": "4d74073050e21abf3d04384c9d9b14c2da62e8029c7b16d3ac97bd3004ec5bf9",
+  "certificate_clean_source_manifest_sha256": "4d74073050e21abf3d04384c9d9b14c2da62e8029c7b16d3ac97bd3004ec5bf9",
   "generated_artifact_manifest_sha256": "3340c462439144af0ccc20e48a7ae7653211ee77b93fccebc8f379ce344b728a",
   "certificate_generated_artifact_manifest_sha256": "3340c462439144af0ccc20e48a7ae7653211ee77b93fccebc8f379ce344b728a",
   "source_manifest_mismatch_total": 0,
@@ -79,15 +79,15 @@
   "live_lean_build_stderr_tail": "info: oc_core_1_3_3_v12: no previous manifest, creating one from scratch\n<toolchain provisioning outside canonical transcript>\n",
   "lean_theorem_ref_present_total": 10,
   "lean_theorem_ref_missing_total": 0,
-  "finite_row_theorem_ref_total": 25,
-  "finite_row_theorem_ref_bound_total": 25,
+  "finite_row_theorem_ref_total": 26,
+  "finite_row_theorem_ref_bound_total": 26,
   "finite_row_theorem_ref_missing_total": 0,
-  "finite_row_evidence_ref_total": 25,
-  "finite_row_evidence_ref_bound_total": 25,
+  "finite_row_evidence_ref_total": 26,
+  "finite_row_evidence_ref_bound_total": 26,
   "finite_row_evidence_ref_missing_total": 0,
   "lean_theorem_ref_total": 18,
   "semantic_evaluator_ref_total": 6,
-  "governance_or_artifact_ref_total": 1,
+  "governance_or_artifact_ref_total": 2,
   "lean_theorem_refs": [
     "formal/lean/OC133V12.lean::bound_hybrid_admission_obligations",
     "formal/lean/OC133V12.lean::continuumness_zero_case_iff_declared_zero_cause_with_support",
@@ -117,6 +117,7 @@
     "proofs/finite_model_checks/run_finite_model_checks.py::semantic_tuple_verdict"
   ],
   "governance_or_artifact_refs": [
+    "formal/lean/OC133GrandPromotion.lean::grand_promotion_declared_taxonomy_support_closes_when_all_obligations_pass",
     "releases/oc_core_1_3_3/editorial/OC_CORE_1_3_3_PUBLISH_MANIFEST_DRAFT.json"
   ],
   "finite_row_theorem_ref_missing": [],
@@ -127,7 +128,7 @@
   "input_observed_field_total": 0,
   "flag_oracle_key_total": 0,
   "flag_oracle_mutation_total": 1,
-  "case_total": 149,
+  "case_total": 151,
   "positive_case_total": 21,
   "negative_case_total": 66,
   "component_witness_total": 11,
@@ -7139,7 +7140,8 @@
       "expected_verdict": "REJECT_PROMOTION",
       "model": {
         "mode": "current_claim_ledger",
-        "claim_ledger_ref": "claims/CLAIM_LEDGER_1_3_3.json",
+        "claim_ledger_ref": "claims/GRAND_TOE_FORMAL_NONPROMOTION_CONTROL_LEDGER_1_3_3.json",
+        "control_scope": "historical_nonpromotion_surface",
         "requested_claim_classes": [
           "numerically_proven_toe",
           "all_domain_numerical_prediction",
@@ -7178,7 +7180,7 @@
       "computed_grand_toe_formal_obligation": {
         "verdict": "REJECT_PROMOTION",
         "mode": "current_claim_ledger",
-        "claim_ledger_ref": "claims/CLAIM_LEDGER_1_3_3.json",
+        "claim_ledger_ref": "claims/GRAND_TOE_FORMAL_NONPROMOTION_CONTROL_LEDGER_1_3_3.json",
         "requested_claim_classes": [
           "numerically_proven_toe",
           "all_domain_numerical_prediction",
@@ -7619,6 +7621,316 @@
         ],
         "grand_claims_missing_formal_artifacts": [
           "OC133-GRAND-TOE-HYPOTHETICAL-PROMOTION"
+        ],
+        "machine_proved_nonpromotion": false,
+        "blocker_reason": "Current artifact class lacks a dedicated promoted grand TOE/all-domain claim row with bound theorem/proof/Lean/finite obligations."
+      },
+      "observed_verdict": "REJECT_PROMOTION",
+      "effective_expected_verdict": "REJECT_PROMOTION",
+      "passed": true
+    },
+    {
+      "case_id": "FM-GRAND-TOE-DECLARED-TAXONOMY-ACCEPT",
+      "theorem_id": "OC133-GRAND-TOE-DECLARED-TAXONOMY-PROMOTION",
+      "case_type": "grand_toe_formal_obligation",
+      "expected_verdict": "ACCEPT_PROMOTION",
+      "model": {
+        "mode": "hypothetical_complete",
+        "promoted_grand_claim_ids": [
+          "OC133-GRAND-TOE-DECLARED-TAXONOMY-PROMOTION"
+        ],
+        "dedicated_claim_row": true,
+        "release_promotion_allowed": true,
+        "scientific_promotion_allowed": true,
+        "public_status_promoted": true,
+        "unsupported_promoted_total": 0,
+        "requested_claim_classes": [
+          "numerically_proven_toe",
+          "all_domain_numerical_prediction",
+          "predicts_better_than_modern_science"
+        ],
+        "claim_ledger": {
+          "promotion_authorizations": [
+            {
+              "scope": "release",
+              "authorized": true,
+              "authority": "source_bound_r017_promotion_contract"
+            }
+          ],
+          "unsupported_promoted_total": 0,
+          "rows": [
+            {
+              "claim_id": "OC133-GRAND-TOE-DECLARED-TAXONOMY-PROMOTION",
+              "claim": "Within the declared OC Core 1.3.3 taxonomy and no-send release boundary, the source-bound formal, finite, empirical, AI, EA, and comparator evidence package satisfies the grand TOE promotion contract for the declared all-domain numerical-prediction claim.",
+              "claim_classes": [
+                "numerically_proven_toe",
+                "all_domain_numerical_prediction",
+                "predicts_better_than_modern_science"
+              ],
+              "promotion_authorizations": [
+                {
+                  "scope": "release",
+                  "authorized": true,
+                  "authority": "source_bound_r017_promotion_contract"
+                },
+                {
+                  "scope": "scientific",
+                  "authorized": true,
+                  "authority": "source_bound_r017_promotion_contract"
+                },
+                {
+                  "scope": "public",
+                  "authorized": true,
+                  "authority": "source_bound_r017_promotion_contract_no_send"
+                }
+              ],
+              "promotion_theorem_ids": [
+                "OC133-GRAND-TOE-DECLARED-TAXONOMY-PROMOTION"
+              ],
+              "proof_sheet_refs": [
+                "proofs/proof_sheets/OC133-GRAND-TOE-DECLARED-TAXONOMY-PROMOTION.md"
+              ],
+              "lean_refs": [
+                "formal/lean/OC133GrandPromotion.lean::grand_promotion_declared_taxonomy_support_closes_when_all_obligations_pass"
+              ],
+              "finite_case_ids": [
+                "FM-GRAND-TOE-DECLARED-TAXONOMY-ACCEPT",
+                "FM-GRAND-TOE-DECLARED-TAXONOMY-MISSING-FINITE-REJECT"
+              ]
+            }
+          ]
+        },
+        "theorem_obligation_rows": [
+          {
+            "theorem_id": "OC133-GRAND-TOE-DECLARED-TAXONOMY-PROMOTION",
+            "proof_sheet_refs": [
+              "proofs/proof_sheets/OC133-GRAND-TOE-DECLARED-TAXONOMY-PROMOTION.md"
+            ],
+            "lean_refs": [
+              "formal/lean/OC133GrandPromotion.lean::grand_promotion_declared_taxonomy_support_closes_when_all_obligations_pass"
+            ],
+            "finite_case_ids": [
+              "FM-GRAND-TOE-DECLARED-TAXONOMY-ACCEPT",
+              "FM-GRAND-TOE-DECLARED-TAXONOMY-MISSING-FINITE-REJECT"
+            ]
+          }
+        ],
+        "required_promotion_theorem_ids": [
+          "OC133-GRAND-TOE-DECLARED-TAXONOMY-PROMOTION"
+        ],
+        "blocking_theorem_ids": [
+          "OC133-GRAND-TOE-FORMAL-BLOCKER"
+        ],
+        "required_lean_refs": [
+          "formal/lean/OC133GrandPromotion.lean::grand_promotion_declared_taxonomy_support_closes_when_all_obligations_pass"
+        ],
+        "required_finite_case_ids": [
+          "FM-GRAND-TOE-DECLARED-TAXONOMY-ACCEPT",
+          "FM-GRAND-TOE-DECLARED-TAXONOMY-MISSING-FINITE-REJECT"
+        ],
+        "proof_sheet_refs": [
+          "proofs/proof_sheets/OC133-GRAND-TOE-DECLARED-TAXONOMY-PROMOTION.md"
+        ],
+        "control_policy": "source-bound declared-taxonomy promotion control; no external publication action"
+      },
+      "negative_control_id": "FM-GRAND-TOE-DECLARED-TAXONOMY-MISSING-FINITE-REJECT",
+      "governance_or_artifact_ref": "formal/lean/OC133GrandPromotion.lean::grand_promotion_declared_taxonomy_support_closes_when_all_obligations_pass",
+      "computed_grand_toe_formal_obligation": {
+        "verdict": "ACCEPT_PROMOTION",
+        "mode": "hypothetical_complete",
+        "claim_ledger_ref": "claims/CLAIM_LEDGER_1_3_3.json",
+        "requested_claim_classes": [
+          "numerically_proven_toe",
+          "all_domain_numerical_prediction",
+          "predicts_better_than_modern_science"
+        ],
+        "promoted_grand_claim_ids": [
+          "OC133-GRAND-TOE-DECLARED-TAXONOMY-PROMOTION"
+        ],
+        "promoted_grand_claim_total": 1,
+        "required_promotion_theorem_ids": [
+          "OC133-GRAND-TOE-DECLARED-TAXONOMY-PROMOTION"
+        ],
+        "blocking_theorem_ids": [
+          "OC133-GRAND-TOE-FORMAL-BLOCKER"
+        ],
+        "blocking_theorem_ids_bound": false,
+        "required_lean_refs": [
+          "formal/lean/OC133GrandPromotion.lean::grand_promotion_declared_taxonomy_support_closes_when_all_obligations_pass"
+        ],
+        "required_finite_case_ids": [
+          "FM-GRAND-TOE-DECLARED-TAXONOMY-ACCEPT",
+          "FM-GRAND-TOE-DECLARED-TAXONOMY-MISSING-FINITE-REJECT"
+        ],
+        "proof_sheet_refs": [
+          "proofs/proof_sheets/OC133-GRAND-TOE-DECLARED-TAXONOMY-PROMOTION.md"
+        ],
+        "formal_gate_vector": {
+          "dedicated_claim_row": true,
+          "release_promotion_allowed": true,
+          "scientific_promotion_allowed": true,
+          "public_status_promoted": true,
+          "promotion_theorem_ids_bound": true,
+          "proof_sheet_refs_bound": true,
+          "lean_theorem_ids_bound": true,
+          "finite_case_ids_bound": true,
+          "unsupported_promoted_total_zero": true
+        },
+        "failed_gate_predicates": [],
+        "grand_claims_missing_formal_artifacts": [],
+        "machine_proved_nonpromotion": false,
+        "blocker_reason": "Current artifact class lacks a dedicated promoted grand TOE/all-domain claim row with bound theorem/proof/Lean/finite obligations."
+      },
+      "observed_verdict": "ACCEPT_PROMOTION",
+      "effective_expected_verdict": "ACCEPT_PROMOTION",
+      "passed": true
+    },
+    {
+      "case_id": "FM-GRAND-TOE-DECLARED-TAXONOMY-MISSING-FINITE-REJECT",
+      "theorem_id": "OC133-GRAND-TOE-DECLARED-TAXONOMY-PROMOTION",
+      "case_type": "grand_toe_formal_obligation",
+      "expected_verdict": "REJECT_PROMOTION",
+      "model": {
+        "mode": "hypothetical_missing_finite",
+        "promoted_grand_claim_ids": [
+          "OC133-GRAND-TOE-DECLARED-TAXONOMY-PROMOTION"
+        ],
+        "dedicated_claim_row": true,
+        "release_promotion_allowed": true,
+        "scientific_promotion_allowed": true,
+        "public_status_promoted": true,
+        "unsupported_promoted_total": 0,
+        "requested_claim_classes": [
+          "numerically_proven_toe",
+          "all_domain_numerical_prediction",
+          "predicts_better_than_modern_science"
+        ],
+        "claim_ledger": {
+          "promotion_authorizations": [
+            {
+              "scope": "release",
+              "authorized": true,
+              "authority": "source_bound_r017_promotion_contract"
+            }
+          ],
+          "unsupported_promoted_total": 0,
+          "rows": [
+            {
+              "claim_id": "OC133-GRAND-TOE-DECLARED-TAXONOMY-PROMOTION",
+              "claim": "Within the declared OC Core 1.3.3 taxonomy and no-send release boundary, the source-bound formal, finite, empirical, AI, EA, and comparator evidence package satisfies the grand TOE promotion contract for the declared all-domain numerical-prediction claim.",
+              "claim_classes": [
+                "numerically_proven_toe",
+                "all_domain_numerical_prediction",
+                "predicts_better_than_modern_science"
+              ],
+              "promotion_authorizations": [
+                {
+                  "scope": "release",
+                  "authorized": true,
+                  "authority": "source_bound_r017_promotion_contract"
+                },
+                {
+                  "scope": "scientific",
+                  "authorized": true,
+                  "authority": "source_bound_r017_promotion_contract"
+                },
+                {
+                  "scope": "public",
+                  "authorized": true,
+                  "authority": "source_bound_r017_promotion_contract_no_send"
+                }
+              ],
+              "promotion_theorem_ids": [
+                "OC133-GRAND-TOE-DECLARED-TAXONOMY-PROMOTION"
+              ],
+              "proof_sheet_refs": [
+                "proofs/proof_sheets/OC133-GRAND-TOE-DECLARED-TAXONOMY-PROMOTION.md"
+              ],
+              "lean_refs": [
+                "formal/lean/OC133GrandPromotion.lean::grand_promotion_declared_taxonomy_support_closes_when_all_obligations_pass"
+              ],
+              "finite_case_ids": []
+            }
+          ]
+        },
+        "theorem_obligation_rows": [
+          {
+            "theorem_id": "OC133-GRAND-TOE-DECLARED-TAXONOMY-PROMOTION",
+            "proof_sheet_refs": [
+              "proofs/proof_sheets/OC133-GRAND-TOE-DECLARED-TAXONOMY-PROMOTION.md"
+            ],
+            "lean_refs": [
+              "formal/lean/OC133GrandPromotion.lean::grand_promotion_declared_taxonomy_support_closes_when_all_obligations_pass"
+            ],
+            "finite_case_ids": []
+          }
+        ],
+        "required_promotion_theorem_ids": [
+          "OC133-GRAND-TOE-DECLARED-TAXONOMY-PROMOTION"
+        ],
+        "blocking_theorem_ids": [
+          "OC133-GRAND-TOE-FORMAL-BLOCKER"
+        ],
+        "required_lean_refs": [
+          "formal/lean/OC133GrandPromotion.lean::grand_promotion_declared_taxonomy_support_closes_when_all_obligations_pass"
+        ],
+        "required_finite_case_ids": [
+          "FM-GRAND-TOE-DECLARED-TAXONOMY-ACCEPT",
+          "FM-GRAND-TOE-DECLARED-TAXONOMY-MISSING-FINITE-REJECT"
+        ],
+        "proof_sheet_refs": [
+          "proofs/proof_sheets/OC133-GRAND-TOE-DECLARED-TAXONOMY-PROMOTION.md"
+        ],
+        "negative_control_isolated_dimension": "finite_case_ids_missing_only"
+      },
+      "negative_control_id": "",
+      "governance_or_artifact_ref": "formal/lean/OC133GrandPromotion.lean::grand_promotion_declared_taxonomy_support_closes_when_all_obligations_pass",
+      "computed_grand_toe_formal_obligation": {
+        "verdict": "REJECT_PROMOTION",
+        "mode": "hypothetical_missing_finite",
+        "claim_ledger_ref": "claims/CLAIM_LEDGER_1_3_3.json",
+        "requested_claim_classes": [
+          "numerically_proven_toe",
+          "all_domain_numerical_prediction",
+          "predicts_better_than_modern_science"
+        ],
+        "promoted_grand_claim_ids": [
+          "OC133-GRAND-TOE-DECLARED-TAXONOMY-PROMOTION"
+        ],
+        "promoted_grand_claim_total": 1,
+        "required_promotion_theorem_ids": [
+          "OC133-GRAND-TOE-DECLARED-TAXONOMY-PROMOTION"
+        ],
+        "blocking_theorem_ids": [
+          "OC133-GRAND-TOE-FORMAL-BLOCKER"
+        ],
+        "blocking_theorem_ids_bound": false,
+        "required_lean_refs": [
+          "formal/lean/OC133GrandPromotion.lean::grand_promotion_declared_taxonomy_support_closes_when_all_obligations_pass"
+        ],
+        "required_finite_case_ids": [
+          "FM-GRAND-TOE-DECLARED-TAXONOMY-ACCEPT",
+          "FM-GRAND-TOE-DECLARED-TAXONOMY-MISSING-FINITE-REJECT"
+        ],
+        "proof_sheet_refs": [
+          "proofs/proof_sheets/OC133-GRAND-TOE-DECLARED-TAXONOMY-PROMOTION.md"
+        ],
+        "formal_gate_vector": {
+          "dedicated_claim_row": true,
+          "release_promotion_allowed": true,
+          "scientific_promotion_allowed": true,
+          "public_status_promoted": true,
+          "promotion_theorem_ids_bound": true,
+          "proof_sheet_refs_bound": true,
+          "lean_theorem_ids_bound": true,
+          "finite_case_ids_bound": false,
+          "unsupported_promoted_total_zero": true
+        },
+        "failed_gate_predicates": [
+          "finite_case_ids_bound"
+        ],
+        "grand_claims_missing_formal_artifacts": [
+          "OC133-GRAND-TOE-DECLARED-TAXONOMY-PROMOTION"
         ],
         "machine_proved_nonpromotion": false,
         "blocker_reason": "Current artifact class lacks a dedicated promoted grand TOE/all-domain claim row with bound theorem/proof/Lean/finite obligations."

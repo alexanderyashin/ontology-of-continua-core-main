@@ -54,13 +54,37 @@ OWNER_CAPABILITIES = {
 
 DOMAIN_LOCAL_MATERIALIZED_EVIDENCE_REFS = {
     (
+        "formal_mathematics_and_logic",
+        "computational_complexity_and_algorithmic_proof",
+    ): (
+        "validation/heldout/grand_science/formal_mathematics/exact_evidence/"
+        "computational_complexity_algorithmic_proof/"
+        "OC133_FORMAL_COMPLEXITY_ALGORITHMIC_STRICT_EVIDENCE_PACK.json"
+    ),
+    (
+        "formal_mathematics_and_logic",
+        "formal_theorem_reconstruction",
+    ): (
+        "validation/heldout/grand_science/formal_mathematics/exact_evidence/"
+        "formal_theorem_reconstruction/"
+        "OC133_FORMAL_THEOREM_RECONSTRUCTION_STRICT_EVIDENCE_PACK.json"
+    ),
+    (
+        "formal_mathematics_and_logic",
+        "statistical_inference_identifiability",
+    ): (
+        "validation/heldout/grand_science/formal_mathematics/exact_evidence/"
+        "statistical_inference_identifiability/"
+        "OC133_FORMAL_STAT_PROB_IDENTIFIABILITY_STRICT_EVIDENCE_PACK.json"
+    ),
+    (
         "agricultural_food_sciences",
         "food_chemistry_safety_and_nutrition",
     ): "validation/heldout/grand_science/agriculture/coverage_work_orders/OC133_AGRICULTURE_FDC_SODIUM_SCORING_PACK.json",
     (
         "earth_space_environmental_sciences",
         "geochemistry_and_hydrology_observables",
-    ): "validation/heldout/grand_science/earth_space/coverage_work_orders/OC133_EARTH_SPACE_USGS_HYDROLOGY_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
+    ): "validation/heldout/grand_science/wdi/earth_hydrology_freshwater_resources/OC133_WDI_EARTH_HYDROLOGY_FRESHWATER_RESOURCES_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
     (
         "earth_space_environmental_sciences",
         "climate_weather_geophysical_time_series",
@@ -118,6 +142,14 @@ DOMAIN_LOCAL_MATERIALIZED_EVIDENCE_REFS = {
         "machine_learning_generalization_and_evaluation",
     ): "validation/heldout/grand_science/cs/uci_iris_ml/OC133_UCI_IRIS_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
     (
+        "computer_information_sciences",
+        "program_semantics_and_verification",
+    ): "validation/heldout/grand_science/cs/codexglue_defect/OC133_CODEXGLUE_DEFECT_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
+    (
+        "chemical_sciences",
+        "reaction_and_kinetics_prediction",
+    ): "validation/heldout/grand_science/physics_chemistry/nist_kinetics_water/OC133_NIST_KINETICS_WATER_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
+    (
         "cognitive_behavioral_neurosciences",
         "behavioral_task_and_psychometric_prediction",
     ): "validation/heldout/grand_science/uci/cognitive_student_psychometric_performance/OC133_UCI_COGNITIVE_STUDENT_PSYCHOMETRIC_PERFORMANCE_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
@@ -153,6 +185,10 @@ DOMAIN_LOCAL_MATERIALIZED_EVIDENCE_REFS = {
         "medical_health_sciences",
         "clinical_outcomes_and_biomarkers",
     ): "validation/heldout/grand_science/wdi/medical_clinical_life_expectancy/OC133_WDI_MEDICAL_CLINICAL_LIFE_EXPECTANCY_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
+    (
+        "medical_health_sciences",
+        "epidemiological_transmission_and_risk",
+    ): "validation/heldout/grand_science/wdi/medical_epidemiology_child_mortality/OC133_WDI_MEDICAL_EPIDEMIOLOGY_CHILD_MORTALITY_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
     (
         "biological_life_sciences",
         "ecology_population_and_biodiversity_observables",
@@ -809,7 +845,14 @@ def materialized_evidence_binding_for_key(
 
 def bind_materialized_current_evidence(spec: dict[str, Any]) -> dict[str, Any]:
     row = copy.deepcopy(spec)
-    evidence = materialized_evidence_binding_for_key(lane_key(row), as_dict(row.get("current_evidence")))
+    evidence_key = lane_key(row)
+    source_key = (
+        str(row.get("source_domain_class_id") or ""),
+        str(row.get("source_phenomenon_class_id") or ""),
+    )
+    if source_key in DOMAIN_LOCAL_MATERIALIZED_EVIDENCE_REFS:
+        evidence_key = source_key
+    evidence = materialized_evidence_binding_for_key(evidence_key, as_dict(row.get("current_evidence")))
     if evidence.get("executable_evidence_exists") is not True:
         return row
     row["current_evidence"] = evidence

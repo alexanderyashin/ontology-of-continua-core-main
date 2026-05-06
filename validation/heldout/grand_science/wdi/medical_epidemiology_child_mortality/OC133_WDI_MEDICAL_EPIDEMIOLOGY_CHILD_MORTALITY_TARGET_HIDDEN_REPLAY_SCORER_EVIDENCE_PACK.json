@@ -1,0 +1,204 @@
+{
+  "schema_id": "OC133_WDI_INDICATOR_SCORING_PACK_v1",
+  "pack_status": "STRICT_EVIDENCE_PASS_NO_COVERAGE_CLOSURE",
+  "status": "STRICT_EVIDENCE_PASS_NO_COVERAGE_CLOSURE",
+  "lane_id": "medical_epidemiology_child_mortality",
+  "domain_class_id": "medical_health_sciences",
+  "phenomenon_class_id": "epidemiological_transmission_and_risk",
+  "source_bound": true,
+  "target_hidden": true,
+  "score_materialized": true,
+  "scientific_pass": true,
+  "coverage_closure_allowed": false,
+  "support_allowed_for_broad_coverage": false,
+  "source_snapshot_ref": "validation/heldout/grand_science/wdi/medical_epidemiology_child_mortality/OC133_WDI_MEDICAL_EPIDEMIOLOGY_CHILD_MORTALITY_SOURCE.json",
+  "source_snapshot_sha256": "de968fc6e8b6f39cc6e8ad6ba138426b82eb56acdf378b2a4f3f191a9bd0c7eb",
+  "source_lock_ref": "validation/heldout/grand_science/wdi/medical_epidemiology_child_mortality/OC133_WDI_MEDICAL_EPIDEMIOLOGY_CHILD_MORTALITY_SOURCE.lock.json",
+  "visible_task_table_ref": "validation/heldout/grand_science/wdi/medical_epidemiology_child_mortality/OC133_WDI_MEDICAL_EPIDEMIOLOGY_CHILD_MORTALITY_TARGET_HIDDEN_TASK_TABLE.json",
+  "hidden_target_lock_ref": "validation/heldout/grand_science/wdi/medical_epidemiology_child_mortality/OC133-WDI-MEDICAL_EPIDEMIOLOGY_CHILD_MORTALITY-HIDDEN-TARGETS-0001.lock.json",
+  "row_count": 2400,
+  "model": {
+    "model_id": "MED-WDI-UNDER-FIVE-MORTALITY-MEDIAN-DELTA-v1",
+    "rule": "Use the median recent annual mortality-risk change over a five-year visible history and extrapolate one year."
+  },
+  "comparator": {
+    "comparator_id": "MED-WDI-UNDER-FIVE-MORTALITY-LAST_OBSERVATION_BASELINE-v1",
+    "rule": "Predict the held-out epidemiological risk observable as the last visible pre-target value."
+  },
+  "residuals": {
+    "model_relative_mae": 0.019826514209,
+    "comparator_relative_mae": 0.039981186269,
+    "negative_control_relative_mae": 0.118039894668,
+    "material_margin_met": true,
+    "material_margin_rule": "model_relative_mae + 0.001 must be below the last-observation comparator relative MAE"
+  },
+  "negative_control": {
+    "control_id": "MED-WDI-UNDER-FIVE-MORTALITY-FIVE_YEAR_MEAN_CONTROL-v1",
+    "negative_control_rejected": true
+  },
+  "falsifiers": [
+    "target values leak into visible task table",
+    "source lock hash is missing or stale",
+    "model relative MAE plus material margin is not below comparator relative MAE",
+    "five-year mean negative control is not worse than the model"
+  ],
+  "replay_command": {
+    "commands": [
+      "python validation/heldout/grand_science/wdi/coverage_work_orders/oc133_wdi_indicator_materializer.py --lane medical_epidemiology_child_mortality --score --write-scoring",
+      "python validation/heldout/grand_science/wdi/coverage_work_orders/oc133_wdi_indicator_materializer.py --lane medical_epidemiology_child_mortality --check"
+    ]
+  },
+  "scored_rows_sha256": "27192cf3857a0f0c86444cd7cdf638f1dab2185a1dcab685f4c6856759eca51e",
+  "scored_rows_sample": [
+    {
+      "task_id": "WDI-MEDICAL_EPIDEMIOLOGY_CHILD_MORTALITY-HOLDOUT-AFE-2010",
+      "countryiso3code": "AFE",
+      "target_year": 2010,
+      "model_prediction": 79.939770830685,
+      "comparator_prediction": 85.092179042817,
+      "negative_control_prediction": 95.125872191339,
+      "prediction_trace": {
+        "prediction_method": "median_delta"
+      },
+      "target_sha256": "c8091da989c3177e9e3d205b19d96e6715b6e5cf2d60714390bda8e38a43ddfa",
+      "model_relative_error": 0.024283747165,
+      "comparator_relative_error": 0.038604704748,
+      "negative_control_relative_error": 0.161072374836
+    },
+    {
+      "task_id": "WDI-MEDICAL_EPIDEMIOLOGY_CHILD_MORTALITY-HOLDOUT-AFE-2011",
+      "countryiso3code": "AFE",
+      "target_year": 2011,
+      "model_prediction": 77.127736783991,
+      "comparator_prediction": 81.929321765824,
+      "negative_control_prediction": 90.246814908246,
+      "prediction_trace": {
+        "prediction_method": "median_delta"
+      },
+      "target_sha256": "6958c55d594cd50eb7b3a682e71567e4ad80f0a341406326121cb1551e2b69cc",
+      "model_relative_error": 0.076867733167,
+      "comparator_relative_error": 0.019398161084,
+      "negative_control_relative_error": 0.080152877479
+    },
+    {
+      "task_id": "WDI-MEDICAL_EPIDEMIOLOGY_CHILD_MORTALITY-HOLDOUT-AFE-2012",
+      "countryiso3code": "AFE",
+      "target_year": 2012,
+      "model_prediction": 79.711597686059,
+      "comparator_prediction": 83.550038878607,
+      "negative_control_prediction": 86.974618568931,
+      "prediction_trace": {
+        "prediction_method": "median_delta"
+      },
+      "target_sha256": "594d4cf2876c7b2cd7236f434e4c121e02efea01fcec362ae990b0ef0dd94ac8",
+      "model_relative_error": 0.060262739892,
+      "comparator_relative_error": 0.111318750483,
+      "negative_control_relative_error": 0.156869891733
+    },
+    {
+      "task_id": "WDI-MEDICAL_EPIDEMIOLOGY_CHILD_MORTALITY-HOLDOUT-AFE-2013",
+      "countryiso3code": "AFE",
+      "target_year": 2013,
+      "model_prediction": 71.342544318849,
+      "comparator_prediction": 75.180985511398,
+      "negative_control_prediction": 83.071745869914,
+      "prediction_trace": {
+        "prediction_method": "median_delta"
+      },
+      "target_sha256": "5325aaf4ac9a8c47df2c26fe354eb7d203d9b509e085afd8b70b3ce2d0389aa0",
+      "model_relative_error": 0.000411073329,
+      "comparator_relative_error": 0.053369785601,
+      "negative_control_relative_error": 0.163928173344
+    },
+    {
+      "task_id": "WDI-MEDICAL_EPIDEMIOLOGY_CHILD_MORTALITY-HOLDOUT-AFE-2014",
+      "countryiso3code": "AFE",
+      "target_year": 2014,
+      "model_prediction": 67.885903700684,
+      "comparator_prediction": 71.371883396586,
+      "negative_control_prediction": 79.424881719046,
+      "prediction_trace": {
+        "prediction_method": "median_delta"
+      },
+      "target_sha256": "59ce344b8b4ae2a4ac28a8ce634c427d4daa1d0f46eb26507913bd2a0898a0e9",
+      "model_relative_error": 0.041261850233,
+      "comparator_relative_error": 0.007969898062,
+      "negative_control_relative_error": 0.121700677073
+    },
+    {
+      "task_id": "WDI-MEDICAL_EPIDEMIOLOGY_CHILD_MORTALITY-HOLDOUT-AFE-2015",
+      "countryiso3code": "AFE",
+      "target_year": 2015,
+      "model_prediction": 68.620838853218,
+      "comparator_prediction": 70.807554405945,
+      "negative_control_prediction": 76.567956791672,
+      "prediction_trace": {
+        "prediction_method": "median_delta"
+      },
+      "target_sha256": "43e8c09779be4be1848a140984f0419ff915f376e66a6a17228743785b952307",
+      "model_relative_error": 0.015846728569,
+      "comparator_relative_error": 0.015514929214,
+      "negative_control_relative_error": 0.098130049452
+    },
+    {
+      "task_id": "WDI-MEDICAL_EPIDEMIOLOGY_CHILD_MORTALITY-HOLDOUT-AFE-2016",
+      "countryiso3code": "AFE",
+      "target_year": 2016,
+      "model_prediction": 67.280317906631,
+      "comparator_prediction": 69.72576411134,
+      "negative_control_prediction": 74.127245260775,
+      "prediction_trace": {
+        "prediction_method": "median_delta"
+      },
+      "target_sha256": "8b0340d6a1e9efe3db0d262efb38a4a4e224904031beda1cb90018662b56d7d9",
+      "model_relative_error": 0.015837663728,
+      "comparator_relative_error": 0.019933808895,
+      "negative_control_relative_error": 0.084317749189
+    },
+    {
+      "task_id": "WDI-MEDICAL_EPIDEMIOLOGY_CHILD_MORTALITY-HOLDOUT-AFE-2017",
+      "countryiso3code": "AFE",
+      "target_year": 2017,
+      "model_prediction": 67.140765643701,
+      "comparator_prediction": 68.363028564449,
+      "negative_control_prediction": 71.089843197944,
+      "prediction_trace": {
+        "prediction_method": "median_delta"
+      },
+      "target_sha256": "1dd049dcb06f6ce6a2d6a4c36aa898709dd1c540190eb561fbe9e097a72ca8e5",
+      "model_relative_error": 0.008813896849,
+      "comparator_relative_error": 0.009230133627,
+      "negative_control_relative_error": 0.049485569273
+    },
+    {
+      "task_id": "WDI-MEDICAL_EPIDEMIOLOGY_CHILD_MORTALITY-HOLDOUT-AFE-2018",
+      "countryiso3code": "AFE",
+      "target_year": 2018,
+      "model_prediction": 66.884290004014,
+      "comparator_prediction": 67.737799622361,
+      "negative_control_prediction": 69.601206020136,
+      "prediction_trace": {
+        "prediction_method": "median_delta"
+      },
+      "target_sha256": "1b890a0103ccd9e4c5d565a30239c4332efcdb68e069a0419c0cbb548b6d383f",
+      "model_relative_error": 0.054575560657,
+      "comparator_relative_error": 0.068032986672,
+      "negative_control_relative_error": 0.097413620698
+    },
+    {
+      "task_id": "WDI-MEDICAL_EPIDEMIOLOGY_CHILD_MORTALITY-HOLDOUT-AFE-2019",
+      "countryiso3code": "AFE",
+      "target_year": 2019,
+      "model_prediction": 62.200684186375,
+      "comparator_prediction": 63.422947107123,
+      "negative_control_prediction": 68.011418762244,
+      "prediction_trace": {
+        "prediction_method": "median_delta"
+      },
+      "target_sha256": "e46756b815c4776db465d00180fefae7c474073d3b3f71e10f5d046faa4520a0",
+      "model_relative_error": 0.011530811106,
+      "comparator_relative_error": 0.031407708278,
+      "negative_control_relative_error": 0.106027152031
+    }
+  ]
+}

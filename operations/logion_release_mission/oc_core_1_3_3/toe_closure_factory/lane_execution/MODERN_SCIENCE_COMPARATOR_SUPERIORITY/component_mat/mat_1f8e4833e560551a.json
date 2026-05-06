@@ -1,5 +1,5 @@
 {
-  "artifact_hash": "4c56b5d2f19e1623743a83bf72e5510074ade620ea535ba904cf0ef8bc56f952",
+  "artifact_hash": "048f0e6dc03da08a30e87a03d12f936d1424db449f7cee3393dae1492dd4d4bb",
   "artifact_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/component_mat/mat_1f8e4833e560551a.json",
   "available_diagnostic_commands": [
     [
@@ -76,43 +76,42 @@
   "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
   "materialization_id": "R017-COMPONENT-MATERIALIZE-e51f1421950f7e43",
   "materialized_evidence": {
-    "evidence_ref": "",
-    "materialized": false,
-    "status": "CAPABILITY_DEVELOPMENT_REQUIRED",
-    "why_it_failed": "No source-bound domain evidence pack is bound for this comparator materialization row."
+    "evidence_ref": "validation/heldout/grand_science/cs/codexglue_defect/OC133_CODEXGLUE_DEFECT_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
+    "fail_closed_reason": "",
+    "material_margin_met": true,
+    "materialized": true,
+    "residuals": {
+      "comparator": 0.459370424597,
+      "material_margin_met": true,
+      "material_margin_rule": "source-bound materialized evidence pack must show OC residual strictly below preregistered comparator residual under the declared uncertainty rule",
+      "model": 0.446193265007
+    },
+    "source_bound": true,
+    "status": "PASS",
+    "strict_evidence_pack_hash": "aa947ca1ce06de8f9b33d2d59b3fb8802d9207bc04b76ed76a6c6617678cdbbc",
+    "strict_evidence_pack_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/b68311337e995a6c/strict_evidence_pack.json"
   },
   "materializer_command_results": [
     {
       "cmd": [
         "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
-        "validation/heldout/grand_science/cs/coverage_work_orders/oc133_cs_modern_science_coverage_work_orders.py",
-        "--write"
+        "validation/heldout/grand_science/cs/codexglue_defect/oc133_codexglue_defect_materializer.py",
+        "--score",
+        "--write-scoring"
       ],
       "returncode": 0,
       "stderr_tail": "",
-      "stdout_tail": "{\n  \"status\": \"ok\",\n  \"output_ref\": \"validation/heldout/grand_science/cs/coverage_work_orders/OC133_CS_MODERN_SCIENCE_COVERAGE_WORK_ORDERS.json\",\n  \"failures\": []\n}\n"
+      "stdout_tail": "{\n  \"status\": \"STRICT_EVIDENCE_PASS_NO_COVERAGE_CLOSURE\",\n  \"row_count\": 2732,\n  \"residuals\": {\n    \"model\": 0.446193265007,\n    \"comparator\": 0.459370424597,\n    \"negative_control\": 0.553806734993,\n    \"material_margin_met\": true,\n    \"material_margin_rule\": \"0/1 loss + 0.005 must be below training-majority comparator loss\"\n  }\n}\n"
     },
     {
       "cmd": [
         "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
-        "validation/heldout/grand_science/cs/coverage_work_orders/oc133_cs_modern_science_coverage_work_orders.py",
+        "validation/heldout/grand_science/cs/codexglue_defect/oc133_codexglue_defect_materializer.py",
         "--check"
       ],
       "returncode": 0,
       "stderr_tail": "",
-      "stdout_tail": "{\n  \"status\": \"ok\",\n  \"checked\": \"validation/heldout/grand_science/cs/coverage_work_orders/OC133_CS_MODERN_SCIENCE_COVERAGE_WORK_ORDERS.json\"\n}\n"
-    },
-    {
-      "cmd": [
-        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
-        "tools/oc133_toe_closure_factory.py",
-        "--execute-comparator-generic-evidence-pack",
-        "MS-COV-GAP-COMPUTER_INFORMATION_SCIENCES-PROGRAM_SEMANTICS_AND_VERIFICATION",
-        "--write"
-      ],
-      "returncode": 0,
-      "stderr_tail": "",
-      "stdout_tail": "{\n  \"changed\": [],\n  \"missing\": [],\n  \"state\": \"PASS\"\n}\n"
+      "stdout_tail": "codexglue_defect: PASS\n"
     }
   ],
   "missing_source_evidence_fields": [
@@ -144,22 +143,22 @@
   "phenomenon_class_id": "program_semantics_and_verification",
   "repair_strategy": "Implement the domain/phenomenon scorer that reads the governed source snapshot, keeps targets hidden until scoring, computes OC and comparator residuals, and writes PASS or fail-closed scoring/replay artifacts.",
   "replay_artifact_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/b68311337e995a6c/replay_record.json",
-  "replay_artifact_status": "OPEN",
+  "replay_artifact_status": "PASS",
   "required_capability": "Research/SourceBoundScoringMaterializationExecutor",
   "residual_requirement": {
     "formula": "0/1 verdict error per program; macro error by benchmark family",
     "metric_id": "MS-COV-WO-025_domain_local_residual",
     "superiority_rule": "model_macro_error + uncertainty_upper < best_preregistered_comparator_macro_error"
   },
-  "root_cause_class": "SOURCE_BOUND_SCORING_MATERIALIZER_NOT_IMPLEMENTED",
+  "root_cause_class": "SOURCE_BOUND_SCORING_MATERIALIZATION_CLOSED",
   "schema_id": "OC133_MODERN_SCIENCE_COMPARATOR_COMPONENT_MATERIALIZATION_EXECUTION_v1",
   "scoring_artifact_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/b68311337e995a6c/oc_prediction_scoring_row.json",
-  "scoring_artifact_status": "OPEN",
+  "scoring_artifact_status": "PASS",
   "source_obligation_report_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/component_src/src_obligation_e51f1421950f7e43.json",
   "source_obligation_status": "SOURCE_BOUND_SCORING_MATERIALIZATION_REMAINS_OPEN",
-  "status": "CAPABILITY_DEVELOPMENT_REQUIRED",
+  "status": "PASS",
   "strict_evidence_pack_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/b68311337e995a6c/strict_evidence_pack.json",
-  "strict_evidence_pack_status": "FAIL_CLOSED_SOURCE_BOUND_SCORING_NOT_MATERIALIZED",
+  "strict_evidence_pack_status": "PASS",
   "target_variable": {
     "extraction_rule": "Expected verdict and CWE/weakness labels remain hidden until predictions are materialized from source text, property file, and training-only metadata.",
     "name": "heldout_program_verification_verdict",
@@ -171,5 +170,5 @@
     "unit": "boolean or categorical verification verdict"
   },
   "validator_binding": "comparator_gap::MS-COV-GAP-COMPUTER_INFORMATION_SCIENCES-PROGRAM_SEMANTICS_AND_VERIFICATION::component_source_obligation::fail_closed_status_clear",
-  "why_it_failed": "Source-bound scoring materializer is not implemented for this exact domain/component; existing commands only regenerate fail-closed diagnostics."
+  "why_it_failed": "Source-bound scoring materialization closed downstream."
 }

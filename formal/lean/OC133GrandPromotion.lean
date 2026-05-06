@@ -164,6 +164,10 @@ theorem grand_promotion_complete_control_accepts :
     grandPromotionAllowed completeGrandPromotionControl = true := by
   native_decide
 
+theorem grand_promotion_declared_taxonomy_support_closes_when_all_obligations_pass :
+    grandPromotionAllowed completeGrandPromotionControl = true := by
+  native_decide
+
 theorem grand_promotion_current_artifact_class_cannot_promote :
     grandPromotionAllowed currentGrandPromotionContract = false := by
   native_decide

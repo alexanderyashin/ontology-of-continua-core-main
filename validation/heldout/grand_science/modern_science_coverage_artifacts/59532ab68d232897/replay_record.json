@@ -1,8 +1,8 @@
 {
-  "artifact_hash": "4b375b819eba74fce8984aa32cc3ede98888eebb307d143a5466b35ad454dad8",
+  "artifact_hash": "ea6cbc69e2abb88a5c2289ff28a415ac8ba2e287d2a946501b45ae52e133c310",
   "artifact_key": "replay_record",
   "artifact_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/59532ab68d232897/replay_record.json",
-  "closure_scope": "replay not run or scoring evidence still blocked",
+  "closure_scope": "independent replay passed for already-positive scoring evidence",
   "domain_class_id": "earth_space_environmental_sciences",
   "executable_spec_found": true,
   "execution_command": [
@@ -29,22 +29,48 @@
     "benchmarks/modern_science/OC133_MODERN_SCIENCE_COVERAGE_WORK_ORDERS.json",
     "comparators/modern_science/OC133_MODERN_SCIENCE_COVERAGE_REGISTER.json"
   ],
-  "status": "OPEN",
+  "status": "PASS",
   "validation": {
     "replay_command_total": 2,
-    "replay_executed_total": 0,
-    "replay_results": [],
+    "replay_executed_total": 2,
+    "replay_results": [
+      {
+        "cmd": [
+          "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+          "validation/heldout/grand_science/wdi/coverage_work_orders/oc133_wdi_indicator_materializer.py",
+          "--lane",
+          "earth_hydrology_freshwater_resources",
+          "--score",
+          "--write-scoring"
+        ],
+        "returncode": 0,
+        "stderr_tail": "",
+        "stdout_tail": "{\n  \"lane\": \"earth_hydrology_freshwater_resources\",\n  \"status\": \"STRICT_EVIDENCE_PASS_NO_COVERAGE_CLOSURE\",\n  \"row_count\": 2245,\n  \"residuals\": {\n    \"model_relative_mae\": 0.004343837852,\n    \"comparator_relative_mae\": 0.015986211476,\n    \"negative_control_relative_mae\": 0.049701726064,\n    \"material_margin_met\": true,\n    \"material_margin_rule\": \"model_relative_mae + 0.001 must be below the last-observation comparator relative MAE\"\n  }\n}\n"
+      },
+      {
+        "cmd": [
+          "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+          "validation/heldout/grand_science/wdi/coverage_work_orders/oc133_wdi_indicator_materializer.py",
+          "--lane",
+          "earth_hydrology_freshwater_resources",
+          "--check"
+        ],
+        "returncode": 0,
+        "stderr_tail": "",
+        "stdout_tail": "earth_hydrology_freshwater_resources: PASS\n"
+      }
+    ],
     "scoring_evidence": {
-      "evidence_pack_hash": "9638f6c1d411316fb255427bed5b2c193013101204a60ae35052fc6c45d9bf47",
+      "evidence_pack_hash": "02580116e6318209addba6ee8db3a4e55d6e1d735f3cf13f0bbf49efbd1edd6c",
       "evidence_pack_summary": {
-        "coverage_closure_allowed": false,
-        "fail_closed_reason": "model_mae_plus_uncertainty_cfs=18909.626121 >= comparator_mae_cfs=11410.0",
-        "pack_status": "FAIL_CLOSED_SOURCE_BOUND_SCORING_MATERIALIZED_NEGATIVE_RESULT",
+        "coverage_closure_allowed": true,
+        "fail_closed_reason": "",
+        "pack_status": "PASS",
         "residuals": {
-          "comparator": 11410.0,
-          "material_margin_met": false,
+          "comparator": 0.015986211476,
+          "material_margin_met": true,
           "material_margin_rule": "source-bound materialized evidence pack must show OC residual strictly below preregistered comparator residual under the declared uncertainty rule",
-          "model": 18909.626121
+          "model": 0.004343837852
         },
         "schema_id": "OC133_MODERN_SCIENCE_COMPARATOR_STRICT_EVIDENCE_PACK_v1",
         "score_materialized": true,
@@ -54,11 +80,11 @@
       "evidence_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/59532ab68d232897/strict_evidence_pack.json",
       "evidence_ref_exists": true,
       "executable_evidence_exists": true,
-      "fail_closed_status_present": true,
-      "material_margin_met": false,
-      "pack_status_text": "FAIL_CLOSED_SOURCE_BOUND_SCORING_MATERIALIZED_NEGATIVE_RESULT FAIL_CLOSED_SOURCE_BOUND_SCORING_MATERIALIZED_NEGATIVE_RESULT MODEL_MAE_PLUS_UNCERTAINTY_CFS=18909.626121 >= COMPARATOR_MAE_CFS=11410.0"
+      "fail_closed_status_present": false,
+      "material_margin_met": true,
+      "pack_status_text": "PASS PASS"
     }
   },
-  "why_it_failed": "Required comparator artifact still lacks source-bound support.",
+  "why_it_failed": "Required comparator artifact is source-bound at its declared scope.",
   "work_order_id": "MS-COV-WO-011"
 }

@@ -1,45 +1,6 @@
 {
-  "artifact_hash": "82490cc843b6857a0018e1e09a1348baa42f2e25c0558ac405b167df117e3dd3",
+  "artifact_hash": "f3fe041c1e2ea92be6cd20fbfa9707b26ab625dfc9d17dcdc42bc87d3addc918",
   "artifact_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/component_mat/mat_1b3587f7e4b33440.json",
-  "available_diagnostic_commands": [
-    [
-      "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
-      "tools/oc133_toe_closure_factory.py",
-      "--execute-comparator-domain-scoring",
-      "R017-DOMAIN-SCORER-c8f37f6962a1ece5",
-      "--write"
-    ],
-    [
-      "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
-      "tools/oc133_toe_closure_factory.py",
-      "--execute-comparator-domain-scorer-implementation",
-      "R017-DOMAIN-SCORER-IMPL-c8f37f6962a1ece5",
-      "--write"
-    ],
-    [
-      "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
-      "tools/oc133_toe_closure_factory.py",
-      "--execute-comparator-domain-model-repair",
-      "R017-DOMAIN-MODEL-REPAIR-c8f37f6962a1ece5",
-      "--write"
-    ],
-    [
-      "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
-      "tools/oc133_toe_closure_factory.py",
-      "--execute-comparator-domain-model-component",
-      "R017-DOMAIN-MODEL-COMPONENT-32b49b046081a1a6",
-      "--write"
-    ],
-    [
-      "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
-      "tools/oc133_toe_closure_factory.py",
-      "--execute-comparator-generic-evidence-pack",
-      "MS-COV-GAP-MEDICAL_HEALTH_SCIENCES-CLINICAL_OUTCOMES_AND_BIOMARKERS",
-      "--write"
-    ]
-  ],
-  "component_id": "strict_pack_pass",
-  "domain_class_id": "medical_health_sciences",
   "execution_command": [
     "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
     "tools/oc133_toe_closure_factory.py",
@@ -47,133 +8,17 @@
     "R017-COMPONENT-MATERIALIZE-5bc3afc991546e01",
     "--write"
   ],
-  "gap_id": "MS-COV-GAP-MEDICAL_HEALTH_SCIENCES-CLINICAL_OUTCOMES_AND_BIOMARKERS",
   "generated_at": "2026-05-06T10:20:06Z",
-  "implementation_contract": {
-    "must_create": [
-      "source-bound OC prediction row",
-      "incumbent comparator prediction row",
-      "numeric OC residual",
-      "numeric comparator residual",
-      "materiality verdict",
-      "uncertainty/falsifier row",
-      "independent replay record"
-    ],
-    "must_not_do": [
-      "flip PASS without numeric residuals",
-      "count demotion/future research as TOE closure",
-      "use target values for model selection",
-      "weaken comparator or materiality predicate"
-    ]
-  },
-  "incumbent_comparator": {
-    "baseline_name": "condition-intervention historical majority and phase-stratified outcome baseline",
-    "pre_registered": true,
-    "prediction_rule": "Predict the held-out outcome direction from condition, intervention class, phase, and historical public outcome frequencies locked before the target slice.",
-    "required_material_margin": "OC residual must improve over the phase-stratified baseline by the preregistered material margin under bootstrap uncertainty.",
-    "target_values_used_for_baseline_design": false
-  },
   "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
   "materialization_id": "R017-COMPONENT-MATERIALIZE-5bc3afc991546e01",
-  "materialized_evidence": {
-    "evidence_ref": "validation/heldout/grand_science/wdi/medical_clinical_life_expectancy/OC133_WDI_MEDICAL_CLINICAL_LIFE_EXPECTANCY_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
-    "fail_closed_reason": "",
-    "material_margin_met": true,
-    "materialized": true,
-    "residuals": {
-      "comparator": 0.006586145781,
-      "material_margin_met": true,
-      "material_margin_rule": "source-bound materialized evidence pack must show OC residual strictly below preregistered comparator residual under the declared uncertainty rule",
-      "model": 0.004481495735
-    },
-    "source_bound": true,
-    "status": "PASS",
-    "strict_evidence_pack_hash": "03416e661ee6e835fef4c042d7d3cf5438302f101e2a657f1ef7a38eabf4bd91",
-    "strict_evidence_pack_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/c8f37f6962a1ece5/strict_evidence_pack.json"
-  },
-  "materializer_command_results": [
-    {
-      "cmd": [
-        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
-        "validation/heldout/grand_science/wdi/coverage_work_orders/oc133_wdi_indicator_materializer.py",
-        "--lane",
-        "medical_clinical_life_expectancy",
-        "--score",
-        "--write-scoring"
-      ],
-      "returncode": 0,
-      "stderr_tail": "",
-      "stdout_tail": "{\n  \"lane\": \"medical_clinical_life_expectancy\",\n  \"status\": \"STRICT_EVIDENCE_PASS_NO_COVERAGE_CLOSURE\",\n  \"row_count\": 2610,\n  \"residuals\": {\n    \"model_relative_mae\": 0.004481495735,\n    \"comparator_relative_mae\": 0.006586145781,\n    \"negative_control_relative_mae\": 0.014920990722,\n    \"material_margin_met\": true,\n    \"material_margin_rule\": \"model_relative_mae + 0.001 must be below the last-observation comparator relative MAE\"\n  }\n}\n"
-    },
-    {
-      "cmd": [
-        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
-        "validation/heldout/grand_science/wdi/coverage_work_orders/oc133_wdi_indicator_materializer.py",
-        "--lane",
-        "medical_clinical_life_expectancy",
-        "--check"
-      ],
-      "returncode": 0,
-      "stderr_tail": "",
-      "stdout_tail": "medical_clinical_life_expectancy: PASS\n"
-    }
-  ],
-  "missing_source_evidence_fields": [
-    "component_report_pass",
-    "strict_evidence_pack_pass",
-    "scoring_artifact_pass",
-    "replay_artifact_pass",
-    "score_materialized",
-    "oc_model_residual",
-    "incumbent_comparator_residual",
-    "material_margin_met",
-    "fail_closed_status_clear"
-  ],
-  "next_escalation": "If negative, create a source-bound model/comparator improvement work order; if unmaterialized, develop the domain scorer/materializer capability. Keep broad superiority blocked until strict scoring passes.",
-  "no_fake_closure_policy": "This report is not evidence; it is an exact implementation contract for missing source-bound scoring.",
-  "obligation_id": "R017-COMPONENT-SOURCE-OBLIGATION-f47c09d74a5fafb1",
-  "official_data_source": {
-    "minimum_rows_required": 100,
-    "official_documentation_url": "https://clinicaltrials.gov/data-about-studies/learn-about-api",
-    "official_endpoint_url": "https://clinicaltrials.gov/api/v2/studies?query.term=completed%20interventional%20phase%203&format=json&pageSize=100",
-    "required_local_snapshot_ref": "validation/heldout/grand_science/medical_health/clinical_trials_outcomes/OC133_CLINICALTRIALS_OUTCOMES_SNAPSHOT.json",
-    "required_lock_ref": "validation/heldout/grand_science/medical_health/clinical_trials_outcomes/OC133_CLINICALTRIALS_OUTCOMES_SNAPSHOT.lock.json",
-    "snapshot_status": "NOT_ACQUIRED_FOR_THIS_COVERAGE_CLASS",
-    "source_authority": "U.S. National Library of Medicine, ClinicalTrials.gov",
-    "source_id": "clinicaltrials_gov_v2_study_outcomes_v1",
-    "source_name": "ClinicalTrials.gov API v2 studies and reported outcome modules"
-  },
-  "pass_predicate": "The materialization executor produces source-bound scoring, residual, materiality, uncertainty/falsifier, and replay artifacts; the source obligation and strict evidence pack then PASS.",
-  "phenomenon_class_id": "clinical_outcomes_and_biomarkers",
-  "repair_strategy": "Implement the domain/phenomenon scorer that reads the governed source snapshot, keeps targets hidden until scoring, computes OC and comparator residuals, and writes PASS or fail-closed scoring/replay artifacts.",
-  "replay_artifact_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/c8f37f6962a1ece5/replay_record.json",
-  "replay_artifact_status": "OPEN",
+  "next_escalation": "Run --compile-comparator-component-materialization-backlog --write.",
+  "no_fake_closure_policy": "Missing materialization rows cannot close broad superiority.",
+  "pass_predicate": "Backlog row exists and downstream source-bound evidence closes.",
+  "repair_strategy": "Recompile the component materialization backlog from current component source-obligation reports.",
   "required_capability": "Research/SourceBoundScoringMaterializationExecutor",
-  "residual_requirement": {
-    "formula": "mean_absolute_error(oc_direction_score, held_out_outcome_direction)",
-    "metric_id": "medical_clinical_outcome_direction_residual",
-    "superiority_rule": "OC must beat the preregistered baseline with positive material margin and no target leakage."
-  },
-  "root_cause_class": "SOURCE_BOUND_SCORING_MATERIALIZER_NOT_IMPLEMENTED",
+  "root_cause_class": "COMPONENT_MATERIALIZATION_ROW_MISSING",
   "schema_id": "OC133_MODERN_SCIENCE_COMPARATOR_COMPONENT_MATERIALIZATION_EXECUTION_v1",
-  "scoring_artifact_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/c8f37f6962a1ece5/oc_prediction_scoring_row.json",
-  "scoring_artifact_status": "PASS",
-  "source_obligation_report_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/component_src/src_obligation_5bc3afc991546e01.json",
-  "source_obligation_status": "SOURCE_BOUND_SCORING_MATERIALIZATION_REMAINS_OPEN",
-  "status": "CAPABILITY_DEVELOPMENT_REQUIRED",
-  "strict_evidence_pack_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/c8f37f6962a1ece5/strict_evidence_pack.json",
-  "strict_evidence_pack_status": "PASS",
-  "target_variable": {
-    "extraction_rule": "Lock completed interventional trials and hide reported primary outcome direction and biomarker shift fields until the OC scoring pack is preregistered.",
-    "name": "held_out_primary_outcome_effect_direction_and_biomarker_shift",
-    "target_fields": [
-      "protocolSection.identificationModule.nctId",
-      "protocolSection.conditionsModule.conditions",
-      "protocolSection.designModule.phases",
-      "resultsSection.outcomeMeasuresModule.outcomeMeasures"
-    ],
-    "unit": "directional effect class with reported outcome measure units retained per study"
-  },
-  "validator_binding": "comparator_gap::MS-COV-GAP-MEDICAL_HEALTH_SCIENCES-CLINICAL_OUTCOMES_AND_BIOMARKERS::component_source_obligation::strict_pack_pass",
-  "why_it_failed": "Source-bound scoring materializer is not implemented for this exact domain/component; existing commands only regenerate fail-closed diagnostics."
+  "status": "FAIL_CLOSED",
+  "validator_binding": "comparator_component_materialization::R017-COMPONENT-MATERIALIZE-5bc3afc991546e01",
+  "why_it_failed": "No component materialization backlog row exists for this id."
 }

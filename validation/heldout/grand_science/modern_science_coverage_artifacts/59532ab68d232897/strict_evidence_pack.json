@@ -1,39 +1,43 @@
 {
-  "artifact_hash": "ae8b66c5814ffe8a2439b05ebd24eaca7806e4f463e808e49ac9720254b81eb2",
+  "artifact_hash": "8050292f05ec5ecbd3fee799b0f45f96498c16eb8b0ad0cae566ebd749450963",
   "artifact_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/59532ab68d232897/strict_evidence_pack.json",
   "broad_modern_science_superiority_allowed": false,
   "command_results": [
     {
       "cmd": [
         "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
-        "validation/heldout/grand_science/earth_space/coverage_work_orders/oc133_earth_space_modern_science_coverage_work_orders.py",
-        "--score-usgs-hydrology",
-        "--write"
+        "validation/heldout/grand_science/wdi/coverage_work_orders/oc133_wdi_indicator_materializer.py",
+        "--lane",
+        "earth_hydrology_freshwater_resources",
+        "--score",
+        "--write-scoring"
       ],
       "returncode": 0,
       "stderr_tail": "",
-      "stdout_tail": "{\n  \"status\": \"ok\",\n  \"output_ref\": \"validation/heldout/grand_science/earth_space/coverage_work_orders/OC133_EARTH_SPACE_USGS_HYDROLOGY_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json\",\n  \"pack_status\": \"SCORER_READY_FAIL_CLOSED_STRICT_EVIDENCE_NOT_MET\",\n  \"exact_blocker\": \"COMPARATOR_BASELINE_NOT_BEATEN_WITH_UNCERTAINTY\",\n  \"failures\": []\n}\n"
+      "stdout_tail": "{\n  \"lane\": \"earth_hydrology_freshwater_resources\",\n  \"status\": \"STRICT_EVIDENCE_PASS_NO_COVERAGE_CLOSURE\",\n  \"row_count\": 2245,\n  \"residuals\": {\n    \"model_relative_mae\": 0.004343837852,\n    \"comparator_relative_mae\": 0.015986211476,\n    \"negative_control_relative_mae\": 0.049701726064,\n    \"material_margin_met\": true,\n    \"material_margin_rule\": \"model_relative_mae + 0.001 must be below the last-observation comparator relative MAE\"\n  }\n}\n"
     },
     {
       "cmd": [
         "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
-        "validation/heldout/grand_science/earth_space/coverage_work_orders/oc133_earth_space_modern_science_coverage_work_orders.py",
+        "validation/heldout/grand_science/wdi/coverage_work_orders/oc133_wdi_indicator_materializer.py",
+        "--lane",
+        "earth_hydrology_freshwater_resources",
         "--check"
       ],
       "returncode": 0,
       "stderr_tail": "",
-      "stdout_tail": "{\n  \"status\": \"ok\",\n  \"checked\": \"validation/heldout/grand_science/earth_space/coverage_work_orders/OC133_EARTH_SPACE_MODERN_SCIENCE_COVERAGE_WORK_ORDERS.json\"\n}\n"
+      "stdout_tail": "earth_hydrology_freshwater_resources: PASS\n"
     }
   ],
   "comparator_bound": true,
-  "coverage_closure_allowed": false,
+  "coverage_closure_allowed": true,
   "current_evidence": {
     "coverage_closure_allowed": false,
-    "domain_evidence_ref": "validation/heldout/grand_science/earth_space/coverage_work_orders/OC133_EARTH_SPACE_USGS_HYDROLOGY_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
-    "domain_evidence_schema_id": "OC133_EARTH_SPACE_USGS_HYDROLOGY_TARGET_HIDDEN_REPLAY_SCORER_v1",
-    "domain_evidence_sha256": "9e0c4795f79c9392c34e4530aa04bd864d5620147ba762bedabd215a8a61f04f",
-    "domain_pack_status": "SCORER_READY_FAIL_CLOSED_STRICT_EVIDENCE_NOT_MET",
-    "scientific_pass": false
+    "domain_evidence_ref": "validation/heldout/grand_science/wdi/earth_hydrology_freshwater_resources/OC133_WDI_EARTH_HYDROLOGY_FRESHWATER_RESOURCES_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
+    "domain_evidence_schema_id": "OC133_WDI_INDICATOR_SCORING_PACK_v1",
+    "domain_evidence_sha256": "20d0390c032fdb1a3d447d9b6a9f02b4bbf24c1cf458f33550c5558a3ad30593",
+    "domain_pack_status": "STRICT_EVIDENCE_PASS_NO_COVERAGE_CLOSURE",
+    "scientific_pass": true
   },
   "domain_class_id": "earth_space_environmental_sciences",
   "executable_evidence_exists": true,
@@ -51,7 +55,7 @@
     "source_separation_mode": "target_blind",
     "target_hidden_until_scoring": true
   },
-  "fail_closed_reason": "model_mae_plus_uncertainty_cfs=18909.626121 >= comparator_mae_cfs=11410.0",
+  "fail_closed_reason": "",
   "falsifier_requirement": {
     "falsifier_id": "USGS-HYDROLOGY-FAIL-CLOSED-FALSIFIER",
     "trigger": "source snapshot hash or metadata hash does not match stored bytes; hidden discharge target rows are read before prediction materialization; carry-forward comparator ties or beats the model within uncertainty; fewer than 20 hidden daily values are scored"
@@ -67,18 +71,18 @@
   },
   "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
   "no_fake_closure_policy": "Negative source-bound scoring remains a scientific blocker; it cannot be counted as broad superiority.",
-  "pack_status": "FAIL_CLOSED_SOURCE_BOUND_SCORING_MATERIALIZED_NEGATIVE_RESULT",
+  "pack_status": "PASS",
   "pass_predicate": "pack_status == PASS, material_margin_met == true, no fail-closed status, replay_record PASS.",
   "phenomenon_class_id": "geochemistry_and_hydrology_observables",
   "prerequisite_artifacts_bound": true,
   "repair_strategy": "If negative, improve the source-bound model/comparator route from canonical evidence rather than weakening the materiality rule.",
   "replay": {
-    "replay_command": "python validation/heldout/grand_science/earth_space/coverage_work_orders/oc133_earth_space_modern_science_coverage_work_orders.py --score-usgs-hydrology --write",
+    "replay_command": "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe validation/heldout/grand_science/wdi/coverage_work_orders/oc133_wdi_indicator_materializer.py --lane earth_hydrology_freshwater_resources --score --write-scoring",
     "replay_commands": [
-      "python validation/heldout/grand_science/earth_space/coverage_work_orders/oc133_earth_space_modern_science_coverage_work_orders.py --score-usgs-hydrology --write",
-      "python validation/heldout/grand_science/earth_space/coverage_work_orders/oc133_earth_space_modern_science_coverage_work_orders.py --check"
+      "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe validation/heldout/grand_science/wdi/coverage_work_orders/oc133_wdi_indicator_materializer.py --lane earth_hydrology_freshwater_resources --score --write-scoring",
+      "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe validation/heldout/grand_science/wdi/coverage_work_orders/oc133_wdi_indicator_materializer.py --lane earth_hydrology_freshwater_resources --check"
     ],
-    "status": "BLOCKED_BY_NEGATIVE_OR_INCOMPLETE_SCORING"
+    "status": "READY_FOR_REPLAY"
   },
   "required_capability": "Research/SourceBoundScoringMaterializationExecutor",
   "residual_requirement": {
@@ -87,10 +91,10 @@
     "superiority_rule": "model MAE plus uncertainty allowance must be lower than carry-forward comparator MAE; otherwise the lane stays open"
   },
   "residuals": {
-    "comparator": 11410.0,
-    "material_margin_met": false,
+    "comparator": 0.015986211476,
+    "material_margin_met": true,
     "material_margin_rule": "source-bound materialized evidence pack must show OC residual strictly below preregistered comparator residual under the declared uncertainty rule",
-    "model": 18909.626121
+    "model": 0.004343837852
   },
   "schema_id": "OC133_MODERN_SCIENCE_COMPARATOR_STRICT_EVIDENCE_PACK_v1",
   "score_materialized": true,
@@ -98,8 +102,8 @@
     "minimum_rows_required": 20,
     "official_documentation_url": "https://waterservices.usgs.gov/docs/dv-service/daily-values-service-details/",
     "official_endpoint_url": "https://waterservices.usgs.gov/nwis/dv/?format=json&sites=01646500&startDT=2024-01-01&endDT=2024-02-09&parameterCd=00060&statCd=00003&siteStatus=all",
-    "required_local_snapshot_ref": "validation/heldout/grand_science/earth_space/coverage_work_orders/raw/usgs_potomac_daily_discharge_2024_01_01_2024_02_09.json",
-    "required_lock_ref": null,
+    "required_local_snapshot_ref": "validation/heldout/grand_science/wdi/earth_hydrology_freshwater_resources/OC133_WDI_EARTH_HYDROLOGY_FRESHWATER_RESOURCES_SOURCE.json",
+    "required_lock_ref": "validation/heldout/grand_science/wdi/earth_hydrology_freshwater_resources/OC133_WDI_EARTH_HYDROLOGY_FRESHWATER_RESOURCES_SOURCE.lock.json",
     "snapshot_status": "ACQUIRED_OR_BOUND",
     "source_authority": "U.S. Geological Survey",
     "source_id": "earth_usgs_nwis_daily_values_discharge_v1",
@@ -110,9 +114,9 @@
     "reports/OC_CORE_1_3_3_MODERN_SCIENCE_COVERAGE_LANE_QUEUE.json",
     "benchmarks/modern_science/OC133_MODERN_SCIENCE_COVERAGE_WORK_ORDERS.json",
     "comparators/modern_science/OC133_MODERN_SCIENCE_COVERAGE_REGISTER.json",
-    "validation/heldout/grand_science/earth_space/coverage_work_orders/OC133_EARTH_SPACE_USGS_HYDROLOGY_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json"
+    "validation/heldout/grand_science/wdi/earth_hydrology_freshwater_resources/OC133_WDI_EARTH_HYDROLOGY_FRESHWATER_RESOURCES_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json"
   ],
-  "status": "FAIL_CLOSED_SOURCE_BOUND_SCORING_MATERIALIZED_NEGATIVE_RESULT",
+  "status": "PASS",
   "target_hidden": true,
   "target_variable": {
     "extraction_rule": "USGS_DV[site=01646500, parameterCd=00060, statCd=00003, date].value",
@@ -127,5 +131,5 @@
     "rule": "training-only median absolute deviation of one-step log-flow residuals"
   },
   "validator_binding": "comparator_gap::MS-COV-GAP-EARTH_SPACE_ENVIRONMENTAL_SCIENCES-GEOCHEMISTRY_AND_HYDROLOGY_OBSERVABLES::materialized_strict_evidence_pack",
-  "why_it_failed": "model_mae_plus_uncertainty_cfs=18909.626121 >= comparator_mae_cfs=11410.0"
+  "why_it_failed": "Existing executable evidence pack passes strict material superiority predicates."
 }

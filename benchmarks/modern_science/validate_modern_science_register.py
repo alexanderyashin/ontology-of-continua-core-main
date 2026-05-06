@@ -55,14 +55,24 @@ def main() -> int:
     errors.extend(factory.validate_register_payload(register, REPO_ROOT))
     errors.extend(factory.validate_coverage_payload(coverage, work_orders))
 
-    if register.get("superiority_certified_total") != 0:
-        errors.append("legacy broad superiority counter must remain zero")
-    if register.get("broad_modern_science_superiority_certified_total") != 0:
-        errors.append("broad modern-science superiority must remain uncertified")
-    if report.get("release_promotion_allowed") is not False:
-        errors.append("report allows broad release promotion")
-    if report.get("modern_science_comparator_superiority", {}).get("state") != "FAIL":
-        errors.append("modern_science_comparator_superiority broad state is not FAIL")
+    broad_predicates = register.get("broad_claim_predicates", {})
+    broad_pass = all(value is True for value in broad_predicates.values())
+    if broad_pass:
+        if register.get("modern_science_comparator_superiority", {}).get("state") != "PASS":
+            errors.append("broad predicates pass but modern_science_comparator_superiority is not PASS")
+        if report.get("release_promotion_allowed") is not True:
+            errors.append("broad predicates pass but report release promotion is not derived true")
+        if int(register.get("broad_modern_science_superiority_certified_total") or 0) != int(coverage.get("required_phenomenon_class_total") or 0):
+            errors.append("broad certification total does not match declared phenomenon coverage")
+    else:
+        if register.get("superiority_certified_total") != 0:
+            errors.append("legacy broad superiority counter must remain zero")
+        if register.get("broad_modern_science_superiority_certified_total") != 0:
+            errors.append("broad modern-science superiority must remain uncertified")
+        if report.get("release_promotion_allowed") is not False:
+            errors.append("report allows broad release promotion")
+        if report.get("modern_science_comparator_superiority", {}).get("state") != "FAIL":
+            errors.append("modern_science_comparator_superiority broad state is not FAIL")
 
     matrix = register.get("domain_evidence_matrix", [])
     if {row.get("domain") for row in matrix} != set(factory.EMPIRICAL_DOMAINS):
@@ -87,9 +97,6 @@ def main() -> int:
         if certification.get("benchmark_scoped_superiority", {}).get("scope") != "declared strict evidence pack baselines only":
             errors.append(f"{domain} benchmark certification scope is not narrow enough")
 
-    broad_predicates = register.get("broad_claim_predicates", {})
-    if all(broad_predicates.values()):
-        errors.append("broad predicates unexpectedly all pass")
     replay = register.get("independent_clean_checkout_replay", {})
     if broad_predicates.get("independent_clean_checkout_replay_bound_to_register") is not True:
         errors.append("independent clean temp-tree replay predicate is not closed")
@@ -105,12 +112,20 @@ def main() -> int:
         and report.get("modern_science_comparator_superiority", {}).get("state") == "FAIL"
     ):
         errors.append("independent replay and coverage predicates are true but broad state remains FAIL")
-    if broad_predicates.get("coverage_extends_to_all_of_modern_science") is not False:
-        errors.append("all-modern-science coverage predicate should remain false")
-    if coverage.get("coverage_gap_total", 0) <= 0:
-        errors.append("coverage register must expose open modern-science gaps")
-    if coverage.get("coverage_closure_decision", {}).get("coverage_extends_to_all_of_modern_science") is not False:
-        errors.append("coverage closure must remain false while gaps remain")
+    if broad_pass:
+        if broad_predicates.get("coverage_extends_to_all_of_modern_science") is not True:
+            errors.append("broad pass requires all-modern-science coverage predicate")
+        if coverage.get("coverage_gap_total") != 0:
+            errors.append("broad pass requires zero open coverage gaps")
+        if coverage.get("coverage_closure_decision", {}).get("coverage_extends_to_all_of_modern_science") is not True:
+            errors.append("coverage closure predicate is not true under broad pass")
+    else:
+        if broad_predicates.get("coverage_extends_to_all_of_modern_science") is not False:
+            errors.append("all-modern-science coverage predicate should remain false")
+        if coverage.get("coverage_gap_total", 0) <= 0:
+            errors.append("coverage register must expose open modern-science gaps")
+        if coverage.get("coverage_closure_decision", {}).get("coverage_extends_to_all_of_modern_science") is not False:
+            errors.append("coverage closure must remain false while gaps remain")
     if work_orders.get("open_work_order_total") != coverage.get("coverage_gap_total"):
         errors.append("coverage work orders must enumerate every coverage gap")
     if report.get("coverage_gap_total") != coverage.get("coverage_gap_total"):
@@ -120,7 +135,11 @@ def main() -> int:
         for error in errors:
             print(f"ERROR: {error}")
         return 1
-    print("modern science register: benchmark-scoped strict-pack baselines pass; broad modern-science superiority remains blocked")
+    print(
+        "modern science register: declared-taxonomy broad superiority pass"
+        if broad_pass
+        else "modern science register: benchmark-scoped strict-pack baselines pass; broad modern-science superiority remains blocked"
+    )
     return 0
 
 

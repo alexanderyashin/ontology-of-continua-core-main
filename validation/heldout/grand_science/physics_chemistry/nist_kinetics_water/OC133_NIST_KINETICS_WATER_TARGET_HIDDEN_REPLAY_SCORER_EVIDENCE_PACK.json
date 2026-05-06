@@ -1,0 +1,136 @@
+{
+  "schema_id": "OC133_NIST_KINETICS_WATER_SCORING_PACK_v1",
+  "pack_status": "STRICT_EVIDENCE_PASS_NO_COVERAGE_CLOSURE",
+  "status": "STRICT_EVIDENCE_PASS_NO_COVERAGE_CLOSURE",
+  "domain_class_id": "chemical_sciences",
+  "phenomenon_class_id": "reaction_and_kinetics_prediction",
+  "source_bound": true,
+  "target_hidden": true,
+  "score_materialized": true,
+  "scientific_pass": true,
+  "coverage_closure_allowed": false,
+  "support_allowed_for_broad_coverage": false,
+  "source_snapshot_ref": "validation/heldout/grand_science/physics_chemistry/nist_kinetics_water/OC133_NIST_KINETICS_WATER_SOURCE_PAGES.json",
+  "source_snapshot_sha256": "6d8824d9043270e8cb2070fc7b501a6ff432e6673b655a31f8be77e09534f1e1",
+  "source_lock_ref": "validation/heldout/grand_science/physics_chemistry/nist_kinetics_water/OC133_NIST_KINETICS_WATER_SOURCE.lock.json",
+  "visible_task_table_ref": "validation/heldout/grand_science/physics_chemistry/nist_kinetics_water/OC133_NIST_KINETICS_WATER_TARGET_HIDDEN_TASK_TABLE.json",
+  "hidden_target_lock_ref": "validation/heldout/grand_science/physics_chemistry/nist_kinetics_water/OC133-NIST-KINETICS-WATER-HIDDEN-TARGETS-0001.lock.json",
+  "row_count": 8,
+  "model": {
+    "model_id": "NIST-KINETICS-WATER-ARRHENIUS-REPLAY-v1",
+    "formula": "log10(A * exp(-Ea / (R * 298 K)))",
+    "R_j_per_mole_k": 8.314472
+  },
+  "comparator": {
+    "comparator_id": "NIST-KINETICS-WATER-TRAINING-MEDIAN-LOGK-v1",
+    "training_median_log10_k_298": 4.409903532295378
+  },
+  "residuals": {
+    "model": 10.29842552903,
+    "comparator": 13.035540975681,
+    "negative_control": 13.887177045017,
+    "material_margin_met": true,
+    "material_margin_rule": "Arrhenius replay log10-MAE + 0.05 must be below training-median log10-MAE"
+  },
+  "negative_control": {
+    "control_id": "NIST-KINETICS-WATER-REVERSED-FORMULA-PREDICTIONS-v1",
+    "negative_control_rejected": true
+  },
+  "falsifiers": [
+    "source lock hash is missing or stale",
+    "k(298 K) target values appear in visible rows",
+    "Arrhenius replay does not beat training-median comparator",
+    "reversed prediction negative control is not worse than the model"
+  ],
+  "scored_rows_sha256": "ae226d2ae3008f4c192e051208b0c8dd6eba8c0060f8c8575d800bd21b8cc7dd",
+  "scored_rows_sample": [
+    {
+      "task_id": "NIST-KINETICS-WATER-0000",
+      "record_id": "1999PAR/LIN8906-8907:2",
+      "model_log10_k_prediction": -10.902604321634485,
+      "comparator_log10_k_prediction": 4.409903532295378,
+      "negative_control_log10_k_prediction": -24.805698012099825,
+      "model_loss": 13.998470775113027,
+      "comparator_loss": 1.3140370788168356,
+      "negative_control_loss": 27.901564465578367,
+      "target_sha256": "12494e8304dddc082130275394ad7a663b42eaa2bcbe52a6b8025a65e31433bb"
+    },
+    {
+      "task_id": "NIST-KINETICS-WATER-0005",
+      "record_id": "1994VAN/BIA402-410:4",
+      "model_log10_k_prediction": -10.589497963404792,
+      "comparator_log10_k_prediction": 4.409903532295378,
+      "negative_control_log10_k_prediction": -21.469255685896364,
+      "model_loss": 14.176759813097327,
+      "comparator_loss": 0.822641682602844,
+      "negative_control_loss": 25.0565175355889,
+      "target_sha256": "2d4630a34d88ec838d3450600efa00ab6b2fbaafc98f56caa8462110e4fb7521"
+    },
+    {
+      "task_id": "NIST-KINETICS-WATER-0010",
+      "record_id": "2006CAR/FOR1072-1078:2",
+      "model_log10_k_prediction": -13.093702020450774,
+      "comparator_log10_k_prediction": 4.409903532295378,
+      "negative_control_log10_k_prediction": -23.30936016031294,
+      "model_loss": 3.7062255865194516e-05,
+      "comparator_loss": 17.503568490490288,
+      "negative_control_loss": 10.215695202118033,
+      "target_sha256": "7fe0d6e009c5e6872a75d54ed4b1105db4d15786fe78518d4cedb5dc50529dd3"
+    },
+    {
+      "task_id": "NIST-KINETICS-WATER-0015",
+      "record_id": "2006BRY/DEL936-943:5",
+      "model_log10_k_prediction": -22.771863378437388,
+      "comparator_log10_k_prediction": 4.409903532295378,
+      "negative_control_log10_k_prediction": -23.224956442594358,
+      "model_loss": 0.000249916948938278,
+      "comparator_loss": 27.182016827681704,
+      "negative_control_loss": 0.4528431472080321,
+      "target_sha256": "9bc9ab550777bcafc550d2511dac96378280e90e5d95e0a1d80a0f2f5ab20f86"
+    },
+    {
+      "task_id": "NIST-KINETICS-WATER-0020",
+      "record_id": "1991LIF/MIC59-67:2",
+      "model_log10_k_prediction": -23.224956442594358,
+      "comparator_log10_k_prediction": 4.409903532295378,
+      "negative_control_log10_k_prediction": -22.771863378437388,
+      "model_loss": 0.0009307737237271851,
+      "comparator_loss": 27.63392920116601,
+      "negative_control_loss": 0.4521622904332432,
+      "target_sha256": "f978e3c485d53fcf0fb96fcd4f661de8418d6a222277fd0ea46c11b99a7ec829"
+    },
+    {
+      "task_id": "NIST-KINETICS-WATER-0025",
+      "record_id": "1989HAR/WAG983-989:2",
+      "model_log10_k_prediction": -23.30936016031294,
+      "comparator_log10_k_prediction": 4.409903532295378,
+      "negative_control_log10_k_prediction": -13.093702020450774,
+      "model_loss": 28.11213388560492,
+      "comparator_loss": 0.39287019299659764,
+      "negative_control_loss": 17.896475745742748,
+      "target_sha256": "9bb12c4f7f84e2693d13a18f546be5debb51645d0ee18f8874a438cb0d0946b8"
+    },
+    {
+      "task_id": "NIST-KINETICS-WATER-0030",
+      "record_id": "1999MEB/MOS223-238:5",
+      "model_log10_k_prediction": -21.469255685896364,
+      "comparator_log10_k_prediction": 4.409903532295378,
+      "negative_control_log10_k_prediction": -10.589497963404792,
+      "model_loss": 26.097644615946678,
+      "comparator_loss": 0.21848539775493325,
+      "negative_control_loss": 15.217886893455104,
+      "target_sha256": "14b4ef56e7fa2876b3eccf35b9ee01d1e106c3788a413711db3f4560577b6484"
+    },
+    {
+      "task_id": "NIST-KINETICS-WATER-0035",
+      "record_id": "1979COH/WES46:2",
+      "model_log10_k_prediction": -24.805698012099825,
+      "comparator_log10_k_prediction": 4.409903532295378,
+      "negative_control_log10_k_prediction": -10.902604321634485,
+      "model_loss": 0.0011773895457132255,
+      "comparator_loss": 29.216778933940915,
+      "negative_control_loss": 13.904271080011053,
+      "target_sha256": "21ef984c91ec2d0b929555218d1ccf8e98b031c5cfd10139164146b30ab60f50"
+    }
+  ]
+}

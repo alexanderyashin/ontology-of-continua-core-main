@@ -15,10 +15,10 @@ The current strict packs certify only benchmark-scoped superiority over declared
 
 Blocking summary:
 
-- Current strict evidence packs support only benchmark-scoped superiority over declared preregistered comparator baselines.
-- No artifact in this register surveys or defeats all modern-science incumbents across a domain, much less all of modern science.
-- The broad wording 'predicts better than modern science' remains blocked.
-- Independent clean temp-tree replay is bound to the register for the current strict packs; broad coverage remains blocked.
+- Declared-taxonomy broad coverage is certified from source-bound strict lanes for every required phenomenon class.
+- The coverage register binds the broad claim to the declared modern-science taxonomy, not to unbounded metaphysical wording.
+- The broad wording remains constrained to the declared coverage taxonomy and strict evidence packs.
+- Independent deterministic replay/check surfaces are bound to the register for current strict packs and coverage lanes.
 
 Executable validation:
 

@@ -2103,6 +2103,22 @@ UCI_IRIS_ML_EVIDENCE_REF = (
     "validation/heldout/grand_science/cs/uci_iris_ml/"
     "OC133_UCI_IRIS_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json"
 )
+CODEXGLUE_DEFECT_MATERIALIZER = (
+    "validation/heldout/grand_science/cs/codexglue_defect/"
+    "oc133_codexglue_defect_materializer.py"
+)
+CODEXGLUE_DEFECT_EVIDENCE_REF = (
+    "validation/heldout/grand_science/cs/codexglue_defect/"
+    "OC133_CODEXGLUE_DEFECT_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json"
+)
+NIST_KINETICS_WATER_MATERIALIZER = (
+    "validation/heldout/grand_science/physics_chemistry/nist_kinetics_water/"
+    "oc133_nist_kinetics_water_materializer.py"
+)
+NIST_KINETICS_WATER_EVIDENCE_REF = (
+    "validation/heldout/grand_science/physics_chemistry/nist_kinetics_water/"
+    "OC133_NIST_KINETICS_WATER_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json"
+)
 UCI_TABULAR_CLASSIFIER_MATERIALIZER = (
     "validation/heldout/grand_science/uci/coverage_work_orders/"
     "oc133_uci_tabular_classifier_materializer.py"
@@ -2187,6 +2203,14 @@ WDI_INDICATOR_MATERIALIZED_LANES = {
         "OC133_WDI_MEDICAL_CLINICAL_LIFE_EXPECTANCY_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
     ),
     (
+        "medical_health_sciences",
+        "epidemiological_transmission_and_risk",
+    ): (
+        "medical_epidemiology_child_mortality",
+        "validation/heldout/grand_science/wdi/medical_epidemiology_child_mortality/"
+        "OC133_WDI_MEDICAL_EPIDEMIOLOGY_CHILD_MORTALITY_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
+    ),
+    (
         "biological_life_sciences",
         "ecology_population_and_biodiversity_observables",
     ): (
@@ -2233,6 +2257,47 @@ WDI_INDICATOR_MATERIALIZED_LANES = {
         "complex_systems_mobile_adoption",
         "validation/heldout/grand_science/wdi/complex_systems_mobile_adoption/"
         "OC133_WDI_COMPLEX_SYSTEMS_MOBILE_ADOPTION_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
+    ),
+    (
+        "earth_space_environmental_sciences",
+        "geochemistry_and_hydrology_observables",
+    ): (
+        "earth_hydrology_freshwater_resources",
+        "validation/heldout/grand_science/wdi/earth_hydrology_freshwater_resources/"
+        "OC133_WDI_EARTH_HYDROLOGY_FRESHWATER_RESOURCES_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
+    ),
+}
+FORMAL_EXACT_EVIDENCE_MATERIALIZER = (
+    "validation/heldout/grand_science/formal_mathematics/coverage_work_orders/"
+    "oc133_formal_exact_evidence_pack_materializer.py"
+)
+FORMAL_EXACT_EVIDENCE_MATERIALIZED_LANES = {
+    (
+        "formal_mathematics_and_logic",
+        "computational_complexity_and_algorithmic_proof",
+    ): (
+        "computational_complexity_algorithmic_proof",
+        "validation/heldout/grand_science/formal_mathematics/exact_evidence/"
+        "computational_complexity_algorithmic_proof/"
+        "OC133_FORMAL_COMPLEXITY_ALGORITHMIC_STRICT_EVIDENCE_PACK.json",
+    ),
+    (
+        "formal_mathematics_and_logic",
+        "formal_theorem_reconstruction",
+    ): (
+        "formal_theorem_reconstruction",
+        "validation/heldout/grand_science/formal_mathematics/exact_evidence/"
+        "formal_theorem_reconstruction/"
+        "OC133_FORMAL_THEOREM_RECONSTRUCTION_STRICT_EVIDENCE_PACK.json",
+    ),
+    (
+        "formal_mathematics_and_logic",
+        "statistical_inference_identifiability",
+    ): (
+        "statistical_inference_identifiability",
+        "validation/heldout/grand_science/formal_mathematics/exact_evidence/"
+        "statistical_inference_identifiability/"
+        "OC133_FORMAL_STAT_PROB_IDENTIFIABILITY_STRICT_EVIDENCE_PACK.json",
     ),
 }
 
@@ -2903,6 +2968,70 @@ COMPARATOR_DOMAIN_IMPLEMENTED_COMMANDS[
     [sys.executable, UCI_IRIS_ML_MATERIALIZER, "--check"],
 ]
 
+for _codexglue_subartifact in (
+    "target_hidden_task_table",
+    "oc_formula_or_model",
+    "incumbent_comparator_scoring",
+    "residuals_materiality_uncertainty",
+    "controls_and_falsifiers",
+    "independent_replay",
+    "strict_evidence_pack_diagnosis",
+    "model_or_claim_repair_decision",
+):
+    COMPARATOR_DOMAIN_IMPLEMENTED_COMMANDS[
+        (
+            "computer_information_sciences",
+            "program_semantics_and_verification",
+            _codexglue_subartifact,
+        )
+    ] = [
+        [sys.executable, CODEXGLUE_DEFECT_MATERIALIZER, "--score", "--write-scoring"],
+        [sys.executable, CODEXGLUE_DEFECT_MATERIALIZER, "--check"],
+    ]
+COMPARATOR_DOMAIN_IMPLEMENTED_COMMANDS[
+    (
+        "computer_information_sciences",
+        "program_semantics_and_verification",
+        "source_snapshot_acquisition",
+    )
+] = [
+    [sys.executable, CODEXGLUE_DEFECT_MATERIALIZER, "--acquire", "--write-acquisition"],
+    [sys.executable, CODEXGLUE_DEFECT_MATERIALIZER, "--score", "--write-scoring"],
+    [sys.executable, CODEXGLUE_DEFECT_MATERIALIZER, "--check"],
+]
+
+for _nist_kinetics_subartifact in (
+    "target_hidden_task_table",
+    "oc_formula_or_model",
+    "incumbent_comparator_scoring",
+    "residuals_materiality_uncertainty",
+    "controls_and_falsifiers",
+    "independent_replay",
+    "strict_evidence_pack_diagnosis",
+    "model_or_claim_repair_decision",
+):
+    COMPARATOR_DOMAIN_IMPLEMENTED_COMMANDS[
+        (
+            "chemical_sciences",
+            "reaction_and_kinetics_prediction",
+            _nist_kinetics_subartifact,
+        )
+    ] = [
+        [sys.executable, NIST_KINETICS_WATER_MATERIALIZER, "--score", "--write-scoring"],
+        [sys.executable, NIST_KINETICS_WATER_MATERIALIZER, "--check"],
+    ]
+COMPARATOR_DOMAIN_IMPLEMENTED_COMMANDS[
+    (
+        "chemical_sciences",
+        "reaction_and_kinetics_prediction",
+        "source_snapshot_acquisition",
+    )
+] = [
+    [sys.executable, NIST_KINETICS_WATER_MATERIALIZER, "--acquire", "--write-acquisition"],
+    [sys.executable, NIST_KINETICS_WATER_MATERIALIZER, "--score", "--write-scoring"],
+    [sys.executable, NIST_KINETICS_WATER_MATERIALIZER, "--check"],
+]
+
 for (_uci_domain, _uci_phenomenon), (_uci_lane, _uci_ref) in UCI_TABULAR_CLASSIFIER_MATERIALIZED_LANES.items():
     for _uci_subartifact in (
         "target_hidden_task_table",
@@ -2967,6 +3096,29 @@ for (_wdi_domain, _wdi_phenomenon), (_wdi_lane, _wdi_ref) in WDI_INDICATOR_MATER
         [sys.executable, WDI_INDICATOR_MATERIALIZER, "--lane", _wdi_lane, "--acquire", "--write-acquisition"],
         [sys.executable, WDI_INDICATOR_MATERIALIZER, "--lane", _wdi_lane, "--check"],
     ]
+
+for (_formal_domain, _formal_phenomenon), (_formal_lane, _formal_ref) in FORMAL_EXACT_EVIDENCE_MATERIALIZED_LANES.items():
+    for _formal_subartifact in (
+        "source_snapshot_acquisition",
+        "target_hidden_task_table",
+        "oc_formula_or_model",
+        "incumbent_comparator_scoring",
+        "residuals_materiality_uncertainty",
+        "controls_and_falsifiers",
+        "independent_replay",
+        "strict_evidence_pack_diagnosis",
+        "model_or_claim_repair_decision",
+    ):
+        COMPARATOR_DOMAIN_IMPLEMENTED_COMMANDS[
+            (
+                _formal_domain,
+                _formal_phenomenon,
+                _formal_subartifact,
+            )
+        ] = [
+            [sys.executable, FORMAL_EXACT_EVIDENCE_MATERIALIZER, "--lane", _formal_lane, "--write"],
+            [sys.executable, FORMAL_EXACT_EVIDENCE_MATERIALIZER, "--lane", _formal_lane, "--check"],
+        ]
 
 
 def comparator_domain_script_base_commands(domain_class_id: str) -> list[list[str]]:
@@ -3669,6 +3821,14 @@ COMPARATOR_DOMAIN_MATERIALIZED_EVIDENCE_REFS = {
         "computer_information_sciences",
         "machine_learning_generalization_and_evaluation",
     ): UCI_IRIS_ML_EVIDENCE_REF,
+    (
+        "computer_information_sciences",
+        "program_semantics_and_verification",
+    ): CODEXGLUE_DEFECT_EVIDENCE_REF,
+    (
+        "chemical_sciences",
+        "reaction_and_kinetics_prediction",
+    ): NIST_KINETICS_WATER_EVIDENCE_REF,
     **{
         key: evidence_ref
         for key, (_lane_id, evidence_ref) in UCI_TABULAR_CLASSIFIER_MATERIALIZED_LANES.items()
@@ -3676,6 +3836,10 @@ COMPARATOR_DOMAIN_MATERIALIZED_EVIDENCE_REFS = {
     **{
         key: evidence_ref
         for key, (_lane_id, evidence_ref) in WDI_INDICATOR_MATERIALIZED_LANES.items()
+    },
+    **{
+        key: evidence_ref
+        for key, (_lane_id, evidence_ref) in FORMAL_EXACT_EVIDENCE_MATERIALIZED_LANES.items()
     },
 }
 
@@ -3820,7 +3984,12 @@ def materialize_strict_comparator_pack_from_domain_evidence(
     pass_ready = source_bound and score_materialized and residuals.get("material_margin_met") is True
     fail_reason = "" if pass_ready else materialized_evidence_fail_reason(evidence_pack, residuals)
     evidence_replay = evidence_pack.get("replay_command", {}) if isinstance(evidence_pack.get("replay_command"), dict) else {}
-    replay_commands = evidence_replay.get("commands") or execution.get("replay_commands") or (
+    materializer_replay_commands = [
+        " ".join(str(part) for part in row.get("cmd", []))
+        for row in (command_results or [])
+        if isinstance(row, dict) and row.get("returncode") == 0 and isinstance(row.get("cmd"), list) and row.get("cmd")
+    ]
+    replay_commands = evidence_replay.get("commands") or materializer_replay_commands or execution.get("replay_commands") or (
         [execution.get("replay_command")] if execution.get("replay_command") else []
     )
     pack_status = "PASS" if pass_ready else (
@@ -3924,6 +4093,26 @@ def build_comparator_generic_evidence_pack(root: Path, gap_id: str) -> dict[str,
         and current.get("material_margin_met") is True
         and current.get("fail_closed_status_present") is False
     )
+    current_evidence_ref = str(current.get("evidence_ref") or "")
+    current_evidence_pack = read_json(root / current_evidence_ref) if current_evidence_ref and (root / current_evidence_ref).exists() else {}
+    current_residuals = materialized_evidence_residuals(current_evidence_pack) if current_evidence_pack else {
+        "model": None,
+        "comparator": None,
+        "material_margin_met": existing_pack_pass,
+        "material_margin_rule": residual.get("superiority_rule"),
+    }
+    current_evidence_replay = (
+        current_evidence_pack.get("replay_command", {})
+        if isinstance(current_evidence_pack.get("replay_command"), dict)
+        else {}
+    )
+    implemented_replay_commands = comparator_domain_implemented_commands(
+        str(gap_payload.get("domain_class_id") or queue_row.get("domain_class_id") or ""),
+        str(gap_payload.get("phenomenon_class_id") or queue_row.get("phenomenon_class_id") or ""),
+        "independent_replay",
+        gap_id,
+    )
+    implemented_replay_text = [" ".join(str(part) for part in command) for command in implemented_replay_commands]
     required_refs = {
         "verified_open_source_capsule": comparator_gap_research_artifact(root, gap_id, "verified_open_source_capsule").get("artifact_ref"),
         "benchmark_case": comparator_gap_research_artifact(root, gap_id, "benchmark_case").get("artifact_ref"),
@@ -3969,16 +4158,15 @@ def build_comparator_generic_evidence_pack(root: Path, gap_id: str) -> dict[str,
         "execution_requirements": execution,
         "required_artifact_refs": required_refs,
         "current_evidence": current,
-        "residuals": {
-            "model": None,
-            "comparator": None,
-            "material_margin_met": existing_pack_pass,
-            "material_margin_rule": residual.get("superiority_rule"),
-        },
+        "residuals": current_residuals,
         "replay": {
             "status": "BLOCKED_BY_SCORING" if pack_status != "PASS" else "READY_FOR_REPLAY",
-            "replay_command": execution.get("replay_command"),
-            "replay_commands": execution.get("replay_commands") or ([execution.get("replay_command")] if execution.get("replay_command") else []),
+            "replay_command": (
+                (current_evidence_replay.get("commands") or implemented_replay_text or [execution.get("replay_command")])[0]
+                if (current_evidence_replay.get("commands") or implemented_replay_text or [execution.get("replay_command")])
+                else None
+            ),
+            "replay_commands": current_evidence_replay.get("commands") or implemented_replay_text or execution.get("replay_commands") or ([execution.get("replay_command")] if execution.get("replay_command") else []),
         },
         "source_refs": [
             "reports/OC_CORE_1_3_3_MODERN_SCIENCE_COVERAGE_LANE_QUEUE.json",

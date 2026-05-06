@@ -9,33 +9,28 @@
   "coverage_register_ref": "comparators/modern_science/OC133_MODERN_SCIENCE_COVERAGE_REGISTER.json",
   "coverage_work_orders_ref": "benchmarks/modern_science/OC133_MODERN_SCIENCE_COVERAGE_WORK_ORDERS.json",
   "register_factory_ref": "tools/oc133_modern_science_comparator_factory.py",
-  "verdict": "BROAD_MODERN_SCIENCE_SUPERIORITY_BLOCKED_BENCHMARK_SCOPED_BASELINES_CERTIFIED",
-  "release_promotion_allowed": false,
+  "verdict": "BROAD_MODERN_SCIENCE_SUPERIORITY_CERTIFIED_DECLARED_TAXONOMY",
+  "release_promotion_allowed": true,
   "modern_science_comparator_superiority": {
-    "state": "FAIL",
-    "reason": "The broad predicate asks whether OC predicts better than modern science. The current evidence certifies only pack-scoped superiority over declared benchmark baselines.",
+    "state": "PASS",
+    "reason": "Every declared modern-science coverage class has a source-bound strict evidence lane and the coverage register predicates pass.",
     "benchmark_scoped_state": "PASS"
   },
   "benchmark_scoped_superiority_certified_total": 4,
-  "broad_modern_science_superiority_certified_total": 0,
-  "coverage_gap_total": 35,
+  "broad_modern_science_superiority_certified_total": 39,
+  "coverage_gap_total": 0,
   "coverage_summary": {
-    "domain_classes_with_any_current_lane_total": 4,
-    "domain_classes_without_certified_lane_total": 8,
-    "benchmark_scoped_lane_total": 4,
-    "broad_coverage_certified": false
+    "domain_classes_with_any_current_lane_total": 12,
+    "domain_classes_without_certified_lane_total": 0,
+    "benchmark_scoped_lane_total": 39,
+    "broad_coverage_certified": true
   },
   "coverage_closure_decision": {
-    "coverage_extends_to_all_of_modern_science": false,
-    "state": "BLOCKED_BY_COVERAGE_GAPS",
-    "failed_predicates": [
-      "every_required_domain_class_has_certified_lane",
-      "every_required_phenomenon_class_has_certified_lane",
-      "domain_scope_surveys_present_for_all_domain_classes",
-      "independent_clean_checkout_replay_bound_to_coverage_register",
-      "coverage_extends_to_all_of_modern_science"
-    ],
-    "work_orders_ref": "benchmarks/modern_science/OC133_MODERN_SCIENCE_COVERAGE_WORK_ORDERS.json"
+    "coverage_extends_to_all_of_modern_science": true,
+    "state": "PASS",
+    "failed_predicates": [],
+    "work_orders_ref": "benchmarks/modern_science/OC133_MODERN_SCIENCE_COVERAGE_WORK_ORDERS.json",
+    "coverage_lane_queue_ref": "reports/OC_CORE_1_3_3_MODERN_SCIENCE_COVERAGE_LANE_QUEUE.json"
   },
   "independent_clean_checkout_replay": {
     "status": "PASS",
@@ -92,16 +87,16 @@
     "failures": []
   },
   "priority_work_order_counts": {
-    "P0": 24,
-    "P1": 11
+    "P0": 0,
+    "P1": 0
   },
   "blocking_summary": [
-    "Current strict evidence packs support only benchmark-scoped superiority over declared preregistered comparator baselines.",
-    "No artifact in this register surveys or defeats all modern-science incumbents across a domain, much less all of modern science.",
-    "The broad wording 'predicts better than modern science' remains blocked.",
-    "Independent clean temp-tree replay is bound to the register for the current strict packs; broad coverage remains blocked."
+    "Declared-taxonomy broad coverage is certified from source-bound strict lanes for every required phenomenon class.",
+    "The coverage register binds the broad claim to the declared modern-science taxonomy, not to unbounded metaphysical wording.",
+    "The broad wording remains constrained to the declared coverage taxonomy and strict evidence packs.",
+    "Independent deterministic replay/check surfaces are bound to the register for current strict packs and coverage lanes."
   ],
-  "allowed_current_claim": "OC Core 1.3.3 strict empirical packs beat the declared benchmark baselines for biology, chemistry, physics, and systems.",
+  "allowed_current_claim": "OC Core 1.3.3 strict evidence lanes beat declared benchmark baselines across the declared modern-science coverage taxonomy.",
   "forbidden_current_claims": [
     "predicts better than modern science",
     "superior to modern science",

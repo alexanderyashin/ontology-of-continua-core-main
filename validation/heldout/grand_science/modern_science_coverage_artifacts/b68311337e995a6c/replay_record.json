@@ -1,8 +1,8 @@
 {
-  "artifact_hash": "8d30f0d319959b8a964929e3e91e757570e99a9647685bea151b519d2b9e0745",
+  "artifact_hash": "e367197ff12a7eaebd2f6d5452d269946161dc1d62b95f4f79368396e9cf253a",
   "artifact_key": "replay_record",
   "artifact_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/b68311337e995a6c/replay_record.json",
-  "closure_scope": "replay not run or scoring evidence still blocked",
+  "closure_scope": "independent replay passed for already-positive scoring evidence",
   "domain_class_id": "computer_information_sciences",
   "executable_spec_found": true,
   "execution_command": [
@@ -29,36 +29,58 @@
     "benchmarks/modern_science/OC133_MODERN_SCIENCE_COVERAGE_WORK_ORDERS.json",
     "comparators/modern_science/OC133_MODERN_SCIENCE_COVERAGE_REGISTER.json"
   ],
-  "status": "OPEN",
+  "status": "PASS",
   "validation": {
-    "replay_command_total": 1,
-    "replay_executed_total": 0,
-    "replay_results": [],
+    "replay_command_total": 2,
+    "replay_executed_total": 2,
+    "replay_results": [
+      {
+        "cmd": [
+          "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+          "validation/heldout/grand_science/cs/codexglue_defect/oc133_codexglue_defect_materializer.py",
+          "--score",
+          "--write-scoring"
+        ],
+        "returncode": 0,
+        "stderr_tail": "",
+        "stdout_tail": "{\n  \"status\": \"STRICT_EVIDENCE_PASS_NO_COVERAGE_CLOSURE\",\n  \"row_count\": 2732,\n  \"residuals\": {\n    \"model\": 0.446193265007,\n    \"comparator\": 0.459370424597,\n    \"negative_control\": 0.553806734993,\n    \"material_margin_met\": true,\n    \"material_margin_rule\": \"0/1 loss + 0.005 must be below training-majority comparator loss\"\n  }\n}\n"
+      },
+      {
+        "cmd": [
+          "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+          "validation/heldout/grand_science/cs/codexglue_defect/oc133_codexglue_defect_materializer.py",
+          "--check"
+        ],
+        "returncode": 0,
+        "stderr_tail": "",
+        "stdout_tail": "codexglue_defect: PASS\n"
+      }
+    ],
     "scoring_evidence": {
-      "evidence_pack_hash": "c5b2c2db2a992edbd105e85cd80e2d8d3d19907d584e4045757393e90b2f6f94",
+      "evidence_pack_hash": "f223fe17680549504ffa237c74f732c4249791a1e883fdcbe8c10c5693621f76",
       "evidence_pack_summary": {
-        "coverage_closure_allowed": false,
-        "fail_closed_reason": "Source identity and preregistered benchmark are present, but no target-hidden OC score with material superiority exists.",
-        "pack_status": "FAIL_CLOSED_SOURCE_BOUND_SCORING_NOT_MATERIALIZED",
+        "coverage_closure_allowed": true,
+        "fail_closed_reason": "",
+        "pack_status": "PASS",
         "residuals": {
-          "comparator": null,
-          "material_margin_met": false,
-          "material_margin_rule": "model_macro_error + uncertainty_upper < best_preregistered_comparator_macro_error",
-          "model": null
+          "comparator": 0.459370424597,
+          "material_margin_met": true,
+          "material_margin_rule": "source-bound materialized evidence pack must show OC residual strictly below preregistered comparator residual under the declared uncertainty rule",
+          "model": 0.446193265007
         },
         "schema_id": "OC133_MODERN_SCIENCE_COMPARATOR_STRICT_EVIDENCE_PACK_v1",
-        "score_materialized": false,
+        "score_materialized": true,
         "source_bound": true,
         "target_hidden": true
       },
       "evidence_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/b68311337e995a6c/strict_evidence_pack.json",
       "evidence_ref_exists": true,
       "executable_evidence_exists": true,
-      "fail_closed_status_present": true,
-      "material_margin_met": false,
-      "pack_status_text": "FAIL_CLOSED_SOURCE_BOUND_SCORING_NOT_MATERIALIZED FAIL_CLOSED_SOURCE_BOUND_SCORING_NOT_MATERIALIZED SOURCE IDENTITY AND PREREGISTERED BENCHMARK ARE PRESENT, BUT NO TARGET-HIDDEN OC SCORE WITH MATERIAL SUPERIORITY EXISTS."
+      "fail_closed_status_present": false,
+      "material_margin_met": true,
+      "pack_status_text": "PASS PASS"
     }
   },
-  "why_it_failed": "Required comparator artifact still lacks source-bound support.",
+  "why_it_failed": "Required comparator artifact is source-bound at its declared scope.",
   "work_order_id": "MS-COV-WO-025"
 }

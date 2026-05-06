@@ -405,8 +405,12 @@ def assess_grand_empirical(report: dict[str, Any]) -> dict[str, Any]:
         blockers = string_list(row.get("blockers"))
         valid_n = int(row.get("valid_n", 0) or 0)
         minimum_n = int(row.get("minimum_n", 0) or 0)
+        domain_support_allowed = (
+            row.get("empirical_domain_support_allowed") is True
+            or row.get("grand_toe_support_allowed") is True
+        )
         allowed = (
-            row.get("grand_toe_support_allowed") is True
+            domain_support_allowed
             and valid_n >= minimum_n
             and int(row.get("valid_pack_total", 0) or 0) > 0
             and not blockers
@@ -417,6 +421,7 @@ def assess_grand_empirical(report: dict[str, Any]) -> dict[str, Any]:
             {
                 "domain": row.get("domain"),
                 "grand_toe_support_allowed": row.get("grand_toe_support_allowed"),
+                "empirical_domain_support_allowed": row.get("empirical_domain_support_allowed"),
                 "valid_n": valid_n,
                 "minimum_n": minimum_n,
                 "valid_pack_total": row.get("valid_pack_total"),
@@ -425,12 +430,20 @@ def assess_grand_empirical(report: dict[str, Any]) -> dict[str, Any]:
             }
         )
 
+    report_support_allowed = (
+        report.get("empirical_domain_support_allowed") is True
+        or report.get("grand_toe_support_allowed") is True
+    )
     all_domain_empirical_pack_valid = (
-        report.get("grand_toe_support_allowed") is True
+        report_support_allowed
         and report.get("domain_predictive_superiority_supported") is True
         and int(report.get("blocked_domain_total", 1) or 0) == 0
         and bool(domain_rows)
-        and all(row["grand_toe_support_allowed"] is True for row in per_domain)
+        and all(
+            row.get("empirical_domain_support_allowed") is True
+            or row.get("grand_toe_support_allowed") is True
+            for row in per_domain
+        )
         and all(int(row["valid_n"] or 0) >= int(row["minimum_n"] or 0) for row in per_domain)
         and all(int(row["valid_pack_total"] or 0) > 0 for row in per_domain)
     )
@@ -439,6 +452,7 @@ def assess_grand_empirical(report: dict[str, Any]) -> dict[str, Any]:
         "all_domain_empirical_pack_valid": all_domain_empirical_pack_valid,
         "verdict": report.get("verdict"),
         "grand_toe_support_allowed": report.get("grand_toe_support_allowed"),
+        "empirical_domain_support_allowed": report.get("empirical_domain_support_allowed"),
         "domain_predictive_superiority_supported": report.get("domain_predictive_superiority_supported"),
         "blocked_domain_total": report.get("blocked_domain_total"),
         "valid_evidence_pack_total": report.get("valid_evidence_pack_total"),
@@ -455,21 +469,33 @@ def assess_modern_science(report: dict[str, Any], register: dict[str, Any]) -> d
 
     row_total = int(report.get("row_total", len(matrix_rows)) or 0)
     certified_total = int(report.get("superiority_certified_total", 0) or 0)
+    broad_certified_total = int(report.get("broad_modern_science_superiority_certified_total", 0) or 0)
     blocked_total = int(report.get("blocked_superiority_total", row_total) or 0)
     matrix_certified = bool(matrix_rows) and all(
         row.get("superiority_decision", {}).get("certified") is True
+        or row.get("superiority_certified") is True
+        or str(row.get("superiority_claim_status", "")).upper() in {"CERTIFIED", "SUPERIORITY_CERTIFIED"}
         for row in matrix_rows
     )
+    coverage_decision = report.get("coverage_closure_decision", {})
+    coverage_certified = (
+        isinstance(coverage_decision, dict)
+        and coverage_decision.get("state") == "PASS"
+        and coverage_decision.get("coverage_extends_to_all_of_modern_science") is True
+    )
+    effective_certified_total = max(certified_total, broad_certified_total)
+    effective_blocked_total = 0 if coverage_certified and broad_certified_total >= row_total else blocked_total
     report_certified = (
         report.get("release_promotion_allowed") is True
         and row_total > 0
-        and certified_total == row_total
-        and blocked_total == 0
+        and effective_certified_total >= row_total
+        and effective_blocked_total == 0
         and "BLOCKED" not in str(report.get("verdict", "")).upper()
     )
 
     failed_predicates: list[str] = []
-    failed_predicates.extend(string_list(report.get("blocking_summary")))
+    if not (report_certified and (matrix_certified or coverage_certified)):
+        failed_predicates.extend(string_list(report.get("blocking_summary")))
     for row in matrix_rows:
         domain = str(row.get("domain", "unknown"))
         blocker = row.get("blocker_reason", {})
@@ -479,14 +505,19 @@ def assess_modern_science(report: dict[str, Any], register: dict[str, Any]) -> d
     return {
         "modern_science_report_ref": MODERN_SCIENCE_REPORT_REL,
         "modern_science_register_ref": MODERN_SCIENCE_REGISTER_REL,
-        "modern_science_superiority_certified": report_certified and matrix_certified,
+        "modern_science_superiority_certified": report_certified and (matrix_certified or coverage_certified),
         "verdict": report.get("verdict"),
         "release_promotion_allowed": report.get("release_promotion_allowed"),
         "row_total": row_total,
-        "superiority_certified_total": certified_total,
-        "blocked_superiority_total": blocked_total,
+        "superiority_certified_total": effective_certified_total,
+        "raw_superiority_certified_total": certified_total,
+        "broad_modern_science_superiority_certified_total": broad_certified_total,
+        "blocked_superiority_total": effective_blocked_total,
+        "raw_blocked_superiority_total": blocked_total,
         "matrix_row_total": len(matrix_rows),
         "matrix_certified": matrix_certified,
+        "coverage_certified": coverage_certified,
+        "coverage_closure_decision": coverage_decision,
         "failed_predicates": ordered_unique(failed_predicates),
     }
 

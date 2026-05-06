@@ -34,6 +34,22 @@ LANE_CONFIGS: dict[str, dict[str, Any]] = {
         "material_margin": 0.001,
         "minimum_rows": 500,
     },
+    "medical_epidemiology_child_mortality": {
+        "domain_class_id": "medical_health_sciences",
+        "phenomenon_class_id": "epidemiological_transmission_and_risk",
+        "indicator": "SH.DYN.MORT",
+        "indicator_label": "Mortality rate, under-5 (per 1,000 live births)",
+        "field": "under_five_mortality_per_1000_live_births",
+        "unit": "deaths per 1,000 live births",
+        "source_id": "world_bank_wdi_under_five_mortality_v1",
+        "model_id": "MED-WDI-UNDER-FIVE-MORTALITY-MEDIAN-DELTA-v1",
+        "comparator_id": "MED-WDI-UNDER-FIVE-MORTALITY-LAST_OBSERVATION_BASELINE-v1",
+        "negative_control_id": "MED-WDI-UNDER-FIVE-MORTALITY-FIVE_YEAR_MEAN_CONTROL-v1",
+        "model_rule": "Use the median recent annual mortality-risk change over a five-year visible history and extrapolate one year.",
+        "comparator_rule": "Predict the held-out epidemiological risk observable as the last visible pre-target value.",
+        "material_margin": 0.001,
+        "minimum_rows": 500,
+    },
     "biology_ecology_forest_area": {
         "domain_class_id": "biological_life_sciences",
         "phenomenon_class_id": "ecology_population_and_biodiversity_observables",
@@ -96,6 +112,22 @@ LANE_CONFIGS: dict[str, dict[str, Any]] = {
         "model_rule": "Use the median recent annual adoption-flow change over visible history and extrapolate one year.",
         "comparator_rule": "Predict the held-out multi-agent adoption observable as the last visible pre-target value.",
         "material_margin": 0.005,
+        "minimum_rows": 500,
+    },
+    "earth_hydrology_freshwater_resources": {
+        "domain_class_id": "earth_space_environmental_sciences",
+        "phenomenon_class_id": "geochemistry_and_hydrology_observables",
+        "indicator": "ER.H2O.INTR.PC",
+        "indicator_label": "Renewable internal freshwater resources per capita (cubic meters)",
+        "field": "renewable_internal_freshwater_resources_cubic_meters_per_capita",
+        "unit": "cubic meters per capita",
+        "source_id": "world_bank_wdi_freshwater_resources_v1",
+        "model_id": "EARTH-WDI-FRESHWATER-RESOURCES-MEDIAN-DELTA-v1",
+        "comparator_id": "EARTH-WDI-FRESHWATER-RESOURCES-LAST_OBSERVATION_BASELINE-v1",
+        "negative_control_id": "EARTH-WDI-FRESHWATER-RESOURCES-FIVE_YEAR_MEAN_CONTROL-v1",
+        "model_rule": "Use the median recent annual hydrology-resource change over visible history and extrapolate one year.",
+        "comparator_rule": "Predict the held-out hydrology observable as the last visible pre-target value.",
+        "material_margin": 0.001,
         "minimum_rows": 500,
     },
     "agriculture_livestock_production": {
@@ -532,6 +564,12 @@ def score(root: Path, lane_id: str, *, write: bool) -> dict[str, Any]:
             "model relative MAE plus material margin is not below comparator relative MAE",
             "five-year mean negative control is not worse than the model",
         ],
+        "replay_command": {
+            "commands": [
+                f"python {SCRIPT_REL} --lane {lane_id} --score --write-scoring",
+                f"python {SCRIPT_REL} --lane {lane_id} --check",
+            ]
+        },
         "scored_rows_sha256": sha256_object(scored),
         "scored_rows_sample": scored[:10],
     }

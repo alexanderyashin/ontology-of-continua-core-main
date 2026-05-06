@@ -1,5 +1,5 @@
 {
-  "artifact_hash": "d5906ee23a3d324fb0b368ea61236474a9759c98fb8f6cf26973fff5d255d90c",
+  "artifact_hash": "5776e2195b5a446bf769336d017d2d32a34a2e890701a0118e2d5d0a5d719792",
   "artifact_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/component_mat/mat_6e4a3769d638e2ad.json",
   "available_diagnostic_commands": [
     [
@@ -88,7 +88,7 @@
     },
     "source_bound": true,
     "status": "PASS",
-    "strict_evidence_pack_hash": "9fc9b7066e921f0806f46d95e70dae3dfc2f2ed1ac1b267326d369fa5baaa6bd",
+    "strict_evidence_pack_hash": "f711aef2c85777c3c6ffaee96d66a1ebc1958a8843a47b0de64626cba2acfcb5",
     "strict_evidence_pack_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/b1491a46e156e916/strict_evidence_pack.json"
   },
   "materializer_command_results": [
@@ -147,20 +147,20 @@
   "phenomenon_class_id": "materials_property_and_failure_prediction",
   "repair_strategy": "Implement the domain/phenomenon scorer that reads the governed source snapshot, keeps targets hidden until scoring, computes OC and comparator residuals, and writes PASS or fail-closed scoring/replay artifacts.",
   "replay_artifact_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/b1491a46e156e916/replay_record.json",
-  "replay_artifact_status": "OPEN",
+  "replay_artifact_status": "PASS",
   "required_capability": "Research/SourceBoundScoringMaterializationExecutor",
   "residual_requirement": {
     "formula": "absolute residual per material/property plus aggregate MAE over hidden targets",
     "metric_id": "MS-COV-WO-022_domain_local_residual",
     "superiority_rule": "descriptor model MAE plus bootstrap upper margin must be lower than the composition-family median comparator"
   },
-  "root_cause_class": "SOURCE_BOUND_SCORING_MATERIALIZER_NOT_IMPLEMENTED",
+  "root_cause_class": "SOURCE_BOUND_SCORING_MATERIALIZATION_CLOSED",
   "schema_id": "OC133_MODERN_SCIENCE_COMPARATOR_COMPONENT_MATERIALIZATION_EXECUTION_v1",
   "scoring_artifact_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/b1491a46e156e916/oc_prediction_scoring_row.json",
   "scoring_artifact_status": "PASS",
   "source_obligation_report_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/component_src/src_obligation_e6d0d2925fab73c1.json",
   "source_obligation_status": "SOURCE_BOUND_SCORING_MATERIALIZATION_REMAINS_OPEN",
-  "status": "CAPABILITY_DEVELOPMENT_REQUIRED",
+  "status": "PASS",
   "strict_evidence_pack_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/b1491a46e156e916/strict_evidence_pack.json",
   "strict_evidence_pack_status": "PASS",
   "target_variable": {
@@ -174,5 +174,5 @@
     "unit": "GPa for moduli; eV for bandgap"
   },
   "validator_binding": "comparator_gap::MS-COV-GAP-ENGINEERING_MATERIALS_SCIENCES-MATERIALS_PROPERTY_AND_FAILURE_PREDICTION::component_source_obligation::oc_score_materialization",
-  "why_it_failed": "Source-bound scoring materializer is not implemented for this exact domain/component; existing commands only regenerate fail-closed diagnostics."
+  "why_it_failed": "Source-bound scoring materialization closed downstream."
 }
