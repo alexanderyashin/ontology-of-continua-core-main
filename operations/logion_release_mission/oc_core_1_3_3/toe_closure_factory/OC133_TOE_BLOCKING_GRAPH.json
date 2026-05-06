@@ -1,14 +1,14 @@
 {
-  "artifact_hash": "55f1e0b5d36632aa6ccdfb66a9e62ec15190b9f835ef0887f54cd0419d6a119c",
+  "artifact_hash": "fceb55d0ce0a6fa97883bf6a54fc621317f3f2004ac3b5e995d437282dcfef3f",
   "cerberus_error_total": 8,
-  "edge_total": 734,
+  "edge_total": 741,
   "edge_type_total": {
     "blocks": 13,
-    "needs_capability": 129,
-    "produces": 383,
-    "requires": 64,
-    "supersedes": 65,
-    "validated_by": 80
+    "needs_capability": 131,
+    "produces": 385,
+    "requires": 65,
+    "supersedes": 66,
+    "validated_by": 81
   },
   "edges": [
     {
@@ -334,6 +334,11 @@
     {
       "edge_type": "produces",
       "source": "capability:AUTO-R017-COMPARATOR-GAP-ff0994f3edda",
+      "target": "lane:MODERN_SCIENCE_COMPARATOR_SUPERIORITY"
+    },
+    {
+      "edge_type": "produces",
+      "source": "capability:AUTO-R017-COMPARATOR-SOURCE-IMPLEMENTATION-BACKLOG",
       "target": "lane:MODERN_SCIENCE_COMPARATOR_SUPERIORITY"
     },
     {
@@ -1050,6 +1055,16 @@
       "edge_type": "produces",
       "source": "capability_development:AUTO-R017-CAPABILITY-DEVELOPMENT-0065-6787f5ec",
       "target": "lane:MODERN_SCIENCE_COMPARATOR_SUPERIORITY"
+    },
+    {
+      "edge_type": "produces",
+      "source": "capability_development:AUTO-R017-CAPABILITY-DEVELOPMENT-0065-c04ef21e",
+      "target": "lane:MODERN_SCIENCE_COMPARATOR_SUPERIORITY"
+    },
+    {
+      "edge_type": "supersedes",
+      "source": "capability_development:AUTO-R017-CAPABILITY-DEVELOPMENT-0065-c04ef21e",
+      "target": "required_artifact:MODERN_SCIENCE_COMPARATOR_SUPERIORITY:source_implementation_backlog"
     },
     {
       "edge_type": "produces",
@@ -2642,6 +2657,11 @@
       "target": "required_artifact:MODERN_SCIENCE_COMPARATOR_SUPERIORITY:MS-COV-GAP-SOCIAL_ECONOMIC_POLITICAL_SCIENCES-INSTITUTIONAL_SOCIAL_NETWORK_AND_POLICY_OUTCOMES:replay_record"
     },
     {
+      "edge_type": "requires",
+      "source": "lane:MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+      "target": "required_artifact:MODERN_SCIENCE_COMPARATOR_SUPERIORITY:source_implementation_backlog"
+    },
+    {
       "edge_type": "validated_by",
       "source": "lane:MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
       "target": "support_index:canonical_refs"
@@ -3617,6 +3637,21 @@
       "target": "support_index:canonical_refs"
     },
     {
+      "edge_type": "needs_capability",
+      "source": "required_artifact:MODERN_SCIENCE_COMPARATOR_SUPERIORITY:source_implementation_backlog",
+      "target": "capability:AUTO-R017-COMPARATOR-SOURCE-IMPLEMENTATION-BACKLOG"
+    },
+    {
+      "edge_type": "needs_capability",
+      "source": "required_artifact:MODERN_SCIENCE_COMPARATOR_SUPERIORITY:source_implementation_backlog",
+      "target": "capability_development:AUTO-R017-CAPABILITY-DEVELOPMENT-0065-c04ef21e"
+    },
+    {
+      "edge_type": "validated_by",
+      "source": "required_artifact:MODERN_SCIENCE_COMPARATOR_SUPERIORITY:source_implementation_backlog",
+      "target": "support_index:canonical_refs"
+    },
+    {
       "edge_type": "blocks",
       "source": "validator_error:001",
       "target": "promotion_gate:recovery_r017"
@@ -3682,8 +3717,8 @@
       "target": "promotion_gate:recovery_r017"
     }
   ],
-  "generated_at": "2026-05-06T01:11:30Z",
-  "graph_frontier_hash": "18315b8785972072c5e161cd527a383dd5c3cdac5e9a8f4756e3b5244b307c05",
+  "generated_at": "2026-05-06T01:16:37Z",
+  "graph_frontier_hash": "f304c2be396fe5dd7c1edcc22165ac8d2a29dd0244a113b3359cd835736ad11b",
   "next_executable_node_ids": [
     "capability:AUTO-R017-COMPARATOR-GAP-3c68f08c4c30",
     "required_artifact:MODERN_SCIENCE_COMPARATOR_SUPERIORITY:MS-COV-GAP-AGRICULTURAL_FOOD_SCIENCES-ANIMAL_HEALTH_AND_PRODUCTION_SYSTEMS:oc_prediction_scoring_row",
@@ -3711,7 +3746,7 @@
     "required_artifact:MODERN_SCIENCE_COMPARATOR_SUPERIORITY:MS-COV-GAP-COGNITIVE_BEHAVIORAL_NEUROSCIENCES-NEURAL_RECORDING_AND_BRAIN_NETWORK_OBSERVABLES:oc_prediction_scoring_row",
     "capability:AUTO-R017-COMPARATOR-GAP-9f3be1c5dac2"
   ],
-  "node_total": 465,
+  "node_total": 468,
   "nodes": [
     {
       "execution_command": [],
@@ -5038,6 +5073,25 @@
       "status": "CAPABILITY_ESCALATION_REQUIRED",
       "validator_binding": "action::AUTO-R017-COMPARATOR-GAP-ff0994f3edda",
       "why_it_failed": "Comparator gap `MS-COV-GAP-MEDICAL_HEALTH_SCIENCES-PHARMACOLOGY_TOXICOLOGY_AND_DOSE_RESPONSE` lacks `replay_record`."
+    },
+    {
+      "execution_command": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "tools/oc133_toe_closure_factory.py",
+        "--compile-comparator-source-implementation-backlog",
+        "--write"
+      ],
+      "executor_type": "comparator_source_implementation_backlog",
+      "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+      "next_escalation": "Implement the first missing governed source/evidence command from that backlog.",
+      "node_id": "capability:AUTO-R017-COMPARATOR-SOURCE-IMPLEMENTATION-BACKLOG",
+      "node_type": "executor_capability",
+      "pass_predicate": "Source implementation backlog exists and names every gap/subartifact implementation obligation.",
+      "repair_strategy": "Compile source-executor work orders into exact domain-specific implementation obligations.",
+      "required_capability": "Research/ScoringExecutor",
+      "status": "OPEN",
+      "validator_binding": "action::AUTO-R017-COMPARATOR-SOURCE-IMPLEMENTATION-BACKLOG",
+      "why_it_failed": "Source executor work orders exist but have not been compiled into implementation obligations."
     },
     {
       "execution_command": [
@@ -7109,6 +7163,38 @@
       "source_graph_node_id": "required_artifact:MODERN_SCIENCE_COMPARATOR_SUPERIORITY:MS-COV-GAP-AGRICULTURAL_FOOD_SCIENCES-ANIMAL_HEALTH_AND_PRODUCTION_SYSTEMS:source_executor::source_executor",
       "status": "PASS",
       "validator_binding": "support_artifact::MODERN_SCIENCE_COMPARATOR_SUPERIORITY::source_executor::source_executor",
+      "why_it_failed": "The action did not reduce strict validator errors on this semantic frontier."
+    },
+    {
+      "capability_executor_ready": true,
+      "execution_command": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "tools/oc133_toe_closure_factory.py",
+        "--execute-capability-development",
+        "R017-CAPDEV-1cdc9052108e",
+        "--write"
+      ],
+      "implementation_command": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "tools/oc133_toe_closure_factory.py",
+        "--execute-comparator-scoring-subartifact",
+        "source_implementation_backlog",
+        "source_implementation_backlog",
+        "--write"
+      ],
+      "implementation_gap_class": "ZERO_DELTA_GRAPH_DEPENDENCY",
+      "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+      "missing_artifact_type": "source_implementation_backlog",
+      "next_escalation": "Implement the first missing governed source/evidence command from that backlog.",
+      "node_id": "capability_development:AUTO-R017-CAPABILITY-DEVELOPMENT-0065-c04ef21e",
+      "node_type": "capability_development",
+      "pass_predicate": "Source implementation backlog exists and names every gap/subartifact implementation obligation.",
+      "repair_strategy": "Create a narrower source-bound executor for the exact missing artifact class before rerunning the same action.",
+      "required_capability": "Research/ScoringExecutor",
+      "source_action_id": "AUTO-R017-COMPARATOR-SOURCE-IMPLEMENTATION-BACKLOG",
+      "source_graph_node_id": "required_artifact:MODERN_SCIENCE_COMPARATOR_SUPERIORITY:source_implementation_backlog",
+      "status": "OPEN",
+      "validator_binding": "support_artifact::MODERN_SCIENCE_COMPARATOR_SUPERIORITY::source_implementation_backlog",
       "why_it_failed": "The action did not reduce strict validator errors on this semantic frontier."
     },
     {
@@ -12538,6 +12624,26 @@
       "why_it_failed": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY lacks required artifact `replay_record`."
     },
     {
+      "artifact_key": "source_implementation_backlog",
+      "execution_command": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "tools/oc133_toe_closure_factory.py",
+        "--compile-comparator-source-implementation-backlog",
+        "--write"
+      ],
+      "gap_id": null,
+      "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+      "next_escalation": "Split this node into narrower source-bound capability work if it produces zero validator delta.",
+      "node_id": "required_artifact:MODERN_SCIENCE_COMPARATOR_SUPERIORITY:source_implementation_backlog",
+      "node_type": "required_artifact",
+      "pass_predicate": "source_implementation_backlog exists and passes lane static validation.",
+      "repair_strategy": "Create or bind this artifact from canonical source/evidence surfaces.",
+      "required_capability": "Research/ScoringExecutor",
+      "status": "OPEN",
+      "validator_binding": "support_artifact::MODERN_SCIENCE_COMPARATOR_SUPERIORITY::source_implementation_backlog",
+      "why_it_failed": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY lacks required artifact `source_implementation_backlog`."
+    },
+    {
       "execution_command": [
         "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
         "tools/oc133_toe_autonomous_supervisor.py",
@@ -12872,7 +12978,7 @@
       "why_it_failed": "Cerberus still has open defect findings."
     }
   ],
-  "open_node_total": 147,
+  "open_node_total": 150,
   "schema_id": "OC133_TOE_BLOCKING_GRAPH_v1",
   "science_validator_error_total": 5,
   "status": "OPEN",

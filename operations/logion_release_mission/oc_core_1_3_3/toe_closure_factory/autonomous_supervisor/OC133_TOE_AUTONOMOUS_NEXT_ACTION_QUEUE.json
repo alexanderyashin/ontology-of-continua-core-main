@@ -1,13 +1,13 @@
 {
-  "action_total": 66,
-  "artifact_hash": "aab814885a2fcbc784ef8f04ec7e50cd577caa20ea5c89f5f754f20a569e6acf",
-  "blocking_graph_frontier_hash": "835eff9c4121ae751745835edb8a71e46f307a7b34b1e753140e25a5d56587c0",
+  "action_total": 67,
+  "artifact_hash": "c585c2dad47997e5336197c1d99cee9b8a05aa7196976159fa4c8a16aebbc73f",
+  "blocking_graph_frontier_hash": "779a0e1bd8a1136f4b2840cc3e1990d3b1eacbe37a36b102f6679defae131aa6",
   "blocking_graph_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/OC133_TOE_BLOCKING_GRAPH.json",
   "cerberus_error_total": 8,
-  "executable_action_total": 0,
+  "executable_action_total": 1,
   "frontier_hash": "632ddf9bd86533cf0263b3665f34815254d63b53551396a7e842d5bb616569cb",
-  "generated_at": "2026-05-06T01:11:43Z",
-  "graph_candidate_node_total": 130,
+  "generated_at": "2026-05-06T01:16:50Z",
+  "graph_candidate_node_total": 132,
   "planner_mode": "GRAPH_RESOLVER",
   "rows": [
     {
@@ -2603,6 +2603,44 @@
       "why_it_failed": "Comparator gap `MS-COV-GAP-SOCIAL_ECONOMIC_POLITICAL_SCIENCES-INSTITUTIONAL_SOCIAL_NETWORK_AND_POLICY_OUTCOMES` lacks `replay_record`."
     },
     {
+      "action_id": "AUTO-R017-COMPARATOR-SOURCE-IMPLEMENTATION-BACKLOG",
+      "already_attempted_on_frontier": false,
+      "execution_command": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "tools/oc133_toe_closure_factory.py",
+        "--compile-comparator-source-implementation-backlog",
+        "--write"
+      ],
+      "executor_type": "comparator_source_implementation_backlog",
+      "frontier_signature": "632ddf9bd86533cf0263b3665f34815254d63b53551396a7e842d5bb616569cb::AUTO-R017-COMPARATOR-SOURCE-IMPLEMENTATION-BACKLOG",
+      "gap_id": null,
+      "graph_dependency_path": [
+        "required_artifact:MODERN_SCIENCE_COMPARATOR_SUPERIORITY:source_implementation_backlog",
+        "capability:AUTO-R017-COMPARATOR-SOURCE-IMPLEMENTATION-BACKLOG"
+      ],
+      "graph_node_id": "required_artifact:MODERN_SCIENCE_COMPARATOR_SUPERIORITY:source_implementation_backlog",
+      "graph_node_type": "required_artifact",
+      "graph_priority": [
+        30,
+        80,
+        10,
+        "required_artifact:MODERN_SCIENCE_COMPARATOR_SUPERIORITY:source_implementation_backlog"
+      ],
+      "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+      "missing_artifact_type": "source_implementation_backlog",
+      "next_escalation": "Implement the first missing governed source/evidence command from that backlog.",
+      "pass_predicate": "Source implementation backlog exists and names every gap/subartifact implementation obligation.",
+      "planner_mode": "GRAPH_RESOLVER",
+      "repair_strategy": "Compile source-executor work orders into exact domain-specific implementation obligations.",
+      "required_artifact": "source_implementation_backlog",
+      "required_capability": "Research/ScoringExecutor",
+      "selected_for_execution": true,
+      "source_executor_work_order_total": 227,
+      "status": "OPEN",
+      "validator_binding": "support_artifact::MODERN_SCIENCE_COMPARATOR_SUPERIORITY::source_implementation_backlog",
+      "why_it_failed": "Source executor work orders exist but have not been compiled into implementation obligations."
+    },
+    {
       "action_id": "AUTO-R017-GRAND-PROMOTION-DERIVATION",
       "already_attempted_on_frontier": true,
       "execution_command": [
@@ -2738,6 +2776,7 @@
     "required_artifact:MODERN_SCIENCE_COMPARATOR_SUPERIORITY:MS-COV-GAP-PHYSICAL_SCIENCES-DYNAMICAL_LAWS_AND_CONSERVATION:replay_record",
     "required_artifact:MODERN_SCIENCE_COMPARATOR_SUPERIORITY:MS-COV-GAP-SOCIAL_ECONOMIC_POLITICAL_SCIENCES-ECONOMIC_INDICATOR_AND_MARKET_OBSERVABLES:replay_record",
     "required_artifact:MODERN_SCIENCE_COMPARATOR_SUPERIORITY:MS-COV-GAP-SOCIAL_ECONOMIC_POLITICAL_SCIENCES-INSTITUTIONAL_SOCIAL_NETWORK_AND_POLICY_OUTCOMES:replay_record",
+    "required_artifact:MODERN_SCIENCE_COMPARATOR_SUPERIORITY:source_implementation_backlog",
     "capability:AUTO-R017-GRAND-PROMOTION-DERIVATION",
     "capability:AUTO-R017-CERBERUS-CLEAN-REFRESH"
   ],

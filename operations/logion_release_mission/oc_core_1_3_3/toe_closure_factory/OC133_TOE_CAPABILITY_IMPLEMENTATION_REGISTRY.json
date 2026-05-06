@@ -1,15 +1,57 @@
 {
-  "artifact_hash": "3549707dd9fcf2463e22d4cf556a5e1b5f405e149672926ccee44f40ce05f4ca",
+  "artifact_hash": "4cdbaf63de8dd170264592c286ef3a71e76bb702eca277e315aaded4f6e0363f",
   "blocked_capability_total": 0,
-  "compiled_capability_total": 0,
+  "compiled_capability_total": 1,
   "dedupe_policy": "Rows are keyed by lane_id + source_graph_node_id + missing_artifact_type + scientific_frontier_hash.",
-  "generated_at": "2026-05-06T01:12:14Z",
+  "generated_at": "2026-05-06T01:17:22Z",
   "no_fake_closure_policy": "Compiled capabilities execute research commands only; PASS still requires strict validator closure.",
-  "ready_capability_total": 0,
-  "rows": [],
+  "ready_capability_total": 1,
+  "rows": [
+    {
+      "capability_class": "comparator_scoring_subartifact",
+      "capability_development_key": "1cdc9052108e261057278914714b15579145a9d86e08a6f8dce7ef44ae44030f",
+      "capability_executor_ready": true,
+      "capability_id": "R017-CAPDEV-1cdc9052108e",
+      "compiled_capability_id": "R017-CAPDEV-1cdc9052108e",
+      "execution_command": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "tools/oc133_toe_closure_factory.py",
+        "--execute-capability-development",
+        "R017-CAPDEV-1cdc9052108e",
+        "--write"
+      ],
+      "executor_command": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "tools/oc133_toe_closure_factory.py",
+        "--execute-comparator-scoring-subartifact",
+        "source_implementation_backlog",
+        "source_implementation_backlog",
+        "--write"
+      ],
+      "executor_type": "comparator_scoring_subartifact",
+      "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+      "missing_artifact_type": "source_implementation_backlog",
+      "next_escalation": "If this compiled capability produces zero validator delta, generate a lower-level upstream research obligation for the exact missing source/evidence object.",
+      "output_artifact_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/capability_implementation/R017-CAPDEV-1cdc9052108e.json",
+      "pass_predicate": "Source implementation backlog exists and names every gap/subartifact implementation obligation.",
+      "repair_strategy": "Build the exact lower-level scoring subartifact packet for this gap so source acquisition, target locking, model registration, comparator scoring, uncertainty, falsifier, or replay work can proceed without rerunning a generic wave.",
+      "required_capability": "Research/ScoringExecutor",
+      "scientific_frontier_hash": "cf7fa90cae7761e24fd499a438781aaf7ffc6da730dc3657f8d31d0ba649dc95",
+      "self_test_command": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "tools/oc133_toe_closure_factory.py",
+        "--check"
+      ],
+      "source_capability_development_id": "AUTO-R017-CAPABILITY-DEVELOPMENT-0065-c04ef21e",
+      "source_graph_node_id": "required_artifact:MODERN_SCIENCE_COMPARATOR_SUPERIORITY:source_implementation_backlog",
+      "status": "READY",
+      "validator_binding": "support_artifact::MODERN_SCIENCE_COMPARATOR_SUPERIORITY::source_implementation_backlog",
+      "why_it_failed": "The action did not reduce strict validator errors on this semantic frontier."
+    }
+  ],
   "schema_id": "OC133_TOE_CAPABILITY_IMPLEMENTATION_REGISTRY_v1",
   "scientific_frontier_hash": "cf7fa90cae7761e24fd499a438781aaf7ffc6da730dc3657f8d31d0ba649dc95",
   "scientific_frontier_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/OC133_TOE_SCIENTIFIC_FRONTIER.json",
-  "source_capability_development_total": 317,
-  "status": "PASS"
+  "source_capability_development_total": 318,
+  "status": "OPEN"
 }

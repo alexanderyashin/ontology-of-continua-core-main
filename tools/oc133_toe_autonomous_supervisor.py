@@ -766,6 +766,33 @@ def comparator_actions(root: Path) -> list[dict[str, Any]]:
         )
         seen_action_ids.add(action_id)
         actions.append(action)
+    source_executor_rows = [
+        row
+        for row in factory.comparator_source_executor_work_orders(root)
+        if row.get("status") != "PASS" and row.get("scoring_subartifact_id")
+    ]
+    if source_executor_rows:
+        action_id = "AUTO-R017-COMPARATOR-SOURCE-IMPLEMENTATION-BACKLOG"
+        action = action_defaults(
+            action_id,
+            "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+            "comparator_source_implementation_backlog",
+            [sys.executable, "tools/oc133_toe_closure_factory.py", "--compile-comparator-source-implementation-backlog", "--write"],
+        )
+        action.update(
+            {
+                "required_artifact": "source_implementation_backlog",
+                "missing_artifact_type": "source_implementation_backlog",
+                "source_executor_work_order_total": len(source_executor_rows),
+                "why_it_failed": "Source executor work orders exist but have not been compiled into implementation obligations.",
+                "repair_strategy": "Compile source-executor work orders into exact domain-specific implementation obligations.",
+                "required_capability": "Research/ScoringExecutor",
+                "pass_predicate": "Source implementation backlog exists and names every gap/subartifact implementation obligation.",
+                "next_escalation": "Implement the first missing governed source/evidence command from that backlog.",
+                "validator_binding": "comparator_source_implementation_backlog",
+            }
+        )
+        actions.append(action)
     return actions
 
 

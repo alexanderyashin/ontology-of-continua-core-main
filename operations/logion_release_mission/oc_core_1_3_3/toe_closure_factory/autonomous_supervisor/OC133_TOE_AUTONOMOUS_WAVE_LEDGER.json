@@ -1,10 +1,52 @@
 {
-  "artifact_hash": "711ad4b5aab03fdd0236b293fce7de5640dd72010dc60b591bd87f7f4bb2f7ba",
-  "generated_at": "2026-05-06T01:11:30Z",
+  "artifact_hash": "036acb5ec6e503a285d2e69980e228f4f1fc01cc5f39822e2879d2e309bc6772",
+  "generated_at": "2026-05-06T01:16:37Z",
   "rows": [
     {
-      "action_results": [],
-      "active_executor": null,
+      "action_results": [
+        {
+          "action_id": "AUTO-R017-COMPARATOR-SOURCE-IMPLEMENTATION-BACKLOG",
+          "after_validator_error_total": 13,
+          "before_validator_error_total": 13,
+          "execution_command": [
+            "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+            "tools/oc133_toe_closure_factory.py",
+            "--compile-comparator-source-implementation-backlog",
+            "--write"
+          ],
+          "executor_type": "comparator_source_implementation_backlog",
+          "frontier_hash_after": "632ddf9bd86533cf0263b3665f34815254d63b53551396a7e842d5bb616569cb",
+          "frontier_hash_before": "632ddf9bd86533cf0263b3665f34815254d63b53551396a7e842d5bb616569cb",
+          "frontier_signature": "632ddf9bd86533cf0263b3665f34815254d63b53551396a7e842d5bb616569cb::AUTO-R017-COMPARATOR-SOURCE-IMPLEMENTATION-BACKLOG",
+          "graph_dependency_path": [
+            "required_artifact:MODERN_SCIENCE_COMPARATOR_SUPERIORITY:source_implementation_backlog",
+            "capability:AUTO-R017-COMPARATOR-SOURCE-IMPLEMENTATION-BACKLOG"
+          ],
+          "graph_node_id": "required_artifact:MODERN_SCIENCE_COMPARATOR_SUPERIORITY:source_implementation_backlog",
+          "graph_node_type": "required_artifact",
+          "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+          "next_escalation": "Implement the first missing governed source/evidence command from that backlog.",
+          "pass_predicate": "Source implementation backlog exists and names every gap/subartifact implementation obligation.",
+          "planner_mode": "GRAPH_RESOLVER",
+          "repair_strategy": "Compile source-executor work orders into exact domain-specific implementation obligations.",
+          "required_capability": "Research/ScoringExecutor",
+          "result": {
+            "cmd": [
+              "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+              "tools/oc133_toe_closure_factory.py",
+              "--compile-comparator-source-implementation-backlog",
+              "--write"
+            ],
+            "returncode": 1,
+            "stderr_tail": "Traceback (most recent call last):\n  File \"C:\\Users\\Megaport\\work\\logion_local\\repos\\ontology-of-continua-core-main\\tools\\oc133_toe_closure_factory.py\", line 5309, in <module>\n    raise SystemExit(main())\n                     ~~~~^^\n  File \"C:\\Users\\Megaport\\work\\logion_local\\repos\\ontology-of-continua-core-main\\tools\\oc133_toe_closure_factory.py\", line 5246, in main\n    payload = build_comparator_source_implementation_backlog(ROOT)\n  File \"C:\\Users\\Megaport\\work\\logion_local\\repos\\ontology-of-continua-core-main\\tools\\oc133_toe_closure_factory.py\", line 2723, in build_comparator_source_implementation_backlog\n    write_json_artifact(root, comparator_source_implementation_backlog_rel(), payload)\n    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\Megaport\\work\\logion_local\\repos\\ontology-of-continua-core-main\\tools\\oc133_toe_closure_factory.py\", line 173, in write_json_artifact\n    path.write_text(stable_json(payload), encoding=\"utf-8\")\n    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\Megaport\\scoop\\apps\\python\\current\\Lib\\pathlib\\__init__.py\", line 809, in write_text\n    with self.open(mode='w', encoding=encoding, errors=errors, newline=newline) as f:\n         ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\Megaport\\scoop\\apps\\python\\current\\Lib\\pathlib\\__init__.py\", line 771, in open\n    return io.open(self, mode, buffering, encoding, errors, newline)\n           ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nFileNotFoundError: [Errno 2] No such file or directory: 'C:\\\\Users\\\\Megaport\\\\work\\\\logion_local\\\\repos\\\\ontology-of-continua-core-main\\\\operations\\\\logion_release_mission\\\\oc_core_1_3_3\\\\toe_closure_factory\\\\lane_execution\\\\MODERN_SCIENCE_COMPARATOR_SUPERIORITY\\\\OC133_MODERN_SCIENCE_COMPARATOR_SOURCE_IMPLEMENTATION_BACKLOG.json'\n",
+            "stdout_tail": ""
+          },
+          "status": "FAIL_CLOSED",
+          "validator_error_delta": 0,
+          "why_it_failed": "Source executor work orders exist but have not been compiled into implementation obligations."
+        }
+      ],
+      "active_executor": "comparator_source_implementation_backlog",
       "after_validator_error_total": 13,
       "before_validator_error_total": 13,
       "capability_escalation_ids": [
@@ -72,9 +114,10 @@
         "AUTO-R017-CAPABILITY-ESCALATION-0062",
         "AUTO-R017-CAPABILITY-ESCALATION-0063",
         "AUTO-R017-CAPABILITY-ESCALATION-0064",
-        "AUTO-R017-CAPABILITY-ESCALATION-0065"
+        "AUTO-R017-CAPABILITY-ESCALATION-0065",
+        "AUTO-R017-CAPABILITY-ESCALATION-0066"
       ],
-      "commit_sha": "46399212",
+      "commit_sha": "8e70b458",
       "executor_selected": "graph_resolver",
       "frontier_hash_after": "632ddf9bd86533cf0263b3665f34815254d63b53551396a7e842d5bb616569cb",
       "frontier_hash_before": "632ddf9bd86533cf0263b3665f34815254d63b53551396a7e842d5bb616569cb",
@@ -145,6 +188,7 @@
         "AUTO-R017-COMPARATOR-GAP-b2e551da7564",
         "AUTO-R017-COMPARATOR-GAP-842d2ad04819",
         "AUTO-R017-COMPARATOR-GAP-430497b5b736",
+        "AUTO-R017-COMPARATOR-SOURCE-IMPLEMENTATION-BACKLOG",
         "AUTO-R017-GRAND-PROMOTION-DERIVATION",
         "AUTO-R017-CERBERUS-CLEAN-REFRESH"
       ],
@@ -213,11 +257,16 @@
         "required_artifact:MODERN_SCIENCE_COMPARATOR_SUPERIORITY:MS-COV-GAP-PHYSICAL_SCIENCES-DYNAMICAL_LAWS_AND_CONSERVATION:replay_record",
         "required_artifact:MODERN_SCIENCE_COMPARATOR_SUPERIORITY:MS-COV-GAP-SOCIAL_ECONOMIC_POLITICAL_SCIENCES-ECONOMIC_INDICATOR_AND_MARKET_OBSERVABLES:replay_record",
         "required_artifact:MODERN_SCIENCE_COMPARATOR_SUPERIORITY:MS-COV-GAP-SOCIAL_ECONOMIC_POLITICAL_SCIENCES-INSTITUTIONAL_SOCIAL_NETWORK_AND_POLICY_OUTCOMES:replay_record",
+        "required_artifact:MODERN_SCIENCE_COMPARATOR_SUPERIORITY:source_implementation_backlog",
         "capability:AUTO-R017-GRAND-PROMOTION-DERIVATION",
         "capability:AUTO-R017-CERBERUS-CLEAN-REFRESH"
       ],
-      "selected_action_ids": [],
-      "selected_graph_node_ids": [],
+      "selected_action_ids": [
+        "AUTO-R017-COMPARATOR-SOURCE-IMPLEMENTATION-BACKLOG"
+      ],
+      "selected_graph_node_ids": [
+        "required_artifact:MODERN_SCIENCE_COMPARATOR_SUPERIORITY:source_implementation_backlog"
+      ],
       "status": "INTERNAL_AUTONOMOUS_RUN_STATE_OPEN",
       "terminal_gate": "R017_BLOCKED_BY_TOE_AUTONOMOUS_SUPERVISOR",
       "validation_rows": [
