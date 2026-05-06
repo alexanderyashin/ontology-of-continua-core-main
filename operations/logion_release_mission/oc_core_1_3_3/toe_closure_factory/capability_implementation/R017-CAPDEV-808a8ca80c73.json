@@ -1,0 +1,52 @@
+{
+  "after_validator_error_total": 13,
+  "artifact_hash": "9d2db5dbbcf1c8a00d636f2ff27825cbf3518085ce83c9b4932e1177bce01c74",
+  "before_validator_error_total": 13,
+  "capability_class": "comparator_gap_artifact",
+  "capability_development_key": "808a8ca80c73804c899e9965330e98bbab132a2465ec298cdde998d6b6dc40bd",
+  "capability_id": "R017-CAPDEV-808a8ca80c73",
+  "command_results": [
+    {
+      "cmd": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "tools/oc133_toe_closure_factory.py",
+        "--execute-comparator-gap-artifact",
+        "MS-COV-GAP-MEDICAL_HEALTH_SCIENCES-CLINICAL_OUTCOMES_AND_BIOMARKERS",
+        "replay_record",
+        "--write"
+      ],
+      "returncode": 0,
+      "stderr_tail": "",
+      "stdout_tail": "{\n  \"changed\": [],\n  \"missing\": [],\n  \"state\": \"PASS\"\n}\n"
+    }
+  ],
+  "compiled_capability_id": "R017-CAPDEV-808a8ca80c73",
+  "execution_command": [
+    "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+    "tools/oc133_toe_closure_factory.py",
+    "--execute-capability-development",
+    "R017-CAPDEV-808a8ca80c73",
+    "--write"
+  ],
+  "executor_command": [
+    "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+    "tools/oc133_toe_closure_factory.py",
+    "--execute-comparator-gap-artifact",
+    "MS-COV-GAP-MEDICAL_HEALTH_SCIENCES-CLINICAL_OUTCOMES_AND_BIOMARKERS",
+    "replay_record",
+    "--write"
+  ],
+  "executor_type": "comparator_gap_artifact",
+  "generated_at": "2026-05-06T00:12:23Z",
+  "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+  "next_escalation": "If this compiled capability produces zero validator delta, generate a lower-level upstream research obligation for the exact missing source/evidence object.",
+  "no_fake_closure_policy": "Zero delta remains OPEN and cannot satisfy r017.",
+  "pass_predicate": "Comparator gap `MS-COV-GAP-MEDICAL_HEALTH_SCIENCES-CLINICAL_OUTCOMES_AND_BIOMARKERS` has `replay_record` and strict coverage register no longer lists it as missing.",
+  "repair_strategy": "Create the exact comparator gap artifact work packet before rerunning broad-coverage closure.",
+  "required_capability": "Research/PriorArt",
+  "schema_id": "OC133_TOE_CAPABILITY_DEVELOPMENT_EXECUTION_v1",
+  "source_graph_node_id": "required_artifact:MODERN_SCIENCE_COMPARATOR_SUPERIORITY:MS-COV-GAP-MEDICAL_HEALTH_SCIENCES-CLINICAL_OUTCOMES_AND_BIOMARKERS:replay_record",
+  "status": "ZERO_DELTA_OPEN",
+  "validator_error_delta": 0,
+  "why_it_failed": "Compiled capability executed but did not reduce strict validator errors."
+}
