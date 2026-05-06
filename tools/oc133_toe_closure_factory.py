@@ -2594,6 +2594,48 @@ def build_comparator_scoring_subartifact_execution(root: Path, gap_id: str, suba
     return payload
 
 
+def comparator_scoring_subartifact_execution_exists(root: Path, gap_id: str, subartifact_id: str) -> bool:
+    payload = read_json(root / comparator_gap_scoring_subartifact_rel(gap_id, subartifact_id))
+    return (
+        payload.get("schema_id") == "OC133_MODERN_SCIENCE_COMPARATOR_SCORING_SUBARTIFACT_EXECUTION_v1"
+        and payload.get("gap_id") == gap_id
+        and payload.get("scoring_subartifact_id") == subartifact_id
+    )
+
+
+def build_all_comparator_scoring_subartifact_executions(root: Path) -> dict[str, Any]:
+    generated_at = utc_now()
+    rows = comparator_scoring_backlog_rows(root)
+    built_rows: list[dict[str, Any]] = []
+    for row in rows:
+        if row.get("status") == "PASS":
+            continue
+        gap_id = str(row.get("gap_id") or "")
+        subartifact_id = str(row.get("scoring_subartifact_id") or "")
+        if not gap_id or not subartifact_id:
+            continue
+        payload = build_comparator_scoring_subartifact_execution(root, gap_id, subartifact_id)
+        built_rows.append(
+            {
+                "gap_id": gap_id,
+                "scoring_subartifact_id": subartifact_id,
+                "status": payload.get("status"),
+                "artifact_ref": payload.get("artifact_ref"),
+            }
+        )
+    result = {
+        "schema_id": "OC133_MODERN_SCIENCE_COMPARATOR_SCORING_SUBARTIFACT_BATCH_v1",
+        "generated_at": generated_at,
+        "status": "PASS",
+        "subartifact_execution_total": len(built_rows),
+        "open_subartifact_execution_total": sum(1 for row in built_rows if row.get("status") != "PASS"),
+        "rows": built_rows,
+        "no_fake_closure_policy": "Batch materialization creates lower-level work packets only; broad comparator PASS still requires evidence packs and replay records.",
+    }
+    result["artifact_hash"] = artifact_hash(result)
+    return result
+
+
 def build_comparator_gap_research_artifact(root: Path, gap_id: str, artifact_key: str) -> dict[str, Any]:
     gap_payload = comparator_gap_execution_payload(root, gap_id)
     queue_row = comparator_lane_queue_rows_by_gap(root).get(gap_id, {})
@@ -4910,6 +4952,7 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--execute-comparator-gap-artifact", nargs=2, metavar=("GAP_ID", "ARTIFACT_KEY"), help="Execute one modern-science comparator coverage-gap artifact work packet.")
     parser.add_argument("--execute-comparator-scoring-work-order", help="Build the exact scoring/replay research work order for one comparator coverage gap.")
     parser.add_argument("--execute-comparator-scoring-subartifact", nargs=2, metavar=("GAP_ID", "SUBARTIFACT_ID"), help="Build the exact lower-level scoring subartifact work packet for one comparator coverage gap.")
+    parser.add_argument("--execute-all-comparator-scoring-subartifacts", action="store_true", help="Build all lower-level comparator scoring subartifact work packets in one deterministic batch.")
     parser.add_argument("--compile-comparator-scoring-backlog", action="store_true", help="Compile exact lower-level scoring executor subtasks for open comparator scoring work orders.")
     parser.add_argument("--execute-comparator-domain-job", help="Execute one modern-science comparator domain job such as MS-COV-JOB-001.")
     parser.add_argument("--timeout", type=int, default=900)
@@ -4961,6 +5004,12 @@ def main(argv: list[str] | None = None) -> int:
         payload = build_comparator_scoring_subartifact_execution(ROOT, gap_id, subartifact_id)
         artifact_ref = payload.get("artifact_ref")
         path = ROOT / artifact_ref if isinstance(artifact_ref, str) and artifact_ref else ROOT / comparator_gap_scoring_subartifact_rel(gap_id, subartifact_id)
+        result = validation_result({path: stable_json(payload)}, write=args.write)
+        print(json.dumps(result if args.write or args.check else payload, ensure_ascii=False, indent=2, sort_keys=True))
+        return 1 if args.check and result["state"] != "PASS" else 0
+    if args.execute_all_comparator_scoring_subartifacts:
+        payload = build_all_comparator_scoring_subartifact_executions(ROOT)
+        path = ROOT / lane_execution_base("MODERN_SCIENCE_COMPARATOR_SUPERIORITY") / "OC133_MODERN_SCIENCE_COMPARATOR_SCORING_SUBARTIFACT_BATCH.json"
         result = validation_result({path: stable_json(payload)}, write=args.write)
         print(json.dumps(result if args.write or args.check else payload, ensure_ascii=False, indent=2, sort_keys=True))
         return 1 if args.check and result["state"] != "PASS" else 0

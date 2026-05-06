@@ -1,0 +1,37 @@
+{
+  "artifact_hash": "262362633a90f787f4d71f0800e38abd8a5c419ca8a9f0f538b74e5df5703d4c",
+  "artifact_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/scoring_subartifact_jobs/subartifact_1ddfa205bf3bcc44.json",
+  "execution_command": [
+    "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+    "tools/oc133_toe_closure_factory.py",
+    "--execute-comparator-scoring-subartifact",
+    "MS-COV-GAP-MEDICAL_HEALTH_SCIENCES-CLINICAL_OUTCOMES_AND_BIOMARKERS",
+    "incumbent_comparator_scoring",
+    "--write"
+  ],
+  "gap_id": "MS-COV-GAP-MEDICAL_HEALTH_SCIENCES-CLINICAL_OUTCOMES_AND_BIOMARKERS",
+  "generated_at": "2026-05-06T00:41:07Z",
+  "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+  "next_escalation": "Implement the concrete source acquisition/scoring executor named by required_source_block; this diagnostic packet is not evidence.",
+  "no_fake_closure_policy": "A scoring-subartifact execution packet narrows missing scientific work and cannot close broad superiority without a passing evidence pack.",
+  "pass_predicate": "Incumbent comparator is scored on the same held-out targets.",
+  "repair_strategy": "Build `incumbent_comparator_scoring` for gap `MS-COV-GAP-MEDICAL_HEALTH_SCIENCES-CLINICAL_OUTCOMES_AND_BIOMARKERS` from governed open/free sources, then rerun the target-hidden scorer and strict validator.",
+  "required_capability": "Research/ScoringExecutor",
+  "required_source_block": {
+    "artifact_id": "incumbent_comparator_scoring",
+    "pass_predicate": "Incumbent comparator is scored on the same held-out targets.",
+    "required_comparator": {
+      "baseline_name": "condition-intervention historical majority and phase-stratified outcome baseline",
+      "lane_role": "incumbent_comparator",
+      "pre_registered": true,
+      "requirement": "Predict the held-out outcome direction from condition, intervention class, phase, and historical public outcome frequencies locked before the target slice."
+    }
+  },
+  "root_cause_class": "SCORING_EVIDENCE_NOT_MATERIALIZED",
+  "schema_id": "OC133_MODERN_SCIENCE_COMPARATOR_SCORING_SUBARTIFACT_EXECUTION_v1",
+  "scoring_subartifact_id": "incumbent_comparator_scoring",
+  "source_work_order_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/scoring_work_orders/scoring_c8f37f6962a1ece5.json",
+  "status": "OPEN",
+  "validator_binding": "comparator_gap::MS-COV-GAP-MEDICAL_HEALTH_SCIENCES-CLINICAL_OUTCOMES_AND_BIOMARKERS::oc_prediction_scoring_row::incumbent_comparator_scoring",
+  "why_it_failed": "The lane declares no executable evidence pack for the OC-vs-comparator scoring row."
+}

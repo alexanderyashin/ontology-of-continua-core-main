@@ -2294,8 +2294,14 @@ class ReleaseAssemblyMachineTests(unittest.TestCase):
         self.assertTrue(queue["selected_graph_node_ids"])
         self.assertGreater(queue["action_total"], 0)
         self.assertTrue(any(row["lane_id"] == "MODERN_SCIENCE_COMPARATOR_SUPERIORITY" for row in queue["rows"]))
-        self.assertTrue(any(row.get("executor_type") == "comparator_scoring_subartifact" for row in queue["rows"]))
-        self.assertTrue(any(row.get("missing_artifact_type") == "source_snapshot_acquisition" for row in queue["rows"]))
+        subartifact_batch = read_json(
+            factory_dir
+            / "lane_execution"
+            / "MODERN_SCIENCE_COMPARATOR_SUPERIORITY"
+            / "OC133_MODERN_SCIENCE_COMPARATOR_SCORING_SUBARTIFACT_BATCH.json"
+        )
+        self.assertEqual(subartifact_batch["schema_id"], "OC133_MODERN_SCIENCE_COMPARATOR_SCORING_SUBARTIFACT_BATCH_v1")
+        self.assertGreater(subartifact_batch["subartifact_execution_total"], 0)
         self.assertFalse(any(row["lane_id"] == "AI" and row.get("status") != "PASS" for row in queue["rows"]))
         self.assertFalse(any(row["lane_id"] == "ENTERPRISE_ARCHITECTURE" and row.get("status") != "PASS" for row in queue["rows"]))
         self.assertTrue(any(row["lane_id"] == "MODERN_SCIENCE_COMPARATOR_SUPERIORITY" for row in queue["rows"]))

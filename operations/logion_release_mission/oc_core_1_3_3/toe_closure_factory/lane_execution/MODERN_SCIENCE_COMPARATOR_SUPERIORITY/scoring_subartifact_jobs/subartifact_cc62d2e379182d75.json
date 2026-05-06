@@ -1,0 +1,38 @@
+{
+  "artifact_hash": "70cad627d5362768f9da83879eb9fb3434608db3db1660c43515f96e0539d94a",
+  "artifact_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/scoring_subartifact_jobs/subartifact_cc62d2e379182d75.json",
+  "execution_command": [
+    "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+    "tools/oc133_toe_closure_factory.py",
+    "--execute-comparator-scoring-subartifact",
+    "MS-COV-GAP-EARTH_SPACE_ENVIRONMENTAL_SCIENCES-CLIMATE_WEATHER_GEOPHYSICAL_TIME_SERIES",
+    "source_snapshot_acquisition",
+    "--write"
+  ],
+  "gap_id": "MS-COV-GAP-EARTH_SPACE_ENVIRONMENTAL_SCIENCES-CLIMATE_WEATHER_GEOPHYSICAL_TIME_SERIES",
+  "generated_at": "2026-05-06T00:37:25Z",
+  "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+  "next_escalation": "Implement the concrete source acquisition/scoring executor named by required_source_block; this diagnostic packet is not evidence.",
+  "no_fake_closure_policy": "A scoring-subartifact execution packet narrows missing scientific work and cannot close broad superiority without a passing evidence pack.",
+  "pass_predicate": "Open/free source snapshot exists locally, is hash-bound, and satisfies source separation policy.",
+  "repair_strategy": "Build `source_snapshot_acquisition` for gap `MS-COV-GAP-EARTH_SPACE_ENVIRONMENTAL_SCIENCES-CLIMATE_WEATHER_GEOPHYSICAL_TIME_SERIES` from governed open/free sources, then rerun the target-hidden scorer and strict validator.",
+  "required_capability": "Research/ScoringExecutor",
+  "required_source_block": {
+    "artifact_id": "source_snapshot_acquisition",
+    "pass_predicate": "Open/free source snapshot exists locally, is hash-bound, and satisfies source separation policy.",
+    "required_source": {
+      "lane_role": "official_data_source",
+      "required_local_snapshot_ref": "validation/heldout/grand_science/earth_space/coverage_work_orders/raw/noaa_coops_9414290_water_level_20240101_20240103.json",
+      "required_lock_ref": null,
+      "requirement": "Acquire and hash NOAA CO-OPS Data Retrieval API water level and tide prediction observations from https://api.tidesandcurrents.noaa.gov/api/prod/datagetter?begin_date=20240101&end_date=20240103&station=9414290&product=water_level&datum=MLLW&time_zone=gmt&units=metric&application=LogionOC133CoverageSpec&format=json.",
+      "source_id": "earth_noaa_coops_san_francisco_water_level_v1"
+    }
+  },
+  "root_cause_class": "SCORING_EVIDENCE_NOT_MATERIALIZED",
+  "schema_id": "OC133_MODERN_SCIENCE_COMPARATOR_SCORING_SUBARTIFACT_EXECUTION_v1",
+  "scoring_subartifact_id": "source_snapshot_acquisition",
+  "source_work_order_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/scoring_work_orders/scoring_6fa88ac46f5c7bb2.json",
+  "status": "OPEN",
+  "validator_binding": "comparator_gap::MS-COV-GAP-EARTH_SPACE_ENVIRONMENTAL_SCIENCES-CLIMATE_WEATHER_GEOPHYSICAL_TIME_SERIES::oc_prediction_scoring_row::source_snapshot_acquisition",
+  "why_it_failed": "The lane declares no executable evidence pack for the OC-vs-comparator scoring row."
+}

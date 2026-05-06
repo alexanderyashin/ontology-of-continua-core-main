@@ -1,0 +1,42 @@
+{
+  "artifact_hash": "8725dddc5d384e58ad3edf1088f9a58d70f64ae3c18a4014ae4f3b29f5ebcc7f",
+  "artifact_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/scoring_subartifact_jobs/subartifact_a1229e7cd99658db.json",
+  "execution_command": [
+    "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+    "tools/oc133_toe_closure_factory.py",
+    "--execute-comparator-scoring-subartifact",
+    "MS-COV-GAP-ENGINEERING_MATERIALS_SCIENCES-MATERIALS_PROPERTY_AND_FAILURE_PREDICTION",
+    "target_hidden_task_table",
+    "--write"
+  ],
+  "gap_id": "MS-COV-GAP-ENGINEERING_MATERIALS_SCIENCES-MATERIALS_PROPERTY_AND_FAILURE_PREDICTION",
+  "generated_at": "2026-05-06T00:40:13Z",
+  "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+  "next_escalation": "Implement the concrete source acquisition/scoring executor named by required_source_block; this diagnostic packet is not evidence.",
+  "no_fake_closure_policy": "A scoring-subartifact execution packet narrows missing scientific work and cannot close broad superiority without a passing evidence pack.",
+  "pass_predicate": "Target table is locked before scoring and hidden fields do not leak into model selection.",
+  "repair_strategy": "Build `target_hidden_task_table` for gap `MS-COV-GAP-ENGINEERING_MATERIALS_SCIENCES-MATERIALS_PROPERTY_AND_FAILURE_PREDICTION` from governed open/free sources, then rerun the target-hidden scorer and strict validator.",
+  "required_capability": "Research/ScoringExecutor",
+  "required_source_block": {
+    "artifact_id": "target_hidden_task_table",
+    "pass_predicate": "Target table is locked before scoring and hidden fields do not leak into model selection.",
+    "required_target": {
+      "lane_role": "target_variable",
+      "requirement": "JARVIS_DFT[structure_id].attributes._jarvis_bulk_modulus_kv",
+      "target_fields": [
+        "data[].attributes._jarvis_bulk_modulus_kv",
+        "data[].attributes._jarvis_shear_modulus_gv",
+        "data[].attributes._jarvis_optb88vdw_bandgap"
+      ],
+      "target_name": "elastic_stiffness_and_bandgap_material_property",
+      "unit": "GPa for moduli; eV for bandgap"
+    }
+  },
+  "root_cause_class": "SCORING_EVIDENCE_NOT_MATERIALIZED",
+  "schema_id": "OC133_MODERN_SCIENCE_COMPARATOR_SCORING_SUBARTIFACT_EXECUTION_v1",
+  "scoring_subartifact_id": "target_hidden_task_table",
+  "source_work_order_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/scoring_work_orders/scoring_b1491a46e156e916.json",
+  "status": "OPEN",
+  "validator_binding": "comparator_gap::MS-COV-GAP-ENGINEERING_MATERIALS_SCIENCES-MATERIALS_PROPERTY_AND_FAILURE_PREDICTION::oc_prediction_scoring_row::target_hidden_task_table",
+  "why_it_failed": "The lane declares no executable evidence pack for the OC-vs-comparator scoring row."
+}

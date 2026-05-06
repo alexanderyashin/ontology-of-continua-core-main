@@ -1,0 +1,36 @@
+{
+  "artifact_hash": "2c378d9031fb1f156b8daa97619dc05e1e4000ceb9b45c0023fd2ffd9dc6b50c",
+  "artifact_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/scoring_subartifact_jobs/subartifact_f71fdfe44e4af2db.json",
+  "execution_command": [
+    "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+    "tools/oc133_toe_closure_factory.py",
+    "--execute-comparator-scoring-subartifact",
+    "MS-COV-GAP-PHYSICAL_SCIENCES-DYNAMICAL_LAWS_AND_CONSERVATION",
+    "controls_and_falsifiers",
+    "--write"
+  ],
+  "gap_id": "MS-COV-GAP-PHYSICAL_SCIENCES-DYNAMICAL_LAWS_AND_CONSERVATION",
+  "generated_at": "2026-05-06T00:39:37Z",
+  "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+  "next_escalation": "Implement the concrete source acquisition/scoring executor named by required_source_block; this diagnostic packet is not evidence.",
+  "no_fake_closure_policy": "A scoring-subartifact execution packet narrows missing scientific work and cannot close broad superiority without a passing evidence pack.",
+  "pass_predicate": "Negative controls and falsifiers are declared and replayed without post-hoc adjustment.",
+  "repair_strategy": "Build `controls_and_falsifiers` for gap `MS-COV-GAP-PHYSICAL_SCIENCES-DYNAMICAL_LAWS_AND_CONSERVATION` from governed open/free sources, then rerun the target-hidden scorer and strict validator.",
+  "required_capability": "Research/ScoringExecutor",
+  "required_source_block": {
+    "artifact_id": "controls_and_falsifiers",
+    "pass_predicate": "Negative controls and falsifiers are declared and replayed without post-hoc adjustment.",
+    "required_falsifier": {
+      "falsifier_id": "PHYS-DYNAMICS-HORIZONS-STATE-FALSIFIER",
+      "lane_role": "falsifier",
+      "requirement": "model vector RMSE exceeds the declared uncertainty, comparator is not worse, target vector appears in visible inputs, or fewer than 20 locked official epochs are scored"
+    }
+  },
+  "root_cause_class": "SCORING_EVIDENCE_NOT_MATERIALIZED",
+  "schema_id": "OC133_MODERN_SCIENCE_COMPARATOR_SCORING_SUBARTIFACT_EXECUTION_v1",
+  "scoring_subartifact_id": "controls_and_falsifiers",
+  "source_work_order_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/scoring_work_orders/scoring_a7777e969d546a74.json",
+  "status": "OPEN",
+  "validator_binding": "comparator_gap::MS-COV-GAP-PHYSICAL_SCIENCES-DYNAMICAL_LAWS_AND_CONSERVATION::oc_prediction_scoring_row::controls_and_falsifiers",
+  "why_it_failed": "The lane declares no executable evidence pack for the OC-vs-comparator scoring row."
+}

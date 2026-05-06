@@ -699,6 +699,8 @@ def comparator_actions(root: Path) -> list[dict[str, Any]]:
         subartifact_id = str(row.get("scoring_subartifact_id") or "")
         if not gap_id or not subartifact_id:
             continue
+        if factory.comparator_scoring_subartifact_execution_exists(root, gap_id, subartifact_id):
+            continue
         action_id = f"AUTO-R017-COMPARATOR-SCORING-SUBARTIFACT-{artifact_hash({'gap_id': gap_id, 'subartifact_id': subartifact_id})[:12]}"
         if action_id in seen_action_ids:
             continue

@@ -1,0 +1,40 @@
+{
+  "artifact_hash": "9cba8a3d4c63f829a4bb21e7c8c7fd28381cf77eb76adeefc70c4da3135654bb",
+  "artifact_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/scoring_subartifact_jobs/subartifact_915ca42a80661ef4.json",
+  "execution_command": [
+    "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+    "tools/oc133_toe_closure_factory.py",
+    "--execute-comparator-scoring-subartifact",
+    "MS-COV-GAP-SOCIAL_ECONOMIC_POLITICAL_SCIENCES-ECONOMIC_INDICATOR_AND_MARKET_OBSERVABLES",
+    "target_hidden_task_table",
+    "--write"
+  ],
+  "gap_id": "MS-COV-GAP-SOCIAL_ECONOMIC_POLITICAL_SCIENCES-ECONOMIC_INDICATOR_AND_MARKET_OBSERVABLES",
+  "generated_at": "2026-05-06T00:42:33Z",
+  "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+  "next_escalation": "Implement the concrete source acquisition/scoring executor named by required_source_block; this diagnostic packet is not evidence.",
+  "no_fake_closure_policy": "A scoring-subartifact execution packet narrows missing scientific work and cannot close broad superiority without a passing evidence pack.",
+  "pass_predicate": "Target table is locked before scoring and hidden fields do not leak into model selection.",
+  "repair_strategy": "Build `target_hidden_task_table` for gap `MS-COV-GAP-SOCIAL_ECONOMIC_POLITICAL_SCIENCES-ECONOMIC_INDICATOR_AND_MARKET_OBSERVABLES` from governed open/free sources, then rerun the target-hidden scorer and strict validator.",
+  "required_capability": "Research/ScoringExecutor",
+  "required_source_block": {
+    "artifact_id": "target_hidden_task_table",
+    "pass_predicate": "Target table is locked before scoring and hidden fields do not leak into model selection.",
+    "required_target": {
+      "lane_role": "target_variable",
+      "requirement": "WDI[WLD, NY.GDP.MKTP.CD, heldout_year].value",
+      "target_fields": [
+        "WDI[WLD, NY.GDP.MKTP.CD, heldout_year].value"
+      ],
+      "target_name": "heldout_world_gdp_current_usd",
+      "unit": "current US dollars"
+    }
+  },
+  "root_cause_class": "SCORING_EVIDENCE_NOT_MATERIALIZED",
+  "schema_id": "OC133_MODERN_SCIENCE_COMPARATOR_SCORING_SUBARTIFACT_EXECUTION_v1",
+  "scoring_subartifact_id": "target_hidden_task_table",
+  "source_work_order_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/scoring_work_orders/scoring_fc08158de1496fae.json",
+  "status": "OPEN",
+  "validator_binding": "comparator_gap::MS-COV-GAP-SOCIAL_ECONOMIC_POLITICAL_SCIENCES-ECONOMIC_INDICATOR_AND_MARKET_OBSERVABLES::oc_prediction_scoring_row::target_hidden_task_table",
+  "why_it_failed": "The lane declares no executable evidence pack for the OC-vs-comparator scoring row."
+}

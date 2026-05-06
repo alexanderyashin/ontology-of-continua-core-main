@@ -1,0 +1,44 @@
+{
+  "artifact_hash": "874ad8fcc1a3abf9707ea4f5409affb8d395097dfa76a655839b4458ba322493",
+  "artifact_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/scoring_subartifact_jobs/subartifact_049b67df35396ff4.json",
+  "execution_command": [
+    "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+    "tools/oc133_toe_closure_factory.py",
+    "--execute-comparator-scoring-subartifact",
+    "MS-COV-GAP-MEDICAL_HEALTH_SCIENCES-PHARMACOLOGY_TOXICOLOGY_AND_DOSE_RESPONSE",
+    "target_hidden_task_table",
+    "--write"
+  ],
+  "gap_id": "MS-COV-GAP-MEDICAL_HEALTH_SCIENCES-PHARMACOLOGY_TOXICOLOGY_AND_DOSE_RESPONSE",
+  "generated_at": "2026-05-06T00:36:23Z",
+  "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+  "next_escalation": "Implement the concrete source acquisition/scoring executor named by required_source_block; this diagnostic packet is not evidence.",
+  "no_fake_closure_policy": "A scoring-subartifact execution packet narrows missing scientific work and cannot close broad superiority without a passing evidence pack.",
+  "pass_predicate": "Target table is locked before scoring and hidden fields do not leak into model selection.",
+  "repair_strategy": "Build `target_hidden_task_table` for gap `MS-COV-GAP-MEDICAL_HEALTH_SCIENCES-PHARMACOLOGY_TOXICOLOGY_AND_DOSE_RESPONSE` from governed open/free sources, then rerun the target-hidden scorer and strict validator.",
+  "required_capability": "Research/ScoringExecutor",
+  "required_source_block": {
+    "artifact_id": "target_hidden_task_table",
+    "pass_predicate": "Target table is locked before scoring and hidden fields do not leak into model selection.",
+    "required_target": {
+      "lane_role": "target_variable",
+      "requirement": "Lock adverse-event reports and hide severity and dose-response class labels until OC and comparator scoring rows are preregistered.",
+      "target_fields": [
+        "safetyreportid",
+        "patient.drug.medicinalproduct",
+        "patient.drug.drugstructuredosagenumb",
+        "patient.reaction.reactionmeddrapt",
+        "serious"
+      ],
+      "target_name": "held_out_adverse_event_severity_and_dose_response_class",
+      "unit": "severity or dose-response class derived from locked adverse-event reports"
+    }
+  },
+  "root_cause_class": "SCORING_EVIDENCE_NOT_MATERIALIZED",
+  "schema_id": "OC133_MODERN_SCIENCE_COMPARATOR_SCORING_SUBARTIFACT_EXECUTION_v1",
+  "scoring_subartifact_id": "target_hidden_task_table",
+  "source_work_order_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/scoring_work_orders/scoring_37c095c180c5f414.json",
+  "status": "OPEN",
+  "validator_binding": "comparator_gap::MS-COV-GAP-MEDICAL_HEALTH_SCIENCES-PHARMACOLOGY_TOXICOLOGY_AND_DOSE_RESPONSE::oc_prediction_scoring_row::target_hidden_task_table",
+  "why_it_failed": "The lane declares no executable evidence pack for the OC-vs-comparator scoring row."
+}
