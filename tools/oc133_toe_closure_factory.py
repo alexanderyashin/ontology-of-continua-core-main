@@ -4702,6 +4702,12 @@ def capability_executor_for_row(row: dict[str, Any], compiled_capability_id: str
                 gap_id = parts[2]
             if len(parts) >= 4:
                 artifact_key = ":".join(parts[3:])
+        if artifact_key == "source_implementation_backlog" or artifact_key.startswith("source_implementation::"):
+            return (
+                [sys.executable, "tools/oc133_toe_closure_factory.py", "--compile-comparator-source-implementation-backlog", "--write"],
+                "comparator_source_implementation_obligation",
+                "Compile or refresh source-implementation obligations for the exact source/evidence executor layer; this keeps the graph moving beyond diagnostic packets without treating them as evidence.",
+            )
         if gap_id and artifact_key in COMPARATOR_REQUIRED_ARTIFACT_KEYS:
             if artifact_key == "oc_prediction_scoring_row":
                 return (
