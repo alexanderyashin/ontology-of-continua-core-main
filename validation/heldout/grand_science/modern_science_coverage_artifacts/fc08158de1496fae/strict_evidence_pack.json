@@ -1,58 +1,37 @@
 {
-  "artifact_hash": "a90eef3dfc255b8e00f96adbeaebdc6bb4684d550076d1071f6215e92ca6b9ff",
+  "artifact_hash": "68f2724ab1abf5ca709253aef0c6cb76ef6bbde08436e830f4ae23f0a46255a7",
   "artifact_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/fc08158de1496fae/strict_evidence_pack.json",
   "broad_modern_science_superiority_allowed": false,
-  "command_results": [
-    {
-      "cmd": [
-        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
-        "validation/heldout/grand_science/systems/coverage_work_orders/oc133_systems_wdi_gdp_materializer.py",
-        "--acquire",
-        "--write-acquisition"
-      ],
-      "returncode": 0,
-      "stderr_tail": "",
-      "stdout_tail": "{\n  \"status\": \"ok\",\n  \"snapshot_rows\": 5013\n}\n"
-    },
-    {
-      "cmd": [
-        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
-        "validation/heldout/grand_science/systems/coverage_work_orders/oc133_systems_wdi_gdp_materializer.py",
-        "--check"
-      ],
-      "returncode": 0,
-      "stderr_tail": "",
-      "stdout_tail": "{\n  \"status\": \"ok\",\n  \"checked\": \"validation/heldout/grand_science/systems/wdi_gdp/OC133_WORLD_BANK_WDI_GDP_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json\"\n}\n"
-    },
-    {
-      "cmd": [
-        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
-        "validation/heldout/grand_science/systems/coverage_work_orders/oc133_systems_wdi_gdp_materializer.py",
-        "--score",
-        "--write-scoring"
-      ],
-      "returncode": 0,
-      "stderr_tail": "",
-      "stdout_tail": "{\n  \"status\": \"STRICT_EVIDENCE_PASS_NO_COVERAGE_CLOSURE\",\n  \"row_count\": 2509,\n  \"model_relative_mae\": 0.030271318172,\n  \"comparator_relative_mae\": 0.039999868939\n}\n"
-    }
-  ],
   "comparator_bound": true,
   "coverage_closure_allowed": false,
   "current_evidence": {
-    "coverage_closure_allowed": false,
-    "domain_evidence_ref": "validation/heldout/grand_science/systems/wdi_gdp/OC133_WORLD_BANK_WDI_GDP_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
-    "domain_evidence_schema_id": "OC133_SYSTEMS_WDI_GDP_SCORING_PACK_v1",
-    "domain_evidence_sha256": "7218a526c4e9aaee2f77d45e2df110f5c295e0c74f15ca63bb87f85a7504463a",
-    "domain_pack_status": "STRICT_EVIDENCE_PASS_NO_COVERAGE_CLOSURE",
-    "scientific_pass": true
+    "evidence_pack_hash": "7218a526c4e9aaee2f77d45e2df110f5c295e0c74f15ca63bb87f85a7504463a",
+    "evidence_pack_summary": {
+      "coverage_closure_allowed": false,
+      "pack_status": "STRICT_EVIDENCE_PASS_NO_COVERAGE_CLOSURE",
+      "residuals": {
+        "comparator_relative_mae": 0.039999868939,
+        "material_margin_met": true,
+        "material_margin_rule": "model_relative_mae + 0.005 must be below last-observation comparator relative MAE",
+        "model_relative_mae": 0.030271318172,
+        "negative_control_relative_mae": 0.163064425777
+      },
+      "schema_id": "OC133_SYSTEMS_WDI_GDP_SCORING_PACK_v1"
+    },
+    "evidence_ref": "validation/heldout/grand_science/systems/wdi_gdp/OC133_WORLD_BANK_WDI_GDP_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
+    "evidence_ref_exists": true,
+    "executable_evidence_exists": true,
+    "fail_closed_status_present": true,
+    "material_margin_met": true,
+    "pack_status_text": "STRICT_EVIDENCE_PASS_NO_COVERAGE_CLOSURE OPEN_FAIL_CLOSED_FAIL_CLOSED_PENDING_GENERALIZED_WDI_INDICATOR_REPLAY STRICT_EVIDENCE_PASS_NO_COVERAGE_CLOSURE"
   },
   "domain_class_id": "social_economic_political_sciences",
   "executable_evidence_exists": true,
   "execution_command": [
     "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
     "tools/oc133_toe_closure_factory.py",
-    "--execute-comparator-component-materialization",
-    "R017-UPSTREAM-e1eb0e717fd21d91",
+    "--execute-comparator-generic-evidence-pack",
+    "MS-COV-GAP-SOCIAL_ECONOMIC_POLITICAL_SCIENCES-ECONOMIC_INDICATOR_AND_MARKET_OBSERVABLES",
     "--write"
   ],
   "execution_requirements": {
@@ -62,7 +41,7 @@
     "source_separation_mode": "target_blind",
     "target_hidden_until_scoring": true
   },
-  "fail_closed_reason": "Source-bound evidence exists, but numeric model/comparator residuals are not available in the expected schema.",
+  "fail_closed_reason": "Source identity and preregistered benchmark are present, but no target-hidden OC score with material superiority exists.",
   "falsifier_requirement": {
     "falsifier_id": "OC133-SYSTEMS-COVERAGE-ECONOMIC-INDICATOR-MARKET-OBSERVABLES_falsifier",
     "trigger": "source-lock declaration contains observed target values, predictions, residuals, or row hashes; formula selection uses heldout target rows or non-prior validation rows; any comparator beats or ties the selected model within uncertainty/materiality policy; target mutation fails to change the candidate-pack or row hash; official source snapshot hash changes between acquisition and replay"
@@ -77,20 +56,28 @@
     "target_values_used_for_baseline_design": false
   },
   "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
-  "no_fake_closure_policy": "Negative source-bound scoring remains a scientific blocker; it cannot be counted as broad superiority.",
+  "next_escalation": "Implement a domain-specific scorer when this generic pack remains fail-closed.",
+  "no_fake_closure_policy": "This pack is source-bound but cannot promote broad superiority unless actual target-hidden scoring materially beats the preregistered comparator.",
   "pack_status": "FAIL_CLOSED_SOURCE_BOUND_SCORING_NOT_MATERIALIZED",
   "pass_predicate": "pack_status == PASS, material_margin_met == true, no fail-closed status, replay_record PASS.",
   "phenomenon_class_id": "economic_indicator_and_market_observables",
   "prerequisite_artifacts_bound": true,
-  "repair_strategy": "If negative, improve the source-bound model/comparator route from canonical evidence rather than weakening the materiality rule.",
+  "repair_strategy": "Acquire target-hidden source data, materialize OC and incumbent predictions, compute residuals, then rerun this pack and replay.",
   "replay": {
     "replay_command": "python benchmarks/modern_science/coverage_lane_dispatcher.py --check",
     "replay_commands": [
       "python benchmarks/modern_science/coverage_lane_dispatcher.py --check"
     ],
-    "status": "BLOCKED_BY_NEGATIVE_OR_INCOMPLETE_SCORING"
+    "status": "BLOCKED_BY_SCORING"
   },
-  "required_capability": "Research/SourceBoundScoringMaterializationExecutor",
+  "required_artifact_refs": {
+    "benchmark_case": "validation/heldout/grand_science/modern_science_coverage_artifacts/fc08158de1496fae/benchmark_case.json",
+    "falsifier_row": "validation/heldout/grand_science/modern_science_coverage_artifacts/fc08158de1496fae/falsifier_row.json",
+    "incumbent_comparator": "validation/heldout/grand_science/modern_science_coverage_artifacts/fc08158de1496fae/incumbent_comparator.json",
+    "uncertainty_row": "validation/heldout/grand_science/modern_science_coverage_artifacts/fc08158de1496fae/uncertainty_row.json",
+    "verified_open_source_capsule": "validation/heldout/grand_science/modern_science_coverage_artifacts/fc08158de1496fae/verified_open_source_capsule.json"
+  },
+  "required_capability": "Research/ScoringExecutor",
   "residual_requirement": {
     "formula": "absolute residual per heldout country/indicator/year; aggregate mean absolute residual",
     "metric_id": "OC133-SYSTEMS-COVERAGE-ECONOMIC-INDICATOR-MARKET-OBSERVABLES_domain_local_residual",
@@ -98,8 +85,8 @@
   },
   "residuals": {
     "comparator": null,
-    "material_margin_met": true,
-    "material_margin_rule": "source-bound materialized evidence pack must show OC residual strictly below preregistered comparator residual under the declared uncertainty rule",
+    "material_margin_met": false,
+    "material_margin_rule": "every row and aggregate residual margin must exceed preregistered materiality thresholds",
     "model": null
   },
   "schema_id": "OC133_MODERN_SCIENCE_COMPARATOR_STRICT_EVIDENCE_PACK_v1",
@@ -119,8 +106,7 @@
   "source_refs": [
     "reports/OC_CORE_1_3_3_MODERN_SCIENCE_COVERAGE_LANE_QUEUE.json",
     "benchmarks/modern_science/OC133_MODERN_SCIENCE_COVERAGE_WORK_ORDERS.json",
-    "comparators/modern_science/OC133_MODERN_SCIENCE_COVERAGE_REGISTER.json",
-    "validation/heldout/grand_science/systems/wdi_gdp/OC133_WORLD_BANK_WDI_GDP_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json"
+    "comparators/modern_science/OC133_MODERN_SCIENCE_COVERAGE_REGISTER.json"
   ],
   "status": "FAIL_CLOSED_SOURCE_BOUND_SCORING_NOT_MATERIALIZED",
   "target_hidden": true,
@@ -136,6 +122,6 @@
     "metric": "absolute residual per heldout country/indicator/year; aggregate mean absolute residual",
     "rule": "selected-formula prior validation residual envelope declared before target unsealing"
   },
-  "validator_binding": "comparator_gap::MS-COV-GAP-SOCIAL_ECONOMIC_POLITICAL_SCIENCES-ECONOMIC_INDICATOR_AND_MARKET_OBSERVABLES::materialized_strict_evidence_pack",
-  "why_it_failed": "Source-bound evidence exists, but numeric model/comparator residuals are not available in the expected schema."
+  "validator_binding": "comparator_gap::MS-COV-GAP-SOCIAL_ECONOMIC_POLITICAL_SCIENCES-ECONOMIC_INDICATOR_AND_MARKET_OBSERVABLES::generic_strict_evidence_pack",
+  "why_it_failed": "Source identity and preregistered benchmark are present, but no target-hidden OC score with material superiority exists."
 }

@@ -89,6 +89,10 @@ DOMAIN_LOCAL_MATERIALIZED_EVIDENCE_REFS = {
         "social_economic_political_sciences",
         "economic_indicator_and_market_observables",
     ): "validation/heldout/grand_science/systems/wdi_gdp/OC133_WORLD_BANK_WDI_GDP_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
+    (
+        "complex_systems_operations_science",
+        "queue_supply_chain_and_operations_observables",
+    ): "validation/heldout/grand_science/operations/wdi_rail_freight/OC133_WORLD_BANK_WDI_RAIL_FREIGHT_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
 }
 
 OFFICIAL_SOURCE_DEFAULTS = {

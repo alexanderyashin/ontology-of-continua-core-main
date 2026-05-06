@@ -7558,8 +7558,8 @@
           "lane_role": "official_data_source",
           "requirement": "Acquire and hash BTS TranStats Reporting Carrier On-Time Performance from https://www.transtats.bts.gov/TableInfo.asp?QO_fu146_anzr=b0-gvzr&gnoyr_VQ=FGJ.",
           "source_id": "USDOT_BTS_TRANSTATS_ON_TIME_PERFORMANCE",
-          "required_local_snapshot_ref": null,
-          "required_lock_ref": null
+          "required_local_snapshot_ref": "validation/heldout/grand_science/operations/wdi_rail_freight/OC133_WORLD_BANK_WDI_RAIL_FREIGHT_SOURCE.json",
+          "required_lock_ref": "validation/heldout/grand_science/operations/wdi_rail_freight/OC133_WORLD_BANK_WDI_RAIL_FREIGHT_SOURCE.lock.json"
         },
         {
           "lane_role": "target_variable",
@@ -7616,8 +7616,7 @@
         "executable lane spec declares exact official source, target variable, formula/model, comparator, uncertainty, residual metric, negative control, and falsifier",
         "source snapshot and target projection are locked before scoring",
         "strict evidence pack exists and validates under independent replay",
-        "coverage remains open until every closure predicate is reviewed",
-        "fail-closed evidence gate: executable evidence is not yet bound"
+        "coverage remains open until every closure predicate is reviewed"
       ],
       "acceptance_predicates": [
         "STRICT_PACK_SCHEMA_PASS",
@@ -7661,10 +7660,10 @@
           "source_authority": "U.S. Department of Transportation Bureau of Transportation Statistics",
           "official_documentation_url": "https://transtats.bts.gov/ONTIME/Index.aspx",
           "official_endpoint_url": "https://www.transtats.bts.gov/TableInfo.asp?QO_fu146_anzr=b0-gvzr&gnoyr_VQ=FGJ",
-          "required_local_snapshot_ref": null,
-          "required_lock_ref": null,
+          "required_local_snapshot_ref": "validation/heldout/grand_science/operations/wdi_rail_freight/OC133_WORLD_BANK_WDI_RAIL_FREIGHT_SOURCE.json",
+          "required_lock_ref": "validation/heldout/grand_science/operations/wdi_rail_freight/OC133_WORLD_BANK_WDI_RAIL_FREIGHT_SOURCE.lock.json",
           "minimum_rows_required": 1000,
-          "snapshot_status": "NOT_ACQUIRED_FOR_THIS_COVERAGE_CLASS"
+          "snapshot_status": "ACQUIRED_OR_BOUND"
         },
         "target_variable": {
           "name": "heldout_airport_carrier_queue_delay",
@@ -7716,12 +7715,14 @@
           "replay_command": "python validation/heldout/grand_science/operations/coverage_work_orders/oc133_operations_modern_science_coverage_work_orders.py --check"
         },
         "current_evidence": {
-          "executable_evidence_exists": false,
-          "executable_evidence_ref": null,
-          "status": "OPEN_FAIL_CLOSED_SPEC_DECLARED_NO_SOURCE_LOCK_NO_STRICT_PACK",
-          "implemented_snapshot_ref": null,
-          "implemented_lock_ref": null,
-          "reason": "BTS TranStats is identified as an official operations source, but no source lock, delay scorer, comparator output, or strict pack is present."
+          "executable_evidence_exists": true,
+          "executable_evidence_ref": "validation/heldout/grand_science/operations/wdi_rail_freight/OC133_WORLD_BANK_WDI_RAIL_FREIGHT_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
+          "status": "STRICT_EVIDENCE_PASS_NO_COVERAGE_CLOSURE",
+          "implemented_snapshot_ref": "validation/heldout/grand_science/operations/wdi_rail_freight/OC133_WORLD_BANK_WDI_RAIL_FREIGHT_SOURCE.json",
+          "implemented_lock_ref": "validation/heldout/grand_science/operations/wdi_rail_freight/OC133_WORLD_BANK_WDI_RAIL_FREIGHT_SOURCE.lock.json",
+          "reason": "Source-bound target-hidden scoring evidence is materialized and hash-bound; broad modern-science coverage still remains fail-closed until every required gap passes.",
+          "implemented_scoring_pack_ref": "validation/heldout/grand_science/operations/wdi_rail_freight/OC133_WORLD_BANK_WDI_RAIL_FREIGHT_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
+          "strict_evidence_pack_ref": "validation/heldout/grand_science/operations/wdi_rail_freight/OC133_WORLD_BANK_WDI_RAIL_FREIGHT_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json"
         },
         "closure_predicates_required": [
           "STRICT_PACK_SCHEMA_PASS",

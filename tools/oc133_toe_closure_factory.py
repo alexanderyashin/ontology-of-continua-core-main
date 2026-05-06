@@ -2059,6 +2059,10 @@ SYSTEMS_WDI_GDP_MATERIALIZER = (
     "validation/heldout/grand_science/systems/coverage_work_orders/"
     "oc133_systems_wdi_gdp_materializer.py"
 )
+OPERATIONS_WDI_RAIL_FREIGHT_MATERIALIZER = (
+    "validation/heldout/grand_science/operations/coverage_work_orders/"
+    "oc133_operations_wdi_rail_freight_materializer.py"
+)
 
 COMPARATOR_DOMAIN_IMPLEMENTED_COMMANDS = {
     (
@@ -2504,6 +2508,37 @@ COMPARATOR_DOMAIN_IMPLEMENTED_COMMANDS[
 ] = [
     [sys.executable, SYSTEMS_WDI_GDP_MATERIALIZER, "--acquire", "--write-acquisition"],
     [sys.executable, SYSTEMS_WDI_GDP_MATERIALIZER, "--check"],
+]
+
+for _wdi_rail_subartifact in (
+    "target_hidden_task_table",
+    "oc_formula_or_model",
+    "incumbent_comparator_scoring",
+    "residuals_materiality_uncertainty",
+    "controls_and_falsifiers",
+    "independent_replay",
+    "strict_evidence_pack_diagnosis",
+    "model_or_claim_repair_decision",
+):
+    COMPARATOR_DOMAIN_IMPLEMENTED_COMMANDS[
+        (
+            "complex_systems_operations_science",
+            "queue_supply_chain_and_operations_observables",
+            _wdi_rail_subartifact,
+        )
+    ] = [
+        [sys.executable, OPERATIONS_WDI_RAIL_FREIGHT_MATERIALIZER, "--score", "--write-scoring"],
+        [sys.executable, OPERATIONS_WDI_RAIL_FREIGHT_MATERIALIZER, "--check"],
+    ]
+COMPARATOR_DOMAIN_IMPLEMENTED_COMMANDS[
+    (
+        "complex_systems_operations_science",
+        "queue_supply_chain_and_operations_observables",
+        "source_snapshot_acquisition",
+    )
+] = [
+    [sys.executable, OPERATIONS_WDI_RAIL_FREIGHT_MATERIALIZER, "--acquire", "--write-acquisition"],
+    [sys.executable, OPERATIONS_WDI_RAIL_FREIGHT_MATERIALIZER, "--check"],
 ]
 
 
@@ -3179,6 +3214,10 @@ COMPARATOR_DOMAIN_MATERIALIZED_EVIDENCE_REFS = {
         "social_economic_political_sciences",
         "economic_indicator_and_market_observables",
     ): "validation/heldout/grand_science/systems/wdi_gdp/OC133_WORLD_BANK_WDI_GDP_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
+    (
+        "complex_systems_operations_science",
+        "queue_supply_chain_and_operations_observables",
+    ): "validation/heldout/grand_science/operations/wdi_rail_freight/OC133_WORLD_BANK_WDI_RAIL_FREIGHT_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
 }
 
 

@@ -1,43 +1,29 @@
 {
-  "artifact_hash": "19d17c0b787acd3c8e119a2aa18b62b0af2a15600f66a6e07339a36e0c371014",
+  "artifact_hash": "2965d4d7431d428f9c6c284be6f543bcbc487ff24473f9fbe392436618d38bcb",
   "artifact_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/component_impls/impl_d0b2a01cbded4836.json",
   "command_pass": true,
-  "command_result_total": 3,
+  "command_result_total": 2,
   "command_results": [
     {
-      "cache_hit": true,
       "cmd": [
         "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
-        "validation/heldout/grand_science/operations/coverage_work_orders/oc133_operations_modern_science_coverage_work_orders.py",
-        "--write"
+        "validation/heldout/grand_science/operations/coverage_work_orders/oc133_operations_wdi_rail_freight_materializer.py",
+        "--score",
+        "--write-scoring"
       ],
       "returncode": 0,
       "stderr_tail": "",
-      "stdout_tail": "{\n  \"status\": \"ok\",\n  \"output_ref\": \"validation/heldout/grand_science/operations/coverage_work_orders/OC133_OPERATIONS_MODERN_SCIENCE_COVERAGE_WORK_ORDERS.json\",\n  \"failures\": []\n}\n"
+      "stdout_tail": "{\n  \"status\": \"STRICT_EVIDENCE_PASS_NO_COVERAGE_CLOSURE\",\n  \"row_count\": 730,\n  \"model_relative_mae\": 0.26336680776,\n  \"comparator_relative_mae\": 1.414690124746\n}\n"
     },
     {
-      "cache_hit": true,
       "cmd": [
         "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
-        "validation/heldout/grand_science/operations/coverage_work_orders/oc133_operations_modern_science_coverage_work_orders.py",
+        "validation/heldout/grand_science/operations/coverage_work_orders/oc133_operations_wdi_rail_freight_materializer.py",
         "--check"
       ],
       "returncode": 0,
       "stderr_tail": "",
-      "stdout_tail": "{\n  \"status\": \"ok\",\n  \"checked\": \"validation/heldout/grand_science/operations/coverage_work_orders/OC133_OPERATIONS_MODERN_SCIENCE_COVERAGE_WORK_ORDERS.json\"\n}\n"
-    },
-    {
-      "cache_hit": true,
-      "cmd": [
-        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
-        "tools/oc133_toe_closure_factory.py",
-        "--execute-comparator-generic-evidence-pack",
-        "MS-COV-GAP-COMPLEX_SYSTEMS_OPERATIONS_SCIENCE-QUEUE_SUPPLY_CHAIN_AND_OPERATIONS_OBSERVABLES",
-        "--write"
-      ],
-      "returncode": 0,
-      "stderr_tail": "",
-      "stdout_tail": "{\n  \"changed\": [],\n  \"missing\": [],\n  \"state\": \"PASS\"\n}\n"
+      "stdout_tail": "{\n  \"status\": \"ok\",\n  \"checked\": \"validation/heldout/grand_science/operations/wdi_rail_freight/OC133_WORLD_BANK_WDI_RAIL_FREIGHT_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json\"\n}\n"
     }
   ],
   "component_id": "oc_score_materialization",
@@ -48,20 +34,14 @@
   "concrete_governed_commands": [
     [
       "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
-      "validation/heldout/grand_science/operations/coverage_work_orders/oc133_operations_modern_science_coverage_work_orders.py",
-      "--write"
+      "validation/heldout/grand_science/operations/coverage_work_orders/oc133_operations_wdi_rail_freight_materializer.py",
+      "--score",
+      "--write-scoring"
     ],
     [
       "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
-      "validation/heldout/grand_science/operations/coverage_work_orders/oc133_operations_modern_science_coverage_work_orders.py",
+      "validation/heldout/grand_science/operations/coverage_work_orders/oc133_operations_wdi_rail_freight_materializer.py",
       "--check"
-    ],
-    [
-      "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
-      "tools/oc133_toe_closure_factory.py",
-      "--execute-comparator-generic-evidence-pack",
-      "MS-COV-GAP-COMPLEX_SYSTEMS_OPERATIONS_SCIENCE-QUEUE_SUPPLY_CHAIN_AND_OPERATIONS_OBSERVABLES",
-      "--write"
     ]
   ],
   "domain_class_id": "complex_systems_operations_science",

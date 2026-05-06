@@ -1,5 +1,5 @@
 {
-  "artifact_hash": "7264ebca0aa25aaf66554e1d6f3d8e97efce29bebb37e0bc88c8375ecfee5a1e",
+  "artifact_hash": "fb40596831ddcbf267c037ff0119cd8ee7a32f3a4edcc12430833ed76be417e5",
   "artifact_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/component_mat/mat_b9d1be9da769ef32.json",
   "available_diagnostic_commands": [
     [
@@ -76,43 +76,42 @@
   "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
   "materialization_id": "R017-COMPONENT-MATERIALIZE-274e0462c319557d",
   "materialized_evidence": {
-    "evidence_ref": "",
+    "evidence_ref": "validation/heldout/grand_science/operations/wdi_rail_freight/OC133_WORLD_BANK_WDI_RAIL_FREIGHT_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
+    "fail_closed_reason": "Source-bound evidence exists, but numeric model/comparator residuals are not available in the expected schema.",
+    "material_margin_met": true,
     "materialized": false,
-    "status": "CAPABILITY_DEVELOPMENT_REQUIRED",
-    "why_it_failed": "No source-bound domain evidence pack is bound for this comparator materialization row."
+    "residuals": {
+      "comparator": null,
+      "material_margin_met": true,
+      "material_margin_rule": "source-bound materialized evidence pack must show OC residual strictly below preregistered comparator residual under the declared uncertainty rule",
+      "model": null
+    },
+    "source_bound": true,
+    "status": "FAIL_CLOSED_SOURCE_BOUND_SCORING_NOT_MATERIALIZED",
+    "strict_evidence_pack_hash": "c11dd9b64d5cda4483f00e7419328986cf6266395a32b7a057ef6cb8a8d24859",
+    "strict_evidence_pack_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/72929588c49e2b61/strict_evidence_pack.json"
   },
   "materializer_command_results": [
     {
       "cmd": [
         "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
-        "validation/heldout/grand_science/operations/coverage_work_orders/oc133_operations_modern_science_coverage_work_orders.py",
-        "--write"
+        "validation/heldout/grand_science/operations/coverage_work_orders/oc133_operations_wdi_rail_freight_materializer.py",
+        "--score",
+        "--write-scoring"
       ],
       "returncode": 0,
       "stderr_tail": "",
-      "stdout_tail": "{\n  \"status\": \"ok\",\n  \"output_ref\": \"validation/heldout/grand_science/operations/coverage_work_orders/OC133_OPERATIONS_MODERN_SCIENCE_COVERAGE_WORK_ORDERS.json\",\n  \"failures\": []\n}\n"
+      "stdout_tail": "{\n  \"status\": \"STRICT_EVIDENCE_PASS_NO_COVERAGE_CLOSURE\",\n  \"row_count\": 730,\n  \"model_relative_mae\": 0.26336680776,\n  \"comparator_relative_mae\": 1.414690124746\n}\n"
     },
     {
       "cmd": [
         "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
-        "validation/heldout/grand_science/operations/coverage_work_orders/oc133_operations_modern_science_coverage_work_orders.py",
+        "validation/heldout/grand_science/operations/coverage_work_orders/oc133_operations_wdi_rail_freight_materializer.py",
         "--check"
       ],
       "returncode": 0,
       "stderr_tail": "",
-      "stdout_tail": "{\n  \"status\": \"ok\",\n  \"checked\": \"validation/heldout/grand_science/operations/coverage_work_orders/OC133_OPERATIONS_MODERN_SCIENCE_COVERAGE_WORK_ORDERS.json\"\n}\n"
-    },
-    {
-      "cmd": [
-        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
-        "tools/oc133_toe_closure_factory.py",
-        "--execute-comparator-generic-evidence-pack",
-        "MS-COV-GAP-COMPLEX_SYSTEMS_OPERATIONS_SCIENCE-QUEUE_SUPPLY_CHAIN_AND_OPERATIONS_OBSERVABLES",
-        "--write"
-      ],
-      "returncode": 0,
-      "stderr_tail": "",
-      "stdout_tail": "{\n  \"changed\": [],\n  \"missing\": [],\n  \"state\": \"PASS\"\n}\n"
+      "stdout_tail": "{\n  \"status\": \"ok\",\n  \"checked\": \"validation/heldout/grand_science/operations/wdi_rail_freight/OC133_WORLD_BANK_WDI_RAIL_FREIGHT_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json\"\n}\n"
     }
   ],
   "missing_source_evidence_fields": [
