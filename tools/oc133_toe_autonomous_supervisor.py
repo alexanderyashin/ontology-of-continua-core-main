@@ -2077,8 +2077,44 @@ def run_supervisor(root: Path, args: argparse.Namespace) -> dict[str, dict[str, 
             selected = []
         for action in queue["rows"]:
             action["selected_for_execution"] = action["action_id"] in {row["action_id"] for row in selected}
-        action_results = [run_action(root, action, args.timeout) for action in selected]
-        attempted.update(row["frontier_signature"] for row in action_results if row.get("frontier_signature"))
+        action_results = []
+        for action_index, action in enumerate(selected, start=1):
+            if args.write:
+                write_live_heartbeat(
+                    root,
+                    {
+                        "status": "ACTION_RUNNING",
+                        "current_promotion_gate": "R017_BLOCKED_BY_TOE_AUTONOMOUS_SUPERVISOR",
+                        "latest_wave_id": f"R017-AUTO-WAVE-{iteration + 5:03d}",
+                        "current_graph_node_id": action.get("graph_node_id"),
+                        "active_executor": action.get("executor_type"),
+                        "validator_error_total": before_total,
+                        "last_validator_delta": 0,
+                        "elapsed_runtime_seconds": int(time.monotonic() - run_started_monotonic),
+                        "last_commit_sha": factory.git_head(root),
+                        "next_escalation": f"Executing action {action_index}/{len(selected)}: {action.get('action_id')}",
+                    },
+                )
+            action_result = run_action(root, action, int(args.action_timeout))
+            action_results.append(action_result)
+            if action_result.get("frontier_signature"):
+                attempted.add(action_result["frontier_signature"])
+            if args.write:
+                write_live_heartbeat(
+                    root,
+                    {
+                        "status": "ACTION_COMPLETED" if action_result.get("status") == "PASS" else "ACTION_FAIL_CLOSED",
+                        "current_promotion_gate": "R017_BLOCKED_BY_TOE_AUTONOMOUS_SUPERVISOR",
+                        "latest_wave_id": f"R017-AUTO-WAVE-{iteration + 5:03d}",
+                        "current_graph_node_id": action_result.get("graph_node_id"),
+                        "active_executor": action_result.get("executor_type"),
+                        "validator_error_total": action_result.get("after_validator_error_total"),
+                        "last_validator_delta": action_result.get("validator_error_delta"),
+                        "elapsed_runtime_seconds": int(time.monotonic() - run_started_monotonic),
+                        "last_commit_sha": factory.git_head(root),
+                        "next_escalation": action_result.get("next_escalation"),
+                    },
+                )
         validation_rows = sync_and_validate(root, args.timeout) if args.write else [
             {
                 "purpose": "dry_run_no_write",
@@ -2195,6 +2231,7 @@ def run_supervisor(root: Path, args: argparse.Namespace) -> dict[str, dict[str, 
     if args.commit_checkpoints and args.write:
         commit_rows.append(commit_checkpoint(root))
         outputs[SUPERVISOR_DIR / COMMIT_LEDGER_NAME] = build_commit_ledger(commit_rows)
+        write_json(root, SUPERVISOR_DIR / COMMIT_LEDGER_NAME, outputs[SUPERVISOR_DIR / COMMIT_LEDGER_NAME])
     return outputs
 
 
@@ -2655,6 +2692,12 @@ def build_heartbeat(state: dict[str, Any]) -> dict[str, Any]:
     return payload
 
 
+def write_live_heartbeat(root: Path, state: dict[str, Any]) -> None:
+    path = root / SUPERVISOR_DIR / HEARTBEAT_NAME
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(stable_json(build_heartbeat(state)), encoding="utf-8")
+
+
 def write_outputs(root: Path, outputs: dict[Path, dict[str, Any]]) -> dict[str, Any]:
     files = {root / path: stable_json(payload) for path, payload in outputs.items()}
     return validation_result(files, write=True)
@@ -2669,9 +2712,13 @@ def commit_checkpoint(root: Path) -> dict[str, Any]:
         "operations/logion_release_mission/oc_core_1_3_3/OC133_GRAND_SCIENCE_LOOP_latest.md",
         "operations/logion_release_mission/oc_core_1_3_3/OC133_GRAND_SCIENCE_LOOP_STATE.json",
         "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory",
+        "benchmarks/modern_science",
+        "reports/OC_CORE_1_3_3_MODERN_SCIENCE_COVERAGE_LANE_QUEUE.json",
+        "comparators/modern_science",
         "content/generated",
         "releases/oc_core_1_3/editorial",
         "releases/oc_core_1_3/monograph/source/content/generated",
+        "validation/heldout/grand_science",
         "tools/oc133_toe_autonomous_supervisor.py",
         "tools/oc133_toe_closure_factory.py",
         "release_machine/tests/test_release_assembly_machine.py",
@@ -2711,6 +2758,7 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--sleep-on-cooldown-seconds", type=int, default=300)
     parser.add_argument("--resume", action="store_true")
     parser.add_argument("--timeout", type=int, default=900)
+    parser.add_argument("--action-timeout", type=int, default=300)
     args = parser.parse_args(argv)
     if args.check:
         paths = [
