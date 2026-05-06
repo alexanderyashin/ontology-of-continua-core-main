@@ -2190,6 +2190,78 @@ COMPARATOR_DOMAIN_IMPLEMENTED_COMMANDS = {
     ],
     (
         "earth_space_environmental_sciences",
+        "climate_weather_geophysical_time_series",
+        "source_snapshot_acquisition",
+    ): [
+        [sys.executable, COMPARATOR_DOMAIN_SCRIPT_BY_CLASS["earth_space_environmental_sciences"], "--refresh-noaa-coops-source", "--write"],
+        [sys.executable, COMPARATOR_DOMAIN_SCRIPT_BY_CLASS["earth_space_environmental_sciences"], "--check"],
+    ],
+    (
+        "earth_space_environmental_sciences",
+        "climate_weather_geophysical_time_series",
+        "target_hidden_task_table",
+    ): [
+        [sys.executable, COMPARATOR_DOMAIN_SCRIPT_BY_CLASS["earth_space_environmental_sciences"], "--score-noaa-coops", "--write"],
+        [sys.executable, COMPARATOR_DOMAIN_SCRIPT_BY_CLASS["earth_space_environmental_sciences"], "--check"],
+    ],
+    (
+        "earth_space_environmental_sciences",
+        "climate_weather_geophysical_time_series",
+        "oc_formula_or_model",
+    ): [
+        [sys.executable, COMPARATOR_DOMAIN_SCRIPT_BY_CLASS["earth_space_environmental_sciences"], "--score-noaa-coops", "--write"],
+        [sys.executable, COMPARATOR_DOMAIN_SCRIPT_BY_CLASS["earth_space_environmental_sciences"], "--check"],
+    ],
+    (
+        "earth_space_environmental_sciences",
+        "climate_weather_geophysical_time_series",
+        "incumbent_comparator_scoring",
+    ): [
+        [sys.executable, COMPARATOR_DOMAIN_SCRIPT_BY_CLASS["earth_space_environmental_sciences"], "--score-noaa-coops", "--write"],
+        [sys.executable, COMPARATOR_DOMAIN_SCRIPT_BY_CLASS["earth_space_environmental_sciences"], "--check"],
+    ],
+    (
+        "earth_space_environmental_sciences",
+        "climate_weather_geophysical_time_series",
+        "residuals_materiality_uncertainty",
+    ): [
+        [sys.executable, COMPARATOR_DOMAIN_SCRIPT_BY_CLASS["earth_space_environmental_sciences"], "--score-noaa-coops", "--write"],
+        [sys.executable, COMPARATOR_DOMAIN_SCRIPT_BY_CLASS["earth_space_environmental_sciences"], "--check"],
+    ],
+    (
+        "earth_space_environmental_sciences",
+        "climate_weather_geophysical_time_series",
+        "controls_and_falsifiers",
+    ): [
+        [sys.executable, COMPARATOR_DOMAIN_SCRIPT_BY_CLASS["earth_space_environmental_sciences"], "--score-noaa-coops", "--write"],
+        [sys.executable, COMPARATOR_DOMAIN_SCRIPT_BY_CLASS["earth_space_environmental_sciences"], "--check"],
+    ],
+    (
+        "earth_space_environmental_sciences",
+        "climate_weather_geophysical_time_series",
+        "independent_replay",
+    ): [
+        [sys.executable, COMPARATOR_DOMAIN_SCRIPT_BY_CLASS["earth_space_environmental_sciences"], "--score-noaa-coops", "--write"],
+        [sys.executable, COMPARATOR_DOMAIN_SCRIPT_BY_CLASS["earth_space_environmental_sciences"], "--check"],
+    ],
+    (
+        "earth_space_environmental_sciences",
+        "climate_weather_geophysical_time_series",
+        "strict_evidence_pack_diagnosis",
+    ): [
+        [sys.executable, COMPARATOR_DOMAIN_SCRIPT_BY_CLASS["earth_space_environmental_sciences"], "--score-noaa-coops", "--write"],
+        [sys.executable, COMPARATOR_DOMAIN_SCRIPT_BY_CLASS["earth_space_environmental_sciences"], "--check"],
+    ],
+    (
+        "earth_space_environmental_sciences",
+        "climate_weather_geophysical_time_series",
+        "model_or_claim_repair_decision",
+    ): [
+        [sys.executable, COMPARATOR_DOMAIN_SCRIPT_BY_CLASS["earth_space_environmental_sciences"], "--score-noaa-coops", "--write"],
+        [sys.executable, COMPARATOR_DOMAIN_SCRIPT_BY_CLASS["earth_space_environmental_sciences"], "--check"],
+    ],
+    (
+        "earth_space_environmental_sciences",
         "remote_sensing_and_planetary_measurements",
         "source_snapshot_acquisition",
     ): [
@@ -2909,6 +2981,10 @@ COMPARATOR_DOMAIN_MATERIALIZED_EVIDENCE_REFS = {
     ): "validation/heldout/grand_science/earth_space/coverage_work_orders/OC133_EARTH_SPACE_USGS_HYDROLOGY_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
     (
         "earth_space_environmental_sciences",
+        "climate_weather_geophysical_time_series",
+    ): "validation/heldout/grand_science/earth_space/coverage_work_orders/OC133_EARTH_SPACE_NOAA_COOPS_WATER_LEVEL_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
+    (
+        "earth_space_environmental_sciences",
         "remote_sensing_and_planetary_measurements",
     ): "validation/heldout/grand_science/earth_space/coverage_work_orders/OC133_EARTH_SPACE_NASA_POWER_REMOTE_SENSING_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
 }
@@ -2947,8 +3023,10 @@ def materialized_evidence_residuals(evidence_pack: dict[str, Any]) -> dict[str, 
         [
             ["scoring_results", "aggregate", "model_mae_plus_uncertainty_cfs"],
             ["scoring_results", "aggregate", "model_mae_plus_uncertainty_kwh_m2_day"],
+            ["scoring_results", "aggregate", "model_mae_plus_uncertainty_m"],
             ["scoring_results", "aggregate", "model_mae_cfs"],
             ["scoring_results", "aggregate", "model_mae_kwh_m2_day"],
+            ["scoring_results", "aggregate", "model_mae_m"],
             ["residuals", "model", "mean_absolute_error"],
             ["residuals", "model"],
             ["aggregate", "model_mae"],
@@ -2960,6 +3038,7 @@ def materialized_evidence_residuals(evidence_pack: dict[str, Any]) -> dict[str, 
         [
             ["scoring_results", "aggregate", "comparator_mae_cfs"],
             ["scoring_results", "aggregate", "comparator_mae_kwh_m2_day"],
+            ["scoring_results", "aggregate", "comparator_mae_m"],
             ["residuals", "comparator", "mean_absolute_error"],
             ["residuals", "comparator"],
             ["aggregate", "comparator_mae"],

@@ -2455,7 +2455,7 @@
       "domain_class_id": "earth_space_environmental_sciences",
       "phenomenon_class_id": "climate_weather_geophysical_time_series",
       "title": "Build source-backed lane for Earth, space, and environmental sciences / climate weather geophysical time series",
-      "current_status": "OPEN_FAIL_CLOSED_NO_EXECUTABLE_EVIDENCE",
+      "current_status": "OPEN_FAIL_CLOSED_STRICT_EVIDENCE_PASS_NO_COVERAGE_CLOSURE",
       "required_data_lanes": [
         {
           "lane_role": "official_data_source",
@@ -2518,8 +2518,7 @@
         "executable lane spec declares exact official source, target variable, formula/model, comparator, uncertainty, residual metric, negative control, and falsifier",
         "source snapshot and target projection are locked before scoring",
         "strict evidence pack exists and validates under independent replay",
-        "coverage remains open until every closure predicate is reviewed",
-        "fail-closed evidence gate: executable evidence is not yet bound"
+        "coverage remains open until every closure predicate is reviewed"
       ],
       "acceptance_predicates": [
         "STRICT_PACK_SCHEMA_PASS",
@@ -2558,7 +2557,7 @@
         "spec_schema_id": "OC133_PHYSICS_CHEMISTRY_EXECUTABLE_COVERAGE_LANE_SPEC_v1",
         "domain_class_id": "earth_space_environmental_sciences",
         "phenomenon_class_id": "climate_weather_geophysical_time_series",
-        "coverage_closure_status": "OPEN_FAIL_CLOSED_NO_EXECUTABLE_EVIDENCE",
+        "coverage_closure_status": "OPEN_FAIL_CLOSED_STRICT_EVIDENCE_PASS_NO_COVERAGE_CLOSURE",
         "source_plan_id": "MS-COV-WO-010-domain-local-bridge",
         "official_data_source": {
           "source_id": "earth_noaa_coops_san_francisco_water_level_v1",
@@ -2617,12 +2616,12 @@
           "source_separation_mode": "target_blind",
           "target_hidden_until_scoring": true,
           "evidence_pack_schema_id": "OC133_GRAND_EMPIRICAL_EVIDENCE_v1",
-          "replay_command": "acquire NOAA CO-OPS water_level and predictions endpoints listed in this spec and hash response bytes && python validation/heldout/grand_science/earth_space/coverage_work_orders/oc133_earth_space_modern_science_coverage_work_orders.py --check"
+          "replay_command": "python validation/heldout/grand_science/earth_space/coverage_work_orders/oc133_earth_space_modern_science_coverage_work_orders.py --refresh-noaa-coops-source --write && python validation/heldout/grand_science/earth_space/coverage_work_orders/oc133_earth_space_modern_science_coverage_work_orders.py --score-noaa-coops --write && python validation/heldout/grand_science/earth_space/coverage_work_orders/oc133_earth_space_modern_science_coverage_work_orders.py --check"
         },
         "current_evidence": {
-          "executable_evidence_exists": false,
-          "executable_evidence_ref": null,
-          "reason": "NOAA source snapshots, target-hidden scorer, negative-control replay, and strict evidence pack are not yet bound."
+          "executable_evidence_exists": true,
+          "executable_evidence_ref": "validation/heldout/grand_science/earth_space/coverage_work_orders/OC133_EARTH_SPACE_NOAA_COOPS_WATER_LEVEL_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
+          "reason": "NOAA CO-OPS target-hidden scorer, comparator residual, negative-control, and replay hash are bound; coverage closure remains disabled pending coverage-register review."
         },
         "closure_predicates_required": [
           "STRICT_PACK_SCHEMA_PASS",

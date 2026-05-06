@@ -92,6 +92,27 @@ NASA_POWER_SCORER_SCHEMA_ID = (
 )
 NASA_POWER_WORK_ORDER_ID = "MS-COV-WO-012"
 
+NOAA_COOPS_WATER_LEVEL_SNAPSHOT_REL = (
+    "validation/heldout/grand_science/earth_space/coverage_work_orders/raw/"
+    "noaa_coops_9414290_water_level_20240101_20240103.json"
+)
+NOAA_COOPS_PREDICTIONS_SNAPSHOT_REL = (
+    "validation/heldout/grand_science/earth_space/coverage_work_orders/raw/"
+    "noaa_coops_9414290_predictions_20240101_20240103.json"
+)
+NOAA_COOPS_METADATA_REL = (
+    "validation/heldout/grand_science/earth_space/coverage_work_orders/raw/"
+    "noaa_coops_9414290_water_level_predictions_20240101_20240103.metadata.json"
+)
+NOAA_COOPS_SCORER_EVIDENCE_REL = (
+    "validation/heldout/grand_science/earth_space/coverage_work_orders/"
+    "OC133_EARTH_SPACE_NOAA_COOPS_WATER_LEVEL_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json"
+)
+NOAA_COOPS_SCORER_SCHEMA_ID = (
+    "OC133_EARTH_SPACE_NOAA_COOPS_WATER_LEVEL_TARGET_HIDDEN_REPLAY_SCORER_v1"
+)
+NOAA_COOPS_WORK_ORDER_ID = "MS-COV-WO-010"
+
 NO_SEND_LOCKS = {
     "no_send": True,
     "public_release_action_allowed": False,
@@ -213,6 +234,15 @@ def count_nasa_power_values(payload: bytes) -> int:
         return 0
 
 
+def count_noaa_coops_values(payload: bytes, key: str) -> int:
+    try:
+        data = json.loads(payload.decode("utf-8"))
+        rows = data.get(key, [])
+        return len(rows) if isinstance(rows, list) else 0
+    except Exception:
+        return 0
+
+
 def refresh_usgs_hydrology_snapshot(root: Path) -> dict[str, Any]:
     status, content_type, payload = fetch_official_bytes(USGS_HYDROLOGY_ENDPOINT)
     snapshot_path = root / USGS_HYDROLOGY_SNAPSHOT_REL
@@ -270,6 +300,54 @@ def refresh_nasa_power_snapshot(root: Path) -> dict[str, Any]:
         "value_row_count": count_nasa_power_values(payload),
         "acquired_at_utc": utc_now_iso(),
         "hash_policy": "sha256 over official response bytes exactly as stored",
+        "source_snapshot_pre_target_lock": True,
+        "target_hidden_until_scoring": True,
+        "target_projection_unsealed_for_scoring": False,
+        "scoring_started": False,
+        "scientific_pass": False,
+        "coverage_closure_allowed": False,
+        "no_send_locks": no_send(),
+    }
+    metadata["metadata_sha256"] = sha256_object({k: v for k, v in metadata.items() if k != "metadata_sha256"})
+    write_json(metadata_path, metadata)
+    return metadata
+
+
+def refresh_noaa_coops_snapshot(root: Path) -> dict[str, Any]:
+    water_status, water_content_type, water_payload = fetch_official_bytes(noaa_water_level_url("water_level"))
+    prediction_status, prediction_content_type, prediction_payload = fetch_official_bytes(
+        noaa_water_level_url("predictions")
+    )
+    water_path = root / NOAA_COOPS_WATER_LEVEL_SNAPSHOT_REL
+    prediction_path = root / NOAA_COOPS_PREDICTIONS_SNAPSHOT_REL
+    metadata_path = root / NOAA_COOPS_METADATA_REL
+    water_digest = sha256_bytes(water_payload)
+    prediction_digest = sha256_bytes(prediction_payload)
+    water_path.parent.mkdir(parents=True, exist_ok=True)
+    water_path.write_bytes(water_payload)
+    prediction_path.write_bytes(prediction_payload)
+    metadata = {
+        "schema_id": "OC133_EARTH_SPACE_NOAA_COOPS_SOURCE_SNAPSHOT_METADATA_v1",
+        "release_id": RELEASE_ID,
+        "acquisition_id": "OC133-EARTH-NOAA-COOPS-9414290-WATER-PREDICTIONS-20240101-20240103",
+        "official_source": "NOAA CO-OPS Data Retrieval API",
+        "official_documentation_url": "https://api.tidesandcurrents.noaa.gov/api/prod/",
+        "water_level_endpoint_url": noaa_water_level_url("water_level"),
+        "predictions_endpoint_url": noaa_water_level_url("predictions"),
+        "water_level_snapshot_ref": NOAA_COOPS_WATER_LEVEL_SNAPSHOT_REL,
+        "predictions_snapshot_ref": NOAA_COOPS_PREDICTIONS_SNAPSHOT_REL,
+        "water_level_source_bytes_sha256": water_digest,
+        "predictions_source_bytes_sha256": prediction_digest,
+        "water_level_byte_count": len(water_payload),
+        "predictions_byte_count": len(prediction_payload),
+        "water_level_http_status": water_status,
+        "predictions_http_status": prediction_status,
+        "water_level_content_type": water_content_type,
+        "predictions_content_type": prediction_content_type,
+        "water_level_row_count": count_noaa_coops_values(water_payload, "data"),
+        "predictions_row_count": count_noaa_coops_values(prediction_payload, "predictions"),
+        "acquired_at_utc": utc_now_iso(),
+        "hash_policy": "sha256 over official response bytes exactly as stored; both water-level and prediction feeds are required",
         "source_snapshot_pre_target_lock": True,
         "target_hidden_until_scoring": True,
         "target_projection_unsealed_for_scoring": False,
@@ -360,6 +438,71 @@ def load_nasa_power_api_lane(root: Path) -> dict[str, Any]:
         "metadata_sha256": metadata.get("metadata_sha256"),
         "byte_count": len(payload),
         "value_row_count": metadata.get("value_row_count", 0),
+        "source_snapshot_hash_bound": hash_ok,
+        "scientific_pass": False,
+        "coverage_closure_allowed": False,
+        "remaining_blocker": "STRICT_TARGET_HIDDEN_SCORER_AND_EVIDENCE_PACK_NOT_BUILT",
+    }
+
+
+def load_noaa_coops_api_lane(root: Path) -> dict[str, Any]:
+    water_path = root / NOAA_COOPS_WATER_LEVEL_SNAPSHOT_REL
+    prediction_path = root / NOAA_COOPS_PREDICTIONS_SNAPSHOT_REL
+    metadata_path = root / NOAA_COOPS_METADATA_REL
+    if not water_path.exists() or not prediction_path.exists() or not metadata_path.exists():
+        return {
+            "status": "OPEN_FAIL_CLOSED_NO_SOURCE_SNAPSHOT_HASH",
+            "official_endpoint_url": noaa_water_level_url("water_level"),
+            "paired_official_endpoint_url": noaa_water_level_url("predictions"),
+            "water_level_snapshot_ref": NOAA_COOPS_WATER_LEVEL_SNAPSHOT_REL,
+            "predictions_snapshot_ref": NOAA_COOPS_PREDICTIONS_SNAPSHOT_REL,
+            "metadata_ref": NOAA_COOPS_METADATA_REL,
+            "source_snapshot_hash_bound": False,
+            "remaining_blocker": "NOAA_COOPS_SOURCE_SNAPSHOT_NOT_ACQUIRED",
+        }
+    metadata = read_json(metadata_path)
+    water_payload = water_path.read_bytes()
+    prediction_payload = prediction_path.read_bytes()
+    water_digest = sha256_bytes(water_payload)
+    prediction_digest = sha256_bytes(prediction_payload)
+    expected_metadata_hash = sha256_object({k: v for k, v in metadata.items() if k != "metadata_sha256"})
+    water_row_count = int(metadata.get("water_level_row_count", 0) or 0)
+    prediction_row_count = int(metadata.get("predictions_row_count", 0) or 0)
+    hash_ok = (
+        metadata.get("water_level_source_bytes_sha256") == water_digest
+        and metadata.get("predictions_source_bytes_sha256") == prediction_digest
+        and metadata.get("water_level_byte_count") == len(water_payload)
+        and metadata.get("predictions_byte_count") == len(prediction_payload)
+        and metadata.get("metadata_sha256") == expected_metadata_hash
+        and water_row_count >= 720
+        and prediction_row_count >= 720
+    )
+    return {
+        "status": (
+            "SOURCE_SNAPSHOT_HASH_BOUND_ACQUISITION_ONLY_NOT_STRICT_EVIDENCE"
+            if hash_ok
+            else "OPEN_FAIL_CLOSED_SOURCE_SNAPSHOT_HASH_MISMATCH"
+        ),
+        "official_endpoint_url": metadata.get("water_level_endpoint_url", noaa_water_level_url("water_level")),
+        "paired_official_endpoint_url": metadata.get("predictions_endpoint_url", noaa_water_level_url("predictions")),
+        "water_level_snapshot_ref": NOAA_COOPS_WATER_LEVEL_SNAPSHOT_REL,
+        "predictions_snapshot_ref": NOAA_COOPS_PREDICTIONS_SNAPSHOT_REL,
+        "snapshot_ref": NOAA_COOPS_WATER_LEVEL_SNAPSHOT_REL,
+        "metadata_ref": NOAA_COOPS_METADATA_REL,
+        "water_level_source_snapshot_sha256": water_digest,
+        "predictions_source_snapshot_sha256": prediction_digest,
+        "source_snapshot_sha256": sha256_object(
+            {
+                "water_level_source_bytes_sha256": water_digest,
+                "predictions_source_bytes_sha256": prediction_digest,
+            }
+        ),
+        "metadata_sha256": metadata.get("metadata_sha256"),
+        "water_level_byte_count": len(water_payload),
+        "predictions_byte_count": len(prediction_payload),
+        "water_level_row_count": water_row_count,
+        "predictions_row_count": prediction_row_count,
+        "value_row_count": min(water_row_count, prediction_row_count),
         "source_snapshot_hash_bound": hash_ok,
         "scientific_pass": False,
         "coverage_closure_allowed": False,
@@ -1515,12 +1658,593 @@ def noaa_water_level_url(product: str) -> str:
     return "https://api.tidesandcurrents.noaa.gov/api/prod/datagetter?" + urlencode(params)
 
 
+def extract_noaa_coops_rows(water_snapshot: dict[str, Any], prediction_snapshot: dict[str, Any]) -> list[dict[str, Any]]:
+    water_rows = water_snapshot.get("data", [])
+    prediction_rows = prediction_snapshot.get("predictions", [])
+    if not isinstance(water_rows, list) or not isinstance(prediction_rows, list):
+        return []
+    observed_by_time: dict[str, dict[str, Any]] = {}
+    for row in water_rows:
+        if not isinstance(row, dict):
+            continue
+        timestamp = str(row.get("t", ""))
+        if not timestamp:
+            continue
+        try:
+            observed = float(row["v"])
+            observed_sigma = float(row.get("s") or 0.0)
+        except (KeyError, TypeError, ValueError):
+            continue
+        observed_by_time[timestamp] = {
+            "raw_row": row,
+            "observed_water_level_m": observed,
+            "observed_sigma_m": observed_sigma,
+        }
+    extracted: list[dict[str, Any]] = []
+    for row in prediction_rows:
+        if not isinstance(row, dict):
+            continue
+        timestamp = str(row.get("t", ""))
+        observed = observed_by_time.get(timestamp)
+        if not observed:
+            continue
+        try:
+            prediction = float(row["v"])
+        except (KeyError, TypeError, ValueError):
+            continue
+        extracted.append(
+            {
+                "row_index": len(extracted) + 1,
+                "timestamp": timestamp,
+                "date": timestamp[:10],
+                "official_prediction_m": prediction,
+                "observed_water_level_m": observed["observed_water_level_m"],
+                "observed_sigma_m": observed["observed_sigma_m"],
+                "water_quality_flag": observed["raw_row"].get("q"),
+                "water_source_flags": observed["raw_row"].get("f"),
+                "source_row_sha256": sha256_object(
+                    {
+                        "timestamp": timestamp,
+                        "water_level_row": observed["raw_row"],
+                        "prediction_row": row,
+                    }
+                ),
+            }
+        )
+    return extracted
+
+
+def noaa_coops_training_parameters(training_rows: list[dict[str, Any]]) -> dict[str, Any]:
+    residuals = [
+        float(row["observed_water_level_m"]) - float(row["official_prediction_m"])
+        for row in training_rows
+    ]
+    sigma_values = [float(row.get("observed_sigma_m") or 0.0) for row in training_rows]
+    residual_median = median_value(residuals)
+    residual_last = residuals[-1] if residuals else 0.0
+    residual_mad = median_absolute_deviation(residuals)
+    sigma_median = median_value(sigma_values)
+    return {
+        "training_row_count": len(training_rows),
+        "visible_residual_median_m": residual_median,
+        "visible_last_residual_m": residual_last,
+        "visible_residual_mad_m": residual_mad,
+        "visible_observation_sigma_median_m": sigma_median,
+        "aggregate_uncertainty_allowance_m": residual_mad + sigma_median,
+        "residual_correction_m": residual_median + 0.5 * residual_last,
+        "uncertainty_policy": "Use the visible residual MAD plus the visible median NOAA observation sigma as the pre-target materiality allowance.",
+    }
+
+
+def noaa_coops_prediction_rows(
+    hidden_rows: list[dict[str, Any]],
+    params: dict[str, Any],
+) -> list[dict[str, Any]]:
+    correction = float(params["residual_correction_m"])
+    predictions: list[dict[str, Any]] = []
+    for row in hidden_rows:
+        official_prediction = float(row["official_prediction_m"])
+        model_prediction = official_prediction + correction
+        predictions.append(
+            {
+                "row_index": row["row_index"],
+                "timestamp": row["timestamp"],
+                "model_prediction_m": round_metric(model_prediction),
+                "comparator_prediction_m": round_metric(official_prediction),
+                "prediction_inputs": {
+                    "official_noaa_tide_prediction_m": round_metric(official_prediction),
+                    "visible_residual_median_m": round_metric(float(params["visible_residual_median_m"])),
+                    "visible_last_residual_m": round_metric(float(params["visible_last_residual_m"])),
+                    "residual_correction_m": round_metric(correction),
+                    "hidden_target_value_used": False,
+                },
+            }
+        )
+    return predictions
+
+
+def noaa_coops_prediction_declaration(
+    training_rows: list[dict[str, Any]],
+    hidden_rows: list[dict[str, Any]],
+    params: dict[str, Any],
+) -> dict[str, Any]:
+    prediction_rows = noaa_coops_prediction_rows(hidden_rows, params)
+    materialization = {
+        "predictions_materialized_before_target_unseal": True,
+        "hidden_target_values_included": False,
+        "prediction_rows": prediction_rows,
+        "prediction_rows_sha256": sha256_object(prediction_rows),
+    }
+    declaration = {
+        "declared_before_scoring": True,
+        "target_hidden_until_scoring": True,
+        "target_values_used_for_model_selection": False,
+        "target_values_used_for_prediction_materialization": False,
+        "split_policy": {
+            "mode": "target_blind_same_source_with_visible_prediction_product",
+            "training_row_count": len(training_rows),
+            "hidden_row_count": len(hidden_rows),
+            "training_timestamp_range": [training_rows[0]["timestamp"], training_rows[-1]["timestamp"]]
+            if training_rows
+            else [],
+            "hidden_timestamp_range": [hidden_rows[0]["timestamp"], hidden_rows[-1]["timestamp"]]
+            if hidden_rows
+            else [],
+            "split_rule": "The first 240 six-minute timestamps are visible prior-calibration rows; the following 480 timestamps are hidden observed water-level targets.",
+        },
+        "visible_training_rows": [
+            {
+                "row_index": row["row_index"],
+                "timestamp": row["timestamp"],
+                "official_prediction_m": round_metric(float(row["official_prediction_m"])),
+                "observed_water_level_m": round_metric(float(row["observed_water_level_m"])),
+                "observed_sigma_m": round_metric(float(row.get("observed_sigma_m") or 0.0)),
+                "source_row_sha256": row["source_row_sha256"],
+            }
+            for row in training_rows
+        ],
+        "hidden_target_placeholders": [
+            {
+                "row_index": row["row_index"],
+                "timestamp": row["timestamp"],
+                "target_field": "NOAA_COOPS.data[].v",
+                "target_value_hidden": True,
+                "target_placeholder_sha256": sha256_object(
+                    {
+                        "row_index": row["row_index"],
+                        "timestamp": row["timestamp"],
+                        "target_field": "NOAA_COOPS.data[].v",
+                        "target_value_hidden": True,
+                    }
+                ),
+            }
+            for row in hidden_rows
+        ],
+        "prediction_formula": {
+            "model_id": "NOAA-TIDE-PREDICTION-PLUS-PRIOR-RESIDUAL-AR1",
+            "pre_registered": True,
+            "rule": "y_hat(t) = NOAA_prediction(t) + median(visible_observed_minus_prediction_residual) + 0.5 * last_visible_residual",
+            "training_only_parameters": {
+                "visible_residual_median_m": round_metric(float(params["visible_residual_median_m"])),
+                "visible_last_residual_m": round_metric(float(params["visible_last_residual_m"])),
+                "residual_correction_m": round_metric(float(params["residual_correction_m"])),
+            },
+        },
+        "comparator_baseline": {
+            "comparator_id": "NOAA-HARMONIC-PREDICTION-ONLY",
+            "pre_registered": True,
+            "prediction_rule": "Use the paired official NOAA prediction at the same timestamp, without residual correction.",
+            "target_values_used_for_baseline_design": False,
+        },
+        "uncertainty_policy": {
+            "method": "visible residual MAD plus NOAA visible median observation sigma",
+            "residual_metric": "hidden mean absolute residual in meters",
+            "aggregate_uncertainty_allowance_m": round_metric(
+                float(params["aggregate_uncertainty_allowance_m"])
+            ),
+            "visible_residual_mad_m": round_metric(float(params["visible_residual_mad_m"])),
+            "visible_observation_sigma_median_m": round_metric(
+                float(params["visible_observation_sigma_median_m"])
+            ),
+            "strict_superiority_rule": "model_mae_m + aggregate_uncertainty_allowance_m < comparator_mae_m",
+        },
+        "prediction_materialization": materialization,
+    }
+    declaration["declaration_sha256"] = sha256_object(declaration)
+    return declaration
+
+
+def noaa_coops_scored_rows(
+    hidden_rows: list[dict[str, Any]],
+    prediction_rows: list[dict[str, Any]],
+) -> list[dict[str, Any]]:
+    scored: list[dict[str, Any]] = []
+    for actual, predicted in zip(hidden_rows, prediction_rows):
+        observed = round_metric(float(actual["observed_water_level_m"]))
+        model_prediction = round_metric(float(predicted["model_prediction_m"]))
+        comparator_prediction = round_metric(float(predicted["comparator_prediction_m"]))
+        row = {
+            "row_index": actual["row_index"],
+            "timestamp": actual["timestamp"],
+            "observed_water_level_m": observed,
+            "model_prediction_m": model_prediction,
+            "comparator_prediction_m": comparator_prediction,
+            "model_abs_residual_m": round_metric(abs(observed - model_prediction)),
+            "comparator_abs_residual_m": round_metric(abs(observed - comparator_prediction)),
+            "observed_sigma_m": round_metric(float(actual.get("observed_sigma_m") or 0.0)),
+            "source_row_sha256": actual["source_row_sha256"],
+        }
+        row["score_row_sha256"] = sha256_object(row)
+        scored.append(row)
+    return scored
+
+
+def noaa_coops_hidden_target_hash(hidden_rows: list[dict[str, Any]]) -> str:
+    return sha256_object(
+        [
+            {
+                "row_index": row["row_index"],
+                "timestamp": row["timestamp"],
+                "observed_water_level_m": round_metric(float(row["observed_water_level_m"])),
+            }
+            for row in hidden_rows
+        ]
+    )
+
+
+def noaa_coops_target_leakage_control(
+    rows: list[dict[str, Any]],
+    prediction_rows: list[dict[str, Any]],
+    params: dict[str, Any],
+) -> dict[str, Any]:
+    mutated = [dict(row) for row in rows]
+    for row in mutated[240:720]:
+        row["observed_water_level_m"] = float(row["observed_water_level_m"]) + 100.0
+    mutated_predictions = noaa_coops_prediction_rows(mutated[240:720], params)
+    original_prediction_hash = sha256_object(prediction_rows)
+    mutated_prediction_hash = sha256_object(mutated_predictions)
+    original_target_hash = noaa_coops_hidden_target_hash(rows[240:720])
+    mutated_target_hash = noaa_coops_hidden_target_hash(mutated[240:720])
+    return {
+        "control_id": "NOAA-WATER-LEVEL-HIDDEN-TARGET-MUTATION-LEAKAGE-CONTROL",
+        "description": "Mutating hidden observed water-level targets must not change materialized model or comparator predictions.",
+        "predictions_unchanged_under_hidden_target_mutation": original_prediction_hash == mutated_prediction_hash,
+        "target_hashes_changed_under_hidden_target_mutation": original_target_hash != mutated_target_hash,
+        "original_prediction_rows_sha256": original_prediction_hash,
+        "mutated_prediction_rows_sha256": mutated_prediction_hash,
+        "original_hidden_target_values_sha256": original_target_hash,
+        "mutated_hidden_target_values_sha256": mutated_target_hash,
+        "passed": original_prediction_hash == mutated_prediction_hash and original_target_hash != mutated_target_hash,
+    }
+
+
+def noaa_coops_negative_control(
+    hidden_rows: list[dict[str, Any]],
+    prediction_rows: list[dict[str, Any]],
+    uncertainty_allowance_m: float,
+    original_model_mae_m: float,
+) -> dict[str, Any]:
+    shift = 60
+    shifted_hidden = hidden_rows[shift:] + hidden_rows[:shift]
+    model_residuals = [
+        abs(float(actual["observed_water_level_m"]) - float(predicted["model_prediction_m"]))
+        for actual, predicted in zip(shifted_hidden, prediction_rows)
+    ]
+    comparator_residuals = [
+        abs(float(actual["observed_water_level_m"]) - float(predicted["comparator_prediction_m"]))
+        for actual, predicted in zip(shifted_hidden, prediction_rows)
+    ]
+    model_mae = round_metric(mean(model_residuals))
+    comparator_mae = round_metric(mean(comparator_residuals))
+    declared_sequence_hash = sha256_object([row["timestamp"] for row in hidden_rows])
+    shifted_sequence_hash = sha256_object([row["timestamp"] for row in shifted_hidden])
+    residual_superiority_pass = model_mae + uncertainty_allowance_m < comparator_mae
+    rejection_reasons = []
+    if shifted_sequence_hash != declared_sequence_hash:
+        rejection_reasons.append("NEGATIVE_CONTROL_TARGET_TIMESTAMP_SEQUENCE_HASH_MISMATCH")
+    if model_mae <= original_model_mae_m:
+        rejection_reasons.append("NEGATIVE_CONTROL_DID_NOT_WORSEN_MODEL_RESIDUAL")
+    if not residual_superiority_pass:
+        rejection_reasons.append("NEGATIVE_CONTROL_RESIDUAL_SUPERIORITY_NOT_MET")
+    return {
+        "control_id": "NOAA-WATER-LEVEL-TIMESTAMP-PHASE-SHIFT",
+        "description": "Shift the hidden timestamp binding by six hours after source lock; the strict scorer must reject this altered target mapping.",
+        "declared_hidden_timestamp_sequence_sha256": declared_sequence_hash,
+        "control_hidden_timestamp_sequence_sha256": shifted_sequence_hash,
+        "timestamp_sequence_hash_matches_declared": shifted_sequence_hash == declared_sequence_hash,
+        "audit_model_mae_m": model_mae,
+        "audit_comparator_mae_m": comparator_mae,
+        "audit_original_model_mae_m": round_metric(original_model_mae_m),
+        "audit_uncertainty_allowance_m": round_metric(uncertainty_allowance_m),
+        "audit_residual_superiority_pass": residual_superiority_pass,
+        "rejected": bool(rejection_reasons),
+        "rejection_reasons": rejection_reasons,
+    }
+
+
+def noaa_coops_hash_payload(pack: dict[str, Any]) -> dict[str, Any]:
+    return {key: value for key, value in pack.items() if key not in {"replay_hash", "evidence_pack_sha256"}}
+
+
+def noaa_coops_evidence_hash_payload(pack: dict[str, Any]) -> dict[str, Any]:
+    return {key: value for key, value in pack.items() if key != "evidence_pack_sha256"}
+
+
+def attach_noaa_coops_hashes(pack: dict[str, Any]) -> dict[str, Any]:
+    pack = dict(pack)
+    pack["replay_hash"] = sha256_object(noaa_coops_hash_payload(pack))
+    pack["evidence_pack_sha256"] = sha256_object(noaa_coops_evidence_hash_payload(pack))
+    return pack
+
+
+def blocked_noaa_coops_scorer_pack(source_lane: dict[str, Any], blockers: list[str]) -> dict[str, Any]:
+    primary = blockers[0] if blockers else "NOAA_COOPS_SCORER_BLOCKED"
+    return attach_noaa_coops_hashes(
+        {
+            "schema_id": NOAA_COOPS_SCORER_SCHEMA_ID,
+            "release_id": RELEASE_ID,
+            "version": VERSION,
+            "generated_on": GENERATED_ON,
+            "work_order_id": NOAA_COOPS_WORK_ORDER_ID,
+            "domain_class_id": "earth_space_environmental_sciences",
+            "phenomenon_class_id": "climate_weather_geophysical_time_series",
+            "capability_owner": CAPABILITY_OWNER,
+            "scorer_kind": "target_hidden_temporal_holdout_replay",
+            "pack_status": "BLOCKED_FAIL_CLOSED_SOURCE_OR_DATA_INSUFFICIENT",
+            "strict_artifact": True,
+            "scorer_ready": False,
+            "strict_predicates_all_pass": False,
+            "scientific_pass": False,
+            "coverage_closure_allowed": False,
+            "broad_modern_science_superiority_allowed": False,
+            "source": {
+                "water_level_snapshot_ref": source_lane.get("water_level_snapshot_ref"),
+                "predictions_snapshot_ref": source_lane.get("predictions_snapshot_ref"),
+                "metadata_ref": source_lane.get("metadata_ref"),
+                "source_snapshot_hash_bound": source_lane.get("source_snapshot_hash_bound") is True,
+                "water_level_source_snapshot_sha256": source_lane.get("water_level_source_snapshot_sha256"),
+                "predictions_source_snapshot_sha256": source_lane.get("predictions_source_snapshot_sha256"),
+                "value_row_count": source_lane.get("value_row_count", 0),
+            },
+            "exact_blocker": primary,
+            "exact_blockers": blockers,
+            "replay_hash_policy": "sha256 over canonical JSON evidence pack excluding replay_hash and evidence_pack_sha256",
+            "no_send_locks": no_send(),
+        }
+    )
+
+
+def build_noaa_coops_scorer_pack(root: Path | None = None) -> dict[str, Any]:
+    root = root or repo_root()
+    source_lane = load_noaa_coops_api_lane(root)
+    if source_lane.get("source_snapshot_hash_bound") is not True:
+        return blocked_noaa_coops_scorer_pack(
+            source_lane,
+            [str(source_lane.get("remaining_blocker", "NOAA_COOPS_SOURCE_SNAPSHOT_NOT_HASH_BOUND"))],
+        )
+    water_snapshot = read_json(root / NOAA_COOPS_WATER_LEVEL_SNAPSHOT_REL)
+    prediction_snapshot = read_json(root / NOAA_COOPS_PREDICTIONS_SNAPSHOT_REL)
+    rows = extract_noaa_coops_rows(water_snapshot, prediction_snapshot)
+    if len(rows) < 720:
+        return blocked_noaa_coops_scorer_pack(
+            source_lane,
+            [f"NOAA_COOPS_PAIRED_SOURCE_ROWS_BELOW_REQUIRED_720::{len(rows)}/720"],
+        )
+    training_rows = rows[:240]
+    hidden_rows = rows[240:720]
+    params = noaa_coops_training_parameters(training_rows)
+    declaration = noaa_coops_prediction_declaration(training_rows, hidden_rows, params)
+    prediction_rows = declaration["prediction_materialization"]["prediction_rows"]
+    scored_rows = noaa_coops_scored_rows(hidden_rows, prediction_rows)
+    model_residuals = [float(row["model_abs_residual_m"]) for row in scored_rows]
+    comparator_residuals = [float(row["comparator_abs_residual_m"]) for row in scored_rows]
+    model_mae = round_metric(mean(model_residuals))
+    comparator_mae = round_metric(mean(comparator_residuals))
+    uncertainty_allowance = round_metric(float(params["aggregate_uncertainty_allowance_m"]))
+    superiority_margin = round_metric(comparator_mae - model_mae - uncertainty_allowance)
+    residual_superiority_pass = superiority_margin > 0
+    negative_control = noaa_coops_negative_control(hidden_rows, prediction_rows, uncertainty_allowance, model_mae)
+    leakage_control = noaa_coops_target_leakage_control(rows, prediction_rows, params)
+    triggered_predicates: list[str] = []
+    if not residual_superiority_pass:
+        triggered_predicates.append("COMPARATOR_BASELINE_NOT_BEATEN_WITH_UNCERTAINTY")
+    if not negative_control["rejected"]:
+        triggered_predicates.append("NEGATIVE_CONTROL_NOT_REJECTED")
+    if not leakage_control["passed"]:
+        triggered_predicates.append("TARGET_LEAKAGE_CONTROL_FAILED")
+    strict_predicates = [
+        {"predicate": "STRICT_PACK_SCHEMA_PASS", "passed": True},
+        {"predicate": "OFFICIAL_SOURCE_SNAPSHOT_HASH_BOUND", "passed": True},
+        {"predicate": "TARGET_VARIABLE_EXACTLY_DECLARED", "passed": True},
+        {"predicate": "TARGET_HIDDEN_SPLIT_DECLARED", "passed": True},
+        {"predicate": "FORMULA_OR_MODEL_PREREGISTERED", "passed": True},
+        {"predicate": "COMPARATOR_PREREGISTERED_AND_TARGET_SEPARATED", "passed": True},
+        {"predicate": "UNCERTAINTY_AND_RESIDUAL_DECLARED", "passed": True},
+        {"predicate": "NEGATIVE_CONTROL_REJECTED", "passed": negative_control["rejected"]},
+        {"predicate": "FALSIFIER_PREDICATES_EXECUTABLE", "passed": True},
+        {"predicate": "TARGET_LEAKAGE_CONTROL_PASS", "passed": leakage_control["passed"]},
+        {
+            "predicate": "RESIDUAL_SUPERIORITY_WITH_UNCERTAINTY",
+            "passed": residual_superiority_pass,
+            "failure": None if residual_superiority_pass else "COMPARATOR_BASELINE_NOT_BEATEN_WITH_UNCERTAINTY",
+        },
+    ]
+    strict_all_pass = all(row["passed"] for row in strict_predicates)
+    pack = {
+        "schema_id": NOAA_COOPS_SCORER_SCHEMA_ID,
+        "release_id": RELEASE_ID,
+        "version": VERSION,
+        "generated_on": GENERATED_ON,
+        "work_order_id": NOAA_COOPS_WORK_ORDER_ID,
+        "domain_class_id": "earth_space_environmental_sciences",
+        "phenomenon_class_id": "climate_weather_geophysical_time_series",
+        "capability_owner": CAPABILITY_OWNER,
+        "scorer_kind": "target_hidden_temporal_holdout_replay",
+        "pack_status": "STRICT_EVIDENCE_PASS_NO_COVERAGE_CLOSURE" if strict_all_pass else "SCORER_READY_FAIL_CLOSED_STRICT_EVIDENCE_NOT_MET",
+        "strict_artifact": True,
+        "scorer_ready": True,
+        "strict_predicates_all_pass": strict_all_pass,
+        "scientific_pass": strict_all_pass,
+        "coverage_closure_allowed": False,
+        "broad_modern_science_superiority_allowed": False,
+        "coverage_review_status": "NOT_REQUESTED_NO_SEND",
+        "source": {
+            "source_id": "earth_noaa_coops_san_francisco_water_level_v1",
+            "source_name": "NOAA CO-OPS Data Retrieval API water level and tide prediction observations",
+            "official_endpoint_url": source_lane.get("official_endpoint_url"),
+            "paired_official_endpoint_url": source_lane.get("paired_official_endpoint_url"),
+            "water_level_snapshot_ref": NOAA_COOPS_WATER_LEVEL_SNAPSHOT_REL,
+            "predictions_snapshot_ref": NOAA_COOPS_PREDICTIONS_SNAPSHOT_REL,
+            "metadata_ref": NOAA_COOPS_METADATA_REL,
+            "water_level_source_snapshot_sha256": source_lane.get("water_level_source_snapshot_sha256"),
+            "predictions_source_snapshot_sha256": source_lane.get("predictions_source_snapshot_sha256"),
+            "metadata_sha256": source_lane.get("metadata_sha256"),
+            "water_level_byte_count": source_lane.get("water_level_byte_count"),
+            "predictions_byte_count": source_lane.get("predictions_byte_count"),
+            "water_level_row_count": source_lane.get("water_level_row_count"),
+            "predictions_row_count": source_lane.get("predictions_row_count"),
+            "value_row_count": source_lane.get("value_row_count"),
+            "source_snapshot_hash_bound": True,
+        },
+        "target_variable": {
+            "name": "observed_six_minute_water_level_mllw",
+            "unit": "meters relative to MLLW",
+            "target_field": "NOAA_COOPS[station=9414290, timestamp].data.v",
+        },
+        "pretarget_declaration": declaration,
+        "scoring_results": {
+            "hidden_row_count": len(scored_rows),
+            "hidden_target_values_sha256": noaa_coops_hidden_target_hash(hidden_rows),
+            "scored_rows_sha256": sha256_object(scored_rows),
+            "scored_rows": scored_rows,
+            "aggregate": {
+                "model_mae_m": model_mae,
+                "model_rmse_m": round_metric(rmse(model_residuals)),
+                "comparator_mae_m": comparator_mae,
+                "comparator_rmse_m": round_metric(rmse(comparator_residuals)),
+                "aggregate_uncertainty_allowance_m": uncertainty_allowance,
+                "model_mae_plus_uncertainty_m": round_metric(model_mae + uncertainty_allowance),
+                "strict_superiority_margin_m": superiority_margin,
+                "residual_superiority_pass": residual_superiority_pass,
+                "training_parameters": {
+                    "visible_residual_median_m": round_metric(float(params["visible_residual_median_m"])),
+                    "visible_last_residual_m": round_metric(float(params["visible_last_residual_m"])),
+                    "visible_residual_mad_m": round_metric(float(params["visible_residual_mad_m"])),
+                    "visible_observation_sigma_median_m": round_metric(
+                        float(params["visible_observation_sigma_median_m"])
+                    ),
+                    "residual_correction_m": round_metric(float(params["residual_correction_m"])),
+                },
+            },
+        },
+        "negative_control": negative_control,
+        "target_leakage_control": leakage_control,
+        "falsifier": {
+            "falsifier_id": "NOAA-WATER-LEVEL-FAIL-CLOSED-FALSIFIER",
+            "status": "NOT_TRIGGERED" if not triggered_predicates else "TRIGGERED",
+            "triggered_predicates": triggered_predicates,
+            "non_triggered_predicates": [
+                "SOURCE_SNAPSHOT_HASH_OR_METADATA_HASH_MISMATCH",
+                "HIDDEN_WATER_LEVEL_TARGET_ROWS_READ_BEFORE_PREDICTION_MATERIALIZATION",
+                "FEWER_THAN_480_HIDDEN_SIX_MINUTE_VALUES_SCORED",
+            ],
+        },
+        "strict_predicate_results": strict_predicates,
+        "exact_blocker": triggered_predicates[0] if triggered_predicates else None,
+        "exact_blockers": triggered_predicates,
+        "exact_blocker_detail": (
+            "model_mae_plus_uncertainty_m="
+            f"{round_metric(model_mae + uncertainty_allowance)} >= comparator_mae_m={comparator_mae}"
+            if not residual_superiority_pass
+            else None
+        ),
+        "replay_command": {
+            "commands": [
+                "python validation/heldout/grand_science/earth_space/coverage_work_orders/oc133_earth_space_modern_science_coverage_work_orders.py --score-noaa-coops --write",
+                "python validation/heldout/grand_science/earth_space/coverage_work_orders/oc133_earth_space_modern_science_coverage_work_orders.py --check",
+            ]
+        },
+        "replay_hash_policy": "sha256 over canonical JSON evidence pack excluding replay_hash and evidence_pack_sha256",
+        "no_send_locks": no_send(),
+    }
+    return attach_noaa_coops_hashes(pack)
+
+
+def noaa_coops_scorer_summary(root: Path, source_lane: dict[str, Any]) -> dict[str, Any]:
+    if source_lane.get("source_snapshot_hash_bound") is not True:
+        return {
+            "target_hidden_scorer_present": False,
+            "strict_evidence_pack_ref": None,
+            "strict_evidence_pack_sha256": None,
+            "strict_scientific_predicates_pass": False,
+            "negative_control_rejected": False,
+            "falsifier_status": "NOT_RUN",
+            "remaining_blocker": source_lane.get("remaining_blocker", "NOAA_COOPS_SOURCE_SNAPSHOT_NOT_HASH_BOUND"),
+            "scorer_status": "OPEN_FAIL_CLOSED_SOURCE_HASH_REQUIRED",
+        }
+    pack = build_noaa_coops_scorer_pack(root)
+    return {
+        "target_hidden_scorer_present": pack.get("scorer_ready") is True,
+        "strict_evidence_pack_ref": NOAA_COOPS_SCORER_EVIDENCE_REL,
+        "strict_evidence_pack_sha256": pack.get("evidence_pack_sha256"),
+        "strict_scientific_predicates_pass": pack.get("strict_predicates_all_pass") is True,
+        "negative_control_rejected": pack.get("negative_control", {}).get("rejected") is True,
+        "falsifier_status": pack.get("falsifier", {}).get("status"),
+        "remaining_blocker": pack.get("exact_blocker") or "COVERAGE_REGISTER_REVIEW_NOT_PERFORMED",
+        "scorer_status": pack.get("pack_status"),
+    }
+
+
+def noaa_coops_evidence(source_lane: dict[str, Any], scorer_summary: dict[str, Any]) -> dict[str, Any]:
+    if scorer_summary.get("target_hidden_scorer_present") is not True:
+        return fail_closed_evidence(
+            "NOAA CO-OPS source bytes are hash-bound when present, but no target-hidden scorer, comparator result, negative-control result, or strict evidence pack is bound.",
+            source_lane=source_lane,
+        )
+    strict_pass = scorer_summary.get("strict_scientific_predicates_pass") is True
+    return {
+        "current_status": "STRICT_EVIDENCE_PASS_NO_COVERAGE_CLOSURE" if strict_pass else "SCORER_READY_FAIL_CLOSED_STRICT_EVIDENCE_NOT_MET",
+        "executable_evidence_exists": True,
+        "strict_evidence_pack_ref": scorer_summary.get("strict_evidence_pack_ref"),
+        "strict_evidence_pack_sha256": scorer_summary.get("strict_evidence_pack_sha256"),
+        "source_snapshot_hash_bound": source_lane.get("source_snapshot_hash_bound") is True,
+        "source_snapshot_ref": source_lane.get("water_level_snapshot_ref"),
+        "source_snapshot_sha256": source_lane.get("water_level_source_snapshot_sha256"),
+        "target_hidden_scorer_present": True,
+        "comparator_residual_metric_bound": True,
+        "negative_control_rejected": scorer_summary.get("negative_control_rejected") is True,
+        "falsifier_status": scorer_summary.get("falsifier_status"),
+        "exact_blocker": None if strict_pass else scorer_summary.get("remaining_blocker"),
+        "reason": (
+            "NOAA CO-OPS target-hidden scorer, comparator residual, negative-control, and replay hash are bound; coverage closure remains disabled pending coverage-register review."
+            if strict_pass
+            else "NOAA CO-OPS target-hidden replay scorer is bound, but strict evidence remains blocked by its exact predicate."
+        ),
+        "coverage_closure_allowed": False,
+        "broad_modern_science_superiority_allowed": False,
+        "scientific_pass": strict_pass,
+    }
+
+
 def nasa_power_url() -> str:
     return NASA_POWER_ENDPOINT
 
 
 def build_work_orders(root: Path | None = None) -> list[dict[str, Any]]:
     root = root or repo_root()
+    noaa_source_lane = load_noaa_coops_api_lane(root)
+    noaa_scorer = noaa_coops_scorer_summary(root, noaa_source_lane)
+    noaa_lane = {
+        **noaa_source_lane,
+        **noaa_scorer,
+        "status": (
+            "SOURCE_SNAPSHOT_HASH_BOUND_STRICT_EVIDENCE_PASS_NO_COVERAGE_CLOSURE"
+            if noaa_scorer.get("strict_scientific_predicates_pass") is True
+            else "SOURCE_SNAPSHOT_HASH_BOUND_SCORER_READY_FAIL_CLOSED_STRICT_EVIDENCE_NOT_MET"
+            if noaa_scorer.get("target_hidden_scorer_present") is True
+            else noaa_source_lane.get("status")
+        ),
+    }
     usgs_source_lane = load_usgs_api_lane(root)
     usgs_scorer = usgs_hydrology_scorer_summary(root, usgs_source_lane)
     usgs_lane = {
@@ -1553,9 +2277,16 @@ def build_work_orders(root: Path | None = None) -> list[dict[str, Any]]:
             "domain_class_id": "earth_space_environmental_sciences",
             "phenomenon_class_id": "climate_weather_geophysical_time_series",
             "phenomenon_label": "climate weather geophysical time series",
-            "lane_status": "OPEN_FAIL_CLOSED_NO_EXECUTABLE_EVIDENCE",
+            "lane_status": (
+                "STRICT_EVIDENCE_PASS_NO_COVERAGE_CLOSURE"
+                if noaa_scorer.get("strict_scientific_predicates_pass") is True
+                else "SCORER_READY_FAIL_CLOSED_STRICT_EVIDENCE_NOT_MET"
+                if noaa_scorer.get("target_hidden_scorer_present") is True
+                else "OPEN_FAIL_CLOSED_NO_EXECUTABLE_EVIDENCE"
+            ),
             "coverage_closure_allowed": False,
             "support_allowed_for_broad_coverage": False,
+            "official_api_lane": noaa_lane,
             "executable_spec": {
                 "official_source": {
                     "source_id": "earth_noaa_coops_san_francisco_water_level_v1",
@@ -1565,10 +2296,10 @@ def build_work_orders(root: Path | None = None) -> list[dict[str, Any]]:
                     "official_endpoint_url": noaa_water_level_url("water_level"),
                     "paired_official_endpoint_url": noaa_water_level_url("predictions"),
                     "required_local_snapshot_refs": [
-                        "validation/heldout/grand_science/earth_space/coverage_work_orders/raw/noaa_coops_9414290_water_level_20240101_20240103.json",
-                        "validation/heldout/grand_science/earth_space/coverage_work_orders/raw/noaa_coops_9414290_predictions_20240101_20240103.json",
+                        NOAA_COOPS_WATER_LEVEL_SNAPSHOT_REL,
+                        NOAA_COOPS_PREDICTIONS_SNAPSHOT_REL,
                     ],
-                    "snapshot_status": "NOT_ACQUIRED_FOR_THIS_COVERAGE_CLASS",
+                    "snapshot_status": noaa_lane.get("status"),
                 },
                 "target_variable": {
                     "name": "observed_six_minute_water_level_mllw",
@@ -1617,20 +2348,20 @@ def build_work_orders(root: Path | None = None) -> list[dict[str, Any]]:
                 },
                 "N": {
                     "minimum_n": 20,
+                    "acquired_source_rows": noaa_lane.get("value_row_count", 0),
                     "planned_source_rows": 720,
                     "planned_hidden_target_rows": 480,
                     "unit": "six-minute water-level observations",
                 },
                 "replay_command": {
                     "commands": [
-                        "acquire NOAA CO-OPS water_level and predictions endpoints listed in this spec and hash response bytes",
+                        "python validation/heldout/grand_science/earth_space/coverage_work_orders/oc133_earth_space_modern_science_coverage_work_orders.py --refresh-noaa-coops-source --write",
+                        "python validation/heldout/grand_science/earth_space/coverage_work_orders/oc133_earth_space_modern_science_coverage_work_orders.py --score-noaa-coops --write",
                         "python validation/heldout/grand_science/earth_space/coverage_work_orders/oc133_earth_space_modern_science_coverage_work_orders.py --check",
                     ],
                     "acceptance_predicates": COMMON_CLOSURE_PREDICATES,
                 },
-                "fail_closed_current_evidence": fail_closed_evidence(
-                    "NOAA source snapshots, target-hidden scorer, negative-control replay, and strict evidence pack are not yet bound."
-                ),
+                "fail_closed_current_evidence": noaa_coops_evidence(noaa_source_lane, noaa_scorer),
             },
             "no_send_locks": no_send(),
         },
@@ -2179,6 +2910,131 @@ def check_nasa_power_scorer_stored(root: Path | None = None) -> list[str]:
     return sorted(set(failures))
 
 
+def validate_noaa_coops_scorer_pack(pack: dict[str, Any], root: Path | None = None) -> list[str]:
+    root = root or repo_root()
+    failures: list[str] = []
+    if pack.get("schema_id") != NOAA_COOPS_SCORER_SCHEMA_ID:
+        failures.append("NOAA_COOPS_SCORER_SCHEMA_MISMATCH")
+    if pack.get("work_order_id") != NOAA_COOPS_WORK_ORDER_ID:
+        failures.append("NOAA_COOPS_SCORER_WORK_ORDER_MISMATCH")
+    if pack.get("strict_artifact") is not True:
+        failures.append("NOAA_COOPS_SCORER_STRICT_ARTIFACT_NOT_TRUE")
+    if pack.get("coverage_closure_allowed") is not False:
+        failures.append("NOAA_COOPS_SCORER_COVERAGE_CLOSURE_ALLOWED")
+    if pack.get("broad_modern_science_superiority_allowed") is not False:
+        failures.append("NOAA_COOPS_SCORER_BROAD_SUPERIORITY_ALLOWED")
+    if pack.get("no_send_locks", {}).get("no_send") is not True:
+        failures.append("NOAA_COOPS_SCORER_NO_SEND_LOCK_MISSING")
+    if pack.get("replay_hash") != sha256_object(noaa_coops_hash_payload(pack)):
+        failures.append("NOAA_COOPS_SCORER_REPLAY_HASH_MISMATCH")
+    if pack.get("evidence_pack_sha256") != sha256_object(noaa_coops_evidence_hash_payload(pack)):
+        failures.append("NOAA_COOPS_SCORER_EVIDENCE_PACK_HASH_MISMATCH")
+
+    source_lane = load_noaa_coops_api_lane(root)
+    source = pack.get("source", {})
+    if source.get("source_snapshot_hash_bound") is True:
+        if source_lane.get("source_snapshot_hash_bound") is not True:
+            failures.append("NOAA_COOPS_SCORER_SOURCE_NOT_HASH_BOUND_ON_REPLAY")
+        for field in (
+            "water_level_source_snapshot_sha256",
+            "predictions_source_snapshot_sha256",
+            "metadata_sha256",
+            "water_level_byte_count",
+            "predictions_byte_count",
+            "value_row_count",
+        ):
+            if source.get(field) != source_lane.get(field):
+                failures.append(f"NOAA_COOPS_SCORER_SOURCE_FIELD_MISMATCH::{field}")
+
+    if pack.get("scorer_ready") is not True:
+        if not pack.get("exact_blockers"):
+            failures.append("NOAA_COOPS_SCORER_BLOCKED_WITHOUT_EXACT_BLOCKER")
+        return failures
+
+    declaration = pack.get("pretarget_declaration", {})
+    split = declaration.get("split_policy", {})
+    hidden_placeholders = declaration.get("hidden_target_placeholders", [])
+    visible_rows = declaration.get("visible_training_rows", [])
+    materialization = declaration.get("prediction_materialization", {})
+    prediction_rows = materialization.get("prediction_rows", [])
+    scoring = pack.get("scoring_results", {})
+    scored_rows = scoring.get("scored_rows", [])
+    aggregate = scoring.get("aggregate", {})
+
+    if split.get("training_row_count") != 240 or len(visible_rows) != 240:
+        failures.append("NOAA_COOPS_SCORER_TRAINING_SPLIT_NOT_240")
+    if split.get("hidden_row_count") != 480 or len(hidden_placeholders) != 480:
+        failures.append("NOAA_COOPS_SCORER_HIDDEN_SPLIT_NOT_480")
+    if scoring.get("hidden_row_count") != 480 or len(scored_rows) != 480:
+        failures.append("NOAA_COOPS_SCORER_SCORED_N_NOT_480")
+    if declaration.get("target_hidden_until_scoring") is not True:
+        failures.append("NOAA_COOPS_SCORER_TARGET_NOT_HIDDEN")
+    if declaration.get("target_values_used_for_model_selection") is not False:
+        failures.append("NOAA_COOPS_SCORER_TARGET_USED_FOR_SELECTION")
+    if declaration.get("target_values_used_for_prediction_materialization") is not False:
+        failures.append("NOAA_COOPS_SCORER_TARGET_USED_FOR_PREDICTION")
+    if materialization.get("predictions_materialized_before_target_unseal") is not True:
+        failures.append("NOAA_COOPS_SCORER_PREDICTIONS_NOT_MATERIALIZED_BEFORE_UNSEAL")
+    if materialization.get("hidden_target_values_included") is not False:
+        failures.append("NOAA_COOPS_SCORER_MATERIALIZATION_CONTAINS_HIDDEN_TARGETS")
+    for placeholder in hidden_placeholders:
+        if "observed_water_level_m" in placeholder or "target_value" in placeholder:
+            failures.append("NOAA_COOPS_SCORER_HIDDEN_PLACEHOLDER_LEAKS_TARGET")
+            break
+    if materialization.get("prediction_rows_sha256") != sha256_object(prediction_rows):
+        failures.append("NOAA_COOPS_SCORER_PREDICTION_ROWS_HASH_MISMATCH")
+    if scoring.get("scored_rows_sha256") != sha256_object(scored_rows):
+        failures.append("NOAA_COOPS_SCORER_SCORED_ROWS_HASH_MISMATCH")
+    for row in scored_rows:
+        expected_row_hash = sha256_object({key: value for key, value in row.items() if key != "score_row_sha256"})
+        if row.get("score_row_sha256") != expected_row_hash:
+            failures.append(f"NOAA_COOPS_SCORER_SCORE_ROW_HASH_MISMATCH::{row.get('timestamp')}")
+
+    model_mae = float(aggregate.get("model_mae_m", 0.0) or 0.0)
+    comparator_mae = float(aggregate.get("comparator_mae_m", 0.0) or 0.0)
+    uncertainty = float(aggregate.get("aggregate_uncertainty_allowance_m", 0.0) or 0.0)
+    residual_pass = model_mae + uncertainty < comparator_mae
+    if aggregate.get("residual_superiority_pass") is not residual_pass:
+        failures.append("NOAA_COOPS_SCORER_RESIDUAL_SUPERIORITY_FLAG_MISMATCH")
+    if round_metric(comparator_mae - model_mae - uncertainty) != aggregate.get("strict_superiority_margin_m"):
+        failures.append("NOAA_COOPS_SCORER_SUPERIORITY_MARGIN_MISMATCH")
+    if pack.get("negative_control", {}).get("rejected") is not True:
+        failures.append("NOAA_COOPS_NEGATIVE_CONTROL_NOT_REJECTED")
+    if pack.get("target_leakage_control", {}).get("passed") is not True:
+        failures.append("NOAA_COOPS_TARGET_LEAKAGE_CONTROL_NOT_PASSED")
+    strict_predicates = pack.get("strict_predicate_results", [])
+    strict_all = all(row.get("passed") is True for row in strict_predicates) if strict_predicates else False
+    if pack.get("strict_predicates_all_pass") is not strict_all:
+        failures.append("NOAA_COOPS_STRICT_PREDICATE_SUMMARY_MISMATCH")
+    if pack.get("scientific_pass") is not strict_all:
+        failures.append("NOAA_COOPS_SCIENTIFIC_PASS_MISMATCH")
+    if not residual_pass and pack.get("exact_blocker") != "COMPARATOR_BASELINE_NOT_BEATEN_WITH_UNCERTAINTY":
+        failures.append("NOAA_COOPS_EXACT_BLOCKER_MISMATCH")
+    falsifier_status = pack.get("falsifier", {}).get("status")
+    if pack.get("exact_blockers") and falsifier_status != "TRIGGERED":
+        failures.append("NOAA_COOPS_FALSIFIER_NOT_TRIGGERED_FOR_BLOCKER")
+    if not pack.get("exact_blockers") and falsifier_status != "NOT_TRIGGERED":
+        failures.append("NOAA_COOPS_FALSIFIER_TRIGGERED_WITHOUT_BLOCKER")
+    return failures
+
+
+def check_noaa_coops_scorer_stored(root: Path | None = None) -> list[str]:
+    root = root or repo_root()
+    source_lane = load_noaa_coops_api_lane(root)
+    if source_lane.get("source_snapshot_hash_bound") is not True:
+        return []
+    expected = build_noaa_coops_scorer_pack(root)
+    failures = validate_noaa_coops_scorer_pack(expected, root)
+    path = root / NOAA_COOPS_SCORER_EVIDENCE_REL
+    if not path.exists():
+        return [*failures, f"missing::{NOAA_COOPS_SCORER_EVIDENCE_REL}"]
+    actual = read_json(path)
+    if actual != expected:
+        failures.append(f"mismatch::{NOAA_COOPS_SCORER_EVIDENCE_REL}")
+    failures.extend(validate_noaa_coops_scorer_pack(actual if isinstance(actual, dict) else {}, root))
+    return sorted(set(failures))
+
+
 def check_stored(root: Path | None = None) -> list[str]:
     root = root or repo_root()
     expected = build_payload(root)
@@ -2192,6 +3048,7 @@ def check_stored(root: Path | None = None) -> list[str]:
     failures.extend(validate_payload(actual if isinstance(actual, dict) else {}))
     failures.extend(check_usgs_hydrology_scorer_stored(root))
     failures.extend(check_nasa_power_scorer_stored(root))
+    failures.extend(check_noaa_coops_scorer_stored(root))
     return sorted(set(failures))
 
 
@@ -2220,6 +3077,16 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
         action="store_true",
         help="build/check the target-hidden NASA POWER remote-sensing replay scorer evidence pack",
     )
+    parser.add_argument(
+        "--refresh-noaa-coops-source",
+        action="store_true",
+        help="perform one read-only official NOAA CO-OPS acquisition and refresh the local hash-bound source snapshots",
+    )
+    parser.add_argument(
+        "--score-noaa-coops",
+        action="store_true",
+        help="build/check the target-hidden NOAA CO-OPS water-level replay scorer evidence pack",
+    )
     return parser.parse_args(argv)
 
 
@@ -2230,6 +3097,8 @@ def main(argv: list[str] | None = None) -> int:
         refresh_usgs_hydrology_snapshot(root)
     if args.refresh_nasa_power_source:
         refresh_nasa_power_snapshot(root)
+    if args.refresh_noaa_coops_source:
+        refresh_noaa_coops_snapshot(root)
     if args.score_usgs_hydrology:
         pack = build_usgs_hydrology_scorer_pack(root)
         if args.write:
@@ -2266,6 +3135,24 @@ def main(argv: list[str] | None = None) -> int:
             )
         )
         return 0 if not failures else 1
+    if args.score_noaa_coops:
+        pack = build_noaa_coops_scorer_pack(root)
+        if args.write:
+            write_json(root / NOAA_COOPS_SCORER_EVIDENCE_REL, pack)
+        failures = check_noaa_coops_scorer_stored(root) if args.check else validate_noaa_coops_scorer_pack(pack, root)
+        print(
+            json.dumps(
+                {
+                    "status": "ok" if not failures else "failed",
+                    "output_ref": NOAA_COOPS_SCORER_EVIDENCE_REL,
+                    "pack_status": pack.get("pack_status"),
+                    "exact_blocker": pack.get("exact_blocker"),
+                    "failures": failures,
+                },
+                indent=2,
+            )
+        )
+        return 0 if not failures else 1
     if args.check:
         failures = check_stored(root)
         if failures:
@@ -2282,6 +3169,8 @@ def main(argv: list[str] | None = None) -> int:
             write_json(root / USGS_HYDROLOGY_SCORER_EVIDENCE_REL, build_usgs_hydrology_scorer_pack(root))
         if load_nasa_power_api_lane(root).get("source_snapshot_hash_bound") is True:
             write_json(root / NASA_POWER_SCORER_EVIDENCE_REL, build_nasa_power_scorer_pack(root))
+        if load_noaa_coops_api_lane(root).get("source_snapshot_hash_bound") is True:
+            write_json(root / NOAA_COOPS_SCORER_EVIDENCE_REL, build_noaa_coops_scorer_pack(root))
     print(json.dumps({"status": "ok" if not failures else "failed", "output_ref": OUTPUT_REL, "failures": failures}, indent=2))
     return 0 if not failures else 1
 

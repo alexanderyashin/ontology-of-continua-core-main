@@ -16,7 +16,7 @@
   "work_order_total": 3,
   "coverage_closure_allowed": false,
   "broad_modern_science_superiority_allowed": false,
-  "official_api_hash_bound_lane_total": 2,
+  "official_api_hash_bound_lane_total": 3,
   "no_send_locks": {
     "no_send": true,
     "public_release_action_allowed": false,
@@ -35,9 +35,38 @@
       "domain_class_id": "earth_space_environmental_sciences",
       "phenomenon_class_id": "climate_weather_geophysical_time_series",
       "phenomenon_label": "climate weather geophysical time series",
-      "lane_status": "OPEN_FAIL_CLOSED_NO_EXECUTABLE_EVIDENCE",
+      "lane_status": "STRICT_EVIDENCE_PASS_NO_COVERAGE_CLOSURE",
       "coverage_closure_allowed": false,
       "support_allowed_for_broad_coverage": false,
+      "official_api_lane": {
+        "status": "SOURCE_SNAPSHOT_HASH_BOUND_STRICT_EVIDENCE_PASS_NO_COVERAGE_CLOSURE",
+        "official_endpoint_url": "https://api.tidesandcurrents.noaa.gov/api/prod/datagetter?begin_date=20240101&end_date=20240103&station=9414290&product=water_level&datum=MLLW&time_zone=gmt&units=metric&application=LogionOC133CoverageSpec&format=json",
+        "paired_official_endpoint_url": "https://api.tidesandcurrents.noaa.gov/api/prod/datagetter?begin_date=20240101&end_date=20240103&station=9414290&product=predictions&datum=MLLW&time_zone=gmt&units=metric&application=LogionOC133CoverageSpec&format=json&interval=6",
+        "water_level_snapshot_ref": "validation/heldout/grand_science/earth_space/coverage_work_orders/raw/noaa_coops_9414290_water_level_20240101_20240103.json",
+        "predictions_snapshot_ref": "validation/heldout/grand_science/earth_space/coverage_work_orders/raw/noaa_coops_9414290_predictions_20240101_20240103.json",
+        "snapshot_ref": "validation/heldout/grand_science/earth_space/coverage_work_orders/raw/noaa_coops_9414290_water_level_20240101_20240103.json",
+        "metadata_ref": "validation/heldout/grand_science/earth_space/coverage_work_orders/raw/noaa_coops_9414290_water_level_predictions_20240101_20240103.metadata.json",
+        "water_level_source_snapshot_sha256": "885e2548b5427c9a774e227839e998341ece9fdd1701917cc97b6e50d37100fc",
+        "predictions_source_snapshot_sha256": "d37db2c2fef8aed25a14399cf005b3ef0831b9e39ac877c16fba72d66527c845",
+        "source_snapshot_sha256": "90618bbf0362146439830cc52aaf81b120697bb224bf127025576b5587f902e9",
+        "metadata_sha256": "a825e8b515d60184fbc4c42ddb9d6179302421eb42a6fecc176f7418997144b6",
+        "water_level_byte_count": 53951,
+        "predictions_byte_count": 27302,
+        "water_level_row_count": 720,
+        "predictions_row_count": 720,
+        "value_row_count": 720,
+        "source_snapshot_hash_bound": true,
+        "scientific_pass": false,
+        "coverage_closure_allowed": false,
+        "remaining_blocker": "COVERAGE_REGISTER_REVIEW_NOT_PERFORMED",
+        "target_hidden_scorer_present": true,
+        "strict_evidence_pack_ref": "validation/heldout/grand_science/earth_space/coverage_work_orders/OC133_EARTH_SPACE_NOAA_COOPS_WATER_LEVEL_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
+        "strict_evidence_pack_sha256": "477d93e2a9b1551b51d9d891d2423c6466cbc78314234dc9b3f1cef90ef1a7c5",
+        "strict_scientific_predicates_pass": true,
+        "negative_control_rejected": true,
+        "falsifier_status": "NOT_TRIGGERED",
+        "scorer_status": "STRICT_EVIDENCE_PASS_NO_COVERAGE_CLOSURE"
+      },
       "executable_spec": {
         "official_source": {
           "source_id": "earth_noaa_coops_san_francisco_water_level_v1",
@@ -50,7 +79,7 @@
             "validation/heldout/grand_science/earth_space/coverage_work_orders/raw/noaa_coops_9414290_water_level_20240101_20240103.json",
             "validation/heldout/grand_science/earth_space/coverage_work_orders/raw/noaa_coops_9414290_predictions_20240101_20240103.json"
           ],
-          "snapshot_status": "NOT_ACQUIRED_FOR_THIS_COVERAGE_CLASS"
+          "snapshot_status": "SOURCE_SNAPSHOT_HASH_BOUND_STRICT_EVIDENCE_PASS_NO_COVERAGE_CLOSURE"
         },
         "target_variable": {
           "name": "observed_six_minute_water_level_mllw",
@@ -111,13 +140,15 @@
         },
         "N": {
           "minimum_n": 20,
+          "acquired_source_rows": 720,
           "planned_source_rows": 720,
           "planned_hidden_target_rows": 480,
           "unit": "six-minute water-level observations"
         },
         "replay_command": {
           "commands": [
-            "acquire NOAA CO-OPS water_level and predictions endpoints listed in this spec and hash response bytes",
+            "python validation/heldout/grand_science/earth_space/coverage_work_orders/oc133_earth_space_modern_science_coverage_work_orders.py --refresh-noaa-coops-source --write",
+            "python validation/heldout/grand_science/earth_space/coverage_work_orders/oc133_earth_space_modern_science_coverage_work_orders.py --score-noaa-coops --write",
             "python validation/heldout/grand_science/earth_space/coverage_work_orders/oc133_earth_space_modern_science_coverage_work_orders.py --check"
           ],
           "acceptance_predicates": [
@@ -136,16 +167,22 @@
           ]
         },
         "fail_closed_current_evidence": {
-          "current_status": "OPEN_FAIL_CLOSED_NO_EXECUTABLE_EVIDENCE",
-          "executable_evidence_exists": false,
-          "strict_evidence_pack_ref": null,
-          "source_snapshot_hash_bound": false,
-          "source_snapshot_ref": null,
-          "source_snapshot_sha256": null,
-          "reason": "NOAA source snapshots, target-hidden scorer, negative-control replay, and strict evidence pack are not yet bound.",
+          "current_status": "STRICT_EVIDENCE_PASS_NO_COVERAGE_CLOSURE",
+          "executable_evidence_exists": true,
+          "strict_evidence_pack_ref": "validation/heldout/grand_science/earth_space/coverage_work_orders/OC133_EARTH_SPACE_NOAA_COOPS_WATER_LEVEL_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
+          "strict_evidence_pack_sha256": "477d93e2a9b1551b51d9d891d2423c6466cbc78314234dc9b3f1cef90ef1a7c5",
+          "source_snapshot_hash_bound": true,
+          "source_snapshot_ref": "validation/heldout/grand_science/earth_space/coverage_work_orders/raw/noaa_coops_9414290_water_level_20240101_20240103.json",
+          "source_snapshot_sha256": "885e2548b5427c9a774e227839e998341ece9fdd1701917cc97b6e50d37100fc",
+          "target_hidden_scorer_present": true,
+          "comparator_residual_metric_bound": true,
+          "negative_control_rejected": true,
+          "falsifier_status": "NOT_TRIGGERED",
+          "exact_blocker": null,
+          "reason": "NOAA CO-OPS target-hidden scorer, comparator residual, negative-control, and replay hash are bound; coverage closure remains disabled pending coverage-register review.",
           "coverage_closure_allowed": false,
           "broad_modern_science_superiority_allowed": false,
-          "scientific_pass": false
+          "scientific_pass": true
         }
       },
       "no_send_locks": {
@@ -160,7 +197,7 @@
         "coverage_closure_allowed": false,
         "broad_modern_science_superiority_allowed": false
       },
-      "row_sha256": "ef22b73063fd1e94ad63ccc083849b4b6b3b102c8c5ae377cd05203eb3b6d4a1"
+      "row_sha256": "cf8ef395ca1695f2c141d7090ad82bcf42602d2b872a388a3440cb6b0be4d909"
     },
     {
       "work_order_id": "MS-COV-WO-011",
