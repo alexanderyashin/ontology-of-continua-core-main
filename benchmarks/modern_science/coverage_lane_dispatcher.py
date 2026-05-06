@@ -106,6 +106,10 @@ DOMAIN_LOCAL_MATERIALIZED_EVIDENCE_REFS = {
         "pharmacology_toxicology_and_dose_response",
     ): "validation/heldout/grand_science/medical_health/pharmacology_toxicology/OC133_OPENFDA_DRUG_EVENT_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
     (
+        "chemical_sciences",
+        "thermochemistry_and_phase_behavior",
+    ): "validation/heldout/grand_science/physics_chemistry/nist_webbook_thermo/OC133_NIST_WEBBOOK_THERMO_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
+    (
         "medical_health_sciences",
         "clinical_outcomes_and_biomarkers",
     ): "validation/heldout/grand_science/wdi/medical_clinical_life_expectancy/OC133_WDI_MEDICAL_CLINICAL_LIFE_EXPECTANCY_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",

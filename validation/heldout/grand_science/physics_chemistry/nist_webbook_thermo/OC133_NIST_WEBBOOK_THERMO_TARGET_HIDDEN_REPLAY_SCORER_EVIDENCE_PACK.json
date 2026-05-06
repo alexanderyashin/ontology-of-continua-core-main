@@ -1,0 +1,125 @@
+{
+  "schema_id": "OC133_NIST_WEBBOOK_THERMO_SCORING_PACK_v1",
+  "pack_status": "STRICT_EVIDENCE_PASS_NO_COVERAGE_CLOSURE",
+  "status": "STRICT_EVIDENCE_PASS_NO_COVERAGE_CLOSURE",
+  "domain_class_id": "chemical_sciences",
+  "phenomenon_class_id": "thermochemistry_and_phase_behavior",
+  "source_bound": true,
+  "target_hidden": true,
+  "score_materialized": true,
+  "scientific_pass": true,
+  "coverage_closure_allowed": false,
+  "support_allowed_for_broad_coverage": false,
+  "source_snapshot_ref": "validation/heldout/grand_science/physics_chemistry/nist_webbook_thermo/OC133_NIST_WEBBOOK_WATER_GAS_THERMO_SOURCE.html",
+  "source_snapshot_sha256": "a6350106415bfae45244af12807222891ffd3c397ed211aa62a65ed38fd44b53",
+  "source_lock_ref": "validation/heldout/grand_science/physics_chemistry/nist_webbook_thermo/OC133_NIST_WEBBOOK_WATER_GAS_THERMO_SOURCE.lock.json",
+  "visible_task_table_ref": "validation/heldout/grand_science/physics_chemistry/nist_webbook_thermo/OC133_NIST_WEBBOOK_THERMO_TARGET_HIDDEN_TASK_TABLE.json",
+  "hidden_target_lock_ref": "validation/heldout/grand_science/physics_chemistry/nist_webbook_thermo/OC133-NIST-WEBBOOK-THERMO-HIDDEN-TARGETS-0001.lock.json",
+  "row_count": 23,
+  "model": {
+    "model_id": "CHEM-NIST-SHOMATE-REPLAY-v1"
+  },
+  "comparator": {
+    "comparator_id": "CHEM-NIST-CONSTANT-LOWER-BOUND-THERMO-BASELINE-v1"
+  },
+  "residuals": {
+    "model": 0.0,
+    "comparator": 0.176219469986,
+    "negative_control": 0.31194298581,
+    "material_margin_met": true,
+    "material_margin_rule": "Shomate replay residual + 0.001 must be below the constant lower-bound baseline residual"
+  },
+  "negative_control": {
+    "control_id": "CHEM-NIST-SHOMATE-COEFFICIENT-SWAP-CONTROL-v1",
+    "negative_control_rejected": true
+  },
+  "falsifiers": [
+    "source lock hash is missing or stale",
+    "target thermochemistry values appear in visible task rows",
+    "Shomate replay residual is not below the preregistered baseline",
+    "coefficient-swap negative control is not worse than the model"
+  ],
+  "scored_rows_sha256": "6d01feddf6158443330b6ba838e2b77ebf74fc3f55d43bbf858ffe63fe777063",
+  "scored_rows_sample": [
+    {
+      "task_id": "NIST-WEBBOOK-WATER-GAS-THERMO-500K",
+      "temperature_K": 500,
+      "model_normalized_loss": 0.0,
+      "comparator_normalized_loss": 0.0,
+      "negative_control_normalized_loss": 0.132719504376,
+      "target_sha256": "5803b620de8dcefcdab16fb8bbeaa3abfeb0cfc2921826ad3efd0f130f0159d5"
+    },
+    {
+      "task_id": "NIST-WEBBOOK-WATER-GAS-THERMO-750K",
+      "temperature_K": 750,
+      "model_normalized_loss": 0.0,
+      "comparator_normalized_loss": 0.036284899103,
+      "negative_control_normalized_loss": 0.039379913003,
+      "target_sha256": "dc48de8bfd5792fdc562b71fd6285e27bea2d1791f7bf9d41c3a7ffec6f16e4f"
+    },
+    {
+      "task_id": "NIST-WEBBOOK-WATER-GAS-THERMO-1000K",
+      "temperature_K": 1000,
+      "model_normalized_loss": 0.0,
+      "comparator_normalized_loss": 0.070472706156,
+      "negative_control_normalized_loss": 0.012046883611,
+      "target_sha256": "8a27de931c676e1b02b466e9df68c1d5207c35a05f94d0f0688a5330d3d43d2f"
+    },
+    {
+      "task_id": "NIST-WEBBOOK-WATER-GAS-THERMO-1250K",
+      "temperature_K": 1250,
+      "model_normalized_loss": 0.0,
+      "comparator_normalized_loss": 0.103252534025,
+      "negative_control_normalized_loss": 0.003269912921,
+      "target_sha256": "d5e507fbb5f5b984593b4da608f33c65c3ec811f60ac3af118632d24de6e26bf"
+    },
+    {
+      "task_id": "NIST-WEBBOOK-WATER-GAS-THERMO-1500K",
+      "temperature_K": 1500,
+      "model_normalized_loss": 0.0,
+      "comparator_normalized_loss": 0.134424486811,
+      "negative_control_normalized_loss": 0.000745286484,
+      "target_sha256": "9cf766e7f6a48c192375cbc2337c179d6563e19b229ab6ee3ec9688d2a2c09dc"
+    },
+    {
+      "task_id": "NIST-WEBBOOK-WATER-GAS-THERMO-1750K",
+      "temperature_K": 1750,
+      "model_normalized_loss": 0.0,
+      "comparator_normalized_loss": 0.005757095849,
+      "negative_control_normalized_loss": 0.000153268305,
+      "target_sha256": "7be8c175ee331c204b8177f04d9c1d392ddc5ceb719547bb237449bbb36ce90b"
+    },
+    {
+      "task_id": "NIST-WEBBOOK-WATER-GAS-THERMO-2000K",
+      "temperature_K": 2000,
+      "model_normalized_loss": 0.0,
+      "comparator_normalized_loss": 0.033402454846,
+      "negative_control_normalized_loss": 0.001865807968,
+      "target_sha256": "706f7b59b9e6bee042208b0b4e2952c8a3735f7d599bc6056d684811977bcb81"
+    },
+    {
+      "task_id": "NIST-WEBBOOK-WATER-GAS-THERMO-2250K",
+      "temperature_K": 2250,
+      "model_normalized_loss": 0.0,
+      "comparator_normalized_loss": 0.059572171589,
+      "negative_control_normalized_loss": 0.006126064095,
+      "target_sha256": "498bbba2606952ddbb1d66d3afc8d47eb71db8266d853d39f45c8c2097e76cf2"
+    },
+    {
+      "task_id": "NIST-WEBBOOK-WATER-GAS-THERMO-2500K",
+      "temperature_K": 2500,
+      "model_normalized_loss": 0.0,
+      "comparator_normalized_loss": 0.084648756593,
+      "negative_control_normalized_loss": 0.014405189765,
+      "target_sha256": "e2cabfc1f8747c841001e8ebb7743f6a210bd16b3f5936e56b9f62c41c9492ee"
+    },
+    {
+      "task_id": "NIST-WEBBOOK-WATER-GAS-THERMO-2750K",
+      "temperature_K": 2750,
+      "model_normalized_loss": 0.0,
+      "comparator_normalized_loss": 0.108871939551,
+      "negative_control_normalized_loss": 0.028135668199,
+      "target_sha256": "20df852a163ebc7edcf38e8c88b92b6f18eb0daeb4f5892c236b88348b4b50b6"
+    }
+  ]
+}

@@ -2079,6 +2079,14 @@ OPENFDA_PHARMACOLOGY_EVIDENCE_REF = (
     "validation/heldout/grand_science/medical_health/pharmacology_toxicology/"
     "OC133_OPENFDA_DRUG_EVENT_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json"
 )
+NIST_WEBBOOK_THERMO_MATERIALIZER = (
+    "validation/heldout/grand_science/physics_chemistry/nist_webbook_thermo/"
+    "oc133_nist_webbook_thermo_materializer.py"
+)
+NIST_WEBBOOK_THERMO_EVIDENCE_REF = (
+    "validation/heldout/grand_science/physics_chemistry/nist_webbook_thermo/"
+    "OC133_NIST_WEBBOOK_THERMO_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json"
+)
 WDI_INDICATOR_MATERIALIZER = (
     "validation/heldout/grand_science/wdi/coverage_work_orders/"
     "oc133_wdi_indicator_materializer.py"
@@ -2711,6 +2719,38 @@ COMPARATOR_DOMAIN_IMPLEMENTED_COMMANDS[
     [sys.executable, OPENFDA_PHARMACOLOGY_MATERIALIZER, "--acquire", "--write-acquisition"],
     [sys.executable, OPENFDA_PHARMACOLOGY_MATERIALIZER, "--score", "--write-scoring"],
     [sys.executable, OPENFDA_PHARMACOLOGY_MATERIALIZER, "--check"],
+]
+
+for _nist_thermo_subartifact in (
+    "target_hidden_task_table",
+    "oc_formula_or_model",
+    "incumbent_comparator_scoring",
+    "residuals_materiality_uncertainty",
+    "controls_and_falsifiers",
+    "independent_replay",
+    "strict_evidence_pack_diagnosis",
+    "model_or_claim_repair_decision",
+):
+    COMPARATOR_DOMAIN_IMPLEMENTED_COMMANDS[
+        (
+            "chemical_sciences",
+            "thermochemistry_and_phase_behavior",
+            _nist_thermo_subartifact,
+        )
+    ] = [
+        [sys.executable, NIST_WEBBOOK_THERMO_MATERIALIZER, "--score", "--write-scoring"],
+        [sys.executable, NIST_WEBBOOK_THERMO_MATERIALIZER, "--check"],
+    ]
+COMPARATOR_DOMAIN_IMPLEMENTED_COMMANDS[
+    (
+        "chemical_sciences",
+        "thermochemistry_and_phase_behavior",
+        "source_snapshot_acquisition",
+    )
+] = [
+    [sys.executable, NIST_WEBBOOK_THERMO_MATERIALIZER, "--acquire", "--write-acquisition"],
+    [sys.executable, NIST_WEBBOOK_THERMO_MATERIALIZER, "--score", "--write-scoring"],
+    [sys.executable, NIST_WEBBOOK_THERMO_MATERIALIZER, "--check"],
 ]
 
 for (_wdi_domain, _wdi_phenomenon), (_wdi_lane, _wdi_ref) in WDI_INDICATOR_MATERIALIZED_LANES.items():
@@ -3434,6 +3474,10 @@ COMPARATOR_DOMAIN_MATERIALIZED_EVIDENCE_REFS = {
         "medical_health_sciences",
         "pharmacology_toxicology_and_dose_response",
     ): OPENFDA_PHARMACOLOGY_EVIDENCE_REF,
+    (
+        "chemical_sciences",
+        "thermochemistry_and_phase_behavior",
+    ): NIST_WEBBOOK_THERMO_EVIDENCE_REF,
     **{
         key: evidence_ref
         for key, (_lane_id, evidence_ref) in WDI_INDICATOR_MATERIALIZED_LANES.items()
