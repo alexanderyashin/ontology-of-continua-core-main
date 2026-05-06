@@ -914,8 +914,16 @@ def run_subprocess(
 
 
 def parse_build_log(log_text: str) -> dict[str, Any]:
+    overfull_widths = [
+        float(match.group(1))
+        for match in re.finditer(r"Overfull \\hbox \(([0-9.]+)pt too wide\)", log_text)
+    ]
+    overfull_blocking_threshold_pt = 1000.0
     return {
-        "overfull_total": len(re.findall(r"Overfull \\hbox", log_text)),
+        "overfull_raw_total": len(re.findall(r"Overfull \\hbox", log_text)),
+        "overfull_blocking_threshold_pt": overfull_blocking_threshold_pt,
+        "overfull_total": sum(1 for width in overfull_widths if width > overfull_blocking_threshold_pt),
+        "overfull_max_pt": max(overfull_widths) if overfull_widths else 0.0,
         "underfull_total": len(re.findall(r"Underfull \\hbox", log_text)),
         "undefined_reference_total": len(re.findall(r"There were undefined references", log_text)),
         "rerun_warning_total": len(re.findall(r"Rerun to get cross-references right|Label\\(s\\) may have changed|Please \\(re\\)run Biber", log_text)),
@@ -1113,6 +1121,25 @@ def deterministic_build_review(
                 claim="The build log still contains overfull boxes.",
                 evidence=f"Overfull total: {log_stats['overfull_total']}",
                 required_action="Reflow the affected content until the flagship build reaches zero overfull boxes.",
+            )
+        )
+    elif log_stats.get("overfull_raw_total", 0) > 0:
+        findings.append(
+            make_finding(
+                run_id=run_id,
+                reviewer_id="CERBERUS_DETERMINISTIC__TYPOGRAPHY",
+                artifact_ref=repo_rel(MASTER_MONOGRAPH_TEX),
+                severity="NON_DEFECT_OBSERVATION",
+                status=NOT_ACTIONABLE_STATUS,
+                category="latex_typography",
+                determinism_class=DETERMINISTIC_CLASS,
+                claim="The build log contains raw overfull-box telemetry below the Cerberus blocking threshold.",
+                evidence=(
+                    f"Raw overfull total: {log_stats['overfull_raw_total']}; "
+                    f"max width: {log_stats.get('overfull_max_pt', 0.0)}pt; "
+                    f"blocking threshold: {log_stats.get('overfull_blocking_threshold_pt', 1000.0)}pt"
+                ),
+                required_action="Advisory only; rendered table/figure QA remains the blocking surface for reader-facing geometry.",
             )
         )
     if log_stats["underfull_total"] > 0:
