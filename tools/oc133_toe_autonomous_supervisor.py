@@ -2239,7 +2239,6 @@ def run_supervisor(root: Path, args: argparse.Namespace) -> dict[str, dict[str, 
     if args.commit_checkpoints and args.write:
         commit_rows.append(commit_checkpoint(root))
         outputs[SUPERVISOR_DIR / COMMIT_LEDGER_NAME] = build_commit_ledger(commit_rows)
-        write_json(root, SUPERVISOR_DIR / COMMIT_LEDGER_NAME, outputs[SUPERVISOR_DIR / COMMIT_LEDGER_NAME])
     return outputs
 
 
