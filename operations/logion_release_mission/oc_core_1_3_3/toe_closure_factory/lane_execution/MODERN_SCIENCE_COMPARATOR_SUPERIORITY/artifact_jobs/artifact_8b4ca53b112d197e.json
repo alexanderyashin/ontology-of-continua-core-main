@@ -1,9 +1,9 @@
 {
-  "artifact_hash": "a4d8013c35ed8174b790db3ee5248ab9e02df87ec707ea622512255968f98769",
+  "artifact_hash": "acded3670e17f4b5743bbda234b74f1c7fc4b58ad186cd29630e6a3602f26fb7",
   "artifact_key": "benchmark_case",
   "artifact_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/artifact_jobs/artifact_8b4ca53b112d197e.json",
   "domain_class_id": "medical_health_sciences",
-  "executable_spec_found": false,
+  "executable_spec_found": true,
   "execution_command": [
     "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
     "tools/oc133_toe_closure_factory.py",
@@ -32,29 +32,23 @@
   "research_artifact_scope": "target/benchmark case preregistered; no target result credit counted here",
   "research_artifact_status": "PASS",
   "schema_id": "OC133_MODERN_SCIENCE_COMPARATOR_GAP_ARTIFACT_EXECUTION_v1",
-  "source_block": [
-    {
-      "lane_role": "source_capsule",
-      "requirement": "Add authoritative source capsule(s) or an internally declared formal target corpus with stable hashes."
-    },
-    {
-      "lane_role": "target_acquisition",
-      "requirement": "Acquire target-blind or prospective targets with pre-target lock and target-hidden-until-scoring attestation."
-    },
-    {
-      "lane_role": "incumbent_comparator",
-      "requirement": "Declare preregistered modern-science comparator baselines and score them on the same held-out targets."
-    },
-    {
-      "lane_role": "oc_scoring",
-      "requirement": "Score OC predictions with residuals, uncertainty interval, materiality threshold, and pack hash binding."
-    }
-  ],
+  "source_block": {
+    "extraction_rule": "Lock source snapshots by reporting week, hide future regional risk-change labels, and score only against the held-out temporal slice.",
+    "name": "held_out_transmission_risk_change_by_region_and_week",
+    "target_fields": [
+      "case_month",
+      "res_state",
+      "age_group",
+      "sex",
+      "case_positive_specimen_interval"
+    ],
+    "unit": "weekly regional risk-change class"
+  },
   "source_refs": [
     "reports/OC_CORE_1_3_3_MODERN_SCIENCE_COVERAGE_LANE_QUEUE.json",
     "benchmarks/modern_science/OC133_MODERN_SCIENCE_COVERAGE_WORK_ORDERS.json",
     "comparators/modern_science/OC133_MODERN_SCIENCE_COVERAGE_REGISTER.json"
   ],
   "status": "PASS",
-  "why_it_failed": "Comparator gap `MS-COV-GAP-MEDICAL_HEALTH_SCIENCES-EPIDEMIOLOGICAL_TRANSMISSION_AND_RISK` lacks `benchmark_case`; no broad-superiority credit is awarded."
+  "why_it_failed": "Comparator gap `MS-COV-GAP-MEDICAL_HEALTH_SCIENCES-EPIDEMIOLOGICAL_TRANSMISSION_AND_RISK` already has `benchmark_case`."
 }

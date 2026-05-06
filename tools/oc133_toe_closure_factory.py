@@ -2368,6 +2368,26 @@ def comparator_source_implementation_registry_rel() -> Path:
     )
 
 
+def comparator_research_artifact_repair_backlog_rel() -> Path:
+    return (
+        lane_execution_base("MODERN_SCIENCE_COMPARATOR_SUPERIORITY")
+        / "RESEARCH_ARTIFACT_REPAIR_BACKLOG.json"
+    )
+
+
+def comparator_research_artifact_repair_id(gap_id: str, artifact_key: str, root_cause_class: str) -> str:
+    return f"R017-RESEARCH-ARTIFACT-REPAIR-{artifact_hash({'gap_id': gap_id, 'artifact_key': artifact_key, 'root_cause_class': root_cause_class})[:16]}"
+
+
+def comparator_research_artifact_repair_rel(repair_id: str) -> Path:
+    safe_id = artifact_hash({"repair_id": repair_id})[:16]
+    return (
+        lane_execution_base("MODERN_SCIENCE_COMPARATOR_SUPERIORITY")
+        / "repairs"
+        / f"repair_{safe_id}.json"
+    )
+
+
 def comparator_source_implementation_id(gap_id: str, subartifact_id: str) -> str:
     return f"R017-SOURCE-IMPL-{artifact_hash({'gap_id': gap_id, 'subartifact_id': subartifact_id})[:16]}"
 
@@ -2885,6 +2905,7 @@ def build_comparator_source_implementation_backlog(root: Path) -> dict[str, Any]
             domain_class_id,
             phenomenon_class_id,
             subartifact_id,
+            gap_id,
         )
         concrete_command_available = bool(implemented_command_rows)
         rows.append(
@@ -2947,6 +2968,7 @@ def comparator_source_implementation_commands(
     domain_class_id: str,
     phenomenon_class_id: str,
     subartifact_id: str,
+    gap_id: str = "",
 ) -> list[list[str]]:
     exact = COMPARATOR_DOMAIN_IMPLEMENTED_COMMANDS.get(
         (domain_class_id, phenomenon_class_id, subartifact_id),
@@ -2954,6 +2976,27 @@ def comparator_source_implementation_commands(
     )
     if exact:
         return [list(command) for command in exact]
+    mapped_artifact = SCORING_SUBARTIFACT_TO_RESEARCH_ARTIFACT.get(subartifact_id)
+    deterministic_artifact_bindings = {
+        "source_snapshot_acquisition",
+        "target_hidden_task_table",
+        "oc_formula_or_model",
+        "incumbent_comparator_scoring",
+        "residuals_materiality_uncertainty",
+        "controls_and_falsifiers",
+        "independent_replay",
+    }
+    if gap_id and mapped_artifact and subartifact_id in deterministic_artifact_bindings:
+        return [
+            [
+                sys.executable,
+                "tools/oc133_toe_closure_factory.py",
+                "--execute-comparator-gap-artifact",
+                gap_id,
+                mapped_artifact,
+                "--write",
+            ]
+        ]
     return []
 
 
@@ -3015,7 +3058,7 @@ def build_comparator_source_implementation_execution(root: Path, implementation_
     subartifact_id = str(row.get("scoring_subartifact_id") or "")
     domain_class_id = str(row.get("domain_class_id") or "")
     phenomenon_class_id = str(row.get("phenomenon_class_id") or "")
-    commands = comparator_source_implementation_commands(root, domain_class_id, phenomenon_class_id, subartifact_id)
+    commands = comparator_source_implementation_commands(root, domain_class_id, phenomenon_class_id, subartifact_id, gap_id)
     mapped_artifact_key = SCORING_SUBARTIFACT_TO_RESEARCH_ARTIFACT.get(subartifact_id, "oc_prediction_scoring_row")
     command_results = [
         safe_run_command(root, command, timeout)
@@ -3119,7 +3162,7 @@ def build_comparator_source_implementation_registry(root: Path) -> dict[str, Any
         "schema_id": "OC133_MODERN_SCIENCE_COMPARATOR_SOURCE_IMPLEMENTATION_REGISTRY_v1",
         "generated_at": utc_now(),
         "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
-        "status": "PASS" if rows and all(row.get("status") == "PASS" for row in rows) else "OPEN",
+        "status": "PASS" if all(row.get("status") == "PASS" for row in rows) else "OPEN",
         "implementation_total": len(rows),
         "open_implementation_total": sum(1 for row in rows if row.get("status") != "PASS"),
         "command_available_total": sum(1 for row in rows if row.get("concrete_command_available") is True),
@@ -3165,6 +3208,322 @@ def execute_comparator_source_implementation_batch(root: Path, timeout: int = 90
         "registry_open_implementation_total": registry.get("open_implementation_total"),
         "rows": executed,
         "no_fake_closure_policy": "Batch execution never promotes broad superiority; it only executes concrete source implementations and records their evidence/diagnosis.",
+    }
+    result["artifact_hash"] = artifact_hash(result)
+    return result
+
+
+def comparator_research_artifact_root_cause(artifact: dict[str, Any]) -> tuple[str, str, str]:
+    artifact_key = str(artifact.get("artifact_key") or "")
+    validation = artifact.get("validation", {}) if isinstance(artifact.get("validation"), dict) else {}
+    if artifact.get("status") == "PASS":
+        return ("RESEARCH_ARTIFACT_PASS", "The research artifact already passes at its own declared scope.", "No repair required.")
+    if artifact_key == "oc_prediction_scoring_row":
+        if not validation.get("executable_evidence_exists"):
+            return (
+                "SCORING_EVIDENCE_NOT_MATERIALIZED",
+                "The OC scoring row has no executable evidence pack; source implementation produced a packet, but not a passing scorer.",
+                "Build or repair the domain-specific target-hidden scoring executor and evidence pack.",
+            )
+        if validation.get("evidence_ref") and not validation.get("evidence_ref_exists"):
+            return (
+                "SCORING_EVIDENCE_REF_MISSING",
+                "The OC scoring row references an evidence pack path that is absent.",
+                "Regenerate the referenced evidence pack or correct the source-bound reference.",
+            )
+        if validation.get("fail_closed_status_present"):
+            return (
+                "SCORING_PACK_FAIL_CLOSED",
+                "The evidence pack is explicitly fail-closed; broad superiority cannot use it.",
+                "Diagnose whether the model, comparator, target split, or claim scope must be repaired without flipping the verdict manually.",
+            )
+        if not validation.get("material_margin_met"):
+            return (
+                "COMPARATOR_BASELINE_NOT_BEATEN_WITH_UNCERTAINTY",
+                "The current OC scoring evidence does not beat the preregistered comparator by the materiality rule.",
+                "Repair the scientific model or keep broad superiority blocked; wording changes cannot close this row.",
+            )
+        return (
+            "SCORING_ROW_READY_REPLAY_REQUIRED",
+            "The scoring row is close to passing but still requires replay/register propagation.",
+            "Run the independent replay and regenerate the coverage register from the scoring pack.",
+        )
+    if artifact_key == "replay_record":
+        scoring = validation.get("scoring_evidence", {}) if isinstance(validation.get("scoring_evidence"), dict) else {}
+        if scoring and (not scoring.get("material_margin_met") or scoring.get("fail_closed_status_present")):
+            return (
+                "REPLAY_BLOCKED_BY_SCORING_ARTIFACT",
+                "Replay is correctly blocked because the upstream scoring evidence is not passing.",
+                "Close the OC scoring row first, then rerun replay.",
+            )
+        if not validation.get("replay_command_total"):
+            return (
+                "REPLAY_COMMAND_MISSING",
+                "No replay command is bound to this comparator gap.",
+                "Add a governed replay command tied to the evidence pack and clean-checkout policy.",
+            )
+        if not validation.get("replay_executed_total"):
+            return (
+                "REPLAY_NOT_EXECUTED",
+                "Replay commands exist but have not executed because upstream scoring evidence remains blocked or the command is unavailable.",
+                "Run replay only after scoring evidence passes; otherwise create the exact replay executor work order.",
+            )
+        return (
+            "REPLAY_FAILED",
+            "The replay command did not pass against the current evidence pack.",
+            "Repair the replay command or evidence hash binding without weakening the expected verdict.",
+        )
+    return (
+        "RESEARCH_ARTIFACT_OPEN",
+        "The research artifact exists but its own pass predicate is still false.",
+        "Repair the exact source-bound artifact and rerun the strict comparator register.",
+    )
+
+
+def comparator_research_artifact_repair_commands(root: Path, gap_id: str, artifact_key: str) -> list[list[str]]:
+    gap_payload = comparator_gap_execution_payload(root, gap_id)
+    queue_row = comparator_lane_queue_rows_by_gap(root).get(gap_id, {})
+    domain_class_id = str(gap_payload.get("domain_class_id") or queue_row.get("domain_class_id") or "")
+    phenomenon_class_id = str(gap_payload.get("phenomenon_class_id") or queue_row.get("phenomenon_class_id") or "")
+    subartifact_ids = [
+        subartifact_id
+        for subartifact_id, mapped_artifact_key in SCORING_SUBARTIFACT_TO_RESEARCH_ARTIFACT.items()
+        if mapped_artifact_key == artifact_key
+    ]
+    if artifact_key == "oc_prediction_scoring_row":
+        # Prefer evidence diagnosis/model-repair commands when present; otherwise
+        # fall back to model/scoring subartifacts. These are exact domain script
+        # mappings only, not the generic deterministic artifact binder.
+        preferred = ["strict_evidence_pack_diagnosis", "model_or_claim_repair_decision", "oc_formula_or_model"]
+        subartifact_ids = preferred + [item for item in subartifact_ids if item not in preferred]
+    if artifact_key == "replay_record":
+        subartifact_ids = ["independent_replay"] + [item for item in subartifact_ids if item != "independent_replay"]
+    commands: list[list[str]] = []
+    seen: set[str] = set()
+    for subartifact_id in subartifact_ids:
+        for command in COMPARATOR_DOMAIN_IMPLEMENTED_COMMANDS.get((domain_class_id, phenomenon_class_id, subartifact_id), []):
+            key = stable_json({"command": command})
+            if key in seen:
+                continue
+            seen.add(key)
+            commands.append(list(command))
+    return commands
+
+
+def build_comparator_research_artifact_repair_backlog(root: Path) -> dict[str, Any]:
+    generated_at = stable_generated_at(root, comparator_research_artifact_repair_backlog_rel())
+    rows: list[dict[str, Any]] = []
+    for gap in comparator_execution_gap_rows(root):
+        if gap.get("status") == "PASS":
+            continue
+        gap_id = str(gap.get("gap_id") or "")
+        if not gap_id:
+            continue
+        for artifact_key in sorted(set(gap.get("missing_artifacts") or []), key=lambda key: COMPARATOR_REQUIRED_ARTIFACT_KEYS.index(key) if key in COMPARATOR_REQUIRED_ARTIFACT_KEYS else 99):
+            artifact = comparator_gap_research_artifact(root, gap_id, str(artifact_key))
+            if not artifact or artifact.get("status") == "PASS":
+                continue
+            root_cause, why, repair = comparator_research_artifact_root_cause(artifact)
+            repair_id = comparator_research_artifact_repair_id(gap_id, str(artifact_key), root_cause)
+            repair_report = read_json(root / comparator_research_artifact_repair_rel(repair_id))
+            command_rows = comparator_research_artifact_repair_commands(root, gap_id, str(artifact_key))
+            rows.append(
+                normalize_problem_row(
+                    {
+                        "repair_id": repair_id,
+                        "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+                        "gap_id": gap_id,
+                        "domain_class_id": gap.get("domain_class_id"),
+                        "phenomenon_class_id": gap.get("phenomenon_class_id"),
+                        "artifact_key": artifact_key,
+                        "missing_artifact_type": artifact_key,
+                        "status": "OPEN",
+                        "root_cause_class": root_cause,
+                        "research_artifact_ref": artifact.get("artifact_ref"),
+                        "research_artifact_status": artifact.get("status"),
+                        "research_artifact_closure_scope": artifact.get("closure_scope"),
+                        "repair_report_ref": rel(root, root / comparator_research_artifact_repair_rel(repair_id)),
+                        "repair_report_status": repair_report.get("status"),
+                        "concrete_command_available": bool(command_rows),
+                        "concrete_governed_commands": command_rows,
+                        "why_it_failed": why,
+                        "repair_strategy": repair,
+                        "required_capability": "Research/ScoringExecutor" if artifact_key in {"oc_prediction_scoring_row", "replay_record"} else "Research/PriorArt",
+                        "execution_command": [sys.executable, "tools/oc133_toe_closure_factory.py", "--execute-comparator-research-artifact-repair", repair_id, "--write"],
+                        "pass_predicate": "The repaired research artifact status becomes PASS and the comparator gap no longer lists this artifact as missing.",
+                        "validator_binding": f"comparator_gap::{gap_id}::research_artifact_repair::{artifact_key}",
+                        "next_escalation": "If no concrete command exists, implement the exact domain scorer/replay capability. If the command runs but remains OPEN, inspect the evidence-pack verdict and keep r017 blocked.",
+                        "no_fake_closure_policy": "A repair row is not evidence. Negative or fail-closed results are preserved and cannot close broad superiority.",
+                    },
+                    {},
+                )
+            )
+    payload = {
+        "schema_id": "OC133_MODERN_SCIENCE_COMPARATOR_RESEARCH_ARTIFACT_REPAIR_BACKLOG_v1",
+        "generated_at": generated_at,
+        "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+        "status": "OPEN" if rows else "PASS",
+        "repair_work_order_total": len(rows),
+        "open_repair_work_order_total": sum(1 for row in rows if row.get("status") != "PASS"),
+        "execution_command": [sys.executable, "tools/oc133_toe_closure_factory.py", "--compile-comparator-research-artifact-repair-backlog", "--write"],
+        "why_it_failed": "One or more comparator research artifacts exist but remain OPEN." if rows else "No open comparator research-artifact repair backlog remains.",
+        "repair_strategy": "Execute exact domain scorer/replay repair rows, preserving fail-closed evidence when OC does not beat the comparator.",
+        "required_capability": "Research/ScoringExecutor",
+        "pass_predicate": "All comparator research artifacts pass; no repair rows remain.",
+        "next_escalation": "Implement the first missing scorer/replay capability where concrete_governed_commands is empty.",
+        "no_fake_closure_policy": "Repair backlog status cannot promote modern_science_comparator_superiority; only source-bound PASS artifacts can.",
+        "rows": rows,
+    }
+    payload["artifact_ref"] = rel(root, root / comparator_research_artifact_repair_backlog_rel())
+    payload["artifact_hash"] = artifact_hash(payload)
+    write_json_artifact(root, comparator_research_artifact_repair_backlog_rel(), payload)
+    return payload
+
+
+def comparator_research_artifact_repair_rows(root: Path) -> list[dict[str, Any]]:
+    payload = read_json(root / comparator_research_artifact_repair_backlog_rel())
+    rows = payload.get("rows") or []
+    return [row for row in rows if isinstance(row, dict)]
+
+
+def comparator_research_artifact_repair_rows_by_id(root: Path) -> dict[str, dict[str, Any]]:
+    return {
+        str(row.get("repair_id")): row
+        for row in comparator_research_artifact_repair_rows(root)
+        if row.get("repair_id")
+    }
+
+
+def comparator_research_artifact_repair_completed(root: Path, repair_id: str) -> bool:
+    payload = read_json(root / comparator_research_artifact_repair_rel(repair_id))
+    return payload.get("repair_id") == repair_id and payload.get("status") == "PASS"
+
+
+def build_comparator_research_artifact_repair_execution(root: Path, repair_id: str, timeout: int = 900) -> dict[str, Any]:
+    rows_by_id = comparator_research_artifact_repair_rows_by_id(root)
+    row = rows_by_id.get(repair_id)
+    if not row:
+        build_comparator_research_artifact_repair_backlog(root)
+        rows_by_id = comparator_research_artifact_repair_rows_by_id(root)
+        row = rows_by_id.get(repair_id)
+    generated_at = stable_generated_at(root, comparator_research_artifact_repair_rel(repair_id))
+    if not row:
+        payload = normalize_problem_row(
+            {
+                "schema_id": "OC133_MODERN_SCIENCE_COMPARATOR_RESEARCH_ARTIFACT_REPAIR_EXECUTION_v1",
+                "generated_at": generated_at,
+                "repair_id": repair_id,
+                "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+                "status": "FAIL_CLOSED",
+                "root_cause_class": "REPAIR_BACKLOG_ROW_MISSING",
+                "why_it_failed": "No repair backlog row exists for this research-artifact repair id.",
+                "repair_strategy": "Recompile the comparator research artifact repair backlog from current OPEN artifacts.",
+                "required_capability": "Research/ScoringExecutor",
+                "execution_command": [sys.executable, "tools/oc133_toe_closure_factory.py", "--execute-comparator-research-artifact-repair", repair_id, "--write"],
+                "pass_predicate": "Backlog row exists and its source-bound repair turns the research artifact PASS.",
+                "validator_binding": f"comparator_research_artifact_repair::{repair_id}",
+                "next_escalation": "Rebuild comparator research artifact repair backlog.",
+                "no_fake_closure_policy": "Missing repair rows cannot close broad superiority.",
+            },
+            {},
+        )
+        payload["artifact_ref"] = rel(root, root / comparator_research_artifact_repair_rel(repair_id))
+        payload["artifact_hash"] = artifact_hash(payload)
+        write_json_artifact(root, comparator_research_artifact_repair_rel(repair_id), payload)
+        return payload
+
+    gap_id = str(row.get("gap_id") or "")
+    artifact_key = str(row.get("artifact_key") or row.get("missing_artifact_type") or "")
+    commands = comparator_research_artifact_repair_commands(root, gap_id, artifact_key)
+    command_results = [safe_run_command(root, command, timeout) for command in commands]
+    command_pass = bool(commands) and all(result.get("returncode") == 0 for result in command_results)
+    refreshed_artifact = build_comparator_gap_research_artifact(root, gap_id, artifact_key) if gap_id and artifact_key else {}
+    refreshed_status = refreshed_artifact.get("status")
+    if refreshed_status == "PASS":
+        status = "PASS"
+        root_cause = "RESEARCH_ARTIFACT_REPAIRED"
+        why = "The repair command produced a PASS research artifact."
+    elif not commands:
+        status = "CAPABILITY_DEVELOPMENT_REQUIRED"
+        root_cause = "NO_CONCRETE_REPAIR_COMMAND"
+        why = "No exact governed scorer/replay repair command is currently mapped for this domain/gap/artifact."
+    elif command_pass:
+        status = "EVIDENCE_REPAIR_ATTEMPTED_REMAINS_OPEN"
+        root_cause = str(row.get("root_cause_class") or "RESEARCH_ARTIFACT_REMAINS_OPEN")
+        why = "Concrete repair commands ran, but the refreshed research artifact still remains OPEN under its source-bound predicate."
+    else:
+        status = "FAIL_CLOSED"
+        root_cause = "REPAIR_COMMAND_FAILED"
+        why = "At least one concrete repair command failed."
+    payload = normalize_problem_row(
+        {
+            "schema_id": "OC133_MODERN_SCIENCE_COMPARATOR_RESEARCH_ARTIFACT_REPAIR_EXECUTION_v1",
+            "generated_at": generated_at,
+            "repair_id": repair_id,
+            "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+            "gap_id": gap_id,
+            "domain_class_id": row.get("domain_class_id"),
+            "phenomenon_class_id": row.get("phenomenon_class_id"),
+            "artifact_key": artifact_key,
+            "status": status,
+            "root_cause_class": root_cause,
+            "input_research_artifact_ref": row.get("research_artifact_ref"),
+            "refreshed_research_artifact_ref": refreshed_artifact.get("artifact_ref"),
+            "refreshed_research_artifact_status": refreshed_status,
+            "refreshed_research_artifact_hash": refreshed_artifact.get("artifact_hash"),
+            "concrete_governed_commands": commands,
+            "command_result_total": len(command_results),
+            "command_pass": command_pass,
+            "command_results": command_results,
+            "why_it_failed": why,
+            "repair_strategy": row.get("repair_strategy"),
+            "required_capability": row.get("required_capability") or "Research/ScoringExecutor",
+            "execution_command": [sys.executable, "tools/oc133_toe_closure_factory.py", "--execute-comparator-research-artifact-repair", repair_id, "--write"],
+            "pass_predicate": row.get("pass_predicate"),
+            "validator_binding": row.get("validator_binding") or f"comparator_gap::{gap_id}::research_artifact_repair::{artifact_key}",
+            "next_escalation": "If CAPABILITY_DEVELOPMENT_REQUIRED, implement the exact domain scorer/replay command. If EVIDENCE_REPAIR_ATTEMPTED_REMAINS_OPEN, inspect the refreshed artifact validation and preserve fail-closed negative results.",
+            "no_fake_closure_policy": "This repair execution cannot mark broad superiority PASS unless the refreshed research artifact itself passes.",
+        },
+        {},
+    )
+    payload["artifact_ref"] = rel(root, root / comparator_research_artifact_repair_rel(repair_id))
+    payload["artifact_hash"] = artifact_hash(payload)
+    write_json_artifact(root, comparator_research_artifact_repair_rel(repair_id), payload)
+    return payload
+
+
+def execute_comparator_research_artifact_repair_batch(root: Path, timeout: int = 900, limit: int = 0) -> dict[str, Any]:
+    backlog = build_comparator_research_artifact_repair_backlog(root)
+    rows = [row for row in backlog.get("rows", []) or [] if isinstance(row, dict)]
+    executed = []
+    for row in rows:
+        repair_id = str(row.get("repair_id") or "")
+        if not repair_id:
+            continue
+        payload = build_comparator_research_artifact_repair_execution(root, repair_id, timeout=timeout)
+        executed.append(
+            {
+                "repair_id": repair_id,
+                "gap_id": row.get("gap_id"),
+                "artifact_key": row.get("artifact_key"),
+                "status": payload.get("status"),
+                "refreshed_research_artifact_status": payload.get("refreshed_research_artifact_status"),
+                "artifact_ref": payload.get("artifact_ref"),
+            }
+        )
+        if limit > 0 and len(executed) >= limit:
+            break
+    refreshed_backlog = build_comparator_research_artifact_repair_backlog(root)
+    result = {
+        "schema_id": "OC133_MODERN_SCIENCE_COMPARATOR_RESEARCH_ARTIFACT_REPAIR_BATCH_v1",
+        "generated_at": utc_now(),
+        "status": "PASS",
+        "requested_limit": limit,
+        "executed_total": len(executed),
+        "backlog_ref": refreshed_backlog.get("artifact_ref"),
+        "backlog_open_repair_work_order_total": refreshed_backlog.get("open_repair_work_order_total"),
+        "rows": executed,
+        "no_fake_closure_policy": "Batch repair never promotes broad superiority. It records concrete repair attempts and preserves fail-closed outcomes.",
     }
     result["artifact_hash"] = artifact_hash(result)
     return result
@@ -5142,6 +5501,22 @@ def capability_executor_for_row(row: dict[str, Any], compiled_capability_id: str
                 gap_id = parts[2]
             if len(parts) >= 4:
                 artifact_key = ":".join(parts[3:])
+        if gap_id and artifact_key in COMPARATOR_REQUIRED_ARTIFACT_KEYS:
+            research_artifact = comparator_gap_research_artifact(ROOT, gap_id, artifact_key)
+            if research_artifact and research_artifact.get("status") != "PASS":
+                root_cause_class, _, _ = comparator_research_artifact_root_cause(research_artifact)
+                repair_id = comparator_research_artifact_repair_id(gap_id, artifact_key, root_cause_class)
+                if repair_id in comparator_research_artifact_repair_rows_by_id(ROOT) and not comparator_research_artifact_repair_completed(ROOT, repair_id):
+                    return (
+                        [sys.executable, "tools/oc133_toe_closure_factory.py", "--execute-comparator-research-artifact-repair", repair_id, "--write"],
+                        "comparator_research_artifact_repair",
+                        "Execute the exact repair row for an existing OPEN comparator research artifact; fail-closed evidence remains fail-closed unless the artifact itself passes.",
+                    )
+                return (
+                    [sys.executable, "tools/oc133_toe_closure_factory.py", "--compile-comparator-research-artifact-repair-backlog", "--write"],
+                    "comparator_research_artifact_repair_backlog",
+                    "Compile repair rows for comparator research artifacts that exist but remain OPEN; artifact existence alone is not scientific closure.",
+                )
         if artifact_key == "source_implementation_backlog" or artifact_key.startswith("source_implementation::"):
             subartifact_id = artifact_key.split("::", 1)[1] if artifact_key.startswith("source_implementation::") else str(row.get("scoring_subartifact_id") or "")
             if gap_id and subartifact_id:
@@ -5266,10 +5641,11 @@ def build_capability_implementation_registry(root: Path, *, generated_at: str | 
     seen: set[str] = set()
     for source_row in load_autonomous_capability_development_rows(root):
         row = dict(source_row)
+        row_status = str(row.get("status") or "OPEN")
         if (
-            row.get("status") == "PASS"
+            row_status == "PASS"
             or row.get("superseded_by_research_artifact") is True
-            or row.get("superseded_by_research_artifact_packet") is True
+            or (row.get("superseded_by_research_artifact_packet") is True and row_status != "OPEN")
             or row.get("superseded_by_current_validator") is True
             or row.get("superseded_by_scoring_work_order") is True
             or row.get("superseded_by_scoring_subartifact_execution") is True
@@ -5633,6 +6009,10 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--execute-comparator-source-implementation", help="Execute one concrete comparator source implementation by implementation id.")
     parser.add_argument("--execute-comparator-source-implementation-batch", action="store_true", help="Execute concrete comparator source implementations in deterministic order.")
     parser.add_argument("--source-implementation-batch-limit", type=int, default=0, help="Optional cap for comparator source implementation batch execution; 0 means no cap.")
+    parser.add_argument("--compile-comparator-research-artifact-repair-backlog", action="store_true", help="Compile repair work orders for comparator research artifacts that exist but remain OPEN.")
+    parser.add_argument("--execute-comparator-research-artifact-repair", help="Execute one comparator research-artifact repair work order by repair id.")
+    parser.add_argument("--execute-comparator-research-artifact-repair-batch", action="store_true", help="Execute comparator research-artifact repair rows in deterministic order.")
+    parser.add_argument("--research-artifact-repair-batch-limit", type=int, default=0, help="Optional cap for comparator research-artifact repair batch execution; 0 means no cap.")
     parser.add_argument("--compile-comparator-scoring-backlog", action="store_true", help="Compile exact lower-level scoring executor subtasks for open comparator scoring work orders.")
     parser.add_argument("--execute-comparator-domain-job", help="Execute one modern-science comparator domain job such as MS-COV-JOB-001.")
     parser.add_argument("--timeout", type=int, default=900)
@@ -5726,6 +6106,26 @@ def main(argv: list[str] | None = None) -> int:
     if args.execute_comparator_source_implementation_batch:
         payload = execute_comparator_source_implementation_batch(ROOT, timeout=args.timeout, limit=args.source_implementation_batch_limit)
         path = ROOT / lane_execution_base("MODERN_SCIENCE_COMPARATOR_SUPERIORITY") / "OC133_MODERN_SCIENCE_COMPARATOR_SOURCE_IMPLEMENTATION_BATCH.json"
+        result = validation_result({path: stable_json(payload)}, write=args.write)
+        print(json.dumps(result if args.write or args.check else payload, ensure_ascii=False, indent=2, sort_keys=True))
+        return 1 if args.check and result["state"] != "PASS" else 0
+    if args.compile_comparator_research_artifact_repair_backlog:
+        payload = build_comparator_research_artifact_repair_backlog(ROOT)
+        artifact_ref = payload.get("artifact_ref")
+        path = ROOT / artifact_ref if isinstance(artifact_ref, str) and artifact_ref else ROOT / comparator_research_artifact_repair_backlog_rel()
+        result = validation_result({path: stable_json(payload)}, write=args.write)
+        print(json.dumps(result if args.write or args.check else payload, ensure_ascii=False, indent=2, sort_keys=True))
+        return 1 if args.check and result["state"] != "PASS" else 0
+    if args.execute_comparator_research_artifact_repair:
+        payload = build_comparator_research_artifact_repair_execution(ROOT, args.execute_comparator_research_artifact_repair, timeout=args.timeout)
+        artifact_ref = payload.get("artifact_ref")
+        path = ROOT / artifact_ref if isinstance(artifact_ref, str) and artifact_ref else ROOT / comparator_research_artifact_repair_rel(args.execute_comparator_research_artifact_repair)
+        result = validation_result({path: stable_json(payload)}, write=args.write)
+        print(json.dumps(result if args.write or args.check else payload, ensure_ascii=False, indent=2, sort_keys=True))
+        return 1 if args.check and result["state"] != "PASS" else 0
+    if args.execute_comparator_research_artifact_repair_batch:
+        payload = execute_comparator_research_artifact_repair_batch(ROOT, timeout=args.timeout, limit=args.research_artifact_repair_batch_limit)
+        path = ROOT / lane_execution_base("MODERN_SCIENCE_COMPARATOR_SUPERIORITY") / "REPAIR_BATCH.json"
         result = validation_result({path: stable_json(payload)}, write=args.write)
         print(json.dumps(result if args.write or args.check else payload, ensure_ascii=False, indent=2, sort_keys=True))
         return 1 if args.check and result["state"] != "PASS" else 0

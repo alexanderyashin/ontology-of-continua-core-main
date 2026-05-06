@@ -1,10 +1,33 @@
 {
-  "artifact_hash": "ce3176bbcda39146bd6a6ad5dfcc8c54fad69e18aa2eeea21c34970c7ba2e9ea",
+  "artifact_hash": "dd06b130dd2630c148aa208a83f6fdc11b1c2f5608c7f596ad2468df84aae831",
   "artifact_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/source_implementations/R017-SOURCE-IMPL-fd115e84ee26f621.json",
-  "command_pass": false,
-  "command_result_total": 0,
-  "command_results": [],
-  "concrete_governed_commands": [],
+  "command_pass": true,
+  "command_result_total": 1,
+  "command_results": [
+    {
+      "cmd": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "tools/oc133_toe_closure_factory.py",
+        "--execute-comparator-gap-artifact",
+        "MS-COV-GAP-COMPLEX_SYSTEMS_OPERATIONS_SCIENCE-QUEUE_SUPPLY_CHAIN_AND_OPERATIONS_OBSERVABLES",
+        "incumbent_comparator",
+        "--write"
+      ],
+      "returncode": 0,
+      "stderr_tail": "",
+      "stdout_tail": "{\n  \"changed\": [],\n  \"missing\": [],\n  \"state\": \"PASS\"\n}\n"
+    }
+  ],
+  "concrete_governed_commands": [
+    [
+      "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+      "tools/oc133_toe_closure_factory.py",
+      "--execute-comparator-gap-artifact",
+      "MS-COV-GAP-COMPLEX_SYSTEMS_OPERATIONS_SCIENCE-QUEUE_SUPPLY_CHAIN_AND_OPERATIONS_OBSERVABLES",
+      "incumbent_comparator",
+      "--write"
+    ]
+  ],
   "domain_class_id": "complex_systems_operations_science",
   "execution_command": [
     "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
@@ -15,7 +38,7 @@
   ],
   "gap_id": "MS-COV-GAP-COMPLEX_SYSTEMS_OPERATIONS_SCIENCE-QUEUE_SUPPLY_CHAIN_AND_OPERATIONS_OBSERVABLES",
   "generated_at": "2026-05-06T06:37:26Z",
-  "implementation_command_class": "MISSING_CONCRETE_SOURCE_EXECUTOR",
+  "implementation_command_class": "CONCRETE_SOURCE_EXECUTOR",
   "implementation_id": "R017-SOURCE-IMPL-fd115e84ee26f621",
   "implementation_work_order_id": "R017-SOURCE-IMPL-fd115e84ee26f621",
   "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
@@ -40,12 +63,12 @@
   "research_artifact_hash": "eb31090d24f8b394e91ff7cad3872168b428c74d34830d485f0dde4a4f9ed951",
   "research_artifact_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/72929588c49e2b61/incumbent_comparator.json",
   "research_artifact_status": "PASS",
-  "root_cause_class": "NO_GOVERNED_DOMAIN_SOURCE_IMPLEMENTATION_COMMAND",
+  "root_cause_class": "SOURCE_IMPLEMENTATION_EXECUTED",
   "schema_id": "OC133_MODERN_SCIENCE_COMPARATOR_SOURCE_IMPLEMENTATION_EXECUTION_v1",
-  "scientific_closure_status": "OPEN",
+  "scientific_closure_status": "PASS",
   "scoring_subartifact_id": "incumbent_comparator_scoring",
   "source_executor_work_order_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/source_executor_work_orders/source_executor_fd115e84ee26f621.json",
-  "status": "CAPABILITY_DEVELOPMENT_REQUIRED",
+  "status": "PASS",
   "validator_binding": "comparator_gap::MS-COV-GAP-COMPLEX_SYSTEMS_OPERATIONS_SCIENCE-QUEUE_SUPPLY_CHAIN_AND_OPERATIONS_OBSERVABLES::source_implementation::incumbent_comparator_scoring",
-  "why_it_failed": "No governed source/scoring command is mapped for domain `complex_systems_operations_science`, phenomenon `queue_supply_chain_and_operations_observables`, subartifact `incumbent_comparator_scoring`."
+  "why_it_failed": "Governed source/scoring commands ran and produced a downstream research artifact or fail-closed evidence diagnosis."
 }

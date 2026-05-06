@@ -1,9 +1,9 @@
 {
-  "artifact_hash": "e3887ffc8e7d495b4a271b9189e9bffe9bf2c66a7d4c56e763b51e53bd6520e3",
+  "artifact_hash": "b8afd599274c13d4ca2aa56d3c434d718576038ea7d76a6ca6bbae77d0a0d8b4",
   "artifact_key": "oc_prediction_scoring_row",
   "artifact_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/artifact_jobs/artifact_40d4ba106b9d6059.json",
   "domain_class_id": "medical_health_sciences",
-  "executable_spec_found": false,
+  "executable_spec_found": true,
   "execution_command": [
     "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
     "tools/oc133_toe_closure_factory.py",
@@ -32,7 +32,11 @@
   "research_artifact_scope": "scoring evidence absent or does not beat the preregistered comparator",
   "research_artifact_status": "OPEN",
   "schema_id": "OC133_MODERN_SCIENCE_COMPARATOR_GAP_ARTIFACT_EXECUTION_v1",
-  "source_block": {},
+  "source_block": {
+    "formula": "mean_absolute_error(oc_direction_score, held_out_outcome_direction)",
+    "metric_id": "medical_clinical_outcome_direction_residual",
+    "superiority_rule": "OC must beat the preregistered baseline with positive material margin and no target leakage."
+  },
   "source_refs": [
     "reports/OC_CORE_1_3_3_MODERN_SCIENCE_COVERAGE_LANE_QUEUE.json",
     "benchmarks/modern_science/OC133_MODERN_SCIENCE_COVERAGE_WORK_ORDERS.json",

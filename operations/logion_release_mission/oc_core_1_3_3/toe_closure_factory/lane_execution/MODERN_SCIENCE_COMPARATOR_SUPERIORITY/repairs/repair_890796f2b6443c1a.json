@@ -1,0 +1,70 @@
+{
+  "artifact_hash": "dd80d9f0a5d44e518004dfad005b6c4cbe5fd6c04a6bc581aed8a966a9cfb53a",
+  "artifact_key": "replay_record",
+  "artifact_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/repairs/repair_890796f2b6443c1a.json",
+  "command_pass": true,
+  "command_result_total": 2,
+  "command_results": [
+    {
+      "cmd": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "validation/heldout/grand_science/agriculture/coverage_work_orders/oc133_agriculture_modern_science_coverage_work_orders.py",
+        "--score-fdc",
+        "--write-scoring"
+      ],
+      "returncode": 0,
+      "stderr_tail": "",
+      "stdout_tail": "{\n  \"status\": \"ok\",\n  \"current_evidence_status\": \"OPEN_FAIL_CLOSED_SCORER_READY_STRICT_EVIDENCE_PACK_NO_COVERAGE_CLOSURE\",\n  \"coverage_closure_allowed\": false,\n  \"row_count\": 25,\n  \"target_hidden_scorer_present\": true,\n  \"negative_control_rejected\": true,\n  \"scoring_pack_ref\": \"validation/heldout/grand_science/agriculture/coverage_work_orders/OC133_AGRICULTURE_FDC_SODIUM_SCORING_PACK.json\",\n  \"blockers\": [],\n  \"errors\": []\n}\n"
+    },
+    {
+      "cmd": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "validation/heldout/grand_science/agriculture/coverage_work_orders/oc133_agriculture_modern_science_coverage_work_orders.py",
+        "--check"
+      ],
+      "returncode": 0,
+      "stderr_tail": "",
+      "stdout_tail": "{\n  \"status\": \"ok\",\n  \"checked\": \"validation/heldout/grand_science/agriculture/coverage_work_orders/OC133_AGRICULTURE_MODERN_SCIENCE_COVERAGE_WORK_ORDERS.json\",\n  \"coverage_closure_allowed\": false\n}\n"
+    }
+  ],
+  "concrete_governed_commands": [
+    [
+      "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+      "validation/heldout/grand_science/agriculture/coverage_work_orders/oc133_agriculture_modern_science_coverage_work_orders.py",
+      "--score-fdc",
+      "--write-scoring"
+    ],
+    [
+      "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+      "validation/heldout/grand_science/agriculture/coverage_work_orders/oc133_agriculture_modern_science_coverage_work_orders.py",
+      "--check"
+    ]
+  ],
+  "domain_class_id": "agricultural_food_sciences",
+  "execution_command": [
+    "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+    "tools/oc133_toe_closure_factory.py",
+    "--execute-comparator-research-artifact-repair",
+    "R017-RESEARCH-ARTIFACT-REPAIR-811e176dc4b5b57b",
+    "--write"
+  ],
+  "gap_id": "MS-COV-GAP-AGRICULTURAL_FOOD_SCIENCES-FOOD_CHEMISTRY_SAFETY_AND_NUTRITION",
+  "generated_at": "2026-05-06T07:54:38Z",
+  "input_research_artifact_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/b1f19189ac368c4d/replay_record.json",
+  "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+  "next_escalation": "If CAPABILITY_DEVELOPMENT_REQUIRED, implement the exact domain scorer/replay command. If EVIDENCE_REPAIR_ATTEMPTED_REMAINS_OPEN, inspect the refreshed artifact validation and preserve fail-closed negative results.",
+  "no_fake_closure_policy": "This repair execution cannot mark broad superiority PASS unless the refreshed research artifact itself passes.",
+  "pass_predicate": "The repaired research artifact status becomes PASS and the comparator gap no longer lists this artifact as missing.",
+  "phenomenon_class_id": "food_chemistry_safety_and_nutrition",
+  "refreshed_research_artifact_hash": "5739ee01fcd4ebc34de1a094108573afb95d76628998896fc21eb3289f824267",
+  "refreshed_research_artifact_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/b1f19189ac368c4d/replay_record.json",
+  "refreshed_research_artifact_status": "OPEN",
+  "repair_id": "R017-RESEARCH-ARTIFACT-REPAIR-811e176dc4b5b57b",
+  "repair_strategy": "Close the OC scoring row first, then rerun replay.",
+  "required_capability": "Research/ScoringExecutor",
+  "root_cause_class": "REPLAY_BLOCKED_BY_SCORING_ARTIFACT",
+  "schema_id": "OC133_MODERN_SCIENCE_COMPARATOR_RESEARCH_ARTIFACT_REPAIR_EXECUTION_v1",
+  "status": "EVIDENCE_REPAIR_ATTEMPTED_REMAINS_OPEN",
+  "validator_binding": "comparator_gap::MS-COV-GAP-AGRICULTURAL_FOOD_SCIENCES-FOOD_CHEMISTRY_SAFETY_AND_NUTRITION::research_artifact_repair::replay_record",
+  "why_it_failed": "Concrete repair commands ran, but the refreshed research artifact still remains OPEN under its source-bound predicate."
+}

@@ -1,10 +1,33 @@
 {
-  "artifact_hash": "8d21e5edb1422e71713a72d4eb4bd9bf4c7f7472ef1e97683306fcf891cdd4e4",
+  "artifact_hash": "421a9c3b04e83dfe704c9f8436a8f23cda68eff4992776cc13966a22f217e4fe",
   "artifact_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/source_implementations/R017-SOURCE-IMPL-0597308d96988d04.json",
-  "command_pass": false,
-  "command_result_total": 0,
-  "command_results": [],
-  "concrete_governed_commands": [],
+  "command_pass": true,
+  "command_result_total": 1,
+  "command_results": [
+    {
+      "cmd": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "tools/oc133_toe_closure_factory.py",
+        "--execute-comparator-gap-artifact",
+        "MS-COV-GAP-ENGINEERING_MATERIALS_SCIENCES-MATERIALS_PROPERTY_AND_FAILURE_PREDICTION",
+        "falsifier_row",
+        "--write"
+      ],
+      "returncode": 0,
+      "stderr_tail": "",
+      "stdout_tail": "{\n  \"changed\": [],\n  \"missing\": [],\n  \"state\": \"PASS\"\n}\n"
+    }
+  ],
+  "concrete_governed_commands": [
+    [
+      "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+      "tools/oc133_toe_closure_factory.py",
+      "--execute-comparator-gap-artifact",
+      "MS-COV-GAP-ENGINEERING_MATERIALS_SCIENCES-MATERIALS_PROPERTY_AND_FAILURE_PREDICTION",
+      "falsifier_row",
+      "--write"
+    ]
+  ],
   "domain_class_id": "engineering_materials_sciences",
   "execution_command": [
     "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
@@ -15,7 +38,7 @@
   ],
   "gap_id": "MS-COV-GAP-ENGINEERING_MATERIALS_SCIENCES-MATERIALS_PROPERTY_AND_FAILURE_PREDICTION",
   "generated_at": "2026-05-06T06:35:02Z",
-  "implementation_command_class": "MISSING_CONCRETE_SOURCE_EXECUTOR",
+  "implementation_command_class": "CONCRETE_SOURCE_EXECUTOR",
   "implementation_id": "R017-SOURCE-IMPL-0597308d96988d04",
   "implementation_work_order_id": "R017-SOURCE-IMPL-0597308d96988d04",
   "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
@@ -39,12 +62,12 @@
   "research_artifact_hash": "1ac658f03cbfd7555fd548497f191a88be0c74bb1926b662daf06c7235a44f2e",
   "research_artifact_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/b1491a46e156e916/falsifier_row.json",
   "research_artifact_status": "PASS",
-  "root_cause_class": "NO_GOVERNED_DOMAIN_SOURCE_IMPLEMENTATION_COMMAND",
+  "root_cause_class": "SOURCE_IMPLEMENTATION_EXECUTED",
   "schema_id": "OC133_MODERN_SCIENCE_COMPARATOR_SOURCE_IMPLEMENTATION_EXECUTION_v1",
-  "scientific_closure_status": "OPEN",
+  "scientific_closure_status": "PASS",
   "scoring_subartifact_id": "controls_and_falsifiers",
   "source_executor_work_order_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/source_executor_work_orders/source_executor_0597308d96988d04.json",
-  "status": "CAPABILITY_DEVELOPMENT_REQUIRED",
+  "status": "PASS",
   "validator_binding": "comparator_gap::MS-COV-GAP-ENGINEERING_MATERIALS_SCIENCES-MATERIALS_PROPERTY_AND_FAILURE_PREDICTION::source_implementation::controls_and_falsifiers",
-  "why_it_failed": "No governed source/scoring command is mapped for domain `engineering_materials_sciences`, phenomenon `materials_property_and_failure_prediction`, subartifact `controls_and_falsifiers`."
+  "why_it_failed": "Governed source/scoring commands ran and produced a downstream research artifact or fail-closed evidence diagnosis."
 }

@@ -1,9 +1,9 @@
 {
-  "artifact_hash": "e88da7af474d7b0a227ee0353f05506739cb4275e93016438de4c978d39f1d2e",
+  "artifact_hash": "4c7560dbf2b455a11ad9a34bf6941d07f7f4a71e89b47a1a35cabf3991a6a085",
   "artifact_key": "verified_open_source_capsule",
   "artifact_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/artifact_jobs/artifact_65ba0edc5d0e03a0.json",
   "domain_class_id": "medical_health_sciences",
-  "executable_spec_found": false,
+  "executable_spec_found": true,
   "execution_command": [
     "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
     "tools/oc133_toe_closure_factory.py",
@@ -28,15 +28,20 @@
   "repair_strategy": "Create the required artifact from governed open/free sources, bind hashes, then rerun the comparator gap and strict validator.",
   "required_capability": "Research/PriorArt",
   "required_output_kind": "source_capsule_and_snapshot_lock",
-  "research_artifact_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/MS-COV-GAP-MEDICAL_HEALTH_SCIENCES-EPIDEMIOLOGICAL_TRANSMISSION_AND_RISK/verified_open_source_capsule.json",
+  "research_artifact_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/bde33a9d37378831/verified_open_source_capsule.json",
   "research_artifact_scope": "source_identity_and_open_url_bound; target/scoring/replay remain separate",
   "research_artifact_status": "PASS",
   "schema_id": "OC133_MODERN_SCIENCE_COMPARATOR_GAP_ARTIFACT_EXECUTION_v1",
   "source_block": {
-    "official_source_defaults": [
-      "ClinicalTrials.gov, WHO, CDC, FDA, NIH, or equivalent regulated/public health sources",
-      "deidentified public outcome or biomarker snapshots with explicit ethics boundary"
-    ]
+    "minimum_rows_required": 500,
+    "official_documentation_url": "https://open.cdc.gov/data.html",
+    "official_endpoint_url": "https://data.cdc.gov/resource/n8mc-b4w4.json?$limit=5000",
+    "required_local_snapshot_ref": "validation/heldout/grand_science/medical_health/epidemiology_risk/OC133_CDC_EPIDEMIOLOGY_RISK_SNAPSHOT.json",
+    "required_lock_ref": "validation/heldout/grand_science/medical_health/epidemiology_risk/OC133_CDC_EPIDEMIOLOGY_RISK_SNAPSHOT.lock.json",
+    "snapshot_status": "NOT_ACQUIRED_FOR_THIS_COVERAGE_CLASS",
+    "source_authority": "U.S. Centers for Disease Control and Prevention",
+    "source_id": "cdc_open_data_epidemiology_timeseries_v1",
+    "source_name": "CDC Open Data Socrata API epidemiology time-series datasets"
   },
   "source_refs": [
     "reports/OC_CORE_1_3_3_MODERN_SCIENCE_COVERAGE_LANE_QUEUE.json",
@@ -44,5 +49,5 @@
     "comparators/modern_science/OC133_MODERN_SCIENCE_COVERAGE_REGISTER.json"
   ],
   "status": "PASS",
-  "why_it_failed": "Comparator gap `MS-COV-GAP-MEDICAL_HEALTH_SCIENCES-EPIDEMIOLOGICAL_TRANSMISSION_AND_RISK` lacks `verified_open_source_capsule`; no broad-superiority credit is awarded."
+  "why_it_failed": "Comparator gap `MS-COV-GAP-MEDICAL_HEALTH_SCIENCES-EPIDEMIOLOGICAL_TRANSMISSION_AND_RISK` already has `verified_open_source_capsule`."
 }

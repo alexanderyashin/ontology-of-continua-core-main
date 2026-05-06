@@ -1,0 +1,70 @@
+{
+  "artifact_hash": "6ab45ed97ebcadb31d96739ba48d669f937436165343324985f92e5d47e1878a",
+  "artifact_key": "replay_record",
+  "artifact_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/repairs/repair_75741245b52ff3bf.json",
+  "command_pass": true,
+  "command_result_total": 2,
+  "command_results": [
+    {
+      "cmd": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "validation/heldout/grand_science/earth_space/coverage_work_orders/oc133_earth_space_modern_science_coverage_work_orders.py",
+        "--score-usgs-hydrology",
+        "--write"
+      ],
+      "returncode": 0,
+      "stderr_tail": "",
+      "stdout_tail": "{\n  \"status\": \"ok\",\n  \"output_ref\": \"validation/heldout/grand_science/earth_space/coverage_work_orders/OC133_EARTH_SPACE_USGS_HYDROLOGY_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json\",\n  \"pack_status\": \"SCORER_READY_FAIL_CLOSED_STRICT_EVIDENCE_NOT_MET\",\n  \"exact_blocker\": \"COMPARATOR_BASELINE_NOT_BEATEN_WITH_UNCERTAINTY\",\n  \"failures\": []\n}\n"
+    },
+    {
+      "cmd": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "validation/heldout/grand_science/earth_space/coverage_work_orders/oc133_earth_space_modern_science_coverage_work_orders.py",
+        "--check"
+      ],
+      "returncode": 0,
+      "stderr_tail": "",
+      "stdout_tail": "{\n  \"status\": \"ok\",\n  \"checked\": \"validation/heldout/grand_science/earth_space/coverage_work_orders/OC133_EARTH_SPACE_MODERN_SCIENCE_COVERAGE_WORK_ORDERS.json\"\n}\n"
+    }
+  ],
+  "concrete_governed_commands": [
+    [
+      "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+      "validation/heldout/grand_science/earth_space/coverage_work_orders/oc133_earth_space_modern_science_coverage_work_orders.py",
+      "--score-usgs-hydrology",
+      "--write"
+    ],
+    [
+      "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+      "validation/heldout/grand_science/earth_space/coverage_work_orders/oc133_earth_space_modern_science_coverage_work_orders.py",
+      "--check"
+    ]
+  ],
+  "domain_class_id": "earth_space_environmental_sciences",
+  "execution_command": [
+    "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+    "tools/oc133_toe_closure_factory.py",
+    "--execute-comparator-research-artifact-repair",
+    "R017-RESEARCH-ARTIFACT-REPAIR-5b7757f8ffbbdf02",
+    "--write"
+  ],
+  "gap_id": "MS-COV-GAP-EARTH_SPACE_ENVIRONMENTAL_SCIENCES-GEOCHEMISTRY_AND_HYDROLOGY_OBSERVABLES",
+  "generated_at": "2026-05-06T07:54:35Z",
+  "input_research_artifact_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/59532ab68d232897/replay_record.json",
+  "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+  "next_escalation": "If CAPABILITY_DEVELOPMENT_REQUIRED, implement the exact domain scorer/replay command. If EVIDENCE_REPAIR_ATTEMPTED_REMAINS_OPEN, inspect the refreshed artifact validation and preserve fail-closed negative results.",
+  "no_fake_closure_policy": "This repair execution cannot mark broad superiority PASS unless the refreshed research artifact itself passes.",
+  "pass_predicate": "The repaired research artifact status becomes PASS and the comparator gap no longer lists this artifact as missing.",
+  "phenomenon_class_id": "geochemistry_and_hydrology_observables",
+  "refreshed_research_artifact_hash": "3cbd7f19265c11b4aab37f932fa0481937a2b675535bf065b58158b1749c5a1b",
+  "refreshed_research_artifact_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/59532ab68d232897/replay_record.json",
+  "refreshed_research_artifact_status": "OPEN",
+  "repair_id": "R017-RESEARCH-ARTIFACT-REPAIR-5b7757f8ffbbdf02",
+  "repair_strategy": "Close the OC scoring row first, then rerun replay.",
+  "required_capability": "Research/ScoringExecutor",
+  "root_cause_class": "REPLAY_BLOCKED_BY_SCORING_ARTIFACT",
+  "schema_id": "OC133_MODERN_SCIENCE_COMPARATOR_RESEARCH_ARTIFACT_REPAIR_EXECUTION_v1",
+  "status": "EVIDENCE_REPAIR_ATTEMPTED_REMAINS_OPEN",
+  "validator_binding": "comparator_gap::MS-COV-GAP-EARTH_SPACE_ENVIRONMENTAL_SCIENCES-GEOCHEMISTRY_AND_HYDROLOGY_OBSERVABLES::research_artifact_repair::replay_record",
+  "why_it_failed": "Concrete repair commands ran, but the refreshed research artifact still remains OPEN under its source-bound predicate."
+}

@@ -1,10 +1,33 @@
 {
-  "artifact_hash": "6de286a28bea7d49783c814253c7a13917dd0a97b67d946fdf3d3d3ea7eee74b",
+  "artifact_hash": "246d7528428e0a73cd499ce18a9ef601312ba6bd7f884a260d319477f635c6c9",
   "artifact_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/source_implementations/R017-SOURCE-IMPL-e2458f604421d72f.json",
-  "command_pass": false,
-  "command_result_total": 0,
-  "command_results": [],
-  "concrete_governed_commands": [],
+  "command_pass": true,
+  "command_result_total": 1,
+  "command_results": [
+    {
+      "cmd": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "tools/oc133_toe_closure_factory.py",
+        "--execute-comparator-gap-artifact",
+        "MS-COV-GAP-PHYSICAL_SCIENCES-ASTRONOMICAL_AND_COSMOLOGICAL_OBSERVABLES",
+        "falsifier_row",
+        "--write"
+      ],
+      "returncode": 0,
+      "stderr_tail": "",
+      "stdout_tail": "{\n  \"changed\": [],\n  \"missing\": [],\n  \"state\": \"PASS\"\n}\n"
+    }
+  ],
+  "concrete_governed_commands": [
+    [
+      "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+      "tools/oc133_toe_closure_factory.py",
+      "--execute-comparator-gap-artifact",
+      "MS-COV-GAP-PHYSICAL_SCIENCES-ASTRONOMICAL_AND_COSMOLOGICAL_OBSERVABLES",
+      "falsifier_row",
+      "--write"
+    ]
+  ],
   "domain_class_id": "physical_sciences",
   "execution_command": [
     "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
@@ -15,7 +38,7 @@
   ],
   "gap_id": "MS-COV-GAP-PHYSICAL_SCIENCES-ASTRONOMICAL_AND_COSMOLOGICAL_OBSERVABLES",
   "generated_at": "2026-05-06T06:37:16Z",
-  "implementation_command_class": "MISSING_CONCRETE_SOURCE_EXECUTOR",
+  "implementation_command_class": "CONCRETE_SOURCE_EXECUTOR",
   "implementation_id": "R017-SOURCE-IMPL-e2458f604421d72f",
   "implementation_work_order_id": "R017-SOURCE-IMPL-e2458f604421d72f",
   "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
@@ -39,12 +62,12 @@
   "research_artifact_hash": "a4912e51827602037551eb57c94f9b2d9f946ea36f9982699e17d94173a94ee7",
   "research_artifact_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/f0ee7d5ec5503167/falsifier_row.json",
   "research_artifact_status": "PASS",
-  "root_cause_class": "NO_GOVERNED_DOMAIN_SOURCE_IMPLEMENTATION_COMMAND",
+  "root_cause_class": "SOURCE_IMPLEMENTATION_EXECUTED",
   "schema_id": "OC133_MODERN_SCIENCE_COMPARATOR_SOURCE_IMPLEMENTATION_EXECUTION_v1",
-  "scientific_closure_status": "OPEN",
+  "scientific_closure_status": "PASS",
   "scoring_subartifact_id": "controls_and_falsifiers",
   "source_executor_work_order_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/source_executor_work_orders/source_executor_e2458f604421d72f.json",
-  "status": "CAPABILITY_DEVELOPMENT_REQUIRED",
+  "status": "PASS",
   "validator_binding": "comparator_gap::MS-COV-GAP-PHYSICAL_SCIENCES-ASTRONOMICAL_AND_COSMOLOGICAL_OBSERVABLES::source_implementation::controls_and_falsifiers",
-  "why_it_failed": "No governed source/scoring command is mapped for domain `physical_sciences`, phenomenon `astronomical_and_cosmological_observables`, subartifact `controls_and_falsifiers`."
+  "why_it_failed": "Governed source/scoring commands ran and produced a downstream research artifact or fail-closed evidence diagnosis."
 }

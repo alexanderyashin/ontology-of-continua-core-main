@@ -1,10 +1,33 @@
 {
-  "artifact_hash": "e2eb44f560f95b4780b2fb24d2b2b6ff44a1c40f60a348a296eee474d8ec5e5a",
+  "artifact_hash": "44c4dec6ed5ad1e622d391835dfda18da2268c037463201b695e4dfd99a4301c",
   "artifact_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/source_implementations/R017-SOURCE-IMPL-875dc4bc7989ce7d.json",
-  "command_pass": false,
-  "command_result_total": 0,
-  "command_results": [],
-  "concrete_governed_commands": [],
+  "command_pass": true,
+  "command_result_total": 1,
+  "command_results": [
+    {
+      "cmd": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "tools/oc133_toe_closure_factory.py",
+        "--execute-comparator-gap-artifact",
+        "MS-COV-GAP-COGNITIVE_BEHAVIORAL_NEUROSCIENCES-NEURAL_RECORDING_AND_BRAIN_NETWORK_OBSERVABLES",
+        "replay_record",
+        "--write"
+      ],
+      "returncode": 0,
+      "stderr_tail": "",
+      "stdout_tail": "{\n  \"changed\": [],\n  \"missing\": [],\n  \"state\": \"PASS\"\n}\n"
+    }
+  ],
+  "concrete_governed_commands": [
+    [
+      "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+      "tools/oc133_toe_closure_factory.py",
+      "--execute-comparator-gap-artifact",
+      "MS-COV-GAP-COGNITIVE_BEHAVIORAL_NEUROSCIENCES-NEURAL_RECORDING_AND_BRAIN_NETWORK_OBSERVABLES",
+      "replay_record",
+      "--write"
+    ]
+  ],
   "domain_class_id": "cognitive_behavioral_neurosciences",
   "execution_command": [
     "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
@@ -15,7 +38,7 @@
   ],
   "gap_id": "MS-COV-GAP-COGNITIVE_BEHAVIORAL_NEUROSCIENCES-NEURAL_RECORDING_AND_BRAIN_NETWORK_OBSERVABLES",
   "generated_at": "2026-05-06T06:36:59Z",
-  "implementation_command_class": "MISSING_CONCRETE_SOURCE_EXECUTOR",
+  "implementation_command_class": "CONCRETE_SOURCE_EXECUTOR",
   "implementation_id": "R017-SOURCE-IMPL-875dc4bc7989ce7d",
   "implementation_work_order_id": "R017-SOURCE-IMPL-875dc4bc7989ce7d",
   "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
@@ -41,12 +64,12 @@
   "research_artifact_hash": "a424e2c38b9ef99ffb5727e2a58c2054eab8a9904f3f09507ebdbba82d26871f",
   "research_artifact_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/3a74fb5d8077bd9e/replay_record.json",
   "research_artifact_status": "OPEN",
-  "root_cause_class": "NO_GOVERNED_DOMAIN_SOURCE_IMPLEMENTATION_COMMAND",
+  "root_cause_class": "SOURCE_IMPLEMENTATION_EXECUTED",
   "schema_id": "OC133_MODERN_SCIENCE_COMPARATOR_SOURCE_IMPLEMENTATION_EXECUTION_v1",
   "scientific_closure_status": "OPEN",
   "scoring_subartifact_id": "independent_replay",
   "source_executor_work_order_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/source_executor_work_orders/source_executor_875dc4bc7989ce7d.json",
-  "status": "CAPABILITY_DEVELOPMENT_REQUIRED",
+  "status": "PASS",
   "validator_binding": "comparator_gap::MS-COV-GAP-COGNITIVE_BEHAVIORAL_NEUROSCIENCES-NEURAL_RECORDING_AND_BRAIN_NETWORK_OBSERVABLES::source_implementation::independent_replay",
-  "why_it_failed": "No governed source/scoring command is mapped for domain `cognitive_behavioral_neurosciences`, phenomenon `neural_recording_and_brain_network_observables`, subartifact `independent_replay`."
+  "why_it_failed": "Governed source/scoring commands ran and produced a downstream research artifact or fail-closed evidence diagnosis."
 }

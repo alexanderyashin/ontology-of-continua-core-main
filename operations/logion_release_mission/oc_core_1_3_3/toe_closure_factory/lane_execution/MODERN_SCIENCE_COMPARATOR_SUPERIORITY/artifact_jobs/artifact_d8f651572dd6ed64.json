@@ -1,9 +1,9 @@
 {
-  "artifact_hash": "e99687fd52771a0343ba05350909258bfc4b2fa761c55878ac32f11410526f66",
+  "artifact_hash": "7fb004439e4b86325be282f178b70e18d85349ea1681ef5fe9cd72d78d3a6a84",
   "artifact_key": "uncertainty_row",
   "artifact_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/artifact_jobs/artifact_d8f651572dd6ed64.json",
   "domain_class_id": "medical_health_sciences",
-  "executable_spec_found": false,
+  "executable_spec_found": true,
   "execution_command": [
     "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
     "tools/oc133_toe_closure_factory.py",
@@ -32,12 +32,15 @@
   "research_artifact_scope": "uncertainty policy declared before scoring",
   "research_artifact_status": "PASS",
   "schema_id": "OC133_MODERN_SCIENCE_COMPARATOR_GAP_ARTIFACT_EXECUTION_v1",
-  "source_block": {},
+  "source_block": {
+    "metric": "rolling-origin interval error with regional bootstrap",
+    "rule": "Report temporal bootstrap intervals and fail closed on unstable advantage or coverage drift."
+  },
   "source_refs": [
     "reports/OC_CORE_1_3_3_MODERN_SCIENCE_COVERAGE_LANE_QUEUE.json",
     "benchmarks/modern_science/OC133_MODERN_SCIENCE_COVERAGE_WORK_ORDERS.json",
     "comparators/modern_science/OC133_MODERN_SCIENCE_COVERAGE_REGISTER.json"
   ],
   "status": "PASS",
-  "why_it_failed": "Comparator gap `MS-COV-GAP-MEDICAL_HEALTH_SCIENCES-EPIDEMIOLOGICAL_TRANSMISSION_AND_RISK` lacks `uncertainty_row`; no broad-superiority credit is awarded."
+  "why_it_failed": "Comparator gap `MS-COV-GAP-MEDICAL_HEALTH_SCIENCES-EPIDEMIOLOGICAL_TRANSMISSION_AND_RISK` already has `uncertainty_row`."
 }

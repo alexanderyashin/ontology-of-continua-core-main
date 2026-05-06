@@ -579,6 +579,30 @@ def load_capability_development_rows(root: Path) -> list[dict[str, Any]]:
             payload["scientific_frontier_hash"] = compiled.get("scientific_frontier_hash") or payload.get("scientific_frontier_hash")
         else:
             payload["capability_development_key"] = key
+        source_node_id = str(payload.get("source_graph_node_id") or "")
+        if source_node_id == "required_artifact:MODERN_SCIENCE_COMPARATOR_SUPERIORITY:source_implementation_backlog":
+            if read_json(root / factory.comparator_source_implementation_backlog_rel()).get("status") == "PASS":
+                payload["status"] = "PASS"
+                payload["superseded_by_source_implementation_backlog"] = True
+                payload["capability_executor_ready"] = False
+                payload["execution_command"] = []
+                payload["implementation_command"] = []
+                payload["next_escalation"] = "Source implementation backlog is empty/PASS; downstream comparator research artifacts now carry the remaining scientific blockers."
+        elif source_node_id.startswith("required_artifact:MODERN_SCIENCE_COMPARATOR_SUPERIORITY:"):
+            parts = source_node_id.split(":")
+            if len(parts) >= 4:
+                gap_id = parts[2]
+                artifact_key = ":".join(parts[3:])
+                if artifact_key.startswith("source_implementation::"):
+                    subartifact_id = artifact_key.split("::", 1)[1]
+                    implementation_id = factory.comparator_source_implementation_id(gap_id, subartifact_id)
+                    if factory.comparator_source_implementation_completed(root, implementation_id):
+                        payload["status"] = "PASS"
+                        payload["superseded_by_source_implementation_report"] = True
+                        payload["capability_executor_ready"] = False
+                        payload["execution_command"] = []
+                        payload["implementation_command"] = []
+                        payload["next_escalation"] = "Source implementation report exists; downstream comparator artifacts decide whether broad superiority remains blocked."
         enriched.append(payload)
     return enriched
 
@@ -661,17 +685,51 @@ def comparator_actions(root: Path) -> list[dict[str, Any]]:
         missing_artifacts = list(payload.get("missing_artifacts") or [])
         for artifact_key in sorted(missing_artifacts, key=lambda key: ARTIFACT_PRIORITY.get(str(key), 80)):
             if artifact_key == "oc_prediction_scoring_row":
-                if factory.comparator_gap_scoring_work_order_exists(root, gap_id):
-                    continue
-                command = [sys.executable, "tools/oc133_toe_closure_factory.py", "--execute-comparator-scoring-work-order", gap_id, "--write"]
-                executor_type = "comparator_scoring_work_order"
-                repair_strategy = "Build the exact scoring work order before attempting broad superiority; this narrows the source/target/model/comparator/falsifier/replay gap without faking evidence."
+                research_artifact = factory.comparator_gap_research_artifact(root, gap_id, str(artifact_key))
+                if research_artifact and research_artifact.get("status") != "PASS":
+                    root_cause_class, why, repair_strategy = factory.comparator_research_artifact_root_cause(research_artifact)
+                    repair_id = factory.comparator_research_artifact_repair_id(gap_id, str(artifact_key), root_cause_class)
+                    command = (
+                        [sys.executable, "tools/oc133_toe_closure_factory.py", "--execute-comparator-research-artifact-repair", repair_id, "--write"]
+                        if repair_id in factory.comparator_research_artifact_repair_rows_by_id(root)
+                        else [sys.executable, "tools/oc133_toe_closure_factory.py", "--compile-comparator-research-artifact-repair-backlog", "--write"]
+                    )
+                    executor_type = "comparator_research_artifact_repair"
+                    why_it_failed = why
+                    required_capability = "Research/ScoringExecutor"
+                    pass_predicate = "The repaired OC scoring research artifact status becomes PASS and the comparator gap no longer lists oc_prediction_scoring_row as missing."
+                else:
+                    if factory.comparator_gap_scoring_work_order_exists(root, gap_id):
+                        continue
+                    command = [sys.executable, "tools/oc133_toe_closure_factory.py", "--execute-comparator-scoring-work-order", gap_id, "--write"]
+                    executor_type = "comparator_scoring_work_order"
+                    repair_strategy = "Build the exact scoring work order before attempting broad superiority; this narrows the source/target/model/comparator/falsifier/replay gap without faking evidence."
+                    why_it_failed = f"Comparator gap `{gap_id}` lacks `{artifact_key}`."
+                    required_capability = "Research/PriorArt"
+                    pass_predicate = f"Comparator gap `{gap_id}` has `{artifact_key}` and strict coverage register no longer lists it as missing."
             else:
-                if factory.comparator_gap_research_artifact_exists(root, gap_id, str(artifact_key)):
+                research_artifact = factory.comparator_gap_research_artifact(root, gap_id, str(artifact_key))
+                if research_artifact and research_artifact.get("status") == "PASS":
                     continue
-                command = [sys.executable, "tools/oc133_toe_closure_factory.py", "--execute-comparator-gap-artifact", gap_id, str(artifact_key), "--write"]
-                executor_type = "comparator_gap_artifact"
-                repair_strategy = "Create the exact comparator gap artifact work packet before rerunning broad-coverage closure."
+                if research_artifact and research_artifact.get("status") != "PASS":
+                    root_cause_class, why, repair_strategy = factory.comparator_research_artifact_root_cause(research_artifact)
+                    repair_id = factory.comparator_research_artifact_repair_id(gap_id, str(artifact_key), root_cause_class)
+                    command = (
+                        [sys.executable, "tools/oc133_toe_closure_factory.py", "--execute-comparator-research-artifact-repair", repair_id, "--write"]
+                        if repair_id in factory.comparator_research_artifact_repair_rows_by_id(root)
+                        else [sys.executable, "tools/oc133_toe_closure_factory.py", "--compile-comparator-research-artifact-repair-backlog", "--write"]
+                    )
+                    executor_type = "comparator_research_artifact_repair"
+                    why_it_failed = why
+                    required_capability = "Research/ScoringExecutor" if artifact_key in {"oc_prediction_scoring_row", "replay_record"} else "Research/PriorArt"
+                    pass_predicate = f"The repaired `{artifact_key}` research artifact status becomes PASS and the comparator gap no longer lists it as missing."
+                else:
+                    command = [sys.executable, "tools/oc133_toe_closure_factory.py", "--execute-comparator-gap-artifact", gap_id, str(artifact_key), "--write"]
+                    executor_type = "comparator_gap_artifact"
+                    repair_strategy = "Create the exact comparator gap artifact work packet before rerunning broad-coverage closure."
+                    why_it_failed = f"Comparator gap `{gap_id}` lacks `{artifact_key}`."
+                    required_capability = "Research/PriorArt"
+                    pass_predicate = f"Comparator gap `{gap_id}` has `{artifact_key}` and strict coverage register no longer lists it as missing."
             action = action_defaults(
                 f"AUTO-R017-COMPARATOR-GAP-{artifact_hash({'gap_id': gap_id, 'artifact_key': artifact_key})[:12]}",
                 "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
@@ -685,9 +743,10 @@ def comparator_actions(root: Path) -> list[dict[str, Any]]:
                     "missing_artifact_type": artifact_key,
                     "missing_artifact_total": len(missing_artifacts),
                     "source_ref": "live::factory.comparator_execution_gap_rows",
-                    "why_it_failed": f"Comparator gap `{gap_id}` lacks `{artifact_key}`.",
+                    "why_it_failed": why_it_failed,
                     "repair_strategy": repair_strategy,
-                    "pass_predicate": f"Comparator gap `{gap_id}` has `{artifact_key}` and strict coverage register no longer lists it as missing.",
+                    "required_capability": required_capability,
+                    "pass_predicate": pass_predicate,
                     "next_escalation": "If this exact artifact action produces zero validator delta, compile a narrower capability-development work order for its failed validation field.",
                 }
             )
@@ -775,7 +834,9 @@ def comparator_actions(root: Path) -> list[dict[str, Any]]:
         for row in factory.comparator_source_executor_work_orders(root)
         if row.get("status") != "PASS" and row.get("scoring_subartifact_id")
     ]
-    if source_executor_rows:
+    source_implementation_payload = read_json(root / factory.comparator_source_implementation_backlog_rel())
+    pending_source_implementation_rows = factory.comparator_source_implementation_backlog_rows(root)
+    if source_executor_rows and source_implementation_payload.get("status") != "PASS":
         action_id = "AUTO-R017-COMPARATOR-SOURCE-IMPLEMENTATION-BACKLOG"
         action = action_defaults(
             action_id,
@@ -788,6 +849,7 @@ def comparator_actions(root: Path) -> list[dict[str, Any]]:
                 "required_artifact": "source_implementation_backlog",
                 "missing_artifact_type": "source_implementation_backlog",
                 "source_executor_work_order_total": len(source_executor_rows),
+                "pending_source_implementation_total": len(pending_source_implementation_rows),
                 "why_it_failed": "Source executor work orders exist but have not been compiled into implementation obligations.",
                 "repair_strategy": "Compile source-executor work orders into exact domain-specific implementation obligations.",
                 "required_capability": "Research/ScoringExecutor",
@@ -798,7 +860,7 @@ def comparator_actions(root: Path) -> list[dict[str, Any]]:
         )
         actions.append(action)
     for row in sorted(
-        factory.comparator_source_implementation_backlog_rows(root),
+        pending_source_implementation_rows,
         key=lambda item: (str(item.get("gap_id")), str(item.get("scoring_subartifact_id"))),
     ):
         if row.get("status") == "PASS":
@@ -1049,7 +1111,12 @@ def plan_next_actions(root: Path, state: dict[str, Any], frontier_hash: str) -> 
     seed_actions = seed_actions_from_validator(root, parts)
     support_index = build_support_reference_index(root)
     seed_queue = {"rows": seed_actions}
-    planning_graph = build_blocking_graph(root, seed_queue, support_index)
+    planning_graph = build_blocking_graph(
+        root,
+        seed_queue,
+        support_index,
+        capability_development_rows=load_capability_development_rows(root),
+    )
     actions = resolve_actions_from_graph(planning_graph, seed_actions, len(science_errors))
 
     attempted = existing_attempt_signatures(state)
@@ -1617,7 +1684,18 @@ def build_capability_development_ledger(rows: list[dict[str, Any]], generated_at
             payload["source_graph_node_id"] = root_source
         if isinstance(root_source, str) and root_source.startswith("required_artifact:MODERN_SCIENCE_COMPARATOR_SUPERIORITY:"):
             parts = root_source.split(":")
-            if len(parts) >= 4:
+            if (
+                len(parts) == 3
+                and parts[2] == "source_implementation_backlog"
+                and read_json(ROOT / factory.comparator_source_implementation_backlog_rel()).get("status") == "PASS"
+            ):
+                payload["status"] = "PASS"
+                payload["superseded_by_source_implementation_backlog"] = True
+                payload["capability_executor_ready"] = False
+                payload["execution_command"] = []
+                payload["implementation_command"] = []
+                payload["next_escalation"] = "Source implementation backlog is empty/PASS; downstream comparator research artifacts now carry the remaining scientific blockers."
+            elif len(parts) >= 4:
                 gap_id = parts[2]
                 artifact_key = ":".join(parts[3:])
                 payload["gap_id"] = gap_id
@@ -1630,12 +1708,41 @@ def build_capability_development_ledger(rows: list[dict[str, Any]], generated_at
                     payload["implementation_command"] = []
                     payload["next_escalation"] = "Comparator research artifact now exists and passes at this scope; advance to the next missing artifact."
                 elif factory.comparator_gap_research_artifact_exists(ROOT, gap_id, artifact_key):
-                    payload["status"] = "PASS"
-                    payload["superseded_by_research_artifact_packet"] = True
-                    payload["capability_executor_ready"] = False
-                    payload["execution_command"] = []
-                    payload["implementation_command"] = []
-                    payload["next_escalation"] = "Comparator research packet now exists for this scope; science remains blocked until the packet is upgraded to a passing evidence/replay artifact."
+                    research_artifact = factory.comparator_gap_research_artifact(ROOT, gap_id, artifact_key)
+                    root_cause_class, why, repair = factory.comparator_research_artifact_root_cause(research_artifact)
+                    repair_id = factory.comparator_research_artifact_repair_id(gap_id, artifact_key, root_cause_class)
+                    for stale_flag in [
+                        "superseded_by_research_artifact",
+                        "superseded_by_research_artifact_packet",
+                        "superseded_by_scoring_work_order",
+                        "superseded_by_scoring_subartifact_execution",
+                        "superseded_by_source_executor_work_order",
+                        "superseded_by_source_implementation_backlog",
+                        "superseded_by_source_implementation_report",
+                    ]:
+                        payload.pop(stale_flag, None)
+                    payload["status"] = "OPEN"
+                    payload["research_artifact_ref"] = research_artifact.get("artifact_ref")
+                    payload["research_artifact_status"] = research_artifact.get("status")
+                    payload["research_artifact_root_cause_class"] = root_cause_class
+                    payload["research_artifact_repair_id"] = repair_id
+                    payload["capability_executor_ready"] = True
+                    payload["execution_command"] = [
+                        sys.executable,
+                        "tools/oc133_toe_closure_factory.py",
+                        "--execute-comparator-research-artifact-repair",
+                        repair_id,
+                        "--write",
+                    ] if repair_id in factory.comparator_research_artifact_repair_rows_by_id(ROOT) else [
+                        sys.executable,
+                        "tools/oc133_toe_closure_factory.py",
+                        "--compile-comparator-research-artifact-repair-backlog",
+                        "--write",
+                    ]
+                    payload["implementation_command"] = list(payload["execution_command"])
+                    payload["why_it_failed"] = why
+                    payload["repair_strategy"] = repair
+                    payload["next_escalation"] = "Research artifact exists but is OPEN; execute its repair row or implement the missing scorer/replay capability. Do not mark this dependency PASS until the artifact itself passes."
                 elif artifact_key == "oc_prediction_scoring_row" and factory.comparator_gap_scoring_work_order_exists(ROOT, gap_id):
                     payload["status"] = "PASS"
                     payload["superseded_by_scoring_work_order"] = True

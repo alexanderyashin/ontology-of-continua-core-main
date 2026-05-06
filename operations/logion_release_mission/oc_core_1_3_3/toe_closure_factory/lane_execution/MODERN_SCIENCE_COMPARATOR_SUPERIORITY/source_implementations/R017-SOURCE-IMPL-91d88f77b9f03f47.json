@@ -1,10 +1,33 @@
 {
-  "artifact_hash": "66d067641a8991f7d3fd2df7612a3362f4ffc568b428d786245dcdd2917ad3a9",
+  "artifact_hash": "845dab530d1a33e8ed7802acc5296d5484c7b79c2af28fe8ea0e597fc31479b6",
   "artifact_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/source_implementations/R017-SOURCE-IMPL-91d88f77b9f03f47.json",
-  "command_pass": false,
-  "command_result_total": 0,
-  "command_results": [],
-  "concrete_governed_commands": [],
+  "command_pass": true,
+  "command_result_total": 1,
+  "command_results": [
+    {
+      "cmd": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "tools/oc133_toe_closure_factory.py",
+        "--execute-comparator-gap-artifact",
+        "MS-COV-GAP-EARTH_SPACE_ENVIRONMENTAL_SCIENCES-CLIMATE_WEATHER_GEOPHYSICAL_TIME_SERIES",
+        "uncertainty_row",
+        "--write"
+      ],
+      "returncode": 0,
+      "stderr_tail": "",
+      "stdout_tail": "{\n  \"changed\": [],\n  \"missing\": [],\n  \"state\": \"PASS\"\n}\n"
+    }
+  ],
+  "concrete_governed_commands": [
+    [
+      "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+      "tools/oc133_toe_closure_factory.py",
+      "--execute-comparator-gap-artifact",
+      "MS-COV-GAP-EARTH_SPACE_ENVIRONMENTAL_SCIENCES-CLIMATE_WEATHER_GEOPHYSICAL_TIME_SERIES",
+      "uncertainty_row",
+      "--write"
+    ]
+  ],
   "domain_class_id": "earth_space_environmental_sciences",
   "execution_command": [
     "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
@@ -15,7 +38,7 @@
   ],
   "gap_id": "MS-COV-GAP-EARTH_SPACE_ENVIRONMENTAL_SCIENCES-CLIMATE_WEATHER_GEOPHYSICAL_TIME_SERIES",
   "generated_at": "2026-05-06T06:37:01Z",
-  "implementation_command_class": "MISSING_CONCRETE_SOURCE_EXECUTOR",
+  "implementation_command_class": "CONCRETE_SOURCE_EXECUTOR",
   "implementation_id": "R017-SOURCE-IMPL-91d88f77b9f03f47",
   "implementation_work_order_id": "R017-SOURCE-IMPL-91d88f77b9f03f47",
   "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
@@ -39,12 +62,12 @@
   "research_artifact_hash": "cfa2b5e78278aa2c9766142f6816e8f7ca398a56246334e3af777a01eeb54bcf",
   "research_artifact_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/6fa88ac46f5c7bb2/uncertainty_row.json",
   "research_artifact_status": "PASS",
-  "root_cause_class": "NO_GOVERNED_DOMAIN_SOURCE_IMPLEMENTATION_COMMAND",
+  "root_cause_class": "SOURCE_IMPLEMENTATION_EXECUTED",
   "schema_id": "OC133_MODERN_SCIENCE_COMPARATOR_SOURCE_IMPLEMENTATION_EXECUTION_v1",
-  "scientific_closure_status": "OPEN",
+  "scientific_closure_status": "PASS",
   "scoring_subartifact_id": "residuals_materiality_uncertainty",
   "source_executor_work_order_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/source_executor_work_orders/source_executor_91d88f77b9f03f47.json",
-  "status": "CAPABILITY_DEVELOPMENT_REQUIRED",
+  "status": "PASS",
   "validator_binding": "comparator_gap::MS-COV-GAP-EARTH_SPACE_ENVIRONMENTAL_SCIENCES-CLIMATE_WEATHER_GEOPHYSICAL_TIME_SERIES::source_implementation::residuals_materiality_uncertainty",
-  "why_it_failed": "No governed source/scoring command is mapped for domain `earth_space_environmental_sciences`, phenomenon `climate_weather_geophysical_time_series`, subartifact `residuals_materiality_uncertainty`."
+  "why_it_failed": "Governed source/scoring commands ran and produced a downstream research artifact or fail-closed evidence diagnosis."
 }

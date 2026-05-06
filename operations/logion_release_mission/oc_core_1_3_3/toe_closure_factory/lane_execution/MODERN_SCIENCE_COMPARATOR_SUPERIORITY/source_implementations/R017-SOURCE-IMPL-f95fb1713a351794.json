@@ -1,10 +1,33 @@
 {
-  "artifact_hash": "0e61a2f9b96e1cc778e41cd01577102803ae45f9225438a71ccf98c44fb285b5",
+  "artifact_hash": "a4a367b750ef68719bc7376176afc47675ae09090b1e079c03749ee31dde266a",
   "artifact_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/source_implementations/R017-SOURCE-IMPL-f95fb1713a351794.json",
-  "command_pass": false,
-  "command_result_total": 0,
-  "command_results": [],
-  "concrete_governed_commands": [],
+  "command_pass": true,
+  "command_result_total": 1,
+  "command_results": [
+    {
+      "cmd": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "tools/oc133_toe_closure_factory.py",
+        "--execute-comparator-gap-artifact",
+        "MS-COV-GAP-MEDICAL_HEALTH_SCIENCES-PHARMACOLOGY_TOXICOLOGY_AND_DOSE_RESPONSE",
+        "verified_open_source_capsule",
+        "--write"
+      ],
+      "returncode": 0,
+      "stderr_tail": "",
+      "stdout_tail": "{\n  \"changed\": [],\n  \"missing\": [],\n  \"state\": \"PASS\"\n}\n"
+    }
+  ],
+  "concrete_governed_commands": [
+    [
+      "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+      "tools/oc133_toe_closure_factory.py",
+      "--execute-comparator-gap-artifact",
+      "MS-COV-GAP-MEDICAL_HEALTH_SCIENCES-PHARMACOLOGY_TOXICOLOGY_AND_DOSE_RESPONSE",
+      "verified_open_source_capsule",
+      "--write"
+    ]
+  ],
   "domain_class_id": "medical_health_sciences",
   "execution_command": [
     "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
@@ -15,7 +38,7 @@
   ],
   "gap_id": "MS-COV-GAP-MEDICAL_HEALTH_SCIENCES-PHARMACOLOGY_TOXICOLOGY_AND_DOSE_RESPONSE",
   "generated_at": "2026-05-06T06:37:25Z",
-  "implementation_command_class": "MISSING_CONCRETE_SOURCE_EXECUTOR",
+  "implementation_command_class": "CONCRETE_SOURCE_EXECUTOR",
   "implementation_id": "R017-SOURCE-IMPL-f95fb1713a351794",
   "implementation_work_order_id": "R017-SOURCE-IMPL-f95fb1713a351794",
   "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
@@ -41,12 +64,12 @@
   "research_artifact_hash": "c1b70c2d7d1064bacd4588af6768ab91160ccf2d411219d48597aa6e37279155",
   "research_artifact_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/37c095c180c5f414/verified_open_source_capsule.json",
   "research_artifact_status": "PASS",
-  "root_cause_class": "NO_GOVERNED_DOMAIN_SOURCE_IMPLEMENTATION_COMMAND",
+  "root_cause_class": "SOURCE_IMPLEMENTATION_EXECUTED",
   "schema_id": "OC133_MODERN_SCIENCE_COMPARATOR_SOURCE_IMPLEMENTATION_EXECUTION_v1",
-  "scientific_closure_status": "OPEN",
+  "scientific_closure_status": "PASS",
   "scoring_subartifact_id": "source_snapshot_acquisition",
   "source_executor_work_order_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/source_executor_work_orders/source_executor_f95fb1713a351794.json",
-  "status": "CAPABILITY_DEVELOPMENT_REQUIRED",
+  "status": "PASS",
   "validator_binding": "comparator_gap::MS-COV-GAP-MEDICAL_HEALTH_SCIENCES-PHARMACOLOGY_TOXICOLOGY_AND_DOSE_RESPONSE::source_implementation::source_snapshot_acquisition",
-  "why_it_failed": "No governed source/scoring command is mapped for domain `medical_health_sciences`, phenomenon `pharmacology_toxicology_and_dose_response`, subartifact `source_snapshot_acquisition`."
+  "why_it_failed": "Governed source/scoring commands ran and produced a downstream research artifact or fail-closed evidence diagnosis."
 }

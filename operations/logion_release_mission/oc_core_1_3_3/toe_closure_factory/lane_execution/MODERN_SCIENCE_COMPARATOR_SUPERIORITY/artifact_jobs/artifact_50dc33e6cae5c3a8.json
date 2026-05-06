@@ -1,9 +1,9 @@
 {
-  "artifact_hash": "84d14f6791b5c27f00c89a69d8490dfc128ae32b8393573aff33327a1cf7c055",
+  "artifact_hash": "1b31d11e57dea85d9dc63540669dcd56e1d0e62279d81309c92647b89d486842",
   "artifact_key": "benchmark_case",
   "artifact_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/artifact_jobs/artifact_50dc33e6cae5c3a8.json",
   "domain_class_id": "medical_health_sciences",
-  "executable_spec_found": false,
+  "executable_spec_found": true,
   "execution_command": [
     "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
     "tools/oc133_toe_closure_factory.py",
@@ -32,29 +32,23 @@
   "research_artifact_scope": "target/benchmark case preregistered; no target result credit counted here",
   "research_artifact_status": "PASS",
   "schema_id": "OC133_MODERN_SCIENCE_COMPARATOR_GAP_ARTIFACT_EXECUTION_v1",
-  "source_block": [
-    {
-      "lane_role": "source_capsule",
-      "requirement": "Add authoritative source capsule(s) or an internally declared formal target corpus with stable hashes."
-    },
-    {
-      "lane_role": "target_acquisition",
-      "requirement": "Acquire target-blind or prospective targets with pre-target lock and target-hidden-until-scoring attestation."
-    },
-    {
-      "lane_role": "incumbent_comparator",
-      "requirement": "Declare preregistered modern-science comparator baselines and score them on the same held-out targets."
-    },
-    {
-      "lane_role": "oc_scoring",
-      "requirement": "Score OC predictions with residuals, uncertainty interval, materiality threshold, and pack hash binding."
-    }
-  ],
+  "source_block": {
+    "extraction_rule": "Lock adverse-event reports and hide severity and dose-response class labels until OC and comparator scoring rows are preregistered.",
+    "name": "held_out_adverse_event_severity_and_dose_response_class",
+    "target_fields": [
+      "safetyreportid",
+      "patient.drug.medicinalproduct",
+      "patient.drug.drugstructuredosagenumb",
+      "patient.reaction.reactionmeddrapt",
+      "serious"
+    ],
+    "unit": "severity or dose-response class derived from locked adverse-event reports"
+  },
   "source_refs": [
     "reports/OC_CORE_1_3_3_MODERN_SCIENCE_COVERAGE_LANE_QUEUE.json",
     "benchmarks/modern_science/OC133_MODERN_SCIENCE_COVERAGE_WORK_ORDERS.json",
     "comparators/modern_science/OC133_MODERN_SCIENCE_COVERAGE_REGISTER.json"
   ],
   "status": "PASS",
-  "why_it_failed": "Comparator gap `MS-COV-GAP-MEDICAL_HEALTH_SCIENCES-PHARMACOLOGY_TOXICOLOGY_AND_DOSE_RESPONSE` lacks `benchmark_case`; no broad-superiority credit is awarded."
+  "why_it_failed": "Comparator gap `MS-COV-GAP-MEDICAL_HEALTH_SCIENCES-PHARMACOLOGY_TOXICOLOGY_AND_DOSE_RESPONSE` already has `benchmark_case`."
 }

@@ -1,9 +1,9 @@
 {
-  "artifact_hash": "4c7d5eb1741d4f76397f934e9ca5c108e662d30603f5a13899b1bcc7be9ab292",
+  "artifact_hash": "c618a51c58a22dea9a4ef5719096e8cdbebe62777853bb18ccb41fc1390d0966",
   "artifact_key": "oc_prediction_scoring_row",
   "artifact_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/artifact_jobs/artifact_efa4a6872fc94c33.json",
   "domain_class_id": "medical_health_sciences",
-  "executable_spec_found": false,
+  "executable_spec_found": true,
   "execution_command": [
     "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
     "tools/oc133_toe_closure_factory.py",
@@ -32,7 +32,11 @@
   "research_artifact_scope": "scoring evidence absent or does not beat the preregistered comparator",
   "research_artifact_status": "OPEN",
   "schema_id": "OC133_MODERN_SCIENCE_COMPARATOR_GAP_ARTIFACT_EXECUTION_v1",
-  "source_block": {},
+  "source_block": {
+    "formula": "classification_loss(oc_dose_response_score, held_out_severity_or_response_class)",
+    "metric_id": "medical_pharmacology_dose_response_residual",
+    "superiority_rule": "OC must beat the preregistered drug-class frequency comparator after sparse-strata controls."
+  },
   "source_refs": [
     "reports/OC_CORE_1_3_3_MODERN_SCIENCE_COVERAGE_LANE_QUEUE.json",
     "benchmarks/modern_science/OC133_MODERN_SCIENCE_COVERAGE_WORK_ORDERS.json",

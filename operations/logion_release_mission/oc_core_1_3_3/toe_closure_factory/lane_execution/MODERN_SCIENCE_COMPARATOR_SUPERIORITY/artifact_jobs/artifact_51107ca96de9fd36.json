@@ -1,9 +1,9 @@
 {
-  "artifact_hash": "8f35290cf728daa706585ed031ace00e55524589730d886afafca6f4c3e28263",
+  "artifact_hash": "c8c3649b3f4e2a2076788cf0c3fd156951f2736a98e3fae4669044fd3196b55b",
   "artifact_key": "oc_prediction_scoring_row",
   "artifact_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/artifact_jobs/artifact_51107ca96de9fd36.json",
   "domain_class_id": "medical_health_sciences",
-  "executable_spec_found": false,
+  "executable_spec_found": true,
   "execution_command": [
     "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
     "tools/oc133_toe_closure_factory.py",
@@ -32,7 +32,11 @@
   "research_artifact_scope": "scoring evidence absent or does not beat the preregistered comparator",
   "research_artifact_status": "OPEN",
   "schema_id": "OC133_MODERN_SCIENCE_COMPARATOR_GAP_ARTIFACT_EXECUTION_v1",
-  "source_block": {},
+  "source_block": {
+    "formula": "weighted_absolute_error(oc_risk_change_score, held_out_risk_change)",
+    "metric_id": "medical_epidemiology_risk_residual",
+    "superiority_rule": "OC must beat the autoregressive comparator across the locked regional-week holdout."
+  },
   "source_refs": [
     "reports/OC_CORE_1_3_3_MODERN_SCIENCE_COVERAGE_LANE_QUEUE.json",
     "benchmarks/modern_science/OC133_MODERN_SCIENCE_COVERAGE_WORK_ORDERS.json",

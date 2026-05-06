@@ -1,9 +1,9 @@
 {
-  "artifact_hash": "106ea3e3a9a78b31983ce5daa667319b243ce1eedff14e44393b33d7c9bd8127",
+  "artifact_hash": "56375fb75d14063dbfed8caf4be214694776dcfc2ce63628efed7fa526544dc0",
   "artifact_key": "benchmark_case",
   "artifact_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/artifact_jobs/artifact_a6b2ac6bb6e4f281.json",
   "domain_class_id": "medical_health_sciences",
-  "executable_spec_found": false,
+  "executable_spec_found": true,
   "execution_command": [
     "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
     "tools/oc133_toe_closure_factory.py",
@@ -32,29 +32,22 @@
   "research_artifact_scope": "target/benchmark case preregistered; no target result credit counted here",
   "research_artifact_status": "PASS",
   "schema_id": "OC133_MODERN_SCIENCE_COMPARATOR_GAP_ARTIFACT_EXECUTION_v1",
-  "source_block": [
-    {
-      "lane_role": "source_capsule",
-      "requirement": "Add authoritative source capsule(s) or an internally declared formal target corpus with stable hashes."
-    },
-    {
-      "lane_role": "target_acquisition",
-      "requirement": "Acquire target-blind or prospective targets with pre-target lock and target-hidden-until-scoring attestation."
-    },
-    {
-      "lane_role": "incumbent_comparator",
-      "requirement": "Declare preregistered modern-science comparator baselines and score them on the same held-out targets."
-    },
-    {
-      "lane_role": "oc_scoring",
-      "requirement": "Score OC predictions with residuals, uncertainty interval, materiality threshold, and pack hash binding."
-    }
-  ],
+  "source_block": {
+    "extraction_rule": "Lock completed interventional trials and hide reported primary outcome direction and biomarker shift fields until the OC scoring pack is preregistered.",
+    "name": "held_out_primary_outcome_effect_direction_and_biomarker_shift",
+    "target_fields": [
+      "protocolSection.identificationModule.nctId",
+      "protocolSection.conditionsModule.conditions",
+      "protocolSection.designModule.phases",
+      "resultsSection.outcomeMeasuresModule.outcomeMeasures"
+    ],
+    "unit": "directional effect class with reported outcome measure units retained per study"
+  },
   "source_refs": [
     "reports/OC_CORE_1_3_3_MODERN_SCIENCE_COVERAGE_LANE_QUEUE.json",
     "benchmarks/modern_science/OC133_MODERN_SCIENCE_COVERAGE_WORK_ORDERS.json",
     "comparators/modern_science/OC133_MODERN_SCIENCE_COVERAGE_REGISTER.json"
   ],
   "status": "PASS",
-  "why_it_failed": "Comparator gap `MS-COV-GAP-MEDICAL_HEALTH_SCIENCES-CLINICAL_OUTCOMES_AND_BIOMARKERS` lacks `benchmark_case`; no broad-superiority credit is awarded."
+  "why_it_failed": "Comparator gap `MS-COV-GAP-MEDICAL_HEALTH_SCIENCES-CLINICAL_OUTCOMES_AND_BIOMARKERS` already has `benchmark_case`."
 }

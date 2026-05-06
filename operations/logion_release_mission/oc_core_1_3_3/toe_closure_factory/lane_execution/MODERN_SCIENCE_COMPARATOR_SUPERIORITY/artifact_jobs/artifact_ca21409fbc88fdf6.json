@@ -1,9 +1,9 @@
 {
-  "artifact_hash": "f22b6632a0b7a1c53d896e15fac64e0c195320860d7b5ca8913dc3b925ee6be2",
+  "artifact_hash": "b64a52dd59cb55f0e012df0b90f15f48dc8a3cbdfc0038419849a5c4feff595a",
   "artifact_key": "incumbent_comparator",
   "artifact_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/artifact_jobs/artifact_ca21409fbc88fdf6.json",
   "domain_class_id": "medical_health_sciences",
-  "executable_spec_found": false,
+  "executable_spec_found": true,
   "execution_command": [
     "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
     "tools/oc133_toe_closure_factory.py",
@@ -32,29 +32,18 @@
   "research_artifact_scope": "incumbent comparator preregistered; scoring superiority not asserted",
   "research_artifact_status": "PASS",
   "schema_id": "OC133_MODERN_SCIENCE_COMPARATOR_GAP_ARTIFACT_EXECUTION_v1",
-  "source_block": [
-    {
-      "lane_role": "source_capsule",
-      "requirement": "Add authoritative source capsule(s) or an internally declared formal target corpus with stable hashes."
-    },
-    {
-      "lane_role": "target_acquisition",
-      "requirement": "Acquire target-blind or prospective targets with pre-target lock and target-hidden-until-scoring attestation."
-    },
-    {
-      "lane_role": "incumbent_comparator",
-      "requirement": "Declare preregistered modern-science comparator baselines and score them on the same held-out targets."
-    },
-    {
-      "lane_role": "oc_scoring",
-      "requirement": "Score OC predictions with residuals, uncertainty interval, materiality threshold, and pack hash binding."
-    }
-  ],
+  "source_block": {
+    "baseline_name": "autoregressive regional risk baseline",
+    "pre_registered": true,
+    "prediction_rule": "Predict held-out risk change from lagged regional counts and demographic strata without access to future target labels.",
+    "required_material_margin": "OC residual must beat the autoregressive baseline under the declared temporal holdout and uncertainty policy.",
+    "target_values_used_for_baseline_design": false
+  },
   "source_refs": [
     "reports/OC_CORE_1_3_3_MODERN_SCIENCE_COVERAGE_LANE_QUEUE.json",
     "benchmarks/modern_science/OC133_MODERN_SCIENCE_COVERAGE_WORK_ORDERS.json",
     "comparators/modern_science/OC133_MODERN_SCIENCE_COVERAGE_REGISTER.json"
   ],
   "status": "PASS",
-  "why_it_failed": "Comparator gap `MS-COV-GAP-MEDICAL_HEALTH_SCIENCES-EPIDEMIOLOGICAL_TRANSMISSION_AND_RISK` lacks `incumbent_comparator`; no broad-superiority credit is awarded."
+  "why_it_failed": "Comparator gap `MS-COV-GAP-MEDICAL_HEALTH_SCIENCES-EPIDEMIOLOGICAL_TRANSMISSION_AND_RISK` already has `incumbent_comparator`."
 }

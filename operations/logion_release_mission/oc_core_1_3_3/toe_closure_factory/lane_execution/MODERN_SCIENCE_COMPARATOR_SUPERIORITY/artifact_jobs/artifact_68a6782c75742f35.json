@@ -1,9 +1,9 @@
 {
-  "artifact_hash": "beaba5b8cc7c8540cd6143bdadcfe9b0f38c878eaf573b5e0cfe785fedb8e91f",
+  "artifact_hash": "a4c1ec5a33b5e6784f3d819d8edccf6c6fde9e2266ba2fdd09beff48bc60b07d",
   "artifact_key": "verified_open_source_capsule",
   "artifact_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/artifact_jobs/artifact_68a6782c75742f35.json",
   "domain_class_id": "medical_health_sciences",
-  "executable_spec_found": false,
+  "executable_spec_found": true,
   "execution_command": [
     "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
     "tools/oc133_toe_closure_factory.py",
@@ -28,15 +28,20 @@
   "repair_strategy": "Create the required artifact from governed open/free sources, bind hashes, then rerun the comparator gap and strict validator.",
   "required_capability": "Research/PriorArt",
   "required_output_kind": "source_capsule_and_snapshot_lock",
-  "research_artifact_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/MS-COV-GAP-MEDICAL_HEALTH_SCIENCES-PHARMACOLOGY_TOXICOLOGY_AND_DOSE_RESPONSE/verified_open_source_capsule.json",
+  "research_artifact_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/37c095c180c5f414/verified_open_source_capsule.json",
   "research_artifact_scope": "source_identity_and_open_url_bound; target/scoring/replay remain separate",
   "research_artifact_status": "PASS",
   "schema_id": "OC133_MODERN_SCIENCE_COMPARATOR_GAP_ARTIFACT_EXECUTION_v1",
   "source_block": {
-    "official_source_defaults": [
-      "ClinicalTrials.gov, WHO, CDC, FDA, NIH, or equivalent regulated/public health sources",
-      "deidentified public outcome or biomarker snapshots with explicit ethics boundary"
-    ]
+    "minimum_rows_required": 100,
+    "official_documentation_url": "https://open.fda.gov/apis/drug/event/how-to-use-the-endpoint/",
+    "official_endpoint_url": "https://api.fda.gov/drug/event.json?search=receivedate:[20240101+TO+20241231]&limit=100",
+    "required_local_snapshot_ref": "validation/heldout/grand_science/medical_health/pharmacology_toxicology/OC133_OPENFDA_DRUG_EVENT_SNAPSHOT.json",
+    "required_lock_ref": "validation/heldout/grand_science/medical_health/pharmacology_toxicology/OC133_OPENFDA_DRUG_EVENT_SNAPSHOT.lock.json",
+    "snapshot_status": "NOT_ACQUIRED_FOR_THIS_COVERAGE_CLASS",
+    "source_authority": "U.S. Food and Drug Administration openFDA",
+    "source_id": "openfda_faers_drug_event_v1",
+    "source_name": "openFDA drug adverse event endpoint"
   },
   "source_refs": [
     "reports/OC_CORE_1_3_3_MODERN_SCIENCE_COVERAGE_LANE_QUEUE.json",
@@ -44,5 +49,5 @@
     "comparators/modern_science/OC133_MODERN_SCIENCE_COVERAGE_REGISTER.json"
   ],
   "status": "PASS",
-  "why_it_failed": "Comparator gap `MS-COV-GAP-MEDICAL_HEALTH_SCIENCES-PHARMACOLOGY_TOXICOLOGY_AND_DOSE_RESPONSE` lacks `verified_open_source_capsule`; no broad-superiority credit is awarded."
+  "why_it_failed": "Comparator gap `MS-COV-GAP-MEDICAL_HEALTH_SCIENCES-PHARMACOLOGY_TOXICOLOGY_AND_DOSE_RESPONSE` already has `verified_open_source_capsule`."
 }

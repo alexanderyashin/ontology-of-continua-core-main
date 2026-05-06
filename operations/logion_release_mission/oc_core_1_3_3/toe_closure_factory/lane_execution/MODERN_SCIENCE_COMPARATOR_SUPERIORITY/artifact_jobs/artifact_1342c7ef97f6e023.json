@@ -1,9 +1,9 @@
 {
-  "artifact_hash": "64206083854e5d6e38efd26f876cfef9b2e4324cdb7fdca8cf470b9980a888b9",
+  "artifact_hash": "b5dd9d0c8f1a8bf6d055b2009d49a0ed92781d60ae4ee3e6efa9f8d408e5bcba",
   "artifact_key": "incumbent_comparator",
   "artifact_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/artifact_jobs/artifact_1342c7ef97f6e023.json",
   "domain_class_id": "medical_health_sciences",
-  "executable_spec_found": false,
+  "executable_spec_found": true,
   "execution_command": [
     "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
     "tools/oc133_toe_closure_factory.py",
@@ -32,29 +32,18 @@
   "research_artifact_scope": "incumbent comparator preregistered; scoring superiority not asserted",
   "research_artifact_status": "PASS",
   "schema_id": "OC133_MODERN_SCIENCE_COMPARATOR_GAP_ARTIFACT_EXECUTION_v1",
-  "source_block": [
-    {
-      "lane_role": "source_capsule",
-      "requirement": "Add authoritative source capsule(s) or an internally declared formal target corpus with stable hashes."
-    },
-    {
-      "lane_role": "target_acquisition",
-      "requirement": "Acquire target-blind or prospective targets with pre-target lock and target-hidden-until-scoring attestation."
-    },
-    {
-      "lane_role": "incumbent_comparator",
-      "requirement": "Declare preregistered modern-science comparator baselines and score them on the same held-out targets."
-    },
-    {
-      "lane_role": "oc_scoring",
-      "requirement": "Score OC predictions with residuals, uncertainty interval, materiality threshold, and pack hash binding."
-    }
-  ],
+  "source_block": {
+    "baseline_name": "drug-class frequency and dose-bin adverse-event baseline",
+    "pre_registered": true,
+    "prediction_rule": "Predict held-out severity and dose-response class from drug class and preregistered dose bins without target-label access.",
+    "required_material_margin": "OC residual must beat the frequency dose-bin baseline under the declared pharmacovigilance uncertainty policy.",
+    "target_values_used_for_baseline_design": false
+  },
   "source_refs": [
     "reports/OC_CORE_1_3_3_MODERN_SCIENCE_COVERAGE_LANE_QUEUE.json",
     "benchmarks/modern_science/OC133_MODERN_SCIENCE_COVERAGE_WORK_ORDERS.json",
     "comparators/modern_science/OC133_MODERN_SCIENCE_COVERAGE_REGISTER.json"
   ],
   "status": "PASS",
-  "why_it_failed": "Comparator gap `MS-COV-GAP-MEDICAL_HEALTH_SCIENCES-PHARMACOLOGY_TOXICOLOGY_AND_DOSE_RESPONSE` lacks `incumbent_comparator`; no broad-superiority credit is awarded."
+  "why_it_failed": "Comparator gap `MS-COV-GAP-MEDICAL_HEALTH_SCIENCES-PHARMACOLOGY_TOXICOLOGY_AND_DOSE_RESPONSE` already has `incumbent_comparator`."
 }

@@ -1,9 +1,24 @@
 {
   "after_validator_error_total": 13,
-  "artifact_hash": "196c0231222a2df57ddbda7b9e94b0edbc64add49adfd4882d92e7750091751b",
+  "artifact_hash": "e1c9a226161650c4b341b1c311e7acf6f5304e92eec128dcf84e642e3c28a219",
   "before_validator_error_total": 13,
+  "capability_class": "comparator_source_implementation_obligation",
+  "capability_development_key": "845491e649e9ab68fb8f5b071f69561d70a2d5b284f4a4c3bdf21692962ccba0",
   "capability_id": "R017-CAPDEV-845491e649e9",
-  "command_results": [],
+  "command_results": [
+    {
+      "cmd": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "tools/oc133_toe_closure_factory.py",
+        "--execute-comparator-source-implementation",
+        "R017-SOURCE-IMPL-4c14c14cee90ea45",
+        "--write"
+      ],
+      "returncode": 0,
+      "stderr_tail": "",
+      "stdout_tail": "{\n  \"changed\": [],\n  \"missing\": [],\n  \"state\": \"PASS\"\n}\n"
+    }
+  ],
   "compiled_capability_id": "R017-CAPDEV-845491e649e9",
   "execution_command": [
     "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
@@ -12,13 +27,24 @@
     "R017-CAPDEV-845491e649e9",
     "--write"
   ],
-  "generated_at": "2026-05-06T06:45:46Z",
-  "next_escalation": "Rebuild the capability implementation registry from the current graph.",
-  "pass_predicate": "Capability id exists, executor is ready, and strict validator delta is positive.",
-  "repair_strategy": "Run --compile-capability-backlog --write before executing capability development.",
-  "required_capability": "Research/TOEClosureFactory",
+  "executor_command": [
+    "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+    "tools/oc133_toe_closure_factory.py",
+    "--execute-comparator-source-implementation",
+    "R017-SOURCE-IMPL-4c14c14cee90ea45",
+    "--write"
+  ],
+  "executor_type": "comparator_source_implementation_obligation",
+  "generated_at": "2026-05-06T07:23:42Z",
+  "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+  "next_escalation": "If this compiled capability produces zero validator delta, generate a lower-level upstream research obligation for the exact missing source/evidence object.",
+  "no_fake_closure_policy": "Zero delta remains OPEN and cannot satisfy r017.",
+  "pass_predicate": "A concrete implementation command exists, runs under governance, and produces a hash-bound evidence/scoring artifact.",
+  "repair_strategy": "Execute the exact governed source implementation for this gap/subartifact; the report records evidence or a source-bound blocker without granting broad comparator PASS.",
+  "required_capability": "Research/ScoringExecutor",
   "schema_id": "OC133_TOE_CAPABILITY_DEVELOPMENT_EXECUTION_v1",
-  "status": "FAIL_CLOSED",
+  "source_graph_node_id": "required_artifact:MODERN_SCIENCE_COMPARATOR_SUPERIORITY:MS-COV-GAP-AGRICULTURAL_FOOD_SCIENCES-CROP_YIELD_SOIL_AND_TRAIT_OBSERVABLES:source_implementation::oc_formula_or_model",
+  "status": "ZERO_DELTA_OPEN",
   "validator_error_delta": 0,
-  "why_it_failed": "Compiled capability id is not present in the implementation registry."
+  "why_it_failed": "Compiled capability executed but did not reduce strict validator errors."
 }
