@@ -118,6 +118,18 @@ DOMAIN_LOCAL_MATERIALIZED_EVIDENCE_REFS = {
         "machine_learning_generalization_and_evaluation",
     ): "validation/heldout/grand_science/cs/uci_iris_ml/OC133_UCI_IRIS_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
     (
+        "cognitive_behavioral_neurosciences",
+        "behavioral_task_and_psychometric_prediction",
+    ): "validation/heldout/grand_science/uci/cognitive_student_psychometric_performance/OC133_UCI_COGNITIVE_STUDENT_PSYCHOMETRIC_PERFORMANCE_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
+    (
+        "cognitive_behavioral_neurosciences",
+        "learning_memory_and_perception_dynamics",
+    ): "validation/heldout/grand_science/uci/cognitive_letter_perception/OC133_UCI_COGNITIVE_LETTER_PERCEPTION_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
+    (
+        "cognitive_behavioral_neurosciences",
+        "neural_recording_and_brain_network_observables",
+    ): "validation/heldout/grand_science/uci/neuro_eeg_eye_state/OC133_UCI_NEURO_EEG_EYE_STATE_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
+    (
         "medical_health_sciences",
         "clinical_outcomes_and_biomarkers",
     ): "validation/heldout/grand_science/wdi/medical_clinical_life_expectancy/OC133_WDI_MEDICAL_CLINICAL_LIFE_EXPECTANCY_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",

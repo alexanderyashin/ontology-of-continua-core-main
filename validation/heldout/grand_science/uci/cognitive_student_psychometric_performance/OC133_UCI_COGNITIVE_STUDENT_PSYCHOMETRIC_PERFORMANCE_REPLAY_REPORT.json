@@ -1,0 +1,17 @@
+{
+  "schema_id": "OC133_UCI_TABULAR_CLASSIFIER_REPLAY_REPORT_v1",
+  "status": "PASS",
+  "lane_id": "cognitive_student_psychometric_performance",
+  "scoring_pack_ref": "validation/heldout/grand_science/uci/cognitive_student_psychometric_performance/OC133_UCI_COGNITIVE_STUDENT_PSYCHOMETRIC_PERFORMANCE_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
+  "scoring_pack_sha256": "4ca29e52ef173677f9d54bf95b20b9057ca24c248e3a8ef0315b112eb275914e",
+  "row_count": 79,
+  "material_margin_met": true,
+  "negative_control_rejected": true,
+  "replay_command": {
+    "commands": [
+      "python validation/heldout/grand_science/uci/coverage_work_orders/oc133_uci_tabular_classifier_materializer.py --lane cognitive_student_psychometric_performance --score --write-scoring",
+      "python validation/heldout/grand_science/uci/coverage_work_orders/oc133_uci_tabular_classifier_materializer.py --lane cognitive_student_psychometric_performance --check"
+    ]
+  },
+  "coverage_closure_allowed": false
+}

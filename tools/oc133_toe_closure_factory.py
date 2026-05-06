@@ -2103,6 +2103,36 @@ UCI_IRIS_ML_EVIDENCE_REF = (
     "validation/heldout/grand_science/cs/uci_iris_ml/"
     "OC133_UCI_IRIS_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json"
 )
+UCI_TABULAR_CLASSIFIER_MATERIALIZER = (
+    "validation/heldout/grand_science/uci/coverage_work_orders/"
+    "oc133_uci_tabular_classifier_materializer.py"
+)
+UCI_TABULAR_CLASSIFIER_MATERIALIZED_LANES = {
+    (
+        "cognitive_behavioral_neurosciences",
+        "behavioral_task_and_psychometric_prediction",
+    ): (
+        "cognitive_student_psychometric_performance",
+        "validation/heldout/grand_science/uci/cognitive_student_psychometric_performance/"
+        "OC133_UCI_COGNITIVE_STUDENT_PSYCHOMETRIC_PERFORMANCE_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
+    ),
+    (
+        "cognitive_behavioral_neurosciences",
+        "learning_memory_and_perception_dynamics",
+    ): (
+        "cognitive_letter_perception",
+        "validation/heldout/grand_science/uci/cognitive_letter_perception/"
+        "OC133_UCI_COGNITIVE_LETTER_PERCEPTION_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
+    ),
+    (
+        "cognitive_behavioral_neurosciences",
+        "neural_recording_and_brain_network_observables",
+    ): (
+        "neuro_eeg_eye_state",
+        "validation/heldout/grand_science/uci/neuro_eeg_eye_state/"
+        "OC133_UCI_NEURO_EEG_EYE_STATE_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
+    ),
+}
 WDI_INDICATOR_MATERIALIZER = (
     "validation/heldout/grand_science/wdi/coverage_work_orders/"
     "oc133_wdi_indicator_materializer.py"
@@ -2832,6 +2862,39 @@ COMPARATOR_DOMAIN_IMPLEMENTED_COMMANDS[
     [sys.executable, UCI_IRIS_ML_MATERIALIZER, "--score", "--write-scoring"],
     [sys.executable, UCI_IRIS_ML_MATERIALIZER, "--check"],
 ]
+
+for (_uci_domain, _uci_phenomenon), (_uci_lane, _uci_ref) in UCI_TABULAR_CLASSIFIER_MATERIALIZED_LANES.items():
+    for _uci_subartifact in (
+        "target_hidden_task_table",
+        "oc_formula_or_model",
+        "incumbent_comparator_scoring",
+        "residuals_materiality_uncertainty",
+        "controls_and_falsifiers",
+        "independent_replay",
+        "strict_evidence_pack_diagnosis",
+        "model_or_claim_repair_decision",
+    ):
+        COMPARATOR_DOMAIN_IMPLEMENTED_COMMANDS[
+            (
+                _uci_domain,
+                _uci_phenomenon,
+                _uci_subartifact,
+            )
+        ] = [
+            [sys.executable, UCI_TABULAR_CLASSIFIER_MATERIALIZER, "--lane", _uci_lane, "--score", "--write-scoring"],
+            [sys.executable, UCI_TABULAR_CLASSIFIER_MATERIALIZER, "--lane", _uci_lane, "--check"],
+        ]
+    COMPARATOR_DOMAIN_IMPLEMENTED_COMMANDS[
+        (
+            _uci_domain,
+            _uci_phenomenon,
+            "source_snapshot_acquisition",
+        )
+    ] = [
+        [sys.executable, UCI_TABULAR_CLASSIFIER_MATERIALIZER, "--lane", _uci_lane, "--acquire", "--write-acquisition"],
+        [sys.executable, UCI_TABULAR_CLASSIFIER_MATERIALIZER, "--lane", _uci_lane, "--score", "--write-scoring"],
+        [sys.executable, UCI_TABULAR_CLASSIFIER_MATERIALIZER, "--lane", _uci_lane, "--check"],
+    ]
 
 for (_wdi_domain, _wdi_phenomenon), (_wdi_lane, _wdi_ref) in WDI_INDICATOR_MATERIALIZED_LANES.items():
     for _wdi_subartifact in (
@@ -3566,6 +3629,10 @@ COMPARATOR_DOMAIN_MATERIALIZED_EVIDENCE_REFS = {
         "computer_information_sciences",
         "machine_learning_generalization_and_evaluation",
     ): UCI_IRIS_ML_EVIDENCE_REF,
+    **{
+        key: evidence_ref
+        for key, (_lane_id, evidence_ref) in UCI_TABULAR_CLASSIFIER_MATERIALIZED_LANES.items()
+    },
     **{
         key: evidence_ref
         for key, (_lane_id, evidence_ref) in WDI_INDICATOR_MATERIALIZED_LANES.items()

@@ -1,5 +1,5 @@
 {
-  "artifact_hash": "0cd1a0956d2bd0541e17e277e8a380050e40dc9a9598cc3cd56c5e6b1871e30b",
+  "artifact_hash": "d1e60be48a6d6e4f0ad727f69e613be7d1ef00b4101a00ecb770229873b2c42d",
   "artifact_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/component_mat/mat_1c30123e8dc9c099.json",
   "available_diagnostic_commands": [
     [
@@ -76,43 +76,46 @@
   "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
   "materialization_id": "R017-COMPONENT-MATERIALIZE-8c431932546afbd6",
   "materialized_evidence": {
-    "evidence_ref": "",
-    "materialized": false,
-    "status": "CAPABILITY_DEVELOPMENT_REQUIRED",
-    "why_it_failed": "No source-bound domain evidence pack is bound for this comparator materialization row."
+    "evidence_ref": "validation/heldout/grand_science/uci/cognitive_letter_perception/OC133_UCI_COGNITIVE_LETTER_PERCEPTION_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
+    "fail_closed_reason": "",
+    "material_margin_met": true,
+    "materialized": true,
+    "residuals": {
+      "comparator": 0.96475,
+      "material_margin_met": true,
+      "material_margin_rule": "source-bound materialized evidence pack must show OC residual strictly below preregistered comparator residual under the declared uncertainty rule",
+      "model": 0.423
+    },
+    "source_bound": true,
+    "status": "PASS",
+    "strict_evidence_pack_hash": "5e7aa9e51697e689fd3c62390f15fd398111dcad49b24d84c4d1c87c23525773",
+    "strict_evidence_pack_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/f5ba5b27c4747241/strict_evidence_pack.json"
   },
   "materializer_command_results": [
     {
       "cmd": [
         "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
-        "validation/heldout/grand_science/neurobehavioral/coverage_work_orders/oc133_neurobehavioral_modern_science_coverage_work_orders.py",
-        "--write"
+        "validation/heldout/grand_science/uci/coverage_work_orders/oc133_uci_tabular_classifier_materializer.py",
+        "--lane",
+        "cognitive_letter_perception",
+        "--score",
+        "--write-scoring"
       ],
       "returncode": 0,
       "stderr_tail": "",
-      "stdout_tail": "{\n  \"status\": \"ok\",\n  \"output_ref\": \"validation/heldout/grand_science/neurobehavioral/coverage_work_orders/OC133_NEUROBEHAVIORAL_MODERN_SCIENCE_COVERAGE_WORK_ORDERS.json\",\n  \"failures\": []\n}\n"
+      "stdout_tail": "{\n  \"lane\": \"cognitive_letter_perception\",\n  \"status\": \"STRICT_EVIDENCE_PASS_NO_COVERAGE_CLOSURE\",\n  \"row_count\": 4000,\n  \"residuals\": {\n    \"model\": 0.423,\n    \"comparator\": 0.96475,\n    \"negative_control\": 0.97525,\n    \"material_margin_met\": true,\n    \"material_margin_rule\": \"classifier loss + 0.1 must be below majority-class comparator loss\"\n  }\n}\n"
     },
     {
       "cmd": [
         "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
-        "validation/heldout/grand_science/neurobehavioral/coverage_work_orders/oc133_neurobehavioral_modern_science_coverage_work_orders.py",
+        "validation/heldout/grand_science/uci/coverage_work_orders/oc133_uci_tabular_classifier_materializer.py",
+        "--lane",
+        "cognitive_letter_perception",
         "--check"
       ],
       "returncode": 0,
       "stderr_tail": "",
-      "stdout_tail": "{\n  \"status\": \"ok\",\n  \"checked\": \"validation/heldout/grand_science/neurobehavioral/coverage_work_orders/OC133_NEUROBEHAVIORAL_MODERN_SCIENCE_COVERAGE_WORK_ORDERS.json\"\n}\n"
-    },
-    {
-      "cmd": [
-        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
-        "tools/oc133_toe_closure_factory.py",
-        "--execute-comparator-generic-evidence-pack",
-        "MS-COV-GAP-COGNITIVE_BEHAVIORAL_NEUROSCIENCES-LEARNING_MEMORY_AND_PERCEPTION_DYNAMICS",
-        "--write"
-      ],
-      "returncode": 0,
-      "stderr_tail": "",
-      "stdout_tail": "{\n  \"changed\": [],\n  \"missing\": [],\n  \"state\": \"PASS\"\n}\n"
+      "stdout_tail": "cognitive_letter_perception: PASS\n"
     }
   ],
   "missing_source_evidence_fields": [
@@ -144,22 +147,22 @@
   "phenomenon_class_id": "learning_memory_and_perception_dynamics",
   "repair_strategy": "Implement the domain/phenomenon scorer that reads the governed source snapshot, keeps targets hidden until scoring, computes OC and comparator residuals, and writes PASS or fail-closed scoring/replay artifacts.",
   "replay_artifact_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/f5ba5b27c4747241/replay_record.json",
-  "replay_artifact_status": "OPEN",
+  "replay_artifact_status": "PASS",
   "required_capability": "Research/SourceBoundScoringMaterializationExecutor",
   "residual_requirement": {
     "formula": "absolute accuracy residual and RT MAE per subject/trial",
     "metric_id": "MS-COV-WO-030_domain_local_residual",
     "superiority_rule": "model_residual + uncertainty_upper < best_preregistered_comparator_residual"
   },
-  "root_cause_class": "SOURCE_BOUND_SCORING_MATERIALIZER_NOT_IMPLEMENTED",
+  "root_cause_class": "SOURCE_BOUND_SCORING_MATERIALIZATION_CLOSED",
   "schema_id": "OC133_MODERN_SCIENCE_COMPARATOR_COMPONENT_MATERIALIZATION_EXECUTION_v1",
   "scoring_artifact_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/f5ba5b27c4747241/oc_prediction_scoring_row.json",
-  "scoring_artifact_status": "OPEN",
+  "scoring_artifact_status": "PASS",
   "source_obligation_report_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/component_src/src_obligation_8c431932546afbd6.json",
   "source_obligation_status": "SOURCE_BOUND_SCORING_MATERIALIZATION_REMAINS_OPEN",
-  "status": "CAPABILITY_DEVELOPMENT_REQUIRED",
+  "status": "PASS",
   "strict_evidence_pack_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/f5ba5b27c4747241/strict_evidence_pack.json",
-  "strict_evidence_pack_status": "FAIL_CLOSED_SOURCE_BOUND_SCORING_NOT_MATERIALIZED",
+  "strict_evidence_pack_status": "PASS",
   "target_variable": {
     "extraction_rule": "Paired-associate memory encoding/retrieval events are parsed into subject/trial target metrics; heldout trial and subject targets remain sealed until predictions are materialized.",
     "name": "heldout_paired_associate_memory_performance",
@@ -171,5 +174,5 @@
     "unit": "accuracy proportion and reaction time milliseconds"
   },
   "validator_binding": "comparator_gap::MS-COV-GAP-COGNITIVE_BEHAVIORAL_NEUROSCIENCES-LEARNING_MEMORY_AND_PERCEPTION_DYNAMICS::component_source_obligation::material_margin",
-  "why_it_failed": "Source-bound scoring materializer is not implemented for this exact domain/component; existing commands only regenerate fail-closed diagnostics."
+  "why_it_failed": "Source-bound scoring materialization closed downstream."
 }

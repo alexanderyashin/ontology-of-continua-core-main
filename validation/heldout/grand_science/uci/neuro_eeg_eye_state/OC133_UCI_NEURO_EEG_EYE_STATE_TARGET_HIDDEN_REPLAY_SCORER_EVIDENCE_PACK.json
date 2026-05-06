@@ -1,0 +1,169 @@
+{
+  "schema_id": "OC133_UCI_TABULAR_CLASSIFIER_SCORING_PACK_v1",
+  "pack_status": "STRICT_EVIDENCE_PASS_NO_COVERAGE_CLOSURE",
+  "status": "STRICT_EVIDENCE_PASS_NO_COVERAGE_CLOSURE",
+  "lane_id": "neuro_eeg_eye_state",
+  "domain_class_id": "cognitive_behavioral_neurosciences",
+  "phenomenon_class_id": "neural_recording_and_brain_network_observables",
+  "source_bound": true,
+  "target_hidden": true,
+  "score_materialized": true,
+  "scientific_pass": true,
+  "coverage_closure_allowed": false,
+  "support_allowed_for_broad_coverage": false,
+  "source_snapshot_ref": "validation/heldout/grand_science/uci/neuro_eeg_eye_state/OC133_UCI_NEURO_EEG_EYE_STATE_SOURCE.dat",
+  "source_snapshot_sha256": "e6eccba033d8ce56d38d2f0cca2087356705425a5a2ddbb1012ef3b892bd5a4b",
+  "source_lock_ref": "validation/heldout/grand_science/uci/neuro_eeg_eye_state/OC133_UCI_NEURO_EEG_EYE_STATE_SOURCE.lock.json",
+  "visible_task_table_ref": "validation/heldout/grand_science/uci/neuro_eeg_eye_state/OC133_UCI_NEURO_EEG_EYE_STATE_TARGET_HIDDEN_TASK_TABLE.json",
+  "hidden_target_lock_ref": "validation/heldout/grand_science/uci/neuro_eeg_eye_state/OC133-UCI-NEURO_EEG_EYE_STATE-HIDDEN-TARGETS-0001.lock.json",
+  "row_count": 2996,
+  "model": {
+    "model_id": "UCI-NEURO_EEG_EYE_STATE-decision_stump_binary-v1",
+    "model": {
+      "train_error": 0.4016188251001335,
+      "feature": "AF3",
+      "threshold": 0.010640777263534166,
+      "low_label": "0",
+      "labels": [
+        "0",
+        "1"
+      ]
+    }
+  },
+  "comparator": {
+    "comparator_id": "UCI-NEURO_EEG_EYE_STATE-MAJORITY-CLASS-v1",
+    "majority_label": "0"
+  },
+  "residuals": {
+    "model": 0.405874499332,
+    "comparator": 0.448931909212,
+    "negative_control": 0.594125500668,
+    "material_margin_met": true,
+    "material_margin_rule": "classifier loss + 0.02 must be below majority-class comparator loss"
+  },
+  "negative_control": {
+    "control_id": "UCI-NEURO_EEG_EYE_STATE-NEGATIVE-CONTROL-v1",
+    "negative_model": {
+      "opposite_of": {
+        "train_error": 0.4016188251001335,
+        "feature": "AF3",
+        "threshold": 0.010640777263534166,
+        "low_label": "0",
+        "labels": [
+          "0",
+          "1"
+        ]
+      }
+    },
+    "negative_control_rejected": true
+  },
+  "falsifiers": [
+    "source lock hash is missing or stale",
+    "hidden target labels appear in visible task rows",
+    "classifier does not beat majority-class comparator",
+    "negative control is not worse than the model"
+  ],
+  "scored_rows_sha256": "65b735b67edb4d8501f0f9966c11512c00a3309b7f6b3ec27e036b74017707ab",
+  "scored_rows_sample": [
+    {
+      "task_id": "UCI-NEURO_EEG_EYE_STATE-00000",
+      "model_prediction": "1",
+      "comparator_prediction": "0",
+      "negative_control_prediction": "0",
+      "model_0_1_loss": 1.0,
+      "comparator_0_1_loss": 0.0,
+      "negative_control_0_1_loss": 0.0,
+      "target_sha256": "75f64f005bc7eae054be7243bf11bea925a6567aacbdac29da28b5aac033db65"
+    },
+    {
+      "task_id": "UCI-NEURO_EEG_EYE_STATE-00005",
+      "model_prediction": "1",
+      "comparator_prediction": "0",
+      "negative_control_prediction": "0",
+      "model_0_1_loss": 1.0,
+      "comparator_0_1_loss": 0.0,
+      "negative_control_0_1_loss": 0.0,
+      "target_sha256": "b6516cbdf54c64f5c4ac447bd38fc11ebd4e8334342b6b6cfdfdedd4880c127a"
+    },
+    {
+      "task_id": "UCI-NEURO_EEG_EYE_STATE-00010",
+      "model_prediction": "1",
+      "comparator_prediction": "0",
+      "negative_control_prediction": "0",
+      "model_0_1_loss": 1.0,
+      "comparator_0_1_loss": 0.0,
+      "negative_control_0_1_loss": 0.0,
+      "target_sha256": "484ec58d93002bc72d1b1a6296db2733123767876eaf3e4f0ae2bfed44050257"
+    },
+    {
+      "task_id": "UCI-NEURO_EEG_EYE_STATE-00015",
+      "model_prediction": "1",
+      "comparator_prediction": "0",
+      "negative_control_prediction": "0",
+      "model_0_1_loss": 1.0,
+      "comparator_0_1_loss": 0.0,
+      "negative_control_0_1_loss": 0.0,
+      "target_sha256": "bddcf566eba31a7fa54bef28947789ac079604730ed63edcae9179cec169592c"
+    },
+    {
+      "task_id": "UCI-NEURO_EEG_EYE_STATE-00020",
+      "model_prediction": "1",
+      "comparator_prediction": "0",
+      "negative_control_prediction": "0",
+      "model_0_1_loss": 1.0,
+      "comparator_0_1_loss": 0.0,
+      "negative_control_0_1_loss": 0.0,
+      "target_sha256": "92f2ae21fb28a201f1f29173d5ffc1882688a5621603bd2288c1fee01bee9ff1"
+    },
+    {
+      "task_id": "UCI-NEURO_EEG_EYE_STATE-00025",
+      "model_prediction": "1",
+      "comparator_prediction": "0",
+      "negative_control_prediction": "0",
+      "model_0_1_loss": 1.0,
+      "comparator_0_1_loss": 0.0,
+      "negative_control_0_1_loss": 0.0,
+      "target_sha256": "de7dbf8bd984c1c55cfd62a5daf58fa60888e57ab06aff6c38c8b0c85631e178"
+    },
+    {
+      "task_id": "UCI-NEURO_EEG_EYE_STATE-00030",
+      "model_prediction": "1",
+      "comparator_prediction": "0",
+      "negative_control_prediction": "0",
+      "model_0_1_loss": 1.0,
+      "comparator_0_1_loss": 0.0,
+      "negative_control_0_1_loss": 0.0,
+      "target_sha256": "541f1f75114e141ba8dfc8fa8cd5fa83337d9042c080375e08ebc3155d6861a6"
+    },
+    {
+      "task_id": "UCI-NEURO_EEG_EYE_STATE-00035",
+      "model_prediction": "0",
+      "comparator_prediction": "0",
+      "negative_control_prediction": "1",
+      "model_0_1_loss": 0.0,
+      "comparator_0_1_loss": 0.0,
+      "negative_control_0_1_loss": 1.0,
+      "target_sha256": "e393a23cdab0a6bed376f55dc910774493d48c1e96855df74419bfab188ca240"
+    },
+    {
+      "task_id": "UCI-NEURO_EEG_EYE_STATE-00040",
+      "model_prediction": "1",
+      "comparator_prediction": "0",
+      "negative_control_prediction": "0",
+      "model_0_1_loss": 1.0,
+      "comparator_0_1_loss": 0.0,
+      "negative_control_0_1_loss": 0.0,
+      "target_sha256": "ae86e27fb97c70ad3f690c3ac4e265c9a206e114fb6aa3793d437c71a7e4e711"
+    },
+    {
+      "task_id": "UCI-NEURO_EEG_EYE_STATE-00045",
+      "model_prediction": "0",
+      "comparator_prediction": "0",
+      "negative_control_prediction": "1",
+      "model_0_1_loss": 0.0,
+      "comparator_0_1_loss": 0.0,
+      "negative_control_0_1_loss": 1.0,
+      "target_sha256": "028fd38544f8a19498856909445ff9d2e192a14adab6fb2146c5311eba947082"
+    }
+  ]
+}

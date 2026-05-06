@@ -1,0 +1,17 @@
+{
+  "schema_id": "OC133_UCI_TABULAR_CLASSIFIER_REPLAY_REPORT_v1",
+  "status": "PASS",
+  "lane_id": "neuro_eeg_eye_state",
+  "scoring_pack_ref": "validation/heldout/grand_science/uci/neuro_eeg_eye_state/OC133_UCI_NEURO_EEG_EYE_STATE_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
+  "scoring_pack_sha256": "f051e1e24276049c23b9f6982c83c4d6ca72e5af7e0ddebbfcb35f0e21ab4ffb",
+  "row_count": 2996,
+  "material_margin_met": true,
+  "negative_control_rejected": true,
+  "replay_command": {
+    "commands": [
+      "python validation/heldout/grand_science/uci/coverage_work_orders/oc133_uci_tabular_classifier_materializer.py --lane neuro_eeg_eye_state --score --write-scoring",
+      "python validation/heldout/grand_science/uci/coverage_work_orders/oc133_uci_tabular_classifier_materializer.py --lane neuro_eeg_eye_state --check"
+    ]
+  },
+  "coverage_closure_allowed": false
+}
