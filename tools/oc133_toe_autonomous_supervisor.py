@@ -1521,6 +1521,13 @@ def build_capability_development_ledger(rows: list[dict[str, Any]], generated_at
                     payload["execution_command"] = []
                     payload["implementation_command"] = []
                     payload["next_escalation"] = "Comparator research artifact now exists and passes at this scope; advance to the next missing artifact."
+                elif factory.comparator_scoring_subartifact_execution_exists(ROOT, gap_id, artifact_key):
+                    payload["status"] = "PASS"
+                    payload["superseded_by_scoring_subartifact_execution"] = True
+                    payload["capability_executor_ready"] = False
+                    payload["execution_command"] = []
+                    payload["implementation_command"] = []
+                    payload["next_escalation"] = "Scoring subartifact packet now exists for this scope; advance to the concrete source/evidence executor named by that packet."
         lane_id = str(payload.get("lane_id") or "")
         if lane_id and lane_id not in open_lanes:
             payload["status"] = "PASS"

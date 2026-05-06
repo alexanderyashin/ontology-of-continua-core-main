@@ -2319,6 +2319,7 @@ class ReleaseAssemblyMachineTests(unittest.TestCase):
                     row.get("superseded_by_current_validator")
                     or row.get("superseded_by_research_artifact")
                     or row.get("superseded_by_scoring_work_order")
+                    or row.get("superseded_by_scoring_subartifact_execution")
                 )
             for field in ["why_it_failed", "repair_strategy", "required_capability", "execution_command", "pass_predicate", "next_escalation"]:
                 self.assertIn(field, row)
@@ -2337,6 +2338,7 @@ class ReleaseAssemblyMachineTests(unittest.TestCase):
                     row.get("superseded_by_current_validator")
                     or row.get("superseded_by_research_artifact")
                     or row.get("superseded_by_scoring_work_order")
+                    or row.get("superseded_by_scoring_subartifact_execution")
                 )
             for field in ["source_graph_node_id", "missing_artifact_type", "capability_development_key", "why_it_failed", "repair_strategy", "required_capability", "execution_command", "implementation_command", "pass_predicate", "next_escalation", "validator_binding"]:
                 self.assertIn(field, row)

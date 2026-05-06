@@ -4603,7 +4603,12 @@ def build_capability_implementation_registry(root: Path, *, generated_at: str | 
     seen: set[str] = set()
     for source_row in load_autonomous_capability_development_rows(root):
         row = dict(source_row)
-        if row.get("status") == "PASS" or row.get("superseded_by_research_artifact") is True or row.get("superseded_by_current_validator") is True:
+        if (
+            row.get("status") == "PASS"
+            or row.get("superseded_by_research_artifact") is True
+            or row.get("superseded_by_current_validator") is True
+            or row.get("superseded_by_scoring_subartifact_execution") is True
+        ):
             continue
         source_node = str(row.get("source_graph_node_id") or "")
         if source_node.startswith("required_artifact:MODERN_SCIENCE_COMPARATOR_SUPERIORITY:"):
