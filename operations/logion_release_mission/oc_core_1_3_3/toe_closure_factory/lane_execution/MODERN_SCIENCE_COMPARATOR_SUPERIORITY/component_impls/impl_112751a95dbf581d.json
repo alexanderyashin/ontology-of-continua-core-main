@@ -1,0 +1,80 @@
+{
+  "artifact_hash": "25d6af7133f63e3b96ce05b44c597545f20b97606a80eaea9ae459fa9ec12f45",
+  "artifact_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/component_impls/impl_112751a95dbf581d.json",
+  "command_pass": true,
+  "command_result_total": 2,
+  "command_results": [
+    {
+      "cache_hit": true,
+      "cmd": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "validation/heldout/grand_science/earth_space/coverage_work_orders/oc133_earth_space_modern_science_coverage_work_orders.py",
+        "--score-usgs-hydrology",
+        "--write"
+      ],
+      "returncode": 0,
+      "stderr_tail": "",
+      "stdout_tail": "{\n  \"status\": \"ok\",\n  \"output_ref\": \"validation/heldout/grand_science/earth_space/coverage_work_orders/OC133_EARTH_SPACE_USGS_HYDROLOGY_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json\",\n  \"pack_status\": \"SCORER_READY_FAIL_CLOSED_STRICT_EVIDENCE_NOT_MET\",\n  \"exact_blocker\": \"COMPARATOR_BASELINE_NOT_BEATEN_WITH_UNCERTAINTY\",\n  \"failures\": []\n}\n"
+    },
+    {
+      "cache_hit": true,
+      "cmd": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "validation/heldout/grand_science/earth_space/coverage_work_orders/oc133_earth_space_modern_science_coverage_work_orders.py",
+        "--check"
+      ],
+      "returncode": 0,
+      "stderr_tail": "",
+      "stdout_tail": "{\n  \"status\": \"ok\",\n  \"checked\": \"validation/heldout/grand_science/earth_space/coverage_work_orders/OC133_EARTH_SPACE_MODERN_SCIENCE_COVERAGE_WORK_ORDERS.json\"\n}\n"
+    }
+  ],
+  "component_id": "oc_model_residual",
+  "component_report_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/domain_model_components/component_03e6f8155d5087cb.json",
+  "component_report_root_cause": "OC_RESIDUAL_COMPUTATION_NOT_MATERIALIZED",
+  "component_report_status": "CAPABILITY_DEVELOPMENT_REQUIRED",
+  "component_work_order_id": "R017-DOMAIN-MODEL-COMPONENT-b3169e17e233a7ac",
+  "concrete_governed_commands": [
+    [
+      "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+      "validation/heldout/grand_science/earth_space/coverage_work_orders/oc133_earth_space_modern_science_coverage_work_orders.py",
+      "--score-usgs-hydrology",
+      "--write"
+    ],
+    [
+      "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+      "validation/heldout/grand_science/earth_space/coverage_work_orders/oc133_earth_space_modern_science_coverage_work_orders.py",
+      "--check"
+    ]
+  ],
+  "domain_class_id": "earth_space_environmental_sciences",
+  "evidence_pack_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/59532ab68d232897/strict_evidence_pack.json",
+  "evidence_pack_status": "FAIL_CLOSED_SOURCE_BOUND_SCORING_NOT_MATERIALIZED",
+  "execution_command": [
+    "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+    "tools/oc133_toe_closure_factory.py",
+    "--execute-comparator-domain-model-component-implementation",
+    "R017-DOMAIN-MODEL-COMPONENT-IMPL-03e6f8155d5087cb",
+    "--write"
+  ],
+  "gap_id": "MS-COV-GAP-EARTH_SPACE_ENVIRONMENTAL_SCIENCES-GEOCHEMISTRY_AND_HYDROLOGY_OBSERVABLES",
+  "generated_at": "2026-05-06T09:37:30Z",
+  "implementation_command_class": "CONCRETE_DOMAIN_MODEL_COMPONENT_EXECUTOR",
+  "implementation_id": "R017-DOMAIN-MODEL-COMPONENT-IMPL-03e6f8155d5087cb",
+  "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+  "next_escalation": "If commands are missing, implement the domain-specific scorer/model surface. If commands run and remain negative, broaden the source/model research obligation without flipping PASS.",
+  "no_fake_closure_policy": "This report cannot close broad superiority without downstream scoring and replay PASS.",
+  "pass_predicate": "Concrete governed commands run and the downstream component, scoring artifact, and replay artifact become PASS.",
+  "phenomenon_class_id": "geochemistry_and_hydrology_observables",
+  "repair_id": "R017-DOMAIN-MODEL-REPAIR-59532ab68d232897",
+  "repair_strategy": "Run the concrete domain scorer/model commands that can materialize this component, then regenerate scoring, replay, and strict evidence artifacts.",
+  "replay_artifact_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/59532ab68d232897/replay_record.json",
+  "replay_artifact_status": "OPEN",
+  "required_capability": "Research/DomainModelComparatorRepair",
+  "root_cause_class": "DOMAIN_MODEL_COMPONENT_COMMAND_RAN_BUT_EVIDENCE_OPEN",
+  "schema_id": "OC133_MODERN_SCIENCE_COMPARATOR_DOMAIN_MODEL_COMPONENT_IMPLEMENTATION_EXECUTION_v1",
+  "scoring_artifact_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/59532ab68d232897/oc_prediction_scoring_row.json",
+  "scoring_artifact_status": "OPEN",
+  "status": "EVIDENCE_REPAIR_ATTEMPTED_REMAINS_OPEN",
+  "validator_binding": "comparator_gap::MS-COV-GAP-EARTH_SPACE_ENVIRONMENTAL_SCIENCES-GEOCHEMISTRY_AND_HYDROLOGY_OBSERVABLES::domain_model_repair::oc_model_residual",
+  "why_it_failed": "Concrete commands ran, but the downstream scoring/replay evidence remains fail-closed or negative."
+}

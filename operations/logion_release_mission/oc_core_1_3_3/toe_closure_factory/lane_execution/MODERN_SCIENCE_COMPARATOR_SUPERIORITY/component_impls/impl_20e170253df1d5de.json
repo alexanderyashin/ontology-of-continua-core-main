@@ -1,0 +1,98 @@
+{
+  "artifact_hash": "6aad492a50c6754f36e3414847b968d13b67f92cb91cc6be81c4f3929f312553",
+  "artifact_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/component_impls/impl_20e170253df1d5de.json",
+  "command_pass": true,
+  "command_result_total": 3,
+  "command_results": [
+    {
+      "cache_hit": true,
+      "cmd": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "validation/heldout/grand_science/engineering/coverage_work_orders/oc133_engineering_modern_science_coverage_work_orders.py",
+        "--write"
+      ],
+      "returncode": 0,
+      "stderr_tail": "",
+      "stdout_tail": "{\n  \"status\": \"ok\",\n  \"output_ref\": \"validation/heldout/grand_science/engineering/coverage_work_orders/OC133_ENGINEERING_MODERN_SCIENCE_COVERAGE_WORK_ORDERS.json\",\n  \"failures\": []\n}\n"
+    },
+    {
+      "cache_hit": true,
+      "cmd": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "validation/heldout/grand_science/engineering/coverage_work_orders/oc133_engineering_modern_science_coverage_work_orders.py",
+        "--check"
+      ],
+      "returncode": 0,
+      "stderr_tail": "",
+      "stdout_tail": "{\n  \"status\": \"ok\",\n  \"checked\": \"validation/heldout/grand_science/engineering/coverage_work_orders/OC133_ENGINEERING_MODERN_SCIENCE_COVERAGE_WORK_ORDERS.json\"\n}\n"
+    },
+    {
+      "cache_hit": true,
+      "cmd": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "tools/oc133_toe_closure_factory.py",
+        "--execute-comparator-generic-evidence-pack",
+        "MS-COV-GAP-ENGINEERING_MATERIALS_SCIENCES-CONTROL_SYSTEMS_AND_SIGNAL_MEASUREMENT",
+        "--write"
+      ],
+      "returncode": 0,
+      "stderr_tail": "",
+      "stdout_tail": "{\n  \"changed\": [],\n  \"missing\": [],\n  \"state\": \"PASS\"\n}\n"
+    }
+  ],
+  "component_id": "fail_closed_status_clear",
+  "component_report_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/domain_model_components/component_2b5782553cb94ca7.json",
+  "component_report_root_cause": "FAIL_CLOSED_EVIDENCE_STATUS_STILL_PRESENT",
+  "component_report_status": "CAPABILITY_DEVELOPMENT_REQUIRED",
+  "component_work_order_id": "R017-DOMAIN-MODEL-COMPONENT-456a0fe60a295a30",
+  "concrete_governed_commands": [
+    [
+      "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+      "validation/heldout/grand_science/engineering/coverage_work_orders/oc133_engineering_modern_science_coverage_work_orders.py",
+      "--write"
+    ],
+    [
+      "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+      "validation/heldout/grand_science/engineering/coverage_work_orders/oc133_engineering_modern_science_coverage_work_orders.py",
+      "--check"
+    ],
+    [
+      "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+      "tools/oc133_toe_closure_factory.py",
+      "--execute-comparator-generic-evidence-pack",
+      "MS-COV-GAP-ENGINEERING_MATERIALS_SCIENCES-CONTROL_SYSTEMS_AND_SIGNAL_MEASUREMENT",
+      "--write"
+    ]
+  ],
+  "domain_class_id": "engineering_materials_sciences",
+  "evidence_pack_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/a1c1bcc404d197ab/strict_evidence_pack.json",
+  "evidence_pack_status": "FAIL_CLOSED_SOURCE_BOUND_SCORING_NOT_MATERIALIZED",
+  "execution_command": [
+    "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+    "tools/oc133_toe_closure_factory.py",
+    "--execute-comparator-domain-model-component-implementation",
+    "R017-DOMAIN-MODEL-COMPONENT-IMPL-2b5782553cb94ca7",
+    "--write"
+  ],
+  "gap_id": "MS-COV-GAP-ENGINEERING_MATERIALS_SCIENCES-CONTROL_SYSTEMS_AND_SIGNAL_MEASUREMENT",
+  "generated_at": "2026-05-06T09:40:06Z",
+  "implementation_command_class": "CONCRETE_DOMAIN_MODEL_COMPONENT_EXECUTOR",
+  "implementation_id": "R017-DOMAIN-MODEL-COMPONENT-IMPL-2b5782553cb94ca7",
+  "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+  "next_escalation": "If commands are missing, implement the domain-specific scorer/model surface. If commands run and remain negative, broaden the source/model research obligation without flipping PASS.",
+  "no_fake_closure_policy": "This report cannot close broad superiority without downstream scoring and replay PASS.",
+  "pass_predicate": "Concrete governed commands run and the downstream component, scoring artifact, and replay artifact become PASS.",
+  "phenomenon_class_id": "control_systems_and_signal_measurement",
+  "repair_id": "R017-DOMAIN-MODEL-REPAIR-a1c1bcc404d197ab",
+  "repair_strategy": "Run the concrete domain scorer/model commands that can materialize this component, then regenerate scoring, replay, and strict evidence artifacts.",
+  "replay_artifact_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/a1c1bcc404d197ab/replay_record.json",
+  "replay_artifact_status": "OPEN",
+  "required_capability": "Research/DomainModelComparatorRepair",
+  "root_cause_class": "DOMAIN_MODEL_COMPONENT_COMMAND_RAN_BUT_EVIDENCE_OPEN",
+  "schema_id": "OC133_MODERN_SCIENCE_COMPARATOR_DOMAIN_MODEL_COMPONENT_IMPLEMENTATION_EXECUTION_v1",
+  "scoring_artifact_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/a1c1bcc404d197ab/oc_prediction_scoring_row.json",
+  "scoring_artifact_status": "OPEN",
+  "status": "EVIDENCE_REPAIR_ATTEMPTED_REMAINS_OPEN",
+  "validator_binding": "comparator_gap::MS-COV-GAP-ENGINEERING_MATERIALS_SCIENCES-CONTROL_SYSTEMS_AND_SIGNAL_MEASUREMENT::domain_model_repair::fail_closed_status_clear",
+  "why_it_failed": "Concrete commands ran, but the downstream scoring/replay evidence remains fail-closed or negative."
+}

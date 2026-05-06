@@ -637,6 +637,24 @@ def load_capability_development_rows(root: Path) -> list[dict[str, Any]]:
                         payload["execution_command"] = []
                         payload["implementation_command"] = []
                         payload["next_escalation"] = "Domain-scorer implementation report exists; downstream comparator artifacts decide whether broad superiority remains blocked."
+                elif artifact_key == "domain_model_component_implementation_backlog" and (root / factory.comparator_domain_model_component_implementation_backlog_rel()).exists():
+                    payload["status"] = "PASS"
+                    payload["superseded_by_domain_model_component_implementation_backlog"] = True
+                    payload["capability_executor_ready"] = False
+                    payload["execution_command"] = []
+                    payload["implementation_command"] = []
+                    payload["next_escalation"] = "Domain-model component implementation backlog exists; execute the exact component implementation row next."
+                elif artifact_key.startswith("domain_model_component_implementation::"):
+                    component_id = artifact_key.split("::", 1)[1]
+                    component_work_order_id = factory.comparator_domain_model_component_id(gap_id, component_id)
+                    implementation_id = factory.comparator_domain_model_component_implementation_id(component_work_order_id)
+                    if factory.comparator_domain_model_component_implementation_report(root, implementation_id):
+                        payload["status"] = "PASS"
+                        payload["superseded_by_domain_model_component_implementation_report"] = True
+                        payload["capability_executor_ready"] = False
+                        payload["execution_command"] = []
+                        payload["implementation_command"] = []
+                        payload["next_escalation"] = "Domain-model component implementation report exists; downstream scoring/replay artifacts decide whether broad superiority remains blocked."
         enriched.append(payload)
     return enriched
 
@@ -1111,7 +1129,13 @@ def comparator_actions(root: Path) -> list[dict[str, Any]]:
         if read_json(path).get("status") != "PASS"
     ]
     component_backlog = read_json(root / factory.comparator_domain_model_component_backlog_rel())
-    if domain_model_reports_open and component_backlog.get("status") != "PASS":
+    component_implementation_backlog = read_json(root / factory.comparator_domain_model_component_implementation_backlog_rel())
+    pending_component_implementation_rows = factory.comparator_domain_model_component_implementation_rows(root)
+    if (
+        domain_model_reports_open
+        and component_backlog.get("status") != "PASS"
+        and not pending_component_implementation_rows
+    ):
         action_id = "AUTO-R017-COMPARATOR-DOMAIN-MODEL-COMPONENT-BACKLOG"
         if action_id not in seen_action_ids:
             action = action_defaults(
@@ -1135,12 +1159,117 @@ def comparator_actions(root: Path) -> list[dict[str, Any]]:
             )
             seen_action_ids.add(action_id)
             actions.append(action)
+    component_reports_open = [
+        read_json(path)
+        for path in (root / factory.lane_execution_base("MODERN_SCIENCE_COMPARATOR_SUPERIORITY") / "domain_model_components").glob("*.json")
+        if read_json(path).get("status") != "PASS"
+    ]
+    if component_reports_open and component_implementation_backlog.get("status") != "PASS":
+        action_id = "AUTO-R017-COMPARATOR-DOMAIN-MODEL-COMPONENT-IMPLEMENTATION-BACKLOG"
+        if action_id not in seen_action_ids:
+            action = action_defaults(
+                action_id,
+                "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+                "comparator_domain_model_component_implementation_backlog",
+                [sys.executable, "tools/oc133_toe_closure_factory.py", "--compile-comparator-domain-model-component-implementation-backlog", "--write"],
+            )
+            action.update(
+                {
+                    "required_artifact": "domain_model_component_implementation_backlog",
+                    "missing_artifact_type": "domain_model_component_implementation_backlog",
+                    "pending_component_report_total": len(component_reports_open),
+                    "pending_component_implementation_total": len(pending_component_implementation_rows),
+                    "why_it_failed": "Component reports exist, but concrete domain scorer/model implementation obligations have not all been compiled.",
+                    "repair_strategy": "Compile open component reports into command-bound implementation rows before rerunning component diagnostics.",
+                    "required_capability": "Research/DomainModelComparatorRepair",
+                    "pass_predicate": "Component implementation backlog exists and names concrete commands or exact missing scorer/model capabilities.",
+                    "next_escalation": "Execute the first component implementation row; if it remains negative, split by source/model/comparator/residual field.",
+                    "validator_binding": "comparator_domain_model_component_implementation_backlog",
+                }
+            )
+            seen_action_ids.add(action_id)
+            actions.append(action)
+    for row in sorted(
+        pending_component_implementation_rows,
+        key=lambda item: (str(item.get("gap_id")), str(item.get("component_id")), str(item.get("implementation_id"))),
+    ):
+        implementation_id = str(row.get("implementation_id") or "")
+        if not implementation_id or factory.comparator_domain_model_component_implementation_completed(root, implementation_id):
+            continue
+        action_id = f"AUTO-R017-COMPARATOR-DOMAIN-MODEL-COMPONENT-IMPLEMENTATION-{artifact_hash({'implementation_id': implementation_id})[:12]}"
+        if action_id in seen_action_ids:
+            continue
+        action = action_defaults(
+            action_id,
+            "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+            "comparator_domain_model_component_implementation",
+            [sys.executable, "tools/oc133_toe_closure_factory.py", "--execute-comparator-domain-model-component-implementation", implementation_id, "--write"],
+        )
+        action.update(
+            {
+                "implementation_id": implementation_id,
+                "component_work_order_id": row.get("component_work_order_id"),
+                "repair_id": row.get("repair_id"),
+                "gap_id": row.get("gap_id"),
+                "domain_class_id": row.get("domain_class_id"),
+                "phenomenon_class_id": row.get("phenomenon_class_id"),
+                "component_id": row.get("component_id"),
+                "required_artifact": f"domain_model_component_implementation::{row.get('component_id')}",
+                "missing_artifact_type": f"domain_model_component_implementation::{row.get('component_id')}",
+                "source_ref": row.get("component_report_ref"),
+                "concrete_command_available": row.get("concrete_command_available") is True,
+                "why_it_failed": row.get("why_it_failed"),
+                "repair_strategy": row.get("repair_strategy"),
+                "required_capability": row.get("required_capability"),
+                "pass_predicate": row.get("pass_predicate"),
+                "next_escalation": row.get("next_escalation"),
+                "validator_binding": row.get("validator_binding"),
+            }
+        )
+        seen_action_ids.add(action_id)
+        actions.append(action)
     for row in sorted(
         factory.comparator_domain_model_component_rows(root),
         key=lambda item: (str(item.get("gap_id")), str(item.get("component_id"))),
     ):
         component_work_order_id = str(row.get("component_work_order_id") or "")
         if not component_work_order_id or factory.comparator_domain_model_component_completed(root, component_work_order_id):
+            continue
+        component_report = factory.comparator_domain_model_component_report(root, component_work_order_id)
+        implementation_id = factory.comparator_domain_model_component_implementation_id(component_work_order_id)
+        if component_report.get("status") in {"CAPABILITY_DEVELOPMENT_REQUIRED", "EVIDENCE_REPAIR_ATTEMPTED_REMAINS_OPEN", "FAIL_CLOSED"}:
+            action_id = f"AUTO-R017-COMPARATOR-DOMAIN-MODEL-COMPONENT-IMPLEMENTATION-{artifact_hash({'implementation_id': implementation_id})[:12]}"
+            if action_id not in seen_action_ids:
+                action = action_defaults(
+                    action_id,
+                    "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+                    "comparator_domain_model_component_implementation",
+                    [sys.executable, "tools/oc133_toe_closure_factory.py", "--execute-comparator-domain-model-component-implementation", implementation_id, "--write"]
+                    if implementation_id in factory.comparator_domain_model_component_implementation_rows_by_id(root)
+                    else [sys.executable, "tools/oc133_toe_closure_factory.py", "--compile-comparator-domain-model-component-implementation-backlog", "--write"],
+                )
+                action.update(
+                    {
+                        "implementation_id": implementation_id,
+                        "component_work_order_id": component_work_order_id,
+                        "repair_id": row.get("repair_id"),
+                        "gap_id": row.get("gap_id"),
+                        "domain_class_id": row.get("domain_class_id"),
+                        "phenomenon_class_id": row.get("phenomenon_class_id"),
+                        "component_id": row.get("component_id"),
+                        "required_artifact": f"domain_model_component_implementation::{row.get('component_id')}",
+                        "missing_artifact_type": f"domain_model_component_implementation::{row.get('component_id')}",
+                        "source_ref": component_report.get("artifact_ref") or row.get("source_domain_model_repair_ref"),
+                        "why_it_failed": "The component diagnostic has already run; the missing work is a concrete source/model implementation attempt.",
+                        "repair_strategy": "Execute the concrete component implementation row or compile it if absent.",
+                        "required_capability": "Research/DomainModelComparatorRepair",
+                        "pass_predicate": "Downstream scoring/replay artifacts pass through concrete source-bound implementation.",
+                        "next_escalation": "If this remains negative, preserve the broad-superiority blocker or create a narrower source/model obligation.",
+                        "validator_binding": row.get("validator_binding"),
+                    }
+                )
+                seen_action_ids.add(action_id)
+                actions.append(action)
             continue
         action_id = f"AUTO-R017-COMPARATOR-DOMAIN-MODEL-COMPONENT-{artifact_hash({'component_work_order_id': component_work_order_id})[:12]}"
         if action_id in seen_action_ids:
@@ -1997,6 +2126,8 @@ def build_capability_development_ledger(rows: list[dict[str, Any]], generated_at
                         "superseded_by_domain_scorer_implementation_report",
                         "superseded_by_domain_model_repair_backlog",
                         "superseded_by_domain_model_repair_report",
+                        "superseded_by_domain_model_component_implementation_backlog",
+                        "superseded_by_domain_model_component_implementation_report",
                     ]:
                         payload.pop(stale_flag, None)
                     payload["status"] = "OPEN"
@@ -2093,6 +2224,24 @@ def build_capability_development_ledger(rows: list[dict[str, Any]], generated_at
                         payload["execution_command"] = []
                         payload["implementation_command"] = []
                         payload["next_escalation"] = "Domain scorer implementation closed at this scope; downstream comparator artifacts decide whether broad superiority remains blocked."
+                elif artifact_key == "domain_model_component_implementation_backlog" and (ROOT / factory.comparator_domain_model_component_implementation_backlog_rel()).exists():
+                    payload["status"] = "PASS"
+                    payload["superseded_by_domain_model_component_implementation_backlog"] = True
+                    payload["capability_executor_ready"] = False
+                    payload["execution_command"] = []
+                    payload["implementation_command"] = []
+                    payload["next_escalation"] = "Domain model component implementation backlog exists; remaining work is the exact component implementation row."
+                elif artifact_key.startswith("domain_model_component_implementation::"):
+                    component_id = artifact_key.split("::", 1)[1]
+                    component_work_order_id = factory.comparator_domain_model_component_id(gap_id, component_id)
+                    implementation_id = factory.comparator_domain_model_component_implementation_id(component_work_order_id)
+                    if factory.comparator_domain_model_component_implementation_report(ROOT, implementation_id):
+                        payload["status"] = "PASS"
+                        payload["superseded_by_domain_model_component_implementation_report"] = True
+                        payload["capability_executor_ready"] = False
+                        payload["execution_command"] = []
+                        payload["implementation_command"] = []
+                        payload["next_escalation"] = "Domain model component implementation report exists; downstream scoring/replay artifacts decide whether broad superiority remains blocked."
         if (
             str(payload.get("lane_id") or "") == "GRAND_TOE_CLAIM_LEDGER_EVIDENCE"
             and str(payload.get("missing_artifact_type") or "") == "grand_promotion_derivation"
