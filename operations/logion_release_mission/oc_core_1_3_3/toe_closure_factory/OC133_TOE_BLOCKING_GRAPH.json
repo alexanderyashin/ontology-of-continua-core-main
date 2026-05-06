@@ -1,11 +1,11 @@
 {
-  "artifact_hash": "e3ea8e1396e1b1bd83d4b9825c3df5bee403ec105e5e4d83717f2245d2c56943",
+  "artifact_hash": "2dfd2240abfda00834e395e1ba9da8689e90a04637a46304c57fda66cc332c13",
   "cerberus_error_total": 8,
-  "edge_total": 539,
+  "edge_total": 541,
   "edge_type_total": {
     "blocks": 13,
     "needs_capability": 111,
-    "produces": 233,
+    "produces": 235,
     "requires": 55,
     "supersedes": 56,
     "validated_by": 71
@@ -378,6 +378,11 @@
     },
     {
       "edge_type": "produces",
+      "source": "capability:AUTO-capability_development-R017-UPSTREAM-bfdcbdbdb212a122",
+      "target": "lane:MODERN_SCIENCE_COMPARATOR_SUPERIORITY"
+    },
+    {
+      "edge_type": "produces",
       "source": "capability:AUTO-capability_development-R017-UPSTREAM-cf78034eababb7d7",
       "target": "lane:MODERN_SCIENCE_COMPARATOR_SUPERIORITY"
     },
@@ -389,6 +394,11 @@
     {
       "edge_type": "produces",
       "source": "capability:AUTO-capability_development-R017-UPSTREAM-e1eb0e717fd21d91",
+      "target": "lane:MODERN_SCIENCE_COMPARATOR_SUPERIORITY"
+    },
+    {
+      "edge_type": "produces",
+      "source": "capability:AUTO-capability_development-R017-UPSTREAM-f7c41067fa01dc04",
       "target": "lane:MODERN_SCIENCE_COMPARATOR_SUPERIORITY"
     },
     {
@@ -2707,8 +2717,8 @@
       "target": "promotion_gate:recovery_r017"
     }
   ],
-  "generated_at": "2026-05-06T18:10:32Z",
-  "graph_frontier_hash": "fe882cff932c12ea52f874ce624f4c80b05b144417b3079983717a7302676345",
+  "generated_at": "2026-05-06T18:28:36Z",
+  "graph_frontier_hash": "ff651bea5f62959eed5475137e2148dd0e801fb34ed375f9cb7b65bf977c5e03",
   "next_executable_node_ids": [
     "capability:AUTO-R017-COMPARATOR-GAP-3c68f08c4c30",
     "required_artifact:MODERN_SCIENCE_COMPARATOR_SUPERIORITY:MS-COV-GAP-AGRICULTURAL_FOOD_SCIENCES-ANIMAL_HEALTH_AND_PRODUCTION_SYSTEMS:oc_prediction_scoring_row",
@@ -2736,7 +2746,7 @@
     "required_artifact:MODERN_SCIENCE_COMPARATOR_SUPERIORITY:MS-COV-GAP-COGNITIVE_BEHAVIORAL_NEUROSCIENCES-NEURAL_RECORDING_AND_BRAIN_NETWORK_OBSERVABLES:oc_prediction_scoring_row",
     "capability:AUTO-R017-COMPARATOR-GAP-9f3be1c5dac2"
   ],
-  "node_total": 306,
+  "node_total": 308,
   "nodes": [
     {
       "execution_command": [
@@ -4128,13 +4138,13 @@
       ],
       "executor_type": "capability_development",
       "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
-      "next_escalation": "If this compiled capability produces zero validator delta, generate a lower-level upstream research obligation for the exact missing source/evidence object.",
+      "next_escalation": "This exact action has already been tried on this semantic frontier; create a narrower capability work order instead of rerunning it.",
       "node_id": "capability:AUTO-capability_development-R017-UPSTREAM-86eb29cd294ec36d",
       "node_type": "executor_capability",
       "pass_predicate": "Comparator gap `MS-COV-GAP-COMPLEX_SYSTEMS_OPERATIONS_SCIENCE-QUEUE_SUPPLY_CHAIN_AND_OPERATIONS_OBSERVABLES` has `replay_record` and strict coverage register no longer lists it as missing.",
       "repair_strategy": "Implement the exact domain scorer/materializer that can produce target-hidden OC residuals, incumbent comparator residuals, uncertainty/falsifier rows, and replay.",
       "required_capability": "Research/PriorArt",
-      "status": "OPEN",
+      "status": "CAPABILITY_ESCALATION_REQUIRED",
       "validator_binding": "action::AUTO-capability_development-R017-UPSTREAM-86eb29cd294ec36d",
       "why_it_failed": "Replay is correctly blocked because the upstream scoring evidence is not passing."
     },
@@ -4177,6 +4187,26 @@
       "status": "CAPABILITY_ESCALATION_REQUIRED",
       "validator_binding": "action::AUTO-capability_development-R017-UPSTREAM-b2cb2f14989618d4",
       "why_it_failed": "The evidence pack is explicitly fail-closed; broad superiority cannot use it."
+    },
+    {
+      "execution_command": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "tools/oc133_toe_closure_factory.py",
+        "--execute-capability-development",
+        "R017-CAPDEV-d75377e038b7",
+        "--write"
+      ],
+      "executor_type": "capability_development",
+      "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+      "next_escalation": "If this compiled capability produces zero validator delta, generate a lower-level upstream research obligation for the exact missing source/evidence object.",
+      "node_id": "capability:AUTO-capability_development-R017-UPSTREAM-bfdcbdbdb212a122",
+      "node_type": "executor_capability",
+      "pass_predicate": "Comparator gap `MS-COV-GAP-SOCIAL_ECONOMIC_POLITICAL_SCIENCES-INSTITUTIONAL_SOCIAL_NETWORK_AND_POLICY_OUTCOMES` has `replay_record` and strict coverage register no longer lists it as missing.",
+      "repair_strategy": "Implement the exact domain scorer/materializer that can produce target-hidden OC residuals, incumbent comparator residuals, uncertainty/falsifier rows, and replay.",
+      "required_capability": "Research/PriorArt",
+      "status": "OPEN",
+      "validator_binding": "action::AUTO-capability_development-R017-UPSTREAM-bfdcbdbdb212a122",
+      "why_it_failed": "Replay is correctly blocked because the upstream scoring evidence is not passing."
     },
     {
       "execution_command": [
@@ -4237,6 +4267,26 @@
       "status": "CAPABILITY_ESCALATION_REQUIRED",
       "validator_binding": "action::AUTO-capability_development-R017-UPSTREAM-e1eb0e717fd21d91",
       "why_it_failed": "Replay is correctly blocked because the upstream scoring evidence is not passing."
+    },
+    {
+      "execution_command": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "tools/oc133_toe_closure_factory.py",
+        "--execute-capability-development",
+        "R017-CAPDEV-b8b2c6e15f88",
+        "--write"
+      ],
+      "executor_type": "capability_development",
+      "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+      "next_escalation": "If this compiled capability produces zero validator delta, generate a lower-level upstream research obligation for the exact missing source/evidence object.",
+      "node_id": "capability:AUTO-capability_development-R017-UPSTREAM-f7c41067fa01dc04",
+      "node_type": "executor_capability",
+      "pass_predicate": "Comparator gap `MS-COV-GAP-SOCIAL_ECONOMIC_POLITICAL_SCIENCES-INSTITUTIONAL_SOCIAL_NETWORK_AND_POLICY_OUTCOMES` has `oc_prediction_scoring_row` and strict coverage register no longer lists it as missing.",
+      "repair_strategy": "Implement the exact domain scorer/materializer that can produce target-hidden OC residuals, incumbent comparator residuals, uncertainty/falsifier rows, and replay.",
+      "required_capability": "Research/PriorArt",
+      "status": "OPEN",
+      "validator_binding": "action::AUTO-capability_development-R017-UPSTREAM-f7c41067fa01dc04",
+      "why_it_failed": "The evidence pack is explicitly fail-closed; broad superiority cannot use it."
     },
     {
       "capability_class": "comparator_component_materialization_capability_gap",
@@ -8001,8 +8051,8 @@
       "why_it_failed": "Replay is correctly blocked because the upstream scoring evidence is not passing."
     },
     {
-      "capability_class": "upstream_source_materializer_missing",
-      "capability_executor_ready": false,
+      "capability_class": "upstream_capability_work_order",
+      "capability_executor_ready": true,
       "capability_id": "R017-CAPDEV-d75377e038b7",
       "compiled_capability_id": "R017-CAPDEV-d75377e038b7",
       "execution_command": [
@@ -8012,7 +8062,13 @@
         "R017-CAPDEV-d75377e038b7",
         "--write"
       ],
-      "implementation_command": [],
+      "implementation_command": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "tools/oc133_toe_closure_factory.py",
+        "--execute-upstream-capability-work-order",
+        "R017-UPSTREAM-bfdcbdbdb212a122",
+        "--write"
+      ],
       "implementation_gap_class": null,
       "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
       "missing_artifact_type": "upstream_work_order::SOURCE_BOUND_SCORER_MATERIALIZER_IMPLEMENTATION",
@@ -8467,8 +8523,8 @@
       "why_it_failed": "Replay is correctly blocked because the upstream scoring evidence is not passing."
     },
     {
-      "capability_class": "upstream_source_materializer_missing",
-      "capability_executor_ready": false,
+      "capability_class": "upstream_capability_work_order",
+      "capability_executor_ready": true,
       "capability_id": "R017-CAPDEV-b8b2c6e15f88",
       "compiled_capability_id": "R017-CAPDEV-b8b2c6e15f88",
       "execution_command": [
@@ -8478,7 +8534,13 @@
         "R017-CAPDEV-b8b2c6e15f88",
         "--write"
       ],
-      "implementation_command": [],
+      "implementation_command": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "tools/oc133_toe_closure_factory.py",
+        "--execute-upstream-capability-work-order",
+        "R017-UPSTREAM-f7c41067fa01dc04",
+        "--write"
+      ],
       "implementation_gap_class": null,
       "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
       "missing_artifact_type": "upstream_work_order::SOURCE_BOUND_SCORER_MATERIALIZER_IMPLEMENTATION",
@@ -9828,7 +9890,7 @@
       "required_capability": "Research/SupportIndex",
       "status": "PASS",
       "support_summary": {
-        "existing_source_ref_total": 3395,
+        "existing_source_ref_total": 3400,
         "lean_symbol_total": 205,
         "passing_finite_case_total": 149
       },
@@ -10147,7 +10209,7 @@
       "why_it_failed": "Cerberus still has open defect findings."
     }
   ],
-  "open_node_total": 272,
+  "open_node_total": 274,
   "schema_id": "OC133_TOE_BLOCKING_GRAPH_v1",
   "science_validator_error_total": 5,
   "status": "OPEN",

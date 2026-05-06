@@ -2063,6 +2063,10 @@ OPERATIONS_WDI_RAIL_FREIGHT_MATERIALIZER = (
     "validation/heldout/grand_science/operations/coverage_work_orders/"
     "oc133_operations_wdi_rail_freight_materializer.py"
 )
+SYSTEMS_WGI_INSTITUTIONAL_MATERIALIZER = (
+    "validation/heldout/grand_science/systems/coverage_work_orders/"
+    "oc133_systems_wgi_institutional_materializer.py"
+)
 
 COMPARATOR_DOMAIN_IMPLEMENTED_COMMANDS = {
     (
@@ -2539,6 +2543,37 @@ COMPARATOR_DOMAIN_IMPLEMENTED_COMMANDS[
 ] = [
     [sys.executable, OPERATIONS_WDI_RAIL_FREIGHT_MATERIALIZER, "--acquire", "--write-acquisition"],
     [sys.executable, OPERATIONS_WDI_RAIL_FREIGHT_MATERIALIZER, "--check"],
+]
+
+for _wgi_institutional_subartifact in (
+    "target_hidden_task_table",
+    "oc_formula_or_model",
+    "incumbent_comparator_scoring",
+    "residuals_materiality_uncertainty",
+    "controls_and_falsifiers",
+    "independent_replay",
+    "strict_evidence_pack_diagnosis",
+    "model_or_claim_repair_decision",
+):
+    COMPARATOR_DOMAIN_IMPLEMENTED_COMMANDS[
+        (
+            "social_economic_political_sciences",
+            "institutional_social_network_and_policy_outcomes",
+            _wgi_institutional_subartifact,
+        )
+    ] = [
+        [sys.executable, SYSTEMS_WGI_INSTITUTIONAL_MATERIALIZER, "--score", "--write-scoring"],
+        [sys.executable, SYSTEMS_WGI_INSTITUTIONAL_MATERIALIZER, "--check"],
+    ]
+COMPARATOR_DOMAIN_IMPLEMENTED_COMMANDS[
+    (
+        "social_economic_political_sciences",
+        "institutional_social_network_and_policy_outcomes",
+        "source_snapshot_acquisition",
+    )
+] = [
+    [sys.executable, SYSTEMS_WGI_INSTITUTIONAL_MATERIALIZER, "--acquire", "--write-acquisition"],
+    [sys.executable, SYSTEMS_WGI_INSTITUTIONAL_MATERIALIZER, "--check"],
 ]
 
 
@@ -3218,6 +3253,10 @@ COMPARATOR_DOMAIN_MATERIALIZED_EVIDENCE_REFS = {
         "complex_systems_operations_science",
         "queue_supply_chain_and_operations_observables",
     ): "validation/heldout/grand_science/operations/wdi_rail_freight/OC133_WORLD_BANK_WDI_RAIL_FREIGHT_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
+    (
+        "social_economic_political_sciences",
+        "institutional_social_network_and_policy_outcomes",
+    ): "validation/heldout/grand_science/systems/wgi_institutional/OC133_WORLD_BANK_WGI_INSTITUTIONAL_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
 }
 
 
