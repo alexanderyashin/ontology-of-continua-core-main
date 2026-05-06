@@ -1,13 +1,13 @@
 {
-  "artifact_hash": "fb86727c030f462be01b16f97faa12461e80ea5d1078ad63eb74a6ced945556d",
+  "artifact_hash": "16f18da841b3a63dfe638b49cbf2c0bfae6fffdcc140d3f0226c9bec3a57739e",
   "artifact_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/domain_scorer_implementations/scorer_impl_e35d57d39a2ceb88.json",
   "command_result_total": 0,
   "command_results": [],
   "domain_class_id": "biological_life_sciences",
   "domain_scoring_id": "R017-DOMAIN-SCORER-80c7d7ec237d85b3",
   "domain_scoring_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/domain_scorers/scorer_2134246c17e0326e.json",
-  "domain_scoring_root_cause": "DOMAIN_SCORER_RAN_BUT_SCORING_REMAINS_OPEN",
-  "domain_scoring_status": "EVIDENCE_REPAIR_ATTEMPTED_REMAINS_OPEN",
+  "domain_scoring_root_cause": "DOMAIN_SCORER_CLOSED_SCORING_ARTIFACT",
+  "domain_scoring_status": "PASS",
   "exact_domain_scorer_commands": [
     [
       "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
@@ -67,7 +67,6 @@
   "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
   "missing_domain_scorer_elements": [
     "comparator_residual_materialized",
-    "fail_closed_status_absent",
     "material_margin_met",
     "model_residual_materialized",
     "score_materialized"
@@ -84,7 +83,7 @@
   "phenomenon_class_id": "ecology_population_and_biodiversity_observables",
   "repair_strategy": "Inspect the existing scorer output, repair the OC model/comparator/residual/materiality implementation, and preserve negative results if OC does not beat the comparator.",
   "replay_artifact_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/80c7d7ec237d85b3/replay_record.json",
-  "replay_artifact_status": "OPEN",
+  "replay_artifact_status": "PASS",
   "required_capability": "Research/DomainScorerImplementation",
   "required_source_block": {
     "minimum_rows_required": 20,
@@ -102,11 +101,11 @@
     "metric_id": "OC133-BIOLOGY-COVERAGE-ECOLOGY-POPULATION-BIODIVERSITY-OBSERVABLES_domain_local_residual",
     "superiority_rule": "model residual plus uncertainty is smaller than best preregistered comparator residual"
   },
-  "root_cause_class": "DOMAIN_SCORER_MODEL_OR_COMPARATOR_REPAIR_REQUIRED",
+  "root_cause_class": "DOMAIN_SCORER_IMPLEMENTATION_CLOSED",
   "schema_id": "OC133_MODERN_SCIENCE_COMPARATOR_DOMAIN_SCORER_IMPLEMENTATION_EXECUTION_v1",
   "scoring_artifact_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/80c7d7ec237d85b3/oc_prediction_scoring_row.json",
-  "scoring_artifact_status": "OPEN",
-  "status": "EVIDENCE_REPAIR_ATTEMPTED_REMAINS_OPEN",
+  "scoring_artifact_status": "PASS",
+  "status": "PASS",
   "target_variable": {
     "extraction_rule": "occurrence_count[grid_cell, target_year]",
     "name": "heldout_grid_cell_species_occurrence_count",
@@ -120,5 +119,5 @@
     "rule": "prior-year rolling residual envelope with coordinate-uncertainty exclusion"
   },
   "validator_binding": "comparator_gap::MS-COV-GAP-BIOLOGICAL_LIFE_SCIENCES-ECOLOGY_POPULATION_AND_BIODIVERSITY_OBSERVABLES::domain_scorer_implementation",
-  "why_it_failed": "The domain scorer ran, but the OC model/comparator/materiality predicates remain fail-closed."
+  "why_it_failed": "The governed domain scorer implementation produced a passing downstream scoring artifact."
 }

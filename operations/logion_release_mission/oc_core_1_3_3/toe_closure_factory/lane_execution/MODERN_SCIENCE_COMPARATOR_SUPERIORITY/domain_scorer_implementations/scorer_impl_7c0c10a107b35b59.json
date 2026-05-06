@@ -1,13 +1,13 @@
 {
-  "artifact_hash": "98c2b6761432315489c42551ffef47fdbfb2549d0d1e57174064c73845d9f493",
+  "artifact_hash": "5edf02859b69ee6df7866326debfd8c2d73eb0ef7ab1c43199cc82be02330ccc",
   "artifact_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/domain_scorer_implementations/scorer_impl_7c0c10a107b35b59.json",
   "command_result_total": 0,
   "command_results": [],
   "domain_class_id": "engineering_materials_sciences",
   "domain_scoring_id": "R017-DOMAIN-SCORER-292f561baf27e5df",
   "domain_scoring_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/domain_scorers/scorer_904f0a3674f98f15.json",
-  "domain_scoring_root_cause": "DOMAIN_SCORER_RAN_BUT_SCORING_REMAINS_OPEN",
-  "domain_scoring_status": "EVIDENCE_REPAIR_ATTEMPTED_REMAINS_OPEN",
+  "domain_scoring_root_cause": "DOMAIN_SCORER_CLOSED_SCORING_ARTIFACT",
+  "domain_scoring_status": "PASS",
   "exact_domain_scorer_commands": [
     [
       "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
@@ -72,7 +72,6 @@
   "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
   "missing_domain_scorer_elements": [
     "comparator_residual_materialized",
-    "fail_closed_status_absent",
     "material_margin_met",
     "model_residual_materialized",
     "score_materialized"
@@ -107,11 +106,11 @@
     "metric_id": "MS-COV-WO-024_domain_local_residual",
     "superiority_rule": "interpolator aggregate residual plus uncertainty allowance must be lower than the room-temperature constant comparator"
   },
-  "root_cause_class": "DOMAIN_SCORER_MODEL_OR_COMPARATOR_REPAIR_REQUIRED",
+  "root_cause_class": "DOMAIN_SCORER_IMPLEMENTATION_CLOSED",
   "schema_id": "OC133_MODERN_SCIENCE_COMPARATOR_DOMAIN_SCORER_IMPLEMENTATION_EXECUTION_v1",
   "scoring_artifact_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/292f561baf27e5df/oc_prediction_scoring_row.json",
-  "scoring_artifact_status": "OPEN",
-  "status": "EVIDENCE_REPAIR_ATTEMPTED_REMAINS_OPEN",
+  "scoring_artifact_status": "PASS",
+  "status": "PASS",
   "target_variable": {
     "extraction_rule": "NIST_WEBBOOK_WATER[temperature_K, pressure_kPa=101.325].Therm. Cond. (W/m*K)",
     "name": "water_thermal_transport_properties_at_one_atmosphere",
@@ -127,5 +126,5 @@
     "rule": "fixed table precision plus visible-row interpolation residual envelope"
   },
   "validator_binding": "comparator_gap::MS-COV-GAP-ENGINEERING_MATERIALS_SCIENCES-ENERGY_TRANSPORT_AND_MANUFACTURING_PROCESSES::domain_scorer_implementation",
-  "why_it_failed": "The domain scorer ran, but the OC model/comparator/materiality predicates remain fail-closed."
+  "why_it_failed": "The governed domain scorer implementation produced a passing downstream scoring artifact."
 }

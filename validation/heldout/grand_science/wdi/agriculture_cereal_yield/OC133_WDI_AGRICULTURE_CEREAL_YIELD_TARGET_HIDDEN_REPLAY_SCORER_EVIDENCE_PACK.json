@@ -1,0 +1,168 @@
+{
+  "schema_id": "OC133_WDI_INDICATOR_SCORING_PACK_v1",
+  "pack_status": "STRICT_EVIDENCE_PASS_NO_COVERAGE_CLOSURE",
+  "status": "STRICT_EVIDENCE_PASS_NO_COVERAGE_CLOSURE",
+  "lane_id": "agriculture_cereal_yield",
+  "domain_class_id": "agricultural_food_sciences",
+  "phenomenon_class_id": "crop_yield_soil_and_trait_observables",
+  "source_bound": true,
+  "target_hidden": true,
+  "score_materialized": true,
+  "scientific_pass": true,
+  "coverage_closure_allowed": false,
+  "support_allowed_for_broad_coverage": false,
+  "source_snapshot_ref": "validation/heldout/grand_science/wdi/agriculture_cereal_yield/OC133_WDI_AGRICULTURE_CEREAL_YIELD_SOURCE.json",
+  "source_snapshot_sha256": "2f85cd8cea272907596b7598f0a48f58a70db3c184135c097675d1b8cc2841de",
+  "source_lock_ref": "validation/heldout/grand_science/wdi/agriculture_cereal_yield/OC133_WDI_AGRICULTURE_CEREAL_YIELD_SOURCE.lock.json",
+  "visible_task_table_ref": "validation/heldout/grand_science/wdi/agriculture_cereal_yield/OC133_WDI_AGRICULTURE_CEREAL_YIELD_TARGET_HIDDEN_TASK_TABLE.json",
+  "hidden_target_lock_ref": "validation/heldout/grand_science/wdi/agriculture_cereal_yield/OC133-WDI-AGRICULTURE_CEREAL_YIELD-HIDDEN-TARGETS-0001.lock.json",
+  "row_count": 2217,
+  "model": {
+    "model_id": "AGR-WDI-CEREAL-YIELD-MEDIAN-DELTA-v1",
+    "rule": "Use the median recent annual crop-yield change over visible history and extrapolate one year."
+  },
+  "comparator": {
+    "comparator_id": "AGR-WDI-CEREAL-YIELD-LAST_OBSERVATION_BASELINE-v1",
+    "rule": "Predict the held-out crop-yield observable as the last visible pre-target value."
+  },
+  "residuals": {
+    "model_relative_mae": 0.668269813658,
+    "comparator_relative_mae": 0.905988846475,
+    "negative_control_relative_mae": 0.894171691563,
+    "material_margin_met": true,
+    "material_margin_rule": "model_relative_mae + 0.05 must be below the last-observation comparator relative MAE"
+  },
+  "negative_control": {
+    "control_id": "AGR-WDI-CEREAL-YIELD-FIVE_YEAR_MEAN_CONTROL-v1",
+    "negative_control_rejected": true
+  },
+  "falsifiers": [
+    "target values leak into visible task table",
+    "source lock hash is missing or stale",
+    "model relative MAE plus material margin is not below comparator relative MAE",
+    "five-year mean negative control is not worse than the model"
+  ],
+  "scored_rows_sha256": "668721783b8f28f76bd4d4c7522acc452707cbbdaa8d2e8b1dab5e8c73fec055",
+  "scored_rows_sample": [
+    {
+      "task_id": "WDI-AGRICULTURE_CEREAL_YIELD-HOLDOUT-AFE-2010",
+      "countryiso3code": "AFE",
+      "target_year": 2010,
+      "model_prediction": 1472.958706930735,
+      "comparator_prediction": 1422.45778179343,
+      "negative_control_prediction": 1313.98944684859,
+      "target_sha256": "ff0646b07ec1486bea14beb0cf7e6bc4e7cfe6a81d1bf4e57a9bb187e70d928b",
+      "model_relative_error": 0.051151854371,
+      "comparator_relative_error": 0.08368345824,
+      "negative_control_relative_error": 0.153556413936
+    },
+    {
+      "task_id": "WDI-AGRICULTURE_CEREAL_YIELD-HOLDOUT-AFE-2011",
+      "countryiso3code": "AFE",
+      "target_year": 2011,
+      "model_prediction": 1602.865983461555,
+      "comparator_prediction": 1552.36505832425,
+      "negative_control_prediction": 1389.679414874292,
+      "target_sha256": "37ca2dae3a70edca7435997cf7f714b9b9e6d2681571e308bfec603895902d9f",
+      "model_relative_error": 0.072279633132,
+      "comparator_relative_error": 0.038495702325,
+      "negative_control_relative_error": 0.070337165722
+    },
+    {
+      "task_id": "WDI-AGRICULTURE_CEREAL_YIELD-HOLDOUT-AFE-2012",
+      "countryiso3code": "AFE",
+      "target_year": 2012,
+      "model_prediction": 1543.020193960205,
+      "comparator_prediction": 1494.82087874723,
+      "negative_control_prediction": 1429.072629165116,
+      "target_sha256": "46ffa3ba312e9af9107c61292aaaf81aa9e7c47b1e0851f66cef88bc3243ae45",
+      "model_relative_error": 0.065866683047,
+      "comparator_relative_error": 0.095046201482,
+      "negative_control_relative_error": 0.134849718446
+    },
+    {
+      "task_id": "WDI-AGRICULTURE_CEREAL_YIELD-HOLDOUT-AFE-2013",
+      "countryiso3code": "AFE",
+      "target_year": 2013,
+      "model_prediction": 1753.17249665119,
+      "comparator_prediction": 1651.82010528566,
+      "negative_control_prediction": 1494.224819948752,
+      "target_sha256": "2d9d37c972b2381eb486333071d225c6f841fea97a2addf204b3f6159f44dc40",
+      "model_relative_error": 0.138892130425,
+      "comparator_relative_error": 0.073051808867,
+      "negative_control_relative_error": 0.029324899988
+    },
+    {
+      "task_id": "WDI-AGRICULTURE_CEREAL_YIELD-HOLDOUT-AFE-2014",
+      "countryiso3code": "AFE",
+      "target_year": 2014,
+      "model_prediction": 1575.54813975945,
+      "comparator_prediction": 1539.36659128255,
+      "negative_control_prediction": 1532.166083086624,
+      "target_sha256": "e38f1b5a505053d470a38ba09015ddf26b5bfd719be987cce270160585b0b0ab",
+      "model_relative_error": 0.045810081921,
+      "comparator_relative_error": 0.067722499515,
+      "negative_control_relative_error": 0.072083300783
+    },
+    {
+      "task_id": "WDI-AGRICULTURE_CEREAL_YIELD-HOLDOUT-AFE-2015",
+      "countryiso3code": "AFE",
+      "target_year": 2015,
+      "model_prediction": 1678.32849675301,
+      "comparator_prediction": 1651.18925478853,
+      "negative_control_prediction": 1577.912377685644,
+      "target_sha256": "6a7104352437a4a0f1a1c7d619fdf752e2ed4d5c0d6b696f4cb515052992e52b",
+      "model_relative_error": 0.025477469769,
+      "comparator_relative_error": 0.0088950896,
+      "negative_control_relative_error": 0.035877901307
+    },
+    {
+      "task_id": "WDI-AGRICULTURE_CEREAL_YIELD-HOLDOUT-AFE-2016",
+      "countryiso3code": "AFE",
+      "target_year": 2016,
+      "model_prediction": 1685.26361381833,
+      "comparator_prediction": 1636.63127297307,
+      "negative_control_prediction": 1594.765620615408,
+      "target_sha256": "798e0be5c4ec394e1029c82966791c896c5cd53c94cf6c593c9786bb351d3416",
+      "model_relative_error": 0.121678671786,
+      "comparator_relative_error": 0.089309931942,
+      "negative_control_relative_error": 0.061444968297
+    },
+    {
+      "task_id": "WDI-AGRICULTURE_CEREAL_YIELD-HOLDOUT-AFE-2017",
+      "countryiso3code": "AFE",
+      "target_year": 2017,
+      "model_prediction": 1438.942017398255,
+      "comparator_prediction": 1502.44776530754,
+      "negative_control_prediction": 1596.29099792747,
+      "target_sha256": "13a7991565008e14598f9c0631565286ca7efc17059c988aaaa40cb26cf411f9",
+      "model_relative_error": 0.179950184153,
+      "comparator_relative_error": 0.143758401407,
+      "negative_control_relative_error": 0.090277354431
+    },
+    {
+      "task_id": "WDI-AGRICULTURE_CEREAL_YIELD-HOLDOUT-AFE-2018",
+      "countryiso3code": "AFE",
+      "target_year": 2018,
+      "model_prediction": 1803.33307925378,
+      "comparator_prediction": 1754.70073840852,
+      "negative_control_prediction": 1616.867124552042,
+      "target_sha256": "a9dacc4ec36bfbf9e8c7ed4ed64732e1557e2e67d66958f98e0e83a6c9baca40",
+      "model_relative_error": 0.04978176324,
+      "comparator_relative_error": 0.021471217002,
+      "negative_control_relative_error": 0.058766436182
+    },
+    {
+      "task_id": "WDI-AGRICULTURE_CEREAL_YIELD-HOLDOUT-AFE-2019",
+      "countryiso3code": "AFE",
+      "target_year": 2019,
+      "model_prediction": 1692.096311452985,
+      "comparator_prediction": 1717.81711437665,
+      "negative_control_prediction": 1652.557229170862,
+      "target_sha256": "ee25601669404513cc95fff650f8b417af183a7b2bcc20ff9799ef4aaa3f9ebc",
+      "model_relative_error": 0.010180813604,
+      "comparator_relative_error": 0.004864987306,
+      "negative_control_relative_error": 0.033309841184
+    }
+  ]
+}

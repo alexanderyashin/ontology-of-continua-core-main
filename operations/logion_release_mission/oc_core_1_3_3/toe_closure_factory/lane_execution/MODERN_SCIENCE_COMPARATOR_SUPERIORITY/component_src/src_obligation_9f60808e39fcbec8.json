@@ -1,5 +1,5 @@
 {
-  "artifact_hash": "87eff4e0362486efdd4f2563d48e439fd1b2ee6a272f3917ac5cb311a35a5303",
+  "artifact_hash": "69c0c2ca71e674c5a7d347540ffa17b942c45027cbac774512d2e1cfa5cee6bf",
   "artifact_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/component_src/src_obligation_9f60808e39fcbec8.json",
   "command_pass": true,
   "command_result_total": 5,
@@ -69,7 +69,7 @@
   "component_work_order_id": "R017-DOMAIN-MODEL-COMPONENT-ed07093c9b32e90e",
   "domain_class_id": "agricultural_food_sciences",
   "evidence_pack_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/f193d7044d98f51f/strict_evidence_pack.json",
-  "evidence_pack_status": "FAIL_CLOSED_SOURCE_BOUND_SCORING_NOT_MATERIALIZED",
+  "evidence_pack_status": "PASS",
   "execution_command": [
     "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
     "tools/oc133_toe_closure_factory.py",
@@ -89,15 +89,8 @@
   },
   "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
   "missing_source_evidence_fields": [
-    "component_report_pass",
-    "strict_evidence_pack_pass",
-    "scoring_artifact_pass",
-    "replay_artifact_pass",
-    "score_materialized",
     "oc_model_residual",
-    "incumbent_comparator_residual",
-    "material_margin_met",
-    "fail_closed_status_clear"
+    "incumbent_comparator_residual"
   ],
   "next_escalation": "Implement the exact source acquisition/scoring script for the missing fields, or preserve the fail-closed comparator result if OC does not beat the incumbent.",
   "no_fake_closure_policy": "This execution can close only after downstream source-bound evidence artifacts pass.",
@@ -106,9 +99,9 @@
     "minimum_rows_required": 20,
     "official_documentation_url": "https://www.nass.usda.gov/developer/",
     "official_endpoint_url": "https://quickstats.nass.usda.gov/api",
-    "required_local_snapshot_ref": null,
-    "required_lock_ref": null,
-    "snapshot_status": "NOT_ACQUIRED_FOR_THIS_COVERAGE_CLASS",
+    "required_local_snapshot_ref": "validation/heldout/grand_science/wdi/agriculture_cereal_yield/OC133_WDI_AGRICULTURE_CEREAL_YIELD_SOURCE.json",
+    "required_lock_ref": "validation/heldout/grand_science/wdi/agriculture_cereal_yield/OC133_WDI_AGRICULTURE_CEREAL_YIELD_SOURCE.lock.json",
+    "snapshot_status": "ACQUIRED_OR_BOUND",
     "source_authority": "USDA National Agricultural Statistics Service Quick Stats API",
     "source_id": "USDA_NASS_QUICKSTATS_API",
     "source_name": "USDA National Agricultural Statistics Service Quick Stats API"
@@ -117,20 +110,20 @@
   "phenomenon_class_id": "crop_yield_soil_and_trait_observables",
   "repair_strategy": "Materialize the named missing source/model/comparator/residual/replay fields from governed source data; preserve fail-closed science if OC does not beat the comparator.",
   "replay_artifact_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/f193d7044d98f51f/replay_record.json",
-  "replay_artifact_status": "OPEN",
+  "replay_artifact_status": "PASS",
   "required_capability": "Research/SourceBoundScoringMaterialization",
   "residual_requirement": {
     "formula": "absolute yield residual in bushels per acre; aggregate MAE over heldout location/year rows",
     "metric_id": "MS-COV-WO-019_domain_local_residual",
     "superiority_rule": "model_MAE + uncertainty_margin < comparator_MAE on the same heldout rows"
   },
-  "root_cause_class": "SOURCE_BOUND_SCORE_OR_REPLAY_NOT_MATERIALIZED",
+  "root_cause_class": "COMPONENT_SOURCE_OBLIGATION_CLOSED",
   "schema_id": "OC133_MODERN_SCIENCE_COMPARATOR_COMPONENT_SOURCE_OBLIGATION_EXECUTION_v1",
   "scoring_artifact_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/f193d7044d98f51f/oc_prediction_scoring_row.json",
-  "scoring_artifact_status": "OPEN",
+  "scoring_artifact_status": "PASS",
   "source_component_implementation_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/component_impls/impl_5f9623ddfcdd1c46.json",
-  "source_component_implementation_status": "EVIDENCE_REPAIR_ATTEMPTED_REMAINS_OPEN",
-  "status": "SOURCE_BOUND_SCORING_MATERIALIZATION_REMAINS_OPEN",
+  "source_component_implementation_status": "PASS",
+  "status": "PASS",
   "target_variable": {
     "extraction_rule": "Target values remain hidden until scoring according to the domain-local work order.",
     "name": "heldout_county_or_state_year_corn_yield",
@@ -143,5 +136,5 @@
     "unit": "bushels per acre"
   },
   "validator_binding": "comparator_gap::MS-COV-GAP-AGRICULTURAL_FOOD_SCIENCES-CROP_YIELD_SOIL_AND_TRAIT_OBSERVABLES::component_source_obligation::oc_score_materialization",
-  "why_it_failed": "Narrow source/model/comparator commands ran, but required scoring/replay fields remain missing or fail-closed."
+  "why_it_failed": "Downstream component, strict evidence, scoring, and replay artifacts now pass."
 }

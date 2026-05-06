@@ -2528,7 +2528,10 @@ class ReleaseAssemblyMachineTests(unittest.TestCase):
             self.assertIsInstance(spec, dict)
             self.assertEqual(spec["domain_class_id"], "medical_health_sciences")
             self.assertTrue(str(spec["coverage_closure_status"]).startswith("OPEN_FAIL_CLOSED"))
-            if row["phenomenon_class_id"] == "epidemiological_transmission_and_risk":
+            if row["phenomenon_class_id"] in {
+                "clinical_outcomes_and_biomarkers",
+                "epidemiological_transmission_and_risk",
+            }:
                 self.assertTrue(spec["current_evidence"]["executable_evidence_exists"])
                 self.assertEqual(spec["current_evidence"]["status"], "STRICT_EVIDENCE_PASS_NO_COVERAGE_CLOSURE")
                 self.assertEqual(row["execution_state"], "EVIDENCE_BOUND_PENDING_REVIEW")

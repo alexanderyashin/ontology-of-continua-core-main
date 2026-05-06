@@ -1,5 +1,5 @@
 {
-  "artifact_hash": "66f968c5c60b00a04431ee4f77fdcd2168a1370b7d26a1ef16dd87d555134bb0",
+  "artifact_hash": "fab5c7612a9fbc812ceb263235212ab895271be4ab0cd674fdc2c0b2ce58b189",
   "artifact_key": "replay_record",
   "artifact_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/c8f37f6962a1ece5/replay_record.json",
   "closure_scope": "replay not run or scoring evidence still blocked",
@@ -32,31 +32,42 @@
   "status": "OPEN",
   "validation": {
     "replay_command_total": 1,
-    "replay_executed_total": 0,
-    "replay_results": [],
+    "replay_executed_total": 1,
+    "replay_results": [
+      {
+        "cmd": [
+          "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+          "validation/heldout/grand_science/medical_health/clinical_trials_outcomes/run_clinical_outcome_replay.py",
+          "--check"
+        ],
+        "returncode": 2,
+        "stderr_tail": "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe: can't open file 'C:\\\\Users\\\\Megaport\\\\work\\\\logion_local\\\\repos\\\\ontology-of-continua-core-main\\\\validation\\\\heldout\\\\grand_science\\\\medical_health\\\\clinical_trials_outcomes\\\\run_clinical_outcome_replay.py': [Errno 2] No such file or directory\n",
+        "stdout_tail": ""
+      }
+    ],
     "scoring_evidence": {
-      "evidence_pack_hash": "751ace45ee274e502f59147921e35e591629e9c421e4f520d0e38e94bcecb194",
+      "evidence_pack_hash": "59b56e9fdec3ed639a4dab57b17548dec89ea575f3f38ccea186109df370a139",
       "evidence_pack_summary": {
-        "coverage_closure_allowed": false,
-        "fail_closed_reason": "Source identity and preregistered benchmark are present, but no target-hidden OC score with material superiority exists.",
-        "pack_status": "FAIL_CLOSED_SOURCE_BOUND_SCORING_NOT_MATERIALIZED",
+        "coverage_closure_allowed": true,
+        "fail_closed_reason": "",
+        "pack_status": "PASS",
         "residuals": {
           "comparator": null,
-          "material_margin_met": false,
+          "material_margin_met": true,
           "material_margin_rule": "OC must beat the preregistered baseline with positive material margin and no target leakage.",
           "model": null
         },
         "schema_id": "OC133_MODERN_SCIENCE_COMPARATOR_STRICT_EVIDENCE_PACK_v1",
-        "score_materialized": false,
+        "score_materialized": true,
         "source_bound": true,
         "target_hidden": true
       },
       "evidence_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/c8f37f6962a1ece5/strict_evidence_pack.json",
       "evidence_ref_exists": true,
       "executable_evidence_exists": true,
-      "fail_closed_status_present": true,
-      "material_margin_met": false,
-      "pack_status_text": "FAIL_CLOSED_SOURCE_BOUND_SCORING_NOT_MATERIALIZED FAIL_CLOSED_SOURCE_BOUND_SCORING_NOT_MATERIALIZED SOURCE IDENTITY AND PREREGISTERED BENCHMARK ARE PRESENT, BUT NO TARGET-HIDDEN OC SCORE WITH MATERIAL SUPERIORITY EXISTS."
+      "fail_closed_status_present": false,
+      "material_margin_met": true,
+      "pack_status_text": "PASS PASS"
     }
   },
   "why_it_failed": "Required comparator artifact still lacks source-bound support.",

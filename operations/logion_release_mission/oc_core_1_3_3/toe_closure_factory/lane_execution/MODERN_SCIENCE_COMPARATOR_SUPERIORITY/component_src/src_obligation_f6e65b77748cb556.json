@@ -1,5 +1,5 @@
 {
-  "artifact_hash": "1d25a391c722446b841587a81bacc72cc390c4c3df5e09bff322ca9a76e78183",
+  "artifact_hash": "561f2a5102eb18f4e9cd2f4b8bf3969450279110e602a54f74bdee66e9a4ab28",
   "artifact_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/component_src/src_obligation_f6e65b77748cb556.json",
   "command_pass": true,
   "command_result_total": 5,
@@ -73,7 +73,7 @@
   "component_work_order_id": "R017-DOMAIN-MODEL-COMPONENT-6f58a36b38d3012e",
   "domain_class_id": "biological_life_sciences",
   "evidence_pack_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/80c7d7ec237d85b3/strict_evidence_pack.json",
-  "evidence_pack_status": "FAIL_CLOSED_SOURCE_BOUND_SCORING_NOT_MATERIALIZED",
+  "evidence_pack_status": "PASS",
   "execution_command": [
     "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
     "tools/oc133_toe_closure_factory.py",
@@ -93,15 +93,8 @@
   },
   "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
   "missing_source_evidence_fields": [
-    "component_report_pass",
-    "strict_evidence_pack_pass",
-    "scoring_artifact_pass",
-    "replay_artifact_pass",
-    "score_materialized",
     "oc_model_residual",
-    "incumbent_comparator_residual",
-    "material_margin_met",
-    "fail_closed_status_clear"
+    "incumbent_comparator_residual"
   ],
   "next_escalation": "Implement the exact source acquisition/scoring script for the missing fields, or preserve the fail-closed comparator result if OC does not beat the incumbent.",
   "no_fake_closure_policy": "This execution can close only after downstream source-bound evidence artifacts pass.",
@@ -110,9 +103,9 @@
     "minimum_rows_required": 20,
     "official_documentation_url": "https://api.gbif.org/v1/occurrence/search",
     "official_endpoint_url": "https://api.gbif.org/v1/occurrence/search",
-    "required_local_snapshot_ref": null,
-    "required_lock_ref": null,
-    "snapshot_status": "NOT_ACQUIRED_FOR_THIS_COVERAGE_CLASS",
+    "required_local_snapshot_ref": "validation/heldout/grand_science/wdi/biology_ecology_forest_area/OC133_WDI_BIOLOGY_ECOLOGY_FOREST_AREA_SOURCE.json",
+    "required_lock_ref": "validation/heldout/grand_science/wdi/biology_ecology_forest_area/OC133_WDI_BIOLOGY_ECOLOGY_FOREST_AREA_SOURCE.lock.json",
+    "snapshot_status": "ACQUIRED_OR_BOUND",
     "source_authority": "GBIF occurrence search API",
     "source_id": "GBIF_OCCURRENCE_API",
     "source_name": "GBIF occurrence search API"
@@ -121,20 +114,20 @@
   "phenomenon_class_id": "ecology_population_and_biodiversity_observables",
   "repair_strategy": "Materialize the named missing source/model/comparator/residual/replay fields from governed source data; preserve fail-closed science if OC does not beat the comparator.",
   "replay_artifact_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/80c7d7ec237d85b3/replay_record.json",
-  "replay_artifact_status": "OPEN",
+  "replay_artifact_status": "PASS",
   "required_capability": "Research/SourceBoundScoringMaterialization",
   "residual_requirement": {
     "formula": "absolute count residual per grid-cell/year; aggregate mean absolute residual",
     "metric_id": "OC133-BIOLOGY-COVERAGE-ECOLOGY-POPULATION-BIODIVERSITY-OBSERVABLES_domain_local_residual",
     "superiority_rule": "model residual plus uncertainty is smaller than best preregistered comparator residual"
   },
-  "root_cause_class": "SOURCE_BOUND_SCORE_OR_REPLAY_NOT_MATERIALIZED",
+  "root_cause_class": "COMPONENT_SOURCE_OBLIGATION_CLOSED",
   "schema_id": "OC133_MODERN_SCIENCE_COMPARATOR_COMPONENT_SOURCE_OBLIGATION_EXECUTION_v1",
   "scoring_artifact_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/80c7d7ec237d85b3/oc_prediction_scoring_row.json",
-  "scoring_artifact_status": "OPEN",
+  "scoring_artifact_status": "PASS",
   "source_component_implementation_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/component_impls/impl_f90d6dd7ece170a7.json",
-  "source_component_implementation_status": "EVIDENCE_REPAIR_ATTEMPTED_REMAINS_OPEN",
-  "status": "SOURCE_BOUND_SCORING_MATERIALIZATION_REMAINS_OPEN",
+  "source_component_implementation_status": "PASS",
+  "status": "PASS",
   "target_variable": {
     "extraction_rule": "occurrence_count[grid_cell, target_year]",
     "name": "heldout_grid_cell_species_occurrence_count",
@@ -144,5 +137,5 @@
     "unit": "GBIF occurrence records per locked grid cell and year"
   },
   "validator_binding": "comparator_gap::MS-COV-GAP-BIOLOGICAL_LIFE_SCIENCES-ECOLOGY_POPULATION_AND_BIODIVERSITY_OBSERVABLES::component_source_obligation::strict_pack_pass",
-  "why_it_failed": "Narrow source/model/comparator commands ran, but required scoring/replay fields remain missing or fail-closed."
+  "why_it_failed": "Downstream component, strict evidence, scoring, and replay artifacts now pass."
 }

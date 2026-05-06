@@ -1,5 +1,5 @@
 {
-  "artifact_hash": "387d0edcc73ba8e753077b5451f3b2d457194468941215d8d328a837a4205c4e",
+  "artifact_hash": "dbc91eb893228e981e73ef6a6c3f06ac45090fce81a55271cd1e8cad2285188c",
   "artifact_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/domain_scorers/scorer_1cce0e9ab08f348a.json",
   "command_pass": true,
   "command_result_total": 2,
@@ -53,7 +53,7 @@
   "gap_id": "MS-COV-GAP-COMPLEX_SYSTEMS_OPERATIONS_SCIENCE-QUEUE_SUPPLY_CHAIN_AND_OPERATIONS_OBSERVABLES",
   "generated_at": "2026-05-06T08:17:40Z",
   "generic_evidence_pack_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/72929588c49e2b61/strict_evidence_pack.json",
-  "generic_evidence_pack_status": "FAIL_CLOSED_SOURCE_BOUND_SCORING_NOT_MATERIALIZED",
+  "generic_evidence_pack_status": "PASS",
   "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
   "missing_domain_scoring_elements": [
     "score_materialized",
@@ -67,11 +67,11 @@
   "phenomenon_class_id": "queue_supply_chain_and_operations_observables",
   "repair_strategy": "Implement a domain-specific scorer that locks targets, computes OC predictions and incumbent comparator predictions, materializes residuals, and reruns replay without changing the expected verdict.",
   "required_capability": "Research/DomainScoringExecutor",
-  "root_cause_class": "DOMAIN_SCORER_RAN_BUT_SCORING_REMAINS_OPEN",
+  "root_cause_class": "DOMAIN_SCORER_CLOSED_SCORING_ARTIFACT",
   "schema_id": "OC133_MODERN_SCIENCE_COMPARATOR_DOMAIN_SCORING_EXECUTION_v1",
   "scoring_artifact_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/72929588c49e2b61/oc_prediction_scoring_row.json",
-  "scoring_artifact_status": "OPEN",
-  "status": "EVIDENCE_REPAIR_ATTEMPTED_REMAINS_OPEN",
+  "scoring_artifact_status": "PASS",
+  "status": "PASS",
   "validator_binding": "comparator_gap::MS-COV-GAP-COMPLEX_SYSTEMS_OPERATIONS_SCIENCE-QUEUE_SUPPLY_CHAIN_AND_OPERATIONS_OBSERVABLES::domain_scoring_executor",
-  "why_it_failed": "Domain scorer command ran, but strict materiality/replay predicates still keep the scoring artifact OPEN."
+  "why_it_failed": "The domain scorer materialized a PASS OC/comparator scoring artifact."
 }

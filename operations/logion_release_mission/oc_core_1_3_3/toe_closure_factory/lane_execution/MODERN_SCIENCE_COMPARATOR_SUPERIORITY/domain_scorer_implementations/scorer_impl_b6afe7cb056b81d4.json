@@ -1,13 +1,13 @@
 {
-  "artifact_hash": "74c9e9a468a971e5db4e4d5789abd76791c4c629504463b4663acf32999f0812",
+  "artifact_hash": "555593f4344f291e2c5e4315cd4adcccf9a412904c131ea0a1f8b1eada1f4549",
   "artifact_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/domain_scorer_implementations/scorer_impl_b6afe7cb056b81d4.json",
   "command_result_total": 0,
   "command_results": [],
   "domain_class_id": "complex_systems_operations_science",
   "domain_scoring_id": "R017-DOMAIN-SCORER-701e34b0c7b6662d",
   "domain_scoring_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/domain_scorers/scorer_ecc3413b2a783a11.json",
-  "domain_scoring_root_cause": "DOMAIN_SCORER_RAN_BUT_SCORING_REMAINS_OPEN",
-  "domain_scoring_status": "EVIDENCE_REPAIR_ATTEMPTED_REMAINS_OPEN",
+  "domain_scoring_root_cause": "DOMAIN_SCORER_CLOSED_SCORING_ARTIFACT",
+  "domain_scoring_status": "PASS",
   "exact_domain_scorer_commands": [
     [
       "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
@@ -67,7 +67,6 @@
   "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
   "missing_domain_scorer_elements": [
     "comparator_residual_materialized",
-    "fail_closed_status_absent",
     "material_margin_met",
     "model_residual_materialized",
     "score_materialized"
@@ -84,7 +83,7 @@
   "phenomenon_class_id": "multi_agent_system_dynamics",
   "repair_strategy": "Inspect the existing scorer output, repair the OC model/comparator/residual/materiality implementation, and preserve negative results if OC does not beat the comparator.",
   "replay_artifact_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/701e34b0c7b6662d/replay_record.json",
-  "replay_artifact_status": "OPEN",
+  "replay_artifact_status": "PASS",
   "required_capability": "Research/DomainScorerImplementation",
   "required_source_block": {
     "minimum_rows_required": 200,
@@ -102,11 +101,11 @@
     "metric_id": "MS-COV-WO-033_domain_local_residual",
     "superiority_rule": "model_MAE + uncertainty_upper < best_comparator_MAE"
   },
-  "root_cause_class": "DOMAIN_SCORER_MODEL_OR_COMPARATOR_REPAIR_REQUIRED",
+  "root_cause_class": "DOMAIN_SCORER_IMPLEMENTATION_CLOSED",
   "schema_id": "OC133_MODERN_SCIENCE_COMPARATOR_DOMAIN_SCORER_IMPLEMENTATION_EXECUTION_v1",
   "scoring_artifact_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/701e34b0c7b6662d/oc_prediction_scoring_row.json",
-  "scoring_artifact_status": "OPEN",
-  "status": "EVIDENCE_REPAIR_ATTEMPTED_REMAINS_OPEN",
+  "scoring_artifact_status": "PASS",
+  "status": "PASS",
   "target_variable": {
     "extraction_rule": "Trip records are aggregated into a zone-hour flow panel; heldout hours and route counts remain sealed until graph-temporal predictions are written.",
     "name": "heldout_zone_hour_trip_flow_count",
@@ -123,5 +122,5 @@
     "rule": "rolling training residual envelope with count-scale Poisson interval"
   },
   "validator_binding": "comparator_gap::MS-COV-GAP-COMPLEX_SYSTEMS_OPERATIONS_SCIENCE-MULTI_AGENT_SYSTEM_DYNAMICS::domain_scorer_implementation",
-  "why_it_failed": "The domain scorer ran, but the OC model/comparator/materiality predicates remain fail-closed."
+  "why_it_failed": "The governed domain scorer implementation produced a passing downstream scoring artifact."
 }

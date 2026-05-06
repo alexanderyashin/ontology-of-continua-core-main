@@ -1,54 +1,6 @@
 {
-  "artifact_hash": "e5d6f88b21c4ba4213af173aeb088bfcd77df408b3107528a0f7ce997a9af9ed",
+  "artifact_hash": "01aa456f2ea141d79e2d77c75fc2d17bfd55518cbba6ccceb6d8e26181d4ca77",
   "artifact_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/component_impls/impl_34ad9badc76e8a12.json",
-  "command_pass": true,
-  "command_result_total": 2,
-  "command_results": [
-    {
-      "cache_hit": true,
-      "cmd": [
-        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
-        "validation/heldout/grand_science/systems/coverage_work_orders/oc133_systems_wdi_gdp_materializer.py",
-        "--score",
-        "--write-scoring"
-      ],
-      "returncode": 0,
-      "stderr_tail": "",
-      "stdout_tail": "{\n  \"status\": \"STRICT_EVIDENCE_PASS_NO_COVERAGE_CLOSURE\",\n  \"row_count\": 2509,\n  \"model_relative_mae\": 0.030271318172,\n  \"comparator_relative_mae\": 0.039999868939\n}\n"
-    },
-    {
-      "cache_hit": true,
-      "cmd": [
-        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
-        "validation/heldout/grand_science/systems/coverage_work_orders/oc133_systems_wdi_gdp_materializer.py",
-        "--check"
-      ],
-      "returncode": 0,
-      "stderr_tail": "",
-      "stdout_tail": "{\n  \"status\": \"ok\",\n  \"checked\": \"validation/heldout/grand_science/systems/wdi_gdp/OC133_WORLD_BANK_WDI_GDP_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json\"\n}\n"
-    }
-  ],
-  "component_id": "strict_pack_pass",
-  "component_report_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/domain_model_components/component_80d7d8ef85acaba9.json",
-  "component_report_root_cause": "STRICT_EVIDENCE_PACK_NOT_PASSING",
-  "component_report_status": "CAPABILITY_DEVELOPMENT_REQUIRED",
-  "component_work_order_id": "R017-DOMAIN-MODEL-COMPONENT-a95f18f66f0ee040",
-  "concrete_governed_commands": [
-    [
-      "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
-      "validation/heldout/grand_science/systems/coverage_work_orders/oc133_systems_wdi_gdp_materializer.py",
-      "--score",
-      "--write-scoring"
-    ],
-    [
-      "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
-      "validation/heldout/grand_science/systems/coverage_work_orders/oc133_systems_wdi_gdp_materializer.py",
-      "--check"
-    ]
-  ],
-  "domain_class_id": "social_economic_political_sciences",
-  "evidence_pack_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/fc08158de1496fae/strict_evidence_pack.json",
-  "evidence_pack_status": "FAIL_CLOSED_SOURCE_BOUND_SCORING_NOT_MATERIALIZED",
   "execution_command": [
     "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
     "tools/oc133_toe_closure_factory.py",
@@ -56,25 +8,18 @@
     "R017-DOMAIN-MODEL-COMPONENT-IMPL-80d7d8ef85acaba9",
     "--write"
   ],
-  "gap_id": "MS-COV-GAP-SOCIAL_ECONOMIC_POLITICAL_SCIENCES-ECONOMIC_INDICATOR_AND_MARKET_OBSERVABLES",
   "generated_at": "2026-05-06T09:40:25Z",
-  "implementation_command_class": "CONCRETE_DOMAIN_MODEL_COMPONENT_EXECUTOR",
+  "implementation_command_class": "MISSING_DOMAIN_MODEL_COMPONENT_IMPLEMENTATION_ROW",
   "implementation_id": "R017-DOMAIN-MODEL-COMPONENT-IMPL-80d7d8ef85acaba9",
   "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
-  "next_escalation": "If commands are missing, implement the domain-specific scorer/model surface. If commands run and remain negative, broaden the source/model research obligation without flipping PASS.",
-  "no_fake_closure_policy": "This report cannot close broad superiority without downstream scoring and replay PASS.",
-  "pass_predicate": "Concrete governed commands run and the downstream component, scoring artifact, and replay artifact become PASS.",
-  "phenomenon_class_id": "economic_indicator_and_market_observables",
-  "repair_id": "R017-DOMAIN-MODEL-REPAIR-fc08158de1496fae",
-  "repair_strategy": "Run the concrete domain scorer/model commands that can materialize this component, then regenerate scoring, replay, and strict evidence artifacts.",
-  "replay_artifact_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/fc08158de1496fae/replay_record.json",
-  "replay_artifact_status": "OPEN",
+  "next_escalation": "Run --compile-comparator-domain-model-component-implementation-backlog --write.",
+  "no_fake_closure_policy": "Missing implementation rows cannot close broad superiority.",
+  "pass_predicate": "Backlog row exists and downstream scoring/replay predicates pass.",
+  "repair_strategy": "Recompile component implementation backlog from current component work orders.",
   "required_capability": "Research/DomainModelComparatorRepair",
-  "root_cause_class": "DOMAIN_MODEL_COMPONENT_COMMAND_RAN_BUT_EVIDENCE_OPEN",
+  "root_cause_class": "DOMAIN_MODEL_COMPONENT_IMPLEMENTATION_ROW_MISSING",
   "schema_id": "OC133_MODERN_SCIENCE_COMPARATOR_DOMAIN_MODEL_COMPONENT_IMPLEMENTATION_EXECUTION_v1",
-  "scoring_artifact_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/fc08158de1496fae/oc_prediction_scoring_row.json",
-  "scoring_artifact_status": "OPEN",
-  "status": "EVIDENCE_REPAIR_ATTEMPTED_REMAINS_OPEN",
-  "validator_binding": "comparator_gap::MS-COV-GAP-SOCIAL_ECONOMIC_POLITICAL_SCIENCES-ECONOMIC_INDICATOR_AND_MARKET_OBSERVABLES::domain_model_repair::strict_pack_pass",
-  "why_it_failed": "Concrete commands ran, but the downstream scoring/replay evidence remains fail-closed or negative."
+  "status": "FAIL_CLOSED",
+  "validator_binding": "comparator_domain_model_component_implementation::R017-DOMAIN-MODEL-COMPONENT-IMPL-80d7d8ef85acaba9",
+  "why_it_failed": "No component-implementation backlog row exists for this id."
 }

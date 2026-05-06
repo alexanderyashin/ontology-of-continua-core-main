@@ -1,0 +1,17 @@
+{
+  "schema_id": "OC133_WDI_INDICATOR_REPLAY_REPORT_v1",
+  "status": "PASS",
+  "lane_id": "agriculture_cereal_yield",
+  "scoring_pack_ref": "validation/heldout/grand_science/wdi/agriculture_cereal_yield/OC133_WDI_AGRICULTURE_CEREAL_YIELD_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
+  "scoring_pack_sha256": "e5479403d656e269f2b6d5e1f857758f8c4cd94f04805ef5037201758f2b7998",
+  "row_count": 2217,
+  "material_margin_met": true,
+  "negative_control_rejected": true,
+  "replay_command": {
+    "commands": [
+      "python validation/heldout/grand_science/wdi/coverage_work_orders/oc133_wdi_indicator_materializer.py --lane agriculture_cereal_yield --score --write-scoring",
+      "python validation/heldout/grand_science/wdi/coverage_work_orders/oc133_wdi_indicator_materializer.py --lane agriculture_cereal_yield --check"
+    ]
+  },
+  "coverage_closure_allowed": false
+}

@@ -1,0 +1,168 @@
+{
+  "schema_id": "OC133_WDI_INDICATOR_SCORING_PACK_v1",
+  "pack_status": "STRICT_EVIDENCE_PASS_NO_COVERAGE_CLOSURE",
+  "status": "STRICT_EVIDENCE_PASS_NO_COVERAGE_CLOSURE",
+  "lane_id": "medical_clinical_life_expectancy",
+  "domain_class_id": "medical_health_sciences",
+  "phenomenon_class_id": "clinical_outcomes_and_biomarkers",
+  "source_bound": true,
+  "target_hidden": true,
+  "score_materialized": true,
+  "scientific_pass": true,
+  "coverage_closure_allowed": false,
+  "support_allowed_for_broad_coverage": false,
+  "source_snapshot_ref": "validation/heldout/grand_science/wdi/medical_clinical_life_expectancy/OC133_WDI_MEDICAL_CLINICAL_LIFE_EXPECTANCY_SOURCE.json",
+  "source_snapshot_sha256": "23f04dfb131a40ba672123a379e4e150d3b21d2114a1ff0a44c6290e99fc624a",
+  "source_lock_ref": "validation/heldout/grand_science/wdi/medical_clinical_life_expectancy/OC133_WDI_MEDICAL_CLINICAL_LIFE_EXPECTANCY_SOURCE.lock.json",
+  "visible_task_table_ref": "validation/heldout/grand_science/wdi/medical_clinical_life_expectancy/OC133_WDI_MEDICAL_CLINICAL_LIFE_EXPECTANCY_TARGET_HIDDEN_TASK_TABLE.json",
+  "hidden_target_lock_ref": "validation/heldout/grand_science/wdi/medical_clinical_life_expectancy/OC133-WDI-MEDICAL_CLINICAL_LIFE_EXPECTANCY-HIDDEN-TARGETS-0001.lock.json",
+  "row_count": 2610,
+  "model": {
+    "model_id": "MED-WDI-LIFE-EXPECTANCY-MEDIAN-DELTA-v1",
+    "rule": "Use the median recent annual change over a five-year visible history and extrapolate one year."
+  },
+  "comparator": {
+    "comparator_id": "MED-WDI-LIFE-EXPECTANCY-LAST_OBSERVATION_BASELINE-v1",
+    "rule": "Predict the held-out clinical/population outcome as the last visible pre-target value."
+  },
+  "residuals": {
+    "model_relative_mae": 0.004481495735,
+    "comparator_relative_mae": 0.006586145781,
+    "negative_control_relative_mae": 0.014920990722,
+    "material_margin_met": true,
+    "material_margin_rule": "model_relative_mae + 0.001 must be below the last-observation comparator relative MAE"
+  },
+  "negative_control": {
+    "control_id": "MED-WDI-LIFE-EXPECTANCY-FIVE_YEAR_MEAN_CONTROL-v1",
+    "negative_control_rejected": true
+  },
+  "falsifiers": [
+    "target values leak into visible task table",
+    "source lock hash is missing or stale",
+    "model relative MAE plus material margin is not below comparator relative MAE",
+    "five-year mean negative control is not worse than the model"
+  ],
+  "scored_rows_sha256": "405eb628b24da98918336e75f189293ae408679ec87feb2a38cd9436edc6edf5",
+  "scored_rows_sample": [
+    {
+      "task_id": "WDI-MEDICAL_CLINICAL_LIFE_EXPECTANCY-HOLDOUT-ABW-2010",
+      "countryiso3code": "ABW",
+      "target_year": 2010,
+      "model_prediction": 74.1165,
+      "comparator_prediction": 73.974,
+      "negative_control_prediction": 73.6624,
+      "target_sha256": "e7a3d57fcc899cefb4b9e085a87cc93d83c223905d1dd89dbb4c3d14c2b5cc69",
+      "model_relative_error": 0.002429438605,
+      "comparator_relative_error": 0.00434741645,
+      "negative_control_relative_error": 0.008541394673
+    },
+    {
+      "task_id": "WDI-MEDICAL_CLINICAL_LIFE_EXPECTANCY-HOLDOUT-ABW-2011",
+      "countryiso3code": "ABW",
+      "target_year": 2011,
+      "model_prediction": 74.4645,
+      "comparator_prediction": 74.297,
+      "negative_control_prediction": 73.8388,
+      "target_sha256": "0a4bdd9e87eb4fa6fb747f65b3553a2d6249d922e5fc73677e62387213c2c208",
+      "model_relative_error": 0.001521896538,
+      "comparator_relative_error": 0.003767867199,
+      "negative_control_relative_error": 0.009911770227
+    },
+    {
+      "task_id": "WDI-MEDICAL_CLINICAL_LIFE_EXPECTANCY-HOLDOUT-ABW-2012",
+      "countryiso3code": "ABW",
+      "target_year": 2012,
+      "model_prediction": 74.814,
+      "comparator_prediction": 74.578,
+      "negative_control_prediction": 74.0548,
+      "target_sha256": "8900a0c367ee9f66d88773abbbd1b7be332d0669e80e7998768b080e3feb9430",
+      "model_relative_error": 0.000360764821,
+      "comparator_relative_error": 0.003514116594,
+      "negative_control_relative_error": 0.010504937133
+    },
+    {
+      "task_id": "WDI-MEDICAL_CLINICAL_LIFE_EXPECTANCY-HOLDOUT-ABW-2013",
+      "countryiso3code": "ABW",
+      "target_year": 2013,
+      "model_prediction": 75.113,
+      "comparator_prediction": 74.841,
+      "negative_control_prediction": 74.2946,
+      "target_sha256": "b3da046fc58a0f300488e12b389f91e3f9a220d653269d52c3af9c58c4802763",
+      "model_relative_error": 0.00054614237,
+      "comparator_relative_error": 0.003077046036,
+      "negative_control_relative_error": 0.010355392157
+    },
+    {
+      "task_id": "WDI-MEDICAL_CLINICAL_LIFE_EXPECTANCY-HOLDOUT-ABW-2014",
+      "countryiso3code": "ABW",
+      "target_year": 2014,
+      "model_prediction": 75.344,
+      "comparator_prediction": 75.072,
+      "negative_control_prediction": 74.5524,
+      "target_sha256": "4c39a7627df85e4aa18ecc8c15544e144367f8568e57ea35e6126d168a841714",
+      "model_relative_error": 0.001102828822,
+      "comparator_relative_error": 0.002511260812,
+      "negative_control_relative_error": 0.009415234982
+    },
+    {
+      "task_id": "WDI-MEDICAL_CLINICAL_LIFE_EXPECTANCY-HOLDOUT-ABW-2015",
+      "countryiso3code": "ABW",
+      "target_year": 2015,
+      "model_prediction": 75.508,
+      "comparator_prediction": 75.261,
+      "negative_control_prediction": 74.8098,
+      "target_sha256": "092a6372e04ae9efbc6d96889592e2202f4fa799e840f8c72f61532f1b345e42",
+      "model_relative_error": 0.001365957165,
+      "comparator_relative_error": 0.001909687686,
+      "negative_control_relative_error": 0.007893375771
+    },
+    {
+      "task_id": "WDI-MEDICAL_CLINICAL_LIFE_EXPECTANCY-HOLDOUT-ABW-2016",
+      "countryiso3code": "ABW",
+      "target_year": 2016,
+      "model_prediction": 75.615,
+      "comparator_prediction": 75.405,
+      "negative_control_prediction": 75.0314,
+      "target_sha256": "6ab5bcb2589d31ba3cb3d172fe780aef59b11b7f907f842bc5083529db237af5",
+      "model_relative_error": 0.000992851469,
+      "comparator_relative_error": 0.001787132645,
+      "negative_control_relative_error": 0.006732856765
+    },
+    {
+      "task_id": "WDI-MEDICAL_CLINICAL_LIFE_EXPECTANCY-HOLDOUT-ABW-2017",
+      "countryiso3code": "ABW",
+      "target_year": 2017,
+      "model_prediction": 75.7065,
+      "comparator_prediction": 75.54,
+      "negative_control_prediction": 75.2238,
+      "target_sha256": "71597ee786952bb62d63875faf6cefd81a8665dd499ec9cc5ab7e6e34f2b307b",
+      "model_relative_error": 0.001143877281,
+      "comparator_relative_error": 0.001057921185,
+      "negative_control_relative_error": 0.005239354668
+    },
+    {
+      "task_id": "WDI-MEDICAL_CLINICAL_LIFE_EXPECTANCY-HOLDOUT-ABW-2018",
+      "countryiso3code": "ABW",
+      "target_year": 2018,
+      "model_prediction": 75.7595,
+      "comparator_prediction": 75.62,
+      "negative_control_prediction": 75.3796,
+      "target_sha256": "de9da8addd714fe2f8cd6f0fa7d97bdb2affa3e64c9a014d3fb4d3ccf6f485f4",
+      "model_relative_error": 0.001588033737,
+      "comparator_relative_error": 0.003426462836,
+      "negative_control_relative_error": 0.006594623089
+    },
+    {
+      "task_id": "WDI-MEDICAL_CLINICAL_LIFE_EXPECTANCY-HOLDOUT-ABW-2019",
+      "countryiso3code": "ABW",
+      "target_year": 2019,
+      "model_prediction": 76.0195,
+      "comparator_prediction": 75.88,
+      "negative_control_prediction": 75.5412,
+      "target_sha256": "70a795cf01f1a572c178002be5952f1356a3a42865da09eaa0e0cea76b2e67f9",
+      "model_relative_error": 6.577303e-06,
+      "comparator_relative_error": 0.001828490246,
+      "negative_control_relative_error": 0.006285270788
+    }
+  ]
+}

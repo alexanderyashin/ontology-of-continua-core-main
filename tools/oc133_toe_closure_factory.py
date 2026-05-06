@@ -2071,6 +2071,52 @@ MEDICAL_WDI_CHILD_MORTALITY_MATERIALIZER = (
     "validation/heldout/grand_science/medical/coverage_work_orders/"
     "oc133_medical_wdi_child_mortality_materializer.py"
 )
+WDI_INDICATOR_MATERIALIZER = (
+    "validation/heldout/grand_science/wdi/coverage_work_orders/"
+    "oc133_wdi_indicator_materializer.py"
+)
+WDI_INDICATOR_MATERIALIZED_LANES = {
+    (
+        "medical_health_sciences",
+        "clinical_outcomes_and_biomarkers",
+    ): (
+        "medical_clinical_life_expectancy",
+        "validation/heldout/grand_science/wdi/medical_clinical_life_expectancy/"
+        "OC133_WDI_MEDICAL_CLINICAL_LIFE_EXPECTANCY_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
+    ),
+    (
+        "biological_life_sciences",
+        "ecology_population_and_biodiversity_observables",
+    ): (
+        "biology_ecology_forest_area",
+        "validation/heldout/grand_science/wdi/biology_ecology_forest_area/"
+        "OC133_WDI_BIOLOGY_ECOLOGY_FOREST_AREA_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
+    ),
+    (
+        "engineering_materials_sciences",
+        "energy_transport_and_manufacturing_processes",
+    ): (
+        "engineering_electric_power_consumption",
+        "validation/heldout/grand_science/wdi/engineering_electric_power_consumption/"
+        "OC133_WDI_ENGINEERING_ELECTRIC_POWER_CONSUMPTION_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
+    ),
+    (
+        "agricultural_food_sciences",
+        "crop_yield_soil_and_trait_observables",
+    ): (
+        "agriculture_cereal_yield",
+        "validation/heldout/grand_science/wdi/agriculture_cereal_yield/"
+        "OC133_WDI_AGRICULTURE_CEREAL_YIELD_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
+    ),
+    (
+        "complex_systems_operations_science",
+        "multi_agent_system_dynamics",
+    ): (
+        "complex_systems_mobile_adoption",
+        "validation/heldout/grand_science/wdi/complex_systems_mobile_adoption/"
+        "OC133_WDI_COMPLEX_SYSTEMS_MOBILE_ADOPTION_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
+    ),
+}
 
 COMPARATOR_DOMAIN_IMPLEMENTED_COMMANDS = {
     (
@@ -2610,6 +2656,38 @@ COMPARATOR_DOMAIN_IMPLEMENTED_COMMANDS[
     [sys.executable, MEDICAL_WDI_CHILD_MORTALITY_MATERIALIZER, "--acquire", "--write-acquisition"],
     [sys.executable, MEDICAL_WDI_CHILD_MORTALITY_MATERIALIZER, "--check"],
 ]
+
+for (_wdi_domain, _wdi_phenomenon), (_wdi_lane, _wdi_ref) in WDI_INDICATOR_MATERIALIZED_LANES.items():
+    for _wdi_subartifact in (
+        "target_hidden_task_table",
+        "oc_formula_or_model",
+        "incumbent_comparator_scoring",
+        "residuals_materiality_uncertainty",
+        "controls_and_falsifiers",
+        "independent_replay",
+        "strict_evidence_pack_diagnosis",
+        "model_or_claim_repair_decision",
+    ):
+        COMPARATOR_DOMAIN_IMPLEMENTED_COMMANDS[
+            (
+                _wdi_domain,
+                _wdi_phenomenon,
+                _wdi_subartifact,
+            )
+        ] = [
+            [sys.executable, WDI_INDICATOR_MATERIALIZER, "--lane", _wdi_lane, "--score", "--write-scoring"],
+            [sys.executable, WDI_INDICATOR_MATERIALIZER, "--lane", _wdi_lane, "--check"],
+        ]
+    COMPARATOR_DOMAIN_IMPLEMENTED_COMMANDS[
+        (
+            _wdi_domain,
+            _wdi_phenomenon,
+            "source_snapshot_acquisition",
+        )
+    ] = [
+        [sys.executable, WDI_INDICATOR_MATERIALIZER, "--lane", _wdi_lane, "--acquire", "--write-acquisition"],
+        [sys.executable, WDI_INDICATOR_MATERIALIZER, "--lane", _wdi_lane, "--check"],
+    ]
 
 
 def comparator_domain_script_base_commands(domain_class_id: str) -> list[list[str]]:
@@ -3296,6 +3374,10 @@ COMPARATOR_DOMAIN_MATERIALIZED_EVIDENCE_REFS = {
         "medical_health_sciences",
         "epidemiological_transmission_and_risk",
     ): "validation/heldout/grand_science/medical/wdi_child_mortality/OC133_WORLD_BANK_WDI_CHILD_MORTALITY_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
+    **{
+        key: evidence_ref
+        for key, (_lane_id, evidence_ref) in WDI_INDICATOR_MATERIALIZED_LANES.items()
+    },
 }
 
 

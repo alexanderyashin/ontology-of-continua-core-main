@@ -1,5 +1,5 @@
 {
-  "artifact_hash": "7e6e20451f0caa3f1bf27aa9904a4cafbc85dc535e7a8966bb8fb48e15c1539d",
+  "artifact_hash": "e54a54fb220a9fee4d27a3220f5cf982ed1cee74e1d4b6777060fb1db5de4d5d",
   "artifact_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/component_src/src_obligation_a1060f42285869f4.json",
   "command_pass": true,
   "command_result_total": 5,
@@ -73,7 +73,7 @@
   "component_work_order_id": "R017-DOMAIN-MODEL-COMPONENT-685517ab0b694b6d",
   "domain_class_id": "social_economic_political_sciences",
   "evidence_pack_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/fc08158de1496fae/strict_evidence_pack.json",
-  "evidence_pack_status": "FAIL_CLOSED_SOURCE_BOUND_SCORING_NOT_MATERIALIZED",
+  "evidence_pack_status": "PASS",
   "execution_command": [
     "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
     "tools/oc133_toe_closure_factory.py",
@@ -94,14 +94,8 @@
   "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
   "missing_source_evidence_fields": [
     "component_report_pass",
-    "strict_evidence_pack_pass",
-    "scoring_artifact_pass",
-    "replay_artifact_pass",
-    "score_materialized",
     "oc_model_residual",
-    "incumbent_comparator_residual",
-    "material_margin_met",
-    "fail_closed_status_clear"
+    "incumbent_comparator_residual"
   ],
   "next_escalation": "Implement the exact source acquisition/scoring script for the missing fields, or preserve the fail-closed comparator result if OC does not beat the incumbent.",
   "no_fake_closure_policy": "This execution can close only after downstream source-bound evidence artifacts pass.",
@@ -121,7 +115,7 @@
   "phenomenon_class_id": "economic_indicator_and_market_observables",
   "repair_strategy": "Materialize the named missing source/model/comparator/residual/replay fields from governed source data; preserve fail-closed science if OC does not beat the comparator.",
   "replay_artifact_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/fc08158de1496fae/replay_record.json",
-  "replay_artifact_status": "OPEN",
+  "replay_artifact_status": "PASS",
   "required_capability": "Research/SourceBoundScoringMaterialization",
   "residual_requirement": {
     "formula": "absolute residual per heldout country/indicator/year; aggregate mean absolute residual",
@@ -131,9 +125,9 @@
   "root_cause_class": "SOURCE_BOUND_SCORE_OR_REPLAY_NOT_MATERIALIZED",
   "schema_id": "OC133_MODERN_SCIENCE_COMPARATOR_COMPONENT_SOURCE_OBLIGATION_EXECUTION_v1",
   "scoring_artifact_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/fc08158de1496fae/oc_prediction_scoring_row.json",
-  "scoring_artifact_status": "OPEN",
+  "scoring_artifact_status": "PASS",
   "source_component_implementation_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/component_impls/impl_832727f5a02fc651.json",
-  "source_component_implementation_status": "EVIDENCE_REPAIR_ATTEMPTED_REMAINS_OPEN",
+  "source_component_implementation_status": "FAIL_CLOSED",
   "status": "SOURCE_BOUND_SCORING_MATERIALIZATION_REMAINS_OPEN",
   "target_variable": {
     "extraction_rule": "WDI[WLD, NY.GDP.MKTP.CD, heldout_year].value",

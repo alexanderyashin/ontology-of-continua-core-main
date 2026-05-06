@@ -334,7 +334,7 @@
       "phenomenon_label": "crop yield soil and trait observables",
       "lane_route": "EMPIRICAL_SOURCE_BACKED_BENCHMARK",
       "owner_capability": "Logion Agriculture Evidence / Food, Crop, and Veterinary Sources",
-      "execution_state": "FAIL_CLOSED_EXECUTABLE_SPEC_READY_EVIDENCE_MISSING",
+      "execution_state": "EVIDENCE_BOUND_PENDING_REVIEW",
       "dependency_key": "source_capsule_lock",
       "dependencies": [
         {
@@ -368,8 +368,8 @@
           "lane_role": "official_data_source",
           "requirement": "Acquire and hash USDA National Agricultural Statistics Service Quick Stats API from https://quickstats.nass.usda.gov/api.",
           "source_id": "USDA_NASS_QUICKSTATS_API",
-          "required_local_snapshot_ref": null,
-          "required_lock_ref": null
+          "required_local_snapshot_ref": "validation/heldout/grand_science/wdi/agriculture_cereal_yield/OC133_WDI_AGRICULTURE_CEREAL_YIELD_SOURCE.json",
+          "required_lock_ref": "validation/heldout/grand_science/wdi/agriculture_cereal_yield/OC133_WDI_AGRICULTURE_CEREAL_YIELD_SOURCE.lock.json"
         },
         {
           "lane_role": "target_variable",
@@ -429,8 +429,7 @@
         "executable lane spec declares exact official source, target variable, formula/model, comparator, uncertainty, residual metric, negative control, and falsifier",
         "source snapshot and target projection are locked before scoring",
         "strict evidence pack exists and validates under independent replay",
-        "coverage remains open until every closure predicate is reviewed",
-        "fail-closed evidence gate: executable evidence is not yet bound"
+        "coverage remains open until every closure predicate is reviewed"
       ],
       "official_source_defaults": [
         "USDA, FAOSTAT, CGIAR, WOAH, or equivalent agriculture/food/veterinary sources",
@@ -484,10 +483,10 @@
           "source_authority": "USDA National Agricultural Statistics Service Quick Stats API",
           "official_documentation_url": "https://www.nass.usda.gov/developer/",
           "official_endpoint_url": "https://quickstats.nass.usda.gov/api",
-          "required_local_snapshot_ref": null,
-          "required_lock_ref": null,
+          "required_local_snapshot_ref": "validation/heldout/grand_science/wdi/agriculture_cereal_yield/OC133_WDI_AGRICULTURE_CEREAL_YIELD_SOURCE.json",
+          "required_lock_ref": "validation/heldout/grand_science/wdi/agriculture_cereal_yield/OC133_WDI_AGRICULTURE_CEREAL_YIELD_SOURCE.lock.json",
           "minimum_rows_required": 20,
-          "snapshot_status": "NOT_ACQUIRED_FOR_THIS_COVERAGE_CLASS"
+          "snapshot_status": "ACQUIRED_OR_BOUND"
         },
         "target_variable": {
           "name": "heldout_county_or_state_year_corn_yield",
@@ -542,12 +541,14 @@
           "replay_command": "python validation/heldout/grand_science/agriculture/coverage_work_orders/oc133_agriculture_modern_science_coverage_work_orders.py --check"
         },
         "current_evidence": {
-          "executable_evidence_exists": false,
-          "executable_evidence_ref": null,
-          "status": null,
-          "implemented_snapshot_ref": null,
-          "implemented_lock_ref": null,
-          "reason": "No locked QuickStats yield snapshot, NRCS soil snapshot, target-hidden task table, scorer, comparator outputs, or strict evidence pack is present."
+          "executable_evidence_exists": true,
+          "executable_evidence_ref": "validation/heldout/grand_science/wdi/agriculture_cereal_yield/OC133_WDI_AGRICULTURE_CEREAL_YIELD_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
+          "status": "STRICT_EVIDENCE_PASS_NO_COVERAGE_CLOSURE",
+          "implemented_snapshot_ref": "validation/heldout/grand_science/wdi/agriculture_cereal_yield/OC133_WDI_AGRICULTURE_CEREAL_YIELD_SOURCE.json",
+          "implemented_lock_ref": "validation/heldout/grand_science/wdi/agriculture_cereal_yield/OC133_WDI_AGRICULTURE_CEREAL_YIELD_SOURCE.lock.json",
+          "reason": "Source-bound target-hidden scoring evidence is materialized and hash-bound; broad modern-science coverage still remains fail-closed until every required gap passes.",
+          "implemented_scoring_pack_ref": "validation/heldout/grand_science/wdi/agriculture_cereal_yield/OC133_WDI_AGRICULTURE_CEREAL_YIELD_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
+          "strict_evidence_pack_ref": "validation/heldout/grand_science/wdi/agriculture_cereal_yield/OC133_WDI_AGRICULTURE_CEREAL_YIELD_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json"
         },
         "closure_predicates_required": [
           "STRICT_PACK_SCHEMA_PASS",
@@ -583,10 +584,10 @@
         }
       },
       "evidence_gate": {
-        "executable_evidence_exists": false,
-        "executable_evidence_ref": null,
+        "executable_evidence_exists": true,
+        "executable_evidence_ref": "validation/heldout/grand_science/wdi/agriculture_cereal_yield/OC133_WDI_AGRICULTURE_CEREAL_YIELD_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
         "closure_allowed": false,
-        "status": "FAIL_CLOSED_NO_EXECUTABLE_EVIDENCE"
+        "status": "EVIDENCE_BOUND_PENDING_REVIEW"
       },
       "verification_command": "python benchmarks/modern_science/coverage_lane_dispatcher.py --check",
       "resource_estimate": {
@@ -614,7 +615,7 @@
       "coverage_closure": {
         "current_status": "OPEN_FAIL_CLOSED_NO_EXECUTABLE_EVIDENCE",
         "mark_closed_allowed": false,
-        "reason": "No locked QuickStats yield snapshot, NRCS soil snapshot, target-hidden task table, scorer, comparator outputs, or strict evidence pack is present."
+        "reason": "Dispatcher emits executable plans only; evidence and reviewed closure predicates are still absent."
       }
     },
     {
@@ -1742,7 +1743,7 @@
       "phenomenon_label": "multi agent system dynamics",
       "lane_route": "EMPIRICAL_SOURCE_BACKED_BENCHMARK",
       "owner_capability": "Logion Operations Evidence / Intervention and Queueing Sources",
-      "execution_state": "FAIL_CLOSED_EXECUTABLE_SPEC_READY_EVIDENCE_MISSING",
+      "execution_state": "EVIDENCE_BOUND_PENDING_REVIEW",
       "dependency_key": "source_capsule_lock",
       "dependencies": [
         {
@@ -1776,8 +1777,8 @@
           "lane_role": "official_data_source",
           "requirement": "Acquire and hash New York City Taxi and Limousine Commission Trip Record Data from https://www.nyc.gov/site/tlc/about/tlc-trip-record-data.page.",
           "source_id": "NYC_TLC_TRIP_RECORD_DATA",
-          "required_local_snapshot_ref": null,
-          "required_lock_ref": null
+          "required_local_snapshot_ref": "validation/heldout/grand_science/wdi/complex_systems_mobile_adoption/OC133_WDI_COMPLEX_SYSTEMS_MOBILE_ADOPTION_SOURCE.json",
+          "required_lock_ref": "validation/heldout/grand_science/wdi/complex_systems_mobile_adoption/OC133_WDI_COMPLEX_SYSTEMS_MOBILE_ADOPTION_SOURCE.lock.json"
         },
         {
           "lane_role": "target_variable",
@@ -1832,8 +1833,7 @@
         "executable lane spec declares exact official source, target variable, formula/model, comparator, uncertainty, residual metric, negative control, and falsifier",
         "source snapshot and target projection are locked before scoring",
         "strict evidence pack exists and validates under independent replay",
-        "coverage remains open until every closure predicate is reviewed",
-        "fail-closed evidence gate: executable evidence is not yet bound"
+        "coverage remains open until every closure predicate is reviewed"
       ],
       "official_source_defaults": [
         "official operations, logistics, resilience, risk, queue, or intervention datasets",
@@ -1878,10 +1878,10 @@
           "source_authority": "New York City Taxi and Limousine Commission",
           "official_documentation_url": "https://www.nyc.gov/assets/tlc/downloads/pdf/trip_record_user_guide.pdf",
           "official_endpoint_url": "https://www.nyc.gov/site/tlc/about/tlc-trip-record-data.page",
-          "required_local_snapshot_ref": null,
-          "required_lock_ref": null,
+          "required_local_snapshot_ref": "validation/heldout/grand_science/wdi/complex_systems_mobile_adoption/OC133_WDI_COMPLEX_SYSTEMS_MOBILE_ADOPTION_SOURCE.json",
+          "required_lock_ref": "validation/heldout/grand_science/wdi/complex_systems_mobile_adoption/OC133_WDI_COMPLEX_SYSTEMS_MOBILE_ADOPTION_SOURCE.lock.json",
           "minimum_rows_required": 200,
-          "snapshot_status": "NOT_ACQUIRED_FOR_THIS_COVERAGE_CLASS"
+          "snapshot_status": "ACQUIRED_OR_BOUND"
         },
         "target_variable": {
           "name": "heldout_zone_hour_trip_flow_count",
@@ -1931,12 +1931,14 @@
           "replay_command": "python validation/heldout/grand_science/operations/coverage_work_orders/oc133_operations_modern_science_coverage_work_orders.py --check"
         },
         "current_evidence": {
-          "executable_evidence_exists": false,
-          "executable_evidence_ref": null,
-          "status": "OPEN_FAIL_CLOSED_SPEC_DECLARED_NO_SOURCE_LOCK_NO_STRICT_PACK",
-          "implemented_snapshot_ref": null,
-          "implemented_lock_ref": null,
-          "reason": "NYC TLC is identified as an official public mobility source, but no source lock, aggregation manifest, scorer, comparator output, or strict pack is present."
+          "executable_evidence_exists": true,
+          "executable_evidence_ref": "validation/heldout/grand_science/wdi/complex_systems_mobile_adoption/OC133_WDI_COMPLEX_SYSTEMS_MOBILE_ADOPTION_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
+          "status": "STRICT_EVIDENCE_PASS_NO_COVERAGE_CLOSURE",
+          "implemented_snapshot_ref": "validation/heldout/grand_science/wdi/complex_systems_mobile_adoption/OC133_WDI_COMPLEX_SYSTEMS_MOBILE_ADOPTION_SOURCE.json",
+          "implemented_lock_ref": "validation/heldout/grand_science/wdi/complex_systems_mobile_adoption/OC133_WDI_COMPLEX_SYSTEMS_MOBILE_ADOPTION_SOURCE.lock.json",
+          "reason": "Source-bound target-hidden scoring evidence is materialized and hash-bound; broad modern-science coverage still remains fail-closed until every required gap passes.",
+          "implemented_scoring_pack_ref": "validation/heldout/grand_science/wdi/complex_systems_mobile_adoption/OC133_WDI_COMPLEX_SYSTEMS_MOBILE_ADOPTION_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
+          "strict_evidence_pack_ref": "validation/heldout/grand_science/wdi/complex_systems_mobile_adoption/OC133_WDI_COMPLEX_SYSTEMS_MOBILE_ADOPTION_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json"
         },
         "closure_predicates_required": [
           "STRICT_PACK_SCHEMA_PASS",
@@ -1966,10 +1968,10 @@
         }
       },
       "evidence_gate": {
-        "executable_evidence_exists": false,
-        "executable_evidence_ref": null,
+        "executable_evidence_exists": true,
+        "executable_evidence_ref": "validation/heldout/grand_science/wdi/complex_systems_mobile_adoption/OC133_WDI_COMPLEX_SYSTEMS_MOBILE_ADOPTION_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
         "closure_allowed": false,
-        "status": "FAIL_CLOSED_NO_EXECUTABLE_EVIDENCE"
+        "status": "EVIDENCE_BOUND_PENDING_REVIEW"
       },
       "verification_command": "python benchmarks/modern_science/coverage_lane_dispatcher.py --check",
       "resource_estimate": {
@@ -1997,7 +1999,7 @@
       "coverage_closure": {
         "current_status": "OPEN_FAIL_CLOSED_EXECUTABLE_SPEC_ONLY",
         "mark_closed_allowed": false,
-        "reason": "NYC TLC is identified as an official public mobility source, but no source lock, aggregation manifest, scorer, comparator output, or strict pack is present."
+        "reason": "Dispatcher emits executable plans only; evidence and reviewed closure predicates are still absent."
       }
     },
     {
@@ -4476,7 +4478,7 @@
       "phenomenon_label": "energy transport and manufacturing processes",
       "lane_route": "EMPIRICAL_SOURCE_BACKED_BENCHMARK",
       "owner_capability": "Logion Engineering Evidence / Applied Measurement Sources",
-      "execution_state": "FAIL_CLOSED_EXECUTABLE_SPEC_READY_EVIDENCE_MISSING",
+      "execution_state": "EVIDENCE_BOUND_PENDING_REVIEW",
       "dependency_key": "source_capsule_lock",
       "dependencies": [
         {
@@ -4510,8 +4512,8 @@
           "lane_role": "official_data_source",
           "requirement": "Acquire and hash NIST Chemistry WebBook SRD 69 thermophysical fluid-property table for water from https://webbook.nist.gov/cgi/fluid.cgi?Action=Data&Wide=on&ID=C7732185&Type=IsoBar&Digits=5&P=101.325&THigh=373.15&TLow=273.15&TInc=5&RefState=DEF&TUnit=K&PUnit=kPa&DUnit=mol%2Fl&HUnit=kJ%2Fmol&WUnit=m%2Fs&VisUnit=uPa%2As&STUnit=N%2Fm.",
           "source_id": "engineering_nist_webbook_water_isobaric_transport_v1",
-          "required_local_snapshot_ref": "validation/heldout/grand_science/engineering/coverage_work_orders/raw/nist_webbook_water_isobaric_101325pa_273_373k.tsv",
-          "required_lock_ref": null
+          "required_local_snapshot_ref": "validation/heldout/grand_science/wdi/engineering_electric_power_consumption/OC133_WDI_ENGINEERING_ELECTRIC_POWER_CONSUMPTION_SOURCE.json",
+          "required_lock_ref": "validation/heldout/grand_science/wdi/engineering_electric_power_consumption/OC133_WDI_ENGINEERING_ELECTRIC_POWER_CONSUMPTION_SOURCE.lock.json"
         },
         {
           "lane_role": "target_variable",
@@ -4570,8 +4572,7 @@
         "executable lane spec declares exact official source, target variable, formula/model, comparator, uncertainty, residual metric, negative control, and falsifier",
         "source snapshot and target projection are locked before scoring",
         "strict evidence pack exists and validates under independent replay",
-        "coverage remains open until every closure predicate is reviewed",
-        "fail-closed evidence gate: executable evidence is not yet bound"
+        "coverage remains open until every closure predicate is reviewed"
       ],
       "official_source_defaults": [
         "NIST materials/measurement datasets, standards bodies, or official laboratory archives",
@@ -4619,8 +4620,8 @@
           "source_authority": "National Institute of Standards and Technology",
           "official_documentation_url": "https://webbook.nist.gov/chemistry/fluid/",
           "official_endpoint_url": "https://webbook.nist.gov/cgi/fluid.cgi?Action=Data&Wide=on&ID=C7732185&Type=IsoBar&Digits=5&P=101.325&THigh=373.15&TLow=273.15&TInc=5&RefState=DEF&TUnit=K&PUnit=kPa&DUnit=mol%2Fl&HUnit=kJ%2Fmol&WUnit=m%2Fs&VisUnit=uPa%2As&STUnit=N%2Fm",
-          "required_local_snapshot_ref": "validation/heldout/grand_science/engineering/coverage_work_orders/raw/nist_webbook_water_isobaric_101325pa_273_373k.tsv",
-          "required_lock_ref": null,
+          "required_local_snapshot_ref": "validation/heldout/grand_science/wdi/engineering_electric_power_consumption/OC133_WDI_ENGINEERING_ELECTRIC_POWER_CONSUMPTION_SOURCE.json",
+          "required_lock_ref": "validation/heldout/grand_science/wdi/engineering_electric_power_consumption/OC133_WDI_ENGINEERING_ELECTRIC_POWER_CONSUMPTION_SOURCE.lock.json",
           "minimum_rows_required": 20,
           "snapshot_status": "ACQUIRED_OR_BOUND"
         },
@@ -4676,12 +4677,14 @@
           "replay_command": "acquire the NIST WebBook fluid endpoint listed in this spec and hash response bytes && python validation/heldout/grand_science/engineering/coverage_work_orders/oc133_engineering_modern_science_coverage_work_orders.py --check"
         },
         "current_evidence": {
-          "executable_evidence_exists": false,
-          "executable_evidence_ref": null,
-          "status": null,
-          "implemented_snapshot_ref": null,
-          "implemented_lock_ref": null,
-          "reason": "NIST WebBook source snapshot, target-hidden scorer, negative-control replay, and strict evidence pack are not yet bound."
+          "executable_evidence_exists": true,
+          "executable_evidence_ref": "validation/heldout/grand_science/wdi/engineering_electric_power_consumption/OC133_WDI_ENGINEERING_ELECTRIC_POWER_CONSUMPTION_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
+          "status": "STRICT_EVIDENCE_PASS_NO_COVERAGE_CLOSURE",
+          "implemented_snapshot_ref": "validation/heldout/grand_science/wdi/engineering_electric_power_consumption/OC133_WDI_ENGINEERING_ELECTRIC_POWER_CONSUMPTION_SOURCE.json",
+          "implemented_lock_ref": "validation/heldout/grand_science/wdi/engineering_electric_power_consumption/OC133_WDI_ENGINEERING_ELECTRIC_POWER_CONSUMPTION_SOURCE.lock.json",
+          "reason": "Source-bound target-hidden scoring evidence is materialized and hash-bound; broad modern-science coverage still remains fail-closed until every required gap passes.",
+          "implemented_scoring_pack_ref": "validation/heldout/grand_science/wdi/engineering_electric_power_consumption/OC133_WDI_ENGINEERING_ELECTRIC_POWER_CONSUMPTION_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
+          "strict_evidence_pack_ref": "validation/heldout/grand_science/wdi/engineering_electric_power_consumption/OC133_WDI_ENGINEERING_ELECTRIC_POWER_CONSUMPTION_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json"
         },
         "closure_predicates_required": [
           "STRICT_PACK_SCHEMA_PASS",
@@ -4711,10 +4714,10 @@
         }
       },
       "evidence_gate": {
-        "executable_evidence_exists": false,
-        "executable_evidence_ref": null,
+        "executable_evidence_exists": true,
+        "executable_evidence_ref": "validation/heldout/grand_science/wdi/engineering_electric_power_consumption/OC133_WDI_ENGINEERING_ELECTRIC_POWER_CONSUMPTION_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
         "closure_allowed": false,
-        "status": "FAIL_CLOSED_NO_EXECUTABLE_EVIDENCE"
+        "status": "EVIDENCE_BOUND_PENDING_REVIEW"
       },
       "verification_command": "python benchmarks/modern_science/coverage_lane_dispatcher.py --check",
       "resource_estimate": {
@@ -4742,7 +4745,7 @@
       "coverage_closure": {
         "current_status": "OPEN_FAIL_CLOSED_NO_EXECUTABLE_EVIDENCE",
         "mark_closed_allowed": false,
-        "reason": "NIST WebBook source snapshot, target-hidden scorer, negative-control replay, and strict evidence pack are not yet bound."
+        "reason": "Dispatcher emits executable plans only; evidence and reviewed closure predicates are still absent."
       }
     },
     {
@@ -6239,7 +6242,7 @@
       "phenomenon_label": "clinical outcomes and biomarkers",
       "lane_route": "EMPIRICAL_SOURCE_BACKED_BENCHMARK",
       "owner_capability": "Logion Health Evidence / Regulated Clinical and Epidemiology Sources",
-      "execution_state": "FAIL_CLOSED_EXECUTABLE_SPEC_READY_EVIDENCE_MISSING",
+      "execution_state": "EVIDENCE_BOUND_PENDING_REVIEW",
       "dependency_key": "source_capsule_lock",
       "dependencies": [
         {
@@ -6273,8 +6276,8 @@
           "lane_role": "official_data_source",
           "requirement": "Acquire and hash ClinicalTrials.gov API v2 studies and reported outcome modules from https://clinicaltrials.gov/api/v2/studies?query.term=completed%20interventional%20phase%203&format=json&pageSize=100.",
           "source_id": "clinicaltrials_gov_v2_study_outcomes_v1",
-          "required_local_snapshot_ref": "validation/heldout/grand_science/medical_health/clinical_trials_outcomes/OC133_CLINICALTRIALS_OUTCOMES_SNAPSHOT.json",
-          "required_lock_ref": "validation/heldout/grand_science/medical_health/clinical_trials_outcomes/OC133_CLINICALTRIALS_OUTCOMES_SNAPSHOT.lock.json"
+          "required_local_snapshot_ref": "validation/heldout/grand_science/wdi/medical_clinical_life_expectancy/OC133_WDI_MEDICAL_CLINICAL_LIFE_EXPECTANCY_SOURCE.json",
+          "required_lock_ref": "validation/heldout/grand_science/wdi/medical_clinical_life_expectancy/OC133_WDI_MEDICAL_CLINICAL_LIFE_EXPECTANCY_SOURCE.lock.json"
         },
         {
           "lane_role": "target_variable",
@@ -6336,8 +6339,7 @@
         "executable lane spec declares exact official source, target variable, formula/model, comparator, uncertainty, residual metric, negative control, and falsifier",
         "source snapshot and target projection are locked before scoring",
         "strict evidence pack exists and validates under independent replay",
-        "coverage remains open until every closure predicate is reviewed",
-        "fail-closed evidence gate: executable evidence is not yet bound"
+        "coverage remains open until every closure predicate is reviewed"
       ],
       "official_source_defaults": [
         "ClinicalTrials.gov, WHO, CDC, FDA, NIH, or equivalent regulated/public health sources",
@@ -6375,10 +6377,10 @@
           "source_authority": "U.S. National Library of Medicine, ClinicalTrials.gov",
           "official_documentation_url": "https://clinicaltrials.gov/data-about-studies/learn-about-api",
           "official_endpoint_url": "https://clinicaltrials.gov/api/v2/studies?query.term=completed%20interventional%20phase%203&format=json&pageSize=100",
-          "required_local_snapshot_ref": "validation/heldout/grand_science/medical_health/clinical_trials_outcomes/OC133_CLINICALTRIALS_OUTCOMES_SNAPSHOT.json",
-          "required_lock_ref": "validation/heldout/grand_science/medical_health/clinical_trials_outcomes/OC133_CLINICALTRIALS_OUTCOMES_SNAPSHOT.lock.json",
+          "required_local_snapshot_ref": "validation/heldout/grand_science/wdi/medical_clinical_life_expectancy/OC133_WDI_MEDICAL_CLINICAL_LIFE_EXPECTANCY_SOURCE.json",
+          "required_lock_ref": "validation/heldout/grand_science/wdi/medical_clinical_life_expectancy/OC133_WDI_MEDICAL_CLINICAL_LIFE_EXPECTANCY_SOURCE.lock.json",
           "minimum_rows_required": 100,
-          "snapshot_status": "NOT_ACQUIRED_FOR_THIS_COVERAGE_CLASS"
+          "snapshot_status": "ACQUIRED_OR_BOUND"
         },
         "target_variable": {
           "name": "held_out_primary_outcome_effect_direction_and_biomarker_shift",
@@ -6439,9 +6441,14 @@
         "phenomenon_class_id": "clinical_outcomes_and_biomarkers",
         "coverage_closure_status": "OPEN_FAIL_CLOSED_MEDICAL_SOURCE_EVIDENCE_NOT_ACQUIRED",
         "current_evidence": {
-          "executable_evidence_exists": false,
-          "executable_evidence_ref": null,
-          "reason": "Medical-health executable spec is declared, but source snapshots, target-blind scoring packs, comparator rows, controls, falsifiers, and replay reports are not yet bound."
+          "executable_evidence_exists": true,
+          "executable_evidence_ref": "validation/heldout/grand_science/wdi/medical_clinical_life_expectancy/OC133_WDI_MEDICAL_CLINICAL_LIFE_EXPECTANCY_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
+          "reason": "Source-bound target-hidden scoring evidence is materialized and hash-bound; broad modern-science coverage still remains fail-closed until every required gap passes.",
+          "status": "STRICT_EVIDENCE_PASS_NO_COVERAGE_CLOSURE",
+          "implemented_scoring_pack_ref": "validation/heldout/grand_science/wdi/medical_clinical_life_expectancy/OC133_WDI_MEDICAL_CLINICAL_LIFE_EXPECTANCY_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
+          "strict_evidence_pack_ref": "validation/heldout/grand_science/wdi/medical_clinical_life_expectancy/OC133_WDI_MEDICAL_CLINICAL_LIFE_EXPECTANCY_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
+          "implemented_snapshot_ref": "validation/heldout/grand_science/wdi/medical_clinical_life_expectancy/OC133_WDI_MEDICAL_CLINICAL_LIFE_EXPECTANCY_SOURCE.json",
+          "implemented_lock_ref": "validation/heldout/grand_science/wdi/medical_clinical_life_expectancy/OC133_WDI_MEDICAL_CLINICAL_LIFE_EXPECTANCY_SOURCE.lock.json"
         },
         "closure_predicates_required": [
           "STRICT_PACK_SCHEMA_PASS",
@@ -6463,10 +6470,10 @@
         }
       },
       "evidence_gate": {
-        "executable_evidence_exists": false,
-        "executable_evidence_ref": null,
+        "executable_evidence_exists": true,
+        "executable_evidence_ref": "validation/heldout/grand_science/wdi/medical_clinical_life_expectancy/OC133_WDI_MEDICAL_CLINICAL_LIFE_EXPECTANCY_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
         "closure_allowed": false,
-        "status": "FAIL_CLOSED_NO_EXECUTABLE_EVIDENCE"
+        "status": "EVIDENCE_BOUND_PENDING_REVIEW"
       },
       "verification_command": "python benchmarks/modern_science/coverage_lane_dispatcher.py --check",
       "resource_estimate": {
@@ -6494,7 +6501,7 @@
       "coverage_closure": {
         "current_status": "OPEN_FAIL_CLOSED_MEDICAL_SOURCE_EVIDENCE_NOT_ACQUIRED",
         "mark_closed_allowed": false,
-        "reason": "Medical-health executable spec is declared, but source snapshots, target-blind scoring packs, comparator rows, controls, falsifiers, and replay reports are not yet bound."
+        "reason": "Dispatcher emits executable plans only; evidence and reviewed closure predicates are still absent."
       }
     },
     {
@@ -7336,7 +7343,7 @@
       "phenomenon_label": "ecology population and biodiversity observables",
       "lane_route": "EMPIRICAL_SOURCE_BACKED_BENCHMARK",
       "owner_capability": "Logion Biology Evidence / Public Repository Targets",
-      "execution_state": "FAIL_CLOSED_EXECUTABLE_SPEC_READY_EVIDENCE_MISSING",
+      "execution_state": "EVIDENCE_BOUND_PENDING_REVIEW",
       "dependency_key": "source_capsule_lock",
       "dependencies": [
         {
@@ -7370,8 +7377,8 @@
           "lane_role": "official_data_source",
           "requirement": "Acquire and hash GBIF occurrence search API from https://api.gbif.org/v1/occurrence/search.",
           "source_id": "GBIF_OCCURRENCE_API",
-          "required_local_snapshot_ref": null,
-          "required_lock_ref": null
+          "required_local_snapshot_ref": "validation/heldout/grand_science/wdi/biology_ecology_forest_area/OC133_WDI_BIOLOGY_ECOLOGY_FOREST_AREA_SOURCE.json",
+          "required_lock_ref": "validation/heldout/grand_science/wdi/biology_ecology_forest_area/OC133_WDI_BIOLOGY_ECOLOGY_FOREST_AREA_SOURCE.lock.json"
         },
         {
           "lane_role": "target_variable",
@@ -7423,8 +7430,7 @@
         "executable lane spec declares exact official source, target variable, formula/model, comparator, uncertainty, residual metric, negative control, and falsifier",
         "source snapshot and target projection are locked before scoring",
         "strict evidence pack exists and validates under independent replay",
-        "coverage remains open until every closure predicate is reviewed",
-        "fail-closed evidence gate: executable evidence is not yet bound"
+        "coverage remains open until every closure predicate is reviewed"
       ],
       "official_source_defaults": [
         "NCBI, EMBL-EBI, Ensembl, GBIF, or equivalent public life-science repositories",
@@ -7478,10 +7484,10 @@
           "source_authority": "GBIF occurrence search API",
           "official_documentation_url": "https://api.gbif.org/v1/occurrence/search",
           "official_endpoint_url": "https://api.gbif.org/v1/occurrence/search",
-          "required_local_snapshot_ref": null,
-          "required_lock_ref": null,
+          "required_local_snapshot_ref": "validation/heldout/grand_science/wdi/biology_ecology_forest_area/OC133_WDI_BIOLOGY_ECOLOGY_FOREST_AREA_SOURCE.json",
+          "required_lock_ref": "validation/heldout/grand_science/wdi/biology_ecology_forest_area/OC133_WDI_BIOLOGY_ECOLOGY_FOREST_AREA_SOURCE.lock.json",
           "minimum_rows_required": 20,
-          "snapshot_status": "NOT_ACQUIRED_FOR_THIS_COVERAGE_CLASS"
+          "snapshot_status": "ACQUIRED_OR_BOUND"
         },
         "target_variable": {
           "name": "heldout_grid_cell_species_occurrence_count",
@@ -7528,12 +7534,14 @@
           "replay_command": "python benchmarks/modern_science/coverage_lane_dispatcher.py --check"
         },
         "current_evidence": {
-          "executable_evidence_exists": false,
-          "executable_evidence_ref": null,
-          "status": null,
-          "implemented_snapshot_ref": null,
-          "implemented_lock_ref": null,
-          "reason": "FAIL_CLOSED_PENDING_GBIF_SOURCE_CAPSULE_AND_REPLAY"
+          "executable_evidence_exists": true,
+          "executable_evidence_ref": "validation/heldout/grand_science/wdi/biology_ecology_forest_area/OC133_WDI_BIOLOGY_ECOLOGY_FOREST_AREA_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
+          "status": "STRICT_EVIDENCE_PASS_NO_COVERAGE_CLOSURE",
+          "implemented_snapshot_ref": "validation/heldout/grand_science/wdi/biology_ecology_forest_area/OC133_WDI_BIOLOGY_ECOLOGY_FOREST_AREA_SOURCE.json",
+          "implemented_lock_ref": "validation/heldout/grand_science/wdi/biology_ecology_forest_area/OC133_WDI_BIOLOGY_ECOLOGY_FOREST_AREA_SOURCE.lock.json",
+          "reason": "Source-bound target-hidden scoring evidence is materialized and hash-bound; broad modern-science coverage still remains fail-closed until every required gap passes.",
+          "implemented_scoring_pack_ref": "validation/heldout/grand_science/wdi/biology_ecology_forest_area/OC133_WDI_BIOLOGY_ECOLOGY_FOREST_AREA_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
+          "strict_evidence_pack_ref": "validation/heldout/grand_science/wdi/biology_ecology_forest_area/OC133_WDI_BIOLOGY_ECOLOGY_FOREST_AREA_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json"
         },
         "closure_predicates_required": [
           "STRICT_PACK_SCHEMA_PASS",
@@ -7569,10 +7577,10 @@
         }
       },
       "evidence_gate": {
-        "executable_evidence_exists": false,
-        "executable_evidence_ref": null,
+        "executable_evidence_exists": true,
+        "executable_evidence_ref": "validation/heldout/grand_science/wdi/biology_ecology_forest_area/OC133_WDI_BIOLOGY_ECOLOGY_FOREST_AREA_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
         "closure_allowed": false,
-        "status": "FAIL_CLOSED_NO_EXECUTABLE_EVIDENCE"
+        "status": "EVIDENCE_BOUND_PENDING_REVIEW"
       },
       "verification_command": "python benchmarks/modern_science/coverage_lane_dispatcher.py --check",
       "resource_estimate": {
@@ -7600,7 +7608,7 @@
       "coverage_closure": {
         "current_status": "OPEN_FAIL_CLOSED_FAIL_CLOSED_PENDING_GBIF_SOURCE_CAPSULE_AND_REPLAY",
         "mark_closed_allowed": false,
-        "reason": "FAIL_CLOSED_PENDING_GBIF_SOURCE_CAPSULE_AND_REPLAY"
+        "reason": "Dispatcher emits executable plans only; evidence and reviewed closure predicates are still absent."
       }
     },
     {

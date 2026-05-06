@@ -101,6 +101,26 @@ DOMAIN_LOCAL_MATERIALIZED_EVIDENCE_REFS = {
         "medical_health_sciences",
         "epidemiological_transmission_and_risk",
     ): "validation/heldout/grand_science/medical/wdi_child_mortality/OC133_WORLD_BANK_WDI_CHILD_MORTALITY_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
+    (
+        "medical_health_sciences",
+        "clinical_outcomes_and_biomarkers",
+    ): "validation/heldout/grand_science/wdi/medical_clinical_life_expectancy/OC133_WDI_MEDICAL_CLINICAL_LIFE_EXPECTANCY_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
+    (
+        "biological_life_sciences",
+        "ecology_population_and_biodiversity_observables",
+    ): "validation/heldout/grand_science/wdi/biology_ecology_forest_area/OC133_WDI_BIOLOGY_ECOLOGY_FOREST_AREA_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
+    (
+        "engineering_materials_sciences",
+        "energy_transport_and_manufacturing_processes",
+    ): "validation/heldout/grand_science/wdi/engineering_electric_power_consumption/OC133_WDI_ENGINEERING_ELECTRIC_POWER_CONSUMPTION_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
+    (
+        "agricultural_food_sciences",
+        "crop_yield_soil_and_trait_observables",
+    ): "validation/heldout/grand_science/wdi/agriculture_cereal_yield/OC133_WDI_AGRICULTURE_CEREAL_YIELD_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
+    (
+        "complex_systems_operations_science",
+        "multi_agent_system_dynamics",
+    ): "validation/heldout/grand_science/wdi/complex_systems_mobile_adoption/OC133_WDI_COMPLEX_SYSTEMS_MOBILE_ADOPTION_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
 }
 
 OFFICIAL_SOURCE_DEFAULTS = {
