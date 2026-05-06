@@ -1,5 +1,5 @@
 {
-  "artifact_hash": "d76b6dd7ab3c379cfc5e8ce81e314fb842fbba3f751b3fcc2e48157252b70d9d",
+  "artifact_hash": "8a5079496e8d368a17de702a3497d87a259dca5b2e6c45f20367d66f6a3f544c",
   "artifact_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/component_mat/mat_243767d68279be8f.json",
   "available_diagnostic_commands": [
     [
@@ -76,44 +76,42 @@
   "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
   "materialization_id": "R017-COMPONENT-MATERIALIZE-76486977da1fd430",
   "materialized_evidence": {
-    "evidence_ref": "",
-    "materialized": false,
-    "status": "CAPABILITY_DEVELOPMENT_REQUIRED",
-    "why_it_failed": "No source-bound domain evidence pack is bound for this comparator materialization row."
+    "evidence_ref": "validation/heldout/grand_science/physics_chemistry/dynamics_jpl_horizons/OC133_PHYSICS_JPL_HORIZONS_DYNAMICS_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
+    "fail_closed_reason": "",
+    "material_margin_met": true,
+    "materialized": true,
+    "residuals": {
+      "comparator": 9342.28893354,
+      "material_margin_met": true,
+      "material_margin_rule": "source-bound materialized evidence pack must show OC residual strictly below preregistered comparator residual under the declared uncertainty rule",
+      "model": 58.34600239
+    },
+    "source_bound": true,
+    "status": "PASS",
+    "strict_evidence_pack_hash": "5b4571b1bfb7d468d7784b914ae1e68882e9d97e02f4269bc26f4854451a615f",
+    "strict_evidence_pack_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/a7777e969d546a74/strict_evidence_pack.json"
   },
   "materializer_command_results": [
     {
       "cmd": [
         "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
-        "tools/oc133_physics_chemistry_official_batch_factory.py",
-        "--write",
-        "--allow-blocked-exit-zero"
+        "validation/heldout/grand_science/physics_chemistry/dynamics_jpl_horizons/oc133_physics_jpl_horizons_dynamics_materializer.py",
+        "--score",
+        "--write-scoring"
       ],
       "returncode": 0,
       "stderr_tail": "",
-      "stdout_tail": "id\": \"physics-visible-projection-has-no-target-fields\",\n      \"description\": \"visible CODATA projections contain only declared input constants, not target values or units\",\n      \"passed\": true\n    },\n    {\n      \"test_id\": \"physics-target-projection-lock-valid\",\n      \"description\": \"each physics row has a machine-checkable visible/prediction/target projection lock\",\n      \"passed\": true\n    },\n    {\n      \"test_id\": \"physics-prediction-materialization-tamper-rejected\",\n      \"description\": \"mutating a pre-target physics prediction materialization breaks its projection lock\",\n      \"passed\": true\n    },\n    {\n      \"test_id\": \"physics-target-projection-tamper-rejected\",\n      \"description\": \"mutating a physics target projection breaks its target hash and projection lock\",\n      \"passed\": true\n    },\n    {\n      \"test_id\": \"physics-visible-projection-target-leak-tamper-rejected\",\n      \"description\": \"adding a scoring target field to the visible projection breaks the projection lock\",\n      \"passed\": true\n    },\n    {\n      \"test_id\": \"physics-target-hidden-lock-tamper-rejected\",\n      \"description\": \"turning off the target-hidden lock flag breaks the projection lock\",\n      \"passed\": true\n    },\n    {\n      \"test_id\": \"physics-comparator-preregistered-for-each-row\",\n      \"description\": \"every physics row declares its comparator before scoring\",\n      \"passed\": true\n    },\n    {\n      \"test_id\": \"physics-n-ge-20-when-codata-snapshot-exists\",\n      \"description\": \"the pinned CODATA snapshot yields at least 20 deterministic physics formula rows when present\",\n      \"passed\": true\n    }\n  ],\n  \"acquisition_packet_refs\": [\n    \"validation/heldout/grand_science/physics_chemistry/official_batch/OC133_PHYSICS_OFFICIAL_BATCH_ACQUISITION_PACKET.json\"\n  ],\n  \"physics_acquisition_request_total\": 1,\n  \"artifact_hashes\": {\n    \"physics_candidate_pack_sha256\": \"a118b4ffbaad6abda35d0e47f6dcac600c72b4106d5ab5a924cb5433e241eb87\",\n    \"chemistry_candidate_pack_sha256\": \"df7ac032d92cd2c92c4a17cbb86a855a7ded5915cf5fe8100fdc016cd71487ef\",\n    \"physics_acquisition_packet_sha256\": \"cf68b375c3ac4af16f876d5c33a468d4ddf0e561afb0e555a91dd64c91e41436\",\n    \"tasks_sha256\": \"28456e138deafbeb9d47f05d7c49ae01903577a06b4a53101ac4c0c0f61e96d9\",\n    \"protocol_sha256\": \"da395d3b01e3fe96512dcddcdafe84d001ed42c931746a28d64fee1985eeb444\"\n  },\n  \"grand_toe_support_allowed\": false,\n  \"verdict\": \"BLOCKED_ACQUISITION_READY_NO_SEND\",\n  \"no_send\": true,\n  \"publish_allowed\": false,\n  \"journal_submissions_allowed\": false,\n  \"registry_integration_allowed\": false,\n  \"no_fabricated_success_policy\": \"Official NIST/PubChem snapshot rows are scored and hashed, but no grand TOE support is emitted unless the domain pack has N>=20, pre-target target-blind or prospective separation, preregistered comparator baselines, residual superiority, rejected negative controls, falsifiers, and a clean grand empirical gate.\",\n  \"report_sha256\": \"525d2ba957b07d2561e9fa5fdd82b4d6583f0619be08321d590f3d2a6188881d\"\n}\n"
+      "stdout_tail": "{\n  \"status\": \"ok\",\n  \"pack_status\": \"STRICT_EVIDENCE_PASS_NO_COVERAGE_CLOSURE\",\n  \"scoring_pack_ref\": \"validation/heldout/grand_science/physics_chemistry/dynamics_jpl_horizons/OC133_PHYSICS_JPL_HORIZONS_DYNAMICS_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json\",\n  \"row_count\": 24,\n  \"model_vector_rmse\": 58.34600239,\n  \"comparator_vector_rmse\": 9342.28893354,\n  \"negative_control_rejected\": true\n}\n"
     },
     {
       "cmd": [
         "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
-        "tools/oc133_physics_chemistry_official_batch_factory.py",
+        "validation/heldout/grand_science/physics_chemistry/dynamics_jpl_horizons/oc133_physics_jpl_horizons_dynamics_materializer.py",
         "--check"
       ],
       "returncode": 0,
       "stderr_tail": "",
-      "stdout_tail": "{\n  \"status\": \"ok\",\n  \"checked\": [\n    \"validation/heldout/grand_science/physics_chemistry/official_batch/physics_official_batch_candidate_evidence_pack.json\",\n    \"validation/heldout/grand_science/physics_chemistry/official_batch/chemistry_official_batch_candidate_evidence_pack.json\",\n    \"validation/heldout/grand_science/physics_chemistry/official_batch/OC133_PHYSICS_OFFICIAL_BATCH_ACQUISITION_PACKET.json\",\n    \"validation/heldout/grand_science/physics_chemistry/official_batch/OC133_PHYSICS_CHEMISTRY_OFFICIAL_BATCH_TASKS.json\",\n    \"validation/heldout/grand_science/physics_chemistry/official_batch/OC133_PHYSICS_CHEMISTRY_OFFICIAL_BATCH_PROTOCOL.json\",\n    \"validation/heldout/grand_science/physics_chemistry/official_batch/OC133_PHYSICS_CHEMISTRY_OFFICIAL_BATCH_REPORT.json\",\n    \"validation/heldout/grand_science/physics_chemistry/official_batch/README.md\"\n  ]\n}\n"
-    },
-    {
-      "cmd": [
-        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
-        "tools/oc133_toe_closure_factory.py",
-        "--execute-comparator-generic-evidence-pack",
-        "MS-COV-GAP-PHYSICAL_SCIENCES-DYNAMICAL_LAWS_AND_CONSERVATION",
-        "--write"
-      ],
-      "returncode": 0,
-      "stderr_tail": "",
-      "stdout_tail": "{\n  \"changed\": [],\n  \"missing\": [],\n  \"state\": \"PASS\"\n}\n"
+      "stdout_tail": "{\n  \"status\": \"ok\",\n  \"checked\": \"validation/heldout/grand_science/physics_chemistry/dynamics_jpl_horizons/OC133_PHYSICS_JPL_HORIZONS_DYNAMICS_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json\"\n}\n"
     }
   ],
   "missing_source_evidence_fields": [
@@ -145,22 +143,22 @@
   "phenomenon_class_id": "dynamical_laws_and_conservation",
   "repair_strategy": "Implement the domain/phenomenon scorer that reads the governed source snapshot, keeps targets hidden until scoring, computes OC and comparator residuals, and writes PASS or fail-closed scoring/replay artifacts.",
   "replay_artifact_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/a7777e969d546a74/replay_record.json",
-  "replay_artifact_status": "OPEN",
+  "replay_artifact_status": "PASS",
   "required_capability": "Research/SourceBoundScoringMaterializationExecutor",
   "residual_requirement": {
     "formula": "sqrt(mean((predicted_component - observed_component)^2)) over X,Y,Z,VX,VY,VZ after unit normalization",
     "metric_id": "vector_rmse_with_component_uncertainty_v1",
     "superiority_rule": "model_residual < comparator_residual and residual_within_declared_uncertainty is true"
   },
-  "root_cause_class": "SOURCE_BOUND_SCORING_MATERIALIZER_NOT_IMPLEMENTED",
+  "root_cause_class": "SOURCE_BOUND_SCORING_MATERIALIZATION_CLOSED",
   "schema_id": "OC133_MODERN_SCIENCE_COMPARATOR_COMPONENT_MATERIALIZATION_EXECUTION_v1",
   "scoring_artifact_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/a7777e969d546a74/oc_prediction_scoring_row.json",
-  "scoring_artifact_status": "OPEN",
+  "scoring_artifact_status": "PASS",
   "source_obligation_report_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/component_src/src_obligation_76486977da1fd430.json",
   "source_obligation_status": "SOURCE_BOUND_SCORING_MATERIALIZATION_REMAINS_OPEN",
-  "status": "CAPABILITY_DEVELOPMENT_REQUIRED",
+  "status": "PASS",
   "strict_evidence_pack_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/a7777e969d546a74/strict_evidence_pack.json",
-  "strict_evidence_pack_status": "FAIL_CLOSED_SOURCE_BOUND_SCORING_NOT_MATERIALIZED",
+  "strict_evidence_pack_status": "PASS",
   "target_variable": {
     "extraction_rule": "For each epoch after the first, hide the official HORIZONS vector row until the predeclared dynamical propagation is materialized from prior visible rows.",
     "name": "next_epoch_heliocentric_cartesian_state_vector",
@@ -175,5 +173,5 @@
     "unit": "km and km/s"
   },
   "validator_binding": "comparator_gap::MS-COV-GAP-PHYSICAL_SCIENCES-DYNAMICAL_LAWS_AND_CONSERVATION::component_source_obligation::fail_closed_status_clear",
-  "why_it_failed": "Source-bound scoring materializer is not implemented for this exact domain/component; existing commands only regenerate fail-closed diagnostics."
+  "why_it_failed": "Source-bound scoring materialization closed downstream."
 }

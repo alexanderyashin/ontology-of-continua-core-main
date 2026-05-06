@@ -1,13 +1,13 @@
 {
   "action_total": 69,
-  "artifact_hash": "8c66421a33054d159bde14c9da1702345ebdc7c085e399aae4a924d1996f1b17",
-  "blocking_graph_frontier_hash": "d4b52f7eba2450f43e0c928847b9f84925d820f543b8d82b2672532e0ff55547",
+  "artifact_hash": "6059c39b647f0f1a6a7d00857bbfeb7a925936fbf43daef0d481751caaab2b7a",
+  "blocking_graph_frontier_hash": "9e6104ffe856be2d679553d6dc2506441c089ee35e8d4f838d006aefc35f9016",
   "blocking_graph_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/OC133_TOE_BLOCKING_GRAPH.json",
   "cerberus_error_total": 8,
   "executable_action_total": 0,
   "frontier_hash": "632ddf9bd86533cf0263b3665f34815254d63b53551396a7e842d5bb616569cb",
-  "generated_at": "2026-05-06T16:35:09Z",
-  "graph_candidate_node_total": 246,
+  "generated_at": "2026-05-06T16:59:38Z",
+  "graph_candidate_node_total": 240,
   "planner_mode": "GRAPH_RESOLVER",
   "rows": [
     {
@@ -994,46 +994,6 @@
         40,
         10,
         "required_artifact:MODERN_SCIENCE_COMPARATOR_SUPERIORITY:MS-COV-GAP-PHYSICAL_SCIENCES-CONDENSED_MATTER_FIELDS_AND_MEASUREMENTS:oc_prediction_scoring_row"
-      ],
-      "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
-      "missing_artifact_total": 2,
-      "missing_artifact_type": "oc_prediction_scoring_row",
-      "next_escalation": "This exact action has already been tried on this semantic frontier; create a narrower capability work order instead of rerunning it.",
-      "pass_predicate": "The repaired OC scoring research artifact status becomes PASS and the comparator gap no longer lists oc_prediction_scoring_row as missing.",
-      "planner_mode": "GRAPH_RESOLVER",
-      "repair_strategy": "Diagnose whether the model, comparator, target split, or claim scope must be repaired without flipping the verdict manually.",
-      "required_artifact": "oc_prediction_scoring_row",
-      "required_capability": "Research/ScoringExecutor",
-      "selected_for_execution": false,
-      "source_ref": "live::factory.comparator_execution_gap_rows",
-      "status": "CAPABILITY_ESCALATION_REQUIRED",
-      "validator_binding": "support_artifact::MODERN_SCIENCE_COMPARATOR_SUPERIORITY::oc_prediction_scoring_row",
-      "why_it_failed": "The evidence pack is explicitly fail-closed; broad superiority cannot use it."
-    },
-    {
-      "action_id": "AUTO-R017-COMPARATOR-GAP-0b738a7b9d4e",
-      "already_attempted_on_frontier": true,
-      "execution_command": [
-        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
-        "tools/oc133_toe_closure_factory.py",
-        "--execute-comparator-research-artifact-repair",
-        "R017-RESEARCH-ARTIFACT-REPAIR-4bcd28712a6100c5",
-        "--write"
-      ],
-      "executor_type": "comparator_research_artifact_repair",
-      "frontier_signature": "632ddf9bd86533cf0263b3665f34815254d63b53551396a7e842d5bb616569cb::AUTO-R017-COMPARATOR-GAP-0b738a7b9d4e",
-      "gap_id": "MS-COV-GAP-PHYSICAL_SCIENCES-DYNAMICAL_LAWS_AND_CONSERVATION",
-      "graph_dependency_path": [
-        "required_artifact:MODERN_SCIENCE_COMPARATOR_SUPERIORITY:MS-COV-GAP-PHYSICAL_SCIENCES-DYNAMICAL_LAWS_AND_CONSERVATION:oc_prediction_scoring_row",
-        "capability:AUTO-R017-COMPARATOR-GAP-0b738a7b9d4e"
-      ],
-      "graph_node_id": "required_artifact:MODERN_SCIENCE_COMPARATOR_SUPERIORITY:MS-COV-GAP-PHYSICAL_SCIENCES-DYNAMICAL_LAWS_AND_CONSERVATION:oc_prediction_scoring_row",
-      "graph_node_type": "required_artifact",
-      "graph_priority": [
-        30,
-        40,
-        10,
-        "required_artifact:MODERN_SCIENCE_COMPARATOR_SUPERIORITY:MS-COV-GAP-PHYSICAL_SCIENCES-DYNAMICAL_LAWS_AND_CONSERVATION:oc_prediction_scoring_row"
       ],
       "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
       "missing_artifact_total": 2,
@@ -2211,46 +2171,6 @@
       "why_it_failed": "Replay is correctly blocked because the upstream scoring evidence is not passing."
     },
     {
-      "action_id": "AUTO-R017-COMPARATOR-GAP-b2e551da7564",
-      "already_attempted_on_frontier": true,
-      "execution_command": [
-        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
-        "tools/oc133_toe_closure_factory.py",
-        "--execute-comparator-research-artifact-repair",
-        "R017-RESEARCH-ARTIFACT-REPAIR-f578825c1323a69f",
-        "--write"
-      ],
-      "executor_type": "comparator_research_artifact_repair",
-      "frontier_signature": "632ddf9bd86533cf0263b3665f34815254d63b53551396a7e842d5bb616569cb::AUTO-R017-COMPARATOR-GAP-b2e551da7564",
-      "gap_id": "MS-COV-GAP-PHYSICAL_SCIENCES-DYNAMICAL_LAWS_AND_CONSERVATION",
-      "graph_dependency_path": [
-        "required_artifact:MODERN_SCIENCE_COMPARATOR_SUPERIORITY:MS-COV-GAP-PHYSICAL_SCIENCES-DYNAMICAL_LAWS_AND_CONSERVATION:replay_record",
-        "capability:AUTO-R017-COMPARATOR-GAP-b2e551da7564"
-      ],
-      "graph_node_id": "required_artifact:MODERN_SCIENCE_COMPARATOR_SUPERIORITY:MS-COV-GAP-PHYSICAL_SCIENCES-DYNAMICAL_LAWS_AND_CONSERVATION:replay_record",
-      "graph_node_type": "required_artifact",
-      "graph_priority": [
-        30,
-        70,
-        10,
-        "required_artifact:MODERN_SCIENCE_COMPARATOR_SUPERIORITY:MS-COV-GAP-PHYSICAL_SCIENCES-DYNAMICAL_LAWS_AND_CONSERVATION:replay_record"
-      ],
-      "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
-      "missing_artifact_total": 2,
-      "missing_artifact_type": "replay_record",
-      "next_escalation": "This exact action has already been tried on this semantic frontier; create a narrower capability work order instead of rerunning it.",
-      "pass_predicate": "The repaired `replay_record` research artifact status becomes PASS and the comparator gap no longer lists it as missing.",
-      "planner_mode": "GRAPH_RESOLVER",
-      "repair_strategy": "Close the OC scoring row first, then rerun replay.",
-      "required_artifact": "replay_record",
-      "required_capability": "Research/ScoringExecutor",
-      "selected_for_execution": false,
-      "source_ref": "live::factory.comparator_execution_gap_rows",
-      "status": "CAPABILITY_ESCALATION_REQUIRED",
-      "validator_binding": "support_artifact::MODERN_SCIENCE_COMPARATOR_SUPERIORITY::replay_record",
-      "why_it_failed": "Replay is correctly blocked because the upstream scoring evidence is not passing."
-    },
-    {
       "action_id": "AUTO-R017-COMPARATOR-GAP-842d2ad04819",
       "already_attempted_on_frontier": true,
       "execution_command": [
@@ -2613,6 +2533,53 @@
       "why_it_failed": "Replay is correctly blocked because the upstream scoring evidence is not passing."
     },
     {
+      "action_id": "AUTO-capability_development-R017-UPSTREAM-27e2864c70cd48b3",
+      "already_attempted_on_frontier": true,
+      "capability_class": "upstream_capability_work_order",
+      "capability_executor_ready": true,
+      "capability_id": "R017-CAPDEV-9a74cfc85b41",
+      "compiled_capability_id": "R017-CAPDEV-9a74cfc85b41",
+      "execution_command": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "tools/oc133_toe_closure_factory.py",
+        "--execute-capability-development",
+        "R017-CAPDEV-9a74cfc85b41",
+        "--write"
+      ],
+      "executor_type": "capability_development",
+      "frontier_signature": "632ddf9bd86533cf0263b3665f34815254d63b53551396a7e842d5bb616569cb::AUTO-capability_development-R017-UPSTREAM-27e2864c70cd48b3::3a05dea7b7686ba8",
+      "graph_dependency_path": [
+        "capability_development:R017-UPSTREAM-27e2864c70cd48b3"
+      ],
+      "graph_node_id": "capability_development:R017-UPSTREAM-27e2864c70cd48b3",
+      "graph_node_type": "capability_development",
+      "graph_priority": [
+        30,
+        95,
+        30,
+        "capability_development:R017-UPSTREAM-27e2864c70cd48b3"
+      ],
+      "implementation_command": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "tools/oc133_toe_closure_factory.py",
+        "--execute-upstream-capability-work-order",
+        "R017-UPSTREAM-27e2864c70cd48b3",
+        "--write"
+      ],
+      "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+      "missing_artifact_type": "upstream_work_order::SOURCE_BOUND_SCORER_MATERIALIZER_IMPLEMENTATION",
+      "next_escalation": "This exact action has already been tried on this semantic frontier; create a narrower capability work order instead of rerunning it.",
+      "pass_predicate": "Comparator gap `MS-COV-GAP-PHYSICAL_SCIENCES-DYNAMICAL_LAWS_AND_CONSERVATION` has `replay_record` and strict coverage register no longer lists it as missing.",
+      "planner_mode": "GRAPH_RESOLVER",
+      "repair_strategy": "Implement the exact domain scorer/materializer that can produce target-hidden OC residuals, incumbent comparator residuals, uncertainty/falsifier rows, and replay.",
+      "required_capability": "Research/PriorArt",
+      "selected_for_execution": false,
+      "source_graph_node_id": "upstream_work_order:R017-UPSTREAM-27e2864c70cd48b3:SOURCE_BOUND_SCORER_MATERIALIZER_IMPLEMENTATION:MS-COV-GAP-PHYSICAL_SCIENCES-DYNAMICAL_LAWS_AND_CONSERVATION:replay_record",
+      "status": "CAPABILITY_ESCALATION_REQUIRED",
+      "validator_binding": "support_artifact::MODERN_SCIENCE_COMPARATOR_SUPERIORITY::replay_record",
+      "why_it_failed": "Replay is correctly blocked because the upstream scoring evidence is not passing."
+    },
+    {
       "action_id": "AUTO-capability_development-R017-UPSTREAM-2acffe5cc173afd8",
       "already_attempted_on_frontier": true,
       "capability_class": "upstream_capability_work_order",
@@ -2754,6 +2721,53 @@
       "why_it_failed": "The evidence pack is explicitly fail-closed; broad superiority cannot use it."
     },
     {
+      "action_id": "AUTO-capability_development-R017-UPSTREAM-b2cb2f14989618d4",
+      "already_attempted_on_frontier": true,
+      "capability_class": "upstream_capability_work_order",
+      "capability_executor_ready": true,
+      "capability_id": "R017-CAPDEV-524fe4b7acf8",
+      "compiled_capability_id": "R017-CAPDEV-524fe4b7acf8",
+      "execution_command": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "tools/oc133_toe_closure_factory.py",
+        "--execute-capability-development",
+        "R017-CAPDEV-524fe4b7acf8",
+        "--write"
+      ],
+      "executor_type": "capability_development",
+      "frontier_signature": "632ddf9bd86533cf0263b3665f34815254d63b53551396a7e842d5bb616569cb::AUTO-capability_development-R017-UPSTREAM-b2cb2f14989618d4::e83d70a7ab7dde08",
+      "graph_dependency_path": [
+        "capability_development:R017-UPSTREAM-b2cb2f14989618d4"
+      ],
+      "graph_node_id": "capability_development:R017-UPSTREAM-b2cb2f14989618d4",
+      "graph_node_type": "capability_development",
+      "graph_priority": [
+        30,
+        95,
+        30,
+        "capability_development:R017-UPSTREAM-b2cb2f14989618d4"
+      ],
+      "implementation_command": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "tools/oc133_toe_closure_factory.py",
+        "--execute-upstream-capability-work-order",
+        "R017-UPSTREAM-b2cb2f14989618d4",
+        "--write"
+      ],
+      "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+      "missing_artifact_type": "upstream_work_order::SOURCE_BOUND_SCORER_MATERIALIZER_IMPLEMENTATION",
+      "next_escalation": "This exact action has already been tried on this semantic frontier; create a narrower capability work order instead of rerunning it.",
+      "pass_predicate": "Comparator gap `MS-COV-GAP-PHYSICAL_SCIENCES-DYNAMICAL_LAWS_AND_CONSERVATION` has `oc_prediction_scoring_row` and strict coverage register no longer lists it as missing.",
+      "planner_mode": "GRAPH_RESOLVER",
+      "repair_strategy": "Implement the exact domain scorer/materializer that can produce target-hidden OC residuals, incumbent comparator residuals, uncertainty/falsifier rows, and replay.",
+      "required_capability": "Research/PriorArt",
+      "selected_for_execution": false,
+      "source_graph_node_id": "upstream_work_order:R017-UPSTREAM-b2cb2f14989618d4:SOURCE_BOUND_SCORER_MATERIALIZER_IMPLEMENTATION:MS-COV-GAP-PHYSICAL_SCIENCES-DYNAMICAL_LAWS_AND_CONSERVATION:oc_prediction_scoring_row",
+      "status": "CAPABILITY_ESCALATION_REQUIRED",
+      "validator_binding": "support_artifact::MODERN_SCIENCE_COMPARATOR_SUPERIORITY::oc_prediction_scoring_row",
+      "why_it_failed": "The evidence pack is explicitly fail-closed; broad superiority cannot use it."
+    },
+    {
       "action_id": "AUTO-capability_development-R017-UPSTREAM-cf78034eababb7d7",
       "already_attempted_on_frontier": true,
       "capability_class": "upstream_capability_work_order",
@@ -2866,7 +2880,6 @@
     "required_artifact:MODERN_SCIENCE_COMPARATOR_SUPERIORITY:MS-COV-GAP-MEDICAL_HEALTH_SCIENCES-EPIDEMIOLOGICAL_TRANSMISSION_AND_RISK:oc_prediction_scoring_row",
     "required_artifact:MODERN_SCIENCE_COMPARATOR_SUPERIORITY:MS-COV-GAP-MEDICAL_HEALTH_SCIENCES-PHARMACOLOGY_TOXICOLOGY_AND_DOSE_RESPONSE:oc_prediction_scoring_row",
     "required_artifact:MODERN_SCIENCE_COMPARATOR_SUPERIORITY:MS-COV-GAP-PHYSICAL_SCIENCES-CONDENSED_MATTER_FIELDS_AND_MEASUREMENTS:oc_prediction_scoring_row",
-    "required_artifact:MODERN_SCIENCE_COMPARATOR_SUPERIORITY:MS-COV-GAP-PHYSICAL_SCIENCES-DYNAMICAL_LAWS_AND_CONSERVATION:oc_prediction_scoring_row",
     "required_artifact:MODERN_SCIENCE_COMPARATOR_SUPERIORITY:MS-COV-GAP-SOCIAL_ECONOMIC_POLITICAL_SCIENCES-ECONOMIC_INDICATOR_AND_MARKET_OBSERVABLES:oc_prediction_scoring_row",
     "required_artifact:MODERN_SCIENCE_COMPARATOR_SUPERIORITY:MS-COV-GAP-SOCIAL_ECONOMIC_POLITICAL_SCIENCES-INSTITUTIONAL_SOCIAL_NETWORK_AND_POLICY_OUTCOMES:oc_prediction_scoring_row",
     "required_artifact:MODERN_SCIENCE_COMPARATOR_SUPERIORITY:MS-COV-GAP-AGRICULTURAL_FOOD_SCIENCES-ANIMAL_HEALTH_AND_PRODUCTION_SYSTEMS:replay_record",
@@ -2896,7 +2909,6 @@
     "required_artifact:MODERN_SCIENCE_COMPARATOR_SUPERIORITY:MS-COV-GAP-MEDICAL_HEALTH_SCIENCES-EPIDEMIOLOGICAL_TRANSMISSION_AND_RISK:replay_record",
     "required_artifact:MODERN_SCIENCE_COMPARATOR_SUPERIORITY:MS-COV-GAP-MEDICAL_HEALTH_SCIENCES-PHARMACOLOGY_TOXICOLOGY_AND_DOSE_RESPONSE:replay_record",
     "required_artifact:MODERN_SCIENCE_COMPARATOR_SUPERIORITY:MS-COV-GAP-PHYSICAL_SCIENCES-CONDENSED_MATTER_FIELDS_AND_MEASUREMENTS:replay_record",
-    "required_artifact:MODERN_SCIENCE_COMPARATOR_SUPERIORITY:MS-COV-GAP-PHYSICAL_SCIENCES-DYNAMICAL_LAWS_AND_CONSERVATION:replay_record",
     "required_artifact:MODERN_SCIENCE_COMPARATOR_SUPERIORITY:MS-COV-GAP-SOCIAL_ECONOMIC_POLITICAL_SCIENCES-ECONOMIC_INDICATOR_AND_MARKET_OBSERVABLES:replay_record",
     "required_artifact:MODERN_SCIENCE_COMPARATOR_SUPERIORITY:MS-COV-GAP-SOCIAL_ECONOMIC_POLITICAL_SCIENCES-INSTITUTIONAL_SOCIAL_NETWORK_AND_POLICY_OUTCOMES:replay_record",
     "capability_development:AUTO-R017-CAPABILITY-DEVELOPMENT-0050-6165d0c6",
@@ -2905,9 +2917,11 @@
     "capability_development:R017-UPSTREAM-153268536cc10c76",
     "capability_development:R017-UPSTREAM-1905a38555197559",
     "capability_development:R017-UPSTREAM-21c9975337408b50",
+    "capability_development:R017-UPSTREAM-27e2864c70cd48b3",
     "capability_development:R017-UPSTREAM-2acffe5cc173afd8",
     "capability_development:R017-UPSTREAM-5bb13d15616509bb",
     "capability_development:R017-UPSTREAM-872ed95f4635539b",
+    "capability_development:R017-UPSTREAM-b2cb2f14989618d4",
     "capability_development:R017-UPSTREAM-cf78034eababb7d7",
     "capability:AUTO-R017-GRAND-PROMOTION-DERIVATION"
   ],

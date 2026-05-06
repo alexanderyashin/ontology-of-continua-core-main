@@ -1,11 +1,11 @@
 {
-  "artifact_hash": "4dd9443a66d0917ec18f5072d43d8f440373080aa819accea3c305e8d8bfe71c",
-  "blocked_capability_total": 118,
-  "compiled_capability_total": 128,
+  "artifact_hash": "af7c6d2ead67f0296083fdd110529b42b52ec399110e985075aef2801faa8d46",
+  "blocked_capability_total": 114,
+  "compiled_capability_total": 126,
   "dedupe_policy": "Rows are keyed by lane_id + source_graph_node_id + missing_artifact_type + scientific_frontier_hash.",
-  "generated_at": "2026-05-06T16:35:43Z",
+  "generated_at": "2026-05-06T17:00:11Z",
   "no_fake_closure_policy": "Compiled capabilities execute research commands only; PASS still requires strict validator closure.",
-  "ready_capability_total": 10,
+  "ready_capability_total": 12,
   "rows": [
     {
       "capability_class": "upstream_source_materializer_missing",
@@ -1080,9 +1080,9 @@
       "why_it_failed": "Replay is correctly blocked because the upstream scoring evidence is not passing."
     },
     {
-      "capability_class": "upstream_source_materializer_missing",
+      "capability_class": "upstream_capability_work_order",
       "capability_development_key": "524fe4b7acf845f5fcec02c4178a94a5234b18dc2bfd38c123a68071123ba37f",
-      "capability_executor_ready": false,
+      "capability_executor_ready": true,
       "capability_id": "R017-CAPDEV-524fe4b7acf8",
       "compiled_capability_id": "R017-CAPDEV-524fe4b7acf8",
       "execution_command": [
@@ -1092,14 +1092,20 @@
         "R017-CAPDEV-524fe4b7acf8",
         "--write"
       ],
-      "executor_command": [],
-      "executor_type": "upstream_source_materializer_missing",
+      "executor_command": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "tools/oc133_toe_closure_factory.py",
+        "--execute-upstream-capability-work-order",
+        "R017-UPSTREAM-b2cb2f14989618d4",
+        "--write"
+      ],
+      "executor_type": "upstream_capability_work_order",
       "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
       "missing_artifact_type": "upstream_work_order::SOURCE_BOUND_SCORER_MATERIALIZER_IMPLEMENTATION",
       "next_escalation": "If this compiled capability produces zero validator delta, generate a lower-level upstream research obligation for the exact missing source/evidence object.",
       "output_artifact_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/capability_implementation/R017-CAPDEV-524fe4b7acf8.json",
       "pass_predicate": "Comparator gap `MS-COV-GAP-PHYSICAL_SCIENCES-DYNAMICAL_LAWS_AND_CONSERVATION` has `oc_prediction_scoring_row` and strict coverage register no longer lists it as missing.",
-      "repair_strategy": "No governed source-bound materializer command exists for this domain/phenomenon yet; keep this as capability backlog instead of executing diagnostic scripts.",
+      "repair_strategy": "Execute the lower-level upstream capability work order produced by exhausted source-bound materialization, rather than rerunning diagnostics.",
       "required_capability": "Research/PriorArt",
       "scientific_frontier_hash": "cf7fa90cae7761e24fd499a438781aaf7ffc6da730dc3657f8d31d0ba649dc95",
       "self_test_command": [
@@ -1109,7 +1115,7 @@
       ],
       "source_capability_development_id": "R017-UPSTREAM-b2cb2f14989618d4",
       "source_graph_node_id": "upstream_work_order:R017-UPSTREAM-b2cb2f14989618d4:SOURCE_BOUND_SCORER_MATERIALIZER_IMPLEMENTATION:MS-COV-GAP-PHYSICAL_SCIENCES-DYNAMICAL_LAWS_AND_CONSERVATION:oc_prediction_scoring_row",
-      "status": "BLOCKED",
+      "status": "READY",
       "validator_binding": "support_artifact::MODERN_SCIENCE_COMPARATOR_SUPERIORITY::oc_prediction_scoring_row",
       "why_it_failed": "The evidence pack is explicitly fail-closed; broad superiority cannot use it."
     },
@@ -1318,9 +1324,9 @@
       "why_it_failed": "Replay is correctly blocked because the upstream scoring evidence is not passing."
     },
     {
-      "capability_class": "upstream_source_materializer_missing",
+      "capability_class": "upstream_capability_work_order",
       "capability_development_key": "9a74cfc85b41683fc8fbaccd042a2fa922554872cfec632402375666845abf1a",
-      "capability_executor_ready": false,
+      "capability_executor_ready": true,
       "capability_id": "R017-CAPDEV-9a74cfc85b41",
       "compiled_capability_id": "R017-CAPDEV-9a74cfc85b41",
       "execution_command": [
@@ -1330,14 +1336,20 @@
         "R017-CAPDEV-9a74cfc85b41",
         "--write"
       ],
-      "executor_command": [],
-      "executor_type": "upstream_source_materializer_missing",
+      "executor_command": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "tools/oc133_toe_closure_factory.py",
+        "--execute-upstream-capability-work-order",
+        "R017-UPSTREAM-27e2864c70cd48b3",
+        "--write"
+      ],
+      "executor_type": "upstream_capability_work_order",
       "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
       "missing_artifact_type": "upstream_work_order::SOURCE_BOUND_SCORER_MATERIALIZER_IMPLEMENTATION",
       "next_escalation": "If this compiled capability produces zero validator delta, generate a lower-level upstream research obligation for the exact missing source/evidence object.",
       "output_artifact_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/capability_implementation/R017-CAPDEV-9a74cfc85b41.json",
       "pass_predicate": "Comparator gap `MS-COV-GAP-PHYSICAL_SCIENCES-DYNAMICAL_LAWS_AND_CONSERVATION` has `replay_record` and strict coverage register no longer lists it as missing.",
-      "repair_strategy": "No governed source-bound materializer command exists for this domain/phenomenon yet; keep this as capability backlog instead of executing diagnostic scripts.",
+      "repair_strategy": "Execute the lower-level upstream capability work order produced by exhausted source-bound materialization, rather than rerunning diagnostics.",
       "required_capability": "Research/PriorArt",
       "scientific_frontier_hash": "cf7fa90cae7761e24fd499a438781aaf7ffc6da730dc3657f8d31d0ba649dc95",
       "self_test_command": [
@@ -1347,7 +1359,7 @@
       ],
       "source_capability_development_id": "R017-UPSTREAM-27e2864c70cd48b3",
       "source_graph_node_id": "upstream_work_order:R017-UPSTREAM-27e2864c70cd48b3:SOURCE_BOUND_SCORER_MATERIALIZER_IMPLEMENTATION:MS-COV-GAP-PHYSICAL_SCIENCES-DYNAMICAL_LAWS_AND_CONSERVATION:replay_record",
-      "status": "BLOCKED",
+      "status": "READY",
       "validator_binding": "support_artifact::MODERN_SCIENCE_COMPARATOR_SUPERIORITY::replay_record",
       "why_it_failed": "Replay is correctly blocked because the upstream scoring evidence is not passing."
     },
@@ -3083,40 +3095,6 @@
     },
     {
       "capability_class": "comparator_component_materialization_capability_gap",
-      "capability_development_key": "5e18bc30bbd4ac2c37375b55b208836c770096f8f16eb4730aa2edfbaefb7c71",
-      "capability_executor_ready": false,
-      "capability_id": "R017-CAPDEV-5e18bc30bbd4",
-      "compiled_capability_id": "R017-CAPDEV-5e18bc30bbd4",
-      "execution_command": [
-        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
-        "tools/oc133_toe_closure_factory.py",
-        "--execute-capability-development",
-        "R017-CAPDEV-5e18bc30bbd4",
-        "--write"
-      ],
-      "executor_command": [],
-      "executor_type": "comparator_component_materialization_capability_gap",
-      "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
-      "missing_artifact_type": "oc_prediction_scoring_row",
-      "next_escalation": "If this compiled capability produces zero validator delta, generate a lower-level upstream research obligation for the exact missing source/evidence object.",
-      "output_artifact_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/capability_implementation/R017-CAPDEV-5e18bc30bbd4.json",
-      "pass_predicate": "The repaired OC scoring research artifact status becomes PASS and the comparator gap no longer lists oc_prediction_scoring_row as missing.",
-      "repair_strategy": "Source-bound materialization report already exists and names the missing domain scorer/materializer; do not rerun the diagnostic wrapper.",
-      "required_capability": "Research/ScoringExecutor",
-      "scientific_frontier_hash": "cf7fa90cae7761e24fd499a438781aaf7ffc6da730dc3657f8d31d0ba649dc95",
-      "self_test_command": [
-        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
-        "tools/oc133_toe_closure_factory.py",
-        "--check"
-      ],
-      "source_capability_development_id": "AUTO-R017-CAPABILITY-DEVELOPMENT-0029-ba91d6d3",
-      "source_graph_node_id": "required_artifact:MODERN_SCIENCE_COMPARATOR_SUPERIORITY:MS-COV-GAP-PHYSICAL_SCIENCES-DYNAMICAL_LAWS_AND_CONSERVATION:oc_prediction_scoring_row",
-      "status": "BLOCKED",
-      "validator_binding": "support_artifact::MODERN_SCIENCE_COMPARATOR_SUPERIORITY::oc_prediction_scoring_row",
-      "why_it_failed": "The evidence pack is explicitly fail-closed; broad superiority cannot use it."
-    },
-    {
-      "capability_class": "comparator_component_materialization_capability_gap",
       "capability_development_key": "57429dcf142309a6e4da831d5f64ce5e7dbb58b2c51aaa1f6df175676656610b",
       "capability_executor_ready": false,
       "capability_id": "R017-CAPDEV-57429dcf1423",
@@ -4069,40 +4047,6 @@
       ],
       "source_capability_development_id": "AUTO-R017-CAPABILITY-DEVELOPMENT-0059-36dfe8df",
       "source_graph_node_id": "required_artifact:MODERN_SCIENCE_COMPARATOR_SUPERIORITY:MS-COV-GAP-PHYSICAL_SCIENCES-CONDENSED_MATTER_FIELDS_AND_MEASUREMENTS:replay_record",
-      "status": "BLOCKED",
-      "validator_binding": "support_artifact::MODERN_SCIENCE_COMPARATOR_SUPERIORITY::replay_record",
-      "why_it_failed": "Replay is correctly blocked because the upstream scoring evidence is not passing."
-    },
-    {
-      "capability_class": "comparator_component_materialization_capability_gap",
-      "capability_development_key": "845a52e56b983dca3df7feec5cfc78a76a0c3c29bca0492dc84052c9f60c02fe",
-      "capability_executor_ready": false,
-      "capability_id": "R017-CAPDEV-845a52e56b98",
-      "compiled_capability_id": "R017-CAPDEV-845a52e56b98",
-      "execution_command": [
-        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
-        "tools/oc133_toe_closure_factory.py",
-        "--execute-capability-development",
-        "R017-CAPDEV-845a52e56b98",
-        "--write"
-      ],
-      "executor_command": [],
-      "executor_type": "comparator_component_materialization_capability_gap",
-      "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
-      "missing_artifact_type": "replay_record",
-      "next_escalation": "If this compiled capability produces zero validator delta, generate a lower-level upstream research obligation for the exact missing source/evidence object.",
-      "output_artifact_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/capability_implementation/R017-CAPDEV-845a52e56b98.json",
-      "pass_predicate": "The repaired `replay_record` research artifact status becomes PASS and the comparator gap no longer lists it as missing.",
-      "repair_strategy": "Source-bound materialization report already exists and names the missing domain scorer/materializer; do not rerun the diagnostic wrapper.",
-      "required_capability": "Research/ScoringExecutor",
-      "scientific_frontier_hash": "cf7fa90cae7761e24fd499a438781aaf7ffc6da730dc3657f8d31d0ba649dc95",
-      "self_test_command": [
-        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
-        "tools/oc133_toe_closure_factory.py",
-        "--check"
-      ],
-      "source_capability_development_id": "AUTO-R017-CAPABILITY-DEVELOPMENT-0060-b7d41f9e",
-      "source_graph_node_id": "required_artifact:MODERN_SCIENCE_COMPARATOR_SUPERIORITY:MS-COV-GAP-PHYSICAL_SCIENCES-DYNAMICAL_LAWS_AND_CONSERVATION:replay_record",
       "status": "BLOCKED",
       "validator_binding": "support_artifact::MODERN_SCIENCE_COMPARATOR_SUPERIORITY::replay_record",
       "why_it_failed": "Replay is correctly blocked because the upstream scoring evidence is not passing."

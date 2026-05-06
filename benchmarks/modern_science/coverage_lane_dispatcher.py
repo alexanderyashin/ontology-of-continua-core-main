@@ -77,6 +77,10 @@ DOMAIN_LOCAL_MATERIALIZED_EVIDENCE_REFS = {
         "physical_sciences",
         "astronomical_and_cosmological_observables",
     ): "validation/heldout/grand_science/physics_chemistry/nasa_exoplanet_archive/OC133_NASA_EXOPLANET_KEPLER_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
+    (
+        "physical_sciences",
+        "dynamical_laws_and_conservation",
+    ): "validation/heldout/grand_science/physics_chemistry/dynamics_jpl_horizons/OC133_PHYSICS_JPL_HORIZONS_DYNAMICS_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
 }
 
 OFFICIAL_SOURCE_DEFAULTS = {

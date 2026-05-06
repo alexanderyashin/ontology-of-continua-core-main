@@ -1,0 +1,210 @@
+{
+  "schema_id": "OC133_PHYSICS_JPL_HORIZONS_DYNAMICS_SCORING_PACK_v1",
+  "pack_status": "STRICT_EVIDENCE_PASS_NO_COVERAGE_CLOSURE",
+  "status": "STRICT_EVIDENCE_PASS_NO_COVERAGE_CLOSURE",
+  "source_bound": true,
+  "target_hidden": true,
+  "score_materialized": true,
+  "scientific_pass": true,
+  "coverage_closure_allowed": false,
+  "support_allowed_for_broad_coverage": false,
+  "source_snapshot_ref": "validation/heldout/grand_science/physics_chemistry/dynamics_jpl_horizons/OC133_PHYSICS_JPL_HORIZONS_EARTH_SUN_VECTORS.json",
+  "source_snapshot_sha256": "5ab93ae3aa5fe2b189343872062f669b273bfb3d1e541a783f362f06fc0a8c77",
+  "source_lock_ref": "validation/heldout/grand_science/physics_chemistry/dynamics_jpl_horizons/OC133_PHYSICS_JPL_HORIZONS_EARTH_SUN_VECTORS.lock.json",
+  "visible_task_table_ref": "validation/heldout/grand_science/physics_chemistry/dynamics_jpl_horizons/OC133_PHYSICS_JPL_HORIZONS_TARGET_HIDDEN_TASK_TABLE.json",
+  "hidden_target_lock_ref": "validation/heldout/grand_science/physics_chemistry/dynamics_jpl_horizons/OC133-PHYSICS-JPL-HORIZONS-HIDDEN-TARGETS-0001.lock.json",
+  "row_count": 24,
+  "model": "PHYS-DYNAMICS-TWO-BODY-VELOCITY-VERLET-v1",
+  "comparator": "PHYS-DYNAMICS-CONSTANT-VELOCITY-CARTESIAN-BASELINE-v1",
+  "residuals": {
+    "model": 58.34600239,
+    "comparator": 9342.28893354,
+    "material_margin_met": true,
+    "material_margin_rule": "Two-body velocity-Verlet vector RMSE must beat constant-velocity extrapolation and shuffled-target control must fail."
+  },
+  "negative_control": {
+    "control_id": "PHYS-JPL-HORIZONS-TARGET-REVERSAL-CONTROL",
+    "shuffled_model_vector_rmse": 12769653.13547071,
+    "negative_control_rejected": true
+  },
+  "falsifier": {
+    "falsifier_id": "PHYS-DYNAMICS-HORIZONS-STATE-FALSIFIER",
+    "trigger": "source hash changes, fewer than 20 hidden epochs score, next state leaks before scoring, or two-body residual does not beat constant-velocity comparator."
+  },
+  "scored_rows": [
+    {
+      "task_id": "PHYS-JPL-HORIZONS-DYNAMICS-HOLDOUT-0001",
+      "epoch_tdb": "A.D. 2026-Jan-01 00:00:00.0000",
+      "next_epoch_tdb": "A.D. 2026-Jan-02 00:00:00.0000",
+      "model_vector_rmse": 97.11822107,
+      "comparator_vector_rmse": 9295.22105582
+    },
+    {
+      "task_id": "PHYS-JPL-HORIZONS-DYNAMICS-HOLDOUT-0002",
+      "epoch_tdb": "A.D. 2026-Jan-02 00:00:00.0000",
+      "next_epoch_tdb": "A.D. 2026-Jan-03 00:00:00.0000",
+      "model_vector_rmse": 89.52063092,
+      "comparator_vector_rmse": 9290.11245091
+    },
+    {
+      "task_id": "PHYS-JPL-HORIZONS-DYNAMICS-HOLDOUT-0003",
+      "epoch_tdb": "A.D. 2026-Jan-03 00:00:00.0000",
+      "next_epoch_tdb": "A.D. 2026-Jan-04 00:00:00.0000",
+      "model_vector_rmse": 80.24463392,
+      "comparator_vector_rmse": 9288.68688358
+    },
+    {
+      "task_id": "PHYS-JPL-HORIZONS-DYNAMICS-HOLDOUT-0004",
+      "epoch_tdb": "A.D. 2026-Jan-04 00:00:00.0000",
+      "next_epoch_tdb": "A.D. 2026-Jan-05 00:00:00.0000",
+      "model_vector_rmse": 69.7154339,
+      "comparator_vector_rmse": 9290.92843431
+    },
+    {
+      "task_id": "PHYS-JPL-HORIZONS-DYNAMICS-HOLDOUT-0005",
+      "epoch_tdb": "A.D. 2026-Jan-05 00:00:00.0000",
+      "next_epoch_tdb": "A.D. 2026-Jan-06 00:00:00.0000",
+      "model_vector_rmse": 58.45246632,
+      "comparator_vector_rmse": 9296.2732091
+    },
+    {
+      "task_id": "PHYS-JPL-HORIZONS-DYNAMICS-HOLDOUT-0006",
+      "epoch_tdb": "A.D. 2026-Jan-06 00:00:00.0000",
+      "next_epoch_tdb": "A.D. 2026-Jan-07 00:00:00.0000",
+      "model_vector_rmse": 46.97118488,
+      "comparator_vector_rmse": 9303.82823066
+    },
+    {
+      "task_id": "PHYS-JPL-HORIZONS-DYNAMICS-HOLDOUT-0007",
+      "epoch_tdb": "A.D. 2026-Jan-07 00:00:00.0000",
+      "next_epoch_tdb": "A.D. 2026-Jan-08 00:00:00.0000",
+      "model_vector_rmse": 35.71550743,
+      "comparator_vector_rmse": 9312.64646644
+    },
+    {
+      "task_id": "PHYS-JPL-HORIZONS-DYNAMICS-HOLDOUT-0008",
+      "epoch_tdb": "A.D. 2026-Jan-08 00:00:00.0000",
+      "next_epoch_tdb": "A.D. 2026-Jan-09 00:00:00.0000",
+      "model_vector_rmse": 25.07071321,
+      "comparator_vector_rmse": 9321.93122133
+    },
+    {
+      "task_id": "PHYS-JPL-HORIZONS-DYNAMICS-HOLDOUT-0009",
+      "epoch_tdb": "A.D. 2026-Jan-09 00:00:00.0000",
+      "next_epoch_tdb": "A.D. 2026-Jan-10 00:00:00.0000",
+      "model_vector_rmse": 15.5967012,
+      "comparator_vector_rmse": 9331.12126273
+    },
+    {
+      "task_id": "PHYS-JPL-HORIZONS-DYNAMICS-HOLDOUT-0010",
+      "epoch_tdb": "A.D. 2026-Jan-10 00:00:00.0000",
+      "next_epoch_tdb": "A.D. 2026-Jan-11 00:00:00.0000",
+      "model_vector_rmse": 9.38829635,
+      "comparator_vector_rmse": 9339.87941313
+    },
+    {
+      "task_id": "PHYS-JPL-HORIZONS-DYNAMICS-HOLDOUT-0011",
+      "epoch_tdb": "A.D. 2026-Jan-11 00:00:00.0000",
+      "next_epoch_tdb": "A.D. 2026-Jan-12 00:00:00.0000",
+      "model_vector_rmse": 11.5228639,
+      "comparator_vector_rmse": 9348.03228587
+    },
+    {
+      "task_id": "PHYS-JPL-HORIZONS-DYNAMICS-HOLDOUT-0012",
+      "epoch_tdb": "A.D. 2026-Jan-12 00:00:00.0000",
+      "next_epoch_tdb": "A.D. 2026-Jan-13 00:00:00.0000",
+      "model_vector_rmse": 18.79766697,
+      "comparator_vector_rmse": 9355.49947767
+    },
+    {
+      "task_id": "PHYS-JPL-HORIZONS-DYNAMICS-HOLDOUT-0013",
+      "epoch_tdb": "A.D. 2026-Jan-13 00:00:00.0000",
+      "next_epoch_tdb": "A.D. 2026-Jan-14 00:00:00.0000",
+      "model_vector_rmse": 27.09008516,
+      "comparator_vector_rmse": 9362.23210522
+    },
+    {
+      "task_id": "PHYS-JPL-HORIZONS-DYNAMICS-HOLDOUT-0014",
+      "epoch_tdb": "A.D. 2026-Jan-14 00:00:00.0000",
+      "next_epoch_tdb": "A.D. 2026-Jan-15 00:00:00.0000",
+      "model_vector_rmse": 35.56277035,
+      "comparator_vector_rmse": 9368.16719832
+    },
+    {
+      "task_id": "PHYS-JPL-HORIZONS-DYNAMICS-HOLDOUT-0015",
+      "epoch_tdb": "A.D. 2026-Jan-15 00:00:00.0000",
+      "next_epoch_tdb": "A.D. 2026-Jan-16 00:00:00.0000",
+      "model_vector_rmse": 44.04096404,
+      "comparator_vector_rmse": 9373.19854928
+    },
+    {
+      "task_id": "PHYS-JPL-HORIZONS-DYNAMICS-HOLDOUT-0016",
+      "epoch_tdb": "A.D. 2026-Jan-16 00:00:00.0000",
+      "next_epoch_tdb": "A.D. 2026-Jan-17 00:00:00.0000",
+      "model_vector_rmse": 52.45831343,
+      "comparator_vector_rmse": 9377.16351817
+    },
+    {
+      "task_id": "PHYS-JPL-HORIZONS-DYNAMICS-HOLDOUT-0017",
+      "epoch_tdb": "A.D. 2026-Jan-17 00:00:00.0000",
+      "next_epoch_tdb": "A.D. 2026-Jan-18 00:00:00.0000",
+      "model_vector_rmse": 60.74904733,
+      "comparator_vector_rmse": 9379.84576823
+    },
+    {
+      "task_id": "PHYS-JPL-HORIZONS-DYNAMICS-HOLDOUT-0018",
+      "epoch_tdb": "A.D. 2026-Jan-18 00:00:00.0000",
+      "next_epoch_tdb": "A.D. 2026-Jan-19 00:00:00.0000",
+      "model_vector_rmse": 68.82181452,
+      "comparator_vector_rmse": 9380.99363831
+    },
+    {
+      "task_id": "PHYS-JPL-HORIZONS-DYNAMICS-HOLDOUT-0019",
+      "epoch_tdb": "A.D. 2026-Jan-19 00:00:00.0000",
+      "next_epoch_tdb": "A.D. 2026-Jan-20 00:00:00.0000",
+      "model_vector_rmse": 76.55719474,
+      "comparator_vector_rmse": 9380.35169989
+    },
+    {
+      "task_id": "PHYS-JPL-HORIZONS-DYNAMICS-HOLDOUT-0020",
+      "epoch_tdb": "A.D. 2026-Jan-20 00:00:00.0000",
+      "next_epoch_tdb": "A.D. 2026-Jan-21 00:00:00.0000",
+      "model_vector_rmse": 83.81510193,
+      "comparator_vector_rmse": 9377.69961681
+    },
+    {
+      "task_id": "PHYS-JPL-HORIZONS-DYNAMICS-HOLDOUT-0021",
+      "epoch_tdb": "A.D. 2026-Jan-21 00:00:00.0000",
+      "next_epoch_tdb": "A.D. 2026-Jan-22 00:00:00.0000",
+      "model_vector_rmse": 90.44590656,
+      "comparator_vector_rmse": 9372.88969904
+    },
+    {
+      "task_id": "PHYS-JPL-HORIZONS-DYNAMICS-HOLDOUT-0022",
+      "epoch_tdb": "A.D. 2026-Jan-22 00:00:00.0000",
+      "next_epoch_tdb": "A.D. 2026-Jan-23 00:00:00.0000",
+      "model_vector_rmse": 96.30048817,
+      "comparator_vector_rmse": 9365.8750779
+    },
+    {
+      "task_id": "PHYS-JPL-HORIZONS-DYNAMICS-HOLDOUT-0023",
+      "epoch_tdb": "A.D. 2026-Jan-23 00:00:00.0000",
+      "next_epoch_tdb": "A.D. 2026-Jan-24 00:00:00.0000",
+      "model_vector_rmse": 101.2355214,
+      "comparator_vector_rmse": 9356.72516405
+    },
+    {
+      "task_id": "PHYS-JPL-HORIZONS-DYNAMICS-HOLDOUT-0024",
+      "epoch_tdb": "A.D. 2026-Jan-24 00:00:00.0000",
+      "next_epoch_tdb": "A.D. 2026-Jan-25 00:00:00.0000",
+      "model_vector_rmse": 105.11252963,
+      "comparator_vector_rmse": 9345.63197814
+    }
+  ],
+  "replay_command": {
+    "commands": [
+      "python validation/heldout/grand_science/physics_chemistry/dynamics_jpl_horizons/oc133_physics_jpl_horizons_dynamics_materializer.py --check"
+    ]
+  },
+  "fail_closed_reason": ""
+}

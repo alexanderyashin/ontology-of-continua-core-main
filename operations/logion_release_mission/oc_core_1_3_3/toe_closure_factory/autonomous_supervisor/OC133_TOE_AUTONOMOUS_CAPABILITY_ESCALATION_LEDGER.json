@@ -1,7 +1,7 @@
 {
-  "artifact_hash": "a4239b71eb2b9688f71b3e191b21c30a5b9718a50abea63b3a5e863e6369e878",
+  "artifact_hash": "c929b56e8db078bd7d8e6550b2c29c32cf5608a2b80d735a5c5c7ece9a6cde33",
   "capability_escalation_total": 227,
-  "generated_at": "2026-05-06T16:34:35Z",
+  "generated_at": "2026-05-06T16:59:05Z",
   "rows": [
     {
       "capability_class": "upstream_source_materializer_missing",
@@ -1665,10 +1665,10 @@
       "work_order_type": "SOURCE_BOUND_SCORER_MATERIALIZER_IMPLEMENTATION"
     },
     {
-      "capability_class": "upstream_source_materializer_missing",
+      "capability_class": "upstream_capability_work_order",
       "capability_development_id": "R017-UPSTREAM-b2cb2f14989618d4",
       "capability_development_key": "524fe4b7acf845f5fcec02c4178a94a5234b18dc2bfd38c123a68071123ba37f",
-      "capability_executor_ready": false,
+      "capability_executor_ready": true,
       "capability_id": "R017-CAPDEV-524fe4b7acf8",
       "compiled_capability_id": "R017-CAPDEV-524fe4b7acf8",
       "compiled_capability_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/OC133_TOE_CAPABILITY_IMPLEMENTATION_REGISTRY.json",
@@ -1681,7 +1681,13 @@
         "--write"
       ],
       "gap_id": "MS-COV-GAP-PHYSICAL_SCIENCES-DYNAMICAL_LAWS_AND_CONSERVATION",
-      "implementation_command": [],
+      "implementation_command": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "tools/oc133_toe_closure_factory.py",
+        "--execute-upstream-capability-work-order",
+        "R017-UPSTREAM-b2cb2f14989618d4",
+        "--write"
+      ],
       "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
       "missing_artifact_type": "upstream_work_order::SOURCE_BOUND_SCORER_MATERIALIZER_IMPLEMENTATION",
       "next_escalation": "If this compiled capability produces zero validator delta, generate a lower-level upstream research obligation for the exact missing source/evidence object.",
@@ -2036,10 +2042,10 @@
       "work_order_type": "SOURCE_BOUND_SCORER_MATERIALIZER_IMPLEMENTATION"
     },
     {
-      "capability_class": "upstream_source_materializer_missing",
+      "capability_class": "upstream_capability_work_order",
       "capability_development_id": "R017-UPSTREAM-27e2864c70cd48b3",
       "capability_development_key": "9a74cfc85b41683fc8fbaccd042a2fa922554872cfec632402375666845abf1a",
-      "capability_executor_ready": false,
+      "capability_executor_ready": true,
       "capability_id": "R017-CAPDEV-9a74cfc85b41",
       "compiled_capability_id": "R017-CAPDEV-9a74cfc85b41",
       "compiled_capability_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/OC133_TOE_CAPABILITY_IMPLEMENTATION_REGISTRY.json",
@@ -2052,7 +2058,13 @@
         "--write"
       ],
       "gap_id": "MS-COV-GAP-PHYSICAL_SCIENCES-DYNAMICAL_LAWS_AND_CONSERVATION",
-      "implementation_command": [],
+      "implementation_command": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "tools/oc133_toe_closure_factory.py",
+        "--execute-upstream-capability-work-order",
+        "R017-UPSTREAM-27e2864c70cd48b3",
+        "--write"
+      ],
       "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
       "missing_artifact_type": "upstream_work_order::SOURCE_BOUND_SCORER_MATERIALIZER_IMPLEMENTATION",
       "next_escalation": "If this compiled capability produces zero validator delta, generate a lower-level upstream research obligation for the exact missing source/evidence object.",
@@ -4644,13 +4656,7 @@
       "capability_id": "R017-CAPDEV-5e18bc30bbd4",
       "compiled_capability_id": "R017-CAPDEV-5e18bc30bbd4",
       "compiled_capability_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/OC133_TOE_CAPABILITY_IMPLEMENTATION_REGISTRY.json",
-      "execution_command": [
-        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
-        "tools/oc133_toe_closure_factory.py",
-        "--execute-capability-development",
-        "R017-CAPDEV-5e18bc30bbd4",
-        "--write"
-      ],
+      "execution_command": [],
       "executor_type": "comparator_research_artifact_repair",
       "frontier_repeated": true,
       "gap_id": "MS-COV-GAP-PHYSICAL_SCIENCES-DYNAMICAL_LAWS_AND_CONSERVATION",
@@ -4662,7 +4668,7 @@
       "implementation_gap_class": "ZERO_DELTA_GRAPH_DEPENDENCY",
       "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
       "missing_artifact_type": "oc_prediction_scoring_row",
-      "next_escalation": "Research artifact exists but is OPEN; execute its repair row or implement the missing scorer/replay capability. Do not mark this dependency PASS until the artifact itself passes.",
+      "next_escalation": "The source comparator action no longer exists on the current scientific frontier; the row is retained as historical zero-delta evidence and excluded from execution.",
       "pass_predicate": "The repaired OC scoring research artifact status becomes PASS and the comparator gap no longer lists oc_prediction_scoring_row as missing.",
       "repair_strategy": "Diagnose whether the model, comparator, target split, or claim scope must be repaired without flipping the verdict manually.",
       "required_capability": "Research/ScoringExecutor",
@@ -4674,7 +4680,9 @@
       "source_action_id": "AUTO-R017-COMPARATOR-GAP-0b738a7b9d4e",
       "source_graph_node_id": "required_artifact:MODERN_SCIENCE_COMPARATOR_SUPERIORITY:MS-COV-GAP-PHYSICAL_SCIENCES-DYNAMICAL_LAWS_AND_CONSERVATION:oc_prediction_scoring_row",
       "source_graph_node_type": "required_artifact",
-      "status": "OPEN",
+      "status": "PASS",
+      "superseded_by_absent_source_action": true,
+      "superseded_by_research_artifact": true,
       "validator_binding": "support_artifact::MODERN_SCIENCE_COMPARATOR_SUPERIORITY::oc_prediction_scoring_row",
       "why_it_failed": "The evidence pack is explicitly fail-closed; broad superiority cannot use it."
     },
@@ -5976,13 +5984,7 @@
       "capability_id": "R017-CAPDEV-845a52e56b98",
       "compiled_capability_id": "R017-CAPDEV-845a52e56b98",
       "compiled_capability_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/OC133_TOE_CAPABILITY_IMPLEMENTATION_REGISTRY.json",
-      "execution_command": [
-        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
-        "tools/oc133_toe_closure_factory.py",
-        "--execute-capability-development",
-        "R017-CAPDEV-845a52e56b98",
-        "--write"
-      ],
+      "execution_command": [],
       "executor_type": "comparator_research_artifact_repair",
       "frontier_repeated": true,
       "gap_id": "MS-COV-GAP-PHYSICAL_SCIENCES-DYNAMICAL_LAWS_AND_CONSERVATION",
@@ -5994,7 +5996,7 @@
       "implementation_gap_class": "ZERO_DELTA_GRAPH_DEPENDENCY",
       "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
       "missing_artifact_type": "replay_record",
-      "next_escalation": "Research artifact exists but is OPEN; execute its repair row or implement the missing scorer/replay capability. Do not mark this dependency PASS until the artifact itself passes.",
+      "next_escalation": "The source comparator action no longer exists on the current scientific frontier; the row is retained as historical zero-delta evidence and excluded from execution.",
       "pass_predicate": "The repaired `replay_record` research artifact status becomes PASS and the comparator gap no longer lists it as missing.",
       "repair_strategy": "Close the OC scoring row first, then rerun replay.",
       "required_capability": "Research/ScoringExecutor",
@@ -6006,7 +6008,9 @@
       "source_action_id": "AUTO-R017-COMPARATOR-GAP-b2e551da7564",
       "source_graph_node_id": "required_artifact:MODERN_SCIENCE_COMPARATOR_SUPERIORITY:MS-COV-GAP-PHYSICAL_SCIENCES-DYNAMICAL_LAWS_AND_CONSERVATION:replay_record",
       "source_graph_node_type": "required_artifact",
-      "status": "OPEN",
+      "status": "PASS",
+      "superseded_by_absent_source_action": true,
+      "superseded_by_research_artifact": true,
       "validator_binding": "support_artifact::MODERN_SCIENCE_COMPARATOR_SUPERIORITY::replay_record",
       "why_it_failed": "Replay is correctly blocked because the upstream scoring evidence is not passing."
     },
@@ -8214,51 +8218,9 @@
       "why_it_failed": "The action did not reduce strict validator errors on this semantic frontier."
     },
     {
-      "capability_development_id": "AUTO-R017-CAPABILITY-DEVELOPMENT-0026-ba91d6d3",
-      "capability_development_key": "d595dc3def60480c590796c893bb7a1eb3df144dce62df2753000918c7ff225f",
-      "capability_escalation_id": "AUTO-R017-CAPABILITY-ESCALATION-0026",
-      "capability_executor_ready": false,
-      "execution_command": [
-        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
-        "tools/oc133_toe_closure_factory.py",
-        "--execute-comparator-research-artifact-repair",
-        "R017-RESEARCH-ARTIFACT-REPAIR-4bcd28712a6100c5",
-        "--write"
-      ],
-      "executor_type": "comparator_research_artifact_repair",
-      "frontier_repeated": true,
-      "graph_dependency_path": [
-        "required_artifact:MODERN_SCIENCE_COMPARATOR_SUPERIORITY:MS-COV-GAP-PHYSICAL_SCIENCES-DYNAMICAL_LAWS_AND_CONSERVATION:oc_prediction_scoring_row",
-        "capability:AUTO-R017-COMPARATOR-GAP-0b738a7b9d4e"
-      ],
-      "implementation_command": [
-        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
-        "tools/oc133_toe_autonomous_supervisor.py",
-        "--write",
-        "--until-r017-pass",
-        "--max-iterations",
-        "0",
-        "--resume"
-      ],
-      "implementation_gap_class": "ZERO_DELTA_GRAPH_DEPENDENCY",
-      "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
-      "missing_artifact_type": "oc_prediction_scoring_row",
-      "next_escalation": "This exact action has already been tried on this semantic frontier; create a narrower capability work order instead of rerunning it.",
-      "pass_predicate": "The repaired OC scoring research artifact status becomes PASS and the comparator gap no longer lists oc_prediction_scoring_row as missing.",
-      "repair_strategy": "Create a narrower source-bound executor for the exact missing artifact class before rerunning the same action.",
-      "required_capability": "Research/ScoringExecutor",
-      "scientific_frontier_hash": "632ddf9bd86533cf0263b3665f34815254d63b53551396a7e842d5bb616569cb",
-      "source_action_id": "AUTO-R017-COMPARATOR-GAP-0b738a7b9d4e",
-      "source_graph_node_id": "required_artifact:MODERN_SCIENCE_COMPARATOR_SUPERIORITY:MS-COV-GAP-PHYSICAL_SCIENCES-DYNAMICAL_LAWS_AND_CONSERVATION:oc_prediction_scoring_row",
-      "source_graph_node_type": "required_artifact",
-      "status": "OPEN",
-      "validator_binding": "support_artifact::MODERN_SCIENCE_COMPARATOR_SUPERIORITY::oc_prediction_scoring_row",
-      "why_it_failed": "The action did not reduce strict validator errors on this semantic frontier."
-    },
-    {
-      "capability_development_id": "AUTO-R017-CAPABILITY-DEVELOPMENT-0027-bcf668d7",
+      "capability_development_id": "AUTO-R017-CAPABILITY-DEVELOPMENT-0026-bcf668d7",
       "capability_development_key": "f0cc583461547b602914d4c2e89943a8ca50a4c03446e6f5b084eefdd78ad2b9",
-      "capability_escalation_id": "AUTO-R017-CAPABILITY-ESCALATION-0027",
+      "capability_escalation_id": "AUTO-R017-CAPABILITY-ESCALATION-0026",
       "capability_executor_ready": false,
       "execution_command": [
         "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
@@ -8298,9 +8260,9 @@
       "why_it_failed": "The action did not reduce strict validator errors on this semantic frontier."
     },
     {
-      "capability_development_id": "AUTO-R017-CAPABILITY-DEVELOPMENT-0028-0a7e1ebc",
+      "capability_development_id": "AUTO-R017-CAPABILITY-DEVELOPMENT-0027-0a7e1ebc",
       "capability_development_key": "534642fcabbbed292042b8f10c94b1ce7a71fa4d6be6b8be26b3ab7bd2525976",
-      "capability_escalation_id": "AUTO-R017-CAPABILITY-ESCALATION-0028",
+      "capability_escalation_id": "AUTO-R017-CAPABILITY-ESCALATION-0027",
       "capability_executor_ready": false,
       "execution_command": [
         "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
@@ -8340,9 +8302,9 @@
       "why_it_failed": "The action did not reduce strict validator errors on this semantic frontier."
     },
     {
-      "capability_development_id": "AUTO-R017-CAPABILITY-DEVELOPMENT-0029-9f8c32f0",
+      "capability_development_id": "AUTO-R017-CAPABILITY-DEVELOPMENT-0028-9f8c32f0",
       "capability_development_key": "68b8cef02b4abe1659e98a11a8631bcf39a5146a6ebeaf2f90bb05caefb6e478",
-      "capability_escalation_id": "AUTO-R017-CAPABILITY-ESCALATION-0029",
+      "capability_escalation_id": "AUTO-R017-CAPABILITY-ESCALATION-0028",
       "capability_executor_ready": false,
       "execution_command": [
         "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
@@ -8382,9 +8344,9 @@
       "why_it_failed": "The action did not reduce strict validator errors on this semantic frontier."
     },
     {
-      "capability_development_id": "AUTO-R017-CAPABILITY-DEVELOPMENT-0030-b51b4db4",
+      "capability_development_id": "AUTO-R017-CAPABILITY-DEVELOPMENT-0029-b51b4db4",
       "capability_development_key": "0d8ca42734e358498c0e8b30f98c24f6698394e0c62be71735e712c6ffcdcc85",
-      "capability_escalation_id": "AUTO-R017-CAPABILITY-ESCALATION-0030",
+      "capability_escalation_id": "AUTO-R017-CAPABILITY-ESCALATION-0029",
       "capability_executor_ready": false,
       "execution_command": [
         "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
@@ -8424,9 +8386,9 @@
       "why_it_failed": "The action did not reduce strict validator errors on this semantic frontier."
     },
     {
-      "capability_development_id": "AUTO-R017-CAPABILITY-DEVELOPMENT-0031-baf66042",
+      "capability_development_id": "AUTO-R017-CAPABILITY-DEVELOPMENT-0030-baf66042",
       "capability_development_key": "33459a9a13104667103513791ca58c3d3c24f8e6c46680396c82c42faaed54f0",
-      "capability_escalation_id": "AUTO-R017-CAPABILITY-ESCALATION-0031",
+      "capability_escalation_id": "AUTO-R017-CAPABILITY-ESCALATION-0030",
       "capability_executor_ready": false,
       "execution_command": [
         "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
@@ -8466,9 +8428,9 @@
       "why_it_failed": "The action did not reduce strict validator errors on this semantic frontier."
     },
     {
-      "capability_development_id": "AUTO-R017-CAPABILITY-DEVELOPMENT-0032-423f3f7a",
+      "capability_development_id": "AUTO-R017-CAPABILITY-DEVELOPMENT-0031-423f3f7a",
       "capability_development_key": "602334a5196ca51d7af120f6f57c44c56ee0e54351bcac5356eb75e4d67b745a",
-      "capability_escalation_id": "AUTO-R017-CAPABILITY-ESCALATION-0032",
+      "capability_escalation_id": "AUTO-R017-CAPABILITY-ESCALATION-0031",
       "capability_executor_ready": false,
       "execution_command": [
         "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
@@ -8508,9 +8470,9 @@
       "why_it_failed": "The action did not reduce strict validator errors on this semantic frontier."
     },
     {
-      "capability_development_id": "AUTO-R017-CAPABILITY-DEVELOPMENT-0033-4e862d0a",
+      "capability_development_id": "AUTO-R017-CAPABILITY-DEVELOPMENT-0032-4e862d0a",
       "capability_development_key": "3d5b3b178a096bd590572efe261041c6acf14e74afeb3106720771ceb1a40579",
-      "capability_escalation_id": "AUTO-R017-CAPABILITY-ESCALATION-0033",
+      "capability_escalation_id": "AUTO-R017-CAPABILITY-ESCALATION-0032",
       "capability_executor_ready": false,
       "execution_command": [
         "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
@@ -8550,9 +8512,9 @@
       "why_it_failed": "The action did not reduce strict validator errors on this semantic frontier."
     },
     {
-      "capability_development_id": "AUTO-R017-CAPABILITY-DEVELOPMENT-0034-3035d4d0",
+      "capability_development_id": "AUTO-R017-CAPABILITY-DEVELOPMENT-0033-3035d4d0",
       "capability_development_key": "f5ac5a888790e629b7f63ea42bbdefda6d609c3482c386ef60f15b9c84bc4302",
-      "capability_escalation_id": "AUTO-R017-CAPABILITY-ESCALATION-0034",
+      "capability_escalation_id": "AUTO-R017-CAPABILITY-ESCALATION-0033",
       "capability_executor_ready": false,
       "execution_command": [
         "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
@@ -8592,9 +8554,9 @@
       "why_it_failed": "The action did not reduce strict validator errors on this semantic frontier."
     },
     {
-      "capability_development_id": "AUTO-R017-CAPABILITY-DEVELOPMENT-0035-f8b9cabc",
+      "capability_development_id": "AUTO-R017-CAPABILITY-DEVELOPMENT-0034-f8b9cabc",
       "capability_development_key": "6bf325e11804e03f66a8154b8db24bee56d9b100ec2d71e15eb8fc3c364490d7",
-      "capability_escalation_id": "AUTO-R017-CAPABILITY-ESCALATION-0035",
+      "capability_escalation_id": "AUTO-R017-CAPABILITY-ESCALATION-0034",
       "capability_executor_ready": false,
       "execution_command": [
         "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
@@ -8634,9 +8596,9 @@
       "why_it_failed": "The action did not reduce strict validator errors on this semantic frontier."
     },
     {
-      "capability_development_id": "AUTO-R017-CAPABILITY-DEVELOPMENT-0036-0d490dcb",
+      "capability_development_id": "AUTO-R017-CAPABILITY-DEVELOPMENT-0035-0d490dcb",
       "capability_development_key": "5eb350fef1c0c3b09f822a1b40fa4e2ef185502039f4376d3f4ef4b5f941799d",
-      "capability_escalation_id": "AUTO-R017-CAPABILITY-ESCALATION-0036",
+      "capability_escalation_id": "AUTO-R017-CAPABILITY-ESCALATION-0035",
       "capability_executor_ready": false,
       "execution_command": [
         "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
@@ -8676,9 +8638,9 @@
       "why_it_failed": "The action did not reduce strict validator errors on this semantic frontier."
     },
     {
-      "capability_development_id": "AUTO-R017-CAPABILITY-DEVELOPMENT-0037-4e711b0f",
+      "capability_development_id": "AUTO-R017-CAPABILITY-DEVELOPMENT-0036-4e711b0f",
       "capability_development_key": "c97ac6c88b7b8fcff702f3ff1a65057d7cb55246bdd455b2a10af7222b346593",
-      "capability_escalation_id": "AUTO-R017-CAPABILITY-ESCALATION-0037",
+      "capability_escalation_id": "AUTO-R017-CAPABILITY-ESCALATION-0036",
       "capability_executor_ready": false,
       "execution_command": [
         "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
@@ -8718,9 +8680,9 @@
       "why_it_failed": "The action did not reduce strict validator errors on this semantic frontier."
     },
     {
-      "capability_development_id": "AUTO-R017-CAPABILITY-DEVELOPMENT-0038-9c54645c",
+      "capability_development_id": "AUTO-R017-CAPABILITY-DEVELOPMENT-0037-9c54645c",
       "capability_development_key": "010205ec74688ec77d5aabed6e95d86b2e74526e4dc39200255a6c087b59fe87",
-      "capability_escalation_id": "AUTO-R017-CAPABILITY-ESCALATION-0038",
+      "capability_escalation_id": "AUTO-R017-CAPABILITY-ESCALATION-0037",
       "capability_executor_ready": false,
       "execution_command": [
         "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
@@ -8760,9 +8722,9 @@
       "why_it_failed": "The action did not reduce strict validator errors on this semantic frontier."
     },
     {
-      "capability_development_id": "AUTO-R017-CAPABILITY-DEVELOPMENT-0039-e017f24f",
+      "capability_development_id": "AUTO-R017-CAPABILITY-DEVELOPMENT-0038-e017f24f",
       "capability_development_key": "3b6f755f3179255c84e0059540f4c8b51ce8c651ef88a3d7644ad9a0f53b1d44",
-      "capability_escalation_id": "AUTO-R017-CAPABILITY-ESCALATION-0039",
+      "capability_escalation_id": "AUTO-R017-CAPABILITY-ESCALATION-0038",
       "capability_executor_ready": false,
       "execution_command": [
         "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
@@ -8802,9 +8764,9 @@
       "why_it_failed": "The action did not reduce strict validator errors on this semantic frontier."
     },
     {
-      "capability_development_id": "AUTO-R017-CAPABILITY-DEVELOPMENT-0040-9898e2f2",
+      "capability_development_id": "AUTO-R017-CAPABILITY-DEVELOPMENT-0039-9898e2f2",
       "capability_development_key": "38e18c0be2df06c51e424e8dc58b66227f0f921487008dd2bf213bafacef136b",
-      "capability_escalation_id": "AUTO-R017-CAPABILITY-ESCALATION-0040",
+      "capability_escalation_id": "AUTO-R017-CAPABILITY-ESCALATION-0039",
       "capability_executor_ready": false,
       "execution_command": [
         "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
@@ -8844,9 +8806,9 @@
       "why_it_failed": "The action did not reduce strict validator errors on this semantic frontier."
     },
     {
-      "capability_development_id": "AUTO-R017-CAPABILITY-DEVELOPMENT-0041-a10c1da4",
+      "capability_development_id": "AUTO-R017-CAPABILITY-DEVELOPMENT-0040-a10c1da4",
       "capability_development_key": "e15ac199f323285dc9f15c83dcb1b839ef20368285fce5fde99b2dbd555f8b36",
-      "capability_escalation_id": "AUTO-R017-CAPABILITY-ESCALATION-0041",
+      "capability_escalation_id": "AUTO-R017-CAPABILITY-ESCALATION-0040",
       "capability_executor_ready": false,
       "execution_command": [
         "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
@@ -8886,9 +8848,9 @@
       "why_it_failed": "The action did not reduce strict validator errors on this semantic frontier."
     },
     {
-      "capability_development_id": "AUTO-R017-CAPABILITY-DEVELOPMENT-0042-fa8aff25",
+      "capability_development_id": "AUTO-R017-CAPABILITY-DEVELOPMENT-0041-fa8aff25",
       "capability_development_key": "9b40ad36d279df947bce835a65e7af394fb884d84b7105a27ee22b6ab9d53aa8",
-      "capability_escalation_id": "AUTO-R017-CAPABILITY-ESCALATION-0042",
+      "capability_escalation_id": "AUTO-R017-CAPABILITY-ESCALATION-0041",
       "capability_executor_ready": false,
       "execution_command": [
         "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
@@ -8928,9 +8890,9 @@
       "why_it_failed": "The action did not reduce strict validator errors on this semantic frontier."
     },
     {
-      "capability_development_id": "AUTO-R017-CAPABILITY-DEVELOPMENT-0043-2701dd85",
+      "capability_development_id": "AUTO-R017-CAPABILITY-DEVELOPMENT-0042-2701dd85",
       "capability_development_key": "2b64b0945bc714df3e0224c6b9b9ad6365a2ab32fa790d79c05db4c959e6fe70",
-      "capability_escalation_id": "AUTO-R017-CAPABILITY-ESCALATION-0043",
+      "capability_escalation_id": "AUTO-R017-CAPABILITY-ESCALATION-0042",
       "capability_executor_ready": false,
       "execution_command": [
         "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
@@ -8970,9 +8932,9 @@
       "why_it_failed": "The action did not reduce strict validator errors on this semantic frontier."
     },
     {
-      "capability_development_id": "AUTO-R017-CAPABILITY-DEVELOPMENT-0044-56b89624",
+      "capability_development_id": "AUTO-R017-CAPABILITY-DEVELOPMENT-0043-56b89624",
       "capability_development_key": "9c85233b7d5e0dd53548ab34e824e430325090071b6e324beee5f0ee54be9c4e",
-      "capability_escalation_id": "AUTO-R017-CAPABILITY-ESCALATION-0044",
+      "capability_escalation_id": "AUTO-R017-CAPABILITY-ESCALATION-0043",
       "capability_executor_ready": false,
       "execution_command": [
         "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
@@ -9012,9 +8974,9 @@
       "why_it_failed": "The action did not reduce strict validator errors on this semantic frontier."
     },
     {
-      "capability_development_id": "AUTO-R017-CAPABILITY-DEVELOPMENT-0045-e79dbb34",
+      "capability_development_id": "AUTO-R017-CAPABILITY-DEVELOPMENT-0044-e79dbb34",
       "capability_development_key": "3319cc566e7989dfda75411ce92a6d10ec6a501f573ba67452c317272557af6c",
-      "capability_escalation_id": "AUTO-R017-CAPABILITY-ESCALATION-0045",
+      "capability_escalation_id": "AUTO-R017-CAPABILITY-ESCALATION-0044",
       "capability_executor_ready": false,
       "execution_command": [
         "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
@@ -9054,9 +9016,9 @@
       "why_it_failed": "The action did not reduce strict validator errors on this semantic frontier."
     },
     {
-      "capability_development_id": "AUTO-R017-CAPABILITY-DEVELOPMENT-0046-50c4bf18",
+      "capability_development_id": "AUTO-R017-CAPABILITY-DEVELOPMENT-0045-50c4bf18",
       "capability_development_key": "4ba63d9b404b2a02d0c1e40d8a01a11f0ca1589a1bacfe6eab36c3960c5fc880",
-      "capability_escalation_id": "AUTO-R017-CAPABILITY-ESCALATION-0046",
+      "capability_escalation_id": "AUTO-R017-CAPABILITY-ESCALATION-0045",
       "capability_executor_ready": false,
       "execution_command": [
         "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
@@ -9096,9 +9058,9 @@
       "why_it_failed": "The action did not reduce strict validator errors on this semantic frontier."
     },
     {
-      "capability_development_id": "AUTO-R017-CAPABILITY-DEVELOPMENT-0047-69688fe9",
+      "capability_development_id": "AUTO-R017-CAPABILITY-DEVELOPMENT-0046-69688fe9",
       "capability_development_key": "85d203bfaee2f88bda205cac173e7b405cc3178f5841aa9ccb403b310f154ad0",
-      "capability_escalation_id": "AUTO-R017-CAPABILITY-ESCALATION-0047",
+      "capability_escalation_id": "AUTO-R017-CAPABILITY-ESCALATION-0046",
       "capability_executor_ready": false,
       "execution_command": [
         "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
@@ -9138,9 +9100,9 @@
       "why_it_failed": "The action did not reduce strict validator errors on this semantic frontier."
     },
     {
-      "capability_development_id": "AUTO-R017-CAPABILITY-DEVELOPMENT-0048-06a91999",
+      "capability_development_id": "AUTO-R017-CAPABILITY-DEVELOPMENT-0047-06a91999",
       "capability_development_key": "a14afd09dc9fd102ba11654e1e04c5b6a86e6841b61691976104eabd7f08da7e",
-      "capability_escalation_id": "AUTO-R017-CAPABILITY-ESCALATION-0048",
+      "capability_escalation_id": "AUTO-R017-CAPABILITY-ESCALATION-0047",
       "capability_executor_ready": false,
       "execution_command": [
         "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
@@ -9180,9 +9142,9 @@
       "why_it_failed": "The action did not reduce strict validator errors on this semantic frontier."
     },
     {
-      "capability_development_id": "AUTO-R017-CAPABILITY-DEVELOPMENT-0049-70953577",
+      "capability_development_id": "AUTO-R017-CAPABILITY-DEVELOPMENT-0048-70953577",
       "capability_development_key": "891cfa808afdfb684e0db04070963b47d8402cf0f07f13a4eecc4a88402a64ae",
-      "capability_escalation_id": "AUTO-R017-CAPABILITY-ESCALATION-0049",
+      "capability_escalation_id": "AUTO-R017-CAPABILITY-ESCALATION-0048",
       "capability_executor_ready": false,
       "execution_command": [
         "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
@@ -9222,9 +9184,9 @@
       "why_it_failed": "The action did not reduce strict validator errors on this semantic frontier."
     },
     {
-      "capability_development_id": "AUTO-R017-CAPABILITY-DEVELOPMENT-0050-cbf79531",
+      "capability_development_id": "AUTO-R017-CAPABILITY-DEVELOPMENT-0049-cbf79531",
       "capability_development_key": "757943269bcdc3e6e21fee46c7afe81cbf97341b910e86f3a4bdbb6e5136e5b6",
-      "capability_escalation_id": "AUTO-R017-CAPABILITY-ESCALATION-0050",
+      "capability_escalation_id": "AUTO-R017-CAPABILITY-ESCALATION-0049",
       "capability_executor_ready": false,
       "execution_command": [
         "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
@@ -9264,9 +9226,9 @@
       "why_it_failed": "The action did not reduce strict validator errors on this semantic frontier."
     },
     {
-      "capability_development_id": "AUTO-R017-CAPABILITY-DEVELOPMENT-0051-5a140a09",
+      "capability_development_id": "AUTO-R017-CAPABILITY-DEVELOPMENT-0050-5a140a09",
       "capability_development_key": "27498239702e71569adead6adb9f4bf568b8bbf45dfa4f74787929193699dcc7",
-      "capability_escalation_id": "AUTO-R017-CAPABILITY-ESCALATION-0051",
+      "capability_escalation_id": "AUTO-R017-CAPABILITY-ESCALATION-0050",
       "capability_executor_ready": false,
       "execution_command": [
         "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
@@ -9306,9 +9268,9 @@
       "why_it_failed": "The action did not reduce strict validator errors on this semantic frontier."
     },
     {
-      "capability_development_id": "AUTO-R017-CAPABILITY-DEVELOPMENT-0052-23b64305",
+      "capability_development_id": "AUTO-R017-CAPABILITY-DEVELOPMENT-0051-23b64305",
       "capability_development_key": "74f40e7f52918a0f11c5a765ea6ce79e7886804676d3fdabadab90b00243e11d",
-      "capability_escalation_id": "AUTO-R017-CAPABILITY-ESCALATION-0052",
+      "capability_escalation_id": "AUTO-R017-CAPABILITY-ESCALATION-0051",
       "capability_executor_ready": false,
       "execution_command": [
         "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
@@ -9348,9 +9310,9 @@
       "why_it_failed": "The action did not reduce strict validator errors on this semantic frontier."
     },
     {
-      "capability_development_id": "AUTO-R017-CAPABILITY-DEVELOPMENT-0053-e8cf10ac",
+      "capability_development_id": "AUTO-R017-CAPABILITY-DEVELOPMENT-0052-e8cf10ac",
       "capability_development_key": "93065f77cf32708237cd8637d49ca13558507156cf5c08085b097a7bfc758504",
-      "capability_escalation_id": "AUTO-R017-CAPABILITY-ESCALATION-0053",
+      "capability_escalation_id": "AUTO-R017-CAPABILITY-ESCALATION-0052",
       "capability_executor_ready": false,
       "execution_command": [
         "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
@@ -9390,9 +9352,9 @@
       "why_it_failed": "The action did not reduce strict validator errors on this semantic frontier."
     },
     {
-      "capability_development_id": "AUTO-R017-CAPABILITY-DEVELOPMENT-0054-c2d54ba3",
+      "capability_development_id": "AUTO-R017-CAPABILITY-DEVELOPMENT-0053-c2d54ba3",
       "capability_development_key": "4249d0657bcfc201da4e83ddace3f00a83185b83b435254f3cabeffe4f5d4d5c",
-      "capability_escalation_id": "AUTO-R017-CAPABILITY-ESCALATION-0054",
+      "capability_escalation_id": "AUTO-R017-CAPABILITY-ESCALATION-0053",
       "capability_executor_ready": false,
       "execution_command": [
         "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
@@ -9432,9 +9394,9 @@
       "why_it_failed": "The action did not reduce strict validator errors on this semantic frontier."
     },
     {
-      "capability_development_id": "AUTO-R017-CAPABILITY-DEVELOPMENT-0055-36dfe8df",
+      "capability_development_id": "AUTO-R017-CAPABILITY-DEVELOPMENT-0054-36dfe8df",
       "capability_development_key": "283f9d189fed5d3368ab94ef49968651cf2e64c3e6ce3d6ae6351a3be904dc6d",
-      "capability_escalation_id": "AUTO-R017-CAPABILITY-ESCALATION-0055",
+      "capability_escalation_id": "AUTO-R017-CAPABILITY-ESCALATION-0054",
       "capability_executor_ready": false,
       "execution_command": [
         "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
@@ -9474,51 +9436,9 @@
       "why_it_failed": "The action did not reduce strict validator errors on this semantic frontier."
     },
     {
-      "capability_development_id": "AUTO-R017-CAPABILITY-DEVELOPMENT-0056-b7d41f9e",
-      "capability_development_key": "4bc7cbee785157d6b010b4abd56300126f35e8a86e73f97afebe9ba863815437",
-      "capability_escalation_id": "AUTO-R017-CAPABILITY-ESCALATION-0056",
-      "capability_executor_ready": false,
-      "execution_command": [
-        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
-        "tools/oc133_toe_closure_factory.py",
-        "--execute-comparator-research-artifact-repair",
-        "R017-RESEARCH-ARTIFACT-REPAIR-f578825c1323a69f",
-        "--write"
-      ],
-      "executor_type": "comparator_research_artifact_repair",
-      "frontier_repeated": true,
-      "graph_dependency_path": [
-        "required_artifact:MODERN_SCIENCE_COMPARATOR_SUPERIORITY:MS-COV-GAP-PHYSICAL_SCIENCES-DYNAMICAL_LAWS_AND_CONSERVATION:replay_record",
-        "capability:AUTO-R017-COMPARATOR-GAP-b2e551da7564"
-      ],
-      "implementation_command": [
-        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
-        "tools/oc133_toe_autonomous_supervisor.py",
-        "--write",
-        "--until-r017-pass",
-        "--max-iterations",
-        "0",
-        "--resume"
-      ],
-      "implementation_gap_class": "ZERO_DELTA_GRAPH_DEPENDENCY",
-      "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
-      "missing_artifact_type": "replay_record",
-      "next_escalation": "This exact action has already been tried on this semantic frontier; create a narrower capability work order instead of rerunning it.",
-      "pass_predicate": "The repaired `replay_record` research artifact status becomes PASS and the comparator gap no longer lists it as missing.",
-      "repair_strategy": "Create a narrower source-bound executor for the exact missing artifact class before rerunning the same action.",
-      "required_capability": "Research/ScoringExecutor",
-      "scientific_frontier_hash": "632ddf9bd86533cf0263b3665f34815254d63b53551396a7e842d5bb616569cb",
-      "source_action_id": "AUTO-R017-COMPARATOR-GAP-b2e551da7564",
-      "source_graph_node_id": "required_artifact:MODERN_SCIENCE_COMPARATOR_SUPERIORITY:MS-COV-GAP-PHYSICAL_SCIENCES-DYNAMICAL_LAWS_AND_CONSERVATION:replay_record",
-      "source_graph_node_type": "required_artifact",
-      "status": "OPEN",
-      "validator_binding": "support_artifact::MODERN_SCIENCE_COMPARATOR_SUPERIORITY::replay_record",
-      "why_it_failed": "The action did not reduce strict validator errors on this semantic frontier."
-    },
-    {
-      "capability_development_id": "AUTO-R017-CAPABILITY-DEVELOPMENT-0057-25fc864b",
+      "capability_development_id": "AUTO-R017-CAPABILITY-DEVELOPMENT-0055-25fc864b",
       "capability_development_key": "7c47046d3fe9657558afb0f965b45aef791f5515b50a97793cffb1b1914dd5d0",
-      "capability_escalation_id": "AUTO-R017-CAPABILITY-ESCALATION-0057",
+      "capability_escalation_id": "AUTO-R017-CAPABILITY-ESCALATION-0055",
       "capability_executor_ready": false,
       "execution_command": [
         "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
@@ -9558,9 +9478,9 @@
       "why_it_failed": "The action did not reduce strict validator errors on this semantic frontier."
     },
     {
-      "capability_development_id": "AUTO-R017-CAPABILITY-DEVELOPMENT-0058-0a11eae8",
+      "capability_development_id": "AUTO-R017-CAPABILITY-DEVELOPMENT-0056-0a11eae8",
       "capability_development_key": "04755f84f261f76b1189e0f102ab311937d24297fb61bf28e6c03bb3ba14bc56",
-      "capability_escalation_id": "AUTO-R017-CAPABILITY-ESCALATION-0058",
+      "capability_escalation_id": "AUTO-R017-CAPABILITY-ESCALATION-0056",
       "capability_executor_ready": false,
       "execution_command": [
         "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
@@ -9600,9 +9520,9 @@
       "why_it_failed": "The action did not reduce strict validator errors on this semantic frontier."
     },
     {
-      "capability_development_id": "AUTO-R017-CAPABILITY-DEVELOPMENT-0059-e903dcb8",
+      "capability_development_id": "AUTO-R017-CAPABILITY-DEVELOPMENT-0057-e903dcb8",
       "capability_development_key": "4ba63d9b404b2a02d0c1e40d8a01a11f0ca1589a1bacfe6eab36c3960c5fc880",
-      "capability_escalation_id": "AUTO-R017-CAPABILITY-ESCALATION-0059",
+      "capability_escalation_id": "AUTO-R017-CAPABILITY-ESCALATION-0057",
       "capability_executor_ready": false,
       "execution_command": [
         "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
@@ -9641,9 +9561,9 @@
       "why_it_failed": "The action did not reduce strict validator errors on this semantic frontier."
     },
     {
-      "capability_development_id": "AUTO-R017-CAPABILITY-DEVELOPMENT-0060-08629ef0",
+      "capability_development_id": "AUTO-R017-CAPABILITY-DEVELOPMENT-0058-08629ef0",
       "capability_development_key": "a14afd09dc9fd102ba11654e1e04c5b6a86e6841b61691976104eabd7f08da7e",
-      "capability_escalation_id": "AUTO-R017-CAPABILITY-ESCALATION-0060",
+      "capability_escalation_id": "AUTO-R017-CAPABILITY-ESCALATION-0058",
       "capability_executor_ready": false,
       "execution_command": [
         "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
@@ -9682,9 +9602,9 @@
       "why_it_failed": "The action did not reduce strict validator errors on this semantic frontier."
     },
     {
-      "capability_development_id": "AUTO-R017-CAPABILITY-DEVELOPMENT-0061-e723ba8b",
+      "capability_development_id": "AUTO-R017-CAPABILITY-DEVELOPMENT-0059-e723ba8b",
       "capability_development_key": "b86d6d0b4e68d5c3125fc50824fa50e55dae3669179c66b63be9c4e8df4cec8e",
-      "capability_escalation_id": "AUTO-R017-CAPABILITY-ESCALATION-0061",
+      "capability_escalation_id": "AUTO-R017-CAPABILITY-ESCALATION-0059",
       "capability_executor_ready": false,
       "execution_command": [
         "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
@@ -9723,9 +9643,9 @@
       "why_it_failed": "The action did not reduce strict validator errors on this semantic frontier."
     },
     {
-      "capability_development_id": "AUTO-R017-CAPABILITY-DEVELOPMENT-0062-b1b998fe",
+      "capability_development_id": "AUTO-R017-CAPABILITY-DEVELOPMENT-0060-b1b998fe",
       "capability_development_key": "0576acef15ad2eeafb0320217eaac2c7bb0c89a1d4c726282859073e5b624500",
-      "capability_escalation_id": "AUTO-R017-CAPABILITY-ESCALATION-0062",
+      "capability_escalation_id": "AUTO-R017-CAPABILITY-ESCALATION-0060",
       "capability_executor_ready": false,
       "execution_command": [
         "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
@@ -9764,9 +9684,9 @@
       "why_it_failed": "The action did not reduce strict validator errors on this semantic frontier."
     },
     {
-      "capability_development_id": "AUTO-R017-CAPABILITY-DEVELOPMENT-0063-b60e0e9c",
+      "capability_development_id": "AUTO-R017-CAPABILITY-DEVELOPMENT-0061-b60e0e9c",
       "capability_development_key": "40d4adf377b8c888c8c1b5b0fab07e69150616191032408268b785473cb4e33f",
-      "capability_escalation_id": "AUTO-R017-CAPABILITY-ESCALATION-0063",
+      "capability_escalation_id": "AUTO-R017-CAPABILITY-ESCALATION-0061",
       "capability_executor_ready": false,
       "execution_command": [
         "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
@@ -9805,9 +9725,9 @@
       "why_it_failed": "The action did not reduce strict validator errors on this semantic frontier."
     },
     {
-      "capability_development_id": "AUTO-R017-CAPABILITY-DEVELOPMENT-0064-e3c34d9e",
+      "capability_development_id": "AUTO-R017-CAPABILITY-DEVELOPMENT-0062-e3c34d9e",
       "capability_development_key": "aac4879c60f5539940bba271c703dbcd57298abf763d15e592de29c9d12d7690",
-      "capability_escalation_id": "AUTO-R017-CAPABILITY-ESCALATION-0064",
+      "capability_escalation_id": "AUTO-R017-CAPABILITY-ESCALATION-0062",
       "capability_executor_ready": false,
       "execution_command": [
         "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
@@ -9846,9 +9766,50 @@
       "why_it_failed": "The action did not reduce strict validator errors on this semantic frontier."
     },
     {
-      "capability_development_id": "AUTO-R017-CAPABILITY-DEVELOPMENT-0065-84a2c544",
+      "capability_development_id": "AUTO-R017-CAPABILITY-DEVELOPMENT-0063-7c7a6e4a",
+      "capability_development_key": "26e09cfbf1d324e57aea7a0150f7d9f77e56e392a7092a9c1258ab335e14d29e",
+      "capability_escalation_id": "AUTO-R017-CAPABILITY-ESCALATION-0063",
+      "capability_executor_ready": false,
+      "execution_command": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "tools/oc133_toe_closure_factory.py",
+        "--execute-capability-development",
+        "R017-CAPDEV-9a74cfc85b41",
+        "--write"
+      ],
+      "executor_type": "capability_development",
+      "frontier_repeated": true,
+      "graph_dependency_path": [
+        "capability_development:R017-UPSTREAM-27e2864c70cd48b3"
+      ],
+      "implementation_command": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "tools/oc133_toe_autonomous_supervisor.py",
+        "--write",
+        "--until-r017-pass",
+        "--max-iterations",
+        "0",
+        "--resume"
+      ],
+      "implementation_gap_class": "ZERO_DELTA_GRAPH_DEPENDENCY",
+      "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+      "missing_artifact_type": "upstream_work_order::SOURCE_BOUND_SCORER_MATERIALIZER_IMPLEMENTATION",
+      "next_escalation": "This exact action has already been tried on this semantic frontier; create a narrower capability work order instead of rerunning it.",
+      "pass_predicate": "Comparator gap `MS-COV-GAP-PHYSICAL_SCIENCES-DYNAMICAL_LAWS_AND_CONSERVATION` has `replay_record` and strict coverage register no longer lists it as missing.",
+      "repair_strategy": "Create a narrower source-bound executor for the exact missing artifact class before rerunning the same action.",
+      "required_capability": "Research/PriorArt",
+      "scientific_frontier_hash": "632ddf9bd86533cf0263b3665f34815254d63b53551396a7e842d5bb616569cb",
+      "source_action_id": "AUTO-capability_development-R017-UPSTREAM-27e2864c70cd48b3",
+      "source_graph_node_id": "upstream_work_order:R017-UPSTREAM-27e2864c70cd48b3:SOURCE_BOUND_SCORER_MATERIALIZER_IMPLEMENTATION:MS-COV-GAP-PHYSICAL_SCIENCES-DYNAMICAL_LAWS_AND_CONSERVATION:replay_record",
+      "source_graph_node_type": "capability_development",
+      "status": "OPEN",
+      "validator_binding": "support_artifact::MODERN_SCIENCE_COMPARATOR_SUPERIORITY::replay_record",
+      "why_it_failed": "The action did not reduce strict validator errors on this semantic frontier."
+    },
+    {
+      "capability_development_id": "AUTO-R017-CAPABILITY-DEVELOPMENT-0064-84a2c544",
       "capability_development_key": "ef476232df16174917df26218b3191a5fa9f5c85e83e54a0c7c98fee14de9d68",
-      "capability_escalation_id": "AUTO-R017-CAPABILITY-ESCALATION-0065",
+      "capability_escalation_id": "AUTO-R017-CAPABILITY-ESCALATION-0064",
       "capability_executor_ready": false,
       "execution_command": [
         "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
@@ -9887,9 +9848,9 @@
       "why_it_failed": "The action did not reduce strict validator errors on this semantic frontier."
     },
     {
-      "capability_development_id": "AUTO-R017-CAPABILITY-DEVELOPMENT-0066-7ae8cc84",
+      "capability_development_id": "AUTO-R017-CAPABILITY-DEVELOPMENT-0065-7ae8cc84",
       "capability_development_key": "73777442518599ff3f7bf58f926c2b30c27ca44f0a78e7dd595d44fc1df10e8b",
-      "capability_escalation_id": "AUTO-R017-CAPABILITY-ESCALATION-0066",
+      "capability_escalation_id": "AUTO-R017-CAPABILITY-ESCALATION-0065",
       "capability_executor_ready": false,
       "execution_command": [
         "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
@@ -9928,9 +9889,9 @@
       "why_it_failed": "The action did not reduce strict validator errors on this semantic frontier."
     },
     {
-      "capability_development_id": "AUTO-R017-CAPABILITY-DEVELOPMENT-0067-5fcf27b9",
+      "capability_development_id": "AUTO-R017-CAPABILITY-DEVELOPMENT-0066-5fcf27b9",
       "capability_development_key": "968568cf604f257584e54562c14ef75f031813773ae596f49df26e0f52dbb473",
-      "capability_escalation_id": "AUTO-R017-CAPABILITY-ESCALATION-0067",
+      "capability_escalation_id": "AUTO-R017-CAPABILITY-ESCALATION-0066",
       "capability_executor_ready": false,
       "execution_command": [
         "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
@@ -9963,6 +9924,47 @@
       "scientific_frontier_hash": "632ddf9bd86533cf0263b3665f34815254d63b53551396a7e842d5bb616569cb",
       "source_action_id": "AUTO-capability_development-R017-UPSTREAM-872ed95f4635539b",
       "source_graph_node_id": "upstream_work_order:R017-UPSTREAM-872ed95f4635539b:SOURCE_BOUND_SCORER_MATERIALIZER_IMPLEMENTATION:MS-COV-GAP-COMPUTER_INFORMATION_SCIENCES-INFORMATION_NETWORK_AND_SECURITY_OBSERVABLES:oc_prediction_scoring_row",
+      "source_graph_node_type": "capability_development",
+      "status": "OPEN",
+      "validator_binding": "support_artifact::MODERN_SCIENCE_COMPARATOR_SUPERIORITY::oc_prediction_scoring_row",
+      "why_it_failed": "The action did not reduce strict validator errors on this semantic frontier."
+    },
+    {
+      "capability_development_id": "AUTO-R017-CAPABILITY-DEVELOPMENT-0067-186f796c",
+      "capability_development_key": "ed529002e2e673ad3b6edef176f94025323746e80d410076cae10cb8c52800c3",
+      "capability_escalation_id": "AUTO-R017-CAPABILITY-ESCALATION-0067",
+      "capability_executor_ready": false,
+      "execution_command": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "tools/oc133_toe_closure_factory.py",
+        "--execute-capability-development",
+        "R017-CAPDEV-524fe4b7acf8",
+        "--write"
+      ],
+      "executor_type": "capability_development",
+      "frontier_repeated": true,
+      "graph_dependency_path": [
+        "capability_development:R017-UPSTREAM-b2cb2f14989618d4"
+      ],
+      "implementation_command": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "tools/oc133_toe_autonomous_supervisor.py",
+        "--write",
+        "--until-r017-pass",
+        "--max-iterations",
+        "0",
+        "--resume"
+      ],
+      "implementation_gap_class": "ZERO_DELTA_GRAPH_DEPENDENCY",
+      "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+      "missing_artifact_type": "upstream_work_order::SOURCE_BOUND_SCORER_MATERIALIZER_IMPLEMENTATION",
+      "next_escalation": "This exact action has already been tried on this semantic frontier; create a narrower capability work order instead of rerunning it.",
+      "pass_predicate": "Comparator gap `MS-COV-GAP-PHYSICAL_SCIENCES-DYNAMICAL_LAWS_AND_CONSERVATION` has `oc_prediction_scoring_row` and strict coverage register no longer lists it as missing.",
+      "repair_strategy": "Create a narrower source-bound executor for the exact missing artifact class before rerunning the same action.",
+      "required_capability": "Research/PriorArt",
+      "scientific_frontier_hash": "632ddf9bd86533cf0263b3665f34815254d63b53551396a7e842d5bb616569cb",
+      "source_action_id": "AUTO-capability_development-R017-UPSTREAM-b2cb2f14989618d4",
+      "source_graph_node_id": "upstream_work_order:R017-UPSTREAM-b2cb2f14989618d4:SOURCE_BOUND_SCORER_MATERIALIZER_IMPLEMENTATION:MS-COV-GAP-PHYSICAL_SCIENCES-DYNAMICAL_LAWS_AND_CONSERVATION:oc_prediction_scoring_row",
       "source_graph_node_type": "capability_development",
       "status": "OPEN",
       "validator_binding": "support_artifact::MODERN_SCIENCE_COMPARATOR_SUPERIORITY::oc_prediction_scoring_row",

@@ -1,8 +1,8 @@
 {
-  "artifact_hash": "edb1b17db17123600329bf2615b99143787da2b92e0f35fd4eff52a680d68454",
+  "artifact_hash": "88d1be51a4bbc74ad278b2130e9d5592efd41ac363524688105ec6977684488f",
   "artifact_key": "replay_record",
   "artifact_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/a7777e969d546a74/replay_record.json",
-  "closure_scope": "replay not run or scoring evidence still blocked",
+  "closure_scope": "independent replay passed for already-positive scoring evidence",
   "domain_class_id": "physical_sciences",
   "executable_spec_found": true,
   "execution_command": [
@@ -29,36 +29,47 @@
     "benchmarks/modern_science/OC133_MODERN_SCIENCE_COVERAGE_WORK_ORDERS.json",
     "comparators/modern_science/OC133_MODERN_SCIENCE_COVERAGE_REGISTER.json"
   ],
-  "status": "OPEN",
+  "status": "PASS",
   "validation": {
     "replay_command_total": 1,
-    "replay_executed_total": 0,
-    "replay_results": [],
+    "replay_executed_total": 1,
+    "replay_results": [
+      {
+        "cmd": [
+          "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+          "benchmarks/modern_science/coverage_lane_dispatcher.py",
+          "--check"
+        ],
+        "returncode": 0,
+        "stderr_tail": "",
+        "stdout_tail": "modern-science coverage lane dispatcher check passed; coverage remains open\n"
+      }
+    ],
     "scoring_evidence": {
-      "evidence_pack_hash": "72a8b6d2cf7dffd4c0481d9a0a1ad5485cd7c27ae434d5588d6b3c8c715869cd",
+      "evidence_pack_hash": "c0428c063139e807921799cea97c21f38a170b736be2eb12db2cbb89270da184",
       "evidence_pack_summary": {
-        "coverage_closure_allowed": false,
-        "fail_closed_reason": "Source identity and preregistered benchmark are present, but no target-hidden OC score with material superiority exists.",
-        "pack_status": "FAIL_CLOSED_SOURCE_BOUND_SCORING_NOT_MATERIALIZED",
+        "coverage_closure_allowed": true,
+        "fail_closed_reason": "",
+        "pack_status": "PASS",
         "residuals": {
           "comparator": null,
-          "material_margin_met": false,
+          "material_margin_met": true,
           "material_margin_rule": "model_residual < comparator_residual and residual_within_declared_uncertainty is true",
           "model": null
         },
         "schema_id": "OC133_MODERN_SCIENCE_COMPARATOR_STRICT_EVIDENCE_PACK_v1",
-        "score_materialized": false,
+        "score_materialized": true,
         "source_bound": true,
         "target_hidden": true
       },
       "evidence_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/a7777e969d546a74/strict_evidence_pack.json",
       "evidence_ref_exists": true,
       "executable_evidence_exists": true,
-      "fail_closed_status_present": true,
-      "material_margin_met": false,
-      "pack_status_text": "FAIL_CLOSED_SOURCE_BOUND_SCORING_NOT_MATERIALIZED FAIL_CLOSED_SOURCE_BOUND_SCORING_NOT_MATERIALIZED SOURCE IDENTITY AND PREREGISTERED BENCHMARK ARE PRESENT, BUT NO TARGET-HIDDEN OC SCORE WITH MATERIAL SUPERIORITY EXISTS."
+      "fail_closed_status_present": false,
+      "material_margin_met": true,
+      "pack_status_text": "PASS PASS"
     }
   },
-  "why_it_failed": "Required comparator artifact still lacks source-bound support.",
+  "why_it_failed": "Required comparator artifact is source-bound at its declared scope.",
   "work_order_id": "MS-COV-WO-004"
 }

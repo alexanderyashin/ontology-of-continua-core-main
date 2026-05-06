@@ -2047,6 +2047,10 @@ PHYSICS_EXOPLANET_KEPLER_MATERIALIZER = (
     "validation/heldout/grand_science/physics_chemistry/nasa_exoplanet_archive/"
     "oc133_physics_exoplanet_kepler_materializer.py"
 )
+PHYSICS_JPL_HORIZONS_DYNAMICS_MATERIALIZER = (
+    "validation/heldout/grand_science/physics_chemistry/dynamics_jpl_horizons/"
+    "oc133_physics_jpl_horizons_dynamics_materializer.py"
+)
 
 COMPARATOR_DOMAIN_IMPLEMENTED_COMMANDS = {
     (
@@ -2399,6 +2403,37 @@ COMPARATOR_DOMAIN_IMPLEMENTED_COMMANDS[
 ] = [
     [sys.executable, PHYSICS_EXOPLANET_KEPLER_MATERIALIZER, "--acquire", "--write-acquisition"],
     [sys.executable, PHYSICS_EXOPLANET_KEPLER_MATERIALIZER, "--check"],
+]
+
+for _jpl_subartifact in (
+    "target_hidden_task_table",
+    "oc_formula_or_model",
+    "incumbent_comparator_scoring",
+    "residuals_materiality_uncertainty",
+    "controls_and_falsifiers",
+    "independent_replay",
+    "strict_evidence_pack_diagnosis",
+    "model_or_claim_repair_decision",
+):
+    COMPARATOR_DOMAIN_IMPLEMENTED_COMMANDS[
+        (
+            "physical_sciences",
+            "dynamical_laws_and_conservation",
+            _jpl_subartifact,
+        )
+    ] = [
+        [sys.executable, PHYSICS_JPL_HORIZONS_DYNAMICS_MATERIALIZER, "--score", "--write-scoring"],
+        [sys.executable, PHYSICS_JPL_HORIZONS_DYNAMICS_MATERIALIZER, "--check"],
+    ]
+COMPARATOR_DOMAIN_IMPLEMENTED_COMMANDS[
+    (
+        "physical_sciences",
+        "dynamical_laws_and_conservation",
+        "source_snapshot_acquisition",
+    )
+] = [
+    [sys.executable, PHYSICS_JPL_HORIZONS_DYNAMICS_MATERIALIZER, "--acquire", "--write-acquisition"],
+    [sys.executable, PHYSICS_JPL_HORIZONS_DYNAMICS_MATERIALIZER, "--check"],
 ]
 
 
@@ -3062,6 +3097,10 @@ COMPARATOR_DOMAIN_MATERIALIZED_EVIDENCE_REFS = {
         "physical_sciences",
         "astronomical_and_cosmological_observables",
     ): "validation/heldout/grand_science/physics_chemistry/nasa_exoplanet_archive/OC133_NASA_EXOPLANET_KEPLER_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
+    (
+        "physical_sciences",
+        "dynamical_laws_and_conservation",
+    ): "validation/heldout/grand_science/physics_chemistry/dynamics_jpl_horizons/OC133_PHYSICS_JPL_HORIZONS_DYNAMICS_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
 }
 
 
