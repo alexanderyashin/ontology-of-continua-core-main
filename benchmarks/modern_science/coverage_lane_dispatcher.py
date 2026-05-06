@@ -114,6 +114,10 @@ DOMAIN_LOCAL_MATERIALIZED_EVIDENCE_REFS = {
         "evolutionary_phylogenetic_patterns",
     ): "validation/heldout/grand_science/biology/evolutionary_phylogeny/OC133_NCBI_TAXONOMY_LCA_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
     (
+        "computer_information_sciences",
+        "machine_learning_generalization_and_evaluation",
+    ): "validation/heldout/grand_science/cs/uci_iris_ml/OC133_UCI_IRIS_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
+    (
         "medical_health_sciences",
         "clinical_outcomes_and_biomarkers",
     ): "validation/heldout/grand_science/wdi/medical_clinical_life_expectancy/OC133_WDI_MEDICAL_CLINICAL_LIFE_EXPECTANCY_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",

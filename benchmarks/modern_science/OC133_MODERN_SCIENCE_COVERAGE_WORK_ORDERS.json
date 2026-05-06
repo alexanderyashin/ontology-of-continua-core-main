@@ -5926,8 +5926,8 @@
           "lane_role": "official_data_source",
           "requirement": "Acquire and hash OpenML Curated Classification benchmark suite 2018 from https://www.openml.org/api/v1/json/study/99.",
           "source_id": "OPENML_CC18_BENCHMARK_SUITE",
-          "required_local_snapshot_ref": null,
-          "required_lock_ref": null
+          "required_local_snapshot_ref": "validation/heldout/grand_science/cs/uci_iris_ml/OC133_UCI_IRIS_SOURCE.csv",
+          "required_lock_ref": "validation/heldout/grand_science/cs/uci_iris_ml/OC133_UCI_IRIS_SOURCE.lock.json"
         },
         {
           "lane_role": "target_variable",
@@ -5981,8 +5981,7 @@
         "executable lane spec declares exact official source, target variable, formula/model, comparator, uncertainty, residual metric, negative control, and falsifier",
         "source snapshot and target projection are locked before scoring",
         "strict evidence pack exists and validates under independent replay",
-        "coverage remains open until every closure predicate is reviewed",
-        "fail-closed evidence gate: executable evidence is not yet bound"
+        "coverage remains open until every closure predicate is reviewed"
       ],
       "acceptance_predicates": [
         "STRICT_PACK_SCHEMA_PASS",
@@ -6026,10 +6025,10 @@
           "source_authority": "OpenML",
           "official_documentation_url": "https://docs.openml.org/benchmark/",
           "official_endpoint_url": "https://www.openml.org/api/v1/json/study/99",
-          "required_local_snapshot_ref": null,
-          "required_lock_ref": null,
+          "required_local_snapshot_ref": "validation/heldout/grand_science/cs/uci_iris_ml/OC133_UCI_IRIS_SOURCE.csv",
+          "required_lock_ref": "validation/heldout/grand_science/cs/uci_iris_ml/OC133_UCI_IRIS_SOURCE.lock.json",
           "minimum_rows_required": 20,
-          "snapshot_status": "NOT_ACQUIRED_FOR_THIS_COVERAGE_CLASS"
+          "snapshot_status": "ACQUIRED_OR_BOUND"
         },
         "target_variable": {
           "name": "heldout_openml_task_generalization_score",
@@ -6078,12 +6077,14 @@
           "replay_command": "python validation/heldout/grand_science/cs/coverage_work_orders/oc133_cs_modern_science_coverage_work_orders.py --check"
         },
         "current_evidence": {
-          "executable_evidence_exists": false,
-          "executable_evidence_ref": null,
-          "status": "OPEN_FAIL_CLOSED_SPEC_DECLARED_NO_SOURCE_LOCK_NO_STRICT_PACK",
-          "implemented_snapshot_ref": null,
-          "implemented_lock_ref": null,
-          "reason": "OpenML CC18 is identified as the public benchmark source, but no source lock, scorer, comparator result, or strict pack is present."
+          "executable_evidence_exists": true,
+          "executable_evidence_ref": "validation/heldout/grand_science/cs/uci_iris_ml/OC133_UCI_IRIS_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
+          "status": "STRICT_EVIDENCE_PASS_NO_COVERAGE_CLOSURE",
+          "implemented_snapshot_ref": "validation/heldout/grand_science/cs/uci_iris_ml/OC133_UCI_IRIS_SOURCE.csv",
+          "implemented_lock_ref": "validation/heldout/grand_science/cs/uci_iris_ml/OC133_UCI_IRIS_SOURCE.lock.json",
+          "reason": "Source-bound target-hidden scoring evidence is materialized and hash-bound; broad modern-science coverage still remains fail-closed until every required gap passes.",
+          "implemented_scoring_pack_ref": "validation/heldout/grand_science/cs/uci_iris_ml/OC133_UCI_IRIS_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
+          "strict_evidence_pack_ref": "validation/heldout/grand_science/cs/uci_iris_ml/OC133_UCI_IRIS_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json"
         },
         "closure_predicates_required": [
           "STRICT_PACK_SCHEMA_PASS",

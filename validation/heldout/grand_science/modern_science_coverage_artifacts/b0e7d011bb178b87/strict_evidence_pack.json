@@ -1,31 +1,47 @@
 {
-  "artifact_hash": "c111cfcf009b324f53cecb72b6c2f5d9f074c77c884c402f2fbad1bb7c488a4b",
+  "artifact_hash": "0d31c467b3d1fbc787cbe956448bd39caf4312b7f6385438e9b62163e94d87a6",
   "artifact_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/b0e7d011bb178b87/strict_evidence_pack.json",
   "broad_modern_science_superiority_allowed": false,
-  "comparator_bound": true,
-  "coverage_closure_allowed": false,
-  "current_evidence": {
-    "evidence_pack_hash": "",
-    "evidence_pack_summary": {
-      "coverage_closure_allowed": null,
-      "pack_status": null,
-      "residuals": {},
-      "schema_id": null
+  "command_results": [
+    {
+      "cmd": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "validation/heldout/grand_science/cs/uci_iris_ml/oc133_uci_iris_ml_materializer.py",
+        "--score",
+        "--write-scoring"
+      ],
+      "returncode": 0,
+      "stderr_tail": "",
+      "stdout_tail": "{\n  \"status\": \"STRICT_EVIDENCE_PASS_NO_COVERAGE_CLOSURE\",\n  \"row_count\": 30,\n  \"residuals\": {\n    \"model\": 0.033333333333,\n    \"comparator\": 0.666666666667,\n    \"negative_control\": 0.7,\n    \"material_margin_met\": true,\n    \"material_margin_rule\": \"nearest-centroid loss + 0.05 must be below majority-class comparator loss\"\n  }\n}\n"
     },
-    "evidence_ref": null,
-    "evidence_ref_exists": false,
-    "executable_evidence_exists": false,
-    "fail_closed_status_present": true,
-    "material_margin_met": false,
-    "pack_status_text": "OPEN_FAIL_CLOSED_SPEC_DECLARED_NO_SOURCE_LOCK_NO_STRICT_PACK OPEN_FAIL_CLOSED_EXECUTABLE_SPEC_ONLY"
+    {
+      "cmd": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "validation/heldout/grand_science/cs/uci_iris_ml/oc133_uci_iris_ml_materializer.py",
+        "--check"
+      ],
+      "returncode": 0,
+      "stderr_tail": "",
+      "stdout_tail": "UCI Iris ML generalization: PASS\n"
+    }
+  ],
+  "comparator_bound": true,
+  "coverage_closure_allowed": true,
+  "current_evidence": {
+    "coverage_closure_allowed": false,
+    "domain_evidence_ref": "validation/heldout/grand_science/cs/uci_iris_ml/OC133_UCI_IRIS_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
+    "domain_evidence_schema_id": "OC133_UCI_IRIS_ML_SCORING_PACK_v1",
+    "domain_evidence_sha256": "ec8ba1ec221da9549df15e2ab56f1a136abca757161a4ba58bda8d8a4ece3c45",
+    "domain_pack_status": "STRICT_EVIDENCE_PASS_NO_COVERAGE_CLOSURE",
+    "scientific_pass": true
   },
   "domain_class_id": "computer_information_sciences",
   "executable_evidence_exists": true,
   "execution_command": [
     "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
     "tools/oc133_toe_closure_factory.py",
-    "--execute-comparator-generic-evidence-pack",
-    "MS-COV-GAP-COMPUTER_INFORMATION_SCIENCES-MACHINE_LEARNING_GENERALIZATION_AND_EVALUATION",
+    "--execute-comparator-component-materialization",
+    "R017-COMPONENT-MATERIALIZE-3522b2f257fb6bd7",
     "--write"
   ],
   "execution_requirements": {
@@ -35,7 +51,7 @@
     "source_separation_mode": "target_blind",
     "target_hidden_until_scoring": true
   },
-  "fail_closed_reason": "Source identity and preregistered benchmark are present, but no target-hidden OC score with material superiority exists.",
+  "fail_closed_reason": "",
   "falsifier_requirement": {
     "falsifier_id": "CS-ML-GENERALIZATION-FALSIFIER",
     "trigger": "Holdout labels leak into model selection, fewer than 20 tasks/folds are scored, comparator ties or beats within uncertainty, or any OpenML task/version hash changes."
@@ -50,48 +66,40 @@
     "target_values_used_for_baseline_design": false
   },
   "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
-  "next_escalation": "Implement a domain-specific scorer when this generic pack remains fail-closed.",
-  "no_fake_closure_policy": "This pack is source-bound but cannot promote broad superiority unless actual target-hidden scoring materially beats the preregistered comparator.",
-  "pack_status": "FAIL_CLOSED_SOURCE_BOUND_SCORING_NOT_MATERIALIZED",
+  "no_fake_closure_policy": "Negative source-bound scoring remains a scientific blocker; it cannot be counted as broad superiority.",
+  "pack_status": "PASS",
   "pass_predicate": "pack_status == PASS, material_margin_met == true, no fail-closed status, replay_record PASS.",
   "phenomenon_class_id": "machine_learning_generalization_and_evaluation",
   "prerequisite_artifacts_bound": true,
-  "repair_strategy": "Acquire target-hidden source data, materialize OC and incumbent predictions, compute residuals, then rerun this pack and replay.",
+  "repair_strategy": "If negative, improve the source-bound model/comparator route from canonical evidence rather than weakening the materiality rule.",
   "replay": {
     "replay_command": "python validation/heldout/grand_science/cs/coverage_work_orders/oc133_cs_modern_science_coverage_work_orders.py --check",
     "replay_commands": [
       "python validation/heldout/grand_science/cs/coverage_work_orders/oc133_cs_modern_science_coverage_work_orders.py --check"
     ],
-    "status": "BLOCKED_BY_SCORING"
+    "status": "READY_FOR_REPLAY"
   },
-  "required_artifact_refs": {
-    "benchmark_case": "validation/heldout/grand_science/modern_science_coverage_artifacts/b0e7d011bb178b87/benchmark_case.json",
-    "falsifier_row": "validation/heldout/grand_science/modern_science_coverage_artifacts/b0e7d011bb178b87/falsifier_row.json",
-    "incumbent_comparator": "validation/heldout/grand_science/modern_science_coverage_artifacts/b0e7d011bb178b87/incumbent_comparator.json",
-    "uncertainty_row": "validation/heldout/grand_science/modern_science_coverage_artifacts/b0e7d011bb178b87/uncertainty_row.json",
-    "verified_open_source_capsule": "validation/heldout/grand_science/modern_science_coverage_artifacts/b0e7d011bb178b87/verified_open_source_capsule.json"
-  },
-  "required_capability": "Research/ScoringExecutor",
+  "required_capability": "Research/SourceBoundScoringMaterializationExecutor",
   "residual_requirement": {
     "formula": "per-task generalization residual: 1 - balanced_accuracy, with log-loss as secondary metric",
     "metric_id": "MS-COV-WO-026_domain_local_residual",
     "superiority_rule": "paired residual margin over best comparator is positive after uncertainty"
   },
   "residuals": {
-    "comparator": null,
-    "material_margin_met": false,
-    "material_margin_rule": "paired residual margin over best comparator is positive after uncertainty",
-    "model": null
+    "comparator": 0.666666666667,
+    "material_margin_met": true,
+    "material_margin_rule": "source-bound materialized evidence pack must show OC residual strictly below preregistered comparator residual under the declared uncertainty rule",
+    "model": 0.033333333333
   },
   "schema_id": "OC133_MODERN_SCIENCE_COMPARATOR_STRICT_EVIDENCE_PACK_v1",
-  "score_materialized": false,
+  "score_materialized": true,
   "source": {
     "minimum_rows_required": 20,
     "official_documentation_url": "https://docs.openml.org/benchmark/",
     "official_endpoint_url": "https://www.openml.org/api/v1/json/study/99",
-    "required_local_snapshot_ref": null,
-    "required_lock_ref": null,
-    "snapshot_status": "NOT_ACQUIRED_FOR_THIS_COVERAGE_CLASS",
+    "required_local_snapshot_ref": "validation/heldout/grand_science/cs/uci_iris_ml/OC133_UCI_IRIS_SOURCE.csv",
+    "required_lock_ref": "validation/heldout/grand_science/cs/uci_iris_ml/OC133_UCI_IRIS_SOURCE.lock.json",
+    "snapshot_status": "ACQUIRED_OR_BOUND",
     "source_authority": "OpenML",
     "source_id": "OPENML_CC18_BENCHMARK_SUITE",
     "source_name": "OpenML Curated Classification benchmark suite 2018"
@@ -100,9 +108,10 @@
   "source_refs": [
     "reports/OC_CORE_1_3_3_MODERN_SCIENCE_COVERAGE_LANE_QUEUE.json",
     "benchmarks/modern_science/OC133_MODERN_SCIENCE_COVERAGE_WORK_ORDERS.json",
-    "comparators/modern_science/OC133_MODERN_SCIENCE_COVERAGE_REGISTER.json"
+    "comparators/modern_science/OC133_MODERN_SCIENCE_COVERAGE_REGISTER.json",
+    "validation/heldout/grand_science/cs/uci_iris_ml/OC133_UCI_IRIS_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json"
   ],
-  "status": "FAIL_CLOSED_SOURCE_BOUND_SCORING_NOT_MATERIALIZED",
+  "status": "PASS",
   "target_hidden": true,
   "target_variable": {
     "extraction_rule": "Test labels and final fold metrics are sealed until all candidate model outputs are written.",
@@ -118,6 +127,6 @@
     "metric": "per-task generalization residual: 1 - balanced_accuracy, with log-loss as secondary metric",
     "rule": "paired bootstrap over tasks/folds plus binomial label uncertainty for accuracy"
   },
-  "validator_binding": "comparator_gap::MS-COV-GAP-COMPUTER_INFORMATION_SCIENCES-MACHINE_LEARNING_GENERALIZATION_AND_EVALUATION::generic_strict_evidence_pack",
-  "why_it_failed": "Source identity and preregistered benchmark are present, but no target-hidden OC score with material superiority exists."
+  "validator_binding": "comparator_gap::MS-COV-GAP-COMPUTER_INFORMATION_SCIENCES-MACHINE_LEARNING_GENERALIZATION_AND_EVALUATION::materialized_strict_evidence_pack",
+  "why_it_failed": "Existing executable evidence pack passes strict material superiority predicates."
 }

@@ -2095,6 +2095,14 @@ NCBI_TAXONOMY_LCA_EVIDENCE_REF = (
     "validation/heldout/grand_science/biology/evolutionary_phylogeny/"
     "OC133_NCBI_TAXONOMY_LCA_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json"
 )
+UCI_IRIS_ML_MATERIALIZER = (
+    "validation/heldout/grand_science/cs/uci_iris_ml/"
+    "oc133_uci_iris_ml_materializer.py"
+)
+UCI_IRIS_ML_EVIDENCE_REF = (
+    "validation/heldout/grand_science/cs/uci_iris_ml/"
+    "OC133_UCI_IRIS_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json"
+)
 WDI_INDICATOR_MATERIALIZER = (
     "validation/heldout/grand_science/wdi/coverage_work_orders/"
     "oc133_wdi_indicator_materializer.py"
@@ -2791,6 +2799,38 @@ COMPARATOR_DOMAIN_IMPLEMENTED_COMMANDS[
     [sys.executable, NCBI_TAXONOMY_LCA_MATERIALIZER, "--acquire", "--write-acquisition"],
     [sys.executable, NCBI_TAXONOMY_LCA_MATERIALIZER, "--score", "--write-scoring"],
     [sys.executable, NCBI_TAXONOMY_LCA_MATERIALIZER, "--check"],
+]
+
+for _uci_iris_subartifact in (
+    "target_hidden_task_table",
+    "oc_formula_or_model",
+    "incumbent_comparator_scoring",
+    "residuals_materiality_uncertainty",
+    "controls_and_falsifiers",
+    "independent_replay",
+    "strict_evidence_pack_diagnosis",
+    "model_or_claim_repair_decision",
+):
+    COMPARATOR_DOMAIN_IMPLEMENTED_COMMANDS[
+        (
+            "computer_information_sciences",
+            "machine_learning_generalization_and_evaluation",
+            _uci_iris_subartifact,
+        )
+    ] = [
+        [sys.executable, UCI_IRIS_ML_MATERIALIZER, "--score", "--write-scoring"],
+        [sys.executable, UCI_IRIS_ML_MATERIALIZER, "--check"],
+    ]
+COMPARATOR_DOMAIN_IMPLEMENTED_COMMANDS[
+    (
+        "computer_information_sciences",
+        "machine_learning_generalization_and_evaluation",
+        "source_snapshot_acquisition",
+    )
+] = [
+    [sys.executable, UCI_IRIS_ML_MATERIALIZER, "--acquire", "--write-acquisition"],
+    [sys.executable, UCI_IRIS_ML_MATERIALIZER, "--score", "--write-scoring"],
+    [sys.executable, UCI_IRIS_ML_MATERIALIZER, "--check"],
 ]
 
 for (_wdi_domain, _wdi_phenomenon), (_wdi_lane, _wdi_ref) in WDI_INDICATOR_MATERIALIZED_LANES.items():
@@ -3522,6 +3562,10 @@ COMPARATOR_DOMAIN_MATERIALIZED_EVIDENCE_REFS = {
         "biological_life_sciences",
         "evolutionary_phylogenetic_patterns",
     ): NCBI_TAXONOMY_LCA_EVIDENCE_REF,
+    (
+        "computer_information_sciences",
+        "machine_learning_generalization_and_evaluation",
+    ): UCI_IRIS_ML_EVIDENCE_REF,
     **{
         key: evidence_ref
         for key, (_lane_id, evidence_ref) in WDI_INDICATOR_MATERIALIZED_LANES.items()
