@@ -1,24 +1,10 @@
 {
   "after_validator_error_total": 13,
-  "artifact_hash": "7ed1a672b2bf07911d2781cd20a668097eafb523abb1edf3806cc5cddb72836e",
+  "artifact_hash": "2c6082343aab193175d64582c1f2b8ed21e23f4bc878f92c65fb722ef0f2c8af",
   "before_validator_error_total": 13,
-  "capability_class": "upstream_capability_work_order",
-  "capability_development_key": "ef3853561a5e7f86951e5f6aac85d1201afadc1be76af41a13c0b983d8b438ce",
+  "capability_class": "upstream_source_materializer_missing",
   "capability_id": "R017-CAPDEV-ef3853561a5e",
-  "command_results": [
-    {
-      "cmd": [
-        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
-        "tools/oc133_toe_closure_factory.py",
-        "--execute-upstream-capability-work-order",
-        "R017-UPSTREAM-1582bdf02c802277",
-        "--write"
-      ],
-      "returncode": 1,
-      "stderr_tail": "",
-      "stdout_tail": "{\n  \"changed\": [],\n  \"missing\": [],\n  \"state\": \"PASS\"\n}\n"
-    }
-  ],
+  "command_results": [],
   "compiled_capability_id": "R017-CAPDEV-ef3853561a5e",
   "execution_command": [
     "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
@@ -27,24 +13,64 @@
     "R017-CAPDEV-ef3853561a5e",
     "--write"
   ],
-  "executor_command": [
-    "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
-    "tools/oc133_toe_closure_factory.py",
-    "--execute-upstream-capability-work-order",
-    "R017-UPSTREAM-1582bdf02c802277",
-    "--write"
-  ],
-  "executor_type": "upstream_capability_work_order",
-  "generated_at": "2026-05-06T14:59:21Z",
-  "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+  "generated_at": "2026-05-06T15:44:59Z",
   "next_escalation": "If this compiled capability produces zero validator delta, generate a lower-level upstream research obligation for the exact missing source/evidence object.",
-  "no_fake_closure_policy": "Zero delta remains OPEN and cannot satisfy r017.",
   "pass_predicate": "Comparator gap `MS-COV-GAP-CHEMICAL_SCIENCES-THERMOCHEMISTRY_AND_PHASE_BEHAVIOR` has `oc_prediction_scoring_row` and strict coverage register no longer lists it as missing.",
-  "repair_strategy": "Execute the lower-level upstream capability work order produced by exhausted source-bound materialization, rather than rerunning diagnostics.",
+  "registry_row": {
+    "capability_class": "upstream_source_materializer_missing",
+    "capability_development_key": "ef3853561a5e7f86951e5f6aac85d1201afadc1be76af41a13c0b983d8b438ce",
+    "capability_executor_ready": false,
+    "capability_id": "R017-CAPDEV-ef3853561a5e",
+    "compiled_capability_id": "R017-CAPDEV-ef3853561a5e",
+    "execution_command": [
+      "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+      "tools/oc133_toe_closure_factory.py",
+      "--execute-capability-development",
+      "R017-CAPDEV-ef3853561a5e",
+      "--write"
+    ],
+    "executor_command": [],
+    "executor_type": "upstream_source_materializer_missing",
+    "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+    "missing_artifact_type": "upstream_work_order::SOURCE_BOUND_SCORER_MATERIALIZER_IMPLEMENTATION",
+    "next_escalation": "If this compiled capability produces zero validator delta, generate a lower-level upstream research obligation for the exact missing source/evidence object.",
+    "output_artifact_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/capability_implementation/R017-CAPDEV-ef3853561a5e.json",
+    "pass_predicate": "Comparator gap `MS-COV-GAP-CHEMICAL_SCIENCES-THERMOCHEMISTRY_AND_PHASE_BEHAVIOR` has `oc_prediction_scoring_row` and strict coverage register no longer lists it as missing.",
+    "repair_strategy": "No governed source-bound materializer command exists for this domain/phenomenon yet; keep this as capability backlog instead of executing diagnostic scripts.",
+    "required_capability": "Research/PriorArt",
+    "scientific_frontier_hash": "cf7fa90cae7761e24fd499a438781aaf7ffc6da730dc3657f8d31d0ba649dc95",
+    "self_test_command": [
+      "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+      "tools/oc133_toe_closure_factory.py",
+      "--check"
+    ],
+    "source_capability_development_id": "R017-UPSTREAM-1582bdf02c802277",
+    "source_graph_node_id": "upstream_work_order:R017-UPSTREAM-1582bdf02c802277:SOURCE_BOUND_SCORER_MATERIALIZER_IMPLEMENTATION:MS-COV-GAP-CHEMICAL_SCIENCES-THERMOCHEMISTRY_AND_PHASE_BEHAVIOR:oc_prediction_scoring_row",
+    "status": "BLOCKED",
+    "validator_binding": "support_artifact::MODERN_SCIENCE_COMPARATOR_SUPERIORITY::oc_prediction_scoring_row",
+    "why_it_failed": "The evidence pack is explicitly fail-closed; broad superiority cannot use it."
+  },
+  "repair_strategy": "No governed source-bound materializer command exists for this domain/phenomenon yet; keep this as capability backlog instead of executing diagnostic scripts.",
   "required_capability": "Research/PriorArt",
   "schema_id": "OC133_TOE_CAPABILITY_DEVELOPMENT_EXECUTION_v1",
-  "source_graph_node_id": "upstream_work_order:R017-UPSTREAM-1582bdf02c802277:SOURCE_BOUND_SCORER_MATERIALIZER_IMPLEMENTATION:MS-COV-GAP-CHEMICAL_SCIENCES-THERMOCHEMISTRY_AND_PHASE_BEHAVIOR:oc_prediction_scoring_row",
-  "status": "FAIL_CLOSED",
+  "status": "BLOCKED",
+  "upstream_work_order": {
+    "capability_class": "upstream_source_materializer_missing",
+    "execution_command": [],
+    "gap_id": "",
+    "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+    "missing_artifact_type": "upstream_work_order::SOURCE_BOUND_SCORER_MATERIALIZER_IMPLEMENTATION",
+    "next_escalation": "If this compiled capability produces zero validator delta, generate a lower-level upstream research obligation for the exact missing source/evidence object.",
+    "no_fake_closure_policy": "This upstream work order is not evidence and cannot satisfy r017 without strict validator PASS.",
+    "pass_predicate": "Comparator gap `MS-COV-GAP-CHEMICAL_SCIENCES-THERMOCHEMISTRY_AND_PHASE_BEHAVIOR` has `oc_prediction_scoring_row` and strict coverage register no longer lists it as missing.",
+    "repair_strategy": "Implement the missing executor capability named by this row.",
+    "required_capability": "Research/PriorArt",
+    "schema_id": "OC133_TOE_CAPABILITY_UPSTREAM_WORK_ORDER_v1",
+    "source_graph_node_id": "upstream_work_order:R017-UPSTREAM-1582bdf02c802277:SOURCE_BOUND_SCORER_MATERIALIZER_IMPLEMENTATION:MS-COV-GAP-CHEMICAL_SCIENCES-THERMOCHEMISTRY_AND_PHASE_BEHAVIOR:oc_prediction_scoring_row",
+    "validator_binding": "support_artifact::MODERN_SCIENCE_COMPARATOR_SUPERIORITY::oc_prediction_scoring_row",
+    "why_it_failed": "The evidence pack is explicitly fail-closed; broad superiority cannot use it.",
+    "work_order_type": "CAPABILITY_EXECUTOR_MISSING"
+  },
   "validator_error_delta": 0,
-  "why_it_failed": "The evidence pack is explicitly fail-closed; broad superiority cannot use it."
+  "why_it_failed": "Capability exists but has no safe ready executor for the current scientific frontier."
 }

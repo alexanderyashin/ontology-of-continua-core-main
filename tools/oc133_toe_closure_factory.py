@@ -8563,6 +8563,15 @@ def build_upstream_capability_work_order_registry(
                 domain_class_id = str(gap_payload.get("domain_class_id") or queue_row.get("domain_class_id") or "")
                 phenomenon_class_id = str(gap_payload.get("phenomenon_class_id") or queue_row.get("phenomenon_class_id") or "")
             work_order_type = str(work_order.get("work_order_type") or "CAPABILITY_EXECUTOR_MISSING")
+            if work_order_type == "SOURCE_BOUND_SCORER_MATERIALIZER_IMPLEMENTATION" and gap_id:
+                generated_evidence = comparator_generated_evidence(root, gap_id)
+                if (
+                    generated_evidence.get("executable_evidence_exists") is True
+                    and generated_evidence.get("evidence_ref_exists") is True
+                    and generated_evidence.get("material_margin_met") is True
+                    and generated_evidence.get("fail_closed_status_present") is False
+                ):
+                    continue
             execution_command = [
                 sys.executable,
                 "tools/oc133_toe_closure_factory.py",
@@ -8651,6 +8660,46 @@ def capability_executor_for_row(row: dict[str, Any], compiled_capability_id: str
         source_node = str(row.get("source_graph_node_id") or "")
         if artifact_key.startswith("upstream_work_order::"):
             upstream_id = str(row.get("upstream_work_order_id") or row.get("capability_development_id") or "")
+            parts = source_node.split(":")
+            work_order_type = parts[2] if len(parts) >= 3 and source_node.startswith("upstream_work_order:") else artifact_key.split("::", 1)[1]
+            upstream_gap_id = parts[3] if len(parts) >= 4 and source_node.startswith("upstream_work_order:") else gap_id
+            gap_payload = comparator_gap_execution_payload(ROOT, upstream_gap_id) if upstream_gap_id else {}
+            queue_row = comparator_lane_queue_rows_by_gap(ROOT).get(upstream_gap_id, {})
+            upstream_domain_id = str(gap_payload.get("domain_class_id") or queue_row.get("domain_class_id") or "")
+            upstream_phenomenon_id = str(gap_payload.get("phenomenon_class_id") or queue_row.get("phenomenon_class_id") or "")
+            if work_order_type == "SOURCE_BOUND_SCORER_MATERIALIZER_IMPLEMENTATION":
+                has_materializer = any(
+                    COMPARATOR_DOMAIN_IMPLEMENTED_COMMANDS.get((upstream_domain_id, upstream_phenomenon_id, subartifact_id))
+                    for subartifact_id in (
+                        "source_snapshot_acquisition",
+                        "target_hidden_task_table",
+                        "oc_formula_or_model",
+                        "incumbent_comparator_scoring",
+                        "residuals_materiality_uncertainty",
+                        "controls_and_falsifiers",
+                        "independent_replay",
+                        "strict_evidence_pack_diagnosis",
+                        "model_or_claim_repair_decision",
+                    )
+                )
+                if not has_materializer:
+                    return (
+                        [],
+                        "upstream_source_materializer_missing",
+                        "No governed source-bound materializer command exists for this domain/phenomenon yet; keep this as capability backlog instead of executing diagnostic scripts.",
+                    )
+            if work_order_type == "SOURCE_BOUND_MODEL_OR_COMPARATOR_IMPROVEMENT":
+                return (
+                    [],
+                    "upstream_model_or_comparator_research_required",
+                    "The source-bound scorer already produced a negative result; do not rerun diagnostics as progress. A real model/comparator research executor is required.",
+                )
+            if work_order_type == "CAPABILITY_EXECUTOR_MISSING":
+                return (
+                    [],
+                    "upstream_capability_executor_missing",
+                    "The lower-level work order explicitly says no executor exists yet; keep it in capability backlog until a concrete source-bound command is implemented.",
+                )
             return (
                 [sys.executable, "tools/oc133_toe_closure_factory.py", "--execute-upstream-capability-work-order", upstream_id, "--write"],
                 "upstream_capability_work_order",

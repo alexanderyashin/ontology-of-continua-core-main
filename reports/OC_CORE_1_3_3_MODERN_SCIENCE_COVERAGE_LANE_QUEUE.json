@@ -248,6 +248,9 @@
         "current_evidence": {
           "executable_evidence_exists": false,
           "executable_evidence_ref": null,
+          "status": null,
+          "implemented_snapshot_ref": null,
+          "implemented_lock_ref": null,
           "reason": "No locked FAOSTAT livestock parser, WOAH public export/API lock, target-hidden task table, scorer, controls, or strict evidence pack is present."
         },
         "closure_predicates_required": [
@@ -541,6 +544,9 @@
         "current_evidence": {
           "executable_evidence_exists": false,
           "executable_evidence_ref": null,
+          "status": null,
+          "implemented_snapshot_ref": null,
+          "implemented_lock_ref": null,
           "reason": "No locked QuickStats yield snapshot, NRCS soil snapshot, target-hidden task table, scorer, comparator outputs, or strict evidence pack is present."
         },
         "closure_predicates_required": [
@@ -837,7 +843,10 @@
         "current_evidence": {
           "executable_evidence_exists": true,
           "executable_evidence_ref": "validation/heldout/grand_science/agriculture/coverage_work_orders/OC133_AGRICULTURE_FDC_SODIUM_SCORING_PACK.json",
-          "reason": "The compact FDC snapshot supplies the visible ash/calcium fields and hidden sodium target needed for an executable target-hidden sodium scorer, comparator residual table, negative-control result, replay hash, and strict fail-closed evidence pack. Coverage closure remains prohibited."
+          "status": null,
+          "implemented_snapshot_ref": "validation/heldout/grand_science/agriculture/coverage_work_orders/raw/OC133_AGRICULTURE_FDC_FOUNDATION_FOODS_LIST_25.compact.json",
+          "implemented_lock_ref": "validation/heldout/grand_science/agriculture/coverage_work_orders/locks/OC133-AGRI-FDC-FOUNDATION-FOODS-LIST-0001.lock.json",
+          "reason": "Source-bound target-hidden scoring evidence is materialized and hash-bound; broad modern-science coverage still remains fail-closed until every required gap passes."
         },
         "closure_predicates_required": [
           "STRICT_PACK_SCHEMA_PASS",
@@ -1113,6 +1122,9 @@
         "current_evidence": {
           "executable_evidence_exists": false,
           "executable_evidence_ref": null,
+          "status": "OPEN_FAIL_CLOSED_SPEC_DECLARED_NO_SOURCE_LOCK_NO_STRICT_PACK",
+          "implemented_snapshot_ref": null,
+          "implemented_lock_ref": null,
           "reason": "The public experiment source is identified, but no behavior-event source lock, target-hidden metric table, comparator output, or strict pack is present."
         },
         "closure_predicates_required": [
@@ -1379,6 +1391,9 @@
         "current_evidence": {
           "executable_evidence_exists": false,
           "executable_evidence_ref": null,
+          "status": "OPEN_FAIL_CLOSED_SPEC_DECLARED_NO_SOURCE_LOCK_NO_STRICT_PACK",
+          "implemented_snapshot_ref": null,
+          "implemented_lock_ref": null,
           "reason": "OpenNeuro ds000030 includes relevant task material, but no locked PAM event table, scorer, comparator output, or strict pack is present."
         },
         "closure_predicates_required": [
@@ -1645,6 +1660,9 @@
         "current_evidence": {
           "executable_evidence_exists": false,
           "executable_evidence_ref": null,
+          "status": "OPEN_FAIL_CLOSED_SPEC_DECLARED_NO_SOURCE_LOCK_NO_STRICT_PACK",
+          "implemented_snapshot_ref": null,
+          "implemented_lock_ref": null,
           "reason": "OpenNeuro ds000030 is identified, but no dataset lock, preprocessing manifest, target-hidden connectivity scorer, comparator run, or strict pack is present."
         },
         "closure_predicates_required": [
@@ -1913,6 +1931,9 @@
         "current_evidence": {
           "executable_evidence_exists": false,
           "executable_evidence_ref": null,
+          "status": "OPEN_FAIL_CLOSED_SPEC_DECLARED_NO_SOURCE_LOCK_NO_STRICT_PACK",
+          "implemented_snapshot_ref": null,
+          "implemented_lock_ref": null,
           "reason": "NYC TLC is identified as an official public mobility source, but no source lock, aggregation manifest, scorer, comparator output, or strict pack is present."
         },
         "closure_predicates_required": [
@@ -2185,6 +2206,9 @@
         "current_evidence": {
           "executable_evidence_exists": false,
           "executable_evidence_ref": null,
+          "status": "OPEN_FAIL_CLOSED_SPEC_DECLARED_NO_SOURCE_LOCK_NO_STRICT_PACK",
+          "implemented_snapshot_ref": null,
+          "implemented_lock_ref": null,
           "reason": "BTS TranStats is identified as an official operations source, but no source lock, delay scorer, comparator output, or strict pack is present."
         },
         "closure_predicates_required": [
@@ -2453,6 +2477,9 @@
         "current_evidence": {
           "executable_evidence_exists": false,
           "executable_evidence_ref": null,
+          "status": "OPEN_FAIL_CLOSED_SPEC_DECLARED_NO_SOURCE_LOCK_NO_STRICT_PACK",
+          "implemented_snapshot_ref": null,
+          "implemented_lock_ref": null,
           "reason": "OpenFEMA is identified as an official resilience source, but no operations-local source lock, scorer, comparator output, or strict pack is present."
         },
         "closure_predicates_required": [
@@ -2530,7 +2557,7 @@
       "phenomenon_label": "information network and security observables",
       "lane_route": "EMPIRICAL_SOURCE_BACKED_BENCHMARK",
       "owner_capability": "Logion CS Evidence / Verification and Evaluation Sources",
-      "execution_state": "FAIL_CLOSED_EXECUTABLE_SPEC_READY_EVIDENCE_MISSING",
+      "execution_state": "EVIDENCE_BOUND_PENDING_REVIEW",
       "dependency_key": "source_capsule_lock",
       "dependencies": [
         {
@@ -2564,8 +2591,8 @@
           "lane_role": "official_data_source",
           "requirement": "Acquire and hash NIST National Vulnerability Database CVE API 2.0 from https://services.nvd.nist.gov/rest/json/cves/2.0.",
           "source_id": "NIST_NVD_CVE_API_2_0",
-          "required_local_snapshot_ref": null,
-          "required_lock_ref": null
+          "required_local_snapshot_ref": "validation/heldout/grand_science/cs/coverage_work_orders/raw/security_nvd/nvd_cve_2024q1_high.compact.json",
+          "required_lock_ref": "validation/heldout/grand_science/cs/coverage_work_orders/raw/security_nvd/nvd_cve_2024q1_high.lock.json"
         },
         {
           "lane_role": "target_variable",
@@ -2618,8 +2645,7 @@
         "executable lane spec declares exact official source, target variable, formula/model, comparator, uncertainty, residual metric, negative control, and falsifier",
         "source snapshot and target projection are locked before scoring",
         "strict evidence pack exists and validates under independent replay",
-        "coverage remains open until every closure predicate is reviewed",
-        "fail-closed evidence gate: executable evidence is not yet bound"
+        "coverage remains open until every closure predicate is reviewed"
       ],
       "official_source_defaults": [
         "language specifications, proof benchmarks, NIST/NVD, MLPerf, or equivalent public corpora",
@@ -2664,10 +2690,10 @@
           "source_authority": "National Institute of Standards and Technology",
           "official_documentation_url": "https://nvd.nist.gov/developers/vulnerabilities",
           "official_endpoint_url": "https://services.nvd.nist.gov/rest/json/cves/2.0",
-          "required_local_snapshot_ref": null,
-          "required_lock_ref": null,
+          "required_local_snapshot_ref": "validation/heldout/grand_science/cs/coverage_work_orders/raw/security_nvd/nvd_cve_2024q1_high.compact.json",
+          "required_lock_ref": "validation/heldout/grand_science/cs/coverage_work_orders/raw/security_nvd/nvd_cve_2024q1_high.lock.json",
           "minimum_rows_required": 100,
-          "snapshot_status": "NOT_ACQUIRED_FOR_THIS_COVERAGE_CLASS"
+          "snapshot_status": "ACQUIRED_OR_BOUND"
         },
         "target_variable": {
           "name": "heldout_nvd_cvss_v31_base_score",
@@ -2715,9 +2741,12 @@
           "replay_command": "python validation/heldout/grand_science/cs/coverage_work_orders/oc133_cs_modern_science_coverage_work_orders.py --check"
         },
         "current_evidence": {
-          "executable_evidence_exists": false,
-          "executable_evidence_ref": null,
-          "reason": "NIST NVD is identified as the official source, but no locked NVD snapshot, target-hidden scorer, comparator output, or strict pack is present."
+          "executable_evidence_exists": true,
+          "executable_evidence_ref": "validation/heldout/grand_science/cs/coverage_work_orders/OC133_CS_NVD_CVSS_SECURITY_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
+          "status": "STRICT_EVIDENCE_PASS_NO_COVERAGE_CLOSURE",
+          "implemented_snapshot_ref": "validation/heldout/grand_science/cs/coverage_work_orders/raw/security_nvd/nvd_cve_2024q1_high.compact.json",
+          "implemented_lock_ref": "validation/heldout/grand_science/cs/coverage_work_orders/raw/security_nvd/nvd_cve_2024q1_high.lock.json",
+          "reason": "Source-bound target-hidden scoring evidence is materialized and hash-bound; broad modern-science coverage still remains fail-closed until every required gap passes."
         },
         "closure_predicates_required": [
           "STRICT_PACK_SCHEMA_PASS",
@@ -2747,10 +2776,10 @@
         }
       },
       "evidence_gate": {
-        "executable_evidence_exists": false,
-        "executable_evidence_ref": null,
+        "executable_evidence_exists": true,
+        "executable_evidence_ref": "validation/heldout/grand_science/cs/coverage_work_orders/OC133_CS_NVD_CVSS_SECURITY_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
         "closure_allowed": false,
-        "status": "FAIL_CLOSED_NO_EXECUTABLE_EVIDENCE"
+        "status": "EVIDENCE_BOUND_PENDING_REVIEW"
       },
       "verification_command": "python benchmarks/modern_science/coverage_lane_dispatcher.py --check",
       "resource_estimate": {
@@ -2778,7 +2807,7 @@
       "coverage_closure": {
         "current_status": "OPEN_FAIL_CLOSED_EXECUTABLE_SPEC_ONLY",
         "mark_closed_allowed": false,
-        "reason": "NIST NVD is identified as the official source, but no locked NVD snapshot, target-hidden scorer, comparator output, or strict pack is present."
+        "reason": "Dispatcher emits executable plans only; evidence and reviewed closure predicates are still absent."
       }
     },
     {
@@ -2983,6 +3012,9 @@
         "current_evidence": {
           "executable_evidence_exists": false,
           "executable_evidence_ref": null,
+          "status": "OPEN_FAIL_CLOSED_SPEC_DECLARED_NO_SOURCE_LOCK_NO_STRICT_PACK",
+          "implemented_snapshot_ref": null,
+          "implemented_lock_ref": null,
           "reason": "OpenML CC18 is identified as the public benchmark source, but no source lock, scorer, comparator result, or strict pack is present."
         },
         "closure_predicates_required": [
@@ -3249,6 +3281,9 @@
         "current_evidence": {
           "executable_evidence_exists": false,
           "executable_evidence_ref": null,
+          "status": "OPEN_FAIL_CLOSED_SPEC_DECLARED_NO_SOURCE_LOCK_NO_STRICT_PACK",
+          "implemented_snapshot_ref": null,
+          "implemented_lock_ref": null,
           "reason": "No pinned SV-COMP/SARD source lock, target-hidden task table, scorer, comparator run, or strict evidence pack is present."
         },
         "closure_predicates_required": [
@@ -3521,7 +3556,10 @@
         "current_evidence": {
           "executable_evidence_exists": true,
           "executable_evidence_ref": "validation/heldout/grand_science/earth_space/coverage_work_orders/OC133_EARTH_SPACE_NOAA_COOPS_WATER_LEVEL_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
-          "reason": "NOAA CO-OPS target-hidden scorer, comparator residual, negative-control, and replay hash are bound; coverage closure remains disabled pending coverage-register review."
+          "status": "STRICT_EVIDENCE_PASS_NO_COVERAGE_CLOSURE",
+          "implemented_snapshot_ref": null,
+          "implemented_lock_ref": null,
+          "reason": "Source-bound target-hidden scoring evidence is materialized and hash-bound; broad modern-science coverage still remains fail-closed until every required gap passes."
         },
         "closure_predicates_required": [
           "STRICT_PACK_SCHEMA_PASS",
@@ -3793,7 +3831,10 @@
         "current_evidence": {
           "executable_evidence_exists": true,
           "executable_evidence_ref": "validation/heldout/grand_science/earth_space/coverage_work_orders/OC133_EARTH_SPACE_USGS_HYDROLOGY_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
-          "reason": "USGS target-hidden replay scorer is bound, but strict evidence is blocked because the predeclared model does not beat the carry-forward comparator within the uncertainty allowance."
+          "status": "SCORER_READY_FAIL_CLOSED_STRICT_EVIDENCE_NOT_MET",
+          "implemented_snapshot_ref": null,
+          "implemented_lock_ref": null,
+          "reason": "Source-bound target-hidden scoring evidence is materialized and hash-bound; broad modern-science coverage still remains fail-closed until every required gap passes."
         },
         "closure_predicates_required": [
           "STRICT_PACK_SCHEMA_PASS",
@@ -4067,7 +4108,10 @@
         "current_evidence": {
           "executable_evidence_exists": true,
           "executable_evidence_ref": "validation/heldout/grand_science/earth_space/coverage_work_orders/OC133_EARTH_SPACE_NASA_POWER_REMOTE_SENSING_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
-          "reason": "NASA POWER target-hidden scorer, comparator residual, negative-control, and replay hash are bound; coverage closure remains disabled pending coverage-register review."
+          "status": "STRICT_EVIDENCE_PASS_NO_COVERAGE_CLOSURE",
+          "implemented_snapshot_ref": null,
+          "implemented_lock_ref": null,
+          "reason": "Source-bound target-hidden scoring evidence is materialized and hash-bound; broad modern-science coverage still remains fail-closed until every required gap passes."
         },
         "closure_predicates_required": [
           "STRICT_PACK_SCHEMA_PASS",
@@ -4340,6 +4384,9 @@
         "current_evidence": {
           "executable_evidence_exists": false,
           "executable_evidence_ref": null,
+          "status": null,
+          "implemented_snapshot_ref": null,
+          "implemented_lock_ref": null,
           "reason": "NIST SRD 60 source snapshot, target-hidden scorer, negative-control replay, and strict evidence pack are not yet bound."
         },
         "closure_predicates_required": [
@@ -4619,6 +4666,9 @@
         "current_evidence": {
           "executable_evidence_exists": false,
           "executable_evidence_ref": null,
+          "status": null,
+          "implemented_snapshot_ref": null,
+          "implemented_lock_ref": null,
           "reason": "NIST WebBook source snapshot, target-hidden scorer, negative-control replay, and strict evidence pack are not yet bound."
         },
         "closure_predicates_required": [
@@ -4898,6 +4948,9 @@
         "current_evidence": {
           "executable_evidence_exists": false,
           "executable_evidence_ref": null,
+          "status": null,
+          "implemented_snapshot_ref": null,
+          "implemented_lock_ref": null,
           "reason": "JARVIS source snapshot, target-hidden scorer, negative-control replay, and strict evidence pack are not yet bound."
         },
         "closure_predicates_required": [
@@ -7181,6 +7234,9 @@
         "current_evidence": {
           "executable_evidence_exists": false,
           "executable_evidence_ref": null,
+          "status": null,
+          "implemented_snapshot_ref": null,
+          "implemented_lock_ref": null,
           "reason": "READY_FOR_REPLAY_REVIEW_NOT_COVERAGE_CLOSED"
         },
         "closure_predicates_required": [
@@ -7458,6 +7514,9 @@
         "current_evidence": {
           "executable_evidence_exists": false,
           "executable_evidence_ref": null,
+          "status": null,
+          "implemented_snapshot_ref": null,
+          "implemented_lock_ref": null,
           "reason": "FAIL_CLOSED_PENDING_GBIF_SOURCE_CAPSULE_AND_REPLAY"
         },
         "closure_predicates_required": [
@@ -9547,6 +9606,9 @@
         "current_evidence": {
           "executable_evidence_exists": false,
           "executable_evidence_ref": null,
+          "status": null,
+          "implemented_snapshot_ref": null,
+          "implemented_lock_ref": null,
           "reason": "FAIL_CLOSED_PENDING_GENERALIZED_WDI_INDICATOR_REPLAY"
         },
         "closure_predicates_required": [
@@ -9824,6 +9886,9 @@
         "current_evidence": {
           "executable_evidence_exists": false,
           "executable_evidence_ref": null,
+          "status": null,
+          "implemented_snapshot_ref": null,
+          "implemented_lock_ref": null,
           "reason": "FAIL_CLOSED_PENDING_WDI_WGI_POLICY_REPLAY"
         },
         "closure_predicates_required": [

@@ -52,6 +52,29 @@ OWNER_CAPABILITIES = {
     "complex_systems_operations_science": "Logion Operations Evidence / Intervention and Queueing Sources",
 }
 
+DOMAIN_LOCAL_MATERIALIZED_EVIDENCE_REFS = {
+    (
+        "agricultural_food_sciences",
+        "food_chemistry_safety_and_nutrition",
+    ): "validation/heldout/grand_science/agriculture/coverage_work_orders/OC133_AGRICULTURE_FDC_SODIUM_SCORING_PACK.json",
+    (
+        "earth_space_environmental_sciences",
+        "geochemistry_and_hydrology_observables",
+    ): "validation/heldout/grand_science/earth_space/coverage_work_orders/OC133_EARTH_SPACE_USGS_HYDROLOGY_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
+    (
+        "earth_space_environmental_sciences",
+        "climate_weather_geophysical_time_series",
+    ): "validation/heldout/grand_science/earth_space/coverage_work_orders/OC133_EARTH_SPACE_NOAA_COOPS_WATER_LEVEL_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
+    (
+        "earth_space_environmental_sciences",
+        "remote_sensing_and_planetary_measurements",
+    ): "validation/heldout/grand_science/earth_space/coverage_work_orders/OC133_EARTH_SPACE_NASA_POWER_REMOTE_SENSING_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
+    (
+        "computer_information_sciences",
+        "information_network_and_security_observables",
+    ): "validation/heldout/grand_science/cs/coverage_work_orders/OC133_CS_NVD_CVSS_SECURITY_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
+}
+
 OFFICIAL_SOURCE_DEFAULTS = {
     "formal_mathematics_and_logic": [
         "Lean/mathlib or equivalent formal corpus with stable artifact hashes",
@@ -791,16 +814,45 @@ def domain_local_current_evidence(row: dict[str, Any], executable: dict[str, Any
         or as_dict(row.get("current_evidence_assessment"))
         or as_dict(executable.get("fail_closed_current_evidence"))
     )
+    materialized_ref = DOMAIN_LOCAL_MATERIALIZED_EVIDENCE_REFS.get(lane_key(row), "")
+    materialized_path = repo_root() / materialized_ref if materialized_ref else None
+    materialized_pack = load_json(materialized_path) if materialized_path else {}
+    if materialized_pack:
+        pack_status = first_nonempty(materialized_pack.get("pack_status"), materialized_pack.get("status"))
+        evidence = {
+            **evidence,
+            "status": pack_status,
+            "executable_evidence_exists": True,
+            "executable_evidence_ref": materialized_ref,
+            "implemented_scoring_pack_ref": materialized_ref,
+            "strict_evidence_pack_ref": materialized_ref,
+            "implemented_snapshot_ref": first_nonempty(
+                materialized_pack.get("source_snapshot_ref"),
+                as_dict(materialized_pack.get("source")).get("source_snapshot_ref"),
+            ),
+            "implemented_lock_ref": first_nonempty(
+                materialized_pack.get("source_lock_ref"),
+                as_dict(materialized_pack.get("source")).get("source_lock_ref"),
+            ),
+            "reason": (
+                "Source-bound target-hidden scoring evidence is materialized and hash-bound; "
+                "broad modern-science coverage still remains fail-closed until every required gap passes."
+            ),
+        }
     evidence_ref = first_nonempty(
         evidence.get("implemented_scoring_pack_ref"),
         evidence.get("strict_evidence_pack_ref"),
         evidence.get("scoring_pack_ref"),
         evidence.get("candidate_pack_ref"),
+        evidence.get("executable_evidence_ref"),
     )
     exists = evidence.get("executable_evidence_exists") is True or bool(evidence_ref)
     return {
         "executable_evidence_exists": exists,
         "executable_evidence_ref": evidence_ref,
+        "status": evidence.get("status"),
+        "implemented_snapshot_ref": evidence.get("implemented_snapshot_ref"),
+        "implemented_lock_ref": evidence.get("implemented_lock_ref"),
         "reason": first_nonempty(evidence.get("reason"), evidence.get("status_code"), row.get("lane_status"), "Domain-local evidence state imported by the coverage bridge."),
     }
 

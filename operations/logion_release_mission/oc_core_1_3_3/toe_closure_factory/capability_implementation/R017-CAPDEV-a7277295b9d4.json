@@ -1,0 +1,50 @@
+{
+  "after_validator_error_total": 13,
+  "artifact_hash": "10cfdcb486698d110d23c6a52f667c0a184d2fb32c374f024a35e6555c119cea",
+  "before_validator_error_total": 13,
+  "capability_class": "upstream_capability_work_order",
+  "capability_development_key": "a7277295b9d4a527c8029a856e96460d6c82da3d36f9772aa4ab8b0c8f30bd47",
+  "capability_id": "R017-CAPDEV-a7277295b9d4",
+  "command_results": [
+    {
+      "cmd": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "tools/oc133_toe_closure_factory.py",
+        "--execute-upstream-capability-work-order",
+        "R017-UPSTREAM-916b1fdf22151eb7",
+        "--write"
+      ],
+      "returncode": 1,
+      "stderr_tail": "",
+      "stdout_tail": "{\n  \"changed\": [],\n  \"missing\": [],\n  \"state\": \"PASS\"\n}\n"
+    }
+  ],
+  "compiled_capability_id": "R017-CAPDEV-a7277295b9d4",
+  "execution_command": [
+    "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+    "tools/oc133_toe_closure_factory.py",
+    "--execute-capability-development",
+    "R017-CAPDEV-a7277295b9d4",
+    "--write"
+  ],
+  "executor_command": [
+    "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+    "tools/oc133_toe_closure_factory.py",
+    "--execute-upstream-capability-work-order",
+    "R017-UPSTREAM-916b1fdf22151eb7",
+    "--write"
+  ],
+  "executor_type": "upstream_capability_work_order",
+  "generated_at": "2026-05-06T15:57:07Z",
+  "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+  "next_escalation": "If this compiled capability produces zero validator delta, generate a lower-level upstream research obligation for the exact missing source/evidence object.",
+  "no_fake_closure_policy": "Zero delta remains OPEN and cannot satisfy r017.",
+  "pass_predicate": "Comparator gap `MS-COV-GAP-AGRICULTURAL_FOOD_SCIENCES-ANIMAL_HEALTH_AND_PRODUCTION_SYSTEMS` has `replay_record` and strict coverage register no longer lists it as missing.",
+  "repair_strategy": "Execute the lower-level upstream capability work order produced by exhausted source-bound materialization, rather than rerunning diagnostics.",
+  "required_capability": "Research/PriorArt",
+  "schema_id": "OC133_TOE_CAPABILITY_DEVELOPMENT_EXECUTION_v1",
+  "source_graph_node_id": "upstream_work_order:R017-UPSTREAM-916b1fdf22151eb7:CAPABILITY_EXECUTOR_MISSING::upstream_work_order::SOURCE_BOUND_SCORER_MATERIALIZER_IMPLEMENTATION",
+  "status": "FAIL_CLOSED",
+  "validator_error_delta": 0,
+  "why_it_failed": "Replay is correctly blocked because the upstream scoring evidence is not passing."
+}

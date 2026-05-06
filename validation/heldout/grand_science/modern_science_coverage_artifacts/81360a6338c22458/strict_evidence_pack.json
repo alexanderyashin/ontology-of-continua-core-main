@@ -1,40 +1,58 @@
 {
-  "artifact_hash": "f996d0d0f9a14f6c4eee3cbc7ae502f92ca036646ce45ce286f606f43ad7395c",
+  "artifact_hash": "0c24e83e4ce951547c9b35a4974c35c2690027e1dad79c6ec743f2c629693e96",
   "artifact_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/81360a6338c22458/strict_evidence_pack.json",
   "broad_modern_science_superiority_allowed": false,
+  "command_results": [
+    {
+      "cmd": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "validation/heldout/grand_science/cs/coverage_work_orders/oc133_cs_modern_science_coverage_work_orders.py",
+        "--refresh-nvd-source",
+        "--write-acquisition"
+      ],
+      "returncode": 0,
+      "stderr_tail": "",
+      "stdout_tail": "{\n  \"status\": \"ok\",\n  \"source_snapshot_ref\": \"validation/heldout/grand_science/cs/coverage_work_orders/raw/security_nvd/nvd_cve_2024q1_high.compact.json\",\n  \"source_lock_ref\": \"validation/heldout/grand_science/cs/coverage_work_orders/raw/security_nvd/nvd_cve_2024q1_high.lock.json\",\n  \"row_count\": 2000,\n  \"minimum_n_required\": 100\n}\n"
+    },
+    {
+      "cmd": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "validation/heldout/grand_science/cs/coverage_work_orders/oc133_cs_modern_science_coverage_work_orders.py",
+        "--check"
+      ],
+      "returncode": 0,
+      "stderr_tail": "",
+      "stdout_tail": "{\n  \"status\": \"ok\",\n  \"checked\": \"validation/heldout/grand_science/cs/coverage_work_orders/OC133_CS_MODERN_SCIENCE_COVERAGE_WORK_ORDERS.json\"\n}\n"
+    },
+    {
+      "cmd": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "validation/heldout/grand_science/cs/coverage_work_orders/oc133_cs_modern_science_coverage_work_orders.py",
+        "--score-nvd",
+        "--write-scoring"
+      ],
+      "returncode": 0,
+      "stderr_tail": "",
+      "stdout_tail": "{\n  \"status\": \"ok\",\n  \"pack_status\": \"STRICT_EVIDENCE_PASS_NO_COVERAGE_CLOSURE\",\n  \"scoring_pack_ref\": \"validation/heldout/grand_science/cs/coverage_work_orders/OC133_CS_NVD_CVSS_SECURITY_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json\",\n  \"report_ref\": \"validation/heldout/grand_science/cs/coverage_work_orders/OC133_CS_NVD_CVSS_REPLAY_REPORT.json\",\n  \"row_count\": 400,\n  \"model_mae\": 0.975413,\n  \"comparator_mae\": 1.03675,\n  \"material_margin_met\": true,\n  \"negative_control_rejected\": true,\n  \"errors\": []\n}\n"
+    }
+  ],
   "comparator_bound": true,
   "coverage_closure_allowed": true,
   "current_evidence": {
-    "evidence_pack_hash": "194e4aedb01079ce3d98b0535bec5be58ffdd31aaa92b1ef747789aeb3cf2eec",
-    "evidence_pack_summary": {
-      "coverage_closure_allowed": true,
-      "fail_closed_reason": "",
-      "pack_status": "PASS",
-      "residuals": {
-        "comparator": null,
-        "material_margin_met": true,
-        "material_margin_rule": "model_MAE + conformal_upper < comparator_MAE",
-        "model": null
-      },
-      "schema_id": "OC133_MODERN_SCIENCE_COMPARATOR_STRICT_EVIDENCE_PACK_v1",
-      "score_materialized": true,
-      "source_bound": true,
-      "target_hidden": true
-    },
-    "evidence_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/81360a6338c22458/strict_evidence_pack.json",
-    "evidence_ref_exists": true,
-    "executable_evidence_exists": true,
-    "fail_closed_status_present": false,
-    "material_margin_met": true,
-    "pack_status_text": "PASS PASS"
+    "coverage_closure_allowed": false,
+    "domain_evidence_ref": "validation/heldout/grand_science/cs/coverage_work_orders/OC133_CS_NVD_CVSS_SECURITY_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
+    "domain_evidence_schema_id": "OC133_CS_NVD_CVSS_SCORING_PACK_v1",
+    "domain_evidence_sha256": "0e8a09b7a211d00db9b624704023dbc7bd2df8341bb130585569ef9dfeb8a5b9",
+    "domain_pack_status": "STRICT_EVIDENCE_PASS_NO_COVERAGE_CLOSURE",
+    "scientific_pass": true
   },
   "domain_class_id": "computer_information_sciences",
   "executable_evidence_exists": true,
   "execution_command": [
     "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
     "tools/oc133_toe_closure_factory.py",
-    "--execute-comparator-generic-evidence-pack",
-    "MS-COV-GAP-COMPUTER_INFORMATION_SCIENCES-INFORMATION_NETWORK_AND_SECURITY_OBSERVABLES",
+    "--execute-comparator-component-materialization",
+    "R017-UPSTREAM-872ed95f4635539b",
     "--write"
   ],
   "execution_requirements": {
@@ -59,38 +77,31 @@
     "target_values_used_for_baseline_design": false
   },
   "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
-  "next_escalation": "Implement a domain-specific scorer when this generic pack remains fail-closed.",
-  "no_fake_closure_policy": "This pack is source-bound but cannot promote broad superiority unless actual target-hidden scoring materially beats the preregistered comparator.",
+  "no_fake_closure_policy": "Negative source-bound scoring remains a scientific blocker; it cannot be counted as broad superiority.",
   "pack_status": "PASS",
   "pass_predicate": "pack_status == PASS, material_margin_met == true, no fail-closed status, replay_record PASS.",
   "phenomenon_class_id": "information_network_and_security_observables",
   "prerequisite_artifacts_bound": true,
-  "repair_strategy": "Acquire target-hidden source data, materialize OC and incumbent predictions, compute residuals, then rerun this pack and replay.",
+  "repair_strategy": "If negative, improve the source-bound model/comparator route from canonical evidence rather than weakening the materiality rule.",
   "replay": {
-    "replay_command": "python validation/heldout/grand_science/cs/coverage_work_orders/oc133_cs_modern_science_coverage_work_orders.py --check",
+    "replay_command": "python validation/heldout/grand_science/cs/coverage_work_orders/oc133_cs_modern_science_coverage_work_orders.py --score-nvd --write-scoring",
     "replay_commands": [
+      "python validation/heldout/grand_science/cs/coverage_work_orders/oc133_cs_modern_science_coverage_work_orders.py --score-nvd --write-scoring",
       "python validation/heldout/grand_science/cs/coverage_work_orders/oc133_cs_modern_science_coverage_work_orders.py --check"
     ],
     "status": "READY_FOR_REPLAY"
   },
-  "required_artifact_refs": {
-    "benchmark_case": "validation/heldout/grand_science/modern_science_coverage_artifacts/81360a6338c22458/benchmark_case.json",
-    "falsifier_row": "validation/heldout/grand_science/modern_science_coverage_artifacts/81360a6338c22458/falsifier_row.json",
-    "incumbent_comparator": "validation/heldout/grand_science/modern_science_coverage_artifacts/81360a6338c22458/incumbent_comparator.json",
-    "uncertainty_row": "validation/heldout/grand_science/modern_science_coverage_artifacts/81360a6338c22458/uncertainty_row.json",
-    "verified_open_source_capsule": "validation/heldout/grand_science/modern_science_coverage_artifacts/81360a6338c22458/verified_open_source_capsule.json"
-  },
-  "required_capability": "Research/ScoringExecutor",
+  "required_capability": "Research/SourceBoundScoringMaterializationExecutor",
   "residual_requirement": {
     "formula": "absolute CVSS-point residual per CVE; macro MAE by CWE stratum",
     "metric_id": "MS-COV-WO-027_domain_local_residual",
     "superiority_rule": "model_MAE + conformal_upper < comparator_MAE"
   },
   "residuals": {
-    "comparator": null,
+    "comparator": 1.03675,
     "material_margin_met": true,
-    "material_margin_rule": "model_MAE + conformal_upper < comparator_MAE",
-    "model": null
+    "material_margin_rule": "source-bound materialized evidence pack must show OC residual strictly below preregistered comparator residual under the declared uncertainty rule",
+    "model": 0.975413
   },
   "schema_id": "OC133_MODERN_SCIENCE_COMPARATOR_STRICT_EVIDENCE_PACK_v1",
   "score_materialized": true,
@@ -109,7 +120,8 @@
   "source_refs": [
     "reports/OC_CORE_1_3_3_MODERN_SCIENCE_COVERAGE_LANE_QUEUE.json",
     "benchmarks/modern_science/OC133_MODERN_SCIENCE_COVERAGE_WORK_ORDERS.json",
-    "comparators/modern_science/OC133_MODERN_SCIENCE_COVERAGE_REGISTER.json"
+    "comparators/modern_science/OC133_MODERN_SCIENCE_COVERAGE_REGISTER.json",
+    "validation/heldout/grand_science/cs/coverage_work_orders/OC133_CS_NVD_CVSS_SECURITY_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json"
   ],
   "status": "PASS",
   "target_hidden": true,
@@ -126,6 +138,6 @@
     "metric": "absolute CVSS-point residual per CVE; macro MAE by CWE stratum",
     "rule": "pre-holdout conformal residual interval stratified by CWE availability"
   },
-  "validator_binding": "comparator_gap::MS-COV-GAP-COMPUTER_INFORMATION_SCIENCES-INFORMATION_NETWORK_AND_SECURITY_OBSERVABLES::generic_strict_evidence_pack",
+  "validator_binding": "comparator_gap::MS-COV-GAP-COMPUTER_INFORMATION_SCIENCES-INFORMATION_NETWORK_AND_SECURITY_OBSERVABLES::materialized_strict_evidence_pack",
   "why_it_failed": "Existing executable evidence pack passes strict material superiority predicates."
 }

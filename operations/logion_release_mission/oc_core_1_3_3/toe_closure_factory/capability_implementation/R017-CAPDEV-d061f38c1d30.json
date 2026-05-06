@@ -1,24 +1,10 @@
 {
   "after_validator_error_total": 13,
-  "artifact_hash": "cb692584b39b5daaeeaa902ef03a91a6d7b227268eaa4416ae2e4db8a5ca6d58",
+  "artifact_hash": "324171f12fdc04e327743813dd6e669c4acbb007e5c3a6e198be9e8fdcaf7af3",
   "before_validator_error_total": 13,
-  "capability_class": "upstream_capability_work_order",
-  "capability_development_key": "d061f38c1d30f435bc10dc2c4be45e3ef3f643b2af3904745e27be39b4822f9d",
+  "capability_class": "upstream_source_materializer_missing",
   "capability_id": "R017-CAPDEV-d061f38c1d30",
-  "command_results": [
-    {
-      "cmd": [
-        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
-        "tools/oc133_toe_closure_factory.py",
-        "--execute-upstream-capability-work-order",
-        "R017-UPSTREAM-159e772e6f472281",
-        "--write"
-      ],
-      "returncode": 1,
-      "stderr_tail": "",
-      "stdout_tail": "{\n  \"changed\": [],\n  \"missing\": [],\n  \"state\": \"PASS\"\n}\n"
-    }
-  ],
+  "command_results": [],
   "compiled_capability_id": "R017-CAPDEV-d061f38c1d30",
   "execution_command": [
     "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
@@ -27,24 +13,64 @@
     "R017-CAPDEV-d061f38c1d30",
     "--write"
   ],
-  "executor_command": [
-    "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
-    "tools/oc133_toe_closure_factory.py",
-    "--execute-upstream-capability-work-order",
-    "R017-UPSTREAM-159e772e6f472281",
-    "--write"
-  ],
-  "executor_type": "upstream_capability_work_order",
-  "generated_at": "2026-05-06T14:59:30Z",
-  "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+  "generated_at": "2026-05-06T15:45:02Z",
   "next_escalation": "If this compiled capability produces zero validator delta, generate a lower-level upstream research obligation for the exact missing source/evidence object.",
-  "no_fake_closure_policy": "Zero delta remains OPEN and cannot satisfy r017.",
   "pass_predicate": "Comparator gap `MS-COV-GAP-AGRICULTURAL_FOOD_SCIENCES-ANIMAL_HEALTH_AND_PRODUCTION_SYSTEMS` has `replay_record` and strict coverage register no longer lists it as missing.",
-  "repair_strategy": "Execute the lower-level upstream capability work order produced by exhausted source-bound materialization, rather than rerunning diagnostics.",
+  "registry_row": {
+    "capability_class": "upstream_source_materializer_missing",
+    "capability_development_key": "d061f38c1d30f435bc10dc2c4be45e3ef3f643b2af3904745e27be39b4822f9d",
+    "capability_executor_ready": false,
+    "capability_id": "R017-CAPDEV-d061f38c1d30",
+    "compiled_capability_id": "R017-CAPDEV-d061f38c1d30",
+    "execution_command": [
+      "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+      "tools/oc133_toe_closure_factory.py",
+      "--execute-capability-development",
+      "R017-CAPDEV-d061f38c1d30",
+      "--write"
+    ],
+    "executor_command": [],
+    "executor_type": "upstream_source_materializer_missing",
+    "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+    "missing_artifact_type": "upstream_work_order::SOURCE_BOUND_SCORER_MATERIALIZER_IMPLEMENTATION",
+    "next_escalation": "If this compiled capability produces zero validator delta, generate a lower-level upstream research obligation for the exact missing source/evidence object.",
+    "output_artifact_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/capability_implementation/R017-CAPDEV-d061f38c1d30.json",
+    "pass_predicate": "Comparator gap `MS-COV-GAP-AGRICULTURAL_FOOD_SCIENCES-ANIMAL_HEALTH_AND_PRODUCTION_SYSTEMS` has `replay_record` and strict coverage register no longer lists it as missing.",
+    "repair_strategy": "No governed source-bound materializer command exists for this domain/phenomenon yet; keep this as capability backlog instead of executing diagnostic scripts.",
+    "required_capability": "Research/PriorArt",
+    "scientific_frontier_hash": "cf7fa90cae7761e24fd499a438781aaf7ffc6da730dc3657f8d31d0ba649dc95",
+    "self_test_command": [
+      "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+      "tools/oc133_toe_closure_factory.py",
+      "--check"
+    ],
+    "source_capability_development_id": "R017-UPSTREAM-159e772e6f472281",
+    "source_graph_node_id": "upstream_work_order:R017-UPSTREAM-159e772e6f472281:SOURCE_BOUND_SCORER_MATERIALIZER_IMPLEMENTATION:MS-COV-GAP-AGRICULTURAL_FOOD_SCIENCES-ANIMAL_HEALTH_AND_PRODUCTION_SYSTEMS:replay_record",
+    "status": "BLOCKED",
+    "validator_binding": "support_artifact::MODERN_SCIENCE_COMPARATOR_SUPERIORITY::replay_record",
+    "why_it_failed": "Replay is correctly blocked because the upstream scoring evidence is not passing."
+  },
+  "repair_strategy": "No governed source-bound materializer command exists for this domain/phenomenon yet; keep this as capability backlog instead of executing diagnostic scripts.",
   "required_capability": "Research/PriorArt",
   "schema_id": "OC133_TOE_CAPABILITY_DEVELOPMENT_EXECUTION_v1",
-  "source_graph_node_id": "upstream_work_order:R017-UPSTREAM-159e772e6f472281:SOURCE_BOUND_SCORER_MATERIALIZER_IMPLEMENTATION:MS-COV-GAP-AGRICULTURAL_FOOD_SCIENCES-ANIMAL_HEALTH_AND_PRODUCTION_SYSTEMS:replay_record",
-  "status": "FAIL_CLOSED",
+  "status": "BLOCKED",
+  "upstream_work_order": {
+    "capability_class": "upstream_source_materializer_missing",
+    "execution_command": [],
+    "gap_id": "",
+    "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+    "missing_artifact_type": "upstream_work_order::SOURCE_BOUND_SCORER_MATERIALIZER_IMPLEMENTATION",
+    "next_escalation": "If this compiled capability produces zero validator delta, generate a lower-level upstream research obligation for the exact missing source/evidence object.",
+    "no_fake_closure_policy": "This upstream work order is not evidence and cannot satisfy r017 without strict validator PASS.",
+    "pass_predicate": "Comparator gap `MS-COV-GAP-AGRICULTURAL_FOOD_SCIENCES-ANIMAL_HEALTH_AND_PRODUCTION_SYSTEMS` has `replay_record` and strict coverage register no longer lists it as missing.",
+    "repair_strategy": "Implement the missing executor capability named by this row.",
+    "required_capability": "Research/PriorArt",
+    "schema_id": "OC133_TOE_CAPABILITY_UPSTREAM_WORK_ORDER_v1",
+    "source_graph_node_id": "upstream_work_order:R017-UPSTREAM-159e772e6f472281:SOURCE_BOUND_SCORER_MATERIALIZER_IMPLEMENTATION:MS-COV-GAP-AGRICULTURAL_FOOD_SCIENCES-ANIMAL_HEALTH_AND_PRODUCTION_SYSTEMS:replay_record",
+    "validator_binding": "support_artifact::MODERN_SCIENCE_COMPARATOR_SUPERIORITY::replay_record",
+    "why_it_failed": "Replay is correctly blocked because the upstream scoring evidence is not passing.",
+    "work_order_type": "CAPABILITY_EXECUTOR_MISSING"
+  },
   "validator_error_delta": 0,
-  "why_it_failed": "Replay is correctly blocked because the upstream scoring evidence is not passing."
+  "why_it_failed": "Capability exists but has no safe ready executor for the current scientific frontier."
 }

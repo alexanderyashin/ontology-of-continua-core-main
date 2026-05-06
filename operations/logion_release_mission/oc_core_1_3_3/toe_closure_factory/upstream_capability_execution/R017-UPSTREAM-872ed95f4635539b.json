@@ -1,19 +1,23 @@
 {
   "after_validator_error_total": 13,
-  "artifact_hash": "1c1c80685c7d001d19b1a05a029300050d2c64157855eb3e1d3ff534044c5637",
+  "artifact_hash": "ee67f475bda2d5bdb87e7bfec46ad7b131b403d101524f5d037f24ceb7c6edda",
   "artifact_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/upstream_capability_execution/R017-UPSTREAM-872ed95f4635539b.json",
   "before_validator_error_total": 13,
-  "changed_artifact_refs": [],
+  "changed_artifact_refs": [
+    "validation/heldout/grand_science/cs/coverage_work_orders/OC133_CS_NVD_CVSS_SECURITY_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
+    "validation/heldout/grand_science/modern_science_coverage_artifacts/81360a6338c22458/strict_evidence_pack.json"
+  ],
   "command_results": [
     {
       "cmd": [
         "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
         "validation/heldout/grand_science/cs/coverage_work_orders/oc133_cs_modern_science_coverage_work_orders.py",
-        "--write"
+        "--refresh-nvd-source",
+        "--write-acquisition"
       ],
       "returncode": 0,
       "stderr_tail": "",
-      "stdout_tail": "{\n  \"status\": \"ok\",\n  \"output_ref\": \"validation/heldout/grand_science/cs/coverage_work_orders/OC133_CS_MODERN_SCIENCE_COVERAGE_WORK_ORDERS.json\",\n  \"failures\": []\n}\n"
+      "stdout_tail": "{\n  \"status\": \"ok\",\n  \"source_snapshot_ref\": \"validation/heldout/grand_science/cs/coverage_work_orders/raw/security_nvd/nvd_cve_2024q1_high.compact.json\",\n  \"source_lock_ref\": \"validation/heldout/grand_science/cs/coverage_work_orders/raw/security_nvd/nvd_cve_2024q1_high.lock.json\",\n  \"row_count\": 2000,\n  \"minimum_n_required\": 100\n}\n"
     },
     {
       "cmd": [
@@ -28,14 +32,13 @@
     {
       "cmd": [
         "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
-        "tools/oc133_toe_closure_factory.py",
-        "--execute-comparator-generic-evidence-pack",
-        "MS-COV-GAP-COMPUTER_INFORMATION_SCIENCES-INFORMATION_NETWORK_AND_SECURITY_OBSERVABLES",
-        "--write"
+        "validation/heldout/grand_science/cs/coverage_work_orders/oc133_cs_modern_science_coverage_work_orders.py",
+        "--score-nvd",
+        "--write-scoring"
       ],
       "returncode": 0,
       "stderr_tail": "",
-      "stdout_tail": "{\n  \"changed\": [],\n  \"missing\": [],\n  \"state\": \"PASS\"\n}\n"
+      "stdout_tail": "{\n  \"status\": \"ok\",\n  \"pack_status\": \"STRICT_EVIDENCE_PASS_NO_COVERAGE_CLOSURE\",\n  \"scoring_pack_ref\": \"validation/heldout/grand_science/cs/coverage_work_orders/OC133_CS_NVD_CVSS_SECURITY_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json\",\n  \"report_ref\": \"validation/heldout/grand_science/cs/coverage_work_orders/OC133_CS_NVD_CVSS_REPLAY_REPORT.json\",\n  \"row_count\": 400,\n  \"model_mae\": 0.975413,\n  \"comparator_mae\": 1.03675,\n  \"material_margin_met\": true,\n  \"negative_control_rejected\": true,\n  \"errors\": []\n}\n"
     }
   ],
   "domain_class_id": "computer_information_sciences",
@@ -47,7 +50,7 @@
     "--write"
   ],
   "gap_id": "MS-COV-GAP-COMPUTER_INFORMATION_SCIENCES-INFORMATION_NETWORK_AND_SECURITY_OBSERVABLES",
-  "generated_at": "2026-05-06T14:18:07Z",
+  "generated_at": "2026-05-06T15:49:35Z",
   "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
   "next_escalation": "If this compiled capability produces zero validator delta, generate a lower-level upstream research obligation for the exact missing source/evidence object.",
   "no_fake_closure_policy": "This execution cannot close r017 unless strict final TOE validator PASS is reached.",
@@ -100,14 +103,14 @@
     "why_it_failed": "The evidence pack is explicitly fail-closed; broad superiority cannot use it.",
     "work_order_type": "SOURCE_BOUND_SCORER_MATERIALIZER_IMPLEMENTATION"
   },
-  "repair_strategy": "Add or repair the exact domain scorer/materializer named by the materialization result.",
+  "repair_strategy": "Regenerate comparator research artifacts and strict validator surfaces from the new evidence pack.",
   "required_capability": "Research/ScoringExecutor",
-  "root_cause_class": "SOURCE_BOUND_SCORING_NOT_MATERIALIZED",
+  "root_cause_class": "SOURCE_BOUND_MATERIALIZER_IMPLEMENTED",
   "schema_id": "OC133_TOE_UPSTREAM_CAPABILITY_WORK_ORDER_EXECUTION_v1",
-  "status": "CAPABILITY_DEVELOPMENT_REQUIRED",
+  "status": "PASS",
   "upstream_work_order_id": "R017-UPSTREAM-872ed95f4635539b",
   "validator_binding": "support_artifact::MODERN_SCIENCE_COMPARATOR_SUPERIORITY::oc_prediction_scoring_row",
   "validator_error_delta": 0,
-  "why_it_failed": "No source-bound domain evidence pack is bound for this comparator materialization row.",
+  "why_it_failed": "Governed domain commands ran and produced a strict source-bound comparator evidence pack with material superiority.",
   "work_order_type": "SOURCE_BOUND_SCORER_MATERIALIZER_IMPLEMENTATION"
 }

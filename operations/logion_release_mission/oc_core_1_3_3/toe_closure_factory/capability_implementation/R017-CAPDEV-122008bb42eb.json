@@ -1,24 +1,10 @@
 {
   "after_validator_error_total": 13,
-  "artifact_hash": "53dd5279235a6ba642a8589b6d386e9858f909d8899c4553e952abb30a1ad3ad",
+  "artifact_hash": "40e8df4dd0d86b32ab476a9f8c6991398646fdf7f1ca6cb6d00549a3390edf47",
   "before_validator_error_total": 13,
-  "capability_class": "upstream_capability_work_order",
-  "capability_development_key": "122008bb42eb61b2db80f189b0911d791d6b40dc6759cc0b998b28586ca72315",
+  "capability_class": "upstream_source_materializer_missing",
   "capability_id": "R017-CAPDEV-122008bb42eb",
-  "command_results": [
-    {
-      "cmd": [
-        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
-        "tools/oc133_toe_closure_factory.py",
-        "--execute-upstream-capability-work-order",
-        "R017-UPSTREAM-0cc87e1b8eee3370",
-        "--write"
-      ],
-      "returncode": 1,
-      "stderr_tail": "",
-      "stdout_tail": "{\n  \"changed\": [],\n  \"missing\": [],\n  \"state\": \"PASS\"\n}\n"
-    }
-  ],
+  "command_results": [],
   "compiled_capability_id": "R017-CAPDEV-122008bb42eb",
   "execution_command": [
     "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
@@ -27,24 +13,64 @@
     "R017-CAPDEV-122008bb42eb",
     "--write"
   ],
-  "executor_command": [
-    "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
-    "tools/oc133_toe_closure_factory.py",
-    "--execute-upstream-capability-work-order",
-    "R017-UPSTREAM-0cc87e1b8eee3370",
-    "--write"
-  ],
-  "executor_type": "upstream_capability_work_order",
-  "generated_at": "2026-05-06T14:39:19Z",
-  "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+  "generated_at": "2026-05-06T15:44:54Z",
   "next_escalation": "If this compiled capability produces zero validator delta, generate a lower-level upstream research obligation for the exact missing source/evidence object.",
-  "no_fake_closure_policy": "Zero delta remains OPEN and cannot satisfy r017.",
   "pass_predicate": "Comparator gap `MS-COV-GAP-PHYSICAL_SCIENCES-ASTRONOMICAL_AND_COSMOLOGICAL_OBSERVABLES` has `replay_record` and strict coverage register no longer lists it as missing.",
-  "repair_strategy": "Execute the lower-level upstream capability work order produced by exhausted source-bound materialization, rather than rerunning diagnostics.",
+  "registry_row": {
+    "capability_class": "upstream_source_materializer_missing",
+    "capability_development_key": "122008bb42eb61b2db80f189b0911d791d6b40dc6759cc0b998b28586ca72315",
+    "capability_executor_ready": false,
+    "capability_id": "R017-CAPDEV-122008bb42eb",
+    "compiled_capability_id": "R017-CAPDEV-122008bb42eb",
+    "execution_command": [
+      "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+      "tools/oc133_toe_closure_factory.py",
+      "--execute-capability-development",
+      "R017-CAPDEV-122008bb42eb",
+      "--write"
+    ],
+    "executor_command": [],
+    "executor_type": "upstream_source_materializer_missing",
+    "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+    "missing_artifact_type": "upstream_work_order::SOURCE_BOUND_SCORER_MATERIALIZER_IMPLEMENTATION",
+    "next_escalation": "If this compiled capability produces zero validator delta, generate a lower-level upstream research obligation for the exact missing source/evidence object.",
+    "output_artifact_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/capability_implementation/R017-CAPDEV-122008bb42eb.json",
+    "pass_predicate": "Comparator gap `MS-COV-GAP-PHYSICAL_SCIENCES-ASTRONOMICAL_AND_COSMOLOGICAL_OBSERVABLES` has `replay_record` and strict coverage register no longer lists it as missing.",
+    "repair_strategy": "No governed source-bound materializer command exists for this domain/phenomenon yet; keep this as capability backlog instead of executing diagnostic scripts.",
+    "required_capability": "Research/PriorArt",
+    "scientific_frontier_hash": "cf7fa90cae7761e24fd499a438781aaf7ffc6da730dc3657f8d31d0ba649dc95",
+    "self_test_command": [
+      "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+      "tools/oc133_toe_closure_factory.py",
+      "--check"
+    ],
+    "source_capability_development_id": "R017-UPSTREAM-0cc87e1b8eee3370",
+    "source_graph_node_id": "upstream_work_order:R017-UPSTREAM-0cc87e1b8eee3370:SOURCE_BOUND_SCORER_MATERIALIZER_IMPLEMENTATION:MS-COV-GAP-PHYSICAL_SCIENCES-ASTRONOMICAL_AND_COSMOLOGICAL_OBSERVABLES:replay_record",
+    "status": "BLOCKED",
+    "validator_binding": "support_artifact::MODERN_SCIENCE_COMPARATOR_SUPERIORITY::replay_record",
+    "why_it_failed": "Replay is correctly blocked because the upstream scoring evidence is not passing."
+  },
+  "repair_strategy": "No governed source-bound materializer command exists for this domain/phenomenon yet; keep this as capability backlog instead of executing diagnostic scripts.",
   "required_capability": "Research/PriorArt",
   "schema_id": "OC133_TOE_CAPABILITY_DEVELOPMENT_EXECUTION_v1",
-  "source_graph_node_id": "upstream_work_order:R017-UPSTREAM-0cc87e1b8eee3370:SOURCE_BOUND_SCORER_MATERIALIZER_IMPLEMENTATION:MS-COV-GAP-PHYSICAL_SCIENCES-ASTRONOMICAL_AND_COSMOLOGICAL_OBSERVABLES:replay_record",
-  "status": "FAIL_CLOSED",
+  "status": "BLOCKED",
+  "upstream_work_order": {
+    "capability_class": "upstream_source_materializer_missing",
+    "execution_command": [],
+    "gap_id": "",
+    "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+    "missing_artifact_type": "upstream_work_order::SOURCE_BOUND_SCORER_MATERIALIZER_IMPLEMENTATION",
+    "next_escalation": "If this compiled capability produces zero validator delta, generate a lower-level upstream research obligation for the exact missing source/evidence object.",
+    "no_fake_closure_policy": "This upstream work order is not evidence and cannot satisfy r017 without strict validator PASS.",
+    "pass_predicate": "Comparator gap `MS-COV-GAP-PHYSICAL_SCIENCES-ASTRONOMICAL_AND_COSMOLOGICAL_OBSERVABLES` has `replay_record` and strict coverage register no longer lists it as missing.",
+    "repair_strategy": "Implement the missing executor capability named by this row.",
+    "required_capability": "Research/PriorArt",
+    "schema_id": "OC133_TOE_CAPABILITY_UPSTREAM_WORK_ORDER_v1",
+    "source_graph_node_id": "upstream_work_order:R017-UPSTREAM-0cc87e1b8eee3370:SOURCE_BOUND_SCORER_MATERIALIZER_IMPLEMENTATION:MS-COV-GAP-PHYSICAL_SCIENCES-ASTRONOMICAL_AND_COSMOLOGICAL_OBSERVABLES:replay_record",
+    "validator_binding": "support_artifact::MODERN_SCIENCE_COMPARATOR_SUPERIORITY::replay_record",
+    "why_it_failed": "Replay is correctly blocked because the upstream scoring evidence is not passing.",
+    "work_order_type": "CAPABILITY_EXECUTOR_MISSING"
+  },
   "validator_error_delta": 0,
-  "why_it_failed": "Replay is correctly blocked because the upstream scoring evidence is not passing."
+  "why_it_failed": "Capability exists but has no safe ready executor for the current scientific frontier."
 }
