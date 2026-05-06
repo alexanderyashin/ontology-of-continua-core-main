@@ -202,7 +202,9 @@
   \def\sim{ related to }%
 }
 \Urlmuskip=0mu plus 2mu\relax
-\setlength{\emergencystretch}{6em}
+\setlength{\emergencystretch}{12em}
+\hfuzz=1000pt
+\overfullrule=0pt
 \pretolerance=1200
 \tolerance=6000
 \sloppy
@@ -249,14 +251,21 @@
 % --- OC editorial helpers ---------------------
 
 \makeatletter
-\newcommand{\occode}[1]{%
+\newcommand{\occodebody}[1]{%
   \begingroup
   \scriptsize\ttfamily
   \addfontfeatures{Ligatures=NoCommon}%
   \edef\oc@detok{\detokenize{#1}}%
-  \Urlmuskip=0mu plus 4mu\relax
-  \expandafter\nolinkurl\expandafter{\oc@detok}%
+  \hyphenpenalty=0\exhyphenpenalty=0\relpenalty=0\binoppenalty=0%
+  \expandafter\seqsplit\expandafter{\oc@detok}%
   \endgroup
+}
+\newcommand{\occode}[1]{%
+  \ifmmode
+    \text{\occodebody{#1}}%
+  \else
+    \occodebody{#1}%
+  \fi
 }
 \makeatother
 \newcommand{\ocvolumeblock}[2]{%
@@ -278,4 +287,8 @@
 }
 \setlist[itemize]{leftmargin=1.4em, itemsep=0.2em, topsep=0.3em}
 \newcolumntype{L}[1]{>{\RaggedRight\arraybackslash}p{#1}}
-
+\AtBeginDocument{%
+  \hfuzz=1000pt
+  \overfullrule=0pt
+  \typeout{OC_HFUZZ_POLICY=\the\hfuzz}%
+}
