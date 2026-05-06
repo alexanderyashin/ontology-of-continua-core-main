@@ -711,6 +711,11 @@ def load_capability_development_rows(root: Path) -> list[dict[str, Any]]:
                         payload["next_escalation"] = "Domain-model component implementation report exists; downstream scoring/replay artifacts decide whether broad superiority remains blocked."
         enriched.append(payload)
     upstream_registry = factory.build_upstream_capability_work_order_registry(root, write=False)
+    enriched_ids = {
+        str(row.get("capability_development_id"))
+        for row in enriched
+        if isinstance(row, dict) and row.get("capability_development_id")
+    }
     for upstream in upstream_registry.get("rows", []) or []:
         if not isinstance(upstream, dict):
             continue
@@ -719,7 +724,10 @@ def load_capability_development_rows(root: Path) -> list[dict[str, Any]]:
             continue
         payload = dict(upstream)
         payload["capability_development_id"] = str(payload.get("capability_development_id") or payload.get("upstream_work_order_id"))
+        if payload["capability_development_id"] in enriched_ids:
+            continue
         payload["capability_development_key"] = payload.get("capability_development_key") or factory.capability_development_key(payload)
+        enriched_ids.add(payload["capability_development_id"])
         enriched.append(payload)
     return enriched
 
