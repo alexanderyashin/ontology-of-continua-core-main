@@ -1,0 +1,52 @@
+{
+  "after_validator_error_total": 13,
+  "artifact_hash": "95ec34c62f992a8a505130a6c55627ec2c0516309521870498ab610206951835",
+  "before_validator_error_total": 13,
+  "capability_class": "comparator_scoring_subartifact",
+  "capability_development_key": "70d163609efca6e14588b828eda7b8afd49f3374a526a3c32cf5bf46928c9af1",
+  "capability_id": "R017-CAPDEV-70d163609efc",
+  "command_results": [
+    {
+      "cmd": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "tools/oc133_toe_closure_factory.py",
+        "--execute-comparator-scoring-subartifact",
+        "MS-COV-GAP-BIOLOGICAL_LIFE_SCIENCES-ECOLOGY_POPULATION_AND_BIODIVERSITY_OBSERVABLES",
+        "target_hidden_task_table",
+        "--write"
+      ],
+      "returncode": 0,
+      "stderr_tail": "",
+      "stdout_tail": "{\n  \"changed\": [],\n  \"missing\": [],\n  \"state\": \"PASS\"\n}\n"
+    }
+  ],
+  "compiled_capability_id": "R017-CAPDEV-70d163609efc",
+  "execution_command": [
+    "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+    "tools/oc133_toe_closure_factory.py",
+    "--execute-capability-development",
+    "R017-CAPDEV-70d163609efc",
+    "--write"
+  ],
+  "executor_command": [
+    "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+    "tools/oc133_toe_closure_factory.py",
+    "--execute-comparator-scoring-subartifact",
+    "MS-COV-GAP-BIOLOGICAL_LIFE_SCIENCES-ECOLOGY_POPULATION_AND_BIODIVERSITY_OBSERVABLES",
+    "target_hidden_task_table",
+    "--write"
+  ],
+  "executor_type": "comparator_scoring_subartifact",
+  "generated_at": "2026-05-06T00:28:22Z",
+  "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+  "next_escalation": "If this compiled capability produces zero validator delta, generate a lower-level upstream research obligation for the exact missing source/evidence object.",
+  "no_fake_closure_policy": "Zero delta remains OPEN and cannot satisfy r017.",
+  "pass_predicate": "Target table is locked before scoring and hidden fields do not leak into model selection.",
+  "repair_strategy": "Build the exact lower-level scoring subartifact packet for this gap so source acquisition, target locking, model registration, comparator scoring, uncertainty, falsifier, or replay work can proceed without rerunning a generic wave.",
+  "required_capability": "Research/ScoringExecutor",
+  "schema_id": "OC133_TOE_CAPABILITY_DEVELOPMENT_EXECUTION_v1",
+  "source_graph_node_id": "required_artifact:MODERN_SCIENCE_COMPARATOR_SUPERIORITY:MS-COV-GAP-BIOLOGICAL_LIFE_SCIENCES-ECOLOGY_POPULATION_AND_BIODIVERSITY_OBSERVABLES:target_hidden_task_table",
+  "status": "ZERO_DELTA_OPEN",
+  "validator_error_delta": 0,
+  "why_it_failed": "Compiled capability executed but did not reduce strict validator errors."
+}

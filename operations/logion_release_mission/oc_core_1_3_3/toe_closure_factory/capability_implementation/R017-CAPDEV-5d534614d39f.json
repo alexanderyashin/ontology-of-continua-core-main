@@ -1,0 +1,52 @@
+{
+  "after_validator_error_total": 13,
+  "artifact_hash": "783b7c92579cd808f88443124bedf115921432f2754519b373bd7f54d290f6a3",
+  "before_validator_error_total": 13,
+  "capability_class": "comparator_scoring_subartifact",
+  "capability_development_key": "5d534614d39fe67cb5acdc1227a5ac1e7257c180a2ec65622e0d4f86d0858be1",
+  "capability_id": "R017-CAPDEV-5d534614d39f",
+  "command_results": [
+    {
+      "cmd": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "tools/oc133_toe_closure_factory.py",
+        "--execute-comparator-scoring-subartifact",
+        "MS-COV-GAP-CHEMICAL_SCIENCES-REACTION_AND_KINETICS_PREDICTION",
+        "incumbent_comparator_scoring",
+        "--write"
+      ],
+      "returncode": 0,
+      "stderr_tail": "",
+      "stdout_tail": "{\n  \"changed\": [],\n  \"missing\": [],\n  \"state\": \"PASS\"\n}\n"
+    }
+  ],
+  "compiled_capability_id": "R017-CAPDEV-5d534614d39f",
+  "execution_command": [
+    "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+    "tools/oc133_toe_closure_factory.py",
+    "--execute-capability-development",
+    "R017-CAPDEV-5d534614d39f",
+    "--write"
+  ],
+  "executor_command": [
+    "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+    "tools/oc133_toe_closure_factory.py",
+    "--execute-comparator-scoring-subartifact",
+    "MS-COV-GAP-CHEMICAL_SCIENCES-REACTION_AND_KINETICS_PREDICTION",
+    "incumbent_comparator_scoring",
+    "--write"
+  ],
+  "executor_type": "comparator_scoring_subartifact",
+  "generated_at": "2026-05-06T00:29:47Z",
+  "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+  "next_escalation": "If this compiled capability produces zero validator delta, generate a lower-level upstream research obligation for the exact missing source/evidence object.",
+  "no_fake_closure_policy": "Zero delta remains OPEN and cannot satisfy r017.",
+  "pass_predicate": "Incumbent comparator is scored on the same held-out targets.",
+  "repair_strategy": "Build the exact lower-level scoring subartifact packet for this gap so source acquisition, target locking, model registration, comparator scoring, uncertainty, falsifier, or replay work can proceed without rerunning a generic wave.",
+  "required_capability": "Research/ScoringExecutor",
+  "schema_id": "OC133_TOE_CAPABILITY_DEVELOPMENT_EXECUTION_v1",
+  "source_graph_node_id": "required_artifact:MODERN_SCIENCE_COMPARATOR_SUPERIORITY:MS-COV-GAP-CHEMICAL_SCIENCES-REACTION_AND_KINETICS_PREDICTION:incumbent_comparator_scoring",
+  "status": "ZERO_DELTA_OPEN",
+  "validator_error_delta": 0,
+  "why_it_failed": "Compiled capability executed but did not reduce strict validator errors."
+}
