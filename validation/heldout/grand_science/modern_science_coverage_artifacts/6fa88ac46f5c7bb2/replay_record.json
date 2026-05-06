@@ -1,8 +1,8 @@
 {
-  "artifact_hash": "946347e275b70fd8b118f1904fb081558a62acc8337ae4d10bcd680e18168eb2",
+  "artifact_hash": "cf45e98353e57cefa3ef84f91151438c0949849c577ecae95fd3e6fd5514e0c9",
   "artifact_key": "replay_record",
   "artifact_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/6fa88ac46f5c7bb2/replay_record.json",
-  "closure_scope": "independent replay passed for already-positive scoring evidence",
+  "closure_scope": "replay not run or scoring evidence still blocked",
   "domain_class_id": "earth_space_environmental_sciences",
   "executable_spec_found": true,
   "execution_command": [
@@ -29,44 +29,43 @@
     "benchmarks/modern_science/OC133_MODERN_SCIENCE_COVERAGE_WORK_ORDERS.json",
     "comparators/modern_science/OC133_MODERN_SCIENCE_COVERAGE_REGISTER.json"
   ],
-  "status": "PASS",
+  "status": "OPEN",
   "validation": {
-    "replay_command_total": 2,
-    "replay_executed_total": 2,
+    "replay_command_total": 1,
+    "replay_executed_total": 1,
     "replay_results": [
       {
         "cmd": [
           "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
           "validation/heldout/grand_science/earth_space/coverage_work_orders/oc133_earth_space_modern_science_coverage_work_orders.py",
+          "--refresh-noaa-coops-source",
+          "--write",
+          "&&",
+          "python",
+          "validation/heldout/grand_science/earth_space/coverage_work_orders/oc133_earth_space_modern_science_coverage_work_orders.py",
           "--score-noaa-coops",
-          "--write"
-        ],
-        "returncode": 0,
-        "stderr_tail": "",
-        "stdout_tail": "{\n  \"status\": \"ok\",\n  \"output_ref\": \"validation/heldout/grand_science/earth_space/coverage_work_orders/OC133_EARTH_SPACE_NOAA_COOPS_WATER_LEVEL_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json\",\n  \"pack_status\": \"STRICT_EVIDENCE_PASS_NO_COVERAGE_CLOSURE\",\n  \"exact_blocker\": null,\n  \"failures\": []\n}\n"
-      },
-      {
-        "cmd": [
-          "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+          "--write",
+          "&&",
+          "python",
           "validation/heldout/grand_science/earth_space/coverage_work_orders/oc133_earth_space_modern_science_coverage_work_orders.py",
           "--check"
         ],
-        "returncode": 0,
-        "stderr_tail": "",
-        "stdout_tail": "{\n  \"status\": \"ok\",\n  \"checked\": \"validation/heldout/grand_science/earth_space/coverage_work_orders/OC133_EARTH_SPACE_MODERN_SCIENCE_COVERAGE_WORK_ORDERS.json\"\n}\n"
+        "returncode": 2,
+        "stderr_tail": "usage: oc133_earth_space_modern_science_coverage_work_orders.py\n       [-h] [--root ROOT] [--write] [--check]\n       [--refresh-usgs-hydrology-source] [--score-usgs-hydrology]\n       [--refresh-nasa-power-source] [--score-nasa-power]\n       [--refresh-noaa-coops-source] [--score-noaa-coops]\noc133_earth_space_modern_science_coverage_work_orders.py: error: unrecognized arguments: && python validation/heldout/grand_science/earth_space/coverage_work_orders/oc133_earth_space_modern_science_coverage_work_orders.py && python validation/heldout/grand_science/earth_space/coverage_work_orders/oc133_earth_space_modern_science_coverage_work_orders.py\n",
+        "stdout_tail": ""
       }
     ],
     "scoring_evidence": {
-      "evidence_pack_hash": "90754a2e9e751651ee261409536fbf8404f6bf3d926bb86cc06da6b130e0564b",
+      "evidence_pack_hash": "bbac88809d5a542224bc17e0b2c8ad4f68b1bb0600bf272a3e7766016a38c4cd",
       "evidence_pack_summary": {
         "coverage_closure_allowed": true,
         "fail_closed_reason": "",
         "pack_status": "PASS",
         "residuals": {
-          "comparator": 0.162681,
+          "comparator": null,
           "material_margin_met": true,
-          "material_margin_rule": "source-bound materialized evidence pack must show OC residual strictly below preregistered comparator residual under the declared uncertainty rule",
-          "model": 0.147527
+          "material_margin_rule": "model MAE plus uncertainty allowance must be lower than comparator MAE and every timestamp hash must remain bound",
+          "model": null
         },
         "schema_id": "OC133_MODERN_SCIENCE_COMPARATOR_STRICT_EVIDENCE_PACK_v1",
         "score_materialized": true,
@@ -81,6 +80,6 @@
       "pack_status_text": "PASS PASS"
     }
   },
-  "why_it_failed": "Required comparator artifact is source-bound at its declared scope.",
+  "why_it_failed": "Required comparator artifact still lacks source-bound support.",
   "work_order_id": "MS-COV-WO-010"
 }

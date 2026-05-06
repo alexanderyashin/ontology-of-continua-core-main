@@ -1,18 +1,19 @@
 {
-  "artifact_hash": "fa38778e8738d10fba4e201d2c46624ac00ef12aa8e350b869f93457570bc0d9",
+  "artifact_hash": "fc4d789aced42efa6e88efeaa06d8c4ac7d6bff88964fc3e46e47fece7e6b430",
   "artifact_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/component_impls/impl_308d5d880e2aa0af.json",
   "command_pass": true,
-  "command_result_total": 3,
+  "command_result_total": 2,
   "command_results": [
     {
       "cmd": [
         "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
         "validation/heldout/grand_science/earth_space/coverage_work_orders/oc133_earth_space_modern_science_coverage_work_orders.py",
+        "--score-noaa-coops",
         "--write"
       ],
       "returncode": 0,
       "stderr_tail": "",
-      "stdout_tail": "{\n  \"status\": \"ok\",\n  \"output_ref\": \"validation/heldout/grand_science/earth_space/coverage_work_orders/OC133_EARTH_SPACE_MODERN_SCIENCE_COVERAGE_WORK_ORDERS.json\",\n  \"failures\": []\n}\n"
+      "stdout_tail": "{\n  \"status\": \"ok\",\n  \"output_ref\": \"validation/heldout/grand_science/earth_space/coverage_work_orders/OC133_EARTH_SPACE_NOAA_COOPS_WATER_LEVEL_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json\",\n  \"pack_status\": \"STRICT_EVIDENCE_PASS_NO_COVERAGE_CLOSURE\",\n  \"exact_blocker\": null,\n  \"failures\": []\n}\n"
     },
     {
       "cmd": [
@@ -23,19 +24,6 @@
       "returncode": 0,
       "stderr_tail": "",
       "stdout_tail": "{\n  \"status\": \"ok\",\n  \"checked\": \"validation/heldout/grand_science/earth_space/coverage_work_orders/OC133_EARTH_SPACE_MODERN_SCIENCE_COVERAGE_WORK_ORDERS.json\"\n}\n"
-    },
-    {
-      "cache_hit": true,
-      "cmd": [
-        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
-        "tools/oc133_toe_closure_factory.py",
-        "--execute-comparator-generic-evidence-pack",
-        "MS-COV-GAP-EARTH_SPACE_ENVIRONMENTAL_SCIENCES-CLIMATE_WEATHER_GEOPHYSICAL_TIME_SERIES",
-        "--write"
-      ],
-      "returncode": 0,
-      "stderr_tail": "",
-      "stdout_tail": "{\n  \"changed\": [],\n  \"missing\": [],\n  \"state\": \"PASS\"\n}\n"
     }
   ],
   "component_id": "oc_score_materialization",
@@ -47,24 +35,18 @@
     [
       "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
       "validation/heldout/grand_science/earth_space/coverage_work_orders/oc133_earth_space_modern_science_coverage_work_orders.py",
+      "--score-noaa-coops",
       "--write"
     ],
     [
       "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
       "validation/heldout/grand_science/earth_space/coverage_work_orders/oc133_earth_space_modern_science_coverage_work_orders.py",
       "--check"
-    ],
-    [
-      "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
-      "tools/oc133_toe_closure_factory.py",
-      "--execute-comparator-generic-evidence-pack",
-      "MS-COV-GAP-EARTH_SPACE_ENVIRONMENTAL_SCIENCES-CLIMATE_WEATHER_GEOPHYSICAL_TIME_SERIES",
-      "--write"
     ]
   ],
   "domain_class_id": "earth_space_environmental_sciences",
   "evidence_pack_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/6fa88ac46f5c7bb2/strict_evidence_pack.json",
-  "evidence_pack_status": "FAIL_CLOSED_SOURCE_BOUND_SCORING_NOT_MATERIALIZED",
+  "evidence_pack_status": "PASS",
   "execution_command": [
     "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
     "tools/oc133_toe_closure_factory.py",
@@ -89,7 +71,7 @@
   "root_cause_class": "DOMAIN_MODEL_COMPONENT_COMMAND_RAN_BUT_EVIDENCE_OPEN",
   "schema_id": "OC133_MODERN_SCIENCE_COMPARATOR_DOMAIN_MODEL_COMPONENT_IMPLEMENTATION_EXECUTION_v1",
   "scoring_artifact_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/6fa88ac46f5c7bb2/oc_prediction_scoring_row.json",
-  "scoring_artifact_status": "OPEN",
+  "scoring_artifact_status": "PASS",
   "status": "EVIDENCE_REPAIR_ATTEMPTED_REMAINS_OPEN",
   "validator_binding": "comparator_gap::MS-COV-GAP-EARTH_SPACE_ENVIRONMENTAL_SCIENCES-CLIMATE_WEATHER_GEOPHYSICAL_TIME_SERIES::domain_model_repair::oc_score_materialization",
   "why_it_failed": "Concrete commands ran, but the downstream scoring/replay evidence remains fail-closed or negative."

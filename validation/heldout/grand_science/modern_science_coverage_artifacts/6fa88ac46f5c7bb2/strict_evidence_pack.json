@@ -1,5 +1,5 @@
 {
-  "artifact_hash": "8a8c31fdd843674a96f53169bc6f984474c5799db31529a4915d4b500239865c",
+  "artifact_hash": "3922153d9a3e0c864cdd3eb35b235397e7d6e21efd2ddeb0d3a92efc6f59b18c",
   "artifact_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/6fa88ac46f5c7bb2/strict_evidence_pack.json",
   "broad_modern_science_superiority_allowed": false,
   "command_results": [
@@ -7,12 +7,12 @@
       "cmd": [
         "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
         "validation/heldout/grand_science/earth_space/coverage_work_orders/oc133_earth_space_modern_science_coverage_work_orders.py",
-        "--score-noaa-coops",
+        "--refresh-noaa-coops-source",
         "--write"
       ],
       "returncode": 0,
       "stderr_tail": "",
-      "stdout_tail": "{\n  \"status\": \"ok\",\n  \"output_ref\": \"validation/heldout/grand_science/earth_space/coverage_work_orders/OC133_EARTH_SPACE_NOAA_COOPS_WATER_LEVEL_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json\",\n  \"pack_status\": \"STRICT_EVIDENCE_PASS_NO_COVERAGE_CLOSURE\",\n  \"exact_blocker\": null,\n  \"failures\": []\n}\n"
+      "stdout_tail": "{\n  \"status\": \"ok\",\n  \"output_ref\": \"validation/heldout/grand_science/earth_space/coverage_work_orders/OC133_EARTH_SPACE_MODERN_SCIENCE_COVERAGE_WORK_ORDERS.json\",\n  \"failures\": []\n}\n"
     },
     {
       "cmd": [
@@ -23,6 +23,17 @@
       "returncode": 0,
       "stderr_tail": "",
       "stdout_tail": "{\n  \"status\": \"ok\",\n  \"checked\": \"validation/heldout/grand_science/earth_space/coverage_work_orders/OC133_EARTH_SPACE_MODERN_SCIENCE_COVERAGE_WORK_ORDERS.json\"\n}\n"
+    },
+    {
+      "cmd": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "validation/heldout/grand_science/earth_space/coverage_work_orders/oc133_earth_space_modern_science_coverage_work_orders.py",
+        "--score-noaa-coops",
+        "--write"
+      ],
+      "returncode": 0,
+      "stderr_tail": "",
+      "stdout_tail": "{\n  \"status\": \"ok\",\n  \"output_ref\": \"validation/heldout/grand_science/earth_space/coverage_work_orders/OC133_EARTH_SPACE_NOAA_COOPS_WATER_LEVEL_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json\",\n  \"pack_status\": \"STRICT_EVIDENCE_PASS_NO_COVERAGE_CLOSURE\",\n  \"exact_blocker\": null,\n  \"failures\": []\n}\n"
     }
   ],
   "comparator_bound": true,
@@ -31,7 +42,7 @@
     "coverage_closure_allowed": false,
     "domain_evidence_ref": "validation/heldout/grand_science/earth_space/coverage_work_orders/OC133_EARTH_SPACE_NOAA_COOPS_WATER_LEVEL_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
     "domain_evidence_schema_id": "OC133_EARTH_SPACE_NOAA_COOPS_WATER_LEVEL_TARGET_HIDDEN_REPLAY_SCORER_v1",
-    "domain_evidence_sha256": "c775eba877ba0c76dfaa30f9f3c03e482bd671baf6199c1218bdd71941d6084f",
+    "domain_evidence_sha256": "93bb3cd17b08f2a8b39ca08cb8843369b1d67a4316f5da43240e5c4c7f64e8f7",
     "domain_pack_status": "STRICT_EVIDENCE_PASS_NO_COVERAGE_CLOSURE",
     "scientific_pass": true
   },
@@ -41,7 +52,7 @@
     "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
     "tools/oc133_toe_closure_factory.py",
     "--execute-comparator-component-materialization",
-    "R017-COMPONENT-MATERIALIZE-52468d3191321daf",
+    "R017-UPSTREAM-2acffe5cc173afd8",
     "--write"
   ],
   "execution_requirements": {

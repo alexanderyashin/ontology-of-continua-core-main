@@ -1,13 +1,13 @@
 {
-  "artifact_hash": "6c439e7d37c7c57061a0217fdf22a3d6fbe2f795b28cf3c57ff535ef5c9690c5",
+  "artifact_hash": "22919ad98e783a019de01df5f425b5e1940e4f077db7076d58e9ad74e2c2550c",
   "artifact_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/domain_scorer_implementations/scorer_impl_0caf9ad2c95fd3a7.json",
   "command_result_total": 0,
   "command_results": [],
   "domain_class_id": "earth_space_environmental_sciences",
   "domain_scoring_id": "R017-DOMAIN-SCORER-6fa88ac46f5c7bb2",
   "domain_scoring_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/domain_scorers/scorer_f490a536bc5b754f.json",
-  "domain_scoring_root_cause": "DOMAIN_SCORER_RAN_BUT_SCORING_REMAINS_OPEN",
-  "domain_scoring_status": "EVIDENCE_REPAIR_ATTEMPTED_REMAINS_OPEN",
+  "domain_scoring_root_cause": "DOMAIN_SCORER_CLOSED_SCORING_ARTIFACT",
+  "domain_scoring_status": "PASS",
   "exact_domain_scorer_commands": [
     [
       "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
@@ -71,7 +71,6 @@
   "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
   "missing_domain_scorer_elements": [
     "comparator_residual_materialized",
-    "fail_closed_status_absent",
     "material_margin_met",
     "model_residual_materialized",
     "score_materialized"
@@ -106,11 +105,11 @@
     "metric_id": "MS-COV-WO-010_domain_local_residual",
     "superiority_rule": "model MAE plus uncertainty allowance must be lower than comparator MAE and every timestamp hash must remain bound"
   },
-  "root_cause_class": "DOMAIN_SCORER_MODEL_OR_COMPARATOR_REPAIR_REQUIRED",
+  "root_cause_class": "DOMAIN_SCORER_IMPLEMENTATION_CLOSED",
   "schema_id": "OC133_MODERN_SCIENCE_COMPARATOR_DOMAIN_SCORER_IMPLEMENTATION_EXECUTION_v1",
   "scoring_artifact_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/6fa88ac46f5c7bb2/oc_prediction_scoring_row.json",
-  "scoring_artifact_status": "OPEN",
-  "status": "EVIDENCE_REPAIR_ATTEMPTED_REMAINS_OPEN",
+  "scoring_artifact_status": "PASS",
+  "status": "PASS",
   "target_variable": {
     "extraction_rule": "NOAA_COOPS[station=9414290, timestamp].data.v",
     "name": "observed_six_minute_water_level_mllw",
@@ -124,5 +123,5 @@
     "rule": "pre-target median absolute deviation of visible residuals plus NOAA reported standard deviation field where present"
   },
   "validator_binding": "comparator_gap::MS-COV-GAP-EARTH_SPACE_ENVIRONMENTAL_SCIENCES-CLIMATE_WEATHER_GEOPHYSICAL_TIME_SERIES::domain_scorer_implementation",
-  "why_it_failed": "The domain scorer ran, but the OC model/comparator/materiality predicates remain fail-closed."
+  "why_it_failed": "The governed domain scorer implementation produced a passing downstream scoring artifact."
 }
