@@ -1,13 +1,64 @@
 {
-  "artifact_hash": "2ba65ba766725b1b5af824ba72116b20c529b1de124e47c4bbfe65a534d6c697",
+  "artifact_hash": "3d983679eade2651bc4fb197aaa108f5f4abfe5ba3c792cf6df4e87f94ab1954",
   "artifact_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/domain_scorers/scorer_c7f557cec0f812b2.json",
-  "command_pass": false,
-  "command_result_total": 0,
-  "command_results": [],
+  "command_pass": true,
+  "command_result_total": 3,
+  "command_results": [
+    {
+      "cmd": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "validation/heldout/grand_science/biology/coverage_work_orders/oc133_biology_modern_science_coverage_work_orders.py",
+        "--write"
+      ],
+      "returncode": 0,
+      "stderr_tail": "",
+      "stdout_tail": "{\n  \"status\": \"ok\",\n  \"output_ref\": \"validation/heldout/grand_science/biology/coverage_work_orders/OC133_BIOLOGY_MODERN_SCIENCE_COVERAGE_WORK_ORDERS.json\",\n  \"failures\": []\n}\n"
+    },
+    {
+      "cmd": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "validation/heldout/grand_science/biology/coverage_work_orders/oc133_biology_modern_science_coverage_work_orders.py",
+        "--check"
+      ],
+      "returncode": 0,
+      "stderr_tail": "",
+      "stdout_tail": "{\n  \"status\": \"ok\",\n  \"checked\": \"validation/heldout/grand_science/biology/coverage_work_orders/OC133_BIOLOGY_MODERN_SCIENCE_COVERAGE_WORK_ORDERS.json\"\n}\n"
+    },
+    {
+      "cmd": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "tools/oc133_toe_closure_factory.py",
+        "--execute-comparator-generic-evidence-pack",
+        "MS-COV-GAP-BIOLOGICAL_LIFE_SCIENCES-CELLULAR_DEVELOPMENTAL_REGULATORY_DYNAMICS",
+        "--write"
+      ],
+      "returncode": 0,
+      "stderr_tail": "",
+      "stdout_tail": "{\n  \"changed\": [],\n  \"missing\": [],\n  \"state\": \"PASS\"\n}\n"
+    }
+  ],
   "domain_class_id": "biological_life_sciences",
   "domain_scoring_id": "R017-DOMAIN-SCORER-9d16b5041970ef2a",
-  "exact_domain_scorer_available": false,
-  "exact_domain_scorer_commands": [],
+  "exact_domain_scorer_available": true,
+  "exact_domain_scorer_commands": [
+    [
+      "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+      "validation/heldout/grand_science/biology/coverage_work_orders/oc133_biology_modern_science_coverage_work_orders.py",
+      "--write"
+    ],
+    [
+      "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+      "validation/heldout/grand_science/biology/coverage_work_orders/oc133_biology_modern_science_coverage_work_orders.py",
+      "--check"
+    ],
+    [
+      "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+      "tools/oc133_toe_closure_factory.py",
+      "--execute-comparator-generic-evidence-pack",
+      "MS-COV-GAP-BIOLOGICAL_LIFE_SCIENCES-CELLULAR_DEVELOPMENTAL_REGULATORY_DYNAMICS",
+      "--write"
+    ]
+  ],
   "executable_spec_ref": "OC133-BIOLOGY-COVERAGE-CELLULAR-DEVELOPMENTAL-REGULATORY-DYNAMICS-domain-local-bridge",
   "execution_command": [
     "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
@@ -33,11 +84,11 @@
   "phenomenon_class_id": "cellular_developmental_regulatory_dynamics",
   "repair_strategy": "Implement a domain-specific scorer that locks targets, computes OC predictions and incumbent comparator predictions, materializes residuals, and reruns replay without changing the expected verdict.",
   "required_capability": "Research/DomainScoringExecutor",
-  "root_cause_class": "DOMAIN_SPECIFIC_SCORER_MISSING",
+  "root_cause_class": "DOMAIN_SCORER_RAN_BUT_SCORING_REMAINS_OPEN",
   "schema_id": "OC133_MODERN_SCIENCE_COMPARATOR_DOMAIN_SCORING_EXECUTION_v1",
   "scoring_artifact_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/9d16b5041970ef2a/oc_prediction_scoring_row.json",
   "scoring_artifact_status": "OPEN",
-  "status": "CAPABILITY_DEVELOPMENT_REQUIRED",
+  "status": "EVIDENCE_REPAIR_ATTEMPTED_REMAINS_OPEN",
   "validator_binding": "comparator_gap::MS-COV-GAP-BIOLOGICAL_LIFE_SCIENCES-CELLULAR_DEVELOPMENTAL_REGULATORY_DYNAMICS::domain_scoring_executor",
-  "why_it_failed": "No exact domain scorer exists for this domain/phenomenon; the generic evidence pack remains fail-closed."
+  "why_it_failed": "Domain scorer command ran, but strict materiality/replay predicates still keep the scoring artifact OPEN."
 }

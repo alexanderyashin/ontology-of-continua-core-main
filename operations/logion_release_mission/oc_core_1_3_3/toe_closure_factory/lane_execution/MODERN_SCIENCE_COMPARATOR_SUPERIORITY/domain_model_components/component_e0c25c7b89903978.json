@@ -1,0 +1,41 @@
+{
+  "artifact_hash": "bd1b12930e3f6e49b8f6090b468c18bf44ee23563108a0bc15c0288c5916763f",
+  "artifact_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/domain_model_components/component_e0c25c7b89903978.json",
+  "component_id": "strict_pack_pass",
+  "component_work_order_id": "R017-DOMAIN-MODEL-COMPONENT-59aaf381668818b4",
+  "domain_class_id": "engineering_materials_sciences",
+  "execution_command": [
+    "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+    "tools/oc133_toe_closure_factory.py",
+    "--execute-comparator-domain-model-component",
+    "R017-DOMAIN-MODEL-COMPONENT-59aaf381668818b4",
+    "--write"
+  ],
+  "gap_id": "MS-COV-GAP-ENGINEERING_MATERIALS_SCIENCES-CONTROL_SYSTEMS_AND_SIGNAL_MEASUREMENT",
+  "generated_at": "2026-05-06T09:08:41Z",
+  "implementation_blueprint": {
+    "component_id": "strict_pack_pass",
+    "domain_class_id": "engineering_materials_sciences",
+    "phenomenon_class_id": "control_systems_and_signal_measurement",
+    "required_code_surface": "domain scorer/model implementation for the named domain and phenomenon",
+    "required_output": "source-bound OC prediction, incumbent comparator prediction, residuals, materiality, and replay evidence as applicable"
+  },
+  "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+  "next_escalation": "Create or edit the domain-specific model/comparator scorer; if OC remains worse, preserve fail-closed broad superiority.",
+  "no_fake_closure_policy": "This component report cannot close broad superiority without downstream scoring and replay PASS.",
+  "pass_predicate": "The downstream oc_prediction_scoring_row artifact becomes PASS without weakening materiality or replay predicates.",
+  "phenomenon_class_id": "control_systems_and_signal_measurement",
+  "repair_id": "R017-DOMAIN-MODEL-REPAIR-a1c1bcc404d197ab",
+  "repair_strategy": "Regenerate the strict evidence pack after all source, score, comparator, uncertainty, falsifier, and replay predicates pass.",
+  "replay_artifact_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/a1c1bcc404d197ab/replay_record.json",
+  "replay_artifact_status": "OPEN",
+  "required_capability": "Research/DomainModelComparatorRepair",
+  "root_cause_class": "STRICT_EVIDENCE_PACK_NOT_PASSING",
+  "schema_id": "OC133_MODERN_SCIENCE_COMPARATOR_DOMAIN_MODEL_COMPONENT_EXECUTION_v1",
+  "scoring_artifact_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/a1c1bcc404d197ab/oc_prediction_scoring_row.json",
+  "scoring_artifact_status": "OPEN",
+  "source_domain_model_repair_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/domain_model_repairs/model_repair_927b7caca51d5c83.json",
+  "status": "CAPABILITY_DEVELOPMENT_REQUIRED",
+  "validator_binding": "comparator_gap::MS-COV-GAP-ENGINEERING_MATERIALS_SCIENCES-CONTROL_SYSTEMS_AND_SIGNAL_MEASUREMENT::domain_model_repair::strict_pack_pass",
+  "why_it_failed": "Component remains open because downstream scoring/replay artifacts are not PASS."
+}

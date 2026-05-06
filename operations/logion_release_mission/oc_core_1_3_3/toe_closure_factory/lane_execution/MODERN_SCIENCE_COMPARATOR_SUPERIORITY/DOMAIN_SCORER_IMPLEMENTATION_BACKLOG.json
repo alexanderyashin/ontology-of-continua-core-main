@@ -1,5 +1,5 @@
 {
-  "artifact_hash": "e55f789dc76d3dcf3b95563e1eb7594f73d4be0e6398a5df7342d1984f48e346",
+  "artifact_hash": "b4b9071ff4ab482845c53b79636ac4513e6bd9b381b5cfeac30f9e2137c068fb",
   "artifact_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/DOMAIN_SCORER_IMPLEMENTATION_BACKLOG.json",
   "domain_scorer_implementation_total": 32,
   "domain_scoring_backlog_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/DOMAIN_SCORING_BACKLOG.json",
@@ -21,8 +21,27 @@
     {
       "domain_class_id": "physical_sciences",
       "domain_scoring_id": "R017-DOMAIN-SCORER-a7777e969d546a74",
-      "exact_domain_scorer_available": false,
-      "exact_domain_scorer_commands": [],
+      "exact_domain_scorer_available": true,
+      "exact_domain_scorer_commands": [
+        [
+          "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+          "tools/oc133_physics_chemistry_official_batch_factory.py",
+          "--write",
+          "--allow-blocked-exit-zero"
+        ],
+        [
+          "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+          "tools/oc133_physics_chemistry_official_batch_factory.py",
+          "--check"
+        ],
+        [
+          "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+          "tools/oc133_toe_closure_factory.py",
+          "--execute-comparator-generic-evidence-pack",
+          "MS-COV-GAP-PHYSICAL_SCIENCES-DYNAMICAL_LAWS_AND_CONSERVATION",
+          "--write"
+        ]
+      ],
       "execution_command": [
         "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
         "tools/oc133_toe_closure_factory.py",
@@ -37,8 +56,8 @@
         "source_separation_mode": "prospective",
         "target_hidden_until_scoring": true
       },
-      "expected_script_exists": false,
-      "expected_script_ref": null,
+      "expected_script_exists": true,
+      "expected_script_ref": "tools/oc133_physics_chemistry_official_batch_factory.py",
       "falsifier_requirement": {
         "falsifier_id": "PHYS-DYNAMICS-HORIZONS-STATE-FALSIFIER",
         "trigger": "model vector RMSE exceeds the declared uncertainty, comparator is not worse, target vector appears in visible inputs, or fewer than 20 locked official epochs are scored"
@@ -64,9 +83,7 @@
       },
       "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
       "missing_domain_scorer_elements": [
-        "command_pass",
         "comparator_residual_materialized",
-        "exact_domain_scorer_available",
         "fail_closed_status_absent",
         "material_margin_met",
         "model_residual_materialized",
@@ -82,7 +99,7 @@
       },
       "pass_predicate": "A governed domain scorer script/flags exist, run cleanly, and the downstream domain-scoring report plus oc_prediction_scoring_row become PASS.",
       "phenomenon_class_id": "dynamical_laws_and_conservation",
-      "repair_strategy": "Add a governed domain scorer script route for this domain class, then bind concrete acquisition/scoring/replay flags.",
+      "repair_strategy": "Inspect the existing scorer output, repair the OC model/comparator/residual/materiality implementation, and preserve negative results if OC does not beat the comparator.",
       "required_capability": "Research/DomainScorerImplementation",
       "required_source_block": {
         "minimum_rows_required": 20,
@@ -100,10 +117,10 @@
         "metric_id": "vector_rmse_with_component_uncertainty_v1",
         "superiority_rule": "model_residual < comparator_residual and residual_within_declared_uncertainty is true"
       },
-      "root_cause_class": "DOMAIN_SCORER_SCRIPT_ROUTE_MISSING",
+      "root_cause_class": "DOMAIN_SCORER_MODEL_OR_COMPARATOR_REPAIR_REQUIRED",
       "source_domain_scoring_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/domain_scorers/scorer_57ee6cb35f9811ec.json",
-      "source_domain_scoring_root_cause": "DOMAIN_SPECIFIC_SCORER_MISSING",
-      "source_domain_scoring_status": "CAPABILITY_DEVELOPMENT_REQUIRED",
+      "source_domain_scoring_root_cause": "DOMAIN_SCORER_RAN_BUT_SCORING_REMAINS_OPEN",
+      "source_domain_scoring_status": "EVIDENCE_REPAIR_ATTEMPTED_REMAINS_OPEN",
       "status": "OPEN",
       "target_variable": {
         "extraction_rule": "For each epoch after the first, hide the official HORIZONS vector row until the predeclared dynamical propagation is materialized from prior visible rows.",
@@ -123,13 +140,32 @@
         "rule": "Use HORIZONS output precision from the locked snapshot plus a preregistered numerical integration tolerance; do not tune tolerance after target opening."
       },
       "validator_binding": "comparator_gap::MS-COV-GAP-PHYSICAL_SCIENCES-DYNAMICAL_LAWS_AND_CONSERVATION::domain_scorer_implementation",
-      "why_it_failed": "No exact domain scorer exists for this domain/phenomenon; the generic evidence pack remains fail-closed."
+      "why_it_failed": "Domain scorer command ran, but strict materiality/replay predicates still keep the scoring artifact OPEN."
     },
     {
       "domain_class_id": "physical_sciences",
       "domain_scoring_id": "R017-DOMAIN-SCORER-8b4b8aaaa996e50a",
-      "exact_domain_scorer_available": false,
-      "exact_domain_scorer_commands": [],
+      "exact_domain_scorer_available": true,
+      "exact_domain_scorer_commands": [
+        [
+          "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+          "tools/oc133_physics_chemistry_official_batch_factory.py",
+          "--write",
+          "--allow-blocked-exit-zero"
+        ],
+        [
+          "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+          "tools/oc133_physics_chemistry_official_batch_factory.py",
+          "--check"
+        ],
+        [
+          "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+          "tools/oc133_toe_closure_factory.py",
+          "--execute-comparator-generic-evidence-pack",
+          "MS-COV-GAP-PHYSICAL_SCIENCES-CONDENSED_MATTER_FIELDS_AND_MEASUREMENTS",
+          "--write"
+        ]
+      ],
       "execution_command": [
         "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
         "tools/oc133_toe_closure_factory.py",
@@ -144,8 +180,8 @@
         "source_separation_mode": "target_blind",
         "target_hidden_until_scoring": true
       },
-      "expected_script_exists": false,
-      "expected_script_ref": null,
+      "expected_script_exists": true,
+      "expected_script_ref": "tools/oc133_physics_chemistry_official_batch_factory.py",
       "falsifier_requirement": {
         "falsifier_id": "PHYS-CONDENSED-JARVIS-BANDGAP-FALSIFIER",
         "trigger": "target bandgap leaks into visible inputs, N<20, model interval overlaps or loses to comparator, or official snapshot/lock hash is missing"
@@ -172,9 +208,7 @@
       },
       "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
       "missing_domain_scorer_elements": [
-        "command_pass",
         "comparator_residual_materialized",
-        "exact_domain_scorer_available",
         "fail_closed_status_absent",
         "material_margin_met",
         "model_residual_materialized",
@@ -190,7 +224,7 @@
       },
       "pass_predicate": "A governed domain scorer script/flags exist, run cleanly, and the downstream domain-scoring report plus oc_prediction_scoring_row become PASS.",
       "phenomenon_class_id": "condensed_matter_fields_and_measurements",
-      "repair_strategy": "Add a governed domain scorer script route for this domain class, then bind concrete acquisition/scoring/replay flags.",
+      "repair_strategy": "Inspect the existing scorer output, repair the OC model/comparator/residual/materiality implementation, and preserve negative results if OC does not beat the comparator.",
       "required_capability": "Research/DomainScorerImplementation",
       "required_source_block": {
         "minimum_rows_required": 20,
@@ -208,10 +242,10 @@
         "metric_id": "bandgap_mae_eV_with_bootstrap_superiority_v1",
         "superiority_rule": "model_MAE + upper_interval_margin < comparator_MAE"
       },
-      "root_cause_class": "DOMAIN_SCORER_SCRIPT_ROUTE_MISSING",
+      "root_cause_class": "DOMAIN_SCORER_MODEL_OR_COMPARATOR_REPAIR_REQUIRED",
       "source_domain_scoring_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/domain_scorers/scorer_d57e729756e9469f.json",
-      "source_domain_scoring_root_cause": "DOMAIN_SPECIFIC_SCORER_MISSING",
-      "source_domain_scoring_status": "CAPABILITY_DEVELOPMENT_REQUIRED",
+      "source_domain_scoring_root_cause": "DOMAIN_SCORER_RAN_BUT_SCORING_REMAINS_OPEN",
+      "source_domain_scoring_status": "EVIDENCE_REPAIR_ATTEMPTED_REMAINS_OPEN",
       "status": "OPEN",
       "target_variable": {
         "extraction_rule": "Hide the JARVIS-DFT bandgap field until a predeclared composition/structure model and comparator have been materialized from visible formula and structure descriptors.",
@@ -226,13 +260,32 @@
         "rule": "Declare row-level tolerance and bootstrap confidence interval before target opening; source field precision alone cannot close the lane."
       },
       "validator_binding": "comparator_gap::MS-COV-GAP-PHYSICAL_SCIENCES-CONDENSED_MATTER_FIELDS_AND_MEASUREMENTS::domain_scorer_implementation",
-      "why_it_failed": "No exact domain scorer exists for this domain/phenomenon; the generic evidence pack remains fail-closed."
+      "why_it_failed": "Domain scorer command ran, but strict materiality/replay predicates still keep the scoring artifact OPEN."
     },
     {
       "domain_class_id": "physical_sciences",
       "domain_scoring_id": "R017-DOMAIN-SCORER-f0ee7d5ec5503167",
-      "exact_domain_scorer_available": false,
-      "exact_domain_scorer_commands": [],
+      "exact_domain_scorer_available": true,
+      "exact_domain_scorer_commands": [
+        [
+          "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+          "tools/oc133_physics_chemistry_official_batch_factory.py",
+          "--write",
+          "--allow-blocked-exit-zero"
+        ],
+        [
+          "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+          "tools/oc133_physics_chemistry_official_batch_factory.py",
+          "--check"
+        ],
+        [
+          "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+          "tools/oc133_toe_closure_factory.py",
+          "--execute-comparator-generic-evidence-pack",
+          "MS-COV-GAP-PHYSICAL_SCIENCES-ASTRONOMICAL_AND_COSMOLOGICAL_OBSERVABLES",
+          "--write"
+        ]
+      ],
       "execution_command": [
         "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
         "tools/oc133_toe_closure_factory.py",
@@ -247,8 +300,8 @@
         "source_separation_mode": "target_blind",
         "target_hidden_until_scoring": true
       },
-      "expected_script_exists": false,
-      "expected_script_ref": null,
+      "expected_script_exists": true,
+      "expected_script_ref": "tools/oc133_physics_chemistry_official_batch_factory.py",
       "falsifier_requirement": {
         "falsifier_id": "PHYS-ASTRO-EXOPLANET-KEPLER-FALSIFIER",
         "trigger": "target semi-major-axis leaks into visible inputs, N<20, residuals exceed uncertainty policy, or comparator is not worse"
@@ -273,9 +326,7 @@
       },
       "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
       "missing_domain_scorer_elements": [
-        "command_pass",
         "comparator_residual_materialized",
-        "exact_domain_scorer_available",
         "fail_closed_status_absent",
         "material_margin_met",
         "model_residual_materialized",
@@ -291,7 +342,7 @@
       },
       "pass_predicate": "A governed domain scorer script/flags exist, run cleanly, and the downstream domain-scoring report plus oc_prediction_scoring_row become PASS.",
       "phenomenon_class_id": "astronomical_and_cosmological_observables",
-      "repair_strategy": "Add a governed domain scorer script route for this domain class, then bind concrete acquisition/scoring/replay flags.",
+      "repair_strategy": "Inspect the existing scorer output, repair the OC model/comparator/residual/materiality implementation, and preserve negative results if OC does not beat the comparator.",
       "required_capability": "Research/DomainScorerImplementation",
       "required_source_block": {
         "minimum_rows_required": 20,
@@ -309,10 +360,10 @@
         "metric_id": "semi_major_axis_absolute_error_AU_v1",
         "superiority_rule": "mean model residual must be lower than comparator residual and within declared uncertainty/materiality policy"
       },
-      "root_cause_class": "DOMAIN_SCORER_SCRIPT_ROUTE_MISSING",
+      "root_cause_class": "DOMAIN_SCORER_MODEL_OR_COMPARATOR_REPAIR_REQUIRED",
       "source_domain_scoring_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/domain_scorers/scorer_4d1e03dfd896e348.json",
-      "source_domain_scoring_root_cause": "DOMAIN_SPECIFIC_SCORER_MISSING",
-      "source_domain_scoring_status": "CAPABILITY_DEVELOPMENT_REQUIRED",
+      "source_domain_scoring_root_cause": "DOMAIN_SCORER_RAN_BUT_SCORING_REMAINS_OPEN",
+      "source_domain_scoring_status": "EVIDENCE_REPAIR_ATTEMPTED_REMAINS_OPEN",
       "status": "OPEN",
       "target_variable": {
         "extraction_rule": "Hide semi-major-axis target columns until the Kepler-law calculation is materialized from visible orbital period and stellar mass columns.",
@@ -329,13 +380,32 @@
         "rule": "Use pl_orbsmaxerr1/pl_orbsmaxerr2 when present and a preregistered AU materiality floor otherwise."
       },
       "validator_binding": "comparator_gap::MS-COV-GAP-PHYSICAL_SCIENCES-ASTRONOMICAL_AND_COSMOLOGICAL_OBSERVABLES::domain_scorer_implementation",
-      "why_it_failed": "No exact domain scorer exists for this domain/phenomenon; the generic evidence pack remains fail-closed."
+      "why_it_failed": "Domain scorer command ran, but strict materiality/replay predicates still keep the scoring artifact OPEN."
     },
     {
       "domain_class_id": "chemical_sciences",
       "domain_scoring_id": "R017-DOMAIN-SCORER-0b00ee8a56e1234a",
-      "exact_domain_scorer_available": false,
-      "exact_domain_scorer_commands": [],
+      "exact_domain_scorer_available": true,
+      "exact_domain_scorer_commands": [
+        [
+          "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+          "tools/oc133_chemistry_pubchem_formula_batch_factory.py",
+          "--write",
+          "--allow-blocked-exit-zero"
+        ],
+        [
+          "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+          "tools/oc133_chemistry_pubchem_formula_batch_factory.py",
+          "--check"
+        ],
+        [
+          "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+          "tools/oc133_toe_closure_factory.py",
+          "--execute-comparator-generic-evidence-pack",
+          "MS-COV-GAP-CHEMICAL_SCIENCES-REACTION_AND_KINETICS_PREDICTION",
+          "--write"
+        ]
+      ],
       "execution_command": [
         "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
         "tools/oc133_toe_closure_factory.py",
@@ -350,8 +420,8 @@
         "source_separation_mode": "prospective",
         "target_hidden_until_scoring": true
       },
-      "expected_script_exists": false,
-      "expected_script_ref": null,
+      "expected_script_exists": true,
+      "expected_script_ref": "tools/oc133_chemistry_pubchem_formula_batch_factory.py",
       "falsifier_requirement": {
         "falsifier_id": "CHEM-KINETICS-NIST-FALSIFIER",
         "trigger": "target rate constants leak into visible inputs, N<20, source lock missing, residuals exceed uncertainty, or comparator is not worse"
@@ -378,9 +448,7 @@
       },
       "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
       "missing_domain_scorer_elements": [
-        "command_pass",
         "comparator_residual_materialized",
-        "exact_domain_scorer_available",
         "fail_closed_status_absent",
         "material_margin_met",
         "model_residual_materialized",
@@ -396,7 +464,7 @@
       },
       "pass_predicate": "A governed domain scorer script/flags exist, run cleanly, and the downstream domain-scoring report plus oc_prediction_scoring_row become PASS.",
       "phenomenon_class_id": "reaction_and_kinetics_prediction",
-      "repair_strategy": "Add a governed domain scorer script route for this domain class, then bind concrete acquisition/scoring/replay flags.",
+      "repair_strategy": "Inspect the existing scorer output, repair the OC model/comparator/residual/materiality implementation, and preserve negative results if OC does not beat the comparator.",
       "required_capability": "Research/DomainScorerImplementation",
       "required_source_block": {
         "minimum_rows_required": 20,
@@ -414,10 +482,10 @@
         "metric_id": "kinetics_log10_rate_residual_v1",
         "superiority_rule": "mean log residual must beat comparator and meet uncertainty/materiality threshold"
       },
-      "root_cause_class": "DOMAIN_SCORER_SCRIPT_ROUTE_MISSING",
+      "root_cause_class": "DOMAIN_SCORER_MODEL_OR_COMPARATOR_REPAIR_REQUIRED",
       "source_domain_scoring_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/domain_scorers/scorer_00d5de4850c5a672.json",
-      "source_domain_scoring_root_cause": "DOMAIN_SPECIFIC_SCORER_MISSING",
-      "source_domain_scoring_status": "CAPABILITY_DEVELOPMENT_REQUIRED",
+      "source_domain_scoring_root_cause": "DOMAIN_SCORER_RAN_BUT_SCORING_REMAINS_OPEN",
+      "source_domain_scoring_status": "EVIDENCE_REPAIR_ATTEMPTED_REMAINS_OPEN",
       "status": "OPEN",
       "target_variable": {
         "extraction_rule": "Hide rate constants or Arrhenius parameters until predictions are materialized from visible reactant/product identifiers, temperature grid, and preregistered formula.",
@@ -437,13 +505,32 @@
         "rule": "Use source uncertainty when present; otherwise use a preregistered dex tolerance before target opening."
       },
       "validator_binding": "comparator_gap::MS-COV-GAP-CHEMICAL_SCIENCES-REACTION_AND_KINETICS_PREDICTION::domain_scorer_implementation",
-      "why_it_failed": "No exact domain scorer exists for this domain/phenomenon; the generic evidence pack remains fail-closed."
+      "why_it_failed": "Domain scorer command ran, but strict materiality/replay predicates still keep the scoring artifact OPEN."
     },
     {
       "domain_class_id": "chemical_sciences",
       "domain_scoring_id": "R017-DOMAIN-SCORER-dd1092e4b6a884f7",
-      "exact_domain_scorer_available": false,
-      "exact_domain_scorer_commands": [],
+      "exact_domain_scorer_available": true,
+      "exact_domain_scorer_commands": [
+        [
+          "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+          "tools/oc133_chemistry_pubchem_formula_batch_factory.py",
+          "--write",
+          "--allow-blocked-exit-zero"
+        ],
+        [
+          "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+          "tools/oc133_chemistry_pubchem_formula_batch_factory.py",
+          "--check"
+        ],
+        [
+          "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+          "tools/oc133_toe_closure_factory.py",
+          "--execute-comparator-generic-evidence-pack",
+          "MS-COV-GAP-CHEMICAL_SCIENCES-THERMOCHEMISTRY_AND_PHASE_BEHAVIOR",
+          "--write"
+        ]
+      ],
       "execution_command": [
         "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
         "tools/oc133_toe_closure_factory.py",
@@ -458,8 +545,8 @@
         "source_separation_mode": "target_blind",
         "target_hidden_until_scoring": true
       },
-      "expected_script_exists": false,
-      "expected_script_ref": null,
+      "expected_script_exists": true,
+      "expected_script_ref": "tools/oc133_chemistry_pubchem_formula_batch_factory.py",
       "falsifier_requirement": {
         "falsifier_id": "CHEM-THERMO-WEBBOOK-FALSIFIER",
         "trigger": "target thermochemistry table leaks into visible inputs, N<20, source lock missing, residual exceeds uncertainty, or comparator is not worse"
@@ -484,9 +571,7 @@
       },
       "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
       "missing_domain_scorer_elements": [
-        "command_pass",
         "comparator_residual_materialized",
-        "exact_domain_scorer_available",
         "fail_closed_status_absent",
         "material_margin_met",
         "model_residual_materialized",
@@ -502,7 +587,7 @@
       },
       "pass_predicate": "A governed domain scorer script/flags exist, run cleanly, and the downstream domain-scoring report plus oc_prediction_scoring_row become PASS.",
       "phenomenon_class_id": "thermochemistry_and_phase_behavior",
-      "repair_strategy": "Add a governed domain scorer script route for this domain class, then bind concrete acquisition/scoring/replay flags.",
+      "repair_strategy": "Inspect the existing scorer output, repair the OC model/comparator/residual/materiality implementation, and preserve negative results if OC does not beat the comparator.",
       "required_capability": "Research/DomainScorerImplementation",
       "required_source_block": {
         "minimum_rows_required": 20,
@@ -520,10 +605,10 @@
         "metric_id": "thermochemistry_absolute_error_normalized_v1",
         "superiority_rule": "normalized residual must be within tolerance and lower than comparator residual"
       },
-      "root_cause_class": "DOMAIN_SCORER_SCRIPT_ROUTE_MISSING",
+      "root_cause_class": "DOMAIN_SCORER_MODEL_OR_COMPARATOR_REPAIR_REQUIRED",
       "source_domain_scoring_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/domain_scorers/scorer_6eed1306ad6bcd94.json",
-      "source_domain_scoring_root_cause": "DOMAIN_SPECIFIC_SCORER_MISSING",
-      "source_domain_scoring_status": "CAPABILITY_DEVELOPMENT_REQUIRED",
+      "source_domain_scoring_root_cause": "DOMAIN_SCORER_RAN_BUT_SCORING_REMAINS_OPEN",
+      "source_domain_scoring_status": "EVIDENCE_REPAIR_ATTEMPTED_REMAINS_OPEN",
       "status": "OPEN",
       "target_variable": {
         "extraction_rule": "Hide tabulated thermochemistry values until Shomate-equation predictions are materialized from visible coefficients and temperature grid.",
@@ -541,13 +626,32 @@
         "rule": "Bind source precision/uncertainty or a preregistered SI-unit tolerance before target opening."
       },
       "validator_binding": "comparator_gap::MS-COV-GAP-CHEMICAL_SCIENCES-THERMOCHEMISTRY_AND_PHASE_BEHAVIOR::domain_scorer_implementation",
-      "why_it_failed": "No exact domain scorer exists for this domain/phenomenon; the generic evidence pack remains fail-closed."
+      "why_it_failed": "Domain scorer command ran, but strict materiality/replay predicates still keep the scoring artifact OPEN."
     },
     {
       "domain_class_id": "chemical_sciences",
       "domain_scoring_id": "R017-DOMAIN-SCORER-044c4b9f478c7bc2",
-      "exact_domain_scorer_available": false,
-      "exact_domain_scorer_commands": [],
+      "exact_domain_scorer_available": true,
+      "exact_domain_scorer_commands": [
+        [
+          "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+          "tools/oc133_chemistry_pubchem_formula_batch_factory.py",
+          "--write",
+          "--allow-blocked-exit-zero"
+        ],
+        [
+          "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+          "tools/oc133_chemistry_pubchem_formula_batch_factory.py",
+          "--check"
+        ],
+        [
+          "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+          "tools/oc133_toe_closure_factory.py",
+          "--execute-comparator-generic-evidence-pack",
+          "MS-COV-GAP-CHEMICAL_SCIENCES-MATERIALS_AND_SPECTROSCOPY_OBSERVABLES",
+          "--write"
+        ]
+      ],
       "execution_command": [
         "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
         "tools/oc133_toe_closure_factory.py",
@@ -562,8 +666,8 @@
         "source_separation_mode": "target_blind",
         "target_hidden_until_scoring": true
       },
-      "expected_script_exists": false,
-      "expected_script_ref": null,
+      "expected_script_exists": true,
+      "expected_script_ref": "tools/oc133_chemistry_pubchem_formula_batch_factory.py",
       "falsifier_requirement": {
         "falsifier_id": "CHEM-SPECTROSCOPY-WEBBOOK-IR-FALSIFIER",
         "trigger": "target peaks leak into visible inputs, N<20, official snapshot/lock missing, peak residual exceeds uncertainty, or comparator is not worse"
@@ -588,9 +692,7 @@
       },
       "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
       "missing_domain_scorer_elements": [
-        "command_pass",
         "comparator_residual_materialized",
-        "exact_domain_scorer_available",
         "fail_closed_status_absent",
         "material_margin_met",
         "model_residual_materialized",
@@ -606,7 +708,7 @@
       },
       "pass_predicate": "A governed domain scorer script/flags exist, run cleanly, and the downstream domain-scoring report plus oc_prediction_scoring_row become PASS.",
       "phenomenon_class_id": "materials_and_spectroscopy_observables",
-      "repair_strategy": "Add a governed domain scorer script route for this domain class, then bind concrete acquisition/scoring/replay flags.",
+      "repair_strategy": "Inspect the existing scorer output, repair the OC model/comparator/residual/materiality implementation, and preserve negative results if OC does not beat the comparator.",
       "required_capability": "Research/DomainScorerImplementation",
       "required_source_block": {
         "minimum_rows_required": 20,
@@ -624,10 +726,10 @@
         "metric_id": "ir_peak_match_weighted_residual_v1",
         "superiority_rule": "model weighted residual must beat comparator residual and meet declared cm^-1/intensity tolerances"
       },
-      "root_cause_class": "DOMAIN_SCORER_SCRIPT_ROUTE_MISSING",
+      "root_cause_class": "DOMAIN_SCORER_MODEL_OR_COMPARATOR_REPAIR_REQUIRED",
       "source_domain_scoring_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/domain_scorers/scorer_e414033d1c00f805.json",
-      "source_domain_scoring_root_cause": "DOMAIN_SPECIFIC_SCORER_MISSING",
-      "source_domain_scoring_status": "CAPABILITY_DEVELOPMENT_REQUIRED",
+      "source_domain_scoring_root_cause": "DOMAIN_SCORER_RAN_BUT_SCORING_REMAINS_OPEN",
+      "source_domain_scoring_status": "EVIDENCE_REPAIR_ATTEMPTED_REMAINS_OPEN",
       "status": "OPEN",
       "target_variable": {
         "extraction_rule": "Hide IR peak positions/intensities until a preregistered peak model is materialized from visible molecular identity and non-target metadata.",
@@ -643,13 +745,31 @@
         "rule": "Declare cm^-1 tolerance, intensity tolerance, and peak-matching policy before target opening."
       },
       "validator_binding": "comparator_gap::MS-COV-GAP-CHEMICAL_SCIENCES-MATERIALS_AND_SPECTROSCOPY_OBSERVABLES::domain_scorer_implementation",
-      "why_it_failed": "No exact domain scorer exists for this domain/phenomenon; the generic evidence pack remains fail-closed."
+      "why_it_failed": "Domain scorer command ran, but strict materiality/replay predicates still keep the scoring artifact OPEN."
     },
     {
       "domain_class_id": "earth_space_environmental_sciences",
       "domain_scoring_id": "R017-DOMAIN-SCORER-6fa88ac46f5c7bb2",
-      "exact_domain_scorer_available": false,
-      "exact_domain_scorer_commands": [],
+      "exact_domain_scorer_available": true,
+      "exact_domain_scorer_commands": [
+        [
+          "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+          "validation/heldout/grand_science/earth_space/coverage_work_orders/oc133_earth_space_modern_science_coverage_work_orders.py",
+          "--write"
+        ],
+        [
+          "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+          "validation/heldout/grand_science/earth_space/coverage_work_orders/oc133_earth_space_modern_science_coverage_work_orders.py",
+          "--check"
+        ],
+        [
+          "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+          "tools/oc133_toe_closure_factory.py",
+          "--execute-comparator-generic-evidence-pack",
+          "MS-COV-GAP-EARTH_SPACE_ENVIRONMENTAL_SCIENCES-CLIMATE_WEATHER_GEOPHYSICAL_TIME_SERIES",
+          "--write"
+        ]
+      ],
       "execution_command": [
         "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
         "tools/oc133_toe_closure_factory.py",
@@ -691,9 +811,7 @@
       },
       "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
       "missing_domain_scorer_elements": [
-        "command_pass",
         "comparator_residual_materialized",
-        "exact_domain_scorer_available",
         "fail_closed_status_absent",
         "material_margin_met",
         "model_residual_materialized",
@@ -709,7 +827,7 @@
       },
       "pass_predicate": "A governed domain scorer script/flags exist, run cleanly, and the downstream domain-scoring report plus oc_prediction_scoring_row become PASS.",
       "phenomenon_class_id": "climate_weather_geophysical_time_series",
-      "repair_strategy": "Extend the existing domain scorer script with concrete flags for this phenomenon and bind them in COMPARATOR_DOMAIN_IMPLEMENTED_COMMANDS.",
+      "repair_strategy": "Inspect the existing scorer output, repair the OC model/comparator/residual/materiality implementation, and preserve negative results if OC does not beat the comparator.",
       "required_capability": "Research/DomainScorerImplementation",
       "required_source_block": {
         "minimum_rows_required": 20,
@@ -727,10 +845,10 @@
         "metric_id": "MS-COV-WO-010_domain_local_residual",
         "superiority_rule": "model MAE plus uncertainty allowance must be lower than comparator MAE and every timestamp hash must remain bound"
       },
-      "root_cause_class": "DOMAIN_SCORER_FLAGS_MISSING",
+      "root_cause_class": "DOMAIN_SCORER_MODEL_OR_COMPARATOR_REPAIR_REQUIRED",
       "source_domain_scoring_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/domain_scorers/scorer_f490a536bc5b754f.json",
-      "source_domain_scoring_root_cause": "DOMAIN_SPECIFIC_SCORER_MISSING",
-      "source_domain_scoring_status": "CAPABILITY_DEVELOPMENT_REQUIRED",
+      "source_domain_scoring_root_cause": "DOMAIN_SCORER_RAN_BUT_SCORING_REMAINS_OPEN",
+      "source_domain_scoring_status": "EVIDENCE_REPAIR_ATTEMPTED_REMAINS_OPEN",
       "status": "OPEN",
       "target_variable": {
         "extraction_rule": "NOAA_COOPS[station=9414290, timestamp].data.v",
@@ -745,7 +863,7 @@
         "rule": "pre-target median absolute deviation of visible residuals plus NOAA reported standard deviation field where present"
       },
       "validator_binding": "comparator_gap::MS-COV-GAP-EARTH_SPACE_ENVIRONMENTAL_SCIENCES-CLIMATE_WEATHER_GEOPHYSICAL_TIME_SERIES::domain_scorer_implementation",
-      "why_it_failed": "No exact domain scorer exists for this domain/phenomenon; the generic evidence pack remains fail-closed."
+      "why_it_failed": "Domain scorer command ran, but strict materiality/replay predicates still keep the scoring artifact OPEN."
     },
     {
       "domain_class_id": "earth_space_environmental_sciences",
@@ -768,88 +886,6 @@
           "validation/heldout/grand_science/earth_space/coverage_work_orders/oc133_earth_space_modern_science_coverage_work_orders.py",
           "--score-usgs-hydrology",
           "--write"
-        ],
-        [
-          "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
-          "validation/heldout/grand_science/earth_space/coverage_work_orders/oc133_earth_space_modern_science_coverage_work_orders.py",
-          "--check"
-        ],
-        [
-          "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
-          "validation/heldout/grand_science/earth_space/coverage_work_orders/oc133_earth_space_modern_science_coverage_work_orders.py",
-          "--score-usgs-hydrology",
-          "--write"
-        ],
-        [
-          "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
-          "validation/heldout/grand_science/earth_space/coverage_work_orders/oc133_earth_space_modern_science_coverage_work_orders.py",
-          "--check"
-        ],
-        [
-          "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
-          "validation/heldout/grand_science/earth_space/coverage_work_orders/oc133_earth_space_modern_science_coverage_work_orders.py",
-          "--score-usgs-hydrology",
-          "--write"
-        ],
-        [
-          "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
-          "validation/heldout/grand_science/earth_space/coverage_work_orders/oc133_earth_space_modern_science_coverage_work_orders.py",
-          "--check"
-        ],
-        [
-          "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
-          "validation/heldout/grand_science/earth_space/coverage_work_orders/oc133_earth_space_modern_science_coverage_work_orders.py",
-          "--score-usgs-hydrology",
-          "--write"
-        ],
-        [
-          "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
-          "validation/heldout/grand_science/earth_space/coverage_work_orders/oc133_earth_space_modern_science_coverage_work_orders.py",
-          "--check"
-        ],
-        [
-          "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
-          "validation/heldout/grand_science/earth_space/coverage_work_orders/oc133_earth_space_modern_science_coverage_work_orders.py",
-          "--score-usgs-hydrology",
-          "--write"
-        ],
-        [
-          "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
-          "validation/heldout/grand_science/earth_space/coverage_work_orders/oc133_earth_space_modern_science_coverage_work_orders.py",
-          "--check"
-        ],
-        [
-          "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
-          "validation/heldout/grand_science/earth_space/coverage_work_orders/oc133_earth_space_modern_science_coverage_work_orders.py",
-          "--score-usgs-hydrology",
-          "--write"
-        ],
-        [
-          "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
-          "validation/heldout/grand_science/earth_space/coverage_work_orders/oc133_earth_space_modern_science_coverage_work_orders.py",
-          "--check"
-        ],
-        [
-          "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
-          "validation/heldout/grand_science/earth_space/coverage_work_orders/oc133_earth_space_modern_science_coverage_work_orders.py",
-          "--score-usgs-hydrology",
-          "--write"
-        ],
-        [
-          "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
-          "validation/heldout/grand_science/earth_space/coverage_work_orders/oc133_earth_space_modern_science_coverage_work_orders.py",
-          "--check"
-        ],
-        [
-          "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
-          "validation/heldout/grand_science/earth_space/coverage_work_orders/oc133_earth_space_modern_science_coverage_work_orders.py",
-          "--score-usgs-hydrology",
-          "--write"
-        ],
-        [
-          "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
-          "validation/heldout/grand_science/earth_space/coverage_work_orders/oc133_earth_space_modern_science_coverage_work_orders.py",
-          "--check"
         ]
       ],
       "execution_command": [
@@ -950,8 +986,26 @@
     {
       "domain_class_id": "earth_space_environmental_sciences",
       "domain_scoring_id": "R017-DOMAIN-SCORER-04a29758f8310992",
-      "exact_domain_scorer_available": false,
-      "exact_domain_scorer_commands": [],
+      "exact_domain_scorer_available": true,
+      "exact_domain_scorer_commands": [
+        [
+          "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+          "validation/heldout/grand_science/earth_space/coverage_work_orders/oc133_earth_space_modern_science_coverage_work_orders.py",
+          "--write"
+        ],
+        [
+          "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+          "validation/heldout/grand_science/earth_space/coverage_work_orders/oc133_earth_space_modern_science_coverage_work_orders.py",
+          "--check"
+        ],
+        [
+          "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+          "tools/oc133_toe_closure_factory.py",
+          "--execute-comparator-generic-evidence-pack",
+          "MS-COV-GAP-EARTH_SPACE_ENVIRONMENTAL_SCIENCES-REMOTE_SENSING_AND_PLANETARY_MEASUREMENTS",
+          "--write"
+        ]
+      ],
       "execution_command": [
         "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
         "tools/oc133_toe_closure_factory.py",
@@ -994,9 +1048,7 @@
       },
       "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
       "missing_domain_scorer_elements": [
-        "command_pass",
         "comparator_residual_materialized",
-        "exact_domain_scorer_available",
         "fail_closed_status_absent",
         "material_margin_met",
         "model_residual_materialized",
@@ -1012,7 +1064,7 @@
       },
       "pass_predicate": "A governed domain scorer script/flags exist, run cleanly, and the downstream domain-scoring report plus oc_prediction_scoring_row become PASS.",
       "phenomenon_class_id": "remote_sensing_and_planetary_measurements",
-      "repair_strategy": "Extend the existing domain scorer script with concrete flags for this phenomenon and bind them in COMPARATOR_DOMAIN_IMPLEMENTED_COMMANDS.",
+      "repair_strategy": "Inspect the existing scorer output, repair the OC model/comparator/residual/materiality implementation, and preserve negative results if OC does not beat the comparator.",
       "required_capability": "Research/DomainScorerImplementation",
       "required_source_block": {
         "minimum_rows_required": 20,
@@ -1030,10 +1082,10 @@
         "metric_id": "MS-COV-WO-012_domain_local_residual",
         "superiority_rule": "model MAE plus uncertainty allowance must be lower than the trailing-mean comparator MAE"
       },
-      "root_cause_class": "DOMAIN_SCORER_FLAGS_MISSING",
+      "root_cause_class": "DOMAIN_SCORER_MODEL_OR_COMPARATOR_REPAIR_REQUIRED",
       "source_domain_scoring_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/domain_scorers/scorer_a47a570cf7264b11.json",
-      "source_domain_scoring_root_cause": "DOMAIN_SPECIFIC_SCORER_MISSING",
-      "source_domain_scoring_status": "CAPABILITY_DEVELOPMENT_REQUIRED",
+      "source_domain_scoring_root_cause": "DOMAIN_SCORER_RAN_BUT_SCORING_REMAINS_OPEN",
+      "source_domain_scoring_status": "EVIDENCE_REPAIR_ATTEMPTED_REMAINS_OPEN",
       "status": "OPEN",
       "target_variable": {
         "extraction_rule": "NASA_POWER[lat=37.7749, lon=-122.4194, date].ALLSKY_SFC_SW_DWN",
@@ -1048,13 +1100,31 @@
         "rule": "visible-date rolling residual envelope with fixed kWh/m^2/day materiality floor"
       },
       "validator_binding": "comparator_gap::MS-COV-GAP-EARTH_SPACE_ENVIRONMENTAL_SCIENCES-REMOTE_SENSING_AND_PLANETARY_MEASUREMENTS::domain_scorer_implementation",
-      "why_it_failed": "No exact domain scorer exists for this domain/phenomenon; the generic evidence pack remains fail-closed."
+      "why_it_failed": "Domain scorer command ran, but strict materiality/replay predicates still keep the scoring artifact OPEN."
     },
     {
       "domain_class_id": "biological_life_sciences",
       "domain_scoring_id": "R017-DOMAIN-SCORER-ac1f601d3315235c",
-      "exact_domain_scorer_available": false,
-      "exact_domain_scorer_commands": [],
+      "exact_domain_scorer_available": true,
+      "exact_domain_scorer_commands": [
+        [
+          "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+          "validation/heldout/grand_science/biology/coverage_work_orders/oc133_biology_modern_science_coverage_work_orders.py",
+          "--write"
+        ],
+        [
+          "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+          "validation/heldout/grand_science/biology/coverage_work_orders/oc133_biology_modern_science_coverage_work_orders.py",
+          "--check"
+        ],
+        [
+          "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+          "tools/oc133_toe_closure_factory.py",
+          "--execute-comparator-generic-evidence-pack",
+          "MS-COV-GAP-BIOLOGICAL_LIFE_SCIENCES-EVOLUTIONARY_PHYLOGENETIC_PATTERNS",
+          "--write"
+        ]
+      ],
       "execution_command": [
         "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
         "tools/oc133_toe_closure_factory.py",
@@ -1096,9 +1166,7 @@
       },
       "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
       "missing_domain_scorer_elements": [
-        "command_pass",
         "comparator_residual_materialized",
-        "exact_domain_scorer_available",
         "fail_closed_status_absent",
         "material_margin_met",
         "model_residual_materialized",
@@ -1114,7 +1182,7 @@
       },
       "pass_predicate": "A governed domain scorer script/flags exist, run cleanly, and the downstream domain-scoring report plus oc_prediction_scoring_row become PASS.",
       "phenomenon_class_id": "evolutionary_phylogenetic_patterns",
-      "repair_strategy": "Extend the existing domain scorer script with concrete flags for this phenomenon and bind them in COMPARATOR_DOMAIN_IMPLEMENTED_COMMANDS.",
+      "repair_strategy": "Inspect the existing scorer output, repair the OC model/comparator/residual/materiality implementation, and preserve negative results if OC does not beat the comparator.",
       "required_capability": "Research/DomainScorerImplementation",
       "required_source_block": {
         "minimum_rows_required": 20,
@@ -1132,10 +1200,10 @@
         "metric_id": "taxonomy_lca_tree_distance_residual_v1",
         "superiority_rule": "mean tree-distance residual must be lower than comparator residual and exact LCA accuracy must be higher than comparator accuracy"
       },
-      "root_cause_class": "DOMAIN_SCORER_FLAGS_MISSING",
+      "root_cause_class": "DOMAIN_SCORER_MODEL_OR_COMPARATOR_REPAIR_REQUIRED",
       "source_domain_scoring_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/domain_scorers/scorer_1fbab8e1c98aac09.json",
-      "source_domain_scoring_root_cause": "DOMAIN_SPECIFIC_SCORER_MISSING",
-      "source_domain_scoring_status": "CAPABILITY_DEVELOPMENT_REQUIRED",
+      "source_domain_scoring_root_cause": "DOMAIN_SCORER_RAN_BUT_SCORING_REMAINS_OPEN",
+      "source_domain_scoring_status": "EVIDENCE_REPAIR_ATTEMPTED_REMAINS_OPEN",
       "status": "OPEN",
       "target_variable": {
         "extraction_rule": "Hide pairwise lowest-common-ancestor targets until lineage-derived predictions are materialized from locked visible taxon identifiers and permitted lineage prefixes.",
@@ -1152,13 +1220,31 @@
         "rule": "Bind the NCBI taxonomy snapshot date, lock hash, and accepted synonym/version policy before target opening."
       },
       "validator_binding": "comparator_gap::MS-COV-GAP-BIOLOGICAL_LIFE_SCIENCES-EVOLUTIONARY_PHYLOGENETIC_PATTERNS::domain_scorer_implementation",
-      "why_it_failed": "No exact domain scorer exists for this domain/phenomenon; the generic evidence pack remains fail-closed."
+      "why_it_failed": "Domain scorer command ran, but strict materiality/replay predicates still keep the scoring artifact OPEN."
     },
     {
       "domain_class_id": "biological_life_sciences",
       "domain_scoring_id": "R017-DOMAIN-SCORER-9d16b5041970ef2a",
-      "exact_domain_scorer_available": false,
-      "exact_domain_scorer_commands": [],
+      "exact_domain_scorer_available": true,
+      "exact_domain_scorer_commands": [
+        [
+          "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+          "validation/heldout/grand_science/biology/coverage_work_orders/oc133_biology_modern_science_coverage_work_orders.py",
+          "--write"
+        ],
+        [
+          "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+          "validation/heldout/grand_science/biology/coverage_work_orders/oc133_biology_modern_science_coverage_work_orders.py",
+          "--check"
+        ],
+        [
+          "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+          "tools/oc133_toe_closure_factory.py",
+          "--execute-comparator-generic-evidence-pack",
+          "MS-COV-GAP-BIOLOGICAL_LIFE_SCIENCES-CELLULAR_DEVELOPMENTAL_REGULATORY_DYNAMICS",
+          "--write"
+        ]
+      ],
       "execution_command": [
         "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
         "tools/oc133_toe_closure_factory.py",
@@ -1196,9 +1282,7 @@
       },
       "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
       "missing_domain_scorer_elements": [
-        "command_pass",
         "comparator_residual_materialized",
-        "exact_domain_scorer_available",
         "fail_closed_status_absent",
         "material_margin_met",
         "model_residual_materialized",
@@ -1214,7 +1298,7 @@
       },
       "pass_predicate": "A governed domain scorer script/flags exist, run cleanly, and the downstream domain-scoring report plus oc_prediction_scoring_row become PASS.",
       "phenomenon_class_id": "cellular_developmental_regulatory_dynamics",
-      "repair_strategy": "Extend the existing domain scorer script with concrete flags for this phenomenon and bind them in COMPARATOR_DOMAIN_IMPLEMENTED_COMMANDS.",
+      "repair_strategy": "Inspect the existing scorer output, repair the OC model/comparator/residual/materiality implementation, and preserve negative results if OC does not beat the comparator.",
       "required_capability": "Research/DomainScorerImplementation",
       "required_source_block": {
         "minimum_rows_required": 20,
@@ -1232,10 +1316,10 @@
         "metric_id": "OC133-BIOLOGY-COVERAGE-CELLULAR-DEVELOPMENTAL-REGULATORY-DYNAMICS_domain_local_residual",
         "superiority_rule": "mean_model_residual < mean_comparator_residual and every negative control is rejected"
       },
-      "root_cause_class": "DOMAIN_SCORER_FLAGS_MISSING",
+      "root_cause_class": "DOMAIN_SCORER_MODEL_OR_COMPARATOR_REPAIR_REQUIRED",
       "source_domain_scoring_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/domain_scorers/scorer_c7f557cec0f812b2.json",
-      "source_domain_scoring_root_cause": "DOMAIN_SPECIFIC_SCORER_MISSING",
-      "source_domain_scoring_status": "CAPABILITY_DEVELOPMENT_REQUIRED",
+      "source_domain_scoring_root_cause": "DOMAIN_SCORER_RAN_BUT_SCORING_REMAINS_OPEN",
+      "source_domain_scoring_status": "EVIDENCE_REPAIR_ATTEMPTED_REMAINS_OPEN",
       "status": "OPEN",
       "target_variable": {
         "extraction_rule": "result.<uid>.rmean",
@@ -1250,13 +1334,31 @@
         "rule": "deterministic official GEO Profile ranked-score residuals with zero added measurement slack"
       },
       "validator_binding": "comparator_gap::MS-COV-GAP-BIOLOGICAL_LIFE_SCIENCES-CELLULAR_DEVELOPMENTAL_REGULATORY_DYNAMICS::domain_scorer_implementation",
-      "why_it_failed": "No exact domain scorer exists for this domain/phenomenon; the generic evidence pack remains fail-closed."
+      "why_it_failed": "Domain scorer command ran, but strict materiality/replay predicates still keep the scoring artifact OPEN."
     },
     {
       "domain_class_id": "biological_life_sciences",
       "domain_scoring_id": "R017-DOMAIN-SCORER-80c7d7ec237d85b3",
-      "exact_domain_scorer_available": false,
-      "exact_domain_scorer_commands": [],
+      "exact_domain_scorer_available": true,
+      "exact_domain_scorer_commands": [
+        [
+          "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+          "validation/heldout/grand_science/biology/coverage_work_orders/oc133_biology_modern_science_coverage_work_orders.py",
+          "--write"
+        ],
+        [
+          "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+          "validation/heldout/grand_science/biology/coverage_work_orders/oc133_biology_modern_science_coverage_work_orders.py",
+          "--check"
+        ],
+        [
+          "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+          "tools/oc133_toe_closure_factory.py",
+          "--execute-comparator-generic-evidence-pack",
+          "MS-COV-GAP-BIOLOGICAL_LIFE_SCIENCES-ECOLOGY_POPULATION_AND_BIODIVERSITY_OBSERVABLES",
+          "--write"
+        ]
+      ],
       "execution_command": [
         "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
         "tools/oc133_toe_closure_factory.py",
@@ -1294,9 +1396,7 @@
       },
       "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
       "missing_domain_scorer_elements": [
-        "command_pass",
         "comparator_residual_materialized",
-        "exact_domain_scorer_available",
         "fail_closed_status_absent",
         "material_margin_met",
         "model_residual_materialized",
@@ -1312,7 +1412,7 @@
       },
       "pass_predicate": "A governed domain scorer script/flags exist, run cleanly, and the downstream domain-scoring report plus oc_prediction_scoring_row become PASS.",
       "phenomenon_class_id": "ecology_population_and_biodiversity_observables",
-      "repair_strategy": "Extend the existing domain scorer script with concrete flags for this phenomenon and bind them in COMPARATOR_DOMAIN_IMPLEMENTED_COMMANDS.",
+      "repair_strategy": "Inspect the existing scorer output, repair the OC model/comparator/residual/materiality implementation, and preserve negative results if OC does not beat the comparator.",
       "required_capability": "Research/DomainScorerImplementation",
       "required_source_block": {
         "minimum_rows_required": 20,
@@ -1330,10 +1430,10 @@
         "metric_id": "OC133-BIOLOGY-COVERAGE-ECOLOGY-POPULATION-BIODIVERSITY-OBSERVABLES_domain_local_residual",
         "superiority_rule": "model residual plus uncertainty is smaller than best preregistered comparator residual"
       },
-      "root_cause_class": "DOMAIN_SCORER_FLAGS_MISSING",
+      "root_cause_class": "DOMAIN_SCORER_MODEL_OR_COMPARATOR_REPAIR_REQUIRED",
       "source_domain_scoring_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/domain_scorers/scorer_2134246c17e0326e.json",
-      "source_domain_scoring_root_cause": "DOMAIN_SPECIFIC_SCORER_MISSING",
-      "source_domain_scoring_status": "CAPABILITY_DEVELOPMENT_REQUIRED",
+      "source_domain_scoring_root_cause": "DOMAIN_SCORER_RAN_BUT_SCORING_REMAINS_OPEN",
+      "source_domain_scoring_status": "EVIDENCE_REPAIR_ATTEMPTED_REMAINS_OPEN",
       "status": "OPEN",
       "target_variable": {
         "extraction_rule": "occurrence_count[grid_cell, target_year]",
@@ -1348,13 +1448,31 @@
         "rule": "prior-year rolling residual envelope with coordinate-uncertainty exclusion"
       },
       "validator_binding": "comparator_gap::MS-COV-GAP-BIOLOGICAL_LIFE_SCIENCES-ECOLOGY_POPULATION_AND_BIODIVERSITY_OBSERVABLES::domain_scorer_implementation",
-      "why_it_failed": "No exact domain scorer exists for this domain/phenomenon; the generic evidence pack remains fail-closed."
+      "why_it_failed": "Domain scorer command ran, but strict materiality/replay predicates still keep the scoring artifact OPEN."
     },
     {
       "domain_class_id": "medical_health_sciences",
       "domain_scoring_id": "R017-DOMAIN-SCORER-c8f37f6962a1ece5",
-      "exact_domain_scorer_available": false,
-      "exact_domain_scorer_commands": [],
+      "exact_domain_scorer_available": true,
+      "exact_domain_scorer_commands": [
+        [
+          "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+          "validation/heldout/grand_science/medical/coverage_work_orders/oc133_medical_modern_science_coverage_work_orders.py",
+          "--write"
+        ],
+        [
+          "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+          "validation/heldout/grand_science/medical/coverage_work_orders/oc133_medical_modern_science_coverage_work_orders.py",
+          "--check"
+        ],
+        [
+          "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+          "tools/oc133_toe_closure_factory.py",
+          "--execute-comparator-generic-evidence-pack",
+          "MS-COV-GAP-MEDICAL_HEALTH_SCIENCES-CLINICAL_OUTCOMES_AND_BIOMARKERS",
+          "--write"
+        ]
+      ],
       "execution_command": [
         "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
         "tools/oc133_toe_closure_factory.py",
@@ -1369,8 +1487,8 @@
         "source_separation_mode": "target_blind",
         "target_hidden_until_scoring": true
       },
-      "expected_script_exists": false,
-      "expected_script_ref": null,
+      "expected_script_exists": true,
+      "expected_script_ref": "validation/heldout/grand_science/medical/coverage_work_orders/oc133_medical_modern_science_coverage_work_orders.py",
       "falsifier_requirement": {
         "falsifier_id": "medical_clinical_outcome_no_material_advantage",
         "trigger": "Trigger if OC does not beat the preregistered comparator, if target fields leak into design, or if the negative control retains advantage."
@@ -1399,9 +1517,7 @@
       },
       "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
       "missing_domain_scorer_elements": [
-        "command_pass",
         "comparator_residual_materialized",
-        "exact_domain_scorer_available",
         "fail_closed_status_absent",
         "material_margin_met",
         "model_residual_materialized",
@@ -1417,7 +1533,7 @@
       },
       "pass_predicate": "A governed domain scorer script/flags exist, run cleanly, and the downstream domain-scoring report plus oc_prediction_scoring_row become PASS.",
       "phenomenon_class_id": "clinical_outcomes_and_biomarkers",
-      "repair_strategy": "Add a governed domain scorer script route for this domain class, then bind concrete acquisition/scoring/replay flags.",
+      "repair_strategy": "Inspect the existing scorer output, repair the OC model/comparator/residual/materiality implementation, and preserve negative results if OC does not beat the comparator.",
       "required_capability": "Research/DomainScorerImplementation",
       "required_source_block": {
         "minimum_rows_required": 100,
@@ -1435,10 +1551,10 @@
         "metric_id": "medical_clinical_outcome_direction_residual",
         "superiority_rule": "OC must beat the preregistered baseline with positive material margin and no target leakage."
       },
-      "root_cause_class": "DOMAIN_SCORER_SCRIPT_ROUTE_MISSING",
+      "root_cause_class": "DOMAIN_SCORER_MODEL_OR_COMPARATOR_REPAIR_REQUIRED",
       "source_domain_scoring_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/domain_scorers/scorer_c419dccbbedf1ea8.json",
-      "source_domain_scoring_root_cause": "DOMAIN_SPECIFIC_SCORER_MISSING",
-      "source_domain_scoring_status": "CAPABILITY_DEVELOPMENT_REQUIRED",
+      "source_domain_scoring_root_cause": "DOMAIN_SCORER_RAN_BUT_SCORING_REMAINS_OPEN",
+      "source_domain_scoring_status": "EVIDENCE_REPAIR_ATTEMPTED_REMAINS_OPEN",
       "status": "OPEN",
       "target_variable": {
         "extraction_rule": "Lock completed interventional trials and hide reported primary outcome direction and biomarker shift fields until the OC scoring pack is preregistered.",
@@ -1456,13 +1572,31 @@
         "rule": "Report 95 percent bootstrap intervals and fail closed when intervals cross the materiality threshold."
       },
       "validator_binding": "comparator_gap::MS-COV-GAP-MEDICAL_HEALTH_SCIENCES-CLINICAL_OUTCOMES_AND_BIOMARKERS::domain_scorer_implementation",
-      "why_it_failed": "No exact domain scorer exists for this domain/phenomenon; the generic evidence pack remains fail-closed."
+      "why_it_failed": "Domain scorer command ran, but strict materiality/replay predicates still keep the scoring artifact OPEN."
     },
     {
       "domain_class_id": "medical_health_sciences",
       "domain_scoring_id": "R017-DOMAIN-SCORER-bde33a9d37378831",
-      "exact_domain_scorer_available": false,
-      "exact_domain_scorer_commands": [],
+      "exact_domain_scorer_available": true,
+      "exact_domain_scorer_commands": [
+        [
+          "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+          "validation/heldout/grand_science/medical/coverage_work_orders/oc133_medical_modern_science_coverage_work_orders.py",
+          "--write"
+        ],
+        [
+          "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+          "validation/heldout/grand_science/medical/coverage_work_orders/oc133_medical_modern_science_coverage_work_orders.py",
+          "--check"
+        ],
+        [
+          "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+          "tools/oc133_toe_closure_factory.py",
+          "--execute-comparator-generic-evidence-pack",
+          "MS-COV-GAP-MEDICAL_HEALTH_SCIENCES-EPIDEMIOLOGICAL_TRANSMISSION_AND_RISK",
+          "--write"
+        ]
+      ],
       "execution_command": [
         "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
         "tools/oc133_toe_closure_factory.py",
@@ -1477,8 +1611,8 @@
         "source_separation_mode": "target_blind",
         "target_hidden_until_scoring": true
       },
-      "expected_script_exists": false,
-      "expected_script_ref": null,
+      "expected_script_exists": true,
+      "expected_script_ref": "validation/heldout/grand_science/medical/coverage_work_orders/oc133_medical_modern_science_coverage_work_orders.py",
       "falsifier_requirement": {
         "falsifier_id": "medical_epidemiology_no_temporal_generalization",
         "trigger": "Trigger if the temporal holdout fails, if future labels leak, or if OC advantage is not material after uncertainty adjustment."
@@ -1506,9 +1640,7 @@
       },
       "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
       "missing_domain_scorer_elements": [
-        "command_pass",
         "comparator_residual_materialized",
-        "exact_domain_scorer_available",
         "fail_closed_status_absent",
         "material_margin_met",
         "model_residual_materialized",
@@ -1524,7 +1656,7 @@
       },
       "pass_predicate": "A governed domain scorer script/flags exist, run cleanly, and the downstream domain-scoring report plus oc_prediction_scoring_row become PASS.",
       "phenomenon_class_id": "epidemiological_transmission_and_risk",
-      "repair_strategy": "Add a governed domain scorer script route for this domain class, then bind concrete acquisition/scoring/replay flags.",
+      "repair_strategy": "Inspect the existing scorer output, repair the OC model/comparator/residual/materiality implementation, and preserve negative results if OC does not beat the comparator.",
       "required_capability": "Research/DomainScorerImplementation",
       "required_source_block": {
         "minimum_rows_required": 500,
@@ -1542,10 +1674,10 @@
         "metric_id": "medical_epidemiology_risk_residual",
         "superiority_rule": "OC must beat the autoregressive comparator across the locked regional-week holdout."
       },
-      "root_cause_class": "DOMAIN_SCORER_SCRIPT_ROUTE_MISSING",
+      "root_cause_class": "DOMAIN_SCORER_MODEL_OR_COMPARATOR_REPAIR_REQUIRED",
       "source_domain_scoring_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/domain_scorers/scorer_a937ecef565f3577.json",
-      "source_domain_scoring_root_cause": "DOMAIN_SPECIFIC_SCORER_MISSING",
-      "source_domain_scoring_status": "CAPABILITY_DEVELOPMENT_REQUIRED",
+      "source_domain_scoring_root_cause": "DOMAIN_SCORER_RAN_BUT_SCORING_REMAINS_OPEN",
+      "source_domain_scoring_status": "EVIDENCE_REPAIR_ATTEMPTED_REMAINS_OPEN",
       "status": "OPEN",
       "target_variable": {
         "extraction_rule": "Lock source snapshots by reporting week, hide future regional risk-change labels, and score only against the held-out temporal slice.",
@@ -1564,13 +1696,31 @@
         "rule": "Report temporal bootstrap intervals and fail closed on unstable advantage or coverage drift."
       },
       "validator_binding": "comparator_gap::MS-COV-GAP-MEDICAL_HEALTH_SCIENCES-EPIDEMIOLOGICAL_TRANSMISSION_AND_RISK::domain_scorer_implementation",
-      "why_it_failed": "No exact domain scorer exists for this domain/phenomenon; the generic evidence pack remains fail-closed."
+      "why_it_failed": "Domain scorer command ran, but strict materiality/replay predicates still keep the scoring artifact OPEN."
     },
     {
       "domain_class_id": "medical_health_sciences",
       "domain_scoring_id": "R017-DOMAIN-SCORER-37c095c180c5f414",
-      "exact_domain_scorer_available": false,
-      "exact_domain_scorer_commands": [],
+      "exact_domain_scorer_available": true,
+      "exact_domain_scorer_commands": [
+        [
+          "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+          "validation/heldout/grand_science/medical/coverage_work_orders/oc133_medical_modern_science_coverage_work_orders.py",
+          "--write"
+        ],
+        [
+          "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+          "validation/heldout/grand_science/medical/coverage_work_orders/oc133_medical_modern_science_coverage_work_orders.py",
+          "--check"
+        ],
+        [
+          "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+          "tools/oc133_toe_closure_factory.py",
+          "--execute-comparator-generic-evidence-pack",
+          "MS-COV-GAP-MEDICAL_HEALTH_SCIENCES-PHARMACOLOGY_TOXICOLOGY_AND_DOSE_RESPONSE",
+          "--write"
+        ]
+      ],
       "execution_command": [
         "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
         "tools/oc133_toe_closure_factory.py",
@@ -1585,8 +1735,8 @@
         "source_separation_mode": "target_blind",
         "target_hidden_until_scoring": true
       },
-      "expected_script_exists": false,
-      "expected_script_ref": null,
+      "expected_script_exists": true,
+      "expected_script_ref": "validation/heldout/grand_science/medical/coverage_work_orders/oc133_medical_modern_science_coverage_work_orders.py",
       "falsifier_requirement": {
         "falsifier_id": "medical_pharmacology_no_dose_threshold_signal",
         "trigger": "Trigger if dose bins provide no target-blind signal, if sparse strata dominate, or if OC fails to beat the preregistered comparator."
@@ -1614,9 +1764,7 @@
       },
       "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
       "missing_domain_scorer_elements": [
-        "command_pass",
         "comparator_residual_materialized",
-        "exact_domain_scorer_available",
         "fail_closed_status_absent",
         "material_margin_met",
         "model_residual_materialized",
@@ -1632,7 +1780,7 @@
       },
       "pass_predicate": "A governed domain scorer script/flags exist, run cleanly, and the downstream domain-scoring report plus oc_prediction_scoring_row become PASS.",
       "phenomenon_class_id": "pharmacology_toxicology_and_dose_response",
-      "repair_strategy": "Add a governed domain scorer script route for this domain class, then bind concrete acquisition/scoring/replay flags.",
+      "repair_strategy": "Inspect the existing scorer output, repair the OC model/comparator/residual/materiality implementation, and preserve negative results if OC does not beat the comparator.",
       "required_capability": "Research/DomainScorerImplementation",
       "required_source_block": {
         "minimum_rows_required": 100,
@@ -1650,10 +1798,10 @@
         "metric_id": "medical_pharmacology_dose_response_residual",
         "superiority_rule": "OC must beat the preregistered drug-class frequency comparator after sparse-strata controls."
       },
-      "root_cause_class": "DOMAIN_SCORER_SCRIPT_ROUTE_MISSING",
+      "root_cause_class": "DOMAIN_SCORER_MODEL_OR_COMPARATOR_REPAIR_REQUIRED",
       "source_domain_scoring_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/domain_scorers/scorer_95c5c7ed72e28d22.json",
-      "source_domain_scoring_root_cause": "DOMAIN_SPECIFIC_SCORER_MISSING",
-      "source_domain_scoring_status": "CAPABILITY_DEVELOPMENT_REQUIRED",
+      "source_domain_scoring_root_cause": "DOMAIN_SCORER_RAN_BUT_SCORING_REMAINS_OPEN",
+      "source_domain_scoring_status": "EVIDENCE_REPAIR_ATTEMPTED_REMAINS_OPEN",
       "status": "OPEN",
       "target_variable": {
         "extraction_rule": "Lock adverse-event reports and hide severity and dose-response class labels until OC and comparator scoring rows are preregistered.",
@@ -1672,13 +1820,31 @@
         "rule": "Report stratified bootstrap uncertainty and fail closed when sparse dose strata make materiality unverifiable."
       },
       "validator_binding": "comparator_gap::MS-COV-GAP-MEDICAL_HEALTH_SCIENCES-PHARMACOLOGY_TOXICOLOGY_AND_DOSE_RESPONSE::domain_scorer_implementation",
-      "why_it_failed": "No exact domain scorer exists for this domain/phenomenon; the generic evidence pack remains fail-closed."
+      "why_it_failed": "Domain scorer command ran, but strict materiality/replay predicates still keep the scoring artifact OPEN."
     },
     {
       "domain_class_id": "agricultural_food_sciences",
       "domain_scoring_id": "R017-DOMAIN-SCORER-f193d7044d98f51f",
-      "exact_domain_scorer_available": false,
-      "exact_domain_scorer_commands": [],
+      "exact_domain_scorer_available": true,
+      "exact_domain_scorer_commands": [
+        [
+          "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+          "validation/heldout/grand_science/agriculture/coverage_work_orders/oc133_agriculture_modern_science_coverage_work_orders.py",
+          "--write"
+        ],
+        [
+          "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+          "validation/heldout/grand_science/agriculture/coverage_work_orders/oc133_agriculture_modern_science_coverage_work_orders.py",
+          "--check"
+        ],
+        [
+          "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+          "tools/oc133_toe_closure_factory.py",
+          "--execute-comparator-generic-evidence-pack",
+          "MS-COV-GAP-AGRICULTURAL_FOOD_SCIENCES-CROP_YIELD_SOIL_AND_TRAIT_OBSERVABLES",
+          "--write"
+        ]
+      ],
       "execution_command": [
         "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
         "tools/oc133_toe_closure_factory.py",
@@ -1721,9 +1887,7 @@
       },
       "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
       "missing_domain_scorer_elements": [
-        "command_pass",
         "comparator_residual_materialized",
-        "exact_domain_scorer_available",
         "fail_closed_status_absent",
         "material_margin_met",
         "model_residual_materialized",
@@ -1739,7 +1903,7 @@
       },
       "pass_predicate": "A governed domain scorer script/flags exist, run cleanly, and the downstream domain-scoring report plus oc_prediction_scoring_row become PASS.",
       "phenomenon_class_id": "crop_yield_soil_and_trait_observables",
-      "repair_strategy": "Extend the existing domain scorer script with concrete flags for this phenomenon and bind them in COMPARATOR_DOMAIN_IMPLEMENTED_COMMANDS.",
+      "repair_strategy": "Inspect the existing scorer output, repair the OC model/comparator/residual/materiality implementation, and preserve negative results if OC does not beat the comparator.",
       "required_capability": "Research/DomainScorerImplementation",
       "required_source_block": {
         "minimum_rows_required": 20,
@@ -1757,10 +1921,10 @@
         "metric_id": "MS-COV-WO-019_domain_local_residual",
         "superiority_rule": "model_MAE + uncertainty_margin < comparator_MAE on the same heldout rows"
       },
-      "root_cause_class": "DOMAIN_SCORER_FLAGS_MISSING",
+      "root_cause_class": "DOMAIN_SCORER_MODEL_OR_COMPARATOR_REPAIR_REQUIRED",
       "source_domain_scoring_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/domain_scorers/scorer_b997f3e1288bcb33.json",
-      "source_domain_scoring_root_cause": "DOMAIN_SPECIFIC_SCORER_MISSING",
-      "source_domain_scoring_status": "CAPABILITY_DEVELOPMENT_REQUIRED",
+      "source_domain_scoring_root_cause": "DOMAIN_SCORER_RAN_BUT_SCORING_REMAINS_OPEN",
+      "source_domain_scoring_status": "EVIDENCE_REPAIR_ATTEMPTED_REMAINS_OPEN",
       "status": "OPEN",
       "target_variable": {
         "extraction_rule": "Target values remain hidden until scoring according to the domain-local work order.",
@@ -1778,7 +1942,7 @@
         "rule": "pre-2019 rolling-origin residual envelope by location and crop"
       },
       "validator_binding": "comparator_gap::MS-COV-GAP-AGRICULTURAL_FOOD_SCIENCES-CROP_YIELD_SOIL_AND_TRAIT_OBSERVABLES::domain_scorer_implementation",
-      "why_it_failed": "No exact domain scorer exists for this domain/phenomenon; the generic evidence pack remains fail-closed."
+      "why_it_failed": "Domain scorer command ran, but strict materiality/replay predicates still keep the scoring artifact OPEN."
     },
     {
       "domain_class_id": "agricultural_food_sciences",
@@ -1801,88 +1965,6 @@
           "validation/heldout/grand_science/agriculture/coverage_work_orders/oc133_agriculture_modern_science_coverage_work_orders.py",
           "--score-fdc",
           "--write-scoring"
-        ],
-        [
-          "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
-          "validation/heldout/grand_science/agriculture/coverage_work_orders/oc133_agriculture_modern_science_coverage_work_orders.py",
-          "--check"
-        ],
-        [
-          "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
-          "validation/heldout/grand_science/agriculture/coverage_work_orders/oc133_agriculture_modern_science_coverage_work_orders.py",
-          "--score-fdc",
-          "--write-scoring"
-        ],
-        [
-          "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
-          "validation/heldout/grand_science/agriculture/coverage_work_orders/oc133_agriculture_modern_science_coverage_work_orders.py",
-          "--check"
-        ],
-        [
-          "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
-          "validation/heldout/grand_science/agriculture/coverage_work_orders/oc133_agriculture_modern_science_coverage_work_orders.py",
-          "--score-fdc",
-          "--write-scoring"
-        ],
-        [
-          "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
-          "validation/heldout/grand_science/agriculture/coverage_work_orders/oc133_agriculture_modern_science_coverage_work_orders.py",
-          "--check"
-        ],
-        [
-          "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
-          "validation/heldout/grand_science/agriculture/coverage_work_orders/oc133_agriculture_modern_science_coverage_work_orders.py",
-          "--score-fdc",
-          "--write-scoring"
-        ],
-        [
-          "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
-          "validation/heldout/grand_science/agriculture/coverage_work_orders/oc133_agriculture_modern_science_coverage_work_orders.py",
-          "--check"
-        ],
-        [
-          "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
-          "validation/heldout/grand_science/agriculture/coverage_work_orders/oc133_agriculture_modern_science_coverage_work_orders.py",
-          "--score-fdc",
-          "--write-scoring"
-        ],
-        [
-          "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
-          "validation/heldout/grand_science/agriculture/coverage_work_orders/oc133_agriculture_modern_science_coverage_work_orders.py",
-          "--check"
-        ],
-        [
-          "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
-          "validation/heldout/grand_science/agriculture/coverage_work_orders/oc133_agriculture_modern_science_coverage_work_orders.py",
-          "--score-fdc",
-          "--write-scoring"
-        ],
-        [
-          "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
-          "validation/heldout/grand_science/agriculture/coverage_work_orders/oc133_agriculture_modern_science_coverage_work_orders.py",
-          "--check"
-        ],
-        [
-          "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
-          "validation/heldout/grand_science/agriculture/coverage_work_orders/oc133_agriculture_modern_science_coverage_work_orders.py",
-          "--score-fdc",
-          "--write-scoring"
-        ],
-        [
-          "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
-          "validation/heldout/grand_science/agriculture/coverage_work_orders/oc133_agriculture_modern_science_coverage_work_orders.py",
-          "--check"
-        ],
-        [
-          "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
-          "validation/heldout/grand_science/agriculture/coverage_work_orders/oc133_agriculture_modern_science_coverage_work_orders.py",
-          "--score-fdc",
-          "--write-scoring"
-        ],
-        [
-          "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
-          "validation/heldout/grand_science/agriculture/coverage_work_orders/oc133_agriculture_modern_science_coverage_work_orders.py",
-          "--check"
         ]
       ],
       "execution_command": [
@@ -1987,8 +2069,26 @@
     {
       "domain_class_id": "agricultural_food_sciences",
       "domain_scoring_id": "R017-DOMAIN-SCORER-3b8c55c1eafe2517",
-      "exact_domain_scorer_available": false,
-      "exact_domain_scorer_commands": [],
+      "exact_domain_scorer_available": true,
+      "exact_domain_scorer_commands": [
+        [
+          "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+          "validation/heldout/grand_science/agriculture/coverage_work_orders/oc133_agriculture_modern_science_coverage_work_orders.py",
+          "--write"
+        ],
+        [
+          "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+          "validation/heldout/grand_science/agriculture/coverage_work_orders/oc133_agriculture_modern_science_coverage_work_orders.py",
+          "--check"
+        ],
+        [
+          "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+          "tools/oc133_toe_closure_factory.py",
+          "--execute-comparator-generic-evidence-pack",
+          "MS-COV-GAP-AGRICULTURAL_FOOD_SCIENCES-ANIMAL_HEALTH_AND_PRODUCTION_SYSTEMS",
+          "--write"
+        ]
+      ],
       "execution_command": [
         "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
         "tools/oc133_toe_closure_factory.py",
@@ -2031,9 +2131,7 @@
       },
       "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
       "missing_domain_scorer_elements": [
-        "command_pass",
         "comparator_residual_materialized",
-        "exact_domain_scorer_available",
         "fail_closed_status_absent",
         "material_margin_met",
         "model_residual_materialized",
@@ -2049,7 +2147,7 @@
       },
       "pass_predicate": "A governed domain scorer script/flags exist, run cleanly, and the downstream domain-scoring report plus oc_prediction_scoring_row become PASS.",
       "phenomenon_class_id": "animal_health_and_production_systems",
-      "repair_strategy": "Extend the existing domain scorer script with concrete flags for this phenomenon and bind them in COMPARATOR_DOMAIN_IMPLEMENTED_COMMANDS.",
+      "repair_strategy": "Inspect the existing scorer output, repair the OC model/comparator/residual/materiality implementation, and preserve negative results if OC does not beat the comparator.",
       "required_capability": "Research/DomainScorerImplementation",
       "required_source_block": {
         "minimum_rows_required": 20,
@@ -2067,10 +2165,10 @@
         "metric_id": "MS-COV-WO-021_domain_local_residual",
         "superiority_rule": "model_scaled_MAE + uncertainty_margin < comparator_scaled_MAE and disease-label controls are rejected"
       },
-      "root_cause_class": "DOMAIN_SCORER_FLAGS_MISSING",
+      "root_cause_class": "DOMAIN_SCORER_MODEL_OR_COMPARATOR_REPAIR_REQUIRED",
       "source_domain_scoring_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/domain_scorers/scorer_ebfb70e1ac703056.json",
-      "source_domain_scoring_root_cause": "DOMAIN_SPECIFIC_SCORER_MISSING",
-      "source_domain_scoring_status": "CAPABILITY_DEVELOPMENT_REQUIRED",
+      "source_domain_scoring_root_cause": "DOMAIN_SCORER_RAN_BUT_SCORING_REMAINS_OPEN",
+      "source_domain_scoring_status": "EVIDENCE_REPAIR_ATTEMPTED_REMAINS_OPEN",
       "status": "OPEN",
       "target_variable": {
         "extraction_rule": "Target values remain hidden until scoring according to the domain-local work order.",
@@ -2089,13 +2187,31 @@
         "rule": "rolling-origin residual envelope by species and country before target unsealing"
       },
       "validator_binding": "comparator_gap::MS-COV-GAP-AGRICULTURAL_FOOD_SCIENCES-ANIMAL_HEALTH_AND_PRODUCTION_SYSTEMS::domain_scorer_implementation",
-      "why_it_failed": "No exact domain scorer exists for this domain/phenomenon; the generic evidence pack remains fail-closed."
+      "why_it_failed": "Domain scorer command ran, but strict materiality/replay predicates still keep the scoring artifact OPEN."
     },
     {
       "domain_class_id": "engineering_materials_sciences",
       "domain_scoring_id": "R017-DOMAIN-SCORER-b1491a46e156e916",
-      "exact_domain_scorer_available": false,
-      "exact_domain_scorer_commands": [],
+      "exact_domain_scorer_available": true,
+      "exact_domain_scorer_commands": [
+        [
+          "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+          "validation/heldout/grand_science/engineering/coverage_work_orders/oc133_engineering_modern_science_coverage_work_orders.py",
+          "--write"
+        ],
+        [
+          "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+          "validation/heldout/grand_science/engineering/coverage_work_orders/oc133_engineering_modern_science_coverage_work_orders.py",
+          "--check"
+        ],
+        [
+          "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+          "tools/oc133_toe_closure_factory.py",
+          "--execute-comparator-generic-evidence-pack",
+          "MS-COV-GAP-ENGINEERING_MATERIALS_SCIENCES-MATERIALS_PROPERTY_AND_FAILURE_PREDICTION",
+          "--write"
+        ]
+      ],
       "execution_command": [
         "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
         "tools/oc133_toe_closure_factory.py",
@@ -2138,9 +2254,7 @@
       },
       "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
       "missing_domain_scorer_elements": [
-        "command_pass",
         "comparator_residual_materialized",
-        "exact_domain_scorer_available",
         "fail_closed_status_absent",
         "material_margin_met",
         "model_residual_materialized",
@@ -2156,7 +2270,7 @@
       },
       "pass_predicate": "A governed domain scorer script/flags exist, run cleanly, and the downstream domain-scoring report plus oc_prediction_scoring_row become PASS.",
       "phenomenon_class_id": "materials_property_and_failure_prediction",
-      "repair_strategy": "Extend the existing domain scorer script with concrete flags for this phenomenon and bind them in COMPARATOR_DOMAIN_IMPLEMENTED_COMMANDS.",
+      "repair_strategy": "Inspect the existing scorer output, repair the OC model/comparator/residual/materiality implementation, and preserve negative results if OC does not beat the comparator.",
       "required_capability": "Research/DomainScorerImplementation",
       "required_source_block": {
         "minimum_rows_required": 20,
@@ -2174,10 +2288,10 @@
         "metric_id": "MS-COV-WO-022_domain_local_residual",
         "superiority_rule": "descriptor model MAE plus bootstrap upper margin must be lower than the composition-family median comparator"
       },
-      "root_cause_class": "DOMAIN_SCORER_FLAGS_MISSING",
+      "root_cause_class": "DOMAIN_SCORER_MODEL_OR_COMPARATOR_REPAIR_REQUIRED",
       "source_domain_scoring_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/domain_scorers/scorer_eb16ea39e1a0fe80.json",
-      "source_domain_scoring_root_cause": "DOMAIN_SPECIFIC_SCORER_MISSING",
-      "source_domain_scoring_status": "CAPABILITY_DEVELOPMENT_REQUIRED",
+      "source_domain_scoring_root_cause": "DOMAIN_SCORER_RAN_BUT_SCORING_REMAINS_OPEN",
+      "source_domain_scoring_status": "EVIDENCE_REPAIR_ATTEMPTED_REMAINS_OPEN",
       "status": "OPEN",
       "target_variable": {
         "extraction_rule": "JARVIS_DFT[structure_id].attributes._jarvis_bulk_modulus_kv",
@@ -2194,13 +2308,31 @@
         "rule": "visible-row bootstrap interval declared before hidden property fields are unsealed"
       },
       "validator_binding": "comparator_gap::MS-COV-GAP-ENGINEERING_MATERIALS_SCIENCES-MATERIALS_PROPERTY_AND_FAILURE_PREDICTION::domain_scorer_implementation",
-      "why_it_failed": "No exact domain scorer exists for this domain/phenomenon; the generic evidence pack remains fail-closed."
+      "why_it_failed": "Domain scorer command ran, but strict materiality/replay predicates still keep the scoring artifact OPEN."
     },
     {
       "domain_class_id": "engineering_materials_sciences",
       "domain_scoring_id": "R017-DOMAIN-SCORER-a1c1bcc404d197ab",
-      "exact_domain_scorer_available": false,
-      "exact_domain_scorer_commands": [],
+      "exact_domain_scorer_available": true,
+      "exact_domain_scorer_commands": [
+        [
+          "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+          "validation/heldout/grand_science/engineering/coverage_work_orders/oc133_engineering_modern_science_coverage_work_orders.py",
+          "--write"
+        ],
+        [
+          "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+          "validation/heldout/grand_science/engineering/coverage_work_orders/oc133_engineering_modern_science_coverage_work_orders.py",
+          "--check"
+        ],
+        [
+          "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+          "tools/oc133_toe_closure_factory.py",
+          "--execute-comparator-generic-evidence-pack",
+          "MS-COV-GAP-ENGINEERING_MATERIALS_SCIENCES-CONTROL_SYSTEMS_AND_SIGNAL_MEASUREMENT",
+          "--write"
+        ]
+      ],
       "execution_command": [
         "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
         "tools/oc133_toe_closure_factory.py",
@@ -2242,9 +2374,7 @@
       },
       "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
       "missing_domain_scorer_elements": [
-        "command_pass",
         "comparator_residual_materialized",
-        "exact_domain_scorer_available",
         "fail_closed_status_absent",
         "material_margin_met",
         "model_residual_materialized",
@@ -2260,7 +2390,7 @@
       },
       "pass_predicate": "A governed domain scorer script/flags exist, run cleanly, and the downstream domain-scoring report plus oc_prediction_scoring_row become PASS.",
       "phenomenon_class_id": "control_systems_and_signal_measurement",
-      "repair_strategy": "Extend the existing domain scorer script with concrete flags for this phenomenon and bind them in COMPARATOR_DOMAIN_IMPLEMENTED_COMMANDS.",
+      "repair_strategy": "Inspect the existing scorer output, repair the OC model/comparator/residual/materiality implementation, and preserve negative results if OC does not beat the comparator.",
       "required_capability": "Research/DomainScorerImplementation",
       "required_source_block": {
         "minimum_rows_required": 20,
@@ -2278,10 +2408,10 @@
         "metric_id": "MS-COV-WO-023_domain_local_residual",
         "superiority_rule": "published-polynomial residual must be below tolerance and materially lower than the linear Seebeck comparator"
       },
-      "root_cause_class": "DOMAIN_SCORER_FLAGS_MISSING",
+      "root_cause_class": "DOMAIN_SCORER_MODEL_OR_COMPARATOR_REPAIR_REQUIRED",
       "source_domain_scoring_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/domain_scorers/scorer_6cdc149a9739d619.json",
-      "source_domain_scoring_root_cause": "DOMAIN_SPECIFIC_SCORER_MISSING",
-      "source_domain_scoring_status": "CAPABILITY_DEVELOPMENT_REQUIRED",
+      "source_domain_scoring_root_cause": "DOMAIN_SCORER_RAN_BUT_SCORING_REMAINS_OPEN",
+      "source_domain_scoring_status": "EVIDENCE_REPAIR_ATTEMPTED_REMAINS_OPEN",
       "status": "OPEN",
       "target_variable": {
         "extraction_rule": "NIST_ITS90_TYPE_K[temperature_C].emf_mV",
@@ -2296,13 +2426,31 @@
         "rule": "NIST table precision plus a fixed preregistered rounding tolerance; no post-target tolerance tuning"
       },
       "validator_binding": "comparator_gap::MS-COV-GAP-ENGINEERING_MATERIALS_SCIENCES-CONTROL_SYSTEMS_AND_SIGNAL_MEASUREMENT::domain_scorer_implementation",
-      "why_it_failed": "No exact domain scorer exists for this domain/phenomenon; the generic evidence pack remains fail-closed."
+      "why_it_failed": "Domain scorer command ran, but strict materiality/replay predicates still keep the scoring artifact OPEN."
     },
     {
       "domain_class_id": "engineering_materials_sciences",
       "domain_scoring_id": "R017-DOMAIN-SCORER-292f561baf27e5df",
-      "exact_domain_scorer_available": false,
-      "exact_domain_scorer_commands": [],
+      "exact_domain_scorer_available": true,
+      "exact_domain_scorer_commands": [
+        [
+          "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+          "validation/heldout/grand_science/engineering/coverage_work_orders/oc133_engineering_modern_science_coverage_work_orders.py",
+          "--write"
+        ],
+        [
+          "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+          "validation/heldout/grand_science/engineering/coverage_work_orders/oc133_engineering_modern_science_coverage_work_orders.py",
+          "--check"
+        ],
+        [
+          "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+          "tools/oc133_toe_closure_factory.py",
+          "--execute-comparator-generic-evidence-pack",
+          "MS-COV-GAP-ENGINEERING_MATERIALS_SCIENCES-ENERGY_TRANSPORT_AND_MANUFACTURING_PROCESSES",
+          "--write"
+        ]
+      ],
       "execution_command": [
         "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
         "tools/oc133_toe_closure_factory.py",
@@ -2345,9 +2493,7 @@
       },
       "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
       "missing_domain_scorer_elements": [
-        "command_pass",
         "comparator_residual_materialized",
-        "exact_domain_scorer_available",
         "fail_closed_status_absent",
         "material_margin_met",
         "model_residual_materialized",
@@ -2363,7 +2509,7 @@
       },
       "pass_predicate": "A governed domain scorer script/flags exist, run cleanly, and the downstream domain-scoring report plus oc_prediction_scoring_row become PASS.",
       "phenomenon_class_id": "energy_transport_and_manufacturing_processes",
-      "repair_strategy": "Extend the existing domain scorer script with concrete flags for this phenomenon and bind them in COMPARATOR_DOMAIN_IMPLEMENTED_COMMANDS.",
+      "repair_strategy": "Inspect the existing scorer output, repair the OC model/comparator/residual/materiality implementation, and preserve negative results if OC does not beat the comparator.",
       "required_capability": "Research/DomainScorerImplementation",
       "required_source_block": {
         "minimum_rows_required": 20,
@@ -2381,10 +2527,10 @@
         "metric_id": "MS-COV-WO-024_domain_local_residual",
         "superiority_rule": "interpolator aggregate residual plus uncertainty allowance must be lower than the room-temperature constant comparator"
       },
-      "root_cause_class": "DOMAIN_SCORER_FLAGS_MISSING",
+      "root_cause_class": "DOMAIN_SCORER_MODEL_OR_COMPARATOR_REPAIR_REQUIRED",
       "source_domain_scoring_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/domain_scorers/scorer_904f0a3674f98f15.json",
-      "source_domain_scoring_root_cause": "DOMAIN_SPECIFIC_SCORER_MISSING",
-      "source_domain_scoring_status": "CAPABILITY_DEVELOPMENT_REQUIRED",
+      "source_domain_scoring_root_cause": "DOMAIN_SCORER_RAN_BUT_SCORING_REMAINS_OPEN",
+      "source_domain_scoring_status": "EVIDENCE_REPAIR_ATTEMPTED_REMAINS_OPEN",
       "status": "OPEN",
       "target_variable": {
         "extraction_rule": "NIST_WEBBOOK_WATER[temperature_K, pressure_kPa=101.325].Therm. Cond. (W/m*K)",
@@ -2401,13 +2547,31 @@
         "rule": "fixed table precision plus visible-row interpolation residual envelope"
       },
       "validator_binding": "comparator_gap::MS-COV-GAP-ENGINEERING_MATERIALS_SCIENCES-ENERGY_TRANSPORT_AND_MANUFACTURING_PROCESSES::domain_scorer_implementation",
-      "why_it_failed": "No exact domain scorer exists for this domain/phenomenon; the generic evidence pack remains fail-closed."
+      "why_it_failed": "Domain scorer command ran, but strict materiality/replay predicates still keep the scoring artifact OPEN."
     },
     {
       "domain_class_id": "computer_information_sciences",
       "domain_scoring_id": "R017-DOMAIN-SCORER-b68311337e995a6c",
-      "exact_domain_scorer_available": false,
-      "exact_domain_scorer_commands": [],
+      "exact_domain_scorer_available": true,
+      "exact_domain_scorer_commands": [
+        [
+          "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+          "validation/heldout/grand_science/cs/coverage_work_orders/oc133_cs_modern_science_coverage_work_orders.py",
+          "--write"
+        ],
+        [
+          "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+          "validation/heldout/grand_science/cs/coverage_work_orders/oc133_cs_modern_science_coverage_work_orders.py",
+          "--check"
+        ],
+        [
+          "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+          "tools/oc133_toe_closure_factory.py",
+          "--execute-comparator-generic-evidence-pack",
+          "MS-COV-GAP-COMPUTER_INFORMATION_SCIENCES-PROGRAM_SEMANTICS_AND_VERIFICATION",
+          "--write"
+        ]
+      ],
       "execution_command": [
         "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
         "tools/oc133_toe_closure_factory.py",
@@ -2445,9 +2609,7 @@
       },
       "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
       "missing_domain_scorer_elements": [
-        "command_pass",
         "comparator_residual_materialized",
-        "exact_domain_scorer_available",
         "fail_closed_status_absent",
         "material_margin_met",
         "model_residual_materialized",
@@ -2463,7 +2625,7 @@
       },
       "pass_predicate": "A governed domain scorer script/flags exist, run cleanly, and the downstream domain-scoring report plus oc_prediction_scoring_row become PASS.",
       "phenomenon_class_id": "program_semantics_and_verification",
-      "repair_strategy": "Extend the existing domain scorer script with concrete flags for this phenomenon and bind them in COMPARATOR_DOMAIN_IMPLEMENTED_COMMANDS.",
+      "repair_strategy": "Inspect the existing scorer output, repair the OC model/comparator/residual/materiality implementation, and preserve negative results if OC does not beat the comparator.",
       "required_capability": "Research/DomainScorerImplementation",
       "required_source_block": {
         "minimum_rows_required": 20,
@@ -2481,10 +2643,10 @@
         "metric_id": "MS-COV-WO-025_domain_local_residual",
         "superiority_rule": "model_macro_error + uncertainty_upper < best_preregistered_comparator_macro_error"
       },
-      "root_cause_class": "DOMAIN_SCORER_FLAGS_MISSING",
+      "root_cause_class": "DOMAIN_SCORER_MODEL_OR_COMPARATOR_REPAIR_REQUIRED",
       "source_domain_scoring_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/domain_scorers/scorer_65ce2b12d6d43e21.json",
-      "source_domain_scoring_root_cause": "DOMAIN_SPECIFIC_SCORER_MISSING",
-      "source_domain_scoring_status": "CAPABILITY_DEVELOPMENT_REQUIRED",
+      "source_domain_scoring_root_cause": "DOMAIN_SCORER_RAN_BUT_SCORING_REMAINS_OPEN",
+      "source_domain_scoring_status": "EVIDENCE_REPAIR_ATTEMPTED_REMAINS_OPEN",
       "status": "OPEN",
       "target_variable": {
         "extraction_rule": "Expected verdict and CWE/weakness labels remain hidden until predictions are materialized from source text, property file, and training-only metadata.",
@@ -2501,13 +2663,31 @@
         "rule": "Wilson interval for error rate plus family-stratified bootstrap"
       },
       "validator_binding": "comparator_gap::MS-COV-GAP-COMPUTER_INFORMATION_SCIENCES-PROGRAM_SEMANTICS_AND_VERIFICATION::domain_scorer_implementation",
-      "why_it_failed": "No exact domain scorer exists for this domain/phenomenon; the generic evidence pack remains fail-closed."
+      "why_it_failed": "Domain scorer command ran, but strict materiality/replay predicates still keep the scoring artifact OPEN."
     },
     {
       "domain_class_id": "computer_information_sciences",
       "domain_scoring_id": "R017-DOMAIN-SCORER-b0e7d011bb178b87",
-      "exact_domain_scorer_available": false,
-      "exact_domain_scorer_commands": [],
+      "exact_domain_scorer_available": true,
+      "exact_domain_scorer_commands": [
+        [
+          "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+          "validation/heldout/grand_science/cs/coverage_work_orders/oc133_cs_modern_science_coverage_work_orders.py",
+          "--write"
+        ],
+        [
+          "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+          "validation/heldout/grand_science/cs/coverage_work_orders/oc133_cs_modern_science_coverage_work_orders.py",
+          "--check"
+        ],
+        [
+          "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+          "tools/oc133_toe_closure_factory.py",
+          "--execute-comparator-generic-evidence-pack",
+          "MS-COV-GAP-COMPUTER_INFORMATION_SCIENCES-MACHINE_LEARNING_GENERALIZATION_AND_EVALUATION",
+          "--write"
+        ]
+      ],
       "execution_command": [
         "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
         "tools/oc133_toe_closure_factory.py",
@@ -2545,9 +2725,7 @@
       },
       "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
       "missing_domain_scorer_elements": [
-        "command_pass",
         "comparator_residual_materialized",
-        "exact_domain_scorer_available",
         "fail_closed_status_absent",
         "material_margin_met",
         "model_residual_materialized",
@@ -2563,7 +2741,7 @@
       },
       "pass_predicate": "A governed domain scorer script/flags exist, run cleanly, and the downstream domain-scoring report plus oc_prediction_scoring_row become PASS.",
       "phenomenon_class_id": "machine_learning_generalization_and_evaluation",
-      "repair_strategy": "Extend the existing domain scorer script with concrete flags for this phenomenon and bind them in COMPARATOR_DOMAIN_IMPLEMENTED_COMMANDS.",
+      "repair_strategy": "Inspect the existing scorer output, repair the OC model/comparator/residual/materiality implementation, and preserve negative results if OC does not beat the comparator.",
       "required_capability": "Research/DomainScorerImplementation",
       "required_source_block": {
         "minimum_rows_required": 20,
@@ -2581,10 +2759,10 @@
         "metric_id": "MS-COV-WO-026_domain_local_residual",
         "superiority_rule": "paired residual margin over best comparator is positive after uncertainty"
       },
-      "root_cause_class": "DOMAIN_SCORER_FLAGS_MISSING",
+      "root_cause_class": "DOMAIN_SCORER_MODEL_OR_COMPARATOR_REPAIR_REQUIRED",
       "source_domain_scoring_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/domain_scorers/scorer_ca1b02197d74acf8.json",
-      "source_domain_scoring_root_cause": "DOMAIN_SPECIFIC_SCORER_MISSING",
-      "source_domain_scoring_status": "CAPABILITY_DEVELOPMENT_REQUIRED",
+      "source_domain_scoring_root_cause": "DOMAIN_SCORER_RAN_BUT_SCORING_REMAINS_OPEN",
+      "source_domain_scoring_status": "EVIDENCE_REPAIR_ATTEMPTED_REMAINS_OPEN",
       "status": "OPEN",
       "target_variable": {
         "extraction_rule": "Test labels and final fold metrics are sealed until all candidate model outputs are written.",
@@ -2601,13 +2779,31 @@
         "rule": "paired bootstrap over tasks/folds plus binomial label uncertainty for accuracy"
       },
       "validator_binding": "comparator_gap::MS-COV-GAP-COMPUTER_INFORMATION_SCIENCES-MACHINE_LEARNING_GENERALIZATION_AND_EVALUATION::domain_scorer_implementation",
-      "why_it_failed": "No exact domain scorer exists for this domain/phenomenon; the generic evidence pack remains fail-closed."
+      "why_it_failed": "Domain scorer command ran, but strict materiality/replay predicates still keep the scoring artifact OPEN."
     },
     {
       "domain_class_id": "computer_information_sciences",
       "domain_scoring_id": "R017-DOMAIN-SCORER-81360a6338c22458",
-      "exact_domain_scorer_available": false,
-      "exact_domain_scorer_commands": [],
+      "exact_domain_scorer_available": true,
+      "exact_domain_scorer_commands": [
+        [
+          "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+          "validation/heldout/grand_science/cs/coverage_work_orders/oc133_cs_modern_science_coverage_work_orders.py",
+          "--write"
+        ],
+        [
+          "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+          "validation/heldout/grand_science/cs/coverage_work_orders/oc133_cs_modern_science_coverage_work_orders.py",
+          "--check"
+        ],
+        [
+          "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+          "tools/oc133_toe_closure_factory.py",
+          "--execute-comparator-generic-evidence-pack",
+          "MS-COV-GAP-COMPUTER_INFORMATION_SCIENCES-INFORMATION_NETWORK_AND_SECURITY_OBSERVABLES",
+          "--write"
+        ]
+      ],
       "execution_command": [
         "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
         "tools/oc133_toe_closure_factory.py",
@@ -2645,9 +2841,7 @@
       },
       "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
       "missing_domain_scorer_elements": [
-        "command_pass",
         "comparator_residual_materialized",
-        "exact_domain_scorer_available",
         "fail_closed_status_absent",
         "material_margin_met",
         "model_residual_materialized",
@@ -2663,7 +2857,7 @@
       },
       "pass_predicate": "A governed domain scorer script/flags exist, run cleanly, and the downstream domain-scoring report plus oc_prediction_scoring_row become PASS.",
       "phenomenon_class_id": "information_network_and_security_observables",
-      "repair_strategy": "Extend the existing domain scorer script with concrete flags for this phenomenon and bind them in COMPARATOR_DOMAIN_IMPLEMENTED_COMMANDS.",
+      "repair_strategy": "Inspect the existing scorer output, repair the OC model/comparator/residual/materiality implementation, and preserve negative results if OC does not beat the comparator.",
       "required_capability": "Research/DomainScorerImplementation",
       "required_source_block": {
         "minimum_rows_required": 100,
@@ -2681,10 +2875,10 @@
         "metric_id": "MS-COV-WO-027_domain_local_residual",
         "superiority_rule": "model_MAE + conformal_upper < comparator_MAE"
       },
-      "root_cause_class": "DOMAIN_SCORER_FLAGS_MISSING",
+      "root_cause_class": "DOMAIN_SCORER_MODEL_OR_COMPARATOR_REPAIR_REQUIRED",
       "source_domain_scoring_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/domain_scorers/scorer_c2f16399b873a647.json",
-      "source_domain_scoring_root_cause": "DOMAIN_SPECIFIC_SCORER_MISSING",
-      "source_domain_scoring_status": "CAPABILITY_DEVELOPMENT_REQUIRED",
+      "source_domain_scoring_root_cause": "DOMAIN_SCORER_RAN_BUT_SCORING_REMAINS_OPEN",
+      "source_domain_scoring_status": "EVIDENCE_REPAIR_ATTEMPTED_REMAINS_OPEN",
       "status": "OPEN",
       "target_variable": {
         "extraction_rule": "CVSS score/severity are hidden until the prediction row is materialized from CVE text, CWE IDs, CPE counts, dates, and reference metadata.",
@@ -2700,13 +2894,31 @@
         "rule": "pre-holdout conformal residual interval stratified by CWE availability"
       },
       "validator_binding": "comparator_gap::MS-COV-GAP-COMPUTER_INFORMATION_SCIENCES-INFORMATION_NETWORK_AND_SECURITY_OBSERVABLES::domain_scorer_implementation",
-      "why_it_failed": "No exact domain scorer exists for this domain/phenomenon; the generic evidence pack remains fail-closed."
+      "why_it_failed": "Domain scorer command ran, but strict materiality/replay predicates still keep the scoring artifact OPEN."
     },
     {
       "domain_class_id": "cognitive_behavioral_neurosciences",
       "domain_scoring_id": "R017-DOMAIN-SCORER-3a74fb5d8077bd9e",
-      "exact_domain_scorer_available": false,
-      "exact_domain_scorer_commands": [],
+      "exact_domain_scorer_available": true,
+      "exact_domain_scorer_commands": [
+        [
+          "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+          "validation/heldout/grand_science/neurobehavioral/coverage_work_orders/oc133_neurobehavioral_modern_science_coverage_work_orders.py",
+          "--write"
+        ],
+        [
+          "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+          "validation/heldout/grand_science/neurobehavioral/coverage_work_orders/oc133_neurobehavioral_modern_science_coverage_work_orders.py",
+          "--check"
+        ],
+        [
+          "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+          "tools/oc133_toe_closure_factory.py",
+          "--execute-comparator-generic-evidence-pack",
+          "MS-COV-GAP-COGNITIVE_BEHAVIORAL_NEUROSCIENCES-NEURAL_RECORDING_AND_BRAIN_NETWORK_OBSERVABLES",
+          "--write"
+        ]
+      ],
       "execution_command": [
         "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
         "tools/oc133_toe_closure_factory.py",
@@ -2744,9 +2956,7 @@
       },
       "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
       "missing_domain_scorer_elements": [
-        "command_pass",
         "comparator_residual_materialized",
-        "exact_domain_scorer_available",
         "fail_closed_status_absent",
         "material_margin_met",
         "model_residual_materialized",
@@ -2762,7 +2972,7 @@
       },
       "pass_predicate": "A governed domain scorer script/flags exist, run cleanly, and the downstream domain-scoring report plus oc_prediction_scoring_row become PASS.",
       "phenomenon_class_id": "neural_recording_and_brain_network_observables",
-      "repair_strategy": "Extend the existing domain scorer script with concrete flags for this phenomenon and bind them in COMPARATOR_DOMAIN_IMPLEMENTED_COMMANDS.",
+      "repair_strategy": "Inspect the existing scorer output, repair the OC model/comparator/residual/materiality implementation, and preserve negative results if OC does not beat the comparator.",
       "required_capability": "Research/DomainScorerImplementation",
       "required_source_block": {
         "minimum_rows_required": 80,
@@ -2780,10 +2990,10 @@
         "metric_id": "MS-COV-WO-028_domain_local_residual",
         "superiority_rule": "model_RMSE + uncertainty_upper < comparator_RMSE"
       },
-      "root_cause_class": "DOMAIN_SCORER_FLAGS_MISSING",
+      "root_cause_class": "DOMAIN_SCORER_MODEL_OR_COMPARATOR_REPAIR_REQUIRED",
       "source_domain_scoring_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/domain_scorers/scorer_86137f3c3d278622.json",
-      "source_domain_scoring_root_cause": "DOMAIN_SPECIFIC_SCORER_MISSING",
-      "source_domain_scoring_status": "CAPABILITY_DEVELOPMENT_REQUIRED",
+      "source_domain_scoring_root_cause": "DOMAIN_SCORER_RAN_BUT_SCORING_REMAINS_OPEN",
+      "source_domain_scoring_status": "EVIDENCE_REPAIR_ATTEMPTED_REMAINS_OPEN",
       "status": "OPEN",
       "target_variable": {
         "extraction_rule": "Resting-state BOLD time series are transformed into a locked atlas connectivity matrix; heldout subject edge values stay hidden until predictions are materialized.",
@@ -2800,13 +3010,31 @@
         "rule": "subject bootstrap plus motion-quality stratified conformal residual envelope"
       },
       "validator_binding": "comparator_gap::MS-COV-GAP-COGNITIVE_BEHAVIORAL_NEUROSCIENCES-NEURAL_RECORDING_AND_BRAIN_NETWORK_OBSERVABLES::domain_scorer_implementation",
-      "why_it_failed": "No exact domain scorer exists for this domain/phenomenon; the generic evidence pack remains fail-closed."
+      "why_it_failed": "Domain scorer command ran, but strict materiality/replay predicates still keep the scoring artifact OPEN."
     },
     {
       "domain_class_id": "cognitive_behavioral_neurosciences",
       "domain_scoring_id": "R017-DOMAIN-SCORER-cdd8bd8ff7969c58",
-      "exact_domain_scorer_available": false,
-      "exact_domain_scorer_commands": [],
+      "exact_domain_scorer_available": true,
+      "exact_domain_scorer_commands": [
+        [
+          "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+          "validation/heldout/grand_science/neurobehavioral/coverage_work_orders/oc133_neurobehavioral_modern_science_coverage_work_orders.py",
+          "--write"
+        ],
+        [
+          "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+          "validation/heldout/grand_science/neurobehavioral/coverage_work_orders/oc133_neurobehavioral_modern_science_coverage_work_orders.py",
+          "--check"
+        ],
+        [
+          "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+          "tools/oc133_toe_closure_factory.py",
+          "--execute-comparator-generic-evidence-pack",
+          "MS-COV-GAP-COGNITIVE_BEHAVIORAL_NEUROSCIENCES-BEHAVIORAL_TASK_AND_PSYCHOMETRIC_PREDICTION",
+          "--write"
+        ]
+      ],
       "execution_command": [
         "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
         "tools/oc133_toe_closure_factory.py",
@@ -2844,9 +3072,7 @@
       },
       "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
       "missing_domain_scorer_elements": [
-        "command_pass",
         "comparator_residual_materialized",
-        "exact_domain_scorer_available",
         "fail_closed_status_absent",
         "material_margin_met",
         "model_residual_materialized",
@@ -2862,7 +3088,7 @@
       },
       "pass_predicate": "A governed domain scorer script/flags exist, run cleanly, and the downstream domain-scoring report plus oc_prediction_scoring_row become PASS.",
       "phenomenon_class_id": "behavioral_task_and_psychometric_prediction",
-      "repair_strategy": "Extend the existing domain scorer script with concrete flags for this phenomenon and bind them in COMPARATOR_DOMAIN_IMPLEMENTED_COMMANDS.",
+      "repair_strategy": "Inspect the existing scorer output, repair the OC model/comparator/residual/materiality implementation, and preserve negative results if OC does not beat the comparator.",
       "required_capability": "Research/DomainScorerImplementation",
       "required_source_block": {
         "minimum_rows_required": 40,
@@ -2880,10 +3106,10 @@
         "metric_id": "MS-COV-WO-029_domain_local_residual",
         "superiority_rule": "weighted_model_residual + uncertainty_upper < weighted_comparator_residual"
       },
-      "root_cause_class": "DOMAIN_SCORER_FLAGS_MISSING",
+      "root_cause_class": "DOMAIN_SCORER_MODEL_OR_COMPARATOR_REPAIR_REQUIRED",
       "source_domain_scoring_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/domain_scorers/scorer_c854a196a5e01cf1.json",
-      "source_domain_scoring_root_cause": "DOMAIN_SPECIFIC_SCORER_MISSING",
-      "source_domain_scoring_status": "CAPABILITY_DEVELOPMENT_REQUIRED",
+      "source_domain_scoring_root_cause": "DOMAIN_SCORER_RAN_BUT_SCORING_REMAINS_OPEN",
+      "source_domain_scoring_status": "EVIDENCE_REPAIR_ATTEMPTED_REMAINS_OPEN",
       "status": "OPEN",
       "target_variable": {
         "extraction_rule": "BIDS behavior/event files are parsed into subject-level task metrics; heldout subject metrics and psychometric targets remain sealed until prediction rows are written.",
@@ -2900,13 +3126,31 @@
         "rule": "subject bootstrap with trial-count weighting and preregistered missingness rules"
       },
       "validator_binding": "comparator_gap::MS-COV-GAP-COGNITIVE_BEHAVIORAL_NEUROSCIENCES-BEHAVIORAL_TASK_AND_PSYCHOMETRIC_PREDICTION::domain_scorer_implementation",
-      "why_it_failed": "No exact domain scorer exists for this domain/phenomenon; the generic evidence pack remains fail-closed."
+      "why_it_failed": "Domain scorer command ran, but strict materiality/replay predicates still keep the scoring artifact OPEN."
     },
     {
       "domain_class_id": "cognitive_behavioral_neurosciences",
       "domain_scoring_id": "R017-DOMAIN-SCORER-f5ba5b27c4747241",
-      "exact_domain_scorer_available": false,
-      "exact_domain_scorer_commands": [],
+      "exact_domain_scorer_available": true,
+      "exact_domain_scorer_commands": [
+        [
+          "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+          "validation/heldout/grand_science/neurobehavioral/coverage_work_orders/oc133_neurobehavioral_modern_science_coverage_work_orders.py",
+          "--write"
+        ],
+        [
+          "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+          "validation/heldout/grand_science/neurobehavioral/coverage_work_orders/oc133_neurobehavioral_modern_science_coverage_work_orders.py",
+          "--check"
+        ],
+        [
+          "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+          "tools/oc133_toe_closure_factory.py",
+          "--execute-comparator-generic-evidence-pack",
+          "MS-COV-GAP-COGNITIVE_BEHAVIORAL_NEUROSCIENCES-LEARNING_MEMORY_AND_PERCEPTION_DYNAMICS",
+          "--write"
+        ]
+      ],
       "execution_command": [
         "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
         "tools/oc133_toe_closure_factory.py",
@@ -2944,9 +3188,7 @@
       },
       "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
       "missing_domain_scorer_elements": [
-        "command_pass",
         "comparator_residual_materialized",
-        "exact_domain_scorer_available",
         "fail_closed_status_absent",
         "material_margin_met",
         "model_residual_materialized",
@@ -2962,7 +3204,7 @@
       },
       "pass_predicate": "A governed domain scorer script/flags exist, run cleanly, and the downstream domain-scoring report plus oc_prediction_scoring_row become PASS.",
       "phenomenon_class_id": "learning_memory_and_perception_dynamics",
-      "repair_strategy": "Extend the existing domain scorer script with concrete flags for this phenomenon and bind them in COMPARATOR_DOMAIN_IMPLEMENTED_COMMANDS.",
+      "repair_strategy": "Inspect the existing scorer output, repair the OC model/comparator/residual/materiality implementation, and preserve negative results if OC does not beat the comparator.",
       "required_capability": "Research/DomainScorerImplementation",
       "required_source_block": {
         "minimum_rows_required": 40,
@@ -2980,10 +3222,10 @@
         "metric_id": "MS-COV-WO-030_domain_local_residual",
         "superiority_rule": "model_residual + uncertainty_upper < best_preregistered_comparator_residual"
       },
-      "root_cause_class": "DOMAIN_SCORER_FLAGS_MISSING",
+      "root_cause_class": "DOMAIN_SCORER_MODEL_OR_COMPARATOR_REPAIR_REQUIRED",
       "source_domain_scoring_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/domain_scorers/scorer_c10d9f243d371f5a.json",
-      "source_domain_scoring_root_cause": "DOMAIN_SPECIFIC_SCORER_MISSING",
-      "source_domain_scoring_status": "CAPABILITY_DEVELOPMENT_REQUIRED",
+      "source_domain_scoring_root_cause": "DOMAIN_SCORER_RAN_BUT_SCORING_REMAINS_OPEN",
+      "source_domain_scoring_status": "EVIDENCE_REPAIR_ATTEMPTED_REMAINS_OPEN",
       "status": "OPEN",
       "target_variable": {
         "extraction_rule": "Paired-associate memory encoding/retrieval events are parsed into subject/trial target metrics; heldout trial and subject targets remain sealed until predictions are materialized.",
@@ -3000,13 +3242,31 @@
         "rule": "blocked bootstrap by subject with trial-order conformal residual envelope"
       },
       "validator_binding": "comparator_gap::MS-COV-GAP-COGNITIVE_BEHAVIORAL_NEUROSCIENCES-LEARNING_MEMORY_AND_PERCEPTION_DYNAMICS::domain_scorer_implementation",
-      "why_it_failed": "No exact domain scorer exists for this domain/phenomenon; the generic evidence pack remains fail-closed."
+      "why_it_failed": "Domain scorer command ran, but strict materiality/replay predicates still keep the scoring artifact OPEN."
     },
     {
       "domain_class_id": "social_economic_political_sciences",
       "domain_scoring_id": "R017-DOMAIN-SCORER-fc08158de1496fae",
-      "exact_domain_scorer_available": false,
-      "exact_domain_scorer_commands": [],
+      "exact_domain_scorer_available": true,
+      "exact_domain_scorer_commands": [
+        [
+          "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+          "validation/heldout/grand_science/systems/coverage_work_orders/oc133_systems_civilizational_modern_science_coverage_work_orders.py",
+          "--write"
+        ],
+        [
+          "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+          "validation/heldout/grand_science/systems/coverage_work_orders/oc133_systems_civilizational_modern_science_coverage_work_orders.py",
+          "--check"
+        ],
+        [
+          "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+          "tools/oc133_toe_closure_factory.py",
+          "--execute-comparator-generic-evidence-pack",
+          "MS-COV-GAP-SOCIAL_ECONOMIC_POLITICAL_SCIENCES-ECONOMIC_INDICATOR_AND_MARKET_OBSERVABLES",
+          "--write"
+        ]
+      ],
       "execution_command": [
         "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
         "tools/oc133_toe_closure_factory.py",
@@ -3044,9 +3304,7 @@
       },
       "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
       "missing_domain_scorer_elements": [
-        "command_pass",
         "comparator_residual_materialized",
-        "exact_domain_scorer_available",
         "fail_closed_status_absent",
         "material_margin_met",
         "model_residual_materialized",
@@ -3062,7 +3320,7 @@
       },
       "pass_predicate": "A governed domain scorer script/flags exist, run cleanly, and the downstream domain-scoring report plus oc_prediction_scoring_row become PASS.",
       "phenomenon_class_id": "economic_indicator_and_market_observables",
-      "repair_strategy": "Extend the existing domain scorer script with concrete flags for this phenomenon and bind them in COMPARATOR_DOMAIN_IMPLEMENTED_COMMANDS.",
+      "repair_strategy": "Inspect the existing scorer output, repair the OC model/comparator/residual/materiality implementation, and preserve negative results if OC does not beat the comparator.",
       "required_capability": "Research/DomainScorerImplementation",
       "required_source_block": {
         "minimum_rows_required": 20,
@@ -3080,10 +3338,10 @@
         "metric_id": "OC133-SYSTEMS-COVERAGE-ECONOMIC-INDICATOR-MARKET-OBSERVABLES_domain_local_residual",
         "superiority_rule": "every row and aggregate residual margin must exceed preregistered materiality thresholds"
       },
-      "root_cause_class": "DOMAIN_SCORER_FLAGS_MISSING",
+      "root_cause_class": "DOMAIN_SCORER_MODEL_OR_COMPARATOR_REPAIR_REQUIRED",
       "source_domain_scoring_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/domain_scorers/scorer_9dfa6d4ce0a6f829.json",
-      "source_domain_scoring_root_cause": "DOMAIN_SPECIFIC_SCORER_MISSING",
-      "source_domain_scoring_status": "CAPABILITY_DEVELOPMENT_REQUIRED",
+      "source_domain_scoring_root_cause": "DOMAIN_SCORER_RAN_BUT_SCORING_REMAINS_OPEN",
+      "source_domain_scoring_status": "EVIDENCE_REPAIR_ATTEMPTED_REMAINS_OPEN",
       "status": "OPEN",
       "target_variable": {
         "extraction_rule": "WDI[WLD, NY.GDP.MKTP.CD, heldout_year].value",
@@ -3098,13 +3356,31 @@
         "rule": "selected-formula prior validation residual envelope declared before target unsealing"
       },
       "validator_binding": "comparator_gap::MS-COV-GAP-SOCIAL_ECONOMIC_POLITICAL_SCIENCES-ECONOMIC_INDICATOR_AND_MARKET_OBSERVABLES::domain_scorer_implementation",
-      "why_it_failed": "No exact domain scorer exists for this domain/phenomenon; the generic evidence pack remains fail-closed."
+      "why_it_failed": "Domain scorer command ran, but strict materiality/replay predicates still keep the scoring artifact OPEN."
     },
     {
       "domain_class_id": "social_economic_political_sciences",
       "domain_scoring_id": "R017-DOMAIN-SCORER-3dcf09e69027dbe9",
-      "exact_domain_scorer_available": false,
-      "exact_domain_scorer_commands": [],
+      "exact_domain_scorer_available": true,
+      "exact_domain_scorer_commands": [
+        [
+          "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+          "validation/heldout/grand_science/systems/coverage_work_orders/oc133_systems_civilizational_modern_science_coverage_work_orders.py",
+          "--write"
+        ],
+        [
+          "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+          "validation/heldout/grand_science/systems/coverage_work_orders/oc133_systems_civilizational_modern_science_coverage_work_orders.py",
+          "--check"
+        ],
+        [
+          "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+          "tools/oc133_toe_closure_factory.py",
+          "--execute-comparator-generic-evidence-pack",
+          "MS-COV-GAP-SOCIAL_ECONOMIC_POLITICAL_SCIENCES-INSTITUTIONAL_SOCIAL_NETWORK_AND_POLICY_OUTCOMES",
+          "--write"
+        ]
+      ],
       "execution_command": [
         "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
         "tools/oc133_toe_closure_factory.py",
@@ -3142,9 +3418,7 @@
       },
       "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
       "missing_domain_scorer_elements": [
-        "command_pass",
         "comparator_residual_materialized",
-        "exact_domain_scorer_available",
         "fail_closed_status_absent",
         "material_margin_met",
         "model_residual_materialized",
@@ -3160,7 +3434,7 @@
       },
       "pass_predicate": "A governed domain scorer script/flags exist, run cleanly, and the downstream domain-scoring report plus oc_prediction_scoring_row become PASS.",
       "phenomenon_class_id": "institutional_social_network_and_policy_outcomes",
-      "repair_strategy": "Extend the existing domain scorer script with concrete flags for this phenomenon and bind them in COMPARATOR_DOMAIN_IMPLEMENTED_COMMANDS.",
+      "repair_strategy": "Inspect the existing scorer output, repair the OC model/comparator/residual/materiality implementation, and preserve negative results if OC does not beat the comparator.",
       "required_capability": "Research/DomainScorerImplementation",
       "required_source_block": {
         "minimum_rows_required": 20,
@@ -3178,10 +3452,10 @@
         "metric_id": "OC133-SYSTEMS-COVERAGE-INSTITUTIONAL-SOCIAL-NETWORK-POLICY-OUTCOMES_domain_local_residual",
         "superiority_rule": "every row and aggregate residual margin must exceed preregistered materiality thresholds"
       },
-      "root_cause_class": "DOMAIN_SCORER_FLAGS_MISSING",
+      "root_cause_class": "DOMAIN_SCORER_MODEL_OR_COMPARATOR_REPAIR_REQUIRED",
       "source_domain_scoring_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/domain_scorers/scorer_28faa5bca5200e28.json",
-      "source_domain_scoring_root_cause": "DOMAIN_SPECIFIC_SCORER_MISSING",
-      "source_domain_scoring_status": "CAPABILITY_DEVELOPMENT_REQUIRED",
+      "source_domain_scoring_root_cause": "DOMAIN_SCORER_RAN_BUT_SCORING_REMAINS_OPEN",
+      "source_domain_scoring_status": "EVIDENCE_REPAIR_ATTEMPTED_REMAINS_OPEN",
       "status": "OPEN",
       "target_variable": {
         "extraction_rule": "WDI[country, GE.EST or RL.EST, heldout_year].value",
@@ -3196,13 +3470,31 @@
         "rule": "selected-formula prior validation residual envelope declared before target unsealing"
       },
       "validator_binding": "comparator_gap::MS-COV-GAP-SOCIAL_ECONOMIC_POLITICAL_SCIENCES-INSTITUTIONAL_SOCIAL_NETWORK_AND_POLICY_OUTCOMES::domain_scorer_implementation",
-      "why_it_failed": "No exact domain scorer exists for this domain/phenomenon; the generic evidence pack remains fail-closed."
+      "why_it_failed": "Domain scorer command ran, but strict materiality/replay predicates still keep the scoring artifact OPEN."
     },
     {
       "domain_class_id": "complex_systems_operations_science",
       "domain_scoring_id": "R017-DOMAIN-SCORER-701e34b0c7b6662d",
-      "exact_domain_scorer_available": false,
-      "exact_domain_scorer_commands": [],
+      "exact_domain_scorer_available": true,
+      "exact_domain_scorer_commands": [
+        [
+          "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+          "validation/heldout/grand_science/operations/coverage_work_orders/oc133_operations_modern_science_coverage_work_orders.py",
+          "--write"
+        ],
+        [
+          "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+          "validation/heldout/grand_science/operations/coverage_work_orders/oc133_operations_modern_science_coverage_work_orders.py",
+          "--check"
+        ],
+        [
+          "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+          "tools/oc133_toe_closure_factory.py",
+          "--execute-comparator-generic-evidence-pack",
+          "MS-COV-GAP-COMPLEX_SYSTEMS_OPERATIONS_SCIENCE-MULTI_AGENT_SYSTEM_DYNAMICS",
+          "--write"
+        ]
+      ],
       "execution_command": [
         "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
         "tools/oc133_toe_closure_factory.py",
@@ -3240,9 +3532,7 @@
       },
       "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
       "missing_domain_scorer_elements": [
-        "command_pass",
         "comparator_residual_materialized",
-        "exact_domain_scorer_available",
         "fail_closed_status_absent",
         "material_margin_met",
         "model_residual_materialized",
@@ -3258,7 +3548,7 @@
       },
       "pass_predicate": "A governed domain scorer script/flags exist, run cleanly, and the downstream domain-scoring report plus oc_prediction_scoring_row become PASS.",
       "phenomenon_class_id": "multi_agent_system_dynamics",
-      "repair_strategy": "Extend the existing domain scorer script with concrete flags for this phenomenon and bind them in COMPARATOR_DOMAIN_IMPLEMENTED_COMMANDS.",
+      "repair_strategy": "Inspect the existing scorer output, repair the OC model/comparator/residual/materiality implementation, and preserve negative results if OC does not beat the comparator.",
       "required_capability": "Research/DomainScorerImplementation",
       "required_source_block": {
         "minimum_rows_required": 200,
@@ -3276,10 +3566,10 @@
         "metric_id": "MS-COV-WO-033_domain_local_residual",
         "superiority_rule": "model_MAE + uncertainty_upper < best_comparator_MAE"
       },
-      "root_cause_class": "DOMAIN_SCORER_FLAGS_MISSING",
+      "root_cause_class": "DOMAIN_SCORER_MODEL_OR_COMPARATOR_REPAIR_REQUIRED",
       "source_domain_scoring_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/domain_scorers/scorer_ecc3413b2a783a11.json",
-      "source_domain_scoring_root_cause": "DOMAIN_SPECIFIC_SCORER_MISSING",
-      "source_domain_scoring_status": "CAPABILITY_DEVELOPMENT_REQUIRED",
+      "source_domain_scoring_root_cause": "DOMAIN_SCORER_RAN_BUT_SCORING_REMAINS_OPEN",
+      "source_domain_scoring_status": "EVIDENCE_REPAIR_ATTEMPTED_REMAINS_OPEN",
       "status": "OPEN",
       "target_variable": {
         "extraction_rule": "Trip records are aggregated into a zone-hour flow panel; heldout hours and route counts remain sealed until graph-temporal predictions are written.",
@@ -3297,13 +3587,31 @@
         "rule": "rolling training residual envelope with count-scale Poisson interval"
       },
       "validator_binding": "comparator_gap::MS-COV-GAP-COMPLEX_SYSTEMS_OPERATIONS_SCIENCE-MULTI_AGENT_SYSTEM_DYNAMICS::domain_scorer_implementation",
-      "why_it_failed": "No exact domain scorer exists for this domain/phenomenon; the generic evidence pack remains fail-closed."
+      "why_it_failed": "Domain scorer command ran, but strict materiality/replay predicates still keep the scoring artifact OPEN."
     },
     {
       "domain_class_id": "complex_systems_operations_science",
       "domain_scoring_id": "R017-DOMAIN-SCORER-72929588c49e2b61",
-      "exact_domain_scorer_available": false,
-      "exact_domain_scorer_commands": [],
+      "exact_domain_scorer_available": true,
+      "exact_domain_scorer_commands": [
+        [
+          "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+          "validation/heldout/grand_science/operations/coverage_work_orders/oc133_operations_modern_science_coverage_work_orders.py",
+          "--write"
+        ],
+        [
+          "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+          "validation/heldout/grand_science/operations/coverage_work_orders/oc133_operations_modern_science_coverage_work_orders.py",
+          "--check"
+        ],
+        [
+          "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+          "tools/oc133_toe_closure_factory.py",
+          "--execute-comparator-generic-evidence-pack",
+          "MS-COV-GAP-COMPLEX_SYSTEMS_OPERATIONS_SCIENCE-QUEUE_SUPPLY_CHAIN_AND_OPERATIONS_OBSERVABLES",
+          "--write"
+        ]
+      ],
       "execution_command": [
         "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
         "tools/oc133_toe_closure_factory.py",
@@ -3341,9 +3649,7 @@
       },
       "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
       "missing_domain_scorer_elements": [
-        "command_pass",
         "comparator_residual_materialized",
-        "exact_domain_scorer_available",
         "fail_closed_status_absent",
         "material_margin_met",
         "model_residual_materialized",
@@ -3359,7 +3665,7 @@
       },
       "pass_predicate": "A governed domain scorer script/flags exist, run cleanly, and the downstream domain-scoring report plus oc_prediction_scoring_row become PASS.",
       "phenomenon_class_id": "queue_supply_chain_and_operations_observables",
-      "repair_strategy": "Extend the existing domain scorer script with concrete flags for this phenomenon and bind them in COMPARATOR_DOMAIN_IMPLEMENTED_COMMANDS.",
+      "repair_strategy": "Inspect the existing scorer output, repair the OC model/comparator/residual/materiality implementation, and preserve negative results if OC does not beat the comparator.",
       "required_capability": "Research/DomainScorerImplementation",
       "required_source_block": {
         "minimum_rows_required": 1000,
@@ -3377,10 +3683,10 @@
         "metric_id": "MS-COV-WO-034_domain_local_residual",
         "superiority_rule": "model_MAE + uncertainty_upper < best_preregistered_comparator_MAE"
       },
-      "root_cause_class": "DOMAIN_SCORER_FLAGS_MISSING",
+      "root_cause_class": "DOMAIN_SCORER_MODEL_OR_COMPARATOR_REPAIR_REQUIRED",
       "source_domain_scoring_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/domain_scorers/scorer_1cce0e9ab08f348a.json",
-      "source_domain_scoring_root_cause": "DOMAIN_SPECIFIC_SCORER_MISSING",
-      "source_domain_scoring_status": "CAPABILITY_DEVELOPMENT_REQUIRED",
+      "source_domain_scoring_root_cause": "DOMAIN_SCORER_RAN_BUT_SCORING_REMAINS_OPEN",
+      "source_domain_scoring_status": "EVIDENCE_REPAIR_ATTEMPTED_REMAINS_OPEN",
       "status": "OPEN",
       "target_variable": {
         "extraction_rule": "Flight records are grouped into airport/carrier/day queue-delay panels; heldout delay values remain sealed until predictions and baselines are materialized.",
@@ -3400,13 +3706,31 @@
         "rule": "rolling pre-holdout residual envelope stratified by carrier and airport"
       },
       "validator_binding": "comparator_gap::MS-COV-GAP-COMPLEX_SYSTEMS_OPERATIONS_SCIENCE-QUEUE_SUPPLY_CHAIN_AND_OPERATIONS_OBSERVABLES::domain_scorer_implementation",
-      "why_it_failed": "No exact domain scorer exists for this domain/phenomenon; the generic evidence pack remains fail-closed."
+      "why_it_failed": "Domain scorer command ran, but strict materiality/replay predicates still keep the scoring artifact OPEN."
     },
     {
       "domain_class_id": "complex_systems_operations_science",
       "domain_scoring_id": "R017-DOMAIN-SCORER-29bcbfd7bc872dcf",
-      "exact_domain_scorer_available": false,
-      "exact_domain_scorer_commands": [],
+      "exact_domain_scorer_available": true,
+      "exact_domain_scorer_commands": [
+        [
+          "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+          "validation/heldout/grand_science/operations/coverage_work_orders/oc133_operations_modern_science_coverage_work_orders.py",
+          "--write"
+        ],
+        [
+          "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+          "validation/heldout/grand_science/operations/coverage_work_orders/oc133_operations_modern_science_coverage_work_orders.py",
+          "--check"
+        ],
+        [
+          "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+          "tools/oc133_toe_closure_factory.py",
+          "--execute-comparator-generic-evidence-pack",
+          "MS-COV-GAP-COMPLEX_SYSTEMS_OPERATIONS_SCIENCE-RESILIENCE_RISK_AND_INTERVENTION_RESPONSE",
+          "--write"
+        ]
+      ],
       "execution_command": [
         "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
         "tools/oc133_toe_closure_factory.py",
@@ -3444,9 +3768,7 @@
       },
       "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
       "missing_domain_scorer_elements": [
-        "command_pass",
         "comparator_residual_materialized",
-        "exact_domain_scorer_available",
         "fail_closed_status_absent",
         "material_margin_met",
         "model_residual_materialized",
@@ -3462,7 +3784,7 @@
       },
       "pass_predicate": "A governed domain scorer script/flags exist, run cleanly, and the downstream domain-scoring report plus oc_prediction_scoring_row become PASS.",
       "phenomenon_class_id": "resilience_risk_and_intervention_response",
-      "repair_strategy": "Extend the existing domain scorer script with concrete flags for this phenomenon and bind them in COMPARATOR_DOMAIN_IMPLEMENTED_COMMANDS.",
+      "repair_strategy": "Inspect the existing scorer output, repair the OC model/comparator/residual/materiality implementation, and preserve negative results if OC does not beat the comparator.",
       "required_capability": "Research/DomainScorerImplementation",
       "required_source_block": {
         "minimum_rows_required": 100,
@@ -3480,10 +3802,10 @@
         "metric_id": "MS-COV-WO-035_domain_local_residual",
         "superiority_rule": "model_count_residual + uncertainty_upper < best_comparator_count_residual"
       },
-      "root_cause_class": "DOMAIN_SCORER_FLAGS_MISSING",
+      "root_cause_class": "DOMAIN_SCORER_MODEL_OR_COMPARATOR_REPAIR_REQUIRED",
       "source_domain_scoring_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/domain_scorers/scorer_7ca394b3549f39bc.json",
-      "source_domain_scoring_root_cause": "DOMAIN_SPECIFIC_SCORER_MISSING",
-      "source_domain_scoring_status": "CAPABILITY_DEVELOPMENT_REQUIRED",
+      "source_domain_scoring_root_cause": "DOMAIN_SCORER_RAN_BUT_SCORING_REMAINS_OPEN",
+      "source_domain_scoring_status": "EVIDENCE_REPAIR_ATTEMPTED_REMAINS_OPEN",
       "status": "OPEN",
       "target_variable": {
         "extraction_rule": "Declaration rows are aggregated into state/month/incident panels; heldout month counts remain sealed until response-risk predictions are materialized.",
@@ -3501,7 +3823,7 @@
         "rule": "pre-holdout rolling seasonal residual envelope"
       },
       "validator_binding": "comparator_gap::MS-COV-GAP-COMPLEX_SYSTEMS_OPERATIONS_SCIENCE-RESILIENCE_RISK_AND_INTERVENTION_RESPONSE::domain_scorer_implementation",
-      "why_it_failed": "No exact domain scorer exists for this domain/phenomenon; the generic evidence pack remains fail-closed."
+      "why_it_failed": "Domain scorer command ran, but strict materiality/replay predicates still keep the scoring artifact OPEN."
     }
   ],
   "schema_id": "OC133_MODERN_SCIENCE_COMPARATOR_DOMAIN_SCORER_IMPLEMENTATION_BACKLOG_v1",

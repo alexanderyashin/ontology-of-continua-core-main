@@ -1,0 +1,41 @@
+{
+  "artifact_hash": "520ded582bd0f6d21ece60091ea73e2ce638ee630e3c341a5501a2e605ceecb9",
+  "artifact_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/domain_model_components/component_bc355e94c17718b5.json",
+  "component_id": "oc_model_residual",
+  "component_work_order_id": "R017-DOMAIN-MODEL-COMPONENT-ac829e6d3eefc349",
+  "domain_class_id": "social_economic_political_sciences",
+  "execution_command": [
+    "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+    "tools/oc133_toe_closure_factory.py",
+    "--execute-comparator-domain-model-component",
+    "R017-DOMAIN-MODEL-COMPONENT-ac829e6d3eefc349",
+    "--write"
+  ],
+  "gap_id": "MS-COV-GAP-SOCIAL_ECONOMIC_POLITICAL_SCIENCES-ECONOMIC_INDICATOR_AND_MARKET_OBSERVABLES",
+  "generated_at": "2026-05-06T09:08:47Z",
+  "implementation_blueprint": {
+    "component_id": "oc_model_residual",
+    "domain_class_id": "social_economic_political_sciences",
+    "phenomenon_class_id": "economic_indicator_and_market_observables",
+    "required_code_surface": "domain scorer/model implementation for the named domain and phenomenon",
+    "required_output": "source-bound OC prediction, incumbent comparator prediction, residuals, materiality, and replay evidence as applicable"
+  },
+  "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+  "next_escalation": "Create or edit the domain-specific model/comparator scorer; if OC remains worse, preserve fail-closed broad superiority.",
+  "no_fake_closure_policy": "This component report cannot close broad superiority without downstream scoring and replay PASS.",
+  "pass_predicate": "The downstream oc_prediction_scoring_row artifact becomes PASS without weakening materiality or replay predicates.",
+  "phenomenon_class_id": "economic_indicator_and_market_observables",
+  "repair_id": "R017-DOMAIN-MODEL-REPAIR-fc08158de1496fae",
+  "repair_strategy": "Compute the OC residual from the locked target and OC prediction under the declared residual rule.",
+  "replay_artifact_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/fc08158de1496fae/replay_record.json",
+  "replay_artifact_status": "OPEN",
+  "required_capability": "Research/DomainModelComparatorRepair",
+  "root_cause_class": "OC_RESIDUAL_COMPUTATION_NOT_MATERIALIZED",
+  "schema_id": "OC133_MODERN_SCIENCE_COMPARATOR_DOMAIN_MODEL_COMPONENT_EXECUTION_v1",
+  "scoring_artifact_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/fc08158de1496fae/oc_prediction_scoring_row.json",
+  "scoring_artifact_status": "OPEN",
+  "source_domain_model_repair_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/domain_model_repairs/model_repair_78e57fe71d509cc7.json",
+  "status": "CAPABILITY_DEVELOPMENT_REQUIRED",
+  "validator_binding": "comparator_gap::MS-COV-GAP-SOCIAL_ECONOMIC_POLITICAL_SCIENCES-ECONOMIC_INDICATOR_AND_MARKET_OBSERVABLES::domain_model_repair::oc_model_residual",
+  "why_it_failed": "Component remains open because downstream scoring/replay artifacts are not PASS."
+}

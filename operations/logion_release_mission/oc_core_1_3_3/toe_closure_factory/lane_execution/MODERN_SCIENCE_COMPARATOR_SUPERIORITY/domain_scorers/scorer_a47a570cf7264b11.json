@@ -1,13 +1,64 @@
 {
-  "artifact_hash": "13b4b842aba4ca85862f0009fe9be244d54786596234f091be0a9d8d0f128767",
+  "artifact_hash": "804b29e7e3472e57087daa6dde35b9812378b528804597ee532048315811ccd7",
   "artifact_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/domain_scorers/scorer_a47a570cf7264b11.json",
-  "command_pass": false,
-  "command_result_total": 0,
-  "command_results": [],
+  "command_pass": true,
+  "command_result_total": 3,
+  "command_results": [
+    {
+      "cmd": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "validation/heldout/grand_science/earth_space/coverage_work_orders/oc133_earth_space_modern_science_coverage_work_orders.py",
+        "--write"
+      ],
+      "returncode": 0,
+      "stderr_tail": "",
+      "stdout_tail": "{\n  \"status\": \"ok\",\n  \"output_ref\": \"validation/heldout/grand_science/earth_space/coverage_work_orders/OC133_EARTH_SPACE_MODERN_SCIENCE_COVERAGE_WORK_ORDERS.json\",\n  \"failures\": []\n}\n"
+    },
+    {
+      "cmd": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "validation/heldout/grand_science/earth_space/coverage_work_orders/oc133_earth_space_modern_science_coverage_work_orders.py",
+        "--check"
+      ],
+      "returncode": 0,
+      "stderr_tail": "",
+      "stdout_tail": "{\n  \"status\": \"ok\",\n  \"checked\": \"validation/heldout/grand_science/earth_space/coverage_work_orders/OC133_EARTH_SPACE_MODERN_SCIENCE_COVERAGE_WORK_ORDERS.json\"\n}\n"
+    },
+    {
+      "cmd": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "tools/oc133_toe_closure_factory.py",
+        "--execute-comparator-generic-evidence-pack",
+        "MS-COV-GAP-EARTH_SPACE_ENVIRONMENTAL_SCIENCES-REMOTE_SENSING_AND_PLANETARY_MEASUREMENTS",
+        "--write"
+      ],
+      "returncode": 0,
+      "stderr_tail": "",
+      "stdout_tail": "{\n  \"changed\": [],\n  \"missing\": [],\n  \"state\": \"PASS\"\n}\n"
+    }
+  ],
   "domain_class_id": "earth_space_environmental_sciences",
   "domain_scoring_id": "R017-DOMAIN-SCORER-04a29758f8310992",
-  "exact_domain_scorer_available": false,
-  "exact_domain_scorer_commands": [],
+  "exact_domain_scorer_available": true,
+  "exact_domain_scorer_commands": [
+    [
+      "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+      "validation/heldout/grand_science/earth_space/coverage_work_orders/oc133_earth_space_modern_science_coverage_work_orders.py",
+      "--write"
+    ],
+    [
+      "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+      "validation/heldout/grand_science/earth_space/coverage_work_orders/oc133_earth_space_modern_science_coverage_work_orders.py",
+      "--check"
+    ],
+    [
+      "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+      "tools/oc133_toe_closure_factory.py",
+      "--execute-comparator-generic-evidence-pack",
+      "MS-COV-GAP-EARTH_SPACE_ENVIRONMENTAL_SCIENCES-REMOTE_SENSING_AND_PLANETARY_MEASUREMENTS",
+      "--write"
+    ]
+  ],
   "executable_spec_ref": "MS-COV-WO-012-domain-local-bridge",
   "execution_command": [
     "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
@@ -33,11 +84,11 @@
   "phenomenon_class_id": "remote_sensing_and_planetary_measurements",
   "repair_strategy": "Implement a domain-specific scorer that locks targets, computes OC predictions and incumbent comparator predictions, materializes residuals, and reruns replay without changing the expected verdict.",
   "required_capability": "Research/DomainScoringExecutor",
-  "root_cause_class": "DOMAIN_SPECIFIC_SCORER_MISSING",
+  "root_cause_class": "DOMAIN_SCORER_RAN_BUT_SCORING_REMAINS_OPEN",
   "schema_id": "OC133_MODERN_SCIENCE_COMPARATOR_DOMAIN_SCORING_EXECUTION_v1",
   "scoring_artifact_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/04a29758f8310992/oc_prediction_scoring_row.json",
   "scoring_artifact_status": "OPEN",
-  "status": "CAPABILITY_DEVELOPMENT_REQUIRED",
+  "status": "EVIDENCE_REPAIR_ATTEMPTED_REMAINS_OPEN",
   "validator_binding": "comparator_gap::MS-COV-GAP-EARTH_SPACE_ENVIRONMENTAL_SCIENCES-REMOTE_SENSING_AND_PLANETARY_MEASUREMENTS::domain_scoring_executor",
-  "why_it_failed": "No exact domain scorer exists for this domain/phenomenon; the generic evidence pack remains fail-closed."
+  "why_it_failed": "Domain scorer command ran, but strict materiality/replay predicates still keep the scoring artifact OPEN."
 }

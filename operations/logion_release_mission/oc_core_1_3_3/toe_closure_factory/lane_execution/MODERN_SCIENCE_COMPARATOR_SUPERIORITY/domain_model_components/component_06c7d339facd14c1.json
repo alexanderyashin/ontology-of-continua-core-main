@@ -1,0 +1,41 @@
+{
+  "artifact_hash": "4127c6b6a53c5142ab46a8a45d12828eac669ce8bded72f6717c22095adac00d",
+  "artifact_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/domain_model_components/component_06c7d339facd14c1.json",
+  "component_id": "fail_closed_status_clear",
+  "component_work_order_id": "R017-DOMAIN-MODEL-COMPONENT-33401369dd5c35b0",
+  "domain_class_id": "biological_life_sciences",
+  "execution_command": [
+    "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+    "tools/oc133_toe_closure_factory.py",
+    "--execute-comparator-domain-model-component",
+    "R017-DOMAIN-MODEL-COMPONENT-33401369dd5c35b0",
+    "--write"
+  ],
+  "gap_id": "MS-COV-GAP-BIOLOGICAL_LIFE_SCIENCES-ECOLOGY_POPULATION_AND_BIODIVERSITY_OBSERVABLES",
+  "generated_at": "2026-05-06T09:08:35Z",
+  "implementation_blueprint": {
+    "component_id": "fail_closed_status_clear",
+    "domain_class_id": "biological_life_sciences",
+    "phenomenon_class_id": "ecology_population_and_biodiversity_observables",
+    "required_code_surface": "domain scorer/model implementation for the named domain and phenomenon",
+    "required_output": "source-bound OC prediction, incumbent comparator prediction, residuals, materiality, and replay evidence as applicable"
+  },
+  "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+  "next_escalation": "Create or edit the domain-specific model/comparator scorer; if OC remains worse, preserve fail-closed broad superiority.",
+  "no_fake_closure_policy": "This component report cannot close broad superiority without downstream scoring and replay PASS.",
+  "pass_predicate": "The downstream oc_prediction_scoring_row artifact becomes PASS without weakening materiality or replay predicates.",
+  "phenomenon_class_id": "ecology_population_and_biodiversity_observables",
+  "repair_id": "R017-DOMAIN-MODEL-REPAIR-80c7d7ec237d85b3",
+  "repair_strategy": "Remove fail-closed status only by producing a PASS strict evidence pack with source-bound residuals.",
+  "replay_artifact_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/80c7d7ec237d85b3/replay_record.json",
+  "replay_artifact_status": "OPEN",
+  "required_capability": "Research/DomainModelComparatorRepair",
+  "root_cause_class": "FAIL_CLOSED_EVIDENCE_STATUS_STILL_PRESENT",
+  "schema_id": "OC133_MODERN_SCIENCE_COMPARATOR_DOMAIN_MODEL_COMPONENT_EXECUTION_v1",
+  "scoring_artifact_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/80c7d7ec237d85b3/oc_prediction_scoring_row.json",
+  "scoring_artifact_status": "OPEN",
+  "source_domain_model_repair_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/domain_model_repairs/model_repair_a1f1a93cb4624082.json",
+  "status": "CAPABILITY_DEVELOPMENT_REQUIRED",
+  "validator_binding": "comparator_gap::MS-COV-GAP-BIOLOGICAL_LIFE_SCIENCES-ECOLOGY_POPULATION_AND_BIODIVERSITY_OBSERVABLES::domain_model_repair::fail_closed_status_clear",
+  "why_it_failed": "Component remains open because downstream scoring/replay artifacts are not PASS."
+}

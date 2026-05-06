@@ -1,14 +1,32 @@
 {
-  "artifact_hash": "5a21dafea2f0c611ba25ea1e2d48f7efef01ed4a9cb8a28399a2c7f45fa1c0f8",
+  "artifact_hash": "cf87bc13b4cad36da820e89c3fe9e3fadd9c8d4fe07c4d9fdc999ec7ddc070f6",
   "artifact_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/domain_scorer_implementations/scorer_impl_75fe33f7379d1dbe.json",
   "command_result_total": 0,
   "command_results": [],
   "domain_class_id": "complex_systems_operations_science",
   "domain_scoring_id": "R017-DOMAIN-SCORER-29bcbfd7bc872dcf",
   "domain_scoring_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/domain_scorers/scorer_7ca394b3549f39bc.json",
-  "domain_scoring_root_cause": "DOMAIN_SPECIFIC_SCORER_MISSING",
-  "domain_scoring_status": "CAPABILITY_DEVELOPMENT_REQUIRED",
-  "exact_domain_scorer_commands": [],
+  "domain_scoring_root_cause": "DOMAIN_SCORER_RAN_BUT_SCORING_REMAINS_OPEN",
+  "domain_scoring_status": "EVIDENCE_REPAIR_ATTEMPTED_REMAINS_OPEN",
+  "exact_domain_scorer_commands": [
+    [
+      "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+      "validation/heldout/grand_science/operations/coverage_work_orders/oc133_operations_modern_science_coverage_work_orders.py",
+      "--write"
+    ],
+    [
+      "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+      "validation/heldout/grand_science/operations/coverage_work_orders/oc133_operations_modern_science_coverage_work_orders.py",
+      "--check"
+    ],
+    [
+      "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+      "tools/oc133_toe_closure_factory.py",
+      "--execute-comparator-generic-evidence-pack",
+      "MS-COV-GAP-COMPLEX_SYSTEMS_OPERATIONS_SCIENCE-RESILIENCE_RISK_AND_INTERVENTION_RESPONSE",
+      "--write"
+    ]
+  ],
   "execution_command": [
     "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
     "tools/oc133_toe_closure_factory.py",
@@ -36,7 +54,7 @@
   },
   "gap_id": "MS-COV-GAP-COMPLEX_SYSTEMS_OPERATIONS_SCIENCE-RESILIENCE_RISK_AND_INTERVENTION_RESPONSE",
   "generated_at": "2026-05-06T08:32:53Z",
-  "implementation_command_class": "MISSING_DOMAIN_SCORER_FLAGS",
+  "implementation_command_class": "CONCRETE_DOMAIN_SCORER",
   "implementation_id": "R017-DOMAIN-SCORER-IMPL-29bcbfd7bc872dcf",
   "implementation_work_order_id": "R017-DOMAIN-SCORER-IMPL-29bcbfd7bc872dcf",
   "incumbent_comparator_requirement": {
@@ -48,9 +66,7 @@
   },
   "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
   "missing_domain_scorer_elements": [
-    "command_pass",
     "comparator_residual_materialized",
-    "exact_domain_scorer_available",
     "fail_closed_status_absent",
     "material_margin_met",
     "model_residual_materialized",
@@ -66,7 +82,7 @@
   },
   "pass_predicate": "A governed domain scorer script/flags exist, run cleanly, and the downstream domain-scoring report plus oc_prediction_scoring_row become PASS.",
   "phenomenon_class_id": "resilience_risk_and_intervention_response",
-  "repair_strategy": "Extend the existing domain scorer script with concrete flags for this phenomenon and bind them in COMPARATOR_DOMAIN_IMPLEMENTED_COMMANDS.",
+  "repair_strategy": "Implement or repair the exact domain scorer until the downstream scoring artifact passes or remains honestly fail-closed with a narrower research blocker.",
   "replay_artifact_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/29bcbfd7bc872dcf/replay_record.json",
   "replay_artifact_status": "OPEN",
   "required_capability": "Research/DomainScorerImplementation",
@@ -86,11 +102,11 @@
     "metric_id": "MS-COV-WO-035_domain_local_residual",
     "superiority_rule": "model_count_residual + uncertainty_upper < best_comparator_count_residual"
   },
-  "root_cause_class": "DOMAIN_SCORER_FLAGS_MISSING",
+  "root_cause_class": "DOMAIN_SCORER_MODEL_OR_COMPARATOR_REPAIR_REQUIRED",
   "schema_id": "OC133_MODERN_SCIENCE_COMPARATOR_DOMAIN_SCORER_IMPLEMENTATION_EXECUTION_v1",
   "scoring_artifact_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/29bcbfd7bc872dcf/oc_prediction_scoring_row.json",
   "scoring_artifact_status": "OPEN",
-  "status": "CAPABILITY_DEVELOPMENT_REQUIRED",
+  "status": "EVIDENCE_REPAIR_ATTEMPTED_REMAINS_OPEN",
   "target_variable": {
     "extraction_rule": "Declaration rows are aggregated into state/month/incident panels; heldout month counts remain sealed until response-risk predictions are materialized.",
     "name": "heldout_state_month_disaster_declaration_count",
@@ -107,5 +123,5 @@
     "rule": "pre-holdout rolling seasonal residual envelope"
   },
   "validator_binding": "comparator_gap::MS-COV-GAP-COMPLEX_SYSTEMS_OPERATIONS_SCIENCE-RESILIENCE_RISK_AND_INTERVENTION_RESPONSE::domain_scorer_implementation",
-  "why_it_failed": "The domain scorer script exists, but this domain/phenomenon has no bound acquisition/scoring/replay flags."
+  "why_it_failed": "The domain scorer ran, but the OC model/comparator/materiality predicates remain fail-closed."
 }

@@ -1,14 +1,32 @@
 {
-  "artifact_hash": "469ee1b5950c35c57320694d3327108c665eebbf21ba3d33492879dc836c7dda",
+  "artifact_hash": "42ffff2a6ec612eecf819f7b05b8e8418e07d861d547fdca3d664abe8ce8988b",
   "artifact_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/domain_scorer_implementations/scorer_impl_a8529b2afa25bbfd.json",
   "command_result_total": 0,
   "command_results": [],
   "domain_class_id": "engineering_materials_sciences",
   "domain_scoring_id": "R017-DOMAIN-SCORER-a1c1bcc404d197ab",
   "domain_scoring_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/domain_scorers/scorer_6cdc149a9739d619.json",
-  "domain_scoring_root_cause": "DOMAIN_SPECIFIC_SCORER_MISSING",
-  "domain_scoring_status": "CAPABILITY_DEVELOPMENT_REQUIRED",
-  "exact_domain_scorer_commands": [],
+  "domain_scoring_root_cause": "DOMAIN_SCORER_RAN_BUT_SCORING_REMAINS_OPEN",
+  "domain_scoring_status": "EVIDENCE_REPAIR_ATTEMPTED_REMAINS_OPEN",
+  "exact_domain_scorer_commands": [
+    [
+      "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+      "validation/heldout/grand_science/engineering/coverage_work_orders/oc133_engineering_modern_science_coverage_work_orders.py",
+      "--write"
+    ],
+    [
+      "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+      "validation/heldout/grand_science/engineering/coverage_work_orders/oc133_engineering_modern_science_coverage_work_orders.py",
+      "--check"
+    ],
+    [
+      "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+      "tools/oc133_toe_closure_factory.py",
+      "--execute-comparator-generic-evidence-pack",
+      "MS-COV-GAP-ENGINEERING_MATERIALS_SCIENCES-CONTROL_SYSTEMS_AND_SIGNAL_MEASUREMENT",
+      "--write"
+    ]
+  ],
   "execution_command": [
     "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
     "tools/oc133_toe_closure_factory.py",
@@ -40,7 +58,7 @@
   },
   "gap_id": "MS-COV-GAP-ENGINEERING_MATERIALS_SCIENCES-CONTROL_SYSTEMS_AND_SIGNAL_MEASUREMENT",
   "generated_at": "2026-05-06T08:32:51Z",
-  "implementation_command_class": "MISSING_DOMAIN_SCORER_FLAGS",
+  "implementation_command_class": "CONCRETE_DOMAIN_SCORER",
   "implementation_id": "R017-DOMAIN-SCORER-IMPL-a1c1bcc404d197ab",
   "implementation_work_order_id": "R017-DOMAIN-SCORER-IMPL-a1c1bcc404d197ab",
   "incumbent_comparator_requirement": {
@@ -52,9 +70,7 @@
   },
   "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
   "missing_domain_scorer_elements": [
-    "command_pass",
     "comparator_residual_materialized",
-    "exact_domain_scorer_available",
     "fail_closed_status_absent",
     "material_margin_met",
     "model_residual_materialized",
@@ -70,7 +86,7 @@
   },
   "pass_predicate": "A governed domain scorer script/flags exist, run cleanly, and the downstream domain-scoring report plus oc_prediction_scoring_row become PASS.",
   "phenomenon_class_id": "control_systems_and_signal_measurement",
-  "repair_strategy": "Extend the existing domain scorer script with concrete flags for this phenomenon and bind them in COMPARATOR_DOMAIN_IMPLEMENTED_COMMANDS.",
+  "repair_strategy": "Implement or repair the exact domain scorer until the downstream scoring artifact passes or remains honestly fail-closed with a narrower research blocker.",
   "replay_artifact_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/a1c1bcc404d197ab/replay_record.json",
   "replay_artifact_status": "OPEN",
   "required_capability": "Research/DomainScorerImplementation",
@@ -90,11 +106,11 @@
     "metric_id": "MS-COV-WO-023_domain_local_residual",
     "superiority_rule": "published-polynomial residual must be below tolerance and materially lower than the linear Seebeck comparator"
   },
-  "root_cause_class": "DOMAIN_SCORER_FLAGS_MISSING",
+  "root_cause_class": "DOMAIN_SCORER_MODEL_OR_COMPARATOR_REPAIR_REQUIRED",
   "schema_id": "OC133_MODERN_SCIENCE_COMPARATOR_DOMAIN_SCORER_IMPLEMENTATION_EXECUTION_v1",
   "scoring_artifact_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/a1c1bcc404d197ab/oc_prediction_scoring_row.json",
   "scoring_artifact_status": "OPEN",
-  "status": "CAPABILITY_DEVELOPMENT_REQUIRED",
+  "status": "EVIDENCE_REPAIR_ATTEMPTED_REMAINS_OPEN",
   "target_variable": {
     "extraction_rule": "NIST_ITS90_TYPE_K[temperature_C].emf_mV",
     "name": "type_k_thermocouple_emf_signal",
@@ -108,5 +124,5 @@
     "rule": "NIST table precision plus a fixed preregistered rounding tolerance; no post-target tolerance tuning"
   },
   "validator_binding": "comparator_gap::MS-COV-GAP-ENGINEERING_MATERIALS_SCIENCES-CONTROL_SYSTEMS_AND_SIGNAL_MEASUREMENT::domain_scorer_implementation",
-  "why_it_failed": "The domain scorer script exists, but this domain/phenomenon has no bound acquisition/scoring/replay flags."
+  "why_it_failed": "The domain scorer ran, but the OC model/comparator/materiality predicates remain fail-closed."
 }

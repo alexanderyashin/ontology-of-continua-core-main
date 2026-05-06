@@ -1,13 +1,66 @@
 {
-  "artifact_hash": "ca68bc8f6d6b051a49bcf98ba1a9e5ed57213510cc7d72d4ec19d2972512fb46",
+  "artifact_hash": "3600120470befa0ce4ef49bd68262ca50f46a11ad320e3630b6e435980956ead",
   "artifact_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/domain_scorers/scorer_57ee6cb35f9811ec.json",
-  "command_pass": false,
-  "command_result_total": 0,
-  "command_results": [],
+  "command_pass": true,
+  "command_result_total": 3,
+  "command_results": [
+    {
+      "cmd": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "tools/oc133_physics_chemistry_official_batch_factory.py",
+        "--write",
+        "--allow-blocked-exit-zero"
+      ],
+      "returncode": 0,
+      "stderr_tail": "",
+      "stdout_tail": "id\": \"physics-visible-projection-has-no-target-fields\",\n      \"description\": \"visible CODATA projections contain only declared input constants, not target values or units\",\n      \"passed\": true\n    },\n    {\n      \"test_id\": \"physics-target-projection-lock-valid\",\n      \"description\": \"each physics row has a machine-checkable visible/prediction/target projection lock\",\n      \"passed\": true\n    },\n    {\n      \"test_id\": \"physics-prediction-materialization-tamper-rejected\",\n      \"description\": \"mutating a pre-target physics prediction materialization breaks its projection lock\",\n      \"passed\": true\n    },\n    {\n      \"test_id\": \"physics-target-projection-tamper-rejected\",\n      \"description\": \"mutating a physics target projection breaks its target hash and projection lock\",\n      \"passed\": true\n    },\n    {\n      \"test_id\": \"physics-visible-projection-target-leak-tamper-rejected\",\n      \"description\": \"adding a scoring target field to the visible projection breaks the projection lock\",\n      \"passed\": true\n    },\n    {\n      \"test_id\": \"physics-target-hidden-lock-tamper-rejected\",\n      \"description\": \"turning off the target-hidden lock flag breaks the projection lock\",\n      \"passed\": true\n    },\n    {\n      \"test_id\": \"physics-comparator-preregistered-for-each-row\",\n      \"description\": \"every physics row declares its comparator before scoring\",\n      \"passed\": true\n    },\n    {\n      \"test_id\": \"physics-n-ge-20-when-codata-snapshot-exists\",\n      \"description\": \"the pinned CODATA snapshot yields at least 20 deterministic physics formula rows when present\",\n      \"passed\": true\n    }\n  ],\n  \"acquisition_packet_refs\": [\n    \"validation/heldout/grand_science/physics_chemistry/official_batch/OC133_PHYSICS_OFFICIAL_BATCH_ACQUISITION_PACKET.json\"\n  ],\n  \"physics_acquisition_request_total\": 1,\n  \"artifact_hashes\": {\n    \"physics_candidate_pack_sha256\": \"a118b4ffbaad6abda35d0e47f6dcac600c72b4106d5ab5a924cb5433e241eb87\",\n    \"chemistry_candidate_pack_sha256\": \"df7ac032d92cd2c92c4a17cbb86a855a7ded5915cf5fe8100fdc016cd71487ef\",\n    \"physics_acquisition_packet_sha256\": \"cf68b375c3ac4af16f876d5c33a468d4ddf0e561afb0e555a91dd64c91e41436\",\n    \"tasks_sha256\": \"28456e138deafbeb9d47f05d7c49ae01903577a06b4a53101ac4c0c0f61e96d9\",\n    \"protocol_sha256\": \"da395d3b01e3fe96512dcddcdafe84d001ed42c931746a28d64fee1985eeb444\"\n  },\n  \"grand_toe_support_allowed\": false,\n  \"verdict\": \"BLOCKED_ACQUISITION_READY_NO_SEND\",\n  \"no_send\": true,\n  \"publish_allowed\": false,\n  \"journal_submissions_allowed\": false,\n  \"registry_integration_allowed\": false,\n  \"no_fabricated_success_policy\": \"Official NIST/PubChem snapshot rows are scored and hashed, but no grand TOE support is emitted unless the domain pack has N>=20, pre-target target-blind or prospective separation, preregistered comparator baselines, residual superiority, rejected negative controls, falsifiers, and a clean grand empirical gate.\",\n  \"report_sha256\": \"525d2ba957b07d2561e9fa5fdd82b4d6583f0619be08321d590f3d2a6188881d\"\n}\n"
+    },
+    {
+      "cmd": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "tools/oc133_physics_chemistry_official_batch_factory.py",
+        "--check"
+      ],
+      "returncode": 0,
+      "stderr_tail": "",
+      "stdout_tail": "{\n  \"status\": \"ok\",\n  \"checked\": [\n    \"validation/heldout/grand_science/physics_chemistry/official_batch/physics_official_batch_candidate_evidence_pack.json\",\n    \"validation/heldout/grand_science/physics_chemistry/official_batch/chemistry_official_batch_candidate_evidence_pack.json\",\n    \"validation/heldout/grand_science/physics_chemistry/official_batch/OC133_PHYSICS_OFFICIAL_BATCH_ACQUISITION_PACKET.json\",\n    \"validation/heldout/grand_science/physics_chemistry/official_batch/OC133_PHYSICS_CHEMISTRY_OFFICIAL_BATCH_TASKS.json\",\n    \"validation/heldout/grand_science/physics_chemistry/official_batch/OC133_PHYSICS_CHEMISTRY_OFFICIAL_BATCH_PROTOCOL.json\",\n    \"validation/heldout/grand_science/physics_chemistry/official_batch/OC133_PHYSICS_CHEMISTRY_OFFICIAL_BATCH_REPORT.json\",\n    \"validation/heldout/grand_science/physics_chemistry/official_batch/README.md\"\n  ]\n}\n"
+    },
+    {
+      "cmd": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "tools/oc133_toe_closure_factory.py",
+        "--execute-comparator-generic-evidence-pack",
+        "MS-COV-GAP-PHYSICAL_SCIENCES-DYNAMICAL_LAWS_AND_CONSERVATION",
+        "--write"
+      ],
+      "returncode": 0,
+      "stderr_tail": "",
+      "stdout_tail": "{\n  \"changed\": [],\n  \"missing\": [],\n  \"state\": \"PASS\"\n}\n"
+    }
+  ],
   "domain_class_id": "physical_sciences",
   "domain_scoring_id": "R017-DOMAIN-SCORER-a7777e969d546a74",
-  "exact_domain_scorer_available": false,
-  "exact_domain_scorer_commands": [],
+  "exact_domain_scorer_available": true,
+  "exact_domain_scorer_commands": [
+    [
+      "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+      "tools/oc133_physics_chemistry_official_batch_factory.py",
+      "--write",
+      "--allow-blocked-exit-zero"
+    ],
+    [
+      "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+      "tools/oc133_physics_chemistry_official_batch_factory.py",
+      "--check"
+    ],
+    [
+      "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+      "tools/oc133_toe_closure_factory.py",
+      "--execute-comparator-generic-evidence-pack",
+      "MS-COV-GAP-PHYSICAL_SCIENCES-DYNAMICAL_LAWS_AND_CONSERVATION",
+      "--write"
+    ]
+  ],
   "executable_spec_ref": "MS-PHYS-DYNAMICS-JPL-HORIZONS-VECTORS-v1",
   "execution_command": [
     "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
@@ -33,11 +86,11 @@
   "phenomenon_class_id": "dynamical_laws_and_conservation",
   "repair_strategy": "Implement a domain-specific scorer that locks targets, computes OC predictions and incumbent comparator predictions, materializes residuals, and reruns replay without changing the expected verdict.",
   "required_capability": "Research/DomainScoringExecutor",
-  "root_cause_class": "DOMAIN_SPECIFIC_SCORER_MISSING",
+  "root_cause_class": "DOMAIN_SCORER_RAN_BUT_SCORING_REMAINS_OPEN",
   "schema_id": "OC133_MODERN_SCIENCE_COMPARATOR_DOMAIN_SCORING_EXECUTION_v1",
   "scoring_artifact_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/a7777e969d546a74/oc_prediction_scoring_row.json",
   "scoring_artifact_status": "OPEN",
-  "status": "CAPABILITY_DEVELOPMENT_REQUIRED",
+  "status": "EVIDENCE_REPAIR_ATTEMPTED_REMAINS_OPEN",
   "validator_binding": "comparator_gap::MS-COV-GAP-PHYSICAL_SCIENCES-DYNAMICAL_LAWS_AND_CONSERVATION::domain_scoring_executor",
-  "why_it_failed": "No exact domain scorer exists for this domain/phenomenon; the generic evidence pack remains fail-closed."
+  "why_it_failed": "Domain scorer command ran, but strict materiality/replay predicates still keep the scoring artifact OPEN."
 }

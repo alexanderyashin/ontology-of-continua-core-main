@@ -1,14 +1,33 @@
 {
-  "artifact_hash": "ba1b549b8bdb67da95cc6949e5d253cdd693aa02b359f1a2f99924224f05b958",
+  "artifact_hash": "eb9f52a5c5d975726b116850d093097671a0925a7fda579d3ea0f42040914e3c",
   "artifact_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/domain_scorer_implementations/scorer_impl_150ae2970f00c1c5.json",
   "command_result_total": 0,
   "command_results": [],
   "domain_class_id": "chemical_sciences",
   "domain_scoring_id": "R017-DOMAIN-SCORER-dd1092e4b6a884f7",
   "domain_scoring_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/domain_scorers/scorer_6eed1306ad6bcd94.json",
-  "domain_scoring_root_cause": "DOMAIN_SPECIFIC_SCORER_MISSING",
-  "domain_scoring_status": "CAPABILITY_DEVELOPMENT_REQUIRED",
-  "exact_domain_scorer_commands": [],
+  "domain_scoring_root_cause": "DOMAIN_SCORER_RAN_BUT_SCORING_REMAINS_OPEN",
+  "domain_scoring_status": "EVIDENCE_REPAIR_ATTEMPTED_REMAINS_OPEN",
+  "exact_domain_scorer_commands": [
+    [
+      "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+      "tools/oc133_chemistry_pubchem_formula_batch_factory.py",
+      "--write",
+      "--allow-blocked-exit-zero"
+    ],
+    [
+      "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+      "tools/oc133_chemistry_pubchem_formula_batch_factory.py",
+      "--check"
+    ],
+    [
+      "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+      "tools/oc133_toe_closure_factory.py",
+      "--execute-comparator-generic-evidence-pack",
+      "MS-COV-GAP-CHEMICAL_SCIENCES-THERMOCHEMISTRY_AND_PHASE_BEHAVIOR",
+      "--write"
+    ]
+  ],
   "execution_command": [
     "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
     "tools/oc133_toe_closure_factory.py",
@@ -23,8 +42,8 @@
     "source_separation_mode": "target_blind",
     "target_hidden_until_scoring": true
   },
-  "expected_script_exists": false,
-  "expected_script_ref": "",
+  "expected_script_exists": true,
+  "expected_script_ref": "tools/oc133_chemistry_pubchem_formula_batch_factory.py",
   "falsifier_requirement": {
     "falsifier_id": "CHEM-THERMO-WEBBOOK-FALSIFIER",
     "trigger": "target thermochemistry table leaks into visible inputs, N<20, source lock missing, residual exceeds uncertainty, or comparator is not worse"
@@ -39,7 +58,7 @@
   },
   "gap_id": "MS-COV-GAP-CHEMICAL_SCIENCES-THERMOCHEMISTRY_AND_PHASE_BEHAVIOR",
   "generated_at": "2026-05-06T08:32:47Z",
-  "implementation_command_class": "MISSING_DOMAIN_SCORER_SCRIPT_ROUTE",
+  "implementation_command_class": "CONCRETE_DOMAIN_SCORER",
   "implementation_id": "R017-DOMAIN-SCORER-IMPL-dd1092e4b6a884f7",
   "implementation_work_order_id": "R017-DOMAIN-SCORER-IMPL-dd1092e4b6a884f7",
   "incumbent_comparator_requirement": {
@@ -51,9 +70,7 @@
   },
   "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
   "missing_domain_scorer_elements": [
-    "command_pass",
     "comparator_residual_materialized",
-    "exact_domain_scorer_available",
     "fail_closed_status_absent",
     "material_margin_met",
     "model_residual_materialized",
@@ -69,7 +86,7 @@
   },
   "pass_predicate": "A governed domain scorer script/flags exist, run cleanly, and the downstream domain-scoring report plus oc_prediction_scoring_row become PASS.",
   "phenomenon_class_id": "thermochemistry_and_phase_behavior",
-  "repair_strategy": "Add a governed domain scorer script route for this domain class, then bind concrete acquisition/scoring/replay flags.",
+  "repair_strategy": "Inspect the existing scorer output, repair the OC model/comparator/residual/materiality implementation, and preserve negative results if OC does not beat the comparator.",
   "replay_artifact_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/dd1092e4b6a884f7/replay_record.json",
   "replay_artifact_status": "OPEN",
   "required_capability": "Research/DomainScorerImplementation",
@@ -89,11 +106,11 @@
     "metric_id": "thermochemistry_absolute_error_normalized_v1",
     "superiority_rule": "normalized residual must be within tolerance and lower than comparator residual"
   },
-  "root_cause_class": "DOMAIN_SCORER_SCRIPT_ROUTE_MISSING",
+  "root_cause_class": "DOMAIN_SCORER_MODEL_OR_COMPARATOR_REPAIR_REQUIRED",
   "schema_id": "OC133_MODERN_SCIENCE_COMPARATOR_DOMAIN_SCORER_IMPLEMENTATION_EXECUTION_v1",
   "scoring_artifact_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/dd1092e4b6a884f7/oc_prediction_scoring_row.json",
   "scoring_artifact_status": "OPEN",
-  "status": "CAPABILITY_DEVELOPMENT_REQUIRED",
+  "status": "EVIDENCE_REPAIR_ATTEMPTED_REMAINS_OPEN",
   "target_variable": {
     "extraction_rule": "Hide tabulated thermochemistry values until Shomate-equation predictions are materialized from visible coefficients and temperature grid.",
     "name": "Shomate_thermochemistry_table_values",
@@ -110,5 +127,5 @@
     "rule": "Bind source precision/uncertainty or a preregistered SI-unit tolerance before target opening."
   },
   "validator_binding": "comparator_gap::MS-COV-GAP-CHEMICAL_SCIENCES-THERMOCHEMISTRY_AND_PHASE_BEHAVIOR::domain_scorer_implementation",
-  "why_it_failed": "No domain scorer script route is registered for this domain class."
+  "why_it_failed": "The domain scorer ran, but the OC model/comparator/materiality predicates remain fail-closed."
 }

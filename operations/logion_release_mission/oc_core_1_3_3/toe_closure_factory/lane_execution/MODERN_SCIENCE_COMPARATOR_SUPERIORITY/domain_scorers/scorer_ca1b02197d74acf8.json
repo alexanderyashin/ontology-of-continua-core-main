@@ -1,13 +1,64 @@
 {
-  "artifact_hash": "75671fde846b5991e5caae0d0497db894d7360e2d3ab6d9c3e0080f616163a14",
+  "artifact_hash": "1c8b746a1f6b96c0ca53812980ba5192cd032c90a8afb131299282d2eaabc47f",
   "artifact_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/domain_scorers/scorer_ca1b02197d74acf8.json",
-  "command_pass": false,
-  "command_result_total": 0,
-  "command_results": [],
+  "command_pass": true,
+  "command_result_total": 3,
+  "command_results": [
+    {
+      "cmd": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "validation/heldout/grand_science/cs/coverage_work_orders/oc133_cs_modern_science_coverage_work_orders.py",
+        "--write"
+      ],
+      "returncode": 0,
+      "stderr_tail": "",
+      "stdout_tail": "{\n  \"status\": \"ok\",\n  \"output_ref\": \"validation/heldout/grand_science/cs/coverage_work_orders/OC133_CS_MODERN_SCIENCE_COVERAGE_WORK_ORDERS.json\",\n  \"failures\": []\n}\n"
+    },
+    {
+      "cmd": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "validation/heldout/grand_science/cs/coverage_work_orders/oc133_cs_modern_science_coverage_work_orders.py",
+        "--check"
+      ],
+      "returncode": 0,
+      "stderr_tail": "",
+      "stdout_tail": "{\n  \"status\": \"ok\",\n  \"checked\": \"validation/heldout/grand_science/cs/coverage_work_orders/OC133_CS_MODERN_SCIENCE_COVERAGE_WORK_ORDERS.json\"\n}\n"
+    },
+    {
+      "cmd": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "tools/oc133_toe_closure_factory.py",
+        "--execute-comparator-generic-evidence-pack",
+        "MS-COV-GAP-COMPUTER_INFORMATION_SCIENCES-MACHINE_LEARNING_GENERALIZATION_AND_EVALUATION",
+        "--write"
+      ],
+      "returncode": 0,
+      "stderr_tail": "",
+      "stdout_tail": "{\n  \"changed\": [],\n  \"missing\": [],\n  \"state\": \"PASS\"\n}\n"
+    }
+  ],
   "domain_class_id": "computer_information_sciences",
   "domain_scoring_id": "R017-DOMAIN-SCORER-b0e7d011bb178b87",
-  "exact_domain_scorer_available": false,
-  "exact_domain_scorer_commands": [],
+  "exact_domain_scorer_available": true,
+  "exact_domain_scorer_commands": [
+    [
+      "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+      "validation/heldout/grand_science/cs/coverage_work_orders/oc133_cs_modern_science_coverage_work_orders.py",
+      "--write"
+    ],
+    [
+      "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+      "validation/heldout/grand_science/cs/coverage_work_orders/oc133_cs_modern_science_coverage_work_orders.py",
+      "--check"
+    ],
+    [
+      "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+      "tools/oc133_toe_closure_factory.py",
+      "--execute-comparator-generic-evidence-pack",
+      "MS-COV-GAP-COMPUTER_INFORMATION_SCIENCES-MACHINE_LEARNING_GENERALIZATION_AND_EVALUATION",
+      "--write"
+    ]
+  ],
   "executable_spec_ref": "MS-COV-WO-026-domain-local-bridge",
   "execution_command": [
     "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
@@ -33,11 +84,11 @@
   "phenomenon_class_id": "machine_learning_generalization_and_evaluation",
   "repair_strategy": "Implement a domain-specific scorer that locks targets, computes OC predictions and incumbent comparator predictions, materializes residuals, and reruns replay without changing the expected verdict.",
   "required_capability": "Research/DomainScoringExecutor",
-  "root_cause_class": "DOMAIN_SPECIFIC_SCORER_MISSING",
+  "root_cause_class": "DOMAIN_SCORER_RAN_BUT_SCORING_REMAINS_OPEN",
   "schema_id": "OC133_MODERN_SCIENCE_COMPARATOR_DOMAIN_SCORING_EXECUTION_v1",
   "scoring_artifact_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/b0e7d011bb178b87/oc_prediction_scoring_row.json",
   "scoring_artifact_status": "OPEN",
-  "status": "CAPABILITY_DEVELOPMENT_REQUIRED",
+  "status": "EVIDENCE_REPAIR_ATTEMPTED_REMAINS_OPEN",
   "validator_binding": "comparator_gap::MS-COV-GAP-COMPUTER_INFORMATION_SCIENCES-MACHINE_LEARNING_GENERALIZATION_AND_EVALUATION::domain_scoring_executor",
-  "why_it_failed": "No exact domain scorer exists for this domain/phenomenon; the generic evidence pack remains fail-closed."
+  "why_it_failed": "Domain scorer command ran, but strict materiality/replay predicates still keep the scoring artifact OPEN."
 }

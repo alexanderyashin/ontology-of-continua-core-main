@@ -1,0 +1,41 @@
+{
+  "artifact_hash": "ba59fd9819eb41831eef10053796d8576cfa9f8639c44ae9f89da003ea6881e3",
+  "artifact_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/domain_model_components/component_3ebbe423258fff11.json",
+  "component_id": "material_margin",
+  "component_work_order_id": "R017-DOMAIN-MODEL-COMPONENT-c81678be99c6f73b",
+  "domain_class_id": "agricultural_food_sciences",
+  "execution_command": [
+    "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+    "tools/oc133_toe_closure_factory.py",
+    "--execute-comparator-domain-model-component",
+    "R017-DOMAIN-MODEL-COMPONENT-c81678be99c6f73b",
+    "--write"
+  ],
+  "gap_id": "MS-COV-GAP-AGRICULTURAL_FOOD_SCIENCES-CROP_YIELD_SOIL_AND_TRAIT_OBSERVABLES",
+  "generated_at": "2026-05-06T09:08:38Z",
+  "implementation_blueprint": {
+    "component_id": "material_margin",
+    "domain_class_id": "agricultural_food_sciences",
+    "phenomenon_class_id": "crop_yield_soil_and_trait_observables",
+    "required_code_surface": "domain scorer/model implementation for the named domain and phenomenon",
+    "required_output": "source-bound OC prediction, incumbent comparator prediction, residuals, materiality, and replay evidence as applicable"
+  },
+  "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+  "next_escalation": "Create or edit the domain-specific model/comparator scorer; if OC remains worse, preserve fail-closed broad superiority.",
+  "no_fake_closure_policy": "This component report cannot close broad superiority without downstream scoring and replay PASS.",
+  "pass_predicate": "The downstream oc_prediction_scoring_row artifact becomes PASS without weakening materiality or replay predicates.",
+  "phenomenon_class_id": "crop_yield_soil_and_trait_observables",
+  "repair_id": "R017-DOMAIN-MODEL-REPAIR-f193d7044d98f51f",
+  "repair_strategy": "If OC does not beat the comparator, keep the gap fail-closed; otherwise record the source-bound residuals and materiality proof.",
+  "replay_artifact_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/f193d7044d98f51f/replay_record.json",
+  "replay_artifact_status": "OPEN",
+  "required_capability": "Research/DomainModelComparatorRepair",
+  "root_cause_class": "MATERIAL_SUPERIORITY_MARGIN_NOT_PROVEN",
+  "schema_id": "OC133_MODERN_SCIENCE_COMPARATOR_DOMAIN_MODEL_COMPONENT_EXECUTION_v1",
+  "scoring_artifact_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/f193d7044d98f51f/oc_prediction_scoring_row.json",
+  "scoring_artifact_status": "OPEN",
+  "source_domain_model_repair_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/domain_model_repairs/model_repair_637de99c0ff5fdc5.json",
+  "status": "CAPABILITY_DEVELOPMENT_REQUIRED",
+  "validator_binding": "comparator_gap::MS-COV-GAP-AGRICULTURAL_FOOD_SCIENCES-CROP_YIELD_SOIL_AND_TRAIT_OBSERVABLES::domain_model_repair::material_margin",
+  "why_it_failed": "Component remains open because downstream scoring/replay artifacts are not PASS."
+}

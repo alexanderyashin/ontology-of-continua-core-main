@@ -1,0 +1,41 @@
+{
+  "artifact_hash": "bd3c60f31672460236fab7a8e241f5a36231415460953c2c7c9cdb632f66ee4c",
+  "artifact_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/domain_model_components/component_5db74a1361fa471a.json",
+  "component_id": "fail_closed_status_clear",
+  "component_work_order_id": "R017-DOMAIN-MODEL-COMPONENT-e2d0baa78c5f7d73",
+  "domain_class_id": "computer_information_sciences",
+  "execution_command": [
+    "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+    "tools/oc133_toe_closure_factory.py",
+    "--execute-comparator-domain-model-component",
+    "R017-DOMAIN-MODEL-COMPONENT-e2d0baa78c5f7d73",
+    "--write"
+  ],
+  "gap_id": "MS-COV-GAP-COMPUTER_INFORMATION_SCIENCES-PROGRAM_SEMANTICS_AND_VERIFICATION",
+  "generated_at": "2026-05-06T09:08:42Z",
+  "implementation_blueprint": {
+    "component_id": "fail_closed_status_clear",
+    "domain_class_id": "computer_information_sciences",
+    "phenomenon_class_id": "program_semantics_and_verification",
+    "required_code_surface": "domain scorer/model implementation for the named domain and phenomenon",
+    "required_output": "source-bound OC prediction, incumbent comparator prediction, residuals, materiality, and replay evidence as applicable"
+  },
+  "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+  "next_escalation": "Create or edit the domain-specific model/comparator scorer; if OC remains worse, preserve fail-closed broad superiority.",
+  "no_fake_closure_policy": "This component report cannot close broad superiority without downstream scoring and replay PASS.",
+  "pass_predicate": "The downstream oc_prediction_scoring_row artifact becomes PASS without weakening materiality or replay predicates.",
+  "phenomenon_class_id": "program_semantics_and_verification",
+  "repair_id": "R017-DOMAIN-MODEL-REPAIR-b68311337e995a6c",
+  "repair_strategy": "Remove fail-closed status only by producing a PASS strict evidence pack with source-bound residuals.",
+  "replay_artifact_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/b68311337e995a6c/replay_record.json",
+  "replay_artifact_status": "OPEN",
+  "required_capability": "Research/DomainModelComparatorRepair",
+  "root_cause_class": "FAIL_CLOSED_EVIDENCE_STATUS_STILL_PRESENT",
+  "schema_id": "OC133_MODERN_SCIENCE_COMPARATOR_DOMAIN_MODEL_COMPONENT_EXECUTION_v1",
+  "scoring_artifact_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/b68311337e995a6c/oc_prediction_scoring_row.json",
+  "scoring_artifact_status": "OPEN",
+  "source_domain_model_repair_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/domain_model_repairs/model_repair_ab2048381cfe380f.json",
+  "status": "CAPABILITY_DEVELOPMENT_REQUIRED",
+  "validator_binding": "comparator_gap::MS-COV-GAP-COMPUTER_INFORMATION_SCIENCES-PROGRAM_SEMANTICS_AND_VERIFICATION::domain_model_repair::fail_closed_status_clear",
+  "why_it_failed": "Component remains open because downstream scoring/replay artifacts are not PASS."
+}

@@ -1,13 +1,64 @@
 {
-  "artifact_hash": "1dc23d5035e92505655ff94b377953779ca5ff151762867a70ca2f4c2737ec8a",
+  "artifact_hash": "c4cdea862409e24f40540249e84b3be97de6438726fd960fae57c62f92b5665b",
   "artifact_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/domain_scorers/scorer_95c5c7ed72e28d22.json",
-  "command_pass": false,
-  "command_result_total": 0,
-  "command_results": [],
+  "command_pass": true,
+  "command_result_total": 3,
+  "command_results": [
+    {
+      "cmd": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "validation/heldout/grand_science/medical/coverage_work_orders/oc133_medical_modern_science_coverage_work_orders.py",
+        "--write"
+      ],
+      "returncode": 0,
+      "stderr_tail": "",
+      "stdout_tail": "{\n  \"status\": \"ok\",\n  \"output_ref\": \"validation/heldout/grand_science/medical/coverage_work_orders/OC133_MEDICAL_MODERN_SCIENCE_COVERAGE_WORK_ORDERS.json\",\n  \"failures\": []\n}\n"
+    },
+    {
+      "cmd": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "validation/heldout/grand_science/medical/coverage_work_orders/oc133_medical_modern_science_coverage_work_orders.py",
+        "--check"
+      ],
+      "returncode": 0,
+      "stderr_tail": "",
+      "stdout_tail": "{\n  \"status\": \"ok\",\n  \"checked\": \"validation/heldout/grand_science/medical/coverage_work_orders/OC133_MEDICAL_MODERN_SCIENCE_COVERAGE_WORK_ORDERS.json\",\n  \"coverage_closure_allowed\": false\n}\n"
+    },
+    {
+      "cmd": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "tools/oc133_toe_closure_factory.py",
+        "--execute-comparator-generic-evidence-pack",
+        "MS-COV-GAP-MEDICAL_HEALTH_SCIENCES-PHARMACOLOGY_TOXICOLOGY_AND_DOSE_RESPONSE",
+        "--write"
+      ],
+      "returncode": 0,
+      "stderr_tail": "",
+      "stdout_tail": "{\n  \"changed\": [],\n  \"missing\": [],\n  \"state\": \"PASS\"\n}\n"
+    }
+  ],
   "domain_class_id": "medical_health_sciences",
   "domain_scoring_id": "R017-DOMAIN-SCORER-37c095c180c5f414",
-  "exact_domain_scorer_available": false,
-  "exact_domain_scorer_commands": [],
+  "exact_domain_scorer_available": true,
+  "exact_domain_scorer_commands": [
+    [
+      "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+      "validation/heldout/grand_science/medical/coverage_work_orders/oc133_medical_modern_science_coverage_work_orders.py",
+      "--write"
+    ],
+    [
+      "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+      "validation/heldout/grand_science/medical/coverage_work_orders/oc133_medical_modern_science_coverage_work_orders.py",
+      "--check"
+    ],
+    [
+      "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+      "tools/oc133_toe_closure_factory.py",
+      "--execute-comparator-generic-evidence-pack",
+      "MS-COV-GAP-MEDICAL_HEALTH_SCIENCES-PHARMACOLOGY_TOXICOLOGY_AND_DOSE_RESPONSE",
+      "--write"
+    ]
+  ],
   "executable_spec_ref": "MS-MED-OPENFDA-DOSE-RESPONSE-v1",
   "execution_command": [
     "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
@@ -33,11 +84,11 @@
   "phenomenon_class_id": "pharmacology_toxicology_and_dose_response",
   "repair_strategy": "Implement a domain-specific scorer that locks targets, computes OC predictions and incumbent comparator predictions, materializes residuals, and reruns replay without changing the expected verdict.",
   "required_capability": "Research/DomainScoringExecutor",
-  "root_cause_class": "DOMAIN_SPECIFIC_SCORER_MISSING",
+  "root_cause_class": "DOMAIN_SCORER_RAN_BUT_SCORING_REMAINS_OPEN",
   "schema_id": "OC133_MODERN_SCIENCE_COMPARATOR_DOMAIN_SCORING_EXECUTION_v1",
   "scoring_artifact_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/37c095c180c5f414/oc_prediction_scoring_row.json",
   "scoring_artifact_status": "OPEN",
-  "status": "CAPABILITY_DEVELOPMENT_REQUIRED",
+  "status": "EVIDENCE_REPAIR_ATTEMPTED_REMAINS_OPEN",
   "validator_binding": "comparator_gap::MS-COV-GAP-MEDICAL_HEALTH_SCIENCES-PHARMACOLOGY_TOXICOLOGY_AND_DOSE_RESPONSE::domain_scoring_executor",
-  "why_it_failed": "No exact domain scorer exists for this domain/phenomenon; the generic evidence pack remains fail-closed."
+  "why_it_failed": "Domain scorer command ran, but strict materiality/replay predicates still keep the scoring artifact OPEN."
 }

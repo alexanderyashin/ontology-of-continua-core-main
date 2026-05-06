@@ -1,14 +1,32 @@
 {
-  "artifact_hash": "f373185535ceca52e2f21711b759fb871003d78e5f0b5588230914f597ee67f4",
+  "artifact_hash": "bbacfdb7a72d047615dccb1d31d6ff76fc3c513812ef8f3412e5df635e878d7b",
   "artifact_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/domain_scorer_implementations/scorer_impl_dbe299d1971ed552.json",
   "command_result_total": 0,
   "command_results": [],
   "domain_class_id": "agricultural_food_sciences",
   "domain_scoring_id": "R017-DOMAIN-SCORER-f193d7044d98f51f",
   "domain_scoring_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/domain_scorers/scorer_b997f3e1288bcb33.json",
-  "domain_scoring_root_cause": "DOMAIN_SPECIFIC_SCORER_MISSING",
-  "domain_scoring_status": "CAPABILITY_DEVELOPMENT_REQUIRED",
-  "exact_domain_scorer_commands": [],
+  "domain_scoring_root_cause": "DOMAIN_SCORER_RAN_BUT_SCORING_REMAINS_OPEN",
+  "domain_scoring_status": "EVIDENCE_REPAIR_ATTEMPTED_REMAINS_OPEN",
+  "exact_domain_scorer_commands": [
+    [
+      "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+      "validation/heldout/grand_science/agriculture/coverage_work_orders/oc133_agriculture_modern_science_coverage_work_orders.py",
+      "--write"
+    ],
+    [
+      "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+      "validation/heldout/grand_science/agriculture/coverage_work_orders/oc133_agriculture_modern_science_coverage_work_orders.py",
+      "--check"
+    ],
+    [
+      "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+      "tools/oc133_toe_closure_factory.py",
+      "--execute-comparator-generic-evidence-pack",
+      "MS-COV-GAP-AGRICULTURAL_FOOD_SCIENCES-CROP_YIELD_SOIL_AND_TRAIT_OBSERVABLES",
+      "--write"
+    ]
+  ],
   "execution_command": [
     "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
     "tools/oc133_toe_closure_factory.py",
@@ -41,7 +59,7 @@
   },
   "gap_id": "MS-COV-GAP-AGRICULTURAL_FOOD_SCIENCES-CROP_YIELD_SOIL_AND_TRAIT_OBSERVABLES",
   "generated_at": "2026-05-06T08:32:49Z",
-  "implementation_command_class": "MISSING_DOMAIN_SCORER_FLAGS",
+  "implementation_command_class": "CONCRETE_DOMAIN_SCORER",
   "implementation_id": "R017-DOMAIN-SCORER-IMPL-f193d7044d98f51f",
   "implementation_work_order_id": "R017-DOMAIN-SCORER-IMPL-f193d7044d98f51f",
   "incumbent_comparator_requirement": {
@@ -53,9 +71,7 @@
   },
   "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
   "missing_domain_scorer_elements": [
-    "command_pass",
     "comparator_residual_materialized",
-    "exact_domain_scorer_available",
     "fail_closed_status_absent",
     "material_margin_met",
     "model_residual_materialized",
@@ -71,7 +87,7 @@
   },
   "pass_predicate": "A governed domain scorer script/flags exist, run cleanly, and the downstream domain-scoring report plus oc_prediction_scoring_row become PASS.",
   "phenomenon_class_id": "crop_yield_soil_and_trait_observables",
-  "repair_strategy": "Extend the existing domain scorer script with concrete flags for this phenomenon and bind them in COMPARATOR_DOMAIN_IMPLEMENTED_COMMANDS.",
+  "repair_strategy": "Inspect the existing scorer output, repair the OC model/comparator/residual/materiality implementation, and preserve negative results if OC does not beat the comparator.",
   "replay_artifact_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/f193d7044d98f51f/replay_record.json",
   "replay_artifact_status": "OPEN",
   "required_capability": "Research/DomainScorerImplementation",
@@ -91,11 +107,11 @@
     "metric_id": "MS-COV-WO-019_domain_local_residual",
     "superiority_rule": "model_MAE + uncertainty_margin < comparator_MAE on the same heldout rows"
   },
-  "root_cause_class": "DOMAIN_SCORER_FLAGS_MISSING",
+  "root_cause_class": "DOMAIN_SCORER_MODEL_OR_COMPARATOR_REPAIR_REQUIRED",
   "schema_id": "OC133_MODERN_SCIENCE_COMPARATOR_DOMAIN_SCORER_IMPLEMENTATION_EXECUTION_v1",
   "scoring_artifact_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/f193d7044d98f51f/oc_prediction_scoring_row.json",
   "scoring_artifact_status": "OPEN",
-  "status": "CAPABILITY_DEVELOPMENT_REQUIRED",
+  "status": "EVIDENCE_REPAIR_ATTEMPTED_REMAINS_OPEN",
   "target_variable": {
     "extraction_rule": "Target values remain hidden until scoring according to the domain-local work order.",
     "name": "heldout_county_or_state_year_corn_yield",
@@ -112,5 +128,5 @@
     "rule": "pre-2019 rolling-origin residual envelope by location and crop"
   },
   "validator_binding": "comparator_gap::MS-COV-GAP-AGRICULTURAL_FOOD_SCIENCES-CROP_YIELD_SOIL_AND_TRAIT_OBSERVABLES::domain_scorer_implementation",
-  "why_it_failed": "The domain scorer script exists, but this domain/phenomenon has no bound acquisition/scoring/replay flags."
+  "why_it_failed": "The domain scorer ran, but the OC model/comparator/materiality predicates remain fail-closed."
 }

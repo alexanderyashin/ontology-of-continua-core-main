@@ -1,0 +1,41 @@
+{
+  "artifact_hash": "c20eb06697e9185a6ab49c9e165f8e1ad4f828536fe62f3a357fe043d10942ed",
+  "artifact_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/domain_model_components/component_d5a22dc6d5e85417.json",
+  "component_id": "material_margin",
+  "component_work_order_id": "R017-DOMAIN-MODEL-COMPONENT-fd7facc3871934ba",
+  "domain_class_id": "social_economic_political_sciences",
+  "execution_command": [
+    "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+    "tools/oc133_toe_closure_factory.py",
+    "--execute-comparator-domain-model-component",
+    "R017-DOMAIN-MODEL-COMPONENT-fd7facc3871934ba",
+    "--write"
+  ],
+  "gap_id": "MS-COV-GAP-SOCIAL_ECONOMIC_POLITICAL_SCIENCES-INSTITUTIONAL_SOCIAL_NETWORK_AND_POLICY_OUTCOMES",
+  "generated_at": "2026-05-06T09:08:48Z",
+  "implementation_blueprint": {
+    "component_id": "material_margin",
+    "domain_class_id": "social_economic_political_sciences",
+    "phenomenon_class_id": "institutional_social_network_and_policy_outcomes",
+    "required_code_surface": "domain scorer/model implementation for the named domain and phenomenon",
+    "required_output": "source-bound OC prediction, incumbent comparator prediction, residuals, materiality, and replay evidence as applicable"
+  },
+  "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+  "next_escalation": "Create or edit the domain-specific model/comparator scorer; if OC remains worse, preserve fail-closed broad superiority.",
+  "no_fake_closure_policy": "This component report cannot close broad superiority without downstream scoring and replay PASS.",
+  "pass_predicate": "The downstream oc_prediction_scoring_row artifact becomes PASS without weakening materiality or replay predicates.",
+  "phenomenon_class_id": "institutional_social_network_and_policy_outcomes",
+  "repair_id": "R017-DOMAIN-MODEL-REPAIR-3dcf09e69027dbe9",
+  "repair_strategy": "If OC does not beat the comparator, keep the gap fail-closed; otherwise record the source-bound residuals and materiality proof.",
+  "replay_artifact_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/3dcf09e69027dbe9/replay_record.json",
+  "replay_artifact_status": "OPEN",
+  "required_capability": "Research/DomainModelComparatorRepair",
+  "root_cause_class": "MATERIAL_SUPERIORITY_MARGIN_NOT_PROVEN",
+  "schema_id": "OC133_MODERN_SCIENCE_COMPARATOR_DOMAIN_MODEL_COMPONENT_EXECUTION_v1",
+  "scoring_artifact_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/3dcf09e69027dbe9/oc_prediction_scoring_row.json",
+  "scoring_artifact_status": "OPEN",
+  "source_domain_model_repair_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/domain_model_repairs/model_repair_9551e94ee966c16c.json",
+  "status": "CAPABILITY_DEVELOPMENT_REQUIRED",
+  "validator_binding": "comparator_gap::MS-COV-GAP-SOCIAL_ECONOMIC_POLITICAL_SCIENCES-INSTITUTIONAL_SOCIAL_NETWORK_AND_POLICY_OUTCOMES::domain_model_repair::material_margin",
+  "why_it_failed": "Component remains open because downstream scoring/replay artifacts are not PASS."
+}

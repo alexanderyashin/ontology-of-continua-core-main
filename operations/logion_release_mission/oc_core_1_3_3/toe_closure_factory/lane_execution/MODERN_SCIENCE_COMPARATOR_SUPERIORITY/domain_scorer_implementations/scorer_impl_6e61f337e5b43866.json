@@ -1,14 +1,32 @@
 {
-  "artifact_hash": "29c0fd3bb53c4466813c1b4b32b8e74d1a691b858749a5d9e275c3e5fb6ae8ce",
+  "artifact_hash": "d9401bfb2a35480c4ee737d4a6d022feed9827d1bf6f9659f7723081b723aea4",
   "artifact_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/domain_scorer_implementations/scorer_impl_6e61f337e5b43866.json",
   "command_result_total": 0,
   "command_results": [],
   "domain_class_id": "medical_health_sciences",
   "domain_scoring_id": "R017-DOMAIN-SCORER-c8f37f6962a1ece5",
   "domain_scoring_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/domain_scorers/scorer_c419dccbbedf1ea8.json",
-  "domain_scoring_root_cause": "DOMAIN_SPECIFIC_SCORER_MISSING",
-  "domain_scoring_status": "CAPABILITY_DEVELOPMENT_REQUIRED",
-  "exact_domain_scorer_commands": [],
+  "domain_scoring_root_cause": "DOMAIN_SCORER_RAN_BUT_SCORING_REMAINS_OPEN",
+  "domain_scoring_status": "EVIDENCE_REPAIR_ATTEMPTED_REMAINS_OPEN",
+  "exact_domain_scorer_commands": [
+    [
+      "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+      "validation/heldout/grand_science/medical/coverage_work_orders/oc133_medical_modern_science_coverage_work_orders.py",
+      "--write"
+    ],
+    [
+      "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+      "validation/heldout/grand_science/medical/coverage_work_orders/oc133_medical_modern_science_coverage_work_orders.py",
+      "--check"
+    ],
+    [
+      "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+      "tools/oc133_toe_closure_factory.py",
+      "--execute-comparator-generic-evidence-pack",
+      "MS-COV-GAP-MEDICAL_HEALTH_SCIENCES-CLINICAL_OUTCOMES_AND_BIOMARKERS",
+      "--write"
+    ]
+  ],
   "execution_command": [
     "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
     "tools/oc133_toe_closure_factory.py",
@@ -23,8 +41,8 @@
     "source_separation_mode": "target_blind",
     "target_hidden_until_scoring": true
   },
-  "expected_script_exists": false,
-  "expected_script_ref": "",
+  "expected_script_exists": true,
+  "expected_script_ref": "validation/heldout/grand_science/medical/coverage_work_orders/oc133_medical_modern_science_coverage_work_orders.py",
   "falsifier_requirement": {
     "falsifier_id": "medical_clinical_outcome_no_material_advantage",
     "trigger": "Trigger if OC does not beat the preregistered comparator, if target fields leak into design, or if the negative control retains advantage."
@@ -43,7 +61,7 @@
   },
   "gap_id": "MS-COV-GAP-MEDICAL_HEALTH_SCIENCES-CLINICAL_OUTCOMES_AND_BIOMARKERS",
   "generated_at": "2026-05-06T08:32:49Z",
-  "implementation_command_class": "MISSING_DOMAIN_SCORER_SCRIPT_ROUTE",
+  "implementation_command_class": "CONCRETE_DOMAIN_SCORER",
   "implementation_id": "R017-DOMAIN-SCORER-IMPL-c8f37f6962a1ece5",
   "implementation_work_order_id": "R017-DOMAIN-SCORER-IMPL-c8f37f6962a1ece5",
   "incumbent_comparator_requirement": {
@@ -55,9 +73,7 @@
   },
   "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
   "missing_domain_scorer_elements": [
-    "command_pass",
     "comparator_residual_materialized",
-    "exact_domain_scorer_available",
     "fail_closed_status_absent",
     "material_margin_met",
     "model_residual_materialized",
@@ -73,7 +89,7 @@
   },
   "pass_predicate": "A governed domain scorer script/flags exist, run cleanly, and the downstream domain-scoring report plus oc_prediction_scoring_row become PASS.",
   "phenomenon_class_id": "clinical_outcomes_and_biomarkers",
-  "repair_strategy": "Add a governed domain scorer script route for this domain class, then bind concrete acquisition/scoring/replay flags.",
+  "repair_strategy": "Implement or repair the exact domain scorer until the downstream scoring artifact passes or remains honestly fail-closed with a narrower research blocker.",
   "replay_artifact_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/c8f37f6962a1ece5/replay_record.json",
   "replay_artifact_status": "OPEN",
   "required_capability": "Research/DomainScorerImplementation",
@@ -93,11 +109,11 @@
     "metric_id": "medical_clinical_outcome_direction_residual",
     "superiority_rule": "OC must beat the preregistered baseline with positive material margin and no target leakage."
   },
-  "root_cause_class": "DOMAIN_SCORER_SCRIPT_ROUTE_MISSING",
+  "root_cause_class": "DOMAIN_SCORER_MODEL_OR_COMPARATOR_REPAIR_REQUIRED",
   "schema_id": "OC133_MODERN_SCIENCE_COMPARATOR_DOMAIN_SCORER_IMPLEMENTATION_EXECUTION_v1",
   "scoring_artifact_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/c8f37f6962a1ece5/oc_prediction_scoring_row.json",
   "scoring_artifact_status": "OPEN",
-  "status": "CAPABILITY_DEVELOPMENT_REQUIRED",
+  "status": "EVIDENCE_REPAIR_ATTEMPTED_REMAINS_OPEN",
   "target_variable": {
     "extraction_rule": "Lock completed interventional trials and hide reported primary outcome direction and biomarker shift fields until the OC scoring pack is preregistered.",
     "name": "held_out_primary_outcome_effect_direction_and_biomarker_shift",
@@ -114,5 +130,5 @@
     "rule": "Report 95 percent bootstrap intervals and fail closed when intervals cross the materiality threshold."
   },
   "validator_binding": "comparator_gap::MS-COV-GAP-MEDICAL_HEALTH_SCIENCES-CLINICAL_OUTCOMES_AND_BIOMARKERS::domain_scorer_implementation",
-  "why_it_failed": "No domain scorer script route is registered for this domain class."
+  "why_it_failed": "The domain scorer ran, but the OC model/comparator/materiality predicates remain fail-closed."
 }
