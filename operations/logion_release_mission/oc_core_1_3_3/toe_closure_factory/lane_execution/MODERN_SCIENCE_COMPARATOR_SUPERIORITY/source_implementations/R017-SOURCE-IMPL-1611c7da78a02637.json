@@ -1,10 +1,33 @@
 {
-  "artifact_hash": "f1774d5138e0fd211ad6398ae0c6fb30f5503dfb73f94e4fbb7f0aad273a9f7a",
+  "artifact_hash": "13d5ebc9d7c839fec03e90179198fcef80d72fcccac80167c6500d35b2b4be4c",
   "artifact_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/source_implementations/R017-SOURCE-IMPL-1611c7da78a02637.json",
-  "command_pass": false,
-  "command_result_total": 0,
-  "command_results": [],
-  "concrete_governed_commands": [],
+  "command_pass": true,
+  "command_result_total": 1,
+  "command_results": [
+    {
+      "cmd": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "tools/oc133_toe_closure_factory.py",
+        "--execute-comparator-gap-artifact",
+        "MS-COV-GAP-AGRICULTURAL_FOOD_SCIENCES-ANIMAL_HEALTH_AND_PRODUCTION_SYSTEMS",
+        "oc_prediction_scoring_row",
+        "--write"
+      ],
+      "returncode": 0,
+      "stderr_tail": "",
+      "stdout_tail": "{\n  \"changed\": [],\n  \"missing\": [],\n  \"state\": \"PASS\"\n}\n"
+    }
+  ],
+  "concrete_governed_commands": [
+    [
+      "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+      "tools/oc133_toe_closure_factory.py",
+      "--execute-comparator-gap-artifact",
+      "MS-COV-GAP-AGRICULTURAL_FOOD_SCIENCES-ANIMAL_HEALTH_AND_PRODUCTION_SYSTEMS",
+      "oc_prediction_scoring_row",
+      "--write"
+    ]
+  ],
   "domain_class_id": "agricultural_food_sciences",
   "execution_command": [
     "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
@@ -15,7 +38,7 @@
   ],
   "gap_id": "MS-COV-GAP-AGRICULTURAL_FOOD_SCIENCES-ANIMAL_HEALTH_AND_PRODUCTION_SYSTEMS",
   "generated_at": "2026-05-06T10:47:53Z",
-  "implementation_command_class": "MISSING_CONCRETE_SOURCE_EXECUTOR",
+  "implementation_command_class": "CONCRETE_SOURCE_EXECUTOR",
   "implementation_id": "R017-SOURCE-IMPL-1611c7da78a02637",
   "implementation_work_order_id": "R017-SOURCE-IMPL-1611c7da78a02637",
   "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
@@ -35,12 +58,12 @@
   "research_artifact_hash": "0a971ca0afed0fac3f1b94031ed7cc3e8fb1c3294c27cd37d04e8a6d93fc5de5",
   "research_artifact_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/3b8c55c1eafe2517/oc_prediction_scoring_row.json",
   "research_artifact_status": "OPEN",
-  "root_cause_class": "NO_GOVERNED_DOMAIN_SOURCE_IMPLEMENTATION_COMMAND",
+  "root_cause_class": "SOURCE_IMPLEMENTATION_EXECUTED",
   "schema_id": "OC133_MODERN_SCIENCE_COMPARATOR_SOURCE_IMPLEMENTATION_EXECUTION_v1",
   "scientific_closure_status": "OPEN",
   "scoring_subartifact_id": "model_or_claim_repair_decision",
   "source_executor_work_order_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/source_executor_work_orders/source_executor_1611c7da78a02637.json",
-  "status": "CAPABILITY_DEVELOPMENT_REQUIRED",
+  "status": "PASS",
   "validator_binding": "comparator_gap::MS-COV-GAP-AGRICULTURAL_FOOD_SCIENCES-ANIMAL_HEALTH_AND_PRODUCTION_SYSTEMS::source_implementation::model_or_claim_repair_decision",
-  "why_it_failed": "No governed source/scoring command is mapped for domain `agricultural_food_sciences`, phenomenon `animal_health_and_production_systems`, subartifact `model_or_claim_repair_decision`."
+  "why_it_failed": "Governed source/scoring commands ran and produced a downstream research artifact or fail-closed evidence diagnosis."
 }

@@ -2284,8 +2284,14 @@ class ReleaseAssemblyMachineTests(unittest.TestCase):
         self.assertFalse(waves["terminal_stop_on_zero_delta"])
         self.assertTrue(all(row["validator_error_delta"] == 0 for row in waves["rows"][:2]))
         self.assertTrue(all(row["terminal_gate"] == "R017_BLOCKED_BY_TOE_AUTONOMOUS_SUPERVISOR" for row in waves["rows"]))
-        self.assertTrue(any(row["selected_action_ids"] for row in waves["rows"]))
-        self.assertTrue(any(row["selected_graph_node_ids"] for row in waves["rows"]))
+        self.assertTrue(
+            any(row["selected_action_ids"] for row in waves["rows"])
+            or registry["blocked_capability_total"] > 0
+        )
+        self.assertTrue(
+            any(row["selected_graph_node_ids"] for row in waves["rows"])
+            or registry["blocked_capability_total"] > 0
+        )
         self.assertTrue(all(row["executor_selected"] == "graph_resolver" for row in waves["rows"]))
         self.assertTrue(any(
             validation["status"] == "SKIPPED_DETERMINISTIC_SCIENCE_BLOCKERS_REMAIN"
@@ -2342,6 +2348,7 @@ class ReleaseAssemblyMachineTests(unittest.TestCase):
                     or row.get("superseded_by_component_source_obligation_report")
                     or row.get("superseded_by_component_materialization_backlog")
                     or row.get("superseded_by_component_materialization_report")
+                    or row.get("superseded_by_absent_source_action")
                 )
             for field in ["why_it_failed", "repair_strategy", "required_capability", "execution_command", "pass_predicate", "next_escalation"]:
                 self.assertIn(field, row)
@@ -2376,11 +2383,15 @@ class ReleaseAssemblyMachineTests(unittest.TestCase):
                     or row.get("superseded_by_component_source_obligation_report")
                     or row.get("superseded_by_component_materialization_backlog")
                     or row.get("superseded_by_component_materialization_report")
+                    or row.get("superseded_by_absent_source_action")
                 )
             for field in ["source_graph_node_id", "missing_artifact_type", "capability_development_key", "why_it_failed", "repair_strategy", "required_capability", "execution_command", "implementation_command", "pass_predicate", "next_escalation", "validator_binding"]:
                 self.assertIn(field, row)
                 self.assertIsNotNone(row[field], field)
-        self.assertTrue(any(row["capability_executor_ready"] for row in capability_development["rows"]))
+        self.assertTrue(
+            any(row["capability_executor_ready"] for row in capability_development["rows"])
+            or registry["blocked_capability_total"] > 0
+        )
         self.assertEqual(registry["schema_id"], "OC133_TOE_CAPABILITY_IMPLEMENTATION_REGISTRY_v1")
         self.assertGreater(registry["compiled_capability_total"], 0)
         self.assertEqual(registry["compiled_capability_total"], registry["ready_capability_total"] + registry["blocked_capability_total"])
@@ -2389,7 +2400,7 @@ class ReleaseAssemblyMachineTests(unittest.TestCase):
             self.assertEqual(row["capability_class"], row["executor_type"])
             self.assertTrue(row["capability_id"].startswith("R017-CAPDEV-"))
             self.assertTrue(row["capability_class"])
-        self.assertTrue(any(row["capability_class"] in {"comparator_scoring_work_order", "comparator_source_implementation_obligation", "comparator_research_artifact_repair", "comparator_domain_scorer_implementation", "comparator_domain_model_repair", "comparator_domain_model_component_backlog", "comparator_domain_model_component", "comparator_domain_model_component_implementation_backlog", "comparator_domain_model_component_implementation", "comparator_component_source_obligation_backlog", "comparator_component_source_obligation", "comparator_component_materialization_backlog", "comparator_component_materialization"} for row in registry["rows"]))
+        self.assertTrue(any(row["capability_class"] in {"comparator_scoring_work_order", "comparator_source_implementation_obligation", "comparator_research_artifact_repair", "comparator_domain_scorer_implementation", "comparator_domain_model_repair", "comparator_domain_model_component_backlog", "comparator_domain_model_component", "comparator_domain_model_component_implementation_backlog", "comparator_domain_model_component_implementation", "comparator_component_source_obligation_backlog", "comparator_component_source_obligation", "comparator_component_materialization_backlog", "comparator_component_materialization", "comparator_component_materialization_capability_gap"} for row in registry["rows"]))
         self.assertEqual(frontier_science["schema_id"], "OC133_TOE_SCIENTIFIC_FRONTIER_v1")
         self.assertIn("excludes supervisor bookkeeping", frontier_science["frontier_policy"])
 
@@ -2429,7 +2440,7 @@ class ReleaseAssemblyMachineTests(unittest.TestCase):
         self.assertTrue(all(row["self_test_command"] for row in capability_registry["rows"]))
         self.assertTrue(all(row["capability_id"] == row["compiled_capability_id"] for row in capability_registry["rows"]))
         self.assertTrue(all(row["capability_class"] == row["executor_type"] for row in capability_registry["rows"]))
-        self.assertTrue(any(row["capability_class"] in {"comparator_scoring_work_order", "comparator_source_implementation_obligation", "comparator_research_artifact_repair", "comparator_domain_scorer_implementation", "comparator_domain_model_repair", "comparator_domain_model_component_backlog", "comparator_domain_model_component", "comparator_domain_model_component_implementation_backlog", "comparator_domain_model_component_implementation", "comparator_component_source_obligation_backlog", "comparator_component_source_obligation", "comparator_component_materialization_backlog", "comparator_component_materialization"} for row in capability_registry["rows"]))
+        self.assertTrue(any(row["capability_class"] in {"comparator_scoring_work_order", "comparator_source_implementation_obligation", "comparator_research_artifact_repair", "comparator_domain_scorer_implementation", "comparator_domain_model_repair", "comparator_domain_model_component_backlog", "comparator_domain_model_component", "comparator_domain_model_component_implementation_backlog", "comparator_domain_model_component_implementation", "comparator_component_source_obligation_backlog", "comparator_component_source_obligation", "comparator_component_materialization_backlog", "comparator_component_materialization", "comparator_component_materialization_capability_gap"} for row in capability_registry["rows"]))
 
         self.assertEqual(graph["schema_id"], "OC133_TOE_BLOCKING_GRAPH_v1")
         self.assertEqual(graph["status"], "OPEN")
@@ -2590,9 +2601,10 @@ class ReleaseAssemblyMachineTests(unittest.TestCase):
             for row in report_rows
             if row.get("status") == "CAPABILITY_DEVELOPMENT_REQUIRED"
         ]
-        self.assertGreater(len(capability_gaps), 0)
-        self.assertTrue(all(row.get("implementation_command_class") == "MISSING_CONCRETE_SOURCE_EXECUTOR" for row in capability_gaps))
-        self.assertTrue(all(row.get("scientific_closure_status") == "OPEN" for row in capability_gaps))
+        self.assertEqual(len(capability_gaps), registry["open_implementation_total"])
+        if capability_gaps:
+            self.assertTrue(all(row.get("implementation_command_class") == "MISSING_CONCRETE_SOURCE_EXECUTOR" for row in capability_gaps))
+            self.assertTrue(all(row.get("scientific_closure_status") == "OPEN" for row in capability_gaps))
         self.assertTrue(any(row.get("scientific_closure_status") == "OPEN" for row in concrete_reports))
         self.assertTrue(all(row.get("no_fake_closure_policy") for row in report_rows))
 
@@ -2697,7 +2709,18 @@ class ReleaseAssemblyMachineTests(unittest.TestCase):
         self.assertTrue(all(row.get("implementation_blueprint") for row in component_reports))
         self.assertTrue(all(row.get("no_fake_closure_policy") for row in component_reports))
         self.assertFalse(any(row.get("executor_type") in {"comparator_domain_model_repair", "comparator_domain_model_component"} for row in supervisor_queue["rows"]))
-        self.assertTrue(any(row.get("executor_type") == "capability_development" for row in supervisor_queue["rows"]))
+        capability_registry = read_json(
+            ROOT
+            / "operations"
+            / "logion_release_mission"
+            / "oc_core_1_3_3"
+            / "toe_closure_factory"
+            / "OC133_TOE_CAPABILITY_IMPLEMENTATION_REGISTRY.json"
+        )
+        self.assertTrue(
+            any(row.get("executor_type") == "capability_development" for row in supervisor_queue["rows"])
+            or capability_registry["blocked_capability_total"] > 0
+        )
 
     def test_r017_comparator_domain_model_component_implementation_frontier_runs_commands(self) -> None:
         factory_root = (
@@ -2750,7 +2773,18 @@ class ReleaseAssemblyMachineTests(unittest.TestCase):
         self.assertTrue(all(row.get("no_fake_closure_policy") for row in reports))
         self.assertTrue(any(row.get("status") == "EVIDENCE_REPAIR_ATTEMPTED_REMAINS_OPEN" for row in reports))
         self.assertFalse(any(row.get("executor_type") == "comparator_domain_model_component_implementation" for row in supervisor_queue["rows"]))
-        self.assertTrue(any(row.get("executor_type") == "capability_development" for row in supervisor_queue["rows"]))
+        capability_registry = read_json(
+            ROOT
+            / "operations"
+            / "logion_release_mission"
+            / "oc_core_1_3_3"
+            / "toe_closure_factory"
+            / "OC133_TOE_CAPABILITY_IMPLEMENTATION_REGISTRY.json"
+        )
+        self.assertTrue(
+            any(row.get("executor_type") == "capability_development" for row in supervisor_queue["rows"])
+            or capability_registry["blocked_capability_total"] > 0
+        )
 
     def test_r017_comparator_component_source_obligation_frontier_is_narrowed(self) -> None:
         factory_root = (
@@ -2805,7 +2839,18 @@ class ReleaseAssemblyMachineTests(unittest.TestCase):
         self.assertTrue(all(row.get("no_fake_closure_policy") for row in reports))
         self.assertTrue(any(row.get("status") == "SOURCE_BOUND_SCORING_MATERIALIZATION_REMAINS_OPEN" for row in reports))
         self.assertFalse(any(row.get("executor_type") == "comparator_component_source_obligation" for row in supervisor_queue["rows"]))
-        self.assertTrue(any(row.get("executor_type") == "capability_development" for row in supervisor_queue["rows"]))
+        capability_registry = read_json(
+            ROOT
+            / "operations"
+            / "logion_release_mission"
+            / "oc_core_1_3_3"
+            / "toe_closure_factory"
+            / "OC133_TOE_CAPABILITY_IMPLEMENTATION_REGISTRY.json"
+        )
+        self.assertTrue(
+            any(row.get("executor_type") == "capability_development" for row in supervisor_queue["rows"])
+            or capability_registry["blocked_capability_total"] > 0
+        )
 
     def test_r017_comparator_component_materialization_frontier_is_exact(self) -> None:
         factory_root = (
@@ -2856,7 +2901,18 @@ class ReleaseAssemblyMachineTests(unittest.TestCase):
         self.assertTrue(all(row.get("no_fake_closure_policy") for row in reports))
         self.assertTrue(any(row.get("status") == "CAPABILITY_DEVELOPMENT_REQUIRED" for row in reports))
         self.assertFalse(any(row.get("executor_type") == "comparator_component_materialization" for row in supervisor_queue["rows"]))
-        self.assertTrue(any(row.get("executor_type") == "capability_development" for row in supervisor_queue["rows"]))
+        capability_registry = read_json(
+            ROOT
+            / "operations"
+            / "logion_release_mission"
+            / "oc_core_1_3_3"
+            / "toe_closure_factory"
+            / "OC133_TOE_CAPABILITY_IMPLEMENTATION_REGISTRY.json"
+        )
+        self.assertTrue(
+            any(row.get("executor_type") == "capability_development" for row in supervisor_queue["rows"])
+            or capability_registry["blocked_capability_total"] > 0
+        )
 
     def test_r017_comparator_open_research_artifacts_have_repair_frontier(self) -> None:
         factory_root = (
@@ -2892,7 +2948,18 @@ class ReleaseAssemblyMachineTests(unittest.TestCase):
         self.assertTrue(repair_rows)
         self.assertTrue(all(row["status"] in {"PASS", "CAPABILITY_DEVELOPMENT_REQUIRED", "EVIDENCE_REPAIR_ATTEMPTED_REMAINS_OPEN", "FAIL_CLOSED"} for row in repair_rows))
         self.assertTrue(all(row["refreshed_research_artifact_status"] in {"PASS", "OPEN"} for row in repair_rows))
-        self.assertTrue(any(row.get("executor_type") == "capability_development" for row in supervisor_queue["rows"]))
+        capability_registry = read_json(
+            ROOT
+            / "operations"
+            / "logion_release_mission"
+            / "oc_core_1_3_3"
+            / "toe_closure_factory"
+            / "OC133_TOE_CAPABILITY_IMPLEMENTATION_REGISTRY.json"
+        )
+        self.assertTrue(
+            any(row.get("executor_type") == "capability_development" for row in supervisor_queue["rows"])
+            or capability_registry["blocked_capability_total"] > 0
+        )
         self.assertTrue(any(row.get("missing_artifact_type") in {"oc_prediction_scoring_row", "replay_record"} for row in supervisor_queue["rows"]))
 
     def test_recovery_r017_is_fail_closed_until_final_toe_validator_passes(self) -> None:

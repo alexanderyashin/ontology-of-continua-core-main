@@ -3432,6 +3432,8 @@ def comparator_source_implementation_commands(
         "residuals_materiality_uncertainty",
         "controls_and_falsifiers",
         "independent_replay",
+        "strict_evidence_pack_diagnosis",
+        "model_or_claim_repair_decision",
     }
     if gap_id and mapped_artifact and subartifact_id in deterministic_artifact_bindings:
         return [
@@ -8074,6 +8076,28 @@ def capability_executor_for_row(row: dict[str, Any], compiled_capability_id: str
                     implementation_report = comparator_domain_scorer_implementation_report(ROOT, implementation_id)
                     if implementation_report.get("root_cause_class") == "DOMAIN_SCORER_MODEL_OR_COMPARATOR_REPAIR_REQUIRED":
                         repair_id = comparator_domain_model_repair_id(gap_id)
+                        repair_report = comparator_domain_model_repair_report(ROOT, repair_id)
+                        if repair_report.get("component_open_total", 0):
+                            component_rows = [
+                                item
+                                for item in comparator_domain_model_component_rows(ROOT)
+                                if str(item.get("gap_id") or "") == gap_id
+                                and not comparator_domain_model_component_completed(ROOT, str(item.get("component_work_order_id") or ""))
+                            ]
+                            if component_rows:
+                                component_key = f"domain_model_component::{component_rows[0].get('component_id')}"
+                                component_proxy = dict(row)
+                                component_proxy["missing_artifact_type"] = component_key
+                                component_proxy["scoring_subartifact_id"] = ""
+                                component_proxy["source_graph_node_id"] = (
+                                    f"required_artifact:MODERN_SCIENCE_COMPARATOR_SUPERIORITY:{gap_id}:{component_key}"
+                                )
+                                return capability_executor_for_row(component_proxy, compiled_capability_id)
+                            return (
+                                [sys.executable, "tools/oc133_toe_closure_factory.py", "--compile-comparator-domain-model-component-backlog", "--write"],
+                                "comparator_domain_model_component_backlog",
+                                "Compile open model/comparator repair components into exact component-level implementation obligations.",
+                            )
                         if repair_id in comparator_domain_model_repair_rows_by_id(ROOT) and not comparator_domain_model_repair_completed(ROOT, repair_id):
                             return (
                                 [sys.executable, "tools/oc133_toe_closure_factory.py", "--execute-comparator-domain-model-repair", repair_id, "--write"],
@@ -8113,6 +8137,28 @@ def capability_executor_for_row(row: dict[str, Any], compiled_capability_id: str
                 implementation_report = comparator_domain_scorer_implementation_report(ROOT, implementation_id)
                 if implementation_report.get("root_cause_class") == "DOMAIN_SCORER_MODEL_OR_COMPARATOR_REPAIR_REQUIRED":
                     repair_id = comparator_domain_model_repair_id(gap_id)
+                    repair_report = comparator_domain_model_repair_report(ROOT, repair_id)
+                    if repair_report.get("component_open_total", 0):
+                        component_rows = [
+                            item
+                            for item in comparator_domain_model_component_rows(ROOT)
+                            if str(item.get("gap_id") or "") == gap_id
+                            and not comparator_domain_model_component_completed(ROOT, str(item.get("component_work_order_id") or ""))
+                        ]
+                        if component_rows:
+                            component_key = f"domain_model_component::{component_rows[0].get('component_id')}"
+                            component_proxy = dict(row)
+                            component_proxy["missing_artifact_type"] = component_key
+                            component_proxy["scoring_subartifact_id"] = ""
+                            component_proxy["source_graph_node_id"] = (
+                                f"required_artifact:MODERN_SCIENCE_COMPARATOR_SUPERIORITY:{gap_id}:{component_key}"
+                            )
+                            return capability_executor_for_row(component_proxy, compiled_capability_id)
+                        return (
+                            [sys.executable, "tools/oc133_toe_closure_factory.py", "--compile-comparator-domain-model-component-backlog", "--write"],
+                            "comparator_domain_model_component_backlog",
+                            "Compile open model/comparator repair components into exact component-level implementation obligations.",
+                        )
                     if repair_id in comparator_domain_model_repair_rows_by_id(ROOT) and not comparator_domain_model_repair_completed(ROOT, repair_id):
                         return (
                             [sys.executable, "tools/oc133_toe_closure_factory.py", "--execute-comparator-domain-model-repair", repair_id, "--write"],
@@ -8167,6 +8213,13 @@ def capability_executor_for_row(row: dict[str, Any], compiled_capability_id: str
                     obligation_report = comparator_component_source_obligation_report(ROOT, obligation_id)
                     if obligation_report.get("status") == "SOURCE_BOUND_SCORING_MATERIALIZATION_REMAINS_OPEN":
                         materialization_id = comparator_component_materialization_id(obligation_id)
+                        materialization_report = comparator_component_materialization_report(ROOT, materialization_id)
+                        if materialization_report.get("status") == "CAPABILITY_DEVELOPMENT_REQUIRED":
+                            return (
+                                [],
+                                "comparator_component_materialization_capability_gap",
+                                "Source-bound materialization report already exists and names the missing domain scorer/materializer; do not rerun the diagnostic wrapper.",
+                            )
                         if materialization_id in comparator_component_materialization_rows_by_id(ROOT) and not comparator_component_materialization_completed(ROOT, materialization_id):
                             return (
                                 [sys.executable, "tools/oc133_toe_closure_factory.py", "--execute-comparator-component-materialization", materialization_id, "--write"],
@@ -8228,6 +8281,13 @@ def capability_executor_for_row(row: dict[str, Any], compiled_capability_id: str
                 obligation_report = comparator_component_source_obligation_report(ROOT, obligation_id)
                 if obligation_report.get("status") == "SOURCE_BOUND_SCORING_MATERIALIZATION_REMAINS_OPEN":
                     materialization_id = comparator_component_materialization_id(obligation_id)
+                    materialization_report = comparator_component_materialization_report(ROOT, materialization_id)
+                    if materialization_report.get("status") == "CAPABILITY_DEVELOPMENT_REQUIRED":
+                        return (
+                            [],
+                            "comparator_component_materialization_capability_gap",
+                            "Source-bound materialization report already exists and names the missing domain scorer/materializer; do not rerun the diagnostic wrapper.",
+                        )
                     if materialization_id in comparator_component_materialization_rows_by_id(ROOT) and not comparator_component_materialization_completed(ROOT, materialization_id):
                         return (
                             [sys.executable, "tools/oc133_toe_closure_factory.py", "--execute-comparator-component-materialization", materialization_id, "--write"],
@@ -8267,6 +8327,28 @@ def capability_executor_for_row(row: dict[str, Any], compiled_capability_id: str
                         implementation_report = comparator_domain_scorer_implementation_report(ROOT, implementation_id)
                         if implementation_report.get("root_cause_class") == "DOMAIN_SCORER_MODEL_OR_COMPARATOR_REPAIR_REQUIRED":
                             repair_id = comparator_domain_model_repair_id(gap_id)
+                            repair_report = comparator_domain_model_repair_report(ROOT, repair_id)
+                            if repair_report.get("component_open_total", 0):
+                                component_rows = [
+                                    item
+                                    for item in comparator_domain_model_component_rows(ROOT)
+                                    if str(item.get("gap_id") or "") == gap_id
+                                    and not comparator_domain_model_component_completed(ROOT, str(item.get("component_work_order_id") or ""))
+                                ]
+                                if component_rows:
+                                    component_key = f"domain_model_component::{component_rows[0].get('component_id')}"
+                                    component_proxy = dict(row)
+                                    component_proxy["missing_artifact_type"] = component_key
+                                    component_proxy["scoring_subartifact_id"] = ""
+                                    component_proxy["source_graph_node_id"] = (
+                                        f"required_artifact:MODERN_SCIENCE_COMPARATOR_SUPERIORITY:{gap_id}:{component_key}"
+                                    )
+                                    return capability_executor_for_row(component_proxy, compiled_capability_id)
+                                return (
+                                    [sys.executable, "tools/oc133_toe_closure_factory.py", "--compile-comparator-domain-model-component-backlog", "--write"],
+                                    "comparator_domain_model_component_backlog",
+                                    "Compile open model/comparator repair components into exact component-level implementation obligations instead of rerunning exhausted scorer attempts.",
+                                )
                             if repair_id in comparator_domain_model_repair_rows_by_id(ROOT) and not comparator_domain_model_repair_completed(ROOT, repair_id):
                                 return (
                                     [sys.executable, "tools/oc133_toe_closure_factory.py", "--execute-comparator-domain-model-repair", repair_id, "--write"],

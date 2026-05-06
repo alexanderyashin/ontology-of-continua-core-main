@@ -467,6 +467,9 @@ def build_blocking_graph(
             source_action_id=row.get("source_action_id"),
             missing_artifact_type=row.get("missing_artifact_type"),
             implementation_gap_class=row.get("implementation_gap_class"),
+            capability_id=row.get("capability_id"),
+            compiled_capability_id=row.get("compiled_capability_id"),
+            capability_class=row.get("capability_class"),
             capability_executor_ready=bool(row.get("capability_executor_ready")),
             why_it_failed=row.get("why_it_failed"),
             repair_strategy=row.get("repair_strategy"),
@@ -540,6 +543,11 @@ def load_capability_development_rows(root: Path) -> list[dict[str, Any]]:
     payload = read_json(root / SUPERVISOR_DIR / CAPABILITY_DEVELOPMENT_LEDGER_NAME)
     rows = payload.get("rows") or []
     open_lanes = factory.current_open_validator_lanes(root)
+    current_comparator_action_ids = {
+        str(action.get("action_id"))
+        for action in comparator_actions(root)
+        if action.get("action_id")
+    }
     registry = read_json(root / factory.FACTORY_DIR / factory.CAPABILITY_IMPLEMENTATION_REGISTRY_NAME)
     by_source_id = {
         str(row.get("source_capability_development_id")): row
@@ -580,6 +588,21 @@ def load_capability_development_rows(root: Path) -> list[dict[str, Any]]:
         else:
             payload["capability_development_key"] = key
         source_node_id = str(payload.get("source_graph_node_id") or "")
+        source_action_id = str(payload.get("source_action_id") or "")
+        if source_node_id.startswith("capability:"):
+            source_action_id = source_node_id.removeprefix("capability:")
+        if source_action_id.startswith("AUTO-R017-COMPARATOR-") and source_action_id not in current_comparator_action_ids:
+            payload["status"] = "PASS"
+            payload["superseded_by_absent_source_action"] = True
+            payload["capability_executor_ready"] = False
+            payload["execution_command"] = []
+            payload["implementation_command"] = []
+            payload["next_escalation"] = (
+                "The source comparator action no longer exists on the current scientific frontier; "
+                "the row is retained as historical zero-delta evidence and excluded from execution."
+            )
+            enriched.append(payload)
+            continue
         if source_node_id == "required_artifact:MODERN_SCIENCE_COMPARATOR_SUPERIORITY:source_implementation_backlog":
             if read_json(root / factory.comparator_source_implementation_backlog_rel()).get("status") == "PASS":
                 payload["status"] = "PASS"
@@ -1672,6 +1695,11 @@ def graph_action_for_node(
                 "graph_dependency_path": [node_id],
                 "source_graph_node_id": node.get("source_graph_node_id"),
                 "missing_artifact_type": node.get("missing_artifact_type"),
+                "capability_id": node.get("capability_id"),
+                "compiled_capability_id": node.get("compiled_capability_id"),
+                "capability_class": node.get("capability_class"),
+                "capability_executor_ready": node.get("capability_executor_ready"),
+                "implementation_command": node.get("implementation_command", []),
                 "why_it_failed": node.get("why_it_failed"),
                 "repair_strategy": node.get("repair_strategy"),
                 "required_capability": node.get("required_capability"),
@@ -1753,7 +1781,19 @@ def plan_next_actions(root: Path, state: dict[str, Any], frontier_hash: str) -> 
 
     attempted = existing_attempt_signatures(state)
     for action in actions:
-        signature = f"{frontier_hash}::{action['action_id']}"
+        if action.get("executor_type") == "capability_development":
+            variant = artifact_hash(
+                {
+                    "action_id": action.get("action_id"),
+                    "compiled_capability_id": action.get("compiled_capability_id"),
+                    "capability_class": action.get("capability_class"),
+                    "execution_command": action.get("execution_command", []),
+                    "implementation_command": action.get("implementation_command", []),
+                }
+            )[:16]
+            signature = f"{frontier_hash}::{action['action_id']}::{variant}"
+        else:
+            signature = f"{frontier_hash}::{action['action_id']}"
         action["frontier_signature"] = signature
         action["already_attempted_on_frontier"] = signature in attempted
         action["selected_for_execution"] = False
@@ -2307,6 +2347,11 @@ def build_capability_development_ledger(rows: list[dict[str, Any]], generated_at
         for row in registry.get("rows", []) or []
         if isinstance(row, dict) and row.get("source_capability_development_id")
     }
+    current_comparator_action_ids = {
+        str(action.get("action_id"))
+        for action in comparator_actions(ROOT)
+        if action.get("action_id")
+    }
     for row in rows:
         capability_id = str(row.get("capability_development_id") or row.get("capability_escalation_id") or artifact_hash(row)[:16])
         payload = dict(row)
@@ -2314,6 +2359,19 @@ def build_capability_development_ledger(rows: list[dict[str, Any]], generated_at
         root_source = root_source_graph_node(payload)
         if root_source:
             payload["source_graph_node_id"] = root_source
+        source_action_id = str(payload.get("source_action_id") or "")
+        if isinstance(root_source, str) and root_source.startswith("capability:"):
+            source_action_id = root_source.removeprefix("capability:")
+        if source_action_id.startswith("AUTO-R017-COMPARATOR-") and source_action_id not in current_comparator_action_ids:
+            payload["status"] = "PASS"
+            payload["superseded_by_absent_source_action"] = True
+            payload["capability_executor_ready"] = False
+            payload["execution_command"] = []
+            payload["implementation_command"] = []
+            payload["next_escalation"] = (
+                "The source comparator action no longer exists on the current scientific frontier; "
+                "the row is retained as historical zero-delta evidence and excluded from execution."
+            )
         if isinstance(root_source, str) and root_source.startswith("required_artifact:MODERN_SCIENCE_COMPARATOR_SUPERIORITY:"):
             parts = root_source.split(":")
             if (

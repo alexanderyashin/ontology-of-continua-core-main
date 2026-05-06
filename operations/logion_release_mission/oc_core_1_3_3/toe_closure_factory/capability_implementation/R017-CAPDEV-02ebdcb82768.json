@@ -1,8 +1,8 @@
 {
   "after_validator_error_total": 13,
-  "artifact_hash": "441e9839f29a4386a8a0ebbc308edfad5d86bdd13a5514c0573c94289efb5d3a",
+  "artifact_hash": "6be0157b4428fdcce9b0e84dca4b1a843fb794afbc076f50db7f865b9f85dda2",
   "before_validator_error_total": 13,
-  "capability_class": "comparator_research_artifact_repair",
+  "capability_class": "comparator_component_materialization",
   "capability_development_key": "02ebdcb82768b88fedf6fea1094de41fd9fa7813d8f965306693f727ed48510f",
   "capability_id": "R017-CAPDEV-02ebdcb82768",
   "command_results": [
@@ -10,13 +10,13 @@
       "cmd": [
         "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
         "tools/oc133_toe_closure_factory.py",
-        "--execute-comparator-research-artifact-repair",
-        "R017-RESEARCH-ARTIFACT-REPAIR-bfcf581bb0ec3db0",
+        "--execute-comparator-component-materialization",
+        "R017-COMPONENT-MATERIALIZE-68737a44b57c0fbf",
         "--write"
       ],
-      "returncode": 1,
-      "stderr_tail": "Traceback (most recent call last):\n  File \"C:\\Users\\Megaport\\work\\logion_local\\repos\\ontology-of-continua-core-main\\tools\\oc133_toe_closure_factory.py\", line 6189, in <module>\n    raise SystemExit(main())\n                     ~~~~^^\n  File \"C:\\Users\\Megaport\\work\\logion_local\\repos\\ontology-of-continua-core-main\\tools\\oc133_toe_closure_factory.py\", line 6120, in main\n    payload = build_comparator_research_artifact_repair_execution(ROOT, args.execute_comparator_research_artifact_repair, timeout=args.timeout)\n  File \"C:\\Users\\Megaport\\work\\logion_local\\repos\\ontology-of-continua-core-main\\tools\\oc133_toe_closure_factory.py\", line 3491, in build_comparator_research_artifact_repair_execution\n    write_json_artifact(root, comparator_research_artifact_repair_rel(repair_id), payload)\n    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\Megaport\\work\\logion_local\\repos\\ontology-of-continua-core-main\\tools\\oc133_toe_closure_factory.py\", line 173, in write_json_artifact\n    path.write_text(stable_json(payload), encoding=\"utf-8\")\n    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\Megaport\\scoop\\apps\\python\\current\\Lib\\pathlib\\__init__.py\", line 809, in write_text\n    with self.open(mode='w', encoding=encoding, errors=errors, newline=newline) as f:\n         ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\Megaport\\scoop\\apps\\python\\current\\Lib\\pathlib\\__init__.py\", line 771, in open\n    return io.open(self, mode, buffering, encoding, errors, newline)\n           ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nFileNotFoundError: [Errno 2] No such file or directory: 'C:\\\\Users\\\\Megaport\\\\work\\\\logion_local\\\\repos\\\\ontology-of-continua-core-main\\\\operations\\\\logion_release_mission\\\\oc_core_1_3_3\\\\toe_closure_factory\\\\lane_execution\\\\MODERN_SCIENCE_COMPARATOR_SUPERIORITY\\\\research_artifact_repairs\\\\R017-RESEARCH-ARTIFACT-REPAIR-bfcf581bb0ec3db0.json'\n",
-      "stdout_tail": ""
+      "returncode": 0,
+      "stderr_tail": "",
+      "stdout_tail": "{\n  \"changed\": [],\n  \"missing\": [],\n  \"state\": \"PASS\"\n}\n"
     }
   ],
   "compiled_capability_id": "R017-CAPDEV-02ebdcb82768",
@@ -30,21 +30,21 @@
   "executor_command": [
     "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
     "tools/oc133_toe_closure_factory.py",
-    "--execute-comparator-research-artifact-repair",
-    "R017-RESEARCH-ARTIFACT-REPAIR-bfcf581bb0ec3db0",
+    "--execute-comparator-component-materialization",
+    "R017-COMPONENT-MATERIALIZE-68737a44b57c0fbf",
     "--write"
   ],
-  "executor_type": "comparator_research_artifact_repair",
-  "generated_at": "2026-05-06T07:51:42Z",
+  "executor_type": "comparator_component_materialization",
+  "generated_at": "2026-05-06T11:54:00Z",
   "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
   "next_escalation": "If this compiled capability produces zero validator delta, generate a lower-level upstream research obligation for the exact missing source/evidence object.",
   "no_fake_closure_policy": "Zero delta remains OPEN and cannot satisfy r017.",
   "pass_predicate": "Comparator gap `MS-COV-GAP-COMPLEX_SYSTEMS_OPERATIONS_SCIENCE-RESILIENCE_RISK_AND_INTERVENTION_RESPONSE` has `oc_prediction_scoring_row` and strict coverage register no longer lists it as missing.",
-  "repair_strategy": "Execute the exact repair row for an existing OPEN comparator research artifact; fail-closed evidence remains fail-closed unless the artifact itself passes.",
+  "repair_strategy": "Execute the exact materializer implementation contract after source-obligation diagnostics remained open.",
   "required_capability": "Research/PriorArt",
   "schema_id": "OC133_TOE_CAPABILITY_DEVELOPMENT_EXECUTION_v1",
   "source_graph_node_id": "required_artifact:MODERN_SCIENCE_COMPARATOR_SUPERIORITY:MS-COV-GAP-COMPLEX_SYSTEMS_OPERATIONS_SCIENCE-RESILIENCE_RISK_AND_INTERVENTION_RESPONSE:oc_prediction_scoring_row",
-  "status": "FAIL_CLOSED",
+  "status": "ZERO_DELTA_OPEN",
   "validator_error_delta": 0,
-  "why_it_failed": "The OC scoring row has no executable evidence pack; source implementation produced a packet, but not a passing scorer."
+  "why_it_failed": "Compiled capability executed but did not reduce strict validator errors."
 }

@@ -1,8 +1,8 @@
 {
   "after_validator_error_total": 13,
-  "artifact_hash": "c11f1825ed89fef35bec864b5e93a3a9f6089722a2e082a50707ae0b5bebcd7e",
+  "artifact_hash": "222d22747b2652384d68fde8033a8864814661b851f6c86feb3ef3e28a11d32d",
   "before_validator_error_total": 13,
-  "capability_class": "comparator_research_artifact_repair",
+  "capability_class": "comparator_component_materialization",
   "capability_development_key": "454815c78151625dbebc805feba4cb19085ef6345c9878c82d83ef1da1c0d203",
   "capability_id": "R017-CAPDEV-454815c78151",
   "command_results": [
@@ -10,13 +10,13 @@
       "cmd": [
         "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
         "tools/oc133_toe_closure_factory.py",
-        "--execute-comparator-research-artifact-repair",
-        "R017-RESEARCH-ARTIFACT-REPAIR-518d0921c886b229",
+        "--execute-comparator-component-materialization",
+        "R017-COMPONENT-MATERIALIZE-585231547ef9a883",
         "--write"
       ],
-      "returncode": 0,
-      "stderr_tail": "",
-      "stdout_tail": "{\n  \"changed\": [],\n  \"missing\": [],\n  \"state\": \"PASS\"\n}\n"
+      "returncode": 1,
+      "stderr_tail": "rt\\work\\logion_local\\repos\\ontology-of-continua-core-main\\tools\\oc133_toe_closure_factory.py\", line 6013, in build_comparator_component_materialization_registry\n    backlog = build_comparator_component_materialization_backlog(root)\n  File \"C:\\Users\\Megaport\\work\\logion_local\\repos\\ontology-of-continua-core-main\\tools\\oc133_toe_closure_factory.py\", line 5834, in build_comparator_component_materialization_backlog\n    source_registry = build_comparator_component_source_obligation_registry(root)\n  File \"C:\\Users\\Megaport\\work\\logion_local\\repos\\ontology-of-continua-core-main\\tools\\oc133_toe_closure_factory.py\", line 5713, in build_comparator_component_source_obligation_registry\n    backlog = build_comparator_component_source_obligation_backlog(root)\n  File \"C:\\Users\\Megaport\\work\\logion_local\\repos\\ontology-of-continua-core-main\\tools\\oc133_toe_closure_factory.py\", line 5476, in build_comparator_component_source_obligation_backlog\n    component_registry = build_comparator_domain_model_component_implementation_registry(root)\n  File \"C:\\Users\\Megaport\\work\\logion_local\\repos\\ontology-of-continua-core-main\\tools\\oc133_toe_closure_factory.py\", line 5296, in build_comparator_domain_model_component_implementation_registry\n    backlog = build_comparator_domain_model_component_implementation_backlog(root)\n  File \"C:\\Users\\Megaport\\work\\logion_local\\repos\\ontology-of-continua-core-main\\tools\\oc133_toe_closure_factory.py\", line 5094, in build_comparator_domain_model_component_implementation_backlog\n    component_backlog = build_comparator_domain_model_component_backlog(root)\n  File \"C:\\Users\\Megaport\\work\\logion_local\\repos\\ontology-of-continua-core-main\\tools\\oc133_toe_closure_factory.py\", line 4935, in build_comparator_domain_model_component_backlog\n    write_json_artifact(root, comparator_domain_model_component_backlog_rel(), payload)\n    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\Megaport\\work\\logion_local\\repos\\ontology-of-continua-core-main\\tools\\oc133_toe_closure_factory.py\", line 173, in write_json_artifact\n    path.write_text(stable_json(payload), encoding=\"utf-8\")\n    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\Megaport\\scoop\\apps\\python\\current\\Lib\\pathlib\\__init__.py\", line 809, in write_text\n    with self.open(mode='w', encoding=encoding, errors=errors, newline=newline) as f:\n         ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\Megaport\\scoop\\apps\\python\\current\\Lib\\pathlib\\__init__.py\", line 771, in open\n    return io.open(self, mode, buffering, encoding, errors, newline)\n           ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nOSError: [Errno 22] Invalid argument: 'C:\\\\Users\\\\Megaport\\\\work\\\\logion_local\\\\repos\\\\ontology-of-continua-core-main\\\\operations\\\\logion_release_mission\\\\oc_core_1_3_3\\\\toe_closure_factory\\\\lane_execution\\\\MODERN_SCIENCE_COMPARATOR_SUPERIORITY\\\\DOMAIN_MODEL_COMPONENT_BACKLOG.json'\n",
+      "stdout_tail": ""
     }
   ],
   "compiled_capability_id": "R017-CAPDEV-454815c78151",
@@ -30,21 +30,21 @@
   "executor_command": [
     "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
     "tools/oc133_toe_closure_factory.py",
-    "--execute-comparator-research-artifact-repair",
-    "R017-RESEARCH-ARTIFACT-REPAIR-518d0921c886b229",
+    "--execute-comparator-component-materialization",
+    "R017-COMPONENT-MATERIALIZE-585231547ef9a883",
     "--write"
   ],
-  "executor_type": "comparator_research_artifact_repair",
-  "generated_at": "2026-05-06T08:13:34Z",
+  "executor_type": "comparator_component_materialization",
+  "generated_at": "2026-05-06T11:57:40Z",
   "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
   "next_escalation": "If this compiled capability produces zero validator delta, generate a lower-level upstream research obligation for the exact missing source/evidence object.",
   "no_fake_closure_policy": "Zero delta remains OPEN and cannot satisfy r017.",
   "pass_predicate": "Comparator gap `MS-COV-GAP-CHEMICAL_SCIENCES-REACTION_AND_KINETICS_PREDICTION` has `replay_record` and strict coverage register no longer lists it as missing.",
-  "repair_strategy": "Execute the exact repair row for an existing OPEN comparator research artifact; fail-closed evidence remains fail-closed unless the artifact itself passes.",
+  "repair_strategy": "Execute the exact materializer implementation contract after source-obligation diagnostics remained open.",
   "required_capability": "Research/PriorArt",
   "schema_id": "OC133_TOE_CAPABILITY_DEVELOPMENT_EXECUTION_v1",
   "source_graph_node_id": "required_artifact:MODERN_SCIENCE_COMPARATOR_SUPERIORITY:MS-COV-GAP-CHEMICAL_SCIENCES-REACTION_AND_KINETICS_PREDICTION:replay_record",
-  "status": "ZERO_DELTA_OPEN",
+  "status": "FAIL_CLOSED",
   "validator_error_delta": 0,
-  "why_it_failed": "Compiled capability executed but did not reduce strict validator errors."
+  "why_it_failed": "Replay is correctly blocked because the upstream scoring evidence is not passing."
 }
