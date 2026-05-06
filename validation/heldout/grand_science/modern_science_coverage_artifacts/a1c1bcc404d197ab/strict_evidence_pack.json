@@ -1,0 +1,121 @@
+{
+  "artifact_hash": "83c89edd843d3904f53be5490ff8a10fec2ea2481baeda83fa48d7bea5eceee1",
+  "artifact_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/a1c1bcc404d197ab/strict_evidence_pack.json",
+  "broad_modern_science_superiority_allowed": false,
+  "comparator_bound": true,
+  "coverage_closure_allowed": false,
+  "current_evidence": {
+    "evidence_pack_hash": "",
+    "evidence_pack_summary": {
+      "coverage_closure_allowed": null,
+      "pack_status": null,
+      "residuals": {},
+      "schema_id": null
+    },
+    "evidence_ref": null,
+    "evidence_ref_exists": false,
+    "executable_evidence_exists": false,
+    "fail_closed_status_present": true,
+    "material_margin_met": false,
+    "pack_status_text": "{\"COVERAGE_CLOSURE_ALLOWED\": NULL, \"COVERAGE_CLOSURE_STATUS\": \"OPEN_FAIL_CLOSED_NO_EXECUTABLE_EVIDENCE\", \"EVIDENCE_STATUS\": NULL, \"PACK_STATUS\": NULL}"
+  },
+  "domain_class_id": "engineering_materials_sciences",
+  "executable_evidence_exists": true,
+  "execution_command": [
+    "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+    "tools/oc133_toe_closure_factory.py",
+    "--execute-comparator-generic-evidence-pack",
+    "MS-COV-GAP-ENGINEERING_MATERIALS_SCIENCES-CONTROL_SYSTEMS_AND_SIGNAL_MEASUREMENT",
+    "--write"
+  ],
+  "execution_requirements": {
+    "evidence_pack_schema_id": "OC133_GRAND_EMPIRICAL_EVIDENCE_v1",
+    "minimum_n": 20,
+    "replay_command": "acquire the NIST SRD 60 Type K endpoint listed in this spec and hash response bytes && python validation/heldout/grand_science/engineering/coverage_work_orders/oc133_engineering_modern_science_coverage_work_orders.py --check",
+    "source_separation_mode": "target_blind",
+    "target_hidden_until_scoring": true
+  },
+  "fail_closed_reason": "Source identity and preregistered benchmark are present, but no target-hidden OC score with material superiority exists.",
+  "falsifier_requirement": {
+    "falsifier_id": "NIST-ITS90-SIGNAL-MEASUREMENT-FAIL-CLOSED-FALSIFIER",
+    "trigger": "official EMF target values are read before prediction materialization; NIST SRD 60 source snapshot hash is missing or changes; linear comparator ties or beats the polynomial model within uncertainty; fewer than 20 locked temperature targets are scored"
+  },
+  "gap_id": "MS-COV-GAP-ENGINEERING_MATERIALS_SCIENCES-CONTROL_SYSTEMS_AND_SIGNAL_MEASUREMENT",
+  "generated_at": "2026-05-06T08:08:10Z",
+  "incumbent_comparator": {
+    "baseline_name": "TYPE-K-LINEAR-SEEBECK-APPROXIMATION",
+    "pre_registered": true,
+    "prediction_rule": "Predict EMF using a single fixed 41 microvolt/C Seebeck slope with zero intercept over the same temperatures.",
+    "required_material_margin": "model residual must beat comparator residual under the declared domain-local metric",
+    "target_values_used_for_baseline_design": false
+  },
+  "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+  "next_escalation": "Implement a domain-specific scorer when this generic pack remains fail-closed.",
+  "no_fake_closure_policy": "This pack is source-bound but cannot promote broad superiority unless actual target-hidden scoring materially beats the preregistered comparator.",
+  "pack_status": "FAIL_CLOSED_SOURCE_BOUND_SCORING_NOT_MATERIALIZED",
+  "pass_predicate": "pack_status == PASS, material_margin_met == true, no fail-closed status, replay_record PASS.",
+  "phenomenon_class_id": "control_systems_and_signal_measurement",
+  "prerequisite_artifacts_bound": true,
+  "repair_strategy": "Acquire target-hidden source data, materialize OC and incumbent predictions, compute residuals, then rerun this pack and replay.",
+  "replay": {
+    "replay_command": "acquire the NIST SRD 60 Type K endpoint listed in this spec and hash response bytes && python validation/heldout/grand_science/engineering/coverage_work_orders/oc133_engineering_modern_science_coverage_work_orders.py --check",
+    "replay_commands": [
+      "acquire the NIST SRD 60 Type K endpoint listed in this spec and hash response bytes && python validation/heldout/grand_science/engineering/coverage_work_orders/oc133_engineering_modern_science_coverage_work_orders.py --check"
+    ],
+    "status": "BLOCKED_BY_SCORING"
+  },
+  "required_artifact_refs": {
+    "benchmark_case": "validation/heldout/grand_science/modern_science_coverage_artifacts/a1c1bcc404d197ab/benchmark_case.json",
+    "falsifier_row": "validation/heldout/grand_science/modern_science_coverage_artifacts/a1c1bcc404d197ab/falsifier_row.json",
+    "incumbent_comparator": "validation/heldout/grand_science/modern_science_coverage_artifacts/a1c1bcc404d197ab/incumbent_comparator.json",
+    "uncertainty_row": "validation/heldout/grand_science/modern_science_coverage_artifacts/a1c1bcc404d197ab/uncertainty_row.json",
+    "verified_open_source_capsule": "validation/heldout/grand_science/modern_science_coverage_artifacts/a1c1bcc404d197ab/verified_open_source_capsule.json"
+  },
+  "required_capability": "Research/ScoringExecutor",
+  "residual_requirement": {
+    "formula": "absolute mV residual per locked temperature; aggregate max absolute error and MAE",
+    "metric_id": "MS-COV-WO-023_domain_local_residual",
+    "superiority_rule": "published-polynomial residual must be below tolerance and materially lower than the linear Seebeck comparator"
+  },
+  "residuals": {
+    "comparator": null,
+    "material_margin_met": false,
+    "material_margin_rule": "published-polynomial residual must be below tolerance and materially lower than the linear Seebeck comparator",
+    "model": null
+  },
+  "schema_id": "OC133_MODERN_SCIENCE_COMPARATOR_STRICT_EVIDENCE_PACK_v1",
+  "score_materialized": false,
+  "source": {
+    "minimum_rows_required": 20,
+    "official_documentation_url": "https://www.nist.gov/publications/nist-60-nist-its-90-thermocouple-database",
+    "official_endpoint_url": "https://srdata.nist.gov/its90/type_k/kcoefficients.html",
+    "required_local_snapshot_ref": "validation/heldout/grand_science/engineering/coverage_work_orders/raw/nist_its90_type_k_coefficients.html",
+    "required_lock_ref": null,
+    "snapshot_status": "ACQUIRED_OR_BOUND",
+    "source_authority": "National Institute of Standards and Technology",
+    "source_id": "engineering_nist_its90_type_k_thermocouple_v1",
+    "source_name": "NIST SRD 60 ITS-90 Type K thermocouple reference functions and coefficients"
+  },
+  "source_bound": true,
+  "source_refs": [
+    "reports/OC_CORE_1_3_3_MODERN_SCIENCE_COVERAGE_LANE_QUEUE.json",
+    "benchmarks/modern_science/OC133_MODERN_SCIENCE_COVERAGE_WORK_ORDERS.json",
+    "comparators/modern_science/OC133_MODERN_SCIENCE_COVERAGE_REGISTER.json"
+  ],
+  "status": "FAIL_CLOSED_SOURCE_BOUND_SCORING_NOT_MATERIALIZED",
+  "target_hidden": true,
+  "target_variable": {
+    "extraction_rule": "NIST_ITS90_TYPE_K[temperature_C].emf_mV",
+    "name": "type_k_thermocouple_emf_signal",
+    "target_fields": [
+      "type_k_emf_mV_at_locked_temperature_C"
+    ],
+    "unit": "millivolts"
+  },
+  "uncertainty_requirement": {
+    "metric": "absolute mV residual per locked temperature; aggregate max absolute error and MAE",
+    "rule": "NIST table precision plus a fixed preregistered rounding tolerance; no post-target tolerance tuning"
+  },
+  "validator_binding": "comparator_gap::MS-COV-GAP-ENGINEERING_MATERIALS_SCIENCES-CONTROL_SYSTEMS_AND_SIGNAL_MEASUREMENT::generic_strict_evidence_pack",
+  "why_it_failed": "Source identity and preregistered benchmark are present, but no target-hidden OC score with material superiority exists."
+}

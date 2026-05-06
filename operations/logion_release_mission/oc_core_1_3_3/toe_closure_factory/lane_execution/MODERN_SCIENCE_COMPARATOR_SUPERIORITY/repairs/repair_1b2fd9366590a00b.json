@@ -1,11 +1,32 @@
 {
-  "artifact_hash": "54b757e9bba8c050a09bd2c389dfd5406815676fc0efd79aa04e40426b618619",
+  "artifact_hash": "177cad9650d90d171b133d5a2e0d0927cd418ba8036229db6176d2201f40b851",
   "artifact_key": "replay_record",
   "artifact_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/repairs/repair_1b2fd9366590a00b.json",
-  "command_pass": false,
-  "command_result_total": 0,
-  "command_results": [],
-  "concrete_governed_commands": [],
+  "command_pass": true,
+  "command_result_total": 1,
+  "command_results": [
+    {
+      "cmd": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "tools/oc133_toe_closure_factory.py",
+        "--execute-comparator-generic-evidence-pack",
+        "MS-COV-GAP-COMPLEX_SYSTEMS_OPERATIONS_SCIENCE-MULTI_AGENT_SYSTEM_DYNAMICS",
+        "--write"
+      ],
+      "returncode": 0,
+      "stderr_tail": "",
+      "stdout_tail": "{\n  \"changed\": [],\n  \"missing\": [],\n  \"state\": \"PASS\"\n}\n"
+    }
+  ],
+  "concrete_governed_commands": [
+    [
+      "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+      "tools/oc133_toe_closure_factory.py",
+      "--execute-comparator-generic-evidence-pack",
+      "MS-COV-GAP-COMPLEX_SYSTEMS_OPERATIONS_SCIENCE-MULTI_AGENT_SYSTEM_DYNAMICS",
+      "--write"
+    ]
+  ],
   "domain_class_id": "complex_systems_operations_science",
   "execution_command": [
     "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
@@ -22,15 +43,15 @@
   "no_fake_closure_policy": "This repair execution cannot mark broad superiority PASS unless the refreshed research artifact itself passes.",
   "pass_predicate": "The repaired research artifact status becomes PASS and the comparator gap no longer lists this artifact as missing.",
   "phenomenon_class_id": "multi_agent_system_dynamics",
-  "refreshed_research_artifact_hash": "58c27ab1c90288dbc08ff3c3197a3a435e10764f644662a3d5d75cc458ce45db",
+  "refreshed_research_artifact_hash": "d9356832948c42a93df2ce83ec47d3931280a7533e7640e20fe99cb50cf9a009",
   "refreshed_research_artifact_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/701e34b0c7b6662d/replay_record.json",
   "refreshed_research_artifact_status": "OPEN",
   "repair_id": "R017-RESEARCH-ARTIFACT-REPAIR-3d989e0f514313f1",
   "repair_strategy": "Close the OC scoring row first, then rerun replay.",
   "required_capability": "Research/ScoringExecutor",
-  "root_cause_class": "NO_CONCRETE_REPAIR_COMMAND",
+  "root_cause_class": "REPLAY_BLOCKED_BY_SCORING_ARTIFACT",
   "schema_id": "OC133_MODERN_SCIENCE_COMPARATOR_RESEARCH_ARTIFACT_REPAIR_EXECUTION_v1",
-  "status": "CAPABILITY_DEVELOPMENT_REQUIRED",
+  "status": "EVIDENCE_REPAIR_ATTEMPTED_REMAINS_OPEN",
   "validator_binding": "comparator_gap::MS-COV-GAP-COMPLEX_SYSTEMS_OPERATIONS_SCIENCE-MULTI_AGENT_SYSTEM_DYNAMICS::research_artifact_repair::replay_record",
-  "why_it_failed": "No exact governed scorer/replay repair command is currently mapped for this domain/gap/artifact."
+  "why_it_failed": "Concrete repair commands ran, but the refreshed research artifact still remains OPEN under its source-bound predicate."
 }

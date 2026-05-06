@@ -1,11 +1,32 @@
 {
-  "artifact_hash": "9c47c0df74242f60b9958acb7a5dda3dbe0ea5ace87314078bc158a70b5da213",
+  "artifact_hash": "a1eab042df10b0dbc8f4da1523a8319560ac3b5c3f8b48bf06fb6fd70c18fb2c",
   "artifact_key": "replay_record",
   "artifact_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/repairs/repair_2ffb7d8ef543f7ac.json",
-  "command_pass": false,
-  "command_result_total": 0,
-  "command_results": [],
-  "concrete_governed_commands": [],
+  "command_pass": true,
+  "command_result_total": 1,
+  "command_results": [
+    {
+      "cmd": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "tools/oc133_toe_closure_factory.py",
+        "--execute-comparator-generic-evidence-pack",
+        "MS-COV-GAP-MEDICAL_HEALTH_SCIENCES-EPIDEMIOLOGICAL_TRANSMISSION_AND_RISK",
+        "--write"
+      ],
+      "returncode": 0,
+      "stderr_tail": "",
+      "stdout_tail": "{\n  \"changed\": [],\n  \"missing\": [],\n  \"state\": \"PASS\"\n}\n"
+    }
+  ],
+  "concrete_governed_commands": [
+    [
+      "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+      "tools/oc133_toe_closure_factory.py",
+      "--execute-comparator-generic-evidence-pack",
+      "MS-COV-GAP-MEDICAL_HEALTH_SCIENCES-EPIDEMIOLOGICAL_TRANSMISSION_AND_RISK",
+      "--write"
+    ]
+  ],
   "domain_class_id": "medical_health_sciences",
   "execution_command": [
     "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
@@ -22,15 +43,15 @@
   "no_fake_closure_policy": "This repair execution cannot mark broad superiority PASS unless the refreshed research artifact itself passes.",
   "pass_predicate": "The repaired research artifact status becomes PASS and the comparator gap no longer lists this artifact as missing.",
   "phenomenon_class_id": "epidemiological_transmission_and_risk",
-  "refreshed_research_artifact_hash": "4c8a697781f18b0cb9c5cbc06e4b7cbbf1c8b8ade92b9015371650380937f5b1",
+  "refreshed_research_artifact_hash": "b62ece7a82d53d83a12625bdd49835993098cfd4de6203d4ff0b66ca9b860599",
   "refreshed_research_artifact_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/bde33a9d37378831/replay_record.json",
   "refreshed_research_artifact_status": "OPEN",
   "repair_id": "R017-RESEARCH-ARTIFACT-REPAIR-4be9eee560d70b0c",
   "repair_strategy": "Close the OC scoring row first, then rerun replay.",
   "required_capability": "Research/ScoringExecutor",
-  "root_cause_class": "NO_CONCRETE_REPAIR_COMMAND",
+  "root_cause_class": "REPLAY_BLOCKED_BY_SCORING_ARTIFACT",
   "schema_id": "OC133_MODERN_SCIENCE_COMPARATOR_RESEARCH_ARTIFACT_REPAIR_EXECUTION_v1",
-  "status": "CAPABILITY_DEVELOPMENT_REQUIRED",
+  "status": "EVIDENCE_REPAIR_ATTEMPTED_REMAINS_OPEN",
   "validator_binding": "comparator_gap::MS-COV-GAP-MEDICAL_HEALTH_SCIENCES-EPIDEMIOLOGICAL_TRANSMISSION_AND_RISK::research_artifact_repair::replay_record",
-  "why_it_failed": "No exact governed scorer/replay repair command is currently mapped for this domain/gap/artifact."
+  "why_it_failed": "Concrete repair commands ran, but the refreshed research artifact still remains OPEN under its source-bound predicate."
 }

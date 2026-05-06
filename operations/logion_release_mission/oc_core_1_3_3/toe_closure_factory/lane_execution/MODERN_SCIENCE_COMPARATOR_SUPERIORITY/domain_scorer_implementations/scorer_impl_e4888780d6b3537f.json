@@ -1,0 +1,117 @@
+{
+  "artifact_hash": "1679f321b1159ada0b1a7993254b8c419a9fbf249697e5e9bf8fbf95d4b75ab9",
+  "artifact_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/domain_scorer_implementations/scorer_impl_e4888780d6b3537f.json",
+  "command_result_total": 0,
+  "command_results": [],
+  "domain_class_id": "physical_sciences",
+  "domain_scoring_id": "R017-DOMAIN-SCORER-a7777e969d546a74",
+  "domain_scoring_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/domain_scorers/scorer_57ee6cb35f9811ec.json",
+  "domain_scoring_root_cause": "DOMAIN_SPECIFIC_SCORER_MISSING",
+  "domain_scoring_status": "CAPABILITY_DEVELOPMENT_REQUIRED",
+  "exact_domain_scorer_commands": [],
+  "execution_command": [
+    "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+    "tools/oc133_toe_closure_factory.py",
+    "--execute-comparator-domain-scorer-implementation",
+    "R017-DOMAIN-SCORER-IMPL-a7777e969d546a74",
+    "--write"
+  ],
+  "execution_requirements": {
+    "evidence_pack_schema_id": "OC133_GRAND_EMPIRICAL_EVIDENCE_v1",
+    "minimum_n": 20,
+    "replay_command": "python benchmarks/modern_science/coverage_lane_dispatcher.py --check",
+    "source_separation_mode": "prospective",
+    "target_hidden_until_scoring": true
+  },
+  "expected_script_exists": false,
+  "expected_script_ref": "",
+  "falsifier_requirement": {
+    "falsifier_id": "PHYS-DYNAMICS-HORIZONS-STATE-FALSIFIER",
+    "trigger": "model vector RMSE exceeds the declared uncertainty, comparator is not worse, target vector appears in visible inputs, or fewer than 20 locked official epochs are scored"
+  },
+  "formula_requirement": {
+    "formula_or_model": "Two-body Kepler/Newton propagation from the previous heliocentric state vector using the predeclared solar GM constant and fixed integration step.",
+    "required_inputs": [
+      "prior_epoch_XYZ_VXYZ",
+      "delta_t_seconds",
+      "solar_GM_km3_s2"
+    ],
+    "target_values_may_be_used_for_model_design": false
+  },
+  "gap_id": "MS-COV-GAP-PHYSICAL_SCIENCES-DYNAMICAL_LAWS_AND_CONSERVATION",
+  "generated_at": "2026-05-06T08:32:46Z",
+  "implementation_command_class": "MISSING_DOMAIN_SCORER_SCRIPT_ROUTE",
+  "implementation_id": "R017-DOMAIN-SCORER-IMPL-a7777e969d546a74",
+  "implementation_work_order_id": "R017-DOMAIN-SCORER-IMPL-a7777e969d546a74",
+  "incumbent_comparator_requirement": {
+    "baseline_name": "constant-velocity Cartesian extrapolation baseline",
+    "pre_registered": true,
+    "prediction_rule": "Propagate the previous vector by linear X,Y,Z += VX,VY,VZ*delta_t and keep velocity unchanged.",
+    "required_material_margin": "model vector RMSE must be lower than comparator vector RMSE on the same hidden epochs",
+    "target_values_used_for_baseline_design": false
+  },
+  "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+  "missing_domain_scorer_elements": [
+    "command_pass",
+    "comparator_residual_materialized",
+    "exact_domain_scorer_available",
+    "fail_closed_status_absent",
+    "material_margin_met",
+    "model_residual_materialized",
+    "score_materialized"
+  ],
+  "next_escalation": "If status is CAPABILITY_DEVELOPMENT_REQUIRED, implement the listed script/flags/model support. If evidence remains negative, preserve fail-closed science and repair the model/comparator rather than flipping PASS.",
+  "no_fake_closure_policy": "This execution cannot close broad superiority unless the downstream scoring and replay artifacts pass.",
+  "output_artifact_refs": {
+    "domain_scoring_report": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/domain_scorers/scorer_57ee6cb35f9811ec.json",
+    "oc_prediction_scoring_row": "validation/heldout/grand_science/modern_science_coverage_artifacts/a7777e969d546a74/oc_prediction_scoring_row.json",
+    "replay_record": "validation/heldout/grand_science/modern_science_coverage_artifacts/a7777e969d546a74/replay_record.json",
+    "strict_evidence_pack": "validation/heldout/grand_science/modern_science_coverage_artifacts/a7777e969d546a74/strict_evidence_pack.json"
+  },
+  "pass_predicate": "A governed domain scorer script/flags exist, run cleanly, and the downstream domain-scoring report plus oc_prediction_scoring_row become PASS.",
+  "phenomenon_class_id": "dynamical_laws_and_conservation",
+  "repair_strategy": "Add a governed domain scorer script route for this domain class, then bind concrete acquisition/scoring/replay flags.",
+  "replay_artifact_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/a7777e969d546a74/replay_record.json",
+  "replay_artifact_status": "OPEN",
+  "required_capability": "Research/DomainScorerImplementation",
+  "required_source_block": {
+    "minimum_rows_required": 20,
+    "official_documentation_url": "https://ssd-api.jpl.nasa.gov/doc/horizons.html",
+    "official_endpoint_url": "https://ssd.jpl.nasa.gov/api/horizons.api?format=json&COMMAND='399'&OBJ_DATA='NO'&MAKE_EPHEM='YES'&EPHEM_TYPE='VECTORS'&CENTER='500@10'&START_TIME='2026-Jan-01'&STOP_TIME='2026-Jan-21'&STEP_SIZE='1%20d'&VEC_TABLE='3'&OUT_UNITS='KM-S'&CSV_FORMAT='YES'",
+    "required_local_snapshot_ref": "validation/heldout/grand_science/physics_chemistry/dynamics_jpl_horizons/OC133_PHYSICS_JPL_HORIZONS_EARTH_SUN_VECTORS.json",
+    "required_lock_ref": "validation/heldout/grand_science/physics_chemistry/dynamics_jpl_horizons/OC133_PHYSICS_JPL_HORIZONS_EARTH_SUN_VECTORS.lock.json",
+    "snapshot_status": "NOT_ACQUIRED_FOR_THIS_COVERAGE_CLASS",
+    "source_authority": "NASA Jet Propulsion Laboratory Solar System Dynamics",
+    "source_id": "physics_jpl_horizons_state_vectors_earth_sun_v1",
+    "source_name": "NASA/JPL Solar System Dynamics HORIZONS API vector ephemerides"
+  },
+  "residual_requirement": {
+    "formula": "sqrt(mean((predicted_component - observed_component)^2)) over X,Y,Z,VX,VY,VZ after unit normalization",
+    "metric_id": "vector_rmse_with_component_uncertainty_v1",
+    "superiority_rule": "model_residual < comparator_residual and residual_within_declared_uncertainty is true"
+  },
+  "root_cause_class": "DOMAIN_SCORER_SCRIPT_ROUTE_MISSING",
+  "schema_id": "OC133_MODERN_SCIENCE_COMPARATOR_DOMAIN_SCORER_IMPLEMENTATION_EXECUTION_v1",
+  "scoring_artifact_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/a7777e969d546a74/oc_prediction_scoring_row.json",
+  "scoring_artifact_status": "OPEN",
+  "status": "CAPABILITY_DEVELOPMENT_REQUIRED",
+  "target_variable": {
+    "extraction_rule": "For each epoch after the first, hide the official HORIZONS vector row until the predeclared dynamical propagation is materialized from prior visible rows.",
+    "name": "next_epoch_heliocentric_cartesian_state_vector",
+    "target_fields": [
+      "X",
+      "Y",
+      "Z",
+      "VX",
+      "VY",
+      "VZ"
+    ],
+    "unit": "km and km/s"
+  },
+  "uncertainty_requirement": {
+    "metric": "componentwise absolute error with vector RMSE aggregation",
+    "rule": "Use HORIZONS output precision from the locked snapshot plus a preregistered numerical integration tolerance; do not tune tolerance after target opening."
+  },
+  "validator_binding": "comparator_gap::MS-COV-GAP-PHYSICAL_SCIENCES-DYNAMICAL_LAWS_AND_CONSERVATION::domain_scorer_implementation",
+  "why_it_failed": "No domain scorer script route is registered for this domain class."
+}

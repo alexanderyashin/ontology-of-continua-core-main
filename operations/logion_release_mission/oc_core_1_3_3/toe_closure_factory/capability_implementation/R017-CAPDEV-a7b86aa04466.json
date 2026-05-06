@@ -1,8 +1,8 @@
 {
   "after_validator_error_total": 13,
-  "artifact_hash": "a3c3fb15bb18fa46fc2907ecec43f16ab3efdc7eb1e4a3181a622190f8271f8b",
+  "artifact_hash": "12c0e5d85c22942d7c44b70984e176c1269b14cfd7aba774818437242ad68243",
   "before_validator_error_total": 13,
-  "capability_class": "comparator_gap_artifact",
+  "capability_class": "comparator_domain_scoring_executor",
   "capability_development_key": "a7b86aa04466c2c9d5d7d4cf9922eb7d9045422ad72f2aef0a01c24c88446321",
   "capability_id": "R017-CAPDEV-a7b86aa04466",
   "command_results": [
@@ -10,9 +10,8 @@
       "cmd": [
         "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
         "tools/oc133_toe_closure_factory.py",
-        "--execute-comparator-gap-artifact",
-        "MS-COV-GAP-MEDICAL_HEALTH_SCIENCES-PHARMACOLOGY_TOXICOLOGY_AND_DOSE_RESPONSE",
-        "replay_record",
+        "--execute-comparator-domain-scoring",
+        "R017-DOMAIN-SCORER-37c095c180c5f414",
         "--write"
       ],
       "returncode": 0,
@@ -31,18 +30,17 @@
   "executor_command": [
     "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
     "tools/oc133_toe_closure_factory.py",
-    "--execute-comparator-gap-artifact",
-    "MS-COV-GAP-MEDICAL_HEALTH_SCIENCES-PHARMACOLOGY_TOXICOLOGY_AND_DOSE_RESPONSE",
-    "replay_record",
+    "--execute-comparator-domain-scoring",
+    "R017-DOMAIN-SCORER-37c095c180c5f414",
     "--write"
   ],
-  "executor_type": "comparator_gap_artifact",
-  "generated_at": "2026-05-06T00:15:42Z",
+  "executor_type": "comparator_domain_scoring_executor",
+  "generated_at": "2026-05-06T08:18:54Z",
   "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
   "next_escalation": "If this compiled capability produces zero validator delta, generate a lower-level upstream research obligation for the exact missing source/evidence object.",
   "no_fake_closure_policy": "Zero delta remains OPEN and cannot satisfy r017.",
   "pass_predicate": "Comparator gap `MS-COV-GAP-MEDICAL_HEALTH_SCIENCES-PHARMACOLOGY_TOXICOLOGY_AND_DOSE_RESPONSE` has `replay_record` and strict coverage register no longer lists it as missing.",
-  "repair_strategy": "Create the exact comparator gap artifact work packet before rerunning broad-coverage closure.",
+  "repair_strategy": "Execute or narrow the domain-specific scorer required to turn the source-bound strict evidence pack into a real OC/comparator residual row.",
   "required_capability": "Research/PriorArt",
   "schema_id": "OC133_TOE_CAPABILITY_DEVELOPMENT_EXECUTION_v1",
   "source_graph_node_id": "required_artifact:MODERN_SCIENCE_COMPARATOR_SUPERIORITY:MS-COV-GAP-MEDICAL_HEALTH_SCIENCES-PHARMACOLOGY_TOXICOLOGY_AND_DOSE_RESPONSE:replay_record",

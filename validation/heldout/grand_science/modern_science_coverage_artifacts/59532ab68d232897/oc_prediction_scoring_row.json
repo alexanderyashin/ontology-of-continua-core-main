@@ -1,5 +1,5 @@
 {
-  "artifact_hash": "81e6a9c051cbcf90b3d1636198c621e83fb7dc150478e5e0f404214b64597235",
+  "artifact_hash": "4957e1fc6740fa4c2a52b4fde5eb4a51692ae2107aaf715926d7ae5fdff24865",
   "artifact_key": "oc_prediction_scoring_row",
   "artifact_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/59532ab68d232897/oc_prediction_scoring_row.json",
   "closure_scope": "scoring evidence absent or does not beat the preregistered comparator",
@@ -31,19 +31,28 @@
   ],
   "status": "OPEN",
   "validation": {
-    "evidence_pack_hash": "9e0c4795f79c9392c34e4530aa04bd864d5620147ba762bedabd215a8a61f04f",
+    "evidence_pack_hash": "5e938406a0ec494625230f3a5eef72cedb768bfe42fa0098070eef86aa15f8bb",
     "evidence_pack_summary": {
       "coverage_closure_allowed": false,
-      "pack_status": "SCORER_READY_FAIL_CLOSED_STRICT_EVIDENCE_NOT_MET",
-      "residuals": {},
-      "schema_id": "OC133_EARTH_SPACE_USGS_HYDROLOGY_TARGET_HIDDEN_REPLAY_SCORER_v1"
+      "fail_closed_reason": "Source identity and preregistered benchmark are present, but no target-hidden OC score with material superiority exists.",
+      "pack_status": "FAIL_CLOSED_SOURCE_BOUND_SCORING_NOT_MATERIALIZED",
+      "residuals": {
+        "comparator": null,
+        "material_margin_met": false,
+        "material_margin_rule": "model MAE plus uncertainty allowance must be lower than carry-forward comparator MAE; otherwise the lane stays open",
+        "model": null
+      },
+      "schema_id": "OC133_MODERN_SCIENCE_COMPARATOR_STRICT_EVIDENCE_PACK_v1",
+      "score_materialized": false,
+      "source_bound": true,
+      "target_hidden": true
     },
-    "evidence_ref": "validation/heldout/grand_science/earth_space/coverage_work_orders/OC133_EARTH_SPACE_USGS_HYDROLOGY_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
+    "evidence_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/59532ab68d232897/strict_evidence_pack.json",
     "evidence_ref_exists": true,
     "executable_evidence_exists": true,
     "fail_closed_status_present": true,
     "material_margin_met": false,
-    "pack_status_text": "{\"COVERAGE_CLOSURE_ALLOWED\": FALSE, \"COVERAGE_CLOSURE_STATUS\": \"OPEN_FAIL_CLOSED_SCORER_READY_FAIL_CLOSED_STRICT_EVIDENCE_NOT_MET\", \"EVIDENCE_STATUS\": NULL, \"PACK_STATUS\": \"SCORER_READY_FAIL_CLOSED_STRICT_EVIDENCE_NOT_MET\"}"
+    "pack_status_text": "{\"COVERAGE_CLOSURE_ALLOWED\": FALSE, \"EVIDENCE_STATUS\": \"FAIL_CLOSED_SOURCE_BOUND_SCORING_NOT_MATERIALIZED\", \"FAIL_CLOSED_REASON\": \"SOURCE IDENTITY AND PREREGISTERED BENCHMARK ARE PRESENT, BUT NO TARGET-HIDDEN OC SCORE WITH MATERIAL SUPERIORITY EXISTS.\", \"PACK_STATUS\": \"FAIL_CLOSED_SOURCE_BOUND_SCORING_NOT_MATERIALIZED\"}"
   },
   "why_it_failed": "Required comparator artifact still lacks source-bound support.",
   "work_order_id": "MS-COV-WO-011"

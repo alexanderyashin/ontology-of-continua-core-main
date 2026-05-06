@@ -1,0 +1,113 @@
+{
+  "artifact_hash": "e28e74a89d5d94dade3f89bdbf3edd28fa2c3ec065e20f1d3020058ce54fcb00",
+  "artifact_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/domain_scorer_implementations/scorer_impl_639d640f7d946a24.json",
+  "command_result_total": 0,
+  "command_results": [],
+  "domain_class_id": "physical_sciences",
+  "domain_scoring_id": "R017-DOMAIN-SCORER-8b4b8aaaa996e50a",
+  "domain_scoring_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/domain_scorers/scorer_d57e729756e9469f.json",
+  "domain_scoring_root_cause": "DOMAIN_SPECIFIC_SCORER_MISSING",
+  "domain_scoring_status": "CAPABILITY_DEVELOPMENT_REQUIRED",
+  "exact_domain_scorer_commands": [],
+  "execution_command": [
+    "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+    "tools/oc133_toe_closure_factory.py",
+    "--execute-comparator-domain-scorer-implementation",
+    "R017-DOMAIN-SCORER-IMPL-8b4b8aaaa996e50a",
+    "--write"
+  ],
+  "execution_requirements": {
+    "evidence_pack_schema_id": "OC133_GRAND_EMPIRICAL_EVIDENCE_v1",
+    "minimum_n": 20,
+    "replay_command": "python benchmarks/modern_science/coverage_lane_dispatcher.py --check",
+    "source_separation_mode": "target_blind",
+    "target_hidden_until_scoring": true
+  },
+  "expected_script_exists": false,
+  "expected_script_ref": "",
+  "falsifier_requirement": {
+    "falsifier_id": "PHYS-CONDENSED-JARVIS-BANDGAP-FALSIFIER",
+    "trigger": "target bandgap leaks into visible inputs, N<20, model interval overlaps or loses to comparator, or official snapshot/lock hash is missing"
+  },
+  "formula_requirement": {
+    "formula_or_model": "Predeclared composition/structure descriptor model mapping visible stoichiometry, elements, density, and lattice descriptors to bandgap_eV.",
+    "required_inputs": [
+      "formula",
+      "elements",
+      "stoichiometry",
+      "lattice_descriptors"
+    ],
+    "target_values_may_be_used_for_model_design": false
+  },
+  "gap_id": "MS-COV-GAP-PHYSICAL_SCIENCES-CONDENSED_MATTER_FIELDS_AND_MEASUREMENTS",
+  "generated_at": "2026-05-06T08:32:46Z",
+  "implementation_command_class": "MISSING_DOMAIN_SCORER_SCRIPT_ROUTE",
+  "implementation_id": "R017-DOMAIN-SCORER-IMPL-8b4b8aaaa996e50a",
+  "implementation_work_order_id": "R017-DOMAIN-SCORER-IMPL-8b4b8aaaa996e50a",
+  "incumbent_comparator_requirement": {
+    "baseline_name": "composition-family median bandgap baseline",
+    "pre_registered": true,
+    "prediction_rule": "Predict the median bandgap of the visible chemical-system or element-count family computed without hidden target rows.",
+    "required_material_margin": "model MAE must be lower than comparator MAE by a preregistered positive margin",
+    "target_values_used_for_baseline_design": false
+  },
+  "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+  "missing_domain_scorer_elements": [
+    "command_pass",
+    "comparator_residual_materialized",
+    "exact_domain_scorer_available",
+    "fail_closed_status_absent",
+    "material_margin_met",
+    "model_residual_materialized",
+    "score_materialized"
+  ],
+  "next_escalation": "If status is CAPABILITY_DEVELOPMENT_REQUIRED, implement the listed script/flags/model support. If evidence remains negative, preserve fail-closed science and repair the model/comparator rather than flipping PASS.",
+  "no_fake_closure_policy": "This execution cannot close broad superiority unless the downstream scoring and replay artifacts pass.",
+  "output_artifact_refs": {
+    "domain_scoring_report": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/domain_scorers/scorer_d57e729756e9469f.json",
+    "oc_prediction_scoring_row": "validation/heldout/grand_science/modern_science_coverage_artifacts/8b4b8aaaa996e50a/oc_prediction_scoring_row.json",
+    "replay_record": "validation/heldout/grand_science/modern_science_coverage_artifacts/8b4b8aaaa996e50a/replay_record.json",
+    "strict_evidence_pack": "validation/heldout/grand_science/modern_science_coverage_artifacts/8b4b8aaaa996e50a/strict_evidence_pack.json"
+  },
+  "pass_predicate": "A governed domain scorer script/flags exist, run cleanly, and the downstream domain-scoring report plus oc_prediction_scoring_row become PASS.",
+  "phenomenon_class_id": "condensed_matter_fields_and_measurements",
+  "repair_strategy": "Add a governed domain scorer script route for this domain class, then bind concrete acquisition/scoring/replay flags.",
+  "replay_artifact_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/8b4b8aaaa996e50a/replay_record.json",
+  "replay_artifact_status": "OPEN",
+  "required_capability": "Research/DomainScorerImplementation",
+  "required_source_block": {
+    "minimum_rows_required": 20,
+    "official_documentation_url": "https://jarvis.nist.gov/",
+    "official_endpoint_url": "https://jarvis.nist.gov/optimade/jarvisdft/",
+    "required_local_snapshot_ref": "validation/heldout/grand_science/physics_chemistry/nist_jarvis_dft/OC133_NIST_JARVIS_DFT_BANDGAP_SNAPSHOT.json",
+    "required_lock_ref": "validation/heldout/grand_science/physics_chemistry/nist_jarvis_dft/OC133_NIST_JARVIS_DFT_BANDGAP_SNAPSHOT.lock.json",
+    "snapshot_status": "NOT_ACQUIRED_FOR_THIS_COVERAGE_CLASS",
+    "source_authority": "National Institute of Standards and Technology",
+    "source_id": "physics_nist_jarvis_dft_bandgap_v1",
+    "source_name": "NIST-JARVIS JARVIS-DFT materials property records"
+  },
+  "residual_requirement": {
+    "formula": "mean(abs(predicted_bandgap_eV - observed_bandgap_eV))",
+    "metric_id": "bandgap_mae_eV_with_bootstrap_superiority_v1",
+    "superiority_rule": "model_MAE + upper_interval_margin < comparator_MAE"
+  },
+  "root_cause_class": "DOMAIN_SCORER_SCRIPT_ROUTE_MISSING",
+  "schema_id": "OC133_MODERN_SCIENCE_COMPARATOR_DOMAIN_SCORER_IMPLEMENTATION_EXECUTION_v1",
+  "scoring_artifact_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/8b4b8aaaa996e50a/oc_prediction_scoring_row.json",
+  "scoring_artifact_status": "OPEN",
+  "status": "CAPABILITY_DEVELOPMENT_REQUIRED",
+  "target_variable": {
+    "extraction_rule": "Hide the JARVIS-DFT bandgap field until a predeclared composition/structure model and comparator have been materialized from visible formula and structure descriptors.",
+    "name": "optB88vdW_electronic_bandgap_eV",
+    "target_fields": [
+      "optB88vdW electronic bandgap"
+    ],
+    "unit": "eV"
+  },
+  "uncertainty_requirement": {
+    "metric": "mean_absolute_error_eV_with_bootstrap_interval",
+    "rule": "Declare row-level tolerance and bootstrap confidence interval before target opening; source field precision alone cannot close the lane."
+  },
+  "validator_binding": "comparator_gap::MS-COV-GAP-PHYSICAL_SCIENCES-CONDENSED_MATTER_FIELDS_AND_MEASUREMENTS::domain_scorer_implementation",
+  "why_it_failed": "No domain scorer script route is registered for this domain class."
+}

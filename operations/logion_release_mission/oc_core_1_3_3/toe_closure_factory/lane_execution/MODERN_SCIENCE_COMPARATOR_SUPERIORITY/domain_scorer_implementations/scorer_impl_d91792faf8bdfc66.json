@@ -1,0 +1,113 @@
+{
+  "artifact_hash": "c075951d683f4f5facafc9eebf4f6a0a7434b8407a53dc4315a31a343ff6a77b",
+  "artifact_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/domain_scorer_implementations/scorer_impl_d91792faf8bdfc66.json",
+  "command_result_total": 0,
+  "command_results": [],
+  "domain_class_id": "physical_sciences",
+  "domain_scoring_id": "R017-DOMAIN-SCORER-f0ee7d5ec5503167",
+  "domain_scoring_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/domain_scorers/scorer_4d1e03dfd896e348.json",
+  "domain_scoring_root_cause": "DOMAIN_SPECIFIC_SCORER_MISSING",
+  "domain_scoring_status": "CAPABILITY_DEVELOPMENT_REQUIRED",
+  "exact_domain_scorer_commands": [],
+  "execution_command": [
+    "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+    "tools/oc133_toe_closure_factory.py",
+    "--execute-comparator-domain-scorer-implementation",
+    "R017-DOMAIN-SCORER-IMPL-f0ee7d5ec5503167",
+    "--write"
+  ],
+  "execution_requirements": {
+    "evidence_pack_schema_id": "OC133_GRAND_EMPIRICAL_EVIDENCE_v1",
+    "minimum_n": 20,
+    "replay_command": "python benchmarks/modern_science/coverage_lane_dispatcher.py --check",
+    "source_separation_mode": "target_blind",
+    "target_hidden_until_scoring": true
+  },
+  "expected_script_exists": false,
+  "expected_script_ref": "",
+  "falsifier_requirement": {
+    "falsifier_id": "PHYS-ASTRO-EXOPLANET-KEPLER-FALSIFIER",
+    "trigger": "target semi-major-axis leaks into visible inputs, N<20, residuals exceed uncertainty policy, or comparator is not worse"
+  },
+  "formula_requirement": {
+    "formula_or_model": "Kepler third-law semi-major axis: ((G * st_mass * M_sun * (pl_orbper_days*86400)^2)/(4*pi^2))^(1/3) / AU",
+    "required_inputs": [
+      "pl_orbper",
+      "st_mass"
+    ],
+    "target_values_may_be_used_for_model_design": false
+  },
+  "gap_id": "MS-COV-GAP-PHYSICAL_SCIENCES-ASTRONOMICAL_AND_COSMOLOGICAL_OBSERVABLES",
+  "generated_at": "2026-05-06T08:32:46Z",
+  "implementation_command_class": "MISSING_DOMAIN_SCORER_SCRIPT_ROUTE",
+  "implementation_id": "R017-DOMAIN-SCORER-IMPL-f0ee7d5ec5503167",
+  "implementation_work_order_id": "R017-DOMAIN-SCORER-IMPL-f0ee7d5ec5503167",
+  "incumbent_comparator_requirement": {
+    "baseline_name": "period-only median stellar-mass Kepler baseline",
+    "pre_registered": true,
+    "prediction_rule": "Use the same formula but replace each hidden row's stellar mass with the preregistered visible-panel median stellar mass.",
+    "required_material_margin": "formula residual must beat the median-mass comparator residual on the same hidden rows",
+    "target_values_used_for_baseline_design": false
+  },
+  "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+  "missing_domain_scorer_elements": [
+    "command_pass",
+    "comparator_residual_materialized",
+    "exact_domain_scorer_available",
+    "fail_closed_status_absent",
+    "material_margin_met",
+    "model_residual_materialized",
+    "score_materialized"
+  ],
+  "next_escalation": "If status is CAPABILITY_DEVELOPMENT_REQUIRED, implement the listed script/flags/model support. If evidence remains negative, preserve fail-closed science and repair the model/comparator rather than flipping PASS.",
+  "no_fake_closure_policy": "This execution cannot close broad superiority unless the downstream scoring and replay artifacts pass.",
+  "output_artifact_refs": {
+    "domain_scoring_report": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/domain_scorers/scorer_4d1e03dfd896e348.json",
+    "oc_prediction_scoring_row": "validation/heldout/grand_science/modern_science_coverage_artifacts/f0ee7d5ec5503167/oc_prediction_scoring_row.json",
+    "replay_record": "validation/heldout/grand_science/modern_science_coverage_artifacts/f0ee7d5ec5503167/replay_record.json",
+    "strict_evidence_pack": "validation/heldout/grand_science/modern_science_coverage_artifacts/f0ee7d5ec5503167/strict_evidence_pack.json"
+  },
+  "pass_predicate": "A governed domain scorer script/flags exist, run cleanly, and the downstream domain-scoring report plus oc_prediction_scoring_row become PASS.",
+  "phenomenon_class_id": "astronomical_and_cosmological_observables",
+  "repair_strategy": "Add a governed domain scorer script route for this domain class, then bind concrete acquisition/scoring/replay flags.",
+  "replay_artifact_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/f0ee7d5ec5503167/replay_record.json",
+  "replay_artifact_status": "OPEN",
+  "required_capability": "Research/DomainScorerImplementation",
+  "required_source_block": {
+    "minimum_rows_required": 20,
+    "official_documentation_url": "https://exoplanetarchive.ipac.caltech.edu/docs/TAP/usingTAP.html",
+    "official_endpoint_url": "https://exoplanetarchive.ipac.caltech.edu/TAP/sync?query=select+pl_name,pl_orbper,st_mass,pl_orbsmax,pl_orbsmaxerr1,pl_orbsmaxerr2+from+pscomppars+where+pl_orbper+is+not+null+and+st_mass+is+not+null+and+pl_orbsmax+is+not+null&format=json",
+    "required_local_snapshot_ref": "validation/heldout/grand_science/physics_chemistry/nasa_exoplanet_archive/OC133_NASA_EXOPLANET_PS_COMPOSITE_KEPLER.json",
+    "required_lock_ref": "validation/heldout/grand_science/physics_chemistry/nasa_exoplanet_archive/OC133_NASA_EXOPLANET_PS_COMPOSITE_KEPLER.lock.json",
+    "snapshot_status": "NOT_ACQUIRED_FOR_THIS_COVERAGE_CLASS",
+    "source_authority": "NASA Exoplanet Archive / IPAC",
+    "source_id": "physics_nasa_exoplanet_archive_pscomppars_kepler_v1",
+    "source_name": "NASA Exoplanet Archive TAP Planetary Systems Composite Parameters"
+  },
+  "residual_requirement": {
+    "formula": "abs(predicted_pl_orbsmax_AU - observed_pl_orbsmax_AU)",
+    "metric_id": "semi_major_axis_absolute_error_AU_v1",
+    "superiority_rule": "mean model residual must be lower than comparator residual and within declared uncertainty/materiality policy"
+  },
+  "root_cause_class": "DOMAIN_SCORER_SCRIPT_ROUTE_MISSING",
+  "schema_id": "OC133_MODERN_SCIENCE_COMPARATOR_DOMAIN_SCORER_IMPLEMENTATION_EXECUTION_v1",
+  "scoring_artifact_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/f0ee7d5ec5503167/oc_prediction_scoring_row.json",
+  "scoring_artifact_status": "OPEN",
+  "status": "CAPABILITY_DEVELOPMENT_REQUIRED",
+  "target_variable": {
+    "extraction_rule": "Hide semi-major-axis target columns until the Kepler-law calculation is materialized from visible orbital period and stellar mass columns.",
+    "name": "pl_orbsmax",
+    "target_fields": [
+      "pl_orbsmax",
+      "pl_orbsmaxerr1",
+      "pl_orbsmaxerr2"
+    ],
+    "unit": "AU"
+  },
+  "uncertainty_requirement": {
+    "metric": "absolute_AU_error_with_archive_errorbar_or_materiality_floor",
+    "rule": "Use pl_orbsmaxerr1/pl_orbsmaxerr2 when present and a preregistered AU materiality floor otherwise."
+  },
+  "validator_binding": "comparator_gap::MS-COV-GAP-PHYSICAL_SCIENCES-ASTRONOMICAL_AND_COSMOLOGICAL_OBSERVABLES::domain_scorer_implementation",
+  "why_it_failed": "No domain scorer script route is registered for this domain class."
+}

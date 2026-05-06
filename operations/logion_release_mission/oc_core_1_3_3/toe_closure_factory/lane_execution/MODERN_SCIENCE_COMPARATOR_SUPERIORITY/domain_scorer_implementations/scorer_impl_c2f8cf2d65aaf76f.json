@@ -1,0 +1,115 @@
+{
+  "artifact_hash": "cf95ec68641c3a6ff9e6620e0a6370497d9905ae5cb555588b4b0cdafa695118",
+  "artifact_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/domain_scorer_implementations/scorer_impl_c2f8cf2d65aaf76f.json",
+  "command_result_total": 0,
+  "command_results": [],
+  "domain_class_id": "engineering_materials_sciences",
+  "domain_scoring_id": "R017-DOMAIN-SCORER-b1491a46e156e916",
+  "domain_scoring_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/domain_scorers/scorer_eb16ea39e1a0fe80.json",
+  "domain_scoring_root_cause": "DOMAIN_SPECIFIC_SCORER_MISSING",
+  "domain_scoring_status": "CAPABILITY_DEVELOPMENT_REQUIRED",
+  "exact_domain_scorer_commands": [],
+  "execution_command": [
+    "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+    "tools/oc133_toe_closure_factory.py",
+    "--execute-comparator-domain-scorer-implementation",
+    "R017-DOMAIN-SCORER-IMPL-b1491a46e156e916",
+    "--write"
+  ],
+  "execution_requirements": {
+    "evidence_pack_schema_id": "OC133_GRAND_EMPIRICAL_EVIDENCE_v1",
+    "minimum_n": 20,
+    "replay_command": "acquire the NIST-JARVIS OPTIMADE endpoint listed in this spec and hash response bytes && python validation/heldout/grand_science/engineering/coverage_work_orders/oc133_engineering_modern_science_coverage_work_orders.py --check",
+    "source_separation_mode": "target_blind",
+    "target_hidden_until_scoring": true
+  },
+  "expected_script_exists": true,
+  "expected_script_ref": "validation/heldout/grand_science/engineering/coverage_work_orders/oc133_engineering_modern_science_coverage_work_orders.py",
+  "falsifier_requirement": {
+    "falsifier_id": "JARVIS-MATERIALS-FAIL-CLOSED-FALSIFIER",
+    "trigger": "hidden JARVIS target property appears in visible descriptors; official JARVIS snapshot hash is missing or changes; composition-family median comparator ties or beats the model within uncertainty; fewer than 20 material/property targets are scored"
+  },
+  "formula_requirement": {
+    "formula_or_model": "Predict hidden property = fixed linear ridge map of visible composition counts, element summary descriptors, density, dimensionality, and space-group number.",
+    "required_inputs": [
+      "formula-derived element fractions",
+      "density",
+      "dimensionality",
+      "space-group number"
+    ],
+    "target_values_may_be_used_for_model_design": false
+  },
+  "gap_id": "MS-COV-GAP-ENGINEERING_MATERIALS_SCIENCES-MATERIALS_PROPERTY_AND_FAILURE_PREDICTION",
+  "generated_at": "2026-05-06T08:32:51Z",
+  "implementation_command_class": "MISSING_DOMAIN_SCORER_FLAGS",
+  "implementation_id": "R017-DOMAIN-SCORER-IMPL-b1491a46e156e916",
+  "implementation_work_order_id": "R017-DOMAIN-SCORER-IMPL-b1491a46e156e916",
+  "incumbent_comparator_requirement": {
+    "baseline_name": "JARVIS-COMPOSITION-FAMILY-MEDIAN",
+    "pre_registered": true,
+    "prediction_rule": "Predict each hidden property using the visible-row median for the same element-count family; fall back to global visible median.",
+    "required_material_margin": "model residual must beat comparator residual under the declared domain-local metric",
+    "target_values_used_for_baseline_design": false
+  },
+  "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+  "missing_domain_scorer_elements": [
+    "command_pass",
+    "comparator_residual_materialized",
+    "exact_domain_scorer_available",
+    "fail_closed_status_absent",
+    "material_margin_met",
+    "model_residual_materialized",
+    "score_materialized"
+  ],
+  "next_escalation": "If status is CAPABILITY_DEVELOPMENT_REQUIRED, implement the listed script/flags/model support. If evidence remains negative, preserve fail-closed science and repair the model/comparator rather than flipping PASS.",
+  "no_fake_closure_policy": "This execution cannot close broad superiority unless the downstream scoring and replay artifacts pass.",
+  "output_artifact_refs": {
+    "domain_scoring_report": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/domain_scorers/scorer_eb16ea39e1a0fe80.json",
+    "oc_prediction_scoring_row": "validation/heldout/grand_science/modern_science_coverage_artifacts/b1491a46e156e916/oc_prediction_scoring_row.json",
+    "replay_record": "validation/heldout/grand_science/modern_science_coverage_artifacts/b1491a46e156e916/replay_record.json",
+    "strict_evidence_pack": "validation/heldout/grand_science/modern_science_coverage_artifacts/b1491a46e156e916/strict_evidence_pack.json"
+  },
+  "pass_predicate": "A governed domain scorer script/flags exist, run cleanly, and the downstream domain-scoring report plus oc_prediction_scoring_row become PASS.",
+  "phenomenon_class_id": "materials_property_and_failure_prediction",
+  "repair_strategy": "Extend the existing domain scorer script with concrete flags for this phenomenon and bind them in COMPARATOR_DOMAIN_IMPLEMENTED_COMMANDS.",
+  "replay_artifact_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/b1491a46e156e916/replay_record.json",
+  "replay_artifact_status": "OPEN",
+  "required_capability": "Research/DomainScorerImplementation",
+  "required_source_block": {
+    "minimum_rows_required": 20,
+    "official_documentation_url": "https://jarvis.nist.gov/optimade/jarvisdft/",
+    "official_endpoint_url": "https://jarvis.nist.gov/optimade/jarvisdft/v1/structures/?filter=nelements%3E%3D1",
+    "required_local_snapshot_ref": "validation/heldout/grand_science/engineering/coverage_work_orders/raw/nist_jarvis_nelements_ge_1_page1.json",
+    "required_lock_ref": null,
+    "snapshot_status": "ACQUIRED_OR_BOUND",
+    "source_authority": "National Institute of Standards and Technology",
+    "source_id": "engineering_nist_jarvis_materials_properties_v1",
+    "source_name": "NIST-JARVIS JARVIS-DFT OPTIMADE structures and materials-property records"
+  },
+  "residual_requirement": {
+    "formula": "absolute residual per material/property plus aggregate MAE over hidden targets",
+    "metric_id": "MS-COV-WO-022_domain_local_residual",
+    "superiority_rule": "descriptor model MAE plus bootstrap upper margin must be lower than the composition-family median comparator"
+  },
+  "root_cause_class": "DOMAIN_SCORER_FLAGS_MISSING",
+  "schema_id": "OC133_MODERN_SCIENCE_COMPARATOR_DOMAIN_SCORER_IMPLEMENTATION_EXECUTION_v1",
+  "scoring_artifact_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/b1491a46e156e916/oc_prediction_scoring_row.json",
+  "scoring_artifact_status": "OPEN",
+  "status": "CAPABILITY_DEVELOPMENT_REQUIRED",
+  "target_variable": {
+    "extraction_rule": "JARVIS_DFT[structure_id].attributes._jarvis_bulk_modulus_kv",
+    "name": "elastic_stiffness_and_bandgap_material_property",
+    "target_fields": [
+      "data[].attributes._jarvis_bulk_modulus_kv",
+      "data[].attributes._jarvis_shear_modulus_gv",
+      "data[].attributes._jarvis_optb88vdw_bandgap"
+    ],
+    "unit": "GPa for moduli; eV for bandgap"
+  },
+  "uncertainty_requirement": {
+    "metric": "absolute residual per material/property plus aggregate MAE over hidden targets",
+    "rule": "visible-row bootstrap interval declared before hidden property fields are unsealed"
+  },
+  "validator_binding": "comparator_gap::MS-COV-GAP-ENGINEERING_MATERIALS_SCIENCES-MATERIALS_PROPERTY_AND_FAILURE_PREDICTION::domain_scorer_implementation",
+  "why_it_failed": "The domain scorer script exists, but this domain/phenomenon has no bound acquisition/scoring/replay flags."
+}

@@ -1,0 +1,121 @@
+{
+  "artifact_hash": "a65bfc486cafda9a044daee8fa75e112a9b8b161bda1339d09b7a68a502cb03a",
+  "artifact_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/59532ab68d232897/strict_evidence_pack.json",
+  "broad_modern_science_superiority_allowed": false,
+  "comparator_bound": true,
+  "coverage_closure_allowed": false,
+  "current_evidence": {
+    "evidence_pack_hash": "9e0c4795f79c9392c34e4530aa04bd864d5620147ba762bedabd215a8a61f04f",
+    "evidence_pack_summary": {
+      "coverage_closure_allowed": false,
+      "pack_status": "SCORER_READY_FAIL_CLOSED_STRICT_EVIDENCE_NOT_MET",
+      "residuals": {},
+      "schema_id": "OC133_EARTH_SPACE_USGS_HYDROLOGY_TARGET_HIDDEN_REPLAY_SCORER_v1"
+    },
+    "evidence_ref": "validation/heldout/grand_science/earth_space/coverage_work_orders/OC133_EARTH_SPACE_USGS_HYDROLOGY_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
+    "evidence_ref_exists": true,
+    "executable_evidence_exists": true,
+    "fail_closed_status_present": true,
+    "material_margin_met": false,
+    "pack_status_text": "{\"COVERAGE_CLOSURE_ALLOWED\": FALSE, \"COVERAGE_CLOSURE_STATUS\": \"OPEN_FAIL_CLOSED_SCORER_READY_FAIL_CLOSED_STRICT_EVIDENCE_NOT_MET\", \"EVIDENCE_STATUS\": NULL, \"PACK_STATUS\": \"SCORER_READY_FAIL_CLOSED_STRICT_EVIDENCE_NOT_MET\"}"
+  },
+  "domain_class_id": "earth_space_environmental_sciences",
+  "executable_evidence_exists": true,
+  "execution_command": [
+    "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+    "tools/oc133_toe_closure_factory.py",
+    "--execute-comparator-generic-evidence-pack",
+    "MS-COV-GAP-EARTH_SPACE_ENVIRONMENTAL_SCIENCES-GEOCHEMISTRY_AND_HYDROLOGY_OBSERVABLES",
+    "--write"
+  ],
+  "execution_requirements": {
+    "evidence_pack_schema_id": "OC133_GRAND_EMPIRICAL_EVIDENCE_v1",
+    "minimum_n": 20,
+    "replay_command": "python validation/heldout/grand_science/earth_space/coverage_work_orders/oc133_earth_space_modern_science_coverage_work_orders.py --score-usgs-hydrology --write && python validation/heldout/grand_science/earth_space/coverage_work_orders/oc133_earth_space_modern_science_coverage_work_orders.py --check",
+    "source_separation_mode": "target_blind",
+    "target_hidden_until_scoring": true
+  },
+  "fail_closed_reason": "Source identity and preregistered benchmark are present, but no target-hidden OC score with material superiority exists.",
+  "falsifier_requirement": {
+    "falsifier_id": "USGS-HYDROLOGY-FAIL-CLOSED-FALSIFIER",
+    "trigger": "source snapshot hash or metadata hash does not match stored bytes; hidden discharge target rows are read before prediction materialization; carry-forward comparator ties or beats the model within uncertainty; fewer than 20 hidden daily values are scored"
+  },
+  "gap_id": "MS-COV-GAP-EARTH_SPACE_ENVIRONMENTAL_SCIENCES-GEOCHEMISTRY_AND_HYDROLOGY_OBSERVABLES",
+  "generated_at": "2026-05-06T08:07:59Z",
+  "incumbent_comparator": {
+    "baseline_name": "USGS-LAST-OBSERVATION-CARRY-FORWARD",
+    "pre_registered": true,
+    "prediction_rule": "Predict every hidden discharge row as the last visible discharge value, with no target rows used for tuning.",
+    "required_material_margin": "model residual must beat comparator residual under the declared domain-local metric",
+    "target_values_used_for_baseline_design": false
+  },
+  "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+  "next_escalation": "Implement a domain-specific scorer when this generic pack remains fail-closed.",
+  "no_fake_closure_policy": "This pack is source-bound but cannot promote broad superiority unless actual target-hidden scoring materially beats the preregistered comparator.",
+  "pack_status": "FAIL_CLOSED_SOURCE_BOUND_SCORING_NOT_MATERIALIZED",
+  "pass_predicate": "pack_status == PASS, material_margin_met == true, no fail-closed status, replay_record PASS.",
+  "phenomenon_class_id": "geochemistry_and_hydrology_observables",
+  "prerequisite_artifacts_bound": true,
+  "repair_strategy": "Acquire target-hidden source data, materialize OC and incumbent predictions, compute residuals, then rerun this pack and replay.",
+  "replay": {
+    "replay_command": "python validation/heldout/grand_science/earth_space/coverage_work_orders/oc133_earth_space_modern_science_coverage_work_orders.py --score-usgs-hydrology --write && python validation/heldout/grand_science/earth_space/coverage_work_orders/oc133_earth_space_modern_science_coverage_work_orders.py --check",
+    "replay_commands": [
+      "python validation/heldout/grand_science/earth_space/coverage_work_orders/oc133_earth_space_modern_science_coverage_work_orders.py --score-usgs-hydrology --write && python validation/heldout/grand_science/earth_space/coverage_work_orders/oc133_earth_space_modern_science_coverage_work_orders.py --check"
+    ],
+    "status": "BLOCKED_BY_SCORING"
+  },
+  "required_artifact_refs": {
+    "benchmark_case": "validation/heldout/grand_science/modern_science_coverage_artifacts/MS-COV-GAP-EARTH_SPACE_ENVIRONMENTAL_SCIENCES-GEOCHEMISTRY_AND_HYDROLOGY_OBSERVABLES/benchmark_case.json",
+    "falsifier_row": "validation/heldout/grand_science/modern_science_coverage_artifacts/59532ab68d232897/falsifier_row.json",
+    "incumbent_comparator": "validation/heldout/grand_science/modern_science_coverage_artifacts/59532ab68d232897/incumbent_comparator.json",
+    "uncertainty_row": "validation/heldout/grand_science/modern_science_coverage_artifacts/59532ab68d232897/uncertainty_row.json",
+    "verified_open_source_capsule": "validation/heldout/grand_science/modern_science_coverage_artifacts/MS-COV-GAP-EARTH_SPACE_ENVIRONMENTAL_SCIENCES-GEOCHEMISTRY_AND_HYDROLOGY_OBSERVABLES/verified_open_source_capsule.json"
+  },
+  "required_capability": "Research/ScoringExecutor",
+  "residual_requirement": {
+    "formula": "absolute residual in cfs per heldout date plus aggregate MAE over hidden dates",
+    "metric_id": "MS-COV-WO-011_domain_local_residual",
+    "superiority_rule": "model MAE plus uncertainty allowance must be lower than carry-forward comparator MAE; otherwise the lane stays open"
+  },
+  "residuals": {
+    "comparator": null,
+    "material_margin_met": false,
+    "material_margin_rule": "model MAE plus uncertainty allowance must be lower than carry-forward comparator MAE; otherwise the lane stays open",
+    "model": null
+  },
+  "schema_id": "OC133_MODERN_SCIENCE_COMPARATOR_STRICT_EVIDENCE_PACK_v1",
+  "score_materialized": false,
+  "source": {
+    "minimum_rows_required": 20,
+    "official_documentation_url": "https://waterservices.usgs.gov/docs/dv-service/daily-values-service-details/",
+    "official_endpoint_url": "https://waterservices.usgs.gov/nwis/dv/?format=json&sites=01646500&startDT=2024-01-01&endDT=2024-02-09&parameterCd=00060&statCd=00003&siteStatus=all",
+    "required_local_snapshot_ref": "validation/heldout/grand_science/earth_space/coverage_work_orders/raw/usgs_potomac_daily_discharge_2024_01_01_2024_02_09.json",
+    "required_lock_ref": null,
+    "snapshot_status": "ACQUIRED_OR_BOUND",
+    "source_authority": "U.S. Geological Survey",
+    "source_id": "earth_usgs_nwis_daily_values_discharge_v1",
+    "source_name": "USGS Water Services Daily Values API mean discharge"
+  },
+  "source_bound": true,
+  "source_refs": [
+    "reports/OC_CORE_1_3_3_MODERN_SCIENCE_COVERAGE_LANE_QUEUE.json",
+    "benchmarks/modern_science/OC133_MODERN_SCIENCE_COVERAGE_WORK_ORDERS.json",
+    "comparators/modern_science/OC133_MODERN_SCIENCE_COVERAGE_REGISTER.json"
+  ],
+  "status": "FAIL_CLOSED_SOURCE_BOUND_SCORING_NOT_MATERIALIZED",
+  "target_hidden": true,
+  "target_variable": {
+    "extraction_rule": "USGS_DV[site=01646500, parameterCd=00060, statCd=00003, date].value",
+    "name": "daily_mean_streamflow_discharge",
+    "target_fields": [
+      "value.timeSeries[0].values[0].value[].value"
+    ],
+    "unit": "cubic feet per second"
+  },
+  "uncertainty_requirement": {
+    "metric": "absolute residual in cfs per heldout date plus aggregate MAE over hidden dates",
+    "rule": "training-only median absolute deviation of one-step log-flow residuals"
+  },
+  "validator_binding": "comparator_gap::MS-COV-GAP-EARTH_SPACE_ENVIRONMENTAL_SCIENCES-GEOCHEMISTRY_AND_HYDROLOGY_OBSERVABLES::generic_strict_evidence_pack",
+  "why_it_failed": "Source identity and preregistered benchmark are present, but no target-hidden OC score with material superiority exists."
+}

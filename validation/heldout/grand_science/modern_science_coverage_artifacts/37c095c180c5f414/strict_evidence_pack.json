@@ -1,0 +1,125 @@
+{
+  "artifact_hash": "2830bb66cf578add3000311c18ec9dbdfa125122aff9ad47f55fea2c0f92691e",
+  "artifact_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/37c095c180c5f414/strict_evidence_pack.json",
+  "broad_modern_science_superiority_allowed": false,
+  "comparator_bound": true,
+  "coverage_closure_allowed": false,
+  "current_evidence": {
+    "evidence_pack_hash": "",
+    "evidence_pack_summary": {
+      "coverage_closure_allowed": null,
+      "pack_status": null,
+      "residuals": {},
+      "schema_id": null
+    },
+    "evidence_ref": null,
+    "evidence_ref_exists": false,
+    "executable_evidence_exists": false,
+    "fail_closed_status_present": true,
+    "material_margin_met": false,
+    "pack_status_text": "{\"COVERAGE_CLOSURE_ALLOWED\": NULL, \"COVERAGE_CLOSURE_STATUS\": \"OPEN_FAIL_CLOSED_MEDICAL_SOURCE_EVIDENCE_NOT_ACQUIRED\", \"EVIDENCE_STATUS\": NULL, \"PACK_STATUS\": NULL}"
+  },
+  "domain_class_id": "medical_health_sciences",
+  "executable_evidence_exists": true,
+  "execution_command": [
+    "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+    "tools/oc133_toe_closure_factory.py",
+    "--execute-comparator-generic-evidence-pack",
+    "MS-COV-GAP-MEDICAL_HEALTH_SCIENCES-PHARMACOLOGY_TOXICOLOGY_AND_DOSE_RESPONSE",
+    "--write"
+  ],
+  "execution_requirements": {
+    "evidence_pack_schema_id": "OC133_GRAND_EMPIRICAL_EVIDENCE_v1",
+    "minimum_n": 100,
+    "replay_command": "python validation/heldout/grand_science/medical_health/pharmacology_toxicology/run_pharmacology_toxicology_replay.py --check",
+    "source_separation_mode": "target_blind",
+    "target_hidden_until_scoring": true
+  },
+  "fail_closed_reason": "Source identity and preregistered benchmark are present, but no target-hidden OC score with material superiority exists.",
+  "falsifier_requirement": {
+    "falsifier_id": "medical_pharmacology_no_dose_threshold_signal",
+    "trigger": "Trigger if dose bins provide no target-blind signal, if sparse strata dominate, or if OC fails to beat the preregistered comparator."
+  },
+  "gap_id": "MS-COV-GAP-MEDICAL_HEALTH_SCIENCES-PHARMACOLOGY_TOXICOLOGY_AND_DOSE_RESPONSE",
+  "generated_at": "2026-05-06T08:08:05Z",
+  "incumbent_comparator": {
+    "baseline_name": "drug-class frequency and dose-bin adverse-event baseline",
+    "pre_registered": true,
+    "prediction_rule": "Predict held-out severity and dose-response class from drug class and preregistered dose bins without target-label access.",
+    "required_material_margin": "OC residual must beat the frequency dose-bin baseline under the declared pharmacovigilance uncertainty policy.",
+    "target_values_used_for_baseline_design": false
+  },
+  "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+  "next_escalation": "Implement a domain-specific scorer when this generic pack remains fail-closed.",
+  "no_fake_closure_policy": "This pack is source-bound but cannot promote broad superiority unless actual target-hidden scoring materially beats the preregistered comparator.",
+  "pack_status": "FAIL_CLOSED_SOURCE_BOUND_SCORING_NOT_MATERIALIZED",
+  "pass_predicate": "pack_status == PASS, material_margin_met == true, no fail-closed status, replay_record PASS.",
+  "phenomenon_class_id": "pharmacology_toxicology_and_dose_response",
+  "prerequisite_artifacts_bound": true,
+  "repair_strategy": "Acquire target-hidden source data, materialize OC and incumbent predictions, compute residuals, then rerun this pack and replay.",
+  "replay": {
+    "replay_command": "python validation/heldout/grand_science/medical_health/pharmacology_toxicology/run_pharmacology_toxicology_replay.py --check",
+    "replay_commands": [
+      "python validation/heldout/grand_science/medical_health/pharmacology_toxicology/run_pharmacology_toxicology_replay.py --check"
+    ],
+    "status": "BLOCKED_BY_SCORING"
+  },
+  "required_artifact_refs": {
+    "benchmark_case": "validation/heldout/grand_science/modern_science_coverage_artifacts/37c095c180c5f414/benchmark_case.json",
+    "falsifier_row": "validation/heldout/grand_science/modern_science_coverage_artifacts/37c095c180c5f414/falsifier_row.json",
+    "incumbent_comparator": "validation/heldout/grand_science/modern_science_coverage_artifacts/37c095c180c5f414/incumbent_comparator.json",
+    "uncertainty_row": "validation/heldout/grand_science/modern_science_coverage_artifacts/37c095c180c5f414/uncertainty_row.json",
+    "verified_open_source_capsule": "validation/heldout/grand_science/modern_science_coverage_artifacts/37c095c180c5f414/verified_open_source_capsule.json"
+  },
+  "required_capability": "Research/ScoringExecutor",
+  "residual_requirement": {
+    "formula": "classification_loss(oc_dose_response_score, held_out_severity_or_response_class)",
+    "metric_id": "medical_pharmacology_dose_response_residual",
+    "superiority_rule": "OC must beat the preregistered drug-class frequency comparator after sparse-strata controls."
+  },
+  "residuals": {
+    "comparator": null,
+    "material_margin_met": false,
+    "material_margin_rule": "OC must beat the preregistered drug-class frequency comparator after sparse-strata controls.",
+    "model": null
+  },
+  "schema_id": "OC133_MODERN_SCIENCE_COMPARATOR_STRICT_EVIDENCE_PACK_v1",
+  "score_materialized": false,
+  "source": {
+    "minimum_rows_required": 100,
+    "official_documentation_url": "https://open.fda.gov/apis/drug/event/how-to-use-the-endpoint/",
+    "official_endpoint_url": "https://api.fda.gov/drug/event.json?search=receivedate:[20240101+TO+20241231]&limit=100",
+    "required_local_snapshot_ref": "validation/heldout/grand_science/medical_health/pharmacology_toxicology/OC133_OPENFDA_DRUG_EVENT_SNAPSHOT.json",
+    "required_lock_ref": "validation/heldout/grand_science/medical_health/pharmacology_toxicology/OC133_OPENFDA_DRUG_EVENT_SNAPSHOT.lock.json",
+    "snapshot_status": "NOT_ACQUIRED_FOR_THIS_COVERAGE_CLASS",
+    "source_authority": "U.S. Food and Drug Administration openFDA",
+    "source_id": "openfda_faers_drug_event_v1",
+    "source_name": "openFDA drug adverse event endpoint"
+  },
+  "source_bound": true,
+  "source_refs": [
+    "reports/OC_CORE_1_3_3_MODERN_SCIENCE_COVERAGE_LANE_QUEUE.json",
+    "benchmarks/modern_science/OC133_MODERN_SCIENCE_COVERAGE_WORK_ORDERS.json",
+    "comparators/modern_science/OC133_MODERN_SCIENCE_COVERAGE_REGISTER.json"
+  ],
+  "status": "FAIL_CLOSED_SOURCE_BOUND_SCORING_NOT_MATERIALIZED",
+  "target_hidden": true,
+  "target_variable": {
+    "extraction_rule": "Lock adverse-event reports and hide severity and dose-response class labels until OC and comparator scoring rows are preregistered.",
+    "name": "held_out_adverse_event_severity_and_dose_response_class",
+    "target_fields": [
+      "safetyreportid",
+      "patient.drug.medicinalproduct",
+      "patient.drug.drugstructuredosagenumb",
+      "patient.reaction.reactionmeddrapt",
+      "serious"
+    ],
+    "unit": "severity or dose-response class derived from locked adverse-event reports"
+  },
+  "uncertainty_requirement": {
+    "metric": "stratified bootstrap interval for severity and dose-response classification residuals",
+    "rule": "Report stratified bootstrap uncertainty and fail closed when sparse dose strata make materiality unverifiable."
+  },
+  "validator_binding": "comparator_gap::MS-COV-GAP-MEDICAL_HEALTH_SCIENCES-PHARMACOLOGY_TOXICOLOGY_AND_DOSE_RESPONSE::generic_strict_evidence_pack",
+  "why_it_failed": "Source identity and preregistered benchmark are present, but no target-hidden OC score with material superiority exists."
+}

@@ -1,11 +1,32 @@
 {
-  "artifact_hash": "bf3594d9ce1ad3665e5729536ee1a34c73ad0bb0407e6f86137cdcb28ca210b2",
+  "artifact_hash": "9dbaa6607e1ba1f7618b8ada18acf139846e937ca3f8630eb365fe91128a0cb4",
   "artifact_key": "replay_record",
   "artifact_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/repairs/repair_d43edb6d8052c735.json",
-  "command_pass": false,
-  "command_result_total": 0,
-  "command_results": [],
-  "concrete_governed_commands": [],
+  "command_pass": true,
+  "command_result_total": 1,
+  "command_results": [
+    {
+      "cmd": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "tools/oc133_toe_closure_factory.py",
+        "--execute-comparator-generic-evidence-pack",
+        "MS-COV-GAP-CHEMICAL_SCIENCES-THERMOCHEMISTRY_AND_PHASE_BEHAVIOR",
+        "--write"
+      ],
+      "returncode": 0,
+      "stderr_tail": "",
+      "stdout_tail": "{\n  \"changed\": [],\n  \"missing\": [],\n  \"state\": \"PASS\"\n}\n"
+    }
+  ],
+  "concrete_governed_commands": [
+    [
+      "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+      "tools/oc133_toe_closure_factory.py",
+      "--execute-comparator-generic-evidence-pack",
+      "MS-COV-GAP-CHEMICAL_SCIENCES-THERMOCHEMISTRY_AND_PHASE_BEHAVIOR",
+      "--write"
+    ]
+  ],
   "domain_class_id": "chemical_sciences",
   "execution_command": [
     "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
@@ -22,15 +43,15 @@
   "no_fake_closure_policy": "This repair execution cannot mark broad superiority PASS unless the refreshed research artifact itself passes.",
   "pass_predicate": "The repaired research artifact status becomes PASS and the comparator gap no longer lists this artifact as missing.",
   "phenomenon_class_id": "thermochemistry_and_phase_behavior",
-  "refreshed_research_artifact_hash": "db716e0e2ccb2f106ad93adfc200b463b53931137851025bab3ffe7c01975703",
+  "refreshed_research_artifact_hash": "322a7c5737084ad477e97961b4de3f7c0d6ecbacf9f07bcf4d5cb785bd6ff5d2",
   "refreshed_research_artifact_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/dd1092e4b6a884f7/replay_record.json",
   "refreshed_research_artifact_status": "OPEN",
   "repair_id": "R017-RESEARCH-ARTIFACT-REPAIR-b026b0aef7b5d0b8",
   "repair_strategy": "Close the OC scoring row first, then rerun replay.",
   "required_capability": "Research/ScoringExecutor",
-  "root_cause_class": "NO_CONCRETE_REPAIR_COMMAND",
+  "root_cause_class": "REPLAY_BLOCKED_BY_SCORING_ARTIFACT",
   "schema_id": "OC133_MODERN_SCIENCE_COMPARATOR_RESEARCH_ARTIFACT_REPAIR_EXECUTION_v1",
-  "status": "CAPABILITY_DEVELOPMENT_REQUIRED",
+  "status": "EVIDENCE_REPAIR_ATTEMPTED_REMAINS_OPEN",
   "validator_binding": "comparator_gap::MS-COV-GAP-CHEMICAL_SCIENCES-THERMOCHEMISTRY_AND_PHASE_BEHAVIOR::research_artifact_repair::replay_record",
-  "why_it_failed": "No exact governed scorer/replay repair command is currently mapped for this domain/gap/artifact."
+  "why_it_failed": "Concrete repair commands ran, but the refreshed research artifact still remains OPEN under its source-bound predicate."
 }

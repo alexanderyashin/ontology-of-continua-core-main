@@ -1,0 +1,43 @@
+{
+  "artifact_hash": "13b4b842aba4ca85862f0009fe9be244d54786596234f091be0a9d8d0f128767",
+  "artifact_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/domain_scorers/scorer_a47a570cf7264b11.json",
+  "command_pass": false,
+  "command_result_total": 0,
+  "command_results": [],
+  "domain_class_id": "earth_space_environmental_sciences",
+  "domain_scoring_id": "R017-DOMAIN-SCORER-04a29758f8310992",
+  "exact_domain_scorer_available": false,
+  "exact_domain_scorer_commands": [],
+  "executable_spec_ref": "MS-COV-WO-012-domain-local-bridge",
+  "execution_command": [
+    "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+    "tools/oc133_toe_closure_factory.py",
+    "--execute-comparator-domain-scoring",
+    "R017-DOMAIN-SCORER-04a29758f8310992",
+    "--write"
+  ],
+  "gap_id": "MS-COV-GAP-EARTH_SPACE_ENVIRONMENTAL_SCIENCES-REMOTE_SENSING_AND_PLANETARY_MEASUREMENTS",
+  "generated_at": "2026-05-06T08:17:34Z",
+  "generic_evidence_pack_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/04a29758f8310992/strict_evidence_pack.json",
+  "generic_evidence_pack_status": "FAIL_CLOSED_SOURCE_BOUND_SCORING_NOT_MATERIALIZED",
+  "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+  "missing_domain_scoring_elements": [
+    "score_materialized",
+    "model_residual_materialized",
+    "comparator_residual_materialized",
+    "material_margin_met"
+  ],
+  "next_escalation": "Implement the exact domain scorer if missing; if present but negative, preserve the fail-closed result and repair science/model support rather than flipping PASS.",
+  "no_fake_closure_policy": "This execution cannot close broad superiority unless the downstream scoring artifact itself passes.",
+  "pass_predicate": "Domain scorer writes numeric OC/comparator residuals, material_margin_met is true, and the downstream oc_prediction_scoring_row becomes PASS.",
+  "phenomenon_class_id": "remote_sensing_and_planetary_measurements",
+  "repair_strategy": "Implement a domain-specific scorer that locks targets, computes OC predictions and incumbent comparator predictions, materializes residuals, and reruns replay without changing the expected verdict.",
+  "required_capability": "Research/DomainScoringExecutor",
+  "root_cause_class": "DOMAIN_SPECIFIC_SCORER_MISSING",
+  "schema_id": "OC133_MODERN_SCIENCE_COMPARATOR_DOMAIN_SCORING_EXECUTION_v1",
+  "scoring_artifact_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/04a29758f8310992/oc_prediction_scoring_row.json",
+  "scoring_artifact_status": "OPEN",
+  "status": "CAPABILITY_DEVELOPMENT_REQUIRED",
+  "validator_binding": "comparator_gap::MS-COV-GAP-EARTH_SPACE_ENVIRONMENTAL_SCIENCES-REMOTE_SENSING_AND_PLANETARY_MEASUREMENTS::domain_scoring_executor",
+  "why_it_failed": "No exact domain scorer exists for this domain/phenomenon; the generic evidence pack remains fail-closed."
+}

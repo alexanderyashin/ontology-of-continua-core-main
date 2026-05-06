@@ -1,0 +1,122 @@
+{
+  "artifact_hash": "f666f0403334384bd64f43abeb3f9c1b55dd2e87b153292a416747e297a888e4",
+  "artifact_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/81360a6338c22458/strict_evidence_pack.json",
+  "broad_modern_science_superiority_allowed": false,
+  "comparator_bound": true,
+  "coverage_closure_allowed": false,
+  "current_evidence": {
+    "evidence_pack_hash": "",
+    "evidence_pack_summary": {
+      "coverage_closure_allowed": null,
+      "pack_status": null,
+      "residuals": {},
+      "schema_id": null
+    },
+    "evidence_ref": null,
+    "evidence_ref_exists": false,
+    "executable_evidence_exists": false,
+    "fail_closed_status_present": true,
+    "material_margin_met": false,
+    "pack_status_text": "{\"COVERAGE_CLOSURE_ALLOWED\": NULL, \"COVERAGE_CLOSURE_STATUS\": \"OPEN_FAIL_CLOSED_EXECUTABLE_SPEC_ONLY\", \"EVIDENCE_STATUS\": NULL, \"PACK_STATUS\": NULL}"
+  },
+  "domain_class_id": "computer_information_sciences",
+  "executable_evidence_exists": true,
+  "execution_command": [
+    "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+    "tools/oc133_toe_closure_factory.py",
+    "--execute-comparator-generic-evidence-pack",
+    "MS-COV-GAP-COMPUTER_INFORMATION_SCIENCES-INFORMATION_NETWORK_AND_SECURITY_OBSERVABLES",
+    "--write"
+  ],
+  "execution_requirements": {
+    "evidence_pack_schema_id": "OC133_GRAND_EMPIRICAL_EVIDENCE_v1",
+    "minimum_n": 100,
+    "replay_command": "python validation/heldout/grand_science/cs/coverage_work_orders/oc133_cs_modern_science_coverage_work_orders.py --check",
+    "source_separation_mode": "target_blind",
+    "target_hidden_until_scoring": true
+  },
+  "fail_closed_reason": "Source identity and preregistered benchmark are present, but no target-hidden OC score with material superiority exists.",
+  "falsifier_requirement": {
+    "falsifier_id": "CS-NVD-CVSS-SECURITY-FALSIFIER",
+    "trigger": "CVSS fields leak into visible inputs, fewer than 20 CVEs are scored, NVD source hash changes, or prior-CWE comparator ties or beats the model within uncertainty."
+  },
+  "gap_id": "MS-COV-GAP-COMPUTER_INFORMATION_SCIENCES-INFORMATION_NETWORK_AND_SECURITY_OBSERVABLES",
+  "generated_at": "2026-05-06T08:08:13Z",
+  "incumbent_comparator": {
+    "baseline_name": "NVD prior-CWE median and prior-severity-frequency comparator",
+    "pre_registered": true,
+    "prediction_rule": "Predict heldout CVSS score from the training-only median score for the same CWE when present, otherwise the global prior median; severity comparator uses prior class frequencies.",
+    "required_material_margin": "model residual must beat comparator residual under the declared domain-local metric",
+    "target_values_used_for_baseline_design": false
+  },
+  "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+  "next_escalation": "Implement a domain-specific scorer when this generic pack remains fail-closed.",
+  "no_fake_closure_policy": "This pack is source-bound but cannot promote broad superiority unless actual target-hidden scoring materially beats the preregistered comparator.",
+  "pack_status": "FAIL_CLOSED_SOURCE_BOUND_SCORING_NOT_MATERIALIZED",
+  "pass_predicate": "pack_status == PASS, material_margin_met == true, no fail-closed status, replay_record PASS.",
+  "phenomenon_class_id": "information_network_and_security_observables",
+  "prerequisite_artifacts_bound": true,
+  "repair_strategy": "Acquire target-hidden source data, materialize OC and incumbent predictions, compute residuals, then rerun this pack and replay.",
+  "replay": {
+    "replay_command": "python validation/heldout/grand_science/cs/coverage_work_orders/oc133_cs_modern_science_coverage_work_orders.py --check",
+    "replay_commands": [
+      "python validation/heldout/grand_science/cs/coverage_work_orders/oc133_cs_modern_science_coverage_work_orders.py --check"
+    ],
+    "status": "BLOCKED_BY_SCORING"
+  },
+  "required_artifact_refs": {
+    "benchmark_case": "validation/heldout/grand_science/modern_science_coverage_artifacts/81360a6338c22458/benchmark_case.json",
+    "falsifier_row": "validation/heldout/grand_science/modern_science_coverage_artifacts/81360a6338c22458/falsifier_row.json",
+    "incumbent_comparator": "validation/heldout/grand_science/modern_science_coverage_artifacts/81360a6338c22458/incumbent_comparator.json",
+    "uncertainty_row": "validation/heldout/grand_science/modern_science_coverage_artifacts/81360a6338c22458/uncertainty_row.json",
+    "verified_open_source_capsule": "validation/heldout/grand_science/modern_science_coverage_artifacts/81360a6338c22458/verified_open_source_capsule.json"
+  },
+  "required_capability": "Research/ScoringExecutor",
+  "residual_requirement": {
+    "formula": "absolute CVSS-point residual per CVE; macro MAE by CWE stratum",
+    "metric_id": "MS-COV-WO-027_domain_local_residual",
+    "superiority_rule": "model_MAE + conformal_upper < comparator_MAE"
+  },
+  "residuals": {
+    "comparator": null,
+    "material_margin_met": false,
+    "material_margin_rule": "model_MAE + conformal_upper < comparator_MAE",
+    "model": null
+  },
+  "schema_id": "OC133_MODERN_SCIENCE_COMPARATOR_STRICT_EVIDENCE_PACK_v1",
+  "score_materialized": false,
+  "source": {
+    "minimum_rows_required": 100,
+    "official_documentation_url": "https://nvd.nist.gov/developers/vulnerabilities",
+    "official_endpoint_url": "https://services.nvd.nist.gov/rest/json/cves/2.0",
+    "required_local_snapshot_ref": null,
+    "required_lock_ref": null,
+    "snapshot_status": "NOT_ACQUIRED_FOR_THIS_COVERAGE_CLASS",
+    "source_authority": "National Institute of Standards and Technology",
+    "source_id": "NIST_NVD_CVE_API_2_0",
+    "source_name": "NIST National Vulnerability Database CVE API 2.0"
+  },
+  "source_bound": true,
+  "source_refs": [
+    "reports/OC_CORE_1_3_3_MODERN_SCIENCE_COVERAGE_LANE_QUEUE.json",
+    "benchmarks/modern_science/OC133_MODERN_SCIENCE_COVERAGE_WORK_ORDERS.json",
+    "comparators/modern_science/OC133_MODERN_SCIENCE_COVERAGE_REGISTER.json"
+  ],
+  "status": "FAIL_CLOSED_SOURCE_BOUND_SCORING_NOT_MATERIALIZED",
+  "target_hidden": true,
+  "target_variable": {
+    "extraction_rule": "CVSS score/severity are hidden until the prediction row is materialized from CVE text, CWE IDs, CPE counts, dates, and reference metadata.",
+    "name": "heldout_nvd_cvss_v31_base_score",
+    "target_fields": [
+      "metrics.cvssMetricV31[].cvssData.baseScore",
+      "metrics.cvssMetricV31[].cvssData.baseSeverity"
+    ],
+    "unit": "CVSS v3.1 points"
+  },
+  "uncertainty_requirement": {
+    "metric": "absolute CVSS-point residual per CVE; macro MAE by CWE stratum",
+    "rule": "pre-holdout conformal residual interval stratified by CWE availability"
+  },
+  "validator_binding": "comparator_gap::MS-COV-GAP-COMPUTER_INFORMATION_SCIENCES-INFORMATION_NETWORK_AND_SECURITY_OBSERVABLES::generic_strict_evidence_pack",
+  "why_it_failed": "Source identity and preregistered benchmark are present, but no target-hidden OC score with material superiority exists."
+}

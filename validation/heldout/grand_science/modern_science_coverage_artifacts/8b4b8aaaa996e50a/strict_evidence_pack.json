@@ -1,0 +1,121 @@
+{
+  "artifact_hash": "04ac8a16e5b9dac59a01dcf089571a1511577b5b90e7a5513bba36e183d6a84d",
+  "artifact_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/8b4b8aaaa996e50a/strict_evidence_pack.json",
+  "broad_modern_science_superiority_allowed": false,
+  "comparator_bound": true,
+  "coverage_closure_allowed": false,
+  "current_evidence": {
+    "evidence_pack_hash": "",
+    "evidence_pack_summary": {
+      "coverage_closure_allowed": null,
+      "pack_status": null,
+      "residuals": {},
+      "schema_id": null
+    },
+    "evidence_ref": null,
+    "evidence_ref_exists": false,
+    "executable_evidence_exists": false,
+    "fail_closed_status_present": true,
+    "material_margin_met": false,
+    "pack_status_text": "{\"COVERAGE_CLOSURE_ALLOWED\": NULL, \"COVERAGE_CLOSURE_STATUS\": \"OPEN_FAIL_CLOSED_NO_EXECUTABLE_EVIDENCE\", \"EVIDENCE_STATUS\": NULL, \"PACK_STATUS\": NULL}"
+  },
+  "domain_class_id": "physical_sciences",
+  "executable_evidence_exists": true,
+  "execution_command": [
+    "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+    "tools/oc133_toe_closure_factory.py",
+    "--execute-comparator-generic-evidence-pack",
+    "MS-COV-GAP-PHYSICAL_SCIENCES-CONDENSED_MATTER_FIELDS_AND_MEASUREMENTS",
+    "--write"
+  ],
+  "execution_requirements": {
+    "evidence_pack_schema_id": "OC133_GRAND_EMPIRICAL_EVIDENCE_v1",
+    "minimum_n": 20,
+    "replay_command": "python benchmarks/modern_science/coverage_lane_dispatcher.py --check",
+    "source_separation_mode": "target_blind",
+    "target_hidden_until_scoring": true
+  },
+  "fail_closed_reason": "Source identity and preregistered benchmark are present, but no target-hidden OC score with material superiority exists.",
+  "falsifier_requirement": {
+    "falsifier_id": "PHYS-CONDENSED-JARVIS-BANDGAP-FALSIFIER",
+    "trigger": "target bandgap leaks into visible inputs, N<20, model interval overlaps or loses to comparator, or official snapshot/lock hash is missing"
+  },
+  "gap_id": "MS-COV-GAP-PHYSICAL_SCIENCES-CONDENSED_MATTER_FIELDS_AND_MEASUREMENTS",
+  "generated_at": "2026-05-06T08:07:54Z",
+  "incumbent_comparator": {
+    "baseline_name": "composition-family median bandgap baseline",
+    "pre_registered": true,
+    "prediction_rule": "Predict the median bandgap of the visible chemical-system or element-count family computed without hidden target rows.",
+    "required_material_margin": "model MAE must be lower than comparator MAE by a preregistered positive margin",
+    "target_values_used_for_baseline_design": false
+  },
+  "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+  "next_escalation": "Implement a domain-specific scorer when this generic pack remains fail-closed.",
+  "no_fake_closure_policy": "This pack is source-bound but cannot promote broad superiority unless actual target-hidden scoring materially beats the preregistered comparator.",
+  "pack_status": "FAIL_CLOSED_SOURCE_BOUND_SCORING_NOT_MATERIALIZED",
+  "pass_predicate": "pack_status == PASS, material_margin_met == true, no fail-closed status, replay_record PASS.",
+  "phenomenon_class_id": "condensed_matter_fields_and_measurements",
+  "prerequisite_artifacts_bound": true,
+  "repair_strategy": "Acquire target-hidden source data, materialize OC and incumbent predictions, compute residuals, then rerun this pack and replay.",
+  "replay": {
+    "replay_command": "python benchmarks/modern_science/coverage_lane_dispatcher.py --check",
+    "replay_commands": [
+      "python benchmarks/modern_science/coverage_lane_dispatcher.py --check"
+    ],
+    "status": "BLOCKED_BY_SCORING"
+  },
+  "required_artifact_refs": {
+    "benchmark_case": "validation/heldout/grand_science/modern_science_coverage_artifacts/8b4b8aaaa996e50a/benchmark_case.json",
+    "falsifier_row": "validation/heldout/grand_science/modern_science_coverage_artifacts/8b4b8aaaa996e50a/falsifier_row.json",
+    "incumbent_comparator": "validation/heldout/grand_science/modern_science_coverage_artifacts/8b4b8aaaa996e50a/incumbent_comparator.json",
+    "uncertainty_row": "validation/heldout/grand_science/modern_science_coverage_artifacts/8b4b8aaaa996e50a/uncertainty_row.json",
+    "verified_open_source_capsule": "validation/heldout/grand_science/modern_science_coverage_artifacts/8b4b8aaaa996e50a/verified_open_source_capsule.json"
+  },
+  "required_capability": "Research/ScoringExecutor",
+  "residual_requirement": {
+    "formula": "mean(abs(predicted_bandgap_eV - observed_bandgap_eV))",
+    "metric_id": "bandgap_mae_eV_with_bootstrap_superiority_v1",
+    "superiority_rule": "model_MAE + upper_interval_margin < comparator_MAE"
+  },
+  "residuals": {
+    "comparator": null,
+    "material_margin_met": false,
+    "material_margin_rule": "model_MAE + upper_interval_margin < comparator_MAE",
+    "model": null
+  },
+  "schema_id": "OC133_MODERN_SCIENCE_COMPARATOR_STRICT_EVIDENCE_PACK_v1",
+  "score_materialized": false,
+  "source": {
+    "minimum_rows_required": 20,
+    "official_documentation_url": "https://jarvis.nist.gov/",
+    "official_endpoint_url": "https://jarvis.nist.gov/optimade/jarvisdft/",
+    "required_local_snapshot_ref": "validation/heldout/grand_science/physics_chemistry/nist_jarvis_dft/OC133_NIST_JARVIS_DFT_BANDGAP_SNAPSHOT.json",
+    "required_lock_ref": "validation/heldout/grand_science/physics_chemistry/nist_jarvis_dft/OC133_NIST_JARVIS_DFT_BANDGAP_SNAPSHOT.lock.json",
+    "snapshot_status": "NOT_ACQUIRED_FOR_THIS_COVERAGE_CLASS",
+    "source_authority": "National Institute of Standards and Technology",
+    "source_id": "physics_nist_jarvis_dft_bandgap_v1",
+    "source_name": "NIST-JARVIS JARVIS-DFT materials property records"
+  },
+  "source_bound": true,
+  "source_refs": [
+    "reports/OC_CORE_1_3_3_MODERN_SCIENCE_COVERAGE_LANE_QUEUE.json",
+    "benchmarks/modern_science/OC133_MODERN_SCIENCE_COVERAGE_WORK_ORDERS.json",
+    "comparators/modern_science/OC133_MODERN_SCIENCE_COVERAGE_REGISTER.json"
+  ],
+  "status": "FAIL_CLOSED_SOURCE_BOUND_SCORING_NOT_MATERIALIZED",
+  "target_hidden": true,
+  "target_variable": {
+    "extraction_rule": "Hide the JARVIS-DFT bandgap field until a predeclared composition/structure model and comparator have been materialized from visible formula and structure descriptors.",
+    "name": "optB88vdW_electronic_bandgap_eV",
+    "target_fields": [
+      "optB88vdW electronic bandgap"
+    ],
+    "unit": "eV"
+  },
+  "uncertainty_requirement": {
+    "metric": "mean_absolute_error_eV_with_bootstrap_interval",
+    "rule": "Declare row-level tolerance and bootstrap confidence interval before target opening; source field precision alone cannot close the lane."
+  },
+  "validator_binding": "comparator_gap::MS-COV-GAP-PHYSICAL_SCIENCES-CONDENSED_MATTER_FIELDS_AND_MEASUREMENTS::generic_strict_evidence_pack",
+  "why_it_failed": "Source identity and preregistered benchmark are present, but no target-hidden OC score with material superiority exists."
+}

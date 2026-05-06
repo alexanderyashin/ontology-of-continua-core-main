@@ -1,11 +1,32 @@
 {
-  "artifact_hash": "262da2684a44453ffef021b56881c973f76624720b7f492e0538811aa0ac9af0",
+  "artifact_hash": "63a7b6be16c7e68b7994b2f5480827c75b88c2a6f729e25ef2acaabf8298ac7c",
   "artifact_key": "replay_record",
   "artifact_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/repairs/repair_c7579247b7b44e27.json",
-  "command_pass": false,
-  "command_result_total": 0,
-  "command_results": [],
-  "concrete_governed_commands": [],
+  "command_pass": true,
+  "command_result_total": 1,
+  "command_results": [
+    {
+      "cmd": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "tools/oc133_toe_closure_factory.py",
+        "--execute-comparator-generic-evidence-pack",
+        "MS-COV-GAP-SOCIAL_ECONOMIC_POLITICAL_SCIENCES-ECONOMIC_INDICATOR_AND_MARKET_OBSERVABLES",
+        "--write"
+      ],
+      "returncode": 0,
+      "stderr_tail": "",
+      "stdout_tail": "{\n  \"changed\": [],\n  \"missing\": [],\n  \"state\": \"PASS\"\n}\n"
+    }
+  ],
+  "concrete_governed_commands": [
+    [
+      "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+      "tools/oc133_toe_closure_factory.py",
+      "--execute-comparator-generic-evidence-pack",
+      "MS-COV-GAP-SOCIAL_ECONOMIC_POLITICAL_SCIENCES-ECONOMIC_INDICATOR_AND_MARKET_OBSERVABLES",
+      "--write"
+    ]
+  ],
   "domain_class_id": "social_economic_political_sciences",
   "execution_command": [
     "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
@@ -22,15 +43,15 @@
   "no_fake_closure_policy": "This repair execution cannot mark broad superiority PASS unless the refreshed research artifact itself passes.",
   "pass_predicate": "The repaired research artifact status becomes PASS and the comparator gap no longer lists this artifact as missing.",
   "phenomenon_class_id": "economic_indicator_and_market_observables",
-  "refreshed_research_artifact_hash": "f6b48aed2ca9efe14527ac24cb9834de05cba4f2e44f8e68057020c1151c8c99",
+  "refreshed_research_artifact_hash": "97d238922218c75a098e03601a492abfad0b55b5285646e2da1dff0e0d20396c",
   "refreshed_research_artifact_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/fc08158de1496fae/replay_record.json",
   "refreshed_research_artifact_status": "OPEN",
   "repair_id": "R017-RESEARCH-ARTIFACT-REPAIR-ac1dae6b3698ff73",
   "repair_strategy": "Close the OC scoring row first, then rerun replay.",
   "required_capability": "Research/ScoringExecutor",
-  "root_cause_class": "NO_CONCRETE_REPAIR_COMMAND",
+  "root_cause_class": "REPLAY_BLOCKED_BY_SCORING_ARTIFACT",
   "schema_id": "OC133_MODERN_SCIENCE_COMPARATOR_RESEARCH_ARTIFACT_REPAIR_EXECUTION_v1",
-  "status": "CAPABILITY_DEVELOPMENT_REQUIRED",
+  "status": "EVIDENCE_REPAIR_ATTEMPTED_REMAINS_OPEN",
   "validator_binding": "comparator_gap::MS-COV-GAP-SOCIAL_ECONOMIC_POLITICAL_SCIENCES-ECONOMIC_INDICATOR_AND_MARKET_OBSERVABLES::research_artifact_repair::replay_record",
-  "why_it_failed": "No exact governed scorer/replay repair command is currently mapped for this domain/gap/artifact."
+  "why_it_failed": "Concrete repair commands ran, but the refreshed research artifact still remains OPEN under its source-bound predicate."
 }

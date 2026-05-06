@@ -1,0 +1,121 @@
+{
+  "artifact_hash": "293de0266785c037f958506a3ba54a423bfe0a87d0a947b37ced556a3cd83ff0",
+  "artifact_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/9d16b5041970ef2a/strict_evidence_pack.json",
+  "broad_modern_science_superiority_allowed": false,
+  "comparator_bound": true,
+  "coverage_closure_allowed": false,
+  "current_evidence": {
+    "evidence_pack_hash": "",
+    "evidence_pack_summary": {
+      "coverage_closure_allowed": null,
+      "pack_status": null,
+      "residuals": {},
+      "schema_id": null
+    },
+    "evidence_ref": null,
+    "evidence_ref_exists": false,
+    "executable_evidence_exists": false,
+    "fail_closed_status_present": true,
+    "material_margin_met": false,
+    "pack_status_text": "{\"COVERAGE_CLOSURE_ALLOWED\": NULL, \"COVERAGE_CLOSURE_STATUS\": \"OPEN_FAIL_CLOSED_READY_FOR_REPLAY_REVIEW_NOT_COVERAGE_CLOSED\", \"EVIDENCE_STATUS\": NULL, \"PACK_STATUS\": NULL}"
+  },
+  "domain_class_id": "biological_life_sciences",
+  "executable_evidence_exists": true,
+  "execution_command": [
+    "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+    "tools/oc133_toe_closure_factory.py",
+    "--execute-comparator-generic-evidence-pack",
+    "MS-COV-GAP-BIOLOGICAL_LIFE_SCIENCES-CELLULAR_DEVELOPMENTAL_REGULATORY_DYNAMICS",
+    "--write"
+  ],
+  "execution_requirements": {
+    "evidence_pack_schema_id": "OC133_GRAND_EMPIRICAL_EVIDENCE_v1",
+    "minimum_n": 20,
+    "replay_command": "python benchmarks/modern_science/coverage_lane_dispatcher.py --check",
+    "source_separation_mode": "target_blind",
+    "target_hidden_until_scoring": true
+  },
+  "fail_closed_reason": "Source identity and preregistered benchmark are present, but no target-hidden OC score with material superiority exists.",
+  "falsifier_requirement": {
+    "falsifier_id": "OC133-BIOLOGY-COVERAGE-CELLULAR-DEVELOPMENTAL-REGULATORY-DYNAMICS_falsifier",
+    "trigger": "any GEO Profile target row is pagination, retmax, retstart, idlist, or total-hit-count QA; training_source and target_source overlap; official bundle hash differs from the source hash registered in the report; vmax comparator is not worse than the model residual on any heldout target"
+  },
+  "gap_id": "MS-COV-GAP-BIOLOGICAL_LIFE_SCIENCES-CELLULAR_DEVELOPMENTAL_REGULATORY_DYNAMICS",
+  "generated_at": "2026-05-06T08:08:02Z",
+  "incumbent_comparator": {
+    "baseline_name": "within-profile maximum expression-count biological baseline",
+    "pre_registered": true,
+    "prediction_rule": "predict the same GEO Profile heldout rmean target using official visible vmax",
+    "required_material_margin": "model residual must beat comparator residual under the declared domain-local metric",
+    "target_values_used_for_baseline_design": false
+  },
+  "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+  "next_escalation": "Implement a domain-specific scorer when this generic pack remains fail-closed.",
+  "no_fake_closure_policy": "This pack is source-bound but cannot promote broad superiority unless actual target-hidden scoring materially beats the preregistered comparator.",
+  "pack_status": "FAIL_CLOSED_SOURCE_BOUND_SCORING_NOT_MATERIALIZED",
+  "pass_predicate": "pack_status == PASS, material_margin_met == true, no fail-closed status, replay_record PASS.",
+  "phenomenon_class_id": "cellular_developmental_regulatory_dynamics",
+  "prerequisite_artifacts_bound": true,
+  "repair_strategy": "Acquire target-hidden source data, materialize OC and incumbent predictions, compute residuals, then rerun this pack and replay.",
+  "replay": {
+    "replay_command": "python benchmarks/modern_science/coverage_lane_dispatcher.py --check",
+    "replay_commands": [
+      "python benchmarks/modern_science/coverage_lane_dispatcher.py --check"
+    ],
+    "status": "BLOCKED_BY_SCORING"
+  },
+  "required_artifact_refs": {
+    "benchmark_case": "validation/heldout/grand_science/modern_science_coverage_artifacts/9d16b5041970ef2a/benchmark_case.json",
+    "falsifier_row": "validation/heldout/grand_science/modern_science_coverage_artifacts/9d16b5041970ef2a/falsifier_row.json",
+    "incumbent_comparator": "validation/heldout/grand_science/modern_science_coverage_artifacts/9d16b5041970ef2a/incumbent_comparator.json",
+    "uncertainty_row": "validation/heldout/grand_science/modern_science_coverage_artifacts/9d16b5041970ef2a/uncertainty_row.json",
+    "verified_open_source_capsule": "validation/heldout/grand_science/modern_science_coverage_artifacts/9d16b5041970ef2a/verified_open_source_capsule.json"
+  },
+  "required_capability": "Research/ScoringExecutor",
+  "residual_requirement": {
+    "formula": "absolute residual per GEO Profile row; aggregate mean absolute residual",
+    "metric_id": "OC133-BIOLOGY-COVERAGE-CELLULAR-DEVELOPMENTAL-REGULATORY-DYNAMICS_domain_local_residual",
+    "superiority_rule": "mean_model_residual < mean_comparator_residual and every negative control is rejected"
+  },
+  "residuals": {
+    "comparator": null,
+    "material_margin_met": false,
+    "material_margin_rule": "mean_model_residual < mean_comparator_residual and every negative control is rejected",
+    "model": null
+  },
+  "schema_id": "OC133_MODERN_SCIENCE_COMPARATOR_STRICT_EVIDENCE_PACK_v1",
+  "score_materialized": false,
+  "source": {
+    "minimum_rows_required": 20,
+    "official_documentation_url": "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/",
+    "official_endpoint_url": "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/",
+    "required_local_snapshot_ref": null,
+    "required_lock_ref": null,
+    "snapshot_status": "NOT_ACQUIRED_FOR_THIS_COVERAGE_CLASS",
+    "source_authority": "NCBI GEO Profiles through E-utilities ESearch/ESummary",
+    "source_id": "NCBI_GEO_PROFILES_EUTILS",
+    "source_name": "NCBI GEO Profiles through E-utilities ESearch/ESummary"
+  },
+  "source_bound": true,
+  "source_refs": [
+    "reports/OC_CORE_1_3_3_MODERN_SCIENCE_COVERAGE_LANE_QUEUE.json",
+    "benchmarks/modern_science/OC133_MODERN_SCIENCE_COVERAGE_WORK_ORDERS.json",
+    "comparators/modern_science/OC133_MODERN_SCIENCE_COVERAGE_REGISTER.json"
+  ],
+  "status": "FAIL_CLOSED_SOURCE_BOUND_SCORING_NOT_MATERIALIZED",
+  "target_hidden": true,
+  "target_variable": {
+    "extraction_rule": "result.<uid>.rmean",
+    "name": "NCBI_GEO_Profile_ranked_mean_expression",
+    "target_fields": [
+      "result.<uid>.rmean"
+    ],
+    "unit": "official GEO Profile rmean count/rank value"
+  },
+  "uncertainty_requirement": {
+    "metric": "absolute residual per GEO Profile row; aggregate mean absolute residual",
+    "rule": "deterministic official GEO Profile ranked-score residuals with zero added measurement slack"
+  },
+  "validator_binding": "comparator_gap::MS-COV-GAP-BIOLOGICAL_LIFE_SCIENCES-CELLULAR_DEVELOPMENTAL_REGULATORY_DYNAMICS::generic_strict_evidence_pack",
+  "why_it_failed": "Source identity and preregistered benchmark are present, but no target-hidden OC score with material superiority exists."
+}

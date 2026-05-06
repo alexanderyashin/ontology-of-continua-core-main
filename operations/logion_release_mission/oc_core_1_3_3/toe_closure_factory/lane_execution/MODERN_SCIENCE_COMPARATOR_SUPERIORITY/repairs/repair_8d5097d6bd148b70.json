@@ -1,9 +1,9 @@
 {
-  "artifact_hash": "339cd08ce713b497d1e3761b99f2a4b514e87a3f6b1c9ee91e1f361727286a5d",
+  "artifact_hash": "378d261316903f92318538d71c24b92f521df0583c3fecd7af32bf4ac1df6690",
   "artifact_key": "oc_prediction_scoring_row",
   "artifact_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/repairs/repair_8d5097d6bd148b70.json",
   "command_pass": true,
-  "command_result_total": 2,
+  "command_result_total": 3,
   "command_results": [
     {
       "cmd": [
@@ -25,6 +25,18 @@
       "returncode": 0,
       "stderr_tail": "",
       "stdout_tail": "{\n  \"status\": \"ok\",\n  \"checked\": \"validation/heldout/grand_science/agriculture/coverage_work_orders/OC133_AGRICULTURE_MODERN_SCIENCE_COVERAGE_WORK_ORDERS.json\",\n  \"coverage_closure_allowed\": false\n}\n"
+    },
+    {
+      "cmd": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "tools/oc133_toe_closure_factory.py",
+        "--execute-comparator-generic-evidence-pack",
+        "MS-COV-GAP-AGRICULTURAL_FOOD_SCIENCES-FOOD_CHEMISTRY_SAFETY_AND_NUTRITION",
+        "--write"
+      ],
+      "returncode": 0,
+      "stderr_tail": "",
+      "stdout_tail": "{\n  \"changed\": [],\n  \"missing\": [],\n  \"state\": \"PASS\"\n}\n"
     }
   ],
   "concrete_governed_commands": [
@@ -38,6 +50,13 @@
       "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
       "validation/heldout/grand_science/agriculture/coverage_work_orders/oc133_agriculture_modern_science_coverage_work_orders.py",
       "--check"
+    ],
+    [
+      "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+      "tools/oc133_toe_closure_factory.py",
+      "--execute-comparator-generic-evidence-pack",
+      "MS-COV-GAP-AGRICULTURAL_FOOD_SCIENCES-FOOD_CHEMISTRY_SAFETY_AND_NUTRITION",
+      "--write"
     ]
   ],
   "domain_class_id": "agricultural_food_sciences",
@@ -56,7 +75,7 @@
   "no_fake_closure_policy": "This repair execution cannot mark broad superiority PASS unless the refreshed research artifact itself passes.",
   "pass_predicate": "The repaired research artifact status becomes PASS and the comparator gap no longer lists this artifact as missing.",
   "phenomenon_class_id": "food_chemistry_safety_and_nutrition",
-  "refreshed_research_artifact_hash": "ca0bd77f961da6932757a594db0e23a4e91222a8119c65a5cd7fb5f2d52e23fc",
+  "refreshed_research_artifact_hash": "bcc416633e265199c85ffb11a7355d40a78722803b1da072c45fa6f0825fd7c0",
   "refreshed_research_artifact_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/b1f19189ac368c4d/oc_prediction_scoring_row.json",
   "refreshed_research_artifact_status": "OPEN",
   "repair_id": "R017-RESEARCH-ARTIFACT-REPAIR-0ff3dc7b1a20bbaa",

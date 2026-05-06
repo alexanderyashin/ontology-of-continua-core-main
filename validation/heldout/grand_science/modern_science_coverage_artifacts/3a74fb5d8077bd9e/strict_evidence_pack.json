@@ -1,0 +1,123 @@
+{
+  "artifact_hash": "bf901b9c18007f9705da2d78a9338c535d4c8dc7d75d0735bff9f245c26f0e7b",
+  "artifact_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/3a74fb5d8077bd9e/strict_evidence_pack.json",
+  "broad_modern_science_superiority_allowed": false,
+  "comparator_bound": true,
+  "coverage_closure_allowed": false,
+  "current_evidence": {
+    "evidence_pack_hash": "",
+    "evidence_pack_summary": {
+      "coverage_closure_allowed": null,
+      "pack_status": null,
+      "residuals": {},
+      "schema_id": null
+    },
+    "evidence_ref": null,
+    "evidence_ref_exists": false,
+    "executable_evidence_exists": false,
+    "fail_closed_status_present": true,
+    "material_margin_met": false,
+    "pack_status_text": "{\"COVERAGE_CLOSURE_ALLOWED\": NULL, \"COVERAGE_CLOSURE_STATUS\": \"OPEN_FAIL_CLOSED_EXECUTABLE_SPEC_ONLY\", \"EVIDENCE_STATUS\": NULL, \"PACK_STATUS\": NULL}"
+  },
+  "domain_class_id": "cognitive_behavioral_neurosciences",
+  "executable_evidence_exists": true,
+  "execution_command": [
+    "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+    "tools/oc133_toe_closure_factory.py",
+    "--execute-comparator-generic-evidence-pack",
+    "MS-COV-GAP-COGNITIVE_BEHAVIORAL_NEUROSCIENCES-NEURAL_RECORDING_AND_BRAIN_NETWORK_OBSERVABLES",
+    "--write"
+  ],
+  "execution_requirements": {
+    "evidence_pack_schema_id": "OC133_GRAND_EMPIRICAL_EVIDENCE_v1",
+    "minimum_n": 80,
+    "replay_command": "python validation/heldout/grand_science/neurobehavioral/coverage_work_orders/oc133_neurobehavioral_modern_science_coverage_work_orders.py --check",
+    "source_separation_mode": "target_blind",
+    "target_hidden_until_scoring": true
+  },
+  "fail_closed_reason": "Source identity and preregistered benchmark are present, but no target-hidden OC score with material superiority exists.",
+  "falsifier_requirement": {
+    "falsifier_id": "NEURO-CONNECTIVITY-SOURCE-LEAK-FALSIFIER",
+    "trigger": "Heldout connectivity edges leak into training, dataset hashes drift, fewer than 20 subjects are scored, or training-mean comparator ties or beats the model within uncertainty."
+  },
+  "gap_id": "MS-COV-GAP-COGNITIVE_BEHAVIORAL_NEUROSCIENCES-NEURAL_RECORDING_AND_BRAIN_NETWORK_OBSERVABLES",
+  "generated_at": "2026-05-06T08:08:14Z",
+  "incumbent_comparator": {
+    "baseline_name": "training-cohort mean connectivity edge comparator",
+    "pre_registered": true,
+    "prediction_rule": "predict each heldout edge by the training-only mean for the same atlas edge and stratum",
+    "required_material_margin": "model residual must beat comparator residual under the declared domain-local metric",
+    "target_values_used_for_baseline_design": false
+  },
+  "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+  "next_escalation": "Implement a domain-specific scorer when this generic pack remains fail-closed.",
+  "no_fake_closure_policy": "This pack is source-bound but cannot promote broad superiority unless actual target-hidden scoring materially beats the preregistered comparator.",
+  "pack_status": "FAIL_CLOSED_SOURCE_BOUND_SCORING_NOT_MATERIALIZED",
+  "pass_predicate": "pack_status == PASS, material_margin_met == true, no fail-closed status, replay_record PASS.",
+  "phenomenon_class_id": "neural_recording_and_brain_network_observables",
+  "prerequisite_artifacts_bound": true,
+  "repair_strategy": "Acquire target-hidden source data, materialize OC and incumbent predictions, compute residuals, then rerun this pack and replay.",
+  "replay": {
+    "replay_command": "python validation/heldout/grand_science/neurobehavioral/coverage_work_orders/oc133_neurobehavioral_modern_science_coverage_work_orders.py --check",
+    "replay_commands": [
+      "python validation/heldout/grand_science/neurobehavioral/coverage_work_orders/oc133_neurobehavioral_modern_science_coverage_work_orders.py --check"
+    ],
+    "status": "BLOCKED_BY_SCORING"
+  },
+  "required_artifact_refs": {
+    "benchmark_case": "validation/heldout/grand_science/modern_science_coverage_artifacts/3a74fb5d8077bd9e/benchmark_case.json",
+    "falsifier_row": "validation/heldout/grand_science/modern_science_coverage_artifacts/3a74fb5d8077bd9e/falsifier_row.json",
+    "incumbent_comparator": "validation/heldout/grand_science/modern_science_coverage_artifacts/3a74fb5d8077bd9e/incumbent_comparator.json",
+    "uncertainty_row": "validation/heldout/grand_science/modern_science_coverage_artifacts/3a74fb5d8077bd9e/uncertainty_row.json",
+    "verified_open_source_capsule": "validation/heldout/grand_science/modern_science_coverage_artifacts/3a74fb5d8077bd9e/verified_open_source_capsule.json"
+  },
+  "required_capability": "Research/ScoringExecutor",
+  "residual_requirement": {
+    "formula": "edge-wise absolute residual and subject-level RMSE over heldout edge vectors",
+    "metric_id": "MS-COV-WO-028_domain_local_residual",
+    "superiority_rule": "model_RMSE + uncertainty_upper < comparator_RMSE"
+  },
+  "residuals": {
+    "comparator": null,
+    "material_margin_met": false,
+    "material_margin_rule": "model_RMSE + uncertainty_upper < comparator_RMSE",
+    "model": null
+  },
+  "schema_id": "OC133_MODERN_SCIENCE_COMPARATOR_STRICT_EVIDENCE_PACK_v1",
+  "score_materialized": false,
+  "source": {
+    "minimum_rows_required": 80,
+    "official_documentation_url": "https://github.com/OpenNeuroDatasets/ds000030",
+    "official_endpoint_url": "https://openneuro.org/datasets/ds000030",
+    "required_local_snapshot_ref": null,
+    "required_lock_ref": null,
+    "snapshot_status": "NOT_ACQUIRED_FOR_THIS_COVERAGE_CLASS",
+    "source_authority": "OpenNeuro / OpenfMRI / Center for Reproducible Neuroscience",
+    "source_id": "OPENNEURO_DS000030_CNP",
+    "source_name": "UCLA Consortium for Neuropsychiatric Phenomics LA5c Study"
+  },
+  "source_bound": true,
+  "source_refs": [
+    "reports/OC_CORE_1_3_3_MODERN_SCIENCE_COVERAGE_LANE_QUEUE.json",
+    "benchmarks/modern_science/OC133_MODERN_SCIENCE_COVERAGE_WORK_ORDERS.json",
+    "comparators/modern_science/OC133_MODERN_SCIENCE_COVERAGE_REGISTER.json"
+  ],
+  "status": "FAIL_CLOSED_SOURCE_BOUND_SCORING_NOT_MATERIALIZED",
+  "target_hidden": true,
+  "target_variable": {
+    "extraction_rule": "Resting-state BOLD time series are transformed into a locked atlas connectivity matrix; heldout subject edge values stay hidden until predictions are materialized.",
+    "name": "heldout_subject_resting_state_connectivity_edge",
+    "target_fields": [
+      "atlas_edge_zcorr[source_region,target_region]",
+      "subject_id",
+      "task_rest_bold_run"
+    ],
+    "unit": "Fisher z-transformed functional connectivity"
+  },
+  "uncertainty_requirement": {
+    "metric": "edge-wise absolute residual and subject-level RMSE over heldout edge vectors",
+    "rule": "subject bootstrap plus motion-quality stratified conformal residual envelope"
+  },
+  "validator_binding": "comparator_gap::MS-COV-GAP-COGNITIVE_BEHAVIORAL_NEUROSCIENCES-NEURAL_RECORDING_AND_BRAIN_NETWORK_OBSERVABLES::generic_strict_evidence_pack",
+  "why_it_failed": "Source identity and preregistered benchmark are present, but no target-hidden OC score with material superiority exists."
+}

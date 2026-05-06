@@ -1,0 +1,43 @@
+{
+  "artifact_hash": "ca68bc8f6d6b051a49bcf98ba1a9e5ed57213510cc7d72d4ec19d2972512fb46",
+  "artifact_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/domain_scorers/scorer_57ee6cb35f9811ec.json",
+  "command_pass": false,
+  "command_result_total": 0,
+  "command_results": [],
+  "domain_class_id": "physical_sciences",
+  "domain_scoring_id": "R017-DOMAIN-SCORER-a7777e969d546a74",
+  "exact_domain_scorer_available": false,
+  "exact_domain_scorer_commands": [],
+  "executable_spec_ref": "MS-PHYS-DYNAMICS-JPL-HORIZONS-VECTORS-v1",
+  "execution_command": [
+    "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+    "tools/oc133_toe_closure_factory.py",
+    "--execute-comparator-domain-scoring",
+    "R017-DOMAIN-SCORER-a7777e969d546a74",
+    "--write"
+  ],
+  "gap_id": "MS-COV-GAP-PHYSICAL_SCIENCES-DYNAMICAL_LAWS_AND_CONSERVATION",
+  "generated_at": "2026-05-06T08:17:32Z",
+  "generic_evidence_pack_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/a7777e969d546a74/strict_evidence_pack.json",
+  "generic_evidence_pack_status": "FAIL_CLOSED_SOURCE_BOUND_SCORING_NOT_MATERIALIZED",
+  "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+  "missing_domain_scoring_elements": [
+    "score_materialized",
+    "model_residual_materialized",
+    "comparator_residual_materialized",
+    "material_margin_met"
+  ],
+  "next_escalation": "Implement the exact domain scorer if missing; if present but negative, preserve the fail-closed result and repair science/model support rather than flipping PASS.",
+  "no_fake_closure_policy": "This execution cannot close broad superiority unless the downstream scoring artifact itself passes.",
+  "pass_predicate": "Domain scorer writes numeric OC/comparator residuals, material_margin_met is true, and the downstream oc_prediction_scoring_row becomes PASS.",
+  "phenomenon_class_id": "dynamical_laws_and_conservation",
+  "repair_strategy": "Implement a domain-specific scorer that locks targets, computes OC predictions and incumbent comparator predictions, materializes residuals, and reruns replay without changing the expected verdict.",
+  "required_capability": "Research/DomainScoringExecutor",
+  "root_cause_class": "DOMAIN_SPECIFIC_SCORER_MISSING",
+  "schema_id": "OC133_MODERN_SCIENCE_COMPARATOR_DOMAIN_SCORING_EXECUTION_v1",
+  "scoring_artifact_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/a7777e969d546a74/oc_prediction_scoring_row.json",
+  "scoring_artifact_status": "OPEN",
+  "status": "CAPABILITY_DEVELOPMENT_REQUIRED",
+  "validator_binding": "comparator_gap::MS-COV-GAP-PHYSICAL_SCIENCES-DYNAMICAL_LAWS_AND_CONSERVATION::domain_scoring_executor",
+  "why_it_failed": "No exact domain scorer exists for this domain/phenomenon; the generic evidence pack remains fail-closed."
+}

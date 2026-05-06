@@ -1,0 +1,110 @@
+{
+  "artifact_hash": "e1ca494c4b710ba0d02591b85e8d840da717e4cc2c0a4949df3d7362c6ade126",
+  "artifact_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/domain_scorer_implementations/scorer_impl_2697002d030df293.json",
+  "command_result_total": 0,
+  "command_results": [],
+  "domain_class_id": "cognitive_behavioral_neurosciences",
+  "domain_scoring_id": "R017-DOMAIN-SCORER-3a74fb5d8077bd9e",
+  "domain_scoring_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/domain_scorers/scorer_86137f3c3d278622.json",
+  "domain_scoring_root_cause": "DOMAIN_SPECIFIC_SCORER_MISSING",
+  "domain_scoring_status": "CAPABILITY_DEVELOPMENT_REQUIRED",
+  "exact_domain_scorer_commands": [],
+  "execution_command": [
+    "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+    "tools/oc133_toe_closure_factory.py",
+    "--execute-comparator-domain-scorer-implementation",
+    "R017-DOMAIN-SCORER-IMPL-3a74fb5d8077bd9e",
+    "--write"
+  ],
+  "execution_requirements": {
+    "evidence_pack_schema_id": "OC133_GRAND_EMPIRICAL_EVIDENCE_v1",
+    "minimum_n": 80,
+    "replay_command": "python validation/heldout/grand_science/neurobehavioral/coverage_work_orders/oc133_neurobehavioral_modern_science_coverage_work_orders.py --check",
+    "source_separation_mode": "target_blind",
+    "target_hidden_until_scoring": true
+  },
+  "expected_script_exists": true,
+  "expected_script_ref": "validation/heldout/grand_science/neurobehavioral/coverage_work_orders/oc133_neurobehavioral_modern_science_coverage_work_orders.py",
+  "falsifier_requirement": {
+    "falsifier_id": "NEURO-CONNECTIVITY-SOURCE-LEAK-FALSIFIER",
+    "trigger": "Heldout connectivity edges leak into training, dataset hashes drift, fewer than 20 subjects are scored, or training-mean comparator ties or beats the model within uncertainty."
+  },
+  "formula_requirement": {
+    "formula_or_model": "Fit a training-only nuisance-adjusted ridge/graph prior from visible subject covariates and training-subject connectivity structure, then predict heldout subject edge vectors once.",
+    "required_inputs": [],
+    "target_values_may_be_used_for_model_design": false
+  },
+  "gap_id": "MS-COV-GAP-COGNITIVE_BEHAVIORAL_NEUROSCIENCES-NEURAL_RECORDING_AND_BRAIN_NETWORK_OBSERVABLES",
+  "generated_at": "2026-05-06T08:32:52Z",
+  "implementation_command_class": "MISSING_DOMAIN_SCORER_FLAGS",
+  "implementation_id": "R017-DOMAIN-SCORER-IMPL-3a74fb5d8077bd9e",
+  "implementation_work_order_id": "R017-DOMAIN-SCORER-IMPL-3a74fb5d8077bd9e",
+  "incumbent_comparator_requirement": {
+    "baseline_name": "training-cohort mean connectivity edge comparator",
+    "pre_registered": true,
+    "prediction_rule": "predict each heldout edge by the training-only mean for the same atlas edge and stratum",
+    "required_material_margin": "model residual must beat comparator residual under the declared domain-local metric",
+    "target_values_used_for_baseline_design": false
+  },
+  "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+  "missing_domain_scorer_elements": [
+    "command_pass",
+    "comparator_residual_materialized",
+    "exact_domain_scorer_available",
+    "fail_closed_status_absent",
+    "material_margin_met",
+    "model_residual_materialized",
+    "score_materialized"
+  ],
+  "next_escalation": "If status is CAPABILITY_DEVELOPMENT_REQUIRED, implement the listed script/flags/model support. If evidence remains negative, preserve fail-closed science and repair the model/comparator rather than flipping PASS.",
+  "no_fake_closure_policy": "This execution cannot close broad superiority unless the downstream scoring and replay artifacts pass.",
+  "output_artifact_refs": {
+    "domain_scoring_report": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/domain_scorers/scorer_86137f3c3d278622.json",
+    "oc_prediction_scoring_row": "validation/heldout/grand_science/modern_science_coverage_artifacts/3a74fb5d8077bd9e/oc_prediction_scoring_row.json",
+    "replay_record": "validation/heldout/grand_science/modern_science_coverage_artifacts/3a74fb5d8077bd9e/replay_record.json",
+    "strict_evidence_pack": "validation/heldout/grand_science/modern_science_coverage_artifacts/3a74fb5d8077bd9e/strict_evidence_pack.json"
+  },
+  "pass_predicate": "A governed domain scorer script/flags exist, run cleanly, and the downstream domain-scoring report plus oc_prediction_scoring_row become PASS.",
+  "phenomenon_class_id": "neural_recording_and_brain_network_observables",
+  "repair_strategy": "Extend the existing domain scorer script with concrete flags for this phenomenon and bind them in COMPARATOR_DOMAIN_IMPLEMENTED_COMMANDS.",
+  "replay_artifact_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/3a74fb5d8077bd9e/replay_record.json",
+  "replay_artifact_status": "OPEN",
+  "required_capability": "Research/DomainScorerImplementation",
+  "required_source_block": {
+    "minimum_rows_required": 80,
+    "official_documentation_url": "https://github.com/OpenNeuroDatasets/ds000030",
+    "official_endpoint_url": "https://openneuro.org/datasets/ds000030",
+    "required_local_snapshot_ref": null,
+    "required_lock_ref": null,
+    "snapshot_status": "NOT_ACQUIRED_FOR_THIS_COVERAGE_CLASS",
+    "source_authority": "OpenNeuro / OpenfMRI / Center for Reproducible Neuroscience",
+    "source_id": "OPENNEURO_DS000030_CNP",
+    "source_name": "UCLA Consortium for Neuropsychiatric Phenomics LA5c Study"
+  },
+  "residual_requirement": {
+    "formula": "edge-wise absolute residual and subject-level RMSE over heldout edge vectors",
+    "metric_id": "MS-COV-WO-028_domain_local_residual",
+    "superiority_rule": "model_RMSE + uncertainty_upper < comparator_RMSE"
+  },
+  "root_cause_class": "DOMAIN_SCORER_FLAGS_MISSING",
+  "schema_id": "OC133_MODERN_SCIENCE_COMPARATOR_DOMAIN_SCORER_IMPLEMENTATION_EXECUTION_v1",
+  "scoring_artifact_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/3a74fb5d8077bd9e/oc_prediction_scoring_row.json",
+  "scoring_artifact_status": "OPEN",
+  "status": "CAPABILITY_DEVELOPMENT_REQUIRED",
+  "target_variable": {
+    "extraction_rule": "Resting-state BOLD time series are transformed into a locked atlas connectivity matrix; heldout subject edge values stay hidden until predictions are materialized.",
+    "name": "heldout_subject_resting_state_connectivity_edge",
+    "target_fields": [
+      "atlas_edge_zcorr[source_region,target_region]",
+      "subject_id",
+      "task_rest_bold_run"
+    ],
+    "unit": "Fisher z-transformed functional connectivity"
+  },
+  "uncertainty_requirement": {
+    "metric": "edge-wise absolute residual and subject-level RMSE over heldout edge vectors",
+    "rule": "subject bootstrap plus motion-quality stratified conformal residual envelope"
+  },
+  "validator_binding": "comparator_gap::MS-COV-GAP-COGNITIVE_BEHAVIORAL_NEUROSCIENCES-NEURAL_RECORDING_AND_BRAIN_NETWORK_OBSERVABLES::domain_scorer_implementation",
+  "why_it_failed": "The domain scorer script exists, but this domain/phenomenon has no bound acquisition/scoring/replay flags."
+}

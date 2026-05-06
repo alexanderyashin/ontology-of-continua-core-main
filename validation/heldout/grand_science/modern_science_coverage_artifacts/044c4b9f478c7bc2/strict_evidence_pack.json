@@ -1,0 +1,122 @@
+{
+  "artifact_hash": "dd45c46284c51cb7cdd1c2f2887a3d4777b01a6a955d15d9e2b4676ba76df18b",
+  "artifact_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/044c4b9f478c7bc2/strict_evidence_pack.json",
+  "broad_modern_science_superiority_allowed": false,
+  "comparator_bound": true,
+  "coverage_closure_allowed": false,
+  "current_evidence": {
+    "evidence_pack_hash": "",
+    "evidence_pack_summary": {
+      "coverage_closure_allowed": null,
+      "pack_status": null,
+      "residuals": {},
+      "schema_id": null
+    },
+    "evidence_ref": null,
+    "evidence_ref_exists": false,
+    "executable_evidence_exists": false,
+    "fail_closed_status_present": true,
+    "material_margin_met": false,
+    "pack_status_text": "{\"COVERAGE_CLOSURE_ALLOWED\": NULL, \"COVERAGE_CLOSURE_STATUS\": \"OPEN_FAIL_CLOSED_NO_EXECUTABLE_EVIDENCE\", \"EVIDENCE_STATUS\": NULL, \"PACK_STATUS\": NULL}"
+  },
+  "domain_class_id": "chemical_sciences",
+  "executable_evidence_exists": true,
+  "execution_command": [
+    "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+    "tools/oc133_toe_closure_factory.py",
+    "--execute-comparator-generic-evidence-pack",
+    "MS-COV-GAP-CHEMICAL_SCIENCES-MATERIALS_AND_SPECTROSCOPY_OBSERVABLES",
+    "--write"
+  ],
+  "execution_requirements": {
+    "evidence_pack_schema_id": "OC133_GRAND_EMPIRICAL_EVIDENCE_v1",
+    "minimum_n": 20,
+    "replay_command": "python benchmarks/modern_science/coverage_lane_dispatcher.py --check",
+    "source_separation_mode": "target_blind",
+    "target_hidden_until_scoring": true
+  },
+  "fail_closed_reason": "Source identity and preregistered benchmark are present, but no target-hidden OC score with material superiority exists.",
+  "falsifier_requirement": {
+    "falsifier_id": "CHEM-SPECTROSCOPY-WEBBOOK-IR-FALSIFIER",
+    "trigger": "target peaks leak into visible inputs, N<20, official snapshot/lock missing, peak residual exceeds uncertainty, or comparator is not worse"
+  },
+  "gap_id": "MS-COV-GAP-CHEMICAL_SCIENCES-MATERIALS_AND_SPECTROSCOPY_OBSERVABLES",
+  "generated_at": "2026-05-06T08:07:57Z",
+  "incumbent_comparator": {
+    "baseline_name": "peak-shuffle and molecule-family median spectrum baseline",
+    "pre_registered": true,
+    "prediction_rule": "Predict peak positions/intensities from preregistered shuffled or family-median peak lists without reading hidden target peaks.",
+    "required_material_margin": "peak-match residual must beat shuffled/family-median comparator residual",
+    "target_values_used_for_baseline_design": false
+  },
+  "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+  "next_escalation": "Implement a domain-specific scorer when this generic pack remains fail-closed.",
+  "no_fake_closure_policy": "This pack is source-bound but cannot promote broad superiority unless actual target-hidden scoring materially beats the preregistered comparator.",
+  "pack_status": "FAIL_CLOSED_SOURCE_BOUND_SCORING_NOT_MATERIALIZED",
+  "pass_predicate": "pack_status == PASS, material_margin_met == true, no fail-closed status, replay_record PASS.",
+  "phenomenon_class_id": "materials_and_spectroscopy_observables",
+  "prerequisite_artifacts_bound": true,
+  "repair_strategy": "Acquire target-hidden source data, materialize OC and incumbent predictions, compute residuals, then rerun this pack and replay.",
+  "replay": {
+    "replay_command": "python benchmarks/modern_science/coverage_lane_dispatcher.py --check",
+    "replay_commands": [
+      "python benchmarks/modern_science/coverage_lane_dispatcher.py --check"
+    ],
+    "status": "BLOCKED_BY_SCORING"
+  },
+  "required_artifact_refs": {
+    "benchmark_case": "validation/heldout/grand_science/modern_science_coverage_artifacts/044c4b9f478c7bc2/benchmark_case.json",
+    "falsifier_row": "validation/heldout/grand_science/modern_science_coverage_artifacts/044c4b9f478c7bc2/falsifier_row.json",
+    "incumbent_comparator": "validation/heldout/grand_science/modern_science_coverage_artifacts/044c4b9f478c7bc2/incumbent_comparator.json",
+    "uncertainty_row": "validation/heldout/grand_science/modern_science_coverage_artifacts/044c4b9f478c7bc2/uncertainty_row.json",
+    "verified_open_source_capsule": "validation/heldout/grand_science/modern_science_coverage_artifacts/044c4b9f478c7bc2/verified_open_source_capsule.json"
+  },
+  "required_capability": "Research/ScoringExecutor",
+  "residual_requirement": {
+    "formula": "weighted mean of matched abs(predicted_wavenumber - observed_wavenumber) plus preregistered intensity penalty",
+    "metric_id": "ir_peak_match_weighted_residual_v1",
+    "superiority_rule": "model weighted residual must beat comparator residual and meet declared cm^-1/intensity tolerances"
+  },
+  "residuals": {
+    "comparator": null,
+    "material_margin_met": false,
+    "material_margin_rule": "model weighted residual must beat comparator residual and meet declared cm^-1/intensity tolerances",
+    "model": null
+  },
+  "schema_id": "OC133_MODERN_SCIENCE_COMPARATOR_STRICT_EVIDENCE_PACK_v1",
+  "score_materialized": false,
+  "source": {
+    "minimum_rows_required": 20,
+    "official_documentation_url": "https://webbook.nist.gov/chemistry/",
+    "official_endpoint_url": "https://webbook.nist.gov/cgi/cbook.cgi?ID=C7732185&Units=SI&Mask=80#IR-Spec",
+    "required_local_snapshot_ref": "validation/_raw/chemistry_nist_webbook_water_ir_spectrum_v1.html",
+    "required_lock_ref": "validation/heldout/grand_science/physics_chemistry/official_batch/locks/chemistry_nist_webbook_water_ir_spectrum_v1.json",
+    "snapshot_status": "NOT_ACQUIRED_FOR_THIS_COVERAGE_CLASS",
+    "source_authority": "National Institute of Standards and Technology",
+    "source_id": "chemistry_nist_webbook_water_ir_spectrum_v1",
+    "source_name": "NIST Chemistry WebBook SRD 69 infrared spectrum records"
+  },
+  "source_bound": true,
+  "source_refs": [
+    "reports/OC_CORE_1_3_3_MODERN_SCIENCE_COVERAGE_LANE_QUEUE.json",
+    "benchmarks/modern_science/OC133_MODERN_SCIENCE_COVERAGE_WORK_ORDERS.json",
+    "comparators/modern_science/OC133_MODERN_SCIENCE_COVERAGE_REGISTER.json"
+  ],
+  "status": "FAIL_CLOSED_SOURCE_BOUND_SCORING_NOT_MATERIALIZED",
+  "target_hidden": true,
+  "target_variable": {
+    "extraction_rule": "Hide IR peak positions/intensities until a preregistered peak model is materialized from visible molecular identity and non-target metadata.",
+    "name": "infrared_peak_wavenumber_and_intensity",
+    "target_fields": [
+      "peak_wavenumber_cm^-1",
+      "relative_intensity"
+    ],
+    "unit": "cm^-1 and source-declared intensity units"
+  },
+  "uncertainty_requirement": {
+    "metric": "peak_position_absolute_error_with_intensity_weighting",
+    "rule": "Declare cm^-1 tolerance, intensity tolerance, and peak-matching policy before target opening."
+  },
+  "validator_binding": "comparator_gap::MS-COV-GAP-CHEMICAL_SCIENCES-MATERIALS_AND_SPECTROSCOPY_OBSERVABLES::generic_strict_evidence_pack",
+  "why_it_failed": "Source identity and preregistered benchmark are present, but no target-hidden OC score with material superiority exists."
+}

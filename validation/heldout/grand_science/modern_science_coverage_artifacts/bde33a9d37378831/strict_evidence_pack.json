@@ -1,0 +1,125 @@
+{
+  "artifact_hash": "d1f2b1583f7f49c52b3eb1e7118f663fdda415ee105df50d98ca07a61a6fcb02",
+  "artifact_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/bde33a9d37378831/strict_evidence_pack.json",
+  "broad_modern_science_superiority_allowed": false,
+  "comparator_bound": true,
+  "coverage_closure_allowed": false,
+  "current_evidence": {
+    "evidence_pack_hash": "",
+    "evidence_pack_summary": {
+      "coverage_closure_allowed": null,
+      "pack_status": null,
+      "residuals": {},
+      "schema_id": null
+    },
+    "evidence_ref": null,
+    "evidence_ref_exists": false,
+    "executable_evidence_exists": false,
+    "fail_closed_status_present": true,
+    "material_margin_met": false,
+    "pack_status_text": "{\"COVERAGE_CLOSURE_ALLOWED\": NULL, \"COVERAGE_CLOSURE_STATUS\": \"OPEN_FAIL_CLOSED_MEDICAL_SOURCE_EVIDENCE_NOT_ACQUIRED\", \"EVIDENCE_STATUS\": NULL, \"PACK_STATUS\": NULL}"
+  },
+  "domain_class_id": "medical_health_sciences",
+  "executable_evidence_exists": true,
+  "execution_command": [
+    "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+    "tools/oc133_toe_closure_factory.py",
+    "--execute-comparator-generic-evidence-pack",
+    "MS-COV-GAP-MEDICAL_HEALTH_SCIENCES-EPIDEMIOLOGICAL_TRANSMISSION_AND_RISK",
+    "--write"
+  ],
+  "execution_requirements": {
+    "evidence_pack_schema_id": "OC133_GRAND_EMPIRICAL_EVIDENCE_v1",
+    "minimum_n": 500,
+    "replay_command": "python validation/heldout/grand_science/medical_health/epidemiology_risk/run_epidemiology_risk_replay.py --check",
+    "source_separation_mode": "target_blind",
+    "target_hidden_until_scoring": true
+  },
+  "fail_closed_reason": "Source identity and preregistered benchmark are present, but no target-hidden OC score with material superiority exists.",
+  "falsifier_requirement": {
+    "falsifier_id": "medical_epidemiology_no_temporal_generalization",
+    "trigger": "Trigger if the temporal holdout fails, if future labels leak, or if OC advantage is not material after uncertainty adjustment."
+  },
+  "gap_id": "MS-COV-GAP-MEDICAL_HEALTH_SCIENCES-EPIDEMIOLOGICAL_TRANSMISSION_AND_RISK",
+  "generated_at": "2026-05-06T08:08:04Z",
+  "incumbent_comparator": {
+    "baseline_name": "autoregressive regional risk baseline",
+    "pre_registered": true,
+    "prediction_rule": "Predict held-out risk change from lagged regional counts and demographic strata without access to future target labels.",
+    "required_material_margin": "OC residual must beat the autoregressive baseline under the declared temporal holdout and uncertainty policy.",
+    "target_values_used_for_baseline_design": false
+  },
+  "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+  "next_escalation": "Implement a domain-specific scorer when this generic pack remains fail-closed.",
+  "no_fake_closure_policy": "This pack is source-bound but cannot promote broad superiority unless actual target-hidden scoring materially beats the preregistered comparator.",
+  "pack_status": "FAIL_CLOSED_SOURCE_BOUND_SCORING_NOT_MATERIALIZED",
+  "pass_predicate": "pack_status == PASS, material_margin_met == true, no fail-closed status, replay_record PASS.",
+  "phenomenon_class_id": "epidemiological_transmission_and_risk",
+  "prerequisite_artifacts_bound": true,
+  "repair_strategy": "Acquire target-hidden source data, materialize OC and incumbent predictions, compute residuals, then rerun this pack and replay.",
+  "replay": {
+    "replay_command": "python validation/heldout/grand_science/medical_health/epidemiology_risk/run_epidemiology_risk_replay.py --check",
+    "replay_commands": [
+      "python validation/heldout/grand_science/medical_health/epidemiology_risk/run_epidemiology_risk_replay.py --check"
+    ],
+    "status": "BLOCKED_BY_SCORING"
+  },
+  "required_artifact_refs": {
+    "benchmark_case": "validation/heldout/grand_science/modern_science_coverage_artifacts/bde33a9d37378831/benchmark_case.json",
+    "falsifier_row": "validation/heldout/grand_science/modern_science_coverage_artifacts/bde33a9d37378831/falsifier_row.json",
+    "incumbent_comparator": "validation/heldout/grand_science/modern_science_coverage_artifacts/bde33a9d37378831/incumbent_comparator.json",
+    "uncertainty_row": "validation/heldout/grand_science/modern_science_coverage_artifacts/bde33a9d37378831/uncertainty_row.json",
+    "verified_open_source_capsule": "validation/heldout/grand_science/modern_science_coverage_artifacts/bde33a9d37378831/verified_open_source_capsule.json"
+  },
+  "required_capability": "Research/ScoringExecutor",
+  "residual_requirement": {
+    "formula": "weighted_absolute_error(oc_risk_change_score, held_out_risk_change)",
+    "metric_id": "medical_epidemiology_risk_residual",
+    "superiority_rule": "OC must beat the autoregressive comparator across the locked regional-week holdout."
+  },
+  "residuals": {
+    "comparator": null,
+    "material_margin_met": false,
+    "material_margin_rule": "OC must beat the autoregressive comparator across the locked regional-week holdout.",
+    "model": null
+  },
+  "schema_id": "OC133_MODERN_SCIENCE_COMPARATOR_STRICT_EVIDENCE_PACK_v1",
+  "score_materialized": false,
+  "source": {
+    "minimum_rows_required": 500,
+    "official_documentation_url": "https://open.cdc.gov/data.html",
+    "official_endpoint_url": "https://data.cdc.gov/resource/n8mc-b4w4.json?$limit=5000",
+    "required_local_snapshot_ref": "validation/heldout/grand_science/medical_health/epidemiology_risk/OC133_CDC_EPIDEMIOLOGY_RISK_SNAPSHOT.json",
+    "required_lock_ref": "validation/heldout/grand_science/medical_health/epidemiology_risk/OC133_CDC_EPIDEMIOLOGY_RISK_SNAPSHOT.lock.json",
+    "snapshot_status": "NOT_ACQUIRED_FOR_THIS_COVERAGE_CLASS",
+    "source_authority": "U.S. Centers for Disease Control and Prevention",
+    "source_id": "cdc_open_data_epidemiology_timeseries_v1",
+    "source_name": "CDC Open Data Socrata API epidemiology time-series datasets"
+  },
+  "source_bound": true,
+  "source_refs": [
+    "reports/OC_CORE_1_3_3_MODERN_SCIENCE_COVERAGE_LANE_QUEUE.json",
+    "benchmarks/modern_science/OC133_MODERN_SCIENCE_COVERAGE_WORK_ORDERS.json",
+    "comparators/modern_science/OC133_MODERN_SCIENCE_COVERAGE_REGISTER.json"
+  ],
+  "status": "FAIL_CLOSED_SOURCE_BOUND_SCORING_NOT_MATERIALIZED",
+  "target_hidden": true,
+  "target_variable": {
+    "extraction_rule": "Lock source snapshots by reporting week, hide future regional risk-change labels, and score only against the held-out temporal slice.",
+    "name": "held_out_transmission_risk_change_by_region_and_week",
+    "target_fields": [
+      "case_month",
+      "res_state",
+      "age_group",
+      "sex",
+      "case_positive_specimen_interval"
+    ],
+    "unit": "weekly regional risk-change class"
+  },
+  "uncertainty_requirement": {
+    "metric": "rolling-origin interval error with regional bootstrap",
+    "rule": "Report temporal bootstrap intervals and fail closed on unstable advantage or coverage drift."
+  },
+  "validator_binding": "comparator_gap::MS-COV-GAP-MEDICAL_HEALTH_SCIENCES-EPIDEMIOLOGICAL_TRANSMISSION_AND_RISK::generic_strict_evidence_pack",
+  "why_it_failed": "Source identity and preregistered benchmark are present, but no target-hidden OC score with material superiority exists."
+}

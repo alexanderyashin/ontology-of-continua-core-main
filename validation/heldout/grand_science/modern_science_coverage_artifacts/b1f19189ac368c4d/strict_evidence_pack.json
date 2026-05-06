@@ -1,0 +1,135 @@
+{
+  "artifact_hash": "3cc2b75d364c7b553158508fc5346c808d6c0e99d1db6cfd2751236114794f4c",
+  "artifact_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/b1f19189ac368c4d/strict_evidence_pack.json",
+  "broad_modern_science_superiority_allowed": false,
+  "comparator_bound": true,
+  "coverage_closure_allowed": false,
+  "current_evidence": {
+    "evidence_pack_hash": "4a49228720d27fa1ea2a13ca9c912cb489f16244bb961cf0446be2f8ea9d932a",
+    "evidence_pack_summary": {
+      "coverage_closure_allowed": false,
+      "pack_status": null,
+      "residuals": {
+        "comparator": {
+          "max_absolute_error": 1146.0,
+          "mean_absolute_error": 324.6,
+          "median_absolute_error": 201.0
+        },
+        "material_margin_met": false,
+        "material_margin_required_mg_per_100g": 26.442553,
+        "model": {
+          "max_absolute_error": 1953.894,
+          "mean_absolute_error": 528.851068,
+          "median_absolute_error": 271.1601
+        },
+        "superiority_margin_mg_per_100g": -204.251068
+      },
+      "schema_id": "OC133_AGRICULTURE_FDC_SODIUM_SCORING_PACK_v1"
+    },
+    "evidence_ref": "validation/heldout/grand_science/agriculture/coverage_work_orders/OC133_AGRICULTURE_FDC_SODIUM_SCORING_PACK.json",
+    "evidence_ref_exists": true,
+    "executable_evidence_exists": true,
+    "fail_closed_status_present": true,
+    "material_margin_met": false,
+    "pack_status_text": "{\"COVERAGE_CLOSURE_ALLOWED\": FALSE, \"COVERAGE_CLOSURE_STATUS\": \"OPEN_FAIL_CLOSED_SCORER_READY_STRICT_EVIDENCE_PACK_NO_COVERAGE_CLOSURE\", \"EVIDENCE_STATUS\": NULL, \"PACK_STATUS\": NULL}"
+  },
+  "domain_class_id": "agricultural_food_sciences",
+  "executable_evidence_exists": true,
+  "execution_command": [
+    "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+    "tools/oc133_toe_closure_factory.py",
+    "--execute-comparator-generic-evidence-pack",
+    "MS-COV-GAP-AGRICULTURAL_FOOD_SCIENCES-FOOD_CHEMISTRY_SAFETY_AND_NUTRITION",
+    "--write"
+  ],
+  "execution_requirements": {
+    "evidence_pack_schema_id": "OC133_GRAND_EMPIRICAL_EVIDENCE_v1",
+    "minimum_n": 20,
+    "replay_command": "python validation/heldout/grand_science/agriculture/coverage_work_orders/oc133_agriculture_modern_science_coverage_work_orders.py --score-fdc --write-scoring",
+    "source_separation_mode": "target_blind",
+    "target_hidden_until_scoring": true
+  },
+  "fail_closed_reason": "Source identity and preregistered benchmark are present, but no target-hidden OC score with material superiority exists.",
+  "falsifier_requirement": {
+    "falsifier_id": "AGRI-FDC-FOOD-CHEMISTRY-FALSIFIER",
+    "trigger": "FDC source snapshot hash is missing or changes during replay; nutrient number 307 appears in visible model or comparator inputs; visible ash nutrient 207 or calcium nutrient 301 is missing; N is below 20; target-hidden task table, hidden target lock, scoring pack, or replay hash is missing or changes during replay; sodium shuffle negative control is not rejected"
+  },
+  "gap_id": "MS-COV-GAP-AGRICULTURAL_FOOD_SCIENCES-FOOD_CHEMISTRY_SAFETY_AND_NUTRITION",
+  "generated_at": "2026-05-06T08:08:07Z",
+  "incumbent_comparator": {
+    "baseline_name": "FoodData Central visible calcium mineral baseline",
+    "pre_registered": true,
+    "prediction_rule": "predict sodium_mg_per_100g = visible calcium_mg_per_100g from nutrient 301",
+    "required_material_margin": "model residual must beat comparator residual under the declared domain-local metric",
+    "target_values_used_for_baseline_design": false
+  },
+  "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+  "next_escalation": "Implement a domain-specific scorer when this generic pack remains fail-closed.",
+  "no_fake_closure_policy": "This pack is source-bound but cannot promote broad superiority unless actual target-hidden scoring materially beats the preregistered comparator.",
+  "pack_status": "FAIL_CLOSED_SOURCE_BOUND_SCORING_NOT_MATERIALIZED",
+  "pass_predicate": "pack_status == PASS, material_margin_met == true, no fail-closed status, replay_record PASS.",
+  "phenomenon_class_id": "food_chemistry_safety_and_nutrition",
+  "prerequisite_artifacts_bound": true,
+  "repair_strategy": "Acquire target-hidden source data, materialize OC and incumbent predictions, compute residuals, then rerun this pack and replay.",
+  "replay": {
+    "replay_command": "python validation/heldout/grand_science/agriculture/coverage_work_orders/oc133_agriculture_modern_science_coverage_work_orders.py --score-fdc --write-scoring",
+    "replay_commands": [
+      "python validation/heldout/grand_science/agriculture/coverage_work_orders/oc133_agriculture_modern_science_coverage_work_orders.py --score-fdc --write-scoring"
+    ],
+    "status": "BLOCKED_BY_SCORING"
+  },
+  "required_artifact_refs": {
+    "benchmark_case": "validation/heldout/grand_science/modern_science_coverage_artifacts/MS-COV-GAP-AGRICULTURAL_FOOD_SCIENCES-FOOD_CHEMISTRY_SAFETY_AND_NUTRITION/benchmark_case.json",
+    "falsifier_row": "validation/heldout/grand_science/modern_science_coverage_artifacts/b1f19189ac368c4d/falsifier_row.json",
+    "incumbent_comparator": "validation/heldout/grand_science/modern_science_coverage_artifacts/b1f19189ac368c4d/incumbent_comparator.json",
+    "uncertainty_row": "validation/heldout/grand_science/modern_science_coverage_artifacts/b1f19189ac368c4d/uncertainty_row.json",
+    "verified_open_source_capsule": "validation/heldout/grand_science/modern_science_coverage_artifacts/MS-COV-GAP-AGRICULTURAL_FOOD_SCIENCES-FOOD_CHEMISTRY_SAFETY_AND_NUTRITION/verified_open_source_capsule.json"
+  },
+  "required_capability": "Research/ScoringExecutor",
+  "residual_requirement": {
+    "formula": "absolute sodium residual in mg per 100 g; aggregate MAE across heldout FDC food rows",
+    "metric_id": "MS-COV-WO-020_domain_local_residual",
+    "superiority_rule": "model_MAE must beat comparator_MAE by a material predeclared margin and every negative control must be rejected; this work order does not permit coverage closure from the compact scorer alone"
+  },
+  "residuals": {
+    "comparator": null,
+    "material_margin_met": false,
+    "material_margin_rule": "model_MAE must beat comparator_MAE by a material predeclared margin and every negative control must be rejected; this work order does not permit coverage closure from the compact scorer alone",
+    "model": null
+  },
+  "schema_id": "OC133_MODERN_SCIENCE_COMPARATOR_STRICT_EVIDENCE_PACK_v1",
+  "score_materialized": false,
+  "source": {
+    "minimum_rows_required": 20,
+    "official_documentation_url": "https://fdc.nal.usda.gov/api-guide",
+    "official_endpoint_url": "https://api.nal.usda.gov/fdc/v1/foods/list",
+    "required_local_snapshot_ref": "validation/heldout/grand_science/agriculture/coverage_work_orders/raw/OC133_AGRICULTURE_FDC_FOUNDATION_FOODS_LIST_25.compact.json",
+    "required_lock_ref": "validation/heldout/grand_science/agriculture/coverage_work_orders/locks/OC133-AGRI-FDC-FOUNDATION-FOODS-LIST-0001.lock.json",
+    "snapshot_status": "ACQUIRED_OR_BOUND",
+    "source_authority": "USDA FoodData Central API",
+    "source_id": "USDA_FOODDATA_CENTRAL_API",
+    "source_name": "USDA FoodData Central API"
+  },
+  "source_bound": true,
+  "source_refs": [
+    "reports/OC_CORE_1_3_3_MODERN_SCIENCE_COVERAGE_LANE_QUEUE.json",
+    "benchmarks/modern_science/OC133_MODERN_SCIENCE_COVERAGE_WORK_ORDERS.json",
+    "comparators/modern_science/OC133_MODERN_SCIENCE_COVERAGE_REGISTER.json"
+  ],
+  "status": "FAIL_CLOSED_SOURCE_BOUND_SCORING_NOT_MATERIALIZED",
+  "target_hidden": true,
+  "target_variable": {
+    "extraction_rule": "Target values remain hidden until scoring according to the domain-local work order.",
+    "name": "heldout_food_sodium_content",
+    "target_fields": [
+      "foodNutrients[number=307].amount"
+    ],
+    "unit": "mg per 100 g edible portion"
+  },
+  "uncertainty_requirement": {
+    "metric": "absolute sodium residual in mg per 100 g; aggregate MAE across heldout FDC food rows",
+    "rule": "deterministic jackknife interval over row-level absolute sodium residuals after prediction materialization"
+  },
+  "validator_binding": "comparator_gap::MS-COV-GAP-AGRICULTURAL_FOOD_SCIENCES-FOOD_CHEMISTRY_SAFETY_AND_NUTRITION::generic_strict_evidence_pack",
+  "why_it_failed": "Source identity and preregistered benchmark are present, but no target-hidden OC score with material superiority exists."
+}

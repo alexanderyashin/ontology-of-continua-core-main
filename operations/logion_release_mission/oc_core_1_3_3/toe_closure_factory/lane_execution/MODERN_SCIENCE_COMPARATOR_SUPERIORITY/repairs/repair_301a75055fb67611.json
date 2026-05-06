@@ -1,9 +1,9 @@
 {
-  "artifact_hash": "143b370633215ae6e9cca42ed01ae9b472bd99057b1c533f4b6b921bf6f3af09",
+  "artifact_hash": "2bf5a5021766ee0208d8d53b271ff6d8db574040cd8d4bec5c2aa9d240178df4",
   "artifact_key": "oc_prediction_scoring_row",
   "artifact_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/repairs/repair_301a75055fb67611.json",
   "command_pass": true,
-  "command_result_total": 2,
+  "command_result_total": 3,
   "command_results": [
     {
       "cmd": [
@@ -25,6 +25,18 @@
       "returncode": 0,
       "stderr_tail": "",
       "stdout_tail": "{\n  \"status\": \"ok\",\n  \"checked\": \"validation/heldout/grand_science/earth_space/coverage_work_orders/OC133_EARTH_SPACE_MODERN_SCIENCE_COVERAGE_WORK_ORDERS.json\"\n}\n"
+    },
+    {
+      "cmd": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "tools/oc133_toe_closure_factory.py",
+        "--execute-comparator-generic-evidence-pack",
+        "MS-COV-GAP-EARTH_SPACE_ENVIRONMENTAL_SCIENCES-GEOCHEMISTRY_AND_HYDROLOGY_OBSERVABLES",
+        "--write"
+      ],
+      "returncode": 0,
+      "stderr_tail": "",
+      "stdout_tail": "{\n  \"changed\": [],\n  \"missing\": [],\n  \"state\": \"PASS\"\n}\n"
     }
   ],
   "concrete_governed_commands": [
@@ -38,6 +50,13 @@
       "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
       "validation/heldout/grand_science/earth_space/coverage_work_orders/oc133_earth_space_modern_science_coverage_work_orders.py",
       "--check"
+    ],
+    [
+      "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+      "tools/oc133_toe_closure_factory.py",
+      "--execute-comparator-generic-evidence-pack",
+      "MS-COV-GAP-EARTH_SPACE_ENVIRONMENTAL_SCIENCES-GEOCHEMISTRY_AND_HYDROLOGY_OBSERVABLES",
+      "--write"
     ]
   ],
   "domain_class_id": "earth_space_environmental_sciences",
@@ -56,7 +75,7 @@
   "no_fake_closure_policy": "This repair execution cannot mark broad superiority PASS unless the refreshed research artifact itself passes.",
   "pass_predicate": "The repaired research artifact status becomes PASS and the comparator gap no longer lists this artifact as missing.",
   "phenomenon_class_id": "geochemistry_and_hydrology_observables",
-  "refreshed_research_artifact_hash": "81e6a9c051cbcf90b3d1636198c621e83fb7dc150478e5e0f404214b64597235",
+  "refreshed_research_artifact_hash": "4957e1fc6740fa4c2a52b4fde5eb4a51692ae2107aaf715926d7ae5fdff24865",
   "refreshed_research_artifact_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/59532ab68d232897/oc_prediction_scoring_row.json",
   "refreshed_research_artifact_status": "OPEN",
   "repair_id": "R017-RESEARCH-ARTIFACT-REPAIR-0487cb5894694faf",

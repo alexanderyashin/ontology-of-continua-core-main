@@ -1,0 +1,111 @@
+{
+  "artifact_hash": "5a21dafea2f0c611ba25ea1e2d48f7efef01ed4a9cb8a28399a2c7f45fa1c0f8",
+  "artifact_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/domain_scorer_implementations/scorer_impl_75fe33f7379d1dbe.json",
+  "command_result_total": 0,
+  "command_results": [],
+  "domain_class_id": "complex_systems_operations_science",
+  "domain_scoring_id": "R017-DOMAIN-SCORER-29bcbfd7bc872dcf",
+  "domain_scoring_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/domain_scorers/scorer_7ca394b3549f39bc.json",
+  "domain_scoring_root_cause": "DOMAIN_SPECIFIC_SCORER_MISSING",
+  "domain_scoring_status": "CAPABILITY_DEVELOPMENT_REQUIRED",
+  "exact_domain_scorer_commands": [],
+  "execution_command": [
+    "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+    "tools/oc133_toe_closure_factory.py",
+    "--execute-comparator-domain-scorer-implementation",
+    "R017-DOMAIN-SCORER-IMPL-29bcbfd7bc872dcf",
+    "--write"
+  ],
+  "execution_requirements": {
+    "evidence_pack_schema_id": "OC133_GRAND_EMPIRICAL_EVIDENCE_v1",
+    "minimum_n": 100,
+    "replay_command": "python validation/heldout/grand_science/operations/coverage_work_orders/oc133_operations_modern_science_coverage_work_orders.py --check",
+    "source_separation_mode": "target_blind",
+    "target_hidden_until_scoring": true
+  },
+  "expected_script_exists": true,
+  "expected_script_ref": "validation/heldout/grand_science/operations/coverage_work_orders/oc133_operations_modern_science_coverage_work_orders.py",
+  "falsifier_requirement": {
+    "falsifier_id": "OPS-FEMA-RESILIENCE-RESPONSE-FALSIFIER",
+    "trigger": "Heldout declaration counts leak into formula selection, fewer than 20 rows are scored, source hashes drift, or seasonal comparator ties or beats the model within uncertainty."
+  },
+  "formula_requirement": {
+    "formula_or_model": "Fit a training-only seasonal state/incident risk model from prior declaration counts, incident type, state, month-of-year, and rolling trend terms; predict heldout monthly counts once.",
+    "required_inputs": [],
+    "target_values_may_be_used_for_model_design": false
+  },
+  "gap_id": "MS-COV-GAP-COMPLEX_SYSTEMS_OPERATIONS_SCIENCE-RESILIENCE_RISK_AND_INTERVENTION_RESPONSE",
+  "generated_at": "2026-05-06T08:32:53Z",
+  "implementation_command_class": "MISSING_DOMAIN_SCORER_FLAGS",
+  "implementation_id": "R017-DOMAIN-SCORER-IMPL-29bcbfd7bc872dcf",
+  "implementation_work_order_id": "R017-DOMAIN-SCORER-IMPL-29bcbfd7bc872dcf",
+  "incumbent_comparator_requirement": {
+    "baseline_name": "seasonal same-month mean and last-observation comparator",
+    "pre_registered": true,
+    "prediction_rule": "predict heldout declaration count from prior same-month mean and last visible monthly count",
+    "required_material_margin": "model residual must beat comparator residual under the declared domain-local metric",
+    "target_values_used_for_baseline_design": false
+  },
+  "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+  "missing_domain_scorer_elements": [
+    "command_pass",
+    "comparator_residual_materialized",
+    "exact_domain_scorer_available",
+    "fail_closed_status_absent",
+    "material_margin_met",
+    "model_residual_materialized",
+    "score_materialized"
+  ],
+  "next_escalation": "If status is CAPABILITY_DEVELOPMENT_REQUIRED, implement the listed script/flags/model support. If evidence remains negative, preserve fail-closed science and repair the model/comparator rather than flipping PASS.",
+  "no_fake_closure_policy": "This execution cannot close broad superiority unless the downstream scoring and replay artifacts pass.",
+  "output_artifact_refs": {
+    "domain_scoring_report": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/domain_scorers/scorer_7ca394b3549f39bc.json",
+    "oc_prediction_scoring_row": "validation/heldout/grand_science/modern_science_coverage_artifacts/29bcbfd7bc872dcf/oc_prediction_scoring_row.json",
+    "replay_record": "validation/heldout/grand_science/modern_science_coverage_artifacts/29bcbfd7bc872dcf/replay_record.json",
+    "strict_evidence_pack": "validation/heldout/grand_science/modern_science_coverage_artifacts/29bcbfd7bc872dcf/strict_evidence_pack.json"
+  },
+  "pass_predicate": "A governed domain scorer script/flags exist, run cleanly, and the downstream domain-scoring report plus oc_prediction_scoring_row become PASS.",
+  "phenomenon_class_id": "resilience_risk_and_intervention_response",
+  "repair_strategy": "Extend the existing domain scorer script with concrete flags for this phenomenon and bind them in COMPARATOR_DOMAIN_IMPLEMENTED_COMMANDS.",
+  "replay_artifact_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/29bcbfd7bc872dcf/replay_record.json",
+  "replay_artifact_status": "OPEN",
+  "required_capability": "Research/DomainScorerImplementation",
+  "required_source_block": {
+    "minimum_rows_required": 100,
+    "official_documentation_url": "https://www.fema.gov/about/openfema/api",
+    "official_endpoint_url": "https://www.fema.gov/openfema-data-page/disaster-declarations-summaries-v2",
+    "required_local_snapshot_ref": null,
+    "required_lock_ref": null,
+    "snapshot_status": "NOT_ACQUIRED_FOR_THIS_COVERAGE_CLASS",
+    "source_authority": "Federal Emergency Management Agency",
+    "source_id": "FEMA_OPENFEMA_DISASTER_DECLARATIONS_V2",
+    "source_name": "OpenFEMA Disaster Declarations Summaries v2"
+  },
+  "residual_requirement": {
+    "formula": "absolute count residual and Poisson deviance per state/month/incident type",
+    "metric_id": "MS-COV-WO-035_domain_local_residual",
+    "superiority_rule": "model_count_residual + uncertainty_upper < best_comparator_count_residual"
+  },
+  "root_cause_class": "DOMAIN_SCORER_FLAGS_MISSING",
+  "schema_id": "OC133_MODERN_SCIENCE_COMPARATOR_DOMAIN_SCORER_IMPLEMENTATION_EXECUTION_v1",
+  "scoring_artifact_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/29bcbfd7bc872dcf/oc_prediction_scoring_row.json",
+  "scoring_artifact_status": "OPEN",
+  "status": "CAPABILITY_DEVELOPMENT_REQUIRED",
+  "target_variable": {
+    "extraction_rule": "Declaration rows are aggregated into state/month/incident panels; heldout month counts remain sealed until response-risk predictions are materialized.",
+    "name": "heldout_state_month_disaster_declaration_count",
+    "target_fields": [
+      "state",
+      "incidentType",
+      "declaration_month",
+      "declaration_count"
+    ],
+    "unit": "FEMA declaration records per state/month/incident type"
+  },
+  "uncertainty_requirement": {
+    "metric": "absolute count residual and Poisson deviance per state/month/incident type",
+    "rule": "pre-holdout rolling seasonal residual envelope"
+  },
+  "validator_binding": "comparator_gap::MS-COV-GAP-COMPLEX_SYSTEMS_OPERATIONS_SCIENCE-RESILIENCE_RISK_AND_INTERVENTION_RESPONSE::domain_scorer_implementation",
+  "why_it_failed": "The domain scorer script exists, but this domain/phenomenon has no bound acquisition/scoring/replay flags."
+}

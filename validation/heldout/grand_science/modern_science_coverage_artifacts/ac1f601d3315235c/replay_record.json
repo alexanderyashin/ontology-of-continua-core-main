@@ -1,5 +1,5 @@
 {
-  "artifact_hash": "1c21920aa6e62d259538a0dff9c3b393a08a641c1319b2adbff02a583120afa3",
+  "artifact_hash": "23ab92d775780effc4b8fca7c0ef5399f7c688ed846bf38e5d9af5441e85ae93",
   "artifact_key": "replay_record",
   "artifact_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/ac1f601d3315235c/replay_record.json",
   "closure_scope": "replay not run or scoring evidence still blocked",
@@ -35,19 +35,28 @@
     "replay_executed_total": 0,
     "replay_results": [],
     "scoring_evidence": {
-      "evidence_pack_hash": "",
+      "evidence_pack_hash": "5bef1ec8f5f614725a6d1e39ac898ad9817cf675bb68c61cbcc43d7bf9cd2ce3",
       "evidence_pack_summary": {
-        "coverage_closure_allowed": null,
-        "pack_status": null,
-        "residuals": {},
-        "schema_id": null
+        "coverage_closure_allowed": false,
+        "fail_closed_reason": "Source identity and preregistered benchmark are present, but no target-hidden OC score with material superiority exists.",
+        "pack_status": "FAIL_CLOSED_SOURCE_BOUND_SCORING_NOT_MATERIALIZED",
+        "residuals": {
+          "comparator": null,
+          "material_margin_met": false,
+          "material_margin_rule": "mean tree-distance residual must be lower than comparator residual and exact LCA accuracy must be higher than comparator accuracy",
+          "model": null
+        },
+        "schema_id": "OC133_MODERN_SCIENCE_COMPARATOR_STRICT_EVIDENCE_PACK_v1",
+        "score_materialized": false,
+        "source_bound": true,
+        "target_hidden": true
       },
-      "evidence_ref": null,
-      "evidence_ref_exists": false,
-      "executable_evidence_exists": false,
+      "evidence_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/ac1f601d3315235c/strict_evidence_pack.json",
+      "evidence_ref_exists": true,
+      "executable_evidence_exists": true,
       "fail_closed_status_present": true,
       "material_margin_met": false,
-      "pack_status_text": "{\"COVERAGE_CLOSURE_ALLOWED\": NULL, \"COVERAGE_CLOSURE_STATUS\": \"OPEN_FAIL_CLOSED_NO_EXECUTABLE_EVIDENCE\", \"EVIDENCE_STATUS\": NULL, \"PACK_STATUS\": NULL}"
+      "pack_status_text": "{\"COVERAGE_CLOSURE_ALLOWED\": FALSE, \"EVIDENCE_STATUS\": \"FAIL_CLOSED_SOURCE_BOUND_SCORING_NOT_MATERIALIZED\", \"FAIL_CLOSED_REASON\": \"SOURCE IDENTITY AND PREREGISTERED BENCHMARK ARE PRESENT, BUT NO TARGET-HIDDEN OC SCORE WITH MATERIAL SUPERIORITY EXISTS.\", \"PACK_STATUS\": \"FAIL_CLOSED_SOURCE_BOUND_SCORING_NOT_MATERIALIZED\"}"
     }
   },
   "why_it_failed": "Required comparator artifact still lacks source-bound support.",

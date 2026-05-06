@@ -1,0 +1,43 @@
+{
+  "artifact_hash": "af0ecec4fda31004e6f7c24f5dd3e2a05c3b764d6edc93586d26eb7d56af2c2c",
+  "artifact_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/domain_scorers/scorer_1cce0e9ab08f348a.json",
+  "command_pass": false,
+  "command_result_total": 0,
+  "command_results": [],
+  "domain_class_id": "complex_systems_operations_science",
+  "domain_scoring_id": "R017-DOMAIN-SCORER-72929588c49e2b61",
+  "exact_domain_scorer_available": false,
+  "exact_domain_scorer_commands": [],
+  "executable_spec_ref": "MS-COV-WO-034-domain-local-bridge",
+  "execution_command": [
+    "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+    "tools/oc133_toe_closure_factory.py",
+    "--execute-comparator-domain-scoring",
+    "R017-DOMAIN-SCORER-72929588c49e2b61",
+    "--write"
+  ],
+  "gap_id": "MS-COV-GAP-COMPLEX_SYSTEMS_OPERATIONS_SCIENCE-QUEUE_SUPPLY_CHAIN_AND_OPERATIONS_OBSERVABLES",
+  "generated_at": "2026-05-06T08:17:40Z",
+  "generic_evidence_pack_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/72929588c49e2b61/strict_evidence_pack.json",
+  "generic_evidence_pack_status": "FAIL_CLOSED_SOURCE_BOUND_SCORING_NOT_MATERIALIZED",
+  "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+  "missing_domain_scoring_elements": [
+    "score_materialized",
+    "model_residual_materialized",
+    "comparator_residual_materialized",
+    "material_margin_met"
+  ],
+  "next_escalation": "Implement the exact domain scorer if missing; if present but negative, preserve the fail-closed result and repair science/model support rather than flipping PASS.",
+  "no_fake_closure_policy": "This execution cannot close broad superiority unless the downstream scoring artifact itself passes.",
+  "pass_predicate": "Domain scorer writes numeric OC/comparator residuals, material_margin_met is true, and the downstream oc_prediction_scoring_row becomes PASS.",
+  "phenomenon_class_id": "queue_supply_chain_and_operations_observables",
+  "repair_strategy": "Implement a domain-specific scorer that locks targets, computes OC predictions and incumbent comparator predictions, materializes residuals, and reruns replay without changing the expected verdict.",
+  "required_capability": "Research/DomainScoringExecutor",
+  "root_cause_class": "DOMAIN_SPECIFIC_SCORER_MISSING",
+  "schema_id": "OC133_MODERN_SCIENCE_COMPARATOR_DOMAIN_SCORING_EXECUTION_v1",
+  "scoring_artifact_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/72929588c49e2b61/oc_prediction_scoring_row.json",
+  "scoring_artifact_status": "OPEN",
+  "status": "CAPABILITY_DEVELOPMENT_REQUIRED",
+  "validator_binding": "comparator_gap::MS-COV-GAP-COMPLEX_SYSTEMS_OPERATIONS_SCIENCE-QUEUE_SUPPLY_CHAIN_AND_OPERATIONS_OBSERVABLES::domain_scoring_executor",
+  "why_it_failed": "No exact domain scorer exists for this domain/phenomenon; the generic evidence pack remains fail-closed."
+}

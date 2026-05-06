@@ -1,0 +1,112 @@
+{
+  "artifact_hash": "72d822e66b7ada725edc0ee422656885a18633ba0e154f38b369f2c311d6198a",
+  "artifact_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/domain_scorer_implementations/scorer_impl_cce71b56cc962950.json",
+  "command_result_total": 0,
+  "command_results": [],
+  "domain_class_id": "chemical_sciences",
+  "domain_scoring_id": "R017-DOMAIN-SCORER-044c4b9f478c7bc2",
+  "domain_scoring_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/domain_scorers/scorer_e414033d1c00f805.json",
+  "domain_scoring_root_cause": "DOMAIN_SPECIFIC_SCORER_MISSING",
+  "domain_scoring_status": "CAPABILITY_DEVELOPMENT_REQUIRED",
+  "exact_domain_scorer_commands": [],
+  "execution_command": [
+    "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+    "tools/oc133_toe_closure_factory.py",
+    "--execute-comparator-domain-scorer-implementation",
+    "R017-DOMAIN-SCORER-IMPL-044c4b9f478c7bc2",
+    "--write"
+  ],
+  "execution_requirements": {
+    "evidence_pack_schema_id": "OC133_GRAND_EMPIRICAL_EVIDENCE_v1",
+    "minimum_n": 20,
+    "replay_command": "python benchmarks/modern_science/coverage_lane_dispatcher.py --check",
+    "source_separation_mode": "target_blind",
+    "target_hidden_until_scoring": true
+  },
+  "expected_script_exists": false,
+  "expected_script_ref": "",
+  "falsifier_requirement": {
+    "falsifier_id": "CHEM-SPECTROSCOPY-WEBBOOK-IR-FALSIFIER",
+    "trigger": "target peaks leak into visible inputs, N<20, official snapshot/lock missing, peak residual exceeds uncertainty, or comparator is not worse"
+  },
+  "formula_requirement": {
+    "formula_or_model": "Predeclared spectroscopy peak extractor/model mapping visible molecular identifiers and allowed metadata to target IR peak positions and intensities.",
+    "required_inputs": [
+      "molecular_identifier",
+      "allowed_non_target_metadata"
+    ],
+    "target_values_may_be_used_for_model_design": false
+  },
+  "gap_id": "MS-COV-GAP-CHEMICAL_SCIENCES-MATERIALS_AND_SPECTROSCOPY_OBSERVABLES",
+  "generated_at": "2026-05-06T08:32:47Z",
+  "implementation_command_class": "MISSING_DOMAIN_SCORER_SCRIPT_ROUTE",
+  "implementation_id": "R017-DOMAIN-SCORER-IMPL-044c4b9f478c7bc2",
+  "implementation_work_order_id": "R017-DOMAIN-SCORER-IMPL-044c4b9f478c7bc2",
+  "incumbent_comparator_requirement": {
+    "baseline_name": "peak-shuffle and molecule-family median spectrum baseline",
+    "pre_registered": true,
+    "prediction_rule": "Predict peak positions/intensities from preregistered shuffled or family-median peak lists without reading hidden target peaks.",
+    "required_material_margin": "peak-match residual must beat shuffled/family-median comparator residual",
+    "target_values_used_for_baseline_design": false
+  },
+  "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+  "missing_domain_scorer_elements": [
+    "command_pass",
+    "comparator_residual_materialized",
+    "exact_domain_scorer_available",
+    "fail_closed_status_absent",
+    "material_margin_met",
+    "model_residual_materialized",
+    "score_materialized"
+  ],
+  "next_escalation": "If status is CAPABILITY_DEVELOPMENT_REQUIRED, implement the listed script/flags/model support. If evidence remains negative, preserve fail-closed science and repair the model/comparator rather than flipping PASS.",
+  "no_fake_closure_policy": "This execution cannot close broad superiority unless the downstream scoring and replay artifacts pass.",
+  "output_artifact_refs": {
+    "domain_scoring_report": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/domain_scorers/scorer_e414033d1c00f805.json",
+    "oc_prediction_scoring_row": "validation/heldout/grand_science/modern_science_coverage_artifacts/044c4b9f478c7bc2/oc_prediction_scoring_row.json",
+    "replay_record": "validation/heldout/grand_science/modern_science_coverage_artifacts/044c4b9f478c7bc2/replay_record.json",
+    "strict_evidence_pack": "validation/heldout/grand_science/modern_science_coverage_artifacts/044c4b9f478c7bc2/strict_evidence_pack.json"
+  },
+  "pass_predicate": "A governed domain scorer script/flags exist, run cleanly, and the downstream domain-scoring report plus oc_prediction_scoring_row become PASS.",
+  "phenomenon_class_id": "materials_and_spectroscopy_observables",
+  "repair_strategy": "Add a governed domain scorer script route for this domain class, then bind concrete acquisition/scoring/replay flags.",
+  "replay_artifact_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/044c4b9f478c7bc2/replay_record.json",
+  "replay_artifact_status": "OPEN",
+  "required_capability": "Research/DomainScorerImplementation",
+  "required_source_block": {
+    "minimum_rows_required": 20,
+    "official_documentation_url": "https://webbook.nist.gov/chemistry/",
+    "official_endpoint_url": "https://webbook.nist.gov/cgi/cbook.cgi?ID=C7732185&Units=SI&Mask=80#IR-Spec",
+    "required_local_snapshot_ref": "validation/_raw/chemistry_nist_webbook_water_ir_spectrum_v1.html",
+    "required_lock_ref": "validation/heldout/grand_science/physics_chemistry/official_batch/locks/chemistry_nist_webbook_water_ir_spectrum_v1.json",
+    "snapshot_status": "NOT_ACQUIRED_FOR_THIS_COVERAGE_CLASS",
+    "source_authority": "National Institute of Standards and Technology",
+    "source_id": "chemistry_nist_webbook_water_ir_spectrum_v1",
+    "source_name": "NIST Chemistry WebBook SRD 69 infrared spectrum records"
+  },
+  "residual_requirement": {
+    "formula": "weighted mean of matched abs(predicted_wavenumber - observed_wavenumber) plus preregistered intensity penalty",
+    "metric_id": "ir_peak_match_weighted_residual_v1",
+    "superiority_rule": "model weighted residual must beat comparator residual and meet declared cm^-1/intensity tolerances"
+  },
+  "root_cause_class": "DOMAIN_SCORER_SCRIPT_ROUTE_MISSING",
+  "schema_id": "OC133_MODERN_SCIENCE_COMPARATOR_DOMAIN_SCORER_IMPLEMENTATION_EXECUTION_v1",
+  "scoring_artifact_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/044c4b9f478c7bc2/oc_prediction_scoring_row.json",
+  "scoring_artifact_status": "OPEN",
+  "status": "CAPABILITY_DEVELOPMENT_REQUIRED",
+  "target_variable": {
+    "extraction_rule": "Hide IR peak positions/intensities until a preregistered peak model is materialized from visible molecular identity and non-target metadata.",
+    "name": "infrared_peak_wavenumber_and_intensity",
+    "target_fields": [
+      "peak_wavenumber_cm^-1",
+      "relative_intensity"
+    ],
+    "unit": "cm^-1 and source-declared intensity units"
+  },
+  "uncertainty_requirement": {
+    "metric": "peak_position_absolute_error_with_intensity_weighting",
+    "rule": "Declare cm^-1 tolerance, intensity tolerance, and peak-matching policy before target opening."
+  },
+  "validator_binding": "comparator_gap::MS-COV-GAP-CHEMICAL_SCIENCES-MATERIALS_AND_SPECTROSCOPY_OBSERVABLES::domain_scorer_implementation",
+  "why_it_failed": "No domain scorer script route is registered for this domain class."
+}

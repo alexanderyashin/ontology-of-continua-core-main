@@ -1,0 +1,43 @@
+{
+  "artifact_hash": "60d0bd749fe5e8d5d0f4bb74d206785c957357dc9d770e1311d9a87a017b0a32",
+  "artifact_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/domain_scorers/scorer_00d5de4850c5a672.json",
+  "command_pass": false,
+  "command_result_total": 0,
+  "command_results": [],
+  "domain_class_id": "chemical_sciences",
+  "domain_scoring_id": "R017-DOMAIN-SCORER-0b00ee8a56e1234a",
+  "exact_domain_scorer_available": false,
+  "exact_domain_scorer_commands": [],
+  "executable_spec_ref": "MS-CHEM-KINETICS-NIST-WATER-v1",
+  "execution_command": [
+    "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+    "tools/oc133_toe_closure_factory.py",
+    "--execute-comparator-domain-scoring",
+    "R017-DOMAIN-SCORER-0b00ee8a56e1234a",
+    "--write"
+  ],
+  "gap_id": "MS-COV-GAP-CHEMICAL_SCIENCES-REACTION_AND_KINETICS_PREDICTION",
+  "generated_at": "2026-05-06T08:17:32Z",
+  "generic_evidence_pack_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/0b00ee8a56e1234a/strict_evidence_pack.json",
+  "generic_evidence_pack_status": "FAIL_CLOSED_SOURCE_BOUND_SCORING_NOT_MATERIALIZED",
+  "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+  "missing_domain_scoring_elements": [
+    "score_materialized",
+    "model_residual_materialized",
+    "comparator_residual_materialized",
+    "material_margin_met"
+  ],
+  "next_escalation": "Implement the exact domain scorer if missing; if present but negative, preserve the fail-closed result and repair science/model support rather than flipping PASS.",
+  "no_fake_closure_policy": "This execution cannot close broad superiority unless the downstream scoring artifact itself passes.",
+  "pass_predicate": "Domain scorer writes numeric OC/comparator residuals, material_margin_met is true, and the downstream oc_prediction_scoring_row becomes PASS.",
+  "phenomenon_class_id": "reaction_and_kinetics_prediction",
+  "repair_strategy": "Implement a domain-specific scorer that locks targets, computes OC predictions and incumbent comparator predictions, materializes residuals, and reruns replay without changing the expected verdict.",
+  "required_capability": "Research/DomainScoringExecutor",
+  "root_cause_class": "DOMAIN_SPECIFIC_SCORER_MISSING",
+  "schema_id": "OC133_MODERN_SCIENCE_COMPARATOR_DOMAIN_SCORING_EXECUTION_v1",
+  "scoring_artifact_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/0b00ee8a56e1234a/oc_prediction_scoring_row.json",
+  "scoring_artifact_status": "OPEN",
+  "status": "CAPABILITY_DEVELOPMENT_REQUIRED",
+  "validator_binding": "comparator_gap::MS-COV-GAP-CHEMICAL_SCIENCES-REACTION_AND_KINETICS_PREDICTION::domain_scoring_executor",
+  "why_it_failed": "No exact domain scorer exists for this domain/phenomenon; the generic evidence pack remains fail-closed."
+}

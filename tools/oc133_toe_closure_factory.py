@@ -2388,6 +2388,46 @@ def comparator_research_artifact_repair_rel(repair_id: str) -> Path:
     )
 
 
+def comparator_domain_scoring_backlog_rel() -> Path:
+    return (
+        lane_execution_base("MODERN_SCIENCE_COMPARATOR_SUPERIORITY")
+        / "DOMAIN_SCORING_BACKLOG.json"
+    )
+
+
+def comparator_domain_scoring_id(gap_id: str) -> str:
+    return f"R017-DOMAIN-SCORER-{artifact_hash({'gap_id': gap_id})[:16]}"
+
+
+def comparator_domain_scoring_rel(scoring_id: str) -> Path:
+    safe_id = artifact_hash({"scoring_id": scoring_id})[:16]
+    return (
+        lane_execution_base("MODERN_SCIENCE_COMPARATOR_SUPERIORITY")
+        / "domain_scorers"
+        / f"scorer_{safe_id}.json"
+    )
+
+
+def comparator_domain_scorer_implementation_backlog_rel() -> Path:
+    return (
+        lane_execution_base("MODERN_SCIENCE_COMPARATOR_SUPERIORITY")
+        / "DOMAIN_SCORER_IMPLEMENTATION_BACKLOG.json"
+    )
+
+
+def comparator_domain_scorer_implementation_id(gap_id: str) -> str:
+    return f"R017-DOMAIN-SCORER-IMPL-{artifact_hash({'gap_id': gap_id})[:16]}"
+
+
+def comparator_domain_scorer_implementation_rel(implementation_id: str) -> Path:
+    safe_id = artifact_hash({"implementation_id": implementation_id})[:16]
+    return (
+        lane_execution_base("MODERN_SCIENCE_COMPARATOR_SUPERIORITY")
+        / "domain_scorer_implementations"
+        / f"scorer_impl_{safe_id}.json"
+    )
+
+
 def comparator_source_implementation_id(gap_id: str, subartifact_id: str) -> str:
     return f"R017-SOURCE-IMPL-{artifact_hash({'gap_id': gap_id, 'subartifact_id': subartifact_id})[:16]}"
 
@@ -2409,6 +2449,11 @@ def comparator_gap_research_artifact_rel(gap_id: str, artifact_key: str) -> Path
     safe_key = re.sub(r"[^A-Za-z0-9_.-]+", "_", artifact_key).strip("_") or "unknown_artifact"
     gap_hash = artifact_hash({"gap_id": gap_id})[:16]
     return COMPARATOR_RESEARCH_ARTIFACT_BASE / gap_hash / f"{safe_key}.json"
+
+
+def comparator_gap_generated_evidence_pack_rel(gap_id: str) -> Path:
+    gap_hash = artifact_hash({"gap_id": gap_id})[:16]
+    return COMPARATOR_RESEARCH_ARTIFACT_BASE / gap_hash / "strict_evidence_pack.json"
 
 
 def legacy_comparator_gap_research_artifact_rel(gap_id: str, artifact_key: str) -> Path:
@@ -2442,6 +2487,48 @@ def comparator_gap_research_artifact(root: Path, gap_id: str, artifact_key: str)
         if payload.get("artifact_key") == artifact_key:
             return payload
     return {}
+
+
+def comparator_generated_evidence(root: Path, gap_id: str) -> dict[str, Any]:
+    evidence_ref = comparator_gap_generated_evidence_pack_rel(gap_id).as_posix()
+    evidence_path = root / evidence_ref
+    evidence_pack = read_json(evidence_path)
+    if evidence_pack.get("schema_id") != "OC133_MODERN_SCIENCE_COMPARATOR_STRICT_EVIDENCE_PACK_v1":
+        return {}
+    residuals = evidence_pack.get("residuals", {}) if isinstance(evidence_pack.get("residuals"), dict) else {}
+    material_margin = residuals.get("material_margin_met")
+    if material_margin is None and isinstance(residuals.get("model"), (int, float)) and isinstance(residuals.get("comparator"), (int, float)):
+        material_margin = residuals.get("model") < residuals.get("comparator")
+    status_text = json.dumps(
+        {
+            "evidence_status": evidence_pack.get("status"),
+            "pack_status": evidence_pack.get("pack_status"),
+            "coverage_closure_allowed": evidence_pack.get("coverage_closure_allowed"),
+            "fail_closed_reason": evidence_pack.get("fail_closed_reason"),
+        },
+        ensure_ascii=False,
+        sort_keys=True,
+    ).upper()
+    fail_tokens = ("FAIL", "BLOCKED", "NOT_MET", "SOURCE_GAP")
+    return {
+        "executable_evidence_exists": evidence_pack.get("executable_evidence_exists") is True,
+        "evidence_ref": evidence_ref,
+        "evidence_ref_exists": evidence_path.exists(),
+        "evidence_pack_hash": sha256_file(evidence_path) if evidence_path.exists() else "",
+        "material_margin_met": material_margin is True,
+        "fail_closed_status_present": any(token in status_text for token in fail_tokens),
+        "pack_status_text": status_text,
+        "evidence_pack_summary": {
+            "schema_id": evidence_pack.get("schema_id"),
+            "pack_status": evidence_pack.get("pack_status") or evidence_pack.get("status"),
+            "coverage_closure_allowed": evidence_pack.get("coverage_closure_allowed"),
+            "residuals": residuals,
+            "source_bound": evidence_pack.get("source_bound"),
+            "target_hidden": evidence_pack.get("target_hidden"),
+            "score_materialized": evidence_pack.get("score_materialized"),
+            "fail_closed_reason": evidence_pack.get("fail_closed_reason"),
+        },
+    }
 
 
 def comparator_current_evidence(root: Path, executable_spec: dict[str, Any]) -> dict[str, Any]:
@@ -2479,6 +2566,100 @@ def comparator_current_evidence(root: Path, executable_spec: dict[str, Any]) -> 
             "residuals": residuals,
         },
     }
+
+
+def build_comparator_generic_evidence_pack(root: Path, gap_id: str) -> dict[str, Any]:
+    gap_payload = comparator_gap_execution_payload(root, gap_id)
+    queue_row = comparator_lane_queue_rows_by_gap(root).get(gap_id, {})
+    executable_spec = queue_row.get("executable_work_order", {}) if isinstance(queue_row.get("executable_work_order"), dict) else {}
+    source = executable_spec.get("official_data_source", {}) if isinstance(executable_spec.get("official_data_source"), dict) else {}
+    target = executable_spec.get("target_variable", {}) if isinstance(executable_spec.get("target_variable"), dict) else {}
+    comparator = executable_spec.get("incumbent_comparator_requirement", {}) if isinstance(executable_spec.get("incumbent_comparator_requirement"), dict) else {}
+    residual = executable_spec.get("residual_requirement", {}) if isinstance(executable_spec.get("residual_requirement"), dict) else {}
+    uncertainty = executable_spec.get("uncertainty_requirement", {}) if isinstance(executable_spec.get("uncertainty_requirement"), dict) else {}
+    falsifier = executable_spec.get("falsifier_requirement", {}) if isinstance(executable_spec.get("falsifier_requirement"), dict) else {}
+    execution = executable_spec.get("execution_requirements", {}) if isinstance(executable_spec.get("execution_requirements"), dict) else {}
+    current = comparator_current_evidence(root, executable_spec)
+    existing_pack_pass = (
+        current.get("executable_evidence_exists") is True
+        and current.get("evidence_ref_exists") is True
+        and current.get("material_margin_met") is True
+        and current.get("fail_closed_status_present") is False
+    )
+    required_refs = {
+        "verified_open_source_capsule": comparator_gap_research_artifact(root, gap_id, "verified_open_source_capsule").get("artifact_ref"),
+        "benchmark_case": comparator_gap_research_artifact(root, gap_id, "benchmark_case").get("artifact_ref"),
+        "incumbent_comparator": comparator_gap_research_artifact(root, gap_id, "incumbent_comparator").get("artifact_ref"),
+        "uncertainty_row": comparator_gap_research_artifact(root, gap_id, "uncertainty_row").get("artifact_ref"),
+        "falsifier_row": comparator_gap_research_artifact(root, gap_id, "falsifier_row").get("artifact_ref"),
+    }
+    prereq_bound = all(bool(ref) and (root / str(ref)).exists() for ref in required_refs.values())
+    source_bound = bool(source.get("source_id")) and bool(source.get("official_endpoint_url") or source.get("official_documentation_url"))
+    target_hidden = bool(target.get("name")) and bool(target.get("target_fields")) and bool(target.get("extraction_rule") or execution.get("target_hidden_until_scoring"))
+    comparator_bound = bool(comparator.get("baseline_name")) and comparator.get("pre_registered") is True
+    score_materialized = existing_pack_pass
+    pack_status = "PASS" if existing_pack_pass and prereq_bound else "FAIL_CLOSED_SOURCE_BOUND_SCORING_NOT_MATERIALIZED"
+    fail_reason = ""
+    if not prereq_bound:
+        fail_reason = "Required source/benchmark/comparator/uncertainty/falsifier artifacts are not all hash-bound."
+    elif not score_materialized:
+        fail_reason = "Source identity and preregistered benchmark are present, but no target-hidden OC score with material superiority exists."
+    payload = {
+        "schema_id": "OC133_MODERN_SCIENCE_COMPARATOR_STRICT_EVIDENCE_PACK_v1",
+        "generated_at": stable_generated_at(root, comparator_gap_generated_evidence_pack_rel(gap_id)),
+        "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+        "gap_id": gap_id,
+        "domain_class_id": gap_payload.get("domain_class_id") or queue_row.get("domain_class_id"),
+        "phenomenon_class_id": gap_payload.get("phenomenon_class_id") or queue_row.get("phenomenon_class_id"),
+        "status": pack_status,
+        "pack_status": pack_status,
+        "executable_evidence_exists": True,
+        "coverage_closure_allowed": pack_status == "PASS",
+        "broad_modern_science_superiority_allowed": False,
+        "source_bound": source_bound,
+        "target_hidden": target_hidden,
+        "comparator_bound": comparator_bound,
+        "prerequisite_artifacts_bound": prereq_bound,
+        "score_materialized": score_materialized,
+        "fail_closed_reason": fail_reason,
+        "source": source,
+        "target_variable": target,
+        "incumbent_comparator": comparator,
+        "residual_requirement": residual,
+        "uncertainty_requirement": uncertainty,
+        "falsifier_requirement": falsifier,
+        "execution_requirements": execution,
+        "required_artifact_refs": required_refs,
+        "current_evidence": current,
+        "residuals": {
+            "model": None,
+            "comparator": None,
+            "material_margin_met": existing_pack_pass,
+            "material_margin_rule": residual.get("superiority_rule"),
+        },
+        "replay": {
+            "status": "BLOCKED_BY_SCORING" if pack_status != "PASS" else "READY_FOR_REPLAY",
+            "replay_command": execution.get("replay_command"),
+            "replay_commands": execution.get("replay_commands") or ([execution.get("replay_command")] if execution.get("replay_command") else []),
+        },
+        "source_refs": [
+            "reports/OC_CORE_1_3_3_MODERN_SCIENCE_COVERAGE_LANE_QUEUE.json",
+            "benchmarks/modern_science/OC133_MODERN_SCIENCE_COVERAGE_WORK_ORDERS.json",
+            "comparators/modern_science/OC133_MODERN_SCIENCE_COVERAGE_REGISTER.json",
+        ],
+        "why_it_failed": fail_reason or "Existing executable evidence pack passes strict material superiority predicates.",
+        "repair_strategy": "Acquire target-hidden source data, materialize OC and incumbent predictions, compute residuals, then rerun this pack and replay.",
+        "required_capability": "Research/ScoringExecutor",
+        "execution_command": [sys.executable, "tools/oc133_toe_closure_factory.py", "--execute-comparator-generic-evidence-pack", gap_id, "--write"],
+        "pass_predicate": "pack_status == PASS, material_margin_met == true, no fail-closed status, replay_record PASS.",
+        "validator_binding": f"comparator_gap::{gap_id}::generic_strict_evidence_pack",
+        "next_escalation": "Implement a domain-specific scorer when this generic pack remains fail-closed.",
+        "no_fake_closure_policy": "This pack is source-bound but cannot promote broad superiority unless actual target-hidden scoring materially beats the preregistered comparator.",
+    }
+    payload["artifact_ref"] = rel(root, root / comparator_gap_generated_evidence_pack_rel(gap_id))
+    payload["artifact_hash"] = artifact_hash(payload)
+    write_json_artifact(root, comparator_gap_generated_evidence_pack_rel(gap_id), payload)
+    return payload
 
 
 def formal_route_exact_evidence(root: Path, executable_spec: dict[str, Any]) -> dict[str, Any]:
@@ -2562,6 +2743,14 @@ def build_comparator_gap_scoring_work_order(root: Path, gap_id: str) -> dict[str
     queue_row = comparator_lane_queue_rows_by_gap(root).get(gap_id, {})
     executable_spec = queue_row.get("executable_work_order", {}) if isinstance(queue_row.get("executable_work_order"), dict) else {}
     evidence = comparator_current_evidence(root, executable_spec)
+    generated_evidence = comparator_generated_evidence(root, gap_id)
+    if generated_evidence and not (
+        evidence.get("executable_evidence_exists") is True
+        and evidence.get("evidence_ref_exists") is True
+        and evidence.get("material_margin_met") is True
+        and evidence.get("fail_closed_status_present") is False
+    ):
+        evidence = generated_evidence
     root_cause, why = comparator_scoring_root_cause(evidence, executable_spec)
     data_lanes = [row for row in queue_row.get("required_data_lanes", []) or [] if isinstance(row, dict)]
     proof_lanes = [row for row in queue_row.get("required_proof_lanes", []) or [] if isinstance(row, (dict, str))]
@@ -3307,6 +3496,17 @@ def comparator_research_artifact_repair_commands(root: Path, gap_id: str, artifa
                 continue
             seen.add(key)
             commands.append(list(command))
+    if artifact_key in {"oc_prediction_scoring_row", "replay_record"}:
+        fallback_command = [
+            sys.executable,
+            "tools/oc133_toe_closure_factory.py",
+            "--execute-comparator-generic-evidence-pack",
+            gap_id,
+            "--write",
+        ]
+        key = stable_json({"command": fallback_command})
+        if key not in seen:
+            commands.append(fallback_command)
     return commands
 
 
@@ -3529,6 +3729,584 @@ def execute_comparator_research_artifact_repair_batch(root: Path, timeout: int =
     return result
 
 
+def comparator_domain_scoring_rows(root: Path) -> list[dict[str, Any]]:
+    payload = read_json(root / comparator_domain_scoring_backlog_rel())
+    rows = payload.get("rows") or []
+    return [row for row in rows if isinstance(row, dict)]
+
+
+def comparator_domain_scoring_rows_by_id(root: Path) -> dict[str, dict[str, Any]]:
+    return {
+        str(row.get("domain_scoring_id")): row
+        for row in comparator_domain_scoring_rows(root)
+        if row.get("domain_scoring_id")
+    }
+
+
+def comparator_domain_scoring_completed(root: Path, scoring_id: str) -> bool:
+    payload = read_json(root / comparator_domain_scoring_rel(scoring_id))
+    return payload.get("domain_scoring_id") == scoring_id and payload.get("status") == "PASS"
+
+
+def build_comparator_domain_scoring_backlog(root: Path) -> dict[str, Any]:
+    generated_at = stable_generated_at(root, comparator_domain_scoring_backlog_rel())
+    rows: list[dict[str, Any]] = []
+    for gap in comparator_execution_gap_rows(root):
+        if gap.get("status") == "PASS":
+            continue
+        gap_id = str(gap.get("gap_id") or "")
+        if not gap_id:
+            continue
+        scoring_artifact = comparator_gap_research_artifact(root, gap_id, "oc_prediction_scoring_row")
+        if not scoring_artifact or scoring_artifact.get("status") == "PASS":
+            continue
+        root_cause, why, repair = comparator_research_artifact_root_cause(scoring_artifact)
+        if root_cause not in {"SCORING_PACK_FAIL_CLOSED", "COMPARATOR_BASELINE_NOT_BEATEN_WITH_UNCERTAINTY", "SCORING_ROW_READY_REPLAY_REQUIRED"}:
+            continue
+        evidence = scoring_artifact.get("validation", {}) if isinstance(scoring_artifact.get("validation"), dict) else {}
+        summary = evidence.get("evidence_pack_summary", {}) if isinstance(evidence.get("evidence_pack_summary"), dict) else {}
+        residuals = summary.get("residuals", {}) if isinstance(summary.get("residuals"), dict) else {}
+        scoring_id = comparator_domain_scoring_id(gap_id)
+        report = read_json(root / comparator_domain_scoring_rel(scoring_id))
+        rows.append(
+            normalize_problem_row(
+                {
+                    "domain_scoring_id": scoring_id,
+                    "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+                    "gap_id": gap_id,
+                    "domain_class_id": gap.get("domain_class_id"),
+                    "phenomenon_class_id": gap.get("phenomenon_class_id"),
+                    "status": "OPEN",
+                    "root_cause_class": root_cause,
+                    "research_artifact_ref": scoring_artifact.get("artifact_ref"),
+                    "evidence_ref": evidence.get("evidence_ref"),
+                    "domain_scoring_report_ref": rel(root, root / comparator_domain_scoring_rel(scoring_id)),
+                    "domain_scoring_report_status": report.get("status"),
+                    "missing_domain_scoring_elements": [
+                        key
+                        for key, value in {
+                            "source_bound": summary.get("source_bound") is True,
+                            "target_hidden": summary.get("target_hidden") is True,
+                            "score_materialized": summary.get("score_materialized") is True,
+                            "model_residual_materialized": isinstance(residuals.get("model"), (int, float)),
+                            "comparator_residual_materialized": isinstance(residuals.get("comparator"), (int, float)),
+                            "material_margin_met": residuals.get("material_margin_met") is True,
+                        }.items()
+                        if value is not True
+                    ],
+                    "why_it_failed": why,
+                    "repair_strategy": "Implement a domain-specific scorer that locks targets, computes OC predictions and incumbent comparator predictions, materializes residuals, and reruns replay without changing the expected verdict.",
+                    "required_capability": "Research/DomainScoringExecutor",
+                    "execution_command": [sys.executable, "tools/oc133_toe_closure_factory.py", "--execute-comparator-domain-scoring", scoring_id, "--write"],
+                    "pass_predicate": "Domain scorer writes numeric OC/comparator residuals, material_margin_met is true, and the downstream oc_prediction_scoring_row becomes PASS.",
+                    "validator_binding": f"comparator_gap::{gap_id}::domain_scoring_executor",
+                    "next_escalation": "If no exact scorer exists, create the domain-specific scorer implementation work order with source schema, target fields, OC formula, comparator formula, residual metric, and replay command.",
+                    "no_fake_closure_policy": "This row cannot close broad superiority unless the generated scoring artifact itself passes strict materiality and replay predicates.",
+                },
+                {},
+            )
+        )
+    payload = {
+        "schema_id": "OC133_MODERN_SCIENCE_COMPARATOR_DOMAIN_SCORING_BACKLOG_v1",
+        "generated_at": generated_at,
+        "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+        "status": "OPEN" if rows else "PASS",
+        "domain_scoring_work_order_total": len(rows),
+        "open_domain_scoring_work_order_total": sum(1 for row in rows if row.get("status") != "PASS"),
+        "execution_command": [sys.executable, "tools/oc133_toe_closure_factory.py", "--compile-comparator-domain-scoring-backlog", "--write"],
+        "why_it_failed": "One or more source-bound scoring packs are fail-closed and need domain-specific scorers." if rows else "No domain scoring backlog remains.",
+        "repair_strategy": "Implement exact domain scoring executors only from governed source/target/comparator/replay specs.",
+        "required_capability": "Research/DomainScoringExecutor",
+        "pass_predicate": "All domain scoring rows pass and every scoring research artifact is PASS.",
+        "next_escalation": "Implement the first missing domain-specific scorer by domain and phenomenon.",
+        "no_fake_closure_policy": "Domain scoring backlog is an internal work graph; it cannot promote modern_science_comparator_superiority.",
+        "rows": rows,
+    }
+    payload["artifact_ref"] = rel(root, root / comparator_domain_scoring_backlog_rel())
+    payload["artifact_hash"] = artifact_hash(payload)
+    write_json_artifact(root, comparator_domain_scoring_backlog_rel(), payload)
+    return payload
+
+
+def build_comparator_domain_scoring_execution(root: Path, scoring_id: str) -> dict[str, Any]:
+    rows_by_id = comparator_domain_scoring_rows_by_id(root)
+    row = rows_by_id.get(scoring_id)
+    if not row:
+        build_comparator_domain_scoring_backlog(root)
+        rows_by_id = comparator_domain_scoring_rows_by_id(root)
+        row = rows_by_id.get(scoring_id)
+    generated_at = stable_generated_at(root, comparator_domain_scoring_rel(scoring_id))
+    if not row:
+        payload = normalize_problem_row(
+            {
+                "schema_id": "OC133_MODERN_SCIENCE_COMPARATOR_DOMAIN_SCORING_EXECUTION_v1",
+                "generated_at": generated_at,
+                "domain_scoring_id": scoring_id,
+                "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+                "status": "FAIL_CLOSED",
+                "root_cause_class": "DOMAIN_SCORING_BACKLOG_ROW_MISSING",
+                "why_it_failed": "No domain-scoring backlog row exists for this id.",
+                "repair_strategy": "Recompile the domain-scoring backlog from current fail-closed scoring artifacts.",
+                "required_capability": "Research/DomainScoringExecutor",
+                "execution_command": [sys.executable, "tools/oc133_toe_closure_factory.py", "--execute-comparator-domain-scoring", scoring_id, "--write"],
+                "pass_predicate": "Backlog row exists and its domain scorer produces a PASS scoring artifact.",
+                "validator_binding": f"comparator_domain_scoring::{scoring_id}",
+                "next_escalation": "Run --compile-comparator-domain-scoring-backlog --write.",
+                "no_fake_closure_policy": "Missing rows cannot close broad superiority.",
+            },
+            {},
+        )
+        payload["artifact_ref"] = rel(root, root / comparator_domain_scoring_rel(scoring_id))
+        payload["artifact_hash"] = artifact_hash(payload)
+        write_json_artifact(root, comparator_domain_scoring_rel(scoring_id), payload)
+        return payload
+    gap_id = str(row.get("gap_id") or "")
+    gap_payload = comparator_gap_execution_payload(root, gap_id)
+    queue_row = comparator_lane_queue_rows_by_gap(root).get(gap_id, {})
+    executable_spec = queue_row.get("executable_work_order", {}) if isinstance(queue_row.get("executable_work_order"), dict) else {}
+    exact_commands: list[list[str]] = []
+    domain_class_id = str(row.get("domain_class_id") or gap_payload.get("domain_class_id") or "")
+    phenomenon_class_id = str(row.get("phenomenon_class_id") or gap_payload.get("phenomenon_class_id") or "")
+    for subartifact_id in ("strict_evidence_pack_diagnosis", "model_or_claim_repair_decision", "oc_formula_or_model"):
+        exact_commands.extend(COMPARATOR_DOMAIN_IMPLEMENTED_COMMANDS.get((domain_class_id, phenomenon_class_id, subartifact_id), []))
+    command_results = [safe_run_command(root, list(command), 900) for command in exact_commands]
+    command_pass = bool(exact_commands) and all(result.get("returncode") == 0 for result in command_results)
+    # Always refresh the source-bound evidence pack so the report records the
+    # current target/model/comparator state even when no exact domain scorer exists.
+    pack = build_comparator_generic_evidence_pack(root, gap_id) if gap_id else {}
+    scoring_artifact = build_comparator_gap_research_artifact(root, gap_id, "oc_prediction_scoring_row") if gap_id else {}
+    if scoring_artifact.get("status") == "PASS":
+        status = "PASS"
+        root_cause = "DOMAIN_SCORER_CLOSED_SCORING_ARTIFACT"
+        why = "The domain scorer materialized a PASS OC/comparator scoring artifact."
+    elif not exact_commands:
+        status = "CAPABILITY_DEVELOPMENT_REQUIRED"
+        root_cause = "DOMAIN_SPECIFIC_SCORER_MISSING"
+        why = "No exact domain scorer exists for this domain/phenomenon; the generic evidence pack remains fail-closed."
+    elif command_pass:
+        status = "EVIDENCE_REPAIR_ATTEMPTED_REMAINS_OPEN"
+        root_cause = "DOMAIN_SCORER_RAN_BUT_SCORING_REMAINS_OPEN"
+        why = "Domain scorer command ran, but strict materiality/replay predicates still keep the scoring artifact OPEN."
+    else:
+        status = "FAIL_CLOSED"
+        root_cause = "DOMAIN_SCORER_COMMAND_FAILED"
+        why = "At least one domain scorer command failed; broad comparator credit remains blocked."
+    payload = normalize_problem_row(
+        {
+            "schema_id": "OC133_MODERN_SCIENCE_COMPARATOR_DOMAIN_SCORING_EXECUTION_v1",
+            "generated_at": generated_at,
+            "domain_scoring_id": scoring_id,
+            "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+            "gap_id": gap_id,
+            "domain_class_id": domain_class_id,
+            "phenomenon_class_id": phenomenon_class_id,
+            "status": status,
+            "root_cause_class": root_cause,
+            "exact_domain_scorer_available": bool(exact_commands),
+            "exact_domain_scorer_commands": exact_commands,
+            "command_result_total": len(command_results),
+            "command_pass": command_pass,
+            "command_results": command_results,
+            "generic_evidence_pack_ref": pack.get("artifact_ref"),
+            "generic_evidence_pack_status": pack.get("status"),
+            "scoring_artifact_ref": scoring_artifact.get("artifact_ref"),
+            "scoring_artifact_status": scoring_artifact.get("status"),
+            "missing_domain_scoring_elements": row.get("missing_domain_scoring_elements", []),
+            "executable_spec_ref": executable_spec.get("source_plan_id"),
+            "why_it_failed": why,
+            "repair_strategy": row.get("repair_strategy"),
+            "required_capability": "Research/DomainScoringExecutor",
+            "execution_command": [sys.executable, "tools/oc133_toe_closure_factory.py", "--execute-comparator-domain-scoring", scoring_id, "--write"],
+            "pass_predicate": row.get("pass_predicate"),
+            "validator_binding": row.get("validator_binding") or f"comparator_gap::{gap_id}::domain_scoring_executor",
+            "next_escalation": "Implement the exact domain scorer if missing; if present but negative, preserve the fail-closed result and repair science/model support rather than flipping PASS.",
+            "no_fake_closure_policy": "This execution cannot close broad superiority unless the downstream scoring artifact itself passes.",
+        },
+        {},
+    )
+    payload["artifact_ref"] = rel(root, root / comparator_domain_scoring_rel(scoring_id))
+    payload["artifact_hash"] = artifact_hash(payload)
+    write_json_artifact(root, comparator_domain_scoring_rel(scoring_id), payload)
+    return payload
+
+
+def execute_comparator_domain_scoring_batch(root: Path, limit: int = 0) -> dict[str, Any]:
+    backlog = build_comparator_domain_scoring_backlog(root)
+    rows = [row for row in backlog.get("rows", []) or [] if isinstance(row, dict)]
+    executed = []
+    for row in rows:
+        scoring_id = str(row.get("domain_scoring_id") or "")
+        if not scoring_id:
+            continue
+        payload = build_comparator_domain_scoring_execution(root, scoring_id)
+        executed.append(
+            {
+                "domain_scoring_id": scoring_id,
+                "gap_id": row.get("gap_id"),
+                "status": payload.get("status"),
+                "scoring_artifact_status": payload.get("scoring_artifact_status"),
+                "artifact_ref": payload.get("artifact_ref"),
+            }
+        )
+        if limit > 0 and len(executed) >= limit:
+            break
+    refreshed = build_comparator_domain_scoring_backlog(root)
+    payload = {
+        "schema_id": "OC133_MODERN_SCIENCE_COMPARATOR_DOMAIN_SCORING_BATCH_v1",
+        "generated_at": utc_now(),
+        "status": "PASS",
+        "requested_limit": limit,
+        "executed_total": len(executed),
+        "backlog_ref": refreshed.get("artifact_ref"),
+        "backlog_open_domain_scoring_work_order_total": refreshed.get("open_domain_scoring_work_order_total"),
+        "rows": executed,
+        "no_fake_closure_policy": "Batch domain scoring never promotes broad superiority; it records exact scorer execution and fail-closed source gaps.",
+    }
+    payload["artifact_hash"] = artifact_hash(payload)
+    return payload
+
+
+def comparator_domain_scorer_implementation_rows(root: Path) -> list[dict[str, Any]]:
+    payload = read_json(root / comparator_domain_scorer_implementation_backlog_rel())
+    rows = payload.get("rows") or []
+    return [row for row in rows if isinstance(row, dict)]
+
+
+def comparator_domain_scorer_implementation_rows_by_id(root: Path) -> dict[str, dict[str, Any]]:
+    return {
+        str(row.get("implementation_id")): row
+        for row in comparator_domain_scorer_implementation_rows(root)
+        if row.get("implementation_id")
+    }
+
+
+def comparator_domain_scorer_implementation_report(root: Path, implementation_id: str) -> dict[str, Any]:
+    payload = read_json(root / comparator_domain_scorer_implementation_rel(implementation_id))
+    return payload if payload.get("implementation_id") == implementation_id else {}
+
+
+def comparator_domain_scorer_implementation_completed(root: Path, implementation_id: str) -> bool:
+    payload = comparator_domain_scorer_implementation_report(root, implementation_id)
+    return payload.get("status") == "PASS" and payload.get("domain_scoring_status") == "PASS"
+
+
+def comparator_domain_scorer_missing_elements(root: Path, gap_id: str, domain_scoring_report: dict[str, Any]) -> list[str]:
+    scoring_artifact = comparator_gap_research_artifact(root, gap_id, "oc_prediction_scoring_row") if gap_id else {}
+    validation = scoring_artifact.get("validation", {}) if isinstance(scoring_artifact.get("validation"), dict) else {}
+    summary = validation.get("evidence_pack_summary", {}) if isinstance(validation.get("evidence_pack_summary"), dict) else {}
+    residuals = summary.get("residuals", {}) if isinstance(summary.get("residuals"), dict) else {}
+    missing = [
+        key
+        for key, value in {
+            "exact_domain_scorer_available": domain_scoring_report.get("exact_domain_scorer_available") is True,
+            "command_pass": domain_scoring_report.get("command_pass") is True,
+            "score_materialized": summary.get("score_materialized") is True,
+            "model_residual_materialized": isinstance(residuals.get("model"), (int, float)),
+            "comparator_residual_materialized": isinstance(residuals.get("comparator"), (int, float)),
+            "material_margin_met": residuals.get("material_margin_met") is True,
+            "fail_closed_status_absent": validation.get("fail_closed_status_present") is False,
+        }.items()
+        if value is not True
+    ]
+    return sorted(set(missing + list(domain_scoring_report.get("missing_domain_scoring_elements") or [])))
+
+
+def build_comparator_domain_scorer_implementation_backlog(root: Path) -> dict[str, Any]:
+    generated_at = stable_generated_at(root, comparator_domain_scorer_implementation_backlog_rel())
+    # Refresh the domain-scoring frontier first so this backlog is derived from
+    # the current source-bound scoring attempts, not from stale diagnostics.
+    scoring_backlog = build_comparator_domain_scoring_backlog(root)
+    rows: list[dict[str, Any]] = []
+    for scoring_row in scoring_backlog.get("rows", []) or []:
+        if not isinstance(scoring_row, dict):
+            continue
+        gap_id = str(scoring_row.get("gap_id") or "")
+        if not gap_id:
+            continue
+        scoring_id = str(scoring_row.get("domain_scoring_id") or comparator_domain_scoring_id(gap_id))
+        scoring_report = read_json(root / comparator_domain_scoring_rel(scoring_id))
+        if not scoring_report or scoring_report.get("domain_scoring_id") != scoring_id:
+            # Materialize one domain-scoring execution report so the WHY/HOW is
+            # bound to the current gap, then compile the next-layer obligation.
+            scoring_report = build_comparator_domain_scoring_execution(root, scoring_id)
+        if scoring_report.get("status") == "PASS":
+            continue
+        implementation_id = comparator_domain_scorer_implementation_id(gap_id)
+        if comparator_domain_scorer_implementation_completed(root, implementation_id):
+            continue
+        domain_class_id = str(scoring_row.get("domain_class_id") or scoring_report.get("domain_class_id") or "")
+        phenomenon_class_id = str(scoring_row.get("phenomenon_class_id") or scoring_report.get("phenomenon_class_id") or "")
+        queue_row = comparator_lane_queue_rows_by_gap(root).get(gap_id, {})
+        executable_spec = queue_row.get("executable_work_order", {}) if isinstance(queue_row.get("executable_work_order"), dict) else {}
+        expected_script_ref = COMPARATOR_DOMAIN_SCRIPT_BY_CLASS.get(domain_class_id)
+        expected_script_exists = bool(expected_script_ref) and (root / str(expected_script_ref)).exists()
+        exact_commands = [
+            list(command)
+            for subartifact_id in (
+                "source_snapshot_acquisition",
+                "target_hidden_task_table",
+                "oc_formula_or_model",
+                "incumbent_comparator_scoring",
+                "residuals_materiality_uncertainty",
+                "controls_and_falsifiers",
+                "independent_replay",
+                "strict_evidence_pack_diagnosis",
+                "model_or_claim_repair_decision",
+            )
+            for command in COMPARATOR_DOMAIN_IMPLEMENTED_COMMANDS.get((domain_class_id, phenomenon_class_id, subartifact_id), [])
+        ]
+        missing_elements = comparator_domain_scorer_missing_elements(root, gap_id, scoring_report)
+        root_cause = str(scoring_report.get("root_cause_class") or "DOMAIN_SCORER_IMPLEMENTATION_REQUIRED")
+        if not expected_script_ref:
+            narrower_root_cause = "DOMAIN_SCORER_SCRIPT_ROUTE_MISSING"
+            repair_strategy = "Add a governed domain scorer script route for this domain class, then bind concrete acquisition/scoring/replay flags."
+        elif not expected_script_exists:
+            narrower_root_cause = "DOMAIN_SCORER_SCRIPT_FILE_MISSING"
+            repair_strategy = "Create the governed domain scorer script at the expected route with source acquisition, target lock, OC/comparator scoring, uncertainty, falsifier, and replay commands."
+        elif not exact_commands:
+            narrower_root_cause = "DOMAIN_SCORER_FLAGS_MISSING"
+            repair_strategy = "Extend the existing domain scorer script with concrete flags for this phenomenon and bind them in COMPARATOR_DOMAIN_IMPLEMENTED_COMMANDS."
+        elif root_cause == "DOMAIN_SCORER_RAN_BUT_SCORING_REMAINS_OPEN":
+            narrower_root_cause = "DOMAIN_SCORER_MODEL_OR_COMPARATOR_REPAIR_REQUIRED"
+            repair_strategy = "Inspect the existing scorer output, repair the OC model/comparator/residual/materiality implementation, and preserve negative results if OC does not beat the comparator."
+        else:
+            narrower_root_cause = root_cause
+            repair_strategy = "Implement or repair the exact domain scorer until the downstream scoring artifact passes or remains honestly fail-closed with a narrower research blocker."
+        rows.append(
+            normalize_problem_row(
+                {
+                    "implementation_id": implementation_id,
+                    "implementation_work_order_id": implementation_id,
+                    "domain_scoring_id": scoring_id,
+                    "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+                    "gap_id": gap_id,
+                    "domain_class_id": domain_class_id,
+                    "phenomenon_class_id": phenomenon_class_id,
+                    "status": "OPEN",
+                    "root_cause_class": narrower_root_cause,
+                    "source_domain_scoring_ref": scoring_report.get("artifact_ref") or rel(root, root / comparator_domain_scoring_rel(scoring_id)),
+                    "source_domain_scoring_status": scoring_report.get("status"),
+                    "source_domain_scoring_root_cause": scoring_report.get("root_cause_class"),
+                    "expected_script_ref": expected_script_ref,
+                    "expected_script_exists": expected_script_exists,
+                    "exact_domain_scorer_commands": exact_commands,
+                    "exact_domain_scorer_available": bool(exact_commands),
+                    "missing_domain_scorer_elements": missing_elements,
+                    "required_source_block": executable_spec.get("official_data_source", {}),
+                    "target_variable": executable_spec.get("target_variable", {}),
+                    "formula_requirement": executable_spec.get("formula_requirement", {}),
+                    "incumbent_comparator_requirement": executable_spec.get("incumbent_comparator_requirement", {}),
+                    "residual_requirement": executable_spec.get("residual_requirement", {}),
+                    "uncertainty_requirement": executable_spec.get("uncertainty_requirement", {}),
+                    "falsifier_requirement": executable_spec.get("falsifier_requirement", {}),
+                    "execution_requirements": executable_spec.get("execution_requirements", {}),
+                    "output_artifact_refs": {
+                        "strict_evidence_pack": rel(root, root / comparator_gap_generated_evidence_pack_rel(gap_id)),
+                        "oc_prediction_scoring_row": rel(root, root / comparator_gap_research_artifact_rel(gap_id, "oc_prediction_scoring_row")),
+                        "replay_record": rel(root, root / comparator_gap_research_artifact_rel(gap_id, "replay_record")),
+                        "domain_scoring_report": rel(root, root / comparator_domain_scoring_rel(scoring_id)),
+                    },
+                    "why_it_failed": scoring_report.get("why_it_failed") or "The current domain-scoring layer cannot materialize a passing OC/comparator residual row.",
+                    "repair_strategy": repair_strategy,
+                    "required_capability": "Research/DomainScorerImplementation",
+                    "execution_command": [sys.executable, "tools/oc133_toe_closure_factory.py", "--execute-comparator-domain-scorer-implementation", implementation_id, "--write"],
+                    "pass_predicate": "A governed domain scorer script/flags exist, run cleanly, and the downstream domain-scoring report plus oc_prediction_scoring_row become PASS.",
+                    "validator_binding": f"comparator_gap::{gap_id}::domain_scorer_implementation",
+                    "next_escalation": "If source code or model support is absent, create the exact domain/phenomenon scorer implementation task; do not rerun generic repair waves.",
+                    "no_fake_closure_policy": "This implementation row is not evidence and cannot close broad superiority. It only defines the missing source-code/science capability needed to produce evidence.",
+                },
+                {},
+            )
+        )
+    payload = {
+        "schema_id": "OC133_MODERN_SCIENCE_COMPARATOR_DOMAIN_SCORER_IMPLEMENTATION_BACKLOG_v1",
+        "generated_at": generated_at,
+        "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+        "status": "OPEN" if rows else "PASS",
+        "domain_scorer_implementation_total": len(rows),
+        "open_domain_scorer_implementation_total": sum(1 for row in rows if row.get("status") != "PASS"),
+        "domain_scoring_backlog_ref": scoring_backlog.get("artifact_ref"),
+        "execution_command": [sys.executable, "tools/oc133_toe_closure_factory.py", "--compile-comparator-domain-scorer-implementation-backlog", "--write"],
+        "why_it_failed": "Domain-scoring attempts remain open and require exact domain scorer implementation/repair." if rows else "No domain scorer implementation backlog remains.",
+        "repair_strategy": "Implement domain-specific source acquisition, target lock, scoring, uncertainty, falsifier, and replay executors from these rows.",
+        "required_capability": "Research/DomainScorerImplementation",
+        "pass_predicate": "Every domain scorer implementation row is either PASS through source-bound scoring or remains an explicit upstream research blocker; broad superiority remains blocked until all scoring artifacts pass.",
+        "next_escalation": "Implement the first row's expected script/flags/model repair contract.",
+        "no_fake_closure_policy": "Backlog rows never promote broad modern-science superiority.",
+        "rows": rows,
+    }
+    payload["artifact_ref"] = rel(root, root / comparator_domain_scorer_implementation_backlog_rel())
+    payload["artifact_hash"] = artifact_hash(payload)
+    write_json_artifact(root, comparator_domain_scorer_implementation_backlog_rel(), payload)
+    return payload
+
+
+def build_comparator_domain_scorer_implementation_execution(root: Path, implementation_id: str, timeout: int = 900) -> dict[str, Any]:
+    rows_by_id = comparator_domain_scorer_implementation_rows_by_id(root)
+    row = rows_by_id.get(implementation_id)
+    if not row:
+        build_comparator_domain_scorer_implementation_backlog(root)
+        rows_by_id = comparator_domain_scorer_implementation_rows_by_id(root)
+        row = rows_by_id.get(implementation_id)
+    generated_at = stable_generated_at(root, comparator_domain_scorer_implementation_rel(implementation_id))
+    if not row:
+        payload = normalize_problem_row(
+            {
+                "schema_id": "OC133_MODERN_SCIENCE_COMPARATOR_DOMAIN_SCORER_IMPLEMENTATION_EXECUTION_v1",
+                "generated_at": generated_at,
+                "implementation_id": implementation_id,
+                "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+                "status": "FAIL_CLOSED",
+                "root_cause_class": "DOMAIN_SCORER_IMPLEMENTATION_BACKLOG_ROW_MISSING",
+                "why_it_failed": "No domain-scorer implementation backlog row exists for this id.",
+                "repair_strategy": "Recompile the domain-scorer implementation backlog from current domain-scoring reports.",
+                "required_capability": "Research/DomainScorerImplementation",
+                "execution_command": [sys.executable, "tools/oc133_toe_closure_factory.py", "--execute-comparator-domain-scorer-implementation", implementation_id, "--write"],
+                "pass_predicate": "Backlog row exists and its scorer implementation closes the downstream scoring artifact.",
+                "validator_binding": f"comparator_domain_scorer_implementation::{implementation_id}",
+                "next_escalation": "Run --compile-comparator-domain-scorer-implementation-backlog --write.",
+                "no_fake_closure_policy": "Missing implementation rows cannot close broad superiority.",
+            },
+            {},
+        )
+        payload["artifact_ref"] = rel(root, root / comparator_domain_scorer_implementation_rel(implementation_id))
+        payload["artifact_hash"] = artifact_hash(payload)
+        write_json_artifact(root, comparator_domain_scorer_implementation_rel(implementation_id), payload)
+        return payload
+    gap_id = str(row.get("gap_id") or "")
+    scoring_id = str(row.get("domain_scoring_id") or comparator_domain_scoring_id(gap_id))
+    exact_commands = row.get("exact_domain_scorer_commands") if isinstance(row.get("exact_domain_scorer_commands"), list) else []
+    expected_script_ref = str(row.get("expected_script_ref") or "")
+    expected_script_exists = bool(expected_script_ref) and (root / expected_script_ref).exists()
+    command_results: list[dict[str, Any]] = []
+    if exact_commands:
+        domain_scoring_payload = build_comparator_domain_scoring_execution(root, scoring_id)
+    else:
+        domain_scoring_payload = read_json(root / comparator_domain_scoring_rel(scoring_id)) or build_comparator_domain_scoring_execution(root, scoring_id)
+    scoring_artifact = build_comparator_gap_research_artifact(root, gap_id, "oc_prediction_scoring_row") if gap_id else {}
+    replay_artifact = build_comparator_gap_research_artifact(root, gap_id, "replay_record") if gap_id else {}
+    if domain_scoring_payload.get("status") == "PASS" and scoring_artifact.get("status") == "PASS":
+        status = "PASS"
+        root_cause = "DOMAIN_SCORER_IMPLEMENTATION_CLOSED"
+        why = "The governed domain scorer implementation produced a passing downstream scoring artifact."
+        command_class = "CONCRETE_DOMAIN_SCORER"
+    elif not expected_script_ref:
+        status = "CAPABILITY_DEVELOPMENT_REQUIRED"
+        root_cause = "DOMAIN_SCORER_SCRIPT_ROUTE_MISSING"
+        why = "No domain scorer script route is registered for this domain class."
+        command_class = "MISSING_DOMAIN_SCORER_SCRIPT_ROUTE"
+    elif not expected_script_exists:
+        status = "CAPABILITY_DEVELOPMENT_REQUIRED"
+        root_cause = "DOMAIN_SCORER_SCRIPT_FILE_MISSING"
+        why = f"Expected domain scorer script `{expected_script_ref}` does not exist."
+        command_class = "MISSING_DOMAIN_SCORER_SCRIPT"
+    elif not exact_commands:
+        status = "CAPABILITY_DEVELOPMENT_REQUIRED"
+        root_cause = "DOMAIN_SCORER_FLAGS_MISSING"
+        why = "The domain scorer script exists, but this domain/phenomenon has no bound acquisition/scoring/replay flags."
+        command_class = "MISSING_DOMAIN_SCORER_FLAGS"
+    elif domain_scoring_payload.get("status") == "EVIDENCE_REPAIR_ATTEMPTED_REMAINS_OPEN":
+        status = "EVIDENCE_REPAIR_ATTEMPTED_REMAINS_OPEN"
+        root_cause = "DOMAIN_SCORER_MODEL_OR_COMPARATOR_REPAIR_REQUIRED"
+        why = "The domain scorer ran, but the OC model/comparator/materiality predicates remain fail-closed."
+        command_class = "CONCRETE_DOMAIN_SCORER"
+    else:
+        status = "FAIL_CLOSED"
+        root_cause = "DOMAIN_SCORER_IMPLEMENTATION_FAILED"
+        why = "The domain scorer implementation exists but did not produce a passing scoring artifact."
+        command_class = "CONCRETE_DOMAIN_SCORER" if exact_commands else "MISSING_DOMAIN_SCORER"
+    missing_elements = comparator_domain_scorer_missing_elements(root, gap_id, domain_scoring_payload) if gap_id else []
+    payload = normalize_problem_row(
+        {
+            "schema_id": "OC133_MODERN_SCIENCE_COMPARATOR_DOMAIN_SCORER_IMPLEMENTATION_EXECUTION_v1",
+            "generated_at": generated_at,
+            "implementation_id": implementation_id,
+            "implementation_work_order_id": row.get("implementation_work_order_id"),
+            "domain_scoring_id": scoring_id,
+            "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+            "gap_id": gap_id,
+            "domain_class_id": row.get("domain_class_id"),
+            "phenomenon_class_id": row.get("phenomenon_class_id"),
+            "status": status,
+            "root_cause_class": root_cause,
+            "implementation_command_class": command_class,
+            "expected_script_ref": expected_script_ref,
+            "expected_script_exists": expected_script_exists,
+            "exact_domain_scorer_commands": exact_commands,
+            "command_result_total": len(command_results),
+            "command_results": command_results,
+            "domain_scoring_ref": domain_scoring_payload.get("artifact_ref"),
+            "domain_scoring_status": domain_scoring_payload.get("status"),
+            "domain_scoring_root_cause": domain_scoring_payload.get("root_cause_class"),
+            "scoring_artifact_ref": scoring_artifact.get("artifact_ref"),
+            "scoring_artifact_status": scoring_artifact.get("status"),
+            "replay_artifact_ref": replay_artifact.get("artifact_ref"),
+            "replay_artifact_status": replay_artifact.get("status"),
+            "missing_domain_scorer_elements": missing_elements,
+            "required_source_block": row.get("required_source_block", {}),
+            "target_variable": row.get("target_variable", {}),
+            "formula_requirement": row.get("formula_requirement", {}),
+            "incumbent_comparator_requirement": row.get("incumbent_comparator_requirement", {}),
+            "residual_requirement": row.get("residual_requirement", {}),
+            "uncertainty_requirement": row.get("uncertainty_requirement", {}),
+            "falsifier_requirement": row.get("falsifier_requirement", {}),
+            "execution_requirements": row.get("execution_requirements", {}),
+            "output_artifact_refs": row.get("output_artifact_refs", {}),
+            "why_it_failed": why,
+            "repair_strategy": row.get("repair_strategy") or "Implement or repair the exact domain scorer contract for this gap.",
+            "required_capability": "Research/DomainScorerImplementation",
+            "execution_command": [sys.executable, "tools/oc133_toe_closure_factory.py", "--execute-comparator-domain-scorer-implementation", implementation_id, "--write"],
+            "pass_predicate": row.get("pass_predicate"),
+            "validator_binding": row.get("validator_binding") or f"comparator_gap::{gap_id}::domain_scorer_implementation",
+            "next_escalation": "If status is CAPABILITY_DEVELOPMENT_REQUIRED, implement the listed script/flags/model support. If evidence remains negative, preserve fail-closed science and repair the model/comparator rather than flipping PASS.",
+            "no_fake_closure_policy": "This execution cannot close broad superiority unless the downstream scoring and replay artifacts pass.",
+        },
+        {},
+    )
+    payload["artifact_ref"] = rel(root, root / comparator_domain_scorer_implementation_rel(implementation_id))
+    payload["artifact_hash"] = artifact_hash(payload)
+    write_json_artifact(root, comparator_domain_scorer_implementation_rel(implementation_id), payload)
+    return payload
+
+
+def execute_comparator_domain_scorer_implementation_batch(root: Path, limit: int = 0, timeout: int = 900) -> dict[str, Any]:
+    backlog = build_comparator_domain_scorer_implementation_backlog(root)
+    rows = [row for row in backlog.get("rows", []) or [] if isinstance(row, dict)]
+    executed = []
+    for row in rows:
+        implementation_id = str(row.get("implementation_id") or "")
+        if not implementation_id:
+            continue
+        payload = build_comparator_domain_scorer_implementation_execution(root, implementation_id, timeout=timeout)
+        executed.append(
+            {
+                "implementation_id": implementation_id,
+                "gap_id": row.get("gap_id"),
+                "status": payload.get("status"),
+                "root_cause_class": payload.get("root_cause_class"),
+                "domain_scoring_status": payload.get("domain_scoring_status"),
+                "scoring_artifact_status": payload.get("scoring_artifact_status"),
+                "artifact_ref": payload.get("artifact_ref"),
+            }
+        )
+        if limit > 0 and len(executed) >= limit:
+            break
+    refreshed = build_comparator_domain_scorer_implementation_backlog(root)
+    payload = {
+        "schema_id": "OC133_MODERN_SCIENCE_COMPARATOR_DOMAIN_SCORER_IMPLEMENTATION_BATCH_v1",
+        "generated_at": utc_now(),
+        "status": "PASS",
+        "requested_limit": limit,
+        "executed_total": len(executed),
+        "backlog_ref": refreshed.get("artifact_ref"),
+        "backlog_open_domain_scorer_implementation_total": refreshed.get("open_domain_scorer_implementation_total"),
+        "rows": executed,
+        "no_fake_closure_policy": "Batch execution never promotes broad superiority; it only narrows domain scorer source-code/model obligations.",
+    }
+    payload["artifact_hash"] = artifact_hash(payload)
+    return payload
+
+
 def build_comparator_source_executor_work_order(root: Path, gap_id: str, subartifact_id: str) -> dict[str, Any]:
     subartifact = read_json(root / comparator_gap_scoring_subartifact_rel(gap_id, subartifact_id))
     generated_at = stable_generated_at(root, comparator_source_executor_work_order_rel(gap_id, subartifact_id))
@@ -3656,6 +4434,14 @@ def build_comparator_gap_research_artifact(root: Path, gap_id: str, artifact_key
     negative_control = executable_spec.get("negative_control_requirement", {}) if isinstance(executable_spec.get("negative_control_requirement"), dict) else {}
     execution = executable_spec.get("execution_requirements", {}) if isinstance(executable_spec.get("execution_requirements"), dict) else {}
     evidence = comparator_current_evidence(root, executable_spec)
+    generated_evidence = comparator_generated_evidence(root, gap_id)
+    if generated_evidence and not (
+        evidence.get("executable_evidence_exists") is True
+        and evidence.get("evidence_ref_exists") is True
+        and evidence.get("material_margin_met") is True
+        and evidence.get("fail_closed_status_present") is False
+    ):
+        evidence = generated_evidence
     domain_class_id = str(gap_payload.get("domain_class_id") or queue_row.get("domain_class_id") or "")
     lane_route = str(queue_row.get("lane_route") or "")
     formal_evidence = (
@@ -5501,10 +6287,79 @@ def capability_executor_for_row(row: dict[str, Any], compiled_capability_id: str
                 gap_id = parts[2]
             if len(parts) >= 4:
                 artifact_key = ":".join(parts[3:])
+        if artifact_key in {"domain_scoring_backlog", "domain_scoring_executor"}:
+            if artifact_key == "domain_scoring_executor" and gap_id:
+                scoring_id = comparator_domain_scoring_id(gap_id)
+                scoring_report = read_json(ROOT / comparator_domain_scoring_rel(scoring_id))
+                if scoring_report.get("status") in {"CAPABILITY_DEVELOPMENT_REQUIRED", "EVIDENCE_REPAIR_ATTEMPTED_REMAINS_OPEN", "FAIL_CLOSED"}:
+                    implementation_id = comparator_domain_scorer_implementation_id(gap_id)
+                    if implementation_id in comparator_domain_scorer_implementation_rows_by_id(ROOT) and not comparator_domain_scorer_implementation_completed(ROOT, implementation_id):
+                        return (
+                            [sys.executable, "tools/oc133_toe_closure_factory.py", "--execute-comparator-domain-scorer-implementation", implementation_id, "--write"],
+                            "comparator_domain_scorer_implementation",
+                            "Execute the exact domain scorer implementation produced from the domain-scoring failure.",
+                        )
+                    return (
+                        [sys.executable, "tools/oc133_toe_closure_factory.py", "--compile-comparator-domain-scorer-implementation-backlog", "--write"],
+                        "comparator_domain_scorer_implementation_backlog",
+                        "Compile missing/failed domain scorers into exact implementation obligations.",
+                    )
+                if scoring_id in comparator_domain_scoring_rows_by_id(ROOT) and not comparator_domain_scoring_completed(ROOT, scoring_id):
+                    return (
+                        [sys.executable, "tools/oc133_toe_closure_factory.py", "--execute-comparator-domain-scoring", scoring_id, "--write"],
+                        "comparator_domain_scoring_executor",
+                        "Execute the exact domain-scoring work order before escalating to scorer implementation.",
+                    )
+            return (
+                [sys.executable, "tools/oc133_toe_closure_factory.py", "--compile-comparator-domain-scoring-backlog", "--write"],
+                "comparator_domain_scoring_backlog",
+                "Compile current fail-closed scoring artifacts into exact domain-scoring obligations.",
+            )
+        if artifact_key in {"domain_scorer_implementation_backlog", "domain_scorer_implementation"}:
+            if artifact_key == "domain_scorer_implementation" and gap_id:
+                implementation_id = comparator_domain_scorer_implementation_id(gap_id)
+                if implementation_id in comparator_domain_scorer_implementation_rows_by_id(ROOT) and not comparator_domain_scorer_implementation_completed(ROOT, implementation_id):
+                    return (
+                        [sys.executable, "tools/oc133_toe_closure_factory.py", "--execute-comparator-domain-scorer-implementation", implementation_id, "--write"],
+                        "comparator_domain_scorer_implementation",
+                        "Execute the exact domain scorer implementation/repair contract.",
+                    )
+            return (
+                [sys.executable, "tools/oc133_toe_closure_factory.py", "--compile-comparator-domain-scorer-implementation-backlog", "--write"],
+                "comparator_domain_scorer_implementation_backlog",
+                "Compile domain-scoring reports into exact domain scorer implementation obligations.",
+            )
         if gap_id and artifact_key in COMPARATOR_REQUIRED_ARTIFACT_KEYS:
             research_artifact = comparator_gap_research_artifact(ROOT, gap_id, artifact_key)
             if research_artifact and research_artifact.get("status") != "PASS":
                 root_cause_class, _, _ = comparator_research_artifact_root_cause(research_artifact)
+                if root_cause_class in {"SCORING_PACK_FAIL_CLOSED", "COMPARATOR_BASELINE_NOT_BEATEN_WITH_UNCERTAINTY", "SCORING_ROW_READY_REPLAY_REQUIRED", "REPLAY_BLOCKED_BY_SCORING_ARTIFACT"}:
+                    scoring_id = comparator_domain_scoring_id(gap_id)
+                    scoring_report = read_json(ROOT / comparator_domain_scoring_rel(scoring_id))
+                    if scoring_report.get("status") in {"CAPABILITY_DEVELOPMENT_REQUIRED", "EVIDENCE_REPAIR_ATTEMPTED_REMAINS_OPEN", "FAIL_CLOSED"}:
+                        implementation_id = comparator_domain_scorer_implementation_id(gap_id)
+                        if implementation_id in comparator_domain_scorer_implementation_rows_by_id(ROOT) and not comparator_domain_scorer_implementation_completed(ROOT, implementation_id):
+                            return (
+                                [sys.executable, "tools/oc133_toe_closure_factory.py", "--execute-comparator-domain-scorer-implementation", implementation_id, "--write"],
+                                "comparator_domain_scorer_implementation",
+                                "Execute the exact domain scorer implementation/repair contract produced from the fail-closed domain-scoring report.",
+                            )
+                        return (
+                            [sys.executable, "tools/oc133_toe_closure_factory.py", "--compile-comparator-domain-scorer-implementation-backlog", "--write"],
+                            "comparator_domain_scorer_implementation_backlog",
+                            "Compile domain-scoring failures into source-code/model implementation obligations instead of repeating exhausted scorer attempts.",
+                        )
+                    if scoring_id in comparator_domain_scoring_rows_by_id(ROOT) and not comparator_domain_scoring_completed(ROOT, scoring_id):
+                        return (
+                            [sys.executable, "tools/oc133_toe_closure_factory.py", "--execute-comparator-domain-scoring", scoring_id, "--write"],
+                            "comparator_domain_scoring_executor",
+                            "Execute or narrow the domain-specific scorer required to turn the source-bound strict evidence pack into a real OC/comparator residual row.",
+                        )
+                    return (
+                        [sys.executable, "tools/oc133_toe_closure_factory.py", "--compile-comparator-domain-scoring-backlog", "--write"],
+                        "comparator_domain_scoring_backlog",
+                        "Compile fail-closed scoring packs into exact domain-scoring executor obligations; repair rows alone cannot close broad superiority.",
+                    )
                 repair_id = comparator_research_artifact_repair_id(gap_id, artifact_key, root_cause_class)
                 if repair_id in comparator_research_artifact_repair_rows_by_id(ROOT) and not comparator_research_artifact_repair_completed(ROOT, repair_id):
                     return (
@@ -5653,6 +6508,8 @@ def build_capability_implementation_registry(root: Path, *, generated_at: str | 
             or row.get("superseded_by_source_executor_work_order") is True
             or row.get("superseded_by_source_implementation_backlog") is True
             or row.get("superseded_by_source_implementation_report") is True
+            or row.get("superseded_by_domain_scorer_implementation_backlog") is True
+            or row.get("superseded_by_domain_scorer_implementation_report") is True
         ):
             continue
         source_node = str(row.get("source_graph_node_id") or "")
@@ -6013,6 +6870,15 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--execute-comparator-research-artifact-repair", help="Execute one comparator research-artifact repair work order by repair id.")
     parser.add_argument("--execute-comparator-research-artifact-repair-batch", action="store_true", help="Execute comparator research-artifact repair rows in deterministic order.")
     parser.add_argument("--research-artifact-repair-batch-limit", type=int, default=0, help="Optional cap for comparator research-artifact repair batch execution; 0 means no cap.")
+    parser.add_argument("--execute-comparator-generic-evidence-pack", help="Materialize a source-bound fail-closed strict evidence pack for one comparator gap.")
+    parser.add_argument("--compile-comparator-domain-scoring-backlog", action="store_true", help="Compile fail-closed scoring packs into exact domain-scoring executor obligations.")
+    parser.add_argument("--execute-comparator-domain-scoring", help="Execute one comparator domain-scoring obligation by id.")
+    parser.add_argument("--execute-comparator-domain-scoring-batch", action="store_true", help="Execute comparator domain-scoring obligations in deterministic order.")
+    parser.add_argument("--domain-scoring-batch-limit", type=int, default=0, help="Optional cap for comparator domain-scoring batch execution; 0 means no cap.")
+    parser.add_argument("--compile-comparator-domain-scorer-implementation-backlog", action="store_true", help="Compile open domain-scoring reports into exact domain-scorer implementation obligations.")
+    parser.add_argument("--execute-comparator-domain-scorer-implementation", help="Execute one domain-scorer implementation obligation by id.")
+    parser.add_argument("--execute-comparator-domain-scorer-implementation-batch", action="store_true", help="Execute domain-scorer implementation obligations in deterministic order.")
+    parser.add_argument("--domain-scorer-implementation-batch-limit", type=int, default=0, help="Optional cap for domain-scorer implementation batch execution; 0 means no cap.")
     parser.add_argument("--compile-comparator-scoring-backlog", action="store_true", help="Compile exact lower-level scoring executor subtasks for open comparator scoring work orders.")
     parser.add_argument("--execute-comparator-domain-job", help="Execute one modern-science comparator domain job such as MS-COV-JOB-001.")
     parser.add_argument("--timeout", type=int, default=900)
@@ -6126,6 +6992,53 @@ def main(argv: list[str] | None = None) -> int:
     if args.execute_comparator_research_artifact_repair_batch:
         payload = execute_comparator_research_artifact_repair_batch(ROOT, timeout=args.timeout, limit=args.research_artifact_repair_batch_limit)
         path = ROOT / lane_execution_base("MODERN_SCIENCE_COMPARATOR_SUPERIORITY") / "REPAIR_BATCH.json"
+        result = validation_result({path: stable_json(payload)}, write=args.write)
+        print(json.dumps(result if args.write or args.check else payload, ensure_ascii=False, indent=2, sort_keys=True))
+        return 1 if args.check and result["state"] != "PASS" else 0
+    if args.execute_comparator_generic_evidence_pack:
+        payload = build_comparator_generic_evidence_pack(ROOT, args.execute_comparator_generic_evidence_pack)
+        artifact_ref = payload.get("artifact_ref")
+        path = ROOT / artifact_ref if isinstance(artifact_ref, str) and artifact_ref else ROOT / comparator_gap_generated_evidence_pack_rel(args.execute_comparator_generic_evidence_pack)
+        result = validation_result({path: stable_json(payload)}, write=args.write)
+        print(json.dumps(result if args.write or args.check else payload, ensure_ascii=False, indent=2, sort_keys=True))
+        return 1 if args.check and result["state"] != "PASS" else 0
+    if args.compile_comparator_domain_scoring_backlog:
+        payload = build_comparator_domain_scoring_backlog(ROOT)
+        artifact_ref = payload.get("artifact_ref")
+        path = ROOT / artifact_ref if isinstance(artifact_ref, str) and artifact_ref else ROOT / comparator_domain_scoring_backlog_rel()
+        result = validation_result({path: stable_json(payload)}, write=args.write)
+        print(json.dumps(result if args.write or args.check else payload, ensure_ascii=False, indent=2, sort_keys=True))
+        return 1 if args.check and result["state"] != "PASS" else 0
+    if args.execute_comparator_domain_scoring:
+        payload = build_comparator_domain_scoring_execution(ROOT, args.execute_comparator_domain_scoring)
+        artifact_ref = payload.get("artifact_ref")
+        path = ROOT / artifact_ref if isinstance(artifact_ref, str) and artifact_ref else ROOT / comparator_domain_scoring_rel(args.execute_comparator_domain_scoring)
+        result = validation_result({path: stable_json(payload)}, write=args.write)
+        print(json.dumps(result if args.write or args.check else payload, ensure_ascii=False, indent=2, sort_keys=True))
+        return 1 if args.check and result["state"] != "PASS" else 0
+    if args.execute_comparator_domain_scoring_batch:
+        payload = execute_comparator_domain_scoring_batch(ROOT, limit=args.domain_scoring_batch_limit)
+        path = ROOT / lane_execution_base("MODERN_SCIENCE_COMPARATOR_SUPERIORITY") / "DOMAIN_SCORING_BATCH.json"
+        result = validation_result({path: stable_json(payload)}, write=args.write)
+        print(json.dumps(result if args.write or args.check else payload, ensure_ascii=False, indent=2, sort_keys=True))
+        return 1 if args.check and result["state"] != "PASS" else 0
+    if args.compile_comparator_domain_scorer_implementation_backlog:
+        payload = build_comparator_domain_scorer_implementation_backlog(ROOT)
+        artifact_ref = payload.get("artifact_ref")
+        path = ROOT / artifact_ref if isinstance(artifact_ref, str) and artifact_ref else ROOT / comparator_domain_scorer_implementation_backlog_rel()
+        result = validation_result({path: stable_json(payload)}, write=args.write)
+        print(json.dumps(result if args.write or args.check else payload, ensure_ascii=False, indent=2, sort_keys=True))
+        return 1 if args.check and result["state"] != "PASS" else 0
+    if args.execute_comparator_domain_scorer_implementation:
+        payload = build_comparator_domain_scorer_implementation_execution(ROOT, args.execute_comparator_domain_scorer_implementation, timeout=args.timeout)
+        artifact_ref = payload.get("artifact_ref")
+        path = ROOT / artifact_ref if isinstance(artifact_ref, str) and artifact_ref else ROOT / comparator_domain_scorer_implementation_rel(args.execute_comparator_domain_scorer_implementation)
+        result = validation_result({path: stable_json(payload)}, write=args.write)
+        print(json.dumps(result if args.write or args.check else payload, ensure_ascii=False, indent=2, sort_keys=True))
+        return 1 if args.check and result["state"] != "PASS" else 0
+    if args.execute_comparator_domain_scorer_implementation_batch:
+        payload = execute_comparator_domain_scorer_implementation_batch(ROOT, limit=args.domain_scorer_implementation_batch_limit, timeout=args.timeout)
+        path = ROOT / lane_execution_base("MODERN_SCIENCE_COMPARATOR_SUPERIORITY") / "DOMAIN_SCORER_IMPLEMENTATION_BATCH.json"
         result = validation_result({path: stable_json(payload)}, write=args.write)
         print(json.dumps(result if args.write or args.check else payload, ensure_ascii=False, indent=2, sort_keys=True))
         return 1 if args.check and result["state"] != "PASS" else 0
