@@ -97,6 +97,10 @@ DOMAIN_LOCAL_MATERIALIZED_EVIDENCE_REFS = {
         "social_economic_political_sciences",
         "institutional_social_network_and_policy_outcomes",
     ): "validation/heldout/grand_science/systems/wgi_institutional/OC133_WORLD_BANK_WGI_INSTITUTIONAL_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
+    (
+        "medical_health_sciences",
+        "epidemiological_transmission_and_risk",
+    ): "validation/heldout/grand_science/medical/wdi_child_mortality/OC133_WORLD_BANK_WDI_CHILD_MORTALITY_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
 }
 
 OFFICIAL_SOURCE_DEFAULTS = {

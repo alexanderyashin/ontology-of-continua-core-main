@@ -1,11 +1,11 @@
 {
-  "artifact_hash": "ca774d24332c106c9d00370178d87790b6b4c2c263c3e1ed56c57b821f66d395",
-  "blocked_capability_total": 104,
+  "artifact_hash": "eb9e81cee69b93e49b0e557ea53bffba9b8c88846b53eaf488f21ddfc942d658",
+  "blocked_capability_total": 102,
   "compiled_capability_total": 125,
   "dedupe_policy": "Rows are keyed by lane_id + source_graph_node_id + missing_artifact_type + scientific_frontier_hash.",
-  "generated_at": "2026-05-06T18:30:03Z",
+  "generated_at": "2026-05-06T18:47:15Z",
   "no_fake_closure_policy": "Compiled capabilities execute research commands only; PASS still requires strict validator closure.",
-  "ready_capability_total": 21,
+  "ready_capability_total": 23,
   "rows": [
     {
       "capability_class": "upstream_source_materializer_missing",
@@ -218,9 +218,9 @@
       "why_it_failed": "The evidence pack is explicitly fail-closed; broad superiority cannot use it."
     },
     {
-      "capability_class": "upstream_source_materializer_missing",
+      "capability_class": "upstream_capability_work_order",
       "capability_development_key": "9f6bef8f5d23b6b495098830e0246b82a0bd5c7092ce53e9d1e50760bbaf54b2",
-      "capability_executor_ready": false,
+      "capability_executor_ready": true,
       "capability_id": "R017-CAPDEV-9f6bef8f5d23",
       "compiled_capability_id": "R017-CAPDEV-9f6bef8f5d23",
       "execution_command": [
@@ -230,14 +230,20 @@
         "R017-CAPDEV-9f6bef8f5d23",
         "--write"
       ],
-      "executor_command": [],
-      "executor_type": "upstream_source_materializer_missing",
+      "executor_command": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "tools/oc133_toe_closure_factory.py",
+        "--execute-upstream-capability-work-order",
+        "R017-UPSTREAM-f056f77f3054f806",
+        "--write"
+      ],
+      "executor_type": "upstream_capability_work_order",
       "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
       "missing_artifact_type": "upstream_work_order::SOURCE_BOUND_SCORER_MATERIALIZER_IMPLEMENTATION",
       "next_escalation": "If this compiled capability produces zero validator delta, generate a lower-level upstream research obligation for the exact missing source/evidence object.",
       "output_artifact_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/capability_implementation/R017-CAPDEV-9f6bef8f5d23.json",
       "pass_predicate": "Comparator gap `MS-COV-GAP-MEDICAL_HEALTH_SCIENCES-EPIDEMIOLOGICAL_TRANSMISSION_AND_RISK` has `oc_prediction_scoring_row` and strict coverage register no longer lists it as missing.",
-      "repair_strategy": "No governed source-bound materializer command exists for this domain/phenomenon yet; keep this as capability backlog instead of executing diagnostic scripts.",
+      "repair_strategy": "Execute the lower-level upstream capability work order produced by exhausted source-bound materialization, rather than rerunning diagnostics.",
       "required_capability": "Research/PriorArt",
       "scientific_frontier_hash": "cf7fa90cae7761e24fd499a438781aaf7ffc6da730dc3657f8d31d0ba649dc95",
       "self_test_command": [
@@ -247,7 +253,7 @@
       ],
       "source_capability_development_id": "R017-UPSTREAM-f056f77f3054f806",
       "source_graph_node_id": "upstream_work_order:R017-UPSTREAM-f056f77f3054f806:SOURCE_BOUND_SCORER_MATERIALIZER_IMPLEMENTATION:MS-COV-GAP-MEDICAL_HEALTH_SCIENCES-EPIDEMIOLOGICAL_TRANSMISSION_AND_RISK:oc_prediction_scoring_row",
-      "status": "BLOCKED",
+      "status": "READY",
       "validator_binding": "support_artifact::MODERN_SCIENCE_COMPARATOR_SUPERIORITY::oc_prediction_scoring_row",
       "why_it_failed": "The evidence pack is explicitly fail-closed; broad superiority cannot use it."
     },
@@ -1980,9 +1986,9 @@
       "why_it_failed": "Replay is correctly blocked because the upstream scoring evidence is not passing."
     },
     {
-      "capability_class": "upstream_source_materializer_missing",
+      "capability_class": "upstream_capability_work_order",
       "capability_development_key": "47f9d702c62f48f21dc171f871cdd5c5193040a775280b0a16ea4ed34dc0686a",
-      "capability_executor_ready": false,
+      "capability_executor_ready": true,
       "capability_id": "R017-CAPDEV-47f9d702c62f",
       "compiled_capability_id": "R017-CAPDEV-47f9d702c62f",
       "execution_command": [
@@ -1992,14 +1998,20 @@
         "R017-CAPDEV-47f9d702c62f",
         "--write"
       ],
-      "executor_command": [],
-      "executor_type": "upstream_source_materializer_missing",
+      "executor_command": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "tools/oc133_toe_closure_factory.py",
+        "--execute-upstream-capability-work-order",
+        "R017-UPSTREAM-f5db4066d2e049ea",
+        "--write"
+      ],
+      "executor_type": "upstream_capability_work_order",
       "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
       "missing_artifact_type": "upstream_work_order::SOURCE_BOUND_SCORER_MATERIALIZER_IMPLEMENTATION",
       "next_escalation": "If this compiled capability produces zero validator delta, generate a lower-level upstream research obligation for the exact missing source/evidence object.",
       "output_artifact_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/capability_implementation/R017-CAPDEV-47f9d702c62f.json",
       "pass_predicate": "Comparator gap `MS-COV-GAP-MEDICAL_HEALTH_SCIENCES-EPIDEMIOLOGICAL_TRANSMISSION_AND_RISK` has `replay_record` and strict coverage register no longer lists it as missing.",
-      "repair_strategy": "No governed source-bound materializer command exists for this domain/phenomenon yet; keep this as capability backlog instead of executing diagnostic scripts.",
+      "repair_strategy": "Execute the lower-level upstream capability work order produced by exhausted source-bound materialization, rather than rerunning diagnostics.",
       "required_capability": "Research/PriorArt",
       "scientific_frontier_hash": "cf7fa90cae7761e24fd499a438781aaf7ffc6da730dc3657f8d31d0ba649dc95",
       "self_test_command": [
@@ -2009,7 +2021,7 @@
       ],
       "source_capability_development_id": "R017-UPSTREAM-f5db4066d2e049ea",
       "source_graph_node_id": "upstream_work_order:R017-UPSTREAM-f5db4066d2e049ea:SOURCE_BOUND_SCORER_MATERIALIZER_IMPLEMENTATION:MS-COV-GAP-MEDICAL_HEALTH_SCIENCES-EPIDEMIOLOGICAL_TRANSMISSION_AND_RISK:replay_record",
-      "status": "BLOCKED",
+      "status": "READY",
       "validator_binding": "support_artifact::MODERN_SCIENCE_COMPARATOR_SUPERIORITY::replay_record",
       "why_it_failed": "Replay is correctly blocked because the upstream scoring evidence is not passing."
     },

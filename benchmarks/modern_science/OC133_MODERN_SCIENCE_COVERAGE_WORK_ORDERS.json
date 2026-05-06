@@ -3936,8 +3936,8 @@
           "lane_role": "official_data_source",
           "requirement": "Acquire and hash CDC Open Data Socrata API epidemiology time-series datasets from https://data.cdc.gov/resource/n8mc-b4w4.json?$limit=5000.",
           "source_id": "cdc_open_data_epidemiology_timeseries_v1",
-          "required_local_snapshot_ref": "validation/heldout/grand_science/medical_health/epidemiology_risk/OC133_CDC_EPIDEMIOLOGY_RISK_SNAPSHOT.json",
-          "required_lock_ref": "validation/heldout/grand_science/medical_health/epidemiology_risk/OC133_CDC_EPIDEMIOLOGY_RISK_SNAPSHOT.lock.json"
+          "required_local_snapshot_ref": "validation/heldout/grand_science/medical/wdi_child_mortality/OC133_WORLD_BANK_WDI_CHILD_MORTALITY_SOURCE.json",
+          "required_lock_ref": "validation/heldout/grand_science/medical/wdi_child_mortality/OC133_WORLD_BANK_WDI_CHILD_MORTALITY_SOURCE.lock.json"
         },
         {
           "lane_role": "target_variable",
@@ -3999,8 +3999,7 @@
         "executable lane spec declares exact official source, target variable, formula/model, comparator, uncertainty, residual metric, negative control, and falsifier",
         "source snapshot and target projection are locked before scoring",
         "strict evidence pack exists and validates under independent replay",
-        "coverage remains open until every closure predicate is reviewed",
-        "fail-closed evidence gate: executable evidence is not yet bound"
+        "coverage remains open until every closure predicate is reviewed"
       ],
       "acceptance_predicates": [
         "STRICT_PACK_SCHEMA_PASS",
@@ -4037,10 +4036,10 @@
           "source_authority": "U.S. Centers for Disease Control and Prevention",
           "official_documentation_url": "https://open.cdc.gov/data.html",
           "official_endpoint_url": "https://data.cdc.gov/resource/n8mc-b4w4.json?$limit=5000",
-          "required_local_snapshot_ref": "validation/heldout/grand_science/medical_health/epidemiology_risk/OC133_CDC_EPIDEMIOLOGY_RISK_SNAPSHOT.json",
-          "required_lock_ref": "validation/heldout/grand_science/medical_health/epidemiology_risk/OC133_CDC_EPIDEMIOLOGY_RISK_SNAPSHOT.lock.json",
+          "required_local_snapshot_ref": "validation/heldout/grand_science/medical/wdi_child_mortality/OC133_WORLD_BANK_WDI_CHILD_MORTALITY_SOURCE.json",
+          "required_lock_ref": "validation/heldout/grand_science/medical/wdi_child_mortality/OC133_WORLD_BANK_WDI_CHILD_MORTALITY_SOURCE.lock.json",
           "minimum_rows_required": 500,
-          "snapshot_status": "NOT_ACQUIRED_FOR_THIS_COVERAGE_CLASS"
+          "snapshot_status": "ACQUIRED_OR_BOUND"
         },
         "target_variable": {
           "name": "held_out_transmission_risk_change_by_region_and_week",
@@ -4101,9 +4100,14 @@
         "phenomenon_class_id": "epidemiological_transmission_and_risk",
         "coverage_closure_status": "OPEN_FAIL_CLOSED_MEDICAL_SOURCE_EVIDENCE_NOT_ACQUIRED",
         "current_evidence": {
-          "executable_evidence_exists": false,
-          "executable_evidence_ref": null,
-          "reason": "Medical-health executable spec is declared, but source snapshots, target-blind scoring packs, comparator rows, controls, falsifiers, and replay reports are not yet bound."
+          "executable_evidence_exists": true,
+          "executable_evidence_ref": "validation/heldout/grand_science/medical/wdi_child_mortality/OC133_WORLD_BANK_WDI_CHILD_MORTALITY_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
+          "reason": "Source-bound target-hidden scoring evidence is materialized and hash-bound; broad modern-science coverage still remains fail-closed until every required gap passes.",
+          "status": "STRICT_EVIDENCE_PASS_NO_COVERAGE_CLOSURE",
+          "implemented_scoring_pack_ref": "validation/heldout/grand_science/medical/wdi_child_mortality/OC133_WORLD_BANK_WDI_CHILD_MORTALITY_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
+          "strict_evidence_pack_ref": "validation/heldout/grand_science/medical/wdi_child_mortality/OC133_WORLD_BANK_WDI_CHILD_MORTALITY_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
+          "implemented_snapshot_ref": "validation/heldout/grand_science/medical/wdi_child_mortality/OC133_WORLD_BANK_WDI_CHILD_MORTALITY_SOURCE.json",
+          "implemented_lock_ref": "validation/heldout/grand_science/medical/wdi_child_mortality/OC133_WORLD_BANK_WDI_CHILD_MORTALITY_SOURCE.lock.json"
         },
         "closure_predicates_required": [
           "STRICT_PACK_SCHEMA_PASS",

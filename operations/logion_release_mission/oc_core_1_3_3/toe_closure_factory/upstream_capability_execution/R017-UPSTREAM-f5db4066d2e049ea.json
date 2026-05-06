@@ -1,41 +1,44 @@
 {
   "after_validator_error_total": 13,
-  "artifact_hash": "bc2c0b997f654a7501a8f011c263594caa9bec1c902f6adf819faffbe2ddc531",
+  "artifact_hash": "8f944411157c1fe8a18839646dcd0e3885940673a02a57aad70cd99cd8f15cd8",
   "artifact_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/upstream_capability_execution/R017-UPSTREAM-f5db4066d2e049ea.json",
   "before_validator_error_total": 13,
-  "changed_artifact_refs": [],
+  "changed_artifact_refs": [
+    "validation/heldout/grand_science/medical/wdi_child_mortality/OC133_WORLD_BANK_WDI_CHILD_MORTALITY_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
+    "validation/heldout/grand_science/modern_science_coverage_artifacts/bde33a9d37378831/strict_evidence_pack.json"
+  ],
   "command_results": [
     {
       "cmd": [
         "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
-        "validation/heldout/grand_science/medical/coverage_work_orders/oc133_medical_modern_science_coverage_work_orders.py",
-        "--write"
+        "validation/heldout/grand_science/medical/coverage_work_orders/oc133_medical_wdi_child_mortality_materializer.py",
+        "--acquire",
+        "--write-acquisition"
       ],
       "returncode": 0,
       "stderr_tail": "",
-      "stdout_tail": "{\n  \"status\": \"ok\",\n  \"output_ref\": \"validation/heldout/grand_science/medical/coverage_work_orders/OC133_MEDICAL_MODERN_SCIENCE_COVERAGE_WORK_ORDERS.json\",\n  \"failures\": []\n}\n"
+      "stdout_tail": "{\n  \"status\": \"ok\",\n  \"snapshot_rows\": 4800\n}\n"
     },
     {
       "cmd": [
         "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
-        "validation/heldout/grand_science/medical/coverage_work_orders/oc133_medical_modern_science_coverage_work_orders.py",
+        "validation/heldout/grand_science/medical/coverage_work_orders/oc133_medical_wdi_child_mortality_materializer.py",
         "--check"
       ],
       "returncode": 0,
       "stderr_tail": "",
-      "stdout_tail": "{\n  \"status\": \"ok\",\n  \"checked\": \"validation/heldout/grand_science/medical/coverage_work_orders/OC133_MEDICAL_MODERN_SCIENCE_COVERAGE_WORK_ORDERS.json\",\n  \"coverage_closure_allowed\": false\n}\n"
+      "stdout_tail": "{\n  \"status\": \"ok\",\n  \"checked\": \"validation/heldout/grand_science/medical/wdi_child_mortality/OC133_WORLD_BANK_WDI_CHILD_MORTALITY_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json\"\n}\n"
     },
     {
       "cmd": [
         "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
-        "tools/oc133_toe_closure_factory.py",
-        "--execute-comparator-generic-evidence-pack",
-        "MS-COV-GAP-MEDICAL_HEALTH_SCIENCES-EPIDEMIOLOGICAL_TRANSMISSION_AND_RISK",
-        "--write"
+        "validation/heldout/grand_science/medical/coverage_work_orders/oc133_medical_wdi_child_mortality_materializer.py",
+        "--score",
+        "--write-scoring"
       ],
       "returncode": 0,
       "stderr_tail": "",
-      "stdout_tail": "{\n  \"changed\": [],\n  \"missing\": [],\n  \"state\": \"PASS\"\n}\n"
+      "stdout_tail": "{\n  \"status\": \"STRICT_EVIDENCE_PASS_NO_COVERAGE_CLOSURE\",\n  \"row_count\": 2400,\n  \"model_relative_mae\": 0.022014515089,\n  \"comparator_relative_mae\": 0.039981186269\n}\n"
     }
   ],
   "domain_class_id": "medical_health_sciences",
@@ -47,7 +50,7 @@
     "--write"
   ],
   "gap_id": "MS-COV-GAP-MEDICAL_HEALTH_SCIENCES-EPIDEMIOLOGICAL_TRANSMISSION_AND_RISK",
-  "generated_at": "2026-05-06T14:23:45Z",
+  "generated_at": "2026-05-06T18:46:39Z",
   "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
   "next_escalation": "If this compiled capability produces zero validator delta, generate a lower-level upstream research obligation for the exact missing source/evidence object.",
   "no_fake_closure_policy": "This execution cannot close r017 unless strict final TOE validator PASS is reached.",
@@ -108,6 +111,6 @@
   "upstream_work_order_id": "R017-UPSTREAM-f5db4066d2e049ea",
   "validator_binding": "support_artifact::MODERN_SCIENCE_COMPARATOR_SUPERIORITY::replay_record",
   "validator_error_delta": 0,
-  "why_it_failed": "No source-bound domain evidence pack is bound for this comparator materialization row.",
+  "why_it_failed": "Governed commands ran, but strict evidence was not materialized.",
   "work_order_type": "SOURCE_BOUND_SCORER_MATERIALIZER_IMPLEMENTATION"
 }

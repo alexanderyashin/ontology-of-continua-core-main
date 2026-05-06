@@ -1,5 +1,5 @@
 {
-  "artifact_hash": "b9641c62d1d646cfc3e42974aa3de77d67f798ebe7a12516a5b63e6602b4bec3",
+  "artifact_hash": "8444546865d0b43990025ad057945e5bc81dd3fe22f67419cf3482944b602122",
   "artifact_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/component_mat/mat_01ffd02626d7f3a3.json",
   "available_diagnostic_commands": [
     [
@@ -76,43 +76,42 @@
   "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
   "materialization_id": "R017-COMPONENT-MATERIALIZE-c9bafd16bdba17a0",
   "materialized_evidence": {
-    "evidence_ref": "",
+    "evidence_ref": "validation/heldout/grand_science/medical/wdi_child_mortality/OC133_WORLD_BANK_WDI_CHILD_MORTALITY_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
+    "fail_closed_reason": "Source-bound evidence exists, but numeric model/comparator residuals are not available in the expected schema.",
+    "material_margin_met": true,
     "materialized": false,
-    "status": "CAPABILITY_DEVELOPMENT_REQUIRED",
-    "why_it_failed": "No source-bound domain evidence pack is bound for this comparator materialization row."
+    "residuals": {
+      "comparator": null,
+      "material_margin_met": true,
+      "material_margin_rule": "source-bound materialized evidence pack must show OC residual strictly below preregistered comparator residual under the declared uncertainty rule",
+      "model": null
+    },
+    "source_bound": true,
+    "status": "FAIL_CLOSED_SOURCE_BOUND_SCORING_NOT_MATERIALIZED",
+    "strict_evidence_pack_hash": "2b5b5cb87af19e051e8a6bd2067b9293efbf848dee535bd3918375580a3b9f8a",
+    "strict_evidence_pack_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/bde33a9d37378831/strict_evidence_pack.json"
   },
   "materializer_command_results": [
     {
       "cmd": [
         "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
-        "validation/heldout/grand_science/medical/coverage_work_orders/oc133_medical_modern_science_coverage_work_orders.py",
-        "--write"
+        "validation/heldout/grand_science/medical/coverage_work_orders/oc133_medical_wdi_child_mortality_materializer.py",
+        "--score",
+        "--write-scoring"
       ],
       "returncode": 0,
       "stderr_tail": "",
-      "stdout_tail": "{\n  \"status\": \"ok\",\n  \"output_ref\": \"validation/heldout/grand_science/medical/coverage_work_orders/OC133_MEDICAL_MODERN_SCIENCE_COVERAGE_WORK_ORDERS.json\",\n  \"failures\": []\n}\n"
+      "stdout_tail": "{\n  \"status\": \"STRICT_EVIDENCE_PASS_NO_COVERAGE_CLOSURE\",\n  \"row_count\": 2400,\n  \"model_relative_mae\": 0.022014515089,\n  \"comparator_relative_mae\": 0.039981186269\n}\n"
     },
     {
       "cmd": [
         "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
-        "validation/heldout/grand_science/medical/coverage_work_orders/oc133_medical_modern_science_coverage_work_orders.py",
+        "validation/heldout/grand_science/medical/coverage_work_orders/oc133_medical_wdi_child_mortality_materializer.py",
         "--check"
       ],
       "returncode": 0,
       "stderr_tail": "",
-      "stdout_tail": "{\n  \"status\": \"ok\",\n  \"checked\": \"validation/heldout/grand_science/medical/coverage_work_orders/OC133_MEDICAL_MODERN_SCIENCE_COVERAGE_WORK_ORDERS.json\",\n  \"coverage_closure_allowed\": false\n}\n"
-    },
-    {
-      "cmd": [
-        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
-        "tools/oc133_toe_closure_factory.py",
-        "--execute-comparator-generic-evidence-pack",
-        "MS-COV-GAP-MEDICAL_HEALTH_SCIENCES-EPIDEMIOLOGICAL_TRANSMISSION_AND_RISK",
-        "--write"
-      ],
-      "returncode": 0,
-      "stderr_tail": "",
-      "stdout_tail": "{\n  \"changed\": [],\n  \"missing\": [],\n  \"state\": \"PASS\"\n}\n"
+      "stdout_tail": "{\n  \"status\": \"ok\",\n  \"checked\": \"validation/heldout/grand_science/medical/wdi_child_mortality/OC133_WORLD_BANK_WDI_CHILD_MORTALITY_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json\"\n}\n"
     }
   ],
   "missing_source_evidence_fields": [

@@ -1,43 +1,31 @@
 {
-  "artifact_hash": "addb89bad25471bd3a6289df56132717c1d4bb1e77e89c808e6d4affe555220b",
+  "artifact_hash": "4b6d840e643f45d59514c4d83ff8d1edc547998f4057990c5bf3d7343350f16a",
   "artifact_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/component_impls/impl_cd6b05521e60f93b.json",
   "command_pass": true,
-  "command_result_total": 3,
+  "command_result_total": 2,
   "command_results": [
     {
       "cache_hit": true,
       "cmd": [
         "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
-        "validation/heldout/grand_science/medical/coverage_work_orders/oc133_medical_modern_science_coverage_work_orders.py",
-        "--write"
+        "validation/heldout/grand_science/medical/coverage_work_orders/oc133_medical_wdi_child_mortality_materializer.py",
+        "--score",
+        "--write-scoring"
       ],
       "returncode": 0,
       "stderr_tail": "",
-      "stdout_tail": "{\n  \"status\": \"ok\",\n  \"output_ref\": \"validation/heldout/grand_science/medical/coverage_work_orders/OC133_MEDICAL_MODERN_SCIENCE_COVERAGE_WORK_ORDERS.json\",\n  \"failures\": []\n}\n"
+      "stdout_tail": "{\n  \"status\": \"STRICT_EVIDENCE_PASS_NO_COVERAGE_CLOSURE\",\n  \"row_count\": 2400,\n  \"model_relative_mae\": 0.022014515089,\n  \"comparator_relative_mae\": 0.039981186269\n}\n"
     },
     {
       "cache_hit": true,
       "cmd": [
         "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
-        "validation/heldout/grand_science/medical/coverage_work_orders/oc133_medical_modern_science_coverage_work_orders.py",
+        "validation/heldout/grand_science/medical/coverage_work_orders/oc133_medical_wdi_child_mortality_materializer.py",
         "--check"
       ],
       "returncode": 0,
       "stderr_tail": "",
-      "stdout_tail": "{\n  \"status\": \"ok\",\n  \"checked\": \"validation/heldout/grand_science/medical/coverage_work_orders/OC133_MEDICAL_MODERN_SCIENCE_COVERAGE_WORK_ORDERS.json\",\n  \"coverage_closure_allowed\": false\n}\n"
-    },
-    {
-      "cache_hit": true,
-      "cmd": [
-        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
-        "tools/oc133_toe_closure_factory.py",
-        "--execute-comparator-generic-evidence-pack",
-        "MS-COV-GAP-MEDICAL_HEALTH_SCIENCES-EPIDEMIOLOGICAL_TRANSMISSION_AND_RISK",
-        "--write"
-      ],
-      "returncode": 0,
-      "stderr_tail": "",
-      "stdout_tail": "{\n  \"changed\": [],\n  \"missing\": [],\n  \"state\": \"PASS\"\n}\n"
+      "stdout_tail": "{\n  \"status\": \"ok\",\n  \"checked\": \"validation/heldout/grand_science/medical/wdi_child_mortality/OC133_WORLD_BANK_WDI_CHILD_MORTALITY_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json\"\n}\n"
     }
   ],
   "component_id": "strict_pack_pass",
@@ -48,20 +36,14 @@
   "concrete_governed_commands": [
     [
       "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
-      "validation/heldout/grand_science/medical/coverage_work_orders/oc133_medical_modern_science_coverage_work_orders.py",
-      "--write"
+      "validation/heldout/grand_science/medical/coverage_work_orders/oc133_medical_wdi_child_mortality_materializer.py",
+      "--score",
+      "--write-scoring"
     ],
     [
       "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
-      "validation/heldout/grand_science/medical/coverage_work_orders/oc133_medical_modern_science_coverage_work_orders.py",
+      "validation/heldout/grand_science/medical/coverage_work_orders/oc133_medical_wdi_child_mortality_materializer.py",
       "--check"
-    ],
-    [
-      "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
-      "tools/oc133_toe_closure_factory.py",
-      "--execute-comparator-generic-evidence-pack",
-      "MS-COV-GAP-MEDICAL_HEALTH_SCIENCES-EPIDEMIOLOGICAL_TRANSMISSION_AND_RISK",
-      "--write"
     ]
   ],
   "domain_class_id": "medical_health_sciences",

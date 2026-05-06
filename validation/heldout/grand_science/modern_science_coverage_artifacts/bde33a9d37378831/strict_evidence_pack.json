@@ -1,31 +1,58 @@
 {
-  "artifact_hash": "a99ed76534775ea1515ff984cd12c35a2afa393a867583da5b7f8ccc65a24847",
+  "artifact_hash": "712b10e25e59c814e76d2f2180251e2dfde23d2f1a817682a9490d1c6adb46a1",
   "artifact_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/bde33a9d37378831/strict_evidence_pack.json",
   "broad_modern_science_superiority_allowed": false,
+  "command_results": [
+    {
+      "cmd": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "validation/heldout/grand_science/medical/coverage_work_orders/oc133_medical_wdi_child_mortality_materializer.py",
+        "--acquire",
+        "--write-acquisition"
+      ],
+      "returncode": 0,
+      "stderr_tail": "",
+      "stdout_tail": "{\n  \"status\": \"ok\",\n  \"snapshot_rows\": 4800\n}\n"
+    },
+    {
+      "cmd": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "validation/heldout/grand_science/medical/coverage_work_orders/oc133_medical_wdi_child_mortality_materializer.py",
+        "--check"
+      ],
+      "returncode": 0,
+      "stderr_tail": "",
+      "stdout_tail": "{\n  \"status\": \"ok\",\n  \"checked\": \"validation/heldout/grand_science/medical/wdi_child_mortality/OC133_WORLD_BANK_WDI_CHILD_MORTALITY_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json\"\n}\n"
+    },
+    {
+      "cmd": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "validation/heldout/grand_science/medical/coverage_work_orders/oc133_medical_wdi_child_mortality_materializer.py",
+        "--score",
+        "--write-scoring"
+      ],
+      "returncode": 0,
+      "stderr_tail": "",
+      "stdout_tail": "{\n  \"status\": \"STRICT_EVIDENCE_PASS_NO_COVERAGE_CLOSURE\",\n  \"row_count\": 2400,\n  \"model_relative_mae\": 0.022014515089,\n  \"comparator_relative_mae\": 0.039981186269\n}\n"
+    }
+  ],
   "comparator_bound": true,
   "coverage_closure_allowed": false,
   "current_evidence": {
-    "evidence_pack_hash": "",
-    "evidence_pack_summary": {
-      "coverage_closure_allowed": null,
-      "pack_status": null,
-      "residuals": {},
-      "schema_id": null
-    },
-    "evidence_ref": null,
-    "evidence_ref_exists": false,
-    "executable_evidence_exists": false,
-    "fail_closed_status_present": true,
-    "material_margin_met": false,
-    "pack_status_text": "OPEN_FAIL_CLOSED_MEDICAL_SOURCE_EVIDENCE_NOT_ACQUIRED"
+    "coverage_closure_allowed": false,
+    "domain_evidence_ref": "validation/heldout/grand_science/medical/wdi_child_mortality/OC133_WORLD_BANK_WDI_CHILD_MORTALITY_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
+    "domain_evidence_schema_id": "OC133_MEDICAL_WDI_CHILD_MORTALITY_SCORING_PACK_v1",
+    "domain_evidence_sha256": "43222e5cc84f92557840b4ea48f5e119ebd11d39bc359908d388f0685b5d975c",
+    "domain_pack_status": "STRICT_EVIDENCE_PASS_NO_COVERAGE_CLOSURE",
+    "scientific_pass": true
   },
   "domain_class_id": "medical_health_sciences",
   "executable_evidence_exists": true,
   "execution_command": [
     "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
     "tools/oc133_toe_closure_factory.py",
-    "--execute-comparator-generic-evidence-pack",
-    "MS-COV-GAP-MEDICAL_HEALTH_SCIENCES-EPIDEMIOLOGICAL_TRANSMISSION_AND_RISK",
+    "--execute-comparator-component-materialization",
+    "R017-UPSTREAM-f5db4066d2e049ea",
     "--write"
   ],
   "execution_requirements": {
@@ -35,7 +62,7 @@
     "source_separation_mode": "target_blind",
     "target_hidden_until_scoring": true
   },
-  "fail_closed_reason": "Source identity and preregistered benchmark are present, but no target-hidden OC score with material superiority exists.",
+  "fail_closed_reason": "Source-bound evidence exists, but numeric model/comparator residuals are not available in the expected schema.",
   "falsifier_requirement": {
     "falsifier_id": "medical_epidemiology_no_temporal_generalization",
     "trigger": "Trigger if the temporal holdout fails, if future labels leak, or if OC advantage is not material after uncertainty adjustment."
@@ -50,28 +77,20 @@
     "target_values_used_for_baseline_design": false
   },
   "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
-  "next_escalation": "Implement a domain-specific scorer when this generic pack remains fail-closed.",
-  "no_fake_closure_policy": "This pack is source-bound but cannot promote broad superiority unless actual target-hidden scoring materially beats the preregistered comparator.",
+  "no_fake_closure_policy": "Negative source-bound scoring remains a scientific blocker; it cannot be counted as broad superiority.",
   "pack_status": "FAIL_CLOSED_SOURCE_BOUND_SCORING_NOT_MATERIALIZED",
   "pass_predicate": "pack_status == PASS, material_margin_met == true, no fail-closed status, replay_record PASS.",
   "phenomenon_class_id": "epidemiological_transmission_and_risk",
   "prerequisite_artifacts_bound": true,
-  "repair_strategy": "Acquire target-hidden source data, materialize OC and incumbent predictions, compute residuals, then rerun this pack and replay.",
+  "repair_strategy": "If negative, improve the source-bound model/comparator route from canonical evidence rather than weakening the materiality rule.",
   "replay": {
     "replay_command": "python validation/heldout/grand_science/medical_health/epidemiology_risk/run_epidemiology_risk_replay.py --check",
     "replay_commands": [
       "python validation/heldout/grand_science/medical_health/epidemiology_risk/run_epidemiology_risk_replay.py --check"
     ],
-    "status": "BLOCKED_BY_SCORING"
+    "status": "BLOCKED_BY_NEGATIVE_OR_INCOMPLETE_SCORING"
   },
-  "required_artifact_refs": {
-    "benchmark_case": "validation/heldout/grand_science/modern_science_coverage_artifacts/bde33a9d37378831/benchmark_case.json",
-    "falsifier_row": "validation/heldout/grand_science/modern_science_coverage_artifacts/bde33a9d37378831/falsifier_row.json",
-    "incumbent_comparator": "validation/heldout/grand_science/modern_science_coverage_artifacts/bde33a9d37378831/incumbent_comparator.json",
-    "uncertainty_row": "validation/heldout/grand_science/modern_science_coverage_artifacts/bde33a9d37378831/uncertainty_row.json",
-    "verified_open_source_capsule": "validation/heldout/grand_science/modern_science_coverage_artifacts/bde33a9d37378831/verified_open_source_capsule.json"
-  },
-  "required_capability": "Research/ScoringExecutor",
+  "required_capability": "Research/SourceBoundScoringMaterializationExecutor",
   "residual_requirement": {
     "formula": "weighted_absolute_error(oc_risk_change_score, held_out_risk_change)",
     "metric_id": "medical_epidemiology_risk_residual",
@@ -79,8 +98,8 @@
   },
   "residuals": {
     "comparator": null,
-    "material_margin_met": false,
-    "material_margin_rule": "OC must beat the autoregressive comparator across the locked regional-week holdout.",
+    "material_margin_met": true,
+    "material_margin_rule": "source-bound materialized evidence pack must show OC residual strictly below preregistered comparator residual under the declared uncertainty rule",
     "model": null
   },
   "schema_id": "OC133_MODERN_SCIENCE_COMPARATOR_STRICT_EVIDENCE_PACK_v1",
@@ -89,9 +108,9 @@
     "minimum_rows_required": 500,
     "official_documentation_url": "https://open.cdc.gov/data.html",
     "official_endpoint_url": "https://data.cdc.gov/resource/n8mc-b4w4.json?$limit=5000",
-    "required_local_snapshot_ref": "validation/heldout/grand_science/medical_health/epidemiology_risk/OC133_CDC_EPIDEMIOLOGY_RISK_SNAPSHOT.json",
-    "required_lock_ref": "validation/heldout/grand_science/medical_health/epidemiology_risk/OC133_CDC_EPIDEMIOLOGY_RISK_SNAPSHOT.lock.json",
-    "snapshot_status": "NOT_ACQUIRED_FOR_THIS_COVERAGE_CLASS",
+    "required_local_snapshot_ref": "validation/heldout/grand_science/medical/wdi_child_mortality/OC133_WORLD_BANK_WDI_CHILD_MORTALITY_SOURCE.json",
+    "required_lock_ref": "validation/heldout/grand_science/medical/wdi_child_mortality/OC133_WORLD_BANK_WDI_CHILD_MORTALITY_SOURCE.lock.json",
+    "snapshot_status": "ACQUIRED_OR_BOUND",
     "source_authority": "U.S. Centers for Disease Control and Prevention",
     "source_id": "cdc_open_data_epidemiology_timeseries_v1",
     "source_name": "CDC Open Data Socrata API epidemiology time-series datasets"
@@ -100,7 +119,8 @@
   "source_refs": [
     "reports/OC_CORE_1_3_3_MODERN_SCIENCE_COVERAGE_LANE_QUEUE.json",
     "benchmarks/modern_science/OC133_MODERN_SCIENCE_COVERAGE_WORK_ORDERS.json",
-    "comparators/modern_science/OC133_MODERN_SCIENCE_COVERAGE_REGISTER.json"
+    "comparators/modern_science/OC133_MODERN_SCIENCE_COVERAGE_REGISTER.json",
+    "validation/heldout/grand_science/medical/wdi_child_mortality/OC133_WORLD_BANK_WDI_CHILD_MORTALITY_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json"
   ],
   "status": "FAIL_CLOSED_SOURCE_BOUND_SCORING_NOT_MATERIALIZED",
   "target_hidden": true,
@@ -120,6 +140,6 @@
     "metric": "rolling-origin interval error with regional bootstrap",
     "rule": "Report temporal bootstrap intervals and fail closed on unstable advantage or coverage drift."
   },
-  "validator_binding": "comparator_gap::MS-COV-GAP-MEDICAL_HEALTH_SCIENCES-EPIDEMIOLOGICAL_TRANSMISSION_AND_RISK::generic_strict_evidence_pack",
-  "why_it_failed": "Source identity and preregistered benchmark are present, but no target-hidden OC score with material superiority exists."
+  "validator_binding": "comparator_gap::MS-COV-GAP-MEDICAL_HEALTH_SCIENCES-EPIDEMIOLOGICAL_TRANSMISSION_AND_RISK::materialized_strict_evidence_pack",
+  "why_it_failed": "Source-bound evidence exists, but numeric model/comparator residuals are not available in the expected schema."
 }
