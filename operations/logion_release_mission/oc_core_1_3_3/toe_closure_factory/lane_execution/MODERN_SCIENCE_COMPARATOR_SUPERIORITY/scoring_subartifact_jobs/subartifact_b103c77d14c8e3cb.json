@@ -1,0 +1,38 @@
+{
+  "artifact_hash": "dc66c8b6714c9369266ceba4f44dd7131e54f622e0715a46f946511770587387",
+  "artifact_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/scoring_subartifact_jobs/subartifact_b103c77d14c8e3cb.json",
+  "execution_command": [
+    "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+    "tools/oc133_toe_closure_factory.py",
+    "--execute-comparator-scoring-subartifact",
+    "MS-COV-GAP-CHEMICAL_SCIENCES-REACTION_AND_KINETICS_PREDICTION",
+    "source_snapshot_acquisition",
+    "--write"
+  ],
+  "gap_id": "MS-COV-GAP-CHEMICAL_SCIENCES-REACTION_AND_KINETICS_PREDICTION",
+  "generated_at": "2026-05-06T00:21:01Z",
+  "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+  "next_escalation": "Implement the concrete source acquisition/scoring executor named by required_source_block; this diagnostic packet is not evidence.",
+  "no_fake_closure_policy": "A scoring-subartifact execution packet narrows missing scientific work and cannot close broad superiority without a passing evidence pack.",
+  "pass_predicate": "Open/free source snapshot exists locally, is hash-bound, and satisfies source separation policy.",
+  "repair_strategy": "Build `source_snapshot_acquisition` for gap `MS-COV-GAP-CHEMICAL_SCIENCES-REACTION_AND_KINETICS_PREDICTION` from governed open/free sources, then rerun the target-hidden scorer and strict validator.",
+  "required_capability": "Research/ScoringExecutor",
+  "required_source_block": {
+    "artifact_id": "source_snapshot_acquisition",
+    "pass_predicate": "Open/free source snapshot exists locally, is hash-bound, and satisfies source separation policy.",
+    "required_source": {
+      "lane_role": "official_data_source",
+      "required_local_snapshot_ref": "validation/_raw/chemistry_nist_kinetics_water_v1.html",
+      "required_lock_ref": "validation/heldout/grand_science/physics_chemistry/official_batch/locks/chemistry_nist_kinetics_water_v1.json",
+      "requirement": "Acquire and hash NIST Chemical Kinetics Database gas-phase reaction records from https://kinetics.nist.gov/kinetics/rpSearch?cas=7732185.",
+      "source_id": "chemistry_nist_kinetics_water_v1"
+    }
+  },
+  "root_cause_class": "SCORING_EVIDENCE_NOT_MATERIALIZED",
+  "schema_id": "OC133_MODERN_SCIENCE_COMPARATOR_SCORING_SUBARTIFACT_EXECUTION_v1",
+  "scoring_subartifact_id": "source_snapshot_acquisition",
+  "source_work_order_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/scoring_work_orders/scoring_0b00ee8a56e1234a.json",
+  "status": "OPEN",
+  "validator_binding": "comparator_gap::MS-COV-GAP-CHEMICAL_SCIENCES-REACTION_AND_KINETICS_PREDICTION::oc_prediction_scoring_row::source_snapshot_acquisition",
+  "why_it_failed": "The lane declares no executable evidence pack for the OC-vs-comparator scoring row."
+}

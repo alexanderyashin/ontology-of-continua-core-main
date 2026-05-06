@@ -1,0 +1,41 @@
+{
+  "artifact_hash": "b7b7796e607e89fdfb4adc2fd57587e63910c6208f3c82a0500340631a0e1ee2",
+  "artifact_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/scoring_subartifact_jobs/subartifact_4c14c14cee90ea45.json",
+  "execution_command": [
+    "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+    "tools/oc133_toe_closure_factory.py",
+    "--execute-comparator-scoring-subartifact",
+    "MS-COV-GAP-AGRICULTURAL_FOOD_SCIENCES-CROP_YIELD_SOIL_AND_TRAIT_OBSERVABLES",
+    "oc_formula_or_model",
+    "--write"
+  ],
+  "gap_id": "MS-COV-GAP-AGRICULTURAL_FOOD_SCIENCES-CROP_YIELD_SOIL_AND_TRAIT_OBSERVABLES",
+  "generated_at": "2026-05-06T00:18:17Z",
+  "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+  "next_escalation": "Implement the concrete source acquisition/scoring executor named by required_source_block; this diagnostic packet is not evidence.",
+  "no_fake_closure_policy": "A scoring-subartifact execution packet narrows missing scientific work and cannot close broad superiority without a passing evidence pack.",
+  "pass_predicate": "OC prediction/scoring rule is preregistered before target unsealing.",
+  "repair_strategy": "Build `oc_formula_or_model` for gap `MS-COV-GAP-AGRICULTURAL_FOOD_SCIENCES-CROP_YIELD_SOIL_AND_TRAIT_OBSERVABLES` from governed open/free sources, then rerun the target-hidden scorer and strict validator.",
+  "required_capability": "Research/ScoringExecutor",
+  "required_source_block": {
+    "artifact_id": "oc_formula_or_model",
+    "pass_predicate": "OC prediction/scoring rule is preregistered before target unsealing.",
+    "required_model": {
+      "lane_role": "formula_or_model",
+      "required_inputs": [
+        "pre-target QuickStats yield rows",
+        "NRCS Soil Data Access soil attributes",
+        "locked location identifiers",
+        "pre-registered crop/soil feature manifest"
+      ],
+      "requirement": "y_hat(location, year) = training-only location intercept + pre-2019 linear year trend + locked soil available-water/slope terms + lagged visible yield residual adjustment"
+    }
+  },
+  "root_cause_class": "SCORING_EVIDENCE_NOT_MATERIALIZED",
+  "schema_id": "OC133_MODERN_SCIENCE_COMPARATOR_SCORING_SUBARTIFACT_EXECUTION_v1",
+  "scoring_subartifact_id": "oc_formula_or_model",
+  "source_work_order_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/scoring_work_orders/scoring_f193d7044d98f51f.json",
+  "status": "OPEN",
+  "validator_binding": "comparator_gap::MS-COV-GAP-AGRICULTURAL_FOOD_SCIENCES-CROP_YIELD_SOIL_AND_TRAIT_OBSERVABLES::oc_prediction_scoring_row::oc_formula_or_model",
+  "why_it_failed": "The lane declares no executable evidence pack for the OC-vs-comparator scoring row."
+}
