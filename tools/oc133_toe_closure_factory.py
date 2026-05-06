@@ -2187,7 +2187,7 @@ def comparator_source_executor_work_order_rel(gap_id: str, subartifact_id: str) 
 
 
 def comparator_source_implementation_backlog_rel() -> Path:
-    return lane_execution_base("MODERN_SCIENCE_COMPARATOR_SUPERIORITY") / "OC133_MODERN_SCIENCE_COMPARATOR_SOURCE_IMPLEMENTATION_BACKLOG.json"
+    return lane_execution_base("MODERN_SCIENCE_COMPARATOR_SUPERIORITY") / "SOURCE_IMPL_BACKLOG.json"
 
 
 def comparator_scoring_executor_backlog_rel() -> Path:

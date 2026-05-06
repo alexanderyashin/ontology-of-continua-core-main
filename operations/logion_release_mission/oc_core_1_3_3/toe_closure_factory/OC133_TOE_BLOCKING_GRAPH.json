@@ -1,11 +1,11 @@
 {
-  "artifact_hash": "fceb55d0ce0a6fa97883bf6a54fc621317f3f2004ac3b5e995d437282dcfef3f",
+  "artifact_hash": "e1bbb3e680473bbbc5b81db7227ca5d4f35f8673ff94d64a37cb33626fdcfbe5",
   "cerberus_error_total": 8,
-  "edge_total": 741,
+  "edge_total": 742,
   "edge_type_total": {
     "blocks": 13,
     "needs_capability": 131,
-    "produces": 385,
+    "produces": 386,
     "requires": 65,
     "supersedes": 66,
     "validated_by": 81
@@ -350,6 +350,11 @@
       "edge_type": "produces",
       "source": "capability:AUTO-R017-GRAND-PROMOTION-DERIVATION",
       "target": "lane:GRAND_TOE_CLAIM_LEDGER_EVIDENCE"
+    },
+    {
+      "edge_type": "produces",
+      "source": "capability:AUTO-capability_development-AUTO-R017-CAPABILITY-DEVELOPMENT-0065-c04ef21e",
+      "target": "lane:MODERN_SCIENCE_COMPARATOR_SUPERIORITY"
     },
     {
       "edge_type": "produces",
@@ -3717,8 +3722,8 @@
       "target": "promotion_gate:recovery_r017"
     }
   ],
-  "generated_at": "2026-05-06T01:16:37Z",
-  "graph_frontier_hash": "f304c2be396fe5dd7c1edcc22165ac8d2a29dd0244a113b3359cd835736ad11b",
+  "generated_at": "2026-05-06T01:18:37Z",
+  "graph_frontier_hash": "616bcb26c87808349a24c9127e9954aa9e5029562814c7124a84ee7de8a08332",
   "next_executable_node_ids": [
     "capability:AUTO-R017-COMPARATOR-GAP-3c68f08c4c30",
     "required_artifact:MODERN_SCIENCE_COMPARATOR_SUPERIORITY:MS-COV-GAP-AGRICULTURAL_FOOD_SCIENCES-ANIMAL_HEALTH_AND_PRODUCTION_SYSTEMS:oc_prediction_scoring_row",
@@ -3746,7 +3751,7 @@
     "required_artifact:MODERN_SCIENCE_COMPARATOR_SUPERIORITY:MS-COV-GAP-COGNITIVE_BEHAVIORAL_NEUROSCIENCES-NEURAL_RECORDING_AND_BRAIN_NETWORK_OBSERVABLES:oc_prediction_scoring_row",
     "capability:AUTO-R017-COMPARATOR-GAP-9f3be1c5dac2"
   ],
-  "node_total": 468,
+  "node_total": 469,
   "nodes": [
     {
       "execution_command": [],
@@ -5083,13 +5088,13 @@
       ],
       "executor_type": "comparator_source_implementation_backlog",
       "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
-      "next_escalation": "Implement the first missing governed source/evidence command from that backlog.",
+      "next_escalation": "This exact action has already been tried on this semantic frontier; create a narrower capability work order instead of rerunning it.",
       "node_id": "capability:AUTO-R017-COMPARATOR-SOURCE-IMPLEMENTATION-BACKLOG",
       "node_type": "executor_capability",
       "pass_predicate": "Source implementation backlog exists and names every gap/subartifact implementation obligation.",
       "repair_strategy": "Compile source-executor work orders into exact domain-specific implementation obligations.",
       "required_capability": "Research/ScoringExecutor",
-      "status": "OPEN",
+      "status": "CAPABILITY_ESCALATION_REQUIRED",
       "validator_binding": "action::AUTO-R017-COMPARATOR-SOURCE-IMPLEMENTATION-BACKLOG",
       "why_it_failed": "Source executor work orders exist but have not been compiled into implementation obligations."
     },
@@ -5112,6 +5117,26 @@
       "status": "CAPABILITY_ESCALATION_REQUIRED",
       "validator_binding": "action::AUTO-R017-GRAND-PROMOTION-DERIVATION",
       "why_it_failed": "The strict final TOE validator still reports this lane as open."
+    },
+    {
+      "execution_command": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "tools/oc133_toe_closure_factory.py",
+        "--execute-capability-development",
+        "R017-CAPDEV-1cdc9052108e",
+        "--write"
+      ],
+      "executor_type": "capability_development",
+      "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+      "next_escalation": "Implement the first missing governed source/evidence command from that backlog.",
+      "node_id": "capability:AUTO-capability_development-AUTO-R017-CAPABILITY-DEVELOPMENT-0065-c04ef21e",
+      "node_type": "executor_capability",
+      "pass_predicate": "Source implementation backlog exists and names every gap/subartifact implementation obligation.",
+      "repair_strategy": "Create a narrower source-bound executor for the exact missing artifact class before rerunning the same action.",
+      "required_capability": "Research/ScoringExecutor",
+      "status": "OPEN",
+      "validator_binding": "action::AUTO-capability_development-AUTO-R017-CAPABILITY-DEVELOPMENT-0065-c04ef21e",
+      "why_it_failed": "The action did not reduce strict validator errors on this semantic frontier."
     },
     {
       "capability_executor_ready": false,
@@ -12659,7 +12684,7 @@
       "required_capability": "Research/SupportIndex",
       "status": "PASS",
       "support_summary": {
-        "existing_source_ref_total": 1928,
+        "existing_source_ref_total": 1931,
         "lean_symbol_total": 205,
         "passing_finite_case_total": 149
       },
@@ -12978,7 +13003,7 @@
       "why_it_failed": "Cerberus still has open defect findings."
     }
   ],
-  "open_node_total": 150,
+  "open_node_total": 151,
   "schema_id": "OC133_TOE_BLOCKING_GRAPH_v1",
   "science_validator_error_total": 5,
   "status": "OPEN",

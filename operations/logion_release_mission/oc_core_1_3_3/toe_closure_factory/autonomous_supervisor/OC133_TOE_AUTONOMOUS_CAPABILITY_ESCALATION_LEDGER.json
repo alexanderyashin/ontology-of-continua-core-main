@@ -1,7 +1,7 @@
 {
-  "artifact_hash": "3f5ef1cf1eb8c110cc3ea368cc04a0cbf44687c934ac217f13e6b62183280c08",
-  "capability_escalation_total": 383,
-  "generated_at": "2026-05-06T01:16:37Z",
+  "artifact_hash": "f93c91379c4b3851aaf93bdaf602c5075f662c0151b878f51aed45682beae8e7",
+  "capability_escalation_total": 385,
+  "generated_at": "2026-05-06T01:18:37Z",
   "rows": [
     {
       "capability_development_id": "AUTO-R017-CAPABILITY-DEVELOPMENT-0001-056945d6",
@@ -10654,6 +10654,51 @@
       "why_it_failed": "The action did not reduce strict validator errors on this semantic frontier."
     },
     {
+      "capability_class": "comparator_scoring_subartifact",
+      "capability_development_id": "AUTO-R017-CAPABILITY-DEVELOPMENT-0065-c04ef21e",
+      "capability_development_key": "1cdc9052108e261057278914714b15579145a9d86e08a6f8dce7ef44ae44030f",
+      "capability_escalation_id": "AUTO-R017-CAPABILITY-ESCALATION-0065",
+      "capability_executor_ready": true,
+      "capability_id": "R017-CAPDEV-1cdc9052108e",
+      "compiled_capability_id": "R017-CAPDEV-1cdc9052108e",
+      "compiled_capability_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/OC133_TOE_CAPABILITY_IMPLEMENTATION_REGISTRY.json",
+      "execution_command": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "tools/oc133_toe_closure_factory.py",
+        "--execute-capability-development",
+        "R017-CAPDEV-1cdc9052108e",
+        "--write"
+      ],
+      "executor_type": "comparator_source_implementation_backlog",
+      "frontier_repeated": true,
+      "graph_dependency_path": [
+        "required_artifact:MODERN_SCIENCE_COMPARATOR_SUPERIORITY:source_implementation_backlog",
+        "capability:AUTO-R017-COMPARATOR-SOURCE-IMPLEMENTATION-BACKLOG"
+      ],
+      "implementation_command": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "tools/oc133_toe_closure_factory.py",
+        "--execute-comparator-scoring-subartifact",
+        "source_implementation_backlog",
+        "source_implementation_backlog",
+        "--write"
+      ],
+      "implementation_gap_class": "ZERO_DELTA_GRAPH_DEPENDENCY",
+      "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+      "missing_artifact_type": "source_implementation_backlog",
+      "next_escalation": "Implement the first missing governed source/evidence command from that backlog.",
+      "pass_predicate": "Source implementation backlog exists and names every gap/subartifact implementation obligation.",
+      "repair_strategy": "Create a narrower source-bound executor for the exact missing artifact class before rerunning the same action.",
+      "required_capability": "Research/ScoringExecutor",
+      "scientific_frontier_hash": "cf7fa90cae7761e24fd499a438781aaf7ffc6da730dc3657f8d31d0ba649dc95",
+      "source_action_id": "AUTO-R017-COMPARATOR-SOURCE-IMPLEMENTATION-BACKLOG",
+      "source_graph_node_id": "required_artifact:MODERN_SCIENCE_COMPARATOR_SUPERIORITY:source_implementation_backlog",
+      "source_graph_node_type": "required_artifact",
+      "status": "OPEN",
+      "validator_binding": "support_artifact::MODERN_SCIENCE_COMPARATOR_SUPERIORITY::source_implementation_backlog",
+      "why_it_failed": "The action did not reduce strict validator errors on this semantic frontier."
+    },
+    {
       "capability_development_id": "AUTO-R017-CAPABILITY-DEVELOPMENT-0001-43906f5a",
       "capability_development_key": "67756711ed16316ddaec20e3f300af373f2beca17ccbf9ab207496d83759a834",
       "capability_escalation_id": "AUTO-R017-CAPABILITY-ESCALATION-0001",
@@ -13374,9 +13419,50 @@
       "why_it_failed": "The action did not reduce strict validator errors on this semantic frontier."
     },
     {
-      "capability_development_id": "AUTO-R017-CAPABILITY-DEVELOPMENT-0065-c04ef21e",
+      "capability_development_id": "AUTO-R017-CAPABILITY-DEVELOPMENT-0065-91f79e38",
       "capability_development_key": "126b2f14848ef67df5a7db0dd678304b25f728b32de56e154b3e7c1098f98ce2",
       "capability_escalation_id": "AUTO-R017-CAPABILITY-ESCALATION-0065",
+      "capability_executor_ready": false,
+      "execution_command": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "tools/oc133_toe_closure_factory.py",
+        "--execute-capability-development",
+        "R017-CAPDEV-1cdc9052108e",
+        "--write"
+      ],
+      "executor_type": "capability_development",
+      "frontier_repeated": true,
+      "graph_dependency_path": [
+        "capability_development:AUTO-R017-CAPABILITY-DEVELOPMENT-0065-c04ef21e"
+      ],
+      "implementation_command": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "tools/oc133_toe_autonomous_supervisor.py",
+        "--write",
+        "--until-r017-pass",
+        "--max-iterations",
+        "0",
+        "--resume"
+      ],
+      "implementation_gap_class": "ZERO_DELTA_GRAPH_DEPENDENCY",
+      "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+      "missing_artifact_type": "source_implementation_backlog",
+      "next_escalation": "Implement the first missing governed source/evidence command from that backlog.",
+      "pass_predicate": "Source implementation backlog exists and names every gap/subartifact implementation obligation.",
+      "repair_strategy": "Create a narrower source-bound executor for the exact missing artifact class before rerunning the same action.",
+      "required_capability": "Research/ScoringExecutor",
+      "scientific_frontier_hash": "632ddf9bd86533cf0263b3665f34815254d63b53551396a7e842d5bb616569cb",
+      "source_action_id": "AUTO-capability_development-AUTO-R017-CAPABILITY-DEVELOPMENT-0065-c04ef21e",
+      "source_graph_node_id": "required_artifact:MODERN_SCIENCE_COMPARATOR_SUPERIORITY:source_implementation_backlog",
+      "source_graph_node_type": "capability_development",
+      "status": "OPEN",
+      "validator_binding": "support_artifact::MODERN_SCIENCE_COMPARATOR_SUPERIORITY::source_implementation_backlog",
+      "why_it_failed": "The action did not reduce strict validator errors on this semantic frontier."
+    },
+    {
+      "capability_development_id": "AUTO-R017-CAPABILITY-DEVELOPMENT-0066-a456fd4e",
+      "capability_development_key": "126b2f14848ef67df5a7db0dd678304b25f728b32de56e154b3e7c1098f98ce2",
+      "capability_escalation_id": "AUTO-R017-CAPABILITY-ESCALATION-0066",
       "capability_executor_ready": false,
       "execution_command": [
         "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
@@ -13402,7 +13488,7 @@
       "implementation_gap_class": "ZERO_DELTA_GRAPH_DEPENDENCY",
       "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
       "missing_artifact_type": "source_implementation_backlog",
-      "next_escalation": "Implement the first missing governed source/evidence command from that backlog.",
+      "next_escalation": "This exact action has already been tried on this semantic frontier; create a narrower capability work order instead of rerunning it.",
       "pass_predicate": "Source implementation backlog exists and names every gap/subartifact implementation obligation.",
       "repair_strategy": "Create a narrower source-bound executor for the exact missing artifact class before rerunning the same action.",
       "required_capability": "Research/ScoringExecutor",
@@ -13415,9 +13501,9 @@
       "why_it_failed": "The action did not reduce strict validator errors on this semantic frontier."
     },
     {
-      "capability_development_id": "AUTO-R017-CAPABILITY-DEVELOPMENT-0066-26e37c8d",
+      "capability_development_id": "AUTO-R017-CAPABILITY-DEVELOPMENT-0067-26e37c8d",
       "capability_development_key": "7b061f0ff9a551a5f8d861772d23d1b89c9cccfbfdf12ad5a4b1b43e71335597",
-      "capability_escalation_id": "AUTO-R017-CAPABILITY-ESCALATION-0066",
+      "capability_escalation_id": "AUTO-R017-CAPABILITY-ESCALATION-0067",
       "capability_executor_ready": false,
       "execution_command": [
         "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
