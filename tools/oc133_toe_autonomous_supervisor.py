@@ -1677,11 +1677,7 @@ def graph_action_for_node(
         capability_node_ids = [node_id]
     elif node_type == "required_artifact":
         capability_node_ids = capability_targets_for_required_artifact(graph, node_id)
-    elif (
-        node_type == "capability_development"
-        and node.get("execution_command")
-        and node.get("capability_executor_ready") is True
-    ):
+    elif node_type == "capability_development" and node.get("execution_command"):
         action = action_defaults(
             f"AUTO-{node_id.replace(':', '-').replace('/', '-')}",
             str(node.get("lane_id") or "TOE_CLOSURE_FACTORY"),

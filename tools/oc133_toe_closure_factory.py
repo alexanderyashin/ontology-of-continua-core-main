@@ -8958,11 +8958,35 @@ def execute_capability_development(root: Path, capability_id: str, timeout: int,
             "command_results": [],
         }
     elif match.get("capability_executor_ready") is not True:
+        source_graph_node_id = str(match.get("source_graph_node_id") or "")
+        graph_gap_id = str(match.get("gap_id") or "")
+        graph_artifact_key = str(match.get("missing_artifact_type") or "")
+        if source_graph_node_id.startswith("required_artifact:MODERN_SCIENCE_COMPARATOR_SUPERIORITY:"):
+            parts = source_graph_node_id.split(":")
+            if len(parts) >= 3 and not graph_gap_id:
+                graph_gap_id = parts[2]
+            if len(parts) >= 4 and not graph_artifact_key:
+                graph_artifact_key = ":".join(parts[3:])
+        capability_class = str(match.get("capability_class") or match.get("executor_type") or "")
+        upstream_work_order_type = "CAPABILITY_EXECUTOR_MISSING"
+        upstream_repair_objective = "Implement the missing executor capability named by this row."
+        if capability_class == "comparator_component_materialization_capability_gap":
+            upstream_work_order_type = "SOURCE_BOUND_SCORER_MATERIALIZER_IMPLEMENTATION"
+            upstream_repair_objective = (
+                "Implement the exact domain scorer/materializer that can produce target-hidden "
+                "OC residuals, incumbent comparator residuals, uncertainty/falsifier rows, and replay."
+            )
+        elif capability_class == "comparator_source_bound_negative_result":
+            upstream_work_order_type = "SOURCE_BOUND_MODEL_OR_COMPARATOR_IMPROVEMENT"
+            upstream_repair_objective = (
+                "Investigate whether the source-bound OC model can be improved from canonical theory "
+                "or whether the broad superiority claim must remain blocked by this negative result."
+            )
         payload = {
             "schema_id": "OC133_TOE_CAPABILITY_DEVELOPMENT_EXECUTION_v1",
             "generated_at": generated_at,
             "capability_id": capability_id,
-            "capability_class": match.get("capability_class") or match.get("executor_type"),
+            "capability_class": capability_class,
             "compiled_capability_id": capability_id,
             "status": "BLOCKED",
             "why_it_failed": "Capability exists but has no safe ready executor for the current scientific frontier.",
@@ -8975,6 +8999,23 @@ def execute_capability_development(root: Path, capability_id: str, timeout: int,
             "after_validator_error_total": before_total,
             "validator_error_delta": 0,
             "registry_row": match,
+            "upstream_work_order": {
+                "schema_id": "OC133_TOE_CAPABILITY_UPSTREAM_WORK_ORDER_v1",
+                "work_order_type": upstream_work_order_type,
+                "lane_id": match.get("lane_id"),
+                "gap_id": graph_gap_id,
+                "missing_artifact_type": graph_artifact_key or match.get("missing_artifact_type"),
+                "source_graph_node_id": source_graph_node_id,
+                "capability_class": capability_class,
+                "why_it_failed": match.get("why_it_failed"),
+                "repair_strategy": upstream_repair_objective,
+                "required_capability": match.get("required_capability"),
+                "execution_command": match.get("executor_command") or [],
+                "pass_predicate": match.get("pass_predicate"),
+                "validator_binding": match.get("validator_binding"),
+                "next_escalation": match.get("next_escalation"),
+                "no_fake_closure_policy": "This upstream work order is not evidence and cannot satisfy r017 without strict validator PASS.",
+            },
             "command_results": [],
         }
     else:
