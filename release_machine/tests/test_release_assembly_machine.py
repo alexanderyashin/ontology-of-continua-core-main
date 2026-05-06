@@ -2294,6 +2294,8 @@ class ReleaseAssemblyMachineTests(unittest.TestCase):
         self.assertTrue(queue["selected_graph_node_ids"])
         self.assertGreater(queue["action_total"], 0)
         self.assertTrue(any(row["lane_id"] == "MODERN_SCIENCE_COMPARATOR_SUPERIORITY" for row in queue["rows"]))
+        self.assertTrue(any(row.get("executor_type") == "comparator_scoring_subartifact" for row in queue["rows"]))
+        self.assertTrue(any(row.get("missing_artifact_type") == "source_snapshot_acquisition" for row in queue["rows"]))
         self.assertFalse(any(row["lane_id"] == "AI" and row.get("status") != "PASS" for row in queue["rows"]))
         self.assertFalse(any(row["lane_id"] == "ENTERPRISE_ARCHITECTURE" and row.get("status") != "PASS" for row in queue["rows"]))
         self.assertTrue(any(row["lane_id"] == "MODERN_SCIENCE_COMPARATOR_SUPERIORITY" for row in queue["rows"]))
@@ -2383,6 +2385,7 @@ class ReleaseAssemblyMachineTests(unittest.TestCase):
         self.assertTrue(all(row["capability_id"] == row["compiled_capability_id"] for row in capability_registry["rows"]))
         self.assertTrue(all(row["capability_class"] == row["executor_type"] for row in capability_registry["rows"]))
         self.assertTrue(any(row["capability_class"] == "comparator_scoring_work_order" for row in capability_registry["rows"]))
+        self.assertTrue(any(row["capability_class"] == "comparator_scoring_subartifact" for row in capability_registry["rows"]))
 
         self.assertEqual(graph["schema_id"], "OC133_TOE_BLOCKING_GRAPH_v1")
         self.assertEqual(graph["status"], "OPEN")
@@ -2485,6 +2488,8 @@ class ReleaseAssemblyMachineTests(unittest.TestCase):
         for row in backlog["rows"]:
             if row["missing_artifact_type"] == "oc_prediction_scoring_row":
                 self.assertIn("--execute-comparator-scoring-work-order", row["execution_command"])
+            self.assertIn("scoring_subartifact_id", row)
+            self.assertIn("--execute-comparator-scoring-work-order", row["execution_command"])
 
         artifact_root = ROOT / "validation" / "heldout" / "grand_science" / "modern_science_coverage_artifacts"
         open_replay_records = [

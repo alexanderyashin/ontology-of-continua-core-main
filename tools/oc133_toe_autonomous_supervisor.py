@@ -651,6 +651,7 @@ def projection_actions(root: Path, lane_id: str) -> list[dict[str, Any]]:
 
 def comparator_actions(root: Path) -> list[dict[str, Any]]:
     actions = []
+    seen_action_ids: set[str] = set()
     for payload in sorted(factory.comparator_execution_gap_rows(root), key=lambda row: str(row.get("gap_id"))):
         if payload.get("status") == "PASS":
             continue
@@ -686,7 +687,45 @@ def comparator_actions(root: Path) -> list[dict[str, Any]]:
                     "next_escalation": "If this exact artifact action produces zero validator delta, compile a narrower capability-development work order for its failed validation field.",
                 }
             )
+            seen_action_ids.add(str(action["action_id"]))
             actions.append(action)
+    for row in sorted(
+        factory.comparator_scoring_backlog_rows(root),
+        key=lambda item: (str(item.get("gap_id")), str(item.get("scoring_subartifact_id"))),
+    ):
+        if row.get("status") == "PASS":
+            continue
+        gap_id = str(row.get("gap_id") or "")
+        subartifact_id = str(row.get("scoring_subartifact_id") or "")
+        if not gap_id or not subartifact_id:
+            continue
+        action_id = f"AUTO-R017-COMPARATOR-SCORING-SUBARTIFACT-{artifact_hash({'gap_id': gap_id, 'subartifact_id': subartifact_id})[:12]}"
+        if action_id in seen_action_ids:
+            continue
+        action = action_defaults(
+            action_id,
+            "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+            "comparator_scoring_subartifact",
+            [sys.executable, "tools/oc133_toe_closure_factory.py", "--execute-comparator-scoring-subartifact", gap_id, subartifact_id, "--write"],
+        )
+        action.update(
+            {
+                "gap_id": gap_id,
+                "required_artifact": subartifact_id,
+                "missing_artifact_type": subartifact_id,
+                "scoring_subartifact_id": subartifact_id,
+                "root_cause_class": row.get("root_cause_class"),
+                "source_ref": row.get("source_work_order_ref"),
+                "why_it_failed": row.get("why_it_failed"),
+                "repair_strategy": row.get("repair_strategy"),
+                "required_capability": row.get("required_capability"),
+                "pass_predicate": row.get("pass_predicate"),
+                "next_escalation": "If this subartifact packet produces zero validator delta, implement the exact source acquisition/scoring executor named in required_source_block.",
+                "validator_binding": row.get("validator_binding"),
+            }
+        )
+        seen_action_ids.add(action_id)
+        actions.append(action)
     return actions
 
 
