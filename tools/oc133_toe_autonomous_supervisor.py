@@ -793,6 +793,38 @@ def comparator_actions(root: Path) -> list[dict[str, Any]]:
             }
         )
         actions.append(action)
+    for row in sorted(
+        factory.comparator_source_implementation_backlog_rows(root),
+        key=lambda item: (str(item.get("gap_id")), str(item.get("scoring_subartifact_id"))),
+    ):
+        if row.get("status") == "PASS":
+            continue
+        action_id = f"AUTO-R017-COMPARATOR-SOURCE-IMPLEMENTATION-{artifact_hash({'gap_id': row.get('gap_id'), 'subartifact_id': row.get('scoring_subartifact_id')})[:12]}"
+        if action_id in seen_action_ids:
+            continue
+        action = action_defaults(
+            action_id,
+            "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+            "comparator_source_implementation_obligation",
+            [sys.executable, "tools/oc133_toe_closure_factory.py", "--compile-comparator-source-implementation-backlog", "--write"],
+        )
+        action.update(
+            {
+                "gap_id": row.get("gap_id"),
+                "required_artifact": f"source_implementation::{row.get('scoring_subartifact_id')}",
+                "missing_artifact_type": f"source_implementation::{row.get('scoring_subartifact_id')}",
+                "scoring_subartifact_id": row.get("scoring_subartifact_id"),
+                "source_ref": row.get("source_executor_work_order_ref"),
+                "why_it_failed": row.get("why_it_failed"),
+                "repair_strategy": row.get("repair_strategy"),
+                "required_capability": row.get("required_capability"),
+                "pass_predicate": row.get("pass_predicate"),
+                "next_escalation": row.get("next_escalation"),
+                "validator_binding": row.get("validator_binding"),
+            }
+        )
+        seen_action_ids.add(action_id)
+        actions.append(action)
     return actions
 
 
@@ -1614,6 +1646,13 @@ def build_capability_development_ledger(rows: list[dict[str, Any]], generated_at
                     payload["execution_command"] = []
                     payload["implementation_command"] = []
                     payload["next_escalation"] = "Source executor work order exists for this scoring subartifact; remaining work is implementing the source-bound acquisition/scoring command named inside it."
+                elif artifact_key == "source_implementation_backlog" and (ROOT / factory.comparator_source_implementation_backlog_rel()).exists():
+                    payload["status"] = "PASS"
+                    payload["superseded_by_source_implementation_backlog"] = True
+                    payload["capability_executor_ready"] = False
+                    payload["execution_command"] = []
+                    payload["implementation_command"] = []
+                    payload["next_escalation"] = "Source implementation backlog exists; remaining work is implementing the concrete acquisition/scoring commands listed in it."
         if (
             str(payload.get("lane_id") or "") == "GRAND_TOE_CLAIM_LEDGER_EVIDENCE"
             and str(payload.get("missing_artifact_type") or "") == "grand_promotion_derivation"

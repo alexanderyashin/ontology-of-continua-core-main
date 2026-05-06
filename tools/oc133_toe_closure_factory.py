@@ -2724,6 +2724,12 @@ def build_comparator_source_implementation_backlog(root: Path) -> dict[str, Any]
     return payload
 
 
+def comparator_source_implementation_backlog_rows(root: Path) -> list[dict[str, Any]]:
+    payload = read_json(root / comparator_source_implementation_backlog_rel())
+    rows = payload.get("rows") or []
+    return [row for row in rows if isinstance(row, dict)]
+
+
 def build_comparator_source_executor_work_order(root: Path, gap_id: str, subartifact_id: str) -> dict[str, Any]:
     subartifact = read_json(root / comparator_gap_scoring_subartifact_rel(gap_id, subartifact_id))
     generated_at = stable_generated_at(root, comparator_source_executor_work_order_rel(gap_id, subartifact_id))
@@ -4815,6 +4821,7 @@ def build_capability_implementation_registry(root: Path, *, generated_at: str | 
             or row.get("superseded_by_scoring_subartifact_execution") is True
             or row.get("superseded_by_grand_promotion_derivation_report") is True
             or row.get("superseded_by_source_executor_work_order") is True
+            or row.get("superseded_by_source_implementation_backlog") is True
         ):
             continue
         source_node = str(row.get("source_graph_node_id") or "")
