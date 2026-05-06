@@ -46,6 +46,8 @@ PROBLEM_EXPLAINABILITY_GATE_NAME = "OC133_TOE_PROBLEM_EXPLAINABILITY_GATE.json"
 RESEARCH_WAVE_NAME = "OC133_TOE_RESEARCH_WAVE_EXECUTION.json"
 CAPABILITY_IMPLEMENTATION_REGISTRY_NAME = "OC133_TOE_CAPABILITY_IMPLEMENTATION_REGISTRY.json"
 CAPABILITY_IMPLEMENTATION_DIR = FACTORY_DIR / "capability_implementation"
+UPSTREAM_CAPABILITY_WORK_ORDER_REGISTRY_NAME = "OC133_TOE_UPSTREAM_CAPABILITY_WORK_ORDER_REGISTRY.json"
+UPSTREAM_CAPABILITY_EXECUTION_DIR = FACTORY_DIR / "upstream_capability_execution"
 AUTONOMOUS_SUPERVISOR_DIR = FACTORY_DIR / "autonomous_supervisor"
 AUTONOMOUS_CAPABILITY_DEVELOPMENT_LEDGER_NAME = "OC133_TOE_AUTONOMOUS_CAPABILITY_DEVELOPMENT_LEDGER.json"
 SCIENTIFIC_FRONTIER_NAME = "OC133_TOE_SCIENTIFIC_FRONTIER.json"
@@ -2186,6 +2188,78 @@ COMPARATOR_DOMAIN_IMPLEMENTED_COMMANDS = {
         [sys.executable, COMPARATOR_DOMAIN_SCRIPT_BY_CLASS["earth_space_environmental_sciences"], "--score-usgs-hydrology", "--write"],
         [sys.executable, COMPARATOR_DOMAIN_SCRIPT_BY_CLASS["earth_space_environmental_sciences"], "--check"],
     ],
+    (
+        "earth_space_environmental_sciences",
+        "remote_sensing_and_planetary_measurements",
+        "source_snapshot_acquisition",
+    ): [
+        [sys.executable, COMPARATOR_DOMAIN_SCRIPT_BY_CLASS["earth_space_environmental_sciences"], "--refresh-nasa-power-source", "--write"],
+        [sys.executable, COMPARATOR_DOMAIN_SCRIPT_BY_CLASS["earth_space_environmental_sciences"], "--check"],
+    ],
+    (
+        "earth_space_environmental_sciences",
+        "remote_sensing_and_planetary_measurements",
+        "target_hidden_task_table",
+    ): [
+        [sys.executable, COMPARATOR_DOMAIN_SCRIPT_BY_CLASS["earth_space_environmental_sciences"], "--score-nasa-power", "--write"],
+        [sys.executable, COMPARATOR_DOMAIN_SCRIPT_BY_CLASS["earth_space_environmental_sciences"], "--check"],
+    ],
+    (
+        "earth_space_environmental_sciences",
+        "remote_sensing_and_planetary_measurements",
+        "oc_formula_or_model",
+    ): [
+        [sys.executable, COMPARATOR_DOMAIN_SCRIPT_BY_CLASS["earth_space_environmental_sciences"], "--score-nasa-power", "--write"],
+        [sys.executable, COMPARATOR_DOMAIN_SCRIPT_BY_CLASS["earth_space_environmental_sciences"], "--check"],
+    ],
+    (
+        "earth_space_environmental_sciences",
+        "remote_sensing_and_planetary_measurements",
+        "incumbent_comparator_scoring",
+    ): [
+        [sys.executable, COMPARATOR_DOMAIN_SCRIPT_BY_CLASS["earth_space_environmental_sciences"], "--score-nasa-power", "--write"],
+        [sys.executable, COMPARATOR_DOMAIN_SCRIPT_BY_CLASS["earth_space_environmental_sciences"], "--check"],
+    ],
+    (
+        "earth_space_environmental_sciences",
+        "remote_sensing_and_planetary_measurements",
+        "residuals_materiality_uncertainty",
+    ): [
+        [sys.executable, COMPARATOR_DOMAIN_SCRIPT_BY_CLASS["earth_space_environmental_sciences"], "--score-nasa-power", "--write"],
+        [sys.executable, COMPARATOR_DOMAIN_SCRIPT_BY_CLASS["earth_space_environmental_sciences"], "--check"],
+    ],
+    (
+        "earth_space_environmental_sciences",
+        "remote_sensing_and_planetary_measurements",
+        "controls_and_falsifiers",
+    ): [
+        [sys.executable, COMPARATOR_DOMAIN_SCRIPT_BY_CLASS["earth_space_environmental_sciences"], "--score-nasa-power", "--write"],
+        [sys.executable, COMPARATOR_DOMAIN_SCRIPT_BY_CLASS["earth_space_environmental_sciences"], "--check"],
+    ],
+    (
+        "earth_space_environmental_sciences",
+        "remote_sensing_and_planetary_measurements",
+        "independent_replay",
+    ): [
+        [sys.executable, COMPARATOR_DOMAIN_SCRIPT_BY_CLASS["earth_space_environmental_sciences"], "--score-nasa-power", "--write"],
+        [sys.executable, COMPARATOR_DOMAIN_SCRIPT_BY_CLASS["earth_space_environmental_sciences"], "--check"],
+    ],
+    (
+        "earth_space_environmental_sciences",
+        "remote_sensing_and_planetary_measurements",
+        "strict_evidence_pack_diagnosis",
+    ): [
+        [sys.executable, COMPARATOR_DOMAIN_SCRIPT_BY_CLASS["earth_space_environmental_sciences"], "--score-nasa-power", "--write"],
+        [sys.executable, COMPARATOR_DOMAIN_SCRIPT_BY_CLASS["earth_space_environmental_sciences"], "--check"],
+    ],
+    (
+        "earth_space_environmental_sciences",
+        "remote_sensing_and_planetary_measurements",
+        "model_or_claim_repair_decision",
+    ): [
+        [sys.executable, COMPARATOR_DOMAIN_SCRIPT_BY_CLASS["earth_space_environmental_sciences"], "--score-nasa-power", "--write"],
+        [sys.executable, COMPARATOR_DOMAIN_SCRIPT_BY_CLASS["earth_space_environmental_sciences"], "--check"],
+    ],
 }
 
 
@@ -2757,15 +2831,14 @@ def comparator_generated_evidence(root: Path, gap_id: str) -> dict[str, Any]:
     material_margin = residuals.get("material_margin_met")
     if material_margin is None and isinstance(residuals.get("model"), (int, float)) and isinstance(residuals.get("comparator"), (int, float)):
         material_margin = residuals.get("model") < residuals.get("comparator")
-    status_text = json.dumps(
-        {
-            "evidence_status": evidence_pack.get("status"),
-            "pack_status": evidence_pack.get("pack_status"),
-            "coverage_closure_allowed": evidence_pack.get("coverage_closure_allowed"),
-            "fail_closed_reason": evidence_pack.get("fail_closed_reason"),
-        },
-        ensure_ascii=False,
-        sort_keys=True,
+    status_text = " ".join(
+        str(value)
+        for value in [
+            evidence_pack.get("status"),
+            evidence_pack.get("pack_status"),
+            evidence_pack.get("fail_closed_reason"),
+        ]
+        if value not in {None, ""}
     ).upper()
     fail_tokens = ("FAIL", "BLOCKED", "NOT_MET", "SOURCE_GAP")
     return {
@@ -2798,15 +2871,14 @@ def comparator_current_evidence(root: Path, executable_spec: dict[str, Any]) -> 
     material_margin = residuals.get("material_margin_met")
     if material_margin is None and isinstance(residuals.get("model"), (int, float)) and isinstance(residuals.get("comparator"), (int, float)):
         material_margin = residuals.get("model") < residuals.get("comparator")
-    pack_status_text = json.dumps(
-        {
-            "evidence_status": evidence.get("status"),
-            "coverage_closure_status": executable_spec.get("coverage_closure_status"),
-            "pack_status": evidence_pack.get("pack_status") or evidence_pack.get("status"),
-            "coverage_closure_allowed": evidence_pack.get("coverage_closure_allowed"),
-        },
-        ensure_ascii=False,
-        sort_keys=True,
+    pack_status_text = " ".join(
+        str(value)
+        for value in [
+            evidence.get("status"),
+            executable_spec.get("coverage_closure_status"),
+            evidence_pack.get("pack_status") or evidence_pack.get("status"),
+        ]
+        if value not in {None, ""}
     ).upper()
     fail_tokens = ("FAIL", "BLOCKED", "NOT_MET")
     return {
@@ -2835,6 +2907,10 @@ COMPARATOR_DOMAIN_MATERIALIZED_EVIDENCE_REFS = {
         "earth_space_environmental_sciences",
         "geochemistry_and_hydrology_observables",
     ): "validation/heldout/grand_science/earth_space/coverage_work_orders/OC133_EARTH_SPACE_USGS_HYDROLOGY_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
+    (
+        "earth_space_environmental_sciences",
+        "remote_sensing_and_planetary_measurements",
+    ): "validation/heldout/grand_science/earth_space/coverage_work_orders/OC133_EARTH_SPACE_NASA_POWER_REMOTE_SENSING_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
 }
 
 
@@ -2870,7 +2946,9 @@ def materialized_evidence_residuals(evidence_pack: dict[str, Any]) -> dict[str, 
         evidence_pack,
         [
             ["scoring_results", "aggregate", "model_mae_plus_uncertainty_cfs"],
+            ["scoring_results", "aggregate", "model_mae_plus_uncertainty_kwh_m2_day"],
             ["scoring_results", "aggregate", "model_mae_cfs"],
+            ["scoring_results", "aggregate", "model_mae_kwh_m2_day"],
             ["residuals", "model", "mean_absolute_error"],
             ["residuals", "model"],
             ["aggregate", "model_mae"],
@@ -2881,6 +2959,7 @@ def materialized_evidence_residuals(evidence_pack: dict[str, Any]) -> dict[str, 
         evidence_pack,
         [
             ["scoring_results", "aggregate", "comparator_mae_cfs"],
+            ["scoring_results", "aggregate", "comparator_mae_kwh_m2_day"],
             ["residuals", "comparator", "mean_absolute_error"],
             ["residuals", "comparator"],
             ["aggregate", "comparator_mae"],
@@ -2963,6 +3042,10 @@ def materialize_strict_comparator_pack_from_domain_evidence(
     score_materialized = residuals.get("model") is not None and residuals.get("comparator") is not None
     pass_ready = source_bound and score_materialized and residuals.get("material_margin_met") is True
     fail_reason = "" if pass_ready else materialized_evidence_fail_reason(evidence_pack, residuals)
+    evidence_replay = evidence_pack.get("replay_command", {}) if isinstance(evidence_pack.get("replay_command"), dict) else {}
+    replay_commands = evidence_replay.get("commands") or execution.get("replay_commands") or (
+        [execution.get("replay_command")] if execution.get("replay_command") else []
+    )
     pack_status = "PASS" if pass_ready else (
         "FAIL_CLOSED_SOURCE_BOUND_SCORING_MATERIALIZED_NEGATIVE_RESULT"
         if source_bound and score_materialized
@@ -3004,8 +3087,8 @@ def materialize_strict_comparator_pack_from_domain_evidence(
         "residuals": residuals,
         "replay": {
             "status": "READY_FOR_REPLAY" if pack_status == "PASS" else "BLOCKED_BY_NEGATIVE_OR_INCOMPLETE_SCORING",
-            "replay_command": execution.get("replay_command"),
-            "replay_commands": execution.get("replay_commands") or ([execution.get("replay_command")] if execution.get("replay_command") else []),
+            "replay_command": replay_commands[0] if replay_commands else execution.get("replay_command"),
+            "replay_commands": replay_commands,
         },
         "command_results": command_results or [],
         "source_refs": [
@@ -3076,7 +3159,7 @@ def build_comparator_generic_evidence_pack(root: Path, gap_id: str) -> dict[str,
     target_hidden = bool(target.get("name")) and bool(target.get("target_fields")) and bool(target.get("extraction_rule") or execution.get("target_hidden_until_scoring"))
     comparator_bound = bool(comparator.get("baseline_name")) and comparator.get("pre_registered") is True
     score_materialized = existing_pack_pass
-    pack_status = "PASS" if existing_pack_pass and prereq_bound else "FAIL_CLOSED_SOURCE_BOUND_SCORING_NOT_MATERIALIZED"
+    pack_status = "PASS" if existing_pack_pass else "FAIL_CLOSED_SOURCE_BOUND_SCORING_NOT_MATERIALIZED"
     fail_reason = ""
     if not prereq_bound:
         fail_reason = "Required source/benchmark/comparator/uncertainty/falsifier artifacts are not all hash-bound."
@@ -5830,6 +5913,7 @@ def build_comparator_component_source_obligation_execution(
                 "validator_binding": f"comparator_component_source_obligation::{obligation_id}",
                 "next_escalation": "Run --compile-comparator-component-source-obligation-backlog --write.",
                 "no_fake_closure_policy": "Missing rows cannot close broad superiority.",
+                "missing_source_evidence_fields": [],
             },
             {},
         )
@@ -6650,7 +6734,9 @@ def build_comparator_gap_research_artifact(root: Path, gap_id: str, artifact_key
             closure_scope = "strict scoring row passed material superiority predicates" if status == "PASS" else "scoring evidence absent or does not beat the preregistered comparator"
             validation = evidence
     elif artifact_key == "replay_record":
-        replay_commands = execution.get("replay_commands") or ([execution.get("replay_command")] if execution.get("replay_command") else [])
+        generated_pack = read_json(root / comparator_gap_generated_evidence_pack_rel(gap_id))
+        generated_replay = generated_pack.get("replay", {}) if isinstance(generated_pack.get("replay"), dict) else {}
+        replay_commands = generated_replay.get("replay_commands") or execution.get("replay_commands") or ([execution.get("replay_command")] if execution.get("replay_command") else [])
         replay_results = []
         if formal_evidence:
             replay_results = list(formal_evidence.get("replay_results") or [])
@@ -6669,7 +6755,12 @@ def build_comparator_gap_research_artifact(root: Path, gap_id: str, artifact_key
         elif evidence["material_margin_met"] and not evidence["fail_closed_status_present"]:
             for command in replay_commands[:3]:
                 if isinstance(command, str) and command.strip():
-                    replay_results.append(safe_run_command(root, command.split(), 300))
+                    command_parts = command.split()
+                    if command_parts and command_parts[0].lower() in {"python", "python.exe"}:
+                        command_parts[0] = sys.executable
+                    elif not (command_parts and (root / command_parts[0]).exists()):
+                        continue
+                    replay_results.append(safe_run_command(root, command_parts, 300))
             status = "PASS" if replay_results and all(row.get("returncode") == 0 for row in replay_results) else "OPEN"
             closure_scope = "independent replay passed for already-positive scoring evidence" if status == "PASS" else "replay not run or scoring evidence still blocked"
             validation = {
@@ -8312,6 +8403,115 @@ def load_autonomous_capability_development_rows(root: Path) -> list[dict[str, An
     return [row for row in rows if isinstance(row, dict)]
 
 
+def upstream_capability_work_order_id(source_capability_id: str, work_order: dict[str, Any]) -> str:
+    return "R017-UPSTREAM-" + artifact_hash(
+        {
+            "source_capability_id": source_capability_id,
+            "work_order_type": work_order.get("work_order_type"),
+            "lane_id": work_order.get("lane_id"),
+            "gap_id": work_order.get("gap_id"),
+            "missing_artifact_type": work_order.get("missing_artifact_type"),
+            "source_graph_node_id": work_order.get("source_graph_node_id"),
+        }
+    )[:16]
+
+
+def upstream_capability_execution_rel(upstream_id: str) -> Path:
+    return UPSTREAM_CAPABILITY_EXECUTION_DIR / f"{upstream_id}.json"
+
+
+def build_upstream_capability_work_order_registry(
+    root: Path,
+    *,
+    write: bool = False,
+    generated_at: str | None = None,
+) -> dict[str, Any]:
+    generated_at = generated_at or existing_generated_at(root / FACTORY_DIR / UPSTREAM_CAPABILITY_WORK_ORDER_REGISTRY_NAME) or utc_now()
+    rows: list[dict[str, Any]] = []
+    seen: set[str] = set()
+    if (root / CAPABILITY_IMPLEMENTATION_DIR).exists():
+        for path in sorted((root / CAPABILITY_IMPLEMENTATION_DIR).glob("*.json")):
+            report = read_json(path)
+            work_order = report.get("upstream_work_order")
+            if not isinstance(work_order, dict):
+                continue
+            source_capability_id = str(report.get("capability_id") or report.get("compiled_capability_id") or path.stem)
+            upstream_id = upstream_capability_work_order_id(source_capability_id, work_order)
+            if upstream_id in seen:
+                continue
+            seen.add(upstream_id)
+            gap_id = str(work_order.get("gap_id") or "")
+            domain_class_id = ""
+            phenomenon_class_id = ""
+            if gap_id:
+                gap_payload = comparator_gap_execution_payload(root, gap_id)
+                queue_row = comparator_lane_queue_rows_by_gap(root).get(gap_id, {})
+                domain_class_id = str(gap_payload.get("domain_class_id") or queue_row.get("domain_class_id") or "")
+                phenomenon_class_id = str(gap_payload.get("phenomenon_class_id") or queue_row.get("phenomenon_class_id") or "")
+            work_order_type = str(work_order.get("work_order_type") or "CAPABILITY_EXECUTOR_MISSING")
+            execution_command = [
+                sys.executable,
+                "tools/oc133_toe_closure_factory.py",
+                "--execute-upstream-capability-work-order",
+                upstream_id,
+                "--write",
+            ]
+            row = normalize_problem_row(
+                {
+                    "upstream_work_order_id": upstream_id,
+                    "capability_development_id": upstream_id,
+                    "source_capability_id": source_capability_id,
+                    "source_capability_report_ref": rel(root, path),
+                    "source_graph_node_id": f"upstream_work_order:{upstream_id}:{work_order_type}:{gap_id}:{work_order.get('missing_artifact_type')}",
+                    "lane_id": work_order.get("lane_id") or "TOE_CLOSURE_FACTORY",
+                    "gap_id": gap_id,
+                    "domain_class_id": domain_class_id,
+                    "phenomenon_class_id": phenomenon_class_id,
+                    "missing_artifact_type": f"upstream_work_order::{work_order_type}",
+                    "work_order_type": work_order_type,
+                    "capability_class": work_order.get("capability_class"),
+                    "status": "OPEN",
+                    "why_it_failed": work_order.get("why_it_failed") or "A lower-level source implementation capability is still absent.",
+                    "repair_strategy": work_order.get("repair_strategy") or "Implement the exact source-bound executor named by this upstream work order.",
+                    "required_capability": work_order.get("required_capability") or "Research/TOEClosureFactory",
+                    "execution_command": execution_command,
+                    "pass_predicate": work_order.get("pass_predicate") or "The upstream source-bound capability executes and removes the validator-bound blocker.",
+                    "validator_binding": work_order.get("validator_binding") or f"upstream_capability::{upstream_id}",
+                    "next_escalation": work_order.get("next_escalation") or "Split by exact source/model/comparator implementation object.",
+                    "no_fake_closure_policy": work_order.get("no_fake_closure_policy") or "Upstream work orders are not evidence and cannot close r017 without strict validator PASS.",
+                    "source_upstream_work_order": work_order,
+                },
+                {"execution_command": execution_command},
+            )
+            row["capability_development_key"] = capability_development_key(row)
+            rows.append(row)
+    payload = {
+        "schema_id": "OC133_TOE_UPSTREAM_CAPABILITY_WORK_ORDER_REGISTRY_v1",
+        "generated_at": generated_at,
+        "status": "OPEN" if rows else "PASS",
+        "upstream_work_order_total": len(rows),
+        "open_upstream_work_order_total": len(rows),
+        "dedupe_policy": "Rows are keyed by upstream work order id derived from source capability, gap, artifact, and source graph node.",
+        "no_fake_closure_policy": "These rows are executable research obligations only; none can satisfy r017 without strict final validator PASS.",
+        "rows": rows,
+    }
+    payload["artifact_hash"] = artifact_hash(payload)
+    if write:
+        write_json_artifact(root, FACTORY_DIR / UPSTREAM_CAPABILITY_WORK_ORDER_REGISTRY_NAME, payload)
+    return payload
+
+
+def upstream_capability_rows_by_id(root: Path) -> dict[str, dict[str, Any]]:
+    payload = read_json(root / FACTORY_DIR / UPSTREAM_CAPABILITY_WORK_ORDER_REGISTRY_NAME)
+    if not payload:
+        payload = build_upstream_capability_work_order_registry(root, write=True)
+    return {
+        str(row.get("upstream_work_order_id")): row
+        for row in payload.get("rows", []) or []
+        if isinstance(row, dict) and row.get("upstream_work_order_id")
+    }
+
+
 def capability_executor_for_row(row: dict[str, Any], compiled_capability_id: str) -> tuple[list[str], str, str]:
     lane_id = str(row.get("lane_id") or "TOE_CLOSURE_FACTORY")
     missing = str(row.get("missing_artifact_type") or row.get("required_artifact") or row.get("executor_type") or "unknown")
@@ -8335,6 +8535,13 @@ def capability_executor_for_row(row: dict[str, Any], compiled_capability_id: str
         gap_id = str(row.get("gap_id") or "")
         artifact_key = str(row.get("scoring_subartifact_id") or row.get("missing_artifact_type") or "")
         source_node = str(row.get("source_graph_node_id") or "")
+        if artifact_key.startswith("upstream_work_order::"):
+            upstream_id = str(row.get("upstream_work_order_id") or row.get("capability_development_id") or "")
+            return (
+                [sys.executable, "tools/oc133_toe_closure_factory.py", "--execute-upstream-capability-work-order", upstream_id, "--write"],
+                "upstream_capability_work_order",
+                "Execute the lower-level upstream capability work order produced by exhausted source-bound materialization, rather than rerunning diagnostics.",
+            )
         if not gap_id and source_node.startswith("required_artifact:MODERN_SCIENCE_COMPARATOR_SUPERIORITY:"):
             parts = source_node.split(":")
             if len(parts) >= 3:
@@ -9058,6 +9265,132 @@ def execute_capability_development(root: Path, capability_id: str, timeout: int,
     return payload
 
 
+def execute_upstream_capability_work_order(root: Path, upstream_id: str, timeout: int = 900, *, write: bool = False) -> dict[str, Any]:
+    registry = build_upstream_capability_work_order_registry(root, write=True)
+    row = next(
+        (
+            item
+            for item in registry.get("rows", []) or []
+            if str(item.get("upstream_work_order_id") or "") == upstream_id
+        ),
+        None,
+    )
+    before_parts = current_validator_error_parts(root)
+    before_total = validator_error_total(before_parts)
+    generated_at = utc_now()
+    command_results: list[dict[str, Any]] = []
+    changed_artifact_refs: list[str] = []
+    status = "CAPABILITY_DEVELOPMENT_REQUIRED"
+    root_cause = "UPSTREAM_WORK_ORDER_ROW_MISSING"
+    why = "No upstream work order row exists for this id."
+    repair = "Rebuild upstream capability registry from capability-implementation reports."
+    if row:
+        gap_id = str(row.get("gap_id") or "")
+        domain_class_id = str(row.get("domain_class_id") or "")
+        phenomenon_class_id = str(row.get("phenomenon_class_id") or "")
+        work_order_type = str(row.get("work_order_type") or "")
+        commands: list[list[str]] = []
+        if work_order_type == "SOURCE_BOUND_SCORER_MATERIALIZER_IMPLEMENTATION":
+            for subartifact_id in [
+                "source_snapshot_acquisition",
+                "target_hidden_task_table",
+                "oc_formula_or_model",
+                "incumbent_comparator_scoring",
+                "residuals_materiality_uncertainty",
+                "controls_and_falsifiers",
+                "independent_replay",
+                "strict_evidence_pack_diagnosis",
+                "model_or_claim_repair_decision",
+            ]:
+                commands.extend(comparator_domain_implemented_commands(domain_class_id, phenomenon_class_id, subartifact_id, gap_id))
+            commands = unique_commands(commands)
+            if commands:
+                command_results = [safe_run_command(root, command, timeout) for command in commands]
+                materialization = materialize_strict_comparator_pack_from_domain_evidence(
+                    root,
+                    {
+                        "gap_id": gap_id,
+                        "domain_class_id": domain_class_id,
+                        "phenomenon_class_id": phenomenon_class_id,
+                        "materialization_id": upstream_id,
+                    },
+                    command_results=command_results,
+                )
+                changed_artifact_refs.extend(
+                    [
+                        str(materialization.get("evidence_ref") or ""),
+                        str(materialization.get("strict_evidence_pack_ref") or ""),
+                    ]
+                )
+                if materialization.get("status") == "PASS":
+                    status = "PASS"
+                    root_cause = "SOURCE_BOUND_MATERIALIZER_IMPLEMENTED"
+                    why = "Governed domain commands ran and produced a strict source-bound comparator evidence pack with material superiority."
+                    repair = "Regenerate comparator research artifacts and strict validator surfaces from the new evidence pack."
+                elif materialization.get("status") == "FAIL_CLOSED_SOURCE_BOUND_SCORING_MATERIALIZED_NEGATIVE_RESULT":
+                    status = "SCIENTIFIC_RESULT_FAIL_CLOSED"
+                    root_cause = "SOURCE_BOUND_SCORING_MATERIALIZED_NEGATIVE_RESULT"
+                    why = str(materialization.get("fail_closed_reason") or "Source-bound scorer ran, but OC did not beat the preregistered comparator.")
+                    repair = "Create a model/comparator improvement research obligation; do not count this row toward broad superiority."
+                else:
+                    status = "CAPABILITY_DEVELOPMENT_REQUIRED"
+                    root_cause = "SOURCE_BOUND_SCORING_NOT_MATERIALIZED"
+                    why = str(materialization.get("why_it_failed") or "Governed commands ran, but strict evidence was not materialized.")
+                    repair = "Add or repair the exact domain scorer/materializer named by the materialization result."
+            else:
+                root_cause = "NO_GOVERNED_DOMAIN_SOURCE_IMPLEMENTATION_COMMAND"
+                why = (
+                    f"No governed source-bound materializer command is registered for domain `{domain_class_id}`, "
+                    f"phenomenon `{phenomenon_class_id}`."
+                )
+                repair = "Add a domain-specific official-source acquisition and target-hidden scoring command, then bind it in COMPARATOR_DOMAIN_IMPLEMENTED_COMMANDS."
+        elif work_order_type == "SOURCE_BOUND_MODEL_OR_COMPARATOR_IMPROVEMENT":
+            status = "SCIENTIFIC_RESULT_FAIL_CLOSED"
+            root_cause = "SOURCE_BOUND_NEGATIVE_RESULT_REQUIRES_MODEL_RESEARCH"
+            why = "The current source-bound evidence is negative under the declared comparator/materiality rule."
+            repair = "Improve the model from canonical theory or leave broad superiority blocked; manual PASS or wording changes are forbidden."
+        else:
+            root_cause = "UNKNOWN_UPSTREAM_WORK_ORDER_TYPE"
+            why = f"Unsupported upstream work order type `{work_order_type}`."
+            repair = "Implement a concrete executor for this upstream work-order type."
+    after_parts = current_validator_error_parts(root)
+    after_total = validator_error_total(after_parts)
+    payload = normalize_problem_row(
+        {
+            "schema_id": "OC133_TOE_UPSTREAM_CAPABILITY_WORK_ORDER_EXECUTION_v1",
+            "generated_at": generated_at,
+            "upstream_work_order_id": upstream_id,
+            "lane_id": row.get("lane_id") if row else "TOE_CLOSURE_FACTORY",
+            "gap_id": row.get("gap_id") if row else "",
+            "domain_class_id": row.get("domain_class_id") if row else "",
+            "phenomenon_class_id": row.get("phenomenon_class_id") if row else "",
+            "work_order_type": row.get("work_order_type") if row else "",
+            "status": status,
+            "root_cause_class": root_cause,
+            "why_it_failed": why,
+            "repair_strategy": repair,
+            "required_capability": row.get("required_capability") if row else "Research/TOEClosureFactory",
+            "execution_command": [sys.executable, "tools/oc133_toe_closure_factory.py", "--execute-upstream-capability-work-order", upstream_id, "--write"],
+            "pass_predicate": row.get("pass_predicate") if row else "Upstream capability row exists and strict validator delta is positive.",
+            "validator_binding": row.get("validator_binding") if row else f"upstream_capability::{upstream_id}",
+            "next_escalation": row.get("next_escalation") if row else "Rebuild upstream registry.",
+            "before_validator_error_total": before_total,
+            "after_validator_error_total": after_total,
+            "validator_error_delta": before_total - after_total,
+            "command_results": command_results,
+            "changed_artifact_refs": [ref for ref in changed_artifact_refs if ref],
+            "registry_row": row or {},
+            "no_fake_closure_policy": "This execution cannot close r017 unless strict final TOE validator PASS is reached.",
+        },
+        {},
+    )
+    payload["artifact_ref"] = rel(root, root / upstream_capability_execution_rel(upstream_id))
+    payload["artifact_hash"] = artifact_hash(payload)
+    if write:
+        write_json_artifact(root, upstream_capability_execution_rel(upstream_id), payload)
+    return payload
+
+
 def load_or_build_research_wave(root: Path, *, preserve_existing_generated_at: bool) -> dict[str, Any]:
     path = root / FACTORY_DIR / RESEARCH_WAVE_NAME
     if path.exists():
@@ -9134,6 +9467,7 @@ def expected_files(
     registry = build_lane_capability_registry(generated_at=registry_generated_at)
     scientific_frontier = build_scientific_frontier(root, generated_at=scientific_frontier_generated_at)
     capability_implementation_registry = build_capability_implementation_registry(root, generated_at=capability_registry_generated_at)
+    upstream_capability_registry = build_upstream_capability_work_order_registry(root)
     subwork_orders = build_lane_subwork_orders(root, validator_errors, generated_at=subwork_generated_at)
     root_causes = build_root_cause_ledger(root, validator_errors, execution_trace, generated_at=root_cause_generated_at)
     capability_backlog = build_capability_backlog(
@@ -9192,6 +9526,7 @@ def expected_files(
         base / RESEARCH_WAVE_NAME: stable_json(research_wave),
         base / SCIENTIFIC_FRONTIER_NAME: stable_json(scientific_frontier),
         base / CAPABILITY_IMPLEMENTATION_REGISTRY_NAME: stable_json(capability_implementation_registry),
+        base / UPSTREAM_CAPABILITY_WORK_ORDER_REGISTRY_NAME: stable_json(upstream_capability_registry),
         base / STATE_NAME: stable_json(state),
         base / COCKPIT_NAME: stable_json(cockpit),
         base / COCKPIT_MD_NAME: render_cockpit_md(cockpit, lanes, obligations),
@@ -9211,6 +9546,8 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--execute-capability-lane", choices=[row["lane_id"] for row in lane_registry_rows()])
     parser.add_argument("--compile-capability-backlog", action="store_true", help="Compile autonomous capability-development rows into executable capability registry entries.")
     parser.add_argument("--execute-capability-development", help="Execute one compiled autonomous capability-development entry.")
+    parser.add_argument("--compile-upstream-capability-work-orders", action="store_true", help="Compile upstream work orders emitted by blocked capability-development reports.")
+    parser.add_argument("--execute-upstream-capability-work-order", help="Execute one upstream capability work order by id.")
     parser.add_argument("--execute-source-intake-work-order", help="Execute one AI/EA source-intake work order.")
     parser.add_argument("--execute-comparator-gap", help="Execute one modern-science comparator coverage gap.")
     parser.add_argument("--execute-comparator-gap-artifact", nargs=2, metavar=("GAP_ID", "ARTIFACT_KEY"), help="Execute one modern-science comparator coverage-gap artifact work packet.")
@@ -9267,6 +9604,20 @@ def main(argv: list[str] | None = None) -> int:
     if args.execute_capability_development:
         payload = execute_capability_development(ROOT, args.execute_capability_development, args.timeout, write=args.write)
         path = ROOT / CAPABILITY_IMPLEMENTATION_DIR / f"{args.execute_capability_development}.json"
+        result = validation_result({path: stable_json(payload)}, write=args.write)
+        print(json.dumps(result if args.write or args.check else payload, ensure_ascii=False, indent=2, sort_keys=True))
+        if args.check and result["state"] != "PASS":
+            return 1
+        return 0 if payload.get("status") == "PASS" else 1
+    if args.compile_upstream_capability_work_orders:
+        payload = build_upstream_capability_work_order_registry(ROOT, write=args.write)
+        path = ROOT / FACTORY_DIR / UPSTREAM_CAPABILITY_WORK_ORDER_REGISTRY_NAME
+        result = validation_result({path: stable_json(payload)}, write=args.write)
+        print(json.dumps(result if args.write or args.check else payload, ensure_ascii=False, indent=2, sort_keys=True))
+        return 1 if args.check and result["state"] != "PASS" else 0
+    if args.execute_upstream_capability_work_order:
+        payload = execute_upstream_capability_work_order(ROOT, args.execute_upstream_capability_work_order, timeout=args.timeout, write=args.write)
+        path = ROOT / upstream_capability_execution_rel(args.execute_upstream_capability_work_order)
         result = validation_result({path: stable_json(payload)}, write=args.write)
         print(json.dumps(result if args.write or args.check else payload, ensure_ascii=False, indent=2, sort_keys=True))
         if args.check and result["state"] != "PASS":

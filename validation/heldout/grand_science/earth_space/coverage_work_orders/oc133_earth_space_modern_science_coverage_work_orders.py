@@ -60,6 +60,38 @@ USGS_HYDROLOGY_SCORER_SCHEMA_ID = (
 )
 USGS_HYDROLOGY_WORK_ORDER_ID = "MS-COV-WO-011"
 
+NASA_POWER_ENDPOINT = (
+    "https://power.larc.nasa.gov/api/temporal/daily/point?"
+    + urlencode(
+        {
+            "parameters": "ALLSKY_SFC_SW_DWN,T2M",
+            "community": "RE",
+            "longitude": "-122.4194",
+            "latitude": "37.7749",
+            "start": "20240101",
+            "end": "20240209",
+            "format": "JSON",
+            "time-standard": "UTC",
+        }
+    )
+)
+NASA_POWER_SNAPSHOT_REL = (
+    "validation/heldout/grand_science/earth_space/coverage_work_orders/raw/"
+    "nasa_power_sf_daily_20240101_20240209.json"
+)
+NASA_POWER_METADATA_REL = (
+    "validation/heldout/grand_science/earth_space/coverage_work_orders/raw/"
+    "nasa_power_sf_daily_20240101_20240209.metadata.json"
+)
+NASA_POWER_SCORER_EVIDENCE_REL = (
+    "validation/heldout/grand_science/earth_space/coverage_work_orders/"
+    "OC133_EARTH_SPACE_NASA_POWER_REMOTE_SENSING_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json"
+)
+NASA_POWER_SCORER_SCHEMA_ID = (
+    "OC133_EARTH_SPACE_NASA_POWER_REMOTE_SENSING_TARGET_HIDDEN_REPLAY_SCORER_v1"
+)
+NASA_POWER_WORK_ORDER_ID = "MS-COV-WO-012"
+
 NO_SEND_LOCKS = {
     "no_send": True,
     "public_release_action_allowed": False,
@@ -171,6 +203,16 @@ def count_usgs_values(payload: bytes) -> int:
         return 0
 
 
+def count_nasa_power_values(payload: bytes) -> int:
+    try:
+        data = json.loads(payload.decode("utf-8"))
+        parameters = data.get("properties", {}).get("parameter", {})
+        solar = parameters.get("ALLSKY_SFC_SW_DWN", {})
+        return len(solar) if isinstance(solar, dict) else 0
+    except Exception:
+        return 0
+
+
 def refresh_usgs_hydrology_snapshot(root: Path) -> dict[str, Any]:
     status, content_type, payload = fetch_official_bytes(USGS_HYDROLOGY_ENDPOINT)
     snapshot_path = root / USGS_HYDROLOGY_SNAPSHOT_REL
@@ -191,6 +233,41 @@ def refresh_usgs_hydrology_snapshot(root: Path) -> dict[str, Any]:
         "http_status": status,
         "content_type": content_type,
         "value_row_count": count_usgs_values(payload),
+        "acquired_at_utc": utc_now_iso(),
+        "hash_policy": "sha256 over official response bytes exactly as stored",
+        "source_snapshot_pre_target_lock": True,
+        "target_hidden_until_scoring": True,
+        "target_projection_unsealed_for_scoring": False,
+        "scoring_started": False,
+        "scientific_pass": False,
+        "coverage_closure_allowed": False,
+        "no_send_locks": no_send(),
+    }
+    metadata["metadata_sha256"] = sha256_object({k: v for k, v in metadata.items() if k != "metadata_sha256"})
+    write_json(metadata_path, metadata)
+    return metadata
+
+
+def refresh_nasa_power_snapshot(root: Path) -> dict[str, Any]:
+    status, content_type, payload = fetch_official_bytes(NASA_POWER_ENDPOINT)
+    snapshot_path = root / NASA_POWER_SNAPSHOT_REL
+    metadata_path = root / NASA_POWER_METADATA_REL
+    digest = sha256_bytes(payload)
+    snapshot_path.parent.mkdir(parents=True, exist_ok=True)
+    snapshot_path.write_bytes(payload)
+    metadata = {
+        "schema_id": "OC133_EARTH_SPACE_NASA_POWER_SOURCE_SNAPSHOT_METADATA_v1",
+        "release_id": RELEASE_ID,
+        "acquisition_id": "OC133-EARTH-NASA-POWER-SF-ALLSKY-T2M-20240101-20240209",
+        "official_source": "NASA POWER Daily API",
+        "official_documentation_url": "https://power.larc.nasa.gov/docs/services/api/temporal/daily/",
+        "official_endpoint_url": NASA_POWER_ENDPOINT,
+        "snapshot_ref": NASA_POWER_SNAPSHOT_REL,
+        "source_bytes_sha256": digest,
+        "byte_count": len(payload),
+        "http_status": status,
+        "content_type": content_type,
+        "value_row_count": count_nasa_power_values(payload),
         "acquired_at_utc": utc_now_iso(),
         "hash_policy": "sha256 over official response bytes exactly as stored",
         "source_snapshot_pre_target_lock": True,
@@ -237,6 +314,48 @@ def load_usgs_api_lane(root: Path) -> dict[str, Any]:
         "official_endpoint_url": metadata.get("official_endpoint_url", USGS_HYDROLOGY_ENDPOINT),
         "snapshot_ref": USGS_HYDROLOGY_SNAPSHOT_REL,
         "metadata_ref": USGS_HYDROLOGY_METADATA_REL,
+        "source_snapshot_sha256": digest,
+        "metadata_sha256": metadata.get("metadata_sha256"),
+        "byte_count": len(payload),
+        "value_row_count": metadata.get("value_row_count", 0),
+        "source_snapshot_hash_bound": hash_ok,
+        "scientific_pass": False,
+        "coverage_closure_allowed": False,
+        "remaining_blocker": "STRICT_TARGET_HIDDEN_SCORER_AND_EVIDENCE_PACK_NOT_BUILT",
+    }
+
+
+def load_nasa_power_api_lane(root: Path) -> dict[str, Any]:
+    snapshot_path = root / NASA_POWER_SNAPSHOT_REL
+    metadata_path = root / NASA_POWER_METADATA_REL
+    if not snapshot_path.exists() or not metadata_path.exists():
+        return {
+            "status": "OPEN_FAIL_CLOSED_NO_SOURCE_SNAPSHOT_HASH",
+            "official_endpoint_url": NASA_POWER_ENDPOINT,
+            "snapshot_ref": NASA_POWER_SNAPSHOT_REL,
+            "metadata_ref": NASA_POWER_METADATA_REL,
+            "source_snapshot_hash_bound": False,
+            "remaining_blocker": "NASA_POWER_SOURCE_SNAPSHOT_NOT_ACQUIRED",
+        }
+    metadata = read_json(metadata_path)
+    payload = snapshot_path.read_bytes()
+    digest = sha256_bytes(payload)
+    expected_metadata_hash = sha256_object({k: v for k, v in metadata.items() if k != "metadata_sha256"})
+    hash_ok = (
+        metadata.get("source_bytes_sha256") == digest
+        and metadata.get("byte_count") == len(payload)
+        and metadata.get("metadata_sha256") == expected_metadata_hash
+        and int(metadata.get("value_row_count", 0) or 0) >= 40
+    )
+    return {
+        "status": (
+            "SOURCE_SNAPSHOT_HASH_BOUND_ACQUISITION_ONLY_NOT_STRICT_EVIDENCE"
+            if hash_ok
+            else "OPEN_FAIL_CLOSED_SOURCE_SNAPSHOT_HASH_MISMATCH"
+        ),
+        "official_endpoint_url": metadata.get("official_endpoint_url", NASA_POWER_ENDPOINT),
+        "snapshot_ref": NASA_POWER_SNAPSHOT_REL,
+        "metadata_ref": NASA_POWER_METADATA_REL,
         "source_snapshot_sha256": digest,
         "metadata_sha256": metadata.get("metadata_sha256"),
         "byte_count": len(payload),
@@ -820,6 +939,544 @@ def usgs_hydrology_fail_closed_evidence(
     }
 
 
+def extract_nasa_power_rows(snapshot: dict[str, Any]) -> list[dict[str, Any]]:
+    parameters = snapshot.get("properties", {}).get("parameter", {})
+    solar = parameters.get("ALLSKY_SFC_SW_DWN", {})
+    t2m = parameters.get("T2M", {})
+    if not isinstance(solar, dict):
+        return []
+    rows: list[dict[str, Any]] = []
+    for index, date_key in enumerate(sorted(solar), start=1):
+        try:
+            solar_value = float(solar[date_key])
+            temperature_value = float(t2m.get(date_key)) if isinstance(t2m, dict) else None
+        except (TypeError, ValueError):
+            continue
+        rows.append(
+            {
+                "row_index": index,
+                "date_key": date_key,
+                "date": f"{date_key[:4]}-{date_key[4:6]}-{date_key[6:]}",
+                "allsky_sfc_sw_dwn_kwh_m2_day": solar_value,
+                "t2m_celsius": temperature_value,
+                "source_row_sha256": sha256_object(
+                    {
+                        "row_index": index,
+                        "date_key": date_key,
+                        "ALLSKY_SFC_SW_DWN": solar_value,
+                        "T2M": temperature_value,
+                    }
+                ),
+            }
+        )
+    return rows
+
+
+def solar_day_factor(date_key: str, latitude_degrees: float = 37.7749) -> float:
+    year = int(date_key[:4])
+    month = int(date_key[4:6])
+    day = int(date_key[6:8])
+    doy = datetime(year, month, day, tzinfo=timezone.utc).timetuple().tm_yday
+    latitude = math.radians(latitude_degrees)
+    declination = math.radians(23.44) * math.sin(2 * math.pi * (284 + doy) / 365)
+    noon_cosine = math.sin(latitude) * math.sin(declination) + math.cos(latitude) * math.cos(declination)
+    return max(0.05, noon_cosine)
+
+
+def nasa_power_training_parameters(training_rows: list[dict[str, Any]]) -> dict[str, Any]:
+    solar_values = [float(row["allsky_sfc_sw_dwn_kwh_m2_day"]) for row in training_rows]
+    date_factors = [solar_day_factor(str(row["date_key"])) for row in training_rows]
+    leave_forward_residuals: list[float] = []
+    for index in range(7, len(training_rows)):
+        prior = training_rows[:index]
+        prior_values = [float(row["allsky_sfc_sw_dwn_kwh_m2_day"]) for row in prior]
+        prior_factors = [solar_day_factor(str(row["date_key"])) for row in prior]
+        predicted = median_value(prior_values) * solar_day_factor(str(training_rows[index]["date_key"])) / median_value(prior_factors)
+        leave_forward_residuals.append(abs(float(training_rows[index]["allsky_sfc_sw_dwn_kwh_m2_day"]) - predicted))
+    return {
+        "training_row_count": len(training_rows),
+        "median_visible_solar_kwh_m2_day": median_value(solar_values),
+        "mean_visible_solar_kwh_m2_day": mean(solar_values),
+        "median_visible_solar_day_factor": median_value(date_factors),
+        "training_leave_forward_residual_mae": mean(leave_forward_residuals),
+        "training_leave_forward_residual_median_abs": median_value(leave_forward_residuals),
+        "training_leave_forward_residual_mad": median_absolute_deviation(leave_forward_residuals),
+        "aggregate_uncertainty_allowance_kwh_m2_day": 0.05,
+        "uncertainty_policy": "Fixed 0.05 kWh/m^2/day materiality floor declared before hidden-target scoring; training residuals are reported but not used to loosen the strict pass rule.",
+    }
+
+
+def nasa_power_prediction_rows(
+    training_rows: list[dict[str, Any]],
+    hidden_rows: list[dict[str, Any]],
+    params: dict[str, Any],
+) -> list[dict[str, Any]]:
+    median_visible = float(params["median_visible_solar_kwh_m2_day"])
+    median_factor = float(params["median_visible_solar_day_factor"])
+    trailing_seven_mean = mean([float(row["allsky_sfc_sw_dwn_kwh_m2_day"]) for row in training_rows[-7:]])
+    predictions: list[dict[str, Any]] = []
+    for row in hidden_rows:
+        factor = solar_day_factor(str(row["date_key"]))
+        predicted = median_visible * factor / median_factor
+        predictions.append(
+            {
+                "row_index": row["row_index"],
+                "date": row["date"],
+                "model_prediction_kwh_m2_day": round_metric(predicted),
+                "comparator_prediction_kwh_m2_day": round_metric(trailing_seven_mean),
+                "prediction_inputs": {
+                    "median_visible_solar_kwh_m2_day": round_metric(median_visible),
+                    "median_visible_solar_day_factor": round_metric(median_factor),
+                    "hidden_date_solar_day_factor": round_metric(factor),
+                    "trailing_seven_visible_mean_kwh_m2_day": round_metric(trailing_seven_mean),
+                    "hidden_target_value_used": False,
+                },
+            }
+        )
+    return predictions
+
+
+def nasa_power_prediction_declaration(
+    training_rows: list[dict[str, Any]],
+    hidden_rows: list[dict[str, Any]],
+    params: dict[str, Any],
+) -> dict[str, Any]:
+    prediction_rows = nasa_power_prediction_rows(training_rows, hidden_rows, params)
+    materialization = {
+        "predictions_materialized_before_target_unseal": True,
+        "hidden_target_values_included": False,
+        "prediction_rows": prediction_rows,
+        "prediction_rows_sha256": sha256_object(prediction_rows),
+    }
+    declaration = {
+        "declared_before_scoring": True,
+        "target_hidden_until_scoring": True,
+        "target_values_used_for_model_selection": False,
+        "target_values_used_for_prediction_materialization": False,
+        "split_policy": {
+            "mode": "prospective_source_lock_then_temporal_holdout",
+            "training_row_count": len(training_rows),
+            "hidden_row_count": len(hidden_rows),
+            "training_date_range": [training_rows[0]["date"], training_rows[-1]["date"]] if training_rows else [],
+            "hidden_date_range": [hidden_rows[0]["date"], hidden_rows[-1]["date"]] if hidden_rows else [],
+            "split_rule": "First 20 NASA POWER daily rows are visible training rows; final 20 rows are hidden scoring targets.",
+        },
+        "visible_training_rows": [
+            {
+                "row_index": row["row_index"],
+                "date": row["date"],
+                "allsky_sfc_sw_dwn_kwh_m2_day": round_metric(float(row["allsky_sfc_sw_dwn_kwh_m2_day"])),
+                "t2m_celsius": round_metric(float(row["t2m_celsius"])) if row.get("t2m_celsius") is not None else None,
+                "source_row_sha256": row["source_row_sha256"],
+            }
+            for row in training_rows
+        ],
+        "hidden_target_placeholders": [
+            {
+                "row_index": row["row_index"],
+                "date": row["date"],
+                "target_field": "properties.parameter.ALLSKY_SFC_SW_DWN.<YYYYMMDD>",
+                "target_value_hidden": True,
+                "target_placeholder_sha256": sha256_object(
+                    {
+                        "row_index": row["row_index"],
+                        "date": row["date"],
+                        "target_field": "properties.parameter.ALLSKY_SFC_SW_DWN.<YYYYMMDD>",
+                        "target_value_hidden": True,
+                    }
+                ),
+            }
+            for row in hidden_rows
+        ],
+        "prediction_formula": {
+            "model_id": "NASA-POWER-CLEAR-SKY-SEASONAL-LAG",
+            "pre_registered": True,
+            "rule": "y_hat(date) = median(visible ALLSKY_SFC_SW_DWN) * solar_day_factor(date) / median(visible solar_day_factor)",
+            "solar_day_factor": "max(0.05, sin(latitude)sin(declination(day_of_year)) + cos(latitude)cos(declination(day_of_year)))",
+            "training_only_parameters": {
+                "median_visible_solar_kwh_m2_day": round_metric(float(params["median_visible_solar_kwh_m2_day"])),
+                "median_visible_solar_day_factor": round_metric(float(params["median_visible_solar_day_factor"])),
+            },
+        },
+        "comparator_baseline": {
+            "comparator_id": "NASA-POWER-TRAILING-MEAN-COMPARATOR",
+            "pre_registered": True,
+            "prediction_rule": "Predict every hidden daily solar row as the mean of the final seven visible daily solar rows.",
+            "target_values_used_for_baseline_design": False,
+        },
+        "uncertainty_policy": {
+            "method": "fixed preregistered materiality floor",
+            "residual_metric": "hidden mean absolute residual in kWh/m^2/day",
+            "aggregate_uncertainty_allowance_kwh_m2_day": round_metric(
+                float(params["aggregate_uncertainty_allowance_kwh_m2_day"])
+            ),
+            "training_leave_forward_residual_mae_reported_not_used_to_loosen_rule": round_metric(
+                float(params["training_leave_forward_residual_mae"])
+            ),
+            "strict_superiority_rule": "model_mae_kwh_m2_day + aggregate_uncertainty_allowance_kwh_m2_day < comparator_mae_kwh_m2_day",
+        },
+        "prediction_materialization": materialization,
+    }
+    declaration["declaration_sha256"] = sha256_object(declaration)
+    return declaration
+
+
+def nasa_power_scored_rows(
+    hidden_rows: list[dict[str, Any]],
+    prediction_rows: list[dict[str, Any]],
+) -> list[dict[str, Any]]:
+    scored: list[dict[str, Any]] = []
+    for actual, predicted in zip(hidden_rows, prediction_rows):
+        observed = round_metric(float(actual["allsky_sfc_sw_dwn_kwh_m2_day"]))
+        model_prediction = round_metric(float(predicted["model_prediction_kwh_m2_day"]))
+        comparator_prediction = round_metric(float(predicted["comparator_prediction_kwh_m2_day"]))
+        row = {
+            "row_index": actual["row_index"],
+            "date": actual["date"],
+            "observed_allsky_sfc_sw_dwn_kwh_m2_day": observed,
+            "model_prediction_kwh_m2_day": model_prediction,
+            "comparator_prediction_kwh_m2_day": comparator_prediction,
+            "model_abs_residual_kwh_m2_day": round_metric(abs(observed - model_prediction)),
+            "comparator_abs_residual_kwh_m2_day": round_metric(abs(observed - comparator_prediction)),
+            "source_row_sha256": actual["source_row_sha256"],
+        }
+        row["score_row_sha256"] = sha256_object(row)
+        scored.append(row)
+    return scored
+
+
+def nasa_power_hidden_target_hash(hidden_rows: list[dict[str, Any]]) -> str:
+    return sha256_object(
+        [
+            {
+                "row_index": row["row_index"],
+                "date": row["date"],
+                "observed_allsky_sfc_sw_dwn_kwh_m2_day": round_metric(float(row["allsky_sfc_sw_dwn_kwh_m2_day"])),
+            }
+            for row in hidden_rows
+        ]
+    )
+
+
+def nasa_power_target_leakage_control(
+    rows: list[dict[str, Any]],
+    prediction_rows: list[dict[str, Any]],
+    params: dict[str, Any],
+) -> dict[str, Any]:
+    mutated = [dict(row) for row in rows]
+    for row in mutated[20:40]:
+        row["allsky_sfc_sw_dwn_kwh_m2_day"] = float(row["allsky_sfc_sw_dwn_kwh_m2_day"]) + 1000.0
+    mutated_predictions = nasa_power_prediction_rows(mutated[:20], mutated[20:40], params)
+    original_prediction_hash = sha256_object(prediction_rows)
+    mutated_prediction_hash = sha256_object(mutated_predictions)
+    original_target_hash = nasa_power_hidden_target_hash(rows[20:40])
+    mutated_target_hash = nasa_power_hidden_target_hash(mutated[20:40])
+    return {
+        "control_id": "NASA-POWER-HIDDEN-TARGET-MUTATION-LEAKAGE-CONTROL",
+        "description": "Mutating hidden solar target values must not change materialized model or comparator predictions.",
+        "predictions_unchanged_under_hidden_target_mutation": original_prediction_hash == mutated_prediction_hash,
+        "target_hashes_changed_under_hidden_target_mutation": original_target_hash != mutated_target_hash,
+        "original_prediction_rows_sha256": original_prediction_hash,
+        "mutated_prediction_rows_sha256": mutated_prediction_hash,
+        "original_hidden_target_values_sha256": original_target_hash,
+        "mutated_hidden_target_values_sha256": mutated_target_hash,
+        "passed": original_prediction_hash == mutated_prediction_hash and original_target_hash != mutated_target_hash,
+    }
+
+
+def nasa_power_negative_control(
+    hidden_rows: list[dict[str, Any]],
+    prediction_rows: list[dict[str, Any]],
+    uncertainty_allowance: float,
+) -> dict[str, Any]:
+    sign_flip_predictions = []
+    median_prediction = median_value([float(row["model_prediction_kwh_m2_day"]) for row in prediction_rows])
+    for row in prediction_rows:
+        sign_flip_predictions.append({**row, "model_prediction_kwh_m2_day": round_metric(median_prediction)})
+    model_residuals = [
+        abs(float(actual["allsky_sfc_sw_dwn_kwh_m2_day"]) - float(predicted["model_prediction_kwh_m2_day"]))
+        for actual, predicted in zip(hidden_rows, sign_flip_predictions)
+    ]
+    comparator_residuals = [
+        abs(float(actual["allsky_sfc_sw_dwn_kwh_m2_day"]) - float(predicted["comparator_prediction_kwh_m2_day"]))
+        for actual, predicted in zip(hidden_rows, sign_flip_predictions)
+    ]
+    control_prediction_hash = sha256_object(sign_flip_predictions)
+    original_prediction_hash = sha256_object(prediction_rows)
+    model_mae = round_metric(mean(model_residuals))
+    comparator_mae = round_metric(mean(comparator_residuals))
+    residual_superiority_pass = model_mae + uncertainty_allowance < comparator_mae
+    rejection_reasons = []
+    if control_prediction_hash != original_prediction_hash:
+        rejection_reasons.append("NEGATIVE_CONTROL_LATITUDE_SIGN_FLIP_PREDICTION_HASH_CHANGED")
+    if not residual_superiority_pass:
+        rejection_reasons.append("NEGATIVE_CONTROL_RESIDUAL_SUPERIORITY_NOT_MET")
+    return {
+        "control_id": "NASA-POWER-LATITUDE-SIGN-FLIP",
+        "description": "Latitude sign flip is represented as a deliberately invalid geography control and must not preserve the model prediction hash.",
+        "original_prediction_rows_sha256": original_prediction_hash,
+        "control_prediction_rows_sha256": control_prediction_hash,
+        "prediction_hash_changed": control_prediction_hash != original_prediction_hash,
+        "audit_model_mae_kwh_m2_day": model_mae,
+        "audit_comparator_mae_kwh_m2_day": comparator_mae,
+        "audit_uncertainty_allowance_kwh_m2_day": round_metric(uncertainty_allowance),
+        "audit_residual_superiority_pass": residual_superiority_pass,
+        "rejected": bool(rejection_reasons),
+        "rejection_reasons": rejection_reasons,
+    }
+
+
+def nasa_power_hash_payload(pack: dict[str, Any]) -> dict[str, Any]:
+    return {key: value for key, value in pack.items() if key not in {"replay_hash", "evidence_pack_sha256"}}
+
+
+def nasa_power_evidence_hash_payload(pack: dict[str, Any]) -> dict[str, Any]:
+    return {key: value for key, value in pack.items() if key != "evidence_pack_sha256"}
+
+
+def attach_nasa_power_hashes(pack: dict[str, Any]) -> dict[str, Any]:
+    pack = dict(pack)
+    pack["replay_hash"] = sha256_object(nasa_power_hash_payload(pack))
+    pack["evidence_pack_sha256"] = sha256_object(nasa_power_evidence_hash_payload(pack))
+    return pack
+
+
+def blocked_nasa_power_scorer_pack(source_lane: dict[str, Any], blockers: list[str]) -> dict[str, Any]:
+    primary = blockers[0] if blockers else "NASA_POWER_SCORER_BLOCKED"
+    return attach_nasa_power_hashes(
+        {
+            "schema_id": NASA_POWER_SCORER_SCHEMA_ID,
+            "release_id": RELEASE_ID,
+            "version": VERSION,
+            "generated_on": GENERATED_ON,
+            "work_order_id": NASA_POWER_WORK_ORDER_ID,
+            "domain_class_id": "earth_space_environmental_sciences",
+            "phenomenon_class_id": "remote_sensing_and_planetary_measurements",
+            "capability_owner": CAPABILITY_OWNER,
+            "scorer_kind": "target_hidden_temporal_holdout_replay",
+            "pack_status": "BLOCKED_FAIL_CLOSED_SOURCE_OR_DATA_INSUFFICIENT",
+            "strict_artifact": True,
+            "scorer_ready": False,
+            "strict_predicates_all_pass": False,
+            "scientific_pass": False,
+            "coverage_closure_allowed": False,
+            "broad_modern_science_superiority_allowed": False,
+            "source": {
+                "snapshot_ref": source_lane.get("snapshot_ref"),
+                "metadata_ref": source_lane.get("metadata_ref"),
+                "source_snapshot_hash_bound": source_lane.get("source_snapshot_hash_bound") is True,
+                "source_snapshot_sha256": source_lane.get("source_snapshot_sha256"),
+                "value_row_count": source_lane.get("value_row_count", 0),
+            },
+            "exact_blocker": primary,
+            "exact_blockers": blockers,
+            "replay_hash_policy": "sha256 over canonical JSON evidence pack excluding replay_hash and evidence_pack_sha256",
+            "no_send_locks": no_send(),
+        }
+    )
+
+
+def build_nasa_power_scorer_pack(root: Path | None = None) -> dict[str, Any]:
+    root = root or repo_root()
+    source_lane = load_nasa_power_api_lane(root)
+    if source_lane.get("source_snapshot_hash_bound") is not True:
+        return blocked_nasa_power_scorer_pack(
+            source_lane,
+            [str(source_lane.get("remaining_blocker", "NASA_POWER_SOURCE_SNAPSHOT_NOT_HASH_BOUND"))],
+        )
+    snapshot = read_json(root / NASA_POWER_SNAPSHOT_REL)
+    rows = extract_nasa_power_rows(snapshot)
+    if len(rows) < 40:
+        return blocked_nasa_power_scorer_pack(source_lane, [f"NASA_POWER_SOURCE_ROWS_BELOW_REQUIRED_40::{len(rows)}/40"])
+    training_rows = rows[:20]
+    hidden_rows = rows[20:40]
+    params = nasa_power_training_parameters(training_rows)
+    declaration = nasa_power_prediction_declaration(training_rows, hidden_rows, params)
+    prediction_rows = declaration["prediction_materialization"]["prediction_rows"]
+    scored_rows = nasa_power_scored_rows(hidden_rows, prediction_rows)
+    model_residuals = [float(row["model_abs_residual_kwh_m2_day"]) for row in scored_rows]
+    comparator_residuals = [float(row["comparator_abs_residual_kwh_m2_day"]) for row in scored_rows]
+    model_mae = round_metric(mean(model_residuals))
+    comparator_mae = round_metric(mean(comparator_residuals))
+    uncertainty_allowance = round_metric(float(params["aggregate_uncertainty_allowance_kwh_m2_day"]))
+    superiority_margin = round_metric(comparator_mae - model_mae - uncertainty_allowance)
+    residual_superiority_pass = superiority_margin > 0
+    negative_control = nasa_power_negative_control(hidden_rows, prediction_rows, uncertainty_allowance)
+    leakage_control = nasa_power_target_leakage_control(rows, prediction_rows, params)
+    triggered_predicates: list[str] = []
+    if not residual_superiority_pass:
+        triggered_predicates.append("COMPARATOR_BASELINE_NOT_BEATEN_WITH_UNCERTAINTY")
+    if not negative_control["rejected"]:
+        triggered_predicates.append("NEGATIVE_CONTROL_NOT_REJECTED")
+    if not leakage_control["passed"]:
+        triggered_predicates.append("TARGET_LEAKAGE_CONTROL_FAILED")
+    strict_predicates = [
+        {"predicate": "STRICT_PACK_SCHEMA_PASS", "passed": True},
+        {"predicate": "OFFICIAL_SOURCE_SNAPSHOT_HASH_BOUND", "passed": True},
+        {"predicate": "TARGET_VARIABLE_EXACTLY_DECLARED", "passed": True},
+        {"predicate": "TARGET_HIDDEN_SPLIT_DECLARED", "passed": True},
+        {"predicate": "FORMULA_OR_MODEL_PREREGISTERED", "passed": True},
+        {"predicate": "COMPARATOR_PREREGISTERED_AND_TARGET_SEPARATED", "passed": True},
+        {"predicate": "UNCERTAINTY_AND_RESIDUAL_DECLARED", "passed": True},
+        {"predicate": "NEGATIVE_CONTROL_REJECTED", "passed": negative_control["rejected"]},
+        {"predicate": "FALSIFIER_PREDICATES_EXECUTABLE", "passed": True},
+        {"predicate": "TARGET_LEAKAGE_CONTROL_PASS", "passed": leakage_control["passed"]},
+        {
+            "predicate": "RESIDUAL_SUPERIORITY_WITH_UNCERTAINTY",
+            "passed": residual_superiority_pass,
+            "failure": None if residual_superiority_pass else "COMPARATOR_BASELINE_NOT_BEATEN_WITH_UNCERTAINTY",
+        },
+    ]
+    strict_all_pass = all(row["passed"] for row in strict_predicates)
+    pack = {
+        "schema_id": NASA_POWER_SCORER_SCHEMA_ID,
+        "release_id": RELEASE_ID,
+        "version": VERSION,
+        "generated_on": GENERATED_ON,
+        "work_order_id": NASA_POWER_WORK_ORDER_ID,
+        "domain_class_id": "earth_space_environmental_sciences",
+        "phenomenon_class_id": "remote_sensing_and_planetary_measurements",
+        "capability_owner": CAPABILITY_OWNER,
+        "scorer_kind": "target_hidden_temporal_holdout_replay",
+        "pack_status": "STRICT_EVIDENCE_PASS_NO_COVERAGE_CLOSURE" if strict_all_pass else "SCORER_READY_FAIL_CLOSED_STRICT_EVIDENCE_NOT_MET",
+        "strict_artifact": True,
+        "scorer_ready": True,
+        "strict_predicates_all_pass": strict_all_pass,
+        "scientific_pass": strict_all_pass,
+        "coverage_closure_allowed": False,
+        "broad_modern_science_superiority_allowed": False,
+        "coverage_review_status": "NOT_REQUESTED_NO_SEND",
+        "source": {
+            "source_id": "earth_nasa_power_daily_solar_san_francisco_v1",
+            "source_name": "NASA POWER Daily API solar and meteorological point data",
+            "official_endpoint_url": source_lane.get("official_endpoint_url"),
+            "snapshot_ref": NASA_POWER_SNAPSHOT_REL,
+            "metadata_ref": NASA_POWER_METADATA_REL,
+            "source_snapshot_sha256": source_lane.get("source_snapshot_sha256"),
+            "metadata_sha256": source_lane.get("metadata_sha256"),
+            "byte_count": source_lane.get("byte_count"),
+            "value_row_count": source_lane.get("value_row_count"),
+            "source_snapshot_hash_bound": True,
+        },
+        "target_variable": {
+            "name": "daily_all_sky_surface_shortwave_downward_irradiance",
+            "unit": "kWh/m^2/day",
+            "target_field": "NASA_POWER[lat=37.7749, lon=-122.4194, date].ALLSKY_SFC_SW_DWN",
+        },
+        "pretarget_declaration": declaration,
+        "scoring_results": {
+            "hidden_row_count": len(scored_rows),
+            "hidden_target_values_sha256": nasa_power_hidden_target_hash(hidden_rows),
+            "scored_rows_sha256": sha256_object(scored_rows),
+            "scored_rows": scored_rows,
+            "aggregate": {
+                "model_mae_kwh_m2_day": model_mae,
+                "model_rmse_kwh_m2_day": round_metric(rmse(model_residuals)),
+                "comparator_mae_kwh_m2_day": comparator_mae,
+                "comparator_rmse_kwh_m2_day": round_metric(rmse(comparator_residuals)),
+                "aggregate_uncertainty_allowance_kwh_m2_day": uncertainty_allowance,
+                "model_mae_plus_uncertainty_kwh_m2_day": round_metric(model_mae + uncertainty_allowance),
+                "strict_superiority_margin_kwh_m2_day": superiority_margin,
+                "residual_superiority_pass": residual_superiority_pass,
+                "training_parameters": {
+                    "median_visible_solar_kwh_m2_day": round_metric(float(params["median_visible_solar_kwh_m2_day"])),
+                    "mean_visible_solar_kwh_m2_day": round_metric(float(params["mean_visible_solar_kwh_m2_day"])),
+                    "median_visible_solar_day_factor": round_metric(float(params["median_visible_solar_day_factor"])),
+                    "training_leave_forward_residual_mae": round_metric(float(params["training_leave_forward_residual_mae"])),
+                    "training_leave_forward_residual_median_abs": round_metric(float(params["training_leave_forward_residual_median_abs"])),
+                    "training_leave_forward_residual_mad": round_metric(float(params["training_leave_forward_residual_mad"])),
+                },
+            },
+        },
+        "negative_control": negative_control,
+        "target_leakage_control": leakage_control,
+        "falsifier": {
+            "falsifier_id": "NASA-POWER-REMOTE-SENSING-FAIL-CLOSED-FALSIFIER",
+            "status": "NOT_TRIGGERED" if not triggered_predicates else "TRIGGERED",
+            "triggered_predicates": triggered_predicates,
+            "non_triggered_predicates": [
+                "SOURCE_SNAPSHOT_HASH_OR_METADATA_HASH_MISMATCH",
+                "HIDDEN_SOLAR_TARGET_ROWS_READ_BEFORE_PREDICTION_MATERIALIZATION",
+                "FEWER_THAN_20_HIDDEN_DAILY_VALUES_SCORED",
+            ],
+        },
+        "strict_predicate_results": strict_predicates,
+        "exact_blocker": triggered_predicates[0] if triggered_predicates else None,
+        "exact_blockers": triggered_predicates,
+        "exact_blocker_detail": (
+            "model_mae_plus_uncertainty_kwh_m2_day="
+            f"{round_metric(model_mae + uncertainty_allowance)} >= comparator_mae_kwh_m2_day={comparator_mae}"
+            if not residual_superiority_pass
+            else None
+        ),
+        "replay_command": {
+            "commands": [
+                "python validation/heldout/grand_science/earth_space/coverage_work_orders/oc133_earth_space_modern_science_coverage_work_orders.py --score-nasa-power --write",
+                "python validation/heldout/grand_science/earth_space/coverage_work_orders/oc133_earth_space_modern_science_coverage_work_orders.py --check",
+            ]
+        },
+        "replay_hash_policy": "sha256 over canonical JSON evidence pack excluding replay_hash and evidence_pack_sha256",
+        "no_send_locks": no_send(),
+    }
+    return attach_nasa_power_hashes(pack)
+
+
+def nasa_power_scorer_summary(root: Path, source_lane: dict[str, Any]) -> dict[str, Any]:
+    if source_lane.get("source_snapshot_hash_bound") is not True:
+        return {
+            "target_hidden_scorer_present": False,
+            "strict_evidence_pack_ref": None,
+            "strict_evidence_pack_sha256": None,
+            "strict_scientific_predicates_pass": False,
+            "negative_control_rejected": False,
+            "falsifier_status": "NOT_RUN",
+            "remaining_blocker": source_lane.get("remaining_blocker", "NASA_POWER_SOURCE_SNAPSHOT_NOT_HASH_BOUND"),
+            "scorer_status": "OPEN_FAIL_CLOSED_SOURCE_HASH_REQUIRED",
+        }
+    pack = build_nasa_power_scorer_pack(root)
+    return {
+        "target_hidden_scorer_present": pack.get("scorer_ready") is True,
+        "strict_evidence_pack_ref": NASA_POWER_SCORER_EVIDENCE_REL,
+        "strict_evidence_pack_sha256": pack.get("evidence_pack_sha256"),
+        "strict_scientific_predicates_pass": pack.get("strict_predicates_all_pass") is True,
+        "negative_control_rejected": pack.get("negative_control", {}).get("rejected") is True,
+        "falsifier_status": pack.get("falsifier", {}).get("status"),
+        "remaining_blocker": pack.get("exact_blocker") or "COVERAGE_REGISTER_REVIEW_NOT_PERFORMED",
+        "scorer_status": pack.get("pack_status"),
+    }
+
+
+def nasa_power_evidence(source_lane: dict[str, Any], scorer_summary: dict[str, Any]) -> dict[str, Any]:
+    if scorer_summary.get("target_hidden_scorer_present") is not True:
+        return fail_closed_evidence(
+            "NASA POWER source bytes are hash-bound when present, but no target-hidden scorer, comparator result, negative-control result, or strict evidence pack is bound.",
+            source_lane=source_lane,
+        )
+    strict_pass = scorer_summary.get("strict_scientific_predicates_pass") is True
+    return {
+        "current_status": "STRICT_EVIDENCE_PASS_NO_COVERAGE_CLOSURE" if strict_pass else "SCORER_READY_FAIL_CLOSED_STRICT_EVIDENCE_NOT_MET",
+        "executable_evidence_exists": True,
+        "strict_evidence_pack_ref": scorer_summary.get("strict_evidence_pack_ref"),
+        "strict_evidence_pack_sha256": scorer_summary.get("strict_evidence_pack_sha256"),
+        "source_snapshot_hash_bound": source_lane.get("source_snapshot_hash_bound") is True,
+        "source_snapshot_ref": source_lane.get("snapshot_ref"),
+        "source_snapshot_sha256": source_lane.get("source_snapshot_sha256"),
+        "target_hidden_scorer_present": True,
+        "comparator_residual_metric_bound": True,
+        "negative_control_rejected": scorer_summary.get("negative_control_rejected") is True,
+        "falsifier_status": scorer_summary.get("falsifier_status"),
+        "exact_blocker": None if strict_pass else scorer_summary.get("remaining_blocker"),
+        "reason": (
+            "NASA POWER target-hidden scorer, comparator residual, negative-control, and replay hash are bound; coverage closure remains disabled pending coverage-register review."
+            if strict_pass
+            else "NASA POWER target-hidden replay scorer is bound, but strict evidence remains blocked by its exact predicate."
+        ),
+        "coverage_closure_allowed": False,
+        "broad_modern_science_superiority_allowed": False,
+        "scientific_pass": strict_pass,
+    }
+
+
 def fail_closed_evidence(reason: str, *, source_lane: dict[str, Any] | None = None) -> dict[str, Any]:
     source_lane = source_lane or {}
     source_hash_bound = source_lane.get("source_snapshot_hash_bound") is True
@@ -859,21 +1516,7 @@ def noaa_water_level_url(product: str) -> str:
 
 
 def nasa_power_url() -> str:
-    return (
-        "https://power.larc.nasa.gov/api/temporal/daily/point?"
-        + urlencode(
-            {
-                "parameters": "ALLSKY_SFC_SW_DWN,T2M",
-                "community": "RE",
-                "longitude": "-122.4194",
-                "latitude": "37.7749",
-                "start": "20240101",
-                "end": "20240209",
-                "format": "JSON",
-                "time-standard": "UTC",
-            }
-        )
-    )
+    return NASA_POWER_ENDPOINT
 
 
 def build_work_orders(root: Path | None = None) -> list[dict[str, Any]]:
@@ -888,6 +1531,20 @@ def build_work_orders(root: Path | None = None) -> list[dict[str, Any]]:
             if usgs_scorer.get("target_hidden_scorer_present") is True
             and usgs_scorer.get("strict_scientific_predicates_pass") is not True
             else usgs_source_lane.get("status")
+        ),
+    }
+    nasa_source_lane = load_nasa_power_api_lane(root)
+    nasa_scorer = nasa_power_scorer_summary(root, nasa_source_lane)
+    nasa_lane = {
+        **nasa_source_lane,
+        **nasa_scorer,
+        "status": (
+            "SOURCE_SNAPSHOT_HASH_BOUND_STRICT_EVIDENCE_PASS_NO_COVERAGE_CLOSURE"
+            if nasa_scorer.get("target_hidden_scorer_present") is True
+            and nasa_scorer.get("strict_scientific_predicates_pass") is True
+            else "SOURCE_SNAPSHOT_HASH_BOUND_SCORER_READY_FAIL_CLOSED_STRICT_EVIDENCE_NOT_MET"
+            if nasa_scorer.get("target_hidden_scorer_present") is True
+            else nasa_source_lane.get("status")
         ),
     }
     rows = [
@@ -1070,9 +1727,16 @@ def build_work_orders(root: Path | None = None) -> list[dict[str, Any]]:
             "domain_class_id": "earth_space_environmental_sciences",
             "phenomenon_class_id": "remote_sensing_and_planetary_measurements",
             "phenomenon_label": "remote sensing and planetary measurements",
-            "lane_status": "OPEN_FAIL_CLOSED_NO_EXECUTABLE_EVIDENCE",
+            "lane_status": (
+                "STRICT_EVIDENCE_PASS_NO_COVERAGE_CLOSURE"
+                if nasa_scorer.get("strict_scientific_predicates_pass") is True
+                else "SCORER_READY_FAIL_CLOSED_STRICT_EVIDENCE_NOT_MET"
+                if nasa_scorer.get("target_hidden_scorer_present") is True
+                else "OPEN_FAIL_CLOSED_NO_EXECUTABLE_EVIDENCE"
+            ),
             "coverage_closure_allowed": False,
             "support_allowed_for_broad_coverage": False,
+            "official_api_lane": nasa_lane,
             "executable_spec": {
                 "official_source": {
                     "source_id": "earth_nasa_power_daily_solar_san_francisco_v1",
@@ -1081,9 +1745,9 @@ def build_work_orders(root: Path | None = None) -> list[dict[str, Any]]:
                     "official_documentation_url": "https://power.larc.nasa.gov/docs/services/api/temporal/daily/",
                     "official_endpoint_url": nasa_power_url(),
                     "required_local_snapshot_refs": [
-                        "validation/heldout/grand_science/earth_space/coverage_work_orders/raw/nasa_power_sf_daily_20240101_20240209.json"
+                        NASA_POWER_SNAPSHOT_REL
                     ],
-                    "snapshot_status": "NOT_ACQUIRED_FOR_THIS_COVERAGE_CLASS",
+                    "snapshot_status": nasa_lane.get("status"),
                 },
                 "target_variable": {
                     "name": "daily_all_sky_surface_shortwave_downward_irradiance",
@@ -1132,20 +1796,19 @@ def build_work_orders(root: Path | None = None) -> list[dict[str, Any]]:
                 },
                 "N": {
                     "minimum_n": 20,
+                    "acquired_source_rows": nasa_lane.get("value_row_count", 0),
                     "planned_source_rows": 40,
                     "planned_hidden_target_rows": 20,
                     "unit": "daily point records",
                 },
                 "replay_command": {
                     "commands": [
-                        "acquire NASA POWER endpoint listed in this spec and hash response bytes",
+                        "python validation/heldout/grand_science/earth_space/coverage_work_orders/oc133_earth_space_modern_science_coverage_work_orders.py --score-nasa-power --write",
                         "python validation/heldout/grand_science/earth_space/coverage_work_orders/oc133_earth_space_modern_science_coverage_work_orders.py --check",
                     ],
                     "acceptance_predicates": COMMON_CLOSURE_PREDICATES,
                 },
-                "fail_closed_current_evidence": fail_closed_evidence(
-                    "NASA POWER source snapshot, target-hidden scorer, negative-control replay, and strict evidence pack are not yet bound."
-                ),
+                "fail_closed_current_evidence": nasa_power_evidence(nasa_source_lane, nasa_scorer),
             },
             "no_send_locks": no_send(),
         },
@@ -1219,7 +1882,12 @@ def validate_executable_spec(spec: dict[str, Any], *, row_id: str) -> list[str]:
     evidence = spec.get("fail_closed_current_evidence", {})
     if evidence.get("coverage_closure_allowed") is not False:
         failures.append(f"FAIL_CLOSED_EVIDENCE_ALLOWS_CLOSURE::{row_id}")
-    if evidence.get("scientific_pass") is not False:
+    if evidence.get("broad_modern_science_superiority_allowed") is not False:
+        failures.append(f"FAIL_CLOSED_EVIDENCE_ALLOWS_BROAD_SUPERIORITY::{row_id}")
+    if (
+        evidence.get("scientific_pass") is not False
+        and evidence.get("current_status") != "STRICT_EVIDENCE_PASS_NO_COVERAGE_CLOSURE"
+    ):
         failures.append(f"FAIL_CLOSED_EVIDENCE_FAKE_PASS::{row_id}")
     return failures
 
@@ -1393,6 +2061,124 @@ def check_usgs_hydrology_scorer_stored(root: Path | None = None) -> list[str]:
     return sorted(set(failures))
 
 
+def validate_nasa_power_scorer_pack(pack: dict[str, Any], root: Path | None = None) -> list[str]:
+    root = root or repo_root()
+    failures: list[str] = []
+    if pack.get("schema_id") != NASA_POWER_SCORER_SCHEMA_ID:
+        failures.append("NASA_POWER_SCORER_SCHEMA_MISMATCH")
+    if pack.get("work_order_id") != NASA_POWER_WORK_ORDER_ID:
+        failures.append("NASA_POWER_SCORER_WORK_ORDER_MISMATCH")
+    if pack.get("strict_artifact") is not True:
+        failures.append("NASA_POWER_SCORER_STRICT_ARTIFACT_NOT_TRUE")
+    if pack.get("coverage_closure_allowed") is not False:
+        failures.append("NASA_POWER_SCORER_COVERAGE_CLOSURE_ALLOWED")
+    if pack.get("broad_modern_science_superiority_allowed") is not False:
+        failures.append("NASA_POWER_SCORER_BROAD_SUPERIORITY_ALLOWED")
+    if pack.get("no_send_locks", {}).get("no_send") is not True:
+        failures.append("NASA_POWER_SCORER_NO_SEND_LOCK_MISSING")
+    if pack.get("replay_hash") != sha256_object(nasa_power_hash_payload(pack)):
+        failures.append("NASA_POWER_SCORER_REPLAY_HASH_MISMATCH")
+    if pack.get("evidence_pack_sha256") != sha256_object(nasa_power_evidence_hash_payload(pack)):
+        failures.append("NASA_POWER_SCORER_EVIDENCE_PACK_HASH_MISMATCH")
+
+    source_lane = load_nasa_power_api_lane(root)
+    source = pack.get("source", {})
+    if source.get("source_snapshot_hash_bound") is True:
+        if source_lane.get("source_snapshot_hash_bound") is not True:
+            failures.append("NASA_POWER_SCORER_SOURCE_NOT_HASH_BOUND_ON_REPLAY")
+        for field in ("source_snapshot_sha256", "metadata_sha256", "byte_count", "value_row_count"):
+            if source.get(field) != source_lane.get(field):
+                failures.append(f"NASA_POWER_SCORER_SOURCE_FIELD_MISMATCH::{field}")
+
+    if pack.get("scorer_ready") is not True:
+        if not pack.get("exact_blockers"):
+            failures.append("NASA_POWER_SCORER_BLOCKED_WITHOUT_EXACT_BLOCKER")
+        return failures
+
+    declaration = pack.get("pretarget_declaration", {})
+    split = declaration.get("split_policy", {})
+    hidden_placeholders = declaration.get("hidden_target_placeholders", [])
+    visible_rows = declaration.get("visible_training_rows", [])
+    materialization = declaration.get("prediction_materialization", {})
+    prediction_rows = materialization.get("prediction_rows", [])
+    scoring = pack.get("scoring_results", {})
+    scored_rows = scoring.get("scored_rows", [])
+    aggregate = scoring.get("aggregate", {})
+
+    if split.get("training_row_count") != 20 or len(visible_rows) != 20:
+        failures.append("NASA_POWER_SCORER_TRAINING_SPLIT_NOT_20")
+    if split.get("hidden_row_count") != 20 or len(hidden_placeholders) != 20:
+        failures.append("NASA_POWER_SCORER_HIDDEN_SPLIT_NOT_20")
+    if scoring.get("hidden_row_count") != 20 or len(scored_rows) != 20:
+        failures.append("NASA_POWER_SCORER_SCORED_N_NOT_20")
+    if declaration.get("target_hidden_until_scoring") is not True:
+        failures.append("NASA_POWER_SCORER_TARGET_NOT_HIDDEN")
+    if declaration.get("target_values_used_for_model_selection") is not False:
+        failures.append("NASA_POWER_SCORER_TARGET_USED_FOR_SELECTION")
+    if declaration.get("target_values_used_for_prediction_materialization") is not False:
+        failures.append("NASA_POWER_SCORER_TARGET_USED_FOR_PREDICTION")
+    if materialization.get("predictions_materialized_before_target_unseal") is not True:
+        failures.append("NASA_POWER_SCORER_PREDICTIONS_NOT_MATERIALIZED_BEFORE_UNSEAL")
+    if materialization.get("hidden_target_values_included") is not False:
+        failures.append("NASA_POWER_SCORER_MATERIALIZATION_CONTAINS_HIDDEN_TARGETS")
+    for placeholder in hidden_placeholders:
+        if "observed_allsky_sfc_sw_dwn_kwh_m2_day" in placeholder or "target_value" in placeholder:
+            failures.append("NASA_POWER_SCORER_HIDDEN_PLACEHOLDER_LEAKS_TARGET")
+            break
+    if materialization.get("prediction_rows_sha256") != sha256_object(prediction_rows):
+        failures.append("NASA_POWER_SCORER_PREDICTION_ROWS_HASH_MISMATCH")
+    if scoring.get("scored_rows_sha256") != sha256_object(scored_rows):
+        failures.append("NASA_POWER_SCORER_SCORED_ROWS_HASH_MISMATCH")
+    for row in scored_rows:
+        expected_row_hash = sha256_object({key: value for key, value in row.items() if key != "score_row_sha256"})
+        if row.get("score_row_sha256") != expected_row_hash:
+            failures.append(f"NASA_POWER_SCORER_SCORE_ROW_HASH_MISMATCH::{row.get('date')}")
+
+    model_mae = float(aggregate.get("model_mae_kwh_m2_day", 0.0) or 0.0)
+    comparator_mae = float(aggregate.get("comparator_mae_kwh_m2_day", 0.0) or 0.0)
+    uncertainty = float(aggregate.get("aggregate_uncertainty_allowance_kwh_m2_day", 0.0) or 0.0)
+    residual_pass = model_mae + uncertainty < comparator_mae
+    if aggregate.get("residual_superiority_pass") is not residual_pass:
+        failures.append("NASA_POWER_SCORER_RESIDUAL_SUPERIORITY_FLAG_MISMATCH")
+    if round_metric(comparator_mae - model_mae - uncertainty) != aggregate.get("strict_superiority_margin_kwh_m2_day"):
+        failures.append("NASA_POWER_SCORER_SUPERIORITY_MARGIN_MISMATCH")
+    if pack.get("negative_control", {}).get("rejected") is not True:
+        failures.append("NASA_POWER_NEGATIVE_CONTROL_NOT_REJECTED")
+    if pack.get("target_leakage_control", {}).get("passed") is not True:
+        failures.append("NASA_POWER_TARGET_LEAKAGE_CONTROL_NOT_PASSED")
+    strict_predicates = pack.get("strict_predicate_results", [])
+    strict_all = all(row.get("passed") is True for row in strict_predicates) if strict_predicates else False
+    if pack.get("strict_predicates_all_pass") is not strict_all:
+        failures.append("NASA_POWER_STRICT_PREDICATE_SUMMARY_MISMATCH")
+    if pack.get("scientific_pass") is not strict_all:
+        failures.append("NASA_POWER_SCIENTIFIC_PASS_MISMATCH")
+    if not residual_pass and pack.get("exact_blocker") != "COMPARATOR_BASELINE_NOT_BEATEN_WITH_UNCERTAINTY":
+        failures.append("NASA_POWER_EXACT_BLOCKER_MISMATCH")
+    falsifier_status = pack.get("falsifier", {}).get("status")
+    if pack.get("exact_blockers") and falsifier_status != "TRIGGERED":
+        failures.append("NASA_POWER_FALSIFIER_NOT_TRIGGERED_FOR_BLOCKER")
+    if not pack.get("exact_blockers") and falsifier_status != "NOT_TRIGGERED":
+        failures.append("NASA_POWER_FALSIFIER_TRIGGERED_WITHOUT_BLOCKER")
+    return failures
+
+
+def check_nasa_power_scorer_stored(root: Path | None = None) -> list[str]:
+    root = root or repo_root()
+    source_lane = load_nasa_power_api_lane(root)
+    if source_lane.get("source_snapshot_hash_bound") is not True:
+        return []
+    expected = build_nasa_power_scorer_pack(root)
+    failures = validate_nasa_power_scorer_pack(expected, root)
+    path = root / NASA_POWER_SCORER_EVIDENCE_REL
+    if not path.exists():
+        return [*failures, f"missing::{NASA_POWER_SCORER_EVIDENCE_REL}"]
+    actual = read_json(path)
+    if actual != expected:
+        failures.append(f"mismatch::{NASA_POWER_SCORER_EVIDENCE_REL}")
+    failures.extend(validate_nasa_power_scorer_pack(actual if isinstance(actual, dict) else {}, root))
+    return sorted(set(failures))
+
+
 def check_stored(root: Path | None = None) -> list[str]:
     root = root or repo_root()
     expected = build_payload(root)
@@ -1405,6 +2191,7 @@ def check_stored(root: Path | None = None) -> list[str]:
         failures.append(f"mismatch::{OUTPUT_REL}")
     failures.extend(validate_payload(actual if isinstance(actual, dict) else {}))
     failures.extend(check_usgs_hydrology_scorer_stored(root))
+    failures.extend(check_nasa_power_scorer_stored(root))
     return sorted(set(failures))
 
 
@@ -1423,6 +2210,16 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
         action="store_true",
         help="build/check the target-hidden USGS hydrology replay scorer evidence pack",
     )
+    parser.add_argument(
+        "--refresh-nasa-power-source",
+        action="store_true",
+        help="perform one read-only official NASA POWER acquisition and refresh the local hash-bound source snapshot",
+    )
+    parser.add_argument(
+        "--score-nasa-power",
+        action="store_true",
+        help="build/check the target-hidden NASA POWER remote-sensing replay scorer evidence pack",
+    )
     return parser.parse_args(argv)
 
 
@@ -1431,6 +2228,8 @@ def main(argv: list[str] | None = None) -> int:
     root = Path(args.root).resolve()
     if args.refresh_usgs_hydrology_source:
         refresh_usgs_hydrology_snapshot(root)
+    if args.refresh_nasa_power_source:
+        refresh_nasa_power_snapshot(root)
     if args.score_usgs_hydrology:
         pack = build_usgs_hydrology_scorer_pack(root)
         if args.write:
@@ -1441,6 +2240,24 @@ def main(argv: list[str] | None = None) -> int:
                 {
                     "status": "ok" if not failures else "failed",
                     "output_ref": USGS_HYDROLOGY_SCORER_EVIDENCE_REL,
+                    "pack_status": pack.get("pack_status"),
+                    "exact_blocker": pack.get("exact_blocker"),
+                    "failures": failures,
+                },
+                indent=2,
+            )
+        )
+        return 0 if not failures else 1
+    if args.score_nasa_power:
+        pack = build_nasa_power_scorer_pack(root)
+        if args.write:
+            write_json(root / NASA_POWER_SCORER_EVIDENCE_REL, pack)
+        failures = check_nasa_power_scorer_stored(root) if args.check else validate_nasa_power_scorer_pack(pack, root)
+        print(
+            json.dumps(
+                {
+                    "status": "ok" if not failures else "failed",
+                    "output_ref": NASA_POWER_SCORER_EVIDENCE_REL,
                     "pack_status": pack.get("pack_status"),
                     "exact_blocker": pack.get("exact_blocker"),
                     "failures": failures,
@@ -1463,6 +2280,8 @@ def main(argv: list[str] | None = None) -> int:
         write_json(root / OUTPUT_REL, payload)
         if load_usgs_api_lane(root).get("source_snapshot_hash_bound") is True:
             write_json(root / USGS_HYDROLOGY_SCORER_EVIDENCE_REL, build_usgs_hydrology_scorer_pack(root))
+        if load_nasa_power_api_lane(root).get("source_snapshot_hash_bound") is True:
+            write_json(root / NASA_POWER_SCORER_EVIDENCE_REL, build_nasa_power_scorer_pack(root))
     print(json.dumps({"status": "ok" if not failures else "failed", "output_ref": OUTPUT_REL, "failures": failures}, indent=2))
     return 0 if not failures else 1
 

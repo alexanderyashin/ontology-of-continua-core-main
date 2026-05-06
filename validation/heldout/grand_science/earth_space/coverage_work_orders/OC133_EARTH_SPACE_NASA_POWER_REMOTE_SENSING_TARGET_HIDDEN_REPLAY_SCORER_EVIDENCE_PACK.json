@@ -1,0 +1,983 @@
+{
+  "schema_id": "OC133_EARTH_SPACE_NASA_POWER_REMOTE_SENSING_TARGET_HIDDEN_REPLAY_SCORER_v1",
+  "release_id": "oc_core_1_3_3",
+  "version": "1.3.3",
+  "generated_on": "2026-05-01",
+  "work_order_id": "MS-COV-WO-012",
+  "domain_class_id": "earth_space_environmental_sciences",
+  "phenomenon_class_id": "remote_sensing_and_planetary_measurements",
+  "capability_owner": "Logion Earth-Space Evidence / Official Geophysical Data",
+  "scorer_kind": "target_hidden_temporal_holdout_replay",
+  "pack_status": "STRICT_EVIDENCE_PASS_NO_COVERAGE_CLOSURE",
+  "strict_artifact": true,
+  "scorer_ready": true,
+  "strict_predicates_all_pass": true,
+  "scientific_pass": true,
+  "coverage_closure_allowed": false,
+  "broad_modern_science_superiority_allowed": false,
+  "coverage_review_status": "NOT_REQUESTED_NO_SEND",
+  "source": {
+    "source_id": "earth_nasa_power_daily_solar_san_francisco_v1",
+    "source_name": "NASA POWER Daily API solar and meteorological point data",
+    "official_endpoint_url": "https://power.larc.nasa.gov/api/temporal/daily/point?parameters=ALLSKY_SFC_SW_DWN%2CT2M&community=RE&longitude=-122.4194&latitude=37.7749&start=20240101&end=20240209&format=JSON&time-standard=UTC",
+    "snapshot_ref": "validation/heldout/grand_science/earth_space/coverage_work_orders/raw/nasa_power_sf_daily_20240101_20240209.json",
+    "metadata_ref": "validation/heldout/grand_science/earth_space/coverage_work_orders/raw/nasa_power_sf_daily_20240101_20240209.metadata.json",
+    "source_snapshot_sha256": "ea390ed545ae47f24d867127b0074c6d44d5dc003aaefd9da3db3086f24f2a32",
+    "metadata_sha256": "89b7e07c77a7ac804b33380e3809d1b1bf28b0c216933408334493f41283e6e8",
+    "byte_count": 1983,
+    "value_row_count": 40,
+    "source_snapshot_hash_bound": true
+  },
+  "target_variable": {
+    "name": "daily_all_sky_surface_shortwave_downward_irradiance",
+    "unit": "kWh/m^2/day",
+    "target_field": "NASA_POWER[lat=37.7749, lon=-122.4194, date].ALLSKY_SFC_SW_DWN"
+  },
+  "pretarget_declaration": {
+    "declared_before_scoring": true,
+    "target_hidden_until_scoring": true,
+    "target_values_used_for_model_selection": false,
+    "target_values_used_for_prediction_materialization": false,
+    "split_policy": {
+      "mode": "prospective_source_lock_then_temporal_holdout",
+      "training_row_count": 20,
+      "hidden_row_count": 20,
+      "training_date_range": [
+        "2024-01-01",
+        "2024-01-20"
+      ],
+      "hidden_date_range": [
+        "2024-01-21",
+        "2024-02-09"
+      ],
+      "split_rule": "First 20 NASA POWER daily rows are visible training rows; final 20 rows are hidden scoring targets."
+    },
+    "visible_training_rows": [
+      {
+        "row_index": 1,
+        "date": "2024-01-01",
+        "allsky_sfc_sw_dwn_kwh_m2_day": 2.8116,
+        "t2m_celsius": 10.61,
+        "source_row_sha256": "2ea0ea8345c119bbc7de28067e27e8e4786bd19430d999ad6c5798709306310c"
+      },
+      {
+        "row_index": 2,
+        "date": "2024-01-02",
+        "allsky_sfc_sw_dwn_kwh_m2_day": 1.5002,
+        "t2m_celsius": 11.42,
+        "source_row_sha256": "1ce79fdc1deb4441fa2eb9c3075d5eacb3533c6a3cb7cd2eb49f0f2d1b01b794"
+      },
+      {
+        "row_index": 3,
+        "date": "2024-01-03",
+        "allsky_sfc_sw_dwn_kwh_m2_day": 2.2234,
+        "t2m_celsius": 10.91,
+        "source_row_sha256": "e5b17bd7c81a1041896287907a488aaed153d6cbf9c985d3a0aa639ce48e28f7"
+      },
+      {
+        "row_index": 4,
+        "date": "2024-01-04",
+        "allsky_sfc_sw_dwn_kwh_m2_day": 2.8104,
+        "t2m_celsius": 10.01,
+        "source_row_sha256": "b297bca955cc5387dc4f2d2c4b304d86c927c8e50e7b1ede1d4a9ca1c3e3d1be"
+      },
+      {
+        "row_index": 5,
+        "date": "2024-01-05",
+        "allsky_sfc_sw_dwn_kwh_m2_day": 2.9635,
+        "t2m_celsius": 11.16,
+        "source_row_sha256": "b9b1171c0e53ee7ecf75ec44d6c0055a1820edfe96a7db98ecd0881987221eac"
+      },
+      {
+        "row_index": 6,
+        "date": "2024-01-06",
+        "allsky_sfc_sw_dwn_kwh_m2_day": 1.1222,
+        "t2m_celsius": 10.24,
+        "source_row_sha256": "b443f528d1617723896ecdfc8836176007128a4e405c02ef318b6d5117e15bf7"
+      },
+      {
+        "row_index": 7,
+        "date": "2024-01-07",
+        "allsky_sfc_sw_dwn_kwh_m2_day": 3.005,
+        "t2m_celsius": 7.69,
+        "source_row_sha256": "08df1b7a6036d553cd0bf96fe2a26b26d1472960d2f0c50b61a9b1986d4c8acc"
+      },
+      {
+        "row_index": 8,
+        "date": "2024-01-08",
+        "allsky_sfc_sw_dwn_kwh_m2_day": 2.819,
+        "t2m_celsius": 8.13,
+        "source_row_sha256": "e7732f16eff87ea1d6ede65cc6383dd703651443ad2700a5215695c1bf0798dc"
+      },
+      {
+        "row_index": 9,
+        "date": "2024-01-09",
+        "allsky_sfc_sw_dwn_kwh_m2_day": 1.7882,
+        "t2m_celsius": 10.89,
+        "source_row_sha256": "f68fe020399467b8f01364e4ffd44e3410f4b96b5a7ccfb3094665313327ee18"
+      },
+      {
+        "row_index": 10,
+        "date": "2024-01-10",
+        "allsky_sfc_sw_dwn_kwh_m2_day": 1.566,
+        "t2m_celsius": 8.98,
+        "source_row_sha256": "64658107748e838df2acc12d9e6b9f1d7b740123f18b6d24ea742926e85df514"
+      },
+      {
+        "row_index": 11,
+        "date": "2024-01-11",
+        "allsky_sfc_sw_dwn_kwh_m2_day": 3.1258,
+        "t2m_celsius": 8.59,
+        "source_row_sha256": "f5c3dc01f9adf5add4e5515dedc136df2dccbc21ab1d47a64916130daafe2aba"
+      },
+      {
+        "row_index": 12,
+        "date": "2024-01-12",
+        "allsky_sfc_sw_dwn_kwh_m2_day": 1.9255,
+        "t2m_celsius": 8.0,
+        "source_row_sha256": "b4cc6e72c533617585acee6c92cc3a13c99dbff702f9551749031ad052b1f017"
+      },
+      {
+        "row_index": 13,
+        "date": "2024-01-13",
+        "allsky_sfc_sw_dwn_kwh_m2_day": 1.1734,
+        "t2m_celsius": 9.98,
+        "source_row_sha256": "9db035cd6e4b71925abe7c271a3647c276c5c1690b519419147e98f41f8b6237"
+      },
+      {
+        "row_index": 14,
+        "date": "2024-01-14",
+        "allsky_sfc_sw_dwn_kwh_m2_day": 2.7362,
+        "t2m_celsius": 12.04,
+        "source_row_sha256": "6f526b388b44f017f5c9d623aa7ef7b256748e10c4cb28e61d23dd33cab13d35"
+      },
+      {
+        "row_index": 15,
+        "date": "2024-01-15",
+        "allsky_sfc_sw_dwn_kwh_m2_day": 2.8075,
+        "t2m_celsius": 10.1,
+        "source_row_sha256": "f61ad1ae5c9d8e57d27196af77c3e582cc27b3168c67ced60f40438f747f3ab4"
+      },
+      {
+        "row_index": 16,
+        "date": "2024-01-16",
+        "allsky_sfc_sw_dwn_kwh_m2_day": 1.6867,
+        "t2m_celsius": 9.32,
+        "source_row_sha256": "0e735c6b560d9665984a4918ed4555b7dd7d90140d7c354604097d04833100e1"
+      },
+      {
+        "row_index": 17,
+        "date": "2024-01-17",
+        "allsky_sfc_sw_dwn_kwh_m2_day": 2.6016,
+        "t2m_celsius": 11.46,
+        "source_row_sha256": "575aaabbb059e8dc1d2b4ea06240f1479c5427e733d8316b1d4e8049afb9d195"
+      },
+      {
+        "row_index": 18,
+        "date": "2024-01-18",
+        "allsky_sfc_sw_dwn_kwh_m2_day": 1.5086,
+        "t2m_celsius": 10.22,
+        "source_row_sha256": "d0eaf2b73691018af6f37c4ce2dca6531bb0e10c03b0eb23def5575fd57159f1"
+      },
+      {
+        "row_index": 19,
+        "date": "2024-01-19",
+        "allsky_sfc_sw_dwn_kwh_m2_day": 0.8782,
+        "t2m_celsius": 10.39,
+        "source_row_sha256": "7e4f9e920b3161f12916c20a7f0a072fe25ddc03264f435f2d8f1967543c77c9"
+      },
+      {
+        "row_index": 20,
+        "date": "2024-01-20",
+        "allsky_sfc_sw_dwn_kwh_m2_day": 1.075,
+        "t2m_celsius": 12.62,
+        "source_row_sha256": "c2e0b74344fe768bb6f3b33bfee87a449e1751f355cc005c9ee630db287ef3b4"
+      }
+    ],
+    "hidden_target_placeholders": [
+      {
+        "row_index": 21,
+        "date": "2024-01-21",
+        "target_field": "properties.parameter.ALLSKY_SFC_SW_DWN.<YYYYMMDD>",
+        "target_value_hidden": true,
+        "target_placeholder_sha256": "8bb2aa452beffd14a3cdebddde50e9d798ea3f1adb3cb1a68d158cb2c396a73f"
+      },
+      {
+        "row_index": 22,
+        "date": "2024-01-22",
+        "target_field": "properties.parameter.ALLSKY_SFC_SW_DWN.<YYYYMMDD>",
+        "target_value_hidden": true,
+        "target_placeholder_sha256": "043e5ccd713f494c9eb75261aed8e2947aac39d6c1e4c5e34c8944a970bd1fd6"
+      },
+      {
+        "row_index": 23,
+        "date": "2024-01-23",
+        "target_field": "properties.parameter.ALLSKY_SFC_SW_DWN.<YYYYMMDD>",
+        "target_value_hidden": true,
+        "target_placeholder_sha256": "9e8cb34f12cf8bf7b8b980a0ac2c56de86a45951a0760b6807df9e63f3b183a0"
+      },
+      {
+        "row_index": 24,
+        "date": "2024-01-24",
+        "target_field": "properties.parameter.ALLSKY_SFC_SW_DWN.<YYYYMMDD>",
+        "target_value_hidden": true,
+        "target_placeholder_sha256": "55ec11e7f9ae1c7527d8911c5dabdbda32d1720747a601a9a812b54dc9b039a4"
+      },
+      {
+        "row_index": 25,
+        "date": "2024-01-25",
+        "target_field": "properties.parameter.ALLSKY_SFC_SW_DWN.<YYYYMMDD>",
+        "target_value_hidden": true,
+        "target_placeholder_sha256": "f12638d880e8fa4541f7a073bd8896620a68f77784696a1902ebd6a811fae449"
+      },
+      {
+        "row_index": 26,
+        "date": "2024-01-26",
+        "target_field": "properties.parameter.ALLSKY_SFC_SW_DWN.<YYYYMMDD>",
+        "target_value_hidden": true,
+        "target_placeholder_sha256": "fb846ff2865f9054c892e5d36fcd10a89114800c3effe84d23e0655370fe2b73"
+      },
+      {
+        "row_index": 27,
+        "date": "2024-01-27",
+        "target_field": "properties.parameter.ALLSKY_SFC_SW_DWN.<YYYYMMDD>",
+        "target_value_hidden": true,
+        "target_placeholder_sha256": "4ed64f56bd013e51939bc48165b8eed54ae6e19810ef54e7554e1be3324d4cc9"
+      },
+      {
+        "row_index": 28,
+        "date": "2024-01-28",
+        "target_field": "properties.parameter.ALLSKY_SFC_SW_DWN.<YYYYMMDD>",
+        "target_value_hidden": true,
+        "target_placeholder_sha256": "6db13ca443bf07118e2ebcdcb8a4ebf9774a3d0c0ab23c616106f9446e2521c7"
+      },
+      {
+        "row_index": 29,
+        "date": "2024-01-29",
+        "target_field": "properties.parameter.ALLSKY_SFC_SW_DWN.<YYYYMMDD>",
+        "target_value_hidden": true,
+        "target_placeholder_sha256": "eccfdfe94db4dbfff3ada3c5ecdc3bf4e0523aaded9ae10118a08fe48eb23d70"
+      },
+      {
+        "row_index": 30,
+        "date": "2024-01-30",
+        "target_field": "properties.parameter.ALLSKY_SFC_SW_DWN.<YYYYMMDD>",
+        "target_value_hidden": true,
+        "target_placeholder_sha256": "4e60caafdda301d42461be089e0af9f5a9c4abd7401b262c25c3d36e2ca31c4b"
+      },
+      {
+        "row_index": 31,
+        "date": "2024-01-31",
+        "target_field": "properties.parameter.ALLSKY_SFC_SW_DWN.<YYYYMMDD>",
+        "target_value_hidden": true,
+        "target_placeholder_sha256": "5766e895d937f5a6540a4b8a9cca9ff6cad8b60f0ac8dff1df51ab9a9b3704ba"
+      },
+      {
+        "row_index": 32,
+        "date": "2024-02-01",
+        "target_field": "properties.parameter.ALLSKY_SFC_SW_DWN.<YYYYMMDD>",
+        "target_value_hidden": true,
+        "target_placeholder_sha256": "d58d7c6602ccdff60794c72227c0b483c4a13033733715d958a22126af5fbcc2"
+      },
+      {
+        "row_index": 33,
+        "date": "2024-02-02",
+        "target_field": "properties.parameter.ALLSKY_SFC_SW_DWN.<YYYYMMDD>",
+        "target_value_hidden": true,
+        "target_placeholder_sha256": "71ecbec79a0b9f2f473f7c486234cfe56f33f0e0ac18cfdd7ad99cdd4b9f498b"
+      },
+      {
+        "row_index": 34,
+        "date": "2024-02-03",
+        "target_field": "properties.parameter.ALLSKY_SFC_SW_DWN.<YYYYMMDD>",
+        "target_value_hidden": true,
+        "target_placeholder_sha256": "688f5f10de2a490aa816c3a9ea587cc5c89e7e46fefa4aff1c99eba691696747"
+      },
+      {
+        "row_index": 35,
+        "date": "2024-02-04",
+        "target_field": "properties.parameter.ALLSKY_SFC_SW_DWN.<YYYYMMDD>",
+        "target_value_hidden": true,
+        "target_placeholder_sha256": "3ae0f79eab26092cb6a481eae7742c0fb0101cb6fa43a7e2e8ebd234ab2a97ee"
+      },
+      {
+        "row_index": 36,
+        "date": "2024-02-05",
+        "target_field": "properties.parameter.ALLSKY_SFC_SW_DWN.<YYYYMMDD>",
+        "target_value_hidden": true,
+        "target_placeholder_sha256": "18613c43ce4d536376d6766e4ecd92a72dd7988b0dcaaf87034c719ff6fa3033"
+      },
+      {
+        "row_index": 37,
+        "date": "2024-02-06",
+        "target_field": "properties.parameter.ALLSKY_SFC_SW_DWN.<YYYYMMDD>",
+        "target_value_hidden": true,
+        "target_placeholder_sha256": "b66442c6e0b151b65d1027faed322e82b05fdfc394a2ed29c3cc69d5b0d3b4e8"
+      },
+      {
+        "row_index": 38,
+        "date": "2024-02-07",
+        "target_field": "properties.parameter.ALLSKY_SFC_SW_DWN.<YYYYMMDD>",
+        "target_value_hidden": true,
+        "target_placeholder_sha256": "cf85a3be307e314e03d6a466f49804a1faf4138f441c052bccc259a7ec7f6213"
+      },
+      {
+        "row_index": 39,
+        "date": "2024-02-08",
+        "target_field": "properties.parameter.ALLSKY_SFC_SW_DWN.<YYYYMMDD>",
+        "target_value_hidden": true,
+        "target_placeholder_sha256": "91c81bad53b37138cc8e7fbbe2a7a66c3cc5ed2bf4f21390f57360c505adb0c4"
+      },
+      {
+        "row_index": 40,
+        "date": "2024-02-09",
+        "target_field": "properties.parameter.ALLSKY_SFC_SW_DWN.<YYYYMMDD>",
+        "target_value_hidden": true,
+        "target_placeholder_sha256": "4c7a766a80faef69ddd6ec583599079b4a0fdb5ef119104b822a9085f24e0e73"
+      }
+    ],
+    "prediction_formula": {
+      "model_id": "NASA-POWER-CLEAR-SKY-SEASONAL-LAG",
+      "pre_registered": true,
+      "rule": "y_hat(date) = median(visible ALLSKY_SFC_SW_DWN) * solar_day_factor(date) / median(visible solar_day_factor)",
+      "solar_day_factor": "max(0.05, sin(latitude)sin(declination(day_of_year)) + cos(latitude)cos(declination(day_of_year)))",
+      "training_only_parameters": {
+        "median_visible_solar_kwh_m2_day": 2.07445,
+        "median_visible_solar_day_factor": 0.504006
+      }
+    },
+    "comparator_baseline": {
+      "comparator_id": "NASA-POWER-TRAILING-MEAN-COMPARATOR",
+      "pre_registered": true,
+      "prediction_rule": "Predict every hidden daily solar row as the mean of the final seven visible daily solar rows.",
+      "target_values_used_for_baseline_design": false
+    },
+    "uncertainty_policy": {
+      "method": "fixed preregistered materiality floor",
+      "residual_metric": "hidden mean absolute residual in kWh/m^2/day",
+      "aggregate_uncertainty_allowance_kwh_m2_day": 0.05,
+      "training_leave_forward_residual_mae_reported_not_used_to_loosen_rule": 0.868531,
+      "strict_superiority_rule": "model_mae_kwh_m2_day + aggregate_uncertainty_allowance_kwh_m2_day < comparator_mae_kwh_m2_day"
+    },
+    "prediction_materialization": {
+      "predictions_materialized_before_target_unseal": true,
+      "hidden_target_values_included": false,
+      "prediction_rows": [
+        {
+          "row_index": 21,
+          "date": "2024-01-21",
+          "model_prediction_kwh_m2_day": 2.186933,
+          "comparator_prediction_kwh_m2_day": 1.899114,
+          "prediction_inputs": {
+            "median_visible_solar_kwh_m2_day": 2.07445,
+            "median_visible_solar_day_factor": 0.504006,
+            "hidden_date_solar_day_factor": 0.531335,
+            "trailing_seven_visible_mean_kwh_m2_day": 1.899114,
+            "hidden_target_value_used": false
+          }
+        },
+        {
+          "row_index": 22,
+          "date": "2024-01-22",
+          "model_prediction_kwh_m2_day": 2.19968,
+          "comparator_prediction_kwh_m2_day": 1.899114,
+          "prediction_inputs": {
+            "median_visible_solar_kwh_m2_day": 2.07445,
+            "median_visible_solar_day_factor": 0.504006,
+            "hidden_date_solar_day_factor": 0.534432,
+            "trailing_seven_visible_mean_kwh_m2_day": 1.899114,
+            "hidden_target_value_used": false
+          }
+        },
+        {
+          "row_index": 23,
+          "date": "2024-01-23",
+          "model_prediction_kwh_m2_day": 2.212756,
+          "comparator_prediction_kwh_m2_day": 1.899114,
+          "prediction_inputs": {
+            "median_visible_solar_kwh_m2_day": 2.07445,
+            "median_visible_solar_day_factor": 0.504006,
+            "hidden_date_solar_day_factor": 0.537609,
+            "trailing_seven_visible_mean_kwh_m2_day": 1.899114,
+            "hidden_target_value_used": false
+          }
+        },
+        {
+          "row_index": 24,
+          "date": "2024-01-24",
+          "model_prediction_kwh_m2_day": 2.226154,
+          "comparator_prediction_kwh_m2_day": 1.899114,
+          "prediction_inputs": {
+            "median_visible_solar_kwh_m2_day": 2.07445,
+            "median_visible_solar_day_factor": 0.504006,
+            "hidden_date_solar_day_factor": 0.540864,
+            "trailing_seven_visible_mean_kwh_m2_day": 1.899114,
+            "hidden_target_value_used": false
+          }
+        },
+        {
+          "row_index": 25,
+          "date": "2024-01-25",
+          "model_prediction_kwh_m2_day": 2.239866,
+          "comparator_prediction_kwh_m2_day": 1.899114,
+          "prediction_inputs": {
+            "median_visible_solar_kwh_m2_day": 2.07445,
+            "median_visible_solar_day_factor": 0.504006,
+            "hidden_date_solar_day_factor": 0.544195,
+            "trailing_seven_visible_mean_kwh_m2_day": 1.899114,
+            "hidden_target_value_used": false
+          }
+        },
+        {
+          "row_index": 26,
+          "date": "2024-01-26",
+          "model_prediction_kwh_m2_day": 2.253886,
+          "comparator_prediction_kwh_m2_day": 1.899114,
+          "prediction_inputs": {
+            "median_visible_solar_kwh_m2_day": 2.07445,
+            "median_visible_solar_day_factor": 0.504006,
+            "hidden_date_solar_day_factor": 0.547602,
+            "trailing_seven_visible_mean_kwh_m2_day": 1.899114,
+            "hidden_target_value_used": false
+          }
+        },
+        {
+          "row_index": 27,
+          "date": "2024-01-27",
+          "model_prediction_kwh_m2_day": 2.268207,
+          "comparator_prediction_kwh_m2_day": 1.899114,
+          "prediction_inputs": {
+            "median_visible_solar_kwh_m2_day": 2.07445,
+            "median_visible_solar_day_factor": 0.504006,
+            "hidden_date_solar_day_factor": 0.551081,
+            "trailing_seven_visible_mean_kwh_m2_day": 1.899114,
+            "hidden_target_value_used": false
+          }
+        },
+        {
+          "row_index": 28,
+          "date": "2024-01-28",
+          "model_prediction_kwh_m2_day": 2.282821,
+          "comparator_prediction_kwh_m2_day": 1.899114,
+          "prediction_inputs": {
+            "median_visible_solar_kwh_m2_day": 2.07445,
+            "median_visible_solar_day_factor": 0.504006,
+            "hidden_date_solar_day_factor": 0.554631,
+            "trailing_seven_visible_mean_kwh_m2_day": 1.899114,
+            "hidden_target_value_used": false
+          }
+        },
+        {
+          "row_index": 29,
+          "date": "2024-01-29",
+          "model_prediction_kwh_m2_day": 2.297721,
+          "comparator_prediction_kwh_m2_day": 1.899114,
+          "prediction_inputs": {
+            "median_visible_solar_kwh_m2_day": 2.07445,
+            "median_visible_solar_day_factor": 0.504006,
+            "hidden_date_solar_day_factor": 0.558252,
+            "trailing_seven_visible_mean_kwh_m2_day": 1.899114,
+            "hidden_target_value_used": false
+          }
+        },
+        {
+          "row_index": 30,
+          "date": "2024-01-30",
+          "model_prediction_kwh_m2_day": 2.312899,
+          "comparator_prediction_kwh_m2_day": 1.899114,
+          "prediction_inputs": {
+            "median_visible_solar_kwh_m2_day": 2.07445,
+            "median_visible_solar_day_factor": 0.504006,
+            "hidden_date_solar_day_factor": 0.561939,
+            "trailing_seven_visible_mean_kwh_m2_day": 1.899114,
+            "hidden_target_value_used": false
+          }
+        },
+        {
+          "row_index": 31,
+          "date": "2024-01-31",
+          "model_prediction_kwh_m2_day": 2.328348,
+          "comparator_prediction_kwh_m2_day": 1.899114,
+          "prediction_inputs": {
+            "median_visible_solar_kwh_m2_day": 2.07445,
+            "median_visible_solar_day_factor": 0.504006,
+            "hidden_date_solar_day_factor": 0.565693,
+            "trailing_seven_visible_mean_kwh_m2_day": 1.899114,
+            "hidden_target_value_used": false
+          }
+        },
+        {
+          "row_index": 32,
+          "date": "2024-02-01",
+          "model_prediction_kwh_m2_day": 2.34406,
+          "comparator_prediction_kwh_m2_day": 1.899114,
+          "prediction_inputs": {
+            "median_visible_solar_kwh_m2_day": 2.07445,
+            "median_visible_solar_day_factor": 0.504006,
+            "hidden_date_solar_day_factor": 0.56951,
+            "trailing_seven_visible_mean_kwh_m2_day": 1.899114,
+            "hidden_target_value_used": false
+          }
+        },
+        {
+          "row_index": 33,
+          "date": "2024-02-02",
+          "model_prediction_kwh_m2_day": 2.360027,
+          "comparator_prediction_kwh_m2_day": 1.899114,
+          "prediction_inputs": {
+            "median_visible_solar_kwh_m2_day": 2.07445,
+            "median_visible_solar_day_factor": 0.504006,
+            "hidden_date_solar_day_factor": 0.573389,
+            "trailing_seven_visible_mean_kwh_m2_day": 1.899114,
+            "hidden_target_value_used": false
+          }
+        },
+        {
+          "row_index": 34,
+          "date": "2024-02-03",
+          "model_prediction_kwh_m2_day": 2.376241,
+          "comparator_prediction_kwh_m2_day": 1.899114,
+          "prediction_inputs": {
+            "median_visible_solar_kwh_m2_day": 2.07445,
+            "median_visible_solar_day_factor": 0.504006,
+            "hidden_date_solar_day_factor": 0.577329,
+            "trailing_seven_visible_mean_kwh_m2_day": 1.899114,
+            "hidden_target_value_used": false
+          }
+        },
+        {
+          "row_index": 35,
+          "date": "2024-02-04",
+          "model_prediction_kwh_m2_day": 2.392694,
+          "comparator_prediction_kwh_m2_day": 1.899114,
+          "prediction_inputs": {
+            "median_visible_solar_kwh_m2_day": 2.07445,
+            "median_visible_solar_day_factor": 0.504006,
+            "hidden_date_solar_day_factor": 0.581326,
+            "trailing_seven_visible_mean_kwh_m2_day": 1.899114,
+            "hidden_target_value_used": false
+          }
+        },
+        {
+          "row_index": 36,
+          "date": "2024-02-05",
+          "model_prediction_kwh_m2_day": 2.409377,
+          "comparator_prediction_kwh_m2_day": 1.899114,
+          "prediction_inputs": {
+            "median_visible_solar_kwh_m2_day": 2.07445,
+            "median_visible_solar_day_factor": 0.504006,
+            "hidden_date_solar_day_factor": 0.585379,
+            "trailing_seven_visible_mean_kwh_m2_day": 1.899114,
+            "hidden_target_value_used": false
+          }
+        },
+        {
+          "row_index": 37,
+          "date": "2024-02-06",
+          "model_prediction_kwh_m2_day": 2.426282,
+          "comparator_prediction_kwh_m2_day": 1.899114,
+          "prediction_inputs": {
+            "median_visible_solar_kwh_m2_day": 2.07445,
+            "median_visible_solar_day_factor": 0.504006,
+            "hidden_date_solar_day_factor": 0.589487,
+            "trailing_seven_visible_mean_kwh_m2_day": 1.899114,
+            "hidden_target_value_used": false
+          }
+        },
+        {
+          "row_index": 38,
+          "date": "2024-02-07",
+          "model_prediction_kwh_m2_day": 2.4434,
+          "comparator_prediction_kwh_m2_day": 1.899114,
+          "prediction_inputs": {
+            "median_visible_solar_kwh_m2_day": 2.07445,
+            "median_visible_solar_day_factor": 0.504006,
+            "hidden_date_solar_day_factor": 0.593646,
+            "trailing_seven_visible_mean_kwh_m2_day": 1.899114,
+            "hidden_target_value_used": false
+          }
+        },
+        {
+          "row_index": 39,
+          "date": "2024-02-08",
+          "model_prediction_kwh_m2_day": 2.460723,
+          "comparator_prediction_kwh_m2_day": 1.899114,
+          "prediction_inputs": {
+            "median_visible_solar_kwh_m2_day": 2.07445,
+            "median_visible_solar_day_factor": 0.504006,
+            "hidden_date_solar_day_factor": 0.597854,
+            "trailing_seven_visible_mean_kwh_m2_day": 1.899114,
+            "hidden_target_value_used": false
+          }
+        },
+        {
+          "row_index": 40,
+          "date": "2024-02-09",
+          "model_prediction_kwh_m2_day": 2.478242,
+          "comparator_prediction_kwh_m2_day": 1.899114,
+          "prediction_inputs": {
+            "median_visible_solar_kwh_m2_day": 2.07445,
+            "median_visible_solar_day_factor": 0.504006,
+            "hidden_date_solar_day_factor": 0.602111,
+            "trailing_seven_visible_mean_kwh_m2_day": 1.899114,
+            "hidden_target_value_used": false
+          }
+        }
+      ],
+      "prediction_rows_sha256": "e06cd9ef010550b958e288261b80eb5a3958aae2ad07ab19203022a1dc770b70"
+    },
+    "declaration_sha256": "96ba8890450cae249743d19a3260d0fdde89a3c262b7029f1df9b74f097450e1"
+  },
+  "scoring_results": {
+    "hidden_row_count": 20,
+    "hidden_target_values_sha256": "1a81f3e227cbf78fc249d1303071a11917c425b933d8edcdc52c9255f494f1c5",
+    "scored_rows_sha256": "0a3cd6fb838a3129c22d5bc1eb5938bd81d3fdb02ea77f30c236824c80a3db24",
+    "scored_rows": [
+      {
+        "row_index": 21,
+        "date": "2024-01-21",
+        "observed_allsky_sfc_sw_dwn_kwh_m2_day": 1.433,
+        "model_prediction_kwh_m2_day": 2.186933,
+        "comparator_prediction_kwh_m2_day": 1.899114,
+        "model_abs_residual_kwh_m2_day": 0.753933,
+        "comparator_abs_residual_kwh_m2_day": 0.466114,
+        "source_row_sha256": "5919f05471694970b8fe1e45c36fd58ff4525b50303589eff1c4fc7ee4888013",
+        "score_row_sha256": "08fe40ef958a1d7afa1a93265f5ef8eb533fe0c561c0bd964b6f41677150a142"
+      },
+      {
+        "row_index": 22,
+        "date": "2024-01-22",
+        "observed_allsky_sfc_sw_dwn_kwh_m2_day": 2.3998,
+        "model_prediction_kwh_m2_day": 2.19968,
+        "comparator_prediction_kwh_m2_day": 1.899114,
+        "model_abs_residual_kwh_m2_day": 0.20012,
+        "comparator_abs_residual_kwh_m2_day": 0.500686,
+        "source_row_sha256": "a8229e4efc8d14d0498435d9b4000baa22e33968812989ceb231b272e111061a",
+        "score_row_sha256": "77b052c3e787fa75f86dcedc3eb0f20eb2a0ebd5289f7ae6fc246c8d40755ab6"
+      },
+      {
+        "row_index": 23,
+        "date": "2024-01-23",
+        "observed_allsky_sfc_sw_dwn_kwh_m2_day": 2.6587,
+        "model_prediction_kwh_m2_day": 2.212756,
+        "comparator_prediction_kwh_m2_day": 1.899114,
+        "model_abs_residual_kwh_m2_day": 0.445944,
+        "comparator_abs_residual_kwh_m2_day": 0.759586,
+        "source_row_sha256": "9e601ae200e31c231693cfea5e6167892a865328fb6ec1275de369751e41b82c",
+        "score_row_sha256": "aff2cbaf95caa3487337144bd7610218bb356032e99d5b4428376f501e8104e9"
+      },
+      {
+        "row_index": 24,
+        "date": "2024-01-24",
+        "observed_allsky_sfc_sw_dwn_kwh_m2_day": 1.4604,
+        "model_prediction_kwh_m2_day": 2.226154,
+        "comparator_prediction_kwh_m2_day": 1.899114,
+        "model_abs_residual_kwh_m2_day": 0.765754,
+        "comparator_abs_residual_kwh_m2_day": 0.438714,
+        "source_row_sha256": "b71af408025303bcc5bbb1cb01fe800805ee37295672a1679035a9f299afbf3f",
+        "score_row_sha256": "5f314fae0aaba571c1d2310a05c0cba625b10060c35203527b2829a4f09126df"
+      },
+      {
+        "row_index": 25,
+        "date": "2024-01-25",
+        "observed_allsky_sfc_sw_dwn_kwh_m2_day": 3.3482,
+        "model_prediction_kwh_m2_day": 2.239866,
+        "comparator_prediction_kwh_m2_day": 1.899114,
+        "model_abs_residual_kwh_m2_day": 1.108334,
+        "comparator_abs_residual_kwh_m2_day": 1.449086,
+        "source_row_sha256": "8f4990c666f97979a66fda5dc7f815a055a6c133e11b94c910696381bec908a7",
+        "score_row_sha256": "2bd2d9549124fbe3f509795062f7cf34fd523f604e83e510658b19cd908d848a"
+      },
+      {
+        "row_index": 26,
+        "date": "2024-01-26",
+        "observed_allsky_sfc_sw_dwn_kwh_m2_day": 1.7573,
+        "model_prediction_kwh_m2_day": 2.253886,
+        "comparator_prediction_kwh_m2_day": 1.899114,
+        "model_abs_residual_kwh_m2_day": 0.496586,
+        "comparator_abs_residual_kwh_m2_day": 0.141814,
+        "source_row_sha256": "0a61440d39bfa883675064182439c3cad6feff84212ee668dfebbcb5b41180a3",
+        "score_row_sha256": "11028e6bd8f50cfe4e303c1a1ad7521a918f8eb74ee9c65687f8828dbb0e0856"
+      },
+      {
+        "row_index": 27,
+        "date": "2024-01-27",
+        "observed_allsky_sfc_sw_dwn_kwh_m2_day": 2.2745,
+        "model_prediction_kwh_m2_day": 2.268207,
+        "comparator_prediction_kwh_m2_day": 1.899114,
+        "model_abs_residual_kwh_m2_day": 0.006293,
+        "comparator_abs_residual_kwh_m2_day": 0.375386,
+        "source_row_sha256": "f667e1b84b140c89e0de93e09fca07758a02d87f1a2941bbf64189d71c52f13d",
+        "score_row_sha256": "932f9acfdab2ddfba55e13fc3f6fd1e37cb01367952e69cf17d244cd6694fd47"
+      },
+      {
+        "row_index": 28,
+        "date": "2024-01-28",
+        "observed_allsky_sfc_sw_dwn_kwh_m2_day": 2.8339,
+        "model_prediction_kwh_m2_day": 2.282821,
+        "comparator_prediction_kwh_m2_day": 1.899114,
+        "model_abs_residual_kwh_m2_day": 0.551079,
+        "comparator_abs_residual_kwh_m2_day": 0.934786,
+        "source_row_sha256": "45b365b6139352642a99f545773c75679e05d89cdaf259cee5bfd2c092328a1c",
+        "score_row_sha256": "fe69a41f7848ed5402fb5aa5aa93d5e3e690f5b7e49993b95a97402c1f548163"
+      },
+      {
+        "row_index": 29,
+        "date": "2024-01-29",
+        "observed_allsky_sfc_sw_dwn_kwh_m2_day": 3.2544,
+        "model_prediction_kwh_m2_day": 2.297721,
+        "comparator_prediction_kwh_m2_day": 1.899114,
+        "model_abs_residual_kwh_m2_day": 0.956679,
+        "comparator_abs_residual_kwh_m2_day": 1.355286,
+        "source_row_sha256": "83412e42d42e07f5d5136fee7f15fe1327d527d2191d184d4a13b09b31e290c7",
+        "score_row_sha256": "94698314f41c8efa4b4c288204b60164ac44d17cb1011f1178ce2376782edeb0"
+      },
+      {
+        "row_index": 30,
+        "date": "2024-01-30",
+        "observed_allsky_sfc_sw_dwn_kwh_m2_day": 2.9666,
+        "model_prediction_kwh_m2_day": 2.312899,
+        "comparator_prediction_kwh_m2_day": 1.899114,
+        "model_abs_residual_kwh_m2_day": 0.653701,
+        "comparator_abs_residual_kwh_m2_day": 1.067486,
+        "source_row_sha256": "b479b725768c23bf4cde0185c2b4394af5efe3e6ddfbbebe21b65e0caaaea246",
+        "score_row_sha256": "06a94da1f651213118bce616e9e24cae5db32f22b84921a2694f0f92c5f98b1e"
+      },
+      {
+        "row_index": 31,
+        "date": "2024-01-31",
+        "observed_allsky_sfc_sw_dwn_kwh_m2_day": 0.5275,
+        "model_prediction_kwh_m2_day": 2.328348,
+        "comparator_prediction_kwh_m2_day": 1.899114,
+        "model_abs_residual_kwh_m2_day": 1.800848,
+        "comparator_abs_residual_kwh_m2_day": 1.371614,
+        "source_row_sha256": "4bf2459e6039db6bbf0873e6422ac2fb3bc6d6fb0bec4354ad3e375105c94bb0",
+        "score_row_sha256": "a890667300f86397307ca0dc9331a0a2d163105114dd795fd54a2ff31ad0064e"
+      },
+      {
+        "row_index": 32,
+        "date": "2024-02-01",
+        "observed_allsky_sfc_sw_dwn_kwh_m2_day": 2.8459,
+        "model_prediction_kwh_m2_day": 2.34406,
+        "comparator_prediction_kwh_m2_day": 1.899114,
+        "model_abs_residual_kwh_m2_day": 0.50184,
+        "comparator_abs_residual_kwh_m2_day": 0.946786,
+        "source_row_sha256": "8b4ae6a1f540ed1298cef6a9f9526e4d3b636a33413ba433f8a11232388011e9",
+        "score_row_sha256": "f2dc872f0cc6cd6e2518516ec84137267e0908f44434369fa49e8a78265a5563"
+      },
+      {
+        "row_index": 33,
+        "date": "2024-02-02",
+        "observed_allsky_sfc_sw_dwn_kwh_m2_day": 3.1711,
+        "model_prediction_kwh_m2_day": 2.360027,
+        "comparator_prediction_kwh_m2_day": 1.899114,
+        "model_abs_residual_kwh_m2_day": 0.811073,
+        "comparator_abs_residual_kwh_m2_day": 1.271986,
+        "source_row_sha256": "b4cc4c9a2607ae76d4a502efb601df90b900be2977fe9455db4cc19bf5c05543",
+        "score_row_sha256": "26daa5b856fc855ad4f31167647de37013748820f5eb71815d79a63858d93c61"
+      },
+      {
+        "row_index": 34,
+        "date": "2024-02-03",
+        "observed_allsky_sfc_sw_dwn_kwh_m2_day": 2.0578,
+        "model_prediction_kwh_m2_day": 2.376241,
+        "comparator_prediction_kwh_m2_day": 1.899114,
+        "model_abs_residual_kwh_m2_day": 0.318441,
+        "comparator_abs_residual_kwh_m2_day": 0.158686,
+        "source_row_sha256": "4e53ab8e4ef1c376c2143291d38bc8ce5694bbf06c747ac8f770234cc0500b5d",
+        "score_row_sha256": "4e41dc3300b62225c5bfc627f9ee084eba2b125a9aab9dd7b4236a62b8a9e4d3"
+      },
+      {
+        "row_index": 35,
+        "date": "2024-02-04",
+        "observed_allsky_sfc_sw_dwn_kwh_m2_day": 1.2276,
+        "model_prediction_kwh_m2_day": 2.392694,
+        "comparator_prediction_kwh_m2_day": 1.899114,
+        "model_abs_residual_kwh_m2_day": 1.165094,
+        "comparator_abs_residual_kwh_m2_day": 0.671514,
+        "source_row_sha256": "57b7f810178df226a2b820d46d685e58377409e39ce03859945f475293af1698",
+        "score_row_sha256": "a0fb4af6c5a2b098139a3794258c4c27417d2798aee91afa0b62705503077cd6"
+      },
+      {
+        "row_index": 36,
+        "date": "2024-02-05",
+        "observed_allsky_sfc_sw_dwn_kwh_m2_day": 2.7754,
+        "model_prediction_kwh_m2_day": 2.409377,
+        "comparator_prediction_kwh_m2_day": 1.899114,
+        "model_abs_residual_kwh_m2_day": 0.366023,
+        "comparator_abs_residual_kwh_m2_day": 0.876286,
+        "source_row_sha256": "583d67d8c03f113a789bba76a3131bbf0ebc6387d12be4aa5829f7f8226b8128",
+        "score_row_sha256": "e7385e9e06347335cd307729f48b77fd4ad61a489e93496ec513303c2f60fa8d"
+      },
+      {
+        "row_index": 37,
+        "date": "2024-02-06",
+        "observed_allsky_sfc_sw_dwn_kwh_m2_day": 3.1538,
+        "model_prediction_kwh_m2_day": 2.426282,
+        "comparator_prediction_kwh_m2_day": 1.899114,
+        "model_abs_residual_kwh_m2_day": 0.727518,
+        "comparator_abs_residual_kwh_m2_day": 1.254686,
+        "source_row_sha256": "5882288aff025747c41113820ce1d188ad37e1011a09df623c51e77bcc8b76e6",
+        "score_row_sha256": "bd0362094c2cb77f92929796354ab08f24cbbe66e764231b0b498d660f1de0f0"
+      },
+      {
+        "row_index": 38,
+        "date": "2024-02-07",
+        "observed_allsky_sfc_sw_dwn_kwh_m2_day": 1.8991,
+        "model_prediction_kwh_m2_day": 2.4434,
+        "comparator_prediction_kwh_m2_day": 1.899114,
+        "model_abs_residual_kwh_m2_day": 0.5443,
+        "comparator_abs_residual_kwh_m2_day": 1.4e-05,
+        "source_row_sha256": "6d18fc63335b1beae20a5bbba43cc067c9a4483591ca2b95f0d544a98db26ef8",
+        "score_row_sha256": "9c62a279f61f59c4cc52bac2ef2307352a8e8dd6bcf65498a6d6fdb0796a37cb"
+      },
+      {
+        "row_index": 39,
+        "date": "2024-02-08",
+        "observed_allsky_sfc_sw_dwn_kwh_m2_day": 3.4517,
+        "model_prediction_kwh_m2_day": 2.460723,
+        "comparator_prediction_kwh_m2_day": 1.899114,
+        "model_abs_residual_kwh_m2_day": 0.990977,
+        "comparator_abs_residual_kwh_m2_day": 1.552586,
+        "source_row_sha256": "6bb05e2ccccfd8aa17820c437cbe7bc0f31b091ea95afdb9eef98cb1620060b7",
+        "score_row_sha256": "d5e864c53fdfd782b40cf0e447c46157dc7c7c6406a7a8c4f6a8a4820dfa2231"
+      },
+      {
+        "row_index": 40,
+        "date": "2024-02-09",
+        "observed_allsky_sfc_sw_dwn_kwh_m2_day": 3.5057,
+        "model_prediction_kwh_m2_day": 2.478242,
+        "comparator_prediction_kwh_m2_day": 1.899114,
+        "model_abs_residual_kwh_m2_day": 1.027458,
+        "comparator_abs_residual_kwh_m2_day": 1.606586,
+        "source_row_sha256": "1b9ae4d5a06ec1a03e868c2220d298bcd9bd2b144c88c6687d4bf75eb3ae9abf",
+        "score_row_sha256": "80671b476fe2925cce4ca6d7034e3c5e6189150d72cfb6897d9a428f06248f92"
+      }
+    ],
+    "aggregate": {
+      "model_mae_kwh_m2_day": 0.7096,
+      "model_rmse_kwh_m2_day": 0.810056,
+      "comparator_mae_kwh_m2_day": 0.859984,
+      "comparator_rmse_kwh_m2_day": 0.988786,
+      "aggregate_uncertainty_allowance_kwh_m2_day": 0.05,
+      "model_mae_plus_uncertainty_kwh_m2_day": 0.7596,
+      "strict_superiority_margin_kwh_m2_day": 0.100384,
+      "residual_superiority_pass": true,
+      "training_parameters": {
+        "median_visible_solar_kwh_m2_day": 2.07445,
+        "mean_visible_solar_kwh_m2_day": 2.1064,
+        "median_visible_solar_day_factor": 0.504006,
+        "training_leave_forward_residual_mae": 0.868531,
+        "training_leave_forward_residual_median_abs": 1.067953,
+        "training_leave_forward_residual_mad": 0.343175
+      }
+    }
+  },
+  "negative_control": {
+    "control_id": "NASA-POWER-LATITUDE-SIGN-FLIP",
+    "description": "Latitude sign flip is represented as a deliberately invalid geography control and must not preserve the model prediction hash.",
+    "original_prediction_rows_sha256": "e06cd9ef010550b958e288261b80eb5a3958aae2ad07ab19203022a1dc770b70",
+    "control_prediction_rows_sha256": "c5b5b5efb16c076c303bedabc3922476ccaf0271ed8af7471181942280f9b11d",
+    "prediction_hash_changed": true,
+    "audit_model_mae_kwh_m2_day": 0.722275,
+    "audit_comparator_mae_kwh_m2_day": 0.859984,
+    "audit_uncertainty_allowance_kwh_m2_day": 0.05,
+    "audit_residual_superiority_pass": true,
+    "rejected": true,
+    "rejection_reasons": [
+      "NEGATIVE_CONTROL_LATITUDE_SIGN_FLIP_PREDICTION_HASH_CHANGED"
+    ]
+  },
+  "target_leakage_control": {
+    "control_id": "NASA-POWER-HIDDEN-TARGET-MUTATION-LEAKAGE-CONTROL",
+    "description": "Mutating hidden solar target values must not change materialized model or comparator predictions.",
+    "predictions_unchanged_under_hidden_target_mutation": true,
+    "target_hashes_changed_under_hidden_target_mutation": true,
+    "original_prediction_rows_sha256": "e06cd9ef010550b958e288261b80eb5a3958aae2ad07ab19203022a1dc770b70",
+    "mutated_prediction_rows_sha256": "e06cd9ef010550b958e288261b80eb5a3958aae2ad07ab19203022a1dc770b70",
+    "original_hidden_target_values_sha256": "1a81f3e227cbf78fc249d1303071a11917c425b933d8edcdc52c9255f494f1c5",
+    "mutated_hidden_target_values_sha256": "1b89d5ce61d2df4690be3f810ee675b25632ab8ec085bdc878f5eb36c77a6915",
+    "passed": true
+  },
+  "falsifier": {
+    "falsifier_id": "NASA-POWER-REMOTE-SENSING-FAIL-CLOSED-FALSIFIER",
+    "status": "NOT_TRIGGERED",
+    "triggered_predicates": [],
+    "non_triggered_predicates": [
+      "SOURCE_SNAPSHOT_HASH_OR_METADATA_HASH_MISMATCH",
+      "HIDDEN_SOLAR_TARGET_ROWS_READ_BEFORE_PREDICTION_MATERIALIZATION",
+      "FEWER_THAN_20_HIDDEN_DAILY_VALUES_SCORED"
+    ]
+  },
+  "strict_predicate_results": [
+    {
+      "predicate": "STRICT_PACK_SCHEMA_PASS",
+      "passed": true
+    },
+    {
+      "predicate": "OFFICIAL_SOURCE_SNAPSHOT_HASH_BOUND",
+      "passed": true
+    },
+    {
+      "predicate": "TARGET_VARIABLE_EXACTLY_DECLARED",
+      "passed": true
+    },
+    {
+      "predicate": "TARGET_HIDDEN_SPLIT_DECLARED",
+      "passed": true
+    },
+    {
+      "predicate": "FORMULA_OR_MODEL_PREREGISTERED",
+      "passed": true
+    },
+    {
+      "predicate": "COMPARATOR_PREREGISTERED_AND_TARGET_SEPARATED",
+      "passed": true
+    },
+    {
+      "predicate": "UNCERTAINTY_AND_RESIDUAL_DECLARED",
+      "passed": true
+    },
+    {
+      "predicate": "NEGATIVE_CONTROL_REJECTED",
+      "passed": true
+    },
+    {
+      "predicate": "FALSIFIER_PREDICATES_EXECUTABLE",
+      "passed": true
+    },
+    {
+      "predicate": "TARGET_LEAKAGE_CONTROL_PASS",
+      "passed": true
+    },
+    {
+      "predicate": "RESIDUAL_SUPERIORITY_WITH_UNCERTAINTY",
+      "passed": true,
+      "failure": null
+    }
+  ],
+  "exact_blocker": null,
+  "exact_blockers": [],
+  "exact_blocker_detail": null,
+  "replay_command": {
+    "commands": [
+      "python validation/heldout/grand_science/earth_space/coverage_work_orders/oc133_earth_space_modern_science_coverage_work_orders.py --score-nasa-power --write",
+      "python validation/heldout/grand_science/earth_space/coverage_work_orders/oc133_earth_space_modern_science_coverage_work_orders.py --check"
+    ]
+  },
+  "replay_hash_policy": "sha256 over canonical JSON evidence pack excluding replay_hash and evidence_pack_sha256",
+  "no_send_locks": {
+    "no_send": true,
+    "public_release_action_allowed": false,
+    "publish_allowed": false,
+    "push_allowed": false,
+    "registry_write_allowed": false,
+    "journal_submission_allowed": false,
+    "email_allowed": false,
+    "doi_registration_allowed": false,
+    "coverage_closure_allowed": false,
+    "broad_modern_science_superiority_allowed": false
+  },
+  "replay_hash": "34de34ad030613ad3e5b5e3408d67940695d060bc770d8557d2f6a3dc059e1b0",
+  "evidence_pack_sha256": "9b8cf4d7d3d5ad040cdc4ac02f9a24845d6778d38013024a003586a9c9c18450"
+}

@@ -56,6 +56,7 @@ ALLOWED_DIRTY_PREFIXES = (
     "operations/logion_release_mission/oc_core_1_3_3/OC133_GRAND_SCIENCE_LOOP_STATE.json",
     "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/",
     "benchmarks/modern_science/",
+    "reports/OC_CORE_1_3_3_MODERN_SCIENCE_COVERAGE_LANE_QUEUE.json",
     "comparators/modern_science/",
     "content/generated/",
     "releases/oc_core_1_3/editorial/",
@@ -708,6 +709,17 @@ def load_capability_development_rows(root: Path) -> list[dict[str, Any]]:
                         payload["execution_command"] = []
                         payload["implementation_command"] = []
                         payload["next_escalation"] = "Domain-model component implementation report exists; downstream scoring/replay artifacts decide whether broad superiority remains blocked."
+        enriched.append(payload)
+    upstream_registry = factory.build_upstream_capability_work_order_registry(root, write=False)
+    for upstream in upstream_registry.get("rows", []) or []:
+        if not isinstance(upstream, dict):
+            continue
+        lane_id = str(upstream.get("lane_id") or "")
+        if lane_id and lane_id not in open_lanes:
+            continue
+        payload = dict(upstream)
+        payload["capability_development_id"] = str(payload.get("capability_development_id") or payload.get("upstream_work_order_id"))
+        payload["capability_development_key"] = payload.get("capability_development_key") or factory.capability_development_key(payload)
         enriched.append(payload)
     return enriched
 
@@ -1777,6 +1789,7 @@ def plan_next_actions(root: Path, state: dict[str, Any], frontier_hash: str) -> 
 
     attempted = existing_attempt_signatures(state)
     for action in actions:
+        base_signature = f"{frontier_hash}::{action['action_id']}"
         if action.get("executor_type") == "capability_development":
             variant = artifact_hash(
                 {
@@ -1787,11 +1800,11 @@ def plan_next_actions(root: Path, state: dict[str, Any], frontier_hash: str) -> 
                     "implementation_command": action.get("implementation_command", []),
                 }
             )[:16]
-            signature = f"{frontier_hash}::{action['action_id']}::{variant}"
+            signature = f"{base_signature}::{variant}"
         else:
-            signature = f"{frontier_hash}::{action['action_id']}"
+            signature = base_signature
         action["frontier_signature"] = signature
-        action["already_attempted_on_frontier"] = signature in attempted
+        action["already_attempted_on_frontier"] = signature in attempted or base_signature in attempted
         action["selected_for_execution"] = False
         if action["already_attempted_on_frontier"] and action["executor_type"] != "skip_until_science_pass":
             action["status"] = "CAPABILITY_ESCALATION_REQUIRED"

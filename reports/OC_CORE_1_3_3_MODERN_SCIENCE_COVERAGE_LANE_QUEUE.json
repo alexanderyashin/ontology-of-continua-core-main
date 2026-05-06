@@ -3871,7 +3871,7 @@
       "phenomenon_label": "remote sensing and planetary measurements",
       "lane_route": "EMPIRICAL_SOURCE_BACKED_BENCHMARK",
       "owner_capability": "Logion Earth-Space Evidence / Official Geophysical Data",
-      "execution_state": "FAIL_CLOSED_EXECUTABLE_SPEC_READY_EVIDENCE_MISSING",
+      "execution_state": "EVIDENCE_BOUND_PENDING_REVIEW",
       "dependency_key": "source_capsule_lock",
       "dependencies": [
         {
@@ -3963,8 +3963,7 @@
         "executable lane spec declares exact official source, target variable, formula/model, comparator, uncertainty, residual metric, negative control, and falsifier",
         "source snapshot and target projection are locked before scoring",
         "strict evidence pack exists and validates under independent replay",
-        "coverage remains open until every closure predicate is reviewed",
-        "fail-closed evidence gate: executable evidence is not yet bound"
+        "coverage remains open until every closure predicate is reviewed"
       ],
       "official_source_defaults": [
         "NOAA, NASA, USGS, ESA/Copernicus, or equivalent official earth/space archives",
@@ -4004,7 +4003,7 @@
         "spec_schema_id": "OC133_PHYSICS_CHEMISTRY_EXECUTABLE_COVERAGE_LANE_SPEC_v1",
         "domain_class_id": "earth_space_environmental_sciences",
         "phenomenon_class_id": "remote_sensing_and_planetary_measurements",
-        "coverage_closure_status": "OPEN_FAIL_CLOSED_NO_EXECUTABLE_EVIDENCE",
+        "coverage_closure_status": "OPEN_FAIL_CLOSED_STRICT_EVIDENCE_PASS_NO_COVERAGE_CLOSURE",
         "source_plan_id": "MS-COV-WO-012-domain-local-bridge",
         "official_data_source": {
           "source_id": "earth_nasa_power_daily_solar_san_francisco_v1",
@@ -4064,12 +4063,12 @@
           "source_separation_mode": "target_blind",
           "target_hidden_until_scoring": true,
           "evidence_pack_schema_id": "OC133_GRAND_EMPIRICAL_EVIDENCE_v1",
-          "replay_command": "acquire NASA POWER endpoint listed in this spec and hash response bytes && python validation/heldout/grand_science/earth_space/coverage_work_orders/oc133_earth_space_modern_science_coverage_work_orders.py --check"
+          "replay_command": "python validation/heldout/grand_science/earth_space/coverage_work_orders/oc133_earth_space_modern_science_coverage_work_orders.py --score-nasa-power --write && python validation/heldout/grand_science/earth_space/coverage_work_orders/oc133_earth_space_modern_science_coverage_work_orders.py --check"
         },
         "current_evidence": {
-          "executable_evidence_exists": false,
-          "executable_evidence_ref": null,
-          "reason": "NASA POWER source snapshot, target-hidden scorer, negative-control replay, and strict evidence pack are not yet bound."
+          "executable_evidence_exists": true,
+          "executable_evidence_ref": "validation/heldout/grand_science/earth_space/coverage_work_orders/OC133_EARTH_SPACE_NASA_POWER_REMOTE_SENSING_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
+          "reason": "NASA POWER target-hidden scorer, comparator residual, negative-control, and replay hash are bound; coverage closure remains disabled pending coverage-register review."
         },
         "closure_predicates_required": [
           "STRICT_PACK_SCHEMA_PASS",
@@ -4099,10 +4098,10 @@
         }
       },
       "evidence_gate": {
-        "executable_evidence_exists": false,
-        "executable_evidence_ref": null,
+        "executable_evidence_exists": true,
+        "executable_evidence_ref": "validation/heldout/grand_science/earth_space/coverage_work_orders/OC133_EARTH_SPACE_NASA_POWER_REMOTE_SENSING_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
         "closure_allowed": false,
-        "status": "FAIL_CLOSED_NO_EXECUTABLE_EVIDENCE"
+        "status": "EVIDENCE_BOUND_PENDING_REVIEW"
       },
       "verification_command": "python benchmarks/modern_science/coverage_lane_dispatcher.py --check",
       "resource_estimate": {
@@ -4128,9 +4127,9 @@
         "all_domain_scientific_closure_allowed": false
       },
       "coverage_closure": {
-        "current_status": "OPEN_FAIL_CLOSED_NO_EXECUTABLE_EVIDENCE",
+        "current_status": "OPEN_FAIL_CLOSED_STRICT_EVIDENCE_PASS_NO_COVERAGE_CLOSURE",
         "mark_closed_allowed": false,
-        "reason": "NASA POWER source snapshot, target-hidden scorer, negative-control replay, and strict evidence pack are not yet bound."
+        "reason": "Dispatcher emits executable plans only; evidence and reviewed closure predicates are still absent."
       }
     },
     {

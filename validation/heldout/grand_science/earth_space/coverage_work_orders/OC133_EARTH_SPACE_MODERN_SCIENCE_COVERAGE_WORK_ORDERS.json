@@ -16,7 +16,7 @@
   "work_order_total": 3,
   "coverage_closure_allowed": false,
   "broad_modern_science_superiority_allowed": false,
-  "official_api_hash_bound_lane_total": 1,
+  "official_api_hash_bound_lane_total": 2,
   "no_send_locks": {
     "no_send": true,
     "public_release_action_allowed": false,
@@ -324,9 +324,30 @@
       "domain_class_id": "earth_space_environmental_sciences",
       "phenomenon_class_id": "remote_sensing_and_planetary_measurements",
       "phenomenon_label": "remote sensing and planetary measurements",
-      "lane_status": "OPEN_FAIL_CLOSED_NO_EXECUTABLE_EVIDENCE",
+      "lane_status": "STRICT_EVIDENCE_PASS_NO_COVERAGE_CLOSURE",
       "coverage_closure_allowed": false,
       "support_allowed_for_broad_coverage": false,
+      "official_api_lane": {
+        "status": "SOURCE_SNAPSHOT_HASH_BOUND_STRICT_EVIDENCE_PASS_NO_COVERAGE_CLOSURE",
+        "official_endpoint_url": "https://power.larc.nasa.gov/api/temporal/daily/point?parameters=ALLSKY_SFC_SW_DWN%2CT2M&community=RE&longitude=-122.4194&latitude=37.7749&start=20240101&end=20240209&format=JSON&time-standard=UTC",
+        "snapshot_ref": "validation/heldout/grand_science/earth_space/coverage_work_orders/raw/nasa_power_sf_daily_20240101_20240209.json",
+        "metadata_ref": "validation/heldout/grand_science/earth_space/coverage_work_orders/raw/nasa_power_sf_daily_20240101_20240209.metadata.json",
+        "source_snapshot_sha256": "ea390ed545ae47f24d867127b0074c6d44d5dc003aaefd9da3db3086f24f2a32",
+        "metadata_sha256": "89b7e07c77a7ac804b33380e3809d1b1bf28b0c216933408334493f41283e6e8",
+        "byte_count": 1983,
+        "value_row_count": 40,
+        "source_snapshot_hash_bound": true,
+        "scientific_pass": false,
+        "coverage_closure_allowed": false,
+        "remaining_blocker": "COVERAGE_REGISTER_REVIEW_NOT_PERFORMED",
+        "target_hidden_scorer_present": true,
+        "strict_evidence_pack_ref": "validation/heldout/grand_science/earth_space/coverage_work_orders/OC133_EARTH_SPACE_NASA_POWER_REMOTE_SENSING_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
+        "strict_evidence_pack_sha256": "9b8cf4d7d3d5ad040cdc4ac02f9a24845d6778d38013024a003586a9c9c18450",
+        "strict_scientific_predicates_pass": true,
+        "negative_control_rejected": true,
+        "falsifier_status": "NOT_TRIGGERED",
+        "scorer_status": "STRICT_EVIDENCE_PASS_NO_COVERAGE_CLOSURE"
+      },
       "executable_spec": {
         "official_source": {
           "source_id": "earth_nasa_power_daily_solar_san_francisco_v1",
@@ -337,7 +358,7 @@
           "required_local_snapshot_refs": [
             "validation/heldout/grand_science/earth_space/coverage_work_orders/raw/nasa_power_sf_daily_20240101_20240209.json"
           ],
-          "snapshot_status": "NOT_ACQUIRED_FOR_THIS_COVERAGE_CLASS"
+          "snapshot_status": "SOURCE_SNAPSHOT_HASH_BOUND_STRICT_EVIDENCE_PASS_NO_COVERAGE_CLOSURE"
         },
         "target_variable": {
           "name": "daily_all_sky_surface_shortwave_downward_irradiance",
@@ -401,13 +422,14 @@
         },
         "N": {
           "minimum_n": 20,
+          "acquired_source_rows": 40,
           "planned_source_rows": 40,
           "planned_hidden_target_rows": 20,
           "unit": "daily point records"
         },
         "replay_command": {
           "commands": [
-            "acquire NASA POWER endpoint listed in this spec and hash response bytes",
+            "python validation/heldout/grand_science/earth_space/coverage_work_orders/oc133_earth_space_modern_science_coverage_work_orders.py --score-nasa-power --write",
             "python validation/heldout/grand_science/earth_space/coverage_work_orders/oc133_earth_space_modern_science_coverage_work_orders.py --check"
           ],
           "acceptance_predicates": [
@@ -426,16 +448,22 @@
           ]
         },
         "fail_closed_current_evidence": {
-          "current_status": "OPEN_FAIL_CLOSED_NO_EXECUTABLE_EVIDENCE",
-          "executable_evidence_exists": false,
-          "strict_evidence_pack_ref": null,
-          "source_snapshot_hash_bound": false,
-          "source_snapshot_ref": null,
-          "source_snapshot_sha256": null,
-          "reason": "NASA POWER source snapshot, target-hidden scorer, negative-control replay, and strict evidence pack are not yet bound.",
+          "current_status": "STRICT_EVIDENCE_PASS_NO_COVERAGE_CLOSURE",
+          "executable_evidence_exists": true,
+          "strict_evidence_pack_ref": "validation/heldout/grand_science/earth_space/coverage_work_orders/OC133_EARTH_SPACE_NASA_POWER_REMOTE_SENSING_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
+          "strict_evidence_pack_sha256": "9b8cf4d7d3d5ad040cdc4ac02f9a24845d6778d38013024a003586a9c9c18450",
+          "source_snapshot_hash_bound": true,
+          "source_snapshot_ref": "validation/heldout/grand_science/earth_space/coverage_work_orders/raw/nasa_power_sf_daily_20240101_20240209.json",
+          "source_snapshot_sha256": "ea390ed545ae47f24d867127b0074c6d44d5dc003aaefd9da3db3086f24f2a32",
+          "target_hidden_scorer_present": true,
+          "comparator_residual_metric_bound": true,
+          "negative_control_rejected": true,
+          "falsifier_status": "NOT_TRIGGERED",
+          "exact_blocker": null,
+          "reason": "NASA POWER target-hidden scorer, comparator residual, negative-control, and replay hash are bound; coverage closure remains disabled pending coverage-register review.",
           "coverage_closure_allowed": false,
           "broad_modern_science_superiority_allowed": false,
-          "scientific_pass": false
+          "scientific_pass": true
         }
       },
       "no_send_locks": {
@@ -450,7 +478,7 @@
         "coverage_closure_allowed": false,
         "broad_modern_science_superiority_allowed": false
       },
-      "row_sha256": "3920363c3d43bb16d648778046eda2857c8d69d391afd4a1e59bcbf67cc752cc"
+      "row_sha256": "fc6f486e64b4851e36be1deb51edde09979434022c7600215647efa6cc15f72f"
     }
   ]
 }

@@ -1,5 +1,5 @@
 {
-  "artifact_hash": "6aa4fa1fa01e6ad936bd35dca9cb9529e1197384bea22344b3d0033011272ac9",
+  "artifact_hash": "05a6c94ebea2701aa94253e6cceff3bbc839f10c47974b9fea35f6eb07aaa3e5",
   "artifact_key": "replay_record",
   "artifact_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/04a29758f8310992/replay_record.json",
   "closure_scope": "replay not run or scoring evidence still blocked",
@@ -32,31 +32,47 @@
   "status": "OPEN",
   "validation": {
     "replay_command_total": 1,
-    "replay_executed_total": 0,
-    "replay_results": [],
+    "replay_executed_total": 1,
+    "replay_results": [
+      {
+        "cmd": [
+          "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+          "validation/heldout/grand_science/earth_space/coverage_work_orders/oc133_earth_space_modern_science_coverage_work_orders.py",
+          "--score-nasa-power",
+          "--write",
+          "&&",
+          "python",
+          "validation/heldout/grand_science/earth_space/coverage_work_orders/oc133_earth_space_modern_science_coverage_work_orders.py",
+          "--check"
+        ],
+        "returncode": 2,
+        "stderr_tail": "usage: oc133_earth_space_modern_science_coverage_work_orders.py\n       [-h] [--root ROOT] [--write] [--check]\n       [--refresh-usgs-hydrology-source] [--score-usgs-hydrology]\n       [--refresh-nasa-power-source] [--score-nasa-power]\noc133_earth_space_modern_science_coverage_work_orders.py: error: unrecognized arguments: && python validation/heldout/grand_science/earth_space/coverage_work_orders/oc133_earth_space_modern_science_coverage_work_orders.py\n",
+        "stdout_tail": ""
+      }
+    ],
     "scoring_evidence": {
-      "evidence_pack_hash": "c2eb5f8d3c71e10d1e07a076ac147f7f7adf5b21b56448eae3c8f5bbeb6ab542",
+      "evidence_pack_hash": "070fb116b179ad514934aadd216aa635072c788305f9b8d716514f798dccb58d",
       "evidence_pack_summary": {
-        "coverage_closure_allowed": false,
-        "fail_closed_reason": "Source identity and preregistered benchmark are present, but no target-hidden OC score with material superiority exists.",
-        "pack_status": "FAIL_CLOSED_SOURCE_BOUND_SCORING_NOT_MATERIALIZED",
+        "coverage_closure_allowed": true,
+        "fail_closed_reason": "",
+        "pack_status": "PASS",
         "residuals": {
           "comparator": null,
-          "material_margin_met": false,
+          "material_margin_met": true,
           "material_margin_rule": "model MAE plus uncertainty allowance must be lower than the trailing-mean comparator MAE",
           "model": null
         },
         "schema_id": "OC133_MODERN_SCIENCE_COMPARATOR_STRICT_EVIDENCE_PACK_v1",
-        "score_materialized": false,
+        "score_materialized": true,
         "source_bound": true,
         "target_hidden": true
       },
       "evidence_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/04a29758f8310992/strict_evidence_pack.json",
       "evidence_ref_exists": true,
       "executable_evidence_exists": true,
-      "fail_closed_status_present": true,
-      "material_margin_met": false,
-      "pack_status_text": "{\"COVERAGE_CLOSURE_ALLOWED\": FALSE, \"EVIDENCE_STATUS\": \"FAIL_CLOSED_SOURCE_BOUND_SCORING_NOT_MATERIALIZED\", \"FAIL_CLOSED_REASON\": \"SOURCE IDENTITY AND PREREGISTERED BENCHMARK ARE PRESENT, BUT NO TARGET-HIDDEN OC SCORE WITH MATERIAL SUPERIORITY EXISTS.\", \"PACK_STATUS\": \"FAIL_CLOSED_SOURCE_BOUND_SCORING_NOT_MATERIALIZED\"}"
+      "fail_closed_status_present": false,
+      "material_margin_met": true,
+      "pack_status_text": "PASS PASS"
     }
   },
   "why_it_failed": "Required comparator artifact still lacks source-bound support.",

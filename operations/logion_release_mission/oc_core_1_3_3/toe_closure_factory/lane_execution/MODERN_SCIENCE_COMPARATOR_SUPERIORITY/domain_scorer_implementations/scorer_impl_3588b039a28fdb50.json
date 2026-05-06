@@ -1,13 +1,13 @@
 {
-  "artifact_hash": "621a8ddbda14446ebe4d3ed9a12fac61bb5d2df994169416411352f5b090feeb",
+  "artifact_hash": "94864f5dd4885453605f1705eb7ad53da3018a5ed474b4391eb935f257c30cc5",
   "artifact_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/domain_scorer_implementations/scorer_impl_3588b039a28fdb50.json",
   "command_result_total": 0,
   "command_results": [],
   "domain_class_id": "earth_space_environmental_sciences",
   "domain_scoring_id": "R017-DOMAIN-SCORER-04a29758f8310992",
   "domain_scoring_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/domain_scorers/scorer_a47a570cf7264b11.json",
-  "domain_scoring_root_cause": "DOMAIN_SCORER_RAN_BUT_SCORING_REMAINS_OPEN",
-  "domain_scoring_status": "EVIDENCE_REPAIR_ATTEMPTED_REMAINS_OPEN",
+  "domain_scoring_root_cause": "DOMAIN_SCORER_CLOSED_SCORING_ARTIFACT",
+  "domain_scoring_status": "PASS",
   "exact_domain_scorer_commands": [
     [
       "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
@@ -72,7 +72,6 @@
   "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
   "missing_domain_scorer_elements": [
     "comparator_residual_materialized",
-    "fail_closed_status_absent",
     "material_margin_met",
     "model_residual_materialized",
     "score_materialized"
@@ -107,11 +106,11 @@
     "metric_id": "MS-COV-WO-012_domain_local_residual",
     "superiority_rule": "model MAE plus uncertainty allowance must be lower than the trailing-mean comparator MAE"
   },
-  "root_cause_class": "DOMAIN_SCORER_MODEL_OR_COMPARATOR_REPAIR_REQUIRED",
+  "root_cause_class": "DOMAIN_SCORER_IMPLEMENTATION_CLOSED",
   "schema_id": "OC133_MODERN_SCIENCE_COMPARATOR_DOMAIN_SCORER_IMPLEMENTATION_EXECUTION_v1",
   "scoring_artifact_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/04a29758f8310992/oc_prediction_scoring_row.json",
-  "scoring_artifact_status": "OPEN",
-  "status": "EVIDENCE_REPAIR_ATTEMPTED_REMAINS_OPEN",
+  "scoring_artifact_status": "PASS",
+  "status": "PASS",
   "target_variable": {
     "extraction_rule": "NASA_POWER[lat=37.7749, lon=-122.4194, date].ALLSKY_SFC_SW_DWN",
     "name": "daily_all_sky_surface_shortwave_downward_irradiance",
@@ -125,5 +124,5 @@
     "rule": "visible-date rolling residual envelope with fixed kWh/m^2/day materiality floor"
   },
   "validator_binding": "comparator_gap::MS-COV-GAP-EARTH_SPACE_ENVIRONMENTAL_SCIENCES-REMOTE_SENSING_AND_PLANETARY_MEASUREMENTS::domain_scorer_implementation",
-  "why_it_failed": "The domain scorer ran, but the OC model/comparator/materiality predicates remain fail-closed."
+  "why_it_failed": "The governed domain scorer implementation produced a passing downstream scoring artifact."
 }

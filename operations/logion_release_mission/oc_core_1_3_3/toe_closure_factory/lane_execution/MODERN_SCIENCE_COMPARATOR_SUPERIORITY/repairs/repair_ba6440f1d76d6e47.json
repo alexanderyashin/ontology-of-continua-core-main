@@ -1,0 +1,89 @@
+{
+  "artifact_hash": "b173ab2f29d8d60c80612485ecf939a7b6423e949e8822b4c5e176fd134a7b68",
+  "artifact_key": "oc_prediction_scoring_row",
+  "artifact_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/repairs/repair_ba6440f1d76d6e47.json",
+  "command_pass": true,
+  "command_result_total": 3,
+  "command_results": [
+    {
+      "cmd": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "validation/heldout/grand_science/earth_space/coverage_work_orders/oc133_earth_space_modern_science_coverage_work_orders.py",
+        "--score-nasa-power",
+        "--write"
+      ],
+      "returncode": 0,
+      "stderr_tail": "",
+      "stdout_tail": "{\n  \"status\": \"ok\",\n  \"output_ref\": \"validation/heldout/grand_science/earth_space/coverage_work_orders/OC133_EARTH_SPACE_NASA_POWER_REMOTE_SENSING_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json\",\n  \"pack_status\": \"STRICT_EVIDENCE_PASS_NO_COVERAGE_CLOSURE\",\n  \"exact_blocker\": null,\n  \"failures\": []\n}\n"
+    },
+    {
+      "cmd": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "validation/heldout/grand_science/earth_space/coverage_work_orders/oc133_earth_space_modern_science_coverage_work_orders.py",
+        "--check"
+      ],
+      "returncode": 0,
+      "stderr_tail": "",
+      "stdout_tail": "{\n  \"status\": \"ok\",\n  \"checked\": \"validation/heldout/grand_science/earth_space/coverage_work_orders/OC133_EARTH_SPACE_MODERN_SCIENCE_COVERAGE_WORK_ORDERS.json\"\n}\n"
+    },
+    {
+      "cmd": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "tools/oc133_toe_closure_factory.py",
+        "--execute-comparator-generic-evidence-pack",
+        "MS-COV-GAP-EARTH_SPACE_ENVIRONMENTAL_SCIENCES-REMOTE_SENSING_AND_PLANETARY_MEASUREMENTS",
+        "--write"
+      ],
+      "returncode": 0,
+      "stderr_tail": "",
+      "stdout_tail": "{\n  \"changed\": [],\n  \"missing\": [],\n  \"state\": \"PASS\"\n}\n"
+    }
+  ],
+  "concrete_governed_commands": [
+    [
+      "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+      "validation/heldout/grand_science/earth_space/coverage_work_orders/oc133_earth_space_modern_science_coverage_work_orders.py",
+      "--score-nasa-power",
+      "--write"
+    ],
+    [
+      "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+      "validation/heldout/grand_science/earth_space/coverage_work_orders/oc133_earth_space_modern_science_coverage_work_orders.py",
+      "--check"
+    ],
+    [
+      "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+      "tools/oc133_toe_closure_factory.py",
+      "--execute-comparator-generic-evidence-pack",
+      "MS-COV-GAP-EARTH_SPACE_ENVIRONMENTAL_SCIENCES-REMOTE_SENSING_AND_PLANETARY_MEASUREMENTS",
+      "--write"
+    ]
+  ],
+  "domain_class_id": "earth_space_environmental_sciences",
+  "execution_command": [
+    "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+    "tools/oc133_toe_closure_factory.py",
+    "--execute-comparator-research-artifact-repair",
+    "R017-RESEARCH-ARTIFACT-REPAIR-b648d1991a4fd7c2",
+    "--write"
+  ],
+  "gap_id": "MS-COV-GAP-EARTH_SPACE_ENVIRONMENTAL_SCIENCES-REMOTE_SENSING_AND_PLANETARY_MEASUREMENTS",
+  "generated_at": "2026-05-06T13:27:40Z",
+  "input_research_artifact_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/04a29758f8310992/oc_prediction_scoring_row.json",
+  "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+  "next_escalation": "If CAPABILITY_DEVELOPMENT_REQUIRED, implement the exact domain scorer/replay command. If EVIDENCE_REPAIR_ATTEMPTED_REMAINS_OPEN, inspect the refreshed artifact validation and preserve fail-closed negative results.",
+  "no_fake_closure_policy": "This repair execution cannot mark broad superiority PASS unless the refreshed research artifact itself passes.",
+  "pass_predicate": "The repaired research artifact status becomes PASS and the comparator gap no longer lists this artifact as missing.",
+  "phenomenon_class_id": "remote_sensing_and_planetary_measurements",
+  "refreshed_research_artifact_hash": "a58f7fc46d86ac2534c044fe83ae3b2baa8959b7339a38d914e2339319dcaddb",
+  "refreshed_research_artifact_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/04a29758f8310992/oc_prediction_scoring_row.json",
+  "refreshed_research_artifact_status": "OPEN",
+  "repair_id": "R017-RESEARCH-ARTIFACT-REPAIR-b648d1991a4fd7c2",
+  "repair_strategy": "Diagnose whether the model, comparator, target split, or claim scope must be repaired without flipping the verdict manually.",
+  "required_capability": "Research/ScoringExecutor",
+  "root_cause_class": "SCORING_PACK_FAIL_CLOSED",
+  "schema_id": "OC133_MODERN_SCIENCE_COMPARATOR_RESEARCH_ARTIFACT_REPAIR_EXECUTION_v1",
+  "status": "EVIDENCE_REPAIR_ATTEMPTED_REMAINS_OPEN",
+  "validator_binding": "comparator_gap::MS-COV-GAP-EARTH_SPACE_ENVIRONMENTAL_SCIENCES-REMOTE_SENSING_AND_PLANETARY_MEASUREMENTS::research_artifact_repair::oc_prediction_scoring_row",
+  "why_it_failed": "Concrete repair commands ran, but the refreshed research artifact still remains OPEN under its source-bound predicate."
+}
