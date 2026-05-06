@@ -1,24 +1,10 @@
 {
   "after_validator_error_total": 13,
-  "artifact_hash": "222d22747b2652384d68fde8033a8864814661b851f6c86feb3ef3e28a11d32d",
+  "artifact_hash": "9fd89be622c68d1810fd60ba3a121bdc9c062fb8e2979aa926132477fbac32d2",
   "before_validator_error_total": 13,
-  "capability_class": "comparator_component_materialization",
-  "capability_development_key": "454815c78151625dbebc805feba4cb19085ef6345c9878c82d83ef1da1c0d203",
+  "capability_class": "comparator_component_materialization_capability_gap",
   "capability_id": "R017-CAPDEV-454815c78151",
-  "command_results": [
-    {
-      "cmd": [
-        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
-        "tools/oc133_toe_closure_factory.py",
-        "--execute-comparator-component-materialization",
-        "R017-COMPONENT-MATERIALIZE-585231547ef9a883",
-        "--write"
-      ],
-      "returncode": 1,
-      "stderr_tail": "rt\\work\\logion_local\\repos\\ontology-of-continua-core-main\\tools\\oc133_toe_closure_factory.py\", line 6013, in build_comparator_component_materialization_registry\n    backlog = build_comparator_component_materialization_backlog(root)\n  File \"C:\\Users\\Megaport\\work\\logion_local\\repos\\ontology-of-continua-core-main\\tools\\oc133_toe_closure_factory.py\", line 5834, in build_comparator_component_materialization_backlog\n    source_registry = build_comparator_component_source_obligation_registry(root)\n  File \"C:\\Users\\Megaport\\work\\logion_local\\repos\\ontology-of-continua-core-main\\tools\\oc133_toe_closure_factory.py\", line 5713, in build_comparator_component_source_obligation_registry\n    backlog = build_comparator_component_source_obligation_backlog(root)\n  File \"C:\\Users\\Megaport\\work\\logion_local\\repos\\ontology-of-continua-core-main\\tools\\oc133_toe_closure_factory.py\", line 5476, in build_comparator_component_source_obligation_backlog\n    component_registry = build_comparator_domain_model_component_implementation_registry(root)\n  File \"C:\\Users\\Megaport\\work\\logion_local\\repos\\ontology-of-continua-core-main\\tools\\oc133_toe_closure_factory.py\", line 5296, in build_comparator_domain_model_component_implementation_registry\n    backlog = build_comparator_domain_model_component_implementation_backlog(root)\n  File \"C:\\Users\\Megaport\\work\\logion_local\\repos\\ontology-of-continua-core-main\\tools\\oc133_toe_closure_factory.py\", line 5094, in build_comparator_domain_model_component_implementation_backlog\n    component_backlog = build_comparator_domain_model_component_backlog(root)\n  File \"C:\\Users\\Megaport\\work\\logion_local\\repos\\ontology-of-continua-core-main\\tools\\oc133_toe_closure_factory.py\", line 4935, in build_comparator_domain_model_component_backlog\n    write_json_artifact(root, comparator_domain_model_component_backlog_rel(), payload)\n    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\Megaport\\work\\logion_local\\repos\\ontology-of-continua-core-main\\tools\\oc133_toe_closure_factory.py\", line 173, in write_json_artifact\n    path.write_text(stable_json(payload), encoding=\"utf-8\")\n    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\Megaport\\scoop\\apps\\python\\current\\Lib\\pathlib\\__init__.py\", line 809, in write_text\n    with self.open(mode='w', encoding=encoding, errors=errors, newline=newline) as f:\n         ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\Megaport\\scoop\\apps\\python\\current\\Lib\\pathlib\\__init__.py\", line 771, in open\n    return io.open(self, mode, buffering, encoding, errors, newline)\n           ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nOSError: [Errno 22] Invalid argument: 'C:\\\\Users\\\\Megaport\\\\work\\\\logion_local\\\\repos\\\\ontology-of-continua-core-main\\\\operations\\\\logion_release_mission\\\\oc_core_1_3_3\\\\toe_closure_factory\\\\lane_execution\\\\MODERN_SCIENCE_COMPARATOR_SUPERIORITY\\\\DOMAIN_MODEL_COMPONENT_BACKLOG.json'\n",
-      "stdout_tail": ""
-    }
-  ],
+  "command_results": [],
   "compiled_capability_id": "R017-CAPDEV-454815c78151",
   "execution_command": [
     "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
@@ -27,24 +13,64 @@
     "R017-CAPDEV-454815c78151",
     "--write"
   ],
-  "executor_command": [
-    "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
-    "tools/oc133_toe_closure_factory.py",
-    "--execute-comparator-component-materialization",
-    "R017-COMPONENT-MATERIALIZE-585231547ef9a883",
-    "--write"
-  ],
-  "executor_type": "comparator_component_materialization",
-  "generated_at": "2026-05-06T11:57:40Z",
-  "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+  "generated_at": "2026-05-06T12:55:37Z",
   "next_escalation": "If this compiled capability produces zero validator delta, generate a lower-level upstream research obligation for the exact missing source/evidence object.",
-  "no_fake_closure_policy": "Zero delta remains OPEN and cannot satisfy r017.",
   "pass_predicate": "Comparator gap `MS-COV-GAP-CHEMICAL_SCIENCES-REACTION_AND_KINETICS_PREDICTION` has `replay_record` and strict coverage register no longer lists it as missing.",
-  "repair_strategy": "Execute the exact materializer implementation contract after source-obligation diagnostics remained open.",
+  "registry_row": {
+    "capability_class": "comparator_component_materialization_capability_gap",
+    "capability_development_key": "454815c78151625dbebc805feba4cb19085ef6345c9878c82d83ef1da1c0d203",
+    "capability_executor_ready": false,
+    "capability_id": "R017-CAPDEV-454815c78151",
+    "compiled_capability_id": "R017-CAPDEV-454815c78151",
+    "execution_command": [
+      "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+      "tools/oc133_toe_closure_factory.py",
+      "--execute-capability-development",
+      "R017-CAPDEV-454815c78151",
+      "--write"
+    ],
+    "executor_command": [],
+    "executor_type": "comparator_component_materialization_capability_gap",
+    "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+    "missing_artifact_type": "replay_record",
+    "next_escalation": "If this compiled capability produces zero validator delta, generate a lower-level upstream research obligation for the exact missing source/evidence object.",
+    "output_artifact_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/capability_implementation/R017-CAPDEV-454815c78151.json",
+    "pass_predicate": "Comparator gap `MS-COV-GAP-CHEMICAL_SCIENCES-REACTION_AND_KINETICS_PREDICTION` has `replay_record` and strict coverage register no longer lists it as missing.",
+    "repair_strategy": "Source-bound materialization report already exists and names the missing domain scorer/materializer; do not rerun the diagnostic wrapper.",
+    "required_capability": "Research/PriorArt",
+    "scientific_frontier_hash": "cf7fa90cae7761e24fd499a438781aaf7ffc6da730dc3657f8d31d0ba649dc95",
+    "self_test_command": [
+      "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+      "tools/oc133_toe_closure_factory.py",
+      "--check"
+    ],
+    "source_capability_development_id": "AUTO-R017-CAPABILITY-DEVELOPMENT-0040-c220f22c",
+    "source_graph_node_id": "required_artifact:MODERN_SCIENCE_COMPARATOR_SUPERIORITY:MS-COV-GAP-CHEMICAL_SCIENCES-REACTION_AND_KINETICS_PREDICTION:replay_record",
+    "status": "BLOCKED",
+    "validator_binding": "support_artifact::MODERN_SCIENCE_COMPARATOR_SUPERIORITY::replay_record",
+    "why_it_failed": "Replay is correctly blocked because the upstream scoring evidence is not passing."
+  },
+  "repair_strategy": "Source-bound materialization report already exists and names the missing domain scorer/materializer; do not rerun the diagnostic wrapper.",
   "required_capability": "Research/PriorArt",
   "schema_id": "OC133_TOE_CAPABILITY_DEVELOPMENT_EXECUTION_v1",
-  "source_graph_node_id": "required_artifact:MODERN_SCIENCE_COMPARATOR_SUPERIORITY:MS-COV-GAP-CHEMICAL_SCIENCES-REACTION_AND_KINETICS_PREDICTION:replay_record",
-  "status": "FAIL_CLOSED",
+  "status": "BLOCKED",
+  "upstream_work_order": {
+    "capability_class": "comparator_component_materialization_capability_gap",
+    "execution_command": [],
+    "gap_id": "MS-COV-GAP-CHEMICAL_SCIENCES-REACTION_AND_KINETICS_PREDICTION",
+    "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+    "missing_artifact_type": "replay_record",
+    "next_escalation": "If this compiled capability produces zero validator delta, generate a lower-level upstream research obligation for the exact missing source/evidence object.",
+    "no_fake_closure_policy": "This upstream work order is not evidence and cannot satisfy r017 without strict validator PASS.",
+    "pass_predicate": "Comparator gap `MS-COV-GAP-CHEMICAL_SCIENCES-REACTION_AND_KINETICS_PREDICTION` has `replay_record` and strict coverage register no longer lists it as missing.",
+    "repair_strategy": "Implement the exact domain scorer/materializer that can produce target-hidden OC residuals, incumbent comparator residuals, uncertainty/falsifier rows, and replay.",
+    "required_capability": "Research/PriorArt",
+    "schema_id": "OC133_TOE_CAPABILITY_UPSTREAM_WORK_ORDER_v1",
+    "source_graph_node_id": "required_artifact:MODERN_SCIENCE_COMPARATOR_SUPERIORITY:MS-COV-GAP-CHEMICAL_SCIENCES-REACTION_AND_KINETICS_PREDICTION:replay_record",
+    "validator_binding": "support_artifact::MODERN_SCIENCE_COMPARATOR_SUPERIORITY::replay_record",
+    "why_it_failed": "Replay is correctly blocked because the upstream scoring evidence is not passing.",
+    "work_order_type": "SOURCE_BOUND_SCORER_MATERIALIZER_IMPLEMENTATION"
+  },
   "validator_error_delta": 0,
-  "why_it_failed": "Replay is correctly blocked because the upstream scoring evidence is not passing."
+  "why_it_failed": "Capability exists but has no safe ready executor for the current scientific frontier."
 }
