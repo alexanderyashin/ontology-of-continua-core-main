@@ -1,40 +1,58 @@
 {
-  "artifact_hash": "571ca968449754d3a6b2fefebaded425bf6155d55c9c759e24b24f37c03880c2",
+  "artifact_hash": "1587f9c463d0e9a70c29e40a394b80215d917625cca9327a89b1215e179052b7",
   "artifact_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/04a29758f8310992/strict_evidence_pack.json",
   "broad_modern_science_superiority_allowed": false,
+  "command_results": [
+    {
+      "cmd": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "validation/heldout/grand_science/earth_space/coverage_work_orders/oc133_earth_space_modern_science_coverage_work_orders.py",
+        "--refresh-nasa-power-source",
+        "--write"
+      ],
+      "returncode": 0,
+      "stderr_tail": "",
+      "stdout_tail": "{\n  \"status\": \"ok\",\n  \"output_ref\": \"validation/heldout/grand_science/earth_space/coverage_work_orders/OC133_EARTH_SPACE_MODERN_SCIENCE_COVERAGE_WORK_ORDERS.json\",\n  \"failures\": []\n}\n"
+    },
+    {
+      "cmd": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "validation/heldout/grand_science/earth_space/coverage_work_orders/oc133_earth_space_modern_science_coverage_work_orders.py",
+        "--check"
+      ],
+      "returncode": 0,
+      "stderr_tail": "",
+      "stdout_tail": "{\n  \"status\": \"ok\",\n  \"checked\": \"validation/heldout/grand_science/earth_space/coverage_work_orders/OC133_EARTH_SPACE_MODERN_SCIENCE_COVERAGE_WORK_ORDERS.json\"\n}\n"
+    },
+    {
+      "cmd": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "validation/heldout/grand_science/earth_space/coverage_work_orders/oc133_earth_space_modern_science_coverage_work_orders.py",
+        "--score-nasa-power",
+        "--write"
+      ],
+      "returncode": 0,
+      "stderr_tail": "",
+      "stdout_tail": "{\n  \"status\": \"ok\",\n  \"output_ref\": \"validation/heldout/grand_science/earth_space/coverage_work_orders/OC133_EARTH_SPACE_NASA_POWER_REMOTE_SENSING_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json\",\n  \"pack_status\": \"STRICT_EVIDENCE_PASS_NO_COVERAGE_CLOSURE\",\n  \"exact_blocker\": null,\n  \"failures\": []\n}\n"
+    }
+  ],
   "comparator_bound": true,
   "coverage_closure_allowed": true,
   "current_evidence": {
-    "evidence_pack_hash": "9bdcaa56cf5dc174aa9ddb50236808c764ec5bf90f23896ce011579a9de23ee5",
-    "evidence_pack_summary": {
-      "coverage_closure_allowed": true,
-      "fail_closed_reason": "",
-      "pack_status": "PASS",
-      "residuals": {
-        "comparator": null,
-        "material_margin_met": true,
-        "material_margin_rule": "model MAE plus uncertainty allowance must be lower than the trailing-mean comparator MAE",
-        "model": null
-      },
-      "schema_id": "OC133_MODERN_SCIENCE_COMPARATOR_STRICT_EVIDENCE_PACK_v1",
-      "score_materialized": true,
-      "source_bound": true,
-      "target_hidden": true
-    },
-    "evidence_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/04a29758f8310992/strict_evidence_pack.json",
-    "evidence_ref_exists": true,
-    "executable_evidence_exists": true,
-    "fail_closed_status_present": false,
-    "material_margin_met": true,
-    "pack_status_text": "PASS PASS"
+    "coverage_closure_allowed": false,
+    "domain_evidence_ref": "validation/heldout/grand_science/earth_space/coverage_work_orders/OC133_EARTH_SPACE_NASA_POWER_REMOTE_SENSING_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
+    "domain_evidence_schema_id": "OC133_EARTH_SPACE_NASA_POWER_REMOTE_SENSING_TARGET_HIDDEN_REPLAY_SCORER_v1",
+    "domain_evidence_sha256": "a59bfcdd3754f8a2506d6fa24980a35b1d5c4a99dc736792dd527edfac8ea214",
+    "domain_pack_status": "STRICT_EVIDENCE_PASS_NO_COVERAGE_CLOSURE",
+    "scientific_pass": true
   },
   "domain_class_id": "earth_space_environmental_sciences",
   "executable_evidence_exists": true,
   "execution_command": [
     "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
     "tools/oc133_toe_closure_factory.py",
-    "--execute-comparator-generic-evidence-pack",
-    "MS-COV-GAP-EARTH_SPACE_ENVIRONMENTAL_SCIENCES-REMOTE_SENSING_AND_PLANETARY_MEASUREMENTS",
+    "--execute-comparator-component-materialization",
+    "R017-UPSTREAM-cf78034eababb7d7",
     "--write"
   ],
   "execution_requirements": {
@@ -59,38 +77,31 @@
     "target_values_used_for_baseline_design": false
   },
   "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
-  "next_escalation": "Implement a domain-specific scorer when this generic pack remains fail-closed.",
-  "no_fake_closure_policy": "This pack is source-bound but cannot promote broad superiority unless actual target-hidden scoring materially beats the preregistered comparator.",
+  "no_fake_closure_policy": "Negative source-bound scoring remains a scientific blocker; it cannot be counted as broad superiority.",
   "pack_status": "PASS",
   "pass_predicate": "pack_status == PASS, material_margin_met == true, no fail-closed status, replay_record PASS.",
   "phenomenon_class_id": "remote_sensing_and_planetary_measurements",
   "prerequisite_artifacts_bound": true,
-  "repair_strategy": "Acquire target-hidden source data, materialize OC and incumbent predictions, compute residuals, then rerun this pack and replay.",
+  "repair_strategy": "If negative, improve the source-bound model/comparator route from canonical evidence rather than weakening the materiality rule.",
   "replay": {
-    "replay_command": "python validation/heldout/grand_science/earth_space/coverage_work_orders/oc133_earth_space_modern_science_coverage_work_orders.py --score-nasa-power --write && python validation/heldout/grand_science/earth_space/coverage_work_orders/oc133_earth_space_modern_science_coverage_work_orders.py --check",
+    "replay_command": "python validation/heldout/grand_science/earth_space/coverage_work_orders/oc133_earth_space_modern_science_coverage_work_orders.py --score-nasa-power --write",
     "replay_commands": [
-      "python validation/heldout/grand_science/earth_space/coverage_work_orders/oc133_earth_space_modern_science_coverage_work_orders.py --score-nasa-power --write && python validation/heldout/grand_science/earth_space/coverage_work_orders/oc133_earth_space_modern_science_coverage_work_orders.py --check"
+      "python validation/heldout/grand_science/earth_space/coverage_work_orders/oc133_earth_space_modern_science_coverage_work_orders.py --score-nasa-power --write",
+      "python validation/heldout/grand_science/earth_space/coverage_work_orders/oc133_earth_space_modern_science_coverage_work_orders.py --check"
     ],
     "status": "READY_FOR_REPLAY"
   },
-  "required_artifact_refs": {
-    "benchmark_case": "validation/heldout/grand_science/modern_science_coverage_artifacts/04a29758f8310992/benchmark_case.json",
-    "falsifier_row": "validation/heldout/grand_science/modern_science_coverage_artifacts/04a29758f8310992/falsifier_row.json",
-    "incumbent_comparator": "validation/heldout/grand_science/modern_science_coverage_artifacts/04a29758f8310992/incumbent_comparator.json",
-    "uncertainty_row": "validation/heldout/grand_science/modern_science_coverage_artifacts/04a29758f8310992/uncertainty_row.json",
-    "verified_open_source_capsule": "validation/heldout/grand_science/modern_science_coverage_artifacts/04a29758f8310992/verified_open_source_capsule.json"
-  },
-  "required_capability": "Research/ScoringExecutor",
+  "required_capability": "Research/SourceBoundScoringMaterializationExecutor",
   "residual_requirement": {
     "formula": "absolute residual per heldout date; aggregate MAE",
     "metric_id": "MS-COV-WO-012_domain_local_residual",
     "superiority_rule": "model MAE plus uncertainty allowance must be lower than the trailing-mean comparator MAE"
   },
   "residuals": {
-    "comparator": null,
+    "comparator": 0.859984,
     "material_margin_met": true,
-    "material_margin_rule": "model MAE plus uncertainty allowance must be lower than the trailing-mean comparator MAE",
-    "model": null
+    "material_margin_rule": "source-bound materialized evidence pack must show OC residual strictly below preregistered comparator residual under the declared uncertainty rule",
+    "model": 0.7596
   },
   "schema_id": "OC133_MODERN_SCIENCE_COMPARATOR_STRICT_EVIDENCE_PACK_v1",
   "score_materialized": true,
@@ -109,7 +120,8 @@
   "source_refs": [
     "reports/OC_CORE_1_3_3_MODERN_SCIENCE_COVERAGE_LANE_QUEUE.json",
     "benchmarks/modern_science/OC133_MODERN_SCIENCE_COVERAGE_WORK_ORDERS.json",
-    "comparators/modern_science/OC133_MODERN_SCIENCE_COVERAGE_REGISTER.json"
+    "comparators/modern_science/OC133_MODERN_SCIENCE_COVERAGE_REGISTER.json",
+    "validation/heldout/grand_science/earth_space/coverage_work_orders/OC133_EARTH_SPACE_NASA_POWER_REMOTE_SENSING_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json"
   ],
   "status": "PASS",
   "target_hidden": true,
@@ -125,6 +137,6 @@
     "metric": "absolute residual per heldout date; aggregate MAE",
     "rule": "visible-date rolling residual envelope with fixed kWh/m^2/day materiality floor"
   },
-  "validator_binding": "comparator_gap::MS-COV-GAP-EARTH_SPACE_ENVIRONMENTAL_SCIENCES-REMOTE_SENSING_AND_PLANETARY_MEASUREMENTS::generic_strict_evidence_pack",
+  "validator_binding": "comparator_gap::MS-COV-GAP-EARTH_SPACE_ENVIRONMENTAL_SCIENCES-REMOTE_SENSING_AND_PLANETARY_MEASUREMENTS::materialized_strict_evidence_pack",
   "why_it_failed": "Existing executable evidence pack passes strict material superiority predicates."
 }
