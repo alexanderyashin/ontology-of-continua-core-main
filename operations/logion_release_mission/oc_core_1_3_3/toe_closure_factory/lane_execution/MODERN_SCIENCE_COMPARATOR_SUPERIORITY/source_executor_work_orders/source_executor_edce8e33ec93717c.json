@@ -1,0 +1,37 @@
+{
+  "artifact_hash": "447b895ea2ace5489e0df095d5f204b7e5f39a4adc3b473d91fb29fc59e23def",
+  "artifact_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/source_executor_work_orders/source_executor_edce8e33ec93717c.json",
+  "execution_command": [
+    "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+    "tools/oc133_toe_closure_factory.py",
+    "--execute-comparator-source-executor",
+    "MS-COV-GAP-COGNITIVE_BEHAVIORAL_NEUROSCIENCES-NEURAL_RECORDING_AND_BRAIN_NETWORK_OBSERVABLES",
+    "incumbent_comparator_scoring",
+    "--write"
+  ],
+  "gap_id": "MS-COV-GAP-COGNITIVE_BEHAVIORAL_NEUROSCIENCES-NEURAL_RECORDING_AND_BRAIN_NETWORK_OBSERVABLES",
+  "generated_at": "2026-05-06T00:58:09Z",
+  "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+  "next_escalation": "If no deterministic executor exists, implement the specific acquisition/scoring tool for this required_source_block; keep r017 blocked.",
+  "no_fake_closure_policy": "This work order is not evidence and cannot close comparator broad superiority by itself.",
+  "pass_predicate": "A governed source/evidence executor exists, writes a hash-bound evidence artifact, and its downstream scoring/replay predicates pass.",
+  "repair_strategy": "Implement or run the exact governed source/evidence executor named by required_source_block, then regenerate the target-hidden scoring pack and replay record.",
+  "required_capability": "Research/ScoringExecutor",
+  "required_source_block": {
+    "artifact_id": "incumbent_comparator_scoring",
+    "pass_predicate": "Incumbent comparator is scored on the same held-out targets.",
+    "required_comparator": {
+      "baseline_name": "training-cohort mean connectivity edge comparator",
+      "lane_role": "incumbent_comparator",
+      "pre_registered": true,
+      "requirement": "predict each heldout edge by the training-only mean for the same atlas edge and stratum"
+    }
+  },
+  "root_cause_class": "SCORING_EVIDENCE_NOT_MATERIALIZED",
+  "schema_id": "OC133_MODERN_SCIENCE_COMPARATOR_SOURCE_EXECUTOR_WORK_ORDER_v1",
+  "scoring_subartifact_id": "incumbent_comparator_scoring",
+  "source_subartifact_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/scoring_subartifact_jobs/subartifact_edce8e33ec93717c.json",
+  "status": "OPEN",
+  "validator_binding": "comparator_gap::MS-COV-GAP-COGNITIVE_BEHAVIORAL_NEUROSCIENCES-NEURAL_RECORDING_AND_BRAIN_NETWORK_OBSERVABLES::source_executor::incumbent_comparator_scoring",
+  "why_it_failed": "The lower-level scoring subartifact has a diagnostic packet, but no source-bound acquisition/scoring executor has produced passing evidence."
+}

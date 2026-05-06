@@ -2166,6 +2166,15 @@ def comparator_gap_scoring_subartifact_rel(gap_id: str, subartifact_id: str) -> 
     )
 
 
+def comparator_source_executor_work_order_rel(gap_id: str, subartifact_id: str) -> Path:
+    payload_hash = artifact_hash({"gap_id": gap_id, "subartifact_id": subartifact_id})[:16]
+    return (
+        lane_execution_base("MODERN_SCIENCE_COMPARATOR_SUPERIORITY")
+        / "source_executor_work_orders"
+        / f"source_executor_{payload_hash}.json"
+    )
+
+
 def comparator_scoring_executor_backlog_rel() -> Path:
     return lane_execution_base("MODERN_SCIENCE_COMPARATOR_SUPERIORITY") / "OC133_MODERN_SCIENCE_COMPARATOR_SCORING_EXECUTOR_BACKLOG.json"
 
@@ -2611,6 +2620,75 @@ def comparator_scoring_subartifact_execution_exists(root: Path, gap_id: str, sub
         and payload.get("gap_id") == gap_id
         and payload.get("scoring_subartifact_id") == subartifact_id
     )
+
+
+def comparator_scoring_subartifact_executions(root: Path) -> list[dict[str, Any]]:
+    base = root / lane_execution_base("MODERN_SCIENCE_COMPARATOR_SUPERIORITY") / "scoring_subartifact_jobs"
+    rows: list[dict[str, Any]] = []
+    if base.exists():
+        for path in sorted(base.glob("*.json")):
+            payload = read_json(path)
+            if payload.get("schema_id") == "OC133_MODERN_SCIENCE_COMPARATOR_SCORING_SUBARTIFACT_EXECUTION_v1":
+                rows.append(payload)
+    return rows
+
+
+def comparator_source_executor_work_order_exists(root: Path, gap_id: str, subartifact_id: str) -> bool:
+    payload = read_json(root / comparator_source_executor_work_order_rel(gap_id, subartifact_id))
+    return (
+        payload.get("schema_id") == "OC133_MODERN_SCIENCE_COMPARATOR_SOURCE_EXECUTOR_WORK_ORDER_v1"
+        and payload.get("gap_id") == gap_id
+        and payload.get("scoring_subartifact_id") == subartifact_id
+    )
+
+
+def build_comparator_source_executor_work_order(root: Path, gap_id: str, subartifact_id: str) -> dict[str, Any]:
+    subartifact = read_json(root / comparator_gap_scoring_subartifact_rel(gap_id, subartifact_id))
+    generated_at = stable_generated_at(root, comparator_source_executor_work_order_rel(gap_id, subartifact_id))
+    if not subartifact:
+        subartifact = build_comparator_scoring_subartifact_execution(root, gap_id, subartifact_id)
+    payload = normalize_problem_row(
+        {
+            "schema_id": "OC133_MODERN_SCIENCE_COMPARATOR_SOURCE_EXECUTOR_WORK_ORDER_v1",
+            "generated_at": generated_at,
+            "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+            "gap_id": gap_id,
+            "scoring_subartifact_id": subartifact_id,
+            "status": "OPEN",
+            "source_subartifact_ref": subartifact.get("artifact_ref"),
+            "root_cause_class": subartifact.get("root_cause_class") or "SOURCE_EXECUTOR_NOT_IMPLEMENTED",
+            "required_source_block": subartifact.get("required_source_block", {}),
+            "why_it_failed": "The lower-level scoring subartifact has a diagnostic packet, but no source-bound acquisition/scoring executor has produced passing evidence.",
+            "repair_strategy": "Implement or run the exact governed source/evidence executor named by required_source_block, then regenerate the target-hidden scoring pack and replay record.",
+            "required_capability": subartifact.get("required_capability") or "Research/ScoringExecutor",
+            "execution_command": [
+                sys.executable,
+                "tools/oc133_toe_closure_factory.py",
+                "--execute-comparator-source-executor",
+                gap_id,
+                subartifact_id,
+                "--write",
+            ],
+            "pass_predicate": "A governed source/evidence executor exists, writes a hash-bound evidence artifact, and its downstream scoring/replay predicates pass.",
+            "validator_binding": f"comparator_gap::{gap_id}::source_executor::{subartifact_id}",
+            "next_escalation": "If no deterministic executor exists, implement the specific acquisition/scoring tool for this required_source_block; keep r017 blocked.",
+            "no_fake_closure_policy": "This work order is not evidence and cannot close comparator broad superiority by itself.",
+        },
+        {
+            "execution_command": [
+                sys.executable,
+                "tools/oc133_toe_closure_factory.py",
+                "--execute-comparator-source-executor",
+                gap_id,
+                subartifact_id,
+                "--write",
+            ],
+        },
+    )
+    payload["artifact_ref"] = rel(root, root / comparator_source_executor_work_order_rel(gap_id, subartifact_id))
+    payload["artifact_hash"] = artifact_hash(payload)
+    write_json_artifact(root, comparator_source_executor_work_order_rel(gap_id, subartifact_id), payload)
+    return payload
 
 
 def build_all_comparator_scoring_subartifact_executions(root: Path) -> dict[str, Any]:
@@ -4971,6 +5049,7 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--execute-comparator-scoring-work-order", help="Build the exact scoring/replay research work order for one comparator coverage gap.")
     parser.add_argument("--execute-comparator-scoring-subartifact", nargs=2, metavar=("GAP_ID", "SUBARTIFACT_ID"), help="Build the exact lower-level scoring subartifact work packet for one comparator coverage gap.")
     parser.add_argument("--execute-all-comparator-scoring-subartifacts", action="store_true", help="Build all lower-level comparator scoring subartifact work packets in one deterministic batch.")
+    parser.add_argument("--execute-comparator-source-executor", nargs=2, metavar=("GAP_ID", "SUBARTIFACT_ID"), help="Build the exact source/evidence executor work order for one comparator scoring subartifact.")
     parser.add_argument("--compile-comparator-scoring-backlog", action="store_true", help="Compile exact lower-level scoring executor subtasks for open comparator scoring work orders.")
     parser.add_argument("--execute-comparator-domain-job", help="Execute one modern-science comparator domain job such as MS-COV-JOB-001.")
     parser.add_argument("--timeout", type=int, default=900)
@@ -5028,6 +5107,14 @@ def main(argv: list[str] | None = None) -> int:
     if args.execute_all_comparator_scoring_subartifacts:
         payload = build_all_comparator_scoring_subartifact_executions(ROOT)
         path = ROOT / lane_execution_base("MODERN_SCIENCE_COMPARATOR_SUPERIORITY") / "OC133_MODERN_SCIENCE_COMPARATOR_SCORING_SUBARTIFACT_BATCH.json"
+        result = validation_result({path: stable_json(payload)}, write=args.write)
+        print(json.dumps(result if args.write or args.check else payload, ensure_ascii=False, indent=2, sort_keys=True))
+        return 1 if args.check and result["state"] != "PASS" else 0
+    if args.execute_comparator_source_executor:
+        gap_id, subartifact_id = args.execute_comparator_source_executor
+        payload = build_comparator_source_executor_work_order(ROOT, gap_id, subartifact_id)
+        artifact_ref = payload.get("artifact_ref")
+        path = ROOT / artifact_ref if isinstance(artifact_ref, str) and artifact_ref else ROOT / comparator_source_executor_work_order_rel(gap_id, subartifact_id)
         result = validation_result({path: stable_json(payload)}, write=args.write)
         print(json.dumps(result if args.write or args.check else payload, ensure_ascii=False, indent=2, sort_keys=True))
         return 1 if args.check and result["state"] != "PASS" else 0

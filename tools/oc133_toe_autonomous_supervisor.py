@@ -728,6 +728,44 @@ def comparator_actions(root: Path) -> list[dict[str, Any]]:
         )
         seen_action_ids.add(action_id)
         actions.append(action)
+    for row in sorted(
+        factory.comparator_scoring_subartifact_executions(root),
+        key=lambda item: (str(item.get("gap_id")), str(item.get("scoring_subartifact_id"))),
+    ):
+        if row.get("status") == "PASS":
+            continue
+        gap_id = str(row.get("gap_id") or "")
+        subartifact_id = str(row.get("scoring_subartifact_id") or "")
+        if not gap_id or not subartifact_id:
+            continue
+        if factory.comparator_source_executor_work_order_exists(root, gap_id, subartifact_id):
+            continue
+        action_id = f"AUTO-R017-COMPARATOR-SOURCE-EXECUTOR-{artifact_hash({'gap_id': gap_id, 'subartifact_id': subartifact_id})[:12]}"
+        if action_id in seen_action_ids:
+            continue
+        action = action_defaults(
+            action_id,
+            "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+            "comparator_source_executor_work_order",
+            [sys.executable, "tools/oc133_toe_closure_factory.py", "--execute-comparator-source-executor", gap_id, subartifact_id, "--write"],
+        )
+        action.update(
+            {
+                "gap_id": gap_id,
+                "required_artifact": f"source_executor::{subartifact_id}",
+                "missing_artifact_type": f"source_executor::{subartifact_id}",
+                "scoring_subartifact_id": subartifact_id,
+                "source_ref": row.get("artifact_ref"),
+                "why_it_failed": row.get("why_it_failed"),
+                "repair_strategy": "Create the source/evidence executor work order for this already-materialized scoring subartifact packet.",
+                "required_capability": row.get("required_capability") or "Research/ScoringExecutor",
+                "pass_predicate": "The source/evidence executor work order exists and names the exact downstream evidence/scoring command required for closure.",
+                "next_escalation": "Implement the actual acquisition/scoring tool referenced by the work order; do not rerun generic comparator waves.",
+                "validator_binding": f"comparator_gap::{gap_id}::source_executor::{subartifact_id}",
+            }
+        )
+        seen_action_ids.add(action_id)
+        actions.append(action)
     return actions
 
 
