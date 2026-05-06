@@ -1,0 +1,52 @@
+{
+  "artifact_hash": "cb24362378e7dda7fd3a9d261f731250f76f3df0e3e30c098fc9ab7c8aee4d9e",
+  "artifact_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/source_implementations/R017-SOURCE-IMPL-cc62d2e379182d75.json",
+  "command_pass": false,
+  "command_result_total": 0,
+  "command_results": [],
+  "concrete_governed_commands": [],
+  "domain_class_id": "earth_space_environmental_sciences",
+  "execution_command": [
+    "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+    "tools/oc133_toe_closure_factory.py",
+    "--execute-comparator-source-implementation",
+    "R017-SOURCE-IMPL-cc62d2e379182d75",
+    "--write"
+  ],
+  "gap_id": "MS-COV-GAP-EARTH_SPACE_ENVIRONMENTAL_SCIENCES-CLIMATE_WEATHER_GEOPHYSICAL_TIME_SERIES",
+  "generated_at": "2026-05-06T06:37:12Z",
+  "implementation_command_class": "MISSING_CONCRETE_SOURCE_EXECUTOR",
+  "implementation_id": "R017-SOURCE-IMPL-cc62d2e379182d75",
+  "implementation_work_order_id": "R017-SOURCE-IMPL-cc62d2e379182d75",
+  "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+  "mapped_research_artifact_key": "verified_open_source_capsule",
+  "next_escalation": "If status is CAPABILITY_DEVELOPMENT_REQUIRED, add the missing domain command. If FAIL_CLOSED, inspect command_results and repair the source/scoring script.",
+  "no_fake_closure_policy": "A source implementation report can close only the implementation obligation. Broad modern-science superiority requires every mapped research artifact and replay predicate to PASS.",
+  "pass_predicate": "Concrete governed commands run and create a hash-bound research artifact; downstream artifact status, not this report alone, decides broad superiority.",
+  "phenomenon_class_id": "climate_weather_geophysical_time_series",
+  "repair_strategy": "Use this report as the exact source/evidence execution trace; if it is not PASS, implement the missing domain-specific command or repair the failing governed command.",
+  "required_capability": "Research/ScoringExecutor",
+  "required_source_block": {
+    "artifact_id": "source_snapshot_acquisition",
+    "pass_predicate": "Open/free source snapshot exists locally, is hash-bound, and satisfies source separation policy.",
+    "required_source": {
+      "lane_role": "official_data_source",
+      "required_local_snapshot_ref": "validation/heldout/grand_science/earth_space/coverage_work_orders/raw/noaa_coops_9414290_water_level_20240101_20240103.json",
+      "required_lock_ref": null,
+      "requirement": "Acquire and hash NOAA CO-OPS Data Retrieval API water level and tide prediction observations from https://api.tidesandcurrents.noaa.gov/api/prod/datagetter?begin_date=20240101&end_date=20240103&station=9414290&product=water_level&datum=MLLW&time_zone=gmt&units=metric&application=LogionOC133CoverageSpec&format=json.",
+      "source_id": "earth_noaa_coops_san_francisco_water_level_v1"
+    }
+  },
+  "research_artifact_exists": true,
+  "research_artifact_hash": "a8dda329d8266bebf883b10f81fb2f6eefba01f75dcd358140d0066e88c2ff99",
+  "research_artifact_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/6fa88ac46f5c7bb2/verified_open_source_capsule.json",
+  "research_artifact_status": "PASS",
+  "root_cause_class": "NO_GOVERNED_DOMAIN_SOURCE_IMPLEMENTATION_COMMAND",
+  "schema_id": "OC133_MODERN_SCIENCE_COMPARATOR_SOURCE_IMPLEMENTATION_EXECUTION_v1",
+  "scientific_closure_status": "OPEN",
+  "scoring_subartifact_id": "source_snapshot_acquisition",
+  "source_executor_work_order_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/source_executor_work_orders/source_executor_cc62d2e379182d75.json",
+  "status": "CAPABILITY_DEVELOPMENT_REQUIRED",
+  "validator_binding": "comparator_gap::MS-COV-GAP-EARTH_SPACE_ENVIRONMENTAL_SCIENCES-CLIMATE_WEATHER_GEOPHYSICAL_TIME_SERIES::source_implementation::source_snapshot_acquisition",
+  "why_it_failed": "No governed source/scoring command is mapped for domain `earth_space_environmental_sciences`, phenomenon `climate_weather_geophysical_time_series`, subartifact `source_snapshot_acquisition`."
+}

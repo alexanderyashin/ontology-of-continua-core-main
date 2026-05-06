@@ -661,10 +661,14 @@ def comparator_actions(root: Path) -> list[dict[str, Any]]:
         missing_artifacts = list(payload.get("missing_artifacts") or [])
         for artifact_key in sorted(missing_artifacts, key=lambda key: ARTIFACT_PRIORITY.get(str(key), 80)):
             if artifact_key == "oc_prediction_scoring_row":
+                if factory.comparator_gap_scoring_work_order_exists(root, gap_id):
+                    continue
                 command = [sys.executable, "tools/oc133_toe_closure_factory.py", "--execute-comparator-scoring-work-order", gap_id, "--write"]
                 executor_type = "comparator_scoring_work_order"
                 repair_strategy = "Build the exact scoring work order before attempting broad superiority; this narrows the source/target/model/comparator/falsifier/replay gap without faking evidence."
             else:
+                if factory.comparator_gap_research_artifact_exists(root, gap_id, str(artifact_key)):
+                    continue
                 command = [sys.executable, "tools/oc133_toe_closure_factory.py", "--execute-comparator-gap-artifact", gap_id, str(artifact_key), "--write"]
                 executor_type = "comparator_gap_artifact"
                 repair_strategy = "Create the exact comparator gap artifact work packet before rerunning broad-coverage closure."
@@ -799,6 +803,9 @@ def comparator_actions(root: Path) -> list[dict[str, Any]]:
     ):
         if row.get("status") == "PASS":
             continue
+        implementation_id = str(row.get("implementation_id") or row.get("implementation_work_order_id") or "")
+        if implementation_id and factory.comparator_source_implementation_completed(root, implementation_id):
+            continue
         action_id = f"AUTO-R017-COMPARATOR-SOURCE-IMPLEMENTATION-{artifact_hash({'gap_id': row.get('gap_id'), 'subartifact_id': row.get('scoring_subartifact_id')})[:12]}"
         if action_id in seen_action_ids:
             continue
@@ -806,15 +813,19 @@ def comparator_actions(root: Path) -> list[dict[str, Any]]:
             action_id,
             "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
             "comparator_source_implementation_obligation",
-            [sys.executable, "tools/oc133_toe_closure_factory.py", "--compile-comparator-source-implementation-backlog", "--write"],
+            [sys.executable, "tools/oc133_toe_closure_factory.py", "--execute-comparator-source-implementation", implementation_id, "--write"] if implementation_id else [sys.executable, "tools/oc133_toe_closure_factory.py", "--compile-comparator-source-implementation-backlog", "--write"],
         )
         action.update(
             {
+                "implementation_id": implementation_id,
                 "gap_id": row.get("gap_id"),
+                "domain_class_id": row.get("domain_class_id"),
+                "phenomenon_class_id": row.get("phenomenon_class_id"),
                 "required_artifact": f"source_implementation::{row.get('scoring_subartifact_id')}",
                 "missing_artifact_type": f"source_implementation::{row.get('scoring_subartifact_id')}",
                 "scoring_subartifact_id": row.get("scoring_subartifact_id"),
                 "source_ref": row.get("source_executor_work_order_ref"),
+                "concrete_command_available": row.get("concrete_command_available") is True,
                 "why_it_failed": row.get("why_it_failed"),
                 "repair_strategy": row.get("repair_strategy"),
                 "required_capability": row.get("required_capability"),
@@ -1653,6 +1664,16 @@ def build_capability_development_ledger(rows: list[dict[str, Any]], generated_at
                     payload["execution_command"] = []
                     payload["implementation_command"] = []
                     payload["next_escalation"] = "Source implementation backlog exists; remaining work is implementing the concrete acquisition/scoring commands listed in it."
+                elif artifact_key.startswith("source_implementation::"):
+                    subartifact_id = artifact_key.split("::", 1)[1]
+                    implementation_id = factory.comparator_source_implementation_id(gap_id, subartifact_id)
+                    if factory.comparator_source_implementation_completed(ROOT, implementation_id):
+                        payload["status"] = "PASS"
+                        payload["superseded_by_source_implementation_report"] = True
+                        payload["capability_executor_ready"] = False
+                        payload["execution_command"] = []
+                        payload["implementation_command"] = []
+                        payload["next_escalation"] = "Source implementation report now exists for this scope; downstream comparator artifacts decide whether broad superiority remains blocked."
         if (
             str(payload.get("lane_id") or "") == "GRAND_TOE_CLAIM_LEDGER_EVIDENCE"
             and str(payload.get("missing_artifact_type") or "") == "grand_promotion_derivation"

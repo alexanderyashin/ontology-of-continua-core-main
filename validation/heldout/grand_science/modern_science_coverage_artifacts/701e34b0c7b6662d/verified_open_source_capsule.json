@@ -1,0 +1,45 @@
+{
+  "artifact_hash": "f4e2da48dec273c60aeee0eaa86a563c9c2f99814390ad1f005d6a494aebb511",
+  "artifact_key": "verified_open_source_capsule",
+  "artifact_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/701e34b0c7b6662d/verified_open_source_capsule.json",
+  "closure_scope": "source_identity_and_open_url_bound; target/scoring/replay remain separate",
+  "domain_class_id": "complex_systems_operations_science",
+  "executable_spec_found": true,
+  "execution_command": [
+    "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+    "tools/oc133_toe_closure_factory.py",
+    "--execute-comparator-gap-artifact",
+    "MS-COV-GAP-COMPLEX_SYSTEMS_OPERATIONS_SCIENCE-MULTI_AGENT_SYSTEM_DYNAMICS",
+    "verified_open_source_capsule",
+    "--write"
+  ],
+  "gap_id": "MS-COV-GAP-COMPLEX_SYSTEMS_OPERATIONS_SCIENCE-MULTI_AGENT_SYSTEM_DYNAMICS",
+  "generated_at": "2026-05-06T06:36:05Z",
+  "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+  "next_escalation": "If this row remains OPEN, create a narrower acquisition/scoring/replay executor for the exact failed validation field.",
+  "no_fake_closure_policy": "This artifact can reduce a missing-artifact count only at its own scope. It cannot mark the coverage gap or broad TOE superiority PASS by itself.",
+  "pass_predicate": "verified_open_source_capsule status == PASS and the strict comparator gap row no longer lists it as missing.",
+  "phenomenon_class_id": "multi_agent_system_dynamics",
+  "queue_row_found": true,
+  "repair_strategy": "Continue to the next missing artifact; do not close broad superiority until all source, benchmark, comparator, scoring, uncertainty, falsifier, and replay artifacts pass.",
+  "required_capability": "Research/PriorArt",
+  "schema_id": "OC133_MODERN_SCIENCE_COMPARATOR_RESEARCH_ARTIFACT_v1",
+  "source_refs": [
+    "reports/OC_CORE_1_3_3_MODERN_SCIENCE_COVERAGE_LANE_QUEUE.json",
+    "benchmarks/modern_science/OC133_MODERN_SCIENCE_COVERAGE_WORK_ORDERS.json",
+    "comparators/modern_science/OC133_MODERN_SCIENCE_COVERAGE_REGISTER.json"
+  ],
+  "status": "PASS",
+  "validation": {
+    "official_url_present": true,
+    "required_lock_exists": false,
+    "required_lock_ref": null,
+    "required_lock_sha256": "",
+    "required_snapshot_exists": false,
+    "required_snapshot_ref": null,
+    "required_snapshot_sha256": "",
+    "source_id_present": true
+  },
+  "why_it_failed": "Required comparator artifact is source-bound at its declared scope.",
+  "work_order_id": "MS-COV-WO-033"
+}

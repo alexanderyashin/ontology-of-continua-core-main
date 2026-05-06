@@ -1,0 +1,54 @@
+{
+  "artifact_hash": "f581f66dd979db75ef69c559eb460a27fada0f80e437688c1835e1a05db64703",
+  "artifact_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/source_implementations/R017-SOURCE-IMPL-e38e89bcf3e0f98c.json",
+  "command_pass": false,
+  "command_result_total": 0,
+  "command_results": [],
+  "concrete_governed_commands": [],
+  "domain_class_id": "earth_space_environmental_sciences",
+  "execution_command": [
+    "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+    "tools/oc133_toe_closure_factory.py",
+    "--execute-comparator-source-implementation",
+    "R017-SOURCE-IMPL-e38e89bcf3e0f98c",
+    "--write"
+  ],
+  "gap_id": "MS-COV-GAP-EARTH_SPACE_ENVIRONMENTAL_SCIENCES-REMOTE_SENSING_AND_PLANETARY_MEASUREMENTS",
+  "generated_at": "2026-05-06T06:37:17Z",
+  "implementation_command_class": "MISSING_CONCRETE_SOURCE_EXECUTOR",
+  "implementation_id": "R017-SOURCE-IMPL-e38e89bcf3e0f98c",
+  "implementation_work_order_id": "R017-SOURCE-IMPL-e38e89bcf3e0f98c",
+  "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+  "mapped_research_artifact_key": "benchmark_case",
+  "next_escalation": "If status is CAPABILITY_DEVELOPMENT_REQUIRED, add the missing domain command. If FAIL_CLOSED, inspect command_results and repair the source/scoring script.",
+  "no_fake_closure_policy": "A source implementation report can close only the implementation obligation. Broad modern-science superiority requires every mapped research artifact and replay predicate to PASS.",
+  "pass_predicate": "Concrete governed commands run and create a hash-bound research artifact; downstream artifact status, not this report alone, decides broad superiority.",
+  "phenomenon_class_id": "remote_sensing_and_planetary_measurements",
+  "repair_strategy": "Use this report as the exact source/evidence execution trace; if it is not PASS, implement the missing domain-specific command or repair the failing governed command.",
+  "required_capability": "Research/ScoringExecutor",
+  "required_source_block": {
+    "artifact_id": "target_hidden_task_table",
+    "pass_predicate": "Target table is locked before scoring and hidden fields do not leak into model selection.",
+    "required_target": {
+      "lane_role": "target_variable",
+      "requirement": "NASA_POWER[lat=37.7749, lon=-122.4194, date].ALLSKY_SFC_SW_DWN",
+      "target_fields": [
+        "properties.parameter.ALLSKY_SFC_SW_DWN.<YYYYMMDD>"
+      ],
+      "target_name": "daily_all_sky_surface_shortwave_downward_irradiance",
+      "unit": "kWh/m^2/day"
+    }
+  },
+  "research_artifact_exists": true,
+  "research_artifact_hash": "a78749a7e2a92a4a607552a91fd96f749d66a4486e108d233f0c621a8eef7116",
+  "research_artifact_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/04a29758f8310992/benchmark_case.json",
+  "research_artifact_status": "PASS",
+  "root_cause_class": "NO_GOVERNED_DOMAIN_SOURCE_IMPLEMENTATION_COMMAND",
+  "schema_id": "OC133_MODERN_SCIENCE_COMPARATOR_SOURCE_IMPLEMENTATION_EXECUTION_v1",
+  "scientific_closure_status": "OPEN",
+  "scoring_subartifact_id": "target_hidden_task_table",
+  "source_executor_work_order_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/source_executor_work_orders/source_executor_e38e89bcf3e0f98c.json",
+  "status": "CAPABILITY_DEVELOPMENT_REQUIRED",
+  "validator_binding": "comparator_gap::MS-COV-GAP-EARTH_SPACE_ENVIRONMENTAL_SCIENCES-REMOTE_SENSING_AND_PLANETARY_MEASUREMENTS::source_implementation::target_hidden_task_table",
+  "why_it_failed": "No governed source/scoring command is mapped for domain `earth_space_environmental_sciences`, phenomenon `remote_sensing_and_planetary_measurements`, subartifact `target_hidden_task_table`."
+}

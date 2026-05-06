@@ -1,10 +1,10 @@
 {
-  "artifact_hash": "c17ae3c2b4e371dfb7795c5d3282fedfb8e6ec9ce685b6fb00307ed8ef4e15ea",
+  "artifact_hash": "58e0e918eff02e9bc19327e3fd395a75ec218469d5107b62052629652a571a7f",
   "artifact_key": "benchmark_case",
   "artifact_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/bde33a9d37378831/benchmark_case.json",
   "closure_scope": "target/benchmark case preregistered; no target result credit counted here",
   "domain_class_id": "medical_health_sciences",
-  "executable_spec_found": false,
+  "executable_spec_found": true,
   "execution_command": [
     "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
     "tools/oc133_toe_closure_factory.py",
@@ -31,9 +31,9 @@
   ],
   "status": "PASS",
   "validation": {
-    "minimum_rows_required": null,
+    "minimum_rows_required": 500,
     "target_fields_total": 5,
-    "target_hidden_policy": "Public-health time series must be version-locked before scoring; held-out incidence/risk values remain hidden until predictions materialize.",
+    "target_hidden_policy": "Lock source snapshots by reporting week, hide future regional risk-change labels, and score only against the held-out temporal slice.",
     "target_name_present": true
   },
   "why_it_failed": "Required comparator artifact is source-bound at its declared scope.",

@@ -2515,6 +2515,57 @@ class ReleaseAssemblyMachineTests(unittest.TestCase):
         self.assertTrue(open_replay_records)
         self.assertTrue(all(row.get("validation") for row in open_replay_records))
 
+    def test_r017_comparator_source_implementation_frontier_is_concrete_and_fail_closed(self) -> None:
+        factory_root = (
+            ROOT
+            / "operations"
+            / "logion_release_mission"
+            / "oc_core_1_3_3"
+            / "toe_closure_factory"
+            / "lane_execution"
+            / "MODERN_SCIENCE_COMPARATOR_SUPERIORITY"
+        )
+        backlog = read_json(factory_root / "SOURCE_IMPL_BACKLOG.json")
+        registry = read_json(factory_root / "SOURCE_IMPLEMENTATION_REGISTRY.json")
+        batch = read_json(factory_root / "OC133_MODERN_SCIENCE_COMPARATOR_SOURCE_IMPLEMENTATION_BATCH.json")
+        report_rows = [
+            read_json(path)
+            for path in (factory_root / "source_implementations").glob("*.json")
+        ]
+
+        self.assertEqual(backlog["schema_id"], "OC133_MODERN_SCIENCE_COMPARATOR_SOURCE_IMPLEMENTATION_BACKLOG_v1")
+        self.assertGreater(backlog["implementation_work_order_total"], 0)
+        for row in backlog["rows"]:
+            self.assertIn("implementation_id", row)
+            self.assertIn("domain_class_id", row)
+            self.assertIn("phenomenon_class_id", row)
+            self.assertIn("scoring_subartifact_id", row)
+            self.assertIn("--execute-comparator-source-implementation", row["execution_command"])
+            self.assertIn("no_fake_closure_policy", row)
+
+        self.assertEqual(registry["schema_id"], "OC133_MODERN_SCIENCE_COMPARATOR_SOURCE_IMPLEMENTATION_REGISTRY_v1")
+        self.assertEqual(registry["implementation_total"], backlog["implementation_work_order_total"])
+        self.assertEqual(registry["open_implementation_total"], len([row for row in registry["rows"] if row["status"] != "PASS"]))
+        self.assertEqual(batch["schema_id"], "OC133_MODERN_SCIENCE_COMPARATOR_SOURCE_IMPLEMENTATION_BATCH_v1")
+        self.assertIn("never promotes broad superiority", batch["no_fake_closure_policy"])
+
+        concrete_reports = [
+            row
+            for row in report_rows
+            if row.get("status") == "PASS" and row.get("implementation_command_class") == "CONCRETE_SOURCE_EXECUTOR"
+        ]
+        self.assertGreater(len(concrete_reports), 0)
+        self.assertTrue(all(row.get("scientific_closure_status") in {"PASS", "OPEN"} for row in concrete_reports))
+        capability_gaps = [
+            row
+            for row in report_rows
+            if row.get("status") == "CAPABILITY_DEVELOPMENT_REQUIRED"
+        ]
+        self.assertGreater(len(capability_gaps), 0)
+        self.assertTrue(all(row.get("implementation_command_class") == "MISSING_CONCRETE_SOURCE_EXECUTOR" for row in capability_gaps))
+        self.assertTrue(all(row.get("scientific_closure_status") == "OPEN" for row in capability_gaps))
+        self.assertTrue(all(row.get("no_fake_closure_policy") for row in report_rows))
+
     def test_recovery_r017_is_fail_closed_until_final_toe_validator_passes(self) -> None:
         tools_dir = ROOT / "tools"
         if str(tools_dir) not in sys.path:

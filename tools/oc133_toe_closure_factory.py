@@ -2014,6 +2014,177 @@ SCORING_SUBARTIFACT_KEYS = {
     "model_or_claim_repair_decision",
 }
 
+SCORING_SUBARTIFACT_TO_RESEARCH_ARTIFACT = {
+    "source_snapshot_acquisition": "verified_open_source_capsule",
+    "target_hidden_task_table": "benchmark_case",
+    "oc_formula_or_model": "oc_prediction_scoring_row",
+    "incumbent_comparator_scoring": "incumbent_comparator",
+    "residuals_materiality_uncertainty": "uncertainty_row",
+    "controls_and_falsifiers": "falsifier_row",
+    "independent_replay": "replay_record",
+    "strict_evidence_pack_diagnosis": "oc_prediction_scoring_row",
+    "model_or_claim_repair_decision": "oc_prediction_scoring_row",
+}
+
+COMPARATOR_DOMAIN_SCRIPT_BY_CLASS = {
+    "agricultural_food_sciences": "validation/heldout/grand_science/agriculture/coverage_work_orders/oc133_agriculture_modern_science_coverage_work_orders.py",
+    "biological_life_sciences": "validation/heldout/grand_science/biology/coverage_work_orders/oc133_biology_modern_science_coverage_work_orders.py",
+    "computer_information_sciences": "validation/heldout/grand_science/cs/coverage_work_orders/oc133_cs_modern_science_coverage_work_orders.py",
+    "earth_space_environmental_sciences": "validation/heldout/grand_science/earth_space/coverage_work_orders/oc133_earth_space_modern_science_coverage_work_orders.py",
+    "engineering_materials_sciences": "validation/heldout/grand_science/engineering/coverage_work_orders/oc133_engineering_modern_science_coverage_work_orders.py",
+    "formal_mathematics_and_logic": "validation/heldout/grand_science/formal_mathematics/coverage_work_orders/oc133_formal_mathematics_modern_science_coverage_work_orders.py",
+    "cognitive_behavioral_neurosciences": "validation/heldout/grand_science/neurobehavioral/coverage_work_orders/oc133_neurobehavioral_modern_science_coverage_work_orders.py",
+    "complex_systems_operations_science": "validation/heldout/grand_science/operations/coverage_work_orders/oc133_operations_modern_science_coverage_work_orders.py",
+    "social_economic_political_sciences": "validation/heldout/grand_science/systems/coverage_work_orders/oc133_systems_civilizational_modern_science_coverage_work_orders.py",
+}
+
+COMPARATOR_DOMAIN_IMPLEMENTED_COMMANDS = {
+    (
+        "agricultural_food_sciences",
+        "food_chemistry_safety_and_nutrition",
+        "source_snapshot_acquisition",
+    ): [
+        [sys.executable, COMPARATOR_DOMAIN_SCRIPT_BY_CLASS["agricultural_food_sciences"], "--acquire-fdc", "--write-acquisition"],
+        [sys.executable, COMPARATOR_DOMAIN_SCRIPT_BY_CLASS["agricultural_food_sciences"], "--check"],
+    ],
+    (
+        "agricultural_food_sciences",
+        "food_chemistry_safety_and_nutrition",
+        "target_hidden_task_table",
+    ): [
+        [sys.executable, COMPARATOR_DOMAIN_SCRIPT_BY_CLASS["agricultural_food_sciences"], "--score-fdc", "--write-scoring"],
+        [sys.executable, COMPARATOR_DOMAIN_SCRIPT_BY_CLASS["agricultural_food_sciences"], "--check"],
+    ],
+    (
+        "agricultural_food_sciences",
+        "food_chemistry_safety_and_nutrition",
+        "oc_formula_or_model",
+    ): [
+        [sys.executable, COMPARATOR_DOMAIN_SCRIPT_BY_CLASS["agricultural_food_sciences"], "--score-fdc", "--write-scoring"],
+        [sys.executable, COMPARATOR_DOMAIN_SCRIPT_BY_CLASS["agricultural_food_sciences"], "--check"],
+    ],
+    (
+        "agricultural_food_sciences",
+        "food_chemistry_safety_and_nutrition",
+        "incumbent_comparator_scoring",
+    ): [
+        [sys.executable, COMPARATOR_DOMAIN_SCRIPT_BY_CLASS["agricultural_food_sciences"], "--score-fdc", "--write-scoring"],
+        [sys.executable, COMPARATOR_DOMAIN_SCRIPT_BY_CLASS["agricultural_food_sciences"], "--check"],
+    ],
+    (
+        "agricultural_food_sciences",
+        "food_chemistry_safety_and_nutrition",
+        "residuals_materiality_uncertainty",
+    ): [
+        [sys.executable, COMPARATOR_DOMAIN_SCRIPT_BY_CLASS["agricultural_food_sciences"], "--score-fdc", "--write-scoring"],
+        [sys.executable, COMPARATOR_DOMAIN_SCRIPT_BY_CLASS["agricultural_food_sciences"], "--check"],
+    ],
+    (
+        "agricultural_food_sciences",
+        "food_chemistry_safety_and_nutrition",
+        "controls_and_falsifiers",
+    ): [
+        [sys.executable, COMPARATOR_DOMAIN_SCRIPT_BY_CLASS["agricultural_food_sciences"], "--score-fdc", "--write-scoring"],
+        [sys.executable, COMPARATOR_DOMAIN_SCRIPT_BY_CLASS["agricultural_food_sciences"], "--check"],
+    ],
+    (
+        "agricultural_food_sciences",
+        "food_chemistry_safety_and_nutrition",
+        "independent_replay",
+    ): [
+        [sys.executable, COMPARATOR_DOMAIN_SCRIPT_BY_CLASS["agricultural_food_sciences"], "--score-fdc", "--write-scoring"],
+        [sys.executable, COMPARATOR_DOMAIN_SCRIPT_BY_CLASS["agricultural_food_sciences"], "--check"],
+    ],
+    (
+        "agricultural_food_sciences",
+        "food_chemistry_safety_and_nutrition",
+        "strict_evidence_pack_diagnosis",
+    ): [
+        [sys.executable, COMPARATOR_DOMAIN_SCRIPT_BY_CLASS["agricultural_food_sciences"], "--score-fdc", "--write-scoring"],
+        [sys.executable, COMPARATOR_DOMAIN_SCRIPT_BY_CLASS["agricultural_food_sciences"], "--check"],
+    ],
+    (
+        "agricultural_food_sciences",
+        "food_chemistry_safety_and_nutrition",
+        "model_or_claim_repair_decision",
+    ): [
+        [sys.executable, COMPARATOR_DOMAIN_SCRIPT_BY_CLASS["agricultural_food_sciences"], "--score-fdc", "--write-scoring"],
+        [sys.executable, COMPARATOR_DOMAIN_SCRIPT_BY_CLASS["agricultural_food_sciences"], "--check"],
+    ],
+    (
+        "earth_space_environmental_sciences",
+        "geochemistry_and_hydrology_observables",
+        "source_snapshot_acquisition",
+    ): [
+        [sys.executable, COMPARATOR_DOMAIN_SCRIPT_BY_CLASS["earth_space_environmental_sciences"], "--refresh-usgs-hydrology-source", "--write"],
+        [sys.executable, COMPARATOR_DOMAIN_SCRIPT_BY_CLASS["earth_space_environmental_sciences"], "--check"],
+    ],
+    (
+        "earth_space_environmental_sciences",
+        "geochemistry_and_hydrology_observables",
+        "target_hidden_task_table",
+    ): [
+        [sys.executable, COMPARATOR_DOMAIN_SCRIPT_BY_CLASS["earth_space_environmental_sciences"], "--score-usgs-hydrology", "--write"],
+        [sys.executable, COMPARATOR_DOMAIN_SCRIPT_BY_CLASS["earth_space_environmental_sciences"], "--check"],
+    ],
+    (
+        "earth_space_environmental_sciences",
+        "geochemistry_and_hydrology_observables",
+        "oc_formula_or_model",
+    ): [
+        [sys.executable, COMPARATOR_DOMAIN_SCRIPT_BY_CLASS["earth_space_environmental_sciences"], "--score-usgs-hydrology", "--write"],
+        [sys.executable, COMPARATOR_DOMAIN_SCRIPT_BY_CLASS["earth_space_environmental_sciences"], "--check"],
+    ],
+    (
+        "earth_space_environmental_sciences",
+        "geochemistry_and_hydrology_observables",
+        "incumbent_comparator_scoring",
+    ): [
+        [sys.executable, COMPARATOR_DOMAIN_SCRIPT_BY_CLASS["earth_space_environmental_sciences"], "--score-usgs-hydrology", "--write"],
+        [sys.executable, COMPARATOR_DOMAIN_SCRIPT_BY_CLASS["earth_space_environmental_sciences"], "--check"],
+    ],
+    (
+        "earth_space_environmental_sciences",
+        "geochemistry_and_hydrology_observables",
+        "residuals_materiality_uncertainty",
+    ): [
+        [sys.executable, COMPARATOR_DOMAIN_SCRIPT_BY_CLASS["earth_space_environmental_sciences"], "--score-usgs-hydrology", "--write"],
+        [sys.executable, COMPARATOR_DOMAIN_SCRIPT_BY_CLASS["earth_space_environmental_sciences"], "--check"],
+    ],
+    (
+        "earth_space_environmental_sciences",
+        "geochemistry_and_hydrology_observables",
+        "controls_and_falsifiers",
+    ): [
+        [sys.executable, COMPARATOR_DOMAIN_SCRIPT_BY_CLASS["earth_space_environmental_sciences"], "--score-usgs-hydrology", "--write"],
+        [sys.executable, COMPARATOR_DOMAIN_SCRIPT_BY_CLASS["earth_space_environmental_sciences"], "--check"],
+    ],
+    (
+        "earth_space_environmental_sciences",
+        "geochemistry_and_hydrology_observables",
+        "independent_replay",
+    ): [
+        [sys.executable, COMPARATOR_DOMAIN_SCRIPT_BY_CLASS["earth_space_environmental_sciences"], "--score-usgs-hydrology", "--write"],
+        [sys.executable, COMPARATOR_DOMAIN_SCRIPT_BY_CLASS["earth_space_environmental_sciences"], "--check"],
+    ],
+    (
+        "earth_space_environmental_sciences",
+        "geochemistry_and_hydrology_observables",
+        "strict_evidence_pack_diagnosis",
+    ): [
+        [sys.executable, COMPARATOR_DOMAIN_SCRIPT_BY_CLASS["earth_space_environmental_sciences"], "--score-usgs-hydrology", "--write"],
+        [sys.executable, COMPARATOR_DOMAIN_SCRIPT_BY_CLASS["earth_space_environmental_sciences"], "--check"],
+    ],
+    (
+        "earth_space_environmental_sciences",
+        "geochemistry_and_hydrology_observables",
+        "model_or_claim_repair_decision",
+    ): [
+        [sys.executable, COMPARATOR_DOMAIN_SCRIPT_BY_CLASS["earth_space_environmental_sciences"], "--score-usgs-hydrology", "--write"],
+        [sys.executable, COMPARATOR_DOMAIN_SCRIPT_BY_CLASS["earth_space_environmental_sciences"], "--check"],
+    ],
+}
+
 COMPARATOR_RESEARCH_ARTIFACT_BASE = Path("validation/heldout/grand_science/modern_science_coverage_artifacts")
 
 COMPARATOR_FALLBACK_SOURCE_BLOCKS = {
@@ -2188,6 +2359,26 @@ def comparator_source_executor_work_order_rel(gap_id: str, subartifact_id: str) 
 
 def comparator_source_implementation_backlog_rel() -> Path:
     return lane_execution_base("MODERN_SCIENCE_COMPARATOR_SUPERIORITY") / "SOURCE_IMPL_BACKLOG.json"
+
+
+def comparator_source_implementation_registry_rel() -> Path:
+    return (
+        lane_execution_base("MODERN_SCIENCE_COMPARATOR_SUPERIORITY")
+        / "SOURCE_IMPLEMENTATION_REGISTRY.json"
+    )
+
+
+def comparator_source_implementation_id(gap_id: str, subartifact_id: str) -> str:
+    return f"R017-SOURCE-IMPL-{artifact_hash({'gap_id': gap_id, 'subartifact_id': subartifact_id})[:16]}"
+
+
+def comparator_source_implementation_rel(implementation_id: str) -> Path:
+    safe_id = re.sub(r"[^A-Za-z0-9_.-]+", "_", implementation_id).strip("_") or "UNKNOWN_IMPL"
+    return (
+        lane_execution_base("MODERN_SCIENCE_COMPARATOR_SUPERIORITY")
+        / "source_implementations"
+        / f"{safe_id}.json"
+    )
 
 
 def comparator_scoring_executor_backlog_rel() -> Path:
@@ -2681,23 +2872,44 @@ def build_comparator_source_implementation_backlog(root: Path) -> dict[str, Any]
         subartifact_id = str(work_order.get("scoring_subartifact_id") or "")
         if not gap_id or not subartifact_id or subartifact_id not in SCORING_SUBARTIFACT_KEYS:
             continue
+        gap_payload = comparator_gap_execution_payload(root, gap_id)
+        queue_row = comparator_lane_queue_rows_by_gap(root).get(gap_id, {})
+        domain_class_id = str(gap_payload.get("domain_class_id") or queue_row.get("domain_class_id") or "")
+        phenomenon_class_id = str(gap_payload.get("phenomenon_class_id") or queue_row.get("phenomenon_class_id") or "")
+        implementation_id = comparator_source_implementation_id(gap_id, subartifact_id)
+        implementation_report = read_json(root / comparator_source_implementation_rel(implementation_id))
+        if comparator_source_implementation_completed(root, implementation_id):
+            continue
+        implemented_command_rows = comparator_source_implementation_commands(
+            root,
+            domain_class_id,
+            phenomenon_class_id,
+            subartifact_id,
+        )
+        concrete_command_available = bool(implemented_command_rows)
         rows.append(
             normalize_problem_row(
                 {
-                    "implementation_work_order_id": f"R017-SOURCE-IMPL-{artifact_hash({'gap_id': gap_id, 'subartifact_id': subartifact_id})[:16]}",
+                    "implementation_id": implementation_id,
+                    "implementation_work_order_id": implementation_id,
                     "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
                     "gap_id": gap_id,
+                    "domain_class_id": domain_class_id,
+                    "phenomenon_class_id": phenomenon_class_id,
                     "scoring_subartifact_id": subartifact_id,
                     "status": "OPEN",
                     "source_executor_work_order_ref": work_order.get("artifact_ref"),
+                    "source_implementation_report_ref": rel(root, root / comparator_source_implementation_rel(implementation_id)),
                     "required_source_block": work_order.get("required_source_block", {}),
                     "why_it_failed": "A source-executor work order exists, but no governed acquisition/scoring implementation has produced evidence.",
-                    "repair_strategy": "Implement the exact acquisition/scoring command for this source block, then rebuild scoring pack and replay.",
+                    "repair_strategy": "Run the bound governed acquisition/scoring command for this source block, or compile a narrower domain-specific executor if no command exists.",
                     "required_capability": work_order.get("required_capability") or "Research/ScoringExecutor",
-                    "execution_command": [sys.executable, "tools/oc133_toe_closure_factory.py", "--compile-comparator-source-implementation-backlog", "--write"],
+                    "execution_command": [sys.executable, "tools/oc133_toe_closure_factory.py", "--execute-comparator-source-implementation", implementation_id, "--write"],
+                    "concrete_command_available": concrete_command_available,
+                    "concrete_governed_commands": implemented_command_rows,
                     "pass_predicate": "A concrete implementation command exists, runs under governance, and produces a hash-bound evidence/scoring artifact.",
                     "validator_binding": f"comparator_gap::{gap_id}::source_implementation::{subartifact_id}",
-                    "next_escalation": "Create the domain-specific acquisition/scoring script if no existing governed tool can satisfy this row.",
+                    "next_escalation": "Create the domain-specific acquisition/scoring script if no existing governed tool can satisfy this row." if not concrete_command_available else "Execute the concrete governed command and inspect the downstream research artifact status.",
                     "no_fake_closure_policy": "Implementation backlog rows are not evidence and cannot close broad superiority.",
                 },
                 {},
@@ -2728,6 +2940,234 @@ def comparator_source_implementation_backlog_rows(root: Path) -> list[dict[str, 
     payload = read_json(root / comparator_source_implementation_backlog_rel())
     rows = payload.get("rows") or []
     return [row for row in rows if isinstance(row, dict)]
+
+
+def comparator_source_implementation_commands(
+    root: Path,
+    domain_class_id: str,
+    phenomenon_class_id: str,
+    subartifact_id: str,
+) -> list[list[str]]:
+    exact = COMPARATOR_DOMAIN_IMPLEMENTED_COMMANDS.get(
+        (domain_class_id, phenomenon_class_id, subartifact_id),
+        [],
+    )
+    if exact:
+        return [list(command) for command in exact]
+    return []
+
+
+def comparator_source_implementation_rows_by_id(root: Path) -> dict[str, dict[str, Any]]:
+    return {
+        str(row.get("implementation_id") or row.get("implementation_work_order_id")): row
+        for row in comparator_source_implementation_backlog_rows(root)
+        if row.get("implementation_id") or row.get("implementation_work_order_id")
+    }
+
+
+def comparator_source_implementation_report(root: Path, implementation_id: str) -> dict[str, Any]:
+    payload = read_json(root / comparator_source_implementation_rel(implementation_id))
+    return payload if payload.get("implementation_id") == implementation_id else {}
+
+
+def comparator_source_implementation_completed(root: Path, implementation_id: str) -> bool:
+    report = comparator_source_implementation_report(root, implementation_id)
+    return (
+        report.get("status") == "PASS"
+        and report.get("implementation_command_class") == "CONCRETE_SOURCE_EXECUTOR"
+    )
+
+
+def build_comparator_source_implementation_execution(root: Path, implementation_id: str, timeout: int = 900) -> dict[str, Any]:
+    rows_by_id = comparator_source_implementation_rows_by_id(root)
+    row = rows_by_id.get(implementation_id)
+    if not row:
+        build_comparator_source_implementation_backlog(root)
+        rows_by_id = comparator_source_implementation_rows_by_id(root)
+        row = rows_by_id.get(implementation_id)
+    generated_at = stable_generated_at(root, comparator_source_implementation_rel(implementation_id))
+    if not row:
+        payload = normalize_problem_row(
+            {
+                "schema_id": "OC133_MODERN_SCIENCE_COMPARATOR_SOURCE_IMPLEMENTATION_EXECUTION_v1",
+                "generated_at": generated_at,
+                "implementation_id": implementation_id,
+                "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+                "status": "FAIL_CLOSED",
+                "root_cause_class": "SOURCE_IMPLEMENTATION_BACKLOG_ROW_MISSING",
+                "why_it_failed": "No source-implementation backlog row exists for this implementation id.",
+                "repair_strategy": "Recompile source implementation backlog from current source-executor work orders and rerun this exact implementation id.",
+                "required_capability": "Research/ScoringExecutor",
+                "execution_command": [sys.executable, "tools/oc133_toe_closure_factory.py", "--execute-comparator-source-implementation", implementation_id, "--write"],
+                "pass_predicate": "Backlog row exists and its governed command produces evidence or a source-bound blocker.",
+                "validator_binding": f"comparator_source_implementation::{implementation_id}",
+                "next_escalation": "Rebuild source executor work orders for comparator scoring subartifacts.",
+                "no_fake_closure_policy": "Missing implementation rows cannot close broad superiority.",
+            },
+            {},
+        )
+        payload["artifact_ref"] = rel(root, root / comparator_source_implementation_rel(implementation_id))
+        payload["artifact_hash"] = artifact_hash(payload)
+        write_json_artifact(root, comparator_source_implementation_rel(implementation_id), payload)
+        return payload
+
+    gap_id = str(row.get("gap_id") or "")
+    subartifact_id = str(row.get("scoring_subartifact_id") or "")
+    domain_class_id = str(row.get("domain_class_id") or "")
+    phenomenon_class_id = str(row.get("phenomenon_class_id") or "")
+    commands = comparator_source_implementation_commands(root, domain_class_id, phenomenon_class_id, subartifact_id)
+    mapped_artifact_key = SCORING_SUBARTIFACT_TO_RESEARCH_ARTIFACT.get(subartifact_id, "oc_prediction_scoring_row")
+    command_results = [
+        safe_run_command(root, command, timeout)
+        for command in commands
+    ]
+    command_pass = bool(commands) and all(result.get("returncode") == 0 for result in command_results)
+    research_artifact = build_comparator_gap_research_artifact(root, gap_id, mapped_artifact_key) if gap_id else {}
+    research_artifact_ref = research_artifact.get("artifact_ref")
+    research_artifact_exists = bool(research_artifact_ref) and (root / str(research_artifact_ref)).exists()
+    research_artifact_pass = research_artifact.get("status") == "PASS"
+    if not commands:
+        status = "CAPABILITY_DEVELOPMENT_REQUIRED"
+        root_cause = "NO_GOVERNED_DOMAIN_SOURCE_IMPLEMENTATION_COMMAND"
+        why = (
+            f"No governed source/scoring command is mapped for domain `{domain_class_id}`, "
+            f"phenomenon `{phenomenon_class_id}`, subartifact `{subartifact_id}`."
+        )
+        command_class = "MISSING_CONCRETE_SOURCE_EXECUTOR"
+    elif command_pass and research_artifact_exists:
+        status = "PASS"
+        root_cause = "SOURCE_IMPLEMENTATION_EXECUTED"
+        why = "Governed source/scoring commands ran and produced a downstream research artifact or fail-closed evidence diagnosis."
+        command_class = "CONCRETE_SOURCE_EXECUTOR"
+    else:
+        status = "FAIL_CLOSED"
+        root_cause = "SOURCE_IMPLEMENTATION_COMMAND_FAILED"
+        why = "At least one governed source/scoring command failed; broad comparator credit remains blocked."
+        command_class = "CONCRETE_SOURCE_EXECUTOR"
+    payload = normalize_problem_row(
+        {
+            "schema_id": "OC133_MODERN_SCIENCE_COMPARATOR_SOURCE_IMPLEMENTATION_EXECUTION_v1",
+            "generated_at": generated_at,
+            "implementation_id": implementation_id,
+            "implementation_work_order_id": row.get("implementation_work_order_id"),
+            "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+            "gap_id": gap_id,
+            "domain_class_id": domain_class_id,
+            "phenomenon_class_id": phenomenon_class_id,
+            "scoring_subartifact_id": subartifact_id,
+            "mapped_research_artifact_key": mapped_artifact_key,
+            "status": status,
+            "scientific_closure_status": "PASS" if status == "PASS" and research_artifact_pass else "OPEN",
+            "root_cause_class": root_cause,
+            "implementation_command_class": command_class,
+            "source_executor_work_order_ref": row.get("source_executor_work_order_ref"),
+            "required_source_block": row.get("required_source_block", {}),
+            "concrete_governed_commands": commands,
+            "command_result_total": len(command_results),
+            "command_pass": command_pass,
+            "command_results": command_results,
+            "research_artifact_ref": research_artifact_ref,
+            "research_artifact_exists": research_artifact_exists,
+            "research_artifact_status": research_artifact.get("status"),
+            "research_artifact_hash": research_artifact.get("artifact_hash"),
+            "why_it_failed": why,
+            "repair_strategy": "Use this report as the exact source/evidence execution trace; if it is not PASS, implement the missing domain-specific command or repair the failing governed command.",
+            "required_capability": row.get("required_capability") or "Research/ScoringExecutor",
+            "execution_command": [sys.executable, "tools/oc133_toe_closure_factory.py", "--execute-comparator-source-implementation", implementation_id, "--write"],
+            "pass_predicate": "Concrete governed commands run and create a hash-bound research artifact; downstream artifact status, not this report alone, decides broad superiority.",
+            "validator_binding": row.get("validator_binding") or f"comparator_gap::{gap_id}::source_implementation::{subartifact_id}",
+            "next_escalation": "If status is CAPABILITY_DEVELOPMENT_REQUIRED, add the missing domain command. If FAIL_CLOSED, inspect command_results and repair the source/scoring script.",
+            "no_fake_closure_policy": "A source implementation report can close only the implementation obligation. Broad modern-science superiority requires every mapped research artifact and replay predicate to PASS.",
+        },
+        {},
+    )
+    payload["artifact_ref"] = rel(root, root / comparator_source_implementation_rel(implementation_id))
+    payload["artifact_hash"] = artifact_hash(payload)
+    write_json_artifact(root, comparator_source_implementation_rel(implementation_id), payload)
+    return payload
+
+
+def build_comparator_source_implementation_registry(root: Path) -> dict[str, Any]:
+    backlog = build_comparator_source_implementation_backlog(root)
+    rows = []
+    for row in backlog.get("rows", []) or []:
+        if not isinstance(row, dict):
+            continue
+        implementation_id = str(row.get("implementation_id") or row.get("implementation_work_order_id") or "")
+        if not implementation_id:
+            continue
+        report = comparator_source_implementation_report(root, implementation_id)
+        report_completed = comparator_source_implementation_completed(root, implementation_id)
+        report_status = report.get("status")
+        effective_status = report_status if report_completed or report_status in {"CAPABILITY_DEVELOPMENT_REQUIRED", "FAIL_CLOSED"} else row.get("status")
+        rows.append(
+            {
+                "implementation_id": implementation_id,
+                "gap_id": row.get("gap_id"),
+                "domain_class_id": row.get("domain_class_id"),
+                "phenomenon_class_id": row.get("phenomenon_class_id"),
+                "scoring_subartifact_id": row.get("scoring_subartifact_id"),
+                "concrete_command_available": row.get("concrete_command_available") is True,
+                "status": effective_status,
+                "report_ref": report.get("artifact_ref") or row.get("source_implementation_report_ref"),
+                "implementation_command_class": report.get("implementation_command_class"),
+                "scientific_closure_status": report.get("scientific_closure_status", "OPEN") if report_completed else "OPEN",
+                "validator_binding": row.get("validator_binding"),
+            }
+        )
+    payload = {
+        "schema_id": "OC133_MODERN_SCIENCE_COMPARATOR_SOURCE_IMPLEMENTATION_REGISTRY_v1",
+        "generated_at": utc_now(),
+        "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+        "status": "PASS" if rows and all(row.get("status") == "PASS" for row in rows) else "OPEN",
+        "implementation_total": len(rows),
+        "open_implementation_total": sum(1 for row in rows if row.get("status") != "PASS"),
+        "command_available_total": sum(1 for row in rows if row.get("concrete_command_available") is True),
+        "rows": rows,
+        "execution_command": [sys.executable, "tools/oc133_toe_closure_factory.py", "--compile-comparator-source-implementation-backlog", "--write"],
+        "no_fake_closure_policy": "Registry status summarizes implementation execution only; broad superiority remains derived from strict comparator artifacts.",
+    }
+    payload["artifact_ref"] = rel(root, root / comparator_source_implementation_registry_rel())
+    payload["artifact_hash"] = artifact_hash(payload)
+    write_json_artifact(root, comparator_source_implementation_registry_rel(), payload)
+    return payload
+
+
+def execute_comparator_source_implementation_batch(root: Path, timeout: int = 900, limit: int = 0) -> dict[str, Any]:
+    backlog = build_comparator_source_implementation_backlog(root)
+    rows = [row for row in backlog.get("rows", []) or [] if isinstance(row, dict)]
+    executed = []
+    for row in rows:
+        implementation_id = str(row.get("implementation_id") or row.get("implementation_work_order_id") or "")
+        if not implementation_id:
+            continue
+        payload = build_comparator_source_implementation_execution(root, implementation_id, timeout=timeout)
+        executed.append(
+            {
+                "implementation_id": implementation_id,
+                "gap_id": row.get("gap_id"),
+                "scoring_subartifact_id": row.get("scoring_subartifact_id"),
+                "status": payload.get("status"),
+                "scientific_closure_status": payload.get("scientific_closure_status"),
+                "artifact_ref": payload.get("artifact_ref"),
+            }
+        )
+        if limit > 0 and len(executed) >= limit:
+            break
+    registry = build_comparator_source_implementation_registry(root)
+    result = {
+        "schema_id": "OC133_MODERN_SCIENCE_COMPARATOR_SOURCE_IMPLEMENTATION_BATCH_v1",
+        "generated_at": utc_now(),
+        "status": "PASS",
+        "requested_limit": limit,
+        "executed_total": len(executed),
+        "registry_ref": registry.get("artifact_ref"),
+        "registry_open_implementation_total": registry.get("open_implementation_total"),
+        "rows": executed,
+        "no_fake_closure_policy": "Batch execution never promotes broad superiority; it only executes concrete source implementations and records their evidence/diagnosis.",
+    }
+    result["artifact_hash"] = artifact_hash(result)
+    return result
 
 
 def build_comparator_source_executor_work_order(root: Path, gap_id: str, subartifact_id: str) -> dict[str, Any]:
@@ -4703,6 +5143,14 @@ def capability_executor_for_row(row: dict[str, Any], compiled_capability_id: str
             if len(parts) >= 4:
                 artifact_key = ":".join(parts[3:])
         if artifact_key == "source_implementation_backlog" or artifact_key.startswith("source_implementation::"):
+            subartifact_id = artifact_key.split("::", 1)[1] if artifact_key.startswith("source_implementation::") else str(row.get("scoring_subartifact_id") or "")
+            if gap_id and subartifact_id:
+                implementation_id = comparator_source_implementation_id(gap_id, subartifact_id)
+                return (
+                    [sys.executable, "tools/oc133_toe_closure_factory.py", "--execute-comparator-source-implementation", implementation_id, "--write"],
+                    "comparator_source_implementation_obligation",
+                    "Execute the exact governed source implementation for this gap/subartifact; the report records evidence or a source-bound blocker without granting broad comparator PASS.",
+                )
             return (
                 [sys.executable, "tools/oc133_toe_closure_factory.py", "--compile-comparator-source-implementation-backlog", "--write"],
                 "comparator_source_implementation_obligation",
@@ -4828,6 +5276,7 @@ def build_capability_implementation_registry(root: Path, *, generated_at: str | 
             or row.get("superseded_by_grand_promotion_derivation_report") is True
             or row.get("superseded_by_source_executor_work_order") is True
             or row.get("superseded_by_source_implementation_backlog") is True
+            or row.get("superseded_by_source_implementation_report") is True
         ):
             continue
         source_node = str(row.get("source_graph_node_id") or "")
@@ -5181,6 +5630,9 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--execute-comparator-source-executor", nargs=2, metavar=("GAP_ID", "SUBARTIFACT_ID"), help="Build the exact source/evidence executor work order for one comparator scoring subartifact.")
     parser.add_argument("--execute-all-comparator-source-executors", action="store_true", help="Build all comparator source/evidence executor work orders in one deterministic batch.")
     parser.add_argument("--compile-comparator-source-implementation-backlog", action="store_true", help="Compile source-executor work orders into concrete implementation obligations.")
+    parser.add_argument("--execute-comparator-source-implementation", help="Execute one concrete comparator source implementation by implementation id.")
+    parser.add_argument("--execute-comparator-source-implementation-batch", action="store_true", help="Execute concrete comparator source implementations in deterministic order.")
+    parser.add_argument("--source-implementation-batch-limit", type=int, default=0, help="Optional cap for comparator source implementation batch execution; 0 means no cap.")
     parser.add_argument("--compile-comparator-scoring-backlog", action="store_true", help="Compile exact lower-level scoring executor subtasks for open comparator scoring work orders.")
     parser.add_argument("--execute-comparator-domain-job", help="Execute one modern-science comparator domain job such as MS-COV-JOB-001.")
     parser.add_argument("--timeout", type=int, default=900)
@@ -5257,8 +5709,23 @@ def main(argv: list[str] | None = None) -> int:
         return 1 if args.check and result["state"] != "PASS" else 0
     if args.compile_comparator_source_implementation_backlog:
         payload = build_comparator_source_implementation_backlog(ROOT)
+        build_comparator_source_implementation_registry(ROOT)
         artifact_ref = payload.get("artifact_ref")
         path = ROOT / artifact_ref if isinstance(artifact_ref, str) and artifact_ref else ROOT / comparator_source_implementation_backlog_rel()
+        result = validation_result({path: stable_json(payload)}, write=args.write)
+        print(json.dumps(result if args.write or args.check else payload, ensure_ascii=False, indent=2, sort_keys=True))
+        return 1 if args.check and result["state"] != "PASS" else 0
+    if args.execute_comparator_source_implementation:
+        payload = build_comparator_source_implementation_execution(ROOT, args.execute_comparator_source_implementation, timeout=args.timeout)
+        build_comparator_source_implementation_registry(ROOT)
+        artifact_ref = payload.get("artifact_ref")
+        path = ROOT / artifact_ref if isinstance(artifact_ref, str) and artifact_ref else ROOT / comparator_source_implementation_rel(args.execute_comparator_source_implementation)
+        result = validation_result({path: stable_json(payload)}, write=args.write)
+        print(json.dumps(result if args.write or args.check else payload, ensure_ascii=False, indent=2, sort_keys=True))
+        return 1 if args.check and result["state"] != "PASS" else 0
+    if args.execute_comparator_source_implementation_batch:
+        payload = execute_comparator_source_implementation_batch(ROOT, timeout=args.timeout, limit=args.source_implementation_batch_limit)
+        path = ROOT / lane_execution_base("MODERN_SCIENCE_COMPARATOR_SUPERIORITY") / "OC133_MODERN_SCIENCE_COMPARATOR_SOURCE_IMPLEMENTATION_BATCH.json"
         result = validation_result({path: stable_json(payload)}, write=args.write)
         print(json.dumps(result if args.write or args.check else payload, ensure_ascii=False, indent=2, sort_keys=True))
         return 1 if args.check and result["state"] != "PASS" else 0

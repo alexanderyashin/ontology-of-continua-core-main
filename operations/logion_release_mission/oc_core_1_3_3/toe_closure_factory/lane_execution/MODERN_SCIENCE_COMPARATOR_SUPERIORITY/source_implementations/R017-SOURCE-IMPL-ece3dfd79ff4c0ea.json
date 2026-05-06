@@ -1,0 +1,50 @@
+{
+  "artifact_hash": "e732715dee9aed0e13e51e43da84fe1dc4ca4808988fb6396c9e87f73c96f8db",
+  "artifact_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/source_implementations/R017-SOURCE-IMPL-ece3dfd79ff4c0ea.json",
+  "command_pass": false,
+  "command_result_total": 0,
+  "command_results": [],
+  "concrete_governed_commands": [],
+  "domain_class_id": "medical_health_sciences",
+  "execution_command": [
+    "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+    "tools/oc133_toe_closure_factory.py",
+    "--execute-comparator-source-implementation",
+    "R017-SOURCE-IMPL-ece3dfd79ff4c0ea",
+    "--write"
+  ],
+  "gap_id": "MS-COV-GAP-MEDICAL_HEALTH_SCIENCES-CLINICAL_OUTCOMES_AND_BIOMARKERS",
+  "generated_at": "2026-05-06T06:37:21Z",
+  "implementation_command_class": "MISSING_CONCRETE_SOURCE_EXECUTOR",
+  "implementation_id": "R017-SOURCE-IMPL-ece3dfd79ff4c0ea",
+  "implementation_work_order_id": "R017-SOURCE-IMPL-ece3dfd79ff4c0ea",
+  "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+  "mapped_research_artifact_key": "uncertainty_row",
+  "next_escalation": "If status is CAPABILITY_DEVELOPMENT_REQUIRED, add the missing domain command. If FAIL_CLOSED, inspect command_results and repair the source/scoring script.",
+  "no_fake_closure_policy": "A source implementation report can close only the implementation obligation. Broad modern-science superiority requires every mapped research artifact and replay predicate to PASS.",
+  "pass_predicate": "Concrete governed commands run and create a hash-bound research artifact; downstream artifact status, not this report alone, decides broad superiority.",
+  "phenomenon_class_id": "clinical_outcomes_and_biomarkers",
+  "repair_strategy": "Use this report as the exact source/evidence execution trace; if it is not PASS, implement the missing domain-specific command or repair the failing governed command.",
+  "required_capability": "Research/ScoringExecutor",
+  "required_source_block": {
+    "artifact_id": "residuals_materiality_uncertainty",
+    "pass_predicate": "OC residual advantage exceeds preregistered materiality threshold under uncertainty.",
+    "required_uncertainty": {
+      "lane_role": "uncertainty_policy",
+      "metric": "bootstrap confidence interval over held-out outcome-direction residuals",
+      "requirement": "Report 95 percent bootstrap intervals and fail closed when intervals cross the materiality threshold."
+    }
+  },
+  "research_artifact_exists": true,
+  "research_artifact_hash": "df8b5c746466933e29faf12a3dda3c225dde4c670816a3c55dcc160594266b97",
+  "research_artifact_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/c8f37f6962a1ece5/uncertainty_row.json",
+  "research_artifact_status": "PASS",
+  "root_cause_class": "NO_GOVERNED_DOMAIN_SOURCE_IMPLEMENTATION_COMMAND",
+  "schema_id": "OC133_MODERN_SCIENCE_COMPARATOR_SOURCE_IMPLEMENTATION_EXECUTION_v1",
+  "scientific_closure_status": "OPEN",
+  "scoring_subartifact_id": "residuals_materiality_uncertainty",
+  "source_executor_work_order_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/source_executor_work_orders/source_executor_ece3dfd79ff4c0ea.json",
+  "status": "CAPABILITY_DEVELOPMENT_REQUIRED",
+  "validator_binding": "comparator_gap::MS-COV-GAP-MEDICAL_HEALTH_SCIENCES-CLINICAL_OUTCOMES_AND_BIOMARKERS::source_implementation::residuals_materiality_uncertainty",
+  "why_it_failed": "No governed source/scoring command is mapped for domain `medical_health_sciences`, phenomenon `clinical_outcomes_and_biomarkers`, subartifact `residuals_materiality_uncertainty`."
+}

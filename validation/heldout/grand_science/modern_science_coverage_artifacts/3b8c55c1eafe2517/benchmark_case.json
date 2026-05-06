@@ -1,0 +1,41 @@
+{
+  "artifact_hash": "0b466de16dda37ce4e38355036b1d8b1de12c77d702bad9ef4412f4c2a38f1f9",
+  "artifact_key": "benchmark_case",
+  "artifact_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/3b8c55c1eafe2517/benchmark_case.json",
+  "closure_scope": "target/benchmark case preregistered; no target result credit counted here",
+  "domain_class_id": "agricultural_food_sciences",
+  "executable_spec_found": true,
+  "execution_command": [
+    "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+    "tools/oc133_toe_closure_factory.py",
+    "--execute-comparator-gap-artifact",
+    "MS-COV-GAP-AGRICULTURAL_FOOD_SCIENCES-ANIMAL_HEALTH_AND_PRODUCTION_SYSTEMS",
+    "benchmark_case",
+    "--write"
+  ],
+  "gap_id": "MS-COV-GAP-AGRICULTURAL_FOOD_SCIENCES-ANIMAL_HEALTH_AND_PRODUCTION_SYSTEMS",
+  "generated_at": "2026-05-06T06:37:21Z",
+  "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+  "next_escalation": "If this row remains OPEN, create a narrower acquisition/scoring/replay executor for the exact failed validation field.",
+  "no_fake_closure_policy": "This artifact can reduce a missing-artifact count only at its own scope. It cannot mark the coverage gap or broad TOE superiority PASS by itself.",
+  "pass_predicate": "benchmark_case status == PASS and the strict comparator gap row no longer lists it as missing.",
+  "phenomenon_class_id": "animal_health_and_production_systems",
+  "queue_row_found": true,
+  "repair_strategy": "Continue to the next missing artifact; do not close broad superiority until all source, benchmark, comparator, scoring, uncertainty, falsifier, and replay artifacts pass.",
+  "required_capability": "Research/PriorArt",
+  "schema_id": "OC133_MODERN_SCIENCE_COMPARATOR_RESEARCH_ARTIFACT_v1",
+  "source_refs": [
+    "reports/OC_CORE_1_3_3_MODERN_SCIENCE_COVERAGE_LANE_QUEUE.json",
+    "benchmarks/modern_science/OC133_MODERN_SCIENCE_COVERAGE_WORK_ORDERS.json",
+    "comparators/modern_science/OC133_MODERN_SCIENCE_COVERAGE_REGISTER.json"
+  ],
+  "status": "PASS",
+  "validation": {
+    "minimum_rows_required": 20,
+    "target_fields_total": 5,
+    "target_hidden_policy": "Target values remain hidden until scoring according to the domain-local work order.",
+    "target_name_present": true
+  },
+  "why_it_failed": "Required comparator artifact is source-bound at its declared scope.",
+  "work_order_id": "MS-COV-WO-021"
+}

@@ -1,0 +1,58 @@
+{
+  "artifact_hash": "a05c58ca0ea69017eaffaa23af00bd1e83cade805ecf9b683917c0fa17bbf0b7",
+  "artifact_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/source_implementations/R017-SOURCE-IMPL-049b67df35396ff4.json",
+  "command_pass": false,
+  "command_result_total": 0,
+  "command_results": [],
+  "concrete_governed_commands": [],
+  "domain_class_id": "medical_health_sciences",
+  "execution_command": [
+    "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+    "tools/oc133_toe_closure_factory.py",
+    "--execute-comparator-source-implementation",
+    "R017-SOURCE-IMPL-049b67df35396ff4",
+    "--write"
+  ],
+  "gap_id": "MS-COV-GAP-MEDICAL_HEALTH_SCIENCES-PHARMACOLOGY_TOXICOLOGY_AND_DOSE_RESPONSE",
+  "generated_at": "2026-05-06T06:35:01Z",
+  "implementation_command_class": "MISSING_CONCRETE_SOURCE_EXECUTOR",
+  "implementation_id": "R017-SOURCE-IMPL-049b67df35396ff4",
+  "implementation_work_order_id": "R017-SOURCE-IMPL-049b67df35396ff4",
+  "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+  "mapped_research_artifact_key": "benchmark_case",
+  "next_escalation": "If status is CAPABILITY_DEVELOPMENT_REQUIRED, add the missing domain command. If FAIL_CLOSED, inspect command_results and repair the source/scoring script.",
+  "no_fake_closure_policy": "A source implementation report can close only the implementation obligation. Broad modern-science superiority requires every mapped research artifact and replay predicate to PASS.",
+  "pass_predicate": "Concrete governed commands run and create a hash-bound research artifact; downstream artifact status, not this report alone, decides broad superiority.",
+  "phenomenon_class_id": "pharmacology_toxicology_and_dose_response",
+  "repair_strategy": "Use this report as the exact source/evidence execution trace; if it is not PASS, implement the missing domain-specific command or repair the failing governed command.",
+  "required_capability": "Research/ScoringExecutor",
+  "required_source_block": {
+    "artifact_id": "target_hidden_task_table",
+    "pass_predicate": "Target table is locked before scoring and hidden fields do not leak into model selection.",
+    "required_target": {
+      "lane_role": "target_variable",
+      "requirement": "Lock adverse-event reports and hide severity and dose-response class labels until OC and comparator scoring rows are preregistered.",
+      "target_fields": [
+        "safetyreportid",
+        "patient.drug.medicinalproduct",
+        "patient.drug.drugstructuredosagenumb",
+        "patient.reaction.reactionmeddrapt",
+        "serious"
+      ],
+      "target_name": "held_out_adverse_event_severity_and_dose_response_class",
+      "unit": "severity or dose-response class derived from locked adverse-event reports"
+    }
+  },
+  "research_artifact_exists": true,
+  "research_artifact_hash": "acb23cbf5370df916bc28a8f5dc4ca7066d9c2026106beb826a77f3a0e68cfff",
+  "research_artifact_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/37c095c180c5f414/benchmark_case.json",
+  "research_artifact_status": "PASS",
+  "root_cause_class": "NO_GOVERNED_DOMAIN_SOURCE_IMPLEMENTATION_COMMAND",
+  "schema_id": "OC133_MODERN_SCIENCE_COMPARATOR_SOURCE_IMPLEMENTATION_EXECUTION_v1",
+  "scientific_closure_status": "OPEN",
+  "scoring_subartifact_id": "target_hidden_task_table",
+  "source_executor_work_order_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/source_executor_work_orders/source_executor_049b67df35396ff4.json",
+  "status": "CAPABILITY_DEVELOPMENT_REQUIRED",
+  "validator_binding": "comparator_gap::MS-COV-GAP-MEDICAL_HEALTH_SCIENCES-PHARMACOLOGY_TOXICOLOGY_AND_DOSE_RESPONSE::source_implementation::target_hidden_task_table",
+  "why_it_failed": "No governed source/scoring command is mapped for domain `medical_health_sciences`, phenomenon `pharmacology_toxicology_and_dose_response`, subartifact `target_hidden_task_table`."
+}

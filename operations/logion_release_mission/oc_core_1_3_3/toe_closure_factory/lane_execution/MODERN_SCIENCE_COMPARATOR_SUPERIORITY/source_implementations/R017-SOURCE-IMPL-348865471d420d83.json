@@ -1,0 +1,52 @@
+{
+  "artifact_hash": "d83d2a8bc226e61de53540d615d9eb0dd9e4a2ec3e8d533b9ee97cf4a1ef4c18",
+  "artifact_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/source_implementations/R017-SOURCE-IMPL-348865471d420d83.json",
+  "command_pass": false,
+  "command_result_total": 0,
+  "command_results": [],
+  "concrete_governed_commands": [],
+  "domain_class_id": "physical_sciences",
+  "execution_command": [
+    "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+    "tools/oc133_toe_closure_factory.py",
+    "--execute-comparator-source-implementation",
+    "R017-SOURCE-IMPL-348865471d420d83",
+    "--write"
+  ],
+  "gap_id": "MS-COV-GAP-PHYSICAL_SCIENCES-DYNAMICAL_LAWS_AND_CONSERVATION",
+  "generated_at": "2026-05-06T06:36:06Z",
+  "implementation_command_class": "MISSING_CONCRETE_SOURCE_EXECUTOR",
+  "implementation_id": "R017-SOURCE-IMPL-348865471d420d83",
+  "implementation_work_order_id": "R017-SOURCE-IMPL-348865471d420d83",
+  "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+  "mapped_research_artifact_key": "verified_open_source_capsule",
+  "next_escalation": "If status is CAPABILITY_DEVELOPMENT_REQUIRED, add the missing domain command. If FAIL_CLOSED, inspect command_results and repair the source/scoring script.",
+  "no_fake_closure_policy": "A source implementation report can close only the implementation obligation. Broad modern-science superiority requires every mapped research artifact and replay predicate to PASS.",
+  "pass_predicate": "Concrete governed commands run and create a hash-bound research artifact; downstream artifact status, not this report alone, decides broad superiority.",
+  "phenomenon_class_id": "dynamical_laws_and_conservation",
+  "repair_strategy": "Use this report as the exact source/evidence execution trace; if it is not PASS, implement the missing domain-specific command or repair the failing governed command.",
+  "required_capability": "Research/ScoringExecutor",
+  "required_source_block": {
+    "artifact_id": "source_snapshot_acquisition",
+    "pass_predicate": "Open/free source snapshot exists locally, is hash-bound, and satisfies source separation policy.",
+    "required_source": {
+      "lane_role": "official_data_source",
+      "required_local_snapshot_ref": "validation/heldout/grand_science/physics_chemistry/dynamics_jpl_horizons/OC133_PHYSICS_JPL_HORIZONS_EARTH_SUN_VECTORS.json",
+      "required_lock_ref": "validation/heldout/grand_science/physics_chemistry/dynamics_jpl_horizons/OC133_PHYSICS_JPL_HORIZONS_EARTH_SUN_VECTORS.lock.json",
+      "requirement": "Acquire and hash NASA/JPL Solar System Dynamics HORIZONS API vector ephemerides from https://ssd.jpl.nasa.gov/api/horizons.api?format=json&COMMAND='399'&OBJ_DATA='NO'&MAKE_EPHEM='YES'&EPHEM_TYPE='VECTORS'&CENTER='500@10'&START_TIME='2026-Jan-01'&STOP_TIME='2026-Jan-21'&STEP_SIZE='1%20d'&VEC_TABLE='3'&OUT_UNITS='KM-S'&CSV_FORMAT='YES'.",
+      "source_id": "physics_jpl_horizons_state_vectors_earth_sun_v1"
+    }
+  },
+  "research_artifact_exists": true,
+  "research_artifact_hash": "63e53ead28192ae0a591316a83ac0ec739304f11e92036f35818fdcf017a7008",
+  "research_artifact_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/a7777e969d546a74/verified_open_source_capsule.json",
+  "research_artifact_status": "PASS",
+  "root_cause_class": "NO_GOVERNED_DOMAIN_SOURCE_IMPLEMENTATION_COMMAND",
+  "schema_id": "OC133_MODERN_SCIENCE_COMPARATOR_SOURCE_IMPLEMENTATION_EXECUTION_v1",
+  "scientific_closure_status": "OPEN",
+  "scoring_subartifact_id": "source_snapshot_acquisition",
+  "source_executor_work_order_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/source_executor_work_orders/source_executor_348865471d420d83.json",
+  "status": "CAPABILITY_DEVELOPMENT_REQUIRED",
+  "validator_binding": "comparator_gap::MS-COV-GAP-PHYSICAL_SCIENCES-DYNAMICAL_LAWS_AND_CONSERVATION::source_implementation::source_snapshot_acquisition",
+  "why_it_failed": "No governed source/scoring command is mapped for domain `physical_sciences`, phenomenon `dynamical_laws_and_conservation`, subartifact `source_snapshot_acquisition`."
+}

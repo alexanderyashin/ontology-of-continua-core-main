@@ -1,0 +1,53 @@
+{
+  "artifact_hash": "d3a79391e9192d9389faa77bfdb772956430d1b216d19f3f954cf6b16760503f",
+  "artifact_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/source_implementations/R017-SOURCE-IMPL-b2a862527216f3c9.json",
+  "command_pass": false,
+  "command_result_total": 0,
+  "command_results": [],
+  "concrete_governed_commands": [],
+  "domain_class_id": "chemical_sciences",
+  "execution_command": [
+    "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+    "tools/oc133_toe_closure_factory.py",
+    "--execute-comparator-source-implementation",
+    "R017-SOURCE-IMPL-b2a862527216f3c9",
+    "--write"
+  ],
+  "gap_id": "MS-COV-GAP-CHEMICAL_SCIENCES-THERMOCHEMISTRY_AND_PHASE_BEHAVIOR",
+  "generated_at": "2026-05-06T06:37:09Z",
+  "implementation_command_class": "MISSING_CONCRETE_SOURCE_EXECUTOR",
+  "implementation_id": "R017-SOURCE-IMPL-b2a862527216f3c9",
+  "implementation_work_order_id": "R017-SOURCE-IMPL-b2a862527216f3c9",
+  "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+  "mapped_research_artifact_key": "oc_prediction_scoring_row",
+  "next_escalation": "If status is CAPABILITY_DEVELOPMENT_REQUIRED, add the missing domain command. If FAIL_CLOSED, inspect command_results and repair the source/scoring script.",
+  "no_fake_closure_policy": "A source implementation report can close only the implementation obligation. Broad modern-science superiority requires every mapped research artifact and replay predicate to PASS.",
+  "pass_predicate": "Concrete governed commands run and create a hash-bound research artifact; downstream artifact status, not this report alone, decides broad superiority.",
+  "phenomenon_class_id": "thermochemistry_and_phase_behavior",
+  "repair_strategy": "Use this report as the exact source/evidence execution trace; if it is not PASS, implement the missing domain-specific command or repair the failing governed command.",
+  "required_capability": "Research/ScoringExecutor",
+  "required_source_block": {
+    "artifact_id": "oc_formula_or_model",
+    "pass_predicate": "OC prediction/scoring rule is preregistered before target unsealing.",
+    "required_model": {
+      "lane_role": "formula_or_model",
+      "required_inputs": [
+        "Shomate_coefficients",
+        "temperature_K"
+      ],
+      "requirement": "NIST WebBook Shomate equation replay for Cp(T), S(T), and H(T)-H(298.15 K), with coefficient visibility fixed before scoring."
+    }
+  },
+  "research_artifact_exists": true,
+  "research_artifact_hash": "43f63c3b80fd5f2dc79a4aba99bf02072f18cfe00e609616a82c77553b2ea137",
+  "research_artifact_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/dd1092e4b6a884f7/oc_prediction_scoring_row.json",
+  "research_artifact_status": "OPEN",
+  "root_cause_class": "NO_GOVERNED_DOMAIN_SOURCE_IMPLEMENTATION_COMMAND",
+  "schema_id": "OC133_MODERN_SCIENCE_COMPARATOR_SOURCE_IMPLEMENTATION_EXECUTION_v1",
+  "scientific_closure_status": "OPEN",
+  "scoring_subartifact_id": "oc_formula_or_model",
+  "source_executor_work_order_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/source_executor_work_orders/source_executor_b2a862527216f3c9.json",
+  "status": "CAPABILITY_DEVELOPMENT_REQUIRED",
+  "validator_binding": "comparator_gap::MS-COV-GAP-CHEMICAL_SCIENCES-THERMOCHEMISTRY_AND_PHASE_BEHAVIOR::source_implementation::oc_formula_or_model",
+  "why_it_failed": "No governed source/scoring command is mapped for domain `chemical_sciences`, phenomenon `thermochemistry_and_phase_behavior`, subartifact `oc_formula_or_model`."
+}

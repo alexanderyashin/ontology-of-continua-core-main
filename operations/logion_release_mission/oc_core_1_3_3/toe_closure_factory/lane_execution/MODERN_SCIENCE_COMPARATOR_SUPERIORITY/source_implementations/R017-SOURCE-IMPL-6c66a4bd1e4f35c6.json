@@ -1,0 +1,52 @@
+{
+  "artifact_hash": "635568c2d87f82683c6975b5532e84473145474b9fb1f0c7312e5c8861b5ee02",
+  "artifact_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/source_implementations/R017-SOURCE-IMPL-6c66a4bd1e4f35c6.json",
+  "command_pass": false,
+  "command_result_total": 0,
+  "command_results": [],
+  "concrete_governed_commands": [],
+  "domain_class_id": "physical_sciences",
+  "execution_command": [
+    "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+    "tools/oc133_toe_closure_factory.py",
+    "--execute-comparator-source-implementation",
+    "R017-SOURCE-IMPL-6c66a4bd1e4f35c6",
+    "--write"
+  ],
+  "gap_id": "MS-COV-GAP-PHYSICAL_SCIENCES-ASTRONOMICAL_AND_COSMOLOGICAL_OBSERVABLES",
+  "generated_at": "2026-05-06T06:36:51Z",
+  "implementation_command_class": "MISSING_CONCRETE_SOURCE_EXECUTOR",
+  "implementation_id": "R017-SOURCE-IMPL-6c66a4bd1e4f35c6",
+  "implementation_work_order_id": "R017-SOURCE-IMPL-6c66a4bd1e4f35c6",
+  "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+  "mapped_research_artifact_key": "replay_record",
+  "next_escalation": "If status is CAPABILITY_DEVELOPMENT_REQUIRED, add the missing domain command. If FAIL_CLOSED, inspect command_results and repair the source/scoring script.",
+  "no_fake_closure_policy": "A source implementation report can close only the implementation obligation. Broad modern-science superiority requires every mapped research artifact and replay predicate to PASS.",
+  "pass_predicate": "Concrete governed commands run and create a hash-bound research artifact; downstream artifact status, not this report alone, decides broad superiority.",
+  "phenomenon_class_id": "astronomical_and_cosmological_observables",
+  "repair_strategy": "Use this report as the exact source/evidence execution trace; if it is not PASS, implement the missing domain-specific command or repair the failing governed command.",
+  "required_capability": "Research/ScoringExecutor",
+  "required_source_block": {
+    "artifact_id": "independent_replay",
+    "pass_predicate": "Clean replay regenerates the evidence pack hash and result verdict.",
+    "required_execution": {
+      "evidence_pack_schema_id": "OC133_GRAND_EMPIRICAL_EVIDENCE_v1",
+      "minimum_n": 20,
+      "replay_command": "python benchmarks/modern_science/coverage_lane_dispatcher.py --check",
+      "source_separation_mode": "target_blind",
+      "target_hidden_until_scoring": true
+    }
+  },
+  "research_artifact_exists": true,
+  "research_artifact_hash": "b6fe24e3f2b2666ec28e8ae156bafd4966c497c7d645322b5eb34bef3eb03d0a",
+  "research_artifact_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/f0ee7d5ec5503167/replay_record.json",
+  "research_artifact_status": "OPEN",
+  "root_cause_class": "NO_GOVERNED_DOMAIN_SOURCE_IMPLEMENTATION_COMMAND",
+  "schema_id": "OC133_MODERN_SCIENCE_COMPARATOR_SOURCE_IMPLEMENTATION_EXECUTION_v1",
+  "scientific_closure_status": "OPEN",
+  "scoring_subartifact_id": "independent_replay",
+  "source_executor_work_order_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/source_executor_work_orders/source_executor_6c66a4bd1e4f35c6.json",
+  "status": "CAPABILITY_DEVELOPMENT_REQUIRED",
+  "validator_binding": "comparator_gap::MS-COV-GAP-PHYSICAL_SCIENCES-ASTRONOMICAL_AND_COSMOLOGICAL_OBSERVABLES::source_implementation::independent_replay",
+  "why_it_failed": "No governed source/scoring command is mapped for domain `physical_sciences`, phenomenon `astronomical_and_cosmological_observables`, subartifact `independent_replay`."
+}

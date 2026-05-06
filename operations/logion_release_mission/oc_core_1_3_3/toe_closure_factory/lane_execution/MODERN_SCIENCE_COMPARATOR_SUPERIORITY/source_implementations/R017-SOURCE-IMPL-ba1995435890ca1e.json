@@ -1,0 +1,80 @@
+{
+  "artifact_hash": "f692b87166b9e4a3b93f09011453a3b5a58416732bdd652c53c23811d503d192",
+  "artifact_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/source_implementations/R017-SOURCE-IMPL-ba1995435890ca1e.json",
+  "command_pass": true,
+  "command_result_total": 2,
+  "command_results": [
+    {
+      "cmd": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "validation/heldout/grand_science/earth_space/coverage_work_orders/oc133_earth_space_modern_science_coverage_work_orders.py",
+        "--score-usgs-hydrology",
+        "--write"
+      ],
+      "returncode": 0,
+      "stderr_tail": "",
+      "stdout_tail": "{\n  \"status\": \"ok\",\n  \"output_ref\": \"validation/heldout/grand_science/earth_space/coverage_work_orders/OC133_EARTH_SPACE_USGS_HYDROLOGY_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json\",\n  \"pack_status\": \"SCORER_READY_FAIL_CLOSED_STRICT_EVIDENCE_NOT_MET\",\n  \"exact_blocker\": \"COMPARATOR_BASELINE_NOT_BEATEN_WITH_UNCERTAINTY\",\n  \"failures\": []\n}\n"
+    },
+    {
+      "cmd": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "validation/heldout/grand_science/earth_space/coverage_work_orders/oc133_earth_space_modern_science_coverage_work_orders.py",
+        "--check"
+      ],
+      "returncode": 0,
+      "stderr_tail": "",
+      "stdout_tail": "{\n  \"status\": \"ok\",\n  \"checked\": \"validation/heldout/grand_science/earth_space/coverage_work_orders/OC133_EARTH_SPACE_MODERN_SCIENCE_COVERAGE_WORK_ORDERS.json\"\n}\n"
+    }
+  ],
+  "concrete_governed_commands": [
+    [
+      "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+      "validation/heldout/grand_science/earth_space/coverage_work_orders/oc133_earth_space_modern_science_coverage_work_orders.py",
+      "--score-usgs-hydrology",
+      "--write"
+    ],
+    [
+      "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+      "validation/heldout/grand_science/earth_space/coverage_work_orders/oc133_earth_space_modern_science_coverage_work_orders.py",
+      "--check"
+    ]
+  ],
+  "domain_class_id": "earth_space_environmental_sciences",
+  "execution_command": [
+    "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+    "tools/oc133_toe_closure_factory.py",
+    "--execute-comparator-source-implementation",
+    "R017-SOURCE-IMPL-ba1995435890ca1e",
+    "--write"
+  ],
+  "gap_id": "MS-COV-GAP-EARTH_SPACE_ENVIRONMENTAL_SCIENCES-GEOCHEMISTRY_AND_HYDROLOGY_OBSERVABLES",
+  "generated_at": "2026-05-06T06:37:10Z",
+  "implementation_command_class": "CONCRETE_SOURCE_EXECUTOR",
+  "implementation_id": "R017-SOURCE-IMPL-ba1995435890ca1e",
+  "implementation_work_order_id": "R017-SOURCE-IMPL-ba1995435890ca1e",
+  "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+  "mapped_research_artifact_key": "oc_prediction_scoring_row",
+  "next_escalation": "If status is CAPABILITY_DEVELOPMENT_REQUIRED, add the missing domain command. If FAIL_CLOSED, inspect command_results and repair the source/scoring script.",
+  "no_fake_closure_policy": "A source implementation report can close only the implementation obligation. Broad modern-science superiority requires every mapped research artifact and replay predicate to PASS.",
+  "pass_predicate": "Concrete governed commands run and create a hash-bound research artifact; downstream artifact status, not this report alone, decides broad superiority.",
+  "phenomenon_class_id": "geochemistry_and_hydrology_observables",
+  "repair_strategy": "Use this report as the exact source/evidence execution trace; if it is not PASS, implement the missing domain-specific command or repair the failing governed command.",
+  "required_capability": "Research/ModelComparison",
+  "required_source_block": {
+    "artifact_id": "model_or_claim_repair_decision",
+    "pass_predicate": "Either OC materially beats the preregistered comparator after a valid repair, or the broad superiority claim remains blocked.",
+    "required_capability": "Research/ModelComparison"
+  },
+  "research_artifact_exists": true,
+  "research_artifact_hash": "81e6a9c051cbcf90b3d1636198c621e83fb7dc150478e5e0f404214b64597235",
+  "research_artifact_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/59532ab68d232897/oc_prediction_scoring_row.json",
+  "research_artifact_status": "OPEN",
+  "root_cause_class": "SOURCE_IMPLEMENTATION_EXECUTED",
+  "schema_id": "OC133_MODERN_SCIENCE_COMPARATOR_SOURCE_IMPLEMENTATION_EXECUTION_v1",
+  "scientific_closure_status": "OPEN",
+  "scoring_subartifact_id": "model_or_claim_repair_decision",
+  "source_executor_work_order_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/source_executor_work_orders/source_executor_ba1995435890ca1e.json",
+  "status": "PASS",
+  "validator_binding": "comparator_gap::MS-COV-GAP-EARTH_SPACE_ENVIRONMENTAL_SCIENCES-GEOCHEMISTRY_AND_HYDROLOGY_OBSERVABLES::source_implementation::model_or_claim_repair_decision",
+  "why_it_failed": "Governed source/scoring commands ran and produced a downstream research artifact or fail-closed evidence diagnosis."
+}

@@ -1,0 +1,52 @@
+{
+  "artifact_hash": "bca3f6d78681e6fa7647237c444744f090f5b97c117c58e64331315a8c00dc9c",
+  "artifact_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/source_implementations/R017-SOURCE-IMPL-ae878e013e31e69e.json",
+  "command_pass": false,
+  "command_result_total": 0,
+  "command_results": [],
+  "concrete_governed_commands": [],
+  "domain_class_id": "agricultural_food_sciences",
+  "execution_command": [
+    "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+    "tools/oc133_toe_closure_factory.py",
+    "--execute-comparator-source-implementation",
+    "R017-SOURCE-IMPL-ae878e013e31e69e",
+    "--write"
+  ],
+  "gap_id": "MS-COV-GAP-AGRICULTURAL_FOOD_SCIENCES-CROP_YIELD_SOIL_AND_TRAIT_OBSERVABLES",
+  "generated_at": "2026-05-06T06:37:08Z",
+  "implementation_command_class": "MISSING_CONCRETE_SOURCE_EXECUTOR",
+  "implementation_id": "R017-SOURCE-IMPL-ae878e013e31e69e",
+  "implementation_work_order_id": "R017-SOURCE-IMPL-ae878e013e31e69e",
+  "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+  "mapped_research_artifact_key": "replay_record",
+  "next_escalation": "If status is CAPABILITY_DEVELOPMENT_REQUIRED, add the missing domain command. If FAIL_CLOSED, inspect command_results and repair the source/scoring script.",
+  "no_fake_closure_policy": "A source implementation report can close only the implementation obligation. Broad modern-science superiority requires every mapped research artifact and replay predicate to PASS.",
+  "pass_predicate": "Concrete governed commands run and create a hash-bound research artifact; downstream artifact status, not this report alone, decides broad superiority.",
+  "phenomenon_class_id": "crop_yield_soil_and_trait_observables",
+  "repair_strategy": "Use this report as the exact source/evidence execution trace; if it is not PASS, implement the missing domain-specific command or repair the failing governed command.",
+  "required_capability": "Research/ScoringExecutor",
+  "required_source_block": {
+    "artifact_id": "independent_replay",
+    "pass_predicate": "Clean replay regenerates the evidence pack hash and result verdict.",
+    "required_execution": {
+      "evidence_pack_schema_id": "OC133_GRAND_EMPIRICAL_EVIDENCE_v1",
+      "minimum_n": 20,
+      "replay_command": "python validation/heldout/grand_science/agriculture/coverage_work_orders/oc133_agriculture_modern_science_coverage_work_orders.py --check",
+      "source_separation_mode": "target_blind",
+      "target_hidden_until_scoring": true
+    }
+  },
+  "research_artifact_exists": true,
+  "research_artifact_hash": "ec352bde2d072d12575cf863dee5b5358b316671d4842fc0f9e07e1551e4ed09",
+  "research_artifact_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/f193d7044d98f51f/replay_record.json",
+  "research_artifact_status": "OPEN",
+  "root_cause_class": "NO_GOVERNED_DOMAIN_SOURCE_IMPLEMENTATION_COMMAND",
+  "schema_id": "OC133_MODERN_SCIENCE_COMPARATOR_SOURCE_IMPLEMENTATION_EXECUTION_v1",
+  "scientific_closure_status": "OPEN",
+  "scoring_subartifact_id": "independent_replay",
+  "source_executor_work_order_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/source_executor_work_orders/source_executor_ae878e013e31e69e.json",
+  "status": "CAPABILITY_DEVELOPMENT_REQUIRED",
+  "validator_binding": "comparator_gap::MS-COV-GAP-AGRICULTURAL_FOOD_SCIENCES-CROP_YIELD_SOIL_AND_TRAIT_OBSERVABLES::source_implementation::independent_replay",
+  "why_it_failed": "No governed source/scoring command is mapped for domain `agricultural_food_sciences`, phenomenon `crop_yield_soil_and_trait_observables`, subartifact `independent_replay`."
+}

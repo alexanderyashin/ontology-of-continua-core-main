@@ -1,23 +1,9 @@
 {
   "after_validator_error_total": 13,
-  "artifact_hash": "0e5e268911f5f17784193065ea01f1d24a61be45587207e8a0e9caeda9c29ff9",
+  "artifact_hash": "faedf58281db5330102d76b48b2fe5abc5d14c94ff4aa936cc637e1b10b3e939",
   "before_validator_error_total": 13,
-  "capability_class": "comparator_source_implementation_obligation",
-  "capability_development_key": "fc7a2eaad757034c4d1ce403d255b5965ab23f26eb299f35f87545589c413c45",
   "capability_id": "R017-CAPDEV-fc7a2eaad757",
-  "command_results": [
-    {
-      "cmd": [
-        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
-        "tools/oc133_toe_closure_factory.py",
-        "--compile-comparator-source-implementation-backlog",
-        "--write"
-      ],
-      "returncode": 0,
-      "stderr_tail": "",
-      "stdout_tail": "{\n  \"changed\": [],\n  \"missing\": [],\n  \"state\": \"PASS\"\n}\n"
-    }
-  ],
+  "command_results": [],
   "compiled_capability_id": "R017-CAPDEV-fc7a2eaad757",
   "execution_command": [
     "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
@@ -26,23 +12,13 @@
     "R017-CAPDEV-fc7a2eaad757",
     "--write"
   ],
-  "executor_command": [
-    "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
-    "tools/oc133_toe_closure_factory.py",
-    "--compile-comparator-source-implementation-backlog",
-    "--write"
-  ],
-  "executor_type": "comparator_source_implementation_obligation",
-  "generated_at": "2026-05-06T01:30:33Z",
-  "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
-  "next_escalation": "If this compiled capability produces zero validator delta, generate a lower-level upstream research obligation for the exact missing source/evidence object.",
-  "no_fake_closure_policy": "Zero delta remains OPEN and cannot satisfy r017.",
-  "pass_predicate": "A concrete implementation command exists, runs under governance, and produces a hash-bound evidence/scoring artifact.",
-  "repair_strategy": "Compile or refresh source-implementation obligations for the exact source/evidence executor layer; this keeps the graph moving beyond diagnostic packets without treating them as evidence.",
-  "required_capability": "Research/ScoringExecutor",
+  "generated_at": "2026-05-06T06:47:19Z",
+  "next_escalation": "Rebuild the capability implementation registry from the current graph.",
+  "pass_predicate": "Capability id exists, executor is ready, and strict validator delta is positive.",
+  "repair_strategy": "Run --compile-capability-backlog --write before executing capability development.",
+  "required_capability": "Research/TOEClosureFactory",
   "schema_id": "OC133_TOE_CAPABILITY_DEVELOPMENT_EXECUTION_v1",
-  "source_graph_node_id": "required_artifact:MODERN_SCIENCE_COMPARATOR_SUPERIORITY:MS-COV-GAP-CHEMICAL_SCIENCES-REACTION_AND_KINETICS_PREDICTION:source_implementation::incumbent_comparator_scoring",
-  "status": "ZERO_DELTA_OPEN",
+  "status": "FAIL_CLOSED",
   "validator_error_delta": 0,
-  "why_it_failed": "Compiled capability executed but did not reduce strict validator errors."
+  "why_it_failed": "Compiled capability id is not present in the implementation registry."
 }
