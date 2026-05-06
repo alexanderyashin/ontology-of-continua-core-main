@@ -2002,6 +2002,17 @@ COMPARATOR_REQUIRED_ARTIFACT_KEYS = [
     "falsifier_row",
     "replay_record",
 ]
+SCORING_SUBARTIFACT_KEYS = {
+    "source_snapshot_acquisition",
+    "target_hidden_task_table",
+    "oc_formula_or_model",
+    "incumbent_comparator_scoring",
+    "residuals_materiality_uncertainty",
+    "controls_and_falsifiers",
+    "independent_replay",
+    "strict_evidence_pack_diagnosis",
+    "model_or_claim_repair_decision",
+}
 
 COMPARATOR_RESEARCH_ARTIFACT_BASE = Path("validation/heldout/grand_science/modern_science_coverage_artifacts")
 
@@ -2628,7 +2639,10 @@ def comparator_scoring_subartifact_executions(root: Path) -> list[dict[str, Any]
     if base.exists():
         for path in sorted(base.glob("*.json")):
             payload = read_json(path)
-            if payload.get("schema_id") == "OC133_MODERN_SCIENCE_COMPARATOR_SCORING_SUBARTIFACT_EXECUTION_v1":
+            if (
+                payload.get("schema_id") == "OC133_MODERN_SCIENCE_COMPARATOR_SCORING_SUBARTIFACT_EXECUTION_v1"
+                and payload.get("scoring_subartifact_id") in SCORING_SUBARTIFACT_KEYS
+            ):
                 rows.append(payload)
     return rows
 
@@ -2645,6 +2659,7 @@ def comparator_source_executor_work_order_exists(root: Path, gap_id: str, subart
 def build_comparator_source_executor_work_order(root: Path, gap_id: str, subartifact_id: str) -> dict[str, Any]:
     subartifact = read_json(root / comparator_gap_scoring_subartifact_rel(gap_id, subartifact_id))
     generated_at = stable_generated_at(root, comparator_source_executor_work_order_rel(gap_id, subartifact_id))
+    invalid_subartifact = subartifact_id not in SCORING_SUBARTIFACT_KEYS
     if not subartifact:
         subartifact = build_comparator_scoring_subartifact_execution(root, gap_id, subartifact_id)
     payload = normalize_problem_row(
@@ -2654,11 +2669,11 @@ def build_comparator_source_executor_work_order(root: Path, gap_id: str, subarti
             "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
             "gap_id": gap_id,
             "scoring_subartifact_id": subartifact_id,
-            "status": "OPEN",
+            "status": "FAIL_CLOSED" if invalid_subartifact else "OPEN",
             "source_subartifact_ref": subartifact.get("artifact_ref"),
-            "root_cause_class": subartifact.get("root_cause_class") or "SOURCE_EXECUTOR_NOT_IMPLEMENTED",
+            "root_cause_class": "INVALID_SCORING_SUBARTIFACT_ID" if invalid_subartifact else subartifact.get("root_cause_class") or "SOURCE_EXECUTOR_NOT_IMPLEMENTED",
             "required_source_block": subartifact.get("required_source_block", {}),
-            "why_it_failed": "The lower-level scoring subartifact has a diagnostic packet, but no source-bound acquisition/scoring executor has produced passing evidence.",
+            "why_it_failed": "Invalid scoring subartifact id; this row is a stale parser artifact and must not be used as science evidence." if invalid_subartifact else "The lower-level scoring subartifact has a diagnostic packet, but no source-bound acquisition/scoring executor has produced passing evidence.",
             "repair_strategy": "Implement or run the exact governed source/evidence executor named by required_source_block, then regenerate the target-hidden scoring pack and replay record.",
             "required_capability": subartifact.get("required_capability") or "Research/ScoringExecutor",
             "execution_command": [
