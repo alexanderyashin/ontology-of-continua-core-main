@@ -1521,6 +1521,13 @@ def build_capability_development_ledger(rows: list[dict[str, Any]], generated_at
                     payload["execution_command"] = []
                     payload["implementation_command"] = []
                     payload["next_escalation"] = "Comparator research artifact now exists and passes at this scope; advance to the next missing artifact."
+                elif factory.comparator_gap_research_artifact_exists(ROOT, gap_id, artifact_key):
+                    payload["status"] = "PASS"
+                    payload["superseded_by_research_artifact_packet"] = True
+                    payload["capability_executor_ready"] = False
+                    payload["execution_command"] = []
+                    payload["implementation_command"] = []
+                    payload["next_escalation"] = "Comparator research packet now exists for this scope; science remains blocked until the packet is upgraded to a passing evidence/replay artifact."
                 elif artifact_key == "oc_prediction_scoring_row" and factory.comparator_gap_scoring_work_order_exists(ROOT, gap_id):
                     payload["status"] = "PASS"
                     payload["superseded_by_scoring_work_order"] = True

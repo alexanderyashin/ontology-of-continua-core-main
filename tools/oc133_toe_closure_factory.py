@@ -2193,6 +2193,11 @@ def comparator_gap_research_artifact_passes(root: Path, gap_id: str, artifact_ke
     return False
 
 
+def comparator_gap_research_artifact_exists(root: Path, gap_id: str, artifact_key: str) -> bool:
+    payload = comparator_gap_research_artifact(root, gap_id, artifact_key)
+    return payload.get("artifact_key") == artifact_key
+
+
 def comparator_gap_research_artifact(root: Path, gap_id: str, artifact_key: str) -> dict[str, Any]:
     for rel_path in (
         comparator_gap_research_artifact_rel(gap_id, artifact_key),
@@ -4611,6 +4616,7 @@ def build_capability_implementation_registry(root: Path, *, generated_at: str | 
         if (
             row.get("status") == "PASS"
             or row.get("superseded_by_research_artifact") is True
+            or row.get("superseded_by_research_artifact_packet") is True
             or row.get("superseded_by_current_validator") is True
             or row.get("superseded_by_scoring_work_order") is True
             or row.get("superseded_by_scoring_subartifact_execution") is True

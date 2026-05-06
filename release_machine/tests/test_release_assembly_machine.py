@@ -2318,6 +2318,7 @@ class ReleaseAssemblyMachineTests(unittest.TestCase):
                 self.assertTrue(
                     row.get("superseded_by_current_validator")
                     or row.get("superseded_by_research_artifact")
+                    or row.get("superseded_by_research_artifact_packet")
                     or row.get("superseded_by_scoring_work_order")
                     or row.get("superseded_by_scoring_subartifact_execution")
                 )
@@ -2337,6 +2338,7 @@ class ReleaseAssemblyMachineTests(unittest.TestCase):
                 self.assertTrue(
                     row.get("superseded_by_current_validator")
                     or row.get("superseded_by_research_artifact")
+                    or row.get("superseded_by_research_artifact_packet")
                     or row.get("superseded_by_scoring_work_order")
                     or row.get("superseded_by_scoring_subartifact_execution")
                 )
