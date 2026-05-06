@@ -1,0 +1,146 @@
+{
+  "artifact_hash": "0f1cfddee225ffdb8d49d6d9bfb96fd1590b0608bca3ec1c07be35473933549d",
+  "artifact_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/component_src/src_obligation_e6d0d2925fab73c1.json",
+  "command_pass": true,
+  "command_result_total": 5,
+  "command_results": [
+    {
+      "cmd": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "tools/oc133_toe_closure_factory.py",
+        "--execute-comparator-domain-scoring",
+        "R017-DOMAIN-SCORER-b1491a46e156e916",
+        "--write"
+      ],
+      "returncode": 0,
+      "stderr_tail": "",
+      "stdout_tail": "{\n  \"changed\": [],\n  \"missing\": [],\n  \"state\": \"PASS\"\n}\n"
+    },
+    {
+      "cmd": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "tools/oc133_toe_closure_factory.py",
+        "--execute-comparator-domain-scorer-implementation",
+        "R017-DOMAIN-SCORER-IMPL-b1491a46e156e916",
+        "--write"
+      ],
+      "returncode": 0,
+      "stderr_tail": "",
+      "stdout_tail": "{\n  \"changed\": [],\n  \"missing\": [],\n  \"state\": \"PASS\"\n}\n"
+    },
+    {
+      "cmd": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "tools/oc133_toe_closure_factory.py",
+        "--execute-comparator-domain-model-repair",
+        "R017-DOMAIN-MODEL-REPAIR-b1491a46e156e916",
+        "--write"
+      ],
+      "returncode": 0,
+      "stderr_tail": "",
+      "stdout_tail": "{\n  \"changed\": [],\n  \"missing\": [],\n  \"state\": \"PASS\"\n}\n"
+    },
+    {
+      "cmd": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "tools/oc133_toe_closure_factory.py",
+        "--execute-comparator-domain-model-component",
+        "R017-DOMAIN-MODEL-COMPONENT-3779427d7d11f28f",
+        "--write"
+      ],
+      "returncode": 0,
+      "stderr_tail": "",
+      "stdout_tail": "{\n  \"changed\": [],\n  \"missing\": [],\n  \"state\": \"PASS\"\n}\n"
+    },
+    {
+      "cmd": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "tools/oc133_toe_closure_factory.py",
+        "--execute-comparator-generic-evidence-pack",
+        "MS-COV-GAP-ENGINEERING_MATERIALS_SCIENCES-MATERIALS_PROPERTY_AND_FAILURE_PREDICTION",
+        "--write"
+      ],
+      "returncode": 0,
+      "stderr_tail": "",
+      "stdout_tail": "{\n  \"changed\": [],\n  \"missing\": [],\n  \"state\": \"PASS\"\n}\n"
+    }
+  ],
+  "component_id": "oc_score_materialization",
+  "component_work_order_id": "R017-DOMAIN-MODEL-COMPONENT-3779427d7d11f28f",
+  "domain_class_id": "engineering_materials_sciences",
+  "evidence_pack_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/b1491a46e156e916/strict_evidence_pack.json",
+  "evidence_pack_status": "FAIL_CLOSED_SOURCE_BOUND_SCORING_NOT_MATERIALIZED",
+  "execution_command": [
+    "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+    "tools/oc133_toe_closure_factory.py",
+    "--execute-comparator-component-source-obligation",
+    "R017-COMPONENT-SOURCE-OBLIGATION-f5157fe2ffbba9cc",
+    "--write"
+  ],
+  "gap_id": "MS-COV-GAP-ENGINEERING_MATERIALS_SCIENCES-MATERIALS_PROPERTY_AND_FAILURE_PREDICTION",
+  "generated_at": "2026-05-06T10:01:06Z",
+  "implementation_id": "R017-DOMAIN-MODEL-COMPONENT-IMPL-5ba6014f0a4f1664",
+  "incumbent_comparator": {
+    "baseline_name": "JARVIS-COMPOSITION-FAMILY-MEDIAN",
+    "pre_registered": true,
+    "prediction_rule": "Predict each hidden property using the visible-row median for the same element-count family; fall back to global visible median.",
+    "required_material_margin": "model residual must beat comparator residual under the declared domain-local metric",
+    "target_values_used_for_baseline_design": false
+  },
+  "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+  "missing_source_evidence_fields": [
+    "component_report_pass",
+    "strict_evidence_pack_pass",
+    "scoring_artifact_pass",
+    "replay_artifact_pass",
+    "score_materialized",
+    "oc_model_residual",
+    "incumbent_comparator_residual",
+    "material_margin_met",
+    "fail_closed_status_clear"
+  ],
+  "next_escalation": "Implement the exact source acquisition/scoring script for the missing fields, or preserve the fail-closed comparator result if OC does not beat the incumbent.",
+  "no_fake_closure_policy": "This execution can close only after downstream source-bound evidence artifacts pass.",
+  "obligation_id": "R017-COMPONENT-SOURCE-OBLIGATION-f5157fe2ffbba9cc",
+  "official_data_source": {
+    "minimum_rows_required": 20,
+    "official_documentation_url": "https://jarvis.nist.gov/optimade/jarvisdft/",
+    "official_endpoint_url": "https://jarvis.nist.gov/optimade/jarvisdft/v1/structures/?filter=nelements%3E%3D1",
+    "required_local_snapshot_ref": "validation/heldout/grand_science/engineering/coverage_work_orders/raw/nist_jarvis_nelements_ge_1_page1.json",
+    "required_lock_ref": null,
+    "snapshot_status": "ACQUIRED_OR_BOUND",
+    "source_authority": "National Institute of Standards and Technology",
+    "source_id": "engineering_nist_jarvis_materials_properties_v1",
+    "source_name": "NIST-JARVIS JARVIS-DFT OPTIMADE structures and materials-property records"
+  },
+  "pass_predicate": "The exact component implementation, strict evidence pack, oc_prediction_scoring_row, and replay_record are all PASS without weakening materiality.",
+  "phenomenon_class_id": "materials_property_and_failure_prediction",
+  "repair_strategy": "Materialize the named missing source/model/comparator/residual/replay fields from governed source data; preserve fail-closed science if OC does not beat the comparator.",
+  "replay_artifact_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/b1491a46e156e916/replay_record.json",
+  "replay_artifact_status": "OPEN",
+  "required_capability": "Research/SourceBoundScoringMaterialization",
+  "residual_requirement": {
+    "formula": "absolute residual per material/property plus aggregate MAE over hidden targets",
+    "metric_id": "MS-COV-WO-022_domain_local_residual",
+    "superiority_rule": "descriptor model MAE plus bootstrap upper margin must be lower than the composition-family median comparator"
+  },
+  "root_cause_class": "SOURCE_BOUND_SCORE_OR_REPLAY_NOT_MATERIALIZED",
+  "schema_id": "OC133_MODERN_SCIENCE_COMPARATOR_COMPONENT_SOURCE_OBLIGATION_EXECUTION_v1",
+  "scoring_artifact_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/b1491a46e156e916/oc_prediction_scoring_row.json",
+  "scoring_artifact_status": "OPEN",
+  "source_component_implementation_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/component_impls/impl_94f4ddb7270e6c4b.json",
+  "source_component_implementation_status": "EVIDENCE_REPAIR_ATTEMPTED_REMAINS_OPEN",
+  "status": "SOURCE_BOUND_SCORING_MATERIALIZATION_REMAINS_OPEN",
+  "target_variable": {
+    "extraction_rule": "JARVIS_DFT[structure_id].attributes._jarvis_bulk_modulus_kv",
+    "name": "elastic_stiffness_and_bandgap_material_property",
+    "target_fields": [
+      "data[].attributes._jarvis_bulk_modulus_kv",
+      "data[].attributes._jarvis_shear_modulus_gv",
+      "data[].attributes._jarvis_optb88vdw_bandgap"
+    ],
+    "unit": "GPa for moduli; eV for bandgap"
+  },
+  "validator_binding": "comparator_gap::MS-COV-GAP-ENGINEERING_MATERIALS_SCIENCES-MATERIALS_PROPERTY_AND_FAILURE_PREDICTION::component_source_obligation::oc_score_materialization",
+  "why_it_failed": "Narrow source/model/comparator commands ran, but required scoring/replay fields remain missing or fail-closed."
+}

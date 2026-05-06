@@ -2329,6 +2329,10 @@ class ReleaseAssemblyMachineTests(unittest.TestCase):
                     or row.get("superseded_by_domain_scorer_implementation_report")
                     or row.get("superseded_by_domain_model_repair_backlog")
                     or row.get("superseded_by_domain_model_repair_report")
+                    or row.get("superseded_by_domain_model_component_implementation_backlog")
+                    or row.get("superseded_by_domain_model_component_implementation_report")
+                    or row.get("superseded_by_component_source_obligation_backlog")
+                    or row.get("superseded_by_component_source_obligation_report")
                 )
             for field in ["why_it_failed", "repair_strategy", "required_capability", "execution_command", "pass_predicate", "next_escalation"]:
                 self.assertIn(field, row)
@@ -2357,6 +2361,10 @@ class ReleaseAssemblyMachineTests(unittest.TestCase):
                     or row.get("superseded_by_domain_scorer_implementation_report")
                     or row.get("superseded_by_domain_model_repair_backlog")
                     or row.get("superseded_by_domain_model_repair_report")
+                    or row.get("superseded_by_domain_model_component_implementation_backlog")
+                    or row.get("superseded_by_domain_model_component_implementation_report")
+                    or row.get("superseded_by_component_source_obligation_backlog")
+                    or row.get("superseded_by_component_source_obligation_report")
                 )
             for field in ["source_graph_node_id", "missing_artifact_type", "capability_development_key", "why_it_failed", "repair_strategy", "required_capability", "execution_command", "implementation_command", "pass_predicate", "next_escalation", "validator_binding"]:
                 self.assertIn(field, row)
@@ -2370,7 +2378,7 @@ class ReleaseAssemblyMachineTests(unittest.TestCase):
             self.assertEqual(row["capability_class"], row["executor_type"])
             self.assertTrue(row["capability_id"].startswith("R017-CAPDEV-"))
             self.assertTrue(row["capability_class"])
-        self.assertTrue(any(row["capability_class"] in {"comparator_scoring_work_order", "comparator_source_implementation_obligation", "comparator_research_artifact_repair", "comparator_domain_scorer_implementation", "comparator_domain_model_repair", "comparator_domain_model_component_backlog", "comparator_domain_model_component", "comparator_domain_model_component_implementation_backlog", "comparator_domain_model_component_implementation"} for row in registry["rows"]))
+        self.assertTrue(any(row["capability_class"] in {"comparator_scoring_work_order", "comparator_source_implementation_obligation", "comparator_research_artifact_repair", "comparator_domain_scorer_implementation", "comparator_domain_model_repair", "comparator_domain_model_component_backlog", "comparator_domain_model_component", "comparator_domain_model_component_implementation_backlog", "comparator_domain_model_component_implementation", "comparator_component_source_obligation_backlog", "comparator_component_source_obligation"} for row in registry["rows"]))
         self.assertEqual(frontier_science["schema_id"], "OC133_TOE_SCIENTIFIC_FRONTIER_v1")
         self.assertIn("excludes supervisor bookkeeping", frontier_science["frontier_policy"])
 
@@ -2410,7 +2418,7 @@ class ReleaseAssemblyMachineTests(unittest.TestCase):
         self.assertTrue(all(row["self_test_command"] for row in capability_registry["rows"]))
         self.assertTrue(all(row["capability_id"] == row["compiled_capability_id"] for row in capability_registry["rows"]))
         self.assertTrue(all(row["capability_class"] == row["executor_type"] for row in capability_registry["rows"]))
-        self.assertTrue(any(row["capability_class"] in {"comparator_scoring_work_order", "comparator_source_implementation_obligation", "comparator_research_artifact_repair", "comparator_domain_scorer_implementation", "comparator_domain_model_repair", "comparator_domain_model_component_backlog", "comparator_domain_model_component", "comparator_domain_model_component_implementation_backlog", "comparator_domain_model_component_implementation"} for row in capability_registry["rows"]))
+        self.assertTrue(any(row["capability_class"] in {"comparator_scoring_work_order", "comparator_source_implementation_obligation", "comparator_research_artifact_repair", "comparator_domain_scorer_implementation", "comparator_domain_model_repair", "comparator_domain_model_component_backlog", "comparator_domain_model_component", "comparator_domain_model_component_implementation_backlog", "comparator_domain_model_component_implementation", "comparator_component_source_obligation_backlog", "comparator_component_source_obligation"} for row in capability_registry["rows"]))
 
         self.assertEqual(graph["schema_id"], "OC133_TOE_BLOCKING_GRAPH_v1")
         self.assertEqual(graph["status"], "OPEN")
@@ -2677,7 +2685,7 @@ class ReleaseAssemblyMachineTests(unittest.TestCase):
         self.assertTrue(all(row.get("component_id") for row in component_reports))
         self.assertTrue(all(row.get("implementation_blueprint") for row in component_reports))
         self.assertTrue(all(row.get("no_fake_closure_policy") for row in component_reports))
-        self.assertTrue(any(row.get("executor_type") in {"comparator_domain_model_component", "comparator_domain_model_component_implementation"} for row in supervisor_queue["rows"]))
+        self.assertTrue(any(row.get("executor_type") in {"comparator_domain_model_component", "comparator_domain_model_component_implementation", "comparator_component_source_obligation"} for row in supervisor_queue["rows"]))
 
     def test_r017_comparator_domain_model_component_implementation_frontier_runs_commands(self) -> None:
         factory_root = (
@@ -2729,7 +2737,61 @@ class ReleaseAssemblyMachineTests(unittest.TestCase):
         self.assertTrue(all(row.get("command_result_total", 0) >= 0 for row in reports))
         self.assertTrue(all(row.get("no_fake_closure_policy") for row in reports))
         self.assertTrue(any(row.get("status") == "EVIDENCE_REPAIR_ATTEMPTED_REMAINS_OPEN" for row in reports))
-        self.assertTrue(any(row.get("executor_type") == "comparator_domain_model_component_implementation" for row in supervisor_queue["rows"]))
+        self.assertTrue(any(row.get("executor_type") in {"comparator_domain_model_component_implementation", "comparator_component_source_obligation"} for row in supervisor_queue["rows"]))
+
+    def test_r017_comparator_component_source_obligation_frontier_is_narrowed(self) -> None:
+        factory_root = (
+            ROOT
+            / "operations"
+            / "logion_release_mission"
+            / "oc_core_1_3_3"
+            / "toe_closure_factory"
+            / "lane_execution"
+            / "MODERN_SCIENCE_COMPARATOR_SUPERIORITY"
+        )
+        backlog = read_json(factory_root / "COMPONENT_SOURCE_OBLIGATION_BACKLOG.json")
+        registry = read_json(factory_root / "COMPONENT_SOURCE_OBLIGATION_REGISTRY.json")
+        batch = read_json(factory_root / "COMPONENT_SOURCE_OBLIGATION_BATCH.json")
+        reports = [
+            read_json(path)
+            for path in (factory_root / "component_src").glob("*.json")
+        ]
+        supervisor_queue = read_json(
+            ROOT
+            / "operations"
+            / "logion_release_mission"
+            / "oc_core_1_3_3"
+            / "toe_closure_factory"
+            / "autonomous_supervisor"
+            / "OC133_TOE_AUTONOMOUS_NEXT_ACTION_QUEUE.json"
+        )
+
+        self.assertEqual(backlog["schema_id"], "OC133_MODERN_SCIENCE_COMPARATOR_COMPONENT_SOURCE_OBLIGATION_BACKLOG_v1")
+        self.assertEqual(backlog["status"], "OPEN")
+        self.assertGreater(backlog["component_source_obligation_total"], 0)
+        self.assertEqual(backlog["open_component_source_obligation_total"], len([row for row in backlog["rows"] if row["status"] != "PASS"]))
+        for row in backlog["rows"]:
+            self.assertIn("obligation_id", row)
+            self.assertIn("implementation_id", row)
+            self.assertIn("component_id", row)
+            self.assertIn("missing_source_evidence_fields", row)
+            self.assertIn("official_data_source", row)
+            self.assertIn("target_variable", row)
+            self.assertIn("--execute-comparator-component-source-obligation", row["execution_command"])
+            self.assertTrue(row["no_fake_closure_policy"])
+
+        self.assertEqual(registry["schema_id"], "OC133_MODERN_SCIENCE_COMPARATOR_COMPONENT_SOURCE_OBLIGATION_REGISTRY_v1")
+        self.assertEqual(registry["component_source_obligation_total"], backlog["component_source_obligation_total"])
+        self.assertEqual(registry["open_component_source_obligation_total"], len([row for row in registry["rows"] if row["status"] != "PASS"]))
+        self.assertEqual(batch["schema_id"], "OC133_MODERN_SCIENCE_COMPARATOR_COMPONENT_SOURCE_OBLIGATION_BATCH_v1")
+        self.assertIn("never promotes broad superiority", batch["no_fake_closure_policy"])
+
+        self.assertTrue(reports)
+        self.assertTrue(all(row.get("status") in {"PASS", "CAPABILITY_DEVELOPMENT_REQUIRED", "SOURCE_BOUND_SCORING_MATERIALIZATION_REMAINS_OPEN", "FAIL_CLOSED"} for row in reports))
+        self.assertTrue(all(row.get("missing_source_evidence_fields") is not None for row in reports))
+        self.assertTrue(all(row.get("no_fake_closure_policy") for row in reports))
+        self.assertTrue(any(row.get("status") == "SOURCE_BOUND_SCORING_MATERIALIZATION_REMAINS_OPEN" for row in reports))
+        self.assertTrue(any(row.get("executor_type") == "comparator_component_source_obligation" for row in supervisor_queue["rows"]))
 
     def test_r017_comparator_open_research_artifacts_have_repair_frontier(self) -> None:
         factory_root = (

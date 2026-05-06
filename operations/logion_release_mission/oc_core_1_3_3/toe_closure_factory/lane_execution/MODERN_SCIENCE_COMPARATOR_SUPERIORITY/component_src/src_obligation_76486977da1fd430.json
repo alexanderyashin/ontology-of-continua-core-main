@@ -1,0 +1,153 @@
+{
+  "artifact_hash": "6ec54ed6e233df10b2f37c4eafa464f81f87bca805b7e3f3d03eb76ec09dd4ac",
+  "artifact_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/component_src/src_obligation_76486977da1fd430.json",
+  "command_pass": true,
+  "command_result_total": 5,
+  "command_results": [
+    {
+      "cache_hit": true,
+      "cmd": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "tools/oc133_toe_closure_factory.py",
+        "--execute-comparator-domain-scoring",
+        "R017-DOMAIN-SCORER-a7777e969d546a74",
+        "--write"
+      ],
+      "returncode": 0,
+      "stderr_tail": "",
+      "stdout_tail": "{\n  \"changed\": [],\n  \"missing\": [],\n  \"state\": \"PASS\"\n}\n"
+    },
+    {
+      "cache_hit": true,
+      "cmd": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "tools/oc133_toe_closure_factory.py",
+        "--execute-comparator-domain-scorer-implementation",
+        "R017-DOMAIN-SCORER-IMPL-a7777e969d546a74",
+        "--write"
+      ],
+      "returncode": 0,
+      "stderr_tail": "",
+      "stdout_tail": "{\n  \"changed\": [],\n  \"missing\": [],\n  \"state\": \"PASS\"\n}\n"
+    },
+    {
+      "cache_hit": true,
+      "cmd": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "tools/oc133_toe_closure_factory.py",
+        "--execute-comparator-domain-model-repair",
+        "R017-DOMAIN-MODEL-REPAIR-a7777e969d546a74",
+        "--write"
+      ],
+      "returncode": 0,
+      "stderr_tail": "",
+      "stdout_tail": "{\n  \"changed\": [],\n  \"missing\": [],\n  \"state\": \"PASS\"\n}\n"
+    },
+    {
+      "cmd": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "tools/oc133_toe_closure_factory.py",
+        "--execute-comparator-domain-model-component",
+        "R017-DOMAIN-MODEL-COMPONENT-ecd41bf5d3a947ab",
+        "--write"
+      ],
+      "returncode": 0,
+      "stderr_tail": "",
+      "stdout_tail": "{\n  \"changed\": [],\n  \"missing\": [],\n  \"state\": \"PASS\"\n}\n"
+    },
+    {
+      "cache_hit": true,
+      "cmd": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "tools/oc133_toe_closure_factory.py",
+        "--execute-comparator-generic-evidence-pack",
+        "MS-COV-GAP-PHYSICAL_SCIENCES-DYNAMICAL_LAWS_AND_CONSERVATION",
+        "--write"
+      ],
+      "returncode": 0,
+      "stderr_tail": "",
+      "stdout_tail": "{\n  \"changed\": [],\n  \"missing\": [],\n  \"state\": \"PASS\"\n}\n"
+    }
+  ],
+  "component_id": "fail_closed_status_clear",
+  "component_work_order_id": "R017-DOMAIN-MODEL-COMPONENT-ecd41bf5d3a947ab",
+  "domain_class_id": "physical_sciences",
+  "evidence_pack_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/a7777e969d546a74/strict_evidence_pack.json",
+  "evidence_pack_status": "FAIL_CLOSED_SOURCE_BOUND_SCORING_NOT_MATERIALIZED",
+  "execution_command": [
+    "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+    "tools/oc133_toe_closure_factory.py",
+    "--execute-comparator-component-source-obligation",
+    "R017-COMPONENT-SOURCE-OBLIGATION-48eecd6be1d1b725",
+    "--write"
+  ],
+  "gap_id": "MS-COV-GAP-PHYSICAL_SCIENCES-DYNAMICAL_LAWS_AND_CONSERVATION",
+  "generated_at": "2026-05-06T09:58:35Z",
+  "implementation_id": "R017-DOMAIN-MODEL-COMPONENT-IMPL-f91deff232f7aeb4",
+  "incumbent_comparator": {
+    "baseline_name": "constant-velocity Cartesian extrapolation baseline",
+    "pre_registered": true,
+    "prediction_rule": "Propagate the previous vector by linear X,Y,Z += VX,VY,VZ*delta_t and keep velocity unchanged.",
+    "required_material_margin": "model vector RMSE must be lower than comparator vector RMSE on the same hidden epochs",
+    "target_values_used_for_baseline_design": false
+  },
+  "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+  "missing_source_evidence_fields": [
+    "component_report_pass",
+    "strict_evidence_pack_pass",
+    "scoring_artifact_pass",
+    "replay_artifact_pass",
+    "score_materialized",
+    "oc_model_residual",
+    "incumbent_comparator_residual",
+    "material_margin_met",
+    "fail_closed_status_clear"
+  ],
+  "next_escalation": "Implement the exact source acquisition/scoring script for the missing fields, or preserve the fail-closed comparator result if OC does not beat the incumbent.",
+  "no_fake_closure_policy": "This execution can close only after downstream source-bound evidence artifacts pass.",
+  "obligation_id": "R017-COMPONENT-SOURCE-OBLIGATION-48eecd6be1d1b725",
+  "official_data_source": {
+    "minimum_rows_required": 20,
+    "official_documentation_url": "https://ssd-api.jpl.nasa.gov/doc/horizons.html",
+    "official_endpoint_url": "https://ssd.jpl.nasa.gov/api/horizons.api?format=json&COMMAND='399'&OBJ_DATA='NO'&MAKE_EPHEM='YES'&EPHEM_TYPE='VECTORS'&CENTER='500@10'&START_TIME='2026-Jan-01'&STOP_TIME='2026-Jan-21'&STEP_SIZE='1%20d'&VEC_TABLE='3'&OUT_UNITS='KM-S'&CSV_FORMAT='YES'",
+    "required_local_snapshot_ref": "validation/heldout/grand_science/physics_chemistry/dynamics_jpl_horizons/OC133_PHYSICS_JPL_HORIZONS_EARTH_SUN_VECTORS.json",
+    "required_lock_ref": "validation/heldout/grand_science/physics_chemistry/dynamics_jpl_horizons/OC133_PHYSICS_JPL_HORIZONS_EARTH_SUN_VECTORS.lock.json",
+    "snapshot_status": "NOT_ACQUIRED_FOR_THIS_COVERAGE_CLASS",
+    "source_authority": "NASA Jet Propulsion Laboratory Solar System Dynamics",
+    "source_id": "physics_jpl_horizons_state_vectors_earth_sun_v1",
+    "source_name": "NASA/JPL Solar System Dynamics HORIZONS API vector ephemerides"
+  },
+  "pass_predicate": "The exact component implementation, strict evidence pack, oc_prediction_scoring_row, and replay_record are all PASS without weakening materiality.",
+  "phenomenon_class_id": "dynamical_laws_and_conservation",
+  "repair_strategy": "Materialize the named missing source/model/comparator/residual/replay fields from governed source data; preserve fail-closed science if OC does not beat the comparator.",
+  "replay_artifact_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/a7777e969d546a74/replay_record.json",
+  "replay_artifact_status": "OPEN",
+  "required_capability": "Research/SourceBoundScoringMaterialization",
+  "residual_requirement": {
+    "formula": "sqrt(mean((predicted_component - observed_component)^2)) over X,Y,Z,VX,VY,VZ after unit normalization",
+    "metric_id": "vector_rmse_with_component_uncertainty_v1",
+    "superiority_rule": "model_residual < comparator_residual and residual_within_declared_uncertainty is true"
+  },
+  "root_cause_class": "SOURCE_BOUND_SCORE_OR_REPLAY_NOT_MATERIALIZED",
+  "schema_id": "OC133_MODERN_SCIENCE_COMPARATOR_COMPONENT_SOURCE_OBLIGATION_EXECUTION_v1",
+  "scoring_artifact_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/a7777e969d546a74/oc_prediction_scoring_row.json",
+  "scoring_artifact_status": "OPEN",
+  "source_component_implementation_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/component_impls/impl_ef314233ccdd95f1.json",
+  "source_component_implementation_status": "EVIDENCE_REPAIR_ATTEMPTED_REMAINS_OPEN",
+  "status": "SOURCE_BOUND_SCORING_MATERIALIZATION_REMAINS_OPEN",
+  "target_variable": {
+    "extraction_rule": "For each epoch after the first, hide the official HORIZONS vector row until the predeclared dynamical propagation is materialized from prior visible rows.",
+    "name": "next_epoch_heliocentric_cartesian_state_vector",
+    "target_fields": [
+      "X",
+      "Y",
+      "Z",
+      "VX",
+      "VY",
+      "VZ"
+    ],
+    "unit": "km and km/s"
+  },
+  "validator_binding": "comparator_gap::MS-COV-GAP-PHYSICAL_SCIENCES-DYNAMICAL_LAWS_AND_CONSERVATION::component_source_obligation::fail_closed_status_clear",
+  "why_it_failed": "Narrow source/model/comparator commands ran, but required scoring/replay fields remain missing or fail-closed."
+}

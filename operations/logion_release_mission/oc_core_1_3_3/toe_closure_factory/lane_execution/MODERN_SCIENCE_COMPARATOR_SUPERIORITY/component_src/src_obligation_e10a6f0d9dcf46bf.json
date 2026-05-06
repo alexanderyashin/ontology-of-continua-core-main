@@ -1,0 +1,150 @@
+{
+  "artifact_hash": "12462a94de7f8ae640a60a8dcad999047e06eaad89f831a4b90d175bf9c333d9",
+  "artifact_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/component_src/src_obligation_e10a6f0d9dcf46bf.json",
+  "command_pass": true,
+  "command_result_total": 5,
+  "command_results": [
+    {
+      "cache_hit": true,
+      "cmd": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "tools/oc133_toe_closure_factory.py",
+        "--execute-comparator-domain-scoring",
+        "R017-DOMAIN-SCORER-cdd8bd8ff7969c58",
+        "--write"
+      ],
+      "returncode": 0,
+      "stderr_tail": "",
+      "stdout_tail": "{\n  \"changed\": [],\n  \"missing\": [],\n  \"state\": \"PASS\"\n}\n"
+    },
+    {
+      "cache_hit": true,
+      "cmd": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "tools/oc133_toe_closure_factory.py",
+        "--execute-comparator-domain-scorer-implementation",
+        "R017-DOMAIN-SCORER-IMPL-cdd8bd8ff7969c58",
+        "--write"
+      ],
+      "returncode": 0,
+      "stderr_tail": "",
+      "stdout_tail": "{\n  \"changed\": [],\n  \"missing\": [],\n  \"state\": \"PASS\"\n}\n"
+    },
+    {
+      "cache_hit": true,
+      "cmd": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "tools/oc133_toe_closure_factory.py",
+        "--execute-comparator-domain-model-repair",
+        "R017-DOMAIN-MODEL-REPAIR-cdd8bd8ff7969c58",
+        "--write"
+      ],
+      "returncode": 0,
+      "stderr_tail": "",
+      "stdout_tail": "{\n  \"changed\": [],\n  \"missing\": [],\n  \"state\": \"PASS\"\n}\n"
+    },
+    {
+      "cmd": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "tools/oc133_toe_closure_factory.py",
+        "--execute-comparator-domain-model-component",
+        "R017-DOMAIN-MODEL-COMPONENT-33759ba313ac98ed",
+        "--write"
+      ],
+      "returncode": 0,
+      "stderr_tail": "",
+      "stdout_tail": "{\n  \"changed\": [],\n  \"missing\": [],\n  \"state\": \"PASS\"\n}\n"
+    },
+    {
+      "cache_hit": true,
+      "cmd": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "tools/oc133_toe_closure_factory.py",
+        "--execute-comparator-generic-evidence-pack",
+        "MS-COV-GAP-COGNITIVE_BEHAVIORAL_NEUROSCIENCES-BEHAVIORAL_TASK_AND_PSYCHOMETRIC_PREDICTION",
+        "--write"
+      ],
+      "returncode": 0,
+      "stderr_tail": "",
+      "stdout_tail": "{\n  \"changed\": [],\n  \"missing\": [],\n  \"state\": \"PASS\"\n}\n"
+    }
+  ],
+  "component_id": "incumbent_comparator_residual",
+  "component_work_order_id": "R017-DOMAIN-MODEL-COMPONENT-33759ba313ac98ed",
+  "domain_class_id": "cognitive_behavioral_neurosciences",
+  "evidence_pack_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/cdd8bd8ff7969c58/strict_evidence_pack.json",
+  "evidence_pack_status": "FAIL_CLOSED_SOURCE_BOUND_SCORING_NOT_MATERIALIZED",
+  "execution_command": [
+    "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+    "tools/oc133_toe_closure_factory.py",
+    "--execute-comparator-component-source-obligation",
+    "R017-COMPONENT-SOURCE-OBLIGATION-35f2287156b42b90",
+    "--write"
+  ],
+  "gap_id": "MS-COV-GAP-COGNITIVE_BEHAVIORAL_NEUROSCIENCES-BEHAVIORAL_TASK_AND_PSYCHOMETRIC_PREDICTION",
+  "generated_at": "2026-05-06T10:02:10Z",
+  "implementation_id": "R017-DOMAIN-MODEL-COMPONENT-IMPL-3a113c416ee5b5a5",
+  "incumbent_comparator": {
+    "baseline_name": "condition-stratified training mean behavioral comparator",
+    "pre_registered": true,
+    "prediction_rule": "predict heldout RT/success metrics by the training-only condition and covariate-stratum mean",
+    "required_material_margin": "model residual must beat comparator residual under the declared domain-local metric",
+    "target_values_used_for_baseline_design": false
+  },
+  "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+  "missing_source_evidence_fields": [
+    "component_report_pass",
+    "strict_evidence_pack_pass",
+    "scoring_artifact_pass",
+    "replay_artifact_pass",
+    "score_materialized",
+    "oc_model_residual",
+    "incumbent_comparator_residual",
+    "material_margin_met",
+    "fail_closed_status_clear"
+  ],
+  "next_escalation": "Implement the exact source acquisition/scoring script for the missing fields, or preserve the fail-closed comparator result if OC does not beat the incumbent.",
+  "no_fake_closure_policy": "This execution can close only after downstream source-bound evidence artifacts pass.",
+  "obligation_id": "R017-COMPONENT-SOURCE-OBLIGATION-35f2287156b42b90",
+  "official_data_source": {
+    "minimum_rows_required": 40,
+    "official_documentation_url": "https://github.com/OpenNeuroDatasets/ds000030",
+    "official_endpoint_url": "https://openneuro.org/datasets/ds000030",
+    "required_local_snapshot_ref": null,
+    "required_lock_ref": null,
+    "snapshot_status": "NOT_ACQUIRED_FOR_THIS_COVERAGE_CLASS",
+    "source_authority": "OpenNeuro / OpenfMRI / Center for Reproducible Neuroscience",
+    "source_id": "OPENNEURO_DS000030_CNP",
+    "source_name": "UCLA Consortium for Neuropsychiatric Phenomics LA5c Study"
+  },
+  "pass_predicate": "The exact component implementation, strict evidence pack, oc_prediction_scoring_row, and replay_record are all PASS without weakening materiality.",
+  "phenomenon_class_id": "behavioral_task_and_psychometric_prediction",
+  "repair_strategy": "Materialize the named missing source/model/comparator/residual/replay fields from governed source data; preserve fail-closed science if OC does not beat the comparator.",
+  "replay_artifact_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/cdd8bd8ff7969c58/replay_record.json",
+  "replay_artifact_status": "OPEN",
+  "required_capability": "Research/SourceBoundScoringMaterialization",
+  "residual_requirement": {
+    "formula": "absolute RT residual in ms and absolute success-rate residual per subject",
+    "metric_id": "MS-COV-WO-029_domain_local_residual",
+    "superiority_rule": "weighted_model_residual + uncertainty_upper < weighted_comparator_residual"
+  },
+  "root_cause_class": "SOURCE_BOUND_SCORE_OR_REPLAY_NOT_MATERIALIZED",
+  "schema_id": "OC133_MODERN_SCIENCE_COMPARATOR_COMPONENT_SOURCE_OBLIGATION_EXECUTION_v1",
+  "scoring_artifact_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/cdd8bd8ff7969c58/oc_prediction_scoring_row.json",
+  "scoring_artifact_status": "OPEN",
+  "source_component_implementation_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/component_impls/impl_dbda6c21a94b7692.json",
+  "source_component_implementation_status": "EVIDENCE_REPAIR_ATTEMPTED_REMAINS_OPEN",
+  "status": "SOURCE_BOUND_SCORING_MATERIALIZATION_REMAINS_OPEN",
+  "target_variable": {
+    "extraction_rule": "BIDS behavior/event files are parsed into subject-level task metrics; heldout subject metrics and psychometric targets remain sealed until prediction rows are written.",
+    "name": "heldout_stop_signal_behavioral_performance",
+    "target_fields": [
+      "stop_signal_training_median_go_rt_ms",
+      "stop_signal_success_rate",
+      "phenotype_psychometric_score_if_declared"
+    ],
+    "unit": "milliseconds and success-rate proportion"
+  },
+  "validator_binding": "comparator_gap::MS-COV-GAP-COGNITIVE_BEHAVIORAL_NEUROSCIENCES-BEHAVIORAL_TASK_AND_PSYCHOMETRIC_PREDICTION::component_source_obligation::incumbent_comparator_residual",
+  "why_it_failed": "Narrow source/model/comparator commands ran, but required scoring/replay fields remain missing or fail-closed."
+}

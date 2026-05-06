@@ -1,0 +1,147 @@
+{
+  "artifact_hash": "f7ef03d2f20dace4682cd1ac12f1902380bf960966d072211deac7d77c84a2aa",
+  "artifact_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/component_src/src_obligation_68737a44b57c0fbf.json",
+  "command_pass": true,
+  "command_result_total": 5,
+  "command_results": [
+    {
+      "cmd": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "tools/oc133_toe_closure_factory.py",
+        "--execute-comparator-domain-scoring",
+        "R017-DOMAIN-SCORER-29bcbfd7bc872dcf",
+        "--write"
+      ],
+      "returncode": 0,
+      "stderr_tail": "",
+      "stdout_tail": "{\n  \"changed\": [],\n  \"missing\": [],\n  \"state\": \"PASS\"\n}\n"
+    },
+    {
+      "cmd": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "tools/oc133_toe_closure_factory.py",
+        "--execute-comparator-domain-scorer-implementation",
+        "R017-DOMAIN-SCORER-IMPL-29bcbfd7bc872dcf",
+        "--write"
+      ],
+      "returncode": 0,
+      "stderr_tail": "",
+      "stdout_tail": "{\n  \"changed\": [],\n  \"missing\": [],\n  \"state\": \"PASS\"\n}\n"
+    },
+    {
+      "cmd": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "tools/oc133_toe_closure_factory.py",
+        "--execute-comparator-domain-model-repair",
+        "R017-DOMAIN-MODEL-REPAIR-29bcbfd7bc872dcf",
+        "--write"
+      ],
+      "returncode": 0,
+      "stderr_tail": "",
+      "stdout_tail": "{\n  \"changed\": [],\n  \"missing\": [],\n  \"state\": \"PASS\"\n}\n"
+    },
+    {
+      "cmd": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "tools/oc133_toe_closure_factory.py",
+        "--execute-comparator-domain-model-component",
+        "R017-DOMAIN-MODEL-COMPONENT-58dfa35067ea0be1",
+        "--write"
+      ],
+      "returncode": 0,
+      "stderr_tail": "",
+      "stdout_tail": "{\n  \"changed\": [],\n  \"missing\": [],\n  \"state\": \"PASS\"\n}\n"
+    },
+    {
+      "cmd": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "tools/oc133_toe_closure_factory.py",
+        "--execute-comparator-generic-evidence-pack",
+        "MS-COV-GAP-COMPLEX_SYSTEMS_OPERATIONS_SCIENCE-RESILIENCE_RISK_AND_INTERVENTION_RESPONSE",
+        "--write"
+      ],
+      "returncode": 0,
+      "stderr_tail": "",
+      "stdout_tail": "{\n  \"changed\": [],\n  \"missing\": [],\n  \"state\": \"PASS\"\n}\n"
+    }
+  ],
+  "component_id": "oc_score_materialization",
+  "component_work_order_id": "R017-DOMAIN-MODEL-COMPONENT-58dfa35067ea0be1",
+  "domain_class_id": "complex_systems_operations_science",
+  "evidence_pack_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/29bcbfd7bc872dcf/strict_evidence_pack.json",
+  "evidence_pack_status": "FAIL_CLOSED_SOURCE_BOUND_SCORING_NOT_MATERIALIZED",
+  "execution_command": [
+    "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+    "tools/oc133_toe_closure_factory.py",
+    "--execute-comparator-component-source-obligation",
+    "R017-COMPONENT-SOURCE-OBLIGATION-633261e1f8f01491",
+    "--write"
+  ],
+  "gap_id": "MS-COV-GAP-COMPLEX_SYSTEMS_OPERATIONS_SCIENCE-RESILIENCE_RISK_AND_INTERVENTION_RESPONSE",
+  "generated_at": "2026-05-06T10:02:57Z",
+  "implementation_id": "R017-DOMAIN-MODEL-COMPONENT-IMPL-d2a26037c3c2278f",
+  "incumbent_comparator": {
+    "baseline_name": "seasonal same-month mean and last-observation comparator",
+    "pre_registered": true,
+    "prediction_rule": "predict heldout declaration count from prior same-month mean and last visible monthly count",
+    "required_material_margin": "model residual must beat comparator residual under the declared domain-local metric",
+    "target_values_used_for_baseline_design": false
+  },
+  "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+  "missing_source_evidence_fields": [
+    "component_report_pass",
+    "strict_evidence_pack_pass",
+    "scoring_artifact_pass",
+    "replay_artifact_pass",
+    "score_materialized",
+    "oc_model_residual",
+    "incumbent_comparator_residual",
+    "material_margin_met",
+    "fail_closed_status_clear"
+  ],
+  "next_escalation": "Implement the exact source acquisition/scoring script for the missing fields, or preserve the fail-closed comparator result if OC does not beat the incumbent.",
+  "no_fake_closure_policy": "This execution can close only after downstream source-bound evidence artifacts pass.",
+  "obligation_id": "R017-COMPONENT-SOURCE-OBLIGATION-633261e1f8f01491",
+  "official_data_source": {
+    "minimum_rows_required": 100,
+    "official_documentation_url": "https://www.fema.gov/about/openfema/api",
+    "official_endpoint_url": "https://www.fema.gov/openfema-data-page/disaster-declarations-summaries-v2",
+    "required_local_snapshot_ref": null,
+    "required_lock_ref": null,
+    "snapshot_status": "NOT_ACQUIRED_FOR_THIS_COVERAGE_CLASS",
+    "source_authority": "Federal Emergency Management Agency",
+    "source_id": "FEMA_OPENFEMA_DISASTER_DECLARATIONS_V2",
+    "source_name": "OpenFEMA Disaster Declarations Summaries v2"
+  },
+  "pass_predicate": "The exact component implementation, strict evidence pack, oc_prediction_scoring_row, and replay_record are all PASS without weakening materiality.",
+  "phenomenon_class_id": "resilience_risk_and_intervention_response",
+  "repair_strategy": "Materialize the named missing source/model/comparator/residual/replay fields from governed source data; preserve fail-closed science if OC does not beat the comparator.",
+  "replay_artifact_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/29bcbfd7bc872dcf/replay_record.json",
+  "replay_artifact_status": "OPEN",
+  "required_capability": "Research/SourceBoundScoringMaterialization",
+  "residual_requirement": {
+    "formula": "absolute count residual and Poisson deviance per state/month/incident type",
+    "metric_id": "MS-COV-WO-035_domain_local_residual",
+    "superiority_rule": "model_count_residual + uncertainty_upper < best_comparator_count_residual"
+  },
+  "root_cause_class": "SOURCE_BOUND_SCORE_OR_REPLAY_NOT_MATERIALIZED",
+  "schema_id": "OC133_MODERN_SCIENCE_COMPARATOR_COMPONENT_SOURCE_OBLIGATION_EXECUTION_v1",
+  "scoring_artifact_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/29bcbfd7bc872dcf/oc_prediction_scoring_row.json",
+  "scoring_artifact_status": "OPEN",
+  "source_component_implementation_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/component_impls/impl_f490e0618cd974d4.json",
+  "source_component_implementation_status": "EVIDENCE_REPAIR_ATTEMPTED_REMAINS_OPEN",
+  "status": "SOURCE_BOUND_SCORING_MATERIALIZATION_REMAINS_OPEN",
+  "target_variable": {
+    "extraction_rule": "Declaration rows are aggregated into state/month/incident panels; heldout month counts remain sealed until response-risk predictions are materialized.",
+    "name": "heldout_state_month_disaster_declaration_count",
+    "target_fields": [
+      "state",
+      "incidentType",
+      "declaration_month",
+      "declaration_count"
+    ],
+    "unit": "FEMA declaration records per state/month/incident type"
+  },
+  "validator_binding": "comparator_gap::MS-COV-GAP-COMPLEX_SYSTEMS_OPERATIONS_SCIENCE-RESILIENCE_RISK_AND_INTERVENTION_RESPONSE::component_source_obligation::oc_score_materialization",
+  "why_it_failed": "Narrow source/model/comparator commands ran, but required scoring/replay fields remain missing or fail-closed."
+}

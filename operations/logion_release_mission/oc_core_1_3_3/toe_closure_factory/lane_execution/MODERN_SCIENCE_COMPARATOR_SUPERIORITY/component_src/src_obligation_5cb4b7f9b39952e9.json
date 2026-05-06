@@ -1,0 +1,150 @@
+{
+  "artifact_hash": "b2a516648f6b0c914a9d73197860ba25ccc818e6267efa37bc84dea595664f99",
+  "artifact_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/component_src/src_obligation_5cb4b7f9b39952e9.json",
+  "command_pass": true,
+  "command_result_total": 5,
+  "command_results": [
+    {
+      "cache_hit": true,
+      "cmd": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "tools/oc133_toe_closure_factory.py",
+        "--execute-comparator-domain-scoring",
+        "R017-DOMAIN-SCORER-3a74fb5d8077bd9e",
+        "--write"
+      ],
+      "returncode": 0,
+      "stderr_tail": "",
+      "stdout_tail": "{\n  \"changed\": [],\n  \"missing\": [],\n  \"state\": \"PASS\"\n}\n"
+    },
+    {
+      "cache_hit": true,
+      "cmd": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "tools/oc133_toe_closure_factory.py",
+        "--execute-comparator-domain-scorer-implementation",
+        "R017-DOMAIN-SCORER-IMPL-3a74fb5d8077bd9e",
+        "--write"
+      ],
+      "returncode": 0,
+      "stderr_tail": "",
+      "stdout_tail": "{\n  \"changed\": [],\n  \"missing\": [],\n  \"state\": \"PASS\"\n}\n"
+    },
+    {
+      "cache_hit": true,
+      "cmd": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "tools/oc133_toe_closure_factory.py",
+        "--execute-comparator-domain-model-repair",
+        "R017-DOMAIN-MODEL-REPAIR-3a74fb5d8077bd9e",
+        "--write"
+      ],
+      "returncode": 0,
+      "stderr_tail": "",
+      "stdout_tail": "{\n  \"changed\": [],\n  \"missing\": [],\n  \"state\": \"PASS\"\n}\n"
+    },
+    {
+      "cmd": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "tools/oc133_toe_closure_factory.py",
+        "--execute-comparator-domain-model-component",
+        "R017-DOMAIN-MODEL-COMPONENT-c82fa5cc179d3e4c",
+        "--write"
+      ],
+      "returncode": 0,
+      "stderr_tail": "",
+      "stdout_tail": "{\n  \"changed\": [],\n  \"missing\": [],\n  \"state\": \"PASS\"\n}\n"
+    },
+    {
+      "cache_hit": true,
+      "cmd": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "tools/oc133_toe_closure_factory.py",
+        "--execute-comparator-generic-evidence-pack",
+        "MS-COV-GAP-COGNITIVE_BEHAVIORAL_NEUROSCIENCES-NEURAL_RECORDING_AND_BRAIN_NETWORK_OBSERVABLES",
+        "--write"
+      ],
+      "returncode": 0,
+      "stderr_tail": "",
+      "stdout_tail": "{\n  \"changed\": [],\n  \"missing\": [],\n  \"state\": \"PASS\"\n}\n"
+    }
+  ],
+  "component_id": "strict_pack_pass",
+  "component_work_order_id": "R017-DOMAIN-MODEL-COMPONENT-c82fa5cc179d3e4c",
+  "domain_class_id": "cognitive_behavioral_neurosciences",
+  "evidence_pack_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/3a74fb5d8077bd9e/strict_evidence_pack.json",
+  "evidence_pack_status": "FAIL_CLOSED_SOURCE_BOUND_SCORING_NOT_MATERIALIZED",
+  "execution_command": [
+    "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+    "tools/oc133_toe_closure_factory.py",
+    "--execute-comparator-component-source-obligation",
+    "R017-COMPONENT-SOURCE-OBLIGATION-a7c4608d14167e3c",
+    "--write"
+  ],
+  "gap_id": "MS-COV-GAP-COGNITIVE_BEHAVIORAL_NEUROSCIENCES-NEURAL_RECORDING_AND_BRAIN_NETWORK_OBSERVABLES",
+  "generated_at": "2026-05-06T10:02:04Z",
+  "implementation_id": "R017-DOMAIN-MODEL-COMPONENT-IMPL-145c93bacd34f978",
+  "incumbent_comparator": {
+    "baseline_name": "training-cohort mean connectivity edge comparator",
+    "pre_registered": true,
+    "prediction_rule": "predict each heldout edge by the training-only mean for the same atlas edge and stratum",
+    "required_material_margin": "model residual must beat comparator residual under the declared domain-local metric",
+    "target_values_used_for_baseline_design": false
+  },
+  "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+  "missing_source_evidence_fields": [
+    "component_report_pass",
+    "strict_evidence_pack_pass",
+    "scoring_artifact_pass",
+    "replay_artifact_pass",
+    "score_materialized",
+    "oc_model_residual",
+    "incumbent_comparator_residual",
+    "material_margin_met",
+    "fail_closed_status_clear"
+  ],
+  "next_escalation": "Implement the exact source acquisition/scoring script for the missing fields, or preserve the fail-closed comparator result if OC does not beat the incumbent.",
+  "no_fake_closure_policy": "This execution can close only after downstream source-bound evidence artifacts pass.",
+  "obligation_id": "R017-COMPONENT-SOURCE-OBLIGATION-a7c4608d14167e3c",
+  "official_data_source": {
+    "minimum_rows_required": 80,
+    "official_documentation_url": "https://github.com/OpenNeuroDatasets/ds000030",
+    "official_endpoint_url": "https://openneuro.org/datasets/ds000030",
+    "required_local_snapshot_ref": null,
+    "required_lock_ref": null,
+    "snapshot_status": "NOT_ACQUIRED_FOR_THIS_COVERAGE_CLASS",
+    "source_authority": "OpenNeuro / OpenfMRI / Center for Reproducible Neuroscience",
+    "source_id": "OPENNEURO_DS000030_CNP",
+    "source_name": "UCLA Consortium for Neuropsychiatric Phenomics LA5c Study"
+  },
+  "pass_predicate": "The exact component implementation, strict evidence pack, oc_prediction_scoring_row, and replay_record are all PASS without weakening materiality.",
+  "phenomenon_class_id": "neural_recording_and_brain_network_observables",
+  "repair_strategy": "Materialize the named missing source/model/comparator/residual/replay fields from governed source data; preserve fail-closed science if OC does not beat the comparator.",
+  "replay_artifact_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/3a74fb5d8077bd9e/replay_record.json",
+  "replay_artifact_status": "OPEN",
+  "required_capability": "Research/SourceBoundScoringMaterialization",
+  "residual_requirement": {
+    "formula": "edge-wise absolute residual and subject-level RMSE over heldout edge vectors",
+    "metric_id": "MS-COV-WO-028_domain_local_residual",
+    "superiority_rule": "model_RMSE + uncertainty_upper < comparator_RMSE"
+  },
+  "root_cause_class": "SOURCE_BOUND_SCORE_OR_REPLAY_NOT_MATERIALIZED",
+  "schema_id": "OC133_MODERN_SCIENCE_COMPARATOR_COMPONENT_SOURCE_OBLIGATION_EXECUTION_v1",
+  "scoring_artifact_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/3a74fb5d8077bd9e/oc_prediction_scoring_row.json",
+  "scoring_artifact_status": "OPEN",
+  "source_component_implementation_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/component_impls/impl_a1c5cb13a2df413c.json",
+  "source_component_implementation_status": "EVIDENCE_REPAIR_ATTEMPTED_REMAINS_OPEN",
+  "status": "SOURCE_BOUND_SCORING_MATERIALIZATION_REMAINS_OPEN",
+  "target_variable": {
+    "extraction_rule": "Resting-state BOLD time series are transformed into a locked atlas connectivity matrix; heldout subject edge values stay hidden until predictions are materialized.",
+    "name": "heldout_subject_resting_state_connectivity_edge",
+    "target_fields": [
+      "atlas_edge_zcorr[source_region,target_region]",
+      "subject_id",
+      "task_rest_bold_run"
+    ],
+    "unit": "Fisher z-transformed functional connectivity"
+  },
+  "validator_binding": "comparator_gap::MS-COV-GAP-COGNITIVE_BEHAVIORAL_NEUROSCIENCES-NEURAL_RECORDING_AND_BRAIN_NETWORK_OBSERVABLES::component_source_obligation::strict_pack_pass",
+  "why_it_failed": "Narrow source/model/comparator commands ran, but required scoring/replay fields remain missing or fail-closed."
+}

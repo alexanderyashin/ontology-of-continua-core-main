@@ -1,0 +1,148 @@
+{
+  "artifact_hash": "de14eb1e781f3502cfbf21374084a5e5082c77a98ed5503f7a23b0fcde509d59",
+  "artifact_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/component_src/src_obligation_05f17c742b71fd65.json",
+  "command_pass": true,
+  "command_result_total": 5,
+  "command_results": [
+    {
+      "cmd": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "tools/oc133_toe_closure_factory.py",
+        "--execute-comparator-domain-scoring",
+        "R017-DOMAIN-SCORER-bde33a9d37378831",
+        "--write"
+      ],
+      "returncode": 0,
+      "stderr_tail": "",
+      "stdout_tail": "{\n  \"changed\": [],\n  \"missing\": [],\n  \"state\": \"PASS\"\n}\n"
+    },
+    {
+      "cmd": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "tools/oc133_toe_closure_factory.py",
+        "--execute-comparator-domain-scorer-implementation",
+        "R017-DOMAIN-SCORER-IMPL-bde33a9d37378831",
+        "--write"
+      ],
+      "returncode": 0,
+      "stderr_tail": "",
+      "stdout_tail": "{\n  \"changed\": [],\n  \"missing\": [],\n  \"state\": \"PASS\"\n}\n"
+    },
+    {
+      "cmd": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "tools/oc133_toe_closure_factory.py",
+        "--execute-comparator-domain-model-repair",
+        "R017-DOMAIN-MODEL-REPAIR-bde33a9d37378831",
+        "--write"
+      ],
+      "returncode": 0,
+      "stderr_tail": "",
+      "stdout_tail": "{\n  \"changed\": [],\n  \"missing\": [],\n  \"state\": \"PASS\"\n}\n"
+    },
+    {
+      "cmd": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "tools/oc133_toe_closure_factory.py",
+        "--execute-comparator-domain-model-component",
+        "R017-DOMAIN-MODEL-COMPONENT-11ee596981701f06",
+        "--write"
+      ],
+      "returncode": 0,
+      "stderr_tail": "",
+      "stdout_tail": "{\n  \"changed\": [],\n  \"missing\": [],\n  \"state\": \"PASS\"\n}\n"
+    },
+    {
+      "cmd": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "tools/oc133_toe_closure_factory.py",
+        "--execute-comparator-generic-evidence-pack",
+        "MS-COV-GAP-MEDICAL_HEALTH_SCIENCES-EPIDEMIOLOGICAL_TRANSMISSION_AND_RISK",
+        "--write"
+      ],
+      "returncode": 0,
+      "stderr_tail": "",
+      "stdout_tail": "{\n  \"changed\": [],\n  \"missing\": [],\n  \"state\": \"PASS\"\n}\n"
+    }
+  ],
+  "component_id": "oc_score_materialization",
+  "component_work_order_id": "R017-DOMAIN-MODEL-COMPONENT-11ee596981701f06",
+  "domain_class_id": "medical_health_sciences",
+  "evidence_pack_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/bde33a9d37378831/strict_evidence_pack.json",
+  "evidence_pack_status": "FAIL_CLOSED_SOURCE_BOUND_SCORING_NOT_MATERIALIZED",
+  "execution_command": [
+    "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+    "tools/oc133_toe_closure_factory.py",
+    "--execute-comparator-component-source-obligation",
+    "R017-COMPONENT-SOURCE-OBLIGATION-3f71abcbfc15ce25",
+    "--write"
+  ],
+  "gap_id": "MS-COV-GAP-MEDICAL_HEALTH_SCIENCES-EPIDEMIOLOGICAL_TRANSMISSION_AND_RISK",
+  "generated_at": "2026-05-06T10:00:23Z",
+  "implementation_id": "R017-DOMAIN-MODEL-COMPONENT-IMPL-c2b231490d9bb3a7",
+  "incumbent_comparator": {
+    "baseline_name": "autoregressive regional risk baseline",
+    "pre_registered": true,
+    "prediction_rule": "Predict held-out risk change from lagged regional counts and demographic strata without access to future target labels.",
+    "required_material_margin": "OC residual must beat the autoregressive baseline under the declared temporal holdout and uncertainty policy.",
+    "target_values_used_for_baseline_design": false
+  },
+  "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+  "missing_source_evidence_fields": [
+    "component_report_pass",
+    "strict_evidence_pack_pass",
+    "scoring_artifact_pass",
+    "replay_artifact_pass",
+    "score_materialized",
+    "oc_model_residual",
+    "incumbent_comparator_residual",
+    "material_margin_met",
+    "fail_closed_status_clear"
+  ],
+  "next_escalation": "Implement the exact source acquisition/scoring script for the missing fields, or preserve the fail-closed comparator result if OC does not beat the incumbent.",
+  "no_fake_closure_policy": "This execution can close only after downstream source-bound evidence artifacts pass.",
+  "obligation_id": "R017-COMPONENT-SOURCE-OBLIGATION-3f71abcbfc15ce25",
+  "official_data_source": {
+    "minimum_rows_required": 500,
+    "official_documentation_url": "https://open.cdc.gov/data.html",
+    "official_endpoint_url": "https://data.cdc.gov/resource/n8mc-b4w4.json?$limit=5000",
+    "required_local_snapshot_ref": "validation/heldout/grand_science/medical_health/epidemiology_risk/OC133_CDC_EPIDEMIOLOGY_RISK_SNAPSHOT.json",
+    "required_lock_ref": "validation/heldout/grand_science/medical_health/epidemiology_risk/OC133_CDC_EPIDEMIOLOGY_RISK_SNAPSHOT.lock.json",
+    "snapshot_status": "NOT_ACQUIRED_FOR_THIS_COVERAGE_CLASS",
+    "source_authority": "U.S. Centers for Disease Control and Prevention",
+    "source_id": "cdc_open_data_epidemiology_timeseries_v1",
+    "source_name": "CDC Open Data Socrata API epidemiology time-series datasets"
+  },
+  "pass_predicate": "The exact component implementation, strict evidence pack, oc_prediction_scoring_row, and replay_record are all PASS without weakening materiality.",
+  "phenomenon_class_id": "epidemiological_transmission_and_risk",
+  "repair_strategy": "Materialize the named missing source/model/comparator/residual/replay fields from governed source data; preserve fail-closed science if OC does not beat the comparator.",
+  "replay_artifact_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/bde33a9d37378831/replay_record.json",
+  "replay_artifact_status": "OPEN",
+  "required_capability": "Research/SourceBoundScoringMaterialization",
+  "residual_requirement": {
+    "formula": "weighted_absolute_error(oc_risk_change_score, held_out_risk_change)",
+    "metric_id": "medical_epidemiology_risk_residual",
+    "superiority_rule": "OC must beat the autoregressive comparator across the locked regional-week holdout."
+  },
+  "root_cause_class": "SOURCE_BOUND_SCORE_OR_REPLAY_NOT_MATERIALIZED",
+  "schema_id": "OC133_MODERN_SCIENCE_COMPARATOR_COMPONENT_SOURCE_OBLIGATION_EXECUTION_v1",
+  "scoring_artifact_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/bde33a9d37378831/oc_prediction_scoring_row.json",
+  "scoring_artifact_status": "OPEN",
+  "source_component_implementation_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/component_impls/impl_8603e86f14706f77.json",
+  "source_component_implementation_status": "EVIDENCE_REPAIR_ATTEMPTED_REMAINS_OPEN",
+  "status": "SOURCE_BOUND_SCORING_MATERIALIZATION_REMAINS_OPEN",
+  "target_variable": {
+    "extraction_rule": "Lock source snapshots by reporting week, hide future regional risk-change labels, and score only against the held-out temporal slice.",
+    "name": "held_out_transmission_risk_change_by_region_and_week",
+    "target_fields": [
+      "case_month",
+      "res_state",
+      "age_group",
+      "sex",
+      "case_positive_specimen_interval"
+    ],
+    "unit": "weekly regional risk-change class"
+  },
+  "validator_binding": "comparator_gap::MS-COV-GAP-MEDICAL_HEALTH_SCIENCES-EPIDEMIOLOGICAL_TRANSMISSION_AND_RISK::component_source_obligation::oc_score_materialization",
+  "why_it_failed": "Narrow source/model/comparator commands ran, but required scoring/replay fields remain missing or fail-closed."
+}

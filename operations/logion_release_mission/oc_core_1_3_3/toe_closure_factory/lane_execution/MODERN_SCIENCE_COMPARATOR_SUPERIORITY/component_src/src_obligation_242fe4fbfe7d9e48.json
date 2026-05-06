@@ -1,0 +1,152 @@
+{
+  "artifact_hash": "8199d87f455031fb157ba71637c58f32acbf2db6b5e73ee63216bd8e3ed529e3",
+  "artifact_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/component_src/src_obligation_242fe4fbfe7d9e48.json",
+  "command_pass": true,
+  "command_result_total": 5,
+  "command_results": [
+    {
+      "cache_hit": true,
+      "cmd": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "tools/oc133_toe_closure_factory.py",
+        "--execute-comparator-domain-scoring",
+        "R017-DOMAIN-SCORER-37c095c180c5f414",
+        "--write"
+      ],
+      "returncode": 0,
+      "stderr_tail": "",
+      "stdout_tail": "{\n  \"changed\": [],\n  \"missing\": [],\n  \"state\": \"PASS\"\n}\n"
+    },
+    {
+      "cache_hit": true,
+      "cmd": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "tools/oc133_toe_closure_factory.py",
+        "--execute-comparator-domain-scorer-implementation",
+        "R017-DOMAIN-SCORER-IMPL-37c095c180c5f414",
+        "--write"
+      ],
+      "returncode": 0,
+      "stderr_tail": "",
+      "stdout_tail": "{\n  \"changed\": [],\n  \"missing\": [],\n  \"state\": \"PASS\"\n}\n"
+    },
+    {
+      "cache_hit": true,
+      "cmd": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "tools/oc133_toe_closure_factory.py",
+        "--execute-comparator-domain-model-repair",
+        "R017-DOMAIN-MODEL-REPAIR-37c095c180c5f414",
+        "--write"
+      ],
+      "returncode": 0,
+      "stderr_tail": "",
+      "stdout_tail": "{\n  \"changed\": [],\n  \"missing\": [],\n  \"state\": \"PASS\"\n}\n"
+    },
+    {
+      "cmd": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "tools/oc133_toe_closure_factory.py",
+        "--execute-comparator-domain-model-component",
+        "R017-DOMAIN-MODEL-COMPONENT-b4bd9ee29d4aa5df",
+        "--write"
+      ],
+      "returncode": 0,
+      "stderr_tail": "",
+      "stdout_tail": "{\n  \"changed\": [],\n  \"missing\": [],\n  \"state\": \"PASS\"\n}\n"
+    },
+    {
+      "cache_hit": true,
+      "cmd": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "tools/oc133_toe_closure_factory.py",
+        "--execute-comparator-generic-evidence-pack",
+        "MS-COV-GAP-MEDICAL_HEALTH_SCIENCES-PHARMACOLOGY_TOXICOLOGY_AND_DOSE_RESPONSE",
+        "--write"
+      ],
+      "returncode": 0,
+      "stderr_tail": "",
+      "stdout_tail": "{\n  \"changed\": [],\n  \"missing\": [],\n  \"state\": \"PASS\"\n}\n"
+    }
+  ],
+  "component_id": "material_margin",
+  "component_work_order_id": "R017-DOMAIN-MODEL-COMPONENT-b4bd9ee29d4aa5df",
+  "domain_class_id": "medical_health_sciences",
+  "evidence_pack_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/37c095c180c5f414/strict_evidence_pack.json",
+  "evidence_pack_status": "FAIL_CLOSED_SOURCE_BOUND_SCORING_NOT_MATERIALIZED",
+  "execution_command": [
+    "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+    "tools/oc133_toe_closure_factory.py",
+    "--execute-comparator-component-source-obligation",
+    "R017-COMPONENT-SOURCE-OBLIGATION-ec713278628a020d",
+    "--write"
+  ],
+  "gap_id": "MS-COV-GAP-MEDICAL_HEALTH_SCIENCES-PHARMACOLOGY_TOXICOLOGY_AND_DOSE_RESPONSE",
+  "generated_at": "2026-05-06T10:00:37Z",
+  "implementation_id": "R017-DOMAIN-MODEL-COMPONENT-IMPL-616a1709122d1852",
+  "incumbent_comparator": {
+    "baseline_name": "drug-class frequency and dose-bin adverse-event baseline",
+    "pre_registered": true,
+    "prediction_rule": "Predict held-out severity and dose-response class from drug class and preregistered dose bins without target-label access.",
+    "required_material_margin": "OC residual must beat the frequency dose-bin baseline under the declared pharmacovigilance uncertainty policy.",
+    "target_values_used_for_baseline_design": false
+  },
+  "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+  "missing_source_evidence_fields": [
+    "component_report_pass",
+    "strict_evidence_pack_pass",
+    "scoring_artifact_pass",
+    "replay_artifact_pass",
+    "score_materialized",
+    "oc_model_residual",
+    "incumbent_comparator_residual",
+    "material_margin_met",
+    "fail_closed_status_clear"
+  ],
+  "next_escalation": "Implement the exact source acquisition/scoring script for the missing fields, or preserve the fail-closed comparator result if OC does not beat the incumbent.",
+  "no_fake_closure_policy": "This execution can close only after downstream source-bound evidence artifacts pass.",
+  "obligation_id": "R017-COMPONENT-SOURCE-OBLIGATION-ec713278628a020d",
+  "official_data_source": {
+    "minimum_rows_required": 100,
+    "official_documentation_url": "https://open.fda.gov/apis/drug/event/how-to-use-the-endpoint/",
+    "official_endpoint_url": "https://api.fda.gov/drug/event.json?search=receivedate:[20240101+TO+20241231]&limit=100",
+    "required_local_snapshot_ref": "validation/heldout/grand_science/medical_health/pharmacology_toxicology/OC133_OPENFDA_DRUG_EVENT_SNAPSHOT.json",
+    "required_lock_ref": "validation/heldout/grand_science/medical_health/pharmacology_toxicology/OC133_OPENFDA_DRUG_EVENT_SNAPSHOT.lock.json",
+    "snapshot_status": "NOT_ACQUIRED_FOR_THIS_COVERAGE_CLASS",
+    "source_authority": "U.S. Food and Drug Administration openFDA",
+    "source_id": "openfda_faers_drug_event_v1",
+    "source_name": "openFDA drug adverse event endpoint"
+  },
+  "pass_predicate": "The exact component implementation, strict evidence pack, oc_prediction_scoring_row, and replay_record are all PASS without weakening materiality.",
+  "phenomenon_class_id": "pharmacology_toxicology_and_dose_response",
+  "repair_strategy": "Materialize the named missing source/model/comparator/residual/replay fields from governed source data; preserve fail-closed science if OC does not beat the comparator.",
+  "replay_artifact_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/37c095c180c5f414/replay_record.json",
+  "replay_artifact_status": "OPEN",
+  "required_capability": "Research/SourceBoundScoringMaterialization",
+  "residual_requirement": {
+    "formula": "classification_loss(oc_dose_response_score, held_out_severity_or_response_class)",
+    "metric_id": "medical_pharmacology_dose_response_residual",
+    "superiority_rule": "OC must beat the preregistered drug-class frequency comparator after sparse-strata controls."
+  },
+  "root_cause_class": "SOURCE_BOUND_SCORE_OR_REPLAY_NOT_MATERIALIZED",
+  "schema_id": "OC133_MODERN_SCIENCE_COMPARATOR_COMPONENT_SOURCE_OBLIGATION_EXECUTION_v1",
+  "scoring_artifact_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/37c095c180c5f414/oc_prediction_scoring_row.json",
+  "scoring_artifact_status": "OPEN",
+  "source_component_implementation_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/component_impls/impl_8b287aa5b67a34f8.json",
+  "source_component_implementation_status": "EVIDENCE_REPAIR_ATTEMPTED_REMAINS_OPEN",
+  "status": "SOURCE_BOUND_SCORING_MATERIALIZATION_REMAINS_OPEN",
+  "target_variable": {
+    "extraction_rule": "Lock adverse-event reports and hide severity and dose-response class labels until OC and comparator scoring rows are preregistered.",
+    "name": "held_out_adverse_event_severity_and_dose_response_class",
+    "target_fields": [
+      "safetyreportid",
+      "patient.drug.medicinalproduct",
+      "patient.drug.drugstructuredosagenumb",
+      "patient.reaction.reactionmeddrapt",
+      "serious"
+    ],
+    "unit": "severity or dose-response class derived from locked adverse-event reports"
+  },
+  "validator_binding": "comparator_gap::MS-COV-GAP-MEDICAL_HEALTH_SCIENCES-PHARMACOLOGY_TOXICOLOGY_AND_DOSE_RESPONSE::component_source_obligation::material_margin",
+  "why_it_failed": "Narrow source/model/comparator commands ran, but required scoring/replay fields remain missing or fail-closed."
+}
