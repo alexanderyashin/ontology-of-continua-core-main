@@ -3,15 +3,24 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import re
+import statistics
 from pathlib import Path
 from typing import Any
 from urllib.parse import urlencode
+from urllib.request import Request, urlopen
 
 
 RELEASE_ID = "oc_core_1_3_3"
 VERSION = "1.3.3"
 GENERATED_ON = "2026-05-01"
 SCHEMA_ID = "OC133_CS_MODERN_SCIENCE_COVERAGE_WORK_ORDERS_v1"
+NVD_ACQUISITION_SCHEMA_ID = "OC133_CS_NVD_CVSS_READONLY_ACQUISITION_v1"
+NVD_LOCK_SCHEMA_ID = "OC133_CS_NVD_CVSS_SOURCE_LOCK_v1"
+NVD_TASK_TABLE_SCHEMA_ID = "OC133_CS_NVD_CVSS_TARGET_HIDDEN_TASK_TABLE_v1"
+NVD_HIDDEN_TARGET_LOCK_SCHEMA_ID = "OC133_CS_NVD_CVSS_HIDDEN_TARGET_LOCK_v1"
+NVD_SCORING_PACK_SCHEMA_ID = "OC133_CS_NVD_CVSS_SCORING_PACK_v1"
+NVD_REPLAY_REPORT_SCHEMA_ID = "OC133_CS_NVD_CVSS_REPLAY_REPORT_v1"
 CAPABILITY_OWNER = "Logion CS Evidence / Verification and Evaluation Sources"
 
 SCRIPT_REL = (
@@ -22,8 +31,64 @@ OUTPUT_REL = (
     "validation/heldout/grand_science/cs/coverage_work_orders/"
     "OC133_CS_MODERN_SCIENCE_COVERAGE_WORK_ORDERS.json"
 )
+NVD_RAW_DIR_REL = "validation/heldout/grand_science/cs/coverage_work_orders/raw/security_nvd"
+NVD_SNAPSHOT_REL = f"{NVD_RAW_DIR_REL}/nvd_cve_2024q1_high.compact.json"
+NVD_LOCK_REL = f"{NVD_RAW_DIR_REL}/nvd_cve_2024q1_high.lock.json"
+NVD_TASK_TABLE_REL = (
+    "validation/heldout/grand_science/cs/coverage_work_orders/"
+    "OC133_CS_NVD_CVSS_TARGET_HIDDEN_TASK_TABLE.json"
+)
+NVD_HIDDEN_TARGET_LOCK_REL = (
+    "validation/heldout/grand_science/cs/coverage_work_orders/locks/"
+    "OC133-CS-NVD-CVSS-HIDDEN-TARGETS-0001.lock.json"
+)
+NVD_SCORING_PACK_REL = (
+    "validation/heldout/grand_science/cs/coverage_work_orders/"
+    "OC133_CS_NVD_CVSS_SECURITY_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json"
+)
+NVD_REPLAY_REPORT_REL = (
+    "validation/heldout/grand_science/cs/coverage_work_orders/"
+    "OC133_CS_NVD_CVSS_REPLAY_REPORT.json"
+)
 COVERAGE_REGISTER_REL = "comparators/modern_science/OC133_MODERN_SCIENCE_COVERAGE_REGISTER.json"
 COVERAGE_QUEUE_REF = "reports/OC_CORE_1_3_3_MODERN_SCIENCE_COVERAGE_LANE_QUEUE.json"
+
+NVD_WORK_ORDER_ID = "MS-COV-WO-027"
+NVD_QUERY_PARAMS = {
+    "pubStartDate": "2024-01-01T00:00:00.000",
+    "pubEndDate": "2024-03-31T23:59:59.999",
+    "cvssV3Severity": "HIGH",
+    "resultsPerPage": "2000",
+}
+NVD_MODEL_ID = "CS-NVD-CVSS-TEXT-CWE-CPE-METADATA-MEDIAN-ENSEMBLE-v1"
+NVD_MODEL_RULE = (
+    "predict heldout CVSS v3.x base score from training-only medians over CWE, CPE-count bin, "
+    "reference-count bin, and visible description/reference/source tokens; baseScore, severity, "
+    "CVSS vector metrics, exploitabilityScore, and impactScore remain hidden until scoring"
+)
+NVD_COMPARATOR_ID = "CS-NVD-PRIOR-CWE-MEDIAN-COMPARATOR-v1"
+NVD_COMPARATOR_RULE = "predict heldout CVSS score from the training-only median score for the same CWE, otherwise the global training median"
+NVD_STOP_TOKENS = {
+    "the",
+    "and",
+    "for",
+    "with",
+    "this",
+    "that",
+    "which",
+    "from",
+    "when",
+    "allow",
+    "allows",
+    "could",
+    "vulnerability",
+    "vulnerabilities",
+    "attacker",
+    "remote",
+    "local",
+    "user",
+    "users",
+}
 
 NO_SEND_LOCKS = {
     "no_send": True,
@@ -94,6 +159,217 @@ def with_hash(row: dict[str, Any]) -> dict[str, Any]:
 
 def nvd_url(params: dict[str, str]) -> str:
     return "https://services.nvd.nist.gov/rest/json/cves/2.0?" + urlencode(params)
+
+
+def sha256_file(path: Path) -> str:
+    digest = hashlib.sha256()
+    with path.open("rb") as handle:
+        for chunk in iter(lambda: handle.read(1024 * 1024), b""):
+            digest.update(chunk)
+    return digest.hexdigest()
+
+
+def rounded(value: float, digits: int = 6) -> float:
+    return round(float(value), digits)
+
+
+def mean(values: list[float]) -> float:
+    return sum(values) / len(values) if values else 0.0
+
+
+def median(values: list[float]) -> float:
+    return float(statistics.median(values)) if values else 0.0
+
+
+def nvd_official_url() -> str:
+    return nvd_url(NVD_QUERY_PARAMS)
+
+
+def fetch_json(url: str, *, timeout: int = 90) -> dict[str, Any]:
+    request = Request(url, headers={"User-Agent": "Logion-OC133-Research-Cache/1.0"})
+    with urlopen(request, timeout=timeout) as response:
+        return json.loads(response.read().decode("utf-8"))
+
+
+def cve_cvss_metric(cve: dict[str, Any]) -> dict[str, Any] | None:
+    metrics = cve.get("metrics", {}) if isinstance(cve.get("metrics"), dict) else {}
+    for key in ("cvssMetricV31", "cvssMetricV30"):
+        rows = metrics.get(key)
+        if isinstance(rows, list) and rows:
+            metric = rows[0]
+            if isinstance(metric, dict) and isinstance(metric.get("cvssData"), dict):
+                return metric
+    return None
+
+
+def cve_cwes(cve: dict[str, Any]) -> list[str]:
+    values: list[str] = []
+    for weakness in cve.get("weaknesses", []) or []:
+        if not isinstance(weakness, dict):
+            continue
+        for desc in weakness.get("description", []) or []:
+            if isinstance(desc, dict) and desc.get("value"):
+                values.append(str(desc["value"]))
+    return values or ["UNKNOWN"]
+
+
+def cve_cpe_tokens(cve: dict[str, Any]) -> list[str]:
+    tokens: list[str] = []
+    for config in cve.get("configurations", []) or []:
+        if not isinstance(config, dict):
+            continue
+        for node in config.get("nodes", []) or []:
+            if not isinstance(node, dict):
+                continue
+            for match in node.get("cpeMatch", []) or []:
+                if not isinstance(match, dict):
+                    continue
+                criteria = str(match.get("criteria") or "")
+                parts = criteria.split(":")
+                tokens.extend(part for part in parts[3:6] if part and part != "*")
+    return tokens
+
+
+def cve_reference_tags(cve: dict[str, Any]) -> list[str]:
+    tags: list[str] = []
+    for ref in cve.get("references", []) or []:
+        if isinstance(ref, dict):
+            tags.extend(str(tag) for tag in ref.get("tags", []) or [] if tag)
+    return tags
+
+
+def cve_description(cve: dict[str, Any]) -> str:
+    return " ".join(
+        str(desc.get("value") or "")
+        for desc in cve.get("descriptions", []) or []
+        if isinstance(desc, dict) and desc.get("lang") == "en"
+    )
+
+
+def nvd_visible_tokens(row: dict[str, Any]) -> set[str]:
+    text = " ".join(
+        [
+            str(row.get("description", "")),
+            " ".join(str(item) for item in row.get("cwe_ids", [])),
+            " ".join(str(item) for item in row.get("cpe_tokens", [])),
+            " ".join(str(item) for item in row.get("reference_tags", [])),
+            str(row.get("source_identifier", "")),
+        ]
+    ).lower()
+    return {
+        token
+        for token in re.findall(r"[a-z][a-z0-9_]{2,}", text)
+        if token not in NVD_STOP_TOKENS
+    }
+
+
+def compact_nvd_rows(payload: dict[str, Any]) -> list[dict[str, Any]]:
+    rows: list[dict[str, Any]] = []
+    for item in payload.get("vulnerabilities", []) or []:
+        if not isinstance(item, dict):
+            continue
+        cve = item.get("cve", {})
+        if not isinstance(cve, dict):
+            continue
+        metric = cve_cvss_metric(cve)
+        if not metric:
+            continue
+        cvss = metric.get("cvssData", {})
+        score = cvss.get("baseScore")
+        if not isinstance(score, (int, float)):
+            continue
+        rows.append(
+            {
+                "cve_id": cve.get("id"),
+                "published": cve.get("published"),
+                "last_modified": cve.get("lastModified"),
+                "source_identifier": cve.get("sourceIdentifier"),
+                "description": cve_description(cve),
+                "cwe_ids": cve_cwes(cve),
+                "cpe_tokens": cve_cpe_tokens(cve),
+                "cpe_match_count": len(cve_cpe_tokens(cve)),
+                "reference_tags": cve_reference_tags(cve),
+                "reference_count": len(cve.get("references", []) or []),
+                "hidden_cvss_base_score": float(score),
+                "hidden_cvss_base_severity": cvss.get("baseSeverity"),
+                "hidden_cvss_metric_version": cvss.get("version"),
+            }
+        )
+    return sorted(rows, key=lambda row: (str(row.get("published") or ""), str(row.get("cve_id") or "")))
+
+
+def acquire_nvd(root: Path, *, write: bool) -> dict[str, Any]:
+    url = nvd_official_url()
+    payload = fetch_json(url)
+    rows = compact_nvd_rows(payload)
+    snapshot = {
+        "schema_id": NVD_ACQUISITION_SCHEMA_ID,
+        "release_id": RELEASE_ID,
+        "version": VERSION,
+        "generated_on": GENERATED_ON,
+        "capability_owner": CAPABILITY_OWNER,
+        "target_work_order_id": NVD_WORK_ORDER_ID,
+        "official_url": url,
+        "official_documentation_url": "https://nvd.nist.gov/developers/vulnerabilities",
+        "source_authority": "National Institute of Standards and Technology",
+        "source_id": "NIST_NVD_CVE_API_2_0",
+        "query_params": dict(NVD_QUERY_PARAMS),
+        "nvd_total_results": payload.get("totalResults"),
+        "row_count": len(rows),
+        "minimum_n_required": 100,
+        "target_hidden_fields": [
+            "hidden_cvss_base_score",
+            "hidden_cvss_base_severity",
+            "hidden_cvss_metric_version",
+        ],
+        "visible_fields": [
+            "cve_id",
+            "published",
+            "source_identifier",
+            "description",
+            "cwe_ids",
+            "cpe_tokens",
+            "cpe_match_count",
+            "reference_tags",
+            "reference_count",
+        ],
+        "target_hidden_until_scoring": True,
+        "target_values_used_for_selection": False,
+        "target_values_used_for_model_design": False,
+        "rows": rows,
+    }
+    snapshot["snapshot_sha256"] = sha256_object(snapshot)
+    lock = {
+        "schema_id": NVD_LOCK_SCHEMA_ID,
+        "release_id": RELEASE_ID,
+        "version": VERSION,
+        "generated_on": GENERATED_ON,
+        "source_snapshot_ref": NVD_SNAPSHOT_REL,
+        "official_url": url,
+        "source_snapshot_sha256": snapshot["snapshot_sha256"],
+        "row_count": len(rows),
+        "minimum_n_required": 100,
+        "target_hidden_until_scoring": True,
+        "source_separation_mode": "prospective_publication_date_split",
+        "train_fraction": 0.6,
+        "validation_fraction": 0.2,
+        "holdout_fraction": 0.2,
+        "no_send_locks": no_send(),
+    }
+    lock["lock_sha256"] = sha256_object(lock)
+    if write:
+        write_json(root / NVD_SNAPSHOT_REL, snapshot)
+        write_json(root / NVD_LOCK_REL, lock)
+    return {
+        "status": "ok" if len(rows) >= 100 else "blocked",
+        "source_snapshot_ref": NVD_SNAPSHOT_REL,
+        "source_lock_ref": NVD_LOCK_REL,
+        "source_snapshot_sha256": snapshot["snapshot_sha256"],
+        "row_count": len(rows),
+        "minimum_n_required": 100,
+        "snapshot": snapshot,
+        "lock": lock,
+    }
 
 
 def common_acceptance(extra: list[str] | None = None) -> list[str]:
@@ -638,6 +914,406 @@ def validate_payload(payload: dict[str, Any]) -> list[str]:
     return failures
 
 
+def load_or_acquire_nvd(root: Path, *, write: bool) -> tuple[dict[str, Any], dict[str, Any]]:
+    snapshot_path = root / NVD_SNAPSHOT_REL
+    lock_path = root / NVD_LOCK_REL
+    if snapshot_path.exists() and lock_path.exists():
+        return read_json(snapshot_path), read_json(lock_path)
+    acquired = acquire_nvd(root, write=write)
+    return acquired["snapshot"], acquired["lock"]
+
+
+def nvd_train_validation_holdout(rows: list[dict[str, Any]]) -> tuple[list[dict[str, Any]], list[dict[str, Any]], list[dict[str, Any]]]:
+    total = len(rows)
+    train_end = int(total * 0.6)
+    validation_end = int(total * 0.8)
+    return rows[:train_end], rows[train_end:validation_end], rows[validation_end:]
+
+
+def nvd_feature_key_rows(row: dict[str, Any]) -> list[tuple[str, str]]:
+    cwe = str((row.get("cwe_ids") or ["UNKNOWN"])[0])
+    cpe_bin = str(min(int(row.get("cpe_match_count") or 0) // 5, 8))
+    ref_bin = str(min(int(row.get("reference_count") or 0) // 5, 8))
+    keys = [("cwe", cwe), ("cpe_bin", cpe_bin), ("ref_bin", ref_bin)]
+    keys.extend(("tag", str(tag).lower()) for tag in row.get("reference_tags", []) or [])
+    keys.extend(("tok", token) for token in nvd_visible_tokens(row))
+    return keys
+
+
+def nvd_train_model(train_rows: list[dict[str, Any]]) -> dict[str, Any]:
+    scores = [float(row["hidden_cvss_base_score"]) for row in train_rows]
+    values_by_key: dict[tuple[str, str], list[float]] = {}
+    for row in train_rows:
+        score = float(row["hidden_cvss_base_score"])
+        for key in nvd_feature_key_rows(row):
+            values_by_key.setdefault(key, []).append(score)
+    medians = {
+        f"{kind}::{value}": median(rows)
+        for (kind, value), rows in values_by_key.items()
+        if len(rows) >= (3 if kind != "tok" else 5)
+    }
+    return {
+        "model_id": NVD_MODEL_ID,
+        "model_rule": NVD_MODEL_RULE,
+        "training_row_count": len(train_rows),
+        "global_training_median": median(scores),
+        "feature_medians": medians,
+        "token_weight": 3,
+        "target_values_used_for_model_design": False,
+        "target_values_used_for_selection": False,
+        "forbidden_inputs": [
+            "hidden_cvss_base_score",
+            "hidden_cvss_base_severity",
+            "cvss vectorString",
+            "exploitabilityScore",
+            "impactScore",
+        ],
+    }
+
+
+def nvd_predict_model(row: dict[str, Any], model: dict[str, Any]) -> float:
+    medians = model.get("feature_medians", {})
+    values: list[float] = []
+    cwe = str((row.get("cwe_ids") or ["UNKNOWN"])[0])
+    cwe_key = f"cwe::{cwe}"
+    if cwe_key in medians:
+        values.append(float(medians[cwe_key]))
+    cpe_key = f"cpe_bin::{min(int(row.get('cpe_match_count') or 0) // 5, 8)}"
+    ref_key = f"ref_bin::{min(int(row.get('reference_count') or 0) // 5, 8)}"
+    for key in (cpe_key, ref_key):
+        if key in medians:
+            values.append(float(medians[key]))
+    token_values = [
+        float(medians[f"tok::{token}"])
+        for token in nvd_visible_tokens(row)
+        if f"tok::{token}" in medians
+    ]
+    if token_values:
+        values.extend([median(token_values)] * int(model.get("token_weight") or 1))
+    return rounded(mean(values) if values else float(model["global_training_median"]))
+
+
+def nvd_predict_comparator(row: dict[str, Any], model: dict[str, Any]) -> float:
+    cwe = str((row.get("cwe_ids") or ["UNKNOWN"])[0])
+    return rounded(float(model.get("feature_medians", {}).get(f"cwe::{cwe}", model["global_training_median"])))
+
+
+def nvd_summary(values: list[float]) -> dict[str, float]:
+    return {
+        "mean_absolute_error": rounded(mean(values)),
+        "median_absolute_error": rounded(median(values)),
+        "max_absolute_error": rounded(max(values) if values else 0.0),
+    }
+
+
+def nvd_jackknife_interval(values: list[float]) -> dict[str, float]:
+    if len(values) <= 1:
+        value = rounded(mean(values))
+        return {"lower_mean_absolute_error": value, "upper_mean_absolute_error": value}
+    estimates = [mean([value for idx, value in enumerate(values) if idx != index]) for index in range(len(values))]
+    return {
+        "lower_mean_absolute_error": rounded(min(estimates)),
+        "upper_mean_absolute_error": rounded(max(estimates)),
+    }
+
+
+def build_nvd_task_table(snapshot: dict[str, Any], lock: dict[str, Any]) -> tuple[dict[str, Any], dict[str, Any], dict[str, Any]]:
+    rows = list(snapshot.get("rows", []) or [])
+    train_rows, validation_rows, holdout_rows = nvd_train_validation_holdout(rows)
+    model = nvd_train_model(train_rows)
+    visible_rows = []
+    hidden_targets = []
+    for index, row in enumerate(holdout_rows):
+        visible = {
+            "task_id": f"NVD-CVSS-HOLDOUT-{index + 1:04d}",
+            "cve_id": row.get("cve_id"),
+            "published": row.get("published"),
+            "source_identifier": row.get("source_identifier"),
+            "description_sha256": sha256_object(row.get("description", "")),
+            "description_token_total": len(nvd_visible_tokens(row)),
+            "cwe_ids": row.get("cwe_ids"),
+            "cpe_match_count": row.get("cpe_match_count"),
+            "reference_tags": row.get("reference_tags"),
+            "reference_count": row.get("reference_count"),
+            "model_prediction_cvss": nvd_predict_model(row, model),
+            "comparator_prediction_cvss": nvd_predict_comparator(row, model),
+        }
+        visible["visible_row_sha256"] = sha256_object(visible)
+        target = {
+            "task_id": visible["task_id"],
+            "cve_id": row.get("cve_id"),
+            "cvss_base_score": row.get("hidden_cvss_base_score"),
+            "cvss_base_severity": row.get("hidden_cvss_base_severity"),
+            "cvss_metric_version": row.get("hidden_cvss_metric_version"),
+        }
+        target["target_row_sha256"] = sha256_object(target)
+        visible_rows.append(visible)
+        hidden_targets.append(target)
+    task_table = {
+        "schema_id": NVD_TASK_TABLE_SCHEMA_ID,
+        "release_id": RELEASE_ID,
+        "version": VERSION,
+        "generated_on": GENERATED_ON,
+        "target_work_order_id": NVD_WORK_ORDER_ID,
+        "source_snapshot_ref": NVD_SNAPSHOT_REL,
+        "source_lock_ref": NVD_LOCK_REL,
+        "source_snapshot_sha256": snapshot.get("snapshot_sha256"),
+        "source_lock_sha256": lock.get("lock_sha256"),
+        "train_row_count": len(train_rows),
+        "validation_row_count": len(validation_rows),
+        "holdout_row_count": len(holdout_rows),
+        "target_hidden_until_scoring": True,
+        "target_values_used_for_selection": False,
+        "target_values_used_for_model_design": False,
+        "model_manifest": model,
+        "comparator_baseline": {
+            "comparator_id": NVD_COMPARATOR_ID,
+            "baseline_name": "NVD prior-CWE median comparator",
+            "prediction_rule": NVD_COMPARATOR_RULE,
+            "pre_registered": True,
+            "target_values_used_for_baseline_design": False,
+        },
+        "hidden_target_fields": ["cvss_base_score", "cvss_base_severity", "cvss_metric_version"],
+        "rows": visible_rows,
+    }
+    task_table["task_table_sha256"] = sha256_object(task_table)
+    hidden_lock = {
+        "schema_id": NVD_HIDDEN_TARGET_LOCK_SCHEMA_ID,
+        "release_id": RELEASE_ID,
+        "version": VERSION,
+        "generated_on": GENERATED_ON,
+        "target_work_order_id": NVD_WORK_ORDER_ID,
+        "source_snapshot_ref": NVD_SNAPSHOT_REL,
+        "visible_task_table_ref": NVD_TASK_TABLE_REL,
+        "source_snapshot_sha256": snapshot.get("snapshot_sha256"),
+        "task_table_sha256": task_table["task_table_sha256"],
+        "target_hidden_until_scoring": True,
+        "target_values_used_for_model_design": False,
+        "target_fields": task_table["hidden_target_fields"],
+        "rows": hidden_targets,
+    }
+    hidden_lock["target_map_sha256"] = sha256_object(
+        [{"task_id": row["task_id"], "cvss_base_score": row["cvss_base_score"]} for row in hidden_targets]
+    )
+    hidden_lock["hidden_target_lock_sha256"] = sha256_object(hidden_lock)
+    return task_table, hidden_lock, model
+
+
+def build_nvd_scoring_pack(
+    snapshot: dict[str, Any],
+    lock: dict[str, Any],
+    task_table: dict[str, Any],
+    hidden_target_lock: dict[str, Any],
+) -> dict[str, Any]:
+    targets = {row["task_id"]: row for row in hidden_target_lock.get("rows", [])}
+    row_results: list[dict[str, Any]] = []
+    model_residuals: list[float] = []
+    comparator_residuals: list[float] = []
+    for task_row in task_table.get("rows", []):
+        target = targets[task_row["task_id"]]
+        observed = float(target["cvss_base_score"])
+        model_prediction = float(task_row["model_prediction_cvss"])
+        comparator_prediction = float(task_row["comparator_prediction_cvss"])
+        model_residual = abs(model_prediction - observed)
+        comparator_residual = abs(comparator_prediction - observed)
+        result = {
+            "task_id": task_row["task_id"],
+            "cve_id": task_row["cve_id"],
+            "visible_row_sha256": task_row["visible_row_sha256"],
+            "hidden_target_row_sha256": target["target_row_sha256"],
+            "model_prediction_cvss": rounded(model_prediction),
+            "comparator_prediction_cvss": rounded(comparator_prediction),
+            "observed_cvss_base_score": rounded(observed),
+            "model_absolute_residual_cvss": rounded(model_residual),
+            "comparator_absolute_residual_cvss": rounded(comparator_residual),
+        }
+        result["row_result_sha256"] = sha256_object(result)
+        row_results.append(result)
+        model_residuals.append(model_residual)
+        comparator_residuals.append(comparator_residual)
+    model_summary = nvd_summary(model_residuals)
+    comparator_summary = nvd_summary(comparator_residuals)
+    shuffled_targets = [row["cvss_base_score"] for row in hidden_target_lock.get("rows", [])]
+    shuffled_targets = shuffled_targets[1:] + shuffled_targets[:1]
+    control_residuals = [
+        abs(float(task_row["model_prediction_cvss"]) - float(shuffled_target))
+        for task_row, shuffled_target in zip(task_table.get("rows", []), shuffled_targets)
+    ]
+    control_summary = nvd_summary(control_residuals)
+    control_target_hash = sha256_object(
+        [{"task_id": row["task_id"], "cvss_base_score": score} for row, score in zip(hidden_target_lock.get("rows", []), shuffled_targets)]
+    )
+    negative_control_rejected = (
+        control_target_hash != hidden_target_lock.get("target_map_sha256")
+        and control_summary["mean_absolute_error"] > model_summary["mean_absolute_error"]
+    )
+    superiority_margin = rounded(comparator_summary["mean_absolute_error"] - model_summary["mean_absolute_error"])
+    material_margin_required = 0.0
+    material_margin_met = superiority_margin > material_margin_required and negative_control_rejected
+    pack_status = (
+        "STRICT_EVIDENCE_PASS_NO_COVERAGE_CLOSURE"
+        if material_margin_met
+        else "FAIL_CLOSED_SOURCE_BOUND_SCORING_MATERIALIZED_NEGATIVE_RESULT"
+    )
+    pack = {
+        "schema_id": NVD_SCORING_PACK_SCHEMA_ID,
+        "release_id": RELEASE_ID,
+        "version": VERSION,
+        "generated_on": GENERATED_ON,
+        "capability_owner": CAPABILITY_OWNER,
+        "target_work_order_id": NVD_WORK_ORDER_ID,
+        "status": pack_status,
+        "pack_status": pack_status,
+        "scientific_pass": material_margin_met,
+        "source_snapshot_ref": NVD_SNAPSHOT_REL,
+        "source_lock_ref": NVD_LOCK_REL,
+        "visible_task_table_ref": NVD_TASK_TABLE_REL,
+        "hidden_target_lock_ref": NVD_HIDDEN_TARGET_LOCK_REL,
+        "source_snapshot_sha256": snapshot.get("snapshot_sha256"),
+        "source_lock_sha256": lock.get("lock_sha256"),
+        "visible_task_table_sha256": task_table.get("task_table_sha256"),
+        "hidden_target_lock_sha256": hidden_target_lock.get("hidden_target_lock_sha256"),
+        "source": {
+            "source_id": "NIST_NVD_CVE_API_2_0",
+            "source_authority": "National Institute of Standards and Technology",
+            "official_endpoint_url": nvd_official_url(),
+            "official_documentation_url": "https://nvd.nist.gov/developers/vulnerabilities",
+            "source_snapshot_ref": NVD_SNAPSHOT_REL,
+            "source_snapshot_sha256": snapshot.get("snapshot_sha256"),
+            "row_count": len(snapshot.get("rows", []) or []),
+        },
+        "source_separation": {
+            "mode": "target_hidden_prospective_publication_date_split",
+            "target_hidden_until_scoring": True,
+            "target_values_used_for_selection": False,
+            "target_values_used_for_model_design": False,
+            "predictions_materialized_before_target_unseal": True,
+            "visible_fields": snapshot.get("visible_fields"),
+            "hidden_target_fields": task_table["hidden_target_fields"],
+        },
+        "formula_model": task_table["model_manifest"],
+        "comparator_baseline": task_table["comparator_baseline"],
+        "aggregate": {
+            "model_mae": model_summary["mean_absolute_error"],
+            "comparator_mae": comparator_summary["mean_absolute_error"],
+            "superiority_margin_cvss": superiority_margin,
+            "material_margin_met": material_margin_met,
+            "material_margin_rule": "model mean absolute CVSS residual must be strictly below the preregistered prior-CWE median comparator and the shuffled-target control must be rejected",
+        },
+        "residuals": {
+            "model": model_summary,
+            "comparator": comparator_summary,
+            "model_jackknife_interval": nvd_jackknife_interval(model_residuals),
+            "comparator_jackknife_interval": nvd_jackknife_interval(comparator_residuals),
+            "material_margin_met": material_margin_met,
+        },
+        "negative_control": {
+            "control_id": "CS-NVD-CVSS-WITHIN-HOLDOUT-ROTATION",
+            "description": "rotate heldout CVSS scores by one row after visible predictions are materialized",
+            "locked_target_map_sha256": hidden_target_lock.get("target_map_sha256"),
+            "control_target_map_sha256": control_target_hash,
+            "model_control_residual": control_summary,
+            "rejection_predicate": "control target map hash differs from locked target map and control model MAE exceeds locked-target model MAE",
+            "rejected": negative_control_rejected,
+        },
+        "falsifier": {
+            "falsifier_id": "CS-NVD-CVSS-SECURITY-FALSIFIER",
+            "triggered": [] if material_margin_met else ["model did not beat comparator or negative control was not rejected"],
+        },
+        "row_count": len(row_results),
+        "minimum_n_required": 100,
+        "row_results_sha256": sha256_object(row_results),
+        "row_results": row_results,
+        "replay_command": {
+            "commands": [
+                f"python {SCRIPT_REL} --score-nvd --write-scoring",
+                f"python {SCRIPT_REL} --check",
+            ]
+        },
+        "coverage_closure_allowed": False,
+        "support_allowed_for_broad_coverage": False,
+        "broad_modern_science_superiority_allowed": False,
+        "exact_blocker": None if material_margin_met else "COMPARATOR_BASELINE_NOT_BEATEN_OR_NEGATIVE_CONTROL_NOT_REJECTED",
+        "no_send_locks": no_send(),
+    }
+    pack["scoring_pack_sha256"] = sha256_object(pack)
+    return pack
+
+
+def score_nvd(root: Path, *, write: bool) -> dict[str, Any]:
+    snapshot, lock = load_or_acquire_nvd(root, write=write)
+    task_table, hidden_target_lock, _model = build_nvd_task_table(snapshot, lock)
+    scoring_pack = build_nvd_scoring_pack(snapshot, lock, task_table, hidden_target_lock)
+    report = {
+        "schema_id": NVD_REPLAY_REPORT_SCHEMA_ID,
+        "release_id": RELEASE_ID,
+        "version": VERSION,
+        "generated_on": GENERATED_ON,
+        "capability_owner": CAPABILITY_OWNER,
+        "target_work_order_id": NVD_WORK_ORDER_ID,
+        "status": "ok" if scoring_pack.get("row_count", 0) >= 100 else "blocked",
+        "source_snapshot_ref": NVD_SNAPSHOT_REL,
+        "source_lock_ref": NVD_LOCK_REL,
+        "target_hidden_task_table_ref": NVD_TASK_TABLE_REL,
+        "hidden_target_lock_ref": NVD_HIDDEN_TARGET_LOCK_REL,
+        "scoring_pack_ref": NVD_SCORING_PACK_REL,
+        "row_count": scoring_pack.get("row_count"),
+        "minimum_n_required": scoring_pack.get("minimum_n_required"),
+        "pack_status": scoring_pack.get("pack_status"),
+        "model_mae": scoring_pack.get("aggregate", {}).get("model_mae"),
+        "comparator_mae": scoring_pack.get("aggregate", {}).get("comparator_mae"),
+        "material_margin_met": scoring_pack.get("aggregate", {}).get("material_margin_met"),
+        "negative_control_rejected": scoring_pack.get("negative_control", {}).get("rejected"),
+        "coverage_closure_allowed": False,
+        "support_allowed_for_broad_coverage": False,
+        "no_send_locks": no_send(),
+    }
+    report["report_sha256"] = sha256_object(report)
+    if write:
+        write_json(root / NVD_TASK_TABLE_REL, task_table)
+        write_json(root / NVD_HIDDEN_TARGET_LOCK_REL, hidden_target_lock)
+        write_json(root / NVD_SCORING_PACK_REL, scoring_pack)
+        write_json(root / NVD_REPLAY_REPORT_REL, report)
+    return {
+        "status": "ok" if report["status"] == "ok" else "blocked",
+        "pack_status": scoring_pack.get("pack_status"),
+        "scoring_pack_ref": NVD_SCORING_PACK_REL,
+        "report_ref": NVD_REPLAY_REPORT_REL,
+        "row_count": scoring_pack.get("row_count"),
+        "model_mae": report["model_mae"],
+        "comparator_mae": report["comparator_mae"],
+        "material_margin_met": report["material_margin_met"],
+        "negative_control_rejected": report["negative_control_rejected"],
+        "errors": [] if report["status"] == "ok" else ["NVD_ROW_COUNT_BELOW_MINIMUM"],
+    }
+
+
+def validate_nvd_stored(root: Path) -> list[str]:
+    failures: list[str] = []
+    for rel_path in (NVD_SNAPSHOT_REL, NVD_LOCK_REL, NVD_TASK_TABLE_REL, NVD_HIDDEN_TARGET_LOCK_REL, NVD_SCORING_PACK_REL):
+        if not (root / rel_path).exists():
+            continue
+        payload = read_json(root / rel_path)
+        if not isinstance(payload, dict):
+            failures.append(f"NVD_PAYLOAD_NOT_OBJECT::{rel_path}")
+            continue
+        if payload.get("coverage_closure_allowed") not in {None, False}:
+            failures.append(f"NVD_COVERAGE_CLOSURE_ALLOWED::{rel_path}")
+    pack_path = root / NVD_SCORING_PACK_REL
+    if pack_path.exists():
+        pack = read_json(pack_path)
+        snapshot = read_json(root / NVD_SNAPSHOT_REL)
+        if pack.get("source_snapshot_sha256") != snapshot.get("snapshot_sha256"):
+            failures.append("NVD_SOURCE_SNAPSHOT_HASH_MISMATCH")
+        if pack.get("source_separation", {}).get("target_hidden_until_scoring") is not True:
+            failures.append("NVD_TARGET_NOT_HIDDEN")
+        if pack.get("row_count", 0) < 100:
+            failures.append("NVD_ROW_COUNT_BELOW_MINIMUM")
+        if pack.get("negative_control", {}).get("rejected") is not True:
+            failures.append("NVD_NEGATIVE_CONTROL_NOT_REJECTED")
+    return failures
+
+
 def check_stored(root: Path | None = None) -> list[str]:
     root = root or repo_root()
     path = root / OUTPUT_REL
@@ -649,6 +1325,7 @@ def check_stored(root: Path | None = None) -> list[str]:
     if actual != expected:
         failures.append(f"mismatch::{OUTPUT_REL}")
     failures.extend(validate_payload(actual if isinstance(actual, dict) else {}))
+    failures.extend(validate_nvd_stored(root))
     return sorted(set(failures))
 
 
@@ -657,6 +1334,10 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     parser.add_argument("--root", default=str(repo_root()), help="repository root")
     parser.add_argument("--write", action="store_true", help="write the deterministic work-order artifact")
     parser.add_argument("--check", action="store_true", help="check stored artifact synchronization")
+    parser.add_argument("--refresh-nvd-source", action="store_true", help="fetch and lock the official NVD CVE source snapshot")
+    parser.add_argument("--write-acquisition", action="store_true", help="write NVD acquisition/cache artifacts")
+    parser.add_argument("--score-nvd", action="store_true", help="materialize target-hidden NVD CVSS scorer evidence")
+    parser.add_argument("--write-scoring", action="store_true", help="write NVD scoring artifacts")
     return parser.parse_args(argv)
 
 
@@ -671,6 +1352,25 @@ def main(argv: list[str] | None = None) -> int:
             return 1
         print(json.dumps({"status": "ok", "checked": OUTPUT_REL}, indent=2))
         return 0
+    if args.refresh_nvd_source:
+        report = acquire_nvd(root, write=args.write_acquisition)
+        print(
+            json.dumps(
+                {
+                    "status": report["status"],
+                    "source_snapshot_ref": NVD_SNAPSHOT_REL if args.write_acquisition else None,
+                    "source_lock_ref": NVD_LOCK_REL if args.write_acquisition else None,
+                    "row_count": report["row_count"],
+                    "minimum_n_required": report["minimum_n_required"],
+                },
+                indent=2,
+            )
+        )
+        return 0 if report["status"] == "ok" else 1
+    if args.score_nvd:
+        report = score_nvd(root, write=args.write_scoring)
+        print(json.dumps(report, indent=2))
+        return 0 if report["status"] == "ok" and not report["errors"] else 1
     payload = build_payload()
     failures = validate_payload(payload)
     if args.write:

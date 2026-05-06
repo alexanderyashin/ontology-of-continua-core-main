@@ -1,8 +1,8 @@
 {
   "after_validator_error_total": 13,
-  "artifact_hash": "575980e898bb2f9d3fd911708eb9df417977f8ce59ce21e9c621f906d134a92b",
+  "artifact_hash": "50fa15c8cd31e8620cc56e4b1fd371ec211c445c4e681725b3c7c16f2a18936d",
   "before_validator_error_total": 13,
-  "capability_class": "comparator_research_artifact_repair_backlog",
+  "capability_class": "comparator_research_artifact_repair",
   "capability_development_key": "c7f5cbcd02d5384155016417a0d9abef464ba453f5cdeaaaef067909ea7ec6dc",
   "capability_id": "R017-CAPDEV-c7f5cbcd02d5",
   "command_results": [
@@ -10,7 +10,8 @@
       "cmd": [
         "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
         "tools/oc133_toe_closure_factory.py",
-        "--compile-comparator-research-artifact-repair-backlog",
+        "--execute-comparator-research-artifact-repair",
+        "R017-RESEARCH-ARTIFACT-REPAIR-ade020c418a4bf3c",
         "--write"
       ],
       "returncode": 0,
@@ -29,16 +30,17 @@
   "executor_command": [
     "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
     "tools/oc133_toe_closure_factory.py",
-    "--compile-comparator-research-artifact-repair-backlog",
+    "--execute-comparator-research-artifact-repair",
+    "R017-RESEARCH-ARTIFACT-REPAIR-ade020c418a4bf3c",
     "--write"
   ],
-  "executor_type": "comparator_research_artifact_repair_backlog",
-  "generated_at": "2026-05-06T15:17:39Z",
+  "executor_type": "comparator_research_artifact_repair",
+  "generated_at": "2026-05-06T15:37:34Z",
   "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
   "next_escalation": "If this compiled capability produces zero validator delta, generate a lower-level upstream research obligation for the exact missing source/evidence object.",
   "no_fake_closure_policy": "Zero delta remains OPEN and cannot satisfy r017.",
   "pass_predicate": "The repaired `replay_record` research artifact status becomes PASS and the comparator gap no longer lists it as missing.",
-  "repair_strategy": "Compile repair rows for comparator research artifacts that exist but remain OPEN; artifact existence alone is not scientific closure.",
+  "repair_strategy": "Execute the exact repair row for an existing OPEN comparator research artifact; fail-closed evidence remains fail-closed unless the artifact itself passes.",
   "required_capability": "Research/ScoringExecutor",
   "schema_id": "OC133_TOE_CAPABILITY_DEVELOPMENT_EXECUTION_v1",
   "source_graph_node_id": "required_artifact:MODERN_SCIENCE_COMPARATOR_SUPERIORITY:MS-COV-GAP-EARTH_SPACE_ENVIRONMENTAL_SCIENCES-CLIMATE_WEATHER_GEOPHYSICAL_TIME_SERIES:replay_record",

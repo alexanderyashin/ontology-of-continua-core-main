@@ -1,79 +1,6 @@
 {
-  "artifact_hash": "6b49874919ce60bceff989def39db0b42b9c083864bfa7dfa165839afe16f752",
+  "artifact_hash": "9af7bd80c341fa048db19767a0c8b29cdcb2dc5c93d5fc80e948b158dce13aa8",
   "artifact_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/component_src/src_obligation_8347f4344f76831d.json",
-  "command_pass": true,
-  "command_result_total": 5,
-  "command_results": [
-    {
-      "cache_hit": true,
-      "cmd": [
-        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
-        "tools/oc133_toe_closure_factory.py",
-        "--execute-comparator-domain-scoring",
-        "R017-DOMAIN-SCORER-81360a6338c22458",
-        "--write"
-      ],
-      "returncode": 0,
-      "stderr_tail": "",
-      "stdout_tail": "{\n  \"changed\": [],\n  \"missing\": [],\n  \"state\": \"PASS\"\n}\n"
-    },
-    {
-      "cache_hit": true,
-      "cmd": [
-        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
-        "tools/oc133_toe_closure_factory.py",
-        "--execute-comparator-domain-scorer-implementation",
-        "R017-DOMAIN-SCORER-IMPL-81360a6338c22458",
-        "--write"
-      ],
-      "returncode": 0,
-      "stderr_tail": "",
-      "stdout_tail": "{\n  \"changed\": [],\n  \"missing\": [],\n  \"state\": \"PASS\"\n}\n"
-    },
-    {
-      "cache_hit": true,
-      "cmd": [
-        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
-        "tools/oc133_toe_closure_factory.py",
-        "--execute-comparator-domain-model-repair",
-        "R017-DOMAIN-MODEL-REPAIR-81360a6338c22458",
-        "--write"
-      ],
-      "returncode": 0,
-      "stderr_tail": "",
-      "stdout_tail": "{\n  \"changed\": [],\n  \"missing\": [],\n  \"state\": \"PASS\"\n}\n"
-    },
-    {
-      "cmd": [
-        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
-        "tools/oc133_toe_closure_factory.py",
-        "--execute-comparator-domain-model-component",
-        "R017-DOMAIN-MODEL-COMPONENT-90499de2ba1eb327",
-        "--write"
-      ],
-      "returncode": 0,
-      "stderr_tail": "",
-      "stdout_tail": "{\n  \"changed\": [],\n  \"missing\": [],\n  \"state\": \"PASS\"\n}\n"
-    },
-    {
-      "cache_hit": true,
-      "cmd": [
-        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
-        "tools/oc133_toe_closure_factory.py",
-        "--execute-comparator-generic-evidence-pack",
-        "MS-COV-GAP-COMPUTER_INFORMATION_SCIENCES-INFORMATION_NETWORK_AND_SECURITY_OBSERVABLES",
-        "--write"
-      ],
-      "returncode": 0,
-      "stderr_tail": "",
-      "stdout_tail": "{\n  \"changed\": [],\n  \"missing\": [],\n  \"state\": \"PASS\"\n}\n"
-    }
-  ],
-  "component_id": "fail_closed_status_clear",
-  "component_work_order_id": "R017-DOMAIN-MODEL-COMPONENT-90499de2ba1eb327",
-  "domain_class_id": "computer_information_sciences",
-  "evidence_pack_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/81360a6338c22458/strict_evidence_pack.json",
-  "evidence_pack_status": "FAIL_CLOSED_SOURCE_BOUND_SCORING_NOT_MATERIALIZED",
   "execution_command": [
     "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
     "tools/oc133_toe_closure_factory.py",
@@ -81,69 +8,18 @@
     "R017-COMPONENT-SOURCE-OBLIGATION-7f03a6792861c5f0",
     "--write"
   ],
-  "gap_id": "MS-COV-GAP-COMPUTER_INFORMATION_SCIENCES-INFORMATION_NETWORK_AND_SECURITY_OBSERVABLES",
   "generated_at": "2026-05-06T10:01:55Z",
-  "implementation_id": "R017-DOMAIN-MODEL-COMPONENT-IMPL-39dbd5645aa5a5aa",
-  "incumbent_comparator": {
-    "baseline_name": "NVD prior-CWE median and prior-severity-frequency comparator",
-    "pre_registered": true,
-    "prediction_rule": "Predict heldout CVSS score from the training-only median score for the same CWE when present, otherwise the global prior median; severity comparator uses prior class frequencies.",
-    "required_material_margin": "model residual must beat comparator residual under the declared domain-local metric",
-    "target_values_used_for_baseline_design": false
-  },
   "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
-  "missing_source_evidence_fields": [
-    "component_report_pass",
-    "strict_evidence_pack_pass",
-    "scoring_artifact_pass",
-    "replay_artifact_pass",
-    "score_materialized",
-    "oc_model_residual",
-    "incumbent_comparator_residual",
-    "material_margin_met",
-    "fail_closed_status_clear"
-  ],
-  "next_escalation": "Implement the exact source acquisition/scoring script for the missing fields, or preserve the fail-closed comparator result if OC does not beat the incumbent.",
-  "no_fake_closure_policy": "This execution can close only after downstream source-bound evidence artifacts pass.",
+  "missing_source_evidence_fields": [],
+  "next_escalation": "Run --compile-comparator-component-source-obligation-backlog --write.",
+  "no_fake_closure_policy": "Missing rows cannot close broad superiority.",
   "obligation_id": "R017-COMPONENT-SOURCE-OBLIGATION-7f03a6792861c5f0",
-  "official_data_source": {
-    "minimum_rows_required": 100,
-    "official_documentation_url": "https://nvd.nist.gov/developers/vulnerabilities",
-    "official_endpoint_url": "https://services.nvd.nist.gov/rest/json/cves/2.0",
-    "required_local_snapshot_ref": null,
-    "required_lock_ref": null,
-    "snapshot_status": "NOT_ACQUIRED_FOR_THIS_COVERAGE_CLASS",
-    "source_authority": "National Institute of Standards and Technology",
-    "source_id": "NIST_NVD_CVE_API_2_0",
-    "source_name": "NIST National Vulnerability Database CVE API 2.0"
-  },
-  "pass_predicate": "The exact component implementation, strict evidence pack, oc_prediction_scoring_row, and replay_record are all PASS without weakening materiality.",
-  "phenomenon_class_id": "information_network_and_security_observables",
-  "repair_strategy": "Materialize the named missing source/model/comparator/residual/replay fields from governed source data; preserve fail-closed science if OC does not beat the comparator.",
-  "replay_artifact_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/81360a6338c22458/replay_record.json",
-  "replay_artifact_status": "OPEN",
+  "pass_predicate": "Backlog row exists and downstream scoring/replay predicates pass.",
+  "repair_strategy": "Recompile component source obligation backlog from current component implementation reports.",
   "required_capability": "Research/SourceBoundScoringMaterialization",
-  "residual_requirement": {
-    "formula": "absolute CVSS-point residual per CVE; macro MAE by CWE stratum",
-    "metric_id": "MS-COV-WO-027_domain_local_residual",
-    "superiority_rule": "model_MAE + conformal_upper < comparator_MAE"
-  },
-  "root_cause_class": "SOURCE_BOUND_SCORE_OR_REPLAY_NOT_MATERIALIZED",
+  "root_cause_class": "COMPONENT_SOURCE_OBLIGATION_ROW_MISSING",
   "schema_id": "OC133_MODERN_SCIENCE_COMPARATOR_COMPONENT_SOURCE_OBLIGATION_EXECUTION_v1",
-  "scoring_artifact_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/81360a6338c22458/oc_prediction_scoring_row.json",
-  "scoring_artifact_status": "OPEN",
-  "source_component_implementation_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/component_impls/impl_237ec6804b3f6f69.json",
-  "source_component_implementation_status": "EVIDENCE_REPAIR_ATTEMPTED_REMAINS_OPEN",
-  "status": "SOURCE_BOUND_SCORING_MATERIALIZATION_REMAINS_OPEN",
-  "target_variable": {
-    "extraction_rule": "CVSS score/severity are hidden until the prediction row is materialized from CVE text, CWE IDs, CPE counts, dates, and reference metadata.",
-    "name": "heldout_nvd_cvss_v31_base_score",
-    "target_fields": [
-      "metrics.cvssMetricV31[].cvssData.baseScore",
-      "metrics.cvssMetricV31[].cvssData.baseSeverity"
-    ],
-    "unit": "CVSS v3.1 points"
-  },
-  "validator_binding": "comparator_gap::MS-COV-GAP-COMPUTER_INFORMATION_SCIENCES-INFORMATION_NETWORK_AND_SECURITY_OBSERVABLES::component_source_obligation::fail_closed_status_clear",
-  "why_it_failed": "Narrow source/model/comparator commands ran, but required scoring/replay fields remain missing or fail-closed."
+  "status": "FAIL_CLOSED",
+  "validator_binding": "comparator_component_source_obligation::R017-COMPONENT-SOURCE-OBLIGATION-7f03a6792861c5f0",
+  "why_it_failed": "No component source obligation row exists for this id."
 }

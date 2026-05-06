@@ -1,22 +1,21 @@
 {
-  "artifact_hash": "5a8f048d95e897187ecfcf3a1cfdc5b0dd74572aa0364c167c08aa39f04aef60",
+  "artifact_hash": "7877bf0ec0816bea6187f43e8a4774037ee18cfa8caa8f85352b18e415525d22",
   "artifact_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/component_impls/impl_32b78f50bae339ca.json",
   "command_pass": true,
-  "command_result_total": 3,
+  "command_result_total": 2,
   "command_results": [
     {
-      "cache_hit": true,
       "cmd": [
         "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
         "validation/heldout/grand_science/cs/coverage_work_orders/oc133_cs_modern_science_coverage_work_orders.py",
-        "--write"
+        "--score-nvd",
+        "--write-scoring"
       ],
       "returncode": 0,
       "stderr_tail": "",
-      "stdout_tail": "{\n  \"status\": \"ok\",\n  \"output_ref\": \"validation/heldout/grand_science/cs/coverage_work_orders/OC133_CS_MODERN_SCIENCE_COVERAGE_WORK_ORDERS.json\",\n  \"failures\": []\n}\n"
+      "stdout_tail": "{\n  \"status\": \"ok\",\n  \"pack_status\": \"STRICT_EVIDENCE_PASS_NO_COVERAGE_CLOSURE\",\n  \"scoring_pack_ref\": \"validation/heldout/grand_science/cs/coverage_work_orders/OC133_CS_NVD_CVSS_SECURITY_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json\",\n  \"report_ref\": \"validation/heldout/grand_science/cs/coverage_work_orders/OC133_CS_NVD_CVSS_REPLAY_REPORT.json\",\n  \"row_count\": 400,\n  \"model_mae\": 0.975413,\n  \"comparator_mae\": 1.03675,\n  \"material_margin_met\": true,\n  \"negative_control_rejected\": true,\n  \"errors\": []\n}\n"
     },
     {
-      "cache_hit": true,
       "cmd": [
         "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
         "validation/heldout/grand_science/cs/coverage_work_orders/oc133_cs_modern_science_coverage_work_orders.py",
@@ -25,48 +24,29 @@
       "returncode": 0,
       "stderr_tail": "",
       "stdout_tail": "{\n  \"status\": \"ok\",\n  \"checked\": \"validation/heldout/grand_science/cs/coverage_work_orders/OC133_CS_MODERN_SCIENCE_COVERAGE_WORK_ORDERS.json\"\n}\n"
-    },
-    {
-      "cache_hit": true,
-      "cmd": [
-        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
-        "tools/oc133_toe_closure_factory.py",
-        "--execute-comparator-generic-evidence-pack",
-        "MS-COV-GAP-COMPUTER_INFORMATION_SCIENCES-INFORMATION_NETWORK_AND_SECURITY_OBSERVABLES",
-        "--write"
-      ],
-      "returncode": 0,
-      "stderr_tail": "",
-      "stdout_tail": "{\n  \"changed\": [],\n  \"missing\": [],\n  \"state\": \"PASS\"\n}\n"
     }
   ],
   "component_id": "material_margin",
   "component_report_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/domain_model_components/component_ffb9f4ece7674b42.json",
-  "component_report_root_cause": "MATERIAL_SUPERIORITY_MARGIN_NOT_PROVEN",
-  "component_report_status": "CAPABILITY_DEVELOPMENT_REQUIRED",
+  "component_report_root_cause": "DOMAIN_MODEL_COMPONENT_CLOSED",
+  "component_report_status": "PASS",
   "component_work_order_id": "R017-DOMAIN-MODEL-COMPONENT-acb77dc304b89fea",
   "concrete_governed_commands": [
     [
       "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
       "validation/heldout/grand_science/cs/coverage_work_orders/oc133_cs_modern_science_coverage_work_orders.py",
-      "--write"
+      "--score-nvd",
+      "--write-scoring"
     ],
     [
       "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
       "validation/heldout/grand_science/cs/coverage_work_orders/oc133_cs_modern_science_coverage_work_orders.py",
       "--check"
-    ],
-    [
-      "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
-      "tools/oc133_toe_closure_factory.py",
-      "--execute-comparator-generic-evidence-pack",
-      "MS-COV-GAP-COMPUTER_INFORMATION_SCIENCES-INFORMATION_NETWORK_AND_SECURITY_OBSERVABLES",
-      "--write"
     ]
   ],
   "domain_class_id": "computer_information_sciences",
   "evidence_pack_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/81360a6338c22458/strict_evidence_pack.json",
-  "evidence_pack_status": "FAIL_CLOSED_SOURCE_BOUND_SCORING_NOT_MATERIALIZED",
+  "evidence_pack_status": "PASS",
   "execution_command": [
     "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
     "tools/oc133_toe_closure_factory.py",
@@ -86,13 +66,13 @@
   "repair_id": "R017-DOMAIN-MODEL-REPAIR-81360a6338c22458",
   "repair_strategy": "Run the concrete domain scorer/model commands that can materialize this component, then regenerate scoring, replay, and strict evidence artifacts.",
   "replay_artifact_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/81360a6338c22458/replay_record.json",
-  "replay_artifact_status": "OPEN",
+  "replay_artifact_status": "PASS",
   "required_capability": "Research/DomainModelComparatorRepair",
-  "root_cause_class": "DOMAIN_MODEL_COMPONENT_COMMAND_RAN_BUT_EVIDENCE_OPEN",
+  "root_cause_class": "DOMAIN_MODEL_COMPONENT_IMPLEMENTATION_CLOSED",
   "schema_id": "OC133_MODERN_SCIENCE_COMPARATOR_DOMAIN_MODEL_COMPONENT_IMPLEMENTATION_EXECUTION_v1",
   "scoring_artifact_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/81360a6338c22458/oc_prediction_scoring_row.json",
-  "scoring_artifact_status": "OPEN",
-  "status": "EVIDENCE_REPAIR_ATTEMPTED_REMAINS_OPEN",
+  "scoring_artifact_status": "PASS",
+  "status": "PASS",
   "validator_binding": "comparator_gap::MS-COV-GAP-COMPUTER_INFORMATION_SCIENCES-INFORMATION_NETWORK_AND_SECURITY_OBSERVABLES::domain_model_repair::material_margin",
-  "why_it_failed": "Concrete commands ran, but the downstream scoring/replay evidence remains fail-closed or negative."
+  "why_it_failed": "Concrete component commands ran and downstream scoring/replay artifacts now pass."
 }

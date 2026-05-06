@@ -2334,6 +2334,37 @@ COMPARATOR_DOMAIN_IMPLEMENTED_COMMANDS = {
     ],
 }
 
+for _nvd_subartifact in (
+    "target_hidden_task_table",
+    "oc_formula_or_model",
+    "incumbent_comparator_scoring",
+    "residuals_materiality_uncertainty",
+    "controls_and_falsifiers",
+    "independent_replay",
+    "strict_evidence_pack_diagnosis",
+    "model_or_claim_repair_decision",
+):
+    COMPARATOR_DOMAIN_IMPLEMENTED_COMMANDS[
+        (
+            "computer_information_sciences",
+            "information_network_and_security_observables",
+            _nvd_subartifact,
+        )
+    ] = [
+        [sys.executable, COMPARATOR_DOMAIN_SCRIPT_BY_CLASS["computer_information_sciences"], "--score-nvd", "--write-scoring"],
+        [sys.executable, COMPARATOR_DOMAIN_SCRIPT_BY_CLASS["computer_information_sciences"], "--check"],
+    ]
+COMPARATOR_DOMAIN_IMPLEMENTED_COMMANDS[
+    (
+        "computer_information_sciences",
+        "information_network_and_security_observables",
+        "source_snapshot_acquisition",
+    )
+] = [
+    [sys.executable, COMPARATOR_DOMAIN_SCRIPT_BY_CLASS["computer_information_sciences"], "--refresh-nvd-source", "--write-acquisition"],
+    [sys.executable, COMPARATOR_DOMAIN_SCRIPT_BY_CLASS["computer_information_sciences"], "--check"],
+]
+
 
 def comparator_domain_script_base_commands(domain_class_id: str) -> list[list[str]]:
     script_ref = COMPARATOR_DOMAIN_SCRIPT_BY_CLASS.get(domain_class_id)
@@ -2987,6 +3018,10 @@ COMPARATOR_DOMAIN_MATERIALIZED_EVIDENCE_REFS = {
         "earth_space_environmental_sciences",
         "remote_sensing_and_planetary_measurements",
     ): "validation/heldout/grand_science/earth_space/coverage_work_orders/OC133_EARTH_SPACE_NASA_POWER_REMOTE_SENSING_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
+    (
+        "computer_information_sciences",
+        "information_network_and_security_observables",
+    ): "validation/heldout/grand_science/cs/coverage_work_orders/OC133_CS_NVD_CVSS_SECURITY_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
 }
 
 

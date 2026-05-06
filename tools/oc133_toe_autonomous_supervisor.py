@@ -1659,6 +1659,12 @@ ARTIFACT_PRIORITY = {
     "replay_record": 70,
 }
 
+NON_EXECUTABLE_GRAPH_STATUSES = {
+    "CAPABILITY_ESCALATION_REQUIRED",
+    "BLOCKED_BY_SCIENCE_ERRORS",
+    "SUPERSEDED_BY_LOWER_LEVEL_FRONTIER",
+}
+
 
 def graph_priority_tuple(node: dict[str, Any], science_error_total: int) -> tuple[int, int, int, str]:
     lane_id = str(node.get("lane_id") or "TOE_CLOSURE_FACTORY")
@@ -1692,6 +1698,8 @@ def graph_action_for_node(
 ) -> dict[str, Any] | None:
     node_id = str(node.get("node_id"))
     node_type = str(node.get("node_type"))
+    if str(node.get("status") or "") in NON_EXECUTABLE_GRAPH_STATUSES:
+        return None
     capability_node_ids: list[str] = []
     if node_type == "executor_capability" and node_id.startswith("capability:"):
         capability_node_ids = [node_id]
