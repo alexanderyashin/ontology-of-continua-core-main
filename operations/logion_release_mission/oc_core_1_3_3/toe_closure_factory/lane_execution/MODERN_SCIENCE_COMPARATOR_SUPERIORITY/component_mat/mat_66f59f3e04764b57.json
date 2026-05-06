@@ -1,5 +1,5 @@
 {
-  "artifact_hash": "f27ebd9618107de46f9ff363f06da4c762266ad8a147519f584caacd0387af21",
+  "artifact_hash": "1cec23e2175af551de9405bce27d793a0f9cc91f8d0eee596e09b14b52536e57",
   "artifact_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/component_mat/mat_66f59f3e04764b57.json",
   "available_diagnostic_commands": [
     [
@@ -77,18 +77,18 @@
   "materialization_id": "R017-COMPONENT-MATERIALIZE-b6001a9539264f97",
   "materialized_evidence": {
     "evidence_ref": "validation/heldout/grand_science/systems/wdi_gdp/OC133_WORLD_BANK_WDI_GDP_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
-    "fail_closed_reason": "Source-bound evidence exists, but numeric model/comparator residuals are not available in the expected schema.",
+    "fail_closed_reason": "",
     "material_margin_met": true,
-    "materialized": false,
+    "materialized": true,
     "residuals": {
-      "comparator": null,
+      "comparator": 0.039999868939,
       "material_margin_met": true,
       "material_margin_rule": "source-bound materialized evidence pack must show OC residual strictly below preregistered comparator residual under the declared uncertainty rule",
-      "model": null
+      "model": 0.030271318172
     },
     "source_bound": true,
-    "status": "FAIL_CLOSED_SOURCE_BOUND_SCORING_NOT_MATERIALIZED",
-    "strict_evidence_pack_hash": "70bab917f807c66ac1852e04685f7ce36b2f56d53d179c51807b38efedfbe8e8",
+    "status": "PASS",
+    "strict_evidence_pack_hash": "bbc9866ef59536a66d2cf497bebd3594e3e8f37def64ca443ada0e6a62b473b9",
     "strict_evidence_pack_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/fc08158de1496fae/strict_evidence_pack.json"
   },
   "materializer_command_results": [
@@ -143,22 +143,22 @@
   "phenomenon_class_id": "economic_indicator_and_market_observables",
   "repair_strategy": "Implement the domain/phenomenon scorer that reads the governed source snapshot, keeps targets hidden until scoring, computes OC and comparator residuals, and writes PASS or fail-closed scoring/replay artifacts.",
   "replay_artifact_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/fc08158de1496fae/replay_record.json",
-  "replay_artifact_status": "OPEN",
+  "replay_artifact_status": "PASS",
   "required_capability": "Research/SourceBoundScoringMaterializationExecutor",
   "residual_requirement": {
     "formula": "absolute residual per heldout country/indicator/year; aggregate mean absolute residual",
     "metric_id": "OC133-SYSTEMS-COVERAGE-ECONOMIC-INDICATOR-MARKET-OBSERVABLES_domain_local_residual",
     "superiority_rule": "every row and aggregate residual margin must exceed preregistered materiality thresholds"
   },
-  "root_cause_class": "SOURCE_BOUND_SCORING_MATERIALIZER_NOT_IMPLEMENTED",
+  "root_cause_class": "SOURCE_BOUND_SCORING_MATERIALIZATION_CLOSED",
   "schema_id": "OC133_MODERN_SCIENCE_COMPARATOR_COMPONENT_MATERIALIZATION_EXECUTION_v1",
   "scoring_artifact_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/fc08158de1496fae/oc_prediction_scoring_row.json",
-  "scoring_artifact_status": "OPEN",
+  "scoring_artifact_status": "PASS",
   "source_obligation_report_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/component_src/src_obligation_b6001a9539264f97.json",
   "source_obligation_status": "SOURCE_BOUND_SCORING_MATERIALIZATION_REMAINS_OPEN",
-  "status": "CAPABILITY_DEVELOPMENT_REQUIRED",
+  "status": "PASS",
   "strict_evidence_pack_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/fc08158de1496fae/strict_evidence_pack.json",
-  "strict_evidence_pack_status": "FAIL_CLOSED_SOURCE_BOUND_SCORING_NOT_MATERIALIZED",
+  "strict_evidence_pack_status": "PASS",
   "target_variable": {
     "extraction_rule": "WDI[WLD, NY.GDP.MKTP.CD, heldout_year].value",
     "name": "heldout_world_gdp_current_usd",
@@ -168,5 +168,5 @@
     "unit": "current US dollars"
   },
   "validator_binding": "comparator_gap::MS-COV-GAP-SOCIAL_ECONOMIC_POLITICAL_SCIENCES-ECONOMIC_INDICATOR_AND_MARKET_OBSERVABLES::component_source_obligation::material_margin",
-  "why_it_failed": "Source-bound scoring materializer is not implemented for this exact domain/component; existing commands only regenerate fail-closed diagnostics."
+  "why_it_failed": "Source-bound scoring materialization closed downstream."
 }

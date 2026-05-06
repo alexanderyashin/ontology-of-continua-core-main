@@ -1,5 +1,5 @@
 {
-  "artifact_hash": "90b9e7fb3351348ce1ccd7112c4c8c4301fa366dbf11597d829e94c354f9651b",
+  "artifact_hash": "9f44fb33c18a0972c8c17067ccb7dc1a294fb30413cd6420c29c1ed7cb7ef573",
   "artifact_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/component_mat/mat_c983f7b5a51652a6.json",
   "available_diagnostic_commands": [
     [
@@ -77,18 +77,18 @@
   "materialization_id": "R017-COMPONENT-MATERIALIZE-af3663fef7f864ae",
   "materialized_evidence": {
     "evidence_ref": "validation/heldout/grand_science/medical/wdi_child_mortality/OC133_WORLD_BANK_WDI_CHILD_MORTALITY_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
-    "fail_closed_reason": "Source-bound evidence exists, but numeric model/comparator residuals are not available in the expected schema.",
+    "fail_closed_reason": "",
     "material_margin_met": true,
-    "materialized": false,
+    "materialized": true,
     "residuals": {
-      "comparator": null,
+      "comparator": 0.039981186269,
       "material_margin_met": true,
       "material_margin_rule": "source-bound materialized evidence pack must show OC residual strictly below preregistered comparator residual under the declared uncertainty rule",
-      "model": null
+      "model": 0.022014515089
     },
     "source_bound": true,
-    "status": "FAIL_CLOSED_SOURCE_BOUND_SCORING_NOT_MATERIALIZED",
-    "strict_evidence_pack_hash": "cfa7e96cbfbf8d440a1ef7d32e1750adb47f3f170b50bfa1c1879f0a7c624cab",
+    "status": "PASS",
+    "strict_evidence_pack_hash": "d0e74d998907ba896d988a6df21d4b2062e778390951f7e5967df6bececda743",
     "strict_evidence_pack_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/bde33a9d37378831/strict_evidence_pack.json"
   },
   "materializer_command_results": [
@@ -132,9 +132,9 @@
     "minimum_rows_required": 500,
     "official_documentation_url": "https://open.cdc.gov/data.html",
     "official_endpoint_url": "https://data.cdc.gov/resource/n8mc-b4w4.json?$limit=5000",
-    "required_local_snapshot_ref": "validation/heldout/grand_science/medical_health/epidemiology_risk/OC133_CDC_EPIDEMIOLOGY_RISK_SNAPSHOT.json",
-    "required_lock_ref": "validation/heldout/grand_science/medical_health/epidemiology_risk/OC133_CDC_EPIDEMIOLOGY_RISK_SNAPSHOT.lock.json",
-    "snapshot_status": "NOT_ACQUIRED_FOR_THIS_COVERAGE_CLASS",
+    "required_local_snapshot_ref": "validation/heldout/grand_science/medical/wdi_child_mortality/OC133_WORLD_BANK_WDI_CHILD_MORTALITY_SOURCE.json",
+    "required_lock_ref": "validation/heldout/grand_science/medical/wdi_child_mortality/OC133_WORLD_BANK_WDI_CHILD_MORTALITY_SOURCE.lock.json",
+    "snapshot_status": "ACQUIRED_OR_BOUND",
     "source_authority": "U.S. Centers for Disease Control and Prevention",
     "source_id": "cdc_open_data_epidemiology_timeseries_v1",
     "source_name": "CDC Open Data Socrata API epidemiology time-series datasets"
@@ -153,12 +153,12 @@
   "root_cause_class": "SOURCE_BOUND_SCORING_MATERIALIZER_NOT_IMPLEMENTED",
   "schema_id": "OC133_MODERN_SCIENCE_COMPARATOR_COMPONENT_MATERIALIZATION_EXECUTION_v1",
   "scoring_artifact_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/bde33a9d37378831/oc_prediction_scoring_row.json",
-  "scoring_artifact_status": "OPEN",
+  "scoring_artifact_status": "PASS",
   "source_obligation_report_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/component_src/src_obligation_af3663fef7f864ae.json",
   "source_obligation_status": "SOURCE_BOUND_SCORING_MATERIALIZATION_REMAINS_OPEN",
   "status": "CAPABILITY_DEVELOPMENT_REQUIRED",
   "strict_evidence_pack_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/bde33a9d37378831/strict_evidence_pack.json",
-  "strict_evidence_pack_status": "FAIL_CLOSED_SOURCE_BOUND_SCORING_NOT_MATERIALIZED",
+  "strict_evidence_pack_status": "PASS",
   "target_variable": {
     "extraction_rule": "Lock source snapshots by reporting week, hide future regional risk-change labels, and score only against the held-out temporal slice.",
     "name": "held_out_transmission_risk_change_by_region_and_week",

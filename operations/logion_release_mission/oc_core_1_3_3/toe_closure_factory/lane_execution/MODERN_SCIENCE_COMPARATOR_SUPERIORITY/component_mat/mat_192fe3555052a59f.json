@@ -1,5 +1,5 @@
 {
-  "artifact_hash": "4fbc30babe6721e1d2e12eb17bc41c9c777f0a5dbecbb328978509f879f389aa",
+  "artifact_hash": "74976d16acd78d75397719d781ed28ae7f894375998f3e907591d3d9519bb33c",
   "artifact_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/component_mat/mat_192fe3555052a59f.json",
   "available_diagnostic_commands": [
     [
@@ -77,18 +77,18 @@
   "materialization_id": "R017-COMPONENT-MATERIALIZE-8b92eefa98212442",
   "materialized_evidence": {
     "evidence_ref": "validation/heldout/grand_science/systems/wgi_institutional/OC133_WORLD_BANK_WGI_INSTITUTIONAL_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
-    "fail_closed_reason": "Source-bound evidence exists, but numeric model/comparator residuals are not available in the expected schema.",
+    "fail_closed_reason": "",
     "material_margin_met": true,
-    "materialized": false,
+    "materialized": true,
     "residuals": {
-      "comparator": null,
+      "comparator": 0.09683501756,
       "material_margin_met": true,
       "material_margin_rule": "source-bound materialized evidence pack must show OC residual strictly below preregistered comparator residual under the declared uncertainty rule",
-      "model": null
+      "model": 0.070048388862
     },
     "source_bound": true,
-    "status": "FAIL_CLOSED_SOURCE_BOUND_SCORING_NOT_MATERIALIZED",
-    "strict_evidence_pack_hash": "0f94ea573ace02696343ef01a7deaa1790a6755f3eeab4b3bff370302c8f07ee",
+    "status": "PASS",
+    "strict_evidence_pack_hash": "e302d0af573eadc9112c209b271af7acc9d14348aebf02e853ba318c01a4cbd4",
     "strict_evidence_pack_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/3dcf09e69027dbe9/strict_evidence_pack.json"
   },
   "materializer_command_results": [
@@ -143,22 +143,22 @@
   "phenomenon_class_id": "institutional_social_network_and_policy_outcomes",
   "repair_strategy": "Implement the domain/phenomenon scorer that reads the governed source snapshot, keeps targets hidden until scoring, computes OC and comparator residuals, and writes PASS or fail-closed scoring/replay artifacts.",
   "replay_artifact_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/3dcf09e69027dbe9/replay_record.json",
-  "replay_artifact_status": "OPEN",
+  "replay_artifact_status": "PASS",
   "required_capability": "Research/SourceBoundScoringMaterializationExecutor",
   "residual_requirement": {
     "formula": "absolute residual per heldout country/indicator/year; aggregate mean absolute residual",
     "metric_id": "OC133-SYSTEMS-COVERAGE-INSTITUTIONAL-SOCIAL-NETWORK-POLICY-OUTCOMES_domain_local_residual",
     "superiority_rule": "every row and aggregate residual margin must exceed preregistered materiality thresholds"
   },
-  "root_cause_class": "SOURCE_BOUND_SCORING_MATERIALIZER_NOT_IMPLEMENTED",
+  "root_cause_class": "SOURCE_BOUND_SCORING_MATERIALIZATION_CLOSED",
   "schema_id": "OC133_MODERN_SCIENCE_COMPARATOR_COMPONENT_MATERIALIZATION_EXECUTION_v1",
   "scoring_artifact_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/3dcf09e69027dbe9/oc_prediction_scoring_row.json",
-  "scoring_artifact_status": "OPEN",
+  "scoring_artifact_status": "PASS",
   "source_obligation_report_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/component_src/src_obligation_8b92eefa98212442.json",
   "source_obligation_status": "SOURCE_BOUND_SCORING_MATERIALIZATION_REMAINS_OPEN",
-  "status": "CAPABILITY_DEVELOPMENT_REQUIRED",
+  "status": "PASS",
   "strict_evidence_pack_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/3dcf09e69027dbe9/strict_evidence_pack.json",
-  "strict_evidence_pack_status": "FAIL_CLOSED_SOURCE_BOUND_SCORING_NOT_MATERIALIZED",
+  "strict_evidence_pack_status": "PASS",
   "target_variable": {
     "extraction_rule": "WDI[country, GE.EST or RL.EST, heldout_year].value",
     "name": "heldout_country_year_governance_estimate",
@@ -168,5 +168,5 @@
     "unit": "World Bank WGI estimate units"
   },
   "validator_binding": "comparator_gap::MS-COV-GAP-SOCIAL_ECONOMIC_POLITICAL_SCIENCES-INSTITUTIONAL_SOCIAL_NETWORK_AND_POLICY_OUTCOMES::component_source_obligation::fail_closed_status_clear",
-  "why_it_failed": "Source-bound scoring materializer is not implemented for this exact domain/component; existing commands only regenerate fail-closed diagnostics."
+  "why_it_failed": "Source-bound scoring materialization closed downstream."
 }
