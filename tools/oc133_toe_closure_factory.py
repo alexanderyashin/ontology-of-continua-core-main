@@ -4612,7 +4612,7 @@ def capability_executor_for_row(row: dict[str, Any], compiled_capability_id: str
             if len(parts) >= 3:
                 gap_id = parts[2]
             if len(parts) >= 4:
-                artifact_key = parts[3]
+                artifact_key = ":".join(parts[3:])
         if gap_id and artifact_key in COMPARATOR_REQUIRED_ARTIFACT_KEYS:
             if artifact_key == "oc_prediction_scoring_row":
                 return (
@@ -4731,13 +4731,14 @@ def build_capability_implementation_registry(root: Path, *, generated_at: str | 
             or row.get("superseded_by_scoring_work_order") is True
             or row.get("superseded_by_scoring_subartifact_execution") is True
             or row.get("superseded_by_grand_promotion_derivation_report") is True
+            or row.get("superseded_by_source_executor_work_order") is True
         ):
             continue
         source_node = str(row.get("source_graph_node_id") or "")
         if source_node.startswith("required_artifact:MODERN_SCIENCE_COMPARATOR_SUPERIORITY:"):
             parts = source_node.split(":")
             if len(parts) >= 4 and parts[3] in COMPARATOR_REQUIRED_ARTIFACT_KEYS:
-                row["missing_artifact_type"] = parts[3]
+                row["missing_artifact_type"] = ":".join(parts[3:])
         lane_id = str(row.get("lane_id") or "")
         if lane_id and lane_id not in open_lanes:
             continue

@@ -1549,7 +1549,7 @@ def build_capability_development_ledger(rows: list[dict[str, Any]], generated_at
             parts = root_source.split(":")
             if len(parts) >= 4:
                 gap_id = parts[2]
-                artifact_key = parts[3]
+                artifact_key = ":".join(parts[3:])
                 payload["gap_id"] = gap_id
                 payload["missing_artifact_type"] = artifact_key
                 if factory.comparator_gap_research_artifact_passes(ROOT, gap_id, artifact_key):
@@ -1580,6 +1580,13 @@ def build_capability_development_ledger(rows: list[dict[str, Any]], generated_at
                     payload["execution_command"] = []
                     payload["implementation_command"] = []
                     payload["next_escalation"] = "Scoring subartifact packet now exists for this scope; advance to the concrete source/evidence executor named by that packet."
+                elif artifact_key.startswith("source_executor::") and factory.comparator_source_executor_work_order_exists(ROOT, gap_id, artifact_key.split("::", 1)[1]):
+                    payload["status"] = "PASS"
+                    payload["superseded_by_source_executor_work_order"] = True
+                    payload["capability_executor_ready"] = False
+                    payload["execution_command"] = []
+                    payload["implementation_command"] = []
+                    payload["next_escalation"] = "Source executor work order exists for this scoring subartifact; remaining work is implementing the source-bound acquisition/scoring command named inside it."
         if (
             str(payload.get("lane_id") or "") == "GRAND_TOE_CLAIM_LEDGER_EVIDENCE"
             and str(payload.get("missing_artifact_type") or "") == "grand_promotion_derivation"
