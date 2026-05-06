@@ -4493,6 +4493,8 @@ def build_capability_implementation_registry(root: Path, *, generated_at: str | 
         rows.append(
             normalize_problem_row(
                 {
+                    "capability_id": compiled_capability_id,
+                    "capability_class": executor_type,
                     "compiled_capability_id": compiled_capability_id,
                     "capability_development_key": key,
                     "source_capability_development_id": row.get("capability_development_id"),
@@ -4572,6 +4574,7 @@ def execute_capability_development(root: Path, capability_id: str, timeout: int,
             row
             for row in rows
             if row.get("compiled_capability_id") == capability_id
+            or row.get("capability_id") == capability_id
             or row.get("source_capability_development_id") == capability_id
         ),
         None,
@@ -4583,6 +4586,7 @@ def execute_capability_development(root: Path, capability_id: str, timeout: int,
         payload = {
             "schema_id": "OC133_TOE_CAPABILITY_DEVELOPMENT_EXECUTION_v1",
             "generated_at": generated_at,
+            "capability_id": capability_id,
             "compiled_capability_id": capability_id,
             "status": "FAIL_CLOSED",
             "why_it_failed": "Compiled capability id is not present in the implementation registry.",
@@ -4600,6 +4604,8 @@ def execute_capability_development(root: Path, capability_id: str, timeout: int,
         payload = {
             "schema_id": "OC133_TOE_CAPABILITY_DEVELOPMENT_EXECUTION_v1",
             "generated_at": generated_at,
+            "capability_id": capability_id,
+            "capability_class": match.get("capability_class") or match.get("executor_type"),
             "compiled_capability_id": capability_id,
             "status": "BLOCKED",
             "why_it_failed": "Capability exists but has no safe ready executor for the current scientific frontier.",
@@ -4627,6 +4633,8 @@ def execute_capability_development(root: Path, capability_id: str, timeout: int,
         payload = {
             "schema_id": "OC133_TOE_CAPABILITY_DEVELOPMENT_EXECUTION_v1",
             "generated_at": generated_at,
+            "capability_id": capability_id,
+            "capability_class": match.get("capability_class") or match.get("executor_type"),
             "compiled_capability_id": capability_id,
             "capability_development_key": match.get("capability_development_key"),
             "source_graph_node_id": match.get("source_graph_node_id"),

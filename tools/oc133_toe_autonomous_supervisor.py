@@ -569,6 +569,8 @@ def load_capability_development_rows(root: Path) -> list[dict[str, Any]]:
         compiled = by_source_id.get(str(payload.get("capability_development_id"))) or by_key.get(str(key))
         if compiled:
             payload["capability_development_key"] = compiled.get("capability_development_key") or key
+            payload["capability_id"] = compiled.get("capability_id") or compiled.get("compiled_capability_id")
+            payload["capability_class"] = compiled.get("capability_class") or compiled.get("executor_type")
             payload["compiled_capability_id"] = compiled.get("compiled_capability_id")
             payload["capability_executor_ready"] = compiled.get("capability_executor_ready") is True
             payload["execution_command"] = compiled.get("execution_command", payload.get("execution_command", []))
@@ -1494,6 +1496,8 @@ def build_capability_development_ledger(rows: list[dict[str, Any]], generated_at
         seen.add(dedupe_key)
         compiled = registry_by_key.get(dedupe_key) or registry_by_source.get(capability_id)
         if compiled and not payload.get("superseded_by_current_validator"):
+            payload["capability_id"] = compiled.get("capability_id") or compiled.get("compiled_capability_id")
+            payload["capability_class"] = compiled.get("capability_class") or compiled.get("executor_type")
             payload["compiled_capability_id"] = compiled.get("compiled_capability_id")
             payload["capability_executor_ready"] = compiled.get("capability_executor_ready") is True
             payload["execution_command"] = compiled.get("execution_command", payload.get("execution_command", []))

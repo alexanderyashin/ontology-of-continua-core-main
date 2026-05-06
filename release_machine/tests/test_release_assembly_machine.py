@@ -2337,6 +2337,11 @@ class ReleaseAssemblyMachineTests(unittest.TestCase):
         self.assertEqual(registry["schema_id"], "OC133_TOE_CAPABILITY_IMPLEMENTATION_REGISTRY_v1")
         self.assertGreater(registry["compiled_capability_total"], 0)
         self.assertEqual(registry["compiled_capability_total"], registry["ready_capability_total"] + registry["blocked_capability_total"])
+        for row in registry["rows"]:
+            self.assertEqual(row["capability_id"], row["compiled_capability_id"])
+            self.assertEqual(row["capability_class"], row["executor_type"])
+            self.assertTrue(row["capability_id"].startswith("R017-CAPDEV-"))
+            self.assertTrue(row["capability_class"])
         self.assertEqual(frontier_science["schema_id"], "OC133_TOE_SCIENTIFIC_FRONTIER_v1")
         self.assertIn("excludes supervisor bookkeeping", frontier_science["frontier_policy"])
 
@@ -2374,6 +2379,8 @@ class ReleaseAssemblyMachineTests(unittest.TestCase):
         self.assertGreater(capability_registry["compiled_capability_total"], 0)
         self.assertTrue(all(row["execution_command"] for row in capability_registry["rows"]))
         self.assertTrue(all(row["self_test_command"] for row in capability_registry["rows"]))
+        self.assertTrue(all(row["capability_id"] == row["compiled_capability_id"] for row in capability_registry["rows"]))
+        self.assertTrue(all(row["capability_class"] == row["executor_type"] for row in capability_registry["rows"]))
 
         self.assertEqual(graph["schema_id"], "OC133_TOE_BLOCKING_GRAPH_v1")
         self.assertEqual(graph["status"], "OPEN")
