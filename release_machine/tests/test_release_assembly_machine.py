@@ -2342,6 +2342,7 @@ class ReleaseAssemblyMachineTests(unittest.TestCase):
             self.assertEqual(row["capability_class"], row["executor_type"])
             self.assertTrue(row["capability_id"].startswith("R017-CAPDEV-"))
             self.assertTrue(row["capability_class"])
+        self.assertTrue(any(row["capability_class"] == "comparator_scoring_work_order" for row in registry["rows"]))
         self.assertEqual(frontier_science["schema_id"], "OC133_TOE_SCIENTIFIC_FRONTIER_v1")
         self.assertIn("excludes supervisor bookkeeping", frontier_science["frontier_policy"])
 
@@ -2381,6 +2382,7 @@ class ReleaseAssemblyMachineTests(unittest.TestCase):
         self.assertTrue(all(row["self_test_command"] for row in capability_registry["rows"]))
         self.assertTrue(all(row["capability_id"] == row["compiled_capability_id"] for row in capability_registry["rows"]))
         self.assertTrue(all(row["capability_class"] == row["executor_type"] for row in capability_registry["rows"]))
+        self.assertTrue(any(row["capability_class"] == "comparator_scoring_work_order" for row in capability_registry["rows"]))
 
         self.assertEqual(graph["schema_id"], "OC133_TOE_BLOCKING_GRAPH_v1")
         self.assertEqual(graph["status"], "OPEN")
@@ -2480,6 +2482,9 @@ class ReleaseAssemblyMachineTests(unittest.TestCase):
         }
         self.assertEqual(medical_root_causes, {"SCORING_EVIDENCE_NOT_MATERIALIZED"})
         self.assertNotIn("EXECUTABLE_SPEC_MISSING_FOR_SCORING", backlog["root_cause_counts"])
+        for row in backlog["rows"]:
+            if row["missing_artifact_type"] == "oc_prediction_scoring_row":
+                self.assertIn("--execute-comparator-scoring-work-order", row["execution_command"])
 
         artifact_root = ROOT / "validation" / "heldout" / "grand_science" / "modern_science_coverage_artifacts"
         open_replay_records = [

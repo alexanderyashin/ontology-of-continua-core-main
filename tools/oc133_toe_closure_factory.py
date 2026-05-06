@@ -2472,7 +2472,7 @@ def build_comparator_scoring_executor_backlog(root: Path) -> dict[str, Any]:
                     "why_it_failed": scoring_order.get("why_it_failed"),
                     "repair_strategy": f"Build `{artifact_id}` for gap `{gap_id}` from governed open/free sources, then rerun the target-hidden scorer and strict validator.",
                     "required_capability": artifact.get("required_capability") or scoring_order.get("required_capability") or "Research/ScoringExecutor",
-                    "execution_command": [sys.executable, "tools/oc133_toe_closure_factory.py", "--compile-comparator-scoring-backlog", "--write"],
+                    "execution_command": [sys.executable, "tools/oc133_toe_closure_factory.py", "--execute-comparator-scoring-work-order", gap_id, "--write"],
                     "pass_predicate": artifact.get("pass_predicate") or scoring_order.get("pass_predicate"),
                     "next_escalation": "If no deterministic executor exists for this subartifact, create a lane-specific acquisition/scoring tool and keep r017 blocked.",
                     "validator_binding": f"comparator_gap::{gap_id}::oc_prediction_scoring_row::{artifact_id}",
@@ -4368,9 +4368,9 @@ def capability_executor_for_row(row: dict[str, Any], compiled_capability_id: str
         if gap_id and artifact_key in COMPARATOR_REQUIRED_ARTIFACT_KEYS:
             if artifact_key == "oc_prediction_scoring_row":
                 return (
-                    [sys.executable, "tools/oc133_toe_closure_factory.py", "--compile-comparator-scoring-backlog", "--write"],
-                    "comparator_scoring_executor_backlog",
-                    "Compile lower-level scoring executor subtasks from all open comparator scoring work orders, with exact source, target, OC model, incumbent comparator, uncertainty, falsifier, replay, and fail-closed pass predicates.",
+                    [sys.executable, "tools/oc133_toe_closure_factory.py", "--execute-comparator-scoring-work-order", gap_id, "--write"],
+                    "comparator_scoring_work_order",
+                    "Build the exact scoring/replay research work order for this comparator gap, with source, target, OC model, incumbent comparator, uncertainty, falsifier, replay, and fail-closed pass predicates.",
                 )
             return (
                 [sys.executable, "tools/oc133_toe_closure_factory.py", "--execute-comparator-gap-artifact", gap_id, artifact_key, "--write"],
