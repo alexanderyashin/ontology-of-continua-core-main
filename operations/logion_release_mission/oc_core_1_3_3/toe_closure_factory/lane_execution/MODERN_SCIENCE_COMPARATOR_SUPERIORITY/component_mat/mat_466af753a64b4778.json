@@ -1,5 +1,5 @@
 {
-  "artifact_hash": "ee773f2dd2d32a3859ed0452c5477c0859aefa74a1af8912507ef394e07a3e40",
+  "artifact_hash": "f89a0cfb1bd144c33bc14364ba14535f47d518a97ee1104906927f52f404486c",
   "artifact_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/component_mat/mat_466af753a64b4778.json",
   "available_diagnostic_commands": [
     [
@@ -75,6 +75,45 @@
   },
   "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
   "materialization_id": "R017-COMPONENT-MATERIALIZE-33773d1f5c4d0c95",
+  "materialized_evidence": {
+    "evidence_ref": "validation/heldout/grand_science/agriculture/coverage_work_orders/OC133_AGRICULTURE_FDC_SODIUM_SCORING_PACK.json",
+    "fail_closed_reason": "Source-bound scoring is materialized, but OC does not beat the preregistered incumbent comparator under the declared materiality rule.",
+    "material_margin_met": false,
+    "materialized": true,
+    "residuals": {
+      "comparator": 324.6,
+      "material_margin_met": false,
+      "material_margin_rule": "source-bound materialized evidence pack must show OC residual strictly below preregistered comparator residual under the declared uncertainty rule",
+      "model": 528.851068
+    },
+    "source_bound": true,
+    "status": "FAIL_CLOSED_SOURCE_BOUND_SCORING_MATERIALIZED_NEGATIVE_RESULT",
+    "strict_evidence_pack_hash": "af4aa70e2ac61bb4dad55d4d7d18bc427bdc320dcaebd07e048633b01098cee6",
+    "strict_evidence_pack_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/b1f19189ac368c4d/strict_evidence_pack.json"
+  },
+  "materializer_command_results": [
+    {
+      "cmd": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "validation/heldout/grand_science/agriculture/coverage_work_orders/oc133_agriculture_modern_science_coverage_work_orders.py",
+        "--score-fdc",
+        "--write-scoring"
+      ],
+      "returncode": 0,
+      "stderr_tail": "",
+      "stdout_tail": "{\n  \"status\": \"ok\",\n  \"current_evidence_status\": \"OPEN_FAIL_CLOSED_SCORER_READY_STRICT_EVIDENCE_PACK_NO_COVERAGE_CLOSURE\",\n  \"coverage_closure_allowed\": false,\n  \"row_count\": 25,\n  \"target_hidden_scorer_present\": true,\n  \"negative_control_rejected\": true,\n  \"scoring_pack_ref\": \"validation/heldout/grand_science/agriculture/coverage_work_orders/OC133_AGRICULTURE_FDC_SODIUM_SCORING_PACK.json\",\n  \"blockers\": [],\n  \"errors\": []\n}\n"
+    },
+    {
+      "cmd": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "validation/heldout/grand_science/agriculture/coverage_work_orders/oc133_agriculture_modern_science_coverage_work_orders.py",
+        "--check"
+      ],
+      "returncode": 0,
+      "stderr_tail": "",
+      "stdout_tail": "{\n  \"status\": \"ok\",\n  \"checked\": \"validation/heldout/grand_science/agriculture/coverage_work_orders/OC133_AGRICULTURE_MODERN_SCIENCE_COVERAGE_WORK_ORDERS.json\",\n  \"coverage_closure_allowed\": false\n}\n"
+    }
+  ],
   "missing_source_evidence_fields": [
     "component_report_pass",
     "strict_evidence_pack_pass",
@@ -86,7 +125,7 @@
     "material_margin_met",
     "fail_closed_status_clear"
   ],
-  "next_escalation": "Develop the domain scorer/materializer capability and then rerun the component source obligation; keep broad superiority blocked until it passes.",
+  "next_escalation": "If negative, create a source-bound model/comparator improvement work order; if unmaterialized, develop the domain scorer/materializer capability. Keep broad superiority blocked until strict scoring passes.",
   "no_fake_closure_policy": "This report is not evidence; it is an exact implementation contract for missing source-bound scoring.",
   "obligation_id": "R017-COMPONENT-SOURCE-OBLIGATION-a5eff1362137b1a2",
   "official_data_source": {
@@ -103,17 +142,23 @@
   "pass_predicate": "The materialization executor produces source-bound scoring, residual, materiality, uncertainty/falsifier, and replay artifacts; the source obligation and strict evidence pack then PASS.",
   "phenomenon_class_id": "food_chemistry_safety_and_nutrition",
   "repair_strategy": "Implement the domain/phenomenon scorer that reads the governed source snapshot, keeps targets hidden until scoring, computes OC and comparator residuals, and writes PASS or fail-closed scoring/replay artifacts.",
+  "replay_artifact_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/b1f19189ac368c4d/replay_record.json",
+  "replay_artifact_status": "OPEN",
   "required_capability": "Research/SourceBoundScoringMaterializationExecutor",
   "residual_requirement": {
     "formula": "absolute sodium residual in mg per 100 g; aggregate MAE across heldout FDC food rows",
     "metric_id": "MS-COV-WO-020_domain_local_residual",
     "superiority_rule": "model_MAE must beat comparator_MAE by a material predeclared margin and every negative control must be rejected; this work order does not permit coverage closure from the compact scorer alone"
   },
-  "root_cause_class": "SOURCE_BOUND_SCORING_MATERIALIZER_NOT_IMPLEMENTED",
+  "root_cause_class": "SOURCE_BOUND_SCORING_MATERIALIZED_NEGATIVE_RESULT",
   "schema_id": "OC133_MODERN_SCIENCE_COMPARATOR_COMPONENT_MATERIALIZATION_EXECUTION_v1",
+  "scoring_artifact_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/b1f19189ac368c4d/oc_prediction_scoring_row.json",
+  "scoring_artifact_status": "OPEN",
   "source_obligation_report_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/component_src/src_obligation_33773d1f5c4d0c95.json",
   "source_obligation_status": "SOURCE_BOUND_SCORING_MATERIALIZATION_REMAINS_OPEN",
-  "status": "CAPABILITY_DEVELOPMENT_REQUIRED",
+  "status": "SCIENTIFIC_RESULT_FAIL_CLOSED",
+  "strict_evidence_pack_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/b1f19189ac368c4d/strict_evidence_pack.json",
+  "strict_evidence_pack_status": "FAIL_CLOSED_SOURCE_BOUND_SCORING_MATERIALIZED_NEGATIVE_RESULT",
   "target_variable": {
     "extraction_rule": "Target values remain hidden until scoring according to the domain-local work order.",
     "name": "heldout_food_sodium_content",
@@ -123,5 +168,5 @@
     "unit": "mg per 100 g edible portion"
   },
   "validator_binding": "comparator_gap::MS-COV-GAP-AGRICULTURAL_FOOD_SCIENCES-FOOD_CHEMISTRY_SAFETY_AND_NUTRITION::component_source_obligation::incumbent_comparator_residual",
-  "why_it_failed": "Source-bound scoring materializer is not implemented for this exact domain/component; existing commands only regenerate fail-closed diagnostics."
+  "why_it_failed": "Source-bound target-hidden scoring is materialized, but OC does not beat the preregistered incumbent comparator under the declared materiality rule."
 }

@@ -2400,7 +2400,7 @@ class ReleaseAssemblyMachineTests(unittest.TestCase):
             self.assertEqual(row["capability_class"], row["executor_type"])
             self.assertTrue(row["capability_id"].startswith("R017-CAPDEV-"))
             self.assertTrue(row["capability_class"])
-        self.assertTrue(any(row["capability_class"] in {"comparator_scoring_work_order", "comparator_source_implementation_obligation", "comparator_research_artifact_repair", "comparator_domain_scorer_implementation", "comparator_domain_model_repair", "comparator_domain_model_component_backlog", "comparator_domain_model_component", "comparator_domain_model_component_implementation_backlog", "comparator_domain_model_component_implementation", "comparator_component_source_obligation_backlog", "comparator_component_source_obligation", "comparator_component_materialization_backlog", "comparator_component_materialization", "comparator_component_materialization_capability_gap"} for row in registry["rows"]))
+        self.assertTrue(any(row["capability_class"] in {"comparator_scoring_work_order", "comparator_source_implementation_obligation", "comparator_research_artifact_repair", "comparator_domain_scorer_implementation", "comparator_domain_model_repair", "comparator_domain_model_component_backlog", "comparator_domain_model_component", "comparator_domain_model_component_implementation_backlog", "comparator_domain_model_component_implementation", "comparator_component_source_obligation_backlog", "comparator_component_source_obligation", "comparator_component_materialization_backlog", "comparator_component_materialization", "comparator_component_materialization_capability_gap", "comparator_source_bound_negative_result"} for row in registry["rows"]))
         self.assertEqual(frontier_science["schema_id"], "OC133_TOE_SCIENTIFIC_FRONTIER_v1")
         self.assertIn("excludes supervisor bookkeeping", frontier_science["frontier_policy"])
 
@@ -2440,7 +2440,7 @@ class ReleaseAssemblyMachineTests(unittest.TestCase):
         self.assertTrue(all(row["self_test_command"] for row in capability_registry["rows"]))
         self.assertTrue(all(row["capability_id"] == row["compiled_capability_id"] for row in capability_registry["rows"]))
         self.assertTrue(all(row["capability_class"] == row["executor_type"] for row in capability_registry["rows"]))
-        self.assertTrue(any(row["capability_class"] in {"comparator_scoring_work_order", "comparator_source_implementation_obligation", "comparator_research_artifact_repair", "comparator_domain_scorer_implementation", "comparator_domain_model_repair", "comparator_domain_model_component_backlog", "comparator_domain_model_component", "comparator_domain_model_component_implementation_backlog", "comparator_domain_model_component_implementation", "comparator_component_source_obligation_backlog", "comparator_component_source_obligation", "comparator_component_materialization_backlog", "comparator_component_materialization", "comparator_component_materialization_capability_gap"} for row in capability_registry["rows"]))
+        self.assertTrue(any(row["capability_class"] in {"comparator_scoring_work_order", "comparator_source_implementation_obligation", "comparator_research_artifact_repair", "comparator_domain_scorer_implementation", "comparator_domain_model_repair", "comparator_domain_model_component_backlog", "comparator_domain_model_component", "comparator_domain_model_component_implementation_backlog", "comparator_domain_model_component_implementation", "comparator_component_source_obligation_backlog", "comparator_component_source_obligation", "comparator_component_materialization_backlog", "comparator_component_materialization", "comparator_component_materialization_capability_gap", "comparator_source_bound_negative_result"} for row in capability_registry["rows"]))
 
         self.assertEqual(graph["schema_id"], "OC133_TOE_BLOCKING_GRAPH_v1")
         self.assertEqual(graph["status"], "OPEN")
@@ -2896,10 +2896,15 @@ class ReleaseAssemblyMachineTests(unittest.TestCase):
         self.assertEqual(batch["schema_id"], "OC133_MODERN_SCIENCE_COMPARATOR_COMPONENT_MATERIALIZATION_BATCH_v1")
         self.assertIn("never promotes broad superiority", batch["no_fake_closure_policy"])
         self.assertTrue(reports)
-        self.assertTrue(all(row.get("status") in {"PASS", "CAPABILITY_DEVELOPMENT_REQUIRED", "FAIL_CLOSED"} for row in reports))
+        self.assertTrue(all(row.get("status") in {"PASS", "CAPABILITY_DEVELOPMENT_REQUIRED", "SCIENTIFIC_RESULT_FAIL_CLOSED", "FAIL_CLOSED"} for row in reports))
         self.assertTrue(all(row.get("implementation_contract") for row in reports))
         self.assertTrue(all(row.get("no_fake_closure_policy") for row in reports))
         self.assertTrue(any(row.get("status") == "CAPABILITY_DEVELOPMENT_REQUIRED" for row in reports))
+        negative_reports = [row for row in reports if row.get("status") == "SCIENTIFIC_RESULT_FAIL_CLOSED"]
+        self.assertTrue(negative_reports)
+        self.assertTrue(all(row.get("root_cause_class") == "SOURCE_BOUND_SCORING_MATERIALIZED_NEGATIVE_RESULT" for row in negative_reports))
+        self.assertTrue(all(row.get("materialized_evidence", {}).get("source_bound") is True for row in negative_reports))
+        self.assertTrue(all(row.get("materialized_evidence", {}).get("material_margin_met") is False for row in negative_reports))
         self.assertFalse(any(row.get("executor_type") == "comparator_component_materialization" for row in supervisor_queue["rows"]))
         capability_registry = read_json(
             ROOT
@@ -2908,6 +2913,14 @@ class ReleaseAssemblyMachineTests(unittest.TestCase):
             / "oc_core_1_3_3"
             / "toe_closure_factory"
             / "OC133_TOE_CAPABILITY_IMPLEMENTATION_REGISTRY.json"
+        )
+        self.assertTrue(any(row.get("capability_class") == "comparator_source_bound_negative_result" for row in capability_registry["rows"]))
+        self.assertFalse(
+            any(
+                row.get("capability_class") == "comparator_component_materialization_capability_gap"
+                and row.get("repair_strategy") == "Source-bound scoring exists and remains negative against the preregistered comparator; create a research improvement obligation instead of rerunning diagnostics."
+                for row in capability_registry["rows"]
+            )
         )
         self.assertTrue(
             any(row.get("executor_type") == "capability_development" for row in supervisor_queue["rows"])

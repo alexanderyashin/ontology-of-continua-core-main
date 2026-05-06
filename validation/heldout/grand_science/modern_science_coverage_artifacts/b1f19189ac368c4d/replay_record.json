@@ -1,5 +1,5 @@
 {
-  "artifact_hash": "3007c00bcca82853f5726580b74a2bcf7dfdc728117657692ec6f2f8284629bf",
+  "artifact_hash": "fe82dd74a81868855f5f105f8cadf76c0d50be77f4142767a11414c829970d4c",
   "artifact_key": "replay_record",
   "artifact_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/b1f19189ac368c4d/replay_record.json",
   "closure_scope": "replay not run or scoring evidence still blocked",
@@ -35,19 +35,19 @@
     "replay_executed_total": 0,
     "replay_results": [],
     "scoring_evidence": {
-      "evidence_pack_hash": "18375d616978244b3ab82fbecbc253659413457d4abae4053da2549f398c288e",
+      "evidence_pack_hash": "79930e7db82cdaa025e2c98cd6600561ab07274bb6f5603af8a2c4ac8a8c012a",
       "evidence_pack_summary": {
         "coverage_closure_allowed": false,
-        "fail_closed_reason": "Source identity and preregistered benchmark are present, but no target-hidden OC score with material superiority exists.",
-        "pack_status": "FAIL_CLOSED_SOURCE_BOUND_SCORING_NOT_MATERIALIZED",
+        "fail_closed_reason": "Source-bound scoring is materialized, but OC does not beat the preregistered incumbent comparator under the declared materiality rule.",
+        "pack_status": "FAIL_CLOSED_SOURCE_BOUND_SCORING_MATERIALIZED_NEGATIVE_RESULT",
         "residuals": {
-          "comparator": null,
+          "comparator": 324.6,
           "material_margin_met": false,
-          "material_margin_rule": "model_MAE must beat comparator_MAE by a material predeclared margin and every negative control must be rejected; this work order does not permit coverage closure from the compact scorer alone",
-          "model": null
+          "material_margin_rule": "source-bound materialized evidence pack must show OC residual strictly below preregistered comparator residual under the declared uncertainty rule",
+          "model": 528.851068
         },
         "schema_id": "OC133_MODERN_SCIENCE_COMPARATOR_STRICT_EVIDENCE_PACK_v1",
-        "score_materialized": false,
+        "score_materialized": true,
         "source_bound": true,
         "target_hidden": true
       },
@@ -56,7 +56,7 @@
       "executable_evidence_exists": true,
       "fail_closed_status_present": true,
       "material_margin_met": false,
-      "pack_status_text": "{\"COVERAGE_CLOSURE_ALLOWED\": FALSE, \"EVIDENCE_STATUS\": \"FAIL_CLOSED_SOURCE_BOUND_SCORING_NOT_MATERIALIZED\", \"FAIL_CLOSED_REASON\": \"SOURCE IDENTITY AND PREREGISTERED BENCHMARK ARE PRESENT, BUT NO TARGET-HIDDEN OC SCORE WITH MATERIAL SUPERIORITY EXISTS.\", \"PACK_STATUS\": \"FAIL_CLOSED_SOURCE_BOUND_SCORING_NOT_MATERIALIZED\"}"
+      "pack_status_text": "{\"COVERAGE_CLOSURE_ALLOWED\": FALSE, \"EVIDENCE_STATUS\": \"FAIL_CLOSED_SOURCE_BOUND_SCORING_MATERIALIZED_NEGATIVE_RESULT\", \"FAIL_CLOSED_REASON\": \"SOURCE-BOUND SCORING IS MATERIALIZED, BUT OC DOES NOT BEAT THE PREREGISTERED INCUMBENT COMPARATOR UNDER THE DECLARED MATERIALITY RULE.\", \"PACK_STATUS\": \"FAIL_CLOSED_SOURCE_BOUND_SCORING_MATERIALIZED_NEGATIVE_RESULT\"}"
     }
   },
   "why_it_failed": "Required comparator artifact still lacks source-bound support.",

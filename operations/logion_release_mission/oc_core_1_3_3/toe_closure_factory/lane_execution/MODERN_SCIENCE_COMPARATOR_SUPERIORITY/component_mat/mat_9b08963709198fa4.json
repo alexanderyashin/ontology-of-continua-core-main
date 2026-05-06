@@ -1,5 +1,5 @@
 {
-  "artifact_hash": "10519f2e70545f1f1bed009e023ed92e11f4d1a37890e8d2c92910e6cc51bf47",
+  "artifact_hash": "9dd5c2e35cc4b6ffcf4034a86c63d75a4e9093c1f4a11ccbccf00ea9b83a1f99",
   "artifact_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/component_mat/mat_9b08963709198fa4.json",
   "available_diagnostic_commands": [
     [
@@ -75,6 +75,46 @@
   },
   "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
   "materialization_id": "R017-COMPONENT-MATERIALIZE-cdaf0f07b48e06af",
+  "materialized_evidence": {
+    "evidence_ref": "",
+    "materialized": false,
+    "status": "CAPABILITY_DEVELOPMENT_REQUIRED",
+    "why_it_failed": "No source-bound domain evidence pack is bound for this comparator materialization row."
+  },
+  "materializer_command_results": [
+    {
+      "cmd": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "validation/heldout/grand_science/engineering/coverage_work_orders/oc133_engineering_modern_science_coverage_work_orders.py",
+        "--write"
+      ],
+      "returncode": 0,
+      "stderr_tail": "",
+      "stdout_tail": "{\n  \"status\": \"ok\",\n  \"output_ref\": \"validation/heldout/grand_science/engineering/coverage_work_orders/OC133_ENGINEERING_MODERN_SCIENCE_COVERAGE_WORK_ORDERS.json\",\n  \"failures\": []\n}\n"
+    },
+    {
+      "cmd": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "validation/heldout/grand_science/engineering/coverage_work_orders/oc133_engineering_modern_science_coverage_work_orders.py",
+        "--check"
+      ],
+      "returncode": 0,
+      "stderr_tail": "",
+      "stdout_tail": "{\n  \"status\": \"ok\",\n  \"checked\": \"validation/heldout/grand_science/engineering/coverage_work_orders/OC133_ENGINEERING_MODERN_SCIENCE_COVERAGE_WORK_ORDERS.json\"\n}\n"
+    },
+    {
+      "cmd": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "tools/oc133_toe_closure_factory.py",
+        "--execute-comparator-generic-evidence-pack",
+        "MS-COV-GAP-ENGINEERING_MATERIALS_SCIENCES-MATERIALS_PROPERTY_AND_FAILURE_PREDICTION",
+        "--write"
+      ],
+      "returncode": 0,
+      "stderr_tail": "",
+      "stdout_tail": "{\n  \"changed\": [],\n  \"missing\": [],\n  \"state\": \"PASS\"\n}\n"
+    }
+  ],
   "missing_source_evidence_fields": [
     "component_report_pass",
     "strict_evidence_pack_pass",
@@ -86,7 +126,7 @@
     "material_margin_met",
     "fail_closed_status_clear"
   ],
-  "next_escalation": "Develop the domain scorer/materializer capability and then rerun the component source obligation; keep broad superiority blocked until it passes.",
+  "next_escalation": "If negative, create a source-bound model/comparator improvement work order; if unmaterialized, develop the domain scorer/materializer capability. Keep broad superiority blocked until strict scoring passes.",
   "no_fake_closure_policy": "This report is not evidence; it is an exact implementation contract for missing source-bound scoring.",
   "obligation_id": "R017-COMPONENT-SOURCE-OBLIGATION-d54e8cc0e12a5698",
   "official_data_source": {
@@ -103,6 +143,8 @@
   "pass_predicate": "The materialization executor produces source-bound scoring, residual, materiality, uncertainty/falsifier, and replay artifacts; the source obligation and strict evidence pack then PASS.",
   "phenomenon_class_id": "materials_property_and_failure_prediction",
   "repair_strategy": "Implement the domain/phenomenon scorer that reads the governed source snapshot, keeps targets hidden until scoring, computes OC and comparator residuals, and writes PASS or fail-closed scoring/replay artifacts.",
+  "replay_artifact_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/b1491a46e156e916/replay_record.json",
+  "replay_artifact_status": "OPEN",
   "required_capability": "Research/SourceBoundScoringMaterializationExecutor",
   "residual_requirement": {
     "formula": "absolute residual per material/property plus aggregate MAE over hidden targets",
@@ -111,9 +153,13 @@
   },
   "root_cause_class": "SOURCE_BOUND_SCORING_MATERIALIZER_NOT_IMPLEMENTED",
   "schema_id": "OC133_MODERN_SCIENCE_COMPARATOR_COMPONENT_MATERIALIZATION_EXECUTION_v1",
+  "scoring_artifact_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/b1491a46e156e916/oc_prediction_scoring_row.json",
+  "scoring_artifact_status": "OPEN",
   "source_obligation_report_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/component_src/src_obligation_cdaf0f07b48e06af.json",
   "source_obligation_status": "SOURCE_BOUND_SCORING_MATERIALIZATION_REMAINS_OPEN",
   "status": "CAPABILITY_DEVELOPMENT_REQUIRED",
+  "strict_evidence_pack_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/b1491a46e156e916/strict_evidence_pack.json",
+  "strict_evidence_pack_status": "FAIL_CLOSED_SOURCE_BOUND_SCORING_NOT_MATERIALIZED",
   "target_variable": {
     "extraction_rule": "JARVIS_DFT[structure_id].attributes._jarvis_bulk_modulus_kv",
     "name": "elastic_stiffness_and_bandgap_material_property",

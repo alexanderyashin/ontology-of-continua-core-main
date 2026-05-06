@@ -1,5 +1,5 @@
 {
-  "artifact_hash": "fef142fe5a25cf89ca5dab6ab1695e0624a54f8edb4cbe6fb8f1e20973b1a92f",
+  "artifact_hash": "427cb83b3201aa6c7cadd736f21f9eb0a938773850b6c96abb4eb89951d4d358",
   "artifact_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/component_mat/mat_046cf10cbcc82899.json",
   "available_diagnostic_commands": [
     [
@@ -75,6 +75,46 @@
   },
   "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
   "materialization_id": "R017-COMPONENT-MATERIALIZE-dff1c079ef13bd3f",
+  "materialized_evidence": {
+    "evidence_ref": "",
+    "materialized": false,
+    "status": "CAPABILITY_DEVELOPMENT_REQUIRED",
+    "why_it_failed": "No source-bound domain evidence pack is bound for this comparator materialization row."
+  },
+  "materializer_command_results": [
+    {
+      "cmd": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "validation/heldout/grand_science/biology/coverage_work_orders/oc133_biology_modern_science_coverage_work_orders.py",
+        "--write"
+      ],
+      "returncode": 0,
+      "stderr_tail": "",
+      "stdout_tail": "{\n  \"status\": \"ok\",\n  \"output_ref\": \"validation/heldout/grand_science/biology/coverage_work_orders/OC133_BIOLOGY_MODERN_SCIENCE_COVERAGE_WORK_ORDERS.json\",\n  \"failures\": []\n}\n"
+    },
+    {
+      "cmd": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "validation/heldout/grand_science/biology/coverage_work_orders/oc133_biology_modern_science_coverage_work_orders.py",
+        "--check"
+      ],
+      "returncode": 0,
+      "stderr_tail": "",
+      "stdout_tail": "{\n  \"status\": \"ok\",\n  \"checked\": \"validation/heldout/grand_science/biology/coverage_work_orders/OC133_BIOLOGY_MODERN_SCIENCE_COVERAGE_WORK_ORDERS.json\"\n}\n"
+    },
+    {
+      "cmd": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "tools/oc133_toe_closure_factory.py",
+        "--execute-comparator-generic-evidence-pack",
+        "MS-COV-GAP-BIOLOGICAL_LIFE_SCIENCES-ECOLOGY_POPULATION_AND_BIODIVERSITY_OBSERVABLES",
+        "--write"
+      ],
+      "returncode": 0,
+      "stderr_tail": "",
+      "stdout_tail": "{\n  \"changed\": [],\n  \"missing\": [],\n  \"state\": \"PASS\"\n}\n"
+    }
+  ],
   "missing_source_evidence_fields": [
     "component_report_pass",
     "strict_evidence_pack_pass",
@@ -86,7 +126,7 @@
     "material_margin_met",
     "fail_closed_status_clear"
   ],
-  "next_escalation": "Develop the domain scorer/materializer capability and then rerun the component source obligation; keep broad superiority blocked until it passes.",
+  "next_escalation": "If negative, create a source-bound model/comparator improvement work order; if unmaterialized, develop the domain scorer/materializer capability. Keep broad superiority blocked until strict scoring passes.",
   "no_fake_closure_policy": "This report is not evidence; it is an exact implementation contract for missing source-bound scoring.",
   "obligation_id": "R017-COMPONENT-SOURCE-OBLIGATION-115863bb5755508f",
   "official_data_source": {
@@ -103,6 +143,8 @@
   "pass_predicate": "The materialization executor produces source-bound scoring, residual, materiality, uncertainty/falsifier, and replay artifacts; the source obligation and strict evidence pack then PASS.",
   "phenomenon_class_id": "ecology_population_and_biodiversity_observables",
   "repair_strategy": "Implement the domain/phenomenon scorer that reads the governed source snapshot, keeps targets hidden until scoring, computes OC and comparator residuals, and writes PASS or fail-closed scoring/replay artifacts.",
+  "replay_artifact_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/80c7d7ec237d85b3/replay_record.json",
+  "replay_artifact_status": "OPEN",
   "required_capability": "Research/SourceBoundScoringMaterializationExecutor",
   "residual_requirement": {
     "formula": "absolute count residual per grid-cell/year; aggregate mean absolute residual",
@@ -111,9 +153,13 @@
   },
   "root_cause_class": "SOURCE_BOUND_SCORING_MATERIALIZER_NOT_IMPLEMENTED",
   "schema_id": "OC133_MODERN_SCIENCE_COMPARATOR_COMPONENT_MATERIALIZATION_EXECUTION_v1",
+  "scoring_artifact_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/80c7d7ec237d85b3/oc_prediction_scoring_row.json",
+  "scoring_artifact_status": "OPEN",
   "source_obligation_report_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/component_src/src_obligation_dff1c079ef13bd3f.json",
   "source_obligation_status": "SOURCE_BOUND_SCORING_MATERIALIZATION_REMAINS_OPEN",
   "status": "CAPABILITY_DEVELOPMENT_REQUIRED",
+  "strict_evidence_pack_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/80c7d7ec237d85b3/strict_evidence_pack.json",
+  "strict_evidence_pack_status": "FAIL_CLOSED_SOURCE_BOUND_SCORING_NOT_MATERIALIZED",
   "target_variable": {
     "extraction_rule": "occurrence_count[grid_cell, target_year]",
     "name": "heldout_grid_cell_species_occurrence_count",

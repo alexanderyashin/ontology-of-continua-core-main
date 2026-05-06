@@ -1,5 +1,5 @@
 {
-  "artifact_hash": "6f2db659894e97a0fa0e854d025b75a3b737bbe8de26f2773af6c5dd618efb5c",
+  "artifact_hash": "9579df0b53e5c2845355e2c0695e8daa18598c77e27ae3866ed0cb8136657ced",
   "artifact_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/component_mat/mat_5d55cae93354b357.json",
   "available_diagnostic_commands": [
     [
@@ -75,6 +75,46 @@
   },
   "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
   "materialization_id": "R017-COMPONENT-MATERIALIZE-4e325266fc2653c8",
+  "materialized_evidence": {
+    "evidence_ref": "",
+    "materialized": false,
+    "status": "CAPABILITY_DEVELOPMENT_REQUIRED",
+    "why_it_failed": "No source-bound domain evidence pack is bound for this comparator materialization row."
+  },
+  "materializer_command_results": [
+    {
+      "cmd": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "validation/heldout/grand_science/neurobehavioral/coverage_work_orders/oc133_neurobehavioral_modern_science_coverage_work_orders.py",
+        "--write"
+      ],
+      "returncode": 0,
+      "stderr_tail": "",
+      "stdout_tail": "{\n  \"status\": \"ok\",\n  \"output_ref\": \"validation/heldout/grand_science/neurobehavioral/coverage_work_orders/OC133_NEUROBEHAVIORAL_MODERN_SCIENCE_COVERAGE_WORK_ORDERS.json\",\n  \"failures\": []\n}\n"
+    },
+    {
+      "cmd": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "validation/heldout/grand_science/neurobehavioral/coverage_work_orders/oc133_neurobehavioral_modern_science_coverage_work_orders.py",
+        "--check"
+      ],
+      "returncode": 0,
+      "stderr_tail": "",
+      "stdout_tail": "{\n  \"status\": \"ok\",\n  \"checked\": \"validation/heldout/grand_science/neurobehavioral/coverage_work_orders/OC133_NEUROBEHAVIORAL_MODERN_SCIENCE_COVERAGE_WORK_ORDERS.json\"\n}\n"
+    },
+    {
+      "cmd": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "tools/oc133_toe_closure_factory.py",
+        "--execute-comparator-generic-evidence-pack",
+        "MS-COV-GAP-COGNITIVE_BEHAVIORAL_NEUROSCIENCES-NEURAL_RECORDING_AND_BRAIN_NETWORK_OBSERVABLES",
+        "--write"
+      ],
+      "returncode": 0,
+      "stderr_tail": "",
+      "stdout_tail": "{\n  \"changed\": [],\n  \"missing\": [],\n  \"state\": \"PASS\"\n}\n"
+    }
+  ],
   "missing_source_evidence_fields": [
     "component_report_pass",
     "strict_evidence_pack_pass",
@@ -86,7 +126,7 @@
     "material_margin_met",
     "fail_closed_status_clear"
   ],
-  "next_escalation": "Develop the domain scorer/materializer capability and then rerun the component source obligation; keep broad superiority blocked until it passes.",
+  "next_escalation": "If negative, create a source-bound model/comparator improvement work order; if unmaterialized, develop the domain scorer/materializer capability. Keep broad superiority blocked until strict scoring passes.",
   "no_fake_closure_policy": "This report is not evidence; it is an exact implementation contract for missing source-bound scoring.",
   "obligation_id": "R017-COMPONENT-SOURCE-OBLIGATION-f1a1bd5226431c13",
   "official_data_source": {
@@ -103,6 +143,8 @@
   "pass_predicate": "The materialization executor produces source-bound scoring, residual, materiality, uncertainty/falsifier, and replay artifacts; the source obligation and strict evidence pack then PASS.",
   "phenomenon_class_id": "neural_recording_and_brain_network_observables",
   "repair_strategy": "Implement the domain/phenomenon scorer that reads the governed source snapshot, keeps targets hidden until scoring, computes OC and comparator residuals, and writes PASS or fail-closed scoring/replay artifacts.",
+  "replay_artifact_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/3a74fb5d8077bd9e/replay_record.json",
+  "replay_artifact_status": "OPEN",
   "required_capability": "Research/SourceBoundScoringMaterializationExecutor",
   "residual_requirement": {
     "formula": "edge-wise absolute residual and subject-level RMSE over heldout edge vectors",
@@ -111,9 +153,13 @@
   },
   "root_cause_class": "SOURCE_BOUND_SCORING_MATERIALIZER_NOT_IMPLEMENTED",
   "schema_id": "OC133_MODERN_SCIENCE_COMPARATOR_COMPONENT_MATERIALIZATION_EXECUTION_v1",
+  "scoring_artifact_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/3a74fb5d8077bd9e/oc_prediction_scoring_row.json",
+  "scoring_artifact_status": "OPEN",
   "source_obligation_report_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/component_src/src_obligation_4e325266fc2653c8.json",
   "source_obligation_status": "SOURCE_BOUND_SCORING_MATERIALIZATION_REMAINS_OPEN",
   "status": "CAPABILITY_DEVELOPMENT_REQUIRED",
+  "strict_evidence_pack_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/3a74fb5d8077bd9e/strict_evidence_pack.json",
+  "strict_evidence_pack_status": "FAIL_CLOSED_SOURCE_BOUND_SCORING_NOT_MATERIALIZED",
   "target_variable": {
     "extraction_rule": "Resting-state BOLD time series are transformed into a locked atlas connectivity matrix; heldout subject edge values stay hidden until predictions are materialized.",
     "name": "heldout_subject_resting_state_connectivity_edge",

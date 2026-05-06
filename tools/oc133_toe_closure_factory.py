@@ -2826,6 +2826,218 @@ def comparator_current_evidence(root: Path, executable_spec: dict[str, Any]) -> 
     }
 
 
+COMPARATOR_DOMAIN_MATERIALIZED_EVIDENCE_REFS = {
+    (
+        "agricultural_food_sciences",
+        "food_chemistry_safety_and_nutrition",
+    ): "validation/heldout/grand_science/agriculture/coverage_work_orders/OC133_AGRICULTURE_FDC_SODIUM_SCORING_PACK.json",
+    (
+        "earth_space_environmental_sciences",
+        "geochemistry_and_hydrology_observables",
+    ): "validation/heldout/grand_science/earth_space/coverage_work_orders/OC133_EARTH_SPACE_USGS_HYDROLOGY_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
+}
+
+
+def comparator_domain_materialized_evidence_ref(row: dict[str, Any], queue_row: dict[str, Any]) -> str:
+    executable_spec = queue_row.get("executable_work_order", {}) if isinstance(queue_row.get("executable_work_order"), dict) else {}
+    current = executable_spec.get("current_evidence", {}) if isinstance(executable_spec.get("current_evidence"), dict) else {}
+    evidence_ref = current.get("executable_evidence_ref")
+    if isinstance(evidence_ref, str) and evidence_ref:
+        return evidence_ref
+    key = (str(row.get("domain_class_id") or ""), str(row.get("phenomenon_class_id") or ""))
+    return COMPARATOR_DOMAIN_MATERIALIZED_EVIDENCE_REFS.get(key, "")
+
+
+def nested_get(payload: Any, path: list[str]) -> Any:
+    node = payload
+    for key in path:
+        if not isinstance(node, dict):
+            return None
+        node = node.get(key)
+    return node
+
+
+def first_numeric(payload: dict[str, Any], paths: list[list[str]]) -> float | None:
+    for path in paths:
+        value = nested_get(payload, path)
+        if isinstance(value, (int, float)):
+            return float(value)
+    return None
+
+
+def materialized_evidence_residuals(evidence_pack: dict[str, Any]) -> dict[str, Any]:
+    model = first_numeric(
+        evidence_pack,
+        [
+            ["scoring_results", "aggregate", "model_mae_plus_uncertainty_cfs"],
+            ["scoring_results", "aggregate", "model_mae_cfs"],
+            ["residuals", "model", "mean_absolute_error"],
+            ["residuals", "model"],
+            ["aggregate", "model_mae"],
+            ["aggregate", "model_residual"],
+        ],
+    )
+    comparator = first_numeric(
+        evidence_pack,
+        [
+            ["scoring_results", "aggregate", "comparator_mae_cfs"],
+            ["residuals", "comparator", "mean_absolute_error"],
+            ["residuals", "comparator"],
+            ["aggregate", "comparator_mae"],
+            ["aggregate", "comparator_residual"],
+        ],
+    )
+    material = nested_get(evidence_pack, ["scoring_results", "aggregate", "residual_superiority_pass"])
+    if material is None:
+        material = nested_get(evidence_pack, ["residuals", "material_margin_met"])
+    if material is None and model is not None and comparator is not None:
+        material = model < comparator
+    return {
+        "model": model,
+        "comparator": comparator,
+        "material_margin_met": material is True,
+        "material_margin_rule": "source-bound materialized evidence pack must show OC residual strictly below preregistered comparator residual under the declared uncertainty rule",
+    }
+
+
+def materialized_evidence_fail_reason(evidence_pack: dict[str, Any], residuals: dict[str, Any]) -> str:
+    exact = evidence_pack.get("exact_blocker_detail") or evidence_pack.get("exact_blocker")
+    if exact:
+        return str(exact)
+    blockers = evidence_pack.get("exact_blockers") or evidence_pack.get("coverage_closure_failures")
+    if blockers:
+        return "; ".join(str(item) for item in blockers)
+    if residuals.get("model") is None or residuals.get("comparator") is None:
+        return "Source-bound evidence exists, but numeric model/comparator residuals are not available in the expected schema."
+    if residuals.get("material_margin_met") is not True:
+        return "Source-bound scoring is materialized, but OC does not beat the preregistered incumbent comparator under the declared materiality rule."
+    return ""
+
+
+def materialized_evidence_source_bound(evidence_pack: dict[str, Any]) -> bool:
+    source = evidence_pack.get("source", {}) if isinstance(evidence_pack.get("source"), dict) else {}
+    separation = evidence_pack.get("source_separation", {}) if isinstance(evidence_pack.get("source_separation"), dict) else {}
+    pretarget = evidence_pack.get("pretarget_declaration", {}) if isinstance(evidence_pack.get("pretarget_declaration"), dict) else {}
+    return bool(
+        source.get("source_snapshot_hash_bound")
+        or source.get("source_snapshot_sha256")
+        or evidence_pack.get("source_snapshot_sha256")
+        or evidence_pack.get("source_snapshot_ref")
+    ) and (
+        separation.get("target_hidden_until_scoring") is True
+        or pretarget.get("target_hidden_until_scoring") is True
+        or evidence_pack.get("target_hidden") is True
+    )
+
+
+def materialize_strict_comparator_pack_from_domain_evidence(
+    root: Path,
+    row: dict[str, Any],
+    *,
+    command_results: list[dict[str, Any]] | None = None,
+) -> dict[str, Any]:
+    gap_id = str(row.get("gap_id") or "")
+    queue_row = comparator_lane_queue_rows_by_gap(root).get(gap_id, {})
+    evidence_ref = comparator_domain_materialized_evidence_ref(row, queue_row)
+    evidence_path = root / evidence_ref if evidence_ref else None
+    evidence_pack = read_json(evidence_path) if evidence_path else {}
+    generated_at = stable_generated_at(root, comparator_gap_generated_evidence_pack_rel(gap_id))
+    if not evidence_ref or not evidence_pack:
+        return {
+            "status": "CAPABILITY_DEVELOPMENT_REQUIRED",
+            "materialized": False,
+            "evidence_ref": evidence_ref,
+            "why_it_failed": "No source-bound domain evidence pack is bound for this comparator materialization row.",
+        }
+
+    queue_exec = queue_row.get("executable_work_order", {}) if isinstance(queue_row.get("executable_work_order"), dict) else {}
+    source = queue_exec.get("official_data_source", {}) if isinstance(queue_exec.get("official_data_source"), dict) else row.get("official_data_source") or {}
+    target = queue_exec.get("target_variable", {}) if isinstance(queue_exec.get("target_variable"), dict) else row.get("target_variable") or {}
+    comparator = queue_exec.get("incumbent_comparator_requirement", {}) if isinstance(queue_exec.get("incumbent_comparator_requirement"), dict) else row.get("incumbent_comparator") or {}
+    residual_requirement = queue_exec.get("residual_requirement", {}) if isinstance(queue_exec.get("residual_requirement"), dict) else row.get("residual_requirement") or {}
+    uncertainty = queue_exec.get("uncertainty_requirement", {}) if isinstance(queue_exec.get("uncertainty_requirement"), dict) else {}
+    falsifier = queue_exec.get("falsifier_requirement", {}) if isinstance(queue_exec.get("falsifier_requirement"), dict) else {}
+    execution = queue_exec.get("execution_requirements", {}) if isinstance(queue_exec.get("execution_requirements"), dict) else {}
+    residuals = materialized_evidence_residuals(evidence_pack)
+    source_bound = materialized_evidence_source_bound(evidence_pack)
+    score_materialized = residuals.get("model") is not None and residuals.get("comparator") is not None
+    pass_ready = source_bound and score_materialized and residuals.get("material_margin_met") is True
+    fail_reason = "" if pass_ready else materialized_evidence_fail_reason(evidence_pack, residuals)
+    pack_status = "PASS" if pass_ready else (
+        "FAIL_CLOSED_SOURCE_BOUND_SCORING_MATERIALIZED_NEGATIVE_RESULT"
+        if source_bound and score_materialized
+        else "FAIL_CLOSED_SOURCE_BOUND_SCORING_NOT_MATERIALIZED"
+    )
+    payload = {
+        "schema_id": "OC133_MODERN_SCIENCE_COMPARATOR_STRICT_EVIDENCE_PACK_v1",
+        "generated_at": generated_at,
+        "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+        "gap_id": gap_id,
+        "domain_class_id": row.get("domain_class_id") or queue_row.get("domain_class_id"),
+        "phenomenon_class_id": row.get("phenomenon_class_id") or queue_row.get("phenomenon_class_id"),
+        "status": pack_status,
+        "pack_status": pack_status,
+        "executable_evidence_exists": True,
+        "coverage_closure_allowed": pack_status == "PASS",
+        "broad_modern_science_superiority_allowed": False,
+        "source_bound": source_bound,
+        "target_hidden": source_bound,
+        "comparator_bound": bool(comparator.get("baseline_name") or comparator.get("comparator_id")),
+        "prerequisite_artifacts_bound": True,
+        "score_materialized": score_materialized,
+        "fail_closed_reason": fail_reason,
+        "source": source,
+        "target_variable": target,
+        "incumbent_comparator": comparator,
+        "residual_requirement": residual_requirement,
+        "uncertainty_requirement": uncertainty,
+        "falsifier_requirement": falsifier,
+        "execution_requirements": execution,
+        "current_evidence": {
+            "domain_evidence_ref": evidence_ref,
+            "domain_evidence_sha256": sha256_file(evidence_path) if evidence_path and evidence_path.exists() else "",
+            "domain_evidence_schema_id": evidence_pack.get("schema_id"),
+            "domain_pack_status": evidence_pack.get("pack_status") or evidence_pack.get("status"),
+            "scientific_pass": evidence_pack.get("scientific_pass"),
+            "coverage_closure_allowed": evidence_pack.get("coverage_closure_allowed"),
+        },
+        "residuals": residuals,
+        "replay": {
+            "status": "READY_FOR_REPLAY" if pack_status == "PASS" else "BLOCKED_BY_NEGATIVE_OR_INCOMPLETE_SCORING",
+            "replay_command": execution.get("replay_command"),
+            "replay_commands": execution.get("replay_commands") or ([execution.get("replay_command")] if execution.get("replay_command") else []),
+        },
+        "command_results": command_results or [],
+        "source_refs": [
+            "reports/OC_CORE_1_3_3_MODERN_SCIENCE_COVERAGE_LANE_QUEUE.json",
+            "benchmarks/modern_science/OC133_MODERN_SCIENCE_COVERAGE_WORK_ORDERS.json",
+            "comparators/modern_science/OC133_MODERN_SCIENCE_COVERAGE_REGISTER.json",
+            evidence_ref,
+        ],
+        "why_it_failed": fail_reason or "Existing executable evidence pack passes strict material superiority predicates.",
+        "repair_strategy": "If negative, improve the source-bound model/comparator route from canonical evidence rather than weakening the materiality rule.",
+        "required_capability": "Research/SourceBoundScoringMaterializationExecutor",
+        "execution_command": [sys.executable, "tools/oc133_toe_closure_factory.py", "--execute-comparator-component-materialization", row.get("materialization_id"), "--write"],
+        "pass_predicate": "pack_status == PASS, material_margin_met == true, no fail-closed status, replay_record PASS.",
+        "validator_binding": f"comparator_gap::{gap_id}::materialized_strict_evidence_pack",
+        "no_fake_closure_policy": "Negative source-bound scoring remains a scientific blocker; it cannot be counted as broad superiority.",
+    }
+    payload["artifact_ref"] = rel(root, root / comparator_gap_generated_evidence_pack_rel(gap_id))
+    payload["artifact_hash"] = artifact_hash(payload)
+    write_json_artifact(root, comparator_gap_generated_evidence_pack_rel(gap_id), payload)
+    return {
+        "status": pack_status,
+        "materialized": score_materialized,
+        "source_bound": source_bound,
+        "material_margin_met": residuals.get("material_margin_met") is True,
+        "evidence_ref": evidence_ref,
+        "strict_evidence_pack_ref": payload["artifact_ref"],
+        "strict_evidence_pack_hash": payload["artifact_hash"],
+        "residuals": residuals,
+        "fail_closed_reason": fail_reason,
+    }
+
+
 def build_comparator_generic_evidence_pack(root: Path, gap_id: str) -> dict[str, Any]:
     gap_payload = comparator_gap_execution_payload(root, gap_id)
     queue_row = comparator_lane_queue_rows_by_gap(root).get(gap_id, {})
@@ -2838,6 +3050,14 @@ def build_comparator_generic_evidence_pack(root: Path, gap_id: str) -> dict[str,
     falsifier = executable_spec.get("falsifier_requirement", {}) if isinstance(executable_spec.get("falsifier_requirement"), dict) else {}
     execution = executable_spec.get("execution_requirements", {}) if isinstance(executable_spec.get("execution_requirements"), dict) else {}
     current = comparator_current_evidence(root, executable_spec)
+    generated_current = comparator_generated_evidence(root, gap_id)
+    if (
+        generated_current.get("executable_evidence_exists") is True
+        and generated_current.get("evidence_ref_exists") is True
+        and generated_current.get("material_margin_met") is True
+        and generated_current.get("fail_closed_status_present") is False
+    ):
+        current = generated_current
     existing_pack_pass = (
         current.get("executable_evidence_exists") is True
         and current.get("evidence_ref_exists") is True
@@ -5958,18 +6178,60 @@ def build_comparator_component_materialization_execution(
         gap_id,
         str(row.get("component_work_order_id") or ""),
     )
-    # This execution is intentionally fail-closed: it records the exact missing
-    # scorer/materializer implementation contract instead of rerunning a
-    # diagnostic packet that already produced zero scientific delta.
-    downstream_pass = obligation_report.get("status") == "PASS"
+    command_results: list[dict[str, Any]] = []
+    for command in comparator_domain_model_component_commands(
+        str(row.get("domain_class_id") or ""),
+        str(row.get("phenomenon_class_id") or ""),
+        str(row.get("component_id") or ""),
+        gap_id,
+    ):
+        command_results.append(safe_run_command(root, command, 900))
+    materialized = materialize_strict_comparator_pack_from_domain_evidence(
+        root,
+        row,
+        command_results=command_results,
+    )
+    if gap_id:
+        scoring_artifact = build_comparator_gap_research_artifact(root, gap_id, "oc_prediction_scoring_row")
+        replay_artifact = build_comparator_gap_research_artifact(root, gap_id, "replay_record")
+        evidence_pack = read_json(root / comparator_gap_generated_evidence_pack_rel(gap_id))
+    else:
+        scoring_artifact = {}
+        replay_artifact = {}
+        evidence_pack = {}
+    downstream_pass = (
+        obligation_report.get("status") == "PASS"
+        or (
+            materialized.get("status") == "PASS"
+            and scoring_artifact.get("status") == "PASS"
+            and replay_artifact.get("status") == "PASS"
+        )
+    )
+    scientific_negative = (
+        materialized.get("materialized") is True
+        and materialized.get("source_bound") is True
+        and materialized.get("material_margin_met") is not True
+    )
+    if downstream_pass:
+        status = "PASS"
+        root_cause = "SOURCE_BOUND_SCORING_MATERIALIZATION_CLOSED"
+        why = "Source-bound scoring materialization closed downstream."
+    elif scientific_negative:
+        status = "SCIENTIFIC_RESULT_FAIL_CLOSED"
+        root_cause = "SOURCE_BOUND_SCORING_MATERIALIZED_NEGATIVE_RESULT"
+        why = "Source-bound target-hidden scoring is materialized, but OC does not beat the preregistered incumbent comparator under the declared materiality rule."
+    else:
+        status = "CAPABILITY_DEVELOPMENT_REQUIRED"
+        root_cause = "SOURCE_BOUND_SCORING_MATERIALIZER_NOT_IMPLEMENTED"
+        why = "Source-bound scoring materializer is not implemented for this exact domain/component; existing commands only regenerate fail-closed diagnostics."
     payload = normalize_problem_row(
         {
             "schema_id": "OC133_MODERN_SCIENCE_COMPARATOR_COMPONENT_MATERIALIZATION_EXECUTION_v1",
             "generated_at": generated_at,
             "materialization_id": materialization_id,
             "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
-            "status": "PASS" if downstream_pass else "CAPABILITY_DEVELOPMENT_REQUIRED",
-            "root_cause_class": "SOURCE_BOUND_SCORING_MATERIALIZATION_CLOSED" if downstream_pass else "SOURCE_BOUND_SCORING_MATERIALIZER_NOT_IMPLEMENTED",
+            "status": status,
+            "root_cause_class": root_cause,
             "obligation_id": obligation_id,
             "gap_id": gap_id,
             "domain_class_id": row.get("domain_class_id"),
@@ -5983,6 +6245,14 @@ def build_comparator_component_materialization_execution(
             "incumbent_comparator": row.get("incumbent_comparator"),
             "residual_requirement": row.get("residual_requirement"),
             "available_diagnostic_commands": exact_commands,
+            "materializer_command_results": command_results,
+            "materialized_evidence": materialized,
+            "strict_evidence_pack_ref": materialized.get("strict_evidence_pack_ref") or row.get("evidence_pack_ref"),
+            "strict_evidence_pack_status": evidence_pack.get("pack_status") or evidence_pack.get("status"),
+            "scoring_artifact_ref": scoring_artifact.get("artifact_ref") or row.get("scoring_artifact_ref"),
+            "scoring_artifact_status": scoring_artifact.get("status"),
+            "replay_artifact_ref": replay_artifact.get("artifact_ref") or row.get("replay_artifact_ref"),
+            "replay_artifact_status": replay_artifact.get("status"),
             "implementation_contract": {
                 "must_create": row.get("required_materialization_outputs"),
                 "must_not_do": [
@@ -5992,13 +6262,13 @@ def build_comparator_component_materialization_execution(
                     "weaken comparator or materiality predicate",
                 ],
             },
-            "why_it_failed": "Source-bound scoring materializer is not implemented for this exact domain/component; existing commands only regenerate fail-closed diagnostics." if not downstream_pass else "Source-bound scoring materialization closed downstream.",
+            "why_it_failed": why,
             "repair_strategy": row.get("repair_strategy"),
             "required_capability": row.get("required_capability"),
             "execution_command": [sys.executable, "tools/oc133_toe_closure_factory.py", "--execute-comparator-component-materialization", materialization_id, "--write"],
             "pass_predicate": row.get("pass_predicate"),
             "validator_binding": row.get("validator_binding"),
-            "next_escalation": "Develop the domain scorer/materializer capability and then rerun the component source obligation; keep broad superiority blocked until it passes.",
+            "next_escalation": "If negative, create a source-bound model/comparator improvement work order; if unmaterialized, develop the domain scorer/materializer capability. Keep broad superiority blocked until strict scoring passes.",
             "no_fake_closure_policy": "This report is not evidence; it is an exact implementation contract for missing source-bound scoring.",
         },
         {},
@@ -6026,8 +6296,12 @@ def build_comparator_component_materialization_registry(root: Path) -> dict[str,
                 "domain_class_id": row.get("domain_class_id"),
                 "phenomenon_class_id": row.get("phenomenon_class_id"),
                 "component_id": row.get("component_id"),
-                "status": report_status if report_status in {"PASS", "CAPABILITY_DEVELOPMENT_REQUIRED", "FAIL_CLOSED"} else row.get("status"),
+                "status": report_status if report_status in {"PASS", "CAPABILITY_DEVELOPMENT_REQUIRED", "SCIENTIFIC_RESULT_FAIL_CLOSED", "FAIL_CLOSED"} else row.get("status"),
                 "missing_source_evidence_fields": report.get("missing_source_evidence_fields") or row.get("missing_source_evidence_fields"),
+                "root_cause_class": report.get("root_cause_class"),
+                "strict_evidence_pack_status": report.get("strict_evidence_pack_status"),
+                "scoring_artifact_status": report.get("scoring_artifact_status"),
+                "replay_artifact_status": report.get("replay_artifact_status"),
                 "report_ref": report.get("artifact_ref"),
                 "validator_binding": row.get("validator_binding"),
             }
@@ -8214,6 +8488,12 @@ def capability_executor_for_row(row: dict[str, Any], compiled_capability_id: str
                     if obligation_report.get("status") == "SOURCE_BOUND_SCORING_MATERIALIZATION_REMAINS_OPEN":
                         materialization_id = comparator_component_materialization_id(obligation_id)
                         materialization_report = comparator_component_materialization_report(ROOT, materialization_id)
+                        if materialization_report.get("status") == "SCIENTIFIC_RESULT_FAIL_CLOSED":
+                            return (
+                                [],
+                                "comparator_source_bound_negative_result",
+                                "Source-bound scoring exists and remains negative against the preregistered comparator; create a research improvement obligation instead of rerunning diagnostics.",
+                            )
                         if materialization_report.get("status") == "CAPABILITY_DEVELOPMENT_REQUIRED":
                             return (
                                 [],
@@ -8282,6 +8562,12 @@ def capability_executor_for_row(row: dict[str, Any], compiled_capability_id: str
                 if obligation_report.get("status") == "SOURCE_BOUND_SCORING_MATERIALIZATION_REMAINS_OPEN":
                     materialization_id = comparator_component_materialization_id(obligation_id)
                     materialization_report = comparator_component_materialization_report(ROOT, materialization_id)
+                    if materialization_report.get("status") == "SCIENTIFIC_RESULT_FAIL_CLOSED":
+                        return (
+                            [],
+                            "comparator_source_bound_negative_result",
+                            "Source-bound scoring exists and remains negative against the preregistered comparator; create a research improvement obligation instead of rerunning diagnostics.",
+                        )
                     if materialization_report.get("status") == "CAPABILITY_DEVELOPMENT_REQUIRED":
                         return (
                             [],

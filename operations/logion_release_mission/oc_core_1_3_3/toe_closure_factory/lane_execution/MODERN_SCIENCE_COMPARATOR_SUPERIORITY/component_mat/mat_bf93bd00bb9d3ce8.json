@@ -1,5 +1,5 @@
 {
-  "artifact_hash": "873b9fe72cdcdc08ce28329b9eca97655118314a2eac8305086f8f318bb6ee96",
+  "artifact_hash": "6208b319e12b7666b995f5f03b4b09290ffcd427b37fc378f028a6e393b810f0",
   "artifact_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/component_mat/mat_bf93bd00bb9d3ce8.json",
   "available_diagnostic_commands": [
     [
@@ -75,6 +75,47 @@
   },
   "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
   "materialization_id": "R017-COMPONENT-MATERIALIZE-49dd9e8e82e5e705",
+  "materialized_evidence": {
+    "evidence_ref": "",
+    "materialized": false,
+    "status": "CAPABILITY_DEVELOPMENT_REQUIRED",
+    "why_it_failed": "No source-bound domain evidence pack is bound for this comparator materialization row."
+  },
+  "materializer_command_results": [
+    {
+      "cmd": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "tools/oc133_chemistry_pubchem_formula_batch_factory.py",
+        "--write",
+        "--allow-blocked-exit-zero"
+      ],
+      "returncode": 0,
+      "stderr_tail": "",
+      "stdout_tail": " true\n    },\n    {\n      \"test_id\": \"negative_controls_rejected\",\n      \"description\": \"every row-level nontrivial atom-count control and zero-Da sanity control must be worse than the formula residual by the material margin\",\n      \"sample_total\": 20,\n      \"passed\": true\n    },\n    {\n      \"test_id\": \"fixed_atomic_table_bound\",\n      \"description\": \"every row binds the fixed local atomic-weight table identifier and evaluation trace\",\n      \"sample_total\": 20,\n      \"passed\": true\n    },\n    {\n      \"test_id\": \"target_projection_lock_refs_present\",\n      \"description\": \"every scored row must carry a machine-derived target projection lock and lock_ref before support can pass\",\n      \"sample_total\": 20,\n      \"passed\": true\n    },\n    {\n      \"test_id\": \"comparator_preregistration_locked\",\n      \"description\": \"the nontrivial formula atom-count comparator must be preregistered by a lock or deterministic legacy seed contract\",\n      \"sample_total\": 20,\n      \"passed\": true\n    },\n    {\n      \"test_id\": \"target_leakage_absent_from_comparator\",\n      \"description\": \"comparator metadata must not declare target-value use or MolecularWeight as a comparator input\",\n      \"sample_total\": 20,\n      \"passed\": true\n    }\n  ],\n  \"local_blockers\": [\n    \"CURRENT_PUBCHEM_FORMULA_MASS_REPLAY_IS_BOUNDED_BASELINE_NOT_GRAND_CHEMISTRY_SUPPORT\",\n    \"STRONGER_CHEMISTRY_TARGET_WORK_ORDER_REQUIRED\"\n  ],\n  \"candidate_gate_failures\": [],\n  \"final_pack_failure_reasons\": [\n    \"GRAND_TOE_SUPPORT_NOT_ALLOWED\"\n  ],\n  \"eligibility_reasons\": [\n    \"CURRENT_PUBCHEM_FORMULA_MASS_REPLAY_IS_BOUNDED_BASELINE_NOT_GRAND_CHEMISTRY_SUPPORT\",\n    \"STRONGER_CHEMISTRY_TARGET_WORK_ORDER_REQUIRED\",\n    \"GRAND_TOE_SUPPORT_NOT_ALLOWED\"\n  ],\n  \"blockers\": [\n    \"CURRENT_PUBCHEM_FORMULA_MASS_REPLAY_IS_BOUNDED_BASELINE_NOT_GRAND_CHEMISTRY_SUPPORT\",\n    \"STRONGER_CHEMISTRY_TARGET_WORK_ORDER_REQUIRED\",\n    \"GRAND_TOE_SUPPORT_NOT_ALLOWED\"\n  ],\n  \"open_blocker_total\": 3,\n  \"blocked_total\": 3,\n  \"candidate_pack_total\": 1,\n  \"valid_pack_total\": 0,\n  \"blocked_candidate_pack_total\": 1,\n  \"grand_toe_support_allowed\": false,\n  \"verdict\": \"BLOCKED_ACQUISITION_READY_PUBCHEM_FORMULA_BATCH\",\n  \"support_scope\": \"strict PubChem formula-to-molecular-weight reconstruction; not a chemistry database superiority claim\",\n  \"no_fabricated_pass_policy\": \"Grand support is emitted only for an N>=20 PubChem PUG REST formula batch with explicit source separation, pre-target lock, hidden target manifest, official PubChem provenance, a preregistered nontrivial formula-visible atom-count comparator, residual superiority by material margin, rejected nontrivial and sanity negative controls, falsifiers, and a clean grand empirical gate. Local formula/weight snapshots are scored as official-data reconstruction rows but remain blocked until every strict criterion passes.\",\n  \"no_send\": true,\n  \"publish_allowed\": false,\n  \"journal_submissions_allowed\": false,\n  \"registry_write_allowed\": false,\n  \"release_promotion_allowed\": false\n}\n"
+    },
+    {
+      "cmd": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "tools/oc133_chemistry_pubchem_formula_batch_factory.py",
+        "--check"
+      ],
+      "returncode": 0,
+      "stderr_tail": "",
+      "stdout_tail": "{\n  \"status\": \"ok\",\n  \"checked\": [\n    \"validation/heldout/grand_science/chemistry/pubchem_formula_batch/OC133_CHEMISTRY_PUBCHEM_FORMULA_BATCH_TASKS.json\",\n    \"validation/heldout/grand_science/chemistry/pubchem_formula_batch/OC133_CHEMISTRY_PUBCHEM_FORMULA_BATCH_PROTOCOL.json\",\n    \"validation/heldout/grand_science/chemistry/pubchem_formula_batch/OC133_CHEMISTRY_PUBCHEM_FORMULA_BATCH_CANDIDATE_PACK.json\",\n    \"validation/heldout/grand_science/chemistry/pubchem_formula_batch/OC133_CHEMISTRY_PUBCHEM_FORMULA_BATCH_REPORT.json\",\n    \"validation/heldout/grand_science/chemistry/pubchem_formula_batch/OC133_CHEMISTRY_PUBCHEM_FORMULA_BATCH_ACQUISITION_PACKET.json\",\n    \"validation/heldout/grand_science/chemistry/pubchem_formula_batch/OC133_CHEMISTRY_PUBCHEM_FORMULA_BATCH_STRONGER_TARGET_WORK_ORDER.json\",\n    \"validation/heldout/grand_science/chemistry/pubchem_formula_batch/OC133_CHEMISTRY_PUBCHEM_FORMULA_BATCH_HASHES.json\",\n    \"validation/heldout/grand_science/chemistry/pubchem_formula_batch/README.md\",\n    \"validation/heldout/grand_science/chemistry/pubchem_formula_batch/legacy_seed_locks/OC133-CHEM-PUBCHEM-FORMULA-LEGACY-SEED-AC4099F04EBC135C.declaration.json\",\n    \"validation/heldout/grand_science/chemistry/pubchem_formula_batch/legacy_seed_locks/OC133-CHEM-PUBCHEM-FORMULA-LEGACY-SEED-AC4099F04EBC135C.lock.json\",\n    \"validation/heldout/grand_science/chemistry/pubchem_formula_batch/legacy_seed_locks/OC133-CHEM-PUBCHEM-FORMULA-LEGACY-SEED-AC4099F04EBC135C.prediction_materialization_lock.json\",\n    \"validation/heldout/grand_science/chemistry/pubchem_formula_batch/legacy_seed_locks/OC133-CHEM-PUBCHEM-FORMULA-LEGACY-SEED-AC4099F04EBC135C.target_projection_lock.json\",\n    \"validation/heldout/grand_science/chemistry/pubchem_formula_batch/legacy_seed_locks/OC133-CHEM-PUBCHEM-FORMULA-LEGACY-SEED-AC4099F04EBC135C.visible_projection_lock.json\"\n  ]\n}\n"
+    },
+    {
+      "cmd": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "tools/oc133_toe_closure_factory.py",
+        "--execute-comparator-generic-evidence-pack",
+        "MS-COV-GAP-CHEMICAL_SCIENCES-THERMOCHEMISTRY_AND_PHASE_BEHAVIOR",
+        "--write"
+      ],
+      "returncode": 0,
+      "stderr_tail": "",
+      "stdout_tail": "{\n  \"changed\": [],\n  \"missing\": [],\n  \"state\": \"PASS\"\n}\n"
+    }
+  ],
   "missing_source_evidence_fields": [
     "component_report_pass",
     "strict_evidence_pack_pass",
@@ -86,7 +127,7 @@
     "material_margin_met",
     "fail_closed_status_clear"
   ],
-  "next_escalation": "Develop the domain scorer/materializer capability and then rerun the component source obligation; keep broad superiority blocked until it passes.",
+  "next_escalation": "If negative, create a source-bound model/comparator improvement work order; if unmaterialized, develop the domain scorer/materializer capability. Keep broad superiority blocked until strict scoring passes.",
   "no_fake_closure_policy": "This report is not evidence; it is an exact implementation contract for missing source-bound scoring.",
   "obligation_id": "R017-COMPONENT-SOURCE-OBLIGATION-01f72e86440d548b",
   "official_data_source": {
@@ -103,6 +144,8 @@
   "pass_predicate": "The materialization executor produces source-bound scoring, residual, materiality, uncertainty/falsifier, and replay artifacts; the source obligation and strict evidence pack then PASS.",
   "phenomenon_class_id": "thermochemistry_and_phase_behavior",
   "repair_strategy": "Implement the domain/phenomenon scorer that reads the governed source snapshot, keeps targets hidden until scoring, computes OC and comparator residuals, and writes PASS or fail-closed scoring/replay artifacts.",
+  "replay_artifact_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/dd1092e4b6a884f7/replay_record.json",
+  "replay_artifact_status": "OPEN",
   "required_capability": "Research/SourceBoundScoringMaterializationExecutor",
   "residual_requirement": {
     "formula": "abs(predicted_value - observed_value) / declared_uncertainty_or_precision_floor",
@@ -111,9 +154,13 @@
   },
   "root_cause_class": "SOURCE_BOUND_SCORING_MATERIALIZER_NOT_IMPLEMENTED",
   "schema_id": "OC133_MODERN_SCIENCE_COMPARATOR_COMPONENT_MATERIALIZATION_EXECUTION_v1",
+  "scoring_artifact_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/dd1092e4b6a884f7/oc_prediction_scoring_row.json",
+  "scoring_artifact_status": "OPEN",
   "source_obligation_report_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/component_src/src_obligation_49dd9e8e82e5e705.json",
   "source_obligation_status": "SOURCE_BOUND_SCORING_MATERIALIZATION_REMAINS_OPEN",
   "status": "CAPABILITY_DEVELOPMENT_REQUIRED",
+  "strict_evidence_pack_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/dd1092e4b6a884f7/strict_evidence_pack.json",
+  "strict_evidence_pack_status": "FAIL_CLOSED_SOURCE_BOUND_SCORING_NOT_MATERIALIZED",
   "target_variable": {
     "extraction_rule": "Hide tabulated thermochemistry values until Shomate-equation predictions are materialized from visible coefficients and temperature grid.",
     "name": "Shomate_thermochemistry_table_values",
