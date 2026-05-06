@@ -1,0 +1,113 @@
+{
+  "after_validator_error_total": 13,
+  "artifact_hash": "083946162e319a6c1c22293eecbef5b9bc3da385eb960f231faef23355533c45",
+  "artifact_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/upstream_capability_execution/R017-UPSTREAM-f056f77f3054f806.json",
+  "before_validator_error_total": 13,
+  "changed_artifact_refs": [],
+  "command_results": [
+    {
+      "cmd": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "validation/heldout/grand_science/medical/coverage_work_orders/oc133_medical_modern_science_coverage_work_orders.py",
+        "--write"
+      ],
+      "returncode": 0,
+      "stderr_tail": "",
+      "stdout_tail": "{\n  \"status\": \"ok\",\n  \"output_ref\": \"validation/heldout/grand_science/medical/coverage_work_orders/OC133_MEDICAL_MODERN_SCIENCE_COVERAGE_WORK_ORDERS.json\",\n  \"failures\": []\n}\n"
+    },
+    {
+      "cmd": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "validation/heldout/grand_science/medical/coverage_work_orders/oc133_medical_modern_science_coverage_work_orders.py",
+        "--check"
+      ],
+      "returncode": 0,
+      "stderr_tail": "",
+      "stdout_tail": "{\n  \"status\": \"ok\",\n  \"checked\": \"validation/heldout/grand_science/medical/coverage_work_orders/OC133_MEDICAL_MODERN_SCIENCE_COVERAGE_WORK_ORDERS.json\",\n  \"coverage_closure_allowed\": false\n}\n"
+    },
+    {
+      "cmd": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "tools/oc133_toe_closure_factory.py",
+        "--execute-comparator-generic-evidence-pack",
+        "MS-COV-GAP-MEDICAL_HEALTH_SCIENCES-EPIDEMIOLOGICAL_TRANSMISSION_AND_RISK",
+        "--write"
+      ],
+      "returncode": 0,
+      "stderr_tail": "",
+      "stdout_tail": "{\n  \"changed\": [],\n  \"missing\": [],\n  \"state\": \"PASS\"\n}\n"
+    }
+  ],
+  "domain_class_id": "medical_health_sciences",
+  "execution_command": [
+    "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+    "tools/oc133_toe_closure_factory.py",
+    "--execute-upstream-capability-work-order",
+    "R017-UPSTREAM-f056f77f3054f806",
+    "--write"
+  ],
+  "gap_id": "MS-COV-GAP-MEDICAL_HEALTH_SCIENCES-EPIDEMIOLOGICAL_TRANSMISSION_AND_RISK",
+  "generated_at": "2026-05-06T14:23:30Z",
+  "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+  "next_escalation": "If this compiled capability produces zero validator delta, generate a lower-level upstream research obligation for the exact missing source/evidence object.",
+  "no_fake_closure_policy": "This execution cannot close r017 unless strict final TOE validator PASS is reached.",
+  "pass_predicate": "The repaired OC scoring research artifact status becomes PASS and the comparator gap no longer lists oc_prediction_scoring_row as missing.",
+  "phenomenon_class_id": "epidemiological_transmission_and_risk",
+  "registry_row": {
+    "capability_class": "comparator_component_materialization_capability_gap",
+    "capability_development_id": "R017-UPSTREAM-f056f77f3054f806",
+    "capability_development_key": "836b6578483589515a5b77fca49eb591db1c95e1b8ec6073547b5d553b2c2f21",
+    "domain_class_id": "medical_health_sciences",
+    "execution_command": [
+      "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+      "tools/oc133_toe_closure_factory.py",
+      "--execute-upstream-capability-work-order",
+      "R017-UPSTREAM-f056f77f3054f806",
+      "--write"
+    ],
+    "gap_id": "MS-COV-GAP-MEDICAL_HEALTH_SCIENCES-EPIDEMIOLOGICAL_TRANSMISSION_AND_RISK",
+    "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+    "missing_artifact_type": "upstream_work_order::SOURCE_BOUND_SCORER_MATERIALIZER_IMPLEMENTATION",
+    "next_escalation": "If this compiled capability produces zero validator delta, generate a lower-level upstream research obligation for the exact missing source/evidence object.",
+    "no_fake_closure_policy": "This upstream work order is not evidence and cannot satisfy r017 without strict validator PASS.",
+    "pass_predicate": "The repaired OC scoring research artifact status becomes PASS and the comparator gap no longer lists oc_prediction_scoring_row as missing.",
+    "phenomenon_class_id": "epidemiological_transmission_and_risk",
+    "repair_strategy": "Implement the exact domain scorer/materializer that can produce target-hidden OC residuals, incumbent comparator residuals, uncertainty/falsifier rows, and replay.",
+    "required_capability": "Research/ScoringExecutor",
+    "source_capability_id": "R017-CAPDEV-0d2425d3fae5",
+    "source_capability_report_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/capability_implementation/R017-CAPDEV-0d2425d3fae5.json",
+    "source_graph_node_id": "upstream_work_order:R017-UPSTREAM-f056f77f3054f806:SOURCE_BOUND_SCORER_MATERIALIZER_IMPLEMENTATION:MS-COV-GAP-MEDICAL_HEALTH_SCIENCES-EPIDEMIOLOGICAL_TRANSMISSION_AND_RISK:oc_prediction_scoring_row",
+    "source_upstream_work_order": {
+      "capability_class": "comparator_component_materialization_capability_gap",
+      "execution_command": [],
+      "gap_id": "MS-COV-GAP-MEDICAL_HEALTH_SCIENCES-EPIDEMIOLOGICAL_TRANSMISSION_AND_RISK",
+      "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+      "missing_artifact_type": "oc_prediction_scoring_row",
+      "next_escalation": "If this compiled capability produces zero validator delta, generate a lower-level upstream research obligation for the exact missing source/evidence object.",
+      "no_fake_closure_policy": "This upstream work order is not evidence and cannot satisfy r017 without strict validator PASS.",
+      "pass_predicate": "The repaired OC scoring research artifact status becomes PASS and the comparator gap no longer lists oc_prediction_scoring_row as missing.",
+      "repair_strategy": "Implement the exact domain scorer/materializer that can produce target-hidden OC residuals, incumbent comparator residuals, uncertainty/falsifier rows, and replay.",
+      "required_capability": "Research/ScoringExecutor",
+      "schema_id": "OC133_TOE_CAPABILITY_UPSTREAM_WORK_ORDER_v1",
+      "source_graph_node_id": "required_artifact:MODERN_SCIENCE_COMPARATOR_SUPERIORITY:MS-COV-GAP-MEDICAL_HEALTH_SCIENCES-EPIDEMIOLOGICAL_TRANSMISSION_AND_RISK:oc_prediction_scoring_row",
+      "validator_binding": "support_artifact::MODERN_SCIENCE_COMPARATOR_SUPERIORITY::oc_prediction_scoring_row",
+      "why_it_failed": "The evidence pack is explicitly fail-closed; broad superiority cannot use it.",
+      "work_order_type": "SOURCE_BOUND_SCORER_MATERIALIZER_IMPLEMENTATION"
+    },
+    "status": "OPEN",
+    "upstream_work_order_id": "R017-UPSTREAM-f056f77f3054f806",
+    "validator_binding": "support_artifact::MODERN_SCIENCE_COMPARATOR_SUPERIORITY::oc_prediction_scoring_row",
+    "why_it_failed": "The evidence pack is explicitly fail-closed; broad superiority cannot use it.",
+    "work_order_type": "SOURCE_BOUND_SCORER_MATERIALIZER_IMPLEMENTATION"
+  },
+  "repair_strategy": "Add or repair the exact domain scorer/materializer named by the materialization result.",
+  "required_capability": "Research/ScoringExecutor",
+  "root_cause_class": "SOURCE_BOUND_SCORING_NOT_MATERIALIZED",
+  "schema_id": "OC133_TOE_UPSTREAM_CAPABILITY_WORK_ORDER_EXECUTION_v1",
+  "status": "CAPABILITY_DEVELOPMENT_REQUIRED",
+  "upstream_work_order_id": "R017-UPSTREAM-f056f77f3054f806",
+  "validator_binding": "support_artifact::MODERN_SCIENCE_COMPARATOR_SUPERIORITY::oc_prediction_scoring_row",
+  "validator_error_delta": 0,
+  "why_it_failed": "No source-bound domain evidence pack is bound for this comparator materialization row.",
+  "work_order_type": "SOURCE_BOUND_SCORER_MATERIALIZER_IMPLEMENTATION"
+}

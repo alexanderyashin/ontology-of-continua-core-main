@@ -1,5 +1,5 @@
 {
-  "artifact_hash": "5d8ff1cdbad8b2c9948c8dd69516d2dc59909910b9e5d2ca63b14f91147fa3bb",
+  "artifact_hash": "cfd2e50563984d1bc8577b109975f5a150e007380b13b9cc6aa6fe112811d01c",
   "artifact_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/RESEARCH_ARTIFACT_REPAIR_BACKLOG.json",
   "execution_command": [
     "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
@@ -11,10 +11,10 @@
   "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
   "next_escalation": "Implement the first missing scorer/replay capability where concrete_governed_commands is empty.",
   "no_fake_closure_policy": "Repair backlog status cannot promote modern_science_comparator_superiority; only source-bound PASS artifacts can.",
-  "open_repair_work_order_total": 64,
+  "open_repair_work_order_total": 63,
   "pass_predicate": "All comparator research artifacts pass; no repair rows remain.",
   "repair_strategy": "Execute exact domain scorer/replay repair rows, preserving fail-closed evidence when OC does not beat the comparator.",
-  "repair_work_order_total": 64,
+  "repair_work_order_total": 63,
   "required_capability": "Research/ScoringExecutor",
   "rows": [
     {
@@ -832,57 +832,6 @@
       "why_it_failed": "Replay is correctly blocked because the upstream scoring evidence is not passing."
     },
     {
-      "artifact_key": "oc_prediction_scoring_row",
-      "concrete_command_available": true,
-      "concrete_governed_commands": [
-        [
-          "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
-          "validation/heldout/grand_science/earth_space/coverage_work_orders/oc133_earth_space_modern_science_coverage_work_orders.py",
-          "--score-nasa-power",
-          "--write"
-        ],
-        [
-          "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
-          "validation/heldout/grand_science/earth_space/coverage_work_orders/oc133_earth_space_modern_science_coverage_work_orders.py",
-          "--check"
-        ],
-        [
-          "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
-          "tools/oc133_toe_closure_factory.py",
-          "--execute-comparator-generic-evidence-pack",
-          "MS-COV-GAP-EARTH_SPACE_ENVIRONMENTAL_SCIENCES-REMOTE_SENSING_AND_PLANETARY_MEASUREMENTS",
-          "--write"
-        ]
-      ],
-      "domain_class_id": "earth_space_environmental_sciences",
-      "execution_command": [
-        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
-        "tools/oc133_toe_closure_factory.py",
-        "--execute-comparator-research-artifact-repair",
-        "R017-RESEARCH-ARTIFACT-REPAIR-b648d1991a4fd7c2",
-        "--write"
-      ],
-      "gap_id": "MS-COV-GAP-EARTH_SPACE_ENVIRONMENTAL_SCIENCES-REMOTE_SENSING_AND_PLANETARY_MEASUREMENTS",
-      "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
-      "missing_artifact_type": "oc_prediction_scoring_row",
-      "next_escalation": "If no concrete command exists, implement the exact domain scorer/replay capability. If the command runs but remains OPEN, inspect the evidence-pack verdict and keep r017 blocked.",
-      "no_fake_closure_policy": "A repair row is not evidence. Negative or fail-closed results are preserved and cannot close broad superiority.",
-      "pass_predicate": "The repaired research artifact status becomes PASS and the comparator gap no longer lists this artifact as missing.",
-      "phenomenon_class_id": "remote_sensing_and_planetary_measurements",
-      "repair_id": "R017-RESEARCH-ARTIFACT-REPAIR-b648d1991a4fd7c2",
-      "repair_report_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/repairs/repair_ba6440f1d76d6e47.json",
-      "repair_report_status": "EVIDENCE_REPAIR_ATTEMPTED_REMAINS_OPEN",
-      "repair_strategy": "Diagnose whether the model, comparator, target split, or claim scope must be repaired without flipping the verdict manually.",
-      "required_capability": "Research/ScoringExecutor",
-      "research_artifact_closure_scope": "scoring evidence absent or does not beat the preregistered comparator",
-      "research_artifact_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/04a29758f8310992/oc_prediction_scoring_row.json",
-      "research_artifact_status": "OPEN",
-      "root_cause_class": "SCORING_PACK_FAIL_CLOSED",
-      "status": "OPEN",
-      "validator_binding": "comparator_gap::MS-COV-GAP-EARTH_SPACE_ENVIRONMENTAL_SCIENCES-REMOTE_SENSING_AND_PLANETARY_MEASUREMENTS::research_artifact_repair::oc_prediction_scoring_row",
-      "why_it_failed": "The evidence pack is explicitly fail-closed; broad superiority cannot use it."
-    },
-    {
       "artifact_key": "replay_record",
       "concrete_command_available": true,
       "concrete_governed_commands": [
@@ -910,7 +859,7 @@
         "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
         "tools/oc133_toe_closure_factory.py",
         "--execute-comparator-research-artifact-repair",
-        "R017-RESEARCH-ARTIFACT-REPAIR-b8f12109335a0094",
+        "R017-RESEARCH-ARTIFACT-REPAIR-ac38dd834f30d39d",
         "--write"
       ],
       "gap_id": "MS-COV-GAP-EARTH_SPACE_ENVIRONMENTAL_SCIENCES-REMOTE_SENSING_AND_PLANETARY_MEASUREMENTS",
@@ -920,18 +869,18 @@
       "no_fake_closure_policy": "A repair row is not evidence. Negative or fail-closed results are preserved and cannot close broad superiority.",
       "pass_predicate": "The repaired research artifact status becomes PASS and the comparator gap no longer lists this artifact as missing.",
       "phenomenon_class_id": "remote_sensing_and_planetary_measurements",
-      "repair_id": "R017-RESEARCH-ARTIFACT-REPAIR-b8f12109335a0094",
-      "repair_report_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/repairs/repair_2f674321e6c4b909.json",
-      "repair_report_status": "EVIDENCE_REPAIR_ATTEMPTED_REMAINS_OPEN",
-      "repair_strategy": "Close the OC scoring row first, then rerun replay.",
+      "repair_id": "R017-RESEARCH-ARTIFACT-REPAIR-ac38dd834f30d39d",
+      "repair_report_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/repairs/repair_9152e1f242c39e22.json",
+      "repair_report_status": null,
+      "repair_strategy": "Repair the replay command or evidence hash binding without weakening the expected verdict.",
       "required_capability": "Research/ScoringExecutor",
       "research_artifact_closure_scope": "replay not run or scoring evidence still blocked",
       "research_artifact_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/04a29758f8310992/replay_record.json",
       "research_artifact_status": "OPEN",
-      "root_cause_class": "REPLAY_BLOCKED_BY_SCORING_ARTIFACT",
+      "root_cause_class": "REPLAY_FAILED",
       "status": "OPEN",
       "validator_binding": "comparator_gap::MS-COV-GAP-EARTH_SPACE_ENVIRONMENTAL_SCIENCES-REMOTE_SENSING_AND_PLANETARY_MEASUREMENTS::research_artifact_repair::replay_record",
-      "why_it_failed": "Replay is correctly blocked because the upstream scoring evidence is not passing."
+      "why_it_failed": "The replay command did not pass against the current evidence pack."
     },
     {
       "artifact_key": "oc_prediction_scoring_row",

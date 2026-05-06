@@ -1,0 +1,116 @@
+{
+  "after_validator_error_total": 13,
+  "artifact_hash": "4b09e1aeea88960bff458a372506be58497f8fd0708bb2c3345bb4dde25f9a10",
+  "artifact_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/upstream_capability_execution/R017-UPSTREAM-cf78034eababb7d7.json",
+  "before_validator_error_total": 13,
+  "changed_artifact_refs": [
+    "validation/heldout/grand_science/earth_space/coverage_work_orders/OC133_EARTH_SPACE_NASA_POWER_REMOTE_SENSING_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
+    "validation/heldout/grand_science/modern_science_coverage_artifacts/04a29758f8310992/strict_evidence_pack.json"
+  ],
+  "command_results": [
+    {
+      "cmd": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "validation/heldout/grand_science/earth_space/coverage_work_orders/oc133_earth_space_modern_science_coverage_work_orders.py",
+        "--refresh-nasa-power-source",
+        "--write"
+      ],
+      "returncode": 0,
+      "stderr_tail": "",
+      "stdout_tail": "{\n  \"status\": \"ok\",\n  \"output_ref\": \"validation/heldout/grand_science/earth_space/coverage_work_orders/OC133_EARTH_SPACE_MODERN_SCIENCE_COVERAGE_WORK_ORDERS.json\",\n  \"failures\": []\n}\n"
+    },
+    {
+      "cmd": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "validation/heldout/grand_science/earth_space/coverage_work_orders/oc133_earth_space_modern_science_coverage_work_orders.py",
+        "--check"
+      ],
+      "returncode": 0,
+      "stderr_tail": "",
+      "stdout_tail": "{\n  \"status\": \"ok\",\n  \"checked\": \"validation/heldout/grand_science/earth_space/coverage_work_orders/OC133_EARTH_SPACE_MODERN_SCIENCE_COVERAGE_WORK_ORDERS.json\"\n}\n"
+    },
+    {
+      "cmd": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "validation/heldout/grand_science/earth_space/coverage_work_orders/oc133_earth_space_modern_science_coverage_work_orders.py",
+        "--score-nasa-power",
+        "--write"
+      ],
+      "returncode": 0,
+      "stderr_tail": "",
+      "stdout_tail": "{\n  \"status\": \"ok\",\n  \"output_ref\": \"validation/heldout/grand_science/earth_space/coverage_work_orders/OC133_EARTH_SPACE_NASA_POWER_REMOTE_SENSING_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json\",\n  \"pack_status\": \"STRICT_EVIDENCE_PASS_NO_COVERAGE_CLOSURE\",\n  \"exact_blocker\": null,\n  \"failures\": []\n}\n"
+    }
+  ],
+  "domain_class_id": "earth_space_environmental_sciences",
+  "execution_command": [
+    "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+    "tools/oc133_toe_closure_factory.py",
+    "--execute-upstream-capability-work-order",
+    "R017-UPSTREAM-cf78034eababb7d7",
+    "--write"
+  ],
+  "gap_id": "MS-COV-GAP-EARTH_SPACE_ENVIRONMENTAL_SCIENCES-REMOTE_SENSING_AND_PLANETARY_MEASUREMENTS",
+  "generated_at": "2026-05-06T14:22:26Z",
+  "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+  "next_escalation": "If this compiled capability produces zero validator delta, generate a lower-level upstream research obligation for the exact missing source/evidence object.",
+  "no_fake_closure_policy": "This execution cannot close r017 unless strict final TOE validator PASS is reached.",
+  "pass_predicate": "Comparator gap `MS-COV-GAP-EARTH_SPACE_ENVIRONMENTAL_SCIENCES-REMOTE_SENSING_AND_PLANETARY_MEASUREMENTS` has `oc_prediction_scoring_row` and strict coverage register no longer lists it as missing.",
+  "phenomenon_class_id": "remote_sensing_and_planetary_measurements",
+  "registry_row": {
+    "capability_class": "comparator_component_materialization_capability_gap",
+    "capability_development_id": "R017-UPSTREAM-cf78034eababb7d7",
+    "capability_development_key": "e9447bb5a90f890a0ea163399a6542740476548dbea31b494ad292c362f47763",
+    "domain_class_id": "earth_space_environmental_sciences",
+    "execution_command": [
+      "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+      "tools/oc133_toe_closure_factory.py",
+      "--execute-upstream-capability-work-order",
+      "R017-UPSTREAM-cf78034eababb7d7",
+      "--write"
+    ],
+    "gap_id": "MS-COV-GAP-EARTH_SPACE_ENVIRONMENTAL_SCIENCES-REMOTE_SENSING_AND_PLANETARY_MEASUREMENTS",
+    "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+    "missing_artifact_type": "upstream_work_order::SOURCE_BOUND_SCORER_MATERIALIZER_IMPLEMENTATION",
+    "next_escalation": "If this compiled capability produces zero validator delta, generate a lower-level upstream research obligation for the exact missing source/evidence object.",
+    "no_fake_closure_policy": "This upstream work order is not evidence and cannot satisfy r017 without strict validator PASS.",
+    "pass_predicate": "Comparator gap `MS-COV-GAP-EARTH_SPACE_ENVIRONMENTAL_SCIENCES-REMOTE_SENSING_AND_PLANETARY_MEASUREMENTS` has `oc_prediction_scoring_row` and strict coverage register no longer lists it as missing.",
+    "phenomenon_class_id": "remote_sensing_and_planetary_measurements",
+    "repair_strategy": "Implement the exact domain scorer/materializer that can produce target-hidden OC residuals, incumbent comparator residuals, uncertainty/falsifier rows, and replay.",
+    "required_capability": "Research/PriorArt",
+    "source_capability_id": "R017-CAPDEV-a37e38be5a5c",
+    "source_capability_report_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/capability_implementation/R017-CAPDEV-a37e38be5a5c.json",
+    "source_graph_node_id": "upstream_work_order:R017-UPSTREAM-cf78034eababb7d7:SOURCE_BOUND_SCORER_MATERIALIZER_IMPLEMENTATION:MS-COV-GAP-EARTH_SPACE_ENVIRONMENTAL_SCIENCES-REMOTE_SENSING_AND_PLANETARY_MEASUREMENTS:oc_prediction_scoring_row",
+    "source_upstream_work_order": {
+      "capability_class": "comparator_component_materialization_capability_gap",
+      "execution_command": [],
+      "gap_id": "MS-COV-GAP-EARTH_SPACE_ENVIRONMENTAL_SCIENCES-REMOTE_SENSING_AND_PLANETARY_MEASUREMENTS",
+      "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+      "missing_artifact_type": "oc_prediction_scoring_row",
+      "next_escalation": "If this compiled capability produces zero validator delta, generate a lower-level upstream research obligation for the exact missing source/evidence object.",
+      "no_fake_closure_policy": "This upstream work order is not evidence and cannot satisfy r017 without strict validator PASS.",
+      "pass_predicate": "Comparator gap `MS-COV-GAP-EARTH_SPACE_ENVIRONMENTAL_SCIENCES-REMOTE_SENSING_AND_PLANETARY_MEASUREMENTS` has `oc_prediction_scoring_row` and strict coverage register no longer lists it as missing.",
+      "repair_strategy": "Implement the exact domain scorer/materializer that can produce target-hidden OC residuals, incumbent comparator residuals, uncertainty/falsifier rows, and replay.",
+      "required_capability": "Research/PriorArt",
+      "schema_id": "OC133_TOE_CAPABILITY_UPSTREAM_WORK_ORDER_v1",
+      "source_graph_node_id": "required_artifact:MODERN_SCIENCE_COMPARATOR_SUPERIORITY:MS-COV-GAP-EARTH_SPACE_ENVIRONMENTAL_SCIENCES-REMOTE_SENSING_AND_PLANETARY_MEASUREMENTS:oc_prediction_scoring_row",
+      "validator_binding": "support_artifact::MODERN_SCIENCE_COMPARATOR_SUPERIORITY::oc_prediction_scoring_row",
+      "why_it_failed": "The evidence pack is explicitly fail-closed; broad superiority cannot use it.",
+      "work_order_type": "SOURCE_BOUND_SCORER_MATERIALIZER_IMPLEMENTATION"
+    },
+    "status": "OPEN",
+    "upstream_work_order_id": "R017-UPSTREAM-cf78034eababb7d7",
+    "validator_binding": "support_artifact::MODERN_SCIENCE_COMPARATOR_SUPERIORITY::oc_prediction_scoring_row",
+    "why_it_failed": "The evidence pack is explicitly fail-closed; broad superiority cannot use it.",
+    "work_order_type": "SOURCE_BOUND_SCORER_MATERIALIZER_IMPLEMENTATION"
+  },
+  "repair_strategy": "Regenerate comparator research artifacts and strict validator surfaces from the new evidence pack.",
+  "required_capability": "Research/PriorArt",
+  "root_cause_class": "SOURCE_BOUND_MATERIALIZER_IMPLEMENTED",
+  "schema_id": "OC133_TOE_UPSTREAM_CAPABILITY_WORK_ORDER_EXECUTION_v1",
+  "status": "PASS",
+  "upstream_work_order_id": "R017-UPSTREAM-cf78034eababb7d7",
+  "validator_binding": "support_artifact::MODERN_SCIENCE_COMPARATOR_SUPERIORITY::oc_prediction_scoring_row",
+  "validator_error_delta": 0,
+  "why_it_failed": "Governed domain commands ran and produced a strict source-bound comparator evidence pack with material superiority.",
+  "work_order_type": "SOURCE_BOUND_SCORER_MATERIALIZER_IMPLEMENTATION"
+}

@@ -1,0 +1,113 @@
+{
+  "after_validator_error_total": 13,
+  "artifact_hash": "37e7b6551274568591f001c561c6cce625a4924c6688d0e6b605330ffc91d856",
+  "artifact_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/upstream_capability_execution/R017-UPSTREAM-61ddd313d63b5972.json",
+  "before_validator_error_total": 13,
+  "changed_artifact_refs": [],
+  "command_results": [
+    {
+      "cmd": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "validation/heldout/grand_science/biology/coverage_work_orders/oc133_biology_modern_science_coverage_work_orders.py",
+        "--write"
+      ],
+      "returncode": 0,
+      "stderr_tail": "",
+      "stdout_tail": "{\n  \"status\": \"ok\",\n  \"output_ref\": \"validation/heldout/grand_science/biology/coverage_work_orders/OC133_BIOLOGY_MODERN_SCIENCE_COVERAGE_WORK_ORDERS.json\",\n  \"failures\": []\n}\n"
+    },
+    {
+      "cmd": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "validation/heldout/grand_science/biology/coverage_work_orders/oc133_biology_modern_science_coverage_work_orders.py",
+        "--check"
+      ],
+      "returncode": 0,
+      "stderr_tail": "",
+      "stdout_tail": "{\n  \"status\": \"ok\",\n  \"checked\": \"validation/heldout/grand_science/biology/coverage_work_orders/OC133_BIOLOGY_MODERN_SCIENCE_COVERAGE_WORK_ORDERS.json\"\n}\n"
+    },
+    {
+      "cmd": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "tools/oc133_toe_closure_factory.py",
+        "--execute-comparator-generic-evidence-pack",
+        "MS-COV-GAP-BIOLOGICAL_LIFE_SCIENCES-EVOLUTIONARY_PHYLOGENETIC_PATTERNS",
+        "--write"
+      ],
+      "returncode": 0,
+      "stderr_tail": "",
+      "stdout_tail": "{\n  \"changed\": [],\n  \"missing\": [],\n  \"state\": \"PASS\"\n}\n"
+    }
+  ],
+  "domain_class_id": "biological_life_sciences",
+  "execution_command": [
+    "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+    "tools/oc133_toe_closure_factory.py",
+    "--execute-upstream-capability-work-order",
+    "R017-UPSTREAM-61ddd313d63b5972",
+    "--write"
+  ],
+  "gap_id": "MS-COV-GAP-BIOLOGICAL_LIFE_SCIENCES-EVOLUTIONARY_PHYLOGENETIC_PATTERNS",
+  "generated_at": "2026-05-06T14:16:09Z",
+  "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+  "next_escalation": "If this compiled capability produces zero validator delta, generate a lower-level upstream research obligation for the exact missing source/evidence object.",
+  "no_fake_closure_policy": "This execution cannot close r017 unless strict final TOE validator PASS is reached.",
+  "pass_predicate": "The repaired `replay_record` research artifact status becomes PASS and the comparator gap no longer lists it as missing.",
+  "phenomenon_class_id": "evolutionary_phylogenetic_patterns",
+  "registry_row": {
+    "capability_class": "comparator_component_materialization_capability_gap",
+    "capability_development_id": "R017-UPSTREAM-61ddd313d63b5972",
+    "capability_development_key": "54a7e69ac038f6c11102e5d8677e08a49228e914c1a775b8fb5689dafa8a6e0f",
+    "domain_class_id": "biological_life_sciences",
+    "execution_command": [
+      "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+      "tools/oc133_toe_closure_factory.py",
+      "--execute-upstream-capability-work-order",
+      "R017-UPSTREAM-61ddd313d63b5972",
+      "--write"
+    ],
+    "gap_id": "MS-COV-GAP-BIOLOGICAL_LIFE_SCIENCES-EVOLUTIONARY_PHYLOGENETIC_PATTERNS",
+    "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+    "missing_artifact_type": "upstream_work_order::SOURCE_BOUND_SCORER_MATERIALIZER_IMPLEMENTATION",
+    "next_escalation": "If this compiled capability produces zero validator delta, generate a lower-level upstream research obligation for the exact missing source/evidence object.",
+    "no_fake_closure_policy": "This upstream work order is not evidence and cannot satisfy r017 without strict validator PASS.",
+    "pass_predicate": "The repaired `replay_record` research artifact status becomes PASS and the comparator gap no longer lists it as missing.",
+    "phenomenon_class_id": "evolutionary_phylogenetic_patterns",
+    "repair_strategy": "Implement the exact domain scorer/materializer that can produce target-hidden OC residuals, incumbent comparator residuals, uncertainty/falsifier rows, and replay.",
+    "required_capability": "Research/ScoringExecutor",
+    "source_capability_id": "R017-CAPDEV-cee515d189d2",
+    "source_capability_report_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/capability_implementation/R017-CAPDEV-cee515d189d2.json",
+    "source_graph_node_id": "upstream_work_order:R017-UPSTREAM-61ddd313d63b5972:SOURCE_BOUND_SCORER_MATERIALIZER_IMPLEMENTATION:MS-COV-GAP-BIOLOGICAL_LIFE_SCIENCES-EVOLUTIONARY_PHYLOGENETIC_PATTERNS:replay_record",
+    "source_upstream_work_order": {
+      "capability_class": "comparator_component_materialization_capability_gap",
+      "execution_command": [],
+      "gap_id": "MS-COV-GAP-BIOLOGICAL_LIFE_SCIENCES-EVOLUTIONARY_PHYLOGENETIC_PATTERNS",
+      "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+      "missing_artifact_type": "replay_record",
+      "next_escalation": "If this compiled capability produces zero validator delta, generate a lower-level upstream research obligation for the exact missing source/evidence object.",
+      "no_fake_closure_policy": "This upstream work order is not evidence and cannot satisfy r017 without strict validator PASS.",
+      "pass_predicate": "The repaired `replay_record` research artifact status becomes PASS and the comparator gap no longer lists it as missing.",
+      "repair_strategy": "Implement the exact domain scorer/materializer that can produce target-hidden OC residuals, incumbent comparator residuals, uncertainty/falsifier rows, and replay.",
+      "required_capability": "Research/ScoringExecutor",
+      "schema_id": "OC133_TOE_CAPABILITY_UPSTREAM_WORK_ORDER_v1",
+      "source_graph_node_id": "required_artifact:MODERN_SCIENCE_COMPARATOR_SUPERIORITY:MS-COV-GAP-BIOLOGICAL_LIFE_SCIENCES-EVOLUTIONARY_PHYLOGENETIC_PATTERNS:replay_record",
+      "validator_binding": "support_artifact::MODERN_SCIENCE_COMPARATOR_SUPERIORITY::replay_record",
+      "why_it_failed": "Replay is correctly blocked because the upstream scoring evidence is not passing.",
+      "work_order_type": "SOURCE_BOUND_SCORER_MATERIALIZER_IMPLEMENTATION"
+    },
+    "status": "OPEN",
+    "upstream_work_order_id": "R017-UPSTREAM-61ddd313d63b5972",
+    "validator_binding": "support_artifact::MODERN_SCIENCE_COMPARATOR_SUPERIORITY::replay_record",
+    "why_it_failed": "Replay is correctly blocked because the upstream scoring evidence is not passing.",
+    "work_order_type": "SOURCE_BOUND_SCORER_MATERIALIZER_IMPLEMENTATION"
+  },
+  "repair_strategy": "Add or repair the exact domain scorer/materializer named by the materialization result.",
+  "required_capability": "Research/ScoringExecutor",
+  "root_cause_class": "SOURCE_BOUND_SCORING_NOT_MATERIALIZED",
+  "schema_id": "OC133_TOE_UPSTREAM_CAPABILITY_WORK_ORDER_EXECUTION_v1",
+  "status": "CAPABILITY_DEVELOPMENT_REQUIRED",
+  "upstream_work_order_id": "R017-UPSTREAM-61ddd313d63b5972",
+  "validator_binding": "support_artifact::MODERN_SCIENCE_COMPARATOR_SUPERIORITY::replay_record",
+  "validator_error_delta": 0,
+  "why_it_failed": "No source-bound domain evidence pack is bound for this comparator materialization row.",
+  "work_order_type": "SOURCE_BOUND_SCORER_MATERIALIZER_IMPLEMENTATION"
+}

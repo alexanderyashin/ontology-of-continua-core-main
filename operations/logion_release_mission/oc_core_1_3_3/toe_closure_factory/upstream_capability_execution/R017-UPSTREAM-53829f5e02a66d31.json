@@ -1,0 +1,113 @@
+{
+  "after_validator_error_total": 13,
+  "artifact_hash": "16cac33a3d426f03c575e7a0a1091865ccb8551fd3d1d9a26af6708901622c61",
+  "artifact_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/upstream_capability_execution/R017-UPSTREAM-53829f5e02a66d31.json",
+  "before_validator_error_total": 13,
+  "changed_artifact_refs": [],
+  "command_results": [
+    {
+      "cmd": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "validation/heldout/grand_science/cs/coverage_work_orders/oc133_cs_modern_science_coverage_work_orders.py",
+        "--write"
+      ],
+      "returncode": 0,
+      "stderr_tail": "",
+      "stdout_tail": "{\n  \"status\": \"ok\",\n  \"output_ref\": \"validation/heldout/grand_science/cs/coverage_work_orders/OC133_CS_MODERN_SCIENCE_COVERAGE_WORK_ORDERS.json\",\n  \"failures\": []\n}\n"
+    },
+    {
+      "cmd": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "validation/heldout/grand_science/cs/coverage_work_orders/oc133_cs_modern_science_coverage_work_orders.py",
+        "--check"
+      ],
+      "returncode": 0,
+      "stderr_tail": "",
+      "stdout_tail": "{\n  \"status\": \"ok\",\n  \"checked\": \"validation/heldout/grand_science/cs/coverage_work_orders/OC133_CS_MODERN_SCIENCE_COVERAGE_WORK_ORDERS.json\"\n}\n"
+    },
+    {
+      "cmd": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "tools/oc133_toe_closure_factory.py",
+        "--execute-comparator-generic-evidence-pack",
+        "MS-COV-GAP-COMPUTER_INFORMATION_SCIENCES-MACHINE_LEARNING_GENERALIZATION_AND_EVALUATION",
+        "--write"
+      ],
+      "returncode": 0,
+      "stderr_tail": "",
+      "stdout_tail": "{\n  \"changed\": [],\n  \"missing\": [],\n  \"state\": \"PASS\"\n}\n"
+    }
+  ],
+  "domain_class_id": "computer_information_sciences",
+  "execution_command": [
+    "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+    "tools/oc133_toe_closure_factory.py",
+    "--execute-upstream-capability-work-order",
+    "R017-UPSTREAM-53829f5e02a66d31",
+    "--write"
+  ],
+  "gap_id": "MS-COV-GAP-COMPUTER_INFORMATION_SCIENCES-MACHINE_LEARNING_GENERALIZATION_AND_EVALUATION",
+  "generated_at": "2026-05-06T14:15:47Z",
+  "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+  "next_escalation": "If this compiled capability produces zero validator delta, generate a lower-level upstream research obligation for the exact missing source/evidence object.",
+  "no_fake_closure_policy": "This execution cannot close r017 unless strict final TOE validator PASS is reached.",
+  "pass_predicate": "The repaired `replay_record` research artifact status becomes PASS and the comparator gap no longer lists it as missing.",
+  "phenomenon_class_id": "machine_learning_generalization_and_evaluation",
+  "registry_row": {
+    "capability_class": "comparator_component_materialization_capability_gap",
+    "capability_development_id": "R017-UPSTREAM-53829f5e02a66d31",
+    "capability_development_key": "37a9de947f0f81a94bce6e4a09525ab14725ac009dc86e3905b5ec5fddbff27c",
+    "domain_class_id": "computer_information_sciences",
+    "execution_command": [
+      "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+      "tools/oc133_toe_closure_factory.py",
+      "--execute-upstream-capability-work-order",
+      "R017-UPSTREAM-53829f5e02a66d31",
+      "--write"
+    ],
+    "gap_id": "MS-COV-GAP-COMPUTER_INFORMATION_SCIENCES-MACHINE_LEARNING_GENERALIZATION_AND_EVALUATION",
+    "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+    "missing_artifact_type": "upstream_work_order::SOURCE_BOUND_SCORER_MATERIALIZER_IMPLEMENTATION",
+    "next_escalation": "If this compiled capability produces zero validator delta, generate a lower-level upstream research obligation for the exact missing source/evidence object.",
+    "no_fake_closure_policy": "This upstream work order is not evidence and cannot satisfy r017 without strict validator PASS.",
+    "pass_predicate": "The repaired `replay_record` research artifact status becomes PASS and the comparator gap no longer lists it as missing.",
+    "phenomenon_class_id": "machine_learning_generalization_and_evaluation",
+    "repair_strategy": "Implement the exact domain scorer/materializer that can produce target-hidden OC residuals, incumbent comparator residuals, uncertainty/falsifier rows, and replay.",
+    "required_capability": "Research/ScoringExecutor",
+    "source_capability_id": "R017-CAPDEV-73e756906877",
+    "source_capability_report_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/capability_implementation/R017-CAPDEV-73e756906877.json",
+    "source_graph_node_id": "upstream_work_order:R017-UPSTREAM-53829f5e02a66d31:SOURCE_BOUND_SCORER_MATERIALIZER_IMPLEMENTATION:MS-COV-GAP-COMPUTER_INFORMATION_SCIENCES-MACHINE_LEARNING_GENERALIZATION_AND_EVALUATION:replay_record",
+    "source_upstream_work_order": {
+      "capability_class": "comparator_component_materialization_capability_gap",
+      "execution_command": [],
+      "gap_id": "MS-COV-GAP-COMPUTER_INFORMATION_SCIENCES-MACHINE_LEARNING_GENERALIZATION_AND_EVALUATION",
+      "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+      "missing_artifact_type": "replay_record",
+      "next_escalation": "If this compiled capability produces zero validator delta, generate a lower-level upstream research obligation for the exact missing source/evidence object.",
+      "no_fake_closure_policy": "This upstream work order is not evidence and cannot satisfy r017 without strict validator PASS.",
+      "pass_predicate": "The repaired `replay_record` research artifact status becomes PASS and the comparator gap no longer lists it as missing.",
+      "repair_strategy": "Implement the exact domain scorer/materializer that can produce target-hidden OC residuals, incumbent comparator residuals, uncertainty/falsifier rows, and replay.",
+      "required_capability": "Research/ScoringExecutor",
+      "schema_id": "OC133_TOE_CAPABILITY_UPSTREAM_WORK_ORDER_v1",
+      "source_graph_node_id": "required_artifact:MODERN_SCIENCE_COMPARATOR_SUPERIORITY:MS-COV-GAP-COMPUTER_INFORMATION_SCIENCES-MACHINE_LEARNING_GENERALIZATION_AND_EVALUATION:replay_record",
+      "validator_binding": "support_artifact::MODERN_SCIENCE_COMPARATOR_SUPERIORITY::replay_record",
+      "why_it_failed": "Replay is correctly blocked because the upstream scoring evidence is not passing.",
+      "work_order_type": "SOURCE_BOUND_SCORER_MATERIALIZER_IMPLEMENTATION"
+    },
+    "status": "OPEN",
+    "upstream_work_order_id": "R017-UPSTREAM-53829f5e02a66d31",
+    "validator_binding": "support_artifact::MODERN_SCIENCE_COMPARATOR_SUPERIORITY::replay_record",
+    "why_it_failed": "Replay is correctly blocked because the upstream scoring evidence is not passing.",
+    "work_order_type": "SOURCE_BOUND_SCORER_MATERIALIZER_IMPLEMENTATION"
+  },
+  "repair_strategy": "Add or repair the exact domain scorer/materializer named by the materialization result.",
+  "required_capability": "Research/ScoringExecutor",
+  "root_cause_class": "SOURCE_BOUND_SCORING_NOT_MATERIALIZED",
+  "schema_id": "OC133_TOE_UPSTREAM_CAPABILITY_WORK_ORDER_EXECUTION_v1",
+  "status": "CAPABILITY_DEVELOPMENT_REQUIRED",
+  "upstream_work_order_id": "R017-UPSTREAM-53829f5e02a66d31",
+  "validator_binding": "support_artifact::MODERN_SCIENCE_COMPARATOR_SUPERIORITY::replay_record",
+  "validator_error_delta": 0,
+  "why_it_failed": "No source-bound domain evidence pack is bound for this comparator materialization row.",
+  "work_order_type": "SOURCE_BOUND_SCORER_MATERIALIZER_IMPLEMENTATION"
+}

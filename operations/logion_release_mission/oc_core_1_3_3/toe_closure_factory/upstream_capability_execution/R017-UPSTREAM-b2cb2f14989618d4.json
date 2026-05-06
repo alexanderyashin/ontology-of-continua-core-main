@@ -1,0 +1,114 @@
+{
+  "after_validator_error_total": 13,
+  "artifact_hash": "eddc0fc65bce36d08222bc06fc1e5a0626b4ad5856b6c600ffcf262358d7395a",
+  "artifact_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/upstream_capability_execution/R017-UPSTREAM-b2cb2f14989618d4.json",
+  "before_validator_error_total": 13,
+  "changed_artifact_refs": [],
+  "command_results": [
+    {
+      "cmd": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "tools/oc133_physics_chemistry_official_batch_factory.py",
+        "--write",
+        "--allow-blocked-exit-zero"
+      ],
+      "returncode": 0,
+      "stderr_tail": "",
+      "stdout_tail": "id\": \"physics-visible-projection-has-no-target-fields\",\n      \"description\": \"visible CODATA projections contain only declared input constants, not target values or units\",\n      \"passed\": true\n    },\n    {\n      \"test_id\": \"physics-target-projection-lock-valid\",\n      \"description\": \"each physics row has a machine-checkable visible/prediction/target projection lock\",\n      \"passed\": true\n    },\n    {\n      \"test_id\": \"physics-prediction-materialization-tamper-rejected\",\n      \"description\": \"mutating a pre-target physics prediction materialization breaks its projection lock\",\n      \"passed\": true\n    },\n    {\n      \"test_id\": \"physics-target-projection-tamper-rejected\",\n      \"description\": \"mutating a physics target projection breaks its target hash and projection lock\",\n      \"passed\": true\n    },\n    {\n      \"test_id\": \"physics-visible-projection-target-leak-tamper-rejected\",\n      \"description\": \"adding a scoring target field to the visible projection breaks the projection lock\",\n      \"passed\": true\n    },\n    {\n      \"test_id\": \"physics-target-hidden-lock-tamper-rejected\",\n      \"description\": \"turning off the target-hidden lock flag breaks the projection lock\",\n      \"passed\": true\n    },\n    {\n      \"test_id\": \"physics-comparator-preregistered-for-each-row\",\n      \"description\": \"every physics row declares its comparator before scoring\",\n      \"passed\": true\n    },\n    {\n      \"test_id\": \"physics-n-ge-20-when-codata-snapshot-exists\",\n      \"description\": \"the pinned CODATA snapshot yields at least 20 deterministic physics formula rows when present\",\n      \"passed\": true\n    }\n  ],\n  \"acquisition_packet_refs\": [\n    \"validation/heldout/grand_science/physics_chemistry/official_batch/OC133_PHYSICS_OFFICIAL_BATCH_ACQUISITION_PACKET.json\"\n  ],\n  \"physics_acquisition_request_total\": 1,\n  \"artifact_hashes\": {\n    \"physics_candidate_pack_sha256\": \"a118b4ffbaad6abda35d0e47f6dcac600c72b4106d5ab5a924cb5433e241eb87\",\n    \"chemistry_candidate_pack_sha256\": \"df7ac032d92cd2c92c4a17cbb86a855a7ded5915cf5fe8100fdc016cd71487ef\",\n    \"physics_acquisition_packet_sha256\": \"cf68b375c3ac4af16f876d5c33a468d4ddf0e561afb0e555a91dd64c91e41436\",\n    \"tasks_sha256\": \"28456e138deafbeb9d47f05d7c49ae01903577a06b4a53101ac4c0c0f61e96d9\",\n    \"protocol_sha256\": \"da395d3b01e3fe96512dcddcdafe84d001ed42c931746a28d64fee1985eeb444\"\n  },\n  \"grand_toe_support_allowed\": false,\n  \"verdict\": \"BLOCKED_ACQUISITION_READY_NO_SEND\",\n  \"no_send\": true,\n  \"publish_allowed\": false,\n  \"journal_submissions_allowed\": false,\n  \"registry_integration_allowed\": false,\n  \"no_fabricated_success_policy\": \"Official NIST/PubChem snapshot rows are scored and hashed, but no grand TOE support is emitted unless the domain pack has N>=20, pre-target target-blind or prospective separation, preregistered comparator baselines, residual superiority, rejected negative controls, falsifiers, and a clean grand empirical gate.\",\n  \"report_sha256\": \"525d2ba957b07d2561e9fa5fdd82b4d6583f0619be08321d590f3d2a6188881d\"\n}\n"
+    },
+    {
+      "cmd": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "tools/oc133_physics_chemistry_official_batch_factory.py",
+        "--check"
+      ],
+      "returncode": 0,
+      "stderr_tail": "",
+      "stdout_tail": "{\n  \"status\": \"ok\",\n  \"checked\": [\n    \"validation/heldout/grand_science/physics_chemistry/official_batch/physics_official_batch_candidate_evidence_pack.json\",\n    \"validation/heldout/grand_science/physics_chemistry/official_batch/chemistry_official_batch_candidate_evidence_pack.json\",\n    \"validation/heldout/grand_science/physics_chemistry/official_batch/OC133_PHYSICS_OFFICIAL_BATCH_ACQUISITION_PACKET.json\",\n    \"validation/heldout/grand_science/physics_chemistry/official_batch/OC133_PHYSICS_CHEMISTRY_OFFICIAL_BATCH_TASKS.json\",\n    \"validation/heldout/grand_science/physics_chemistry/official_batch/OC133_PHYSICS_CHEMISTRY_OFFICIAL_BATCH_PROTOCOL.json\",\n    \"validation/heldout/grand_science/physics_chemistry/official_batch/OC133_PHYSICS_CHEMISTRY_OFFICIAL_BATCH_REPORT.json\",\n    \"validation/heldout/grand_science/physics_chemistry/official_batch/README.md\"\n  ]\n}\n"
+    },
+    {
+      "cmd": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "tools/oc133_toe_closure_factory.py",
+        "--execute-comparator-generic-evidence-pack",
+        "MS-COV-GAP-PHYSICAL_SCIENCES-DYNAMICAL_LAWS_AND_CONSERVATION",
+        "--write"
+      ],
+      "returncode": 0,
+      "stderr_tail": "",
+      "stdout_tail": "{\n  \"changed\": [],\n  \"missing\": [],\n  \"state\": \"PASS\"\n}\n"
+    }
+  ],
+  "domain_class_id": "physical_sciences",
+  "execution_command": [
+    "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+    "tools/oc133_toe_closure_factory.py",
+    "--execute-upstream-capability-work-order",
+    "R017-UPSTREAM-b2cb2f14989618d4",
+    "--write"
+  ],
+  "gap_id": "MS-COV-GAP-PHYSICAL_SCIENCES-DYNAMICAL_LAWS_AND_CONSERVATION",
+  "generated_at": "2026-05-06T14:20:16Z",
+  "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+  "next_escalation": "If this compiled capability produces zero validator delta, generate a lower-level upstream research obligation for the exact missing source/evidence object.",
+  "no_fake_closure_policy": "This execution cannot close r017 unless strict final TOE validator PASS is reached.",
+  "pass_predicate": "The repaired OC scoring research artifact status becomes PASS and the comparator gap no longer lists oc_prediction_scoring_row as missing.",
+  "phenomenon_class_id": "dynamical_laws_and_conservation",
+  "registry_row": {
+    "capability_class": "comparator_component_materialization_capability_gap",
+    "capability_development_id": "R017-UPSTREAM-b2cb2f14989618d4",
+    "capability_development_key": "05f4ccfa33d070faeb58f2992702138c1e7a8f808a0e4add9de6615389bb9a48",
+    "domain_class_id": "physical_sciences",
+    "execution_command": [
+      "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+      "tools/oc133_toe_closure_factory.py",
+      "--execute-upstream-capability-work-order",
+      "R017-UPSTREAM-b2cb2f14989618d4",
+      "--write"
+    ],
+    "gap_id": "MS-COV-GAP-PHYSICAL_SCIENCES-DYNAMICAL_LAWS_AND_CONSERVATION",
+    "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+    "missing_artifact_type": "upstream_work_order::SOURCE_BOUND_SCORER_MATERIALIZER_IMPLEMENTATION",
+    "next_escalation": "If this compiled capability produces zero validator delta, generate a lower-level upstream research obligation for the exact missing source/evidence object.",
+    "no_fake_closure_policy": "This upstream work order is not evidence and cannot satisfy r017 without strict validator PASS.",
+    "pass_predicate": "The repaired OC scoring research artifact status becomes PASS and the comparator gap no longer lists oc_prediction_scoring_row as missing.",
+    "phenomenon_class_id": "dynamical_laws_and_conservation",
+    "repair_strategy": "Implement the exact domain scorer/materializer that can produce target-hidden OC residuals, incumbent comparator residuals, uncertainty/falsifier rows, and replay.",
+    "required_capability": "Research/ScoringExecutor",
+    "source_capability_id": "R017-CAPDEV-5e18bc30bbd4",
+    "source_capability_report_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/capability_implementation/R017-CAPDEV-5e18bc30bbd4.json",
+    "source_graph_node_id": "upstream_work_order:R017-UPSTREAM-b2cb2f14989618d4:SOURCE_BOUND_SCORER_MATERIALIZER_IMPLEMENTATION:MS-COV-GAP-PHYSICAL_SCIENCES-DYNAMICAL_LAWS_AND_CONSERVATION:oc_prediction_scoring_row",
+    "source_upstream_work_order": {
+      "capability_class": "comparator_component_materialization_capability_gap",
+      "execution_command": [],
+      "gap_id": "MS-COV-GAP-PHYSICAL_SCIENCES-DYNAMICAL_LAWS_AND_CONSERVATION",
+      "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+      "missing_artifact_type": "oc_prediction_scoring_row",
+      "next_escalation": "If this compiled capability produces zero validator delta, generate a lower-level upstream research obligation for the exact missing source/evidence object.",
+      "no_fake_closure_policy": "This upstream work order is not evidence and cannot satisfy r017 without strict validator PASS.",
+      "pass_predicate": "The repaired OC scoring research artifact status becomes PASS and the comparator gap no longer lists oc_prediction_scoring_row as missing.",
+      "repair_strategy": "Implement the exact domain scorer/materializer that can produce target-hidden OC residuals, incumbent comparator residuals, uncertainty/falsifier rows, and replay.",
+      "required_capability": "Research/ScoringExecutor",
+      "schema_id": "OC133_TOE_CAPABILITY_UPSTREAM_WORK_ORDER_v1",
+      "source_graph_node_id": "required_artifact:MODERN_SCIENCE_COMPARATOR_SUPERIORITY:MS-COV-GAP-PHYSICAL_SCIENCES-DYNAMICAL_LAWS_AND_CONSERVATION:oc_prediction_scoring_row",
+      "validator_binding": "support_artifact::MODERN_SCIENCE_COMPARATOR_SUPERIORITY::oc_prediction_scoring_row",
+      "why_it_failed": "The evidence pack is explicitly fail-closed; broad superiority cannot use it.",
+      "work_order_type": "SOURCE_BOUND_SCORER_MATERIALIZER_IMPLEMENTATION"
+    },
+    "status": "OPEN",
+    "upstream_work_order_id": "R017-UPSTREAM-b2cb2f14989618d4",
+    "validator_binding": "support_artifact::MODERN_SCIENCE_COMPARATOR_SUPERIORITY::oc_prediction_scoring_row",
+    "why_it_failed": "The evidence pack is explicitly fail-closed; broad superiority cannot use it.",
+    "work_order_type": "SOURCE_BOUND_SCORER_MATERIALIZER_IMPLEMENTATION"
+  },
+  "repair_strategy": "Add or repair the exact domain scorer/materializer named by the materialization result.",
+  "required_capability": "Research/ScoringExecutor",
+  "root_cause_class": "SOURCE_BOUND_SCORING_NOT_MATERIALIZED",
+  "schema_id": "OC133_TOE_UPSTREAM_CAPABILITY_WORK_ORDER_EXECUTION_v1",
+  "status": "CAPABILITY_DEVELOPMENT_REQUIRED",
+  "upstream_work_order_id": "R017-UPSTREAM-b2cb2f14989618d4",
+  "validator_binding": "support_artifact::MODERN_SCIENCE_COMPARATOR_SUPERIORITY::oc_prediction_scoring_row",
+  "validator_error_delta": 0,
+  "why_it_failed": "No source-bound domain evidence pack is bound for this comparator materialization row.",
+  "work_order_type": "SOURCE_BOUND_SCORER_MATERIALIZER_IMPLEMENTATION"
+}

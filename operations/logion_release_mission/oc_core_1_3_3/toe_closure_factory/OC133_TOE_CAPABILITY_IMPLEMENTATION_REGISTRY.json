@@ -1,9 +1,9 @@
 {
-  "artifact_hash": "f9b5bc41741558c47beffe68bd55b55bf7388c2a90a6df62f75819de3509aeb0",
+  "artifact_hash": "8f1353e6ba2a12a6e051903f7c24dd6827af3104de20250caeeb41e0e9f353aa",
   "blocked_capability_total": 62,
   "compiled_capability_total": 127,
   "dedupe_policy": "Rows are keyed by lane_id + source_graph_node_id + missing_artifact_type + scientific_frontier_hash.",
-  "generated_at": "2026-05-06T14:04:23Z",
+  "generated_at": "2026-05-06T14:28:00Z",
   "no_fake_closure_policy": "Compiled capabilities execute research commands only; PASS still requires strict validator closure.",
   "ready_capability_total": 65,
   "rows": [
@@ -4676,7 +4676,7 @@
       "why_it_failed": "Replay is correctly blocked because the upstream scoring evidence is not passing."
     },
     {
-      "capability_class": "comparator_research_artifact_repair_backlog",
+      "capability_class": "comparator_research_artifact_repair",
       "capability_development_key": "24f948ce0204aeea0da13a9b1e3ae3762d7385a5d9874872ea3ae11c4e051965",
       "capability_executor_ready": true,
       "capability_id": "R017-CAPDEV-24f948ce0204",
@@ -4691,16 +4691,17 @@
       "executor_command": [
         "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
         "tools/oc133_toe_closure_factory.py",
-        "--compile-comparator-research-artifact-repair-backlog",
+        "--execute-comparator-research-artifact-repair",
+        "R017-RESEARCH-ARTIFACT-REPAIR-ac38dd834f30d39d",
         "--write"
       ],
-      "executor_type": "comparator_research_artifact_repair_backlog",
+      "executor_type": "comparator_research_artifact_repair",
       "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
       "missing_artifact_type": "replay_record",
       "next_escalation": "If this compiled capability produces zero validator delta, generate a lower-level upstream research obligation for the exact missing source/evidence object.",
       "output_artifact_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/capability_implementation/R017-CAPDEV-24f948ce0204.json",
       "pass_predicate": "The repaired `replay_record` research artifact status becomes PASS and the comparator gap no longer lists it as missing.",
-      "repair_strategy": "Compile repair rows for comparator research artifacts that exist but remain OPEN; artifact existence alone is not scientific closure.",
+      "repair_strategy": "Execute the exact repair row for an existing OPEN comparator research artifact; fail-closed evidence remains fail-closed unless the artifact itself passes.",
       "required_capability": "Research/ScoringExecutor",
       "scientific_frontier_hash": "cf7fa90cae7761e24fd499a438781aaf7ffc6da730dc3657f8d31d0ba649dc95",
       "self_test_command": [
