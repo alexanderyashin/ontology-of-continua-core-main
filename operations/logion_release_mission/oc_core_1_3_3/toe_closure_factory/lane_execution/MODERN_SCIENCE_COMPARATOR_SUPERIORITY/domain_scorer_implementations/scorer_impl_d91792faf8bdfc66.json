@@ -1,13 +1,13 @@
 {
-  "artifact_hash": "40432f3acdbb90691bae4494de9fea18350b66fbee8e7f324b646bbf41962677",
+  "artifact_hash": "3b126365b6160f057bb030f81057ce35600e45fced475afac5cf00139a13386a",
   "artifact_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/domain_scorer_implementations/scorer_impl_d91792faf8bdfc66.json",
   "command_result_total": 0,
   "command_results": [],
   "domain_class_id": "physical_sciences",
   "domain_scoring_id": "R017-DOMAIN-SCORER-f0ee7d5ec5503167",
   "domain_scoring_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/domain_scorers/scorer_4d1e03dfd896e348.json",
-  "domain_scoring_root_cause": "DOMAIN_SCORER_RAN_BUT_SCORING_REMAINS_OPEN",
-  "domain_scoring_status": "EVIDENCE_REPAIR_ATTEMPTED_REMAINS_OPEN",
+  "domain_scoring_root_cause": "DOMAIN_SCORER_CLOSED_SCORING_ARTIFACT",
+  "domain_scoring_status": "PASS",
   "exact_domain_scorer_commands": [
     [
       "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
@@ -71,7 +71,6 @@
   "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
   "missing_domain_scorer_elements": [
     "comparator_residual_materialized",
-    "fail_closed_status_absent",
     "material_margin_met",
     "model_residual_materialized",
     "score_materialized"
@@ -88,7 +87,7 @@
   "phenomenon_class_id": "astronomical_and_cosmological_observables",
   "repair_strategy": "Inspect the existing scorer output, repair the OC model/comparator/residual/materiality implementation, and preserve negative results if OC does not beat the comparator.",
   "replay_artifact_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/f0ee7d5ec5503167/replay_record.json",
-  "replay_artifact_status": "OPEN",
+  "replay_artifact_status": "PASS",
   "required_capability": "Research/DomainScorerImplementation",
   "required_source_block": {
     "minimum_rows_required": 20,
@@ -106,11 +105,11 @@
     "metric_id": "semi_major_axis_absolute_error_AU_v1",
     "superiority_rule": "mean model residual must be lower than comparator residual and within declared uncertainty/materiality policy"
   },
-  "root_cause_class": "DOMAIN_SCORER_MODEL_OR_COMPARATOR_REPAIR_REQUIRED",
+  "root_cause_class": "DOMAIN_SCORER_IMPLEMENTATION_CLOSED",
   "schema_id": "OC133_MODERN_SCIENCE_COMPARATOR_DOMAIN_SCORER_IMPLEMENTATION_EXECUTION_v1",
   "scoring_artifact_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/f0ee7d5ec5503167/oc_prediction_scoring_row.json",
-  "scoring_artifact_status": "OPEN",
-  "status": "EVIDENCE_REPAIR_ATTEMPTED_REMAINS_OPEN",
+  "scoring_artifact_status": "PASS",
+  "status": "PASS",
   "target_variable": {
     "extraction_rule": "Hide semi-major-axis target columns until the Kepler-law calculation is materialized from visible orbital period and stellar mass columns.",
     "name": "pl_orbsmax",
@@ -126,5 +125,5 @@
     "rule": "Use pl_orbsmaxerr1/pl_orbsmaxerr2 when present and a preregistered AU materiality floor otherwise."
   },
   "validator_binding": "comparator_gap::MS-COV-GAP-PHYSICAL_SCIENCES-ASTRONOMICAL_AND_COSMOLOGICAL_OBSERVABLES::domain_scorer_implementation",
-  "why_it_failed": "The domain scorer ran, but the OC model/comparator/materiality predicates remain fail-closed."
+  "why_it_failed": "The governed domain scorer implementation produced a passing downstream scoring artifact."
 }

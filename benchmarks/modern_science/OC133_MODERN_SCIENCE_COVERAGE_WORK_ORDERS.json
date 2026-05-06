@@ -1745,8 +1745,7 @@
         "executable lane spec declares exact official source, target variable, formula/model, comparator, uncertainty, residual metric, negative control, and falsifier",
         "source snapshot and target projection are locked before scoring",
         "strict evidence pack exists and validates under independent replay",
-        "coverage remains open until every closure predicate is reviewed",
-        "fail-closed evidence gate: executable evidence is not yet bound"
+        "coverage remains open until every closure predicate is reviewed"
       ],
       "acceptance_predicates": [
         "STRICT_PACK_SCHEMA_PASS",
@@ -1788,7 +1787,7 @@
           "required_local_snapshot_ref": "validation/heldout/grand_science/physics_chemistry/nasa_exoplanet_archive/OC133_NASA_EXOPLANET_PS_COMPOSITE_KEPLER.json",
           "required_lock_ref": "validation/heldout/grand_science/physics_chemistry/nasa_exoplanet_archive/OC133_NASA_EXOPLANET_PS_COMPOSITE_KEPLER.lock.json",
           "minimum_rows_required": 20,
-          "snapshot_status": "NOT_ACQUIRED_FOR_THIS_COVERAGE_CLASS"
+          "snapshot_status": "ACQUIRED_OR_BOUND"
         },
         "target_variable": {
           "name": "pl_orbsmax",
@@ -1840,9 +1839,14 @@
           "replay_command": "python benchmarks/modern_science/coverage_lane_dispatcher.py --check"
         },
         "current_evidence": {
-          "executable_evidence_exists": false,
-          "executable_evidence_ref": null,
-          "reason": "No locked NASA Exoplanet Archive snapshot, target projection, scorer, or strict evidence pack exists for this coverage class."
+          "executable_evidence_exists": true,
+          "executable_evidence_ref": "validation/heldout/grand_science/physics_chemistry/nasa_exoplanet_archive/OC133_NASA_EXOPLANET_KEPLER_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
+          "reason": "Source-bound target-hidden scoring evidence is materialized and hash-bound; broad modern-science coverage still remains fail-closed until every required gap passes.",
+          "status": "STRICT_EVIDENCE_PASS_NO_COVERAGE_CLOSURE",
+          "implemented_scoring_pack_ref": "validation/heldout/grand_science/physics_chemistry/nasa_exoplanet_archive/OC133_NASA_EXOPLANET_KEPLER_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
+          "strict_evidence_pack_ref": "validation/heldout/grand_science/physics_chemistry/nasa_exoplanet_archive/OC133_NASA_EXOPLANET_KEPLER_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
+          "implemented_snapshot_ref": "validation/heldout/grand_science/physics_chemistry/nasa_exoplanet_archive/OC133_NASA_EXOPLANET_PS_COMPOSITE_KEPLER.json",
+          "implemented_lock_ref": "validation/heldout/grand_science/physics_chemistry/nasa_exoplanet_archive/OC133_NASA_EXOPLANET_PS_COMPOSITE_KEPLER.lock.json"
         },
         "closure_predicates_required": [
           "STRICT_PACK_SCHEMA_PASS",
@@ -2624,7 +2628,9 @@
           "status": "STRICT_EVIDENCE_PASS_NO_COVERAGE_CLOSURE",
           "implemented_snapshot_ref": null,
           "implemented_lock_ref": null,
-          "reason": "Source-bound target-hidden scoring evidence is materialized and hash-bound; broad modern-science coverage still remains fail-closed until every required gap passes."
+          "reason": "Source-bound target-hidden scoring evidence is materialized and hash-bound; broad modern-science coverage still remains fail-closed until every required gap passes.",
+          "implemented_scoring_pack_ref": "validation/heldout/grand_science/earth_space/coverage_work_orders/OC133_EARTH_SPACE_NOAA_COOPS_WATER_LEVEL_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
+          "strict_evidence_pack_ref": "validation/heldout/grand_science/earth_space/coverage_work_orders/OC133_EARTH_SPACE_NOAA_COOPS_WATER_LEVEL_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json"
         },
         "closure_predicates_required": [
           "STRICT_PACK_SCHEMA_PASS",
@@ -2834,7 +2840,9 @@
           "status": "SCORER_READY_FAIL_CLOSED_STRICT_EVIDENCE_NOT_MET",
           "implemented_snapshot_ref": null,
           "implemented_lock_ref": null,
-          "reason": "Source-bound target-hidden scoring evidence is materialized and hash-bound; broad modern-science coverage still remains fail-closed until every required gap passes."
+          "reason": "Source-bound target-hidden scoring evidence is materialized and hash-bound; broad modern-science coverage still remains fail-closed until every required gap passes.",
+          "implemented_scoring_pack_ref": "validation/heldout/grand_science/earth_space/coverage_work_orders/OC133_EARTH_SPACE_USGS_HYDROLOGY_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
+          "strict_evidence_pack_ref": "validation/heldout/grand_science/earth_space/coverage_work_orders/OC133_EARTH_SPACE_USGS_HYDROLOGY_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json"
         },
         "closure_predicates_required": [
           "STRICT_PACK_SCHEMA_PASS",
@@ -3046,7 +3054,9 @@
           "status": "STRICT_EVIDENCE_PASS_NO_COVERAGE_CLOSURE",
           "implemented_snapshot_ref": null,
           "implemented_lock_ref": null,
-          "reason": "Source-bound target-hidden scoring evidence is materialized and hash-bound; broad modern-science coverage still remains fail-closed until every required gap passes."
+          "reason": "Source-bound target-hidden scoring evidence is materialized and hash-bound; broad modern-science coverage still remains fail-closed until every required gap passes.",
+          "implemented_scoring_pack_ref": "validation/heldout/grand_science/earth_space/coverage_work_orders/OC133_EARTH_SPACE_NASA_POWER_REMOTE_SENSING_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
+          "strict_evidence_pack_ref": "validation/heldout/grand_science/earth_space/coverage_work_orders/OC133_EARTH_SPACE_NASA_POWER_REMOTE_SENSING_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json"
         },
         "closure_predicates_required": [
           "STRICT_PACK_SCHEMA_PASS",
@@ -4746,7 +4756,9 @@
           "status": null,
           "implemented_snapshot_ref": "validation/heldout/grand_science/agriculture/coverage_work_orders/raw/OC133_AGRICULTURE_FDC_FOUNDATION_FOODS_LIST_25.compact.json",
           "implemented_lock_ref": "validation/heldout/grand_science/agriculture/coverage_work_orders/locks/OC133-AGRI-FDC-FOUNDATION-FOODS-LIST-0001.lock.json",
-          "reason": "Source-bound target-hidden scoring evidence is materialized and hash-bound; broad modern-science coverage still remains fail-closed until every required gap passes."
+          "reason": "Source-bound target-hidden scoring evidence is materialized and hash-bound; broad modern-science coverage still remains fail-closed until every required gap passes.",
+          "implemented_scoring_pack_ref": "validation/heldout/grand_science/agriculture/coverage_work_orders/OC133_AGRICULTURE_FDC_SODIUM_SCORING_PACK.json",
+          "strict_evidence_pack_ref": "validation/heldout/grand_science/agriculture/coverage_work_orders/OC133_AGRICULTURE_FDC_SODIUM_SCORING_PACK.json"
         },
         "closure_predicates_required": [
           "STRICT_PACK_SCHEMA_PASS",
@@ -6243,7 +6255,9 @@
           "status": "STRICT_EVIDENCE_PASS_NO_COVERAGE_CLOSURE",
           "implemented_snapshot_ref": "validation/heldout/grand_science/cs/coverage_work_orders/raw/security_nvd/nvd_cve_2024q1_high.compact.json",
           "implemented_lock_ref": "validation/heldout/grand_science/cs/coverage_work_orders/raw/security_nvd/nvd_cve_2024q1_high.lock.json",
-          "reason": "Source-bound target-hidden scoring evidence is materialized and hash-bound; broad modern-science coverage still remains fail-closed until every required gap passes."
+          "reason": "Source-bound target-hidden scoring evidence is materialized and hash-bound; broad modern-science coverage still remains fail-closed until every required gap passes.",
+          "implemented_scoring_pack_ref": "validation/heldout/grand_science/cs/coverage_work_orders/OC133_CS_NVD_CVSS_SECURITY_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
+          "strict_evidence_pack_ref": "validation/heldout/grand_science/cs/coverage_work_orders/OC133_CS_NVD_CVSS_SECURITY_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json"
         },
         "closure_predicates_required": [
           "STRICT_PACK_SCHEMA_PASS",

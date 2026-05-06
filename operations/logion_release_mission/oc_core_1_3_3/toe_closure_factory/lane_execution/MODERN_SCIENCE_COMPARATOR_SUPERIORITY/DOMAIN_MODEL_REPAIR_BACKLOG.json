@@ -1,7 +1,7 @@
 {
-  "artifact_hash": "81029d0c9bbdc0ea8d3348675351ffec728cb9766f5ea9a61e46aa542d1e77a2",
+  "artifact_hash": "4e0ef5015009dd2b6e513f2977979bf7ce80f78816e1eb44a2b9eccb42e057c2",
   "artifact_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/DOMAIN_MODEL_REPAIR_BACKLOG.json",
-  "domain_model_repair_total": 29,
+  "domain_model_repair_total": 28,
   "execution_command": [
     "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
     "tools/oc133_toe_closure_factory.py",
@@ -12,7 +12,7 @@
   "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
   "next_escalation": "Execute the first domain-model repair row and inspect component obligations.",
   "no_fake_closure_policy": "Backlog rows are internal repair obligations, not superiority evidence.",
-  "open_domain_model_repair_total": 29,
+  "open_domain_model_repair_total": 28,
   "pass_predicate": "Every domain-model repair row is PASS through downstream scoring artifacts.",
   "repair_strategy": "Convert each scorer-ran-but-open row into component-level model/comparator repair obligations.",
   "required_capability": "Research/DomainModelComparatorRepair",
@@ -85,41 +85,6 @@
       "source_domain_scorer_root_cause": "DOMAIN_SCORER_MODEL_OR_COMPARATOR_REPAIR_REQUIRED",
       "status": "OPEN",
       "validator_binding": "comparator_gap::MS-COV-GAP-PHYSICAL_SCIENCES-CONDENSED_MATTER_FIELDS_AND_MEASUREMENTS::domain_model_repair",
-      "why_it_failed": "The exact domain scorer now exists and runs, but the OC/comparator residual/materiality evidence remains fail-closed."
-    },
-    {
-      "domain_class_id": "physical_sciences",
-      "execution_command": [
-        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
-        "tools/oc133_toe_closure_factory.py",
-        "--execute-comparator-domain-model-repair",
-        "R017-DOMAIN-MODEL-REPAIR-f0ee7d5ec5503167",
-        "--write"
-      ],
-      "gap_id": "MS-COV-GAP-PHYSICAL_SCIENCES-ASTRONOMICAL_AND_COSMOLOGICAL_OBSERVABLES",
-      "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
-      "missing_model_repair_elements": [
-        "comparator_residual_materialized",
-        "fail_closed_status_absent",
-        "material_margin_met",
-        "model_residual_materialized",
-        "score_materialized"
-      ],
-      "next_escalation": "Generate component-level model/comparator obligations and keep the gap fail-closed until real residuals pass.",
-      "no_fake_closure_policy": "Domain-model repair rows cannot close broad superiority unless the downstream scoring artifact itself passes.",
-      "pass_predicate": "Downstream oc_prediction_scoring_row and replay predicates pass with source-bound OC/comparator residuals.",
-      "phenomenon_class_id": "astronomical_and_cosmological_observables",
-      "repair_id": "R017-DOMAIN-MODEL-REPAIR-f0ee7d5ec5503167",
-      "repair_strategy": "Repair the domain-local OC model, incumbent comparator scoring, residual computation, uncertainty/materiality, or claim scope from source-bound evidence.",
-      "repair_work_order_id": "R017-DOMAIN-MODEL-REPAIR-f0ee7d5ec5503167",
-      "required_capability": "Research/DomainModelComparatorRepair",
-      "scoring_artifact_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/f0ee7d5ec5503167/oc_prediction_scoring_row.json",
-      "scoring_artifact_status": "OPEN",
-      "source_domain_scorer_implementation_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/domain_scorer_implementations/scorer_impl_d91792faf8bdfc66.json",
-      "source_domain_scorer_implementation_status": "EVIDENCE_REPAIR_ATTEMPTED_REMAINS_OPEN",
-      "source_domain_scorer_root_cause": "DOMAIN_SCORER_MODEL_OR_COMPARATOR_REPAIR_REQUIRED",
-      "status": "OPEN",
-      "validator_binding": "comparator_gap::MS-COV-GAP-PHYSICAL_SCIENCES-ASTRONOMICAL_AND_COSMOLOGICAL_OBSERVABLES::domain_model_repair",
       "why_it_failed": "The exact domain scorer now exists and runs, but the OC/comparator residual/materiality evidence remains fail-closed."
     },
     {

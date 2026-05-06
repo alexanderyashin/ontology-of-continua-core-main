@@ -73,6 +73,10 @@ DOMAIN_LOCAL_MATERIALIZED_EVIDENCE_REFS = {
         "computer_information_sciences",
         "information_network_and_security_observables",
     ): "validation/heldout/grand_science/cs/coverage_work_orders/OC133_CS_NVD_CVSS_SECURITY_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
+    (
+        "physical_sciences",
+        "astronomical_and_cosmological_observables",
+    ): "validation/heldout/grand_science/physics_chemistry/nasa_exoplanet_archive/OC133_NASA_EXOPLANET_KEPLER_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
 }
 
 OFFICIAL_SOURCE_DEFAULTS = {
@@ -668,6 +672,57 @@ def first_nonempty(*values: Any) -> Any:
         if value not in (None, "", [], {}):
             return value
     return None
+
+
+def materialized_evidence_binding_for_key(
+    key: tuple[str, str],
+    existing: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    evidence = dict(existing or {})
+    materialized_ref = DOMAIN_LOCAL_MATERIALIZED_EVIDENCE_REFS.get(key, "")
+    materialized_path = repo_root() / materialized_ref if materialized_ref else None
+    materialized_pack = load_json(materialized_path) if materialized_path else {}
+    if not materialized_pack:
+        return evidence
+    pack_status = first_nonempty(materialized_pack.get("pack_status"), materialized_pack.get("status"))
+    return {
+        **evidence,
+        "status": pack_status,
+        "executable_evidence_exists": True,
+        "executable_evidence_ref": materialized_ref,
+        "implemented_scoring_pack_ref": materialized_ref,
+        "strict_evidence_pack_ref": materialized_ref,
+        "implemented_snapshot_ref": first_nonempty(
+            materialized_pack.get("source_snapshot_ref"),
+            as_dict(materialized_pack.get("source")).get("source_snapshot_ref"),
+        ),
+        "implemented_lock_ref": first_nonempty(
+            materialized_pack.get("source_lock_ref"),
+            as_dict(materialized_pack.get("source")).get("source_lock_ref"),
+        ),
+        "reason": (
+            "Source-bound target-hidden scoring evidence is materialized and hash-bound; "
+            "broad modern-science coverage still remains fail-closed until every required gap passes."
+        ),
+    }
+
+
+def bind_materialized_current_evidence(spec: dict[str, Any]) -> dict[str, Any]:
+    row = copy.deepcopy(spec)
+    evidence = materialized_evidence_binding_for_key(lane_key(row), as_dict(row.get("current_evidence")))
+    if evidence.get("executable_evidence_exists") is not True:
+        return row
+    row["current_evidence"] = evidence
+    source = as_dict(row.get("official_data_source")).copy()
+    if evidence.get("implemented_snapshot_ref"):
+        source["required_local_snapshot_ref"] = evidence.get("implemented_snapshot_ref")
+    if evidence.get("implemented_lock_ref"):
+        source["required_lock_ref"] = evidence.get("implemented_lock_ref")
+    if evidence.get("implemented_snapshot_ref") and evidence.get("implemented_lock_ref"):
+        source["snapshot_status"] = "ACQUIRED_OR_BOUND"
+    if source:
+        row["official_data_source"] = source
+    return row
 
 
 def string_list(value: Any) -> list[str]:
@@ -1295,7 +1350,13 @@ def executable_lane_spec(
 ) -> dict[str, Any] | None:
     spec = work_order.get("executable_lane_spec")
     if isinstance(spec, dict):
-        return canonical_executable_spec(spec, domain_class_id=str(work_order.get("domain_class_id", "")), phenomenon_class_id=str(work_order.get("phenomenon_class_id", "")))
+        return bind_materialized_current_evidence(
+            canonical_executable_spec(
+                spec,
+                domain_class_id=str(work_order.get("domain_class_id", "")),
+                phenomenon_class_id=str(work_order.get("phenomenon_class_id", "")),
+            )
+        )
     if executable_spec_registry is not None:
         work_order_key = lane_key(work_order)
         default = executable_spec_registry.get(work_order_key)
@@ -1314,14 +1375,16 @@ def executable_lane_spec(
                 None,
             )
         if isinstance(default, dict):
-            return copy.deepcopy(default)
+            return bind_materialized_current_evidence(copy.deepcopy(default))
     default = DEFAULT_EXECUTABLE_LANE_SPECS.get(lane_key(work_order))
     if isinstance(default, dict):
         domain_class_id, phenomenon_class_id = lane_key(work_order)
-        return canonical_executable_spec(default, domain_class_id=domain_class_id, phenomenon_class_id=phenomenon_class_id)
+        return bind_materialized_current_evidence(
+            canonical_executable_spec(default, domain_class_id=domain_class_id, phenomenon_class_id=phenomenon_class_id)
+        )
     medical = medical_health_executable_spec(work_order)
     if isinstance(medical, dict):
-        return medical
+        return bind_materialized_current_evidence(medical)
     return None
 
 

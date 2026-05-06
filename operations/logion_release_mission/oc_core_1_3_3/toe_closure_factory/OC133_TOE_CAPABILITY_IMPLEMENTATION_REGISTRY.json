@@ -1,11 +1,11 @@
 {
-  "artifact_hash": "1a949646c94bd52230bb8fa795c5d3c35c00e8d600ecc6238cefb47e0919b8b0",
-  "blocked_capability_total": 122,
-  "compiled_capability_total": 130,
+  "artifact_hash": "4dd9443a66d0917ec18f5072d43d8f440373080aa819accea3c305e8d8bfe71c",
+  "blocked_capability_total": 118,
+  "compiled_capability_total": 128,
   "dedupe_policy": "Rows are keyed by lane_id + source_graph_node_id + missing_artifact_type + scientific_frontier_hash.",
-  "generated_at": "2026-05-06T16:00:33Z",
+  "generated_at": "2026-05-06T16:35:43Z",
   "no_fake_closure_policy": "Compiled capabilities execute research commands only; PASS still requires strict validator closure.",
-  "ready_capability_total": 8,
+  "ready_capability_total": 10,
   "rows": [
     {
       "capability_class": "upstream_source_materializer_missing",
@@ -416,9 +416,9 @@
       "why_it_failed": "Replay is correctly blocked because the upstream scoring evidence is not passing."
     },
     {
-      "capability_class": "upstream_source_materializer_missing",
+      "capability_class": "upstream_capability_work_order",
       "capability_development_key": "122008bb42eb61b2db80f189b0911d791d6b40dc6759cc0b998b28586ca72315",
-      "capability_executor_ready": false,
+      "capability_executor_ready": true,
       "capability_id": "R017-CAPDEV-122008bb42eb",
       "compiled_capability_id": "R017-CAPDEV-122008bb42eb",
       "execution_command": [
@@ -428,14 +428,20 @@
         "R017-CAPDEV-122008bb42eb",
         "--write"
       ],
-      "executor_command": [],
-      "executor_type": "upstream_source_materializer_missing",
+      "executor_command": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "tools/oc133_toe_closure_factory.py",
+        "--execute-upstream-capability-work-order",
+        "R017-UPSTREAM-0cc87e1b8eee3370",
+        "--write"
+      ],
+      "executor_type": "upstream_capability_work_order",
       "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
       "missing_artifact_type": "upstream_work_order::SOURCE_BOUND_SCORER_MATERIALIZER_IMPLEMENTATION",
       "next_escalation": "If this compiled capability produces zero validator delta, generate a lower-level upstream research obligation for the exact missing source/evidence object.",
       "output_artifact_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/capability_implementation/R017-CAPDEV-122008bb42eb.json",
       "pass_predicate": "Comparator gap `MS-COV-GAP-PHYSICAL_SCIENCES-ASTRONOMICAL_AND_COSMOLOGICAL_OBSERVABLES` has `replay_record` and strict coverage register no longer lists it as missing.",
-      "repair_strategy": "No governed source-bound materializer command exists for this domain/phenomenon yet; keep this as capability backlog instead of executing diagnostic scripts.",
+      "repair_strategy": "Execute the lower-level upstream capability work order produced by exhausted source-bound materialization, rather than rerunning diagnostics.",
       "required_capability": "Research/PriorArt",
       "scientific_frontier_hash": "cf7fa90cae7761e24fd499a438781aaf7ffc6da730dc3657f8d31d0ba649dc95",
       "self_test_command": [
@@ -445,7 +451,7 @@
       ],
       "source_capability_development_id": "R017-UPSTREAM-0cc87e1b8eee3370",
       "source_graph_node_id": "upstream_work_order:R017-UPSTREAM-0cc87e1b8eee3370:SOURCE_BOUND_SCORER_MATERIALIZER_IMPLEMENTATION:MS-COV-GAP-PHYSICAL_SCIENCES-ASTRONOMICAL_AND_COSMOLOGICAL_OBSERVABLES:replay_record",
-      "status": "BLOCKED",
+      "status": "READY",
       "validator_binding": "support_artifact::MODERN_SCIENCE_COMPARATOR_SUPERIORITY::replay_record",
       "why_it_failed": "Replay is correctly blocked because the upstream scoring evidence is not passing."
     },
@@ -1704,9 +1710,9 @@
       "why_it_failed": "Replay is correctly blocked because the upstream scoring evidence is not passing."
     },
     {
-      "capability_class": "upstream_source_materializer_missing",
+      "capability_class": "upstream_capability_work_order",
       "capability_development_key": "633347904096f1360b812c05b4f668bd1c9719ac2234a882fed1021e2b93e9ef",
-      "capability_executor_ready": false,
+      "capability_executor_ready": true,
       "capability_id": "R017-CAPDEV-633347904096",
       "compiled_capability_id": "R017-CAPDEV-633347904096",
       "execution_command": [
@@ -1716,14 +1722,20 @@
         "R017-CAPDEV-633347904096",
         "--write"
       ],
-      "executor_command": [],
-      "executor_type": "upstream_source_materializer_missing",
+      "executor_command": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "tools/oc133_toe_closure_factory.py",
+        "--execute-upstream-capability-work-order",
+        "R017-UPSTREAM-1905a38555197559",
+        "--write"
+      ],
+      "executor_type": "upstream_capability_work_order",
       "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
       "missing_artifact_type": "upstream_work_order::SOURCE_BOUND_SCORER_MATERIALIZER_IMPLEMENTATION",
       "next_escalation": "If this compiled capability produces zero validator delta, generate a lower-level upstream research obligation for the exact missing source/evidence object.",
       "output_artifact_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/capability_implementation/R017-CAPDEV-633347904096.json",
       "pass_predicate": "Comparator gap `MS-COV-GAP-PHYSICAL_SCIENCES-ASTRONOMICAL_AND_COSMOLOGICAL_OBSERVABLES` has `oc_prediction_scoring_row` and strict coverage register no longer lists it as missing.",
-      "repair_strategy": "No governed source-bound materializer command exists for this domain/phenomenon yet; keep this as capability backlog instead of executing diagnostic scripts.",
+      "repair_strategy": "Execute the lower-level upstream capability work order produced by exhausted source-bound materialization, rather than rerunning diagnostics.",
       "required_capability": "Research/PriorArt",
       "scientific_frontier_hash": "cf7fa90cae7761e24fd499a438781aaf7ffc6da730dc3657f8d31d0ba649dc95",
       "self_test_command": [
@@ -1733,7 +1745,7 @@
       ],
       "source_capability_development_id": "R017-UPSTREAM-1905a38555197559",
       "source_graph_node_id": "upstream_work_order:R017-UPSTREAM-1905a38555197559:SOURCE_BOUND_SCORER_MATERIALIZER_IMPLEMENTATION:MS-COV-GAP-PHYSICAL_SCIENCES-ASTRONOMICAL_AND_COSMOLOGICAL_OBSERVABLES:oc_prediction_scoring_row",
-      "status": "BLOCKED",
+      "status": "READY",
       "validator_binding": "support_artifact::MODERN_SCIENCE_COMPARATOR_SUPERIORITY::oc_prediction_scoring_row",
       "why_it_failed": "The evidence pack is explicitly fail-closed; broad superiority cannot use it."
     },
@@ -3037,40 +3049,6 @@
     },
     {
       "capability_class": "comparator_component_materialization_capability_gap",
-      "capability_development_key": "aa0621bc9d4cc180232ec0d6374662f0ef6666b5f01e7e2d08d37f8c59b24f62",
-      "capability_executor_ready": false,
-      "capability_id": "R017-CAPDEV-aa0621bc9d4c",
-      "compiled_capability_id": "R017-CAPDEV-aa0621bc9d4c",
-      "execution_command": [
-        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
-        "tools/oc133_toe_closure_factory.py",
-        "--execute-capability-development",
-        "R017-CAPDEV-aa0621bc9d4c",
-        "--write"
-      ],
-      "executor_command": [],
-      "executor_type": "comparator_component_materialization_capability_gap",
-      "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
-      "missing_artifact_type": "oc_prediction_scoring_row",
-      "next_escalation": "If this compiled capability produces zero validator delta, generate a lower-level upstream research obligation for the exact missing source/evidence object.",
-      "output_artifact_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/capability_implementation/R017-CAPDEV-aa0621bc9d4c.json",
-      "pass_predicate": "The repaired OC scoring research artifact status becomes PASS and the comparator gap no longer lists oc_prediction_scoring_row as missing.",
-      "repair_strategy": "Source-bound materialization report already exists and names the missing domain scorer/materializer; do not rerun the diagnostic wrapper.",
-      "required_capability": "Research/ScoringExecutor",
-      "scientific_frontier_hash": "cf7fa90cae7761e24fd499a438781aaf7ffc6da730dc3657f8d31d0ba649dc95",
-      "self_test_command": [
-        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
-        "tools/oc133_toe_closure_factory.py",
-        "--check"
-      ],
-      "source_capability_development_id": "AUTO-R017-CAPABILITY-DEVELOPMENT-0027-c90797eb",
-      "source_graph_node_id": "required_artifact:MODERN_SCIENCE_COMPARATOR_SUPERIORITY:MS-COV-GAP-PHYSICAL_SCIENCES-ASTRONOMICAL_AND_COSMOLOGICAL_OBSERVABLES:oc_prediction_scoring_row",
-      "status": "BLOCKED",
-      "validator_binding": "support_artifact::MODERN_SCIENCE_COMPARATOR_SUPERIORITY::oc_prediction_scoring_row",
-      "why_it_failed": "The evidence pack is explicitly fail-closed; broad superiority cannot use it."
-    },
-    {
-      "capability_class": "comparator_component_materialization_capability_gap",
       "capability_development_key": "0c8048ec63a5c8e24f1221a3e76d3677fe28a7e06144f01915865463327c6c91",
       "capability_executor_ready": false,
       "capability_id": "R017-CAPDEV-0c8048ec63a5",
@@ -4063,40 +4041,6 @@
     },
     {
       "capability_class": "comparator_component_materialization_capability_gap",
-      "capability_development_key": "1cf67ae9b687e5153086741969b28c19e55fdfa15f2e431fb7165a2e7559b896",
-      "capability_executor_ready": false,
-      "capability_id": "R017-CAPDEV-1cf67ae9b687",
-      "compiled_capability_id": "R017-CAPDEV-1cf67ae9b687",
-      "execution_command": [
-        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
-        "tools/oc133_toe_closure_factory.py",
-        "--execute-capability-development",
-        "R017-CAPDEV-1cf67ae9b687",
-        "--write"
-      ],
-      "executor_command": [],
-      "executor_type": "comparator_component_materialization_capability_gap",
-      "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
-      "missing_artifact_type": "replay_record",
-      "next_escalation": "If this compiled capability produces zero validator delta, generate a lower-level upstream research obligation for the exact missing source/evidence object.",
-      "output_artifact_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/capability_implementation/R017-CAPDEV-1cf67ae9b687.json",
-      "pass_predicate": "The repaired `replay_record` research artifact status becomes PASS and the comparator gap no longer lists it as missing.",
-      "repair_strategy": "Source-bound materialization report already exists and names the missing domain scorer/materializer; do not rerun the diagnostic wrapper.",
-      "required_capability": "Research/ScoringExecutor",
-      "scientific_frontier_hash": "cf7fa90cae7761e24fd499a438781aaf7ffc6da730dc3657f8d31d0ba649dc95",
-      "self_test_command": [
-        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
-        "tools/oc133_toe_closure_factory.py",
-        "--check"
-      ],
-      "source_capability_development_id": "AUTO-R017-CAPABILITY-DEVELOPMENT-0058-6714d924",
-      "source_graph_node_id": "required_artifact:MODERN_SCIENCE_COMPARATOR_SUPERIORITY:MS-COV-GAP-PHYSICAL_SCIENCES-ASTRONOMICAL_AND_COSMOLOGICAL_OBSERVABLES:replay_record",
-      "status": "BLOCKED",
-      "validator_binding": "support_artifact::MODERN_SCIENCE_COMPARATOR_SUPERIORITY::replay_record",
-      "why_it_failed": "Replay is correctly blocked because the upstream scoring evidence is not passing."
-    },
-    {
-      "capability_class": "comparator_component_materialization_capability_gap",
       "capability_development_key": "3e761a6e02c5029b7947400dca0136a4361a2631306704507893f55a7f2bfecc",
       "capability_executor_ready": false,
       "capability_id": "R017-CAPDEV-3e761a6e02c5",
@@ -4479,6 +4423,6 @@
   "schema_id": "OC133_TOE_CAPABILITY_IMPLEMENTATION_REGISTRY_v1",
   "scientific_frontier_hash": "cf7fa90cae7761e24fd499a438781aaf7ffc6da730dc3657f8d31d0ba649dc95",
   "scientific_frontier_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/OC133_TOE_SCIENTIFIC_FRONTIER.json",
-  "source_capability_development_total": 152,
+  "source_capability_development_total": 158,
   "status": "OPEN"
 }

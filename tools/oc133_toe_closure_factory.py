@@ -2043,6 +2043,11 @@ COMPARATOR_DOMAIN_SCRIPT_BY_CLASS = {
     "social_economic_political_sciences": "validation/heldout/grand_science/systems/coverage_work_orders/oc133_systems_civilizational_modern_science_coverage_work_orders.py",
 }
 
+PHYSICS_EXOPLANET_KEPLER_MATERIALIZER = (
+    "validation/heldout/grand_science/physics_chemistry/nasa_exoplanet_archive/"
+    "oc133_physics_exoplanet_kepler_materializer.py"
+)
+
 COMPARATOR_DOMAIN_IMPLEMENTED_COMMANDS = {
     (
         "agricultural_food_sciences",
@@ -2363,6 +2368,37 @@ COMPARATOR_DOMAIN_IMPLEMENTED_COMMANDS[
 ] = [
     [sys.executable, COMPARATOR_DOMAIN_SCRIPT_BY_CLASS["computer_information_sciences"], "--refresh-nvd-source", "--write-acquisition"],
     [sys.executable, COMPARATOR_DOMAIN_SCRIPT_BY_CLASS["computer_information_sciences"], "--check"],
+]
+
+for _exoplanet_subartifact in (
+    "target_hidden_task_table",
+    "oc_formula_or_model",
+    "incumbent_comparator_scoring",
+    "residuals_materiality_uncertainty",
+    "controls_and_falsifiers",
+    "independent_replay",
+    "strict_evidence_pack_diagnosis",
+    "model_or_claim_repair_decision",
+):
+    COMPARATOR_DOMAIN_IMPLEMENTED_COMMANDS[
+        (
+            "physical_sciences",
+            "astronomical_and_cosmological_observables",
+            _exoplanet_subartifact,
+        )
+    ] = [
+        [sys.executable, PHYSICS_EXOPLANET_KEPLER_MATERIALIZER, "--score", "--write-scoring"],
+        [sys.executable, PHYSICS_EXOPLANET_KEPLER_MATERIALIZER, "--check"],
+    ]
+COMPARATOR_DOMAIN_IMPLEMENTED_COMMANDS[
+    (
+        "physical_sciences",
+        "astronomical_and_cosmological_observables",
+        "source_snapshot_acquisition",
+    )
+] = [
+    [sys.executable, PHYSICS_EXOPLANET_KEPLER_MATERIALIZER, "--acquire", "--write-acquisition"],
+    [sys.executable, PHYSICS_EXOPLANET_KEPLER_MATERIALIZER, "--check"],
 ]
 
 
@@ -3022,6 +3058,10 @@ COMPARATOR_DOMAIN_MATERIALIZED_EVIDENCE_REFS = {
         "computer_information_sciences",
         "information_network_and_security_observables",
     ): "validation/heldout/grand_science/cs/coverage_work_orders/OC133_CS_NVD_CVSS_SECURITY_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
+    (
+        "physical_sciences",
+        "astronomical_and_cosmological_observables",
+    ): "validation/heldout/grand_science/physics_chemistry/nasa_exoplanet_archive/OC133_NASA_EXOPLANET_KEPLER_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
 }
 
 

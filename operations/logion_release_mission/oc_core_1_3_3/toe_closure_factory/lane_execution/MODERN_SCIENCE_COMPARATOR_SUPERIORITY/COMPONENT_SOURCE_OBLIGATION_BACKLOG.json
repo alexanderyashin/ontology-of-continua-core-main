@@ -1,8 +1,8 @@
 {
-  "artifact_hash": "d73699b6d23222206ebc077c51a1252b89471507f283f3b2245ab3b806b41820",
+  "artifact_hash": "91f99a84cf73ade0c2d26cd2f05dc53555836e03d11a6a39c9f6127d74150fe1",
   "artifact_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/COMPONENT_SOURCE_OBLIGATION_BACKLOG.json",
   "component_implementation_registry_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/DOMAIN_MODEL_COMPONENT_IMPLEMENTATION_REGISTRY.json",
-  "component_source_obligation_total": 174,
+  "component_source_obligation_total": 168,
   "execution_command": [
     "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
     "tools/oc133_toe_closure_factory.py",
@@ -13,7 +13,7 @@
   "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
   "next_escalation": "Execute exact source obligations; if unchanged, generate domain source acquisition/scoring implementation tasks.",
   "no_fake_closure_policy": "Backlog rows are internal obligations and cannot promote modern_science_comparator_superiority.",
-  "open_component_source_obligation_total": 174,
+  "open_component_source_obligation_total": 168,
   "pass_predicate": "Every component source obligation is closed by downstream PASS scoring and replay artifacts.",
   "repair_strategy": "Compile every command-ran-but-evidence-open component into a source/model/comparator/residual/replay obligation.",
   "required_capability": "Research/SourceBoundScoringMaterialization",
@@ -1462,726 +1462,6 @@
         "unit": "eV"
       },
       "validator_binding": "comparator_gap::MS-COV-GAP-PHYSICAL_SCIENCES-CONDENSED_MATTER_FIELDS_AND_MEASUREMENTS::component_source_obligation::strict_pack_pass",
-      "why_it_failed": "Concrete component commands executed, but source-bound scoring/replay evidence is still not materialized for this exact component."
-    },
-    {
-      "component_id": "oc_score_materialization",
-      "component_work_order_id": "R017-DOMAIN-MODEL-COMPONENT-a1fa636f8dca811f",
-      "concrete_next_commands": [
-        [
-          "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
-          "tools/oc133_toe_closure_factory.py",
-          "--execute-comparator-domain-scoring",
-          "R017-DOMAIN-SCORER-f0ee7d5ec5503167",
-          "--write"
-        ],
-        [
-          "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
-          "tools/oc133_toe_closure_factory.py",
-          "--execute-comparator-domain-scorer-implementation",
-          "R017-DOMAIN-SCORER-IMPL-f0ee7d5ec5503167",
-          "--write"
-        ],
-        [
-          "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
-          "tools/oc133_toe_closure_factory.py",
-          "--execute-comparator-domain-model-repair",
-          "R017-DOMAIN-MODEL-REPAIR-f0ee7d5ec5503167",
-          "--write"
-        ],
-        [
-          "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
-          "tools/oc133_toe_closure_factory.py",
-          "--execute-comparator-domain-model-component",
-          "R017-DOMAIN-MODEL-COMPONENT-a1fa636f8dca811f",
-          "--write"
-        ],
-        [
-          "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
-          "tools/oc133_toe_closure_factory.py",
-          "--execute-comparator-generic-evidence-pack",
-          "MS-COV-GAP-PHYSICAL_SCIENCES-ASTRONOMICAL_AND_COSMOLOGICAL_OBSERVABLES",
-          "--write"
-        ]
-      ],
-      "domain_class_id": "physical_sciences",
-      "evidence_pack_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/f0ee7d5ec5503167/strict_evidence_pack.json",
-      "evidence_pack_status": "FAIL_CLOSED_SOURCE_BOUND_SCORING_NOT_MATERIALIZED",
-      "execution_command": [
-        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
-        "tools/oc133_toe_closure_factory.py",
-        "--execute-comparator-component-source-obligation",
-        "R017-COMPONENT-SOURCE-OBLIGATION-fbd1e612c11b6da6",
-        "--write"
-      ],
-      "gap_id": "MS-COV-GAP-PHYSICAL_SCIENCES-ASTRONOMICAL_AND_COSMOLOGICAL_OBSERVABLES",
-      "implementation_id": "R017-DOMAIN-MODEL-COMPONENT-IMPL-ecbc83a707a5d9dc",
-      "incumbent_comparator": {
-        "baseline_name": "period-only median stellar-mass Kepler baseline",
-        "pre_registered": true,
-        "prediction_rule": "Use the same formula but replace each hidden row's stellar mass with the preregistered visible-panel median stellar mass.",
-        "required_material_margin": "formula residual must beat the median-mass comparator residual on the same hidden rows",
-        "target_values_used_for_baseline_design": false
-      },
-      "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
-      "missing_source_evidence_fields": [
-        "component_report_pass",
-        "strict_evidence_pack_pass",
-        "scoring_artifact_pass",
-        "replay_artifact_pass",
-        "score_materialized",
-        "oc_model_residual",
-        "incumbent_comparator_residual",
-        "material_margin_met",
-        "fail_closed_status_clear"
-      ],
-      "next_escalation": "If the same fields remain missing after execution, implement the domain source acquisition/scoring script named by official_data_source and target_variable.",
-      "no_fake_closure_policy": "This obligation cannot promote broad superiority; only downstream PASS evidence artifacts can.",
-      "obligation_id": "R017-COMPONENT-SOURCE-OBLIGATION-fbd1e612c11b6da6",
-      "official_data_source": {
-        "minimum_rows_required": 20,
-        "official_documentation_url": "https://exoplanetarchive.ipac.caltech.edu/docs/TAP/usingTAP.html",
-        "official_endpoint_url": "https://exoplanetarchive.ipac.caltech.edu/TAP/sync?query=select+pl_name,pl_orbper,st_mass,pl_orbsmax,pl_orbsmaxerr1,pl_orbsmaxerr2+from+pscomppars+where+pl_orbper+is+not+null+and+st_mass+is+not+null+and+pl_orbsmax+is+not+null&format=json",
-        "required_local_snapshot_ref": "validation/heldout/grand_science/physics_chemistry/nasa_exoplanet_archive/OC133_NASA_EXOPLANET_PS_COMPOSITE_KEPLER.json",
-        "required_lock_ref": "validation/heldout/grand_science/physics_chemistry/nasa_exoplanet_archive/OC133_NASA_EXOPLANET_PS_COMPOSITE_KEPLER.lock.json",
-        "snapshot_status": "NOT_ACQUIRED_FOR_THIS_COVERAGE_CLASS",
-        "source_authority": "NASA Exoplanet Archive / IPAC",
-        "source_id": "physics_nasa_exoplanet_archive_pscomppars_kepler_v1",
-        "source_name": "NASA Exoplanet Archive TAP Planetary Systems Composite Parameters"
-      },
-      "pass_predicate": "The exact component implementation, strict evidence pack, oc_prediction_scoring_row, and replay_record are all PASS without weakening materiality.",
-      "phenomenon_class_id": "astronomical_and_cosmological_observables",
-      "repair_strategy": "Materialize the named missing source/model/comparator/residual/replay fields from governed source data; preserve fail-closed science if OC does not beat the comparator.",
-      "replay_artifact_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/f0ee7d5ec5503167/replay_record.json",
-      "replay_artifact_status": "OPEN",
-      "required_capability": "Research/SourceBoundScoringMaterialization",
-      "required_local_snapshot_ref": "validation/heldout/grand_science/physics_chemistry/nasa_exoplanet_archive/OC133_NASA_EXOPLANET_PS_COMPOSITE_KEPLER.json",
-      "required_lock_ref": "validation/heldout/grand_science/physics_chemistry/nasa_exoplanet_archive/OC133_NASA_EXOPLANET_PS_COMPOSITE_KEPLER.lock.json",
-      "residual_requirement": {
-        "formula": "abs(predicted_pl_orbsmax_AU - observed_pl_orbsmax_AU)",
-        "metric_id": "semi_major_axis_absolute_error_AU_v1",
-        "superiority_rule": "mean model residual must be lower than comparator residual and within declared uncertainty/materiality policy"
-      },
-      "scoring_artifact_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/f0ee7d5ec5503167/oc_prediction_scoring_row.json",
-      "scoring_artifact_status": "OPEN",
-      "source_component_implementation_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/component_impls/impl_d0a3ed3957a86988.json",
-      "source_component_implementation_status": "EVIDENCE_REPAIR_ATTEMPTED_REMAINS_OPEN",
-      "source_component_root_cause": "DOMAIN_MODEL_COMPONENT_COMMAND_RAN_BUT_EVIDENCE_OPEN",
-      "source_lock_exists": false,
-      "source_plan_id": "MS-PHYS-ASTRO-NASA-EXOPLANET-KEPLER-v1",
-      "source_snapshot_exists": false,
-      "status": "OPEN",
-      "target_variable": {
-        "extraction_rule": "Hide semi-major-axis target columns until the Kepler-law calculation is materialized from visible orbital period and stellar mass columns.",
-        "name": "pl_orbsmax",
-        "target_fields": [
-          "pl_orbsmax",
-          "pl_orbsmaxerr1",
-          "pl_orbsmaxerr2"
-        ],
-        "unit": "AU"
-      },
-      "validator_binding": "comparator_gap::MS-COV-GAP-PHYSICAL_SCIENCES-ASTRONOMICAL_AND_COSMOLOGICAL_OBSERVABLES::component_source_obligation::oc_score_materialization",
-      "why_it_failed": "Concrete component commands executed, but source-bound scoring/replay evidence is still not materialized for this exact component."
-    },
-    {
-      "component_id": "oc_model_residual",
-      "component_work_order_id": "R017-DOMAIN-MODEL-COMPONENT-f780a9221d3e7c28",
-      "concrete_next_commands": [
-        [
-          "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
-          "tools/oc133_toe_closure_factory.py",
-          "--execute-comparator-domain-scoring",
-          "R017-DOMAIN-SCORER-f0ee7d5ec5503167",
-          "--write"
-        ],
-        [
-          "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
-          "tools/oc133_toe_closure_factory.py",
-          "--execute-comparator-domain-scorer-implementation",
-          "R017-DOMAIN-SCORER-IMPL-f0ee7d5ec5503167",
-          "--write"
-        ],
-        [
-          "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
-          "tools/oc133_toe_closure_factory.py",
-          "--execute-comparator-domain-model-repair",
-          "R017-DOMAIN-MODEL-REPAIR-f0ee7d5ec5503167",
-          "--write"
-        ],
-        [
-          "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
-          "tools/oc133_toe_closure_factory.py",
-          "--execute-comparator-domain-model-component",
-          "R017-DOMAIN-MODEL-COMPONENT-f780a9221d3e7c28",
-          "--write"
-        ],
-        [
-          "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
-          "tools/oc133_toe_closure_factory.py",
-          "--execute-comparator-generic-evidence-pack",
-          "MS-COV-GAP-PHYSICAL_SCIENCES-ASTRONOMICAL_AND_COSMOLOGICAL_OBSERVABLES",
-          "--write"
-        ]
-      ],
-      "domain_class_id": "physical_sciences",
-      "evidence_pack_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/f0ee7d5ec5503167/strict_evidence_pack.json",
-      "evidence_pack_status": "FAIL_CLOSED_SOURCE_BOUND_SCORING_NOT_MATERIALIZED",
-      "execution_command": [
-        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
-        "tools/oc133_toe_closure_factory.py",
-        "--execute-comparator-component-source-obligation",
-        "R017-COMPONENT-SOURCE-OBLIGATION-d445097189ff862b",
-        "--write"
-      ],
-      "gap_id": "MS-COV-GAP-PHYSICAL_SCIENCES-ASTRONOMICAL_AND_COSMOLOGICAL_OBSERVABLES",
-      "implementation_id": "R017-DOMAIN-MODEL-COMPONENT-IMPL-a10c907a4855c44c",
-      "incumbent_comparator": {
-        "baseline_name": "period-only median stellar-mass Kepler baseline",
-        "pre_registered": true,
-        "prediction_rule": "Use the same formula but replace each hidden row's stellar mass with the preregistered visible-panel median stellar mass.",
-        "required_material_margin": "formula residual must beat the median-mass comparator residual on the same hidden rows",
-        "target_values_used_for_baseline_design": false
-      },
-      "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
-      "missing_source_evidence_fields": [
-        "component_report_pass",
-        "strict_evidence_pack_pass",
-        "scoring_artifact_pass",
-        "replay_artifact_pass",
-        "score_materialized",
-        "oc_model_residual",
-        "incumbent_comparator_residual",
-        "material_margin_met",
-        "fail_closed_status_clear"
-      ],
-      "next_escalation": "If the same fields remain missing after execution, implement the domain source acquisition/scoring script named by official_data_source and target_variable.",
-      "no_fake_closure_policy": "This obligation cannot promote broad superiority; only downstream PASS evidence artifacts can.",
-      "obligation_id": "R017-COMPONENT-SOURCE-OBLIGATION-d445097189ff862b",
-      "official_data_source": {
-        "minimum_rows_required": 20,
-        "official_documentation_url": "https://exoplanetarchive.ipac.caltech.edu/docs/TAP/usingTAP.html",
-        "official_endpoint_url": "https://exoplanetarchive.ipac.caltech.edu/TAP/sync?query=select+pl_name,pl_orbper,st_mass,pl_orbsmax,pl_orbsmaxerr1,pl_orbsmaxerr2+from+pscomppars+where+pl_orbper+is+not+null+and+st_mass+is+not+null+and+pl_orbsmax+is+not+null&format=json",
-        "required_local_snapshot_ref": "validation/heldout/grand_science/physics_chemistry/nasa_exoplanet_archive/OC133_NASA_EXOPLANET_PS_COMPOSITE_KEPLER.json",
-        "required_lock_ref": "validation/heldout/grand_science/physics_chemistry/nasa_exoplanet_archive/OC133_NASA_EXOPLANET_PS_COMPOSITE_KEPLER.lock.json",
-        "snapshot_status": "NOT_ACQUIRED_FOR_THIS_COVERAGE_CLASS",
-        "source_authority": "NASA Exoplanet Archive / IPAC",
-        "source_id": "physics_nasa_exoplanet_archive_pscomppars_kepler_v1",
-        "source_name": "NASA Exoplanet Archive TAP Planetary Systems Composite Parameters"
-      },
-      "pass_predicate": "The exact component implementation, strict evidence pack, oc_prediction_scoring_row, and replay_record are all PASS without weakening materiality.",
-      "phenomenon_class_id": "astronomical_and_cosmological_observables",
-      "repair_strategy": "Materialize the named missing source/model/comparator/residual/replay fields from governed source data; preserve fail-closed science if OC does not beat the comparator.",
-      "replay_artifact_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/f0ee7d5ec5503167/replay_record.json",
-      "replay_artifact_status": "OPEN",
-      "required_capability": "Research/SourceBoundScoringMaterialization",
-      "required_local_snapshot_ref": "validation/heldout/grand_science/physics_chemistry/nasa_exoplanet_archive/OC133_NASA_EXOPLANET_PS_COMPOSITE_KEPLER.json",
-      "required_lock_ref": "validation/heldout/grand_science/physics_chemistry/nasa_exoplanet_archive/OC133_NASA_EXOPLANET_PS_COMPOSITE_KEPLER.lock.json",
-      "residual_requirement": {
-        "formula": "abs(predicted_pl_orbsmax_AU - observed_pl_orbsmax_AU)",
-        "metric_id": "semi_major_axis_absolute_error_AU_v1",
-        "superiority_rule": "mean model residual must be lower than comparator residual and within declared uncertainty/materiality policy"
-      },
-      "scoring_artifact_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/f0ee7d5ec5503167/oc_prediction_scoring_row.json",
-      "scoring_artifact_status": "OPEN",
-      "source_component_implementation_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/component_impls/impl_e8b0fb145e9a6b2e.json",
-      "source_component_implementation_status": "EVIDENCE_REPAIR_ATTEMPTED_REMAINS_OPEN",
-      "source_component_root_cause": "DOMAIN_MODEL_COMPONENT_COMMAND_RAN_BUT_EVIDENCE_OPEN",
-      "source_lock_exists": false,
-      "source_plan_id": "MS-PHYS-ASTRO-NASA-EXOPLANET-KEPLER-v1",
-      "source_snapshot_exists": false,
-      "status": "OPEN",
-      "target_variable": {
-        "extraction_rule": "Hide semi-major-axis target columns until the Kepler-law calculation is materialized from visible orbital period and stellar mass columns.",
-        "name": "pl_orbsmax",
-        "target_fields": [
-          "pl_orbsmax",
-          "pl_orbsmaxerr1",
-          "pl_orbsmaxerr2"
-        ],
-        "unit": "AU"
-      },
-      "validator_binding": "comparator_gap::MS-COV-GAP-PHYSICAL_SCIENCES-ASTRONOMICAL_AND_COSMOLOGICAL_OBSERVABLES::component_source_obligation::oc_model_residual",
-      "why_it_failed": "Concrete component commands executed, but source-bound scoring/replay evidence is still not materialized for this exact component."
-    },
-    {
-      "component_id": "incumbent_comparator_residual",
-      "component_work_order_id": "R017-DOMAIN-MODEL-COMPONENT-0278aa4a552525f6",
-      "concrete_next_commands": [
-        [
-          "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
-          "tools/oc133_toe_closure_factory.py",
-          "--execute-comparator-domain-scoring",
-          "R017-DOMAIN-SCORER-f0ee7d5ec5503167",
-          "--write"
-        ],
-        [
-          "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
-          "tools/oc133_toe_closure_factory.py",
-          "--execute-comparator-domain-scorer-implementation",
-          "R017-DOMAIN-SCORER-IMPL-f0ee7d5ec5503167",
-          "--write"
-        ],
-        [
-          "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
-          "tools/oc133_toe_closure_factory.py",
-          "--execute-comparator-domain-model-repair",
-          "R017-DOMAIN-MODEL-REPAIR-f0ee7d5ec5503167",
-          "--write"
-        ],
-        [
-          "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
-          "tools/oc133_toe_closure_factory.py",
-          "--execute-comparator-domain-model-component",
-          "R017-DOMAIN-MODEL-COMPONENT-0278aa4a552525f6",
-          "--write"
-        ],
-        [
-          "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
-          "tools/oc133_toe_closure_factory.py",
-          "--execute-comparator-generic-evidence-pack",
-          "MS-COV-GAP-PHYSICAL_SCIENCES-ASTRONOMICAL_AND_COSMOLOGICAL_OBSERVABLES",
-          "--write"
-        ]
-      ],
-      "domain_class_id": "physical_sciences",
-      "evidence_pack_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/f0ee7d5ec5503167/strict_evidence_pack.json",
-      "evidence_pack_status": "FAIL_CLOSED_SOURCE_BOUND_SCORING_NOT_MATERIALIZED",
-      "execution_command": [
-        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
-        "tools/oc133_toe_closure_factory.py",
-        "--execute-comparator-component-source-obligation",
-        "R017-COMPONENT-SOURCE-OBLIGATION-334c08701a7f5f17",
-        "--write"
-      ],
-      "gap_id": "MS-COV-GAP-PHYSICAL_SCIENCES-ASTRONOMICAL_AND_COSMOLOGICAL_OBSERVABLES",
-      "implementation_id": "R017-DOMAIN-MODEL-COMPONENT-IMPL-c6157ca758f2f29e",
-      "incumbent_comparator": {
-        "baseline_name": "period-only median stellar-mass Kepler baseline",
-        "pre_registered": true,
-        "prediction_rule": "Use the same formula but replace each hidden row's stellar mass with the preregistered visible-panel median stellar mass.",
-        "required_material_margin": "formula residual must beat the median-mass comparator residual on the same hidden rows",
-        "target_values_used_for_baseline_design": false
-      },
-      "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
-      "missing_source_evidence_fields": [
-        "component_report_pass",
-        "strict_evidence_pack_pass",
-        "scoring_artifact_pass",
-        "replay_artifact_pass",
-        "score_materialized",
-        "oc_model_residual",
-        "incumbent_comparator_residual",
-        "material_margin_met",
-        "fail_closed_status_clear"
-      ],
-      "next_escalation": "If the same fields remain missing after execution, implement the domain source acquisition/scoring script named by official_data_source and target_variable.",
-      "no_fake_closure_policy": "This obligation cannot promote broad superiority; only downstream PASS evidence artifacts can.",
-      "obligation_id": "R017-COMPONENT-SOURCE-OBLIGATION-334c08701a7f5f17",
-      "official_data_source": {
-        "minimum_rows_required": 20,
-        "official_documentation_url": "https://exoplanetarchive.ipac.caltech.edu/docs/TAP/usingTAP.html",
-        "official_endpoint_url": "https://exoplanetarchive.ipac.caltech.edu/TAP/sync?query=select+pl_name,pl_orbper,st_mass,pl_orbsmax,pl_orbsmaxerr1,pl_orbsmaxerr2+from+pscomppars+where+pl_orbper+is+not+null+and+st_mass+is+not+null+and+pl_orbsmax+is+not+null&format=json",
-        "required_local_snapshot_ref": "validation/heldout/grand_science/physics_chemistry/nasa_exoplanet_archive/OC133_NASA_EXOPLANET_PS_COMPOSITE_KEPLER.json",
-        "required_lock_ref": "validation/heldout/grand_science/physics_chemistry/nasa_exoplanet_archive/OC133_NASA_EXOPLANET_PS_COMPOSITE_KEPLER.lock.json",
-        "snapshot_status": "NOT_ACQUIRED_FOR_THIS_COVERAGE_CLASS",
-        "source_authority": "NASA Exoplanet Archive / IPAC",
-        "source_id": "physics_nasa_exoplanet_archive_pscomppars_kepler_v1",
-        "source_name": "NASA Exoplanet Archive TAP Planetary Systems Composite Parameters"
-      },
-      "pass_predicate": "The exact component implementation, strict evidence pack, oc_prediction_scoring_row, and replay_record are all PASS without weakening materiality.",
-      "phenomenon_class_id": "astronomical_and_cosmological_observables",
-      "repair_strategy": "Materialize the named missing source/model/comparator/residual/replay fields from governed source data; preserve fail-closed science if OC does not beat the comparator.",
-      "replay_artifact_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/f0ee7d5ec5503167/replay_record.json",
-      "replay_artifact_status": "OPEN",
-      "required_capability": "Research/SourceBoundScoringMaterialization",
-      "required_local_snapshot_ref": "validation/heldout/grand_science/physics_chemistry/nasa_exoplanet_archive/OC133_NASA_EXOPLANET_PS_COMPOSITE_KEPLER.json",
-      "required_lock_ref": "validation/heldout/grand_science/physics_chemistry/nasa_exoplanet_archive/OC133_NASA_EXOPLANET_PS_COMPOSITE_KEPLER.lock.json",
-      "residual_requirement": {
-        "formula": "abs(predicted_pl_orbsmax_AU - observed_pl_orbsmax_AU)",
-        "metric_id": "semi_major_axis_absolute_error_AU_v1",
-        "superiority_rule": "mean model residual must be lower than comparator residual and within declared uncertainty/materiality policy"
-      },
-      "scoring_artifact_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/f0ee7d5ec5503167/oc_prediction_scoring_row.json",
-      "scoring_artifact_status": "OPEN",
-      "source_component_implementation_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/component_impls/impl_bacd1a9e5d2ac218.json",
-      "source_component_implementation_status": "EVIDENCE_REPAIR_ATTEMPTED_REMAINS_OPEN",
-      "source_component_root_cause": "DOMAIN_MODEL_COMPONENT_COMMAND_RAN_BUT_EVIDENCE_OPEN",
-      "source_lock_exists": false,
-      "source_plan_id": "MS-PHYS-ASTRO-NASA-EXOPLANET-KEPLER-v1",
-      "source_snapshot_exists": false,
-      "status": "OPEN",
-      "target_variable": {
-        "extraction_rule": "Hide semi-major-axis target columns until the Kepler-law calculation is materialized from visible orbital period and stellar mass columns.",
-        "name": "pl_orbsmax",
-        "target_fields": [
-          "pl_orbsmax",
-          "pl_orbsmaxerr1",
-          "pl_orbsmaxerr2"
-        ],
-        "unit": "AU"
-      },
-      "validator_binding": "comparator_gap::MS-COV-GAP-PHYSICAL_SCIENCES-ASTRONOMICAL_AND_COSMOLOGICAL_OBSERVABLES::component_source_obligation::incumbent_comparator_residual",
-      "why_it_failed": "Concrete component commands executed, but source-bound scoring/replay evidence is still not materialized for this exact component."
-    },
-    {
-      "component_id": "material_margin",
-      "component_work_order_id": "R017-DOMAIN-MODEL-COMPONENT-6c90957205e37af8",
-      "concrete_next_commands": [
-        [
-          "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
-          "tools/oc133_toe_closure_factory.py",
-          "--execute-comparator-domain-scoring",
-          "R017-DOMAIN-SCORER-f0ee7d5ec5503167",
-          "--write"
-        ],
-        [
-          "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
-          "tools/oc133_toe_closure_factory.py",
-          "--execute-comparator-domain-scorer-implementation",
-          "R017-DOMAIN-SCORER-IMPL-f0ee7d5ec5503167",
-          "--write"
-        ],
-        [
-          "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
-          "tools/oc133_toe_closure_factory.py",
-          "--execute-comparator-domain-model-repair",
-          "R017-DOMAIN-MODEL-REPAIR-f0ee7d5ec5503167",
-          "--write"
-        ],
-        [
-          "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
-          "tools/oc133_toe_closure_factory.py",
-          "--execute-comparator-domain-model-component",
-          "R017-DOMAIN-MODEL-COMPONENT-6c90957205e37af8",
-          "--write"
-        ],
-        [
-          "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
-          "tools/oc133_toe_closure_factory.py",
-          "--execute-comparator-generic-evidence-pack",
-          "MS-COV-GAP-PHYSICAL_SCIENCES-ASTRONOMICAL_AND_COSMOLOGICAL_OBSERVABLES",
-          "--write"
-        ]
-      ],
-      "domain_class_id": "physical_sciences",
-      "evidence_pack_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/f0ee7d5ec5503167/strict_evidence_pack.json",
-      "evidence_pack_status": "FAIL_CLOSED_SOURCE_BOUND_SCORING_NOT_MATERIALIZED",
-      "execution_command": [
-        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
-        "tools/oc133_toe_closure_factory.py",
-        "--execute-comparator-component-source-obligation",
-        "R017-COMPONENT-SOURCE-OBLIGATION-e15e125528a1e663",
-        "--write"
-      ],
-      "gap_id": "MS-COV-GAP-PHYSICAL_SCIENCES-ASTRONOMICAL_AND_COSMOLOGICAL_OBSERVABLES",
-      "implementation_id": "R017-DOMAIN-MODEL-COMPONENT-IMPL-39d659d7b66a851b",
-      "incumbent_comparator": {
-        "baseline_name": "period-only median stellar-mass Kepler baseline",
-        "pre_registered": true,
-        "prediction_rule": "Use the same formula but replace each hidden row's stellar mass with the preregistered visible-panel median stellar mass.",
-        "required_material_margin": "formula residual must beat the median-mass comparator residual on the same hidden rows",
-        "target_values_used_for_baseline_design": false
-      },
-      "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
-      "missing_source_evidence_fields": [
-        "component_report_pass",
-        "strict_evidence_pack_pass",
-        "scoring_artifact_pass",
-        "replay_artifact_pass",
-        "score_materialized",
-        "oc_model_residual",
-        "incumbent_comparator_residual",
-        "material_margin_met",
-        "fail_closed_status_clear"
-      ],
-      "next_escalation": "If the same fields remain missing after execution, implement the domain source acquisition/scoring script named by official_data_source and target_variable.",
-      "no_fake_closure_policy": "This obligation cannot promote broad superiority; only downstream PASS evidence artifacts can.",
-      "obligation_id": "R017-COMPONENT-SOURCE-OBLIGATION-e15e125528a1e663",
-      "official_data_source": {
-        "minimum_rows_required": 20,
-        "official_documentation_url": "https://exoplanetarchive.ipac.caltech.edu/docs/TAP/usingTAP.html",
-        "official_endpoint_url": "https://exoplanetarchive.ipac.caltech.edu/TAP/sync?query=select+pl_name,pl_orbper,st_mass,pl_orbsmax,pl_orbsmaxerr1,pl_orbsmaxerr2+from+pscomppars+where+pl_orbper+is+not+null+and+st_mass+is+not+null+and+pl_orbsmax+is+not+null&format=json",
-        "required_local_snapshot_ref": "validation/heldout/grand_science/physics_chemistry/nasa_exoplanet_archive/OC133_NASA_EXOPLANET_PS_COMPOSITE_KEPLER.json",
-        "required_lock_ref": "validation/heldout/grand_science/physics_chemistry/nasa_exoplanet_archive/OC133_NASA_EXOPLANET_PS_COMPOSITE_KEPLER.lock.json",
-        "snapshot_status": "NOT_ACQUIRED_FOR_THIS_COVERAGE_CLASS",
-        "source_authority": "NASA Exoplanet Archive / IPAC",
-        "source_id": "physics_nasa_exoplanet_archive_pscomppars_kepler_v1",
-        "source_name": "NASA Exoplanet Archive TAP Planetary Systems Composite Parameters"
-      },
-      "pass_predicate": "The exact component implementation, strict evidence pack, oc_prediction_scoring_row, and replay_record are all PASS without weakening materiality.",
-      "phenomenon_class_id": "astronomical_and_cosmological_observables",
-      "repair_strategy": "Materialize the named missing source/model/comparator/residual/replay fields from governed source data; preserve fail-closed science if OC does not beat the comparator.",
-      "replay_artifact_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/f0ee7d5ec5503167/replay_record.json",
-      "replay_artifact_status": "OPEN",
-      "required_capability": "Research/SourceBoundScoringMaterialization",
-      "required_local_snapshot_ref": "validation/heldout/grand_science/physics_chemistry/nasa_exoplanet_archive/OC133_NASA_EXOPLANET_PS_COMPOSITE_KEPLER.json",
-      "required_lock_ref": "validation/heldout/grand_science/physics_chemistry/nasa_exoplanet_archive/OC133_NASA_EXOPLANET_PS_COMPOSITE_KEPLER.lock.json",
-      "residual_requirement": {
-        "formula": "abs(predicted_pl_orbsmax_AU - observed_pl_orbsmax_AU)",
-        "metric_id": "semi_major_axis_absolute_error_AU_v1",
-        "superiority_rule": "mean model residual must be lower than comparator residual and within declared uncertainty/materiality policy"
-      },
-      "scoring_artifact_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/f0ee7d5ec5503167/oc_prediction_scoring_row.json",
-      "scoring_artifact_status": "OPEN",
-      "source_component_implementation_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/component_impls/impl_7b17ef08c69a7364.json",
-      "source_component_implementation_status": "EVIDENCE_REPAIR_ATTEMPTED_REMAINS_OPEN",
-      "source_component_root_cause": "DOMAIN_MODEL_COMPONENT_COMMAND_RAN_BUT_EVIDENCE_OPEN",
-      "source_lock_exists": false,
-      "source_plan_id": "MS-PHYS-ASTRO-NASA-EXOPLANET-KEPLER-v1",
-      "source_snapshot_exists": false,
-      "status": "OPEN",
-      "target_variable": {
-        "extraction_rule": "Hide semi-major-axis target columns until the Kepler-law calculation is materialized from visible orbital period and stellar mass columns.",
-        "name": "pl_orbsmax",
-        "target_fields": [
-          "pl_orbsmax",
-          "pl_orbsmaxerr1",
-          "pl_orbsmaxerr2"
-        ],
-        "unit": "AU"
-      },
-      "validator_binding": "comparator_gap::MS-COV-GAP-PHYSICAL_SCIENCES-ASTRONOMICAL_AND_COSMOLOGICAL_OBSERVABLES::component_source_obligation::material_margin",
-      "why_it_failed": "Concrete component commands executed, but source-bound scoring/replay evidence is still not materialized for this exact component."
-    },
-    {
-      "component_id": "fail_closed_status_clear",
-      "component_work_order_id": "R017-DOMAIN-MODEL-COMPONENT-214f5137e5cc4c32",
-      "concrete_next_commands": [
-        [
-          "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
-          "tools/oc133_toe_closure_factory.py",
-          "--execute-comparator-domain-scoring",
-          "R017-DOMAIN-SCORER-f0ee7d5ec5503167",
-          "--write"
-        ],
-        [
-          "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
-          "tools/oc133_toe_closure_factory.py",
-          "--execute-comparator-domain-scorer-implementation",
-          "R017-DOMAIN-SCORER-IMPL-f0ee7d5ec5503167",
-          "--write"
-        ],
-        [
-          "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
-          "tools/oc133_toe_closure_factory.py",
-          "--execute-comparator-domain-model-repair",
-          "R017-DOMAIN-MODEL-REPAIR-f0ee7d5ec5503167",
-          "--write"
-        ],
-        [
-          "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
-          "tools/oc133_toe_closure_factory.py",
-          "--execute-comparator-domain-model-component",
-          "R017-DOMAIN-MODEL-COMPONENT-214f5137e5cc4c32",
-          "--write"
-        ],
-        [
-          "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
-          "tools/oc133_toe_closure_factory.py",
-          "--execute-comparator-generic-evidence-pack",
-          "MS-COV-GAP-PHYSICAL_SCIENCES-ASTRONOMICAL_AND_COSMOLOGICAL_OBSERVABLES",
-          "--write"
-        ]
-      ],
-      "domain_class_id": "physical_sciences",
-      "evidence_pack_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/f0ee7d5ec5503167/strict_evidence_pack.json",
-      "evidence_pack_status": "FAIL_CLOSED_SOURCE_BOUND_SCORING_NOT_MATERIALIZED",
-      "execution_command": [
-        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
-        "tools/oc133_toe_closure_factory.py",
-        "--execute-comparator-component-source-obligation",
-        "R017-COMPONENT-SOURCE-OBLIGATION-619fc520e1336ce4",
-        "--write"
-      ],
-      "gap_id": "MS-COV-GAP-PHYSICAL_SCIENCES-ASTRONOMICAL_AND_COSMOLOGICAL_OBSERVABLES",
-      "implementation_id": "R017-DOMAIN-MODEL-COMPONENT-IMPL-0c51e2ef58de3e79",
-      "incumbent_comparator": {
-        "baseline_name": "period-only median stellar-mass Kepler baseline",
-        "pre_registered": true,
-        "prediction_rule": "Use the same formula but replace each hidden row's stellar mass with the preregistered visible-panel median stellar mass.",
-        "required_material_margin": "formula residual must beat the median-mass comparator residual on the same hidden rows",
-        "target_values_used_for_baseline_design": false
-      },
-      "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
-      "missing_source_evidence_fields": [
-        "component_report_pass",
-        "strict_evidence_pack_pass",
-        "scoring_artifact_pass",
-        "replay_artifact_pass",
-        "score_materialized",
-        "oc_model_residual",
-        "incumbent_comparator_residual",
-        "material_margin_met",
-        "fail_closed_status_clear"
-      ],
-      "next_escalation": "If the same fields remain missing after execution, implement the domain source acquisition/scoring script named by official_data_source and target_variable.",
-      "no_fake_closure_policy": "This obligation cannot promote broad superiority; only downstream PASS evidence artifacts can.",
-      "obligation_id": "R017-COMPONENT-SOURCE-OBLIGATION-619fc520e1336ce4",
-      "official_data_source": {
-        "minimum_rows_required": 20,
-        "official_documentation_url": "https://exoplanetarchive.ipac.caltech.edu/docs/TAP/usingTAP.html",
-        "official_endpoint_url": "https://exoplanetarchive.ipac.caltech.edu/TAP/sync?query=select+pl_name,pl_orbper,st_mass,pl_orbsmax,pl_orbsmaxerr1,pl_orbsmaxerr2+from+pscomppars+where+pl_orbper+is+not+null+and+st_mass+is+not+null+and+pl_orbsmax+is+not+null&format=json",
-        "required_local_snapshot_ref": "validation/heldout/grand_science/physics_chemistry/nasa_exoplanet_archive/OC133_NASA_EXOPLANET_PS_COMPOSITE_KEPLER.json",
-        "required_lock_ref": "validation/heldout/grand_science/physics_chemistry/nasa_exoplanet_archive/OC133_NASA_EXOPLANET_PS_COMPOSITE_KEPLER.lock.json",
-        "snapshot_status": "NOT_ACQUIRED_FOR_THIS_COVERAGE_CLASS",
-        "source_authority": "NASA Exoplanet Archive / IPAC",
-        "source_id": "physics_nasa_exoplanet_archive_pscomppars_kepler_v1",
-        "source_name": "NASA Exoplanet Archive TAP Planetary Systems Composite Parameters"
-      },
-      "pass_predicate": "The exact component implementation, strict evidence pack, oc_prediction_scoring_row, and replay_record are all PASS without weakening materiality.",
-      "phenomenon_class_id": "astronomical_and_cosmological_observables",
-      "repair_strategy": "Materialize the named missing source/model/comparator/residual/replay fields from governed source data; preserve fail-closed science if OC does not beat the comparator.",
-      "replay_artifact_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/f0ee7d5ec5503167/replay_record.json",
-      "replay_artifact_status": "OPEN",
-      "required_capability": "Research/SourceBoundScoringMaterialization",
-      "required_local_snapshot_ref": "validation/heldout/grand_science/physics_chemistry/nasa_exoplanet_archive/OC133_NASA_EXOPLANET_PS_COMPOSITE_KEPLER.json",
-      "required_lock_ref": "validation/heldout/grand_science/physics_chemistry/nasa_exoplanet_archive/OC133_NASA_EXOPLANET_PS_COMPOSITE_KEPLER.lock.json",
-      "residual_requirement": {
-        "formula": "abs(predicted_pl_orbsmax_AU - observed_pl_orbsmax_AU)",
-        "metric_id": "semi_major_axis_absolute_error_AU_v1",
-        "superiority_rule": "mean model residual must be lower than comparator residual and within declared uncertainty/materiality policy"
-      },
-      "scoring_artifact_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/f0ee7d5ec5503167/oc_prediction_scoring_row.json",
-      "scoring_artifact_status": "OPEN",
-      "source_component_implementation_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/component_impls/impl_fb090d7a2535acdf.json",
-      "source_component_implementation_status": "EVIDENCE_REPAIR_ATTEMPTED_REMAINS_OPEN",
-      "source_component_root_cause": "DOMAIN_MODEL_COMPONENT_COMMAND_RAN_BUT_EVIDENCE_OPEN",
-      "source_lock_exists": false,
-      "source_plan_id": "MS-PHYS-ASTRO-NASA-EXOPLANET-KEPLER-v1",
-      "source_snapshot_exists": false,
-      "status": "OPEN",
-      "target_variable": {
-        "extraction_rule": "Hide semi-major-axis target columns until the Kepler-law calculation is materialized from visible orbital period and stellar mass columns.",
-        "name": "pl_orbsmax",
-        "target_fields": [
-          "pl_orbsmax",
-          "pl_orbsmaxerr1",
-          "pl_orbsmaxerr2"
-        ],
-        "unit": "AU"
-      },
-      "validator_binding": "comparator_gap::MS-COV-GAP-PHYSICAL_SCIENCES-ASTRONOMICAL_AND_COSMOLOGICAL_OBSERVABLES::component_source_obligation::fail_closed_status_clear",
-      "why_it_failed": "Concrete component commands executed, but source-bound scoring/replay evidence is still not materialized for this exact component."
-    },
-    {
-      "component_id": "strict_pack_pass",
-      "component_work_order_id": "R017-DOMAIN-MODEL-COMPONENT-9eb65fb5bdd52a1b",
-      "concrete_next_commands": [
-        [
-          "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
-          "tools/oc133_toe_closure_factory.py",
-          "--execute-comparator-domain-scoring",
-          "R017-DOMAIN-SCORER-f0ee7d5ec5503167",
-          "--write"
-        ],
-        [
-          "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
-          "tools/oc133_toe_closure_factory.py",
-          "--execute-comparator-domain-scorer-implementation",
-          "R017-DOMAIN-SCORER-IMPL-f0ee7d5ec5503167",
-          "--write"
-        ],
-        [
-          "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
-          "tools/oc133_toe_closure_factory.py",
-          "--execute-comparator-domain-model-repair",
-          "R017-DOMAIN-MODEL-REPAIR-f0ee7d5ec5503167",
-          "--write"
-        ],
-        [
-          "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
-          "tools/oc133_toe_closure_factory.py",
-          "--execute-comparator-domain-model-component",
-          "R017-DOMAIN-MODEL-COMPONENT-9eb65fb5bdd52a1b",
-          "--write"
-        ],
-        [
-          "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
-          "tools/oc133_toe_closure_factory.py",
-          "--execute-comparator-generic-evidence-pack",
-          "MS-COV-GAP-PHYSICAL_SCIENCES-ASTRONOMICAL_AND_COSMOLOGICAL_OBSERVABLES",
-          "--write"
-        ]
-      ],
-      "domain_class_id": "physical_sciences",
-      "evidence_pack_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/f0ee7d5ec5503167/strict_evidence_pack.json",
-      "evidence_pack_status": "FAIL_CLOSED_SOURCE_BOUND_SCORING_NOT_MATERIALIZED",
-      "execution_command": [
-        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
-        "tools/oc133_toe_closure_factory.py",
-        "--execute-comparator-component-source-obligation",
-        "R017-COMPONENT-SOURCE-OBLIGATION-2cfb57e93912947d",
-        "--write"
-      ],
-      "gap_id": "MS-COV-GAP-PHYSICAL_SCIENCES-ASTRONOMICAL_AND_COSMOLOGICAL_OBSERVABLES",
-      "implementation_id": "R017-DOMAIN-MODEL-COMPONENT-IMPL-6929e438e39be8aa",
-      "incumbent_comparator": {
-        "baseline_name": "period-only median stellar-mass Kepler baseline",
-        "pre_registered": true,
-        "prediction_rule": "Use the same formula but replace each hidden row's stellar mass with the preregistered visible-panel median stellar mass.",
-        "required_material_margin": "formula residual must beat the median-mass comparator residual on the same hidden rows",
-        "target_values_used_for_baseline_design": false
-      },
-      "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
-      "missing_source_evidence_fields": [
-        "component_report_pass",
-        "strict_evidence_pack_pass",
-        "scoring_artifact_pass",
-        "replay_artifact_pass",
-        "score_materialized",
-        "oc_model_residual",
-        "incumbent_comparator_residual",
-        "material_margin_met",
-        "fail_closed_status_clear"
-      ],
-      "next_escalation": "If the same fields remain missing after execution, implement the domain source acquisition/scoring script named by official_data_source and target_variable.",
-      "no_fake_closure_policy": "This obligation cannot promote broad superiority; only downstream PASS evidence artifacts can.",
-      "obligation_id": "R017-COMPONENT-SOURCE-OBLIGATION-2cfb57e93912947d",
-      "official_data_source": {
-        "minimum_rows_required": 20,
-        "official_documentation_url": "https://exoplanetarchive.ipac.caltech.edu/docs/TAP/usingTAP.html",
-        "official_endpoint_url": "https://exoplanetarchive.ipac.caltech.edu/TAP/sync?query=select+pl_name,pl_orbper,st_mass,pl_orbsmax,pl_orbsmaxerr1,pl_orbsmaxerr2+from+pscomppars+where+pl_orbper+is+not+null+and+st_mass+is+not+null+and+pl_orbsmax+is+not+null&format=json",
-        "required_local_snapshot_ref": "validation/heldout/grand_science/physics_chemistry/nasa_exoplanet_archive/OC133_NASA_EXOPLANET_PS_COMPOSITE_KEPLER.json",
-        "required_lock_ref": "validation/heldout/grand_science/physics_chemistry/nasa_exoplanet_archive/OC133_NASA_EXOPLANET_PS_COMPOSITE_KEPLER.lock.json",
-        "snapshot_status": "NOT_ACQUIRED_FOR_THIS_COVERAGE_CLASS",
-        "source_authority": "NASA Exoplanet Archive / IPAC",
-        "source_id": "physics_nasa_exoplanet_archive_pscomppars_kepler_v1",
-        "source_name": "NASA Exoplanet Archive TAP Planetary Systems Composite Parameters"
-      },
-      "pass_predicate": "The exact component implementation, strict evidence pack, oc_prediction_scoring_row, and replay_record are all PASS without weakening materiality.",
-      "phenomenon_class_id": "astronomical_and_cosmological_observables",
-      "repair_strategy": "Materialize the named missing source/model/comparator/residual/replay fields from governed source data; preserve fail-closed science if OC does not beat the comparator.",
-      "replay_artifact_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/f0ee7d5ec5503167/replay_record.json",
-      "replay_artifact_status": "OPEN",
-      "required_capability": "Research/SourceBoundScoringMaterialization",
-      "required_local_snapshot_ref": "validation/heldout/grand_science/physics_chemistry/nasa_exoplanet_archive/OC133_NASA_EXOPLANET_PS_COMPOSITE_KEPLER.json",
-      "required_lock_ref": "validation/heldout/grand_science/physics_chemistry/nasa_exoplanet_archive/OC133_NASA_EXOPLANET_PS_COMPOSITE_KEPLER.lock.json",
-      "residual_requirement": {
-        "formula": "abs(predicted_pl_orbsmax_AU - observed_pl_orbsmax_AU)",
-        "metric_id": "semi_major_axis_absolute_error_AU_v1",
-        "superiority_rule": "mean model residual must be lower than comparator residual and within declared uncertainty/materiality policy"
-      },
-      "scoring_artifact_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/f0ee7d5ec5503167/oc_prediction_scoring_row.json",
-      "scoring_artifact_status": "OPEN",
-      "source_component_implementation_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/component_impls/impl_5f2a70e01b5a7eb5.json",
-      "source_component_implementation_status": "EVIDENCE_REPAIR_ATTEMPTED_REMAINS_OPEN",
-      "source_component_root_cause": "DOMAIN_MODEL_COMPONENT_COMMAND_RAN_BUT_EVIDENCE_OPEN",
-      "source_lock_exists": false,
-      "source_plan_id": "MS-PHYS-ASTRO-NASA-EXOPLANET-KEPLER-v1",
-      "source_snapshot_exists": false,
-      "status": "OPEN",
-      "target_variable": {
-        "extraction_rule": "Hide semi-major-axis target columns until the Kepler-law calculation is materialized from visible orbital period and stellar mass columns.",
-        "name": "pl_orbsmax",
-        "target_fields": [
-          "pl_orbsmax",
-          "pl_orbsmaxerr1",
-          "pl_orbsmaxerr2"
-        ],
-        "unit": "AU"
-      },
-      "validator_binding": "comparator_gap::MS-COV-GAP-PHYSICAL_SCIENCES-ASTRONOMICAL_AND_COSMOLOGICAL_OBSERVABLES::component_source_obligation::strict_pack_pass",
       "why_it_failed": "Concrete component commands executed, but source-bound scoring/replay evidence is still not materialized for this exact component."
     },
     {
@@ -4404,7 +3684,7 @@
       ],
       "domain_class_id": "earth_space_environmental_sciences",
       "evidence_pack_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/59532ab68d232897/strict_evidence_pack.json",
-      "evidence_pack_status": "FAIL_CLOSED_SOURCE_BOUND_SCORING_MATERIALIZED_NEGATIVE_RESULT",
+      "evidence_pack_status": "FAIL_CLOSED_SOURCE_BOUND_SCORING_NOT_MATERIALIZED",
       "execution_command": [
         "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
         "tools/oc133_toe_closure_factory.py",
@@ -4427,6 +3707,9 @@
         "strict_evidence_pack_pass",
         "scoring_artifact_pass",
         "replay_artifact_pass",
+        "score_materialized",
+        "oc_model_residual",
+        "incumbent_comparator_residual",
         "material_margin_met",
         "fail_closed_status_clear"
       ],
@@ -4519,7 +3802,7 @@
       ],
       "domain_class_id": "earth_space_environmental_sciences",
       "evidence_pack_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/59532ab68d232897/strict_evidence_pack.json",
-      "evidence_pack_status": "FAIL_CLOSED_SOURCE_BOUND_SCORING_MATERIALIZED_NEGATIVE_RESULT",
+      "evidence_pack_status": "FAIL_CLOSED_SOURCE_BOUND_SCORING_NOT_MATERIALIZED",
       "execution_command": [
         "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
         "tools/oc133_toe_closure_factory.py",
@@ -4542,6 +3825,9 @@
         "strict_evidence_pack_pass",
         "scoring_artifact_pass",
         "replay_artifact_pass",
+        "score_materialized",
+        "oc_model_residual",
+        "incumbent_comparator_residual",
         "material_margin_met",
         "fail_closed_status_clear"
       ],
@@ -4634,7 +3920,7 @@
       ],
       "domain_class_id": "earth_space_environmental_sciences",
       "evidence_pack_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/59532ab68d232897/strict_evidence_pack.json",
-      "evidence_pack_status": "FAIL_CLOSED_SOURCE_BOUND_SCORING_MATERIALIZED_NEGATIVE_RESULT",
+      "evidence_pack_status": "FAIL_CLOSED_SOURCE_BOUND_SCORING_NOT_MATERIALIZED",
       "execution_command": [
         "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
         "tools/oc133_toe_closure_factory.py",
@@ -4657,6 +3943,9 @@
         "strict_evidence_pack_pass",
         "scoring_artifact_pass",
         "replay_artifact_pass",
+        "score_materialized",
+        "oc_model_residual",
+        "incumbent_comparator_residual",
         "material_margin_met",
         "fail_closed_status_clear"
       ],
@@ -4749,7 +4038,7 @@
       ],
       "domain_class_id": "earth_space_environmental_sciences",
       "evidence_pack_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/59532ab68d232897/strict_evidence_pack.json",
-      "evidence_pack_status": "FAIL_CLOSED_SOURCE_BOUND_SCORING_MATERIALIZED_NEGATIVE_RESULT",
+      "evidence_pack_status": "FAIL_CLOSED_SOURCE_BOUND_SCORING_NOT_MATERIALIZED",
       "execution_command": [
         "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
         "tools/oc133_toe_closure_factory.py",
@@ -4772,6 +4061,9 @@
         "strict_evidence_pack_pass",
         "scoring_artifact_pass",
         "replay_artifact_pass",
+        "score_materialized",
+        "oc_model_residual",
+        "incumbent_comparator_residual",
         "material_margin_met",
         "fail_closed_status_clear"
       ],
@@ -4864,7 +4156,7 @@
       ],
       "domain_class_id": "earth_space_environmental_sciences",
       "evidence_pack_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/59532ab68d232897/strict_evidence_pack.json",
-      "evidence_pack_status": "FAIL_CLOSED_SOURCE_BOUND_SCORING_MATERIALIZED_NEGATIVE_RESULT",
+      "evidence_pack_status": "FAIL_CLOSED_SOURCE_BOUND_SCORING_NOT_MATERIALIZED",
       "execution_command": [
         "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
         "tools/oc133_toe_closure_factory.py",
@@ -4887,6 +4179,9 @@
         "strict_evidence_pack_pass",
         "scoring_artifact_pass",
         "replay_artifact_pass",
+        "score_materialized",
+        "oc_model_residual",
+        "incumbent_comparator_residual",
         "material_margin_met",
         "fail_closed_status_clear"
       ],
@@ -4979,7 +4274,7 @@
       ],
       "domain_class_id": "earth_space_environmental_sciences",
       "evidence_pack_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/59532ab68d232897/strict_evidence_pack.json",
-      "evidence_pack_status": "FAIL_CLOSED_SOURCE_BOUND_SCORING_MATERIALIZED_NEGATIVE_RESULT",
+      "evidence_pack_status": "FAIL_CLOSED_SOURCE_BOUND_SCORING_NOT_MATERIALIZED",
       "execution_command": [
         "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
         "tools/oc133_toe_closure_factory.py",
@@ -5002,6 +4297,9 @@
         "strict_evidence_pack_pass",
         "scoring_artifact_pass",
         "replay_artifact_pass",
+        "score_materialized",
+        "oc_model_residual",
+        "incumbent_comparator_residual",
         "material_margin_met",
         "fail_closed_status_clear"
       ],
@@ -10146,7 +9444,7 @@
       ],
       "domain_class_id": "agricultural_food_sciences",
       "evidence_pack_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/b1f19189ac368c4d/strict_evidence_pack.json",
-      "evidence_pack_status": "FAIL_CLOSED_SOURCE_BOUND_SCORING_MATERIALIZED_NEGATIVE_RESULT",
+      "evidence_pack_status": "FAIL_CLOSED_SOURCE_BOUND_SCORING_NOT_MATERIALIZED",
       "execution_command": [
         "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
         "tools/oc133_toe_closure_factory.py",
@@ -10169,6 +9467,9 @@
         "strict_evidence_pack_pass",
         "scoring_artifact_pass",
         "replay_artifact_pass",
+        "score_materialized",
+        "oc_model_residual",
+        "incumbent_comparator_residual",
         "material_margin_met",
         "fail_closed_status_clear"
       ],
@@ -10261,7 +9562,7 @@
       ],
       "domain_class_id": "agricultural_food_sciences",
       "evidence_pack_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/b1f19189ac368c4d/strict_evidence_pack.json",
-      "evidence_pack_status": "FAIL_CLOSED_SOURCE_BOUND_SCORING_MATERIALIZED_NEGATIVE_RESULT",
+      "evidence_pack_status": "FAIL_CLOSED_SOURCE_BOUND_SCORING_NOT_MATERIALIZED",
       "execution_command": [
         "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
         "tools/oc133_toe_closure_factory.py",
@@ -10284,6 +9585,9 @@
         "strict_evidence_pack_pass",
         "scoring_artifact_pass",
         "replay_artifact_pass",
+        "score_materialized",
+        "oc_model_residual",
+        "incumbent_comparator_residual",
         "material_margin_met",
         "fail_closed_status_clear"
       ],
@@ -10376,7 +9680,7 @@
       ],
       "domain_class_id": "agricultural_food_sciences",
       "evidence_pack_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/b1f19189ac368c4d/strict_evidence_pack.json",
-      "evidence_pack_status": "FAIL_CLOSED_SOURCE_BOUND_SCORING_MATERIALIZED_NEGATIVE_RESULT",
+      "evidence_pack_status": "FAIL_CLOSED_SOURCE_BOUND_SCORING_NOT_MATERIALIZED",
       "execution_command": [
         "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
         "tools/oc133_toe_closure_factory.py",
@@ -10399,6 +9703,9 @@
         "strict_evidence_pack_pass",
         "scoring_artifact_pass",
         "replay_artifact_pass",
+        "score_materialized",
+        "oc_model_residual",
+        "incumbent_comparator_residual",
         "material_margin_met",
         "fail_closed_status_clear"
       ],
@@ -10491,7 +9798,7 @@
       ],
       "domain_class_id": "agricultural_food_sciences",
       "evidence_pack_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/b1f19189ac368c4d/strict_evidence_pack.json",
-      "evidence_pack_status": "FAIL_CLOSED_SOURCE_BOUND_SCORING_MATERIALIZED_NEGATIVE_RESULT",
+      "evidence_pack_status": "FAIL_CLOSED_SOURCE_BOUND_SCORING_NOT_MATERIALIZED",
       "execution_command": [
         "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
         "tools/oc133_toe_closure_factory.py",
@@ -10514,6 +9821,9 @@
         "strict_evidence_pack_pass",
         "scoring_artifact_pass",
         "replay_artifact_pass",
+        "score_materialized",
+        "oc_model_residual",
+        "incumbent_comparator_residual",
         "material_margin_met",
         "fail_closed_status_clear"
       ],
@@ -10606,7 +9916,7 @@
       ],
       "domain_class_id": "agricultural_food_sciences",
       "evidence_pack_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/b1f19189ac368c4d/strict_evidence_pack.json",
-      "evidence_pack_status": "FAIL_CLOSED_SOURCE_BOUND_SCORING_MATERIALIZED_NEGATIVE_RESULT",
+      "evidence_pack_status": "FAIL_CLOSED_SOURCE_BOUND_SCORING_NOT_MATERIALIZED",
       "execution_command": [
         "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
         "tools/oc133_toe_closure_factory.py",
@@ -10629,6 +9939,9 @@
         "strict_evidence_pack_pass",
         "scoring_artifact_pass",
         "replay_artifact_pass",
+        "score_materialized",
+        "oc_model_residual",
+        "incumbent_comparator_residual",
         "material_margin_met",
         "fail_closed_status_clear"
       ],
@@ -10721,7 +10034,7 @@
       ],
       "domain_class_id": "agricultural_food_sciences",
       "evidence_pack_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/b1f19189ac368c4d/strict_evidence_pack.json",
-      "evidence_pack_status": "FAIL_CLOSED_SOURCE_BOUND_SCORING_MATERIALIZED_NEGATIVE_RESULT",
+      "evidence_pack_status": "FAIL_CLOSED_SOURCE_BOUND_SCORING_NOT_MATERIALIZED",
       "execution_command": [
         "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
         "tools/oc133_toe_closure_factory.py",
@@ -10744,6 +10057,9 @@
         "strict_evidence_pack_pass",
         "scoring_artifact_pass",
         "replay_artifact_pass",
+        "score_materialized",
+        "oc_model_residual",
+        "incumbent_comparator_residual",
         "material_margin_met",
         "fail_closed_status_clear"
       ],
