@@ -211,7 +211,7 @@ A complete reproduction therefore requires four checks. First, the source-corpus
 Because the manuscript is intentionally conservative, reproducibility includes the possibility of reproducing failure. If a renewed audit changes the status of a support row, the manuscript is supposed to change with it. That is a scientific feature of the current method, not an embarrassment to be hidden.
 The same audited source basis also preserves the explicit declared limitations already present in Core 1.2. These limitations are not editorial noise; they are part of the truth conditions under which the present bounded theorem is submitted:
 - Bridging from the structural language of OC to concrete datasets remains nontrivial and requires domain-specific modelling.
-- Quantitative models for Kx -> Kx+1 transitions remain incomplete and are only available in partial case-specific form.
+- Quantitative models for \(K_x \to K_{x+1}\) transitions remain incomplete and are only available in partial case-specific form.
 - Threshold taxonomy is structurally complete, but explicit functional forms still have to be specified separately for each system class.
 - Operational measures of expressive capacity for realistic cognitive, social and theoretical systems are not yet fully developed.
 - Inter-continuum interactions are structurally represented, but quantitative theories for complex coupled continua remain largely schematic.

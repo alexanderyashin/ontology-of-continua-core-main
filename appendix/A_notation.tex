@@ -231,7 +231,9 @@ dynamic operator meanings listed below.
   \item[\(\mathrm{DoF}(X)\)] Degrees of freedom available to the continuum,
         level, or embedding object \(X\) in the local compatibility test.
         The K0 synthesis rows use \(\mathrm{DoF}(K_x)/\mathrm{DoF}(M_x)\)
-        as a dimensionless meta-space compatibility ratio.
+        as a dimensionless meta-space compatibility ratio only on rows where
+        \(\mathrm{DoF}(M_x)>0\); if the embedding denominator is zero, the row
+        must state compatibility explicitly rather than using the quotient.
   \item[\(C_{\mathrm{nt}}\)] Non-trivial lawful-cycle presence count or
         indicator in the local synthesis row. The threshold
         \(C_{\mathrm{nt}}\geq 1\) means that at least one non-trivial lawful

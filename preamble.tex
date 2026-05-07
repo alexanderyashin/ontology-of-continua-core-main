@@ -135,6 +135,7 @@
 \usepackage{enumitem}
 \usepackage{microtype}
 \usepackage{seqsplit}
+\usepackage{xstring}
 
 \providecommand{\ocpdftitle}{Ontology of Continua --- Core 1.3.3 Canonical Master Monograph}
 \providecommand{\ocpdfsubject}{Continuum ontology and closure}
@@ -254,8 +255,13 @@
   \begingroup
   \scriptsize\ttfamily
   \addfontfeatures{Ligatures=NoCommon}%
+  \edef\oc@detok{\detokenize{#1}}%
   \hyphenpenalty=0\exhyphenpenalty=0\relpenalty=0\binoppenalty=0%
-  \detokenize{#1}%
+  \IfSubStr{\oc@detok}{ }{%
+    \oc@detok%
+  }{%
+    \expandafter\seqsplit\expandafter{\oc@detok}%
+  }%
   \endgroup
 }
 \newcommand{\occode}[1]{%
