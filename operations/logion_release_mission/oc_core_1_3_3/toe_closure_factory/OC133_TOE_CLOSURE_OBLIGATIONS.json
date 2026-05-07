@@ -1,8 +1,8 @@
 {
-  "artifact_hash": "23ce488bca74299b0410cef3de1bf033a3755a38c4309d129e0e5dbeb084c05e",
+  "artifact_hash": "355c4ca9b8b5b9324f4712b36498cc07e750ebf29492673320665cde474092d1",
   "fake_closure_policy": "A demoted, future-research, blocked, or missing-evidence row cannot count as TOE closure.",
-  "generated_at": "2026-05-06T22:43:53Z",
-  "open_work_order_total": 10,
+  "generated_at": "2026-05-07T01:24:00Z",
+  "open_work_order_total": 6,
   "r017_promotion_allowed": false,
   "release_id": "oc_core_1_3_3",
   "rows": [
@@ -38,7 +38,7 @@
         "releases\\oc_core_1_3\\editorial\\OC_CORE_1_3_CERBERUS_REVIEW_FINDINGS_latest.json"
       ],
       "severity": "CRITICAL",
-      "source_validator_message": "Cerberus targets surface does not match the current repository HEAD.",
+      "source_validator_message": "Cerberus run fingerprint does not match the current manifest inputs.",
       "status": "OPEN",
       "validator_binding": "tools/validate_oc_core_1_3_science_spot.py --require-final-toe-pass --require-cerberus-clean",
       "why_it_failed": "Cerberus targets/run/acceptance fingerprints or open findings do not bind cleanly to the current repository state.",
@@ -76,7 +76,7 @@
         "releases\\oc_core_1_3\\editorial\\OC_CORE_1_3_CERBERUS_REVIEW_FINDINGS_latest.json"
       ],
       "severity": "CRITICAL",
-      "source_validator_message": "Cerberus run surface does not match the current repository HEAD.",
+      "source_validator_message": "Cerberus acceptance fingerprint does not match the current manifest inputs.",
       "status": "OPEN",
       "validator_binding": "tools/validate_oc_core_1_3_science_spot.py --require-final-toe-pass --require-cerberus-clean",
       "why_it_failed": "Cerberus targets/run/acceptance fingerprints or open findings do not bind cleanly to the current repository state.",
@@ -114,7 +114,7 @@
         "releases\\oc_core_1_3\\editorial\\OC_CORE_1_3_CERBERUS_REVIEW_FINDINGS_latest.json"
       ],
       "severity": "CRITICAL",
-      "source_validator_message": "Cerberus acceptance surface does not match the current repository HEAD.",
+      "source_validator_message": "Cerberus acceptance certificate is not PASS.",
       "status": "OPEN",
       "validator_binding": "tools/validate_oc_core_1_3_science_spot.py --require-final-toe-pass --require-cerberus-clean",
       "why_it_failed": "Cerberus targets/run/acceptance fingerprints or open findings do not bind cleanly to the current repository state.",
@@ -152,163 +152,11 @@
         "releases\\oc_core_1_3\\editorial\\OC_CORE_1_3_CERBERUS_REVIEW_FINDINGS_latest.json"
       ],
       "severity": "CRITICAL",
-      "source_validator_message": "Cerberus run fingerprint does not match the current manifest inputs.",
-      "status": "OPEN",
-      "validator_binding": "tools/validate_oc_core_1_3_science_spot.py --require-final-toe-pass --require-cerberus-clean",
-      "why_it_failed": "Cerberus targets/run/acceptance fingerprints or open findings do not bind cleanly to the current repository state.",
-      "work_order_id": "R017-TOE-CLOSURE-004"
-    },
-    {
-      "blocks_r017": true,
-      "claim_effect": "External reasoning is not spent while deterministic blockers remain.",
-      "closure_condition": "Cerberus acceptance is PASS, LLM gate is PASS, and open defect findings are zero.",
-      "evidence_required": [
-        "claim_id",
-        "public_claim_scope",
-        "theorem_or_formal_boundary_refs",
-        "lean_refs",
-        "finite_case_refs",
-        "evidence_or_simulation_refs",
-        "comparator_refs",
-        "falsifier_refs",
-        "closure_verdict"
-      ],
-      "execution_command": [
-        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
-        "tools/oc133_toe_closure_factory.py",
-        "--execute",
-        "--write"
-      ],
-      "fake_closure_rejected": true,
-      "finding_class": "CERBERUS_RELEASE_REVIEW_GATE",
-      "repair_strategy": "Skip expensive Cerberus while deterministic science gates are red; after science PASS, refresh Cerberus targets/run/acceptance and clear open findings.",
-      "required_capability": "Review/Cerberus",
-      "research_route": "deterministic Cerberus blockers -> full Cerberus run -> clean acceptance certificate",
-      "root_cause_class": "STALE_OR_UNCLEAN_CERBERUS_SURFACE",
-      "root_cause_evidence": [
-        "releases\\oc_core_1_3\\editorial\\OC_CORE_1_3_CERBERUS_ACCEPTANCE_CERT_latest.json",
-        "releases\\oc_core_1_3\\editorial\\OC_CORE_1_3_CERBERUS_REVIEW_FINDINGS_latest.json"
-      ],
-      "severity": "CRITICAL",
-      "source_validator_message": "Cerberus acceptance fingerprint does not match the current manifest inputs.",
-      "status": "OPEN",
-      "validator_binding": "tools/validate_oc_core_1_3_science_spot.py --require-final-toe-pass --require-cerberus-clean",
-      "why_it_failed": "Cerberus targets/run/acceptance fingerprints or open findings do not bind cleanly to the current repository state.",
-      "work_order_id": "R017-TOE-CLOSURE-005"
-    },
-    {
-      "blocks_r017": true,
-      "claim_effect": "External reasoning is not spent while deterministic blockers remain.",
-      "closure_condition": "Cerberus acceptance is PASS, LLM gate is PASS, and open defect findings are zero.",
-      "evidence_required": [
-        "claim_id",
-        "public_claim_scope",
-        "theorem_or_formal_boundary_refs",
-        "lean_refs",
-        "finite_case_refs",
-        "evidence_or_simulation_refs",
-        "comparator_refs",
-        "falsifier_refs",
-        "closure_verdict"
-      ],
-      "execution_command": [
-        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
-        "tools/oc133_toe_closure_factory.py",
-        "--execute",
-        "--write"
-      ],
-      "fake_closure_rejected": true,
-      "finding_class": "CERBERUS_RELEASE_REVIEW_GATE",
-      "repair_strategy": "Skip expensive Cerberus while deterministic science gates are red; after science PASS, refresh Cerberus targets/run/acceptance and clear open findings.",
-      "required_capability": "Review/Cerberus",
-      "research_route": "deterministic Cerberus blockers -> full Cerberus run -> clean acceptance certificate",
-      "root_cause_class": "STALE_OR_UNCLEAN_CERBERUS_SURFACE",
-      "root_cause_evidence": [
-        "releases\\oc_core_1_3\\editorial\\OC_CORE_1_3_CERBERUS_ACCEPTANCE_CERT_latest.json",
-        "releases\\oc_core_1_3\\editorial\\OC_CORE_1_3_CERBERUS_REVIEW_FINDINGS_latest.json"
-      ],
-      "severity": "CRITICAL",
-      "source_validator_message": "Cerberus acceptance certificate is not PASS.",
-      "status": "OPEN",
-      "validator_binding": "tools/validate_oc_core_1_3_science_spot.py --require-final-toe-pass --require-cerberus-clean",
-      "why_it_failed": "Cerberus targets/run/acceptance fingerprints or open findings do not bind cleanly to the current repository state.",
-      "work_order_id": "R017-TOE-CLOSURE-006"
-    },
-    {
-      "blocks_r017": true,
-      "claim_effect": "External reasoning is not spent while deterministic blockers remain.",
-      "closure_condition": "Cerberus acceptance is PASS, LLM gate is PASS, and open defect findings are zero.",
-      "evidence_required": [
-        "claim_id",
-        "public_claim_scope",
-        "theorem_or_formal_boundary_refs",
-        "lean_refs",
-        "finite_case_refs",
-        "evidence_or_simulation_refs",
-        "comparator_refs",
-        "falsifier_refs",
-        "closure_verdict"
-      ],
-      "execution_command": [
-        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
-        "tools/oc133_toe_closure_factory.py",
-        "--execute",
-        "--write"
-      ],
-      "fake_closure_rejected": true,
-      "finding_class": "CERBERUS_RELEASE_REVIEW_GATE",
-      "repair_strategy": "Skip expensive Cerberus while deterministic science gates are red; after science PASS, refresh Cerberus targets/run/acceptance and clear open findings.",
-      "required_capability": "Review/Cerberus",
-      "research_route": "deterministic Cerberus blockers -> full Cerberus run -> clean acceptance certificate",
-      "root_cause_class": "STALE_OR_UNCLEAN_CERBERUS_SURFACE",
-      "root_cause_evidence": [
-        "releases\\oc_core_1_3\\editorial\\OC_CORE_1_3_CERBERUS_ACCEPTANCE_CERT_latest.json",
-        "releases\\oc_core_1_3\\editorial\\OC_CORE_1_3_CERBERUS_REVIEW_FINDINGS_latest.json"
-      ],
-      "severity": "CRITICAL",
-      "source_validator_message": "Cerberus LLM gate is not PASS.",
-      "status": "OPEN",
-      "validator_binding": "tools/validate_oc_core_1_3_science_spot.py --require-final-toe-pass --require-cerberus-clean",
-      "why_it_failed": "Cerberus targets/run/acceptance fingerprints or open findings do not bind cleanly to the current repository state.",
-      "work_order_id": "R017-TOE-CLOSURE-007"
-    },
-    {
-      "blocks_r017": true,
-      "claim_effect": "External reasoning is not spent while deterministic blockers remain.",
-      "closure_condition": "Cerberus acceptance is PASS, LLM gate is PASS, and open defect findings are zero.",
-      "evidence_required": [
-        "claim_id",
-        "public_claim_scope",
-        "theorem_or_formal_boundary_refs",
-        "lean_refs",
-        "finite_case_refs",
-        "evidence_or_simulation_refs",
-        "comparator_refs",
-        "falsifier_refs",
-        "closure_verdict"
-      ],
-      "execution_command": [
-        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
-        "tools/oc133_toe_closure_factory.py",
-        "--execute",
-        "--write"
-      ],
-      "fake_closure_rejected": true,
-      "finding_class": "CERBERUS_RELEASE_REVIEW_GATE",
-      "repair_strategy": "Skip expensive Cerberus while deterministic science gates are red; after science PASS, refresh Cerberus targets/run/acceptance and clear open findings.",
-      "required_capability": "Review/Cerberus",
-      "research_route": "deterministic Cerberus blockers -> full Cerberus run -> clean acceptance certificate",
-      "root_cause_class": "STALE_OR_UNCLEAN_CERBERUS_SURFACE",
-      "root_cause_evidence": [
-        "releases\\oc_core_1_3\\editorial\\OC_CORE_1_3_CERBERUS_ACCEPTANCE_CERT_latest.json",
-        "releases\\oc_core_1_3\\editorial\\OC_CORE_1_3_CERBERUS_REVIEW_FINDINGS_latest.json"
-      ],
-      "severity": "CRITICAL",
       "source_validator_message": "Cerberus still has open defect findings.",
       "status": "OPEN",
       "validator_binding": "tools/validate_oc_core_1_3_science_spot.py --require-final-toe-pass --require-cerberus-clean",
       "why_it_failed": "Cerberus targets/run/acceptance fingerprints or open findings do not bind cleanly to the current repository state.",
-      "work_order_id": "R017-TOE-CLOSURE-008"
+      "work_order_id": "R017-TOE-CLOSURE-004"
     },
     {
       "blocks_r017": true,
@@ -347,7 +195,7 @@
       "status": "OPEN",
       "validator_binding": "validate_final_toe_projection_lanes",
       "why_it_failed": "The AI lane is present, but it contains bounded future-research rows rather than dedicated PASS-grade claim, formal-boundary, evidence/simulation, comparator, and falsifier bindings.",
-      "work_order_id": "R017-TOE-LANE-AI-009"
+      "work_order_id": "R017-TOE-LANE-AI-005"
     },
     {
       "blocks_r017": true,
@@ -386,12 +234,12 @@
       "status": "OPEN",
       "validator_binding": "validate_final_toe_projection_lanes",
       "why_it_failed": "The EA lane is present, but it contains bounded future-research rows rather than dedicated PASS-grade architecture cases, operational metrics, comparator alternatives, and falsifier bindings.",
-      "work_order_id": "R017-TOE-LANE-ENTERPRISE_ARCHITECTURE-010"
+      "work_order_id": "R017-TOE-LANE-ENTERPRISE_ARCHITECTURE-006"
     }
   ],
   "schema_id": "OC133_TOE_CLOSURE_OBLIGATIONS_v1",
   "status": "OPEN",
-  "validator_error_total": 8,
+  "validator_error_total": 4,
   "version": "1.3.3",
-  "work_order_total": 10
+  "work_order_total": 6
 }

@@ -2,10 +2,10 @@
 
 Status: `OPEN`
 Promotion gate: `R017_BLOCKED_BY_TOE_CLOSURE_FACTORY`
-Validator errors: `8`
+Validator errors: `4`
 Science errors: `0`
-Cerberus errors: `8`
-Open obligations: `10`
+Cerberus errors: `4`
+Open obligations: `6`
 Lanes: `4/5` PASS
 Lane dispatcher: `BLOCKED`
 Root-cause coverage: `PASS`
@@ -30,9 +30,5 @@ Latest execution: `NOT_RUN`
 - `R017-TOE-CLOSURE-002` `CERBERUS_RELEASE_REVIEW_GATE`: Cerberus acceptance is PASS, LLM gate is PASS, and open defect findings are zero.
 - `R017-TOE-CLOSURE-003` `CERBERUS_RELEASE_REVIEW_GATE`: Cerberus acceptance is PASS, LLM gate is PASS, and open defect findings are zero.
 - `R017-TOE-CLOSURE-004` `CERBERUS_RELEASE_REVIEW_GATE`: Cerberus acceptance is PASS, LLM gate is PASS, and open defect findings are zero.
-- `R017-TOE-CLOSURE-005` `CERBERUS_RELEASE_REVIEW_GATE`: Cerberus acceptance is PASS, LLM gate is PASS, and open defect findings are zero.
-- `R017-TOE-CLOSURE-006` `CERBERUS_RELEASE_REVIEW_GATE`: Cerberus acceptance is PASS, LLM gate is PASS, and open defect findings are zero.
-- `R017-TOE-CLOSURE-007` `CERBERUS_RELEASE_REVIEW_GATE`: Cerberus acceptance is PASS, LLM gate is PASS, and open defect findings are zero.
-- `R017-TOE-CLOSURE-008` `CERBERUS_RELEASE_REVIEW_GATE`: Cerberus acceptance is PASS, LLM gate is PASS, and open defect findings are zero.
-- `R017-TOE-LANE-AI-009` `AI_DOMAIN_TOE_PROJECTION_LANE`: AI projection must add source-grounded AI claims, formal boundaries, benchmark/simulation evidence, comparator baselines, and falsifiers.
-- `R017-TOE-LANE-ENTERPRISE_ARCHITECTURE-010` `ENTERPRISE_ARCHITECTURE_DOMAIN_TOE_PROJECTION_LANE`: EA projection must add source-grounded architecture claims, operational metrics, architecture cases, comparator alternatives, and falsifiers.
+- `R017-TOE-LANE-AI-005` `AI_DOMAIN_TOE_PROJECTION_LANE`: AI projection must add source-grounded AI claims, formal boundaries, benchmark/simulation evidence, comparator baselines, and falsifiers.
+- `R017-TOE-LANE-ENTERPRISE_ARCHITECTURE-006` `ENTERPRISE_ARCHITECTURE_DOMAIN_TOE_PROJECTION_LANE`: EA projection must add source-grounded architecture claims, operational metrics, architecture cases, comparator alternatives, and falsifiers.
