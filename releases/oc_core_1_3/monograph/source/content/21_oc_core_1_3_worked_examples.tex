@@ -102,11 +102,18 @@ The witness data also include the active residue-threshold index family
 \(\eta_h:I_K^{\mathrm{res}}\xrightarrow{\sim}I_{K'}^{h}\). The induced
 pushforward \(h_\ast\) applies \(h\) to the residue state and transports each
 named residual threshold by \(\eta_h\).
-For this example, \(\operatorname{Pres}_{\Theta,\Omega}\) is the following
-declared predicate:
+For this example, \(\operatorname{Pres}_{\Theta,\Omega}(h,r;K,K')\) is
+shorthand for an existential witness package:
+\[
+  \exists(I_K^{\mathrm{res}},I_{K'}^{h},\eta_h,h_\ast)\;
+  \operatorname{Pres}_{\Theta,\Omega}
+  (h,r;K,K';I_K^{\mathrm{res}},I_{K'}^{h},\eta_h,h_\ast).
+\]
+The expanded predicate is:
 \[
 \begin{aligned}
-&\operatorname{Pres}_{\Theta,\Omega}(h,r;K,K')
+&\operatorname{Pres}_{\Theta,\Omega}
+  (h,r;K,K';I_K^{\mathrm{res}},I_{K'}^{h},\eta_h,h_\ast)
   \text{ holds exactly when}\\
 &h \text{ preserves } \mathcal{R}_K(r),\\
 &h(r)\in\Omega(K')\subseteq\Omega_{\mathrm{amb}}(\mathcal{M}'),\\
