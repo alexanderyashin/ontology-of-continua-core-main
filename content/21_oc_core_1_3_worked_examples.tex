@@ -103,50 +103,54 @@ The witness data also include the active residue-threshold index family
 pushforward \(h_\ast\) applies \(h\) to the residue state and transports each
 named residual threshold by \(\eta_h\).
 For this example, \(\operatorname{Pres}_{\Theta,\Omega}(h,r;K,K')\) is
-shorthand for an existential witness package:
+shorthand for an existential witness package.  The package includes the fixed
+test time \(\tau_h\), because the residue-side and target-side admissibility
+records must be compared at the same bound instant:
 \[
-  \exists(I_K^{\mathrm{res}},I_{K'}^{h},\eta_h,h_\ast)\;
+  \exists(I_K^{\mathrm{res}},I_{K'}^{h},\eta_h,h_\ast,\tau_h)\;
   \operatorname{Pres}_{\Theta,\Omega}
-  (h,r;K,K';I_K^{\mathrm{res}},I_{K'}^{h},\eta_h,h_\ast).
+  (h,r;K,K';I_K^{\mathrm{res}},I_{K'}^{h},\eta_h,h_\ast,\tau_h).
 \]
-The expanded predicate is:
+For any finite active threshold subfamily \(J\subseteq I_Y\) of
+\(\Theta_Y=\{f_i^Y\}_{i\in I_Y}\), define the restricted typed record at
+object \(Y\), point \(y\), and bound test time \(\tau_h\) by
 \[
-\begin{aligned}
-&\operatorname{Pres}_{\Theta,\Omega}
-  (h,r;K,K';I_K^{\mathrm{res}},I_{K'}^{h},\eta_h,h_\ast)
-  \text{ holds exactly when}\\
-&h \text{ preserves } \mathcal{R}_K(r),\\
-&h(r)\in\Omega(K')\subseteq\Omega_{\mathrm{amb}}(\mathcal{M}'),\\
-&\mathcal{D}^{h}_{\Theta,\Omega}(K';h(r))
-  =h_{\ast}\mathcal{D}^{\mathrm{res}}_{\Theta,\Omega}(K;r).
-\end{aligned}
-\]
-Here \(\mathcal{D}_{\Theta,\Omega}\) denotes the local admissibility data:
-the pointwise admissible-membership indicator together with the active residual-threshold signs
-and saturated constraints at the tested local time. For this worked example the
-witness includes a fixed test time \(\tau_h\) shared by the residue-side and
-target-side records. The term
-\(\mathcal{D}^{\mathrm{res}}_{\Theta,\Omega}(K;r)\) is the same data restricted
-to the residue-index family \(I_K^{\mathrm{res}}\), while
-\(\mathcal{D}^{h}_{\Theta,\Omega}(K';h(r))\) is the target-side record
-restricted to \(I_{K'}^{h}\). More explicitly, for a finite active threshold
-subfamily \(J\subseteq I_Y\) of
-\(\Theta_Y=\{f_i^Y\}_{i\in I_Y}\) at a tested object \(Y\), point \(y\), and
-bound test time \(\tau_h\), the restricted typed record is
-\[
-  \mathcal{D}^{J}_{\Theta,\Omega}(Y;y)=
+  \mathcal{D}^{J}_{\Theta,\Omega}(Y;y,\tau_h)=
   \big(
     \chi_{\Omega}(y;Y,\tau_h),
     (\operatorname{sgn} f_i^Y(y))_{i\in J},
     \{i\in J:f_i^Y(y)=0\}
   \big).
 \]
-The superscript in \(\mathcal{D}^{h}_{\Theta,\Omega}(K';h(r))\) is therefore
-not an exponent: it denotes the \(h\)-transported target record
-\(\mathcal{D}^{I_{K'}^h}_{\Theta,\Omega}(K';h(r))\) evaluated at the same
+The transported target record used below is the abbreviation
+\[
+  \mathcal{D}^{h}_{\Theta,\Omega}(K';h(r),\tau_h)
+  :=
+  \mathcal{D}^{I_{K'}^h}_{\Theta,\Omega}(K';h(r),\tau_h).
+\]
+With those records already typed, the expanded predicate is:
+\[
+\begin{aligned}
+&\operatorname{Pres}_{\Theta,\Omega}
+  (h,r;K,K';I_K^{\mathrm{res}},I_{K'}^{h},\eta_h,h_\ast,\tau_h)
+  \text{ holds exactly when}\\
+&h \text{ preserves } \mathcal{R}_K(r),\\
+&h(r)\in\Omega(K')\subseteq\Omega_{\mathrm{amb}}(\mathcal{M}'),\\
+&\mathcal{D}^{h}_{\Theta,\Omega}(K';h(r),\tau_h)
+  =h_{\ast}\mathcal{D}^{\mathrm{res}}_{\Theta,\Omega}(K;r,\tau_h).
+\end{aligned}
+\]
+Here \(\mathcal{D}_{\Theta,\Omega}\) denotes the local admissibility data:
+the pointwise admissible-membership indicator together with the active residual-threshold signs
+and saturated constraints at the tested local time. The term
+\(\mathcal{D}^{\mathrm{res}}_{\Theta,\Omega}(K;r,\tau_h)\) is
+\(\mathcal{D}^{I_K^{\mathrm{res}}}_{\Theta,\Omega}(K;r,\tau_h)\), the same
+data restricted to the residue-index family. The superscript in
+\(\mathcal{D}^{h}_{\Theta,\Omega}(K';h(r),\tau_h)\) is therefore not an
+exponent: it denotes the \(h\)-transported target record evaluated at the same
 witness time \(\tau_h\). The unreduced symbol
-\(\mathcal{D}_{\Theta,\Omega}(Y;y)\) abbreviates the special case \(J=I_Y\);
-it is not the record compared in the related-embedding witness.
+\(\mathcal{D}_{\Theta,\Omega}(Y;y,\tau_h)\) abbreviates the special case
+\(J=I_Y\); it is not the record compared in the related-embedding witness.
 Here \(I_K^{\mathrm{res}}\) is the subfamily of active thresholds declared on
 the residue-bearing substructure, and \(I_{K'}^{h}\) is the corresponding
 active target subfamily used to test \(\Omega(K')\) along this witness. The

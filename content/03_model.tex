@@ -515,11 +515,22 @@ modeling boundary for local reductions, not a promoted minimality proof.
 Core 1.3.3 states the continuum carrier separately from live realizations,
 uses resolution-relative quotient distinguishability at \(K_0\), treats
 boundaries as admissibility classifiers, and reads \(F,G,H,Q,R,S,U\) as
-hybrid update components rather than universal derivatives.  The interface
+hybrid update components rather than universal derivatives.  The compact
+interface
 \[
 K=(\Omega,A,P,J,\Theta,\partial\Omega,C,k)
 \]
-is retained, while theorem-bearing statements distinguish
+abbreviates the typed family
+\[
+K=\big(\Omega(K),A(K),P(K,t),J(K,t),\Theta(K),
+       \partial\Omega(K,t),C(K,t),k(K,t)\big)
+\]
+for the fixed continuum \(K\) and live instant \(t\).  When no live instant is
+being evaluated, \(P(K,t)\), \(J(K,t)\), \(\partial\Omega(K,t)\), \(C(K,t)\),
+and \(k(K,t)\) are read as their declared level-relative specializations, not
+as bare global symbols.  The update component \(H\) is likewise the
+nonemptiness/status test \(H(\Omega(K_x))\) or its stated time-slice
+specialization.  Theorem-bearing statements distinguish
 \(\Omega_{\mathrm{law}}(K)\), \(\Omega_t(K)\), and
 \(\Omega_{\mathrm{res}}(K,t)\).  This separation allows a carrier-level trace
 to persist after live admissibility becomes empty while death, residue, and
