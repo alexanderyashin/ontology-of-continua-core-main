@@ -12,11 +12,11 @@ Domain & Replay status & Packet / protocol & Acceptance criterion & Replay comma
 Domain & Replay status & Packet / protocol & Acceptance criterion & Replay command & Measurement wave \\
 \midrule
 \endhead
-Mathematics & PASS\_REPLAYABLE & OC13::MATHEMATICS::STRICT\_REPLAY\_ANCHOR / OC13::EXECUTION::MATHEMATICS::ANCHOR\_REPLAY & No replay divergence and no surviving counterexample against the promoted packet. & logion/k7/spe/orchestrator/science/run\_claim\_simulations\_v1.py & not required \\
-Physics & PASS\_REPLAYABLE & OC13::PHYSICS::FOUNDATIONAL\_CONSTANTS\_AND\_SPECTRA / OC13::EXECUTION::PHYSICS::CONSTANTS\_SPECTRA\_TRANSPORT & Held-out residuals stay inside the declared tolerance band for every promoted benchmark family. & logion/k7/spe/orchestrator/science/run\_oc\_core\_domain\_hard\_closure\_replay\_v1.py --domain-id PHYSICS & INSTITUTE\_RUN::PHYSICS::WAVE\_1A \\
-Chemistry & PASS\_REPLAYABLE & OC13::CHEMISTRY::THERMOCHEMISTRY\_AND\_SPECTRA / OC13::EXECUTION::CHEMISTRY::THERMOCHEMISTRY\_SPECTRA\_KINETICS & Declared chemistry benchmark families pass the tolerance envelope on held-out compounds or reactions. & logion/k7/spe/orchestrator/science/run\_oc\_core\_domain\_hard\_closure\_replay\_v1.py --domain-id CHEMISTRY & INSTITUTE\_RUN::CHEMISTRY::WAVE\_2A \\
-Biology & PASS\_REPLAYABLE & OC13::BIOLOGY::STATE\_TRANSITION\_AND\_RESPONSE\_SIGNATURES / OC13::EXECUTION::BIOLOGY::STATE\_TRANSITIONS\_AND\_RESPONSE\_SIGNATURES & The promoted biological packet reproduces the declared measurable signatures on held-out datasets without widening the claim boundary. & logion/k7/spe/orchestrator/science/run\_oc\_core\_domain\_hard\_closure\_replay\_v1.py --domain-id BIOLOGY & INSTITUTE\_RUN::BIOLOGY::WAVE\_3A \\
-Systems / Civilizational projection & PASS\_REPLAYABLE & OC13::SYSTEMS::K8\_MACRO\_PROCESS\_AND\_REGIME\_SHIFT / OC13::EXECUTION::SYSTEMS::MACRO\_TRAJECTORIES\_AND\_REGIME\_SHIFTS & Declared trajectory and regime-change observables remain inside tolerance on held-out intervals. & logion/k7/spe/orchestrator/science/run\_oc\_core\_domain\_hard\_closure\_replay\_v1.py --domain-id SYSTEMS\_CIVILIZATIONAL\_PROJECTION & INSTITUTE\_RUN::SYSTEMS::WAVE\_4A \\
+Mathematics & PASS\_REPLAYABLE & OC13::MATHEMATICS::STRICT\_REPLAY\_ANCHOR / OC13::EXECUTION::MATHEMATICS::ANCHOR\_REPLAY & No replay divergence and no surviving counterexample against the promoted packet. & \occode{logion/k7/spe/orchestrator/science/run_claim_simulations_v1.py} & not required \\
+Physics & PASS\_REPLAYABLE & OC13::PHYSICS::FOUNDATIONAL\_CONSTANTS\_AND\_SPECTRA / OC13::EXECUTION::PHYSICS::CONSTANTS\_SPECTRA\_TRANSPORT & Held-out residuals stay inside the declared tolerance band for every promoted benchmark family. & \occode{logion/k7/spe/orchestrator/science/run_oc_core_domain_hard_closure_replay_v1.py --domain-id PHYSICS} & INSTITUTE\_RUN::PHYSICS::WAVE\_1A \\
+Chemistry & PASS\_REPLAYABLE & OC13::CHEMISTRY::THERMOCHEMISTRY\_AND\_SPECTRA / OC13::EXECUTION::CHEMISTRY::THERMOCHEMISTRY\_SPECTRA\_KINETICS & Declared chemistry benchmark families pass the tolerance envelope on held-out compounds or reactions. & \occode{logion/k7/spe/orchestrator/science/run_oc_core_domain_hard_closure_replay_v1.py --domain-id CHEMISTRY} & INSTITUTE\_RUN::CHEMISTRY::WAVE\_2A \\
+Biology & PASS\_REPLAYABLE & OC13::BIOLOGY::STATE\_TRANSITION\_AND\_RESPONSE\_SIGNATURES / OC13::EXECUTION::BIOLOGY::STATE\_TRANSITIONS\_AND\_RESPONSE\_SIGNATURES & The promoted biological packet reproduces the declared measurable signatures on held-out datasets without widening the claim boundary. & \occode{logion/k7/spe/orchestrator/science/run_oc_core_domain_hard_closure_replay_v1.py --domain-id BIOLOGY} & INSTITUTE\_RUN::BIOLOGY::WAVE\_3A \\
+Systems / Civilizational projection & PASS\_REPLAYABLE & OC13::SYSTEMS::K8\_MACRO\_PROCESS\_AND\_REGIME\_SHIFT / OC13::EXECUTION::SYSTEMS::MACRO\_TRAJECTORIES\_AND\_REGIME\_SHIFTS & Declared trajectory and regime-change observables remain inside tolerance on held-out intervals. & \occode{logion/k7/spe/orchestrator/science/run_oc_core_domain_hard_closure_replay_v1.py --domain-id SYSTEMS_CIVILIZATIONAL_PROJECTION} & INSTITUTE\_RUN::SYSTEMS::WAVE\_4A \\
 \bottomrule
 \end{longtable}
 
@@ -35,7 +35,7 @@ Status: `PASS` with replay state `PASS\_REPLAYABLE`.
 Caseset readiness: `30` parameterized out of `30` cases (minimum `30`); coverage `PASS\_CASESET\_MINIMUM\_REACHED`; parameterization `PREDICTIONS\_DECLARED\_FOR\_ALL\_CASES`.
 Acceptance criterion: Held-out residuals stay inside the declared tolerance band for every promoted benchmark family..
 Falsifier: Any benchmark family with residuals outside tolerance or with broken sign/order constraints falsifies the promoted packet..
-Replay command: `logion/k7/spe/orchestrator/science/run\_oc\_core\_domain\_hard\_closure\_replay\_v1.py --domain-id PHYSICS`.
+Replay command: \occode{logion/k7/spe/orchestrator/science/run_oc_core_domain_hard_closure_replay_v1.py --domain-id PHYSICS}.
 Measurement schema: Bind theorem-to-observable maps to pinned official constants and spectra, then evaluate held-out residual envelopes..
 Next required action: `MAINTAIN\_REPLAY\_DISCIPLINE`.
 Official replay coverage and metrics: execution basis `PARTIAL\_OFFICIAL\_PRIMARY\_DATA`, covered benchmarks `3` of `3`, full-coverage benchmarks `3`, mean abs normalized error `0.188136 sigma`, `p95` `0.64778 sigma`, `max` `1.48 sigma`, tail breaches `0`.
@@ -51,7 +51,7 @@ Status: `PASS` with replay state `PASS\_REPLAYABLE`.
 Caseset readiness: `30` parameterized out of `30` cases (minimum `30`); coverage `PASS\_CASESET\_MINIMUM\_REACHED`; parameterization `PREDICTIONS\_DECLARED\_FOR\_ALL\_CASES`.
 Acceptance criterion: Declared chemistry benchmark families pass the tolerance envelope on held-out compounds or reactions..
 Falsifier: A held-out thermochemical, spectral, or kinetic family outside tolerance collapses the promoted chemistry packet..
-Replay command: `logion/k7/spe/orchestrator/science/run\_oc\_core\_domain\_hard\_closure\_replay\_v1.py --domain-id CHEMISTRY`.
+Replay command: \occode{logion/k7/spe/orchestrator/science/run_oc_core_domain_hard_closure_replay_v1.py --domain-id CHEMISTRY}.
 Measurement schema: Map theorem packets to thermochemical, spectral, and kinetic observables against pinned reference tables..
 Next required action: `MAINTAIN\_REPLAY\_DISCIPLINE`.
 Official replay coverage and metrics: execution basis `PARTIAL\_OFFICIAL\_PRIMARY\_DATA`, covered benchmarks `3` of `3`, full-coverage benchmarks `3`, mean abs normalized error `0.533285 sigma`, `p95` `1.0 sigma`, `max` `1.597772 sigma`, tail breaches `0`.
@@ -67,7 +67,7 @@ Status: `PASS` with replay state `PASS\_REPLAYABLE`.
 Caseset readiness: `30` parameterized out of `30` cases (minimum `30`); coverage `PASS\_CASESET\_MINIMUM\_REACHED`; parameterization `PREDICTIONS\_DECLARED\_FOR\_ALL\_CASES`.
 Acceptance criterion: The promoted biological packet reproduces the declared measurable signatures on held-out datasets without widening the claim boundary..
 Falsifier: If the bounded signature family fails on held-out datasets, the biological packet remains frontier-bound..
-Replay command: `logion/k7/spe/orchestrator/science/run\_oc\_core\_domain\_hard\_closure\_replay\_v1.py --domain-id BIOLOGY`.
+Replay command: \occode{logion/k7/spe/orchestrator/science/run_oc_core_domain_hard_closure_replay_v1.py --domain-id BIOLOGY}.
 Measurement schema: Choose one bounded biological lane and evaluate predicted state transitions or response signatures against open assay data..
 Next required action: `MAINTAIN\_REPLAY\_DISCIPLINE`.
 Official replay coverage and metrics: execution basis `OFFICIAL\_OPEN\_PRIMARY\_DATA`, covered benchmarks `3` of `3`, full-coverage benchmarks `3`, mean abs normalized error `0.444222 sigma`, `p95` `1.030033 sigma`, `max` `1.438582 sigma`, tail breaches `0`.
@@ -83,7 +83,7 @@ Status: `PASS` with replay state `PASS\_REPLAYABLE`.
 Caseset readiness: `30` parameterized out of `30` cases (minimum `30`); coverage `PASS\_CASESET\_MINIMUM\_REACHED`; parameterization `PREDICTIONS\_DECLARED\_FOR\_ALL\_CASES`.
 Acceptance criterion: Declared trajectory and regime-change observables remain inside tolerance on held-out intervals..
 Falsifier: A missed turning point or out-of-band held-out trajectory falsifies the promoted systems packet..
-Replay command: `logion/k7/spe/orchestrator/science/run\_oc\_core\_domain\_hard\_closure\_replay\_v1.py --domain-id SYSTEMS\_CIVILIZATIONAL\_PROJECTION`.
+Replay command: \occode{logion/k7/spe/orchestrator/science/run_oc_core_domain_hard_closure_replay_v1.py --domain-id SYSTEMS_CIVILIZATIONAL_PROJECTION}.
 Measurement schema: Evaluate K8 projection packets against pinned official macro-process series with held-out interval tests..
 Next required action: `MAINTAIN\_REPLAY\_DISCIPLINE`.
 Official replay coverage and metrics: execution basis `OFFICIAL\_OPEN\_PRIMARY\_DATA`, covered benchmarks `3` of `3`, full-coverage benchmarks `3`, mean abs normalized error `0.56097 sigma`, `p95` `1.924704 sigma`, `max` `2.25395 sigma`, tail breaches `0`.

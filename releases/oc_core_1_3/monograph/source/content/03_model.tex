@@ -485,12 +485,12 @@ All further developments in the Core and in extension papers rely on this struct
 \subsection{Minimality route for the OC verdict interface}
 \label{sec:oc13-global-verdict-minimality}
 
-The tuple \(K=(\Omega,A,P,J,\Theta,\partial\Omega,C,k)\) is the public interface
-used by this release. Core 1.3.3 does not promote a public theorem of global
-verdict-invariant minimality. Instead it records a narrower public route: each
-tuple component has a replayable keep/drop witness showing why the component
-cannot be removed from the declared release verdict suite without changing at
-least one relevant verdict.
+The tuple \(K=(\Omega,A,P,J,\Theta,\partial\Omega,C,k)\) is the Core~1.3.3
+interface for comparing continuum descriptions. The monograph does not promote
+a theorem of global verdict-invariant minimality. It records the narrower
+criterion that each tuple component contributes to at least one relevant
+classification or transition judgment; removing that component changes the
+available distinction in the corresponding witness family.
 
 \paragraph{Route status.}
 The route says what a future minimality theorem would need to prove: for a
@@ -501,29 +501,29 @@ forgetful map that removes only \(\pi_p\), and a verdict function
 replayable witness fixtures and an executable check for that
 route, but it does not claim a complete formal lower-bound theorem.
 
-\paragraph{Use in this release.}
+\paragraph{Role in the model.}
 \(\partial\Omega\), \(J\), and \(k\) may be derived in local models only when
 the derivation still preserves the boundary, flow, and continuumness verdict
-information. Derivation is allowed; information loss is not. This is a route
-constraint for reviewer orientation, not a promoted minimality proof.
+information. Derivation is allowed; information loss is not. The condition is a
+modeling boundary for local reductions, not a promoted minimality proof.
 
 % OC_CORE_1_3_3_SCIENTIFIC_CLOSURE_BRIDGE
 
-\subsection{OC Core 1.3.3 scientific closure bridge}
+\subsection{OC Core 1.3.3 typed interface bridge}
 \label{sec:oc133-model-scientific-closure-bridge}
 
-Core 1.3.3 repairs the known reviewer attack surfaces by typing the continuum
-carrier separately from live realizations, replacing global \(K_0\)
-discreteness with resolution-relative quotient distinguishability, treating
-boundaries as admissibility classifiers, and reading \(F,G,H,Q,R,S,U\) as
-hybrid update components rather than universal derivatives.  The public tuple
+Core 1.3.3 states the continuum carrier separately from live realizations,
+uses resolution-relative quotient distinguishability at \(K_0\), treats
+boundaries as admissibility classifiers, and reads \(F,G,H,Q,R,S,U\) as
+hybrid update components rather than universal derivatives.  The interface
 \[
 K=(\Omega,A,P,J,\Theta,\partial\Omega,C,k)
 \]
-is preserved as the interface, but load-bearing statements now distinguish
+is retained, while theorem-bearing statements distinguish
 \(\Omega_{\mathrm{law}}(K)\), \(\Omega_t(K)\), and
-\(\Omega_{\mathrm{res}}(K,t)\).  A carrier may persist while live admissibility
-is empty, so death, residue, and rebirth no longer create a type contradiction.
+\(\Omega_{\mathrm{res}}(K,t)\).  This separation allows a carrier-level trace
+to persist after live admissibility becomes empty while death, residue, and
+rebirth remain distinct typed statuses.
 
 Continuumness \(k\) is a diagnostic scalar governed by explicit zero-cause
 families.  Live status is a predicate, collapse cause is typed, and the old

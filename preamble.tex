@@ -14,7 +14,7 @@
 
 \setmainfont{TeX Gyre Termes}
 \setsansfont{TeX Gyre Heros}
-\setmonofont[Ligatures=NoCommon]{TeX Gyre Cursor}
+\setmonofont[Ligatures=TeXOff]{TeX Gyre Cursor}
 
 % --- Languages (Polyglossia) ------------------
 
@@ -254,13 +254,14 @@
 \newcommand{\occodebody}[1]{%
   \begingroup
   \scriptsize\ttfamily
-  \addfontfeatures{Ligatures=NoCommon}%
+  \addfontfeatures{Ligatures=TeXOff}%
   \edef\oc@detok{\detokenize{#1}}%
+  \StrSubstitute{\oc@detok}{--}{-\kern0pt-}[\oc@safe]%
   \hyphenpenalty=0\exhyphenpenalty=0\relpenalty=0\binoppenalty=0%
-  \IfSubStr{\oc@detok}{ }{%
-    \oc@detok%
+  \IfSubStr{\oc@safe}{ }{%
+    \oc@safe%
   }{%
-    \expandafter\seqsplit\expandafter{\oc@detok}%
+    \expandafter\seqsplit\expandafter{\oc@safe}%
   }%
   \endgroup
 }
