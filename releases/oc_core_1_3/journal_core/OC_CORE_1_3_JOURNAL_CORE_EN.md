@@ -65,6 +65,8 @@ This ladder is important for two reasons. First, it prevents the paper from hidi
 - Together, the restored death theorem and residue definition yield the bounded Theorem A classification: after admissible-state loss, the original live identity ends and residue may remain without preserving that identity.
 - Separately, irreversibility and the rebirth definition yield Proposition B: a later live continuation grounded in residue may be classified as rebirth under the stated sufficient witness condition, not as a premise of Theorem A.
 
+For local navigation, Proposition B is the companion rebirth-control branch described in the theorem ladder and proved in the companion paragraph of the lemma-chain section below. The full source-level support path is exposed in the master monograph's theorem roadmap and worked-example sections, where it remains outside the premise set of Theorem A.
+
 The supporting source rows used in the article are the following:
 - Theorem A (source-audited post-collapse death/residue classification): Bounded theorem stating that death and residue semantics survive source-corpus revalidation.
 - Definition 12.1 (Collapse): Collapse is defined by the loss of a nonempty admissible state space rather than by metaphorical failure language.
