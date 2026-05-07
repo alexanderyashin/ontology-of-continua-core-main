@@ -181,7 +181,7 @@ excluded lift / representability families
 | post-collapse identity theorem | main article result | source-audited support chain remains canon-clean | no universal persistence theory |
 | mathematics and formal methods | later theorem-program route | separate proof, Lean, or finite witness route passes | not used as empirical proof here |
 | natural-science domains | later empirical projection route | observable, benchmark, replay, uncertainty, and falsifier rows pass | not promoted as complete downstream closure |
-| enterprise / AI / applied domains | later practical projection route | domain cases, metrics, comparators, and falsifiers are independently bound | not part of the main theorem proof |
+| cross-domain route selection | bounded practical-utility lane | the practical utility atlas row `UNIFIED_USE_001_CROSS_DOMAIN_ROUTE_SELECTION` remains source-bound and support-classed as operationally bounded | not a claim that enterprise, AI, or other applied domains are already certified as independent projection families |
 
 ## Reviewer Objections and Resolutions
 The manuscript includes a concrete objection-resolution layer because recurring scientific objections should be surfaced before they return as review failures.

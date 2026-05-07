@@ -32,7 +32,7 @@ Systems / Civilizational projection & WAVE\_4\_SYSTEMS & HYBRID\_ESCALATION & HE
 Protocol id: `OC13::EXECUTION::MATHEMATICS::ANCHOR\_REPLAY`. Evidence bar: `HYBRID\_ESCALATION`. Current execution readiness: `PASS`.
 Pinned route families: Clay Mathematics Institute (OFFICIAL\_PROBLEM\_CATALOG); American Institute of Mathematics (OFFICIAL\_PROBLEM\_CATALOG).
 Held-out policy: `DETERMINISTIC\_COUNTEREXAMPLE\_AND\_TRACE\_REPLAY` with minimum cases `31`.
-Quantitative gate: coverage `N/A`, mean abs error at most `N/A sigma`, `p95` at most `N/A sigma`, `max` at most `N/A sigma`, Brier at most `N/A`, ECE at most `N/A`, tail breaches `N/A`.
+Quantitative gate: minimum cases `31`, strictly terminalized cases at least `31`, counterexample survivor total at most `0`, and replay divergence total at most `0`. Coverage, residual sigma, Brier, ECE, and tail-breach metrics are not applicable to this exact replay lane.
 Replay harness: `logion/k7/spe/orchestrator/science/run\_claim\_simulations\_v1.py` with deterministic replay required `True`.
 Institute-run trigger: `ONLY\_IF\_DETERMINISTIC\_REPLAY\_BREAKS`. Measurement wave: `NONE`.
 Escalation plan: Expand the exact-question corpus instead of broadening claims..
@@ -68,7 +68,7 @@ Escalation plan: Run a bounded institute observation or assay campaign only for 
 Protocol id: `OC13::EXECUTION::SYSTEMS::MACRO\_TRAJECTORIES\_AND\_REGIME\_SHIFTS`. Evidence bar: `HYBRID\_ESCALATION`. Current execution readiness: `PASS`.
 Pinned route families: World Bank (OFFICIAL\_OPEN\_DATA\_API\_DOCS); U.S. Department of Energy Office of Science (OFFICIAL\_CHALLENGE\_PROGRAM).
 Held-out policy: `HELD\_OUT\_INTERVAL\_REPLAY\_WITH\_TURNING\_POINT\_CHECKS` with minimum cases `30`.
-Quantitative gate: coverage `1.0`, mean abs error at most `N/A sigma`, `p95` at most `N/A sigma`, `max` at most `N/A sigma`, Brier at most `0.08`, ECE at most `0.05`, tail breaches `0`.
+Quantitative gate: coverage `1.0`, mean absolute normalized error at most `1.0 sigma`, `p95` at most `2.5 sigma`, `max` at most `5.0 sigma`, Brier at most `0.08`, ECE at most `0.05`, tail breaches `0`, critical-failure F1 at least `0.87`, critical-failure precision at least `0.85`, and critical-failure recall at least `0.9`.
 Replay harness: `logion/k7/spe/orchestrator/science/run\_oc\_core\_domain\_hard\_closure\_replay\_v1.py --domain-id SYSTEMS\_CIVILIZATIONAL\_PROJECTION` with deterministic replay required `True`.
 Institute-run trigger: `OPEN\_DATA\_COVERAGE\_LT\_1\_0\_OR\_HELD\_OUT\_INTERVAL\_COUNT\_LT\_30\_OR\_TURNING\_POINT\_BREACH\_PERSISTS`. Measurement wave: `INSTITUTE\_RUN::SYSTEMS::WAVE\_4A`.
 Escalation plan: Acquire partner or institute-run observation programs for the missing macro-process lane and rerun the held-out interval evaluation without broadening civilizational claims..
