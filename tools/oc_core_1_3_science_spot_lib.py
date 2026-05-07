@@ -6070,7 +6070,7 @@ def render_proof_machinery_tex(spot: dict[str, Any]) -> str:
         else f"The current program also keeps {tex_code(summary['hostile_review_blocking_total'])} hostile-review dossiers open, and these dossiers block any future global PASS even if the domain packets later close."
     )
     irreducibility_sentence = (
-        f"The strongest honest meta-result remains {tex_code('STRONGEST_IMPOSSIBILITY_BOUNDARY')}, and K11/K12 now stand under a locked irreducibility result beyond K10."
+        f"The strongest honest meta-result remains {tex_code('STRONGEST_IMPOSSIBILITY_BOUNDARY')}: it blocks blurred uniqueness slogans and localizes the current impossibility boundary. K11/K12 remain explicit upper-level proof obligations unless and until their irreducibility route is separately promoted by a dedicated theorem and proof sheet."
         if global_pass
         else f"The strongest honest meta-result remains {tex_code('STRONGEST_IMPOSSIBILITY_BOUNDARY')} rather than a blurred uniqueness slogan. K11 and K12 now live under an explicit irreducibility campaign rather than under decorative level inflation."
     )
