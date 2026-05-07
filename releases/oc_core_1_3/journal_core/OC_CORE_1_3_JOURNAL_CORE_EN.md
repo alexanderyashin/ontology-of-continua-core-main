@@ -1,7 +1,7 @@
 # OC Core 1.3 Journal Core: A Source-Audited Revalidation of Collapse and Residue
 
-Alexander Yashin
-Independent Researcher
+Alexander Yashin\
+Independent Researcher\
 ORCID: 0009-0008-6166-0914
 
 ## Abstract

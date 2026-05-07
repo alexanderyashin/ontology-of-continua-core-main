@@ -64,9 +64,11 @@ the science appendices.
   \item[\(\mathbf{1}_{\{\Omega(K,t)\neq\emptyset\}}\)] Nonemptiness indicator for
         the time-slice admissible region: it is \(1\) exactly when
         \(\Omega(K,t)\neq\emptyset\) and \(0\) otherwise.
-  \item[\(H(\Omega(K_x))\)] Legacy K-level notation for the same nonemptiness
-        factor in continuity products. It is a Boolean admissibility indicator,
-        not the threshold-evolution operator \(H_{\mathrm{thr}}\).
+  \item[\(N_{\Omega}(K_x)\)] Nonemptiness factor in continuity products:
+        \(N_{\Omega}(K_x)=1\) exactly when \(\Omega(K_x)\neq\emptyset\), and
+        \(0\) otherwise. Older K-level formulas sometimes write the same factor
+        as \(H(\Omega(K_x))\); in Core~1.3.3 that spelling is legacy-only and
+        never gives bare \(H\) a second operator meaning.
   \item[\(\Sigma_{\Omega}(K_x;M_x)\)] Threshold-saturation locus of
         \(\Omega(K_x)\) inside the declared ambient embedding space \(M_x\):
         \[
@@ -388,7 +390,10 @@ interface: the continuum carrier is typed separately from live realizations,
 global \(K_0\) discreteness is read through resolution-relative quotient
 distinguishability, boundaries act as admissibility classifiers, and
 \(F,G,H,Q,R,S,U\) are hybrid update components rather than universal
-derivatives.  The published tuple
+derivatives.  In this operator list, bare \(H\) denotes the threshold-evolution
+operator \(H_{\mathrm{thr}}\); the nonemptiness/status factor is
+\(N_{\Omega}\) or the explicit indicator
+\(\mathbf{1}_{\{\Omega(K,t)\neq\emptyset\}}\).  The published tuple
 \[
 K=(\Omega,A,P,J,\Theta,\partial\Omega,C,k)
 \]
@@ -401,9 +406,7 @@ at the fixed continuum and instant under discussion.  Thus \(A\) abbreviates
 \(A(K)\), \(P\) abbreviates \(P(K,t)\), \(J\) abbreviates \(J(K,t)\),
 \(\Theta\) abbreviates \(\Theta(K)\), \(\partial\Omega\) abbreviates
 \(\partial\Omega(K,t)\), and \(C\) abbreviates \(C(K,t)\) unless a formula
-states a different specialization.  The update component \(H\) is the declared
-nonemptiness/status test \(H(\Omega(K_x))\) or its time-slice analogue, not a
-new scalar.  Theorem-bearing statements now distinguish
+states a different specialization. Theorem-bearing statements now distinguish
 \(\Omega_{\mathrm{law}}(K)\), \(\Omega_t(K)\), and
 \(\Omega_{\mathrm{res}}(K,t)\).  A carrier may persist while live admissibility
 is empty, so the notation separates carrier persistence from live identity.
