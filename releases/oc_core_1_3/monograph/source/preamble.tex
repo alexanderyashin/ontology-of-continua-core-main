@@ -254,9 +254,8 @@
   \begingroup
   \scriptsize\ttfamily
   \addfontfeatures{Ligatures=NoCommon}%
-  \edef\oc@detok{\detokenize{#1}}%
   \hyphenpenalty=0\exhyphenpenalty=0\relpenalty=0\binoppenalty=0%
-  \expandafter\seqsplit\expandafter{\oc@detok}%
+  \detokenize{#1}%
   \endgroup
 }
 \newcommand{\occode}[1]{%

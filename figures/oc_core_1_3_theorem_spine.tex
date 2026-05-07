@@ -19,7 +19,8 @@
 \node[proofnode] (lemmatwo) at (2.85, -3.15) {Lemma 2};
 \node[proofnode, fill=green!8, minimum width=4.1cm] (theorema) at (2.85, -4.9) {Theorem A\\Bounded post-collapse identity};
 
-\node[excludednode] (excludedlift) at (7.2, -2.35) {Excluded lift-heavy family\\reviewed boundary only\\not in the positive bounded route};
+\node[proofnode, fill=yellow!12, minimum width=4.1cm] (propositionb) at (6.35, -1.6) {Proposition B\\Companion rebirth control\\not a Theorem A premise};
+\node[excludednode] (excludedlift) at (7.35, -4.05) {Excluded lift-heavy family\\reviewed boundary only\\not in the positive bounded route};
 
 \draw[->] (leftsupport) -- (sourcethm);
 \draw[->] (sourcethm) -- (lemmaone);
@@ -28,9 +29,10 @@
 \draw[->] (lemmaone) -- (lemmatwo);
 \draw[->] (defresidue) -- (lemmatwo);
 \draw[->] (lemmatwo) -- (theorema);
+\draw[->] (lemmathree) -- (propositionb);
 
-\draw[dashed, ->] (lemmathree.east) .. controls +(0.9,0.2) and +(-1.0,0.0) .. (excludedlift.west);
+\draw[dashed] (propositionb.south east) .. controls +(0.8,-0.7) and +(-0.8,0.8) .. (excludedlift.north west);
 
-\node[anchor=north west, align=left] at (-1.0, -6.2) {\footnotesize Solid arrows: admitted theorem route and admitted rebirth-control branch\\\footnotesize Dashed arrows: excluded temptation route reviewed but not admitted};
+\node[anchor=north west, align=left] at (-1.0, -6.2) {\footnotesize Solid arrows: admitted theorem route and admitted companion rebirth-control branch\\\footnotesize Dashed boundary: excluded temptation family reviewed but not admitted};
 
 \end{tikzpicture}
