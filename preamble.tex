@@ -202,12 +202,11 @@
   \def\sim{ related to }%
 }
 \Urlmuskip=0mu plus 2mu\relax
-\setlength{\emergencystretch}{12em}
-\hfuzz=1000pt
+\setlength{\emergencystretch}{3em}
+\hfuzz=0.5pt
 \overfullrule=0pt
-\pretolerance=1200
-\tolerance=6000
-\sloppy
+\pretolerance=800
+\tolerance=2500
 
 % --- Clever references ------------------------
 
@@ -287,8 +286,3 @@
 }
 \setlist[itemize]{leftmargin=1.4em, itemsep=0.2em, topsep=0.3em}
 \newcolumntype{L}[1]{>{\RaggedRight\arraybackslash}p{#1}}
-\AtBeginDocument{%
-  \hfuzz=1000pt
-  \overfullrule=0pt
-  \typeout{OC_HFUZZ_POLICY=\the\hfuzz}%
-}
