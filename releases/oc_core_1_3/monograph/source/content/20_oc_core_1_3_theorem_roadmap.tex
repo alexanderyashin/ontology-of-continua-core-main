@@ -14,10 +14,13 @@ a relatively small load-bearing spine even though the monograph itself remains
 much larger. The schematic route below is compact rather than proof-theoretic
 minimality in the strict sense: it keeps the residue route and the companion
 rebirth-control route visible without making both premises of the same theorem.
-The spine can therefore be stated schematically as
-dependency notation rather than object-language implication. To avoid making
-the route look like a proof calculus, the support map is written as labelled
-review edges:
+The spine can therefore be stated schematically as dependency notation rather
+than object-language implication. The fate policy in
+Section~\ref{sec:oc13-theorem-fate-correction-v3} governs the map before any
+edge is promoted as positive support: the edges below are navigation labels
+whose support status is admitted only by the fate table and the referenced proof
+obligation registry. To avoid making the route look like a proof calculus, the
+support map is written as labelled review edges:
 
 \begin{enumerate}
 \item \textbf{Edge 1.} Axiom~3.2 together with Definitions~12.1, 12.3, and
@@ -202,8 +205,9 @@ there, a slower full reading becomes worth the effort.
 \label{sec:oc13-theorem-fate-correction-v3}
 
 External review forced a stricter reading of theorem labels. A label such as
-``Theorem'' is not itself proof. The public release now uses the following fate
-table before any theorem-like row is cited as positive support.
+``Theorem'' is not itself proof. The public release uses the following fate
+table to audit every theorem-like row, including the support-map edges printed
+above, before that row is treated as positive support.
 
 \begin{longtable}{@{}p{0.25\textwidth}p{0.25\textwidth}p{0.40\textwidth}@{}}
 \toprule
