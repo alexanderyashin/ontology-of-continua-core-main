@@ -6070,9 +6070,9 @@ def render_proof_machinery_tex(spot: dict[str, Any]) -> str:
         else f"The current program also keeps {tex_code(summary['hostile_review_blocking_total'])} hostile-review dossiers open, and these dossiers block any future global PASS even if the domain packets later close."
     )
     irreducibility_sentence = (
-        f"The strongest honest meta-result remains {tex_code('STRONGEST_IMPOSSIBILITY_BOUNDARY')}: it blocks blurred uniqueness slogans and localizes the current impossibility boundary. In this release the K11/K12 irreducibility route is locked as {tex_code('PROVED_NECESSARY_BEYOND_K10')} for the declared Core 1.3.3 support surface; future work may refine upper-level applications, but K11 and K12 are recorded as closed maintenance surfaces rather than deferred theorem shells."
+        f"The strongest honest meta-result remains {tex_code('STRICT_UNIQUENESS_OR_MINIMALITY')} with status {tex_code('EXPLICIT_FRONTIER_RESIDUE_LOCALIZED')}: it blocks blurred uniqueness slogans and localizes the current impossibility boundary. In this release the K11/K12 irreducibility route is locked as {tex_code('PROVED_NECESSARY_BEYOND_K10')} for the declared support surface; future work may refine upper-level applications, but K11 and K12 are recorded as closed maintenance surfaces rather than deferred theorem shells."
         if global_pass
-        else f"The strongest honest meta-result remains {tex_code('STRONGEST_IMPOSSIBILITY_BOUNDARY')} rather than a blurred uniqueness slogan. K11 and K12 now live under an explicit irreducibility campaign rather than under decorative level inflation."
+        else f"The strongest honest meta-result remains {tex_code('STRICT_UNIQUENESS_OR_MINIMALITY')} with status {tex_code('EXPLICIT_FRONTIER_RESIDUE_LOCALIZED')} rather than a blurred uniqueness slogan. K11 and K12 now live under an explicit irreducibility campaign rather than under decorative level inflation."
     )
     atlas_sentence = (
         f"The unified atlas status is {tex_code(spot['unified_science_atlas']['atlas_status'])}. Shared operators are now globally locked across closed domains and no surviving cross-domain contradiction remains in the falsifier matrix."
@@ -6106,7 +6106,7 @@ def render_proof_machinery_tex(spot: dict[str, Any]) -> str:
             normalize_sentence(atlas_sentence),
             "",
             r"\subsection{Compression as a bounded metric}",
-            f"The release treats compression as {tex_code('BOUNDED_METRIC')} rather than as a central theorem claim. Coverage per rooted theorem-support statement remains {tex_code(COMPRESSION_ROWS[0]['performance_value'])}, while coverage per active numerical packet remains {tex_code(COMPRESSION_ROWS[1]['performance_value'])}.",
+            f"The release treats compression through {tex_code('THEOREM_SUPPORT_DESCRIPTION_LENGTH')} and {tex_code('EMPIRICAL_PACKET_COMPLEXITY_VS_RESIDUAL_PERFORMANCE')} rather than as a central theorem claim. Coverage per rooted theorem-support statement remains {tex_code(COMPRESSION_ROWS[0]['performance_value'])}, while coverage per active numerical packet remains {tex_code(COMPRESSION_ROWS[1]['performance_value'])}.",
         ]
     )
 

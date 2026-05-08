@@ -1,5 +1,5 @@
 % =============================================
-%  Ontology of Continua --- Core 1.4 Canonical Master Monograph
+%  Ontology of Continua --- canonical master monograph
 %  Stable LaTeX Preamble (XeLaTeX, do not edit lightly)
 % =============================================
 
@@ -24,7 +24,7 @@
 % \ocdefaultlanguage before loading this shared preamble.
 \providecommand{\ocdefaultlanguage}{english}
 \setdefaultlanguage{\ocdefaultlanguage}
-\setotherlanguages{english,german,russian}
+\setotherlanguages{german,russian}
 
 % Support for Cyrillic if Russian text is used. The CMU Unicode fonts ship
 % with MiKTeX/TeX Live and avoid falling back to Latin-only TeX Gyre faces.
@@ -137,9 +137,15 @@
 \usepackage{seqsplit}
 \usepackage{xstring}
 
-\providecommand{\ocpdftitle}{Ontology of Continua --- Core 1.4 Canonical Master Monograph}
+\IfFileExists{release_metadata.tex}{\input{release_metadata.tex}}{%
+  \PackageError{ocrelease}{Missing release_metadata.tex}{Run tools/sync_current_release_tex_metadata.py before building the public PDF.}%
+}
+
+\providecommand{\ocpublicreleaselabel}{Core \ocpublicversion}
+\providecommand{\ocpdftitle}{Ontology of Continua --- \ocpublicreleaselabel{} Canonical Master Monograph}
 \providecommand{\ocpdfsubject}{Continuum ontology and closure}
-\providecommand{\ocpdfkeywords}{Ontology of Continua, Core 1.4, K-level hierarchy, theorem closure, empirical validation, falsifiability, practical utility}
+\providecommand{\ocpdfkeywords}{Ontology of Continua, \ocpublicreleaselabel, K-level hierarchy, theorem closure, empirical validation, falsifiability, practical utility}
+\providecommand{\ocpdfproducer}{XeLaTeX with OC \ocpublicreleaselabel{} build scripts}
 \ifdefined\ocpdflang\else
   \IfStrEq{\ocdefaultlanguage}{german}{%
     \newcommand{\ocpdflang}{de}%
@@ -163,7 +169,7 @@
   pdfsubject   = {\ocpdfsubject},
   pdfkeywords  = {\ocpdfkeywords},
   pdfcreator   = {XeLaTeX},
-  pdfproducer  = {XeLaTeX with OC Core 1.4 build scripts},
+  pdfproducer  = {\ocpdfproducer},
   pdflang      = {\ocpdflang}
 }
 \pdfstringdefDisableCommands{%

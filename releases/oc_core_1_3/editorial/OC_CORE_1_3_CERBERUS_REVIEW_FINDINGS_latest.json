@@ -1,11 +1,44 @@
 {
   "metadata": {
-    "repo_sha": "afa3e2d92284c0f5d836fce93d6504528620ea3e",
-    "generated_at_utc": "2026-05-08T12:39:52Z",
+    "repo_sha": "9d95428f16975d809a2bad52ac29c202941d17a0",
+    "generated_at_utc": "2026-05-08T14:50:03Z",
     "surface": "logion/k0/governance/status/OC_CORE_1_3_CERBERUS_REVIEW_FINDINGS_latest.json",
     "script": "oc_core_1_3_cerberus_review.py"
   },
-  "run_id": "CERBERUS_RUN__20260508T123334Z__afa3e2d9",
+  "run_id": "CERBERUS_RUN__20260508T144544Z__9d95428f",
   "scope_id": "OC_CORE_1_3_ENGLISH_FLAGSHIP_RELEASE_PACKAGE",
-  "findings": []
+  "findings": [
+    {
+      "finding_id": "CERBERUS_FINDING::987ef36debc33fe080cf",
+      "run_id": "CERBERUS_RUN__20260508T144544Z__9d95428f",
+      "reviewer_id": "CERBERUS_LLM__HOSTILE_MATHEMATICIAN",
+      "artifact_id": "CERBERUS_UNIT::content__24_oc_core_1_3_proof_machinery.tex",
+      "artifact_ref": "content/24_oc_core_1_3_proof_machinery.tex",
+      "section_ref": "Opening paragraph",
+      "severity": "NON_DEFECT_OBSERVATION",
+      "category": "claim_scope",
+      "determinism_class": "LLM_CODEX_CLI",
+      "claim": "The section refers to `one scientific authority` without naming the canonical SPOT, so the authority projection is still under-specified.",
+      "evidence": "The canonical summary names `scientific_authority_id` as `OC_CORE_1_3_SCIENCE_SPOT`, but this paragraph only says the proof machinery is projected from `one scientific authority`.",
+      "required_action": "LLM minor advisory only. Deterministic reviewers, hard-build checks, and LLM BLOCKER/MAJOR findings remain release-blocking; this observation is tracked for later editorial polish but does not block release acceptance.",
+      "status": "NOT_ACTIONABLE",
+      "corroborating_reviewer_ids": []
+    },
+    {
+      "finding_id": "CERBERUS_FINDING::bd2170995dceb2416d73",
+      "run_id": "CERBERUS_RUN__20260508T144544Z__9d95428f",
+      "reviewer_id": "CERBERUS_LLM__HOSTILE_MATHEMATICIAN",
+      "artifact_id": "CERBERUS_UNIT::content__24_oc_core_1_3_proof_machinery.tex",
+      "artifact_ref": "content/24_oc_core_1_3_proof_machinery.tex",
+      "section_ref": "Opening paragraph",
+      "severity": "NON_DEFECT_OBSERVATION",
+      "category": "claim_scope",
+      "determinism_class": "LLM_CODEX_CLI",
+      "claim": "The sentence that the promotion law `constrains runtime status` and `constrains the monograph itself` blurs the governed object and reads as if an editorial rule were directly constraining the scientific manuscript.",
+      "evidence": "The canonical summary sets `scientific_authoring_rule` to `SCIENCE_IS_AUTHORED_ONLY_IN_SOURCE_OWNED_SCIENCE_CORPUS_AND_ALL_EDITORIAL_SURFACES_ARE_PROJECTIONS`. Against that boundary, this sentence does not say whether the law governs release packaging, revision governance, or claim promotion.",
+      "required_action": "LLM minor advisory only. Deterministic reviewers, hard-build checks, and LLM BLOCKER/MAJOR findings remain release-blocking; this observation is tracked for later editorial polish but does not block release acceptance.",
+      "status": "NOT_ACTIONABLE",
+      "corroborating_reviewer_ids": []
+    }
+  ]
 }
