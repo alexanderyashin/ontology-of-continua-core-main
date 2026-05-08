@@ -7,20 +7,17 @@ resolved through `../CURRENT_RELEASE.json`.
 
 - `monograph/` contains the English master monograph built from the public
   LaTeX source corpus.
-- `journal_core/` contains the bounded English journal-facing extraction and
-  release approval material.
 - `manuscripts/` keeps the flagship-manuscript convenience surface.
-- `editorial/science_sources/` is the public source-owned science corpus for
-  the release.
-- `editorial/domain_packets/` contains the packetized hard-closure domain
-  dossiers with benchmark routes, replay commands, and falsifier definitions.
-- `editorial/DOMAIN_EMPIRICAL_EXECUTION_PROTOCOLS_latest.json`,
-  `editorial/DOMAIN_BENCHMARK_DATASET_MANIFEST_latest.json`,
-  `editorial/DOMAIN_REPLAY_REPORTS_latest.json`, and
-  `editorial/INSTITUTE_RUN_MEASUREMENT_PROGRAM_latest.json` expose the public
-  empirical/replay evidence surfaces where present.
+- `editorial/` contains public evidence mirrors referenced by the monograph
+  source. This review payload includes only science surfaces, domain packets,
+  and closure dossiers needed for external inspection.
 - `OC_CORE_1_3_ZENODO_EN_ONLY_MANIFEST.json` defines the English public package
   intended for release approval before any Zenodo action.
+
+The proof, claim, comparator, benchmark, replay, simulation, data-manifest, and
+evidence-summary surfaces for this source series live at the repository root in
+`claims/`, `proofs/`, `formal/`, `comparators/`, `falsification/`,
+`benchmarks/`, `validation/`, `simulations/`, `data/`, and `reports/`.
 
 Draft preparation files and non-public working traces are intentionally excluded
 from this public release bundle.

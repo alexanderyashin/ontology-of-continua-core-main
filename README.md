@@ -2,9 +2,8 @@
 
 OC Core 1.4 is the current public release pointer for the Ontology of Continua
 core model. This repository carries reader-facing artifacts, proof and evidence
-material, reproducibility assets, replay and validation records, journal
-release approval packages, metadata, and navigation needed for external scientific
-inspection.
+material, reproducibility assets, replay and validation records, release
+metadata, and navigation needed for external scientific inspection.
 
 ## Current Public Pointer
 
@@ -27,16 +26,14 @@ actions require separate owner approval.
   reader-facing flagship manuscript convenience surface.
 - `releases/oc_core_1_3/monograph/source/`:
   public LaTeX source for the master monograph.
-- `releases/oc_core_1_3/editorial/science_sources/`:
-  public source-owned science surfaces used by the release package.
-- `releases/oc_core_1_3/editorial/domain_packets/`:
-  domain evidence packets, benchmark routes, replay commands, and falsifier
-  definitions.
-- `releases/oc_core_1_3/journal_core/`:
-  journal-facing extraction and release approval material.
-- `reports/`, `validation/`, `benchmarks/`, `formal/`, and `reviews/`:
-  supporting proof, replay, validation, formal, and adversarial-review records
-  where present.
+- `claims/`, `proofs/`, `formal/`, `comparators/`, and `falsification/`:
+  claim, proof, formal, comparator, and falsifier surfaces.
+- `validation/`, `benchmarks/`, `simulations/`, `data/`, and `reports/`:
+  replay, benchmark, simulation, data-manifest, and evidence-summary records.
+- `releases/oc_core_1_3/editorial/`:
+  public evidence mirrors referenced by the monograph source, limited to science
+  surfaces, domain packets, and closure dossiers included in this review
+  payload.
 
 ## Scientific Boundary
 

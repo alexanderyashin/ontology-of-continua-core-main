@@ -1,0 +1,273 @@
+{
+  "metadata": {
+    "repo_sha": "9d95428f16975d809a2bad52ac29c202941d17a0",
+    "script": "tools/build_oc_core_1_3_science_spot.py",
+    "surface": "releases/oc_core_1_3/editorial/OC_CORE_1_3_PROOF_OBLIGATION_REGISTRY_latest.json",
+    "ts_utc": "2026-05-08T14:40:24Z"
+  },
+  "dependency_atlas": [
+    {
+      "edge_id": "SPINE::AXIOM_3_2_AND_DEFINITIONS_12_1_12_3_12_4_TO_SOURCE_THEOREM_3",
+      "scientific_class": "THEOREM_NATIVE",
+      "trace_status": "TRACE_COMPLETE",
+      "evidence_status": "EVIDENCE_COMPLETE",
+      "closure_verdict": "PASS",
+      "premises": [
+        "Axiom 3.2",
+        "Definition 12.1",
+        "Definition 12.3",
+        "Definition 12.4"
+      ],
+      "result": "Source Theorem 3",
+      "refs": [
+        "content/20_oc_core_1_3_theorem_roadmap.tex",
+        "content/theorems_master.tex"
+      ]
+    },
+    {
+      "edge_id": "SPINE::SOURCE_THEOREM_3_TO_LEMMA_1",
+      "scientific_class": "THEOREM_NATIVE",
+      "trace_status": "TRACE_COMPLETE",
+      "evidence_status": "EVIDENCE_COMPLETE",
+      "closure_verdict": "PASS",
+      "premises": [
+        "Source Theorem 3"
+      ],
+      "result": "Lemma 1",
+      "refs": [
+        "content/20_oc_core_1_3_theorem_roadmap.tex",
+        "content/theorems_master.tex"
+      ]
+    },
+    {
+      "edge_id": "SPINE::AXIOM_3_3_AND_DEFINITION_12_6_TO_SOURCE_COROLLARY_3_2",
+      "scientific_class": "THEOREM_NATIVE",
+      "trace_status": "TRACE_COMPLETE",
+      "evidence_status": "EVIDENCE_COMPLETE",
+      "closure_verdict": "PASS",
+      "premises": [
+        "Axiom 3.3",
+        "Definition 12.6"
+      ],
+      "result": "Source Corollary 3.2",
+      "refs": [
+        "content/20_oc_core_1_3_theorem_roadmap.tex",
+        "content/21_oc_core_1_3_worked_examples.tex"
+      ]
+    },
+    {
+      "edge_id": "SPINE::SOURCE_COROLLARY_3_2_TO_LEMMA_3",
+      "scientific_class": "THEOREM_NATIVE",
+      "trace_status": "TRACE_COMPLETE",
+      "evidence_status": "EVIDENCE_COMPLETE",
+      "closure_verdict": "PASS",
+      "premises": [
+        "Source Corollary 3.2"
+      ],
+      "result": "Lemma 3",
+      "refs": [
+        "content/20_oc_core_1_3_theorem_roadmap.tex",
+        "content/21_oc_core_1_3_worked_examples.tex"
+      ]
+    },
+    {
+      "edge_id": "SPINE::LEMMA_1_AND_DEFINITION_12_5_TO_LEMMA_2",
+      "scientific_class": "THEOREM_NATIVE",
+      "trace_status": "TRACE_COMPLETE",
+      "evidence_status": "EVIDENCE_COMPLETE",
+      "closure_verdict": "PASS",
+      "premises": [
+        "Lemma 1",
+        "Definition 12.5"
+      ],
+      "result": "Lemma 2",
+      "refs": [
+        "content/20_oc_core_1_3_theorem_roadmap.tex",
+        "content/theorems_master.tex"
+      ]
+    },
+    {
+      "edge_id": "SPINE::LEMMA_2_TO_THEOREM_A",
+      "scientific_class": "THEOREM_NATIVE",
+      "trace_status": "TRACE_COMPLETE",
+      "evidence_status": "EVIDENCE_COMPLETE",
+      "closure_verdict": "PASS",
+      "premises": [
+        "Lemma 2"
+      ],
+      "result": "Theorem A",
+      "refs": [
+        "content/20_oc_core_1_3_theorem_roadmap.tex",
+        "content/04_results.tex"
+      ]
+    }
+  ],
+  "proof_obligation_sheets": [
+    {
+      "obligation_id": "OBLIGATION::SOURCE_THEOREM_3",
+      "scientific_class": "THEOREM_NATIVE",
+      "trace_status": "TRACE_COMPLETE",
+      "evidence_status": "EVIDENCE_COMPLETE",
+      "closure_verdict": "PASS",
+      "sheet_status": "DECLARED_CANONICAL_SHEET",
+      "statement": "Show that Axiom 3.2 plus Definitions 12.1, 12.3, and 12.4 lawfully imply Source Theorem 3.",
+      "premises": [
+        "Axiom 3.2",
+        "Definition 12.1",
+        "Definition 12.3",
+        "Definition 12.4"
+      ],
+      "forbidden_shortcuts": [
+        "No interpretive prose may replace an admissibility premise.",
+        "No excluded lift-heavy theorem family may be imported silently."
+      ],
+      "excluded_dependencies": [
+        "Excluded lift theorem family",
+        "Journal-core-only compression"
+      ],
+      "falsifier_condition": "If the implication requires a hidden excluded dependency or the admissibility premises do not suffice, Source Theorem 3 must be narrowed or withdrawn.",
+      "refs": [
+        "content/20_oc_core_1_3_theorem_roadmap.tex",
+        "content/21_oc_core_1_3_worked_examples.tex"
+      ]
+    },
+    {
+      "obligation_id": "OBLIGATION::LEMMA_1",
+      "scientific_class": "THEOREM_NATIVE",
+      "trace_status": "TRACE_COMPLETE",
+      "evidence_status": "EVIDENCE_COMPLETE",
+      "closure_verdict": "PASS",
+      "sheet_status": "DECLARED_CANONICAL_SHEET",
+      "statement": "Show that Source Theorem 3 closes Lemma 1 without widening the claim boundary.",
+      "premises": [
+        "Source Theorem 3"
+      ],
+      "forbidden_shortcuts": [
+        "No downstream lemma may be imported back as support.",
+        "No journal-core enlargement beyond the master route is allowed."
+      ],
+      "excluded_dependencies": [
+        "Interpretive-only support",
+        "Compression-only support"
+      ],
+      "falsifier_condition": "If Lemma 1 requires support not traceable to Source Theorem 3, the spine is broken and the positive body must be rebuilt.",
+      "refs": [
+        "content/20_oc_core_1_3_theorem_roadmap.tex",
+        "content/21_oc_core_1_3_worked_examples.tex"
+      ]
+    },
+    {
+      "obligation_id": "OBLIGATION::SOURCE_COROLLARY_3_2",
+      "scientific_class": "THEOREM_NATIVE",
+      "trace_status": "TRACE_COMPLETE",
+      "evidence_status": "EVIDENCE_COMPLETE",
+      "closure_verdict": "PASS",
+      "sheet_status": "DECLARED_CANONICAL_SHEET",
+      "statement": "Show that Axiom 3.3 plus Definition 12.6 lawfully imply Source Corollary 3.2 and preserve irreversibility.",
+      "premises": [
+        "Axiom 3.3",
+        "Definition 12.6"
+      ],
+      "forbidden_shortcuts": [
+        "No residue-to-identity leap is allowed.",
+        "No numerically identical restoration after lawful death is allowed without explicit theorem support."
+      ],
+      "excluded_dependencies": [
+        "Identity restoration after lawful death",
+        "Metaphorical rebirth language"
+      ],
+      "falsifier_condition": "If the same continuum can return numerically identical after lawful death without violating Axiom 3.3, the irreversibility corollary must be revised or withdrawn.",
+      "refs": [
+        "content/20_oc_core_1_3_theorem_roadmap.tex",
+        "content/21_oc_core_1_3_worked_examples.tex"
+      ]
+    },
+    {
+      "obligation_id": "OBLIGATION::LEMMA_3",
+      "scientific_class": "THEOREM_NATIVE",
+      "trace_status": "TRACE_COMPLETE",
+      "evidence_status": "EVIDENCE_COMPLETE",
+      "closure_verdict": "PASS",
+      "sheet_status": "DECLARED_CANONICAL_SHEET",
+      "statement": "Show that Source Corollary 3.2 closes Lemma 3 under the declared residue and rebirth boundary.",
+      "premises": [
+        "Source Corollary 3.2"
+      ],
+      "forbidden_shortcuts": [
+        "Residue may not be counted as full live identity.",
+        "Post-collapse continuation may not be classified as persistence without a new theorem."
+      ],
+      "excluded_dependencies": [
+        "Persistence-by-analogy",
+        "Undeclared rebirth equivalence"
+      ],
+      "falsifier_condition": "If residue preserves full live identity instead of structural aftermath only, the classification boundary must be rewritten.",
+      "refs": [
+        "content/21_oc_core_1_3_worked_examples.tex",
+        "content/04_results.tex"
+      ]
+    },
+    {
+      "obligation_id": "OBLIGATION::LEMMA_2",
+      "scientific_class": "THEOREM_NATIVE",
+      "trace_status": "TRACE_COMPLETE",
+      "evidence_status": "EVIDENCE_COMPLETE",
+      "closure_verdict": "PASS",
+      "sheet_status": "DECLARED_CANONICAL_SHEET",
+      "statement": "Show that Lemma 1 plus Definition 12.5 imply Lemma 2 without hidden extensions.",
+      "premises": [
+        "Lemma 1",
+        "Definition 12.5"
+      ],
+      "forbidden_shortcuts": [
+        "No extension branch may be used as hidden proof support.",
+        "No empirical bridge may masquerade as theorem support."
+      ],
+      "excluded_dependencies": [
+        "EXTENSION branches",
+        "BRIDGE_ONLY packets"
+      ],
+      "falsifier_condition": "If Lemma 2 requires an excluded branch or bridge-only evidence as proof support, the theorem route is illegitimate.",
+      "refs": [
+        "content/20_oc_core_1_3_theorem_roadmap.tex",
+        "content/19_oc_core_1_3_foundational_consistency.tex"
+      ]
+    },
+    {
+      "obligation_id": "OBLIGATION::THEOREM_A",
+      "scientific_class": "THEOREM_NATIVE",
+      "trace_status": "TRACE_COMPLETE",
+      "evidence_status": "EVIDENCE_COMPLETE",
+      "closure_verdict": "PASS",
+      "sheet_status": "DECLARED_CANONICAL_SHEET",
+      "statement": "Show that Lemma 2 is sufficient for Theorem A and that the journal-core extraction does not exceed the master theorem scope.",
+      "premises": [
+        "Lemma 2"
+      ],
+      "forbidden_shortcuts": [
+        "No journal-core claim may be stronger than the master monograph.",
+        "No excluded theorem family may be reintroduced in compressed form."
+      ],
+      "excluded_dependencies": [
+        "Journal-core-only strengthening",
+        "Excluded lift-heavy theorem family"
+      ],
+      "falsifier_condition": "If the journal core requires support not present in the master route, the article must be narrowed or the master must be repaired first.",
+      "refs": [
+        "content/20_oc_core_1_3_theorem_roadmap.tex",
+        "content/21_oc_core_1_3_worked_examples.tex"
+      ]
+    }
+  ],
+  "refs": {
+    "science_spot": "releases/oc_core_1_3/editorial/OC_CORE_1_3_SCIENCE_SPOT_latest.json",
+    "theorem_roadmap": "content/20_oc_core_1_3_theorem_roadmap.tex",
+    "worked_examples": "content/21_oc_core_1_3_worked_examples.tex"
+  },
+  "schema_id": "OC_CORE_1_3_PROOF_OBLIGATION_REGISTRY_v1",
+  "status": "PASS",
+  "summary": {
+    "dependency_edge_total": 6,
+    "proof_obligation_total": 6
+  }
+}

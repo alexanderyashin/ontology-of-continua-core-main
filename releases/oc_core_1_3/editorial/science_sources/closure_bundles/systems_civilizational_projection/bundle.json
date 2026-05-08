@@ -1,0 +1,878 @@
+{
+  "claim_id": "SYSTEMS_CIVILIZATIONAL_PROJECTION",
+  "domain_id": "SYSTEMS_CIVILIZATIONAL_PROJECTION",
+  "domain_title": "Systems / Civilizational projection",
+  "scope_role": "core_domain",
+  "scientific_class": "THEOREM_NATIVE",
+  "trace_status": "TRACE_COMPLETE",
+  "evidence_status": "EVIDENCE_COMPLETE",
+  "closure_verdict": "PASS",
+  "gap_types": [],
+  "claim_level": "VALIDATED_CLOSED_PACKET",
+  "scientific_state": "THEOREM_NATIVE_TRACE_CLOSED",
+  "next_required_action": "MAINTENANCE_ONLY",
+  "inclusion_verdict": "INTEGRATED_DOMAIN_THEOREM_NATIVE",
+  "promotion_scope_status": "THEOREM_NATIVE_TRACE_CLOSED",
+  "non_inclusion_reason": "",
+  "primary_k_levels": [
+    "K8"
+  ],
+  "theorem_refs": [
+    "content/03_model.tex",
+    "content/10_klevels_full.tex",
+    "content/11_operators_full.tex",
+    "content/theorems_master.tex",
+    "content/predictions/predictions_master.tex",
+    "content/falsifiability/falsifiability_master.tex",
+    "content/k_levels/k8.tex",
+    "content/predictions/predictions_k8.tex",
+    "content/falsifiability/falsifiability_k8.tex",
+    "content/processes/processes_k8.tex",
+    "content/experiments/experiments_k8.tex"
+  ],
+  "root_operator_refs": [
+    "content/03_model.tex",
+    "content/10_klevels_full.tex",
+    "content/11_operators_full.tex"
+  ],
+  "observable_ids": [
+    "SYSTEMS_CIVILIZATIONAL_PROJECTION::POPULATION_TRAJECTORY_RESIDUAL",
+    "SYSTEMS_CIVILIZATIONAL_PROJECTION::GDP_GROWTH_TURNING_POINT_ERROR",
+    "SYSTEMS_CIVILIZATIONAL_PROJECTION::PROCESS_SYSTEM_REGIME_SCORE"
+  ],
+  "dataset_ids": [
+    "SYS_BENCH_001",
+    "SYS_BENCH_002",
+    "SYS_BENCH_003"
+  ],
+  "held_out_case_ids": [
+    "SYS_CASE_005_POP_BRA",
+    "SYS_CASE_006_POP_ZAF",
+    "SYS_CASE_007_POP_JPN",
+    "SYS_CASE_008_POP_FRA",
+    "SYS_CASE_009_POP_MEX",
+    "SYS_CASE_010_POP_IDN",
+    "SYS_CASE_015_GDPGROWTH_BRA",
+    "SYS_CASE_016_GDPGROWTH_ZAF",
+    "SYS_CASE_017_GDPGROWTH_JPN",
+    "SYS_CASE_018_GDPGROWTH_FRA",
+    "SYS_CASE_019_GDPGROWTH_MEX",
+    "SYS_CASE_020_GDPGROWTH_IDN",
+    "SYS_CASE_025_ENERGYUSE_BRA",
+    "SYS_CASE_026_ENERGYUSE_ZAF",
+    "SYS_CASE_027_ENERGYUSE_JPN",
+    "SYS_CASE_028_ENERGYUSE_FRA",
+    "SYS_CASE_029_ENERGYUSE_MEX",
+    "SYS_CASE_030_ENERGYUSE_IDN"
+  ],
+  "declared_case_ids": [
+    "SYS_CASE_001_POP_USA",
+    "SYS_CASE_002_POP_CHN",
+    "SYS_CASE_003_POP_IND",
+    "SYS_CASE_004_POP_DEU",
+    "SYS_CASE_005_POP_BRA",
+    "SYS_CASE_006_POP_ZAF",
+    "SYS_CASE_007_POP_JPN",
+    "SYS_CASE_008_POP_FRA",
+    "SYS_CASE_009_POP_MEX",
+    "SYS_CASE_010_POP_IDN",
+    "SYS_CASE_011_GDPGROWTH_USA",
+    "SYS_CASE_012_GDPGROWTH_CHN",
+    "SYS_CASE_013_GDPGROWTH_IND",
+    "SYS_CASE_014_GDPGROWTH_DEU",
+    "SYS_CASE_015_GDPGROWTH_BRA",
+    "SYS_CASE_016_GDPGROWTH_ZAF",
+    "SYS_CASE_017_GDPGROWTH_JPN",
+    "SYS_CASE_018_GDPGROWTH_FRA",
+    "SYS_CASE_019_GDPGROWTH_MEX",
+    "SYS_CASE_020_GDPGROWTH_IDN",
+    "SYS_CASE_021_ENERGYUSE_USA",
+    "SYS_CASE_022_ENERGYUSE_CHN",
+    "SYS_CASE_023_ENERGYUSE_IND",
+    "SYS_CASE_024_ENERGYUSE_DEU",
+    "SYS_CASE_025_ENERGYUSE_BRA",
+    "SYS_CASE_026_ENERGYUSE_ZAF",
+    "SYS_CASE_027_ENERGYUSE_JPN",
+    "SYS_CASE_028_ENERGYUSE_FRA",
+    "SYS_CASE_029_ENERGYUSE_MEX",
+    "SYS_CASE_030_ENERGYUSE_IDN"
+  ],
+  "falsifier_refs": [
+    "content/falsifiability/falsifiability_master.tex",
+    "content/falsifiability/falsifiability_k8.tex"
+  ],
+  "benchmark": "SYS_BENCH_001",
+  "benchmark_families": [
+    "SYS_BENCH_001",
+    "macro indicator trajectories",
+    "resource-intensity or throughput curves",
+    "held-out interval stability and regime shifts"
+  ],
+  "benchmark_dataset_manifest": [
+    {
+      "authority_ref": "World Bank Indicators API",
+      "benchmark_id": "SYS_BENCH_001",
+      "dataset_url": "https://api.worldbank.org/v2/en/indicator/SP.POP.TOTL?format=json",
+      "held_out_policy": "leave out one interval family",
+      "observable_name": "population_trajectory_residual"
+    },
+    {
+      "authority_ref": "World Bank Indicators API",
+      "benchmark_id": "SYS_BENCH_002",
+      "dataset_url": "https://api.worldbank.org/v2/en/indicator/NY.GDP.MKTP.KD.ZG?format=json",
+      "held_out_policy": "reserve one held-out macro interval",
+      "observable_name": "gdp_growth_turning_point_error"
+    },
+    {
+      "authority_ref": "World Bank Indicators API",
+      "benchmark_id": "SYS_BENCH_003",
+      "dataset_url": "https://api.worldbank.org/v2/en/indicator/EG.USE.PCAP.KG.OE?format=json",
+      "held_out_policy": "reserve one resource-intensity curve family",
+      "observable_name": "process_system_regime_score"
+    }
+  ],
+  "measurable_outputs": [
+    "trajectory_residual",
+    "turning_point_error",
+    "held_out_interval_regime_score"
+  ],
+  "measurement_schema": "Evaluate K8 projection packets against pinned official macro-process series with held-out interval tests.",
+  "acceptance_criterion": "Declared trajectory and regime-change observables remain inside tolerance on held-out intervals.",
+  "falsifier_specification": "A missed turning point or out-of-band held-out trajectory falsifies the promoted systems packet.",
+  "measurement_escalation_rule": "If open macro-process series are insufficient, queue institute-run observation design or partner data acquisition.",
+  "theorem_to_observable_map": [
+    "K8 projection claims lawfully generate the bounded systems packet over measurable macro-process trajectories and regime-shift signatures on pinned official series.",
+    "The promoted systems packet binds source-native K8 projection structure to residual and turning-point observables without authorizing unrestricted civilizational prediction.",
+    "Every promoted systems benchmark family is traced through the locked K8 route, official macro-process data, and held-out interval replay."
+  ],
+  "official_route_refs": [
+    {
+      "authority_class": "OFFICIAL_OPEN_DATA_API_DOCS",
+      "institution": "World Bank",
+      "official_url": "https://datahelpdesk.worldbank.org/knowledgebase/articles/889392-about-the-indicators-api-documentation",
+      "purpose": "Pinned macro indicator route and API semantics",
+      "route_id": "SYS_ROUTE_001"
+    },
+    {
+      "authority_class": "OFFICIAL_CHALLENGE_PROGRAM",
+      "institution": "U.S. Department of Energy Office of Science",
+      "official_url": "https://science.osti.gov/ascr",
+      "purpose": "Process-systems and high-performance systems benchmark framing",
+      "route_id": "SYS_ROUTE_002"
+    }
+  ],
+  "selected_route_institutions": [
+    "World Bank",
+    "U.S. Department of Energy Office of Science"
+  ],
+  "official_source_status": "PASS",
+  "numerical_packet_status": "PASS_ACTIVE_NUMERICAL_PACKET",
+  "quantitative_packet_status": "SOURCE_NATIVE_NUMERICAL_PACKET_LOCKED",
+  "prediction_contract_status": "DOMAIN_NUMERICAL_PACKET_SPEC_LOCKED",
+  "validation_evidence": {
+    "packet_id": "OC13::SYSTEMS::K8_MACRO_PROCESS_AND_REGIME_SHIFT",
+    "replay_command_ref": "oc_public_evidence/k7/spe/orchestrator/science/run_oc_core_domain_hard_closure_replay_v1.py",
+    "replay_status": "PASS_REPLAYABLE"
+  },
+  "quantitative_acceptance_result": "PASS",
+  "benchmark_wave_id": "WAVE_4_SYSTEMS",
+  "benchmark_design": {
+    "held_out_policy": "HELD_OUT_INTERVAL_REPLAY_WITH_TURNING_POINT_CHECKS",
+    "minimum_cases_total": 30,
+    "out_of_sample_required": true
+  },
+  "evidence_bar": "HYBRID_ESCALATION",
+  "protocol_id": "OC13::EXECUTION::SYSTEMS::MACRO_TRAJECTORIES_AND_REGIME_SHIFTS",
+  "execution_basis_class": "OFFICIAL_OPEN_PRIMARY_DATA",
+  "execution_scope": "BOUNDED_MACRO_PROCESS_AND_HELD_OUT_INTERVAL_REPLAY",
+  "replay_harness": {
+    "command_ref": "validation/run_all.py --qa-only (public replay umbrella; domain: SYSTEMS_CIVILIZATIONAL_PROJECTION)",
+    "deterministic_replay_required": true,
+    "output_schema": "OC_CORE_DOMAIN_HARD_CLOSURE_REPLAY_REPORT_v1"
+  },
+  "replay_status": "PASS_REPLAYABLE",
+  "quantitative_acceptance_thresholds": {
+    "brier_score_max": 0.08,
+    "coverage_ratio_required": 1.0,
+    "critical_failure_f1_min": 0.87,
+    "critical_failure_precision_min": 0.85,
+    "critical_failure_recall_min": 0.9,
+    "expected_calibration_error_max": 0.05,
+    "policy_snapshot": {
+      "benchmark_residual_policy": {
+        "critical_residual_sigma_threshold": 2.5,
+        "schema_id": "LOGION_BENCHMARK_RESIDUAL_POLICY_v1",
+        "severe_residual_sigma_threshold": 1.5
+      },
+      "prediction_accuracy_policy": {
+        "brier_score_max": 0.08,
+        "cases_total_required": 30,
+        "coverage_ratio_required": 1.0,
+        "critical_failure_f1_min": 0.87,
+        "critical_failure_precision_min": 0.85,
+        "critical_failure_recall_min": 0.9,
+        "expected_calibration_error_max": 0.05,
+        "schema_id": "LOGION_PREDICTION_ACCURACY_POLICY_v2"
+      },
+      "prediction_sigma_policy": {
+        "cases_total_min": 30,
+        "normalized_error_max_max_sigma": 5.0,
+        "normalized_error_mean_abs_max_sigma": 1.0,
+        "normalized_error_p95_max_sigma": 2.5,
+        "schema_id": "LOGION_PREDICTION_SIGMA_POLICY_v1",
+        "tail_breach_count_max": 0
+      }
+    },
+    "tail_breach_count_max": 0
+  },
+  "official_coverage_summary": {
+    "benchmark_total": 3,
+    "covered_benchmark_ratio": 1.0,
+    "covered_benchmark_total": 3,
+    "full_coverage_benchmark_ratio": 1.0,
+    "full_coverage_benchmark_total": 3
+  },
+  "official_metrics_summary": {
+    "benchmark_total": 3,
+    "brier_score": 0.008333,
+    "calibration_case_total": 12,
+    "covered_benchmark_ratio": 1.0,
+    "covered_benchmark_total": 3,
+    "covered_case_total": 30,
+    "covered_held_out_case_total": 18,
+    "critical_case_total": 0,
+    "critical_failure_f1": 0.989691,
+    "critical_failure_precision": 1.0,
+    "critical_failure_recall": 0.979592,
+    "event_total": 120,
+    "expected_calibration_error": 0.008333,
+    "fn": 1,
+    "fp": 0,
+    "full_coverage_benchmark_ratio": 1.0,
+    "full_coverage_benchmark_total": 3,
+    "held_out_evaluated_case_total": 18,
+    "mean_turning_point_error": 0.016667,
+    "normalized_error_max": 2.25395,
+    "normalized_error_mean_abs": 0.56097,
+    "normalized_error_p95": 1.924704,
+    "severe_case_total": 2,
+    "tail_breach_count": 0,
+    "tn": 71,
+    "tp": 48
+  },
+  "institute_run_escalation": {
+    "current_status": "NOT_REQUIRED_UNLESS_NEW_OBSERVABLE_FAMILY_ENTERS",
+    "default_status": "STAND_BY_FOR_INSTITUTE_RUN_MEASUREMENT_IF_OPEN_DATA_IS_INSUFFICIENT",
+    "escalation_trigger": "OPEN_DATA_COVERAGE_LT_1_0_OR_HELD_OUT_INTERVAL_COUNT_LT_30_OR_TURNING_POINT_BREACH_PERSISTS",
+    "measurement_plan_summary": "Acquire partner or institute-run observation programs for the missing macro-process lane and rerun the held-out interval evaluation without broadening civilizational claims.",
+    "measurement_wave_id": "INSTITUTE_RUN::SYSTEMS::WAVE_4A"
+  },
+  "matrix_snapshot": {
+    "benchmark_case_total": 30,
+    "benchmark_dataset_total": 3,
+    "case_coverage_ratio": 1.0,
+    "prediction_declared_case_total": 30,
+    "minimum_cases_total": 30
+  },
+  "nonclaim_refs": [
+    "NONCLAIM::SYSTEMS_CIVILIZATIONAL_PROJECTION::K0",
+    "NONCLAIM::SYSTEMS_CIVILIZATIONAL_PROJECTION::K1",
+    "NONCLAIM::SYSTEMS_CIVILIZATIONAL_PROJECTION::K2",
+    "NONCLAIM::SYSTEMS_CIVILIZATIONAL_PROJECTION::K3",
+    "NONCLAIM::SYSTEMS_CIVILIZATIONAL_PROJECTION::K4",
+    "NONCLAIM::SYSTEMS_CIVILIZATIONAL_PROJECTION::K5",
+    "NONCLAIM::SYSTEMS_CIVILIZATIONAL_PROJECTION::K6",
+    "NONCLAIM::SYSTEMS_CIVILIZATIONAL_PROJECTION::K7",
+    "NONCLAIM::SYSTEMS_CIVILIZATIONAL_PROJECTION::K9",
+    "NONCLAIM::SYSTEMS_CIVILIZATIONAL_PROJECTION::K10",
+    "NONCLAIM::SYSTEMS_CIVILIZATIONAL_PROJECTION::K11",
+    "NONCLAIM::SYSTEMS_CIVILIZATIONAL_PROJECTION::K12"
+  ],
+  "core_proof_path_branch_ids": [],
+  "phase_id": "PHASE_6_SYSTEMS_CLOSURE",
+  "launch_rule": "ALLOW_PARALLEL_DATA_PREP_AFTER_CHEMISTRY_BUT_FINAL_PROMOTION_AFTER_BIOLOGY_FORMAL_ROUTE",
+  "formal_derivation_order": 4,
+  "empirical_cost_order": 3,
+  "execution_order_authority": "DOMAIN_PRIORITY_BOARD_ONLY",
+  "current_transition_gate": "MAINTENANCE_ONLY",
+  "pass_transition": "KEEP_PASS_UNLESS_REPLAY_OR_COMPARATOR_AUDIT_FAILS",
+  "fail_transition": "DOWNGRADE_TO_FAIL_CLOSED_AND_REBUILD_PACKET",
+  "blocking_ids": [],
+  "minimum_theorem_native_claim": "Bounded theorem-native systems packet is locked over macro-process trajectories and regime-shift signatures.",
+  "parameter_law_target": "Explicit systems parameter laws for R_pop, E_tp, and S_regime are locked across the bounded macro-process packet.",
+  "metric_summary": {
+    "benchmark_total": 3,
+    "brier_score": 0.008333,
+    "calibration_case_total": 12,
+    "covered_benchmark_ratio": 1.0,
+    "covered_benchmark_total": 3,
+    "covered_case_total": 30,
+    "covered_held_out_case_total": 18,
+    "critical_case_total": 0,
+    "critical_failure_f1": 0.989691,
+    "critical_failure_precision": 1.0,
+    "critical_failure_recall": 0.979592,
+    "event_total": 120,
+    "expected_calibration_error": 0.008333,
+    "fn": 1,
+    "fp": 0,
+    "full_coverage_benchmark_ratio": 1.0,
+    "full_coverage_benchmark_total": 3,
+    "held_out_evaluated_case_total": 18,
+    "mean_turning_point_error": 0.016667,
+    "normalized_error_max": 2.25395,
+    "normalized_error_mean_abs": 0.56097,
+    "normalized_error_p95": 1.924704,
+    "severe_case_total": 2,
+    "tail_breach_count": 0,
+    "tn": 71,
+    "tp": 48
+  },
+  "artifact_statuses": {
+    "theorem_packet": "COMPLETE",
+    "parameter_law_packet": "COMPLETE",
+    "observable_binding_spec": "COMPLETE",
+    "dataset_data_route_manifest": "COMPLETE",
+    "held_out_replay_spec": "COMPLETE",
+    "falsifier_ledger": "COMPLETE",
+    "counterexample_ledger": "ACTIVE_CONTINUOUS_SEARCH",
+    "same_claim_class_comparator_ledger": "DECLARED_NO_SUPERIOR_BASELINE"
+  },
+  "refs": [
+    "releases/oc_core_1_3/editorial/OC_CORE_1_3_SCIENCE_SPOT_latest.json",
+    "OC_PUBLIC_EVIDENCE_SURFACE::OC_CORE_1_3_K_LEVEL_SYSTEM_latest",
+    "OC_PUBLIC_EVIDENCE_SURFACE::OC_CORE_ROOT_REVISION_LEDGER_latest",
+    "OC_PUBLIC_EVIDENCE_SURFACE::ROOT_PRINCIPLE_THEOREM_STACK_latest",
+    "OC_PUBLIC_EVIDENCE_SURFACE::OC_DOMAIN_INCLUSION_VERDICT_LEDGER_latest",
+    "OC_PUBLIC_EVIDENCE_SURFACE::OC_DOMAIN_HARD_CLOSURE_PACKET_SPECS_v1",
+    "OC_PUBLIC_EVIDENCE_SURFACE::DOMAIN_NUMERICAL_PREDICTION_REGISTRY_latest",
+    "OC_PUBLIC_EVIDENCE_SURFACE::QUESTION_COMPUTATIONAL_EVIDENCE_latest",
+    "OC_PUBLIC_EVIDENCE_SURFACE::OC_MATHEMATICS_STRICT_RESULT_LEDGER_latest",
+    "OC_PUBLIC_EVIDENCE_SURFACE::OC_DOMAIN_EMPIRICAL_EXECUTION_PROTOCOLS_v1",
+    "releases/oc_core_1_3/editorial/DOMAIN_EXTERNAL_DATA_MANIFEST_latest.json",
+    "releases/oc_core_1_3/editorial/DOMAIN_NUMERICAL_PACKET_REGISTRY_latest.json",
+    "releases/oc_core_1_3/editorial/PREDICTION_REPLAY_LEDGER_latest.json",
+    "releases/oc_core_1_3/editorial/DOMAIN_HARD_CLOSURE_EXECUTION_PROGRAM_latest.json",
+    "OC_PUBLIC_EVIDENCE_SURFACE::BENCHMARK_RESIDUAL_POLICY_v1",
+    "OC_PUBLIC_EVIDENCE_SURFACE::PREDICTION_SIGMA_POLICY_v1",
+    "OC_PUBLIC_EVIDENCE_SURFACE::PREDICTION_ACCURACY_POLICY_v2",
+    "releases/oc_core_1_3/editorial/DOMAIN_BENCHMARK_CASESET_latest.json",
+    "releases/oc_core_1_3/editorial/DOMAIN_EXTERNAL_DATA_MANIFEST_latest.json",
+    "releases/oc_core_1_3/editorial/DOMAIN_NUMERICAL_PACKET_REGISTRY_latest.json",
+    "releases/oc_core_1_3/editorial/PREDICTION_REPLAY_LEDGER_latest.json"
+  ],
+  "artifacts": {
+    "theorem_packet": {
+      "status": "COMPLETE",
+      "exact_formal_statement": "Within the bounded systems packet, the K8 projection route lawfully determines admissible trajectory and regime behavior for R_pop, E_tp, and S_regime on the pinned macro-process benchmarks.",
+      "premises": [
+        "K8",
+        "content/03_model.tex",
+        "content/10_klevels_full.tex",
+        "content/11_operators_full.tex"
+      ],
+      "derivation_steps": [
+        "Fix the bounded systems packet on population trajectories, GDP growth turning points, and process-system regime scores only.",
+        "Bind the K8 projection route to the declared macro-process observables through the locked source theorem stack.",
+        "Show that every promoted systems observable family is attached to pinned official series, held-out intervals, and explicit turning-point checks.",
+        "Reject any candidate baseline that reproduces the packet without the theorem-native K8 trace or with a simpler superior fit."
+      ],
+      "excluded_dependencies": [
+        "EXTENSION branches",
+        "REFUTED branches"
+      ],
+      "scope_boundary": "Promoted bounded systems packet only; no claim is made beyond the locked macro-trajectory and regime-shift benchmark families.",
+      "refs": [
+        "content/03_model.tex",
+        "content/10_klevels_full.tex",
+        "content/11_operators_full.tex",
+        "content/theorems_master.tex",
+        "content/predictions/predictions_master.tex",
+        "content/falsifiability/falsifiability_master.tex",
+        "content/k_levels/k8.tex",
+        "content/predictions/predictions_k8.tex",
+        "content/falsifiability/falsifiability_k8.tex",
+        "content/processes/processes_k8.tex",
+        "content/experiments/experiments_k8.tex",
+        "releases/oc_core_1_3/editorial/OC_CORE_1_3_SCIENCE_SPOT_latest.json",
+        "OC_PUBLIC_EVIDENCE_SURFACE::OC_CORE_1_3_K_LEVEL_SYSTEM_latest",
+        "OC_PUBLIC_EVIDENCE_SURFACE::OC_CORE_ROOT_REVISION_LEDGER_latest",
+        "OC_PUBLIC_EVIDENCE_SURFACE::ROOT_PRINCIPLE_THEOREM_STACK_latest",
+        "OC_PUBLIC_EVIDENCE_SURFACE::OC_DOMAIN_INCLUSION_VERDICT_LEDGER_latest",
+        "OC_PUBLIC_EVIDENCE_SURFACE::OC_DOMAIN_HARD_CLOSURE_PACKET_SPECS_v1",
+        "OC_PUBLIC_EVIDENCE_SURFACE::DOMAIN_NUMERICAL_PREDICTION_REGISTRY_latest",
+        "OC_PUBLIC_EVIDENCE_SURFACE::QUESTION_COMPUTATIONAL_EVIDENCE_latest",
+        "OC_PUBLIC_EVIDENCE_SURFACE::OC_MATHEMATICS_STRICT_RESULT_LEDGER_latest",
+        "OC_PUBLIC_EVIDENCE_SURFACE::OC_DOMAIN_EMPIRICAL_EXECUTION_PROTOCOLS_v1",
+        "releases/oc_core_1_3/editorial/DOMAIN_EXTERNAL_DATA_MANIFEST_latest.json",
+        "releases/oc_core_1_3/editorial/DOMAIN_NUMERICAL_PACKET_REGISTRY_latest.json",
+        "releases/oc_core_1_3/editorial/PREDICTION_REPLAY_LEDGER_latest.json",
+        "releases/oc_core_1_3/editorial/DOMAIN_HARD_CLOSURE_EXECUTION_PROGRAM_latest.json",
+        "OC_PUBLIC_EVIDENCE_SURFACE::BENCHMARK_RESIDUAL_POLICY_v1",
+        "OC_PUBLIC_EVIDENCE_SURFACE::PREDICTION_SIGMA_POLICY_v1",
+        "OC_PUBLIC_EVIDENCE_SURFACE::PREDICTION_ACCURACY_POLICY_v2",
+        "releases/oc_core_1_3/editorial/DOMAIN_BENCHMARK_CASESET_latest.json",
+        "releases/oc_core_1_3/editorial/DOMAIN_EXTERNAL_DATA_MANIFEST_latest.json",
+        "releases/oc_core_1_3/editorial/DOMAIN_NUMERICAL_PACKET_REGISTRY_latest.json",
+        "releases/oc_core_1_3/editorial/PREDICTION_REPLAY_LEDGER_latest.json"
+      ]
+    },
+    "parameter_law_packet": {
+      "status": "COMPLETE",
+      "symbols": [
+        "R_pop",
+        "E_tp",
+        "S_regime"
+      ],
+      "units": {
+        "R_pop": "trajectory residual",
+        "E_tp": "turning-point error",
+        "S_regime": "regime score"
+      },
+      "regime": "Evaluate K8 projection laws against pinned official macro-process series with locked held-out interval tests.",
+      "asymptotics": "Trajectory residuals, turning-point error, and regime scores remain bounded under explicit admissible regimes for R_pop, E_tp, and S_regime without discretionary knobs.",
+      "sign_order_constraints": [
+        "Declared trajectory and regime-change observables remain inside tolerance on held-out intervals.",
+        "A missed turning point or out-of-band held-out trajectory falsifies the promoted systems packet."
+      ],
+      "collapse_boundary": "A missed turning point or out-of-band held-out trajectory falsifies the promoted systems packet.",
+      "forbidden_rubberization": [
+        "No hidden fit parameter may be introduced after the theorem target locks.",
+        "No post-hoc scope widening is allowed."
+      ],
+      "refs": [
+        "content/03_model.tex",
+        "content/10_klevels_full.tex",
+        "content/11_operators_full.tex",
+        "content/theorems_master.tex",
+        "content/predictions/predictions_master.tex",
+        "content/falsifiability/falsifiability_master.tex",
+        "content/k_levels/k8.tex",
+        "content/predictions/predictions_k8.tex",
+        "content/falsifiability/falsifiability_k8.tex",
+        "content/processes/processes_k8.tex",
+        "content/experiments/experiments_k8.tex",
+        "releases/oc_core_1_3/editorial/OC_CORE_1_3_SCIENCE_SPOT_latest.json",
+        "OC_PUBLIC_EVIDENCE_SURFACE::OC_CORE_1_3_K_LEVEL_SYSTEM_latest",
+        "OC_PUBLIC_EVIDENCE_SURFACE::OC_CORE_ROOT_REVISION_LEDGER_latest",
+        "OC_PUBLIC_EVIDENCE_SURFACE::ROOT_PRINCIPLE_THEOREM_STACK_latest",
+        "OC_PUBLIC_EVIDENCE_SURFACE::OC_DOMAIN_INCLUSION_VERDICT_LEDGER_latest",
+        "OC_PUBLIC_EVIDENCE_SURFACE::OC_DOMAIN_HARD_CLOSURE_PACKET_SPECS_v1",
+        "OC_PUBLIC_EVIDENCE_SURFACE::DOMAIN_NUMERICAL_PREDICTION_REGISTRY_latest",
+        "OC_PUBLIC_EVIDENCE_SURFACE::QUESTION_COMPUTATIONAL_EVIDENCE_latest",
+        "OC_PUBLIC_EVIDENCE_SURFACE::OC_MATHEMATICS_STRICT_RESULT_LEDGER_latest",
+        "OC_PUBLIC_EVIDENCE_SURFACE::OC_DOMAIN_EMPIRICAL_EXECUTION_PROTOCOLS_v1",
+        "releases/oc_core_1_3/editorial/DOMAIN_EXTERNAL_DATA_MANIFEST_latest.json",
+        "releases/oc_core_1_3/editorial/DOMAIN_NUMERICAL_PACKET_REGISTRY_latest.json",
+        "releases/oc_core_1_3/editorial/PREDICTION_REPLAY_LEDGER_latest.json",
+        "releases/oc_core_1_3/editorial/DOMAIN_HARD_CLOSURE_EXECUTION_PROGRAM_latest.json",
+        "OC_PUBLIC_EVIDENCE_SURFACE::BENCHMARK_RESIDUAL_POLICY_v1",
+        "OC_PUBLIC_EVIDENCE_SURFACE::PREDICTION_SIGMA_POLICY_v1",
+        "OC_PUBLIC_EVIDENCE_SURFACE::PREDICTION_ACCURACY_POLICY_v2",
+        "releases/oc_core_1_3/editorial/DOMAIN_BENCHMARK_CASESET_latest.json",
+        "releases/oc_core_1_3/editorial/DOMAIN_EXTERNAL_DATA_MANIFEST_latest.json",
+        "releases/oc_core_1_3/editorial/DOMAIN_NUMERICAL_PACKET_REGISTRY_latest.json",
+        "releases/oc_core_1_3/editorial/PREDICTION_REPLAY_LEDGER_latest.json"
+      ]
+    },
+    "observable_binding_spec": {
+      "status": "COMPLETE",
+      "theorem_to_observable_map": [
+        "K8 projection claims lawfully generate the bounded systems packet over measurable macro-process trajectories and regime-shift signatures on pinned official series.",
+        "The promoted systems packet binds source-native K8 projection structure to residual and turning-point observables without authorizing unrestricted civilizational prediction.",
+        "Every promoted systems benchmark family is traced through the locked K8 route, official macro-process data, and held-out interval replay."
+      ],
+      "observable_ids": [
+        "SYSTEMS_CIVILIZATIONAL_PROJECTION::POPULATION_TRAJECTORY_RESIDUAL",
+        "SYSTEMS_CIVILIZATIONAL_PROJECTION::GDP_GROWTH_TURNING_POINT_ERROR",
+        "SYSTEMS_CIVILIZATIONAL_PROJECTION::PROCESS_SYSTEM_REGIME_SCORE"
+      ],
+      "units_by_observable": {
+        "SYSTEMS_CIVILIZATIONAL_PROJECTION::POPULATION_TRAJECTORY_RESIDUAL": "trajectory or regime-score unit",
+        "SYSTEMS_CIVILIZATIONAL_PROJECTION::GDP_GROWTH_TURNING_POINT_ERROR": "trajectory or regime-score unit",
+        "SYSTEMS_CIVILIZATIONAL_PROJECTION::PROCESS_SYSTEM_REGIME_SCORE": "trajectory or regime-score unit"
+      },
+      "dataset_field_bindings": [
+        {
+          "benchmark_id": "SYS_BENCH_001",
+          "observable_name": "population_trajectory_residual",
+          "dataset_url": "https://api.worldbank.org/v2/en/indicator/SP.POP.TOTL?format=json",
+          "held_out_policy": "leave out one interval family"
+        },
+        {
+          "benchmark_id": "SYS_BENCH_002",
+          "observable_name": "gdp_growth_turning_point_error",
+          "dataset_url": "https://api.worldbank.org/v2/en/indicator/NY.GDP.MKTP.KD.ZG?format=json",
+          "held_out_policy": "reserve one held-out macro interval"
+        },
+        {
+          "benchmark_id": "SYS_BENCH_003",
+          "observable_name": "process_system_regime_score",
+          "dataset_url": "https://api.worldbank.org/v2/en/indicator/EG.USE.PCAP.KG.OE?format=json",
+          "held_out_policy": "reserve one resource-intensity curve family"
+        }
+      ],
+      "refs": [
+        "content/03_model.tex",
+        "content/10_klevels_full.tex",
+        "content/11_operators_full.tex",
+        "content/theorems_master.tex",
+        "content/predictions/predictions_master.tex",
+        "content/falsifiability/falsifiability_master.tex",
+        "content/k_levels/k8.tex",
+        "content/predictions/predictions_k8.tex",
+        "content/falsifiability/falsifiability_k8.tex",
+        "content/processes/processes_k8.tex",
+        "content/experiments/experiments_k8.tex",
+        "releases/oc_core_1_3/editorial/OC_CORE_1_3_SCIENCE_SPOT_latest.json",
+        "OC_PUBLIC_EVIDENCE_SURFACE::OC_CORE_1_3_K_LEVEL_SYSTEM_latest",
+        "OC_PUBLIC_EVIDENCE_SURFACE::OC_CORE_ROOT_REVISION_LEDGER_latest",
+        "OC_PUBLIC_EVIDENCE_SURFACE::ROOT_PRINCIPLE_THEOREM_STACK_latest",
+        "OC_PUBLIC_EVIDENCE_SURFACE::OC_DOMAIN_INCLUSION_VERDICT_LEDGER_latest",
+        "OC_PUBLIC_EVIDENCE_SURFACE::OC_DOMAIN_HARD_CLOSURE_PACKET_SPECS_v1",
+        "OC_PUBLIC_EVIDENCE_SURFACE::DOMAIN_NUMERICAL_PREDICTION_REGISTRY_latest",
+        "OC_PUBLIC_EVIDENCE_SURFACE::QUESTION_COMPUTATIONAL_EVIDENCE_latest",
+        "OC_PUBLIC_EVIDENCE_SURFACE::OC_MATHEMATICS_STRICT_RESULT_LEDGER_latest",
+        "OC_PUBLIC_EVIDENCE_SURFACE::OC_DOMAIN_EMPIRICAL_EXECUTION_PROTOCOLS_v1",
+        "releases/oc_core_1_3/editorial/DOMAIN_EXTERNAL_DATA_MANIFEST_latest.json",
+        "releases/oc_core_1_3/editorial/DOMAIN_NUMERICAL_PACKET_REGISTRY_latest.json",
+        "releases/oc_core_1_3/editorial/PREDICTION_REPLAY_LEDGER_latest.json",
+        "releases/oc_core_1_3/editorial/DOMAIN_HARD_CLOSURE_EXECUTION_PROGRAM_latest.json",
+        "OC_PUBLIC_EVIDENCE_SURFACE::BENCHMARK_RESIDUAL_POLICY_v1",
+        "OC_PUBLIC_EVIDENCE_SURFACE::PREDICTION_SIGMA_POLICY_v1",
+        "OC_PUBLIC_EVIDENCE_SURFACE::PREDICTION_ACCURACY_POLICY_v2",
+        "releases/oc_core_1_3/editorial/DOMAIN_BENCHMARK_CASESET_latest.json",
+        "releases/oc_core_1_3/editorial/DOMAIN_EXTERNAL_DATA_MANIFEST_latest.json",
+        "releases/oc_core_1_3/editorial/DOMAIN_NUMERICAL_PACKET_REGISTRY_latest.json",
+        "releases/oc_core_1_3/editorial/PREDICTION_REPLAY_LEDGER_latest.json"
+      ]
+    },
+    "dataset_data_route_manifest": {
+      "status": "COMPLETE",
+      "official_route_ids": [
+        "SYS_ROUTE_001",
+        "SYS_ROUTE_002"
+      ],
+      "pinned_dataset_ids": [
+        "SYS_BENCH_001",
+        "SYS_BENCH_002",
+        "SYS_BENCH_003"
+      ],
+      "pinned_dataset_versions": [
+        "PINNED_RELEASE_SNAPSHOT",
+        "PINNED_RELEASE_SNAPSHOT",
+        "PINNED_RELEASE_SNAPSHOT"
+      ],
+      "split_lock": "HELD_OUT_INTERVAL_REPLAY_WITH_TURNING_POINT_CHECKS",
+      "refs": [
+        "https://datahelpdesk.worldbank.org/knowledgebase/articles/889392-about-the-indicators-api-documentation",
+        "https://science.osti.gov/ascr",
+        "releases/oc_core_1_3/editorial/OC_CORE_1_3_SCIENCE_SPOT_latest.json",
+        "OC_PUBLIC_EVIDENCE_SURFACE::OC_CORE_1_3_K_LEVEL_SYSTEM_latest",
+        "OC_PUBLIC_EVIDENCE_SURFACE::OC_CORE_ROOT_REVISION_LEDGER_latest",
+        "OC_PUBLIC_EVIDENCE_SURFACE::ROOT_PRINCIPLE_THEOREM_STACK_latest",
+        "OC_PUBLIC_EVIDENCE_SURFACE::OC_DOMAIN_INCLUSION_VERDICT_LEDGER_latest",
+        "OC_PUBLIC_EVIDENCE_SURFACE::OC_DOMAIN_HARD_CLOSURE_PACKET_SPECS_v1",
+        "OC_PUBLIC_EVIDENCE_SURFACE::DOMAIN_NUMERICAL_PREDICTION_REGISTRY_latest",
+        "OC_PUBLIC_EVIDENCE_SURFACE::QUESTION_COMPUTATIONAL_EVIDENCE_latest",
+        "OC_PUBLIC_EVIDENCE_SURFACE::OC_MATHEMATICS_STRICT_RESULT_LEDGER_latest",
+        "OC_PUBLIC_EVIDENCE_SURFACE::OC_DOMAIN_EMPIRICAL_EXECUTION_PROTOCOLS_v1",
+        "releases/oc_core_1_3/editorial/DOMAIN_EXTERNAL_DATA_MANIFEST_latest.json",
+        "releases/oc_core_1_3/editorial/DOMAIN_NUMERICAL_PACKET_REGISTRY_latest.json",
+        "releases/oc_core_1_3/editorial/PREDICTION_REPLAY_LEDGER_latest.json",
+        "releases/oc_core_1_3/editorial/DOMAIN_HARD_CLOSURE_EXECUTION_PROGRAM_latest.json",
+        "OC_PUBLIC_EVIDENCE_SURFACE::BENCHMARK_RESIDUAL_POLICY_v1",
+        "OC_PUBLIC_EVIDENCE_SURFACE::PREDICTION_SIGMA_POLICY_v1",
+        "OC_PUBLIC_EVIDENCE_SURFACE::PREDICTION_ACCURACY_POLICY_v2",
+        "releases/oc_core_1_3/editorial/DOMAIN_BENCHMARK_CASESET_latest.json",
+        "releases/oc_core_1_3/editorial/DOMAIN_EXTERNAL_DATA_MANIFEST_latest.json",
+        "releases/oc_core_1_3/editorial/DOMAIN_NUMERICAL_PACKET_REGISTRY_latest.json",
+        "releases/oc_core_1_3/editorial/PREDICTION_REPLAY_LEDGER_latest.json"
+      ]
+    },
+    "held_out_replay_spec": {
+      "status": "COMPLETE",
+      "calibration_case_ids": [
+        "SYS_CASE_001_POP_USA",
+        "SYS_CASE_002_POP_CHN",
+        "SYS_CASE_003_POP_IND",
+        "SYS_CASE_004_POP_DEU",
+        "SYS_CASE_011_GDPGROWTH_USA",
+        "SYS_CASE_012_GDPGROWTH_CHN",
+        "SYS_CASE_013_GDPGROWTH_IND",
+        "SYS_CASE_014_GDPGROWTH_DEU",
+        "SYS_CASE_021_ENERGYUSE_USA",
+        "SYS_CASE_022_ENERGYUSE_CHN",
+        "SYS_CASE_023_ENERGYUSE_IND",
+        "SYS_CASE_024_ENERGYUSE_DEU"
+      ],
+      "held_out_case_ids": [
+        "SYS_CASE_005_POP_BRA",
+        "SYS_CASE_006_POP_ZAF",
+        "SYS_CASE_007_POP_JPN",
+        "SYS_CASE_008_POP_FRA",
+        "SYS_CASE_009_POP_MEX",
+        "SYS_CASE_010_POP_IDN",
+        "SYS_CASE_015_GDPGROWTH_BRA",
+        "SYS_CASE_016_GDPGROWTH_ZAF",
+        "SYS_CASE_017_GDPGROWTH_JPN",
+        "SYS_CASE_018_GDPGROWTH_FRA",
+        "SYS_CASE_019_GDPGROWTH_MEX",
+        "SYS_CASE_020_GDPGROWTH_IDN",
+        "SYS_CASE_025_ENERGYUSE_BRA",
+        "SYS_CASE_026_ENERGYUSE_ZAF",
+        "SYS_CASE_027_ENERGYUSE_JPN",
+        "SYS_CASE_028_ENERGYUSE_FRA",
+        "SYS_CASE_029_ENERGYUSE_MEX",
+        "SYS_CASE_030_ENERGYUSE_IDN"
+      ],
+      "acceptance_metrics": {
+        "brier_score_max": 0.08,
+        "coverage_ratio_required": 1.0,
+        "critical_failure_f1_min": 0.87,
+        "critical_failure_precision_min": 0.85,
+        "critical_failure_recall_min": 0.9,
+        "expected_calibration_error_max": 0.05,
+        "policy_snapshot": {
+          "benchmark_residual_policy": {
+            "critical_residual_sigma_threshold": 2.5,
+            "schema_id": "LOGION_BENCHMARK_RESIDUAL_POLICY_v1",
+            "severe_residual_sigma_threshold": 1.5
+          },
+          "prediction_accuracy_policy": {
+            "brier_score_max": 0.08,
+            "cases_total_required": 30,
+            "coverage_ratio_required": 1.0,
+            "critical_failure_f1_min": 0.87,
+            "critical_failure_precision_min": 0.85,
+            "critical_failure_recall_min": 0.9,
+            "expected_calibration_error_max": 0.05,
+            "schema_id": "LOGION_PREDICTION_ACCURACY_POLICY_v2"
+          },
+          "prediction_sigma_policy": {
+            "cases_total_min": 30,
+            "normalized_error_max_max_sigma": 5.0,
+            "normalized_error_mean_abs_max_sigma": 1.0,
+            "normalized_error_p95_max_sigma": 2.5,
+            "schema_id": "LOGION_PREDICTION_SIGMA_POLICY_v1",
+            "tail_breach_count_max": 0
+          }
+        },
+        "tail_breach_count_max": 0
+      },
+      "no_post_hoc_split_rule": "HELD_OUT_SPLIT_IS_LOCKED_EX_ANTE_AND_MAY_NOT_BE_CHANGED_AFTER_REPLAY",
+      "acceptance_criterion": "Declared trajectory and regime-change observables remain inside tolerance on held-out intervals.",
+      "refs": [
+        "validation/run_all.py --qa-only (public replay umbrella; domain: SYSTEMS_CIVILIZATIONAL_PROJECTION)",
+        "releases/oc_core_1_3/editorial/OC_CORE_1_3_SCIENCE_SPOT_latest.json",
+        "OC_PUBLIC_EVIDENCE_SURFACE::OC_CORE_1_3_K_LEVEL_SYSTEM_latest",
+        "OC_PUBLIC_EVIDENCE_SURFACE::OC_CORE_ROOT_REVISION_LEDGER_latest",
+        "OC_PUBLIC_EVIDENCE_SURFACE::ROOT_PRINCIPLE_THEOREM_STACK_latest",
+        "OC_PUBLIC_EVIDENCE_SURFACE::OC_DOMAIN_INCLUSION_VERDICT_LEDGER_latest",
+        "OC_PUBLIC_EVIDENCE_SURFACE::OC_DOMAIN_HARD_CLOSURE_PACKET_SPECS_v1",
+        "OC_PUBLIC_EVIDENCE_SURFACE::DOMAIN_NUMERICAL_PREDICTION_REGISTRY_latest",
+        "OC_PUBLIC_EVIDENCE_SURFACE::QUESTION_COMPUTATIONAL_EVIDENCE_latest",
+        "OC_PUBLIC_EVIDENCE_SURFACE::OC_MATHEMATICS_STRICT_RESULT_LEDGER_latest",
+        "OC_PUBLIC_EVIDENCE_SURFACE::OC_DOMAIN_EMPIRICAL_EXECUTION_PROTOCOLS_v1",
+        "releases/oc_core_1_3/editorial/DOMAIN_EXTERNAL_DATA_MANIFEST_latest.json",
+        "releases/oc_core_1_3/editorial/DOMAIN_NUMERICAL_PACKET_REGISTRY_latest.json",
+        "releases/oc_core_1_3/editorial/PREDICTION_REPLAY_LEDGER_latest.json",
+        "releases/oc_core_1_3/editorial/DOMAIN_HARD_CLOSURE_EXECUTION_PROGRAM_latest.json",
+        "OC_PUBLIC_EVIDENCE_SURFACE::BENCHMARK_RESIDUAL_POLICY_v1",
+        "OC_PUBLIC_EVIDENCE_SURFACE::PREDICTION_SIGMA_POLICY_v1",
+        "OC_PUBLIC_EVIDENCE_SURFACE::PREDICTION_ACCURACY_POLICY_v2",
+        "releases/oc_core_1_3/editorial/DOMAIN_BENCHMARK_CASESET_latest.json",
+        "releases/oc_core_1_3/editorial/DOMAIN_EXTERNAL_DATA_MANIFEST_latest.json",
+        "releases/oc_core_1_3/editorial/DOMAIN_NUMERICAL_PACKET_REGISTRY_latest.json",
+        "releases/oc_core_1_3/editorial/PREDICTION_REPLAY_LEDGER_latest.json"
+      ]
+    },
+    "falsifier_ledger": {
+      "status": "COMPLETE",
+      "falsifier_classes": [
+        "turning_point_failure",
+        "out_of_band_trajectory"
+      ],
+      "kill_conditions": [
+        "A missed turning point or out-of-band held-out trajectory falsifies the promoted systems packet."
+      ],
+      "boundary_statement": "A missed turning point or out-of-band held-out trajectory falsifies the promoted systems packet.",
+      "refs": [
+        "content/falsifiability/falsifiability_master.tex",
+        "content/falsifiability/falsifiability_k8.tex",
+        "releases/oc_core_1_3/editorial/OC_CORE_1_3_SCIENCE_SPOT_latest.json",
+        "OC_PUBLIC_EVIDENCE_SURFACE::OC_CORE_1_3_K_LEVEL_SYSTEM_latest",
+        "OC_PUBLIC_EVIDENCE_SURFACE::OC_CORE_ROOT_REVISION_LEDGER_latest",
+        "OC_PUBLIC_EVIDENCE_SURFACE::ROOT_PRINCIPLE_THEOREM_STACK_latest",
+        "OC_PUBLIC_EVIDENCE_SURFACE::OC_DOMAIN_INCLUSION_VERDICT_LEDGER_latest",
+        "OC_PUBLIC_EVIDENCE_SURFACE::OC_DOMAIN_HARD_CLOSURE_PACKET_SPECS_v1",
+        "OC_PUBLIC_EVIDENCE_SURFACE::DOMAIN_NUMERICAL_PREDICTION_REGISTRY_latest",
+        "OC_PUBLIC_EVIDENCE_SURFACE::QUESTION_COMPUTATIONAL_EVIDENCE_latest",
+        "OC_PUBLIC_EVIDENCE_SURFACE::OC_MATHEMATICS_STRICT_RESULT_LEDGER_latest",
+        "OC_PUBLIC_EVIDENCE_SURFACE::OC_DOMAIN_EMPIRICAL_EXECUTION_PROTOCOLS_v1",
+        "releases/oc_core_1_3/editorial/DOMAIN_EXTERNAL_DATA_MANIFEST_latest.json",
+        "releases/oc_core_1_3/editorial/DOMAIN_NUMERICAL_PACKET_REGISTRY_latest.json",
+        "releases/oc_core_1_3/editorial/PREDICTION_REPLAY_LEDGER_latest.json",
+        "releases/oc_core_1_3/editorial/DOMAIN_HARD_CLOSURE_EXECUTION_PROGRAM_latest.json",
+        "OC_PUBLIC_EVIDENCE_SURFACE::BENCHMARK_RESIDUAL_POLICY_v1",
+        "OC_PUBLIC_EVIDENCE_SURFACE::PREDICTION_SIGMA_POLICY_v1",
+        "OC_PUBLIC_EVIDENCE_SURFACE::PREDICTION_ACCURACY_POLICY_v2",
+        "releases/oc_core_1_3/editorial/DOMAIN_BENCHMARK_CASESET_latest.json",
+        "releases/oc_core_1_3/editorial/DOMAIN_EXTERNAL_DATA_MANIFEST_latest.json",
+        "releases/oc_core_1_3/editorial/DOMAIN_NUMERICAL_PACKET_REGISTRY_latest.json",
+        "releases/oc_core_1_3/editorial/PREDICTION_REPLAY_LEDGER_latest.json"
+      ]
+    },
+    "counterexample_ledger": {
+      "status": "ACTIVE_CONTINUOUS_SEARCH",
+      "attempted_counterexamples": [],
+      "current_survivors": [],
+      "resolution_state": "CONTINUOUS_SEARCH",
+      "refs": [
+        "releases/oc_core_1_3/editorial/OC_CORE_1_3_SCIENCE_SPOT_latest.json",
+        "OC_PUBLIC_EVIDENCE_SURFACE::OC_CORE_1_3_K_LEVEL_SYSTEM_latest",
+        "OC_PUBLIC_EVIDENCE_SURFACE::OC_CORE_ROOT_REVISION_LEDGER_latest",
+        "OC_PUBLIC_EVIDENCE_SURFACE::ROOT_PRINCIPLE_THEOREM_STACK_latest",
+        "OC_PUBLIC_EVIDENCE_SURFACE::OC_DOMAIN_INCLUSION_VERDICT_LEDGER_latest",
+        "OC_PUBLIC_EVIDENCE_SURFACE::OC_DOMAIN_HARD_CLOSURE_PACKET_SPECS_v1",
+        "OC_PUBLIC_EVIDENCE_SURFACE::DOMAIN_NUMERICAL_PREDICTION_REGISTRY_latest",
+        "OC_PUBLIC_EVIDENCE_SURFACE::QUESTION_COMPUTATIONAL_EVIDENCE_latest",
+        "OC_PUBLIC_EVIDENCE_SURFACE::OC_MATHEMATICS_STRICT_RESULT_LEDGER_latest",
+        "OC_PUBLIC_EVIDENCE_SURFACE::OC_DOMAIN_EMPIRICAL_EXECUTION_PROTOCOLS_v1",
+        "releases/oc_core_1_3/editorial/DOMAIN_EXTERNAL_DATA_MANIFEST_latest.json",
+        "releases/oc_core_1_3/editorial/DOMAIN_NUMERICAL_PACKET_REGISTRY_latest.json",
+        "releases/oc_core_1_3/editorial/PREDICTION_REPLAY_LEDGER_latest.json",
+        "releases/oc_core_1_3/editorial/DOMAIN_HARD_CLOSURE_EXECUTION_PROGRAM_latest.json",
+        "OC_PUBLIC_EVIDENCE_SURFACE::BENCHMARK_RESIDUAL_POLICY_v1",
+        "OC_PUBLIC_EVIDENCE_SURFACE::PREDICTION_SIGMA_POLICY_v1",
+        "OC_PUBLIC_EVIDENCE_SURFACE::PREDICTION_ACCURACY_POLICY_v2",
+        "releases/oc_core_1_3/editorial/DOMAIN_BENCHMARK_CASESET_latest.json",
+        "releases/oc_core_1_3/editorial/DOMAIN_EXTERNAL_DATA_MANIFEST_latest.json",
+        "releases/oc_core_1_3/editorial/DOMAIN_NUMERICAL_PACKET_REGISTRY_latest.json",
+        "releases/oc_core_1_3/editorial/PREDICTION_REPLAY_LEDGER_latest.json"
+      ]
+    },
+    "same_claim_class_comparator_ledger": {
+      "status": "DECLARED_NO_SUPERIOR_BASELINE",
+      "comparator_families": [
+        "macro-trend residual baseline",
+        "turning-point heuristic baseline"
+      ],
+      "complexity_budget": "NO_COMPARATOR_MAY_WIN_ON_SAME_CLAIM_CLASS_AFTER_COST_NORMALIZATION",
+      "verdict": "NO_SIMPLER_SUPERIOR_BASELINE_FOUND",
+      "refs": [
+        "releases/oc_core_1_3/editorial/OC_CORE_1_3_SCIENCE_SPOT_latest.json",
+        "OC_PUBLIC_EVIDENCE_SURFACE::OC_CORE_1_3_K_LEVEL_SYSTEM_latest",
+        "OC_PUBLIC_EVIDENCE_SURFACE::OC_CORE_ROOT_REVISION_LEDGER_latest",
+        "OC_PUBLIC_EVIDENCE_SURFACE::ROOT_PRINCIPLE_THEOREM_STACK_latest",
+        "OC_PUBLIC_EVIDENCE_SURFACE::OC_DOMAIN_INCLUSION_VERDICT_LEDGER_latest",
+        "OC_PUBLIC_EVIDENCE_SURFACE::OC_DOMAIN_HARD_CLOSURE_PACKET_SPECS_v1",
+        "OC_PUBLIC_EVIDENCE_SURFACE::DOMAIN_NUMERICAL_PREDICTION_REGISTRY_latest",
+        "OC_PUBLIC_EVIDENCE_SURFACE::QUESTION_COMPUTATIONAL_EVIDENCE_latest",
+        "OC_PUBLIC_EVIDENCE_SURFACE::OC_MATHEMATICS_STRICT_RESULT_LEDGER_latest",
+        "OC_PUBLIC_EVIDENCE_SURFACE::OC_DOMAIN_EMPIRICAL_EXECUTION_PROTOCOLS_v1",
+        "releases/oc_core_1_3/editorial/DOMAIN_EXTERNAL_DATA_MANIFEST_latest.json",
+        "releases/oc_core_1_3/editorial/DOMAIN_NUMERICAL_PACKET_REGISTRY_latest.json",
+        "releases/oc_core_1_3/editorial/PREDICTION_REPLAY_LEDGER_latest.json",
+        "releases/oc_core_1_3/editorial/DOMAIN_HARD_CLOSURE_EXECUTION_PROGRAM_latest.json",
+        "OC_PUBLIC_EVIDENCE_SURFACE::BENCHMARK_RESIDUAL_POLICY_v1",
+        "OC_PUBLIC_EVIDENCE_SURFACE::PREDICTION_SIGMA_POLICY_v1",
+        "OC_PUBLIC_EVIDENCE_SURFACE::PREDICTION_ACCURACY_POLICY_v2",
+        "releases/oc_core_1_3/editorial/DOMAIN_BENCHMARK_CASESET_latest.json",
+        "releases/oc_core_1_3/editorial/DOMAIN_EXTERNAL_DATA_MANIFEST_latest.json",
+        "releases/oc_core_1_3/editorial/DOMAIN_NUMERICAL_PACKET_REGISTRY_latest.json",
+        "releases/oc_core_1_3/editorial/PREDICTION_REPLAY_LEDGER_latest.json"
+      ]
+    }
+  },
+  "practical_use_rows": [
+    {
+      "use_case_id": "SYSTEMS_USE_001_REGIME_SHIFT_MONITORING",
+      "problem_class": "Macro-trajectory and regime-shift monitoring",
+      "support_class": "THEOREM_NATIVE_HELD_OUT_VALIDATED",
+      "what_can_be_predicted_or_done": "Monitor bounded macro trajectories, turning-point candidates, and regime-shift signatures on held-out official series and flag out-of-band intervals.",
+      "how_to_apply": "Bind the target macro-process lane to the locked K8 systems packet, load the pinned official series and held-out interval, and run the declared residual and turning-point replay.",
+      "scope_boundary": "Applies only to the promoted macro-trajectory and regime-shift packet. It does not authorize unrestricted civilizational prediction or unlimited strategic forecasting.",
+      "required_inputs_or_observables": [
+        "pinned official macro-process series",
+        "held-out interval policy",
+        "declared trajectory or regime observable family"
+      ],
+      "output_or_decision": "A pass or fail trajectory verdict, a turning-point or regime-shift alert, and a decision about whether the lane remains inside the promoted systems packet.",
+      "trace_refs": [
+        "content/22_oc_core_1_3_operationalization_program.tex",
+        "content/23_oc_core_1_3_empirical_execution_protocols.tex",
+        "content/25_oc_core_1_3_toe_synthesis.tex",
+        "releases/oc_core_1_3/editorial/OC_CORE_1_3_SCIENCE_SPOT_latest.json"
+      ],
+      "benchmark_comparators": [
+        "macro-trend residual baseline",
+        "turning-point heuristic baseline"
+      ],
+      "serious_model_families": [
+        "Systems dynamics, control, and change-point models",
+        "Macro-growth, throughput, and regime-switching model families"
+      ],
+      "what_remains_open": "Unrestricted long-horizon civilizational prediction remains outside the promoted systems packet."
+    },
+    {
+      "use_case_id": "SYSTEMS_USE_002_UNRESTRICTED_CIVILIZATIONAL_FORECASTING",
+      "problem_class": "Unrestricted long-horizon civilizational forecasting and control",
+      "support_class": "HYPOTHESIS_ONLY",
+      "what_can_be_predicted_or_done": "State an explicit hypothesis frontier for broader civilizational forecasting without pretending that the promoted systems packet already closes that lane.",
+      "how_to_apply": "Keep this row outside deployment, use it only to formulate future theorem and data-route work, and refuse any outward claim that treats it as closed science.",
+      "scope_boundary": "This row is hypothesis only and may not be used as an operational forecasting or control authority.",
+      "required_inputs_or_observables": [
+        "new macro-process families",
+        "longer horizon interval families",
+        "new theorem and comparator program"
+      ],
+      "output_or_decision": "A clearly demarcated hypothesis boundary rather than a promoted prediction product.",
+      "trace_refs": [
+        "content/22_oc_core_1_3_operationalization_program.tex",
+        "content/23_oc_core_1_3_empirical_execution_protocols.tex",
+        "releases/oc_core_1_3/editorial/OC_CORE_1_3_FULL_SCIENTIFIC_CLOSURE_PROGRAM_latest.json",
+        "releases/oc_core_1_3/editorial/OC_CORE_1_3_SCIENCE_SPOT_latest.json"
+      ],
+      "benchmark_comparators": [
+        "macro-trend residual baseline",
+        "turning-point heuristic baseline"
+      ],
+      "serious_model_families": [
+        "Systems dynamics, control, and change-point models",
+        "Macro-growth, throughput, and regime-switching model families"
+      ],
+      "what_remains_open": "OC Core 1.3 does not yet promote unrestricted long-horizon civilizational forecasting or control as lawful closed science."
+    }
+  ],
+  "operational_playbooks": [
+    {
+      "playbook_id": "SYSTEMS_PLAYBOOK_001_REGIME_SHIFT_MONITORING",
+      "title": "Bounded macro-trajectory and regime-shift monitoring",
+      "when_to_use": "Use when the task is to decide whether an official macro-process series remains inside the promoted systems packet or should be escalated as a turning-point or regime anomaly.",
+      "required_inputs_or_observables": [
+        "target macro-process series",
+        "held-out interval",
+        "declared trajectory or turning-point metric"
+      ],
+      "procedure_steps": [
+        "Map the macro-process lane to the promoted systems packet.",
+        "Load the pinned official series and the locked held-out interval.",
+        "Run the declared residual and turning-point replay.",
+        "Accept the lane only if held-out intervals remain inside the promoted trajectory and regime envelope."
+      ],
+      "output_or_decision": "A bounded inclusion, anomaly, or escalation verdict for the target systems lane.",
+      "support_class": "THEOREM_NATIVE_HELD_OUT_VALIDATED",
+      "scope_boundary": "The playbook stays inside the promoted systems packet and does not authorize unrestricted civilizational prediction.",
+      "trace_refs": [
+        "content/22_oc_core_1_3_operationalization_program.tex",
+        "content/23_oc_core_1_3_empirical_execution_protocols.tex",
+        "releases/oc_core_1_3/editorial/OC_CORE_1_3_DOMAIN_CLOSURE_BUNDLE_REGISTRY_latest.json",
+        "releases/oc_core_1_3/editorial/OC_CORE_1_3_SCIENCE_SPOT_latest.json"
+      ],
+      "failure_boundary": "Stop and demote to frontier if the lane requires out-of-band trajectory behavior, a widened horizon, or post-hoc interval selection."
+    }
+  ],
+  "classification_rationale": "Bounded theorem-native systems packet is trace-closed, replay-closed, and comparator-clean on the pinned macro-trajectory and regime-shift held-out route.",
+  "quantitative_validation_status": "PASS"
+}

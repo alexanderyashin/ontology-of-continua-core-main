@@ -1,0 +1,690 @@
+{
+  "metadata": {
+    "repo_sha": "9d95428f16975d809a2bad52ac29c202941d17a0",
+    "script": "tools/build_oc_core_1_3_science_spot.py",
+    "surface": "releases/oc_core_1_3/editorial/DOMAIN_HARD_CLOSURE_EXECUTION_PROGRAM_latest.json",
+    "ts_utc": "2026-05-08T14:40:24Z"
+  },
+  "refs": {
+    "science_spot": "releases/oc_core_1_3/editorial/OC_CORE_1_3_SCIENCE_SPOT_latest.json",
+    "domain_empirical_execution_protocols": "releases/oc_core_1_3/editorial/DOMAIN_EMPIRICAL_EXECUTION_PROTOCOLS_latest.json",
+    "empirical_domain_validation_matrix": "releases/oc_core_1_3/editorial/EMPIRICAL_DOMAIN_VALIDATION_MATRIX_latest.json"
+  },
+  "rows": [
+    {
+      "acceptance_criterion": "No replay divergence and no surviving counterexample against the promoted packet.",
+      "benchmark_dataset_manifest": [],
+      "benchmark_families": [
+        "TIER1_AIMATH_PDF_013_Q010",
+        "strict closure result ledger",
+        "counterexample search corpus",
+        "deterministic replay traces"
+      ],
+      "blocking_ids": [],
+      "closure_wave_id": "WAVE_0_ANCHOR",
+      "current_state": "VALIDATED_ANCHOR_ACTIVE",
+      "domain_id": "MATHEMATICS",
+      "domain_title": "Mathematics",
+      "falsifier_specification": "A single replay divergence or surviving counterexample collapses promotion for the affected packet.",
+      "measurable_outputs": [
+        "epsilon_star",
+        "minimal_denominator",
+        "minimal_augmentation_rank",
+        "component_fiber_count",
+        "move_connectivity_or_degree_bound",
+        "strict_terminalized_total",
+        "counterexample_executed_total",
+        "python_evidence_executed_total"
+      ],
+      "measurement_escalation_rule": "Expand the exact-question corpus rather than broadening outward claims when a replay gap appears.",
+      "measurement_escalation_status": "NOT_REQUIRED",
+      "measurement_schema": "Replay declared mathematical packets deterministically against the strict closure ledger and counterexample traces.",
+      "measurement_wave_execution_mode": "NOT_REQUIRED",
+      "next_required_action": "MAINTAIN_REPLAY_DISCIPLINE",
+      "official_acceptance_summary": {
+        "acceptance_mode": "EXACT_MATCH_REQUIRED",
+        "pass_eligible": true
+      },
+      "official_coverage_summary": {},
+      "official_metrics_summary": {},
+      "official_source_family_targets": [
+        "Clay Mathematics Institute",
+        "American Institute of Mathematics"
+      ],
+      "official_source_route_status": "PASS",
+      "official_source_routes": [
+        {
+          "authority_class": "OFFICIAL_PROBLEM_CATALOG",
+          "institution": "Clay Mathematics Institute",
+          "official_url": "https://www.claymath.org/millennium-problems/",
+          "purpose": "Exact benchmark anchor catalog",
+          "route_id": "MATH_ROUTE_001"
+        },
+        {
+          "authority_class": "OFFICIAL_PROBLEM_CATALOG",
+          "institution": "American Institute of Mathematics",
+          "official_url": "https://aimath.org/problemlists/",
+          "purpose": "Supplementary exact-question corpus",
+          "route_id": "MATH_ROUTE_002"
+        }
+      ],
+      "prediction_declared_case_total": 0,
+      "quantitative_acceptance_thresholds": {
+        "counterexample_survivor_total_max": 0,
+        "policy_snapshot": {
+          "benchmark_residual_policy": {
+            "critical_residual_sigma_threshold": 2.5,
+            "schema_id": "LOGION_BENCHMARK_RESIDUAL_POLICY_v1",
+            "severe_residual_sigma_threshold": 1.5
+          },
+          "prediction_accuracy_policy": {
+            "brier_score_max": 0.08,
+            "cases_total_required": 30,
+            "coverage_ratio_required": 1.0,
+            "critical_failure_f1_min": 0.87,
+            "critical_failure_precision_min": 0.85,
+            "critical_failure_recall_min": 0.9,
+            "expected_calibration_error_max": 0.05,
+            "schema_id": "LOGION_PREDICTION_ACCURACY_POLICY_v2"
+          },
+          "prediction_sigma_policy": {
+            "cases_total_min": 30,
+            "normalized_error_max_max_sigma": 5.0,
+            "normalized_error_mean_abs_max_sigma": 1.0,
+            "normalized_error_p95_max_sigma": 2.5,
+            "schema_id": "LOGION_PREDICTION_SIGMA_POLICY_v1",
+            "tail_breach_count_max": 0
+          }
+        },
+        "replay_divergence_total_max": 0,
+        "strict_terminalized_total_min": 31
+      },
+      "quantitative_pass_result": "PASS_TERMINALIZED_NUMERICAL_REPLAY",
+      "replay_command_ref": "simulations/run_all.py",
+      "replay_status": "PASS_REPLAYABLE",
+      "refs": [
+        "releases/oc_core_1_3/editorial/OC_CORE_1_3_SCIENCE_SPOT_latest.json",
+        "releases/oc_core_1_3/editorial/DOMAIN_EMPIRICAL_EXECUTION_PROTOCOLS_latest.json",
+        "releases/oc_core_1_3/editorial/EMPIRICAL_DOMAIN_VALIDATION_MATRIX_latest.json"
+      ],
+      "target_state": "VALIDATED_ANCHOR_ACTIVE"
+    },
+    {
+      "acceptance_criterion": "Held-out residuals stay inside the declared tolerance band for every promoted benchmark family.",
+      "benchmark_dataset_manifest": [
+        {
+          "authority_ref": "NIST / CODATA constants",
+          "benchmark_id": "PHY_BENCH_001",
+          "dataset_url": "https://physics.nist.gov/cuu/Constants/index.html",
+          "held_out_policy": "leave-one-family-out residual verification",
+          "observable_name": "fine_structure_constant_residual"
+        },
+        {
+          "authority_ref": "NIST Atomic Spectra Database",
+          "benchmark_id": "PHY_BENCH_002",
+          "dataset_url": "https://physics.nist.gov/PhysRefData/ASD/lines_form.html",
+          "held_out_policy": "reserve transitions not used during packet fitting",
+          "observable_name": "hydrogen_balmer_line_residual"
+        },
+        {
+          "authority_ref": "DOE Office of Science challenge corpora",
+          "benchmark_id": "PHY_BENCH_003",
+          "dataset_url": "https://science.osti.gov/-/media/fes/pdf/workshop-reports/FES_Grand_Challenges_Report_final.pdf",
+          "held_out_policy": "hold out one transport regime family",
+          "observable_name": "transport_scaling_residual"
+        }
+      ],
+      "benchmark_families": [
+        "PHY_BENCH_001",
+        "fundamental constants residuals",
+        "spectral line residual envelopes",
+        "transport or plasma scaling envelopes"
+      ],
+      "blocking_ids": [],
+      "closure_wave_id": "WAVE_1_PHYSICS",
+      "current_state": "VALIDATED_ANCHOR_ACTIVE",
+      "domain_id": "PHYSICS",
+      "domain_title": "Physics",
+      "falsifier_specification": "Any benchmark family with residuals outside tolerance or with broken sign/order constraints falsifies the promoted packet.",
+      "measurable_outputs": [
+        "relative_constant_error",
+        "spectral_line_residual",
+        "transport_scaling_residual"
+      ],
+      "measurement_escalation_rule": "If official/open data do not cover the required observable family, queue institute-run measurement or observational partner acquisition.",
+      "measurement_escalation_status": "NOT_REQUIRED_UNLESS_NEW_OBSERVABLE_FAMILY_ENTERS",
+      "measurement_schema": "Bind theorem-to-observable maps to pinned official constants and spectra, then evaluate held-out residual envelopes.",
+      "measurement_wave_execution_mode": "NOT_REQUIRED",
+      "next_required_action": "MAINTENANCE_ONLY",
+      "official_acceptance_summary": {
+        "acceptance_mode": "SIGMA_WITH_THEOREM_NATIVE_PROMOTION_BAR",
+        "pass_eligible": true
+      },
+      "official_coverage_summary": {
+        "benchmark_total": 3,
+        "covered_benchmark_ratio": 1.0,
+        "covered_benchmark_total": 3,
+        "full_coverage_benchmark_ratio": 1.0,
+        "full_coverage_benchmark_total": 3
+      },
+      "official_metrics_summary": {
+        "benchmark_total": 3,
+        "covered_benchmark_ratio": 1.0,
+        "covered_benchmark_total": 3,
+        "covered_case_total": 30,
+        "covered_held_out_case_total": 20,
+        "critical_case_total": 0,
+        "full_coverage_benchmark_ratio": 1.0,
+        "full_coverage_benchmark_total": 3,
+        "normalized_error_max": 1.48,
+        "normalized_error_mean_abs": 0.188136,
+        "normalized_error_p95": 0.64778,
+        "severe_case_total": 0,
+        "tail_breach_count": 0
+      },
+      "official_source_family_targets": [
+        "NIST",
+        "U.S. Department of Energy Office of Science"
+      ],
+      "official_source_route_status": "PASS",
+      "official_source_routes": [
+        {
+          "authority_class": "OFFICIAL_CONSTANTS_PORTAL",
+          "institution": "NIST",
+          "official_url": "https://physics.nist.gov/cuu/Constants/index.html",
+          "purpose": "Pinned constants and CODATA reference values",
+          "route_id": "PHY_ROUTE_001"
+        },
+        {
+          "authority_class": "OFFICIAL_SPECTRA_DATABASE",
+          "institution": "NIST",
+          "official_url": "https://physics.nist.gov/PhysRefData/ASD/lines_form.html",
+          "purpose": "Pinned spectral benchmark families",
+          "route_id": "PHY_ROUTE_002"
+        },
+        {
+          "authority_class": "OFFICIAL_CHALLENGE_PROGRAM",
+          "institution": "U.S. Department of Energy Office of Science",
+          "official_url": "https://science.osti.gov/ascr",
+          "purpose": "Transport or plasma-scale challenge framing and official program context",
+          "route_id": "PHY_ROUTE_003"
+        }
+      ],
+      "prediction_declared_case_total": 30,
+      "quantitative_acceptance_thresholds": {
+        "coverage_ratio_required": 1.0,
+        "critical_residual_sigma_threshold": 2.5,
+        "normalized_error_max_max_sigma": 5.0,
+        "normalized_error_mean_abs_max_sigma": 1.0,
+        "normalized_error_p95_max_sigma": 2.5,
+        "policy_snapshot": {
+          "benchmark_residual_policy": {
+            "critical_residual_sigma_threshold": 2.5,
+            "schema_id": "LOGION_BENCHMARK_RESIDUAL_POLICY_v1",
+            "severe_residual_sigma_threshold": 1.5
+          },
+          "prediction_accuracy_policy": {
+            "brier_score_max": 0.08,
+            "cases_total_required": 30,
+            "coverage_ratio_required": 1.0,
+            "critical_failure_f1_min": 0.87,
+            "critical_failure_precision_min": 0.85,
+            "critical_failure_recall_min": 0.9,
+            "expected_calibration_error_max": 0.05,
+            "schema_id": "LOGION_PREDICTION_ACCURACY_POLICY_v2"
+          },
+          "prediction_sigma_policy": {
+            "cases_total_min": 30,
+            "normalized_error_max_max_sigma": 5.0,
+            "normalized_error_mean_abs_max_sigma": 1.0,
+            "normalized_error_p95_max_sigma": 2.5,
+            "schema_id": "LOGION_PREDICTION_SIGMA_POLICY_v1",
+            "tail_breach_count_max": 0
+          }
+        },
+        "severe_residual_sigma_threshold": 1.5,
+        "tail_breach_count_max": 0
+      },
+      "quantitative_pass_result": "PASS",
+      "replay_command_ref": "validation/run_all.py --qa-only (public replay umbrella; domain: PHYSICS)",
+      "replay_status": "PASS_REPLAYABLE",
+      "refs": [
+        "releases/oc_core_1_3/editorial/OC_CORE_1_3_SCIENCE_SPOT_latest.json",
+        "releases/oc_core_1_3/editorial/DOMAIN_EMPIRICAL_EXECUTION_PROTOCOLS_latest.json",
+        "releases/oc_core_1_3/editorial/EMPIRICAL_DOMAIN_VALIDATION_MATRIX_latest.json"
+      ],
+      "target_state": "VALIDATED_ANCHOR_ACTIVE"
+    },
+    {
+      "acceptance_criterion": "Declared chemistry benchmark families pass the tolerance envelope on held-out compounds or reactions.",
+      "benchmark_dataset_manifest": [
+        {
+          "authority_ref": "NIST Chemistry WebBook",
+          "benchmark_id": "CHEM_BENCH_001",
+          "dataset_url": "https://webbook.nist.gov/chemistry/",
+          "held_out_policy": "hold out one compound family from calibration",
+          "observable_name": "gas_phase_enthalpy_residual"
+        },
+        {
+          "authority_ref": "NIST Chemistry WebBook",
+          "benchmark_id": "CHEM_BENCH_002",
+          "dataset_url": "https://webbook.nist.gov/chemistry/",
+          "held_out_policy": "hold out one spectral family",
+          "observable_name": "spectral_transition_residual"
+        },
+        {
+          "authority_ref": "DOE BES / EFRC challenge corpora",
+          "benchmark_id": "CHEM_BENCH_003",
+          "dataset_url": "https://science.osti.gov/bes/efrc/Research/Grand-Challenges",
+          "held_out_policy": "hold out one reaction-class envelope",
+          "observable_name": "kinetic_or_equilibrium_residual"
+        }
+      ],
+      "benchmark_families": [
+        "CHEM_BENCH_001",
+        "thermochemical reference values",
+        "spectroscopic transition families",
+        "kinetic or equilibrium observable envelopes"
+      ],
+      "blocking_ids": [],
+      "closure_wave_id": "WAVE_2_CHEMISTRY",
+      "current_state": "VALIDATED_ANCHOR_ACTIVE",
+      "domain_id": "CHEMISTRY",
+      "domain_title": "Chemistry",
+      "falsifier_specification": "A held-out thermochemical, spectral, or kinetic family outside tolerance collapses the promoted chemistry packet.",
+      "measurable_outputs": [
+        "enthalpy_residual",
+        "spectral_transition_residual",
+        "kinetic_or_equilibrium_residual"
+      ],
+      "measurement_escalation_rule": "When official/open reference data are insufficient, queue targeted laboratory or partner-measurement acquisition.",
+      "measurement_escalation_status": "NOT_REQUIRED_UNLESS_NEW_OBSERVABLE_FAMILY_ENTERS",
+      "measurement_schema": "Map theorem packets to thermochemical, spectral, and kinetic observables against pinned reference tables.",
+      "measurement_wave_execution_mode": "NOT_REQUIRED",
+      "next_required_action": "MAINTENANCE_ONLY",
+      "official_acceptance_summary": {
+        "acceptance_mode": "SIGMA_WITH_THEOREM_NATIVE_PROMOTION_BAR",
+        "pass_eligible": true
+      },
+      "official_coverage_summary": {
+        "benchmark_total": 3,
+        "covered_benchmark_ratio": 1.0,
+        "covered_benchmark_total": 3,
+        "full_coverage_benchmark_ratio": 1.0,
+        "full_coverage_benchmark_total": 3
+      },
+      "official_metrics_summary": {
+        "benchmark_total": 3,
+        "covered_benchmark_ratio": 1.0,
+        "covered_benchmark_total": 3,
+        "covered_case_total": 30,
+        "covered_held_out_case_total": 19,
+        "critical_case_total": 0,
+        "full_coverage_benchmark_ratio": 1.0,
+        "full_coverage_benchmark_total": 3,
+        "normalized_error_max": 1.597772,
+        "normalized_error_mean_abs": 0.533285,
+        "normalized_error_p95": 1.0,
+        "severe_case_total": 1,
+        "tail_breach_count": 0
+      },
+      "official_source_family_targets": [
+        "NIST",
+        "U.S. Department of Energy Office of Science"
+      ],
+      "official_source_route_status": "PASS",
+      "official_source_routes": [
+        {
+          "authority_class": "OFFICIAL_CHEMISTRY_REFERENCE",
+          "institution": "NIST",
+          "official_url": "https://webbook.nist.gov/chemistry/",
+          "purpose": "Thermochemistry and spectroscopy reference tables",
+          "route_id": "CHEM_ROUTE_001"
+        },
+        {
+          "authority_class": "OFFICIAL_CHALLENGE_PROGRAM",
+          "institution": "U.S. Department of Energy Office of Science",
+          "official_url": "https://science.osti.gov/bes/efrc/Research/Grand-Challenges",
+          "purpose": "Grand-challenge chemistry benchmark framing",
+          "route_id": "CHEM_ROUTE_002"
+        }
+      ],
+      "prediction_declared_case_total": 30,
+      "quantitative_acceptance_thresholds": {
+        "coverage_ratio_required": 1.0,
+        "critical_residual_sigma_threshold": 2.5,
+        "normalized_error_max_max_sigma": 5.0,
+        "normalized_error_mean_abs_max_sigma": 1.0,
+        "normalized_error_p95_max_sigma": 2.5,
+        "policy_snapshot": {
+          "benchmark_residual_policy": {
+            "critical_residual_sigma_threshold": 2.5,
+            "schema_id": "LOGION_BENCHMARK_RESIDUAL_POLICY_v1",
+            "severe_residual_sigma_threshold": 1.5
+          },
+          "prediction_accuracy_policy": {
+            "brier_score_max": 0.08,
+            "cases_total_required": 30,
+            "coverage_ratio_required": 1.0,
+            "critical_failure_f1_min": 0.87,
+            "critical_failure_precision_min": 0.85,
+            "critical_failure_recall_min": 0.9,
+            "expected_calibration_error_max": 0.05,
+            "schema_id": "LOGION_PREDICTION_ACCURACY_POLICY_v2"
+          },
+          "prediction_sigma_policy": {
+            "cases_total_min": 30,
+            "normalized_error_max_max_sigma": 5.0,
+            "normalized_error_mean_abs_max_sigma": 1.0,
+            "normalized_error_p95_max_sigma": 2.5,
+            "schema_id": "LOGION_PREDICTION_SIGMA_POLICY_v1",
+            "tail_breach_count_max": 0
+          }
+        },
+        "severe_residual_sigma_threshold": 1.5,
+        "tail_breach_count_max": 0
+      },
+      "quantitative_pass_result": "PASS",
+      "replay_command_ref": "validation/run_all.py --qa-only (public replay umbrella; domain: CHEMISTRY)",
+      "replay_status": "PASS_REPLAYABLE",
+      "refs": [
+        "releases/oc_core_1_3/editorial/OC_CORE_1_3_SCIENCE_SPOT_latest.json",
+        "releases/oc_core_1_3/editorial/DOMAIN_EMPIRICAL_EXECUTION_PROTOCOLS_latest.json",
+        "releases/oc_core_1_3/editorial/EMPIRICAL_DOMAIN_VALIDATION_MATRIX_latest.json"
+      ],
+      "target_state": "VALIDATED_ANCHOR_ACTIVE"
+    },
+    {
+      "acceptance_criterion": "The promoted biological packet reproduces the declared measurable signatures on held-out datasets without widening the claim boundary.",
+      "benchmark_dataset_manifest": [
+        {
+          "authority_ref": "NCBI GEO",
+          "benchmark_id": "BIO_BENCH_001",
+          "dataset_url": "https://www.ncbi.nlm.nih.gov/geo/",
+          "held_out_policy": "reserve one time-series family for held-out replay",
+          "observable_name": "expression_signature_residual"
+        },
+        {
+          "authority_ref": "NCBI GEO",
+          "benchmark_id": "BIO_BENCH_002",
+          "dataset_url": "https://www.ncbi.nlm.nih.gov/geo/",
+          "held_out_policy": "reserve one cell-state transition family",
+          "observable_name": "state_transition_order_error"
+        },
+        {
+          "authority_ref": "official open biological assay repositories",
+          "benchmark_id": "BIO_BENCH_003",
+          "dataset_url": "https://www.ncbi.nlm.nih.gov/geo/",
+          "held_out_policy": "reserve one response-signature family",
+          "observable_name": "response_onset_residual"
+        }
+      ],
+      "benchmark_families": [
+        "BIO_BENCH_001",
+        "gene-expression time-series families",
+        "cell-state transition signatures",
+        "stimulus-response or excitability onset markers"
+      ],
+      "blocking_ids": [],
+      "closure_wave_id": "WAVE_3_BIOLOGY",
+      "current_state": "VALIDATED_ANCHOR_ACTIVE",
+      "domain_id": "BIOLOGY",
+      "domain_title": "Biology",
+      "falsifier_specification": "If the bounded signature family fails on held-out datasets, the biological packet remains frontier-bound.",
+      "measurable_outputs": [
+        "expression_signature_residual",
+        "state_transition_order_error",
+        "response_onset_residual"
+      ],
+      "measurement_escalation_rule": "If open repositories cannot close the lane honestly, promote an institute-run observation or assay plan instead of overclaiming.",
+      "measurement_escalation_status": "NOT_REQUIRED_UNLESS_NEW_OBSERVABLE_FAMILY_ENTERS",
+      "measurement_schema": "Choose one bounded biological lane and evaluate predicted state transitions or response signatures against open assay data.",
+      "measurement_wave_execution_mode": "NOT_REQUIRED",
+      "next_required_action": "MAINTENANCE_ONLY",
+      "official_acceptance_summary": {
+        "acceptance_mode": "SIGMA_WITH_THEOREM_NATIVE_PROMOTION_BAR",
+        "pass_eligible": true
+      },
+      "official_coverage_summary": {
+        "benchmark_total": 3,
+        "covered_benchmark_ratio": 1.0,
+        "covered_benchmark_total": 3,
+        "full_coverage_benchmark_ratio": 1.0,
+        "full_coverage_benchmark_total": 3
+      },
+      "official_metrics_summary": {
+        "benchmark_total": 3,
+        "calibration_case_total": 16,
+        "covered_benchmark_ratio": 1.0,
+        "covered_benchmark_total": 3,
+        "covered_case_total": 30,
+        "covered_held_out_case_total": 16,
+        "critical_case_total": 0,
+        "full_coverage_benchmark_ratio": 1.0,
+        "full_coverage_benchmark_total": 3,
+        "held_out_evaluated_case_total": 16,
+        "normalized_error_max": 1.438582,
+        "normalized_error_mean_abs": 0.444222,
+        "normalized_error_p95": 1.030033,
+        "severe_case_total": 0,
+        "tail_breach_count": 0
+      },
+      "official_source_family_targets": [
+        "NCBI GEO"
+      ],
+      "official_source_route_status": "PASS",
+      "official_source_routes": [
+        {
+          "authority_class": "OFFICIAL_OPEN_DATA_HUB",
+          "institution": "NCBI GEO",
+          "official_url": "https://www.ncbi.nlm.nih.gov/geo/",
+          "purpose": "Open assay and expression benchmark families",
+          "route_id": "BIO_ROUTE_001"
+        }
+      ],
+      "prediction_declared_case_total": 30,
+      "quantitative_acceptance_thresholds": {
+        "coverage_ratio_required": 1.0,
+        "expected_calibration_error_max": 0.05,
+        "normalized_error_max_max_sigma": 5.0,
+        "normalized_error_mean_abs_max_sigma": 1.0,
+        "normalized_error_p95_max_sigma": 2.5,
+        "policy_snapshot": {
+          "benchmark_residual_policy": {
+            "critical_residual_sigma_threshold": 2.5,
+            "schema_id": "LOGION_BENCHMARK_RESIDUAL_POLICY_v1",
+            "severe_residual_sigma_threshold": 1.5
+          },
+          "prediction_accuracy_policy": {
+            "brier_score_max": 0.08,
+            "cases_total_required": 30,
+            "coverage_ratio_required": 1.0,
+            "critical_failure_f1_min": 0.87,
+            "critical_failure_precision_min": 0.85,
+            "critical_failure_recall_min": 0.9,
+            "expected_calibration_error_max": 0.05,
+            "schema_id": "LOGION_PREDICTION_ACCURACY_POLICY_v2"
+          },
+          "prediction_sigma_policy": {
+            "cases_total_min": 30,
+            "normalized_error_max_max_sigma": 5.0,
+            "normalized_error_mean_abs_max_sigma": 1.0,
+            "normalized_error_p95_max_sigma": 2.5,
+            "schema_id": "LOGION_PREDICTION_SIGMA_POLICY_v1",
+            "tail_breach_count_max": 0
+          }
+        },
+        "tail_breach_count_max": 0
+      },
+      "quantitative_pass_result": "PASS",
+      "replay_command_ref": "validation/run_all.py --qa-only (public replay umbrella; domain: BIOLOGY)",
+      "replay_status": "PASS_REPLAYABLE",
+      "refs": [
+        "releases/oc_core_1_3/editorial/OC_CORE_1_3_SCIENCE_SPOT_latest.json",
+        "releases/oc_core_1_3/editorial/DOMAIN_EMPIRICAL_EXECUTION_PROTOCOLS_latest.json",
+        "releases/oc_core_1_3/editorial/EMPIRICAL_DOMAIN_VALIDATION_MATRIX_latest.json"
+      ],
+      "target_state": "VALIDATED_ANCHOR_ACTIVE"
+    },
+    {
+      "acceptance_criterion": "Declared trajectory and regime-change observables remain inside tolerance on held-out intervals.",
+      "benchmark_dataset_manifest": [
+        {
+          "authority_ref": "World Bank Indicators API",
+          "benchmark_id": "SYS_BENCH_001",
+          "dataset_url": "https://api.worldbank.org/v2/en/indicator/SP.POP.TOTL?format=json",
+          "held_out_policy": "leave out one interval family",
+          "observable_name": "population_trajectory_residual"
+        },
+        {
+          "authority_ref": "World Bank Indicators API",
+          "benchmark_id": "SYS_BENCH_002",
+          "dataset_url": "https://api.worldbank.org/v2/en/indicator/NY.GDP.MKTP.KD.ZG?format=json",
+          "held_out_policy": "reserve one held-out macro interval",
+          "observable_name": "gdp_growth_turning_point_error"
+        },
+        {
+          "authority_ref": "World Bank Indicators API",
+          "benchmark_id": "SYS_BENCH_003",
+          "dataset_url": "https://api.worldbank.org/v2/en/indicator/EG.USE.PCAP.KG.OE?format=json",
+          "held_out_policy": "reserve one resource-intensity curve family",
+          "observable_name": "process_system_regime_score"
+        }
+      ],
+      "benchmark_families": [
+        "SYS_BENCH_001",
+        "macro indicator trajectories",
+        "resource-intensity or throughput curves",
+        "held-out interval stability and regime shifts"
+      ],
+      "blocking_ids": [],
+      "closure_wave_id": "WAVE_4_SYSTEMS",
+      "current_state": "VALIDATED_ANCHOR_ACTIVE",
+      "domain_id": "SYSTEMS_CIVILIZATIONAL_PROJECTION",
+      "domain_title": "Systems / Civilizational projection",
+      "falsifier_specification": "A missed turning point or out-of-band held-out trajectory falsifies the promoted systems packet.",
+      "measurable_outputs": [
+        "trajectory_residual",
+        "turning_point_error",
+        "held_out_interval_regime_score"
+      ],
+      "measurement_escalation_rule": "If open macro-process series are insufficient, queue institute-run observation design or partner data acquisition.",
+      "measurement_escalation_status": "NOT_REQUIRED_UNLESS_NEW_OBSERVABLE_FAMILY_ENTERS",
+      "measurement_schema": "Evaluate K8 projection packets against pinned official macro-process series with held-out interval tests.",
+      "measurement_wave_execution_mode": "NOT_REQUIRED",
+      "next_required_action": "MAINTENANCE_ONLY",
+      "official_acceptance_summary": {
+        "acceptance_mode": "SIGMA_WITH_THEOREM_NATIVE_PROMOTION_BAR",
+        "pass_eligible": true
+      },
+      "official_coverage_summary": {
+        "benchmark_total": 3,
+        "covered_benchmark_ratio": 1.0,
+        "covered_benchmark_total": 3,
+        "full_coverage_benchmark_ratio": 1.0,
+        "full_coverage_benchmark_total": 3
+      },
+      "official_metrics_summary": {
+        "benchmark_total": 3,
+        "brier_score": 0.008333,
+        "calibration_case_total": 12,
+        "covered_benchmark_ratio": 1.0,
+        "covered_benchmark_total": 3,
+        "covered_case_total": 30,
+        "covered_held_out_case_total": 18,
+        "critical_case_total": 0,
+        "critical_failure_f1": 0.989691,
+        "critical_failure_precision": 1.0,
+        "critical_failure_recall": 0.979592,
+        "event_total": 120,
+        "expected_calibration_error": 0.008333,
+        "fn": 1,
+        "fp": 0,
+        "full_coverage_benchmark_ratio": 1.0,
+        "full_coverage_benchmark_total": 3,
+        "held_out_evaluated_case_total": 18,
+        "mean_turning_point_error": 0.016667,
+        "normalized_error_max": 2.25395,
+        "normalized_error_mean_abs": 0.56097,
+        "normalized_error_p95": 1.924704,
+        "severe_case_total": 2,
+        "tail_breach_count": 0,
+        "tn": 71,
+        "tp": 48
+      },
+      "official_source_family_targets": [
+        "World Bank",
+        "U.S. Department of Energy Office of Science"
+      ],
+      "official_source_route_status": "PASS",
+      "official_source_routes": [
+        {
+          "authority_class": "OFFICIAL_OPEN_DATA_API_DOCS",
+          "institution": "World Bank",
+          "official_url": "https://datahelpdesk.worldbank.org/knowledgebase/articles/889392-about-the-indicators-api-documentation",
+          "purpose": "Pinned macro indicator route and API semantics",
+          "route_id": "SYS_ROUTE_001"
+        },
+        {
+          "authority_class": "OFFICIAL_CHALLENGE_PROGRAM",
+          "institution": "U.S. Department of Energy Office of Science",
+          "official_url": "https://science.osti.gov/ascr",
+          "purpose": "Process-systems and high-performance systems benchmark framing",
+          "route_id": "SYS_ROUTE_002"
+        }
+      ],
+      "prediction_declared_case_total": 30,
+      "quantitative_acceptance_thresholds": {
+        "brier_score_max": 0.08,
+        "coverage_ratio_required": 1.0,
+        "critical_failure_f1_min": 0.87,
+        "critical_failure_precision_min": 0.85,
+        "critical_failure_recall_min": 0.9,
+        "expected_calibration_error_max": 0.05,
+        "policy_snapshot": {
+          "benchmark_residual_policy": {
+            "critical_residual_sigma_threshold": 2.5,
+            "schema_id": "LOGION_BENCHMARK_RESIDUAL_POLICY_v1",
+            "severe_residual_sigma_threshold": 1.5
+          },
+          "prediction_accuracy_policy": {
+            "brier_score_max": 0.08,
+            "cases_total_required": 30,
+            "coverage_ratio_required": 1.0,
+            "critical_failure_f1_min": 0.87,
+            "critical_failure_precision_min": 0.85,
+            "critical_failure_recall_min": 0.9,
+            "expected_calibration_error_max": 0.05,
+            "schema_id": "LOGION_PREDICTION_ACCURACY_POLICY_v2"
+          },
+          "prediction_sigma_policy": {
+            "cases_total_min": 30,
+            "normalized_error_max_max_sigma": 5.0,
+            "normalized_error_mean_abs_max_sigma": 1.0,
+            "normalized_error_p95_max_sigma": 2.5,
+            "schema_id": "LOGION_PREDICTION_SIGMA_POLICY_v1",
+            "tail_breach_count_max": 0
+          }
+        },
+        "tail_breach_count_max": 0
+      },
+      "quantitative_pass_result": "PASS",
+      "replay_command_ref": "validation/run_all.py --qa-only (public replay umbrella; domain: SYSTEMS_CIVILIZATIONAL_PROJECTION)",
+      "replay_status": "PASS_REPLAYABLE",
+      "refs": [
+        "releases/oc_core_1_3/editorial/OC_CORE_1_3_SCIENCE_SPOT_latest.json",
+        "releases/oc_core_1_3/editorial/DOMAIN_EMPIRICAL_EXECUTION_PROTOCOLS_latest.json",
+        "releases/oc_core_1_3/editorial/EMPIRICAL_DOMAIN_VALIDATION_MATRIX_latest.json"
+      ],
+      "target_state": "VALIDATED_ANCHOR_ACTIVE"
+    }
+  ],
+  "schema_id": "DOMAIN_HARD_CLOSURE_EXECUTION_PROGRAM_v1",
+  "status": "PASS",
+  "summary": {
+    "checked_domain_total": 5,
+    "validated_anchor_total": 5,
+    "bridge_only_fail_closed_total": 0,
+    "target_theorem_native_total": 0
+  }
+}

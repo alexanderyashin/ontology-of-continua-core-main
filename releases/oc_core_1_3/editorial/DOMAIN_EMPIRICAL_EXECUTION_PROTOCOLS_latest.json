@@ -1,0 +1,620 @@
+{
+  "metadata": {
+    "repo_sha": "9d95428f16975d809a2bad52ac29c202941d17a0",
+    "script": "tools/build_oc_core_1_3_science_spot.py",
+    "surface": "releases/oc_core_1_3/editorial/DOMAIN_EMPIRICAL_EXECUTION_PROTOCOLS_latest.json",
+    "ts_utc": "2026-05-08T14:40:24Z"
+  },
+  "policy_refs": [
+    "releases/oc_core_1_3/editorial/OC_CORE_1_3_SCIENCE_SPOT_latest.json"
+  ],
+  "rows": [
+    {
+      "benchmark_design": {
+        "held_out_policy": "DETERMINISTIC_COUNTEREXAMPLE_AND_TRACE_REPLAY",
+        "minimum_cases_total": 31,
+        "out_of_sample_required": false
+      },
+      "benchmark_wave_id": "WAVE_0_ANCHOR",
+      "blocking_ids": [],
+      "current_state": "VALIDATED_ANCHOR_ACTIVE",
+      "domain_id": "MATHEMATICS",
+      "domain_title": "Mathematics",
+      "evidence_bar": "HYBRID_ESCALATION",
+      "execution_basis_class": "CANONICAL_ANCHOR_REPLAY",
+      "execution_readiness_status": "PASS",
+      "execution_scope": "DETERMINISTIC_EXACT_REPLAY",
+      "closure_bundle_id": "CLOSURE_BUNDLE::MATHEMATICS",
+      "program_phase_id": "PHASE_1_STABILIZE_CLOSED_CORE",
+      "launch_rule": "MAINTAIN_ALWAYS_ON",
+      "closure_gain_per_cost": 116.666667,
+      "institute_run_escalation": {
+        "current_status": "NOT_REQUIRED",
+        "default_status": "NOT_REQUIRED",
+        "escalation_trigger": "ONLY_IF_DETERMINISTIC_REPLAY_BREAKS",
+        "measurement_plan_summary": "Expand the exact-question corpus instead of broadening claims.",
+        "measurement_wave_id": ""
+      },
+      "numerical_packet_status": "PASS_ACTIVE_NUMERICAL_PACKET",
+      "official_coverage_summary": {},
+      "official_metrics_summary": {},
+      "official_route_refs": [
+        {
+          "authority_class": "OFFICIAL_PROBLEM_CATALOG",
+          "institution": "Clay Mathematics Institute",
+          "official_url": "https://www.claymath.org/millennium-problems/",
+          "purpose": "Exact benchmark anchor catalog",
+          "route_id": "MATH_ROUTE_001"
+        },
+        {
+          "authority_class": "OFFICIAL_PROBLEM_CATALOG",
+          "institution": "American Institute of Mathematics",
+          "official_url": "https://aimath.org/problemlists/",
+          "purpose": "Supplementary exact-question corpus",
+          "route_id": "MATH_ROUTE_002"
+        }
+      ],
+      "official_source_status": "PASS",
+      "protocol_id": "OC13::EXECUTION::MATHEMATICS::ANCHOR_REPLAY",
+      "proxy_basis_allowed_for_dev_visibility": null,
+      "proxy_basis_pass_eligible": null,
+      "proxy_metrics_summary": {},
+      "quantitative_acceptance_thresholds": {
+        "counterexample_survivor_total_max": 0,
+        "policy_snapshot": {
+          "benchmark_residual_policy": {
+            "critical_residual_sigma_threshold": 2.5,
+            "schema_id": "LOGION_BENCHMARK_RESIDUAL_POLICY_v1",
+            "severe_residual_sigma_threshold": 1.5
+          },
+          "prediction_accuracy_policy": {
+            "brier_score_max": 0.08,
+            "cases_total_required": 30,
+            "coverage_ratio_required": 1.0,
+            "critical_failure_f1_min": 0.87,
+            "critical_failure_precision_min": 0.85,
+            "critical_failure_recall_min": 0.9,
+            "expected_calibration_error_max": 0.05,
+            "schema_id": "LOGION_PREDICTION_ACCURACY_POLICY_v2"
+          },
+          "prediction_sigma_policy": {
+            "cases_total_min": 30,
+            "normalized_error_max_max_sigma": 5.0,
+            "normalized_error_mean_abs_max_sigma": 1.0,
+            "normalized_error_p95_max_sigma": 2.5,
+            "schema_id": "LOGION_PREDICTION_SIGMA_POLICY_v1",
+            "tail_breach_count_max": 0
+          }
+        },
+        "replay_divergence_total_max": 0,
+        "strict_terminalized_total_min": 31
+      },
+      "refs": [
+        "releases/oc_core_1_3/editorial/OC_CORE_1_3_SCIENCE_SPOT_latest.json",
+        "releases/oc_core_1_3/editorial/DOMAIN_EXTERNAL_DATA_MANIFEST_latest.json",
+        "releases/oc_core_1_3/editorial/DOMAIN_NUMERICAL_PACKET_REGISTRY_latest.json",
+        "releases/oc_core_1_3/editorial/PREDICTION_REPLAY_LEDGER_latest.json"
+      ],
+      "replay_harness": {
+        "command_ref": "simulations/run_all.py",
+        "deterministic_replay_required": true,
+        "output_schema": "OC_STRICT_MATHEMATICS_REPLAY_OUTPUT_v1"
+      },
+      "replay_status": "PASS_REPLAYABLE",
+      "scientific_class": "THEOREM_NATIVE",
+      "trace_status": "TRACE_COMPLETE",
+      "evidence_status": "EVIDENCE_COMPLETE",
+      "closure_verdict": "PASS"
+    },
+    {
+      "benchmark_design": {
+        "held_out_policy": "LEAVE_ONE_BENCHMARK_FAMILY_OUT",
+        "minimum_cases_total": 30,
+        "out_of_sample_required": true
+      },
+      "benchmark_wave_id": "WAVE_1_PHYSICS",
+      "blocking_ids": [],
+      "current_state": "VALIDATED_ANCHOR_ACTIVE",
+      "domain_id": "PHYSICS",
+      "domain_title": "Physics",
+      "evidence_bar": "HYBRID_ESCALATION",
+      "execution_basis_class": "PARTIAL_OFFICIAL_PRIMARY_DATA",
+      "execution_readiness_status": "PASS",
+      "execution_scope": "BOUNDED_OFFICIAL_CONSTANTS_SPECTRA_AND_TRANSPORT",
+      "closure_bundle_id": "CLOSURE_BUNDLE::PHYSICS",
+      "program_phase_id": "PHASE_3_PHYSICS_CLOSURE",
+      "launch_rule": "START_IMMEDIATELY_AFTER_PHASE_1",
+      "closure_gain_per_cost": 64.8,
+      "institute_run_escalation": {
+        "current_status": "NOT_REQUIRED_UNLESS_NEW_OBSERVABLE_FAMILY_ENTERS",
+        "default_status": "STAND_BY_FOR_INSTITUTE_RUN_MEASUREMENT_IF_OPEN_DATA_IS_INSUFFICIENT",
+        "escalation_trigger": "OPEN_DATA_COVERAGE_LT_1_0_OR_HELD_OUT_CASES_LT_30_OR_RESIDUAL_BREACH_PERSISTS",
+        "measurement_plan_summary": "Acquire partner or institute-run measurements for the missing observable family and rerun the held-out replay packet without widening scope.",
+        "measurement_wave_id": "INSTITUTE_RUN::PHYSICS::WAVE_1A"
+      },
+      "numerical_packet_status": "PASS_ACTIVE_NUMERICAL_PACKET",
+      "official_coverage_summary": {
+        "benchmark_total": 3,
+        "covered_benchmark_ratio": 1.0,
+        "covered_benchmark_total": 3,
+        "full_coverage_benchmark_ratio": 1.0,
+        "full_coverage_benchmark_total": 3
+      },
+      "official_metrics_summary": {
+        "benchmark_total": 3,
+        "covered_benchmark_ratio": 1.0,
+        "covered_benchmark_total": 3,
+        "covered_case_total": 30,
+        "covered_held_out_case_total": 20,
+        "critical_case_total": 0,
+        "full_coverage_benchmark_ratio": 1.0,
+        "full_coverage_benchmark_total": 3,
+        "normalized_error_max": 1.48,
+        "normalized_error_mean_abs": 0.188136,
+        "normalized_error_p95": 0.64778,
+        "severe_case_total": 0,
+        "tail_breach_count": 0
+      },
+      "official_route_refs": [
+        {
+          "authority_class": "OFFICIAL_CONSTANTS_PORTAL",
+          "institution": "NIST",
+          "official_url": "https://physics.nist.gov/cuu/Constants/index.html",
+          "purpose": "Pinned constants and CODATA reference values",
+          "route_id": "PHY_ROUTE_001"
+        },
+        {
+          "authority_class": "OFFICIAL_SPECTRA_DATABASE",
+          "institution": "NIST",
+          "official_url": "https://physics.nist.gov/PhysRefData/ASD/lines_form.html",
+          "purpose": "Pinned spectral benchmark families",
+          "route_id": "PHY_ROUTE_002"
+        },
+        {
+          "authority_class": "OFFICIAL_CHALLENGE_PROGRAM",
+          "institution": "U.S. Department of Energy Office of Science",
+          "official_url": "https://science.osti.gov/ascr",
+          "purpose": "Transport or plasma-scale challenge framing and official program context",
+          "route_id": "PHY_ROUTE_003"
+        }
+      ],
+      "official_source_status": "PASS",
+      "protocol_id": "OC13::EXECUTION::PHYSICS::CONSTANTS_SPECTRA_TRANSPORT",
+      "proxy_basis_allowed_for_dev_visibility": null,
+      "proxy_basis_pass_eligible": null,
+      "proxy_metrics_summary": {},
+      "quantitative_acceptance_thresholds": {
+        "coverage_ratio_required": 1.0,
+        "critical_residual_sigma_threshold": 2.5,
+        "normalized_error_max_max_sigma": 5.0,
+        "normalized_error_mean_abs_max_sigma": 1.0,
+        "normalized_error_p95_max_sigma": 2.5,
+        "policy_snapshot": {
+          "benchmark_residual_policy": {
+            "critical_residual_sigma_threshold": 2.5,
+            "schema_id": "LOGION_BENCHMARK_RESIDUAL_POLICY_v1",
+            "severe_residual_sigma_threshold": 1.5
+          },
+          "prediction_accuracy_policy": {
+            "brier_score_max": 0.08,
+            "cases_total_required": 30,
+            "coverage_ratio_required": 1.0,
+            "critical_failure_f1_min": 0.87,
+            "critical_failure_precision_min": 0.85,
+            "critical_failure_recall_min": 0.9,
+            "expected_calibration_error_max": 0.05,
+            "schema_id": "LOGION_PREDICTION_ACCURACY_POLICY_v2"
+          },
+          "prediction_sigma_policy": {
+            "cases_total_min": 30,
+            "normalized_error_max_max_sigma": 5.0,
+            "normalized_error_mean_abs_max_sigma": 1.0,
+            "normalized_error_p95_max_sigma": 2.5,
+            "schema_id": "LOGION_PREDICTION_SIGMA_POLICY_v1",
+            "tail_breach_count_max": 0
+          }
+        },
+        "severe_residual_sigma_threshold": 1.5,
+        "tail_breach_count_max": 0
+      },
+      "refs": [
+        "releases/oc_core_1_3/editorial/OC_CORE_1_3_SCIENCE_SPOT_latest.json",
+        "releases/oc_core_1_3/editorial/DOMAIN_EXTERNAL_DATA_MANIFEST_latest.json",
+        "releases/oc_core_1_3/editorial/DOMAIN_NUMERICAL_PACKET_REGISTRY_latest.json",
+        "releases/oc_core_1_3/editorial/PREDICTION_REPLAY_LEDGER_latest.json"
+      ],
+      "replay_harness": {
+        "command_ref": "validation/run_all.py --qa-only (public replay umbrella; domain: PHYSICS)",
+        "deterministic_replay_required": true,
+        "output_schema": "OC_CORE_DOMAIN_HARD_CLOSURE_REPLAY_REPORT_v1"
+      },
+      "replay_status": "PASS_REPLAYABLE",
+      "scientific_class": "THEOREM_NATIVE",
+      "trace_status": "TRACE_COMPLETE",
+      "evidence_status": "EVIDENCE_COMPLETE",
+      "closure_verdict": "PASS"
+    },
+    {
+      "benchmark_design": {
+        "held_out_policy": "HOLD_OUT_ONE_COMPOUND_OR_REACTION_CLASS",
+        "minimum_cases_total": 30,
+        "out_of_sample_required": true
+      },
+      "benchmark_wave_id": "WAVE_2_CHEMISTRY",
+      "blocking_ids": [],
+      "current_state": "VALIDATED_ANCHOR_ACTIVE",
+      "domain_id": "CHEMISTRY",
+      "domain_title": "Chemistry",
+      "evidence_bar": "HYBRID_ESCALATION",
+      "execution_basis_class": "PARTIAL_OFFICIAL_PRIMARY_DATA",
+      "execution_readiness_status": "PASS",
+      "execution_scope": "BOUNDED_OFFICIAL_THERMOCHEMISTRY_SPECTRA_AND_KINETICS",
+      "closure_bundle_id": "CLOSURE_BUNDLE::CHEMISTRY",
+      "program_phase_id": "PHASE_4_CHEMISTRY_CLOSURE",
+      "launch_rule": "START_AFTER_PHYSICS_THEOREM_PACKET_LOCKS",
+      "closure_gain_per_cost": 32.0,
+      "institute_run_escalation": {
+        "current_status": "NOT_REQUIRED_UNLESS_NEW_OBSERVABLE_FAMILY_ENTERS",
+        "default_status": "STAND_BY_FOR_INSTITUTE_RUN_MEASUREMENT_IF_OPEN_DATA_IS_INSUFFICIENT",
+        "escalation_trigger": "OPEN_DATA_COVERAGE_LT_1_0_OR_HELD_OUT_CASES_LT_30_OR_RESIDUAL_BREACH_PERSISTS",
+        "measurement_plan_summary": "Acquire targeted laboratory or partner measurements for unsupported thermochemical, spectral, or kinetic families before any positive promotion.",
+        "measurement_wave_id": "INSTITUTE_RUN::CHEMISTRY::WAVE_2A"
+      },
+      "numerical_packet_status": "PASS_ACTIVE_NUMERICAL_PACKET",
+      "official_coverage_summary": {
+        "benchmark_total": 3,
+        "covered_benchmark_ratio": 1.0,
+        "covered_benchmark_total": 3,
+        "full_coverage_benchmark_ratio": 1.0,
+        "full_coverage_benchmark_total": 3
+      },
+      "official_metrics_summary": {
+        "benchmark_total": 3,
+        "covered_benchmark_ratio": 1.0,
+        "covered_benchmark_total": 3,
+        "covered_case_total": 30,
+        "covered_held_out_case_total": 19,
+        "critical_case_total": 0,
+        "full_coverage_benchmark_ratio": 1.0,
+        "full_coverage_benchmark_total": 3,
+        "normalized_error_max": 1.597772,
+        "normalized_error_mean_abs": 0.533285,
+        "normalized_error_p95": 1.0,
+        "severe_case_total": 1,
+        "tail_breach_count": 0
+      },
+      "official_route_refs": [
+        {
+          "authority_class": "OFFICIAL_CHEMISTRY_REFERENCE",
+          "institution": "NIST",
+          "official_url": "https://webbook.nist.gov/chemistry/",
+          "purpose": "Thermochemistry and spectroscopy reference tables",
+          "route_id": "CHEM_ROUTE_001"
+        },
+        {
+          "authority_class": "OFFICIAL_CHALLENGE_PROGRAM",
+          "institution": "U.S. Department of Energy Office of Science",
+          "official_url": "https://science.osti.gov/bes/efrc/Research/Grand-Challenges",
+          "purpose": "Grand-challenge chemistry benchmark framing",
+          "route_id": "CHEM_ROUTE_002"
+        }
+      ],
+      "official_source_status": "PASS",
+      "protocol_id": "OC13::EXECUTION::CHEMISTRY::THERMOCHEMISTRY_SPECTRA_KINETICS",
+      "proxy_basis_allowed_for_dev_visibility": null,
+      "proxy_basis_pass_eligible": null,
+      "proxy_metrics_summary": {},
+      "quantitative_acceptance_thresholds": {
+        "coverage_ratio_required": 1.0,
+        "critical_residual_sigma_threshold": 2.5,
+        "normalized_error_max_max_sigma": 5.0,
+        "normalized_error_mean_abs_max_sigma": 1.0,
+        "normalized_error_p95_max_sigma": 2.5,
+        "policy_snapshot": {
+          "benchmark_residual_policy": {
+            "critical_residual_sigma_threshold": 2.5,
+            "schema_id": "LOGION_BENCHMARK_RESIDUAL_POLICY_v1",
+            "severe_residual_sigma_threshold": 1.5
+          },
+          "prediction_accuracy_policy": {
+            "brier_score_max": 0.08,
+            "cases_total_required": 30,
+            "coverage_ratio_required": 1.0,
+            "critical_failure_f1_min": 0.87,
+            "critical_failure_precision_min": 0.85,
+            "critical_failure_recall_min": 0.9,
+            "expected_calibration_error_max": 0.05,
+            "schema_id": "LOGION_PREDICTION_ACCURACY_POLICY_v2"
+          },
+          "prediction_sigma_policy": {
+            "cases_total_min": 30,
+            "normalized_error_max_max_sigma": 5.0,
+            "normalized_error_mean_abs_max_sigma": 1.0,
+            "normalized_error_p95_max_sigma": 2.5,
+            "schema_id": "LOGION_PREDICTION_SIGMA_POLICY_v1",
+            "tail_breach_count_max": 0
+          }
+        },
+        "severe_residual_sigma_threshold": 1.5,
+        "tail_breach_count_max": 0
+      },
+      "refs": [
+        "releases/oc_core_1_3/editorial/OC_CORE_1_3_SCIENCE_SPOT_latest.json",
+        "releases/oc_core_1_3/editorial/DOMAIN_EXTERNAL_DATA_MANIFEST_latest.json",
+        "releases/oc_core_1_3/editorial/DOMAIN_NUMERICAL_PACKET_REGISTRY_latest.json",
+        "releases/oc_core_1_3/editorial/PREDICTION_REPLAY_LEDGER_latest.json"
+      ],
+      "replay_harness": {
+        "command_ref": "validation/run_all.py --qa-only (public replay umbrella; domain: CHEMISTRY)",
+        "deterministic_replay_required": true,
+        "output_schema": "OC_CORE_DOMAIN_HARD_CLOSURE_REPLAY_REPORT_v1"
+      },
+      "replay_status": "PASS_REPLAYABLE",
+      "scientific_class": "THEOREM_NATIVE",
+      "trace_status": "TRACE_COMPLETE",
+      "evidence_status": "EVIDENCE_COMPLETE",
+      "closure_verdict": "PASS"
+    },
+    {
+      "benchmark_design": {
+        "held_out_policy": "RESERVE_ONE_DATASET_FAMILY_PER_SIGNATURE_CLASS",
+        "minimum_cases_total": 30,
+        "out_of_sample_required": true
+      },
+      "benchmark_wave_id": "WAVE_3_BIOLOGY",
+      "blocking_ids": [],
+      "current_state": "VALIDATED_ANCHOR_ACTIVE",
+      "domain_id": "BIOLOGY",
+      "domain_title": "Biology",
+      "evidence_bar": "HYBRID_ESCALATION",
+      "execution_basis_class": "OFFICIAL_OPEN_PRIMARY_DATA",
+      "execution_readiness_status": "PASS",
+      "execution_scope": "BOUNDED_OPEN_ASSAY_STATE_TRANSITION_LANE",
+      "closure_bundle_id": "CLOSURE_BUNDLE::BIOLOGY",
+      "program_phase_id": "PHASE_5_BIOLOGY_CLOSURE",
+      "launch_rule": "START_AFTER_CHEMISTRY_THEOREM_PACKET_LOCKS",
+      "closure_gain_per_cost": 17.818182,
+      "institute_run_escalation": {
+        "current_status": "NOT_REQUIRED_UNLESS_NEW_OBSERVABLE_FAMILY_ENTERS",
+        "default_status": "STAND_BY_FOR_INSTITUTE_RUN_MEASUREMENT_IF_OPEN_DATA_IS_INSUFFICIENT",
+        "escalation_trigger": "OPEN_DATA_COVERAGE_LT_1_0_OR_HELD_OUT_CASES_LT_30_OR_SIGNATURE_CLASS_UNDERCONSTRAINED",
+        "measurement_plan_summary": "Run a bounded institute observation or assay campaign only for the explicitly declared biological lane; no widening of biological scope is allowed.",
+        "measurement_wave_id": "INSTITUTE_RUN::BIOLOGY::WAVE_3A"
+      },
+      "numerical_packet_status": "PASS_ACTIVE_NUMERICAL_PACKET",
+      "official_coverage_summary": {
+        "benchmark_total": 3,
+        "covered_benchmark_ratio": 1.0,
+        "covered_benchmark_total": 3,
+        "full_coverage_benchmark_ratio": 1.0,
+        "full_coverage_benchmark_total": 3
+      },
+      "official_metrics_summary": {
+        "benchmark_total": 3,
+        "calibration_case_total": 16,
+        "covered_benchmark_ratio": 1.0,
+        "covered_benchmark_total": 3,
+        "covered_case_total": 30,
+        "covered_held_out_case_total": 16,
+        "critical_case_total": 0,
+        "full_coverage_benchmark_ratio": 1.0,
+        "full_coverage_benchmark_total": 3,
+        "held_out_evaluated_case_total": 16,
+        "normalized_error_max": 1.438582,
+        "normalized_error_mean_abs": 0.444222,
+        "normalized_error_p95": 1.030033,
+        "severe_case_total": 0,
+        "tail_breach_count": 0
+      },
+      "official_route_refs": [
+        {
+          "authority_class": "OFFICIAL_OPEN_DATA_HUB",
+          "institution": "NCBI GEO",
+          "official_url": "https://www.ncbi.nlm.nih.gov/geo/",
+          "purpose": "Open assay and expression benchmark families",
+          "route_id": "BIO_ROUTE_001"
+        }
+      ],
+      "official_source_status": "PASS",
+      "protocol_id": "OC13::EXECUTION::BIOLOGY::STATE_TRANSITIONS_AND_RESPONSE_SIGNATURES",
+      "proxy_basis_allowed_for_dev_visibility": null,
+      "proxy_basis_pass_eligible": null,
+      "proxy_metrics_summary": {},
+      "quantitative_acceptance_thresholds": {
+        "coverage_ratio_required": 1.0,
+        "expected_calibration_error_max": 0.05,
+        "normalized_error_max_max_sigma": 5.0,
+        "normalized_error_mean_abs_max_sigma": 1.0,
+        "normalized_error_p95_max_sigma": 2.5,
+        "policy_snapshot": {
+          "benchmark_residual_policy": {
+            "critical_residual_sigma_threshold": 2.5,
+            "schema_id": "LOGION_BENCHMARK_RESIDUAL_POLICY_v1",
+            "severe_residual_sigma_threshold": 1.5
+          },
+          "prediction_accuracy_policy": {
+            "brier_score_max": 0.08,
+            "cases_total_required": 30,
+            "coverage_ratio_required": 1.0,
+            "critical_failure_f1_min": 0.87,
+            "critical_failure_precision_min": 0.85,
+            "critical_failure_recall_min": 0.9,
+            "expected_calibration_error_max": 0.05,
+            "schema_id": "LOGION_PREDICTION_ACCURACY_POLICY_v2"
+          },
+          "prediction_sigma_policy": {
+            "cases_total_min": 30,
+            "normalized_error_max_max_sigma": 5.0,
+            "normalized_error_mean_abs_max_sigma": 1.0,
+            "normalized_error_p95_max_sigma": 2.5,
+            "schema_id": "LOGION_PREDICTION_SIGMA_POLICY_v1",
+            "tail_breach_count_max": 0
+          }
+        },
+        "tail_breach_count_max": 0
+      },
+      "refs": [
+        "releases/oc_core_1_3/editorial/OC_CORE_1_3_SCIENCE_SPOT_latest.json",
+        "releases/oc_core_1_3/editorial/DOMAIN_EXTERNAL_DATA_MANIFEST_latest.json",
+        "releases/oc_core_1_3/editorial/DOMAIN_NUMERICAL_PACKET_REGISTRY_latest.json",
+        "releases/oc_core_1_3/editorial/PREDICTION_REPLAY_LEDGER_latest.json"
+      ],
+      "replay_harness": {
+        "command_ref": "validation/run_all.py --qa-only (public replay umbrella; domain: BIOLOGY)",
+        "deterministic_replay_required": true,
+        "output_schema": "OC_CORE_DOMAIN_HARD_CLOSURE_REPLAY_REPORT_v1"
+      },
+      "replay_status": "PASS_REPLAYABLE",
+      "scientific_class": "THEOREM_NATIVE",
+      "trace_status": "TRACE_COMPLETE",
+      "evidence_status": "EVIDENCE_COMPLETE",
+      "closure_verdict": "PASS"
+    },
+    {
+      "benchmark_design": {
+        "held_out_policy": "HELD_OUT_INTERVAL_REPLAY_WITH_TURNING_POINT_CHECKS",
+        "minimum_cases_total": 30,
+        "out_of_sample_required": true
+      },
+      "benchmark_wave_id": "WAVE_4_SYSTEMS",
+      "blocking_ids": [],
+      "current_state": "VALIDATED_ANCHOR_ACTIVE",
+      "domain_id": "SYSTEMS_CIVILIZATIONAL_PROJECTION",
+      "domain_title": "Systems / Civilizational projection",
+      "evidence_bar": "HYBRID_ESCALATION",
+      "execution_basis_class": "OFFICIAL_OPEN_PRIMARY_DATA",
+      "execution_readiness_status": "PASS",
+      "execution_scope": "BOUNDED_MACRO_PROCESS_AND_HELD_OUT_INTERVAL_REPLAY",
+      "closure_bundle_id": "CLOSURE_BUNDLE::SYSTEMS_CIVILIZATIONAL_PROJECTION",
+      "program_phase_id": "PHASE_6_SYSTEMS_CLOSURE",
+      "launch_rule": "ALLOW_PARALLEL_DATA_PREP_AFTER_CHEMISTRY_BUT_FINAL_PROMOTION_AFTER_BIOLOGY_FORMAL_ROUTE",
+      "closure_gain_per_cost": 16.615385,
+      "institute_run_escalation": {
+        "current_status": "NOT_REQUIRED_UNLESS_NEW_OBSERVABLE_FAMILY_ENTERS",
+        "default_status": "STAND_BY_FOR_INSTITUTE_RUN_MEASUREMENT_IF_OPEN_DATA_IS_INSUFFICIENT",
+        "escalation_trigger": "OPEN_DATA_COVERAGE_LT_1_0_OR_HELD_OUT_INTERVAL_COUNT_LT_30_OR_TURNING_POINT_BREACH_PERSISTS",
+        "measurement_plan_summary": "Acquire partner or institute-run observation programs for the missing macro-process lane and rerun the held-out interval evaluation without broadening civilizational claims.",
+        "measurement_wave_id": "INSTITUTE_RUN::SYSTEMS::WAVE_4A"
+      },
+      "numerical_packet_status": "PASS_ACTIVE_NUMERICAL_PACKET",
+      "official_coverage_summary": {
+        "benchmark_total": 3,
+        "covered_benchmark_ratio": 1.0,
+        "covered_benchmark_total": 3,
+        "full_coverage_benchmark_ratio": 1.0,
+        "full_coverage_benchmark_total": 3
+      },
+      "official_metrics_summary": {
+        "benchmark_total": 3,
+        "brier_score": 0.008333,
+        "calibration_case_total": 12,
+        "covered_benchmark_ratio": 1.0,
+        "covered_benchmark_total": 3,
+        "covered_case_total": 30,
+        "covered_held_out_case_total": 18,
+        "critical_case_total": 0,
+        "critical_failure_f1": 0.989691,
+        "critical_failure_precision": 1.0,
+        "critical_failure_recall": 0.979592,
+        "event_total": 120,
+        "expected_calibration_error": 0.008333,
+        "fn": 1,
+        "fp": 0,
+        "full_coverage_benchmark_ratio": 1.0,
+        "full_coverage_benchmark_total": 3,
+        "held_out_evaluated_case_total": 18,
+        "mean_turning_point_error": 0.016667,
+        "normalized_error_max": 2.25395,
+        "normalized_error_mean_abs": 0.56097,
+        "normalized_error_p95": 1.924704,
+        "severe_case_total": 2,
+        "tail_breach_count": 0,
+        "tn": 71,
+        "tp": 48
+      },
+      "official_route_refs": [
+        {
+          "authority_class": "OFFICIAL_OPEN_DATA_API_DOCS",
+          "institution": "World Bank",
+          "official_url": "https://datahelpdesk.worldbank.org/knowledgebase/articles/889392-about-the-indicators-api-documentation",
+          "purpose": "Pinned macro indicator route and API semantics",
+          "route_id": "SYS_ROUTE_001"
+        },
+        {
+          "authority_class": "OFFICIAL_CHALLENGE_PROGRAM",
+          "institution": "U.S. Department of Energy Office of Science",
+          "official_url": "https://science.osti.gov/ascr",
+          "purpose": "Process-systems and high-performance systems benchmark framing",
+          "route_id": "SYS_ROUTE_002"
+        }
+      ],
+      "official_source_status": "PASS",
+      "protocol_id": "OC13::EXECUTION::SYSTEMS::MACRO_TRAJECTORIES_AND_REGIME_SHIFTS",
+      "proxy_basis_allowed_for_dev_visibility": null,
+      "proxy_basis_pass_eligible": null,
+      "proxy_metrics_summary": {},
+      "quantitative_acceptance_thresholds": {
+        "brier_score_max": 0.08,
+        "coverage_ratio_required": 1.0,
+        "critical_failure_f1_min": 0.87,
+        "critical_failure_precision_min": 0.85,
+        "critical_failure_recall_min": 0.9,
+        "expected_calibration_error_max": 0.05,
+        "policy_snapshot": {
+          "benchmark_residual_policy": {
+            "critical_residual_sigma_threshold": 2.5,
+            "schema_id": "LOGION_BENCHMARK_RESIDUAL_POLICY_v1",
+            "severe_residual_sigma_threshold": 1.5
+          },
+          "prediction_accuracy_policy": {
+            "brier_score_max": 0.08,
+            "cases_total_required": 30,
+            "coverage_ratio_required": 1.0,
+            "critical_failure_f1_min": 0.87,
+            "critical_failure_precision_min": 0.85,
+            "critical_failure_recall_min": 0.9,
+            "expected_calibration_error_max": 0.05,
+            "schema_id": "LOGION_PREDICTION_ACCURACY_POLICY_v2"
+          },
+          "prediction_sigma_policy": {
+            "cases_total_min": 30,
+            "normalized_error_max_max_sigma": 5.0,
+            "normalized_error_mean_abs_max_sigma": 1.0,
+            "normalized_error_p95_max_sigma": 2.5,
+            "schema_id": "LOGION_PREDICTION_SIGMA_POLICY_v1",
+            "tail_breach_count_max": 0
+          }
+        },
+        "tail_breach_count_max": 0
+      },
+      "refs": [
+        "releases/oc_core_1_3/editorial/OC_CORE_1_3_SCIENCE_SPOT_latest.json",
+        "releases/oc_core_1_3/editorial/DOMAIN_EXTERNAL_DATA_MANIFEST_latest.json",
+        "releases/oc_core_1_3/editorial/DOMAIN_NUMERICAL_PACKET_REGISTRY_latest.json",
+        "releases/oc_core_1_3/editorial/PREDICTION_REPLAY_LEDGER_latest.json"
+      ],
+      "replay_harness": {
+        "command_ref": "validation/run_all.py --qa-only (public replay umbrella; domain: SYSTEMS_CIVILIZATIONAL_PROJECTION)",
+        "deterministic_replay_required": true,
+        "output_schema": "OC_CORE_DOMAIN_HARD_CLOSURE_REPLAY_REPORT_v1"
+      },
+      "replay_status": "PASS_REPLAYABLE",
+      "scientific_class": "THEOREM_NATIVE",
+      "trace_status": "TRACE_COMPLETE",
+      "evidence_status": "EVIDENCE_COMPLETE",
+      "closure_verdict": "PASS"
+    }
+  ],
+  "schema_id": "DOMAIN_EMPIRICAL_EXECUTION_PROTOCOLS_v1",
+  "status": "PASS",
+  "summary": {
+    "domain_total": 5,
+    "hard_closed_total": 5,
+    "bridge_only_fail_closed_total": 0,
+    "hybrid_escalation_domain_total": 5,
+    "institute_run_wave_total": 0,
+    "official_partial_execution_complete_total": 0,
+    "proxy_execution_complete_total": 0,
+    "ready_for_execution_total": 5
+  }
+}

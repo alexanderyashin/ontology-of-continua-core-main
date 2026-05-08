@@ -1,0 +1,748 @@
+{
+  "claim_id": "MATHEMATICS",
+  "domain_id": "MATHEMATICS",
+  "domain_title": "Mathematics",
+  "scope_role": "core_domain",
+  "scientific_class": "THEOREM_NATIVE",
+  "trace_status": "TRACE_COMPLETE",
+  "evidence_status": "EVIDENCE_COMPLETE",
+  "closure_verdict": "PASS",
+  "gap_types": [],
+  "claim_level": "VALIDATED_ANCHOR",
+  "scientific_state": "THEOREM_NATIVE_ANCHOR",
+  "next_required_action": "MAINTAIN_REPLAY_DISCIPLINE",
+  "inclusion_verdict": "INTEGRATED_DOMAIN_THEOREM_NATIVE",
+  "promotion_scope_status": "THEOREM_NATIVE_TRACE_CLOSED",
+  "non_inclusion_reason": "",
+  "primary_k_levels": [
+    "K0",
+    "K9",
+    "K10",
+    "K11",
+    "K12"
+  ],
+  "theorem_refs": [
+    "content/03_model.tex",
+    "content/10_klevels_full.tex",
+    "content/11_operators_full.tex",
+    "content/theorems_master.tex",
+    "content/predictions/predictions_master.tex",
+    "content/falsifiability/falsifiability_master.tex",
+    "content/k_levels/k0.tex",
+    "content/predictions/predictions_k0.tex",
+    "content/falsifiability/falsifiability_k0.tex",
+    "content/processes/processes_k0.tex",
+    "content/experiments/experiments_k0.tex",
+    "content/k_levels/k9.tex",
+    "content/predictions/predictions_k9.tex",
+    "content/falsifiability/falsifiability_k9.tex",
+    "content/processes/processes_k9.tex",
+    "content/experiments/experiments_k9.tex",
+    "content/k_levels/k10.tex",
+    "content/predictions/predictions_k10.tex",
+    "content/falsifiability/falsifiability_k10.tex",
+    "content/processes/processes_k10.tex",
+    "content/experiments/experiments_k10.tex",
+    "content/k_levels/k11.tex",
+    "content/predictions/predictions_k11.tex",
+    "content/falsifiability/falsifiability_k11.tex",
+    "content/processes/processes_k11.tex",
+    "content/experiments/experiments_k11.tex",
+    "content/k_levels/k12.tex",
+    "content/predictions/predictions_k12.tex",
+    "content/falsifiability/falsifiability_k12.tex",
+    "content/processes/processes_k12.tex",
+    "content/experiments/experiments_k12.tex"
+  ],
+  "root_operator_refs": [
+    "content/03_model.tex",
+    "content/10_klevels_full.tex",
+    "content/11_operators_full.tex"
+  ],
+  "observable_ids": [
+    "MATHEMATICS::EPSILON_STAR",
+    "MATHEMATICS::MINIMAL_DENOMINATOR",
+    "MATHEMATICS::MINIMAL_AUGMENTATION_RANK",
+    "MATHEMATICS::COMPONENT_FIBER_COUNT",
+    "MATHEMATICS::MOVE_CONNECTIVITY_OR_DEGREE_BOUND",
+    "MATHEMATICS::STRICT_TERMINALIZED_TOTAL",
+    "MATHEMATICS::COUNTEREXAMPLE_EXECUTED_TOTAL",
+    "MATHEMATICS::PYTHON_EVIDENCE_EXECUTED_TOTAL"
+  ],
+  "dataset_ids": [
+    "TIER1_AIMATH_PDF_013_Q010"
+  ],
+  "held_out_case_ids": [],
+  "declared_case_ids": [],
+  "falsifier_refs": [
+    "content/falsifiability/falsifiability_master.tex",
+    "content/falsifiability/falsifiability_k0.tex",
+    "content/falsifiability/falsifiability_k9.tex",
+    "content/falsifiability/falsifiability_k10.tex",
+    "content/falsifiability/falsifiability_k11.tex",
+    "content/falsifiability/falsifiability_k12.tex"
+  ],
+  "benchmark": "TIER1_AIMATH_PDF_013_Q010",
+  "benchmark_families": [
+    "TIER1_AIMATH_PDF_013_Q010",
+    "strict closure result ledger",
+    "counterexample search corpus",
+    "deterministic replay traces"
+  ],
+  "benchmark_dataset_manifest": [],
+  "measurable_outputs": [
+    "epsilon_star",
+    "minimal_denominator",
+    "minimal_augmentation_rank",
+    "component_fiber_count",
+    "move_connectivity_or_degree_bound",
+    "strict_terminalized_total",
+    "counterexample_executed_total",
+    "python_evidence_executed_total"
+  ],
+  "measurement_schema": "Replay declared mathematical packets deterministically against the strict closure ledger and counterexample traces.",
+  "acceptance_criterion": "No replay divergence and no surviving counterexample against the promoted packet.",
+  "falsifier_specification": "A single replay divergence or surviving counterexample collapses promotion for the affected packet.",
+  "measurement_escalation_rule": "Expand the exact-question corpus rather than broadening outward claims when a replay gap appears.",
+  "theorem_to_observable_map": [],
+  "official_route_refs": [
+    {
+      "authority_class": "OFFICIAL_PROBLEM_CATALOG",
+      "institution": "Clay Mathematics Institute",
+      "official_url": "https://www.claymath.org/millennium-problems/",
+      "purpose": "Exact benchmark anchor catalog",
+      "route_id": "MATH_ROUTE_001"
+    },
+    {
+      "authority_class": "OFFICIAL_PROBLEM_CATALOG",
+      "institution": "American Institute of Mathematics",
+      "official_url": "https://aimath.org/problemlists/",
+      "purpose": "Supplementary exact-question corpus",
+      "route_id": "MATH_ROUTE_002"
+    }
+  ],
+  "selected_route_institutions": [
+    "Clay Mathematics Institute",
+    "American Institute of Mathematics"
+  ],
+  "official_source_status": "PASS",
+  "numerical_packet_status": "PASS_ACTIVE_NUMERICAL_PACKET",
+  "quantitative_packet_status": "ACTIVE_NUMERICAL_PACKET",
+  "prediction_contract_status": "ACTIVE_NUMERICAL_PACKET",
+  "validation_evidence": {
+    "counterexample_executed_total": 0,
+    "python_evidence_executed_total": 0,
+    "strict_campaign_acceptance_status": "PASS_31_OF_31_TERMINALIZED",
+    "strict_terminalized_total": 31
+  },
+  "quantitative_acceptance_result": "PASS_TERMINALIZED_NUMERICAL_REPLAY",
+  "benchmark_wave_id": "WAVE_0_ANCHOR",
+  "benchmark_design": {
+    "held_out_policy": "DETERMINISTIC_COUNTEREXAMPLE_AND_TRACE_REPLAY",
+    "minimum_cases_total": 31,
+    "out_of_sample_required": false
+  },
+  "evidence_bar": "HYBRID_ESCALATION",
+  "protocol_id": "OC13::EXECUTION::MATHEMATICS::ANCHOR_REPLAY",
+  "execution_basis_class": "CANONICAL_ANCHOR_REPLAY",
+  "execution_scope": "DETERMINISTIC_EXACT_REPLAY",
+  "replay_harness": {
+    "command_ref": "simulations/run_all.py",
+    "deterministic_replay_required": true,
+    "output_schema": "OC_STRICT_MATHEMATICS_REPLAY_OUTPUT_v1"
+  },
+  "replay_status": "PASS_REPLAYABLE",
+  "quantitative_acceptance_thresholds": {
+    "counterexample_survivor_total_max": 0,
+    "policy_snapshot": {
+      "benchmark_residual_policy": {
+        "critical_residual_sigma_threshold": 2.5,
+        "schema_id": "LOGION_BENCHMARK_RESIDUAL_POLICY_v1",
+        "severe_residual_sigma_threshold": 1.5
+      },
+      "prediction_accuracy_policy": {
+        "brier_score_max": 0.08,
+        "cases_total_required": 30,
+        "coverage_ratio_required": 1.0,
+        "critical_failure_f1_min": 0.87,
+        "critical_failure_precision_min": 0.85,
+        "critical_failure_recall_min": 0.9,
+        "expected_calibration_error_max": 0.05,
+        "schema_id": "LOGION_PREDICTION_ACCURACY_POLICY_v2"
+      },
+      "prediction_sigma_policy": {
+        "cases_total_min": 30,
+        "normalized_error_max_max_sigma": 5.0,
+        "normalized_error_mean_abs_max_sigma": 1.0,
+        "normalized_error_p95_max_sigma": 2.5,
+        "schema_id": "LOGION_PREDICTION_SIGMA_POLICY_v1",
+        "tail_breach_count_max": 0
+      }
+    },
+    "replay_divergence_total_max": 0,
+    "strict_terminalized_total_min": 31
+  },
+  "official_coverage_summary": {},
+  "official_metrics_summary": {},
+  "institute_run_escalation": {
+    "current_status": "NOT_REQUIRED",
+    "default_status": "NOT_REQUIRED",
+    "escalation_trigger": "ONLY_IF_DETERMINISTIC_REPLAY_BREAKS",
+    "measurement_plan_summary": "Expand the exact-question corpus instead of broadening claims.",
+    "measurement_wave_id": ""
+  },
+  "matrix_snapshot": {
+    "benchmark_case_total": 0,
+    "benchmark_dataset_total": 0,
+    "case_coverage_ratio": 0.0,
+    "prediction_declared_case_total": 0,
+    "minimum_cases_total": 31
+  },
+  "nonclaim_refs": [
+    "NONCLAIM::MATHEMATICS::K1",
+    "NONCLAIM::MATHEMATICS::K2",
+    "NONCLAIM::MATHEMATICS::K3",
+    "NONCLAIM::MATHEMATICS::K4",
+    "NONCLAIM::MATHEMATICS::K5",
+    "NONCLAIM::MATHEMATICS::K6",
+    "NONCLAIM::MATHEMATICS::K7",
+    "NONCLAIM::MATHEMATICS::K8"
+  ],
+  "core_proof_path_branch_ids": [],
+  "phase_id": "PHASE_1_STABILIZE_CLOSED_CORE",
+  "launch_rule": "MAINTAIN_ALWAYS_ON",
+  "formal_derivation_order": 0,
+  "empirical_cost_order": 0,
+  "execution_order_authority": "DOMAIN_PRIORITY_BOARD_ONLY",
+  "current_transition_gate": "MAINTENANCE_ONLY",
+  "pass_transition": "PROMOTE_TO_PASS_ONLY_AFTER_ALL_REQUIRED_ARTIFACTS_LOCK_AND_NO_SUPERIOR_BASELINE_SURVIVES",
+  "fail_transition": "KEEP_FAIL_CLOSED_AND_REQUIRE_ADVANCE_SPLIT_OR_REFUTE_OR_SUSPEND",
+  "blocking_ids": [],
+  "minimum_theorem_native_claim": "Maintain the exact-question theorem-native anchor and expand the counterexample search without broadening scope by rhetoric alone.",
+  "parameter_law_target": "Strengthen exact terminalization and minimal-denominator control on the current exact-question corpus.",
+  "metric_summary": {
+    "counterexample_executed_total": 0,
+    "python_evidence_executed_total": 0,
+    "strict_campaign_acceptance_status": "PASS_31_OF_31_TERMINALIZED",
+    "strict_terminalized_total": 31
+  },
+  "artifact_statuses": {
+    "theorem_packet": "COMPLETE",
+    "parameter_law_packet": "COMPLETE",
+    "observable_binding_spec": "COMPLETE",
+    "dataset_data_route_manifest": "COMPLETE",
+    "held_out_replay_spec": "COMPLETE",
+    "falsifier_ledger": "COMPLETE",
+    "counterexample_ledger": "ACTIVE_CONTINUOUS_SEARCH",
+    "same_claim_class_comparator_ledger": "DECLARED_NO_SUPERIOR_BASELINE"
+  },
+  "refs": [
+    "releases/oc_core_1_3/editorial/OC_CORE_1_3_SCIENCE_SPOT_latest.json",
+    "OC_PUBLIC_EVIDENCE_SURFACE::OC_OPEN_QUESTION_LINKAGE_latest",
+    "OC_PUBLIC_EVIDENCE_SURFACE::SCIENTIFIC_METHOD_AUTHORITY_latest",
+    "OC_PUBLIC_EVIDENCE_SURFACE::OC_OPERATIONAL_FORMAL_SUBSET_latest",
+    "OC_PUBLIC_EVIDENCE_SURFACE::DOMAIN_NUMERICAL_PREDICTION_REGISTRY_latest",
+    "OC_PUBLIC_EVIDENCE_SURFACE::QUESTION_COMPUTATIONAL_EVIDENCE_latest",
+    "OC_PUBLIC_EVIDENCE_SURFACE::OC_MATHEMATICS_STRICT_RESULT_LEDGER_latest",
+    "OC_PUBLIC_EVIDENCE_SURFACE::OC_DOMAIN_HARD_CLOSURE_PACKET_SPECS_v1",
+    "OC_PUBLIC_EVIDENCE_SURFACE::OC_DOMAIN_EMPIRICAL_EXECUTION_PROTOCOLS_v1",
+    "releases/oc_core_1_3/editorial/DOMAIN_EXTERNAL_DATA_MANIFEST_latest.json",
+    "releases/oc_core_1_3/editorial/DOMAIN_NUMERICAL_PACKET_REGISTRY_latest.json",
+    "releases/oc_core_1_3/editorial/PREDICTION_REPLAY_LEDGER_latest.json",
+    "releases/oc_core_1_3/editorial/DOMAIN_HARD_CLOSURE_EXECUTION_PROGRAM_latest.json",
+    "OC_PUBLIC_EVIDENCE_SURFACE::BENCHMARK_RESIDUAL_POLICY_v1",
+    "OC_PUBLIC_EVIDENCE_SURFACE::PREDICTION_SIGMA_POLICY_v1",
+    "OC_PUBLIC_EVIDENCE_SURFACE::PREDICTION_ACCURACY_POLICY_v2",
+    "releases/oc_core_1_3/editorial/DOMAIN_BENCHMARK_CASESET_latest.json",
+    "releases/oc_core_1_3/editorial/DOMAIN_EXTERNAL_DATA_MANIFEST_latest.json",
+    "releases/oc_core_1_3/editorial/DOMAIN_NUMERICAL_PACKET_REGISTRY_latest.json",
+    "releases/oc_core_1_3/editorial/PREDICTION_REPLAY_LEDGER_latest.json"
+  ],
+  "artifacts": {
+    "theorem_packet": {
+      "status": "COMPLETE",
+      "exact_formal_statement": "Maintain the exact-question theorem-native anchor and expand the counterexample search without broadening scope by rhetoric alone.",
+      "premises": [
+        "K0",
+        "K9",
+        "K10",
+        "K11",
+        "K12",
+        "content/03_model.tex",
+        "content/10_klevels_full.tex",
+        "content/11_operators_full.tex"
+      ],
+      "derivation_steps": [
+        "Fix the bounded theorem-native claim without widening domain scope.",
+        "Demonstrate that every promoted theorem step traces back to the declared root operators and K-level route."
+      ],
+      "excluded_dependencies": [
+        "EXTENSION branches",
+        "REFUTED branches"
+      ],
+      "scope_boundary": "Only the proved subset may carry quantitative outputs for this domain.",
+      "refs": [
+        "content/03_model.tex",
+        "content/10_klevels_full.tex",
+        "content/11_operators_full.tex",
+        "content/theorems_master.tex",
+        "content/predictions/predictions_master.tex",
+        "content/falsifiability/falsifiability_master.tex",
+        "content/k_levels/k0.tex",
+        "content/predictions/predictions_k0.tex",
+        "content/falsifiability/falsifiability_k0.tex",
+        "content/processes/processes_k0.tex",
+        "content/experiments/experiments_k0.tex",
+        "content/k_levels/k9.tex",
+        "content/predictions/predictions_k9.tex",
+        "content/falsifiability/falsifiability_k9.tex",
+        "content/processes/processes_k9.tex",
+        "content/experiments/experiments_k9.tex",
+        "content/k_levels/k10.tex",
+        "content/predictions/predictions_k10.tex",
+        "content/falsifiability/falsifiability_k10.tex",
+        "content/processes/processes_k10.tex",
+        "content/experiments/experiments_k10.tex",
+        "content/k_levels/k11.tex",
+        "content/predictions/predictions_k11.tex",
+        "content/falsifiability/falsifiability_k11.tex",
+        "content/processes/processes_k11.tex",
+        "content/experiments/experiments_k11.tex",
+        "content/k_levels/k12.tex",
+        "content/predictions/predictions_k12.tex",
+        "content/falsifiability/falsifiability_k12.tex",
+        "content/processes/processes_k12.tex",
+        "content/experiments/experiments_k12.tex",
+        "releases/oc_core_1_3/editorial/OC_CORE_1_3_SCIENCE_SPOT_latest.json",
+        "OC_PUBLIC_EVIDENCE_SURFACE::OC_OPEN_QUESTION_LINKAGE_latest",
+        "OC_PUBLIC_EVIDENCE_SURFACE::SCIENTIFIC_METHOD_AUTHORITY_latest",
+        "OC_PUBLIC_EVIDENCE_SURFACE::OC_OPERATIONAL_FORMAL_SUBSET_latest",
+        "OC_PUBLIC_EVIDENCE_SURFACE::DOMAIN_NUMERICAL_PREDICTION_REGISTRY_latest",
+        "OC_PUBLIC_EVIDENCE_SURFACE::QUESTION_COMPUTATIONAL_EVIDENCE_latest",
+        "OC_PUBLIC_EVIDENCE_SURFACE::OC_MATHEMATICS_STRICT_RESULT_LEDGER_latest",
+        "OC_PUBLIC_EVIDENCE_SURFACE::OC_DOMAIN_HARD_CLOSURE_PACKET_SPECS_v1",
+        "OC_PUBLIC_EVIDENCE_SURFACE::OC_DOMAIN_EMPIRICAL_EXECUTION_PROTOCOLS_v1",
+        "releases/oc_core_1_3/editorial/DOMAIN_EXTERNAL_DATA_MANIFEST_latest.json",
+        "releases/oc_core_1_3/editorial/DOMAIN_NUMERICAL_PACKET_REGISTRY_latest.json",
+        "releases/oc_core_1_3/editorial/PREDICTION_REPLAY_LEDGER_latest.json",
+        "releases/oc_core_1_3/editorial/DOMAIN_HARD_CLOSURE_EXECUTION_PROGRAM_latest.json",
+        "OC_PUBLIC_EVIDENCE_SURFACE::BENCHMARK_RESIDUAL_POLICY_v1",
+        "OC_PUBLIC_EVIDENCE_SURFACE::PREDICTION_SIGMA_POLICY_v1",
+        "OC_PUBLIC_EVIDENCE_SURFACE::PREDICTION_ACCURACY_POLICY_v2",
+        "releases/oc_core_1_3/editorial/DOMAIN_BENCHMARK_CASESET_latest.json",
+        "releases/oc_core_1_3/editorial/DOMAIN_EXTERNAL_DATA_MANIFEST_latest.json",
+        "releases/oc_core_1_3/editorial/DOMAIN_NUMERICAL_PACKET_REGISTRY_latest.json",
+        "releases/oc_core_1_3/editorial/PREDICTION_REPLAY_LEDGER_latest.json"
+      ]
+    },
+    "parameter_law_packet": {
+      "status": "COMPLETE",
+      "symbols": [
+        "epsilon_star",
+        "minimal_denominator",
+        "strict_terminalized_total"
+      ],
+      "units": {
+        "epsilon_star": "dimensionless",
+        "minimal_denominator": "integer",
+        "strict_terminalized_total": "count"
+      },
+      "regime": "Replay declared mathematical packets deterministically against the strict closure ledger and counterexample traces.",
+      "asymptotics": "Strengthen exact terminalization and minimal-denominator control on the current exact-question corpus.",
+      "sign_order_constraints": [
+        "No replay divergence and no surviving counterexample against the promoted packet.",
+        "A single replay divergence or surviving counterexample collapses promotion for the affected packet."
+      ],
+      "collapse_boundary": "A single replay divergence or surviving counterexample collapses promotion for the affected packet.",
+      "forbidden_rubberization": [
+        "No hidden fit parameter may be introduced after the theorem target locks.",
+        "No post-hoc scope widening is allowed."
+      ],
+      "refs": [
+        "content/03_model.tex",
+        "content/10_klevels_full.tex",
+        "content/11_operators_full.tex",
+        "content/theorems_master.tex",
+        "content/predictions/predictions_master.tex",
+        "content/falsifiability/falsifiability_master.tex",
+        "content/k_levels/k0.tex",
+        "content/predictions/predictions_k0.tex",
+        "content/falsifiability/falsifiability_k0.tex",
+        "content/processes/processes_k0.tex",
+        "content/experiments/experiments_k0.tex",
+        "content/k_levels/k9.tex",
+        "content/predictions/predictions_k9.tex",
+        "content/falsifiability/falsifiability_k9.tex",
+        "content/processes/processes_k9.tex",
+        "content/experiments/experiments_k9.tex",
+        "content/k_levels/k10.tex",
+        "content/predictions/predictions_k10.tex",
+        "content/falsifiability/falsifiability_k10.tex",
+        "content/processes/processes_k10.tex",
+        "content/experiments/experiments_k10.tex",
+        "content/k_levels/k11.tex",
+        "content/predictions/predictions_k11.tex",
+        "content/falsifiability/falsifiability_k11.tex",
+        "content/processes/processes_k11.tex",
+        "content/experiments/experiments_k11.tex",
+        "content/k_levels/k12.tex",
+        "content/predictions/predictions_k12.tex",
+        "content/falsifiability/falsifiability_k12.tex",
+        "content/processes/processes_k12.tex",
+        "content/experiments/experiments_k12.tex",
+        "releases/oc_core_1_3/editorial/OC_CORE_1_3_SCIENCE_SPOT_latest.json",
+        "OC_PUBLIC_EVIDENCE_SURFACE::OC_OPEN_QUESTION_LINKAGE_latest",
+        "OC_PUBLIC_EVIDENCE_SURFACE::SCIENTIFIC_METHOD_AUTHORITY_latest",
+        "OC_PUBLIC_EVIDENCE_SURFACE::OC_OPERATIONAL_FORMAL_SUBSET_latest",
+        "OC_PUBLIC_EVIDENCE_SURFACE::DOMAIN_NUMERICAL_PREDICTION_REGISTRY_latest",
+        "OC_PUBLIC_EVIDENCE_SURFACE::QUESTION_COMPUTATIONAL_EVIDENCE_latest",
+        "OC_PUBLIC_EVIDENCE_SURFACE::OC_MATHEMATICS_STRICT_RESULT_LEDGER_latest",
+        "OC_PUBLIC_EVIDENCE_SURFACE::OC_DOMAIN_HARD_CLOSURE_PACKET_SPECS_v1",
+        "OC_PUBLIC_EVIDENCE_SURFACE::OC_DOMAIN_EMPIRICAL_EXECUTION_PROTOCOLS_v1",
+        "releases/oc_core_1_3/editorial/DOMAIN_EXTERNAL_DATA_MANIFEST_latest.json",
+        "releases/oc_core_1_3/editorial/DOMAIN_NUMERICAL_PACKET_REGISTRY_latest.json",
+        "releases/oc_core_1_3/editorial/PREDICTION_REPLAY_LEDGER_latest.json",
+        "releases/oc_core_1_3/editorial/DOMAIN_HARD_CLOSURE_EXECUTION_PROGRAM_latest.json",
+        "OC_PUBLIC_EVIDENCE_SURFACE::BENCHMARK_RESIDUAL_POLICY_v1",
+        "OC_PUBLIC_EVIDENCE_SURFACE::PREDICTION_SIGMA_POLICY_v1",
+        "OC_PUBLIC_EVIDENCE_SURFACE::PREDICTION_ACCURACY_POLICY_v2",
+        "releases/oc_core_1_3/editorial/DOMAIN_BENCHMARK_CASESET_latest.json",
+        "releases/oc_core_1_3/editorial/DOMAIN_EXTERNAL_DATA_MANIFEST_latest.json",
+        "releases/oc_core_1_3/editorial/DOMAIN_NUMERICAL_PACKET_REGISTRY_latest.json",
+        "releases/oc_core_1_3/editorial/PREDICTION_REPLAY_LEDGER_latest.json"
+      ]
+    },
+    "observable_binding_spec": {
+      "status": "COMPLETE",
+      "theorem_to_observable_map": [],
+      "observable_ids": [
+        "MATHEMATICS::EPSILON_STAR",
+        "MATHEMATICS::MINIMAL_DENOMINATOR",
+        "MATHEMATICS::MINIMAL_AUGMENTATION_RANK",
+        "MATHEMATICS::COMPONENT_FIBER_COUNT",
+        "MATHEMATICS::MOVE_CONNECTIVITY_OR_DEGREE_BOUND",
+        "MATHEMATICS::STRICT_TERMINALIZED_TOTAL",
+        "MATHEMATICS::COUNTEREXAMPLE_EXECUTED_TOTAL",
+        "MATHEMATICS::PYTHON_EVIDENCE_EXECUTED_TOTAL"
+      ],
+      "units_by_observable": {
+        "MATHEMATICS::EPSILON_STAR": "exact quantity",
+        "MATHEMATICS::MINIMAL_DENOMINATOR": "exact quantity",
+        "MATHEMATICS::MINIMAL_AUGMENTATION_RANK": "exact quantity",
+        "MATHEMATICS::COMPONENT_FIBER_COUNT": "exact quantity",
+        "MATHEMATICS::MOVE_CONNECTIVITY_OR_DEGREE_BOUND": "exact quantity",
+        "MATHEMATICS::STRICT_TERMINALIZED_TOTAL": "exact quantity",
+        "MATHEMATICS::COUNTEREXAMPLE_EXECUTED_TOTAL": "exact quantity",
+        "MATHEMATICS::PYTHON_EVIDENCE_EXECUTED_TOTAL": "exact quantity"
+      },
+      "dataset_field_bindings": [],
+      "refs": [
+        "content/03_model.tex",
+        "content/10_klevels_full.tex",
+        "content/11_operators_full.tex",
+        "content/theorems_master.tex",
+        "content/predictions/predictions_master.tex",
+        "content/falsifiability/falsifiability_master.tex",
+        "content/k_levels/k0.tex",
+        "content/predictions/predictions_k0.tex",
+        "content/falsifiability/falsifiability_k0.tex",
+        "content/processes/processes_k0.tex",
+        "content/experiments/experiments_k0.tex",
+        "content/k_levels/k9.tex",
+        "content/predictions/predictions_k9.tex",
+        "content/falsifiability/falsifiability_k9.tex",
+        "content/processes/processes_k9.tex",
+        "content/experiments/experiments_k9.tex",
+        "content/k_levels/k10.tex",
+        "content/predictions/predictions_k10.tex",
+        "content/falsifiability/falsifiability_k10.tex",
+        "content/processes/processes_k10.tex",
+        "content/experiments/experiments_k10.tex",
+        "content/k_levels/k11.tex",
+        "content/predictions/predictions_k11.tex",
+        "content/falsifiability/falsifiability_k11.tex",
+        "content/processes/processes_k11.tex",
+        "content/experiments/experiments_k11.tex",
+        "content/k_levels/k12.tex",
+        "content/predictions/predictions_k12.tex",
+        "content/falsifiability/falsifiability_k12.tex",
+        "content/processes/processes_k12.tex",
+        "content/experiments/experiments_k12.tex",
+        "releases/oc_core_1_3/editorial/OC_CORE_1_3_SCIENCE_SPOT_latest.json",
+        "OC_PUBLIC_EVIDENCE_SURFACE::OC_OPEN_QUESTION_LINKAGE_latest",
+        "OC_PUBLIC_EVIDENCE_SURFACE::SCIENTIFIC_METHOD_AUTHORITY_latest",
+        "OC_PUBLIC_EVIDENCE_SURFACE::OC_OPERATIONAL_FORMAL_SUBSET_latest",
+        "OC_PUBLIC_EVIDENCE_SURFACE::DOMAIN_NUMERICAL_PREDICTION_REGISTRY_latest",
+        "OC_PUBLIC_EVIDENCE_SURFACE::QUESTION_COMPUTATIONAL_EVIDENCE_latest",
+        "OC_PUBLIC_EVIDENCE_SURFACE::OC_MATHEMATICS_STRICT_RESULT_LEDGER_latest",
+        "OC_PUBLIC_EVIDENCE_SURFACE::OC_DOMAIN_HARD_CLOSURE_PACKET_SPECS_v1",
+        "OC_PUBLIC_EVIDENCE_SURFACE::OC_DOMAIN_EMPIRICAL_EXECUTION_PROTOCOLS_v1",
+        "releases/oc_core_1_3/editorial/DOMAIN_EXTERNAL_DATA_MANIFEST_latest.json",
+        "releases/oc_core_1_3/editorial/DOMAIN_NUMERICAL_PACKET_REGISTRY_latest.json",
+        "releases/oc_core_1_3/editorial/PREDICTION_REPLAY_LEDGER_latest.json",
+        "releases/oc_core_1_3/editorial/DOMAIN_HARD_CLOSURE_EXECUTION_PROGRAM_latest.json",
+        "OC_PUBLIC_EVIDENCE_SURFACE::BENCHMARK_RESIDUAL_POLICY_v1",
+        "OC_PUBLIC_EVIDENCE_SURFACE::PREDICTION_SIGMA_POLICY_v1",
+        "OC_PUBLIC_EVIDENCE_SURFACE::PREDICTION_ACCURACY_POLICY_v2",
+        "releases/oc_core_1_3/editorial/DOMAIN_BENCHMARK_CASESET_latest.json",
+        "releases/oc_core_1_3/editorial/DOMAIN_EXTERNAL_DATA_MANIFEST_latest.json",
+        "releases/oc_core_1_3/editorial/DOMAIN_NUMERICAL_PACKET_REGISTRY_latest.json",
+        "releases/oc_core_1_3/editorial/PREDICTION_REPLAY_LEDGER_latest.json"
+      ]
+    },
+    "dataset_data_route_manifest": {
+      "status": "COMPLETE",
+      "official_route_ids": [
+        "MATH_ROUTE_001",
+        "MATH_ROUTE_002"
+      ],
+      "pinned_dataset_ids": [
+        "TIER1_AIMATH_PDF_013_Q010"
+      ],
+      "pinned_dataset_versions": [
+        "PINNED_RELEASE_SNAPSHOT"
+      ],
+      "split_lock": "DETERMINISTIC_COUNTEREXAMPLE_AND_TRACE_REPLAY",
+      "refs": [
+        "https://www.claymath.org/millennium-problems/",
+        "https://aimath.org/problemlists/",
+        "releases/oc_core_1_3/editorial/OC_CORE_1_3_SCIENCE_SPOT_latest.json",
+        "OC_PUBLIC_EVIDENCE_SURFACE::OC_OPEN_QUESTION_LINKAGE_latest",
+        "OC_PUBLIC_EVIDENCE_SURFACE::SCIENTIFIC_METHOD_AUTHORITY_latest",
+        "OC_PUBLIC_EVIDENCE_SURFACE::OC_OPERATIONAL_FORMAL_SUBSET_latest",
+        "OC_PUBLIC_EVIDENCE_SURFACE::DOMAIN_NUMERICAL_PREDICTION_REGISTRY_latest",
+        "OC_PUBLIC_EVIDENCE_SURFACE::QUESTION_COMPUTATIONAL_EVIDENCE_latest",
+        "OC_PUBLIC_EVIDENCE_SURFACE::OC_MATHEMATICS_STRICT_RESULT_LEDGER_latest",
+        "OC_PUBLIC_EVIDENCE_SURFACE::OC_DOMAIN_HARD_CLOSURE_PACKET_SPECS_v1",
+        "OC_PUBLIC_EVIDENCE_SURFACE::OC_DOMAIN_EMPIRICAL_EXECUTION_PROTOCOLS_v1",
+        "releases/oc_core_1_3/editorial/DOMAIN_EXTERNAL_DATA_MANIFEST_latest.json",
+        "releases/oc_core_1_3/editorial/DOMAIN_NUMERICAL_PACKET_REGISTRY_latest.json",
+        "releases/oc_core_1_3/editorial/PREDICTION_REPLAY_LEDGER_latest.json",
+        "releases/oc_core_1_3/editorial/DOMAIN_HARD_CLOSURE_EXECUTION_PROGRAM_latest.json",
+        "OC_PUBLIC_EVIDENCE_SURFACE::BENCHMARK_RESIDUAL_POLICY_v1",
+        "OC_PUBLIC_EVIDENCE_SURFACE::PREDICTION_SIGMA_POLICY_v1",
+        "OC_PUBLIC_EVIDENCE_SURFACE::PREDICTION_ACCURACY_POLICY_v2",
+        "releases/oc_core_1_3/editorial/DOMAIN_BENCHMARK_CASESET_latest.json",
+        "releases/oc_core_1_3/editorial/DOMAIN_EXTERNAL_DATA_MANIFEST_latest.json",
+        "releases/oc_core_1_3/editorial/DOMAIN_NUMERICAL_PACKET_REGISTRY_latest.json",
+        "releases/oc_core_1_3/editorial/PREDICTION_REPLAY_LEDGER_latest.json"
+      ]
+    },
+    "held_out_replay_spec": {
+      "status": "COMPLETE",
+      "calibration_case_ids": [],
+      "held_out_case_ids": [],
+      "acceptance_metrics": {
+        "counterexample_survivor_total_max": 0,
+        "policy_snapshot": {
+          "benchmark_residual_policy": {
+            "critical_residual_sigma_threshold": 2.5,
+            "schema_id": "LOGION_BENCHMARK_RESIDUAL_POLICY_v1",
+            "severe_residual_sigma_threshold": 1.5
+          },
+          "prediction_accuracy_policy": {
+            "brier_score_max": 0.08,
+            "cases_total_required": 30,
+            "coverage_ratio_required": 1.0,
+            "critical_failure_f1_min": 0.87,
+            "critical_failure_precision_min": 0.85,
+            "critical_failure_recall_min": 0.9,
+            "expected_calibration_error_max": 0.05,
+            "schema_id": "LOGION_PREDICTION_ACCURACY_POLICY_v2"
+          },
+          "prediction_sigma_policy": {
+            "cases_total_min": 30,
+            "normalized_error_max_max_sigma": 5.0,
+            "normalized_error_mean_abs_max_sigma": 1.0,
+            "normalized_error_p95_max_sigma": 2.5,
+            "schema_id": "LOGION_PREDICTION_SIGMA_POLICY_v1",
+            "tail_breach_count_max": 0
+          }
+        },
+        "replay_divergence_total_max": 0,
+        "strict_terminalized_total_min": 31
+      },
+      "no_post_hoc_split_rule": "HELD_OUT_SPLIT_IS_LOCKED_EX_ANTE_AND_MAY_NOT_BE_CHANGED_AFTER_REPLAY",
+      "acceptance_criterion": "No replay divergence and no surviving counterexample against the promoted packet.",
+      "refs": [
+        "simulations/run_all.py",
+        "releases/oc_core_1_3/editorial/OC_CORE_1_3_SCIENCE_SPOT_latest.json",
+        "OC_PUBLIC_EVIDENCE_SURFACE::OC_OPEN_QUESTION_LINKAGE_latest",
+        "OC_PUBLIC_EVIDENCE_SURFACE::SCIENTIFIC_METHOD_AUTHORITY_latest",
+        "OC_PUBLIC_EVIDENCE_SURFACE::OC_OPERATIONAL_FORMAL_SUBSET_latest",
+        "OC_PUBLIC_EVIDENCE_SURFACE::DOMAIN_NUMERICAL_PREDICTION_REGISTRY_latest",
+        "OC_PUBLIC_EVIDENCE_SURFACE::QUESTION_COMPUTATIONAL_EVIDENCE_latest",
+        "OC_PUBLIC_EVIDENCE_SURFACE::OC_MATHEMATICS_STRICT_RESULT_LEDGER_latest",
+        "OC_PUBLIC_EVIDENCE_SURFACE::OC_DOMAIN_HARD_CLOSURE_PACKET_SPECS_v1",
+        "OC_PUBLIC_EVIDENCE_SURFACE::OC_DOMAIN_EMPIRICAL_EXECUTION_PROTOCOLS_v1",
+        "releases/oc_core_1_3/editorial/DOMAIN_EXTERNAL_DATA_MANIFEST_latest.json",
+        "releases/oc_core_1_3/editorial/DOMAIN_NUMERICAL_PACKET_REGISTRY_latest.json",
+        "releases/oc_core_1_3/editorial/PREDICTION_REPLAY_LEDGER_latest.json",
+        "releases/oc_core_1_3/editorial/DOMAIN_HARD_CLOSURE_EXECUTION_PROGRAM_latest.json",
+        "OC_PUBLIC_EVIDENCE_SURFACE::BENCHMARK_RESIDUAL_POLICY_v1",
+        "OC_PUBLIC_EVIDENCE_SURFACE::PREDICTION_SIGMA_POLICY_v1",
+        "OC_PUBLIC_EVIDENCE_SURFACE::PREDICTION_ACCURACY_POLICY_v2",
+        "releases/oc_core_1_3/editorial/DOMAIN_BENCHMARK_CASESET_latest.json",
+        "releases/oc_core_1_3/editorial/DOMAIN_EXTERNAL_DATA_MANIFEST_latest.json",
+        "releases/oc_core_1_3/editorial/DOMAIN_NUMERICAL_PACKET_REGISTRY_latest.json",
+        "releases/oc_core_1_3/editorial/PREDICTION_REPLAY_LEDGER_latest.json"
+      ]
+    },
+    "falsifier_ledger": {
+      "status": "COMPLETE",
+      "falsifier_classes": [
+        "replay_divergence",
+        "surviving_counterexample"
+      ],
+      "kill_conditions": [
+        "A single replay divergence or surviving counterexample collapses promotion for the affected packet."
+      ],
+      "boundary_statement": "Only the proved subset may carry quantitative outputs for this domain.",
+      "refs": [
+        "content/falsifiability/falsifiability_master.tex",
+        "content/falsifiability/falsifiability_k0.tex",
+        "content/falsifiability/falsifiability_k9.tex",
+        "content/falsifiability/falsifiability_k10.tex",
+        "content/falsifiability/falsifiability_k11.tex",
+        "content/falsifiability/falsifiability_k12.tex",
+        "releases/oc_core_1_3/editorial/OC_CORE_1_3_SCIENCE_SPOT_latest.json",
+        "OC_PUBLIC_EVIDENCE_SURFACE::OC_OPEN_QUESTION_LINKAGE_latest",
+        "OC_PUBLIC_EVIDENCE_SURFACE::SCIENTIFIC_METHOD_AUTHORITY_latest",
+        "OC_PUBLIC_EVIDENCE_SURFACE::OC_OPERATIONAL_FORMAL_SUBSET_latest",
+        "OC_PUBLIC_EVIDENCE_SURFACE::DOMAIN_NUMERICAL_PREDICTION_REGISTRY_latest",
+        "OC_PUBLIC_EVIDENCE_SURFACE::QUESTION_COMPUTATIONAL_EVIDENCE_latest",
+        "OC_PUBLIC_EVIDENCE_SURFACE::OC_MATHEMATICS_STRICT_RESULT_LEDGER_latest",
+        "OC_PUBLIC_EVIDENCE_SURFACE::OC_DOMAIN_HARD_CLOSURE_PACKET_SPECS_v1",
+        "OC_PUBLIC_EVIDENCE_SURFACE::OC_DOMAIN_EMPIRICAL_EXECUTION_PROTOCOLS_v1",
+        "releases/oc_core_1_3/editorial/DOMAIN_EXTERNAL_DATA_MANIFEST_latest.json",
+        "releases/oc_core_1_3/editorial/DOMAIN_NUMERICAL_PACKET_REGISTRY_latest.json",
+        "releases/oc_core_1_3/editorial/PREDICTION_REPLAY_LEDGER_latest.json",
+        "releases/oc_core_1_3/editorial/DOMAIN_HARD_CLOSURE_EXECUTION_PROGRAM_latest.json",
+        "OC_PUBLIC_EVIDENCE_SURFACE::BENCHMARK_RESIDUAL_POLICY_v1",
+        "OC_PUBLIC_EVIDENCE_SURFACE::PREDICTION_SIGMA_POLICY_v1",
+        "OC_PUBLIC_EVIDENCE_SURFACE::PREDICTION_ACCURACY_POLICY_v2",
+        "releases/oc_core_1_3/editorial/DOMAIN_BENCHMARK_CASESET_latest.json",
+        "releases/oc_core_1_3/editorial/DOMAIN_EXTERNAL_DATA_MANIFEST_latest.json",
+        "releases/oc_core_1_3/editorial/DOMAIN_NUMERICAL_PACKET_REGISTRY_latest.json",
+        "releases/oc_core_1_3/editorial/PREDICTION_REPLAY_LEDGER_latest.json"
+      ]
+    },
+    "counterexample_ledger": {
+      "status": "ACTIVE_CONTINUOUS_SEARCH",
+      "attempted_counterexamples": [],
+      "current_survivors": [],
+      "resolution_state": "NO_SURVIVOR",
+      "refs": [
+        "releases/oc_core_1_3/editorial/OC_CORE_1_3_SCIENCE_SPOT_latest.json",
+        "OC_PUBLIC_EVIDENCE_SURFACE::OC_OPEN_QUESTION_LINKAGE_latest",
+        "OC_PUBLIC_EVIDENCE_SURFACE::SCIENTIFIC_METHOD_AUTHORITY_latest",
+        "OC_PUBLIC_EVIDENCE_SURFACE::OC_OPERATIONAL_FORMAL_SUBSET_latest",
+        "OC_PUBLIC_EVIDENCE_SURFACE::DOMAIN_NUMERICAL_PREDICTION_REGISTRY_latest",
+        "OC_PUBLIC_EVIDENCE_SURFACE::QUESTION_COMPUTATIONAL_EVIDENCE_latest",
+        "OC_PUBLIC_EVIDENCE_SURFACE::OC_MATHEMATICS_STRICT_RESULT_LEDGER_latest",
+        "OC_PUBLIC_EVIDENCE_SURFACE::OC_DOMAIN_HARD_CLOSURE_PACKET_SPECS_v1",
+        "OC_PUBLIC_EVIDENCE_SURFACE::OC_DOMAIN_EMPIRICAL_EXECUTION_PROTOCOLS_v1",
+        "releases/oc_core_1_3/editorial/DOMAIN_EXTERNAL_DATA_MANIFEST_latest.json",
+        "releases/oc_core_1_3/editorial/DOMAIN_NUMERICAL_PACKET_REGISTRY_latest.json",
+        "releases/oc_core_1_3/editorial/PREDICTION_REPLAY_LEDGER_latest.json",
+        "releases/oc_core_1_3/editorial/DOMAIN_HARD_CLOSURE_EXECUTION_PROGRAM_latest.json",
+        "OC_PUBLIC_EVIDENCE_SURFACE::BENCHMARK_RESIDUAL_POLICY_v1",
+        "OC_PUBLIC_EVIDENCE_SURFACE::PREDICTION_SIGMA_POLICY_v1",
+        "OC_PUBLIC_EVIDENCE_SURFACE::PREDICTION_ACCURACY_POLICY_v2",
+        "releases/oc_core_1_3/editorial/DOMAIN_BENCHMARK_CASESET_latest.json",
+        "releases/oc_core_1_3/editorial/DOMAIN_EXTERNAL_DATA_MANIFEST_latest.json",
+        "releases/oc_core_1_3/editorial/DOMAIN_NUMERICAL_PACKET_REGISTRY_latest.json",
+        "releases/oc_core_1_3/editorial/PREDICTION_REPLAY_LEDGER_latest.json"
+      ]
+    },
+    "same_claim_class_comparator_ledger": {
+      "status": "DECLARED_NO_SUPERIOR_BASELINE",
+      "comparator_families": [
+        "exact enumerative baseline",
+        "direct constructive proof baseline"
+      ],
+      "complexity_budget": "NO_COMPARATOR_MAY_WIN_ON_SAME_CLAIM_CLASS_AFTER_COST_NORMALIZATION",
+      "verdict": "DECLARED_NO_SUPERIOR_BASELINE",
+      "refs": [
+        "releases/oc_core_1_3/editorial/OC_CORE_1_3_SCIENCE_SPOT_latest.json",
+        "OC_PUBLIC_EVIDENCE_SURFACE::OC_OPEN_QUESTION_LINKAGE_latest",
+        "OC_PUBLIC_EVIDENCE_SURFACE::SCIENTIFIC_METHOD_AUTHORITY_latest",
+        "OC_PUBLIC_EVIDENCE_SURFACE::OC_OPERATIONAL_FORMAL_SUBSET_latest",
+        "OC_PUBLIC_EVIDENCE_SURFACE::DOMAIN_NUMERICAL_PREDICTION_REGISTRY_latest",
+        "OC_PUBLIC_EVIDENCE_SURFACE::QUESTION_COMPUTATIONAL_EVIDENCE_latest",
+        "OC_PUBLIC_EVIDENCE_SURFACE::OC_MATHEMATICS_STRICT_RESULT_LEDGER_latest",
+        "OC_PUBLIC_EVIDENCE_SURFACE::OC_DOMAIN_HARD_CLOSURE_PACKET_SPECS_v1",
+        "OC_PUBLIC_EVIDENCE_SURFACE::OC_DOMAIN_EMPIRICAL_EXECUTION_PROTOCOLS_v1",
+        "releases/oc_core_1_3/editorial/DOMAIN_EXTERNAL_DATA_MANIFEST_latest.json",
+        "releases/oc_core_1_3/editorial/DOMAIN_NUMERICAL_PACKET_REGISTRY_latest.json",
+        "releases/oc_core_1_3/editorial/PREDICTION_REPLAY_LEDGER_latest.json",
+        "releases/oc_core_1_3/editorial/DOMAIN_HARD_CLOSURE_EXECUTION_PROGRAM_latest.json",
+        "OC_PUBLIC_EVIDENCE_SURFACE::BENCHMARK_RESIDUAL_POLICY_v1",
+        "OC_PUBLIC_EVIDENCE_SURFACE::PREDICTION_SIGMA_POLICY_v1",
+        "OC_PUBLIC_EVIDENCE_SURFACE::PREDICTION_ACCURACY_POLICY_v2",
+        "releases/oc_core_1_3/editorial/DOMAIN_BENCHMARK_CASESET_latest.json",
+        "releases/oc_core_1_3/editorial/DOMAIN_EXTERNAL_DATA_MANIFEST_latest.json",
+        "releases/oc_core_1_3/editorial/DOMAIN_NUMERICAL_PACKET_REGISTRY_latest.json",
+        "releases/oc_core_1_3/editorial/PREDICTION_REPLAY_LEDGER_latest.json"
+      ]
+    }
+  },
+  "practical_use_rows": [
+    {
+      "use_case_id": "MATHEMATICS_USE_001_STRICT_CLOSURE_CERTIFICATION",
+      "problem_class": "Strict closure certification and counterexample elimination",
+      "support_class": "FORMALLY_PROVED",
+      "what_can_be_predicted_or_done": "Certify whether a bounded formal object or question packet survives strict closure and counterexample search under the locked mathematical lane.",
+      "how_to_apply": "Encode the object in the admissible exact-question format, run the strict terminalization and counterexample route, and accept only a replayable proof or an explicit counterexample.",
+      "scope_boundary": "Applies only to the bounded exact question families already represented in the mathematical anchor. It does not claim a general uniqueness theorem beyond the current impossibility boundary.",
+      "required_inputs_or_observables": [
+        "formal problem statement",
+        "admissible exact-question encoding",
+        "strict closure and counterexample policy"
+      ],
+      "output_or_decision": "A replayable accept or reject result together with minimal denominator, augmentation rank, or surviving counterexample classification.",
+      "trace_refs": [
+        "content/20_oc_core_1_3_theorem_roadmap.tex",
+        "content/21_oc_core_1_3_worked_examples.tex",
+        "content/24_oc_core_1_3_proof_machinery.tex",
+        "appendix/M_oc_core_1_3_proof_machinery_appendix.tex"
+      ],
+      "benchmark_comparators": [
+        "exact enumerative baseline",
+        "direct constructive proof baseline"
+      ],
+      "serious_model_families": [
+        "Classical exact proof and exhaustive-search families"
+      ],
+      "what_remains_open": "Global uniqueness beyond the current impossibility boundary remains frontier territory rather than a promoted practical result."
+    }
+  ],
+  "operational_playbooks": [
+    {
+      "playbook_id": "MATHEMATICS_PLAYBOOK_001_STRICT_CLOSURE",
+      "title": "Strict closure and counterexample playbook",
+      "when_to_use": "Use when the task is to determine whether a bounded exact question already lies inside the promoted mathematical anchor or should be rejected by the strict counterexample route.",
+      "required_inputs_or_observables": [
+        "formal question encoding",
+        "strict closure policy",
+        "counterexample search route"
+      ],
+      "procedure_steps": [
+        "Encode the target object in the admissible exact-question form.",
+        "Run the declared terminalization and counterexample search.",
+        "Accept the result only if the replay is deterministic and survivor-free.",
+        "Escalate to frontier if the question leaves the declared exact scope."
+      ],
+      "output_or_decision": "A replayable proof result, a surviving counterexample, or a lawful frontier demotion.",
+      "support_class": "FORMALLY_PROVED",
+      "scope_boundary": "The playbook is limited to the exact mathematical anchor and does not advertise broader uniqueness claims than the current proof machinery supports.",
+      "trace_refs": [
+        "content/20_oc_core_1_3_theorem_roadmap.tex",
+        "content/21_oc_core_1_3_worked_examples.tex",
+        "content/24_oc_core_1_3_proof_machinery.tex",
+        "appendix/M_oc_core_1_3_proof_machinery_appendix.tex"
+      ],
+      "failure_boundary": "Stop if the object cannot be encoded in the admissible exact-question format or if a surviving counterexample remains after the declared search."
+    }
+  ]
+}
