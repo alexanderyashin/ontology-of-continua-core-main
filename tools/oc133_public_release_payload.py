@@ -4588,7 +4588,7 @@ GitHub Release: `{github_release_url or f'https://github.com/alexanderyashin/ont
         ],
         "version": VERSION,
         "related_identifiers": [
-            {"identifier": "10.5281/zenodo.19956854", "relation": "isNewVersionOf", "scheme": "doi"},
+            {"identifier": "10.5281/zenodo.19965913", "relation": "isNewVersionOf", "scheme": "doi"},
         ],
     }
     zenodo["related_identifiers"] = [row for row in zenodo["related_identifiers"] if row]
@@ -4755,7 +4755,7 @@ def write_profile() -> None:
         "expected_gate_pass_total": 71,
         "expected_package_sha256": "",
         "previous_zenodo_record_id": "19956854",
-        "previous_zenodo_doi": "10.5281/zenodo.19956854",
+        "previous_zenodo_doi": "10.5281/zenodo.19965913",
         "concept_doi": "10.5281/zenodo.17899134",
         "creators": [{"name": AUTHOR_CITATION_NAME, "affiliation": AUTHOR_AFFILIATION, "orcid": AUTHOR_ORCID}],
         "license": "cc-by-4.0",
