@@ -27,11 +27,11 @@ Domain & Wave & Evidence bar & Held-out policy & Replay & Institute-run wave \\
 Domain & Wave & Evidence bar & Held-out policy & Replay & Institute-run wave \\
 \midrule
 \endhead
-Mathematics & WAVE\_0\_ANCHOR & HYBRID\_ESCALATION & DETERMINISTIC\_COUNTEREXAMPLE\_AND\_TRACE\_REPLAY & \occode{logion/k7/spe/orchestrator/science/run_claim_simulations_v1.py} & not required \\
-Physics & WAVE\_1\_PHYSICS & HYBRID\_ESCALATION & LEAVE\_ONE\_BENCHMARK\_FAMILY\_OUT & \occode{logion/k7/spe/orchestrator/science/run_oc_core_domain_hard_closure_replay_v1.py --domain-id PHYSICS} & INSTITUTE\_RUN::PHYSICS::WAVE\_1A \\
-Chemistry & WAVE\_2\_CHEMISTRY & HYBRID\_ESCALATION & HOLD\_OUT\_ONE\_COMPOUND\_OR\_REACTION\_CLASS & \occode{logion/k7/spe/orchestrator/science/run_oc_core_domain_hard_closure_replay_v1.py --domain-id CHEMISTRY} & INSTITUTE\_RUN::CHEMISTRY::WAVE\_2A \\
-Biology & WAVE\_3\_BIOLOGY & HYBRID\_ESCALATION & RESERVE\_ONE\_DATASET\_FAMILY\_PER\_SIGNATURE\_CLASS & \occode{logion/k7/spe/orchestrator/science/run_oc_core_domain_hard_closure_replay_v1.py --domain-id BIOLOGY} & INSTITUTE\_RUN::BIOLOGY::WAVE\_3A \\
-Systems / Civilizational projection & WAVE\_4\_SYSTEMS & HYBRID\_ESCALATION & HELD\_OUT\_INTERVAL\_REPLAY\_WITH\_TURNING\_POINT\_CHECKS & \occode{logion/k7/spe/orchestrator/science/run_oc_core_domain_hard_closure_replay_v1.py --domain-id SYSTEMS_CIVILIZATIONAL_PROJECTION} & INSTITUTE\_RUN::SYSTEMS::WAVE\_4A \\
+Mathematics & WAVE\_0\_ANCHOR & HYBRID\_ESCALATION & DETERMINISTIC\_COUNTEREXAMPLE\_AND\_TRACE\_REPLAY & \occode{validation/mathematics/replay.py} & not required \\
+Physics & WAVE\_1\_PHYSICS & HYBRID\_ESCALATION & LEAVE\_ONE\_BENCHMARK\_FAMILY\_OUT & \occode{validation/physics/replay.py} & INSTITUTE\_RUN::PHYSICS::WAVE\_1A \\
+Chemistry & WAVE\_2\_CHEMISTRY & HYBRID\_ESCALATION & HOLD\_OUT\_ONE\_COMPOUND\_OR\_REACTION\_CLASS & \occode{validation/chemistry/replay.py} & INSTITUTE\_RUN::CHEMISTRY::WAVE\_2A \\
+Biology & WAVE\_3\_BIOLOGY & HYBRID\_ESCALATION & RESERVE\_ONE\_DATASET\_FAMILY\_PER\_SIGNATURE\_CLASS & \occode{validation/biology/replay.py} & INSTITUTE\_RUN::BIOLOGY::WAVE\_3A \\
+Systems / Civilizational projection & WAVE\_4\_SYSTEMS & HYBRID\_ESCALATION & HELD\_OUT\_INTERVAL\_REPLAY\_WITH\_TURNING\_POINT\_CHECKS & \occode{validation/systems/replay.py} & INSTITUTE\_RUN::SYSTEMS::WAVE\_4A \\
 \bottomrule
 \end{longtable}
 
@@ -41,7 +41,7 @@ Protocol id: `OC13::EXECUTION::MATHEMATICS::ANCHOR\_REPLAY`. Evidence bar: `HYBR
 Pinned route families: Clay Mathematics Institute (OFFICIAL\_PROBLEM\_CATALOG); American Institute of Mathematics (OFFICIAL\_PROBLEM\_CATALOG).
 Held-out policy: `DETERMINISTIC\_COUNTEREXAMPLE\_AND\_TRACE\_REPLAY` with minimum cases `31`.
 Quantitative gate: minimum cases `31`, strictly terminalized cases at least `31`, counterexample survivor total at most `0`, and replay divergence total at most `0`. Coverage, residual sigma, Brier, ECE, and tail-breach metrics are not applicable to this exact replay lane.
-Replay harness: `logion/k7/spe/orchestrator/science/run\_claim\_simulations\_v1.py` with deterministic replay required `True`.
+Replay harness: `validation/mathematics/replay.py` with deterministic replay required `True`.
 Institute-run trigger: `ONLY\_IF\_DETERMINISTIC\_REPLAY\_BREAKS`. Measurement wave: `NONE`.
 Escalation plan: Expand the exact-question corpus instead of broadening claims..
 
@@ -50,7 +50,7 @@ Protocol id: `OC13::EXECUTION::PHYSICS::CONSTANTS\_SPECTRA\_TRANSPORT`. Evidence
 Pinned route families: NIST (OFFICIAL\_CONSTANTS\_PORTAL); NIST (OFFICIAL\_SPECTRA\_DATABASE); U.S. Department of Energy Office of Science (OFFICIAL\_CHALLENGE\_PROGRAM).
 Held-out policy: `LEAVE\_ONE\_BENCHMARK\_FAMILY\_OUT` with minimum cases `30`.
 Quantitative gate: coverage `1.0`, mean absolute normalized error at most `1.0 sigma`, `p95` at most `2.5 sigma`, `max` at most `5.0 sigma`, Brier at most `0.08`, ECE at most `0.05`, tail breaches `0`.
-Replay harness: \occode{logion/k7/spe/orchestrator/science/run_oc_core_domain_hard_closure_replay_v1.py --domain-id PHYSICS} with deterministic replay required `True`.
+Replay harness: \occode{validation/physics/replay.py} with deterministic replay required `True`.
 Institute-run trigger: `OPEN\_DATA\_COVERAGE\_LT\_1\_0\_OR\_HELD\_OUT\_CASES\_LT\_30\_OR\_RESIDUAL\_BREACH\_PERSISTS`. Measurement wave: `INSTITUTE\_RUN::PHYSICS::WAVE\_1A`.
 Escalation plan: If a future physics replay falls below the declared gate, acquire partner or institute-run measurements for the affected observable family and rerun the held-out replay packet without widening scope.
 
@@ -59,7 +59,7 @@ Protocol id: `OC13::EXECUTION::CHEMISTRY::THERMOCHEMISTRY\_SPECTRA\_KINETICS`. E
 Pinned route families: NIST (OFFICIAL\_CHEMISTRY\_REFERENCE); U.S. Department of Energy Office of Science (OFFICIAL\_CHALLENGE\_PROGRAM).
 Held-out policy: `HOLD\_OUT\_ONE\_COMPOUND\_OR\_REACTION\_CLASS` with minimum cases `30`.
 Quantitative gate: coverage `1.0`, mean absolute normalized error at most `1.0 sigma`, `p95` at most `2.5 sigma`, `max` at most `5.0 sigma`, Brier at most `0.08`, ECE at most `0.05`, tail breaches `0`.
-Replay harness: \occode{logion/k7/spe/orchestrator/science/run_oc_core_domain_hard_closure_replay_v1.py --domain-id CHEMISTRY} with deterministic replay required `True`.
+Replay harness: \occode{validation/chemistry/replay.py} with deterministic replay required `True`.
 Institute-run trigger: `OPEN\_DATA\_COVERAGE\_LT\_1\_0\_OR\_HELD\_OUT\_CASES\_LT\_30\_OR\_RESIDUAL\_BREACH\_PERSISTS`. Measurement wave: `INSTITUTE\_RUN::CHEMISTRY::WAVE\_2A`.
 Escalation plan: If a future chemistry replay exposes an underconstrained thermochemical, spectral, or kinetic family, acquire targeted laboratory or partner measurements before any broader positive promotion.
 
@@ -68,7 +68,7 @@ Protocol id: `OC13::EXECUTION::BIOLOGY::STATE\_TRANSITIONS\_AND\_RESPONSE\_SIGNA
 Pinned route families: NCBI GEO (OFFICIAL\_OPEN\_DATA\_HUB).
 Held-out policy: `RESERVE\_ONE\_DATASET\_FAMILY\_PER\_SIGNATURE\_CLASS` with minimum cases `30`.
 Quantitative gate: coverage `1.0`, mean absolute normalized error at most `1.0 sigma`, `p95` at most `2.5 sigma`, `max` at most `5.0 sigma`, Brier at most `0.08`, ECE at most `0.05`, tail breaches `0`.
-Replay harness: \occode{logion/k7/spe/orchestrator/science/run_oc_core_domain_hard_closure_replay_v1.py --domain-id BIOLOGY} with deterministic replay required `True`.
+Replay harness: \occode{validation/biology/replay.py} with deterministic replay required `True`.
 Institute-run trigger: `OPEN\_DATA\_COVERAGE\_LT\_1\_0\_OR\_HELD\_OUT\_CASES\_LT\_30\_OR\_SIGNATURE\_CLASS\_UNDERCONSTRAINED`. Measurement wave: `INSTITUTE\_RUN::BIOLOGY::WAVE\_3A`.
 Escalation plan: Run a bounded institute observation or assay campaign only for the explicitly declared biological lane; no widening of biological scope is allowed..
 
@@ -79,6 +79,6 @@ Pinned route families: World Bank (OFFICIAL\_OPEN\_DATA\_API\_DOCS); U.S. Depart
 Launch rule: `ALLOW\_PARALLEL\_DATA\_PREP\_AFTER\_CHEMISTRY\_BUT\_FINAL\_PROMOTION\_AFTER\_BIOLOGY\_FORMAL\_ROUTE`. Current transition gate: `MAINTENANCE\_ONLY`.
 Held-out policy: `HELD\_OUT\_INTERVAL\_REPLAY\_WITH\_TURNING\_POINT\_CHECKS` with minimum cases `30`.
 Quantitative gate: coverage `1.0`, mean absolute normalized error at most `1.0 sigma`, `p95` at most `2.5 sigma`, `max` at most `5.0 sigma`, Brier at most `0.08`, ECE at most `0.05`, tail breaches `0`, critical-failure F1 at least `0.87`, critical-failure precision at least `0.85`, and critical-failure recall at least `0.9`.
-Replay harness: \occode{logion/k7/spe/orchestrator/science/run_oc_core_domain_hard_closure_replay_v1.py --domain-id SYSTEMS_CIVILIZATIONAL_PROJECTION} with deterministic replay required `True`.
+Replay harness: \occode{validation/systems/replay.py} with deterministic replay required `True`.
 Institute-run trigger: `OPEN\_DATA\_COVERAGE\_LT\_1\_0\_OR\_HELD\_OUT\_INTERVAL\_COUNT\_LT\_30\_OR\_TURNING\_POINT\_BREACH\_PERSISTS`. Measurement wave: `INSTITUTE\_RUN::SYSTEMS::WAVE\_4A`.
 Escalation plan: If a future systems replay exposes an underconstrained macro-process lane, acquire partner or institute-run observations and rerun the held-out interval evaluation without broadening civilizational claims.

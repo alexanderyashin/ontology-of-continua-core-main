@@ -24,11 +24,11 @@ wave.
 \toprule
 Domain & Validation & Phase & Lawful command & Next action \\
 \midrule
-Mathematics & \occode{PASS} & \occode{MAINTENANCE} & \occode{run_claim_simulations_v1.py} & \occode{MAINTAIN_REPLAY_DISCIPLINE} \\
-Physics & \occode{PASS} & \occode{MAINTENANCE} & \occode{run_oc_core_domain_hard_closure_replay_v1.py --domain-id PHYSICS} & \occode{MAINTAIN_REPLAY_DISCIPLINE} \\
-Chemistry & \occode{PASS} & \occode{MAINTENANCE} & \occode{run_oc_core_domain_hard_closure_replay_v1.py --domain-id CHEMISTRY} & \occode{MAINTAIN_REPLAY_DISCIPLINE} \\
-Biology & \occode{PASS} & \occode{MAINTENANCE} & \occode{run_oc_core_domain_hard_closure_replay_v1.py --domain-id BIOLOGY} & \occode{MAINTAIN_REPLAY_DISCIPLINE} \\
-Systems / Civilizational projection & \occode{PASS} & \occode{MAINTENANCE} & \occode{run_oc_core_domain_hard_closure_replay_v1.py --domain-id SYSTEMS_CIVILIZATIONAL_PROJECTION} & \occode{MAINTAIN_REPLAY_DISCIPLINE} \\
+Mathematics & \occode{PASS} & \occode{MAINTENANCE} & \occode{validation/mathematics/replay.py} & \occode{MAINTAIN_REPLAY_DISCIPLINE} \\
+Physics & \occode{PASS} & \occode{MAINTENANCE} & \occode{validation/physics/replay.py} & \occode{MAINTAIN_REPLAY_DISCIPLINE} \\
+Chemistry & \occode{PASS} & \occode{MAINTENANCE} & \occode{validation/chemistry/replay.py} & \occode{MAINTAIN_REPLAY_DISCIPLINE} \\
+Biology & \occode{PASS} & \occode{MAINTENANCE} & \occode{validation/biology/replay.py} & \occode{MAINTAIN_REPLAY_DISCIPLINE} \\
+Systems / Civilizational projection & \occode{PASS} & \occode{MAINTENANCE} & \occode{validation/systems/replay.py} & \occode{MAINTAIN_REPLAY_DISCIPLINE} \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -39,7 +39,7 @@ command path is purely deterministic. Caseset readiness is 0 parameterized out
 of 0 cases with a minimum requirement of 31, while coverage and parameterization
 remain \occode{NOT_REQUIRED}. Promotion survives only if no replay divergence
 and no surviving counterexample appear. The lawful command is
-\occode{logion/k7/spe/orchestrator/science/run_claim_simulations_v1.py}. The
+\occode{validation/mathematics/replay.py}. The
 required prerequisites remain the pinned source lineage, the benchmark manifest,
 the numerical packet specification, the replay harness, and an explicit
 falsifier. Blocking ids: none. No institute-run wave is required.
@@ -52,7 +52,7 @@ coverage \occode{PASS_CASESET_MINIMUM_REACHED} and parameterization
 held-out residuals to stay within the declared tolerance band for every
 promoted benchmark family; any family outside tolerance or with broken
 sign/order constraints falsifies the packet. The lawful command is
-\occode{logion/k7/spe/orchestrator/science/run_oc_core_domain_hard_closure_replay_v1.py --domain-id PHYSICS}. The reserve wave
+\occode{validation/physics/replay.py}. The reserve wave
 \occode{INSTITUTE_RUN::PHYSICS::WAVE_1A} remains on stand-by, not active.
 
 \paragraph{Chemistry.}
@@ -63,7 +63,7 @@ coverage \occode{PASS_CASESET_MINIMUM_REACHED} and parameterization
 the declared chemistry benchmark families to remain within tolerance on
 held-out compounds or reactions; a held-out thermochemical, spectral, or
 kinetic family outside tolerance falsifies the packet. The lawful command is
-\occode{logion/k7/spe/orchestrator/science/run_oc_core_domain_hard_closure_replay_v1.py --domain-id CHEMISTRY}. The reserve wave
+\occode{validation/chemistry/replay.py}. The reserve wave
 \occode{INSTITUTE_RUN::CHEMISTRY::WAVE_2A} remains on stand-by.
 
 \paragraph{Biology.}
@@ -75,7 +75,7 @@ the promoted biological packet to reproduce the declared measurable signatures
 on held-out datasets without widening the claim boundary. If the bounded
 signature family fails on the held-out datasets, the lane loses promotion. The
 lawful command is
-\occode{logion/k7/spe/orchestrator/science/run_oc_core_domain_hard_closure_replay_v1.py --domain-id BIOLOGY}. The reserve wave
+\occode{validation/biology/replay.py}. The reserve wave
 \occode{INSTITUTE_RUN::BIOLOGY::WAVE_3A} remains on stand-by.
 
 \paragraph{Systems / Civilizational projection.}
@@ -86,7 +86,7 @@ cases, with coverage \occode{PASS_CASESET_MINIMUM_REACHED} and parameterization
 the declared trajectory and regime-change observables to remain within
 tolerance on held-out intervals; a missed turning point or out-of-band held-out
 trajectory falsifies the packet. The lawful command is
-\occode{logion/k7/spe/orchestrator/science/run_oc_core_domain_hard_closure_replay_v1.py --domain-id SYSTEMS_CIVILIZATIONAL_PROJECTION}. The reserve wave
+\occode{validation/systems/replay.py}. The reserve wave
 \occode{INSTITUTE_RUN::SYSTEMS::WAVE_4A} remains on stand-by.
 
 \endgroup

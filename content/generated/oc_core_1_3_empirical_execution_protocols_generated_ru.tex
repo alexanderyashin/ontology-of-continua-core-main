@@ -17,11 +17,11 @@
 Домен & Волна & Порог эвиденса & Политика held-out & Команда replay & Статус replay & Вердикт закрытия \\
 \midrule
 \endhead
-Mathematics & \occode{WAVE_0_ANCHOR} & \occode{HYBRID_ESCALATION} & \occode{DETERMINISTIC_COUNTEREXAMPLE_AND_TRACE_REPLAY} & \occode{run_claim_simulations_v1.py} & \occode{PASS_REPLAYABLE} & \occode{PASS} \\
-Physics & \occode{WAVE_1_PHYSICS} & \occode{HYBRID_ESCALATION} & \occode{LEAVE_ONE_BENCHMARK_FAMILY_OUT} & \occode{run_oc_core_domain_hard_closure_replay_v1.py --domain-id PHYSICS} & \occode{PASS_REPLAYABLE} & \occode{PASS} \\
-Chemistry & \occode{WAVE_2_CHEMISTRY} & \occode{HYBRID_ESCALATION} & \occode{HOLD_OUT_ONE_COMPOUND_OR_REACTION_CLASS} & \occode{run_oc_core_domain_hard_closure_replay_v1.py --domain-id CHEMISTRY} & \occode{PASS_REPLAYABLE} & \occode{PASS} \\
-Biology & \occode{WAVE_3_BIOLOGY} & \occode{HYBRID_ESCALATION} & \occode{RESERVE_ONE_DATASET_FAMILY_PER_SIGNATURE_CLASS} & \occode{run_oc_core_domain_hard_closure_replay_v1.py --domain-id BIOLOGY} & \occode{PASS_REPLAYABLE} & \occode{PASS} \\
-Systems / Civilizational projection & \occode{WAVE_4_SYSTEMS} & \occode{HYBRID_ESCALATION} & \occode{HELD_OUT_INTERVAL_REPLAY_WITH_TURNING_POINT_CHECKS} & \occode{run_oc_core_domain_hard_closure_replay_v1.py --domain-id SYSTEMS_CIVILIZATIONAL_PROJECTION} & \occode{PASS_REPLAYABLE} & \occode{PASS} \\
+Mathematics & \occode{WAVE_0_ANCHOR} & \occode{HYBRID_ESCALATION} & \occode{DETERMINISTIC_COUNTEREXAMPLE_AND_TRACE_REPLAY} & \occode{validation/mathematics/replay.py} & \occode{PASS_REPLAYABLE} & \occode{PASS} \\
+Physics & \occode{WAVE_1_PHYSICS} & \occode{HYBRID_ESCALATION} & \occode{LEAVE_ONE_BENCHMARK_FAMILY_OUT} & \occode{validation/physics/replay.py} & \occode{PASS_REPLAYABLE} & \occode{PASS} \\
+Chemistry & \occode{WAVE_2_CHEMISTRY} & \occode{HYBRID_ESCALATION} & \occode{HOLD_OUT_ONE_COMPOUND_OR_REACTION_CLASS} & \occode{validation/chemistry/replay.py} & \occode{PASS_REPLAYABLE} & \occode{PASS} \\
+Biology & \occode{WAVE_3_BIOLOGY} & \occode{HYBRID_ESCALATION} & \occode{RESERVE_ONE_DATASET_FAMILY_PER_SIGNATURE_CLASS} & \occode{validation/biology/replay.py} & \occode{PASS_REPLAYABLE} & \occode{PASS} \\
+Systems / Civilizational projection & \occode{WAVE_4_SYSTEMS} & \occode{HYBRID_ESCALATION} & \occode{HELD_OUT_INTERVAL_REPLAY_WITH_TURNING_POINT_CHECKS} & \occode{validation/systems/replay.py} & \occode{PASS_REPLAYABLE} & \occode{PASS} \\
 \bottomrule
 \end{longtable}
 \endgroup
@@ -51,7 +51,7 @@ Systems / Civilizational projection & \occode{WAVE_4_SYSTEMS} & \occode{HYBRID_E
 Закреплённые институты маршрута: Clay Mathematics Institute, \allowbreak American Institute of Mathematics.
 Политика held-out: \occode{DETERMINISTIC_COUNTEREXAMPLE_AND_TRACE_REPLAY}, минимум случаев \occode{31}.
 Квантитативный порог: минимум 31 случаев; строго терминализованных случаев не менее 31; выживших контрпримеров не более 0; расхождений replay не более 0.
-Средство replay: \occode{logion/k7/spe/orchestrator/science/run_claim_simulations_v1.py}.
+Средство replay: \occode{validation/mathematics/replay.py}.
 Триггер запуска институтов: \occode{ONLY_IF_DETERMINISTIC_REPLAY_BREAKS}. Волна измерений: \occode{NONE}.
 Открытые разрывы: отсутствуют.
 План эскалации: расширять корпус точных вопросов, а не расширять внешние притязания при появлении разрыва replay.
@@ -62,7 +62,7 @@ Systems / Civilizational projection & \occode{WAVE_4_SYSTEMS} & \occode{HYBRID_E
 Закреплённые институты маршрута: NIST, \allowbreak U.S. Department of Energy Office of Science.
 Политика held-out: \occode{LEAVE_ONE_BENCHMARK_FAMILY_OUT}, минимум случаев \occode{30}.
 Квантитативный порог: минимум 30 случаев; коэффициент покрытия 1.0; средняя абсолютная нормализованная ошибка не выше 1.0 sigma; 95-й процентиль нормализованной ошибки не выше 2.5 sigma; максимум нормализованной ошибки не выше 5.0 sigma; нарушения хвоста не более 0; порог критического остатка 2.5 sigma; порог тяжёлого остатка 1.5 sigma.
-Replay harness: \occode{logion/k7/spe/orchestrator/science/run_oc_core_domain_hard_closure_replay_v1.py --domain-id PHYSICS}.
+Replay harness: \occode{validation/physics/replay.py}.
 Триггер запуска институтов: \occode{OPEN_DATA_COVERAGE_LT_1_0_OR_HELD_OUT_CASES_LT_30_OR_RESIDUAL_BREACH_PERSISTS}. Волна измерений: \occode{INSTITUTE_RUN::PHYSICS::WAVE_1A}.
 Открытые разрывы: отсутствуют.
 План эскалации: если официальные/открытые данные не покрывают требуемое семейство наблюдаемых, поставить в очередь измерения институтов или добычу партнёрских наблюдений.
@@ -73,7 +73,7 @@ Replay harness: \occode{logion/k7/spe/orchestrator/science/run_oc_core_domain_ha
 Закреплённые институты маршрута: NIST, \allowbreak U.S. Department of Energy Office of Science.
 Политика held-out: \occode{HOLD_OUT_ONE_COMPOUND_OR_REACTION_CLASS}, минимум случаев \occode{30}.
 Квантитативный порог: минимум 30 случаев; коэффициент покрытия 1.0; средняя абсолютная нормализованная ошибка не выше 1.0 sigma; 95-й процентиль нормализованной ошибки не выше 2.5 sigma; максимум нормализованной ошибки не выше 5.0 sigma; нарушения хвоста не более 0; порог критического остатка 2.5 sigma; порог тяжёлого остатка 1.5 sigma.
-Replay harness: \occode{logion/k7/spe/orchestrator/science/run_oc_core_domain_hard_closure_replay_v1.py --domain-id CHEMISTRY}.
+Replay harness: \occode{validation/chemistry/replay.py}.
 Триггер запуска институтов: \occode{OPEN_DATA_COVERAGE_LT_1_0_OR_HELD_OUT_CASES_LT_30_OR_RESIDUAL_BREACH_PERSISTS}. Волна измерений: \occode{INSTITUTE_RUN::CHEMISTRY::WAVE_2A}.
 Открытые разрывы: отсутствуют.
 План эскалации: при недостаточности официальных/открытых ссылочных данных поставить таргетированное лабораторное измерение или партнёрский сбор данных.
@@ -84,7 +84,7 @@ Replay harness: \occode{logion/k7/spe/orchestrator/science/run_oc_core_domain_ha
 Закреплённые институты маршрута: NCBI GEO.
 Политика held-out: \occode{RESERVE_ONE_DATASET_FAMILY_PER_SIGNATURE_CLASS}, минимум случаев \occode{30}.
 Квантитативный порог: минимум 30 случаев; коэффициент покрытия 1.0; средняя абсолютная нормализованная ошибка не выше 1.0 sigma; 95-й процентиль нормализованной ошибки не выше 2.5 sigma; максимум нормализованной ошибки не выше 5.0 sigma; нарушения хвоста не более 0; ошибка калибровки не выше 0.05.
-Replay harness: \occode{logion/k7/spe/orchestrator/science/run_oc_core_domain_hard_closure_replay_v1.py --domain-id BIOLOGY}.
+Replay harness: \occode{validation/biology/replay.py}.
 Триггер запуска институтов: \occode{OPEN_DATA_COVERAGE_LT_1_0_OR_HELD_OUT_CASES_LT_30_OR_SIGNATURE_CLASS_UNDERCONSTRAINED}. Волна измерений: \occode{INSTITUTE_RUN::BIOLOGY::WAVE_3A}.
 Открытые разрывы: отсутствуют.
 План эскалации: если открытые репозитории не позволяют честно закрыть канал, внедрить план наблюдений институтов или assay вместо расширения притязаний.
@@ -95,7 +95,7 @@ Replay harness: \occode{logion/k7/spe/orchestrator/science/run_oc_core_domain_ha
 Закреплённые институты маршрута: World Bank, \allowbreak U.S. Department of Energy Office of Science.
 Политика held-out: \occode{HELD_OUT_INTERVAL_REPLAY_WITH_TURNING_POINT_CHECKS}, минимум случаев \occode{30}.
 Квантитативный порог: минимум 30 случаев; коэффициент покрытия 1.0; нарушения хвоста не более 0; Brier score не выше 0.08; ошибка калибровки не выше 0.05; critical-failure F1 не ниже 0.87; precision критического сбоя не ниже 0.85; recall критического сбоя не ниже 0.9.
-Replay harness: \occode{logion/k7/spe/orchestrator/science/run_oc_core_domain_hard_closure_replay_v1.py --domain-id SYSTEMS_CIVILIZATIONAL_PROJECTION}.
+Replay harness: \occode{validation/systems/replay.py}.
 Триггер запуска институтов: \occode{OPEN_DATA_COVERAGE_LT_1_0_OR_HELD_OUT_INTERVAL_COUNT_LT_30_OR_TURNING_POINT_BREACH_PERSISTS}. Волна измерений: \occode{INSTITUTE_RUN::SYSTEMS::WAVE_4A}.
 Открытые разрывы: отсутствуют.
 План эскалации: если открытые ряды макропроцессов недостаточны, поставить в очередь проект наблюдений института или партнёрский сбор данных.

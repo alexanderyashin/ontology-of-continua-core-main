@@ -37,7 +37,7 @@ rather than measurement-driven. The held-out policy is
 strict cases. Coverage, sigma thresholds, Brier score, and ECE are therefore
 not applicable. Promotion survives only if no replay divergence and no
 surviving counterexample appear. Replay command:
-\occode{logion/k7/spe/orchestrator/science/run_claim_simulations_v1.py}. No
+\occode{validation/mathematics/replay.py}. No
 external dataset manifest is required because the mathematics anchor closes on
 strict replay and counterexample traces rather than on observational data.
 
@@ -51,7 +51,7 @@ absolute normalized error at most 1.0 sigma, p95 at most 2.5 sigma, maximum
 error at most 5.0 sigma, and zero tail breaches. Promotion survives only if
 every benchmark family remains within tolerance; any residual breach or broken
 sign/order constraint falsifies the packet. Replay command:
-\occode{logion/k7/spe/orchestrator/science/run_oc_core_domain_hard_closure_replay_v1.py --domain-id PHYSICS}.
+\occode{validation/physics/replay.py}.
 \begin{itemize}[leftmargin=1.5em,nosep]
 \item \occode{PHY_BENCH_001}: \occode{fine_structure_constant_residual}. Authority: \occode{NIST / CODATA constants}. Dataset: \url{https://physics.nist.gov/cuu/Constants/index.html}. Held-out policy: leave one family out for residual verification.
 \item \occode{PHY_BENCH_002}: \occode{hydrogen_balmer_line_residual}. Authority: \occode{NIST Atomic Spectra Database}. Dataset: \url{https://physics.nist.gov/PhysRefData/ASD/lines_form.html}. Held-out policy: reserve transitions not used during packet fitting.
@@ -68,7 +68,7 @@ normalized error at most 1.0 sigma, p95 at most 2.5 sigma, maximum error at
 most 5.0 sigma, and zero tail breaches. A held-out thermochemical, spectral,
 or kinetic family outside tolerance falsifies the promoted chemistry packet.
 Replay command:
-\occode{logion/k7/spe/orchestrator/science/run_oc_core_domain_hard_closure_replay_v1.py --domain-id CHEMISTRY}.
+\occode{validation/chemistry/replay.py}.
 \begin{itemize}[leftmargin=1.5em,nosep]
 \item \occode{CHEM_BENCH_001}: \occode{gas_phase_enthalpy_residual}. Authority: \occode{NIST Chemistry WebBook}. Dataset: \url{https://webbook.nist.gov/chemistry/}. Held-out policy: hold out one compound family from calibration.
 \item \occode{CHEM_BENCH_002}: \occode{spectral_transition_residual}. Authority: \occode{NIST Chemistry WebBook}. Dataset: \url{https://webbook.nist.gov/chemistry/}. Held-out policy: hold out one spectral family.
@@ -86,7 +86,7 @@ normalized error at most 1.0 sigma, p95 at most 2.5 sigma, maximum error at
 most 5.0 sigma, ECE at most 0.05, and zero tail breaches. Promotion survives
 only if the bounded signature family reproduces the held-out dataset family
 without widening the claim boundary. Replay command:
-\occode{logion/k7/spe/orchestrator/science/run_oc_core_domain_hard_closure_replay_v1.py --domain-id BIOLOGY}.
+\occode{validation/biology/replay.py}.
 \begin{itemize}[leftmargin=1.5em,nosep]
 \item \occode{BIO_BENCH_001}: \occode{expression_signature_residual}. Authority: \occode{NCBI GEO}. Dataset: \url{https://www.ncbi.nlm.nih.gov/geo/}. Held-out policy: reserve one time-series family for held-out replay.
 \item \occode{BIO_BENCH_002}: \occode{state_transition_order_error}. Authority: \occode{NCBI GEO}. Dataset: \url{https://www.ncbi.nlm.nih.gov/geo/}. Held-out policy: reserve one cell-state transition family.
@@ -103,7 +103,7 @@ most 0.05, and zero tail breaches. Promotion survives only if the declared
 trajectory and regime-change observables remain inside tolerance on held-out
 intervals; a missed turning point or out-of-band trajectory falsifies the
 packet. Replay command:
-\occode{logion/k7/spe/orchestrator/science/run_oc_core_domain_hard_closure_replay_v1.py --domain-id SYSTEMS_CIVILIZATIONAL_PROJECTION}.
+\occode{validation/systems/replay.py}.
 \begin{itemize}[leftmargin=1.5em,nosep]
 \item \occode{SYS_BENCH_001}: \occode{population_trajectory_residual}. Authority: \occode{World Bank Indicators API}. Dataset: \url{https://api.worldbank.org/v2/en/indicator/SP.POP.TOTL?format=json}. Held-out policy: leave out one interval family.
 \item \occode{SYS_BENCH_002}: \occode{gdp_growth_turning_point_error}. Authority: \occode{World Bank Indicators API}. Dataset: \url{https://api.worldbank.org/v2/en/indicator/NY.GDP.MKTP.KD.ZG?format=json}. Held-out policy: reserve one held-out macro interval.

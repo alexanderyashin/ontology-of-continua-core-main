@@ -35,7 +35,7 @@ benchmark family. It currently sits at verdict \occode{PASS} with replay state
 tests strict closure ledgers and counterexample traces directly. Promotion
 fails on the first replay divergence or on the first surviving counterexample.
 Replay command:
-\occode{logion/k7/spe/orchestrator/science/run_claim_simulations_v1.py}. The
+\occode{validation/mathematics/replay.py}. The
 lawful next action remains \occode{MAINTAIN_REPLAY_DISCIPLINE}.
 
 \paragraph{Physics.}
@@ -45,7 +45,7 @@ The promoted physics packet is
 residuals must remain within the declared tolerance band for every promoted
 benchmark family. Any family outside tolerance, or any broken sign/order
 constraint, falsifies the packet. Replay command:
-\occode{logion/k7/spe/orchestrator/science/run_oc_core_domain_hard_closure_replay_v1.py --domain-id PHYSICS}.
+\occode{validation/physics/replay.py}.
 The current official replay basis is \occode{PARTIAL_OFFICIAL_PRIMARY_DATA},
 with 30 covered cases, 20 held-out cases, mean absolute normalized error
 0.188136 sigma, p95 0.64778 sigma, maximum 1.48 sigma, and zero tail breaches.
@@ -62,7 +62,7 @@ The promoted chemistry packet is
 declared thermochemical, spectral, and kinetic benchmark families must remain
 within tolerance on held-out compounds or reaction classes. A held-out family
 outside tolerance falsifies the packet. Replay command:
-\occode{logion/k7/spe/orchestrator/science/run_oc_core_domain_hard_closure_replay_v1.py --domain-id CHEMISTRY}.
+\occode{validation/chemistry/replay.py}.
 The official replay basis remains
 \occode{PARTIAL_OFFICIAL_PRIMARY_DATA}, with 30 covered cases, 19 held-out
 cases, mean absolute normalized error 0.533285 sigma, p95 1.0 sigma, maximum
@@ -82,7 +82,7 @@ The bounded measurable signatures must reproduce the held-out dataset families
 without widening the claim boundary. If the signature family fails on the
 held-out datasets, the biological lane loses promotion for the affected packet.
 Replay command:
-\occode{logion/k7/spe/orchestrator/science/run_oc_core_domain_hard_closure_replay_v1.py --domain-id BIOLOGY}.
+\occode{validation/biology/replay.py}.
 The official replay basis is \occode{OFFICIAL_OPEN_PRIMARY_DATA}, with 30
 covered cases, 16 held-out cases, mean absolute normalized error 0.444222
 sigma, p95 1.030033 sigma, maximum 1.438582 sigma, and zero tail breaches.
@@ -99,7 +99,7 @@ The promoted systems packet is
 declared trajectory and regime-change observables must remain within tolerance
 on held-out intervals; a missed turning point or an out-of-band trajectory
 falsifies the packet. Replay command:
-\occode{logion/k7/spe/orchestrator/science/run_oc_core_domain_hard_closure_replay_v1.py --domain-id SYSTEMS_CIVILIZATIONAL_PROJECTION}.
+\occode{validation/systems/replay.py}.
 The official replay basis is \occode{OFFICIAL_OPEN_PRIMARY_DATA}, with 30
 covered cases, 18 held-out cases, mean absolute normalized error 0.56097
 sigma, p95 1.924704 sigma, maximum 2.25395 sigma, and zero tail breaches.

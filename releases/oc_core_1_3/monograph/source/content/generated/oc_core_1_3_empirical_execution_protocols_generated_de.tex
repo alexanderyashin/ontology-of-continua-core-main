@@ -18,11 +18,11 @@ Domäne & Welle & Evidenzbar & Held-out-Richtlinie & Replay-Befehl & Replay-Stat
 Domäne & Welle & Evidenzbar & Held-out-Richtlinie & Replay-Befehl & Replay-Status & Abschlussurteil \\
 \midrule
 \endhead
-Mathematik & \occode{WAVE_0_ANCHOR} & \occode{HYBRID_ESCALATION} & \occode{DETERMINISTIC_COUNTEREXAMPLE_AND_TRACE_REPLAY} & \occode{run_claim_simulations_v1.py} & \occode{PASS_REPLAYABLE} & \occode{PASS} \\
-Physik & \occode{WAVE_1_PHYSICS} & \occode{HYBRID_ESCALATION} & \occode{LEAVE_ONE_BENCHMARK_FAMILY_OUT} & \occode{run_oc_core_domain_hard_closure_replay_v1.py --domain-id PHYSICS} & \occode{PASS_REPLAYABLE} & \occode{PASS} \\
-Chemie & \occode{WAVE_2_CHEMISTRY} & \occode{HYBRID_ESCALATION} & \occode{HOLD_OUT_ONE_COMPOUND_OR_REACTION_CLASS} & \occode{run_oc_core_domain_hard_closure_replay_v1.py --domain-id CHEMISTRY} & \occode{PASS_REPLAYABLE} & \occode{PASS} \\
-Biologie & \occode{WAVE_3_BIOLOGY} & \occode{HYBRID_ESCALATION} & \occode{RESERVE_ONE_DATASET_FAMILY_PER_SIGNATURE_CLASS} & \occode{run_oc_core_domain_hard_closure_replay_v1.py --domain-id BIOLOGY} & \occode{PASS_REPLAYABLE} & \occode{PASS} \\
-Systems / Civilizational projection & \occode{WAVE_4_SYSTEMS} & \occode{HYBRID_ESCALATION} & \occode{HELD_OUT_INTERVAL_REPLAY_WITH_TURNING_POINT_CHECKS} & \occode{run_oc_core_domain_hard_closure_replay_v1.py --domain-id SYSTEMS_CIVILIZATIONAL_PROJECTION} & \occode{PASS_REPLAYABLE} & \occode{PASS} \\
+Mathematik & \occode{WAVE_0_ANCHOR} & \occode{HYBRID_ESCALATION} & \occode{DETERMINISTIC_COUNTEREXAMPLE_AND_TRACE_REPLAY} & \occode{validation/mathematics/replay.py} & \occode{PASS_REPLAYABLE} & \occode{PASS} \\
+Physik & \occode{WAVE_1_PHYSICS} & \occode{HYBRID_ESCALATION} & \occode{LEAVE_ONE_BENCHMARK_FAMILY_OUT} & \occode{validation/physics/replay.py} & \occode{PASS_REPLAYABLE} & \occode{PASS} \\
+Chemie & \occode{WAVE_2_CHEMISTRY} & \occode{HYBRID_ESCALATION} & \occode{HOLD_OUT_ONE_COMPOUND_OR_REACTION_CLASS} & \occode{validation/chemistry/replay.py} & \occode{PASS_REPLAYABLE} & \occode{PASS} \\
+Biologie & \occode{WAVE_3_BIOLOGY} & \occode{HYBRID_ESCALATION} & \occode{RESERVE_ONE_DATASET_FAMILY_PER_SIGNATURE_CLASS} & \occode{validation/biology/replay.py} & \occode{PASS_REPLAYABLE} & \occode{PASS} \\
+Systems / Civilizational projection & \occode{WAVE_4_SYSTEMS} & \occode{HYBRID_ESCALATION} & \occode{HELD_OUT_INTERVAL_REPLAY_WITH_TURNING_POINT_CHECKS} & \occode{validation/systems/replay.py} & \occode{PASS_REPLAYABLE} & \occode{PASS} \\
 \bottomrule
 \end{longtable}
 \endgroup
@@ -52,7 +52,7 @@ Abschlussphase: \occode{PHASE_1_STABILIZE_CLOSED_CORE}. Startregel: \occode{MAIN
 Festgelegte Rout-Institutionen: Clay Mathematics Institute, \allowbreak American Institute of Mathematics.
 Held-out-Richtlinie: \occode{DETERMINISTIC_COUNTEREXAMPLE_AND_TRACE_REPLAY} mit mindestens \occode{31} Fällen.
 Quantitative Grenze: mindestens 31 Fälle; strikt terminalisierte Fälle mindestens 31; Gegenbeispiel-Überlebende begrenzt auf 0; Replay-Divergenzen begrenzt auf 0.
-Replay-Harness: \occode{logion/k7/spe/orchestrator/science/run_claim_simulations_v1.py}.
+Replay-Harness: \occode{validation/mathematics/replay.py}.
 Institute-run-Trigger: \occode{ONLY_IF_DETERMINISTIC_REPLAY_BREAKS}. Messphase: \occode{NONE}.
 Offene Lücken: keine.
 Eskalationsplan: Bei Auftreten einer Replay-Lücke den genauen Fragekorpus ausbauen statt Außenbehauptungen zu erweitern.
@@ -63,7 +63,7 @@ Abschlussphase: \occode{PHASE_3_PHYSICS_CLOSURE}. Startregel: \occode{START_IMME
 Festgelegte Rout-Institutionen: NIST, \allowbreak U.S. Department of Energy Office of Science.
 Held-out-Richtlinie: \occode{LEAVE_ONE_BENCHMARK_FAMILY_OUT} mit mindestens \occode{30} Fällen.
 Quantitative Grenze: mindestens 30 Fälle; Coverage Ratio 1.0; mittlerer absoluter normalisierter Fehler von maximal 1.0 Sigma; 95th-Perzentil normalisierter Fehler von maximal 2.5 Sigma; maximaler normalisierter Fehler von maximal 5.0 Sigma; Tail-Breaches begrenzt auf 0; kritische Restschwelle 2.5 Sigma; schwere Restschwelle 1.5 Sigma.
-Replay-Harness: \occode{logion/k7/spe/orchestrator/science/run_oc_core_domain_hard_closure_replay_v1.py --domain-id PHYSICS}.
+Replay-Harness: \occode{validation/physics/replay.py}.
 Institute-run-Trigger: \occode{OPEN_DATA_COVERAGE_LT_1_0_OR_HELD_OUT_CASES_LT_30_OR_RESIDUAL_BREACH_PERSISTS}. Messphase: \occode{INSTITUTE_RUN::PHYSICS::WAVE_1A}.
 Offene Lücken: keine.
 Eskalationsplan: Wenn offizielle oder offene Daten die erforderliche Beobachtungsfamilie nicht ausreichend abdecken, messrelevante Erhebungen oder Beobachterpartnerbeschaffung einplanen.
@@ -74,7 +74,7 @@ Abschlussphase: \occode{PHASE_4_CHEMISTRY_CLOSURE}. Startregel: \occode{START_AF
 Festgelegte Rout-Institutionen: NIST, \allowbreak U.S. Department of Energy Office of Science.
 Held-out-Richtlinie: \occode{HOLD_OUT_ONE_COMPOUND_OR_REACTION_CLASS} mit mindestens \occode{30} Fällen.
 Quantitative Grenze: mindestens 30 Fälle; Coverage Ratio 1.0; mittlerer absoluter normalisierter Fehler von maximal 1.0 Sigma; 95th-Perzentil normalisierter Fehler von maximal 2.5 Sigma; maximaler normalisierter Fehler von maximal 5.0 Sigma; Tail-Breaches begrenzt auf 0; kritische Restschwelle 2.5 Sigma; schwere Restschwelle 1.5 Sigma.
-Replay-Harness: \occode{logion/k7/spe/orchestrator/science/run_oc_core_domain_hard_closure_replay_v1.py --domain-id CHEMISTRY}.
+Replay-Harness: \occode{validation/chemistry/replay.py}.
 Institute-run-Trigger: \occode{OPEN_DATA_COVERAGE_LT_1_0_OR_HELD_OUT_CASES_LT_30_OR_RESIDUAL_BREACH_PERSISTS}. Messphase: \occode{INSTITUTE_RUN::CHEMISTRY::WAVE_2A}.
 Offene Lücken: keine.
 Eskalationsplan: Wenn offizielle oder offene Referenzdaten unzureichend sind, gezielte Labor- oder Partnererhebung vorsehen.
@@ -85,7 +85,7 @@ Abschlussphase: \occode{PHASE_5_BIOLOGY_CLOSURE}. Startregel: \occode{START_AFTE
 Festgelegte Rout-Institutionen: NCBI GEO.
 Held-out-Richtlinie: \occode{RESERVE_ONE_DATASET_FAMILY_PER_SIGNATURE_CLASS} mit mindestens \occode{30} Fällen.
 Quantitative Grenze: mindestens 30 Fälle; Coverage Ratio 1.0; mittlerer absoluter normalisierter Fehler von maximal 1.0 Sigma; 95th-Perzentil normalisierter Fehler von maximal 2.5 Sigma; maximaler normalisierter Fehler von maximal 5.0 Sigma; Tail-Breaches begrenzt auf 0; erwarteter Kalibrierungsfehler von maximal 0.05.
-Replay-Harness: \occode{logion/k7/spe/orchestrator/science/run_oc_core_domain_hard_closure_replay_v1.py --domain-id BIOLOGY}.
+Replay-Harness: \occode{validation/biology/replay.py}.
 Institute-run-Trigger: \occode{OPEN_DATA_COVERAGE_LT_1_0_OR_HELD_OUT_CASES_LT_30_OR_SIGNATURE_CLASS_UNDERCONSTRAINED}. Messphase: \occode{INSTITUTE_RUN::BIOLOGY::WAVE_3A}.
 Offene Lücken: keine.
 Eskalationsplan: Wenn offene Repositorien die Bahn nicht ehrlich schließen, stattdessen ein institutsgestütztes Beobachtungs- oder Assayprogramm ausweiten statt zu überbehaupten.
@@ -96,7 +96,7 @@ Abschlussphase: \occode{PHASE_6_SYSTEMS_CLOSURE}. Startregel: \occode{ALLOW_PARA
 Festgelegte Rout-Institutionen: World Bank, \allowbreak U.S. Department of Energy Office of Science.
 Held-out-Richtlinie: \occode{HELD_OUT_INTERVAL_REPLAY_WITH_TURNING_POINT_CHECKS} mit mindestens \occode{30} Fällen.
 Quantitative Grenze: mindestens 30 Fälle; Coverage Ratio 1.0; Tail-Breaches begrenzt auf 0; Brier-Score von maximal 0.08; erwarteter Kalibrierungsfehler von maximal 0.05; kritisches Ausfall-F1 mindestens 0.87; kritische Ausfall-Präzision mindestens 0.85; kritische Ausfall-Recall mindestens 0.9.
-Replay-Harness: \occode{logion/k7/spe/orchestrator/science/run_oc_core_domain_hard_closure_replay_v1.py --domain-id SYSTEMS_CIVILIZATIONAL_PROJECTION}.
+Replay-Harness: \occode{validation/systems/replay.py}.
 Institute-run-Trigger: \occode{OPEN_DATA_COVERAGE_LT_1_0_OR_HELD_OUT_INTERVAL_COUNT_LT_30_OR_TURNING_POINT_BREACH_PERSISTS}. Messphase: \occode{INSTITUTE_RUN::SYSTEMS::WAVE_4A}.
 Offene Lücken: keine.
 Eskalationsplan: Wenn offene Makro-Prozess-Zeitreihen unzureichend sind, institutsgestützte Beobachtungsplanung oder Partnerdatenbeschaffung einplanen.
