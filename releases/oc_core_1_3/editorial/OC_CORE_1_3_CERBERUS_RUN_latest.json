@@ -1,13 +1,13 @@
 {
   "metadata": {
-    "repo_sha": "9d95428f16975d809a2bad52ac29c202941d17a0",
-    "generated_at_utc": "2026-05-08T14:50:03Z",
+    "repo_sha": "c328145b63c1e38f687ebaaa67a42d3ec379d72f",
+    "generated_at_utc": "2026-05-08T17:08:59Z",
     "surface": "logion/k0/governance/status/OC_CORE_1_3_CERBERUS_RUN_latest.json",
     "script": "oc_core_1_3_cerberus_review.py"
   },
-  "run_id": "CERBERUS_RUN__20260508T144544Z__9d95428f",
+  "run_id": "CERBERUS_RUN__20260508T170439Z__c328145b",
   "scope_id": "OC_CORE_1_3_ENGLISH_FLAGSHIP_RELEASE_PACKAGE",
-  "manifest_fingerprint": "9d11ddc87b9041e6e761cc083118481e76f5ac916cceb92ad5ff77077d7e7a4f",
+  "manifest_fingerprint": "c9b53ee9d4683b209d1d2816d34d37f54d2131463236d27e4cccc64a2dcd4f8c",
   "build": {
     "build_dir": "build_oc_core_1_3_cerberus_review",
     "pdf_ref": "",
@@ -36,21 +36,21 @@
   },
   "summary": {
     "deterministic_findings_total": 0,
-    "llm_findings_total": 2,
+    "llm_findings_total": 0,
     "open_findings_total": 0,
     "llm_gate_status": "TARGETED_PASS_NOT_RELEASE_GATE",
     "status": "FAIL_CLOSED",
-    "duration_seconds": 259.296
+    "duration_seconds": 259.518
   },
   "llm": {
-    "review_count": 5,
+    "review_count": 3,
     "runs": [
       {
         "reviewer_id": "CERBERUS_LLM__HOSTILE_GENERALIST_SCIENTIST",
         "batch_index": 1,
         "model_used": "gpt-5.4-mini",
         "artifact_refs": [
-          "content/20_oc_core_1_3_theorem_roadmap.tex"
+          "content/22_oc_core_1_3_operationalization_program.tex"
         ],
         "command": [
           "codex",
@@ -63,56 +63,25 @@
           "--color",
           "never",
           "--output-schema",
-          "C:\\Users\\Megaport\\work\\logion_local\\repos\\ontology-of-continua-core-main\\releases\\oc_core_1_3\\editorial\\cerberus_runs\\CERBERUS_RUN__20260508T144544Z__9d95428f\\llm\\ce16591ab170a86d_schema.json",
+          "C:\\Users\\Megaport\\work\\logion_local\\repos\\ontology-of-continua-core-main\\releases\\oc_core_1_3\\editorial\\cerberus_runs\\CERBERUS_RUN__20260508T170439Z__c328145b\\llm\\5335f75b5d98c5d6_schema.json",
           "-o",
-          "C:\\Users\\Megaport\\work\\logion_local\\repos\\ontology-of-continua-core-main\\releases\\oc_core_1_3\\editorial\\cerberus_runs\\CERBERUS_RUN__20260508T144544Z__9d95428f\\llm\\ce16591ab170a86d_output.json",
+          "C:\\Users\\Megaport\\work\\logion_local\\repos\\ontology-of-continua-core-main\\releases\\oc_core_1_3\\editorial\\cerberus_runs\\CERBERUS_RUN__20260508T170439Z__c328145b\\llm\\5335f75b5d98c5d6_output.json",
           "-"
         ],
         "returncode": 0,
         "stdout_tail": "{\"findings\":[]}",
-        "stderr_tail": "\n2026-05-08T14:47:39.409152Z  WARN codex_core_plugins::manifest: ignoring interface.defaultPrompt: prompt must be at most 128 characters path=C:\\Users\\Megaport\\.codex\\.tmp\\plugins\\plugins\\build-ios-apps\\.codex-plugin/plugin.json\n2026-05-08T14:47:39.410787Z  WARN codex_core_plugins::manifest: ignoring interface.defaultPrompt: maximum of 3 prompts is supported path=C:\\Users\\Megaport\\.codex\\.tmp\\plugins\\plugins\\plugin-eval\\.codex-plugin/plugin.json\n2026-05-08T14:47:39.421334Z  WARN codex_core_plugins::manifest: ignoring interface.defaultPrompt: maximum of 3 prompts is supported path=C:\\Users\\Megaport\\.codex\\.tmp\\plugins\\plugins\\twilio-developer-kit\\.codex-plugin/plugin.json\n2026-05-08T14:47:39.488352Z  WARN codex_core_skills::loader: ignoring interface.icon_small: icon path must not contain '..'\n2026-05-08T14:47:39.488373Z  WARN codex_core_skills::loader: ignoring interface.icon_large: icon path must not contain '..'\n2026-05-08T14:47:39.490423Z  WARN codex_core_skills::loader: ignoring interface.icon_small: icon path must not contain '..'\n2026-05-08T14:47:39.490438Z  WARN codex_core_skills::loader: ignoring interface.icon_large: icon path must not contain '..'\n2026-05-08T14:47:39.492213Z  WARN codex_core_skills::loader: ignoring interface.icon_small: icon path must not contain '..'\n2026-05-08T14:47:39.492228Z  WARN codex_core_skills::loader: ignoring interface.icon_large: icon path must not contain '..'\n2026-05-08T14:47:39.494199Z  WARN codex_core_skills::loader: ignoring interface.icon_small: icon path must not contain '..'\n2026-05-08T14:47:39.494218Z  WARN codex_core_skills::loader: ignoring interface.icon_large: icon path must not contain '..'\n2026-05-08T14:47:39.496010Z  WARN codex_core_skills::loader: ignoring interface.icon_small: icon path must not contain '..'\n2026-05-08T14:47:39.496026Z  WARN codex_core_skills::loader: ignoring interface.icon_large: icon path must not contain '..'\n2026-05-08T14:47:39.498183Z  WARN codex_core_skills::loader: ignoring interface.icon_small: icon path must not contain '..'\n2026-05-08T14:47:39.498198Z  WARN codex_core_skills::loader: ignoring interface.icon_large: icon path must not contain '..'\ncodex\n{\"findings\":[]}\ntokens used\n169.165",
-        "prompt_ref": "releases/oc_core_1_3/editorial/cerberus_runs/CERBERUS_RUN__20260508T144544Z__9d95428f/llm/ce16591ab170a86d_prompt.txt",
-        "schema_ref": "releases/oc_core_1_3/editorial/cerberus_runs/CERBERUS_RUN__20260508T144544Z__9d95428f/llm/ce16591ab170a86d_schema.json",
-        "output_ref": "releases/oc_core_1_3/editorial/cerberus_runs/CERBERUS_RUN__20260508T144544Z__9d95428f/llm/ce16591ab170a86d_output.json",
-        "duration_seconds": 121.141
-      },
-      {
-        "reviewer_id": "CERBERUS_LLM__HOSTILE_GENERALIST_SCIENTIST",
-        "batch_index": 2,
-        "model_used": "gpt-5.4-mini",
-        "artifact_refs": [
-          "content/23_oc_core_1_3_empirical_execution_protocols.tex"
-        ],
-        "command": [
-          "codex",
-          "exec",
-          "-C",
-          "C:\\Users\\Megaport\\work\\logion_local\\repos\\ontology-of-continua-core-main",
-          "-m",
-          "gpt-5.4-mini",
-          "--dangerously-bypass-approvals-and-sandbox",
-          "--color",
-          "never",
-          "--output-schema",
-          "C:\\Users\\Megaport\\work\\logion_local\\repos\\ontology-of-continua-core-main\\releases\\oc_core_1_3\\editorial\\cerberus_runs\\CERBERUS_RUN__20260508T144544Z__9d95428f\\llm\\a7697a9b96cdbc0a_schema.json",
-          "-o",
-          "C:\\Users\\Megaport\\work\\logion_local\\repos\\ontology-of-continua-core-main\\releases\\oc_core_1_3\\editorial\\cerberus_runs\\CERBERUS_RUN__20260508T144544Z__9d95428f\\llm\\a7697a9b96cdbc0a_output.json",
-          "-"
-        ],
-        "returncode": 0,
-        "stdout_tail": "{\"findings\":[]}",
-        "stderr_tail": "\n2026-05-08T14:48:25.875027Z  WARN codex_core_plugins::manifest: ignoring interface.defaultPrompt: prompt must be at most 128 characters path=C:\\Users\\Megaport\\.codex\\.tmp\\plugins\\plugins\\build-ios-apps\\.codex-plugin/plugin.json\n2026-05-08T14:48:25.876580Z  WARN codex_core_plugins::manifest: ignoring interface.defaultPrompt: maximum of 3 prompts is supported path=C:\\Users\\Megaport\\.codex\\.tmp\\plugins\\plugins\\plugin-eval\\.codex-plugin/plugin.json\n2026-05-08T14:48:25.887764Z  WARN codex_core_plugins::manifest: ignoring interface.defaultPrompt: maximum of 3 prompts is supported path=C:\\Users\\Megaport\\.codex\\.tmp\\plugins\\plugins\\twilio-developer-kit\\.codex-plugin/plugin.json\n2026-05-08T14:48:25.951013Z  WARN codex_core_skills::loader: ignoring interface.icon_small: icon path must not contain '..'\n2026-05-08T14:48:25.951039Z  WARN codex_core_skills::loader: ignoring interface.icon_large: icon path must not contain '..'\n2026-05-08T14:48:25.953042Z  WARN codex_core_skills::loader: ignoring interface.icon_small: icon path must not contain '..'\n2026-05-08T14:48:25.953063Z  WARN codex_core_skills::loader: ignoring interface.icon_large: icon path must not contain '..'\n2026-05-08T14:48:25.955117Z  WARN codex_core_skills::loader: ignoring interface.icon_small: icon path must not contain '..'\n2026-05-08T14:48:25.955133Z  WARN codex_core_skills::loader: ignoring interface.icon_large: icon path must not contain '..'\n2026-05-08T14:48:25.957113Z  WARN codex_core_skills::loader: ignoring interface.icon_small: icon path must not contain '..'\n2026-05-08T14:48:25.957128Z  WARN codex_core_skills::loader: ignoring interface.icon_large: icon path must not contain '..'\n2026-05-08T14:48:25.959237Z  WARN codex_core_skills::loader: ignoring interface.icon_small: icon path must not contain '..'\n2026-05-08T14:48:25.959256Z  WARN codex_core_skills::loader: ignoring interface.icon_large: icon path must not contain '..'\n2026-05-08T14:48:25.961436Z  WARN codex_core_skills::loader: ignoring interface.icon_small: icon path must not contain '..'\n2026-05-08T14:48:25.961453Z  WARN codex_core_skills::loader: ignoring interface.icon_large: icon path must not contain '..'\ncodex\n{\"findings\":[]}\ntokens used\n65.780",
-        "prompt_ref": "releases/oc_core_1_3/editorial/cerberus_runs/CERBERUS_RUN__20260508T144544Z__9d95428f/llm/a7697a9b96cdbc0a_prompt.txt",
-        "schema_ref": "releases/oc_core_1_3/editorial/cerberus_runs/CERBERUS_RUN__20260508T144544Z__9d95428f/llm/a7697a9b96cdbc0a_schema.json",
-        "output_ref": "releases/oc_core_1_3/editorial/cerberus_runs/CERBERUS_RUN__20260508T144544Z__9d95428f/llm/a7697a9b96cdbc0a_output.json",
-        "duration_seconds": 174.678
+        "stderr_tail": "\n2026-05-08T17:06:49.304016Z  WARN codex_core_plugins::manifest: ignoring interface.defaultPrompt: prompt must be at most 128 characters path=C:\\Users\\Megaport\\.codex\\.tmp\\plugins\\plugins\\build-ios-apps\\.codex-plugin/plugin.json\n2026-05-08T17:06:49.305476Z  WARN codex_core_plugins::manifest: ignoring interface.defaultPrompt: maximum of 3 prompts is supported path=C:\\Users\\Megaport\\.codex\\.tmp\\plugins\\plugins\\plugin-eval\\.codex-plugin/plugin.json\n2026-05-08T17:06:49.315915Z  WARN codex_core_plugins::manifest: ignoring interface.defaultPrompt: maximum of 3 prompts is supported path=C:\\Users\\Megaport\\.codex\\.tmp\\plugins\\plugins\\twilio-developer-kit\\.codex-plugin/plugin.json\n2026-05-08T17:06:49.379870Z  WARN codex_core_skills::loader: ignoring interface.icon_small: icon path must not contain '..'\n2026-05-08T17:06:49.379891Z  WARN codex_core_skills::loader: ignoring interface.icon_large: icon path must not contain '..'\n2026-05-08T17:06:49.381701Z  WARN codex_core_skills::loader: ignoring interface.icon_small: icon path must not contain '..'\n2026-05-08T17:06:49.381717Z  WARN codex_core_skills::loader: ignoring interface.icon_large: icon path must not contain '..'\n2026-05-08T17:06:49.383492Z  WARN codex_core_skills::loader: ignoring interface.icon_small: icon path must not contain '..'\n2026-05-08T17:06:49.383507Z  WARN codex_core_skills::loader: ignoring interface.icon_large: icon path must not contain '..'\n2026-05-08T17:06:49.385404Z  WARN codex_core_skills::loader: ignoring interface.icon_small: icon path must not contain '..'\n2026-05-08T17:06:49.385420Z  WARN codex_core_skills::loader: ignoring interface.icon_large: icon path must not contain '..'\n2026-05-08T17:06:49.387266Z  WARN codex_core_skills::loader: ignoring interface.icon_small: icon path must not contain '..'\n2026-05-08T17:06:49.387282Z  WARN codex_core_skills::loader: ignoring interface.icon_large: icon path must not contain '..'\n2026-05-08T17:06:49.389097Z  WARN codex_core_skills::loader: ignoring interface.icon_small: icon path must not contain '..'\n2026-05-08T17:06:49.389112Z  WARN codex_core_skills::loader: ignoring interface.icon_large: icon path must not contain '..'\ncodex\n{\"findings\":[]}\ntokens used\n70.736",
+        "prompt_ref": "releases/oc_core_1_3/editorial/cerberus_runs/CERBERUS_RUN__20260508T170439Z__c328145b/llm/5335f75b5d98c5d6_prompt.txt",
+        "schema_ref": "releases/oc_core_1_3/editorial/cerberus_runs/CERBERUS_RUN__20260508T170439Z__c328145b/llm/5335f75b5d98c5d6_schema.json",
+        "output_ref": "releases/oc_core_1_3/editorial/cerberus_runs/CERBERUS_RUN__20260508T170439Z__c328145b/llm/5335f75b5d98c5d6_output.json",
+        "duration_seconds": 133.869
       },
       {
         "reviewer_id": "CERBERUS_LLM__HOSTILE_MATHEMATICIAN",
         "batch_index": 1,
         "model_used": "gpt-5.3-codex-spark",
         "artifact_refs": [
-          "content/20_oc_core_1_3_theorem_roadmap.tex"
+          "content/19_oc_core_1_3_foundational_consistency.tex"
         ],
         "command": [
           "codex",
@@ -125,56 +94,25 @@
           "--color",
           "never",
           "--output-schema",
-          "C:\\Users\\Megaport\\work\\logion_local\\repos\\ontology-of-continua-core-main\\releases\\oc_core_1_3\\editorial\\cerberus_runs\\CERBERUS_RUN__20260508T144544Z__9d95428f\\llm\\94f33391f3e7428f_schema.json",
+          "C:\\Users\\Megaport\\work\\logion_local\\repos\\ontology-of-continua-core-main\\releases\\oc_core_1_3\\editorial\\cerberus_runs\\CERBERUS_RUN__20260508T170439Z__c328145b\\llm\\b657233c38564831_schema.json",
           "-o",
-          "C:\\Users\\Megaport\\work\\logion_local\\repos\\ontology-of-continua-core-main\\releases\\oc_core_1_3\\editorial\\cerberus_runs\\CERBERUS_RUN__20260508T144544Z__9d95428f\\llm\\94f33391f3e7428f_output.json",
+          "C:\\Users\\Megaport\\work\\logion_local\\repos\\ontology-of-continua-core-main\\releases\\oc_core_1_3\\editorial\\cerberus_runs\\CERBERUS_RUN__20260508T170439Z__c328145b\\llm\\b657233c38564831_output.json",
           "-"
         ],
         "returncode": 0,
         "stdout_tail": "{\"findings\":[]}",
-        "stderr_tail": "\n2026-05-08T14:50:00.949922Z  WARN codex_core_plugins::manifest: ignoring interface.defaultPrompt: prompt must be at most 128 characters path=C:\\Users\\Megaport\\.codex\\.tmp\\plugins\\plugins\\build-ios-apps\\.codex-plugin/plugin.json\n2026-05-08T14:50:00.951476Z  WARN codex_core_plugins::manifest: ignoring interface.defaultPrompt: maximum of 3 prompts is supported path=C:\\Users\\Megaport\\.codex\\.tmp\\plugins\\plugins\\plugin-eval\\.codex-plugin/plugin.json\n2026-05-08T14:50:00.962487Z  WARN codex_core_plugins::manifest: ignoring interface.defaultPrompt: maximum of 3 prompts is supported path=C:\\Users\\Megaport\\.codex\\.tmp\\plugins\\plugins\\twilio-developer-kit\\.codex-plugin/plugin.json\n2026-05-08T14:50:01.031339Z  WARN codex_core_skills::loader: ignoring interface.icon_small: icon path must not contain '..'\n2026-05-08T14:50:01.031359Z  WARN codex_core_skills::loader: ignoring interface.icon_large: icon path must not contain '..'\n2026-05-08T14:50:01.033510Z  WARN codex_core_skills::loader: ignoring interface.icon_small: icon path must not contain '..'\n2026-05-08T14:50:01.033526Z  WARN codex_core_skills::loader: ignoring interface.icon_large: icon path must not contain '..'\n2026-05-08T14:50:01.035796Z  WARN codex_core_skills::loader: ignoring interface.icon_small: icon path must not contain '..'\n2026-05-08T14:50:01.035821Z  WARN codex_core_skills::loader: ignoring interface.icon_large: icon path must not contain '..'\n2026-05-08T14:50:01.038257Z  WARN codex_core_skills::loader: ignoring interface.icon_small: icon path must not contain '..'\n2026-05-08T14:50:01.038276Z  WARN codex_core_skills::loader: ignoring interface.icon_large: icon path must not contain '..'\n2026-05-08T14:50:01.040351Z  WARN codex_core_skills::loader: ignoring interface.icon_small: icon path must not contain '..'\n2026-05-08T14:50:01.040366Z  WARN codex_core_skills::loader: ignoring interface.icon_large: icon path must not contain '..'\n2026-05-08T14:50:01.042468Z  WARN codex_core_skills::loader: ignoring interface.icon_small: icon path must not contain '..'\n2026-05-08T14:50:01.042489Z  WARN codex_core_skills::loader: ignoring interface.icon_large: icon path must not contain '..'\ncodex\n{\"findings\":[]}\ntokens used\n19.707",
-        "prompt_ref": "releases/oc_core_1_3/editorial/cerberus_runs/CERBERUS_RUN__20260508T144544Z__9d95428f/llm/94f33391f3e7428f_prompt.txt",
-        "schema_ref": "releases/oc_core_1_3/editorial/cerberus_runs/CERBERUS_RUN__20260508T144544Z__9d95428f/llm/94f33391f3e7428f_schema.json",
-        "output_ref": "releases/oc_core_1_3/editorial/cerberus_runs/CERBERUS_RUN__20260508T144544Z__9d95428f/llm/94f33391f3e7428f_output.json",
-        "duration_seconds": 258.132
-      },
-      {
-        "reviewer_id": "CERBERUS_LLM__HOSTILE_MATHEMATICIAN",
-        "batch_index": 2,
-        "model_used": "gpt-5.4-mini",
-        "artifact_refs": [
-          "content/24_oc_core_1_3_proof_machinery.tex"
-        ],
-        "command": [
-          "codex",
-          "exec",
-          "-C",
-          "C:\\Users\\Megaport\\work\\logion_local\\repos\\ontology-of-continua-core-main",
-          "-m",
-          "gpt-5.4-mini",
-          "--dangerously-bypass-approvals-and-sandbox",
-          "--color",
-          "never",
-          "--output-schema",
-          "C:\\Users\\Megaport\\work\\logion_local\\repos\\ontology-of-continua-core-main\\releases\\oc_core_1_3\\editorial\\cerberus_runs\\CERBERUS_RUN__20260508T144544Z__9d95428f\\llm\\47259605f4a7a6e7_schema.json",
-          "-o",
-          "C:\\Users\\Megaport\\work\\logion_local\\repos\\ontology-of-continua-core-main\\releases\\oc_core_1_3\\editorial\\cerberus_runs\\CERBERUS_RUN__20260508T144544Z__9d95428f\\llm\\47259605f4a7a6e7_output.json",
-          "-"
-        ],
-        "returncode": 0,
-        "stdout_tail": "{\"findings\":[{\"artifact_ref\":\"content/24_oc_core_1_3_proof_machinery.tex\",\"severity\":\"MINOR\",\"category\":\"claim_scope\",\"section_ref\":\"Opening paragraph\",\"claim\":\"The section refers to `one scientific authority` without naming the canonical SPOT, so the authority projection is still under-specified.\",\"evidence\":\"The canonical summary names `scientific_authority_id` as `OC_CORE_1_3_SCIENCE_SPOT`, but this paragraph only says the proof machinery is projected from `one scientific authority`.\",\"required_action\":\"Name `OC_CORE_1_3_SCIENCE_SPOT` explicitly or add a cross-reference to the authority definition.\",\"status\":\"OPEN\"},{\"artifact_ref\":\"content/24_oc_core_1_3_proof_machinery.tex\",\"severity\":\"MINOR\",\"category\":\"claim_scope\",\"section_ref\":\"Opening paragraph\",\"claim\":\"The sentence that the promotion law `constrains runtime status` and `constrains the monograph itself` blurs the governed object and reads as if an editorial rule were directly constraining the scientific manuscript.\",\"evidence\":\"The canonical summary sets `scientific_authoring_rule` to `SCIENCE_IS_AUTHORED_ONLY_IN_SOURCE_OWNED_SCIENCE_CORPUS_AND_ALL_EDITORIAL_SURFACES_ARE_PROJECTIONS`. Against that boundary, this sentence does not say whether the law governs release packaging, revision governance, or claim promotion.\",\"required_action\":\"Rewrite this as a statement that the manuscript inherits or reports the source verdict, and state explicitly that the promotion law does not alter the science verdict.\",\"status\":\"OPEN\"}]}",
-        "stderr_tail": "\n2026-05-08T14:47:22.433007Z  WARN codex_core_plugins::manifest: ignoring interface.defaultPrompt: prompt must be at most 128 characters path=C:\\Users\\Megaport\\.codex\\.tmp\\plugins\\plugins\\build-ios-apps\\.codex-plugin/plugin.json\n2026-05-08T14:47:22.434388Z  WARN codex_core_plugins::manifest: ignoring interface.defaultPrompt: maximum of 3 prompts is supported path=C:\\Users\\Megaport\\.codex\\.tmp\\plugins\\plugins\\plugin-eval\\.codex-plugin/plugin.json\n2026-05-08T14:47:22.445080Z  WARN codex_core_plugins::manifest: ignoring interface.defaultPrompt: maximum of 3 prompts is supported path=C:\\Users\\Megaport\\.codex\\.tmp\\plugins\\plugins\\twilio-developer-kit\\.codex-plugin/plugin.json\n2026-05-08T14:47:22.515746Z  WARN codex_core_skills::loader: ignoring interface.icon_small: icon path must not contain '..'\n2026-05-08T14:47:22.515768Z  WARN codex_core_skills::loader: ignoring interface.icon_large: icon path must not contain '..'\n2026-05-08T14:47:22.517799Z  WARN codex_core_skills::loader: ignoring interface.icon_small: icon path must not contain '..'\n2026-05-08T14:47:22.517815Z  WARN codex_core_skills::loader: ignoring interface.icon_large: icon path must not contain '..'\n2026-05-08T14:47:22.519763Z  WARN codex_core_skills::loader: ignoring interface.icon_small: icon path must not contain '..'\n2026-05-08T14:47:22.519778Z  WARN codex_core_skills::loader: ignoring interface.icon_large: icon path must not contain '..'\n2026-05-08T14:47:22.522027Z  WARN codex_core_skills::loader: ignoring interface.icon_small: icon path must not contain '..'\n2026-05-08T14:47:22.522050Z  WARN codex_core_skills::loader: ignoring interface.icon_large: icon path must not contain '..'\n2026-05-08T14:47:22.524414Z  WARN codex_core_skills::loader: ignoring interface.icon_small: icon path must not contain '..'\n2026-05-08T14:47:22.524435Z  WARN codex_core_skills::loader: ignoring interface.icon_large: icon path must not contain '..'\n2026-05-08T14:47:22.526431Z  WARN codex_core_skills::loader: ignoring interface.icon_small: icon path must not contain '..'\n2026-05-08T14:47:22.526454Z  WARN codex_core_skills::loader: ignoring interface.icon_large: icon path must not contain '..'\ncodex\n{\"findings\":[{\"artifact_ref\":\"content/24_oc_core_1_3_proof_machinery.tex\",\"severity\":\"MINOR\",\"category\":\"claim_scope\",\"section_ref\":\"Opening paragraph\",\"claim\":\"The section refers to `one scientific authority` without naming the canonical SPOT, so the authority projection is still under-specified.\",\"evidence\":\"The canonical summary names `scientific_authority_id` as `OC_CORE_1_3_SCIENCE_SPOT`, but this paragraph only says the proof machinery is projected from `one scientific authority`.\",\"required_action\":\"Name `OC_CORE_1_3_SCIENCE_SPOT` explicitly or add a cross-reference to the authority definition.\",\"status\":\"OPEN\"},{\"artifact_ref\":\"content/24_oc_core_1_3_proof_machinery.tex\",\"severity\":\"MINOR\",\"category\":\"claim_scope\",\"section_ref\":\"Opening paragraph\",\"claim\":\"The sentence that the promotion law `constrains runtime status` and `constrains the monograph itself` blurs the governed object and reads as if an editorial rule were directly constraining the scientific manuscript.\",\"evidence\":\"The canonical summary sets `scientific_authoring_rule` to `SCIENCE_IS_AUTHORED_ONLY_IN_SOURCE_OWNED_SCIENCE_CORPUS_AND_ALL_EDITORIAL_SURFACES_ARE_PROJECTIONS`. Against that boundary, this sentence does not say whether the law governs release packaging, revision governance, or claim promotion.\",\"required_action\":\"Rewrite this as a statement that the manuscript inherits or reports the source verdict, and state explicitly that the promotion law does not alter the science verdict.\",\"status\":\"OPEN\"}]}\ntokens used\n113.561",
-        "prompt_ref": "releases/oc_core_1_3/editorial/cerberus_runs/CERBERUS_RUN__20260508T144544Z__9d95428f/llm/47259605f4a7a6e7_prompt.txt",
-        "schema_ref": "releases/oc_core_1_3/editorial/cerberus_runs/CERBERUS_RUN__20260508T144544Z__9d95428f/llm/47259605f4a7a6e7_schema.json",
-        "output_ref": "releases/oc_core_1_3/editorial/cerberus_runs/CERBERUS_RUN__20260508T144544Z__9d95428f/llm/47259605f4a7a6e7_output.json",
-        "duration_seconds": 189.365
+        "stderr_tail": "\n2026-05-08T17:08:56.455029Z  WARN codex_core_plugins::manifest: ignoring interface.defaultPrompt: prompt must be at most 128 characters path=C:\\Users\\Megaport\\.codex\\.tmp\\plugins\\plugins\\build-ios-apps\\.codex-plugin/plugin.json\n2026-05-08T17:08:56.456483Z  WARN codex_core_plugins::manifest: ignoring interface.defaultPrompt: maximum of 3 prompts is supported path=C:\\Users\\Megaport\\.codex\\.tmp\\plugins\\plugins\\plugin-eval\\.codex-plugin/plugin.json\n2026-05-08T17:08:56.467353Z  WARN codex_core_plugins::manifest: ignoring interface.defaultPrompt: maximum of 3 prompts is supported path=C:\\Users\\Megaport\\.codex\\.tmp\\plugins\\plugins\\twilio-developer-kit\\.codex-plugin/plugin.json\n2026-05-08T17:08:56.536891Z  WARN codex_core_skills::loader: ignoring interface.icon_small: icon path must not contain '..'\n2026-05-08T17:08:56.536917Z  WARN codex_core_skills::loader: ignoring interface.icon_large: icon path must not contain '..'\n2026-05-08T17:08:56.539017Z  WARN codex_core_skills::loader: ignoring interface.icon_small: icon path must not contain '..'\n2026-05-08T17:08:56.539041Z  WARN codex_core_skills::loader: ignoring interface.icon_large: icon path must not contain '..'\n2026-05-08T17:08:56.541037Z  WARN codex_core_skills::loader: ignoring interface.icon_small: icon path must not contain '..'\n2026-05-08T17:08:56.541059Z  WARN codex_core_skills::loader: ignoring interface.icon_large: icon path must not contain '..'\n2026-05-08T17:08:56.543098Z  WARN codex_core_skills::loader: ignoring interface.icon_small: icon path must not contain '..'\n2026-05-08T17:08:56.543118Z  WARN codex_core_skills::loader: ignoring interface.icon_large: icon path must not contain '..'\n2026-05-08T17:08:56.545217Z  WARN codex_core_skills::loader: ignoring interface.icon_small: icon path must not contain '..'\n2026-05-08T17:08:56.545239Z  WARN codex_core_skills::loader: ignoring interface.icon_large: icon path must not contain '..'\n2026-05-08T17:08:56.547406Z  WARN codex_core_skills::loader: ignoring interface.icon_small: icon path must not contain '..'\n2026-05-08T17:08:56.547425Z  WARN codex_core_skills::loader: ignoring interface.icon_large: icon path must not contain '..'\ncodex\n{\"findings\":[]}\ntokens used\n6.609",
+        "prompt_ref": "releases/oc_core_1_3/editorial/cerberus_runs/CERBERUS_RUN__20260508T170439Z__c328145b/llm/b657233c38564831_prompt.txt",
+        "schema_ref": "releases/oc_core_1_3/editorial/cerberus_runs/CERBERUS_RUN__20260508T170439Z__c328145b/llm/b657233c38564831_schema.json",
+        "output_ref": "releases/oc_core_1_3/editorial/cerberus_runs/CERBERUS_RUN__20260508T170439Z__c328145b/llm/b657233c38564831_output.json",
+        "duration_seconds": 258.369
       },
       {
         "reviewer_id": "CERBERUS_LLM__ELITE_COPY_CHIEF",
         "batch_index": 1,
         "model_used": "gpt-5.4-mini",
         "artifact_refs": [
-          "preamble.tex"
+          "oc_core_master_monograph.tex"
         ],
         "command": [
           "codex",
@@ -187,30 +125,29 @@
           "--color",
           "never",
           "--output-schema",
-          "C:\\Users\\Megaport\\work\\logion_local\\repos\\ontology-of-continua-core-main\\releases\\oc_core_1_3\\editorial\\cerberus_runs\\CERBERUS_RUN__20260508T144544Z__9d95428f\\llm\\733dfb60750a6a42_schema.json",
+          "C:\\Users\\Megaport\\work\\logion_local\\repos\\ontology-of-continua-core-main\\releases\\oc_core_1_3\\editorial\\cerberus_runs\\CERBERUS_RUN__20260508T170439Z__c328145b\\llm\\5ece6cf0b97c1480_schema.json",
           "-o",
-          "C:\\Users\\Megaport\\work\\logion_local\\repos\\ontology-of-continua-core-main\\releases\\oc_core_1_3\\editorial\\cerberus_runs\\CERBERUS_RUN__20260508T144544Z__9d95428f\\llm\\733dfb60750a6a42_output.json",
+          "C:\\Users\\Megaport\\work\\logion_local\\repos\\ontology-of-continua-core-main\\releases\\oc_core_1_3\\editorial\\cerberus_runs\\CERBERUS_RUN__20260508T170439Z__c328145b\\llm\\5ece6cf0b97c1480_output.json",
           "-"
         ],
         "returncode": 0,
         "stdout_tail": "{\"findings\":[]}",
-        "stderr_tail": "\n2026-05-08T14:48:02.188043Z  WARN codex_core_plugins::manifest: ignoring interface.defaultPrompt: prompt must be at most 128 characters path=C:\\Users\\Megaport\\.codex\\.tmp\\plugins\\plugins\\build-ios-apps\\.codex-plugin/plugin.json\n2026-05-08T14:48:02.189478Z  WARN codex_core_plugins::manifest: ignoring interface.defaultPrompt: maximum of 3 prompts is supported path=C:\\Users\\Megaport\\.codex\\.tmp\\plugins\\plugins\\plugin-eval\\.codex-plugin/plugin.json\n2026-05-08T14:48:02.199838Z  WARN codex_core_plugins::manifest: ignoring interface.defaultPrompt: maximum of 3 prompts is supported path=C:\\Users\\Megaport\\.codex\\.tmp\\plugins\\plugins\\twilio-developer-kit\\.codex-plugin/plugin.json\n2026-05-08T14:48:02.267819Z  WARN codex_core_skills::loader: ignoring interface.icon_small: icon path must not contain '..'\n2026-05-08T14:48:02.267839Z  WARN codex_core_skills::loader: ignoring interface.icon_large: icon path must not contain '..'\n2026-05-08T14:48:02.269843Z  WARN codex_core_skills::loader: ignoring interface.icon_small: icon path must not contain '..'\n2026-05-08T14:48:02.269858Z  WARN codex_core_skills::loader: ignoring interface.icon_large: icon path must not contain '..'\n2026-05-08T14:48:02.272082Z  WARN codex_core_skills::loader: ignoring interface.icon_small: icon path must not contain '..'\n2026-05-08T14:48:02.272104Z  WARN codex_core_skills::loader: ignoring interface.icon_large: icon path must not contain '..'\n2026-05-08T14:48:02.274154Z  WARN codex_core_skills::loader: ignoring interface.icon_small: icon path must not contain '..'\n2026-05-08T14:48:02.274176Z  WARN codex_core_skills::loader: ignoring interface.icon_large: icon path must not contain '..'\n2026-05-08T14:48:02.276189Z  WARN codex_core_skills::loader: ignoring interface.icon_small: icon path must not contain '..'\n2026-05-08T14:48:02.276209Z  WARN codex_core_skills::loader: ignoring interface.icon_large: icon path must not contain '..'\n2026-05-08T14:48:02.278531Z  WARN codex_core_skills::loader: ignoring interface.icon_small: icon path must not contain '..'\n2026-05-08T14:48:02.278554Z  WARN codex_core_skills::loader: ignoring interface.icon_large: icon path must not contain '..'\ncodex\n{\"findings\":[]}\ntokens used\n27.497",
-        "prompt_ref": "releases/oc_core_1_3/editorial/cerberus_runs/CERBERUS_RUN__20260508T144544Z__9d95428f/llm/733dfb60750a6a42_prompt.txt",
-        "schema_ref": "releases/oc_core_1_3/editorial/cerberus_runs/CERBERUS_RUN__20260508T144544Z__9d95428f/llm/733dfb60750a6a42_schema.json",
-        "output_ref": "releases/oc_core_1_3/editorial/cerberus_runs/CERBERUS_RUN__20260508T144544Z__9d95428f/llm/733dfb60750a6a42_output.json",
-        "duration_seconds": 70.664
+        "stderr_tail": "\n2026-05-08T17:08:09.022475Z  WARN codex_core_plugins::manifest: ignoring interface.defaultPrompt: prompt must be at most 128 characters path=C:\\Users\\Megaport\\.codex\\.tmp\\plugins\\plugins\\build-ios-apps\\.codex-plugin/plugin.json\n2026-05-08T17:08:09.023888Z  WARN codex_core_plugins::manifest: ignoring interface.defaultPrompt: maximum of 3 prompts is supported path=C:\\Users\\Megaport\\.codex\\.tmp\\plugins\\plugins\\plugin-eval\\.codex-plugin/plugin.json\n2026-05-08T17:08:09.034013Z  WARN codex_core_plugins::manifest: ignoring interface.defaultPrompt: maximum of 3 prompts is supported path=C:\\Users\\Megaport\\.codex\\.tmp\\plugins\\plugins\\twilio-developer-kit\\.codex-plugin/plugin.json\n2026-05-08T17:08:09.099903Z  WARN codex_core_skills::loader: ignoring interface.icon_small: icon path must not contain '..'\n2026-05-08T17:08:09.099924Z  WARN codex_core_skills::loader: ignoring interface.icon_large: icon path must not contain '..'\n2026-05-08T17:08:09.101978Z  WARN codex_core_skills::loader: ignoring interface.icon_small: icon path must not contain '..'\n2026-05-08T17:08:09.101997Z  WARN codex_core_skills::loader: ignoring interface.icon_large: icon path must not contain '..'\n2026-05-08T17:08:09.103922Z  WARN codex_core_skills::loader: ignoring interface.icon_small: icon path must not contain '..'\n2026-05-08T17:08:09.103938Z  WARN codex_core_skills::loader: ignoring interface.icon_large: icon path must not contain '..'\n2026-05-08T17:08:09.105819Z  WARN codex_core_skills::loader: ignoring interface.icon_small: icon path must not contain '..'\n2026-05-08T17:08:09.105834Z  WARN codex_core_skills::loader: ignoring interface.icon_large: icon path must not contain '..'\n2026-05-08T17:08:09.107800Z  WARN codex_core_skills::loader: ignoring interface.icon_small: icon path must not contain '..'\n2026-05-08T17:08:09.107815Z  WARN codex_core_skills::loader: ignoring interface.icon_large: icon path must not contain '..'\n2026-05-08T17:08:09.109806Z  WARN codex_core_skills::loader: ignoring interface.icon_small: icon path must not contain '..'\n2026-05-08T17:08:09.109824Z  WARN codex_core_skills::loader: ignoring interface.icon_large: icon path must not contain '..'\ncodex\n{\"findings\":[]}\ntokens used\n76.171",
+        "prompt_ref": "releases/oc_core_1_3/editorial/cerberus_runs/CERBERUS_RUN__20260508T170439Z__c328145b/llm/5ece6cf0b97c1480_prompt.txt",
+        "schema_ref": "releases/oc_core_1_3/editorial/cerberus_runs/CERBERUS_RUN__20260508T170439Z__c328145b/llm/5ece6cf0b97c1480_schema.json",
+        "output_ref": "releases/oc_core_1_3/editorial/cerberus_runs/CERBERUS_RUN__20260508T170439Z__c328145b/llm/5ece6cf0b97c1480_output.json",
+        "duration_seconds": 217.336
       }
     ],
     "codex_model": "gpt-5.4-mini",
     "codex_binary": "codex",
-    "max_workers": 4,
+    "max_workers": 3,
     "batch_max_chars": 3200,
     "timeout_seconds": 240,
     "artifact_ref_filter": [
-      "content/20_oc_core_1_3_theorem_roadmap.tex",
-      "content/23_oc_core_1_3_empirical_execution_protocols.tex",
-      "content/24_oc_core_1_3_proof_machinery.tex",
-      "preamble.tex"
+      "content/19_oc_core_1_3_foundational_consistency.tex",
+      "content/22_oc_core_1_3_operationalization_program.tex",
+      "oc_core_master_monograph.tex"
     ],
     "llm_scope": "refs"
   }

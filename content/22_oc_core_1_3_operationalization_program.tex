@@ -15,8 +15,10 @@ source/observable/comparator/falsifier agreement, and a replayable falsifier.
 Release-wide promotion is a second gate on top of
 that empirical bar: the science atlas must be PASS, the integrability suite must
 be PASS, all K0--K12 rows must be present, bridge-only residual containment must
-not be used as promotion evidence, bridge-only promoted domains must be zero,
-and hostile-review blockers must be zero.
+not be used as promotion evidence, the release candidate must contain zero
+bridge-only domains overall, and hostile-review blockers must be zero. Bridge
+support may remain in source ledgers as bounded context, but it cannot occupy a
+release-candidate domain row or substitute for theorem-native promotion.
 
 This is why the release now carries a distinct operationalization stack. It records what is already closed, what is only bridge-level, what has an official external benchmark route, and what still blocks a lawful platinum release.
 
