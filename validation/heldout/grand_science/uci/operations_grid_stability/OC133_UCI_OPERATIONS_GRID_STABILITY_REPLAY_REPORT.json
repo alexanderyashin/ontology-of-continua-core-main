@@ -1,0 +1,17 @@
+{
+  "schema_id": "OC133_UCI_TABULAR_CLASSIFIER_REPLAY_REPORT_v1",
+  "status": "PASS",
+  "lane_id": "operations_grid_stability",
+  "scoring_pack_ref": "validation/heldout/grand_science/uci/operations_grid_stability/OC133_UCI_OPERATIONS_GRID_STABILITY_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
+  "scoring_pack_sha256": "778be6f12c53e1c5bf41341b66e082407091609c1f02236de64e163124586ebb",
+  "row_count": 2000,
+  "material_margin_met": true,
+  "negative_control_rejected": true,
+  "replay_command": {
+    "commands": [
+      "python validation/heldout/grand_science/uci/coverage_research_tasks/oc133_uci_tabular_classifier_materializer.py --lane operations_grid_stability --score --write-scoring",
+      "python validation/heldout/grand_science/uci/coverage_research_tasks/oc133_uci_tabular_classifier_materializer.py --lane operations_grid_stability --check"
+    ]
+  },
+  "coverage_closure_allowed": false
+}

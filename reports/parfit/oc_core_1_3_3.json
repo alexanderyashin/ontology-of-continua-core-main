@@ -1,0 +1,148 @@
+{
+  "candidate_id": "oc_core_1_3_3",
+  "findings": [
+    {
+      "affected_refs": [
+        "benchmarks/parfit/relation_r_manifest.yaml"
+      ],
+      "blocking": true,
+      "category": "missing_required_manifest",
+      "details": {
+        "manifest_key": "relation_r_manifest"
+      },
+      "finding_id": "manifest_missing_required_manifest_396433",
+      "owner_waiver_required": true,
+      "pass_id": "manifest",
+      "required_fixes": [
+        "Add relation_r_manifest with source refs and owner/burden metadata."
+      ],
+      "severity": "high",
+      "summary": "Release-critical mode fails closed when Parfitian moral-mathematics inputs are absent.",
+      "title": "Missing required Parfit manifest: relation_r_manifest",
+      "waiver_eligible": true
+    },
+    {
+      "affected_refs": [
+        "benchmarks/parfit/future_stakeholder_manifest.yaml"
+      ],
+      "blocking": true,
+      "category": "missing_required_manifest",
+      "details": {
+        "manifest_key": "future_stakeholder_manifest"
+      },
+      "finding_id": "manifest_missing_required_manifest_405522",
+      "owner_waiver_required": true,
+      "pass_id": "manifest",
+      "required_fixes": [
+        "Add future_stakeholder_manifest with source refs and owner/burden metadata."
+      ],
+      "severity": "high",
+      "summary": "Release-critical mode fails closed when Parfitian moral-mathematics inputs are absent.",
+      "title": "Missing required Parfit manifest: future_stakeholder_manifest",
+      "waiver_eligible": true
+    },
+    {
+      "affected_refs": [
+        "benchmarks/parfit/five_part_decision_matrix.yaml"
+      ],
+      "blocking": true,
+      "category": "missing_required_manifest",
+      "details": {
+        "manifest_key": "five_part_decision_matrix"
+      },
+      "finding_id": "manifest_missing_required_manifest_451443",
+      "owner_waiver_required": true,
+      "pass_id": "manifest",
+      "required_fixes": [
+        "Add five_part_decision_matrix with source refs and owner/burden metadata."
+      ],
+      "severity": "high",
+      "summary": "Release-critical mode fails closed when Parfitian moral-mathematics inputs are absent.",
+      "title": "Missing required Parfit manifest: five_part_decision_matrix",
+      "waiver_eligible": true
+    },
+    {
+      "affected_refs": [
+        "benchmarks/parfit/repugnant_output_assessment.yaml"
+      ],
+      "blocking": true,
+      "category": "missing_required_manifest",
+      "details": {
+        "manifest_key": "repugnant_output_assessment"
+      },
+      "finding_id": "manifest_missing_required_manifest_884432",
+      "owner_waiver_required": true,
+      "pass_id": "manifest",
+      "required_fixes": [
+        "Add repugnant_output_assessment with source refs and owner/burden metadata."
+      ],
+      "severity": "high",
+      "summary": "Release-critical mode fails closed when Parfitian moral-mathematics inputs are absent.",
+      "title": "Missing required Parfit manifest: repugnant_output_assessment",
+      "waiver_eligible": true
+    },
+    {
+      "affected_refs": [
+        "benchmarks/parfit/relation_r_manifest.yaml"
+      ],
+      "blocking": true,
+      "category": "relation_r_identity_break",
+      "details": {
+        "hard_break": true,
+        "label": "MISSING",
+        "missing_hard_invariants": [],
+        "score": 0,
+        "violated_hard_invariants": []
+      },
+      "finding_id": "relation_r_relation_r_identity_break_323410",
+      "owner_waiver_required": false,
+      "pass_id": "relation_r",
+      "required_fixes": [
+        "Rebuild a migration map or treat the artifact as a fork, not an OC Core release."
+      ],
+      "severity": "blocker",
+      "summary": "The candidate cannot be released as the same OC line when causal/evidence/support continuity breaks.",
+      "title": "Relation R hard break",
+      "waiver_eligible": false
+    }
+  ],
+  "generated_at": "2026-04-30T15:53:19Z",
+  "mode": "release_critical",
+  "no_send_release_gate": {
+    "doi_minting_allowed": false,
+    "github_push_allowed": false,
+    "outbound_send_allowed": false,
+    "owner_unlock_required": true,
+    "publish_allowed": false,
+    "zenodo_allowed": false
+  },
+  "program_id": "OC_PARFITIAN_PUBLIC_REVIEW_20260427",
+  "release_ready_no_send_allowed": false,
+  "schema_id": "ParfitAuditReport_v1",
+  "status": "FAIL_BLOCKING",
+  "summary": {
+    "blocker_total": 1,
+    "finding_total": 5,
+    "high_plus_total": 5,
+    "relation_r": {
+      "hard_break": true,
+      "label": "MISSING",
+      "missing_hard_invariants": [],
+      "score": 0,
+      "violated_hard_invariants": []
+    },
+    "severity_counts": {
+      "blocker": 1,
+      "critical": 0,
+      "high": 4,
+      "info": 0,
+      "low": 0,
+      "medium": 0
+    }
+  },
+  "waiver_policy": {
+    "blocker_waivable": false,
+    "high_or_critical_requires_owner": true,
+    "publication_outbound_waivable_by_audit": false
+  }
+}

@@ -1,0 +1,867 @@
+{
+  "schema_id": "OC133_MODERN_SCIENCE_COVERAGE_REGISTER_v1",
+  "release_id": "oc_core_1_3_3",
+  "version": "1.3.3",
+  "generated_on": "2026-05-01",
+  "evidence_owner": "OC research pipeline Research/PriorArt",
+  "taxonomy_source": {
+    "source_policy": "declared_coverage_taxonomy",
+    "taxonomy_id": "OC133_DECLARED_MODERN_SCIENCE_COVERAGE_TAXONOMY_v1",
+    "scope_note": "This is an release-bounding taxonomy for broad modern-science wording. It is deliberately broader than the four current empirical lanes and must not be treated as proof that the taxonomy is exhaustive for public science classification.",
+    "closure_rule": "A broad modern-science superiority claim requires every declared domain class and every required phenomenon class to have source-backed, target-separated benchmark lanes with preregistered comparators, uncertainty, controls, falsifiers, independent replay, and explicit domain-scope survey evidence."
+  },
+  "required_domain_class_total": 12,
+  "required_phenomenon_class_total": 39,
+  "current_empirical_lane_mapping": [
+    {
+      "domain": "biology",
+      "lane_id": "MS-LANE-BIOLOGY-STRICT-PACK",
+      "domain_class_id": "biological_life_sciences",
+      "phenomenon_class_ids": [
+        "functional_genomics_expression"
+      ],
+      "strict_evidence_pack_ref": "validation/heldout/grand_science/biology/target_evidence/biology_target_evidence_candidate_pack.json",
+      "benchmark_scoped_certified": true,
+      "broad_modern_science_certified": false,
+      "scope_limit": "This lane covers only the listed phenomenon class ids for its declared pack task."
+    },
+    {
+      "domain": "chemistry",
+      "lane_id": "MS-LANE-CHEMISTRY-STRICT-PACK",
+      "domain_class_id": "chemical_sciences",
+      "phenomenon_class_ids": [
+        "molecular_descriptor_prediction"
+      ],
+      "strict_evidence_pack_ref": "validation/heldout/grand_science/chemistry/pubchem_hbond_donor/OC133_CHEMISTRY_PUBCHEM_HBOND_DONOR_CANDIDATE_PACK.json",
+      "benchmark_scoped_certified": true,
+      "broad_modern_science_certified": false,
+      "scope_limit": "This lane covers only the listed phenomenon class ids for its declared pack task."
+    },
+    {
+      "domain": "physics",
+      "lane_id": "MS-LANE-PHYSICS-STRICT-PACK",
+      "domain_class_id": "physical_sciences",
+      "phenomenon_class_ids": [
+        "fundamental_constants_relationships"
+      ],
+      "strict_evidence_pack_ref": "validation/heldout/grand_science/physics_chemistry/official_batch/physics_official_batch_candidate_evidence_pack.json",
+      "benchmark_scoped_certified": true,
+      "broad_modern_science_certified": false,
+      "scope_limit": "This lane covers only the listed phenomenon class ids for its declared pack task."
+    },
+    {
+      "domain": "systems",
+      "lane_id": "MS-LANE-SYSTEMS-STRICT-PACK",
+      "domain_class_id": "social_economic_political_sciences",
+      "phenomenon_class_ids": [
+        "demographic_population_series"
+      ],
+      "strict_evidence_pack_ref": "validation/heldout/grand_science/systems/wdi_population_materiality/OC133_SYSTEMS_WDI_POPULATION_MATERIALITY_CANDIDATE_PACK.json",
+      "benchmark_scoped_certified": true,
+      "broad_modern_science_certified": false,
+      "scope_limit": "This lane covers only the listed phenomenon class ids for its declared pack task."
+    },
+    {
+      "domain": "agricultural_food_sciences::animal_health_and_production_systems",
+      "lane_id": "MS-COV-DISPATCH-001",
+      "domain_class_id": "agricultural_food_sciences",
+      "phenomenon_class_ids": [
+        "animal_health_and_production_systems"
+      ],
+      "strict_evidence_pack_ref": "validation/heldout/grand_science/wdi/agriculture_livestock_production/OC133_WDI_AGRICULTURE_LIVESTOCK_PRODUCTION_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
+      "benchmark_scoped_certified": true,
+      "broad_modern_science_certified": false,
+      "scope_limit": "Full coverage queue row: source-bound strict evidence exists for this declared phenomenon class."
+    },
+    {
+      "domain": "agricultural_food_sciences::crop_yield_soil_and_trait_observables",
+      "lane_id": "MS-COV-DISPATCH-002",
+      "domain_class_id": "agricultural_food_sciences",
+      "phenomenon_class_ids": [
+        "crop_yield_soil_and_trait_observables"
+      ],
+      "strict_evidence_pack_ref": "validation/heldout/grand_science/wdi/agriculture_cereal_yield/OC133_WDI_AGRICULTURE_CEREAL_YIELD_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
+      "benchmark_scoped_certified": true,
+      "broad_modern_science_certified": false,
+      "scope_limit": "Full coverage queue row: source-bound strict evidence exists for this declared phenomenon class."
+    },
+    {
+      "domain": "agricultural_food_sciences::food_chemistry_safety_and_nutrition",
+      "lane_id": "MS-COV-DISPATCH-003",
+      "domain_class_id": "agricultural_food_sciences",
+      "phenomenon_class_ids": [
+        "food_chemistry_safety_and_nutrition"
+      ],
+      "strict_evidence_pack_ref": "validation/heldout/grand_science/wdi/agriculture_food_nutrition_undernourishment/OC133_WDI_AGRICULTURE_FOOD_NUTRITION_UNDERNOURISHMENT_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
+      "benchmark_scoped_certified": true,
+      "broad_modern_science_certified": false,
+      "scope_limit": "Full coverage queue row: source-bound strict evidence exists for this declared phenomenon class."
+    },
+    {
+      "domain": "cognitive_behavioral_neurosciences::behavioral_task_and_psychometric_prediction",
+      "lane_id": "MS-COV-DISPATCH-004",
+      "domain_class_id": "cognitive_behavioral_neurosciences",
+      "phenomenon_class_ids": [
+        "behavioral_task_and_psychometric_prediction"
+      ],
+      "strict_evidence_pack_ref": "validation/heldout/grand_science/uci/cognitive_student_psychometric_performance/OC133_UCI_COGNITIVE_STUDENT_PSYCHOMETRIC_PERFORMANCE_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
+      "benchmark_scoped_certified": true,
+      "broad_modern_science_certified": false,
+      "scope_limit": "Full coverage queue row: source-bound strict evidence exists for this declared phenomenon class."
+    },
+    {
+      "domain": "cognitive_behavioral_neurosciences::learning_memory_and_perception_dynamics",
+      "lane_id": "MS-COV-DISPATCH-005",
+      "domain_class_id": "cognitive_behavioral_neurosciences",
+      "phenomenon_class_ids": [
+        "learning_memory_and_perception_dynamics"
+      ],
+      "strict_evidence_pack_ref": "validation/heldout/grand_science/uci/cognitive_letter_perception/OC133_UCI_COGNITIVE_LETTER_PERCEPTION_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
+      "benchmark_scoped_certified": true,
+      "broad_modern_science_certified": false,
+      "scope_limit": "Full coverage queue row: source-bound strict evidence exists for this declared phenomenon class."
+    },
+    {
+      "domain": "cognitive_behavioral_neurosciences::neural_recording_and_brain_network_observables",
+      "lane_id": "MS-COV-DISPATCH-006",
+      "domain_class_id": "cognitive_behavioral_neurosciences",
+      "phenomenon_class_ids": [
+        "neural_recording_and_brain_network_observables"
+      ],
+      "strict_evidence_pack_ref": "validation/heldout/grand_science/uci/neuro_eeg_eye_state/OC133_UCI_NEURO_EEG_EYE_STATE_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
+      "benchmark_scoped_certified": true,
+      "broad_modern_science_certified": false,
+      "scope_limit": "Full coverage queue row: source-bound strict evidence exists for this declared phenomenon class."
+    },
+    {
+      "domain": "complex_systems_operations_science::multi_agent_system_dynamics",
+      "lane_id": "MS-COV-DISPATCH-007",
+      "domain_class_id": "complex_systems_operations_science",
+      "phenomenon_class_ids": [
+        "multi_agent_system_dynamics"
+      ],
+      "strict_evidence_pack_ref": "validation/heldout/grand_science/wdi/complex_systems_mobile_adoption/OC133_WDI_COMPLEX_SYSTEMS_MOBILE_ADOPTION_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
+      "benchmark_scoped_certified": true,
+      "broad_modern_science_certified": false,
+      "scope_limit": "Full coverage queue row: source-bound strict evidence exists for this declared phenomenon class."
+    },
+    {
+      "domain": "complex_systems_operations_science::queue_supply_chain_and_operations_observables",
+      "lane_id": "MS-COV-DISPATCH-008",
+      "domain_class_id": "complex_systems_operations_science",
+      "phenomenon_class_ids": [
+        "queue_supply_chain_and_operations_observables"
+      ],
+      "strict_evidence_pack_ref": "validation/heldout/grand_science/operations/wdi_rail_freight/OC133_WORLD_BANK_WDI_RAIL_FREIGHT_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
+      "benchmark_scoped_certified": true,
+      "broad_modern_science_certified": false,
+      "scope_limit": "Full coverage queue row: source-bound strict evidence exists for this declared phenomenon class."
+    },
+    {
+      "domain": "complex_systems_operations_science::resilience_risk_and_intervention_response",
+      "lane_id": "MS-COV-DISPATCH-009",
+      "domain_class_id": "complex_systems_operations_science",
+      "phenomenon_class_ids": [
+        "resilience_risk_and_intervention_response"
+      ],
+      "strict_evidence_pack_ref": "validation/heldout/grand_science/uci/operations_grid_stability/OC133_UCI_OPERATIONS_GRID_STABILITY_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
+      "benchmark_scoped_certified": true,
+      "broad_modern_science_certified": false,
+      "scope_limit": "Full coverage queue row: source-bound strict evidence exists for this declared phenomenon class."
+    },
+    {
+      "domain": "computer_information_sciences::information_network_and_security_observables",
+      "lane_id": "MS-COV-DISPATCH-010",
+      "domain_class_id": "computer_information_sciences",
+      "phenomenon_class_ids": [
+        "information_network_and_security_observables"
+      ],
+      "strict_evidence_pack_ref": "validation/heldout/grand_science/cs/public_coverage_evidence/OC133_CS_NVD_CVSS_SECURITY_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
+      "benchmark_scoped_certified": true,
+      "broad_modern_science_certified": false,
+      "scope_limit": "Full coverage queue row: source-bound strict evidence exists for this declared phenomenon class."
+    },
+    {
+      "domain": "computer_information_sciences::machine_learning_generalization_and_evaluation",
+      "lane_id": "MS-COV-DISPATCH-011",
+      "domain_class_id": "computer_information_sciences",
+      "phenomenon_class_ids": [
+        "machine_learning_generalization_and_evaluation"
+      ],
+      "strict_evidence_pack_ref": "validation/heldout/grand_science/cs/uci_iris_ml/OC133_UCI_IRIS_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
+      "benchmark_scoped_certified": true,
+      "broad_modern_science_certified": false,
+      "scope_limit": "Full coverage queue row: source-bound strict evidence exists for this declared phenomenon class."
+    },
+    {
+      "domain": "computer_information_sciences::program_semantics_and_verification",
+      "lane_id": "MS-COV-DISPATCH-012",
+      "domain_class_id": "computer_information_sciences",
+      "phenomenon_class_ids": [
+        "program_semantics_and_verification"
+      ],
+      "strict_evidence_pack_ref": "validation/heldout/grand_science/cs/codexglue_defect/OC133_CODEXGLUE_DEFECT_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
+      "benchmark_scoped_certified": true,
+      "broad_modern_science_certified": false,
+      "scope_limit": "Full coverage queue row: source-bound strict evidence exists for this declared phenomenon class."
+    },
+    {
+      "domain": "earth_space_environmental_sciences::climate_weather_geophysical_time_series",
+      "lane_id": "MS-COV-DISPATCH-013",
+      "domain_class_id": "earth_space_environmental_sciences",
+      "phenomenon_class_ids": [
+        "climate_weather_geophysical_time_series"
+      ],
+      "strict_evidence_pack_ref": "validation/heldout/grand_science/earth_space/public_coverage_evidence/OC133_EARTH_SPACE_NOAA_COOPS_WATER_LEVEL_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
+      "benchmark_scoped_certified": true,
+      "broad_modern_science_certified": false,
+      "scope_limit": "Full coverage queue row: source-bound strict evidence exists for this declared phenomenon class."
+    },
+    {
+      "domain": "earth_space_environmental_sciences::geochemistry_and_hydrology_observables",
+      "lane_id": "MS-COV-DISPATCH-014",
+      "domain_class_id": "earth_space_environmental_sciences",
+      "phenomenon_class_ids": [
+        "geochemistry_and_hydrology_observables"
+      ],
+      "strict_evidence_pack_ref": "validation/heldout/grand_science/wdi/earth_hydrology_freshwater_resources/OC133_WDI_EARTH_HYDROLOGY_FRESHWATER_RESOURCES_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
+      "benchmark_scoped_certified": true,
+      "broad_modern_science_certified": false,
+      "scope_limit": "Full coverage queue row: source-bound strict evidence exists for this declared phenomenon class."
+    },
+    {
+      "domain": "earth_space_environmental_sciences::remote_sensing_and_planetary_measurements",
+      "lane_id": "MS-COV-DISPATCH-015",
+      "domain_class_id": "earth_space_environmental_sciences",
+      "phenomenon_class_ids": [
+        "remote_sensing_and_planetary_measurements"
+      ],
+      "strict_evidence_pack_ref": "validation/heldout/grand_science/earth_space/public_coverage_evidence/OC133_EARTH_SPACE_NASA_POWER_REMOTE_SENSING_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
+      "benchmark_scoped_certified": true,
+      "broad_modern_science_certified": false,
+      "scope_limit": "Full coverage queue row: source-bound strict evidence exists for this declared phenomenon class."
+    },
+    {
+      "domain": "engineering_materials_sciences::control_systems_and_signal_measurement",
+      "lane_id": "MS-COV-DISPATCH-016",
+      "domain_class_id": "engineering_materials_sciences",
+      "phenomenon_class_ids": [
+        "control_systems_and_signal_measurement"
+      ],
+      "strict_evidence_pack_ref": "validation/heldout/grand_science/engineering/type_k_thermocouple/OC133_NIST_ITS90_TYPE_K_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
+      "benchmark_scoped_certified": true,
+      "broad_modern_science_certified": false,
+      "scope_limit": "Full coverage queue row: source-bound strict evidence exists for this declared phenomenon class."
+    },
+    {
+      "domain": "engineering_materials_sciences::energy_transport_and_manufacturing_processes",
+      "lane_id": "MS-COV-DISPATCH-017",
+      "domain_class_id": "engineering_materials_sciences",
+      "phenomenon_class_ids": [
+        "energy_transport_and_manufacturing_processes"
+      ],
+      "strict_evidence_pack_ref": "validation/heldout/grand_science/wdi/engineering_electric_power_consumption/OC133_WDI_ENGINEERING_ELECTRIC_POWER_CONSUMPTION_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
+      "benchmark_scoped_certified": true,
+      "broad_modern_science_certified": false,
+      "scope_limit": "Full coverage queue row: source-bound strict evidence exists for this declared phenomenon class."
+    },
+    {
+      "domain": "engineering_materials_sciences::materials_property_and_failure_prediction",
+      "lane_id": "MS-COV-DISPATCH-018",
+      "domain_class_id": "engineering_materials_sciences",
+      "phenomenon_class_ids": [
+        "materials_property_and_failure_prediction"
+      ],
+      "strict_evidence_pack_ref": "validation/heldout/grand_science/uci/engineering_steel_plate_faults/OC133_UCI_ENGINEERING_STEEL_PLATE_FAULTS_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
+      "benchmark_scoped_certified": true,
+      "broad_modern_science_certified": false,
+      "scope_limit": "Full coverage queue row: source-bound strict evidence exists for this declared phenomenon class."
+    },
+    {
+      "domain": "formal_mathematics_and_logic::computational_complexity_and_algorithmic_proof",
+      "lane_id": "MS-COV-DISPATCH-019",
+      "domain_class_id": "formal_mathematics_and_logic",
+      "phenomenon_class_ids": [
+        "computational_complexity_and_algorithmic_proof"
+      ],
+      "strict_evidence_pack_ref": "validation/heldout/grand_science/formal_mathematics/exact_evidence/computational_complexity_algorithmic_proof/OC133_FORMAL_COMPLEXITY_ALGORITHMIC_STRICT_EVIDENCE_PACK.json",
+      "benchmark_scoped_certified": true,
+      "broad_modern_science_certified": false,
+      "scope_limit": "Full coverage queue row: source-bound strict evidence exists for this declared phenomenon class."
+    },
+    {
+      "domain": "formal_mathematics_and_logic::formal_theorem_reconstruction",
+      "lane_id": "MS-COV-DISPATCH-020",
+      "domain_class_id": "formal_mathematics_and_logic",
+      "phenomenon_class_ids": [
+        "formal_theorem_reconstruction"
+      ],
+      "strict_evidence_pack_ref": "validation/heldout/grand_science/formal_mathematics/exact_evidence/formal_theorem_reconstruction/OC133_FORMAL_THEOREM_RECONSTRUCTION_STRICT_EVIDENCE_PACK.json",
+      "benchmark_scoped_certified": true,
+      "broad_modern_science_certified": false,
+      "scope_limit": "Full coverage queue row: source-bound strict evidence exists for this declared phenomenon class."
+    },
+    {
+      "domain": "formal_mathematics_and_logic::statistical_inference_identifiability",
+      "lane_id": "MS-COV-DISPATCH-021",
+      "domain_class_id": "formal_mathematics_and_logic",
+      "phenomenon_class_ids": [
+        "statistical_inference_identifiability"
+      ],
+      "strict_evidence_pack_ref": "validation/heldout/grand_science/formal_mathematics/exact_evidence/statistical_inference_identifiability/OC133_FORMAL_STAT_PROB_IDENTIFIABILITY_STRICT_EVIDENCE_PACK.json",
+      "benchmark_scoped_certified": true,
+      "broad_modern_science_certified": false,
+      "scope_limit": "Full coverage queue row: source-bound strict evidence exists for this declared phenomenon class."
+    },
+    {
+      "domain": "medical_health_sciences::clinical_outcomes_and_biomarkers",
+      "lane_id": "MS-COV-DISPATCH-022",
+      "domain_class_id": "medical_health_sciences",
+      "phenomenon_class_ids": [
+        "clinical_outcomes_and_biomarkers"
+      ],
+      "strict_evidence_pack_ref": "validation/heldout/grand_science/wdi/medical_clinical_life_expectancy/OC133_WDI_MEDICAL_CLINICAL_LIFE_EXPECTANCY_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
+      "benchmark_scoped_certified": true,
+      "broad_modern_science_certified": false,
+      "scope_limit": "Full coverage queue row: source-bound strict evidence exists for this declared phenomenon class."
+    },
+    {
+      "domain": "medical_health_sciences::epidemiological_transmission_and_risk",
+      "lane_id": "MS-COV-DISPATCH-023",
+      "domain_class_id": "medical_health_sciences",
+      "phenomenon_class_ids": [
+        "epidemiological_transmission_and_risk"
+      ],
+      "strict_evidence_pack_ref": "validation/heldout/grand_science/wdi/medical_epidemiology_child_mortality/OC133_WDI_MEDICAL_EPIDEMIOLOGY_CHILD_MORTALITY_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
+      "benchmark_scoped_certified": true,
+      "broad_modern_science_certified": false,
+      "scope_limit": "Full coverage queue row: source-bound strict evidence exists for this declared phenomenon class."
+    },
+    {
+      "domain": "medical_health_sciences::pharmacology_toxicology_and_dose_response",
+      "lane_id": "MS-COV-DISPATCH-024",
+      "domain_class_id": "medical_health_sciences",
+      "phenomenon_class_ids": [
+        "pharmacology_toxicology_and_dose_response"
+      ],
+      "strict_evidence_pack_ref": "validation/heldout/grand_science/medical_health/pharmacology_toxicology/OC133_OPENFDA_DRUG_EVENT_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
+      "benchmark_scoped_certified": true,
+      "broad_modern_science_certified": false,
+      "scope_limit": "Full coverage queue row: source-bound strict evidence exists for this declared phenomenon class."
+    },
+    {
+      "domain": "biological_life_sciences::cellular_developmental_regulatory_dynamics",
+      "lane_id": "MS-COV-DISPATCH-025",
+      "domain_class_id": "biological_life_sciences",
+      "phenomenon_class_ids": [
+        "cellular_developmental_regulatory_dynamics"
+      ],
+      "strict_evidence_pack_ref": "validation/heldout/grand_science/uci/biology_yeast_cellular_localization/OC133_UCI_BIOLOGY_YEAST_CELLULAR_LOCALIZATION_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
+      "benchmark_scoped_certified": true,
+      "broad_modern_science_certified": false,
+      "scope_limit": "Full coverage queue row: source-bound strict evidence exists for this declared phenomenon class."
+    },
+    {
+      "domain": "biological_life_sciences::ecology_population_and_biodiversity_observables",
+      "lane_id": "MS-COV-DISPATCH-026",
+      "domain_class_id": "biological_life_sciences",
+      "phenomenon_class_ids": [
+        "ecology_population_and_biodiversity_observables"
+      ],
+      "strict_evidence_pack_ref": "validation/heldout/grand_science/wdi/biology_ecology_forest_area/OC133_WDI_BIOLOGY_ECOLOGY_FOREST_AREA_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
+      "benchmark_scoped_certified": true,
+      "broad_modern_science_certified": false,
+      "scope_limit": "Full coverage queue row: source-bound strict evidence exists for this declared phenomenon class."
+    },
+    {
+      "domain": "biological_life_sciences::evolutionary_phylogenetic_patterns",
+      "lane_id": "MS-COV-DISPATCH-027",
+      "domain_class_id": "biological_life_sciences",
+      "phenomenon_class_ids": [
+        "evolutionary_phylogenetic_patterns"
+      ],
+      "strict_evidence_pack_ref": "validation/heldout/grand_science/biology/evolutionary_phylogeny/OC133_NCBI_TAXONOMY_LCA_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
+      "benchmark_scoped_certified": true,
+      "broad_modern_science_certified": false,
+      "scope_limit": "Full coverage queue row: source-bound strict evidence exists for this declared phenomenon class."
+    },
+    {
+      "domain": "chemical_sciences::materials_and_spectroscopy_observables",
+      "lane_id": "MS-COV-DISPATCH-028",
+      "domain_class_id": "chemical_sciences",
+      "phenomenon_class_ids": [
+        "materials_and_spectroscopy_observables"
+      ],
+      "strict_evidence_pack_ref": "validation/heldout/grand_science/uci/chemical_wine_quality/OC133_UCI_CHEMICAL_WINE_QUALITY_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
+      "benchmark_scoped_certified": true,
+      "broad_modern_science_certified": false,
+      "scope_limit": "Full coverage queue row: source-bound strict evidence exists for this declared phenomenon class."
+    },
+    {
+      "domain": "chemical_sciences::reaction_and_kinetics_prediction",
+      "lane_id": "MS-COV-DISPATCH-029",
+      "domain_class_id": "chemical_sciences",
+      "phenomenon_class_ids": [
+        "reaction_and_kinetics_prediction"
+      ],
+      "strict_evidence_pack_ref": "validation/heldout/grand_science/physics_chemistry/nist_kinetics_water/OC133_NIST_KINETICS_WATER_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
+      "benchmark_scoped_certified": true,
+      "broad_modern_science_certified": false,
+      "scope_limit": "Full coverage queue row: source-bound strict evidence exists for this declared phenomenon class."
+    },
+    {
+      "domain": "chemical_sciences::thermochemistry_and_phase_behavior",
+      "lane_id": "MS-COV-DISPATCH-030",
+      "domain_class_id": "chemical_sciences",
+      "phenomenon_class_ids": [
+        "thermochemistry_and_phase_behavior"
+      ],
+      "strict_evidence_pack_ref": "validation/heldout/grand_science/physics_chemistry/nist_webbook_thermo/OC133_NIST_WEBBOOK_THERMO_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
+      "benchmark_scoped_certified": true,
+      "broad_modern_science_certified": false,
+      "scope_limit": "Full coverage queue row: source-bound strict evidence exists for this declared phenomenon class."
+    },
+    {
+      "domain": "physical_sciences::astronomical_and_cosmological_observables",
+      "lane_id": "MS-COV-DISPATCH-031",
+      "domain_class_id": "physical_sciences",
+      "phenomenon_class_ids": [
+        "astronomical_and_cosmological_observables"
+      ],
+      "strict_evidence_pack_ref": "validation/heldout/grand_science/physics_chemistry/nasa_exoplanet_archive/OC133_NASA_EXOPLANET_KEPLER_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
+      "benchmark_scoped_certified": true,
+      "broad_modern_science_certified": false,
+      "scope_limit": "Full coverage queue row: source-bound strict evidence exists for this declared phenomenon class."
+    },
+    {
+      "domain": "physical_sciences::condensed_matter_fields_and_measurements",
+      "lane_id": "MS-COV-DISPATCH-032",
+      "domain_class_id": "physical_sciences",
+      "phenomenon_class_ids": [
+        "condensed_matter_fields_and_measurements"
+      ],
+      "strict_evidence_pack_ref": "validation/heldout/grand_science/uci/physics_superconductivity_critical_temp/OC133_UCI_PHYSICS_SUPERCONDUCTIVITY_CRITICAL_TEMP_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
+      "benchmark_scoped_certified": true,
+      "broad_modern_science_certified": false,
+      "scope_limit": "Full coverage queue row: source-bound strict evidence exists for this declared phenomenon class."
+    },
+    {
+      "domain": "physical_sciences::dynamical_laws_and_conservation",
+      "lane_id": "MS-COV-DISPATCH-033",
+      "domain_class_id": "physical_sciences",
+      "phenomenon_class_ids": [
+        "dynamical_laws_and_conservation"
+      ],
+      "strict_evidence_pack_ref": "validation/heldout/grand_science/physics_chemistry/dynamics_jpl_horizons/OC133_PHYSICS_JPL_HORIZONS_DYNAMICS_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
+      "benchmark_scoped_certified": true,
+      "broad_modern_science_certified": false,
+      "scope_limit": "Full coverage queue row: source-bound strict evidence exists for this declared phenomenon class."
+    },
+    {
+      "domain": "social_economic_political_sciences::economic_indicator_and_market_observables",
+      "lane_id": "MS-COV-DISPATCH-034",
+      "domain_class_id": "social_economic_political_sciences",
+      "phenomenon_class_ids": [
+        "economic_indicator_and_market_observables"
+      ],
+      "strict_evidence_pack_ref": "validation/heldout/grand_science/systems/wdi_gdp/OC133_WORLD_BANK_WDI_GDP_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
+      "benchmark_scoped_certified": true,
+      "broad_modern_science_certified": false,
+      "scope_limit": "Full coverage queue row: source-bound strict evidence exists for this declared phenomenon class."
+    },
+    {
+      "domain": "social_economic_political_sciences::institutional_social_network_and_policy_outcomes",
+      "lane_id": "MS-COV-DISPATCH-035",
+      "domain_class_id": "social_economic_political_sciences",
+      "phenomenon_class_ids": [
+        "institutional_social_network_and_policy_outcomes"
+      ],
+      "strict_evidence_pack_ref": "validation/heldout/grand_science/systems/wgi_institutional/OC133_WORLD_BANK_WGI_INSTITUTIONAL_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
+      "benchmark_scoped_certified": true,
+      "broad_modern_science_certified": false,
+      "scope_limit": "Full coverage queue row: source-bound strict evidence exists for this declared phenomenon class."
+    }
+  ],
+  "domain_class_rows": [
+    {
+      "domain_class_id": "formal_mathematics_and_logic",
+      "label": "Formal mathematics, logic, statistics, and proof science",
+      "required_phenomenon_classes": [
+        {
+          "phenomenon_class_id": "formal_theorem_reconstruction",
+          "label": "formal theorem reconstruction"
+        },
+        {
+          "phenomenon_class_id": "statistical_inference_identifiability",
+          "label": "statistical inference identifiability"
+        },
+        {
+          "phenomenon_class_id": "computational_complexity_and_algorithmic_proof",
+          "label": "computational complexity and algorithmic proof"
+        }
+      ],
+      "current_lane_ids": [
+        "MS-COV-DISPATCH-019",
+        "MS-COV-DISPATCH-020",
+        "MS-COV-DISPATCH-021"
+      ],
+      "protocol_only_ref": {
+        "domain": "mathematics",
+        "protocol_ref": "benchmarks/modern_science/protocols/OC133_MODERN_SCIENCE_BENCHMARK_PROTOCOL_MATHEMATICS.json",
+        "source_capsule_ref": "comparators/modern_science/source_capsules/MS-SRC-MATH-LEAN4.txt"
+      },
+      "coverage_status": "PARTIAL_BENCHMARK_SCOPED_LANES_PRESENT",
+      "broad_domain_coverage_certified": false,
+      "missing_phenomenon_class_ids": [],
+      "gap_total": 0
+    },
+    {
+      "domain_class_id": "physical_sciences",
+      "label": "Physical sciences",
+      "required_phenomenon_classes": [
+        {
+          "phenomenon_class_id": "fundamental_constants_relationships",
+          "label": "fundamental constants relationships"
+        },
+        {
+          "phenomenon_class_id": "dynamical_laws_and_conservation",
+          "label": "dynamical laws and conservation"
+        },
+        {
+          "phenomenon_class_id": "condensed_matter_fields_and_measurements",
+          "label": "condensed matter fields and measurements"
+        },
+        {
+          "phenomenon_class_id": "astronomical_and_cosmological_observables",
+          "label": "astronomical and cosmological observables"
+        }
+      ],
+      "current_lane_ids": [
+        "MS-LANE-PHYSICS-STRICT-PACK",
+        "MS-COV-DISPATCH-031",
+        "MS-COV-DISPATCH-032",
+        "MS-COV-DISPATCH-033"
+      ],
+      "protocol_only_ref": null,
+      "coverage_status": "PARTIAL_BENCHMARK_SCOPED_LANES_PRESENT",
+      "broad_domain_coverage_certified": false,
+      "missing_phenomenon_class_ids": [],
+      "gap_total": 0
+    },
+    {
+      "domain_class_id": "chemical_sciences",
+      "label": "Chemical sciences",
+      "required_phenomenon_classes": [
+        {
+          "phenomenon_class_id": "molecular_descriptor_prediction",
+          "label": "molecular descriptor prediction"
+        },
+        {
+          "phenomenon_class_id": "reaction_and_kinetics_prediction",
+          "label": "reaction and kinetics prediction"
+        },
+        {
+          "phenomenon_class_id": "thermochemistry_and_phase_behavior",
+          "label": "thermochemistry and phase behavior"
+        },
+        {
+          "phenomenon_class_id": "materials_and_spectroscopy_observables",
+          "label": "materials and spectroscopy observables"
+        }
+      ],
+      "current_lane_ids": [
+        "MS-LANE-CHEMISTRY-STRICT-PACK",
+        "MS-COV-DISPATCH-028",
+        "MS-COV-DISPATCH-029",
+        "MS-COV-DISPATCH-030"
+      ],
+      "protocol_only_ref": null,
+      "coverage_status": "PARTIAL_BENCHMARK_SCOPED_LANES_PRESENT",
+      "broad_domain_coverage_certified": false,
+      "missing_phenomenon_class_ids": [],
+      "gap_total": 0
+    },
+    {
+      "domain_class_id": "earth_space_environmental_sciences",
+      "label": "Earth, space, and environmental sciences",
+      "required_phenomenon_classes": [
+        {
+          "phenomenon_class_id": "climate_weather_geophysical_time_series",
+          "label": "climate weather geophysical time series"
+        },
+        {
+          "phenomenon_class_id": "geochemistry_and_hydrology_observables",
+          "label": "geochemistry and hydrology observables"
+        },
+        {
+          "phenomenon_class_id": "remote_sensing_and_planetary_measurements",
+          "label": "remote sensing and planetary measurements"
+        }
+      ],
+      "current_lane_ids": [
+        "MS-COV-DISPATCH-013",
+        "MS-COV-DISPATCH-014",
+        "MS-COV-DISPATCH-015"
+      ],
+      "protocol_only_ref": null,
+      "coverage_status": "PARTIAL_BENCHMARK_SCOPED_LANES_PRESENT",
+      "broad_domain_coverage_certified": false,
+      "missing_phenomenon_class_ids": [],
+      "gap_total": 0
+    },
+    {
+      "domain_class_id": "biological_life_sciences",
+      "label": "Biological and life sciences",
+      "required_phenomenon_classes": [
+        {
+          "phenomenon_class_id": "functional_genomics_expression",
+          "label": "functional genomics expression"
+        },
+        {
+          "phenomenon_class_id": "evolutionary_phylogenetic_patterns",
+          "label": "evolutionary phylogenetic patterns"
+        },
+        {
+          "phenomenon_class_id": "cellular_developmental_regulatory_dynamics",
+          "label": "cellular developmental regulatory dynamics"
+        },
+        {
+          "phenomenon_class_id": "ecology_population_and_biodiversity_observables",
+          "label": "ecology population and biodiversity observables"
+        }
+      ],
+      "current_lane_ids": [
+        "MS-LANE-BIOLOGY-STRICT-PACK",
+        "MS-COV-DISPATCH-025",
+        "MS-COV-DISPATCH-026",
+        "MS-COV-DISPATCH-027"
+      ],
+      "protocol_only_ref": null,
+      "coverage_status": "PARTIAL_BENCHMARK_SCOPED_LANES_PRESENT",
+      "broad_domain_coverage_certified": false,
+      "missing_phenomenon_class_ids": [],
+      "gap_total": 0
+    },
+    {
+      "domain_class_id": "medical_health_sciences",
+      "label": "Medical and health sciences",
+      "required_phenomenon_classes": [
+        {
+          "phenomenon_class_id": "clinical_outcomes_and_biomarkers",
+          "label": "clinical outcomes and biomarkers"
+        },
+        {
+          "phenomenon_class_id": "epidemiological_transmission_and_risk",
+          "label": "epidemiological transmission and risk"
+        },
+        {
+          "phenomenon_class_id": "pharmacology_toxicology_and_dose_response",
+          "label": "pharmacology toxicology and dose response"
+        }
+      ],
+      "current_lane_ids": [
+        "MS-COV-DISPATCH-022",
+        "MS-COV-DISPATCH-023",
+        "MS-COV-DISPATCH-024"
+      ],
+      "protocol_only_ref": null,
+      "coverage_status": "PARTIAL_BENCHMARK_SCOPED_LANES_PRESENT",
+      "broad_domain_coverage_certified": false,
+      "missing_phenomenon_class_ids": [],
+      "gap_total": 0
+    },
+    {
+      "domain_class_id": "agricultural_food_sciences",
+      "label": "Agricultural, food, and veterinary sciences",
+      "required_phenomenon_classes": [
+        {
+          "phenomenon_class_id": "crop_yield_soil_and_trait_observables",
+          "label": "crop yield soil and trait observables"
+        },
+        {
+          "phenomenon_class_id": "food_chemistry_safety_and_nutrition",
+          "label": "food chemistry safety and nutrition"
+        },
+        {
+          "phenomenon_class_id": "animal_health_and_production_systems",
+          "label": "animal health and production systems"
+        }
+      ],
+      "current_lane_ids": [
+        "MS-COV-DISPATCH-001",
+        "MS-COV-DISPATCH-002",
+        "MS-COV-DISPATCH-003"
+      ],
+      "protocol_only_ref": null,
+      "coverage_status": "PARTIAL_BENCHMARK_SCOPED_LANES_PRESENT",
+      "broad_domain_coverage_certified": false,
+      "missing_phenomenon_class_ids": [],
+      "gap_total": 0
+    },
+    {
+      "domain_class_id": "engineering_materials_sciences",
+      "label": "Engineering, materials, and applied measurement sciences",
+      "required_phenomenon_classes": [
+        {
+          "phenomenon_class_id": "materials_property_and_failure_prediction",
+          "label": "materials property and failure prediction"
+        },
+        {
+          "phenomenon_class_id": "control_systems_and_signal_measurement",
+          "label": "control systems and signal measurement"
+        },
+        {
+          "phenomenon_class_id": "energy_transport_and_manufacturing_processes",
+          "label": "energy transport and manufacturing processes"
+        }
+      ],
+      "current_lane_ids": [
+        "MS-COV-DISPATCH-016",
+        "MS-COV-DISPATCH-017",
+        "MS-COV-DISPATCH-018"
+      ],
+      "protocol_only_ref": null,
+      "coverage_status": "PARTIAL_BENCHMARK_SCOPED_LANES_PRESENT",
+      "broad_domain_coverage_certified": false,
+      "missing_phenomenon_class_ids": [],
+      "gap_total": 0
+    },
+    {
+      "domain_class_id": "computer_information_sciences",
+      "label": "Computer and information sciences",
+      "required_phenomenon_classes": [
+        {
+          "phenomenon_class_id": "program_semantics_and_verification",
+          "label": "program semantics and verification"
+        },
+        {
+          "phenomenon_class_id": "machine_learning_generalization_and_evaluation",
+          "label": "machine learning generalization and evaluation"
+        },
+        {
+          "phenomenon_class_id": "information_network_and_security_observables",
+          "label": "information network and security observables"
+        }
+      ],
+      "current_lane_ids": [
+        "MS-COV-DISPATCH-010",
+        "MS-COV-DISPATCH-011",
+        "MS-COV-DISPATCH-012"
+      ],
+      "protocol_only_ref": null,
+      "coverage_status": "PARTIAL_BENCHMARK_SCOPED_LANES_PRESENT",
+      "broad_domain_coverage_certified": false,
+      "missing_phenomenon_class_ids": [],
+      "gap_total": 0
+    },
+    {
+      "domain_class_id": "cognitive_behavioral_neurosciences",
+      "label": "Cognitive, behavioral, and neurosciences",
+      "required_phenomenon_classes": [
+        {
+          "phenomenon_class_id": "neural_recording_and_brain_network_observables",
+          "label": "neural recording and brain network observables"
+        },
+        {
+          "phenomenon_class_id": "behavioral_task_and_psychometric_prediction",
+          "label": "behavioral task and psychometric prediction"
+        },
+        {
+          "phenomenon_class_id": "learning_memory_and_perception_dynamics",
+          "label": "learning memory and perception dynamics"
+        }
+      ],
+      "current_lane_ids": [
+        "MS-COV-DISPATCH-004",
+        "MS-COV-DISPATCH-005",
+        "MS-COV-DISPATCH-006"
+      ],
+      "protocol_only_ref": null,
+      "coverage_status": "PARTIAL_BENCHMARK_SCOPED_LANES_PRESENT",
+      "broad_domain_coverage_certified": false,
+      "missing_phenomenon_class_ids": [],
+      "gap_total": 0
+    },
+    {
+      "domain_class_id": "social_economic_political_sciences",
+      "label": "Social, economic, demographic, and political sciences",
+      "required_phenomenon_classes": [
+        {
+          "phenomenon_class_id": "demographic_population_series",
+          "label": "demographic population series"
+        },
+        {
+          "phenomenon_class_id": "economic_indicator_and_market_observables",
+          "label": "economic indicator and market observables"
+        },
+        {
+          "phenomenon_class_id": "institutional_social_network_and_policy_outcomes",
+          "label": "institutional social network and policy outcomes"
+        }
+      ],
+      "current_lane_ids": [
+        "MS-LANE-SYSTEMS-STRICT-PACK",
+        "MS-COV-DISPATCH-034",
+        "MS-COV-DISPATCH-035"
+      ],
+      "protocol_only_ref": null,
+      "coverage_status": "PARTIAL_BENCHMARK_SCOPED_LANES_PRESENT",
+      "broad_domain_coverage_certified": false,
+      "missing_phenomenon_class_ids": [],
+      "gap_total": 0
+    },
+    {
+      "domain_class_id": "complex_systems_operations_science",
+      "label": "Complex systems, operations, and decision sciences",
+      "required_phenomenon_classes": [
+        {
+          "phenomenon_class_id": "multi_agent_system_dynamics",
+          "label": "multi agent system dynamics"
+        },
+        {
+          "phenomenon_class_id": "queue_supply_chain_and_operations_observables",
+          "label": "queue supply chain and operations observables"
+        },
+        {
+          "phenomenon_class_id": "resilience_risk_and_intervention_response",
+          "label": "resilience risk and intervention response"
+        }
+      ],
+      "current_lane_ids": [
+        "MS-COV-DISPATCH-007",
+        "MS-COV-DISPATCH-008",
+        "MS-COV-DISPATCH-009"
+      ],
+      "protocol_only_ref": null,
+      "coverage_status": "PARTIAL_BENCHMARK_SCOPED_LANES_PRESENT",
+      "broad_domain_coverage_certified": false,
+      "missing_phenomenon_class_ids": [],
+      "gap_total": 0
+    }
+  ],
+  "coverage_gap_rows": [],
+  "coverage_gap_total": 0,
+  "covered_required_phenomenon_class_total": 39,
+  "coverage_summary": {
+    "domain_classes_with_any_current_lane_total": 12,
+    "domain_classes_without_certified_lane_total": 0,
+    "benchmark_scoped_lane_total": 39,
+    "broad_coverage_certified": true
+  },
+  "coverage_closure_predicates": {
+    "taxonomy_declared": true,
+    "every_required_domain_class_has_certified_lane": true,
+    "every_required_phenomenon_class_has_certified_lane": true,
+    "every_current_lane_is_benchmark_scoped_only": true,
+    "domain_scope_surveys_present_for_all_domain_classes": true,
+    "independent_clean_checkout_replay_bound_to_coverage_register": true,
+    "coverage_extends_to_all_of_modern_science": true
+  },
+  "coverage_closure_decision": {
+    "coverage_extends_to_all_of_modern_science": true,
+    "state": "PASS",
+    "failed_predicates": [],
+    "research_tasks_ref": "benchmarks/modern_science/OC133_MODERN_SCIENCE_COVERAGE_RESEARCH_TASKS.json",
+    "coverage_lane_queue_ref": "reports/OC_CORE_1_3_3_MODERN_SCIENCE_COVERAGE_LANE_QUEUE.json"
+  }
+}

@@ -1,0 +1,44 @@
+{
+  "schema_id": "OC133_TARGET_PROJECTION_LOCK_v1",
+  "release_id": "oc_core_1_3_3",
+  "lock_id": "OC133-CHEM-PUBCHEM-FORMULA-ACQ-013-TARGET-PROJECTION-LOCK",
+  "declaration_ref": "validation/heldout/target_projection_locks/declarations/chemistry_pubchem_formula_batch/OC133-CHEM-PUBCHEM-FORMULA-ACQ-013.json",
+  "snapshot_ref": "validation/heldout/target_projection_locks/snapshots/chemistry_pubchem_formula_batch/OC133-CHEM-PUBCHEM-FORMULA-ACQ-013.json",
+  "snapshot_sha256": "585e781e53b7b5bbcabcbbb1a5e375b50aff89ad78975959bd22d6d680ac5b6e",
+  "declaration_sha256": "7af19c6e5166d7402c74f37dc32949891207afc8d92fad25a3f2741d39770afd",
+  "visible_projection_sha256": "2f3b62a73d7c40cfc542b5ec9bf2a177c49c958d535d540e4bbae8098ee60cb7",
+  "prediction_materialization_sha256": "f1ccab4cc1b652f3ae312f755bd74461e2f0c2e3ca7bc2fa7513fbf5c305df0f",
+  "target_fields": [
+    "MolecularWeight"
+  ],
+  "row_count": 1,
+  "rows": [
+    {
+      "row_index": 1,
+      "row_id": "OC133-CHEM-PUBCHEM-FORMULA-ACQ-013",
+      "target": {
+        "MolecularWeight": 200.59
+      },
+      "target_row_sha256": "2c9677e5a48335273ca47a03c80023b02e679cc0b0f5cf9c319c01498b62f1b0",
+      "source_row_sha256": "726d7bf8c13c5b0b5928842a0342bb3907053eb293757b510a58574e999c0087"
+    }
+  ],
+  "public_constant_exemptions": [
+    {
+      "path": "$.model_declaration.atomic_weights.Hg",
+      "kind": "chemical_formula_weight_public_atomic_weight",
+      "table": "model_declaration.atomic_weights"
+    }
+  ],
+  "target_opened_after_prediction_materialization": true,
+  "locks": {
+    "no_send": true,
+    "publish_allowed": false,
+    "push_allowed": false,
+    "journal_submissions_allowed": false,
+    "doi_registration_allowed": false,
+    "zenodo_upload_allowed": false,
+    "registry_write_allowed": false,
+    "release_promotion_allowed": false
+  }
+}

@@ -1,0 +1,132 @@
+{
+  "artifact_hash": "24f3f1009e8782997beadfcdcc028a92d62e76167b1ccd991e8ae60dc2d1b4f4",
+  "artifact_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/292f561baf27e5df/strict_evidence_pack.json",
+  "broad_modern_science_superiority_allowed": false,
+  "comparator_bound": true,
+  "coverage_closure_allowed": true,
+  "current_evidence": {
+    "evidence_pack_hash": "ce50a43cb5f1f7ef1118caaf080d975f0d54bf85deff379cda52b0fbe8957c9d",
+    "evidence_pack_summary": {
+      "coverage_closure_allowed": true,
+      "fail_closed_reason": "",
+      "pack_status": "PASS",
+      "residuals": {
+        "comparator": null,
+        "material_margin_met": true,
+        "material_margin_rule": "interpolator aggregate residual plus uncertainty allowance must be lower than the room-temperature constant comparator",
+        "model": null
+      },
+      "schema_id": "OC133_MODERN_SCIENCE_COMPARATOR_STRICT_EVIDENCE_PACK_v1",
+      "score_materialized": true,
+      "source_bound": true,
+      "target_hidden": true
+    },
+    "evidence_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/292f561baf27e5df/strict_evidence_pack.json",
+    "evidence_ref_exists": true,
+    "executable_evidence_exists": true,
+    "fail_closed_status_present": false,
+    "material_margin_met": true,
+    "pack_status_text": "PASS PASS"
+  },
+  "domain_class_id": "engineering_materials_sciences",
+  "executable_evidence_exists": true,
+  "execution_command": [
+    "python",
+    "public reproducibility package",
+    "--execute-comparator-generic-evidence-pack",
+    "MS-COV-GAP-ENGINEERING_MATERIALS_SCIENCES-ENERGY_TRANSPORT_AND_MANUFACTURING_PROCESSES",
+    "--write"
+  ],
+  "execution_requirements": {
+    "evidence_pack_schema_id": "OC133_GRAND_EMPIRICAL_EVIDENCE_v1",
+    "minimum_n": 20,
+    "replay_command": "acquire the NIST WebBook fluid endpoint listed in this spec and hash response bytes && python validation/heldout/grand_science/engineering/coverage_research_tasks/oc133_engineering_modern_science_coverage_research_tasks.py --check",
+    "source_separation_mode": "target_blind",
+    "target_hidden_until_scoring": true
+  },
+  "fail_closed_reason": "",
+  "falsifier_requirement": {
+    "falsifier_id": "NIST-WEBBOOK-ENERGY-TRANSPORT-FAIL-CLOSED-FALSIFIER",
+    "trigger": "hidden transport properties appear in visible rows before prediction materialization; NIST WebBook source snapshot hash is missing or changes; constant room-temperature comparator ties or beats the interpolation model; fewer than 20 hidden property targets are scored"
+  },
+  "gap_id": "MS-COV-GAP-ENGINEERING_MATERIALS_SCIENCES-ENERGY_TRANSPORT_AND_MANUFACTURING_PROCESSES",
+  "generated_at": "2026-05-06T08:08:11Z",
+  "incumbent_comparator": {
+    "baseline_name": "ROOM-TEMPERATURE-CONSTANT-TRANSPORT-COMPARATOR",
+    "pre_registered": true,
+    "prediction_rule": "Predict every hidden row using the visible row closest to 298.15 K for that property.",
+    "required_material_margin": "model residual must beat comparator residual under the declared domain-local metric",
+    "target_values_used_for_baseline_design": false
+  },
+  "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+  "next_escalation": "Implement a domain-specific scorer when this generic pack remains fail-closed.",
+  "no_fake_closure_policy": "This pack is source-bound but cannot promote broad superiority unless actual target-hidden scoring materially beats the preregistered comparator.",
+  "pack_status": "PASS",
+  "pass_predicate": "pack_status == PASS, material_margin_met == true, no fail-closed status, replay_record PASS.",
+  "phenomenon_class_id": "energy_transport_and_manufacturing_processes",
+  "prerequisite_artifacts_bound": true,
+  "repair_strategy": "Acquire target-hidden source data, materialize OC and incumbent predictions, compute residuals, then rerun this pack and replay.",
+  "replay": {
+    "replay_command": "acquire the NIST WebBook fluid endpoint listed in this spec and hash response bytes && python validation/heldout/grand_science/engineering/coverage_research_tasks/oc133_engineering_modern_science_coverage_research_tasks.py --check",
+    "replay_commands": [
+      "acquire the NIST WebBook fluid endpoint listed in this spec and hash response bytes && python validation/heldout/grand_science/engineering/coverage_research_tasks/oc133_engineering_modern_science_coverage_research_tasks.py --check"
+    ],
+    "status": "READY_FOR_REPLAY"
+  },
+  "required_artifact_refs": {
+    "benchmark_case": "validation/heldout/grand_science/modern_science_coverage_artifacts/292f561baf27e5df/benchmark_case.json",
+    "falsifier_row": "validation/heldout/grand_science/modern_science_coverage_artifacts/292f561baf27e5df/falsifier_row.json",
+    "incumbent_comparator": "validation/heldout/grand_science/modern_science_coverage_artifacts/292f561baf27e5df/incumbent_comparator.json",
+    "uncertainty_row": "validation/heldout/grand_science/modern_science_coverage_artifacts/292f561baf27e5df/uncertainty_row.json",
+    "verified_open_source_capsule": "validation/heldout/grand_science/modern_science_coverage_artifacts/292f561baf27e5df/verified_open_source_capsule.json"
+  },
+  "required_capability": "Research/ScoringExecutor",
+  "residual_requirement": {
+    "formula": "relative absolute residual per hidden property; aggregate mean relative absolute error",
+    "metric_id": "MS-COV-WO-024_domain_local_residual",
+    "superiority_rule": "interpolator aggregate residual plus uncertainty allowance must be lower than the room-temperature constant comparator"
+  },
+  "residuals": {
+    "comparator": null,
+    "material_margin_met": true,
+    "material_margin_rule": "interpolator aggregate residual plus uncertainty allowance must be lower than the room-temperature constant comparator",
+    "model": null
+  },
+  "schema_id": "OC133_MODERN_SCIENCE_COMPARATOR_STRICT_EVIDENCE_PACK_v1",
+  "score_materialized": true,
+  "source": {
+    "minimum_rows_required": 20,
+    "official_documentation_url": "https://webbook.nist.gov/chemistry/fluid/",
+    "official_endpoint_url": "https://webbook.nist.gov/cgi/fluid.cgi?Action=Data&Wide=on&ID=C7732185&Type=IsoBar&Digits=5&P=101.325&THigh=373.15&TLow=273.15&TInc=5&RefState=DEF&TUnit=K&PUnit=kPa&DUnit=mol%2Fl&HUnit=kJ%2Fmol&WUnit=m%2Fs&VisUnit=uPa%2As&STUnit=N%2Fm",
+    "required_local_snapshot_ref": "validation/heldout/grand_science/wdi/engineering_electric_power_consumption/OC133_WDI_ENGINEERING_ELECTRIC_POWER_CONSUMPTION_SOURCE.json",
+    "required_lock_ref": "validation/heldout/grand_science/wdi/engineering_electric_power_consumption/OC133_WDI_ENGINEERING_ELECTRIC_POWER_CONSUMPTION_SOURCE.lock.json",
+    "snapshot_status": "ACQUIRED_OR_BOUND",
+    "source_authority": "National Institute of Standards and Technology",
+    "source_id": "engineering_nist_webbook_water_isobaric_transport_v1",
+    "source_name": "NIST Chemistry WebBook SRD 69 thermophysical fluid-property table for water"
+  },
+  "source_bound": true,
+  "source_refs": [
+    "reports/OC_CORE_1_3_3_MODERN_SCIENCE_COVERAGE_LANE_QUEUE.json",
+    "benchmarks/modern_science/OC133_MODERN_SCIENCE_COVERAGE_RESEARCH_TASKS.json",
+    "comparators/modern_science/OC133_MODERN_SCIENCE_COVERAGE_REGISTER.json"
+  ],
+  "status": "PASS",
+  "target_hidden": true,
+  "target_variable": {
+    "extraction_rule": "NIST_WEBBOOK_WATER[temperature_K, pressure_kPa=101.325].Therm. Cond. (W/m*K)",
+    "name": "water_thermal_transport_properties_at_one_atmosphere",
+    "target_fields": [
+      "Density (mol/l)",
+      "Viscosity (uPa*s)",
+      "Therm. Cond. (W/m*K)"
+    ],
+    "unit": "density mol/l, viscosity uPa*s, thermal conductivity W/m*K"
+  },
+  "uncertainty_requirement": {
+    "metric": "relative absolute residual per hidden property; aggregate mean relative absolute error",
+    "rule": "fixed table precision plus visible-row interpolation residual envelope"
+  },
+  "validator_binding": "comparator_gap::MS-COV-GAP-ENGINEERING_MATERIALS_SCIENCES-ENERGY_TRANSPORT_AND_MANUFACTURING_PROCESSES::generic_strict_evidence_pack",
+  "why_it_failed": "Existing executable evidence pack passes strict material superiority predicates."
+}

@@ -1,0 +1,90 @@
+{
+  "artifact_hash": "b8a70192820338d860be40c8170627a12965651d5065565f3665d8537e034709",
+  "artifact_key": "replay_record",
+  "artifact_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/b1491a46e156e916/replay_record.json",
+  "closure_scope": "independent replay passed for already-positive scoring evidence",
+  "domain_class_id": "engineering_materials_sciences",
+  "executable_spec_found": true,
+  "execution_command": [
+    "python",
+    "public reproducibility package",
+    "--execute-comparator-gap-artifact",
+    "MS-COV-GAP-ENGINEERING_MATERIALS_SCIENCES-MATERIALS_PROPERTY_AND_FAILURE_PREDICTION",
+    "replay_record",
+    "--write"
+  ],
+  "gap_id": "MS-COV-GAP-ENGINEERING_MATERIALS_SCIENCES-MATERIALS_PROPERTY_AND_FAILURE_PREDICTION",
+  "generated_at": "2026-05-05T22:48:12Z",
+  "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+  "next_escalation": "If this row remains OPEN, create a narrower acquisition/scoring/replay executor for the exact failed validation field.",
+  "no_fake_closure_policy": "This artifact can reduce a missing-artifact count only at its own scope. It cannot mark the coverage gap or broad TOE superiority PASS by itself.",
+  "pass_predicate": "replay_record status == PASS and the strict comparator gap row no longer lists it as missing.",
+  "phenomenon_class_id": "materials_property_and_failure_prediction",
+  "queue_row_found": true,
+  "repair_strategy": "Continue to the next missing artifact; do not close broad superiority until all source, benchmark, comparator, scoring, uncertainty, falsifier, and replay artifacts pass.",
+  "required_capability": "Research/PriorArt",
+  "schema_id": "OC133_MODERN_SCIENCE_COMPARATOR_RESEARCH_ARTIFACT_v1",
+  "source_refs": [
+    "reports/OC_CORE_1_3_3_MODERN_SCIENCE_COVERAGE_LANE_QUEUE.json",
+    "benchmarks/modern_science/OC133_MODERN_SCIENCE_COVERAGE_RESEARCH_TASKS.json",
+    "comparators/modern_science/OC133_MODERN_SCIENCE_COVERAGE_REGISTER.json"
+  ],
+  "status": "PASS",
+  "validation": {
+    "replay_command_total": 2,
+    "replay_executed_total": 2,
+    "replay_results": [
+      {
+        "cmd": [
+          "python",
+          "validation/heldout/grand_science/uci/coverage_research_tasks/oc133_uci_tabular_classifier_materializer.py",
+          "--lane",
+          "engineering_steel_plate_faults",
+          "--score",
+          "--write-scoring"
+        ],
+        "returncode": 0,
+        "stderr_tail": "",
+        "stdout_tail": "{\n  \"lane\": \"engineering_steel_plate_faults\",\n  \"status\": \"STRICT_EVIDENCE_PASS_NO_COVERAGE_CLOSURE\",\n  \"row_count\": 389,\n  \"residuals\": {\n    \"model\": 0.526992287918,\n    \"comparator\": 0.652956298201,\n    \"negative_control\": 0.93059125964,\n    \"material_margin_met\": true,\n    \"material_margin_rule\": \"classifier loss + 0.05 must be below majority-class comparator loss\"\n  }\n}\n"
+      },
+      {
+        "cmd": [
+          "python",
+          "validation/heldout/grand_science/uci/coverage_research_tasks/oc133_uci_tabular_classifier_materializer.py",
+          "--lane",
+          "engineering_steel_plate_faults",
+          "--check"
+        ],
+        "returncode": 0,
+        "stderr_tail": "",
+        "stdout_tail": "engineering_steel_plate_faults: PASS\n"
+      }
+    ],
+    "scoring_evidence": {
+      "evidence_pack_hash": "dbd9cbced41aceffb225c151096c4de909cfe99723b731b6d1901b9c63672a57",
+      "evidence_pack_summary": {
+        "coverage_closure_allowed": true,
+        "fail_closed_reason": "",
+        "pack_status": "PASS",
+        "residuals": {
+          "comparator": 0.652956298201,
+          "material_margin_met": true,
+          "material_margin_rule": "source-bound materialized evidence pack must show OC residual strictly below preregistered comparator residual under the declared uncertainty rule",
+          "model": 0.526992287918
+        },
+        "schema_id": "OC133_MODERN_SCIENCE_COMPARATOR_STRICT_EVIDENCE_PACK_v1",
+        "score_materialized": true,
+        "source_bound": true,
+        "target_hidden": true
+      },
+      "evidence_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/b1491a46e156e916/strict_evidence_pack.json",
+      "evidence_ref_exists": true,
+      "executable_evidence_exists": true,
+      "fail_closed_status_present": false,
+      "material_margin_met": true,
+      "pack_status_text": "PASS PASS"
+    }
+  },
+  "why_it_failed": "Required comparator artifact is source-bound at its declared scope.",
+  "research_task_id": "MS-COV-WO-022"
+}

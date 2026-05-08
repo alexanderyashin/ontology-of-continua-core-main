@@ -1,0 +1,75 @@
+{
+  "artifact_hash": "36fdcf6033bf9fc014b98d47ea67f7616c85dc7076c07d77fd019df7f8076973",
+  "artifact_key": "replay_record",
+  "artifact_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/ac1f601d3315235c/replay_record.json",
+  "closure_scope": "independent replay passed for already-positive scoring evidence",
+  "domain_class_id": "biological_life_sciences",
+  "executable_spec_found": true,
+  "execution_command": [
+    "python",
+    "public reproducibility package",
+    "--execute-comparator-gap-artifact",
+    "MS-COV-GAP-BIOLOGICAL_LIFE_SCIENCES-EVOLUTIONARY_PHYLOGENETIC_PATTERNS",
+    "replay_record",
+    "--write"
+  ],
+  "gap_id": "MS-COV-GAP-BIOLOGICAL_LIFE_SCIENCES-EVOLUTIONARY_PHYLOGENETIC_PATTERNS",
+  "generated_at": "2026-05-05T22:48:09Z",
+  "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+  "next_escalation": "If this row remains OPEN, create a narrower acquisition/scoring/replay executor for the exact failed validation field.",
+  "no_fake_closure_policy": "This artifact can reduce a missing-artifact count only at its own scope. It cannot mark the coverage gap or broad TOE superiority PASS by itself.",
+  "pass_predicate": "replay_record status == PASS and the strict comparator gap row no longer lists it as missing.",
+  "phenomenon_class_id": "evolutionary_phylogenetic_patterns",
+  "queue_row_found": true,
+  "repair_strategy": "Continue to the next missing artifact; do not close broad superiority until all source, benchmark, comparator, scoring, uncertainty, falsifier, and replay artifacts pass.",
+  "required_capability": "Research/PriorArt",
+  "schema_id": "OC133_MODERN_SCIENCE_COMPARATOR_RESEARCH_ARTIFACT_v1",
+  "source_refs": [
+    "reports/OC_CORE_1_3_3_MODERN_SCIENCE_COVERAGE_LANE_QUEUE.json",
+    "benchmarks/modern_science/OC133_MODERN_SCIENCE_COVERAGE_RESEARCH_TASKS.json",
+    "comparators/modern_science/OC133_MODERN_SCIENCE_COVERAGE_REGISTER.json"
+  ],
+  "status": "PASS",
+  "validation": {
+    "replay_command_total": 1,
+    "replay_executed_total": 1,
+    "replay_results": [
+      {
+        "cmd": [
+          "python",
+          "benchmarks/modern_science/coverage_lane_dispatcher.py",
+          "--check"
+        ],
+        "returncode": 0,
+        "stderr_tail": "",
+        "stdout_tail": "modern-science coverage lane dispatcher check passed; coverage remains open\n"
+      }
+    ],
+    "scoring_evidence": {
+      "evidence_pack_hash": "348e6d989763e4ec2954f373386bed3482a5140e8b8703004ff0ca15c7542704",
+      "evidence_pack_summary": {
+        "coverage_closure_allowed": true,
+        "fail_closed_reason": "",
+        "pack_status": "PASS",
+        "residuals": {
+          "comparator": 0.16738358326,
+          "material_margin_met": true,
+          "material_margin_rule": "source-bound materialized evidence pack must show OC residual strictly below preregistered comparator residual under the declared uncertainty rule",
+          "model": 0.0
+        },
+        "schema_id": "OC133_MODERN_SCIENCE_COMPARATOR_STRICT_EVIDENCE_PACK_v1",
+        "score_materialized": true,
+        "source_bound": true,
+        "target_hidden": true
+      },
+      "evidence_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/ac1f601d3315235c/strict_evidence_pack.json",
+      "evidence_ref_exists": true,
+      "executable_evidence_exists": true,
+      "fail_closed_status_present": false,
+      "material_margin_met": true,
+      "pack_status_text": "PASS PASS"
+    }
+  },
+  "why_it_failed": "Required comparator artifact is source-bound at its declared scope.",
+  "research_task_id": "MS-COV-WO-013"
+}

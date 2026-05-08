@@ -1,0 +1,149 @@
+{
+  "schema_id": "OC133_GRAND_EMPIRICAL_EVIDENCE_v1",
+  "release_id": "oc_core_1_3_3",
+  "evidence_owner": "Research/EmpiricalScience",
+  "evidence_pack_id": "OC133-BIOLOGY-NCBI-BATCH-CANDIDATE",
+  "domain": "biology",
+  "evidence_family": "biology-ncbi-geo-pagination-qa",
+  "pack_version": "1.0",
+  "support_scope": "bounded NCBI/GEO API page-size reconstruction QA; not biological grand support",
+  "source_separation": {
+    "mode": "target_blind",
+    "pre_target_lock": true,
+    "target_hidden_until_scoring": true,
+    "training_sources": [
+      "validation/heldout/target_projection_locks/locks/OC133-BIOLOGY-NCBI-BATCH-TARGET-PROJECTION-LOCK.visible_projection_lock.json",
+      "validation/heldout/grand_science/biology/ncbi_batch/legacy_seed_locks/OC133-BIOLOGY-NCBI-LEGACY-SEED-363C4501EE22767C.visible_projection_lock.json"
+    ],
+    "target_sources": [
+      "validation/heldout/target_projection_locks/locks/OC133-BIOLOGY-NCBI-BATCH-TARGET-PROJECTION-LOCK.target_projection_lock.json",
+      "validation/heldout/grand_science/biology/ncbi_batch/legacy_seed_locks/OC133-BIOLOGY-NCBI-LEGACY-SEED-363C4501EE22767C.target_projection_lock.json"
+    ]
+  },
+  "n": 20,
+  "model_under_test": "NCBI/GEO ESearch batch page-size reconstruction: len(esearchresult.idlist)",
+  "comparator_baseline": {
+    "name": "GEO total-hit-count page-size negative control",
+    "prediction_rule": "use esearchresult.count as the retmax prediction for every batch row",
+    "pre_registered": true
+  },
+  "uncertainty": {
+    "metric": "mean absolute residual",
+    "method": "deterministic NCBI/GEO ESearch batch replay with exact integer target",
+    "interval": [
+      0.0,
+      0.0
+    ]
+  },
+  "residuals": {
+    "model": 0.0,
+    "comparator": 43988.0,
+    "superiority_margin": 43988.0
+  },
+  "negative_controls": [
+    {
+      "control_id": "biology-ncbi-total-count-control::BIOLOGY-NCBI-GEO-BATCH-0001-F6B8F2D6A89F",
+      "description": "replace the page-size reconstruction with GEO total hit count and require a larger residual",
+      "rejected": true
+    },
+    {
+      "control_id": "biology-ncbi-total-count-control::BIOLOGY-NCBI-GEO-BATCH-0002-7CD3DE7D3418",
+      "description": "replace the page-size reconstruction with GEO total hit count and require a larger residual",
+      "rejected": true
+    },
+    {
+      "control_id": "biology-ncbi-total-count-control::BIOLOGY-NCBI-GEO-BATCH-0003-D8D3D89B0F41",
+      "description": "replace the page-size reconstruction with GEO total hit count and require a larger residual",
+      "rejected": true
+    },
+    {
+      "control_id": "biology-ncbi-total-count-control::BIOLOGY-NCBI-GEO-BATCH-0004-743F37701DC5",
+      "description": "replace the page-size reconstruction with GEO total hit count and require a larger residual",
+      "rejected": true
+    },
+    {
+      "control_id": "biology-ncbi-total-count-control::BIOLOGY-NCBI-GEO-BATCH-0005-A17268CCB987",
+      "description": "replace the page-size reconstruction with GEO total hit count and require a larger residual",
+      "rejected": true
+    },
+    {
+      "control_id": "biology-ncbi-total-count-control::BIOLOGY-NCBI-GEO-BATCH-0006-515E1F7EFC0A",
+      "description": "replace the page-size reconstruction with GEO total hit count and require a larger residual",
+      "rejected": true
+    },
+    {
+      "control_id": "biology-ncbi-total-count-control::BIOLOGY-NCBI-GEO-BATCH-0007-CAB27F60F0CA",
+      "description": "replace the page-size reconstruction with GEO total hit count and require a larger residual",
+      "rejected": true
+    },
+    {
+      "control_id": "biology-ncbi-total-count-control::BIOLOGY-NCBI-GEO-BATCH-0008-E0F2854C95AE",
+      "description": "replace the page-size reconstruction with GEO total hit count and require a larger residual",
+      "rejected": true
+    },
+    {
+      "control_id": "biology-ncbi-total-count-control::BIOLOGY-NCBI-GEO-BATCH-0009-0540D2ACBBF6",
+      "description": "replace the page-size reconstruction with GEO total hit count and require a larger residual",
+      "rejected": true
+    },
+    {
+      "control_id": "biology-ncbi-total-count-control::BIOLOGY-NCBI-GEO-BATCH-0010-84A763CAC536",
+      "description": "replace the page-size reconstruction with GEO total hit count and require a larger residual",
+      "rejected": true
+    },
+    {
+      "control_id": "biology-ncbi-total-count-control::BIOLOGY-NCBI-GEO-BATCH-0011-2AE688DFFF6A",
+      "description": "replace the page-size reconstruction with GEO total hit count and require a larger residual",
+      "rejected": true
+    },
+    {
+      "control_id": "biology-ncbi-total-count-control::BIOLOGY-NCBI-GEO-BATCH-0012-F2EF86E7066B",
+      "description": "replace the page-size reconstruction with GEO total hit count and require a larger residual",
+      "rejected": true
+    },
+    {
+      "control_id": "biology-ncbi-total-count-control::BIOLOGY-NCBI-GEO-BATCH-0013-43F179C44BBF",
+      "description": "replace the page-size reconstruction with GEO total hit count and require a larger residual",
+      "rejected": true
+    },
+    {
+      "control_id": "biology-ncbi-total-count-control::BIOLOGY-NCBI-GEO-BATCH-0014-C9AE43B924E8",
+      "description": "replace the page-size reconstruction with GEO total hit count and require a larger residual",
+      "rejected": true
+    },
+    {
+      "control_id": "biology-ncbi-total-count-control::BIOLOGY-NCBI-GEO-BATCH-0015-56443BD66135",
+      "description": "replace the page-size reconstruction with GEO total hit count and require a larger residual",
+      "rejected": true
+    },
+    {
+      "control_id": "biology-ncbi-total-count-control::BIOLOGY-NCBI-GEO-BATCH-0016-46DABA206E96",
+      "description": "replace the page-size reconstruction with GEO total hit count and require a larger residual",
+      "rejected": true
+    },
+    {
+      "control_id": "biology-ncbi-total-count-control::BIOLOGY-NCBI-GEO-BATCH-0017-440EE39E7C89",
+      "description": "replace the page-size reconstruction with GEO total hit count and require a larger residual",
+      "rejected": true
+    },
+    {
+      "control_id": "biology-ncbi-total-count-control::BIOLOGY-NCBI-GEO-BATCH-0018-3EEF723D3694",
+      "description": "replace the page-size reconstruction with GEO total hit count and require a larger residual",
+      "rejected": true
+    },
+    {
+      "control_id": "biology-ncbi-total-count-control::BIOLOGY-NCBI-GEO-BATCH-0019-0F33C759B334",
+      "description": "replace the page-size reconstruction with GEO total hit count and require a larger residual",
+      "rejected": true
+    },
+    {
+      "control_id": "biology-ncbi-total-count-control::BIOLOGY-NCBI-GEO-BATCH-0020-12A331673E7F",
+      "description": "replace the page-size reconstruction with GEO total hit count and require a larger residual",
+      "rejected": true
+    }
+  ],
+  "falsifiers": [
+    "retmax differs from returned idlist length, or the GEO total-count control is not worse"
+  ],
+  "grand_toe_support_allowed": false
+}

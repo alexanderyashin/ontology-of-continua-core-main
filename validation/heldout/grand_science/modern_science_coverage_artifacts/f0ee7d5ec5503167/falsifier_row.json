@@ -1,0 +1,41 @@
+{
+  "artifact_hash": "a4912e51827602037551eb57c94f9b2d9f946ea36f9982699e17d94173a94ee7",
+  "artifact_key": "falsifier_row",
+  "artifact_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/f0ee7d5ec5503167/falsifier_row.json",
+  "closure_scope": "falsifier and negative-control policy declared; not evidence of passed scoring",
+  "domain_class_id": "physical_sciences",
+  "executable_spec_found": true,
+  "execution_command": [
+    "python",
+    "public reproducibility package",
+    "--execute-comparator-gap-artifact",
+    "MS-COV-GAP-PHYSICAL_SCIENCES-ASTRONOMICAL_AND_COSMOLOGICAL_OBSERVABLES",
+    "falsifier_row",
+    "--write"
+  ],
+  "gap_id": "MS-COV-GAP-PHYSICAL_SCIENCES-ASTRONOMICAL_AND_COSMOLOGICAL_OBSERVABLES",
+  "generated_at": "2026-05-05T22:47:05Z",
+  "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+  "next_escalation": "If this row remains OPEN, create a narrower acquisition/scoring/replay executor for the exact failed validation field.",
+  "no_fake_closure_policy": "This artifact can reduce a missing-artifact count only at its own scope. It cannot mark the coverage gap or broad TOE superiority PASS by itself.",
+  "pass_predicate": "falsifier_row status == PASS and the strict comparator gap row no longer lists it as missing.",
+  "phenomenon_class_id": "astronomical_and_cosmological_observables",
+  "queue_row_found": true,
+  "repair_strategy": "Continue to the next missing artifact; do not close broad superiority until all source, benchmark, comparator, scoring, uncertainty, falsifier, and replay artifacts pass.",
+  "required_capability": "Research/PriorArt",
+  "schema_id": "OC133_MODERN_SCIENCE_COMPARATOR_RESEARCH_ARTIFACT_v1",
+  "source_refs": [
+    "reports/OC_CORE_1_3_3_MODERN_SCIENCE_COVERAGE_LANE_QUEUE.json",
+    "benchmarks/modern_science/OC133_MODERN_SCIENCE_COVERAGE_RESEARCH_TASKS.json",
+    "comparators/modern_science/OC133_MODERN_SCIENCE_COVERAGE_REGISTER.json"
+  ],
+  "status": "PASS",
+  "validation": {
+    "falsifier_id": "PHYS-ASTRO-EXOPLANET-KEPLER-FALSIFIER",
+    "falsifier_present": true,
+    "negative_control_id": "PHYS-ASTRO-MEDIAN-MASS-KEPLER-BASELINE",
+    "negative_control_present": true
+  },
+  "why_it_failed": "Required comparator artifact is source-bound at its declared scope.",
+  "research_task_id": "MS-COV-WO-006"
+}

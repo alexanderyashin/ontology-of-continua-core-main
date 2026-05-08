@@ -1,0 +1,75 @@
+\documentclass[11pt,a4paper]{article}
+
+\input{preamble}
+% PDF metadata source of truth: preamble.tex.
+% Required metadata fields: pdftitle, pdfauthor, pdfsubject, pdfkeywords, pdflang.
+
+\begin{document}
+
+\input{content/frontmatter_oc_core_1_3_master.tex}
+\tableofcontents
+\clearpage
+\phantomsection
+\addcontentsline{toc}{section}{List of Figures}
+\listoffigures
+\clearpage
+\phantomsection
+\addcontentsline{toc}{section}{List of Tables}
+\listoftables
+\ocvolumeblock{Front Matter and Reader Contract}{The title page, abstract, table of contents, List of Figures, and List of Tables identify the release. The guide that follows gives five entry points: Reviewer, Formal reader, Domain reader, Broad scientific reader, and Practical user.}
+\input{content/17_oc_core_1_3_reader_guide.tex}
+\ocvolumeblock{Orientation and Scientific Promise}{This block presents the problem, background, model, first structural results, discussion, and conclusion as a compact continuous introduction to the theory before the Core~1.4 closure block.}
+\input{content/01_intro.tex}
+\input{content/02_background.tex}
+\input{content/03_model.tex}
+\input{content/04_results.tex}
+\input{content/05_discussion.tex}
+\input{content/06_conclusion.tex}
+\ocvolumeblock{Formal Core and Structural Doctrine}{This block fixes the vocabulary for boundaries, thresholds, levels, operators, collapse and rebirth, branch topology, disciplinary embedding, and falsifiability. It explains the formal structure that later claims rely on.}
+\input{content/08_boundary.tex}
+\input{content/09_thresholds.tex}
+\input{content/10_klevels_full.tex}
+\input{content/11_operators_full.tex}
+\input{content/12_collapse_rebirth.tex}
+\input{content/13_branching_topology.tex}
+\input{content/14_disciplines_extended.tex}
+\input{content/15_falsifiability_extended.tex}
+\input{content/16_modules_master.tex}
+\ocvolumeblock{Core~1.4 Closure, Synthesis, and Practical Use}{This block gives the main review path: source audit, foundational consistency, theorem roadmap, worked examples, operational discipline, empirical execution, proof machinery, synthesis, and practical use. It is the primary block for review, external citation, and bounded application.}
+\input{content/18_oc_core_1_3_source_audit.tex}
+\input{content/19_oc_core_1_3_foundational_consistency.tex}
+\input{content/20_oc_core_1_3_theorem_roadmap.tex}
+\input{content/21_oc_core_1_3_worked_examples.tex}
+\input{content/22_oc_core_1_3_operationalization_program.tex}
+\input{content/23_oc_core_1_3_empirical_execution_protocols.tex}
+\input{content/24_oc_core_1_3_proof_machinery.tex}
+\input{content/25_oc_core_1_3_toe_synthesis.tex}
+\input{content/26_oc_core_1_3_practical_utility.tex}
+
+\appendix
+\ocvolumeblock{Audit and Atlas Archive}{The appendices contain notation, axioms, reviewer maps, empirical audit surfaces, technical atlases, benchmark atlases, synthesis support dossiers, and practical comparison matrices. They preserve the evidence record without interrupting the main teaching path. The benchmark appendices follow this inspection order: manifest, caseset, replay reports, and execution board.}
+\input{appendix/A_notation}
+\input{appendix/B_axioms_full}
+\input{appendix/C_klevels_tables}
+\input{appendix/D_oc_core_1_3_source_audit_appendix}
+\input{appendix/E_oc_core_1_3_journal_core_bridge}
+\input{appendix/F_oc_core_1_3_reviewer_navigation_matrix}
+\input{appendix/G_oc_core_1_3_empirical_validation_matrix}
+\input{appendix/H_oc_core_1_3_institute_run_measurement_program}
+\input{appendix/I_oc_core_1_3_domain_benchmark_manifest}
+\input{appendix/L_oc_core_1_3_domain_benchmark_caseset}
+\input{appendix/J_oc_core_1_3_domain_replay_reports}
+\input{appendix/K_oc_core_1_3_domain_execution_board}
+\input{appendix/M_oc_core_1_3_proof_machinery_appendix.tex}
+\input{appendix/N_oc_core_1_3_figure_atlas.tex}
+\input{appendix/O_oc_core_1_3_technical_derivation_atlas.tex}
+\input{appendix/P_oc_core_1_3_reference_benchmark_atlas.tex}
+\input{appendix/Q_oc_core_1_3_toe_support_dossiers.tex}
+\input{appendix/R_oc_core_1_3_practical_utility_model_comparison_atlas.tex}
+\input{appendix/S_oc_core_1_3_external_criticism_closure}
+
+\clearpage
+\nocite{*}
+\printbibliography[heading=bibintoc,title={Bibliography}]
+
+\end{document}

@@ -1,0 +1,254 @@
+\begin{titlepage}
+\phantomsection
+\label{sec:oc133-title-page}
+\thispagestyle{empty}
+\definecolor{ocTitleBlue}{HTML}{173B57}
+\definecolor{ocTitleGold}{HTML}{A77D2A}
+\begin{tikzpicture}[remember picture,overlay]
+\draw[ocTitleBlue,line width=0.75pt]
+  ([xshift=1.35cm,yshift=-1.35cm]current page.north west)
+  rectangle
+  ([xshift=-1.35cm,yshift=1.35cm]current page.south east);
+\draw[ocTitleGold,line width=0.35pt]
+  ([xshift=1.55cm,yshift=-1.55cm]current page.north west)
+  rectangle
+  ([xshift=-1.55cm,yshift=1.55cm]current page.south east);
+\end{tikzpicture}
+\begin{center}
+\vspace*{1.0cm}
+{\sffamily\Large\color{ocTitleBlue}\textsc{Ontology of Continua}}\\[0.38cm]
+{\sffamily\Huge\bfseries Core~1.4}\\[0.28cm]
+{\sffamily\Large Master Monograph}\\[0.75cm]
+{\color{ocTitleGold}\rule{0.42\textwidth}{0.5pt}}\\[0.95cm]
+
+{\Large Alexander Yashin}\\[0.2cm]
+{\normalsize Independent Researcher, Leipzig/Halle, Germany}\\[0.2cm]
+{\normalsize \href{https://orcid.org/0009-0008-6166-0914}{ORCID 0009-0008-6166-0914}}\\[1.0cm]
+
+{\normalsize Version v1.4}\\[0.3cm]
+{\normalsize Manuscript revision date: 2026-05-08}\\[0.3cm]
+{\normalsize Concept DOI: \href{https://doi.org/10.5281/zenodo.17899134}{10.5281/zenodo.17899134}}\\[0.9cm]
+
+\vfill
+
+% DEDICATION_REQUIRED_DO_NOT_REMOVE
+% OC_CORE_PUBLICATION_DEDICATION
+{\small\itshape Dedicated to my dear wife Maria, without whom this work would have been impossible.}\\[0.8cm]
+\end{center}
+\end{titlepage}
+
+\clearpage
+\noindent\textbf{Acknowledgements.}
+The author thanks the reviewers and critics whose questions, objections, and
+suggestions contributed to the development of the Ontology of Continua and to
+the refinement of this release. Their criticism helped sharpen the claim
+boundaries, improve the reader route, expose weak presentation choices, and
+force clearer separation between model claims, proof routes, numerical evidence,
+prior-art comparison, and publication form. Acknowledgement records review
+pressure and intellectual contribution to the development of the work; it does
+not imply authorship, endorsement, publication approval, responsibility for the
+theory, or agreement with any claim promoted in the manuscript.
+\begin{itemize}
+    \item G.~V.~Apostolov.
+    \item Eduard Fadeev.
+    \item Gennady Alekseevich Nosov.
+    \item Sergey Shpadyrev.
+    \item Stanislav Tsukrov.
+\end{itemize}
+
+\clearpage
+\noindent\textbf{AI Assistance Disclosure.}
+AI-assisted tools were used as governed editorial and engineering instruments during preparation of this release package. Their roles were limited to bounded prose critique, formatting checks, source-path hygiene, figure and table QA support, and code/release-machine assistance under human review. They are not authors, do not provide scientific authority, and did not license any unsupported claim. The author retains full responsibility for the manuscript, evidence interpretation, claim boundaries, and final publication decisions.
+
+\clearpage
+\begin{abstract}
+Modern systems rarely respect the borders by which modern institutions divide
+knowledge. A climate model, an AI platform, a biological organism, a market, an
+enterprise architecture, and a scientific theory all involve persistence,
+constraint, boundary, transition, failure, repair, and cross-level dependence,
+yet they are usually described in mutually incompatible vocabularies. The
+Ontology of Continua (OC) begins from that practical and scientific difficulty:
+it asks whether heterogeneous systems can be compared through a shared
+structural language without erasing the local knowledge that makes each domain
+serious.
+
+OC Core~1.4 is the bounded external-review release of that model core. It
+presents a typed account of continuants, realizations, liveness, death,
+residue, rebirth, morphisms, generalized boundaries, hybrid operators, cycle
+modes, historical and effective dimension, and K-level witnesses under explicit
+assumptions. Its scientific task is not to replace physics, chemistry, biology,
+cognition, systems engineering, economics, or philosophy with a slogan. Its
+task is to give readers a precise object whose definitions, proof routes,
+finite semantic checks, figures, tables, numerical anchors, comparator
+boundaries, and failure conditions can be inspected.
+
+The manuscript is written as one continuous scientific monograph rather than as
+a prior volume followed by an update packet. It first gives the reader a reason
+to care about a continuum ontology, then introduces the elementary picture of a
+continuum, the nesting of continua inside continua, and the K-level hierarchy,
+and only then moves into the formal core, evidence surfaces, proof routes,
+domain projections, limitations, and appendices. The ambition is didactic as
+well as formal: the reader should be able to see what the theory is for before
+being asked to evaluate its notation.
+
+The current maturity of OC Core is deliberately stated as bounded. The release
+is mature enough to be read as a coherent scientific manuscript and to be
+checked against formal and executable artifacts. It is not a declaration of
+complete scientific coverage, complete numerical closure, or unbounded
+comparative victory over contemporary science. Where a theorem route, proof
+sheet, formalization reference, finite semantic case, replay row, comparator row, or
+negative-control route supports a claim, the claim is promoted. Where that
+support is incomplete, the text records a limitation or future obligation
+instead of widening the public wording.
+
+The manuscript contains the full monograph body, a compact article route, a
+methods and reproducibility route, reviewer-response material, proof and
+formalization sections, finite-model and numerical evidence anchors, figure and
+table material, source-trace appendices, and practical-use boundaries. Figures
+and tables are retained as scientific material; formulas and theorem statements
+are retained in the mathematical spine; machine-readable registers remain in
+the evidence package where they can be audited without becoming the narrative
+structure of the manuscript.
+
+The practical value of the release is a disciplined compression without loss of
+meaning. If OC is useful, it should help a scientific reviewer, a systems
+theorist, an AI builder, an enterprise architect, or an evidence auditor
+translate a complex system into a common ontology while preserving the
+differences that matter. The principal limitation is part of the method:
+future releases must add evidence, mechanization, comparator work, or domain
+validation before they widen the public claim surface. Version~1.4 therefore
+offers a publication-grade basis for external review, not a claim that every
+future scientific obligation has already been discharged.
+\end{abstract}
+
+\clearpage
+\section*{Version 1.4 Release Delta}
+\phantomsection
+\addcontentsline{toc}{section}{Version 1.4 Release Delta}
+The OC Core release sequence is part of a continuing scientific program rather
+than a series of isolated archive events. As the model is tested against formal
+criticism, domain examples, reproducibility checks, and external review, the
+public manuscript is expected to become more precise, more explicit about its
+limits, and more useful to readers outside the author's immediate working
+context. A new release is warranted only when there is a meaningful scientific
+or editorial delta: a clarified definition, stronger proof route, better
+evidence boundary, improved reader pathway, repaired notation, new domain
+projection, or more honest comparator position.
+
+This policy is a commitment to system without pretending that research can be
+made mechanical. The author intends to make future public updates regular
+enough for readers, reviewers, and auditors to follow the development of the
+model, while preserving the difference between a public scientific result and
+unpublished working material. No unpublished working note or non-public editorial
+record is promoted as reader-facing evidence merely because it
+helped produce the release.
+
+Version~1.4 is the release in which the OC Core corpus is reorganized from
+scattered source witnesses and process records into a reviewable scientific
+package. The visible delta is not merely a new archive number: the release
+strengthens the typed foundation, makes the claim boundary explicit, integrates
+the theorem route with public proof sheets, and separates reader-facing prose
+from machine evidence.
+
+The model delta includes clearer treatment of carriers, realizations, liveness,
+death, residue, rebirth, morphisms, generalized boundaries, hybrid operators,
+cycle modes, historical and effective dimension, and K-level witnesses. These
+additions are presented as a bounded model-core grammar rather than as an
+unrestricted theory of every phenomenon.
+
+The verification delta adds and consolidates a Lean-oriented formalization inventory, structured
+proof sheets, finite semantic checks, finite witness interpretation, bounded
+retrospective bounded replay QA, comparator and prior-art positioning, negative-control
+and falsifier language, and adversarial-review response material. Where a
+stronger claim is not yet earned, the release records the limitation instead of
+hiding it inside a source-control record.
+
+The editorial delta is equally important. Figures, tables, formulas, numeric
+anchors, appendices, and evidence routes are kept in the publication corpus;
+machine coverage maps remain coverage and trace data only. The public
+documents are therefore built from the human manuscript hierarchy and curated
+payload sources, while source bindings and machine evidence indexes stay in the
+review manifest.
+
+For a returning reader, the practical point is this: 1.4 should be read as a
+clarification and consolidation release. It does not claim final closure. It
+improves the public surface through which the model can be criticized, taught,
+checked, and extended.
+
+\clearpage
+\section*{Reader Routes}
+\phantomsection
+\addcontentsline{toc}{section}{Reader Routes}
+Dear readers, systems theory is of interest to many communities, but rarely in
+exactly the same way. A formal reviewer, a philosopher of systems, an applied
+architect, an AI engineer, a security specialist, and an executive reader may
+all ask legitimate questions of the same manuscript. OC Core~1.4 is therefore
+designed as a deliberately generous scientific reading surface: it aims to
+disclose the Ontology of Continua as an applied model of system architecture
+while giving different readers a courteous route into the material.
+
+The monograph is intentionally somewhat redundant. It first motivates the
+problem, then introduces the basic picture of a continuum, then gives the
+formal grammar, and only after that asks the reader to inspect proofs, numbers,
+domain routes, and appendices. This structure is meant to serve exacting
+readers from different scientific and economic contexts without forcing every
+reader to begin at the same level of abstraction.
+
+\paragraph{Scientific reviewers and formal critics.}
+You may wish to start with the Abstract, Release Delta, Part~I, the formal core
+in Part~III, the theorem/proof route, the Lean-oriented formalization inventory, finite semantic
+witnesses, proof machinery appendix, and falsifiability sections. This route is
+meant to make the work attackable in the best sense: every promoted claim
+should expose assumptions, formulas, proof or executable evidence, comparator
+boundary, and reopening condition.
+
+\paragraph{Systems theorists, philosophers, and interested theoretical readers.}
+You may prefer to start with the continuum problem, historical and systems-
+theory motivation, the K-level primer, lifecycle and boundary chapters,
+prior-art comparison, and limitations before opening numeric evidence. This
+path asks what OC inherits, what it reorganizes, where its residual delta
+begins, and where predecessors or parallel branches already carry part of the
+claim.
+
+\paragraph{Applied architects of complex systems.}
+Engineers, enterprise architects, AI builders, security specialists, and
+applied researchers may find it useful to start from practical examples,
+domain projections, figures, tables, and worked routes before returning to the
+formal core. The model chapters can then be read as a design grammar for
+carriers, realizations, boundaries, operators, update/flow separation, evidence
+classes, and claim boundaries in AI systems, evaluation pipelines, simulations,
+knowledge models, and formalized domain architectures.
+
+\paragraph{CIO, CEO, enterprise architecture, and strategy readers.}
+Readers approaching the manuscript from institutional or strategic work may
+sensibly read the release delta, the practical utility chapter, the
+model-comparison appendix, and the final conclusion before investing in proof
+details. This route asks what the model is for, what it can support today, what
+remains too immature for operational commitment, and how evidence classes
+affect research or enterprise decisions.
+
+\paragraph{Reproducibility auditors, evidence reviewers, and benchmark readers.}
+Readers responsible for verification may go directly to the methods and
+evidence chapters, retrospective bounded replay QA, numeric tables, machine-readable
+table reference, audit trail, source-trace appendix, and public evidence
+package manifest. This route asks whether formula, input snapshot, comparator,
+residual or uncertainty, negative control, falsifier, replay hash, and failure
+interpretation are present.
+
+\paragraph{Structure of the monograph.}
+Part~I explains why a continuum ontology is being proposed at all. Part~II
+introduces continua, nesting, and K-levels in reader-facing language. Part~III
+states the formal core. Part~IV gathers evidence, proof, falsifiability,
+predictions, and reproducibility routes. Part~V presents domain and practical
+routes. Part~VI closes with limitations, prior art, and citation/repository
+guidance. The appendices carry proof, evidence, table, and source-trace support.
+
+\paragraph{Reading rule shared by all groups.}
+The author asks all readers to treat limitations as part of the claim, not as a
+footnote. A statement is promoted only where its assumptions, proof or evidence
+class, comparator boundary, formulas, appendices, numeric or formal anchor,
+figure/table explanation, and reopening condition are visible. Claims about
+complete scientific coverage, complete numerical closure, or unbounded
+comparative victory over contemporary science are not promoted by this release.
+
+\clearpage

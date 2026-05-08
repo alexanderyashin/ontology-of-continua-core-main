@@ -1,0 +1,249 @@
+{
+  "schema_id": "OC133_MODERN_SCIENCE_BENCHMARK_PROTOCOL_v1",
+  "release_id": "oc_core_1_3_3",
+  "version": "1.3.3",
+  "generated_on": "2026-05-01",
+  "evidence_owner": "OC research pipeline Research/PriorArt",
+  "blocker_id": "modern_science_comparator_superiority",
+  "protocol_id": "OC133-MODERN-SCIENCE-BENCHMARK-PROTOCOL-BIOLOGY",
+  "domain": "biology",
+  "lane_id": "MS-LANE-BIOLOGY-STRICT-PACK",
+  "predicate_id": "MS-PRED-BIOLOGY-STRICT-PACK",
+  "evidence_refs": {
+    "register_ref": "comparators/OC_1_3_3_MODERN_SCIENCE_SUPERIORITY_REGISTER.json",
+    "lane_ref": "benchmarks/modern_science/OC133_MODERN_SCIENCE_BENCHMARK_LANES.json",
+    "modern_science_superiority_report_ref": "reports/OC_CORE_1_3_3_MODERN_SCIENCE_SUPERIORITY_REPORT.json",
+    "grand_empirical_report_ref": "reports/OC_CORE_1_3_3_GRAND_EMPIRICAL_REPORT.json",
+    "target_blind_ref": "validation/target_blind/OC133_TARGET_BLIND_PREDICTION_TABLE.json",
+    "numeric_replay_qa_ref": "validation/numeric_replay_qa/OC133_NUMERIC_REPLAY_QA_TABLE.json"
+  },
+  "incumbent_comparator": {
+    "incumbent": "NCBI GEO public functional-genomics repository and GEO Profile target records",
+    "accepted_capacity": null,
+    "source_refs": [
+      {
+        "title": "NCBI Gene Expression Omnibus overview and dataset documentation",
+        "url": "https://www.ncbi.nlm.nih.gov/geo/info/overview.html",
+        "source_date": "reference",
+        "local_source_capsule_ref": "comparators/modern_science/source_capsules/MS-SRC-BIO-NCBI-GEO.txt",
+        "local_source_capsule_sha256": "ecb31bbe88815175df5e4c058dbbc8a030476339e1f12236b957754ef2855ae7"
+      }
+    ]
+  },
+  "oc_model_under_test": {
+    "result_ref": "validation/target_blind/OC133_TARGET_BLIND_PREDICTION_TABLE.json::OC133-TARGETBLIND-BIOLOGY-001",
+    "claim_id": "OC133-TARGETBLIND-BIOLOGY-001",
+    "dataset_snapshot_ref": "validation/_raw/biology_ncbi_geo_platform.txt",
+    "formula_or_model": "retstart + len(idlist)",
+    "predicted_value": 20.0,
+    "observed_value": 20.0,
+    "residual": 0.0,
+    "uncertainty": 0.0,
+    "comparator_baseline": "use total hit count as pagination-size negative control",
+    "comparator_prediction": 44008.0,
+    "negative_control": "replace page-size reconstruction by total hit count and require a larger residual",
+    "negative_control_rejected": true,
+    "falsifier": "Retmax differs from retstart plus returned id count or total-count control is not worse",
+    "prediction_support_allowed": true,
+    "empirical_support_allowed": true,
+    "support_scope": "target-blind reconstruction of a held-out NCBI/GEO API snapshot field; not a biological mechanism law"
+  },
+  "heldout_or_prospective_split": {
+    "mode": "heldout",
+    "source_separation_mode": "target_blind",
+    "split_predicate": "target_blind_split_declared_before_scoring",
+    "declared": true,
+    "source_separation_declared": true,
+    "split_statement": "NCBI ESearch retstart/idlist fields are visible; retmax pagination target is withheld until scoring"
+  },
+  "fairness_criteria": [
+    {
+      "predicate": "current_strict_pack_ref",
+      "required": true,
+      "status": true,
+      "blocked": false
+    },
+    {
+      "predicate": "current_pack_exists",
+      "required": true,
+      "status": true,
+      "blocked": false
+    },
+    {
+      "predicate": "current_pack_hash_bound",
+      "required": true,
+      "status": true,
+      "blocked": false
+    },
+    {
+      "predicate": "schema_is_strict_grand_empirical",
+      "required": true,
+      "status": true,
+      "blocked": false
+    },
+    {
+      "predicate": "domain_matches_pack",
+      "required": true,
+      "status": true,
+      "blocked": false
+    },
+    {
+      "predicate": "minimum_n_met",
+      "required": true,
+      "status": true,
+      "blocked": false
+    },
+    {
+      "predicate": "source_separation_mode_allowed",
+      "required": true,
+      "status": true,
+      "blocked": false
+    },
+    {
+      "predicate": "pre_target_lock_present",
+      "required": true,
+      "status": true,
+      "blocked": false
+    },
+    {
+      "predicate": "target_hidden_until_scoring",
+      "required": true,
+      "status": true,
+      "blocked": false
+    },
+    {
+      "predicate": "training_and_target_source_refs_present",
+      "required": true,
+      "status": true,
+      "blocked": false
+    },
+    {
+      "predicate": "pack_sha256_bound",
+      "required": true,
+      "status": true,
+      "blocked": false
+    },
+    {
+      "predicate": "comparator_baseline_declared",
+      "required": true,
+      "status": true,
+      "blocked": false
+    },
+    {
+      "predicate": "comparator_baseline_pre_registered",
+      "required": true,
+      "status": true,
+      "blocked": false
+    },
+    {
+      "predicate": "uncertainty_declared",
+      "required": true,
+      "status": true,
+      "blocked": false
+    },
+    {
+      "predicate": "residuals_show_model_beats_declared_comparator",
+      "required": true,
+      "status": true,
+      "blocked": false
+    },
+    {
+      "predicate": "negative_controls_rejected",
+      "required": true,
+      "status": true,
+      "blocked": false
+    },
+    {
+      "predicate": "falsifier_declared",
+      "required": true,
+      "status": true,
+      "blocked": false
+    },
+    {
+      "predicate": "strict_pack_support_allowed",
+      "required": true,
+      "status": true,
+      "blocked": false
+    }
+  ],
+  "uncertainty": {
+    "declared": true,
+    "uncertainty": 0.0,
+    "model_residual": 0.0,
+    "within_declared_uncertainty": true,
+    "metric_family": "mean absolute residual",
+    "prediction_supported": true,
+    "empirical_supported": true
+  },
+  "residual_metric": {
+    "metric_family": "mean absolute residual",
+    "model_residual": 0.0,
+    "comparator_residual": 43988.0,
+    "superiority_margin": 43988.0,
+    "model_predicted": 20.0,
+    "model_observed": 20.0
+  },
+  "negative_controls": [
+    {
+      "source": "target_blind",
+      "claim_ref": "validation/target_blind/OC133_TARGET_BLIND_PREDICTION_TABLE.json::OC133-TARGETBLIND-BIOLOGY-001",
+      "control": "replace page-size reconstruction by total hit count and require a larger residual",
+      "rejected": true,
+      "domain": "biology"
+    },
+    {
+      "source": "numeric_replay_qa",
+      "claim_ref": "validation/numeric_replay_qa/OC133_NUMERIC_REPLAY_QA_TABLE.json::OC133-NUM-BIO-GEO-COUNT",
+      "control": "synthetic +1 count mutation against the pinned accession snapshot",
+      "rejected": null,
+      "domain": "biology"
+    }
+  ],
+  "falsifiers": [
+    {
+      "source": "target_blind",
+      "claim_ref": "validation/target_blind/OC133_TARGET_BLIND_PREDICTION_TABLE.json::OC133-TARGETBLIND-BIOLOGY-001",
+      "falsifier": "Retmax differs from retstart plus returned id count or total-count control is not worse",
+      "domain": "biology"
+    },
+    {
+      "source": "numeric_replay_qa",
+      "claim_ref": "validation/numeric_replay_qa/OC133_NUMERIC_REPLAY_QA_TABLE.json::OC133-NUM-BIO-GEO-COUNT",
+      "falsifier": "replay parser cannot recover the pinned count",
+      "domain": "biology"
+    }
+  ],
+  "blocker_predicates": [],
+  "required_result_refs": [
+    "validation/target_blind/OC133_TARGET_BLIND_PREDICTION_TABLE.json::OC133-TARGETBLIND-BIOLOGY-001"
+  ],
+  "report": {
+    "current_verdict": "CERTIFIED_AGAINST_DECLARED_BENCHMARK_BASELINES",
+    "superiority_task": "Predict held-out NCBI GEO Profile ranked mean expression targets from visible target-blind profile projections.",
+    "allowed_current_claim": "OC133 benchmark result beats the declared preregistered comparator baselines for this strict pack.",
+    "superiority_claim_status": null,
+    "release_effect": "BLOCK_BROAD_MODERN_SCIENCE_SUPERIORITY_PROMOTION",
+    "oc_current_evidence_boundary": null
+  },
+  "grand_empirical_context": {
+    "minimum_n": 20,
+    "valid_n": 30,
+    "status": "EVIDENCE_SUFFICIENT_PENDING_REVIEW",
+    "grand_toe_support_allowed": false,
+    "blockers": []
+  },
+  "no_send": true,
+  "release_promotion_allowed": false,
+  "superiority_decision": {
+    "status": "READY_FOR_REVIEW_BUT_NOT_CERTIFIED",
+    "superiority_certified": false,
+    "release_promotion_allowed": false,
+    "can_be_certified_within_current_artifact_scope": true,
+    "blocker_total": 0,
+    "blocker_predicates": [],
+    "required_result_refs": [
+      "validation/target_blind/OC133_TARGET_BLIND_PREDICTION_TABLE.json::OC133-TARGETBLIND-BIOLOGY-001"
+    ],
+    "failure_reason": "All protocol obligations are present; final certification remains blocked by contract policy."
+  }
+}

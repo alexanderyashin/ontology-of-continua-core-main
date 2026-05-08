@@ -1,0 +1,168 @@
+{
+  "schema_id": "OC133_WDI_INDICATOR_SCORING_PACK_v1",
+  "pack_status": "STRICT_EVIDENCE_PASS_NO_COVERAGE_CLOSURE",
+  "status": "STRICT_EVIDENCE_PASS_NO_COVERAGE_CLOSURE",
+  "lane_id": "biology_ecology_forest_area",
+  "domain_class_id": "biological_life_sciences",
+  "phenomenon_class_id": "ecology_population_and_biodiversity_observables",
+  "source_bound": true,
+  "target_hidden": true,
+  "score_materialized": true,
+  "scientific_pass": true,
+  "coverage_closure_allowed": false,
+  "support_allowed_for_broad_coverage": false,
+  "source_snapshot_ref": "validation/heldout/grand_science/wdi/biology_ecology_forest_area/OC133_WDI_BIOLOGY_ECOLOGY_FOREST_AREA_SOURCE.json",
+  "source_snapshot_sha256": "e3bb1b3be8045de00ae94c88a161b0ef9c1ec0fad213607a169edb18e43e9ed9",
+  "source_lock_ref": "validation/heldout/grand_science/wdi/biology_ecology_forest_area/OC133_WDI_BIOLOGY_ECOLOGY_FOREST_AREA_SOURCE.lock.json",
+  "visible_task_table_ref": "validation/heldout/grand_science/wdi/biology_ecology_forest_area/OC133_WDI_BIOLOGY_ECOLOGY_FOREST_AREA_TARGET_HIDDEN_TASK_TABLE.json",
+  "hidden_target_lock_ref": "validation/heldout/grand_science/wdi/biology_ecology_forest_area/OC133-WDI-BIOLOGY_ECOLOGY_FOREST_AREA-HIDDEN-TARGETS-0001.lock.json",
+  "row_count": 2506,
+  "model": {
+    "model_id": "BIO-WDI-FOREST-AREA-MEDIAN-DELTA-v1",
+    "rule": "Use the median recent annual ecological-area change over visible history and extrapolate one year."
+  },
+  "comparator": {
+    "comparator_id": "BIO-WDI-FOREST-AREA-LAST_OBSERVATION_BASELINE-v1",
+    "rule": "Predict the held-out ecological observable as the last visible pre-target value."
+  },
+  "residuals": {
+    "model_relative_mae": 0.002322142426,
+    "comparator_relative_mae": 0.005207258084,
+    "negative_control_relative_mae": 0.015453340579,
+    "material_margin_met": true,
+    "material_margin_rule": "model_relative_mae + 0.001 must be below the last-observation comparator relative MAE"
+  },
+  "negative_control": {
+    "control_id": "BIO-WDI-FOREST-AREA-FIVE_YEAR_MEAN_CONTROL-v1",
+    "negative_control_rejected": true
+  },
+  "falsifiers": [
+    "target values leak into visible task table",
+    "source lock hash is missing or stale",
+    "model relative MAE plus material margin is not below comparator relative MAE",
+    "five-year mean negative control is not worse than the model"
+  ],
+  "scored_rows_sha256": "d89f7c6b2ff878b1123c00df736ebc4305b26714c446d19845d9482f0fdd59cc",
+  "scored_rows_sample": [
+    {
+      "task_id": "WDI-BIOLOGY_ECOLOGY_FOREST_AREA-HOLDOUT-ABW-2010",
+      "countryiso3code": "ABW",
+      "target_year": 2010,
+      "model_prediction": 2.333333333333,
+      "comparator_prediction": 2.333333333333,
+      "negative_control_prediction": 2.333333333333,
+      "target_sha256": "669226da804712c4ac6dc7413d843c49a92d984bfff3e962412eff4eca800f72",
+      "model_relative_error": 0.0,
+      "comparator_relative_error": 0.0,
+      "negative_control_relative_error": 0.0
+    },
+    {
+      "task_id": "WDI-BIOLOGY_ECOLOGY_FOREST_AREA-HOLDOUT-ABW-2011",
+      "countryiso3code": "ABW",
+      "target_year": 2011,
+      "model_prediction": 2.333333333333,
+      "comparator_prediction": 2.333333333333,
+      "negative_control_prediction": 2.333333333333,
+      "target_sha256": "89bdff2a1750903d194a88ccc9f7b1c2187595900d0a903827aa99f6f66da0f6",
+      "model_relative_error": 0.0,
+      "comparator_relative_error": 0.0,
+      "negative_control_relative_error": 0.0
+    },
+    {
+      "task_id": "WDI-BIOLOGY_ECOLOGY_FOREST_AREA-HOLDOUT-ABW-2012",
+      "countryiso3code": "ABW",
+      "target_year": 2012,
+      "model_prediction": 2.333333333333,
+      "comparator_prediction": 2.333333333333,
+      "negative_control_prediction": 2.333333333333,
+      "target_sha256": "aa856f0dfce31fb88c62ece10285eec4685c76c4abe29274a492f1ee72447698",
+      "model_relative_error": 0.0,
+      "comparator_relative_error": 0.0,
+      "negative_control_relative_error": 0.0
+    },
+    {
+      "task_id": "WDI-BIOLOGY_ECOLOGY_FOREST_AREA-HOLDOUT-ABW-2013",
+      "countryiso3code": "ABW",
+      "target_year": 2013,
+      "model_prediction": 2.333333333333,
+      "comparator_prediction": 2.333333333333,
+      "negative_control_prediction": 2.333333333333,
+      "target_sha256": "d8c0987ac2c2b59e5a2698a32c639a342603061809fd395a84afbeb9c9708451",
+      "model_relative_error": 0.0,
+      "comparator_relative_error": 0.0,
+      "negative_control_relative_error": 0.0
+    },
+    {
+      "task_id": "WDI-BIOLOGY_ECOLOGY_FOREST_AREA-HOLDOUT-ABW-2014",
+      "countryiso3code": "ABW",
+      "target_year": 2014,
+      "model_prediction": 2.333333333333,
+      "comparator_prediction": 2.333333333333,
+      "negative_control_prediction": 2.333333333333,
+      "target_sha256": "396c70d4ef032eb8b04605916fa0b69c02b9cd0273ca56c389b3393bd4de1616",
+      "model_relative_error": 0.0,
+      "comparator_relative_error": 0.0,
+      "negative_control_relative_error": 0.0
+    },
+    {
+      "task_id": "WDI-BIOLOGY_ECOLOGY_FOREST_AREA-HOLDOUT-ABW-2015",
+      "countryiso3code": "ABW",
+      "target_year": 2015,
+      "model_prediction": 2.333333333333,
+      "comparator_prediction": 2.333333333333,
+      "negative_control_prediction": 2.333333333333,
+      "target_sha256": "a62a4d7ce503c9aeebf1ed2b3c709c5a00b4d21d97023d375c809e144ec30523",
+      "model_relative_error": 0.0,
+      "comparator_relative_error": 0.0,
+      "negative_control_relative_error": 0.0
+    },
+    {
+      "task_id": "WDI-BIOLOGY_ECOLOGY_FOREST_AREA-HOLDOUT-ABW-2016",
+      "countryiso3code": "ABW",
+      "target_year": 2016,
+      "model_prediction": 2.333333333333,
+      "comparator_prediction": 2.333333333333,
+      "negative_control_prediction": 2.333333333333,
+      "target_sha256": "86aae070461bd4e090a093bcfb5cffa20efaa6d2eb0fe4bb6f190ff921571d62",
+      "model_relative_error": 0.0,
+      "comparator_relative_error": 0.0,
+      "negative_control_relative_error": 0.0
+    },
+    {
+      "task_id": "WDI-BIOLOGY_ECOLOGY_FOREST_AREA-HOLDOUT-ABW-2017",
+      "countryiso3code": "ABW",
+      "target_year": 2017,
+      "model_prediction": 2.333333333333,
+      "comparator_prediction": 2.333333333333,
+      "negative_control_prediction": 2.333333333333,
+      "target_sha256": "bd8e93f72a9cd892e37a991da510a5b2c01f42e6900d67c5c4c3d2fd388fbb32",
+      "model_relative_error": 0.0,
+      "comparator_relative_error": 0.0,
+      "negative_control_relative_error": 0.0
+    },
+    {
+      "task_id": "WDI-BIOLOGY_ECOLOGY_FOREST_AREA-HOLDOUT-ABW-2018",
+      "countryiso3code": "ABW",
+      "target_year": 2018,
+      "model_prediction": 2.333333333333,
+      "comparator_prediction": 2.333333333333,
+      "negative_control_prediction": 2.333333333333,
+      "target_sha256": "e05398e36dfd633181568e8a6b4443a43a8be2f5c4808f439d55be0acd6e5d3f",
+      "model_relative_error": 0.0,
+      "comparator_relative_error": 0.0,
+      "negative_control_relative_error": 0.0
+    },
+    {
+      "task_id": "WDI-BIOLOGY_ECOLOGY_FOREST_AREA-HOLDOUT-ABW-2019",
+      "countryiso3code": "ABW",
+      "target_year": 2019,
+      "model_prediction": 2.333333333333,
+      "comparator_prediction": 2.333333333333,
+      "negative_control_prediction": 2.333333333333,
+      "target_sha256": "f83c8a719eade276c61ab2443e087d0765d457edc3467315dd0e45f89c841349",
+      "model_relative_error": 0.0,
+      "comparator_relative_error": 0.0,
+      "negative_control_relative_error": 0.0
+    }
+  ]
+}

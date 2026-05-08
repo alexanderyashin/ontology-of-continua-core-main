@@ -1,0 +1,179 @@
+{
+  "schema_id": "OC133_UCI_TABULAR_CLASSIFIER_SCORING_PACK_v1",
+  "pack_status": "STRICT_EVIDENCE_PASS_NO_COVERAGE_CLOSURE",
+  "status": "STRICT_EVIDENCE_PASS_NO_COVERAGE_CLOSURE",
+  "lane_id": "cognitive_student_psychometric_performance",
+  "domain_class_id": "cognitive_behavioral_neurosciences",
+  "phenomenon_class_id": "behavioral_task_and_psychometric_prediction",
+  "source_bound": true,
+  "target_hidden": true,
+  "score_materialized": true,
+  "scientific_pass": true,
+  "coverage_closure_allowed": false,
+  "support_allowed_for_broad_coverage": false,
+  "source_snapshot_ref": "validation/heldout/grand_science/uci/cognitive_student_psychometric_performance/OC133_UCI_COGNITIVE_STUDENT_PSYCHOMETRIC_PERFORMANCE_SOURCE.dat",
+  "source_snapshot_sha256": "4f671ae4598c20bb4e64de0f65931c98a609a52e383604e2601bd8f7e3822427",
+  "source_lock_ref": "validation/heldout/grand_science/uci/cognitive_student_psychometric_performance/OC133_UCI_COGNITIVE_STUDENT_PSYCHOMETRIC_PERFORMANCE_SOURCE.lock.json",
+  "visible_task_table_ref": "validation/heldout/grand_science/uci/cognitive_student_psychometric_performance/OC133_UCI_COGNITIVE_STUDENT_PSYCHOMETRIC_PERFORMANCE_TARGET_HIDDEN_TASK_TABLE.json",
+  "hidden_target_lock_ref": "validation/heldout/grand_science/uci/cognitive_student_psychometric_performance/OC133-UCI-COGNITIVE_STUDENT_PSYCHOMETRIC_PERFORMANCE-HIDDEN-TARGETS-0001.lock.json",
+  "row_count": 79,
+  "model": {
+    "model_id": "UCI-COGNITIVE_STUDENT_PSYCHOMETRIC_PERFORMANCE-decision_stump_binary-v1",
+    "model": {
+      "train_error": 0.08544303797468354,
+      "feature": "G2",
+      "threshold": 0.47368421052631576,
+      "low_label": "fail",
+      "labels": [
+        "fail",
+        "pass"
+      ]
+    }
+  },
+  "comparator": {
+    "comparator_id": "UCI-COGNITIVE_STUDENT_PSYCHOMETRIC_PERFORMANCE-MAJORITY-CLASS-v1",
+    "majority_label": "pass"
+  },
+  "residuals": {
+    "model": 0.063291139241,
+    "comparator": 0.392405063291,
+    "negative_control": 0.936708860759,
+    "material_margin_met": true,
+    "material_margin_rule": "classifier loss + 0.05 must be below majority-class comparator loss"
+  },
+  "negative_control": {
+    "control_id": "UCI-COGNITIVE_STUDENT_PSYCHOMETRIC_PERFORMANCE-NEGATIVE-CONTROL-v1",
+    "negative_model": {
+      "opposite_of": {
+        "train_error": 0.08544303797468354,
+        "feature": "G2",
+        "threshold": 0.47368421052631576,
+        "low_label": "fail",
+        "labels": [
+          "fail",
+          "pass"
+        ]
+      }
+    },
+    "negative_control_rejected": true
+  },
+  "falsifiers": [
+    "source lock hash is missing or stale",
+    "hidden target labels appear in visible task rows",
+    "classifier does not beat majority-class comparator",
+    "negative control is not worse than the model"
+  ],
+  "scored_rows_sha256": "ca9d4eb44a7663995bab519d5f3a2ff8f03c5d844334b897c61f0ed8383d9764",
+  "scored_rows_sample": [
+    {
+      "task_id": "UCI-COGNITIVE_STUDENT_PSYCHOMETRIC_PERFORMANCE-00000",
+      "model_prediction": "fail",
+      "comparator_prediction": "pass",
+      "negative_control_prediction": "pass",
+      "target_type": "classification",
+      "model_loss": 0.0,
+      "comparator_loss": 1.0,
+      "negative_control_loss": 1.0,
+      "target_sha256": "699a871893d57b141bf3e64225c812a333656c3a350f0a5cbf4ea4a0b7ecfd07"
+    },
+    {
+      "task_id": "UCI-COGNITIVE_STUDENT_PSYCHOMETRIC_PERFORMANCE-00005",
+      "model_prediction": "pass",
+      "comparator_prediction": "pass",
+      "negative_control_prediction": "fail",
+      "target_type": "classification",
+      "model_loss": 0.0,
+      "comparator_loss": 0.0,
+      "negative_control_loss": 1.0,
+      "target_sha256": "551acb885682f7dde607722aa79ab6f6d41508c19c9719d62ef7dca2bd067517"
+    },
+    {
+      "task_id": "UCI-COGNITIVE_STUDENT_PSYCHOMETRIC_PERFORMANCE-00010",
+      "model_prediction": "fail",
+      "comparator_prediction": "pass",
+      "negative_control_prediction": "pass",
+      "target_type": "classification",
+      "model_loss": 0.0,
+      "comparator_loss": 1.0,
+      "negative_control_loss": 1.0,
+      "target_sha256": "e81c38c71645f537cc73713b33bf90d05d094f6f134cd13638779b097bcff9a9"
+    },
+    {
+      "task_id": "UCI-COGNITIVE_STUDENT_PSYCHOMETRIC_PERFORMANCE-00015",
+      "model_prediction": "pass",
+      "comparator_prediction": "pass",
+      "negative_control_prediction": "fail",
+      "target_type": "classification",
+      "model_loss": 0.0,
+      "comparator_loss": 0.0,
+      "negative_control_loss": 1.0,
+      "target_sha256": "f62c8870b321f90b06d531dca592d7d91ecf363d5fd09f19b611f94d0394e179"
+    },
+    {
+      "task_id": "UCI-COGNITIVE_STUDENT_PSYCHOMETRIC_PERFORMANCE-00020",
+      "model_prediction": "pass",
+      "comparator_prediction": "pass",
+      "negative_control_prediction": "fail",
+      "target_type": "classification",
+      "model_loss": 0.0,
+      "comparator_loss": 0.0,
+      "negative_control_loss": 1.0,
+      "target_sha256": "a3fec5c68e4f8ce3bbe3997b2c41178f440ae6fedb4990cd252b7122d2a3c87b"
+    },
+    {
+      "task_id": "UCI-COGNITIVE_STUDENT_PSYCHOMETRIC_PERFORMANCE-00025",
+      "model_prediction": "fail",
+      "comparator_prediction": "pass",
+      "negative_control_prediction": "pass",
+      "target_type": "classification",
+      "model_loss": 0.0,
+      "comparator_loss": 1.0,
+      "negative_control_loss": 1.0,
+      "target_sha256": "bc43d8b932d06d9cebb1335fc76e3442e7dbfdaeb9893a7be92ea8b76fe1f557"
+    },
+    {
+      "task_id": "UCI-COGNITIVE_STUDENT_PSYCHOMETRIC_PERFORMANCE-00030",
+      "model_prediction": "pass",
+      "comparator_prediction": "pass",
+      "negative_control_prediction": "fail",
+      "target_type": "classification",
+      "model_loss": 0.0,
+      "comparator_loss": 0.0,
+      "negative_control_loss": 1.0,
+      "target_sha256": "9cc766f99d369d866bc095fec82b9fabd60a9225b1539ab1ae0d7a1ce7bf70ac"
+    },
+    {
+      "task_id": "UCI-COGNITIVE_STUDENT_PSYCHOMETRIC_PERFORMANCE-00035",
+      "model_prediction": "fail",
+      "comparator_prediction": "pass",
+      "negative_control_prediction": "pass",
+      "target_type": "classification",
+      "model_loss": 0.0,
+      "comparator_loss": 1.0,
+      "negative_control_loss": 1.0,
+      "target_sha256": "4ff08104633cefe5b9d800fcdfd5adc38ed7425ac9c7a842768582856523b218"
+    },
+    {
+      "task_id": "UCI-COGNITIVE_STUDENT_PSYCHOMETRIC_PERFORMANCE-00040",
+      "model_prediction": "pass",
+      "comparator_prediction": "pass",
+      "negative_control_prediction": "fail",
+      "target_type": "classification",
+      "model_loss": 0.0,
+      "comparator_loss": 0.0,
+      "negative_control_loss": 1.0,
+      "target_sha256": "193f389b82ce7314b5592f94f4cebe53d3285a16bbd1db2d4ce8968f99f5de22"
+    },
+    {
+      "task_id": "UCI-COGNITIVE_STUDENT_PSYCHOMETRIC_PERFORMANCE-00045",
+      "model_prediction": "fail",
+      "comparator_prediction": "pass",
+      "negative_control_prediction": "pass",
+      "target_type": "classification",
+      "model_loss": 0.0,
+      "comparator_loss": 1.0,
+      "negative_control_loss": 1.0,
+      "target_sha256": "64d8fc428fa04b254d34aabf32978c4e43df532ff58e21f2eacff5d541a056d8"
+    }
+  ]
+}

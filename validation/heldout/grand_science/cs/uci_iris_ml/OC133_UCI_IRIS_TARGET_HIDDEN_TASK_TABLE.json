@@ -1,0 +1,1520 @@
+{
+  "schema_id": "OC133_UCI_IRIS_TARGET_HIDDEN_TASK_TABLE_v1",
+  "source_snapshot_ref": "validation/heldout/grand_science/cs/uci_iris_ml/OC133_UCI_IRIS_SOURCE.csv",
+  "source_lock_ref": "validation/heldout/grand_science/cs/uci_iris_ml/OC133_UCI_IRIS_SOURCE.lock.json",
+  "row_count": 150,
+  "train_visible_row_count": 120,
+  "hidden_score_row_count": 30,
+  "target_hidden_until_scoring": true,
+  "coverage_closure_allowed": false,
+  "model": {
+    "model_id": "CS-UCI-IRIS-NEAREST-CENTROID-v1",
+    "rule": "Fit class centroids on train_visible rows and classify hidden rows by Euclidean distance."
+  },
+  "comparator": {
+    "comparator_id": "CS-UCI-IRIS-MAJORITY-CLASS-v1",
+    "rule": "Predict the training majority class for every hidden row."
+  },
+  "visible_rows": [
+    {
+      "task_id": "UCI-IRIS-000",
+      "source_row_index": 0,
+      "split": "hidden_score",
+      "sepal_length_cm": 5.1,
+      "sepal_width_cm": 3.5,
+      "petal_length_cm": 1.4,
+      "petal_width_cm": 0.2,
+      "source_row_sha256": "b7c1f819ae4f8b7c0d9fd002bddb8713a9eab2d966096c4f07adec2bf6512e8a"
+    },
+    {
+      "task_id": "UCI-IRIS-001",
+      "source_row_index": 1,
+      "split": "train_visible",
+      "sepal_length_cm": 4.9,
+      "sepal_width_cm": 3.0,
+      "petal_length_cm": 1.4,
+      "petal_width_cm": 0.2,
+      "source_row_sha256": "e5e72e34c801f01635f2af4d7bdf31a5151bbe6cc331538ac86113c5456aa940"
+    },
+    {
+      "task_id": "UCI-IRIS-002",
+      "source_row_index": 2,
+      "split": "train_visible",
+      "sepal_length_cm": 4.7,
+      "sepal_width_cm": 3.2,
+      "petal_length_cm": 1.3,
+      "petal_width_cm": 0.2,
+      "source_row_sha256": "3fb6d111d1675d7530ec40dddc57e90ac82925be1609ef4f79be45f8dd499966"
+    },
+    {
+      "task_id": "UCI-IRIS-003",
+      "source_row_index": 3,
+      "split": "train_visible",
+      "sepal_length_cm": 4.6,
+      "sepal_width_cm": 3.1,
+      "petal_length_cm": 1.5,
+      "petal_width_cm": 0.2,
+      "source_row_sha256": "716e45be4fbd3386c14dd2c73e9f74f93ae3877e235a0e3b36fc7d97ad075110"
+    },
+    {
+      "task_id": "UCI-IRIS-004",
+      "source_row_index": 4,
+      "split": "train_visible",
+      "sepal_length_cm": 5.0,
+      "sepal_width_cm": 3.6,
+      "petal_length_cm": 1.4,
+      "petal_width_cm": 0.2,
+      "source_row_sha256": "e7ad65dbb7fd5684e3057e6ea85741ff188cf9a6f6b9ba8a46c6ca6f857c9e26"
+    },
+    {
+      "task_id": "UCI-IRIS-005",
+      "source_row_index": 5,
+      "split": "hidden_score",
+      "sepal_length_cm": 5.4,
+      "sepal_width_cm": 3.9,
+      "petal_length_cm": 1.7,
+      "petal_width_cm": 0.4,
+      "source_row_sha256": "a06305e58c906630234982a49495fd855e8c633294e9f8fb46529eeaf2278ba2"
+    },
+    {
+      "task_id": "UCI-IRIS-006",
+      "source_row_index": 6,
+      "split": "train_visible",
+      "sepal_length_cm": 4.6,
+      "sepal_width_cm": 3.4,
+      "petal_length_cm": 1.4,
+      "petal_width_cm": 0.3,
+      "source_row_sha256": "cc10d2bce1c5cc3516dc9cb031e995a96af5fbc80c78313c4a263f19eeb58702"
+    },
+    {
+      "task_id": "UCI-IRIS-007",
+      "source_row_index": 7,
+      "split": "train_visible",
+      "sepal_length_cm": 5.0,
+      "sepal_width_cm": 3.4,
+      "petal_length_cm": 1.5,
+      "petal_width_cm": 0.2,
+      "source_row_sha256": "2ca88397ffbc47ffcb41616ec85d5f8641ca8e1b67fc05d1d2bc16656521e00c"
+    },
+    {
+      "task_id": "UCI-IRIS-008",
+      "source_row_index": 8,
+      "split": "train_visible",
+      "sepal_length_cm": 4.4,
+      "sepal_width_cm": 2.9,
+      "petal_length_cm": 1.4,
+      "petal_width_cm": 0.2,
+      "source_row_sha256": "ec09d237c8ecfbfec48607bb94871c80931ad1e99811626f159b1633f62cba73"
+    },
+    {
+      "task_id": "UCI-IRIS-009",
+      "source_row_index": 9,
+      "split": "train_visible",
+      "sepal_length_cm": 4.9,
+      "sepal_width_cm": 3.1,
+      "petal_length_cm": 1.5,
+      "petal_width_cm": 0.1,
+      "source_row_sha256": "1cf952787f25dd64df431cac24d3bfbdb1959de3ccd70cff0225aadb1d633536"
+    },
+    {
+      "task_id": "UCI-IRIS-010",
+      "source_row_index": 10,
+      "split": "hidden_score",
+      "sepal_length_cm": 5.4,
+      "sepal_width_cm": 3.7,
+      "petal_length_cm": 1.5,
+      "petal_width_cm": 0.2,
+      "source_row_sha256": "39e7c91a423c48c9a3044c8c9789ff2bd39fa873b32bd1107987d37954b0a343"
+    },
+    {
+      "task_id": "UCI-IRIS-011",
+      "source_row_index": 11,
+      "split": "train_visible",
+      "sepal_length_cm": 4.8,
+      "sepal_width_cm": 3.4,
+      "petal_length_cm": 1.6,
+      "petal_width_cm": 0.2,
+      "source_row_sha256": "1bfd6b1d1dbcd5ae9cfb70c48ac56c56bbd53e139783868ee51c8cc2a809e25d"
+    },
+    {
+      "task_id": "UCI-IRIS-012",
+      "source_row_index": 12,
+      "split": "train_visible",
+      "sepal_length_cm": 4.8,
+      "sepal_width_cm": 3.0,
+      "petal_length_cm": 1.4,
+      "petal_width_cm": 0.1,
+      "source_row_sha256": "72b1ecd418aff9cecedcbaf709a33379f7c5fbe62d05a1c856153399404409ba"
+    },
+    {
+      "task_id": "UCI-IRIS-013",
+      "source_row_index": 13,
+      "split": "train_visible",
+      "sepal_length_cm": 4.3,
+      "sepal_width_cm": 3.0,
+      "petal_length_cm": 1.1,
+      "petal_width_cm": 0.1,
+      "source_row_sha256": "a847127fa7a424f8a2c84488668ad1f2b5b60b46eda0f6d73aac3cc5e3ae6396"
+    },
+    {
+      "task_id": "UCI-IRIS-014",
+      "source_row_index": 14,
+      "split": "train_visible",
+      "sepal_length_cm": 5.8,
+      "sepal_width_cm": 4.0,
+      "petal_length_cm": 1.2,
+      "petal_width_cm": 0.2,
+      "source_row_sha256": "72d7540f7843c023d227c2635b6fb3cab9ab70b3a9bb4c22b5c235769d2519ba"
+    },
+    {
+      "task_id": "UCI-IRIS-015",
+      "source_row_index": 15,
+      "split": "hidden_score",
+      "sepal_length_cm": 5.7,
+      "sepal_width_cm": 4.4,
+      "petal_length_cm": 1.5,
+      "petal_width_cm": 0.4,
+      "source_row_sha256": "c3a2e537317081dde10dbffcbd8c811f5aa5b659fbe605973108d8a00e5f35bd"
+    },
+    {
+      "task_id": "UCI-IRIS-016",
+      "source_row_index": 16,
+      "split": "train_visible",
+      "sepal_length_cm": 5.4,
+      "sepal_width_cm": 3.9,
+      "petal_length_cm": 1.3,
+      "petal_width_cm": 0.4,
+      "source_row_sha256": "9818118164572f14d85ce172ed69e880894791d493ffea596710621fd5322d3d"
+    },
+    {
+      "task_id": "UCI-IRIS-017",
+      "source_row_index": 17,
+      "split": "train_visible",
+      "sepal_length_cm": 5.1,
+      "sepal_width_cm": 3.5,
+      "petal_length_cm": 1.4,
+      "petal_width_cm": 0.3,
+      "source_row_sha256": "7500612affea74da4cd26ef3b85e479a52a40e5d2be22e72d9585be5e89a1485"
+    },
+    {
+      "task_id": "UCI-IRIS-018",
+      "source_row_index": 18,
+      "split": "train_visible",
+      "sepal_length_cm": 5.7,
+      "sepal_width_cm": 3.8,
+      "petal_length_cm": 1.7,
+      "petal_width_cm": 0.3,
+      "source_row_sha256": "ea47f9d9e46632f8ccd9d98dc423d24529d83ac00b6895358c954a430f5f5071"
+    },
+    {
+      "task_id": "UCI-IRIS-019",
+      "source_row_index": 19,
+      "split": "train_visible",
+      "sepal_length_cm": 5.1,
+      "sepal_width_cm": 3.8,
+      "petal_length_cm": 1.5,
+      "petal_width_cm": 0.3,
+      "source_row_sha256": "727629a05f8903140911f09242a6f25e479d2d06aaa364569c5d6226e2a0c746"
+    },
+    {
+      "task_id": "UCI-IRIS-020",
+      "source_row_index": 20,
+      "split": "hidden_score",
+      "sepal_length_cm": 5.4,
+      "sepal_width_cm": 3.4,
+      "petal_length_cm": 1.7,
+      "petal_width_cm": 0.2,
+      "source_row_sha256": "c925cac6bafa1d62eae6117fec667c0a63801fd34478853b090a64a8cfe13c17"
+    },
+    {
+      "task_id": "UCI-IRIS-021",
+      "source_row_index": 21,
+      "split": "train_visible",
+      "sepal_length_cm": 5.1,
+      "sepal_width_cm": 3.7,
+      "petal_length_cm": 1.5,
+      "petal_width_cm": 0.4,
+      "source_row_sha256": "b04d8404e1fea76070847ce6671306c765f492a6e03bff82e892caa90cfd44fe"
+    },
+    {
+      "task_id": "UCI-IRIS-022",
+      "source_row_index": 22,
+      "split": "train_visible",
+      "sepal_length_cm": 4.6,
+      "sepal_width_cm": 3.6,
+      "petal_length_cm": 1.0,
+      "petal_width_cm": 0.2,
+      "source_row_sha256": "bb991a04e5a47d9b0ffc80b1c9aafea7980cb6b67b6fcc412f2396295d9b2acb"
+    },
+    {
+      "task_id": "UCI-IRIS-023",
+      "source_row_index": 23,
+      "split": "train_visible",
+      "sepal_length_cm": 5.1,
+      "sepal_width_cm": 3.3,
+      "petal_length_cm": 1.7,
+      "petal_width_cm": 0.5,
+      "source_row_sha256": "446e2bd122dd8256a56869829c085355c9548b5d413b0814a1ee4829c082b0c0"
+    },
+    {
+      "task_id": "UCI-IRIS-024",
+      "source_row_index": 24,
+      "split": "train_visible",
+      "sepal_length_cm": 4.8,
+      "sepal_width_cm": 3.4,
+      "petal_length_cm": 1.9,
+      "petal_width_cm": 0.2,
+      "source_row_sha256": "e1c0bed4240e7a9b6be8384f3c7111b1e3dcc5ba0e4f6870473cabb8e75c890b"
+    },
+    {
+      "task_id": "UCI-IRIS-025",
+      "source_row_index": 25,
+      "split": "hidden_score",
+      "sepal_length_cm": 5.0,
+      "sepal_width_cm": 3.0,
+      "petal_length_cm": 1.6,
+      "petal_width_cm": 0.2,
+      "source_row_sha256": "b38fb9aaf48b168005b6ab252560104fe8d18499d5aa2754be4c5f4b24d8b7f5"
+    },
+    {
+      "task_id": "UCI-IRIS-026",
+      "source_row_index": 26,
+      "split": "train_visible",
+      "sepal_length_cm": 5.0,
+      "sepal_width_cm": 3.4,
+      "petal_length_cm": 1.6,
+      "petal_width_cm": 0.4,
+      "source_row_sha256": "d2c1335df9e5f81fb3b7a8261ebfb6f4b96240a7936762afd1b2baa781f4397b"
+    },
+    {
+      "task_id": "UCI-IRIS-027",
+      "source_row_index": 27,
+      "split": "train_visible",
+      "sepal_length_cm": 5.2,
+      "sepal_width_cm": 3.5,
+      "petal_length_cm": 1.5,
+      "petal_width_cm": 0.2,
+      "source_row_sha256": "67a83b4cad656cd03a057b26319a8100a069d29b27d636ad6de68b83eade402a"
+    },
+    {
+      "task_id": "UCI-IRIS-028",
+      "source_row_index": 28,
+      "split": "train_visible",
+      "sepal_length_cm": 5.2,
+      "sepal_width_cm": 3.4,
+      "petal_length_cm": 1.4,
+      "petal_width_cm": 0.2,
+      "source_row_sha256": "4fec91319c1da6e13dcd325c422e6d93bf468991fe52a101fb880f95404a1e5b"
+    },
+    {
+      "task_id": "UCI-IRIS-029",
+      "source_row_index": 29,
+      "split": "train_visible",
+      "sepal_length_cm": 4.7,
+      "sepal_width_cm": 3.2,
+      "petal_length_cm": 1.6,
+      "petal_width_cm": 0.2,
+      "source_row_sha256": "b0d7d5e8052663d64f7debff4c6221b39b3283b33df5675967b99bfa7185be8e"
+    },
+    {
+      "task_id": "UCI-IRIS-030",
+      "source_row_index": 30,
+      "split": "hidden_score",
+      "sepal_length_cm": 4.8,
+      "sepal_width_cm": 3.1,
+      "petal_length_cm": 1.6,
+      "petal_width_cm": 0.2,
+      "source_row_sha256": "9038dd56e2748522763e1f9ed5cfe089ec075dd38ab7cbaf29561917dfb7c90d"
+    },
+    {
+      "task_id": "UCI-IRIS-031",
+      "source_row_index": 31,
+      "split": "train_visible",
+      "sepal_length_cm": 5.4,
+      "sepal_width_cm": 3.4,
+      "petal_length_cm": 1.5,
+      "petal_width_cm": 0.4,
+      "source_row_sha256": "1a5a89153ece781a400789780cbf59c8dbb9cdda243cee98984fdcbe1f800fe3"
+    },
+    {
+      "task_id": "UCI-IRIS-032",
+      "source_row_index": 32,
+      "split": "train_visible",
+      "sepal_length_cm": 5.2,
+      "sepal_width_cm": 4.1,
+      "petal_length_cm": 1.5,
+      "petal_width_cm": 0.1,
+      "source_row_sha256": "4373cac79123ad51f09a416a8bd96df9648563cf2ffd5958b6d9260b8d133214"
+    },
+    {
+      "task_id": "UCI-IRIS-033",
+      "source_row_index": 33,
+      "split": "train_visible",
+      "sepal_length_cm": 5.5,
+      "sepal_width_cm": 4.2,
+      "petal_length_cm": 1.4,
+      "petal_width_cm": 0.2,
+      "source_row_sha256": "0bea1096f7575bd66134d0d75801f76fc9b6653f78ad3801c4f4cc1caa322a34"
+    },
+    {
+      "task_id": "UCI-IRIS-034",
+      "source_row_index": 34,
+      "split": "train_visible",
+      "sepal_length_cm": 4.9,
+      "sepal_width_cm": 3.1,
+      "petal_length_cm": 1.5,
+      "petal_width_cm": 0.1,
+      "source_row_sha256": "cecf87fc83b19e7f41eed8278d4f6de2ff728f3e83cf7932de533f6cf09acede"
+    },
+    {
+      "task_id": "UCI-IRIS-035",
+      "source_row_index": 35,
+      "split": "hidden_score",
+      "sepal_length_cm": 5.0,
+      "sepal_width_cm": 3.2,
+      "petal_length_cm": 1.2,
+      "petal_width_cm": 0.2,
+      "source_row_sha256": "9204a7c978ea5103649cb236e9bc117ed77b6c0eacc39c9e81b61048a8c54035"
+    },
+    {
+      "task_id": "UCI-IRIS-036",
+      "source_row_index": 36,
+      "split": "train_visible",
+      "sepal_length_cm": 5.5,
+      "sepal_width_cm": 3.5,
+      "petal_length_cm": 1.3,
+      "petal_width_cm": 0.2,
+      "source_row_sha256": "c6c38c78bf03f563c48e96267225779e5594ec4b91f6f5a78457583a59eda2af"
+    },
+    {
+      "task_id": "UCI-IRIS-037",
+      "source_row_index": 37,
+      "split": "train_visible",
+      "sepal_length_cm": 4.9,
+      "sepal_width_cm": 3.1,
+      "petal_length_cm": 1.5,
+      "petal_width_cm": 0.1,
+      "source_row_sha256": "178494f620c3ea8346e5afd0ca45d8f4a5d407933c7abbb3e8addc13cf653c07"
+    },
+    {
+      "task_id": "UCI-IRIS-038",
+      "source_row_index": 38,
+      "split": "train_visible",
+      "sepal_length_cm": 4.4,
+      "sepal_width_cm": 3.0,
+      "petal_length_cm": 1.3,
+      "petal_width_cm": 0.2,
+      "source_row_sha256": "05e9689828fd3a3ebf26d2c74e815b568134a78d017401a9c20f7f3e9ccb21f6"
+    },
+    {
+      "task_id": "UCI-IRIS-039",
+      "source_row_index": 39,
+      "split": "train_visible",
+      "sepal_length_cm": 5.1,
+      "sepal_width_cm": 3.4,
+      "petal_length_cm": 1.5,
+      "petal_width_cm": 0.2,
+      "source_row_sha256": "79efbfa038be43f36209d336bf7fa9e8fab061b7280bf6c8a00e170c87c950ff"
+    },
+    {
+      "task_id": "UCI-IRIS-040",
+      "source_row_index": 40,
+      "split": "hidden_score",
+      "sepal_length_cm": 5.0,
+      "sepal_width_cm": 3.5,
+      "petal_length_cm": 1.3,
+      "petal_width_cm": 0.3,
+      "source_row_sha256": "77391a389765f59628f95f1a91d3a27cedce292c1250b7b841982afd679be9cc"
+    },
+    {
+      "task_id": "UCI-IRIS-041",
+      "source_row_index": 41,
+      "split": "train_visible",
+      "sepal_length_cm": 4.5,
+      "sepal_width_cm": 2.3,
+      "petal_length_cm": 1.3,
+      "petal_width_cm": 0.3,
+      "source_row_sha256": "e6c3d1bec8e19859776be6cf44d88676014e39ea73bee3e19aecc77cc24d289d"
+    },
+    {
+      "task_id": "UCI-IRIS-042",
+      "source_row_index": 42,
+      "split": "train_visible",
+      "sepal_length_cm": 4.4,
+      "sepal_width_cm": 3.2,
+      "petal_length_cm": 1.3,
+      "petal_width_cm": 0.2,
+      "source_row_sha256": "85ce970d6a9e1f5f5d1c7a6d8f0ef0a4a51aae48c66fd752036609bde52439ba"
+    },
+    {
+      "task_id": "UCI-IRIS-043",
+      "source_row_index": 43,
+      "split": "train_visible",
+      "sepal_length_cm": 5.0,
+      "sepal_width_cm": 3.5,
+      "petal_length_cm": 1.6,
+      "petal_width_cm": 0.6,
+      "source_row_sha256": "ada83f241d194574f52ac5ecc41ca23b0c1c58a7ec948c0b502190a50a168ace"
+    },
+    {
+      "task_id": "UCI-IRIS-044",
+      "source_row_index": 44,
+      "split": "train_visible",
+      "sepal_length_cm": 5.1,
+      "sepal_width_cm": 3.8,
+      "petal_length_cm": 1.9,
+      "petal_width_cm": 0.4,
+      "source_row_sha256": "fd8974b2e4af00a3e63445f5955563ab8fef438a0e564549e868515ab350f58d"
+    },
+    {
+      "task_id": "UCI-IRIS-045",
+      "source_row_index": 45,
+      "split": "hidden_score",
+      "sepal_length_cm": 4.8,
+      "sepal_width_cm": 3.0,
+      "petal_length_cm": 1.4,
+      "petal_width_cm": 0.3,
+      "source_row_sha256": "79a7c95ac1d6f4522ddb5eaac78b932c35c0e0b28846e88c03ed80053bf92929"
+    },
+    {
+      "task_id": "UCI-IRIS-046",
+      "source_row_index": 46,
+      "split": "train_visible",
+      "sepal_length_cm": 5.1,
+      "sepal_width_cm": 3.8,
+      "petal_length_cm": 1.6,
+      "petal_width_cm": 0.2,
+      "source_row_sha256": "2d3322c9b9e5d818ea6a872ba3536a708995b2d2da82f3965ac9774083b75139"
+    },
+    {
+      "task_id": "UCI-IRIS-047",
+      "source_row_index": 47,
+      "split": "train_visible",
+      "sepal_length_cm": 4.6,
+      "sepal_width_cm": 3.2,
+      "petal_length_cm": 1.4,
+      "petal_width_cm": 0.2,
+      "source_row_sha256": "963cb0c9c06f706026ef0cb194740c1c3569fc53b10e57d64e449c212ee26fe0"
+    },
+    {
+      "task_id": "UCI-IRIS-048",
+      "source_row_index": 48,
+      "split": "train_visible",
+      "sepal_length_cm": 5.3,
+      "sepal_width_cm": 3.7,
+      "petal_length_cm": 1.5,
+      "petal_width_cm": 0.2,
+      "source_row_sha256": "c2650683e36892953ed9f127c365f560488dc1e6e8a531d5b3bd34ab10ef562a"
+    },
+    {
+      "task_id": "UCI-IRIS-049",
+      "source_row_index": 49,
+      "split": "train_visible",
+      "sepal_length_cm": 5.0,
+      "sepal_width_cm": 3.3,
+      "petal_length_cm": 1.4,
+      "petal_width_cm": 0.2,
+      "source_row_sha256": "d54ef0d36c05e0d19718d10422bd032d9295f8957a185ced5e206cc53f11449d"
+    },
+    {
+      "task_id": "UCI-IRIS-050",
+      "source_row_index": 50,
+      "split": "hidden_score",
+      "sepal_length_cm": 7.0,
+      "sepal_width_cm": 3.2,
+      "petal_length_cm": 4.7,
+      "petal_width_cm": 1.4,
+      "source_row_sha256": "026826231eeb5f9283b9f72ee16110e2ffe35f3aadaab6c1125592f76cf14132"
+    },
+    {
+      "task_id": "UCI-IRIS-051",
+      "source_row_index": 51,
+      "split": "train_visible",
+      "sepal_length_cm": 6.4,
+      "sepal_width_cm": 3.2,
+      "petal_length_cm": 4.5,
+      "petal_width_cm": 1.5,
+      "source_row_sha256": "6a8feee3d90b60f52c46aa113c1f1af009676c110fbf03ea295861040aca38ff"
+    },
+    {
+      "task_id": "UCI-IRIS-052",
+      "source_row_index": 52,
+      "split": "train_visible",
+      "sepal_length_cm": 6.9,
+      "sepal_width_cm": 3.1,
+      "petal_length_cm": 4.9,
+      "petal_width_cm": 1.5,
+      "source_row_sha256": "ae717a30b4400021f64599446b670fa1e039f99e302ab3f0dcc4d7b0b7e965de"
+    },
+    {
+      "task_id": "UCI-IRIS-053",
+      "source_row_index": 53,
+      "split": "train_visible",
+      "sepal_length_cm": 5.5,
+      "sepal_width_cm": 2.3,
+      "petal_length_cm": 4.0,
+      "petal_width_cm": 1.3,
+      "source_row_sha256": "4d5678e08953d8b20ceabfb534d34cea82e5e6c6282779eb16be82902c8d8178"
+    },
+    {
+      "task_id": "UCI-IRIS-054",
+      "source_row_index": 54,
+      "split": "train_visible",
+      "sepal_length_cm": 6.5,
+      "sepal_width_cm": 2.8,
+      "petal_length_cm": 4.6,
+      "petal_width_cm": 1.5,
+      "source_row_sha256": "ae8c2b90d7ec557c315ccba1f9c7e3d6a520d0e9f1904a6a7e3ab3ea49cec745"
+    },
+    {
+      "task_id": "UCI-IRIS-055",
+      "source_row_index": 55,
+      "split": "hidden_score",
+      "sepal_length_cm": 5.7,
+      "sepal_width_cm": 2.8,
+      "petal_length_cm": 4.5,
+      "petal_width_cm": 1.3,
+      "source_row_sha256": "f3ffa68e6e219a577fc6854894ed78cee0e89c35e0e5226229194834cb6e0216"
+    },
+    {
+      "task_id": "UCI-IRIS-056",
+      "source_row_index": 56,
+      "split": "train_visible",
+      "sepal_length_cm": 6.3,
+      "sepal_width_cm": 3.3,
+      "petal_length_cm": 4.7,
+      "petal_width_cm": 1.6,
+      "source_row_sha256": "8c5a6ddc332b2e3dce55d5270d0e64c8fd558b481af0108d9d5468710bba95b8"
+    },
+    {
+      "task_id": "UCI-IRIS-057",
+      "source_row_index": 57,
+      "split": "train_visible",
+      "sepal_length_cm": 4.9,
+      "sepal_width_cm": 2.4,
+      "petal_length_cm": 3.3,
+      "petal_width_cm": 1.0,
+      "source_row_sha256": "2b16f190be03ca3910abfa6b979eb92ecaf5fe5a46cdac7b62a356e7931bf5e6"
+    },
+    {
+      "task_id": "UCI-IRIS-058",
+      "source_row_index": 58,
+      "split": "train_visible",
+      "sepal_length_cm": 6.6,
+      "sepal_width_cm": 2.9,
+      "petal_length_cm": 4.6,
+      "petal_width_cm": 1.3,
+      "source_row_sha256": "f0cf62387dbf0577153d3c1c0c6fbe1cbbbbc91aefad09edb0ead8fd9440c864"
+    },
+    {
+      "task_id": "UCI-IRIS-059",
+      "source_row_index": 59,
+      "split": "train_visible",
+      "sepal_length_cm": 5.2,
+      "sepal_width_cm": 2.7,
+      "petal_length_cm": 3.9,
+      "petal_width_cm": 1.4,
+      "source_row_sha256": "ae7455bb28885df3fc709086ab5f23514e3bcd4ce07ebe22466c37b9eb1b9419"
+    },
+    {
+      "task_id": "UCI-IRIS-060",
+      "source_row_index": 60,
+      "split": "hidden_score",
+      "sepal_length_cm": 5.0,
+      "sepal_width_cm": 2.0,
+      "petal_length_cm": 3.5,
+      "petal_width_cm": 1.0,
+      "source_row_sha256": "5d582cea32268ea0214fe45d9535479b845c6717c2aaa721c4f4d86d1200d379"
+    },
+    {
+      "task_id": "UCI-IRIS-061",
+      "source_row_index": 61,
+      "split": "train_visible",
+      "sepal_length_cm": 5.9,
+      "sepal_width_cm": 3.0,
+      "petal_length_cm": 4.2,
+      "petal_width_cm": 1.5,
+      "source_row_sha256": "d1b1a75df05094169d635e9f55530ea685ba9de893882da7afe31d6e493d574f"
+    },
+    {
+      "task_id": "UCI-IRIS-062",
+      "source_row_index": 62,
+      "split": "train_visible",
+      "sepal_length_cm": 6.0,
+      "sepal_width_cm": 2.2,
+      "petal_length_cm": 4.0,
+      "petal_width_cm": 1.0,
+      "source_row_sha256": "7a2b1f12a6825b8b860281fa2f5d011e8d968832615c31a13d8fe51098ff5ac5"
+    },
+    {
+      "task_id": "UCI-IRIS-063",
+      "source_row_index": 63,
+      "split": "train_visible",
+      "sepal_length_cm": 6.1,
+      "sepal_width_cm": 2.9,
+      "petal_length_cm": 4.7,
+      "petal_width_cm": 1.4,
+      "source_row_sha256": "b1d3d0a7605e258c2ca29efe290a2622f479fd06faaeb7ccbc0e846ce5fbfbc2"
+    },
+    {
+      "task_id": "UCI-IRIS-064",
+      "source_row_index": 64,
+      "split": "train_visible",
+      "sepal_length_cm": 5.6,
+      "sepal_width_cm": 2.9,
+      "petal_length_cm": 3.6,
+      "petal_width_cm": 1.3,
+      "source_row_sha256": "6851b73b80fcf305afa3710338485c86d32abd826f9b54704bf27f864af102b2"
+    },
+    {
+      "task_id": "UCI-IRIS-065",
+      "source_row_index": 65,
+      "split": "hidden_score",
+      "sepal_length_cm": 6.7,
+      "sepal_width_cm": 3.1,
+      "petal_length_cm": 4.4,
+      "petal_width_cm": 1.4,
+      "source_row_sha256": "0a4835ca7f76ec2d77c7d6cb35f8b0b8d7ff5560a7219f05efdc475b6875194e"
+    },
+    {
+      "task_id": "UCI-IRIS-066",
+      "source_row_index": 66,
+      "split": "train_visible",
+      "sepal_length_cm": 5.6,
+      "sepal_width_cm": 3.0,
+      "petal_length_cm": 4.5,
+      "petal_width_cm": 1.5,
+      "source_row_sha256": "7e386425a56fdc3efaaf1480715a66227f0f75f95a19a51763addc80afa0ea64"
+    },
+    {
+      "task_id": "UCI-IRIS-067",
+      "source_row_index": 67,
+      "split": "train_visible",
+      "sepal_length_cm": 5.8,
+      "sepal_width_cm": 2.7,
+      "petal_length_cm": 4.1,
+      "petal_width_cm": 1.0,
+      "source_row_sha256": "8a45233f411477c463fd8b39f8122c8df2c9d610d4d087d338b2cc05c6d08d2c"
+    },
+    {
+      "task_id": "UCI-IRIS-068",
+      "source_row_index": 68,
+      "split": "train_visible",
+      "sepal_length_cm": 6.2,
+      "sepal_width_cm": 2.2,
+      "petal_length_cm": 4.5,
+      "petal_width_cm": 1.5,
+      "source_row_sha256": "6f0d23c514748efc678fa2e51c24e3a79f4f4206a027a3379568863a4dd37b78"
+    },
+    {
+      "task_id": "UCI-IRIS-069",
+      "source_row_index": 69,
+      "split": "train_visible",
+      "sepal_length_cm": 5.6,
+      "sepal_width_cm": 2.5,
+      "petal_length_cm": 3.9,
+      "petal_width_cm": 1.1,
+      "source_row_sha256": "3f6af7c9edc1432ea949acae19872b8901b41c89c40326a31af242ede3aa3c88"
+    },
+    {
+      "task_id": "UCI-IRIS-070",
+      "source_row_index": 70,
+      "split": "hidden_score",
+      "sepal_length_cm": 5.9,
+      "sepal_width_cm": 3.2,
+      "petal_length_cm": 4.8,
+      "petal_width_cm": 1.8,
+      "source_row_sha256": "b4bee786c95c241915fff196c9a2489c231d3865b721e1b8d2a7d4ba1ad92a99"
+    },
+    {
+      "task_id": "UCI-IRIS-071",
+      "source_row_index": 71,
+      "split": "train_visible",
+      "sepal_length_cm": 6.1,
+      "sepal_width_cm": 2.8,
+      "petal_length_cm": 4.0,
+      "petal_width_cm": 1.3,
+      "source_row_sha256": "19f84af7aa5d2b8d947ac9a5025e3eb43bb0ec849efc23bb2a78eb77f68b83fa"
+    },
+    {
+      "task_id": "UCI-IRIS-072",
+      "source_row_index": 72,
+      "split": "train_visible",
+      "sepal_length_cm": 6.3,
+      "sepal_width_cm": 2.5,
+      "petal_length_cm": 4.9,
+      "petal_width_cm": 1.5,
+      "source_row_sha256": "52bb87610b577ccbac1f5c4fc0ed97adba5f936d2ca7b02ffb9bb46ce6cd2145"
+    },
+    {
+      "task_id": "UCI-IRIS-073",
+      "source_row_index": 73,
+      "split": "train_visible",
+      "sepal_length_cm": 6.1,
+      "sepal_width_cm": 2.8,
+      "petal_length_cm": 4.7,
+      "petal_width_cm": 1.2,
+      "source_row_sha256": "20ea6d7bd8624e88a21e9628e63af0a7dc450baeff39e6b331a17811666e7ef2"
+    },
+    {
+      "task_id": "UCI-IRIS-074",
+      "source_row_index": 74,
+      "split": "train_visible",
+      "sepal_length_cm": 6.4,
+      "sepal_width_cm": 2.9,
+      "petal_length_cm": 4.3,
+      "petal_width_cm": 1.3,
+      "source_row_sha256": "f370de109575488d2831c449834aed3c085ad88cada1cabf5edd3cfb8e43a437"
+    },
+    {
+      "task_id": "UCI-IRIS-075",
+      "source_row_index": 75,
+      "split": "hidden_score",
+      "sepal_length_cm": 6.6,
+      "sepal_width_cm": 3.0,
+      "petal_length_cm": 4.4,
+      "petal_width_cm": 1.4,
+      "source_row_sha256": "53924665ad4b999702a40fe6454bcd9da1c2a5b3c1c834faaebf881ab06252c0"
+    },
+    {
+      "task_id": "UCI-IRIS-076",
+      "source_row_index": 76,
+      "split": "train_visible",
+      "sepal_length_cm": 6.8,
+      "sepal_width_cm": 2.8,
+      "petal_length_cm": 4.8,
+      "petal_width_cm": 1.4,
+      "source_row_sha256": "d8487c3c292ce233be56504b977d2173f0a8bc7b2814f896e619c2d322b5d36a"
+    },
+    {
+      "task_id": "UCI-IRIS-077",
+      "source_row_index": 77,
+      "split": "train_visible",
+      "sepal_length_cm": 6.7,
+      "sepal_width_cm": 3.0,
+      "petal_length_cm": 5.0,
+      "petal_width_cm": 1.7,
+      "source_row_sha256": "c9d67c4972e3635b400fe641fc9a789cc23dce8e81929862d4ee1786d5a5bf04"
+    },
+    {
+      "task_id": "UCI-IRIS-078",
+      "source_row_index": 78,
+      "split": "train_visible",
+      "sepal_length_cm": 6.0,
+      "sepal_width_cm": 2.9,
+      "petal_length_cm": 4.5,
+      "petal_width_cm": 1.5,
+      "source_row_sha256": "301d4784f90098ae334f256c985fcfb1db0b6ce22125d4e2ff1fa8bf73f9776a"
+    },
+    {
+      "task_id": "UCI-IRIS-079",
+      "source_row_index": 79,
+      "split": "train_visible",
+      "sepal_length_cm": 5.7,
+      "sepal_width_cm": 2.6,
+      "petal_length_cm": 3.5,
+      "petal_width_cm": 1.0,
+      "source_row_sha256": "ad3221a521c442537da232cdc85b596c758e1edd55223e690351d44d5da26f88"
+    },
+    {
+      "task_id": "UCI-IRIS-080",
+      "source_row_index": 80,
+      "split": "hidden_score",
+      "sepal_length_cm": 5.5,
+      "sepal_width_cm": 2.4,
+      "petal_length_cm": 3.8,
+      "petal_width_cm": 1.1,
+      "source_row_sha256": "83c3c26f3671bd2886d65977fc4603c655aedaf0b93913abd4b47940cefaf726"
+    },
+    {
+      "task_id": "UCI-IRIS-081",
+      "source_row_index": 81,
+      "split": "train_visible",
+      "sepal_length_cm": 5.5,
+      "sepal_width_cm": 2.4,
+      "petal_length_cm": 3.7,
+      "petal_width_cm": 1.0,
+      "source_row_sha256": "18465f59d29ba164d6bafd33c04bdd41e1504971f3bcf4df3867855a5f6d72d0"
+    },
+    {
+      "task_id": "UCI-IRIS-082",
+      "source_row_index": 82,
+      "split": "train_visible",
+      "sepal_length_cm": 5.8,
+      "sepal_width_cm": 2.7,
+      "petal_length_cm": 3.9,
+      "petal_width_cm": 1.2,
+      "source_row_sha256": "103a1500d97692fd70be928de7814d7e1fca57185823656aee58592023c20b6e"
+    },
+    {
+      "task_id": "UCI-IRIS-083",
+      "source_row_index": 83,
+      "split": "train_visible",
+      "sepal_length_cm": 6.0,
+      "sepal_width_cm": 2.7,
+      "petal_length_cm": 5.1,
+      "petal_width_cm": 1.6,
+      "source_row_sha256": "a61cfba0821cf306e451ecf2ad0616909a0e33359d27c648d311381b67b9d2c5"
+    },
+    {
+      "task_id": "UCI-IRIS-084",
+      "source_row_index": 84,
+      "split": "train_visible",
+      "sepal_length_cm": 5.4,
+      "sepal_width_cm": 3.0,
+      "petal_length_cm": 4.5,
+      "petal_width_cm": 1.5,
+      "source_row_sha256": "5f30b836b0ecb64909ad3736d66c57f3022af9007f216c4f1d1c32f6302627ac"
+    },
+    {
+      "task_id": "UCI-IRIS-085",
+      "source_row_index": 85,
+      "split": "hidden_score",
+      "sepal_length_cm": 6.0,
+      "sepal_width_cm": 3.4,
+      "petal_length_cm": 4.5,
+      "petal_width_cm": 1.6,
+      "source_row_sha256": "9dec125a449fcd88216376bb456bf9321d9e1d0a6a552fc2ce8475499cdb4e43"
+    },
+    {
+      "task_id": "UCI-IRIS-086",
+      "source_row_index": 86,
+      "split": "train_visible",
+      "sepal_length_cm": 6.7,
+      "sepal_width_cm": 3.1,
+      "petal_length_cm": 4.7,
+      "petal_width_cm": 1.5,
+      "source_row_sha256": "4dd6394d0538ac9b3e61d1b432fd06d9ecf16b4b4ed145031d86cdf5eb0c0744"
+    },
+    {
+      "task_id": "UCI-IRIS-087",
+      "source_row_index": 87,
+      "split": "train_visible",
+      "sepal_length_cm": 6.3,
+      "sepal_width_cm": 2.3,
+      "petal_length_cm": 4.4,
+      "petal_width_cm": 1.3,
+      "source_row_sha256": "c9a4c71625f3d9c2baa2c5610da8876e5344b14e2d554d60773a51a655d8f55c"
+    },
+    {
+      "task_id": "UCI-IRIS-088",
+      "source_row_index": 88,
+      "split": "train_visible",
+      "sepal_length_cm": 5.6,
+      "sepal_width_cm": 3.0,
+      "petal_length_cm": 4.1,
+      "petal_width_cm": 1.3,
+      "source_row_sha256": "4ab1d8cf275b6588994fddf02bf8db0bfd013e0d878209618e398eeeb460e029"
+    },
+    {
+      "task_id": "UCI-IRIS-089",
+      "source_row_index": 89,
+      "split": "train_visible",
+      "sepal_length_cm": 5.5,
+      "sepal_width_cm": 2.5,
+      "petal_length_cm": 4.0,
+      "petal_width_cm": 1.3,
+      "source_row_sha256": "213db9d6d8a5008852dce362f0e6406b3db000b4b66c94d020ddcbba3e8b10b9"
+    },
+    {
+      "task_id": "UCI-IRIS-090",
+      "source_row_index": 90,
+      "split": "hidden_score",
+      "sepal_length_cm": 5.5,
+      "sepal_width_cm": 2.6,
+      "petal_length_cm": 4.4,
+      "petal_width_cm": 1.2,
+      "source_row_sha256": "efa9fb1b5134147e161322071dc1732eff87311ba30c707ea0124061499cc971"
+    },
+    {
+      "task_id": "UCI-IRIS-091",
+      "source_row_index": 91,
+      "split": "train_visible",
+      "sepal_length_cm": 6.1,
+      "sepal_width_cm": 3.0,
+      "petal_length_cm": 4.6,
+      "petal_width_cm": 1.4,
+      "source_row_sha256": "7aa125efb87b27d44a82fcaf85ba21da226f52ec88a79ee2799d2a37bac15b63"
+    },
+    {
+      "task_id": "UCI-IRIS-092",
+      "source_row_index": 92,
+      "split": "train_visible",
+      "sepal_length_cm": 5.8,
+      "sepal_width_cm": 2.6,
+      "petal_length_cm": 4.0,
+      "petal_width_cm": 1.2,
+      "source_row_sha256": "e9cebf400ac8ad19c4a61c9ff76a727a472326232cd0e50499ec6e885255088f"
+    },
+    {
+      "task_id": "UCI-IRIS-093",
+      "source_row_index": 93,
+      "split": "train_visible",
+      "sepal_length_cm": 5.0,
+      "sepal_width_cm": 2.3,
+      "petal_length_cm": 3.3,
+      "petal_width_cm": 1.0,
+      "source_row_sha256": "090e219703195e67ecc99636c6c7c9524b2faf74e80ab6eda35f08dad1adf3a7"
+    },
+    {
+      "task_id": "UCI-IRIS-094",
+      "source_row_index": 94,
+      "split": "train_visible",
+      "sepal_length_cm": 5.6,
+      "sepal_width_cm": 2.7,
+      "petal_length_cm": 4.2,
+      "petal_width_cm": 1.3,
+      "source_row_sha256": "460c7ff14e8fcceb8b4dca09a14b2d097fa9506e4546872bfe4bc7f6429d7066"
+    },
+    {
+      "task_id": "UCI-IRIS-095",
+      "source_row_index": 95,
+      "split": "hidden_score",
+      "sepal_length_cm": 5.7,
+      "sepal_width_cm": 3.0,
+      "petal_length_cm": 4.2,
+      "petal_width_cm": 1.2,
+      "source_row_sha256": "b3465c6b77f033464387332c7373efdb42decb768d3a4953da72a9431adf1678"
+    },
+    {
+      "task_id": "UCI-IRIS-096",
+      "source_row_index": 96,
+      "split": "train_visible",
+      "sepal_length_cm": 5.7,
+      "sepal_width_cm": 2.9,
+      "petal_length_cm": 4.2,
+      "petal_width_cm": 1.3,
+      "source_row_sha256": "f7112b29f8dd997e87f2f30dc8af55d600e6f5643c40d719932f5bc625739a22"
+    },
+    {
+      "task_id": "UCI-IRIS-097",
+      "source_row_index": 97,
+      "split": "train_visible",
+      "sepal_length_cm": 6.2,
+      "sepal_width_cm": 2.9,
+      "petal_length_cm": 4.3,
+      "petal_width_cm": 1.3,
+      "source_row_sha256": "b19cba19169dccef0e6b9643df89fbbe89b14ab0cc90f9345669d7fb76742daf"
+    },
+    {
+      "task_id": "UCI-IRIS-098",
+      "source_row_index": 98,
+      "split": "train_visible",
+      "sepal_length_cm": 5.1,
+      "sepal_width_cm": 2.5,
+      "petal_length_cm": 3.0,
+      "petal_width_cm": 1.1,
+      "source_row_sha256": "388b0ff2bd98de186a9f2ffdab851c17128eaeb7579eb412e0167cf8a912ce41"
+    },
+    {
+      "task_id": "UCI-IRIS-099",
+      "source_row_index": 99,
+      "split": "train_visible",
+      "sepal_length_cm": 5.7,
+      "sepal_width_cm": 2.8,
+      "petal_length_cm": 4.1,
+      "petal_width_cm": 1.3,
+      "source_row_sha256": "50f0df668885e718e10c8865675712aed48ee120d468fcf23b327079b87cc205"
+    },
+    {
+      "task_id": "UCI-IRIS-100",
+      "source_row_index": 100,
+      "split": "hidden_score",
+      "sepal_length_cm": 6.3,
+      "sepal_width_cm": 3.3,
+      "petal_length_cm": 6.0,
+      "petal_width_cm": 2.5,
+      "source_row_sha256": "d6c7e3029334c799a755501a4f6e0728d61c92abd4a20e997e1edc9860bfe681"
+    },
+    {
+      "task_id": "UCI-IRIS-101",
+      "source_row_index": 101,
+      "split": "train_visible",
+      "sepal_length_cm": 5.8,
+      "sepal_width_cm": 2.7,
+      "petal_length_cm": 5.1,
+      "petal_width_cm": 1.9,
+      "source_row_sha256": "bad945ea565d456e1b8efef6c9305ae3fb59d7ba0d9273dd31e3e421712921c6"
+    },
+    {
+      "task_id": "UCI-IRIS-102",
+      "source_row_index": 102,
+      "split": "train_visible",
+      "sepal_length_cm": 7.1,
+      "sepal_width_cm": 3.0,
+      "petal_length_cm": 5.9,
+      "petal_width_cm": 2.1,
+      "source_row_sha256": "a36f03ad2a9b68f8f688f3c988fe571e10aae7f1c70a15c811ef5f288f949d3e"
+    },
+    {
+      "task_id": "UCI-IRIS-103",
+      "source_row_index": 103,
+      "split": "train_visible",
+      "sepal_length_cm": 6.3,
+      "sepal_width_cm": 2.9,
+      "petal_length_cm": 5.6,
+      "petal_width_cm": 1.8,
+      "source_row_sha256": "d8c85c5b5741eefceae1459bc188332d4d1a63e5aa405816444c1015314cba78"
+    },
+    {
+      "task_id": "UCI-IRIS-104",
+      "source_row_index": 104,
+      "split": "train_visible",
+      "sepal_length_cm": 6.5,
+      "sepal_width_cm": 3.0,
+      "petal_length_cm": 5.8,
+      "petal_width_cm": 2.2,
+      "source_row_sha256": "b6b7a7e366df4c7c5890dfe3ffaa82985388d7c53309e9d655e8f9c927434afd"
+    },
+    {
+      "task_id": "UCI-IRIS-105",
+      "source_row_index": 105,
+      "split": "hidden_score",
+      "sepal_length_cm": 7.6,
+      "sepal_width_cm": 3.0,
+      "petal_length_cm": 6.6,
+      "petal_width_cm": 2.1,
+      "source_row_sha256": "e4166b0c7acfd8849c19347a3babdca19b1cb6da49a22995cd46f11a06fb994c"
+    },
+    {
+      "task_id": "UCI-IRIS-106",
+      "source_row_index": 106,
+      "split": "train_visible",
+      "sepal_length_cm": 4.9,
+      "sepal_width_cm": 2.5,
+      "petal_length_cm": 4.5,
+      "petal_width_cm": 1.7,
+      "source_row_sha256": "a4e084b086d7246849f90a0cc139eea6b4cc3e62ce74b086204dcec286597c12"
+    },
+    {
+      "task_id": "UCI-IRIS-107",
+      "source_row_index": 107,
+      "split": "train_visible",
+      "sepal_length_cm": 7.3,
+      "sepal_width_cm": 2.9,
+      "petal_length_cm": 6.3,
+      "petal_width_cm": 1.8,
+      "source_row_sha256": "ec0ddb2c09061260f9131ad011c049060e125e04c788a84ee41fb5771231c629"
+    },
+    {
+      "task_id": "UCI-IRIS-108",
+      "source_row_index": 108,
+      "split": "train_visible",
+      "sepal_length_cm": 6.7,
+      "sepal_width_cm": 2.5,
+      "petal_length_cm": 5.8,
+      "petal_width_cm": 1.8,
+      "source_row_sha256": "3ce06c39846c83e5486633cfdcbf2d8d16f1b52c1a6923e4562027e1d9f1f7b5"
+    },
+    {
+      "task_id": "UCI-IRIS-109",
+      "source_row_index": 109,
+      "split": "train_visible",
+      "sepal_length_cm": 7.2,
+      "sepal_width_cm": 3.6,
+      "petal_length_cm": 6.1,
+      "petal_width_cm": 2.5,
+      "source_row_sha256": "4d57190c3fd85ccdc72f79e3f504f07fe272570424efbfca487f8439837dc500"
+    },
+    {
+      "task_id": "UCI-IRIS-110",
+      "source_row_index": 110,
+      "split": "hidden_score",
+      "sepal_length_cm": 6.5,
+      "sepal_width_cm": 3.2,
+      "petal_length_cm": 5.1,
+      "petal_width_cm": 2.0,
+      "source_row_sha256": "13d4fcf64adbf127b6cda2ebd61439744660fba53ff591337af970eca2c519ec"
+    },
+    {
+      "task_id": "UCI-IRIS-111",
+      "source_row_index": 111,
+      "split": "train_visible",
+      "sepal_length_cm": 6.4,
+      "sepal_width_cm": 2.7,
+      "petal_length_cm": 5.3,
+      "petal_width_cm": 1.9,
+      "source_row_sha256": "0e542d85050bc7cc2c3e0d957670ea5e778f6b7bea38fab6e0fe4a161ebb6fee"
+    },
+    {
+      "task_id": "UCI-IRIS-112",
+      "source_row_index": 112,
+      "split": "train_visible",
+      "sepal_length_cm": 6.8,
+      "sepal_width_cm": 3.0,
+      "petal_length_cm": 5.5,
+      "petal_width_cm": 2.1,
+      "source_row_sha256": "c433632b07068af8fe113cf214853f1d04870674acc4cc813f4cb887eb383d79"
+    },
+    {
+      "task_id": "UCI-IRIS-113",
+      "source_row_index": 113,
+      "split": "train_visible",
+      "sepal_length_cm": 5.7,
+      "sepal_width_cm": 2.5,
+      "petal_length_cm": 5.0,
+      "petal_width_cm": 2.0,
+      "source_row_sha256": "ebbc639d07988f54b81789e44b18b58b9af585b189b2edd77c36828debcbaecd"
+    },
+    {
+      "task_id": "UCI-IRIS-114",
+      "source_row_index": 114,
+      "split": "train_visible",
+      "sepal_length_cm": 5.8,
+      "sepal_width_cm": 2.8,
+      "petal_length_cm": 5.1,
+      "petal_width_cm": 2.4,
+      "source_row_sha256": "8ef57d8ee9c0524c918dd82e67ec43ee17ca02c9b10ed6bd3c1ce364e382d1e8"
+    },
+    {
+      "task_id": "UCI-IRIS-115",
+      "source_row_index": 115,
+      "split": "hidden_score",
+      "sepal_length_cm": 6.4,
+      "sepal_width_cm": 3.2,
+      "petal_length_cm": 5.3,
+      "petal_width_cm": 2.3,
+      "source_row_sha256": "1811093e290e0ff7af851c94cd7838ea533d450946ba31694e71f97e538844ad"
+    },
+    {
+      "task_id": "UCI-IRIS-116",
+      "source_row_index": 116,
+      "split": "train_visible",
+      "sepal_length_cm": 6.5,
+      "sepal_width_cm": 3.0,
+      "petal_length_cm": 5.5,
+      "petal_width_cm": 1.8,
+      "source_row_sha256": "4547b0bb4f5cc7cd75fb4e5f9a2c1bb973a49fc03646f58c20f485c533bb8f03"
+    },
+    {
+      "task_id": "UCI-IRIS-117",
+      "source_row_index": 117,
+      "split": "train_visible",
+      "sepal_length_cm": 7.7,
+      "sepal_width_cm": 3.8,
+      "petal_length_cm": 6.7,
+      "petal_width_cm": 2.2,
+      "source_row_sha256": "7448721c68861be3b7ca148c08640f87a477c200467e85192e6f0963e8ece9ef"
+    },
+    {
+      "task_id": "UCI-IRIS-118",
+      "source_row_index": 118,
+      "split": "train_visible",
+      "sepal_length_cm": 7.7,
+      "sepal_width_cm": 2.6,
+      "petal_length_cm": 6.9,
+      "petal_width_cm": 2.3,
+      "source_row_sha256": "bc04c6e61c3e1fa878a906eecd19ef6b3eaaa15e036ce9048e11303e126a7aa6"
+    },
+    {
+      "task_id": "UCI-IRIS-119",
+      "source_row_index": 119,
+      "split": "train_visible",
+      "sepal_length_cm": 6.0,
+      "sepal_width_cm": 2.2,
+      "petal_length_cm": 5.0,
+      "petal_width_cm": 1.5,
+      "source_row_sha256": "458fcc84b9653f44209817324c813cc2ef8b4d51b3cf340dd000cd00933575ae"
+    },
+    {
+      "task_id": "UCI-IRIS-120",
+      "source_row_index": 120,
+      "split": "hidden_score",
+      "sepal_length_cm": 6.9,
+      "sepal_width_cm": 3.2,
+      "petal_length_cm": 5.7,
+      "petal_width_cm": 2.3,
+      "source_row_sha256": "6946a2afe3be13557652a2bd13a0309de82559147256bc0bd82c1101f075ff34"
+    },
+    {
+      "task_id": "UCI-IRIS-121",
+      "source_row_index": 121,
+      "split": "train_visible",
+      "sepal_length_cm": 5.6,
+      "sepal_width_cm": 2.8,
+      "petal_length_cm": 4.9,
+      "petal_width_cm": 2.0,
+      "source_row_sha256": "d4c9f5df7353e46125a948c7ef85323e03efdb7486cb9f1a6962eded64114395"
+    },
+    {
+      "task_id": "UCI-IRIS-122",
+      "source_row_index": 122,
+      "split": "train_visible",
+      "sepal_length_cm": 7.7,
+      "sepal_width_cm": 2.8,
+      "petal_length_cm": 6.7,
+      "petal_width_cm": 2.0,
+      "source_row_sha256": "24bba67b7aaf5137157cbc347b0bef558874627b9cef8679b3cea15cf3f26b27"
+    },
+    {
+      "task_id": "UCI-IRIS-123",
+      "source_row_index": 123,
+      "split": "train_visible",
+      "sepal_length_cm": 6.3,
+      "sepal_width_cm": 2.7,
+      "petal_length_cm": 4.9,
+      "petal_width_cm": 1.8,
+      "source_row_sha256": "fc82cf08b7b919fdf805c5ef9f585d39de2235f900ad516dee01dba7ab832fd8"
+    },
+    {
+      "task_id": "UCI-IRIS-124",
+      "source_row_index": 124,
+      "split": "train_visible",
+      "sepal_length_cm": 6.7,
+      "sepal_width_cm": 3.3,
+      "petal_length_cm": 5.7,
+      "petal_width_cm": 2.1,
+      "source_row_sha256": "207adf958f2b788e701d766213396780e1acfbf8c5554ce0345c9026d594b147"
+    },
+    {
+      "task_id": "UCI-IRIS-125",
+      "source_row_index": 125,
+      "split": "hidden_score",
+      "sepal_length_cm": 7.2,
+      "sepal_width_cm": 3.2,
+      "petal_length_cm": 6.0,
+      "petal_width_cm": 1.8,
+      "source_row_sha256": "d012bf6f69d1bce164dddffc793c857b5608ae5867a6b6fd39ac192bc482a1d7"
+    },
+    {
+      "task_id": "UCI-IRIS-126",
+      "source_row_index": 126,
+      "split": "train_visible",
+      "sepal_length_cm": 6.2,
+      "sepal_width_cm": 2.8,
+      "petal_length_cm": 4.8,
+      "petal_width_cm": 1.8,
+      "source_row_sha256": "607cd097c4a901114f34a6e79ca2bf1aa5bed832bc280c609d6fa5d8f39f4c74"
+    },
+    {
+      "task_id": "UCI-IRIS-127",
+      "source_row_index": 127,
+      "split": "train_visible",
+      "sepal_length_cm": 6.1,
+      "sepal_width_cm": 3.0,
+      "petal_length_cm": 4.9,
+      "petal_width_cm": 1.8,
+      "source_row_sha256": "3dedadd3bc07aade75de6dc727e026ccdc89454345a9015950122fa673c406cb"
+    },
+    {
+      "task_id": "UCI-IRIS-128",
+      "source_row_index": 128,
+      "split": "train_visible",
+      "sepal_length_cm": 6.4,
+      "sepal_width_cm": 2.8,
+      "petal_length_cm": 5.6,
+      "petal_width_cm": 2.1,
+      "source_row_sha256": "a1e3e588f9dbb9a6692b652565e1219919bd899de7537a097cb3e2a0300be645"
+    },
+    {
+      "task_id": "UCI-IRIS-129",
+      "source_row_index": 129,
+      "split": "train_visible",
+      "sepal_length_cm": 7.2,
+      "sepal_width_cm": 3.0,
+      "petal_length_cm": 5.8,
+      "petal_width_cm": 1.6,
+      "source_row_sha256": "040e7ccba46501646b71d8b80c382ae7f70b0694f93cd7abb5b6d2ad91e6b533"
+    },
+    {
+      "task_id": "UCI-IRIS-130",
+      "source_row_index": 130,
+      "split": "hidden_score",
+      "sepal_length_cm": 7.4,
+      "sepal_width_cm": 2.8,
+      "petal_length_cm": 6.1,
+      "petal_width_cm": 1.9,
+      "source_row_sha256": "7287b92d1554e40f0d52bdfa604cbcfb548f71a294e19da7d05462bc45cdee81"
+    },
+    {
+      "task_id": "UCI-IRIS-131",
+      "source_row_index": 131,
+      "split": "train_visible",
+      "sepal_length_cm": 7.9,
+      "sepal_width_cm": 3.8,
+      "petal_length_cm": 6.4,
+      "petal_width_cm": 2.0,
+      "source_row_sha256": "9ac2bc4e311eab285cbb477ecafdefd2845ad4e9683786d7069c30f01ed26074"
+    },
+    {
+      "task_id": "UCI-IRIS-132",
+      "source_row_index": 132,
+      "split": "train_visible",
+      "sepal_length_cm": 6.4,
+      "sepal_width_cm": 2.8,
+      "petal_length_cm": 5.6,
+      "petal_width_cm": 2.2,
+      "source_row_sha256": "756931a03099d36aeecd9412c73347cf7762598876023bd42225e019527d77bb"
+    },
+    {
+      "task_id": "UCI-IRIS-133",
+      "source_row_index": 133,
+      "split": "train_visible",
+      "sepal_length_cm": 6.3,
+      "sepal_width_cm": 2.8,
+      "petal_length_cm": 5.1,
+      "petal_width_cm": 1.5,
+      "source_row_sha256": "8244d89ab7d6bcfab391dcaa1a804d974180031e9fccacecd6cc4502b2cebd54"
+    },
+    {
+      "task_id": "UCI-IRIS-134",
+      "source_row_index": 134,
+      "split": "train_visible",
+      "sepal_length_cm": 6.1,
+      "sepal_width_cm": 2.6,
+      "petal_length_cm": 5.6,
+      "petal_width_cm": 1.4,
+      "source_row_sha256": "eb4993f2d3fdee32d5387caf9cfe6b0823c5cdea0a474f0f253bd5f490aa6883"
+    },
+    {
+      "task_id": "UCI-IRIS-135",
+      "source_row_index": 135,
+      "split": "hidden_score",
+      "sepal_length_cm": 7.7,
+      "sepal_width_cm": 3.0,
+      "petal_length_cm": 6.1,
+      "petal_width_cm": 2.3,
+      "source_row_sha256": "a396a4913221b706d17baa5947d4614bb92f1b5e910cd10bbf029e86cb82c491"
+    },
+    {
+      "task_id": "UCI-IRIS-136",
+      "source_row_index": 136,
+      "split": "train_visible",
+      "sepal_length_cm": 6.3,
+      "sepal_width_cm": 3.4,
+      "petal_length_cm": 5.6,
+      "petal_width_cm": 2.4,
+      "source_row_sha256": "ec4b3df96d2b6b99fef1d937b92ee04f8526bc7f948c5f10be262239aca5f5e0"
+    },
+    {
+      "task_id": "UCI-IRIS-137",
+      "source_row_index": 137,
+      "split": "train_visible",
+      "sepal_length_cm": 6.4,
+      "sepal_width_cm": 3.1,
+      "petal_length_cm": 5.5,
+      "petal_width_cm": 1.8,
+      "source_row_sha256": "47e73a5ddb6f7bd08c036c4fd8994efdc22bbd51d629cc35596d9fbc98770e65"
+    },
+    {
+      "task_id": "UCI-IRIS-138",
+      "source_row_index": 138,
+      "split": "train_visible",
+      "sepal_length_cm": 6.0,
+      "sepal_width_cm": 3.0,
+      "petal_length_cm": 4.8,
+      "petal_width_cm": 1.8,
+      "source_row_sha256": "64e49af4db71996222536571bfae9138b61b67cdba1b0784703b0f6ccffc6537"
+    },
+    {
+      "task_id": "UCI-IRIS-139",
+      "source_row_index": 139,
+      "split": "train_visible",
+      "sepal_length_cm": 6.9,
+      "sepal_width_cm": 3.1,
+      "petal_length_cm": 5.4,
+      "petal_width_cm": 2.1,
+      "source_row_sha256": "3c072a7705b825e66221b98c7bf6067ae1670e839b4c882647b9c6a881023c7c"
+    },
+    {
+      "task_id": "UCI-IRIS-140",
+      "source_row_index": 140,
+      "split": "hidden_score",
+      "sepal_length_cm": 6.7,
+      "sepal_width_cm": 3.1,
+      "petal_length_cm": 5.6,
+      "petal_width_cm": 2.4,
+      "source_row_sha256": "8dadee16630906d283b86a63416c479fe38423b3071d6c9133840114995684f2"
+    },
+    {
+      "task_id": "UCI-IRIS-141",
+      "source_row_index": 141,
+      "split": "train_visible",
+      "sepal_length_cm": 6.9,
+      "sepal_width_cm": 3.1,
+      "petal_length_cm": 5.1,
+      "petal_width_cm": 2.3,
+      "source_row_sha256": "d36edc031c163d7c98007be60510331bfc2eeb9798dd0cef963f0572cd13a3e5"
+    },
+    {
+      "task_id": "UCI-IRIS-142",
+      "source_row_index": 142,
+      "split": "train_visible",
+      "sepal_length_cm": 5.8,
+      "sepal_width_cm": 2.7,
+      "petal_length_cm": 5.1,
+      "petal_width_cm": 1.9,
+      "source_row_sha256": "8da7f052f8aa02cd3762094539514d6873029658816336ba32c78352616431f5"
+    },
+    {
+      "task_id": "UCI-IRIS-143",
+      "source_row_index": 143,
+      "split": "train_visible",
+      "sepal_length_cm": 6.8,
+      "sepal_width_cm": 3.2,
+      "petal_length_cm": 5.9,
+      "petal_width_cm": 2.3,
+      "source_row_sha256": "9ab9087bb0eaf4ef7e452f5225083ff6a487f391b36316629959e0caaa4b587a"
+    },
+    {
+      "task_id": "UCI-IRIS-144",
+      "source_row_index": 144,
+      "split": "train_visible",
+      "sepal_length_cm": 6.7,
+      "sepal_width_cm": 3.3,
+      "petal_length_cm": 5.7,
+      "petal_width_cm": 2.5,
+      "source_row_sha256": "06cfe7dfa3b760c431c5ef76e4894adf46919edcd15d25e39aafa83c642aaec8"
+    },
+    {
+      "task_id": "UCI-IRIS-145",
+      "source_row_index": 145,
+      "split": "hidden_score",
+      "sepal_length_cm": 6.7,
+      "sepal_width_cm": 3.0,
+      "petal_length_cm": 5.2,
+      "petal_width_cm": 2.3,
+      "source_row_sha256": "7321ab5405ae9773dc0013116076ce60e8cc990f2d0a62761b670489fb599686"
+    },
+    {
+      "task_id": "UCI-IRIS-146",
+      "source_row_index": 146,
+      "split": "train_visible",
+      "sepal_length_cm": 6.3,
+      "sepal_width_cm": 2.5,
+      "petal_length_cm": 5.0,
+      "petal_width_cm": 1.9,
+      "source_row_sha256": "0a6b9d16e4023b4a1724672a3a733d3e35c069596e2aeacafa5078dd49d34308"
+    },
+    {
+      "task_id": "UCI-IRIS-147",
+      "source_row_index": 147,
+      "split": "train_visible",
+      "sepal_length_cm": 6.5,
+      "sepal_width_cm": 3.0,
+      "petal_length_cm": 5.2,
+      "petal_width_cm": 2.0,
+      "source_row_sha256": "2bd45202bf08958f9e8cc13ec31d2be3ccfbb9a99da5b9d1cd93e5d81eb890f9"
+    },
+    {
+      "task_id": "UCI-IRIS-148",
+      "source_row_index": 148,
+      "split": "train_visible",
+      "sepal_length_cm": 6.2,
+      "sepal_width_cm": 3.4,
+      "petal_length_cm": 5.4,
+      "petal_width_cm": 2.3,
+      "source_row_sha256": "f6363b8ef4baf66b75a423d369793739525a462d8658859f68e441ccb70a4a2c"
+    },
+    {
+      "task_id": "UCI-IRIS-149",
+      "source_row_index": 149,
+      "split": "train_visible",
+      "sepal_length_cm": 5.9,
+      "sepal_width_cm": 3.0,
+      "petal_length_cm": 5.1,
+      "petal_width_cm": 1.8,
+      "source_row_sha256": "cd3fc1a177a069396fa00c11d19ba729717de4e051570df4573991b20a0cb838"
+    }
+  ]
+}

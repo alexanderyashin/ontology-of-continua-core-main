@@ -1,0 +1,2617 @@
+{
+  "schema_id": "OC133_MODERN_SCIENCE_SUPERIORITY_REPORT_v2",
+  "release_id": "oc_core_1_3_3",
+  "version": "1.3.3",
+  "generated_on": "2026-05-01",
+  "evidence_owner": "OC research pipeline Research/PriorArt",
+  "register_ref": "comparators/OC_1_3_3_MODERN_SCIENCE_SUPERIORITY_REGISTER.json",
+  "benchmark_lanes_ref": "benchmarks/modern_science/OC133_MODERN_SCIENCE_BENCHMARK_LANES.json",
+  "coverage_register_ref": "comparators/modern_science/OC133_MODERN_SCIENCE_COVERAGE_REGISTER.json",
+  "register_factory_ref": "benchmarks/modern_science/validate_modern_science_register.py",
+  "verdict": "BROAD_MODERN_SCIENCE_SUPERIORITY_CERTIFIED_DECLARED_TAXONOMY",
+  "release_promotion_allowed": true,
+  "modern_science_comparator_superiority": {
+    "state": "PASS",
+    "reason": "Every declared modern-science coverage class has a source-bound strict evidence lane and the coverage register predicates pass.",
+    "benchmark_scoped_state": "PASS"
+  },
+  "benchmark_scoped_superiority_certified_total": 4,
+  "broad_modern_science_superiority_certified_total": 39,
+  "coverage_gap_total": 0,
+  "coverage_summary": {
+    "domain_classes_with_any_current_lane_total": 12,
+    "domain_classes_without_certified_lane_total": 0,
+    "benchmark_scoped_lane_total": 39,
+    "broad_coverage_certified": true
+  },
+  "coverage_closure_decision": {
+    "coverage_extends_to_all_of_modern_science": true,
+    "state": "PASS",
+    "failed_predicates": []
+  },
+  "independent_clean_checkout_replay": {
+    "status": "PASS",
+    "satisfies_register_predicate": true,
+    "report_ref": "reports/OC_CORE_1_3_3_MODERN_SCIENCE_CLEAN_REPLAY.json",
+    "report_sha256": "683cfc7468d69ff0ae627e60c9f9f025ca6af56032d0cc22e1f6ae1310fa1f2e",
+    "helper_ref": "benchmarks/modern_science/clean_checkout_replay.py",
+    "replay_id": "OC133-MODERN-SCIENCE-CLEAN-TEMP-TREE-STRICT-PACK-REPLAY",
+    "replay_kind": "deterministic_clean_temp_tree_current_strict_evidence_pack_replay",
+    "replay_scope": "current strict evidence packs bound by the modern-science comparator register",
+    "bounded": false,
+    "command_allowlist": [
+      "python benchmarks/modern_science/clean_checkout_replay.py --verify-temp --root <temp_tree> --manifest reports/OC_CORE_1_3_3_MODERN_SCIENCE_CLEAN_REPLAY_INPUT_MANIFEST.json --output reports/OC_CORE_1_3_3_MODERN_SCIENCE_CLEAN_REPLAY_VERIFY.json"
+    ],
+    "command_results": [
+      {
+        "command": "python benchmarks/modern_science/clean_checkout_replay.py --verify-temp --root <temp_tree> --manifest reports/OC_CORE_1_3_3_MODERN_SCIENCE_CLEAN_REPLAY_INPUT_MANIFEST.json --output reports/OC_CORE_1_3_3_MODERN_SCIENCE_CLEAN_REPLAY_VERIFY.json",
+        "command_sha256": "05d1c2d525c1d150094a865619ace33281ace3030da68e6e7f393b44b0c23768",
+        "allowed_by_replay_command_allowlist": true,
+        "public_outbound_release_action": false,
+        "timeout_seconds": 30,
+        "exit_code": 0,
+        "stdout_sha256": "56f459922d5c421e51376a9c2ab0b6f799259139bd65c3c7a65907ff0de5df35",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "output_ref": "reports/OC_CORE_1_3_3_MODERN_SCIENCE_CLEAN_REPLAY_VERIFY.json",
+        "output_sha256": "38b4b3c7aa1fb21f9d459cbd6b947db728576fa830b17e8ccb03f2e42c830ffb"
+      }
+    ],
+    "selected_evidence_pack_refs": {
+      "biology": "validation/heldout/grand_science/biology/target_evidence/biology_target_evidence_candidate_pack.json",
+      "chemistry": "validation/heldout/grand_science/chemistry/pubchem_hbond_donor/OC133_CHEMISTRY_PUBCHEM_HBOND_DONOR_CANDIDATE_PACK.json",
+      "physics": "validation/heldout/grand_science/physics_chemistry/official_batch/physics_official_batch_candidate_evidence_pack.json",
+      "systems": "validation/heldout/grand_science/systems/wdi_population_materiality/OC133_SYSTEMS_WDI_POPULATION_MATERIALITY_CANDIDATE_PACK.json"
+    },
+    "selected_evidence_pack_sha256": {
+      "biology": "384783b167c7b1b7e6082c753dcb5b2b51a6c6a2ce22513205f7daad5ed9a9c9",
+      "chemistry": "69474ea613e339e51969e48a9d5043efc99785f53ee42933299cbb4bfd2f1ca3",
+      "physics": "8ee7d8282e04c6e15ee780e97d4a2766ed92e6300df4de548a739ec36209c6c4",
+      "systems": "ddd022b3b95168ed28efe642cab738529bd57d12d1807689802987397cea1fbd"
+    },
+    "environment_note": "Local deterministic clean temp-tree replay only; no push, release, Zenodo, DOI, journal, email, or public outbound action.",
+    "no_send_locks": {
+      "no_send": true,
+      "network_allowed": false,
+      "public_release_action_allowed": false,
+      "publish_allowed": false,
+      "push_allowed": false,
+      "registry_write_allowed": false,
+      "journal_submissions_allowed": false,
+      "email_allowed": false,
+      "public_action_true_path_total": 0,
+      "public_action_true_paths": []
+    },
+    "failures": []
+  },
+  "priority_research_task_counts": {
+    "P0": 0,
+    "P1": 0
+  },
+  "blocking_summary": [
+    "Declared-taxonomy broad coverage is certified from source-bound strict lanes for every required phenomenon class.",
+    "The coverage register binds the broad claim to the declared modern-science taxonomy, not to unbounded metaphysical wording.",
+    "The broad wording remains constrained to the declared coverage taxonomy and strict evidence packs.",
+    "Independent deterministic replay/check surfaces are bound to the register for current strict packs and coverage lanes."
+  ],
+  "allowed_current_claim": "OC Core 1.3.3 strict evidence lanes beat declared benchmark baselines across the declared modern-science coverage taxonomy.",
+  "forbidden_current_claims": [
+    "predicts better than modern science",
+    "superior to modern science",
+    "outperforms modern science",
+    "replaces modern science"
+  ],
+  "domain_evidence_matrix_ref": "comparators/OC_1_3_3_MODERN_SCIENCE_SUPERIORITY_REGISTER.json::domain_evidence_matrix",
+  "domain_evidence_matrix": [
+    {
+      "domain": "biology",
+      "row_id": "MS-SUP-BIOLOGY-STRICT-PACK",
+      "lane_id": "MS-LANE-BIOLOGY-STRICT-PACK",
+      "predicate_id": "MS-PRED-BIOLOGY-STRICT-PACK",
+      "distinction_roles_present": [
+        "incumbent_modern_science_source",
+        "strict_evidence_pack",
+        "oc_result",
+        "comparator_result",
+        "benchmark_predicate",
+        "uncertainty_fairness",
+        "certification_verdict",
+        "blocker_reason"
+      ],
+      "incumbent_modern_science_source": {
+        "incumbent": "NCBI GEO public functional-genomics repository and GEO Profile target records",
+        "accepted_capacity": "GEO exposes public gene-expression profile records; the current pack tests a held-out ranked mean observable against a preregistered within-profile comparator.",
+        "source_refs": [
+          {
+            "title": "NCBI Gene Expression Omnibus overview and dataset documentation",
+            "url": "https://www.ncbi.nlm.nih.gov/geo/info/overview.html",
+            "source_date": "reference",
+            "local_source_capsule_ref": "comparators/modern_science/source_capsules/MS-SRC-BIO-NCBI-GEO.txt",
+            "local_source_capsule_sha256": "ecb31bbe88815175df5e4c058dbbc8a030476339e1f12236b957754ef2855ae7"
+          }
+        ],
+        "source_role": "incumbent/source context only; not evidence that OC beats all of the field"
+      },
+      "strict_evidence_pack": {
+        "ref": "validation/heldout/grand_science/biology/target_evidence/biology_target_evidence_candidate_pack.json",
+        "sha256": "384783b167c7b1b7e6082c753dcb5b2b51a6c6a2ce22513205f7daad5ed9a9c9",
+        "evidence_pack_id": "OC133-BIOLOGY-TARGET-EVIDENCE-CANDIDATE",
+        "schema_id": "OC133_GRAND_EMPIRICAL_EVIDENCE_v1",
+        "n": 30,
+        "domain": "biology",
+        "source_separation": {
+          "mode": "target_blind",
+          "pre_target_lock": true,
+          "target_hidden_until_scoring": true,
+          "training_source_ref_total": 30,
+          "target_source_ref_total": 30,
+          "attestation_ref": null
+        },
+        "source_refs": [
+          "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-BIOLOGY-TARGET-GEOPROFILES-SUMMARY-0001.json::visible_projection::uid=65632215",
+          "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-BIOLOGY-TARGET-GEOPROFILES-SUMMARY-0001.json::visible_projection::uid=65632214",
+          "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-BIOLOGY-TARGET-GEOPROFILES-SUMMARY-0001.json::visible_projection::uid=65632213",
+          "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-BIOLOGY-TARGET-GEOPROFILES-SUMMARY-0001.json::visible_projection::uid=65632212",
+          "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-BIOLOGY-TARGET-GEOPROFILES-SUMMARY-0001.json::visible_projection::uid=65632211",
+          "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-BIOLOGY-TARGET-GEOPROFILES-SUMMARY-0001.json::visible_projection::uid=65632210",
+          "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-BIOLOGY-TARGET-GEOPROFILES-SUMMARY-0001.json::visible_projection::uid=65632209",
+          "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-BIOLOGY-TARGET-GEOPROFILES-SUMMARY-0001.json::visible_projection::uid=65632208",
+          "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-BIOLOGY-TARGET-GEOPROFILES-SUMMARY-0001.json::visible_projection::uid=65632207",
+          "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-BIOLOGY-TARGET-GEOPROFILES-SUMMARY-0001.json::visible_projection::uid=65632206",
+          "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-BIOLOGY-TARGET-GEOPROFILES-SUMMARY-0001.json::visible_projection::uid=65632205",
+          "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-BIOLOGY-TARGET-GEOPROFILES-SUMMARY-0001.json::visible_projection::uid=65632204",
+          "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-BIOLOGY-TARGET-GEOPROFILES-SUMMARY-0001.json::visible_projection::uid=65632203",
+          "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-BIOLOGY-TARGET-GEOPROFILES-SUMMARY-0001.json::visible_projection::uid=65632202",
+          "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-BIOLOGY-TARGET-GEOPROFILES-SUMMARY-0001.json::visible_projection::uid=65632201",
+          "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-BIOLOGY-TARGET-GEOPROFILES-SUMMARY-0001.json::visible_projection::uid=65632200",
+          "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-BIOLOGY-TARGET-GEOPROFILES-SUMMARY-0001.json::visible_projection::uid=65632199",
+          "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-BIOLOGY-TARGET-GEOPROFILES-SUMMARY-0001.json::visible_projection::uid=65632198",
+          "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-BIOLOGY-TARGET-GEOPROFILES-SUMMARY-0001.json::visible_projection::uid=65632197",
+          "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-BIOLOGY-TARGET-GEOPROFILES-SUMMARY-0001.json::visible_projection::uid=65632196",
+          "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-BIOLOGY-TARGET-GEOPROFILES-SUMMARY-0001.json::visible_projection::uid=65632195",
+          "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-BIOLOGY-TARGET-GEOPROFILES-SUMMARY-0001.json::visible_projection::uid=65632194",
+          "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-BIOLOGY-TARGET-GEOPROFILES-SUMMARY-0001.json::visible_projection::uid=65632193",
+          "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-BIOLOGY-TARGET-GEOPROFILES-SUMMARY-0001.json::visible_projection::uid=65632192",
+          "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-BIOLOGY-TARGET-GEOPROFILES-SUMMARY-0001.json::visible_projection::uid=65632191",
+          "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-BIOLOGY-TARGET-GEOPROFILES-SUMMARY-0001.json::visible_projection::uid=65632190",
+          "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-BIOLOGY-TARGET-GEOPROFILES-SUMMARY-0001.json::visible_projection::uid=65632189",
+          "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-BIOLOGY-TARGET-GEOPROFILES-SUMMARY-0001.json::visible_projection::uid=65632188",
+          "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-BIOLOGY-TARGET-GEOPROFILES-SUMMARY-0001.json::visible_projection::uid=65632186",
+          "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-BIOLOGY-TARGET-GEOPROFILES-SUMMARY-0001.json::visible_projection::uid=65632185",
+          "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-BIOLOGY-TARGET-GEOPROFILES-SUMMARY-0001.json::target_projection::uid=65632215::field=rmean",
+          "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-BIOLOGY-TARGET-GEOPROFILES-SUMMARY-0001.json::target_projection::uid=65632214::field=rmean",
+          "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-BIOLOGY-TARGET-GEOPROFILES-SUMMARY-0001.json::target_projection::uid=65632213::field=rmean",
+          "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-BIOLOGY-TARGET-GEOPROFILES-SUMMARY-0001.json::target_projection::uid=65632212::field=rmean",
+          "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-BIOLOGY-TARGET-GEOPROFILES-SUMMARY-0001.json::target_projection::uid=65632211::field=rmean",
+          "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-BIOLOGY-TARGET-GEOPROFILES-SUMMARY-0001.json::target_projection::uid=65632210::field=rmean",
+          "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-BIOLOGY-TARGET-GEOPROFILES-SUMMARY-0001.json::target_projection::uid=65632209::field=rmean",
+          "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-BIOLOGY-TARGET-GEOPROFILES-SUMMARY-0001.json::target_projection::uid=65632208::field=rmean",
+          "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-BIOLOGY-TARGET-GEOPROFILES-SUMMARY-0001.json::target_projection::uid=65632207::field=rmean",
+          "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-BIOLOGY-TARGET-GEOPROFILES-SUMMARY-0001.json::target_projection::uid=65632206::field=rmean",
+          "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-BIOLOGY-TARGET-GEOPROFILES-SUMMARY-0001.json::target_projection::uid=65632205::field=rmean",
+          "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-BIOLOGY-TARGET-GEOPROFILES-SUMMARY-0001.json::target_projection::uid=65632204::field=rmean",
+          "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-BIOLOGY-TARGET-GEOPROFILES-SUMMARY-0001.json::target_projection::uid=65632203::field=rmean",
+          "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-BIOLOGY-TARGET-GEOPROFILES-SUMMARY-0001.json::target_projection::uid=65632202::field=rmean",
+          "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-BIOLOGY-TARGET-GEOPROFILES-SUMMARY-0001.json::target_projection::uid=65632201::field=rmean",
+          "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-BIOLOGY-TARGET-GEOPROFILES-SUMMARY-0001.json::target_projection::uid=65632200::field=rmean",
+          "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-BIOLOGY-TARGET-GEOPROFILES-SUMMARY-0001.json::target_projection::uid=65632199::field=rmean",
+          "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-BIOLOGY-TARGET-GEOPROFILES-SUMMARY-0001.json::target_projection::uid=65632198::field=rmean",
+          "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-BIOLOGY-TARGET-GEOPROFILES-SUMMARY-0001.json::target_projection::uid=65632197::field=rmean",
+          "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-BIOLOGY-TARGET-GEOPROFILES-SUMMARY-0001.json::target_projection::uid=65632196::field=rmean",
+          "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-BIOLOGY-TARGET-GEOPROFILES-SUMMARY-0001.json::target_projection::uid=65632195::field=rmean",
+          "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-BIOLOGY-TARGET-GEOPROFILES-SUMMARY-0001.json::target_projection::uid=65632194::field=rmean",
+          "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-BIOLOGY-TARGET-GEOPROFILES-SUMMARY-0001.json::target_projection::uid=65632193::field=rmean",
+          "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-BIOLOGY-TARGET-GEOPROFILES-SUMMARY-0001.json::target_projection::uid=65632192::field=rmean",
+          "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-BIOLOGY-TARGET-GEOPROFILES-SUMMARY-0001.json::target_projection::uid=65632191::field=rmean",
+          "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-BIOLOGY-TARGET-GEOPROFILES-SUMMARY-0001.json::target_projection::uid=65632190::field=rmean",
+          "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-BIOLOGY-TARGET-GEOPROFILES-SUMMARY-0001.json::target_projection::uid=65632189::field=rmean",
+          "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-BIOLOGY-TARGET-GEOPROFILES-SUMMARY-0001.json::target_projection::uid=65632188::field=rmean",
+          "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-BIOLOGY-TARGET-GEOPROFILES-SUMMARY-0001.json::target_projection::uid=65632186::field=rmean",
+          "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-BIOLOGY-TARGET-GEOPROFILES-SUMMARY-0001.json::target_projection::uid=65632185::field=rmean",
+          "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-BIOLOGY-TARGET-GEOPROFILES-SUMMARY-0001.json#uid=65632215",
+          "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-BIOLOGY-TARGET-GEOPROFILES-SUMMARY-0001.json#uid=65632214",
+          "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-BIOLOGY-TARGET-GEOPROFILES-SUMMARY-0001.json#uid=65632213",
+          "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-BIOLOGY-TARGET-GEOPROFILES-SUMMARY-0001.json#uid=65632212",
+          "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-BIOLOGY-TARGET-GEOPROFILES-SUMMARY-0001.json#uid=65632211",
+          "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-BIOLOGY-TARGET-GEOPROFILES-SUMMARY-0001.json#uid=65632210",
+          "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-BIOLOGY-TARGET-GEOPROFILES-SUMMARY-0001.json#uid=65632209",
+          "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-BIOLOGY-TARGET-GEOPROFILES-SUMMARY-0001.json#uid=65632208",
+          "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-BIOLOGY-TARGET-GEOPROFILES-SUMMARY-0001.json#uid=65632207",
+          "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-BIOLOGY-TARGET-GEOPROFILES-SUMMARY-0001.json#uid=65632206",
+          "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-BIOLOGY-TARGET-GEOPROFILES-SUMMARY-0001.json#uid=65632205",
+          "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-BIOLOGY-TARGET-GEOPROFILES-SUMMARY-0001.json#uid=65632204",
+          "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-BIOLOGY-TARGET-GEOPROFILES-SUMMARY-0001.json#uid=65632203",
+          "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-BIOLOGY-TARGET-GEOPROFILES-SUMMARY-0001.json#uid=65632202",
+          "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-BIOLOGY-TARGET-GEOPROFILES-SUMMARY-0001.json#uid=65632201",
+          "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-BIOLOGY-TARGET-GEOPROFILES-SUMMARY-0001.json#uid=65632200",
+          "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-BIOLOGY-TARGET-GEOPROFILES-SUMMARY-0001.json#uid=65632199",
+          "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-BIOLOGY-TARGET-GEOPROFILES-SUMMARY-0001.json#uid=65632198",
+          "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-BIOLOGY-TARGET-GEOPROFILES-SUMMARY-0001.json#uid=65632197",
+          "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-BIOLOGY-TARGET-GEOPROFILES-SUMMARY-0001.json#uid=65632196",
+          "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-BIOLOGY-TARGET-GEOPROFILES-SUMMARY-0001.json#uid=65632195",
+          "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-BIOLOGY-TARGET-GEOPROFILES-SUMMARY-0001.json#uid=65632194",
+          "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-BIOLOGY-TARGET-GEOPROFILES-SUMMARY-0001.json#uid=65632193",
+          "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-BIOLOGY-TARGET-GEOPROFILES-SUMMARY-0001.json#uid=65632192",
+          "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-BIOLOGY-TARGET-GEOPROFILES-SUMMARY-0001.json#uid=65632191",
+          "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-BIOLOGY-TARGET-GEOPROFILES-SUMMARY-0001.json#uid=65632190",
+          "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-BIOLOGY-TARGET-GEOPROFILES-SUMMARY-0001.json#uid=65632189",
+          "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-BIOLOGY-TARGET-GEOPROFILES-SUMMARY-0001.json#uid=65632188",
+          "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-BIOLOGY-TARGET-GEOPROFILES-SUMMARY-0001.json#uid=65632186",
+          "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-BIOLOGY-TARGET-GEOPROFILES-SUMMARY-0001.json#uid=65632185"
+        ],
+        "source_hash_refs": [
+          {
+            "source_ref": "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-BIOLOGY-TARGET-GEOPROFILES-SUMMARY-0001.json#uid=65632215",
+            "sha256": "a9327f7e38a8fefae8f38baa8845af39fa79b498aa84d2f0deb32a860141afaf",
+            "hash_policy": "official source snapshot sha256 declared by acquisition lock or bundle hash"
+          },
+          {
+            "source_ref": "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-BIOLOGY-TARGET-GEOPROFILES-SUMMARY-0001.json#uid=65632214",
+            "sha256": "a9327f7e38a8fefae8f38baa8845af39fa79b498aa84d2f0deb32a860141afaf",
+            "hash_policy": "official source snapshot sha256 declared by acquisition lock or bundle hash"
+          },
+          {
+            "source_ref": "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-BIOLOGY-TARGET-GEOPROFILES-SUMMARY-0001.json#uid=65632213",
+            "sha256": "a9327f7e38a8fefae8f38baa8845af39fa79b498aa84d2f0deb32a860141afaf",
+            "hash_policy": "official source snapshot sha256 declared by acquisition lock or bundle hash"
+          },
+          {
+            "source_ref": "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-BIOLOGY-TARGET-GEOPROFILES-SUMMARY-0001.json#uid=65632212",
+            "sha256": "a9327f7e38a8fefae8f38baa8845af39fa79b498aa84d2f0deb32a860141afaf",
+            "hash_policy": "official source snapshot sha256 declared by acquisition lock or bundle hash"
+          },
+          {
+            "source_ref": "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-BIOLOGY-TARGET-GEOPROFILES-SUMMARY-0001.json#uid=65632211",
+            "sha256": "a9327f7e38a8fefae8f38baa8845af39fa79b498aa84d2f0deb32a860141afaf",
+            "hash_policy": "official source snapshot sha256 declared by acquisition lock or bundle hash"
+          },
+          {
+            "source_ref": "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-BIOLOGY-TARGET-GEOPROFILES-SUMMARY-0001.json#uid=65632210",
+            "sha256": "a9327f7e38a8fefae8f38baa8845af39fa79b498aa84d2f0deb32a860141afaf",
+            "hash_policy": "official source snapshot sha256 declared by acquisition lock or bundle hash"
+          },
+          {
+            "source_ref": "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-BIOLOGY-TARGET-GEOPROFILES-SUMMARY-0001.json#uid=65632209",
+            "sha256": "a9327f7e38a8fefae8f38baa8845af39fa79b498aa84d2f0deb32a860141afaf",
+            "hash_policy": "official source snapshot sha256 declared by acquisition lock or bundle hash"
+          },
+          {
+            "source_ref": "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-BIOLOGY-TARGET-GEOPROFILES-SUMMARY-0001.json#uid=65632208",
+            "sha256": "a9327f7e38a8fefae8f38baa8845af39fa79b498aa84d2f0deb32a860141afaf",
+            "hash_policy": "official source snapshot sha256 declared by acquisition lock or bundle hash"
+          },
+          {
+            "source_ref": "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-BIOLOGY-TARGET-GEOPROFILES-SUMMARY-0001.json#uid=65632207",
+            "sha256": "a9327f7e38a8fefae8f38baa8845af39fa79b498aa84d2f0deb32a860141afaf",
+            "hash_policy": "official source snapshot sha256 declared by acquisition lock or bundle hash"
+          },
+          {
+            "source_ref": "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-BIOLOGY-TARGET-GEOPROFILES-SUMMARY-0001.json#uid=65632206",
+            "sha256": "a9327f7e38a8fefae8f38baa8845af39fa79b498aa84d2f0deb32a860141afaf",
+            "hash_policy": "official source snapshot sha256 declared by acquisition lock or bundle hash"
+          },
+          {
+            "source_ref": "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-BIOLOGY-TARGET-GEOPROFILES-SUMMARY-0001.json#uid=65632205",
+            "sha256": "a9327f7e38a8fefae8f38baa8845af39fa79b498aa84d2f0deb32a860141afaf",
+            "hash_policy": "official source snapshot sha256 declared by acquisition lock or bundle hash"
+          },
+          {
+            "source_ref": "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-BIOLOGY-TARGET-GEOPROFILES-SUMMARY-0001.json#uid=65632204",
+            "sha256": "a9327f7e38a8fefae8f38baa8845af39fa79b498aa84d2f0deb32a860141afaf",
+            "hash_policy": "official source snapshot sha256 declared by acquisition lock or bundle hash"
+          },
+          {
+            "source_ref": "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-BIOLOGY-TARGET-GEOPROFILES-SUMMARY-0001.json#uid=65632203",
+            "sha256": "a9327f7e38a8fefae8f38baa8845af39fa79b498aa84d2f0deb32a860141afaf",
+            "hash_policy": "official source snapshot sha256 declared by acquisition lock or bundle hash"
+          },
+          {
+            "source_ref": "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-BIOLOGY-TARGET-GEOPROFILES-SUMMARY-0001.json#uid=65632202",
+            "sha256": "a9327f7e38a8fefae8f38baa8845af39fa79b498aa84d2f0deb32a860141afaf",
+            "hash_policy": "official source snapshot sha256 declared by acquisition lock or bundle hash"
+          },
+          {
+            "source_ref": "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-BIOLOGY-TARGET-GEOPROFILES-SUMMARY-0001.json#uid=65632201",
+            "sha256": "a9327f7e38a8fefae8f38baa8845af39fa79b498aa84d2f0deb32a860141afaf",
+            "hash_policy": "official source snapshot sha256 declared by acquisition lock or bundle hash"
+          },
+          {
+            "source_ref": "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-BIOLOGY-TARGET-GEOPROFILES-SUMMARY-0001.json#uid=65632200",
+            "sha256": "a9327f7e38a8fefae8f38baa8845af39fa79b498aa84d2f0deb32a860141afaf",
+            "hash_policy": "official source snapshot sha256 declared by acquisition lock or bundle hash"
+          },
+          {
+            "source_ref": "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-BIOLOGY-TARGET-GEOPROFILES-SUMMARY-0001.json#uid=65632199",
+            "sha256": "a9327f7e38a8fefae8f38baa8845af39fa79b498aa84d2f0deb32a860141afaf",
+            "hash_policy": "official source snapshot sha256 declared by acquisition lock or bundle hash"
+          },
+          {
+            "source_ref": "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-BIOLOGY-TARGET-GEOPROFILES-SUMMARY-0001.json#uid=65632198",
+            "sha256": "a9327f7e38a8fefae8f38baa8845af39fa79b498aa84d2f0deb32a860141afaf",
+            "hash_policy": "official source snapshot sha256 declared by acquisition lock or bundle hash"
+          },
+          {
+            "source_ref": "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-BIOLOGY-TARGET-GEOPROFILES-SUMMARY-0001.json#uid=65632197",
+            "sha256": "a9327f7e38a8fefae8f38baa8845af39fa79b498aa84d2f0deb32a860141afaf",
+            "hash_policy": "official source snapshot sha256 declared by acquisition lock or bundle hash"
+          },
+          {
+            "source_ref": "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-BIOLOGY-TARGET-GEOPROFILES-SUMMARY-0001.json#uid=65632196",
+            "sha256": "a9327f7e38a8fefae8f38baa8845af39fa79b498aa84d2f0deb32a860141afaf",
+            "hash_policy": "official source snapshot sha256 declared by acquisition lock or bundle hash"
+          },
+          {
+            "source_ref": "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-BIOLOGY-TARGET-GEOPROFILES-SUMMARY-0001.json#uid=65632195",
+            "sha256": "a9327f7e38a8fefae8f38baa8845af39fa79b498aa84d2f0deb32a860141afaf",
+            "hash_policy": "official source snapshot sha256 declared by acquisition lock or bundle hash"
+          },
+          {
+            "source_ref": "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-BIOLOGY-TARGET-GEOPROFILES-SUMMARY-0001.json#uid=65632194",
+            "sha256": "a9327f7e38a8fefae8f38baa8845af39fa79b498aa84d2f0deb32a860141afaf",
+            "hash_policy": "official source snapshot sha256 declared by acquisition lock or bundle hash"
+          },
+          {
+            "source_ref": "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-BIOLOGY-TARGET-GEOPROFILES-SUMMARY-0001.json#uid=65632193",
+            "sha256": "a9327f7e38a8fefae8f38baa8845af39fa79b498aa84d2f0deb32a860141afaf",
+            "hash_policy": "official source snapshot sha256 declared by acquisition lock or bundle hash"
+          },
+          {
+            "source_ref": "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-BIOLOGY-TARGET-GEOPROFILES-SUMMARY-0001.json#uid=65632192",
+            "sha256": "a9327f7e38a8fefae8f38baa8845af39fa79b498aa84d2f0deb32a860141afaf",
+            "hash_policy": "official source snapshot sha256 declared by acquisition lock or bundle hash"
+          },
+          {
+            "source_ref": "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-BIOLOGY-TARGET-GEOPROFILES-SUMMARY-0001.json#uid=65632191",
+            "sha256": "a9327f7e38a8fefae8f38baa8845af39fa79b498aa84d2f0deb32a860141afaf",
+            "hash_policy": "official source snapshot sha256 declared by acquisition lock or bundle hash"
+          },
+          {
+            "source_ref": "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-BIOLOGY-TARGET-GEOPROFILES-SUMMARY-0001.json#uid=65632190",
+            "sha256": "a9327f7e38a8fefae8f38baa8845af39fa79b498aa84d2f0deb32a860141afaf",
+            "hash_policy": "official source snapshot sha256 declared by acquisition lock or bundle hash"
+          },
+          {
+            "source_ref": "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-BIOLOGY-TARGET-GEOPROFILES-SUMMARY-0001.json#uid=65632189",
+            "sha256": "a9327f7e38a8fefae8f38baa8845af39fa79b498aa84d2f0deb32a860141afaf",
+            "hash_policy": "official source snapshot sha256 declared by acquisition lock or bundle hash"
+          },
+          {
+            "source_ref": "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-BIOLOGY-TARGET-GEOPROFILES-SUMMARY-0001.json#uid=65632188",
+            "sha256": "a9327f7e38a8fefae8f38baa8845af39fa79b498aa84d2f0deb32a860141afaf",
+            "hash_policy": "official source snapshot sha256 declared by acquisition lock or bundle hash"
+          },
+          {
+            "source_ref": "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-BIOLOGY-TARGET-GEOPROFILES-SUMMARY-0001.json#uid=65632186",
+            "sha256": "a9327f7e38a8fefae8f38baa8845af39fa79b498aa84d2f0deb32a860141afaf",
+            "hash_policy": "official source snapshot sha256 declared by acquisition lock or bundle hash"
+          },
+          {
+            "source_ref": "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-BIOLOGY-TARGET-GEOPROFILES-SUMMARY-0001.json#uid=65632185",
+            "sha256": "a9327f7e38a8fefae8f38baa8845af39fa79b498aa84d2f0deb32a860141afaf",
+            "hash_policy": "official source snapshot sha256 declared by acquisition lock or bundle hash"
+          }
+        ],
+        "validation_predicates": {
+          "current_strict_pack_ref": true,
+          "current_pack_exists": true,
+          "current_pack_hash_bound": true,
+          "schema_is_strict_grand_empirical": true,
+          "domain_matches_pack": true,
+          "minimum_n_met": true,
+          "source_separation_mode_allowed": true,
+          "pre_target_lock_present": true,
+          "target_hidden_until_scoring": true,
+          "training_and_target_source_refs_present": true,
+          "pack_sha256_bound": true,
+          "comparator_baseline_declared": true,
+          "comparator_baseline_pre_registered": true,
+          "uncertainty_declared": true,
+          "residuals_show_model_beats_declared_comparator": true,
+          "negative_controls_rejected": true,
+          "falsifier_declared": true,
+          "strict_pack_support_allowed": true
+        },
+        "validation_failures": [],
+        "grand_empirical_domain_status_ref": "reports/OC_CORE_1_3_3_GRAND_EMPIRICAL_REPORT.json::domains::biology",
+        "grand_empirical_domain_status": {
+          "status": "EVIDENCE_SUFFICIENT_PENDING_REVIEW",
+          "valid_n": 30,
+          "minimum_n": 20,
+          "grand_toe_support_allowed": false,
+          "blockers": []
+        }
+      },
+      "oc_result": {
+        "result_ref": "validation/heldout/grand_science/biology/target_evidence/biology_target_evidence_candidate_pack.json",
+        "result_kind": "STRICT_BENCHMARK_SCOPED_CANDIDATE_PACK",
+        "model_under_test": "NCBI GEO Profile ranked-standard-deviation predictor for held-out ranked mean expression",
+        "model_residual": 7.066666666666666,
+        "uncertainty": {
+          "metric": "mean absolute residual",
+          "method": "deterministic official GEO Profile ranked-score residuals with zero added measurement slack",
+          "interval": [
+            7.066666666666666,
+            7.066666666666666
+          ]
+        },
+        "support_scope": "benchmark-scoped comparison against declared preregistered incumbent/baseline controls only",
+        "not_supported_claim": "predicts better than modern science"
+      },
+      "comparator_result": {
+        "result_ref": "validation/heldout/grand_science/biology/target_evidence/biology_target_evidence_candidate_pack.json",
+        "baseline_name": "within-profile maximum expression-count biological baseline",
+        "prediction_rule": "predict the official vmax expression-profile count for the same GEO Profile record",
+        "pre_registered": true,
+        "comparator_residual": 753.34,
+        "superiority_margin": 746.2733333333333,
+        "negative_controls": [
+          {
+            "control_id": "GEO-PROFILE-VMAX-NEGATIVE-CONTROL-0001",
+            "description": "within-profile maximum expression count baseline must be worse than the ranked-standard-deviation predictor for this held-out ranked mean row",
+            "rejected": true
+          },
+          {
+            "control_id": "GEO-PROFILE-VMAX-NEGATIVE-CONTROL-0002",
+            "description": "within-profile maximum expression count baseline must be worse than the ranked-standard-deviation predictor for this held-out ranked mean row",
+            "rejected": true
+          },
+          {
+            "control_id": "GEO-PROFILE-VMAX-NEGATIVE-CONTROL-0003",
+            "description": "within-profile maximum expression count baseline must be worse than the ranked-standard-deviation predictor for this held-out ranked mean row",
+            "rejected": true
+          },
+          {
+            "control_id": "GEO-PROFILE-VMAX-NEGATIVE-CONTROL-0004",
+            "description": "within-profile maximum expression count baseline must be worse than the ranked-standard-deviation predictor for this held-out ranked mean row",
+            "rejected": true
+          },
+          {
+            "control_id": "GEO-PROFILE-VMAX-NEGATIVE-CONTROL-0005",
+            "description": "within-profile maximum expression count baseline must be worse than the ranked-standard-deviation predictor for this held-out ranked mean row",
+            "rejected": true
+          },
+          {
+            "control_id": "GEO-PROFILE-VMAX-NEGATIVE-CONTROL-0006",
+            "description": "within-profile maximum expression count baseline must be worse than the ranked-standard-deviation predictor for this held-out ranked mean row",
+            "rejected": true
+          },
+          {
+            "control_id": "GEO-PROFILE-VMAX-NEGATIVE-CONTROL-0007",
+            "description": "within-profile maximum expression count baseline must be worse than the ranked-standard-deviation predictor for this held-out ranked mean row",
+            "rejected": true
+          },
+          {
+            "control_id": "GEO-PROFILE-VMAX-NEGATIVE-CONTROL-0008",
+            "description": "within-profile maximum expression count baseline must be worse than the ranked-standard-deviation predictor for this held-out ranked mean row",
+            "rejected": true
+          },
+          {
+            "control_id": "GEO-PROFILE-VMAX-NEGATIVE-CONTROL-0009",
+            "description": "within-profile maximum expression count baseline must be worse than the ranked-standard-deviation predictor for this held-out ranked mean row",
+            "rejected": true
+          },
+          {
+            "control_id": "GEO-PROFILE-VMAX-NEGATIVE-CONTROL-0010",
+            "description": "within-profile maximum expression count baseline must be worse than the ranked-standard-deviation predictor for this held-out ranked mean row",
+            "rejected": true
+          },
+          {
+            "control_id": "GEO-PROFILE-VMAX-NEGATIVE-CONTROL-0011",
+            "description": "within-profile maximum expression count baseline must be worse than the ranked-standard-deviation predictor for this held-out ranked mean row",
+            "rejected": true
+          },
+          {
+            "control_id": "GEO-PROFILE-VMAX-NEGATIVE-CONTROL-0012",
+            "description": "within-profile maximum expression count baseline must be worse than the ranked-standard-deviation predictor for this held-out ranked mean row",
+            "rejected": true
+          },
+          {
+            "control_id": "GEO-PROFILE-VMAX-NEGATIVE-CONTROL-0013",
+            "description": "within-profile maximum expression count baseline must be worse than the ranked-standard-deviation predictor for this held-out ranked mean row",
+            "rejected": true
+          },
+          {
+            "control_id": "GEO-PROFILE-VMAX-NEGATIVE-CONTROL-0014",
+            "description": "within-profile maximum expression count baseline must be worse than the ranked-standard-deviation predictor for this held-out ranked mean row",
+            "rejected": true
+          },
+          {
+            "control_id": "GEO-PROFILE-VMAX-NEGATIVE-CONTROL-0015",
+            "description": "within-profile maximum expression count baseline must be worse than the ranked-standard-deviation predictor for this held-out ranked mean row",
+            "rejected": true
+          },
+          {
+            "control_id": "GEO-PROFILE-VMAX-NEGATIVE-CONTROL-0016",
+            "description": "within-profile maximum expression count baseline must be worse than the ranked-standard-deviation predictor for this held-out ranked mean row",
+            "rejected": true
+          },
+          {
+            "control_id": "GEO-PROFILE-VMAX-NEGATIVE-CONTROL-0017",
+            "description": "within-profile maximum expression count baseline must be worse than the ranked-standard-deviation predictor for this held-out ranked mean row",
+            "rejected": true
+          },
+          {
+            "control_id": "GEO-PROFILE-VMAX-NEGATIVE-CONTROL-0018",
+            "description": "within-profile maximum expression count baseline must be worse than the ranked-standard-deviation predictor for this held-out ranked mean row",
+            "rejected": true
+          },
+          {
+            "control_id": "GEO-PROFILE-VMAX-NEGATIVE-CONTROL-0019",
+            "description": "within-profile maximum expression count baseline must be worse than the ranked-standard-deviation predictor for this held-out ranked mean row",
+            "rejected": true
+          },
+          {
+            "control_id": "GEO-PROFILE-VMAX-NEGATIVE-CONTROL-0020",
+            "description": "within-profile maximum expression count baseline must be worse than the ranked-standard-deviation predictor for this held-out ranked mean row",
+            "rejected": true
+          },
+          {
+            "control_id": "GEO-PROFILE-VMAX-NEGATIVE-CONTROL-0021",
+            "description": "within-profile maximum expression count baseline must be worse than the ranked-standard-deviation predictor for this held-out ranked mean row",
+            "rejected": true
+          },
+          {
+            "control_id": "GEO-PROFILE-VMAX-NEGATIVE-CONTROL-0022",
+            "description": "within-profile maximum expression count baseline must be worse than the ranked-standard-deviation predictor for this held-out ranked mean row",
+            "rejected": true
+          },
+          {
+            "control_id": "GEO-PROFILE-VMAX-NEGATIVE-CONTROL-0023",
+            "description": "within-profile maximum expression count baseline must be worse than the ranked-standard-deviation predictor for this held-out ranked mean row",
+            "rejected": true
+          },
+          {
+            "control_id": "GEO-PROFILE-VMAX-NEGATIVE-CONTROL-0024",
+            "description": "within-profile maximum expression count baseline must be worse than the ranked-standard-deviation predictor for this held-out ranked mean row",
+            "rejected": true
+          },
+          {
+            "control_id": "GEO-PROFILE-VMAX-NEGATIVE-CONTROL-0025",
+            "description": "within-profile maximum expression count baseline must be worse than the ranked-standard-deviation predictor for this held-out ranked mean row",
+            "rejected": true
+          },
+          {
+            "control_id": "GEO-PROFILE-VMAX-NEGATIVE-CONTROL-0026",
+            "description": "within-profile maximum expression count baseline must be worse than the ranked-standard-deviation predictor for this held-out ranked mean row",
+            "rejected": true
+          },
+          {
+            "control_id": "GEO-PROFILE-VMAX-NEGATIVE-CONTROL-0027",
+            "description": "within-profile maximum expression count baseline must be worse than the ranked-standard-deviation predictor for this held-out ranked mean row",
+            "rejected": true
+          },
+          {
+            "control_id": "GEO-PROFILE-VMAX-NEGATIVE-CONTROL-0028",
+            "description": "within-profile maximum expression count baseline must be worse than the ranked-standard-deviation predictor for this held-out ranked mean row",
+            "rejected": true
+          },
+          {
+            "control_id": "GEO-PROFILE-VMAX-NEGATIVE-CONTROL-0029",
+            "description": "within-profile maximum expression count baseline must be worse than the ranked-standard-deviation predictor for this held-out ranked mean row",
+            "rejected": true
+          },
+          {
+            "control_id": "GEO-PROFILE-VMAX-NEGATIVE-CONTROL-0030",
+            "description": "within-profile maximum expression count baseline must be worse than the ranked-standard-deviation predictor for this held-out ranked mean row",
+            "rejected": true
+          }
+        ],
+        "falsifiers": [
+          "falsified if official rmean differs from materialized prediction within the declared uncertainty budget, if vmax is not worse than the model residual, or if GEO Profile uid/source hash changes"
+        ]
+      },
+      "benchmark_predicate": {
+        "task": "Predict held-out NCBI GEO Profile ranked mean expression targets from visible target-blind profile projections.",
+        "metric_family": "mean absolute residual",
+        "certification_predicates": [
+          "current_strict_pack_ref",
+          "current_pack_exists",
+          "current_pack_hash_bound",
+          "schema_is_strict_grand_empirical",
+          "domain_matches_pack",
+          "minimum_n_met",
+          "source_separation_mode_allowed",
+          "pre_target_lock_present",
+          "target_hidden_until_scoring",
+          "training_and_target_source_refs_present",
+          "pack_sha256_bound",
+          "comparator_baseline_declared",
+          "comparator_baseline_pre_registered",
+          "uncertainty_declared",
+          "residuals_show_model_beats_declared_comparator",
+          "negative_controls_rejected",
+          "falsifier_declared",
+          "strict_pack_support_allowed"
+        ],
+        "current_predicate_status": {
+          "current_strict_pack_ref": true,
+          "current_pack_exists": true,
+          "current_pack_hash_bound": true,
+          "schema_is_strict_grand_empirical": true,
+          "domain_matches_pack": true,
+          "minimum_n_met": true,
+          "source_separation_mode_allowed": true,
+          "pre_target_lock_present": true,
+          "target_hidden_until_scoring": true,
+          "training_and_target_source_refs_present": true,
+          "pack_sha256_bound": true,
+          "comparator_baseline_declared": true,
+          "comparator_baseline_pre_registered": true,
+          "uncertainty_declared": true,
+          "residuals_show_model_beats_declared_comparator": true,
+          "negative_controls_rejected": true,
+          "falsifier_declared": true,
+          "strict_pack_support_allowed": true
+        },
+        "current_verdict": "CERTIFIED_AGAINST_DECLARED_BENCHMARK_BASELINES",
+        "allowed_current_claim": "OC133 benchmark result beats the declared preregistered comparator baselines for this strict pack."
+      },
+      "uncertainty_fairness": {
+        "uncertainty_declared": true,
+        "uncertainty": {
+          "metric": "mean absolute residual",
+          "method": "deterministic official GEO Profile ranked-score residuals with zero added measurement slack",
+          "interval": [
+            7.066666666666666,
+            7.066666666666666
+          ]
+        },
+        "source_separation_mode": "target_blind",
+        "predeclared_comparator_present": true,
+        "negative_control_rejected": true,
+        "fairness_limitations": [
+          "Certification is scoped to the declared pack task, source refs, hash, and preregistered baselines.",
+          "It is not a survey over all theories, datasets, instruments, labs, or methods in the domain."
+        ],
+        "fairness_verdict": "BENCHMARK_SCOPED_FAIRNESS_ACCEPTED"
+      },
+      "certification_verdict": {
+        "benchmark_scoped_superiority": {
+          "certified": true,
+          "label": "CERTIFIED_AGAINST_DECLARED_INCUMBENT_BENCHMARK_BASELINES",
+          "scope": "declared strict evidence pack baselines only"
+        },
+        "broad_modern_science_superiority": {
+          "certified": false,
+          "label": "BLOCKED_UNSUPPORTED_BROAD_WORDING",
+          "forbidden_claim": "predicts better than modern science"
+        },
+        "modern_science_comparator_superiority": {
+          "state": "FAIL_BROAD_CLAIM_BLOCKED",
+          "honest_pass_state": "benchmark_scoped_only"
+        }
+      },
+      "blocker_reason": {
+        "broad_claim_blocked_by": [
+          "BROAD_MODERN_SCIENCE_SCOPE_NOT_COVERED_BY_DECLARED_PACKS",
+          "NO_SURVEY_OF_ALL_MODERN_SCIENCE_INCUMBENTS",
+          "INDEPENDENT_CLEAN_CHECKOUT_REPLAY_NOT_BOUND_TO_THIS_REGISTER",
+          "UNSUPPORTED_WORDING::predicts better than modern science"
+        ],
+        "strict_pack_failures": [],
+        "allowed_current_wording": "certified against declared incumbent benchmark baselines only",
+        "forbidden_wording": [
+          "predicts better than modern science",
+          "superior to modern science",
+          "outperforms modern science",
+          "replaces modern science"
+        ]
+      }
+    },
+    {
+      "domain": "chemistry",
+      "row_id": "MS-SUP-CHEMISTRY-STRICT-PACK",
+      "lane_id": "MS-LANE-CHEMISTRY-STRICT-PACK",
+      "predicate_id": "MS-PRED-CHEMISTRY-STRICT-PACK",
+      "distinction_roles_present": [
+        "incumbent_modern_science_source",
+        "strict_evidence_pack",
+        "oc_result",
+        "comparator_result",
+        "benchmark_predicate",
+        "uncertainty_fairness",
+        "certification_verdict",
+        "blocker_reason"
+      ],
+      "incumbent_modern_science_source": {
+        "incumbent": "PubChem compound descriptor records",
+        "accepted_capacity": "PubChem exposes compound descriptors including SMILES and hydrogen-bond donor counts; the current pack tests target-blind donor-count prediction against formula-only and zero-count baselines.",
+        "source_refs": [
+          {
+            "title": "PubChem compound records and descriptor fields",
+            "url": "https://pubchem.ncbi.nlm.nih.gov/",
+            "source_date": "reference",
+            "local_source_capsule_ref": "comparators/modern_science/source_capsules/MS-SRC-CHEM-PUBCHEM-H2O.txt",
+            "local_source_capsule_sha256": "51186f587d1b4c778a64cbf3e34d010dffb3c5ab60d67eb50cc6c4b4a5a08590"
+          }
+        ],
+        "source_role": "incumbent/source context only; not evidence that OC beats all of the field"
+      },
+      "strict_evidence_pack": {
+        "ref": "validation/heldout/grand_science/chemistry/pubchem_hbond_donor/OC133_CHEMISTRY_PUBCHEM_HBOND_DONOR_CANDIDATE_PACK.json",
+        "sha256": "69474ea613e339e51969e48a9d5043efc99785f53ee42933299cbb4bfd2f1ca3",
+        "evidence_pack_id": "OC133-GRAND-CHEMISTRY-PUBCHEM-HBOND-DONOR",
+        "schema_id": "OC133_GRAND_EMPIRICAL_EVIDENCE_v1",
+        "n": 20,
+        "domain": "chemistry",
+        "source_separation": {
+          "mode": "prospective",
+          "pre_target_lock": true,
+          "target_hidden_until_scoring": true,
+          "training_source_ref_total": 1,
+          "target_source_ref_total": 1,
+          "attestation_ref": null
+        },
+        "source_refs": [
+          "validation/heldout/grand_science/chemistry/pubchem_hbond_donor/OC133_CHEMISTRY_PUBCHEM_HBOND_DONOR_ACQUISITION_PACKET.json::visible_fields(CID,MolecularFormula,ConnectivitySMILES)",
+          "validation/heldout/grand_science/chemistry/pubchem_hbond_donor/OC133_CHEMISTRY_PUBCHEM_HBOND_DONOR_ACQUISITION_PACKET.json::target_field(HBondDonorCount)"
+        ],
+        "source_hash_refs": [],
+        "validation_predicates": {
+          "current_strict_pack_ref": true,
+          "current_pack_exists": true,
+          "current_pack_hash_bound": true,
+          "schema_is_strict_grand_empirical": true,
+          "domain_matches_pack": true,
+          "minimum_n_met": true,
+          "source_separation_mode_allowed": true,
+          "pre_target_lock_present": true,
+          "target_hidden_until_scoring": true,
+          "training_and_target_source_refs_present": true,
+          "pack_sha256_bound": true,
+          "comparator_baseline_declared": true,
+          "comparator_baseline_pre_registered": true,
+          "uncertainty_declared": true,
+          "residuals_show_model_beats_declared_comparator": true,
+          "negative_controls_rejected": true,
+          "falsifier_declared": true,
+          "strict_pack_support_allowed": true
+        },
+        "validation_failures": [],
+        "grand_empirical_domain_status_ref": "reports/OC_CORE_1_3_3_GRAND_EMPIRICAL_REPORT.json::domains::chemistry",
+        "grand_empirical_domain_status": {
+          "status": "EVIDENCE_SUFFICIENT_PENDING_REVIEW",
+          "valid_n": 20,
+          "minimum_n": 20,
+          "grand_toe_support_allowed": false,
+          "blockers": []
+        }
+      },
+      "oc_result": {
+        "result_ref": "validation/heldout/grand_science/chemistry/pubchem_hbond_donor/OC133_CHEMISTRY_PUBCHEM_HBOND_DONOR_CANDIDATE_PACK.json",
+        "result_kind": "STRICT_BENCHMARK_SCOPED_CANDIDATE_PACK",
+        "model_under_test": "target-blind SMILES hydrogen-bond donor atom counter",
+        "model_residual": 0.0,
+        "uncertainty": {
+          "metric": "mean absolute error in PubChem HBondDonorCount units",
+          "method": "integer descriptor exact-match scoring; row residuals must be zero",
+          "interval": [
+            0.0,
+            0.05
+          ]
+        },
+        "support_scope": "benchmark-scoped comparison against declared preregistered incumbent/baseline controls only",
+        "not_supported_claim": "predicts better than modern science"
+      },
+      "comparator_result": {
+        "result_ref": "validation/heldout/grand_science/chemistry/pubchem_hbond_donor/OC133_CHEMISTRY_PUBCHEM_HBOND_DONOR_CANDIDATE_PACK.json",
+        "baseline_name": "formula-only nitrogen/oxygen heteroatom donor-count baseline",
+        "prediction_rule": "parse only MolecularFormula from the visible projection and predict the count of N plus O atoms as donor atoms, ignoring bonding, protonation, and functional group context",
+        "pre_registered": true,
+        "comparator_residual": 0.65,
+        "superiority_margin": 0.65,
+        "negative_controls": [
+          {
+            "control_id": "chemistry-hbd-formula-heteroatom-aggregate-control",
+            "description": "formula-only N+O heteroatom donor baseline is materially worse than the SMILES donor predictor in aggregate",
+            "rejected": true
+          },
+          {
+            "control_id": "chemistry-hbd-zero-count-aggregate-control",
+            "description": "constant zero donor-count sanity control is worse than the SMILES donor predictor in aggregate",
+            "rejected": true
+          }
+        ],
+        "falsifiers": [
+          "SMILES donor-count residual is nonzero, target leaks into visible/comparator inputs, target is formula-mass replay, or aggregate formula-only comparator is not materially worse"
+        ]
+      },
+      "benchmark_predicate": {
+        "task": "Predict PubChem HBondDonorCount from visible CID, formula, and ConnectivitySMILES without reading the target descriptor.",
+        "metric_family": "mean absolute error in PubChem HBondDonorCount units",
+        "certification_predicates": [
+          "current_strict_pack_ref",
+          "current_pack_exists",
+          "current_pack_hash_bound",
+          "schema_is_strict_grand_empirical",
+          "domain_matches_pack",
+          "minimum_n_met",
+          "source_separation_mode_allowed",
+          "pre_target_lock_present",
+          "target_hidden_until_scoring",
+          "training_and_target_source_refs_present",
+          "pack_sha256_bound",
+          "comparator_baseline_declared",
+          "comparator_baseline_pre_registered",
+          "uncertainty_declared",
+          "residuals_show_model_beats_declared_comparator",
+          "negative_controls_rejected",
+          "falsifier_declared",
+          "strict_pack_support_allowed"
+        ],
+        "current_predicate_status": {
+          "current_strict_pack_ref": true,
+          "current_pack_exists": true,
+          "current_pack_hash_bound": true,
+          "schema_is_strict_grand_empirical": true,
+          "domain_matches_pack": true,
+          "minimum_n_met": true,
+          "source_separation_mode_allowed": true,
+          "pre_target_lock_present": true,
+          "target_hidden_until_scoring": true,
+          "training_and_target_source_refs_present": true,
+          "pack_sha256_bound": true,
+          "comparator_baseline_declared": true,
+          "comparator_baseline_pre_registered": true,
+          "uncertainty_declared": true,
+          "residuals_show_model_beats_declared_comparator": true,
+          "negative_controls_rejected": true,
+          "falsifier_declared": true,
+          "strict_pack_support_allowed": true
+        },
+        "current_verdict": "CERTIFIED_AGAINST_DECLARED_BENCHMARK_BASELINES",
+        "allowed_current_claim": "OC133 benchmark result beats the declared preregistered comparator baselines for this strict pack."
+      },
+      "uncertainty_fairness": {
+        "uncertainty_declared": true,
+        "uncertainty": {
+          "metric": "mean absolute error in PubChem HBondDonorCount units",
+          "method": "integer descriptor exact-match scoring; row residuals must be zero",
+          "interval": [
+            0.0,
+            0.05
+          ]
+        },
+        "source_separation_mode": "prospective",
+        "predeclared_comparator_present": true,
+        "negative_control_rejected": true,
+        "fairness_limitations": [
+          "Certification is scoped to the declared pack task, source refs, hash, and preregistered baselines.",
+          "It is not a survey over all theories, datasets, instruments, labs, or methods in the domain."
+        ],
+        "fairness_verdict": "BENCHMARK_SCOPED_FAIRNESS_ACCEPTED"
+      },
+      "certification_verdict": {
+        "benchmark_scoped_superiority": {
+          "certified": true,
+          "label": "CERTIFIED_AGAINST_DECLARED_INCUMBENT_BENCHMARK_BASELINES",
+          "scope": "declared strict evidence pack baselines only"
+        },
+        "broad_modern_science_superiority": {
+          "certified": false,
+          "label": "BLOCKED_UNSUPPORTED_BROAD_WORDING",
+          "forbidden_claim": "predicts better than modern science"
+        },
+        "modern_science_comparator_superiority": {
+          "state": "FAIL_BROAD_CLAIM_BLOCKED",
+          "honest_pass_state": "benchmark_scoped_only"
+        }
+      },
+      "blocker_reason": {
+        "broad_claim_blocked_by": [
+          "BROAD_MODERN_SCIENCE_SCOPE_NOT_COVERED_BY_DECLARED_PACKS",
+          "NO_SURVEY_OF_ALL_MODERN_SCIENCE_INCUMBENTS",
+          "INDEPENDENT_CLEAN_CHECKOUT_REPLAY_NOT_BOUND_TO_THIS_REGISTER",
+          "UNSUPPORTED_WORDING::predicts better than modern science"
+        ],
+        "strict_pack_failures": [],
+        "allowed_current_wording": "certified against declared incumbent benchmark baselines only",
+        "forbidden_wording": [
+          "predicts better than modern science",
+          "superior to modern science",
+          "outperforms modern science",
+          "replaces modern science"
+        ]
+      }
+    },
+    {
+      "domain": "physics",
+      "row_id": "MS-SUP-PHYSICS-STRICT-PACK",
+      "lane_id": "MS-LANE-PHYSICS-STRICT-PACK",
+      "predicate_id": "MS-PRED-PHYSICS-STRICT-PACK",
+      "distinction_roles_present": [
+        "incumbent_modern_science_source",
+        "strict_evidence_pack",
+        "oc_result",
+        "comparator_result",
+        "benchmark_predicate",
+        "uncertainty_fairness",
+        "certification_verdict",
+        "blocker_reason"
+      ],
+      "incumbent_modern_science_source": {
+        "incumbent": "NIST/CODATA/SI fundamental constants reference standards",
+        "accepted_capacity": "NIST/CODATA publishes official constants and relationships; the current pack tests prospective official-snapshot relationship reconstruction against preregistered null/wrong-field controls.",
+        "source_refs": [
+          {
+            "title": "NIST CODATA recommended values of the fundamental physical constants, 2022 adjustment",
+            "url": "https://physics.nist.gov/cuu/pdf/all.pdf",
+            "source_date": "2022",
+            "local_source_capsule_ref": "comparators/modern_science/source_capsules/MS-SRC-PHYS-CODATA-2022.txt",
+            "local_source_capsule_sha256": "121e451dfdaa13ff49e17b2bdb54b19e908d6fa4a890b2c857cc4eeaa6d1ace5"
+          }
+        ],
+        "source_role": "incumbent/source context only; not evidence that OC beats all of the field"
+      },
+      "strict_evidence_pack": {
+        "ref": "validation/heldout/grand_science/physics_chemistry/official_batch/physics_official_batch_candidate_evidence_pack.json",
+        "sha256": "8ee7d8282e04c6e15ee780e97d4a2766ed92e6300df4de548a739ec36209c6c4",
+        "evidence_pack_id": "OC133-PHYSICS-OFFICIAL-SNAPSHOT-BATCH-CANDIDATE",
+        "schema_id": "OC133_GRAND_EMPIRICAL_EVIDENCE_v1",
+        "n": 44,
+        "domain": "physics",
+        "source_separation": {
+          "mode": "prospective",
+          "pre_target_lock": true,
+          "target_hidden_until_scoring": true,
+          "training_source_ref_total": 44,
+          "target_source_ref_total": 44,
+          "attestation_ref": "validation/heldout/acquisition_runs/oc133_official_readonly/locks/OC133-PHYSICS-CODATA-PROSPECTIVE-ALLASCII-001.lock.json"
+        },
+        "source_refs": [
+          "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-PHYSICS-CODATA-PROSPECTIVE-ALLASCII-001.txt::PHYS-CODATA-001::formula_inputs::speed of light in vacuum",
+          "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-PHYSICS-CODATA-PROSPECTIVE-ALLASCII-001.txt::PHYS-CODATA-002::formula_inputs::Planck constant",
+          "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-PHYSICS-CODATA-PROSPECTIVE-ALLASCII-001.txt::PHYS-CODATA-003::formula_inputs::elementary charge",
+          "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-PHYSICS-CODATA-PROSPECTIVE-ALLASCII-001.txt::PHYS-CODATA-004::formula_inputs::elementary charge",
+          "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-PHYSICS-CODATA-PROSPECTIVE-ALLASCII-001.txt::PHYS-CODATA-005::formula_inputs::Planck constant,elementary charge",
+          "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-PHYSICS-CODATA-PROSPECTIVE-ALLASCII-001.txt::PHYS-CODATA-006::formula_inputs::elementary charge,Planck constant",
+          "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-PHYSICS-CODATA-PROSPECTIVE-ALLASCII-001.txt::PHYS-CODATA-007::formula_inputs::Planck constant,speed of light in vacuum",
+          "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-PHYSICS-CODATA-PROSPECTIVE-ALLASCII-001.txt::PHYS-CODATA-008::formula_inputs::Planck constant,speed of light in vacuum,elementary charge",
+          "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-PHYSICS-CODATA-PROSPECTIVE-ALLASCII-001.txt::PHYS-CODATA-009::formula_inputs::elementary charge,Planck constant,speed of light in vacuum",
+          "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-PHYSICS-CODATA-PROSPECTIVE-ALLASCII-001.txt::PHYS-CODATA-010::formula_inputs::elementary charge,Boltzmann constant",
+          "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-PHYSICS-CODATA-PROSPECTIVE-ALLASCII-001.txt::PHYS-CODATA-011::formula_inputs::Boltzmann constant,elementary charge",
+          "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-PHYSICS-CODATA-PROSPECTIVE-ALLASCII-001.txt::PHYS-CODATA-012::formula_inputs::Planck constant,Boltzmann constant",
+          "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-PHYSICS-CODATA-PROSPECTIVE-ALLASCII-001.txt::PHYS-CODATA-013::formula_inputs::Boltzmann constant,Planck constant",
+          "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-PHYSICS-CODATA-PROSPECTIVE-ALLASCII-001.txt::PHYS-CODATA-014::formula_inputs::Planck constant,speed of light in vacuum,Boltzmann constant",
+          "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-PHYSICS-CODATA-PROSPECTIVE-ALLASCII-001.txt::PHYS-CODATA-015::formula_inputs::Boltzmann constant,Planck constant,speed of light in vacuum",
+          "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-PHYSICS-CODATA-PROSPECTIVE-ALLASCII-001.txt::PHYS-CODATA-016::formula_inputs::Planck constant,speed of light in vacuum",
+          "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-PHYSICS-CODATA-PROSPECTIVE-ALLASCII-001.txt::PHYS-CODATA-017::formula_inputs::Boltzmann constant",
+          "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-PHYSICS-CODATA-PROSPECTIVE-ALLASCII-001.txt::PHYS-CODATA-018::formula_inputs::speed of light in vacuum",
+          "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-PHYSICS-CODATA-PROSPECTIVE-ALLASCII-001.txt::PHYS-CODATA-019::formula_inputs::speed of light in vacuum",
+          "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-PHYSICS-CODATA-PROSPECTIVE-ALLASCII-001.txt::PHYS-CODATA-020::formula_inputs::speed of light in vacuum,Planck constant",
+          "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-PHYSICS-CODATA-PROSPECTIVE-ALLASCII-001.txt::PHYS-CODATA-021::formula_inputs::speed of light in vacuum,Planck constant",
+          "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-PHYSICS-CODATA-PROSPECTIVE-ALLASCII-001.txt::PHYS-CODATA-022::formula_inputs::speed of light in vacuum,Boltzmann constant",
+          "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-PHYSICS-CODATA-PROSPECTIVE-ALLASCII-001.txt::PHYS-CODATA-023::formula_inputs::speed of light in vacuum,elementary charge",
+          "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-PHYSICS-CODATA-PROSPECTIVE-ALLASCII-001.txt::PHYS-CODATA-024::formula_inputs::elementary charge,speed of light in vacuum",
+          "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-PHYSICS-CODATA-PROSPECTIVE-ALLASCII-001.txt::PHYS-CODATA-025::formula_inputs::atomic mass constant",
+          "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-PHYSICS-CODATA-PROSPECTIVE-ALLASCII-001.txt::PHYS-CODATA-026::formula_inputs::atomic mass constant,speed of light in vacuum",
+          "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-PHYSICS-CODATA-PROSPECTIVE-ALLASCII-001.txt::PHYS-CODATA-027::formula_inputs::atomic mass constant,speed of light in vacuum,elementary charge",
+          "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-PHYSICS-CODATA-PROSPECTIVE-ALLASCII-001.txt::PHYS-CODATA-028::formula_inputs::atomic mass constant,speed of light in vacuum,Planck constant",
+          "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-PHYSICS-CODATA-PROSPECTIVE-ALLASCII-001.txt::PHYS-CODATA-029::formula_inputs::atomic mass constant,speed of light in vacuum,Planck constant",
+          "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-PHYSICS-CODATA-PROSPECTIVE-ALLASCII-001.txt::PHYS-CODATA-030::formula_inputs::atomic mass constant,speed of light in vacuum,Boltzmann constant",
+          "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-PHYSICS-CODATA-PROSPECTIVE-ALLASCII-001.txt::PHYS-CODATA-031::formula_inputs::Boltzmann constant,atomic mass constant,speed of light in vacuum",
+          "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-PHYSICS-CODATA-PROSPECTIVE-ALLASCII-001.txt::PHYS-CODATA-032::formula_inputs::Hartree energy",
+          "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-PHYSICS-CODATA-PROSPECTIVE-ALLASCII-001.txt::PHYS-CODATA-033::formula_inputs::Hartree energy,elementary charge",
+          "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-PHYSICS-CODATA-PROSPECTIVE-ALLASCII-001.txt::PHYS-CODATA-034::formula_inputs::Hartree energy,Planck constant",
+          "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-PHYSICS-CODATA-PROSPECTIVE-ALLASCII-001.txt::PHYS-CODATA-035::formula_inputs::Hartree energy,Planck constant,speed of light in vacuum",
+          "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-PHYSICS-CODATA-PROSPECTIVE-ALLASCII-001.txt::PHYS-CODATA-036::formula_inputs::Hartree energy,Boltzmann constant",
+          "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-PHYSICS-CODATA-PROSPECTIVE-ALLASCII-001.txt::PHYS-CODATA-037::formula_inputs::Hartree energy,speed of light in vacuum",
+          "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-PHYSICS-CODATA-PROSPECTIVE-ALLASCII-001.txt::PHYS-CODATA-038::formula_inputs::Boltzmann constant,Hartree energy",
+          "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-PHYSICS-CODATA-PROSPECTIVE-ALLASCII-001.txt::PHYS-CODATA-039::formula_inputs::Rydberg constant,speed of light in vacuum",
+          "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-PHYSICS-CODATA-PROSPECTIVE-ALLASCII-001.txt::PHYS-CODATA-040::formula_inputs::Rydberg constant,Planck constant,speed of light in vacuum",
+          "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-PHYSICS-CODATA-PROSPECTIVE-ALLASCII-001.txt::PHYS-CODATA-041::formula_inputs::Rydberg constant,Planck constant,speed of light in vacuum,elementary charge",
+          "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-PHYSICS-CODATA-PROSPECTIVE-ALLASCII-001.txt::PHYS-CODATA-042::formula_inputs::Planck constant,Avogadro constant",
+          "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-PHYSICS-CODATA-PROSPECTIVE-ALLASCII-001.txt::PHYS-CODATA-043::formula_inputs::elementary charge,Avogadro constant",
+          "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-PHYSICS-CODATA-PROSPECTIVE-ALLASCII-001.txt::PHYS-CODATA-044::formula_inputs::Boltzmann constant,Avogadro constant",
+          "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-PHYSICS-CODATA-PROSPECTIVE-ALLASCII-001.txt::PHYS-CODATA-001::target::inverse meter-hertz relationship",
+          "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-PHYSICS-CODATA-PROSPECTIVE-ALLASCII-001.txt::PHYS-CODATA-002::target::hertz-joule relationship",
+          "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-PHYSICS-CODATA-PROSPECTIVE-ALLASCII-001.txt::PHYS-CODATA-003::target::electron volt-joule relationship",
+          "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-PHYSICS-CODATA-PROSPECTIVE-ALLASCII-001.txt::PHYS-CODATA-004::target::electron volt",
+          "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-PHYSICS-CODATA-PROSPECTIVE-ALLASCII-001.txt::PHYS-CODATA-005::target::hertz-electron volt relationship",
+          "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-PHYSICS-CODATA-PROSPECTIVE-ALLASCII-001.txt::PHYS-CODATA-006::target::electron volt-hertz relationship",
+          "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-PHYSICS-CODATA-PROSPECTIVE-ALLASCII-001.txt::PHYS-CODATA-007::target::inverse meter-joule relationship",
+          "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-PHYSICS-CODATA-PROSPECTIVE-ALLASCII-001.txt::PHYS-CODATA-008::target::inverse meter-electron volt relationship",
+          "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-PHYSICS-CODATA-PROSPECTIVE-ALLASCII-001.txt::PHYS-CODATA-009::target::electron volt-inverse meter relationship",
+          "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-PHYSICS-CODATA-PROSPECTIVE-ALLASCII-001.txt::PHYS-CODATA-010::target::electron volt-kelvin relationship",
+          "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-PHYSICS-CODATA-PROSPECTIVE-ALLASCII-001.txt::PHYS-CODATA-011::target::kelvin-electron volt relationship",
+          "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-PHYSICS-CODATA-PROSPECTIVE-ALLASCII-001.txt::PHYS-CODATA-012::target::hertz-kelvin relationship",
+          "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-PHYSICS-CODATA-PROSPECTIVE-ALLASCII-001.txt::PHYS-CODATA-013::target::kelvin-hertz relationship",
+          "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-PHYSICS-CODATA-PROSPECTIVE-ALLASCII-001.txt::PHYS-CODATA-014::target::inverse meter-kelvin relationship",
+          "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-PHYSICS-CODATA-PROSPECTIVE-ALLASCII-001.txt::PHYS-CODATA-015::target::kelvin-inverse meter relationship",
+          "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-PHYSICS-CODATA-PROSPECTIVE-ALLASCII-001.txt::PHYS-CODATA-016::target::joule-inverse meter relationship",
+          "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-PHYSICS-CODATA-PROSPECTIVE-ALLASCII-001.txt::PHYS-CODATA-017::target::joule-kelvin relationship",
+          "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-PHYSICS-CODATA-PROSPECTIVE-ALLASCII-001.txt::PHYS-CODATA-018::target::joule-kilogram relationship",
+          "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-PHYSICS-CODATA-PROSPECTIVE-ALLASCII-001.txt::PHYS-CODATA-019::target::kilogram-joule relationship",
+          "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-PHYSICS-CODATA-PROSPECTIVE-ALLASCII-001.txt::PHYS-CODATA-020::target::kilogram-hertz relationship",
+          "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-PHYSICS-CODATA-PROSPECTIVE-ALLASCII-001.txt::PHYS-CODATA-021::target::kilogram-inverse meter relationship",
+          "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-PHYSICS-CODATA-PROSPECTIVE-ALLASCII-001.txt::PHYS-CODATA-022::target::kilogram-kelvin relationship",
+          "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-PHYSICS-CODATA-PROSPECTIVE-ALLASCII-001.txt::PHYS-CODATA-023::target::kilogram-electron volt relationship",
+          "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-PHYSICS-CODATA-PROSPECTIVE-ALLASCII-001.txt::PHYS-CODATA-024::target::electron volt-kilogram relationship",
+          "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-PHYSICS-CODATA-PROSPECTIVE-ALLASCII-001.txt::PHYS-CODATA-025::target::atomic mass unit-kilogram relationship",
+          "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-PHYSICS-CODATA-PROSPECTIVE-ALLASCII-001.txt::PHYS-CODATA-026::target::atomic mass unit-joule relationship",
+          "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-PHYSICS-CODATA-PROSPECTIVE-ALLASCII-001.txt::PHYS-CODATA-027::target::atomic mass unit-electron volt relationship",
+          "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-PHYSICS-CODATA-PROSPECTIVE-ALLASCII-001.txt::PHYS-CODATA-028::target::atomic mass unit-hertz relationship",
+          "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-PHYSICS-CODATA-PROSPECTIVE-ALLASCII-001.txt::PHYS-CODATA-029::target::atomic mass unit-inverse meter relationship",
+          "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-PHYSICS-CODATA-PROSPECTIVE-ALLASCII-001.txt::PHYS-CODATA-030::target::atomic mass unit-kelvin relationship",
+          "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-PHYSICS-CODATA-PROSPECTIVE-ALLASCII-001.txt::PHYS-CODATA-031::target::kelvin-atomic mass unit relationship",
+          "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-PHYSICS-CODATA-PROSPECTIVE-ALLASCII-001.txt::PHYS-CODATA-032::target::hartree-joule relationship",
+          "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-PHYSICS-CODATA-PROSPECTIVE-ALLASCII-001.txt::PHYS-CODATA-033::target::hartree-electron volt relationship",
+          "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-PHYSICS-CODATA-PROSPECTIVE-ALLASCII-001.txt::PHYS-CODATA-034::target::hartree-hertz relationship",
+          "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-PHYSICS-CODATA-PROSPECTIVE-ALLASCII-001.txt::PHYS-CODATA-035::target::hartree-inverse meter relationship",
+          "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-PHYSICS-CODATA-PROSPECTIVE-ALLASCII-001.txt::PHYS-CODATA-036::target::hartree-kelvin relationship",
+          "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-PHYSICS-CODATA-PROSPECTIVE-ALLASCII-001.txt::PHYS-CODATA-037::target::hartree-kilogram relationship",
+          "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-PHYSICS-CODATA-PROSPECTIVE-ALLASCII-001.txt::PHYS-CODATA-038::target::kelvin-hartree relationship",
+          "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-PHYSICS-CODATA-PROSPECTIVE-ALLASCII-001.txt::PHYS-CODATA-039::target::Rydberg constant times c in Hz",
+          "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-PHYSICS-CODATA-PROSPECTIVE-ALLASCII-001.txt::PHYS-CODATA-040::target::Rydberg constant times hc in J",
+          "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-PHYSICS-CODATA-PROSPECTIVE-ALLASCII-001.txt::PHYS-CODATA-041::target::Rydberg constant times hc in eV",
+          "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-PHYSICS-CODATA-PROSPECTIVE-ALLASCII-001.txt::PHYS-CODATA-042::target::molar Planck constant",
+          "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-PHYSICS-CODATA-PROSPECTIVE-ALLASCII-001.txt::PHYS-CODATA-043::target::Faraday constant",
+          "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-PHYSICS-CODATA-PROSPECTIVE-ALLASCII-001.txt::PHYS-CODATA-044::target::molar gas constant",
+          "validation/heldout/acquisition_runs/oc133_official_readonly/locks/OC133-PHYSICS-CODATA-PROSPECTIVE-ALLASCII-001.lock.json"
+        ],
+        "source_hash_refs": [
+          {
+            "source_ref": "validation/heldout/acquisition_runs/oc133_official_readonly/locks/OC133-PHYSICS-CODATA-PROSPECTIVE-ALLASCII-001.lock.json",
+            "hash_policy": "attestation_ref_present"
+          }
+        ],
+        "validation_predicates": {
+          "current_strict_pack_ref": true,
+          "current_pack_exists": true,
+          "current_pack_hash_bound": true,
+          "schema_is_strict_grand_empirical": true,
+          "domain_matches_pack": true,
+          "minimum_n_met": true,
+          "source_separation_mode_allowed": true,
+          "pre_target_lock_present": true,
+          "target_hidden_until_scoring": true,
+          "training_and_target_source_refs_present": true,
+          "pack_sha256_bound": true,
+          "comparator_baseline_declared": true,
+          "comparator_baseline_pre_registered": true,
+          "uncertainty_declared": true,
+          "residuals_show_model_beats_declared_comparator": true,
+          "negative_controls_rejected": true,
+          "falsifier_declared": true,
+          "strict_pack_support_allowed": true
+        },
+        "validation_failures": [],
+        "grand_empirical_domain_status_ref": "reports/OC_CORE_1_3_3_GRAND_EMPIRICAL_REPORT.json::domains::physics",
+        "grand_empirical_domain_status": {
+          "status": "EVIDENCE_SUFFICIENT_PENDING_REVIEW",
+          "valid_n": 44,
+          "minimum_n": 20,
+          "grand_toe_support_allowed": false,
+          "blockers": []
+        }
+      },
+      "oc_result": {
+        "result_ref": "validation/heldout/grand_science/physics_chemistry/official_batch/physics_official_batch_candidate_evidence_pack.json",
+        "result_kind": "STRICT_BENCHMARK_SCOPED_CANDIDATE_PACK",
+        "model_under_test": "OC133 official-snapshot physics batch scorer over NIST/PubChem rows",
+        "model_residual": 0.010729530673706203,
+        "uncertainty": {
+          "metric": "absolute_error_with_uncertainty_normalized_score_v1",
+          "method": "deterministic official snapshot replay envelope; blocked unless target-blind/prospective source separation exists",
+          "interval": [
+            0.0,
+            1.0
+          ]
+        },
+        "support_scope": "benchmark-scoped comparison against declared preregistered incumbent/baseline controls only",
+        "not_supported_claim": "predicts better than modern science"
+      },
+      "comparator_result": {
+        "result_ref": "validation/heldout/grand_science/physics_chemistry/official_batch/physics_official_batch_candidate_evidence_pack.json",
+        "baseline_name": "physics official-snapshot same-target formula ablation baseline",
+        "prediction_rule": "For each declared CODATA target, evaluate the preregistered target formula after replacing the first visible ingredient with dimensionless 1.0; score that same-target ablation under the same residual metric.",
+        "pre_registered": true,
+        "comparator_residual": 3.4320356941968604e+43,
+        "superiority_margin": 3.4320356941968604e+43,
+        "negative_controls": [
+          {
+            "control_id": "PHYS-CODATA-001-SAME-TARGET-FORMULA-ABLATION-v1",
+            "description": "replace the first visible formula ingredient with dimensionless 1.0 and require a larger same-target residual",
+            "rejected": true
+          },
+          {
+            "control_id": "PHYS-CODATA-002-SAME-TARGET-FORMULA-ABLATION-v1",
+            "description": "replace the first visible formula ingredient with dimensionless 1.0 and require a larger same-target residual",
+            "rejected": true
+          },
+          {
+            "control_id": "PHYS-CODATA-003-SAME-TARGET-FORMULA-ABLATION-v1",
+            "description": "replace the first visible formula ingredient with dimensionless 1.0 and require a larger same-target residual",
+            "rejected": true
+          },
+          {
+            "control_id": "PHYS-CODATA-004-SAME-TARGET-FORMULA-ABLATION-v1",
+            "description": "replace the first visible formula ingredient with dimensionless 1.0 and require a larger same-target residual",
+            "rejected": true
+          },
+          {
+            "control_id": "PHYS-CODATA-005-SAME-TARGET-FORMULA-ABLATION-v1",
+            "description": "replace the first visible formula ingredient with dimensionless 1.0 and require a larger same-target residual",
+            "rejected": true
+          },
+          {
+            "control_id": "PHYS-CODATA-006-SAME-TARGET-FORMULA-ABLATION-v1",
+            "description": "replace the first visible formula ingredient with dimensionless 1.0 and require a larger same-target residual",
+            "rejected": true
+          },
+          {
+            "control_id": "PHYS-CODATA-007-SAME-TARGET-FORMULA-ABLATION-v1",
+            "description": "replace the first visible formula ingredient with dimensionless 1.0 and require a larger same-target residual",
+            "rejected": true
+          },
+          {
+            "control_id": "PHYS-CODATA-008-SAME-TARGET-FORMULA-ABLATION-v1",
+            "description": "replace the first visible formula ingredient with dimensionless 1.0 and require a larger same-target residual",
+            "rejected": true
+          },
+          {
+            "control_id": "PHYS-CODATA-009-SAME-TARGET-FORMULA-ABLATION-v1",
+            "description": "replace the first visible formula ingredient with dimensionless 1.0 and require a larger same-target residual",
+            "rejected": true
+          },
+          {
+            "control_id": "PHYS-CODATA-010-SAME-TARGET-FORMULA-ABLATION-v1",
+            "description": "replace the first visible formula ingredient with dimensionless 1.0 and require a larger same-target residual",
+            "rejected": true
+          },
+          {
+            "control_id": "PHYS-CODATA-011-SAME-TARGET-FORMULA-ABLATION-v1",
+            "description": "replace the first visible formula ingredient with dimensionless 1.0 and require a larger same-target residual",
+            "rejected": true
+          },
+          {
+            "control_id": "PHYS-CODATA-012-SAME-TARGET-FORMULA-ABLATION-v1",
+            "description": "replace the first visible formula ingredient with dimensionless 1.0 and require a larger same-target residual",
+            "rejected": true
+          },
+          {
+            "control_id": "PHYS-CODATA-013-SAME-TARGET-FORMULA-ABLATION-v1",
+            "description": "replace the first visible formula ingredient with dimensionless 1.0 and require a larger same-target residual",
+            "rejected": true
+          },
+          {
+            "control_id": "PHYS-CODATA-014-SAME-TARGET-FORMULA-ABLATION-v1",
+            "description": "replace the first visible formula ingredient with dimensionless 1.0 and require a larger same-target residual",
+            "rejected": true
+          },
+          {
+            "control_id": "PHYS-CODATA-015-SAME-TARGET-FORMULA-ABLATION-v1",
+            "description": "replace the first visible formula ingredient with dimensionless 1.0 and require a larger same-target residual",
+            "rejected": true
+          },
+          {
+            "control_id": "PHYS-CODATA-016-SAME-TARGET-FORMULA-ABLATION-v1",
+            "description": "replace the first visible formula ingredient with dimensionless 1.0 and require a larger same-target residual",
+            "rejected": true
+          },
+          {
+            "control_id": "PHYS-CODATA-017-SAME-TARGET-FORMULA-ABLATION-v1",
+            "description": "replace the first visible formula ingredient with dimensionless 1.0 and require a larger same-target residual",
+            "rejected": true
+          },
+          {
+            "control_id": "PHYS-CODATA-018-SAME-TARGET-FORMULA-ABLATION-v1",
+            "description": "replace the first visible formula ingredient with dimensionless 1.0 and require a larger same-target residual",
+            "rejected": true
+          },
+          {
+            "control_id": "PHYS-CODATA-019-SAME-TARGET-FORMULA-ABLATION-v1",
+            "description": "replace the first visible formula ingredient with dimensionless 1.0 and require a larger same-target residual",
+            "rejected": true
+          },
+          {
+            "control_id": "PHYS-CODATA-020-SAME-TARGET-FORMULA-ABLATION-v1",
+            "description": "replace the first visible formula ingredient with dimensionless 1.0 and require a larger same-target residual",
+            "rejected": true
+          },
+          {
+            "control_id": "PHYS-CODATA-021-SAME-TARGET-FORMULA-ABLATION-v1",
+            "description": "replace the first visible formula ingredient with dimensionless 1.0 and require a larger same-target residual",
+            "rejected": true
+          },
+          {
+            "control_id": "PHYS-CODATA-022-SAME-TARGET-FORMULA-ABLATION-v1",
+            "description": "replace the first visible formula ingredient with dimensionless 1.0 and require a larger same-target residual",
+            "rejected": true
+          },
+          {
+            "control_id": "PHYS-CODATA-023-SAME-TARGET-FORMULA-ABLATION-v1",
+            "description": "replace the first visible formula ingredient with dimensionless 1.0 and require a larger same-target residual",
+            "rejected": true
+          },
+          {
+            "control_id": "PHYS-CODATA-024-SAME-TARGET-FORMULA-ABLATION-v1",
+            "description": "replace the first visible formula ingredient with dimensionless 1.0 and require a larger same-target residual",
+            "rejected": true
+          },
+          {
+            "control_id": "PHYS-CODATA-025-SAME-TARGET-FORMULA-ABLATION-v1",
+            "description": "replace the first visible formula ingredient with dimensionless 1.0 and require a larger same-target residual",
+            "rejected": true
+          },
+          {
+            "control_id": "PHYS-CODATA-026-SAME-TARGET-FORMULA-ABLATION-v1",
+            "description": "replace the first visible formula ingredient with dimensionless 1.0 and require a larger same-target residual",
+            "rejected": true
+          },
+          {
+            "control_id": "PHYS-CODATA-027-SAME-TARGET-FORMULA-ABLATION-v1",
+            "description": "replace the first visible formula ingredient with dimensionless 1.0 and require a larger same-target residual",
+            "rejected": true
+          },
+          {
+            "control_id": "PHYS-CODATA-028-SAME-TARGET-FORMULA-ABLATION-v1",
+            "description": "replace the first visible formula ingredient with dimensionless 1.0 and require a larger same-target residual",
+            "rejected": true
+          },
+          {
+            "control_id": "PHYS-CODATA-029-SAME-TARGET-FORMULA-ABLATION-v1",
+            "description": "replace the first visible formula ingredient with dimensionless 1.0 and require a larger same-target residual",
+            "rejected": true
+          },
+          {
+            "control_id": "PHYS-CODATA-030-SAME-TARGET-FORMULA-ABLATION-v1",
+            "description": "replace the first visible formula ingredient with dimensionless 1.0 and require a larger same-target residual",
+            "rejected": true
+          },
+          {
+            "control_id": "PHYS-CODATA-031-SAME-TARGET-FORMULA-ABLATION-v1",
+            "description": "replace the first visible formula ingredient with dimensionless 1.0 and require a larger same-target residual",
+            "rejected": true
+          },
+          {
+            "control_id": "PHYS-CODATA-032-SAME-TARGET-FORMULA-ABLATION-v1",
+            "description": "replace the first visible formula ingredient with dimensionless 1.0 and require a larger same-target residual",
+            "rejected": true
+          },
+          {
+            "control_id": "PHYS-CODATA-033-SAME-TARGET-FORMULA-ABLATION-v1",
+            "description": "replace the first visible formula ingredient with dimensionless 1.0 and require a larger same-target residual",
+            "rejected": true
+          },
+          {
+            "control_id": "PHYS-CODATA-034-SAME-TARGET-FORMULA-ABLATION-v1",
+            "description": "replace the first visible formula ingredient with dimensionless 1.0 and require a larger same-target residual",
+            "rejected": true
+          },
+          {
+            "control_id": "PHYS-CODATA-035-SAME-TARGET-FORMULA-ABLATION-v1",
+            "description": "replace the first visible formula ingredient with dimensionless 1.0 and require a larger same-target residual",
+            "rejected": true
+          },
+          {
+            "control_id": "PHYS-CODATA-036-SAME-TARGET-FORMULA-ABLATION-v1",
+            "description": "replace the first visible formula ingredient with dimensionless 1.0 and require a larger same-target residual",
+            "rejected": true
+          },
+          {
+            "control_id": "PHYS-CODATA-037-SAME-TARGET-FORMULA-ABLATION-v1",
+            "description": "replace the first visible formula ingredient with dimensionless 1.0 and require a larger same-target residual",
+            "rejected": true
+          },
+          {
+            "control_id": "PHYS-CODATA-038-SAME-TARGET-FORMULA-ABLATION-v1",
+            "description": "replace the first visible formula ingredient with dimensionless 1.0 and require a larger same-target residual",
+            "rejected": true
+          },
+          {
+            "control_id": "PHYS-CODATA-039-SAME-TARGET-FORMULA-ABLATION-v1",
+            "description": "replace the first visible formula ingredient with dimensionless 1.0 and require a larger same-target residual",
+            "rejected": true
+          },
+          {
+            "control_id": "PHYS-CODATA-040-SAME-TARGET-FORMULA-ABLATION-v1",
+            "description": "replace the first visible formula ingredient with dimensionless 1.0 and require a larger same-target residual",
+            "rejected": true
+          },
+          {
+            "control_id": "PHYS-CODATA-041-SAME-TARGET-FORMULA-ABLATION-v1",
+            "description": "replace the first visible formula ingredient with dimensionless 1.0 and require a larger same-target residual",
+            "rejected": true
+          },
+          {
+            "control_id": "PHYS-CODATA-042-SAME-TARGET-FORMULA-ABLATION-v1",
+            "description": "replace the first visible formula ingredient with dimensionless 1.0 and require a larger same-target residual",
+            "rejected": true
+          },
+          {
+            "control_id": "PHYS-CODATA-043-SAME-TARGET-FORMULA-ABLATION-v1",
+            "description": "replace the first visible formula ingredient with dimensionless 1.0 and require a larger same-target residual",
+            "rejected": true
+          },
+          {
+            "control_id": "PHYS-CODATA-044-SAME-TARGET-FORMULA-ABLATION-v1",
+            "description": "replace the first visible formula ingredient with dimensionless 1.0 and require a larger same-target residual",
+            "rejected": true
+          }
+        ],
+        "falsifiers": [
+          "official relation residual exceeds display/uncertainty tolerance or the same-target ablation baseline is not worse"
+        ]
+      },
+      "benchmark_predicate": {
+        "task": "Reconstruct official CODATA/SI relationship targets from visible formula inputs under a prospective official-readonly source lock.",
+        "metric_family": "absolute_error_with_uncertainty_normalized_score_v1",
+        "certification_predicates": [
+          "current_strict_pack_ref",
+          "current_pack_exists",
+          "current_pack_hash_bound",
+          "schema_is_strict_grand_empirical",
+          "domain_matches_pack",
+          "minimum_n_met",
+          "source_separation_mode_allowed",
+          "pre_target_lock_present",
+          "target_hidden_until_scoring",
+          "training_and_target_source_refs_present",
+          "pack_sha256_bound",
+          "comparator_baseline_declared",
+          "comparator_baseline_pre_registered",
+          "uncertainty_declared",
+          "residuals_show_model_beats_declared_comparator",
+          "negative_controls_rejected",
+          "falsifier_declared",
+          "strict_pack_support_allowed"
+        ],
+        "current_predicate_status": {
+          "current_strict_pack_ref": true,
+          "current_pack_exists": true,
+          "current_pack_hash_bound": true,
+          "schema_is_strict_grand_empirical": true,
+          "domain_matches_pack": true,
+          "minimum_n_met": true,
+          "source_separation_mode_allowed": true,
+          "pre_target_lock_present": true,
+          "target_hidden_until_scoring": true,
+          "training_and_target_source_refs_present": true,
+          "pack_sha256_bound": true,
+          "comparator_baseline_declared": true,
+          "comparator_baseline_pre_registered": true,
+          "uncertainty_declared": true,
+          "residuals_show_model_beats_declared_comparator": true,
+          "negative_controls_rejected": true,
+          "falsifier_declared": true,
+          "strict_pack_support_allowed": true
+        },
+        "current_verdict": "CERTIFIED_AGAINST_DECLARED_BENCHMARK_BASELINES",
+        "allowed_current_claim": "OC133 benchmark result beats the declared preregistered comparator baselines for this strict pack."
+      },
+      "uncertainty_fairness": {
+        "uncertainty_declared": true,
+        "uncertainty": {
+          "metric": "absolute_error_with_uncertainty_normalized_score_v1",
+          "method": "deterministic official snapshot replay envelope; blocked unless target-blind/prospective source separation exists",
+          "interval": [
+            0.0,
+            1.0
+          ]
+        },
+        "source_separation_mode": "prospective",
+        "predeclared_comparator_present": true,
+        "negative_control_rejected": true,
+        "fairness_limitations": [
+          "Certification is scoped to the declared pack task, source refs, hash, and preregistered baselines.",
+          "It is not a survey over all theories, datasets, instruments, labs, or methods in the domain."
+        ],
+        "fairness_verdict": "BENCHMARK_SCOPED_FAIRNESS_ACCEPTED"
+      },
+      "certification_verdict": {
+        "benchmark_scoped_superiority": {
+          "certified": true,
+          "label": "CERTIFIED_AGAINST_DECLARED_INCUMBENT_BENCHMARK_BASELINES",
+          "scope": "declared strict evidence pack baselines only"
+        },
+        "broad_modern_science_superiority": {
+          "certified": false,
+          "label": "BLOCKED_UNSUPPORTED_BROAD_WORDING",
+          "forbidden_claim": "predicts better than modern science"
+        },
+        "modern_science_comparator_superiority": {
+          "state": "FAIL_BROAD_CLAIM_BLOCKED",
+          "honest_pass_state": "benchmark_scoped_only"
+        }
+      },
+      "blocker_reason": {
+        "broad_claim_blocked_by": [
+          "BROAD_MODERN_SCIENCE_SCOPE_NOT_COVERED_BY_DECLARED_PACKS",
+          "NO_SURVEY_OF_ALL_MODERN_SCIENCE_INCUMBENTS",
+          "INDEPENDENT_CLEAN_CHECKOUT_REPLAY_NOT_BOUND_TO_THIS_REGISTER",
+          "UNSUPPORTED_WORDING::predicts better than modern science"
+        ],
+        "strict_pack_failures": [],
+        "allowed_current_wording": "certified against declared incumbent benchmark baselines only",
+        "forbidden_wording": [
+          "predicts better than modern science",
+          "superior to modern science",
+          "outperforms modern science",
+          "replaces modern science"
+        ]
+      }
+    },
+    {
+      "domain": "systems",
+      "row_id": "MS-SUP-SYSTEMS-STRICT-PACK",
+      "lane_id": "MS-LANE-SYSTEMS-STRICT-PACK",
+      "predicate_id": "MS-PRED-SYSTEMS-STRICT-PACK",
+      "distinction_roles_present": [
+        "incumbent_modern_science_source",
+        "strict_evidence_pack",
+        "oc_result",
+        "comparator_result",
+        "benchmark_predicate",
+        "uncertainty_fairness",
+        "certification_verdict",
+        "blocker_reason"
+      ],
+      "incumbent_modern_science_source": {
+        "incumbent": "World Bank World Development Indicators population series",
+        "accepted_capacity": "WDI exposes official annual population series; the current pack tests a target-blind Argentina held-out panel against carry-forward, prior-mean, and trailing-mean comparators.",
+        "source_refs": [
+          {
+            "title": "World Bank WDI metadata for SP.POP.TOTL",
+            "url": "https://databank.worldbank.org/metadataglossary/world-development-indicators/series/SP.POP.TOTL",
+            "source_date": "reference",
+            "local_source_capsule_ref": "comparators/modern_science/source_capsules/MS-SRC-SYS-WORLD-BANK-WDI.txt",
+            "local_source_capsule_sha256": "eb2365d9c8fa5806f3b9f210a27e94872bcf500b9de33776529f893550b41036"
+          }
+        ],
+        "source_role": "incumbent/source context only; not evidence that OC beats all of the field"
+      },
+      "strict_evidence_pack": {
+        "ref": "validation/heldout/grand_science/systems/wdi_population_materiality/OC133_SYSTEMS_WDI_POPULATION_MATERIALITY_CANDIDATE_PACK.json",
+        "sha256": "ddd022b3b95168ed28efe642cab738529bd57d12d1807689802987397cea1fbd",
+        "evidence_pack_id": "OC133-SYSTEMS-WDI-POPULATION-MATERIALITY-CANDIDATE",
+        "schema_id": "OC133_GRAND_EMPIRICAL_EVIDENCE_v1",
+        "n": 20,
+        "domain": "systems",
+        "source_separation": {
+          "mode": "target_blind",
+          "pre_target_lock": true,
+          "target_hidden_until_scoring": true,
+          "training_source_ref_total": 20,
+          "target_source_ref_total": 20,
+          "attestation_ref": null
+        },
+        "source_refs": [
+          "validation/heldout/grand_science/systems/wdi_population_materiality/raw/world_bank_wdi_arg_population_total_1960_2024.json::ARG:SP.POP.TOTL::training_years=1960,1961,1962,1963,1964,1965,1966,1967,1968,1969,1970,1971,1972,1973,1974,1975,1976,1977,1978,1979",
+          "validation/heldout/grand_science/systems/wdi_population_materiality/raw/world_bank_wdi_arg_population_total_1960_2024.json::ARG:SP.POP.TOTL::training_years=1960,1961,1962,1963,1964,1965,1966,1967,1968,1969,1970,1971,1972,1973,1974,1975,1976,1977,1978,1979,1980",
+          "validation/heldout/grand_science/systems/wdi_population_materiality/raw/world_bank_wdi_arg_population_total_1960_2024.json::ARG:SP.POP.TOTL::training_years=1960,1961,1962,1963,1964,1965,1966,1967,1968,1969,1970,1971,1972,1973,1974,1975,1976,1977,1978,1979,1980,1981",
+          "validation/heldout/grand_science/systems/wdi_population_materiality/raw/world_bank_wdi_arg_population_total_1960_2024.json::ARG:SP.POP.TOTL::training_years=1960,1961,1962,1963,1964,1965,1966,1967,1968,1969,1970,1971,1972,1973,1974,1975,1976,1977,1978,1979,1980,1981,1982",
+          "validation/heldout/grand_science/systems/wdi_population_materiality/raw/world_bank_wdi_arg_population_total_1960_2024.json::ARG:SP.POP.TOTL::training_years=1960,1961,1962,1963,1964,1965,1966,1967,1968,1969,1970,1971,1972,1973,1974,1975,1976,1977,1978,1979,1980,1981,1982,1983",
+          "validation/heldout/grand_science/systems/wdi_population_materiality/raw/world_bank_wdi_arg_population_total_1960_2024.json::ARG:SP.POP.TOTL::training_years=1960,1961,1962,1963,1964,1965,1966,1967,1968,1969,1970,1971,1972,1973,1974,1975,1976,1977,1978,1979,1980,1981,1982,1983,1984",
+          "validation/heldout/grand_science/systems/wdi_population_materiality/raw/world_bank_wdi_arg_population_total_1960_2024.json::ARG:SP.POP.TOTL::training_years=1960,1961,1962,1963,1964,1965,1966,1967,1968,1969,1970,1971,1972,1973,1974,1975,1976,1977,1978,1979,1980,1981,1982,1983,1984,1985",
+          "validation/heldout/grand_science/systems/wdi_population_materiality/raw/world_bank_wdi_arg_population_total_1960_2024.json::ARG:SP.POP.TOTL::training_years=1960,1961,1962,1963,1964,1965,1966,1967,1968,1969,1970,1971,1972,1973,1974,1975,1976,1977,1978,1979,1980,1981,1982,1983,1984,1985,1986",
+          "validation/heldout/grand_science/systems/wdi_population_materiality/raw/world_bank_wdi_arg_population_total_1960_2024.json::ARG:SP.POP.TOTL::training_years=1960,1961,1962,1963,1964,1965,1966,1967,1968,1969,1970,1971,1972,1973,1974,1975,1976,1977,1978,1979,1980,1981,1982,1983,1984,1985,1986,1987",
+          "validation/heldout/grand_science/systems/wdi_population_materiality/raw/world_bank_wdi_arg_population_total_1960_2024.json::ARG:SP.POP.TOTL::training_years=1960,1961,1962,1963,1964,1965,1966,1967,1968,1969,1970,1971,1972,1973,1974,1975,1976,1977,1978,1979,1980,1981,1982,1983,1984,1985,1986,1987,1988",
+          "validation/heldout/grand_science/systems/wdi_population_materiality/raw/world_bank_wdi_arg_population_total_1960_2024.json::ARG:SP.POP.TOTL::training_years=1960,1961,1962,1963,1964,1965,1966,1967,1968,1969,1970,1971,1972,1973,1974,1975,1976,1977,1978,1979,1980,1981,1982,1983,1984,1985,1986,1987,1988,1989",
+          "validation/heldout/grand_science/systems/wdi_population_materiality/raw/world_bank_wdi_arg_population_total_1960_2024.json::ARG:SP.POP.TOTL::training_years=1960,1961,1962,1963,1964,1965,1966,1967,1968,1969,1970,1971,1972,1973,1974,1975,1976,1977,1978,1979,1980,1981,1982,1983,1984,1985,1986,1987,1988,1989,1990",
+          "validation/heldout/grand_science/systems/wdi_population_materiality/raw/world_bank_wdi_arg_population_total_1960_2024.json::ARG:SP.POP.TOTL::training_years=1960,1961,1962,1963,1964,1965,1966,1967,1968,1969,1970,1971,1972,1973,1974,1975,1976,1977,1978,1979,1980,1981,1982,1983,1984,1985,1986,1987,1988,1989,1990,1991",
+          "validation/heldout/grand_science/systems/wdi_population_materiality/raw/world_bank_wdi_arg_population_total_1960_2024.json::ARG:SP.POP.TOTL::training_years=1960,1961,1962,1963,1964,1965,1966,1967,1968,1969,1970,1971,1972,1973,1974,1975,1976,1977,1978,1979,1980,1981,1982,1983,1984,1985,1986,1987,1988,1989,1990,1991,1992",
+          "validation/heldout/grand_science/systems/wdi_population_materiality/raw/world_bank_wdi_arg_population_total_1960_2024.json::ARG:SP.POP.TOTL::training_years=1960,1961,1962,1963,1964,1965,1966,1967,1968,1969,1970,1971,1972,1973,1974,1975,1976,1977,1978,1979,1980,1981,1982,1983,1984,1985,1986,1987,1988,1989,1990,1991,1992,1993",
+          "validation/heldout/grand_science/systems/wdi_population_materiality/raw/world_bank_wdi_arg_population_total_1960_2024.json::ARG:SP.POP.TOTL::training_years=1960,1961,1962,1963,1964,1965,1966,1967,1968,1969,1970,1971,1972,1973,1974,1975,1976,1977,1978,1979,1980,1981,1982,1983,1984,1985,1986,1987,1988,1989,1990,1991,1992,1993,1994",
+          "validation/heldout/grand_science/systems/wdi_population_materiality/raw/world_bank_wdi_arg_population_total_1960_2024.json::ARG:SP.POP.TOTL::training_years=1960,1961,1962,1963,1964,1965,1966,1967,1968,1969,1970,1971,1972,1973,1974,1975,1976,1977,1978,1979,1980,1981,1982,1983,1984,1985,1986,1987,1988,1989,1990,1991,1992,1993,1994,1995",
+          "validation/heldout/grand_science/systems/wdi_population_materiality/raw/world_bank_wdi_arg_population_total_1960_2024.json::ARG:SP.POP.TOTL::training_years=1960,1961,1962,1963,1964,1965,1966,1967,1968,1969,1970,1971,1972,1973,1974,1975,1976,1977,1978,1979,1980,1981,1982,1983,1984,1985,1986,1987,1988,1989,1990,1991,1992,1993,1994,1995,1996",
+          "validation/heldout/grand_science/systems/wdi_population_materiality/raw/world_bank_wdi_arg_population_total_1960_2024.json::ARG:SP.POP.TOTL::training_years=1960,1961,1962,1963,1964,1965,1966,1967,1968,1969,1970,1971,1972,1973,1974,1975,1976,1977,1978,1979,1980,1981,1982,1983,1984,1985,1986,1987,1988,1989,1990,1991,1992,1993,1994,1995,1996,1997",
+          "validation/heldout/grand_science/systems/wdi_population_materiality/raw/world_bank_wdi_arg_population_total_1960_2024.json::ARG:SP.POP.TOTL::training_years=1960,1961,1962,1963,1964,1965,1966,1967,1968,1969,1970,1971,1972,1973,1974,1975,1976,1977,1978,1979,1980,1981,1982,1983,1984,1985,1986,1987,1988,1989,1990,1991,1992,1993,1994,1995,1996,1997,1998",
+          "validation/heldout/grand_science/systems/wdi_population_materiality/raw/world_bank_wdi_arg_population_total_1960_2024.json::ARG:SP.POP.TOTL::heldout_target_year=1980",
+          "validation/heldout/grand_science/systems/wdi_population_materiality/raw/world_bank_wdi_arg_population_total_1960_2024.json::ARG:SP.POP.TOTL::heldout_target_year=1981",
+          "validation/heldout/grand_science/systems/wdi_population_materiality/raw/world_bank_wdi_arg_population_total_1960_2024.json::ARG:SP.POP.TOTL::heldout_target_year=1982",
+          "validation/heldout/grand_science/systems/wdi_population_materiality/raw/world_bank_wdi_arg_population_total_1960_2024.json::ARG:SP.POP.TOTL::heldout_target_year=1983",
+          "validation/heldout/grand_science/systems/wdi_population_materiality/raw/world_bank_wdi_arg_population_total_1960_2024.json::ARG:SP.POP.TOTL::heldout_target_year=1984",
+          "validation/heldout/grand_science/systems/wdi_population_materiality/raw/world_bank_wdi_arg_population_total_1960_2024.json::ARG:SP.POP.TOTL::heldout_target_year=1985",
+          "validation/heldout/grand_science/systems/wdi_population_materiality/raw/world_bank_wdi_arg_population_total_1960_2024.json::ARG:SP.POP.TOTL::heldout_target_year=1986",
+          "validation/heldout/grand_science/systems/wdi_population_materiality/raw/world_bank_wdi_arg_population_total_1960_2024.json::ARG:SP.POP.TOTL::heldout_target_year=1987",
+          "validation/heldout/grand_science/systems/wdi_population_materiality/raw/world_bank_wdi_arg_population_total_1960_2024.json::ARG:SP.POP.TOTL::heldout_target_year=1988",
+          "validation/heldout/grand_science/systems/wdi_population_materiality/raw/world_bank_wdi_arg_population_total_1960_2024.json::ARG:SP.POP.TOTL::heldout_target_year=1989",
+          "validation/heldout/grand_science/systems/wdi_population_materiality/raw/world_bank_wdi_arg_population_total_1960_2024.json::ARG:SP.POP.TOTL::heldout_target_year=1990",
+          "validation/heldout/grand_science/systems/wdi_population_materiality/raw/world_bank_wdi_arg_population_total_1960_2024.json::ARG:SP.POP.TOTL::heldout_target_year=1991",
+          "validation/heldout/grand_science/systems/wdi_population_materiality/raw/world_bank_wdi_arg_population_total_1960_2024.json::ARG:SP.POP.TOTL::heldout_target_year=1992",
+          "validation/heldout/grand_science/systems/wdi_population_materiality/raw/world_bank_wdi_arg_population_total_1960_2024.json::ARG:SP.POP.TOTL::heldout_target_year=1993",
+          "validation/heldout/grand_science/systems/wdi_population_materiality/raw/world_bank_wdi_arg_population_total_1960_2024.json::ARG:SP.POP.TOTL::heldout_target_year=1994",
+          "validation/heldout/grand_science/systems/wdi_population_materiality/raw/world_bank_wdi_arg_population_total_1960_2024.json::ARG:SP.POP.TOTL::heldout_target_year=1995",
+          "validation/heldout/grand_science/systems/wdi_population_materiality/raw/world_bank_wdi_arg_population_total_1960_2024.json::ARG:SP.POP.TOTL::heldout_target_year=1996",
+          "validation/heldout/grand_science/systems/wdi_population_materiality/raw/world_bank_wdi_arg_population_total_1960_2024.json::ARG:SP.POP.TOTL::heldout_target_year=1997",
+          "validation/heldout/grand_science/systems/wdi_population_materiality/raw/world_bank_wdi_arg_population_total_1960_2024.json::ARG:SP.POP.TOTL::heldout_target_year=1998",
+          "validation/heldout/grand_science/systems/wdi_population_materiality/raw/world_bank_wdi_arg_population_total_1960_2024.json::ARG:SP.POP.TOTL::heldout_target_year=1999",
+          "d227c75496329073630477406ed23f734813a99a152765396112a5232d5774ec"
+        ],
+        "source_hash_refs": [
+          {
+            "source_ref": "source_separation.source_hashes",
+            "sha256": "d227c75496329073630477406ed23f734813a99a152765396112a5232d5774ec"
+          }
+        ],
+        "validation_predicates": {
+          "current_strict_pack_ref": true,
+          "current_pack_exists": true,
+          "current_pack_hash_bound": true,
+          "schema_is_strict_grand_empirical": true,
+          "domain_matches_pack": true,
+          "minimum_n_met": true,
+          "source_separation_mode_allowed": true,
+          "pre_target_lock_present": true,
+          "target_hidden_until_scoring": true,
+          "training_and_target_source_refs_present": true,
+          "pack_sha256_bound": true,
+          "comparator_baseline_declared": true,
+          "comparator_baseline_pre_registered": true,
+          "uncertainty_declared": true,
+          "residuals_show_model_beats_declared_comparator": true,
+          "negative_controls_rejected": true,
+          "falsifier_declared": true,
+          "strict_pack_support_allowed": true
+        },
+        "validation_failures": [],
+        "grand_empirical_domain_status_ref": "reports/OC_CORE_1_3_3_GRAND_EMPIRICAL_REPORT.json::domains::systems",
+        "grand_empirical_domain_status": {
+          "status": "EVIDENCE_SUFFICIENT_PENDING_REVIEW",
+          "valid_n": 20,
+          "minimum_n": 20,
+          "grand_toe_support_allowed": false,
+          "blockers": []
+        }
+      },
+      "oc_result": {
+        "result_ref": "validation/heldout/grand_science/systems/wdi_population_materiality/OC133_SYSTEMS_WDI_POPULATION_MATERIALITY_CANDIDATE_PACK.json",
+        "result_kind": "STRICT_BENCHMARK_SCOPED_CANDIDATE_PACK",
+        "model_under_test": "World Bank WDI Argentina population training-only formula-family selector over fixed 1980-1999 heldout panel",
+        "model_residual": 6272.05,
+        "uncertainty": {
+          "metric": "mean absolute heldout residual",
+          "method": "selected-formula prior validation residual envelope",
+          "interval": [
+            0.0,
+            9294.9
+          ]
+        },
+        "support_scope": "benchmark-scoped comparison against declared preregistered incumbent/baseline controls only",
+        "not_supported_claim": "predicts better than modern science"
+      },
+      "comparator_result": {
+        "result_ref": "validation/heldout/grand_science/systems/wdi_population_materiality/OC133_SYSTEMS_WDI_POPULATION_MATERIALITY_CANDIDATE_PACK.json",
+        "baseline_name": "best-of WDI carry-forward, prior mean, and trailing-three-year mean comparators",
+        "prediction_rule": "support requires the selected model to beat every preregistered comparator on every heldout row",
+        "pre_registered": true,
+        "comparator_residual": 461289.35,
+        "superiority_margin": 455017.3,
+        "negative_controls": [
+          {
+            "control_id": "systems-wdi-population-materiality::carry_forward_last_observation::OC133-SYSTEMS-WDI-POPULATION-MATERIALITY-ARG-1980",
+            "description": "pre-registered comparator must have larger heldout absolute residual than the selected training-only model",
+            "rejected": true,
+            "observation_id": "OC133-SYSTEMS-WDI-POPULATION-MATERIALITY-ARG-1980",
+            "comparator_id": "carry_forward_last_observation"
+          },
+          {
+            "control_id": "systems-wdi-population-materiality::prior_training_mean::OC133-SYSTEMS-WDI-POPULATION-MATERIALITY-ARG-1980",
+            "description": "pre-registered comparator must have larger heldout absolute residual than the selected training-only model",
+            "rejected": true,
+            "observation_id": "OC133-SYSTEMS-WDI-POPULATION-MATERIALITY-ARG-1980",
+            "comparator_id": "prior_training_mean"
+          },
+          {
+            "control_id": "systems-wdi-population-materiality::trailing_three_year_mean::OC133-SYSTEMS-WDI-POPULATION-MATERIALITY-ARG-1980",
+            "description": "pre-registered comparator must have larger heldout absolute residual than the selected training-only model",
+            "rejected": true,
+            "observation_id": "OC133-SYSTEMS-WDI-POPULATION-MATERIALITY-ARG-1980",
+            "comparator_id": "trailing_three_year_mean"
+          },
+          {
+            "control_id": "systems-wdi-population-materiality::carry_forward_last_observation::OC133-SYSTEMS-WDI-POPULATION-MATERIALITY-ARG-1981",
+            "description": "pre-registered comparator must have larger heldout absolute residual than the selected training-only model",
+            "rejected": true,
+            "observation_id": "OC133-SYSTEMS-WDI-POPULATION-MATERIALITY-ARG-1981",
+            "comparator_id": "carry_forward_last_observation"
+          },
+          {
+            "control_id": "systems-wdi-population-materiality::prior_training_mean::OC133-SYSTEMS-WDI-POPULATION-MATERIALITY-ARG-1981",
+            "description": "pre-registered comparator must have larger heldout absolute residual than the selected training-only model",
+            "rejected": true,
+            "observation_id": "OC133-SYSTEMS-WDI-POPULATION-MATERIALITY-ARG-1981",
+            "comparator_id": "prior_training_mean"
+          },
+          {
+            "control_id": "systems-wdi-population-materiality::trailing_three_year_mean::OC133-SYSTEMS-WDI-POPULATION-MATERIALITY-ARG-1981",
+            "description": "pre-registered comparator must have larger heldout absolute residual than the selected training-only model",
+            "rejected": true,
+            "observation_id": "OC133-SYSTEMS-WDI-POPULATION-MATERIALITY-ARG-1981",
+            "comparator_id": "trailing_three_year_mean"
+          },
+          {
+            "control_id": "systems-wdi-population-materiality::carry_forward_last_observation::OC133-SYSTEMS-WDI-POPULATION-MATERIALITY-ARG-1982",
+            "description": "pre-registered comparator must have larger heldout absolute residual than the selected training-only model",
+            "rejected": true,
+            "observation_id": "OC133-SYSTEMS-WDI-POPULATION-MATERIALITY-ARG-1982",
+            "comparator_id": "carry_forward_last_observation"
+          },
+          {
+            "control_id": "systems-wdi-population-materiality::prior_training_mean::OC133-SYSTEMS-WDI-POPULATION-MATERIALITY-ARG-1982",
+            "description": "pre-registered comparator must have larger heldout absolute residual than the selected training-only model",
+            "rejected": true,
+            "observation_id": "OC133-SYSTEMS-WDI-POPULATION-MATERIALITY-ARG-1982",
+            "comparator_id": "prior_training_mean"
+          },
+          {
+            "control_id": "systems-wdi-population-materiality::trailing_three_year_mean::OC133-SYSTEMS-WDI-POPULATION-MATERIALITY-ARG-1982",
+            "description": "pre-registered comparator must have larger heldout absolute residual than the selected training-only model",
+            "rejected": true,
+            "observation_id": "OC133-SYSTEMS-WDI-POPULATION-MATERIALITY-ARG-1982",
+            "comparator_id": "trailing_three_year_mean"
+          },
+          {
+            "control_id": "systems-wdi-population-materiality::carry_forward_last_observation::OC133-SYSTEMS-WDI-POPULATION-MATERIALITY-ARG-1983",
+            "description": "pre-registered comparator must have larger heldout absolute residual than the selected training-only model",
+            "rejected": true,
+            "observation_id": "OC133-SYSTEMS-WDI-POPULATION-MATERIALITY-ARG-1983",
+            "comparator_id": "carry_forward_last_observation"
+          },
+          {
+            "control_id": "systems-wdi-population-materiality::prior_training_mean::OC133-SYSTEMS-WDI-POPULATION-MATERIALITY-ARG-1983",
+            "description": "pre-registered comparator must have larger heldout absolute residual than the selected training-only model",
+            "rejected": true,
+            "observation_id": "OC133-SYSTEMS-WDI-POPULATION-MATERIALITY-ARG-1983",
+            "comparator_id": "prior_training_mean"
+          },
+          {
+            "control_id": "systems-wdi-population-materiality::trailing_three_year_mean::OC133-SYSTEMS-WDI-POPULATION-MATERIALITY-ARG-1983",
+            "description": "pre-registered comparator must have larger heldout absolute residual than the selected training-only model",
+            "rejected": true,
+            "observation_id": "OC133-SYSTEMS-WDI-POPULATION-MATERIALITY-ARG-1983",
+            "comparator_id": "trailing_three_year_mean"
+          },
+          {
+            "control_id": "systems-wdi-population-materiality::carry_forward_last_observation::OC133-SYSTEMS-WDI-POPULATION-MATERIALITY-ARG-1984",
+            "description": "pre-registered comparator must have larger heldout absolute residual than the selected training-only model",
+            "rejected": true,
+            "observation_id": "OC133-SYSTEMS-WDI-POPULATION-MATERIALITY-ARG-1984",
+            "comparator_id": "carry_forward_last_observation"
+          },
+          {
+            "control_id": "systems-wdi-population-materiality::prior_training_mean::OC133-SYSTEMS-WDI-POPULATION-MATERIALITY-ARG-1984",
+            "description": "pre-registered comparator must have larger heldout absolute residual than the selected training-only model",
+            "rejected": true,
+            "observation_id": "OC133-SYSTEMS-WDI-POPULATION-MATERIALITY-ARG-1984",
+            "comparator_id": "prior_training_mean"
+          },
+          {
+            "control_id": "systems-wdi-population-materiality::trailing_three_year_mean::OC133-SYSTEMS-WDI-POPULATION-MATERIALITY-ARG-1984",
+            "description": "pre-registered comparator must have larger heldout absolute residual than the selected training-only model",
+            "rejected": true,
+            "observation_id": "OC133-SYSTEMS-WDI-POPULATION-MATERIALITY-ARG-1984",
+            "comparator_id": "trailing_three_year_mean"
+          },
+          {
+            "control_id": "systems-wdi-population-materiality::carry_forward_last_observation::OC133-SYSTEMS-WDI-POPULATION-MATERIALITY-ARG-1985",
+            "description": "pre-registered comparator must have larger heldout absolute residual than the selected training-only model",
+            "rejected": true,
+            "observation_id": "OC133-SYSTEMS-WDI-POPULATION-MATERIALITY-ARG-1985",
+            "comparator_id": "carry_forward_last_observation"
+          },
+          {
+            "control_id": "systems-wdi-population-materiality::prior_training_mean::OC133-SYSTEMS-WDI-POPULATION-MATERIALITY-ARG-1985",
+            "description": "pre-registered comparator must have larger heldout absolute residual than the selected training-only model",
+            "rejected": true,
+            "observation_id": "OC133-SYSTEMS-WDI-POPULATION-MATERIALITY-ARG-1985",
+            "comparator_id": "prior_training_mean"
+          },
+          {
+            "control_id": "systems-wdi-population-materiality::trailing_three_year_mean::OC133-SYSTEMS-WDI-POPULATION-MATERIALITY-ARG-1985",
+            "description": "pre-registered comparator must have larger heldout absolute residual than the selected training-only model",
+            "rejected": true,
+            "observation_id": "OC133-SYSTEMS-WDI-POPULATION-MATERIALITY-ARG-1985",
+            "comparator_id": "trailing_three_year_mean"
+          },
+          {
+            "control_id": "systems-wdi-population-materiality::carry_forward_last_observation::OC133-SYSTEMS-WDI-POPULATION-MATERIALITY-ARG-1986",
+            "description": "pre-registered comparator must have larger heldout absolute residual than the selected training-only model",
+            "rejected": true,
+            "observation_id": "OC133-SYSTEMS-WDI-POPULATION-MATERIALITY-ARG-1986",
+            "comparator_id": "carry_forward_last_observation"
+          },
+          {
+            "control_id": "systems-wdi-population-materiality::prior_training_mean::OC133-SYSTEMS-WDI-POPULATION-MATERIALITY-ARG-1986",
+            "description": "pre-registered comparator must have larger heldout absolute residual than the selected training-only model",
+            "rejected": true,
+            "observation_id": "OC133-SYSTEMS-WDI-POPULATION-MATERIALITY-ARG-1986",
+            "comparator_id": "prior_training_mean"
+          },
+          {
+            "control_id": "systems-wdi-population-materiality::trailing_three_year_mean::OC133-SYSTEMS-WDI-POPULATION-MATERIALITY-ARG-1986",
+            "description": "pre-registered comparator must have larger heldout absolute residual than the selected training-only model",
+            "rejected": true,
+            "observation_id": "OC133-SYSTEMS-WDI-POPULATION-MATERIALITY-ARG-1986",
+            "comparator_id": "trailing_three_year_mean"
+          },
+          {
+            "control_id": "systems-wdi-population-materiality::carry_forward_last_observation::OC133-SYSTEMS-WDI-POPULATION-MATERIALITY-ARG-1987",
+            "description": "pre-registered comparator must have larger heldout absolute residual than the selected training-only model",
+            "rejected": true,
+            "observation_id": "OC133-SYSTEMS-WDI-POPULATION-MATERIALITY-ARG-1987",
+            "comparator_id": "carry_forward_last_observation"
+          },
+          {
+            "control_id": "systems-wdi-population-materiality::prior_training_mean::OC133-SYSTEMS-WDI-POPULATION-MATERIALITY-ARG-1987",
+            "description": "pre-registered comparator must have larger heldout absolute residual than the selected training-only model",
+            "rejected": true,
+            "observation_id": "OC133-SYSTEMS-WDI-POPULATION-MATERIALITY-ARG-1987",
+            "comparator_id": "prior_training_mean"
+          },
+          {
+            "control_id": "systems-wdi-population-materiality::trailing_three_year_mean::OC133-SYSTEMS-WDI-POPULATION-MATERIALITY-ARG-1987",
+            "description": "pre-registered comparator must have larger heldout absolute residual than the selected training-only model",
+            "rejected": true,
+            "observation_id": "OC133-SYSTEMS-WDI-POPULATION-MATERIALITY-ARG-1987",
+            "comparator_id": "trailing_three_year_mean"
+          },
+          {
+            "control_id": "systems-wdi-population-materiality::carry_forward_last_observation::OC133-SYSTEMS-WDI-POPULATION-MATERIALITY-ARG-1988",
+            "description": "pre-registered comparator must have larger heldout absolute residual than the selected training-only model",
+            "rejected": true,
+            "observation_id": "OC133-SYSTEMS-WDI-POPULATION-MATERIALITY-ARG-1988",
+            "comparator_id": "carry_forward_last_observation"
+          },
+          {
+            "control_id": "systems-wdi-population-materiality::prior_training_mean::OC133-SYSTEMS-WDI-POPULATION-MATERIALITY-ARG-1988",
+            "description": "pre-registered comparator must have larger heldout absolute residual than the selected training-only model",
+            "rejected": true,
+            "observation_id": "OC133-SYSTEMS-WDI-POPULATION-MATERIALITY-ARG-1988",
+            "comparator_id": "prior_training_mean"
+          },
+          {
+            "control_id": "systems-wdi-population-materiality::trailing_three_year_mean::OC133-SYSTEMS-WDI-POPULATION-MATERIALITY-ARG-1988",
+            "description": "pre-registered comparator must have larger heldout absolute residual than the selected training-only model",
+            "rejected": true,
+            "observation_id": "OC133-SYSTEMS-WDI-POPULATION-MATERIALITY-ARG-1988",
+            "comparator_id": "trailing_three_year_mean"
+          },
+          {
+            "control_id": "systems-wdi-population-materiality::carry_forward_last_observation::OC133-SYSTEMS-WDI-POPULATION-MATERIALITY-ARG-1989",
+            "description": "pre-registered comparator must have larger heldout absolute residual than the selected training-only model",
+            "rejected": true,
+            "observation_id": "OC133-SYSTEMS-WDI-POPULATION-MATERIALITY-ARG-1989",
+            "comparator_id": "carry_forward_last_observation"
+          },
+          {
+            "control_id": "systems-wdi-population-materiality::prior_training_mean::OC133-SYSTEMS-WDI-POPULATION-MATERIALITY-ARG-1989",
+            "description": "pre-registered comparator must have larger heldout absolute residual than the selected training-only model",
+            "rejected": true,
+            "observation_id": "OC133-SYSTEMS-WDI-POPULATION-MATERIALITY-ARG-1989",
+            "comparator_id": "prior_training_mean"
+          },
+          {
+            "control_id": "systems-wdi-population-materiality::trailing_three_year_mean::OC133-SYSTEMS-WDI-POPULATION-MATERIALITY-ARG-1989",
+            "description": "pre-registered comparator must have larger heldout absolute residual than the selected training-only model",
+            "rejected": true,
+            "observation_id": "OC133-SYSTEMS-WDI-POPULATION-MATERIALITY-ARG-1989",
+            "comparator_id": "trailing_three_year_mean"
+          },
+          {
+            "control_id": "systems-wdi-population-materiality::carry_forward_last_observation::OC133-SYSTEMS-WDI-POPULATION-MATERIALITY-ARG-1990",
+            "description": "pre-registered comparator must have larger heldout absolute residual than the selected training-only model",
+            "rejected": true,
+            "observation_id": "OC133-SYSTEMS-WDI-POPULATION-MATERIALITY-ARG-1990",
+            "comparator_id": "carry_forward_last_observation"
+          },
+          {
+            "control_id": "systems-wdi-population-materiality::prior_training_mean::OC133-SYSTEMS-WDI-POPULATION-MATERIALITY-ARG-1990",
+            "description": "pre-registered comparator must have larger heldout absolute residual than the selected training-only model",
+            "rejected": true,
+            "observation_id": "OC133-SYSTEMS-WDI-POPULATION-MATERIALITY-ARG-1990",
+            "comparator_id": "prior_training_mean"
+          },
+          {
+            "control_id": "systems-wdi-population-materiality::trailing_three_year_mean::OC133-SYSTEMS-WDI-POPULATION-MATERIALITY-ARG-1990",
+            "description": "pre-registered comparator must have larger heldout absolute residual than the selected training-only model",
+            "rejected": true,
+            "observation_id": "OC133-SYSTEMS-WDI-POPULATION-MATERIALITY-ARG-1990",
+            "comparator_id": "trailing_three_year_mean"
+          },
+          {
+            "control_id": "systems-wdi-population-materiality::carry_forward_last_observation::OC133-SYSTEMS-WDI-POPULATION-MATERIALITY-ARG-1991",
+            "description": "pre-registered comparator must have larger heldout absolute residual than the selected training-only model",
+            "rejected": true,
+            "observation_id": "OC133-SYSTEMS-WDI-POPULATION-MATERIALITY-ARG-1991",
+            "comparator_id": "carry_forward_last_observation"
+          },
+          {
+            "control_id": "systems-wdi-population-materiality::prior_training_mean::OC133-SYSTEMS-WDI-POPULATION-MATERIALITY-ARG-1991",
+            "description": "pre-registered comparator must have larger heldout absolute residual than the selected training-only model",
+            "rejected": true,
+            "observation_id": "OC133-SYSTEMS-WDI-POPULATION-MATERIALITY-ARG-1991",
+            "comparator_id": "prior_training_mean"
+          },
+          {
+            "control_id": "systems-wdi-population-materiality::trailing_three_year_mean::OC133-SYSTEMS-WDI-POPULATION-MATERIALITY-ARG-1991",
+            "description": "pre-registered comparator must have larger heldout absolute residual than the selected training-only model",
+            "rejected": true,
+            "observation_id": "OC133-SYSTEMS-WDI-POPULATION-MATERIALITY-ARG-1991",
+            "comparator_id": "trailing_three_year_mean"
+          },
+          {
+            "control_id": "systems-wdi-population-materiality::carry_forward_last_observation::OC133-SYSTEMS-WDI-POPULATION-MATERIALITY-ARG-1992",
+            "description": "pre-registered comparator must have larger heldout absolute residual than the selected training-only model",
+            "rejected": true,
+            "observation_id": "OC133-SYSTEMS-WDI-POPULATION-MATERIALITY-ARG-1992",
+            "comparator_id": "carry_forward_last_observation"
+          },
+          {
+            "control_id": "systems-wdi-population-materiality::prior_training_mean::OC133-SYSTEMS-WDI-POPULATION-MATERIALITY-ARG-1992",
+            "description": "pre-registered comparator must have larger heldout absolute residual than the selected training-only model",
+            "rejected": true,
+            "observation_id": "OC133-SYSTEMS-WDI-POPULATION-MATERIALITY-ARG-1992",
+            "comparator_id": "prior_training_mean"
+          },
+          {
+            "control_id": "systems-wdi-population-materiality::trailing_three_year_mean::OC133-SYSTEMS-WDI-POPULATION-MATERIALITY-ARG-1992",
+            "description": "pre-registered comparator must have larger heldout absolute residual than the selected training-only model",
+            "rejected": true,
+            "observation_id": "OC133-SYSTEMS-WDI-POPULATION-MATERIALITY-ARG-1992",
+            "comparator_id": "trailing_three_year_mean"
+          },
+          {
+            "control_id": "systems-wdi-population-materiality::carry_forward_last_observation::OC133-SYSTEMS-WDI-POPULATION-MATERIALITY-ARG-1993",
+            "description": "pre-registered comparator must have larger heldout absolute residual than the selected training-only model",
+            "rejected": true,
+            "observation_id": "OC133-SYSTEMS-WDI-POPULATION-MATERIALITY-ARG-1993",
+            "comparator_id": "carry_forward_last_observation"
+          },
+          {
+            "control_id": "systems-wdi-population-materiality::prior_training_mean::OC133-SYSTEMS-WDI-POPULATION-MATERIALITY-ARG-1993",
+            "description": "pre-registered comparator must have larger heldout absolute residual than the selected training-only model",
+            "rejected": true,
+            "observation_id": "OC133-SYSTEMS-WDI-POPULATION-MATERIALITY-ARG-1993",
+            "comparator_id": "prior_training_mean"
+          },
+          {
+            "control_id": "systems-wdi-population-materiality::trailing_three_year_mean::OC133-SYSTEMS-WDI-POPULATION-MATERIALITY-ARG-1993",
+            "description": "pre-registered comparator must have larger heldout absolute residual than the selected training-only model",
+            "rejected": true,
+            "observation_id": "OC133-SYSTEMS-WDI-POPULATION-MATERIALITY-ARG-1993",
+            "comparator_id": "trailing_three_year_mean"
+          },
+          {
+            "control_id": "systems-wdi-population-materiality::carry_forward_last_observation::OC133-SYSTEMS-WDI-POPULATION-MATERIALITY-ARG-1994",
+            "description": "pre-registered comparator must have larger heldout absolute residual than the selected training-only model",
+            "rejected": true,
+            "observation_id": "OC133-SYSTEMS-WDI-POPULATION-MATERIALITY-ARG-1994",
+            "comparator_id": "carry_forward_last_observation"
+          },
+          {
+            "control_id": "systems-wdi-population-materiality::prior_training_mean::OC133-SYSTEMS-WDI-POPULATION-MATERIALITY-ARG-1994",
+            "description": "pre-registered comparator must have larger heldout absolute residual than the selected training-only model",
+            "rejected": true,
+            "observation_id": "OC133-SYSTEMS-WDI-POPULATION-MATERIALITY-ARG-1994",
+            "comparator_id": "prior_training_mean"
+          },
+          {
+            "control_id": "systems-wdi-population-materiality::trailing_three_year_mean::OC133-SYSTEMS-WDI-POPULATION-MATERIALITY-ARG-1994",
+            "description": "pre-registered comparator must have larger heldout absolute residual than the selected training-only model",
+            "rejected": true,
+            "observation_id": "OC133-SYSTEMS-WDI-POPULATION-MATERIALITY-ARG-1994",
+            "comparator_id": "trailing_three_year_mean"
+          },
+          {
+            "control_id": "systems-wdi-population-materiality::carry_forward_last_observation::OC133-SYSTEMS-WDI-POPULATION-MATERIALITY-ARG-1995",
+            "description": "pre-registered comparator must have larger heldout absolute residual than the selected training-only model",
+            "rejected": true,
+            "observation_id": "OC133-SYSTEMS-WDI-POPULATION-MATERIALITY-ARG-1995",
+            "comparator_id": "carry_forward_last_observation"
+          },
+          {
+            "control_id": "systems-wdi-population-materiality::prior_training_mean::OC133-SYSTEMS-WDI-POPULATION-MATERIALITY-ARG-1995",
+            "description": "pre-registered comparator must have larger heldout absolute residual than the selected training-only model",
+            "rejected": true,
+            "observation_id": "OC133-SYSTEMS-WDI-POPULATION-MATERIALITY-ARG-1995",
+            "comparator_id": "prior_training_mean"
+          },
+          {
+            "control_id": "systems-wdi-population-materiality::trailing_three_year_mean::OC133-SYSTEMS-WDI-POPULATION-MATERIALITY-ARG-1995",
+            "description": "pre-registered comparator must have larger heldout absolute residual than the selected training-only model",
+            "rejected": true,
+            "observation_id": "OC133-SYSTEMS-WDI-POPULATION-MATERIALITY-ARG-1995",
+            "comparator_id": "trailing_three_year_mean"
+          },
+          {
+            "control_id": "systems-wdi-population-materiality::carry_forward_last_observation::OC133-SYSTEMS-WDI-POPULATION-MATERIALITY-ARG-1996",
+            "description": "pre-registered comparator must have larger heldout absolute residual than the selected training-only model",
+            "rejected": true,
+            "observation_id": "OC133-SYSTEMS-WDI-POPULATION-MATERIALITY-ARG-1996",
+            "comparator_id": "carry_forward_last_observation"
+          },
+          {
+            "control_id": "systems-wdi-population-materiality::prior_training_mean::OC133-SYSTEMS-WDI-POPULATION-MATERIALITY-ARG-1996",
+            "description": "pre-registered comparator must have larger heldout absolute residual than the selected training-only model",
+            "rejected": true,
+            "observation_id": "OC133-SYSTEMS-WDI-POPULATION-MATERIALITY-ARG-1996",
+            "comparator_id": "prior_training_mean"
+          },
+          {
+            "control_id": "systems-wdi-population-materiality::trailing_three_year_mean::OC133-SYSTEMS-WDI-POPULATION-MATERIALITY-ARG-1996",
+            "description": "pre-registered comparator must have larger heldout absolute residual than the selected training-only model",
+            "rejected": true,
+            "observation_id": "OC133-SYSTEMS-WDI-POPULATION-MATERIALITY-ARG-1996",
+            "comparator_id": "trailing_three_year_mean"
+          },
+          {
+            "control_id": "systems-wdi-population-materiality::carry_forward_last_observation::OC133-SYSTEMS-WDI-POPULATION-MATERIALITY-ARG-1997",
+            "description": "pre-registered comparator must have larger heldout absolute residual than the selected training-only model",
+            "rejected": true,
+            "observation_id": "OC133-SYSTEMS-WDI-POPULATION-MATERIALITY-ARG-1997",
+            "comparator_id": "carry_forward_last_observation"
+          },
+          {
+            "control_id": "systems-wdi-population-materiality::prior_training_mean::OC133-SYSTEMS-WDI-POPULATION-MATERIALITY-ARG-1997",
+            "description": "pre-registered comparator must have larger heldout absolute residual than the selected training-only model",
+            "rejected": true,
+            "observation_id": "OC133-SYSTEMS-WDI-POPULATION-MATERIALITY-ARG-1997",
+            "comparator_id": "prior_training_mean"
+          },
+          {
+            "control_id": "systems-wdi-population-materiality::trailing_three_year_mean::OC133-SYSTEMS-WDI-POPULATION-MATERIALITY-ARG-1997",
+            "description": "pre-registered comparator must have larger heldout absolute residual than the selected training-only model",
+            "rejected": true,
+            "observation_id": "OC133-SYSTEMS-WDI-POPULATION-MATERIALITY-ARG-1997",
+            "comparator_id": "trailing_three_year_mean"
+          },
+          {
+            "control_id": "systems-wdi-population-materiality::carry_forward_last_observation::OC133-SYSTEMS-WDI-POPULATION-MATERIALITY-ARG-1998",
+            "description": "pre-registered comparator must have larger heldout absolute residual than the selected training-only model",
+            "rejected": true,
+            "observation_id": "OC133-SYSTEMS-WDI-POPULATION-MATERIALITY-ARG-1998",
+            "comparator_id": "carry_forward_last_observation"
+          },
+          {
+            "control_id": "systems-wdi-population-materiality::prior_training_mean::OC133-SYSTEMS-WDI-POPULATION-MATERIALITY-ARG-1998",
+            "description": "pre-registered comparator must have larger heldout absolute residual than the selected training-only model",
+            "rejected": true,
+            "observation_id": "OC133-SYSTEMS-WDI-POPULATION-MATERIALITY-ARG-1998",
+            "comparator_id": "prior_training_mean"
+          },
+          {
+            "control_id": "systems-wdi-population-materiality::trailing_three_year_mean::OC133-SYSTEMS-WDI-POPULATION-MATERIALITY-ARG-1998",
+            "description": "pre-registered comparator must have larger heldout absolute residual than the selected training-only model",
+            "rejected": true,
+            "observation_id": "OC133-SYSTEMS-WDI-POPULATION-MATERIALITY-ARG-1998",
+            "comparator_id": "trailing_three_year_mean"
+          },
+          {
+            "control_id": "systems-wdi-population-materiality::carry_forward_last_observation::OC133-SYSTEMS-WDI-POPULATION-MATERIALITY-ARG-1999",
+            "description": "pre-registered comparator must have larger heldout absolute residual than the selected training-only model",
+            "rejected": true,
+            "observation_id": "OC133-SYSTEMS-WDI-POPULATION-MATERIALITY-ARG-1999",
+            "comparator_id": "carry_forward_last_observation"
+          },
+          {
+            "control_id": "systems-wdi-population-materiality::prior_training_mean::OC133-SYSTEMS-WDI-POPULATION-MATERIALITY-ARG-1999",
+            "description": "pre-registered comparator must have larger heldout absolute residual than the selected training-only model",
+            "rejected": true,
+            "observation_id": "OC133-SYSTEMS-WDI-POPULATION-MATERIALITY-ARG-1999",
+            "comparator_id": "prior_training_mean"
+          },
+          {
+            "control_id": "systems-wdi-population-materiality::trailing_three_year_mean::OC133-SYSTEMS-WDI-POPULATION-MATERIALITY-ARG-1999",
+            "description": "pre-registered comparator must have larger heldout absolute residual than the selected training-only model",
+            "rejected": true,
+            "observation_id": "OC133-SYSTEMS-WDI-POPULATION-MATERIALITY-ARG-1999",
+            "comparator_id": "trailing_three_year_mean"
+          }
+        ],
+        "falsifiers": [
+          "support fails if formula selection uses the heldout target, if any comparator beats or ties the model, if source hashes change, or if any aggregate/row materiality margin falls below policy"
+        ]
+      },
+      "benchmark_predicate": {
+        "task": "Predict a fixed target-blind WDI Argentina population held-out panel from prior-year training rows.",
+        "metric_family": "mean absolute heldout residual",
+        "certification_predicates": [
+          "current_strict_pack_ref",
+          "current_pack_exists",
+          "current_pack_hash_bound",
+          "schema_is_strict_grand_empirical",
+          "domain_matches_pack",
+          "minimum_n_met",
+          "source_separation_mode_allowed",
+          "pre_target_lock_present",
+          "target_hidden_until_scoring",
+          "training_and_target_source_refs_present",
+          "pack_sha256_bound",
+          "comparator_baseline_declared",
+          "comparator_baseline_pre_registered",
+          "uncertainty_declared",
+          "residuals_show_model_beats_declared_comparator",
+          "negative_controls_rejected",
+          "falsifier_declared",
+          "strict_pack_support_allowed"
+        ],
+        "current_predicate_status": {
+          "current_strict_pack_ref": true,
+          "current_pack_exists": true,
+          "current_pack_hash_bound": true,
+          "schema_is_strict_grand_empirical": true,
+          "domain_matches_pack": true,
+          "minimum_n_met": true,
+          "source_separation_mode_allowed": true,
+          "pre_target_lock_present": true,
+          "target_hidden_until_scoring": true,
+          "training_and_target_source_refs_present": true,
+          "pack_sha256_bound": true,
+          "comparator_baseline_declared": true,
+          "comparator_baseline_pre_registered": true,
+          "uncertainty_declared": true,
+          "residuals_show_model_beats_declared_comparator": true,
+          "negative_controls_rejected": true,
+          "falsifier_declared": true,
+          "strict_pack_support_allowed": true
+        },
+        "current_verdict": "CERTIFIED_AGAINST_DECLARED_BENCHMARK_BASELINES",
+        "allowed_current_claim": "OC133 benchmark result beats the declared preregistered comparator baselines for this strict pack."
+      },
+      "uncertainty_fairness": {
+        "uncertainty_declared": true,
+        "uncertainty": {
+          "metric": "mean absolute heldout residual",
+          "method": "selected-formula prior validation residual envelope",
+          "interval": [
+            0.0,
+            9294.9
+          ]
+        },
+        "source_separation_mode": "target_blind",
+        "predeclared_comparator_present": true,
+        "negative_control_rejected": true,
+        "fairness_limitations": [
+          "Certification is scoped to the declared pack task, source refs, hash, and preregistered baselines.",
+          "It is not a survey over all theories, datasets, instruments, labs, or methods in the domain."
+        ],
+        "fairness_verdict": "BENCHMARK_SCOPED_FAIRNESS_ACCEPTED"
+      },
+      "certification_verdict": {
+        "benchmark_scoped_superiority": {
+          "certified": true,
+          "label": "CERTIFIED_AGAINST_DECLARED_INCUMBENT_BENCHMARK_BASELINES",
+          "scope": "declared strict evidence pack baselines only"
+        },
+        "broad_modern_science_superiority": {
+          "certified": false,
+          "label": "BLOCKED_UNSUPPORTED_BROAD_WORDING",
+          "forbidden_claim": "predicts better than modern science"
+        },
+        "modern_science_comparator_superiority": {
+          "state": "FAIL_BROAD_CLAIM_BLOCKED",
+          "honest_pass_state": "benchmark_scoped_only"
+        }
+      },
+      "blocker_reason": {
+        "broad_claim_blocked_by": [
+          "BROAD_MODERN_SCIENCE_SCOPE_NOT_COVERED_BY_DECLARED_PACKS",
+          "NO_SURVEY_OF_ALL_MODERN_SCIENCE_INCUMBENTS",
+          "INDEPENDENT_CLEAN_CHECKOUT_REPLAY_NOT_BOUND_TO_THIS_REGISTER",
+          "UNSUPPORTED_WORDING::predicts better than modern science"
+        ],
+        "strict_pack_failures": [],
+        "allowed_current_wording": "certified against declared incumbent benchmark baselines only",
+        "forbidden_wording": [
+          "predicts better than modern science",
+          "superior to modern science",
+          "outperforms modern science",
+          "replaces modern science"
+        ]
+      }
+    }
+  ],
+  "domain_evidence_matrix_summary": {
+    "domain_total": 4,
+    "domains": [
+      "biology",
+      "chemistry",
+      "physics",
+      "systems"
+    ],
+    "required_distinction_roles": [
+      "incumbent_modern_science_source",
+      "strict_evidence_pack",
+      "oc_result",
+      "comparator_result",
+      "benchmark_predicate",
+      "uncertainty_fairness",
+      "certification_verdict",
+      "blocker_reason"
+    ],
+    "benchmark_scoped_superiority_certified_total": 4,
+    "broad_modern_science_superiority_certified_total": 0,
+    "blocked_broad_superiority_total": 4
+  },
+  "lanes": [
+    {
+      "lane_id": "MS-LANE-BIOLOGY-STRICT-PACK",
+      "predicate_id": "MS-PRED-BIOLOGY-STRICT-PACK",
+      "domain": "biology",
+      "strict_evidence_pack_ref": "validation/heldout/grand_science/biology/target_evidence/biology_target_evidence_candidate_pack.json",
+      "strict_evidence_pack_sha256": "384783b167c7b1b7e6082c753dcb5b2b51a6c6a2ce22513205f7daad5ed9a9c9",
+      "task": "Predict held-out NCBI GEO Profile ranked mean expression targets from visible target-blind profile projections.",
+      "metric_family": "mean absolute residual",
+      "required_negative_control": "All declared negative controls in the strict pack must be rejected.",
+      "certification_predicates": [
+        "current_strict_pack_ref",
+        "current_pack_exists",
+        "current_pack_hash_bound",
+        "schema_is_strict_grand_empirical",
+        "domain_matches_pack",
+        "minimum_n_met",
+        "source_separation_mode_allowed",
+        "pre_target_lock_present",
+        "target_hidden_until_scoring",
+        "training_and_target_source_refs_present",
+        "pack_sha256_bound",
+        "comparator_baseline_declared",
+        "comparator_baseline_pre_registered",
+        "uncertainty_declared",
+        "residuals_show_model_beats_declared_comparator",
+        "negative_controls_rejected",
+        "falsifier_declared",
+        "strict_pack_support_allowed"
+      ],
+      "current_predicate_status": {
+        "current_strict_pack_ref": true,
+        "current_pack_exists": true,
+        "current_pack_hash_bound": true,
+        "schema_is_strict_grand_empirical": true,
+        "domain_matches_pack": true,
+        "minimum_n_met": true,
+        "source_separation_mode_allowed": true,
+        "pre_target_lock_present": true,
+        "target_hidden_until_scoring": true,
+        "training_and_target_source_refs_present": true,
+        "pack_sha256_bound": true,
+        "comparator_baseline_declared": true,
+        "comparator_baseline_pre_registered": true,
+        "uncertainty_declared": true,
+        "residuals_show_model_beats_declared_comparator": true,
+        "negative_controls_rejected": true,
+        "falsifier_declared": true,
+        "strict_pack_support_allowed": true
+      },
+      "current_verdict": "CERTIFIED_AGAINST_DECLARED_BENCHMARK_BASELINES",
+      "blocked_by": [],
+      "allowed_current_claim": "OC133 benchmark result beats the declared preregistered comparator baselines for this strict pack.",
+      "forbidden_broad_claims": [
+        "predicts better than modern science",
+        "superior to modern science",
+        "outperforms modern science",
+        "replaces modern science"
+      ],
+      "result_role_bindings": {
+        "incumbent_modern_science_source": "incumbent_source_refs",
+        "strict_evidence_pack": "validation/heldout/grand_science/biology/target_evidence/biology_target_evidence_candidate_pack.json",
+        "oc_result": "validation/heldout/grand_science/biology/target_evidence/biology_target_evidence_candidate_pack.json",
+        "comparator_result": {
+          "result_ref": "validation/heldout/grand_science/biology/target_evidence/biology_target_evidence_candidate_pack.json",
+          "baseline_name": "within-profile maximum expression-count biological baseline"
+        },
+        "benchmark_predicate": "MS-PRED-BIOLOGY-STRICT-PACK",
+        "uncertainty_fairness": {
+          "uncertainty_declared": true,
+          "uncertainty": {
+            "metric": "mean absolute residual",
+            "method": "deterministic official GEO Profile ranked-score residuals with zero added measurement slack",
+            "interval": [
+              7.066666666666666,
+              7.066666666666666
+            ]
+          },
+          "source_separation_mode": "target_blind",
+          "predeclared_comparator_present": true,
+          "negative_control_rejected": true,
+          "fairness_limitations": [
+            "Certification is scoped to the declared pack task, source refs, hash, and preregistered baselines.",
+            "It is not a survey over all theories, datasets, instruments, labs, or methods in the domain."
+          ],
+          "fairness_verdict": "BENCHMARK_SCOPED_FAIRNESS_ACCEPTED"
+        },
+        "certification_verdict": {
+          "benchmark_scoped_superiority": {
+            "certified": true,
+            "label": "CERTIFIED_AGAINST_DECLARED_INCUMBENT_BENCHMARK_BASELINES",
+            "scope": "declared strict evidence pack baselines only"
+          },
+          "broad_modern_science_superiority": {
+            "certified": false,
+            "label": "BLOCKED_UNSUPPORTED_BROAD_WORDING",
+            "forbidden_claim": "predicts better than modern science"
+          },
+          "modern_science_comparator_superiority": {
+            "state": "FAIL_BROAD_CLAIM_BLOCKED",
+            "honest_pass_state": "benchmark_scoped_only"
+          }
+        },
+        "blocker_reason": {
+          "broad_claim_blocked_by": [
+            "BROAD_MODERN_SCIENCE_SCOPE_NOT_COVERED_BY_DECLARED_PACKS",
+            "NO_SURVEY_OF_ALL_MODERN_SCIENCE_INCUMBENTS",
+            "INDEPENDENT_CLEAN_CHECKOUT_REPLAY_NOT_BOUND_TO_THIS_REGISTER",
+            "UNSUPPORTED_WORDING::predicts better than modern science"
+          ],
+          "strict_pack_failures": [],
+          "allowed_current_wording": "certified against declared incumbent benchmark baselines only",
+          "forbidden_wording": [
+            "predicts better than modern science",
+            "superior to modern science",
+            "outperforms modern science",
+            "replaces modern science"
+          ]
+        }
+      }
+    },
+    {
+      "lane_id": "MS-LANE-CHEMISTRY-STRICT-PACK",
+      "predicate_id": "MS-PRED-CHEMISTRY-STRICT-PACK",
+      "domain": "chemistry",
+      "strict_evidence_pack_ref": "validation/heldout/grand_science/chemistry/pubchem_hbond_donor/OC133_CHEMISTRY_PUBCHEM_HBOND_DONOR_CANDIDATE_PACK.json",
+      "strict_evidence_pack_sha256": "69474ea613e339e51969e48a9d5043efc99785f53ee42933299cbb4bfd2f1ca3",
+      "task": "Predict PubChem HBondDonorCount from visible CID, formula, and ConnectivitySMILES without reading the target descriptor.",
+      "metric_family": "mean absolute error in PubChem HBondDonorCount units",
+      "required_negative_control": "All declared negative controls in the strict pack must be rejected.",
+      "certification_predicates": [
+        "current_strict_pack_ref",
+        "current_pack_exists",
+        "current_pack_hash_bound",
+        "schema_is_strict_grand_empirical",
+        "domain_matches_pack",
+        "minimum_n_met",
+        "source_separation_mode_allowed",
+        "pre_target_lock_present",
+        "target_hidden_until_scoring",
+        "training_and_target_source_refs_present",
+        "pack_sha256_bound",
+        "comparator_baseline_declared",
+        "comparator_baseline_pre_registered",
+        "uncertainty_declared",
+        "residuals_show_model_beats_declared_comparator",
+        "negative_controls_rejected",
+        "falsifier_declared",
+        "strict_pack_support_allowed"
+      ],
+      "current_predicate_status": {
+        "current_strict_pack_ref": true,
+        "current_pack_exists": true,
+        "current_pack_hash_bound": true,
+        "schema_is_strict_grand_empirical": true,
+        "domain_matches_pack": true,
+        "minimum_n_met": true,
+        "source_separation_mode_allowed": true,
+        "pre_target_lock_present": true,
+        "target_hidden_until_scoring": true,
+        "training_and_target_source_refs_present": true,
+        "pack_sha256_bound": true,
+        "comparator_baseline_declared": true,
+        "comparator_baseline_pre_registered": true,
+        "uncertainty_declared": true,
+        "residuals_show_model_beats_declared_comparator": true,
+        "negative_controls_rejected": true,
+        "falsifier_declared": true,
+        "strict_pack_support_allowed": true
+      },
+      "current_verdict": "CERTIFIED_AGAINST_DECLARED_BENCHMARK_BASELINES",
+      "blocked_by": [],
+      "allowed_current_claim": "OC133 benchmark result beats the declared preregistered comparator baselines for this strict pack.",
+      "forbidden_broad_claims": [
+        "predicts better than modern science",
+        "superior to modern science",
+        "outperforms modern science",
+        "replaces modern science"
+      ],
+      "result_role_bindings": {
+        "incumbent_modern_science_source": "incumbent_source_refs",
+        "strict_evidence_pack": "validation/heldout/grand_science/chemistry/pubchem_hbond_donor/OC133_CHEMISTRY_PUBCHEM_HBOND_DONOR_CANDIDATE_PACK.json",
+        "oc_result": "validation/heldout/grand_science/chemistry/pubchem_hbond_donor/OC133_CHEMISTRY_PUBCHEM_HBOND_DONOR_CANDIDATE_PACK.json",
+        "comparator_result": {
+          "result_ref": "validation/heldout/grand_science/chemistry/pubchem_hbond_donor/OC133_CHEMISTRY_PUBCHEM_HBOND_DONOR_CANDIDATE_PACK.json",
+          "baseline_name": "formula-only nitrogen/oxygen heteroatom donor-count baseline"
+        },
+        "benchmark_predicate": "MS-PRED-CHEMISTRY-STRICT-PACK",
+        "uncertainty_fairness": {
+          "uncertainty_declared": true,
+          "uncertainty": {
+            "metric": "mean absolute error in PubChem HBondDonorCount units",
+            "method": "integer descriptor exact-match scoring; row residuals must be zero",
+            "interval": [
+              0.0,
+              0.05
+            ]
+          },
+          "source_separation_mode": "prospective",
+          "predeclared_comparator_present": true,
+          "negative_control_rejected": true,
+          "fairness_limitations": [
+            "Certification is scoped to the declared pack task, source refs, hash, and preregistered baselines.",
+            "It is not a survey over all theories, datasets, instruments, labs, or methods in the domain."
+          ],
+          "fairness_verdict": "BENCHMARK_SCOPED_FAIRNESS_ACCEPTED"
+        },
+        "certification_verdict": {
+          "benchmark_scoped_superiority": {
+            "certified": true,
+            "label": "CERTIFIED_AGAINST_DECLARED_INCUMBENT_BENCHMARK_BASELINES",
+            "scope": "declared strict evidence pack baselines only"
+          },
+          "broad_modern_science_superiority": {
+            "certified": false,
+            "label": "BLOCKED_UNSUPPORTED_BROAD_WORDING",
+            "forbidden_claim": "predicts better than modern science"
+          },
+          "modern_science_comparator_superiority": {
+            "state": "FAIL_BROAD_CLAIM_BLOCKED",
+            "honest_pass_state": "benchmark_scoped_only"
+          }
+        },
+        "blocker_reason": {
+          "broad_claim_blocked_by": [
+            "BROAD_MODERN_SCIENCE_SCOPE_NOT_COVERED_BY_DECLARED_PACKS",
+            "NO_SURVEY_OF_ALL_MODERN_SCIENCE_INCUMBENTS",
+            "INDEPENDENT_CLEAN_CHECKOUT_REPLAY_NOT_BOUND_TO_THIS_REGISTER",
+            "UNSUPPORTED_WORDING::predicts better than modern science"
+          ],
+          "strict_pack_failures": [],
+          "allowed_current_wording": "certified against declared incumbent benchmark baselines only",
+          "forbidden_wording": [
+            "predicts better than modern science",
+            "superior to modern science",
+            "outperforms modern science",
+            "replaces modern science"
+          ]
+        }
+      }
+    },
+    {
+      "lane_id": "MS-LANE-PHYSICS-STRICT-PACK",
+      "predicate_id": "MS-PRED-PHYSICS-STRICT-PACK",
+      "domain": "physics",
+      "strict_evidence_pack_ref": "validation/heldout/grand_science/physics_chemistry/official_batch/physics_official_batch_candidate_evidence_pack.json",
+      "strict_evidence_pack_sha256": "8ee7d8282e04c6e15ee780e97d4a2766ed92e6300df4de548a739ec36209c6c4",
+      "task": "Reconstruct official CODATA/SI relationship targets from visible formula inputs under a prospective official-readonly source lock.",
+      "metric_family": "absolute_error_with_uncertainty_normalized_score_v1",
+      "required_negative_control": "All declared negative controls in the strict pack must be rejected.",
+      "certification_predicates": [
+        "current_strict_pack_ref",
+        "current_pack_exists",
+        "current_pack_hash_bound",
+        "schema_is_strict_grand_empirical",
+        "domain_matches_pack",
+        "minimum_n_met",
+        "source_separation_mode_allowed",
+        "pre_target_lock_present",
+        "target_hidden_until_scoring",
+        "training_and_target_source_refs_present",
+        "pack_sha256_bound",
+        "comparator_baseline_declared",
+        "comparator_baseline_pre_registered",
+        "uncertainty_declared",
+        "residuals_show_model_beats_declared_comparator",
+        "negative_controls_rejected",
+        "falsifier_declared",
+        "strict_pack_support_allowed"
+      ],
+      "current_predicate_status": {
+        "current_strict_pack_ref": true,
+        "current_pack_exists": true,
+        "current_pack_hash_bound": true,
+        "schema_is_strict_grand_empirical": true,
+        "domain_matches_pack": true,
+        "minimum_n_met": true,
+        "source_separation_mode_allowed": true,
+        "pre_target_lock_present": true,
+        "target_hidden_until_scoring": true,
+        "training_and_target_source_refs_present": true,
+        "pack_sha256_bound": true,
+        "comparator_baseline_declared": true,
+        "comparator_baseline_pre_registered": true,
+        "uncertainty_declared": true,
+        "residuals_show_model_beats_declared_comparator": true,
+        "negative_controls_rejected": true,
+        "falsifier_declared": true,
+        "strict_pack_support_allowed": true
+      },
+      "current_verdict": "CERTIFIED_AGAINST_DECLARED_BENCHMARK_BASELINES",
+      "blocked_by": [],
+      "allowed_current_claim": "OC133 benchmark result beats the declared preregistered comparator baselines for this strict pack.",
+      "forbidden_broad_claims": [
+        "predicts better than modern science",
+        "superior to modern science",
+        "outperforms modern science",
+        "replaces modern science"
+      ],
+      "result_role_bindings": {
+        "incumbent_modern_science_source": "incumbent_source_refs",
+        "strict_evidence_pack": "validation/heldout/grand_science/physics_chemistry/official_batch/physics_official_batch_candidate_evidence_pack.json",
+        "oc_result": "validation/heldout/grand_science/physics_chemistry/official_batch/physics_official_batch_candidate_evidence_pack.json",
+        "comparator_result": {
+          "result_ref": "validation/heldout/grand_science/physics_chemistry/official_batch/physics_official_batch_candidate_evidence_pack.json",
+          "baseline_name": "physics official-snapshot same-target formula ablation baseline"
+        },
+        "benchmark_predicate": "MS-PRED-PHYSICS-STRICT-PACK",
+        "uncertainty_fairness": {
+          "uncertainty_declared": true,
+          "uncertainty": {
+            "metric": "absolute_error_with_uncertainty_normalized_score_v1",
+            "method": "deterministic official snapshot replay envelope; blocked unless target-blind/prospective source separation exists",
+            "interval": [
+              0.0,
+              1.0
+            ]
+          },
+          "source_separation_mode": "prospective",
+          "predeclared_comparator_present": true,
+          "negative_control_rejected": true,
+          "fairness_limitations": [
+            "Certification is scoped to the declared pack task, source refs, hash, and preregistered baselines.",
+            "It is not a survey over all theories, datasets, instruments, labs, or methods in the domain."
+          ],
+          "fairness_verdict": "BENCHMARK_SCOPED_FAIRNESS_ACCEPTED"
+        },
+        "certification_verdict": {
+          "benchmark_scoped_superiority": {
+            "certified": true,
+            "label": "CERTIFIED_AGAINST_DECLARED_INCUMBENT_BENCHMARK_BASELINES",
+            "scope": "declared strict evidence pack baselines only"
+          },
+          "broad_modern_science_superiority": {
+            "certified": false,
+            "label": "BLOCKED_UNSUPPORTED_BROAD_WORDING",
+            "forbidden_claim": "predicts better than modern science"
+          },
+          "modern_science_comparator_superiority": {
+            "state": "FAIL_BROAD_CLAIM_BLOCKED",
+            "honest_pass_state": "benchmark_scoped_only"
+          }
+        },
+        "blocker_reason": {
+          "broad_claim_blocked_by": [
+            "BROAD_MODERN_SCIENCE_SCOPE_NOT_COVERED_BY_DECLARED_PACKS",
+            "NO_SURVEY_OF_ALL_MODERN_SCIENCE_INCUMBENTS",
+            "INDEPENDENT_CLEAN_CHECKOUT_REPLAY_NOT_BOUND_TO_THIS_REGISTER",
+            "UNSUPPORTED_WORDING::predicts better than modern science"
+          ],
+          "strict_pack_failures": [],
+          "allowed_current_wording": "certified against declared incumbent benchmark baselines only",
+          "forbidden_wording": [
+            "predicts better than modern science",
+            "superior to modern science",
+            "outperforms modern science",
+            "replaces modern science"
+          ]
+        }
+      }
+    },
+    {
+      "lane_id": "MS-LANE-SYSTEMS-STRICT-PACK",
+      "predicate_id": "MS-PRED-SYSTEMS-STRICT-PACK",
+      "domain": "systems",
+      "strict_evidence_pack_ref": "validation/heldout/grand_science/systems/wdi_population_materiality/OC133_SYSTEMS_WDI_POPULATION_MATERIALITY_CANDIDATE_PACK.json",
+      "strict_evidence_pack_sha256": "ddd022b3b95168ed28efe642cab738529bd57d12d1807689802987397cea1fbd",
+      "task": "Predict a fixed target-blind WDI Argentina population held-out panel from prior-year training rows.",
+      "metric_family": "mean absolute heldout residual",
+      "required_negative_control": "All declared negative controls in the strict pack must be rejected.",
+      "certification_predicates": [
+        "current_strict_pack_ref",
+        "current_pack_exists",
+        "current_pack_hash_bound",
+        "schema_is_strict_grand_empirical",
+        "domain_matches_pack",
+        "minimum_n_met",
+        "source_separation_mode_allowed",
+        "pre_target_lock_present",
+        "target_hidden_until_scoring",
+        "training_and_target_source_refs_present",
+        "pack_sha256_bound",
+        "comparator_baseline_declared",
+        "comparator_baseline_pre_registered",
+        "uncertainty_declared",
+        "residuals_show_model_beats_declared_comparator",
+        "negative_controls_rejected",
+        "falsifier_declared",
+        "strict_pack_support_allowed"
+      ],
+      "current_predicate_status": {
+        "current_strict_pack_ref": true,
+        "current_pack_exists": true,
+        "current_pack_hash_bound": true,
+        "schema_is_strict_grand_empirical": true,
+        "domain_matches_pack": true,
+        "minimum_n_met": true,
+        "source_separation_mode_allowed": true,
+        "pre_target_lock_present": true,
+        "target_hidden_until_scoring": true,
+        "training_and_target_source_refs_present": true,
+        "pack_sha256_bound": true,
+        "comparator_baseline_declared": true,
+        "comparator_baseline_pre_registered": true,
+        "uncertainty_declared": true,
+        "residuals_show_model_beats_declared_comparator": true,
+        "negative_controls_rejected": true,
+        "falsifier_declared": true,
+        "strict_pack_support_allowed": true
+      },
+      "current_verdict": "CERTIFIED_AGAINST_DECLARED_BENCHMARK_BASELINES",
+      "blocked_by": [],
+      "allowed_current_claim": "OC133 benchmark result beats the declared preregistered comparator baselines for this strict pack.",
+      "forbidden_broad_claims": [
+        "predicts better than modern science",
+        "superior to modern science",
+        "outperforms modern science",
+        "replaces modern science"
+      ],
+      "result_role_bindings": {
+        "incumbent_modern_science_source": "incumbent_source_refs",
+        "strict_evidence_pack": "validation/heldout/grand_science/systems/wdi_population_materiality/OC133_SYSTEMS_WDI_POPULATION_MATERIALITY_CANDIDATE_PACK.json",
+        "oc_result": "validation/heldout/grand_science/systems/wdi_population_materiality/OC133_SYSTEMS_WDI_POPULATION_MATERIALITY_CANDIDATE_PACK.json",
+        "comparator_result": {
+          "result_ref": "validation/heldout/grand_science/systems/wdi_population_materiality/OC133_SYSTEMS_WDI_POPULATION_MATERIALITY_CANDIDATE_PACK.json",
+          "baseline_name": "best-of WDI carry-forward, prior mean, and trailing-three-year mean comparators"
+        },
+        "benchmark_predicate": "MS-PRED-SYSTEMS-STRICT-PACK",
+        "uncertainty_fairness": {
+          "uncertainty_declared": true,
+          "uncertainty": {
+            "metric": "mean absolute heldout residual",
+            "method": "selected-formula prior validation residual envelope",
+            "interval": [
+              0.0,
+              9294.9
+            ]
+          },
+          "source_separation_mode": "target_blind",
+          "predeclared_comparator_present": true,
+          "negative_control_rejected": true,
+          "fairness_limitations": [
+            "Certification is scoped to the declared pack task, source refs, hash, and preregistered baselines.",
+            "It is not a survey over all theories, datasets, instruments, labs, or methods in the domain."
+          ],
+          "fairness_verdict": "BENCHMARK_SCOPED_FAIRNESS_ACCEPTED"
+        },
+        "certification_verdict": {
+          "benchmark_scoped_superiority": {
+            "certified": true,
+            "label": "CERTIFIED_AGAINST_DECLARED_INCUMBENT_BENCHMARK_BASELINES",
+            "scope": "declared strict evidence pack baselines only"
+          },
+          "broad_modern_science_superiority": {
+            "certified": false,
+            "label": "BLOCKED_UNSUPPORTED_BROAD_WORDING",
+            "forbidden_claim": "predicts better than modern science"
+          },
+          "modern_science_comparator_superiority": {
+            "state": "FAIL_BROAD_CLAIM_BLOCKED",
+            "honest_pass_state": "benchmark_scoped_only"
+          }
+        },
+        "blocker_reason": {
+          "broad_claim_blocked_by": [
+            "BROAD_MODERN_SCIENCE_SCOPE_NOT_COVERED_BY_DECLARED_PACKS",
+            "NO_SURVEY_OF_ALL_MODERN_SCIENCE_INCUMBENTS",
+            "INDEPENDENT_CLEAN_CHECKOUT_REPLAY_NOT_BOUND_TO_THIS_REGISTER",
+            "UNSUPPORTED_WORDING::predicts better than modern science"
+          ],
+          "strict_pack_failures": [],
+          "allowed_current_wording": "certified against declared incumbent benchmark baselines only",
+          "forbidden_wording": [
+            "predicts better than modern science",
+            "superior to modern science",
+            "outperforms modern science",
+            "replaces modern science"
+          ]
+        }
+      }
+    }
+  ],
+  "executable_validation": {
+    "commands": [
+      "python benchmarks/modern_science/clean_checkout_replay.py --write",
+      "python benchmarks/modern_science/validate_modern_science_register.py --check",
+      "python benchmarks/modern_science/validate_modern_science_register.py"
+    ],
+    "policy": "Validation fails on stale pack refs/hashes, missing source refs, unsupported broad wording, or broad certification without every broad predicate true."
+  }
+}

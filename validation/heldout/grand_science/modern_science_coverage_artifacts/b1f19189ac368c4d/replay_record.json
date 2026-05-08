@@ -1,0 +1,76 @@
+{
+  "artifact_hash": "436e291f8916926bb4cd029301ff5be311c03b87479a3565f8e6ce59650c2bc0",
+  "artifact_key": "replay_record",
+  "artifact_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/b1f19189ac368c4d/replay_record.json",
+  "closure_scope": "independent replay passed for already-positive scoring evidence",
+  "domain_class_id": "agricultural_food_sciences",
+  "executable_spec_found": true,
+  "execution_command": [
+    "python",
+    "public reproducibility package",
+    "--execute-comparator-gap-artifact",
+    "MS-COV-GAP-AGRICULTURAL_FOOD_SCIENCES-FOOD_CHEMISTRY_SAFETY_AND_NUTRITION",
+    "replay_record",
+    "--write"
+  ],
+  "gap_id": "MS-COV-GAP-AGRICULTURAL_FOOD_SCIENCES-FOOD_CHEMISTRY_SAFETY_AND_NUTRITION",
+  "generated_at": "2026-05-05T22:48:11Z",
+  "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+  "next_escalation": "If this row remains OPEN, create a narrower acquisition/scoring/replay executor for the exact failed validation field.",
+  "no_fake_closure_policy": "This artifact can reduce a missing-artifact count only at its own scope. It cannot mark the coverage gap or broad TOE superiority PASS by itself.",
+  "pass_predicate": "replay_record status == PASS and the strict comparator gap row no longer lists it as missing.",
+  "phenomenon_class_id": "food_chemistry_safety_and_nutrition",
+  "queue_row_found": true,
+  "repair_strategy": "Continue to the next missing artifact; do not close broad superiority until all source, benchmark, comparator, scoring, uncertainty, falsifier, and replay artifacts pass.",
+  "required_capability": "Research/PriorArt",
+  "schema_id": "OC133_MODERN_SCIENCE_COMPARATOR_RESEARCH_ARTIFACT_v1",
+  "source_refs": [
+    "reports/OC_CORE_1_3_3_MODERN_SCIENCE_COVERAGE_LANE_QUEUE.json",
+    "benchmarks/modern_science/OC133_MODERN_SCIENCE_COVERAGE_RESEARCH_TASKS.json",
+    "comparators/modern_science/OC133_MODERN_SCIENCE_COVERAGE_REGISTER.json"
+  ],
+  "status": "PASS",
+  "validation": {
+    "replay_command_total": 1,
+    "replay_executed_total": 1,
+    "replay_results": [
+      {
+        "cmd": [
+          "python",
+          "validation/heldout/grand_science/agriculture/coverage_research_tasks/oc133_agriculture_modern_science_coverage_research_tasks.py",
+          "--score-fdc",
+          "--write-scoring"
+        ],
+        "returncode": 0,
+        "stderr_tail": "",
+        "stdout_tail": "{\n  \"status\": \"ok\",\n  \"current_evidence_status\": \"OPEN_FAIL_CLOSED_SCORER_READY_STRICT_EVIDENCE_PACK_NO_COVERAGE_CLOSURE\",\n  \"coverage_closure_allowed\": false,\n  \"row_count\": 25,\n  \"target_hidden_scorer_present\": true,\n  \"negative_control_rejected\": true,\n  \"scoring_pack_ref\": \"validation/heldout/grand_science/agriculture/coverage_research_tasks/OC133_AGRICULTURE_FDC_SODIUM_SCORING_PACK.json\",\n  \"blockers\": [],\n  \"errors\": []\n}\n"
+      }
+    ],
+    "scoring_evidence": {
+      "evidence_pack_hash": "af7b1a1d3e5cc49940ec88c50a56e6e598f9c739b159c6fe3400be4ad5d70b7a",
+      "evidence_pack_summary": {
+        "coverage_closure_allowed": true,
+        "fail_closed_reason": "",
+        "pack_status": "PASS",
+        "residuals": {
+          "comparator": 0.039938533563,
+          "material_margin_met": true,
+          "material_margin_rule": "source-bound materialized evidence pack must show OC residual strictly below preregistered comparator residual under the declared uncertainty rule",
+          "model": 0.031695657803
+        },
+        "schema_id": "OC133_MODERN_SCIENCE_COMPARATOR_STRICT_EVIDENCE_PACK_v1",
+        "score_materialized": true,
+        "source_bound": true,
+        "target_hidden": true
+      },
+      "evidence_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/b1f19189ac368c4d/strict_evidence_pack.json",
+      "evidence_ref_exists": true,
+      "executable_evidence_exists": true,
+      "fail_closed_status_present": false,
+      "material_margin_met": true,
+      "pack_status_text": "PASS PASS"
+    }
+  },
+  "why_it_failed": "Required comparator artifact is source-bound at its declared scope.",
+  "research_task_id": "MS-COV-WO-020"
+}

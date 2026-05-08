@@ -1,0 +1,221 @@
+{
+  "schema_id": "OC133_BIOLOGY_SYSTEMS_EVIDENCE_EXECUTION_REPORT_v1",
+  "release_id": "oc_core_1_3_3",
+  "version": "1.3.3",
+  "evidence_owner": "Research/EmpiricalScience",
+  "blocker_id": "grand_toe_empirical_superiority",
+  "executor": "validation/heldout/domain_evidence/biology_systems_evidence_executor.py",
+  "requirements_ref": "benchmarks/grand_science/domain_requirements.json",
+  "evidence_schema_ref": "validation/grand_science/grand_empirical_evidence.schema.json",
+  "grand_factory_ref": "validation/grand_science/evidence_pack_factory.py",
+  "output_root_ref": "validation/heldout/grand_science/biology_systems",
+  "report_ref": "validation/heldout/grand_science/biology_systems/OC133_BIOLOGY_SYSTEMS_EVIDENCE_EXECUTION_REPORT.json",
+  "protocol_ref": "validation/heldout/grand_science/biology_systems/OC133_BIOLOGY_SYSTEMS_EVIDENCE_PROTOCOL.json",
+  "candidate_pack_refs": [
+    "validation/heldout/grand_science/biology_systems/biology_candidate_evidence_pack.json",
+    "validation/heldout/grand_science/biology_systems/systems_candidate_evidence_pack.json"
+  ],
+  "candidate_pack_total": 2,
+  "valid_under_current_grand_schema_total": 0,
+  "valid_under_grand_gate_total": 0,
+  "valid_under_executor_total": 0,
+  "valid_pack_total": 0,
+  "blocked_pack_total": 2,
+  "blocked_domain_total": 2,
+  "protocol_sha256": "4815b7a76089e38cf7611f51c31903a9bdd2f80e72943b14a8e09157396853be",
+  "domains": [
+    {
+      "domain": "biology",
+      "candidate_pack_ref": "validation/heldout/grand_science/biology_systems/biology_candidate_evidence_pack.json",
+      "candidate_pack_sha256": "e7744846b1dd3a14a4bc96db9f2fc026192aca74190717b128db46acbf27b9ae",
+      "snapshot_ref": "validation/_raw/biology_ncbi_geo_platform.txt",
+      "snapshot_kind": "current_bounded_ncbi_geo_esearch_snapshot",
+      "snapshot_sha256": "f205645ec097af8972f7c70f4753a5d7eb154c4283e9caa454235843974bfda4",
+      "snapshot_sha256_policy": "LF_NORMALIZED_TEXT_SNAPSHOT_HASH",
+      "snapshot_byte_count": 525,
+      "minimum_n": 20,
+      "candidate_n": 1,
+      "source_validation_failures": [
+        "PRE_TARGET_LOCK_REQUIRED",
+        "TARGET_HIDDEN_UNTIL_SCORING_REQUIRED"
+      ],
+      "observation_validation_failures": [
+        "BIOLOGY_CURRENT_SNAPSHOT_IS_API_PAGINATION_QA_NOT_MECHANISM_EVIDENCE",
+        "SOURCE_SEPARATION_NOT_VERIFIABLE_FROM_CURRENT_SINGLE_RAW_SNAPSHOT",
+        "TARGET_VALUES_VISIBLE_IN_PINNED_RAW_SNAPSHOT",
+        "N_BELOW_MINIMUM::1/20",
+        "COMPARATOR_BASELINE_NOT_PREREGISTERED"
+      ],
+      "schema_validation_failures": [
+        "N_BELOW_MINIMUM::20",
+        "GRAND_TOE_SUPPORT_ALLOWED_CONST_MISMATCH"
+      ],
+      "grand_gate_failures": [
+        "PRE_TARGET_LOCK_REQUIRED",
+        "TARGET_HIDDEN_UNTIL_SCORING_REQUIRED",
+        "N_BELOW_MINIMUM::20",
+        "COMPARATOR_BASELINE_NOT_PREREGISTERED",
+        "GRAND_TOE_SUPPORT_NOT_ALLOWED"
+      ],
+      "tamper_test_total": 3,
+      "tamper_tests": [
+        {
+          "test_id": "biology-snapshot-tamper-hash-changes",
+          "description": "deterministic mutation of a target-bearing field must change the canonical snapshot hash",
+          "passed": true
+        },
+        {
+          "test_id": "biology-target-field-tamper-rejected",
+          "description": "removing or mutating target-bearing data must be detected by parser or residual replay",
+          "passed": true
+        },
+        {
+          "test_id": "biology-negative-control-residual-test",
+          "description": "every declared row-level comparator/negative control must have residual above the OC model residual",
+          "passed": true
+        }
+      ],
+      "residuals": {
+        "model": 0.0,
+        "comparator": 43988.0,
+        "superiority_margin": 43988.0
+      },
+      "valid_under_executor": false,
+      "valid_under_current_grand_schema": false,
+      "valid_under_grand_gate": false,
+      "blockers": [
+        "PRE_TARGET_LOCK_REQUIRED",
+        "TARGET_HIDDEN_UNTIL_SCORING_REQUIRED",
+        "BIOLOGY_CURRENT_SNAPSHOT_IS_API_PAGINATION_QA_NOT_MECHANISM_EVIDENCE",
+        "SOURCE_SEPARATION_NOT_VERIFIABLE_FROM_CURRENT_SINGLE_RAW_SNAPSHOT",
+        "TARGET_VALUES_VISIBLE_IN_PINNED_RAW_SNAPSHOT",
+        "N_BELOW_MINIMUM::1/20",
+        "COMPARATOR_BASELINE_NOT_PREREGISTERED",
+        "N_BELOW_MINIMUM::20",
+        "GRAND_TOE_SUPPORT_NOT_ALLOWED",
+        "GRAND_TOE_SUPPORT_ALLOWED_CONST_MISMATCH"
+      ],
+      "protocol_notes": [
+        "Current GEO snapshot provides one bounded pagination reconstruction, not 20 independent biology mechanism targets.",
+        "A valid future biology pack must freeze a pre-target model/comparator and score at least 20 target-hidden or prospective biology observations."
+      ],
+      "observation_rows": [
+        {
+          "observation_id": "BIOLOGY-GEO-GPL96-PAGE-0000",
+          "training_source": "validation/_raw/biology_ncbi_geo_platform.txt::visible_fields(retstart,idlist)",
+          "target_source": "validation/_raw/biology_ncbi_geo_platform.txt::withheld_field(retmax)",
+          "formula": "retstart + len(idlist)",
+          "predicted_value": 20.0,
+          "observed_value": 20.0,
+          "comparator_prediction": 44008.0,
+          "model_residual": 0.0,
+          "comparator_residual": 43988.0,
+          "uncertainty": 0.0,
+          "negative_control_id": "biology-total-hit-count-control",
+          "negative_control_rejected": true,
+          "falsifier": "retmax differs from retstart plus returned id count or total-count control is not worse",
+          "row_sha256": "ed8aa8d90ae29629d74b37cd2c833bfb7db3bf7d303fab6ec9eb079b5fb4d87b"
+        }
+      ]
+    },
+    {
+      "domain": "systems",
+      "candidate_pack_ref": "validation/heldout/grand_science/biology_systems/systems_candidate_evidence_pack.json",
+      "candidate_pack_sha256": "81ce4944ba6d7d439c41c59ab089cedb5e49841e24e0bb33e9823191cb62d791",
+      "snapshot_ref": "validation/_raw/systems_world_bank_gdp.txt",
+      "snapshot_kind": "current_bounded_world_bank_wdi_snapshot",
+      "snapshot_sha256": "52a3dcef732b262251662f20923d00ba8d4df239cce96097abf67ee6b15ff12b",
+      "snapshot_sha256_policy": "LF_NORMALIZED_TEXT_SNAPSHOT_HASH",
+      "snapshot_byte_count": 1102,
+      "minimum_n": 20,
+      "candidate_n": 1,
+      "source_validation_failures": [
+        "PRE_TARGET_LOCK_REQUIRED",
+        "TARGET_HIDDEN_UNTIL_SCORING_REQUIRED"
+      ],
+      "observation_validation_failures": [
+        "SYSTEMS_CURRENT_SNAPSHOT_IS_RETROSPECTIVE_MACRO_REPLAY_NOT_PROSPECTIVE_CIVILIZATIONAL_EVIDENCE",
+        "SOURCE_SEPARATION_NOT_VERIFIABLE_FROM_CURRENT_SINGLE_RAW_SNAPSHOT",
+        "TARGET_VALUES_VISIBLE_IN_PINNED_RAW_SNAPSHOT",
+        "N_BELOW_MINIMUM::1/20",
+        "COMPARATOR_BASELINE_NOT_PREREGISTERED"
+      ],
+      "schema_validation_failures": [
+        "N_BELOW_MINIMUM::20",
+        "GRAND_TOE_SUPPORT_ALLOWED_CONST_MISMATCH"
+      ],
+      "grand_gate_failures": [
+        "PRE_TARGET_LOCK_REQUIRED",
+        "TARGET_HIDDEN_UNTIL_SCORING_REQUIRED",
+        "N_BELOW_MINIMUM::20",
+        "COMPARATOR_BASELINE_NOT_PREREGISTERED",
+        "GRAND_TOE_SUPPORT_NOT_ALLOWED"
+      ],
+      "tamper_test_total": 3,
+      "tamper_tests": [
+        {
+          "test_id": "systems-snapshot-tamper-hash-changes",
+          "description": "deterministic mutation of a target-bearing field must change the canonical snapshot hash",
+          "passed": true
+        },
+        {
+          "test_id": "systems-target-field-tamper-rejected",
+          "description": "removing or mutating target-bearing data must be detected by parser or residual replay",
+          "passed": true
+        },
+        {
+          "test_id": "systems-negative-control-residual-test",
+          "description": "every declared row-level comparator/negative control must have residual above the OC model residual",
+          "passed": true
+        }
+      ],
+      "residuals": {
+        "model": 59572919095.09375,
+        "comparator": 4241013358949.0,
+        "superiority_margin": 4181440439853.9062
+      },
+      "valid_under_executor": false,
+      "valid_under_current_grand_schema": false,
+      "valid_under_grand_gate": false,
+      "blockers": [
+        "PRE_TARGET_LOCK_REQUIRED",
+        "TARGET_HIDDEN_UNTIL_SCORING_REQUIRED",
+        "SYSTEMS_CURRENT_SNAPSHOT_IS_RETROSPECTIVE_MACRO_REPLAY_NOT_PROSPECTIVE_CIVILIZATIONAL_EVIDENCE",
+        "SOURCE_SEPARATION_NOT_VERIFIABLE_FROM_CURRENT_SINGLE_RAW_SNAPSHOT",
+        "TARGET_VALUES_VISIBLE_IN_PINNED_RAW_SNAPSHOT",
+        "N_BELOW_MINIMUM::1/20",
+        "COMPARATOR_BASELINE_NOT_PREREGISTERED",
+        "N_BELOW_MINIMUM::20",
+        "GRAND_TOE_SUPPORT_NOT_ALLOWED",
+        "GRAND_TOE_SUPPORT_ALLOWED_CONST_MISMATCH"
+      ],
+      "protocol_notes": [
+        "Current WDI snapshot yields one retrospective GDP holdout, not 20 independent systems/civilizational targets.",
+        "A valid future systems pack must pre-register the target horizon and score at least 20 target-hidden or prospective observations."
+      ],
+      "observation_rows": [
+        {
+          "observation_id": "SYSTEMS-WDI-WORLD-GDP-2024",
+          "training_source": "validation/_raw/systems_world_bank_gdp.txt::training_years(2021,2022,2023)",
+          "target_source": "validation/_raw/systems_world_bank_gdp.txt::target_year(2024)",
+          "formula": "GDP_2023 + (GDP_2023-GDP_2021)/2",
+          "predicted_value": 111042234099108.1,
+          "observed_value": 110982661180013.0,
+          "comparator_prediction": 106741647821064.0,
+          "model_residual": 59572919095.09375,
+          "comparator_residual": 4241013358949.0,
+          "uncertainty": 1109826611800.1301,
+          "negative_control_id": "systems-last-observation-control",
+          "negative_control_rejected": true,
+          "falsifier": "held-out residual exceeds 1 percent of observed target or comparator is not worse",
+          "row_sha256": "7082ef8e0ce3fd58b7f58a090baa50b67bbeae456ae0150cfa6d0a33773b4a83"
+        }
+      ]
+    }
+  ],
+  "verdict": "BLOCKED_PENDING_GENUINE_BIOLOGY_SYSTEMS_EVIDENCE",
+  "no_fabricated_success_policy": "The executor emits grand support only when source separation, N, formula, comparator, residual, uncertainty, negative controls, falsifiers, schema shape, and grand factory gate all pass. Current bounded replay snapshots remain blocked.",
+  "no_send": true,
+  "publish_allowed": false,
+  "registry_write_allowed": false
+}

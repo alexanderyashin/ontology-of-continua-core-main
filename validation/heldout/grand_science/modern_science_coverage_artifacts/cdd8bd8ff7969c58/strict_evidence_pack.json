@@ -1,0 +1,136 @@
+{
+  "artifact_hash": "8d3637e5fd7350ade86215c450d4ddec01895ce5fe434ab2247e47b359323ae5",
+  "artifact_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/cdd8bd8ff7969c58/strict_evidence_pack.json",
+  "broad_modern_science_superiority_allowed": false,
+  "command_results": [
+    {
+      "cmd": [
+        "python",
+        "validation/heldout/grand_science/uci/coverage_research_tasks/oc133_uci_tabular_classifier_materializer.py",
+        "--lane",
+        "cognitive_student_psychometric_performance",
+        "--score",
+        "--write-scoring"
+      ],
+      "returncode": 0,
+      "stderr_tail": "",
+      "stdout_tail": "{\n  \"lane\": \"cognitive_student_psychometric_performance\",\n  \"status\": \"STRICT_EVIDENCE_PASS_NO_COVERAGE_CLOSURE\",\n  \"row_count\": 79,\n  \"residuals\": {\n    \"model\": 0.063291139241,\n    \"comparator\": 0.392405063291,\n    \"negative_control\": 0.936708860759,\n    \"material_margin_met\": true,\n    \"material_margin_rule\": \"classifier loss + 0.05 must be below majority-class comparator loss\"\n  }\n}\n"
+    },
+    {
+      "cmd": [
+        "python",
+        "validation/heldout/grand_science/uci/coverage_research_tasks/oc133_uci_tabular_classifier_materializer.py",
+        "--lane",
+        "cognitive_student_psychometric_performance",
+        "--check"
+      ],
+      "returncode": 0,
+      "stderr_tail": "",
+      "stdout_tail": "cognitive_student_psychometric_performance: PASS\n"
+    }
+  ],
+  "comparator_bound": true,
+  "coverage_closure_allowed": true,
+  "current_evidence": {
+    "coverage_closure_allowed": false,
+    "domain_evidence_ref": "validation/heldout/grand_science/uci/cognitive_student_psychometric_performance/OC133_UCI_COGNITIVE_STUDENT_PSYCHOMETRIC_PERFORMANCE_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
+    "domain_evidence_schema_id": "OC133_UCI_TABULAR_CLASSIFIER_SCORING_PACK_v1",
+    "domain_evidence_sha256": "447b6fbca0b86bd65f9025e9edf4d43af6b8f86a115b5976030b783408de2e3d",
+    "domain_pack_status": "STRICT_EVIDENCE_PASS_NO_COVERAGE_CLOSURE",
+    "scientific_pass": true
+  },
+  "domain_class_id": "cognitive_behavioral_neurosciences",
+  "executable_evidence_exists": true,
+  "execution_command": [
+    "python",
+    "public reproducibility package",
+    "--execute-comparator-component-materialization",
+    "R017-COMPONENT-MATERIALIZE-448ec73679fa1ab0",
+    "--write"
+  ],
+  "execution_requirements": {
+    "evidence_pack_schema_id": "OC133_GRAND_EMPIRICAL_EVIDENCE_v1",
+    "minimum_n": 40,
+    "replay_command": "python validation/heldout/grand_science/neurobehavioral/coverage_research_tasks/oc133_neurobehavioral_modern_science_coverage_research_tasks.py --check",
+    "source_separation_mode": "target_blind",
+    "target_hidden_until_scoring": true
+  },
+  "fail_closed_reason": "",
+  "falsifier_requirement": {
+    "falsifier_id": "NEURO-BEHAVIOR-PSYCHOMETRIC-FALSIFIER",
+    "trigger": "Heldout behavior/psychometric metrics leak into model selection, fewer than 20 subjects are scored, dataset hashes drift, or training-mean comparator ties or beats the model within uncertainty."
+  },
+  "gap_id": "MS-COV-GAP-COGNITIVE_BEHAVIORAL_NEUROSCIENCES-BEHAVIORAL_TASK_AND_PSYCHOMETRIC_PREDICTION",
+  "generated_at": "2026-05-06T08:08:15Z",
+  "incumbent_comparator": {
+    "baseline_name": "condition-stratified training mean behavioral comparator",
+    "pre_registered": true,
+    "prediction_rule": "predict heldout RT/success metrics by the training-only condition and covariate-stratum mean",
+    "required_material_margin": "model residual must beat comparator residual under the declared domain-local metric",
+    "target_values_used_for_baseline_design": false
+  },
+  "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+  "no_fake_closure_policy": "Negative source-bound scoring remains a scientific blocker; it cannot be counted as broad superiority.",
+  "pack_status": "PASS",
+  "pass_predicate": "pack_status == PASS, material_margin_met == true, no fail-closed status, replay_record PASS.",
+  "phenomenon_class_id": "behavioral_task_and_psychometric_prediction",
+  "prerequisite_artifacts_bound": true,
+  "repair_strategy": "If negative, improve the source-bound model/comparator route from canonical evidence rather than weakening the materiality rule.",
+  "replay": {
+    "replay_command": "python validation/heldout/grand_science/neurobehavioral/coverage_research_tasks/oc133_neurobehavioral_modern_science_coverage_research_tasks.py --check",
+    "replay_commands": [
+      "python validation/heldout/grand_science/neurobehavioral/coverage_research_tasks/oc133_neurobehavioral_modern_science_coverage_research_tasks.py --check"
+    ],
+    "status": "READY_FOR_REPLAY"
+  },
+  "required_capability": "Research/SourceBoundScoringMaterializationExecutor",
+  "residual_requirement": {
+    "formula": "absolute RT residual in ms and absolute success-rate residual per subject",
+    "metric_id": "MS-COV-WO-029_domain_local_residual",
+    "superiority_rule": "weighted_model_residual + uncertainty_upper < weighted_comparator_residual"
+  },
+  "residuals": {
+    "comparator": 0.392405063291,
+    "material_margin_met": true,
+    "material_margin_rule": "source-bound materialized evidence pack must show OC residual strictly below preregistered comparator residual under the declared uncertainty rule",
+    "model": 0.063291139241
+  },
+  "schema_id": "OC133_MODERN_SCIENCE_COMPARATOR_STRICT_EVIDENCE_PACK_v1",
+  "score_materialized": true,
+  "source": {
+    "minimum_rows_required": 40,
+    "official_documentation_url": "https://github.com/OpenNeuroDatasets/ds000030",
+    "official_endpoint_url": "https://openneuro.org/datasets/ds000030",
+    "required_local_snapshot_ref": "validation/heldout/grand_science/uci/cognitive_student_psychometric_performance/OC133_UCI_COGNITIVE_STUDENT_PSYCHOMETRIC_PERFORMANCE_SOURCE.dat",
+    "required_lock_ref": "validation/heldout/grand_science/uci/cognitive_student_psychometric_performance/OC133_UCI_COGNITIVE_STUDENT_PSYCHOMETRIC_PERFORMANCE_SOURCE.lock.json",
+    "snapshot_status": "ACQUIRED_OR_BOUND",
+    "source_authority": "OpenNeuro / OpenfMRI / Center for Reproducible Neuroscience",
+    "source_id": "OPENNEURO_DS000030_CNP",
+    "source_name": "UCLA Consortium for Neuropsychiatric Phenomics LA5c Study"
+  },
+  "source_bound": true,
+  "source_refs": [
+    "reports/OC_CORE_1_3_3_MODERN_SCIENCE_COVERAGE_LANE_QUEUE.json",
+    "benchmarks/modern_science/OC133_MODERN_SCIENCE_COVERAGE_RESEARCH_TASKS.json",
+    "comparators/modern_science/OC133_MODERN_SCIENCE_COVERAGE_REGISTER.json",
+    "validation/heldout/grand_science/uci/cognitive_student_psychometric_performance/OC133_UCI_COGNITIVE_STUDENT_PSYCHOMETRIC_PERFORMANCE_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json"
+  ],
+  "status": "PASS",
+  "target_hidden": true,
+  "target_variable": {
+    "extraction_rule": "BIDS behavior/event files are parsed into subject-level task metrics; heldout subject metrics and psychometric targets remain sealed until prediction rows are written.",
+    "name": "heldout_stop_signal_behavioral_performance",
+    "target_fields": [
+      "stop_signal_training_median_go_rt_ms",
+      "stop_signal_success_rate",
+      "phenotype_psychometric_score_if_declared"
+    ],
+    "unit": "milliseconds and success-rate proportion"
+  },
+  "uncertainty_requirement": {
+    "metric": "absolute RT residual in ms and absolute success-rate residual per subject",
+    "rule": "subject bootstrap with trial-count weighting and preregistered missingness rules"
+  },
+  "validator_binding": "comparator_gap::MS-COV-GAP-COGNITIVE_BEHAVIORAL_NEUROSCIENCES-BEHAVIORAL_TASK_AND_PSYCHOMETRIC_PREDICTION::materialized_strict_evidence_pack",
+  "why_it_failed": "Existing executable evidence pack passes strict material superiority predicates."
+}

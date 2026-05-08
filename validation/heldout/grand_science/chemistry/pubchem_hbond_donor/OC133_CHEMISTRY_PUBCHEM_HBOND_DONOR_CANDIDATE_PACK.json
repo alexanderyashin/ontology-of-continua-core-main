@@ -1,0 +1,54 @@
+{
+  "schema_id": "OC133_GRAND_EMPIRICAL_EVIDENCE_v1",
+  "release_id": "oc_core_1_3_3",
+  "evidence_owner": "Research/EmpiricalScience",
+  "evidence_pack_id": "OC133-GRAND-CHEMISTRY-PUBCHEM-HBOND-DONOR",
+  "domain": "chemistry",
+  "source_separation": {
+    "mode": "prospective",
+    "pre_target_lock": true,
+    "target_hidden_until_scoring": true,
+    "training_sources": [
+      "validation/heldout/grand_science/chemistry/pubchem_hbond_donor/OC133_CHEMISTRY_PUBCHEM_HBOND_DONOR_ACQUISITION_PACKET.json::visible_fields(CID,MolecularFormula,ConnectivitySMILES)"
+    ],
+    "target_sources": [
+      "validation/heldout/grand_science/chemistry/pubchem_hbond_donor/OC133_CHEMISTRY_PUBCHEM_HBOND_DONOR_ACQUISITION_PACKET.json::target_field(HBondDonorCount)"
+    ]
+  },
+  "n": 20,
+  "model_under_test": "target-blind SMILES hydrogen-bond donor atom counter",
+  "comparator_baseline": {
+    "name": "formula-only nitrogen/oxygen heteroatom donor-count baseline",
+    "prediction_rule": "parse only MolecularFormula from the visible projection and predict the count of N plus O atoms as donor atoms, ignoring bonding, protonation, and functional group context",
+    "pre_registered": true
+  },
+  "uncertainty": {
+    "metric": "mean absolute error in PubChem HBondDonorCount units",
+    "method": "integer descriptor exact-match scoring; row residuals must be zero",
+    "interval": [
+      0.0,
+      0.05
+    ]
+  },
+  "residuals": {
+    "model": 0.0,
+    "comparator": 0.65,
+    "superiority_margin": 0.65
+  },
+  "negative_controls": [
+    {
+      "control_id": "chemistry-hbd-formula-heteroatom-aggregate-control",
+      "description": "formula-only N+O heteroatom donor baseline is materially worse than the SMILES donor predictor in aggregate",
+      "rejected": true
+    },
+    {
+      "control_id": "chemistry-hbd-zero-count-aggregate-control",
+      "description": "constant zero donor-count sanity control is worse than the SMILES donor predictor in aggregate",
+      "rejected": true
+    }
+  ],
+  "falsifiers": [
+    "SMILES donor-count residual is nonzero, target leaks into visible/comparator inputs, target is formula-mass replay, or aggregate formula-only comparator is not materially worse"
+  ],
+  "grand_toe_support_allowed": true
+}

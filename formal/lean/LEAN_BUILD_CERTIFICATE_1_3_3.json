@@ -1,0 +1,538 @@
+{
+  "schema_id": "OC133_LEAN_BUILD_CERTIFICATE_v12",
+  "release_id": "oc_core_1_3_3",
+  "version": "1.3.3",
+  "command": "isolated source manifest without .lake && elan run leanprover/lean4:v4.28.0 lake build OC133V12",
+  "clean_command": "create isolated temp checkout; assert no .lake before build",
+  "build_command": "lake build OC133V12",
+  "toolchain_command": "elan run leanprover/lean4:v4.28.0",
+  "lean_version_observed": "HOST_SPECIFIC_DIAGNOSTIC_REDACTED_SEE_LOCAL_OBSERVATION_REPORT",
+  "lake_version_observed": "HOST_SPECIFIC_DIAGNOSTIC_REDACTED_SEE_LOCAL_OBSERVATION_REPORT",
+  "lean_version_canonical": {
+    "version": "4.28.0",
+    "commit": "7e01a1bf5c70fc6167d49c345d3bf80596e9a79b"
+  },
+  "lake_version_canonical": {
+    "lake_version": "5.0.0-src+7e01a1b",
+    "lean_version": "4.28.0"
+  },
+  "toolchain_observation_policy": "Compare canonical version/commit fields; raw observed strings are diagnostic and may contain host triples or provisioning noise.",
+  "environment_lock": {
+    "hermetic_offline_build_claim_allowed": false,
+    "environment_lock_level": "CANONICAL_LEAN_TOOLCHAIN_LOCK_WITH_LOCAL_OBSERVATION_SIDE_REPORT",
+    "elan_version_observed": "HOST_SPECIFIC_DIAGNOSTIC_REDACTED_SEE_LOCAL_OBSERVATION_REPORT",
+    "python_version": "HOST_SPECIFIC_DIAGNOSTIC_REDACTED_SEE_LOCAL_OBSERVATION_REPORT",
+    "python_executable_basename": "HOST_SPECIFIC_DIAGNOSTIC_REDACTED_SEE_LOCAL_OBSERVATION_REPORT",
+    "path_env_policy": "PATH is ambient and diagnostic; no release claim depends on byte-identical host PATH.",
+    "network_provisioning_claim": "NOT_CLAIMED; canonical certificate excludes host provisioning diagnostics and post-generation reproducibility is checked separately.",
+    "container_digest": "NOT_PROVIDED_NO_HERMETIC_CONTAINER_CLAIM",
+    "cross_host_byte_identical_package_claim_allowed": false,
+    "local_packaging_stack_lock_ref": "reports/OC_CORE_1_3_3_POST_GENERATION_REPRODUCIBILITY_MANIFEST.json"
+  },
+  "execution_status": "EXECUTED_ISOLATED_CLEAN_BUILD",
+  "returncode": 0,
+  "clean_returncode": 0,
+  "clean_stdout_tail": "isolated temporary checkout created without .lake",
+  "clean_stderr_tail": "",
+  "cache_free_build_required": true,
+  "zero_job_cached_build_detected": false,
+  "isolated_clean_checkout_build": true,
+  "preexisting_lake_cache_detected": false,
+  "post_build_lake_cache_created": true,
+  "build_transcript_sha256": "29daf52199555fd8467242d14e01f273f6ec5816351ee8979f74f1e15820532a",
+  "lean_toolchain_ref": "lean-toolchain",
+  "lean_toolchain": "leanprover/lean4:v4.28.0",
+  "lean_toolchain_sha256": "db7bb24b756d745bbde83fe92718b51bd3625dae3701ba0f598d0eedcd3f3028",
+  "lakefile_ref": "lakefile.lean",
+  "lakefile_sha256": "df846df419c18077c055b71970a38ab26e53d38a24dc316efa877d93da566e9d",
+  "certificate_generator_ref": "public proof certificate snapshot",
+  "certificate_generator_sha256": "32539a1af1e737145503d05a55443daea546a54abfaf88a48af4ba6527ace8ea",
+  "platform": "HOST_SPECIFIC_METADATA_REDACTED_FROM_CANONICAL_CERTIFICATE",
+  "platform_observed_family": "HOST_SPECIFIC_DIAGNOSTIC_REDACTED_SEE_LOCAL_OBSERVATION_REPORT",
+  "local_observation_report_ref": "formal/lean/LEAN_BUILD_LOCAL_OBSERVATION_1_3_3.json",
+  "post_generation_reproducibility_manifest_ref": "reports/OC_CORE_1_3_3_POST_GENERATION_REPRODUCIBILITY_MANIFEST.json",
+  "post_generation_reproducibility_manifest_hash_binding": "OUTER_ATTESTATION_ONLY_TO_AVOID_CERTIFICATE_OUTPUT_CYCLE",
+  "post_generation_reproducibility_outer_attestation_field": "reports/OC_CORE_1_3_3_POST_GENERATION_REPRODUCIBILITY_MANIFEST.json::stable_payload_sha256",
+  "canonical_certificate_policy": "canonical hashes use normalized build transcript with elapsed timings and repo paths removed",
+  "clean_source_archive_kind": "release-critical source manifest copy without .git or .lake",
+  "clean_source_manifest": [
+    {
+      "ref": "benchmarks/modern_science/clean_checkout_replay.py",
+      "sha256": "b2ee78391ba3e61f1715fe9dbe28c8e480db93617a34a211f5dcf4a235b5c9f3",
+      "sha256_policy": "TEXT_REFS_LF_NORMALIZED_FOR_SOURCE_BINDING",
+      "byte_sha256": "b2ee78391ba3e61f1715fe9dbe28c8e480db93617a34a211f5dcf4a235b5c9f3",
+      "byte_sha256_policy": "TEXT_REFS_LF_NORMALIZED_TO_AVOID_CHECKOUT_FILTER_DRIFT"
+    },
+    {
+      "ref": "benchmarks/modern_science/validate_modern_science_register.py",
+      "sha256": "bc140ef9db46d4858b375d538053c8b4abcebd755e51cf1cd3dd00315a25f62e",
+      "sha256_policy": "TEXT_REFS_LF_NORMALIZED_FOR_SOURCE_BINDING",
+      "byte_sha256": "bc140ef9db46d4858b375d538053c8b4abcebd755e51cf1cd3dd00315a25f62e",
+      "byte_sha256_policy": "TEXT_REFS_LF_NORMALIZED_TO_AVOID_CHECKOUT_FILTER_DRIFT"
+    },
+    {
+      "ref": "claims/CLAIM_LEDGER_1_3_3.json",
+      "sha256": "18dbe23b494ccc689b4da310a2c45199738f331ea1adf60a1a602ce37c1bae2e",
+      "sha256_policy": "TEXT_REFS_LF_NORMALIZED_FOR_SOURCE_BINDING",
+      "byte_sha256": "18dbe23b494ccc689b4da310a2c45199738f331ea1adf60a1a602ce37c1bae2e",
+      "byte_sha256_policy": "TEXT_REFS_LF_NORMALIZED_TO_AVOID_CHECKOUT_FILTER_DRIFT"
+    },
+    {
+      "ref": "data/OC133_GLOBAL_MINIMALITY_WITNESSES.json",
+      "sha256": "c8f7c723c2adcc4125626399929a4d9cd95a687a22b6d45e987c7c265d5bb474",
+      "sha256_policy": "TEXT_REFS_LF_NORMALIZED_FOR_SOURCE_BINDING",
+      "byte_sha256": "c8f7c723c2adcc4125626399929a4d9cd95a687a22b6d45e987c7c265d5bb474",
+      "byte_sha256_policy": "TEXT_REFS_LF_NORMALIZED_TO_AVOID_CHECKOUT_FILTER_DRIFT"
+    },
+    {
+      "ref": "data/OC_DATASET_SNAPSHOT_MANIFEST_1_3_3.json",
+      "sha256": "1b38e18faf0bfae527731dc13778fa71c9be09630a43738aed57555ee1750dac",
+      "sha256_policy": "TEXT_REFS_LF_NORMALIZED_FOR_SOURCE_BINDING",
+      "byte_sha256": "1b38e18faf0bfae527731dc13778fa71c9be09630a43738aed57555ee1750dac",
+      "byte_sha256_policy": "TEXT_REFS_LF_NORMALIZED_TO_AVOID_CHECKOUT_FILTER_DRIFT"
+    },
+    {
+      "ref": "data/k_level_irreducibility_matrix.json",
+      "sha256": "f63f675d944c0db24b62a4f995b4605e66cf91e508f764ca6681e646c0f580a6",
+      "sha256_policy": "TEXT_REFS_LF_NORMALIZED_FOR_SOURCE_BINDING",
+      "byte_sha256": "f63f675d944c0db24b62a4f995b4605e66cf91e508f764ca6681e646c0f580a6",
+      "byte_sha256_policy": "TEXT_REFS_LF_NORMALIZED_TO_AVOID_CHECKOUT_FILTER_DRIFT"
+    },
+    {
+      "ref": "formal/lean/OC133GrandPromotion.lean",
+      "sha256": "c0574b45af8cb8cec7a7c00cc630c72b7f67723de8a6a37394614f5a53d392b3",
+      "sha256_policy": "TEXT_REFS_LF_NORMALIZED_FOR_SOURCE_BINDING",
+      "byte_sha256": "c0574b45af8cb8cec7a7c00cc630c72b7f67723de8a6a37394614f5a53d392b3",
+      "byte_sha256_policy": "TEXT_REFS_LF_NORMALIZED_TO_AVOID_CHECKOUT_FILTER_DRIFT"
+    },
+    {
+      "ref": "formal/lean/OC133V12.lean",
+      "sha256": "551596aac8fd8012f97a2cab8e72da4e887e9c8fd69563a686db95af6e308ce7",
+      "sha256_policy": "TEXT_REFS_LF_NORMALIZED_FOR_SOURCE_BINDING",
+      "byte_sha256": "551596aac8fd8012f97a2cab8e72da4e887e9c8fd69563a686db95af6e308ce7",
+      "byte_sha256_policy": "TEXT_REFS_LF_NORMALIZED_TO_AVOID_CHECKOUT_FILTER_DRIFT"
+    },
+    {
+      "ref": "lakefile.lean",
+      "sha256": "df846df419c18077c055b71970a38ab26e53d38a24dc316efa877d93da566e9d",
+      "sha256_policy": "TEXT_REFS_LF_NORMALIZED_FOR_SOURCE_BINDING",
+      "byte_sha256": "df846df419c18077c055b71970a38ab26e53d38a24dc316efa877d93da566e9d",
+      "byte_sha256_policy": "TEXT_REFS_LF_NORMALIZED_TO_AVOID_CHECKOUT_FILTER_DRIFT"
+    },
+    {
+      "ref": "lean-toolchain",
+      "sha256": "db7bb24b756d745bbde83fe92718b51bd3625dae3701ba0f598d0eedcd3f3028",
+      "sha256_policy": "TEXT_REFS_LF_NORMALIZED_FOR_SOURCE_BINDING",
+      "byte_sha256": "db7bb24b756d745bbde83fe92718b51bd3625dae3701ba0f598d0eedcd3f3028",
+      "byte_sha256_policy": "TEXT_REFS_LF_NORMALIZED_TO_AVOID_CHECKOUT_FILTER_DRIFT"
+    },
+    {
+      "ref": "proofs/finite_model_checks/OC133_FINITE_MODEL_INPUTS.json",
+      "sha256": "8716cb566584c085ea81c0a2e0639a20a4381bf18dae89fd8c158398a494bcca",
+      "sha256_policy": "TEXT_REFS_LF_NORMALIZED_FOR_SOURCE_BINDING",
+      "byte_sha256": "8716cb566584c085ea81c0a2e0639a20a4381bf18dae89fd8c158398a494bcca",
+      "byte_sha256_policy": "TEXT_REFS_LF_NORMALIZED_TO_AVOID_CHECKOUT_FILTER_DRIFT"
+    },
+    {
+      "ref": "proofs/finite_model_checks/run_finite_model_checks.py",
+      "sha256": "9b27aac5731c5db7c5108eafe14583b3dcc29caedfb17040ed0f8686a395502a",
+      "sha256_policy": "TEXT_REFS_LF_NORMALIZED_FOR_SOURCE_BINDING",
+      "byte_sha256": "9b27aac5731c5db7c5108eafe14583b3dcc29caedfb17040ed0f8686a395502a",
+      "byte_sha256_policy": "TEXT_REFS_LF_NORMALIZED_TO_AVOID_CHECKOUT_FILTER_DRIFT"
+    },
+    {
+      "ref": "release_policy/OC_CORE_1_4_PUBLIC_NO_SEND_MANIFEST.json",
+      "sha256": "819e8888362282856d7dffdb958c3463db3472776fddf63f8f31f88c06d03974",
+      "sha256_policy": "TEXT_REFS_LF_NORMALIZED_FOR_SOURCE_BINDING",
+      "byte_sha256": "819e8888362282856d7dffdb958c3463db3472776fddf63f8f31f88c06d03974",
+      "byte_sha256_policy": "TEXT_REFS_LF_NORMALIZED_TO_AVOID_CHECKOUT_FILTER_DRIFT"
+    },
+    {
+      "ref": "release_policy/PUBLIC_RELEASE_APPROVAL_PENDING.json",
+      "sha256": "82f56524186f6d09559673aa8e3196fc3b0e3ce5edc979cf92990cb3cf3c5499",
+      "sha256_policy": "TEXT_REFS_LF_NORMALIZED_FOR_SOURCE_BINDING",
+      "byte_sha256": "82f56524186f6d09559673aa8e3196fc3b0e3ce5edc979cf92990cb3cf3c5499",
+      "byte_sha256_policy": "TEXT_REFS_LF_NORMALIZED_TO_AVOID_CHECKOUT_FILTER_DRIFT"
+    },
+    {
+      "ref": "simulations/adversarial/run_all.py",
+      "sha256": "fae79073c18c5c78a6395b4649a03693071aa20a5a2b3c95c80d4c963caeef0c",
+      "sha256_policy": "TEXT_REFS_LF_NORMALIZED_FOR_SOURCE_BINDING",
+      "byte_sha256": "fae79073c18c5c78a6395b4649a03693071aa20a5a2b3c95c80d4c963caeef0c",
+      "byte_sha256_policy": "TEXT_REFS_LF_NORMALIZED_TO_AVOID_CHECKOUT_FILTER_DRIFT"
+    },
+    {
+      "ref": "simulations/expected_simulations.yml",
+      "sha256": "019dfbf6ef3b1ef8d1178c8cea0b52720fd169a4c27eaafd5026b7907d92cbd3",
+      "sha256_policy": "TEXT_REFS_LF_NORMALIZED_FOR_SOURCE_BINDING",
+      "byte_sha256": "019dfbf6ef3b1ef8d1178c8cea0b52720fd169a4c27eaafd5026b7907d92cbd3",
+      "byte_sha256_policy": "TEXT_REFS_LF_NORMALIZED_TO_AVOID_CHECKOUT_FILTER_DRIFT"
+    },
+    {
+      "ref": "simulations/k10_recursion_consistency/run_simulation.py",
+      "sha256": "ca44f8f3890cd6cf23bbb0ce598ec18b9c2b7be13cf17295bb9257a7bb63f4d9",
+      "sha256_policy": "TEXT_REFS_LF_NORMALIZED_FOR_SOURCE_BINDING",
+      "byte_sha256": "ca44f8f3890cd6cf23bbb0ce598ec18b9c2b7be13cf17295bb9257a7bb63f4d9",
+      "byte_sha256_policy": "TEXT_REFS_LF_NORMALIZED_TO_AVOID_CHECKOUT_FILTER_DRIFT"
+    },
+    {
+      "ref": "simulations/k10_recursion_consistency/simulation_contract.json",
+      "sha256": "fe0b0fed5f00e7ca2e4517f04fb5a3a39c2f87c33fd4d7dbb4ce922cbe560d7b",
+      "sha256_policy": "TEXT_REFS_LF_NORMALIZED_FOR_SOURCE_BINDING",
+      "byte_sha256": "fe0b0fed5f00e7ca2e4517f04fb5a3a39c2f87c33fd4d7dbb4ce922cbe560d7b",
+      "byte_sha256_policy": "TEXT_REFS_LF_NORMALIZED_TO_AVOID_CHECKOUT_FILTER_DRIFT"
+    },
+    {
+      "ref": "simulations/k11_k12_coherence_toys/run_simulation.py",
+      "sha256": "ca44f8f3890cd6cf23bbb0ce598ec18b9c2b7be13cf17295bb9257a7bb63f4d9",
+      "sha256_policy": "TEXT_REFS_LF_NORMALIZED_FOR_SOURCE_BINDING",
+      "byte_sha256": "ca44f8f3890cd6cf23bbb0ce598ec18b9c2b7be13cf17295bb9257a7bb63f4d9",
+      "byte_sha256_policy": "TEXT_REFS_LF_NORMALIZED_TO_AVOID_CHECKOUT_FILTER_DRIFT"
+    },
+    {
+      "ref": "simulations/k11_k12_coherence_toys/simulation_contract.json",
+      "sha256": "bf6c114818f0f4bcd9c4dcaa492b84d975b4026d63ff34857df9516cc4e59e95",
+      "sha256_policy": "TEXT_REFS_LF_NORMALIZED_FOR_SOURCE_BINDING",
+      "byte_sha256": "bf6c114818f0f4bcd9c4dcaa492b84d975b4026d63ff34857df9516cc4e59e95",
+      "byte_sha256_policy": "TEXT_REFS_LF_NORMALIZED_TO_AVOID_CHECKOUT_FILTER_DRIFT"
+    },
+    {
+      "ref": "simulations/k1_minimal_continuum/run_simulation.py",
+      "sha256": "ca44f8f3890cd6cf23bbb0ce598ec18b9c2b7be13cf17295bb9257a7bb63f4d9",
+      "sha256_policy": "TEXT_REFS_LF_NORMALIZED_FOR_SOURCE_BINDING",
+      "byte_sha256": "ca44f8f3890cd6cf23bbb0ce598ec18b9c2b7be13cf17295bb9257a7bb63f4d9",
+      "byte_sha256_policy": "TEXT_REFS_LF_NORMALIZED_TO_AVOID_CHECKOUT_FILTER_DRIFT"
+    },
+    {
+      "ref": "simulations/k1_minimal_continuum/simulation_contract.json",
+      "sha256": "f426d72107baf76ca5825d0080740fcf1bd21d3ee79f0036bdaf412183626e2a",
+      "sha256_policy": "TEXT_REFS_LF_NORMALIZED_FOR_SOURCE_BINDING",
+      "byte_sha256": "f426d72107baf76ca5825d0080740fcf1bd21d3ee79f0036bdaf412183626e2a",
+      "byte_sha256_policy": "TEXT_REFS_LF_NORMALIZED_TO_AVOID_CHECKOUT_FILTER_DRIFT"
+    },
+    {
+      "ref": "simulations/k2_phase_thresholds/run_simulation.py",
+      "sha256": "ca44f8f3890cd6cf23bbb0ce598ec18b9c2b7be13cf17295bb9257a7bb63f4d9",
+      "sha256_policy": "TEXT_REFS_LF_NORMALIZED_FOR_SOURCE_BINDING",
+      "byte_sha256": "ca44f8f3890cd6cf23bbb0ce598ec18b9c2b7be13cf17295bb9257a7bb63f4d9",
+      "byte_sha256_policy": "TEXT_REFS_LF_NORMALIZED_TO_AVOID_CHECKOUT_FILTER_DRIFT"
+    },
+    {
+      "ref": "simulations/k2_phase_thresholds/simulation_contract.json",
+      "sha256": "ab79f987a9d585ac27bf6e738c15debb2f2f1a633bd3fb8653e5d326dc59184f",
+      "sha256_policy": "TEXT_REFS_LF_NORMALIZED_FOR_SOURCE_BINDING",
+      "byte_sha256": "ab79f987a9d585ac27bf6e738c15debb2f2f1a633bd3fb8653e5d326dc59184f",
+      "byte_sha256_policy": "TEXT_REFS_LF_NORMALIZED_TO_AVOID_CHECKOUT_FILTER_DRIFT"
+    },
+    {
+      "ref": "simulations/k3_raf_closure/run_simulation.py",
+      "sha256": "ca44f8f3890cd6cf23bbb0ce598ec18b9c2b7be13cf17295bb9257a7bb63f4d9",
+      "sha256_policy": "TEXT_REFS_LF_NORMALIZED_FOR_SOURCE_BINDING",
+      "byte_sha256": "ca44f8f3890cd6cf23bbb0ce598ec18b9c2b7be13cf17295bb9257a7bb63f4d9",
+      "byte_sha256_policy": "TEXT_REFS_LF_NORMALIZED_TO_AVOID_CHECKOUT_FILTER_DRIFT"
+    },
+    {
+      "ref": "simulations/k3_raf_closure/simulation_contract.json",
+      "sha256": "c138f1b41e7a03322cd33fbd52bc0113a9f2f7ca648c826a327eee75c2bce87a",
+      "sha256_policy": "TEXT_REFS_LF_NORMALIZED_FOR_SOURCE_BINDING",
+      "byte_sha256": "c138f1b41e7a03322cd33fbd52bc0113a9f2f7ca648c826a327eee75c2bce87a",
+      "byte_sha256_policy": "TEXT_REFS_LF_NORMALIZED_TO_AVOID_CHECKOUT_FILTER_DRIFT"
+    },
+    {
+      "ref": "simulations/k4_membrane_thresholds/run_simulation.py",
+      "sha256": "ca44f8f3890cd6cf23bbb0ce598ec18b9c2b7be13cf17295bb9257a7bb63f4d9",
+      "sha256_policy": "TEXT_REFS_LF_NORMALIZED_FOR_SOURCE_BINDING",
+      "byte_sha256": "ca44f8f3890cd6cf23bbb0ce598ec18b9c2b7be13cf17295bb9257a7bb63f4d9",
+      "byte_sha256_policy": "TEXT_REFS_LF_NORMALIZED_TO_AVOID_CHECKOUT_FILTER_DRIFT"
+    },
+    {
+      "ref": "simulations/k4_membrane_thresholds/simulation_contract.json",
+      "sha256": "a968e9ca289dfa7390fe1ac18f990eed7b1b49e8cad0d9c757f891fcf0154e11",
+      "sha256_policy": "TEXT_REFS_LF_NORMALIZED_FOR_SOURCE_BINDING",
+      "byte_sha256": "a968e9ca289dfa7390fe1ac18f990eed7b1b49e8cad0d9c757f891fcf0154e11",
+      "byte_sha256_policy": "TEXT_REFS_LF_NORMALIZED_TO_AVOID_CHECKOUT_FILTER_DRIFT"
+    },
+    {
+      "ref": "simulations/k5_excitable_boundary/run_simulation.py",
+      "sha256": "ca44f8f3890cd6cf23bbb0ce598ec18b9c2b7be13cf17295bb9257a7bb63f4d9",
+      "sha256_policy": "TEXT_REFS_LF_NORMALIZED_FOR_SOURCE_BINDING",
+      "byte_sha256": "ca44f8f3890cd6cf23bbb0ce598ec18b9c2b7be13cf17295bb9257a7bb63f4d9",
+      "byte_sha256_policy": "TEXT_REFS_LF_NORMALIZED_TO_AVOID_CHECKOUT_FILTER_DRIFT"
+    },
+    {
+      "ref": "simulations/k5_excitable_boundary/simulation_contract.json",
+      "sha256": "ef22659212fd8f2e2b891d0f866bc1a6cd7abab9c954d1f8049a68b3f89dc270",
+      "sha256_policy": "TEXT_REFS_LF_NORMALIZED_FOR_SOURCE_BINDING",
+      "byte_sha256": "ef22659212fd8f2e2b891d0f866bc1a6cd7abab9c954d1f8049a68b3f89dc270",
+      "byte_sha256_policy": "TEXT_REFS_LF_NORMALIZED_TO_AVOID_CHECKOUT_FILTER_DRIFT"
+    },
+    {
+      "ref": "simulations/k6_binding_prediction/run_simulation.py",
+      "sha256": "ca44f8f3890cd6cf23bbb0ce598ec18b9c2b7be13cf17295bb9257a7bb63f4d9",
+      "sha256_policy": "TEXT_REFS_LF_NORMALIZED_FOR_SOURCE_BINDING",
+      "byte_sha256": "ca44f8f3890cd6cf23bbb0ce598ec18b9c2b7be13cf17295bb9257a7bb63f4d9",
+      "byte_sha256_policy": "TEXT_REFS_LF_NORMALIZED_TO_AVOID_CHECKOUT_FILTER_DRIFT"
+    },
+    {
+      "ref": "simulations/k6_binding_prediction/simulation_contract.json",
+      "sha256": "5b24f80f627384ae60bff9fab475476690d52c780db5fe592dc18a1b6407b96d",
+      "sha256_policy": "TEXT_REFS_LF_NORMALIZED_FOR_SOURCE_BINDING",
+      "byte_sha256": "5b24f80f627384ae60bff9fab475476690d52c780db5fe592dc18a1b6407b96d",
+      "byte_sha256_policy": "TEXT_REFS_LF_NORMALIZED_TO_AVOID_CHECKOUT_FILTER_DRIFT"
+    },
+    {
+      "ref": "simulations/k7_trust_coordination/run_simulation.py",
+      "sha256": "ca44f8f3890cd6cf23bbb0ce598ec18b9c2b7be13cf17295bb9257a7bb63f4d9",
+      "sha256_policy": "TEXT_REFS_LF_NORMALIZED_FOR_SOURCE_BINDING",
+      "byte_sha256": "ca44f8f3890cd6cf23bbb0ce598ec18b9c2b7be13cf17295bb9257a7bb63f4d9",
+      "byte_sha256_policy": "TEXT_REFS_LF_NORMALIZED_TO_AVOID_CHECKOUT_FILTER_DRIFT"
+    },
+    {
+      "ref": "simulations/k7_trust_coordination/simulation_contract.json",
+      "sha256": "88d09bbf0dd2f05b057e101a306cba9d84cb99f1935f048931e5373f6ff341cb",
+      "sha256_policy": "TEXT_REFS_LF_NORMALIZED_FOR_SOURCE_BINDING",
+      "byte_sha256": "88d09bbf0dd2f05b057e101a306cba9d84cb99f1935f048931e5373f6ff341cb",
+      "byte_sha256_policy": "TEXT_REFS_LF_NORMALIZED_TO_AVOID_CHECKOUT_FILTER_DRIFT"
+    },
+    {
+      "ref": "simulations/k8_regime_shift/run_simulation.py",
+      "sha256": "ca44f8f3890cd6cf23bbb0ce598ec18b9c2b7be13cf17295bb9257a7bb63f4d9",
+      "sha256_policy": "TEXT_REFS_LF_NORMALIZED_FOR_SOURCE_BINDING",
+      "byte_sha256": "ca44f8f3890cd6cf23bbb0ce598ec18b9c2b7be13cf17295bb9257a7bb63f4d9",
+      "byte_sha256_policy": "TEXT_REFS_LF_NORMALIZED_TO_AVOID_CHECKOUT_FILTER_DRIFT"
+    },
+    {
+      "ref": "simulations/k8_regime_shift/simulation_contract.json",
+      "sha256": "12393a1c32921e58f8267095dbd8a886c7199458dd1e426f90a35ca7b62dc278",
+      "sha256_policy": "TEXT_REFS_LF_NORMALIZED_FOR_SOURCE_BINDING",
+      "byte_sha256": "12393a1c32921e58f8267095dbd8a886c7199458dd1e426f90a35ca7b62dc278",
+      "byte_sha256_policy": "TEXT_REFS_LF_NORMALIZED_TO_AVOID_CHECKOUT_FILTER_DRIFT"
+    },
+    {
+      "ref": "simulations/k9_theory_dynamics/run_simulation.py",
+      "sha256": "ca44f8f3890cd6cf23bbb0ce598ec18b9c2b7be13cf17295bb9257a7bb63f4d9",
+      "sha256_policy": "TEXT_REFS_LF_NORMALIZED_FOR_SOURCE_BINDING",
+      "byte_sha256": "ca44f8f3890cd6cf23bbb0ce598ec18b9c2b7be13cf17295bb9257a7bb63f4d9",
+      "byte_sha256_policy": "TEXT_REFS_LF_NORMALIZED_TO_AVOID_CHECKOUT_FILTER_DRIFT"
+    },
+    {
+      "ref": "simulations/k9_theory_dynamics/simulation_contract.json",
+      "sha256": "5de021e951e0038c7d8298af0f6c2b6445522ee9b38821e53c8a2c94e85084f0",
+      "sha256_policy": "TEXT_REFS_LF_NORMALIZED_FOR_SOURCE_BINDING",
+      "byte_sha256": "5de021e951e0038c7d8298af0f6c2b6445522ee9b38821e53c8a2c94e85084f0",
+      "byte_sha256_policy": "TEXT_REFS_LF_NORMALIZED_TO_AVOID_CHECKOUT_FILTER_DRIFT"
+    },
+    {
+      "ref": "simulations/run_all.py",
+      "sha256": "a99e265460d3a3c5a8c19934778714c447a4600d5722bfdd95bfc4f2404ebc61",
+      "sha256_policy": "TEXT_REFS_LF_NORMALIZED_FOR_SOURCE_BINDING",
+      "byte_sha256": "a99e265460d3a3c5a8c19934778714c447a4600d5722bfdd95bfc4f2404ebc61",
+      "byte_sha256_policy": "TEXT_REFS_LF_NORMALIZED_TO_AVOID_CHECKOUT_FILTER_DRIFT"
+    },
+    {
+      "ref": "validation/_raw/biology_ncbi_geo_platform.txt",
+      "sha256": "f205645ec097af8972f7c70f4753a5d7eb154c4283e9caa454235843974bfda4",
+      "sha256_policy": "TEXT_REFS_LF_NORMALIZED_FOR_SOURCE_BINDING",
+      "byte_sha256": "f205645ec097af8972f7c70f4753a5d7eb154c4283e9caa454235843974bfda4",
+      "byte_sha256_policy": "TEXT_REFS_LF_NORMALIZED_TO_AVOID_CHECKOUT_FILTER_DRIFT"
+    },
+    {
+      "ref": "validation/_raw/chemistry_nist_webbook_water.txt",
+      "sha256": "8d69eb3faa90797830055d757d780b624e8567d23ebb5721d5a752bf691ea402",
+      "sha256_policy": "TEXT_REFS_LF_NORMALIZED_FOR_SOURCE_BINDING",
+      "byte_sha256": "8d69eb3faa90797830055d757d780b624e8567d23ebb5721d5a752bf691ea402",
+      "byte_sha256_policy": "TEXT_REFS_LF_NORMALIZED_TO_AVOID_CHECKOUT_FILTER_DRIFT"
+    },
+    {
+      "ref": "validation/_raw/chemistry_pubchem_water.txt",
+      "sha256": "316ed3babcf1b5fd6580fc2922881bf553b5971de33b72f268d943529bce293f",
+      "sha256_policy": "TEXT_REFS_LF_NORMALIZED_FOR_SOURCE_BINDING",
+      "byte_sha256": "316ed3babcf1b5fd6580fc2922881bf553b5971de33b72f268d943529bce293f",
+      "byte_sha256_policy": "TEXT_REFS_LF_NORMALIZED_TO_AVOID_CHECKOUT_FILTER_DRIFT"
+    },
+    {
+      "ref": "validation/_raw/physics_nist_constants.txt",
+      "sha256": "77fb90e66c40db3e6eb16630bc9c88e4c7c8beddbe5e71be406f2f26e3f67e67",
+      "sha256_policy": "TEXT_REFS_LF_NORMALIZED_FOR_SOURCE_BINDING",
+      "byte_sha256": "77fb90e66c40db3e6eb16630bc9c88e4c7c8beddbe5e71be406f2f26e3f67e67",
+      "byte_sha256_policy": "TEXT_REFS_LF_NORMALIZED_TO_AVOID_CHECKOUT_FILTER_DRIFT"
+    },
+    {
+      "ref": "validation/_raw/systems_world_bank_gdp.txt",
+      "sha256": "52a3dcef732b262251662f20923d00ba8d4df239cce96097abf67ee6b15ff12b",
+      "sha256_policy": "TEXT_REFS_LF_NORMALIZED_FOR_SOURCE_BINDING",
+      "byte_sha256": "52a3dcef732b262251662f20923d00ba8d4df239cce96097abf67ee6b15ff12b",
+      "byte_sha256_policy": "TEXT_REFS_LF_NORMALIZED_TO_AVOID_CHECKOUT_FILTER_DRIFT"
+    },
+    {
+      "ref": "validation/biology/VALIDATION_PACKET.json",
+      "sha256": "3d77a52e997713d64e6b0cde96e502a71d526083ddba0856e00de5c330ab4cfd",
+      "sha256_policy": "TEXT_REFS_LF_NORMALIZED_FOR_SOURCE_BINDING",
+      "byte_sha256": "3d77a52e997713d64e6b0cde96e502a71d526083ddba0856e00de5c330ab4cfd",
+      "byte_sha256_policy": "TEXT_REFS_LF_NORMALIZED_TO_AVOID_CHECKOUT_FILTER_DRIFT"
+    },
+    {
+      "ref": "validation/biology/replay.py",
+      "sha256": "8bcf0ac7e90a70a4b84fb8eb9edab80036faf9c203bdd07f0b0b5322b43e2a6b",
+      "sha256_policy": "TEXT_REFS_LF_NORMALIZED_FOR_SOURCE_BINDING",
+      "byte_sha256": "8bcf0ac7e90a70a4b84fb8eb9edab80036faf9c203bdd07f0b0b5322b43e2a6b",
+      "byte_sha256_policy": "TEXT_REFS_LF_NORMALIZED_TO_AVOID_CHECKOUT_FILTER_DRIFT"
+    },
+    {
+      "ref": "validation/chemistry/VALIDATION_PACKET.json",
+      "sha256": "2d98d73b2e79ed9c8c49c8bf7ac8830c92a3627a7aec58dbe8f1f2b8bbf77006",
+      "sha256_policy": "TEXT_REFS_LF_NORMALIZED_FOR_SOURCE_BINDING",
+      "byte_sha256": "2d98d73b2e79ed9c8c49c8bf7ac8830c92a3627a7aec58dbe8f1f2b8bbf77006",
+      "byte_sha256_policy": "TEXT_REFS_LF_NORMALIZED_TO_AVOID_CHECKOUT_FILTER_DRIFT"
+    },
+    {
+      "ref": "validation/chemistry/replay.py",
+      "sha256": "390715baefe2c50543eca95bb40625b86104e6302c94aed6b77d68cb7b061544",
+      "sha256_policy": "TEXT_REFS_LF_NORMALIZED_FOR_SOURCE_BINDING",
+      "byte_sha256": "390715baefe2c50543eca95bb40625b86104e6302c94aed6b77d68cb7b061544",
+      "byte_sha256_policy": "TEXT_REFS_LF_NORMALIZED_TO_AVOID_CHECKOUT_FILTER_DRIFT"
+    },
+    {
+      "ref": "validation/mathematics/VALIDATION_PACKET.json",
+      "sha256": "3dc2c8a4fd9e03a8a1ae8e27fd103136273f952caa55752053075655613e277a",
+      "sha256_policy": "TEXT_REFS_LF_NORMALIZED_FOR_SOURCE_BINDING",
+      "byte_sha256": "3dc2c8a4fd9e03a8a1ae8e27fd103136273f952caa55752053075655613e277a",
+      "byte_sha256_policy": "TEXT_REFS_LF_NORMALIZED_TO_AVOID_CHECKOUT_FILTER_DRIFT"
+    },
+    {
+      "ref": "validation/mathematics/replay.py",
+      "sha256": "2fd7650e9fd66dfc8dc3b3329bafa160dd76e7a962f54f37a5376ef0ec4975dc",
+      "sha256_policy": "TEXT_REFS_LF_NORMALIZED_FOR_SOURCE_BINDING",
+      "byte_sha256": "2fd7650e9fd66dfc8dc3b3329bafa160dd76e7a962f54f37a5376ef0ec4975dc",
+      "byte_sha256_policy": "TEXT_REFS_LF_NORMALIZED_TO_AVOID_CHECKOUT_FILTER_DRIFT"
+    },
+    {
+      "ref": "validation/numeric_predictions/run_numeric_prediction_replay.py",
+      "sha256": "1caec1ba8d8dd3826049313fd046794078df2fea1828541872ccb724abc9467e",
+      "sha256_policy": "TEXT_REFS_LF_NORMALIZED_FOR_SOURCE_BINDING",
+      "byte_sha256": "1caec1ba8d8dd3826049313fd046794078df2fea1828541872ccb724abc9467e",
+      "byte_sha256_policy": "TEXT_REFS_LF_NORMALIZED_TO_AVOID_CHECKOUT_FILTER_DRIFT"
+    },
+    {
+      "ref": "validation/physics/VALIDATION_PACKET.json",
+      "sha256": "15f754182964102c69df5e727e2f88c613607ce7e5c9d1a40e294c016144e489",
+      "sha256_policy": "TEXT_REFS_LF_NORMALIZED_FOR_SOURCE_BINDING",
+      "byte_sha256": "15f754182964102c69df5e727e2f88c613607ce7e5c9d1a40e294c016144e489",
+      "byte_sha256_policy": "TEXT_REFS_LF_NORMALIZED_TO_AVOID_CHECKOUT_FILTER_DRIFT"
+    },
+    {
+      "ref": "validation/physics/replay.py",
+      "sha256": "f77217feba1656aa8f582327d5016afe1baeba257040ddb43d95e8f6bb2c2700",
+      "sha256_policy": "TEXT_REFS_LF_NORMALIZED_FOR_SOURCE_BINDING",
+      "byte_sha256": "f77217feba1656aa8f582327d5016afe1baeba257040ddb43d95e8f6bb2c2700",
+      "byte_sha256_policy": "TEXT_REFS_LF_NORMALIZED_TO_AVOID_CHECKOUT_FILTER_DRIFT"
+    },
+    {
+      "ref": "validation/run_all.py",
+      "sha256": "bbd030436433fcfef5d48a1ddbf7cc18ffd74633aacebf2464d8ccc240556d91",
+      "sha256_policy": "TEXT_REFS_LF_NORMALIZED_FOR_SOURCE_BINDING",
+      "byte_sha256": "bbd030436433fcfef5d48a1ddbf7cc18ffd74633aacebf2464d8ccc240556d91",
+      "byte_sha256_policy": "TEXT_REFS_LF_NORMALIZED_TO_AVOID_CHECKOUT_FILTER_DRIFT"
+    },
+    {
+      "ref": "validation/systems/VALIDATION_PACKET.json",
+      "sha256": "ed73097e299d3753a405d5c911e2fbf8cb8da736e5be1aaec37b486953977336",
+      "sha256_policy": "TEXT_REFS_LF_NORMALIZED_FOR_SOURCE_BINDING",
+      "byte_sha256": "ed73097e299d3753a405d5c911e2fbf8cb8da736e5be1aaec37b486953977336",
+      "byte_sha256_policy": "TEXT_REFS_LF_NORMALIZED_TO_AVOID_CHECKOUT_FILTER_DRIFT"
+    },
+    {
+      "ref": "validation/systems/replay.py",
+      "sha256": "cd0797b48aefb7e73c7d50088432c510e7d7cd9739e1dde9afd742e6334da286",
+      "sha256_policy": "TEXT_REFS_LF_NORMALIZED_FOR_SOURCE_BINDING",
+      "byte_sha256": "cd0797b48aefb7e73c7d50088432c510e7d7cd9739e1dde9afd742e6334da286",
+      "byte_sha256_policy": "TEXT_REFS_LF_NORMALIZED_TO_AVOID_CHECKOUT_FILTER_DRIFT"
+    }
+  ],
+  "clean_source_manifest_sha256": "aae80c1d7f11861ae8289fee8592f1b544903f339ade522b033203b7949cfae5",
+  "clean_source_manifest_hash_policy": "sha256 and byte_sha256 are LF-normalized for text source refs so clean checkout filters cannot change source binding.",
+  "generated_artifact_manifest": [
+    {
+      "ref": "validation/numeric_replay_qa/OC133_NUMERIC_REPLAY_QA_TABLE.json",
+      "sha256": "5e44cade642446979e937f6460b12b09a73a1bc9df9e1d4fc40997d3f0d8b8ab",
+      "producer_command": "python validation/run_all.py --qa-only",
+      "artifact_role": "deterministic_numeric_replay_qa_input"
+    }
+  ],
+  "generated_artifact_manifest_sha256": "beb884cd53aac9ee925552d9d34cc051b153c5be16eb14b171f40011691cfded",
+  "generated_artifact_manifest_scope": "CERTIFIED_STABLE_GENERATED_INPUTS_ONLY; finite reports, release scorecards, and zip/checksum outputs are excluded to avoid cert/output hash cycles",
+  "lean_source_ref": "formal/lean/OC133V12.lean",
+  "lean_source_sha256": "551596aac8fd8012f97a2cab8e72da4e887e9c8fd69563a686db95af6e308ce7",
+  "lean_source_sha256_policy": "LF_NORMALIZED_TEXT_SOURCE_HASH_MATCHING_CLEAN_SOURCE_MANIFEST",
+  "lean_source_byte_sha256": "551596aac8fd8012f97a2cab8e72da4e887e9c8fd69563a686db95af6e308ce7",
+  "theorem_ref_total": 10,
+  "theorem_ref_present_total": 10,
+  "theorem_ref_missing_total": 0,
+  "missing_theorem_refs": [],
+  "theorem_refs": [
+    {
+      "name": "k0_countermodel_raw_separation_not_resolution_distinction",
+      "source_ref": "formal/lean/OC133V12.lean",
+      "present": true,
+      "declaration_sha256": "af9e741fff5840c1d7ac1d32c703058739923e9aaa1ae6a944beab40dae16c3b"
+    },
+    {
+      "name": "lifecycle_residue_rebirth_morphism_boundary",
+      "source_ref": "formal/lean/OC133V12.lean",
+      "present": true,
+      "declaration_sha256": "5e4cdf294a822dc60040202eab4247acabf3165e6688cd248542589c07634c13"
+    },
+    {
+      "name": "continuumness_zero_case_iff_declared_zero_cause_with_support",
+      "source_ref": "formal/lean/OC133V12.lean",
+      "present": true,
+      "declaration_sha256": "b424ecff4280427b3edeebdf3739a6b44f05ca88d6378baf632e9315506891ca"
+    },
+    {
+      "name": "metric_boundary_specialization",
+      "source_ref": "formal/lean/OC133V12.lean",
+      "present": true,
+      "declaration_sha256": "16e3f0657dc2073584bec027858c32487399cdc8e8933e9b42a9d131ea54b676"
+    },
+    {
+      "name": "integrated_operator_semantics",
+      "source_ref": "formal/lean/OC133V12.lean",
+      "present": true,
+      "declaration_sha256": "1f81b248408213f1b0776346dd4a7e4dd9045bf0242f2659f882563426cfb4ee"
+    },
+    {
+      "name": "historical_axis_survives_rank_drop",
+      "source_ref": "formal/lean/OC133V12.lean",
+      "present": true,
+      "declaration_sha256": "90b3a5ecb69d1ae1038d772dfd9fce4fbcc54a18a028d8a5364e94aac1a1c024"
+    },
+    {
+      "name": "eligible_live_requires_cycle_or_maintenance",
+      "source_ref": "formal/lean/OC133V12.lean",
+      "present": true,
+      "declaration_sha256": "12108eafae751e2c510306d51cccb20ff51102dd4dd9fb7ea4b9ccdd05a20d74"
+    },
+    {
+      "name": "endpoint_bound_identity_classification",
+      "source_ref": "formal/lean/OC133V12.lean",
+      "present": true,
+      "declaration_sha256": "3eedc8e65e6afaf95056ef7d4433a2187ae950e3369fab6f6019c04369d59279"
+    },
+    {
+      "name": "release_tuple_semantic_component_irredundant",
+      "source_ref": "formal/lean/OC133V12.lean",
+      "present": true,
+      "declaration_sha256": "b83eec47dda1656edc6b2b916c649fbc121a1efb3895fd37003483b9409fdd06"
+    },
+    {
+      "name": "release_atlas_manifest_has_total_finite_case_coverage",
+      "source_ref": "formal/lean/OC133V12.lean",
+      "present": true,
+      "declaration_sha256": "cc9eec7ac8c7be73746ff81cc07cf37cb959cddef9cf8a06d6687121992bc578"
+    }
+  ],
+  "stdout_tail": "✔ [2/3] Built OC133V12 (<elapsed>)\nBuild completed successfully (3 jobs).\n",
+  "stderr_tail": "info: oc_core_1_3_3_v12: no previous manifest, creating one from scratch\n<toolchain provisioning outside canonical transcript>\n",
+  "no_send": true,
+  "source_manifest": []
+}

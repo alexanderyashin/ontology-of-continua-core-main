@@ -1,0 +1,49 @@
+{
+  "schema_id": "OC133_GRAND_EMPIRICAL_EVIDENCE_v1",
+  "release_id": "oc_core_1_3_3",
+  "evidence_owner": "Research/EmpiricalScience",
+  "evidence_pack_id": "OC133-GRAND-BIOLOGY-SYSTEMS-BIOLOGY-CANDIDATE",
+  "domain": "biology",
+  "source_separation": {
+    "mode": "target_blind",
+    "pre_target_lock": false,
+    "target_hidden_until_scoring": false,
+    "training_sources": [
+      "validation/_raw/biology_ncbi_geo_platform.txt::visible_fields(retstart,idlist)"
+    ],
+    "target_sources": [
+      "validation/_raw/biology_ncbi_geo_platform.txt::withheld_field(retmax)"
+    ]
+  },
+  "n": 1,
+  "model_under_test": "retstart + len(idlist)",
+  "comparator_baseline": {
+    "name": "GEO total hit count pagination negative control",
+    "prediction_rule": "use esearchresult.count as the retmax prediction",
+    "pre_registered": false
+  },
+  "uncertainty": {
+    "metric": "mean absolute residual",
+    "method": "deterministic exact parser replay over pinned NCBI GEO ESearch snapshot",
+    "interval": [
+      0.0,
+      0.0
+    ]
+  },
+  "residuals": {
+    "model": 0.0,
+    "comparator": 43988.0,
+    "superiority_margin": 43988.0
+  },
+  "negative_controls": [
+    {
+      "control_id": "biology-aggregate-negative-control",
+      "description": "biology-total-hit-count-control: replace page-size reconstruction by total GEO hit count and require larger residual",
+      "rejected": true
+    }
+  ],
+  "falsifiers": [
+    "retmax differs from retstart plus returned id count or total-count control is not worse"
+  ],
+  "grand_toe_support_allowed": false
+}

@@ -1,0 +1,73 @@
+{
+  "schema_id": "OC133_BIOLOGY_SYSTEMS_EVIDENCE_PROTOCOL_PACKET_v1",
+  "release_id": "oc_core_1_3_3",
+  "version": "1.3.3",
+  "evidence_owner": "Research/EmpiricalScience",
+  "blocker_id": "grand_toe_empirical_superiority",
+  "executor": "validation/heldout/domain_evidence/biology_systems_evidence_executor.py",
+  "evidence_schema_ref": "validation/grand_science/grand_empirical_evidence.schema.json",
+  "protocol_schema_ref": "validation/grand_science/grand_empirical_protocol.schema.json",
+  "domain_total": 2,
+  "blocked_domain_total": 2,
+  "rows": [
+    {
+      "domain": "biology",
+      "status": "BLOCKED_PENDING_GENUINE_EVIDENCE_PACK",
+      "candidate_pack_ref": "validation/heldout/grand_science/biology_systems/biology_candidate_evidence_pack.json",
+      "candidate_n": 1,
+      "minimum_n": 20,
+      "missing_n": 19,
+      "blockers": [
+        "PRE_TARGET_LOCK_REQUIRED",
+        "TARGET_HIDDEN_UNTIL_SCORING_REQUIRED",
+        "BIOLOGY_CURRENT_SNAPSHOT_IS_API_PAGINATION_QA_NOT_MECHANISM_EVIDENCE",
+        "SOURCE_SEPARATION_NOT_VERIFIABLE_FROM_CURRENT_SINGLE_RAW_SNAPSHOT",
+        "TARGET_VALUES_VISIBLE_IN_PINNED_RAW_SNAPSHOT",
+        "N_BELOW_MINIMUM::1/20",
+        "COMPARATOR_BASELINE_NOT_PREREGISTERED",
+        "N_BELOW_MINIMUM::20",
+        "GRAND_TOE_SUPPORT_NOT_ALLOWED",
+        "GRAND_TOE_SUPPORT_ALLOWED_CONST_MISMATCH"
+      ],
+      "required_protocol_steps": [
+        "pre-register a biology OC scoring rule, comparator baseline, residual metric, uncertainty method, negative controls, and falsifiers before target scoring",
+        "freeze training/source-development material separately from target/held-out material and record stable hashes",
+        "use prospective target collection or target-blind material whose target values are hidden until scoring",
+        "collect at least 20 independent target observations for this domain",
+        "score OC and comparator residuals under the same deterministic metric",
+        "reject declared negative controls and retain falsifier conditions even when the pack fails",
+        "route a completed valid pack to the parent registry only after the executor and grand gate both pass"
+      ]
+    },
+    {
+      "domain": "systems",
+      "status": "BLOCKED_PENDING_GENUINE_EVIDENCE_PACK",
+      "candidate_pack_ref": "validation/heldout/grand_science/biology_systems/systems_candidate_evidence_pack.json",
+      "candidate_n": 1,
+      "minimum_n": 20,
+      "missing_n": 19,
+      "blockers": [
+        "PRE_TARGET_LOCK_REQUIRED",
+        "TARGET_HIDDEN_UNTIL_SCORING_REQUIRED",
+        "SYSTEMS_CURRENT_SNAPSHOT_IS_RETROSPECTIVE_MACRO_REPLAY_NOT_PROSPECTIVE_CIVILIZATIONAL_EVIDENCE",
+        "SOURCE_SEPARATION_NOT_VERIFIABLE_FROM_CURRENT_SINGLE_RAW_SNAPSHOT",
+        "TARGET_VALUES_VISIBLE_IN_PINNED_RAW_SNAPSHOT",
+        "N_BELOW_MINIMUM::1/20",
+        "COMPARATOR_BASELINE_NOT_PREREGISTERED",
+        "N_BELOW_MINIMUM::20",
+        "GRAND_TOE_SUPPORT_NOT_ALLOWED",
+        "GRAND_TOE_SUPPORT_ALLOWED_CONST_MISMATCH"
+      ],
+      "required_protocol_steps": [
+        "pre-register a systems OC scoring rule, comparator baseline, residual metric, uncertainty method, negative controls, and falsifiers before target scoring",
+        "freeze training/source-development material separately from target/held-out material and record stable hashes",
+        "use prospective target collection or target-blind material whose target values are hidden until scoring",
+        "collect at least 20 independent target observations for this domain",
+        "score OC and comparator residuals under the same deterministic metric",
+        "reject declared negative controls and retain falsifier conditions even when the pack fails",
+        "route a completed valid pack to the parent registry only after the executor and grand gate both pass"
+      ]
+    }
+  ],
+  "registry_integration_policy": "This executor does not edit validation/heldout/grand_science_evidence_registry.json; parent capability must route registry integration after review."
+}

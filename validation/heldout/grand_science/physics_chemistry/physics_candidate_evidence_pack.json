@@ -1,0 +1,49 @@
+{
+  "schema_id": "OC133_GRAND_EMPIRICAL_EVIDENCE_v1",
+  "release_id": "oc_core_1_3_3",
+  "evidence_owner": "Research/EmpiricalScience",
+  "evidence_pack_id": "OC133-GRAND-PHYSICS-PHYSICS-CHEMISTRY-CANDIDATE",
+  "domain": "physics",
+  "source_separation": {
+    "mode": "target_blind",
+    "pre_target_lock": true,
+    "target_hidden_until_scoring": true,
+    "training_sources": [
+      "validation/_raw/physics_nist_constants.txt::OC133-TARGETBLIND-PHYSICS-001::visible-training-fields"
+    ],
+    "target_sources": [
+      "validation/_raw/physics_nist_constants.txt::OC133-TARGETBLIND-PHYSICS-001::withheld-target-field"
+    ]
+  },
+  "n": 1,
+  "model_under_test": "Planck_constant * speed_of_light",
+  "comparator_baseline": {
+    "name": "unit-incompatible Planck-constant-only negative control",
+    "prediction_rule": "Use each row's pre-declared comparator_prediction against the same withheld target; aggregate by mean absolute residual.",
+    "pre_registered": true
+  },
+  "uncertainty": {
+    "metric": "mean absolute residual",
+    "method": "Target-blind row declared uncertainty; interval upper bound is max(row uncertainty, aggregate model residual). Pack remains blocked unless N and grand-scope predicates pass.",
+    "interval": [
+      0.0,
+      1e-33
+    ]
+  },
+  "residuals": {
+    "model": 1.4892870576445277e-35,
+    "comparator": 1.9864458503739297e-25,
+    "superiority_margin": 1.986445850225001e-25
+  },
+  "negative_controls": [
+    {
+      "control_id": "OC133-TARGETBLIND-PHYSICS-001-NEGATIVE-CONTROL",
+      "description": "drop the speed-of-light factor and require a larger residual",
+      "rejected": true
+    }
+  ],
+  "falsifiers": [
+    "Residual exceeds display-truncation tolerance or Planck-only control is not worse"
+  ],
+  "grand_toe_support_allowed": false
+}

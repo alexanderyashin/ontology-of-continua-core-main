@@ -1,0 +1,137 @@
+{
+  "schema_id": "OC133_GRAND_EMPIRICAL_EVIDENCE_v1",
+  "release_id": "oc_core_1_3_3",
+  "evidence_owner": "Research/EmpiricalScience",
+  "evidence_pack_id": "OC133-CHEMISTRY-OFFICIAL-SNAPSHOT-BATCH-CANDIDATE",
+  "domain": "chemistry",
+  "source_separation": {
+    "mode": "official_snapshot_replay",
+    "pre_target_lock": false,
+    "target_hidden_until_scoring": false,
+    "training_sources": [
+      "validation/_raw/chemistry_pubchem_water.txt::CHEM-PUBCHEM-001::visible-fields",
+      "validation/_raw/chemistry_pubchem_water.txt::CHEM-PUBCHEM-002::visible-fields",
+      "validation/_raw/chemistry_pubchem_water.txt::CHEM-PUBCHEM-003::visible-fields",
+      "validation/_raw/chemistry_pubchem_water.txt::CHEM-PUBCHEM-004::visible-fields",
+      "validation/_raw/chemistry_pubchem_water.txt::CHEM-PUBCHEM-005::visible-fields",
+      "validation/_raw/chemistry_nist_webbook_water.txt::CHEM-NIST-WEBBOOK-001::visible-fields",
+      "validation/_raw/chemistry_nist_webbook_water.txt::CHEM-NIST-WEBBOOK-002::visible-fields",
+      "validation/_raw/chemistry_nist_webbook_water.txt::CHEM-NIST-WEBBOOK-003::visible-fields",
+      "validation/_raw/chemistry_nist_webbook_water.txt::CHEM-NIST-WEBBOOK-004::visible-fields",
+      "validation/_raw/chemistry_pubchem_water.txt+validation/_raw/chemistry_nist_webbook_water.txt::CHEM-CROSS-SOURCE-001::visible-fields",
+      "validation/_raw/chemistry_pubchem_water.txt+validation/_raw/chemistry_nist_webbook_water.txt::CHEM-CROSS-SOURCE-002::visible-fields",
+      "validation/_raw/chemistry_pubchem_water.txt+validation/_raw/chemistry_nist_webbook_water.txt::CHEM-CROSS-SOURCE-003::visible-fields"
+    ],
+    "target_sources": [
+      "validation/_raw/chemistry_pubchem_water.txt::CHEM-PUBCHEM-001::target-field::MolecularWeight",
+      "validation/_raw/chemistry_pubchem_water.txt::CHEM-PUBCHEM-002::target-field::MolecularWeight",
+      "validation/_raw/chemistry_pubchem_water.txt::CHEM-PUBCHEM-003::target-field::MolecularFormula",
+      "validation/_raw/chemistry_pubchem_water.txt::CHEM-PUBCHEM-004::target-field::InChIKey",
+      "validation/_raw/chemistry_pubchem_water.txt::CHEM-PUBCHEM-005::target-field::ConnectivitySMILES",
+      "validation/_raw/chemistry_nist_webbook_water.txt::CHEM-NIST-WEBBOOK-001::target-field::molecularWeight",
+      "validation/_raw/chemistry_nist_webbook_water.txt::CHEM-NIST-WEBBOOK-002::target-field::molecularFormula",
+      "validation/_raw/chemistry_nist_webbook_water.txt::CHEM-NIST-WEBBOOK-003::target-field::inChIKey",
+      "validation/_raw/chemistry_nist_webbook_water.txt::CHEM-NIST-WEBBOOK-004::target-field::CAS Registry Number",
+      "validation/_raw/chemistry_pubchem_water.txt+validation/_raw/chemistry_nist_webbook_water.txt::CHEM-CROSS-SOURCE-001::target-field::MolecularWeight cross-source consistency",
+      "validation/_raw/chemistry_pubchem_water.txt+validation/_raw/chemistry_nist_webbook_water.txt::CHEM-CROSS-SOURCE-002::target-field::MolecularFormula cross-source consistency",
+      "validation/_raw/chemistry_pubchem_water.txt+validation/_raw/chemistry_nist_webbook_water.txt::CHEM-CROSS-SOURCE-003::target-field::InChIKey cross-source consistency"
+    ]
+  },
+  "n": 12,
+  "model_under_test": "OC133 official-snapshot chemistry batch scorer over NIST/PubChem rows",
+  "comparator_baseline": {
+    "name": "chemistry official-snapshot null/wrong-field negative controls",
+    "prediction_rule": "Use each row's preregistered null, wrong-compound, or wrong-string control under the same residual metric.",
+    "pre_registered": true
+  },
+  "uncertainty": {
+    "metric": "mean absolute residual across official snapshot tasks",
+    "method": "deterministic official snapshot replay envelope; blocked unless target-blind/prospective source separation exists",
+    "interval": [
+      0.0,
+      0.05
+    ]
+  },
+  "residuals": {
+    "model": 5.166666666648704e-05,
+    "comparator": 9.331450000000002,
+    "superiority_margin": 9.331398333333336
+  },
+  "negative_controls": [
+    {
+      "control_id": "CHEM-PUBCHEM-001-NEGATIVE-CONTROL",
+      "description": "use CO2 molecular weight against water and require larger residual",
+      "rejected": true
+    },
+    {
+      "control_id": "CHEM-PUBCHEM-002-NEGATIVE-CONTROL",
+      "description": "replace H2O by CO2 and require larger residual",
+      "rejected": true
+    },
+    {
+      "control_id": "CHEM-PUBCHEM-003-NEGATIVE-CONTROL",
+      "description": "replace MolecularFormula with 'CO2' and require mismatch",
+      "rejected": true
+    },
+    {
+      "control_id": "CHEM-PUBCHEM-004-NEGATIVE-CONTROL",
+      "description": "replace InChIKey with 'BSYNRYMUTXBXSQ-UHFFFAOYSA-N' and require mismatch",
+      "rejected": true
+    },
+    {
+      "control_id": "CHEM-PUBCHEM-005-NEGATIVE-CONTROL",
+      "description": "replace ConnectivitySMILES with 'O=C=O' and require mismatch",
+      "rejected": true
+    },
+    {
+      "control_id": "CHEM-NIST-WEBBOOK-001-NEGATIVE-CONTROL",
+      "description": "use CO2 molecular weight against WebBook water and require larger residual",
+      "rejected": true
+    },
+    {
+      "control_id": "CHEM-NIST-WEBBOOK-002-NEGATIVE-CONTROL",
+      "description": "replace molecularFormula with 'CO2' and require mismatch",
+      "rejected": true
+    },
+    {
+      "control_id": "CHEM-NIST-WEBBOOK-003-NEGATIVE-CONTROL",
+      "description": "replace inChIKey with 'BSYNRYMUTXBXSQ-UHFFFAOYSA-N' and require mismatch",
+      "rejected": true
+    },
+    {
+      "control_id": "CHEM-NIST-WEBBOOK-004-NEGATIVE-CONTROL",
+      "description": "replace CAS Registry Number with '124-38-9' and require mismatch",
+      "rejected": true
+    },
+    {
+      "control_id": "CHEM-CROSS-SOURCE-001-NEGATIVE-CONTROL",
+      "description": "use CO2 molecular weight against water cross-source target and require larger residual",
+      "rejected": true
+    },
+    {
+      "control_id": "CHEM-CROSS-SOURCE-002-NEGATIVE-CONTROL",
+      "description": "replace MolecularFormula cross-source consistency with 'CO2' and require mismatch",
+      "rejected": true
+    },
+    {
+      "control_id": "CHEM-CROSS-SOURCE-003-NEGATIVE-CONTROL",
+      "description": "replace InChIKey cross-source consistency with 'BSYNRYMUTXBXSQ-UHFFFAOYSA-N' and require mismatch",
+      "rejected": true
+    }
+  ],
+  "falsifiers": [
+    "PubChem MolecularWeight for CID 962 cannot be recovered or CO2 control is not worse",
+    "formula-mass residual exceeds tolerance or CO2 control is not worse",
+    "MolecularFormula in official snapshot differs from 'H2O' or wrong-string control matches",
+    "InChIKey in official snapshot differs from 'XLYOFNOQVPJJNP-UHFFFAOYSA-N' or wrong-string control matches",
+    "ConnectivitySMILES in official snapshot differs from 'O' or wrong-string control matches",
+    "NIST WebBook molecularWeight for water cannot be recovered or CO2 control is not worse",
+    "molecularFormula in official snapshot differs from 'H2O' or wrong-string control matches",
+    "inChIKey in official snapshot differs from 'XLYOFNOQVPJJNP-UHFFFAOYSA-N' or wrong-string control matches",
+    "CAS Registry Number in official snapshot differs from '7732-18-5' or wrong-string control matches",
+    "PubChem/WebBook water molecular-weight disagreement exceeds tolerance or CO2 control is not worse",
+    "MolecularFormula cross-source consistency in official snapshot differs from 'H2O' or wrong-string control matches",
+    "InChIKey cross-source consistency in official snapshot differs from 'XLYOFNOQVPJJNP-UHFFFAOYSA-N' or wrong-string control matches"
+  ],
+  "grand_toe_support_allowed": false
+}

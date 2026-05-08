@@ -1,0 +1,48 @@
+{
+  "schema_id": "OC133_CHEMISTRY_PUBCHEM_HBOND_DONOR_PROTOCOL_v1",
+  "release_id": "oc_core_1_3_3",
+  "version": "1.3.3",
+  "evidence_owner": "Research/EmpiricalScience",
+  "generated_by": "public reproducibility package",
+  "target_class": "pubchem_hydrogen_bond_donor_count",
+  "target_field": "HBondDonorCount",
+  "official_source": "PubChem PUG REST",
+  "minimum_n": 20,
+  "visible_fields": [
+    "CID",
+    "MolecularFormula",
+    "ConnectivitySMILES"
+  ],
+  "target_fields": [
+    "HBondDonorCount"
+  ],
+  "model_under_test": "target-blind SMILES hydrogen-bond donor atom counter",
+  "comparator_baseline": {
+    "kind": "formula_hetero_atom_count_donor_baseline",
+    "name": "formula-only nitrogen/oxygen heteroatom donor-count baseline",
+    "prediction_rule": "parse only MolecularFormula from the visible projection and predict the count of N plus O atoms as donor atoms, ignoring bonding, protonation, and functional group context",
+    "target_field": "HBondDonorCount",
+    "target_values_used_for_baseline_design": false,
+    "pre_registered": true,
+    "baseline_sha256": "0727cf10a1b907f334862fc17b53075db436aae6ac9304ab94478a7946c2ee06",
+    "required_material_margin": 0.2
+  },
+  "uncertainty_policy": {
+    "max_row_abs_error": 0.0,
+    "max_model_mae": 0.05
+  },
+  "negative_controls": [
+    "formula-only N+O heteroatom baseline",
+    "constant zero donor-count sanity control"
+  ],
+  "falsifiers": [
+    "target field appears in visible projection or comparator inputs",
+    "target field is MolecularWeight or formula-mass replay",
+    "SMILES donor-count residual is nonzero",
+    "formula-only comparator is not materially worse",
+    "N<20 or official source hash/lock missing"
+  ],
+  "current_blockers": [],
+  "support_policy": "Grand chemistry support is emitted only for N>=20 official PubChem PUG REST rows where HBondDonorCount is hidden until scoring, predictions are materialized from visible SMILES before target opening, the target is not MolecularWeight or any formula-mass replay, a preregistered formula-only heteroatom baseline is materially worse, negative controls are rejected, falsifiers are retained, and source hashes/locks validate.",
+  "no_send": true
+}

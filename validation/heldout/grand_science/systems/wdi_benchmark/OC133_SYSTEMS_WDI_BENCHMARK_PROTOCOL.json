@@ -1,0 +1,65 @@
+{
+  "schema_id": "OC133_SYSTEMS_WDI_BENCHMARK_PROTOCOL_v2",
+  "release_id": "oc_core_1_3_3",
+  "version": "1.3.3",
+  "evidence_owner": "Research/EmpiricalScience",
+  "candidate_pack_ref": "validation/heldout/grand_science/systems/wdi_benchmark/systems_wdi_benchmark_candidate_evidence_pack.json",
+  "candidate_pack_sha256": "002fb4bc03760e2f880f5f919f86197ea3cedc7f8c10afa4d5f1b7a570147bfc",
+  "candidate_pack_hash_policy": "sha256 over canonical JSON",
+  "snapshot_ref": "validation/_raw/systems_world_bank_gdp.txt",
+  "snapshot_sha256": "52a3dcef732b262251662f20923d00ba8d4df239cce96097abf67ee6b15ff12b",
+  "snapshot_hash_policy": "LF_NORMALIZED_TEXT_SNAPSHOT_HASH",
+  "minimum_n": 20,
+  "candidate_n": 1,
+  "source_separation_claim": {
+    "mode": "snapshot_replay",
+    "pre_target_lock": false,
+    "target_hidden_until_scoring": false,
+    "declared_before_scoring": false,
+    "split_policy": ""
+  },
+  "formula_selection": {
+    "selected_formula_id": "linear_two_lag",
+    "target_rows_used_for_selection": false,
+    "selection_metric": "mean absolute residual on training years only",
+    "scores": [
+      {
+        "formula_id": "linear_two_lag",
+        "rule": "y_t = y_t-1 + (y_t-1 - y_t-2)",
+        "training_row_count": 1,
+        "mean_abs_training_residual": 379073634977.7969
+      },
+      {
+        "formula_id": "damped_two_lag",
+        "rule": "y_t = y_t-1 + 0.5*(y_t-1 - y_t-2)",
+        "training_row_count": 1,
+        "mean_abs_training_residual": 2434598365255.4062
+      },
+      {
+        "formula_id": "two_lag_mean",
+        "rule": "y_t = (y_t-1 + y_t-2) / 2",
+        "training_row_count": 1,
+        "mean_abs_training_residual": 6545647825810.594
+      }
+    ]
+  },
+  "required_protocol_steps": [
+    "freeze a WDI payload before scoring and record its hash",
+    "declare last_year_heldout_per_series before scoring",
+    "select formulas only from pre-heldout training years",
+    "score the heldout year once per country/indicator series",
+    "compare against a preregistered carry-forward baseline",
+    "block support unless N>=20, explicit target separation, heldout superiority, and negative controls all pass"
+  ],
+  "blockers": [
+    "N_BELOW_MINIMUM::1/20",
+    "SOURCE_SEPARATION_MODE_NOT_ALLOWED::snapshot_replay",
+    "TARGET_SEPARATION_NOT_EXPLICIT_OR_NOT_LOCKED",
+    "SPLIT_POLICY_NOT_EXPLICIT_LAST_YEAR_HELDOUT",
+    "PRE_TARGET_LOCK_REQUIRED",
+    "TARGET_HIDDEN_UNTIL_SCORING_REQUIRED",
+    "SOURCE_SEPARATION_MODE_NOT_ALLOWED",
+    "N_BELOW_MINIMUM::20",
+    "GRAND_TOE_SUPPORT_NOT_ALLOWED"
+  ]
+}

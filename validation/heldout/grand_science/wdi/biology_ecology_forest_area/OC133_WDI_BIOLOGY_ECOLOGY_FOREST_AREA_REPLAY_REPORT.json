@@ -1,0 +1,17 @@
+{
+  "schema_id": "OC133_WDI_INDICATOR_REPLAY_REPORT_v1",
+  "status": "PASS",
+  "lane_id": "biology_ecology_forest_area",
+  "scoring_pack_ref": "validation/heldout/grand_science/wdi/biology_ecology_forest_area/OC133_WDI_BIOLOGY_ECOLOGY_FOREST_AREA_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
+  "scoring_pack_sha256": "6351cd10dd39f6565eb53886ae93996cd71daad6eb30382ae66f144c7011594c",
+  "row_count": 2506,
+  "material_margin_met": true,
+  "negative_control_rejected": true,
+  "replay_command": {
+    "commands": [
+      "python validation/heldout/grand_science/wdi/coverage_research_tasks/oc133_wdi_indicator_materializer.py --lane biology_ecology_forest_area --score --write-scoring",
+      "python validation/heldout/grand_science/wdi/coverage_research_tasks/oc133_wdi_indicator_materializer.py --lane biology_ecology_forest_area --check"
+    ]
+  },
+  "coverage_closure_allowed": false
+}

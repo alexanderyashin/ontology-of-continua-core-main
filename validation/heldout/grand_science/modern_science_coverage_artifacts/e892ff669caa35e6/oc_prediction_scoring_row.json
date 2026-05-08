@@ -1,0 +1,69 @@
+{
+  "artifact_hash": "bf26e89a744c3e0770469f1a9d09430e757c4eff16310f0687b64cbb1c873f08",
+  "artifact_key": "oc_prediction_scoring_row",
+  "artifact_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/e892ff669caa35e6/oc_prediction_scoring_row.json",
+  "closure_scope": "formal-route target-hidden scoring/replay artifact passed; not empirical or broad-modern-science evidence",
+  "domain_class_id": "formal_mathematics_and_logic",
+  "executable_spec_found": true,
+  "execution_command": [
+    "python",
+    "public reproducibility package",
+    "--execute-comparator-gap-artifact",
+    "MS-COV-GAP-FORMAL_MATHEMATICS_AND_LOGIC-COMPUTATIONAL_COMPLEXITY_AND_ALGORITHMIC_PROOF",
+    "oc_prediction_scoring_row",
+    "--write"
+  ],
+  "gap_id": "MS-COV-GAP-FORMAL_MATHEMATICS_AND_LOGIC-COMPUTATIONAL_COMPLEXITY_AND_ALGORITHMIC_PROOF",
+  "generated_at": "2026-05-05T22:47:54Z",
+  "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+  "next_escalation": "If this row remains OPEN, create a narrower acquisition/scoring/replay executor for the exact failed validation field.",
+  "no_fake_closure_policy": "This artifact can reduce a missing-artifact count only at its own scope. It cannot mark the coverage gap or broad TOE superiority PASS by itself.",
+  "pass_predicate": "oc_prediction_scoring_row status == PASS and the strict comparator gap row no longer lists it as missing.",
+  "phenomenon_class_id": "computational_complexity_and_algorithmic_proof",
+  "queue_row_found": true,
+  "repair_strategy": "Continue to the next missing artifact; do not close broad superiority until all source, benchmark, comparator, scoring, uncertainty, falsifier, and replay artifacts pass.",
+  "required_capability": "Research/PriorArt",
+  "schema_id": "OC133_MODERN_SCIENCE_COMPARATOR_RESEARCH_ARTIFACT_v1",
+  "source_refs": [
+    "reports/OC_CORE_1_3_3_MODERN_SCIENCE_COVERAGE_LANE_QUEUE.json",
+    "benchmarks/modern_science/OC133_MODERN_SCIENCE_COVERAGE_RESEARCH_TASKS.json",
+    "comparators/modern_science/OC133_MODERN_SCIENCE_COVERAGE_REGISTER.json"
+  ],
+  "status": "PASS",
+  "validation": {
+    "allowed_status_token_present": true,
+    "broad_modern_science_superiority_allowed": null,
+    "coverage_closure_allowed": false,
+    "empirical_numeric_prediction_allowed": false,
+    "formal_exact_evidence_exists": true,
+    "formal_route": true,
+    "replay_command_total": 2,
+    "replay_pass": true,
+    "replay_results": [
+      {
+        "cmd": [
+          "python",
+          "validation/heldout/grand_science/formal_mathematics/coverage_research_tasks/planned_corpora/computational_complexity_algorithmic_proof/OC133_COMPLEXITY_ALGORITHMIC_SCORER.py",
+          "--check"
+        ],
+        "returncode": 0,
+        "stderr_tail": "",
+        "stdout_tail": "{\n  \"broad_modern_science_superiority_allowed\": false,\n  \"comparator_mismatch_count\": 8,\n  \"coverage_closure_allowed\": false,\n  \"empirical_numeric_prediction_allowed\": false,\n  \"exact_evidence_exists\": true,\n  \"failures\": [],\n  \"model_mismatch_count\": 0,\n  \"negative_control_rejections\": 8,\n  \"row_count\": 24,\n  \"status\": \"pass\"\n}\n"
+      },
+      {
+        "cmd": [
+          "python",
+          "validation/heldout/grand_science/formal_mathematics/coverage_research_tasks/oc133_formal_mathematics_modern_science_coverage_research_tasks.py",
+          "--check"
+        ],
+        "returncode": 0,
+        "stderr_tail": "",
+        "stdout_tail": "{\n  \"status\": \"ok\",\n  \"checked\": \"validation/heldout/grand_science/formal_mathematics/coverage_research_tasks/OC133_FORMAL_MATHEMATICS_MODERN_SCIENCE_COVERAGE_RESEARCH_TASKS.json\",\n  \"planned_corpora_checked\": false\n}\n"
+      }
+    ],
+    "status": "PASS",
+    "status_text": "{\"COVERAGE_CLOSURE_ALLOWED\": FALSE, \"COVERAGE_CLOSURE_STATUS\": \"OPEN_FAIL_CLOSED_PENDING_COMPLEXITY_ALGORITHMIC_FORMAL_CORPUS_AND_REPLAY\", \"CURRENT_EVIDENCE_STATUS\": \"EXACT_COMPLEXITY_ALGORITHMIC_FORMAL_CORPUS_BOUND_SCORER_PASS\", \"REMAINING_BLOCKERS\": [\"FORMAL_COVERAGE_SCOPE_REVIEW_NOT_PERFORMED\", \"NO_COVERAGE_CLOSURE_MARK_ALLOWED\"]}"
+  },
+  "why_it_failed": "Required comparator artifact is source-bound at its declared scope.",
+  "research_task_id": "MS-COV-WO-003"
+}

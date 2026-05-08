@@ -1,0 +1,26 @@
+{
+  "schema_id": "OC133_VALIDATION_PACKET_v12",
+  "lane": "mathematics",
+  "release_id": "oc_core_1_3_3",
+  "exact_promoted_claim": "finite witness acceptance count for machine-checked v12 theorem inventory rows; never public-promotion, empirical, or prediction support in v12 unless a future prospective protocol explicitly flips release_promotion_allowed, prediction_support_allowed, and empirical_support_allowed after review",
+  "theorem_to_observable_binding": "typed OC predicate -> lane-specific observable/protocol",
+  "held_out_policy": "finite replay split generated from theorem registry; negative controls paired per theorem",
+  "replay_rule": "replay accepted cases from theorem inventory rows when finite runner failure_total=0",
+  "dataset_snapshot_ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
+  "replay_value": 10.0,
+  "parsed_snapshot_value": 10.0,
+  "uncertainty": 0.0,
+  "baseline_control_value": 9.0,
+  "replay_residual": 0.0,
+  "comparator_residual": 1.0,
+  "residual_kind": "replay_residual_not_comparator_performance",
+  "negative_controls": [
+    "remove a required tuple component and observe rejected stronger reading"
+  ],
+  "falsifier_condition": "any finite model case has observed verdict different from expected",
+  "prediction_support_allowed": false,
+  "empirical_support_allowed": false,
+  "quarantine_reason": "finite proof-corpus consistency check; not empirical support",
+  "result_verdict": "NUMERIC_REPLAY_QA_NOT_DOMAIN_VALIDATION",
+  "remaining_blocker": "NOT_EMPIRICAL_PROMOTION_NUMERIC_REPLAY_QA_ONLY"
+}

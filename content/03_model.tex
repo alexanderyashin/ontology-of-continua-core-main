@@ -1,0 +1,544 @@
+% FILE: content/03_model.tex
+
+\section{Ontological Structure of the Model}
+\label{sec:model}
+
+This section presents the formal core of the Ontology of Continua (OC).
+It gives the reader the unified notation, axioms, definitions, and structural
+constraints needed for the later chapters on closure, synthesis, and practical
+use.
+
+OC describes continua across multiple scientific domains through one structural
+language. That language is built from axes, potentials, flows, thresholds,
+boundaries, cycles, and a measure of continuumness. Each continuum is also
+embedded in a surrounding meta-space. All definitions in this section are
+domain-independent at the level of formal vocabulary. Later review chapters
+will sort claims by proof status and empirical support; this section supplies
+the common model language those checks depend on.
+
+\subsection{Axiomatic foundation: Level \texorpdfstring{$K_0$}{K\_0}}
+
+Level \(K_0\) is a purely structural substrate.
+It is not a physical space; it carries no time, energy, geometry, or dynamics.
+Its role is to provide the minimal conditions under which any higher-level continuum is logically possible.
+
+\paragraph{Specification of \texorpdfstring{\(K_0\)}{K\_0}}
+\(K_0\) is specified by a resolution-relative tuple
+\[
+    K_0 = (S,\mathcal{R},\{\Delta_\rho\}_{\rho\in\mathcal{R}},\mathcal{C}),
+\]
+where:
+\begin{itemize}
+    \item \(S\) is a raw carrier of states, which may be finite, countable, continuous, or typed-combinatorial;
+    \item \(\mathcal{R}\) is the family of admissible resolution regimes;
+    \item each \(\rho\in\mathcal{R}\) induces a quotient \(S_\rho=S/{\sim_\rho}\) and a structural difference function \(\Delta_\rho:S_\rho\times S_\rho\to\mathbb{R}_{\ge 0}\);
+    \item \(\mathcal{C}\) is a structural relation (or family of relations) preserving distinguishability.
+\end{itemize}
+There is no time parameter and no evolution operator at this level.
+
+\paragraph{Axiom 0.1 (Difference and distinguishability).}
+For every resolution regime \(\rho\in\mathcal{R}\) and all resolved classes
+\([s_1]_\rho,[s_2]_\rho\in S_\rho\),
+\[
+    \Delta_\rho([s_1]_\rho,[s_2]_\rho) = 0
+    \;\Rightarrow\;
+    [s_1]_\rho = [s_2]_\rho.
+\]
+Nonzero resolved structural difference is the minimal condition for
+distinguishability at regime \(\rho\). A continuum cannot exist without at
+least two states distinguishable in some declared resolution regime.
+
+\paragraph{Axiom 0.2 (Resolution-relative threshold \texorpdfstring{$\Theta_{0,\rho}$}{Theta\_0,rho}).}
+For each active resolution regime \(\rho\) there exists
+\(\varepsilon_\rho>0\) such that
+\[
+    \forall [s_1]_\rho,[s_2]_\rho\in S_\rho,\qquad
+    [s_1]_\rho\neq [s_2]_\rho
+    \Rightarrow
+    \Delta_\rho([s_1]_\rho,[s_2]_\rho)\ge\varepsilon_\rho.
+\]
+The value \(\Theta_{0,\rho}=\varepsilon_\rho\) is a threshold on resolved
+classes, not on raw states. Raw points inside a single \(\rho\)-class may be
+arbitrarily close or even continuous; no theorem in Core~1.3.3 may infer
+global raw-state uniform discreteness from \(K_0\).
+
+\paragraph{Axiom 0.3 (Logical substrate).}
+\(K_0\) carries no time parameter and no dynamical operator.
+It does not evolve and does not generate higher levels by itself.
+It specifies only logical conditions on distinguishability and the existence of nontrivial differences.
+All dynamics and all notions of energy, geometry, and causality belong to levels \(K_1\) and above.
+
+In particular, no operator defined on \(K_0\) can increase dimension:
+differences at level \(K_0\) are always expressed along the existing structural axis of distinguishability.
+The dimensionality associated with \(K_0\) is fixed by the embedding meta-space \(M_0\).
+Here \(M_0\) denotes the minimal meta-space in which the purely structural
+substrate can be evaluated for later \(K_0\to K_1\) emergence; it is not a
+physical container or a dynamical environment.
+
+\subsection{Construction of Level \texorpdfstring{$K_1$}{K\_1}}
+
+Level \(K_1\) is the simplest genuine continuum: it introduces time, a one-dimensional axis, and basic geometric structure.
+
+\paragraph{Specification of \texorpdfstring{\(K_1\)}{K\_1}}
+The continuum \(K_1\) is defined by:
+\[
+    K_1 = \big(X_1,\tau_1,\Omega_1,A_1,P_1(t),J_1(t),\Theta_1,\partial\Omega_1,C_1,k_1(t)\big),
+\]
+where:
+\begin{itemize}
+    \item \(A_1\) is a single axis (a one-dimensional coordinate);
+    \item \((X_1,\tau_1)\) is a topological space obtained from the structural data of \(K_0\), typically an interval \(X_1 = (a,b)\);
+    \item \(\Omega_1\) is a space of admissible configurations on \(X_1\) with appropriate regularity conditions.
+          In this time-dependent analytic example,
+          \[
+              \Omega_1 = C^0(I,H^1(X_1,V_1)) \cap C^1(I,L^2(X_1,V_1)),
+          \]
+          where \(I\) is the time interval and \(V_1\) is the Hilbert space
+          used by the example; a finite-dimensional vector space is the
+          special case used when the local model has finitely many degrees of
+          freedom.
+    \item \(P_1(t)\) is an energy-like potential functional on \(\Omega_1\);
+    \item \(J_1(t)\) are flows derived from the variation of \(P_1(t)\);
+    \item \(\Theta_1\) encodes minimal conditions for classical stability;
+    \item \(\partial\Omega_1\) is the boundary where stability thresholds saturate;
+    \item \(C_1\) is the set of classical cycles (for example, periodic orbits);
+    \item \(k_1(t)\) measures one-dimensional continuumness according to the general definition below.
+\end{itemize}
+
+\paragraph{Transition \texorpdfstring{$\Psi_{0\to 1}$}{Psi\_0\_to\_1}}
+The passage \(K_0 \to K_1\) is generated by an operator
+\[
+    \Psi_{0\to 1} : (S,\Delta,\mathcal{C}) \mapsto (X_1,\tau_1,A_1,\Omega_1,\Theta_1),
+\]
+which constructs the skeletal \(K_1\) scaffold; the energy functional,
+flow family, boundary, cycles, and continuumness scalar are specified by the
+subsequent \(K_1\)-specific clauses rather than by this first transition map
+alone.
+The scaffold construction:
+\begin{itemize}
+    \item identifies a family of structurally compatible states in \(S\);
+    \item equips them with an order and topology \((X_1,\tau_1)\);
+    \item defines the first axis \(A_1\);
+    \item constructs the admissible configuration space \(\Omega_1\);
+    \item induces classical thresholds \(\Theta_1\).
+\end{itemize}
+This is the first instance of dimensional emergence: a continuous axis appears that cannot be represented within the purely structural substrate of \(K_0\).
+
+\subsection{General definition of a continuum}
+
+For any level \(K\) in the hierarchy, a continuum is defined as the tuple
+\[
+    K = \big(\Omega(K), A(K), P(t), J(t), \Theta(K), \partial\Omega(K), C(K), k(K,t)\big),
+\]
+where:
+\begin{itemize}
+    \item \(\Omega(K)\) is a nonempty set of admissible states;
+    \item \(A(K) = \{A_1,\dots,A_n\}\) is a finite set of axes of incompatible differences;
+    \item \(P(t)\) is the vector of potentials on \(\Omega(K)\);
+    \item \(J(t)\) is the aggregate potential-flow vector; state updates are
+          handled by the evolution operator \(E\);
+    \item \(\Theta(K) = \{\Theta_i\}\) is the set of threshold functions;
+    \item \(\partial\Omega(K)\) is the boundary of admissible states;
+    \item \(C(K)\) is the family of structurally stable cycles;
+    \item \(k(K,t)\) is the measure of continuumness.
+\end{itemize}
+
+Every continuum is assumed to be embedded in a surrounding meta-space \(M\) such that
+\[
+    \Omega(K)\subseteq\Omega(M), \qquad A(K)\subseteq A(M).
+\]
+The meta-space provides additional admissible states and axes that can host future dimensional extensions of \(K\).
+
+\paragraph{State space and boundary}
+Boundaries are represented first as typed admissibility classifiers
+\[
+    b_i:\Omega_{\mathrm{cand}}(K)\to \mathbf{Status}_i,
+    \qquad
+    \mathrm{fail}_i:\mathbf{Status}_i\to\{\top,\bot\}.
+\]
+The admissible state set is
+\[
+    \Omega(K)=\{s\in\Omega_{\mathrm{cand}}(K)\mid
+    \forall i\,\neg\mathrm{fail}_i(b_i(s))\}.
+\]
+The older real-valued threshold notation is the quantitative special case in
+which \(\mathbf{Status}_i=\mathbb{R}\) and \(\mathrm{fail}_i(x)\) means
+\(x>0\). In that special case one may write functions
+\(f_i : \overline{\Omega(K)} \to \mathbb{R}\) with
+\[
+    f_i(s) \le 0 \quad\text{for all } s \in \Omega(K),
+\]
+and the boundary is defined as
+\[
+    \partial\Omega(K) = \{ s \in \overline{\Omega(K)} \mid \exists\, i: f_i(s) = 0 \}.
+\]
+This displayed boundary equation is therefore not primitive for all domains. It
+is the metric or real-valued specialisation of the classifier boundary and
+must not be used to force logical, proof-theoretic, social, or categorical
+boundaries into artificial numerical geometry.
+
+The boundary is dynamic. The notation below is an update map, not a derivative
+of a set-valued object:
+\[
+    \partial\Omega(K,t+dt) =
+    R\big(\partial\Omega(K,t),P(t),J(t),\Theta(K)\big),
+\]
+which can contract, expand, or bifurcate \(\Omega(K)\) during birth, life, and death events.
+
+\subsection{Taxonomy of thresholds}
+
+Each continuum has a structured set of thresholds \(\Theta(K)\), organised into the following types:
+
+\begin{itemize}
+    \item \textbf{Existence thresholds} \(\Theta_{\mathrm{exist}}\): conditions under which \(\Omega(K)\neq\emptyset\).
+    \item \textbf{Stability thresholds} \(\Theta_{\mathrm{stab}}\): conditions for bounded dynamics and non-divergent flows.
+    \item \textbf{Critical thresholds} \(\Theta_{\mathrm{crit}}\): hypersurfaces where qualitative changes (phase transitions, bifurcations) occur.
+    \item \textbf{Dimensional thresholds} \(\Theta_{\mathrm{dim}}\): conditions under which new axes and higher-dimensional continua can emerge.
+    \item \textbf{Death thresholds} \(\Theta_{\mathrm{death}}\): structural limits where no admissible states remain and \(\Omega(K)\) collapses.
+\end{itemize}
+
+The full threshold landscape of a continuum is thus a collection of inequalities:
+\[
+    f_{i}^{(\mathrm{exist})}(s) \le 0,\quad
+    f_{i}^{(\mathrm{stab})}(s) \le 0,\quad
+    f_{i}^{(\mathrm{crit})}(s) \le 0,\quad
+    f_{i}^{(\mathrm{dim})}(s) \le 0,\quad
+    f_{i}^{(\mathrm{death})}(s) \le 0,
+\]
+with corresponding boundary components given by the equalities.
+
+\subsection{Potentials, flows, and structural tension}
+
+Potentials \(P(t)\) encode the internal configuration of constraints and driving forces within a continuum.
+They may correspond to energy landscapes, chemical concentrations, membrane gradients, representational or informational structures, or institutional and normative pressures.
+
+The aggregate flow vector \(J(t)\) describes typed potential update. In smooth
+realisations this update can be written as a derivative,
+\[
+    \frac{dP}{dt} = J(t),
+\]
+but in discrete, proof-replay, stochastic, logical, or governance realisations
+\(J\) is a transition/update component rather than a differential object. With
+that typing fixed, \(J(t)\) decomposes into structurally distinct components:
+\begin{itemize}
+    \item \textbf{supporting flows} \(J_{\mathrm{support}}\), which maintain cycles and stabilise \(k(K,t)\);
+    \item \textbf{critical flows} \(J_{\mathrm{critical}}\), which move the system towards or across critical thresholds \(\Theta_{\mathrm{crit}}\) and \(\Theta_{\mathrm{dim}}\);
+    \item \textbf{destructive flows} \(J_{\mathrm{kill}}\), which push the system across \(\Theta_{\mathrm{death}}\) and reduce \(k(K,t)\).
+\end{itemize}
+
+Structural tension \(T(K,t)\) is a functional of potentials, axes, and gradients (schematically \(T=T(P,A,\nabla P)\)).
+It measures how strongly the current configuration stresses the threshold landscape.
+Dimensional transitions occur when \(T(K,t)\) exceeds \(\Theta_{\mathrm{dim}}(K)\); collapse occurs when destructive flows combined with tension drive the system across \(\Theta_{\mathrm{death}}(K)\).
+
+\subsection{Cycles and continuumness}
+
+Cycles \(C(K)\) are declared cycle modes: maintenance recurrences, renewal
+loops, proof replays, regulatory updates, periodic orbits, or degenerate
+fixed-point maintenance checks. A closed trajectory in \(\Omega(K)\) is only
+the smooth or geometric special case.
+When a quantitative trajectory realisation is declared, cycles may satisfy
+\[
+    L(C) = \int_C d\ell_K < \infty,\qquad
+    S(C) = \min_{s \in C} \delta_{\partial\Omega}(s) > 0,
+\]
+where \(d\ell_K\) is the chosen structural length element for the realised
+continuum and \(\delta_{\partial\Omega}(s)\) is the corresponding boundary
+clearance.
+The classifier boundary definition above is metric-free; these cycle estimates
+add a structural gauge only when quantitative clearance or length is being measured.
+In metric realisations this gauge may be an induced distance. In non-metric
+realisations it is any level-admissible separation functional that vanishes
+exactly on the boundary and is positive on structurally interior states.
+
+When the continuum evolves, the admissible region is read as time-dependent:
+\(\Omega(K,t)\) denotes the state space available to \(K\) at time \(t\), while
+\(\Omega(K)\) denotes the underlying level-relative admissible space when no
+time slice is being specified.
+When older formulas write \(\Omega(K(t))\), read that notation as the same
+time-slice object \(\Omega(K,t)\).
+The model adopts the following unified definition of continuumness:
+\[
+    k(K,t)
+    = \chi_{\Omega}(s_K(t);K,t)\;
+      S_{\mathrm{axes}}(K,t)\;
+      S_{\mathrm{cycles}}(K,t)\;
+      S_{\mathrm{flows}}(K,t)\;
+      S_{\mathrm{coh}}(K,t),
+\]
+where:
+\begin{itemize}
+    \item \(s_K(t)\) is the current state of \(K\) at time \(t\), and
+          \(\chi_{\Omega}(s_K(t);K,t)\) is the pointwise admissibility
+          indicator:
+          it is \(1\) if \(s_K(t)\in\Omega(K,t)\), and \(0\) otherwise;
+    \item \(S_{\mathrm{axes}}(K,t)\) quantifies effective axis saturation, e.g.\ the ratio of the effective rank of working axes to the maximal possible rank for that level;
+    \item \(S_{\mathrm{cycles}}(K,t)\) measures the strength and efficiency of stable cycles, such as a weighted sum of cycle efficiencies normalised by their maximal values;
+    \item \(S_{\mathrm{flows}}(K,t)\) captures flow stability. With aggregated
+          supporting and destructive magnitudes
+          \(\Phi_{\mathrm{support}}\) and \(\Phi_{\mathrm{kill}}\), one local
+          rule is shown below. The zero-flow branch applies only when the
+          tested state has no active flow channel:
+          \[
+              S_{\mathrm{flows}}(K,t)=
+              \begin{cases}
+              \dfrac{\Phi_{\mathrm{support}}(t)}
+                    {\Phi_{\mathrm{support}}(t)+\Phi_{\mathrm{kill}}(t)},
+                    & \Phi_{\mathrm{support}}(t)+\Phi_{\mathrm{kill}}(t)>0,\\[0.7em]
+              1, & \Phi_{\mathrm{support}}(t)=\Phi_{\mathrm{kill}}(t)=0.
+              \end{cases}
+          \]
+          Thus if support vanishes while destructive flow is positive,
+          \(S_{\mathrm{flows}}=0\);
+    \item \(S_{\mathrm{coh}}(K,t)\in[0,1]\) encodes global structural
+          coherence, which may include connectedness of the relevant graphs,
+          compatibility of thresholds and flows, and absence of contradictory
+          constraints.
+\end{itemize}
+All multiplicative factors in the displayed definition are normalised to
+\([0,1]\) in the local model before the product is evaluated.
+The continuumness-update operator \(U\), developed later in
+Section~\ref{sec:operators-full}, advances \(k(K,t)\) to the next lawful time
+slice using these factors.
+
+By construction \(0 \le k(K,t) \le 1\).
+Positive \(k(K,t)\) is the live-state indicator. It records four
+simultaneous facts: the current state is admissible, the active axes remain
+supported, the cycle factor and flow-stability factor both remain positive,
+and the coherence factor has not collapsed. The full live-state status
+also requires the admissible-state, threshold, and identity clauses stated in
+Section~\ref{sec:collapse-rebirth}.
+Death corresponds to \(k(K,t)\to 0\) in combination with the collapse of \(\Omega(K)\).
+
+\subsection{Evolution operator}
+
+The evolution of a continuum is described at the structural level by an operator
+\[
+    E: K(t) \mapsto K(t+dt),
+\]
+or, in expanded form,
+\[
+    E:\ (\Omega,A,P,J,\Theta,\partial\Omega,C,k)
+    \longrightarrow (\Omega',A',P',J',\Theta',\partial\Omega',C',k').
+\]
+Here \(A'\) denotes the post-evolution axis set of the same continuum in the
+expanded tuple.
+This is a unary evolution operator on a time slice of \(K\). The active
+meta-space belongs to the surrounding environment. When it must be named
+locally, it is shown as a subscripted parameter rather than as a second
+argument of \(E\), so the operator arity remains fixed.
+
+The model does not merge flow updates, threshold tests, cycle structure,
+boundary motion, axis extension, and continuumness updates into one
+differential system. It treats these components as coupled parts of a
+constrained structural evolution framework with the following requirements:
+
+\begin{itemize}
+    \item \textbf{Consistency:} if \(s(t) \in \Omega(K(t))\), then either \(s(t+dt) \in \Omega(K(t+dt))\) or the transition is associated with a threshold crossing.
+    \item \textbf{Threshold-respecting:} flows obey the inequality structure encoded in \(\Theta(K)\), except when explicitly crossing critical or death thresholds.
+    \item \textbf{Monotonicity of dimension:} if \(A'\) contains a new axis not representable as a combination of previous axes, then \(\dim(K(t+dt)) > \dim(K(t))\); dimension cannot decrease.
+\end{itemize}
+
+The dynamics continue as long as \(\Omega(K(t)) \neq \emptyset\).
+Once \(\Omega(K(t^\ast)) = \emptyset\), the continuum is dead and \(E\) can no longer act meaningfully on it.
+
+\subsection{Embedding into meta-spaces}
+
+Each level \(K_x\) is embedded in a meta-space \(M_x\) that provides additional admissible states and axes.
+At the structural level this is captured by the conditions
+\[
+    \Omega(K_x(t)) \subseteq \Omega(M_x(t)), \qquad
+    A(K_x) \subseteq A(M_x).
+\]
+The universal evolution axiom can then be stated schematically as
+\[
+    K_x(t+dt) = E_{M_x(t)}\big(K_x(t)\big),
+\]
+with the additional requirement that if the time-slice embedding condition
+fails, \(\Omega(K_x(t))\not\subseteq\Omega(M_x(t))\), the continuum \(K_x\)
+ceases to exist. When the time slice is clear, the shorter notations \(K_x\)
+and \(M_x\) suppress the argument \(t\).
+Dimensional growth of \(K_x\) is only possible if the meta-space contains an
+axis \(A_{\mathrm{new}}\in A(M_x)\setminus A(K_x)\) and structural tension
+exceeds the corresponding dimensional threshold. This is the axis-origin
+constraint used below: new axes cannot be generated from \(K_x\) alone.
+
+\subsection{Birth of continua}
+
+The emergence of a new continuum \(K_{x+1}\) from \(K_x\) is a threshold-induced phase transition.
+Structurally, birth occurs when the following conditions are met:
+
+\begin{enumerate}
+    \item A new class of differences appears that cannot be represented using the existing axes \(A(K_x)\).
+    \item Structural tension associated with these differences satisfies
+          \[
+              T(K_x,t) > \Theta_{\mathrm{dim}}(K_x).
+          \]
+    \item The embedding space \(M_x\) contains at least one axis that can host the new differences (i.e.\ \(A_{\mathrm{new}} \in A(M_x) \setminus A(K_x)\)).
+    \item There exists a nonempty set of admissible states \(\Omega(K_{x+1})\) compatible with the new axis and thresholds.
+\end{enumerate}
+
+The operator of dimensional birth
+\[
+    \Psi_{x\to x+1}: K_x \to K_{x+1}
+\]
+is minimal and irreversible: any nonzero emergence of the new axis constitutes the new continuum \(K_{x+1}\), and the dimension of \(K_{x+1}\) cannot revert to that of \(K_x\) without destroying \(\Omega(K_{x+1})\).
+The local model therefore instantiates dimensional monotonicity. The
+corresponding no-spontaneous-creation result is recorded separately in
+Section~\ref{sec:theorem-spontaneous-dimension-creation}.
+
+\subsection{Life of continua}
+
+A continuum \(K\) is alive on an interval of time if
+\[
+    \Omega(K(t)) \neq \emptyset,\qquad
+    k(K,t) > 0,\qquad
+    C(K(t)) \neq \emptyset,
+\]
+and if supporting flows \(J_{\mathrm{support}}\) dominate destructive flows \(J_{\mathrm{kill}}\) when integrated over relevant cycles.
+
+Life thus corresponds to the persistent existence of:
+\begin{itemize}
+    \item stable cycles separated from the boundary by a finite structural distance;
+    \item sufficient supporting flows to maintain these cycles;
+    \item coherence between potentials, axes, and thresholds;
+    \item controlled critical behaviour that does not cross \(\Theta_{\mathrm{death}}\).
+\end{itemize}
+
+These conditions are interpreted differently at each level \(K_x\), but the structural pattern is the same from protocells to institutions.
+
+\subsection{Death of continua}
+
+A continuum \(K\) dies at time \(t^\ast\) when
+\[
+    \Omega(K(t^\ast)) = \emptyset,
+\]
+which implies \(\chi_{\Omega}(s_K(t^\ast);K,t^\ast)=0\) and hence \(k(K,t^\ast)=0\).
+Equivalently:
+\begin{itemize}
+    \item all stable cycles vanish, \(C(K(t^\ast)) = \emptyset\);
+    \item no state satisfies the threshold inequalities concurrently;
+    \item any attempted continuation of dynamics would violate at least one existence threshold \(\Theta_{\mathrm{exist}}\).
+\end{itemize}
+
+\paragraph{Irreversibility of death}
+Once \(\Omega(K(t^\ast)) = \emptyset\), there is no structural operator acting within the same level that can reconstruct a nonempty \(\Omega(K)\).
+Any apparent resurrection would correspond to the birth of a new continuum \(K'\) with its own thresholds and state space, not the continuation of the original \(K\).
+Thus death is structurally irreversible.
+
+\subsection{Interaction of continua}
+
+Two continua \(K_a\) and \(K_b\) interact via an interaction operator
+\[
+    E_{\mathrm{int}} : (K_a,K_b) \mapsto (K_a',K_b'),
+\]
+acting on their combined potentials, flows, thresholds, and axes.
+Structurally, several regimes are distinguished:
+
+\begin{itemize}
+    \item \textbf{Competition:} flows of one continuum hinder the maintenance of cycles in the other; typically \(k_a(t)\) and \(k_b(t)\) cannot both increase indefinitely.
+    \item \textbf{Parasitism:} one continuum harvests supporting flows from another, increasing its own \(k\) at the expense of the host.
+    \item \textbf{Symbiosis:} supporting flows are coupled such that both continua increase their continuumness and extend their admissible regions.
+    \item \textbf{Fusion:} axes and potentials combine to form a new continuum \(K_{\mathrm{fusion}}\) with merged axes and a new state space \(\Omega_{\mathrm{fusion}}\).
+\end{itemize}
+
+Interaction can itself induce dimensional transitions when mixed differences
+create new, previously unused axes and drive tension above
+\(\Theta_{\mathrm{dim}}\).
+
+\subsection{Vertical hierarchy \texorpdfstring{$K_0$--$K_{12}$}{K0--K12}}
+
+Within this formal scheme, the OC hierarchy \(K_0,\dots,K_{12}\) can be summarised as follows:
+
+\begin{itemize}
+    \item \(K_0\): purely structural substrate of distinguishable states and differences, no time, no dynamics.
+    \item \(K_1\): one-dimensional classical continuum with energy functionals and basic stability thresholds.
+    \item \(K_2\): physical continua, including fields, phase transitions, percolation, Berezinskii--Kosterlitz--Thouless-type transitions, and mass structure in field theory.
+    \item \(K_3\): chemical continua, including reaction networks, reflexively autocatalytic and food-generated structures, concentrations, and environmental parameters.
+    \item \(K_4\): protocellular continua with membranes, osmotic and curvature thresholds, internal/external gradients, and metabolic subspaces.
+    \item \(K_5\): early neural and bioelectrical continua with ion channels, excitation thresholds, gradient-driven flows, and protospikes.
+    \item \(K_6\): cognitive continua with representational axes, binding, internal models, memory thresholds, and prediction thresholds.
+    \item \(K_7\): social continua with trust thresholds, institutional cycles, communication, and coordination flows.
+    \item \(K_8\): civilisational continua with large-scale infrastructures, systemic thresholds, and long-range cycles.
+    \item \(K_9\): theoretical continua comprising theories, paradigms, ontologies, and model families, with consistency and coherence thresholds.
+    \item \(K_{10}\): meta-theoretical continua governing comparison, evaluation, and transformation across classes of theories.
+    \item \(K_{11}\): recursive meta-theoretical continua governing operator families, meta-logical update, and model-space recursion.
+    \item \(K_{12}\): global coherence continua that bound compatibility across families of \(K_{11}\)-structures.
+\end{itemize}
+
+Each level inherits the general continuum structure and adds new axes, potentials, thresholds, and cycles specific to its domain.
+This chapter does not rederive every domain-specific representation theorem in
+full detail here; it records the common structural backbone that those
+instantiations must respect.
+
+\subsection{Backbone Recap Before Interface Addenda}
+
+This recap closes the main ontological backbone before the two interface
+addenda that follow. The chapter has presented
+the axioms of \(K_0\), the construction of \(K_1\), the general definition of a continuum,
+the taxonomy of thresholds, the roles of potentials, flows, and structural tension,
+and the definition of cycles and continuumness.
+It has also fixed the evolution operator, the embedding into meta-spaces, the
+structural conditions for birth, life, and death, the interaction operator, and
+the vertical hierarchy \(K_0\)--\(K_{12}\).
+All further developments in the Core and in extension papers rely on this structure as their common foundation.
+
+
+\subsection{Minimality route for the OC verdict interface}
+\label{sec:oc13-global-verdict-minimality}
+
+The tuple \(K=(\Omega,A,P,J,\Theta,\partial\Omega,C,k)\) is the Core~1.3.3
+interface for comparing continuum descriptions. The monograph does not promote
+a theorem of global verdict-invariant minimality. It records the narrower
+criterion that each tuple component contributes to at least one relevant
+classification or transition judgment; removing that component changes the
+available distinction in the corresponding witness family.
+
+\paragraph{Route status.}
+The route says what a future minimality theorem would need to prove: for a
+primitive distinction \(\pi_p\), provide formal histories \(H_a,H_b\), a
+forgetful map that removes only \(\pi_p\), and a verdict function
+\(V_{\mathrm{OC}}\) such that all other components agree while
+\(V_{\mathrm{OC}}(H_a)\neq V_{\mathrm{OC}}(H_b)\).  Core~1.3.3 supplies
+replayable witness fixtures and an executable check for that
+route, but it does not claim a complete formal lower-bound theorem.
+
+\paragraph{Role in the model.}
+\(\partial\Omega\), \(J\), and \(k\) may be derived in local models only when
+the derivation still preserves the boundary, flow, and continuumness verdict
+information. Derivation is allowed; information loss is not. The condition is a
+modelling boundary for local reductions, not a promoted minimality proof.
+
+% OC_CORE_1_3_3_SCIENTIFIC_CLOSURE_BRIDGE
+
+\subsection{Typed Interface Bridge}
+\label{sec:oc133-model-scientific-closure-bridge}
+
+Core~1.3.3 states the continuum carrier separately from live realisations,
+uses resolution-relative quotient distinguishability at \(K_0\), treats
+boundaries as admissibility classifiers, and reads \(F,G,H,Q,R,S,U\) as
+hybrid update components rather than universal derivatives.  The compact
+interface
+\[
+K=(\Omega,A,P,J,\Theta,\partial\Omega,C,k)
+\]
+abbreviates the typed family
+\[
+K=\big(\Omega(K),A(K),P(K,t),J(K,t),\Theta(K),
+       \partial\Omega(K,t),C(K,t),k(K,t)\big)
+\]
+for the fixed continuum \(K\) and live instant \(t\).  When no live instant is
+being evaluated, \(P(K,t)\), \(J(K,t)\), \(\partial\Omega(K,t)\), \(C(K,t)\),
+and \(k(K,t)\) are read as their declared level-relative specialisations, not
+as bare global symbols.  Bare \(H\) is reserved for the threshold-evolution
+operator \(H_{\mathrm{thr}}\); the live nonemptiness/status factor is written as
+\(N_{\Omega}(K,t)\) or as the explicit indicator
+\(\mathbf{1}_{\{\Omega(K,t)\neq\emptyset\}}\).  Theorem-bearing statements distinguish
+\(\Omega_{\mathrm{law}}(K)\), \(\Omega_t(K)\), and
+\(\Omega_{\mathrm{res}}(K,t)\).  This separation allows a carrier-level trace
+to persist after live admissibility becomes empty while death, residue, and
+rebirth remain distinct typed statuses.
+
+Continuumness \(k\) is a diagnostic scalar governed by explicit zero-cause
+families.  Live status is a predicate, collapse cause is typed, and the old
+multiplicative formula is retained only as a lawful local aggregator under its
+declared assumptions.

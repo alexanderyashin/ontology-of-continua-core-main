@@ -1,0 +1,55 @@
+{
+  "manifest_id": "OC_CORE_1_4_PUBLIC_REVIEW_MANIFEST",
+  "release_scope": "OC_CORE_1_4_PUBLIC_REVIEW_NO_SEND",
+  "release_version": "1.4",
+  "no_send": true,
+  "upload_status": "NOT_UPLOADED_REVIEW_REQUIRED",
+  "active_language_codes": [
+    "EN"
+  ],
+  "required_public_members": [
+    "README.md",
+    ".zenodo.json",
+    "PUBLIC_REVIEW.md",
+    "PUBLIC_PAYLOAD_MANIFEST.json",
+    "checksums.txt",
+    "main.pdf",
+    "main.tex",
+    "release_metadata.tex",
+    "releases/CURRENT_RELEASE.json",
+    "releases/oc_core_1_3/monograph/OC_CORE_1_3_MASTER_MONOGRAPH_EN.pdf",
+    "releases/oc_core_1_3/manuscripts/OC_CORE_1_3_FLAGSHIP_MANUSCRIPT_EN.pdf",
+    "benchmarks/run_oc14_suite.py",
+    "benchmarks/modern_science/validate_modern_science_register.py",
+    "validation/run_all.py",
+    "simulations/run_all.py",
+    "proofs/finite_model_checks/run_finite_model_checks.py",
+    "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
+    "claims/CLAIM_LEDGER_1_3_3.json",
+    "comparators/OC_1_3_3_MODERN_SCIENCE_SUPERIORITY_REGISTER.json",
+    "validation/heldout/grand_science_evidence_registry.json"
+  ],
+  "excluded_from_public_payload": [
+    "non-release authoring and review material",
+    "journal submission packages",
+    "runtime scratch",
+    "raw local reviewer traces",
+    "non-public release authorization records"
+  ],
+  "validation_commands": [
+    "python benchmarks/run_oc14_suite.py",
+    "python validation/run_all.py --qa-only",
+    "python simulations/run_all.py",
+    "python benchmarks/modern_science/validate_modern_science_register.py",
+    "python proofs/finite_model_checks/run_finite_model_checks.py"
+  ],
+  "release_blocking_policy": {
+    "missing_required_public_members": "BLOCKING",
+    "invalid_json": "BLOCKING",
+    "internal_machinery_leakage": "BLOCKING",
+    "failed_replay_or_finite_check": "BLOCKING",
+    "no_send_lock": "ACTIVE_UNTIL_OWNER_APPROVAL"
+  },
+  "missing_required_public_members": [],
+  "required_member_status": "PASS"
+}

@@ -1,0 +1,198 @@
+{
+  "schema_id": "OC133_WDI_INDICATOR_SCORING_PACK_v1",
+  "pack_status": "STRICT_EVIDENCE_PASS_NO_COVERAGE_CLOSURE",
+  "status": "STRICT_EVIDENCE_PASS_NO_COVERAGE_CLOSURE",
+  "lane_id": "agriculture_livestock_production",
+  "domain_class_id": "agricultural_food_sciences",
+  "phenomenon_class_id": "animal_health_and_production_systems",
+  "source_bound": true,
+  "target_hidden": true,
+  "score_materialized": true,
+  "scientific_pass": true,
+  "coverage_closure_allowed": false,
+  "support_allowed_for_broad_coverage": false,
+  "source_snapshot_ref": "validation/heldout/grand_science/wdi/agriculture_livestock_production/OC133_WDI_AGRICULTURE_LIVESTOCK_PRODUCTION_SOURCE.json",
+  "source_snapshot_sha256": "4c006ecdf489a541f5d00ba463b4a4ea6943e731485149a80cfcc387a463cf0a",
+  "source_lock_ref": "validation/heldout/grand_science/wdi/agriculture_livestock_production/OC133_WDI_AGRICULTURE_LIVESTOCK_PRODUCTION_SOURCE.lock.json",
+  "visible_task_table_ref": "validation/heldout/grand_science/wdi/agriculture_livestock_production/OC133_WDI_AGRICULTURE_LIVESTOCK_PRODUCTION_TARGET_HIDDEN_TASK_TABLE.json",
+  "hidden_target_lock_ref": "validation/heldout/grand_science/wdi/agriculture_livestock_production/OC133-WDI-AGRICULTURE_LIVESTOCK_PRODUCTION-HIDDEN-TARGETS-0001.lock.json",
+  "row_count": 2364,
+  "model": {
+    "model_id": "AGR-WDI-LIVESTOCK-MEDIAN-DELTA-v1",
+    "rule": "Use the median recent annual livestock-production change over visible history and extrapolate one year."
+  },
+  "comparator": {
+    "comparator_id": "AGR-WDI-LIVESTOCK-LAST_OBSERVATION_BASELINE-v1",
+    "rule": "Predict the held-out animal-production observable as the last visible pre-target value."
+  },
+  "residuals": {
+    "model_relative_mae": 0.040129904632,
+    "comparator_relative_mae": 0.040496690894,
+    "negative_control_relative_mae": 0.072221757775,
+    "material_margin_met": true,
+    "material_margin_rule": "model_relative_mae + 0.0001 must be below the last-observation comparator relative MAE"
+  },
+  "negative_control": {
+    "control_id": "AGR-WDI-LIVESTOCK-FIVE_YEAR_MEAN_CONTROL-v1",
+    "negative_control_rejected": true
+  },
+  "falsifiers": [
+    "target values leak into visible task table",
+    "source lock hash is missing or stale",
+    "model relative MAE plus material margin is not below comparator relative MAE",
+    "five-year mean negative control is not worse than the model"
+  ],
+  "scored_rows_sha256": "60292df9cedc26e39a71ad8ffe9f3f9f5ea892aeb6345996e73699905189036e",
+  "scored_rows_sample": [
+    {
+      "task_id": "WDI-AGRICULTURE_LIVESTOCK_PRODUCTION-HOLDOUT-AFE-2010",
+      "countryiso3code": "AFE",
+      "target_year": 2010,
+      "model_prediction": 102.128394515074,
+      "comparator_prediction": 102.032842522394,
+      "negative_control_prediction": 100.846191191994,
+      "prediction_trace": {
+        "prediction_method": "median_delta"
+      },
+      "target_sha256": "a6fd756e871c368a1d247c5fa32f49c4d42a504192ac312b9d3bf8c2f306080d",
+      "model_relative_error": 0.01513374671,
+      "comparator_relative_error": 0.016055194006,
+      "negative_control_relative_error": 0.027498562477
+    },
+    {
+      "task_id": "WDI-AGRICULTURE_LIVESTOCK_PRODUCTION-HOLDOUT-AFE-2011",
+      "countryiso3code": "AFE",
+      "target_year": 2011,
+      "model_prediction": 104.610602825401,
+      "comparator_prediction": 103.697729690595,
+      "negative_control_prediction": 101.358659186389,
+      "prediction_trace": {
+        "prediction_method": "median_delta"
+      },
+      "target_sha256": "0225408b8813ada82b635c1fa4df8015aa8fb956008016dffd787771ff828b62",
+      "model_relative_error": 0.007484430333,
+      "comparator_relative_error": 0.00130727381,
+      "negative_control_relative_error": 0.023834408257
+    },
+    {
+      "task_id": "WDI-AGRICULTURE_LIVESTOCK_PRODUCTION-HOLDOUT-AFE-2012",
+      "countryiso3code": "AFE",
+      "target_year": 2012,
+      "model_prediction": 104.733781435541,
+      "comparator_prediction": 103.833468464492,
+      "negative_control_prediction": 102.235426181377,
+      "prediction_trace": {
+        "prediction_method": "median_delta"
+      },
+      "target_sha256": "1d48c42203b6c08b193ba1657162ed9fa70b766e4aec85b5181878dbe6d45b73",
+      "model_relative_error": 0.047337814355,
+      "comparator_relative_error": 0.038334684645,
+      "negative_control_relative_error": 0.022354261814
+    },
+    {
+      "task_id": "WDI-AGRICULTURE_LIVESTOCK_PRODUCTION-HOLDOUT-AFE-2013",
+      "countryiso3code": "AFE",
+      "target_year": 2013,
+      "model_prediction": 100.082991828923,
+      "comparator_prediction": 100.0,
+      "negative_control_prediction": 102.313327663185,
+      "prediction_trace": {
+        "prediction_method": "median_delta"
+      },
+      "target_sha256": "2e1fec3f6ab7d9d4de32f7bc547cc75da76550f55018b8d464e5d3efc7831c30",
+      "model_relative_error": 0.000829918289,
+      "comparator_relative_error": 0.0,
+      "negative_control_relative_error": 0.023133276632
+    },
+    {
+      "task_id": "WDI-AGRICULTURE_LIVESTOCK_PRODUCTION-HOLDOUT-AFE-2014",
+      "countryiso3code": "AFE",
+      "target_year": 2014,
+      "model_prediction": 100.067869386949,
+      "comparator_prediction": 100.0,
+      "negative_control_prediction": 101.912808135496,
+      "prediction_trace": {
+        "prediction_method": "median_delta"
+      },
+      "target_sha256": "68b20633eec9cc9f2873549dcbfa5ce49aacdc4bfebc786db02e27db8f33b31a",
+      "model_relative_error": 0.000678693869,
+      "comparator_relative_error": 0.0,
+      "negative_control_relative_error": 0.019128081355
+    },
+    {
+      "task_id": "WDI-AGRICULTURE_LIVESTOCK_PRODUCTION-HOLDOUT-AFE-2015",
+      "countryiso3code": "AFE",
+      "target_year": 2015,
+      "model_prediction": 100.0,
+      "comparator_prediction": 100.0,
+      "negative_control_prediction": 101.506239631017,
+      "prediction_trace": {
+        "prediction_method": "median_delta"
+      },
+      "target_sha256": "282a72d4d77347691dc2216c82c04ddef8f558db109f41b83076234b530f5435",
+      "model_relative_error": 0.0,
+      "comparator_relative_error": 0.0,
+      "negative_control_relative_error": 0.01506239631
+    },
+    {
+      "task_id": "WDI-AGRICULTURE_LIVESTOCK_PRODUCTION-HOLDOUT-AFE-2016",
+      "countryiso3code": "AFE",
+      "target_year": 2016,
+      "model_prediction": 100.0,
+      "comparator_prediction": 100.0,
+      "negative_control_prediction": 100.766693692898,
+      "prediction_trace": {
+        "prediction_method": "median_delta"
+      },
+      "target_sha256": "fcc02fdf4b2e222a683bc742e1107a64d0b3c050f4c4da18c7f7baf5fe348120",
+      "model_relative_error": 0.0,
+      "comparator_relative_error": 0.0,
+      "negative_control_relative_error": 0.007666936929
+    },
+    {
+      "task_id": "WDI-AGRICULTURE_LIVESTOCK_PRODUCTION-HOLDOUT-AFE-2017",
+      "countryiso3code": "AFE",
+      "target_year": 2017,
+      "model_prediction": 100.0,
+      "comparator_prediction": 100.0,
+      "negative_control_prediction": 100.0,
+      "prediction_trace": {
+        "prediction_method": "median_delta"
+      },
+      "target_sha256": "3c6334043951deadd36ba4df9fc9c991aaaee3049410259f5b2c03544585c315",
+      "model_relative_error": 0.0,
+      "comparator_relative_error": 0.0,
+      "negative_control_relative_error": 0.0
+    },
+    {
+      "task_id": "WDI-AGRICULTURE_LIVESTOCK_PRODUCTION-HOLDOUT-AFE-2018",
+      "countryiso3code": "AFE",
+      "target_year": 2018,
+      "model_prediction": 100.0,
+      "comparator_prediction": 100.0,
+      "negative_control_prediction": 100.0,
+      "prediction_trace": {
+        "prediction_method": "median_delta"
+      },
+      "target_sha256": "97a0b4715137c2be9114b0b6c7282dd0b6fc7c8a7a52fd66cfa84235a2a1c52a",
+      "model_relative_error": 0.0,
+      "comparator_relative_error": 0.0,
+      "negative_control_relative_error": 0.0
+    },
+    {
+      "task_id": "WDI-AGRICULTURE_LIVESTOCK_PRODUCTION-HOLDOUT-AFE-2019",
+      "countryiso3code": "AFE",
+      "target_year": 2019,
+      "model_prediction": 100.0,
+      "comparator_prediction": 100.0,
+      "negative_control_prediction": 100.0,
+      "prediction_trace": {
+        "prediction_method": "median_delta"
+      },
+      "target_sha256": "885d47ff64f024696b4a1ee0c9814fe327289e95bc105b3ff89a08ad4a5a3cde",
+      "model_relative_error": 0.0,
+      "comparator_relative_error": 0.0,
+      "negative_control_relative_error": 0.0
+    }
+  ]
+}

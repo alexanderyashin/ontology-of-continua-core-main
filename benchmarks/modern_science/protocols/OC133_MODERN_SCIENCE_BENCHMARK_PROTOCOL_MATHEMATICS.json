@@ -1,0 +1,159 @@
+{
+  "schema_id": "OC133_MODERN_SCIENCE_BENCHMARK_PROTOCOL_v1",
+  "release_id": "oc_core_1_3_3",
+  "version": "1.3.3",
+  "generated_on": "2026-05-01",
+  "evidence_owner": "OC research pipeline Research/PriorArt",
+  "blocker_id": "modern_science_comparator_superiority",
+  "protocol_id": "OC133-MODERN-SCIENCE-BENCHMARK-PROTOCOL-MATHEMATICS",
+  "domain": "mathematics",
+  "lane_id": "MS-LANE-MATHEMATICS-FORMAL-ROUTE-PROTOCOL-ONLY",
+  "predicate_id": "MS-PRED-MATH-FORMAL-ROUTE-001",
+  "route_type": "FORMAL_ROUTE_PROTOCOL_ONLY",
+  "evidence_refs": {
+    "register_ref": "comparators/OC_1_3_3_MODERN_SCIENCE_SUPERIORITY_REGISTER.json",
+    "coverage_register_ref": "comparators/modern_science/OC133_MODERN_SCIENCE_COVERAGE_REGISTER.json",
+    "lane_ref": "benchmarks/modern_science/OC133_MODERN_SCIENCE_BENCHMARK_LANES.json",
+    "modern_science_superiority_report_ref": "reports/OC_CORE_1_3_3_MODERN_SCIENCE_SUPERIORITY_REPORT.json",
+    "source_capsule_ref": "comparators/modern_science/source_capsules/MS-SRC-MATH-LEAN4.txt",
+    "source_capsule_sha256": "827b10594ad2c190b6911395f50c819825b9177a2352456e98a0c0ab615427a0"
+  },
+  "incumbent_comparator": {
+    "incumbent": "Lean 4 theorem prover and formal mathematics ecosystem",
+    "accepted_capacity": "Lean 4 is an interactive theorem prover and programming language for verified programs and formal mathematics.",
+    "source_refs": [
+      {
+        "title": "Lean 4 official site",
+        "url": "https://lean4.dev/",
+        "source_date": "reference",
+        "local_source_capsule_ref": "comparators/modern_science/source_capsules/MS-SRC-MATH-LEAN4.txt",
+        "local_source_capsule_sha256": "827b10594ad2c190b6911395f50c819825b9177a2352456e98a0c0ab615427a0"
+      }
+    ]
+  },
+  "oc_model_under_test": {
+    "result_ref": "",
+    "claim_id": "",
+    "dataset_snapshot_ref": "",
+    "formula_or_model": "",
+    "prediction_support_allowed": false,
+    "empirical_support_allowed": false,
+    "support_scope": "formal route/protocol-only planning; no empirical benchmark or theorem-prover superiority protocol is asserted"
+  },
+  "formal_route": {
+    "protocol_only": true,
+    "empirical_protocol_required": false,
+    "strict_empirical_pack_required": false,
+    "coverage_gap_status": "OPEN",
+    "allowed_current_claim": "bounded formal release-consistency and proof-route planning only",
+    "forbidden_claims": [
+      "superior to formal mathematics",
+      "superior to theorem provers",
+      "empirical mathematics superiority",
+      "broad modern-science superiority"
+    ]
+  },
+  "heldout_or_prospective_split": {
+    "mode": "not_applicable_formal_route",
+    "source_separation_mode": "protocol_only",
+    "split_predicate": "FORMAL_ROUTE_PROTOCOL_ONLY_DECLARED",
+    "declared": false,
+    "source_separation_declared": false,
+    "split_statement": "No target-blind empirical split is required or claimed for this formal route protocol."
+  },
+  "fairness_criteria": [
+    {
+      "predicate": "formal_route_protocol_only_declared",
+      "required": true,
+      "status": true,
+      "blocked": false
+    },
+    {
+      "predicate": "claim_text_excludes_theorem_prover_or_formal_math_superiority",
+      "required": true,
+      "status": true,
+      "blocked": false
+    },
+    {
+      "predicate": "source_capsule_hash_bound",
+      "required": true,
+      "status": true,
+      "blocked": false
+    },
+    {
+      "predicate": "strict_empirical_evidence_pack_present",
+      "required": false,
+      "status": false,
+      "blocked": false
+    },
+    {
+      "predicate": "coverage_register_gap_closed",
+      "required": true,
+      "status": false,
+      "blocked": true
+    }
+  ],
+  "uncertainty": {
+    "declared": false,
+    "uncertainty": null,
+    "model_residual": null,
+    "within_declared_uncertainty": false,
+    "metric_family": "formal route/protocol-only; no empirical residual metric",
+    "prediction_supported": false,
+    "empirical_supported": false
+  },
+  "residual_metric": {
+    "metric_family": "formal route/protocol-only; no empirical residual metric",
+    "model_residual": null,
+    "comparator_residual": null,
+    "superiority_margin": null,
+    "model_predicted": null,
+    "model_observed": null
+  },
+  "negative_controls": [],
+  "falsifiers": [],
+  "blocker_predicates": [
+    "FORMAL_ROUTE_PROTOCOL_ONLY_NO_EMPIRICAL_SUPERIORITY_PROTOCOL",
+    "NO_STRICT_EMPIRICAL_EVIDENCE_PACK_FOR_FORMAL_MATHEMATICS",
+    "COVERAGE_REGISTER_FORMAL_GAPS_REMAIN_OPEN",
+    "BROAD_MODERN_SCIENCE_SUPERIORITY_BLOCKED"
+  ],
+  "required_result_refs": [],
+  "report": {
+    "current_verdict": "FORMAL_ROUTE_PROTOCOL_ONLY_NOT_EMPIRICAL_SUPERIORITY",
+    "superiority_task": "Maintain formal-route protocol boundary for mathematics without fabricating an empirical protocol.",
+    "allowed_current_claim": "bounded formal release-consistency and proof-route planning only",
+    "superiority_claim_status": "NOT_CERTIFIED",
+    "release_effect": "BLOCK_RELEASE_PROMOTION_FOR_SUPERIORITY",
+    "oc_current_evidence_boundary": "No empirical mathematics superiority or theorem-prover superiority evidence is asserted."
+  },
+  "grand_empirical_context": {
+    "minimum_n": null,
+    "valid_n": 0,
+    "status": "NOT_APPLICABLE_FORMAL_ROUTE",
+    "grand_toe_support_allowed": false,
+    "blockers": [
+      "FORMAL_ROUTE_PROTOCOL_ONLY_NO_EMPIRICAL_SUPERIORITY_PROTOCOL",
+      "NO_STRICT_EMPIRICAL_EVIDENCE_PACK_FOR_FORMAL_MATHEMATICS",
+      "COVERAGE_REGISTER_FORMAL_GAPS_REMAIN_OPEN",
+      "BROAD_MODERN_SCIENCE_SUPERIORITY_BLOCKED"
+    ]
+  },
+  "no_send": true,
+  "release_promotion_allowed": false,
+  "superiority_decision": {
+    "status": "NOT_CERTIFIED",
+    "superiority_certified": false,
+    "release_promotion_allowed": false,
+    "can_be_certified_within_current_artifact_scope": false,
+    "blocker_total": 4,
+    "blocker_predicates": [
+      "FORMAL_ROUTE_PROTOCOL_ONLY_NO_EMPIRICAL_SUPERIORITY_PROTOCOL",
+      "NO_STRICT_EMPIRICAL_EVIDENCE_PACK_FOR_FORMAL_MATHEMATICS",
+      "COVERAGE_REGISTER_FORMAL_GAPS_REMAIN_OPEN",
+      "BROAD_MODERN_SCIENCE_SUPERIORITY_BLOCKED"
+    ],
+    "required_result_refs": [],
+    "failure_reason": "Mathematics is represented as a formal route/protocol-only lane; no empirical result refs are required or sufficient for superiority certification."
+  }
+}

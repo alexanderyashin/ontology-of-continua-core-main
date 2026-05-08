@@ -1,0 +1,42 @@
+{
+  "claim_binding": "phase threshold sensitivity toy",
+  "command_to_run": "python simulations/k2_phase_thresholds/run_simulation.py",
+  "contract_ref": "simulations/k2_phase_thresholds/simulation_contract.json",
+  "contract_schema": "OC133_SIMULATION_CONTRACT_v12",
+  "domain": "physics",
+  "empirical_support_allowed": false,
+  "failure_boundary": "toy-model divergence or boundary-crossing remains bounded and non-promotional",
+  "input_spec": {
+    "control_parameter": "float[0,1]",
+    "seed": "integer",
+    "step_count": 48
+  },
+  "k_level_anchor": "K2",
+  "k_scope": "K2",
+  "no_send": true,
+  "output_spec": {
+    "boundary_crossed": "bool",
+    "stability_score": "float",
+    "trace_points": "list[float]"
+  },
+  "approval_required": true,
+  "paper_or_release_binding": "OC Core 1.3.3 v12 no-send release package",
+  "parameter_binding": "deterministic seeded toy parameters bound to release contract",
+  "prediction_support_allowed": false,
+  "projection_support_ref": "LANE::PHYSICS",
+  "public_action_allowed": false,
+  "release_gate_semantics": "simulation illustration only; never empirical/domain validation by itself",
+  "release_id": "oc_core_1_3_3",
+  "reproducibility_hash_or_env": "SHA256_BOUND_EXPECTED_MANIFEST_AND_CONTRACT",
+  "role_class": "BENCHMARK_SUPPORT",
+  "runner_ref": "simulations/k2_phase_thresholds/run_simulation.py",
+  "runtime_cost_class": "cheap_open_compute",
+  "schema_id": "OC133_SIMULATION_CONTRACT_v12",
+  "seed_policy": "fixed default seed with optional override",
+  "simulation_id": "SIM::K2_PHASE_THRESHOLDS",
+  "source_binding": "public oc_core_1_3_3 v12 no-send release surface",
+  "support_ceiling": "SIMULATION_ILLUSTRATION_ONLY",
+  "support_class": "BENCHMARK_SUPPORT",
+  "validation_claim_allowed": false,
+  "version": "1.3.3"
+}

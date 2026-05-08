@@ -1,0 +1,49 @@
+{
+  "schema_id": "OC133_BIOLOGY_NCBI_LEGACY_SEED_TARGET_PROJECTION_DECLARATION_v1",
+  "release_id": "oc_core_1_3_3",
+  "generated_by": "public reproducibility package",
+  "lock_id": "OC133-BIOLOGY-NCBI-LEGACY-SEED-363C4501EE22767C",
+  "declared_before_scoring": true,
+  "source_snapshot_ref": "validation/_raw/biology_ncbi_geo_platform.txt",
+  "source_snapshot_sha256": "f205645ec097af8972f7c70f4753a5d7eb154c4283e9caa454235843974bfda4",
+  "row_index": 1,
+  "row_id": "BIOLOGY-NCBI-GEO-BATCH-0001-F6B8F2D6A89F",
+  "visible_fields": [
+    "esearchresult.idlist",
+    "esearchresult.retstart",
+    "esearchresult.querytranslation"
+  ],
+  "target_fields": [
+    "esearchresult.retmax"
+  ],
+  "model_declaration": {
+    "kind": "geo_esearch_page_size_reconstruction",
+    "formula": "len(esearchresult.idlist)",
+    "visible_inputs": [
+      "esearchresult.idlist",
+      "esearchresult.retstart",
+      "esearchresult.querytranslation"
+    ]
+  },
+  "comparator_declaration": {
+    "kind": "geo_total_hit_count_negative_control",
+    "baseline_sha256": "77136c198bc9ec698dbd9d7d37af8b118d81bd13bb36650e13798505a60c0592"
+  },
+  "residual_metric": "absolute_error_retmax",
+  "official_provenance_classification": {
+    "official_source": "NCBI E-utilities ESearch",
+    "official_url": "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=gds&term=GPL96%5BAccession%5D&retmode=json&retstart=0&retmax=20",
+    "classification_method": "deterministically reconstructed from raw ESearch querytranslation, retstart, and retmax fields"
+  },
+  "locks": {
+    "no_send": true,
+    "publish_allowed": false,
+    "push_allowed": false,
+    "journal_submissions_allowed": false,
+    "doi_registration_allowed": false,
+    "zenodo_upload_allowed": false,
+    "registry_write_allowed": false,
+    "release_promotion_allowed": false
+  },
+  "support_policy": "Legacy seed upgrade proves target-blind row projection only; grand support remains gated by all biology requirements."
+}

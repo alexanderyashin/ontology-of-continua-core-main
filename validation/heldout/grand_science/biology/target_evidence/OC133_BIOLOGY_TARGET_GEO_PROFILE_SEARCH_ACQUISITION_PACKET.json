@@ -1,0 +1,50 @@
+{
+  "schema_id": "OC133_BIOLOGY_TARGET_EVIDENCE_ACQUISITION_PACKET_v1",
+  "release_id": "oc_core_1_3_3",
+  "version": "1.3.3",
+  "evidence_owner": "Research/EmpiricalScience",
+  "generated_by": "public reproducibility package",
+  "stage": "search",
+  "minimum_target_rows": 20,
+  "official_source_policy": "NCBI GEO Profiles via EUtils only; acquired bytes are read-only official source material and are not a scientific pass by themselves.",
+  "missing_official_snapshots": [
+    {
+      "acquisition_id": "OC133-BIOLOGY-TARGET-GEOPROFILES-SEARCH-0001",
+      "official_source": "NCBI EUtils GEO Profiles",
+      "official_endpoint_url": "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=geoprofiles&term=GDS3716%5BAll+Fields%5D+AND+Homo+sapiens%5BORGN%5D+AND+count%5BVTYP%5D+NOT+Control%5BAll+Fields%5D&retmode=json&retmax=30&retstart=0&sort=relevance",
+      "expected_local_snapshot_ref": "validation/heldout/grand_science/biology/target_evidence/raw/OC133_BIOLOGY_TARGET_GEO_PROFILE_SEARCH.json",
+      "no_send_lock": true,
+      "required_fields": [
+        "result.uids"
+      ],
+      "query_params": {
+        "db": "geoprofiles",
+        "term": "GDS3716[All Fields] AND Homo sapiens[ORGN] AND count[VTYP] NOT Control[All Fields]",
+        "retmode": "json",
+        "retmax": "30",
+        "retstart": "0",
+        "sort": "relevance"
+      },
+      "prospective_lock_metadata": {
+        "schema_id": "OC133_OFFICIAL_READONLY_PROSPECTIVE_LOCK_METADATA_v1",
+        "source_snapshot_pre_target_lock": true,
+        "target_hidden_until_scoring": true,
+        "target_projection_unsealed_for_scoring": false,
+        "scoring_started": false,
+        "prediction_materialization_required_before_scoring": true,
+        "target_projection_read_before_prediction_materialization": false,
+        "public_release_action_allowed": false,
+        "publish_allowed": false,
+        "push_allowed": false
+      }
+    }
+  ],
+  "no_send": true,
+  "publish_allowed": false,
+  "push_allowed": false,
+  "journal_submissions_allowed": false,
+  "doi_registration_allowed": false,
+  "zenodo_upload_allowed": false,
+  "registry_write_allowed": false,
+  "release_promotion_allowed": false
+}

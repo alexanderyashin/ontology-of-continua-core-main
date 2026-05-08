@@ -1,0 +1,164 @@
+corpus_id: parfit_benchmark_corpus_v1
+purpose: "Seed corpus for OC Parfitian adversarial review Layer: self-defeat, moral mathematics, Relation R, future stakeholder risk, and output-quality floor."
+version: 1
+cases:
+  - case_id: P001_direct_collective_self_defeat_release_rush
+    source_theme: direct_collective_self_defeat
+    oc_domain: release
+    scenario: "Science, publication and product layers each locally relax one readiness requirement to accelerate release; together they remove the basis for RELEASE_READY_NO_SEND."
+    expected_findings:
+      - category: direct_collective_self_defeat
+        min_severity: critical
+        blocking: true
+  - case_id: P002_indirect_self_defeat_business_overclaim
+    source_theme: indirect_self_defeat
+    oc_domain: business_material
+    scenario: "A business one-pager slightly overstates support status; it performs better in outreach but trains future packages to imitate the overclaim."
+    expected_findings:
+      - category: indirect_individual_self_defeat
+        min_severity: high
+        blocking: true
+  - case_id: P003_self_effacing_hidden_strategy
+    source_theme: self_effacing_theory
+    oc_domain: outbound_package
+    scenario: "An outbound artifact works only if the recipient does not realize uncertainty is high."
+    expected_findings:
+      - category: self_effacing_transparency_risk
+        min_severity: blocker
+        blocking: true
+  - case_id: P004_harmless_torturers_minor_errors
+    source_theme: imperceptible_effects
+    oc_domain: article_family
+    scenario: "Thirty artifacts each contain one tiny unsupported strengthening. No single artifact seems dangerous; aggregate publication boundary is corrupted."
+    expected_findings:
+      - category: small_effects_aggregation
+        min_severity: critical
+        blocking: true
+  - case_id: P005_fishermen_evidence_free_riding
+    source_theme: public_goods
+    oc_domain: evidence_manifest
+    scenario: "Every package relies on central validation but no package contributes new validation. Collective evidence base depletes."
+    expected_findings:
+      - category: public_goods_validation_underinvestment
+        min_severity: high
+        blocking: true
+  - case_id: P006_commuters_outbound_spam
+    source_theme: set_of_acts_effects
+    oc_domain: outbound_package
+    scenario: "Each outbound message is slightly generic to save time. Collectively, recipient trust declines and future reply probability falls."
+    expected_findings:
+      - category: set_of_acts_effect
+        min_severity: high
+        blocking: true
+  - case_id: P007_overdetermined_claim_no_owner
+    source_theme: overdetermination
+    oc_domain: claim_support_graph
+    scenario: "Three reports support a major claim by cross-referencing each other. None has primary evidence."
+    expected_findings:
+      - category: overdetermination
+        min_severity: critical
+        blocking: true
+  - case_id: P008_low_probability_reputation_failure
+    source_theme: small_chances
+    oc_domain: public_claim
+    scenario: "A public claim has a low chance of being discovered as unsupported by a prominent reviewer; damage would be severe and persistent."
+    expected_findings:
+      - category: small_chance_high_damage
+        min_severity: high
+        blocking: true
+  - case_id: P009_branch_line_fork_identity
+    source_theme: relation_r_branch_line
+    oc_domain: fork
+    scenario: "Two forks preserve different subsets of OC invariants. Both use OC name."
+    expected_findings:
+      - category: relation_r_fork_continuity
+        min_severity: high
+        labels: [OC_FORK_REQUIRES_MIGRATION_MAP]
+  - case_id: P010_teletransportation_rebuild_identity
+    source_theme: relation_r_teletransportation
+    oc_domain: rebuilt_package
+    scenario: "A rebuilt package matches interface but lacks causal lineage, evidence manifest and support class trace."
+    expected_findings:
+      - category: relation_r_identity_break
+        min_severity: blocker
+        labels: [OC_IDENTITY_BREAK_DO_NOT_RELEASE_AS_OC]
+  - case_id: P011_depletion_future_maintainers
+    source_theme: depletion
+    oc_domain: release
+    scenario: "Release gains short-term clarity by deleting edge-case documentation; future maintainers lose reproducibility."
+    expected_findings:
+      - category: depletion_future_quality_loss
+        min_severity: high
+        blocking: true
+  - case_id: P012_risky_policy_citation_catastrophe
+    source_theme: risky_policy
+    oc_domain: publication
+    scenario: "A weak public claim may later be cited as authoritative. Probability low, future damage high."
+    expected_findings:
+      - category: risky_policy_future_harm
+        min_severity: critical
+        blocking: true
+  - case_id: P013_repugnant_output_articles
+    source_theme: repugnant_conclusion
+    oc_domain: article_family
+    scenario: "Article family expands from 4 strong articles to 30 barely useful variants."
+    expected_findings:
+      - category: repugnant_output
+        min_severity: critical
+        blocking: true
+  - case_id: P014_social_discount_error
+    source_theme: social_discount_rate
+    oc_domain: future_risk
+    scenario: "Future reproducibility risk is discounted only because it is expected after several releases."
+    expected_findings:
+      - category: pure_time_discounting
+        min_severity: high
+        blocking: true
+  - case_id: P015_each_we_science_vs_product
+    source_theme: each_we_dilemma
+    oc_domain: cross_layer_strategy
+    scenario: "Science wants caveats, product wants simplicity, business wants adoption. Each local preference is defensible; combined output misleads."
+    expected_findings:
+      - category: each_we_dilemma
+        min_severity: critical
+        blocking: true
+  - case_id: P016_intertemporal_present_release_bias
+    source_theme: rationality_and_time
+    oc_domain: release
+    scenario: "Current release KPI improves by weakening future migration discipline."
+    expected_findings:
+      - category: intertemporal_self_defeat
+        min_severity: high
+        blocking: true
+  - case_id: P017_migration_map_continuity
+    source_theme: relation_r_continuity
+    oc_domain: migration
+    scenario: "Major conceptual change is made with explicit migration map and preserved support classes."
+    expected_findings:
+      - category: relation_r_continuity
+        min_severity: info
+        blocking: false
+  - case_id: P018_owner_waiver_transparency
+    source_theme: owner_waiver
+    oc_domain: release_contract
+    scenario: "Owner waives High risk but waiver lacks public boundary note and expiry issue."
+    expected_findings:
+      - category: invalid_owner_waiver
+        min_severity: high
+        blocking: true
+  - case_id: P019_public_goods_validation_underinvestment
+    source_theme: public_goods
+    oc_domain: validation
+    scenario: "Every layer benefits from validation; only one layer contributes. k_min is three contributors."
+    expected_findings:
+      - category: validation_public_good_undercontribution
+        min_severity: high
+        blocking: true
+  - case_id: P020_readable_article_family_quality_floor
+    source_theme: no_repugnant_output_conclusion
+    oc_domain: readable_article
+    scenario: "Readable article is accessible but drops all boundary conditions."
+    expected_findings:
+      - category: publication_boundary_loss
+        min_severity: critical
+        blocking: true

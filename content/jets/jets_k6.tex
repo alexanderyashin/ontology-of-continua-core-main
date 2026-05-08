@@ -1,0 +1,217 @@
+% ================================================================
+% ==== FILE: content/jets/jets_k6.tex
+% ================================================================
+
+\subsubsection{Jets on \texorpdfstring{$K_6$}{K6}}
+\label{sec:jets-k6}
+
+The continuum level $K_6$ describes cognitive organisation:
+axes of representation, prediction, attention and control,
+structured by potentials (prediction error, salience, valence),
+flows (selection, binding, model-updates) and thresholds
+for coherence and stability.  Jets on $K_6$ capture
+\emph{infinitesimal variations} of cognitive states and models
+along these axes and provide a differential view on how small
+perturbations in inputs, internal parameters or structural
+constraints propagate through the cognitive continuum.
+
+We denote the cognitive continuum by
+\[
+  K_6 = \bigl(\Omega(K_6), A_6, P_6, \Theta_6, J_6, C_6, k_6(t)\bigr),
+\]
+where $\Omega(K_6)$ is the space of admissible cognitive states,
+$A_6$ the set of representational and control axes,
+$P_6$ the relevant potentials (prediction error, salience, value, \dots),
+$\Theta_6$ the thresholds (coherence, complexity, error, \dots),
+$J_6$ the cognitive flows, $C_6$ the cycles (attention, learning,
+consolidation, \dots), and $k_6(t)$ the measure of cognitive
+continuum strength at time $t$.
+
+Jets on $K_6$ describe derivatives of these objects with respect to
+the underlying axes and parameters and therefore encode how
+micro-perturbations in $A_6$, $P_6$ or $\Theta_6$ deform $\Omega(K_6)$
+and the flows $J_6$.
+
+
+\subsubsection{State fields and cognitive coordinates}
+
+A cognitive state at time $t$ can be written as a field
+\[
+  x : A_6 \to \mathbb{R}^n,
+\]
+assigning to each representational axis $a \in A_6$ a finite vector
+of activations or parameters.  In practice, $A_6$ may contain axes
+for sensory features, abstract concepts, task variables, latent
+factors, or decision-relevant dimensions.
+
+We write $x(a)$ for the local state along axis $a$ and collect
+these values into a global state $x \in \Omega(K_6)$.  A change of
+state under a small perturbation $\delta a$ of an axis is described
+by the jet
+\[
+  j^1 x(a) \simeq x(a) + \partial_a x(a)\,\delta a,
+\]
+where $\partial_a x(a)$ is the derivative of $x$ with respect to
+the axis $a$.  Higher-order jets capture more complex dependencies
+(e.g.\ curvature, mixed derivatives across axes).
+
+
+\subsubsection{Potentials and their jets}
+
+Central potentials on $K_6$ include prediction error, salience,
+and value-like quantities.  Let
+\[
+  P_{\mathrm{pred}},\; P_{\mathrm{sal}},\; P_{\mathrm{val}}
+\]
+denote prediction error, salience and value potentials,
+respectively.  Given a cognitive state $x$ and a model $m$,
+we can write
+\[
+  P_{\mathrm{pred}} = P_{\mathrm{pred}}(x, m), \qquad
+  P_{\mathrm{sal}}  = P_{\mathrm{sal}}(x, m), \qquad
+  P_{\mathrm{val}}  = P_{\mathrm{val}}(x, m).
+\]
+
+Jets of these potentials describe how small changes in
+state, model or axes change the underlying cognitive
+pressures.  For example, for a representational axis $a \in A_6$,
+the first jet of prediction error along $a$ is
+\[
+  j^1 P_{\mathrm{pred}}(a)
+  \simeq P_{\mathrm{pred}}(x, m)
+        + \partial_{a} P_{\mathrm{pred}}(x, m)\,\delta a.
+\]
+Large values of $\partial_{a} P_{\mathrm{pred}}$ identify axes
+along which the system is particularly sensitive to perturbations.
+
+
+\subsubsection{Jets of flows and cycles}
+
+Cognitive flows $J_6$ describe time evolution within $\Omega(K_6)$:
+selection, binding, compression, prediction and model updates.
+We can write generically
+\[
+  \frac{dx}{dt} = J_6(x; P_6, \Theta_6).
+\]
+
+Jets of flows encode how these dynamics change under small
+perturbations of axes, thresholds or external inputs.  For a
+parameter $\lambda$ (e.g.\ a control gain, noise level, or
+resource constraint) we obtain the first jet
+\[
+  j^1 J_6(x;\lambda)
+  \simeq J_6(x;\lambda)
+        + \partial_{\lambda} J_6(x;\lambda)\,\delta\lambda.
+\]
+
+For a cycle $C \in C_6$ (e.g.\ an attention--prediction--update
+cycle or a learning–consolidation cycle) with period $\tau_C$,
+jets characterise stability under perturbations of parameters
+and axes:
+\[
+  j^1 \tau_C(\lambda)
+  \simeq \tau_C(\lambda)
+        + \partial_{\lambda}\tau_C(\lambda)\,\delta\lambda,
+\]
+and similarly for measures of cycle amplitude or coherence.
+
+
+\subsubsection{Jets at the interface with \texorpdfstring{$K_5$}{K5}}
+
+The coupling between $K_5$ (bioelectrical excitable continua)
+and $K_6$ (cognitive continua) is mediated by jets that connect
+electrical variables (membrane potentials, spiking statistics)
+to cognitive axes and potentials.
+
+Let $\Delta V$ denote membrane potential and
+$A_{\mathrm{exc}}$ the electrical excitability axis on $K_5$.
+A first jet of $\Delta V$ along $A_{\mathrm{exc}}$ is
+\[
+  j^1 \Delta V(A_{\mathrm{exc}})
+  \simeq \Delta V
+        + \partial_{A_{\mathrm{exc}}}(\Delta V)\,\delta A_{\mathrm{exc}},
+\]
+where \emph{no extra brace} appears in the derivative term.
+This jet captures how small changes in the excitability axis
+(e.g.\ effective channel density, gating kinetics, or patch
+composition) alter the local membrane potential.
+
+On the $K_6$ side, an axis of proto-representation $A_{\mathrm{rep}}$
+may be driven by spike statistics (rates, synchrony, patterns).
+A jet of a representational coordinate $x_{\mathrm{rep}}$ with
+respect to a spiking feature $s$ can be written as
+\[
+  j^1 x_{\mathrm{rep}}(s)
+  \simeq x_{\mathrm{rep}}(s)
+        + \partial_s x_{\mathrm{rep}}(s)\,\delta s.
+\]
+Non-zero $\partial_s x_{\mathrm{rep}}$ indicates an effective
+projection from spike-space to representational space and thus
+supports the emergence of cognitive axes from underlying
+electrical dynamics.
+
+
+\subsubsection{Jets of thresholds and boundary deformations}
+
+Thresholds on $K_6$ (e.g.\ prediction-error threshold
+$\Theta_{\mathrm{pred}}$, complexity threshold
+$\Theta_{\mathrm{comp}}$, coherence thresholds) define the
+boundary $\partial\Omega(K_6)$ of admissible cognitive states.
+Jets of thresholds describe how boundary conditions deform
+under structural or parametric changes.
+
+For a threshold $\Theta_i \in \Theta_6$ depending on a parameter
+$\lambda$ we have
+\[
+  j^1 \Theta_i(\lambda)
+  \simeq \Theta_i(\lambda)
+        + \partial_{\lambda}\Theta_i(\lambda)\,\delta\lambda.
+\]
+Similarly, jets of the boundary itself can be written in terms of
+normal variations along $\partial\Omega(K_6)$, capturing how
+regions of admissible cognition expand, contract or change shape
+under slow structural evolution.
+
+
+\subsubsection{Jets and the evolution of \texorpdfstring{$k_6(t)$}{k6(t)}}
+
+The measure of cognitive continuum strength $k_6(t)$ depends on
+the structure of $\Omega(K_6)$, the richness and stability of
+cycles $C_6$, and the balance of flows $J_6$.  Jets of $k_6(t)$
+with respect to parameters or axes quantify how small changes in
+structure influence overall cognitive viability.
+
+For a parameter $\lambda$ we write
+\[
+  j^1 k_6(t;\lambda)
+  \simeq k_6(t;\lambda)
+        + \partial_{\lambda}k_6(t;\lambda)\,\delta\lambda.
+\]
+If $\partial_{\lambda}k_6 > 0$ in some direction, then small
+perturbations along $\lambda$ increase the strength of the
+cognitive continuum; if $\partial_{\lambda}k_6 < 0$ they weaken
+it.  Jets therefore provide a local, differential tool for
+mapping directions of stabilisation, destabilisation and
+possible transition paths towards higher levels (e.g.\ $K_7$)
+or towards collapse of $K_6$.
+
+
+\subsubsection{Summary}
+
+Jets on $K_6$ provide a differential calculus for cognitive
+continua.  They describe:
+
+\begin{itemize}
+  \item infinitesimal changes of state fields along cognitive axes,
+  \item sensitivity of prediction, salience and value potentials,
+  \item local stability of cognitive flows and cycles,
+  \item coupling between electrical excitability on $K_5$ and
+        representational axes on $K_6$,
+  \item deformations of thresholds and boundaries,
+  \item and local directions of growth or decay of $k_6(t)$.
+\end{itemize}
+
+This jet structure connects the qualitative description of
+cognitive dynamics in $K_6$ with precise local variations,
+providing the bridge to more formal differential or variational
+formulations of cognitive evolution.

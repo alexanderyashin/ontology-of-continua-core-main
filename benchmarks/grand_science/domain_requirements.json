@@ -1,0 +1,40 @@
+{
+  "schema_id": "OC133_GRAND_EMPIRICAL_DOMAIN_REQUIREMENTS_v1",
+  "release_id": "oc_core_1_3_3",
+  "evidence_owner": "Research/EmpiricalScience",
+  "minimum_per_domain_n": 20,
+  "required_domains": [
+    "biology",
+    "chemistry",
+    "mathematics",
+    "physics",
+    "systems"
+  ],
+  "required_source_separation_modes": [
+    "prospective",
+    "target_blind"
+  ],
+  "candidate_evidence_pack_roots": [
+    "validation/heldout",
+    "validation/grand_science"
+  ],
+  "machine_report_refs": [
+    "reports/OC_CORE_1_3_3_GRAND_EMPIRICAL_REPORT.json",
+    "validation/heldout/OC133_GRAND_EMPIRICAL_CANDIDATE_SCAN.json",
+    "validation/heldout/OC133_GRAND_EMPIRICAL_DECOMPOSITION_QUEUE.json"
+  ],
+  "sample_pack_ref": "validation/heldout/samples/grand_empirical_evidence_pack.sample.json",
+  "criteria": {
+    "source_separation_required": true,
+    "target_hidden_until_scoring_required": true,
+    "pre_target_lock_required": true,
+    "comparator_baseline_required": true,
+    "uncertainty_interval_required": true,
+    "residual_superiority_required": true,
+    "negative_control_rejection_required": true,
+    "falsifier_required": true,
+    "grand_toe_support_allowed_must_be_explicit": true,
+    "current_target_blind_reconstructions_are_bounded_baseline_only": true
+  },
+  "support_policy": "A domain is unresolved unless an evidence pack demonstrates target-blind or prospective source separation, per-domain N at or above the configured minimum, comparator superiority, uncertainty, residuals, negative controls, and falsifiers. Existing OC133 target-blind rows are admissible only as bounded baseline evidence and do not permit grand TOE support."
+}

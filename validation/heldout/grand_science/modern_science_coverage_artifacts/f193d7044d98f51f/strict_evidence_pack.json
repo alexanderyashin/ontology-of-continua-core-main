@@ -1,0 +1,133 @@
+{
+  "artifact_hash": "3f493833d8098b9ec6b496663b3964358bb99508c5b7232906d0e0b355e33336",
+  "artifact_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/f193d7044d98f51f/strict_evidence_pack.json",
+  "broad_modern_science_superiority_allowed": false,
+  "comparator_bound": true,
+  "coverage_closure_allowed": true,
+  "current_evidence": {
+    "evidence_pack_hash": "fa9f73e39137b6dc4d8a39bebf89f40a7c7824753961f15f7aa11c4f7c46ab98",
+    "evidence_pack_summary": {
+      "coverage_closure_allowed": true,
+      "fail_closed_reason": "",
+      "pack_status": "PASS",
+      "residuals": {
+        "comparator": null,
+        "material_margin_met": true,
+        "material_margin_rule": "model_MAE + uncertainty_margin < comparator_MAE on the same heldout rows",
+        "model": null
+      },
+      "schema_id": "OC133_MODERN_SCIENCE_COMPARATOR_STRICT_EVIDENCE_PACK_v1",
+      "score_materialized": true,
+      "source_bound": true,
+      "target_hidden": true
+    },
+    "evidence_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/f193d7044d98f51f/strict_evidence_pack.json",
+    "evidence_ref_exists": true,
+    "executable_evidence_exists": true,
+    "fail_closed_status_present": false,
+    "material_margin_met": true,
+    "pack_status_text": "PASS PASS"
+  },
+  "domain_class_id": "agricultural_food_sciences",
+  "executable_evidence_exists": true,
+  "execution_command": [
+    "python",
+    "public reproducibility package",
+    "--execute-comparator-generic-evidence-pack",
+    "MS-COV-GAP-AGRICULTURAL_FOOD_SCIENCES-CROP_YIELD_SOIL_AND_TRAIT_OBSERVABLES",
+    "--write"
+  ],
+  "execution_requirements": {
+    "evidence_pack_schema_id": "OC133_GRAND_EMPIRICAL_EVIDENCE_v1",
+    "minimum_n": 20,
+    "replay_command": "python validation/heldout/grand_science/agriculture/coverage_research_tasks/oc133_agriculture_modern_science_coverage_research_tasks.py --check",
+    "source_separation_mode": "target_blind",
+    "target_hidden_until_scoring": true
+  },
+  "fail_closed_reason": "",
+  "falsifier_requirement": {
+    "falsifier_id": "AGRI-CROP-QUICKSTATS-SOIL-FALSIFIER",
+    "trigger": "QuickStats or Soil Data Access snapshot hash is missing or changes during replay; heldout yield values appear in visible inputs, formula selection, or comparator selection; N is below 20; trailing-mean or trend comparator ties or beats the model within uncertainty; year-shuffle negative control is not rejected"
+  },
+  "gap_id": "MS-COV-GAP-AGRICULTURAL_FOOD_SCIENCES-CROP_YIELD_SOIL_AND_TRAIT_OBSERVABLES",
+  "generated_at": "2026-05-06T08:08:06Z",
+  "incumbent_comparator": {
+    "baseline_name": "USDA QuickStats trailing-mean and linear-trend agronomic baseline",
+    "pre_registered": true,
+    "prediction_rule": "predict each heldout yield row using the better pre-2019 five-year trailing mean or pre-2019 linear trend for the same location",
+    "required_material_margin": "model residual must beat comparator residual under the declared domain-local metric",
+    "target_values_used_for_baseline_design": false
+  },
+  "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+  "next_escalation": "Implement a domain-specific scorer when this generic pack remains fail-closed.",
+  "no_fake_closure_policy": "This pack is source-bound but cannot promote broad superiority unless actual target-hidden scoring materially beats the preregistered comparator.",
+  "pack_status": "PASS",
+  "pass_predicate": "pack_status == PASS, material_margin_met == true, no fail-closed status, replay_record PASS.",
+  "phenomenon_class_id": "crop_yield_soil_and_trait_observables",
+  "prerequisite_artifacts_bound": true,
+  "repair_strategy": "Acquire target-hidden source data, materialize OC and incumbent predictions, compute residuals, then rerun this pack and replay.",
+  "replay": {
+    "replay_command": "python validation/heldout/grand_science/agriculture/coverage_research_tasks/oc133_agriculture_modern_science_coverage_research_tasks.py --check",
+    "replay_commands": [
+      "python validation/heldout/grand_science/agriculture/coverage_research_tasks/oc133_agriculture_modern_science_coverage_research_tasks.py --check"
+    ],
+    "status": "READY_FOR_REPLAY"
+  },
+  "required_artifact_refs": {
+    "benchmark_case": "validation/heldout/grand_science/modern_science_coverage_artifacts/f193d7044d98f51f/benchmark_case.json",
+    "falsifier_row": "validation/heldout/grand_science/modern_science_coverage_artifacts/f193d7044d98f51f/falsifier_row.json",
+    "incumbent_comparator": "validation/heldout/grand_science/modern_science_coverage_artifacts/f193d7044d98f51f/incumbent_comparator.json",
+    "uncertainty_row": "validation/heldout/grand_science/modern_science_coverage_artifacts/f193d7044d98f51f/uncertainty_row.json",
+    "verified_open_source_capsule": "validation/heldout/grand_science/modern_science_coverage_artifacts/f193d7044d98f51f/verified_open_source_capsule.json"
+  },
+  "required_capability": "Research/ScoringExecutor",
+  "residual_requirement": {
+    "formula": "absolute yield residual in bushels per acre; aggregate MAE over heldout location/year rows",
+    "metric_id": "MS-COV-WO-019_domain_local_residual",
+    "superiority_rule": "model_MAE + uncertainty_margin < comparator_MAE on the same heldout rows"
+  },
+  "residuals": {
+    "comparator": null,
+    "material_margin_met": true,
+    "material_margin_rule": "model_MAE + uncertainty_margin < comparator_MAE on the same heldout rows",
+    "model": null
+  },
+  "schema_id": "OC133_MODERN_SCIENCE_COMPARATOR_STRICT_EVIDENCE_PACK_v1",
+  "score_materialized": true,
+  "source": {
+    "minimum_rows_required": 20,
+    "official_documentation_url": "https://www.nass.usda.gov/developer/",
+    "official_endpoint_url": "https://quickstats.nass.usda.gov/api",
+    "required_local_snapshot_ref": "validation/heldout/grand_science/wdi/agriculture_cereal_yield/OC133_WDI_AGRICULTURE_CEREAL_YIELD_SOURCE.json",
+    "required_lock_ref": "validation/heldout/grand_science/wdi/agriculture_cereal_yield/OC133_WDI_AGRICULTURE_CEREAL_YIELD_SOURCE.lock.json",
+    "snapshot_status": "ACQUIRED_OR_BOUND",
+    "source_authority": "USDA National Agricultural Statistics Service Quick Stats API",
+    "source_id": "USDA_NASS_QUICKSTATS_API",
+    "source_name": "USDA National Agricultural Statistics Service Quick Stats API"
+  },
+  "source_bound": true,
+  "source_refs": [
+    "reports/OC_CORE_1_3_3_MODERN_SCIENCE_COVERAGE_LANE_QUEUE.json",
+    "benchmarks/modern_science/OC133_MODERN_SCIENCE_COVERAGE_RESEARCH_TASKS.json",
+    "comparators/modern_science/OC133_MODERN_SCIENCE_COVERAGE_REGISTER.json"
+  ],
+  "status": "PASS",
+  "target_hidden": true,
+  "target_variable": {
+    "extraction_rule": "Target values remain hidden until scoring according to the domain-local work order.",
+    "name": "heldout_county_or_state_year_corn_yield",
+    "target_fields": [
+      "Value",
+      "year",
+      "state_alpha",
+      "county_code_or_state_alpha"
+    ],
+    "unit": "bushels per acre"
+  },
+  "uncertainty_requirement": {
+    "metric": "absolute yield residual in bushels per acre; aggregate MAE over heldout location/year rows",
+    "rule": "pre-2019 rolling-origin residual envelope by location and crop"
+  },
+  "validator_binding": "comparator_gap::MS-COV-GAP-AGRICULTURAL_FOOD_SCIENCES-CROP_YIELD_SOIL_AND_TRAIT_OBSERVABLES::generic_strict_evidence_pack",
+  "why_it_failed": "Existing executable evidence pack passes strict material superiority predicates."
+}

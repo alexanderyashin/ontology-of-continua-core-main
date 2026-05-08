@@ -1,0 +1,132 @@
+{
+  "artifact_hash": "945dddeddaefe6d2142696c97e3fc0999a34d0530d0de41574c6ee05575dbaca",
+  "artifact_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/f0ee7d5ec5503167/strict_evidence_pack.json",
+  "broad_modern_science_superiority_allowed": false,
+  "comparator_bound": true,
+  "coverage_closure_allowed": true,
+  "current_evidence": {
+    "evidence_pack_hash": "3bf7c15887712421141b74939dbe0058f9da0516c4d4a90b0b9ac6b6c39003e8",
+    "evidence_pack_summary": {
+      "coverage_closure_allowed": true,
+      "fail_closed_reason": "",
+      "pack_status": "PASS",
+      "residuals": {
+        "comparator": null,
+        "material_margin_met": true,
+        "material_margin_rule": "mean model residual must be lower than comparator residual and within declared uncertainty/materiality policy",
+        "model": null
+      },
+      "schema_id": "OC133_MODERN_SCIENCE_COMPARATOR_STRICT_EVIDENCE_PACK_v1",
+      "score_materialized": true,
+      "source_bound": true,
+      "target_hidden": true
+    },
+    "evidence_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/f0ee7d5ec5503167/strict_evidence_pack.json",
+    "evidence_ref_exists": true,
+    "executable_evidence_exists": true,
+    "fail_closed_status_present": false,
+    "material_margin_met": true,
+    "pack_status_text": "PASS PASS"
+  },
+  "domain_class_id": "physical_sciences",
+  "executable_evidence_exists": true,
+  "execution_command": [
+    "python",
+    "public reproducibility package",
+    "--execute-comparator-generic-evidence-pack",
+    "MS-COV-GAP-PHYSICAL_SCIENCES-ASTRONOMICAL_AND_COSMOLOGICAL_OBSERVABLES",
+    "--write"
+  ],
+  "execution_requirements": {
+    "evidence_pack_schema_id": "OC133_GRAND_EMPIRICAL_EVIDENCE_v1",
+    "minimum_n": 20,
+    "replay_command": "python benchmarks/modern_science/coverage_lane_dispatcher.py --check",
+    "source_separation_mode": "target_blind",
+    "target_hidden_until_scoring": true
+  },
+  "fail_closed_reason": "",
+  "falsifier_requirement": {
+    "falsifier_id": "PHYS-ASTRO-EXOPLANET-KEPLER-FALSIFIER",
+    "trigger": "target semi-major-axis leaks into visible inputs, N<20, residuals exceed uncertainty policy, or comparator is not worse"
+  },
+  "gap_id": "MS-COV-GAP-PHYSICAL_SCIENCES-ASTRONOMICAL_AND_COSMOLOGICAL_OBSERVABLES",
+  "generated_at": "2026-05-06T08:07:55Z",
+  "incumbent_comparator": {
+    "baseline_name": "period-only median stellar-mass Kepler baseline",
+    "pre_registered": true,
+    "prediction_rule": "Use the same formula but replace each hidden row's stellar mass with the preregistered visible-panel median stellar mass.",
+    "required_material_margin": "formula residual must beat the median-mass comparator residual on the same hidden rows",
+    "target_values_used_for_baseline_design": false
+  },
+  "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+  "next_escalation": "Implement a domain-specific scorer when this generic pack remains fail-closed.",
+  "no_fake_closure_policy": "This pack is source-bound but cannot promote broad superiority unless actual target-hidden scoring materially beats the preregistered comparator.",
+  "pack_status": "PASS",
+  "pass_predicate": "pack_status == PASS, material_margin_met == true, no fail-closed status, replay_record PASS.",
+  "phenomenon_class_id": "astronomical_and_cosmological_observables",
+  "prerequisite_artifacts_bound": true,
+  "repair_strategy": "Acquire target-hidden source data, materialize OC and incumbent predictions, compute residuals, then rerun this pack and replay.",
+  "replay": {
+    "replay_command": "python benchmarks/modern_science/coverage_lane_dispatcher.py --check",
+    "replay_commands": [
+      "python benchmarks/modern_science/coverage_lane_dispatcher.py --check"
+    ],
+    "status": "READY_FOR_REPLAY"
+  },
+  "required_artifact_refs": {
+    "benchmark_case": "validation/heldout/grand_science/modern_science_coverage_artifacts/f0ee7d5ec5503167/benchmark_case.json",
+    "falsifier_row": "validation/heldout/grand_science/modern_science_coverage_artifacts/f0ee7d5ec5503167/falsifier_row.json",
+    "incumbent_comparator": "validation/heldout/grand_science/modern_science_coverage_artifacts/f0ee7d5ec5503167/incumbent_comparator.json",
+    "uncertainty_row": "validation/heldout/grand_science/modern_science_coverage_artifacts/f0ee7d5ec5503167/uncertainty_row.json",
+    "verified_open_source_capsule": "validation/heldout/grand_science/modern_science_coverage_artifacts/f0ee7d5ec5503167/verified_open_source_capsule.json"
+  },
+  "required_capability": "Research/ScoringExecutor",
+  "residual_requirement": {
+    "formula": "abs(predicted_pl_orbsmax_AU - observed_pl_orbsmax_AU)",
+    "metric_id": "semi_major_axis_absolute_error_AU_v1",
+    "superiority_rule": "mean model residual must be lower than comparator residual and within declared uncertainty/materiality policy"
+  },
+  "residuals": {
+    "comparator": null,
+    "material_margin_met": true,
+    "material_margin_rule": "mean model residual must be lower than comparator residual and within declared uncertainty/materiality policy",
+    "model": null
+  },
+  "schema_id": "OC133_MODERN_SCIENCE_COMPARATOR_STRICT_EVIDENCE_PACK_v1",
+  "score_materialized": true,
+  "source": {
+    "minimum_rows_required": 20,
+    "official_documentation_url": "https://exoplanetarchive.ipac.caltech.edu/docs/TAP/usingTAP.html",
+    "official_endpoint_url": "https://exoplanetarchive.ipac.caltech.edu/TAP/sync?query=select+pl_name,pl_orbper,st_mass,pl_orbsmax,pl_orbsmaxerr1,pl_orbsmaxerr2+from+pscomppars+where+pl_orbper+is+not+null+and+st_mass+is+not+null+and+pl_orbsmax+is+not+null&format=json",
+    "required_local_snapshot_ref": "validation/heldout/grand_science/physics_chemistry/nasa_exoplanet_archive/OC133_NASA_EXOPLANET_PS_COMPOSITE_KEPLER.json",
+    "required_lock_ref": "validation/heldout/grand_science/physics_chemistry/nasa_exoplanet_archive/OC133_NASA_EXOPLANET_PS_COMPOSITE_KEPLER.lock.json",
+    "snapshot_status": "ACQUIRED_OR_BOUND",
+    "source_authority": "NASA Exoplanet Archive / IPAC",
+    "source_id": "physics_nasa_exoplanet_archive_pscomppars_kepler_v1",
+    "source_name": "NASA Exoplanet Archive TAP Planetary Systems Composite Parameters"
+  },
+  "source_bound": true,
+  "source_refs": [
+    "reports/OC_CORE_1_3_3_MODERN_SCIENCE_COVERAGE_LANE_QUEUE.json",
+    "benchmarks/modern_science/OC133_MODERN_SCIENCE_COVERAGE_RESEARCH_TASKS.json",
+    "comparators/modern_science/OC133_MODERN_SCIENCE_COVERAGE_REGISTER.json"
+  ],
+  "status": "PASS",
+  "target_hidden": true,
+  "target_variable": {
+    "extraction_rule": "Hide semi-major-axis target columns until the Kepler-law calculation is materialized from visible orbital period and stellar mass columns.",
+    "name": "pl_orbsmax",
+    "target_fields": [
+      "pl_orbsmax",
+      "pl_orbsmaxerr1",
+      "pl_orbsmaxerr2"
+    ],
+    "unit": "AU"
+  },
+  "uncertainty_requirement": {
+    "metric": "absolute_AU_error_with_archive_errorbar_or_materiality_floor",
+    "rule": "Use pl_orbsmaxerr1/pl_orbsmaxerr2 when present and a preregistered AU materiality floor otherwise."
+  },
+  "validator_binding": "comparator_gap::MS-COV-GAP-PHYSICAL_SCIENCES-ASTRONOMICAL_AND_COSMOLOGICAL_OBSERVABLES::generic_strict_evidence_pack",
+  "why_it_failed": "Existing executable evidence pack passes strict material superiority predicates."
+}

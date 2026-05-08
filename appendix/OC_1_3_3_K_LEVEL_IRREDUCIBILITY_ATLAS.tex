@@ -1,0 +1,20 @@
+\section{K-Level Irreducibility Atlas}
+The v12 atlas is adjacent and witness-based. A K-level is irreducible exactly when its adjacent witness remains observable under the declared release equivalence.
+\begin{tabular}{llll}
+Transition & Added axis & Witness & Demotion criterion \\
+K0_to_K1 & distinguishable state -> minimal continuum & continuity obligation changes verdict & demote if no continuity obligation is observed \\
+K1_to_K2 & minimal continuum -> phase threshold & threshold crossing changes admissibility & demote if threshold never affects verdict \\
+K2_to_K3 & phase threshold -> autocatalytic closure & closure production is required & demote if closure production is irrelevant \\
+K3_to_K4 & closure -> membrane boundary & inside/outside classifier changes verdict & demote if boundary classifier has no observable effect \\
+K4_to_K5 & boundary -> excitable regulation & signal-triggered update changes verdict & demote if excitation never affects status \\
+K5_to_K6 & regulation -> binding prediction & binding relation changes next-state prediction & demote if binding is observationally inert \\
+K6_to_K7 & binding -> trust coordination & norm/role classifier changes allowed action & demote if roles do not change allowed actions \\
+K7_to_K8 & coordination -> regime shift & meta-state transition changes future rules & demote if regime state is constant \\
+K8_to_K9 & regime -> theory dynamics & claim/evidence update changes theory verdict & demote if claim revision is disabled \\
+K9_to_K10 & theory dynamics -> recursive self-application & model applies to its own updates & demote if self-reference is absent \\
+K10_to_K11 & recursion -> cross-domain coherence & translation invariant changes verdict & demote if no cross-domain bridge exists \\
+K11_to_K12 & cross-domain coherence -> self-auditing evidence governance & evidence-policy state changes theorem promotion verdict & demote if self-audit policy state is inert \\
+\end{tabular}
+
+Reduction-failure criteria are stored machine-readably in `data/k_level_irreducibility_matrix.json` and executed in `proofs/FINITE_MODEL_CHECKS_1_3_3.json`.
+Historical axis activation and effective working rank remain separate quantities.

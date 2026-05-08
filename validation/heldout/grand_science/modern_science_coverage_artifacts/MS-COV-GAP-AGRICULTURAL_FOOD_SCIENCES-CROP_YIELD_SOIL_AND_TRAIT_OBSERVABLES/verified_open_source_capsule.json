@@ -1,0 +1,45 @@
+{
+  "artifact_hash": "6ce6976159140f10a391d676ba183ca41b2f9fad04e83bc4c8e9075548a92091",
+  "artifact_key": "verified_open_source_capsule",
+  "artifact_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/MS-COV-GAP-AGRICULTURAL_FOOD_SCIENCES-CROP_YIELD_SOIL_AND_TRAIT_OBSERVABLES/verified_open_source_capsule.json",
+  "closure_scope": "source_identity_and_open_url_bound; target/scoring/replay remain separate",
+  "domain_class_id": "agricultural_food_sciences",
+  "executable_spec_found": true,
+  "execution_command": [
+    "python",
+    "public reproducibility package",
+    "--execute-comparator-gap-artifact",
+    "MS-COV-GAP-AGRICULTURAL_FOOD_SCIENCES-CROP_YIELD_SOIL_AND_TRAIT_OBSERVABLES",
+    "verified_open_source_capsule",
+    "--write"
+  ],
+  "gap_id": "MS-COV-GAP-AGRICULTURAL_FOOD_SCIENCES-CROP_YIELD_SOIL_AND_TRAIT_OBSERVABLES",
+  "generated_at": "2026-05-05T22:33:48Z",
+  "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+  "next_escalation": "If this row remains OPEN, create a narrower acquisition/scoring/replay executor for the exact failed validation field.",
+  "no_fake_closure_policy": "This artifact can reduce a missing-artifact count only at its own scope. It cannot mark the coverage gap or broad TOE superiority PASS by itself.",
+  "pass_predicate": "verified_open_source_capsule status == PASS and the strict comparator gap row no longer lists it as missing.",
+  "phenomenon_class_id": "crop_yield_soil_and_trait_observables",
+  "queue_row_found": true,
+  "repair_strategy": "Continue to the next missing artifact; do not close broad superiority until all source, benchmark, comparator, scoring, uncertainty, falsifier, and replay artifacts pass.",
+  "required_capability": "Research/PriorArt",
+  "schema_id": "OC133_MODERN_SCIENCE_COMPARATOR_RESEARCH_ARTIFACT_v1",
+  "source_refs": [
+    "reports/OC_CORE_1_3_3_MODERN_SCIENCE_COVERAGE_LANE_QUEUE.json",
+    "benchmarks/modern_science/OC133_MODERN_SCIENCE_COVERAGE_RESEARCH_TASKS.json",
+    "comparators/modern_science/OC133_MODERN_SCIENCE_COVERAGE_REGISTER.json"
+  ],
+  "status": "PASS",
+  "validation": {
+    "official_url_present": true,
+    "required_lock_exists": false,
+    "required_lock_ref": null,
+    "required_lock_sha256": "",
+    "required_snapshot_exists": false,
+    "required_snapshot_ref": null,
+    "required_snapshot_sha256": "",
+    "source_id_present": true
+  },
+  "why_it_failed": "Required comparator artifact is source-bound at its declared scope.",
+  "research_task_id": "MS-COV-WO-019"
+}

@@ -1,0 +1,835 @@
+{
+  "schema_id": "OC133_GRAND_EMPIRICAL_EVIDENCE_v1",
+  "release_id": "oc_core_1_3_3",
+  "evidence_owner": "Research/EmpiricalScience",
+  "evidence_pack_id": "OC133-BIOLOGY-TARGET-EVIDENCE-CANDIDATE",
+  "domain": "biology",
+  "evidence_family": "biology-target-outcome-evidence",
+  "pack_version": "1.0",
+  "source_contract": "official_biology_target_bundle",
+  "supersedes": [
+    "OC133-BIOLOGY-NCBI-BATCH-CANDIDATE"
+  ],
+  "source_separation": {
+    "mode": "target_blind",
+    "pre_target_lock": true,
+    "target_hidden_until_scoring": true,
+    "training_sources": [
+      "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-BIOLOGY-TARGET-GEOPROFILES-SUMMARY-0001.json::visible_projection::uid=65632215",
+      "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-BIOLOGY-TARGET-GEOPROFILES-SUMMARY-0001.json::visible_projection::uid=65632214",
+      "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-BIOLOGY-TARGET-GEOPROFILES-SUMMARY-0001.json::visible_projection::uid=65632213",
+      "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-BIOLOGY-TARGET-GEOPROFILES-SUMMARY-0001.json::visible_projection::uid=65632212",
+      "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-BIOLOGY-TARGET-GEOPROFILES-SUMMARY-0001.json::visible_projection::uid=65632211",
+      "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-BIOLOGY-TARGET-GEOPROFILES-SUMMARY-0001.json::visible_projection::uid=65632210",
+      "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-BIOLOGY-TARGET-GEOPROFILES-SUMMARY-0001.json::visible_projection::uid=65632209",
+      "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-BIOLOGY-TARGET-GEOPROFILES-SUMMARY-0001.json::visible_projection::uid=65632208",
+      "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-BIOLOGY-TARGET-GEOPROFILES-SUMMARY-0001.json::visible_projection::uid=65632207",
+      "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-BIOLOGY-TARGET-GEOPROFILES-SUMMARY-0001.json::visible_projection::uid=65632206",
+      "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-BIOLOGY-TARGET-GEOPROFILES-SUMMARY-0001.json::visible_projection::uid=65632205",
+      "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-BIOLOGY-TARGET-GEOPROFILES-SUMMARY-0001.json::visible_projection::uid=65632204",
+      "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-BIOLOGY-TARGET-GEOPROFILES-SUMMARY-0001.json::visible_projection::uid=65632203",
+      "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-BIOLOGY-TARGET-GEOPROFILES-SUMMARY-0001.json::visible_projection::uid=65632202",
+      "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-BIOLOGY-TARGET-GEOPROFILES-SUMMARY-0001.json::visible_projection::uid=65632201",
+      "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-BIOLOGY-TARGET-GEOPROFILES-SUMMARY-0001.json::visible_projection::uid=65632200",
+      "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-BIOLOGY-TARGET-GEOPROFILES-SUMMARY-0001.json::visible_projection::uid=65632199",
+      "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-BIOLOGY-TARGET-GEOPROFILES-SUMMARY-0001.json::visible_projection::uid=65632198",
+      "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-BIOLOGY-TARGET-GEOPROFILES-SUMMARY-0001.json::visible_projection::uid=65632197",
+      "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-BIOLOGY-TARGET-GEOPROFILES-SUMMARY-0001.json::visible_projection::uid=65632196",
+      "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-BIOLOGY-TARGET-GEOPROFILES-SUMMARY-0001.json::visible_projection::uid=65632195",
+      "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-BIOLOGY-TARGET-GEOPROFILES-SUMMARY-0001.json::visible_projection::uid=65632194",
+      "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-BIOLOGY-TARGET-GEOPROFILES-SUMMARY-0001.json::visible_projection::uid=65632193",
+      "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-BIOLOGY-TARGET-GEOPROFILES-SUMMARY-0001.json::visible_projection::uid=65632192",
+      "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-BIOLOGY-TARGET-GEOPROFILES-SUMMARY-0001.json::visible_projection::uid=65632191",
+      "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-BIOLOGY-TARGET-GEOPROFILES-SUMMARY-0001.json::visible_projection::uid=65632190",
+      "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-BIOLOGY-TARGET-GEOPROFILES-SUMMARY-0001.json::visible_projection::uid=65632189",
+      "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-BIOLOGY-TARGET-GEOPROFILES-SUMMARY-0001.json::visible_projection::uid=65632188",
+      "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-BIOLOGY-TARGET-GEOPROFILES-SUMMARY-0001.json::visible_projection::uid=65632186",
+      "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-BIOLOGY-TARGET-GEOPROFILES-SUMMARY-0001.json::visible_projection::uid=65632185"
+    ],
+    "target_sources": [
+      "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-BIOLOGY-TARGET-GEOPROFILES-SUMMARY-0001.json::target_projection::uid=65632215::field=rmean",
+      "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-BIOLOGY-TARGET-GEOPROFILES-SUMMARY-0001.json::target_projection::uid=65632214::field=rmean",
+      "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-BIOLOGY-TARGET-GEOPROFILES-SUMMARY-0001.json::target_projection::uid=65632213::field=rmean",
+      "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-BIOLOGY-TARGET-GEOPROFILES-SUMMARY-0001.json::target_projection::uid=65632212::field=rmean",
+      "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-BIOLOGY-TARGET-GEOPROFILES-SUMMARY-0001.json::target_projection::uid=65632211::field=rmean",
+      "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-BIOLOGY-TARGET-GEOPROFILES-SUMMARY-0001.json::target_projection::uid=65632210::field=rmean",
+      "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-BIOLOGY-TARGET-GEOPROFILES-SUMMARY-0001.json::target_projection::uid=65632209::field=rmean",
+      "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-BIOLOGY-TARGET-GEOPROFILES-SUMMARY-0001.json::target_projection::uid=65632208::field=rmean",
+      "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-BIOLOGY-TARGET-GEOPROFILES-SUMMARY-0001.json::target_projection::uid=65632207::field=rmean",
+      "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-BIOLOGY-TARGET-GEOPROFILES-SUMMARY-0001.json::target_projection::uid=65632206::field=rmean",
+      "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-BIOLOGY-TARGET-GEOPROFILES-SUMMARY-0001.json::target_projection::uid=65632205::field=rmean",
+      "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-BIOLOGY-TARGET-GEOPROFILES-SUMMARY-0001.json::target_projection::uid=65632204::field=rmean",
+      "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-BIOLOGY-TARGET-GEOPROFILES-SUMMARY-0001.json::target_projection::uid=65632203::field=rmean",
+      "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-BIOLOGY-TARGET-GEOPROFILES-SUMMARY-0001.json::target_projection::uid=65632202::field=rmean",
+      "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-BIOLOGY-TARGET-GEOPROFILES-SUMMARY-0001.json::target_projection::uid=65632201::field=rmean",
+      "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-BIOLOGY-TARGET-GEOPROFILES-SUMMARY-0001.json::target_projection::uid=65632200::field=rmean",
+      "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-BIOLOGY-TARGET-GEOPROFILES-SUMMARY-0001.json::target_projection::uid=65632199::field=rmean",
+      "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-BIOLOGY-TARGET-GEOPROFILES-SUMMARY-0001.json::target_projection::uid=65632198::field=rmean",
+      "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-BIOLOGY-TARGET-GEOPROFILES-SUMMARY-0001.json::target_projection::uid=65632197::field=rmean",
+      "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-BIOLOGY-TARGET-GEOPROFILES-SUMMARY-0001.json::target_projection::uid=65632196::field=rmean",
+      "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-BIOLOGY-TARGET-GEOPROFILES-SUMMARY-0001.json::target_projection::uid=65632195::field=rmean",
+      "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-BIOLOGY-TARGET-GEOPROFILES-SUMMARY-0001.json::target_projection::uid=65632194::field=rmean",
+      "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-BIOLOGY-TARGET-GEOPROFILES-SUMMARY-0001.json::target_projection::uid=65632193::field=rmean",
+      "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-BIOLOGY-TARGET-GEOPROFILES-SUMMARY-0001.json::target_projection::uid=65632192::field=rmean",
+      "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-BIOLOGY-TARGET-GEOPROFILES-SUMMARY-0001.json::target_projection::uid=65632191::field=rmean",
+      "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-BIOLOGY-TARGET-GEOPROFILES-SUMMARY-0001.json::target_projection::uid=65632190::field=rmean",
+      "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-BIOLOGY-TARGET-GEOPROFILES-SUMMARY-0001.json::target_projection::uid=65632189::field=rmean",
+      "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-BIOLOGY-TARGET-GEOPROFILES-SUMMARY-0001.json::target_projection::uid=65632188::field=rmean",
+      "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-BIOLOGY-TARGET-GEOPROFILES-SUMMARY-0001.json::target_projection::uid=65632186::field=rmean",
+      "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-BIOLOGY-TARGET-GEOPROFILES-SUMMARY-0001.json::target_projection::uid=65632185::field=rmean"
+    ]
+  },
+  "n": 30,
+  "model_under_test": "NCBI GEO Profile ranked-standard-deviation predictor for held-out ranked mean expression",
+  "comparator_baseline": {
+    "name": "within-profile maximum expression-count biological baseline",
+    "prediction_rule": "predict the official vmax expression-profile count for the same GEO Profile record",
+    "pre_registered": true
+  },
+  "uncertainty": {
+    "metric": "mean absolute residual",
+    "method": "deterministic official GEO Profile ranked-score residuals with zero added measurement slack",
+    "interval": [
+      7.066666666666666,
+      7.066666666666666
+    ]
+  },
+  "residuals": {
+    "model": 7.066666666666666,
+    "comparator": 753.34,
+    "superiority_margin": 746.2733333333333
+  },
+  "negative_controls": [
+    {
+      "control_id": "GEO-PROFILE-VMAX-NEGATIVE-CONTROL-0001",
+      "description": "within-profile maximum expression count baseline must be worse than the ranked-standard-deviation predictor for this held-out ranked mean row",
+      "rejected": true
+    },
+    {
+      "control_id": "GEO-PROFILE-VMAX-NEGATIVE-CONTROL-0002",
+      "description": "within-profile maximum expression count baseline must be worse than the ranked-standard-deviation predictor for this held-out ranked mean row",
+      "rejected": true
+    },
+    {
+      "control_id": "GEO-PROFILE-VMAX-NEGATIVE-CONTROL-0003",
+      "description": "within-profile maximum expression count baseline must be worse than the ranked-standard-deviation predictor for this held-out ranked mean row",
+      "rejected": true
+    },
+    {
+      "control_id": "GEO-PROFILE-VMAX-NEGATIVE-CONTROL-0004",
+      "description": "within-profile maximum expression count baseline must be worse than the ranked-standard-deviation predictor for this held-out ranked mean row",
+      "rejected": true
+    },
+    {
+      "control_id": "GEO-PROFILE-VMAX-NEGATIVE-CONTROL-0005",
+      "description": "within-profile maximum expression count baseline must be worse than the ranked-standard-deviation predictor for this held-out ranked mean row",
+      "rejected": true
+    },
+    {
+      "control_id": "GEO-PROFILE-VMAX-NEGATIVE-CONTROL-0006",
+      "description": "within-profile maximum expression count baseline must be worse than the ranked-standard-deviation predictor for this held-out ranked mean row",
+      "rejected": true
+    },
+    {
+      "control_id": "GEO-PROFILE-VMAX-NEGATIVE-CONTROL-0007",
+      "description": "within-profile maximum expression count baseline must be worse than the ranked-standard-deviation predictor for this held-out ranked mean row",
+      "rejected": true
+    },
+    {
+      "control_id": "GEO-PROFILE-VMAX-NEGATIVE-CONTROL-0008",
+      "description": "within-profile maximum expression count baseline must be worse than the ranked-standard-deviation predictor for this held-out ranked mean row",
+      "rejected": true
+    },
+    {
+      "control_id": "GEO-PROFILE-VMAX-NEGATIVE-CONTROL-0009",
+      "description": "within-profile maximum expression count baseline must be worse than the ranked-standard-deviation predictor for this held-out ranked mean row",
+      "rejected": true
+    },
+    {
+      "control_id": "GEO-PROFILE-VMAX-NEGATIVE-CONTROL-0010",
+      "description": "within-profile maximum expression count baseline must be worse than the ranked-standard-deviation predictor for this held-out ranked mean row",
+      "rejected": true
+    },
+    {
+      "control_id": "GEO-PROFILE-VMAX-NEGATIVE-CONTROL-0011",
+      "description": "within-profile maximum expression count baseline must be worse than the ranked-standard-deviation predictor for this held-out ranked mean row",
+      "rejected": true
+    },
+    {
+      "control_id": "GEO-PROFILE-VMAX-NEGATIVE-CONTROL-0012",
+      "description": "within-profile maximum expression count baseline must be worse than the ranked-standard-deviation predictor for this held-out ranked mean row",
+      "rejected": true
+    },
+    {
+      "control_id": "GEO-PROFILE-VMAX-NEGATIVE-CONTROL-0013",
+      "description": "within-profile maximum expression count baseline must be worse than the ranked-standard-deviation predictor for this held-out ranked mean row",
+      "rejected": true
+    },
+    {
+      "control_id": "GEO-PROFILE-VMAX-NEGATIVE-CONTROL-0014",
+      "description": "within-profile maximum expression count baseline must be worse than the ranked-standard-deviation predictor for this held-out ranked mean row",
+      "rejected": true
+    },
+    {
+      "control_id": "GEO-PROFILE-VMAX-NEGATIVE-CONTROL-0015",
+      "description": "within-profile maximum expression count baseline must be worse than the ranked-standard-deviation predictor for this held-out ranked mean row",
+      "rejected": true
+    },
+    {
+      "control_id": "GEO-PROFILE-VMAX-NEGATIVE-CONTROL-0016",
+      "description": "within-profile maximum expression count baseline must be worse than the ranked-standard-deviation predictor for this held-out ranked mean row",
+      "rejected": true
+    },
+    {
+      "control_id": "GEO-PROFILE-VMAX-NEGATIVE-CONTROL-0017",
+      "description": "within-profile maximum expression count baseline must be worse than the ranked-standard-deviation predictor for this held-out ranked mean row",
+      "rejected": true
+    },
+    {
+      "control_id": "GEO-PROFILE-VMAX-NEGATIVE-CONTROL-0018",
+      "description": "within-profile maximum expression count baseline must be worse than the ranked-standard-deviation predictor for this held-out ranked mean row",
+      "rejected": true
+    },
+    {
+      "control_id": "GEO-PROFILE-VMAX-NEGATIVE-CONTROL-0019",
+      "description": "within-profile maximum expression count baseline must be worse than the ranked-standard-deviation predictor for this held-out ranked mean row",
+      "rejected": true
+    },
+    {
+      "control_id": "GEO-PROFILE-VMAX-NEGATIVE-CONTROL-0020",
+      "description": "within-profile maximum expression count baseline must be worse than the ranked-standard-deviation predictor for this held-out ranked mean row",
+      "rejected": true
+    },
+    {
+      "control_id": "GEO-PROFILE-VMAX-NEGATIVE-CONTROL-0021",
+      "description": "within-profile maximum expression count baseline must be worse than the ranked-standard-deviation predictor for this held-out ranked mean row",
+      "rejected": true
+    },
+    {
+      "control_id": "GEO-PROFILE-VMAX-NEGATIVE-CONTROL-0022",
+      "description": "within-profile maximum expression count baseline must be worse than the ranked-standard-deviation predictor for this held-out ranked mean row",
+      "rejected": true
+    },
+    {
+      "control_id": "GEO-PROFILE-VMAX-NEGATIVE-CONTROL-0023",
+      "description": "within-profile maximum expression count baseline must be worse than the ranked-standard-deviation predictor for this held-out ranked mean row",
+      "rejected": true
+    },
+    {
+      "control_id": "GEO-PROFILE-VMAX-NEGATIVE-CONTROL-0024",
+      "description": "within-profile maximum expression count baseline must be worse than the ranked-standard-deviation predictor for this held-out ranked mean row",
+      "rejected": true
+    },
+    {
+      "control_id": "GEO-PROFILE-VMAX-NEGATIVE-CONTROL-0025",
+      "description": "within-profile maximum expression count baseline must be worse than the ranked-standard-deviation predictor for this held-out ranked mean row",
+      "rejected": true
+    },
+    {
+      "control_id": "GEO-PROFILE-VMAX-NEGATIVE-CONTROL-0026",
+      "description": "within-profile maximum expression count baseline must be worse than the ranked-standard-deviation predictor for this held-out ranked mean row",
+      "rejected": true
+    },
+    {
+      "control_id": "GEO-PROFILE-VMAX-NEGATIVE-CONTROL-0027",
+      "description": "within-profile maximum expression count baseline must be worse than the ranked-standard-deviation predictor for this held-out ranked mean row",
+      "rejected": true
+    },
+    {
+      "control_id": "GEO-PROFILE-VMAX-NEGATIVE-CONTROL-0028",
+      "description": "within-profile maximum expression count baseline must be worse than the ranked-standard-deviation predictor for this held-out ranked mean row",
+      "rejected": true
+    },
+    {
+      "control_id": "GEO-PROFILE-VMAX-NEGATIVE-CONTROL-0029",
+      "description": "within-profile maximum expression count baseline must be worse than the ranked-standard-deviation predictor for this held-out ranked mean row",
+      "rejected": true
+    },
+    {
+      "control_id": "GEO-PROFILE-VMAX-NEGATIVE-CONTROL-0030",
+      "description": "within-profile maximum expression count baseline must be worse than the ranked-standard-deviation predictor for this held-out ranked mean row",
+      "rejected": true
+    }
+  ],
+  "falsifiers": [
+    "falsified if official rmean differs from materialized prediction within the declared uncertainty budget, if vmax is not worse than the model residual, or if GEO Profile uid/source hash changes"
+  ],
+  "source_hashes": [
+    {
+      "source_ref": "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-BIOLOGY-TARGET-GEOPROFILES-SUMMARY-0001.json#uid=65632215",
+      "sha256": "a9327f7e38a8fefae8f38baa8845af39fa79b498aa84d2f0deb32a860141afaf",
+      "hash_policy": "official source snapshot sha256 declared by acquisition lock or bundle hash"
+    },
+    {
+      "source_ref": "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-BIOLOGY-TARGET-GEOPROFILES-SUMMARY-0001.json#uid=65632214",
+      "sha256": "a9327f7e38a8fefae8f38baa8845af39fa79b498aa84d2f0deb32a860141afaf",
+      "hash_policy": "official source snapshot sha256 declared by acquisition lock or bundle hash"
+    },
+    {
+      "source_ref": "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-BIOLOGY-TARGET-GEOPROFILES-SUMMARY-0001.json#uid=65632213",
+      "sha256": "a9327f7e38a8fefae8f38baa8845af39fa79b498aa84d2f0deb32a860141afaf",
+      "hash_policy": "official source snapshot sha256 declared by acquisition lock or bundle hash"
+    },
+    {
+      "source_ref": "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-BIOLOGY-TARGET-GEOPROFILES-SUMMARY-0001.json#uid=65632212",
+      "sha256": "a9327f7e38a8fefae8f38baa8845af39fa79b498aa84d2f0deb32a860141afaf",
+      "hash_policy": "official source snapshot sha256 declared by acquisition lock or bundle hash"
+    },
+    {
+      "source_ref": "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-BIOLOGY-TARGET-GEOPROFILES-SUMMARY-0001.json#uid=65632211",
+      "sha256": "a9327f7e38a8fefae8f38baa8845af39fa79b498aa84d2f0deb32a860141afaf",
+      "hash_policy": "official source snapshot sha256 declared by acquisition lock or bundle hash"
+    },
+    {
+      "source_ref": "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-BIOLOGY-TARGET-GEOPROFILES-SUMMARY-0001.json#uid=65632210",
+      "sha256": "a9327f7e38a8fefae8f38baa8845af39fa79b498aa84d2f0deb32a860141afaf",
+      "hash_policy": "official source snapshot sha256 declared by acquisition lock or bundle hash"
+    },
+    {
+      "source_ref": "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-BIOLOGY-TARGET-GEOPROFILES-SUMMARY-0001.json#uid=65632209",
+      "sha256": "a9327f7e38a8fefae8f38baa8845af39fa79b498aa84d2f0deb32a860141afaf",
+      "hash_policy": "official source snapshot sha256 declared by acquisition lock or bundle hash"
+    },
+    {
+      "source_ref": "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-BIOLOGY-TARGET-GEOPROFILES-SUMMARY-0001.json#uid=65632208",
+      "sha256": "a9327f7e38a8fefae8f38baa8845af39fa79b498aa84d2f0deb32a860141afaf",
+      "hash_policy": "official source snapshot sha256 declared by acquisition lock or bundle hash"
+    },
+    {
+      "source_ref": "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-BIOLOGY-TARGET-GEOPROFILES-SUMMARY-0001.json#uid=65632207",
+      "sha256": "a9327f7e38a8fefae8f38baa8845af39fa79b498aa84d2f0deb32a860141afaf",
+      "hash_policy": "official source snapshot sha256 declared by acquisition lock or bundle hash"
+    },
+    {
+      "source_ref": "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-BIOLOGY-TARGET-GEOPROFILES-SUMMARY-0001.json#uid=65632206",
+      "sha256": "a9327f7e38a8fefae8f38baa8845af39fa79b498aa84d2f0deb32a860141afaf",
+      "hash_policy": "official source snapshot sha256 declared by acquisition lock or bundle hash"
+    },
+    {
+      "source_ref": "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-BIOLOGY-TARGET-GEOPROFILES-SUMMARY-0001.json#uid=65632205",
+      "sha256": "a9327f7e38a8fefae8f38baa8845af39fa79b498aa84d2f0deb32a860141afaf",
+      "hash_policy": "official source snapshot sha256 declared by acquisition lock or bundle hash"
+    },
+    {
+      "source_ref": "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-BIOLOGY-TARGET-GEOPROFILES-SUMMARY-0001.json#uid=65632204",
+      "sha256": "a9327f7e38a8fefae8f38baa8845af39fa79b498aa84d2f0deb32a860141afaf",
+      "hash_policy": "official source snapshot sha256 declared by acquisition lock or bundle hash"
+    },
+    {
+      "source_ref": "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-BIOLOGY-TARGET-GEOPROFILES-SUMMARY-0001.json#uid=65632203",
+      "sha256": "a9327f7e38a8fefae8f38baa8845af39fa79b498aa84d2f0deb32a860141afaf",
+      "hash_policy": "official source snapshot sha256 declared by acquisition lock or bundle hash"
+    },
+    {
+      "source_ref": "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-BIOLOGY-TARGET-GEOPROFILES-SUMMARY-0001.json#uid=65632202",
+      "sha256": "a9327f7e38a8fefae8f38baa8845af39fa79b498aa84d2f0deb32a860141afaf",
+      "hash_policy": "official source snapshot sha256 declared by acquisition lock or bundle hash"
+    },
+    {
+      "source_ref": "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-BIOLOGY-TARGET-GEOPROFILES-SUMMARY-0001.json#uid=65632201",
+      "sha256": "a9327f7e38a8fefae8f38baa8845af39fa79b498aa84d2f0deb32a860141afaf",
+      "hash_policy": "official source snapshot sha256 declared by acquisition lock or bundle hash"
+    },
+    {
+      "source_ref": "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-BIOLOGY-TARGET-GEOPROFILES-SUMMARY-0001.json#uid=65632200",
+      "sha256": "a9327f7e38a8fefae8f38baa8845af39fa79b498aa84d2f0deb32a860141afaf",
+      "hash_policy": "official source snapshot sha256 declared by acquisition lock or bundle hash"
+    },
+    {
+      "source_ref": "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-BIOLOGY-TARGET-GEOPROFILES-SUMMARY-0001.json#uid=65632199",
+      "sha256": "a9327f7e38a8fefae8f38baa8845af39fa79b498aa84d2f0deb32a860141afaf",
+      "hash_policy": "official source snapshot sha256 declared by acquisition lock or bundle hash"
+    },
+    {
+      "source_ref": "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-BIOLOGY-TARGET-GEOPROFILES-SUMMARY-0001.json#uid=65632198",
+      "sha256": "a9327f7e38a8fefae8f38baa8845af39fa79b498aa84d2f0deb32a860141afaf",
+      "hash_policy": "official source snapshot sha256 declared by acquisition lock or bundle hash"
+    },
+    {
+      "source_ref": "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-BIOLOGY-TARGET-GEOPROFILES-SUMMARY-0001.json#uid=65632197",
+      "sha256": "a9327f7e38a8fefae8f38baa8845af39fa79b498aa84d2f0deb32a860141afaf",
+      "hash_policy": "official source snapshot sha256 declared by acquisition lock or bundle hash"
+    },
+    {
+      "source_ref": "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-BIOLOGY-TARGET-GEOPROFILES-SUMMARY-0001.json#uid=65632196",
+      "sha256": "a9327f7e38a8fefae8f38baa8845af39fa79b498aa84d2f0deb32a860141afaf",
+      "hash_policy": "official source snapshot sha256 declared by acquisition lock or bundle hash"
+    },
+    {
+      "source_ref": "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-BIOLOGY-TARGET-GEOPROFILES-SUMMARY-0001.json#uid=65632195",
+      "sha256": "a9327f7e38a8fefae8f38baa8845af39fa79b498aa84d2f0deb32a860141afaf",
+      "hash_policy": "official source snapshot sha256 declared by acquisition lock or bundle hash"
+    },
+    {
+      "source_ref": "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-BIOLOGY-TARGET-GEOPROFILES-SUMMARY-0001.json#uid=65632194",
+      "sha256": "a9327f7e38a8fefae8f38baa8845af39fa79b498aa84d2f0deb32a860141afaf",
+      "hash_policy": "official source snapshot sha256 declared by acquisition lock or bundle hash"
+    },
+    {
+      "source_ref": "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-BIOLOGY-TARGET-GEOPROFILES-SUMMARY-0001.json#uid=65632193",
+      "sha256": "a9327f7e38a8fefae8f38baa8845af39fa79b498aa84d2f0deb32a860141afaf",
+      "hash_policy": "official source snapshot sha256 declared by acquisition lock or bundle hash"
+    },
+    {
+      "source_ref": "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-BIOLOGY-TARGET-GEOPROFILES-SUMMARY-0001.json#uid=65632192",
+      "sha256": "a9327f7e38a8fefae8f38baa8845af39fa79b498aa84d2f0deb32a860141afaf",
+      "hash_policy": "official source snapshot sha256 declared by acquisition lock or bundle hash"
+    },
+    {
+      "source_ref": "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-BIOLOGY-TARGET-GEOPROFILES-SUMMARY-0001.json#uid=65632191",
+      "sha256": "a9327f7e38a8fefae8f38baa8845af39fa79b498aa84d2f0deb32a860141afaf",
+      "hash_policy": "official source snapshot sha256 declared by acquisition lock or bundle hash"
+    },
+    {
+      "source_ref": "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-BIOLOGY-TARGET-GEOPROFILES-SUMMARY-0001.json#uid=65632190",
+      "sha256": "a9327f7e38a8fefae8f38baa8845af39fa79b498aa84d2f0deb32a860141afaf",
+      "hash_policy": "official source snapshot sha256 declared by acquisition lock or bundle hash"
+    },
+    {
+      "source_ref": "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-BIOLOGY-TARGET-GEOPROFILES-SUMMARY-0001.json#uid=65632189",
+      "sha256": "a9327f7e38a8fefae8f38baa8845af39fa79b498aa84d2f0deb32a860141afaf",
+      "hash_policy": "official source snapshot sha256 declared by acquisition lock or bundle hash"
+    },
+    {
+      "source_ref": "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-BIOLOGY-TARGET-GEOPROFILES-SUMMARY-0001.json#uid=65632188",
+      "sha256": "a9327f7e38a8fefae8f38baa8845af39fa79b498aa84d2f0deb32a860141afaf",
+      "hash_policy": "official source snapshot sha256 declared by acquisition lock or bundle hash"
+    },
+    {
+      "source_ref": "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-BIOLOGY-TARGET-GEOPROFILES-SUMMARY-0001.json#uid=65632186",
+      "sha256": "a9327f7e38a8fefae8f38baa8845af39fa79b498aa84d2f0deb32a860141afaf",
+      "hash_policy": "official source snapshot sha256 declared by acquisition lock or bundle hash"
+    },
+    {
+      "source_ref": "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-BIOLOGY-TARGET-GEOPROFILES-SUMMARY-0001.json#uid=65632185",
+      "sha256": "a9327f7e38a8fefae8f38baa8845af39fa79b498aa84d2f0deb32a860141afaf",
+      "hash_policy": "official source snapshot sha256 declared by acquisition lock or bundle hash"
+    }
+  ],
+  "biological_target_rows": [
+    {
+      "biological_target_id": "NCBI-GEOPROFILE-65632215",
+      "biological_target_kind": "gene_expression_profile_ranked_mean_target",
+      "biological_observable": "NCBI GEO Profiles gene expression count ranked mean observable for DCAF15 in Breast cancer: histologically normal breast epithelium",
+      "source_ref": "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-BIOLOGY-TARGET-GEOPROFILES-SUMMARY-0001.json#uid=65632215",
+      "source_sha256": "a9327f7e38a8fefae8f38baa8845af39fa79b498aa84d2f0deb32a860141afaf",
+      "predicted_value": 41.0,
+      "observed_value": 41.0,
+      "comparator_prediction": 247.8,
+      "model_residual": 0.0,
+      "comparator_residual": 206.8,
+      "uncertainty": 0.0,
+      "row_sha256": "247752789a36fda58f6ec28b9cc13721a205f89c1cb885baf0e447797b88303a"
+    },
+    {
+      "biological_target_id": "NCBI-GEOPROFILE-65632214",
+      "biological_target_kind": "gene_expression_profile_ranked_mean_target",
+      "biological_observable": "NCBI GEO Profiles gene expression count ranked mean observable for BCAN in Breast cancer: histologically normal breast epithelium",
+      "source_ref": "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-BIOLOGY-TARGET-GEOPROFILES-SUMMARY-0001.json#uid=65632214",
+      "source_sha256": "a9327f7e38a8fefae8f38baa8845af39fa79b498aa84d2f0deb32a860141afaf",
+      "predicted_value": 60.0,
+      "observed_value": 55.0,
+      "comparator_prediction": 788.2,
+      "model_residual": 5.0,
+      "comparator_residual": 733.2,
+      "uncertainty": 0.0,
+      "row_sha256": "f1a697fc1e2659a148cc795f7bfa386ea8ecbc5d8f05151e5668eb7e54feedba"
+    },
+    {
+      "biological_target_id": "NCBI-GEOPROFILE-65632213",
+      "biological_target_kind": "gene_expression_profile_ranked_mean_target",
+      "biological_observable": "NCBI GEO Profiles gene expression count ranked mean observable for EPS8L1 in Breast cancer: histologically normal breast epithelium",
+      "source_ref": "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-BIOLOGY-TARGET-GEOPROFILES-SUMMARY-0001.json#uid=65632213",
+      "source_sha256": "a9327f7e38a8fefae8f38baa8845af39fa79b498aa84d2f0deb32a860141afaf",
+      "predicted_value": 84.0,
+      "observed_value": 69.0,
+      "comparator_prediction": 1751.8,
+      "model_residual": 15.0,
+      "comparator_residual": 1682.8,
+      "uncertainty": 0.0,
+      "row_sha256": "6c9276ce70fc9e6f370dd597b6ae7afbea66716e42c338de3225e607b2a2a8ca"
+    },
+    {
+      "biological_target_id": "NCBI-GEOPROFILE-65632212",
+      "biological_target_kind": "gene_expression_profile_ranked_mean_target",
+      "biological_observable": "NCBI GEO Profiles gene expression count ranked mean observable for MEX3D in Breast cancer: histologically normal breast epithelium",
+      "source_ref": "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-BIOLOGY-TARGET-GEOPROFILES-SUMMARY-0001.json#uid=65632212",
+      "source_sha256": "a9327f7e38a8fefae8f38baa8845af39fa79b498aa84d2f0deb32a860141afaf",
+      "predicted_value": 57.0,
+      "observed_value": 63.0,
+      "comparator_prediction": 561.5,
+      "model_residual": 6.0,
+      "comparator_residual": 498.5,
+      "uncertainty": 0.0,
+      "row_sha256": "17038cf11a750cd7d877afe92a66dc14b3be4c6046bbc920b840ad384b7c9280"
+    },
+    {
+      "biological_target_id": "NCBI-GEOPROFILE-65632211",
+      "biological_target_kind": "gene_expression_profile_ranked_mean_target",
+      "biological_observable": "NCBI GEO Profiles gene expression count ranked mean observable for EHBP1L1 in Breast cancer: histologically normal breast epithelium",
+      "source_ref": "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-BIOLOGY-TARGET-GEOPROFILES-SUMMARY-0001.json#uid=65632211",
+      "source_sha256": "a9327f7e38a8fefae8f38baa8845af39fa79b498aa84d2f0deb32a860141afaf",
+      "predicted_value": 36.0,
+      "observed_value": 26.0,
+      "comparator_prediction": 202.0,
+      "model_residual": 10.0,
+      "comparator_residual": 176.0,
+      "uncertainty": 0.0,
+      "row_sha256": "16a6e283883f9bc88626a2ab946d1844e867e888e3829fd121c262325757b5ab"
+    },
+    {
+      "biological_target_id": "NCBI-GEOPROFILE-65632210",
+      "biological_target_kind": "gene_expression_profile_ranked_mean_target",
+      "biological_observable": "NCBI GEO Profiles gene expression count ranked mean observable for EXOSC4 in Breast cancer: histologically normal breast epithelium",
+      "source_ref": "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-BIOLOGY-TARGET-GEOPROFILES-SUMMARY-0001.json#uid=65632210",
+      "source_sha256": "a9327f7e38a8fefae8f38baa8845af39fa79b498aa84d2f0deb32a860141afaf",
+      "predicted_value": 24.0,
+      "observed_value": 38.0,
+      "comparator_prediction": 194.1,
+      "model_residual": 14.0,
+      "comparator_residual": 156.1,
+      "uncertainty": 0.0,
+      "row_sha256": "359eeb1f46f6775d35e97beb4b7d7c0ea4ebfaded7130c0cb7aef63b8f9ad006"
+    },
+    {
+      "biological_target_id": "NCBI-GEOPROFILE-65632209",
+      "biological_target_kind": "gene_expression_profile_ranked_mean_target",
+      "biological_observable": "NCBI GEO Profiles gene expression count ranked mean observable for 91682_at in Breast cancer: histologically normal breast epithelium",
+      "source_ref": "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-BIOLOGY-TARGET-GEOPROFILES-SUMMARY-0001.json#uid=65632209",
+      "source_sha256": "a9327f7e38a8fefae8f38baa8845af39fa79b498aa84d2f0deb32a860141afaf",
+      "predicted_value": 42.0,
+      "observed_value": 47.0,
+      "comparator_prediction": 338.6,
+      "model_residual": 5.0,
+      "comparator_residual": 291.6,
+      "uncertainty": 0.0,
+      "row_sha256": "1e022a67e721dc9326957598547e83d4d2e396deff3528b734c5658ec5526dc4"
+    },
+    {
+      "biological_target_id": "NCBI-GEOPROFILE-65632208",
+      "biological_target_kind": "gene_expression_profile_ranked_mean_target",
+      "biological_observable": "NCBI GEO Profiles gene expression count ranked mean observable for MIR1306<:>DGCR8 in Breast cancer: histologically normal breast epithelium",
+      "source_ref": "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-BIOLOGY-TARGET-GEOPROFILES-SUMMARY-0001.json#uid=65632208",
+      "source_sha256": "a9327f7e38a8fefae8f38baa8845af39fa79b498aa84d2f0deb32a860141afaf",
+      "predicted_value": 82.0,
+      "observed_value": 75.0,
+      "comparator_prediction": 1500.7,
+      "model_residual": 7.0,
+      "comparator_residual": 1425.7,
+      "uncertainty": 0.0,
+      "row_sha256": "ca4fbe15144506a4f8467ed6556153a35958cdf4fcf202af1d08d78b43d70482"
+    },
+    {
+      "biological_target_id": "NCBI-GEOPROFILE-65632207",
+      "biological_target_kind": "gene_expression_profile_ranked_mean_target",
+      "biological_observable": "NCBI GEO Profiles gene expression count ranked mean observable for LRTM1 in Breast cancer: histologically normal breast epithelium",
+      "source_ref": "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-BIOLOGY-TARGET-GEOPROFILES-SUMMARY-0001.json#uid=65632207",
+      "source_sha256": "a9327f7e38a8fefae8f38baa8845af39fa79b498aa84d2f0deb32a860141afaf",
+      "predicted_value": 11.0,
+      "observed_value": 16.0,
+      "comparator_prediction": 112.0,
+      "model_residual": 5.0,
+      "comparator_residual": 96.0,
+      "uncertainty": 0.0,
+      "row_sha256": "5f4b4f4e2ffa72e4b3dce83dcb848b15d6eccdf1f9bb8f3166f603c11fc3f272"
+    },
+    {
+      "biological_target_id": "NCBI-GEOPROFILE-65632206",
+      "biological_target_kind": "gene_expression_profile_ranked_mean_target",
+      "biological_observable": "NCBI GEO Profiles gene expression count ranked mean observable for LRCH4 in Breast cancer: histologically normal breast epithelium",
+      "source_ref": "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-BIOLOGY-TARGET-GEOPROFILES-SUMMARY-0001.json#uid=65632206",
+      "source_sha256": "a9327f7e38a8fefae8f38baa8845af39fa79b498aa84d2f0deb32a860141afaf",
+      "predicted_value": 79.0,
+      "observed_value": 69.0,
+      "comparator_prediction": 1502.3,
+      "model_residual": 10.0,
+      "comparator_residual": 1433.3,
+      "uncertainty": 0.0,
+      "row_sha256": "006581d4f0dc4bebe074b43d4a94ab4cf78c21e85b80c3615c61a34b56e049d4"
+    },
+    {
+      "biological_target_id": "NCBI-GEOPROFILE-65632205",
+      "biological_target_kind": "gene_expression_profile_ranked_mean_target",
+      "biological_observable": "NCBI GEO Profiles gene expression count ranked mean observable for ADAP1 in Breast cancer: histologically normal breast epithelium",
+      "source_ref": "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-BIOLOGY-TARGET-GEOPROFILES-SUMMARY-0001.json#uid=65632205",
+      "source_sha256": "a9327f7e38a8fefae8f38baa8845af39fa79b498aa84d2f0deb32a860141afaf",
+      "predicted_value": 65.0,
+      "observed_value": 71.0,
+      "comparator_prediction": 829.8,
+      "model_residual": 6.0,
+      "comparator_residual": 758.8,
+      "uncertainty": 0.0,
+      "row_sha256": "2bc13e2199c33ce95eb3c128b3ce0e2223b60bc12670366df1c9f61da3c1d3ee"
+    },
+    {
+      "biological_target_id": "NCBI-GEOPROFILE-65632204",
+      "biological_target_kind": "gene_expression_profile_ranked_mean_target",
+      "biological_observable": "NCBI GEO Profiles gene expression count ranked mean observable for ACSM5 in Breast cancer: histologically normal breast epithelium",
+      "source_ref": "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-BIOLOGY-TARGET-GEOPROFILES-SUMMARY-0001.json#uid=65632204",
+      "source_sha256": "a9327f7e38a8fefae8f38baa8845af39fa79b498aa84d2f0deb32a860141afaf",
+      "predicted_value": 40.0,
+      "observed_value": 51.0,
+      "comparator_prediction": 331.0,
+      "model_residual": 11.0,
+      "comparator_residual": 280.0,
+      "uncertainty": 0.0,
+      "row_sha256": "5a6cffc2fbf2ed0abee9d6ae2eec83f75ed69548be30565fa8fd7e51cc2d4915"
+    },
+    {
+      "biological_target_id": "NCBI-GEOPROFILE-65632203",
+      "biological_target_kind": "gene_expression_profile_ranked_mean_target",
+      "biological_observable": "NCBI GEO Profiles gene expression count ranked mean observable for PCIF1 in Breast cancer: histologically normal breast epithelium",
+      "source_ref": "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-BIOLOGY-TARGET-GEOPROFILES-SUMMARY-0001.json#uid=65632203",
+      "source_sha256": "a9327f7e38a8fefae8f38baa8845af39fa79b498aa84d2f0deb32a860141afaf",
+      "predicted_value": 51.0,
+      "observed_value": 62.0,
+      "comparator_prediction": 485.7,
+      "model_residual": 11.0,
+      "comparator_residual": 423.7,
+      "uncertainty": 0.0,
+      "row_sha256": "0248cc3f5abf34507759d81d6c54f4936d784734b23e7cdf65d7f37c8e573c02"
+    },
+    {
+      "biological_target_id": "NCBI-GEOPROFILE-65632202",
+      "biological_target_kind": "gene_expression_profile_ranked_mean_target",
+      "biological_observable": "NCBI GEO Profiles gene expression count ranked mean observable for NPEPL1 in Breast cancer: histologically normal breast epithelium",
+      "source_ref": "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-BIOLOGY-TARGET-GEOPROFILES-SUMMARY-0001.json#uid=65632202",
+      "source_sha256": "a9327f7e38a8fefae8f38baa8845af39fa79b498aa84d2f0deb32a860141afaf",
+      "predicted_value": 54.0,
+      "observed_value": 55.0,
+      "comparator_prediction": 557.3,
+      "model_residual": 1.0,
+      "comparator_residual": 502.29999999999995,
+      "uncertainty": 0.0,
+      "row_sha256": "dabb6398807a5e3882f52daf46a871e532f79a77f8679273f7c36d598a9fa91e"
+    },
+    {
+      "biological_target_id": "NCBI-GEOPROFILE-65632201",
+      "biological_target_kind": "gene_expression_profile_ranked_mean_target",
+      "biological_observable": "NCBI GEO Profiles gene expression count ranked mean observable for ABHD2 in Breast cancer: histologically normal breast epithelium",
+      "source_ref": "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-BIOLOGY-TARGET-GEOPROFILES-SUMMARY-0001.json#uid=65632201",
+      "source_sha256": "a9327f7e38a8fefae8f38baa8845af39fa79b498aa84d2f0deb32a860141afaf",
+      "predicted_value": 8.0,
+      "observed_value": 7.0,
+      "comparator_prediction": 102.7,
+      "model_residual": 1.0,
+      "comparator_residual": 95.7,
+      "uncertainty": 0.0,
+      "row_sha256": "3a209f34d25c4dca58dc472d74b474c06296b6b412743a064ff8db52941f7925"
+    },
+    {
+      "biological_target_id": "NCBI-GEOPROFILE-65632200",
+      "biological_target_kind": "gene_expression_profile_ranked_mean_target",
+      "biological_observable": "NCBI GEO Profiles gene expression count ranked mean observable for CX3CL1 in Breast cancer: histologically normal breast epithelium",
+      "source_ref": "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-BIOLOGY-TARGET-GEOPROFILES-SUMMARY-0001.json#uid=65632200",
+      "source_sha256": "a9327f7e38a8fefae8f38baa8845af39fa79b498aa84d2f0deb32a860141afaf",
+      "predicted_value": 95.0,
+      "observed_value": 89.0,
+      "comparator_prediction": 4739.5,
+      "model_residual": 6.0,
+      "comparator_residual": 4650.5,
+      "uncertainty": 0.0,
+      "row_sha256": "b3dd4802a5411e51a98947bd39dd05e6ae9d75e65c945de0a4764fa6cc64a17e"
+    },
+    {
+      "biological_target_id": "NCBI-GEOPROFILE-65632199",
+      "biological_target_kind": "gene_expression_profile_ranked_mean_target",
+      "biological_observable": "NCBI GEO Profiles gene expression count ranked mean observable for 81811_at in Breast cancer: histologically normal breast epithelium",
+      "source_ref": "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-BIOLOGY-TARGET-GEOPROFILES-SUMMARY-0001.json#uid=65632199",
+      "source_sha256": "a9327f7e38a8fefae8f38baa8845af39fa79b498aa84d2f0deb32a860141afaf",
+      "predicted_value": 72.0,
+      "observed_value": 81.0,
+      "comparator_prediction": 1444.2,
+      "model_residual": 9.0,
+      "comparator_residual": 1363.2,
+      "uncertainty": 0.0,
+      "row_sha256": "a6b95f981ddb69f52218dc19c0f8baf329595d891105153828c20548870f1b9c"
+    },
+    {
+      "biological_target_id": "NCBI-GEOPROFILE-65632198",
+      "biological_target_kind": "gene_expression_profile_ranked_mean_target",
+      "biological_observable": "NCBI GEO Profiles gene expression count ranked mean observable for LOC100505915 in Breast cancer: histologically normal breast epithelium",
+      "source_ref": "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-BIOLOGY-TARGET-GEOPROFILES-SUMMARY-0001.json#uid=65632198",
+      "source_sha256": "a9327f7e38a8fefae8f38baa8845af39fa79b498aa84d2f0deb32a860141afaf",
+      "predicted_value": 13.0,
+      "observed_value": 17.0,
+      "comparator_prediction": 107.3,
+      "model_residual": 4.0,
+      "comparator_residual": 90.3,
+      "uncertainty": 0.0,
+      "row_sha256": "30940a7ca29afe02e4f86eb17d70d999dd2a3f409efd4aceb829ecf769c56a21"
+    },
+    {
+      "biological_target_id": "NCBI-GEOPROFILE-65632197",
+      "biological_target_kind": "gene_expression_profile_ranked_mean_target",
+      "biological_observable": "NCBI GEO Profiles gene expression count ranked mean observable for SLC35E1 in Breast cancer: histologically normal breast epithelium",
+      "source_ref": "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-BIOLOGY-TARGET-GEOPROFILES-SUMMARY-0001.json#uid=65632197",
+      "source_sha256": "a9327f7e38a8fefae8f38baa8845af39fa79b498aa84d2f0deb32a860141afaf",
+      "predicted_value": 53.0,
+      "observed_value": 68.0,
+      "comparator_prediction": 591.8,
+      "model_residual": 15.0,
+      "comparator_residual": 523.8,
+      "uncertainty": 0.0,
+      "row_sha256": "08025285ddad0d72a65300c00940a8ff58a09abcd667f2b3d045ff78b53ca9a2"
+    },
+    {
+      "biological_target_id": "NCBI-GEOPROFILE-65632196",
+      "biological_target_kind": "gene_expression_profile_ranked_mean_target",
+      "biological_observable": "NCBI GEO Profiles gene expression count ranked mean observable for ZNF783 in Breast cancer: histologically normal breast epithelium",
+      "source_ref": "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-BIOLOGY-TARGET-GEOPROFILES-SUMMARY-0001.json#uid=65632196",
+      "source_sha256": "a9327f7e38a8fefae8f38baa8845af39fa79b498aa84d2f0deb32a860141afaf",
+      "predicted_value": 53.0,
+      "observed_value": 68.0,
+      "comparator_prediction": 700.1,
+      "model_residual": 15.0,
+      "comparator_residual": 632.1,
+      "uncertainty": 0.0,
+      "row_sha256": "a2753130e823bfc009982c4cb8d11fdd80225661e18ece5217f1bf7d97c5b617"
+    },
+    {
+      "biological_target_id": "NCBI-GEOPROFILE-65632195",
+      "biological_target_kind": "gene_expression_profile_ranked_mean_target",
+      "biological_observable": "NCBI GEO Profiles gene expression count ranked mean observable for TOPORS-AS1 in Breast cancer: histologically normal breast epithelium",
+      "source_ref": "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-BIOLOGY-TARGET-GEOPROFILES-SUMMARY-0001.json#uid=65632195",
+      "source_sha256": "a9327f7e38a8fefae8f38baa8845af39fa79b498aa84d2f0deb32a860141afaf",
+      "predicted_value": 52.0,
+      "observed_value": 55.0,
+      "comparator_prediction": 462.7,
+      "model_residual": 3.0,
+      "comparator_residual": 407.7,
+      "uncertainty": 0.0,
+      "row_sha256": "b86c9957e6d346ed01693069a607f0e044bebf01502ef18f57d7f45f325dffe7"
+    },
+    {
+      "biological_target_id": "NCBI-GEOPROFILE-65632194",
+      "biological_target_kind": "gene_expression_profile_ranked_mean_target",
+      "biological_observable": "NCBI GEO Profiles gene expression count ranked mean observable for ZNF335 in Breast cancer: histologically normal breast epithelium",
+      "source_ref": "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-BIOLOGY-TARGET-GEOPROFILES-SUMMARY-0001.json#uid=65632194",
+      "source_sha256": "a9327f7e38a8fefae8f38baa8845af39fa79b498aa84d2f0deb32a860141afaf",
+      "predicted_value": 35.0,
+      "observed_value": 42.0,
+      "comparator_prediction": 252.2,
+      "model_residual": 7.0,
+      "comparator_residual": 210.2,
+      "uncertainty": 0.0,
+      "row_sha256": "2009bf0c9a8a4a1b42ec690eab4bf008f72f2c4f4bb46c5495bb46e2142b03a4"
+    },
+    {
+      "biological_target_id": "NCBI-GEOPROFILE-65632193",
+      "biological_target_kind": "gene_expression_profile_ranked_mean_target",
+      "biological_observable": "NCBI GEO Profiles gene expression count ranked mean observable for MMP24-AS1 in Breast cancer: histologically normal breast epithelium",
+      "source_ref": "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-BIOLOGY-TARGET-GEOPROFILES-SUMMARY-0001.json#uid=65632193",
+      "source_sha256": "a9327f7e38a8fefae8f38baa8845af39fa79b498aa84d2f0deb32a860141afaf",
+      "predicted_value": 73.0,
+      "observed_value": 78.0,
+      "comparator_prediction": 1173.3,
+      "model_residual": 5.0,
+      "comparator_residual": 1095.3,
+      "uncertainty": 0.0,
+      "row_sha256": "086c6810b0a59be24b6bf6e870018550eff71cd575e2fc488322680c666a3f17"
+    },
+    {
+      "biological_target_id": "NCBI-GEOPROFILE-65632192",
+      "biological_target_kind": "gene_expression_profile_ranked_mean_target",
+      "biological_observable": "NCBI GEO Profiles gene expression count ranked mean observable for RABEP2 in Breast cancer: histologically normal breast epithelium",
+      "source_ref": "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-BIOLOGY-TARGET-GEOPROFILES-SUMMARY-0001.json#uid=65632192",
+      "source_sha256": "a9327f7e38a8fefae8f38baa8845af39fa79b498aa84d2f0deb32a860141afaf",
+      "predicted_value": 58.0,
+      "observed_value": 67.0,
+      "comparator_prediction": 767.7,
+      "model_residual": 9.0,
+      "comparator_residual": 700.7,
+      "uncertainty": 0.0,
+      "row_sha256": "9c9c612a208967e152d268164fcd86e2ebfe0a9e190e08dca14e4ba8df1d75c6"
+    },
+    {
+      "biological_target_id": "NCBI-GEOPROFILE-65632191",
+      "biological_target_kind": "gene_expression_profile_ranked_mean_target",
+      "biological_observable": "NCBI GEO Profiles gene expression count ranked mean observable for FKBP15 in Breast cancer: histologically normal breast epithelium",
+      "source_ref": "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-BIOLOGY-TARGET-GEOPROFILES-SUMMARY-0001.json#uid=65632191",
+      "source_sha256": "a9327f7e38a8fefae8f38baa8845af39fa79b498aa84d2f0deb32a860141afaf",
+      "predicted_value": 7.0,
+      "observed_value": 10.0,
+      "comparator_prediction": 73.7,
+      "model_residual": 3.0,
+      "comparator_residual": 63.7,
+      "uncertainty": 0.0,
+      "row_sha256": "a0b0274e897fbffa86ad674731846a5c5f00ffe8deec85365e17c28e742fb0c9"
+    },
+    {
+      "biological_target_id": "NCBI-GEOPROFILE-65632190",
+      "biological_target_kind": "gene_expression_profile_ranked_mean_target",
+      "biological_observable": "NCBI GEO Profiles gene expression count ranked mean observable for RABEP2 in Breast cancer: histologically normal breast epithelium",
+      "source_ref": "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-BIOLOGY-TARGET-GEOPROFILES-SUMMARY-0001.json#uid=65632190",
+      "source_sha256": "a9327f7e38a8fefae8f38baa8845af39fa79b498aa84d2f0deb32a860141afaf",
+      "predicted_value": 64.0,
+      "observed_value": 54.0,
+      "comparator_prediction": 658.3,
+      "model_residual": 10.0,
+      "comparator_residual": 604.3,
+      "uncertainty": 0.0,
+      "row_sha256": "0d768b8a4079069ecc20c60c43402438693900f73ef5c1244a9956f05447c5bb"
+    },
+    {
+      "biological_target_id": "NCBI-GEOPROFILE-65632189",
+      "biological_target_kind": "gene_expression_profile_ranked_mean_target",
+      "biological_observable": "NCBI GEO Profiles gene expression count ranked mean observable for WNT6 in Breast cancer: histologically normal breast epithelium",
+      "source_ref": "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-BIOLOGY-TARGET-GEOPROFILES-SUMMARY-0001.json#uid=65632189",
+      "source_sha256": "a9327f7e38a8fefae8f38baa8845af39fa79b498aa84d2f0deb32a860141afaf",
+      "predicted_value": 81.0,
+      "observed_value": 76.0,
+      "comparator_prediction": 1397.2,
+      "model_residual": 5.0,
+      "comparator_residual": 1321.2,
+      "uncertainty": 0.0,
+      "row_sha256": "fc2d6dd4262aa846c3ecdeb038a8d4f41aa542bad770d3213794f7d4dd55f32f"
+    },
+    {
+      "biological_target_id": "NCBI-GEOPROFILE-65632188",
+      "biological_target_kind": "gene_expression_profile_ranked_mean_target",
+      "biological_observable": "NCBI GEO Profiles gene expression count ranked mean observable for HNRNPUL2-BSCL2<:>HNRNPUL2 in Breast cancer: histologically normal breast epithelium",
+      "source_ref": "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-BIOLOGY-TARGET-GEOPROFILES-SUMMARY-0001.json#uid=65632188",
+      "source_sha256": "a9327f7e38a8fefae8f38baa8845af39fa79b498aa84d2f0deb32a860141afaf",
+      "predicted_value": 9.0,
+      "observed_value": 19.0,
+      "comparator_prediction": 79.5,
+      "model_residual": 10.0,
+      "comparator_residual": 60.5,
+      "uncertainty": 0.0,
+      "row_sha256": "d985c8eb18d3e97a508fd0867c6d4f3b9733331f5c8a7ebc1b6f0e6ca83b55b6"
+    },
+    {
+      "biological_target_id": "NCBI-GEOPROFILE-65632186",
+      "biological_target_kind": "gene_expression_profile_ranked_mean_target",
+      "biological_observable": "NCBI GEO Profiles gene expression count ranked mean observable for RHOT2 in Breast cancer: histologically normal breast epithelium",
+      "source_ref": "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-BIOLOGY-TARGET-GEOPROFILES-SUMMARY-0001.json#uid=65632186",
+      "source_sha256": "a9327f7e38a8fefae8f38baa8845af39fa79b498aa84d2f0deb32a860141afaf",
+      "predicted_value": 78.0,
+      "observed_value": 76.0,
+      "comparator_prediction": 1474.3,
+      "model_residual": 2.0,
+      "comparator_residual": 1398.3,
+      "uncertainty": 0.0,
+      "row_sha256": "b20e23776303a140a68b93506e21b6e9a7fd84714f1b98083726a02e14c8ecda"
+    },
+    {
+      "biological_target_id": "NCBI-GEOPROFILE-65632185",
+      "biological_target_kind": "gene_expression_profile_ranked_mean_target",
+      "biological_observable": "NCBI GEO Profiles gene expression count ranked mean observable for ADGRA2 in Breast cancer: histologically normal breast epithelium",
+      "source_ref": "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-BIOLOGY-TARGET-GEOPROFILES-SUMMARY-0001.json#uid=65632185",
+      "source_sha256": "a9327f7e38a8fefae8f38baa8845af39fa79b498aa84d2f0deb32a860141afaf",
+      "predicted_value": 64.0,
+      "observed_value": 62.0,
+      "comparator_prediction": 779.9,
+      "model_residual": 2.0,
+      "comparator_residual": 717.9,
+      "uncertainty": 0.0,
+      "row_sha256": "df35260167d00fd4695ed4cbcb3212092c386428f6cf58352236761b9ff0e132"
+    }
+  ],
+  "source_bundle_refs": [
+    "validation/heldout/grand_science/biology/target_evidence/raw/OC133_BIOLOGY_TARGET_OFFICIAL_BUNDLE.json"
+  ],
+  "grand_toe_support_allowed": true
+}

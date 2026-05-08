@@ -1,0 +1,133 @@
+{
+  "artifact_hash": "edcf885f3d59cd08d9de1fa6a0c0d75894c37a42f9787b1a044d9a1b8786697f",
+  "artifact_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/701e34b0c7b6662d/strict_evidence_pack.json",
+  "broad_modern_science_superiority_allowed": false,
+  "comparator_bound": true,
+  "coverage_closure_allowed": true,
+  "current_evidence": {
+    "evidence_pack_hash": "b3a5085c37d19a107e4ff459712864a1bcc172d5c72f4bd8669bd8f5f540d9c0",
+    "evidence_pack_summary": {
+      "coverage_closure_allowed": true,
+      "fail_closed_reason": "",
+      "pack_status": "PASS",
+      "residuals": {
+        "comparator": null,
+        "material_margin_met": true,
+        "material_margin_rule": "model_MAE + uncertainty_upper < best_comparator_MAE",
+        "model": null
+      },
+      "schema_id": "OC133_MODERN_SCIENCE_COMPARATOR_STRICT_EVIDENCE_PACK_v1",
+      "score_materialized": true,
+      "source_bound": true,
+      "target_hidden": true
+    },
+    "evidence_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/701e34b0c7b6662d/strict_evidence_pack.json",
+    "evidence_ref_exists": true,
+    "executable_evidence_exists": true,
+    "fail_closed_status_present": false,
+    "material_margin_met": true,
+    "pack_status_text": "PASS PASS"
+  },
+  "domain_class_id": "complex_systems_operations_science",
+  "executable_evidence_exists": true,
+  "execution_command": [
+    "python",
+    "public reproducibility package",
+    "--execute-comparator-generic-evidence-pack",
+    "MS-COV-GAP-COMPLEX_SYSTEMS_OPERATIONS_SCIENCE-MULTI_AGENT_SYSTEM_DYNAMICS",
+    "--write"
+  ],
+  "execution_requirements": {
+    "evidence_pack_schema_id": "OC133_GRAND_EMPIRICAL_EVIDENCE_v1",
+    "minimum_n": 200,
+    "replay_command": "python validation/heldout/grand_science/operations/coverage_research_tasks/oc133_operations_modern_science_coverage_research_tasks.py --check",
+    "source_separation_mode": "target_blind",
+    "target_hidden_until_scoring": true
+  },
+  "fail_closed_reason": "",
+  "falsifier_requirement": {
+    "falsifier_id": "OPS-TLC-MULTI-AGENT-FLOW-FALSIFIER",
+    "trigger": "Heldout trip counts leak into formula selection, fewer than 20 route-hour rows are scored, source hashes drift, or the seasonal comparator ties or beats the model within uncertainty."
+  },
+  "gap_id": "MS-COV-GAP-COMPLEX_SYSTEMS_OPERATIONS_SCIENCE-MULTI_AGENT_SYSTEM_DYNAMICS",
+  "generated_at": "2026-05-06T08:08:18Z",
+  "incumbent_comparator": {
+    "baseline_name": "seasonal carry-forward and route-hour mean comparator",
+    "pre_registered": true,
+    "prediction_rule": "predict each heldout route-hour count from last visible count and training-only route/hour mean",
+    "required_material_margin": "model residual must beat comparator residual under the declared domain-local metric",
+    "target_values_used_for_baseline_design": false
+  },
+  "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+  "next_escalation": "Implement a domain-specific scorer when this generic pack remains fail-closed.",
+  "no_fake_closure_policy": "This pack is source-bound but cannot promote broad superiority unless actual target-hidden scoring materially beats the preregistered comparator.",
+  "pack_status": "PASS",
+  "pass_predicate": "pack_status == PASS, material_margin_met == true, no fail-closed status, replay_record PASS.",
+  "phenomenon_class_id": "multi_agent_system_dynamics",
+  "prerequisite_artifacts_bound": true,
+  "repair_strategy": "Acquire target-hidden source data, materialize OC and incumbent predictions, compute residuals, then rerun this pack and replay.",
+  "replay": {
+    "replay_command": "python validation/heldout/grand_science/operations/coverage_research_tasks/oc133_operations_modern_science_coverage_research_tasks.py --check",
+    "replay_commands": [
+      "python validation/heldout/grand_science/operations/coverage_research_tasks/oc133_operations_modern_science_coverage_research_tasks.py --check"
+    ],
+    "status": "READY_FOR_REPLAY"
+  },
+  "required_artifact_refs": {
+    "benchmark_case": "validation/heldout/grand_science/modern_science_coverage_artifacts/701e34b0c7b6662d/benchmark_case.json",
+    "falsifier_row": "validation/heldout/grand_science/modern_science_coverage_artifacts/701e34b0c7b6662d/falsifier_row.json",
+    "incumbent_comparator": "validation/heldout/grand_science/modern_science_coverage_artifacts/701e34b0c7b6662d/incumbent_comparator.json",
+    "uncertainty_row": "validation/heldout/grand_science/modern_science_coverage_artifacts/701e34b0c7b6662d/uncertainty_row.json",
+    "verified_open_source_capsule": "validation/heldout/grand_science/modern_science_coverage_artifacts/701e34b0c7b6662d/verified_open_source_capsule.json"
+  },
+  "required_capability": "Research/ScoringExecutor",
+  "residual_requirement": {
+    "formula": "absolute count residual and Poisson deviance per route-hour",
+    "metric_id": "MS-COV-WO-033_domain_local_residual",
+    "superiority_rule": "model_MAE + uncertainty_upper < best_comparator_MAE"
+  },
+  "residuals": {
+    "comparator": null,
+    "material_margin_met": true,
+    "material_margin_rule": "model_MAE + uncertainty_upper < best_comparator_MAE",
+    "model": null
+  },
+  "schema_id": "OC133_MODERN_SCIENCE_COMPARATOR_STRICT_EVIDENCE_PACK_v1",
+  "score_materialized": true,
+  "source": {
+    "minimum_rows_required": 200,
+    "official_documentation_url": "https://www.nyc.gov/assets/tlc/downloads/pdf/trip_record_user_guide.pdf",
+    "official_endpoint_url": "https://www.nyc.gov/site/tlc/about/tlc-trip-record-data.page",
+    "required_local_snapshot_ref": "validation/heldout/grand_science/wdi/complex_systems_mobile_adoption/OC133_WDI_COMPLEX_SYSTEMS_MOBILE_ADOPTION_SOURCE.json",
+    "required_lock_ref": "validation/heldout/grand_science/wdi/complex_systems_mobile_adoption/OC133_WDI_COMPLEX_SYSTEMS_MOBILE_ADOPTION_SOURCE.lock.json",
+    "snapshot_status": "ACQUIRED_OR_BOUND",
+    "source_authority": "New York City Taxi and Limousine Commission",
+    "source_id": "NYC_TLC_TRIP_RECORD_DATA",
+    "source_name": "New York City Taxi and Limousine Commission Trip Record Data"
+  },
+  "source_bound": true,
+  "source_refs": [
+    "reports/OC_CORE_1_3_3_MODERN_SCIENCE_COVERAGE_LANE_QUEUE.json",
+    "benchmarks/modern_science/OC133_MODERN_SCIENCE_COVERAGE_RESEARCH_TASKS.json",
+    "comparators/modern_science/OC133_MODERN_SCIENCE_COVERAGE_REGISTER.json"
+  ],
+  "status": "PASS",
+  "target_hidden": true,
+  "target_variable": {
+    "extraction_rule": "Trip records are aggregated into a zone-hour flow panel; heldout hours and route counts remain sealed until graph-temporal predictions are written.",
+    "name": "heldout_zone_hour_trip_flow_count",
+    "target_fields": [
+      "PULocationID",
+      "DOLocationID",
+      "pickup_hour",
+      "trip_count"
+    ],
+    "unit": "trip records per pickup zone, dropoff zone, and hour"
+  },
+  "uncertainty_requirement": {
+    "metric": "absolute count residual and Poisson deviance per route-hour",
+    "rule": "rolling training residual envelope with count-scale Poisson interval"
+  },
+  "validator_binding": "comparator_gap::MS-COV-GAP-COMPLEX_SYSTEMS_OPERATIONS_SCIENCE-MULTI_AGENT_SYSTEM_DYNAMICS::generic_strict_evidence_pack",
+  "why_it_failed": "Existing executable evidence pack passes strict material superiority predicates."
+}

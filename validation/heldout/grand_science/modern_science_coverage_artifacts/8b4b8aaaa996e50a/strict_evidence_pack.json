@@ -1,0 +1,134 @@
+{
+  "artifact_hash": "dafc76fe3dbf52fe5030c8bfe85cb29ef304084eb2a452fa7a8f3b6b8f845f51",
+  "artifact_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/8b4b8aaaa996e50a/strict_evidence_pack.json",
+  "broad_modern_science_superiority_allowed": false,
+  "command_results": [
+    {
+      "cmd": [
+        "python",
+        "validation/heldout/grand_science/uci/coverage_research_tasks/oc133_uci_tabular_classifier_materializer.py",
+        "--lane",
+        "physics_superconductivity_critical_temp",
+        "--score",
+        "--write-scoring"
+      ],
+      "returncode": 0,
+      "stderr_tail": "",
+      "stdout_tail": "{\n  \"lane\": \"physics_superconductivity_critical_temp\",\n  \"status\": \"STRICT_EVIDENCE_PASS_NO_COVERAGE_CLOSURE\",\n  \"row_count\": 4253,\n  \"residuals\": {\n    \"model\": 13.445956169004,\n    \"comparator\": 29.310302102937,\n    \"negative_control\": 44.54983665244,\n    \"material_margin_met\": true,\n    \"material_margin_rule\": \"mean absolute error + 1.0 must be below training-mean comparator MAE\"\n  }\n}\n"
+    },
+    {
+      "cmd": [
+        "python",
+        "validation/heldout/grand_science/uci/coverage_research_tasks/oc133_uci_tabular_classifier_materializer.py",
+        "--lane",
+        "physics_superconductivity_critical_temp",
+        "--check"
+      ],
+      "returncode": 0,
+      "stderr_tail": "",
+      "stdout_tail": "physics_superconductivity_critical_temp: PASS\n"
+    }
+  ],
+  "comparator_bound": true,
+  "coverage_closure_allowed": true,
+  "current_evidence": {
+    "coverage_closure_allowed": false,
+    "domain_evidence_ref": "validation/heldout/grand_science/uci/physics_superconductivity_critical_temp/OC133_UCI_PHYSICS_SUPERCONDUCTIVITY_CRITICAL_TEMP_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
+    "domain_evidence_schema_id": "OC133_UCI_TABULAR_CLASSIFIER_SCORING_PACK_v1",
+    "domain_evidence_sha256": "5927fd08e70f80cf567baac97f8b3f4f517763a2293eaa6b59ace75e3832d6f3",
+    "domain_pack_status": "STRICT_EVIDENCE_PASS_NO_COVERAGE_CLOSURE",
+    "scientific_pass": true
+  },
+  "domain_class_id": "physical_sciences",
+  "executable_evidence_exists": true,
+  "execution_command": [
+    "python",
+    "public reproducibility package",
+    "--execute-comparator-component-materialization",
+    "R017-COMPONENT-MATERIALIZE-7a2bf7b88b8c4829",
+    "--write"
+  ],
+  "execution_requirements": {
+    "evidence_pack_schema_id": "OC133_GRAND_EMPIRICAL_EVIDENCE_v1",
+    "minimum_n": 20,
+    "replay_command": "python benchmarks/modern_science/coverage_lane_dispatcher.py --check",
+    "source_separation_mode": "target_blind",
+    "target_hidden_until_scoring": true
+  },
+  "fail_closed_reason": "",
+  "falsifier_requirement": {
+    "falsifier_id": "PHYS-CONDENSED-JARVIS-BANDGAP-FALSIFIER",
+    "trigger": "target bandgap leaks into visible inputs, N<20, model interval overlaps or loses to comparator, or official snapshot/lock hash is missing"
+  },
+  "gap_id": "MS-COV-GAP-PHYSICAL_SCIENCES-CONDENSED_MATTER_FIELDS_AND_MEASUREMENTS",
+  "generated_at": "2026-05-06T08:07:54Z",
+  "incumbent_comparator": {
+    "baseline_name": "composition-family median bandgap baseline",
+    "pre_registered": true,
+    "prediction_rule": "Predict the median bandgap of the visible chemical-system or element-count family computed without hidden target rows.",
+    "required_material_margin": "model MAE must be lower than comparator MAE by a preregistered positive margin",
+    "target_values_used_for_baseline_design": false
+  },
+  "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
+  "no_fake_closure_policy": "Negative source-bound scoring remains a scientific blocker; it cannot be counted as broad superiority.",
+  "pack_status": "PASS",
+  "pass_predicate": "pack_status == PASS, material_margin_met == true, no fail-closed status, replay_record PASS.",
+  "phenomenon_class_id": "condensed_matter_fields_and_measurements",
+  "prerequisite_artifacts_bound": true,
+  "repair_strategy": "If negative, improve the source-bound model/comparator route from canonical evidence rather than weakening the materiality rule.",
+  "replay": {
+    "replay_command": "python benchmarks/modern_science/coverage_lane_dispatcher.py --check",
+    "replay_commands": [
+      "python benchmarks/modern_science/coverage_lane_dispatcher.py --check"
+    ],
+    "status": "READY_FOR_REPLAY"
+  },
+  "required_capability": "Research/SourceBoundScoringMaterializationExecutor",
+  "residual_requirement": {
+    "formula": "mean(abs(predicted_bandgap_eV - observed_bandgap_eV))",
+    "metric_id": "bandgap_mae_eV_with_bootstrap_superiority_v1",
+    "superiority_rule": "model_MAE + upper_interval_margin < comparator_MAE"
+  },
+  "residuals": {
+    "comparator": 29.310302102937,
+    "material_margin_met": true,
+    "material_margin_rule": "source-bound materialized evidence pack must show OC residual strictly below preregistered comparator residual under the declared uncertainty rule",
+    "model": 13.445956169004
+  },
+  "schema_id": "OC133_MODERN_SCIENCE_COMPARATOR_STRICT_EVIDENCE_PACK_v1",
+  "score_materialized": true,
+  "source": {
+    "minimum_rows_required": 20,
+    "official_documentation_url": "https://jarvis.nist.gov/",
+    "official_endpoint_url": "https://jarvis.nist.gov/optimade/jarvisdft/",
+    "required_local_snapshot_ref": "validation/heldout/grand_science/uci/physics_superconductivity_critical_temp/OC133_UCI_PHYSICS_SUPERCONDUCTIVITY_CRITICAL_TEMP_SOURCE.dat",
+    "required_lock_ref": "validation/heldout/grand_science/uci/physics_superconductivity_critical_temp/OC133_UCI_PHYSICS_SUPERCONDUCTIVITY_CRITICAL_TEMP_SOURCE.lock.json",
+    "snapshot_status": "ACQUIRED_OR_BOUND",
+    "source_authority": "National Institute of Standards and Technology",
+    "source_id": "physics_nist_jarvis_dft_bandgap_v1",
+    "source_name": "NIST-JARVIS JARVIS-DFT materials property records"
+  },
+  "source_bound": true,
+  "source_refs": [
+    "reports/OC_CORE_1_3_3_MODERN_SCIENCE_COVERAGE_LANE_QUEUE.json",
+    "benchmarks/modern_science/OC133_MODERN_SCIENCE_COVERAGE_RESEARCH_TASKS.json",
+    "comparators/modern_science/OC133_MODERN_SCIENCE_COVERAGE_REGISTER.json",
+    "validation/heldout/grand_science/uci/physics_superconductivity_critical_temp/OC133_UCI_PHYSICS_SUPERCONDUCTIVITY_CRITICAL_TEMP_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json"
+  ],
+  "status": "PASS",
+  "target_hidden": true,
+  "target_variable": {
+    "extraction_rule": "Hide the JARVIS-DFT bandgap field until a predeclared composition/structure model and comparator have been materialized from visible formula and structure descriptors.",
+    "name": "optB88vdW_electronic_bandgap_eV",
+    "target_fields": [
+      "optB88vdW electronic bandgap"
+    ],
+    "unit": "eV"
+  },
+  "uncertainty_requirement": {
+    "metric": "mean_absolute_error_eV_with_bootstrap_interval",
+    "rule": "Declare row-level tolerance and bootstrap confidence interval before target opening; source field precision alone cannot close the lane."
+  },
+  "validator_binding": "comparator_gap::MS-COV-GAP-PHYSICAL_SCIENCES-CONDENSED_MATTER_FIELDS_AND_MEASUREMENTS::materialized_strict_evidence_pack",
+  "why_it_failed": "Existing executable evidence pack passes strict material superiority predicates."
+}

@@ -1,0 +1,58 @@
+{
+  "schema_id": "OC133_SYSTEMS_WDI_POPULATION_MATERIALITY_SOURCE_LOCK",
+  "release_id": "oc_core_1_3_3",
+  "version": "1.3.3",
+  "evidence_owner": "Research/EmpiricalScience",
+  "source_lock_id": "OC133-SYSTEMS-WDI-POPULATION-MATERIALITY-SOURCE-LOCK",
+  "lock_proof_type": "internal_materialization_order_hash",
+  "internal_lock_id": "OC133-SYSTEMS-WDI-POPULATION-MATERIALITY-INTERNAL-LOCK-404590753a26ea24",
+  "declaration_ref": "validation/heldout/grand_science/systems/wdi_population_materiality/OC133_SYSTEMS_WDI_POPULATION_MATERIALITY_SOURCE_LOCK_DECLARATION.json",
+  "declaration_sha256": "5a4cbb559929fc9428fb67f6dd198cb99426e56eb5a839057f56255f863742e8",
+  "declaration_hash_policy": "sha256 over canonical JSON source-lock declaration",
+  "materialization_order": {
+    "protocol_id": "OC133-SYSTEMS-WDI-POPULATION-MATERIALITY-SOURCE-LOCK-PROTOCOL",
+    "proof_type": "internal_materialization_order_hash",
+    "steps": [
+      {
+        "step_index": 1,
+        "step_id": "snapshot_hash_materialized",
+        "snapshot_sha256": "d227c75496329073630477406ed23f734813a99a152765396112a5232d5774ec"
+      },
+      {
+        "step_index": 2,
+        "step_id": "target_blind_declaration_materialized",
+        "declaration_sha256": "5a4cbb559929fc9428fb67f6dd198cb99426e56eb5a839057f56255f863742e8",
+        "target_values_excluded": true
+      },
+      {
+        "step_index": 3,
+        "step_id": "model_comparator_policy_locked",
+        "formula_sha256": "cb71e3a6fd0636a3201ddc87cafadfb958d9c3e59d55eb382fdf45a45fcb048b",
+        "comparator_sha256": "ecd92210fb596f2c2bb6c3326c64a9cfc9b88a77e01c406bedf8d36b0dd1dcaf",
+        "scoring_policy_sha256": "2b18af3e9f8d4b100a5510ab4a992a04d0f8db1cab831110685248ce411aec83"
+      },
+      {
+        "step_index": 4,
+        "step_id": "heldout_scoring_permitted_after_lock",
+        "scoring_started_timestamp": "2026-05-01T00:00:00Z"
+      }
+    ]
+  },
+  "materialization_order_hash": "404590753a26ea247fa949f2c08543612806520364eaf9f221025f8054223475",
+  "materialization_order_hash_policy": "sha256 over canonical JSON source-lock materialization order",
+  "declared_before_scoring": true,
+  "pre_target_lock": true,
+  "target_hidden_until_scoring": true,
+  "snapshot_ref": "validation/heldout/grand_science/systems/wdi_population_materiality/raw/world_bank_wdi_arg_population_total_1960_2024.json",
+  "snapshot_sha256": "d227c75496329073630477406ed23f734813a99a152765396112a5232d5774ec",
+  "model_family_declared_before_scoring": true,
+  "target_split_declared_before_scoring": true,
+  "candidate_formulas_declared_before_scoring": true,
+  "comparator_baselines_declared_before_scoring": true,
+  "scoring_policy_declared_before_scoring": true,
+  "target_split_sha256": "1a8db141aae96e22866f77e866c4ca0d2d955ad94f010cf4e4c1cb78e73c6136",
+  "candidate_formulas_sha256": "cb71e3a6fd0636a3201ddc87cafadfb958d9c3e59d55eb382fdf45a45fcb048b",
+  "comparator_baselines_sha256": "ecd92210fb596f2c2bb6c3326c64a9cfc9b88a77e01c406bedf8d36b0dd1dcaf",
+  "scoring_policy_sha256": "2b18af3e9f8d4b100a5510ab4a992a04d0f8db1cab831110685248ce411aec83",
+  "declaration_excludes_target_values": true
+}

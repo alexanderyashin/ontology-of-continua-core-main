@@ -1,0 +1,29 @@
+% FILE: appendix/OC_1_3_3_CONTINUUMNESS_AXIOMATIZATION.tex
+% OC Core 1.3.3 scientific closure artifact.
+
+\section{Continuumness Axiomatization}
+\label{app:oc133-continuumness}
+
+\paragraph{Typed separation.}
+Live status, continuumness score, and collapse cause are distinct objects:
+\(\mathrm{Live}(K,t)\in\{\top,\bot\}\), \(k(K,t)\in[0,1]\), and
+\(\mathrm{Cause}(K,t)\) is a typed failure family.
+
+\paragraph{Axioms for \(k\).}
+The score is normalized, representation-invariant, monotone under loss of
+required support factors, and zero exactly when at least one declared
+zero-cause is active.  The multiplicative formula is a local aggregator for
+independent factors, not the universal primitive.
+
+\paragraph{Theorem.}
+The old biconditional \(k=0\Leftrightarrow \Omega=\emptyset\) or \(C=\emptyset\)
+is replaced by the correct typed zero-cause theorem.
+
+\paragraph{Proof.}
+Let the cause set contain admissibility collapse, cycle collapse, flow collapse,
+coherence contradiction, embedding incompatibility, and identity break.  By
+definition \(k=0\) iff at least one cause predicate is active.  The old
+biconditional is recovered only under the restricted assumption that the only
+declared causes are admissibility and cycle collapse.  Therefore cases with
+\(\Omega\neq\emptyset\) and \(C\neq\emptyset\) but zero flow support or
+contradictory coherence are classified without contradiction.

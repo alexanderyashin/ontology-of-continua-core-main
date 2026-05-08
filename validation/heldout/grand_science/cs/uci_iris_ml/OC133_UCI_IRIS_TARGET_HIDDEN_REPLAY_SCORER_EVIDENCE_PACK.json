@@ -1,0 +1,166 @@
+{
+  "schema_id": "OC133_UCI_IRIS_ML_SCORING_PACK_v1",
+  "pack_status": "STRICT_EVIDENCE_PASS_NO_COVERAGE_CLOSURE",
+  "status": "STRICT_EVIDENCE_PASS_NO_COVERAGE_CLOSURE",
+  "domain_class_id": "computer_information_sciences",
+  "phenomenon_class_id": "machine_learning_generalization_and_evaluation",
+  "source_bound": true,
+  "target_hidden": true,
+  "score_materialized": true,
+  "scientific_pass": true,
+  "coverage_closure_allowed": false,
+  "support_allowed_for_broad_coverage": false,
+  "source_snapshot_ref": "validation/heldout/grand_science/cs/uci_iris_ml/OC133_UCI_IRIS_SOURCE.csv",
+  "source_snapshot_sha256": "6f608b71a7317216319b4d27b4d9bc84e6abd734eda7872b71a458569e2656c0",
+  "source_lock_ref": "validation/heldout/grand_science/cs/uci_iris_ml/OC133_UCI_IRIS_SOURCE.lock.json",
+  "visible_task_table_ref": "validation/heldout/grand_science/cs/uci_iris_ml/OC133_UCI_IRIS_TARGET_HIDDEN_TASK_TABLE.json",
+  "hidden_target_lock_ref": "validation/heldout/grand_science/cs/uci_iris_ml/OC133-UCI-IRIS-HIDDEN-TARGETS-0001.lock.json",
+  "row_count": 30,
+  "model": {
+    "model_id": "CS-UCI-IRIS-NEAREST-CENTROID-v1",
+    "centroids": {
+      "Iris-setosa": {
+        "sepal_length_cm": 4.967499999999999,
+        "sepal_width_cm": 3.405,
+        "petal_length_cm": 1.4575,
+        "petal_width_cm": 0.24
+      },
+      "Iris-versicolor": {
+        "sepal_length_cm": 5.93,
+        "sepal_width_cm": 2.745,
+        "petal_length_cm": 4.245,
+        "petal_width_cm": 1.3225
+      },
+      "Iris-virginica": {
+        "sepal_length_cm": 6.5,
+        "sepal_width_cm": 2.9425,
+        "petal_length_cm": 5.4975000000000005,
+        "petal_width_cm": 1.985
+      }
+    }
+  },
+  "comparator": {
+    "comparator_id": "CS-UCI-IRIS-MAJORITY-CLASS-v1",
+    "majority_label": "Iris-setosa"
+  },
+  "residuals": {
+    "model": 0.033333333333,
+    "comparator": 0.666666666667,
+    "negative_control": 0.7,
+    "material_margin_met": true,
+    "material_margin_rule": "nearest-centroid loss + 0.05 must be below majority-class comparator loss"
+  },
+  "negative_control": {
+    "control_id": "CS-UCI-IRIS-REVERSED-TRAINING-LABEL-CONTROL-v1",
+    "negative_control_rejected": true
+  },
+  "falsifiers": [
+    "source lock hash is missing or stale",
+    "hidden species labels appear in visible task rows",
+    "nearest-centroid generalization does not beat majority baseline",
+    "label-permutation negative control is not worse than the model"
+  ],
+  "scored_rows_sha256": "30f01dafc639415dc270a2b5c1b54e89ea1fe992cead6abd2c2f0491008dddcc",
+  "scored_rows_sample": [
+    {
+      "task_id": "UCI-IRIS-000",
+      "model_prediction_species": "Iris-setosa",
+      "comparator_prediction_species": "Iris-setosa",
+      "negative_control_prediction_species": "Iris-virginica",
+      "model_0_1_loss": 0.0,
+      "comparator_0_1_loss": 0.0,
+      "negative_control_0_1_loss": 1.0,
+      "target_sha256": "d29aa7f78164c7086e4dcc941aa8247f1d085ac3eb36db1d7cb6e7003725ac06"
+    },
+    {
+      "task_id": "UCI-IRIS-005",
+      "model_prediction_species": "Iris-setosa",
+      "comparator_prediction_species": "Iris-setosa",
+      "negative_control_prediction_species": "Iris-virginica",
+      "model_0_1_loss": 0.0,
+      "comparator_0_1_loss": 0.0,
+      "negative_control_0_1_loss": 1.0,
+      "target_sha256": "afb89f834a374abab10a9dcc2cb65abcaf947c5103d5376aca92c1e34dbb45fd"
+    },
+    {
+      "task_id": "UCI-IRIS-010",
+      "model_prediction_species": "Iris-setosa",
+      "comparator_prediction_species": "Iris-setosa",
+      "negative_control_prediction_species": "Iris-virginica",
+      "model_0_1_loss": 0.0,
+      "comparator_0_1_loss": 0.0,
+      "negative_control_0_1_loss": 1.0,
+      "target_sha256": "68e5e90155aa9d885416a42af956eea1561f95ebdf1f659a50b39dd90e7bd3ea"
+    },
+    {
+      "task_id": "UCI-IRIS-015",
+      "model_prediction_species": "Iris-setosa",
+      "comparator_prediction_species": "Iris-setosa",
+      "negative_control_prediction_species": "Iris-virginica",
+      "model_0_1_loss": 0.0,
+      "comparator_0_1_loss": 0.0,
+      "negative_control_0_1_loss": 1.0,
+      "target_sha256": "547fed89bcd259e65742c3563a1b4ba3c782850735b6ce815212b056268fd389"
+    },
+    {
+      "task_id": "UCI-IRIS-020",
+      "model_prediction_species": "Iris-setosa",
+      "comparator_prediction_species": "Iris-setosa",
+      "negative_control_prediction_species": "Iris-virginica",
+      "model_0_1_loss": 0.0,
+      "comparator_0_1_loss": 0.0,
+      "negative_control_0_1_loss": 1.0,
+      "target_sha256": "941170530007e05143e963681041a46eb1611ea500fd7490b6aa8e83010ec269"
+    },
+    {
+      "task_id": "UCI-IRIS-025",
+      "model_prediction_species": "Iris-setosa",
+      "comparator_prediction_species": "Iris-setosa",
+      "negative_control_prediction_species": "Iris-virginica",
+      "model_0_1_loss": 0.0,
+      "comparator_0_1_loss": 0.0,
+      "negative_control_0_1_loss": 1.0,
+      "target_sha256": "b8a73ef69c121dc51e03ea19e3f512520f76facf7be0018cb0341f47f68fd09d"
+    },
+    {
+      "task_id": "UCI-IRIS-030",
+      "model_prediction_species": "Iris-setosa",
+      "comparator_prediction_species": "Iris-setosa",
+      "negative_control_prediction_species": "Iris-virginica",
+      "model_0_1_loss": 0.0,
+      "comparator_0_1_loss": 0.0,
+      "negative_control_0_1_loss": 1.0,
+      "target_sha256": "9667caf3a49946d5cbbd9846516c0deb56ae590852caf20562c267d2079e0360"
+    },
+    {
+      "task_id": "UCI-IRIS-035",
+      "model_prediction_species": "Iris-setosa",
+      "comparator_prediction_species": "Iris-setosa",
+      "negative_control_prediction_species": "Iris-virginica",
+      "model_0_1_loss": 0.0,
+      "comparator_0_1_loss": 0.0,
+      "negative_control_0_1_loss": 1.0,
+      "target_sha256": "4c2dd92556c8ab49908453b0453b724ff82ff7964d66e241be0da8340b3d8a33"
+    },
+    {
+      "task_id": "UCI-IRIS-040",
+      "model_prediction_species": "Iris-setosa",
+      "comparator_prediction_species": "Iris-setosa",
+      "negative_control_prediction_species": "Iris-virginica",
+      "model_0_1_loss": 0.0,
+      "comparator_0_1_loss": 0.0,
+      "negative_control_0_1_loss": 1.0,
+      "target_sha256": "d497f4c243f858945abd1c0a8abf65029827006b1ff8b0ce3aebf8123690874b"
+    },
+    {
+      "task_id": "UCI-IRIS-045",
+      "model_prediction_species": "Iris-setosa",
+      "comparator_prediction_species": "Iris-setosa",
+      "negative_control_prediction_species": "Iris-virginica",
+      "model_0_1_loss": 0.0,
+      "comparator_0_1_loss": 0.0,
+      "negative_control_0_1_loss": 1.0,
+      "target_sha256": "9f5eee2d366cfe0155d99366c7ffa86cd024ce2cc24379a95d91d86421c4f937"
+    }
+  ]
+}
