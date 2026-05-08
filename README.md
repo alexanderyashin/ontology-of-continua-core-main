@@ -1,15 +1,10 @@
 # Ontology of Continua Core 1.4
 
 OC Core 1.4 is the current public release pointer for the Ontology of Continua
-core model. This repository is the public release-payload surface: it carries
-reader-facing artifacts, proof/evidence material, reproducibility assets,
-replay and validation records, journal-owner-review packages, metadata, and
-navigation needed for external scientific inspection.
-
-The private Logion repository is the primary research, governance, orchestration,
-and build-machine source of truth. This public repository is intentionally
-secondary: only outward-facing scientific artifacts and reproducibility evidence
-belong here.
+core model. This repository carries reader-facing artifacts, proof and evidence
+material, reproducibility assets, replay and validation records, journal
+owner-review packages, metadata, and navigation needed for external scientific
+inspection.
 
 ## Current Public Pointer
 
@@ -43,9 +38,9 @@ actions require separate owner approval.
   supporting proof, replay, validation, formal, and adversarial-review records
   where present.
 
-## Quality Boundary
+## Scientific Boundary
 
 The public package promotes only source-bound model-core claims supported by
 included proof, validation, replay, or falsifier evidence. Broad unbounded TOE
-claims, private orchestration traces, unpublished internal governance records,
-and raw local-LLM/editorial traces are not public-release claims.
+claims, unpublished internal records, and non-public preparation traces are not
+public-release claims.

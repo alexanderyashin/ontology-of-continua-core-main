@@ -22,6 +22,5 @@ resolved through `../CURRENT_RELEASE.json`.
 - `OC_CORE_1_3_ZENODO_EN_ONLY_MANIFEST.json` defines the English public package
   intended for owner review before any Zenodo action.
 
-Private Logion build orchestration, cockpit state, local LLM traces, and
-research-governance control sheets are intentionally excluded from this public
-release bundle.
+Draft preparation files and non-public working traces are intentionally excluded
+from this public release bundle.
