@@ -1,13 +1,13 @@
 % ====================================================================
 % FILE: appendix/A_notation.tex
-% Notation and Symbols for Ontology of Continua — Core 1.3
+% Notation and Symbols for Ontology of Continua — Core 1.3.3
 % ====================================================================
 
 \section{Notation and Symbols}
 \label{app:notation}
 
 This appendix collects the main symbols and notational conventions used
-throughout the Core~1.3 master monograph. It is not exhaustive, but it covers
+throughout the Core~1.3.3 master monograph. It is not exhaustive, but it covers
 the structural elements that recur across the main proof-bearing chapters and
 the science appendices.
 
@@ -24,16 +24,17 @@ the science appendices.
   \item[\(K(t)\)] Time-sliced continuum object obtained from a fixed continuum
         \(K\) at local time \(t\). If a chapter needs the internal state
         separately, it names that state as \(s(t)\in\Omega(K,t)\).
-  \item[\(\tau(K)\)] Scalar level-time symbol used by the K-level chapters when
-        a level has an effective temporal rhythm. In those chapters
-        \(\tau(K_x)\) is the local scalar alias of
-        \(\tau_{\mathrm{eff}}(K_x)\). A finite ordered family of temporal
-        parameters must be written with a decorated family symbol such as
-        \(\boldsymbol{\tau}(K)=(\tau_1(K),\dots,\tau_m(K))\). If the level is
-        atemporal or the local construction does not represent time,
-        \(\tau(K)\) is left undefined rather than silently replaced by a trivial
-        time object. An actual temporal order relation, when needed, is written
-        separately, for example as \(\preceq_K\), and is not denoted by
+  \item[\(\tau(K)\)] Temporal structure or temporal-parameter family of \(K\).
+        Core chapters may use \(\tau(K)\) for the family-level temporal
+        interface, while K-level displays that require a scalar rhythm name the
+        selected value as \(\tau_{\mathrm{eff}}(K_x)\) or state locally that
+        \(\tau(K_x)\) is a scalar alias. A decorated family spelling such as
+        \(\boldsymbol{\tau}(K)=(\tau_1(K),\dots,\tau_m(K))\) is preferred when
+        the text must distinguish the family from a selected scalar. If the
+        level is atemporal or the local construction does not represent time,
+        \(\tau(K)\) is left undefined rather than silently replaced by a
+        trivial time object. An actual temporal order relation, when needed, is
+        written separately, for example as \(\preceq_K\), and is not denoted by
         \(\tau(K)\). Topology is written as a paired structure such as
         \((X_1,\tau_1)\), or as the legacy local alias \((X,\tau)\) when the
         local \(K_1\) display binds it explicitly.
@@ -44,7 +45,13 @@ the science appendices.
         corresponding extremum is \(\max_j\tau_{C_j}\). Displays using
         \(\min_j\tau_{C_j}\) name the fastest closed rhythm and must not be read
         as the slowest-cycle convention.
-  \item[\(M_x\)] Embedding space for level \(K_x\).
+  \item[\(M_x\)] Embedding space for level \(K_x\). In boundary and
+        saturation formulas \(M_x\) is a declared ambient topological space
+        \((M_x,\mathcal{T}_x)\) together with the local inclusion
+        \(\iota_x:\Omega(K_x)\hookrightarrow M_x\). Closures and ambient
+        topological boundaries are therefore taken in \(M_x\) on the embedded
+        image \(\iota_x[\Omega(K_x)]\); the inclusion is suppressed in formulas
+        only after this local ambient typing has been fixed.
   \item[\(M_x(t)\)] Time-indexed embedding space for \(K_x\) when the
         surrounding chapter allows the environment itself to vary.
   \item[\(\Omega(K)\)] Set of admissible states of \(K\).
@@ -59,16 +66,34 @@ the science appendices.
         from the live states currently occupied.
   \item[\(\Omega_t(K)\)] Compact bridge notation for the time-slice
         \(\Omega(K,t)\).
+  \item[\(T_{\mathrm{res}}(K)\)] Declared post-collapse residue-window index
+        set for \(K\). Its elements are precisely the tested times over which
+        the time-indexed residual support \(\Omega_{\mathrm{res}}(K,t)\) is
+        collected into the named residue set \(R_{\mathrm{res}}(K)\).
   \item[\(\Omega_{\mathrm{res}}(K,t)\)] Residual structural support that may
         remain at time \(t\) after live admissibility for \(K\) has vanished.
+        When the collapse route fixes a collapsed continuum \(K\) and a
+        terminal slice \(t_\ast\), \(R_{\mathrm{res}}(K)\) is the named residue
+        set and \(\Omega_{\mathrm{res}}(K,t)\) is its time-indexed support
+        slice. For every tested time \(t\) in the post-collapse residue window,
+        \(\Omega_{\mathrm{res}}(K,t)\subseteq R_{\mathrm{res}}(K)\), and
+        \(R_{\mathrm{res}}(K)=\bigcup_{t\in T_{\mathrm{res}}(K)}
+        \Omega_{\mathrm{res}}(K,t)\) when the residue window
+        \(T_{\mathrm{res}}(K)\) is explicitly declared. Thus
+        \(\Omega_{\mathrm{res}}(K,t_\ast)\subseteq R_{\mathrm{res}}(K)\), with
+        equality only when the local residue definition says that the full
+        residue set is present at that slice.
   \item[\(\mathbf{1}_{\{\Omega(K,t)\neq\emptyset\}}\)] Nonemptiness indicator for
         the time-slice admissible region: it is \(1\) exactly when
         \(\Omega(K,t)\neq\emptyset\) and \(0\) otherwise.
   \item[\(N_{\Omega}(K_x)\)] Nonemptiness factor in continuity products:
         \(N_{\Omega}(K_x)=1\) exactly when \(\Omega(K_x)\neq\emptyset\), and
-        \(0\) otherwise. Older K-level formulas sometimes write the same factor
-        as \(H(\Omega(K_x))\); in Core~1.3.3 that spelling is legacy-only and
-        never gives bare \(H\) a second operator meaning.
+        \(0\) otherwise.
+  \item[\(H(\Omega(K_x))\)] Compact nonemptiness-factor spelling still used by
+        the K-level continuity products. It is a synonym of
+        \(N_{\Omega}(K_x)\), not an additional meaning of the bare hybrid
+        operator \(H\). Bare \(H\) denotes the threshold-evolution component
+        \(H_{\mathrm{thr}}\) wherever the operator tuple is discussed.
   \item[\(\Sigma_{\Omega}(K_x;M_x)\)] Threshold-saturation locus of
         \(\Omega(K_x)\) inside the declared ambient embedding space \(M_x\):
         \[
@@ -116,10 +141,13 @@ the science appendices.
         \(\partial_{M_x}^{\mathrm{top}}\Omega(K_x)\) only after it states the
         required regularity and constraint-qualification assumptions.
   \item[\(\partial\Omega(K_x,t)\)] Time-indexed admissible boundary of \(K_x\)
-        at time \(t\), equivalently \(\partial_{M_x(t)}\Omega(K_x,t)\) under
-        the threshold family active at that slice when the ambient space
-        varies. If the surrounding chapter does not vary the ambient space, the
-        shorthand is read relative to the fixed \(M_x\).
+        at time \(t\). In theorem-bearing threshold contexts this is the
+        time-slice threshold-defined boundary, distinct from the ambient
+        topological boundary. A local section may identify it with
+        \(\partial_{M_x(t)}^{\mathrm{top}}\Omega(K_x,t)\) only after it states
+        the same regularity and constraint-qualification assumptions required
+        for the static boundary. If the surrounding chapter does not vary the
+        ambient space, the shorthand is read relative to the fixed \(M_x\).
   \item[\(A(K)\)] Set of axes of incompatible differences:
         \(A(K) = \{A_1,\dots,A_n\}\).
   \item[\(A(K,t)\)] Time-indexed effective axis set of \(K\), used when the
@@ -142,7 +170,9 @@ the science appendices.
 
 \begin{description}
   \item[\(\Theta_{\mathrm{exist}}\)] Existence thresholds:
-        minimal conditions for \(\Omega(K)\neq\emptyset\).
+        minimal conditions for the live time-slice
+        \(\Omega(K,t)\neq\emptyset\). Static-carrier versions are stated
+        separately as law-level constraints on \(\Omega_{\mathrm{law}}(K)\).
   \item[\(\Theta_{\mathrm{stab}}\)] Stability thresholds:
         conditions for bounded dynamics.
   \item[\(\Theta_{\mathrm{crit}}\)] Critical thresholds:
@@ -156,7 +186,10 @@ the science appendices.
   \item[\(\Pi(C_j)\)] Local persistence or closure score assigned to a cycle
         \(C_j\) when the time-emergence clause requires a scalar witness.
   \item[\(\Theta_{\mathrm{death}}\)] Death thresholds:
-        limits beyond which no admissible states remain.
+        limits beyond which no live time-slice admissible states remain for
+        the affected continuum, i.e. \(\Omega(K,t)=\emptyset\) at the relevant
+        terminal slice or interval. A static-carrier death statement must say
+        so explicitly.
   \item[\(\Theta_{\mathrm{expr}}\)] Expressive thresholds:
         minimal expressive capacity of axes required to represent relevant
         differences.
@@ -255,7 +288,8 @@ dynamic operator meanings listed below.
         admissible transition \((K_x,M_x)\mapsto (K_{x+1},M_{x+1})\) when
         the surrounding birth, embedding, and threshold conditions are
         satisfied.
-  \item[\(\Psi_{x\to y}\)] Non-adjacent birth-route notation for \(y>x\). It is
+  \item[\(\Psi_{x\to y}\)] Non-adjacent birth-route notation for
+        \(0\le x<y\le 12\). It is
         not an additional primitive unless a local theorem explicitly declares
         it so; by default it abbreviates the admissible composition
         \(\Psi_{y-1\to y}\circ\cdots\circ\Psi_{x\to x+1}\), with every
@@ -392,7 +426,7 @@ distinguishability, boundaries act as admissibility classifiers, and
 \(F,G,H,Q,R,S,U\) are hybrid update components rather than universal
 derivatives.  In this operator list, bare \(H\) denotes the threshold-evolution
 operator \(H_{\mathrm{thr}}\); the nonemptiness/status factor is
-\(N_{\Omega}\) or the explicit indicator
+\(N_{\Omega}(K_x)\), or \(N_{\Omega}(K,t)\) in a time-slice context, or the explicit indicator
 \(\mathbf{1}_{\{\Omega(K,t)\neq\emptyset\}}\).  The published tuple
 \[
 K=(\Omega,A,P,J,\Theta,\partial\Omega,C,k)
@@ -406,14 +440,25 @@ at the fixed continuum and instant under discussion.  Thus \(A\) abbreviates
 \(A(K)\), \(P\) abbreviates \(P(K,t)\), \(J\) abbreviates \(J(K,t)\),
 \(\Theta\) abbreviates \(\Theta(K)\), \(\partial\Omega\) abbreviates
 \(\partial\Omega(K,t)\), and \(C\) abbreviates \(C(K,t)\) unless a formula
-states a different specialization. Theorem-bearing statements now distinguish
+states a different specialization. For level-indexed forms, \(P(K_x)\),
+\(J(K_x)\), \(C(K_x)\), and \(k(K_x)\) are the corresponding \(K_x\)-level
+specializations, with \(P(K_x,t)\), \(J(K_x,t)\), \(C(K_x,t)\), and
+\(k(K_x,t)\) used when the time slice is live; \(\Theta(K_x)\) is the
+level-wise threshold family. Theorem-bearing statements now distinguish
 \(\Omega_{\mathrm{law}}(K)\), \(\Omega_t(K)\), and
 \(\Omega_{\mathrm{res}}(K,t)\).  A carrier may persist while live admissibility
 is empty, so the notation separates carrier persistence from live identity.
 Here \(\Omega_{\mathrm{law}}(K)\) denotes the law-level admissibility carrier
 for \(K\), \(\Omega_t(K)\) is the time-slice alias for \(\Omega(K,t)\), and
 \(\Omega_{\mathrm{res}}(K,t)\) denotes the residual structural support that may
-remain after live admissibility has vanished.  In this bridge paragraph, bare
+remain after live admissibility has vanished. The unindexed
+\(R_{\mathrm{res}}(K)\) denotes the collapse-route residue set of \(K\), while
+\(\Omega_{\mathrm{res}}(K,t)\) denotes the slice of that support present at
+the tested time. The typing rule is
+\(\Omega_{\mathrm{res}}(K,t)\subseteq R_{\mathrm{res}}(K)\) for every tested
+post-collapse time \(t\), and \(R_{\mathrm{res}}(K)\) is the union of those
+declared slices over the residue window when such a window is part of the
+proof route. In this bridge paragraph, bare
 \(k\) abbreviates the already defined diagnostic scalar \(k(K,t)\) for the
 continuum and instant under discussion.
 

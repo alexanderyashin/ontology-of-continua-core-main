@@ -34,7 +34,7 @@ CERBERUS_SURFACE_TARGETS = {
     "acceptance": EDITORIAL_DIR / "OC_CORE_1_3_CERBERUS_ACCEPTANCE_CERT_latest.json",
 }
 
-MASTER_MONOGRAPH_TEX = REPO_ROOT / "oc_core_1_3_master_monograph.tex"
+MASTER_MONOGRAPH_TEX = REPO_ROOT / "oc_core_master_monograph.tex"
 RELEASE_README = REPO_ROOT / "releases" / "oc_core_1_3" / "README.md"
 ZENODO_METADATA = REPO_ROOT / ".zenodo.json"
 EN_RELEASE_MONOGRAPH_PDF = REPO_ROOT / "releases" / "oc_core_1_3" / "monograph" / "OC_CORE_1_3_MASTER_MONOGRAPH_EN.pdf"
@@ -160,11 +160,20 @@ LLM_MINOR_BLOCKING_CATEGORIES = {
     "release_consistency",
 }
 
+
+def current_public_version() -> str:
+    try:
+        payload = load_json(REPO_ROOT / "releases" / "CURRENT_RELEASE.json")
+        return str(payload.get("version") or "1.3.3")
+    except Exception:
+        return "1.3.3"
+
+
 PRIMARY_BLOCK_ORDER = [
     "Front Matter and Reader Contract",
     "Orientation and Scientific Promise",
     "Formal Core and Structural Doctrine",
-    "Core 1.3 Closure, Synthesis, and Practical Use",
+    f"Core {current_public_version()} Closure, Synthesis, and Practical Use",
     "Audit and Atlas Archive",
 ]
 EXPECTED_MAIN_INPUT_ORDER = [
@@ -439,7 +448,7 @@ def collect_recursive_inputs(root_path: Path) -> list[Path]:
 
 
 def classify_review_unit(rel_path: str) -> str:
-    if rel_path == "oc_core_1_3_master_monograph.tex":
+    if rel_path in {"oc_core_master_monograph.tex", "oc_core_1_3_master_monograph.tex"}:
         return "MANUSCRIPT_SPINE"
     if rel_path in {"preamble.tex", "content/frontmatter_oc_core_1_3_master.tex", "content/17_oc_core_1_3_reader_guide.tex"}:
         return "PRIMARY_READER_FACING"
@@ -500,7 +509,7 @@ def build_sync_pairs(review_units: list[dict[str, Any]]) -> list[dict[str, str]]
         if rel.startswith("releases/"):
             continue
         if not (
-            rel == "oc_core_1_3_master_monograph.tex"
+            rel in {"oc_core_master_monograph.tex", "oc_core_1_3_master_monograph.tex"}
             or rel == "preamble.tex"
             or rel.startswith(("content/", "appendix/", "figures/"))
         ):
@@ -1602,7 +1611,7 @@ def deterministic_metadata_review(run_id: str) -> list[dict[str, Any]]:
                     category="metadata",
                     determinism_class=DETERMINISTIC_CLASS,
                     claim="The flagship manuscript metadata shell is incomplete.",
-                    evidence=f"Missing token `{required_token}` in oc_core_1_3_master_monograph.tex",
+                    evidence=f"Missing token `{required_token}` in {MASTER_MONOGRAPH_TEX.name}",
                     required_action="Restore the full PDF metadata shell in the flagship manuscript preamble.",
                 )
             )
@@ -1645,7 +1654,7 @@ def should_review_with_llm(unit: dict[str, Any], reviewer: dict[str, Any]) -> bo
         "appendix/Q_oc_core_1_3_toe_support_dossiers.tex",
     }
     copychief_refs = {
-        "oc_core_1_3_master_monograph.tex",
+        "oc_core_master_monograph.tex",
         "preamble.tex",
         "content/frontmatter_oc_core_1_3_master.tex",
         "content/17_oc_core_1_3_reader_guide.tex",

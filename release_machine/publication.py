@@ -971,7 +971,6 @@ def sync_public_release_presentation(root: Path) -> dict[str, Any]:
         "version": VERSION,
         "keywords": RELEASE_KEYWORDS,
         "related_identifiers": [
-            {"identifier": CONCEPT_DOI, "relation": "isVersionOf", "scheme": "doi"},
             {"identifier": PREVIOUS_DOI, "relation": "isNewVersionOf", "scheme": "doi"},
             {"identifier": GITHUB_RELEASE_URL, "relation": "isSupplementTo", "scheme": "url"},
         ],
@@ -1286,7 +1285,6 @@ def publish_execute(root: Path) -> dict[str, Any]:
             "version": VERSION,
             "keywords": ["ontology", "continua", "systems theory", "structural dynamics", "reproducibility", "release governance"],
             "related_identifiers": [
-                {"identifier": "10.5281/zenodo.17899134", "relation": "isVersionOf", "scheme": "doi"},
                 {"identifier": PREVIOUS_DOI, "relation": "isNewVersionOf", "scheme": "doi"},
                 {"identifier": f"https://github.com/{REPO}/releases/tag/{TAG}", "relation": "isSupplementTo", "scheme": "url"},
             ],

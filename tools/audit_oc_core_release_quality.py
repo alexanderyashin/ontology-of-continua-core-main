@@ -14,7 +14,7 @@ from build_oc_core_quality_metric_catalog import metric_catalog_paths
 from build_oc_core_release_instance import instance_paths
 from build_oc_core_release_package_cascade import package_paths
 from build_oc_core_text_fill_rules import rules_paths
-from assemble_oc_core_release_package import OLD_MASTER_BASELINE_PAGES, assembly_paths
+from assemble_oc_core_release_package import OLD_MASTER_BASELINE_PAGES, assembly_paths, public_version_for_release
 from audit_oc_core_release_assembly_machine import FORM_FINDING_KINDS, machine_audit_paths
 from oc_core_release_assembly_lib import ROOT, artifact_hash, read_json, stable_json, validation_result
 
@@ -200,13 +200,13 @@ def _projection_by_node(matrix: dict[str, Any]) -> dict[str, list[dict[str, Any]
 
 
 def _release_package_assembly(release_id: str, assembly_revision: str | None = None) -> dict[str, Any] | None:
-    version = version_from_release_id(release_id)
+    version = public_version_for_release(release_id, assembly_revision)
     path = assembly_paths(release_id, version, assembly_revision)["assembly_json"]
     return read_json(path) if path.exists() else None
 
 
 def _release_machine_audit(release_id: str, assembly_revision: str | None = None) -> dict[str, Any] | None:
-    version = version_from_release_id(release_id)
+    version = public_version_for_release(release_id, assembly_revision)
     path = machine_audit_paths(release_id, version, assembly_revision)["audit_json"]
     return read_json(path) if path.exists() else None
 
@@ -503,8 +503,9 @@ def _cerberus_vulnerability(
 
 
 def build_audit_payload(release_id: str, assembly_revision: str | None = None) -> dict[str, Any]:
-    version = version_from_release_id(release_id)
-    paths = instance_paths(release_id, version)
+    version = public_version_for_release(release_id, assembly_revision)
+    internal_version = version_from_release_id(release_id)
+    paths = instance_paths(release_id, internal_version)
     instance = read_json(paths["instance_json"])
     review_package = read_json(paths["review_package_json"])
     aggregator = read_json(aggregator_paths()["aggregator_json"])
@@ -545,6 +546,7 @@ def build_audit_payload(release_id: str, assembly_revision: str | None = None) -
         "body_prose_included": False,
         "status": QUALITY_VALIDATION_STATUS_FAIL if blocking_total else QUALITY_VALIDATION_STATUS_PASS,
         "release_identity": instance["release_identity"],
+        "public_release_version": version,
         "assembly_revision": assembly_revision,
         "release_package_structure_source": (package_assembly or {}).get("structure_source"),
         "source_hashes": {
@@ -920,7 +922,7 @@ def render_delta_md(payload: dict[str, Any]) -> str:
 
 
 def expected_files(release_id: str, assembly_revision: str | None = None) -> dict[Path, str]:
-    version = version_from_release_id(release_id)
+    version = public_version_for_release(release_id, assembly_revision)
     audit = build_audit_payload(release_id, assembly_revision)
     protocol = build_protocol_payload(release_id, audit)
     delta = build_delta_payload(release_id, audit, protocol)

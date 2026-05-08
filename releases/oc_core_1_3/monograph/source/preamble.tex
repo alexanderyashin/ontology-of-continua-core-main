@@ -1,5 +1,5 @@
 % =============================================
-%  Ontology of Continua --- Core 1.3.3 Canonical Master Monograph
+%  Ontology of Continua --- Core 1.4 Canonical Master Monograph
 %  Stable LaTeX Preamble (XeLaTeX, do not edit lightly)
 % =============================================
 
@@ -14,7 +14,7 @@
 
 \setmainfont{TeX Gyre Termes}
 \setsansfont{TeX Gyre Heros}
-\setmonofont[Ligatures=TeXOff]{TeX Gyre Cursor}
+\setmonofont[Ligatures={TeXOff,NoCommon}]{TeX Gyre Cursor}
 
 % --- Languages (Polyglossia) ------------------
 
@@ -137,10 +137,20 @@
 \usepackage{seqsplit}
 \usepackage{xstring}
 
-\providecommand{\ocpdftitle}{Ontology of Continua --- Core 1.3.3 Canonical Master Monograph}
+\providecommand{\ocpdftitle}{Ontology of Continua --- Core 1.4 Canonical Master Monograph}
 \providecommand{\ocpdfsubject}{Continuum ontology and closure}
-\providecommand{\ocpdfkeywords}{Ontology of Continua, Core 1.3.3, K-level hierarchy, theorem closure, empirical validation, falsifiability, practical utility}
-\providecommand{\ocpdflang}{en}
+\providecommand{\ocpdfkeywords}{Ontology of Continua, Core 1.4, K-level hierarchy, theorem closure, empirical validation, falsifiability, practical utility}
+\ifdefined\ocpdflang\else
+  \IfStrEq{\ocdefaultlanguage}{german}{%
+    \newcommand{\ocpdflang}{de}%
+  }{%
+    \IfStrEq{\ocdefaultlanguage}{russian}{%
+      \newcommand{\ocpdflang}{ru}%
+    }{%
+      \newcommand{\ocpdflang}{en}%
+    }%
+  }%
+\fi
 
 \hypersetup{
   unicode      = true,
@@ -153,7 +163,7 @@
   pdfsubject   = {\ocpdfsubject},
   pdfkeywords  = {\ocpdfkeywords},
   pdfcreator   = {XeLaTeX},
-  pdfproducer  = {XeLaTeX with OC Core 1.3.3 build scripts},
+  pdfproducer  = {XeLaTeX with OC Core 1.4 build scripts},
   pdflang      = {\ocpdflang}
 }
 \pdfstringdefDisableCommands{%
@@ -254,13 +264,18 @@
 \newcommand{\occodebody}[1]{%
   \begingroup
   \scriptsize\ttfamily
-  \addfontfeatures{Ligatures=TeXOff}%
+  \addfontfeatures{Ligatures={TeXOff,NoCommon}}%
   \edef\oc@detok{\detokenize{#1}}%
-  \StrSubstitute{\oc@detok}{--}{-\kern0pt-}[\oc@safe]%
   \hyphenpenalty=0\exhyphenpenalty=0\relpenalty=0\binoppenalty=0%
-  \IfSubStr{\oc@safe}{ }{%
+  \IfSubStr{\oc@detok}{ }{%
+    \StrSubstitute{\oc@detok}{--}{-\allowbreak{}-}[\oc@safeA]%
+    \StrSubstitute{\oc@safeA}{/}{/\allowbreak{}}[\oc@safeB]%
+    \StrSubstitute{\oc@safeB}{_}{_\allowbreak{}}[\oc@safeC]%
+    \StrSubstitute{\oc@safeC}{.}{.\allowbreak{}}[\oc@safeD]%
+    \StrSubstitute{\oc@safeD}{ }{ \allowbreak{}}[\oc@safe]%
     \oc@safe%
   }{%
+    \StrSubstitute{\oc@detok}{--}{-\kern0pt-}[\oc@safe]%
     \expandafter\seqsplit\expandafter{\oc@safe}%
   }%
   \endgroup

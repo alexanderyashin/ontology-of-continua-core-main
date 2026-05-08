@@ -1,12 +1,12 @@
 {
-  "artifact_hash": "3368bdaaeaaf037139a327e3d30cab6278c9f1230697b6204eab27fc8900097b",
+  "artifact_hash": "86de28e27101cb579a628da90e2cb33a7fd37ec80d07158057935cfdd16a8c21",
   "execution_trace_step_total": 0,
-  "generated_at": "2026-05-07T16:49:47Z",
+  "generated_at": "2026-05-07T17:54:43Z",
   "incomplete_problem_ids": [],
   "incomplete_root_cause_total": 0,
   "release_id": "oc_core_1_3_3",
   "root_cause_coverage_status": "PASS",
-  "root_cause_total": 4,
+  "root_cause_total": 2,
   "rows": [
     {
       "actual_validator_delta": 0,
@@ -69,73 +69,11 @@
       "status": "OPEN",
       "symptom": "Cerberus acceptance fingerprint does not match the current manifest inputs.",
       "why_it_failed": "Cerberus targets/run/acceptance fingerprints or open findings do not bind cleanly to the current repository state."
-    },
-    {
-      "actual_validator_delta": 0,
-      "blocks_r017": true,
-      "claim_effect": "External reasoning is not spent while deterministic blockers remain.",
-      "execution_command": [
-        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
-        "tools/oc133_toe_closure_factory.py",
-        "--execute-capability-lane",
-        "CERBERUS_RELEASE_REVIEW_GATE",
-        "--write"
-      ],
-      "expected_validator_delta": 1,
-      "fake_closure_rejected": true,
-      "finding_class": "CERBERUS_RELEASE_REVIEW_GATE",
-      "next_escalation": "Create or execute the required capability lane; if source support is absent, produce a source-gap work order rather than passing.",
-      "pass_predicate": "Cerberus acceptance is PASS, LLM gate is PASS, and open defect findings are zero.",
-      "problem_id": "R017-ROOT-CAUSE-003",
-      "repair_strategy": "Skip expensive Cerberus while deterministic science gates are red; after science PASS, refresh Cerberus targets/run/acceptance and clear open findings.",
-      "required_capability": "Review/Cerberus",
-      "research_route": "deterministic Cerberus blockers -> full Cerberus run -> clean acceptance certificate",
-      "root_cause_class": "STALE_OR_UNCLEAN_CERBERUS_SURFACE",
-      "root_cause_evidence": [
-        "releases\\oc_core_1_3\\editorial\\OC_CORE_1_3_CERBERUS_ACCEPTANCE_CERT_latest.json",
-        "releases\\oc_core_1_3\\editorial\\OC_CORE_1_3_CERBERUS_REVIEW_FINDINGS_latest.json"
-      ],
-      "severity": "CRITICAL",
-      "source_validator_message": "Cerberus acceptance certificate is not PASS.",
-      "status": "OPEN",
-      "symptom": "Cerberus acceptance certificate is not PASS.",
-      "why_it_failed": "Cerberus targets/run/acceptance fingerprints or open findings do not bind cleanly to the current repository state."
-    },
-    {
-      "actual_validator_delta": 0,
-      "blocks_r017": true,
-      "claim_effect": "External reasoning is not spent while deterministic blockers remain.",
-      "execution_command": [
-        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
-        "tools/oc133_toe_closure_factory.py",
-        "--execute-capability-lane",
-        "CERBERUS_RELEASE_REVIEW_GATE",
-        "--write"
-      ],
-      "expected_validator_delta": 1,
-      "fake_closure_rejected": true,
-      "finding_class": "CERBERUS_RELEASE_REVIEW_GATE",
-      "next_escalation": "Create or execute the required capability lane; if source support is absent, produce a source-gap work order rather than passing.",
-      "pass_predicate": "Cerberus acceptance is PASS, LLM gate is PASS, and open defect findings are zero.",
-      "problem_id": "R017-ROOT-CAUSE-004",
-      "repair_strategy": "Skip expensive Cerberus while deterministic science gates are red; after science PASS, refresh Cerberus targets/run/acceptance and clear open findings.",
-      "required_capability": "Review/Cerberus",
-      "research_route": "deterministic Cerberus blockers -> full Cerberus run -> clean acceptance certificate",
-      "root_cause_class": "STALE_OR_UNCLEAN_CERBERUS_SURFACE",
-      "root_cause_evidence": [
-        "releases\\oc_core_1_3\\editorial\\OC_CORE_1_3_CERBERUS_ACCEPTANCE_CERT_latest.json",
-        "releases\\oc_core_1_3\\editorial\\OC_CORE_1_3_CERBERUS_REVIEW_FINDINGS_latest.json"
-      ],
-      "severity": "CRITICAL",
-      "source_validator_message": "Cerberus still has open defect findings.",
-      "status": "OPEN",
-      "symptom": "Cerberus still has open defect findings.",
-      "why_it_failed": "Cerberus targets/run/acceptance fingerprints or open findings do not bind cleanly to the current repository state."
     }
   ],
   "schema_id": "OC133_TOE_ROOT_CAUSE_LEDGER_v1",
   "status": "OPEN",
   "toe_problem_explainability_status": "PASS",
-  "validator_error_total": 4,
+  "validator_error_total": 2,
   "version": "1.3.3"
 }

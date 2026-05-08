@@ -149,7 +149,11 @@ def current_release(start: Path | None = None) -> ReleaseIdentity:
             version=env_version,
             source="env:OC_RELEASE_VERSION",
         )
-    for resolver in (_identity_from_branch, _identity_from_marker, _identity_from_root_version, _identity_from_latest_release_dir):
+    # The owner-controlled marker is the canonical public-version pointer.
+    # Branch names and legacy VERSION files are fallbacks for historical or
+    # fixture contexts only; they must not override the current public release
+    # decision.
+    for resolver in (_identity_from_marker, _identity_from_branch, _identity_from_root_version, _identity_from_latest_release_dir):
         identity = resolver(root)
         if identity is not None:
             return identity
@@ -164,7 +168,7 @@ def write_current_release_marker(root: Path, release_id: str, version: str, *, s
         "release_id": release_id,
         "version": version,
         "source": source,
-        "policy": f"Current release is resolved automatically by git branch, this marker, root VERSION, then highest stable release directory. Env override requires {ENV_OVERRIDE_UNLOCK}=1.",
+        "policy": f"Current release is resolved by this owner-controlled marker first, then git branch, root VERSION, and highest stable release directory. Env override requires {ENV_OVERRIDE_UNLOCK}=1.",
         "publish_allowed": False,
         "no_send": True,
     }

@@ -12,6 +12,7 @@ import tempfile
 import unicodedata
 import zipfile
 from collections import defaultdict
+from datetime import date
 from pathlib import Path
 from typing import Any
 
@@ -27,7 +28,7 @@ from oc_core_release_assembly_lib import ROOT, artifact_hash, read_json, relativ
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
-from release_machine.versioning import version_from_release_id
+from release_machine.versioning import current_release, version_from_release_id
 from release_machine import science_monolith
 from oc133_r016_machine_self_audit import (
     R016_MACHINE_STATUS_KEYS,
@@ -63,7 +64,24 @@ PUBLICATION_BODY_REVISIONS = {
     "recovery_r016",
     "recovery_r017",
 }
-PUBLICATION_DATE = "4 May 2026"
+PUBLICATION_DATE = os.environ.get("OC_PUBLICATION_DATE", date.today().isoformat())
+
+
+def public_version_for_release(release_id: str, assembly_revision: str | None = None) -> str:
+    """Return the owner-controlled public version pointer for the active release."""
+    if assembly_revision and assembly_revision not in {"recovery_r017", "oc_core_1_3_3_review_current"}:
+        return version_from_release_id(release_id)
+    try:
+        identity = current_release(ROOT)
+    except Exception:
+        return version_from_release_id(release_id)
+    if identity.release_id == release_id:
+        return identity.version
+    return version_from_release_id(release_id)
+
+
+def release_delta_title(version: str) -> str:
+    return f"Version {version} Release Delta"
 CURRENT_RECOVERY_REVISION = "recovery_r016"
 R007_REVISION = "recovery_r007"
 R008_REVISION = "recovery_r008"
@@ -201,7 +219,7 @@ FRONTMATTER_REQUIRED_SECTIONS = [
     "Dedication",
     "Acknowledgements",
     "Abstract",
-    "Version 1.3.3 Release Delta",
+    release_delta_title(public_version_for_release("oc_core_1_3_3")),
     "Reader Routes",
     "Table of Contents",
 ]
@@ -3151,7 +3169,7 @@ def publication_abstract(artifact_type_id: str) -> str:
     )
 
 
-def publication_release_delta() -> str:
+def publication_release_delta(version: str) -> str:
     return "\n\n".join(
         [
             (
@@ -3174,7 +3192,7 @@ def publication_release_delta() -> str:
                 "as reader-facing evidence merely because it helped produce the release."
             ),
             (
-                "Version 1.3.3 is the release in which the OC Core corpus is reorganized from a set of scattered source "
+                f"Version {version} is the release in which the OC Core corpus is reorganized from a set of scattered source "
                 "witnesses and process records into a reviewable scientific package. The visible delta is not merely a new "
                 "archive number: the release strengthens the typed foundation, makes the claim boundary explicit, integrates "
                 "the theorem route with public proof sheets, and separates reader-facing prose from machine evidence."
@@ -3198,7 +3216,7 @@ def publication_release_delta() -> str:
                 "bindings and machine evidence indexes stay in the review manifest."
             ),
             (
-                "For a returning reader, the practical point is this: 1.3.3 should be read as a clarification and consolidation "
+                f"For a returning reader, the practical point is this: {version} should be read as a clarification and consolidation "
                 "release. It does not claim final closure. It improves the public surface through which the model can be "
                 "criticized, taught, checked, and extended."
             ),
@@ -3213,7 +3231,7 @@ def publication_reader_contract(artifact_type_id: str) -> str:
         "journal_core_article": "The article offers a compact scientific pass, with compressed claims then checked against the monograph and methods companion.",
         "methods_repro_companion": "The companion is useful when commands, inputs, outputs, checksums, finite witnesses, target-blind replay, and failure interpretation are the main concern.",
         "reviewer_attack_response_map": "The map supports a claim-by-claim reading of objection, response, evidence route, residual risk, and reopening condition.",
-    }.get(artifact_type_id, "This document is one bounded route through the OC Core 1.3.3 release.")
+    }.get(artifact_type_id, "This document is one bounded route through the current OC Core release.")
     return "\n\n".join(
         [
             (
@@ -3330,9 +3348,9 @@ def render_publication_frontmatter(artifact_type_id: str, version: str, instance
         "",
         publication_abstract(artifact_type_id),
         "",
-        "# Version 1.3.3 Release Delta {.unnumbered}",
+        f"# {release_delta_title(version)} {{.unnumbered}}",
         "",
-        publication_release_delta(),
+        publication_release_delta(version),
         "",
         "# Reader Routes {.unnumbered}",
         "",
@@ -8119,7 +8137,7 @@ def build_publication_master_monograph(
         and frontmatter_text.find("Acknowledgements") >= 0
         and frontmatter_text.find(r"\begin{abstract}") >= 0
         and frontmatter_text.find("Acknowledgements") < frontmatter_text.find(r"\begin{abstract}")
-        and "4 May 2026" in frontmatter_text
+        and PUBLICATION_DATE in frontmatter_text
         and "Scientific reviewers and formal critics" in frontmatter_text
     )
     if write and not reusable_existing_build:
@@ -8285,7 +8303,7 @@ def assemble_release(
     structure_source: str = "current",
     assembly_revision: str | None = None,
 ) -> dict[str, Any]:
-    version = version_from_release_id(release_id)
+    version = public_version_for_release(release_id, assembly_revision)
     if assembly_revision == R017_REVISION:
         toe_errors = r017_toe_gate_errors()
         if toe_errors:
@@ -8675,7 +8693,7 @@ def assemble_release(
             if artifact_id == "citation_metadata":
                 payload.update(
                     {
-                        "title": "Ontology of Continua Core 1.3.3",
+                        "title": f"Ontology of Continua Core {version}",
                         "creator": AUTHOR_DISPLAY,
                         "creators": [
                             {
@@ -8698,7 +8716,7 @@ def assemble_release(
                             "evidence-bound scientific publishing",
                         ],
                         "description": (
-                            "OC Core 1.3.3 is a bounded public manuscript and review package for the Ontology of Continua. "
+                            f"OC Core {version} is a bounded public manuscript and review package for the Ontology of Continua. "
                             "It presents a typed continuum model core, K-level witness discipline, proof/evidence boundaries, "
                             "reader-facing limitations, and no-send journal owner-review projections."
                         ),

@@ -6,7 +6,7 @@ import sys
 from pathlib import Path
 from typing import Any
 
-from assemble_oc_core_release_package import OLD_MASTER_BASELINE_PAGES, assembly_paths
+from assemble_oc_core_release_package import OLD_MASTER_BASELINE_PAGES, assembly_paths, public_version_for_release
 from build_oc133_recovery_structures import recovery_paths
 from audit_oc_core_release_assembly_machine import machine_audit_paths
 from audit_oc_core_release_assembly_machine import FORM_FINDING_KINDS
@@ -14,8 +14,6 @@ from oc_core_release_assembly_lib import ROOT, artifact_hash, read_json, stable_
 
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
-
-from release_machine.versioning import version_from_release_id
 
 FORM_STATUS_KEYS = [
     "title_page_status",
@@ -187,10 +185,11 @@ def candidate_form_finding_total(candidate_audit: dict[str, Any] | None) -> int:
 
 
 def build_comparison(release_id: str, candidate_revision: str | None, baseline_revision: str | None = None) -> dict[str, Any]:
-    version = version_from_release_id(release_id)
-    baseline = load_assembly(release_id, version, baseline_revision)
-    candidate = load_assembly(release_id, version, candidate_revision)
-    candidate_audit = machine_audit(release_id, version, candidate_revision)
+    baseline_version = public_version_for_release(release_id, baseline_revision)
+    candidate_version = public_version_for_release(release_id, candidate_revision)
+    baseline = load_assembly(release_id, baseline_version, baseline_revision)
+    candidate = load_assembly(release_id, candidate_version, candidate_revision)
+    candidate_audit = machine_audit(release_id, candidate_version, candidate_revision)
     baseline_pages = pages_by_artifact(baseline)
     candidate_pages = pages_by_artifact(candidate)
     old_pages = old_public_pages()
@@ -394,7 +393,7 @@ def render_md(payload: dict[str, Any]) -> str:
 
 
 def expected_files(release_id: str, candidate_revision: str | None, baseline_revision: str | None = None) -> dict[Path, str]:
-    version = version_from_release_id(release_id)
+    version = public_version_for_release(release_id, candidate_revision)
     payload = build_comparison(release_id, candidate_revision, baseline_revision)
     paths = comparison_paths(release_id, version, candidate_revision)
     return {

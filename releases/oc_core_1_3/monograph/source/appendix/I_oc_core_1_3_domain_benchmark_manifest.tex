@@ -19,7 +19,7 @@ Execution protocol: `OC13::EXECUTION::PHYSICS::CONSTANTS\_SPECTRA\_TRANSPORT`. E
 Measurement schema: Bind theorem-to-observable maps to pinned official constants and spectra, then evaluate held-out residual envelopes..
 Held-out policy: `LEAVE\_ONE\_BENCHMARK\_FAMILY\_OUT` with minimum cases `30`.
 Caseset state: `30` pinned, `20` held-out, `30` parameterized out of `30` cases; coverage `PASS\_CASESET\_MINIMUM\_REACHED`; parameterization `PREDICTIONS\_DECLARED\_FOR\_ALL\_CASES`.
-Quantitative thresholds: coverage `1.0`, mean abs error at most `1.0 sigma`, `p95` at most `2.5 sigma`, `max` at most `5.0 sigma`, Brier at most `N/A`, ECE at most `N/A`, tail breaches `0`.
+Quantitative thresholds: coverage `1.0`, mean absolute normalized error at most `1.0 sigma`, `p95` at most `2.5 sigma`, `max` at most `5.0 sigma`, Brier at most `0.08`, ECE at most `0.05`, tail breaches `0`.
 Acceptance criterion: Held-out residuals stay inside the declared tolerance band for every promoted benchmark family..
 Falsifier: Any benchmark family with residuals outside tolerance or with broken sign/order constraints falsifies the promoted packet..
 Replay command: \occode{logion/k7/spe/orchestrator/science/run_oc_core_domain_hard_closure_replay_v1.py --domain-id PHYSICS}.
@@ -34,7 +34,7 @@ Execution protocol: `OC13::EXECUTION::CHEMISTRY::THERMOCHEMISTRY\_SPECTRA\_KINET
 Measurement schema: Map theorem packets to thermochemical, spectral, and kinetic observables against pinned reference tables..
 Held-out policy: `HOLD\_OUT\_ONE\_COMPOUND\_OR\_REACTION\_CLASS` with minimum cases `30`.
 Caseset state: `30` pinned, `19` held-out, `30` parameterized out of `30` cases; coverage `PASS\_CASESET\_MINIMUM\_REACHED`; parameterization `PREDICTIONS\_DECLARED\_FOR\_ALL\_CASES`.
-Quantitative thresholds: coverage `1.0`, mean abs error at most `1.0 sigma`, `p95` at most `2.5 sigma`, `max` at most `5.0 sigma`, Brier at most `N/A`, ECE at most `N/A`, tail breaches `0`.
+Quantitative thresholds: coverage `1.0`, mean absolute normalized error at most `1.0 sigma`, `p95` at most `2.5 sigma`, `max` at most `5.0 sigma`, Brier at most `0.08`, ECE at most `0.05`, tail breaches `0`.
 Acceptance criterion: Declared chemistry benchmark families pass the tolerance envelope on held-out compounds or reactions..
 Falsifier: A held-out thermochemical, spectral, or kinetic family outside tolerance collapses the promoted chemistry packet..
 Replay command: \occode{logion/k7/spe/orchestrator/science/run_oc_core_domain_hard_closure_replay_v1.py --domain-id CHEMISTRY}.
@@ -49,7 +49,7 @@ Execution protocol: `OC13::EXECUTION::BIOLOGY::STATE\_TRANSITIONS\_AND\_RESPONSE
 Measurement schema: Choose one bounded biological lane and evaluate predicted state transitions or response signatures against open assay data..
 Held-out policy: `RESERVE\_ONE\_DATASET\_FAMILY\_PER\_SIGNATURE\_CLASS` with minimum cases `30`.
 Caseset state: `30` pinned, `16` held-out, `30` parameterized out of `30` cases; coverage `PASS\_CASESET\_MINIMUM\_REACHED`; parameterization `PREDICTIONS\_DECLARED\_FOR\_ALL\_CASES`.
-Quantitative thresholds: coverage `1.0`, mean abs error at most `1.0 sigma`, `p95` at most `2.5 sigma`, `max` at most `5.0 sigma`, Brier at most `N/A`, ECE at most `0.05`, tail breaches `0`.
+Quantitative thresholds: coverage `1.0`, mean absolute normalized error at most `1.0 sigma`, `p95` at most `2.5 sigma`, `max` at most `5.0 sigma`, Brier at most `0.08`, ECE at most `0.05`, tail breaches `0`.
 Acceptance criterion: The promoted biological packet reproduces the declared measurable signatures on held-out datasets without widening the claim boundary..
 Falsifier: If the bounded signature family fails on held-out datasets, the biological packet remains frontier-bound..
 Replay command: \occode{logion/k7/spe/orchestrator/science/run_oc_core_domain_hard_closure_replay_v1.py --domain-id BIOLOGY}.

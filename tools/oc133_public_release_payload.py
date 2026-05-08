@@ -13,6 +13,7 @@ import tempfile
 import textwrap
 import time
 import zipfile
+from datetime import date
 from pathlib import Path
 from typing import Any
 
@@ -29,6 +30,7 @@ _RELEASE_IDENTITY = current_release(ROOT)
 RELEASE_ID = _RELEASE_IDENTITY.release_id
 VERSION = _RELEASE_IDENTITY.version
 TAG = f"v{VERSION}"
+PUBLICATION_DATE = os.environ.get("OC_PUBLICATION_DATE", date.today().isoformat())
 RELEASE_STEM = RELEASE_ID.upper()
 RELEASE_ROOT = ROOT / "releases" / RELEASE_ID
 ARTIFACTS = RELEASE_ROOT / "artifacts"
@@ -1841,9 +1843,9 @@ def methods_replay_narrative() -> str:
             "This companion is a methods guide, not the exhaustive finite-case register. The full machine-readable register is in the public evidence package; the prose here explains how a reviewer should replay the evidence and interpret failures.",
             "",
             heading("Prerequisites", 3),
-            "A reviewer needs two objects with different roles: the public release archive for curated evidence and citation, and a full repository checkout at tag v1.3.3 for executable command replay. The Zenodo public zip is intentionally curated; it is not a complete source checkout and should not be mistaken for the runner tree. Network access is not required for replaying already-pinned public evidence once the repository checkout and public archive have been downloaded.",
+            f"A reviewer needs two objects with different roles: the public release archive for curated evidence and citation, and a full repository checkout at tag v{VERSION} for executable command replay. The Zenodo public zip is intentionally curated; it is not a complete source checkout and should not be mistaken for the runner tree. Network access is not required for replaying already-pinned public evidence once the repository checkout and public archive have been downloaded.",
             "",
-            "Canonical source checkout route: clone the public repository, then check out the exact release tag. The canonical repository is `https://github.com/alexanderyashin/ontology-of-continua-core-main`. A reviewer may use `git clone https://github.com/alexanderyashin/ontology-of-continua-core-main.git`, `cd ontology-of-continua-core-main`, and `git checkout v1.3.3`. The public archive DOI identifies the citable release object; the repository tag identifies the executable replay tree. The methods audit stops if those two identities disagree.",
+            f"Canonical source checkout route: clone the public repository, then check out the exact release tag. The canonical repository is `https://github.com/alexanderyashin/ontology-of-continua-core-main`. A reviewer may use `git clone https://github.com/alexanderyashin/ontology-of-continua-core-main.git`, `cd ontology-of-continua-core-main`, and `git checkout v{VERSION}`. The public archive DOI identifies the citable release object; the repository tag identifies the executable replay tree. The methods audit stops if those two identities disagree.",
             "",
             heading("Environment Lock", 3),
             "The replay environment is treated as an explicit artifact boundary. The public archive records the repository manifest, checksums, Lean source, Lean build certificate, finite-model input facts, finite-model output attestation, target-blind table, validation report, simulation reports, and public payload suitability report. A reviewer should compare local command outputs with those named artifacts before interpreting scientific meaning.",
@@ -4431,7 +4433,7 @@ def write_public_metadata(doi: str | None, zenodo_record_url: str | None, github
     checksum_lines = [f"{row['sha256']}  {row['path']}" for row in asset_rows if row.get("sha256")]
     write_text_if_changed(ROOT / "checksums.txt", "\n".join(checksum_lines))
     citation = f"""cff-version: 1.2.0
-message: "If you use OC Core 1.3.3, cite the GitHub release and the Zenodo DOI recorded here."
+message: "If you use the current OC Core release, cite the Concept DOI and the public repository release record recorded here."
 type: report
 title: "Ontology of Continua Core v{VERSION}"
 version: "{VERSION}"
@@ -4440,12 +4442,12 @@ authors:
     given-names: "Alexander"
     orcid: "https://orcid.org/0009-0008-6166-0914"
 repository-code: "https://github.com/alexanderyashin/ontology-of-continua-core-main"
-url: "{github_release_url or 'https://github.com/alexanderyashin/ontology-of-continua-core-main/releases/tag/v1.3.3'}"
+url: "{github_release_url or f'https://github.com/alexanderyashin/ontology-of-continua-core-main/releases/tag/v{VERSION}'}"
 license: "CC-BY-4.0"
-date-released: "2026-05-01"
+date-released: "{PUBLICATION_DATE}"
 identifiers:
   - type: doi
-    value: "{doi or '10.5281/zenodo.pending'}"
+    value: "{doi or '10.5281/zenodo.17899134'}"
 keywords:
   - ontology
   - continua
@@ -4455,7 +4457,7 @@ keywords:
   - proof governance
   - target-blind replay QA
 abstract: >
-  OC Core 1.3.3 is a bounded external-review scientific release of the
+  OC Core {VERSION} is a bounded external-review scientific release of the
   Ontology of Continua core model. The archived release object contains five
   substantive English PDFs, a public reproducibility package, typed foundations,
   theorem and proof evidence, a Lean-checked subset, finite-model semantics,
@@ -4468,8 +4470,8 @@ preferred-citation:
     - family-names: "Yashin"
       given-names: "Alexander"
       orcid: "https://orcid.org/0009-0008-6166-0914"
-  doi: "{doi or '10.5281/zenodo.pending'}"
-  date-released: "2026-05-01"
+  doi: "{doi or '10.5281/zenodo.17899134'}"
+  date-released: "{PUBLICATION_DATE}"
   version: "{VERSION}"
 """
     write_text_if_changed(ROOT / "CITATION.cff", citation)
@@ -4481,8 +4483,8 @@ preferred-citation:
         "version": VERSION,
         "codeRepository": "https://github.com/alexanderyashin/ontology-of-continua-core-main",
         "license": "https://spdx.org/licenses/CC-BY-4.0",
-        "datePublished": "2026-05-01",
-        "identifier": (doi + "#software-component") if doi else "10.5281/zenodo.pending#software-component",
+        "datePublished": PUBLICATION_DATE,
+        "identifier": (doi + "#software-component") if doi else "10.5281/zenodo.17899134#software-component",
         "description": "Subordinate CodeMeta description for the reproducibility/software component of the OC Core 1.3.3 scientific release. The canonical citable object is the release report identified in CITATION.cff and Zenodo metadata.",
         "author": [{"@type": "Person", "givenName": "Alexander", "familyName": "Yashin"}],
     }
@@ -4495,8 +4497,8 @@ preferred-citation:
                 "@type": "Dataset",
                 "name": f"Ontology of Continua Core v{VERSION}",
                 "version": VERSION,
-                "datePublished": "2026-05-01",
-                "identifier": doi or "10.5281/zenodo.pending",
+                "datePublished": PUBLICATION_DATE,
+                "identifier": doi or "10.5281/zenodo.17899134",
                 "license": "https://spdx.org/licenses/CC-BY-4.0",
                 "description": "RO-Crate packaging view of the OC Core 1.3.3 scientific release files. The canonical citation object is the release report; crate members are subordinate files.",
                 "hasPart": [{"@id": row["path"]} for row in asset_rows],
@@ -4559,7 +4561,7 @@ Publication scope:
 - Email campaign and Software Heritage: require separate approval
 
 Zenodo DOI: `{doi or 'assigned by corrected Zenodo record metadata'}`
-GitHub Release: `{github_release_url or 'https://github.com/alexanderyashin/ontology-of-continua-core-main/releases/tag/v1.3.3'}`
+GitHub Release: `{github_release_url or f'https://github.com/alexanderyashin/ontology-of-continua-core-main/releases/tag/v{VERSION}'}`
 """
     write_text_if_changed(RELEASE_ROOT / "README.md", readme)
     write_text_if_changed(ROOT / "README.md", readme)
@@ -4571,7 +4573,7 @@ GitHub Release: `{github_release_url or 'https://github.com/alexanderyashin/onto
         "creators": [{"name": AUTHOR_CITATION_NAME, "affiliation": AUTHOR_AFFILIATION, "orcid": AUTHOR_ORCID}],
         "license": "cc-by-4.0",
         "access_right": "open",
-        "publication_date": "2026-05-01",
+        "publication_date": PUBLICATION_DATE,
         "keywords": [
             "Ontology of Continua",
             "OC Core",
@@ -4586,8 +4588,7 @@ GitHub Release: `{github_release_url or 'https://github.com/alexanderyashin/onto
         ],
         "version": VERSION,
         "related_identifiers": [
-            {"identifier": "10.5281/zenodo.17899134", "relation": "isVersionOf", "scheme": "doi"},
-            {"identifier": doi, "relation": "isIdenticalTo", "scheme": "doi"} if doi else None,
+            {"identifier": "10.5281/zenodo.19956854", "relation": "isNewVersionOf", "scheme": "doi"},
         ],
     }
     zenodo["related_identifiers"] = [row for row in zenodo["related_identifiers"] if row]
@@ -4613,7 +4614,7 @@ def zenodo_html_description(
         if zenodo_record_url
         else "Zenodo record assigned during publication"
     )
-    github_url = github_release_url or "https://github.com/alexanderyashin/ontology-of-continua-core-main/releases/tag/v1.3.3"
+    github_url = github_release_url or f"https://github.com/alexanderyashin/ontology-of-continua-core-main/releases/tag/v{VERSION}"
     github_html = f'<a href="{html.escape(github_url, quote=True)}">GitHub release</a>'
     labels = {row.get("filename"): row.get("label") for row in asset_rows}
     reading_order = [
@@ -4656,14 +4657,14 @@ def zenodo_html_description(
         '<a href="https://doi.org/10.5281/zenodo.17899134">10.5281/zenodo.17899134</a></li>'
         f"<li>{record_html}</li><li>{github_html}</li></ul>"
         "<h2>Governance boundary</h2>"
-        "<p>GitHub Release and Zenodo publication are approved for v1.3.3. Journal packages are included as "
+        f"<p>GitHub Release and Zenodo publication are prepared for owner review for v{VERSION}. Journal packages are included as "
         "owner-review material only; journal submission, email campaigns, and Software Heritage deposit require "
         "separate approval.</p>"
     )
 
 
 def release_body(asset_rows: list[dict[str, Any]], doi: str | None, zenodo_record_url: str | None, github_release_url: str | None) -> str:
-    download_base = "https://github.com/alexanderyashin/ontology-of-continua-core-main/releases/download/v1.3.3"
+    download_base = f"https://github.com/alexanderyashin/ontology-of-continua-core-main/releases/download/v{VERSION}"
     primary = [
         ("00_OC_CORE_1_3_3_RELEASE_GUIDE_EN.pdf", "Release guide", "Public landing guide and recommended reading order."),
         ("OC_CORE_1_3_3_MASTER_MONOGRAPH_EN.pdf", "Master monograph", "Canonical long-form scientific reference."),
@@ -4730,7 +4731,7 @@ Concept DOI: 10.5281/zenodo.17899134
 
 ## GitHub
 
-Release: {github_release_url or 'https://github.com/alexanderyashin/ontology-of-continua-core-main/releases/tag/v1.3.3'}
+Release: {github_release_url or f'https://github.com/alexanderyashin/ontology-of-continua-core-main/releases/tag/v{VERSION}'}
 
 ## Keywords
 

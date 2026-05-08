@@ -117,7 +117,6 @@ object \(Y\), point \(y\), and bound test time \(\tau_h\) by
 \[
   \mathcal{D}^{J}_{\Theta,\Omega}(Y;y,\tau_h)=
   \big(
-    \chi_{\Omega}(y;Y,\tau_h),
     (\operatorname{sgn} f_i^Y(y))_{i\in J},
     \{i\in J:f_i^Y(y)=0\}
   \big).
@@ -140,12 +139,14 @@ With those records already typed, the expanded predicate is:
   =h_{\ast}\mathcal{D}^{\mathrm{res}}_{\Theta,\Omega}(K;r,\tau_h).
 \end{aligned}
 \]
-Here \(\mathcal{D}_{\Theta,\Omega}\) denotes the local admissibility data:
-the pointwise admissible-membership indicator together with the active residual-threshold signs
-and saturated constraints at the tested local time. The term
+Here \(\mathcal{D}_{\Theta,\Omega}\) denotes the local threshold record used by
+the admissibility test: the active residual-threshold signs and saturated
+constraints at the tested local time. It deliberately does not include the
+live-membership indicator, because the source side is residue-bearing after
+collapse while the target side is tested separately for live admissibility. The term
 \(\mathcal{D}^{\mathrm{res}}_{\Theta,\Omega}(K;r,\tau_h)\) is
 \(\mathcal{D}^{I_K^{\mathrm{res}}}_{\Theta,\Omega}(K;r,\tau_h)\), the same
-data restricted to the residue-index family. The superscript in
+threshold record restricted to the residue-index family. The superscript in
 \(\mathcal{D}^{h}_{\Theta,\Omega}(K';h(r),\tau_h)\) is therefore not an
 exponent: it denotes the \(h\)-transported target record evaluated at the same
 witness time \(\tau_h\). The unreduced symbol
@@ -163,15 +164,15 @@ Consequently the saturated set is transported as
   \{j\in I_{K'}^{h}:f_j^{K'}(h(r))=0\}.
 \]
 The equality therefore says that the named map
-transports the residue-bearing threshold and admissibility data used to test
+transports the residue-bearing threshold data used to test
 the later live continuum; it is not an informal resemblance clause. The
 pushforward \(h_{\ast}\) is a witness-local transport-plus-target-evaluation
 operator rather than a source-only pushforward: it applies \(h\) to the residue
 state, carries each named residual threshold \(f_i\) to the corresponding
 declared residual threshold \(f_{\eta_h(i)}'\), preserves the sign relation
-\(\le 0\), preserves the transported saturated subset, and evaluates the
-target membership component by the separate predicate
-\(h(r)\in\Omega(K')\).
+\(\le 0\), and preserves the transported saturated subset. The target
+membership component is not transported from the dead source; it is evaluated
+by the separate predicate \(h(r)\in\Omega(K')\).
 
 \begin{figure}[htbp]
 \centering
@@ -241,8 +242,13 @@ declared compatibility relation induced by the translation, and
 \(\rho_{\ast}\) is shorthand for the family of transports
 \(\{\rho_{\ast,X}\}_X\) that sends upper-level requirements to their proposed
 \(K_{10}\) counterparts. The component \(\lambda\) is the family of
-order-preserving interval transports
-\(\{\lambda_X:I_X\to I_{\rho(X)}\}_X\). If no time-sensitive requirement is
+order-isomorphism interval transports
+\(\{\lambda_X:I_X\xrightarrow{\sim} I_{\rho(X)}\}_X\). Each \(\lambda_X\) is a
+bijective order-preserving map with order-preserving inverse, so the
+\(\forall t\in I_X\) clauses are tested on the same ordered time positions
+after transport. This is a well-typed witness condition: a proposed reduction
+fails the test rather than weakening the predicate if the source and target
+finite intervals do not have the same cardinality and finite order type. If no time-sensitive requirement is
 being tested, \(\lambda\) is the empty auxiliary family. Despite the glyph, \(\equiv_{\rho}\) is not assumed
 to be an equivalence relation in this test; it is only a typed compatibility
 predicate unless reflexivity, symmetry, and transitivity are supplied
@@ -264,11 +270,12 @@ extends to finite conjunctions by preserving their typed clauses. For the
 reduction test, the satisfaction clauses are the following bounded clauses,
 where \(I_X\) is the declared nonempty finite test interval for \(X\) and
 \(\varepsilon\in(0,1)\). Let
+\(\operatorname{Dom}_X(O;S,T)\), \(\operatorname{Cod}_X(O;S,T)\),
 \(\mathsf{Guard}_X(O,S,T)\), \(\mathsf{IdPres}_X(\iota)\), and
 \(\mathsf{Kill}_X(\varphi)\) denote, respectively, the route-local
-operator-admissibility guard, identity-preservation predicate, and active
-falsifier predicate recorded in the proof-obligation sheet for the tested
-claim:
+declared domain, declared codomain, operator-admissibility guard,
+identity-preservation predicate, and active falsifier predicate recorded in the
+proof-obligation sheet for the tested claim:
 \[
 \begin{aligned}
 X\models\mathsf{Adm}(\omega) &\Longleftrightarrow
@@ -276,7 +283,7 @@ X\models\mathsf{Adm}(\omega) &\Longleftrightarrow
 X\models\mathsf{Cont}(\varepsilon) &\Longleftrightarrow
   \forall t\in I_X,\ k(X,t)>\varepsilon,\\
 X\models\mathsf{Op}(O:S\to T) &\Longleftrightarrow
-  S\subseteq\operatorname{Dom}_X(O),\ O(S)\subseteq T,\text{ and }
+  \operatorname{Dom}_X(O;S,T)=S,\ \operatorname{Cod}_X(O;S,T)=T,\ O(S)\subseteq T,\text{ and }
   \mathsf{Guard}_X(O,S,T)=1,\\
 X\models\mathsf{Id}(\iota) &\Longleftrightarrow
   \mathsf{IdPres}_X(\iota)=1,\\

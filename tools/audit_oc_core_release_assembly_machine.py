@@ -15,6 +15,7 @@ from assemble_oc_core_release_package import (
     CONCEPT_DOI,
     DEDICATION_TEXT,
     FRONTMATTER_REQUIRED_SECTIONS,
+    PUBLICATION_DATE,
     READER_HEADING_MAX_CHARS,
     R008_REVISION,
     R008_TRANSLATOR_STATUS,
@@ -39,15 +40,14 @@ from assemble_oc_core_release_package import (
     TEXT_ARTIFACTS,
     assembly_paths,
     artifact_title,
+    public_version_for_release,
+    release_delta_title,
 )
 from oc133_r016_machine_self_audit import R016_MACHINE_STATUS_KEYS
 from oc_core_release_assembly_lib import ROOT, artifact_hash, read_json, stable_json, validation_result
 
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
-
-from release_machine.versioning import version_from_release_id
-
 
 CYRILLIC_RE = re.compile(r"[\u0400-\u04FF]")
 FORBIDDEN_TEXT_RE = re.compile(
@@ -730,7 +730,7 @@ def collect_pdf_title_page_findings(path: Path, artifact_type_id: str, version: 
         ("author", AUTHOR_DISPLAY),
         ("orcid", f"ORCID {AUTHOR_ORCID}"),
         ("concept_doi", CONCEPT_DOI),
-        ("revision_date", "4 May 2026"),
+        ("revision_date", PUBLICATION_DATE),
     ]
     missing = [label for label, needle in required if needle not in normalized]
     if not artifact_title_present(first_page, artifact_type_id, version):
@@ -744,7 +744,8 @@ def collect_pdf_title_page_findings(path: Path, artifact_type_id: str, version: 
                 "missing": missing,
             }
         )
-    if "1 May 2026" in normalized or "3 May 2026" in normalized or "release date:" in normalized.lower():
+    stale_dates = ["1 May 2026", "3 May 2026", "4 May 2026", "2026-05-04"]
+    if any(stale in normalized and stale != PUBLICATION_DATE for stale in stale_dates) or "release date:" in normalized.lower():
         findings.append(
             {
                 "kind": "publication_title_page_date_stale",
@@ -2236,7 +2237,7 @@ def frontmatter_findings_for_source(path: Path, artifact_type_id: str, version: 
     ]
     if artifact_type_id != "journal_core_article":
         required_pairs[4:4] = [
-            ("release_delta", "Version 1.3.3 Release Delta"),
+            ("release_delta", release_delta_title(version)),
             ("reader_routes", "Reader Routes"),
         ]
     if not artifact_title_present(front, artifact_type_id, version):
@@ -2281,7 +2282,7 @@ def frontmatter_findings_for_source(path: Path, artifact_type_id: str, version: 
     if artifact_type_id != "journal_core_article":
         order_groups.extend(
             [
-                ["# Version 1.3.3 Release Delta", r"\section*{Version 1.3.3 Release Delta}", "Version 1.3.3 Release Delta"],
+                [f"# {release_delta_title(version)}", rf"\section*{{{release_delta_title(version)}}}", release_delta_title(version)],
                 ["# Reader Routes", r"\section*{Reader Routes}", "Reader Routes", "# Reader Contract", r"\section*{Reader Contract}", "Reader Contract"],
             ]
         )
@@ -2339,7 +2340,7 @@ def frontmatter_findings_for_pdf(path: Path, artifact_type_id: str, version: str
     ]
     if artifact_type_id != "journal_core_article":
         required[3:3] = [
-            ("release_delta", "Version 1.3.3 Release Delta"),
+            ("release_delta", release_delta_title(version)),
             ("reader_routes", "Reader Routes"),
         ]
     if not artifact_title_present(text, artifact_type_id, version):
@@ -2383,7 +2384,7 @@ def frontmatter_findings_for_pdf(path: Path, artifact_type_id: str, version: str
 
 
 def build_audit(release_id: str, assembly_revision: str | None = None) -> dict[str, Any]:
-    version = version_from_release_id(release_id)
+    version = public_version_for_release(release_id, assembly_revision)
     paths = assembly_paths(release_id, version, assembly_revision)
     assembly = read_json(paths["assembly_json"])
     assembly_audit = read_json(paths["audit_json"])
@@ -2578,7 +2579,7 @@ def render_md(payload: dict[str, Any]) -> str:
 
 
 def expected_files(release_id: str, assembly_revision: str | None = None) -> dict[Path, str]:
-    version = version_from_release_id(release_id)
+    version = public_version_for_release(release_id, assembly_revision)
     audit = build_audit(release_id, assembly_revision)
     paths = machine_audit_paths(release_id, version, assembly_revision)
     return {

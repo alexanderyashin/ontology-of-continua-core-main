@@ -36,11 +36,17 @@ support map is written as labelled review edges:
       residue and satisfying the birth clauses are rebirth rather than
       persistence. This edge is printed beside the Theorem~A route, not inside
       it.
+\item \textbf{Edge 6.} The excluded lift-heavy theorem family is recorded as a
+      boundary edge in the theorem-fate table and proof-obligation registry. It
+      is a firewall edge, not a positive support edge: if a proof route needs
+      that excluded family, the route fails instead of silently importing it.
 \end{enumerate}
 
 Definitions in this list are prerequisite nodes, not independent theorem
 premises. The word ``supports'' marks an admitted release support step rather
-than a primitive implication operator of OC.
+than a primitive implication operator of OC. Edge~6 is counted in the dependency
+atlas because it protects the proof boundary; it is not counted as a premise of
+Theorem~A or Proposition~B.
 
 Lemma~3 is not a second death premise and is not a premise of Theorem~A. Its
 load-bearing role is the companion rebirth-control branch used by
@@ -51,14 +57,18 @@ continuation from being misread as persistence of the dead original.
 
 \paragraph{Proposition B (article-local rebirth control).}
 \label{prop:oc13-rebirth-control}
-Within the article-level extraction, after \(K\) has lawfully collapsed so
-that \(\Omega(K)=\emptyset\) and \(k(K,t)=0\), a later object \(K'\) is
-classified by this article-local sufficient test as rebirth when \(K'\) is
-live, is numerically distinct from the dead original continuum \(K\), appears
-either in the same-embedding branch or in the explicitly witnessed
-related-embedding branch stated below, inherits at least one declared residue
-support element, and satisfies the relevant birth conditions. The identity rule
-supplies the reason this non-identity condition is forced rather than optional.
+Within the article-level extraction, fix a collapse witness
+\((K,t_\ast,R_{\mathrm{res}}(K))\) satisfying the Definition~12.6 rebirth
+setup: at the terminal slice \(\Omega(K,t_\ast)=\emptyset\) and
+\(k(K,t_\ast)=0\), while a declared residue support remains available for the
+later test. A later object \(K'\) is classified by this article-local
+sufficient test as rebirth when there exists a later witness time
+\(t'>t_\ast\) such that \(K'\) is live at \(t'\), is numerically distinct from
+the dead original continuum \(K\), appears either in the same-embedding branch
+or in the explicitly witnessed related-embedding branch stated below, inherits
+at least one declared residue support element from \(R_{\mathrm{res}}(K)\), and
+satisfies the relevant birth conditions. The identity rule supplies the reason
+this non-identity condition is forced rather than optional.
 This proposition is a companion control statement for the rebirth branch; it is
 not a premise of Theorem~A and does not claim a completeness theorem over every
 possible source-level rebirth witness.

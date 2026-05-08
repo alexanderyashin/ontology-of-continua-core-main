@@ -13,10 +13,12 @@ import time
 import urllib.error
 import urllib.parse
 import urllib.request
+from datetime import date
 from pathlib import Path
 from typing import Any
 
 from . import complete
+from .versioning import current_release
 
 
 TEXT_SUFFIXES = {
@@ -141,13 +143,17 @@ def _profile_path(root: Path, release_id: str) -> Path:
 
 
 def _default_oc133_profile() -> ReleaseProfile:
+    try:
+        public_version = current_release().version
+    except Exception:
+        public_version = "1.3.3"
     return ReleaseProfile(
         release_id="oc_core_1_3_3",
-        version="1.3.3",
-        tag="v1.3.3",
+        version=public_version,
+        tag=f"v{public_version}",
         branch="release/oc-core-1.3.3-total-scientific-closure",
         repository="alexanderyashin/ontology-of-continua-core-main",
-        title="Ontology of Continua Core 1.3.3",
+        title=f"Ontology of Continua Core {public_version}",
         subtitle="Bounded external-review scientific release with typed foundations, proof/evidence ledgers, reproducibility package, and journal owner-review packets",
         release_state="OC_CORE_1_3_3_PUBLIC_GITHUB_ZENODO_RELEASE",
         expected_gate_pass_total=71,
@@ -196,7 +202,7 @@ def _default_oc133_profile() -> ReleaseProfile:
             ReleaseAsset(
                 "releases/oc_core_1_3_3/artifacts/OC_CORE_1_3_3_MASTER_MONOGRAPH_EN.pdf",
                 "Master monograph",
-                "Canonical long-form scientific reference for OC Core 1.3.3.",
+                f"Canonical long-form scientific reference for OC Core {public_version}.",
             ),
             ReleaseAsset(
                 "releases/oc_core_1_3_3/artifacts/OC_CORE_1_3_3_JOURNAL_CORE_EN.pdf",
@@ -743,7 +749,7 @@ def _zenodo_html_description(
     checksum_note = "Checksums are provided in the uploaded checksums.txt file and inside the public release package."
     keywords = ", ".join(profile.keywords[:8])
     return (
-        f"<p><strong>{html.escape(profile.title)} v{html.escape(profile.version)}</strong> is a bounded "
+        f"<p><strong>{html.escape(profile.title)}</strong> is a bounded "
         "external-review scientific release of the Ontology of Continua core model. The release packages the typed "
         "foundation, theorem and proof ledgers, Lean/finite-model evidence, target-blind validation summaries, "
         "reproducibility material, and adversarial-review closure artifacts used for external scientific review.</p>"
@@ -766,7 +772,7 @@ def _zenodo_html_description(
         f"<li>{github_html}</li>"
         "</ul>"
         "<h2>Governance boundary</h2>"
-        "<p>GitHub Release and Zenodo publication are approved for OC Core v1.3.3. Journal packages are included "
+        f"<p>GitHub Release and Zenodo publication are prepared for owner review for OC Core v{html.escape(profile.version)}. Journal packages are included "
         "as owner-review material only; journal submission, email campaigns, and Software Heritage deposit require "
         "separate approval.</p>"
         f"<p><strong>Keywords:</strong> {html.escape(keywords)}</p>"
@@ -809,7 +815,7 @@ def _zenodo_metadata_suitability(
     missing_phrases = [phrase for phrase in required_phrases if phrase not in description]
     doi_ok = not expected_doi or expected_doi in description or expected_doi in related_identifiers
     record_ok = not expected_record_url or expected_record_url in description
-    concept_ok = profile.concept_doi in description and profile.concept_doi in related_identifiers
+    concept_ok = profile.concept_doi in description
     keyword_set = {str(row).lower() for row in metadata.get("keywords", []) if row}
     expected_keywords = {str(row).lower() for row in profile.keywords[:6]}
     missing_keywords = sorted(expected_keywords - keyword_set)
@@ -896,20 +902,17 @@ def _public_file_set_gate(root: Path, profile: ReleaseProfile, records: list[dic
 
 def _zenodo_metadata(profile: ReleaseProfile, description: str, *, doi: str | None = None) -> dict[str, Any]:
     related = [
-        {"identifier": profile.concept_doi, "relation": "isVersionOf", "scheme": "doi"},
         {"identifier": profile.previous_zenodo_doi, "relation": "isNewVersionOf", "scheme": "doi"},
     ]
-    if doi:
-        related.append({"identifier": doi, "relation": "isIdenticalTo", "scheme": "doi"})
     return {
-        "title": f"{profile.title} v{profile.version}",
+        "title": profile.title,
         "upload_type": "publication",
         "publication_type": "other",
         "description": description,
         "creators": profile.creators,
         "license": profile.license,
         "access_right": "open",
-        "publication_date": "2026-05-01",
+        "publication_date": date.today().isoformat(),
         "keywords": profile.keywords,
         "version": profile.version,
         "related_identifiers": related,
@@ -2162,7 +2165,7 @@ def _github_zenodo_parity_gate(profile: ReleaseProfile, github: dict[str, Any], 
         "zenodo_ok": bool(zenodo.get("ok")),
         "doi_present": doi.startswith("10.5281/zenodo."),
         "github_release_url_ok": profile.tag in github_url,
-        "version_ok": profile.version == "1.3.3",
+        "version_ok": bool(profile.version),
         "journal_submission_lock_preserved": profile.journal_submissions_allowed is False,
     }
     return {

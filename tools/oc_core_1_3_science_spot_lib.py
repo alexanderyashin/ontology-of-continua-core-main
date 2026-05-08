@@ -4905,7 +4905,7 @@ def tex_domain_title(text: Any) -> str:
     """Render domain titles with lawful breakpoints for narrow atlas columns."""
     value = tex_escape(britishize_text(text))
     replacements = {
-        "Systems / Civilizational projection": r"Systems /\allowbreak K8 projection",
+        "Systems / Civilizational projection": r"Systems /\allowbreak Civili\allowbreak{}zational\allowbreak{} projection",
         "Cross-domain / unified science": r"Cross-domain /\allowbreak unified science",
     }
     for source, target in replacements.items():

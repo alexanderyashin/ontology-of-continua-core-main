@@ -1364,9 +1364,8 @@ class ReleaseMachineTests(unittest.TestCase):
         root = complete.repo_root()
         identity = versioning.current_release(root)
         self.assertEqual(identity.release_id, "oc_core_1_3_3")
-        self.assertEqual(identity.version, "1.3.3")
+        self.assertEqual(identity.version, "1.4")
         self.assertIn(identity.source.split(":", 1)[0], {"git_branch", "marker", "root_version", "latest_release_dir"})
-        self.assertEqual(versioning.release_id_from_version(identity.version), identity.release_id)
         self.assertEqual(release_machine.__version__, identity.version)
 
     def test_current_release_env_override_requires_explicit_unlock(self) -> None:

@@ -6,16 +6,23 @@ import re
 import shutil
 import subprocess
 import time
+from datetime import date
 from pathlib import Path
 from typing import Any
 
 from pypdf import PdfReader
 
 from . import complete
+from .versioning import current_release
 
 
 RELEASE_ID = "oc_core_1_3_3"
-VERSION = "1.3.3"
+try:
+    _ACTIVE_IDENTITY = current_release()
+    VERSION = _ACTIVE_IDENTITY.version if _ACTIVE_IDENTITY.release_id == RELEASE_ID else "1.3.3"
+except Exception:
+    VERSION = "1.3.3"
+PUBLICATION_DATE = date.today().isoformat()
 RELEASE_ROOT = Path("releases") / RELEASE_ID
 ARTIFACTS_REF = RELEASE_ROOT / "artifacts"
 EDITORIAL_REF = RELEASE_ROOT / "editorial"
@@ -1491,7 +1498,7 @@ def _frontmatter_133(doi: str | None, zenodo_record_url: str | None) -> str:
 \begin{{center}}
 \vspace*{{1.0cm}}
 {{\sffamily\Large\color{{ocTitleBlue}}\textsc{{Ontology of Continua}}}}\\[0.38cm]
-{{\sffamily\Huge\bfseries Core~1.3.3}}\\[0.28cm]
+{{\sffamily\Huge\bfseries Core~{VERSION}}}\\[0.28cm]
 {{\sffamily\Large Master Monograph}}\\[0.75cm]
 {{\color{{ocTitleGold}}\rule{{0.42\textwidth}}{{0.5pt}}}}\\[0.95cm]
 
@@ -1499,8 +1506,8 @@ def _frontmatter_133(doi: str | None, zenodo_record_url: str | None) -> str:
 {{\normalsize Independent Researcher, Leipzig/Halle, Germany}}\\[0.2cm]
 {{\normalsize \href{{https://orcid.org/0009-0008-6166-0914}}{{ORCID 0009-0008-6166-0914}}}}\\[1.0cm]
 
-{{\normalsize Version v1.3.3}}\\[0.3cm]
-{{\normalsize Manuscript revision date: 4 May 2026}}\\[0.3cm]
+{{\normalsize Version v{VERSION}}}\\[0.3cm]
+{{\normalsize Manuscript revision date: {PUBLICATION_DATE}}}\\[0.3cm]
 {{\normalsize Concept DOI: \href{{https://doi.org/{concept_doi}}}{{{concept_doi}}}}}\\[0.9cm]
 
 \vfill
@@ -1542,7 +1549,7 @@ it asks whether heterogeneous systems can be compared through a shared
 structural language without erasing the local knowledge that makes each domain
 serious.
 
-OC Core~1.3.3 is the bounded external-review release of that model core. It
+OC Core~{VERSION} is the bounded external-review release of that model core. It
 presents a typed account of continuants, realizations, liveness, death,
 residue, rebirth, morphisms, generalized boundaries, hybrid operators, cycle
 modes, historical and effective dimension, and K-level witnesses under explicit
@@ -1586,14 +1593,14 @@ theorist, an AI builder, an enterprise architect, or an evidence auditor
 translate a complex system into a common ontology while preserving the
 differences that matter. The principal limitation is part of the method:
 future releases must add evidence, mechanization, comparator work, or domain
-validation before they widen the public claim surface. Version~1.3.3 therefore
+validation before they widen the public claim surface. Version~{VERSION} therefore
 offers a publication-grade basis for external review, not a claim that every
 future scientific obligation has already been discharged.
 \end{{abstract}}
 
 \clearpage
-\section*{{Version 1.3.3 Release Delta}}
-\addcontentsline{{toc}}{{section}}{{Version 1.3.3 Release Delta}}
+\section*{{Version {VERSION} Release Delta}}
+\addcontentsline{{toc}}{{section}}{{Version {VERSION} Release Delta}}
 The OC Core release sequence is part of a continuing scientific program rather
 than a series of isolated archive events. As the model is tested against formal
 criticism, domain examples, reproducibility checks, and external review, the
@@ -1612,7 +1619,7 @@ private working material. No unpublished working note or private editorial
 record is promoted as reader-facing evidence merely because it
 helped produce the release.
 
-Version~1.3.3 is the release in which the OC Core corpus is reorganized from
+Version~{VERSION} is the release in which the OC Core corpus is reorganized from
 scattered source witnesses and process records into a reviewable scientific
 package. The visible delta is not merely a new archive number: the release
 strengthens the typed foundation, makes the claim boundary explicit, integrates
@@ -1639,7 +1646,7 @@ documents are therefore built from the human manuscript hierarchy and curated
 payload sources, while source bindings and machine evidence indexes stay in the
 review manifest.
 
-For a returning reader, the practical point is this: 1.3.3 should be read as a
+For a returning reader, the practical point is this: {VERSION} should be read as a
 clarification and consolidation release. It does not claim final closure. It
 improves the public surface through which the model can be criticized, taught,
 checked, and extended.
@@ -1650,7 +1657,7 @@ checked, and extended.
 Dear readers, systems theory is of interest to many communities, but rarely in
 exactly the same way. A formal reviewer, a philosopher of systems, an applied
 architect, an AI engineer, a security specialist, and an executive reader may
-all ask legitimate questions of the same manuscript. OC Core~1.3.3 is therefore
+all ask legitimate questions of the same manuscript. OC Core~{VERSION} is therefore
 designed as a deliberately generous scientific reading surface: it aims to
 disclose the Ontology of Continua as an applied model of system architecture
 while giving different readers a courteous route into the material.
@@ -3453,14 +3460,14 @@ the claim. OC therefore has to earn the reader's patience. It must show why the
 same pattern of admissible states, thresholds, cycles, flows, and boundaries
 appears in different domains; it must show why that pattern is not already
 exhausted by one existing field; and it must state what would make the proposal
-fail. The motivation of Core~1.3.3 is not grandiosity. It is the practical need
+fail. The motivation of Core~{VERSION} is not grandiosity. It is the practical need
 for a disciplined bridge between domain science, system architecture,
 formalization, and evidence review.
 
-\section{Scope of OC Core 1.3.3}
+\section{Scope of OC Core {VERSION}}
 \label{sec:r007-scope}
 
-Core~1.3.3 is a model-core release. It does not claim that every domain
+Core~{VERSION} is a model-core release. It does not claim that every domain
 projection is complete, every numerical prediction is validated, or every
 formal proof is mechanized. It does claim that the reader-facing manuscript now
 contains the public grammar needed to inspect the model: continua, state
@@ -3477,7 +3484,7 @@ surfaces. Fourth, the practical and domain layer shows how the model may be read
 by engineers, architects, AI builders, strategy readers, and reviewers without
 overstating the current science.
 
-The excluded material is just as important. Core~1.3.3 does not promote
+The excluded material is just as important. Core~{VERSION} does not promote
 unrestricted superiority over existing science, universal domain closure, or
 complete empirical validation. It does not ask a reader to treat internal build
 records as scientific prose. It does not require that every future domain
@@ -3662,7 +3669,7 @@ have the map: continua contain continua, K-levels name structured emergence,
 and the rest of the manuscript tests how far that grammar can be made precise.
 """
     for ref, text in zip(R007_DIDACTIC_SPINE_REFS, [part_i, part_ii], strict=True):
-        write_text_if_changed(source_dir / ref, text)
+        write_text_if_changed(source_dir / ref, text.replace("{VERSION}", VERSION))
 
 
 def _apply_r005_publication_layout_standard(source_dir: Path) -> None:
@@ -3742,15 +3749,15 @@ def _apply_r005_publication_layout_standard(source_dir: Path) -> None:
 
 
 def _r005_backmatter_section() -> str:
-    return r"""\clearpage
-\section*{Keywords and Citation Route}
-\noindent\textbf{Keywords.} Ontology of Continua; continuum ontology; typed model core; systems theory; autopoiesis; dynamical systems; hybrid systems; formal methods; Lean formalization; finite semantic checks; target-blind replay QA; reproducible research; artifact evaluation; claim governance; falsifiability; evidence-bound scientific publishing.
+    return rf"""\clearpage
+\section*{{Keywords and Citation Route}}
+\noindent\textbf{{Keywords.}} Ontology of Continua; continuum ontology; typed model core; systems theory; autopoiesis; dynamical systems; hybrid systems; formal methods; Lean formalization; finite semantic checks; target-blind replay QA; reproducible research; artifact evaluation; claim governance; falsifiability; evidence-bound scientific publishing.
 
 \medskip
-\noindent\textbf{Citation identity.} Alexander Yashin, \emph{Ontology of Continua Core 1.3.3: Master Monograph}, 4 May 2026. The Concept DOI is printed on the title page.
+\noindent\textbf{{Citation identity.}} Alexander Yashin, \emph{{Ontology of Continua Core {VERSION}: Master Monograph}}, {PUBLICATION_DATE}. The Concept DOI is printed on the title page.
 
 \medskip
-\noindent\textbf{Open repository.} The public repository route is \href{https://github.com/alexanderyashin/ontology-of-continua-core-main}{github.com/alexanderyashin/ontology-of-continua-core-main}. Repository files support reproducibility and source inspection; they do not replace the manuscript's claim boundaries.
+\noindent\textbf{{Open repository.}} The public repository route is \href{{https://github.com/alexanderyashin/ontology-of-continua-core-main}}{{github.com/alexanderyashin/ontology-of-continua-core-main}}. Repository files support reproducibility and source inspection; they do not replace the manuscript's claim boundaries.
 """
 
 
