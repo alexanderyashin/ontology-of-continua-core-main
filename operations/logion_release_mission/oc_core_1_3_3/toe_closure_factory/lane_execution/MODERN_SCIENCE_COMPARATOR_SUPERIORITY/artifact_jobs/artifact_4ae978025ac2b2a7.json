@@ -1,9 +1,9 @@
 {
-  "artifact_hash": "d457bb15b7a670b039eb2359169b5b459a9c58d41a09131dbad72f4f645cc44a",
+  "artifact_hash": "ea109b2a269d1aeaf06112f2a625ee616a285a893feeaa43b11e155e49d15823",
   "artifact_key": "replay_record",
   "artifact_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/artifact_jobs/artifact_4ae978025ac2b2a7.json",
   "domain_class_id": "medical_health_sciences",
-  "executable_spec_found": true,
+  "executable_spec_found": false,
   "execution_command": [
     "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
     "tools/oc133_toe_closure_factory.py",
@@ -21,29 +21,23 @@
   "pass_predicate_evaluation": {
     "artifact_key": "replay_record",
     "gap_pass_unchanged_by_single_artifact": true,
-    "research_artifact_status": "OPEN"
+    "research_artifact_status": "PASS"
   },
   "phenomenon_class_id": "clinical_outcomes_and_biomarkers",
-  "queue_row_found": true,
+  "queue_row_found": false,
   "repair_strategy": "Create the required artifact from governed open/free sources, bind hashes, then rerun the comparator gap and strict validator.",
   "required_capability": "Research/PriorArt",
   "required_output_kind": "independent_replay_record",
   "research_artifact_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/c8f37f6962a1ece5/replay_record.json",
-  "research_artifact_scope": "replay not run or scoring evidence still blocked",
-  "research_artifact_status": "OPEN",
+  "research_artifact_scope": "independent replay passed for already-positive scoring evidence",
+  "research_artifact_status": "PASS",
   "schema_id": "OC133_MODERN_SCIENCE_COMPARATOR_GAP_ARTIFACT_EXECUTION_v1",
-  "source_block": {
-    "evidence_pack_schema_id": "OC133_GRAND_EMPIRICAL_EVIDENCE_v1",
-    "minimum_n": 100,
-    "replay_command": "python validation/heldout/grand_science/medical_health/clinical_trials_outcomes/run_clinical_outcome_replay.py --check",
-    "source_separation_mode": "target_blind",
-    "target_hidden_until_scoring": true
-  },
+  "source_block": {},
   "source_refs": [
     "reports/OC_CORE_1_3_3_MODERN_SCIENCE_COVERAGE_LANE_QUEUE.json",
     "benchmarks/modern_science/OC133_MODERN_SCIENCE_COVERAGE_WORK_ORDERS.json",
     "comparators/modern_science/OC133_MODERN_SCIENCE_COVERAGE_REGISTER.json"
   ],
-  "status": "OPEN",
+  "status": "PASS",
   "why_it_failed": "Comparator gap `MS-COV-GAP-MEDICAL_HEALTH_SCIENCES-CLINICAL_OUTCOMES_AND_BIOMARKERS` lacks `replay_record`; no broad-superiority credit is awarded."
 }

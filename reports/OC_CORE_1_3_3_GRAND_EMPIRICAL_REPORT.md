@@ -11,8 +11,8 @@ Bounded baseline rows: `5`
 Blocked empirical domains: `0/4`
 Formal required domains: `1`
 Decomposition queue rows: `0`
-Sync run: `not-bound`
-Source artifact set: `not-bound`
+Sync run: `OC133-GRAND-GATE-713707164764885C`
+Source artifact set: `713707164764885cf8b97da3d4c0000428adefdd65d335c79b32fdc849a43b48`
 
 This factory/gate emits only bounded empirical-domain support from qualifying packs. It does not emit TOE, final-theory, broad modern-science coverage, or modern-science superiority promotion from bounded OC133 reconstructions, sample packs, or artifact existence. Unresolved domains remain BLOCKED until prospective or target-blind evidence packs clear the configured criteria.
 Formal required domains are exposed here as dependencies, but excluded from empirical support counts and blockers.
@@ -46,4 +46,4 @@ Current target-blind rows are retained as bounded reconstruction evidence only. 
 | `chemistry` | `OC133-TARGETBLIND-CHEMISTRY-001` | `1` | `0.000280000000000058` | `25.994500000000002` | target-blind reconstruction of a held-out official snapshot field; not a novel chemistry law |
 | `biology` | `OC133-TARGETBLIND-BIOLOGY-001` | `1` | `0.0` | `43988.0` | target-blind reconstruction of a held-out NCBI/GEO API snapshot field; not a biological mechanism law |
 | `systems` | `OC133-TARGETBLIND-SYSTEMS-001` | `1` | `59572919095.09375` | `4241013358949.0` | retrospective target-blind holdout over pinned WDI rows; not a prospective macroeconomic law |
-| `mathematics` | `OC133-TARGETBLIND-MATHEMATICS-001` | `1` | `0.0` | `11.0` | target-blind reconstruction of a finite proof-corpus aggregate; not a TOE truth proof or empirical law |
+| `mathematics` | `OC133-TARGETBLIND-MATHEMATICS-001` | `1` | `0.0` | `10.0` | not promoted as bounded support until source_manifest_binding_ok is true and certificate_binding_failure_total is zero; the row records a demotion boundary, not support |

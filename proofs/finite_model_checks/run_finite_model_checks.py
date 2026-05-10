@@ -100,6 +100,7 @@ def release_critical_source_refs() -> list[str]:
         "lakefile.lean",
         "lean-toolchain",
         "formal/lean/OC133V12.lean",
+        "formal/lean/OC133GrandPromotion.lean",
         "tools/materialize_oc_core_1_3_3_v12_closure.py",
         "tools/templates/OC133V12_hardened.lean",
         "tools/templates/run_finite_model_checks_hardened.py",
@@ -439,6 +440,15 @@ def run_live_lake_build() -> dict[str, Any]:
                 capture_output=True,
                 timeout=600,
             )
+            grand_completed = subprocess.run(
+                ["elan", "run", toolchain, "lake", "env", "lean", "formal/lean/OC133GrandPromotion.lean"],
+                cwd=clean_root,
+                text=True,
+                encoding="utf-8",
+                errors="replace",
+                capture_output=True,
+                timeout=240,
+            )
             post_build_lake = (clean_root / ".lake").exists()
     except Exception as exc:
         return {
@@ -451,20 +461,35 @@ def run_live_lake_build() -> dict[str, Any]:
             "post_build_lake_cache_created": False,
         }
     zero_job_cached = "0 jobs" in (completed.stdout or "")
-    returncode = 0 if completed.returncode == 0 and lean_version.returncode == 0 and lake_version.returncode == 0 and not zero_job_cached and not preexisting_lake and post_build_lake else 2
+    combined_stdout = (completed.stdout or "") + "\n" + (grand_completed.stdout or "")
+    combined_stderr = (completed.stderr or "") + "\n" + (grand_completed.stderr or "")
+    returncode = (
+        0
+        if completed.returncode == 0
+        and grand_completed.returncode == 0
+        and lean_version.returncode == 0
+        and lake_version.returncode == 0
+        and not zero_job_cached
+        and not preexisting_lake
+        and post_build_lake
+        else 2
+    )
     return {
         "execution_status": "EXECUTED_ISOLATED_CLEAN_BUILD" if returncode == 0 else "CLEAN_BUILD_FAILED_OR_CACHED",
         "returncode": returncode,
         "clean_returncode": 0,
         "build_returncode": completed.returncode,
+        "grand_promotion_lean_returncode": grand_completed.returncode,
         "zero_job_cached_build_detected": zero_job_cached,
         "clean_stdout_tail": "isolated temporary checkout created without .lake",
         "clean_stderr_tail": "",
-        "stdout_tail": normalize_build_transcript(completed.stdout[-2000:]),
-        "stderr_tail": normalize_build_transcript(completed.stderr[-2000:]),
+        "stdout_tail": normalize_build_transcript(combined_stdout[-2000:]),
+        "stderr_tail": normalize_build_transcript(combined_stderr[-2000:]),
         "preexisting_lake_cache_detected": preexisting_lake,
         "post_build_lake_cache_created": post_build_lake,
-        "build_transcript_sha256": hashlib.sha256(normalize_build_transcript((completed.stdout or "") + "\n" + (completed.stderr or "")).encode("utf-8")).hexdigest(),
+        "build_transcript_sha256": hashlib.sha256(
+            normalize_build_transcript(combined_stdout + "\n" + combined_stderr).encode("utf-8")
+        ).hexdigest(),
         "lean_version_observed": (lean_version.stdout + lean_version.stderr).strip(),
         "lake_version_observed": (lake_version.stdout + lake_version.stderr).strip(),
         "lean_version_canonical": canonical_lean_observation((lean_version.stdout + lean_version.stderr).strip()),
@@ -480,7 +505,7 @@ def declared_symbols(path: Path) -> set[str]:
 
 
 def theorem_reference_audit(inputs: dict[str, Any], lean_cert: dict[str, Any]) -> dict[str, Any]:
-    lean_symbols = declared_symbols(ROOT / "formal" / "lean" / "OC133V12.lean")
+    lean_symbol_cache: dict[str, set[str]] = {}
     runner_symbols = declared_symbols(Path(__file__))
     refs = set()
     for row in inputs.get("rows", []):
@@ -490,7 +515,8 @@ def theorem_reference_audit(inputs: dict[str, Any], lean_cert: dict[str, Any]) -
                 refs.add(str(value))
     for item in lean_cert.get("theorem_refs", []) or []:
         if isinstance(item, dict) and item.get("name"):
-            refs.add(f"formal/lean/OC133V12.lean::{item['name']}")
+            source_ref = str(item.get("source_ref") or "formal/lean/OC133V12.lean")
+            refs.add(f"{source_ref}::{item['name']}")
     missing = []
     bound = []
     for ref in sorted(refs):
@@ -501,8 +527,10 @@ def theorem_reference_audit(inputs: dict[str, Any], lean_cert: dict[str, Any]) -
                 missing.append({"ref": ref, "reason": "ARTIFACT_REF_NOT_FOUND"})
             continue
         path_ref, symbol = ref.split("::", 1)
-        if path_ref == "formal/lean/OC133V12.lean":
-            ok = symbol in lean_symbols
+        if path_ref.startswith("formal/lean/") and path_ref.endswith(".lean"):
+            if path_ref not in lean_symbol_cache:
+                lean_symbol_cache[path_ref] = declared_symbols(ROOT / path_ref)
+            ok = symbol in lean_symbol_cache[path_ref]
         elif path_ref == "proofs/finite_model_checks/run_finite_model_checks.py":
             ok = symbol in runner_symbols
         else:
@@ -521,7 +549,7 @@ def theorem_reference_audit(inputs: dict[str, Any], lean_cert: dict[str, Any]) -
 
 
 def classify_evidence_ref(ref: str) -> str:
-    if ref.startswith("formal/lean/OC133V12.lean::"):
+    if ref.startswith("formal/lean/") and ".lean::" in ref:
         return "lean_theorem_ref"
     if ref.startswith("proofs/finite_model_checks/run_finite_model_checks.py::"):
         return "semantic_evaluator_ref"
@@ -914,7 +942,7 @@ def lean_or_runner_ref_bound(ref: str) -> bool:
         path = ROOT / ref
         return path.exists()
     path_ref, symbol = ref.split("::", 1)
-    if path_ref == "formal/lean/OC133V12.lean":
+    if path_ref.startswith("formal/lean/") and path_ref.endswith(".lean"):
         return symbol in declared_symbols(ROOT / path_ref)
     if path_ref == "proofs/finite_model_checks/run_finite_model_checks.py":
         return symbol in declared_symbols(Path(__file__))

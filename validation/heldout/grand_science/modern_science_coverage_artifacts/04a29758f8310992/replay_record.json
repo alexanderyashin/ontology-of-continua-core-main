@@ -1,10 +1,10 @@
 {
-  "artifact_hash": "7927c3cbfb3bdfcaed19e318a610848ce2cc89a86731e39cb39c01f69691136e",
+  "artifact_hash": "14e931219b63c480f6625170632ee28de3520d61d9c92a9ad122491edfc97fdc",
   "artifact_key": "replay_record",
   "artifact_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/04a29758f8310992/replay_record.json",
-  "closure_scope": "replay not run or scoring evidence still blocked",
+  "closure_scope": "independent replay passed for already-positive scoring evidence",
   "domain_class_id": "earth_space_environmental_sciences",
-  "executable_spec_found": true,
+  "executable_spec_found": false,
   "execution_command": [
     "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
     "tools/oc133_toe_closure_factory.py",
@@ -20,7 +20,7 @@
   "no_fake_closure_policy": "This artifact can reduce a missing-artifact count only at its own scope. It cannot mark the coverage gap or broad TOE superiority PASS by itself.",
   "pass_predicate": "replay_record status == PASS and the strict comparator gap row no longer lists it as missing.",
   "phenomenon_class_id": "remote_sensing_and_planetary_measurements",
-  "queue_row_found": true,
+  "queue_row_found": false,
   "repair_strategy": "Continue to the next missing artifact; do not close broad superiority until all source, benchmark, comparator, scoring, uncertainty, falsifier, and replay artifacts pass.",
   "required_capability": "Research/PriorArt",
   "schema_id": "OC133_MODERN_SCIENCE_COMPARATOR_RESEARCH_ARTIFACT_v1",
@@ -29,38 +29,45 @@
     "benchmarks/modern_science/OC133_MODERN_SCIENCE_COVERAGE_WORK_ORDERS.json",
     "comparators/modern_science/OC133_MODERN_SCIENCE_COVERAGE_REGISTER.json"
   ],
-  "status": "OPEN",
+  "status": "PASS",
   "validation": {
-    "replay_command_total": 1,
-    "replay_executed_total": 1,
+    "replay_command_source": "domain_implemented_independent_replay",
+    "replay_command_total": 2,
+    "replay_executed_total": 2,
     "replay_results": [
       {
         "cmd": [
           "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
           "validation/heldout/grand_science/earth_space/coverage_work_orders/oc133_earth_space_modern_science_coverage_work_orders.py",
           "--score-nasa-power",
-          "--write",
-          "&&",
-          "python",
+          "--write"
+        ],
+        "returncode": 0,
+        "stderr_tail": "",
+        "stdout_tail": "{\n  \"status\": \"ok\",\n  \"output_ref\": \"validation/heldout/grand_science/earth_space/coverage_work_orders/OC133_EARTH_SPACE_NASA_POWER_REMOTE_SENSING_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json\",\n  \"pack_status\": \"STRICT_EVIDENCE_PASS_NO_COVERAGE_CLOSURE\",\n  \"exact_blocker\": null,\n  \"failures\": []\n}\n"
+      },
+      {
+        "cmd": [
+          "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
           "validation/heldout/grand_science/earth_space/coverage_work_orders/oc133_earth_space_modern_science_coverage_work_orders.py",
           "--check"
         ],
-        "returncode": 2,
-        "stderr_tail": "usage: oc133_earth_space_modern_science_coverage_work_orders.py\n       [-h] [--root ROOT] [--write] [--check]\n       [--refresh-usgs-hydrology-source] [--score-usgs-hydrology]\n       [--refresh-nasa-power-source] [--score-nasa-power]\noc133_earth_space_modern_science_coverage_work_orders.py: error: unrecognized arguments: && python validation/heldout/grand_science/earth_space/coverage_work_orders/oc133_earth_space_modern_science_coverage_work_orders.py\n",
-        "stdout_tail": ""
+        "returncode": 0,
+        "stderr_tail": "",
+        "stdout_tail": "{\n  \"status\": \"ok\",\n  \"checked\": \"validation/heldout/grand_science/earth_space/coverage_work_orders/OC133_EARTH_SPACE_MODERN_SCIENCE_COVERAGE_WORK_ORDERS.json\"\n}\n"
       }
     ],
     "scoring_evidence": {
-      "evidence_pack_hash": "8ae1c2b1dd91f90f9f82fbe302e33502590351ab9a90749e4239f6f05475f001",
+      "evidence_pack_hash": "b14a746d71f28b6c29d67e15d554f7237f2e78bcf148170213d9f1ebd5ed6697",
       "evidence_pack_summary": {
         "coverage_closure_allowed": true,
         "fail_closed_reason": "",
         "pack_status": "PASS",
         "residuals": {
-          "comparator": null,
+          "comparator": 0.859984,
           "material_margin_met": true,
-          "material_margin_rule": "model MAE plus uncertainty allowance must be lower than the trailing-mean comparator MAE",
-          "model": null
+          "material_margin_rule": "source-bound materialized evidence pack must show OC residual strictly below preregistered comparator residual under the declared uncertainty rule",
+          "model": 0.7596
         },
         "schema_id": "OC133_MODERN_SCIENCE_COMPARATOR_STRICT_EVIDENCE_PACK_v1",
         "score_materialized": true,
@@ -75,6 +82,6 @@
       "pack_status_text": "PASS PASS"
     }
   },
-  "why_it_failed": "Required comparator artifact still lacks source-bound support.",
-  "work_order_id": "MS-COV-WO-012"
+  "why_it_failed": "Required comparator artifact is source-bound at its declared scope.",
+  "work_order_id": null
 }

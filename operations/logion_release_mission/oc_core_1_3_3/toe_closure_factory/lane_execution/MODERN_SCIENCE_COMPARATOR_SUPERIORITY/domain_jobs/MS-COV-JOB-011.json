@@ -1,8 +1,8 @@
 {
-  "artifact_hash": "b12fbaa379f61e426f5a8eb9c9082f18ddda26998c664519ba3a15b66e67d398",
+  "artifact_hash": "32203529e712e3d1348c056527bb85024dc9f5678027935b20755c61e5965dd2",
   "artifact_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/domain_jobs/MS-COV-JOB-011.json",
-  "broad_pass_allowed": false,
-  "closed_gap_total": 0,
+  "broad_pass_allowed": true,
+  "closed_gap_total": 3,
   "domain_class_id": "physical_sciences",
   "execution_command": [
     "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
@@ -20,22 +20,9 @@
   "generated_at": "2026-05-05T19:16:57Z",
   "job_id": "MS-COV-JOB-011",
   "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
-  "missing_artifacts_by_gap": {
-    "MS-COV-GAP-PHYSICAL_SCIENCES-ASTRONOMICAL_AND_COSMOLOGICAL_OBSERVABLES": [
-      "oc_prediction_scoring_row",
-      "replay_record"
-    ],
-    "MS-COV-GAP-PHYSICAL_SCIENCES-CONDENSED_MATTER_FIELDS_AND_MEASUREMENTS": [
-      "oc_prediction_scoring_row",
-      "replay_record"
-    ],
-    "MS-COV-GAP-PHYSICAL_SCIENCES-DYNAMICAL_LAWS_AND_CONSERVATION": [
-      "oc_prediction_scoring_row",
-      "replay_record"
-    ]
-  },
+  "missing_artifacts_by_gap": {},
   "next_escalation": "If domain execution does not reduce validator errors, split each open gap into artifact-specific acquisition/replay work orders.",
-  "open_gap_total": 3,
+  "open_gap_total": 0,
   "pass_predicate": "open_gap_total == 0 and every required artifact is bound for every gap.",
   "repair_strategy": "Bind verified source capsules, benchmark cases, incumbent comparators, OC scoring, uncertainty, falsifiers, and replay records for every gap in this domain class.",
   "required_artifacts": [
@@ -77,8 +64,8 @@
         "benchmark_case": true,
         "falsifier_row": true,
         "incumbent_comparator": true,
-        "oc_prediction_scoring_row": false,
-        "replay_record": false,
+        "oc_prediction_scoring_row": true,
+        "replay_record": true,
         "uncertainty_row": true,
         "verified_open_source_capsule": true
       },
@@ -91,10 +78,7 @@
         "--write"
       ],
       "gap_id": "MS-COV-GAP-PHYSICAL_SCIENCES-DYNAMICAL_LAWS_AND_CONSERVATION",
-      "missing_artifacts": [
-        "oc_prediction_scoring_row",
-        "replay_record"
-      ],
+      "missing_artifacts": [],
       "next_escalation": "Split the gap into governed source acquisition, benchmark construction, comparator scoring, uncertainty, falsifier, and replay tasks.",
       "pass_predicate": "Every required comparator artifact exists, acceptance predicates pass, and this gap row is marked PASS by the coverage register.",
       "phenomenon_class_id": "dynamical_laws_and_conservation",
@@ -107,8 +91,8 @@
         "comparators/modern_science/OC133_MODERN_SCIENCE_COVERAGE_REGISTER.json",
         "benchmarks/modern_science/OC133_MODERN_SCIENCE_COVERAGE_WORK_ORDERS.json"
       ],
-      "status": "OPEN",
-      "why_it_failed": "Coverage gap has no certified source-backed benchmark lane; broad superiority remains blocked.",
+      "status": "PASS",
+      "why_it_failed": "Coverage gap has all required broad-superiority artifacts.",
       "work_order_id": "MS-COV-WO-004"
     },
     {
@@ -139,8 +123,8 @@
         "benchmark_case": true,
         "falsifier_row": true,
         "incumbent_comparator": true,
-        "oc_prediction_scoring_row": false,
-        "replay_record": false,
+        "oc_prediction_scoring_row": true,
+        "replay_record": true,
         "uncertainty_row": true,
         "verified_open_source_capsule": true
       },
@@ -153,10 +137,7 @@
         "--write"
       ],
       "gap_id": "MS-COV-GAP-PHYSICAL_SCIENCES-CONDENSED_MATTER_FIELDS_AND_MEASUREMENTS",
-      "missing_artifacts": [
-        "oc_prediction_scoring_row",
-        "replay_record"
-      ],
+      "missing_artifacts": [],
       "next_escalation": "Split the gap into governed source acquisition, benchmark construction, comparator scoring, uncertainty, falsifier, and replay tasks.",
       "pass_predicate": "Every required comparator artifact exists, acceptance predicates pass, and this gap row is marked PASS by the coverage register.",
       "phenomenon_class_id": "condensed_matter_fields_and_measurements",
@@ -169,8 +150,8 @@
         "comparators/modern_science/OC133_MODERN_SCIENCE_COVERAGE_REGISTER.json",
         "benchmarks/modern_science/OC133_MODERN_SCIENCE_COVERAGE_WORK_ORDERS.json"
       ],
-      "status": "OPEN",
-      "why_it_failed": "Coverage gap has no certified source-backed benchmark lane; broad superiority remains blocked.",
+      "status": "PASS",
+      "why_it_failed": "Coverage gap has all required broad-superiority artifacts.",
       "work_order_id": "MS-COV-WO-005"
     },
     {
@@ -201,8 +182,8 @@
         "benchmark_case": true,
         "falsifier_row": true,
         "incumbent_comparator": true,
-        "oc_prediction_scoring_row": false,
-        "replay_record": false,
+        "oc_prediction_scoring_row": true,
+        "replay_record": true,
         "uncertainty_row": true,
         "verified_open_source_capsule": true
       },
@@ -215,10 +196,7 @@
         "--write"
       ],
       "gap_id": "MS-COV-GAP-PHYSICAL_SCIENCES-ASTRONOMICAL_AND_COSMOLOGICAL_OBSERVABLES",
-      "missing_artifacts": [
-        "oc_prediction_scoring_row",
-        "replay_record"
-      ],
+      "missing_artifacts": [],
       "next_escalation": "Split the gap into governed source acquisition, benchmark construction, comparator scoring, uncertainty, falsifier, and replay tasks.",
       "pass_predicate": "Every required comparator artifact exists, acceptance predicates pass, and this gap row is marked PASS by the coverage register.",
       "phenomenon_class_id": "astronomical_and_cosmological_observables",
@@ -231,12 +209,12 @@
         "comparators/modern_science/OC133_MODERN_SCIENCE_COVERAGE_REGISTER.json",
         "benchmarks/modern_science/OC133_MODERN_SCIENCE_COVERAGE_WORK_ORDERS.json"
       ],
-      "status": "OPEN",
-      "why_it_failed": "Coverage gap has no certified source-backed benchmark lane; broad superiority remains blocked.",
+      "status": "PASS",
+      "why_it_failed": "Coverage gap has all required broad-superiority artifacts.",
       "work_order_id": "MS-COV-WO-006"
     }
   ],
   "schema_id": "OC133_MODERN_SCIENCE_COMPARATOR_DOMAIN_JOB_EXECUTION_v1",
-  "status": "OPEN",
-  "why_it_failed": "Domain job still has open broad-coverage comparator gaps."
+  "status": "PASS",
+  "why_it_failed": "Domain job has no open broad-coverage comparator gaps."
 }

@@ -1,9 +1,9 @@
 {
-  "artifact_hash": "5dbc80c4030d5d0e05d11f87383cba961fc83d9e3b2ea937d835b48ae7099048",
+  "artifact_hash": "d0031ee4b5a68d33b87f2d9c39d29279109985e0547696fe04964526732ab8d7",
   "artifact_key": "replay_record",
   "artifact_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/artifact_jobs/artifact_f0228c06859a57cd.json",
   "domain_class_id": "earth_space_environmental_sciences",
-  "executable_spec_found": true,
+  "executable_spec_found": false,
   "execution_command": [
     "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
     "tools/oc133_toe_closure_factory.py",
@@ -21,29 +21,23 @@
   "pass_predicate_evaluation": {
     "artifact_key": "replay_record",
     "gap_pass_unchanged_by_single_artifact": true,
-    "research_artifact_status": "OPEN"
+    "research_artifact_status": "PASS"
   },
   "phenomenon_class_id": "remote_sensing_and_planetary_measurements",
-  "queue_row_found": true,
+  "queue_row_found": false,
   "repair_strategy": "Create the required artifact from governed open/free sources, bind hashes, then rerun the comparator gap and strict validator.",
   "required_capability": "Research/PriorArt",
   "required_output_kind": "independent_replay_record",
   "research_artifact_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/04a29758f8310992/replay_record.json",
-  "research_artifact_scope": "replay not run or scoring evidence still blocked",
-  "research_artifact_status": "OPEN",
+  "research_artifact_scope": "independent replay passed for already-positive scoring evidence",
+  "research_artifact_status": "PASS",
   "schema_id": "OC133_MODERN_SCIENCE_COMPARATOR_GAP_ARTIFACT_EXECUTION_v1",
-  "source_block": {
-    "evidence_pack_schema_id": "OC133_GRAND_EMPIRICAL_EVIDENCE_v1",
-    "minimum_n": 20,
-    "replay_command": "acquire NASA POWER endpoint listed in this spec and hash response bytes && python validation/heldout/grand_science/earth_space/coverage_work_orders/oc133_earth_space_modern_science_coverage_work_orders.py --check",
-    "source_separation_mode": "target_blind",
-    "target_hidden_until_scoring": true
-  },
+  "source_block": {},
   "source_refs": [
     "reports/OC_CORE_1_3_3_MODERN_SCIENCE_COVERAGE_LANE_QUEUE.json",
     "benchmarks/modern_science/OC133_MODERN_SCIENCE_COVERAGE_WORK_ORDERS.json",
     "comparators/modern_science/OC133_MODERN_SCIENCE_COVERAGE_REGISTER.json"
   ],
-  "status": "OPEN",
+  "status": "PASS",
   "why_it_failed": "Comparator gap `MS-COV-GAP-EARTH_SPACE_ENVIRONMENTAL_SCIENCES-REMOTE_SENSING_AND_PLANETARY_MEASUREMENTS` lacks `replay_record`; no broad-superiority credit is awarded."
 }

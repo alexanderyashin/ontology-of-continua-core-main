@@ -1,7 +1,7 @@
 {
-  "artifact_hash": "560e8fdc833cc6f30726f4765524053da1e50f5f8f7b40372277de7b2796b045",
+  "artifact_hash": "751cb475e5db8bace1b29861127e56b30708657daa28d6a05392f05dfc636cdc",
   "fake_closure_policy": "A demoted, future-research, blocked, or missing-evidence row cannot count as TOE closure.",
-  "generated_at": "2026-05-07T17:54:41Z",
+  "generated_at": "2026-05-10T16:22:23Z",
   "open_work_order_total": 4,
   "r017_promotion_allowed": false,
   "release_id": "oc_core_1_3_3",
@@ -84,11 +84,10 @@
     },
     {
       "blocks_r017": true,
-      "claim_effect": "Lane remains bounded and cannot support final TOE until PASS.",
-      "closure_condition": "AI projection must add source-grounded AI claims, formal boundaries, benchmark/simulation evidence, comparator baselines, and falsifiers.",
+      "claim_effect": "External reasoning is not spent while deterministic blockers remain.",
+      "closure_condition": "Cerberus acceptance is PASS, LLM gate is PASS, and open defect findings are zero.",
       "evidence_required": [
         "claim_id",
-        "projection_id",
         "public_claim_scope",
         "theorem_or_formal_boundary_refs",
         "lean_refs",
@@ -105,29 +104,28 @@
         "--write"
       ],
       "fake_closure_rejected": true,
-      "finding_class": "AI_DOMAIN_TOE_PROJECTION_LANE",
-      "repair_strategy": "Execute the AI projection capability lane: inventory AI claims from the canonical corpus, bind formal boundaries and finite witnesses, add benchmark/simulation evidence, comparator baselines, and falsifier rows, then rewrite ai.json only when all required refs exist.",
-      "required_capability": "Research/AIProjection",
-      "research_route": "AI lane packetization -> proof/evidence/comparator/falsifier closure",
-      "root_cause_class": "MISSING_EXECUTABLE_AI_TOE_PROJECTION_SUPPORT",
+      "finding_class": "CERBERUS_RELEASE_REVIEW_GATE",
+      "repair_strategy": "Skip expensive Cerberus while deterministic science gates are red; after science PASS, refresh Cerberus targets/run/acceptance and clear open findings.",
+      "required_capability": "Review/Cerberus",
+      "research_route": "deterministic Cerberus blockers -> full Cerberus run -> clean acceptance certificate",
+      "root_cause_class": "STALE_OR_UNCLEAN_CERBERUS_SURFACE",
       "root_cause_evidence": [
-        "releases/oc_core_1_3/editorial/science_sources/toe_projection_lanes/ai.json::closure_verdict=FAIL_CLOSED",
-        "tools/oc133_toe_closure_factory.py::AI lane previously had no dedicated source-grounded capability"
+        "releases\\oc_core_1_3\\editorial\\OC_CORE_1_3_CERBERUS_ACCEPTANCE_CERT_latest.json",
+        "releases\\oc_core_1_3\\editorial\\OC_CORE_1_3_CERBERUS_REVIEW_FINDINGS_latest.json"
       ],
-      "severity": "HIGH",
-      "source_validator_message": "AI lane active closure obligation",
+      "severity": "CRITICAL",
+      "source_validator_message": "Cerberus acceptance certificate is not PASS.",
       "status": "OPEN",
-      "validator_binding": "validate_final_toe_projection_lanes",
-      "why_it_failed": "The AI lane is present, but it contains bounded future-research rows rather than dedicated PASS-grade claim, formal-boundary, evidence/simulation, comparator, and falsifier bindings.",
-      "work_order_id": "R017-TOE-LANE-AI-003"
+      "validator_binding": "tools/validate_oc_core_1_3_science_spot.py --require-final-toe-pass --require-cerberus-clean",
+      "why_it_failed": "Cerberus targets/run/acceptance fingerprints or open findings do not bind cleanly to the current repository state.",
+      "work_order_id": "R017-TOE-CLOSURE-003"
     },
     {
       "blocks_r017": true,
-      "claim_effect": "Lane remains bounded and cannot support final TOE until PASS.",
-      "closure_condition": "EA projection must add source-grounded architecture claims, operational metrics, architecture cases, comparator alternatives, and falsifiers.",
+      "claim_effect": "External reasoning is not spent while deterministic blockers remain.",
+      "closure_condition": "Cerberus acceptance is PASS, LLM gate is PASS, and open defect findings are zero.",
       "evidence_required": [
         "claim_id",
-        "projection_id",
         "public_claim_scope",
         "theorem_or_formal_boundary_refs",
         "lean_refs",
@@ -144,26 +142,26 @@
         "--write"
       ],
       "fake_closure_rejected": true,
-      "finding_class": "ENTERPRISE_ARCHITECTURE_DOMAIN_TOE_PROJECTION_LANE",
-      "repair_strategy": "Execute the EA projection capability lane: inventory EA claims from the canonical corpus, bind architecture cases and operational metrics, add comparator alternatives and falsifiers, then rewrite enterprise_architecture.json only when all required refs exist.",
-      "required_capability": "Research/EnterpriseArchitectureProjection",
-      "research_route": "ENTERPRISE_ARCHITECTURE lane packetization -> proof/evidence/comparator/falsifier closure",
-      "root_cause_class": "MISSING_EXECUTABLE_EA_TOE_PROJECTION_SUPPORT",
+      "finding_class": "CERBERUS_RELEASE_REVIEW_GATE",
+      "repair_strategy": "Skip expensive Cerberus while deterministic science gates are red; after science PASS, refresh Cerberus targets/run/acceptance and clear open findings.",
+      "required_capability": "Review/Cerberus",
+      "research_route": "deterministic Cerberus blockers -> full Cerberus run -> clean acceptance certificate",
+      "root_cause_class": "STALE_OR_UNCLEAN_CERBERUS_SURFACE",
       "root_cause_evidence": [
-        "releases/oc_core_1_3/editorial/science_sources/toe_projection_lanes/enterprise_architecture.json::closure_verdict=FAIL_CLOSED",
-        "tools/oc133_toe_closure_factory.py::EA lane previously had no dedicated source-grounded capability"
+        "releases\\oc_core_1_3\\editorial\\OC_CORE_1_3_CERBERUS_ACCEPTANCE_CERT_latest.json",
+        "releases\\oc_core_1_3\\editorial\\OC_CORE_1_3_CERBERUS_REVIEW_FINDINGS_latest.json"
       ],
-      "severity": "HIGH",
-      "source_validator_message": "ENTERPRISE_ARCHITECTURE lane active closure obligation",
+      "severity": "CRITICAL",
+      "source_validator_message": "Cerberus LLM gate is not PASS.",
       "status": "OPEN",
-      "validator_binding": "validate_final_toe_projection_lanes",
-      "why_it_failed": "The EA lane is present, but it contains bounded future-research rows rather than dedicated PASS-grade architecture cases, operational metrics, comparator alternatives, and falsifier bindings.",
-      "work_order_id": "R017-TOE-LANE-ENTERPRISE_ARCHITECTURE-004"
+      "validator_binding": "tools/validate_oc_core_1_3_science_spot.py --require-final-toe-pass --require-cerberus-clean",
+      "why_it_failed": "Cerberus targets/run/acceptance fingerprints or open findings do not bind cleanly to the current repository state.",
+      "work_order_id": "R017-TOE-CLOSURE-004"
     }
   ],
   "schema_id": "OC133_TOE_CLOSURE_OBLIGATIONS_v1",
   "status": "OPEN",
-  "validator_error_total": 2,
+  "validator_error_total": 4,
   "version": "1.3.3",
   "work_order_total": 4
 }

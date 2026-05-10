@@ -3,16 +3,17 @@
   "release_id": "oc_core_1_3_3",
   "version": "1.3.3",
   "requested_ambition_level": "numerically proven TOE across all domains and better than modern science",
-  "profile": "v12_grand_formal_science_research_program",
+  "profile": "v12_modern_science_comparator_research_program",
   "program_state": "RUNNING_SCIENTIFIC_BLOCKERS_REMAIN",
-  "all_domain_final_readiness_state": "OC_CORE_1_3_3_EXTERNAL_REVIEW_READY_NO_SEND",
+  "all_domain_final_readiness_state": "SCIENTIFIC_BLOCKERS_REMAIN",
   "all_domain_ready_no_send": false,
   "bounded_all_domain_ready_no_send": true,
   "blocker_ids": [
     "grand_toe_claim_ledger_evidence",
+    "grand_toe_empirical_superiority",
     "modern_science_comparator_superiority"
   ],
-  "selected_obligation_total": 2,
+  "selected_obligation_total": 3,
   "obligations": [
     {
       "obligation_id": "OC133-GRAND-FORMAL-001",
@@ -28,6 +29,23 @@
       ],
       "pass_predicate": "grand_toe_claim_ledger_evidence.state == PASS and release_promotion_allowed == true for the dedicated grand claim",
       "verification_command": "lake build OC133V12 && python proofs/finite_model_checks/run_finite_model_checks.py && python tools/oc133_logion_all_domain_readiness.py --write --allow-blocked-exit-zero",
+      "closure_rule": "This obligation may close only when the referenced evidence exists and release_machine.oc133_platinum re-audits the blocker check as PASS.",
+      "artifact_exists_is_not_closure": true,
+      "no_send": true
+    },
+    {
+      "obligation_id": "OC133-GRAND-EMPIRICAL-001",
+      "owner_capability": "Research/EmpiricalScience",
+      "title": "Produce strict per-domain predictive superiority evidence",
+      "blocker_check": "grand_toe_empirical_superiority",
+      "required_artifacts": [
+        "validation/heldout/ or validation/target_blind/::prospective or target-blind protocol",
+        "reports/OC_CORE_1_3_3_DOMAIN_VALIDATION_REPORT.json::broad-domain promotion evidence",
+        "per-domain snapshot hashes and replay hashes",
+        "per-domain comparator residuals, uncertainty, negative controls, and falsifiers"
+      ],
+      "pass_predicate": "every required domain passes strict predictive superiority against a comparator and explicitly allows grand-claim support",
+      "verification_command": "python validation/run_all.py --qa-only && python tools/oc133_logion_all_domain_readiness.py --write --allow-blocked-exit-zero",
       "closure_rule": "This obligation may close only when the referenced evidence exists and release_machine.oc133_platinum re-audits the blocker check as PASS.",
       "artifact_exists_is_not_closure": true,
       "no_send": true
@@ -110,60 +128,20 @@
     {
       "cmd": [
         "python",
-        "tools/oc133_grand_toe_formal_obligations.py",
+        "tools/oc133_modern_science_comparator_factory.py",
         "--write"
       ],
       "returncode": 0,
-      "stdout_tail": "AND-TOE-FORMAL-CURRENT-REJECT\",\n  \"negative_control_case_id\": \"FM-GRAND-TOE-FORMAL-MISSING-FINITE-REJECT\",\n  \"work_order_decomposition\": [\n    {\n      \"work_order_id\": \"OC133-GRAND-FORMAL-WO-001\",\n      \"title\": \"Create a dedicated promoted grand TOE/all-domain claim row only if the grand claim is actually intended for promotion.\",\n      \"acceptance\": \"Claim row has release_promotion_allowed=true, scientific_promotion_allowed=true, public_status promoted, and explicit theorem/proof/Lean/finite refs.\"\n    },\n    {\n      \"work_order_id\": \"OC133-GRAND-FORMAL-WO-002\",\n      \"title\": \"Bind theorem inventory and proof sheet IDs for the dedicated grand claim.\",\n      \"acceptance\": \"The promoted row names theorem IDs distinct from the bounded v12 theorem rows and cites proof sheets with assumptions and falsifier boundaries.\"\n    },\n    {\n      \"work_order_id\": \"OC133-GRAND-FORMAL-WO-003\",\n      \"title\": \"Add Lean theorem obligations for the grand claim itself.\",\n      \"acceptance\": \"Lean contains theorem IDs proving the promoted grand statement, not only the non-promotion gate or bounded tuple classifiers.\"\n    },\n    {\n      \"work_order_id\": \"OC133-GRAND-FORMAL-WO-004\",\n      \"title\": \"Add executable finite positive and negative cases for the dedicated grand claim.\",\n      \"acceptance\": \"Finite rows include positive witness IDs and mutation/negative controls; missing finite IDs keep promotion rejected.\"\n    },\n    {\n      \"work_order_id\": \"OC133-GRAND-FORMAL-WO-005\",\n      \"title\": \"Re-audit with Logion all-domain readiness after empirical and modern-science comparator blockers are separately closed.\",\n      \"acceptance\": \"grand_toe_claim_ledger_evidence, grand_toe_empirical_superiority, and modern_science_comparator_superiority all re-audit PASS without no-send unlock.\"\n    }\n  ],\n  \"no_send\": true,\n  \"publish_allowed\": false,\n  \"journal_submissions_allowed\": false,\n  \"claim_ledger_sha256_after_update\": \"7a8d8e9001d9a29f0e659c1164f53551f1e23e1fd57050dfc2f568ab600b56a5\"\n}\n",
-      "stderr_tail": ""
-    },
-    {
-      "cmd": [
-        "lake",
-        "build",
-        "OC133V12"
-      ],
-      "returncode": 0,
-      "stdout_tail": "Build completed successfully (3 jobs).\n",
+      "stdout_tail": "modern science comparator register/report materialized; broad superiority state=FAIL\n",
       "stderr_tail": ""
     },
     {
       "cmd": [
         "python",
-        "tools/oc133_refresh_lean_certificate.py"
+        "benchmarks/modern_science/validate_modern_science_register.py"
       ],
       "returncode": 0,
-      "stdout_tail": "{\n  \"schema_id\": \"OC133_LEAN_CERTIFICATE_REFRESH_RESULT_v1\",\n  \"release_id\": \"oc_core_1_3_3\",\n  \"version\": \"1.3.3\",\n  \"certificate_ref\": \"formal/lean/LEAN_BUILD_CERTIFICATE_1_3_3.json\",\n  \"returncode\": 0,\n  \"theorem_ref_missing_total\": 0,\n  \"clean_source_manifest_sha256\": \"c85b94f008bd85d2fc61fa880e88996aa33ab2aba3395aea939d8f0cce8641c6\",\n  \"generated_artifact_manifest_sha256\": \"3340c462439144af0ccc20e48a7ae7653211ee77b93fccebc8f379ce344b728a\",\n  \"no_send\": true,\n  \"publish_allowed\": false,\n  \"journal_submissions_allowed\": false\n}\n",
-      "stderr_tail": ""
-    },
-    {
-      "cmd": [
-        "python",
-        "proofs/finite_model_checks/run_finite_model_checks.py"
-      ],
-      "returncode": 0,
-      "stdout_tail": "nd_toe_complete_formal_obligations_accept_control\",\n          \"formal/lean/OC133V12.lean::grand_toe_current_artifact_class_cannot_promote\",\n          \"formal/lean/OC133V12.lean::grand_toe_current_artifact_class_missing_dedicated_claim\",\n          \"formal/lean/OC133V12.lean::grand_toe_missing_finite_cases_blocks_promotion\",\n          \"formal/lean/OC133V12.lean::grand_toe_missing_theorem_proof_mapping_blocks_promotion\",\n          \"formal/lean/OC133V12.lean::grand_toe_missing_lean_mapping_blocks_promotion\",\n          \"formal/lean/OC133V12.lean::grand_toe_missing_finite_case_mapping_blocks_promotion\",\n          \"formal/lean/OC133V12.lean::grand_toe_missing_claim_ledger_boundary_blocks_promotion\"\n        ],\n        \"required_finite_case_ids\": [\n          \"FM-GRAND-TOE-FORMAL-CURRENT-REJECT\",\n          \"FM-GRAND-TOE-FORMAL-HYPOTHETICAL-ACCEPT\",\n          \"FM-GRAND-TOE-FORMAL-MISSING-FINITE-REJECT\"\n        ],\n        \"proof_sheet_refs\": [\n          \"proofs/proof_sheets/GRAND_TOE_FORMAL_BLOCKER.md\"\n        ],\n        \"formal_gate_vector\": {\n          \"dedicated_claim_row\": true,\n          \"release_promotion_allowed\": true,\n          \"scientific_promotion_allowed\": true,\n          \"public_status_promoted\": true,\n          \"promotion_theorem_ids_bound\": true,\n          \"proof_sheet_refs_bound\": true,\n          \"lean_theorem_ids_bound\": true,\n          \"finite_case_ids_bound\": false,\n          \"unsupported_promoted_total_zero\": true\n        },\n        \"failed_gate_predicates\": [\n          \"finite_case_ids_bound\"\n        ],\n        \"grand_claims_missing_formal_artifacts\": [\n          \"OC133-GRAND-TOE-HYPOTHETICAL-PROMOTION\"\n        ],\n        \"machine_proved_nonpromotion\": false,\n        \"blocker_reason\": \"Current artifact class lacks a dedicated promoted grand TOE/all-domain claim row with bound theorem/proof/Lean/finite obligations.\"\n      },\n      \"observed_verdict\": \"REJECT_PROMOTION\",\n      \"effective_expected_verdict\": \"REJECT_PROMOTION\",\n      \"passed\": true\n    }\n  ]\n}\n",
-      "stderr_tail": ""
-    },
-    {
-      "cmd": [
-        "lake",
-        "env",
-        "lean",
-        "formal/lean/OC133GrandPromotion.lean"
-      ],
-      "returncode": 0,
-      "stdout_tail": "",
-      "stderr_tail": ""
-    },
-    {
-      "cmd": [
-        "python",
-        "tools/oc133_grand_promotion_contract.py",
-        "--write"
-      ],
-      "returncode": 0,
-      "stdout_tail": "grand promotion contract materialized; verdict=BLOCKED\n",
+      "stdout_tail": "modern science register: benchmark-scoped strict-pack baselines pass; broad modern-science superiority remains blocked\n",
       "stderr_tail": ""
     }
   ],
@@ -299,7 +277,7 @@
       "blocker": "TOE/all-domain promotion requires a dedicated promoted claim-ledger row bound to theorem, proof, Lean, and finite evidence. The current artifact class is machine-proved non-promotable when the formal obligation layer reports CURRENT_ARTIFACT_CLASS_CANNOT_PROMOTE."
     },
     "grand_toe_empirical_superiority": {
-      "state": "PASS",
+      "state": "FAIL",
       "requested_ambition_level": "numerically proven TOE across all domains and better than modern science",
       "required_domains": [
         "physics",
@@ -368,8 +346,8 @@
         },
         "biology": {
           "source": "strict_grand_empirical_report_selected_valid_packs",
-          "domain_status": "EVIDENCE_SUFFICIENT_PENDING_REVIEW",
-          "empirical_domain_support_allowed": true,
+          "domain_status": "BLOCKED",
+          "empirical_domain_support_allowed": false,
           "grand_toe_support_allowed": false,
           "grand_toe_support_scope": "false at the empirical gate; TOE/final/broad modern-science promotion is audited only by the formal grand-claim and modern-science comparator gates",
           "valid_pack_total": 1,
@@ -393,7 +371,7 @@
             "OC133-TARGETBLIND-BIOLOGY-001"
           ],
           "bounded_baseline_row_total": 1,
-          "passes_strict_predictive_superiority": true
+          "passes_strict_predictive_superiority": false
         },
         "systems": {
           "source": "strict_grand_empirical_report_selected_valid_packs",
@@ -425,12 +403,14 @@
           "passes_strict_predictive_superiority": true
         }
       },
-      "missing_or_not_superior_domains": [],
+      "missing_or_not_superior_domains": [
+        "biology"
+      ],
       "grand_empirical_report_ref": "reports/OC_CORE_1_3_3_GRAND_EMPIRICAL_REPORT.json",
       "grand_empirical_report_exists": true,
-      "grand_empirical_verdict": "EMPIRICAL_DOMAIN_SUPPORT_ALLOWED",
-      "empirical_domain_support_allowed": true,
-      "empirical_domain_predictive_superiority_supported": true,
+      "grand_empirical_verdict": "BLOCKED_PENDING_GENUINE_PER_DOMAIN_EVIDENCE",
+      "empirical_domain_support_allowed": false,
+      "empirical_domain_predictive_superiority_supported": false,
       "grand_empirical_support_allowed": false,
       "grand_empirical_support_scope": "false at the empirical gate; empirical-domain support is not TOE/final-theory promotion and does not claim broad modern-science superiority",
       "grand_empirical_domain_predictive_superiority_supported": false,
@@ -438,8 +418,8 @@
       "final_theory_or_toe_promotion_allowed": false,
       "broad_modern_science_coverage_promotion_allowed": false,
       "modern_science_superiority_promotion_allowed": false,
-      "grand_empirical_blocked_domain_total": 0,
-      "grand_empirical_blocked_empirical_domain_total": 0,
+      "grand_empirical_blocked_domain_total": 1,
+      "grand_empirical_blocked_empirical_domain_total": 1,
       "grand_empirical_evidence_pack_total": 19,
       "grand_empirical_valid_evidence_pack_total": 4,
       "grand_empirical_required_domains": [
@@ -465,18 +445,19 @@
         }
       ],
       "grand_empirical_supported_domains": [
-        "biology",
         "chemistry",
         "physics",
         "systems"
       ],
-      "grand_empirical_missing_domains": [],
+      "grand_empirical_missing_domains": [
+        "biology"
+      ],
       "grand_empirical_domain_results": {
         "biology": {
           "domain": "biology",
           "candidate_pack_total": 5,
-          "current_candidate_pack_total": 1,
-          "superseded_candidate_pack_total": 4,
+          "current_candidate_pack_total": 2,
+          "superseded_candidate_pack_total": 3,
           "registered_pack_total": 1,
           "discovered_pack_total": 5,
           "valid_pack_total": 1,
@@ -486,8 +467,7 @@
           "superseded_pack_refs": [
             "validation/heldout/grand_science/biology/ncbi_batch/OC133_BIOLOGY_NCBI_BATCH_CANDIDATE_PACK.json",
             "validation/heldout/acquisition_plans/biology_systems/biology_candidate_pack_template.json",
-            "validation/heldout/grand_science/biology/ncbi_benchmark/OC133_BIOLOGY_NCBI_BENCHMARK_CANDIDATE_PACK.json",
-            "validation/heldout/grand_science/biology_systems/biology_candidate_evidence_pack.json"
+            "validation/heldout/grand_science/biology/ncbi_benchmark/OC133_BIOLOGY_NCBI_BENCHMARK_CANDIDATE_PACK.json"
           ],
           "valid_n": 30,
           "minimum_n": 20,
@@ -496,12 +476,14 @@
           "bounded_baseline_refs": [
             "OC133-TARGETBLIND-BIOLOGY-001"
           ],
-          "empirical_domain_support_allowed": true,
-          "empirical_domain_predictive_superiority_supported": true,
+          "empirical_domain_support_allowed": false,
+          "empirical_domain_predictive_superiority_supported": false,
           "grand_toe_support_allowed": false,
           "grand_toe_support_scope": "false at the empirical gate; TOE/final/broad modern-science promotion is audited only by the formal grand-claim and modern-science comparator gates",
-          "status": "EVIDENCE_SUFFICIENT_PENDING_REVIEW",
-          "blockers": []
+          "status": "BLOCKED",
+          "blockers": [
+            "CANDIDATE_EVIDENCE_PACKS_INVALID::1"
+          ]
         },
         "chemistry": {
           "domain": "chemistry",
@@ -675,7 +657,7 @@
       "superiority_claim_allowed": false,
       "failure_total": 0,
       "superiority_certified_total": 0,
-      "blocked_superiority_total": 1,
+      "blocked_superiority_total": 4,
       "certified_domains": [],
       "missing_certified_domains": [
         "physics",
@@ -691,7 +673,7 @@
       "stronger_grand_science_evidence_exists": false,
       "stronger_evidence_components": {
         "claim_ledger": false,
-        "empirical_superiority": true,
+        "empirical_superiority": false,
         "modern_science_comparator": false
       },
       "bounded_readiness_data_visible_not_final": true,

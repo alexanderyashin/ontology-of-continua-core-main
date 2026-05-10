@@ -757,7 +757,7 @@ def bounded_biology_pagination_or_template_row(row: dict[str, Any]) -> bool:
         return False
     target_row_total = row.get("biology_target_row_total")
     if isinstance(target_row_total, int) and target_row_total > 0:
-        return any(failure.startswith("BIOLOGY_TARGET_KIND_IS_API_PAGINATION") for failure in failures)
+        return pagination_failure
     return True
 
 

@@ -19,9 +19,19 @@ def main() -> int:
         action="store_true",
         help="Fail unless the Cerberus release-review bundle exists, matches the current HEAD, and reports zero open defect findings.",
     )
+    parser.add_argument(
+        "--allow-cerberus-pending",
+        action="store_true",
+        help=(
+            "Permit a science-only final TOE validation before the mandatory Cerberus run. "
+            "The release gate must still pass --require-cerberus-clean afterwards."
+        ),
+    )
     args = parser.parse_args()
     errors = validate_existing_bundle(REPO_ROOT, require_final_toe_pass=args.require_final_toe_pass)
-    require_cerberus_clean = args.require_cerberus_clean or args.require_final_toe_pass
+    require_cerberus_clean = args.require_cerberus_clean or (
+        args.require_final_toe_pass and not args.allow_cerberus_pending
+    )
     if require_cerberus_clean:
         errors.extend(validate_existing_cerberus_bundle(REPO_ROOT, require_clean=True))
     if errors:

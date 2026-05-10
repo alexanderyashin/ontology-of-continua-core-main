@@ -275,7 +275,17 @@ where \(I_X\) is the declared nonempty finite test interval for \(X\) and
 \(\mathsf{Kill}_X(\varphi)\) denote, respectively, the route-local
 declared domain, declared codomain, operator-admissibility guard,
 identity-preservation predicate, and active falsifier predicate recorded in the
-proof-obligation sheet for the tested claim:
+proof-obligation sheet for the tested claim. Formally, for this local test
+\(\mathsf{Guard}_X:\mathrm{Op}_X\times\mathrm{Obj}_X\times\mathrm{Obj}_X
+\to\{0,1\}\) is the declared operator-wellformedness and admissibility guard,
+\(\mathsf{IdPres}_X:\mathrm{IdWit}_X\to\{0,1\}\) records whether the named
+identity witness preserves the live continuum identity claimed by the route,
+and \(\mathsf{Kill}_X:\mathrm{Fals}_X\to\{0,1\}\) records whether the named
+falsifier is active against the route. These are not hidden global axioms:
+they are explicit route-local entries in the proof-obligation and hostile-test
+surface described in Appendix~\ref{sec:oc13-proof-machinery-appendix}. If any
+of the three maps is undeclared for the tested claim, the corresponding atom is
+not satisfied:
 \[
 \begin{aligned}
 X\models\mathsf{Adm}(\omega) &\Longleftrightarrow

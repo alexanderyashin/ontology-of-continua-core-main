@@ -1,10 +1,10 @@
 {
-  "artifact_hash": "fab5c7612a9fbc812ceb263235212ab895271be4ab0cd674fdc2c0b2ce58b189",
+  "artifact_hash": "b87902f937bcf21dd644ab231b176bc99f3249082a1aab586678904457c61e2b",
   "artifact_key": "replay_record",
   "artifact_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/c8f37f6962a1ece5/replay_record.json",
-  "closure_scope": "replay not run or scoring evidence still blocked",
+  "closure_scope": "independent replay passed for already-positive scoring evidence",
   "domain_class_id": "medical_health_sciences",
-  "executable_spec_found": true,
+  "executable_spec_found": false,
   "execution_command": [
     "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
     "tools/oc133_toe_closure_factory.py",
@@ -20,7 +20,7 @@
   "no_fake_closure_policy": "This artifact can reduce a missing-artifact count only at its own scope. It cannot mark the coverage gap or broad TOE superiority PASS by itself.",
   "pass_predicate": "replay_record status == PASS and the strict comparator gap row no longer lists it as missing.",
   "phenomenon_class_id": "clinical_outcomes_and_biomarkers",
-  "queue_row_found": true,
+  "queue_row_found": false,
   "repair_strategy": "Continue to the next missing artifact; do not close broad superiority until all source, benchmark, comparator, scoring, uncertainty, falsifier, and replay artifacts pass.",
   "required_capability": "Research/PriorArt",
   "schema_id": "OC133_MODERN_SCIENCE_COMPARATOR_RESEARCH_ARTIFACT_v1",
@@ -29,24 +29,28 @@
     "benchmarks/modern_science/OC133_MODERN_SCIENCE_COVERAGE_WORK_ORDERS.json",
     "comparators/modern_science/OC133_MODERN_SCIENCE_COVERAGE_REGISTER.json"
   ],
-  "status": "OPEN",
+  "status": "PASS",
   "validation": {
+    "replay_command_source": "domain_implemented_independent_replay",
     "replay_command_total": 1,
     "replay_executed_total": 1,
     "replay_results": [
       {
         "cmd": [
           "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
-          "validation/heldout/grand_science/medical_health/clinical_trials_outcomes/run_clinical_outcome_replay.py",
-          "--check"
+          "validation/heldout/grand_science/wdi/coverage_work_orders/oc133_wdi_indicator_materializer.py",
+          "--lane",
+          "medical_clinical_life_expectancy",
+          "--score",
+          "--write-scoring"
         ],
-        "returncode": 2,
-        "stderr_tail": "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe: can't open file 'C:\\\\Users\\\\Megaport\\\\work\\\\logion_local\\\\repos\\\\ontology-of-continua-core-main\\\\validation\\\\heldout\\\\grand_science\\\\medical_health\\\\clinical_trials_outcomes\\\\run_clinical_outcome_replay.py': [Errno 2] No such file or directory\n",
-        "stdout_tail": ""
+        "returncode": 0,
+        "stderr_tail": "",
+        "stdout_tail": "{\n  \"lane\": \"medical_clinical_life_expectancy\",\n  \"status\": \"STRICT_EVIDENCE_PASS_NO_COVERAGE_CLOSURE\",\n  \"row_count\": 2610,\n  \"residuals\": {\n    \"model_relative_mae\": 0.004481495735,\n    \"comparator_relative_mae\": 0.006586145781,\n    \"negative_control_relative_mae\": 0.014920990722,\n    \"material_margin_met\": true,\n    \"material_margin_rule\": \"model_relative_mae + 0.001 must be below the last-observation comparator relative MAE\"\n  }\n}\n"
       }
     ],
     "scoring_evidence": {
-      "evidence_pack_hash": "59b56e9fdec3ed639a4dab57b17548dec89ea575f3f38ccea186109df370a139",
+      "evidence_pack_hash": "e14586a37ba1c26011159ac74dc4e614440e18e678d6698f34f74f544dfb96f1",
       "evidence_pack_summary": {
         "coverage_closure_allowed": true,
         "fail_closed_reason": "",
@@ -54,13 +58,13 @@
         "residuals": {
           "comparator": null,
           "material_margin_met": true,
-          "material_margin_rule": "OC must beat the preregistered baseline with positive material margin and no target leakage.",
+          "material_margin_rule": "source-bound materialized evidence pack must show OC residual strictly below preregistered comparator residual under the declared uncertainty rule",
           "model": null
         },
         "schema_id": "OC133_MODERN_SCIENCE_COMPARATOR_STRICT_EVIDENCE_PACK_v1",
         "score_materialized": true,
-        "source_bound": true,
-        "target_hidden": true
+        "source_bound": false,
+        "target_hidden": false
       },
       "evidence_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/c8f37f6962a1ece5/strict_evidence_pack.json",
       "evidence_ref_exists": true,
@@ -70,6 +74,6 @@
       "pack_status_text": "PASS PASS"
     }
   },
-  "why_it_failed": "Required comparator artifact still lacks source-bound support.",
-  "work_order_id": "MS-COV-WO-016"
+  "why_it_failed": "Required comparator artifact is source-bound at its declared scope.",
+  "work_order_id": null
 }

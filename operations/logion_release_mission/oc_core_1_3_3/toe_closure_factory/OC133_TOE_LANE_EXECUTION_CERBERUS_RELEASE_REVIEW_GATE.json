@@ -1,0 +1,74 @@
+{
+  "after_cerberus_error_total": 7,
+  "after_science_error_total": 0,
+  "artifact_hash": "9a6a50022e90f4d4fc84ee8e5146a9a04c68061f249ad7224bcf3f47c6c9af08",
+  "before_cerberus_error_total": 7,
+  "before_science_error_total": 0,
+  "closure_condition": "Cerberus targets/run/acceptance fingerprints bind to current HEAD, acceptance PASS, LLM gate PASS, and open defect findings zero.",
+  "command_results": [
+    {
+      "cmd": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "tools/run_oc_core_1_3_cerberus_review.py",
+        "--codex-model",
+        "gpt-5.4-mini",
+        "--llm-workers",
+        "1",
+        "--llm-batch-max-chars",
+        "6000",
+        "--llm-timeout-seconds",
+        "300",
+        "--build-mode",
+        "full"
+      ],
+      "returncode": 124,
+      "stderr_tail": "timeout",
+      "stdout_tail": ""
+    }
+  ],
+  "execution_command": [
+    "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+    "tools/run_oc_core_1_3_cerberus_review.py",
+    "--codex-model",
+    "gpt-5.4-mini",
+    "--llm-workers",
+    "1",
+    "--llm-batch-max-chars",
+    "6000",
+    "--llm-timeout-seconds",
+    "300",
+    "--build-mode",
+    "full"
+  ],
+  "execution_state": "EXECUTED",
+  "finding_class": "CERBERUS_RELEASE_REVIEW_GATE",
+  "generated_at": "2026-05-10T12:34:27Z",
+  "lane_id": "CERBERUS_RELEASE_REVIEW_GATE",
+  "lane_result": {
+    "closure_verdict": "FAIL_CLOSED",
+    "final_toe_support_allowed": false,
+    "finding_total": 2,
+    "findings": [
+      "Cerberus acceptance certificate is not PASS",
+      "Cerberus LLM gate is not PASS"
+    ],
+    "lane_id": "CERBERUS_RELEASE_REVIEW_GATE",
+    "lane_type": "review_gate",
+    "open_defect_total": 0,
+    "source_refs": [
+      "releases\\oc_core_1_3\\editorial\\OC_CORE_1_3_CERBERUS_ACCEPTANCE_CERT_latest.json",
+      "releases\\oc_core_1_3\\editorial\\OC_CORE_1_3_CERBERUS_REVIEW_FINDINGS_latest.json"
+    ],
+    "status": "FAIL"
+  },
+  "next_escalation": "Use generated lane artifacts and subwork orders to close source gaps; rerun strict final TOE validator.",
+  "no_fake_closure_policy": "Stale fingerprints or skipped LLM gate cannot count as clean Cerberus.",
+  "owner_capability": "Review/Cerberus",
+  "pass_predicate": "Cerberus acceptance PASS, LLM gate PASS, and open defect findings == 0",
+  "repair_strategy": "Cerberus targets/run/acceptance fingerprints bind to current HEAD, acceptance PASS, LLM gate PASS, and open defect findings zero.",
+  "required_capability": "Review/Cerberus",
+  "status": "FAIL_CLOSED",
+  "validator_binding": "validate_existing_cerberus_bundle(require_clean=True)",
+  "validator_error_delta": 0,
+  "why_it_failed": "Cerberus acceptance certificate is not PASS; Cerberus LLM gate is not PASS"
+}

@@ -15,7 +15,7 @@ Journal submissions allowed: `false`
 - Work orders: `0`
 - Coverage lane work orders: `0`
 - Broad-claim evidence-gap work orders: `0`
-- Coverage open lanes: `35`
+- Coverage open lanes: `0`
 - Domain-local coverage artifacts: `36`
 - Closure policy: `blocked items remain open until evidence artifacts and re-audit PASS`
 

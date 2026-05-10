@@ -1,5 +1,5 @@
 % Generated from OC_CORE_1_3_SCIENCE_SPOT_latest.json
-SPOT revision: repo SHA \occode{9d95428f16975d809a2bad52ac29c202941d17a0}; timestamp \occode{2026-05-08T14:40:24Z}.
+SPOT revision: repo SHA \occode{88ed32cebdc943062957cc89764b5b53844b78ad}; timestamp \occode{2026-05-10T16:17:20Z}.
 The evidence bar is now locked to the canonical SPOT rather than to drifting summary surfaces. The mathematics anchor is replay-only: it requires deterministic exact replay rather than a data-backed benchmark route. The empirical domain lanes require held-out results that clear the declared five-sigma bar without tail-breach inflation. Residual containment by itself is not enough for promotion.
 
 \subsection{Global evidence bar}
@@ -18,11 +18,11 @@ Domain & Wave & Evidence bar & Held-out policy & Replay command & Replay status 
 Domain & Wave & Evidence bar & Held-out policy & Replay command & Replay status & Closure verdict \\
 \midrule
 \endhead
-Mathematics & \occode{WAVE_0_ANCHOR} & \occode{HYBRID_ESCALATION} & \occode{DETERMINISTIC_COUNTEREXAMPLE_AND_TRACE_REPLAY} & \occode{validation/mathematics/replay.py} & \occode{PASS_REPLAYABLE} & \occode{PASS} \\
-Physics & \occode{WAVE_1_PHYSICS} & \occode{HYBRID_ESCALATION} & \occode{LEAVE_ONE_BENCHMARK_FAMILY_OUT} & \occode{validation/physics/replay.py} & \occode{PASS_REPLAYABLE} & \occode{PASS} \\
-Chemistry & \occode{WAVE_2_CHEMISTRY} & \occode{HYBRID_ESCALATION} & \occode{HOLD_OUT_ONE_COMPOUND_OR_REACTION_CLASS} & \occode{validation/chemistry/replay.py} & \occode{PASS_REPLAYABLE} & \occode{PASS} \\
-Biology & \occode{WAVE_3_BIOLOGY} & \occode{HYBRID_ESCALATION} & \occode{RESERVE_ONE_DATASET_FAMILY_PER_SIGNATURE_CLASS} & \occode{validation/biology/replay.py} & \occode{PASS_REPLAYABLE} & \occode{PASS} \\
-Systems / Civilizational projection & \occode{WAVE_4_SYSTEMS} & \occode{HYBRID_ESCALATION} & \occode{HELD_OUT_INTERVAL_REPLAY_WITH_TURNING_POINT_CHECKS} & \occode{validation/systems/replay.py} & \occode{PASS_REPLAYABLE} & \occode{PASS} \\
+Mathematics & \occode{WAVE_0_ANCHOR} & \occode{HYBRID_ESCALATION} & \occode{DETERMINISTIC_COUNTEREXAMPLE_AND_TRACE_REPLAY} & \occode{run_claim_simulations_v1.py} & \occode{PASS_REPLAYABLE} & \occode{PASS} \\
+Physics & \occode{WAVE_1_PHYSICS} & \occode{HYBRID_ESCALATION} & \occode{LEAVE_ONE_BENCHMARK_FAMILY_OUT} & \occode{run_oc_core_domain_hard_closure_replay_v1.py --domain-id PHYSICS} & \occode{PASS_REPLAYABLE} & \occode{PASS} \\
+Chemistry & \occode{WAVE_2_CHEMISTRY} & \occode{HYBRID_ESCALATION} & \occode{HOLD_OUT_ONE_COMPOUND_OR_REACTION_CLASS} & \occode{run_oc_core_domain_hard_closure_replay_v1.py --domain-id CHEMISTRY} & \occode{PASS_REPLAYABLE} & \occode{PASS} \\
+Biology & \occode{WAVE_3_BIOLOGY} & \occode{HYBRID_ESCALATION} & \occode{RESERVE_ONE_DATASET_FAMILY_PER_SIGNATURE_CLASS} & \occode{run_oc_core_domain_hard_closure_replay_v1.py --domain-id BIOLOGY} & \occode{PASS_REPLAYABLE} & \occode{PASS} \\
+Systems / Civilizational projection & \occode{WAVE_4_SYSTEMS} & \occode{HYBRID_ESCALATION} & \occode{HELD_OUT_INTERVAL_REPLAY_WITH_TURNING_POINT_CHECKS} & \occode{run_oc_core_domain_hard_closure_replay_v1.py --domain-id SYSTEMS_CIVILIZATIONAL_PROJECTION} & \occode{PASS_REPLAYABLE} & \occode{PASS} \\
 \bottomrule
 \end{longtable}
 \endgroup
@@ -52,7 +52,7 @@ Closure phase: \occode{PHASE_1_STABILIZE_CLOSED_CORE}. Launch rule: \occode{MAIN
 Pinned route institutions: Clay Mathematics Institute, \allowbreak American Institute of Mathematics.
 Held-out policy: \occode{DETERMINISTIC_COUNTEREXAMPLE_AND_TRACE_REPLAY}, with minimum cases \occode{31}.
 Quantitative gate: minimum cases 31; strictly terminalized cases at least 31; counterexample survivors capped at 0; replay divergences capped at 0.
-Replay harness: \occode{validation/mathematics/replay.py}.
+Replay harness: \occode{logion/k7/spe/orchestrator/science/run_claim_simulations_v1.py}.
 Institute-run trigger: \occode{ONLY_IF_DETERMINISTIC_REPLAY_BREAKS}. Measurement wave: \occode{NONE}.
 Open gaps: none.
 Escalation plan: Expand the exact-question corpus rather than broadening outward claims when a replay gap appears.
@@ -63,7 +63,7 @@ Closure phase: \occode{PHASE_3_PHYSICS_CLOSURE}. Launch rule: \occode{START_IMME
 Pinned route institutions: NIST, \allowbreak U.S. Department of Energy Office of Science.
 Held-out policy: \occode{LEAVE_ONE_BENCHMARK_FAMILY_OUT}, with minimum cases \occode{30}.
 Quantitative gate: minimum cases 30; coverage ratio 1.0; mean absolute normalized error at or below 1.0 sigma; 95th-percentile normalized error at or below 2.5 sigma; maximum normalized error at or below 5.0 sigma; tail breaches capped at 0; critical residual threshold 2.5 sigma; severe residual threshold 1.5 sigma.
-Replay harness: \occode{validation/physics/replay.py}.
+Replay harness: \occode{logion/k7/spe/orchestrator/science/run_oc_core_domain_hard_closure_replay_v1.py --domain-id PHYSICS}.
 Institute-run trigger: \occode{OPEN_DATA_COVERAGE_LT_1_0_OR_HELD_OUT_CASES_LT_30_OR_RESIDUAL_BREACH_PERSISTS}. Measurement wave: \occode{INSTITUTE_RUN::PHYSICS::WAVE_1A}.
 Open gaps: none.
 Escalation plan: If official/open data do not cover the required observable family, queue institute-run measurement or observational partner acquisition.
@@ -74,7 +74,7 @@ Closure phase: \occode{PHASE_4_CHEMISTRY_CLOSURE}. Launch rule: \occode{START_AF
 Pinned route institutions: NIST, \allowbreak U.S. Department of Energy Office of Science.
 Held-out policy: \occode{HOLD_OUT_ONE_COMPOUND_OR_REACTION_CLASS}, with minimum cases \occode{30}.
 Quantitative gate: minimum cases 30; coverage ratio 1.0; mean absolute normalized error at or below 1.0 sigma; 95th-percentile normalized error at or below 2.5 sigma; maximum normalized error at or below 5.0 sigma; tail breaches capped at 0; critical residual threshold 2.5 sigma; severe residual threshold 1.5 sigma.
-Replay harness: \occode{validation/chemistry/replay.py}.
+Replay harness: \occode{logion/k7/spe/orchestrator/science/run_oc_core_domain_hard_closure_replay_v1.py --domain-id CHEMISTRY}.
 Institute-run trigger: \occode{OPEN_DATA_COVERAGE_LT_1_0_OR_HELD_OUT_CASES_LT_30_OR_RESIDUAL_BREACH_PERSISTS}. Measurement wave: \occode{INSTITUTE_RUN::CHEMISTRY::WAVE_2A}.
 Open gaps: none.
 Escalation plan: When official/open reference data are insufficient, queue targeted laboratory or partner-measurement acquisition.
@@ -85,7 +85,7 @@ Closure phase: \occode{PHASE_5_BIOLOGY_CLOSURE}. Launch rule: \occode{START_AFTE
 Pinned route institutions: NCBI GEO.
 Held-out policy: \occode{RESERVE_ONE_DATASET_FAMILY_PER_SIGNATURE_CLASS}, with minimum cases \occode{30}.
 Quantitative gate: minimum cases 30; coverage ratio 1.0; mean absolute normalized error at or below 1.0 sigma; 95th-percentile normalized error at or below 2.5 sigma; maximum normalized error at or below 5.0 sigma; tail breaches capped at 0; expected calibration error at or below 0.05.
-Replay harness: \occode{validation/biology/replay.py}.
+Replay harness: \occode{logion/k7/spe/orchestrator/science/run_oc_core_domain_hard_closure_replay_v1.py --domain-id BIOLOGY}.
 Institute-run trigger: \occode{OPEN_DATA_COVERAGE_LT_1_0_OR_HELD_OUT_CASES_LT_30_OR_SIGNATURE_CLASS_UNDERCONSTRAINED}. Measurement wave: \occode{INSTITUTE_RUN::BIOLOGY::WAVE_3A}.
 Open gaps: none.
 Escalation plan: If open repositories cannot close the lane honestly, promote an institute-run observation or assay plan instead of overclaiming.
@@ -96,7 +96,7 @@ Closure phase: \occode{PHASE_6_SYSTEMS_CLOSURE}. Launch rule: \occode{ALLOW_PARA
 Pinned route institutions: World Bank, \allowbreak U.S. Department of Energy Office of Science.
 Held-out policy: \occode{HELD_OUT_INTERVAL_REPLAY_WITH_TURNING_POINT_CHECKS}, with minimum cases \occode{30}.
 Quantitative gate: minimum cases 30; coverage ratio 1.0; tail breaches capped at 0; Brier score at or below 0.08; expected calibration error at or below 0.05; critical-failure F1 at least 0.87; critical-failure precision at least 0.85; critical-failure recall at least 0.9.
-Replay harness: \occode{validation/systems/replay.py}.
+Replay harness: \occode{logion/k7/spe/orchestrator/science/run_oc_core_domain_hard_closure_replay_v1.py --domain-id SYSTEMS_CIVILIZATIONAL_PROJECTION}.
 Institute-run trigger: \occode{OPEN_DATA_COVERAGE_LT_1_0_OR_HELD_OUT_INTERVAL_COUNT_LT_30_OR_TURNING_POINT_BREACH_PERSISTS}. Measurement wave: \occode{INSTITUTE_RUN::SYSTEMS::WAVE_4A}.
 Open gaps: none.
 Escalation plan: If open macro-process series are insufficient, queue institute-run observation design or partner data acquisition.

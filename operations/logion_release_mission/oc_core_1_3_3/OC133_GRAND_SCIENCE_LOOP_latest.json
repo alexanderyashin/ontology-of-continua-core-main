@@ -8,23 +8,51 @@
   "all_domain_scorecard_ref": "operations/logion_release_mission/oc_core_1_3_3/OC133_ALL_DOMAIN_READINESS_SCORECARD.json",
   "selected_obligation_total": 2,
   "selected_obligation_ids": [
-    "OC133-GRAND-PRIORART-001",
-    "OC133-GRAND-FORMAL-001"
+    "OC133-GRAND-FORMAL-001",
+    "OC133-GRAND-PRIORART-001"
   ],
-  "next_cursor_obligation_id": "OC133-GRAND-PRIORART-001",
-  "dispatch_queue_sha256": "609123892aed57009ab992fe7a010d7e4a2a4a92e310aa357ab9ec90f5f4772a",
+  "next_cursor_obligation_id": "OC133-GRAND-FORMAL-001",
+  "dispatch_queue_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
   "blocker_ids_before": [
     "grand_toe_claim_ledger_evidence",
     "modern_science_comparator_superiority"
   ],
   "blocker_ids_after": [
-    "grand_toe_claim_ledger_evidence",
     "modern_science_comparator_superiority"
   ],
-  "all_domain_blocker_total_after": 2,
+  "all_domain_blocker_total_after": 1,
   "command_fail_total": 0,
-  "blocked_obligation_total": 2,
+  "blocked_obligation_total": 1,
   "rows": [
+    {
+      "obligation_id": "OC133-GRAND-FORMAL-001",
+      "owner_capability": "Research/FormalScience",
+      "title": "Prove the dedicated grand TOE/all-domain claim or keep it unpromoted",
+      "blocker_check": "grand_toe_claim_ledger_evidence",
+      "profile": "v12_grand_formal_science_research_program",
+      "action": "execute",
+      "action_state": "COMMAND_PASS",
+      "execution_state": "PASS",
+      "before_check_state": "FAIL",
+      "after_check_state": "PASS",
+      "blocker_still_present": false,
+      "closure_predicate_satisfied": true,
+      "artifact_exists_is_not_closure": true,
+      "command": {
+        "cmd": [
+          "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+          "tools/oc133_capability_repair_executor.py",
+          "--profile",
+          "v12_grand_formal_science_research_program"
+        ],
+        "returncode": 0,
+        "stdout_tail": "{\n  \"profile\": \"v12_grand_formal_science_research_program\",\n  \"state\": \"PASS\",\n  \"ledger_ref\": \"reviews/oc133_llm_cerberus/repair/OC133_CAPABILITY_REPAIR_EXECUTION_LEDGER.json\",\n  \"work_order_total\": 1\n}\n",
+        "stderr_tail": ""
+      },
+      "no_send": true,
+      "publish_allowed": false,
+      "journal_submissions_allowed": false
+    },
     {
       "obligation_id": "OC133-GRAND-PRIORART-001",
       "owner_capability": "Research/PriorArt",
@@ -34,7 +62,7 @@
       "action": "execute",
       "action_state": "COMMAND_PASS",
       "execution_state": "BLOCKED",
-      "before_check_state": "FAIL",
+      "before_check_state": "PASS",
       "after_check_state": "FAIL",
       "blocker_still_present": true,
       "closure_predicate_satisfied": false,
@@ -48,35 +76,6 @@
         ],
         "returncode": 0,
         "stdout_tail": "{\n  \"profile\": \"v12_modern_science_comparator_research_program\",\n  \"state\": \"SCIENTIFIC_BLOCKERS_REMAIN\",\n  \"ledger_ref\": \"reviews/oc133_llm_cerberus/repair/OC133_CAPABILITY_REPAIR_EXECUTION_LEDGER.json\",\n  \"work_order_total\": 1\n}\n",
-        "stderr_tail": ""
-      },
-      "no_send": true,
-      "publish_allowed": false,
-      "journal_submissions_allowed": false
-    },
-    {
-      "obligation_id": "OC133-GRAND-FORMAL-001",
-      "owner_capability": "Research/FormalScience",
-      "title": "Prove the dedicated grand TOE/all-domain claim or keep it unpromoted",
-      "blocker_check": "grand_toe_claim_ledger_evidence",
-      "profile": "v12_grand_formal_science_research_program",
-      "action": "execute",
-      "action_state": "COMMAND_PASS",
-      "execution_state": "BLOCKED",
-      "before_check_state": "FAIL",
-      "after_check_state": "FAIL",
-      "blocker_still_present": true,
-      "closure_predicate_satisfied": false,
-      "artifact_exists_is_not_closure": true,
-      "command": {
-        "cmd": [
-          "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
-          "tools/oc133_capability_repair_executor.py",
-          "--profile",
-          "v12_grand_formal_science_research_program"
-        ],
-        "returncode": 0,
-        "stdout_tail": "{\n  \"profile\": \"v12_grand_formal_science_research_program\",\n  \"state\": \"SCIENTIFIC_BLOCKERS_REMAIN\",\n  \"ledger_ref\": \"reviews/oc133_llm_cerberus/repair/OC133_CAPABILITY_REPAIR_EXECUTION_LEDGER.json\",\n  \"work_order_total\": 1\n}\n",
         "stderr_tail": ""
       },
       "no_send": true,

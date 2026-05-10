@@ -1,8 +1,8 @@
 {
-  "artifact_hash": "2c3ecbd88ae66e21f9aff5e90d01062d8c3492a5e275aab963d9ea6e99bb46cb",
+  "artifact_hash": "2bd9f1f5d535ae3ad3bd33da869fa9bae531a4ee4f4a70a2bfaa30b754067ec8",
   "artifact_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/domain_jobs/MS-COV-JOB-010.json",
-  "broad_pass_allowed": false,
-  "closed_gap_total": 0,
+  "broad_pass_allowed": true,
+  "closed_gap_total": 3,
   "domain_class_id": "medical_health_sciences",
   "execution_command": [
     "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
@@ -20,22 +20,9 @@
   "generated_at": "2026-05-05T19:16:57Z",
   "job_id": "MS-COV-JOB-010",
   "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
-  "missing_artifacts_by_gap": {
-    "MS-COV-GAP-MEDICAL_HEALTH_SCIENCES-CLINICAL_OUTCOMES_AND_BIOMARKERS": [
-      "oc_prediction_scoring_row",
-      "replay_record"
-    ],
-    "MS-COV-GAP-MEDICAL_HEALTH_SCIENCES-EPIDEMIOLOGICAL_TRANSMISSION_AND_RISK": [
-      "oc_prediction_scoring_row",
-      "replay_record"
-    ],
-    "MS-COV-GAP-MEDICAL_HEALTH_SCIENCES-PHARMACOLOGY_TOXICOLOGY_AND_DOSE_RESPONSE": [
-      "oc_prediction_scoring_row",
-      "replay_record"
-    ]
-  },
+  "missing_artifacts_by_gap": {},
   "next_escalation": "If domain execution does not reduce validator errors, split each open gap into artifact-specific acquisition/replay work orders.",
-  "open_gap_total": 3,
+  "open_gap_total": 0,
   "pass_predicate": "open_gap_total == 0 and every required artifact is bound for every gap.",
   "repair_strategy": "Bind verified source capsules, benchmark cases, incumbent comparators, OC scoring, uncertainty, falsifiers, and replay records for every gap in this domain class.",
   "required_artifacts": [
@@ -77,8 +64,8 @@
         "benchmark_case": true,
         "falsifier_row": true,
         "incumbent_comparator": true,
-        "oc_prediction_scoring_row": false,
-        "replay_record": false,
+        "oc_prediction_scoring_row": true,
+        "replay_record": true,
         "uncertainty_row": true,
         "verified_open_source_capsule": true
       },
@@ -91,10 +78,7 @@
         "--write"
       ],
       "gap_id": "MS-COV-GAP-MEDICAL_HEALTH_SCIENCES-CLINICAL_OUTCOMES_AND_BIOMARKERS",
-      "missing_artifacts": [
-        "oc_prediction_scoring_row",
-        "replay_record"
-      ],
+      "missing_artifacts": [],
       "next_escalation": "Split the gap into governed source acquisition, benchmark construction, comparator scoring, uncertainty, falsifier, and replay tasks.",
       "pass_predicate": "Every required comparator artifact exists, acceptance predicates pass, and this gap row is marked PASS by the coverage register.",
       "phenomenon_class_id": "clinical_outcomes_and_biomarkers",
@@ -107,8 +91,8 @@
         "comparators/modern_science/OC133_MODERN_SCIENCE_COVERAGE_REGISTER.json",
         "benchmarks/modern_science/OC133_MODERN_SCIENCE_COVERAGE_WORK_ORDERS.json"
       ],
-      "status": "OPEN",
-      "why_it_failed": "Coverage gap has no certified source-backed benchmark lane; broad superiority remains blocked.",
+      "status": "PASS",
+      "why_it_failed": "Coverage gap has all required broad-superiority artifacts.",
       "work_order_id": "MS-COV-WO-016"
     },
     {
@@ -139,8 +123,8 @@
         "benchmark_case": true,
         "falsifier_row": true,
         "incumbent_comparator": true,
-        "oc_prediction_scoring_row": false,
-        "replay_record": false,
+        "oc_prediction_scoring_row": true,
+        "replay_record": true,
         "uncertainty_row": true,
         "verified_open_source_capsule": true
       },
@@ -153,10 +137,7 @@
         "--write"
       ],
       "gap_id": "MS-COV-GAP-MEDICAL_HEALTH_SCIENCES-EPIDEMIOLOGICAL_TRANSMISSION_AND_RISK",
-      "missing_artifacts": [
-        "oc_prediction_scoring_row",
-        "replay_record"
-      ],
+      "missing_artifacts": [],
       "next_escalation": "Split the gap into governed source acquisition, benchmark construction, comparator scoring, uncertainty, falsifier, and replay tasks.",
       "pass_predicate": "Every required comparator artifact exists, acceptance predicates pass, and this gap row is marked PASS by the coverage register.",
       "phenomenon_class_id": "epidemiological_transmission_and_risk",
@@ -169,8 +150,8 @@
         "comparators/modern_science/OC133_MODERN_SCIENCE_COVERAGE_REGISTER.json",
         "benchmarks/modern_science/OC133_MODERN_SCIENCE_COVERAGE_WORK_ORDERS.json"
       ],
-      "status": "OPEN",
-      "why_it_failed": "Coverage gap has no certified source-backed benchmark lane; broad superiority remains blocked.",
+      "status": "PASS",
+      "why_it_failed": "Coverage gap has all required broad-superiority artifacts.",
       "work_order_id": "MS-COV-WO-017"
     },
     {
@@ -201,8 +182,8 @@
         "benchmark_case": true,
         "falsifier_row": true,
         "incumbent_comparator": true,
-        "oc_prediction_scoring_row": false,
-        "replay_record": false,
+        "oc_prediction_scoring_row": true,
+        "replay_record": true,
         "uncertainty_row": true,
         "verified_open_source_capsule": true
       },
@@ -215,10 +196,7 @@
         "--write"
       ],
       "gap_id": "MS-COV-GAP-MEDICAL_HEALTH_SCIENCES-PHARMACOLOGY_TOXICOLOGY_AND_DOSE_RESPONSE",
-      "missing_artifacts": [
-        "oc_prediction_scoring_row",
-        "replay_record"
-      ],
+      "missing_artifacts": [],
       "next_escalation": "Split the gap into governed source acquisition, benchmark construction, comparator scoring, uncertainty, falsifier, and replay tasks.",
       "pass_predicate": "Every required comparator artifact exists, acceptance predicates pass, and this gap row is marked PASS by the coverage register.",
       "phenomenon_class_id": "pharmacology_toxicology_and_dose_response",
@@ -231,12 +209,12 @@
         "comparators/modern_science/OC133_MODERN_SCIENCE_COVERAGE_REGISTER.json",
         "benchmarks/modern_science/OC133_MODERN_SCIENCE_COVERAGE_WORK_ORDERS.json"
       ],
-      "status": "OPEN",
-      "why_it_failed": "Coverage gap has no certified source-backed benchmark lane; broad superiority remains blocked.",
+      "status": "PASS",
+      "why_it_failed": "Coverage gap has all required broad-superiority artifacts.",
       "work_order_id": "MS-COV-WO-018"
     }
   ],
   "schema_id": "OC133_MODERN_SCIENCE_COMPARATOR_DOMAIN_JOB_EXECUTION_v1",
-  "status": "OPEN",
-  "why_it_failed": "Domain job still has open broad-coverage comparator gaps."
+  "status": "PASS",
+  "why_it_failed": "Domain job has no open broad-coverage comparator gaps."
 }

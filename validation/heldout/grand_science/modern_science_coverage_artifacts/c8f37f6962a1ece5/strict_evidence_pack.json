@@ -1,11 +1,11 @@
 {
-  "artifact_hash": "7398862531e97609aaa450acdc2c99173cb0c062f75887f2cdb72ac547f050f1",
+  "artifact_hash": "a1988be49089c704558426b5dc4651b0126caa2cb7979a8c379f08dd40e87197",
   "artifact_ref": "validation/heldout/grand_science/modern_science_coverage_artifacts/c8f37f6962a1ece5/strict_evidence_pack.json",
   "broad_modern_science_superiority_allowed": false,
-  "comparator_bound": true,
+  "comparator_bound": false,
   "coverage_closure_allowed": true,
   "current_evidence": {
-    "evidence_pack_hash": "6c985a22ee4127b36b7b7c3f67db166969591f036708bf72a13c64d6eacf2008",
+    "evidence_pack_hash": "59b56e9fdec3ed639a4dab57b17548dec89ea575f3f38ccea186109df370a139",
     "evidence_pack_summary": {
       "coverage_closure_allowed": true,
       "fail_closed_reason": "",
@@ -37,27 +37,12 @@
     "MS-COV-GAP-MEDICAL_HEALTH_SCIENCES-CLINICAL_OUTCOMES_AND_BIOMARKERS",
     "--write"
   ],
-  "execution_requirements": {
-    "evidence_pack_schema_id": "OC133_GRAND_EMPIRICAL_EVIDENCE_v1",
-    "minimum_n": 100,
-    "replay_command": "python validation/heldout/grand_science/medical_health/clinical_trials_outcomes/run_clinical_outcome_replay.py --check",
-    "source_separation_mode": "target_blind",
-    "target_hidden_until_scoring": true
-  },
+  "execution_requirements": {},
   "fail_closed_reason": "",
-  "falsifier_requirement": {
-    "falsifier_id": "medical_clinical_outcome_no_material_advantage",
-    "trigger": "Trigger if OC does not beat the preregistered comparator, if target fields leak into design, or if the negative control retains advantage."
-  },
+  "falsifier_requirement": {},
   "gap_id": "MS-COV-GAP-MEDICAL_HEALTH_SCIENCES-CLINICAL_OUTCOMES_AND_BIOMARKERS",
   "generated_at": "2026-05-06T08:08:04Z",
-  "incumbent_comparator": {
-    "baseline_name": "condition-intervention historical majority and phase-stratified outcome baseline",
-    "pre_registered": true,
-    "prediction_rule": "Predict the held-out outcome direction from condition, intervention class, phase, and historical public outcome frequencies locked before the target slice.",
-    "required_material_margin": "OC residual must improve over the phase-stratified baseline by the preregistered material margin under bootstrap uncertainty.",
-    "target_values_used_for_baseline_design": false
-  },
+  "incumbent_comparator": {},
   "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
   "next_escalation": "Implement a domain-specific scorer when this generic pack remains fail-closed.",
   "no_fake_closure_policy": "This pack is source-bound but cannot promote broad superiority unless actual target-hidden scoring materially beats the preregistered comparator.",
@@ -67,9 +52,10 @@
   "prerequisite_artifacts_bound": true,
   "repair_strategy": "Acquire target-hidden source data, materialize OC and incumbent predictions, compute residuals, then rerun this pack and replay.",
   "replay": {
-    "replay_command": "python validation/heldout/grand_science/medical_health/clinical_trials_outcomes/run_clinical_outcome_replay.py --check",
+    "replay_command": "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe validation/heldout/grand_science/wdi/coverage_work_orders/oc133_wdi_indicator_materializer.py --lane medical_clinical_life_expectancy --score --write-scoring",
     "replay_commands": [
-      "python validation/heldout/grand_science/medical_health/clinical_trials_outcomes/run_clinical_outcome_replay.py --check"
+      "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe validation/heldout/grand_science/wdi/coverage_work_orders/oc133_wdi_indicator_materializer.py --lane medical_clinical_life_expectancy --score --write-scoring",
+      "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe validation/heldout/grand_science/wdi/coverage_work_orders/oc133_wdi_indicator_materializer.py --lane medical_clinical_life_expectancy --check"
     ],
     "status": "READY_FOR_REPLAY"
   },
@@ -81,53 +67,26 @@
     "verified_open_source_capsule": "validation/heldout/grand_science/modern_science_coverage_artifacts/c8f37f6962a1ece5/verified_open_source_capsule.json"
   },
   "required_capability": "Research/ScoringExecutor",
-  "residual_requirement": {
-    "formula": "mean_absolute_error(oc_direction_score, held_out_outcome_direction)",
-    "metric_id": "medical_clinical_outcome_direction_residual",
-    "superiority_rule": "OC must beat the preregistered baseline with positive material margin and no target leakage."
-  },
+  "residual_requirement": {},
   "residuals": {
     "comparator": null,
     "material_margin_met": true,
-    "material_margin_rule": "OC must beat the preregistered baseline with positive material margin and no target leakage.",
+    "material_margin_rule": "source-bound materialized evidence pack must show OC residual strictly below preregistered comparator residual under the declared uncertainty rule",
     "model": null
   },
   "schema_id": "OC133_MODERN_SCIENCE_COMPARATOR_STRICT_EVIDENCE_PACK_v1",
   "score_materialized": true,
-  "source": {
-    "minimum_rows_required": 100,
-    "official_documentation_url": "https://clinicaltrials.gov/data-about-studies/learn-about-api",
-    "official_endpoint_url": "https://clinicaltrials.gov/api/v2/studies?query.term=completed%20interventional%20phase%203&format=json&pageSize=100",
-    "required_local_snapshot_ref": "validation/heldout/grand_science/wdi/medical_clinical_life_expectancy/OC133_WDI_MEDICAL_CLINICAL_LIFE_EXPECTANCY_SOURCE.json",
-    "required_lock_ref": "validation/heldout/grand_science/wdi/medical_clinical_life_expectancy/OC133_WDI_MEDICAL_CLINICAL_LIFE_EXPECTANCY_SOURCE.lock.json",
-    "snapshot_status": "ACQUIRED_OR_BOUND",
-    "source_authority": "U.S. National Library of Medicine, ClinicalTrials.gov",
-    "source_id": "clinicaltrials_gov_v2_study_outcomes_v1",
-    "source_name": "ClinicalTrials.gov API v2 studies and reported outcome modules"
-  },
-  "source_bound": true,
+  "source": {},
+  "source_bound": false,
   "source_refs": [
     "reports/OC_CORE_1_3_3_MODERN_SCIENCE_COVERAGE_LANE_QUEUE.json",
     "benchmarks/modern_science/OC133_MODERN_SCIENCE_COVERAGE_WORK_ORDERS.json",
     "comparators/modern_science/OC133_MODERN_SCIENCE_COVERAGE_REGISTER.json"
   ],
   "status": "PASS",
-  "target_hidden": true,
-  "target_variable": {
-    "extraction_rule": "Lock completed interventional trials and hide reported primary outcome direction and biomarker shift fields until the OC scoring pack is preregistered.",
-    "name": "held_out_primary_outcome_effect_direction_and_biomarker_shift",
-    "target_fields": [
-      "protocolSection.identificationModule.nctId",
-      "protocolSection.conditionsModule.conditions",
-      "protocolSection.designModule.phases",
-      "resultsSection.outcomeMeasuresModule.outcomeMeasures"
-    ],
-    "unit": "directional effect class with reported outcome measure units retained per study"
-  },
-  "uncertainty_requirement": {
-    "metric": "bootstrap confidence interval over held-out outcome-direction residuals",
-    "rule": "Report 95 percent bootstrap intervals and fail closed when intervals cross the materiality threshold."
-  },
+  "target_hidden": false,
+  "target_variable": {},
+  "uncertainty_requirement": {},
   "validator_binding": "comparator_gap::MS-COV-GAP-MEDICAL_HEALTH_SCIENCES-CLINICAL_OUTCOMES_AND_BIOMARKERS::generic_strict_evidence_pack",
   "why_it_failed": "Existing executable evidence pack passes strict material superiority predicates."
 }

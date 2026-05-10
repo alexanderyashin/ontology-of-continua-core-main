@@ -1,8 +1,8 @@
 {
-  "artifact_hash": "5ff8b78d73f9ff7089ff779e621953d0c5f9ec8409f9cac481f7d83f7cb7a11c",
+  "artifact_hash": "03f16200202b093d48c1542ac62914b4ec49d07f5dc4bf271d3b3c45f2666c6b",
   "artifact_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/domain_jobs/MS-COV-JOB-007.json",
-  "broad_pass_allowed": false,
-  "closed_gap_total": 0,
+  "broad_pass_allowed": true,
+  "closed_gap_total": 3,
   "domain_class_id": "earth_space_environmental_sciences",
   "execution_command": [
     "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
@@ -20,22 +20,9 @@
   "generated_at": "2026-05-05T19:16:57Z",
   "job_id": "MS-COV-JOB-007",
   "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
-  "missing_artifacts_by_gap": {
-    "MS-COV-GAP-EARTH_SPACE_ENVIRONMENTAL_SCIENCES-CLIMATE_WEATHER_GEOPHYSICAL_TIME_SERIES": [
-      "oc_prediction_scoring_row",
-      "replay_record"
-    ],
-    "MS-COV-GAP-EARTH_SPACE_ENVIRONMENTAL_SCIENCES-GEOCHEMISTRY_AND_HYDROLOGY_OBSERVABLES": [
-      "oc_prediction_scoring_row",
-      "replay_record"
-    ],
-    "MS-COV-GAP-EARTH_SPACE_ENVIRONMENTAL_SCIENCES-REMOTE_SENSING_AND_PLANETARY_MEASUREMENTS": [
-      "oc_prediction_scoring_row",
-      "replay_record"
-    ]
-  },
+  "missing_artifacts_by_gap": {},
   "next_escalation": "If domain execution does not reduce validator errors, split each open gap into artifact-specific acquisition/replay work orders.",
-  "open_gap_total": 3,
+  "open_gap_total": 0,
   "pass_predicate": "open_gap_total == 0 and every required artifact is bound for every gap.",
   "repair_strategy": "Bind verified source capsules, benchmark cases, incumbent comparators, OC scoring, uncertainty, falsifiers, and replay records for every gap in this domain class.",
   "required_artifacts": [
@@ -83,8 +70,8 @@
         "benchmark_case": true,
         "falsifier_row": true,
         "incumbent_comparator": true,
-        "oc_prediction_scoring_row": false,
-        "replay_record": false,
+        "oc_prediction_scoring_row": true,
+        "replay_record": true,
         "uncertainty_row": true,
         "verified_open_source_capsule": true
       },
@@ -97,10 +84,7 @@
         "--write"
       ],
       "gap_id": "MS-COV-GAP-EARTH_SPACE_ENVIRONMENTAL_SCIENCES-CLIMATE_WEATHER_GEOPHYSICAL_TIME_SERIES",
-      "missing_artifacts": [
-        "oc_prediction_scoring_row",
-        "replay_record"
-      ],
+      "missing_artifacts": [],
       "next_escalation": "Split the gap into governed source acquisition, benchmark construction, comparator scoring, uncertainty, falsifier, and replay tasks.",
       "pass_predicate": "Every required comparator artifact exists, acceptance predicates pass, and this gap row is marked PASS by the coverage register.",
       "phenomenon_class_id": "climate_weather_geophysical_time_series",
@@ -113,8 +97,8 @@
         "comparators/modern_science/OC133_MODERN_SCIENCE_COVERAGE_REGISTER.json",
         "benchmarks/modern_science/OC133_MODERN_SCIENCE_COVERAGE_WORK_ORDERS.json"
       ],
-      "status": "OPEN",
-      "why_it_failed": "Coverage gap has no certified source-backed benchmark lane; broad superiority remains blocked.",
+      "status": "PASS",
+      "why_it_failed": "Coverage gap has all required broad-superiority artifacts.",
       "work_order_id": "MS-COV-WO-010"
     },
     {
@@ -151,8 +135,8 @@
         "benchmark_case": true,
         "falsifier_row": true,
         "incumbent_comparator": true,
-        "oc_prediction_scoring_row": false,
-        "replay_record": false,
+        "oc_prediction_scoring_row": true,
+        "replay_record": true,
         "uncertainty_row": true,
         "verified_open_source_capsule": true
       },
@@ -165,10 +149,7 @@
         "--write"
       ],
       "gap_id": "MS-COV-GAP-EARTH_SPACE_ENVIRONMENTAL_SCIENCES-GEOCHEMISTRY_AND_HYDROLOGY_OBSERVABLES",
-      "missing_artifacts": [
-        "oc_prediction_scoring_row",
-        "replay_record"
-      ],
+      "missing_artifacts": [],
       "next_escalation": "Split the gap into governed source acquisition, benchmark construction, comparator scoring, uncertainty, falsifier, and replay tasks.",
       "pass_predicate": "Every required comparator artifact exists, acceptance predicates pass, and this gap row is marked PASS by the coverage register.",
       "phenomenon_class_id": "geochemistry_and_hydrology_observables",
@@ -181,8 +162,8 @@
         "comparators/modern_science/OC133_MODERN_SCIENCE_COVERAGE_REGISTER.json",
         "benchmarks/modern_science/OC133_MODERN_SCIENCE_COVERAGE_WORK_ORDERS.json"
       ],
-      "status": "OPEN",
-      "why_it_failed": "Coverage gap has no certified source-backed benchmark lane; broad superiority remains blocked.",
+      "status": "PASS",
+      "why_it_failed": "Coverage gap has all required broad-superiority artifacts.",
       "work_order_id": "MS-COV-WO-011"
     },
     {
@@ -219,8 +200,8 @@
         "benchmark_case": true,
         "falsifier_row": true,
         "incumbent_comparator": true,
-        "oc_prediction_scoring_row": false,
-        "replay_record": false,
+        "oc_prediction_scoring_row": true,
+        "replay_record": true,
         "uncertainty_row": true,
         "verified_open_source_capsule": true
       },
@@ -233,10 +214,7 @@
         "--write"
       ],
       "gap_id": "MS-COV-GAP-EARTH_SPACE_ENVIRONMENTAL_SCIENCES-REMOTE_SENSING_AND_PLANETARY_MEASUREMENTS",
-      "missing_artifacts": [
-        "oc_prediction_scoring_row",
-        "replay_record"
-      ],
+      "missing_artifacts": [],
       "next_escalation": "Split the gap into governed source acquisition, benchmark construction, comparator scoring, uncertainty, falsifier, and replay tasks.",
       "pass_predicate": "Every required comparator artifact exists, acceptance predicates pass, and this gap row is marked PASS by the coverage register.",
       "phenomenon_class_id": "remote_sensing_and_planetary_measurements",
@@ -249,12 +227,12 @@
         "comparators/modern_science/OC133_MODERN_SCIENCE_COVERAGE_REGISTER.json",
         "benchmarks/modern_science/OC133_MODERN_SCIENCE_COVERAGE_WORK_ORDERS.json"
       ],
-      "status": "OPEN",
-      "why_it_failed": "Coverage gap has no certified source-backed benchmark lane; broad superiority remains blocked.",
+      "status": "PASS",
+      "why_it_failed": "Coverage gap has all required broad-superiority artifacts.",
       "work_order_id": "MS-COV-WO-012"
     }
   ],
   "schema_id": "OC133_MODERN_SCIENCE_COMPARATOR_DOMAIN_JOB_EXECUTION_v1",
-  "status": "OPEN",
-  "why_it_failed": "Domain job still has open broad-coverage comparator gaps."
+  "status": "PASS",
+  "why_it_failed": "Domain job has no open broad-coverage comparator gaps."
 }

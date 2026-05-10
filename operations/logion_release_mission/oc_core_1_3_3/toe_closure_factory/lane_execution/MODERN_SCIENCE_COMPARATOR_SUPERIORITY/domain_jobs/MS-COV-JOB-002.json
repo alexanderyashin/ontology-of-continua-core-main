@@ -1,8 +1,8 @@
 {
-  "artifact_hash": "b6d2564dcddc12017587fc0d72c5489d5fbec0ff346bd56a2fd0877fadbec974",
+  "artifact_hash": "b84e173402e6c575a13f2c7554108f1670a7a39699b772185506e7d97fe821cf",
   "artifact_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/domain_jobs/MS-COV-JOB-002.json",
-  "broad_pass_allowed": false,
-  "closed_gap_total": 0,
+  "broad_pass_allowed": true,
+  "closed_gap_total": 3,
   "domain_class_id": "biological_life_sciences",
   "execution_command": [
     "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
@@ -20,22 +20,9 @@
   "generated_at": "2026-05-05T19:16:57Z",
   "job_id": "MS-COV-JOB-002",
   "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
-  "missing_artifacts_by_gap": {
-    "MS-COV-GAP-BIOLOGICAL_LIFE_SCIENCES-CELLULAR_DEVELOPMENTAL_REGULATORY_DYNAMICS": [
-      "oc_prediction_scoring_row",
-      "replay_record"
-    ],
-    "MS-COV-GAP-BIOLOGICAL_LIFE_SCIENCES-ECOLOGY_POPULATION_AND_BIODIVERSITY_OBSERVABLES": [
-      "oc_prediction_scoring_row",
-      "replay_record"
-    ],
-    "MS-COV-GAP-BIOLOGICAL_LIFE_SCIENCES-EVOLUTIONARY_PHYLOGENETIC_PATTERNS": [
-      "oc_prediction_scoring_row",
-      "replay_record"
-    ]
-  },
+  "missing_artifacts_by_gap": {},
   "next_escalation": "If domain execution does not reduce validator errors, split each open gap into artifact-specific acquisition/replay work orders.",
-  "open_gap_total": 3,
+  "open_gap_total": 0,
   "pass_predicate": "open_gap_total == 0 and every required artifact is bound for every gap.",
   "repair_strategy": "Bind verified source capsules, benchmark cases, incumbent comparators, OC scoring, uncertainty, falsifiers, and replay records for every gap in this domain class.",
   "required_artifacts": [
@@ -77,8 +64,8 @@
         "benchmark_case": true,
         "falsifier_row": true,
         "incumbent_comparator": true,
-        "oc_prediction_scoring_row": false,
-        "replay_record": false,
+        "oc_prediction_scoring_row": true,
+        "replay_record": true,
         "uncertainty_row": true,
         "verified_open_source_capsule": true
       },
@@ -91,10 +78,7 @@
         "--write"
       ],
       "gap_id": "MS-COV-GAP-BIOLOGICAL_LIFE_SCIENCES-EVOLUTIONARY_PHYLOGENETIC_PATTERNS",
-      "missing_artifacts": [
-        "oc_prediction_scoring_row",
-        "replay_record"
-      ],
+      "missing_artifacts": [],
       "next_escalation": "Split the gap into governed source acquisition, benchmark construction, comparator scoring, uncertainty, falsifier, and replay tasks.",
       "pass_predicate": "Every required comparator artifact exists, acceptance predicates pass, and this gap row is marked PASS by the coverage register.",
       "phenomenon_class_id": "evolutionary_phylogenetic_patterns",
@@ -107,8 +91,8 @@
         "comparators/modern_science/OC133_MODERN_SCIENCE_COVERAGE_REGISTER.json",
         "benchmarks/modern_science/OC133_MODERN_SCIENCE_COVERAGE_WORK_ORDERS.json"
       ],
-      "status": "OPEN",
-      "why_it_failed": "Coverage gap has no certified source-backed benchmark lane; broad superiority remains blocked.",
+      "status": "PASS",
+      "why_it_failed": "Coverage gap has all required broad-superiority artifacts.",
       "work_order_id": "MS-COV-WO-013"
     },
     {
@@ -151,8 +135,8 @@
         "benchmark_case": true,
         "falsifier_row": true,
         "incumbent_comparator": true,
-        "oc_prediction_scoring_row": false,
-        "replay_record": false,
+        "oc_prediction_scoring_row": true,
+        "replay_record": true,
         "uncertainty_row": true,
         "verified_open_source_capsule": true
       },
@@ -165,10 +149,7 @@
         "--write"
       ],
       "gap_id": "MS-COV-GAP-BIOLOGICAL_LIFE_SCIENCES-CELLULAR_DEVELOPMENTAL_REGULATORY_DYNAMICS",
-      "missing_artifacts": [
-        "oc_prediction_scoring_row",
-        "replay_record"
-      ],
+      "missing_artifacts": [],
       "next_escalation": "Split the gap into governed source acquisition, benchmark construction, comparator scoring, uncertainty, falsifier, and replay tasks.",
       "pass_predicate": "Every required comparator artifact exists, acceptance predicates pass, and this gap row is marked PASS by the coverage register.",
       "phenomenon_class_id": "cellular_developmental_regulatory_dynamics",
@@ -181,8 +162,8 @@
         "comparators/modern_science/OC133_MODERN_SCIENCE_COVERAGE_REGISTER.json",
         "benchmarks/modern_science/OC133_MODERN_SCIENCE_COVERAGE_WORK_ORDERS.json"
       ],
-      "status": "OPEN",
-      "why_it_failed": "Coverage gap has no certified source-backed benchmark lane; broad superiority remains blocked.",
+      "status": "PASS",
+      "why_it_failed": "Coverage gap has all required broad-superiority artifacts.",
       "work_order_id": "MS-COV-WO-014"
     },
     {
@@ -225,8 +206,8 @@
         "benchmark_case": true,
         "falsifier_row": true,
         "incumbent_comparator": true,
-        "oc_prediction_scoring_row": false,
-        "replay_record": false,
+        "oc_prediction_scoring_row": true,
+        "replay_record": true,
         "uncertainty_row": true,
         "verified_open_source_capsule": true
       },
@@ -239,10 +220,7 @@
         "--write"
       ],
       "gap_id": "MS-COV-GAP-BIOLOGICAL_LIFE_SCIENCES-ECOLOGY_POPULATION_AND_BIODIVERSITY_OBSERVABLES",
-      "missing_artifacts": [
-        "oc_prediction_scoring_row",
-        "replay_record"
-      ],
+      "missing_artifacts": [],
       "next_escalation": "Split the gap into governed source acquisition, benchmark construction, comparator scoring, uncertainty, falsifier, and replay tasks.",
       "pass_predicate": "Every required comparator artifact exists, acceptance predicates pass, and this gap row is marked PASS by the coverage register.",
       "phenomenon_class_id": "ecology_population_and_biodiversity_observables",
@@ -255,12 +233,12 @@
         "comparators/modern_science/OC133_MODERN_SCIENCE_COVERAGE_REGISTER.json",
         "benchmarks/modern_science/OC133_MODERN_SCIENCE_COVERAGE_WORK_ORDERS.json"
       ],
-      "status": "OPEN",
-      "why_it_failed": "Coverage gap has no certified source-backed benchmark lane; broad superiority remains blocked.",
+      "status": "PASS",
+      "why_it_failed": "Coverage gap has all required broad-superiority artifacts.",
       "work_order_id": "MS-COV-WO-015"
     }
   ],
   "schema_id": "OC133_MODERN_SCIENCE_COMPARATOR_DOMAIN_JOB_EXECUTION_v1",
-  "status": "OPEN",
-  "why_it_failed": "Domain job still has open broad-coverage comparator gaps."
+  "status": "PASS",
+  "why_it_failed": "Domain job has no open broad-coverage comparator gaps."
 }

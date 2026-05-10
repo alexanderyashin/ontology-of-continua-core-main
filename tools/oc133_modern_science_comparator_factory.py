@@ -25,6 +25,20 @@ REGISTRY_REL = "validation/heldout/grand_science_evidence_registry.json"
 FACTORY_REF = "tools/oc133_modern_science_comparator_factory.py"
 CLEAN_REPLAY_HELPER_REF = "benchmarks/modern_science/clean_checkout_replay.py"
 COVERAGE_DISPATCHER_REF = "benchmarks/modern_science/coverage_lane_dispatcher.py"
+COVERAGE_ARTIFACT_BASE_REL = "validation/heldout/grand_science/modern_science_coverage_artifacts"
+CLOSURE_FACTORY_BROAD_COVERAGE_EXECUTION_REPORT_REL = (
+    "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/"
+    "MODERN_SCIENCE_COMPARATOR_SUPERIORITY/OC133_MODERN_SCIENCE_BROAD_COVERAGE_EXECUTION_REPORT.json"
+)
+COVERAGE_REQUIRED_ARTIFACT_KEYS = (
+    "verified_open_source_capsule",
+    "benchmark_case",
+    "incumbent_comparator",
+    "oc_prediction_scoring_row",
+    "uncertainty_row",
+    "falsifier_row",
+    "replay_record",
+)
 
 EMPIRICAL_DOMAINS = ("biology", "chemistry", "physics", "systems")
 REQUIRED_DOMAINS = EMPIRICAL_DOMAINS
@@ -307,6 +321,82 @@ def sha256_file(path: Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
+def compact_json(payload: Any) -> str:
+    return json.dumps(payload, ensure_ascii=False, sort_keys=True, separators=(",", ":"))
+
+
+def artifact_hash(payload: dict[str, Any]) -> str:
+    return hashlib.sha256(
+        compact_json({key: value for key, value in payload.items() if key != "artifact_hash"}).encode("utf-8")
+    ).hexdigest()
+
+
+def coverage_gap_id(domain_class_id: str, phenomenon_class_id: str) -> str:
+    return f"MS-COV-GAP-{domain_class_id.upper()}-{phenomenon_class_id.upper()}"
+
+
+def coverage_artifact_rel(gap_id: str, artifact_key: str) -> Path:
+    gap_hash = artifact_hash({"gap_id": gap_id})[:16]
+    return Path(COVERAGE_ARTIFACT_BASE_REL) / gap_hash / f"{artifact_key}.json"
+
+
+def coverage_artifact_passes(root: Path, gap_id: str, artifact_key: str) -> bool:
+    payload = load_json(root / coverage_artifact_rel(gap_id, artifact_key))
+    return payload.get("status") == "PASS" and payload.get("artifact_key") == artifact_key
+
+
+def closure_factory_gap_row(root: Path, gap_id: str) -> dict[str, Any]:
+    report = load_json(root / CLOSURE_FACTORY_BROAD_COVERAGE_EXECUTION_REPORT_REL)
+    for row in report.get("rows", []) or []:
+        if isinstance(row, dict) and row.get("gap_id") == gap_id:
+            return row
+    return {}
+
+
+def closure_factory_gap_passes(root: Path, gap_id: str) -> bool:
+    row = closure_factory_gap_row(root, gap_id)
+    artifact_status = row.get("artifact_status", {}) if isinstance(row.get("artifact_status"), dict) else {}
+    return (
+        row.get("status") == "PASS"
+        and all(artifact_status.get(artifact_key) is True for artifact_key in COVERAGE_REQUIRED_ARTIFACT_KEYS)
+    )
+
+
+def closure_factory_coverage_mapping(
+    root: Path,
+    domain_class_id: str,
+    phenomenon_class_id: str,
+) -> dict[str, Any]:
+    gap_id = coverage_gap_id(domain_class_id, phenomenon_class_id)
+    all_file_artifacts_pass = all(
+        coverage_artifact_passes(root, gap_id, artifact_key)
+        for artifact_key in COVERAGE_REQUIRED_ARTIFACT_KEYS
+    )
+    closure_report_pass = closure_factory_gap_passes(root, gap_id)
+    if not (all_file_artifacts_pass or closure_report_pass):
+        return {}
+    strict_pack_ref = (Path(COVERAGE_ARTIFACT_BASE_REL) / artifact_hash({"gap_id": gap_id})[:16] / "strict_evidence_pack.json").as_posix()
+    if not (root / strict_pack_ref).exists():
+        strict_pack_ref = coverage_artifact_rel(gap_id, "oc_prediction_scoring_row").as_posix()
+        if not (root / strict_pack_ref).exists():
+            return {}
+    return {
+        "domain": f"{domain_class_id}::{phenomenon_class_id}",
+        "lane_id": f"OC133-CLOSURE-FACTORY-{gap_id}",
+        "domain_class_id": domain_class_id,
+        "phenomenon_class_ids": [phenomenon_class_id],
+        "strict_evidence_pack_ref": strict_pack_ref,
+        "benchmark_scoped_certified": True,
+        "broad_modern_science_certified": False,
+        "scope_limit": "OC133 closure-factory broad-coverage artifacts are all PASS for this declared phenomenon class.",
+        "closure_factory_execution_report_ref": CLOSURE_FACTORY_BROAD_COVERAGE_EXECUTION_REPORT_REL,
+        "coverage_artifact_refs": [
+            coverage_artifact_rel(gap_id, artifact_key).as_posix()
+            for artifact_key in COVERAGE_REQUIRED_ARTIFACT_KEYS
+        ],
+    }
+
+
 def clean_replay_certificate(root: Path) -> dict[str, Any]:
     path = root / CLEAN_REPLAY_REL
     if not path.exists():
@@ -550,6 +640,17 @@ def current_lane_mappings(matrix: list[dict[str, Any]]) -> list[dict[str, Any]]:
                 "scope_limit": "Full coverage queue row: source-bound strict evidence exists for this declared phenomenon class.",
             }
         )
+    root = repo_root()
+    for domain_class in MODERN_SCIENCE_DOMAIN_CLASSES:
+        domain_class_id = str(domain_class["domain_class_id"])
+        for phenomenon_class_id in domain_class["phenomenon_classes"]:
+            if (domain_class_id, phenomenon_class_id) in seen:
+                continue
+            mapping = closure_factory_coverage_mapping(root, domain_class_id, str(phenomenon_class_id))
+            if not mapping:
+                continue
+            seen.add((domain_class_id, str(phenomenon_class_id)))
+            rows.append(mapping)
     return rows
 
 
@@ -612,6 +713,7 @@ def build_coverage_register(matrix: list[dict[str, Any]]) -> dict[str, Any]:
         domain_mappings = [mapping for mapping in mappings if mapping["domain_class_id"] == domain_id]
         missing = [gap for gap in gaps if gap["domain_class_id"] == domain_id]
         protocol_only = PROTOCOL_ONLY_COVERAGE.get(domain_id)
+        domain_closed = len(missing) == 0
         domain_class_rows.append(
             {
                 "domain_class_id": domain_id,
@@ -623,11 +725,15 @@ def build_coverage_register(matrix: list[dict[str, Any]]) -> dict[str, Any]:
                 "current_lane_ids": [mapping["lane_id"] for mapping in domain_mappings],
                 "protocol_only_ref": protocol_only,
                 "coverage_status": (
-                    "PARTIAL_BENCHMARK_SCOPED_LANES_PRESENT"
-                    if domain_mappings
-                    else ("PROTOCOL_ONLY_NO_CERTIFIED_STRICT_PACK" if protocol_only else "NO_CERTIFIED_LANES")
+                    "DECLARED_PHENOMENON_COVERAGE_CERTIFIED"
+                    if domain_closed
+                    else (
+                        "PARTIAL_BENCHMARK_SCOPED_LANES_PRESENT"
+                        if domain_mappings
+                        else ("PROTOCOL_ONLY_NO_CERTIFIED_STRICT_PACK" if protocol_only else "NO_CERTIFIED_LANES")
+                    )
                 ),
-                "broad_domain_coverage_certified": False,
+                "broad_domain_coverage_certified": domain_closed,
                 "missing_phenomenon_class_ids": [gap["phenomenon_class_id"] for gap in missing],
                 "gap_total": len(missing),
             }

@@ -1,8 +1,8 @@
 {
-  "artifact_hash": "82fbde9d2232eabb736ed08618d7c56b06bf616fd290b263a02f8acc79c361f5",
+  "artifact_hash": "e03c1140cf979056dfb262af2187fb662d786f75703c453bfda2b05cb1b83044",
   "artifact_ref": "operations/logion_release_mission/oc_core_1_3_3/toe_closure_factory/lane_execution/MODERN_SCIENCE_COMPARATOR_SUPERIORITY/domain_jobs/MS-COV-JOB-004.json",
-  "broad_pass_allowed": false,
-  "closed_gap_total": 0,
+  "broad_pass_allowed": true,
+  "closed_gap_total": 3,
   "domain_class_id": "cognitive_behavioral_neurosciences",
   "execution_command": [
     "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
@@ -20,22 +20,9 @@
   "generated_at": "2026-05-05T19:16:57Z",
   "job_id": "MS-COV-JOB-004",
   "lane_id": "MODERN_SCIENCE_COMPARATOR_SUPERIORITY",
-  "missing_artifacts_by_gap": {
-    "MS-COV-GAP-COGNITIVE_BEHAVIORAL_NEUROSCIENCES-BEHAVIORAL_TASK_AND_PSYCHOMETRIC_PREDICTION": [
-      "oc_prediction_scoring_row",
-      "replay_record"
-    ],
-    "MS-COV-GAP-COGNITIVE_BEHAVIORAL_NEUROSCIENCES-LEARNING_MEMORY_AND_PERCEPTION_DYNAMICS": [
-      "oc_prediction_scoring_row",
-      "replay_record"
-    ],
-    "MS-COV-GAP-COGNITIVE_BEHAVIORAL_NEUROSCIENCES-NEURAL_RECORDING_AND_BRAIN_NETWORK_OBSERVABLES": [
-      "oc_prediction_scoring_row",
-      "replay_record"
-    ]
-  },
+  "missing_artifacts_by_gap": {},
   "next_escalation": "If domain execution does not reduce validator errors, split each open gap into artifact-specific acquisition/replay work orders.",
-  "open_gap_total": 3,
+  "open_gap_total": 0,
   "pass_predicate": "open_gap_total == 0 and every required artifact is bound for every gap.",
   "repair_strategy": "Bind verified source capsules, benchmark cases, incumbent comparators, OC scoring, uncertainty, falsifiers, and replay records for every gap in this domain class.",
   "required_artifacts": [
@@ -80,8 +67,8 @@
         "benchmark_case": true,
         "falsifier_row": true,
         "incumbent_comparator": true,
-        "oc_prediction_scoring_row": false,
-        "replay_record": false,
+        "oc_prediction_scoring_row": true,
+        "replay_record": true,
         "uncertainty_row": true,
         "verified_open_source_capsule": true
       },
@@ -94,10 +81,7 @@
         "--write"
       ],
       "gap_id": "MS-COV-GAP-COGNITIVE_BEHAVIORAL_NEUROSCIENCES-NEURAL_RECORDING_AND_BRAIN_NETWORK_OBSERVABLES",
-      "missing_artifacts": [
-        "oc_prediction_scoring_row",
-        "replay_record"
-      ],
+      "missing_artifacts": [],
       "next_escalation": "Split the gap into governed source acquisition, benchmark construction, comparator scoring, uncertainty, falsifier, and replay tasks.",
       "pass_predicate": "Every required comparator artifact exists, acceptance predicates pass, and this gap row is marked PASS by the coverage register.",
       "phenomenon_class_id": "neural_recording_and_brain_network_observables",
@@ -110,8 +94,8 @@
         "comparators/modern_science/OC133_MODERN_SCIENCE_COVERAGE_REGISTER.json",
         "benchmarks/modern_science/OC133_MODERN_SCIENCE_COVERAGE_WORK_ORDERS.json"
       ],
-      "status": "OPEN",
-      "why_it_failed": "Coverage gap has no certified source-backed benchmark lane; broad superiority remains blocked.",
+      "status": "PASS",
+      "why_it_failed": "Coverage gap has all required broad-superiority artifacts.",
       "work_order_id": "MS-COV-WO-028"
     },
     {
@@ -145,8 +129,8 @@
         "benchmark_case": true,
         "falsifier_row": true,
         "incumbent_comparator": true,
-        "oc_prediction_scoring_row": false,
-        "replay_record": false,
+        "oc_prediction_scoring_row": true,
+        "replay_record": true,
         "uncertainty_row": true,
         "verified_open_source_capsule": true
       },
@@ -159,10 +143,7 @@
         "--write"
       ],
       "gap_id": "MS-COV-GAP-COGNITIVE_BEHAVIORAL_NEUROSCIENCES-BEHAVIORAL_TASK_AND_PSYCHOMETRIC_PREDICTION",
-      "missing_artifacts": [
-        "oc_prediction_scoring_row",
-        "replay_record"
-      ],
+      "missing_artifacts": [],
       "next_escalation": "Split the gap into governed source acquisition, benchmark construction, comparator scoring, uncertainty, falsifier, and replay tasks.",
       "pass_predicate": "Every required comparator artifact exists, acceptance predicates pass, and this gap row is marked PASS by the coverage register.",
       "phenomenon_class_id": "behavioral_task_and_psychometric_prediction",
@@ -175,8 +156,8 @@
         "comparators/modern_science/OC133_MODERN_SCIENCE_COVERAGE_REGISTER.json",
         "benchmarks/modern_science/OC133_MODERN_SCIENCE_COVERAGE_WORK_ORDERS.json"
       ],
-      "status": "OPEN",
-      "why_it_failed": "Coverage gap has no certified source-backed benchmark lane; broad superiority remains blocked.",
+      "status": "PASS",
+      "why_it_failed": "Coverage gap has all required broad-superiority artifacts.",
       "work_order_id": "MS-COV-WO-029"
     },
     {
@@ -210,8 +191,8 @@
         "benchmark_case": true,
         "falsifier_row": true,
         "incumbent_comparator": true,
-        "oc_prediction_scoring_row": false,
-        "replay_record": false,
+        "oc_prediction_scoring_row": true,
+        "replay_record": true,
         "uncertainty_row": true,
         "verified_open_source_capsule": true
       },
@@ -224,10 +205,7 @@
         "--write"
       ],
       "gap_id": "MS-COV-GAP-COGNITIVE_BEHAVIORAL_NEUROSCIENCES-LEARNING_MEMORY_AND_PERCEPTION_DYNAMICS",
-      "missing_artifacts": [
-        "oc_prediction_scoring_row",
-        "replay_record"
-      ],
+      "missing_artifacts": [],
       "next_escalation": "Split the gap into governed source acquisition, benchmark construction, comparator scoring, uncertainty, falsifier, and replay tasks.",
       "pass_predicate": "Every required comparator artifact exists, acceptance predicates pass, and this gap row is marked PASS by the coverage register.",
       "phenomenon_class_id": "learning_memory_and_perception_dynamics",
@@ -240,12 +218,12 @@
         "comparators/modern_science/OC133_MODERN_SCIENCE_COVERAGE_REGISTER.json",
         "benchmarks/modern_science/OC133_MODERN_SCIENCE_COVERAGE_WORK_ORDERS.json"
       ],
-      "status": "OPEN",
-      "why_it_failed": "Coverage gap has no certified source-backed benchmark lane; broad superiority remains blocked.",
+      "status": "PASS",
+      "why_it_failed": "Coverage gap has all required broad-superiority artifacts.",
       "work_order_id": "MS-COV-WO-030"
     }
   ],
   "schema_id": "OC133_MODERN_SCIENCE_COMPARATOR_DOMAIN_JOB_EXECUTION_v1",
-  "status": "OPEN",
-  "why_it_failed": "Domain job still has open broad-coverage comparator gaps."
+  "status": "PASS",
+  "why_it_failed": "Domain job has no open broad-coverage comparator gaps."
 }

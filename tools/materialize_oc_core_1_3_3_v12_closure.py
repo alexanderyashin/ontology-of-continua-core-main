@@ -117,6 +117,7 @@ def release_critical_source_refs() -> list[str]:
         "lakefile.lean",
         "lean-toolchain",
         "formal/lean/OC133V12.lean",
+        "formal/lean/OC133GrandPromotion.lean",
         "tools/materialize_oc_core_1_3_3_v12_closure.py",
         "tools/templates/OC133V12_hardened.lean",
         "tools/templates/run_finite_model_checks_hardened.py",
@@ -221,17 +222,48 @@ def generated_artifact_manifest_policy() -> str:
 
 def write_lean_build_certificate(root: Path) -> dict[str, Any]:
     lean_path = root / "formal" / "lean" / "OC133V12.lean"
-    theorem_refs = [theorem["lean"] for theorem in THEOREMS]
-    body = lean_path.read_text(encoding="utf-8") if lean_path.exists() else ""
-    missing_refs = [ref for ref in theorem_refs if ref not in body]
+    grand_lean_path = root / "formal" / "lean" / "OC133GrandPromotion.lean"
+    grand_promotion_theorem_refs = [
+        "grand_promotion_pass_requires_all_obligations",
+        "grand_promotion_complete_control_accepts",
+        "grand_promotion_declared_taxonomy_support_closes_when_all_obligations_pass",
+        "grand_promotion_current_artifact_class_cannot_promote",
+        "grand_promotion_current_artifact_class_missing_claim_ledger_evidence",
+        "grand_promotion_missing_empirical_pack_blocks_promotion",
+        "grand_promotion_missing_modern_science_superiority_blocks_promotion",
+        "grand_promotion_missing_finite_refs_blocks_promotion",
+    ]
+    theorem_specs = [
+        ("formal/lean/OC133V12.lean", theorem["lean"])
+        for theorem in THEOREMS
+    ] + [
+        ("formal/lean/OC133GrandPromotion.lean", theorem_name)
+        for theorem_name in grand_promotion_theorem_refs
+    ]
+    source_bodies = {
+        "formal/lean/OC133V12.lean": lean_path.read_text(encoding="utf-8") if lean_path.exists() else "",
+        "formal/lean/OC133GrandPromotion.lean": (
+            grand_lean_path.read_text(encoding="utf-8") if grand_lean_path.exists() else ""
+        ),
+    }
+    missing_refs = [
+        f"{source_ref}::{theorem_name}"
+        for source_ref, theorem_name in theorem_specs
+        if theorem_name not in source_bodies.get(source_ref, "")
+    ]
     theorem_ref_rows = []
-    for ref in theorem_refs:
-        match = re.search(rf"^\s*theorem\s+{re.escape(ref)}\b.*?(?=^\s*theorem\s+|\Z)", body, flags=re.MULTILINE | re.DOTALL)
+    for source_ref, theorem_name in theorem_specs:
+        body = source_bodies.get(source_ref, "")
+        match = re.search(
+            rf"^\s*theorem\s+{re.escape(theorem_name)}\b.*?(?=^\s*theorem\s+|\Z)",
+            body,
+            flags=re.MULTILINE | re.DOTALL,
+        )
         theorem_ref_rows.append(
             {
-                "name": ref,
-                "source_ref": "formal/lean/OC133V12.lean",
-                "present": ref not in missing_refs,
+                "name": theorem_name,
+                "source_ref": source_ref,
+                "present": f"{source_ref}::{theorem_name}" not in missing_refs,
                 "declaration_sha256": hashlib.sha256(match.group(0).encode("utf-8")).hexdigest() if match else None,
             }
         )
@@ -273,14 +305,26 @@ def write_lean_build_certificate(root: Path) -> dict[str, Any]:
                 capture_output=True,
                 timeout=600,
             )
+            grand_completed = subprocess.run(
+                ["elan", "run", toolchain, "lake", "env", "lean", "formal/lean/OC133GrandPromotion.lean"],
+                cwd=clean_root,
+                text=True,
+                encoding="utf-8",
+                errors="replace",
+                capture_output=True,
+                timeout=240,
+            )
             clean_post_build_lake = (clean_root / ".lake").exists()
         zero_job_cached_build_detected = "0 jobs" in (completed.stdout or "")
+        combined_stdout = (completed.stdout or "") + "\n" + (grand_completed.stdout or "")
+        combined_stderr = (completed.stderr or "") + "\n" + (grand_completed.stderr or "")
         returncode = (
             0
             if clean.returncode == 0
             and lean_version.returncode == 0
             and lake_version.returncode == 0
             and completed.returncode == 0
+            and grand_completed.returncode == 0
             and not zero_job_cached_build_detected
             and not clean_preexisting_lake
             and clean_post_build_lake
@@ -289,9 +333,11 @@ def write_lean_build_certificate(root: Path) -> dict[str, Any]:
         clean_returncode = clean.returncode
         clean_stdout_tail = "isolated temporary checkout created without .lake"
         clean_stderr_tail = ""
-        stdout_tail = normalize_build_transcript(completed.stdout[-4000:])
-        stderr_tail = normalize_build_transcript(completed.stderr[-4000:])
-        transcript_sha256 = hashlib.sha256(normalize_build_transcript((completed.stdout or "") + "\n" + (completed.stderr or "")).encode("utf-8")).hexdigest()
+        stdout_tail = normalize_build_transcript(combined_stdout[-4000:])
+        stderr_tail = normalize_build_transcript(combined_stderr[-4000:])
+        transcript_sha256 = hashlib.sha256(
+            normalize_build_transcript(combined_stdout + "\n" + combined_stderr).encode("utf-8")
+        ).hexdigest()
         lean_version_text = (lean_version.stdout + lean_version.stderr).strip()
         lake_version_text = (lake_version.stdout + lake_version.stderr).strip()
         lean_version_canonical = canonical_lean_observation(lean_version_text)
@@ -330,9 +376,12 @@ def write_lean_build_certificate(root: Path) -> dict[str, Any]:
         "schema_id": "OC133_LEAN_BUILD_CERTIFICATE_v12",
         "release_id": RELEASE_ID,
         "version": VERSION,
-        "command": "isolated source manifest without .lake && elan run leanprover/lean4:v4.28.0 lake build OC133V12",
+        "command": (
+            "isolated source manifest without .lake && elan run leanprover/lean4:v4.28.0 "
+            "lake build OC133V12 && lake env lean formal/lean/OC133GrandPromotion.lean"
+        ),
         "clean_command": "create isolated temp checkout; assert no .lake before build",
-        "build_command": "lake build OC133V12",
+        "build_command": "lake build OC133V12 && lake env lean formal/lean/OC133GrandPromotion.lean",
         "toolchain_command": "elan run leanprover/lean4:v4.28.0",
         "lean_version_observed": "HOST_SPECIFIC_DIAGNOSTIC_REDACTED_SEE_LOCAL_OBSERVATION_REPORT",
         "lake_version_observed": "HOST_SPECIFIC_DIAGNOSTIC_REDACTED_SEE_LOCAL_OBSERVATION_REPORT",
@@ -384,11 +433,15 @@ def write_lean_build_certificate(root: Path) -> dict[str, Any]:
         "generated_artifact_manifest_sha256": hashlib.sha256(json.dumps(generated_artifact_manifest(root), sort_keys=True).encode("utf-8")).hexdigest(),
         "generated_artifact_manifest_scope": generated_artifact_manifest_policy(),
         "lean_source_ref": "formal/lean/OC133V12.lean",
+        "lean_source_refs": [
+            "formal/lean/OC133V12.lean",
+            "formal/lean/OC133GrandPromotion.lean",
+        ],
         "lean_source_sha256": sha256_source_ref(lean_path) if lean_path.exists() else None,
         "lean_source_sha256_policy": "LF_NORMALIZED_TEXT_SOURCE_HASH_MATCHING_CLEAN_SOURCE_MANIFEST",
         "lean_source_byte_sha256": sha256_file(lean_path) if lean_path.exists() else None,
-        "theorem_ref_total": len(theorem_refs),
-        "theorem_ref_present_total": len(theorem_refs) - len(missing_refs),
+        "theorem_ref_total": len(theorem_specs),
+        "theorem_ref_present_total": len(theorem_specs) - len(missing_refs),
         "theorem_ref_missing_total": len(missing_refs),
         "missing_theorem_refs": missing_refs,
         "theorem_refs": theorem_ref_rows,
