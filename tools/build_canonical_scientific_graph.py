@@ -12,6 +12,7 @@ ROOT = Path(__file__).resolve().parents[1]
 OUT_DIR = ROOT / "public_science" / "canonical"
 SCRIPT_REL = "tools/build_canonical_scientific_graph.py"
 SOURCE_EDITION = "OC Core 1.3.3"
+TEXT_HASH_SUFFIXES = {".json", ".lean", ".md", ".py", ".tex", ".txt"}
 
 MANIFEST_REL = "public_science/canonical/CANONICAL_SCIENTIFIC_GRAPH_MANIFEST.json"
 THEOREM_GRAPH_REL = "public_science/canonical/THEOREM_GRAPH.json"
@@ -70,7 +71,10 @@ def write_json(rel_path: str, payload: dict[str, Any]) -> None:
 
 
 def sha256_file(rel_path: str) -> str:
-    return hashlib.sha256((ROOT / rel_path).read_bytes()).hexdigest()
+    payload = (ROOT / rel_path).read_bytes()
+    if Path(rel_path).suffix.lower() in TEXT_HASH_SUFFIXES:
+        payload = payload.replace(b"\r\n", b"\n").replace(b"\r", b"\n")
+    return hashlib.sha256(payload).hexdigest()
 
 
 def safe_int(value: Any) -> int:
@@ -138,6 +142,7 @@ def source_artifacts(extra_refs: list[str]) -> list[dict[str, Any]]:
                 "role": SOURCE_ROLES.get(ref, "selected-evidence-pack" if ref in extra_refs else "public-science-tool"),
                 "exists": path.exists(),
                 "sha256": sha256_file(ref) if path.exists() else "",
+                "sha256_policy": "sha256 over LF-normalized text bytes",
             }
         )
     return artifacts
@@ -359,6 +364,7 @@ def build_manifest(theorem_graph: dict[str, Any], proof_graph: dict[str, Any], e
         "source_edition": SOURCE_EDITION,
         "scope": "Canonical scientific graph for the declared TOE scientific closure.",
         "public_reference_policy": "All refs are repository-relative paths inside this public OC repository. No private workspace paths are allowed.",
+        "source_hash_policy": "sha256 over LF-normalized text bytes for text artifacts.",
         "verification_command": f"python {SCRIPT_REL} --verify-only",
         "graph_refs": {
             "theorem_graph": THEOREM_GRAPH_REL,
@@ -397,7 +403,7 @@ def build_readme(manifest: dict[str, Any]) -> str:
         manifest["verification_command"],
         "```",
         "",
-        "The verifier checks source artifact hashes, graph status, gate status, theorem/proof/Lean/evidence connectivity, and absence of private workspace path leaks.",
+        "The verifier checks LF-normalized source artifact hashes, graph status, gate status, theorem/proof/Lean/evidence connectivity, and absence of private workspace path leaks.",
         "",
         "## Graphs",
         "",

@@ -10,7 +10,7 @@ It exposes graph-shaped scientific artifacts, not private project machinery.
 python tools/build_canonical_scientific_graph.py --verify-only
 ```
 
-The verifier checks source artifact hashes, graph status, gate status, theorem/proof/Lean/evidence connectivity, and absence of private workspace path leaks.
+The verifier checks LF-normalized source artifact hashes, graph status, gate status, theorem/proof/Lean/evidence connectivity, and absence of private workspace path leaks.
 
 ## Graphs
 
