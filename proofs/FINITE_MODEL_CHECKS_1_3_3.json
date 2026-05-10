@@ -3,13 +3,13 @@
   "release_id": "oc_core_1_3_3",
   "version": "1.3.3",
   "runner": "proofs/finite_model_checks/run_finite_model_checks.py",
-  "runner_sha256": "cd9205b2217af9163dd2de61644c97d7e9fcbaed9f5a16c2a0f2cc790e5c2f2f",
+  "runner_sha256": "f895987f64b7463e90fcdd4f68ec6591b2d8b555596f2330086800a714abe630",
   "input_ref": "proofs/finite_model_checks/OC133_FINITE_MODEL_INPUTS.json",
   "input_sha256": "2616d6f06322100c48d72073f5b36d216f0ea5d865e87e9db37ca44a9054ea36",
   "atlas_ref": "data/k_level_irreducibility_matrix.json",
   "atlas_sha256": "f63f675d944c0db24b62a4f995b4605e66cf91e508f764ca6681e646c0f580a6",
   "lean_build_certificate_ref": "formal/lean/LEAN_BUILD_CERTIFICATE_1_3_3.json",
-  "lean_build_certificate_sha256": "b3b49689b2f538a0edab3b924e1cc5d63e170bcb4023c73fd99ae087118dd5c1",
+  "lean_build_certificate_sha256": "a63d30cdd5eaffab69d64ba50281a6a59212a80d17ef51388ed0acec7e114b4f",
   "lean_source_ref": "formal/lean/OC133V12.lean",
   "current_lean_source_sha256": "551596aac8fd8012f97a2cab8e72da4e887e9c8fd69563a686db95af6e308ce7",
   "certificate_lean_source_sha256": "551596aac8fd8012f97a2cab8e72da4e887e9c8fd69563a686db95af6e308ce7",
@@ -27,7 +27,7 @@
   "live_lean_build_zero_job_cached_build_detected": false,
   "live_lean_preexisting_lake_cache_detected": false,
   "live_lean_post_build_lake_cache_created": true,
-  "live_lean_build_transcript_sha256": "29daf52199555fd8467242d14e01f273f6ec5816351ee8979f74f1e15820532a",
+  "live_lean_build_transcript_sha256": "684ac0997b886027080a3b91332bab1bca31b49489947157686f0a1ffc9cddfc",
   "live_lean_version_observed": "Lean (version 4.28.0, x86_64-w64-windows-gnu, commit 7e01a1bf5c70fc6167d49c345d3bf80596e9a79b, Release)",
   "live_lake_version_observed": "Lake version 5.0.0-src+7e01a1b (Lean version 4.28.0)",
   "live_lean_version_canonical": {
@@ -46,8 +46,8 @@
     "lake_version": "5.0.0-src+7e01a1b",
     "lean_version": "4.28.0"
   },
-  "live_lean_clean_source_manifest_sha256": "4d74073050e21abf3d04384c9d9b14c2da62e8029c7b16d3ac97bd3004ec5bf9",
-  "certificate_clean_source_manifest_sha256": "4d74073050e21abf3d04384c9d9b14c2da62e8029c7b16d3ac97bd3004ec5bf9",
+  "live_lean_clean_source_manifest_sha256": "044f2b1fffa4f84a8be4719f7b8f3d2b1c8080220a9cc12d874351471321253c",
+  "certificate_clean_source_manifest_sha256": "044f2b1fffa4f84a8be4719f7b8f3d2b1c8080220a9cc12d874351471321253c",
   "generated_artifact_manifest_sha256": "3340c462439144af0ccc20e48a7ae7653211ee77b93fccebc8f379ce344b728a",
   "certificate_generated_artifact_manifest_sha256": "3340c462439144af0ccc20e48a7ae7653211ee77b93fccebc8f379ce344b728a",
   "source_manifest_mismatch_total": 0,
@@ -75,20 +75,28 @@
     "failures": [],
     "binding_policy": "External K-level JSON rows must name retained/demotion finite case IDs and the certified Lean atlas theorem."
   },
-  "live_lean_build_stdout_tail": "✔ [2/3] Built OC133V12 (<elapsed>)\nBuild completed successfully (3 jobs).\n",
-  "live_lean_build_stderr_tail": "info: oc_core_1_3_3_v12: no previous manifest, creating one from scratch\n<toolchain provisioning outside canonical transcript>\n",
-  "lean_theorem_ref_present_total": 10,
+  "live_lean_build_stdout_tail": "✔ [2/3] Built OC133V12 (<elapsed>)\nBuild completed successfully (3 jobs).\n\n",
+  "live_lean_build_stderr_tail": "info: oc_core_1_3_3_v12: no previous manifest, creating one from scratch\n<toolchain provisioning outside canonical transcript>\n\n",
+  "lean_theorem_ref_present_total": 18,
   "lean_theorem_ref_missing_total": 0,
-  "finite_row_theorem_ref_total": 26,
-  "finite_row_theorem_ref_bound_total": 26,
+  "finite_row_theorem_ref_total": 33,
+  "finite_row_theorem_ref_bound_total": 33,
   "finite_row_theorem_ref_missing_total": 0,
-  "finite_row_evidence_ref_total": 26,
-  "finite_row_evidence_ref_bound_total": 26,
+  "finite_row_evidence_ref_total": 33,
+  "finite_row_evidence_ref_bound_total": 33,
   "finite_row_evidence_ref_missing_total": 0,
-  "lean_theorem_ref_total": 18,
+  "lean_theorem_ref_total": 26,
   "semantic_evaluator_ref_total": 6,
-  "governance_or_artifact_ref_total": 2,
+  "governance_or_artifact_ref_total": 1,
   "lean_theorem_refs": [
+    "formal/lean/OC133GrandPromotion.lean::grand_promotion_complete_control_accepts",
+    "formal/lean/OC133GrandPromotion.lean::grand_promotion_current_artifact_class_cannot_promote",
+    "formal/lean/OC133GrandPromotion.lean::grand_promotion_current_artifact_class_missing_claim_ledger_evidence",
+    "formal/lean/OC133GrandPromotion.lean::grand_promotion_declared_taxonomy_support_closes_when_all_obligations_pass",
+    "formal/lean/OC133GrandPromotion.lean::grand_promotion_missing_empirical_pack_blocks_promotion",
+    "formal/lean/OC133GrandPromotion.lean::grand_promotion_missing_finite_refs_blocks_promotion",
+    "formal/lean/OC133GrandPromotion.lean::grand_promotion_missing_modern_science_superiority_blocks_promotion",
+    "formal/lean/OC133GrandPromotion.lean::grand_promotion_pass_requires_all_obligations",
     "formal/lean/OC133V12.lean::bound_hybrid_admission_obligations",
     "formal/lean/OC133V12.lean::continuumness_zero_case_iff_declared_zero_cause_with_support",
     "formal/lean/OC133V12.lean::eligible_live_requires_cycle_or_maintenance",
@@ -117,7 +125,6 @@
     "proofs/finite_model_checks/run_finite_model_checks.py::semantic_tuple_verdict"
   ],
   "governance_or_artifact_refs": [
-    "formal/lean/OC133GrandPromotion.lean::grand_promotion_declared_taxonomy_support_closes_when_all_obligations_pass",
     "releases/oc_core_1_3_3/editorial/OC_CORE_1_3_3_PUBLISH_MANIFEST_DRAFT.json"
   ],
   "finite_row_theorem_ref_missing": [],
@@ -138,7 +145,7 @@
   "no_send_state_machine_total": 18,
   "semantic_failure_total": 0,
   "failure_total": 0,
-  "machine_checked_subset_total": 10,
+  "machine_checked_subset_total": 18,
   "rows": [
     {
       "case_id": "FM-T133-K0-RES-POS",
@@ -7734,7 +7741,7 @@
         "control_policy": "source-bound declared-taxonomy promotion control; no external publication action"
       },
       "negative_control_id": "FM-GRAND-TOE-DECLARED-TAXONOMY-MISSING-FINITE-REJECT",
-      "governance_or_artifact_ref": "formal/lean/OC133GrandPromotion.lean::grand_promotion_declared_taxonomy_support_closes_when_all_obligations_pass",
+      "lean_theorem_ref": "formal/lean/OC133GrandPromotion.lean::grand_promotion_declared_taxonomy_support_closes_when_all_obligations_pass",
       "computed_grand_toe_formal_obligation": {
         "verdict": "ACCEPT_PROMOTION",
         "mode": "hypothetical_complete",
@@ -7884,7 +7891,7 @@
         "negative_control_isolated_dimension": "finite_case_ids_missing_only"
       },
       "negative_control_id": "",
-      "governance_or_artifact_ref": "formal/lean/OC133GrandPromotion.lean::grand_promotion_declared_taxonomy_support_closes_when_all_obligations_pass",
+      "lean_theorem_ref": "formal/lean/OC133GrandPromotion.lean::grand_promotion_declared_taxonomy_support_closes_when_all_obligations_pass",
       "computed_grand_toe_formal_obligation": {
         "verdict": "REJECT_PROMOTION",
         "mode": "hypothetical_missing_finite",

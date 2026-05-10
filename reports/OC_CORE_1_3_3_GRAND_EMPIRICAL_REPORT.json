@@ -70,6 +70,16 @@
       "BIOLOGY_TARGET_ROWS_BELOW_MINIMUM::0/20",
       "BIOLOGY_TARGET_ROWS_REQUIRED"
     ],
+    "OC133-GRAND-BIOLOGY-SYSTEMS-BIOLOGY-CANDIDATE": [
+      "PRE_TARGET_LOCK_REQUIRED",
+      "TARGET_HIDDEN_UNTIL_SCORING_REQUIRED",
+      "N_BELOW_MINIMUM::20",
+      "COMPARATOR_BASELINE_NOT_PREREGISTERED",
+      "GRAND_TOE_SUPPORT_NOT_ALLOWED",
+      "BIOLOGY_PAGINATION_QA_NOT_GRAND_EVIDENCE",
+      "BIOLOGY_COMPARATOR_STRUCTURALLY_SILLY_OR_PAGINATION_ONLY",
+      "BIOLOGY_TARGET_ROWS_BELOW_MINIMUM::1/20"
+    ],
     "oc-core-1-3-3-biology-bounded-acquisition-template": [
       "PRE_TARGET_LOCK_REQUIRED",
       "TARGET_HIDDEN_UNTIL_SCORING_REQUIRED",
@@ -90,17 +100,6 @@
       "COMPARATOR_BASELINE_NOT_PREREGISTERED",
       "GRAND_TOE_SUPPORT_NOT_ALLOWED",
       "BIOLOGY_PAGINATION_QA_NOT_GRAND_EVIDENCE",
-      "BIOLOGY_TARGET_ROWS_BELOW_MINIMUM::0/20",
-      "BIOLOGY_TARGET_ROWS_REQUIRED"
-    ],
-    "OC133-GRAND-BIOLOGY-SYSTEMS-BIOLOGY-CANDIDATE": [
-      "PRE_TARGET_LOCK_REQUIRED",
-      "TARGET_HIDDEN_UNTIL_SCORING_REQUIRED",
-      "N_BELOW_MINIMUM::20",
-      "COMPARATOR_BASELINE_NOT_PREREGISTERED",
-      "GRAND_TOE_SUPPORT_NOT_ALLOWED",
-      "BIOLOGY_PAGINATION_QA_NOT_GRAND_EVIDENCE",
-      "BIOLOGY_COMPARATOR_STRUCTURALLY_SILLY_OR_PAGINATION_ONLY",
       "BIOLOGY_TARGET_ROWS_BELOW_MINIMUM::0/20",
       "BIOLOGY_TARGET_ROWS_REQUIRED"
     ],
@@ -344,6 +343,63 @@
       "candidate_preference_rank": 2
     },
     {
+      "source_ref": "validation/heldout/grand_science/biology_systems/biology_candidate_evidence_pack.json",
+      "origins": [
+        "discovered"
+      ],
+      "evidence_pack_id": "OC133-GRAND-BIOLOGY-SYSTEMS-BIOLOGY-CANDIDATE",
+      "domain": "biology",
+      "formal_only_pack": false,
+      "evidence_family": "biology-target-evidence",
+      "source_contracts": [
+        "official_biology_target_bundle"
+      ],
+      "pack_version": "1.0",
+      "pack_version_key": [
+        1,
+        0
+      ],
+      "supersedes": [],
+      "biology_target_row_total": 1,
+      "biology_target_artifact_ref_hash_total": 2,
+      "biology_target_artifact_ref_hashes": [
+        "validation/_raw/biology_ncbi_geo_platform.txt::withheld_field(retmax)::f205645ec097af8972f7c70f4753a5d7eb154c4283e9caa454235843974bfda4",
+        "validation/_raw/biology_ncbi_geo_platform.txt::f205645ec097af8972f7c70f4753a5d7eb154c4283e9caa454235843974bfda4"
+      ],
+      "n": 1,
+      "source_separation_mode": "target_blind",
+      "model_residual": 0.0,
+      "comparator_residual": 43988.0,
+      "superiority_margin": 43988.0,
+      "input_pack_grand_toe_support_allowed": false,
+      "empirical_domain_support_allowed": false,
+      "grand_toe_support_allowed": false,
+      "grand_toe_support_scope": "false in factory output; source pack field is treated only as an input requirement for empirical-domain evidence eligibility",
+      "candidate_sha256": "6b364817fa03bf943270a995ff154bc6a5586fe38755ebc7fcae1c65464a9889",
+      "valid_for_grand_support": false,
+      "valid_for_empirical_domain_support": false,
+      "failure_total": 8,
+      "failures": [
+        "PRE_TARGET_LOCK_REQUIRED",
+        "TARGET_HIDDEN_UNTIL_SCORING_REQUIRED",
+        "N_BELOW_MINIMUM::20",
+        "COMPARATOR_BASELINE_NOT_PREREGISTERED",
+        "GRAND_TOE_SUPPORT_NOT_ALLOWED",
+        "BIOLOGY_PAGINATION_QA_NOT_GRAND_EVIDENCE",
+        "BIOLOGY_COMPARATOR_STRUCTURALLY_SILLY_OR_PAGINATION_ONLY",
+        "BIOLOGY_TARGET_ROWS_BELOW_MINIMUM::1/20"
+      ],
+      "superseded_by": [
+        "OC133-BIOLOGY-TARGET-EVIDENCE-CANDIDATE"
+      ],
+      "supersession_reasons": [
+        "BIOLOGY_TARGET_VALID_SUCCESSOR_SUPERSESSION::OC133-BIOLOGY-TARGET-EVIDENCE-CANDIDATE::validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-BIOLOGY-TARGET-GEOPROFILES-SUMMARY-0001.json#uid=65632215::a9327f7e38a8fefae8f38baa8845af39fa79b498aa84d2f0deb32a860141afaf"
+      ],
+      "supersession_status": "superseded",
+      "selected_for_domain_support": false,
+      "candidate_preference_rank": 3
+    },
+    {
       "source_ref": "validation/heldout/acquisition_plans/biology_systems/biology_candidate_pack_template.json",
       "origins": [
         "discovered"
@@ -393,7 +449,7 @@
       ],
       "supersession_status": "superseded",
       "selected_for_domain_support": false,
-      "candidate_preference_rank": 3
+      "candidate_preference_rank": 4
     },
     {
       "source_ref": "validation/heldout/grand_science/biology/ncbi_benchmark/OC133_BIOLOGY_NCBI_BENCHMARK_CANDIDATE_PACK.json",
@@ -435,58 +491,6 @@
         "COMPARATOR_BASELINE_NOT_PREREGISTERED",
         "GRAND_TOE_SUPPORT_NOT_ALLOWED",
         "BIOLOGY_PAGINATION_QA_NOT_GRAND_EVIDENCE",
-        "BIOLOGY_TARGET_ROWS_BELOW_MINIMUM::0/20",
-        "BIOLOGY_TARGET_ROWS_REQUIRED"
-      ],
-      "superseded_by": [
-        "OC133-BIOLOGY-TARGET-EVIDENCE-CANDIDATE"
-      ],
-      "supersession_reasons": [
-        "BIOLOGY_TARGET_VALID_SUCCESSOR_SUPERSESSION::OC133-BIOLOGY-TARGET-EVIDENCE-CANDIDATE::validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-BIOLOGY-TARGET-GEOPROFILES-SUMMARY-0001.json#uid=65632215::a9327f7e38a8fefae8f38baa8845af39fa79b498aa84d2f0deb32a860141afaf"
-      ],
-      "supersession_status": "superseded",
-      "selected_for_domain_support": false,
-      "candidate_preference_rank": 4
-    },
-    {
-      "source_ref": "validation/heldout/grand_science/biology_systems/biology_candidate_evidence_pack.json",
-      "origins": [
-        "discovered"
-      ],
-      "evidence_pack_id": "OC133-GRAND-BIOLOGY-SYSTEMS-BIOLOGY-CANDIDATE",
-      "domain": "biology",
-      "formal_only_pack": false,
-      "evidence_family": null,
-      "source_contracts": [
-        "ncbi"
-      ],
-      "pack_version": null,
-      "pack_version_key": [],
-      "supersedes": [],
-      "biology_target_row_total": 0,
-      "biology_target_artifact_ref_hash_total": 0,
-      "biology_target_artifact_ref_hashes": [],
-      "n": 1,
-      "source_separation_mode": "target_blind",
-      "model_residual": 0.0,
-      "comparator_residual": 43988.0,
-      "superiority_margin": 43988.0,
-      "input_pack_grand_toe_support_allowed": false,
-      "empirical_domain_support_allowed": false,
-      "grand_toe_support_allowed": false,
-      "grand_toe_support_scope": "false in factory output; source pack field is treated only as an input requirement for empirical-domain evidence eligibility",
-      "candidate_sha256": "a0869ef78f43129d624aaaeb69c2ca7c1589f802ee96bbc72308c123bf435339",
-      "valid_for_grand_support": false,
-      "valid_for_empirical_domain_support": false,
-      "failure_total": 9,
-      "failures": [
-        "PRE_TARGET_LOCK_REQUIRED",
-        "TARGET_HIDDEN_UNTIL_SCORING_REQUIRED",
-        "N_BELOW_MINIMUM::20",
-        "COMPARATOR_BASELINE_NOT_PREREGISTERED",
-        "GRAND_TOE_SUPPORT_NOT_ALLOWED",
-        "BIOLOGY_PAGINATION_QA_NOT_GRAND_EVIDENCE",
-        "BIOLOGY_COMPARATOR_STRUCTURALLY_SILLY_OR_PAGINATION_ONLY",
         "BIOLOGY_TARGET_ROWS_BELOW_MINIMUM::0/20",
         "BIOLOGY_TARGET_ROWS_REQUIRED"
       ],
@@ -702,7 +706,7 @@
       "empirical_domain_support_allowed": false,
       "grand_toe_support_allowed": false,
       "grand_toe_support_scope": "false in factory output; source pack field is treated only as an input requirement for empirical-domain evidence eligibility",
-      "candidate_sha256": "221c13ba92f22e6e581a947a675d2649dedd8ce6a4b948626c26da35c6170f19",
+      "candidate_sha256": "3e4100e69ae1cedb7cd3b6fa4b563aed5a42c5f972d1016b27fed2f858782fdd",
       "valid_for_grand_support": false,
       "valid_for_empirical_domain_support": false,
       "failure_total": 20,
@@ -1200,9 +1204,9 @@
       ],
       "superseded_pack_refs": [
         "validation/heldout/grand_science/biology/ncbi_batch/OC133_BIOLOGY_NCBI_BATCH_CANDIDATE_PACK.json",
+        "validation/heldout/grand_science/biology_systems/biology_candidate_evidence_pack.json",
         "validation/heldout/acquisition_plans/biology_systems/biology_candidate_pack_template.json",
-        "validation/heldout/grand_science/biology/ncbi_benchmark/OC133_BIOLOGY_NCBI_BENCHMARK_CANDIDATE_PACK.json",
-        "validation/heldout/grand_science/biology_systems/biology_candidate_evidence_pack.json"
+        "validation/heldout/grand_science/biology/ncbi_benchmark/OC133_BIOLOGY_NCBI_BENCHMARK_CANDIDATE_PACK.json"
       ],
       "valid_n": 30,
       "minimum_n": 20,
@@ -1389,16 +1393,16 @@
       "source_ref": "validation/target_blind/OC133_TARGET_BLIND_PREDICTION_TABLE.json",
       "source_separation_mode": "target_blind",
       "n": 1,
-      "model_under_test": "count_unique(theorem_id where case_type='theorem_case' and observed_verdict='ACCEPT' and passed=true)",
-      "comparator_baseline": "positive_case_total negative control, which counts non-theorem support rows too",
+      "model_under_test": "machine_checked_subset_total after certificate/source binding gate",
+      "comparator_baseline": "ungated theorem-case count, which ignores certificate/source binding failures",
       "uncertainty": 0.0,
       "model_residual": 0.0,
-      "comparator_residual": 11.0,
-      "superiority_margin": 11.0,
+      "comparator_residual": 10.0,
+      "superiority_margin": 10.0,
       "negative_control_rejected": true,
-      "falsifier": "Unique accepted theorem-case count differs from machine_checked_subset_total or broad positive-case control is not worse",
+      "falsifier": "Certificate/source binding becomes clean and the gated machine_checked_subset_total differs from the row, or the ungated control is not worse",
       "grand_toe_support_allowed": false,
-      "support_scope": "target-blind reconstruction of a finite proof-corpus aggregate; not a TOE truth proof or empirical law",
+      "support_scope": "not promoted as bounded support until source_manifest_binding_ok is true and certificate_binding_failure_total is zero; the row records a demotion boundary, not support",
       "classification": "BOUNDED_BASELINE_NOT_GRAND_SUPPORT"
     }
   ],
@@ -1415,5 +1419,68 @@
   "modern_science_superiority_promotion_allowed": false,
   "verdict": "EMPIRICAL_DOMAIN_SUPPORT_ALLOWED",
   "support_policy": "A domain is unresolved unless an evidence pack demonstrates target-blind or prospective source separation, per-domain N at or above the configured minimum, comparator superiority, uncertainty, residuals, negative controls, and falsifiers. Existing OC133 target-blind rows are admissible only as bounded baseline evidence and do not permit grand TOE support.",
-  "no_fabricated_pass_policy": "This factory/gate emits only bounded empirical-domain support from qualifying packs. It does not emit TOE, final-theory, broad modern-science coverage, or modern-science superiority promotion from bounded OC133 reconstructions, sample packs, or artifact existence. Unresolved domains remain BLOCKED until prospective or target-blind evidence packs clear the configured criteria."
+  "no_fabricated_pass_policy": "This factory/gate emits only bounded empirical-domain support from qualifying packs. It does not emit TOE, final-theory, broad modern-science coverage, or modern-science superiority promotion from bounded OC133 reconstructions, sample packs, or artifact existence. Unresolved domains remain BLOCKED until prospective or target-blind evidence packs clear the configured criteria.",
+  "generated_at": "2026-05-10T13:31:45Z",
+  "sync_run_id": "OC133-GRAND-GATE-713707164764885C",
+  "gate_run_id": "OC133-GRAND-GATE-713707164764885C",
+  "source_artifact_set_sha256": "713707164764885cf8b97da3d4c0000428adefdd65d335c79b32fdc849a43b48",
+  "source_artifact_hashes": {
+    "requirements_ref": "benchmarks/grand_science/domain_requirements.json",
+    "requirements_sha256": "14ad270972e16a3fe1f9b5be1f6c68fc504bc2e80be6abd87cda1e3b9ee43dca",
+    "schema_ref": "validation/grand_science/grand_empirical_evidence.schema.json",
+    "schema_sha256": "76f894a574030ecb092f28982fda0032bbdbb6b04ebd71bcf0b046a84736f96b",
+    "protocol_schema_ref": "validation/grand_science/grand_empirical_protocol.schema.json",
+    "protocol_schema_sha256": "a9a8833b25361414e238af556f34e561e88b2c9b44de4a4bb2cbfe7600f00b61",
+    "bounded_baseline_ref": "validation/target_blind/OC133_TARGET_BLIND_PREDICTION_TABLE.json",
+    "bounded_baseline_sha256": "261e8720c83770cc56c91ad99f747d978339ff5822177035b021ad52f711779a",
+    "candidate_evidence_pack_hashes": {
+      "validation/heldout/acquisition_plans/biology_systems/biology_candidate_pack_template.json": "f61fa7fbedfe63663647dd0ce4c69876a1304d8792a2112ed920a813032b6581",
+      "validation/heldout/acquisition_plans/biology_systems/systems_candidate_pack_template.json": "15bffebf6763f458db47c7262868615494954209c4df19a1267e380db2458abd",
+      "validation/heldout/grand_science/biology/ncbi_batch/OC133_BIOLOGY_NCBI_BATCH_CANDIDATE_PACK.json": "00e1b670e3ce8be578a0c0b53ba959056e18b5e6f822224c6478a750a0994319",
+      "validation/heldout/grand_science/biology/ncbi_benchmark/OC133_BIOLOGY_NCBI_BENCHMARK_CANDIDATE_PACK.json": "2a0480828abbe353f49f582875f7868e9c95831e1a25f9d3b2c63c6d1a77a664",
+      "validation/heldout/grand_science/biology/target_evidence/biology_target_evidence_candidate_pack.json": "65b5d1f9a4a4af66867b6fd786ce9c2bde8cb5dfa78afca5fac85a6253e9ae8d",
+      "validation/heldout/grand_science/biology_systems/biology_candidate_evidence_pack.json": "6b364817fa03bf943270a995ff154bc6a5586fe38755ebc7fcae1c65464a9889",
+      "validation/heldout/grand_science/biology_systems/systems_candidate_evidence_pack.json": "2edb5ceddf48731a6cc2439ece23cd465dac607c90af1aecf7020cf1925de22a",
+      "validation/heldout/grand_science/chemistry/pubchem_formula_batch/OC133_CHEMISTRY_PUBCHEM_FORMULA_BATCH_CANDIDATE_PACK.json": "a6efc12f383ee9b73b85f81c7062ac8e76e2a2d76a0207b296de174a0e2b0155",
+      "validation/heldout/grand_science/chemistry/pubchem_hbond_donor/OC133_CHEMISTRY_PUBCHEM_HBOND_DONOR_CANDIDATE_PACK.json": "dfc634007c36d0d58833b89aaf48e188e3ce4b510a1727909564c88e97ad5f12",
+      "validation/heldout/grand_science/mathematics/mathematics_candidate_evidence_pack.json": "3e4100e69ae1cedb7cd3b6fa4b563aed5a42c5f972d1016b27fed2f858782fdd",
+      "validation/heldout/grand_science/physics_chemistry/chemistry_candidate_evidence_pack.json": "cc109a7061dad286e438d2fa49ce6640c8ec4d2d876844882501b3f39fbdba36",
+      "validation/heldout/grand_science/physics_chemistry/official_batch/chemistry_official_batch_candidate_evidence_pack.json": "ca60d647f7f652e025a5ad43658bab45a9ce951da3d7838dd2dbd3b9c23261c0",
+      "validation/heldout/grand_science/physics_chemistry/official_batch/physics_official_batch_candidate_evidence_pack.json": "a20df05df359b099cf592ef12aa479a80dec825b29c226a6d80aa51bdc093d9e",
+      "validation/heldout/grand_science/physics_chemistry/physics_candidate_evidence_pack.json": "d51d8d810784cffb32089c7917fbad9f8f23f18d9deafaeaf57e3d6574b64812",
+      "validation/heldout/grand_science/systems/harvested/systems_candidate_evidence_pack.json": "095cb848e73f61da2a302e5ba05ecbeeb666f3e45fd30737c5caf68426293a20",
+      "validation/heldout/grand_science/systems/wdi_benchmark/systems_wdi_benchmark_candidate_evidence_pack.json": "dfc85eba5c79d3029cff505ff1fed5f8321ea79d487b59dd2fbd342e17cb7e6a",
+      "validation/heldout/grand_science/systems/wdi_model_search/OC133_SYSTEMS_WDI_MODEL_SEARCH_CANDIDATE_PACK.json": "8f04fcca7e38692d3d77b3c23ad27cdc574a4695e90c1192a9671bd07d2935cc",
+      "validation/heldout/grand_science/systems/wdi_population_materiality/OC133_SYSTEMS_WDI_POPULATION_MATERIALITY_CANDIDATE_PACK.json": "28dc2139e031822cf9f3914c275cb0b5cd5f09a4bf89b5aba412bd5123900bf9",
+      "validation/heldout/grand_science/systems/wdi_predictive_search_v2/OC133_SYSTEMS_WDI_PREDICTIVE_SEARCH_V2_CANDIDATE_PACK.json": "2ddba6f842baa78367bb55ffc9b03cdfddfdc8167b8cfa696aab91110465a1d9"
+    },
+    "selected_valid_evidence_pack_refs": [
+      "validation/heldout/grand_science/biology/target_evidence/biology_target_evidence_candidate_pack.json",
+      "validation/heldout/grand_science/chemistry/pubchem_hbond_donor/OC133_CHEMISTRY_PUBCHEM_HBOND_DONOR_CANDIDATE_PACK.json",
+      "validation/heldout/grand_science/physics_chemistry/official_batch/physics_official_batch_candidate_evidence_pack.json",
+      "validation/heldout/grand_science/systems/wdi_population_materiality/OC133_SYSTEMS_WDI_POPULATION_MATERIALITY_CANDIDATE_PACK.json"
+    ],
+    "selected_valid_evidence_pack_hashes": {
+      "validation/heldout/grand_science/biology/target_evidence/biology_target_evidence_candidate_pack.json": "65b5d1f9a4a4af66867b6fd786ce9c2bde8cb5dfa78afca5fac85a6253e9ae8d",
+      "validation/heldout/grand_science/chemistry/pubchem_hbond_donor/OC133_CHEMISTRY_PUBCHEM_HBOND_DONOR_CANDIDATE_PACK.json": "dfc634007c36d0d58833b89aaf48e188e3ce4b510a1727909564c88e97ad5f12",
+      "validation/heldout/grand_science/physics_chemistry/official_batch/physics_official_batch_candidate_evidence_pack.json": "a20df05df359b099cf592ef12aa479a80dec825b29c226a6d80aa51bdc093d9e",
+      "validation/heldout/grand_science/systems/wdi_population_materiality/OC133_SYSTEMS_WDI_POPULATION_MATERIALITY_CANDIDATE_PACK.json": "28dc2139e031822cf9f3914c275cb0b5cd5f09a4bf89b5aba412bd5123900bf9"
+    },
+    "domain_blockers": {
+      "biology": [],
+      "chemistry": [],
+      "physics": [],
+      "systems": []
+    },
+    "blocked_domain_total": 0,
+    "grand_toe_support_allowed": false
+  },
+  "selected_valid_evidence_pack_refs": [
+    "validation/heldout/grand_science/biology/target_evidence/biology_target_evidence_candidate_pack.json",
+    "validation/heldout/grand_science/chemistry/pubchem_hbond_donor/OC133_CHEMISTRY_PUBCHEM_HBOND_DONOR_CANDIDATE_PACK.json",
+    "validation/heldout/grand_science/physics_chemistry/official_batch/physics_official_batch_candidate_evidence_pack.json",
+    "validation/heldout/grand_science/systems/wdi_population_materiality/OC133_SYSTEMS_WDI_POPULATION_MATERIALITY_CANDIDATE_PACK.json"
+  ],
+  "registry_sync_ref": "reports/OC_CORE_1_3_3_GRAND_EVIDENCE_REGISTRY_SYNC.json",
+  "repair_work_orders_ref": "validation/heldout/OC133_GRAND_EVIDENCE_REPAIR_WORK_ORDERS.json"
 }

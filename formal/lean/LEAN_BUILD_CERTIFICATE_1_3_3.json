@@ -2,9 +2,9 @@
   "schema_id": "OC133_LEAN_BUILD_CERTIFICATE_v12",
   "release_id": "oc_core_1_3_3",
   "version": "1.3.3",
-  "command": "isolated source manifest without .lake && elan run leanprover/lean4:v4.28.0 lake build OC133V12",
+  "command": "isolated source manifest without .lake && elan run leanprover/lean4:v4.28.0 lake build OC133V12 && lake env lean formal/lean/OC133GrandPromotion.lean",
   "clean_command": "create isolated temp checkout; assert no .lake before build",
-  "build_command": "lake build OC133V12",
+  "build_command": "lake build OC133V12 && lake env lean formal/lean/OC133GrandPromotion.lean",
   "toolchain_command": "elan run leanprover/lean4:v4.28.0",
   "lean_version_observed": "HOST_SPECIFIC_DIAGNOSTIC_REDACTED_SEE_LOCAL_OBSERVATION_REPORT",
   "lake_version_observed": "HOST_SPECIFIC_DIAGNOSTIC_REDACTED_SEE_LOCAL_OBSERVATION_REPORT",
@@ -39,14 +39,14 @@
   "isolated_clean_checkout_build": true,
   "preexisting_lake_cache_detected": false,
   "post_build_lake_cache_created": true,
-  "build_transcript_sha256": "29daf52199555fd8467242d14e01f273f6ec5816351ee8979f74f1e15820532a",
+  "build_transcript_sha256": "684ac0997b886027080a3b91332bab1bca31b49489947157686f0a1ffc9cddfc",
   "lean_toolchain_ref": "lean-toolchain",
   "lean_toolchain": "leanprover/lean4:v4.28.0",
   "lean_toolchain_sha256": "db7bb24b756d745bbde83fe92718b51bd3625dae3701ba0f598d0eedcd3f3028",
   "lakefile_ref": "lakefile.lean",
   "lakefile_sha256": "df846df419c18077c055b71970a38ab26e53d38a24dc316efa877d93da566e9d",
   "certificate_generator_ref": "tools/materialize_oc_core_1_3_3_v12_closure.py",
-  "certificate_generator_sha256": "32539a1af1e737145503d05a55443daea546a54abfaf88a48af4ba6527ace8ea",
+  "certificate_generator_sha256": "303b46dbc012c0fbbf31ab0057998abe37636542c864886f8d567d122c485ac8",
   "platform": "HOST_SPECIFIC_METADATA_REDACTED_FROM_CANONICAL_CERTIFICATE",
   "platform_observed_family": "HOST_SPECIFIC_DIAGNOSTIC_REDACTED_SEE_LOCAL_OBSERVATION_REPORT",
   "local_observation_report_ref": "formal/lean/LEAN_BUILD_LOCAL_OBSERVATION_1_3_3.json",
@@ -85,6 +85,13 @@
       "byte_sha256_policy": "TEXT_REFS_LF_NORMALIZED_TO_AVOID_CHECKOUT_FILTER_DRIFT"
     },
     {
+      "ref": "formal/lean/OC133GrandPromotion.lean",
+      "sha256": "c0574b45af8cb8cec7a7c00cc630c72b7f67723de8a6a37394614f5a53d392b3",
+      "sha256_policy": "TEXT_REFS_LF_NORMALIZED_FOR_SOURCE_BINDING",
+      "byte_sha256": "c0574b45af8cb8cec7a7c00cc630c72b7f67723de8a6a37394614f5a53d392b3",
+      "byte_sha256_policy": "TEXT_REFS_LF_NORMALIZED_TO_AVOID_CHECKOUT_FILTER_DRIFT"
+    },
+    {
       "ref": "formal/lean/OC133V12.lean",
       "sha256": "551596aac8fd8012f97a2cab8e72da4e887e9c8fd69563a686db95af6e308ce7",
       "sha256_policy": "TEXT_REFS_LF_NORMALIZED_FOR_SOURCE_BINDING",
@@ -114,9 +121,9 @@
     },
     {
       "ref": "proofs/finite_model_checks/run_finite_model_checks.py",
-      "sha256": "cd9205b2217af9163dd2de61644c97d7e9fcbaed9f5a16c2a0f2cc790e5c2f2f",
+      "sha256": "f895987f64b7463e90fcdd4f68ec6591b2d8b555596f2330086800a714abe630",
       "sha256_policy": "TEXT_REFS_LF_NORMALIZED_FOR_SOURCE_BINDING",
-      "byte_sha256": "cd9205b2217af9163dd2de61644c97d7e9fcbaed9f5a16c2a0f2cc790e5c2f2f",
+      "byte_sha256": "f895987f64b7463e90fcdd4f68ec6591b2d8b555596f2330086800a714abe630",
       "byte_sha256_policy": "TEXT_REFS_LF_NORMALIZED_TO_AVOID_CHECKOUT_FILTER_DRIFT"
     },
     {
@@ -149,23 +156,23 @@
     },
     {
       "ref": "release_machine/public_release.py",
-      "sha256": "58e5bf454078325a888df965e2b00fffeb0e40c2d4f381cec46a16fbaa064b02",
+      "sha256": "6fe77772c40d5c93e8d4de6ac18eeab06c26e7006b932ead7c12d41e9dc5aeea",
       "sha256_policy": "TEXT_REFS_LF_NORMALIZED_FOR_SOURCE_BINDING",
-      "byte_sha256": "58e5bf454078325a888df965e2b00fffeb0e40c2d4f381cec46a16fbaa064b02",
+      "byte_sha256": "6fe77772c40d5c93e8d4de6ac18eeab06c26e7006b932ead7c12d41e9dc5aeea",
       "byte_sha256_policy": "TEXT_REFS_LF_NORMALIZED_TO_AVOID_CHECKOUT_FILTER_DRIFT"
     },
     {
       "ref": "release_machine/science_monolith.py",
-      "sha256": "66a52eb1fa8eb74ea2c130a441258ecac144b42023a3df89664286c30593d496",
+      "sha256": "8179443f9520214725e0a2d189abf3f6c03c93a201a5b3d46fbb464408046faf",
       "sha256_policy": "TEXT_REFS_LF_NORMALIZED_FOR_SOURCE_BINDING",
-      "byte_sha256": "66a52eb1fa8eb74ea2c130a441258ecac144b42023a3df89664286c30593d496",
+      "byte_sha256": "8179443f9520214725e0a2d189abf3f6c03c93a201a5b3d46fbb464408046faf",
       "byte_sha256_policy": "TEXT_REFS_LF_NORMALIZED_TO_AVOID_CHECKOUT_FILTER_DRIFT"
     },
     {
       "ref": "release_machine/versioning.py",
-      "sha256": "65e547a59d0ed7bf5d28f2cf54faa36eaaccc385451962f04f416584aaaeebef",
+      "sha256": "d5486f5a4a055d522061eebd3124ed12fa5d14435cbdcec16df5e86adab66641",
       "sha256_policy": "TEXT_REFS_LF_NORMALIZED_FOR_SOURCE_BINDING",
-      "byte_sha256": "65e547a59d0ed7bf5d28f2cf54faa36eaaccc385451962f04f416584aaaeebef",
+      "byte_sha256": "d5486f5a4a055d522061eebd3124ed12fa5d14435cbdcec16df5e86adab66641",
       "byte_sha256_policy": "TEXT_REFS_LF_NORMALIZED_TO_AVOID_CHECKOUT_FILTER_DRIFT"
     },
     {
@@ -394,16 +401,16 @@
     },
     {
       "ref": "tools/materialize_oc_core_1_3_3_v12_closure.py",
-      "sha256": "32539a1af1e737145503d05a55443daea546a54abfaf88a48af4ba6527ace8ea",
+      "sha256": "303b46dbc012c0fbbf31ab0057998abe37636542c864886f8d567d122c485ac8",
       "sha256_policy": "TEXT_REFS_LF_NORMALIZED_FOR_SOURCE_BINDING",
-      "byte_sha256": "32539a1af1e737145503d05a55443daea546a54abfaf88a48af4ba6527ace8ea",
+      "byte_sha256": "303b46dbc012c0fbbf31ab0057998abe37636542c864886f8d567d122c485ac8",
       "byte_sha256_policy": "TEXT_REFS_LF_NORMALIZED_TO_AVOID_CHECKOUT_FILTER_DRIFT"
     },
     {
       "ref": "tools/oc133_public_release_payload.py",
-      "sha256": "fb872b349513fbcb786ce7cae0384c995c4a95f60f6b2de6a75046433be3721f",
+      "sha256": "6b6ac7a2dceb97855b2e1608ff0c3339ca241542c13a5817f777ebc67baeaf36",
       "sha256_policy": "TEXT_REFS_LF_NORMALIZED_FOR_SOURCE_BINDING",
-      "byte_sha256": "fb872b349513fbcb786ce7cae0384c995c4a95f60f6b2de6a75046433be3721f",
+      "byte_sha256": "6b6ac7a2dceb97855b2e1608ff0c3339ca241542c13a5817f777ebc67baeaf36",
       "byte_sha256_policy": "TEXT_REFS_LF_NORMALIZED_TO_AVOID_CHECKOUT_FILTER_DRIFT"
     },
     {
@@ -415,9 +422,9 @@
     },
     {
       "ref": "tools/templates/run_finite_model_checks_hardened.py",
-      "sha256": "cd9205b2217af9163dd2de61644c97d7e9fcbaed9f5a16c2a0f2cc790e5c2f2f",
+      "sha256": "f895987f64b7463e90fcdd4f68ec6591b2d8b555596f2330086800a714abe630",
       "sha256_policy": "TEXT_REFS_LF_NORMALIZED_FOR_SOURCE_BINDING",
-      "byte_sha256": "cd9205b2217af9163dd2de61644c97d7e9fcbaed9f5a16c2a0f2cc790e5c2f2f",
+      "byte_sha256": "f895987f64b7463e90fcdd4f68ec6591b2d8b555596f2330086800a714abe630",
       "byte_sha256_policy": "TEXT_REFS_LF_NORMALIZED_TO_AVOID_CHECKOUT_FILTER_DRIFT"
     },
     {
@@ -547,7 +554,7 @@
       "byte_sha256_policy": "TEXT_REFS_LF_NORMALIZED_TO_AVOID_CHECKOUT_FILTER_DRIFT"
     }
   ],
-  "clean_source_manifest_sha256": "4d74073050e21abf3d04384c9d9b14c2da62e8029c7b16d3ac97bd3004ec5bf9",
+  "clean_source_manifest_sha256": "044f2b1fffa4f84a8be4719f7b8f3d2b1c8080220a9cc12d874351471321253c",
   "clean_source_manifest_hash_policy": "sha256 and byte_sha256 are LF-normalized for text source refs so clean checkout filters cannot change source binding.",
   "generated_artifact_manifest": [
     {
@@ -560,11 +567,15 @@
   "generated_artifact_manifest_sha256": "3340c462439144af0ccc20e48a7ae7653211ee77b93fccebc8f379ce344b728a",
   "generated_artifact_manifest_scope": "CERTIFIED_STABLE_GENERATED_INPUTS_ONLY; finite reports, release scorecards, and zip/checksum outputs are excluded to avoid cert/output hash cycles",
   "lean_source_ref": "formal/lean/OC133V12.lean",
+  "lean_source_refs": [
+    "formal/lean/OC133V12.lean",
+    "formal/lean/OC133GrandPromotion.lean"
+  ],
   "lean_source_sha256": "551596aac8fd8012f97a2cab8e72da4e887e9c8fd69563a686db95af6e308ce7",
   "lean_source_sha256_policy": "LF_NORMALIZED_TEXT_SOURCE_HASH_MATCHING_CLEAN_SOURCE_MANIFEST",
   "lean_source_byte_sha256": "551596aac8fd8012f97a2cab8e72da4e887e9c8fd69563a686db95af6e308ce7",
-  "theorem_ref_total": 10,
-  "theorem_ref_present_total": 10,
+  "theorem_ref_total": 18,
+  "theorem_ref_present_total": 18,
   "theorem_ref_missing_total": 0,
   "missing_theorem_refs": [],
   "theorem_refs": [
@@ -627,9 +638,57 @@
       "source_ref": "formal/lean/OC133V12.lean",
       "present": true,
       "declaration_sha256": "cc9eec7ac8c7be73746ff81cc07cf37cb959cddef9cf8a06d6687121992bc578"
+    },
+    {
+      "name": "grand_promotion_pass_requires_all_obligations",
+      "source_ref": "formal/lean/OC133GrandPromotion.lean",
+      "present": true,
+      "declaration_sha256": "17f397d4d99b6622c9c9dd8b91b9ceaa71a5e71b515d0427c2550926b260492f"
+    },
+    {
+      "name": "grand_promotion_complete_control_accepts",
+      "source_ref": "formal/lean/OC133GrandPromotion.lean",
+      "present": true,
+      "declaration_sha256": "27315ec3ba1e83e04cccb6ae915da4d2352f9287b7d8d2b7950f2b5907b2af24"
+    },
+    {
+      "name": "grand_promotion_declared_taxonomy_support_closes_when_all_obligations_pass",
+      "source_ref": "formal/lean/OC133GrandPromotion.lean",
+      "present": true,
+      "declaration_sha256": "eb87387798d5b471e5b8d4e29538c46539e30fc2b44948855dcad0b96e8c3fd2"
+    },
+    {
+      "name": "grand_promotion_current_artifact_class_cannot_promote",
+      "source_ref": "formal/lean/OC133GrandPromotion.lean",
+      "present": true,
+      "declaration_sha256": "6399d919b07a507687fdcb0548c422d8208078c3c9f0337a617ecdbe0903dc89"
+    },
+    {
+      "name": "grand_promotion_current_artifact_class_missing_claim_ledger_evidence",
+      "source_ref": "formal/lean/OC133GrandPromotion.lean",
+      "present": true,
+      "declaration_sha256": "56303276ca0703e98d3adfecef7911b757be7b3b587c63e9ea3e1f0aab9c3e22"
+    },
+    {
+      "name": "grand_promotion_missing_empirical_pack_blocks_promotion",
+      "source_ref": "formal/lean/OC133GrandPromotion.lean",
+      "present": true,
+      "declaration_sha256": "fd516bd4d2e27000d2e0ea1fc59470f7c95f8ecf1eb24eff5f072f1038f3953e"
+    },
+    {
+      "name": "grand_promotion_missing_modern_science_superiority_blocks_promotion",
+      "source_ref": "formal/lean/OC133GrandPromotion.lean",
+      "present": true,
+      "declaration_sha256": "e3470a790da935a835f7584d535281923a3f9db322edd99f2d36d1c6914e3f29"
+    },
+    {
+      "name": "grand_promotion_missing_finite_refs_blocks_promotion",
+      "source_ref": "formal/lean/OC133GrandPromotion.lean",
+      "present": true,
+      "declaration_sha256": "776390a167644efd02b17daeb1bacad0e9c98aa3b74a77d7f409f0ba8f3f28f5"
     }
   ],
-  "stdout_tail": "✔ [2/3] Built OC133V12 (<elapsed>)\nBuild completed successfully (3 jobs).\n",
-  "stderr_tail": "info: oc_core_1_3_3_v12: no previous manifest, creating one from scratch\n<toolchain provisioning outside canonical transcript>\n",
+  "stdout_tail": "✔ [2/3] Built OC133V12 (<elapsed>)\nBuild completed successfully (3 jobs).\n\n",
+  "stderr_tail": "info: oc_core_1_3_3_v12: no previous manifest, creating one from scratch\n<toolchain provisioning outside canonical transcript>\n\n",
   "no_send": true
 }

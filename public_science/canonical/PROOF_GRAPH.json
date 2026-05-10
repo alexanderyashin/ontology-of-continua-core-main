@@ -1,0 +1,866 @@
+{
+  "finite_model_checks": {
+    "case_total": 151,
+    "failure_total": 0,
+    "ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
+    "sample_rows": [
+      {
+        "case_id": "FM-T133-K0-RES-POS",
+        "case_type": "theorem_case",
+        "effective_expected_verdict": "ACCEPT",
+        "expected_verdict": "ACCEPT",
+        "lean_theorem_ref": "formal/lean/OC133V12.lean::k0_countermodel_raw_separation_not_resolution_distinction",
+        "model": {
+          "cross_resolution_distinguished": true,
+          "cross_rho_cell_a": 0,
+          "cross_rho_cell_b": 1,
+          "raw_distance": 0.01,
+          "raw_separated": true,
+          "resolution_distinguished": false,
+          "rho_cell_a": 0,
+          "rho_cell_b": 0
+        },
+        "negative_control_id": "FM-T133-K0-RES-NEG",
+        "observed_verdict": "ACCEPT",
+        "passed": true,
+        "theorem_id": "T133-K0-RES"
+      },
+      {
+        "case_id": "FM-T133-K0-RES-NEG",
+        "case_type": "theorem_case",
+        "effective_expected_verdict": "REJECT",
+        "expected_verdict": "REJECT",
+        "lean_theorem_ref": "formal/lean/OC133V12.lean::k0_countermodel_raw_separation_not_resolution_distinction",
+        "model": {
+          "cross_resolution_distinguished": true,
+          "cross_rho_cell_a": 0,
+          "cross_rho_cell_b": 1,
+          "raw_distance": 0.01,
+          "raw_separated": true,
+          "resolution_distinguished": true,
+          "rho_cell_a": 0,
+          "rho_cell_b": 0
+        },
+        "negative_control_id": "",
+        "observed_verdict": "REJECT",
+        "passed": true,
+        "theorem_id": "T133-K0-RES"
+      },
+      {
+        "case_id": "FM-T133-OMEGA-STATUS-POS",
+        "case_type": "theorem_case",
+        "effective_expected_verdict": "ACCEPT",
+        "expected_verdict": "ACCEPT",
+        "lean_theorem_ref": "formal/lean/OC133V12.lean::lifecycle_residue_rebirth_morphism_boundary",
+        "model": {
+          "claimed_identity_continuation": false,
+          "death": true,
+          "identity_invariant_preserved": false,
+          "identity_token": "runtime_token_A",
+          "live": false,
+          "morphism_class": "rebirth",
+          "morphism_residue_id": "residue_schema_01",
+          "morphism_source_id": "runtime_token_A",
+          "morphism_target_id": "new_live_B",
+          "rebirth_source_residue_id": "residue_schema_01",
+          "rebirth_target_id": "new_live_B",
+          "residue_id": "residue_schema_01",
+          "residue_morphism_class": "residue",
+          "residue_morphism_residue_id": "residue_schema_01",
+          "residue_morphism_source_id": "runtime_token_A",
+          "residue_morphism_target_id": "runtime_token_A"
+        },
+        "negative_control_id": "FM-T133-OMEGA-STATUS-NEG",
+        "observed_verdict": "ACCEPT",
+        "passed": true,
+        "theorem_id": "T133-OMEGA-STATUS"
+      },
+      {
+        "case_id": "FM-T133-OMEGA-STATUS-NEG",
+        "case_type": "theorem_case",
+        "effective_expected_verdict": "REJECT",
+        "expected_verdict": "REJECT",
+        "lean_theorem_ref": "formal/lean/OC133V12.lean::lifecycle_residue_rebirth_morphism_boundary",
+        "model": {
+          "claimed_identity_continuation": false,
+          "death": true,
+          "identity_invariant_preserved": false,
+          "identity_token": "runtime_token_A",
+          "live": true,
+          "morphism_class": "rebirth",
+          "morphism_residue_id": "residue_schema_01",
+          "morphism_source_id": "runtime_token_A",
+          "morphism_target_id": "new_live_B",
+          "negative_control_isolated_dimension": "death_live_contradiction_only",
+          "rebirth_source_residue_id": "residue_schema_01",
+          "rebirth_target_id": "new_live_B",
+          "residue_id": "residue_schema_01",
+          "residue_morphism_class": "residue",
+          "residue_morphism_residue_id": "residue_schema_01",
+          "residue_morphism_source_id": "runtime_token_A",
+          "residue_morphism_target_id": "runtime_token_A"
+        },
+        "negative_control_id": "",
+        "observed_verdict": "REJECT",
+        "passed": true,
+        "theorem_id": "T133-OMEGA-STATUS"
+      },
+      {
+        "case_id": "FM-T133-OMEGA-IDENTITY-EQUIVOCATION-NEG",
+        "case_type": "theorem_case",
+        "effective_expected_verdict": "REJECT",
+        "expected_verdict": "REJECT",
+        "lean_theorem_ref": "formal/lean/OC133V12.lean::lifecycle_residue_rebirth_morphism_boundary",
+        "model": {
+          "claimed_identity_continuation": true,
+          "death": true,
+          "identity_invariant_preserved": false,
+          "identity_token": "runtime_token_A",
+          "live": false,
+          "morphism_class": "rebirth",
+          "morphism_residue_id": "residue_schema_01",
+          "morphism_source_id": "runtime_token_A",
+          "morphism_target_id": "runtime_token_A",
+          "negative_control_isolated_dimension": "rebirth_as_same_identity_equivocation_only",
+          "rebirth_source_residue_id": "residue_schema_01",
+          "rebirth_target_id": "runtime_token_A",
+          "residue_id": "residue_schema_01",
+          "residue_morphism_class": "residue",
+          "residue_morphism_residue_id": "residue_schema_01",
+          "residue_morphism_source_id": "runtime_token_A",
+          "residue_morphism_target_id": "runtime_token_A"
+        },
+        "negative_control_id": "",
+        "observed_verdict": "REJECT",
+        "passed": true,
+        "theorem_id": "T133-OMEGA-STATUS"
+      },
+      {
+        "case_id": "FM-T133-K-ZERO-POS",
+        "case_type": "theorem_case",
+        "effective_expected_verdict": "ACCEPT",
+        "expected_verdict": "ACCEPT",
+        "lean_theorem_ref": "formal/lean/OC133V12.lean::continuumness_zero_case_iff_declared_zero_cause_with_support",
+        "model": {
+          "admissible_nonempty": true,
+          "claimed_k": 0,
+          "cycle_witness": true,
+          "live_support": true,
+          "obstructions": {
+            "coherence_broken": false,
+            "embedding_failure": false,
+            "flow_blocked": false,
+            "identity_split": false
+          },
+          "zero_causes": {
+            "coherence": false,
+            "embedding": false,
+            "flow": true,
+            "identity": false
+          }
+        },
+        "negative_control_id": "FM-T133-K-ZERO-NEG",
+        "observed_verdict": "ACCEPT",
+        "passed": true,
+        "theorem_id": "T133-K-ZERO"
+      },
+      {
+        "case_id": "FM-T133-K-ZERO-NEG",
+        "case_type": "theorem_case",
+        "effective_expected_verdict": "REJECT",
+        "expected_verdict": "REJECT",
+        "lean_theorem_ref": "formal/lean/OC133V12.lean::continuumness_zero_case_iff_declared_zero_cause_with_support",
+        "model": {
+          "admissible_nonempty": true,
+          "claimed_k": 0,
+          "cycle_witness": true,
+          "live_support": true,
+          "obstructions": {
+            "coherence_broken": false,
+            "embedding_failure": false,
+            "flow_blocked": false,
+            "identity_split": false
+          },
+          "zero_causes": {
+            "coherence": false,
+            "embedding": false,
+            "flow": false,
+            "identity": false
+          }
+        },
+        "negative_control_id": "",
+        "observed_verdict": "REJECT",
+        "passed": true,
+        "theorem_id": "T133-K-ZERO"
+      },
+      {
+        "case_id": "FM-T133-K-ZERO-OBSTRUCTION-NEG",
+        "case_type": "theorem_case",
+        "effective_expected_verdict": "REJECT",
+        "expected_verdict": "REJECT",
+        "lean_theorem_ref": "formal/lean/OC133V12.lean::zero_cause_does_not_compute_k_by_itself",
+        "model": {
+          "admissible_nonempty": true,
+          "claimed_k": 0,
+          "cycle_witness": true,
+          "live_support": true,
+          "obstructions": {
+            "coherence_broken": false,
+            "embedding_failure": false,
+            "flow_blocked": true,
+            "identity_split": false
+          },
+          "zero_causes": {
+            "coherence": false,
+            "embedding": false,
+            "flow": true,
+            "identity": false
+          }
+        },
+        "negative_control_id": "",
+        "observed_verdict": "REJECT",
+        "passed": true,
+        "theorem_id": "T133-K-ZERO"
+      },
+      {
+        "case_id": "FM-T133-K-ZERO-LIVE-SUPPORT-NEG",
+        "case_type": "theorem_case",
+        "effective_expected_verdict": "REJECT",
+        "expected_verdict": "REJECT",
+        "lean_theorem_ref": "formal/lean/OC133V12.lean::continuumness_zero_case_iff_declared_zero_cause_with_support",
+        "model": {
+          "admissible_nonempty": true,
+          "claimed_k": 0,
+          "cycle_witness": true,
+          "live_support": false,
+          "obstructions": {
+            "coherence_broken": false,
+            "embedding_failure": false,
+            "flow_blocked": false,
+            "identity_split": false
+          },
+          "zero_causes": {
+            "coherence": false,
+            "embedding": false,
+            "flow": true,
+            "identity": false
+          }
+        },
+        "negative_control_id": "",
+        "observed_verdict": "REJECT",
+        "passed": true,
+        "theorem_id": "T133-K-ZERO"
+      },
+      {
+        "case_id": "FM-T133-BOUNDARY-POS",
+        "case_type": "theorem_case",
+        "effective_expected_verdict": "ACCEPT",
+        "expected_verdict": "ACCEPT",
+        "lean_theorem_ref": "formal/lean/OC133V12.lean::metric_boundary_specialization",
+        "model": {
+          "boundary_kind": "classifier",
+          "classifier_failure": true,
+          "metric_measure_declared": true,
+          "state_value": 7,
+          "threshold": 5
+        },
+        "negative_control_id": "FM-T133-BOUNDARY-NEG",
+        "observed_verdict": "ACCEPT",
+        "passed": true,
+        "theorem_id": "T133-BOUNDARY"
+      },
+      {
+        "case_id": "FM-T133-BOUNDARY-NEG",
+        "case_type": "theorem_case",
+        "effective_expected_verdict": "REJECT",
+        "expected_verdict": "REJECT",
+        "lean_theorem_ref": "formal/lean/OC133V12.lean::metric_boundary_specialization",
+        "model": {
+          "boundary_kind": "metric_without_measure",
+          "classifier_failure": true,
+          "metric_measure_declared": false,
+          "state_value": null,
+          "threshold": null
+        },
+        "negative_control_id": "",
+        "observed_verdict": "REJECT",
+        "passed": true,
+        "theorem_id": "T133-BOUNDARY"
+      },
+      {
+        "case_id": "FM-T133-HYBRID-POS",
+        "case_type": "theorem_case",
+        "computed_operator_admission": {
+          "chart_declared": false,
+          "chart_domain_contains_source": false,
+          "chart_local_law_declared": false,
+          "flow_notation_requested": false,
+          "guard_evaluated": true,
+          "guard_value": true,
+          "reset_admissible": true,
+          "reset_source_typed": true,
+          "reset_target_typed": true,
+          "rewrite_rule_present": false,
+          "route": "hybrid_guard_reset",
+          "route_admitted": true,
+          "typed_source_target": true
+        },
+        "effective_expected_verdict": "ACCEPT",
+        "expected_verdict": "ACCEPT",
+        "lean_theorem_ref": "formal/lean/OC133V12.lean::operator_admission_route_obligations",
+        "model": {
+          "actual_next": "mode_B_state_0",
+          "current_mode": "mode_A",
+          "flow_notation_requested": false,
+          "flow_one_target": "",
+          "guard": true,
+          "hybrid_state_type": "HybridState",
+          "mode_invariant_preserved": true,
+          "post_reset_admissible": true,
+          "reset_codomain": "HybridState",
+          "reset_source_mode": "mode_A",
+          "reset_target": "mode_B_state_0",
+          "reset_target_mode": "mode_B",
+          "smooth_chart_id": "",
+          "smooth_state_type": "HybridState",
+          "smooth_step_target": "",
+          "step_target": "mode_A_state_1",
+          "target_mode": "mode_B",
+          "update_kind": "hybrid_guard_reset"
+        },
+        "negative_control_id": "FM-T133-HYBRID-NEG",
+        "observed_verdict": "ACCEPT",
+        "passed": true,
+        "theorem_id": "T133-HYBRID"
+      },
+      {
+        "case_id": "FM-T133-HYBRID-NEG",
+        "case_type": "theorem_case",
+        "computed_operator_admission": {
+          "chart_declared": true,
+          "chart_domain_contains_source": false,
+          "chart_local_law_declared": false,
+          "flow_notation_requested": true,
+          "guard_evaluated": true,
+          "guard_value": true,
+          "reset_admissible": false,
+          "reset_source_typed": true,
+          "reset_target_typed": false,
+          "rewrite_rule_present": false,
+          "route": "hybrid_guard_reset",
+          "route_admitted": false,
+          "typed_source_target": false
+        },
+        "effective_expected_verdict": "REJECT",
+        "expected_verdict": "REJECT",
+        "lean_theorem_ref": "formal/lean/OC133V12.lean::operator_admission_route_obligations",
+        "model": {
+          "actual_next": "mode_A_state_1",
+          "current_mode": "mode_A",
+          "flow_notation_requested": true,
+          "flow_one_target": "mode_A_state_1",
+          "guard": true,
+          "hybrid_state_type": "HybridState",
+          "mode_invariant_preserved": false,
+          "post_reset_admissible": false,
+          "reset_codomain": "SmoothOnlyState",
+          "reset_source_mode": "mode_A",
+          "reset_target": "mode_B_state_0",
+          "reset_target_mode": "mode_A",
+          "smooth_chart_id": "chart_should_not_license_guard_reset_derivative",
+          "smooth_state_type": "SmoothOnlyState",
+          "smooth_step_target": "mode_A_state_1",
+          "step_target": "mode_A_state_1",
+          "target_mode": "mode_B",
+          "update_kind": "hybrid_guard_reset"
+        },
+        "negative_control_id": "",
+        "observed_verdict": "REJECT",
+        "passed": true,
+        "theorem_id": "T133-HYBRID"
+      },
+      {
+        "case_id": "FM-T133-HYBRID-NO-GUARD-STEP-POS",
+        "case_type": "theorem_case",
+        "computed_operator_admission": {
+          "chart_declared": false,
+          "chart_domain_contains_source": false,
+          "chart_local_law_declared": false,
+          "flow_notation_requested": false,
+          "guard_evaluated": true,
+          "guard_value": false,
+          "reset_admissible": true,
+          "reset_source_typed": true,
+          "reset_target_typed": true,
+          "rewrite_rule_present": false,
+          "route": "hybrid_guard_reset",
+          "route_admitted": true,
+          "typed_source_target": true
+        },
+        "effective_expected_verdict": "ACCEPT",
+        "expected_verdict": "ACCEPT",
+        "lean_theorem_ref": "formal/lean/OC133V12.lean::hybrid_no_guard_uses_update",
+        "model": {
+          "actual_next": "mode_A_state_1",
+          "current_mode": "mode_A",
+          "flow_notation_requested": false,
+          "flow_one_target": "",
+          "guard": false,
+          "hybrid_state_type": "HybridState",
+          "mode_invariant_preserved": true,
+          "post_reset_admissible": true,
+          "reset_codomain": "HybridState",
+          "reset_source_mode": "mode_A",
+          "reset_target": "mode_B_state_0",
+          "reset_target_mode": "mode_B",
+          "smooth_chart_id": "",
+          "smooth_state_type": "HybridState",
+          "smooth_step_target": "",
+          "step_target": "mode_A_state_1",
+          "target_mode": "mode_B",
+          "update_kind": "hybrid_guard_reset"
+        },
+        "negative_control_id": "FM-T133-HYBRID-NO-GUARD-STEP-NEG",
+        "observed_verdict": "ACCEPT",
+        "passed": true,
+        "theorem_id": "T133-HYBRID"
+      },
+      {
+        "case_id": "FM-T133-HYBRID-NO-GUARD-STEP-NEG",
+        "case_type": "theorem_case",
+        "computed_operator_admission": {
+          "chart_declared": false,
+          "chart_domain_contains_source": false,
+          "chart_local_law_declared": false,
+          "flow_notation_requested": false,
+          "guard_evaluated": true,
+          "guard_value": false,
+          "reset_admissible": true,
+          "reset_source_typed": true,
+          "reset_target_typed": true,
+          "rewrite_rule_present": false,
+          "route": "hybrid_guard_reset",
+          "route_admitted": true,
+          "typed_source_target": true
+        },
+        "effective_expected_verdict": "REJECT",
+        "expected_verdict": "REJECT",
+        "lean_theorem_ref": "formal/lean/OC133V12.lean::hybrid_no_guard_uses_update",
+        "model": {
+          "actual_next": "mode_B_state_0",
+          "current_mode": "mode_A",
+          "flow_notation_requested": false,
+          "flow_one_target": "",
+          "guard": false,
+          "hybrid_state_type": "HybridState",
+          "mode_invariant_preserved": true,
+          "post_reset_admissible": true,
+          "reset_codomain": "HybridState",
+          "reset_source_mode": "mode_A",
+          "reset_target": "mode_B_state_0",
+          "reset_target_mode": "mode_B",
+          "smooth_chart_id": "",
+          "smooth_state_type": "HybridState",
+          "smooth_step_target": "",
+          "step_target": "mode_A_state_1",
+          "target_mode": "mode_B",
+          "update_kind": "hybrid_guard_reset"
+        },
+        "negative_control_id": "",
+        "observed_verdict": "REJECT",
+        "passed": true,
+        "theorem_id": "T133-HYBRID"
+      },
+      {
+        "case_id": "FM-T133-HYBRID-GUARD-MISSING-NEG",
+        "case_type": "theorem_case",
+        "computed_operator_admission": {
+          "chart_declared": false,
+          "chart_domain_contains_source": false,
+          "chart_local_law_declared": false,
+          "flow_notation_requested": false,
+          "guard_evaluated": false,
+          "guard_value": false,
+          "reset_admissible": true,
+          "reset_source_typed": true,
+          "reset_target_typed": true,
+          "rewrite_rule_present": false,
+          "route": "hybrid_guard_reset",
+          "route_admitted": false,
+          "typed_source_target": true
+        },
+        "effective_expected_verdict": "REJECT",
+        "expected_verdict": "REJECT",
+        "lean_theorem_ref": "formal/lean/OC133V12.lean::bound_hybrid_admission_obligations",
+        "model": {
+          "actual_next": "mode_A_state_1",
+          "current_mode": "mode_A",
+          "flow_notation_requested": false,
+          "flow_one_target": "",
+          "hybrid_state_type": "HybridState",
+          "mode_invariant_preserved": true,
+          "post_reset_admissible": true,
+          "reset_codomain": "HybridState",
+          "reset_source_mode": "mode_A",
+          "reset_target": "mode_B_state_0",
+          "reset_target_mode": "mode_B",
+          "smooth_chart_id": "",
+          "smooth_state_type": "HybridState",
+          "smooth_step_target": "",
+          "step_target": "mode_A_state_1",
+          "target_mode": "mode_B",
+          "update_kind": "hybrid_guard_reset"
+        },
+        "negative_control_id": "",
+        "observed_verdict": "REJECT",
+        "passed": true,
+        "theorem_id": "T133-HYBRID"
+      },
+      {
+        "case_id": "FM-T133-HYBRID-GUARD-NONBOOLEAN-NEG",
+        "case_type": "theorem_case",
+        "computed_operator_admission": {
+          "chart_declared": false,
+          "chart_domain_contains_source": false,
+          "chart_local_law_declared": false,
+          "flow_notation_requested": false,
+          "guard_evaluated": false,
+          "guard_value": false,
+          "reset_admissible": true,
+          "reset_source_typed": true,
+          "reset_target_typed": true,
+          "rewrite_rule_present": false,
+          "route": "hybrid_guard_reset",
+          "route_admitted": false,
+          "typed_source_target": true
+        },
+        "effective_expected_verdict": "REJECT",
+        "expected_verdict": "REJECT",
+        "lean_theorem_ref": "formal/lean/OC133V12.lean::bound_hybrid_admission_obligations",
+        "model": {
+          "actual_next": "mode_B_state_0",
+          "current_mode": "mode_A",
+          "flow_notation_requested": false,
+          "flow_one_target": "",
+          "guard": "true",
+          "hybrid_state_type": "HybridState",
+          "mode_invariant_preserved": true,
+          "post_reset_admissible": true,
+          "reset_codomain": "HybridState",
+          "reset_source_mode": "mode_A",
+          "reset_target": "mode_B_state_0",
+          "reset_target_mode": "mode_B",
+          "smooth_chart_id": "",
+          "smooth_state_type": "HybridState",
+          "smooth_step_target": "",
+          "step_target": "mode_A_state_1",
+          "target_mode": "mode_B",
+          "update_kind": "hybrid_guard_reset"
+        },
+        "negative_control_id": "",
+        "observed_verdict": "REJECT",
+        "passed": true,
+        "theorem_id": "T133-HYBRID"
+      },
+      {
+        "case_id": "FM-T133-HYBRID-GUARD-VALUE-MISMATCH-NEG",
+        "case_type": "theorem_case",
+        "computed_operator_admission": {
+          "chart_declared": false,
+          "chart_domain_contains_source": false,
+          "chart_local_law_declared": false,
+          "flow_notation_requested": false,
+          "guard_evaluated": true,
+          "guard_value": false,
+          "reset_admissible": true,
+          "reset_source_typed": true,
+          "reset_target_typed": true,
+          "rewrite_rule_present": false,
+          "route": "hybrid_guard_reset",
+          "route_admitted": true,
+          "typed_source_target": true
+        },
+        "effective_expected_verdict": "REJECT",
+        "expected_verdict": "REJECT",
+        "lean_theorem_ref": "formal/lean/OC133V12.lean::bound_hybrid_admission_obligations",
+        "model": {
+          "actual_next": "mode_B_state_0",
+          "current_mode": "mode_A",
+          "flow_notation_requested": false,
+          "flow_one_target": "",
+          "guard": false,
+          "hybrid_state_type": "HybridState",
+          "mode_invariant_preserved": true,
+          "post_reset_admissible": true,
+          "reset_codomain": "HybridState",
+          "reset_source_mode": "mode_A",
+          "reset_target": "mode_B_state_0",
+          "reset_target_mode": "mode_B",
+          "smooth_chart_id": "",
+          "smooth_state_type": "HybridState",
+          "smooth_step_target": "",
+          "step_target": "mode_A_state_1",
+          "target_mode": "mode_B",
+          "update_kind": "hybrid_guard_reset"
+        },
+        "negative_control_id": "",
+        "observed_verdict": "REJECT",
+        "passed": true,
+        "theorem_id": "T133-HYBRID"
+      },
+      {
+        "case_id": "FM-T133-HYBRID-RESET-SOURCE-MODE-NEG",
+        "case_type": "theorem_case",
+        "computed_operator_admission": {
+          "chart_declared": false,
+          "chart_domain_contains_source": false,
+          "chart_local_law_declared": false,
+          "flow_notation_requested": false,
+          "guard_evaluated": true,
+          "guard_value": true,
+          "reset_admissible": true,
+          "reset_source_typed": false,
+          "reset_target_typed": true,
+          "rewrite_rule_present": false,
+          "route": "hybrid_guard_reset",
+          "route_admitted": false,
+          "typed_source_target": true
+        },
+        "effective_expected_verdict": "REJECT",
+        "expected_verdict": "REJECT",
+        "lean_theorem_ref": "formal/lean/OC133V12.lean::bound_hybrid_admission_obligations",
+        "model": {
+          "actual_next": "mode_B_state_0",
+          "current_mode": "mode_A",
+          "flow_notation_requested": false,
+          "flow_one_target": "",
+          "guard": true,
+          "hybrid_state_type": "HybridState",
+          "mode_invariant_preserved": true,
+          "post_reset_admissible": true,
+          "reset_codomain": "HybridState",
+          "reset_source_mode": "mode_X",
+          "reset_target": "mode_B_state_0",
+          "reset_target_mode": "mode_B",
+          "smooth_chart_id": "",
+          "smooth_state_type": "HybridState",
+          "smooth_step_target": "",
+          "step_target": "mode_A_state_1",
+          "target_mode": "mode_B",
+          "update_kind": "hybrid_guard_reset"
+        },
+        "negative_control_id": "",
+        "observed_verdict": "REJECT",
+        "passed": true,
+        "theorem_id": "T133-HYBRID"
+      },
+      {
+        "case_id": "FM-T133-HYBRID-RESET-TARGET-MODE-NEG",
+        "case_type": "theorem_case",
+        "computed_operator_admission": {
+          "chart_declared": false,
+          "chart_domain_contains_source": false,
+          "chart_local_law_declared": false,
+          "flow_notation_requested": false,
+          "guard_evaluated": true,
+          "guard_value": true,
+          "reset_admissible": true,
+          "reset_source_typed": true,
+          "reset_target_typed": false,
+          "rewrite_rule_present": false,
+          "route": "hybrid_guard_reset",
+          "route_admitted": false,
+          "typed_source_target": true
+        },
+        "effective_expected_verdict": "REJECT",
+        "expected_verdict": "REJECT",
+        "lean_theorem_ref": "formal/lean/OC133V12.lean::bound_hybrid_admission_obligations",
+        "model": {
+          "actual_next": "mode_B_state_0",
+          "current_mode": "mode_A",
+          "flow_notation_requested": false,
+          "flow_one_target": "",
+          "guard": true,
+          "hybrid_state_type": "HybridState",
+          "mode_invariant_preserved": true,
+          "post_reset_admissible": true,
+          "reset_codomain": "HybridState",
+          "reset_source_mode": "mode_A",
+          "reset_target": "mode_B_state_0",
+          "reset_target_mode": "mode_C",
+          "smooth_chart_id": "",
+          "smooth_state_type": "HybridState",
+          "smooth_step_target": "",
+          "step_target": "mode_A_state_1",
+          "target_mode": "mode_B",
+          "update_kind": "hybrid_guard_reset"
+        },
+        "negative_control_id": "",
+        "observed_verdict": "REJECT",
+        "passed": true,
+        "theorem_id": "T133-HYBRID"
+      }
+    ]
+  },
+  "grand_formal_obligation": {
+    "failed_gate_predicates": [],
+    "promoted_grand_claim_ids": [
+      "OC133-GRAND-TOE-DECLARED-TAXONOMY-PROMOTION"
+    ],
+    "ref": "proofs/GRAND_TOE_FORMAL_OBLIGATION_LEDGER_1_3_3.json",
+    "release_promotion_allowed": true,
+    "scientific_promotion_allowed": true,
+    "state": "PROMOTION_ROUTE_READY"
+  },
+  "grand_promotion_contract": {
+    "promotion_allowed": true,
+    "ref": "proofs/grand_promotion/OC133_GRAND_PROMOTION_CONTRACT_REPORT.json",
+    "verdict": "PASS"
+  },
+  "lean_certificate": {
+    "clean_returncode": 0,
+    "lean_source_sha256": "551596aac8fd8012f97a2cab8e72da4e887e9c8fd69563a686db95af6e308ce7",
+    "ref": "formal/lean/LEAN_BUILD_CERTIFICATE_1_3_3.json",
+    "returncode": 0,
+    "theorem_ref_missing_total": 0,
+    "theorem_ref_total": 18,
+    "theorem_refs": [
+      {
+        "declaration": "k0_countermodel_raw_separation_not_resolution_distinction",
+        "declaration_sha256": "af9e741fff5840c1d7ac1d32c703058739923e9aaa1ae6a944beab40dae16c3b",
+        "present": true,
+        "source_ref": "formal/lean/OC133V12.lean"
+      },
+      {
+        "declaration": "lifecycle_residue_rebirth_morphism_boundary",
+        "declaration_sha256": "5e4cdf294a822dc60040202eab4247acabf3165e6688cd248542589c07634c13",
+        "present": true,
+        "source_ref": "formal/lean/OC133V12.lean"
+      },
+      {
+        "declaration": "continuumness_zero_case_iff_declared_zero_cause_with_support",
+        "declaration_sha256": "b424ecff4280427b3edeebdf3739a6b44f05ca88d6378baf632e9315506891ca",
+        "present": true,
+        "source_ref": "formal/lean/OC133V12.lean"
+      },
+      {
+        "declaration": "metric_boundary_specialization",
+        "declaration_sha256": "16e3f0657dc2073584bec027858c32487399cdc8e8933e9b42a9d131ea54b676",
+        "present": true,
+        "source_ref": "formal/lean/OC133V12.lean"
+      },
+      {
+        "declaration": "integrated_operator_semantics",
+        "declaration_sha256": "1f81b248408213f1b0776346dd4a7e4dd9045bf0242f2659f882563426cfb4ee",
+        "present": true,
+        "source_ref": "formal/lean/OC133V12.lean"
+      },
+      {
+        "declaration": "historical_axis_survives_rank_drop",
+        "declaration_sha256": "90b3a5ecb69d1ae1038d772dfd9fce4fbcc54a18a028d8a5364e94aac1a1c024",
+        "present": true,
+        "source_ref": "formal/lean/OC133V12.lean"
+      },
+      {
+        "declaration": "eligible_live_requires_cycle_or_maintenance",
+        "declaration_sha256": "12108eafae751e2c510306d51cccb20ff51102dd4dd9fb7ea4b9ccdd05a20d74",
+        "present": true,
+        "source_ref": "formal/lean/OC133V12.lean"
+      },
+      {
+        "declaration": "endpoint_bound_identity_classification",
+        "declaration_sha256": "3eedc8e65e6afaf95056ef7d4433a2187ae950e3369fab6f6019c04369d59279",
+        "present": true,
+        "source_ref": "formal/lean/OC133V12.lean"
+      },
+      {
+        "declaration": "release_tuple_semantic_component_irredundant",
+        "declaration_sha256": "b83eec47dda1656edc6b2b916c649fbc121a1efb3895fd37003483b9409fdd06",
+        "present": true,
+        "source_ref": "formal/lean/OC133V12.lean"
+      },
+      {
+        "declaration": "release_atlas_manifest_has_total_finite_case_coverage",
+        "declaration_sha256": "cc9eec7ac8c7be73746ff81cc07cf37cb959cddef9cf8a06d6687121992bc578",
+        "present": true,
+        "source_ref": "formal/lean/OC133V12.lean"
+      },
+      {
+        "declaration": "grand_promotion_pass_requires_all_obligations",
+        "declaration_sha256": "17f397d4d99b6622c9c9dd8b91b9ceaa71a5e71b515d0427c2550926b260492f",
+        "present": true,
+        "source_ref": "formal/lean/OC133GrandPromotion.lean"
+      },
+      {
+        "declaration": "grand_promotion_complete_control_accepts",
+        "declaration_sha256": "27315ec3ba1e83e04cccb6ae915da4d2352f9287b7d8d2b7950f2b5907b2af24",
+        "present": true,
+        "source_ref": "formal/lean/OC133GrandPromotion.lean"
+      },
+      {
+        "declaration": "grand_promotion_declared_taxonomy_support_closes_when_all_obligations_pass",
+        "declaration_sha256": "eb87387798d5b471e5b8d4e29538c46539e30fc2b44948855dcad0b96e8c3fd2",
+        "present": true,
+        "source_ref": "formal/lean/OC133GrandPromotion.lean"
+      },
+      {
+        "declaration": "grand_promotion_current_artifact_class_cannot_promote",
+        "declaration_sha256": "6399d919b07a507687fdcb0548c422d8208078c3c9f0337a617ecdbe0903dc89",
+        "present": true,
+        "source_ref": "formal/lean/OC133GrandPromotion.lean"
+      },
+      {
+        "declaration": "grand_promotion_current_artifact_class_missing_claim_ledger_evidence",
+        "declaration_sha256": "56303276ca0703e98d3adfecef7911b757be7b3b587c63e9ea3e1f0aab9c3e22",
+        "present": true,
+        "source_ref": "formal/lean/OC133GrandPromotion.lean"
+      },
+      {
+        "declaration": "grand_promotion_missing_empirical_pack_blocks_promotion",
+        "declaration_sha256": "fd516bd4d2e27000d2e0ea1fc59470f7c95f8ecf1eb24eff5f072f1038f3953e",
+        "present": true,
+        "source_ref": "formal/lean/OC133GrandPromotion.lean"
+      },
+      {
+        "declaration": "grand_promotion_missing_modern_science_superiority_blocks_promotion",
+        "declaration_sha256": "e3470a790da935a835f7584d535281923a3f9db322edd99f2d36d1c6914e3f29",
+        "present": true,
+        "source_ref": "formal/lean/OC133GrandPromotion.lean"
+      },
+      {
+        "declaration": "grand_promotion_missing_finite_refs_blocks_promotion",
+        "declaration_sha256": "776390a167644efd02b17daeb1bacad0e9c98aa3b74a77d7f409f0ba8f3f28f5",
+        "present": true,
+        "source_ref": "formal/lean/OC133GrandPromotion.lean"
+      }
+    ]
+  },
+  "proof_dependency_edges": [
+    {
+      "from": "T133-K0-RES",
+      "to": "T133-OMEGA-STATUS"
+    },
+    {
+      "from": "T133-BOUNDARY",
+      "to": "T133-K-ZERO"
+    },
+    {
+      "from": "T133-ID",
+      "to": "T133-MIN"
+    }
+  ],
+  "proof_dependency_nodes": [
+    "T133-K0-RES",
+    "T133-OMEGA-STATUS",
+    "T133-K-ZERO",
+    "T133-BOUNDARY",
+    "T133-HYBRID",
+    "T133-DIM",
+    "T133-CYCLE",
+    "T133-ID",
+    "T133-MIN"
+  ],
+  "schema_id": "CanonicalProofGraph_v1",
+  "source_edition": "OC Core 1.3.3",
+  "status": "PASS"
+}

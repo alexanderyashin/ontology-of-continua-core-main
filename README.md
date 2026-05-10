@@ -37,6 +37,9 @@ actions require separate owner approval.
 - `reports/`, `validation/`, `benchmarks/`, `formal/`, and `reviews/`:
   supporting proof, replay, validation, formal, and adversarial-review records
   where present.
+- `public_science/canonical/`:
+  compact machine-verifiable theorem, proof, Lean, finite-check, and evidence
+  graphs for the canonical scientific graph.
 
 ## Scientific Boundary
 
