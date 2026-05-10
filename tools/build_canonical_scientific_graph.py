@@ -19,6 +19,10 @@ THEOREM_GRAPH_REL = "public_science/canonical/THEOREM_GRAPH.json"
 PROOF_GRAPH_REL = "public_science/canonical/PROOF_GRAPH.json"
 EVIDENCE_GRAPH_REL = "public_science/canonical/EVIDENCE_GRAPH.json"
 README_REL = "public_science/canonical/README.md"
+GLOSSARY_JSON_REL = "public_science/canonical/CANONICAL_SCIENTIFIC_GRAPH_GLOSSARY.json"
+GLOSSARY_MD_REL = "public_science/canonical/CANONICAL_SCIENTIFIC_GRAPH_GLOSSARY.md"
+MAPPING_JSON_REL = "public_science/canonical/INTERNAL_TO_PUBLIC_GRAPH_MAPPING.json"
+MAPPING_MD_REL = "public_science/canonical/INTERNAL_TO_PUBLIC_GRAPH_MAPPING.md"
 
 SOURCE_ROLES = {
     "claims/CLAIM_LEDGER_1_3_3.json": "claim-ledger",
@@ -109,6 +113,10 @@ def lean_decl(lean_ref: str) -> str:
 
 def lean_source(lean_ref: str) -> str:
     return lean_ref.split("::", 1)[0].strip().replace("\\", "/")
+
+
+def md_cell(value: Any) -> str:
+    return str(value or "").replace("|", "\\|").replace("\r", " ").replace("\n", " ")
 
 
 def theorem_rows() -> list[dict[str, Any]]:
@@ -371,6 +379,12 @@ def build_manifest(theorem_graph: dict[str, Any], proof_graph: dict[str, Any], e
             "proof_graph": PROOF_GRAPH_REL,
             "evidence_graph": EVIDENCE_GRAPH_REL,
         },
+        "reference_refs": {
+            "glossary_json": GLOSSARY_JSON_REL,
+            "glossary_md": GLOSSARY_MD_REL,
+            "internal_to_public_mapping_json": MAPPING_JSON_REL,
+            "internal_to_public_mapping_md": MAPPING_MD_REL,
+        },
         "source_artifacts": artifacts,
         "failure_reason_codes": failures,
         "summary": {
@@ -411,6 +425,8 @@ def build_readme(manifest: dict[str, Any]) -> str:
         f"- Proof graph: `{PROOF_GRAPH_REL}`",
         f"- Evidence graph: `{EVIDENCE_GRAPH_REL}`",
         f"- Manifest: `{MANIFEST_REL}`",
+        f"- Reviewer glossary: `{GLOSSARY_MD_REL}`",
+        f"- Internal-to-public graph mapping: `{MAPPING_JSON_REL}`",
         "",
         "## Closure Counts",
         "",
@@ -426,6 +442,334 @@ def build_readme(manifest: dict[str, Any]) -> str:
         "",
         "This is a public scientific graph. Publication/release-review authorization is a separate gate.",
     ]
+    return "\n".join(lines) + "\n"
+
+
+def build_glossary_payload(manifest: dict[str, Any], theorem_graph: dict[str, Any], proof_graph: dict[str, Any], evidence_graph: dict[str, Any]) -> dict[str, Any]:
+    entries: list[dict[str, Any]] = [
+        {
+            "term_id": "canonical_scientific_graph",
+            "term": "Canonical scientific graph",
+            "kind": "graph-system",
+            "public_ref": MANIFEST_REL,
+            "reviewer_use": "Start here to check status, source hashes, verification command, and graph references.",
+        },
+        {
+            "term_id": "theorem_graph",
+            "term": "Theorem graph",
+            "kind": "graph",
+            "public_ref": THEOREM_GRAPH_REL,
+            "reviewer_use": "Lists promoted theorem nodes and their claim, proof sheet, Lean, and finite-check edges.",
+        },
+        {
+            "term_id": "proof_graph",
+            "term": "Proof graph",
+            "kind": "graph",
+            "public_ref": PROOF_GRAPH_REL,
+            "reviewer_use": "Carries proof dependency rows, Lean certificate refs, finite checks, and grand formal obligation status.",
+        },
+        {
+            "term_id": "evidence_graph",
+            "term": "Evidence graph",
+            "kind": "graph",
+            "public_ref": EVIDENCE_GRAPH_REL,
+            "reviewer_use": "Carries selected empirical evidence packs and support edges into the grand scientific closure claim.",
+        },
+        {
+            "term_id": "lean_build_certificate",
+            "term": "Lean build certificate",
+            "kind": "formal-certificate",
+            "public_ref": "formal/lean/LEAN_BUILD_CERTIFICATE_1_3_3.json",
+            "reviewer_use": "Checks compiled Lean source refs and theorem declaration coverage.",
+        },
+        {
+            "term_id": "finite_model_checks",
+            "term": "Finite model checks",
+            "kind": "finite-check-ledger",
+            "public_ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
+            "reviewer_use": "Checks finite accept/reject witness cases bound to theorem rows.",
+        },
+        {
+            "term_id": "grand_formal_obligation",
+            "term": "Grand formal obligation ledger",
+            "kind": "promotion-ledger",
+            "public_ref": "proofs/GRAND_TOE_FORMAL_OBLIGATION_LEDGER_1_3_3.json",
+            "reviewer_use": "Checks the formal promotion gate for the declared scientific closure.",
+        },
+        {
+            "term_id": "science_spot_gate",
+            "term": "Science SPOT gate",
+            "kind": "review-gate",
+            "public_ref": "releases/oc_core_1_3/editorial/OC_CORE_1_3_SCIENCE_SPOT_latest.json",
+            "reviewer_use": "Checks hostile-review closure for the science surface used by this graph.",
+        },
+    ]
+
+    for node in list(theorem_graph.get("nodes") or []):
+        if not isinstance(node, dict):
+            continue
+        theorem_id = str(node.get("theorem_id") or "")
+        entries.append(
+            {
+                "term_id": f"theorem:{theorem_id}",
+                "term": str(node.get("title") or theorem_id),
+                "kind": "theorem",
+                "public_ref": THEOREM_GRAPH_REL,
+                "public_node_id": node.get("node_id"),
+                "proof_sheet_ref": node.get("proof_sheet_ref"),
+                "lean_ref": node.get("lean_ref"),
+                "finite_case_total": node.get("finite_case_total"),
+                "reviewer_use": "Inspect theorem statement boundary, proof sheet, Lean declaration, and finite-check edges.",
+            }
+        )
+
+    for node in list(evidence_graph.get("nodes") or []):
+        if not isinstance(node, dict):
+            continue
+        evidence_id = str(node.get("evidence_pack_id") or node.get("node_id") or "")
+        entries.append(
+            {
+                "term_id": f"evidence:{evidence_id}",
+                "term": f"{node.get('domain')} evidence pack",
+                "kind": "evidence-pack",
+                "public_ref": EVIDENCE_GRAPH_REL,
+                "public_node_id": node.get("node_id"),
+                "source_ref": node.get("source_ref"),
+                "source_sha256": node.get("source_sha256"),
+                "reviewer_use": "Inspect target-hidden/prospective evidence source and its supports_claim edge.",
+            }
+        )
+
+    return {
+        "schema_id": "CanonicalScientificGraphGlossary_v1",
+        "status": "PASS",
+        "canon_id": manifest.get("canon_id"),
+        "source_edition": manifest.get("source_edition"),
+        "manifest_ref": MANIFEST_REL,
+        "verification_command": manifest.get("verification_command"),
+        "entries": entries,
+        "summary": {
+            "entry_total": len(entries),
+            "theorem_entry_total": sum(1 for row in entries if row.get("kind") == "theorem"),
+            "evidence_entry_total": sum(1 for row in entries if row.get("kind") == "evidence-pack"),
+        },
+    }
+
+
+def build_glossary_md(glossary: dict[str, Any], theorem_graph: dict[str, Any], evidence_graph: dict[str, Any]) -> str:
+    lines = [
+        "# Canonical Scientific Graph Glossary",
+        "",
+        "This glossary is the public reviewer navigation copy for the canonical scientific graph.",
+        "",
+        "## First Checks",
+        "",
+        f"- Manifest: `{MANIFEST_REL}`",
+        f"- Verification command: `{glossary.get('verification_command')}`",
+        f"- Theorem graph: `{THEOREM_GRAPH_REL}`",
+        f"- Proof graph: `{PROOF_GRAPH_REL}`",
+        f"- Evidence graph: `{EVIDENCE_GRAPH_REL}`",
+        "",
+        "## Core Terms",
+        "",
+        "| Term | Kind | Public ref | Reviewer use |",
+        "| --- | --- | --- | --- |",
+    ]
+    for entry in list(glossary.get("entries") or []):
+        if not isinstance(entry, dict) or entry.get("kind") in {"theorem", "evidence-pack"}:
+            continue
+        lines.append(
+            f"| {md_cell(entry.get('term'))} | {md_cell(entry.get('kind'))} | `{md_cell(entry.get('public_ref'))}` | {md_cell(entry.get('reviewer_use'))} |"
+        )
+
+    lines.extend(
+        [
+            "",
+            "## Theorem Navigation",
+            "",
+            "| Theorem id | Title | Proof sheet | Lean ref | Finite cases |",
+            "| --- | --- | --- | --- | --- |",
+        ]
+    )
+    for node in list(theorem_graph.get("nodes") or []):
+        if not isinstance(node, dict):
+            continue
+        lines.append(
+            "| "
+            + " | ".join(
+                [
+                    md_cell(node.get("theorem_id")),
+                    md_cell(node.get("title")),
+                    f"`{md_cell(node.get('proof_sheet_ref'))}`",
+                    f"`{md_cell(node.get('lean_ref'))}`",
+                    md_cell(node.get("finite_case_total")),
+                ]
+            )
+            + " |"
+        )
+
+    lines.extend(
+        [
+            "",
+            "## Evidence Navigation",
+            "",
+            "| Domain | Evidence pack | Source ref | Supports |",
+            "| --- | --- | --- | --- |",
+        ]
+    )
+    for node in list(evidence_graph.get("nodes") or []):
+        if not isinstance(node, dict):
+            continue
+        lines.append(
+            "| "
+            + " | ".join(
+                [
+                    md_cell(node.get("domain")),
+                    md_cell(node.get("evidence_pack_id")),
+                    f"`{md_cell(node.get('source_ref'))}`",
+                    "`grand_claim:DECLARED_TOE_SCIENTIFIC_CLOSURE`",
+                ]
+            )
+            + " |"
+        )
+    return "\n".join(lines) + "\n"
+
+
+def build_mapping_payload(manifest: dict[str, Any], theorem_graph: dict[str, Any], proof_graph: dict[str, Any], evidence_graph: dict[str, Any]) -> dict[str, Any]:
+    mapping_rows: list[dict[str, Any]] = [
+        {
+            "internal_element_type": "private-canonical-status",
+            "internal_element_ref": "logion/k0/governance/status/CANONICAL_SCIENTIFIC_GRAPH_latest.json",
+            "public_element_type": "public-manifest",
+            "public_element_ref": MANIFEST_REL,
+            "mapping_status": "PASS",
+            "use_for_artifact_builder": "Use the public manifest as the root public reference for canonical scientific graph status.",
+        },
+        {
+            "internal_element_type": "private-skeleton-gate",
+            "internal_element_ref": "logion/k0/governance/status/SCIENTIFIC_CORE_SKELETON_latest.json",
+            "public_element_type": "public-graph-surface",
+            "public_element_ref": MANIFEST_REL,
+            "mapping_status": "PASS",
+            "use_for_artifact_builder": "Use public graph refs instead of private skeleton paths when a reader-facing artifact needs a citation target.",
+        },
+    ]
+
+    for node in list(theorem_graph.get("nodes") or []):
+        if not isinstance(node, dict):
+            continue
+        theorem_id = str(node.get("theorem_id") or "")
+        mapping_rows.append(
+            {
+                "internal_element_type": "scientific-theorem",
+                "internal_element_ref": f"ScientificCoreSkeleton.theorem::{theorem_id}",
+                "public_element_type": "public-theorem-node",
+                "public_element_ref": f"{THEOREM_GRAPH_REL}#theorem:{theorem_id}",
+                "public_node_id": node.get("node_id"),
+                "public_proof_sheet_ref": node.get("proof_sheet_ref"),
+                "public_lean_ref": node.get("lean_ref"),
+                "mapping_status": "PASS",
+                "use_for_artifact_builder": "Cite the theorem node, proof sheet, or Lean declaration directly from the public repository.",
+            }
+        )
+
+    cert = proof_graph.get("lean_certificate") if isinstance(proof_graph.get("lean_certificate"), dict) else {}
+    for row in list(cert.get("theorem_refs") or []):
+        if not isinstance(row, dict):
+            continue
+        declaration = str(row.get("declaration") or "")
+        source_ref = str(row.get("source_ref") or "")
+        mapping_rows.append(
+            {
+                "internal_element_type": "lean-declaration",
+                "internal_element_ref": f"LeanDeclaration::{declaration}",
+                "public_element_type": "public-lean-declaration",
+                "public_element_ref": f"{source_ref}::{declaration}",
+                "public_certificate_ref": "formal/lean/LEAN_BUILD_CERTIFICATE_1_3_3.json",
+                "mapping_status": "PASS" if row.get("present") is True else "FAIL_CLOSED",
+                "use_for_artifact_builder": "Use this declaration ref when a publication artifact needs a formal proof anchor.",
+            }
+        )
+
+    for node in list(evidence_graph.get("nodes") or []):
+        if not isinstance(node, dict):
+            continue
+        evidence_id = str(node.get("evidence_pack_id") or node.get("node_id") or "")
+        mapping_rows.append(
+            {
+                "internal_element_type": "evidence-pack",
+                "internal_element_ref": f"EvidenceExecutionLedger.evidence_pack::{evidence_id}",
+                "public_element_type": "public-evidence-node",
+                "public_element_ref": f"{EVIDENCE_GRAPH_REL}#evidence:{evidence_id}",
+                "public_source_ref": node.get("source_ref"),
+                "mapping_status": "PASS",
+                "use_for_artifact_builder": "Cite the public evidence node or source pack when an artifact needs empirical support.",
+            }
+        )
+
+    for artifact in list(manifest.get("source_artifacts") or []):
+        if not isinstance(artifact, dict):
+            continue
+        path = str(artifact.get("path") or "")
+        if not path:
+            continue
+        mapping_rows.append(
+            {
+                "internal_element_type": "source-artifact",
+                "internal_element_ref": f"RecoveredScientificCorpus.source_artifact::{path}",
+                "public_element_type": "public-source-artifact",
+                "public_element_ref": path,
+                "mapping_status": "PASS" if artifact.get("exists") is True else "FAIL_CLOSED",
+                "sha256": artifact.get("sha256"),
+                "sha256_policy": artifact.get("sha256_policy"),
+                "use_for_artifact_builder": "Use the public repository-relative path as the stable citation target.",
+            }
+        )
+
+    return {
+        "schema_id": "CanonicalScientificGraphInternalPublicMapping_v1",
+        "status": "PASS" if all(row.get("mapping_status") == "PASS" for row in mapping_rows) else "FAIL_CLOSED",
+        "canon_id": manifest.get("canon_id"),
+        "source_edition": manifest.get("source_edition"),
+        "manifest_ref": MANIFEST_REL,
+        "mapping_policy": "Map internal logical scientific graph elements to public repository-relative graph nodes and source refs. No absolute private workspace paths are used.",
+        "rows": mapping_rows,
+        "summary": {
+            "mapping_total": len(mapping_rows),
+            "theorem_mapping_total": sum(1 for row in mapping_rows if row.get("internal_element_type") == "scientific-theorem"),
+            "lean_mapping_total": sum(1 for row in mapping_rows if row.get("internal_element_type") == "lean-declaration"),
+            "evidence_mapping_total": sum(1 for row in mapping_rows if row.get("internal_element_type") == "evidence-pack"),
+            "failing_mapping_total": sum(1 for row in mapping_rows if row.get("mapping_status") != "PASS"),
+        },
+    }
+
+
+def build_mapping_md(mapping: dict[str, Any]) -> str:
+    lines = [
+        "# Internal To Public Scientific Graph Mapping",
+        "",
+        "This file tells internal artifact builders which public scientific graph element to cite.",
+        "",
+        "| Internal element | Public element | Public source | Builder use |",
+        "| --- | --- | --- | --- |",
+    ]
+    for row in list(mapping.get("rows") or []):
+        if not isinstance(row, dict):
+            continue
+        public_ref = row.get("public_element_ref") or row.get("public_source_ref") or ""
+        source_ref = row.get("public_source_ref") or row.get("public_certificate_ref") or ""
+        lines.append(
+            "| "
+            + " | ".join(
+                [
+                    f"`{md_cell(row.get('internal_element_ref'))}`",
+                    f"`{md_cell(public_ref)}`",
+                    f"`{md_cell(source_ref)}`",
+                    md_cell(row.get("use_for_artifact_builder")),
+                ]
+            )
+            + " |"
+        )
     return "\n".join(lines) + "\n"
 
 
@@ -446,6 +790,12 @@ def build() -> dict[str, Any]:
     readme_path = ROOT / README_REL
     readme_path.parent.mkdir(parents=True, exist_ok=True)
     readme_path.write_text(build_readme(manifest), encoding="utf-8", newline="\n")
+    glossary = build_glossary_payload(manifest, theorem_graph, proof_graph, evidence_graph)
+    write_json(GLOSSARY_JSON_REL, glossary)
+    (ROOT / GLOSSARY_MD_REL).write_text(build_glossary_md(glossary, theorem_graph, evidence_graph), encoding="utf-8", newline="\n")
+    mapping = build_mapping_payload(manifest, theorem_graph, proof_graph, evidence_graph)
+    write_json(MAPPING_JSON_REL, mapping)
+    (ROOT / MAPPING_MD_REL).write_text(build_mapping_md(mapping), encoding="utf-8", newline="\n")
     return manifest
 
 
@@ -569,16 +919,29 @@ def verify() -> list[str]:
     theorem_graph = read_json(THEOREM_GRAPH_REL)
     proof_graph = read_json(PROOF_GRAPH_REL)
     evidence_graph = read_json(EVIDENCE_GRAPH_REL)
+    glossary = read_json(GLOSSARY_JSON_REL)
+    mapping = read_json(MAPPING_JSON_REL)
     for rel_path, payload in (
         (MANIFEST_REL, manifest),
         (THEOREM_GRAPH_REL, theorem_graph),
         (PROOF_GRAPH_REL, proof_graph),
         (EVIDENCE_GRAPH_REL, evidence_graph),
+        (GLOSSARY_JSON_REL, glossary),
+        (MAPPING_JSON_REL, mapping),
     ):
         if not payload:
             failures.append(f"PUBLIC_SCIENCE_EXPORT_MISSING::{rel_path}")
         elif payload.get("status") != "PASS":
             failures.append(f"PUBLIC_SCIENCE_EXPORT_NOT_PASS::{rel_path}")
+    for key, rel_path in dict(manifest.get("reference_refs") or {}).items():
+        if not (ROOT / str(rel_path)).exists():
+            failures.append(f"PUBLIC_SCIENCE_REFERENCE_MISSING::{key}")
+    if safe_int(glossary.get("summary", {}).get("theorem_entry_total") if isinstance(glossary.get("summary"), dict) else 0) != safe_int(theorem_graph.get("summary", {}).get("theorem_total") if isinstance(theorem_graph.get("summary"), dict) else 0):
+        failures.append("PUBLIC_SCIENCE_GLOSSARY_THEOREM_COVERAGE_MISMATCH")
+    if safe_int(mapping.get("summary", {}).get("theorem_mapping_total") if isinstance(mapping.get("summary"), dict) else 0) != safe_int(theorem_graph.get("summary", {}).get("theorem_total") if isinstance(theorem_graph.get("summary"), dict) else 0):
+        failures.append("PUBLIC_SCIENCE_MAPPING_THEOREM_COVERAGE_MISMATCH")
+    if safe_int(mapping.get("summary", {}).get("failing_mapping_total") if isinstance(mapping.get("summary"), dict) else 1) != 0:
+        failures.append("PUBLIC_SCIENCE_MAPPING_FAILURES_PRESENT")
     for artifact in list(manifest.get("source_artifacts") or []):
         if not isinstance(artifact, dict):
             continue
@@ -588,7 +951,7 @@ def verify() -> list[str]:
             continue
         if artifact.get("sha256") != sha256_file(ref):
             failures.append(f"PUBLIC_SCIENCE_SOURCE_HASH_MISMATCH::{ref}")
-    for rel_path in (MANIFEST_REL, THEOREM_GRAPH_REL, PROOF_GRAPH_REL, EVIDENCE_GRAPH_REL, README_REL):
+    for rel_path in (MANIFEST_REL, THEOREM_GRAPH_REL, PROOF_GRAPH_REL, EVIDENCE_GRAPH_REL, README_REL, GLOSSARY_JSON_REL, GLOSSARY_MD_REL, MAPPING_JSON_REL, MAPPING_MD_REL):
         text = read_text(rel_path) if (ROOT / rel_path).exists() else ""
         for token in FORBIDDEN_PUBLIC_TOKENS:
             if token in text:

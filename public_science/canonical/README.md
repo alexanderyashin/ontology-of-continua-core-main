@@ -18,6 +18,8 @@ The verifier checks LF-normalized source artifact hashes, graph status, gate sta
 - Proof graph: `public_science/canonical/PROOF_GRAPH.json`
 - Evidence graph: `public_science/canonical/EVIDENCE_GRAPH.json`
 - Manifest: `public_science/canonical/CANONICAL_SCIENTIFIC_GRAPH_MANIFEST.json`
+- Reviewer glossary: `public_science/canonical/CANONICAL_SCIENTIFIC_GRAPH_GLOSSARY.md`
+- Internal-to-public graph mapping: `public_science/canonical/INTERNAL_TO_PUBLIC_GRAPH_MAPPING.json`
 
 ## Closure Counts
 
