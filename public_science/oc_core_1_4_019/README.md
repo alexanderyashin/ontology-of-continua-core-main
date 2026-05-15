@@ -9,9 +9,11 @@ Current public-safe summary:
 - terminal_total: `7`
 - non_terminal_total: `247`
 - status_counts: `{"BLOCKED_WITH_PROOF": 233, "CALIBRATION_REPLAYED": 1, "DISPROVED_OR_REFUTED": 2, "PARTIAL": 14, "PROVED": 4}`
+- gap_triage_rows: `247`
 
 Files:
 - `PROOF_ONLY_PUBLIC_PROJECTION_019.json` - public-safe proof-only status and top-level refs.
+- `PUBLIC_GAP_TRIAGE_LEDGER_019.json` - public-safe blocker triage by closure path, missing artifact class, and reuse mechanism id.
 - `PUBLIC_TERMINALIZATION_LEDGER_019.json` - terminalization outcomes without private paths or raw machinery.
 - `PUBLIC_STRICT_RESULT_BRIDGE_AUDIT_019.json` - strict-result bridge summary and policy.
 - `PUBLIC_BURNDOWN_RUN_LEDGER_019.json` - wave-level burn-down summary and blocking totals.
