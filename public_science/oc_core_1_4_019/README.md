@@ -11,10 +11,11 @@ Current public-safe summary:
 - status_counts: `{"BLOCKED_WITH_PROOF": 233, "CALIBRATION_REPLAYED": 1, "DISPROVED_OR_REFUTED": 2, "PARTIAL": 14, "PROVED": 4}`
 
 Files:
-- `PROOF_ONLY_PUBLIC_PROJECTION_019.json` - public-safe scope and per-problem proof-only state.
+- `PROOF_ONLY_PUBLIC_PROJECTION_019.json` - public-safe proof-only status and top-level refs.
 - `PUBLIC_TERMINALIZATION_LEDGER_019.json` - terminalization outcomes without private paths or raw machinery.
 - `PUBLIC_STRICT_RESULT_BRIDGE_AUDIT_019.json` - strict-result bridge summary and policy.
+- `PUBLIC_BURNDOWN_RUN_LEDGER_019.json` - wave-level burn-down summary and blocking totals.
+- `PUBLIC_ROW_CLOSURE_DOSSIERS_019.json` - per-problem public-safe closure dossier with hash-only source/proof refs.
 - `PUBLIC_PROJECTION_MANIFEST_019.json` - checksums for this projection.
 
 Boundary: Clay/Millennium rows are not claimed solved. Counted strict closures are bounded results under their recorded scope, not prize claims.
-
