@@ -1,9 +1,8 @@
 \section{Domain Hard-Closure Command Board}
-\label{sec:oc-core-1-3-domain-execution-board}
 
 This appendix turns the empirical closure backlog into an execution board. Each row states whether the domain can be run now, which replay command constitutes the lawful next step, and whether the institute-run fallback wave is merely on stand-by or already the active route.
 
-The current board exposes 5 tracked lanes: 5 already validated, 5 executable immediately in replay-maintenance mode, and 4 with an institute-run measurement wave defined as a stand-by fallback rather than an active route.
+The current board exposes 5 tracked lanes: 5 already validated, 0 executable immediately, and 0 with an institute-run fallback wave already defined.
 
 \begin{longtable}{p{0.13\textwidth}p{0.12\textwidth}p{0.10\textwidth}p{0.16\textwidth}p{0.16\textwidth}p{0.21\textwidth}}
 \toprule
@@ -24,7 +23,7 @@ Systems / Civilizational projection & PASS & YES & MAINTENANCE & INSTITUTE\_RUN:
 
 \paragraph{Mathematics.}
 Validation status: `PASS`. Execute now: `YES`. Command phase: `MAINTENANCE`.
-Command ref: \occode{logion/k7/spe/orchestrator/science/run_claim_simulations_v1.py}.
+Command ref: `logion/k7/spe/orchestrator/science/run\_claim\_simulations\_v1.py`.
 Caseset readiness: `0` parameterized out of `0` cases (minimum `31`); coverage `NOT\_REQUIRED`; parameterization `NOT\_REQUIRED`.
 Acceptance criterion: No replay divergence and no surviving counterexample against the promoted packet..
 Falsifier: A single replay divergence or surviving counterexample collapses promotion for the affected packet..
@@ -34,7 +33,7 @@ Measurement wave: `not required` with status `NOT\_REQUIRED`.
 
 \paragraph{Physics.}
 Validation status: `PASS`. Execute now: `YES`. Command phase: `MAINTENANCE`.
-Command ref: \occode{logion/k7/spe/orchestrator/science/run_oc_core_domain_hard_closure_replay_v1.py --domain-id PHYSICS}.
+Command ref: `logion/k7/spe/orchestrator/science/run\_oc\_core\_domain\_hard\_closure\_replay\_v1.py --domain-id PHYSICS`.
 Caseset readiness: `30` parameterized out of `30` cases (minimum `30`); coverage `PASS\_CASESET\_MINIMUM\_REACHED`; parameterization `PREDICTIONS\_DECLARED\_FOR\_ALL\_CASES`.
 Acceptance criterion: Held-out residuals stay inside the declared tolerance band for every promoted benchmark family..
 Falsifier: Any benchmark family with residuals outside tolerance or with broken sign/order constraints falsifies the promoted packet..
@@ -44,7 +43,7 @@ Measurement wave: `INSTITUTE\_RUN::PHYSICS::WAVE\_1A` with status `NOT\_REQUIRED
 
 \paragraph{Chemistry.}
 Validation status: `PASS`. Execute now: `YES`. Command phase: `MAINTENANCE`.
-Command ref: \occode{logion/k7/spe/orchestrator/science/run_oc_core_domain_hard_closure_replay_v1.py --domain-id CHEMISTRY}.
+Command ref: `logion/k7/spe/orchestrator/science/run\_oc\_core\_domain\_hard\_closure\_replay\_v1.py --domain-id CHEMISTRY`.
 Caseset readiness: `30` parameterized out of `30` cases (minimum `30`); coverage `PASS\_CASESET\_MINIMUM\_REACHED`; parameterization `PREDICTIONS\_DECLARED\_FOR\_ALL\_CASES`.
 Acceptance criterion: Declared chemistry benchmark families pass the tolerance envelope on held-out compounds or reactions..
 Falsifier: A held-out thermochemical, spectral, or kinetic family outside tolerance collapses the promoted chemistry packet..
@@ -54,7 +53,7 @@ Measurement wave: `INSTITUTE\_RUN::CHEMISTRY::WAVE\_2A` with status `NOT\_REQUIR
 
 \paragraph{Biology.}
 Validation status: `PASS`. Execute now: `YES`. Command phase: `MAINTENANCE`.
-Command ref: \occode{logion/k7/spe/orchestrator/science/run_oc_core_domain_hard_closure_replay_v1.py --domain-id BIOLOGY}.
+Command ref: `logion/k7/spe/orchestrator/science/run\_oc\_core\_domain\_hard\_closure\_replay\_v1.py --domain-id BIOLOGY`.
 Caseset readiness: `30` parameterized out of `30` cases (minimum `30`); coverage `PASS\_CASESET\_MINIMUM\_REACHED`; parameterization `PREDICTIONS\_DECLARED\_FOR\_ALL\_CASES`.
 Acceptance criterion: The promoted biological packet reproduces the declared measurable signatures on held-out datasets without widening the claim boundary..
 Falsifier: If the bounded signature family fails on held-out datasets, the biological packet remains frontier-bound..
@@ -64,7 +63,7 @@ Measurement wave: `INSTITUTE\_RUN::BIOLOGY::WAVE\_3A` with status `NOT\_REQUIRED
 
 \paragraph{Systems / Civilizational projection.}
 Validation status: `PASS`. Execute now: `YES`. Command phase: `MAINTENANCE`.
-Command ref: \occode{logion/k7/spe/orchestrator/science/run_oc_core_domain_hard_closure_replay_v1.py --domain-id SYSTEMS_CIVILIZATIONAL_PROJECTION}.
+Command ref: `logion/k7/spe/orchestrator/science/run\_oc\_core\_domain\_hard\_closure\_replay\_v1.py --domain-id SYSTEMS\_CIVILIZATIONAL\_PROJECTION`.
 Caseset readiness: `30` parameterized out of `30` cases (minimum `30`); coverage `PASS\_CASESET\_MINIMUM\_REACHED`; parameterization `PREDICTIONS\_DECLARED\_FOR\_ALL\_CASES`.
 Acceptance criterion: Declared trajectory and regime-change observables remain inside tolerance on held-out intervals..
 Falsifier: A missed turning point or out-of-band held-out trajectory falsifies the promoted systems packet..
