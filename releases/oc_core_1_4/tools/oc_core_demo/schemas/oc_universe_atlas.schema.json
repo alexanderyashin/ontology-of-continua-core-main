@@ -1,0 +1,106 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "OC Core 1.4 V010 universe atlas",
+  "type": "object",
+  "additionalProperties": true,
+  "required": [
+    "schema_version",
+    "demo_version",
+    "release_ordinal",
+    "release_label",
+    "edition",
+    "title",
+    "source_status",
+    "k_levels",
+    "wiki",
+    "domain_benchmarks",
+    "simulation_worlds",
+    "k_level_worlds",
+    "system_zoo",
+    "graph",
+    "proof_routes",
+    "research_gaps",
+    "research_gap_summary",
+    "closure_ledger",
+    "proof_placeholder_closure_ledger",
+    "scientific_boundary"
+  ],
+  "properties": {
+    "schema_version": { "const": "oc-core-demo-universe.v010" },
+    "demo_version": { "const": "V010" },
+    "release_ordinal": { "const": "010" },
+    "release_label": { "const": "OC Core 1.4 Demonstrator V010 Ideal RC" },
+    "edition": { "enum": ["public", "private"] },
+    "title": { "type": "string", "minLength": 1 },
+    "source_status": { "type": "object" },
+    "k_levels": {
+      "type": "array",
+      "minItems": 13,
+      "items": {
+        "type": "object",
+        "required": ["level_id", "meaning", "domain_projections"],
+        "properties": {
+          "level_id": { "type": "string" },
+          "meaning": { "type": "string" },
+          "id": { "type": "string" },
+          "label": { "type": "string" },
+          "status": { "type": "string" },
+          "terminal_status": { "type": "string" },
+          "domain_projections": { "type": "array" }
+        }
+      }
+    },
+    "wiki": {
+      "type": "object",
+      "required": ["chapters", "glossary", "postulates", "formulas", "corpus_atoms", "corpus_summary"],
+      "properties": {
+        "chapters": { "type": "array", "minItems": 20 },
+        "corpus_atoms": { "type": "array", "minItems": 1000 },
+        "corpus_summary": {
+          "type": "object",
+          "required": ["atom_count"],
+          "properties": { "atom_count": { "type": "integer", "minimum": 1000 } }
+        },
+        "glossary": { "type": "array" },
+        "postulates": { "type": "array" },
+        "formulas": { "type": "array", "minItems": 15 }
+      }
+    },
+    "domain_benchmarks": { "type": "array", "minItems": 4 },
+    "simulation_worlds": { "type": "array", "minItems": 4 },
+    "k_level_worlds": { "type": "array", "minItems": 13 },
+    "system_zoo": { "type": "array", "minItems": 5 },
+    "graph": {
+      "type": "object",
+      "required": ["nodes", "edges"],
+      "properties": {
+        "nodes": { "type": "array", "minItems": 1 },
+        "edges": { "type": "array", "minItems": 1 }
+      }
+    },
+    "proof_routes": { "type": "array", "minItems": 1 },
+    "research_gaps": { "type": "array" },
+    "research_gap_summary": {
+      "type": "object",
+      "required": ["open_count", "closure_rows", "closed_count"],
+      "properties": {
+        "open_count": { "type": "integer", "const": 0 },
+        "closure_rows": { "type": "integer", "minimum": 1 },
+        "closed_count": { "type": "integer", "minimum": 1 }
+      }
+    },
+    "closure_ledger": { "type": "array", "minItems": 1 },
+    "proof_placeholder_closure_ledger": {
+      "type": "object",
+      "required": ["placeholder_rows_closed", "open_placeholder_rows", "rows"],
+      "properties": {
+        "placeholder_rows_closed": { "type": "integer", "minimum": 0 },
+        "open_placeholder_rows": { "type": "integer", "const": 0 },
+        "rows": { "type": "array" }
+      }
+    },
+    "scientific_boundary": { "type": "string", "minLength": 1 }
+  }
+}
+
+

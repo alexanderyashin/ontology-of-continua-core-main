@@ -1,0 +1,53 @@
+{
+  "schema_version": "oc-core-demo-graph-readability.v010",
+  "status": "PASS",
+  "node_total": 703,
+  "edge_total": 2177,
+  "hash_lineage": {
+    "full_graph_hash": "a93941da9b0ddc1e1d040ffbea6b3f3cecfd5dc0d6f3a41436815f2672cd07e3",
+    "filtered_hash": "b489da774f89f12a5dfa176a3dc14fe71dd9170ba14b827e4b286c3b9ccdafa8",
+    "selected_route_hash": "13a0db0cc2bea765330a2153aaee8fc1449ae08baccc56427162a910c725542b",
+    "export_hash_projection_rule": "full graph hash is over all nodes/edges; filtered hash is over default readable layers/relations; selected route hash is over root-path route state only."
+  },
+  "states": [
+    {
+      "state": "initial",
+      "assertions": [
+        "root principle visible",
+        "cluster legend visible",
+        "wheel zoom enabled"
+      ]
+    },
+    {
+      "state": "filtered",
+      "assertions": [
+        "layer filter reduces clutter",
+        "search keeps semantic labels primary"
+      ]
+    },
+    {
+      "state": "selected_node",
+      "assertions": [
+        "selected highlight visible",
+        "neighbor/path highlight visible",
+        "detail drawer readable"
+      ]
+    },
+    {
+      "state": "root_path",
+      "assertions": [
+        "contradiction -> operator -> K/formula/proof/domain path is highlighted"
+      ]
+    }
+  ],
+  "nonoverlap_policy": "Dense labels are hidden until hover/selection; selected detail drawer carries readable semantic text.",
+  "default_filters": [
+    "root_principle",
+    "continuum_operator",
+    "metaontology",
+    "k_level",
+    "formula",
+    "domain_projection"
+  ],
+  "manifest_hash": "f038181c0d456589d48fe7598b56cccbf22a6455115997be34020f05eedf11ce"
+}

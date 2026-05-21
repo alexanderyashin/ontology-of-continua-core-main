@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "OC Core 1.4 case diagnostic input",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "case_text",
+    "change_pressure",
+    "boundary_clarity",
+    "evidence_quality",
+    "dependency_coupling"
+  ],
+  "properties": {
+    "case_text": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 1600
+    },
+    "change_pressure": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1
+    },
+    "boundary_clarity": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1
+    },
+    "evidence_quality": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1
+    },
+    "dependency_coupling": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1
+    }
+  }
+}

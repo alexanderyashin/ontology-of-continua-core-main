@@ -1,0 +1,422 @@
+[
+  {
+    "id": "purchase_pull::local_qualified_next_step",
+    "title": "Qualified next-step pull, local only",
+    "audience": "system architect",
+    "severity": "high",
+    "promise": "Convert interest into a bounded local review packet only after diagnose, kill, improve, compare and export evidence is visible.",
+    "steps": [
+      {
+        "id": "purchase-pull-1",
+        "title": "Open local qualification preview",
+        "view": "practical",
+        "minutes": 1,
+        "goal": "Show the local follow-up criterion, not a purchase or contact form.",
+        "actions": [
+          "purchase_pull"
+        ],
+        "target_view": "practical",
+        "target_type": "local_request_preview",
+        "target_id": "local_qualified_next_step",
+        "completion_markers": [
+          "local_request_preview_opened"
+        ],
+        "action_targets": [
+          {
+            "action": "purchase_pull",
+            "source_step_id": "purchase-pull-1",
+            "source_view": "practical",
+            "target_view": "practical",
+            "target_type": "local_request_preview",
+            "target_id": "local_qualified_next_step",
+            "resolution_status": "direct",
+            "fallback_state": "If the target is filtered out, keep the action visible but route to the corresponding searchable atlas page with a boundary note."
+          }
+        ],
+        "surface_label": "Practical Value Surface",
+        "breadcrumb": "Qualified next-step pull, local only / Open local qualification preview / Practical Value Surface"
+      },
+      {
+        "id": "purchase-pull-2",
+        "title": "Inspect edited-scenario boundary before continuing",
+        "view": "workbench",
+        "minutes": 1,
+        "goal": "Verify edited scenarios remain exploratory until replay-backed separately.",
+        "actions": [
+          "Use in Workbench"
+        ],
+        "target_view": "workbench",
+        "target_type": "boundary_gate",
+        "target_id": "primitive-distinction",
+        "completion_markers": [
+          "edited_scenario_boundary_seen"
+        ],
+        "action_targets": [
+          {
+            "action": "Use in Workbench",
+            "source_step_id": "purchase-pull-2",
+            "source_view": "workbench",
+            "target_view": "workbench",
+            "target_type": "boundary_gate",
+            "target_id": "primitive-distinction",
+            "resolution_status": "direct",
+            "fallback_state": "If the target is filtered out, keep the action visible but route to the corresponding searchable atlas page with a boundary note."
+          }
+        ],
+        "surface_label": "System Workbench",
+        "breadcrumb": "Qualified next-step pull, local only / Inspect edited-scenario boundary before continuing / System Workbench"
+      }
+    ],
+    "links_to_real_surfaces": [
+      {
+        "view": "practical",
+        "target_type": "local_request_preview",
+        "target_id": "local_qualified_next_step"
+      },
+      {
+        "view": "workbench",
+        "target_type": "boundary_gate",
+        "target_id": "primitive-distinction"
+      }
+    ],
+    "negative_assertion_path": {
+      "action": "purchase_pull",
+      "blocked_external_actions": [
+        "pricing",
+        "checkout",
+        "contact",
+        "upload",
+        "publish"
+      ],
+      "expected_visible_result": "local request preview opens; no external action is executed"
+    },
+    "nonclaim_boundary": "This is a local qualified-next-step route only; it is not a sale, purchase, upload, contact request or external validation.",
+    "completion_markers": [
+      "edited_scenario_boundary_seen",
+      "local_request_preview_opened"
+    ],
+    "completion_marker_count": 2,
+    "estimated_minutes": 2,
+    "timing_evidence": "estimated from step minutes in the didactic route, not user telemetry"
+  },
+  {
+    "id": "objection_route::predictive_overreach",
+    "title": "Predictive claim exceeds replay support",
+    "audience": "reviewer",
+    "severity": "high",
+    "promise": "Force a claim check when replay or proof support is not yet present.",
+    "steps": [
+      {
+        "id": "predictive-overreach-1",
+        "title": "Inspect domain replay state",
+        "view": "benchmarks",
+        "minutes": 1,
+        "goal": "Open a domain lane before accepting predictive wording.",
+        "actions": [
+          "Open Domain"
+        ],
+        "target_id": "MATHEMATICS",
+        "action_targets": [
+          {
+            "action": "Open Domain",
+            "source_step_id": "predictive-overreach-1",
+            "source_view": "benchmarks",
+            "target_view": "benchmarks",
+            "target_type": "domain_lane",
+            "target_id": "PHYSICS",
+            "resolution_status": "direct",
+            "fallback_state": "If the target is filtered out, keep the action visible but route to the corresponding searchable atlas page with a boundary note."
+          }
+        ],
+        "surface_label": "Domain Lanes & Benchmarks",
+        "breadcrumb": "Predictive claim exceeds replay support / Inspect domain replay state / Domain Lanes & Benchmarks"
+      },
+      {
+        "id": "predictive-overreach-2",
+        "title": "Open a proof boundary",
+        "view": "proof",
+        "minutes": 1,
+        "goal": "Follow nonclaim language and closure status for the related target.",
+        "actions": [
+          "Open Evidence Boundary"
+        ],
+        "target_id": "OC14-N001",
+        "action_targets": [
+          {
+            "action": "Open Evidence Boundary",
+            "source_step_id": "predictive-overreach-2",
+            "source_view": "proof",
+            "target_view": "proof",
+            "target_type": "proof_boundary",
+            "target_id": "OC14-N001",
+            "resolution_status": "direct",
+            "fallback_state": "If the target is filtered out, keep the action visible but route to the corresponding searchable atlas page with a boundary note."
+          }
+        ],
+        "surface_label": "Evidence / Boundaries",
+        "breadcrumb": "Predictive claim exceeds replay support / Open a proof boundary / Evidence / Boundaries"
+      },
+      {
+        "id": "predictive-overreach-3",
+        "title": "Expose where contradiction closes or still opens",
+        "view": "cascade",
+        "minutes": 1,
+        "goal": "Replay a failure path before any predictive narrative is finalized.",
+        "actions": [
+          "Run Simulation"
+        ],
+        "target_id": "kill_cascade",
+        "action_targets": [
+          {
+            "action": "Run Simulation",
+            "source_step_id": "predictive-overreach-3",
+            "source_view": "cascade",
+            "target_view": "cascade",
+            "target_type": "simulation",
+            "target_id": "kill_cascade",
+            "resolution_status": "direct",
+            "fallback_state": "If the target is filtered out, keep the action visible but route to the corresponding searchable atlas page with a boundary note."
+          }
+        ],
+        "surface_label": "Cascade Lab",
+        "breadcrumb": "Predictive claim exceeds replay support / Expose where contradiction closes or still opens / Cascade Lab"
+      }
+    ],
+    "links_to_real_surfaces": [
+      {
+        "view": "benchmarks",
+        "target_type": "domain_lane",
+        "target_id": "MATHEMATICS"
+      },
+      {
+        "view": "proof",
+        "target_type": "proof_boundary",
+        "target_id": "OC14-N001"
+      },
+      {
+        "view": "cascade",
+        "target_type": "simulation",
+        "target_id": "kill_cascade"
+      }
+    ],
+    "nonclaim_boundary": "This route is for predictive boundary governance, not scientific substitution.",
+    "completion_markers": [],
+    "completion_marker_count": 0,
+    "estimated_minutes": 3,
+    "timing_evidence": "estimated from step minutes in the didactic route, not user telemetry"
+  },
+  {
+    "id": "objection_route::graph_formula_discrepancy",
+    "title": "Graph and formula narratives diverge",
+    "audience": "reviewer",
+    "severity": "medium",
+    "promise": "Compare graph and formula views when confidence appears too high.",
+    "steps": [
+      {
+        "id": "graph-formula-discrepancy-1",
+        "title": "Open graph root context",
+        "view": "graph",
+        "minutes": 1,
+        "goal": "Inspect the root node and its incident relations.",
+        "actions": [
+          "Show in Graph"
+        ],
+        "target_id": "OC::ROOT_PRINCIPLE::CONTRADICTION_AXIS_OR_COLLAPSE",
+        "action_targets": [
+          {
+            "action": "Show in Graph",
+            "source_step_id": "graph-formula-discrepancy-1",
+            "source_view": "graph",
+            "target_view": "graph",
+            "target_type": "graph_node",
+            "target_id": "OC::ROOT_PRINCIPLE::CONTRADICTION_AXIS_OR_COLLAPSE",
+            "resolution_status": "direct",
+            "fallback_state": "If the target is filtered out, keep the action visible but route to the corresponding searchable atlas page with a boundary note."
+          }
+        ],
+        "surface_label": "3D Science Graph",
+        "breadcrumb": "Graph and formula narratives diverge / Open graph root context / 3D Science Graph"
+      },
+      {
+        "id": "graph-formula-discrepancy-2",
+        "title": "Open matching formula query",
+        "view": "formula",
+        "minutes": 1,
+        "goal": "Look for shared semantics in symbol/query space.",
+        "actions": [
+          "Show Formula"
+        ],
+        "target_id": "coherence transition operator",
+        "action_targets": [
+          {
+            "action": "Show Formula",
+            "source_step_id": "graph-formula-discrepancy-2",
+            "source_view": "formula",
+            "target_view": "formula",
+            "target_type": "formula_search",
+            "target_id": "coherence transition operator",
+            "resolution_status": "search",
+            "fallback_state": "If the target is filtered out, keep the action visible but route to the corresponding searchable atlas page with a boundary note."
+          }
+        ],
+        "surface_label": "Formula Atlas",
+        "breadcrumb": "Graph and formula narratives diverge / Open matching formula query / Formula Atlas"
+      },
+      {
+        "id": "graph-formula-discrepancy-3",
+        "title": "Open a concrete system to test stability",
+        "view": "workbench",
+        "minutes": 1,
+        "goal": "Check whether one template can sustain a reproducible simulation.",
+        "actions": [
+          "Use in Workbench"
+        ],
+        "target_id": "primitive-distinction",
+        "action_targets": [
+          {
+            "action": "Use in Workbench",
+            "source_step_id": "graph-formula-discrepancy-3",
+            "source_view": "workbench",
+            "target_view": "workbench",
+            "target_type": "system_template",
+            "target_id": "primitive-distinction",
+            "resolution_status": "direct",
+            "fallback_state": "If the target is filtered out, keep the action visible but route to the corresponding searchable atlas page with a boundary note."
+          }
+        ],
+        "surface_label": "System Workbench",
+        "breadcrumb": "Graph and formula narratives diverge / Open a concrete system to test stability / System Workbench"
+      }
+    ],
+    "links_to_real_surfaces": [
+      {
+        "view": "graph",
+        "target_type": "graph_node",
+        "target_id": "OC::ROOT_PRINCIPLE::CONTRADICTION_AXIS_OR_COLLAPSE"
+      },
+      {
+        "view": "formula",
+        "target_type": "formula_search",
+        "target_id": "coherence transition operator"
+      },
+      {
+        "view": "workbench",
+        "target_type": "system_template",
+        "target_id": "primitive-distinction"
+      }
+    ],
+    "nonclaim_boundary": "Graph and formula checks are bounded by deterministic visualization and should not be treated as independent proof.",
+    "completion_markers": [],
+    "completion_marker_count": 0,
+    "estimated_minutes": 3,
+    "timing_evidence": "estimated from step minutes in the didactic route, not user telemetry"
+  },
+  {
+    "id": "objection_route::no_compare_explanation",
+    "title": "No explicit comparison before system edits",
+    "audience": "reviewer",
+    "severity": "medium",
+    "promise": "Force explicit baseline-vs-edited comparison before approving edited systems.",
+    "steps": [
+      {
+        "id": "no-compare-1",
+        "title": "Load a baseline template",
+        "view": "workbench",
+        "minutes": 1,
+        "goal": "Inspect a concrete template as baseline.",
+        "actions": [
+          "Use in Workbench"
+        ],
+        "target_id": "primitive-distinction",
+        "action_targets": [
+          {
+            "action": "Use in Workbench",
+            "source_step_id": "no-compare-1",
+            "source_view": "workbench",
+            "target_view": "workbench",
+            "target_type": "system_template",
+            "target_id": "primitive-distinction",
+            "resolution_status": "direct",
+            "fallback_state": "If the target is filtered out, keep the action visible but route to the corresponding searchable atlas page with a boundary note."
+          }
+        ],
+        "surface_label": "System Workbench",
+        "breadcrumb": "No explicit comparison before system edits / Load a baseline template / System Workbench"
+      },
+      {
+        "id": "no-compare-2",
+        "title": "Apply a controlled simulation kill",
+        "view": "workbench",
+        "minutes": 1,
+        "goal": "Create a diagnostic divergence before claiming improvement.",
+        "actions": [
+          "Run Simulation"
+        ],
+        "target_id": "system_workbench_preview",
+        "action_targets": [
+          {
+            "action": "Run Simulation",
+            "source_step_id": "no-compare-2",
+            "source_view": "workbench",
+            "target_view": "workbench",
+            "target_type": "simulation",
+            "target_id": "system_workbench_preview",
+            "resolution_status": "direct",
+            "fallback_state": "If the target is filtered out, keep the action visible but route to the corresponding searchable atlas page with a boundary note."
+          }
+        ],
+        "surface_label": "System Workbench",
+        "breadcrumb": "No explicit comparison before system edits / Apply a controlled simulation kill / System Workbench"
+      },
+      {
+        "id": "no-compare-3",
+        "title": "Compare edited behavior",
+        "view": "graph",
+        "minutes": 1,
+        "goal": "Keep comparison in an explicit comparative frame.",
+        "actions": [
+          "Compare"
+        ],
+        "target_type": "comparison",
+        "target_id": "system-template-comparison",
+        "target_view": "graph",
+        "action_targets": [
+          {
+            "action": "Compare",
+            "source_step_id": "no-compare-3",
+            "source_view": "graph",
+            "target_view": "graph",
+            "target_type": "comparison",
+            "target_id": "system-template-comparison",
+            "resolution_status": "direct",
+            "fallback_state": "If the target is filtered out, keep the action visible but route to the corresponding searchable atlas page with a boundary note."
+          }
+        ],
+        "surface_label": "3D Science Graph",
+        "breadcrumb": "No explicit comparison before system edits / Compare edited behavior / 3D Science Graph"
+      }
+    ],
+    "links_to_real_surfaces": [
+      {
+        "view": "workbench",
+        "target_type": "system_template",
+        "target_id": "primitive-distinction"
+      },
+      {
+        "view": "workbench",
+        "target_type": "simulation",
+        "target_id": "system_workbench_preview"
+      },
+      {
+        "view": "graph",
+        "target_type": "comparison",
+        "target_id": "system-template-comparison"
+      }
+    ],
+    "nonclaim_boundary": "Comparisons are diagnostic and remain exploratory unless replay supports are explicitly attached.",
+    "completion_markers": [],
+    "completion_marker_count": 0,
+    "estimated_minutes": 3,
+    "timing_evidence": "estimated from step minutes in the didactic route, not user telemetry"
+  }
+]

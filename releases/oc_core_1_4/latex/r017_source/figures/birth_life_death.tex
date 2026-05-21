@@ -1,0 +1,8 @@
+\begin{tikzpicture}[node distance=2.2cm,>=latex]
+\node[draw,rounded corners,align=center,minimum width=2.2cm] (birth) {Birth\\threshold};
+\node[draw,rounded corners,align=center,minimum width=2.2cm,right=of birth] (life) {Sustained\\continuum};
+\node[draw,rounded corners,align=center,minimum width=2.2cm,right=of life] (death) {Collapse\\or residue};
+\draw[->] (birth) -- (life);
+\draw[->] (life) -- (death);
+\draw[->,bend left=35] (death) to node[above]{rebirth condition} (birth);
+\end{tikzpicture}

@@ -1,0 +1,42 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "OC Core 1.4 public graph node",
+  "type": "object",
+  "additionalProperties": true,
+  "required": [
+    "id",
+    "label",
+    "route"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "label": {
+      "type": "string",
+      "minLength": 1
+    },
+    "route": {
+      "type": "string"
+    },
+    "demo_class": {
+      "type": "string"
+    },
+    "demo_spec_id": {
+      "type": "string"
+    },
+    "evidence_class": {
+      "type": "string"
+    },
+    "statement_excerpt": {
+      "type": "string"
+    },
+    "statement_quality_flags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  }
+}

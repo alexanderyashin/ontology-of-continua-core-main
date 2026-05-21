@@ -1,0 +1,85 @@
+import { describe, expect, it } from "vitest";
+import atlas from "../public/data/oc_universe_atlas.json";
+
+describe("generated atlas", () => {
+  it("contains the V010 no-bullshit system architect workbench surface", () => {
+    expect(atlas.schema_version).toBe("oc-core-demo-universe.v010");
+    expect(atlas.demo_version).toBe("V010");
+    expect(atlas.release_ordinal).toBe("010");
+    expect(atlas.edition).toBe("public");
+    expect(atlas.concepts.length).toBeGreaterThanOrEqual(8);
+    expect(atlas.k_levels.length).toBeGreaterThanOrEqual(13);
+    expect(atlas.domain_benchmarks.length).toBeGreaterThanOrEqual(4);
+    expect(atlas.simulation_worlds.length).toBeGreaterThanOrEqual(4);
+    expect(atlas.k_level_worlds.length).toBe(13);
+    expect(atlas.system_zoo.length).toBeGreaterThanOrEqual(5);
+    expect(atlas.wiki.chapters.length).toBeGreaterThan(20);
+    expect(atlas.wiki.corpus_summary.atom_count).toBeGreaterThanOrEqual(1000);
+    expect(atlas.wiki.corpus_atoms.length).toBeGreaterThanOrEqual(1000);
+    expect(atlas.wiki.formulas.length).toBeGreaterThanOrEqual(15);
+    expect(atlas.science_graph_v010.nodes.length).toBeGreaterThan(500);
+    expect(atlas.science_graph_v010.summary.layer_counts.root_principle).toBe(1);
+    expect(atlas.science_graph_v010.summary.relation_counts.derives).toBeGreaterThan(0);
+    expect(atlas.science_graph_v010.summary.relation_counts.branches_to_k_level).toBe(13);
+    expect(atlas.science_graph_v010.summary.relation_counts.formalized_by).toBeGreaterThan(0);
+    expect(atlas.m_spaces.length).toBeGreaterThanOrEqual(7);
+    expect(atlas.k_axes.length).toBeGreaterThanOrEqual(8);
+    expect(atlas.system_templates.length).toBeGreaterThanOrEqual(7);
+    expect(atlas.thresholds.length).toBeGreaterThan(10);
+    expect(atlas.formula_atlas.length).toBeGreaterThanOrEqual(15);
+    expect(atlas.corpus_index.length).toBeGreaterThanOrEqual(1000);
+    expect(atlas.proof_routes.length).toBe(254);
+    expect(atlas.research_gap_summary.open_count).toBe(0);
+    expect(atlas.research_gaps.length).toBe(0);
+    expect(atlas.closure_ledger.length).toBeGreaterThanOrEqual(80);
+    expect(atlas.reviewer_objection_routes.length).toBeGreaterThanOrEqual(3);
+    expect(atlas.model_comparison_matrix.length).toBeGreaterThanOrEqual(1);
+    expect(atlas.system_architect_missions.length).toBeGreaterThanOrEqual(1);
+    expect(atlas.trust_ladder.length).toBeGreaterThanOrEqual(4);
+    expect(atlas.practical_value_cards.length).toBeGreaterThanOrEqual(3);
+    expect(atlas.model_comparison_matrix.every((row: any) => row.oc_adds && row.does_not_replace && row.when_not_to_use)).toBe(true);
+    expect(atlas.science_graph_v010.nodes.filter((node: any) => node.id.startsWith("OC14-N")).every((node: any) => node.semantic_label && node.label !== node.id)).toBe(true);
+    expect(atlas.k_level_example_atlas.length).toBeGreaterThanOrEqual(39);
+    expect(new Set(atlas.k_level_example_atlas.map((row: any) => row.k_level)).size).toBe(13);
+    expect(atlas.formula_quality_report.formula_count).toBeGreaterThanOrEqual(15);
+    expect(atlas.formula_formalization_obligations.schema_version).toBe("oc-core-demo-formula-formalization-obligations.v010");
+    expect(atlas.formula_atlas.every((row: any) => row.ordinal && row.formula_title && row.domain && row.operator_glossary && row.consequences && row.chart_spec && (row.source_refs?.length || row.nonclaim_boundary))).toBe(true);
+    const formulaText = atlas.formula_atlas.map((row: any) => `${row.formula_title} ${row.formula_text}`).join("\n");
+    expect(formulaText).not.toContain("set_option");
+    expect(formulaText).not.toMatch(/CLAIM=|CLOUDFLARE|BASELINE|dataclass|FileResult|DOI|Compute|source locator/i);
+    expect(atlas.formula_atlas.length).toBeLessThan(100);
+    const cascadeFormula = atlas.formula_atlas.find((row: any) => row.formula_id === "OCF-006");
+    expect(cascadeFormula).toBeDefined();
+    expect(cascadeFormula!.formula_text).toMatch(/max|\\max/);
+    expect(cascadeFormula!.formula_presentation_sections.some((row: any) => row.role === "OCF-006.propagation_update")).toBe(true);
+    expect(cascadeFormula!.formula_presentation_sections.some((row: any) => row.role === "OCF-006.path_depth" && row.visible_expression.includes("D_c"))).toBe(true);
+    expect(cascadeFormula!.formula_family_relation.status).toBe("PASS_SPLIT_FORMULA_FAMILY");
+    expect(cascadeFormula!.dimension_checks.operation_checks.some((row: any) => row.operation === "path_cardinality_depth")).toBe(true);
+    const cascadeStateUpdate = cascadeFormula!.dimension_checks.operation_checks.find((row: any) => row.operation === "cascade_state_update");
+    expect(cascadeStateUpdate).toBeTruthy();
+    expect((cascadeStateUpdate as any).clamp_rule).toContain("max(0");
+    expect((cascadeStateUpdate as any).recomputable_example).toContain("0.7538");
+    const axisFormula = atlas.formula_atlas.find((row: any) => row.formula_id === "OCF-013");
+    expect(axisFormula).toBeDefined();
+    expect(axisFormula!.formula_text).not.toMatch(/M\s*\\cup|M\s*∪/);
+    expect(axisFormula!.formula_text).toContain("A\\cup\\{a_{\\mathrm{new}}\\}");
+    expect(axisFormula!.dimension_checks.operation_checks.some((row: any) => row.operation === "typed_tuple_component_update")).toBe(true);
+    expect(atlas.corpus_completeness_report.counts.generated_atoms).toBe(atlas.wiki.corpus_atoms.length);
+    expect(atlas.science_formalization_ledger.rows.length).toBeGreaterThan(0);
+    expect(atlas.demonstrator_surface_graph.schema_version).toBe("oc-core-demo-surface-graph.v010");
+    expect(atlas.demonstrator_surface_graph.summary.surface_count).toBeGreaterThanOrEqual(19);
+    expect(atlas.demonstrator_surface_graph.summary.control_count).toBeGreaterThanOrEqual(30);
+    expect(atlas.persona_user_story_map.workflow_spine).toEqual(["diagnose", "kill", "improve", "compare", "export"]);
+    expect(atlas.demonstrator_surface_graph.nodes.filter((node: any) => node.kind === "surface").every((node: any) => node.purpose && node.data_sources?.length && node.must_have?.length && node.test_id)).toBe(true);
+    expect(atlas.demonstrator_surface_graph.nodes.filter((node: any) => node.kind === "control").every((node: any) => node.purpose && node.target_view && node.expected_visible_result && node.test_id)).toBe(true);
+    expect(atlas.system_zoo.every((system: any) => system.nodes?.length > 0 && system.edges?.length > 0 && system.weakest_node)).toBe(true);
+    expect(JSON.stringify(atlas)).not.toContain("Frozen proof/refute target .");
+  });
+
+  it("does not expose private paths", () => {
+    expect(JSON.stringify(atlas)).not.toContain("estra-" + "private-" + "work");
+    expect(JSON.stringify(atlas)).not.toContain("Users/" + ("Mega" + "port"));
+  });
+});
+
+

@@ -1,0 +1,2795 @@
+[
+  {
+    "template_id": "primitive-distinction",
+    "title": "Primitive Distinction / Axis Birth",
+    "truth_mode": "REPLAY_BACKED",
+    "fallback_truth_mode": "EXPLORATORY_SANDBOX",
+    "k_levels": [
+      "K0",
+      "K1"
+    ],
+    "m_spaces": [
+      "M-PHYSICS"
+    ],
+    "nodes": [
+      {
+        "id": "axis-choice",
+        "label": "axis choice",
+        "role": "critical-support",
+        "x": 3.4,
+        "y": 0.0,
+        "z": 0.0,
+        "vulnerability": 0.28,
+        "resilience": 0.6784,
+        "recovery_capacity": 0.4342,
+        "health": 1.0
+      },
+      {
+        "id": "boundary-seed",
+        "label": "boundary seed",
+        "role": "critical-support",
+        "x": 0.0,
+        "y": 2.2,
+        "z": 0.0,
+        "vulnerability": 0.39,
+        "resilience": 0.5992,
+        "recovery_capacity": 0.3835,
+        "health": 1.0
+      },
+      {
+        "id": "collapse-null",
+        "label": "collapse null",
+        "role": "collapse-terminal",
+        "x": -3.4,
+        "y": 0.0,
+        "z": -0.0,
+        "vulnerability": 0.5,
+        "resilience": 0.52,
+        "recovery_capacity": 0.3328,
+        "health": 1.0
+      },
+      {
+        "id": "unresolved-contradiction",
+        "label": "unresolved contradiction",
+        "role": "critical-support",
+        "x": -0.0,
+        "y": -2.2,
+        "z": 0.0,
+        "vulnerability": 0.61,
+        "resilience": 0.4408,
+        "recovery_capacity": 0.2821,
+        "health": 1.0
+      }
+    ],
+    "edges": [
+      {
+        "id": "primitive-distinction::edge::0",
+        "source": "unresolved-contradiction",
+        "target": "axis-choice",
+        "weight": 0.55,
+        "flow_channel": "support"
+      },
+      {
+        "id": "primitive-distinction::edge::1",
+        "source": "boundary-seed",
+        "target": "axis-choice",
+        "weight": 0.67,
+        "flow_channel": "support"
+      },
+      {
+        "id": "primitive-distinction::edge::2",
+        "source": "axis-choice",
+        "target": "collapse-null",
+        "weight": 0.79,
+        "flow_channel": "failure"
+      }
+    ],
+    "kill_default": "boundary-seed",
+    "weakest_node": "unresolved-contradiction",
+    "model_hash": "184c1267bf154fa3d072ba40cf54f149ae6c9509779b627de1df3f2dd56434cb",
+    "template_hash_scope": "full system template row after workbench enrichment",
+    "topology_hash_scope": "nodes, edges, kill_default and weakest_node only",
+    "allowed_axis_ids": [
+      "coherence",
+      "load",
+      "repair",
+      "connectivity",
+      "flow",
+      "threshold",
+      "boundary",
+      "axis_birth"
+    ],
+    "allowed_axes": [
+      {
+        "axis_id": "coherence",
+        "title": "Coherence axis",
+        "direction": "higher_is_more_resilient",
+        "default_value": 0.66,
+        "min": 0,
+        "max": 1,
+        "step": 0.01,
+        "k_levels": [
+          "K0",
+          "K2",
+          "K3",
+          "K5",
+          "K6",
+          "K8",
+          "K9"
+        ],
+        "domain_ids": [
+          "MATHEMATICS",
+          "PHYSICS",
+          "CHEMISTRY"
+        ],
+        "source_status": "deterministic-diagnostic",
+        "closure_basis": "V010 workbench axis derived from existing replay/cascade/worldline telemetry.",
+        "claim_status": "nonclaim",
+        "interpretation": "Tracks whether relation, evidence and operation remain jointly usable.",
+        "nonclaim_boundary": "Workbench axes are deterministic diagnostic coordinates; they are not unrestricted empirical prediction claims.",
+        "axis_hash": "d0f77293124ae43678c1453dbf586178a695198ef0df4703943d5d05427f15d8"
+      },
+      {
+        "axis_id": "load",
+        "title": "Contradiction/load axis",
+        "direction": "higher_is_more_dangerous",
+        "default_value": 0.58,
+        "min": 0,
+        "max": 1,
+        "step": 0.01,
+        "k_levels": [
+          "K1",
+          "K2",
+          "K4",
+          "K5",
+          "K7",
+          "K8",
+          "K10"
+        ],
+        "domain_ids": [
+          "PHYSICS",
+          "CHEMISTRY",
+          "DRT"
+        ],
+        "source_status": "deterministic-diagnostic",
+        "closure_basis": "V010 workbench axis derived from existing replay/cascade/worldline telemetry.",
+        "claim_status": "nonclaim",
+        "interpretation": "Tracks pressure from unresolved contradiction, coupling drag or stress.",
+        "nonclaim_boundary": "Workbench axes are deterministic diagnostic coordinates; they are not unrestricted empirical prediction claims.",
+        "axis_hash": "28ace7875f786a23efcce96ae163f640be08f28c80e276dcf30264f2dbe23e8b"
+      },
+      {
+        "axis_id": "repair",
+        "title": "Repair capacity axis",
+        "direction": "higher_is_more_resilient",
+        "default_value": 0.42,
+        "min": 0,
+        "max": 1,
+        "step": 0.01,
+        "k_levels": [
+          "K0",
+          "K1",
+          "K3",
+          "K4",
+          "K6",
+          "K7",
+          "K9"
+        ],
+        "domain_ids": [
+          "CHEMISTRY",
+          "DRT",
+          "BIOLOGY"
+        ],
+        "source_status": "deterministic-diagnostic",
+        "closure_basis": "V010 workbench axis derived from existing replay/cascade/worldline telemetry.",
+        "claim_status": "nonclaim",
+        "interpretation": "Tracks corrective capacity, buffering and recovery potential.",
+        "nonclaim_boundary": "Workbench axes are deterministic diagnostic coordinates; they are not unrestricted empirical prediction claims.",
+        "axis_hash": "4717beb976ffd5683c62fabebbdee093979fcef855d0f467ece6578c4a71c041"
+      },
+      {
+        "axis_id": "connectivity",
+        "title": "Connectivity axis",
+        "direction": "higher_is_more_resilient",
+        "default_value": 0.74,
+        "min": 0,
+        "max": 1,
+        "step": 0.01,
+        "k_levels": [
+          "K0",
+          "K2",
+          "K3",
+          "K5",
+          "K6",
+          "K8",
+          "K9"
+        ],
+        "domain_ids": [
+          "DRT",
+          "BIOLOGY",
+          "SYSTEMS_CIVILIZATIONAL_PROJECTION"
+        ],
+        "source_status": "deterministic-diagnostic",
+        "closure_basis": "V010 workbench axis derived from existing replay/cascade/worldline telemetry.",
+        "claim_status": "nonclaim",
+        "interpretation": "Tracks how many support paths survive after local rupture.",
+        "nonclaim_boundary": "Workbench axes are deterministic diagnostic coordinates; they are not unrestricted empirical prediction claims.",
+        "axis_hash": "4f7011f0371fa07491281d99d62851bfb71c3925cd9188e576d3c7bd88c909f5"
+      },
+      {
+        "axis_id": "flow",
+        "title": "Flow continuity axis",
+        "direction": "higher_is_more_resilient",
+        "default_value": 0.69,
+        "min": 0,
+        "max": 1,
+        "step": 0.01,
+        "k_levels": [
+          "K1",
+          "K2",
+          "K4",
+          "K5",
+          "K7",
+          "K8",
+          "K10"
+        ],
+        "domain_ids": [
+          "BIOLOGY",
+          "SYSTEMS_CIVILIZATIONAL_PROJECTION",
+          "METAONTOLOGY"
+        ],
+        "source_status": "deterministic-diagnostic",
+        "closure_basis": "V010 workbench axis derived from existing replay/cascade/worldline telemetry.",
+        "claim_status": "nonclaim",
+        "interpretation": "Tracks whether support, energy, evidence or coordination channels remain open.",
+        "nonclaim_boundary": "Workbench axes are deterministic diagnostic coordinates; they are not unrestricted empirical prediction claims.",
+        "axis_hash": "d534b848975c5822cb7fff376fabc17215fbd90f503c23fdb2a5f982d0a71428"
+      },
+      {
+        "axis_id": "threshold",
+        "title": "Threshold proximity axis",
+        "direction": "higher_is_more_dangerous",
+        "default_value": 0.47,
+        "min": 0,
+        "max": 1,
+        "step": 0.01,
+        "k_levels": [
+          "K0",
+          "K1",
+          "K3",
+          "K4",
+          "K6",
+          "K7",
+          "K9"
+        ],
+        "domain_ids": [
+          "SYSTEMS_CIVILIZATIONAL_PROJECTION",
+          "METAONTOLOGY"
+        ],
+        "source_status": "deterministic-diagnostic",
+        "closure_basis": "V010 workbench axis derived from existing replay/cascade/worldline telemetry.",
+        "claim_status": "nonclaim",
+        "interpretation": "Tracks distance to collapse, transition or re-description thresholds.",
+        "nonclaim_boundary": "Workbench axes are deterministic diagnostic coordinates; they are not unrestricted empirical prediction claims.",
+        "axis_hash": "793cfe0c03cbf05e60d9715f34e6d45c170854a776cfe909d5166204da67fda3"
+      },
+      {
+        "axis_id": "boundary",
+        "title": "Boundary clarity axis",
+        "direction": "higher_is_more_resilient",
+        "default_value": 0.62,
+        "min": 0,
+        "max": 1,
+        "step": 0.01,
+        "k_levels": [
+          "K0",
+          "K2",
+          "K3",
+          "K5",
+          "K6",
+          "K8",
+          "K9"
+        ],
+        "domain_ids": [
+          "METAONTOLOGY"
+        ],
+        "source_status": "deterministic-diagnostic",
+        "closure_basis": "V010 workbench axis derived from existing replay/cascade/worldline telemetry.",
+        "claim_status": "nonclaim",
+        "interpretation": "Tracks how cleanly a system separates, couples and projects its environment.",
+        "nonclaim_boundary": "Workbench axes are deterministic diagnostic coordinates; they are not unrestricted empirical prediction claims.",
+        "axis_hash": "06a4adcf44c84d4e90421dd8068677b7791cf3b3857349dcd91d686fa3677d79"
+      },
+      {
+        "axis_id": "axis_birth",
+        "title": "New-axis birth capacity",
+        "direction": "higher_is_more_resilient",
+        "default_value": 0.51,
+        "min": 0,
+        "max": 1,
+        "step": 0.01,
+        "k_levels": [
+          "K1",
+          "K2",
+          "K4",
+          "K5",
+          "K7",
+          "K8",
+          "K10"
+        ],
+        "domain_ids": [
+          "MATHEMATICS",
+          "PHYSICS",
+          "CHEMISTRY"
+        ],
+        "source_status": "deterministic-diagnostic",
+        "closure_basis": "V010 workbench axis derived from existing replay/cascade/worldline telemetry.",
+        "claim_status": "nonclaim",
+        "interpretation": "Tracks whether a contradiction can be resolved by adding a computable axis.",
+        "nonclaim_boundary": "Workbench axes are deterministic diagnostic coordinates; they are not unrestricted empirical prediction claims.",
+        "axis_hash": "cdc59aeaaa2d0d3b1bbee80a029177b4b5ad4e512f0e228e6e772302bd3fdbd8"
+      }
+    ],
+    "editable_actions": [
+      "add_node",
+      "remove_node",
+      "add_edge",
+      "add_axis",
+      "strengthen_link",
+      "add_compensator",
+      "change_threshold",
+      "kill_selected_node",
+      "kill_weakest_node",
+      "recover"
+    ],
+    "default_intervention": {
+      "add_axis": "coherence",
+      "strengthen_link_delta": 0.08,
+      "recovery_delta": 0.06
+    },
+    "assumptions": [
+      "Template starts replay-bounded; edits move the model into exploratory sandbox unless separately validated."
+    ],
+    "nonclaim_boundary": "Edited templates are exploratory system models until replay-backed closure exists.",
+    "template_hash": "e42ab5e03142ceab0ab7cb6a41bc63338277c39c95e0236fadd582d1217e2b94"
+  },
+  {
+    "template_id": "physical-phase",
+    "title": "Physical Phase Continuum",
+    "truth_mode": "REPLAY_BACKED",
+    "fallback_truth_mode": "EXPLORATORY_SANDBOX",
+    "k_levels": [
+      "K1",
+      "K2"
+    ],
+    "m_spaces": [
+      "M-CHEMISTRY",
+      "M-PHYSICS"
+    ],
+    "nodes": [
+      {
+        "id": "coherence-loss",
+        "label": "coherence loss",
+        "role": "dependency",
+        "x": 3.4,
+        "y": 0.0,
+        "z": 0.0,
+        "vulnerability": 0.39,
+        "resilience": 0.5992,
+        "recovery_capacity": 0.3835,
+        "health": 1.0
+      },
+      {
+        "id": "field-boundary",
+        "label": "field boundary",
+        "role": "critical-support",
+        "x": 0.0,
+        "y": 2.2,
+        "z": 0.0,
+        "vulnerability": 0.5,
+        "resilience": 0.52,
+        "recovery_capacity": 0.3328,
+        "health": 1.0
+      },
+      {
+        "id": "phase-threshold",
+        "label": "phase threshold",
+        "role": "critical-support",
+        "x": -3.4,
+        "y": 0.0,
+        "z": -0.0,
+        "vulnerability": 0.61,
+        "resilience": 0.4408,
+        "recovery_capacity": 0.2821,
+        "health": 1.0
+      },
+      {
+        "id": "temperature-gradient",
+        "label": "temperature gradient",
+        "role": "critical-support",
+        "x": -0.0,
+        "y": -2.2,
+        "z": 0.0,
+        "vulnerability": 0.72,
+        "resilience": 0.3616,
+        "recovery_capacity": 0.2314,
+        "health": 1.0
+      }
+    ],
+    "edges": [
+      {
+        "id": "physical-phase::edge::0",
+        "source": "temperature-gradient",
+        "target": "phase-threshold",
+        "weight": 0.55,
+        "flow_channel": "support"
+      },
+      {
+        "id": "physical-phase::edge::1",
+        "source": "field-boundary",
+        "target": "phase-threshold",
+        "weight": 0.67,
+        "flow_channel": "support"
+      },
+      {
+        "id": "physical-phase::edge::2",
+        "source": "phase-threshold",
+        "target": "coherence-loss",
+        "weight": 0.79,
+        "flow_channel": "support"
+      }
+    ],
+    "kill_default": "field-boundary",
+    "weakest_node": "temperature-gradient",
+    "model_hash": "0dab3a2ac7606c60a04b5dba58749e649feda0766a8232299a67245cb865cebf",
+    "template_hash_scope": "full system template row after workbench enrichment",
+    "topology_hash_scope": "nodes, edges, kill_default and weakest_node only",
+    "allowed_axis_ids": [
+      "coherence",
+      "load",
+      "repair",
+      "connectivity",
+      "flow",
+      "threshold",
+      "boundary",
+      "axis_birth"
+    ],
+    "allowed_axes": [
+      {
+        "axis_id": "coherence",
+        "title": "Coherence axis",
+        "direction": "higher_is_more_resilient",
+        "default_value": 0.66,
+        "min": 0,
+        "max": 1,
+        "step": 0.01,
+        "k_levels": [
+          "K0",
+          "K2",
+          "K3",
+          "K5",
+          "K6",
+          "K8",
+          "K9"
+        ],
+        "domain_ids": [
+          "MATHEMATICS",
+          "PHYSICS",
+          "CHEMISTRY"
+        ],
+        "source_status": "deterministic-diagnostic",
+        "closure_basis": "V010 workbench axis derived from existing replay/cascade/worldline telemetry.",
+        "claim_status": "nonclaim",
+        "interpretation": "Tracks whether relation, evidence and operation remain jointly usable.",
+        "nonclaim_boundary": "Workbench axes are deterministic diagnostic coordinates; they are not unrestricted empirical prediction claims.",
+        "axis_hash": "d0f77293124ae43678c1453dbf586178a695198ef0df4703943d5d05427f15d8"
+      },
+      {
+        "axis_id": "load",
+        "title": "Contradiction/load axis",
+        "direction": "higher_is_more_dangerous",
+        "default_value": 0.58,
+        "min": 0,
+        "max": 1,
+        "step": 0.01,
+        "k_levels": [
+          "K1",
+          "K2",
+          "K4",
+          "K5",
+          "K7",
+          "K8",
+          "K10"
+        ],
+        "domain_ids": [
+          "PHYSICS",
+          "CHEMISTRY",
+          "DRT"
+        ],
+        "source_status": "deterministic-diagnostic",
+        "closure_basis": "V010 workbench axis derived from existing replay/cascade/worldline telemetry.",
+        "claim_status": "nonclaim",
+        "interpretation": "Tracks pressure from unresolved contradiction, coupling drag or stress.",
+        "nonclaim_boundary": "Workbench axes are deterministic diagnostic coordinates; they are not unrestricted empirical prediction claims.",
+        "axis_hash": "28ace7875f786a23efcce96ae163f640be08f28c80e276dcf30264f2dbe23e8b"
+      },
+      {
+        "axis_id": "repair",
+        "title": "Repair capacity axis",
+        "direction": "higher_is_more_resilient",
+        "default_value": 0.42,
+        "min": 0,
+        "max": 1,
+        "step": 0.01,
+        "k_levels": [
+          "K0",
+          "K1",
+          "K3",
+          "K4",
+          "K6",
+          "K7",
+          "K9"
+        ],
+        "domain_ids": [
+          "CHEMISTRY",
+          "DRT",
+          "BIOLOGY"
+        ],
+        "source_status": "deterministic-diagnostic",
+        "closure_basis": "V010 workbench axis derived from existing replay/cascade/worldline telemetry.",
+        "claim_status": "nonclaim",
+        "interpretation": "Tracks corrective capacity, buffering and recovery potential.",
+        "nonclaim_boundary": "Workbench axes are deterministic diagnostic coordinates; they are not unrestricted empirical prediction claims.",
+        "axis_hash": "4717beb976ffd5683c62fabebbdee093979fcef855d0f467ece6578c4a71c041"
+      },
+      {
+        "axis_id": "connectivity",
+        "title": "Connectivity axis",
+        "direction": "higher_is_more_resilient",
+        "default_value": 0.74,
+        "min": 0,
+        "max": 1,
+        "step": 0.01,
+        "k_levels": [
+          "K0",
+          "K2",
+          "K3",
+          "K5",
+          "K6",
+          "K8",
+          "K9"
+        ],
+        "domain_ids": [
+          "DRT",
+          "BIOLOGY",
+          "SYSTEMS_CIVILIZATIONAL_PROJECTION"
+        ],
+        "source_status": "deterministic-diagnostic",
+        "closure_basis": "V010 workbench axis derived from existing replay/cascade/worldline telemetry.",
+        "claim_status": "nonclaim",
+        "interpretation": "Tracks how many support paths survive after local rupture.",
+        "nonclaim_boundary": "Workbench axes are deterministic diagnostic coordinates; they are not unrestricted empirical prediction claims.",
+        "axis_hash": "4f7011f0371fa07491281d99d62851bfb71c3925cd9188e576d3c7bd88c909f5"
+      },
+      {
+        "axis_id": "flow",
+        "title": "Flow continuity axis",
+        "direction": "higher_is_more_resilient",
+        "default_value": 0.69,
+        "min": 0,
+        "max": 1,
+        "step": 0.01,
+        "k_levels": [
+          "K1",
+          "K2",
+          "K4",
+          "K5",
+          "K7",
+          "K8",
+          "K10"
+        ],
+        "domain_ids": [
+          "BIOLOGY",
+          "SYSTEMS_CIVILIZATIONAL_PROJECTION",
+          "METAONTOLOGY"
+        ],
+        "source_status": "deterministic-diagnostic",
+        "closure_basis": "V010 workbench axis derived from existing replay/cascade/worldline telemetry.",
+        "claim_status": "nonclaim",
+        "interpretation": "Tracks whether support, energy, evidence or coordination channels remain open.",
+        "nonclaim_boundary": "Workbench axes are deterministic diagnostic coordinates; they are not unrestricted empirical prediction claims.",
+        "axis_hash": "d534b848975c5822cb7fff376fabc17215fbd90f503c23fdb2a5f982d0a71428"
+      },
+      {
+        "axis_id": "threshold",
+        "title": "Threshold proximity axis",
+        "direction": "higher_is_more_dangerous",
+        "default_value": 0.47,
+        "min": 0,
+        "max": 1,
+        "step": 0.01,
+        "k_levels": [
+          "K0",
+          "K1",
+          "K3",
+          "K4",
+          "K6",
+          "K7",
+          "K9"
+        ],
+        "domain_ids": [
+          "SYSTEMS_CIVILIZATIONAL_PROJECTION",
+          "METAONTOLOGY"
+        ],
+        "source_status": "deterministic-diagnostic",
+        "closure_basis": "V010 workbench axis derived from existing replay/cascade/worldline telemetry.",
+        "claim_status": "nonclaim",
+        "interpretation": "Tracks distance to collapse, transition or re-description thresholds.",
+        "nonclaim_boundary": "Workbench axes are deterministic diagnostic coordinates; they are not unrestricted empirical prediction claims.",
+        "axis_hash": "793cfe0c03cbf05e60d9715f34e6d45c170854a776cfe909d5166204da67fda3"
+      },
+      {
+        "axis_id": "boundary",
+        "title": "Boundary clarity axis",
+        "direction": "higher_is_more_resilient",
+        "default_value": 0.62,
+        "min": 0,
+        "max": 1,
+        "step": 0.01,
+        "k_levels": [
+          "K0",
+          "K2",
+          "K3",
+          "K5",
+          "K6",
+          "K8",
+          "K9"
+        ],
+        "domain_ids": [
+          "METAONTOLOGY"
+        ],
+        "source_status": "deterministic-diagnostic",
+        "closure_basis": "V010 workbench axis derived from existing replay/cascade/worldline telemetry.",
+        "claim_status": "nonclaim",
+        "interpretation": "Tracks how cleanly a system separates, couples and projects its environment.",
+        "nonclaim_boundary": "Workbench axes are deterministic diagnostic coordinates; they are not unrestricted empirical prediction claims.",
+        "axis_hash": "06a4adcf44c84d4e90421dd8068677b7791cf3b3857349dcd91d686fa3677d79"
+      },
+      {
+        "axis_id": "axis_birth",
+        "title": "New-axis birth capacity",
+        "direction": "higher_is_more_resilient",
+        "default_value": 0.51,
+        "min": 0,
+        "max": 1,
+        "step": 0.01,
+        "k_levels": [
+          "K1",
+          "K2",
+          "K4",
+          "K5",
+          "K7",
+          "K8",
+          "K10"
+        ],
+        "domain_ids": [
+          "MATHEMATICS",
+          "PHYSICS",
+          "CHEMISTRY"
+        ],
+        "source_status": "deterministic-diagnostic",
+        "closure_basis": "V010 workbench axis derived from existing replay/cascade/worldline telemetry.",
+        "claim_status": "nonclaim",
+        "interpretation": "Tracks whether a contradiction can be resolved by adding a computable axis.",
+        "nonclaim_boundary": "Workbench axes are deterministic diagnostic coordinates; they are not unrestricted empirical prediction claims.",
+        "axis_hash": "cdc59aeaaa2d0d3b1bbee80a029177b4b5ad4e512f0e228e6e772302bd3fdbd8"
+      }
+    ],
+    "editable_actions": [
+      "add_node",
+      "remove_node",
+      "add_edge",
+      "add_axis",
+      "strengthen_link",
+      "add_compensator",
+      "change_threshold",
+      "kill_selected_node",
+      "kill_weakest_node",
+      "recover"
+    ],
+    "default_intervention": {
+      "add_axis": "coherence",
+      "strengthen_link_delta": 0.08,
+      "recovery_delta": 0.06
+    },
+    "assumptions": [
+      "Template starts replay-bounded; edits move the model into exploratory sandbox unless separately validated."
+    ],
+    "nonclaim_boundary": "Edited templates are exploratory system models until replay-backed closure exists.",
+    "template_hash": "09cbb46963989d1d286d075166912906815ac2c5ca14834652090162f0e529dc"
+  },
+  {
+    "template_id": "prebiotic-chemistry",
+    "title": "Prebiotic Chemical Organization",
+    "truth_mode": "REPLAY_BACKED",
+    "fallback_truth_mode": "EXPLORATORY_SANDBOX",
+    "k_levels": [
+      "K2",
+      "K3",
+      "K4"
+    ],
+    "m_spaces": [
+      "M-BIOLOGY",
+      "M-CHEMISTRY"
+    ],
+    "nodes": [
+      {
+        "id": "catalytic-loop",
+        "label": "catalytic loop",
+        "role": "critical-support",
+        "x": 3.4,
+        "y": 0.0,
+        "z": 0.0,
+        "vulnerability": 0.5,
+        "resilience": 0.52,
+        "recovery_capacity": 0.3328,
+        "health": 1.0
+      },
+      {
+        "id": "membrane-boundary",
+        "label": "membrane boundary",
+        "role": "critical-support",
+        "x": 0.0,
+        "y": 2.2,
+        "z": 0.0,
+        "vulnerability": 0.61,
+        "resilience": 0.4408,
+        "recovery_capacity": 0.2821,
+        "health": 1.0
+      },
+      {
+        "id": "organization-collapse",
+        "label": "organization collapse",
+        "role": "collapse-terminal",
+        "x": -3.4,
+        "y": 0.0,
+        "z": -0.0,
+        "vulnerability": 0.72,
+        "resilience": 0.3616,
+        "recovery_capacity": 0.2314,
+        "health": 1.0
+      },
+      {
+        "id": "resource-gradient",
+        "label": "resource gradient",
+        "role": "critical-support",
+        "x": -0.0,
+        "y": -2.2,
+        "z": 0.0,
+        "vulnerability": 0.28,
+        "resilience": 0.6784,
+        "recovery_capacity": 0.4342,
+        "health": 1.0
+      }
+    ],
+    "edges": [
+      {
+        "id": "prebiotic-chemistry::edge::0",
+        "source": "resource-gradient",
+        "target": "catalytic-loop",
+        "weight": 0.55,
+        "flow_channel": "support"
+      },
+      {
+        "id": "prebiotic-chemistry::edge::1",
+        "source": "membrane-boundary",
+        "target": "catalytic-loop",
+        "weight": 0.67,
+        "flow_channel": "support"
+      },
+      {
+        "id": "prebiotic-chemistry::edge::2",
+        "source": "catalytic-loop",
+        "target": "organization-collapse",
+        "weight": 0.79,
+        "flow_channel": "failure"
+      }
+    ],
+    "kill_default": "resource-gradient",
+    "weakest_node": "membrane-boundary",
+    "model_hash": "ea82efc84dd17f133710776dd37e7e0e270056efcfae1caed693fd6d09e4242e",
+    "template_hash_scope": "full system template row after workbench enrichment",
+    "topology_hash_scope": "nodes, edges, kill_default and weakest_node only",
+    "allowed_axis_ids": [
+      "coherence",
+      "load",
+      "repair",
+      "connectivity",
+      "flow",
+      "threshold",
+      "boundary",
+      "axis_birth"
+    ],
+    "allowed_axes": [
+      {
+        "axis_id": "coherence",
+        "title": "Coherence axis",
+        "direction": "higher_is_more_resilient",
+        "default_value": 0.66,
+        "min": 0,
+        "max": 1,
+        "step": 0.01,
+        "k_levels": [
+          "K0",
+          "K2",
+          "K3",
+          "K5",
+          "K6",
+          "K8",
+          "K9"
+        ],
+        "domain_ids": [
+          "MATHEMATICS",
+          "PHYSICS",
+          "CHEMISTRY"
+        ],
+        "source_status": "deterministic-diagnostic",
+        "closure_basis": "V010 workbench axis derived from existing replay/cascade/worldline telemetry.",
+        "claim_status": "nonclaim",
+        "interpretation": "Tracks whether relation, evidence and operation remain jointly usable.",
+        "nonclaim_boundary": "Workbench axes are deterministic diagnostic coordinates; they are not unrestricted empirical prediction claims.",
+        "axis_hash": "d0f77293124ae43678c1453dbf586178a695198ef0df4703943d5d05427f15d8"
+      },
+      {
+        "axis_id": "load",
+        "title": "Contradiction/load axis",
+        "direction": "higher_is_more_dangerous",
+        "default_value": 0.58,
+        "min": 0,
+        "max": 1,
+        "step": 0.01,
+        "k_levels": [
+          "K1",
+          "K2",
+          "K4",
+          "K5",
+          "K7",
+          "K8",
+          "K10"
+        ],
+        "domain_ids": [
+          "PHYSICS",
+          "CHEMISTRY",
+          "DRT"
+        ],
+        "source_status": "deterministic-diagnostic",
+        "closure_basis": "V010 workbench axis derived from existing replay/cascade/worldline telemetry.",
+        "claim_status": "nonclaim",
+        "interpretation": "Tracks pressure from unresolved contradiction, coupling drag or stress.",
+        "nonclaim_boundary": "Workbench axes are deterministic diagnostic coordinates; they are not unrestricted empirical prediction claims.",
+        "axis_hash": "28ace7875f786a23efcce96ae163f640be08f28c80e276dcf30264f2dbe23e8b"
+      },
+      {
+        "axis_id": "repair",
+        "title": "Repair capacity axis",
+        "direction": "higher_is_more_resilient",
+        "default_value": 0.42,
+        "min": 0,
+        "max": 1,
+        "step": 0.01,
+        "k_levels": [
+          "K0",
+          "K1",
+          "K3",
+          "K4",
+          "K6",
+          "K7",
+          "K9"
+        ],
+        "domain_ids": [
+          "CHEMISTRY",
+          "DRT",
+          "BIOLOGY"
+        ],
+        "source_status": "deterministic-diagnostic",
+        "closure_basis": "V010 workbench axis derived from existing replay/cascade/worldline telemetry.",
+        "claim_status": "nonclaim",
+        "interpretation": "Tracks corrective capacity, buffering and recovery potential.",
+        "nonclaim_boundary": "Workbench axes are deterministic diagnostic coordinates; they are not unrestricted empirical prediction claims.",
+        "axis_hash": "4717beb976ffd5683c62fabebbdee093979fcef855d0f467ece6578c4a71c041"
+      },
+      {
+        "axis_id": "connectivity",
+        "title": "Connectivity axis",
+        "direction": "higher_is_more_resilient",
+        "default_value": 0.74,
+        "min": 0,
+        "max": 1,
+        "step": 0.01,
+        "k_levels": [
+          "K0",
+          "K2",
+          "K3",
+          "K5",
+          "K6",
+          "K8",
+          "K9"
+        ],
+        "domain_ids": [
+          "DRT",
+          "BIOLOGY",
+          "SYSTEMS_CIVILIZATIONAL_PROJECTION"
+        ],
+        "source_status": "deterministic-diagnostic",
+        "closure_basis": "V010 workbench axis derived from existing replay/cascade/worldline telemetry.",
+        "claim_status": "nonclaim",
+        "interpretation": "Tracks how many support paths survive after local rupture.",
+        "nonclaim_boundary": "Workbench axes are deterministic diagnostic coordinates; they are not unrestricted empirical prediction claims.",
+        "axis_hash": "4f7011f0371fa07491281d99d62851bfb71c3925cd9188e576d3c7bd88c909f5"
+      },
+      {
+        "axis_id": "flow",
+        "title": "Flow continuity axis",
+        "direction": "higher_is_more_resilient",
+        "default_value": 0.69,
+        "min": 0,
+        "max": 1,
+        "step": 0.01,
+        "k_levels": [
+          "K1",
+          "K2",
+          "K4",
+          "K5",
+          "K7",
+          "K8",
+          "K10"
+        ],
+        "domain_ids": [
+          "BIOLOGY",
+          "SYSTEMS_CIVILIZATIONAL_PROJECTION",
+          "METAONTOLOGY"
+        ],
+        "source_status": "deterministic-diagnostic",
+        "closure_basis": "V010 workbench axis derived from existing replay/cascade/worldline telemetry.",
+        "claim_status": "nonclaim",
+        "interpretation": "Tracks whether support, energy, evidence or coordination channels remain open.",
+        "nonclaim_boundary": "Workbench axes are deterministic diagnostic coordinates; they are not unrestricted empirical prediction claims.",
+        "axis_hash": "d534b848975c5822cb7fff376fabc17215fbd90f503c23fdb2a5f982d0a71428"
+      },
+      {
+        "axis_id": "threshold",
+        "title": "Threshold proximity axis",
+        "direction": "higher_is_more_dangerous",
+        "default_value": 0.47,
+        "min": 0,
+        "max": 1,
+        "step": 0.01,
+        "k_levels": [
+          "K0",
+          "K1",
+          "K3",
+          "K4",
+          "K6",
+          "K7",
+          "K9"
+        ],
+        "domain_ids": [
+          "SYSTEMS_CIVILIZATIONAL_PROJECTION",
+          "METAONTOLOGY"
+        ],
+        "source_status": "deterministic-diagnostic",
+        "closure_basis": "V010 workbench axis derived from existing replay/cascade/worldline telemetry.",
+        "claim_status": "nonclaim",
+        "interpretation": "Tracks distance to collapse, transition or re-description thresholds.",
+        "nonclaim_boundary": "Workbench axes are deterministic diagnostic coordinates; they are not unrestricted empirical prediction claims.",
+        "axis_hash": "793cfe0c03cbf05e60d9715f34e6d45c170854a776cfe909d5166204da67fda3"
+      },
+      {
+        "axis_id": "boundary",
+        "title": "Boundary clarity axis",
+        "direction": "higher_is_more_resilient",
+        "default_value": 0.62,
+        "min": 0,
+        "max": 1,
+        "step": 0.01,
+        "k_levels": [
+          "K0",
+          "K2",
+          "K3",
+          "K5",
+          "K6",
+          "K8",
+          "K9"
+        ],
+        "domain_ids": [
+          "METAONTOLOGY"
+        ],
+        "source_status": "deterministic-diagnostic",
+        "closure_basis": "V010 workbench axis derived from existing replay/cascade/worldline telemetry.",
+        "claim_status": "nonclaim",
+        "interpretation": "Tracks how cleanly a system separates, couples and projects its environment.",
+        "nonclaim_boundary": "Workbench axes are deterministic diagnostic coordinates; they are not unrestricted empirical prediction claims.",
+        "axis_hash": "06a4adcf44c84d4e90421dd8068677b7791cf3b3857349dcd91d686fa3677d79"
+      },
+      {
+        "axis_id": "axis_birth",
+        "title": "New-axis birth capacity",
+        "direction": "higher_is_more_resilient",
+        "default_value": 0.51,
+        "min": 0,
+        "max": 1,
+        "step": 0.01,
+        "k_levels": [
+          "K1",
+          "K2",
+          "K4",
+          "K5",
+          "K7",
+          "K8",
+          "K10"
+        ],
+        "domain_ids": [
+          "MATHEMATICS",
+          "PHYSICS",
+          "CHEMISTRY"
+        ],
+        "source_status": "deterministic-diagnostic",
+        "closure_basis": "V010 workbench axis derived from existing replay/cascade/worldline telemetry.",
+        "claim_status": "nonclaim",
+        "interpretation": "Tracks whether a contradiction can be resolved by adding a computable axis.",
+        "nonclaim_boundary": "Workbench axes are deterministic diagnostic coordinates; they are not unrestricted empirical prediction claims.",
+        "axis_hash": "cdc59aeaaa2d0d3b1bbee80a029177b4b5ad4e512f0e228e6e772302bd3fdbd8"
+      }
+    ],
+    "editable_actions": [
+      "add_node",
+      "remove_node",
+      "add_edge",
+      "add_axis",
+      "strengthen_link",
+      "add_compensator",
+      "change_threshold",
+      "kill_selected_node",
+      "kill_weakest_node",
+      "recover"
+    ],
+    "default_intervention": {
+      "add_axis": "coherence",
+      "strengthen_link_delta": 0.08,
+      "recovery_delta": 0.06
+    },
+    "assumptions": [
+      "Template starts replay-bounded; edits move the model into exploratory sandbox unless separately validated."
+    ],
+    "nonclaim_boundary": "Edited templates are exploratory system models until replay-backed closure exists.",
+    "template_hash": "c1f0f1831dc088de8b8d2d07218a3bf0b3bd588814bdf7ace350b80ee45c7c99"
+  },
+  {
+    "template_id": "biological-cell",
+    "title": "Biological Cell-State Continuum",
+    "truth_mode": "REPLAY_BACKED",
+    "fallback_truth_mode": "EXPLORATORY_SANDBOX",
+    "k_levels": [
+      "K4",
+      "K5",
+      "K6"
+    ],
+    "m_spaces": [
+      "M-BIOLOGY",
+      "M-COGNITIVE-SOCIAL"
+    ],
+    "nodes": [
+      {
+        "id": "cell-state-collapse",
+        "label": "cell state collapse",
+        "role": "collapse-terminal",
+        "x": 3.4,
+        "y": 0.0,
+        "z": 0.0,
+        "vulnerability": 0.61,
+        "resilience": 0.4408,
+        "recovery_capacity": 0.2821,
+        "health": 1.0
+      },
+      {
+        "id": "expression-state",
+        "label": "expression state",
+        "role": "critical-support",
+        "x": 1.05066,
+        "y": 2.09232,
+        "z": 0.70534,
+        "vulnerability": 0.72,
+        "resilience": 0.3616,
+        "recovery_capacity": 0.2314,
+        "health": 1.0
+      },
+      {
+        "id": "ion-channel",
+        "label": "ion channel",
+        "role": "critical-support",
+        "x": -2.75066,
+        "y": 1.29313,
+        "z": -1.14127,
+        "vulnerability": 0.28,
+        "resilience": 0.6784,
+        "recovery_capacity": 0.4342,
+        "health": 1.0
+      },
+      {
+        "id": "membrane",
+        "label": "membrane",
+        "role": "critical-support",
+        "x": -2.75066,
+        "y": -1.29313,
+        "z": 1.14127,
+        "vulnerability": 0.39,
+        "resilience": 0.5992,
+        "recovery_capacity": 0.3835,
+        "health": 1.0
+      },
+      {
+        "id": "repair-loop",
+        "label": "repair loop",
+        "role": "critical-support",
+        "x": 1.05066,
+        "y": -2.09232,
+        "z": -0.70534,
+        "vulnerability": 0.5,
+        "resilience": 0.52,
+        "recovery_capacity": 0.3328,
+        "health": 1.0
+      }
+    ],
+    "edges": [
+      {
+        "id": "biological-cell::edge::0",
+        "source": "membrane",
+        "target": "ion-channel",
+        "weight": 0.55,
+        "flow_channel": "support"
+      },
+      {
+        "id": "biological-cell::edge::1",
+        "source": "ion-channel",
+        "target": "expression-state",
+        "weight": 0.67,
+        "flow_channel": "support"
+      },
+      {
+        "id": "biological-cell::edge::2",
+        "source": "repair-loop",
+        "target": "expression-state",
+        "weight": 0.79,
+        "flow_channel": "support"
+      },
+      {
+        "id": "biological-cell::edge::3",
+        "source": "expression-state",
+        "target": "cell-state-collapse",
+        "weight": 0.91,
+        "flow_channel": "failure"
+      }
+    ],
+    "kill_default": "membrane",
+    "weakest_node": "expression-state",
+    "model_hash": "c5dec3e6fc61fe6774a0346e81f0fadd74ea1dfbb7e43911cfb40e49ccdc3abe",
+    "template_hash_scope": "full system template row after workbench enrichment",
+    "topology_hash_scope": "nodes, edges, kill_default and weakest_node only",
+    "allowed_axis_ids": [
+      "coherence",
+      "load",
+      "repair",
+      "connectivity",
+      "flow",
+      "threshold",
+      "boundary",
+      "axis_birth"
+    ],
+    "allowed_axes": [
+      {
+        "axis_id": "coherence",
+        "title": "Coherence axis",
+        "direction": "higher_is_more_resilient",
+        "default_value": 0.66,
+        "min": 0,
+        "max": 1,
+        "step": 0.01,
+        "k_levels": [
+          "K0",
+          "K2",
+          "K3",
+          "K5",
+          "K6",
+          "K8",
+          "K9"
+        ],
+        "domain_ids": [
+          "MATHEMATICS",
+          "PHYSICS",
+          "CHEMISTRY"
+        ],
+        "source_status": "deterministic-diagnostic",
+        "closure_basis": "V010 workbench axis derived from existing replay/cascade/worldline telemetry.",
+        "claim_status": "nonclaim",
+        "interpretation": "Tracks whether relation, evidence and operation remain jointly usable.",
+        "nonclaim_boundary": "Workbench axes are deterministic diagnostic coordinates; they are not unrestricted empirical prediction claims.",
+        "axis_hash": "d0f77293124ae43678c1453dbf586178a695198ef0df4703943d5d05427f15d8"
+      },
+      {
+        "axis_id": "load",
+        "title": "Contradiction/load axis",
+        "direction": "higher_is_more_dangerous",
+        "default_value": 0.58,
+        "min": 0,
+        "max": 1,
+        "step": 0.01,
+        "k_levels": [
+          "K1",
+          "K2",
+          "K4",
+          "K5",
+          "K7",
+          "K8",
+          "K10"
+        ],
+        "domain_ids": [
+          "PHYSICS",
+          "CHEMISTRY",
+          "DRT"
+        ],
+        "source_status": "deterministic-diagnostic",
+        "closure_basis": "V010 workbench axis derived from existing replay/cascade/worldline telemetry.",
+        "claim_status": "nonclaim",
+        "interpretation": "Tracks pressure from unresolved contradiction, coupling drag or stress.",
+        "nonclaim_boundary": "Workbench axes are deterministic diagnostic coordinates; they are not unrestricted empirical prediction claims.",
+        "axis_hash": "28ace7875f786a23efcce96ae163f640be08f28c80e276dcf30264f2dbe23e8b"
+      },
+      {
+        "axis_id": "repair",
+        "title": "Repair capacity axis",
+        "direction": "higher_is_more_resilient",
+        "default_value": 0.42,
+        "min": 0,
+        "max": 1,
+        "step": 0.01,
+        "k_levels": [
+          "K0",
+          "K1",
+          "K3",
+          "K4",
+          "K6",
+          "K7",
+          "K9"
+        ],
+        "domain_ids": [
+          "CHEMISTRY",
+          "DRT",
+          "BIOLOGY"
+        ],
+        "source_status": "deterministic-diagnostic",
+        "closure_basis": "V010 workbench axis derived from existing replay/cascade/worldline telemetry.",
+        "claim_status": "nonclaim",
+        "interpretation": "Tracks corrective capacity, buffering and recovery potential.",
+        "nonclaim_boundary": "Workbench axes are deterministic diagnostic coordinates; they are not unrestricted empirical prediction claims.",
+        "axis_hash": "4717beb976ffd5683c62fabebbdee093979fcef855d0f467ece6578c4a71c041"
+      },
+      {
+        "axis_id": "connectivity",
+        "title": "Connectivity axis",
+        "direction": "higher_is_more_resilient",
+        "default_value": 0.74,
+        "min": 0,
+        "max": 1,
+        "step": 0.01,
+        "k_levels": [
+          "K0",
+          "K2",
+          "K3",
+          "K5",
+          "K6",
+          "K8",
+          "K9"
+        ],
+        "domain_ids": [
+          "DRT",
+          "BIOLOGY",
+          "SYSTEMS_CIVILIZATIONAL_PROJECTION"
+        ],
+        "source_status": "deterministic-diagnostic",
+        "closure_basis": "V010 workbench axis derived from existing replay/cascade/worldline telemetry.",
+        "claim_status": "nonclaim",
+        "interpretation": "Tracks how many support paths survive after local rupture.",
+        "nonclaim_boundary": "Workbench axes are deterministic diagnostic coordinates; they are not unrestricted empirical prediction claims.",
+        "axis_hash": "4f7011f0371fa07491281d99d62851bfb71c3925cd9188e576d3c7bd88c909f5"
+      },
+      {
+        "axis_id": "flow",
+        "title": "Flow continuity axis",
+        "direction": "higher_is_more_resilient",
+        "default_value": 0.69,
+        "min": 0,
+        "max": 1,
+        "step": 0.01,
+        "k_levels": [
+          "K1",
+          "K2",
+          "K4",
+          "K5",
+          "K7",
+          "K8",
+          "K10"
+        ],
+        "domain_ids": [
+          "BIOLOGY",
+          "SYSTEMS_CIVILIZATIONAL_PROJECTION",
+          "METAONTOLOGY"
+        ],
+        "source_status": "deterministic-diagnostic",
+        "closure_basis": "V010 workbench axis derived from existing replay/cascade/worldline telemetry.",
+        "claim_status": "nonclaim",
+        "interpretation": "Tracks whether support, energy, evidence or coordination channels remain open.",
+        "nonclaim_boundary": "Workbench axes are deterministic diagnostic coordinates; they are not unrestricted empirical prediction claims.",
+        "axis_hash": "d534b848975c5822cb7fff376fabc17215fbd90f503c23fdb2a5f982d0a71428"
+      },
+      {
+        "axis_id": "threshold",
+        "title": "Threshold proximity axis",
+        "direction": "higher_is_more_dangerous",
+        "default_value": 0.47,
+        "min": 0,
+        "max": 1,
+        "step": 0.01,
+        "k_levels": [
+          "K0",
+          "K1",
+          "K3",
+          "K4",
+          "K6",
+          "K7",
+          "K9"
+        ],
+        "domain_ids": [
+          "SYSTEMS_CIVILIZATIONAL_PROJECTION",
+          "METAONTOLOGY"
+        ],
+        "source_status": "deterministic-diagnostic",
+        "closure_basis": "V010 workbench axis derived from existing replay/cascade/worldline telemetry.",
+        "claim_status": "nonclaim",
+        "interpretation": "Tracks distance to collapse, transition or re-description thresholds.",
+        "nonclaim_boundary": "Workbench axes are deterministic diagnostic coordinates; they are not unrestricted empirical prediction claims.",
+        "axis_hash": "793cfe0c03cbf05e60d9715f34e6d45c170854a776cfe909d5166204da67fda3"
+      },
+      {
+        "axis_id": "boundary",
+        "title": "Boundary clarity axis",
+        "direction": "higher_is_more_resilient",
+        "default_value": 0.62,
+        "min": 0,
+        "max": 1,
+        "step": 0.01,
+        "k_levels": [
+          "K0",
+          "K2",
+          "K3",
+          "K5",
+          "K6",
+          "K8",
+          "K9"
+        ],
+        "domain_ids": [
+          "METAONTOLOGY"
+        ],
+        "source_status": "deterministic-diagnostic",
+        "closure_basis": "V010 workbench axis derived from existing replay/cascade/worldline telemetry.",
+        "claim_status": "nonclaim",
+        "interpretation": "Tracks how cleanly a system separates, couples and projects its environment.",
+        "nonclaim_boundary": "Workbench axes are deterministic diagnostic coordinates; they are not unrestricted empirical prediction claims.",
+        "axis_hash": "06a4adcf44c84d4e90421dd8068677b7791cf3b3857349dcd91d686fa3677d79"
+      },
+      {
+        "axis_id": "axis_birth",
+        "title": "New-axis birth capacity",
+        "direction": "higher_is_more_resilient",
+        "default_value": 0.51,
+        "min": 0,
+        "max": 1,
+        "step": 0.01,
+        "k_levels": [
+          "K1",
+          "K2",
+          "K4",
+          "K5",
+          "K7",
+          "K8",
+          "K10"
+        ],
+        "domain_ids": [
+          "MATHEMATICS",
+          "PHYSICS",
+          "CHEMISTRY"
+        ],
+        "source_status": "deterministic-diagnostic",
+        "closure_basis": "V010 workbench axis derived from existing replay/cascade/worldline telemetry.",
+        "claim_status": "nonclaim",
+        "interpretation": "Tracks whether a contradiction can be resolved by adding a computable axis.",
+        "nonclaim_boundary": "Workbench axes are deterministic diagnostic coordinates; they are not unrestricted empirical prediction claims.",
+        "axis_hash": "cdc59aeaaa2d0d3b1bbee80a029177b4b5ad4e512f0e228e6e772302bd3fdbd8"
+      }
+    ],
+    "editable_actions": [
+      "add_node",
+      "remove_node",
+      "add_edge",
+      "add_axis",
+      "strengthen_link",
+      "add_compensator",
+      "change_threshold",
+      "kill_selected_node",
+      "kill_weakest_node",
+      "recover"
+    ],
+    "default_intervention": {
+      "add_axis": "coherence",
+      "strengthen_link_delta": 0.08,
+      "recovery_delta": 0.06
+    },
+    "assumptions": [
+      "Template starts replay-bounded; edits move the model into exploratory sandbox unless separately validated."
+    ],
+    "nonclaim_boundary": "Edited templates are exploratory system models until replay-backed closure exists.",
+    "template_hash": "d5f5634914636a1a09810c9534352786489cd00be3be13d42099ca3587a20410"
+  },
+  {
+    "template_id": "institution",
+    "title": "Institutional Continuum",
+    "truth_mode": "REPLAY_BACKED",
+    "fallback_truth_mode": "EXPLORATORY_SANDBOX",
+    "k_levels": [
+      "K7",
+      "K8"
+    ],
+    "m_spaces": [
+      "M-CIVILIZATION",
+      "M-COGNITIVE-SOCIAL"
+    ],
+    "nodes": [
+      {
+        "id": "coordination",
+        "label": "coordination",
+        "role": "critical-support",
+        "x": 3.4,
+        "y": 0.0,
+        "z": 0.0,
+        "vulnerability": 0.72,
+        "resilience": 0.3616,
+        "recovery_capacity": 0.2314,
+        "health": 1.0
+      },
+      {
+        "id": "institutional-collapse",
+        "label": "institutional collapse",
+        "role": "collapse-terminal",
+        "x": 1.05066,
+        "y": 2.09232,
+        "z": 0.70534,
+        "vulnerability": 0.28,
+        "resilience": 0.6784,
+        "recovery_capacity": 0.4342,
+        "health": 1.0
+      },
+      {
+        "id": "lawful-boundary",
+        "label": "lawful boundary",
+        "role": "critical-support",
+        "x": -2.75066,
+        "y": 1.29313,
+        "z": -1.14127,
+        "vulnerability": 0.39,
+        "resilience": 0.5992,
+        "recovery_capacity": 0.3835,
+        "health": 1.0
+      },
+      {
+        "id": "resource-flow",
+        "label": "resource flow",
+        "role": "critical-support",
+        "x": -2.75066,
+        "y": -1.29313,
+        "z": 1.14127,
+        "vulnerability": 0.5,
+        "resilience": 0.52,
+        "recovery_capacity": 0.3328,
+        "health": 1.0
+      },
+      {
+        "id": "trust",
+        "label": "trust",
+        "role": "critical-support",
+        "x": 1.05066,
+        "y": -2.09232,
+        "z": -0.70534,
+        "vulnerability": 0.61,
+        "resilience": 0.4408,
+        "recovery_capacity": 0.2821,
+        "health": 1.0
+      }
+    ],
+    "edges": [
+      {
+        "id": "institution::edge::0",
+        "source": "trust",
+        "target": "coordination",
+        "weight": 0.55,
+        "flow_channel": "support"
+      },
+      {
+        "id": "institution::edge::1",
+        "source": "lawful-boundary",
+        "target": "coordination",
+        "weight": 0.67,
+        "flow_channel": "support"
+      },
+      {
+        "id": "institution::edge::2",
+        "source": "resource-flow",
+        "target": "coordination",
+        "weight": 0.79,
+        "flow_channel": "support"
+      },
+      {
+        "id": "institution::edge::3",
+        "source": "coordination",
+        "target": "institutional-collapse",
+        "weight": 0.91,
+        "flow_channel": "failure"
+      }
+    ],
+    "kill_default": "trust",
+    "weakest_node": "coordination",
+    "model_hash": "7e81c72e29d56c71906135ed3b7b4a11f85f8906df93eb451e4496fbf73095f2",
+    "template_hash_scope": "full system template row after workbench enrichment",
+    "topology_hash_scope": "nodes, edges, kill_default and weakest_node only",
+    "allowed_axis_ids": [
+      "coherence",
+      "load",
+      "repair",
+      "connectivity",
+      "flow",
+      "threshold",
+      "boundary",
+      "axis_birth"
+    ],
+    "allowed_axes": [
+      {
+        "axis_id": "coherence",
+        "title": "Coherence axis",
+        "direction": "higher_is_more_resilient",
+        "default_value": 0.66,
+        "min": 0,
+        "max": 1,
+        "step": 0.01,
+        "k_levels": [
+          "K0",
+          "K2",
+          "K3",
+          "K5",
+          "K6",
+          "K8",
+          "K9"
+        ],
+        "domain_ids": [
+          "MATHEMATICS",
+          "PHYSICS",
+          "CHEMISTRY"
+        ],
+        "source_status": "deterministic-diagnostic",
+        "closure_basis": "V010 workbench axis derived from existing replay/cascade/worldline telemetry.",
+        "claim_status": "nonclaim",
+        "interpretation": "Tracks whether relation, evidence and operation remain jointly usable.",
+        "nonclaim_boundary": "Workbench axes are deterministic diagnostic coordinates; they are not unrestricted empirical prediction claims.",
+        "axis_hash": "d0f77293124ae43678c1453dbf586178a695198ef0df4703943d5d05427f15d8"
+      },
+      {
+        "axis_id": "load",
+        "title": "Contradiction/load axis",
+        "direction": "higher_is_more_dangerous",
+        "default_value": 0.58,
+        "min": 0,
+        "max": 1,
+        "step": 0.01,
+        "k_levels": [
+          "K1",
+          "K2",
+          "K4",
+          "K5",
+          "K7",
+          "K8",
+          "K10"
+        ],
+        "domain_ids": [
+          "PHYSICS",
+          "CHEMISTRY",
+          "DRT"
+        ],
+        "source_status": "deterministic-diagnostic",
+        "closure_basis": "V010 workbench axis derived from existing replay/cascade/worldline telemetry.",
+        "claim_status": "nonclaim",
+        "interpretation": "Tracks pressure from unresolved contradiction, coupling drag or stress.",
+        "nonclaim_boundary": "Workbench axes are deterministic diagnostic coordinates; they are not unrestricted empirical prediction claims.",
+        "axis_hash": "28ace7875f786a23efcce96ae163f640be08f28c80e276dcf30264f2dbe23e8b"
+      },
+      {
+        "axis_id": "repair",
+        "title": "Repair capacity axis",
+        "direction": "higher_is_more_resilient",
+        "default_value": 0.42,
+        "min": 0,
+        "max": 1,
+        "step": 0.01,
+        "k_levels": [
+          "K0",
+          "K1",
+          "K3",
+          "K4",
+          "K6",
+          "K7",
+          "K9"
+        ],
+        "domain_ids": [
+          "CHEMISTRY",
+          "DRT",
+          "BIOLOGY"
+        ],
+        "source_status": "deterministic-diagnostic",
+        "closure_basis": "V010 workbench axis derived from existing replay/cascade/worldline telemetry.",
+        "claim_status": "nonclaim",
+        "interpretation": "Tracks corrective capacity, buffering and recovery potential.",
+        "nonclaim_boundary": "Workbench axes are deterministic diagnostic coordinates; they are not unrestricted empirical prediction claims.",
+        "axis_hash": "4717beb976ffd5683c62fabebbdee093979fcef855d0f467ece6578c4a71c041"
+      },
+      {
+        "axis_id": "connectivity",
+        "title": "Connectivity axis",
+        "direction": "higher_is_more_resilient",
+        "default_value": 0.74,
+        "min": 0,
+        "max": 1,
+        "step": 0.01,
+        "k_levels": [
+          "K0",
+          "K2",
+          "K3",
+          "K5",
+          "K6",
+          "K8",
+          "K9"
+        ],
+        "domain_ids": [
+          "DRT",
+          "BIOLOGY",
+          "SYSTEMS_CIVILIZATIONAL_PROJECTION"
+        ],
+        "source_status": "deterministic-diagnostic",
+        "closure_basis": "V010 workbench axis derived from existing replay/cascade/worldline telemetry.",
+        "claim_status": "nonclaim",
+        "interpretation": "Tracks how many support paths survive after local rupture.",
+        "nonclaim_boundary": "Workbench axes are deterministic diagnostic coordinates; they are not unrestricted empirical prediction claims.",
+        "axis_hash": "4f7011f0371fa07491281d99d62851bfb71c3925cd9188e576d3c7bd88c909f5"
+      },
+      {
+        "axis_id": "flow",
+        "title": "Flow continuity axis",
+        "direction": "higher_is_more_resilient",
+        "default_value": 0.69,
+        "min": 0,
+        "max": 1,
+        "step": 0.01,
+        "k_levels": [
+          "K1",
+          "K2",
+          "K4",
+          "K5",
+          "K7",
+          "K8",
+          "K10"
+        ],
+        "domain_ids": [
+          "BIOLOGY",
+          "SYSTEMS_CIVILIZATIONAL_PROJECTION",
+          "METAONTOLOGY"
+        ],
+        "source_status": "deterministic-diagnostic",
+        "closure_basis": "V010 workbench axis derived from existing replay/cascade/worldline telemetry.",
+        "claim_status": "nonclaim",
+        "interpretation": "Tracks whether support, energy, evidence or coordination channels remain open.",
+        "nonclaim_boundary": "Workbench axes are deterministic diagnostic coordinates; they are not unrestricted empirical prediction claims.",
+        "axis_hash": "d534b848975c5822cb7fff376fabc17215fbd90f503c23fdb2a5f982d0a71428"
+      },
+      {
+        "axis_id": "threshold",
+        "title": "Threshold proximity axis",
+        "direction": "higher_is_more_dangerous",
+        "default_value": 0.47,
+        "min": 0,
+        "max": 1,
+        "step": 0.01,
+        "k_levels": [
+          "K0",
+          "K1",
+          "K3",
+          "K4",
+          "K6",
+          "K7",
+          "K9"
+        ],
+        "domain_ids": [
+          "SYSTEMS_CIVILIZATIONAL_PROJECTION",
+          "METAONTOLOGY"
+        ],
+        "source_status": "deterministic-diagnostic",
+        "closure_basis": "V010 workbench axis derived from existing replay/cascade/worldline telemetry.",
+        "claim_status": "nonclaim",
+        "interpretation": "Tracks distance to collapse, transition or re-description thresholds.",
+        "nonclaim_boundary": "Workbench axes are deterministic diagnostic coordinates; they are not unrestricted empirical prediction claims.",
+        "axis_hash": "793cfe0c03cbf05e60d9715f34e6d45c170854a776cfe909d5166204da67fda3"
+      },
+      {
+        "axis_id": "boundary",
+        "title": "Boundary clarity axis",
+        "direction": "higher_is_more_resilient",
+        "default_value": 0.62,
+        "min": 0,
+        "max": 1,
+        "step": 0.01,
+        "k_levels": [
+          "K0",
+          "K2",
+          "K3",
+          "K5",
+          "K6",
+          "K8",
+          "K9"
+        ],
+        "domain_ids": [
+          "METAONTOLOGY"
+        ],
+        "source_status": "deterministic-diagnostic",
+        "closure_basis": "V010 workbench axis derived from existing replay/cascade/worldline telemetry.",
+        "claim_status": "nonclaim",
+        "interpretation": "Tracks how cleanly a system separates, couples and projects its environment.",
+        "nonclaim_boundary": "Workbench axes are deterministic diagnostic coordinates; they are not unrestricted empirical prediction claims.",
+        "axis_hash": "06a4adcf44c84d4e90421dd8068677b7791cf3b3857349dcd91d686fa3677d79"
+      },
+      {
+        "axis_id": "axis_birth",
+        "title": "New-axis birth capacity",
+        "direction": "higher_is_more_resilient",
+        "default_value": 0.51,
+        "min": 0,
+        "max": 1,
+        "step": 0.01,
+        "k_levels": [
+          "K1",
+          "K2",
+          "K4",
+          "K5",
+          "K7",
+          "K8",
+          "K10"
+        ],
+        "domain_ids": [
+          "MATHEMATICS",
+          "PHYSICS",
+          "CHEMISTRY"
+        ],
+        "source_status": "deterministic-diagnostic",
+        "closure_basis": "V010 workbench axis derived from existing replay/cascade/worldline telemetry.",
+        "claim_status": "nonclaim",
+        "interpretation": "Tracks whether a contradiction can be resolved by adding a computable axis.",
+        "nonclaim_boundary": "Workbench axes are deterministic diagnostic coordinates; they are not unrestricted empirical prediction claims.",
+        "axis_hash": "cdc59aeaaa2d0d3b1bbee80a029177b4b5ad4e512f0e228e6e772302bd3fdbd8"
+      }
+    ],
+    "editable_actions": [
+      "add_node",
+      "remove_node",
+      "add_edge",
+      "add_axis",
+      "strengthen_link",
+      "add_compensator",
+      "change_threshold",
+      "kill_selected_node",
+      "kill_weakest_node",
+      "recover"
+    ],
+    "default_intervention": {
+      "add_axis": "coherence",
+      "strengthen_link_delta": 0.08,
+      "recovery_delta": 0.06
+    },
+    "assumptions": [
+      "Template starts replay-bounded; edits move the model into exploratory sandbox unless separately validated."
+    ],
+    "nonclaim_boundary": "Edited templates are exploratory system models until replay-backed closure exists.",
+    "template_hash": "36fe1ca3d899aef63e4b6b182934416b036b3b5fc95cdcf8b2330d592cf0bfec"
+  },
+  {
+    "template_id": "cognitive-social-agent",
+    "title": "Cognitive / Social Agent Continuum",
+    "truth_mode": "REPLAY_BACKED",
+    "fallback_truth_mode": "EXPLORATORY_SANDBOX",
+    "k_levels": [
+      "K6",
+      "K7",
+      "K8"
+    ],
+    "m_spaces": [
+      "M-CIVILIZATION",
+      "M-COGNITIVE-SOCIAL"
+    ],
+    "nodes": [
+      {
+        "id": "agent-coherence-collapse",
+        "label": "agent coherence collapse",
+        "role": "collapse-terminal",
+        "x": 3.4,
+        "y": 0.0,
+        "z": 0.0,
+        "vulnerability": 0.28,
+        "resilience": 0.6784,
+        "recovery_capacity": 0.4342,
+        "health": 1.0
+      },
+      {
+        "id": "attention-boundary",
+        "label": "attention boundary",
+        "role": "critical-support",
+        "x": 1.05066,
+        "y": 2.09232,
+        "z": 0.70534,
+        "vulnerability": 0.39,
+        "resilience": 0.5992,
+        "recovery_capacity": 0.3835,
+        "health": 1.0
+      },
+      {
+        "id": "coordination-signal",
+        "label": "coordination signal",
+        "role": "critical-support",
+        "x": -2.75066,
+        "y": 1.29313,
+        "z": -1.14127,
+        "vulnerability": 0.5,
+        "resilience": 0.52,
+        "recovery_capacity": 0.3328,
+        "health": 1.0
+      },
+      {
+        "id": "memory-loop",
+        "label": "memory loop",
+        "role": "critical-support",
+        "x": -2.75066,
+        "y": -1.29313,
+        "z": 1.14127,
+        "vulnerability": 0.61,
+        "resilience": 0.4408,
+        "recovery_capacity": 0.2821,
+        "health": 1.0
+      },
+      {
+        "id": "norm-model",
+        "label": "norm model",
+        "role": "critical-support",
+        "x": 1.05066,
+        "y": -2.09232,
+        "z": -0.70534,
+        "vulnerability": 0.72,
+        "resilience": 0.3616,
+        "recovery_capacity": 0.2314,
+        "health": 1.0
+      }
+    ],
+    "edges": [
+      {
+        "id": "cognitive-social-agent::edge::0",
+        "source": "attention-boundary",
+        "target": "memory-loop",
+        "weight": 0.55,
+        "flow_channel": "support"
+      },
+      {
+        "id": "cognitive-social-agent::edge::1",
+        "source": "memory-loop",
+        "target": "norm-model",
+        "weight": 0.67,
+        "flow_channel": "support"
+      },
+      {
+        "id": "cognitive-social-agent::edge::2",
+        "source": "coordination-signal",
+        "target": "norm-model",
+        "weight": 0.79,
+        "flow_channel": "support"
+      },
+      {
+        "id": "cognitive-social-agent::edge::3",
+        "source": "norm-model",
+        "target": "agent-coherence-collapse",
+        "weight": 0.91,
+        "flow_channel": "failure"
+      }
+    ],
+    "kill_default": "attention-boundary",
+    "weakest_node": "norm-model",
+    "model_hash": "3c724c62fe00cf4c367b20e4a8039b442d49c5fcc1b917f7e1ee075f5564af49",
+    "template_hash_scope": "full system template row after workbench enrichment",
+    "topology_hash_scope": "nodes, edges, kill_default and weakest_node only",
+    "allowed_axis_ids": [
+      "coherence",
+      "load",
+      "repair",
+      "connectivity",
+      "flow",
+      "threshold",
+      "boundary",
+      "axis_birth"
+    ],
+    "allowed_axes": [
+      {
+        "axis_id": "coherence",
+        "title": "Coherence axis",
+        "direction": "higher_is_more_resilient",
+        "default_value": 0.66,
+        "min": 0,
+        "max": 1,
+        "step": 0.01,
+        "k_levels": [
+          "K0",
+          "K2",
+          "K3",
+          "K5",
+          "K6",
+          "K8",
+          "K9"
+        ],
+        "domain_ids": [
+          "MATHEMATICS",
+          "PHYSICS",
+          "CHEMISTRY"
+        ],
+        "source_status": "deterministic-diagnostic",
+        "closure_basis": "V010 workbench axis derived from existing replay/cascade/worldline telemetry.",
+        "claim_status": "nonclaim",
+        "interpretation": "Tracks whether relation, evidence and operation remain jointly usable.",
+        "nonclaim_boundary": "Workbench axes are deterministic diagnostic coordinates; they are not unrestricted empirical prediction claims.",
+        "axis_hash": "d0f77293124ae43678c1453dbf586178a695198ef0df4703943d5d05427f15d8"
+      },
+      {
+        "axis_id": "load",
+        "title": "Contradiction/load axis",
+        "direction": "higher_is_more_dangerous",
+        "default_value": 0.58,
+        "min": 0,
+        "max": 1,
+        "step": 0.01,
+        "k_levels": [
+          "K1",
+          "K2",
+          "K4",
+          "K5",
+          "K7",
+          "K8",
+          "K10"
+        ],
+        "domain_ids": [
+          "PHYSICS",
+          "CHEMISTRY",
+          "DRT"
+        ],
+        "source_status": "deterministic-diagnostic",
+        "closure_basis": "V010 workbench axis derived from existing replay/cascade/worldline telemetry.",
+        "claim_status": "nonclaim",
+        "interpretation": "Tracks pressure from unresolved contradiction, coupling drag or stress.",
+        "nonclaim_boundary": "Workbench axes are deterministic diagnostic coordinates; they are not unrestricted empirical prediction claims.",
+        "axis_hash": "28ace7875f786a23efcce96ae163f640be08f28c80e276dcf30264f2dbe23e8b"
+      },
+      {
+        "axis_id": "repair",
+        "title": "Repair capacity axis",
+        "direction": "higher_is_more_resilient",
+        "default_value": 0.42,
+        "min": 0,
+        "max": 1,
+        "step": 0.01,
+        "k_levels": [
+          "K0",
+          "K1",
+          "K3",
+          "K4",
+          "K6",
+          "K7",
+          "K9"
+        ],
+        "domain_ids": [
+          "CHEMISTRY",
+          "DRT",
+          "BIOLOGY"
+        ],
+        "source_status": "deterministic-diagnostic",
+        "closure_basis": "V010 workbench axis derived from existing replay/cascade/worldline telemetry.",
+        "claim_status": "nonclaim",
+        "interpretation": "Tracks corrective capacity, buffering and recovery potential.",
+        "nonclaim_boundary": "Workbench axes are deterministic diagnostic coordinates; they are not unrestricted empirical prediction claims.",
+        "axis_hash": "4717beb976ffd5683c62fabebbdee093979fcef855d0f467ece6578c4a71c041"
+      },
+      {
+        "axis_id": "connectivity",
+        "title": "Connectivity axis",
+        "direction": "higher_is_more_resilient",
+        "default_value": 0.74,
+        "min": 0,
+        "max": 1,
+        "step": 0.01,
+        "k_levels": [
+          "K0",
+          "K2",
+          "K3",
+          "K5",
+          "K6",
+          "K8",
+          "K9"
+        ],
+        "domain_ids": [
+          "DRT",
+          "BIOLOGY",
+          "SYSTEMS_CIVILIZATIONAL_PROJECTION"
+        ],
+        "source_status": "deterministic-diagnostic",
+        "closure_basis": "V010 workbench axis derived from existing replay/cascade/worldline telemetry.",
+        "claim_status": "nonclaim",
+        "interpretation": "Tracks how many support paths survive after local rupture.",
+        "nonclaim_boundary": "Workbench axes are deterministic diagnostic coordinates; they are not unrestricted empirical prediction claims.",
+        "axis_hash": "4f7011f0371fa07491281d99d62851bfb71c3925cd9188e576d3c7bd88c909f5"
+      },
+      {
+        "axis_id": "flow",
+        "title": "Flow continuity axis",
+        "direction": "higher_is_more_resilient",
+        "default_value": 0.69,
+        "min": 0,
+        "max": 1,
+        "step": 0.01,
+        "k_levels": [
+          "K1",
+          "K2",
+          "K4",
+          "K5",
+          "K7",
+          "K8",
+          "K10"
+        ],
+        "domain_ids": [
+          "BIOLOGY",
+          "SYSTEMS_CIVILIZATIONAL_PROJECTION",
+          "METAONTOLOGY"
+        ],
+        "source_status": "deterministic-diagnostic",
+        "closure_basis": "V010 workbench axis derived from existing replay/cascade/worldline telemetry.",
+        "claim_status": "nonclaim",
+        "interpretation": "Tracks whether support, energy, evidence or coordination channels remain open.",
+        "nonclaim_boundary": "Workbench axes are deterministic diagnostic coordinates; they are not unrestricted empirical prediction claims.",
+        "axis_hash": "d534b848975c5822cb7fff376fabc17215fbd90f503c23fdb2a5f982d0a71428"
+      },
+      {
+        "axis_id": "threshold",
+        "title": "Threshold proximity axis",
+        "direction": "higher_is_more_dangerous",
+        "default_value": 0.47,
+        "min": 0,
+        "max": 1,
+        "step": 0.01,
+        "k_levels": [
+          "K0",
+          "K1",
+          "K3",
+          "K4",
+          "K6",
+          "K7",
+          "K9"
+        ],
+        "domain_ids": [
+          "SYSTEMS_CIVILIZATIONAL_PROJECTION",
+          "METAONTOLOGY"
+        ],
+        "source_status": "deterministic-diagnostic",
+        "closure_basis": "V010 workbench axis derived from existing replay/cascade/worldline telemetry.",
+        "claim_status": "nonclaim",
+        "interpretation": "Tracks distance to collapse, transition or re-description thresholds.",
+        "nonclaim_boundary": "Workbench axes are deterministic diagnostic coordinates; they are not unrestricted empirical prediction claims.",
+        "axis_hash": "793cfe0c03cbf05e60d9715f34e6d45c170854a776cfe909d5166204da67fda3"
+      },
+      {
+        "axis_id": "boundary",
+        "title": "Boundary clarity axis",
+        "direction": "higher_is_more_resilient",
+        "default_value": 0.62,
+        "min": 0,
+        "max": 1,
+        "step": 0.01,
+        "k_levels": [
+          "K0",
+          "K2",
+          "K3",
+          "K5",
+          "K6",
+          "K8",
+          "K9"
+        ],
+        "domain_ids": [
+          "METAONTOLOGY"
+        ],
+        "source_status": "deterministic-diagnostic",
+        "closure_basis": "V010 workbench axis derived from existing replay/cascade/worldline telemetry.",
+        "claim_status": "nonclaim",
+        "interpretation": "Tracks how cleanly a system separates, couples and projects its environment.",
+        "nonclaim_boundary": "Workbench axes are deterministic diagnostic coordinates; they are not unrestricted empirical prediction claims.",
+        "axis_hash": "06a4adcf44c84d4e90421dd8068677b7791cf3b3857349dcd91d686fa3677d79"
+      },
+      {
+        "axis_id": "axis_birth",
+        "title": "New-axis birth capacity",
+        "direction": "higher_is_more_resilient",
+        "default_value": 0.51,
+        "min": 0,
+        "max": 1,
+        "step": 0.01,
+        "k_levels": [
+          "K1",
+          "K2",
+          "K4",
+          "K5",
+          "K7",
+          "K8",
+          "K10"
+        ],
+        "domain_ids": [
+          "MATHEMATICS",
+          "PHYSICS",
+          "CHEMISTRY"
+        ],
+        "source_status": "deterministic-diagnostic",
+        "closure_basis": "V010 workbench axis derived from existing replay/cascade/worldline telemetry.",
+        "claim_status": "nonclaim",
+        "interpretation": "Tracks whether a contradiction can be resolved by adding a computable axis.",
+        "nonclaim_boundary": "Workbench axes are deterministic diagnostic coordinates; they are not unrestricted empirical prediction claims.",
+        "axis_hash": "cdc59aeaaa2d0d3b1bbee80a029177b4b5ad4e512f0e228e6e772302bd3fdbd8"
+      }
+    ],
+    "editable_actions": [
+      "add_node",
+      "remove_node",
+      "add_edge",
+      "add_axis",
+      "strengthen_link",
+      "add_compensator",
+      "change_threshold",
+      "kill_selected_node",
+      "kill_weakest_node",
+      "recover"
+    ],
+    "default_intervention": {
+      "add_axis": "coherence",
+      "strengthen_link_delta": 0.08,
+      "recovery_delta": 0.06
+    },
+    "assumptions": [
+      "Template starts replay-bounded; edits move the model into exploratory sandbox unless separately validated."
+    ],
+    "nonclaim_boundary": "Edited templates are exploratory system models until replay-backed closure exists.",
+    "template_hash": "631130f107126050737c6bd75a953e1bce58fa5ba171e7623a686c1500b05c3b"
+  },
+  {
+    "template_id": "civilization",
+    "title": "Civilizational Continuum",
+    "truth_mode": "REPLAY_BACKED",
+    "fallback_truth_mode": "EXPLORATORY_SANDBOX",
+    "k_levels": [
+      "K8",
+      "K9",
+      "K10",
+      "K11",
+      "K12"
+    ],
+    "m_spaces": [
+      "M-CIVILIZATION",
+      "M-META"
+    ],
+    "nodes": [
+      {
+        "id": "civilizational-collapse",
+        "label": "civilizational collapse",
+        "role": "collapse-terminal",
+        "x": 3.4,
+        "y": 0.0,
+        "z": 0.0,
+        "vulnerability": 0.39,
+        "resilience": 0.5992,
+        "recovery_capacity": 0.3835,
+        "health": 1.0
+      },
+      {
+        "id": "energy-throughput",
+        "label": "energy throughput",
+        "role": "critical-support",
+        "x": 1.05066,
+        "y": 2.09232,
+        "z": 0.70534,
+        "vulnerability": 0.5,
+        "resilience": 0.52,
+        "recovery_capacity": 0.3328,
+        "health": 1.0
+      },
+      {
+        "id": "feedback-governance",
+        "label": "feedback governance",
+        "role": "critical-support",
+        "x": -2.75066,
+        "y": 1.29313,
+        "z": -1.14127,
+        "vulnerability": 0.61,
+        "resilience": 0.4408,
+        "recovery_capacity": 0.2821,
+        "health": 1.0
+      },
+      {
+        "id": "infrastructure",
+        "label": "infrastructure",
+        "role": "critical-support",
+        "x": -2.75066,
+        "y": -1.29313,
+        "z": 1.14127,
+        "vulnerability": 0.72,
+        "resilience": 0.3616,
+        "recovery_capacity": 0.2314,
+        "health": 1.0
+      },
+      {
+        "id": "semantic-coherence",
+        "label": "semantic coherence",
+        "role": "critical-support",
+        "x": 1.05066,
+        "y": -2.09232,
+        "z": -0.70534,
+        "vulnerability": 0.28,
+        "resilience": 0.6784,
+        "recovery_capacity": 0.4342,
+        "health": 1.0
+      }
+    ],
+    "edges": [
+      {
+        "id": "civilization::edge::0",
+        "source": "energy-throughput",
+        "target": "infrastructure",
+        "weight": 0.55,
+        "flow_channel": "support"
+      },
+      {
+        "id": "civilization::edge::1",
+        "source": "semantic-coherence",
+        "target": "feedback-governance",
+        "weight": 0.67,
+        "flow_channel": "support"
+      },
+      {
+        "id": "civilization::edge::2",
+        "source": "infrastructure",
+        "target": "feedback-governance",
+        "weight": 0.79,
+        "flow_channel": "support"
+      },
+      {
+        "id": "civilization::edge::3",
+        "source": "feedback-governance",
+        "target": "civilizational-collapse",
+        "weight": 0.91,
+        "flow_channel": "failure"
+      }
+    ],
+    "kill_default": "energy-throughput",
+    "weakest_node": "infrastructure",
+    "model_hash": "36453ea3749107fa3fb907ffe9666011d219310c0f745405be2cd8d385a5093b",
+    "template_hash_scope": "full system template row after workbench enrichment",
+    "topology_hash_scope": "nodes, edges, kill_default and weakest_node only",
+    "allowed_axis_ids": [
+      "coherence",
+      "load",
+      "repair",
+      "connectivity",
+      "flow",
+      "threshold",
+      "boundary",
+      "axis_birth"
+    ],
+    "allowed_axes": [
+      {
+        "axis_id": "coherence",
+        "title": "Coherence axis",
+        "direction": "higher_is_more_resilient",
+        "default_value": 0.66,
+        "min": 0,
+        "max": 1,
+        "step": 0.01,
+        "k_levels": [
+          "K0",
+          "K2",
+          "K3",
+          "K5",
+          "K6",
+          "K8",
+          "K9"
+        ],
+        "domain_ids": [
+          "MATHEMATICS",
+          "PHYSICS",
+          "CHEMISTRY"
+        ],
+        "source_status": "deterministic-diagnostic",
+        "closure_basis": "V010 workbench axis derived from existing replay/cascade/worldline telemetry.",
+        "claim_status": "nonclaim",
+        "interpretation": "Tracks whether relation, evidence and operation remain jointly usable.",
+        "nonclaim_boundary": "Workbench axes are deterministic diagnostic coordinates; they are not unrestricted empirical prediction claims.",
+        "axis_hash": "d0f77293124ae43678c1453dbf586178a695198ef0df4703943d5d05427f15d8"
+      },
+      {
+        "axis_id": "load",
+        "title": "Contradiction/load axis",
+        "direction": "higher_is_more_dangerous",
+        "default_value": 0.58,
+        "min": 0,
+        "max": 1,
+        "step": 0.01,
+        "k_levels": [
+          "K1",
+          "K2",
+          "K4",
+          "K5",
+          "K7",
+          "K8",
+          "K10"
+        ],
+        "domain_ids": [
+          "PHYSICS",
+          "CHEMISTRY",
+          "DRT"
+        ],
+        "source_status": "deterministic-diagnostic",
+        "closure_basis": "V010 workbench axis derived from existing replay/cascade/worldline telemetry.",
+        "claim_status": "nonclaim",
+        "interpretation": "Tracks pressure from unresolved contradiction, coupling drag or stress.",
+        "nonclaim_boundary": "Workbench axes are deterministic diagnostic coordinates; they are not unrestricted empirical prediction claims.",
+        "axis_hash": "28ace7875f786a23efcce96ae163f640be08f28c80e276dcf30264f2dbe23e8b"
+      },
+      {
+        "axis_id": "repair",
+        "title": "Repair capacity axis",
+        "direction": "higher_is_more_resilient",
+        "default_value": 0.42,
+        "min": 0,
+        "max": 1,
+        "step": 0.01,
+        "k_levels": [
+          "K0",
+          "K1",
+          "K3",
+          "K4",
+          "K6",
+          "K7",
+          "K9"
+        ],
+        "domain_ids": [
+          "CHEMISTRY",
+          "DRT",
+          "BIOLOGY"
+        ],
+        "source_status": "deterministic-diagnostic",
+        "closure_basis": "V010 workbench axis derived from existing replay/cascade/worldline telemetry.",
+        "claim_status": "nonclaim",
+        "interpretation": "Tracks corrective capacity, buffering and recovery potential.",
+        "nonclaim_boundary": "Workbench axes are deterministic diagnostic coordinates; they are not unrestricted empirical prediction claims.",
+        "axis_hash": "4717beb976ffd5683c62fabebbdee093979fcef855d0f467ece6578c4a71c041"
+      },
+      {
+        "axis_id": "connectivity",
+        "title": "Connectivity axis",
+        "direction": "higher_is_more_resilient",
+        "default_value": 0.74,
+        "min": 0,
+        "max": 1,
+        "step": 0.01,
+        "k_levels": [
+          "K0",
+          "K2",
+          "K3",
+          "K5",
+          "K6",
+          "K8",
+          "K9"
+        ],
+        "domain_ids": [
+          "DRT",
+          "BIOLOGY",
+          "SYSTEMS_CIVILIZATIONAL_PROJECTION"
+        ],
+        "source_status": "deterministic-diagnostic",
+        "closure_basis": "V010 workbench axis derived from existing replay/cascade/worldline telemetry.",
+        "claim_status": "nonclaim",
+        "interpretation": "Tracks how many support paths survive after local rupture.",
+        "nonclaim_boundary": "Workbench axes are deterministic diagnostic coordinates; they are not unrestricted empirical prediction claims.",
+        "axis_hash": "4f7011f0371fa07491281d99d62851bfb71c3925cd9188e576d3c7bd88c909f5"
+      },
+      {
+        "axis_id": "flow",
+        "title": "Flow continuity axis",
+        "direction": "higher_is_more_resilient",
+        "default_value": 0.69,
+        "min": 0,
+        "max": 1,
+        "step": 0.01,
+        "k_levels": [
+          "K1",
+          "K2",
+          "K4",
+          "K5",
+          "K7",
+          "K8",
+          "K10"
+        ],
+        "domain_ids": [
+          "BIOLOGY",
+          "SYSTEMS_CIVILIZATIONAL_PROJECTION",
+          "METAONTOLOGY"
+        ],
+        "source_status": "deterministic-diagnostic",
+        "closure_basis": "V010 workbench axis derived from existing replay/cascade/worldline telemetry.",
+        "claim_status": "nonclaim",
+        "interpretation": "Tracks whether support, energy, evidence or coordination channels remain open.",
+        "nonclaim_boundary": "Workbench axes are deterministic diagnostic coordinates; they are not unrestricted empirical prediction claims.",
+        "axis_hash": "d534b848975c5822cb7fff376fabc17215fbd90f503c23fdb2a5f982d0a71428"
+      },
+      {
+        "axis_id": "threshold",
+        "title": "Threshold proximity axis",
+        "direction": "higher_is_more_dangerous",
+        "default_value": 0.47,
+        "min": 0,
+        "max": 1,
+        "step": 0.01,
+        "k_levels": [
+          "K0",
+          "K1",
+          "K3",
+          "K4",
+          "K6",
+          "K7",
+          "K9"
+        ],
+        "domain_ids": [
+          "SYSTEMS_CIVILIZATIONAL_PROJECTION",
+          "METAONTOLOGY"
+        ],
+        "source_status": "deterministic-diagnostic",
+        "closure_basis": "V010 workbench axis derived from existing replay/cascade/worldline telemetry.",
+        "claim_status": "nonclaim",
+        "interpretation": "Tracks distance to collapse, transition or re-description thresholds.",
+        "nonclaim_boundary": "Workbench axes are deterministic diagnostic coordinates; they are not unrestricted empirical prediction claims.",
+        "axis_hash": "793cfe0c03cbf05e60d9715f34e6d45c170854a776cfe909d5166204da67fda3"
+      },
+      {
+        "axis_id": "boundary",
+        "title": "Boundary clarity axis",
+        "direction": "higher_is_more_resilient",
+        "default_value": 0.62,
+        "min": 0,
+        "max": 1,
+        "step": 0.01,
+        "k_levels": [
+          "K0",
+          "K2",
+          "K3",
+          "K5",
+          "K6",
+          "K8",
+          "K9"
+        ],
+        "domain_ids": [
+          "METAONTOLOGY"
+        ],
+        "source_status": "deterministic-diagnostic",
+        "closure_basis": "V010 workbench axis derived from existing replay/cascade/worldline telemetry.",
+        "claim_status": "nonclaim",
+        "interpretation": "Tracks how cleanly a system separates, couples and projects its environment.",
+        "nonclaim_boundary": "Workbench axes are deterministic diagnostic coordinates; they are not unrestricted empirical prediction claims.",
+        "axis_hash": "06a4adcf44c84d4e90421dd8068677b7791cf3b3857349dcd91d686fa3677d79"
+      },
+      {
+        "axis_id": "axis_birth",
+        "title": "New-axis birth capacity",
+        "direction": "higher_is_more_resilient",
+        "default_value": 0.51,
+        "min": 0,
+        "max": 1,
+        "step": 0.01,
+        "k_levels": [
+          "K1",
+          "K2",
+          "K4",
+          "K5",
+          "K7",
+          "K8",
+          "K10"
+        ],
+        "domain_ids": [
+          "MATHEMATICS",
+          "PHYSICS",
+          "CHEMISTRY"
+        ],
+        "source_status": "deterministic-diagnostic",
+        "closure_basis": "V010 workbench axis derived from existing replay/cascade/worldline telemetry.",
+        "claim_status": "nonclaim",
+        "interpretation": "Tracks whether a contradiction can be resolved by adding a computable axis.",
+        "nonclaim_boundary": "Workbench axes are deterministic diagnostic coordinates; they are not unrestricted empirical prediction claims.",
+        "axis_hash": "cdc59aeaaa2d0d3b1bbee80a029177b4b5ad4e512f0e228e6e772302bd3fdbd8"
+      }
+    ],
+    "editable_actions": [
+      "add_node",
+      "remove_node",
+      "add_edge",
+      "add_axis",
+      "strengthen_link",
+      "add_compensator",
+      "change_threshold",
+      "kill_selected_node",
+      "kill_weakest_node",
+      "recover"
+    ],
+    "default_intervention": {
+      "add_axis": "coherence",
+      "strengthen_link_delta": 0.08,
+      "recovery_delta": 0.06
+    },
+    "assumptions": [
+      "Template starts replay-bounded; edits move the model into exploratory sandbox unless separately validated."
+    ],
+    "nonclaim_boundary": "Edited templates are exploratory system models until replay-backed closure exists.",
+    "template_hash": "832731b02ff2133cd08f02c2cd6a7fd57aed3bebcf32d122daac180fb4b702c7"
+  },
+  {
+    "template_id": "meta-model",
+    "title": "Theory / Meta-Model Continuum",
+    "truth_mode": "REPLAY_BACKED",
+    "fallback_truth_mode": "EXPLORATORY_SANDBOX",
+    "k_levels": [
+      "K10",
+      "K11",
+      "K12"
+    ],
+    "m_spaces": [
+      "M-META"
+    ],
+    "nodes": [
+      {
+        "id": "axiom-boundary",
+        "label": "axiom boundary",
+        "role": "critical-support",
+        "x": 3.4,
+        "y": 0.0,
+        "z": 0.0,
+        "vulnerability": 0.5,
+        "resilience": 0.52,
+        "recovery_capacity": 0.3328,
+        "health": 1.0
+      },
+      {
+        "id": "evidence-ledger",
+        "label": "evidence ledger",
+        "role": "critical-support",
+        "x": 1.05066,
+        "y": 2.09232,
+        "z": 0.70534,
+        "vulnerability": 0.61,
+        "resilience": 0.4408,
+        "recovery_capacity": 0.2821,
+        "health": 1.0
+      },
+      {
+        "id": "formal-map",
+        "label": "formal map",
+        "role": "critical-support",
+        "x": -2.75066,
+        "y": 1.29313,
+        "z": -1.14127,
+        "vulnerability": 0.72,
+        "resilience": 0.3616,
+        "recovery_capacity": 0.2314,
+        "health": 1.0
+      },
+      {
+        "id": "model-collapse",
+        "label": "model collapse",
+        "role": "collapse-terminal",
+        "x": -2.75066,
+        "y": -1.29313,
+        "z": 1.14127,
+        "vulnerability": 0.28,
+        "resilience": 0.6784,
+        "recovery_capacity": 0.4342,
+        "health": 1.0
+      },
+      {
+        "id": "review-loop",
+        "label": "review loop",
+        "role": "critical-support",
+        "x": 1.05066,
+        "y": -2.09232,
+        "z": -0.70534,
+        "vulnerability": 0.39,
+        "resilience": 0.5992,
+        "recovery_capacity": 0.3835,
+        "health": 1.0
+      }
+    ],
+    "edges": [
+      {
+        "id": "meta-model::edge::0",
+        "source": "axiom-boundary",
+        "target": "formal-map",
+        "weight": 0.55,
+        "flow_channel": "support"
+      },
+      {
+        "id": "meta-model::edge::1",
+        "source": "formal-map",
+        "target": "evidence-ledger",
+        "weight": 0.67,
+        "flow_channel": "support"
+      },
+      {
+        "id": "meta-model::edge::2",
+        "source": "review-loop",
+        "target": "evidence-ledger",
+        "weight": 0.79,
+        "flow_channel": "support"
+      },
+      {
+        "id": "meta-model::edge::3",
+        "source": "evidence-ledger",
+        "target": "model-collapse",
+        "weight": 0.91,
+        "flow_channel": "failure"
+      }
+    ],
+    "kill_default": "axiom-boundary",
+    "weakest_node": "formal-map",
+    "model_hash": "95ba3f18166bd9e8e7f1eaae65e412f802259d011366b8bbb5af1296dd72ac00",
+    "template_hash_scope": "full system template row after workbench enrichment",
+    "topology_hash_scope": "nodes, edges, kill_default and weakest_node only",
+    "allowed_axis_ids": [
+      "load",
+      "flow",
+      "axis_birth"
+    ],
+    "allowed_axes": [
+      {
+        "axis_id": "load",
+        "title": "Contradiction/load axis",
+        "direction": "higher_is_more_dangerous",
+        "default_value": 0.58,
+        "min": 0,
+        "max": 1,
+        "step": 0.01,
+        "k_levels": [
+          "K1",
+          "K2",
+          "K4",
+          "K5",
+          "K7",
+          "K8",
+          "K10"
+        ],
+        "domain_ids": [
+          "PHYSICS",
+          "CHEMISTRY",
+          "DRT"
+        ],
+        "source_status": "deterministic-diagnostic",
+        "closure_basis": "V010 workbench axis derived from existing replay/cascade/worldline telemetry.",
+        "claim_status": "nonclaim",
+        "interpretation": "Tracks pressure from unresolved contradiction, coupling drag or stress.",
+        "nonclaim_boundary": "Workbench axes are deterministic diagnostic coordinates; they are not unrestricted empirical prediction claims.",
+        "axis_hash": "28ace7875f786a23efcce96ae163f640be08f28c80e276dcf30264f2dbe23e8b"
+      },
+      {
+        "axis_id": "flow",
+        "title": "Flow continuity axis",
+        "direction": "higher_is_more_resilient",
+        "default_value": 0.69,
+        "min": 0,
+        "max": 1,
+        "step": 0.01,
+        "k_levels": [
+          "K1",
+          "K2",
+          "K4",
+          "K5",
+          "K7",
+          "K8",
+          "K10"
+        ],
+        "domain_ids": [
+          "BIOLOGY",
+          "SYSTEMS_CIVILIZATIONAL_PROJECTION",
+          "METAONTOLOGY"
+        ],
+        "source_status": "deterministic-diagnostic",
+        "closure_basis": "V010 workbench axis derived from existing replay/cascade/worldline telemetry.",
+        "claim_status": "nonclaim",
+        "interpretation": "Tracks whether support, energy, evidence or coordination channels remain open.",
+        "nonclaim_boundary": "Workbench axes are deterministic diagnostic coordinates; they are not unrestricted empirical prediction claims.",
+        "axis_hash": "d534b848975c5822cb7fff376fabc17215fbd90f503c23fdb2a5f982d0a71428"
+      },
+      {
+        "axis_id": "axis_birth",
+        "title": "New-axis birth capacity",
+        "direction": "higher_is_more_resilient",
+        "default_value": 0.51,
+        "min": 0,
+        "max": 1,
+        "step": 0.01,
+        "k_levels": [
+          "K1",
+          "K2",
+          "K4",
+          "K5",
+          "K7",
+          "K8",
+          "K10"
+        ],
+        "domain_ids": [
+          "MATHEMATICS",
+          "PHYSICS",
+          "CHEMISTRY"
+        ],
+        "source_status": "deterministic-diagnostic",
+        "closure_basis": "V010 workbench axis derived from existing replay/cascade/worldline telemetry.",
+        "claim_status": "nonclaim",
+        "interpretation": "Tracks whether a contradiction can be resolved by adding a computable axis.",
+        "nonclaim_boundary": "Workbench axes are deterministic diagnostic coordinates; they are not unrestricted empirical prediction claims.",
+        "axis_hash": "cdc59aeaaa2d0d3b1bbee80a029177b4b5ad4e512f0e228e6e772302bd3fdbd8"
+      }
+    ],
+    "editable_actions": [
+      "add_node",
+      "remove_node",
+      "add_edge",
+      "add_axis",
+      "strengthen_link",
+      "add_compensator",
+      "change_threshold",
+      "kill_selected_node",
+      "kill_weakest_node",
+      "recover"
+    ],
+    "default_intervention": {
+      "add_axis": "load",
+      "strengthen_link_delta": 0.08,
+      "recovery_delta": 0.06
+    },
+    "assumptions": [
+      "Template starts replay-bounded; edits move the model into exploratory sandbox unless separately validated."
+    ],
+    "nonclaim_boundary": "Edited templates are exploratory system models until replay-backed closure exists.",
+    "template_hash": "aa694c941e38026e1ad9725b7662d6b021b523f074dbc0b651a6321c0f50452c"
+  }
+]

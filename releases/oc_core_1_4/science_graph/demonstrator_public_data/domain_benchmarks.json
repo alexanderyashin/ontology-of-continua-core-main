@@ -1,0 +1,1573 @@
+[
+  {
+    "domain_id": "MATHEMATICS",
+    "title": "Mathematics",
+    "source_status": "ACTIVE_NUMERICAL_PACKET",
+    "prediction_status": "PASS",
+    "promotion_state": "replay-backed",
+    "closure_status": "CLOSED_REPLAY_BACKED",
+    "closure_basis": "domain replay report and empirical validation matrix",
+    "replay_status": "PASS_REPLAYABLE",
+    "validation_status": "PASS",
+    "replay_hashes": [
+      "05575d9016942c56c1618615ffcf2656078ffed7989730c62fa8855253861a54"
+    ],
+    "claim_level": "descriptive_only",
+    "raw_claim_level": "",
+    "closure_program_status": "VALIDATED_ANCHOR_ACTIVE",
+    "pass_semantics": "PASS means the demonstrator lane has public replay/calibration evidence and a bounded display contract; it does not mean unsupported prediction validation.",
+    "prediction_boundary": "PASS",
+    "pass_does_not_mean": "external validation, solved domain theory, production forecast, or proof closure",
+    "claim_display_policy": "Always show prediction status, claim level and nonclaim boundary next to PASS/replay badges.",
+    "source_refs": [
+      "SRC::domain-mathematics::DOMAIN_REPLAY_REPORTS_latest.json::f47307f7241938a5",
+      "SRC::domain-mathematics::EMPIRICAL_DOMAIN_VALIDATION_MATRIX_latest.json::32d27d26bbe30d78",
+      "SRC::domain-mathematics::OC_DOMAIN_PROJECTION_COMPLETION_latest.json::7a740393cb5548ac"
+    ],
+    "measurable_outputs": [
+      "epsilon_star",
+      "minimal_denominator",
+      "minimal_augmentation_rank",
+      "component_fiber_count",
+      "move_connectivity_or_degree_bound"
+    ],
+    "nonclaim_boundary": "Only the proved subset may carry quantitative outputs for this domain.",
+    "theorem_to_observable_map": [],
+    "benchmark_dataset_manifest": [],
+    "case_total": 0,
+    "benchmark_pending_execution_total": 0,
+    "benchmark_executed_prediction_total": 0,
+    "held_out_case_total": 0,
+    "benchmark_cases": []
+  },
+  {
+    "domain_id": "PHYSICS",
+    "title": "Physics",
+    "source_status": "SOURCE_NATIVE_NUMERICAL_PACKET_SPEC_READY",
+    "prediction_status": "PASS_REPLAYABLE_WITH_PENDING_BENCHMARK_EXECUTION",
+    "promotion_state": "replay-backed",
+    "closure_status": "CLOSED_REPLAY_BACKED",
+    "closure_basis": "domain replay report and empirical validation matrix",
+    "replay_status": "PASS_REPLAYABLE",
+    "validation_status": "PASS",
+    "replay_hashes": [
+      "640cc16b1df6e607dc3b28ebfe9456a50d63c23f9f18e2fa7c680ed36addc51a"
+    ],
+    "claim_level": "replay_boundary_pending_benchmark_execution",
+    "raw_claim_level": "",
+    "closure_program_status": "EMPIRICAL_HARD_CLOSED",
+    "pass_semantics": "PASS means the demonstrator lane has public replay/calibration evidence and a bounded display contract; it does not mean unsupported prediction validation.",
+    "prediction_boundary": "PASS_REPLAYABLE_WITH_PENDING_BENCHMARK_EXECUTION",
+    "pass_does_not_mean": "external validation, solved domain theory, production forecast, or proof closure",
+    "claim_display_policy": "Always show prediction status, claim level and nonclaim boundary next to PASS/replay badges.",
+    "source_refs": [
+      "SRC::domain-physics::DOMAIN_REPLAY_REPORTS_latest.json::f47307f7241938a5",
+      "SRC::domain-physics::EMPIRICAL_DOMAIN_VALIDATION_MATRIX_latest.json::32d27d26bbe30d78",
+      "SRC::domain-physics::OC_DOMAIN_PROJECTION_COMPLETION_latest.json::7a740393cb5548ac"
+    ],
+    "measurable_outputs": [
+      "relative_constant_error",
+      "spectral_line_residual",
+      "transport_scaling_residual"
+    ],
+    "nonclaim_boundary": "Current inclusion is bridge-only; no proved standalone physics theorem package is promoted here.",
+    "theorem_to_observable_map": [
+      "K1/K2 contradiction-load and stabilization-margin operators bind to bounded physical observable families through regime-threshold maps.",
+      "Root-law collapse boundaries are exposed as observable residual envelopes rather than as unrestricted physical universalization claims.",
+      "The current packet is limited to benchmarked constants, spectral lines, and transport-scale residual families."
+    ],
+    "benchmark_dataset_manifest": [
+      {
+        "authority_ref": "NIST / CODATA constants",
+        "benchmark_id": "PHY_BENCH_001",
+        "dataset_url": "https://physics.nist.gov/cuu/Constants/index.html",
+        "held_out_policy": "leave-one-family-out residual verification",
+        "observable_name": "fine_structure_constant_residual"
+      },
+      {
+        "authority_ref": "NIST Atomic Spectra Database",
+        "benchmark_id": "PHY_BENCH_002",
+        "dataset_url": "https://physics.nist.gov/PhysRefData/ASD/lines_form.html",
+        "held_out_policy": "reserve transitions not used during packet fitting",
+        "observable_name": "hydrogen_balmer_line_residual"
+      },
+      {
+        "authority_ref": "DOE Office of Science challenge corpora",
+        "benchmark_id": "PHY_BENCH_003",
+        "dataset_url": "https://science.osti.gov/-/media/fes/pdf/workshop-reports/FES_Grand_Challenges_Report_final.pdf",
+        "held_out_policy": "hold out one transport regime family",
+        "observable_name": "transport_scaling_residual"
+      }
+    ],
+    "case_total": 30,
+    "benchmark_pending_execution_total": 30,
+    "benchmark_executed_prediction_total": 0,
+    "held_out_case_total": 20,
+    "benchmark_cases": [
+      {
+        "case_id": "PHY_CASE_001_ALPHA_CONSTANT_REFERENCE",
+        "title": "CODATA fine-structure constant reference row",
+        "benchmark_id": "PHY_BENCH_001",
+        "observable_name": "relative_constant_error",
+        "units": "dimensionless",
+        "prediction_status": "PREDICTION_DECLARED_PENDING_EXECUTION",
+        "held_out_role": "CALIBRATION_SEED",
+        "official_source_url": "https://physics.nist.gov/cuu/Constants/index.html"
+      },
+      {
+        "case_id": "PHY_CASE_002_PLANCK_CONSTANT_REFERENCE",
+        "title": "Planck constant reference row",
+        "benchmark_id": "PHY_BENCH_001",
+        "observable_name": "relative_constant_error",
+        "units": "J s",
+        "prediction_status": "PREDICTION_DECLARED_PENDING_EXECUTION",
+        "held_out_role": "CALIBRATION_SEED",
+        "official_source_url": "https://physics.nist.gov/cuu/Constants/index.html"
+      },
+      {
+        "case_id": "PHY_CASE_003_RYDBERG_CONSTANT_REFERENCE",
+        "title": "Rydberg constant reference row",
+        "benchmark_id": "PHY_BENCH_001",
+        "observable_name": "relative_constant_error",
+        "units": "m^-1",
+        "prediction_status": "PREDICTION_DECLARED_PENDING_EXECUTION",
+        "held_out_role": "CALIBRATION_SEED",
+        "official_source_url": "https://physics.nist.gov/cuu/Constants/index.html"
+      },
+      {
+        "case_id": "PHY_CASE_004_ELECTRON_MASS_REFERENCE",
+        "title": "Electron mass reference row",
+        "benchmark_id": "PHY_BENCH_001",
+        "observable_name": "relative_constant_error",
+        "units": "kg",
+        "prediction_status": "PREDICTION_DECLARED_PENDING_EXECUTION",
+        "held_out_role": "CALIBRATION_SEED",
+        "official_source_url": "https://physics.nist.gov/cuu/Constants/index.html"
+      },
+      {
+        "case_id": "PHY_CASE_005_PROTON_ELECTRON_MASS_RATIO",
+        "title": "Proton-electron mass ratio reference row",
+        "benchmark_id": "PHY_BENCH_001",
+        "observable_name": "relative_constant_error",
+        "units": "dimensionless",
+        "prediction_status": "PREDICTION_DECLARED_PENDING_EXECUTION",
+        "held_out_role": "HELD_OUT_SEED",
+        "official_source_url": "https://physics.nist.gov/cuu/Constants/index.html"
+      },
+      {
+        "case_id": "PHY_CASE_006_BOHR_RADIUS_REFERENCE",
+        "title": "Bohr radius reference row",
+        "benchmark_id": "PHY_BENCH_001",
+        "observable_name": "relative_constant_error",
+        "units": "m",
+        "prediction_status": "PREDICTION_DECLARED_PENDING_EXECUTION",
+        "held_out_role": "HELD_OUT_SEED",
+        "official_source_url": "https://physics.nist.gov/cuu/Constants/index.html"
+      },
+      {
+        "case_id": "PHY_CASE_007_HARTREE_ENERGY_REFERENCE",
+        "title": "Hartree energy reference row",
+        "benchmark_id": "PHY_BENCH_001",
+        "observable_name": "relative_constant_error",
+        "units": "J",
+        "prediction_status": "PREDICTION_DECLARED_PENDING_EXECUTION",
+        "held_out_role": "HELD_OUT_SEED",
+        "official_source_url": "https://physics.nist.gov/cuu/Constants/index.html"
+      },
+      {
+        "case_id": "PHY_CASE_008_ELECTRON_G_FACTOR_REFERENCE",
+        "title": "Electron g-factor reference row",
+        "benchmark_id": "PHY_BENCH_001",
+        "observable_name": "relative_constant_error",
+        "units": "dimensionless",
+        "prediction_status": "PREDICTION_DECLARED_PENDING_EXECUTION",
+        "held_out_role": "HELD_OUT_SEED",
+        "official_source_url": "https://physics.nist.gov/cuu/Constants/index.html"
+      },
+      {
+        "case_id": "PHY_CASE_009_AVOGADRO_CONSTANT_REFERENCE",
+        "title": "Avogadro constant reference row",
+        "benchmark_id": "PHY_BENCH_001",
+        "observable_name": "relative_constant_error",
+        "units": "mol^-1",
+        "prediction_status": "PREDICTION_DECLARED_PENDING_EXECUTION",
+        "held_out_role": "HELD_OUT_SEED",
+        "official_source_url": "https://physics.nist.gov/cuu/Constants/index.html"
+      },
+      {
+        "case_id": "PHY_CASE_010_VACUUM_IMPEDANCE_REFERENCE",
+        "title": "Vacuum impedance reference row",
+        "benchmark_id": "PHY_BENCH_001",
+        "observable_name": "relative_constant_error",
+        "units": "ohm",
+        "prediction_status": "PREDICTION_DECLARED_PENDING_EXECUTION",
+        "held_out_role": "HELD_OUT_SEED",
+        "official_source_url": "https://physics.nist.gov/cuu/Constants/index.html"
+      },
+      {
+        "case_id": "PHY_CASE_011_HYDROGEN_BALMER_ALPHA",
+        "title": "Hydrogen Balmer-alpha spectral transition",
+        "benchmark_id": "PHY_BENCH_002",
+        "observable_name": "spectral_line_residual",
+        "units": "wavelength or wavenumber",
+        "prediction_status": "PREDICTION_DECLARED_PENDING_EXECUTION",
+        "held_out_role": "CALIBRATION_SEED",
+        "official_source_url": "https://physics.nist.gov/cgi-bin/ASD/lines1.pl?spectra=H+I&output_type=0&low_w=656&upp_w=657&unit=1&de=0&plot_out=0&I_scale_type=1&format=3&line_out=0&remove_js=on&en_unit=0&output=0&bibrefs=1&page_size=15&show_obs_wl=1&show_calc_wl=1&show_wn=1&unc_out=1&order_out=0&show_av=0&tsb_value=0&intens_out=on&allowed_out=1&forbid_out=1&conf_out=on&term_out=on&enrg_out=on&J_out=on&submit=Retrieve+Data"
+      },
+      {
+        "case_id": "PHY_CASE_012_HYDROGEN_BALMER_BETA",
+        "title": "Hydrogen Balmer-beta spectral transition",
+        "benchmark_id": "PHY_BENCH_002",
+        "observable_name": "spectral_line_residual",
+        "units": "wavelength or wavenumber",
+        "prediction_status": "PREDICTION_DECLARED_PENDING_EXECUTION",
+        "held_out_role": "CALIBRATION_SEED",
+        "official_source_url": "https://physics.nist.gov/cgi-bin/ASD/lines1.pl?spectra=H+I&output_type=0&low_w=486&upp_w=487&unit=1&de=0&plot_out=0&I_scale_type=1&format=3&line_out=0&remove_js=on&en_unit=0&output=0&bibrefs=1&page_size=15&show_obs_wl=1&show_calc_wl=1&show_wn=1&unc_out=1&order_out=0&show_av=0&tsb_value=0&intens_out=on&allowed_out=1&forbid_out=1&conf_out=on&term_out=on&enrg_out=on&J_out=on&submit=Retrieve+Data"
+      },
+      {
+        "case_id": "PHY_CASE_013_HYDROGEN_BALMER_GAMMA",
+        "title": "Hydrogen Balmer-gamma spectral transition",
+        "benchmark_id": "PHY_BENCH_002",
+        "observable_name": "spectral_line_residual",
+        "units": "wavelength or wavenumber",
+        "prediction_status": "PREDICTION_DECLARED_PENDING_EXECUTION",
+        "held_out_role": "CALIBRATION_SEED",
+        "official_source_url": "https://physics.nist.gov/cgi-bin/ASD/lines1.pl?spectra=H+I&output_type=0&low_w=434&upp_w=435&unit=1&de=0&plot_out=0&I_scale_type=1&format=3&line_out=0&remove_js=on&en_unit=0&output=0&bibrefs=1&page_size=15&show_obs_wl=1&show_calc_wl=1&show_wn=1&unc_out=1&order_out=0&show_av=0&tsb_value=0&intens_out=on&allowed_out=1&forbid_out=1&conf_out=on&term_out=on&enrg_out=on&J_out=on&submit=Retrieve+Data"
+      },
+      {
+        "case_id": "PHY_CASE_014_HYDROGEN_BALMER_DELTA",
+        "title": "Hydrogen Balmer-delta spectral transition",
+        "benchmark_id": "PHY_BENCH_002",
+        "observable_name": "spectral_line_residual",
+        "units": "wavelength or wavenumber",
+        "prediction_status": "PREDICTION_DECLARED_PENDING_EXECUTION",
+        "held_out_role": "HELD_OUT_SEED",
+        "official_source_url": "https://physics.nist.gov/cgi-bin/ASD/lines1.pl?spectra=H+I&output_type=0&low_w=410&upp_w=411&unit=1&de=0&plot_out=0&I_scale_type=1&format=3&line_out=0&remove_js=on&en_unit=0&output=0&bibrefs=1&page_size=15&show_obs_wl=1&show_calc_wl=1&show_wn=1&unc_out=1&order_out=0&show_av=0&tsb_value=0&intens_out=on&allowed_out=1&forbid_out=1&conf_out=on&term_out=on&enrg_out=on&J_out=on&submit=Retrieve+Data"
+      },
+      {
+        "case_id": "PHY_CASE_015_SODIUM_D1_TRANSITION",
+        "title": "Sodium D1 spectral transition",
+        "benchmark_id": "PHY_BENCH_002",
+        "observable_name": "spectral_line_residual",
+        "units": "wavelength or wavenumber",
+        "prediction_status": "PREDICTION_DECLARED_PENDING_EXECUTION",
+        "held_out_role": "HELD_OUT_SEED",
+        "official_source_url": "https://physics.nist.gov/cgi-bin/ASD/lines1.pl?spectra=Na+I&output_type=0&low_w=588&upp_w=590&unit=1&de=0&plot_out=0&I_scale_type=1&format=3&line_out=0&remove_js=on&en_unit=0&output=0&bibrefs=1&page_size=15&show_obs_wl=1&show_calc_wl=1&show_wn=1&unc_out=1&order_out=0&show_av=0&tsb_value=0&intens_out=on&allowed_out=1&forbid_out=1&conf_out=on&term_out=on&enrg_out=on&J_out=on&submit=Retrieve+Data"
+      },
+      {
+        "case_id": "PHY_CASE_016_SODIUM_D2_TRANSITION",
+        "title": "Sodium D2 spectral transition",
+        "benchmark_id": "PHY_BENCH_002",
+        "observable_name": "spectral_line_residual",
+        "units": "wavelength or wavenumber",
+        "prediction_status": "PREDICTION_DECLARED_PENDING_EXECUTION",
+        "held_out_role": "HELD_OUT_SEED",
+        "official_source_url": "https://physics.nist.gov/cgi-bin/ASD/lines1.pl?spectra=Na+I&output_type=0&low_w=588&upp_w=590&unit=1&de=0&plot_out=0&I_scale_type=1&format=3&line_out=0&remove_js=on&en_unit=0&output=0&bibrefs=1&page_size=15&show_obs_wl=1&show_calc_wl=1&show_wn=1&unc_out=1&order_out=0&show_av=0&tsb_value=0&intens_out=on&allowed_out=1&forbid_out=1&conf_out=on&term_out=on&enrg_out=on&J_out=on&submit=Retrieve+Data"
+      },
+      {
+        "case_id": "PHY_CASE_017_HELIUM_5876_TRANSITION",
+        "title": "Helium I 5876 A spectral transition",
+        "benchmark_id": "PHY_BENCH_002",
+        "observable_name": "spectral_line_residual",
+        "units": "wavelength or wavenumber",
+        "prediction_status": "PREDICTION_DECLARED_PENDING_EXECUTION",
+        "held_out_role": "HELD_OUT_SEED",
+        "official_source_url": "https://physics.nist.gov/cgi-bin/ASD/lines1.pl?spectra=He+I&output_type=0&low_w=587&upp_w=588&unit=1&de=0&plot_out=0&I_scale_type=1&format=3&line_out=0&remove_js=on&en_unit=0&output=0&bibrefs=1&page_size=15&show_obs_wl=1&show_calc_wl=1&show_wn=1&unc_out=1&order_out=0&show_av=0&tsb_value=0&intens_out=on&allowed_out=1&forbid_out=1&conf_out=on&term_out=on&enrg_out=on&J_out=on&submit=Retrieve+Data"
+      },
+      {
+        "case_id": "PHY_CASE_018_HELIUM_6678_TRANSITION",
+        "title": "Helium I 6678 A spectral transition",
+        "benchmark_id": "PHY_BENCH_002",
+        "observable_name": "spectral_line_residual",
+        "units": "wavelength or wavenumber",
+        "prediction_status": "PREDICTION_DECLARED_PENDING_EXECUTION",
+        "held_out_role": "HELD_OUT_SEED",
+        "official_source_url": "https://physics.nist.gov/cgi-bin/ASD/lines1.pl?spectra=He+I&output_type=0&low_w=667&upp_w=669&unit=1&de=0&plot_out=0&I_scale_type=1&format=3&line_out=0&remove_js=on&en_unit=0&output=0&bibrefs=1&page_size=15&show_obs_wl=1&show_calc_wl=1&show_wn=1&unc_out=1&order_out=0&show_av=0&tsb_value=0&intens_out=on&allowed_out=1&forbid_out=1&conf_out=on&term_out=on&enrg_out=on&J_out=on&submit=Retrieve+Data"
+      },
+      {
+        "case_id": "PHY_CASE_019_OXYGEN_777NM_TRIPLET",
+        "title": "O I 777 nm triplet spectral family",
+        "benchmark_id": "PHY_BENCH_002",
+        "observable_name": "spectral_line_residual",
+        "units": "wavelength or wavenumber",
+        "prediction_status": "PREDICTION_DECLARED_PENDING_EXECUTION",
+        "held_out_role": "HELD_OUT_SEED",
+        "official_source_url": "https://physics.nist.gov/cgi-bin/ASD/lines1.pl?spectra=O+I&output_type=0&low_w=776&upp_w=778&unit=1&de=0&plot_out=0&I_scale_type=1&format=3&line_out=0&remove_js=on&en_unit=0&output=0&bibrefs=1&page_size=15&show_obs_wl=1&show_calc_wl=1&show_wn=1&unc_out=1&order_out=0&show_av=0&tsb_value=0&intens_out=on&allowed_out=1&forbid_out=1&conf_out=on&term_out=on&enrg_out=on&J_out=on&submit=Retrieve+Data"
+      },
+      {
+        "case_id": "PHY_CASE_020_CALCIUM_II_K_LINE",
+        "title": "Ca II K spectral line",
+        "benchmark_id": "PHY_BENCH_002",
+        "observable_name": "spectral_line_residual",
+        "units": "wavelength or wavenumber",
+        "prediction_status": "PREDICTION_DECLARED_PENDING_EXECUTION",
+        "held_out_role": "HELD_OUT_SEED",
+        "official_source_url": "https://physics.nist.gov/cgi-bin/ASD/lines1.pl?spectra=Ca+II&output_type=0&low_w=393&upp_w=394&unit=1&de=0&plot_out=0&I_scale_type=1&format=3&line_out=0&remove_js=on&en_unit=0&output=0&bibrefs=1&page_size=15&show_obs_wl=1&show_calc_wl=1&show_wn=1&unc_out=1&order_out=0&show_av=0&tsb_value=0&intens_out=on&allowed_out=1&forbid_out=1&conf_out=on&term_out=on&enrg_out=on&J_out=on&submit=Retrieve+Data"
+      },
+      {
+        "case_id": "PHY_CASE_021_TOKAMAK_CONFINEMENT_SCALING",
+        "title": "Tokamak confinement scaling envelope",
+        "benchmark_id": "PHY_BENCH_003",
+        "observable_name": "transport_scaling_residual",
+        "units": "domain-specific scaling quantity",
+        "prediction_status": "PREDICTION_DECLARED_PENDING_EXECUTION",
+        "held_out_role": "CALIBRATION_SEED",
+        "official_source_url": "https://science.osti.gov/-/media/fes/pdf/workshop-reports/FES_Grand_Challenges_Report_final.pdf"
+      },
+      {
+        "case_id": "PHY_CASE_022_DIVERTOR_HEAT_FLUX_ENVELOPE",
+        "title": "Divertor heat-flux envelope family",
+        "benchmark_id": "PHY_BENCH_003",
+        "observable_name": "transport_scaling_residual",
+        "units": "domain-specific scaling quantity",
+        "prediction_status": "PREDICTION_DECLARED_PENDING_EXECUTION",
+        "held_out_role": "CALIBRATION_SEED",
+        "official_source_url": "https://science.osti.gov/-/media/fes/pdf/workshop-reports/FES_Grand_Challenges_Report_final.pdf"
+      },
+      {
+        "case_id": "PHY_CASE_023_MAGNETIC_RECONNECTION_RATE",
+        "title": "Magnetic reconnection rate family",
+        "benchmark_id": "PHY_BENCH_003",
+        "observable_name": "transport_scaling_residual",
+        "units": "domain-specific scaling quantity",
+        "prediction_status": "PREDICTION_DECLARED_PENDING_EXECUTION",
+        "held_out_role": "CALIBRATION_SEED",
+        "official_source_url": "https://science.osti.gov/-/media/fes/pdf/workshop-reports/FES_Grand_Challenges_Report_final.pdf"
+      },
+      {
+        "case_id": "PHY_CASE_024_GYROKINETIC_HEAT_TRANSPORT",
+        "title": "Gyrokinetic heat-transport envelope",
+        "benchmark_id": "PHY_BENCH_003",
+        "observable_name": "transport_scaling_residual",
+        "units": "domain-specific scaling quantity",
+        "prediction_status": "PREDICTION_DECLARED_PENDING_EXECUTION",
+        "held_out_role": "HELD_OUT_SEED",
+        "official_source_url": "https://science.osti.gov/-/media/fes/pdf/workshop-reports/FES_Grand_Challenges_Report_final.pdf"
+      },
+      {
+        "case_id": "PHY_CASE_025_EDGE_LOCALIZED_MODE_THRESHOLD",
+        "title": "Edge-localized-mode onset threshold family",
+        "benchmark_id": "PHY_BENCH_003",
+        "observable_name": "transport_scaling_residual",
+        "units": "domain-specific scaling quantity",
+        "prediction_status": "PREDICTION_DECLARED_PENDING_EXECUTION",
+        "held_out_role": "HELD_OUT_SEED",
+        "official_source_url": "https://science.osti.gov/-/media/fes/pdf/workshop-reports/FES_Grand_Challenges_Report_final.pdf"
+      },
+      {
+        "case_id": "PHY_CASE_026_INERTIAL_CONFINEMENT_HOTSPOT_SCALING",
+        "title": "Inertial-confinement hotspot scaling family",
+        "benchmark_id": "PHY_BENCH_003",
+        "observable_name": "transport_scaling_residual",
+        "units": "domain-specific scaling quantity",
+        "prediction_status": "PREDICTION_DECLARED_PENDING_EXECUTION",
+        "held_out_role": "HELD_OUT_SEED",
+        "official_source_url": "https://science.osti.gov/-/media/fes/pdf/workshop-reports/FES_Grand_Challenges_Report_final.pdf"
+      },
+      {
+        "case_id": "PHY_CASE_027_LASER_PLASMA_WAKEFIELD_ENVELOPE",
+        "title": "Laser-plasma wakefield envelope family",
+        "benchmark_id": "PHY_BENCH_003",
+        "observable_name": "transport_scaling_residual",
+        "units": "domain-specific scaling quantity",
+        "prediction_status": "PREDICTION_DECLARED_PENDING_EXECUTION",
+        "held_out_role": "HELD_OUT_SEED",
+        "official_source_url": "https://science.osti.gov/-/media/fes/pdf/workshop-reports/FES_Grand_Challenges_Report_final.pdf"
+      },
+      {
+        "case_id": "PHY_CASE_028_HALL_THRUSTER_TRANSPORT_ENVELOPE",
+        "title": "Hall thruster transport envelope family",
+        "benchmark_id": "PHY_BENCH_003",
+        "observable_name": "transport_scaling_residual",
+        "units": "domain-specific scaling quantity",
+        "prediction_status": "PREDICTION_DECLARED_PENDING_EXECUTION",
+        "held_out_role": "HELD_OUT_SEED",
+        "official_source_url": "https://science.osti.gov/-/media/fes/pdf/workshop-reports/FES_Grand_Challenges_Report_final.pdf"
+      },
+      {
+        "case_id": "PHY_CASE_029_ION_ACOUSTIC_DISPERSION_FAMILY",
+        "title": "Ion-acoustic dispersion family",
+        "benchmark_id": "PHY_BENCH_003",
+        "observable_name": "transport_scaling_residual",
+        "units": "domain-specific scaling quantity",
+        "prediction_status": "PREDICTION_DECLARED_PENDING_EXECUTION",
+        "held_out_role": "HELD_OUT_SEED",
+        "official_source_url": "https://science.osti.gov/-/media/fes/pdf/workshop-reports/FES_Grand_Challenges_Report_final.pdf"
+      },
+      {
+        "case_id": "PHY_CASE_030_ALFVENIC_TURBULENCE_SPECTRUM",
+        "title": "Alfvenic turbulence spectrum family",
+        "benchmark_id": "PHY_BENCH_003",
+        "observable_name": "transport_scaling_residual",
+        "units": "domain-specific scaling quantity",
+        "prediction_status": "PREDICTION_DECLARED_PENDING_EXECUTION",
+        "held_out_role": "HELD_OUT_SEED",
+        "official_source_url": "https://science.osti.gov/-/media/fes/pdf/workshop-reports/FES_Grand_Challenges_Report_final.pdf"
+      }
+    ]
+  },
+  {
+    "domain_id": "CHEMISTRY",
+    "title": "Chemistry",
+    "source_status": "SOURCE_NATIVE_NUMERICAL_PACKET_SPEC_READY",
+    "prediction_status": "PASS_REPLAYABLE_WITH_PENDING_BENCHMARK_EXECUTION",
+    "promotion_state": "replay-backed",
+    "closure_status": "CLOSED_REPLAY_BACKED",
+    "closure_basis": "domain replay report and empirical validation matrix",
+    "replay_status": "PASS_REPLAYABLE",
+    "validation_status": "PASS",
+    "replay_hashes": [
+      "bf40b63f4fb5f7b31da4fc25d7680e778becde2f76a0f56edc2fa5bc03d6ab38"
+    ],
+    "claim_level": "replay_boundary_pending_benchmark_execution",
+    "raw_claim_level": "",
+    "closure_program_status": "EMPIRICAL_HARD_CLOSED",
+    "pass_semantics": "PASS means the demonstrator lane has public replay/calibration evidence and a bounded display contract; it does not mean unsupported prediction validation.",
+    "prediction_boundary": "PASS_REPLAYABLE_WITH_PENDING_BENCHMARK_EXECUTION",
+    "pass_does_not_mean": "external validation, solved domain theory, production forecast, or proof closure",
+    "claim_display_policy": "Always show prediction status, claim level and nonclaim boundary next to PASS/replay badges.",
+    "source_refs": [
+      "SRC::domain-chemistry::DOMAIN_REPLAY_REPORTS_latest.json::f47307f7241938a5",
+      "SRC::domain-chemistry::EMPIRICAL_DOMAIN_VALIDATION_MATRIX_latest.json::32d27d26bbe30d78",
+      "SRC::domain-chemistry::OC_DOMAIN_PROJECTION_COMPLETION_latest.json::7a740393cb5548ac"
+    ],
+    "measurable_outputs": [
+      "enthalpy_residual",
+      "spectral_transition_residual",
+      "kinetic_or_equilibrium_residual"
+    ],
+    "nonclaim_boundary": "Current inclusion is bridge-only; no proved standalone chemistry theorem package is promoted here.",
+    "theorem_to_observable_map": [
+      "K2/K3/K4 organizational thresholds are bound to thermochemical, spectroscopic, and kinetic observable families through constrained bridge maps.",
+      "The packet is explicitly restricted to bounded chemistry benchmark families and does not claim general chemical closure.",
+      "Only held-out thermochemical, spectral, and kinetic residual lanes are considered lawful validation targets."
+    ],
+    "benchmark_dataset_manifest": [
+      {
+        "authority_ref": "NIST Chemistry WebBook",
+        "benchmark_id": "CHEM_BENCH_001",
+        "dataset_url": "https://webbook.nist.gov/chemistry/",
+        "held_out_policy": "hold out one compound family from calibration",
+        "observable_name": "gas_phase_enthalpy_residual"
+      },
+      {
+        "authority_ref": "NIST Chemistry WebBook",
+        "benchmark_id": "CHEM_BENCH_002",
+        "dataset_url": "https://webbook.nist.gov/chemistry/",
+        "held_out_policy": "hold out one spectral family",
+        "observable_name": "spectral_transition_residual"
+      },
+      {
+        "authority_ref": "DOE BES / EFRC challenge corpora",
+        "benchmark_id": "CHEM_BENCH_003",
+        "dataset_url": "https://science.osti.gov/bes/efrc/Research/Grand-Challenges",
+        "held_out_policy": "hold out one reaction-class envelope",
+        "observable_name": "kinetic_or_equilibrium_residual"
+      }
+    ],
+    "case_total": 30,
+    "benchmark_pending_execution_total": 30,
+    "benchmark_executed_prediction_total": 0,
+    "held_out_case_total": 19,
+    "benchmark_cases": [
+      {
+        "case_id": "CHEM_CASE_001_H2O_GAS_PHASE_ENTHALPY",
+        "title": "Water gas-phase thermochemistry reference row",
+        "benchmark_id": "CHEM_BENCH_001",
+        "observable_name": "enthalpy_residual",
+        "units": "kJ/mol",
+        "prediction_status": "PREDICTION_DECLARED_PENDING_EXECUTION",
+        "held_out_role": "CALIBRATION_SEED",
+        "official_source_url": "https://webbook.nist.gov/cgi/cbook.cgi?ID=C7732185&Units=SI&Mask=1#Thermo-Gas"
+      },
+      {
+        "case_id": "CHEM_CASE_002_CO2_GAS_PHASE_ENTHALPY",
+        "title": "Carbon dioxide gas-phase thermochemistry reference row",
+        "benchmark_id": "CHEM_BENCH_001",
+        "observable_name": "enthalpy_residual",
+        "units": "kJ/mol",
+        "prediction_status": "PREDICTION_DECLARED_PENDING_EXECUTION",
+        "held_out_role": "CALIBRATION_SEED",
+        "official_source_url": "https://webbook.nist.gov/cgi/cbook.cgi?ID=C124389&Units=SI&Mask=1#Thermo-Gas"
+      },
+      {
+        "case_id": "CHEM_CASE_003_CH4_GAS_PHASE_ENTHALPY",
+        "title": "Methane gas-phase thermochemistry reference row",
+        "benchmark_id": "CHEM_BENCH_001",
+        "observable_name": "enthalpy_residual",
+        "units": "kJ/mol",
+        "prediction_status": "PREDICTION_DECLARED_PENDING_EXECUTION",
+        "held_out_role": "CALIBRATION_SEED",
+        "official_source_url": "https://webbook.nist.gov/cgi/cbook.cgi?ID=C74828&Units=SI&Mask=1#Thermo-Gas"
+      },
+      {
+        "case_id": "CHEM_CASE_004_NH3_GAS_PHASE_ENTHALPY",
+        "title": "Ammonia gas-phase thermochemistry reference row",
+        "benchmark_id": "CHEM_BENCH_001",
+        "observable_name": "enthalpy_residual",
+        "units": "kJ/mol",
+        "prediction_status": "PREDICTION_DECLARED_PENDING_EXECUTION",
+        "held_out_role": "CALIBRATION_SEED",
+        "official_source_url": "https://webbook.nist.gov/cgi/cbook.cgi?ID=C7664417&Units=SI&Mask=1#Thermo-Gas"
+      },
+      {
+        "case_id": "CHEM_CASE_005_CH3OH_GAS_PHASE_ENTHALPY",
+        "title": "Methanol gas-phase thermochemistry reference row",
+        "benchmark_id": "CHEM_BENCH_001",
+        "observable_name": "enthalpy_residual",
+        "units": "kJ/mol",
+        "prediction_status": "PREDICTION_DECLARED_PENDING_EXECUTION",
+        "held_out_role": "HELD_OUT_SEED",
+        "official_source_url": "https://webbook.nist.gov/cgi/cbook.cgi?ID=C67561&Units=SI&Mask=1#Thermo-Gas"
+      },
+      {
+        "case_id": "CHEM_CASE_006_C2H5OH_GAS_PHASE_ENTHALPY",
+        "title": "Ethanol gas-phase thermochemistry reference row",
+        "benchmark_id": "CHEM_BENCH_001",
+        "observable_name": "enthalpy_residual",
+        "units": "kJ/mol",
+        "prediction_status": "PREDICTION_DECLARED_PENDING_EXECUTION",
+        "held_out_role": "HELD_OUT_SEED",
+        "official_source_url": "https://webbook.nist.gov/cgi/cbook.cgi?ID=C64175&Units=SI&Mask=1#Thermo-Gas"
+      },
+      {
+        "case_id": "CHEM_CASE_007_CO_GAS_PHASE_ENTHALPY",
+        "title": "Carbon monoxide gas-phase thermochemistry reference row",
+        "benchmark_id": "CHEM_BENCH_001",
+        "observable_name": "enthalpy_residual",
+        "units": "kJ/mol",
+        "prediction_status": "PREDICTION_DECLARED_PENDING_EXECUTION",
+        "held_out_role": "HELD_OUT_SEED",
+        "official_source_url": "https://webbook.nist.gov/cgi/cbook.cgi?ID=C630080&Units=SI&Mask=1#Thermo-Gas"
+      },
+      {
+        "case_id": "CHEM_CASE_008_H2_GAS_PHASE_ENTHALPY",
+        "title": "Hydrogen gas-phase thermochemistry reference row",
+        "benchmark_id": "CHEM_BENCH_001",
+        "observable_name": "enthalpy_residual",
+        "units": "kJ/mol",
+        "prediction_status": "PREDICTION_DECLARED_PENDING_EXECUTION",
+        "held_out_role": "HELD_OUT_SEED",
+        "official_source_url": "https://webbook.nist.gov/cgi/cbook.cgi?ID=C1333740&Units=SI&Mask=1#Thermo-Gas"
+      },
+      {
+        "case_id": "CHEM_CASE_009_N2_GAS_PHASE_ENTHALPY",
+        "title": "Nitrogen gas-phase thermochemistry reference row",
+        "benchmark_id": "CHEM_BENCH_001",
+        "observable_name": "enthalpy_residual",
+        "units": "kJ/mol",
+        "prediction_status": "PREDICTION_DECLARED_PENDING_EXECUTION",
+        "held_out_role": "HELD_OUT_SEED",
+        "official_source_url": "https://webbook.nist.gov/cgi/cbook.cgi?ID=C7727379&Units=SI&Mask=1#Thermo-Gas"
+      },
+      {
+        "case_id": "CHEM_CASE_010_O2_GAS_PHASE_ENTHALPY",
+        "title": "Oxygen gas-phase thermochemistry reference row",
+        "benchmark_id": "CHEM_BENCH_001",
+        "observable_name": "enthalpy_residual",
+        "units": "kJ/mol",
+        "prediction_status": "PREDICTION_DECLARED_PENDING_EXECUTION",
+        "held_out_role": "HELD_OUT_SEED",
+        "official_source_url": "https://webbook.nist.gov/cgi/cbook.cgi?ID=C7782447&Units=SI&Mask=1#Thermo-Gas"
+      },
+      {
+        "case_id": "CHEM_CASE_011_H2O_IR_FAMILY",
+        "title": "Water infrared spectrum family",
+        "benchmark_id": "CHEM_BENCH_002",
+        "observable_name": "spectral_transition_residual",
+        "units": "frequency or wavenumber",
+        "prediction_status": "PREDICTION_DECLARED_PENDING_EXECUTION",
+        "held_out_role": "CALIBRATION_SEED",
+        "official_source_url": "https://webbook.nist.gov/cgi/cbook.cgi?ID=C7732185&Units=SI"
+      },
+      {
+        "case_id": "CHEM_CASE_012_CO2_IR_FAMILY",
+        "title": "Carbon dioxide infrared spectrum family",
+        "benchmark_id": "CHEM_BENCH_002",
+        "observable_name": "spectral_transition_residual",
+        "units": "frequency or wavenumber",
+        "prediction_status": "PREDICTION_DECLARED_PENDING_EXECUTION",
+        "held_out_role": "CALIBRATION_SEED",
+        "official_source_url": "https://webbook.nist.gov/cgi/cbook.cgi?ID=C124389&Units=SI"
+      },
+      {
+        "case_id": "CHEM_CASE_013_CH4_IR_FAMILY",
+        "title": "Methane infrared spectrum family",
+        "benchmark_id": "CHEM_BENCH_002",
+        "observable_name": "spectral_transition_residual",
+        "units": "frequency or wavenumber",
+        "prediction_status": "PREDICTION_DECLARED_PENDING_EXECUTION",
+        "held_out_role": "CALIBRATION_SEED",
+        "official_source_url": "https://webbook.nist.gov/cgi/cbook.cgi?ID=C74828&Units=SI"
+      },
+      {
+        "case_id": "CHEM_CASE_014_NH3_IR_FAMILY",
+        "title": "Ammonia infrared spectrum family",
+        "benchmark_id": "CHEM_BENCH_002",
+        "observable_name": "spectral_transition_residual",
+        "units": "frequency or wavenumber",
+        "prediction_status": "PREDICTION_DECLARED_PENDING_EXECUTION",
+        "held_out_role": "CALIBRATION_SEED",
+        "official_source_url": "https://webbook.nist.gov/cgi/cbook.cgi?ID=C7664417&Units=SI"
+      },
+      {
+        "case_id": "CHEM_CASE_015_CO_IR_FAMILY",
+        "title": "Carbon monoxide infrared spectrum family",
+        "benchmark_id": "CHEM_BENCH_002",
+        "observable_name": "spectral_transition_residual",
+        "units": "frequency or wavenumber",
+        "prediction_status": "PREDICTION_DECLARED_PENDING_EXECUTION",
+        "held_out_role": "HELD_OUT_SEED",
+        "official_source_url": "https://webbook.nist.gov/cgi/cbook.cgi?ID=C630080&Units=SI"
+      },
+      {
+        "case_id": "CHEM_CASE_016_C2H6_IR_FAMILY",
+        "title": "Ethane infrared spectrum family",
+        "benchmark_id": "CHEM_BENCH_002",
+        "observable_name": "spectral_transition_residual",
+        "units": "frequency or wavenumber",
+        "prediction_status": "PREDICTION_DECLARED_PENDING_EXECUTION",
+        "held_out_role": "HELD_OUT_SEED",
+        "official_source_url": "https://webbook.nist.gov/cgi/cbook.cgi?ID=C74840&Units=SI"
+      },
+      {
+        "case_id": "CHEM_CASE_017_C2H4_IR_FAMILY",
+        "title": "Ethylene infrared spectrum family",
+        "benchmark_id": "CHEM_BENCH_002",
+        "observable_name": "spectral_transition_residual",
+        "units": "frequency or wavenumber",
+        "prediction_status": "PREDICTION_DECLARED_PENDING_EXECUTION",
+        "held_out_role": "HELD_OUT_SEED",
+        "official_source_url": "https://webbook.nist.gov/cgi/cbook.cgi?ID=C74851&Units=SI"
+      },
+      {
+        "case_id": "CHEM_CASE_018_C2H2_IR_FAMILY",
+        "title": "Acetylene infrared spectrum family",
+        "benchmark_id": "CHEM_BENCH_002",
+        "observable_name": "spectral_transition_residual",
+        "units": "frequency or wavenumber",
+        "prediction_status": "PREDICTION_DECLARED_PENDING_EXECUTION",
+        "held_out_role": "HELD_OUT_SEED",
+        "official_source_url": "https://webbook.nist.gov/cgi/cbook.cgi?ID=C74862&Units=SI"
+      },
+      {
+        "case_id": "CHEM_CASE_019_CH3OH_IR_FAMILY",
+        "title": "Methanol infrared spectrum family",
+        "benchmark_id": "CHEM_BENCH_002",
+        "observable_name": "spectral_transition_residual",
+        "units": "frequency or wavenumber",
+        "prediction_status": "PREDICTION_DECLARED_PENDING_EXECUTION",
+        "held_out_role": "HELD_OUT_SEED",
+        "official_source_url": "https://webbook.nist.gov/cgi/cbook.cgi?ID=C67561&Units=SI"
+      },
+      {
+        "case_id": "CHEM_CASE_020_C2H5OH_IR_FAMILY",
+        "title": "Ethanol infrared spectrum family",
+        "benchmark_id": "CHEM_BENCH_002",
+        "observable_name": "spectral_transition_residual",
+        "units": "frequency or wavenumber",
+        "prediction_status": "PREDICTION_DECLARED_PENDING_EXECUTION",
+        "held_out_role": "HELD_OUT_SEED",
+        "official_source_url": "https://webbook.nist.gov/cgi/cbook.cgi?ID=C64175&Units=SI"
+      },
+      {
+        "case_id": "CHEM_CASE_021_HABER_BOSCH_EQUILIBRIUM_ENVELOPE",
+        "title": "Haber-Bosch equilibrium envelope",
+        "benchmark_id": "CHEM_BENCH_003",
+        "observable_name": "kinetic_or_equilibrium_residual",
+        "units": "rate, equilibrium constant, or bounded residual envelope",
+        "prediction_status": "PREDICTION_DECLARED_PENDING_EXECUTION",
+        "held_out_role": "CALIBRATION_SEED",
+        "official_source_url": "https://science.osti.gov/bes/efrc/Research/Grand-Challenges"
+      },
+      {
+        "case_id": "CHEM_CASE_022_WATER_GAS_SHIFT_ENVELOPE",
+        "title": "Water-gas-shift reaction envelope",
+        "benchmark_id": "CHEM_BENCH_003",
+        "observable_name": "kinetic_or_equilibrium_residual",
+        "units": "rate, equilibrium constant, or bounded residual envelope",
+        "prediction_status": "PREDICTION_DECLARED_PENDING_EXECUTION",
+        "held_out_role": "CALIBRATION_SEED",
+        "official_source_url": "https://science.osti.gov/bes/efrc/Research/Grand-Challenges"
+      },
+      {
+        "case_id": "CHEM_CASE_023_CO_OXIDATION_ENVELOPE",
+        "title": "Carbon-monoxide oxidation envelope",
+        "benchmark_id": "CHEM_BENCH_003",
+        "observable_name": "kinetic_or_equilibrium_residual",
+        "units": "rate, equilibrium constant, or bounded residual envelope",
+        "prediction_status": "PREDICTION_DECLARED_PENDING_EXECUTION",
+        "held_out_role": "CALIBRATION_SEED",
+        "official_source_url": "https://science.osti.gov/bes/efrc/Research/Grand-Challenges"
+      },
+      {
+        "case_id": "CHEM_CASE_024_METHANOL_SYNTHESIS_ENVELOPE",
+        "title": "Methanol synthesis envelope",
+        "benchmark_id": "CHEM_BENCH_003",
+        "observable_name": "kinetic_or_equilibrium_residual",
+        "units": "rate, equilibrium constant, or bounded residual envelope",
+        "prediction_status": "PREDICTION_DECLARED_PENDING_EXECUTION",
+        "held_out_role": "HELD_OUT_SEED",
+        "official_source_url": "https://science.osti.gov/bes/efrc/Research/Grand-Challenges"
+      },
+      {
+        "case_id": "CHEM_CASE_025_STEAM_REFORMING_ENVELOPE",
+        "title": "Methane steam-reforming envelope",
+        "benchmark_id": "CHEM_BENCH_003",
+        "observable_name": "kinetic_or_equilibrium_residual",
+        "units": "rate, equilibrium constant, or bounded residual envelope",
+        "prediction_status": "PREDICTION_DECLARED_PENDING_EXECUTION",
+        "held_out_role": "HELD_OUT_SEED",
+        "official_source_url": "https://science.osti.gov/bes/efrc/Research/Grand-Challenges"
+      },
+      {
+        "case_id": "CHEM_CASE_026_ELECTROCHEMICAL_CO2_REDUCTION_ENVELOPE",
+        "title": "Electrochemical CO2 reduction envelope",
+        "benchmark_id": "CHEM_BENCH_003",
+        "observable_name": "kinetic_or_equilibrium_residual",
+        "units": "rate, equilibrium constant, or bounded residual envelope",
+        "prediction_status": "PREDICTION_DECLARED_PENDING_EXECUTION",
+        "held_out_role": "HELD_OUT_SEED",
+        "official_source_url": "https://science.osti.gov/bes/efrc/Research/Grand-Challenges"
+      },
+      {
+        "case_id": "CHEM_CASE_027_PHOTOCATALYTIC_WATER_SPLITTING_ENVELOPE",
+        "title": "Photocatalytic water-splitting envelope",
+        "benchmark_id": "CHEM_BENCH_003",
+        "observable_name": "kinetic_or_equilibrium_residual",
+        "units": "rate, equilibrium constant, or bounded residual envelope",
+        "prediction_status": "PREDICTION_DECLARED_PENDING_EXECUTION",
+        "held_out_role": "HELD_OUT_SEED",
+        "official_source_url": "https://science.osti.gov/bes/efrc/Research/Grand-Challenges"
+      },
+      {
+        "case_id": "CHEM_CASE_028_FISCHER_TROPSCH_ENVELOPE",
+        "title": "Fischer-Tropsch product-distribution envelope",
+        "benchmark_id": "CHEM_BENCH_003",
+        "observable_name": "kinetic_or_equilibrium_residual",
+        "units": "rate, equilibrium constant, or bounded residual envelope",
+        "prediction_status": "PREDICTION_DECLARED_PENDING_EXECUTION",
+        "held_out_role": "HELD_OUT_SEED",
+        "official_source_url": "https://science.osti.gov/bes/efrc/Research/Grand-Challenges"
+      },
+      {
+        "case_id": "CHEM_CASE_029_PROTON_COUPLED_ELECTRON_TRANSFER_ENVELOPE",
+        "title": "Proton-coupled electron-transfer envelope",
+        "benchmark_id": "CHEM_BENCH_003",
+        "observable_name": "kinetic_or_equilibrium_residual",
+        "units": "rate, equilibrium constant, or bounded residual envelope",
+        "prediction_status": "PREDICTION_DECLARED_PENDING_EXECUTION",
+        "held_out_role": "HELD_OUT_SEED",
+        "official_source_url": "https://science.osti.gov/bes/efrc/Research/Grand-Challenges"
+      },
+      {
+        "case_id": "CHEM_CASE_030_C_H_ACTIVATION_ENVELOPE",
+        "title": "Catalytic C-H activation envelope",
+        "benchmark_id": "CHEM_BENCH_003",
+        "observable_name": "kinetic_or_equilibrium_residual",
+        "units": "rate, equilibrium constant, or bounded residual envelope",
+        "prediction_status": "PREDICTION_DECLARED_PENDING_EXECUTION",
+        "held_out_role": "HELD_OUT_SEED",
+        "official_source_url": "https://science.osti.gov/bes/efrc/Research/Grand-Challenges"
+      }
+    ]
+  },
+  {
+    "domain_id": "DRT",
+    "title": "DRT",
+    "source_status": "NOT_REQUIRED_OR_META_ONLY",
+    "prediction_status": "NOT_REQUIRED_OR_META_ONLY",
+    "promotion_state": "not-applicable-meta-only",
+    "closure_status": "NOT_APPLICABLE_META_ONLY",
+    "closure_basis": "domain declared meta-only / not required",
+    "replay_status": "NOT_APPLICABLE",
+    "validation_status": "NOT_APPLICABLE",
+    "replay_hashes": [],
+    "claim_level": "",
+    "raw_claim_level": "",
+    "closure_program_status": "",
+    "pass_semantics": "PASS means the demonstrator lane has public replay/calibration evidence and a bounded display contract; it does not mean unsupported prediction validation.",
+    "prediction_boundary": "NOT_REQUIRED_OR_META_ONLY",
+    "pass_does_not_mean": "external validation, solved domain theory, production forecast, or proof closure",
+    "claim_display_policy": "Always show prediction status, claim level and nonclaim boundary next to PASS/replay badges.",
+    "source_refs": [
+      "SRC::domain-drt::DOMAIN_REPLAY_REPORTS_latest.json::f47307f7241938a5",
+      "SRC::domain-drt::EMPIRICAL_DOMAIN_VALIDATION_MATRIX_latest.json::32d27d26bbe30d78",
+      "SRC::domain-drt::OC_DOMAIN_PROJECTION_COMPLETION_latest.json::7a740393cb5548ac"
+    ],
+    "measurable_outputs": [],
+    "nonclaim_boundary": "Only isolated draft/source artefact traces are present; no proved OC-native bridge survives as a canonical domain package.",
+    "theorem_to_observable_map": [],
+    "benchmark_dataset_manifest": [],
+    "case_total": 0,
+    "benchmark_pending_execution_total": 0,
+    "benchmark_executed_prediction_total": 0,
+    "held_out_case_total": 0,
+    "benchmark_cases": []
+  },
+  {
+    "domain_id": "BIOLOGY",
+    "title": "Biology",
+    "source_status": "SOURCE_NATIVE_NUMERICAL_PACKET_SPEC_READY",
+    "prediction_status": "PASS_REPLAYABLE_WITH_PENDING_BENCHMARK_EXECUTION",
+    "promotion_state": "replay-backed",
+    "closure_status": "CLOSED_REPLAY_BACKED",
+    "closure_basis": "domain replay report and empirical validation matrix",
+    "replay_status": "PASS_REPLAYABLE",
+    "validation_status": "PASS",
+    "replay_hashes": [
+      "83d597003253921c7169c54333f5046d0547f8730f12d1279af3dbdd5c7a731a"
+    ],
+    "claim_level": "replay_boundary_pending_benchmark_execution",
+    "raw_claim_level": "",
+    "closure_program_status": "EMPIRICAL_HARD_CLOSED",
+    "pass_semantics": "PASS means the demonstrator lane has public replay/calibration evidence and a bounded display contract; it does not mean unsupported prediction validation.",
+    "prediction_boundary": "PASS_REPLAYABLE_WITH_PENDING_BENCHMARK_EXECUTION",
+    "pass_does_not_mean": "external validation, solved domain theory, production forecast, or proof closure",
+    "claim_display_policy": "Always show prediction status, claim level and nonclaim boundary next to PASS/replay badges.",
+    "source_refs": [
+      "SRC::domain-biology::DOMAIN_REPLAY_REPORTS_latest.json::f47307f7241938a5",
+      "SRC::domain-biology::EMPIRICAL_DOMAIN_VALIDATION_MATRIX_latest.json::32d27d26bbe30d78",
+      "SRC::domain-biology::OC_DOMAIN_PROJECTION_COMPLETION_latest.json::7a740393cb5548ac"
+    ],
+    "measurable_outputs": [
+      "expression_signature_residual",
+      "state_transition_order_error",
+      "response_onset_residual"
+    ],
+    "nonclaim_boundary": "Current inclusion is bridge-only; no proved standalone biology theorem package is promoted here.",
+    "theorem_to_observable_map": [
+      "K4/K5/K6/K7 biological organization claims are restricted to bounded state-transition and response-signature lanes.",
+      "The packet currently targets measurable expression and cell-state trajectories rather than unrestricted biological universalization.",
+      "Open biological assay repositories are the first-line evidence route; if insufficient, the program escalates to institute-run measurement."
+    ],
+    "benchmark_dataset_manifest": [
+      {
+        "authority_ref": "NCBI GEO",
+        "benchmark_id": "BIO_BENCH_001",
+        "dataset_url": "https://www.ncbi.nlm.nih.gov/geo/",
+        "held_out_policy": "reserve one time-series family for held-out replay",
+        "observable_name": "expression_signature_residual"
+      },
+      {
+        "authority_ref": "NCBI GEO",
+        "benchmark_id": "BIO_BENCH_002",
+        "dataset_url": "https://www.ncbi.nlm.nih.gov/geo/",
+        "held_out_policy": "reserve one cell-state transition family",
+        "observable_name": "state_transition_order_error"
+      },
+      {
+        "authority_ref": "official open biological assay repositories",
+        "benchmark_id": "BIO_BENCH_003",
+        "dataset_url": "https://www.ncbi.nlm.nih.gov/geo/",
+        "held_out_policy": "reserve one response-signature family",
+        "observable_name": "response_onset_residual"
+      }
+    ],
+    "case_total": 30,
+    "benchmark_pending_execution_total": 30,
+    "benchmark_executed_prediction_total": 0,
+    "held_out_case_total": 16,
+    "benchmark_cases": [
+      {
+        "case_id": "BIO_CASE_001_GSE184558_CTRL_DAY3_1",
+        "title": "GSE184558 control differentiation Day3 replicate 1",
+        "benchmark_id": "BIO_BENCH_001",
+        "observable_name": "expression_signature_residual",
+        "units": "expression or normalized signal",
+        "prediction_status": "PREDICTION_DECLARED_PENDING_EXECUTION",
+        "held_out_role": "CALIBRATION_SEED",
+        "official_source_url": "https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE184558"
+      },
+      {
+        "case_id": "BIO_CASE_002_GSE184558_CTRL_DAY3_2",
+        "title": "GSE184558 control differentiation Day3 replicate 2",
+        "benchmark_id": "BIO_BENCH_001",
+        "observable_name": "expression_signature_residual",
+        "units": "expression or normalized signal",
+        "prediction_status": "PREDICTION_DECLARED_PENDING_EXECUTION",
+        "held_out_role": "CALIBRATION_SEED",
+        "official_source_url": "https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE184558"
+      },
+      {
+        "case_id": "BIO_CASE_003_GSE184558_CTRL_DAY3_3",
+        "title": "GSE184558 control differentiation Day3 replicate 3",
+        "benchmark_id": "BIO_BENCH_001",
+        "observable_name": "expression_signature_residual",
+        "units": "expression or normalized signal",
+        "prediction_status": "PREDICTION_DECLARED_PENDING_EXECUTION",
+        "held_out_role": "CALIBRATION_SEED",
+        "official_source_url": "https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE184558"
+      },
+      {
+        "case_id": "BIO_CASE_004_GSE184558_CTRL_DAY5_1",
+        "title": "GSE184558 control differentiation Day5 replicate 1",
+        "benchmark_id": "BIO_BENCH_001",
+        "observable_name": "expression_signature_residual",
+        "units": "expression or normalized signal",
+        "prediction_status": "PREDICTION_DECLARED_PENDING_EXECUTION",
+        "held_out_role": "CALIBRATION_SEED",
+        "official_source_url": "https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE184558"
+      },
+      {
+        "case_id": "BIO_CASE_005_GSE184558_CTRL_DAY5_2",
+        "title": "GSE184558 control differentiation Day5 replicate 2",
+        "benchmark_id": "BIO_BENCH_001",
+        "observable_name": "expression_signature_residual",
+        "units": "expression or normalized signal",
+        "prediction_status": "PREDICTION_DECLARED_PENDING_EXECUTION",
+        "held_out_role": "CALIBRATION_SEED",
+        "official_source_url": "https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE184558"
+      },
+      {
+        "case_id": "BIO_CASE_006_GSE184558_CTRL_DAY5_3",
+        "title": "GSE184558 control differentiation Day5 replicate 3",
+        "benchmark_id": "BIO_BENCH_001",
+        "observable_name": "expression_signature_residual",
+        "units": "expression or normalized signal",
+        "prediction_status": "PREDICTION_DECLARED_PENDING_EXECUTION",
+        "held_out_role": "HELD_OUT_SEED",
+        "official_source_url": "https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE184558"
+      },
+      {
+        "case_id": "BIO_CASE_007_GSE184558_CTRL_DAY7_1",
+        "title": "GSE184558 control differentiation Day7 replicate 1",
+        "benchmark_id": "BIO_BENCH_001",
+        "observable_name": "expression_signature_residual",
+        "units": "expression or normalized signal",
+        "prediction_status": "PREDICTION_DECLARED_PENDING_EXECUTION",
+        "held_out_role": "HELD_OUT_SEED",
+        "official_source_url": "https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE184558"
+      },
+      {
+        "case_id": "BIO_CASE_008_GSE184558_CTRL_DAY7_2",
+        "title": "GSE184558 control differentiation Day7 replicate 2",
+        "benchmark_id": "BIO_BENCH_001",
+        "observable_name": "expression_signature_residual",
+        "units": "expression or normalized signal",
+        "prediction_status": "PREDICTION_DECLARED_PENDING_EXECUTION",
+        "held_out_role": "HELD_OUT_SEED",
+        "official_source_url": "https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE184558"
+      },
+      {
+        "case_id": "BIO_CASE_009_GSE184558_CTRL_DAY7_3",
+        "title": "GSE184558 control differentiation Day7 replicate 3",
+        "benchmark_id": "BIO_BENCH_001",
+        "observable_name": "expression_signature_residual",
+        "units": "expression or normalized signal",
+        "prediction_status": "PREDICTION_DECLARED_PENDING_EXECUTION",
+        "held_out_role": "HELD_OUT_SEED",
+        "official_source_url": "https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE184558"
+      },
+      {
+        "case_id": "BIO_CASE_010_GSE184558_SHRNA5_DAY3_1",
+        "title": "GSE184558 shRNA5 differentiation Day3 replicate 1",
+        "benchmark_id": "BIO_BENCH_001",
+        "observable_name": "expression_signature_residual",
+        "units": "expression or normalized signal",
+        "prediction_status": "PREDICTION_DECLARED_PENDING_EXECUTION",
+        "held_out_role": "HELD_OUT_SEED",
+        "official_source_url": "https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE184558"
+      },
+      {
+        "case_id": "BIO_CASE_011_GSE226159_CPC_01",
+        "title": "GSE226159 cardiac progenitor sample CPC_01",
+        "benchmark_id": "BIO_BENCH_002",
+        "observable_name": "state_transition_order_error",
+        "units": "ordered-state or transition-score",
+        "prediction_status": "PREDICTION_DECLARED_PENDING_EXECUTION",
+        "held_out_role": "CALIBRATION_SEED",
+        "official_source_url": "https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE226159"
+      },
+      {
+        "case_id": "BIO_CASE_012_GSE226159_CPC_02",
+        "title": "GSE226159 cardiac progenitor sample CPC_02",
+        "benchmark_id": "BIO_BENCH_002",
+        "observable_name": "state_transition_order_error",
+        "units": "ordered-state or transition-score",
+        "prediction_status": "PREDICTION_DECLARED_PENDING_EXECUTION",
+        "held_out_role": "CALIBRATION_SEED",
+        "official_source_url": "https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE226159"
+      },
+      {
+        "case_id": "BIO_CASE_013_GSE226159_CPC_03",
+        "title": "GSE226159 cardiac progenitor sample CPC_03",
+        "benchmark_id": "BIO_BENCH_002",
+        "observable_name": "state_transition_order_error",
+        "units": "ordered-state or transition-score",
+        "prediction_status": "PREDICTION_DECLARED_PENDING_EXECUTION",
+        "held_out_role": "CALIBRATION_SEED",
+        "official_source_url": "https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE226159"
+      },
+      {
+        "case_id": "BIO_CASE_014_GSE226159_NON_CPC_01",
+        "title": "GSE226159 non-CPC sample N_CPC_01",
+        "benchmark_id": "BIO_BENCH_002",
+        "observable_name": "state_transition_order_error",
+        "units": "ordered-state or transition-score",
+        "prediction_status": "PREDICTION_DECLARED_PENDING_EXECUTION",
+        "held_out_role": "CALIBRATION_SEED",
+        "official_source_url": "https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE226159"
+      },
+      {
+        "case_id": "BIO_CASE_015_GSE226159_NON_CPC_02",
+        "title": "GSE226159 non-CPC sample N_CPC_02",
+        "benchmark_id": "BIO_BENCH_002",
+        "observable_name": "state_transition_order_error",
+        "units": "ordered-state or transition-score",
+        "prediction_status": "PREDICTION_DECLARED_PENDING_EXECUTION",
+        "held_out_role": "CALIBRATION_SEED",
+        "official_source_url": "https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE226159"
+      },
+      {
+        "case_id": "BIO_CASE_016_GSE226159_NON_CPC_03",
+        "title": "GSE226159 non-CPC sample N_CPC_03",
+        "benchmark_id": "BIO_BENCH_002",
+        "observable_name": "state_transition_order_error",
+        "units": "ordered-state or transition-score",
+        "prediction_status": "PREDICTION_DECLARED_PENDING_EXECUTION",
+        "held_out_role": "HELD_OUT_SEED",
+        "official_source_url": "https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE226159"
+      },
+      {
+        "case_id": "BIO_CASE_017_GSE226159_RNA_12_24",
+        "title": "GSE226159 CHIR 12 uM 24h sample",
+        "benchmark_id": "BIO_BENCH_002",
+        "observable_name": "state_transition_order_error",
+        "units": "ordered-state or transition-score",
+        "prediction_status": "PREDICTION_DECLARED_PENDING_EXECUTION",
+        "held_out_role": "HELD_OUT_SEED",
+        "official_source_url": "https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE226159"
+      },
+      {
+        "case_id": "BIO_CASE_018_GSE226159_RNA_6_36",
+        "title": "GSE226159 CHIR 6 uM 36h sample",
+        "benchmark_id": "BIO_BENCH_002",
+        "observable_name": "state_transition_order_error",
+        "units": "ordered-state or transition-score",
+        "prediction_status": "PREDICTION_DECLARED_PENDING_EXECUTION",
+        "held_out_role": "HELD_OUT_SEED",
+        "official_source_url": "https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE226159"
+      },
+      {
+        "case_id": "BIO_CASE_019_GSE226159_T24H_PLUSBI_1",
+        "title": "GSE226159 BI-1347 plus sample at 24h replicate 1",
+        "benchmark_id": "BIO_BENCH_002",
+        "observable_name": "state_transition_order_error",
+        "units": "ordered-state or transition-score",
+        "prediction_status": "PREDICTION_DECLARED_PENDING_EXECUTION",
+        "held_out_role": "HELD_OUT_SEED",
+        "official_source_url": "https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE226159"
+      },
+      {
+        "case_id": "BIO_CASE_020_GSE226159_T24H_MINUSBI_1",
+        "title": "GSE226159 BI-1347 minus sample at 24h replicate 1",
+        "benchmark_id": "BIO_BENCH_002",
+        "observable_name": "state_transition_order_error",
+        "units": "ordered-state or transition-score",
+        "prediction_status": "PREDICTION_DECLARED_PENDING_EXECUTION",
+        "held_out_role": "HELD_OUT_SEED",
+        "official_source_url": "https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE226159"
+      },
+      {
+        "case_id": "BIO_CASE_021_GSE69063_ANAPHYLAXIS_249_T0",
+        "title": "GSE69063 anaphylaxis patient 249 at T0",
+        "benchmark_id": "BIO_BENCH_003",
+        "observable_name": "response_onset_residual",
+        "units": "response onset, delay, or bounded signature score",
+        "prediction_status": "PREDICTION_DECLARED_PENDING_EXECUTION",
+        "held_out_role": "CALIBRATION_SEED",
+        "official_source_url": "https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE69063"
+      },
+      {
+        "case_id": "BIO_CASE_022_GSE69063_ANAPHYLAXIS_249_T1",
+        "title": "GSE69063 anaphylaxis patient 249 at T1",
+        "benchmark_id": "BIO_BENCH_003",
+        "observable_name": "response_onset_residual",
+        "units": "response onset, delay, or bounded signature score",
+        "prediction_status": "PREDICTION_DECLARED_PENDING_EXECUTION",
+        "held_out_role": "CALIBRATION_SEED",
+        "official_source_url": "https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE69063"
+      },
+      {
+        "case_id": "BIO_CASE_023_GSE69063_SEPSIS_A_T0",
+        "title": "GSE69063 sepsis patient A at T0",
+        "benchmark_id": "BIO_BENCH_003",
+        "observable_name": "response_onset_residual",
+        "units": "response onset, delay, or bounded signature score",
+        "prediction_status": "PREDICTION_DECLARED_PENDING_EXECUTION",
+        "held_out_role": "CALIBRATION_SEED",
+        "official_source_url": "https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE69063"
+      },
+      {
+        "case_id": "BIO_CASE_024_GSE69063_SEPSIS_A_T1",
+        "title": "GSE69063 sepsis patient A at T1",
+        "benchmark_id": "BIO_BENCH_003",
+        "observable_name": "response_onset_residual",
+        "units": "response onset, delay, or bounded signature score",
+        "prediction_status": "PREDICTION_DECLARED_PENDING_EXECUTION",
+        "held_out_role": "CALIBRATION_SEED",
+        "official_source_url": "https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE69063"
+      },
+      {
+        "case_id": "BIO_CASE_025_GSE69063_SEPSIS_A_T2",
+        "title": "GSE69063 sepsis patient A at T2",
+        "benchmark_id": "BIO_BENCH_003",
+        "observable_name": "response_onset_residual",
+        "units": "response onset, delay, or bounded signature score",
+        "prediction_status": "PREDICTION_DECLARED_PENDING_EXECUTION",
+        "held_out_role": "HELD_OUT_SEED",
+        "official_source_url": "https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE69063"
+      },
+      {
+        "case_id": "BIO_CASE_026_GSE69063_TRAUMA_A_T0",
+        "title": "GSE69063 trauma patient A at T0",
+        "benchmark_id": "BIO_BENCH_003",
+        "observable_name": "response_onset_residual",
+        "units": "response onset, delay, or bounded signature score",
+        "prediction_status": "PREDICTION_DECLARED_PENDING_EXECUTION",
+        "held_out_role": "HELD_OUT_SEED",
+        "official_source_url": "https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE69063"
+      },
+      {
+        "case_id": "BIO_CASE_027_GSE69063_TRAUMA_A_T1",
+        "title": "GSE69063 trauma patient A at T1",
+        "benchmark_id": "BIO_BENCH_003",
+        "observable_name": "response_onset_residual",
+        "units": "response onset, delay, or bounded signature score",
+        "prediction_status": "PREDICTION_DECLARED_PENDING_EXECUTION",
+        "held_out_role": "HELD_OUT_SEED",
+        "official_source_url": "https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE69063"
+      },
+      {
+        "case_id": "BIO_CASE_028_GSE69063_TRAUMA_A_T2",
+        "title": "GSE69063 trauma patient A at T2",
+        "benchmark_id": "BIO_BENCH_003",
+        "observable_name": "response_onset_residual",
+        "units": "response onset, delay, or bounded signature score",
+        "prediction_status": "PREDICTION_DECLARED_PENDING_EXECUTION",
+        "held_out_role": "HELD_OUT_SEED",
+        "official_source_url": "https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE69063"
+      },
+      {
+        "case_id": "BIO_CASE_029_GSE69063_HEALTHY_927",
+        "title": "GSE69063 healthy control 927",
+        "benchmark_id": "BIO_BENCH_003",
+        "observable_name": "response_onset_residual",
+        "units": "response onset, delay, or bounded signature score",
+        "prediction_status": "PREDICTION_DECLARED_PENDING_EXECUTION",
+        "held_out_role": "HELD_OUT_SEED",
+        "official_source_url": "https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE69063"
+      },
+      {
+        "case_id": "BIO_CASE_030_GSE69063_HEALTHY_928",
+        "title": "GSE69063 healthy control 928",
+        "benchmark_id": "BIO_BENCH_003",
+        "observable_name": "response_onset_residual",
+        "units": "response onset, delay, or bounded signature score",
+        "prediction_status": "PREDICTION_DECLARED_PENDING_EXECUTION",
+        "held_out_role": "HELD_OUT_SEED",
+        "official_source_url": "https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE69063"
+      }
+    ]
+  },
+  {
+    "domain_id": "SYSTEMS_CIVILIZATIONAL_PROJECTION",
+    "title": "Systems / Civilizational Projection",
+    "source_status": "SOURCE_NATIVE_NUMERICAL_PACKET_SPEC_READY",
+    "prediction_status": "PASS_REPLAYABLE_WITH_PENDING_BENCHMARK_EXECUTION",
+    "promotion_state": "replay-backed",
+    "closure_status": "CLOSED_REPLAY_BACKED",
+    "closure_basis": "domain replay report and empirical validation matrix",
+    "replay_status": "PASS_REPLAYABLE",
+    "validation_status": "PASS",
+    "replay_hashes": [
+      "21333cd9b9b72d5e716fb9c63b8f84289b4da2d55cd15aeb54e43c44eccec12f"
+    ],
+    "claim_level": "replay_boundary_pending_benchmark_execution",
+    "raw_claim_level": "",
+    "closure_program_status": "EMPIRICAL_HARD_CLOSED",
+    "pass_semantics": "PASS means the demonstrator lane has public replay/calibration evidence and a bounded display contract; it does not mean unsupported prediction validation.",
+    "prediction_boundary": "PASS_REPLAYABLE_WITH_PENDING_BENCHMARK_EXECUTION",
+    "pass_does_not_mean": "external validation, solved domain theory, production forecast, or proof closure",
+    "claim_display_policy": "Always show prediction status, claim level and nonclaim boundary next to PASS/replay badges.",
+    "source_refs": [
+      "SRC::domain-systems_civilizational_projection::DOMAIN_REPLAY_REPORTS_latest.json::f47307f7241938a5",
+      "SRC::domain-systems_civilizational_projection::EMPIRICAL_DOMAIN_VALIDATION_MATRIX_latest.json::32d27d26bbe30d78",
+      "SRC::domain-systems_civilizational_projection::OC_DOMAIN_PROJECTION_COMPLETION_latest.json::7a740393cb5548ac"
+    ],
+    "measurable_outputs": [
+      "trajectory_residual",
+      "turning_point_error",
+      "held_out_interval_regime_score"
+    ],
+    "nonclaim_boundary": "Current inclusion is bridge-only; no proved standalone systems/civilizational theorem package is promoted here.",
+    "theorem_to_observable_map": [
+      "K8 projection claims are restricted to measurable macro-process trajectories and regime-shift signatures on pinned official series.",
+      "The packet is source-native only at the bounded projection level and does not authorize unrestricted civilizational prediction.",
+      "Validation is lawful only through held-out interval replay against official macro/process data."
+    ],
+    "benchmark_dataset_manifest": [
+      {
+        "authority_ref": "World Bank Indicators API",
+        "benchmark_id": "SYS_BENCH_001",
+        "dataset_url": "https://api.worldbank.org/v2/en/indicator/SP.POP.TOTL?format=json",
+        "held_out_policy": "leave out one interval family",
+        "observable_name": "population_trajectory_residual"
+      },
+      {
+        "authority_ref": "World Bank Indicators API",
+        "benchmark_id": "SYS_BENCH_002",
+        "dataset_url": "https://api.worldbank.org/v2/en/indicator/NY.GDP.MKTP.KD.ZG?format=json",
+        "held_out_policy": "reserve one held-out macro interval",
+        "observable_name": "gdp_growth_turning_point_error"
+      },
+      {
+        "authority_ref": "World Bank Indicators API",
+        "benchmark_id": "SYS_BENCH_003",
+        "dataset_url": "https://api.worldbank.org/v2/en/indicator/EG.USE.PCAP.KG.OE?format=json",
+        "held_out_policy": "reserve one resource-intensity curve family",
+        "observable_name": "process_system_regime_score"
+      }
+    ],
+    "case_total": 30,
+    "benchmark_pending_execution_total": 30,
+    "benchmark_executed_prediction_total": 0,
+    "held_out_case_total": 18,
+    "benchmark_cases": [
+      {
+        "case_id": "SYS_CASE_001_POP_USA",
+        "title": "United States total population trajectory",
+        "benchmark_id": "SYS_BENCH_001",
+        "observable_name": "population_trajectory_residual",
+        "units": "people",
+        "prediction_status": "PREDICTION_DECLARED_PENDING_EXECUTION",
+        "held_out_role": "CALIBRATION_SEED",
+        "official_source_url": "https://api.worldbank.org/v2/country/USA/indicator/SP.POP.TOTL?format=json"
+      },
+      {
+        "case_id": "SYS_CASE_002_POP_CHN",
+        "title": "China total population trajectory",
+        "benchmark_id": "SYS_BENCH_001",
+        "observable_name": "population_trajectory_residual",
+        "units": "people",
+        "prediction_status": "PREDICTION_DECLARED_PENDING_EXECUTION",
+        "held_out_role": "CALIBRATION_SEED",
+        "official_source_url": "https://api.worldbank.org/v2/country/CHN/indicator/SP.POP.TOTL?format=json"
+      },
+      {
+        "case_id": "SYS_CASE_003_POP_IND",
+        "title": "India total population trajectory",
+        "benchmark_id": "SYS_BENCH_001",
+        "observable_name": "population_trajectory_residual",
+        "units": "people",
+        "prediction_status": "PREDICTION_DECLARED_PENDING_EXECUTION",
+        "held_out_role": "CALIBRATION_SEED",
+        "official_source_url": "https://api.worldbank.org/v2/country/IND/indicator/SP.POP.TOTL?format=json"
+      },
+      {
+        "case_id": "SYS_CASE_004_POP_DEU",
+        "title": "Germany total population trajectory",
+        "benchmark_id": "SYS_BENCH_001",
+        "observable_name": "population_trajectory_residual",
+        "units": "people",
+        "prediction_status": "PREDICTION_DECLARED_PENDING_EXECUTION",
+        "held_out_role": "CALIBRATION_SEED",
+        "official_source_url": "https://api.worldbank.org/v2/country/DEU/indicator/SP.POP.TOTL?format=json"
+      },
+      {
+        "case_id": "SYS_CASE_005_POP_BRA",
+        "title": "Brazil total population trajectory",
+        "benchmark_id": "SYS_BENCH_001",
+        "observable_name": "population_trajectory_residual",
+        "units": "people",
+        "prediction_status": "PREDICTION_DECLARED_PENDING_EXECUTION",
+        "held_out_role": "HELD_OUT_SEED",
+        "official_source_url": "https://api.worldbank.org/v2/country/BRA/indicator/SP.POP.TOTL?format=json"
+      },
+      {
+        "case_id": "SYS_CASE_006_POP_ZAF",
+        "title": "South Africa total population trajectory",
+        "benchmark_id": "SYS_BENCH_001",
+        "observable_name": "population_trajectory_residual",
+        "units": "people",
+        "prediction_status": "PREDICTION_DECLARED_PENDING_EXECUTION",
+        "held_out_role": "HELD_OUT_SEED",
+        "official_source_url": "https://api.worldbank.org/v2/country/ZAF/indicator/SP.POP.TOTL?format=json"
+      },
+      {
+        "case_id": "SYS_CASE_007_POP_JPN",
+        "title": "Japan total population trajectory",
+        "benchmark_id": "SYS_BENCH_001",
+        "observable_name": "population_trajectory_residual",
+        "units": "people",
+        "prediction_status": "PREDICTION_DECLARED_PENDING_EXECUTION",
+        "held_out_role": "HELD_OUT_SEED",
+        "official_source_url": "https://api.worldbank.org/v2/country/JPN/indicator/SP.POP.TOTL?format=json"
+      },
+      {
+        "case_id": "SYS_CASE_008_POP_FRA",
+        "title": "France total population trajectory",
+        "benchmark_id": "SYS_BENCH_001",
+        "observable_name": "population_trajectory_residual",
+        "units": "people",
+        "prediction_status": "PREDICTION_DECLARED_PENDING_EXECUTION",
+        "held_out_role": "HELD_OUT_SEED",
+        "official_source_url": "https://api.worldbank.org/v2/country/FRA/indicator/SP.POP.TOTL?format=json"
+      },
+      {
+        "case_id": "SYS_CASE_009_POP_MEX",
+        "title": "Mexico total population trajectory",
+        "benchmark_id": "SYS_BENCH_001",
+        "observable_name": "population_trajectory_residual",
+        "units": "people",
+        "prediction_status": "PREDICTION_DECLARED_PENDING_EXECUTION",
+        "held_out_role": "HELD_OUT_SEED",
+        "official_source_url": "https://api.worldbank.org/v2/country/MEX/indicator/SP.POP.TOTL?format=json"
+      },
+      {
+        "case_id": "SYS_CASE_010_POP_IDN",
+        "title": "Indonesia total population trajectory",
+        "benchmark_id": "SYS_BENCH_001",
+        "observable_name": "population_trajectory_residual",
+        "units": "people",
+        "prediction_status": "PREDICTION_DECLARED_PENDING_EXECUTION",
+        "held_out_role": "HELD_OUT_SEED",
+        "official_source_url": "https://api.worldbank.org/v2/country/IDN/indicator/SP.POP.TOTL?format=json"
+      },
+      {
+        "case_id": "SYS_CASE_011_GDPGROWTH_USA",
+        "title": "United States GDP growth held-out interval",
+        "benchmark_id": "SYS_BENCH_002",
+        "observable_name": "gdp_growth_turning_point_error",
+        "units": "percent",
+        "prediction_status": "PREDICTION_DECLARED_PENDING_EXECUTION",
+        "held_out_role": "CALIBRATION_SEED",
+        "official_source_url": "https://api.worldbank.org/v2/country/USA/indicator/NY.GDP.MKTP.KD.ZG?format=json"
+      },
+      {
+        "case_id": "SYS_CASE_012_GDPGROWTH_CHN",
+        "title": "China GDP growth held-out interval",
+        "benchmark_id": "SYS_BENCH_002",
+        "observable_name": "gdp_growth_turning_point_error",
+        "units": "percent",
+        "prediction_status": "PREDICTION_DECLARED_PENDING_EXECUTION",
+        "held_out_role": "CALIBRATION_SEED",
+        "official_source_url": "https://api.worldbank.org/v2/country/CHN/indicator/NY.GDP.MKTP.KD.ZG?format=json"
+      },
+      {
+        "case_id": "SYS_CASE_013_GDPGROWTH_IND",
+        "title": "India GDP growth held-out interval",
+        "benchmark_id": "SYS_BENCH_002",
+        "observable_name": "gdp_growth_turning_point_error",
+        "units": "percent",
+        "prediction_status": "PREDICTION_DECLARED_PENDING_EXECUTION",
+        "held_out_role": "CALIBRATION_SEED",
+        "official_source_url": "https://api.worldbank.org/v2/country/IND/indicator/NY.GDP.MKTP.KD.ZG?format=json"
+      },
+      {
+        "case_id": "SYS_CASE_014_GDPGROWTH_DEU",
+        "title": "Germany GDP growth held-out interval",
+        "benchmark_id": "SYS_BENCH_002",
+        "observable_name": "gdp_growth_turning_point_error",
+        "units": "percent",
+        "prediction_status": "PREDICTION_DECLARED_PENDING_EXECUTION",
+        "held_out_role": "CALIBRATION_SEED",
+        "official_source_url": "https://api.worldbank.org/v2/country/DEU/indicator/NY.GDP.MKTP.KD.ZG?format=json"
+      },
+      {
+        "case_id": "SYS_CASE_015_GDPGROWTH_BRA",
+        "title": "Brazil GDP growth held-out interval",
+        "benchmark_id": "SYS_BENCH_002",
+        "observable_name": "gdp_growth_turning_point_error",
+        "units": "percent",
+        "prediction_status": "PREDICTION_DECLARED_PENDING_EXECUTION",
+        "held_out_role": "HELD_OUT_SEED",
+        "official_source_url": "https://api.worldbank.org/v2/country/BRA/indicator/NY.GDP.MKTP.KD.ZG?format=json"
+      },
+      {
+        "case_id": "SYS_CASE_016_GDPGROWTH_ZAF",
+        "title": "South Africa GDP growth held-out interval",
+        "benchmark_id": "SYS_BENCH_002",
+        "observable_name": "gdp_growth_turning_point_error",
+        "units": "percent",
+        "prediction_status": "PREDICTION_DECLARED_PENDING_EXECUTION",
+        "held_out_role": "HELD_OUT_SEED",
+        "official_source_url": "https://api.worldbank.org/v2/country/ZAF/indicator/NY.GDP.MKTP.KD.ZG?format=json"
+      },
+      {
+        "case_id": "SYS_CASE_017_GDPGROWTH_JPN",
+        "title": "Japan GDP growth held-out interval",
+        "benchmark_id": "SYS_BENCH_002",
+        "observable_name": "gdp_growth_turning_point_error",
+        "units": "percent",
+        "prediction_status": "PREDICTION_DECLARED_PENDING_EXECUTION",
+        "held_out_role": "HELD_OUT_SEED",
+        "official_source_url": "https://api.worldbank.org/v2/country/JPN/indicator/NY.GDP.MKTP.KD.ZG?format=json"
+      },
+      {
+        "case_id": "SYS_CASE_018_GDPGROWTH_FRA",
+        "title": "France GDP growth held-out interval",
+        "benchmark_id": "SYS_BENCH_002",
+        "observable_name": "gdp_growth_turning_point_error",
+        "units": "percent",
+        "prediction_status": "PREDICTION_DECLARED_PENDING_EXECUTION",
+        "held_out_role": "HELD_OUT_SEED",
+        "official_source_url": "https://api.worldbank.org/v2/country/FRA/indicator/NY.GDP.MKTP.KD.ZG?format=json"
+      },
+      {
+        "case_id": "SYS_CASE_019_GDPGROWTH_MEX",
+        "title": "Mexico GDP growth held-out interval",
+        "benchmark_id": "SYS_BENCH_002",
+        "observable_name": "gdp_growth_turning_point_error",
+        "units": "percent",
+        "prediction_status": "PREDICTION_DECLARED_PENDING_EXECUTION",
+        "held_out_role": "HELD_OUT_SEED",
+        "official_source_url": "https://api.worldbank.org/v2/country/MEX/indicator/NY.GDP.MKTP.KD.ZG?format=json"
+      },
+      {
+        "case_id": "SYS_CASE_020_GDPGROWTH_IDN",
+        "title": "Indonesia GDP growth held-out interval",
+        "benchmark_id": "SYS_BENCH_002",
+        "observable_name": "gdp_growth_turning_point_error",
+        "units": "percent",
+        "prediction_status": "PREDICTION_DECLARED_PENDING_EXECUTION",
+        "held_out_role": "HELD_OUT_SEED",
+        "official_source_url": "https://api.worldbank.org/v2/country/IDN/indicator/NY.GDP.MKTP.KD.ZG?format=json"
+      },
+      {
+        "case_id": "SYS_CASE_021_ENERGYUSE_USA",
+        "title": "United States energy-use-per-capita curve",
+        "benchmark_id": "SYS_BENCH_003",
+        "observable_name": "process_system_regime_score",
+        "units": "kg oil equivalent per capita",
+        "prediction_status": "PREDICTION_DECLARED_PENDING_EXECUTION",
+        "held_out_role": "CALIBRATION_SEED",
+        "official_source_url": "https://api.worldbank.org/v2/country/USA/indicator/EG.USE.PCAP.KG.OE?format=json"
+      },
+      {
+        "case_id": "SYS_CASE_022_ENERGYUSE_CHN",
+        "title": "China energy-use-per-capita curve",
+        "benchmark_id": "SYS_BENCH_003",
+        "observable_name": "process_system_regime_score",
+        "units": "kg oil equivalent per capita",
+        "prediction_status": "PREDICTION_DECLARED_PENDING_EXECUTION",
+        "held_out_role": "CALIBRATION_SEED",
+        "official_source_url": "https://api.worldbank.org/v2/country/CHN/indicator/EG.USE.PCAP.KG.OE?format=json"
+      },
+      {
+        "case_id": "SYS_CASE_023_ENERGYUSE_IND",
+        "title": "India energy-use-per-capita curve",
+        "benchmark_id": "SYS_BENCH_003",
+        "observable_name": "process_system_regime_score",
+        "units": "kg oil equivalent per capita",
+        "prediction_status": "PREDICTION_DECLARED_PENDING_EXECUTION",
+        "held_out_role": "CALIBRATION_SEED",
+        "official_source_url": "https://api.worldbank.org/v2/country/IND/indicator/EG.USE.PCAP.KG.OE?format=json"
+      },
+      {
+        "case_id": "SYS_CASE_024_ENERGYUSE_DEU",
+        "title": "Germany energy-use-per-capita curve",
+        "benchmark_id": "SYS_BENCH_003",
+        "observable_name": "process_system_regime_score",
+        "units": "kg oil equivalent per capita",
+        "prediction_status": "PREDICTION_DECLARED_PENDING_EXECUTION",
+        "held_out_role": "CALIBRATION_SEED",
+        "official_source_url": "https://api.worldbank.org/v2/country/DEU/indicator/EG.USE.PCAP.KG.OE?format=json"
+      },
+      {
+        "case_id": "SYS_CASE_025_ENERGYUSE_BRA",
+        "title": "Brazil energy-use-per-capita curve",
+        "benchmark_id": "SYS_BENCH_003",
+        "observable_name": "process_system_regime_score",
+        "units": "kg oil equivalent per capita",
+        "prediction_status": "PREDICTION_DECLARED_PENDING_EXECUTION",
+        "held_out_role": "HELD_OUT_SEED",
+        "official_source_url": "https://api.worldbank.org/v2/country/BRA/indicator/EG.USE.PCAP.KG.OE?format=json"
+      },
+      {
+        "case_id": "SYS_CASE_026_ENERGYUSE_ZAF",
+        "title": "South Africa energy-use-per-capita curve",
+        "benchmark_id": "SYS_BENCH_003",
+        "observable_name": "process_system_regime_score",
+        "units": "kg oil equivalent per capita",
+        "prediction_status": "PREDICTION_DECLARED_PENDING_EXECUTION",
+        "held_out_role": "HELD_OUT_SEED",
+        "official_source_url": "https://api.worldbank.org/v2/country/ZAF/indicator/EG.USE.PCAP.KG.OE?format=json"
+      },
+      {
+        "case_id": "SYS_CASE_027_ENERGYUSE_JPN",
+        "title": "Japan energy-use-per-capita curve",
+        "benchmark_id": "SYS_BENCH_003",
+        "observable_name": "process_system_regime_score",
+        "units": "kg oil equivalent per capita",
+        "prediction_status": "PREDICTION_DECLARED_PENDING_EXECUTION",
+        "held_out_role": "HELD_OUT_SEED",
+        "official_source_url": "https://api.worldbank.org/v2/country/JPN/indicator/EG.USE.PCAP.KG.OE?format=json"
+      },
+      {
+        "case_id": "SYS_CASE_028_ENERGYUSE_FRA",
+        "title": "France energy-use-per-capita curve",
+        "benchmark_id": "SYS_BENCH_003",
+        "observable_name": "process_system_regime_score",
+        "units": "kg oil equivalent per capita",
+        "prediction_status": "PREDICTION_DECLARED_PENDING_EXECUTION",
+        "held_out_role": "HELD_OUT_SEED",
+        "official_source_url": "https://api.worldbank.org/v2/country/FRA/indicator/EG.USE.PCAP.KG.OE?format=json"
+      },
+      {
+        "case_id": "SYS_CASE_029_ENERGYUSE_MEX",
+        "title": "Mexico energy-use-per-capita curve",
+        "benchmark_id": "SYS_BENCH_003",
+        "observable_name": "process_system_regime_score",
+        "units": "kg oil equivalent per capita",
+        "prediction_status": "PREDICTION_DECLARED_PENDING_EXECUTION",
+        "held_out_role": "HELD_OUT_SEED",
+        "official_source_url": "https://api.worldbank.org/v2/country/MEX/indicator/EG.USE.PCAP.KG.OE?format=json"
+      },
+      {
+        "case_id": "SYS_CASE_030_ENERGYUSE_IDN",
+        "title": "Indonesia energy-use-per-capita curve",
+        "benchmark_id": "SYS_BENCH_003",
+        "observable_name": "process_system_regime_score",
+        "units": "kg oil equivalent per capita",
+        "prediction_status": "PREDICTION_DECLARED_PENDING_EXECUTION",
+        "held_out_role": "HELD_OUT_SEED",
+        "official_source_url": "https://api.worldbank.org/v2/country/IDN/indicator/EG.USE.PCAP.KG.OE?format=json"
+      }
+    ]
+  },
+  {
+    "domain_id": "METAONTOLOGY",
+    "title": "Metaontology",
+    "source_status": "NOT_REQUIRED_OR_META_ONLY",
+    "prediction_status": "NOT_REQUIRED_OR_META_ONLY",
+    "promotion_state": "not-applicable-meta-only",
+    "closure_status": "NOT_APPLICABLE_META_ONLY",
+    "closure_basis": "domain declared meta-only / not required",
+    "replay_status": "NOT_APPLICABLE",
+    "validation_status": "NOT_APPLICABLE",
+    "replay_hashes": [],
+    "claim_level": "",
+    "raw_claim_level": "",
+    "closure_program_status": "",
+    "pass_semantics": "PASS means the demonstrator lane has public replay/calibration evidence and a bounded display contract; it does not mean unsupported prediction validation.",
+    "prediction_boundary": "NOT_REQUIRED_OR_META_ONLY",
+    "pass_does_not_mean": "external validation, solved domain theory, production forecast, or proof closure",
+    "claim_display_policy": "Always show prediction status, claim level and nonclaim boundary next to PASS/replay badges.",
+    "source_refs": [
+      "SRC::domain-metaontology::DOMAIN_REPLAY_REPORTS_latest.json::f47307f7241938a5",
+      "SRC::domain-metaontology::EMPIRICAL_DOMAIN_VALIDATION_MATRIX_latest.json::32d27d26bbe30d78",
+      "SRC::domain-metaontology::OC_DOMAIN_PROJECTION_COMPLETION_latest.json::7a740393cb5548ac"
+    ],
+    "measurable_outputs": [],
+    "nonclaim_boundary": "Only the proved subset may carry quantitative outputs for this domain.",
+    "theorem_to_observable_map": [],
+    "benchmark_dataset_manifest": [],
+    "case_total": 0,
+    "benchmark_pending_execution_total": 0,
+    "benchmark_executed_prediction_total": 0,
+    "held_out_case_total": 0,
+    "benchmark_cases": []
+  }
+]

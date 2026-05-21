@@ -1,0 +1,99 @@
+{
+  "schema_version": "oc-core-demo-cockpit-first-viewport-contract.v010",
+  "demo_version": "V010",
+  "release_ordinal": "010",
+  "status": "PASS",
+  "required_dom_assertions": [
+    "what-is-this-contract",
+    "first-action-example",
+    "first-move-copy",
+    "why-care-copy",
+    "three-minute-decision-copy",
+    "bounded-evaluation-cta",
+    "architect-workflow"
+  ],
+  "wide_and_mobile_rows": [
+    {
+      "viewport": "wide",
+      "status": "PASS",
+      "screenshot_present": true,
+      "not_loading_state": true,
+      "horizontal_overflow_pixels": 0,
+      "primary_control_count": 2,
+      "screenshot_sha256": "a74a06b9f982720b574d12ea6bff13ef6b149ed470c91fb29af83827ec4c0e35",
+      "composition_checks": {
+        "no_horizontal_overflow": true,
+        "primary_controls_visible": true,
+        "secondary_controls_grouped": true,
+        "no_button_soup_primary_count": true,
+        "nonblank_bytes": true,
+        "target_heading_visible": true,
+        "screenshot_not_clipped_by_header": true
+      }
+    }
+  ],
+  "mobile_first_decision_proof": [
+    {
+      "viewport": "mobile",
+      "plain_answer_visible": true,
+      "why_care_visible": true,
+      "first_move_visible": true,
+      "bounded_evaluation_cta_visible": true,
+      "nonclaim_boundary_visible": true,
+      "horizontal_overflow_pixels": 0,
+      "header_not_clipped": true,
+      "status": "PASS"
+    }
+  ],
+  "click_rows": [
+    {
+      "surface": "cockpit",
+      "action": "initial-load",
+      "target_heading": "Test and improve a complex system before it breaks",
+      "pre_state_hash": "fc79cb39d7d2b242cd70b92afe070248bfc0bdd6c105e39375df2081179ff84d",
+      "post_state_hash": "fc79cb39d7d2b242cd70b92afe070248bfc0bdd6c105e39375df2081179ff84d",
+      "assertion": "PASS"
+    },
+    {
+      "surface": "cockpit",
+      "action": "cockpit:first-primary-cta",
+      "target_heading": "Diagnose a system, break it, repair it, compare the result",
+      "pre_state_hash": "fc79cb39d7d2b242cd70b92afe070248bfc0bdd6c105e39375df2081179ff84d",
+      "post_state_hash": "206e753205cfd691ae3e4ae9dc174f3b84f6a421eb4cfa62fab9fed63e016920",
+      "assertion": "PASS",
+      "expected_visible_result": "cockpit:first-primary-cta produces visible result at Diagnose a system, break it, repair it, compare the result",
+      "semantic_assertions": [
+        "target_heading:Diagnose a system, break it, repair it, compare the result",
+        "state_hash_changed"
+      ]
+    },
+    {
+      "surface": "cockpit",
+      "action": "cockpit:first-clickable-example:civilization",
+      "target_heading": "Cascade Lab",
+      "pre_state_hash": "206e753205cfd691ae3e4ae9dc174f3b84f6a421eb4cfa62fab9fed63e016920",
+      "post_state_hash": "af63026a805f5c5210627e5b3bfbdad0703bf31422144fd67b95737aaf2d13f1",
+      "assertion": "PASS",
+      "expected_visible_result": "cockpit:first-clickable-example:civilization produces visible result at Cascade Lab",
+      "semantic_assertions": [
+        "target_heading:Cascade Lab",
+        "state_hash_changed"
+      ]
+    }
+  ],
+  "primary_persona": "system architect",
+  "plain_answer": "For system architects: choose a system, let the Workbench pick the weakest support point, stress-test it, repair one editable dependency, then export one before/after decision packet.",
+  "why_care": "It helps decide whether one repair is worth deeper review by showing the failure path, recovery change, remaining uncertainty and export hash in one local packet.",
+  "default_path_narrative": "Default path: Start -> Workbench -> stress test -> repair -> compare -> export. Wiki, graph, formulas and proof are optional detours from that path.",
+  "first_decision_cta": "Open starter system in Workbench",
+  "first_decision_surface": "Workbench / Diagnose, stress-test, repair, compare and export",
+  "post_entry_continuity_contract": {
+    "target_surface": "workbench",
+    "target_heading": "Diagnose a system, break it, repair it, compare the result",
+    "plain_answer_persists": true,
+    "nonclaim_boundary_persists": true,
+    "expected_visible_result": "After the cockpit CTA, the Workbench shows the selected starter system, the five-step repair loop, changed recovery/connectivity metrics, export hash and nonclaim boundary."
+  },
+  "nonclaim_boundary": "The first viewport promises local evaluation only: no upload, purchase, or proof-oracle action.",
+  "contract_hash": "04875773e6b9f9f5c6ffe5944cb7756c758d3b7fb00fdafecc8cd16b7c54b0a5"
+}

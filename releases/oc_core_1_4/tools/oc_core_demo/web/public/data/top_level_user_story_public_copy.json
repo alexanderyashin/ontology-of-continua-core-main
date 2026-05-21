@@ -1,0 +1,1061 @@
+{
+  "schema_version": "oc-core-demo-top-level-user-story-public-copy.v010",
+  "demo_version": "V010",
+  "release_ordinal": "010",
+  "status": "PASS",
+  "surface_total": 19,
+  "surfaces": [
+    "cockpit",
+    "guided",
+    "workbench",
+    "km",
+    "wiki",
+    "formula",
+    "klevels",
+    "worldline",
+    "cascade",
+    "benchmarks",
+    "objections",
+    "whyoc",
+    "practical",
+    "trust",
+    "mission",
+    "graph",
+    "proof",
+    "gaps",
+    "reviewer"
+  ],
+  "rows": [
+    {
+      "surface_id": "cockpit",
+      "surface_label": "Cockpit / first decision surface",
+      "public_copy_fields": {
+        "plain_answer": "For system architects: choose a system, let the Workbench pick the weakest support point, stress-test it, repair one editable dependency, then export one before/after decision packet.",
+        "why_care": "It helps decide whether one repair is worth deeper review by showing the failure path, recovery change, remaining uncertainty and export hash in one local packet.",
+        "first_decision_cta": "Open starter system in Workbench",
+        "first_decision_surface": "Workbench / Diagnose, stress-test, repair, compare and export",
+        "post_entry_continuity": {
+          "target_surface": "workbench",
+          "target_heading": "Diagnose a system, break it, repair it, compare the result",
+          "plain_answer_persists": true,
+          "nonclaim_boundary_persists": true,
+          "expected_visible_result": "After the cockpit CTA, the Workbench shows the selected starter system, the five-step repair loop, changed recovery/connectivity metrics, export hash and nonclaim boundary."
+        },
+        "nonclaim_boundary": "The first viewport promises local evaluation only: no upload, purchase, or proof-oracle action."
+      },
+      "route_copy_digest": [
+        {
+          "route_id": "cockpit:first-decision-surface",
+          "route_display_label": "Workbench / Diagnose, stress-test, repair, compare and export",
+          "action_display_label": "Open starter system in Workbench",
+          "breadcrumb": "Cockpit / first decision / Workbench",
+          "expected_visible_result": "It helps decide whether one repair is worth deeper review by showing the failure path, recovery change, remaining uncertainty and export hash in one local packet.",
+          "target_surface_label": "System Workbench",
+          "test_id": "bounded-evaluation-cta"
+        }
+      ],
+      "route_copy_row_total": 1,
+      "materialized_route_row_total": 0,
+      "has_plain_copy": true,
+      "has_route_copy": true,
+      "hash_basis": [
+        "surface_id",
+        "surface_label",
+        "public_copy_fields",
+        "route_copy_digest",
+        "route_copy_row_total",
+        "materialized_route_row_total"
+      ],
+      "row_hash": "ca2d7e7a23956919e834072c9b49e271feb43a66da08eb4b994e09feff2a47cb"
+    },
+    {
+      "surface_id": "guided",
+      "surface_label": "Guided OC Journey",
+      "public_copy_fields": {
+        "plain_answer": "Guided route walks through the default path: choose a system, run the stress test, repair it, compare, then export.",
+        "why_care": "It turns the first session into one understandable result: a before/after decision packet with visible evidence route and nonclaim boundary.",
+        "bounded_next_step": "Begin the first step and confirm the selected system, visible result, source row and boundary class.",
+        "nonclaim_boundary": "Guided steps teach navigation and local evidence inspection; they do not prove external performance."
+      },
+      "route_copy_digest": [
+        {
+          "route_id": "guided:top-level-route",
+          "route_display_label": "Guided OC Journey",
+          "action_display_label": "Open Guided OC Journey",
+          "breadcrumb": "Start / Guided OC Journey",
+          "expected_visible_result": "The selected surface opens with a visible purpose, a primary action, source/boundary context and cross-links into wiki/graph/formula/proof where available.",
+          "target_surface_label": "Guided OC Journey",
+          "test_id": "nav-guided",
+          "route_copy_source": "top_level_navigation_contract"
+        }
+      ],
+      "route_copy_row_total": 1,
+      "materialized_route_row_total": 0,
+      "has_plain_copy": true,
+      "has_route_copy": true,
+      "hash_basis": [
+        "surface_id",
+        "surface_label",
+        "public_copy_fields",
+        "route_copy_digest",
+        "route_copy_row_total",
+        "materialized_route_row_total"
+      ],
+      "row_hash": "8b83bf321a07c7b725a51f7725c689b42cc55e6dcd3348e7a3d27191479d68c2"
+    },
+    {
+      "surface_id": "workbench",
+      "surface_label": "System Workbench",
+      "public_copy_fields": {
+        "visible_action_label": "Export architect decision packet",
+        "workflow": "diagnose -> kill -> improve -> compare -> export",
+        "sample_action_sequence": [
+          "diagnose",
+          "kill",
+          "add_axis",
+          "add_compensator",
+          "compare",
+          "export"
+        ],
+        "safe_cta": "Evaluate locally: complete one mission, export the packet, then decide whether a private replay-backed package is worth requesting. No purchase/upload action is executed.",
+        "nonclaim_boundary": "Workbench export is a local architect decision aid; unsupported science remains boundary-marked."
+      },
+      "route_copy_digest": [
+        {
+          "route_id": "oc_in_12_minutes",
+          "route_display_label": "OC in 12 minutes",
+          "action_display_label": "Use In Workbench",
+          "breadcrumb": "OC in 12 minutes / Bidirectional K/M hierarchy / System Workbench",
+          "expected_visible_result": "Use in Workbench opens or mutates the workbench surface with a visible state/hash/detail change.",
+          "target_surface_label": "System Workbench",
+          "test_id": "route-oc_in_12_minutes-j2-02-use_in_workbench"
+        },
+        {
+          "route_id": "oc_in_12_minutes",
+          "route_display_label": "OC in 12 minutes",
+          "action_display_label": "Use In Workbench",
+          "breadcrumb": "OC in 12 minutes / Build a system / System Workbench",
+          "expected_visible_result": "Use in Workbench opens or mutates the workbench surface with a visible state/hash/detail change.",
+          "target_surface_label": "System Workbench",
+          "test_id": "route-oc_in_12_minutes-j3-01-use_in_workbench"
+        },
+        {
+          "route_id": "oc_in_12_minutes",
+          "route_display_label": "OC in 12 minutes",
+          "action_display_label": "Run Simulation",
+          "breadcrumb": "OC in 12 minutes / Build a system / System Workbench",
+          "expected_visible_result": "Run Simulation opens or mutates the workbench surface with a visible state/hash/detail change.",
+          "target_surface_label": "System Workbench",
+          "test_id": "route-oc_in_12_minutes-j3-02-run_simulation"
+        },
+        {
+          "route_id": "from_contradiction_to_axis",
+          "route_display_label": "From Contradiction to New Axis",
+          "action_display_label": "Use In Workbench",
+          "breadcrumb": "From Contradiction to New Axis / Select computable axis / System Workbench",
+          "expected_visible_result": "Use in Workbench opens or mutates the workbench surface with a visible state/hash/detail change.",
+          "target_surface_label": "System Workbench",
+          "test_id": "route-from_contradiction_to_axis-axis_2-01-use_in_workbench"
+        },
+        {
+          "route_id": "collapse_and_recovery",
+          "route_display_label": "Collapse and Recovery",
+          "action_display_label": "Use In Workbench",
+          "breadcrumb": "Collapse and Recovery / Select system template / System Workbench",
+          "expected_visible_result": "Use in Workbench opens or mutates the workbench surface with a visible state/hash/detail change.",
+          "target_surface_label": "System Workbench",
+          "test_id": "route-collapse_and_recovery-collapse_1-01-use_in_workbench"
+        },
+        {
+          "route_id": "collapse_and_recovery",
+          "route_display_label": "Collapse and Recovery",
+          "action_display_label": "Use In Workbench",
+          "breadcrumb": "Collapse and Recovery / Add compensator / System Workbench",
+          "expected_visible_result": "Use in Workbench opens or mutates the workbench surface with a visible state/hash/detail change.",
+          "target_surface_label": "System Workbench",
+          "test_id": "route-collapse_and_recovery-collapse_3-01-use_in_workbench"
+        },
+        {
+          "route_id": "purchase_pull::local_qualified_next_step",
+          "route_display_label": "Qualified next-step pull, local only",
+          "action_display_label": "Use In Workbench",
+          "breadcrumb": "Qualified next-step pull, local only / Inspect edited-scenario boundary before continuing / System Workbench",
+          "expected_visible_result": "Use in Workbench opens or mutates the workbench surface with a visible state/hash/detail change.",
+          "target_surface_label": "System Workbench",
+          "test_id": "route-purchase_pull_local_qualified_next_step-purchase_pull_2-01-use_in_workbench"
+        },
+        {
+          "route_id": "objection_route::graph_formula_discrepancy",
+          "route_display_label": "Graph and formula narratives diverge",
+          "action_display_label": "Use In Workbench",
+          "breadcrumb": "Graph and formula narratives diverge / Open a concrete system to test stability / System Workbench",
+          "expected_visible_result": "Use in Workbench opens or mutates the workbench surface with a visible state/hash/detail change.",
+          "target_surface_label": "System Workbench",
+          "test_id": "route-objection_route_graph_formula_discrepancy-graph_formula_discrepancy_3-01-use_in_workbench"
+        }
+      ],
+      "route_copy_row_total": 8,
+      "materialized_route_row_total": 50,
+      "has_plain_copy": true,
+      "has_route_copy": true,
+      "hash_basis": [
+        "surface_id",
+        "surface_label",
+        "public_copy_fields",
+        "route_copy_digest",
+        "route_copy_row_total",
+        "materialized_route_row_total"
+      ],
+      "row_hash": "7af4e51af277585dea24d3ab8e9d1afeb85c155bb17227c4989bcb97d2cd5832"
+    },
+    {
+      "surface_id": "km",
+      "surface_label": "K/M Hierarchy",
+      "public_copy_fields": {
+        "plain_answer": "K/M Hierarchy answers one part of the system-architect loop.",
+        "why_care": "Use it to move from a visible model action to a bounded decision artifact with sources and limits.",
+        "bounded_next_step": "Run the primary action and check the named result, boundary text and cross-links.",
+        "nonclaim_boundary": "This surface is local inspectability and decision support, not external validation or proof closure."
+      },
+      "route_copy_digest": [
+        {
+          "route_id": "oc_in_12_minutes",
+          "route_display_label": "OC in 12 minutes",
+          "action_display_label": "Show In Graph",
+          "breadcrumb": "OC in 12 minutes / Bidirectional K/M hierarchy / 3D Science Graph",
+          "expected_visible_result": "Show in Graph opens or mutates the graph surface with a visible state/hash/detail change.",
+          "target_surface_label": "3D Science Graph",
+          "test_id": "route-oc_in_12_minutes-j2-01-show_in_graph"
+        },
+        {
+          "route_id": "oc_in_12_minutes",
+          "route_display_label": "OC in 12 minutes",
+          "action_display_label": "Use In Workbench",
+          "breadcrumb": "OC in 12 minutes / Bidirectional K/M hierarchy / System Workbench",
+          "expected_visible_result": "Use in Workbench opens or mutates the workbench surface with a visible state/hash/detail change.",
+          "target_surface_label": "System Workbench",
+          "test_id": "route-oc_in_12_minutes-j2-02-use_in_workbench"
+        },
+        {
+          "route_id": "k12_to_k0_drilldown",
+          "route_display_label": "K12 to K0 Drilldown",
+          "action_display_label": "Show In Graph",
+          "breadcrumb": "K12 to K0 Drilldown / Open K12 / 3D Science Graph",
+          "expected_visible_result": "Show in Graph opens or mutates the graph surface with a visible state/hash/detail change.",
+          "target_surface_label": "3D Science Graph",
+          "test_id": "route-k12_to_k0_drilldown-drill_1-01-show_in_graph"
+        },
+        {
+          "route_id": "k12_to_k0_drilldown",
+          "route_display_label": "K12 to K0 Drilldown",
+          "action_display_label": "Open In Wiki",
+          "breadcrumb": "K12 to K0 Drilldown / Open K12 to K0 inputs / OC Wiki",
+          "expected_visible_result": "Open in Wiki opens or mutates the wiki surface with a visible state/hash/detail change.",
+          "target_surface_label": "OC Wiki",
+          "test_id": "route-k12_to_k0_drilldown-drill_2-01-open_in_wiki"
+        }
+      ],
+      "route_copy_row_total": 4,
+      "materialized_route_row_total": 4,
+      "has_plain_copy": true,
+      "has_route_copy": true,
+      "hash_basis": [
+        "surface_id",
+        "surface_label",
+        "public_copy_fields",
+        "route_copy_digest",
+        "route_copy_row_total",
+        "materialized_route_row_total"
+      ],
+      "row_hash": "aefe9ae1c34903a113f8eedc6dd7efd1d56e6c90dfb379aa32bcf445031b6933"
+    },
+    {
+      "surface_id": "wiki",
+      "surface_label": "OC Wiki",
+      "public_copy_fields": {
+        "plain_answer": "Wiki is the readable corpus map: it shows chapters, sections, atom rows and the exact formula/graph/proof links behind the selected system.",
+        "why_care": "It lets a reviewer inspect where a claim came from before trusting a Workbench or graph step.",
+        "bounded_next_step": "Search one term or open the first chapter card; the page reports atom count, chapter count, document split and boundary.",
+        "surface_action": "open corpus explanation from route breadcrumb or search result",
+        "nonclaim_boundary": "Wiki copy explains the public corpus; it does not assert external validation."
+      },
+      "route_copy_digest": [
+        {
+          "route_id": "oc_in_12_minutes",
+          "route_display_label": "OC in 12 minutes",
+          "action_display_label": "Open In Wiki",
+          "breadcrumb": "OC in 12 minutes / Birth of a continuum / OC Wiki",
+          "expected_visible_result": "Open in Wiki opens or mutates the wiki surface with a visible state/hash/detail change.",
+          "target_surface_label": "OC Wiki",
+          "test_id": "route-oc_in_12_minutes-j1-02-open_in_wiki"
+        },
+        {
+          "route_id": "k12_to_k0_drilldown",
+          "route_display_label": "K12 to K0 Drilldown",
+          "action_display_label": "Open In Wiki",
+          "breadcrumb": "K12 to K0 Drilldown / Open K12 to K0 inputs / OC Wiki",
+          "expected_visible_result": "Open in Wiki opens or mutates the wiki surface with a visible state/hash/detail change.",
+          "target_surface_label": "OC Wiki",
+          "test_id": "route-k12_to_k0_drilldown-drill_2-01-open_in_wiki"
+        },
+        {
+          "route_id": "proof_boundary_route",
+          "route_display_label": "Evidence Boundary Route",
+          "action_display_label": "Open In Wiki",
+          "breadcrumb": "Evidence Boundary Route / Open formula and source atom / OC Wiki",
+          "expected_visible_result": "Open in Wiki opens or mutates the wiki surface with a visible state/hash/detail change.",
+          "target_surface_label": "OC Wiki",
+          "test_id": "route-proof_boundary_route-proof_2-02-open_in_wiki"
+        }
+      ],
+      "route_copy_row_total": 3,
+      "materialized_route_row_total": 3,
+      "has_plain_copy": true,
+      "has_route_copy": true,
+      "hash_basis": [
+        "surface_id",
+        "surface_label",
+        "public_copy_fields",
+        "route_copy_digest",
+        "route_copy_row_total",
+        "materialized_route_row_total"
+      ],
+      "row_hash": "f7fa5b4b059edd1d1a70f5069a27386b108d2a7027d4145746ad915581197ef7"
+    },
+    {
+      "surface_id": "formula",
+      "surface_label": "Formula Atlas",
+      "public_copy_fields": {
+        "surface_action": "show formula, inspect semantic symbols, role contract and source refs",
+        "nonclaim_boundary": "Formula rows are curated explanation and replay binding, not standalone proof."
+      },
+      "route_copy_digest": [
+        {
+          "route_id": "oc_in_12_minutes",
+          "route_display_label": "OC in 12 minutes",
+          "action_display_label": "Show Formula",
+          "breadcrumb": "OC in 12 minutes / Domain mission / Formula Atlas",
+          "expected_visible_result": "Show Formula opens or mutates the formula surface with a visible state/hash/detail change.",
+          "target_surface_label": "Formula Atlas",
+          "test_id": "route-oc_in_12_minutes-j5-02-show_formula"
+        },
+        {
+          "route_id": "oc_in_12_minutes",
+          "route_display_label": "OC in 12 minutes",
+          "action_display_label": "Show Formula",
+          "breadcrumb": "OC in 12 minutes / Graph -> formula -> proof / Formula Atlas",
+          "expected_visible_result": "Show Formula opens or mutates the formula surface with a visible state/hash/detail change.",
+          "target_surface_label": "Formula Atlas",
+          "test_id": "route-oc_in_12_minutes-j6-02-show_formula"
+        },
+        {
+          "route_id": "domain_expert_entry",
+          "route_display_label": "Domain Expert Entry",
+          "action_display_label": "Show Formula",
+          "breadcrumb": "Domain Expert Entry / Inspect known observables / Formula Atlas",
+          "expected_visible_result": "Show Formula opens or mutates the formula surface with a visible state/hash/detail change.",
+          "target_surface_label": "Formula Atlas",
+          "test_id": "route-domain_expert_entry-domain_2-01-show_formula"
+        },
+        {
+          "route_id": "proof_boundary_route",
+          "route_display_label": "Evidence Boundary Route",
+          "action_display_label": "Show Formula",
+          "breadcrumb": "Evidence Boundary Route / Open formula and source atom / Formula Atlas",
+          "expected_visible_result": "Show Formula opens or mutates the formula surface with a visible state/hash/detail change.",
+          "target_surface_label": "Formula Atlas",
+          "test_id": "route-proof_boundary_route-proof_2-01-show_formula"
+        },
+        {
+          "route_id": "proof_boundary_route",
+          "route_display_label": "Evidence Boundary Route",
+          "action_display_label": "Open In Wiki",
+          "breadcrumb": "Evidence Boundary Route / Open formula and source atom / OC Wiki",
+          "expected_visible_result": "Open in Wiki opens or mutates the wiki surface with a visible state/hash/detail change.",
+          "target_surface_label": "OC Wiki",
+          "test_id": "route-proof_boundary_route-proof_2-02-open_in_wiki"
+        },
+        {
+          "route_id": "objection_route::graph_formula_discrepancy",
+          "route_display_label": "Graph and formula narratives diverge",
+          "action_display_label": "Show Formula",
+          "breadcrumb": "Graph and formula narratives diverge / Open matching formula query / Formula Atlas",
+          "expected_visible_result": "Show Formula opens or mutates the formula surface with a visible state/hash/detail change.",
+          "target_surface_label": "Formula Atlas",
+          "test_id": "route-objection_route_graph_formula_discrepancy-graph_formula_discrepancy_2-01-show_formula"
+        }
+      ],
+      "route_copy_row_total": 6,
+      "materialized_route_row_total": 6,
+      "has_plain_copy": true,
+      "has_route_copy": true,
+      "hash_basis": [
+        "surface_id",
+        "surface_label",
+        "public_copy_fields",
+        "route_copy_digest",
+        "route_copy_row_total",
+        "materialized_route_row_total"
+      ],
+      "row_hash": "5326ae52c1f7192f50fd6bb85eb011a556e9d509c4d6d5cb8846e09175160f1b"
+    },
+    {
+      "surface_id": "klevels",
+      "surface_label": "K-Level Worlds",
+      "public_copy_fields": {
+        "plain_answer": "K-Level Worlds answers one part of the system-architect loop.",
+        "why_care": "Use it to move from a visible model action to a bounded decision artifact with sources and limits.",
+        "bounded_next_step": "Run the primary action and check the named result, boundary text and cross-links.",
+        "nonclaim_boundary": "This surface is local inspectability and decision support, not external validation or proof closure."
+      },
+      "route_copy_digest": [
+        {
+          "route_id": "k12_to_k0_drilldown",
+          "route_display_label": "K12 to K0 Drilldown",
+          "action_display_label": "Select K12 in hierarchy rail",
+          "breadcrumb": "K12 to K0 Drilldown / core hierarchy drilldown / K/M Hierarchy",
+          "expected_visible_result": "selected_level_before K12 visible",
+          "target_surface_label": "K/M Hierarchy",
+          "test_id": "route-k12_to_k0_drilldown-core-01"
+        },
+        {
+          "route_id": "k12_to_k0_drilldown",
+          "route_display_label": "K12 to K0 Drilldown",
+          "action_display_label": "Drill ladder toward K0",
+          "breadcrumb": "K12 to K0 Drilldown / core hierarchy drilldown / K/M Hierarchy",
+          "expected_visible_result": "selected_level_after K0 visible",
+          "target_surface_label": "K/M Hierarchy",
+          "test_id": "route-k12_to_k0_drilldown-core-02"
+        },
+        {
+          "route_id": "k12_to_k0_drilldown",
+          "route_display_label": "K12 to K0 Drilldown",
+          "action_display_label": "Export selected K/M route",
+          "breadcrumb": "K12 to K0 Drilldown / core hierarchy drilldown / K/M Hierarchy",
+          "expected_visible_result": "hash scopes and dependency text visible",
+          "target_surface_label": "K/M Hierarchy",
+          "test_id": "route-k12_to_k0_drilldown-core-03"
+        }
+      ],
+      "route_copy_row_total": 3,
+      "materialized_route_row_total": 3,
+      "has_plain_copy": true,
+      "has_route_copy": true,
+      "hash_basis": [
+        "surface_id",
+        "surface_label",
+        "public_copy_fields",
+        "route_copy_digest",
+        "route_copy_row_total",
+        "materialized_route_row_total"
+      ],
+      "row_hash": "1fbce35a7625c7c9354797357940be126e38123361945a5962363402017591f3"
+    },
+    {
+      "surface_id": "worldline",
+      "surface_label": "Worldline Theater",
+      "public_copy_fields": {
+        "plain_answer": "Worldline Theater answers one part of the system-architect loop.",
+        "why_care": "Use it to move from a visible model action to a bounded decision artifact with sources and limits.",
+        "bounded_next_step": "Run the primary action and check the named result, boundary text and cross-links.",
+        "nonclaim_boundary": "This surface is local inspectability and decision support, not external validation or proof closure."
+      },
+      "route_copy_digest": [
+        {
+          "route_id": "oc_in_12_minutes",
+          "route_display_label": "OC in 12 minutes",
+          "action_display_label": "Run Simulation",
+          "breadcrumb": "OC in 12 minutes / Birth of a continuum / Worldline Theater",
+          "expected_visible_result": "Run Simulation opens or mutates the worldline surface with a visible state/hash/detail change.",
+          "target_surface_label": "Worldline Theater",
+          "test_id": "route-oc_in_12_minutes-j1-01-run_simulation"
+        },
+        {
+          "route_id": "oc_in_12_minutes",
+          "route_display_label": "OC in 12 minutes",
+          "action_display_label": "Open In Wiki",
+          "breadcrumb": "OC in 12 minutes / Birth of a continuum / OC Wiki",
+          "expected_visible_result": "Open in Wiki opens or mutates the wiki surface with a visible state/hash/detail change.",
+          "target_surface_label": "OC Wiki",
+          "test_id": "route-oc_in_12_minutes-j1-02-open_in_wiki"
+        },
+        {
+          "route_id": "from_contradiction_to_axis",
+          "route_display_label": "From Contradiction to New Axis",
+          "action_display_label": "Run Simulation",
+          "breadcrumb": "From Contradiction to New Axis / Find the pressure that could break the system / Worldline Theater",
+          "expected_visible_result": "Run Simulation opens or mutates the worldline surface with a visible state/hash/detail change.",
+          "target_surface_label": "Worldline Theater",
+          "test_id": "route-from_contradiction_to_axis-axis_1-01-run_simulation"
+        }
+      ],
+      "route_copy_row_total": 3,
+      "materialized_route_row_total": 3,
+      "has_plain_copy": true,
+      "has_route_copy": true,
+      "hash_basis": [
+        "surface_id",
+        "surface_label",
+        "public_copy_fields",
+        "route_copy_digest",
+        "route_copy_row_total",
+        "materialized_route_row_total"
+      ],
+      "row_hash": "50714abefe203e46a9f2e1ed4d86b02deaec1af3920f207a0cfa2bac9b14d4c3"
+    },
+    {
+      "surface_id": "cascade",
+      "surface_label": "Cascade Lab",
+      "public_copy_fields": {
+        "visible_action_label": "Export cascade replay packet",
+        "first_click_promise": "The starter example stress-tests a civilization infrastructure model, highlights the weakest support node, then routes to recovery comparison and export.",
+        "nonclaim_boundary": "Cascade packet is a bounded local diagnostic, not an external forecast or proof of real-world failure."
+      },
+      "route_copy_digest": [
+        {
+          "route_id": "oc_in_12_minutes",
+          "route_display_label": "OC in 12 minutes",
+          "action_display_label": "Run Simulation",
+          "breadcrumb": "OC in 12 minutes / Kill cascade / chain reaction / Cascade Lab",
+          "expected_visible_result": "Run Simulation opens or mutates the cascade surface with a visible state/hash/detail change.",
+          "target_surface_label": "Cascade Lab",
+          "test_id": "route-oc_in_12_minutes-j4-01-run_simulation"
+        },
+        {
+          "route_id": "oc_in_12_minutes",
+          "route_display_label": "OC in 12 minutes",
+          "action_display_label": "Open Evidence Boundary",
+          "breadcrumb": "OC in 12 minutes / Kill cascade / chain reaction / Evidence / Boundaries",
+          "expected_visible_result": "Open Evidence Boundary opens or mutates the proof surface with a visible state/hash/detail change.",
+          "target_surface_label": "Evidence / Boundaries",
+          "test_id": "route-oc_in_12_minutes-j4-02-open_evidence_boundary"
+        },
+        {
+          "route_id": "from_contradiction_to_axis",
+          "route_display_label": "From Contradiction to New Axis",
+          "action_display_label": "Run Simulation",
+          "breadcrumb": "From Contradiction to New Axis / Replay failure after the repair / Cascade Lab",
+          "expected_visible_result": "Run Simulation opens or mutates the cascade surface with a visible state/hash/detail change.",
+          "target_surface_label": "Cascade Lab",
+          "test_id": "route-from_contradiction_to_axis-axis_3-01-run_simulation"
+        },
+        {
+          "route_id": "collapse_and_recovery",
+          "route_display_label": "Collapse and Recovery",
+          "action_display_label": "Run Simulation",
+          "breadcrumb": "Collapse and Recovery / Kill weakest node / Cascade Lab",
+          "expected_visible_result": "Run Simulation opens or mutates the cascade surface with a visible state/hash/detail change.",
+          "target_surface_label": "Cascade Lab",
+          "test_id": "route-collapse_and_recovery-collapse_2-01-run_simulation"
+        },
+        {
+          "route_id": "objection_route::predictive_overreach",
+          "route_display_label": "Predictive claim exceeds replay support",
+          "action_display_label": "Run Simulation",
+          "breadcrumb": "Predictive claim exceeds replay support / Expose where contradiction closes or still opens / Cascade Lab",
+          "expected_visible_result": "Run Simulation opens or mutates the cascade surface with a visible state/hash/detail change.",
+          "target_surface_label": "Cascade Lab",
+          "test_id": "route-objection_route_predictive_overreach-predictive_overreach_3-01-run_simulation"
+        }
+      ],
+      "route_copy_row_total": 5,
+      "materialized_route_row_total": 5,
+      "has_plain_copy": true,
+      "has_route_copy": true,
+      "hash_basis": [
+        "surface_id",
+        "surface_label",
+        "public_copy_fields",
+        "route_copy_digest",
+        "route_copy_row_total",
+        "materialized_route_row_total"
+      ],
+      "row_hash": "d09ac546f5ac928b965a530a5b0de2b7dbf9700501801fdad369b2d516cda3cc"
+    },
+    {
+      "surface_id": "benchmarks",
+      "surface_label": "Domain Lanes & Benchmarks",
+      "public_copy_fields": {
+        "surface_action": "select domain, inspect benchmark output, inspect formula ref, open evidence boundary, export domain packet",
+        "domain_scientist_trace": [
+          "select domain",
+          "inspect benchmark output",
+          "inspect formula ref",
+          "open evidence boundary",
+          "export domain packet"
+        ],
+        "nonclaim_boundary": "DRT/domain lanes are explicit archive/meta/experimental or public-boundary lanes; render/replay visibility never becomes calibration PASS or prediction PASS."
+      },
+      "route_copy_digest": [
+        {
+          "route_id": "oc_in_12_minutes",
+          "route_display_label": "OC in 12 minutes",
+          "action_display_label": "Open Domain",
+          "breadcrumb": "OC in 12 minutes / Domain mission / Domain Lanes & Benchmarks",
+          "expected_visible_result": "Open Domain opens or mutates the benchmarks surface with a visible state/hash/detail change.",
+          "target_surface_label": "Domain Lanes & Benchmarks",
+          "test_id": "route-oc_in_12_minutes-j5-01-open_domain"
+        },
+        {
+          "route_id": "oc_in_12_minutes",
+          "route_display_label": "OC in 12 minutes",
+          "action_display_label": "Show Formula",
+          "breadcrumb": "OC in 12 minutes / Domain mission / Formula Atlas",
+          "expected_visible_result": "Show Formula opens or mutates the formula surface with a visible state/hash/detail change.",
+          "target_surface_label": "Formula Atlas",
+          "test_id": "route-oc_in_12_minutes-j5-02-show_formula"
+        },
+        {
+          "route_id": "k12_to_k0_drilldown",
+          "route_display_label": "K12 to K0 Drilldown",
+          "action_display_label": "Open Domain",
+          "breadcrumb": "K12 to K0 Drilldown / Run domain anchor / Domain Lanes & Benchmarks",
+          "expected_visible_result": "Open Domain opens or mutates the benchmarks surface with a visible state/hash/detail change.",
+          "target_surface_label": "Domain Lanes & Benchmarks",
+          "test_id": "route-k12_to_k0_drilldown-drill_3-01-open_domain"
+        },
+        {
+          "route_id": "domain_expert_entry",
+          "route_display_label": "Domain Expert Entry",
+          "action_display_label": "Open Domain",
+          "breadcrumb": "Domain Expert Entry / Choose domain / Domain Lanes & Benchmarks",
+          "expected_visible_result": "Open Domain opens or mutates the benchmarks surface with a visible state/hash/detail change.",
+          "target_surface_label": "Domain Lanes & Benchmarks",
+          "test_id": "route-domain_expert_entry-domain_1-01-open_domain"
+        },
+        {
+          "route_id": "domain_expert_entry",
+          "route_display_label": "Domain Expert Entry",
+          "action_display_label": "Show Formula",
+          "breadcrumb": "Domain Expert Entry / Inspect known observables / Formula Atlas",
+          "expected_visible_result": "Show Formula opens or mutates the formula surface with a visible state/hash/detail change.",
+          "target_surface_label": "Formula Atlas",
+          "test_id": "route-domain_expert_entry-domain_2-01-show_formula"
+        },
+        {
+          "route_id": "objection_route::predictive_overreach",
+          "route_display_label": "Predictive claim exceeds replay support",
+          "action_display_label": "Open Domain",
+          "breadcrumb": "Predictive claim exceeds replay support / Inspect domain replay state / Domain Lanes & Benchmarks",
+          "expected_visible_result": "Open Domain opens or mutates the benchmarks surface with a visible state/hash/detail change.",
+          "target_surface_label": "Domain Lanes & Benchmarks",
+          "test_id": "route-objection_route_predictive_overreach-predictive_overreach_1-01-open_domain"
+        }
+      ],
+      "route_copy_row_total": 6,
+      "materialized_route_row_total": 6,
+      "has_plain_copy": true,
+      "has_route_copy": true,
+      "hash_basis": [
+        "surface_id",
+        "surface_label",
+        "public_copy_fields",
+        "route_copy_digest",
+        "route_copy_row_total",
+        "materialized_route_row_total"
+      ],
+      "row_hash": "0df0edcef111f7331c578c8d01582e99a39349e2a794178ead7d47be2efc0429"
+    },
+    {
+      "surface_id": "objections",
+      "surface_label": "Objection Router",
+      "public_copy_fields": {
+        "plain_answer": "Objection Router answers one part of the system-architect loop.",
+        "why_care": "Use it to move from a visible model action to a bounded decision artifact with sources and limits.",
+        "bounded_next_step": "Run the primary action and check the named result, boundary text and cross-links.",
+        "nonclaim_boundary": "This surface is local inspectability and decision support, not external validation or proof closure."
+      },
+      "route_copy_digest": [
+        {
+          "route_id": "objections:top-level-route",
+          "route_display_label": "Objection Router",
+          "action_display_label": "Open Objection Router",
+          "breadcrumb": "Start / Objection Router",
+          "expected_visible_result": "The selected surface opens with a visible purpose, a primary action, source/boundary context and cross-links into wiki/graph/formula/proof where available.",
+          "target_surface_label": "Objection Router",
+          "test_id": "nav-objections",
+          "route_copy_source": "top_level_navigation_contract"
+        }
+      ],
+      "route_copy_row_total": 1,
+      "materialized_route_row_total": 0,
+      "has_plain_copy": true,
+      "has_route_copy": true,
+      "hash_basis": [
+        "surface_id",
+        "surface_label",
+        "public_copy_fields",
+        "route_copy_digest",
+        "route_copy_row_total",
+        "materialized_route_row_total"
+      ],
+      "row_hash": "455ae19b8aa04b0692975ccca9f6c8ae47662313eda55d249a0d1538aa15535e"
+    },
+    {
+      "surface_id": "whyoc",
+      "surface_label": "Why OC / Comparison",
+      "public_copy_fields": {
+        "plain_answer": "Why OC / Comparison answers one part of the system-architect loop.",
+        "why_care": "Use it to move from a visible model action to a bounded decision artifact with sources and limits.",
+        "bounded_next_step": "Run the primary action and check the named result, boundary text and cross-links.",
+        "nonclaim_boundary": "This surface is local inspectability and decision support, not external validation or proof closure."
+      },
+      "route_copy_digest": [
+        {
+          "route_id": "whyoc:top-level-route",
+          "route_display_label": "Why OC / Comparison",
+          "action_display_label": "Open Why OC / Comparison",
+          "breadcrumb": "Start / Why OC / Comparison",
+          "expected_visible_result": "The selected surface opens with a visible purpose, a primary action, source/boundary context and cross-links into wiki/graph/formula/proof where available.",
+          "target_surface_label": "Why OC / Comparison",
+          "test_id": "nav-whyoc",
+          "route_copy_source": "top_level_navigation_contract"
+        }
+      ],
+      "route_copy_row_total": 1,
+      "materialized_route_row_total": 0,
+      "has_plain_copy": true,
+      "has_route_copy": true,
+      "hash_basis": [
+        "surface_id",
+        "surface_label",
+        "public_copy_fields",
+        "route_copy_digest",
+        "route_copy_row_total",
+        "materialized_route_row_total"
+      ],
+      "row_hash": "57508d1416ec258f6e5d503593004c3ea264b19a433d0200871fbdcca3f2f313"
+    },
+    {
+      "surface_id": "practical",
+      "surface_label": "Practical Value",
+      "public_copy_fields": {
+        "plain_answer": "Practical Value answers one part of the system-architect loop.",
+        "why_care": "Use it to move from a visible model action to a bounded decision artifact with sources and limits.",
+        "bounded_next_step": "Run the primary action and check the named result, boundary text and cross-links.",
+        "nonclaim_boundary": "This surface is local inspectability and decision support, not external validation or proof closure."
+      },
+      "route_copy_digest": [
+        {
+          "route_id": "purchase_pull::local_qualified_next_step",
+          "route_display_label": "Qualified next-step pull, local only",
+          "action_display_label": "Purchase Pull",
+          "breadcrumb": "Qualified next-step pull, local only / Open local qualification preview / Practical Value Surface",
+          "expected_visible_result": "purchase_pull opens or mutates the practical surface with a visible state/hash/detail change.",
+          "target_surface_label": "Practical Value Surface",
+          "test_id": "route-purchase_pull_local_qualified_next_step-purchase_pull_1-01-purchase_pull"
+        }
+      ],
+      "route_copy_row_total": 1,
+      "materialized_route_row_total": 1,
+      "has_plain_copy": true,
+      "has_route_copy": true,
+      "hash_basis": [
+        "surface_id",
+        "surface_label",
+        "public_copy_fields",
+        "route_copy_digest",
+        "route_copy_row_total",
+        "materialized_route_row_total"
+      ],
+      "row_hash": "e2330826dec899b7f81d7f548503f03647cc72ec06632671cd89490855801800"
+    },
+    {
+      "surface_id": "trust",
+      "surface_label": "Trust Ladder",
+      "public_copy_fields": {
+        "plain_answer": "Trust Ladder answers one part of the system-architect loop.",
+        "why_care": "Use it to move from a visible model action to a bounded decision artifact with sources and limits.",
+        "bounded_next_step": "Run the primary action and check the named result, boundary text and cross-links.",
+        "nonclaim_boundary": "This surface is local inspectability and decision support, not external validation or proof closure."
+      },
+      "route_copy_digest": [
+        {
+          "route_id": "trust:top-level-route",
+          "route_display_label": "Trust Ladder",
+          "action_display_label": "Open Trust Ladder",
+          "breadcrumb": "Start / Trust Ladder",
+          "expected_visible_result": "The selected surface opens with a visible purpose, a primary action, source/boundary context and cross-links into wiki/graph/formula/proof where available.",
+          "target_surface_label": "Trust Ladder",
+          "test_id": "nav-trust",
+          "route_copy_source": "top_level_navigation_contract"
+        }
+      ],
+      "route_copy_row_total": 1,
+      "materialized_route_row_total": 0,
+      "has_plain_copy": true,
+      "has_route_copy": true,
+      "hash_basis": [
+        "surface_id",
+        "surface_label",
+        "public_copy_fields",
+        "route_copy_digest",
+        "route_copy_row_total",
+        "materialized_route_row_total"
+      ],
+      "row_hash": "88b5d85f154cf90713cacf4dbd9fabb1ead06220186cb7237dfb1a94daf27d4e"
+    },
+    {
+      "surface_id": "mission",
+      "surface_label": "Mission Deck",
+      "public_copy_fields": {
+        "plain_answer": "Mission Deck turns the theory into bounded system-architect loops.",
+        "why_care": "It gives a concrete sequence for diagnose, kill, improve, compare and export.",
+        "bounded_next_step": "Choose one mission and inspect the exported hash/boundary before continuing.",
+        "nonclaim_boundary": "Missions are local decision support and do not prove real-world outcomes."
+      },
+      "route_copy_digest": [
+        {
+          "route_id": "mission:top-level-route",
+          "route_display_label": "Mission Deck",
+          "action_display_label": "Open Mission Deck",
+          "breadcrumb": "Start / Mission Deck",
+          "expected_visible_result": "The selected surface opens with a visible purpose, a primary action, source/boundary context and cross-links into wiki/graph/formula/proof where available.",
+          "target_surface_label": "Mission Deck",
+          "test_id": "nav-mission",
+          "route_copy_source": "top_level_navigation_contract"
+        }
+      ],
+      "route_copy_row_total": 1,
+      "materialized_route_row_total": 0,
+      "has_plain_copy": true,
+      "has_route_copy": true,
+      "hash_basis": [
+        "surface_id",
+        "surface_label",
+        "public_copy_fields",
+        "route_copy_digest",
+        "route_copy_row_total",
+        "materialized_route_row_total"
+      ],
+      "row_hash": "eceae259a1ee38ca1e785c5a0b2fedc6709f6827d12592ab9f2815a11c2cebd0"
+    },
+    {
+      "surface_id": "graph",
+      "surface_label": "3D Science Graph",
+      "public_copy_fields": {
+        "surface_action": "show selected route in graph, inspect node detail, then follow formula/proof/wiki links",
+        "nonclaim_boundary": "Graph navigation is a public route map, not a substitute for proof."
+      },
+      "route_copy_digest": [
+        {
+          "route_id": "oc_in_12_minutes",
+          "route_display_label": "OC in 12 minutes",
+          "action_display_label": "Show In Graph",
+          "breadcrumb": "OC in 12 minutes / Bidirectional K/M hierarchy / 3D Science Graph",
+          "expected_visible_result": "Show in Graph opens or mutates the graph surface with a visible state/hash/detail change.",
+          "target_surface_label": "3D Science Graph",
+          "test_id": "route-oc_in_12_minutes-j2-01-show_in_graph"
+        },
+        {
+          "route_id": "oc_in_12_minutes",
+          "route_display_label": "OC in 12 minutes",
+          "action_display_label": "Show In Graph",
+          "breadcrumb": "OC in 12 minutes / Graph -> formula -> proof / 3D Science Graph",
+          "expected_visible_result": "Show in Graph opens or mutates the graph surface with a visible state/hash/detail change.",
+          "target_surface_label": "3D Science Graph",
+          "test_id": "route-oc_in_12_minutes-j6-01-show_in_graph"
+        },
+        {
+          "route_id": "oc_in_12_minutes",
+          "route_display_label": "OC in 12 minutes",
+          "action_display_label": "Show Formula",
+          "breadcrumb": "OC in 12 minutes / Graph -> formula -> proof / Formula Atlas",
+          "expected_visible_result": "Show Formula opens or mutates the formula surface with a visible state/hash/detail change.",
+          "target_surface_label": "Formula Atlas",
+          "test_id": "route-oc_in_12_minutes-j6-02-show_formula"
+        },
+        {
+          "route_id": "oc_in_12_minutes",
+          "route_display_label": "OC in 12 minutes",
+          "action_display_label": "Open Evidence Boundary",
+          "breadcrumb": "OC in 12 minutes / Graph -> formula -> proof / Evidence / Boundaries",
+          "expected_visible_result": "Open Evidence Boundary opens or mutates the proof surface with a visible state/hash/detail change.",
+          "target_surface_label": "Evidence / Boundaries",
+          "test_id": "route-oc_in_12_minutes-j6-03-open_evidence_boundary"
+        },
+        {
+          "route_id": "k12_to_k0_drilldown",
+          "route_display_label": "K12 to K0 Drilldown",
+          "action_display_label": "Show In Graph",
+          "breadcrumb": "K12 to K0 Drilldown / Open K12 / 3D Science Graph",
+          "expected_visible_result": "Show in Graph opens or mutates the graph surface with a visible state/hash/detail change.",
+          "target_surface_label": "3D Science Graph",
+          "test_id": "route-k12_to_k0_drilldown-drill_1-01-show_in_graph"
+        },
+        {
+          "route_id": "domain_expert_entry",
+          "route_display_label": "Domain Expert Entry",
+          "action_display_label": "Show In Graph",
+          "breadcrumb": "Domain Expert Entry / Open graph projection / 3D Science Graph",
+          "expected_visible_result": "Show in Graph opens or mutates the graph surface with a visible state/hash/detail change.",
+          "target_surface_label": "3D Science Graph",
+          "test_id": "route-domain_expert_entry-domain_3-01-show_in_graph"
+        },
+        {
+          "route_id": "proof_boundary_route",
+          "route_display_label": "Evidence Boundary Route",
+          "action_display_label": "Show In Graph",
+          "breadcrumb": "Evidence Boundary Route / Click graph node / 3D Science Graph",
+          "expected_visible_result": "Show in Graph opens or mutates the graph surface with a visible state/hash/detail change.",
+          "target_surface_label": "3D Science Graph",
+          "test_id": "route-proof_boundary_route-proof_1-01-show_in_graph"
+        },
+        {
+          "route_id": "objection_route::graph_formula_discrepancy",
+          "route_display_label": "Graph and formula narratives diverge",
+          "action_display_label": "Show In Graph",
+          "breadcrumb": "Graph and formula narratives diverge / Open graph root context / 3D Science Graph",
+          "expected_visible_result": "Show in Graph opens or mutates the graph surface with a visible state/hash/detail change.",
+          "target_surface_label": "3D Science Graph",
+          "test_id": "route-objection_route_graph_formula_discrepancy-graph_formula_discrepancy_1-01-show_in_graph"
+        }
+      ],
+      "route_copy_row_total": 8,
+      "materialized_route_row_total": 17,
+      "has_plain_copy": true,
+      "has_route_copy": true,
+      "hash_basis": [
+        "surface_id",
+        "surface_label",
+        "public_copy_fields",
+        "route_copy_digest",
+        "route_copy_row_total",
+        "materialized_route_row_total"
+      ],
+      "row_hash": "6f18b3ece4229b26209c521d82c9714a598e7b1bc44a385640e410cac9084025"
+    },
+    {
+      "surface_id": "proof",
+      "surface_label": "Evidence / Boundaries",
+      "public_copy_fields": {
+        "surface_action": "open evidence boundary and inspect assumptions, hash, source refs and nonclaim boundary",
+        "nonclaim_boundary": "Evidence routes are replay/boundary rows; they are not peer review or proof-oracle closure."
+      },
+      "route_copy_digest": [
+        {
+          "route_id": "oc_in_12_minutes",
+          "route_display_label": "OC in 12 minutes",
+          "action_display_label": "Open Evidence Boundary",
+          "breadcrumb": "OC in 12 minutes / Kill cascade / chain reaction / Evidence / Boundaries",
+          "expected_visible_result": "Open Evidence Boundary opens or mutates the proof surface with a visible state/hash/detail change.",
+          "target_surface_label": "Evidence / Boundaries",
+          "test_id": "route-oc_in_12_minutes-j4-02-open_evidence_boundary"
+        },
+        {
+          "route_id": "oc_in_12_minutes",
+          "route_display_label": "OC in 12 minutes",
+          "action_display_label": "Open Evidence Boundary",
+          "breadcrumb": "OC in 12 minutes / Graph -> formula -> proof / Evidence / Boundaries",
+          "expected_visible_result": "Open Evidence Boundary opens or mutates the proof surface with a visible state/hash/detail change.",
+          "target_surface_label": "Evidence / Boundaries",
+          "test_id": "route-oc_in_12_minutes-j6-03-open_evidence_boundary"
+        },
+        {
+          "route_id": "proof_boundary_route",
+          "route_display_label": "Evidence Boundary Route",
+          "action_display_label": "Open Evidence Boundary",
+          "breadcrumb": "Evidence Boundary Route / Read evidence boundary / Evidence / Boundaries",
+          "expected_visible_result": "Open Evidence Boundary opens or mutates the proof surface with a visible state/hash/detail change.",
+          "target_surface_label": "Evidence / Boundaries",
+          "test_id": "route-proof_boundary_route-proof_3-01-open_evidence_boundary"
+        },
+        {
+          "route_id": "objection_route::predictive_overreach",
+          "route_display_label": "Predictive claim exceeds replay support",
+          "action_display_label": "Open Evidence Boundary",
+          "breadcrumb": "Predictive claim exceeds replay support / Open a proof boundary / Evidence / Boundaries",
+          "expected_visible_result": "Open Evidence Boundary opens or mutates the proof surface with a visible state/hash/detail change.",
+          "target_surface_label": "Evidence / Boundaries",
+          "test_id": "route-objection_route_predictive_overreach-predictive_overreach_2-01-open_evidence_boundary"
+        }
+      ],
+      "route_copy_row_total": 4,
+      "materialized_route_row_total": 4,
+      "has_plain_copy": true,
+      "has_route_copy": true,
+      "hash_basis": [
+        "surface_id",
+        "surface_label",
+        "public_copy_fields",
+        "route_copy_digest",
+        "route_copy_row_total",
+        "materialized_route_row_total"
+      ],
+      "row_hash": "3a93ea977fc7f68165d0793108024fbc8d62f45cdafa3c8ac4895d4be768d475"
+    },
+    {
+      "surface_id": "gaps",
+      "surface_label": "Gap Closure",
+      "public_copy_fields": {
+        "plain_answer": "Gap Closure answers one part of the system-architect loop.",
+        "why_care": "Use it to move from a visible model action to a bounded decision artifact with sources and limits.",
+        "bounded_next_step": "Run the primary action and check the named result, boundary text and cross-links.",
+        "nonclaim_boundary": "This surface is local inspectability and decision support, not external validation or proof closure."
+      },
+      "route_copy_digest": [
+        {
+          "route_id": "gaps:top-level-route",
+          "route_display_label": "Gap Closure",
+          "action_display_label": "Open Gap Closure",
+          "breadcrumb": "Start / Gap Closure",
+          "expected_visible_result": "The selected surface opens with a visible purpose, a primary action, source/boundary context and cross-links into wiki/graph/formula/proof where available.",
+          "target_surface_label": "Gap Closure",
+          "test_id": "nav-gaps",
+          "route_copy_source": "top_level_navigation_contract"
+        }
+      ],
+      "route_copy_row_total": 1,
+      "materialized_route_row_total": 0,
+      "has_plain_copy": true,
+      "has_route_copy": true,
+      "hash_basis": [
+        "surface_id",
+        "surface_label",
+        "public_copy_fields",
+        "route_copy_digest",
+        "route_copy_row_total",
+        "materialized_route_row_total"
+      ],
+      "row_hash": "42c614542334fb578442ae3181c3b26a57a3ba2ffa56e42d7d4deea85ab22c68"
+    },
+    {
+      "surface_id": "reviewer",
+      "surface_label": "Reviewer Mode",
+      "public_copy_fields": {
+        "plain_answer": "Reviewer Mode answers one part of the system-architect loop.",
+        "why_care": "Use it to move from a visible model action to a bounded decision artifact with sources and limits.",
+        "bounded_next_step": "Run the primary action and check the named result, boundary text and cross-links.",
+        "nonclaim_boundary": "This surface is local inspectability and decision support, not external validation or proof closure."
+      },
+      "route_copy_digest": [
+        {
+          "route_id": "reviewer:top-level-route",
+          "route_display_label": "Reviewer Mode",
+          "action_display_label": "Open Reviewer Mode",
+          "breadcrumb": "Start / Reviewer Mode",
+          "expected_visible_result": "The selected surface opens with a visible purpose, a primary action, source/boundary context and cross-links into wiki/graph/formula/proof where available.",
+          "target_surface_label": "Reviewer Mode",
+          "test_id": "nav-reviewer",
+          "route_copy_source": "top_level_navigation_contract"
+        }
+      ],
+      "route_copy_row_total": 1,
+      "materialized_route_row_total": 0,
+      "has_plain_copy": true,
+      "has_route_copy": true,
+      "hash_basis": [
+        "surface_id",
+        "surface_label",
+        "public_copy_fields",
+        "route_copy_digest",
+        "route_copy_row_total",
+        "materialized_route_row_total"
+      ],
+      "row_hash": "6ca07e2986aa1b45f158a8a00808879e94a84e48f12b4050cefa9b53fea7abdf"
+    }
+  ],
+  "copy_contract": "Top-level user-story surfaces expose plain public copy, CTA/action labels, route breadcrumbs, expected visible results and nonclaim boundaries in the compact Cerberus head packet.",
+  "nonclaim_boundary": "Public copy proves reviewer-visible explanation and route intent; it does not claim scientific proof or external validation.",
+  "digest_hash": "e6a51175341ba25fa100c0ac504d5bc10eacb26fbc0c0d5f432cb71aeb07b029"
+}

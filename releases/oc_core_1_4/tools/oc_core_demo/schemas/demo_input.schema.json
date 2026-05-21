@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "OC Core 1.4 demonstrator run input",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "spec_id",
+    "params"
+  ],
+  "properties": {
+    "spec_id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 96,
+      "pattern": "^[a-z0-9_]+$"
+    },
+    "params": {
+      "type": "object"
+    }
+  }
+}

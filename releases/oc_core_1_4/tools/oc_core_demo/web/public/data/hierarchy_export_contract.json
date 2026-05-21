@@ -1,0 +1,3049 @@
+{
+  "schema_version": "oc-core-demo-hierarchy-export-contract.v010",
+  "status": "PASS",
+  "visible_action_label": "Export selected K/M route",
+  "route_direction_contract": {
+    "starts_at": "K12",
+    "drills_toward": "K0",
+    "required_dom_states": [
+      "selected K12",
+      "selected K0",
+      "selected M-space",
+      "export-selected-route"
+    ],
+    "route_is_hierarchy_bound": true,
+    "intermediate_level_count": 13,
+    "level_count": 13,
+    "edge_transition_count": 12,
+    "terminal_boundary_row": {
+      "level_id": "K0",
+      "drilldown_to": "K0_BASE",
+      "transition_role": "terminal_boundary",
+      "counts_as_edge_transition": false
+    },
+    "transition_count_policy": {
+      "status": "PASS",
+      "level_count": 13,
+      "level_count_basis": "K12 through K0 inclusive.",
+      "edge_transition_count": 12,
+      "edge_transition_count_basis": "Only K12->K11 through K1->K0 are counted as K/M edge transitions.",
+      "k0_counted_as_transition": false,
+      "k0_policy": "K0 is counted as the thirteenth K-level and represented by terminal_boundary_row; K0->K0_BASE is boundary copy, not a thirteenth edge transition.",
+      "terminal_boundary_id": "K0_BASE"
+    },
+    "upward_transition_contract": {
+      "schema_version": "oc-core-demo-km-upward-transition-contract.v010",
+      "status": "PASS",
+      "route_id": "k0_to_k3_build_up",
+      "starts_at": "K0",
+      "ends_at": "K3",
+      "row_count": 3,
+      "rows": [
+        {
+          "transition_id": "K0->K1",
+          "selected_level_before": "K0",
+          "selected_level_after": "K1",
+          "selected_m_space": "M-PHYSICS",
+          "direct_formula_refs": [
+            "OCF-010",
+            "OCF-011",
+            "OCF-012",
+            "OCF-013",
+            "OCF-002"
+          ],
+          "state_hash": "d698ee27cf61547223adb200c79cd5353d0589a9aeb8bd69a33d2c102b5f1f37",
+          "expected_visible_result": "Upward K/M traversal selects K1, updates M-space and shows level-specific formula/proof refs.",
+          "nonclaim_boundary": "Upward ladder traversal is structural navigation, not proof closure.",
+          "row_hash": "a6267c55648454c223d68ec37a91785ce391d3bc204cba5a175e71c4d9e5af06"
+        },
+        {
+          "transition_id": "K1->K2",
+          "selected_level_before": "K1",
+          "selected_level_after": "K2",
+          "selected_m_space": "M-PHYSICS",
+          "direct_formula_refs": [
+            "OCF-010",
+            "OCF-011",
+            "OCF-012",
+            "OCF-013",
+            "OCF-003"
+          ],
+          "state_hash": "7ce7214bbae83a4e8e58f99b3c3fc63eb1b9466bad4b9bedc67e0cba15c95754",
+          "expected_visible_result": "Upward K/M traversal selects K2, updates M-space and shows level-specific formula/proof refs.",
+          "nonclaim_boundary": "Upward ladder traversal is structural navigation, not proof closure.",
+          "row_hash": "4149ee334833ca06caa182482ba82ade113c8d889cfb4779eb6db4abff4b9858"
+        },
+        {
+          "transition_id": "K2->K3",
+          "selected_level_before": "K2",
+          "selected_level_after": "K3",
+          "selected_m_space": "M-CHEMISTRY",
+          "direct_formula_refs": [
+            "OCF-010",
+            "OCF-011",
+            "OCF-012",
+            "OCF-013",
+            "OCF-004"
+          ],
+          "state_hash": "b319c57bb9c92ff77d1e7f3bda6e5c8660b3d9305c5b06207be93b6fa404d9a7",
+          "expected_visible_result": "Upward K/M traversal selects K3, updates M-space and shows level-specific formula/proof refs.",
+          "nonclaim_boundary": "Upward ladder traversal is structural navigation, not proof closure.",
+          "row_hash": "6e3d8d51c35f5a66070b9ab36b06223a2890a2d890769237422abc4a4a27d42a"
+        }
+      ],
+      "contract_hash": "e6cd4422ae894d38c465d413bd40df284255b081c7c490973a0943a15aa1ede7"
+    },
+    "required_intermediate_levels": [
+      "K12",
+      "K11",
+      "K10",
+      "K9",
+      "K8",
+      "K7",
+      "K6",
+      "K5",
+      "K4",
+      "K3",
+      "K2",
+      "K1",
+      "K0"
+    ],
+    "terminal_boundary_policy": "The public ladder has exactly thirteen K-levels: K12 through K0. K0_BASE is terminal boundary copy for distinguishability, not a lower K-level."
+  },
+  "level_count": 13,
+  "edge_transition_count": 12,
+  "transition_count_policy": {
+    "status": "PASS",
+    "level_count": 13,
+    "level_count_basis": "K12 through K0 inclusive.",
+    "edge_transition_count": 12,
+    "edge_transition_count_basis": "Only K12->K11 through K1->K0 are counted as K/M edge transitions.",
+    "k0_counted_as_transition": false,
+    "k0_policy": "K0 is counted as the thirteenth K-level and represented by terminal_boundary_row; K0->K0_BASE is boundary copy, not a thirteenth edge transition.",
+    "terminal_boundary_id": "K0_BASE"
+  },
+  "terminal_boundary_row": {
+    "order": 13,
+    "level_id": "K0",
+    "semantic_name": "mere distinguishability; no time, energy or geometry",
+    "drilldown_to": "K0_BASE",
+    "drilldown_to_label": "Terminal K0 boundary: K0_BASE is not a lower K-level",
+    "lower_dependency_semantics": "K0 is the distinguishability boundary; no lower public K-level is asserted.",
+    "top_down_constraint_semantics": "K0 only exposes distinguishability and boundary conditions.",
+    "m_space_id": "M-PHYSICS",
+    "m_space_mapping_policy": "K10-K12 prefer M-META; otherwise prefer level-specific child M-space; M-ROOT is only the umbrella/source-lineage fallback.",
+    "domain_projections": [
+      "MATHEMATICS"
+    ],
+    "domain_projection_reconciliation": [
+      {
+        "label": "MATHEMATICS",
+        "canonical_domain_id": "MATHEMATICS",
+        "resolution_status": "CANONICAL",
+        "skip_reason": ""
+      }
+    ],
+    "all_domain_labels_resolve": true,
+    "direct_formula_refs": [
+      "OCF-010",
+      "OCF-011",
+      "OCF-012",
+      "OCF-013",
+      "OCF-001"
+    ],
+    "expanded_formula_refs": [
+      "OCF-001",
+      "OCF-002",
+      "OCF-003",
+      "OCF-004",
+      "OCF-005",
+      "OCF-006",
+      "OCF-007",
+      "OCF-008"
+    ],
+    "formula_refs": [
+      "OCF-010",
+      "OCF-011",
+      "OCF-012",
+      "OCF-013",
+      "OCF-001"
+    ],
+    "proof_or_boundary_refs": [
+      "OC14-N001",
+      "OC14-N002",
+      "OC14-N003"
+    ],
+    "bounded_skip_reason": "",
+    "nonclaim_boundary": "K/M ladder navigation exposes structure only; it does not create proof closure."
+  },
+  "km_head_digest": {
+    "schema_version": "oc-core-demo-km-head-digest.v010",
+    "level_count": 13,
+    "edge_transition_count": 12,
+    "digest_row_count": 13,
+    "digest_rows": [
+      {
+        "order": 1,
+        "level_id": "K12",
+        "semantic_name": "semantic super-continuum and global coherence",
+        "m_space_id": "M-META",
+        "drilldown_to": "K11",
+        "transition_role": "edge_transition",
+        "counts_as_edge_transition": true,
+        "state_hash": "164a9f5cbdd93b54a5a6ac835bc5d31cde386ea8e8447e2b8b4daeb7052eea2d"
+      },
+      {
+        "order": 2,
+        "level_id": "K11",
+        "semantic_name": "meta-evolution of operators, meta-logics and meta-spaces",
+        "m_space_id": "M-META",
+        "drilldown_to": "K10",
+        "transition_role": "edge_transition",
+        "counts_as_edge_transition": true,
+        "state_hash": "0c5ac4ad3e7b1dfdef0d6dd2d4ce77753b7a284134233fd4a8ee6f4117af495f"
+      },
+      {
+        "order": 3,
+        "level_id": "K10",
+        "semantic_name": "meta-theoretical continua",
+        "m_space_id": "M-META",
+        "drilldown_to": "K9",
+        "transition_role": "edge_transition",
+        "counts_as_edge_transition": true,
+        "state_hash": "5b195774fe65ae443ec465a712614c04057afb70660ebdd8c4a20593819780d3"
+      },
+      {
+        "order": 4,
+        "level_id": "K9",
+        "semantic_name": "theoretical continua",
+        "m_space_id": "M-CIVILIZATION",
+        "drilldown_to": "K8",
+        "transition_role": "edge_transition",
+        "counts_as_edge_transition": true,
+        "state_hash": "8bea4113fad52f92a9ec0b6fae2726f423adc3339a023e454694ef2fa52b1ade"
+      },
+      {
+        "order": 5,
+        "level_id": "K8",
+        "semantic_name": "civilizational continua with infrastructural and systemic thresholds",
+        "m_space_id": "M-COGNITIVE-SOCIAL",
+        "drilldown_to": "K7",
+        "transition_role": "edge_transition",
+        "counts_as_edge_transition": true,
+        "state_hash": "5c4387e56d9d309469fb502cd836c65267aa987a8722e770acd372483b05108e"
+      },
+      {
+        "order": 6,
+        "level_id": "K7",
+        "semantic_name": "social continua with institutional thresholds",
+        "m_space_id": "M-COGNITIVE-SOCIAL",
+        "drilldown_to": "K6",
+        "transition_role": "edge_transition",
+        "counts_as_edge_transition": true,
+        "state_hash": "5e44e151baabe65990b97978a074f9516610b1be5d86b5c12276c3bce73115c1"
+      },
+      {
+        "order": 7,
+        "level_id": "K6",
+        "semantic_name": "cognitive axes, internal models and binding thresholds",
+        "m_space_id": "M-BIOLOGY",
+        "drilldown_to": "K5",
+        "transition_role": "edge_transition",
+        "counts_as_edge_transition": true,
+        "state_hash": "0eb972eaf217e78e39d829a4ed33737729d42e4835a1b8ba8e1b794fca54fe17"
+      },
+      {
+        "order": 8,
+        "level_id": "K5",
+        "semantic_name": "early bioelectrical excitability and protospiking",
+        "m_space_id": "M-BIOLOGY",
+        "drilldown_to": "K4",
+        "transition_role": "edge_transition",
+        "counts_as_edge_transition": true,
+        "state_hash": "4be2180dcf18262273563dc8144f14a327428337c040fdaa897f4000a0532878"
+      },
+      {
+        "order": 9,
+        "level_id": "K4",
+        "semantic_name": "protocellular organisation, internal gradients and membranes",
+        "m_space_id": "M-CHEMISTRY",
+        "drilldown_to": "K3",
+        "transition_role": "edge_transition",
+        "counts_as_edge_transition": true,
+        "state_hash": "4914757d3bbba7967f8480760e58c7054ad1cedd5f1df9d63365b94eff7a3931"
+      },
+      {
+        "order": 10,
+        "level_id": "K3",
+        "semantic_name": "chemical organisation and origins-of-life / prebiotic structures",
+        "m_space_id": "M-CHEMISTRY",
+        "drilldown_to": "K2",
+        "transition_role": "edge_transition",
+        "counts_as_edge_transition": true,
+        "state_hash": "96048c39143277b1bbb58d44bd22b6881e3e57ba2f90594dca2df67541614536"
+      },
+      {
+        "order": 11,
+        "level_id": "K2",
+        "semantic_name": "physical fields, phases and mass-related structures",
+        "m_space_id": "M-PHYSICS",
+        "drilldown_to": "K1",
+        "transition_role": "edge_transition",
+        "counts_as_edge_transition": true,
+        "state_hash": "a8edc99459b2936f7d9a7666f747f4539b9e50fbf204fd5e9bf964b8101e74b5"
+      },
+      {
+        "order": 12,
+        "level_id": "K1",
+        "semantic_name": "geometric continuity and classical stability thresholds",
+        "m_space_id": "M-PHYSICS",
+        "drilldown_to": "K0",
+        "transition_role": "edge_transition",
+        "counts_as_edge_transition": true,
+        "state_hash": "802083cd6e6d30146cc8af894f7b55fa1f2d522a3194f3390756bc6ee30fad6a"
+      },
+      {
+        "order": 13,
+        "level_id": "K0",
+        "semantic_name": "mere distinguishability; no time, energy or geometry",
+        "m_space_id": "M-PHYSICS",
+        "drilldown_to": "K0_BASE",
+        "transition_role": "terminal_boundary",
+        "counts_as_edge_transition": false,
+        "state_hash": "461f8937838b47f795c5dfca81dfdbc91f80121a5709df653e57fa903221094a"
+      }
+    ],
+    "compact_policy": "Digest enumerates all K12..K0 levels with hashes and count roles while full formulas/routes remain in the expanded hierarchy export contract."
+  },
+  "full_drilldown_ladder": [
+    {
+      "order": 1,
+      "level_id": "K12",
+      "semantic_name": "semantic super-continuum and global coherence",
+      "drilldown_to": "K11",
+      "drilldown_to_label": "K12 -> K11",
+      "lower_dependency_semantics": "K12 must be read through K11 substrate plus preserved invariants",
+      "top_down_constraint_semantics": "K12 constrains K11 through active axes, thresholds and invariant preservation",
+      "m_space_id": "M-META",
+      "m_space_mapping_policy": "K10-K12 prefer M-META; otherwise prefer level-specific child M-space; M-ROOT is only the umbrella/source-lineage fallback.",
+      "domain_projections": [
+        "MATHEMATICS",
+        "METAONTOLOGY"
+      ],
+      "domain_projection_reconciliation": [
+        {
+          "label": "MATHEMATICS",
+          "canonical_domain_id": "MATHEMATICS",
+          "resolution_status": "CANONICAL",
+          "skip_reason": ""
+        },
+        {
+          "label": "METAONTOLOGY",
+          "canonical_domain_id": "METAONTOLOGY",
+          "resolution_status": "CANONICAL",
+          "skip_reason": ""
+        }
+      ],
+      "all_domain_labels_resolve": true,
+      "direct_formula_refs": [
+        "OCF-010",
+        "OCF-011",
+        "OCF-012",
+        "OCF-013"
+      ],
+      "expanded_formula_refs": [
+        "OCF-001",
+        "OCF-002",
+        "OCF-003",
+        "OCF-004",
+        "OCF-005",
+        "OCF-006",
+        "OCF-007",
+        "OCF-008"
+      ],
+      "formula_refs": [
+        "OCF-010",
+        "OCF-011",
+        "OCF-012",
+        "OCF-013"
+      ],
+      "proof_or_boundary_refs": [
+        "OC14-N001",
+        "OC14-N002",
+        "OC14-N003"
+      ],
+      "bounded_skip_reason": "",
+      "nonclaim_boundary": "K/M ladder navigation exposes structure only; it does not create proof closure."
+    },
+    {
+      "order": 2,
+      "level_id": "K11",
+      "semantic_name": "meta-evolution of operators, meta-logics and meta-spaces",
+      "drilldown_to": "K10",
+      "drilldown_to_label": "K11 -> K10",
+      "lower_dependency_semantics": "K11 must be read through K10 substrate plus preserved invariants",
+      "top_down_constraint_semantics": "K11 constrains K10 through active axes, thresholds and invariant preservation",
+      "m_space_id": "M-META",
+      "m_space_mapping_policy": "K10-K12 prefer M-META; otherwise prefer level-specific child M-space; M-ROOT is only the umbrella/source-lineage fallback.",
+      "domain_projections": [
+        "MATHEMATICS",
+        "METAONTOLOGY"
+      ],
+      "domain_projection_reconciliation": [
+        {
+          "label": "MATHEMATICS",
+          "canonical_domain_id": "MATHEMATICS",
+          "resolution_status": "CANONICAL",
+          "skip_reason": ""
+        },
+        {
+          "label": "METAONTOLOGY",
+          "canonical_domain_id": "METAONTOLOGY",
+          "resolution_status": "CANONICAL",
+          "skip_reason": ""
+        }
+      ],
+      "all_domain_labels_resolve": true,
+      "direct_formula_refs": [
+        "OCF-010",
+        "OCF-011",
+        "OCF-012",
+        "OCF-013"
+      ],
+      "expanded_formula_refs": [
+        "OCF-001",
+        "OCF-002",
+        "OCF-003",
+        "OCF-004",
+        "OCF-005",
+        "OCF-006",
+        "OCF-007",
+        "OCF-008"
+      ],
+      "formula_refs": [
+        "OCF-010",
+        "OCF-011",
+        "OCF-012",
+        "OCF-013"
+      ],
+      "proof_or_boundary_refs": [
+        "OC14-N001",
+        "OC14-N002",
+        "OC14-N003"
+      ],
+      "bounded_skip_reason": "",
+      "nonclaim_boundary": "K/M ladder navigation exposes structure only; it does not create proof closure."
+    },
+    {
+      "order": 3,
+      "level_id": "K10",
+      "semantic_name": "meta-theoretical continua",
+      "drilldown_to": "K9",
+      "drilldown_to_label": "K10 -> K9",
+      "lower_dependency_semantics": "K10 must be read through K9 substrate plus preserved invariants",
+      "top_down_constraint_semantics": "K10 constrains K9 through active axes, thresholds and invariant preservation",
+      "m_space_id": "M-META",
+      "m_space_mapping_policy": "K10-K12 prefer M-META; otherwise prefer level-specific child M-space; M-ROOT is only the umbrella/source-lineage fallback.",
+      "domain_projections": [
+        "MATHEMATICS",
+        "METAONTOLOGY",
+        "PHYSICS"
+      ],
+      "domain_projection_reconciliation": [
+        {
+          "label": "MATHEMATICS",
+          "canonical_domain_id": "MATHEMATICS",
+          "resolution_status": "CANONICAL",
+          "skip_reason": ""
+        },
+        {
+          "label": "METAONTOLOGY",
+          "canonical_domain_id": "METAONTOLOGY",
+          "resolution_status": "CANONICAL",
+          "skip_reason": ""
+        },
+        {
+          "label": "PHYSICS",
+          "canonical_domain_id": "PHYSICS",
+          "resolution_status": "CANONICAL",
+          "skip_reason": ""
+        }
+      ],
+      "all_domain_labels_resolve": true,
+      "direct_formula_refs": [
+        "OCF-010",
+        "OCF-011",
+        "OCF-012",
+        "OCF-013"
+      ],
+      "expanded_formula_refs": [
+        "OCF-001",
+        "OCF-002",
+        "OCF-003",
+        "OCF-004",
+        "OCF-005",
+        "OCF-006",
+        "OCF-007",
+        "OCF-008"
+      ],
+      "formula_refs": [
+        "OCF-010",
+        "OCF-011",
+        "OCF-012",
+        "OCF-013"
+      ],
+      "proof_or_boundary_refs": [
+        "OC14-N001",
+        "OC14-N002",
+        "OC14-N003"
+      ],
+      "bounded_skip_reason": "",
+      "nonclaim_boundary": "K/M ladder navigation exposes structure only; it does not create proof closure."
+    },
+    {
+      "order": 4,
+      "level_id": "K9",
+      "semantic_name": "theoretical continua",
+      "drilldown_to": "K8",
+      "drilldown_to_label": "K9 -> K8",
+      "lower_dependency_semantics": "K9 must be read through K8 substrate plus preserved invariants",
+      "top_down_constraint_semantics": "K9 constrains K8 through active axes, thresholds and invariant preservation",
+      "m_space_id": "M-CIVILIZATION",
+      "m_space_mapping_policy": "K10-K12 prefer M-META; otherwise prefer level-specific child M-space; M-ROOT is only the umbrella/source-lineage fallback.",
+      "domain_projections": [
+        "MATHEMATICS",
+        "PHYSICS"
+      ],
+      "domain_projection_reconciliation": [
+        {
+          "label": "MATHEMATICS",
+          "canonical_domain_id": "MATHEMATICS",
+          "resolution_status": "CANONICAL",
+          "skip_reason": ""
+        },
+        {
+          "label": "PHYSICS",
+          "canonical_domain_id": "PHYSICS",
+          "resolution_status": "CANONICAL",
+          "skip_reason": ""
+        }
+      ],
+      "all_domain_labels_resolve": true,
+      "direct_formula_refs": [
+        "OCF-010",
+        "OCF-011",
+        "OCF-012",
+        "OCF-013"
+      ],
+      "expanded_formula_refs": [
+        "OCF-001",
+        "OCF-002",
+        "OCF-003",
+        "OCF-004",
+        "OCF-005",
+        "OCF-006",
+        "OCF-007",
+        "OCF-008"
+      ],
+      "formula_refs": [
+        "OCF-010",
+        "OCF-011",
+        "OCF-012",
+        "OCF-013"
+      ],
+      "proof_or_boundary_refs": [
+        "OC14-N001",
+        "OC14-N002",
+        "OC14-N003"
+      ],
+      "bounded_skip_reason": "",
+      "nonclaim_boundary": "K/M ladder navigation exposes structure only; it does not create proof closure."
+    },
+    {
+      "order": 5,
+      "level_id": "K8",
+      "semantic_name": "civilizational continua with infrastructural and systemic thresholds",
+      "drilldown_to": "K7",
+      "drilldown_to_label": "K8 -> K7",
+      "lower_dependency_semantics": "K8 must be read through K7 substrate plus preserved invariants",
+      "top_down_constraint_semantics": "K8 constrains K7 through active axes, thresholds and invariant preservation",
+      "m_space_id": "M-COGNITIVE-SOCIAL",
+      "m_space_mapping_policy": "K10-K12 prefer M-META; otherwise prefer level-specific child M-space; M-ROOT is only the umbrella/source-lineage fallback.",
+      "domain_projections": [
+        "SYSTEMS_CIVILIZATIONAL_PROJECTION"
+      ],
+      "domain_projection_reconciliation": [
+        {
+          "label": "SYSTEMS_CIVILIZATIONAL_PROJECTION",
+          "canonical_domain_id": "SYSTEMS_CIVILIZATIONAL_PROJECTION",
+          "resolution_status": "CANONICAL",
+          "skip_reason": ""
+        }
+      ],
+      "all_domain_labels_resolve": true,
+      "direct_formula_refs": [
+        "OCF-010",
+        "OCF-011",
+        "OCF-012",
+        "OCF-013",
+        "OCF-009"
+      ],
+      "expanded_formula_refs": [
+        "OCF-001",
+        "OCF-002",
+        "OCF-003",
+        "OCF-004",
+        "OCF-005",
+        "OCF-006",
+        "OCF-007",
+        "OCF-008"
+      ],
+      "formula_refs": [
+        "OCF-010",
+        "OCF-011",
+        "OCF-012",
+        "OCF-013",
+        "OCF-009"
+      ],
+      "proof_or_boundary_refs": [
+        "OC14-N001",
+        "OC14-N002",
+        "OC14-N003"
+      ],
+      "bounded_skip_reason": "",
+      "nonclaim_boundary": "K/M ladder navigation exposes structure only; it does not create proof closure."
+    },
+    {
+      "order": 6,
+      "level_id": "K7",
+      "semantic_name": "social continua with institutional thresholds",
+      "drilldown_to": "K6",
+      "drilldown_to_label": "K7 -> K6",
+      "lower_dependency_semantics": "K7 must be read through K6 substrate plus preserved invariants",
+      "top_down_constraint_semantics": "K7 constrains K6 through active axes, thresholds and invariant preservation",
+      "m_space_id": "M-COGNITIVE-SOCIAL",
+      "m_space_mapping_policy": "K10-K12 prefer M-META; otherwise prefer level-specific child M-space; M-ROOT is only the umbrella/source-lineage fallback.",
+      "domain_projections": [
+        "BIOLOGY",
+        "COGNITIVE_SOCIAL",
+        "SYSTEMS"
+      ],
+      "domain_projection_reconciliation": [
+        {
+          "label": "BIOLOGY",
+          "canonical_domain_id": "BIOLOGY",
+          "resolution_status": "CANONICAL",
+          "skip_reason": ""
+        },
+        {
+          "label": "COGNITIVE_SOCIAL",
+          "canonical_domain_id": "SYSTEMS_CIVILIZATIONAL_PROJECTION",
+          "resolution_status": "ALIAS_RESOLVED",
+          "skip_reason": "cognitive/social semantics are reviewed inside systems/civilizational projection"
+        },
+        {
+          "label": "SYSTEMS",
+          "canonical_domain_id": "SYSTEMS_CIVILIZATIONAL_PROJECTION",
+          "resolution_status": "ALIAS_RESOLVED",
+          "skip_reason": "alias used by K/M copy; canonical lane is systems/civilizational projection"
+        }
+      ],
+      "all_domain_labels_resolve": true,
+      "direct_formula_refs": [
+        "OCF-010",
+        "OCF-011",
+        "OCF-012",
+        "OCF-013",
+        "OCF-008"
+      ],
+      "expanded_formula_refs": [
+        "OCF-001",
+        "OCF-002",
+        "OCF-003",
+        "OCF-004",
+        "OCF-005",
+        "OCF-006",
+        "OCF-007",
+        "OCF-008"
+      ],
+      "formula_refs": [
+        "OCF-010",
+        "OCF-011",
+        "OCF-012",
+        "OCF-013",
+        "OCF-008"
+      ],
+      "proof_or_boundary_refs": [
+        "OC14-N001",
+        "OC14-N002",
+        "OC14-N003"
+      ],
+      "bounded_skip_reason": "",
+      "nonclaim_boundary": "K/M ladder navigation exposes structure only; it does not create proof closure."
+    },
+    {
+      "order": 7,
+      "level_id": "K6",
+      "semantic_name": "cognitive axes, internal models and binding thresholds",
+      "drilldown_to": "K5",
+      "drilldown_to_label": "K6 -> K5",
+      "lower_dependency_semantics": "K6 must be read through K5 substrate plus preserved invariants",
+      "top_down_constraint_semantics": "K6 constrains K5 through active axes, thresholds and invariant preservation",
+      "m_space_id": "M-BIOLOGY",
+      "m_space_mapping_policy": "K10-K12 prefer M-META; otherwise prefer level-specific child M-space; M-ROOT is only the umbrella/source-lineage fallback.",
+      "domain_projections": [
+        "BIOLOGY"
+      ],
+      "domain_projection_reconciliation": [
+        {
+          "label": "BIOLOGY",
+          "canonical_domain_id": "BIOLOGY",
+          "resolution_status": "CANONICAL",
+          "skip_reason": ""
+        }
+      ],
+      "all_domain_labels_resolve": true,
+      "direct_formula_refs": [
+        "OCF-010",
+        "OCF-011",
+        "OCF-012",
+        "OCF-013",
+        "OCF-007"
+      ],
+      "expanded_formula_refs": [
+        "OCF-001",
+        "OCF-002",
+        "OCF-003",
+        "OCF-004",
+        "OCF-005",
+        "OCF-006",
+        "OCF-007",
+        "OCF-008"
+      ],
+      "formula_refs": [
+        "OCF-010",
+        "OCF-011",
+        "OCF-012",
+        "OCF-013",
+        "OCF-007"
+      ],
+      "proof_or_boundary_refs": [
+        "OC14-N001",
+        "OC14-N002",
+        "OC14-N003"
+      ],
+      "bounded_skip_reason": "",
+      "nonclaim_boundary": "K/M ladder navigation exposes structure only; it does not create proof closure."
+    },
+    {
+      "order": 8,
+      "level_id": "K5",
+      "semantic_name": "early bioelectrical excitability and protospiking",
+      "drilldown_to": "K4",
+      "drilldown_to_label": "K5 -> K4",
+      "lower_dependency_semantics": "K5 must be read through K4 substrate plus preserved invariants",
+      "top_down_constraint_semantics": "K5 constrains K4 through active axes, thresholds and invariant preservation",
+      "m_space_id": "M-BIOLOGY",
+      "m_space_mapping_policy": "K10-K12 prefer M-META; otherwise prefer level-specific child M-space; M-ROOT is only the umbrella/source-lineage fallback.",
+      "domain_projections": [
+        "BIOLOGY"
+      ],
+      "domain_projection_reconciliation": [
+        {
+          "label": "BIOLOGY",
+          "canonical_domain_id": "BIOLOGY",
+          "resolution_status": "CANONICAL",
+          "skip_reason": ""
+        }
+      ],
+      "all_domain_labels_resolve": true,
+      "direct_formula_refs": [
+        "OCF-010",
+        "OCF-011",
+        "OCF-012",
+        "OCF-013",
+        "OCF-006"
+      ],
+      "expanded_formula_refs": [
+        "OCF-001",
+        "OCF-002",
+        "OCF-003",
+        "OCF-004",
+        "OCF-005",
+        "OCF-006",
+        "OCF-007",
+        "OCF-008"
+      ],
+      "formula_refs": [
+        "OCF-010",
+        "OCF-011",
+        "OCF-012",
+        "OCF-013",
+        "OCF-006"
+      ],
+      "proof_or_boundary_refs": [
+        "OC14-N001",
+        "OC14-N002",
+        "OC14-N003"
+      ],
+      "bounded_skip_reason": "",
+      "nonclaim_boundary": "K/M ladder navigation exposes structure only; it does not create proof closure."
+    },
+    {
+      "order": 9,
+      "level_id": "K4",
+      "semantic_name": "protocellular organisation, internal gradients and membranes",
+      "drilldown_to": "K3",
+      "drilldown_to_label": "K4 -> K3",
+      "lower_dependency_semantics": "K4 must be read through K3 substrate plus preserved invariants",
+      "top_down_constraint_semantics": "K4 constrains K3 through active axes, thresholds and invariant preservation",
+      "m_space_id": "M-CHEMISTRY",
+      "m_space_mapping_policy": "K10-K12 prefer M-META; otherwise prefer level-specific child M-space; M-ROOT is only the umbrella/source-lineage fallback.",
+      "domain_projections": [
+        "BIOLOGY",
+        "CHEMISTRY"
+      ],
+      "domain_projection_reconciliation": [
+        {
+          "label": "BIOLOGY",
+          "canonical_domain_id": "BIOLOGY",
+          "resolution_status": "CANONICAL",
+          "skip_reason": ""
+        },
+        {
+          "label": "CHEMISTRY",
+          "canonical_domain_id": "CHEMISTRY",
+          "resolution_status": "CANONICAL",
+          "skip_reason": ""
+        }
+      ],
+      "all_domain_labels_resolve": true,
+      "direct_formula_refs": [
+        "OCF-010",
+        "OCF-011",
+        "OCF-012",
+        "OCF-013",
+        "OCF-005"
+      ],
+      "expanded_formula_refs": [
+        "OCF-001",
+        "OCF-002",
+        "OCF-003",
+        "OCF-004",
+        "OCF-005",
+        "OCF-006",
+        "OCF-007",
+        "OCF-008"
+      ],
+      "formula_refs": [
+        "OCF-010",
+        "OCF-011",
+        "OCF-012",
+        "OCF-013",
+        "OCF-005"
+      ],
+      "proof_or_boundary_refs": [
+        "OC14-N001",
+        "OC14-N002",
+        "OC14-N003"
+      ],
+      "bounded_skip_reason": "",
+      "nonclaim_boundary": "K/M ladder navigation exposes structure only; it does not create proof closure."
+    },
+    {
+      "order": 10,
+      "level_id": "K3",
+      "semantic_name": "chemical organisation and origins-of-life / prebiotic structures",
+      "drilldown_to": "K2",
+      "drilldown_to_label": "K3 -> K2",
+      "lower_dependency_semantics": "K3 must be read through K2 substrate plus preserved invariants",
+      "top_down_constraint_semantics": "K3 constrains K2 through active axes, thresholds and invariant preservation",
+      "m_space_id": "M-CHEMISTRY",
+      "m_space_mapping_policy": "K10-K12 prefer M-META; otherwise prefer level-specific child M-space; M-ROOT is only the umbrella/source-lineage fallback.",
+      "domain_projections": [
+        "CHEMISTRY"
+      ],
+      "domain_projection_reconciliation": [
+        {
+          "label": "CHEMISTRY",
+          "canonical_domain_id": "CHEMISTRY",
+          "resolution_status": "CANONICAL",
+          "skip_reason": ""
+        }
+      ],
+      "all_domain_labels_resolve": true,
+      "direct_formula_refs": [
+        "OCF-010",
+        "OCF-011",
+        "OCF-012",
+        "OCF-013",
+        "OCF-004"
+      ],
+      "expanded_formula_refs": [
+        "OCF-001",
+        "OCF-002",
+        "OCF-003",
+        "OCF-004",
+        "OCF-005",
+        "OCF-006",
+        "OCF-007",
+        "OCF-008"
+      ],
+      "formula_refs": [
+        "OCF-010",
+        "OCF-011",
+        "OCF-012",
+        "OCF-013",
+        "OCF-004"
+      ],
+      "proof_or_boundary_refs": [
+        "OC14-N001",
+        "OC14-N002",
+        "OC14-N003"
+      ],
+      "bounded_skip_reason": "",
+      "nonclaim_boundary": "K/M ladder navigation exposes structure only; it does not create proof closure."
+    },
+    {
+      "order": 11,
+      "level_id": "K2",
+      "semantic_name": "physical fields, phases and mass-related structures",
+      "drilldown_to": "K1",
+      "drilldown_to_label": "K2 -> K1",
+      "lower_dependency_semantics": "K2 must be read through K1 substrate plus preserved invariants",
+      "top_down_constraint_semantics": "K2 constrains K1 through active axes, thresholds and invariant preservation",
+      "m_space_id": "M-PHYSICS",
+      "m_space_mapping_policy": "K10-K12 prefer M-META; otherwise prefer level-specific child M-space; M-ROOT is only the umbrella/source-lineage fallback.",
+      "domain_projections": [
+        "CHEMISTRY",
+        "PHYSICS"
+      ],
+      "domain_projection_reconciliation": [
+        {
+          "label": "CHEMISTRY",
+          "canonical_domain_id": "CHEMISTRY",
+          "resolution_status": "CANONICAL",
+          "skip_reason": ""
+        },
+        {
+          "label": "PHYSICS",
+          "canonical_domain_id": "PHYSICS",
+          "resolution_status": "CANONICAL",
+          "skip_reason": ""
+        }
+      ],
+      "all_domain_labels_resolve": true,
+      "direct_formula_refs": [
+        "OCF-010",
+        "OCF-011",
+        "OCF-012",
+        "OCF-013",
+        "OCF-003"
+      ],
+      "expanded_formula_refs": [
+        "OCF-001",
+        "OCF-002",
+        "OCF-003",
+        "OCF-004",
+        "OCF-005",
+        "OCF-006",
+        "OCF-007",
+        "OCF-008"
+      ],
+      "formula_refs": [
+        "OCF-010",
+        "OCF-011",
+        "OCF-012",
+        "OCF-013",
+        "OCF-003"
+      ],
+      "proof_or_boundary_refs": [
+        "OC14-N001",
+        "OC14-N002",
+        "OC14-N003"
+      ],
+      "bounded_skip_reason": "",
+      "nonclaim_boundary": "K/M ladder navigation exposes structure only; it does not create proof closure."
+    },
+    {
+      "order": 12,
+      "level_id": "K1",
+      "semantic_name": "geometric continuity and classical stability thresholds",
+      "drilldown_to": "K0",
+      "drilldown_to_label": "K1 -> K0",
+      "lower_dependency_semantics": "K1 must be read through K0 substrate plus preserved invariants",
+      "top_down_constraint_semantics": "K1 constrains K0 through active axes, thresholds and invariant preservation",
+      "m_space_id": "M-PHYSICS",
+      "m_space_mapping_policy": "K10-K12 prefer M-META; otherwise prefer level-specific child M-space; M-ROOT is only the umbrella/source-lineage fallback.",
+      "domain_projections": [
+        "PHYSICS"
+      ],
+      "domain_projection_reconciliation": [
+        {
+          "label": "PHYSICS",
+          "canonical_domain_id": "PHYSICS",
+          "resolution_status": "CANONICAL",
+          "skip_reason": ""
+        }
+      ],
+      "all_domain_labels_resolve": true,
+      "direct_formula_refs": [
+        "OCF-010",
+        "OCF-011",
+        "OCF-012",
+        "OCF-013",
+        "OCF-002"
+      ],
+      "expanded_formula_refs": [
+        "OCF-001",
+        "OCF-002",
+        "OCF-003",
+        "OCF-004",
+        "OCF-005",
+        "OCF-006",
+        "OCF-007",
+        "OCF-008"
+      ],
+      "formula_refs": [
+        "OCF-010",
+        "OCF-011",
+        "OCF-012",
+        "OCF-013",
+        "OCF-002"
+      ],
+      "proof_or_boundary_refs": [
+        "OC14-N001",
+        "OC14-N002",
+        "OC14-N003"
+      ],
+      "bounded_skip_reason": "",
+      "nonclaim_boundary": "K/M ladder navigation exposes structure only; it does not create proof closure."
+    },
+    {
+      "order": 13,
+      "level_id": "K0",
+      "semantic_name": "mere distinguishability; no time, energy or geometry",
+      "drilldown_to": "K0_BASE",
+      "drilldown_to_label": "Terminal K0 boundary: K0_BASE is not a lower K-level",
+      "lower_dependency_semantics": "K0 is the distinguishability boundary; no lower public K-level is asserted.",
+      "top_down_constraint_semantics": "K0 only exposes distinguishability and boundary conditions.",
+      "m_space_id": "M-PHYSICS",
+      "m_space_mapping_policy": "K10-K12 prefer M-META; otherwise prefer level-specific child M-space; M-ROOT is only the umbrella/source-lineage fallback.",
+      "domain_projections": [
+        "MATHEMATICS"
+      ],
+      "domain_projection_reconciliation": [
+        {
+          "label": "MATHEMATICS",
+          "canonical_domain_id": "MATHEMATICS",
+          "resolution_status": "CANONICAL",
+          "skip_reason": ""
+        }
+      ],
+      "all_domain_labels_resolve": true,
+      "direct_formula_refs": [
+        "OCF-010",
+        "OCF-011",
+        "OCF-012",
+        "OCF-013",
+        "OCF-001"
+      ],
+      "expanded_formula_refs": [
+        "OCF-001",
+        "OCF-002",
+        "OCF-003",
+        "OCF-004",
+        "OCF-005",
+        "OCF-006",
+        "OCF-007",
+        "OCF-008"
+      ],
+      "formula_refs": [
+        "OCF-010",
+        "OCF-011",
+        "OCF-012",
+        "OCF-013",
+        "OCF-001"
+      ],
+      "proof_or_boundary_refs": [
+        "OC14-N001",
+        "OC14-N002",
+        "OC14-N003"
+      ],
+      "bounded_skip_reason": "",
+      "nonclaim_boundary": "K/M ladder navigation exposes structure only; it does not create proof closure."
+    }
+  ],
+  "per_level_route_execution_rows": [
+    {
+      "transition_id": "K12->K11",
+      "selected_level_before": "K12",
+      "selected_level_after": "K11",
+      "visible_semantic_name": "semantic super-continuum and global coherence",
+      "selected_m_space": "M-META",
+      "domain_projection_reconciliation": [
+        {
+          "label": "MATHEMATICS",
+          "canonical_domain_id": "MATHEMATICS",
+          "resolution_status": "CANONICAL",
+          "skip_reason": ""
+        },
+        {
+          "label": "METAONTOLOGY",
+          "canonical_domain_id": "METAONTOLOGY",
+          "resolution_status": "CANONICAL",
+          "skip_reason": ""
+        }
+      ],
+      "state_hash": "348759d695485b134211d305573d69b334fa8d7020cfe7e2c8930a890207a47e",
+      "expected_visible_result": "K/M ladder row exposes semantic name, M-space, dependency, top-down constraint and boundary.",
+      "row_hash": "e503e985c299e9f1db5d0b27650b18328191c918e737b223716c77703c200d98"
+    },
+    {
+      "transition_id": "K11->K10",
+      "selected_level_before": "K11",
+      "selected_level_after": "K10",
+      "visible_semantic_name": "meta-evolution of operators, meta-logics and meta-spaces",
+      "selected_m_space": "M-META",
+      "domain_projection_reconciliation": [
+        {
+          "label": "MATHEMATICS",
+          "canonical_domain_id": "MATHEMATICS",
+          "resolution_status": "CANONICAL",
+          "skip_reason": ""
+        },
+        {
+          "label": "METAONTOLOGY",
+          "canonical_domain_id": "METAONTOLOGY",
+          "resolution_status": "CANONICAL",
+          "skip_reason": ""
+        }
+      ],
+      "state_hash": "3b8769ce401edd69e6435865ebaf91196113051c4a8b34a1ce181df1690c669e",
+      "expected_visible_result": "K/M ladder row exposes semantic name, M-space, dependency, top-down constraint and boundary.",
+      "row_hash": "75d446e36897f3e51d212d686d6868f522a9cb4dfe91b3f9719616cd4a506d38"
+    },
+    {
+      "transition_id": "K10->K9",
+      "selected_level_before": "K10",
+      "selected_level_after": "K9",
+      "visible_semantic_name": "meta-theoretical continua",
+      "selected_m_space": "M-META",
+      "domain_projection_reconciliation": [
+        {
+          "label": "MATHEMATICS",
+          "canonical_domain_id": "MATHEMATICS",
+          "resolution_status": "CANONICAL",
+          "skip_reason": ""
+        },
+        {
+          "label": "METAONTOLOGY",
+          "canonical_domain_id": "METAONTOLOGY",
+          "resolution_status": "CANONICAL",
+          "skip_reason": ""
+        },
+        {
+          "label": "PHYSICS",
+          "canonical_domain_id": "PHYSICS",
+          "resolution_status": "CANONICAL",
+          "skip_reason": ""
+        }
+      ],
+      "state_hash": "02762dad623282011ef8de9dd913b8b52a79d37cb5e5448baceec823b42173ef",
+      "expected_visible_result": "K/M ladder row exposes semantic name, M-space, dependency, top-down constraint and boundary.",
+      "row_hash": "df6752e41a823b40ec7bb364c213e33d84eb6b106e331d6d16d3b20c1425102f"
+    },
+    {
+      "transition_id": "K9->K8",
+      "selected_level_before": "K9",
+      "selected_level_after": "K8",
+      "visible_semantic_name": "theoretical continua",
+      "selected_m_space": "M-CIVILIZATION",
+      "domain_projection_reconciliation": [
+        {
+          "label": "MATHEMATICS",
+          "canonical_domain_id": "MATHEMATICS",
+          "resolution_status": "CANONICAL",
+          "skip_reason": ""
+        },
+        {
+          "label": "PHYSICS",
+          "canonical_domain_id": "PHYSICS",
+          "resolution_status": "CANONICAL",
+          "skip_reason": ""
+        }
+      ],
+      "state_hash": "e5b1f169a97f32ff9a3e285798cee8b66217b99486273d86a25fc1eca29ea572",
+      "expected_visible_result": "K/M ladder row exposes semantic name, M-space, dependency, top-down constraint and boundary.",
+      "row_hash": "8cc41c7c0f05cb22c394fdccd06e48b45bf2347367a10820dfc5b72b9c07ef92"
+    },
+    {
+      "transition_id": "K8->K7",
+      "selected_level_before": "K8",
+      "selected_level_after": "K7",
+      "visible_semantic_name": "civilizational continua with infrastructural and systemic thresholds",
+      "selected_m_space": "M-COGNITIVE-SOCIAL",
+      "domain_projection_reconciliation": [
+        {
+          "label": "SYSTEMS_CIVILIZATIONAL_PROJECTION",
+          "canonical_domain_id": "SYSTEMS_CIVILIZATIONAL_PROJECTION",
+          "resolution_status": "CANONICAL",
+          "skip_reason": ""
+        }
+      ],
+      "state_hash": "ba1445d3abf8ff48da3523ee0848e17fd7cef9a80e05ea5a554015fad16ac100",
+      "expected_visible_result": "K/M ladder row exposes semantic name, M-space, dependency, top-down constraint and boundary.",
+      "row_hash": "a7a108acc80f239a40c08b7e1910786c34b13446181315d431f8bd420ee52c57"
+    },
+    {
+      "transition_id": "K7->K6",
+      "selected_level_before": "K7",
+      "selected_level_after": "K6",
+      "visible_semantic_name": "social continua with institutional thresholds",
+      "selected_m_space": "M-COGNITIVE-SOCIAL",
+      "domain_projection_reconciliation": [
+        {
+          "label": "BIOLOGY",
+          "canonical_domain_id": "BIOLOGY",
+          "resolution_status": "CANONICAL",
+          "skip_reason": ""
+        },
+        {
+          "label": "COGNITIVE_SOCIAL",
+          "canonical_domain_id": "SYSTEMS_CIVILIZATIONAL_PROJECTION",
+          "resolution_status": "ALIAS_RESOLVED",
+          "skip_reason": "cognitive/social semantics are reviewed inside systems/civilizational projection"
+        },
+        {
+          "label": "SYSTEMS",
+          "canonical_domain_id": "SYSTEMS_CIVILIZATIONAL_PROJECTION",
+          "resolution_status": "ALIAS_RESOLVED",
+          "skip_reason": "alias used by K/M copy; canonical lane is systems/civilizational projection"
+        }
+      ],
+      "state_hash": "bc2fdaa39b0b3d333b9bd3d2d5460d8a9115473bbedcf1a642302650dbdab0ef",
+      "expected_visible_result": "K/M ladder row exposes semantic name, M-space, dependency, top-down constraint and boundary.",
+      "row_hash": "a6130edd82b4f6c3057c272c7a496a6e8681e223aca1b3c1d9ccc0cd90745eaf"
+    },
+    {
+      "transition_id": "K6->K5",
+      "selected_level_before": "K6",
+      "selected_level_after": "K5",
+      "visible_semantic_name": "cognitive axes, internal models and binding thresholds",
+      "selected_m_space": "M-BIOLOGY",
+      "domain_projection_reconciliation": [
+        {
+          "label": "BIOLOGY",
+          "canonical_domain_id": "BIOLOGY",
+          "resolution_status": "CANONICAL",
+          "skip_reason": ""
+        }
+      ],
+      "state_hash": "1a7001028a5196b65da931e476378ffd233a6460ed346f7240575c4f2aaf8194",
+      "expected_visible_result": "K/M ladder row exposes semantic name, M-space, dependency, top-down constraint and boundary.",
+      "row_hash": "176d8daf331109959c9ab70f42adee5ecf7d667379b08af161610478eacbcc23"
+    },
+    {
+      "transition_id": "K5->K4",
+      "selected_level_before": "K5",
+      "selected_level_after": "K4",
+      "visible_semantic_name": "early bioelectrical excitability and protospiking",
+      "selected_m_space": "M-BIOLOGY",
+      "domain_projection_reconciliation": [
+        {
+          "label": "BIOLOGY",
+          "canonical_domain_id": "BIOLOGY",
+          "resolution_status": "CANONICAL",
+          "skip_reason": ""
+        }
+      ],
+      "state_hash": "8138c2c0615bfe05f3590b52d948085ab6362b81c98034ed333276520ad79b3e",
+      "expected_visible_result": "K/M ladder row exposes semantic name, M-space, dependency, top-down constraint and boundary.",
+      "row_hash": "99a204d5706ba9a0a2be9bf51383536743045343a10d5080ba734ad3145100b8"
+    },
+    {
+      "transition_id": "K4->K3",
+      "selected_level_before": "K4",
+      "selected_level_after": "K3",
+      "visible_semantic_name": "protocellular organisation, internal gradients and membranes",
+      "selected_m_space": "M-CHEMISTRY",
+      "domain_projection_reconciliation": [
+        {
+          "label": "BIOLOGY",
+          "canonical_domain_id": "BIOLOGY",
+          "resolution_status": "CANONICAL",
+          "skip_reason": ""
+        },
+        {
+          "label": "CHEMISTRY",
+          "canonical_domain_id": "CHEMISTRY",
+          "resolution_status": "CANONICAL",
+          "skip_reason": ""
+        }
+      ],
+      "state_hash": "f5cff8c4b37b26ffb9a76969c25e9ccee2a9e647a734b75fb02ecf9bf6d83329",
+      "expected_visible_result": "K/M ladder row exposes semantic name, M-space, dependency, top-down constraint and boundary.",
+      "row_hash": "0667c1c3f00ddd3ed964a6c59dd5b5b002553282c99906d4e2c84f928c425b2d"
+    },
+    {
+      "transition_id": "K3->K2",
+      "selected_level_before": "K3",
+      "selected_level_after": "K2",
+      "visible_semantic_name": "chemical organisation and origins-of-life / prebiotic structures",
+      "selected_m_space": "M-CHEMISTRY",
+      "domain_projection_reconciliation": [
+        {
+          "label": "CHEMISTRY",
+          "canonical_domain_id": "CHEMISTRY",
+          "resolution_status": "CANONICAL",
+          "skip_reason": ""
+        }
+      ],
+      "state_hash": "e236a68ddbcd1e58def4243969731e057145b0e2f18bf080b8b2ff958bdb998d",
+      "expected_visible_result": "K/M ladder row exposes semantic name, M-space, dependency, top-down constraint and boundary.",
+      "row_hash": "101e57a4fb0675ef7d5adc16cda3df093357fdc3dd43a7f5561c67a550287aae"
+    },
+    {
+      "transition_id": "K2->K1",
+      "selected_level_before": "K2",
+      "selected_level_after": "K1",
+      "visible_semantic_name": "physical fields, phases and mass-related structures",
+      "selected_m_space": "M-PHYSICS",
+      "domain_projection_reconciliation": [
+        {
+          "label": "CHEMISTRY",
+          "canonical_domain_id": "CHEMISTRY",
+          "resolution_status": "CANONICAL",
+          "skip_reason": ""
+        },
+        {
+          "label": "PHYSICS",
+          "canonical_domain_id": "PHYSICS",
+          "resolution_status": "CANONICAL",
+          "skip_reason": ""
+        }
+      ],
+      "state_hash": "6992655c35f9e455cc1beff11ffcf495b873b2e318ef8a7774af9c548dcaec8c",
+      "expected_visible_result": "K/M ladder row exposes semantic name, M-space, dependency, top-down constraint and boundary.",
+      "row_hash": "1619dbede24f3e3cf31e413a576099a6da3f79758f3419022755f24f9d3dbfab"
+    },
+    {
+      "transition_id": "K1->K0",
+      "selected_level_before": "K1",
+      "selected_level_after": "K0",
+      "visible_semantic_name": "geometric continuity and classical stability thresholds",
+      "selected_m_space": "M-PHYSICS",
+      "domain_projection_reconciliation": [
+        {
+          "label": "PHYSICS",
+          "canonical_domain_id": "PHYSICS",
+          "resolution_status": "CANONICAL",
+          "skip_reason": ""
+        }
+      ],
+      "state_hash": "deec789bb3cd69fc58703e440fe91a88c3fc9be6346dc94693e119f868b2550c",
+      "expected_visible_result": "K/M ladder row exposes semantic name, M-space, dependency, top-down constraint and boundary.",
+      "row_hash": "4c129a82c289b421182860fa3ed1c556531b403b024f49cdf4a9ab8f0a5392f4"
+    }
+  ],
+  "all_transition_execution_rows": [
+    {
+      "transition_id": "K12->K11",
+      "selected_level_before": "K12",
+      "selected_level_after": "K11",
+      "visible_semantic_name": "semantic super-continuum and global coherence",
+      "selected_m_space": "M-META",
+      "domain_projection_reconciliation": [
+        {
+          "label": "MATHEMATICS",
+          "canonical_domain_id": "MATHEMATICS",
+          "resolution_status": "CANONICAL",
+          "skip_reason": ""
+        },
+        {
+          "label": "METAONTOLOGY",
+          "canonical_domain_id": "METAONTOLOGY",
+          "resolution_status": "CANONICAL",
+          "skip_reason": ""
+        }
+      ],
+      "state_hash": "348759d695485b134211d305573d69b334fa8d7020cfe7e2c8930a890207a47e",
+      "expected_visible_result": "K/M ladder row exposes semantic name, M-space, dependency, top-down constraint and boundary.",
+      "row_hash": "e503e985c299e9f1db5d0b27650b18328191c918e737b223716c77703c200d98"
+    },
+    {
+      "transition_id": "K11->K10",
+      "selected_level_before": "K11",
+      "selected_level_after": "K10",
+      "visible_semantic_name": "meta-evolution of operators, meta-logics and meta-spaces",
+      "selected_m_space": "M-META",
+      "domain_projection_reconciliation": [
+        {
+          "label": "MATHEMATICS",
+          "canonical_domain_id": "MATHEMATICS",
+          "resolution_status": "CANONICAL",
+          "skip_reason": ""
+        },
+        {
+          "label": "METAONTOLOGY",
+          "canonical_domain_id": "METAONTOLOGY",
+          "resolution_status": "CANONICAL",
+          "skip_reason": ""
+        }
+      ],
+      "state_hash": "3b8769ce401edd69e6435865ebaf91196113051c4a8b34a1ce181df1690c669e",
+      "expected_visible_result": "K/M ladder row exposes semantic name, M-space, dependency, top-down constraint and boundary.",
+      "row_hash": "75d446e36897f3e51d212d686d6868f522a9cb4dfe91b3f9719616cd4a506d38"
+    },
+    {
+      "transition_id": "K10->K9",
+      "selected_level_before": "K10",
+      "selected_level_after": "K9",
+      "visible_semantic_name": "meta-theoretical continua",
+      "selected_m_space": "M-META",
+      "domain_projection_reconciliation": [
+        {
+          "label": "MATHEMATICS",
+          "canonical_domain_id": "MATHEMATICS",
+          "resolution_status": "CANONICAL",
+          "skip_reason": ""
+        },
+        {
+          "label": "METAONTOLOGY",
+          "canonical_domain_id": "METAONTOLOGY",
+          "resolution_status": "CANONICAL",
+          "skip_reason": ""
+        },
+        {
+          "label": "PHYSICS",
+          "canonical_domain_id": "PHYSICS",
+          "resolution_status": "CANONICAL",
+          "skip_reason": ""
+        }
+      ],
+      "state_hash": "02762dad623282011ef8de9dd913b8b52a79d37cb5e5448baceec823b42173ef",
+      "expected_visible_result": "K/M ladder row exposes semantic name, M-space, dependency, top-down constraint and boundary.",
+      "row_hash": "df6752e41a823b40ec7bb364c213e33d84eb6b106e331d6d16d3b20c1425102f"
+    },
+    {
+      "transition_id": "K9->K8",
+      "selected_level_before": "K9",
+      "selected_level_after": "K8",
+      "visible_semantic_name": "theoretical continua",
+      "selected_m_space": "M-CIVILIZATION",
+      "domain_projection_reconciliation": [
+        {
+          "label": "MATHEMATICS",
+          "canonical_domain_id": "MATHEMATICS",
+          "resolution_status": "CANONICAL",
+          "skip_reason": ""
+        },
+        {
+          "label": "PHYSICS",
+          "canonical_domain_id": "PHYSICS",
+          "resolution_status": "CANONICAL",
+          "skip_reason": ""
+        }
+      ],
+      "state_hash": "e5b1f169a97f32ff9a3e285798cee8b66217b99486273d86a25fc1eca29ea572",
+      "expected_visible_result": "K/M ladder row exposes semantic name, M-space, dependency, top-down constraint and boundary.",
+      "row_hash": "8cc41c7c0f05cb22c394fdccd06e48b45bf2347367a10820dfc5b72b9c07ef92"
+    },
+    {
+      "transition_id": "K8->K7",
+      "selected_level_before": "K8",
+      "selected_level_after": "K7",
+      "visible_semantic_name": "civilizational continua with infrastructural and systemic thresholds",
+      "selected_m_space": "M-COGNITIVE-SOCIAL",
+      "domain_projection_reconciliation": [
+        {
+          "label": "SYSTEMS_CIVILIZATIONAL_PROJECTION",
+          "canonical_domain_id": "SYSTEMS_CIVILIZATIONAL_PROJECTION",
+          "resolution_status": "CANONICAL",
+          "skip_reason": ""
+        }
+      ],
+      "state_hash": "ba1445d3abf8ff48da3523ee0848e17fd7cef9a80e05ea5a554015fad16ac100",
+      "expected_visible_result": "K/M ladder row exposes semantic name, M-space, dependency, top-down constraint and boundary.",
+      "row_hash": "a7a108acc80f239a40c08b7e1910786c34b13446181315d431f8bd420ee52c57"
+    },
+    {
+      "transition_id": "K7->K6",
+      "selected_level_before": "K7",
+      "selected_level_after": "K6",
+      "visible_semantic_name": "social continua with institutional thresholds",
+      "selected_m_space": "M-COGNITIVE-SOCIAL",
+      "domain_projection_reconciliation": [
+        {
+          "label": "BIOLOGY",
+          "canonical_domain_id": "BIOLOGY",
+          "resolution_status": "CANONICAL",
+          "skip_reason": ""
+        },
+        {
+          "label": "COGNITIVE_SOCIAL",
+          "canonical_domain_id": "SYSTEMS_CIVILIZATIONAL_PROJECTION",
+          "resolution_status": "ALIAS_RESOLVED",
+          "skip_reason": "cognitive/social semantics are reviewed inside systems/civilizational projection"
+        },
+        {
+          "label": "SYSTEMS",
+          "canonical_domain_id": "SYSTEMS_CIVILIZATIONAL_PROJECTION",
+          "resolution_status": "ALIAS_RESOLVED",
+          "skip_reason": "alias used by K/M copy; canonical lane is systems/civilizational projection"
+        }
+      ],
+      "state_hash": "bc2fdaa39b0b3d333b9bd3d2d5460d8a9115473bbedcf1a642302650dbdab0ef",
+      "expected_visible_result": "K/M ladder row exposes semantic name, M-space, dependency, top-down constraint and boundary.",
+      "row_hash": "a6130edd82b4f6c3057c272c7a496a6e8681e223aca1b3c1d9ccc0cd90745eaf"
+    },
+    {
+      "transition_id": "K6->K5",
+      "selected_level_before": "K6",
+      "selected_level_after": "K5",
+      "visible_semantic_name": "cognitive axes, internal models and binding thresholds",
+      "selected_m_space": "M-BIOLOGY",
+      "domain_projection_reconciliation": [
+        {
+          "label": "BIOLOGY",
+          "canonical_domain_id": "BIOLOGY",
+          "resolution_status": "CANONICAL",
+          "skip_reason": ""
+        }
+      ],
+      "state_hash": "1a7001028a5196b65da931e476378ffd233a6460ed346f7240575c4f2aaf8194",
+      "expected_visible_result": "K/M ladder row exposes semantic name, M-space, dependency, top-down constraint and boundary.",
+      "row_hash": "176d8daf331109959c9ab70f42adee5ecf7d667379b08af161610478eacbcc23"
+    },
+    {
+      "transition_id": "K5->K4",
+      "selected_level_before": "K5",
+      "selected_level_after": "K4",
+      "visible_semantic_name": "early bioelectrical excitability and protospiking",
+      "selected_m_space": "M-BIOLOGY",
+      "domain_projection_reconciliation": [
+        {
+          "label": "BIOLOGY",
+          "canonical_domain_id": "BIOLOGY",
+          "resolution_status": "CANONICAL",
+          "skip_reason": ""
+        }
+      ],
+      "state_hash": "8138c2c0615bfe05f3590b52d948085ab6362b81c98034ed333276520ad79b3e",
+      "expected_visible_result": "K/M ladder row exposes semantic name, M-space, dependency, top-down constraint and boundary.",
+      "row_hash": "99a204d5706ba9a0a2be9bf51383536743045343a10d5080ba734ad3145100b8"
+    },
+    {
+      "transition_id": "K4->K3",
+      "selected_level_before": "K4",
+      "selected_level_after": "K3",
+      "visible_semantic_name": "protocellular organisation, internal gradients and membranes",
+      "selected_m_space": "M-CHEMISTRY",
+      "domain_projection_reconciliation": [
+        {
+          "label": "BIOLOGY",
+          "canonical_domain_id": "BIOLOGY",
+          "resolution_status": "CANONICAL",
+          "skip_reason": ""
+        },
+        {
+          "label": "CHEMISTRY",
+          "canonical_domain_id": "CHEMISTRY",
+          "resolution_status": "CANONICAL",
+          "skip_reason": ""
+        }
+      ],
+      "state_hash": "f5cff8c4b37b26ffb9a76969c25e9ccee2a9e647a734b75fb02ecf9bf6d83329",
+      "expected_visible_result": "K/M ladder row exposes semantic name, M-space, dependency, top-down constraint and boundary.",
+      "row_hash": "0667c1c3f00ddd3ed964a6c59dd5b5b002553282c99906d4e2c84f928c425b2d"
+    },
+    {
+      "transition_id": "K3->K2",
+      "selected_level_before": "K3",
+      "selected_level_after": "K2",
+      "visible_semantic_name": "chemical organisation and origins-of-life / prebiotic structures",
+      "selected_m_space": "M-CHEMISTRY",
+      "domain_projection_reconciliation": [
+        {
+          "label": "CHEMISTRY",
+          "canonical_domain_id": "CHEMISTRY",
+          "resolution_status": "CANONICAL",
+          "skip_reason": ""
+        }
+      ],
+      "state_hash": "e236a68ddbcd1e58def4243969731e057145b0e2f18bf080b8b2ff958bdb998d",
+      "expected_visible_result": "K/M ladder row exposes semantic name, M-space, dependency, top-down constraint and boundary.",
+      "row_hash": "101e57a4fb0675ef7d5adc16cda3df093357fdc3dd43a7f5561c67a550287aae"
+    },
+    {
+      "transition_id": "K2->K1",
+      "selected_level_before": "K2",
+      "selected_level_after": "K1",
+      "visible_semantic_name": "physical fields, phases and mass-related structures",
+      "selected_m_space": "M-PHYSICS",
+      "domain_projection_reconciliation": [
+        {
+          "label": "CHEMISTRY",
+          "canonical_domain_id": "CHEMISTRY",
+          "resolution_status": "CANONICAL",
+          "skip_reason": ""
+        },
+        {
+          "label": "PHYSICS",
+          "canonical_domain_id": "PHYSICS",
+          "resolution_status": "CANONICAL",
+          "skip_reason": ""
+        }
+      ],
+      "state_hash": "6992655c35f9e455cc1beff11ffcf495b873b2e318ef8a7774af9c548dcaec8c",
+      "expected_visible_result": "K/M ladder row exposes semantic name, M-space, dependency, top-down constraint and boundary.",
+      "row_hash": "1619dbede24f3e3cf31e413a576099a6da3f79758f3419022755f24f9d3dbfab"
+    },
+    {
+      "transition_id": "K1->K0",
+      "selected_level_before": "K1",
+      "selected_level_after": "K0",
+      "visible_semantic_name": "geometric continuity and classical stability thresholds",
+      "selected_m_space": "M-PHYSICS",
+      "domain_projection_reconciliation": [
+        {
+          "label": "PHYSICS",
+          "canonical_domain_id": "PHYSICS",
+          "resolution_status": "CANONICAL",
+          "skip_reason": ""
+        }
+      ],
+      "state_hash": "deec789bb3cd69fc58703e440fe91a88c3fc9be6346dc94693e119f868b2550c",
+      "expected_visible_result": "K/M ladder row exposes semantic name, M-space, dependency, top-down constraint and boundary.",
+      "row_hash": "4c129a82c289b421182860fa3ed1c556531b403b024f49cdf4a9ab8f0a5392f4"
+    }
+  ],
+  "per_level_route_execution_row_count": 12,
+  "transition_execution_ledger": {
+    "schema_version": "oc-core-demo-km-transition-execution-ledger.v010",
+    "status": "PASS",
+    "row_count": 12,
+    "expected_edge_transition_count": 12,
+    "transition_ids": [
+      "K12->K11",
+      "K11->K10",
+      "K10->K9",
+      "K9->K8",
+      "K8->K7",
+      "K7->K6",
+      "K6->K5",
+      "K5->K4",
+      "K4->K3",
+      "K3->K2",
+      "K2->K1",
+      "K1->K0"
+    ],
+    "rows": [
+      {
+        "transition_id": "K12->K11",
+        "selected_level_before": "K12",
+        "selected_level_after": "K11",
+        "visible_semantic_name": "semantic super-continuum and global coherence",
+        "selected_m_space": "M-META",
+        "domain_projection_reconciliation": [
+          {
+            "label": "MATHEMATICS",
+            "canonical_domain_id": "MATHEMATICS",
+            "resolution_status": "CANONICAL",
+            "skip_reason": ""
+          },
+          {
+            "label": "METAONTOLOGY",
+            "canonical_domain_id": "METAONTOLOGY",
+            "resolution_status": "CANONICAL",
+            "skip_reason": ""
+          }
+        ],
+        "state_hash": "348759d695485b134211d305573d69b334fa8d7020cfe7e2c8930a890207a47e",
+        "expected_visible_result": "K/M ladder row exposes semantic name, M-space, dependency, top-down constraint and boundary.",
+        "row_hash": "e503e985c299e9f1db5d0b27650b18328191c918e737b223716c77703c200d98"
+      },
+      {
+        "transition_id": "K11->K10",
+        "selected_level_before": "K11",
+        "selected_level_after": "K10",
+        "visible_semantic_name": "meta-evolution of operators, meta-logics and meta-spaces",
+        "selected_m_space": "M-META",
+        "domain_projection_reconciliation": [
+          {
+            "label": "MATHEMATICS",
+            "canonical_domain_id": "MATHEMATICS",
+            "resolution_status": "CANONICAL",
+            "skip_reason": ""
+          },
+          {
+            "label": "METAONTOLOGY",
+            "canonical_domain_id": "METAONTOLOGY",
+            "resolution_status": "CANONICAL",
+            "skip_reason": ""
+          }
+        ],
+        "state_hash": "3b8769ce401edd69e6435865ebaf91196113051c4a8b34a1ce181df1690c669e",
+        "expected_visible_result": "K/M ladder row exposes semantic name, M-space, dependency, top-down constraint and boundary.",
+        "row_hash": "75d446e36897f3e51d212d686d6868f522a9cb4dfe91b3f9719616cd4a506d38"
+      },
+      {
+        "transition_id": "K10->K9",
+        "selected_level_before": "K10",
+        "selected_level_after": "K9",
+        "visible_semantic_name": "meta-theoretical continua",
+        "selected_m_space": "M-META",
+        "domain_projection_reconciliation": [
+          {
+            "label": "MATHEMATICS",
+            "canonical_domain_id": "MATHEMATICS",
+            "resolution_status": "CANONICAL",
+            "skip_reason": ""
+          },
+          {
+            "label": "METAONTOLOGY",
+            "canonical_domain_id": "METAONTOLOGY",
+            "resolution_status": "CANONICAL",
+            "skip_reason": ""
+          },
+          {
+            "label": "PHYSICS",
+            "canonical_domain_id": "PHYSICS",
+            "resolution_status": "CANONICAL",
+            "skip_reason": ""
+          }
+        ],
+        "state_hash": "02762dad623282011ef8de9dd913b8b52a79d37cb5e5448baceec823b42173ef",
+        "expected_visible_result": "K/M ladder row exposes semantic name, M-space, dependency, top-down constraint and boundary.",
+        "row_hash": "df6752e41a823b40ec7bb364c213e33d84eb6b106e331d6d16d3b20c1425102f"
+      },
+      {
+        "transition_id": "K9->K8",
+        "selected_level_before": "K9",
+        "selected_level_after": "K8",
+        "visible_semantic_name": "theoretical continua",
+        "selected_m_space": "M-CIVILIZATION",
+        "domain_projection_reconciliation": [
+          {
+            "label": "MATHEMATICS",
+            "canonical_domain_id": "MATHEMATICS",
+            "resolution_status": "CANONICAL",
+            "skip_reason": ""
+          },
+          {
+            "label": "PHYSICS",
+            "canonical_domain_id": "PHYSICS",
+            "resolution_status": "CANONICAL",
+            "skip_reason": ""
+          }
+        ],
+        "state_hash": "e5b1f169a97f32ff9a3e285798cee8b66217b99486273d86a25fc1eca29ea572",
+        "expected_visible_result": "K/M ladder row exposes semantic name, M-space, dependency, top-down constraint and boundary.",
+        "row_hash": "8cc41c7c0f05cb22c394fdccd06e48b45bf2347367a10820dfc5b72b9c07ef92"
+      },
+      {
+        "transition_id": "K8->K7",
+        "selected_level_before": "K8",
+        "selected_level_after": "K7",
+        "visible_semantic_name": "civilizational continua with infrastructural and systemic thresholds",
+        "selected_m_space": "M-COGNITIVE-SOCIAL",
+        "domain_projection_reconciliation": [
+          {
+            "label": "SYSTEMS_CIVILIZATIONAL_PROJECTION",
+            "canonical_domain_id": "SYSTEMS_CIVILIZATIONAL_PROJECTION",
+            "resolution_status": "CANONICAL",
+            "skip_reason": ""
+          }
+        ],
+        "state_hash": "ba1445d3abf8ff48da3523ee0848e17fd7cef9a80e05ea5a554015fad16ac100",
+        "expected_visible_result": "K/M ladder row exposes semantic name, M-space, dependency, top-down constraint and boundary.",
+        "row_hash": "a7a108acc80f239a40c08b7e1910786c34b13446181315d431f8bd420ee52c57"
+      },
+      {
+        "transition_id": "K7->K6",
+        "selected_level_before": "K7",
+        "selected_level_after": "K6",
+        "visible_semantic_name": "social continua with institutional thresholds",
+        "selected_m_space": "M-COGNITIVE-SOCIAL",
+        "domain_projection_reconciliation": [
+          {
+            "label": "BIOLOGY",
+            "canonical_domain_id": "BIOLOGY",
+            "resolution_status": "CANONICAL",
+            "skip_reason": ""
+          },
+          {
+            "label": "COGNITIVE_SOCIAL",
+            "canonical_domain_id": "SYSTEMS_CIVILIZATIONAL_PROJECTION",
+            "resolution_status": "ALIAS_RESOLVED",
+            "skip_reason": "cognitive/social semantics are reviewed inside systems/civilizational projection"
+          },
+          {
+            "label": "SYSTEMS",
+            "canonical_domain_id": "SYSTEMS_CIVILIZATIONAL_PROJECTION",
+            "resolution_status": "ALIAS_RESOLVED",
+            "skip_reason": "alias used by K/M copy; canonical lane is systems/civilizational projection"
+          }
+        ],
+        "state_hash": "bc2fdaa39b0b3d333b9bd3d2d5460d8a9115473bbedcf1a642302650dbdab0ef",
+        "expected_visible_result": "K/M ladder row exposes semantic name, M-space, dependency, top-down constraint and boundary.",
+        "row_hash": "a6130edd82b4f6c3057c272c7a496a6e8681e223aca1b3c1d9ccc0cd90745eaf"
+      },
+      {
+        "transition_id": "K6->K5",
+        "selected_level_before": "K6",
+        "selected_level_after": "K5",
+        "visible_semantic_name": "cognitive axes, internal models and binding thresholds",
+        "selected_m_space": "M-BIOLOGY",
+        "domain_projection_reconciliation": [
+          {
+            "label": "BIOLOGY",
+            "canonical_domain_id": "BIOLOGY",
+            "resolution_status": "CANONICAL",
+            "skip_reason": ""
+          }
+        ],
+        "state_hash": "1a7001028a5196b65da931e476378ffd233a6460ed346f7240575c4f2aaf8194",
+        "expected_visible_result": "K/M ladder row exposes semantic name, M-space, dependency, top-down constraint and boundary.",
+        "row_hash": "176d8daf331109959c9ab70f42adee5ecf7d667379b08af161610478eacbcc23"
+      },
+      {
+        "transition_id": "K5->K4",
+        "selected_level_before": "K5",
+        "selected_level_after": "K4",
+        "visible_semantic_name": "early bioelectrical excitability and protospiking",
+        "selected_m_space": "M-BIOLOGY",
+        "domain_projection_reconciliation": [
+          {
+            "label": "BIOLOGY",
+            "canonical_domain_id": "BIOLOGY",
+            "resolution_status": "CANONICAL",
+            "skip_reason": ""
+          }
+        ],
+        "state_hash": "8138c2c0615bfe05f3590b52d948085ab6362b81c98034ed333276520ad79b3e",
+        "expected_visible_result": "K/M ladder row exposes semantic name, M-space, dependency, top-down constraint and boundary.",
+        "row_hash": "99a204d5706ba9a0a2be9bf51383536743045343a10d5080ba734ad3145100b8"
+      },
+      {
+        "transition_id": "K4->K3",
+        "selected_level_before": "K4",
+        "selected_level_after": "K3",
+        "visible_semantic_name": "protocellular organisation, internal gradients and membranes",
+        "selected_m_space": "M-CHEMISTRY",
+        "domain_projection_reconciliation": [
+          {
+            "label": "BIOLOGY",
+            "canonical_domain_id": "BIOLOGY",
+            "resolution_status": "CANONICAL",
+            "skip_reason": ""
+          },
+          {
+            "label": "CHEMISTRY",
+            "canonical_domain_id": "CHEMISTRY",
+            "resolution_status": "CANONICAL",
+            "skip_reason": ""
+          }
+        ],
+        "state_hash": "f5cff8c4b37b26ffb9a76969c25e9ccee2a9e647a734b75fb02ecf9bf6d83329",
+        "expected_visible_result": "K/M ladder row exposes semantic name, M-space, dependency, top-down constraint and boundary.",
+        "row_hash": "0667c1c3f00ddd3ed964a6c59dd5b5b002553282c99906d4e2c84f928c425b2d"
+      },
+      {
+        "transition_id": "K3->K2",
+        "selected_level_before": "K3",
+        "selected_level_after": "K2",
+        "visible_semantic_name": "chemical organisation and origins-of-life / prebiotic structures",
+        "selected_m_space": "M-CHEMISTRY",
+        "domain_projection_reconciliation": [
+          {
+            "label": "CHEMISTRY",
+            "canonical_domain_id": "CHEMISTRY",
+            "resolution_status": "CANONICAL",
+            "skip_reason": ""
+          }
+        ],
+        "state_hash": "e236a68ddbcd1e58def4243969731e057145b0e2f18bf080b8b2ff958bdb998d",
+        "expected_visible_result": "K/M ladder row exposes semantic name, M-space, dependency, top-down constraint and boundary.",
+        "row_hash": "101e57a4fb0675ef7d5adc16cda3df093357fdc3dd43a7f5561c67a550287aae"
+      },
+      {
+        "transition_id": "K2->K1",
+        "selected_level_before": "K2",
+        "selected_level_after": "K1",
+        "visible_semantic_name": "physical fields, phases and mass-related structures",
+        "selected_m_space": "M-PHYSICS",
+        "domain_projection_reconciliation": [
+          {
+            "label": "CHEMISTRY",
+            "canonical_domain_id": "CHEMISTRY",
+            "resolution_status": "CANONICAL",
+            "skip_reason": ""
+          },
+          {
+            "label": "PHYSICS",
+            "canonical_domain_id": "PHYSICS",
+            "resolution_status": "CANONICAL",
+            "skip_reason": ""
+          }
+        ],
+        "state_hash": "6992655c35f9e455cc1beff11ffcf495b873b2e318ef8a7774af9c548dcaec8c",
+        "expected_visible_result": "K/M ladder row exposes semantic name, M-space, dependency, top-down constraint and boundary.",
+        "row_hash": "1619dbede24f3e3cf31e413a576099a6da3f79758f3419022755f24f9d3dbfab"
+      },
+      {
+        "transition_id": "K1->K0",
+        "selected_level_before": "K1",
+        "selected_level_after": "K0",
+        "visible_semantic_name": "geometric continuity and classical stability thresholds",
+        "selected_m_space": "M-PHYSICS",
+        "domain_projection_reconciliation": [
+          {
+            "label": "PHYSICS",
+            "canonical_domain_id": "PHYSICS",
+            "resolution_status": "CANONICAL",
+            "skip_reason": ""
+          }
+        ],
+        "state_hash": "deec789bb3cd69fc58703e440fe91a88c3fc9be6346dc94693e119f868b2550c",
+        "expected_visible_result": "K/M ladder row exposes semantic name, M-space, dependency, top-down constraint and boundary.",
+        "row_hash": "4c129a82c289b421182860fa3ed1c556531b403b024f49cdf4a9ab8f0a5392f4"
+      }
+    ],
+    "deterministic_row_hashes": [
+      "e503e985c299e9f1db5d0b27650b18328191c918e737b223716c77703c200d98",
+      "75d446e36897f3e51d212d686d6868f522a9cb4dfe91b3f9719616cd4a506d38",
+      "df6752e41a823b40ec7bb364c213e33d84eb6b106e331d6d16d3b20c1425102f",
+      "8cc41c7c0f05cb22c394fdccd06e48b45bf2347367a10820dfc5b72b9c07ef92",
+      "a7a108acc80f239a40c08b7e1910786c34b13446181315d431f8bd420ee52c57",
+      "a6130edd82b4f6c3057c272c7a496a6e8681e223aca1b3c1d9ccc0cd90745eaf",
+      "176d8daf331109959c9ab70f42adee5ecf7d667379b08af161610478eacbcc23",
+      "99a204d5706ba9a0a2be9bf51383536743045343a10d5080ba734ad3145100b8",
+      "0667c1c3f00ddd3ed964a6c59dd5b5b002553282c99906d4e2c84f928c425b2d",
+      "101e57a4fb0675ef7d5adc16cda3df093357fdc3dd43a7f5561c67a550287aae",
+      "1619dbede24f3e3cf31e413a576099a6da3f79758f3419022755f24f9d3dbfab",
+      "4c129a82c289b421182860fa3ed1c556531b403b024f49cdf4a9ab8f0a5392f4"
+    ],
+    "ledger_policy": "All K12->K11 through K1->K0 transition execution rows are materialized in the K/M review packet; this is not a sample-only digest.",
+    "ledger_hash": "a06b81574c5f2022d8f7aa5629f9ffad784703fea08504cf6f827acca0c50ccd"
+  },
+  "upward_transition_contract": {
+    "schema_version": "oc-core-demo-km-upward-transition-contract.v010",
+    "status": "PASS",
+    "route_id": "k0_to_k3_build_up",
+    "starts_at": "K0",
+    "ends_at": "K3",
+    "row_count": 3,
+    "rows": [
+      {
+        "transition_id": "K0->K1",
+        "selected_level_before": "K0",
+        "selected_level_after": "K1",
+        "selected_m_space": "M-PHYSICS",
+        "direct_formula_refs": [
+          "OCF-010",
+          "OCF-011",
+          "OCF-012",
+          "OCF-013",
+          "OCF-002"
+        ],
+        "state_hash": "d698ee27cf61547223adb200c79cd5353d0589a9aeb8bd69a33d2c102b5f1f37",
+        "expected_visible_result": "Upward K/M traversal selects K1, updates M-space and shows level-specific formula/proof refs.",
+        "nonclaim_boundary": "Upward ladder traversal is structural navigation, not proof closure.",
+        "row_hash": "a6267c55648454c223d68ec37a91785ce391d3bc204cba5a175e71c4d9e5af06"
+      },
+      {
+        "transition_id": "K1->K2",
+        "selected_level_before": "K1",
+        "selected_level_after": "K2",
+        "selected_m_space": "M-PHYSICS",
+        "direct_formula_refs": [
+          "OCF-010",
+          "OCF-011",
+          "OCF-012",
+          "OCF-013",
+          "OCF-003"
+        ],
+        "state_hash": "7ce7214bbae83a4e8e58f99b3c3fc63eb1b9466bad4b9bedc67e0cba15c95754",
+        "expected_visible_result": "Upward K/M traversal selects K2, updates M-space and shows level-specific formula/proof refs.",
+        "nonclaim_boundary": "Upward ladder traversal is structural navigation, not proof closure.",
+        "row_hash": "4149ee334833ca06caa182482ba82ade113c8d889cfb4779eb6db4abff4b9858"
+      },
+      {
+        "transition_id": "K2->K3",
+        "selected_level_before": "K2",
+        "selected_level_after": "K3",
+        "selected_m_space": "M-CHEMISTRY",
+        "direct_formula_refs": [
+          "OCF-010",
+          "OCF-011",
+          "OCF-012",
+          "OCF-013",
+          "OCF-004"
+        ],
+        "state_hash": "b319c57bb9c92ff77d1e7f3bda6e5c8660b3d9305c5b06207be93b6fa404d9a7",
+        "expected_visible_result": "Upward K/M traversal selects K3, updates M-space and shows level-specific formula/proof refs.",
+        "nonclaim_boundary": "Upward ladder traversal is structural navigation, not proof closure.",
+        "row_hash": "6e3d8d51c35f5a66070b9ab36b06223a2890a2d890769237422abc4a4a27d42a"
+      }
+    ],
+    "contract_hash": "e6cd4422ae894d38c465d413bd40df284255b081c7c490973a0943a15aa1ede7"
+  },
+  "selected_state": {
+    "k_level": "K0",
+    "m_space": "M-PHYSICS",
+    "m_space_label": "Physical M-space",
+    "direct_formula_refs": [
+      "OCF-010",
+      "OCF-011",
+      "OCF-012",
+      "OCF-013",
+      "OCF-001"
+    ],
+    "expanded_formula_refs": [
+      "OCF-001",
+      "OCF-002",
+      "OCF-003",
+      "OCF-004",
+      "OCF-005",
+      "OCF-006",
+      "OCF-007",
+      "OCF-008"
+    ],
+    "formula_refs": [
+      "OCF-010",
+      "OCF-011",
+      "OCF-012",
+      "OCF-013",
+      "OCF-001"
+    ],
+    "proof_refs": [
+      "OC14-N001",
+      "OC14-N002",
+      "OC14-N003",
+      "OC14-N004",
+      "OC14-N005",
+      "OC14-N006"
+    ],
+    "proof_refs_total": 6,
+    "source_refs": [
+      "72278d09684ca1e55b734effcf19227f4af450d6739f3bfaff81e9c37e492ee7"
+    ],
+    "lower_dependency_text": "bounded public dependency summary",
+    "top_down_constraint_text": "selected K-level constrains lower layers through axes, thresholds and invariants",
+    "domain_projections": [
+      "MATHEMATICS"
+    ],
+    "domain_projection_reconciliation": [
+      {
+        "label": "MATHEMATICS",
+        "canonical_domain_id": "MATHEMATICS",
+        "resolution_status": "CANONICAL",
+        "skip_reason": ""
+      }
+    ],
+    "m_space_mapping_policy": "K10-K12 select M-META when available; M-CIVILIZATION remains visible as civilizational context, not the default meta-theoretical slice.",
+    "nonclaim_boundary": "K/M export is a local audit packet, not external proof.",
+    "terminal_boundary_policy": "selected_state.k_level=K0 intentionally means no lower K-level public claim is made.",
+    "export_hash_scope": "selected_state_variants[K0].export_hash",
+    "export_hash": "058ffb5bb39cf25d1462265796b1844c0e0fa7fd72c2999887a84943c01b57ed"
+  },
+  "selected_state_variants": [
+    {
+      "k_level": "K12",
+      "m_space": "M-META",
+      "m_space_label": "Meta-model M-space",
+      "direct_formula_refs": [
+        "OCF-010",
+        "OCF-011",
+        "OCF-012",
+        "OCF-013"
+      ],
+      "expanded_formula_refs": [
+        "OCF-001",
+        "OCF-002",
+        "OCF-003",
+        "OCF-004",
+        "OCF-005",
+        "OCF-006",
+        "OCF-007",
+        "OCF-008"
+      ],
+      "formula_refs": [
+        "OCF-010",
+        "OCF-011",
+        "OCF-012",
+        "OCF-013"
+      ],
+      "proof_refs": [
+        "OC14-N001",
+        "OC14-N002",
+        "OC14-N003",
+        "OC14-N004",
+        "OC14-N005",
+        "OC14-N006"
+      ],
+      "proof_refs_total": 6,
+      "source_refs": [
+        "f175b39ee3e28cc830b916dc9cc898b8d19ed1f29831e4d9fb0c5881921d1d3a"
+      ],
+      "lower_dependency_text": "bounded public dependency summary",
+      "top_down_constraint_text": "selected K-level constrains lower layers through axes, thresholds and invariants",
+      "domain_projections": [
+        "MATHEMATICS",
+        "METAONTOLOGY"
+      ],
+      "domain_projection_reconciliation": [
+        {
+          "label": "MATHEMATICS",
+          "canonical_domain_id": "MATHEMATICS",
+          "resolution_status": "CANONICAL",
+          "skip_reason": ""
+        },
+        {
+          "label": "METAONTOLOGY",
+          "canonical_domain_id": "METAONTOLOGY",
+          "resolution_status": "CANONICAL",
+          "skip_reason": ""
+        }
+      ],
+      "m_space_mapping_policy": "K10-K12 select M-META when available; M-CIVILIZATION remains visible as civilizational context, not the default meta-theoretical slice.",
+      "nonclaim_boundary": "K/M export is a local audit packet, not external proof.",
+      "export_hash_scope": "selected_state_variants[K12].export_hash",
+      "export_hash": "2c9575196a59c9398dd5d196d9c7d49a6106022afe3f2c3c97ab2966bc460939"
+    },
+    {
+      "k_level": "K11",
+      "m_space": "M-META",
+      "m_space_label": "Meta-model M-space",
+      "direct_formula_refs": [
+        "OCF-010",
+        "OCF-011",
+        "OCF-012",
+        "OCF-013"
+      ],
+      "expanded_formula_refs": [
+        "OCF-001",
+        "OCF-002",
+        "OCF-003",
+        "OCF-004",
+        "OCF-005",
+        "OCF-006",
+        "OCF-007",
+        "OCF-008"
+      ],
+      "formula_refs": [
+        "OCF-010",
+        "OCF-011",
+        "OCF-012",
+        "OCF-013"
+      ],
+      "proof_refs": [
+        "OC14-N001",
+        "OC14-N002",
+        "OC14-N003",
+        "OC14-N004",
+        "OC14-N005",
+        "OC14-N006"
+      ],
+      "proof_refs_total": 6,
+      "source_refs": [
+        "2f9d2b7742e2e7bb9cee2b92c67d1a3c8d8cb559f60e55b5dbb20135455845d7"
+      ],
+      "lower_dependency_text": "bounded public dependency summary",
+      "top_down_constraint_text": "selected K-level constrains lower layers through axes, thresholds and invariants",
+      "domain_projections": [
+        "MATHEMATICS",
+        "METAONTOLOGY"
+      ],
+      "domain_projection_reconciliation": [
+        {
+          "label": "MATHEMATICS",
+          "canonical_domain_id": "MATHEMATICS",
+          "resolution_status": "CANONICAL",
+          "skip_reason": ""
+        },
+        {
+          "label": "METAONTOLOGY",
+          "canonical_domain_id": "METAONTOLOGY",
+          "resolution_status": "CANONICAL",
+          "skip_reason": ""
+        }
+      ],
+      "m_space_mapping_policy": "K10-K12 select M-META when available; M-CIVILIZATION remains visible as civilizational context, not the default meta-theoretical slice.",
+      "nonclaim_boundary": "K/M export is a local audit packet, not external proof.",
+      "export_hash_scope": "selected_state_variants[K11].export_hash",
+      "export_hash": "c0feffb161cd8e2503ff77386a8b82f01af2121301af2ebc9abf8963363237fb"
+    },
+    {
+      "k_level": "K10",
+      "m_space": "M-META",
+      "m_space_label": "Meta-model M-space",
+      "direct_formula_refs": [
+        "OCF-010",
+        "OCF-011",
+        "OCF-012",
+        "OCF-013"
+      ],
+      "expanded_formula_refs": [
+        "OCF-001",
+        "OCF-002",
+        "OCF-003",
+        "OCF-004",
+        "OCF-005",
+        "OCF-006",
+        "OCF-007",
+        "OCF-008"
+      ],
+      "formula_refs": [
+        "OCF-010",
+        "OCF-011",
+        "OCF-012",
+        "OCF-013"
+      ],
+      "proof_refs": [
+        "OC14-N001",
+        "OC14-N002",
+        "OC14-N003",
+        "OC14-N004",
+        "OC14-N005",
+        "OC14-N006"
+      ],
+      "proof_refs_total": 6,
+      "source_refs": [
+        "63024219ec096ca4266e7a31e4087a6485828c5746ae23b4c2f4bfb30d073418"
+      ],
+      "lower_dependency_text": "bounded public dependency summary",
+      "top_down_constraint_text": "selected K-level constrains lower layers through axes, thresholds and invariants",
+      "domain_projections": [
+        "MATHEMATICS",
+        "METAONTOLOGY",
+        "PHYSICS"
+      ],
+      "domain_projection_reconciliation": [
+        {
+          "label": "MATHEMATICS",
+          "canonical_domain_id": "MATHEMATICS",
+          "resolution_status": "CANONICAL",
+          "skip_reason": ""
+        },
+        {
+          "label": "METAONTOLOGY",
+          "canonical_domain_id": "METAONTOLOGY",
+          "resolution_status": "CANONICAL",
+          "skip_reason": ""
+        },
+        {
+          "label": "PHYSICS",
+          "canonical_domain_id": "PHYSICS",
+          "resolution_status": "CANONICAL",
+          "skip_reason": ""
+        }
+      ],
+      "m_space_mapping_policy": "K10-K12 select M-META when available; M-CIVILIZATION remains visible as civilizational context, not the default meta-theoretical slice.",
+      "nonclaim_boundary": "K/M export is a local audit packet, not external proof.",
+      "export_hash_scope": "selected_state_variants[K10].export_hash",
+      "export_hash": "91a27151754c22b3e4c0cbb3e7f2b63f5a2172a2047886fe593fde5df085aa5f"
+    },
+    {
+      "k_level": "K9",
+      "m_space": "M-CIVILIZATION",
+      "m_space_label": "Civilizational M-space",
+      "direct_formula_refs": [
+        "OCF-010",
+        "OCF-011",
+        "OCF-012",
+        "OCF-013"
+      ],
+      "expanded_formula_refs": [
+        "OCF-001",
+        "OCF-002",
+        "OCF-003",
+        "OCF-004",
+        "OCF-005",
+        "OCF-006",
+        "OCF-007",
+        "OCF-008"
+      ],
+      "formula_refs": [
+        "OCF-010",
+        "OCF-011",
+        "OCF-012",
+        "OCF-013"
+      ],
+      "proof_refs": [
+        "OC14-N001",
+        "OC14-N002",
+        "OC14-N003",
+        "OC14-N004",
+        "OC14-N005",
+        "OC14-N006"
+      ],
+      "proof_refs_total": 6,
+      "source_refs": [
+        "f2e03cd392d7ebdd1dc2281d22f3d1890ed31c24bfaad30462fe55f1e1b15aaa"
+      ],
+      "lower_dependency_text": "bounded public dependency summary",
+      "top_down_constraint_text": "selected K-level constrains lower layers through axes, thresholds and invariants",
+      "domain_projections": [
+        "MATHEMATICS",
+        "PHYSICS"
+      ],
+      "domain_projection_reconciliation": [
+        {
+          "label": "MATHEMATICS",
+          "canonical_domain_id": "MATHEMATICS",
+          "resolution_status": "CANONICAL",
+          "skip_reason": ""
+        },
+        {
+          "label": "PHYSICS",
+          "canonical_domain_id": "PHYSICS",
+          "resolution_status": "CANONICAL",
+          "skip_reason": ""
+        }
+      ],
+      "m_space_mapping_policy": "K10-K12 select M-META when available; M-CIVILIZATION remains visible as civilizational context, not the default meta-theoretical slice.",
+      "nonclaim_boundary": "K/M export is a local audit packet, not external proof.",
+      "export_hash_scope": "selected_state_variants[K9].export_hash",
+      "export_hash": "9024bdc77da8485eb35727b639293de934391d8af9da7c51891c750ede816cb3"
+    },
+    {
+      "k_level": "K8",
+      "m_space": "M-COGNITIVE-SOCIAL",
+      "m_space_label": "Cognitive/social M-space",
+      "direct_formula_refs": [
+        "OCF-010",
+        "OCF-011",
+        "OCF-012",
+        "OCF-013",
+        "OCF-009"
+      ],
+      "expanded_formula_refs": [
+        "OCF-001",
+        "OCF-002",
+        "OCF-003",
+        "OCF-004",
+        "OCF-005",
+        "OCF-006",
+        "OCF-007",
+        "OCF-008"
+      ],
+      "formula_refs": [
+        "OCF-010",
+        "OCF-011",
+        "OCF-012",
+        "OCF-013",
+        "OCF-009"
+      ],
+      "proof_refs": [
+        "OC14-N001",
+        "OC14-N002",
+        "OC14-N003",
+        "OC14-N004",
+        "OC14-N005",
+        "OC14-N006"
+      ],
+      "proof_refs_total": 6,
+      "source_refs": [
+        "0a2d95ef1eea267b44b6e86184ea1dea88e3c5072c8b75793d9a36a8cb1806fe"
+      ],
+      "lower_dependency_text": "bounded public dependency summary",
+      "top_down_constraint_text": "selected K-level constrains lower layers through axes, thresholds and invariants",
+      "domain_projections": [
+        "SYSTEMS_CIVILIZATIONAL_PROJECTION"
+      ],
+      "domain_projection_reconciliation": [
+        {
+          "label": "SYSTEMS_CIVILIZATIONAL_PROJECTION",
+          "canonical_domain_id": "SYSTEMS_CIVILIZATIONAL_PROJECTION",
+          "resolution_status": "CANONICAL",
+          "skip_reason": ""
+        }
+      ],
+      "m_space_mapping_policy": "K10-K12 select M-META when available; M-CIVILIZATION remains visible as civilizational context, not the default meta-theoretical slice.",
+      "nonclaim_boundary": "K/M export is a local audit packet, not external proof.",
+      "export_hash_scope": "selected_state_variants[K8].export_hash",
+      "export_hash": "1750ebb63652a69c26d9fba376906909772489003171e0f454e1a2b488b20205"
+    },
+    {
+      "k_level": "K7",
+      "m_space": "M-COGNITIVE-SOCIAL",
+      "m_space_label": "Cognitive/social M-space",
+      "direct_formula_refs": [
+        "OCF-010",
+        "OCF-011",
+        "OCF-012",
+        "OCF-013",
+        "OCF-008"
+      ],
+      "expanded_formula_refs": [
+        "OCF-001",
+        "OCF-002",
+        "OCF-003",
+        "OCF-004",
+        "OCF-005",
+        "OCF-006",
+        "OCF-007",
+        "OCF-008"
+      ],
+      "formula_refs": [
+        "OCF-010",
+        "OCF-011",
+        "OCF-012",
+        "OCF-013",
+        "OCF-008"
+      ],
+      "proof_refs": [
+        "OC14-N001",
+        "OC14-N002",
+        "OC14-N003",
+        "OC14-N004",
+        "OC14-N005",
+        "OC14-N006"
+      ],
+      "proof_refs_total": 6,
+      "source_refs": [
+        "4441e114ec61518e958842011d4f06150c6d6e7d452d246d476a50139ec2f6ae"
+      ],
+      "lower_dependency_text": "bounded public dependency summary",
+      "top_down_constraint_text": "selected K-level constrains lower layers through axes, thresholds and invariants",
+      "domain_projections": [
+        "BIOLOGY",
+        "COGNITIVE_SOCIAL",
+        "SYSTEMS"
+      ],
+      "domain_projection_reconciliation": [
+        {
+          "label": "BIOLOGY",
+          "canonical_domain_id": "BIOLOGY",
+          "resolution_status": "CANONICAL",
+          "skip_reason": ""
+        },
+        {
+          "label": "COGNITIVE_SOCIAL",
+          "canonical_domain_id": "SYSTEMS_CIVILIZATIONAL_PROJECTION",
+          "resolution_status": "ALIAS_RESOLVED",
+          "skip_reason": "cognitive/social semantics are reviewed inside systems/civilizational projection"
+        },
+        {
+          "label": "SYSTEMS",
+          "canonical_domain_id": "SYSTEMS_CIVILIZATIONAL_PROJECTION",
+          "resolution_status": "ALIAS_RESOLVED",
+          "skip_reason": "alias used by K/M copy; canonical lane is systems/civilizational projection"
+        }
+      ],
+      "m_space_mapping_policy": "K10-K12 select M-META when available; M-CIVILIZATION remains visible as civilizational context, not the default meta-theoretical slice.",
+      "nonclaim_boundary": "K/M export is a local audit packet, not external proof.",
+      "export_hash_scope": "selected_state_variants[K7].export_hash",
+      "export_hash": "7e8d8be70bbba3f06ba748361ad952ae65d9dfc0b29a519c9949213eca1277b4"
+    },
+    {
+      "k_level": "K6",
+      "m_space": "M-BIOLOGY",
+      "m_space_label": "Biological state M-space",
+      "direct_formula_refs": [
+        "OCF-010",
+        "OCF-011",
+        "OCF-012",
+        "OCF-013",
+        "OCF-007"
+      ],
+      "expanded_formula_refs": [
+        "OCF-001",
+        "OCF-002",
+        "OCF-003",
+        "OCF-004",
+        "OCF-005",
+        "OCF-006",
+        "OCF-007",
+        "OCF-008"
+      ],
+      "formula_refs": [
+        "OCF-010",
+        "OCF-011",
+        "OCF-012",
+        "OCF-013",
+        "OCF-007"
+      ],
+      "proof_refs": [
+        "OC14-N001",
+        "OC14-N002",
+        "OC14-N003",
+        "OC14-N004",
+        "OC14-N005",
+        "OC14-N006"
+      ],
+      "proof_refs_total": 6,
+      "source_refs": [
+        "b1ad18cee4deec99d1e615c368704bf0e63a35595efc916c19dab944610c7f46"
+      ],
+      "lower_dependency_text": "bounded public dependency summary",
+      "top_down_constraint_text": "selected K-level constrains lower layers through axes, thresholds and invariants",
+      "domain_projections": [
+        "BIOLOGY"
+      ],
+      "domain_projection_reconciliation": [
+        {
+          "label": "BIOLOGY",
+          "canonical_domain_id": "BIOLOGY",
+          "resolution_status": "CANONICAL",
+          "skip_reason": ""
+        }
+      ],
+      "m_space_mapping_policy": "K10-K12 select M-META when available; M-CIVILIZATION remains visible as civilizational context, not the default meta-theoretical slice.",
+      "nonclaim_boundary": "K/M export is a local audit packet, not external proof.",
+      "export_hash_scope": "selected_state_variants[K6].export_hash",
+      "export_hash": "0c6c88b6d0164a695ab537f99a908785e973e605488f3ef303b58f11145bed60"
+    },
+    {
+      "k_level": "K5",
+      "m_space": "M-BIOLOGY",
+      "m_space_label": "Biological state M-space",
+      "direct_formula_refs": [
+        "OCF-010",
+        "OCF-011",
+        "OCF-012",
+        "OCF-013",
+        "OCF-006"
+      ],
+      "expanded_formula_refs": [
+        "OCF-001",
+        "OCF-002",
+        "OCF-003",
+        "OCF-004",
+        "OCF-005",
+        "OCF-006",
+        "OCF-007",
+        "OCF-008"
+      ],
+      "formula_refs": [
+        "OCF-010",
+        "OCF-011",
+        "OCF-012",
+        "OCF-013",
+        "OCF-006"
+      ],
+      "proof_refs": [
+        "OC14-N001",
+        "OC14-N002",
+        "OC14-N003",
+        "OC14-N004",
+        "OC14-N005",
+        "OC14-N006"
+      ],
+      "proof_refs_total": 6,
+      "source_refs": [
+        "20b319d30427aaa37535b14718402c266d820c36b30f4822882374e4180378cf"
+      ],
+      "lower_dependency_text": "bounded public dependency summary",
+      "top_down_constraint_text": "selected K-level constrains lower layers through axes, thresholds and invariants",
+      "domain_projections": [
+        "BIOLOGY"
+      ],
+      "domain_projection_reconciliation": [
+        {
+          "label": "BIOLOGY",
+          "canonical_domain_id": "BIOLOGY",
+          "resolution_status": "CANONICAL",
+          "skip_reason": ""
+        }
+      ],
+      "m_space_mapping_policy": "K10-K12 select M-META when available; M-CIVILIZATION remains visible as civilizational context, not the default meta-theoretical slice.",
+      "nonclaim_boundary": "K/M export is a local audit packet, not external proof.",
+      "export_hash_scope": "selected_state_variants[K5].export_hash",
+      "export_hash": "c970f65efa9fa5710b747231bf0a8d12e1c3f9cc81648e4172a7e32ec3c21bae"
+    },
+    {
+      "k_level": "K4",
+      "m_space": "M-CHEMISTRY",
+      "m_space_label": "Chemical organization M-space",
+      "direct_formula_refs": [
+        "OCF-010",
+        "OCF-011",
+        "OCF-012",
+        "OCF-013",
+        "OCF-005"
+      ],
+      "expanded_formula_refs": [
+        "OCF-001",
+        "OCF-002",
+        "OCF-003",
+        "OCF-004",
+        "OCF-005",
+        "OCF-006",
+        "OCF-007",
+        "OCF-008"
+      ],
+      "formula_refs": [
+        "OCF-010",
+        "OCF-011",
+        "OCF-012",
+        "OCF-013",
+        "OCF-005"
+      ],
+      "proof_refs": [
+        "OC14-N001",
+        "OC14-N002",
+        "OC14-N003",
+        "OC14-N004",
+        "OC14-N005",
+        "OC14-N006"
+      ],
+      "proof_refs_total": 6,
+      "source_refs": [
+        "7aca0bc63005828e51261779d9583cdfffe4f67e41f0978c73182a45d96e399f"
+      ],
+      "lower_dependency_text": "bounded public dependency summary",
+      "top_down_constraint_text": "selected K-level constrains lower layers through axes, thresholds and invariants",
+      "domain_projections": [
+        "BIOLOGY",
+        "CHEMISTRY"
+      ],
+      "domain_projection_reconciliation": [
+        {
+          "label": "BIOLOGY",
+          "canonical_domain_id": "BIOLOGY",
+          "resolution_status": "CANONICAL",
+          "skip_reason": ""
+        },
+        {
+          "label": "CHEMISTRY",
+          "canonical_domain_id": "CHEMISTRY",
+          "resolution_status": "CANONICAL",
+          "skip_reason": ""
+        }
+      ],
+      "m_space_mapping_policy": "K10-K12 select M-META when available; M-CIVILIZATION remains visible as civilizational context, not the default meta-theoretical slice.",
+      "nonclaim_boundary": "K/M export is a local audit packet, not external proof.",
+      "export_hash_scope": "selected_state_variants[K4].export_hash",
+      "export_hash": "03616002c0e903f0dc6882ba53f114690ca36e71e2825d13ef5fbe9a7f0e957d"
+    },
+    {
+      "k_level": "K3",
+      "m_space": "M-CHEMISTRY",
+      "m_space_label": "Chemical organization M-space",
+      "direct_formula_refs": [
+        "OCF-010",
+        "OCF-011",
+        "OCF-012",
+        "OCF-013",
+        "OCF-004"
+      ],
+      "expanded_formula_refs": [
+        "OCF-001",
+        "OCF-002",
+        "OCF-003",
+        "OCF-004",
+        "OCF-005",
+        "OCF-006",
+        "OCF-007",
+        "OCF-008"
+      ],
+      "formula_refs": [
+        "OCF-010",
+        "OCF-011",
+        "OCF-012",
+        "OCF-013",
+        "OCF-004"
+      ],
+      "proof_refs": [
+        "OC14-N001",
+        "OC14-N002",
+        "OC14-N003",
+        "OC14-N004",
+        "OC14-N005",
+        "OC14-N006"
+      ],
+      "proof_refs_total": 6,
+      "source_refs": [
+        "124b472a0eae44c7cdd2e7644c5c811e55e9387cf20ed452fc5e5f05a25246e1"
+      ],
+      "lower_dependency_text": "bounded public dependency summary",
+      "top_down_constraint_text": "selected K-level constrains lower layers through axes, thresholds and invariants",
+      "domain_projections": [
+        "CHEMISTRY"
+      ],
+      "domain_projection_reconciliation": [
+        {
+          "label": "CHEMISTRY",
+          "canonical_domain_id": "CHEMISTRY",
+          "resolution_status": "CANONICAL",
+          "skip_reason": ""
+        }
+      ],
+      "m_space_mapping_policy": "K10-K12 select M-META when available; M-CIVILIZATION remains visible as civilizational context, not the default meta-theoretical slice.",
+      "nonclaim_boundary": "K/M export is a local audit packet, not external proof.",
+      "export_hash_scope": "selected_state_variants[K3].export_hash",
+      "export_hash": "fdcd9df72916f94aa0cf500d2553f59121c5ccce3c86595424c81c59fc3e5405"
+    },
+    {
+      "k_level": "K2",
+      "m_space": "M-PHYSICS",
+      "m_space_label": "Physical M-space",
+      "direct_formula_refs": [
+        "OCF-010",
+        "OCF-011",
+        "OCF-012",
+        "OCF-013",
+        "OCF-003"
+      ],
+      "expanded_formula_refs": [
+        "OCF-001",
+        "OCF-002",
+        "OCF-003",
+        "OCF-004",
+        "OCF-005",
+        "OCF-006",
+        "OCF-007",
+        "OCF-008"
+      ],
+      "formula_refs": [
+        "OCF-010",
+        "OCF-011",
+        "OCF-012",
+        "OCF-013",
+        "OCF-003"
+      ],
+      "proof_refs": [
+        "OC14-N001",
+        "OC14-N002",
+        "OC14-N003",
+        "OC14-N004",
+        "OC14-N005",
+        "OC14-N006"
+      ],
+      "proof_refs_total": 6,
+      "source_refs": [
+        "a9fa4c97e97b397cee87d416dd69c977b4616d23c0def2db2ebc42a716e853d6"
+      ],
+      "lower_dependency_text": "bounded public dependency summary",
+      "top_down_constraint_text": "selected K-level constrains lower layers through axes, thresholds and invariants",
+      "domain_projections": [
+        "CHEMISTRY",
+        "PHYSICS"
+      ],
+      "domain_projection_reconciliation": [
+        {
+          "label": "CHEMISTRY",
+          "canonical_domain_id": "CHEMISTRY",
+          "resolution_status": "CANONICAL",
+          "skip_reason": ""
+        },
+        {
+          "label": "PHYSICS",
+          "canonical_domain_id": "PHYSICS",
+          "resolution_status": "CANONICAL",
+          "skip_reason": ""
+        }
+      ],
+      "m_space_mapping_policy": "K10-K12 select M-META when available; M-CIVILIZATION remains visible as civilizational context, not the default meta-theoretical slice.",
+      "nonclaim_boundary": "K/M export is a local audit packet, not external proof.",
+      "export_hash_scope": "selected_state_variants[K2].export_hash",
+      "export_hash": "382ef6dcb7527ff01253545b88dc368719d8dcdb46249c40fbcc9209198fd12e"
+    },
+    {
+      "k_level": "K1",
+      "m_space": "M-PHYSICS",
+      "m_space_label": "Physical M-space",
+      "direct_formula_refs": [
+        "OCF-010",
+        "OCF-011",
+        "OCF-012",
+        "OCF-013",
+        "OCF-002"
+      ],
+      "expanded_formula_refs": [
+        "OCF-001",
+        "OCF-002",
+        "OCF-003",
+        "OCF-004",
+        "OCF-005",
+        "OCF-006",
+        "OCF-007",
+        "OCF-008"
+      ],
+      "formula_refs": [
+        "OCF-010",
+        "OCF-011",
+        "OCF-012",
+        "OCF-013",
+        "OCF-002"
+      ],
+      "proof_refs": [
+        "OC14-N001",
+        "OC14-N002",
+        "OC14-N003",
+        "OC14-N004",
+        "OC14-N005",
+        "OC14-N006"
+      ],
+      "proof_refs_total": 6,
+      "source_refs": [
+        "7c77a7238dc2cbf4454a905e36f2e0aaabc122e9c5c5ab41bd09de9ff9c4748d"
+      ],
+      "lower_dependency_text": "bounded public dependency summary",
+      "top_down_constraint_text": "selected K-level constrains lower layers through axes, thresholds and invariants",
+      "domain_projections": [
+        "PHYSICS"
+      ],
+      "domain_projection_reconciliation": [
+        {
+          "label": "PHYSICS",
+          "canonical_domain_id": "PHYSICS",
+          "resolution_status": "CANONICAL",
+          "skip_reason": ""
+        }
+      ],
+      "m_space_mapping_policy": "K10-K12 select M-META when available; M-CIVILIZATION remains visible as civilizational context, not the default meta-theoretical slice.",
+      "nonclaim_boundary": "K/M export is a local audit packet, not external proof.",
+      "export_hash_scope": "selected_state_variants[K1].export_hash",
+      "export_hash": "adff0f5f837c7a2b126951862683ab55f25033ecbaa3ad47283197137c39a1ff"
+    },
+    {
+      "k_level": "K0",
+      "m_space": "M-PHYSICS",
+      "m_space_label": "Physical M-space",
+      "direct_formula_refs": [
+        "OCF-010",
+        "OCF-011",
+        "OCF-012",
+        "OCF-013",
+        "OCF-001"
+      ],
+      "expanded_formula_refs": [
+        "OCF-001",
+        "OCF-002",
+        "OCF-003",
+        "OCF-004",
+        "OCF-005",
+        "OCF-006",
+        "OCF-007",
+        "OCF-008"
+      ],
+      "formula_refs": [
+        "OCF-010",
+        "OCF-011",
+        "OCF-012",
+        "OCF-013",
+        "OCF-001"
+      ],
+      "proof_refs": [
+        "OC14-N001",
+        "OC14-N002",
+        "OC14-N003",
+        "OC14-N004",
+        "OC14-N005",
+        "OC14-N006"
+      ],
+      "proof_refs_total": 6,
+      "source_refs": [
+        "72278d09684ca1e55b734effcf19227f4af450d6739f3bfaff81e9c37e492ee7"
+      ],
+      "lower_dependency_text": "bounded public dependency summary",
+      "top_down_constraint_text": "selected K-level constrains lower layers through axes, thresholds and invariants",
+      "domain_projections": [
+        "MATHEMATICS"
+      ],
+      "domain_projection_reconciliation": [
+        {
+          "label": "MATHEMATICS",
+          "canonical_domain_id": "MATHEMATICS",
+          "resolution_status": "CANONICAL",
+          "skip_reason": ""
+        }
+      ],
+      "m_space_mapping_policy": "K10-K12 select M-META when available; M-CIVILIZATION remains visible as civilizational context, not the default meta-theoretical slice.",
+      "nonclaim_boundary": "K/M export is a local audit packet, not external proof.",
+      "terminal_boundary_policy": "selected_state.k_level=K0 intentionally means no lower K-level public claim is made.",
+      "export_hash_scope": "selected_state_variants[K0].export_hash",
+      "export_hash": "058ffb5bb39cf25d1462265796b1844c0e0fa7fd72c2999887a84943c01b57ed"
+    }
+  ],
+  "k0_selected_state_export_hash_differs_from_k12": true,
+  "selected_state_variants_audit": {
+    "required_variant_levels": [
+      "K12",
+      "K11",
+      "K10",
+      "K9",
+      "K8",
+      "K7",
+      "K6",
+      "K5",
+      "K4",
+      "K3",
+      "K2",
+      "K1",
+      "K0"
+    ],
+    "full_list_total": 13,
+    "unique_ordered_hash_total": 13,
+    "k12_export_hash": "2c9575196a59c9398dd5d196d9c7d49a6106022afe3f2c3c97ab2966bc460939",
+    "k0_export_hash": "058ffb5bb39cf25d1462265796b1844c0e0fa7fd72c2999887a84943c01b57ed",
+    "k12_export_hash_scope": "selected_state_variants.K12.export_hash",
+    "k0_export_hash_scope": "selected_state_variants.K0.export_hash",
+    "k0_bound_to_level": true,
+    "k12_bound_to_level": true,
+    "selected_state_k_level": "K0"
+  },
+  "formula_ref_reconciliation": {
+    "selected_state_formula_ref_scope": "direct_formula_refs",
+    "direct_formula_refs": [
+      "OCF-010",
+      "OCF-011",
+      "OCF-012",
+      "OCF-013"
+    ],
+    "expanded_formula_refs": [
+      "OCF-001",
+      "OCF-002",
+      "OCF-003",
+      "OCF-004",
+      "OCF-005",
+      "OCF-006",
+      "OCF-007",
+      "OCF-008"
+    ],
+    "ladder_rows_use_direct_refs": true,
+    "level_specific_formula_ref_policy": "Each K-level row keeps the structural K/M formulas and adds one level-indexed formula ref when available; identical refs are accompanied by this explicit equivalence policy.",
+    "per_level_formula_refs": {
+      "K12": [
+        "OCF-010",
+        "OCF-011",
+        "OCF-012",
+        "OCF-013"
+      ],
+      "K11": [
+        "OCF-010",
+        "OCF-011",
+        "OCF-012",
+        "OCF-013"
+      ],
+      "K10": [
+        "OCF-010",
+        "OCF-011",
+        "OCF-012",
+        "OCF-013"
+      ],
+      "K9": [
+        "OCF-010",
+        "OCF-011",
+        "OCF-012",
+        "OCF-013"
+      ],
+      "K8": [
+        "OCF-010",
+        "OCF-011",
+        "OCF-012",
+        "OCF-013",
+        "OCF-009"
+      ],
+      "K7": [
+        "OCF-010",
+        "OCF-011",
+        "OCF-012",
+        "OCF-013",
+        "OCF-008"
+      ],
+      "K6": [
+        "OCF-010",
+        "OCF-011",
+        "OCF-012",
+        "OCF-013",
+        "OCF-007"
+      ],
+      "K5": [
+        "OCF-010",
+        "OCF-011",
+        "OCF-012",
+        "OCF-013",
+        "OCF-006"
+      ],
+      "K4": [
+        "OCF-010",
+        "OCF-011",
+        "OCF-012",
+        "OCF-013",
+        "OCF-005"
+      ],
+      "K3": [
+        "OCF-010",
+        "OCF-011",
+        "OCF-012",
+        "OCF-013",
+        "OCF-004"
+      ],
+      "K2": [
+        "OCF-010",
+        "OCF-011",
+        "OCF-012",
+        "OCF-013",
+        "OCF-003"
+      ],
+      "K1": [
+        "OCF-010",
+        "OCF-011",
+        "OCF-012",
+        "OCF-013",
+        "OCF-002"
+      ],
+      "K0": [
+        "OCF-010",
+        "OCF-011",
+        "OCF-012",
+        "OCF-013",
+        "OCF-001"
+      ]
+    },
+    "policy": "Selected export shows K/M structural formulas directly, adds level-indexed refs for differentiation, and keeps broader atlas formulas in expanded scope.",
+    "status": "PASS"
+  },
+  "export_packet_schema": {
+    "fields": [
+      "selected_state.k_level",
+      "selected_state.m_space",
+      "selected_state.lower_dependency_text",
+      "selected_state.top_down_constraint_text",
+      "selected_state.domain_projection_reconciliation",
+      "selected_state.direct_formula_refs",
+      "selected_state.expanded_formula_refs",
+      "selected_state.proof_refs",
+      "selected_state.source_refs",
+      "hash_lineage.graph_hash",
+      "hash_lineage.source_manifest_hash",
+      "hash_lineage.selected_route_hash",
+      "export_hash",
+      "selected_state.nonclaim_boundary"
+    ],
+    "status": "PASS",
+    "inspectability_policy": "Every semantic K/M export field has a named path, not only a hash scope label."
+  },
+  "export_fields": [
+    "k_level",
+    "m_space",
+    "lower_dependency_text",
+    "top_down_constraint_text",
+    "domain_projection_reconciliation",
+    "direct_formula_refs",
+    "expanded_formula_refs",
+    "proof_refs",
+    "source_refs",
+    "graph_hash",
+    "source_manifest_hash",
+    "selected_route_hash",
+    "export_hash",
+    "nonclaim_boundary"
+  ],
+  "hash_lineage": {
+    "graph_hash_scope": "full science graph nodes/edges/routes in current atlas",
+    "graph_hash": "2002f35a07c8373e7929f5dc756725beb0ef16effef6cd5da10ba6f8254288bc",
+    "source_manifest_hash_scope": "all generated K-level and M-space source/status rows",
+    "source_manifest_hash": "f685794159a16548cc9baf8bbce05868097e6824692b10cd8baf3a65a45ee365",
+    "selected_route_hash_scope": "currently selected K-level, bound M-space, lower dependencies, top-down constraints and domain projections",
+    "selected_route_hash": "e9cd8bd1de31c2a07bb4725ff78affe05232d9c86bec3b7ba4751b6f9a536f51",
+    "mismatch_policy": "These hashes intentionally differ because they audit different scopes; export_hash binds all scopes together."
+  },
+  "graph_hash": "2002f35a07c8373e7929f5dc756725beb0ef16effef6cd5da10ba6f8254288bc",
+  "export_hash": "880004ded3a9b5967b9f13934d7c250aa294efbea04697b876124a11f5f78435"
+}

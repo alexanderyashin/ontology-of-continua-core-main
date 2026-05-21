@@ -1,0 +1,57 @@
+\documentclass[11pt,a4paper]{article}
+
+% Preamble must be loaded first
+\input{preamble}
+
+\begin{document}
+
+% Frontmatter: title, abstract, TOC
+\input{public_payload/latex/r017_source/content/frontmatter.tex}
+\input{public_payload/latex/r017_source/content/17_oc_core_1_3_reader_guide.tex}
+
+% Hauptinhalt (01_intro ... 06_conclusion, 08_..._15_)
+% wird aus master_core_structure.yaml generiert
+\input{public_payload/latex/r017_source/content/_auto_core_inputs.tex}
+
+% Core 1.3 closure chapters referenced by the reader guide and review matrix.
+% They are kept explicit here so the compact validation build resolves the same
+% public navigation labels as the full master monograph.
+\input{public_payload/latex/r017_source/content/18_oc_core_1_3_source_audit.tex}
+\input{public_payload/latex/r017_source/content/19_oc_core_1_3_foundational_consistency.tex}
+\input{public_payload/latex/r017_source/content/20_oc_core_1_3_theorem_roadmap.tex}
+\input{public_payload/latex/r017_source/content/21_oc_core_1_3_worked_examples.tex}
+\input{public_payload/latex/r017_source/content/22_oc_core_1_3_operationalization_program.tex}
+\input{public_payload/latex/r017_source/content/23_oc_core_1_3_empirical_execution_protocols.tex}
+\input{public_payload/latex/r017_source/content/24_oc_core_1_3_proof_machinery.tex}
+\input{public_payload/latex/r017_source/content/25_oc_core_1_3_toe_synthesis.tex}
+\input{public_payload/latex/r017_source/content/26_oc_core_1_3_practical_utility.tex}
+
+% === Appendices (auto-added by script) ===
+\appendix
+\input{public_payload/latex/r017_source/appendix/A_notation}
+\input{public_payload/latex/r017_source/appendix/B_axioms_full}
+\input{public_payload/latex/r017_source/appendix/C_klevels_tables}
+\input{public_payload/latex/r017_source/appendix/D_oc_core_1_3_source_audit_appendix}
+\input{public_payload/latex/r017_source/appendix/E_oc_core_1_3_journal_core_bridge}
+\input{public_payload/latex/r017_source/appendix/F_oc_core_1_3_reviewer_navigation_matrix}
+\input{public_payload/latex/r017_source/appendix/G_oc_core_1_3_empirical_validation_matrix}
+\input{public_payload/latex/r017_source/appendix/H_oc_core_1_3_institute_run_measurement_program}
+\input{public_payload/latex/r017_source/appendix/I_oc_core_1_3_domain_benchmark_manifest}
+\input{public_payload/latex/r017_source/appendix/L_oc_core_1_3_domain_benchmark_caseset}
+\input{public_payload/latex/r017_source/appendix/J_oc_core_1_3_domain_replay_reports}
+\input{public_payload/latex/r017_source/appendix/K_oc_core_1_3_domain_execution_board}
+\input{public_payload/latex/r017_source/appendix/M_oc_core_1_3_proof_machinery_appendix.tex}
+\input{public_payload/latex/r017_source/appendix/N_oc_core_1_3_figure_atlas.tex}
+\input{public_payload/latex/r017_source/appendix/O_oc_core_1_3_technical_derivation_atlas.tex}
+\input{public_payload/latex/r017_source/appendix/P_oc_core_1_3_reference_benchmark_atlas.tex}
+\input{public_payload/latex/r017_source/appendix/Q_oc_core_1_3_toe_support_dossiers.tex}
+\input{public_payload/latex/r017_source/appendix/R_oc_core_1_3_practical_utility_model_comparison_atlas.tex}
+\input{public_payload/latex/r017_source/appendix/S_oc_core_1_3_external_criticism_closure}
+\input{public_payload/latex/r017_source/appendix/toe_data}
+
+% === Bibliography ===
+\clearpage
+\nocite{*}%
+\printbibliography[heading=bibintoc,title={References}]
+
+\end{document}

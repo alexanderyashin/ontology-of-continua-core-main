@@ -1,0 +1,47 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "OC Core 1.4 V010 public atlas",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "demo_version",
+    "release_ordinal",
+    "release_label",
+    "title",
+    "generated_from",
+    "concepts",
+    "journeys",
+    "simulations",
+    "graph",
+    "proof_routes",
+    "glossary",
+    "evidence_roles",
+    "reviewer_mode"
+  ],
+  "properties": {
+    "schema_version": { "const": "oc-core-demo-atlas.v010" },
+    "demo_version": { "const": "V010" },
+    "release_ordinal": { "const": "010" },
+    "release_label": { "const": "OC Core 1.4 Demonstrator V010 Ideal RC" },
+    "title": { "type": "string" },
+    "generated_from": { "type": "object" },
+    "concepts": { "type": "array", "minItems": 8 },
+    "journeys": { "type": "array", "minItems": 1 },
+    "simulations": { "type": "array", "minItems": 4 },
+    "graph": {
+      "type": "object",
+      "required": ["nodes", "edges", "summary"],
+      "properties": {
+        "nodes": { "type": "array" },
+        "edges": { "type": "array" },
+        "summary": { "type": "object" }
+      }
+    },
+    "proof_routes": { "type": "array", "minItems": 1 },
+    "glossary": { "type": "array" },
+    "evidence_roles": { "type": "array" },
+    "reviewer_mode": { "type": "object" }
+  }
+}
+

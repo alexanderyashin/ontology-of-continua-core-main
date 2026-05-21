@@ -1,0 +1,424 @@
+{
+  "schema_id": "OC_CORE_1_4_DEMO_SPECS_ADM_REBUILD",
+  "specs": [
+    {
+      "audience_job": "See what OC notices first and what to investigate next.",
+      "demo_class": "CASE_ANALYZER",
+      "description": "Analyze a small case using bounded OC indicators and produce a practical next-step map.",
+      "evidence_refs": [
+        "public science graph",
+        "OC Core 1.4 release evidence",
+        "methods/repro companion"
+      ],
+      "limits": [
+        "The result is a bounded public demonstrator reading, not a proof and not external client evidence.",
+        "Proof and retirement status come from the public evidence graph, not from numeric simulation output."
+      ],
+      "oc_concept": "coherence, dependency pressure, boundary clarity, evidence sufficiency",
+      "output_interpretation": "Identifies the dominant OC reading, practical risk band, evidence gap and recommended first investigation.",
+      "parameters": {
+        "boundary_clarity": {
+          "default": 0.42,
+          "max": 1.0,
+          "min": 0.0,
+          "type": "number"
+        },
+        "case_text": {
+          "default": "A platform migration has unclear ownership, rising exception work, and unresolved evidence for safety claims.",
+          "type": "string"
+        },
+        "change_pressure": {
+          "default": 0.68,
+          "max": 1.0,
+          "min": 0.0,
+          "type": "number"
+        },
+        "dependency_coupling": {
+          "default": 0.72,
+          "max": 1.0,
+          "min": 0.0,
+          "type": "number"
+        },
+        "evidence_quality": {
+          "default": 0.46,
+          "max": 1.0,
+          "min": 0.0,
+          "type": "number"
+        }
+      },
+      "purpose": "Turn a short architecture, transformation or AI governance situation into an OC diagnostic reading.",
+      "spec_id": "case_diagnostic",
+      "title": "Case diagnostic",
+      "window_id": "case_workspace"
+    },
+    {
+      "audience_job": "Experiment with transition assumptions and see when a system stabilizes or drifts.",
+      "demo_class": "SIMULATION",
+      "description": "Simulate a bounded transition curve with pressure, correction and coherence terms.",
+      "evidence_refs": [
+        "public science graph",
+        "OC transition surfaces",
+        "methods/repro companion"
+      ],
+      "limits": [
+        "The result is a bounded public demonstrator reading, not a proof and not external client evidence.",
+        "Proof and retirement status come from the public evidence graph, not from numeric simulation output."
+      ],
+      "oc_concept": "threshold transition, corrective pressure, coherence loss",
+      "output_interpretation": "Returns a time series, final band, instability events and practical reading.",
+      "parameters": {
+        "corrective_capacity": {
+          "default": 0.38,
+          "max": 1.0,
+          "min": 0.0,
+          "type": "number"
+        },
+        "coupling_drag": {
+          "default": 0.44,
+          "max": 1.0,
+          "min": 0.0,
+          "type": "number"
+        },
+        "initial_coherence": {
+          "default": 0.52,
+          "max": 1.0,
+          "min": 0.0,
+          "type": "number"
+        },
+        "steps": {
+          "default": 30,
+          "max": 120,
+          "min": 3,
+          "type": "integer"
+        },
+        "transition_pressure": {
+          "default": 0.64,
+          "max": 1.0,
+          "min": 0.0,
+          "type": "number"
+        }
+      },
+      "purpose": "Show how pressure, coherence and correction interact during a bounded transition.",
+      "spec_id": "transition_pressure_lab",
+      "title": "Transition pressure lab",
+      "window_id": "model_lab"
+    },
+    {
+      "audience_job": "Compare repair timing against degradation pressure.",
+      "demo_class": "SIMULATION",
+      "description": "Run a bounded degradation and recovery simulation with explicit intervention timing.",
+      "evidence_refs": [
+        "public science graph",
+        "OC limits/nonclaims",
+        "methods/repro companion"
+      ],
+      "limits": [
+        "The result is a bounded public demonstrator reading, not a proof and not external client evidence.",
+        "Proof and retirement status come from the public evidence graph, not from numeric simulation output."
+      ],
+      "oc_concept": "structural degradation, repair pressure, recovery window",
+      "output_interpretation": "Shows whether the bounded case recovers, stalls or continues to decay.",
+      "parameters": {
+        "degradation_rate": {
+          "default": 0.08,
+          "max": 0.4,
+          "min": 0.0,
+          "type": "number"
+        },
+        "initial_health": {
+          "default": 0.74,
+          "max": 1.0,
+          "min": 0.0,
+          "type": "number"
+        },
+        "intervention_step": {
+          "default": 14,
+          "max": 100,
+          "min": 1,
+          "type": "integer"
+        },
+        "intervention_strength": {
+          "default": 0.22,
+          "max": 0.8,
+          "min": 0.0,
+          "type": "number"
+        },
+        "steps": {
+          "default": 36,
+          "max": 120,
+          "min": 6,
+          "type": "integer"
+        }
+      },
+      "purpose": "Explore how unresolved debt accumulates and how intervention strength changes recovery.",
+      "spec_id": "degradation_recovery_lab",
+      "title": "Degradation / recovery lab",
+      "window_id": "model_lab"
+    },
+    {
+      "audience_job": "Inspect second-order consequences instead of reading an isolated claim.",
+      "demo_class": "SIMULATION",
+      "description": "Propagate activation across public graph edges for a bounded number of steps.",
+      "evidence_refs": [
+        "interactive public science graph"
+      ],
+      "limits": [
+        "The result is a bounded public demonstrator reading, not a proof and not external client evidence.",
+        "Proof and retirement status come from the public evidence graph, not from numeric simulation output."
+      ],
+      "oc_concept": "dependency propagation, graph neighborhood, consequence surface",
+      "output_interpretation": "Returns activated nodes by step and a dependency reading.",
+      "parameters": {
+        "seed_node": {
+          "default": "OC14-N001",
+          "type": "string"
+        },
+        "steps": {
+          "default": 3,
+          "max": 8,
+          "min": 1,
+          "type": "integer"
+        }
+      },
+      "purpose": "Show how local claim or risk activation can spread across the public science graph.",
+      "spec_id": "dependency_propagation",
+      "title": "Dependency propagation",
+      "window_id": "model_lab"
+    },
+    {
+      "audience_job": "Get a practical risk reading for where investigation should start.",
+      "demo_class": "CALCULATOR",
+      "description": "Compute a normalized coherence debt score and readable band.",
+      "evidence_refs": [
+        "OC Core 1.4 public science graph",
+        "public evidence atlas"
+      ],
+      "limits": [
+        "The result is a bounded public demonstrator reading, not a proof and not external client evidence.",
+        "Proof and retirement status come from the public evidence graph, not from numeric simulation output."
+      ],
+      "oc_concept": "coherence debt, boundary stress, compensating evidence",
+      "output_interpretation": "Returns score, band, main contributor and investigation cue.",
+      "parameters": {
+        "boundary_ambiguity": {
+          "default": 0.58,
+          "max": 1.0,
+          "min": 0.0,
+          "type": "number"
+        },
+        "coupling": {
+          "default": 0.66,
+          "max": 1.0,
+          "min": 0.0,
+          "type": "number"
+        },
+        "evidence_quality": {
+          "default": 0.48,
+          "max": 1.0,
+          "min": 0.0,
+          "type": "number"
+        },
+        "exception_load": {
+          "default": 0.62,
+          "max": 1.0,
+          "min": 0.0,
+          "type": "number"
+        }
+      },
+      "purpose": "Estimate bounded coherence debt from boundary, coupling, exception and evidence signals.",
+      "spec_id": "coherence_debt_calculator",
+      "title": "Coherence debt calculator",
+      "window_id": "decision_calculators"
+    },
+    {
+      "audience_job": "Understand whether a planned change is bounded, fragile or under-evidenced.",
+      "demo_class": "CALCULATOR",
+      "description": "Compute bounded risk and intervention priority for a transformation case.",
+      "evidence_refs": [
+        "public science graph",
+        "release methods companion"
+      ],
+      "limits": [
+        "The result is a bounded public demonstrator reading, not a proof and not external client evidence.",
+        "Proof and retirement status come from the public evidence graph, not from numeric simulation output."
+      ],
+      "oc_concept": "transformation risk, readiness, dependency pressure",
+      "output_interpretation": "Returns risk, confidence, first repair lever and forbidden overclaim.",
+      "parameters": {
+        "change_pressure": {
+          "default": 0.7,
+          "max": 1.0,
+          "min": 0.0,
+          "type": "number"
+        },
+        "dependency_coupling": {
+          "default": 0.74,
+          "max": 1.0,
+          "min": 0.0,
+          "type": "number"
+        },
+        "evidence_maturity": {
+          "default": 0.52,
+          "max": 1.0,
+          "min": 0.0,
+          "type": "number"
+        },
+        "readiness": {
+          "default": 0.45,
+          "max": 1.0,
+          "min": 0.0,
+          "type": "number"
+        }
+      },
+      "purpose": "Estimate transformation risk from pressure, readiness, coupling and proof/evidence maturity.",
+      "spec_id": "transformation_risk_calculator",
+      "title": "Transformation risk calculator",
+      "window_id": "decision_calculators"
+    },
+    {
+      "audience_job": "Separate strong public evidence from claims that need more context.",
+      "demo_class": "CALCULATOR",
+      "description": "Compute a bounded evidence sufficiency reading.",
+      "evidence_refs": [
+        "public evidence atlas",
+        "reviewer response map"
+      ],
+      "limits": [
+        "The result is a bounded public demonstrator reading, not a proof and not external client evidence.",
+        "Proof and retirement status come from the public evidence graph, not from numeric simulation output."
+      ],
+      "oc_concept": "claim support, evidence role, proof/evidence boundary",
+      "output_interpretation": "Returns evidence band, missing role and reviewer-facing note.",
+      "parameters": {
+        "dependency_closure": {
+          "default": 0.76,
+          "max": 1.0,
+          "min": 0.0,
+          "type": "number"
+        },
+        "nonclaim_clarity": {
+          "default": 0.68,
+          "max": 1.0,
+          "min": 0.0,
+          "type": "number"
+        },
+        "source_binding": {
+          "default": 0.82,
+          "max": 1.0,
+          "min": 0.0,
+          "type": "number"
+        },
+        "verification_strength": {
+          "default": 0.7,
+          "max": 1.0,
+          "min": 0.0,
+          "type": "number"
+        }
+      },
+      "purpose": "Inspect whether a claim is backed by enough public evidence roles for release discussion.",
+      "spec_id": "evidence_sufficiency_calculator",
+      "title": "Evidence sufficiency calculator",
+      "window_id": "decision_calculators"
+    },
+    {
+      "audience_job": "Use OC to decide whether a design is inspectable enough to proceed.",
+      "demo_class": "CALCULATOR",
+      "description": "Compute readiness from boundary, dependency, observability and intervention signals.",
+      "evidence_refs": [
+        "OC Core 1.4 public science graph",
+        "release guide"
+      ],
+      "limits": [
+        "The result is a bounded public demonstrator reading, not a proof and not external client evidence.",
+        "Proof and retirement status come from the public evidence graph, not from numeric simulation output."
+      ],
+      "oc_concept": "architecture boundary, dependency clarity, observability, intervention readiness",
+      "output_interpretation": "Returns readiness band and the weakest readiness axis.",
+      "parameters": {
+        "boundary_clarity": {
+          "default": 0.55,
+          "max": 1.0,
+          "min": 0.0,
+          "type": "number"
+        },
+        "dependency_visibility": {
+          "default": 0.48,
+          "max": 1.0,
+          "min": 0.0,
+          "type": "number"
+        },
+        "intervention_capacity": {
+          "default": 0.5,
+          "max": 1.0,
+          "min": 0.0,
+          "type": "number"
+        },
+        "observability": {
+          "default": 0.61,
+          "max": 1.0,
+          "min": 0.0,
+          "type": "number"
+        }
+      },
+      "purpose": "Translate OC diagnostic signals into an architecture-readiness reading.",
+      "spec_id": "architecture_readiness_calculator",
+      "title": "Architecture readiness calculator",
+      "window_id": "decision_calculators"
+    },
+    {
+      "audience_job": "See why a claim matters and which public evidence route touches it.",
+      "demo_class": "GRAPH_EXPLORER_ONLY",
+      "description": "Return public-neighborhood nodes and simple centrality values.",
+      "evidence_refs": [
+        "interactive public science graph"
+      ],
+      "limits": [
+        "The result is a bounded public demonstrator reading, not a proof and not external client evidence.",
+        "Proof and retirement status come from the public evidence graph, not from numeric simulation output."
+      ],
+      "oc_concept": "science graph, dependency relation, evidence route",
+      "output_interpretation": "Returns neighborhood nodes, relations and why-it-matters text.",
+      "parameters": {
+        "node": {
+          "default": "OC14-N001",
+          "type": "string"
+        },
+        "radius": {
+          "default": 1,
+          "max": 3,
+          "min": 1,
+          "type": "integer"
+        }
+      },
+      "purpose": "Inspect public claim neighborhoods without exposing private trace IDs.",
+      "spec_id": "graph_neighborhood",
+      "title": "Graph neighborhood",
+      "window_id": "science_graph"
+    },
+    {
+      "audience_job": "Understand what is proven, retired, bounded or nonclaimed.",
+      "demo_class": "PROOF_TRACE_REPLAYER",
+      "description": "Replay public evidence stages for a selected target.",
+      "evidence_refs": [
+        "public science graph",
+        "reviewer response map"
+      ],
+      "limits": [
+        "The result is a bounded public demonstrator reading, not a proof and not external client evidence.",
+        "Proof and retirement status come from the public evidence graph, not from numeric simulation output."
+      ],
+      "oc_concept": "proof trace, source binding, limitation, nonclaim",
+      "output_interpretation": "Returns statement, evidence stages, limits and nonclaim warning.",
+      "parameters": {
+        "target": {
+          "default": "OC14-N001",
+          "type": "string"
+        }
+      },
+      "purpose": "Replay the public evidence route for a terminal or retired target.",
+      "spec_id": "proof_trace_replay",
+      "title": "Proof route replay",
+      "window_id": "proof_limits"
+    }
+  ]
+}

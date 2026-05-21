@@ -1,0 +1,44 @@
+{
+  "schema_version": "oc-core-demo-collapse-metric-scope-reconciliation.v010",
+  "status": "PASS",
+  "metric_rows": [
+    {
+      "metric": "collapse_depth",
+      "replay_identity": {
+        "template_id": "civilization",
+        "killed_node_id": "infrastructure",
+        "kill_mode": "weakest_node",
+        "topology_hash": "e7db22ef5ff90ce869c1dd1e6c1c129b18523703643e666dd3fada94d2fa20fe"
+      },
+      "cascade_scope_id": "collapse_depth.raw_kill_path_depth",
+      "cascade_raw_kill_depth_scope": "cascade_export_contract.sample_packet.collapse_depth_arithmetic.D_c",
+      "cascade_raw_kill_depth": 5,
+      "workbench_after_scope_id": "collapse_depth.after_intervention_path_depth",
+      "workbench_after_intervention_depth_scope": "workbench_export_contract.sample_packet.after_metrics.collapse_depth",
+      "workbench_after_intervention_depth": 2,
+      "workbench_baseline_scope_id": "collapse_depth.baseline_raw_kill_path_depth",
+      "workbench_baseline_depth_scope": "workbench_export_contract.sample_packet.baseline_metrics.collapse_depth",
+      "workbench_baseline_depth": 5,
+      "scope_delta": -3,
+      "scope_intervention_delta": -3,
+      "expected_boundary": "Different scopes are intentional: cascade scope is raw kill-path cardinality while workbench scope is post-intervention UI drill depth.",
+      "same_scope_reconciliation": "cascade_raw_kill_depth must equal workbench_baseline_depth for the same replay identity; after_intervention_depth may differ only with compensator/axis edits.",
+      "row": "PASS"
+    }
+  ],
+  "metric_reconciliation_scopes": {
+    "cascade_raw_kill_depth_scope_label": "cascade_export_contract.sample_packet.collapse_depth_arithmetic.D_c",
+    "workbench_after_intervention_depth_scope_label": "workbench_export_contract.sample_packet.after_metrics.collapse_depth",
+    "workbench_before_intervention_depth_scope_label": "workbench_export_contract.sample_packet.baseline_metrics.collapse_depth",
+    "scope_policy": "Collapse-depth values are compared only by explicit scope label; no cross-scope proof equivalence is inferred.",
+    "status": "PASS"
+  },
+  "audit": {
+    "cascade_raw_depth_exists": true,
+    "workbench_after_depth_exists": true,
+    "workbench_before_depth_exists": true,
+    "raw_minus_before": 0
+  },
+  "nonclaim_boundary": "Metric scope comparison is an audit trace, not a scientific claim about absolute collapse validity.",
+  "contract_hash": "4011f365a83b8c237fd826973bfd01bc9ec7d772a8e0e26d411bdbbf63650f10"
+}

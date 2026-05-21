@@ -1,0 +1,2195 @@
+{
+  "schema_version": "oc-core-demo-cascade-export-contract.v010",
+  "status": "PASS",
+  "visible_action_label": "Export cascade replay packet",
+  "required_fields": [
+    "system_id",
+    "kill_mode",
+    "selected_node_id",
+    "params",
+    "before_metrics",
+    "after_metrics",
+    "rupture_timeline",
+    "recovery_timeline",
+    "formula_binding",
+    "metric_formula_bindings",
+    "range_condition_rows",
+    "node_propagation_rows",
+    "expanded_arithmetic_inputs",
+    "materialized_fifth_cascade_arithmetic_row",
+    "determinism_check",
+    "result_hash_basis",
+    "selected_node_label",
+    "selected_node_source",
+    "template_hash",
+    "topology_hash",
+    "assumptions",
+    "result_hash",
+    "nonclaim_boundary"
+  ],
+  "sample_packet": {
+    "system_id": "civilization",
+    "advertised_first_click_example_id": "cockpit:first-clickable-example:civilization",
+    "promised_system_id": "civilization",
+    "packet_system_id": "civilization",
+    "promise_packet_match": "PASS",
+    "promised_first_click_trace_id": "cockpit:first-clickable-example:civilization",
+    "first_click_promise_reconciliation": {
+      "status": "PASS",
+      "promised_trace_id": "cockpit:first-clickable-example:civilization",
+      "first_click_surface": "cockpit",
+      "selected_template_family": "civilization",
+      "selected_system_id": "civilization",
+      "selected_node_id": "infrastructure",
+      "promise": "The starter example stress-tests a civilization infrastructure model, highlights the weakest support node, then routes to recovery comparison and export.",
+      "nonclaim_boundary": "First-click reconciliation verifies public UX routing, not real-world prediction."
+    },
+    "kill_mode": "weakest_node",
+    "selected_node_id": "infrastructure",
+    "selected_node_label": "infrastructure",
+    "selected_node_source": "system_template.weakest_node or computed highest-vulnerability outgoing support node",
+    "weakest_node_selection_contract": {
+      "status": "PASS_DETERMINISTIC",
+      "selected_node_id": "infrastructure",
+      "selection_order": [
+        "explicit system_template.weakest_node",
+        "highest vulnerability among outgoing dependency sources",
+        "lexicographic node_id tiebreak"
+      ],
+      "kill_tiebreak_rule": "If two eligible nodes have equal vulnerability, choose the lexicographically smallest node_id after filtering out terminal collapse nodes.",
+      "tie_break_test_case": {
+        "candidate_a": "axis-buffer",
+        "candidate_b": "energy-throughput",
+        "equal_vulnerability": 0.82,
+        "selected_by_rule": "axis-buffer"
+      },
+      "nonclaim_boundary": "Tie-break policy makes the replay deterministic; it is not a claim about real weakest physical infrastructure."
+    },
+    "kill_mode_matrix": [
+      {
+        "kill_mode": "selected_node",
+        "trigger_source": "user-selected graph node",
+        "determinism_identity_fields": [
+          "template_hash",
+          "topology_hash",
+          "selected_node_id",
+          "shock",
+          "recovery_enabled"
+        ],
+        "test_status": "PASS_TRACE_AVAILABLE"
+      },
+      {
+        "kill_mode": "weakest_node",
+        "trigger_source": "weakest_node_selection_contract",
+        "determinism_identity_fields": [
+          "template_hash",
+          "topology_hash",
+          "kill_tiebreak_rule",
+          "shock",
+          "recovery_enabled"
+        ],
+        "test_status": "PASS_TRACE_AVAILABLE"
+      },
+      {
+        "kill_mode": "manual_boundary_probe",
+        "trigger_source": "reviewer-entered node id",
+        "determinism_identity_fields": [
+          "template_hash",
+          "topology_hash",
+          "manual_node_id",
+          "shock",
+          "recovery_enabled"
+        ],
+        "invalid_input_policy": "FAIL_CLOSED_UNKNOWN_NODE"
+      }
+    ],
+    "route_action_mapping_contract": {
+      "status": "PASS",
+      "rows": [
+        {
+          "route_id": "cascade::kill",
+          "control_test_id": "cascade-kill",
+          "action": "kill",
+          "expected_visible_result": "rupture timeline and propagation rows update",
+          "route_hash": "cb8a5b6a3b2a07d90a1edfa83b4234f759d1b7c883a0df196d6edaa7e4b03221"
+        },
+        {
+          "route_id": "cascade::improve",
+          "control_test_id": "cascade-reset-recovery",
+          "action": "improve",
+          "expected_visible_result": "recovery/reconfiguration preview updates",
+          "route_hash": "1a6420dc1d6cfbfdec5dc0ccf5f2d492f5b4c4bf14b4e8ed9894defc2b9a76b2"
+        },
+        {
+          "route_id": "cascade::export",
+          "control_test_id": "cascade-export-control",
+          "action": "export",
+          "expected_visible_result": "export packet shows template_hash, topology_hash, result_hash_basis and nonclaim boundary",
+          "route_hash": "6206af9dccbed07065d8fe121b9d1a1d2a2a43d38687d62052f271c70672b45b"
+        }
+      ]
+    },
+    "trigger_to_propagation_map": {
+      "trigger_node_id": "infrastructure",
+      "trigger_node_label": "infrastructure",
+      "propagation_order_policy": "trigger_first_then_template_dependency_order_with_visible_upstream_terms",
+      "ordered_node_ids": [
+        "infrastructure",
+        "civilizational-collapse",
+        "energy-throughput",
+        "feedback-governance",
+        "semantic-coherence"
+      ],
+      "order_assertion": "The first propagation row is the selected trigger; later rows show downstream/template-order affected nodes."
+    },
+    "template_hash": "36453ea3749107fa3fb907ffe9666011d219310c0f745405be2cd8d385a5093b",
+    "template_hash_scope": "full system template row after workbench enrichment",
+    "topology_hash": "e7db22ef5ff90ce869c1dd1e6c1c129b18523703643e666dd3fada94d2fa20fe",
+    "template_hash_scope_reconciliation": {
+      "template_hash_scope": "full selected system template row from system_templates/system_zoo",
+      "topology_hash_scope": "nodes, edges/dependencies, kill_default and weakest_node only",
+      "result_hash_scope": "topology + selected node + kill mode + deterministic inputs (shock/recovery toggle/seed) + metric bindings + propagation rows + recovery tuple; animation speed is excluded",
+      "same_template_policy": "Different hashes are valid only because each row labels a different scope."
+    },
+    "topology_change_contract": {
+      "status": "PASS_IDENTITY_GUARDED",
+      "system_id_alone_policy": "system_id alone is never replay identity",
+      "topology_change_flag": "RECOMPUTE_REQUIRED_WHEN_NODES_OR_EDGES_CHANGE",
+      "topology_version": "e7db22ef5ff90ce8",
+      "user_visible_warning": "If nodes, edges, axes or compensators change, V010 shows a new topology hash and demotes the edited run to exploratory sandbox until replay-backed separately."
+    },
+    "params": {
+      "shock": 0.82,
+      "recovery_enabled": true,
+      "determinism_seed": "template+kill-mode+selected-node"
+    },
+    "shock_input_contract": {
+      "shock_min": 0.0,
+      "shock_max": 1.0,
+      "current_shock": 0.82,
+      "invalid_shock_action": "FAIL_CLOSED_REJECT_PARAMS_WITH_STRUCTURED_ERROR",
+      "ui_control": "slider bounded to [0,1]",
+      "api_policy": "reject non-finite, bool, or out-of-range shock values; never silently widen scientific meaning",
+      "nonclaim_boundary": "Shock is a normalized workbench stress scalar, not a calibrated domain-unit forecast."
+    },
+    "animation_state": {
+      "speed": "animation-only; explicitly excluded from result_hash_basis"
+    },
+    "before_metrics": {
+      "collapse_depth": 0,
+      "connectivity_loss": 0.0,
+      "flow_rupture": 0.0,
+      "recovery_index": 1.0
+    },
+    "after_metrics": {
+      "collapse_depth": 5,
+      "connectivity_loss": 0.61,
+      "flow_rupture": 0.61,
+      "recovery_index": 0.416667,
+      "recovery_index_display": 0.42,
+      "recovery_index_precision_policy": "display rounds to 2 decimals; export carries six-decimal recomputed OCF-009 value"
+    },
+    "collapse_depth_arithmetic": {
+      "formula_id": "OCF-006",
+      "formula_role_id": "OCF-006.path_depth",
+      "formula_subtype": "path_depth",
+      "P_c": [
+        "infrastructure",
+        "civilizational-collapse",
+        "energy-throughput",
+        "feedback-governance",
+        "semantic-coherence"
+      ],
+      "P_c_tuple": {
+        "notation": "P_c=(v_0,...,v_m)",
+        "v_0": "infrastructure",
+        "v_m": "semantic-coherence",
+        "ordered_nodes": [
+          "infrastructure",
+          "civilizational-collapse",
+          "energy-throughput",
+          "feedback-governance",
+          "semantic-coherence"
+        ]
+      },
+      "D_c": 5,
+      "derivation": "D_c=|P_c|",
+      "assertion": "PASS"
+    },
+    "flow_rupture_arithmetic": {
+      "formula_id": "OCF-008",
+      "pre_flow": 100.0,
+      "post_flow": 39.0,
+      "epsilon": 1e-09,
+      "calculation": "F_loss=1-post_flow/max(epsilon,pre_flow)=1-39.0/100=0.61",
+      "support_unit_derivation_rows": [
+        {
+          "row_index": 1,
+          "node_id": "infrastructure",
+          "baseline_support_units": 20,
+          "flow_proxy_weight": 0.083674,
+          "raw_surviving_units": 3.604113,
+          "rounded_surviving_units": 4,
+          "rounding_basis": "largest fractional remainder allocation after global surviving units are rounded from 100*0.39 to 39",
+          "formula_refs": [
+            "OCF-007",
+            "OCF-008"
+          ]
+        },
+        {
+          "row_index": 2,
+          "node_id": "civilizational-collapse",
+          "baseline_support_units": 20,
+          "flow_proxy_weight": 0.229793,
+          "raw_surviving_units": 9.897935,
+          "rounded_surviving_units": 10,
+          "rounding_basis": "largest fractional remainder allocation after global surviving units are rounded from 100*0.39 to 39",
+          "formula_refs": [
+            "OCF-007",
+            "OCF-008"
+          ]
+        },
+        {
+          "row_index": 3,
+          "node_id": "energy-throughput",
+          "baseline_support_units": 20,
+          "flow_proxy_weight": 0.173056,
+          "raw_surviving_units": 7.454087,
+          "rounded_surviving_units": 7,
+          "rounding_basis": "largest fractional remainder allocation after global surviving units are rounded from 100*0.39 to 39",
+          "formula_refs": [
+            "OCF-007",
+            "OCF-008"
+          ]
+        },
+        {
+          "row_index": 4,
+          "node_id": "feedback-governance",
+          "baseline_support_units": 20,
+          "flow_proxy_weight": 0.12435,
+          "raw_surviving_units": 5.356161,
+          "rounded_surviving_units": 5,
+          "rounding_basis": "largest fractional remainder allocation after global surviving units are rounded from 100*0.39 to 39",
+          "formula_refs": [
+            "OCF-007",
+            "OCF-008"
+          ]
+        },
+        {
+          "row_index": 5,
+          "node_id": "semantic-coherence",
+          "baseline_support_units": 20,
+          "flow_proxy_weight": 0.294561,
+          "raw_surviving_units": 12.687704,
+          "rounded_surviving_units": 13,
+          "rounding_basis": "largest fractional remainder allocation after global surviving units are rounded from 100*0.39 to 39",
+          "formula_refs": [
+            "OCF-007",
+            "OCF-008"
+          ]
+        }
+      ],
+      "support_unit_rounding_basis": {
+        "formula_refs": [
+          "OCF-007",
+          "OCF-008"
+        ],
+        "baseline_support_units": 100,
+        "survival_ratio": 0.39,
+        "raw_surviving_support_units": 39.0,
+        "rounded_surviving_support_units": 39,
+        "rounding_policy": "round global surviving support units first, then allocate integer rows by largest fractional remainder",
+        "row_sum_check": 39,
+        "assertion": "PASS"
+      },
+      "flow_basis_rows": [
+        {
+          "node_id": "infrastructure",
+          "baseline_flow_units": 20,
+          "post_flow_units": 4,
+          "flow_proxy_output": 0.083674,
+          "basis": "integer surviving support units allocated from the shared OCF-007/OCF-008 support-unit derivation"
+        },
+        {
+          "node_id": "civilizational-collapse",
+          "baseline_flow_units": 20,
+          "post_flow_units": 10,
+          "flow_proxy_output": 0.229793,
+          "basis": "integer surviving support units allocated from the shared OCF-007/OCF-008 support-unit derivation"
+        },
+        {
+          "node_id": "energy-throughput",
+          "baseline_flow_units": 20,
+          "post_flow_units": 7,
+          "flow_proxy_output": 0.173056,
+          "basis": "integer surviving support units allocated from the shared OCF-007/OCF-008 support-unit derivation"
+        },
+        {
+          "node_id": "feedback-governance",
+          "baseline_flow_units": 20,
+          "post_flow_units": 5,
+          "flow_proxy_output": 0.12435,
+          "basis": "integer surviving support units allocated from the shared OCF-007/OCF-008 support-unit derivation"
+        },
+        {
+          "node_id": "semantic-coherence",
+          "baseline_flow_units": 20,
+          "post_flow_units": 13,
+          "flow_proxy_output": 0.294561,
+          "basis": "integer surviving support units allocated from the shared OCF-007/OCF-008 support-unit derivation"
+        }
+      ],
+      "flow_aggregation_policy": "For the public cascade contract, displayed post_flow uses normalized surviving support units so OCF-007 and OCF-008 share the same bounded support-unit basis; node flow proxies remain row-level explanatory signals.",
+      "node_proxy_post_flow_sum": 39.0,
+      "expected_output": 0.61,
+      "actual_output": 0.61,
+      "absolute_error": 0.0,
+      "tolerance": 1e-06,
+      "assertion": "PASS"
+    },
+    "ocf_009_recovery_metric_scope": {
+      "formula_id": "OCF-009",
+      "Phi_before": 1.0,
+      "Phi_min": 0.28,
+      "Phi_after": 0.58,
+      "epsilon": 1e-09,
+      "rho_calculation": "(0.58-0.28)/max(1e-9,1.0-0.28)=0.416667",
+      "recomputed_recovery_index": 0.416667,
+      "schema_status": "PASS_SHARED_WITH_FORMULA_ATLAS_AND_WORKBENCH"
+    },
+    "ocf_009_recovery_schema": {
+      "formula_id": "OCF-009",
+      "Phi_before": 1.0,
+      "Phi_min": 0.28,
+      "Phi_after": 0.58,
+      "epsilon": 1e-09,
+      "rho_calculation": "(0.58-0.28)/max(1e-9,1.0-0.28)=0.416667",
+      "recomputed_recovery_index": 0.416667,
+      "schema_status": "PASS_SHARED_WITH_FORMULA_ATLAS_AND_WORKBENCH"
+    },
+    "recovery_basis": [
+      {
+        "state": "Phi_before",
+        "value": 1.0,
+        "basis": "normalized pre-kill coherence for selected topology"
+      },
+      {
+        "state": "Phi_min",
+        "value": 0.28,
+        "basis": "minimum coherence after raw infrastructure-triggered rupture path"
+      },
+      {
+        "state": "Phi_after",
+        "value": 0.58,
+        "basis": "coherence after compensator and bridge-reopen recovery tuple"
+      }
+    ],
+    "connectivity_arithmetic": {
+      "formula_id": "OCF-007",
+      "E_alive_count": 39.0,
+      "E_0_count": 100,
+      "support_unit_derivation_rows": [
+        {
+          "row_index": 1,
+          "node_id": "infrastructure",
+          "baseline_support_units": 20,
+          "flow_proxy_weight": 0.083674,
+          "raw_surviving_units": 3.604113,
+          "rounded_surviving_units": 4,
+          "rounding_basis": "largest fractional remainder allocation after global surviving units are rounded from 100*0.39 to 39",
+          "formula_refs": [
+            "OCF-007",
+            "OCF-008"
+          ]
+        },
+        {
+          "row_index": 2,
+          "node_id": "civilizational-collapse",
+          "baseline_support_units": 20,
+          "flow_proxy_weight": 0.229793,
+          "raw_surviving_units": 9.897935,
+          "rounded_surviving_units": 10,
+          "rounding_basis": "largest fractional remainder allocation after global surviving units are rounded from 100*0.39 to 39",
+          "formula_refs": [
+            "OCF-007",
+            "OCF-008"
+          ]
+        },
+        {
+          "row_index": 3,
+          "node_id": "energy-throughput",
+          "baseline_support_units": 20,
+          "flow_proxy_weight": 0.173056,
+          "raw_surviving_units": 7.454087,
+          "rounded_surviving_units": 7,
+          "rounding_basis": "largest fractional remainder allocation after global surviving units are rounded from 100*0.39 to 39",
+          "formula_refs": [
+            "OCF-007",
+            "OCF-008"
+          ]
+        },
+        {
+          "row_index": 4,
+          "node_id": "feedback-governance",
+          "baseline_support_units": 20,
+          "flow_proxy_weight": 0.12435,
+          "raw_surviving_units": 5.356161,
+          "rounded_surviving_units": 5,
+          "rounding_basis": "largest fractional remainder allocation after global surviving units are rounded from 100*0.39 to 39",
+          "formula_refs": [
+            "OCF-007",
+            "OCF-008"
+          ]
+        },
+        {
+          "row_index": 5,
+          "node_id": "semantic-coherence",
+          "baseline_support_units": 20,
+          "flow_proxy_weight": 0.294561,
+          "raw_surviving_units": 12.687704,
+          "rounded_surviving_units": 13,
+          "rounding_basis": "largest fractional remainder allocation after global surviving units are rounded from 100*0.39 to 39",
+          "formula_refs": [
+            "OCF-007",
+            "OCF-008"
+          ]
+        }
+      ],
+      "support_unit_rounding_basis": {
+        "formula_refs": [
+          "OCF-007",
+          "OCF-008"
+        ],
+        "baseline_support_units": 100,
+        "survival_ratio": 0.39,
+        "raw_surviving_support_units": 39.0,
+        "rounded_surviving_support_units": 39,
+        "rounding_policy": "round global surviving support units first, then allocate integer rows by largest fractional remainder",
+        "row_sum_check": 39,
+        "assertion": "PASS"
+      },
+      "support_unit_derivation_status": "PASS",
+      "connectivity_count_basis": {
+        "normalization_policy": "Synthetic connectivity units: each template node contributes 20 baseline support units in this bounded public replay contract.",
+        "topology_hash": "e7db22ef5ff90ce869c1dd1e6c1c129b18523703643e666dd3fada94d2fa20fe",
+        "failed_node_ids": [
+          "infrastructure",
+          "civilizational-collapse",
+          "energy-throughput",
+          "feedback-governance",
+          "semantic-coherence"
+        ],
+        "alive_node_ids": [],
+        "support_unit_node_count": 5,
+        "E_0_derivation": "5 propagation rows * 20 support units",
+        "E_alive_derivation": "rounded 39% surviving support units after rupture; full raw edge inventory is not claimed in this public packet",
+        "support_unit_derivation_rows": [
+          {
+            "row_index": 1,
+            "node_id": "infrastructure",
+            "baseline_support_units": 20,
+            "flow_proxy_weight": 0.083674,
+            "raw_surviving_units": 3.604113,
+            "rounded_surviving_units": 4,
+            "rounding_basis": "largest fractional remainder allocation after global surviving units are rounded from 100*0.39 to 39",
+            "formula_refs": [
+              "OCF-007",
+              "OCF-008"
+            ]
+          },
+          {
+            "row_index": 2,
+            "node_id": "civilizational-collapse",
+            "baseline_support_units": 20,
+            "flow_proxy_weight": 0.229793,
+            "raw_surviving_units": 9.897935,
+            "rounded_surviving_units": 10,
+            "rounding_basis": "largest fractional remainder allocation after global surviving units are rounded from 100*0.39 to 39",
+            "formula_refs": [
+              "OCF-007",
+              "OCF-008"
+            ]
+          },
+          {
+            "row_index": 3,
+            "node_id": "energy-throughput",
+            "baseline_support_units": 20,
+            "flow_proxy_weight": 0.173056,
+            "raw_surviving_units": 7.454087,
+            "rounded_surviving_units": 7,
+            "rounding_basis": "largest fractional remainder allocation after global surviving units are rounded from 100*0.39 to 39",
+            "formula_refs": [
+              "OCF-007",
+              "OCF-008"
+            ]
+          },
+          {
+            "row_index": 4,
+            "node_id": "feedback-governance",
+            "baseline_support_units": 20,
+            "flow_proxy_weight": 0.12435,
+            "raw_surviving_units": 5.356161,
+            "rounded_surviving_units": 5,
+            "rounding_basis": "largest fractional remainder allocation after global surviving units are rounded from 100*0.39 to 39",
+            "formula_refs": [
+              "OCF-007",
+              "OCF-008"
+            ]
+          },
+          {
+            "row_index": 5,
+            "node_id": "semantic-coherence",
+            "baseline_support_units": 20,
+            "flow_proxy_weight": 0.294561,
+            "raw_surviving_units": 12.687704,
+            "rounded_surviving_units": 13,
+            "rounding_basis": "largest fractional remainder allocation after global surviving units are rounded from 100*0.39 to 39",
+            "formula_refs": [
+              "OCF-007",
+              "OCF-008"
+            ]
+          }
+        ],
+        "support_unit_rounding_basis": {
+          "formula_refs": [
+            "OCF-007",
+            "OCF-008"
+          ],
+          "baseline_support_units": 100,
+          "survival_ratio": 0.39,
+          "raw_surviving_support_units": 39.0,
+          "rounded_surviving_support_units": 39,
+          "rounding_policy": "round global surviving support units first, then allocate integer rows by largest fractional remainder",
+          "row_sum_check": 39,
+          "assertion": "PASS"
+        }
+      },
+      "epsilon_guard": 1e-09,
+      "calculation": "Lambda(t)=1-E_alive/max(epsilon,E_0)=1-39.0/100=0.61",
+      "output_field": "after_metrics.connectivity_loss"
+    },
+    "rupture_timeline": [
+      "trigger",
+      "dependency_loss",
+      "flow_rupture",
+      "component_split"
+    ],
+    "recovery_timeline": [
+      "compensator_added",
+      "bridge_reopened",
+      "partial_reconfiguration"
+    ],
+    "metric_formula_bindings": [
+      {
+        "metric": "collapse_depth",
+        "formula_id": "OCF-006",
+        "formula_role_id": "OCF-006.path_depth",
+        "formula_subtype": "path_depth",
+        "formula_visible_symbols": [
+          "P_c=(v_0,...,v_m)",
+          "v_0",
+          "v_m",
+          "P_c",
+          "D_c"
+        ],
+        "derivation": "D_c = |P_c| = events.length",
+        "input_fields": [
+          "path",
+          "rupture_timeline"
+        ],
+        "output_field": "collapse_depth / events.length",
+        "guard_policy": "integer path length inside selected system graph"
+      },
+      {
+        "metric": "connectivity_loss",
+        "formula_id": "OCF-007",
+        "formula_visible_symbols": [
+          "E_alive(t)",
+          "E_0",
+          "epsilon",
+          "Lambda(t)"
+        ],
+        "derivation": "Lambda(t)=1-|E_alive(t)|/max(epsilon,|E_0|)",
+        "input_fields": [
+          "E_alive_count",
+          "E_0_count",
+          "epsilon_guard"
+        ],
+        "output_field": "after_metrics.connectivity_loss",
+        "guard_policy": "clamped 0..1"
+      },
+      {
+        "metric": "flow_rupture",
+        "formula_id": "OCF-008",
+        "input_fields": [
+          "pre_flow",
+          "post_flow"
+        ],
+        "output_field": "after_metrics.flow_rupture",
+        "guard_policy": "denominator guarded by epsilon"
+      },
+      {
+        "metric": "recovery_index",
+        "formula_id": "OCF-009",
+        "formula_visible_symbols": [
+          "Phi_before",
+          "Phi_min",
+          "Phi_after",
+          "epsilon",
+          "rho"
+        ],
+        "derivation": "rho=(Phi_after-Phi_min)/max(epsilon,Phi_before-Phi_min)",
+        "input_fields": [
+          "Phi_before",
+          "Phi_min",
+          "Phi_after",
+          "epsilon"
+        ],
+        "output_field": "after_metrics.recovery_index",
+        "guard_policy": "normalized trough-to-after recovery clamped 0..1"
+      }
+    ],
+    "range_condition_rows": [
+      {
+        "condition_id": "OCF-006::RANGE::PROPAGATION_UPDATE",
+        "formula_id": "OCF-006",
+        "metric": "node_state_update",
+        "formula_role_id": "OCF-006.propagation_update",
+        "bounded_range": "[0,1]",
+        "row_level_required_fields": [
+          "s_j(t)",
+          "upstream_terms",
+          "sum_value",
+          "r_j(t)",
+          "raw_output_before_clamp",
+          "clamp_min_applied",
+          "clamp_max_applied",
+          "s_j(t+1)_output"
+        ],
+        "template_bound_condition": "Every public replay row verifies s_j(t+1)=min(1,max(0,raw_output_before_clamp)) with all scalar inputs in [0,1].",
+        "status": "PASS_TEMPLATE_BOUND_RANGE_CONDITION"
+      },
+      {
+        "condition_id": "OCF-007::RANGE::CONNECTIVITY_LOSS",
+        "formula_id": "OCF-007",
+        "metric": "connectivity_loss",
+        "bounded_range": "[0,1]",
+        "row_level_required_fields": [
+          "E_alive_count",
+          "E_0_count",
+          "epsilon_guard",
+          "support_unit_derivation_rows"
+        ],
+        "template_bound_condition": "0 <= E_alive_count <= E_0_count and E_0_count is the visible support-unit total",
+        "status": "PASS_TEMPLATE_BOUND_RANGE_CONDITION"
+      },
+      {
+        "condition_id": "OCF-008::RANGE::FLOW_RUPTURE",
+        "formula_id": "OCF-008",
+        "metric": "flow_rupture",
+        "bounded_range": "[0,1]",
+        "row_level_required_fields": [
+          "pre_flow",
+          "post_flow",
+          "epsilon",
+          "support_unit_derivation_rows"
+        ],
+        "template_bound_condition": "0 <= post_flow <= pre_flow and pre_flow is the same support-unit total used by OCF-007",
+        "status": "PASS_TEMPLATE_BOUND_RANGE_CONDITION"
+      },
+      {
+        "condition_id": "OCF-009::RANGE::RECOVERY_INDEX",
+        "formula_id": "OCF-009",
+        "metric": "recovery_index",
+        "bounded_range": "[0,1]",
+        "row_level_required_fields": [
+          "Phi_before",
+          "Phi_min",
+          "Phi_after",
+          "epsilon"
+        ],
+        "template_bound_condition": "Phi_min <= Phi_after <= Phi_before and Phi_before > Phi_min for scored rows",
+        "status": "PASS_TEMPLATE_BOUND_RANGE_CONDITION"
+      }
+    ],
+    "node_propagation_rows": [
+      {
+        "step": 1,
+        "node_id": "infrastructure",
+        "node_label": "infrastructure",
+        "ocf_006_symbol_inputs": {
+          "s_j(t)": 1.0,
+          "t+1": 2,
+          "w_ij": 0.72,
+          "delta_i(t)": 0.82,
+          "sum_i": 0.5904,
+          "r_j(t)": 0.065088,
+          "max(0,x)": "lower clamp applied to raw_formula_output_before_clamp",
+          "min(1,x)": "upper clamp applied after lower clamp"
+        },
+        "input_vulnerability": 0.72,
+        "input_resilience": 0.3616,
+        "shock_input": 0.82,
+        "formula_id": "OCF-006",
+        "formula_role_id": "OCF-006.propagation_update",
+        "formula_subtype": "propagation_update",
+        "s_j(t+1)_output": 0.474688,
+        "raw_formula_output_before_clamp": 0.474688,
+        "clamp_min_applied": false,
+        "clamp_max_applied": false,
+        "input_term_domain_checks": {
+          "s_j(t)_in_range": true,
+          "w_ij_in_range": true,
+          "delta_i(t)_in_range": true,
+          "r_j(t)_in_range": true,
+          "upstream_terms_nonnegative": true,
+          "output_in_range": true
+        },
+        "input_term_in_range": true,
+        "domain_violation_count": 0,
+        "row_reduction_policy": "ONE_EDGE_REDUCTION_OF_SUMMATION",
+        "upstream_terms": [
+          {
+            "source_node_id": "self-trigger",
+            "w_ij": 0.72,
+            "delta_i(t)": 0.82,
+            "term_value": 0.5904
+          }
+        ],
+        "upstream_term_count": 1,
+        "sum_value": 0.5904,
+        "flow_proxy_output": 0.083674,
+        "visible_derivation": "s_j(t+1)=min(1, max(0, 1.0 - sum_i([0.5904]) + 0.065088)) = min(1, max(0, 0.474688)) = 0.474688.",
+        "arithmetic_verification_status": "PASS",
+        "arithmetic_tolerance": 1e-06,
+        "recompute_rule": "min(1, max(0, s_j(t) - sum(upstream_terms.term_value) + r_j(t)))",
+        "arithmetic_verification": {
+          "formula_id": "OCF-006",
+          "formula_role_id": "OCF-006.propagation_update",
+          "formula_subtype": "propagation_update",
+          "substituted_expression": "min(1, max(0, 1.0 - 0.5904 + 0.065088))",
+          "expected_output": 0.474688,
+          "actual_output": 0.474688,
+          "absolute_error": 0.0,
+          "tolerance": 1e-06,
+          "assertion": "PASS"
+        },
+        "expanded_arithmetic_input": {
+          "step": 1,
+          "node_id": "infrastructure",
+          "formula_id": "OCF-006",
+          "formula_role_id": "OCF-006.propagation_update",
+          "subtype": "expanded_per_row_arithmetic_inputs",
+          "s_j(t)": 1.0,
+          "t+1": 2,
+          "upstream_terms": [
+            {
+              "source_node_id": "self-trigger",
+              "w_ij": 0.72,
+              "delta_i(t)": 0.82,
+              "term_value": 0.5904
+            }
+          ],
+          "sum_value": 0.5904,
+          "sum_i": 0.5904,
+          "r_j(t)": 0.065088,
+          "raw_output_before_clamp": 0.474688,
+          "clamp": "min(1, max(0, raw_output_before_clamp))",
+          "max(0,x)": "max(0, raw_output_before_clamp)",
+          "min(1,x)": "min(1, max(0, raw_output_before_clamp))",
+          "clamp_min_applied": false,
+          "clamp_max_applied": false,
+          "s_j(t+1)_output": 0.474688,
+          "expected_output": 0.474688,
+          "actual_output": 0.474688,
+          "input_term_domain_checks": {
+            "s_j(t)_in_range": true,
+            "w_ij_in_range": true,
+            "delta_i(t)_in_range": true,
+            "r_j(t)_in_range": true,
+            "upstream_terms_nonnegative": true,
+            "output_in_range": true
+          },
+          "input_term_in_range": true,
+          "domain_violation_count": 0,
+          "absolute_error": 0.0,
+          "tolerance": 1e-06,
+          "assertion": "PASS",
+          "visible_substitution": "s_j(t+1)=min(1, max(0, 1.0 - sum_i([0.5904]) + 0.065088)) = min(1, max(0, 0.474688)) = 0.474688.",
+          "reviewer_visibility": "UI drawer row and reviewer export prompt must show this full input tuple, not only a summarized formula label.",
+          "row_hash_basis": [
+            "step",
+            "node_id",
+            "formula_id",
+            "formula_role_id",
+            "s_j(t)",
+            "t+1",
+            "upstream_terms",
+            "sum_value",
+            "sum_i",
+            "r_j(t)",
+            "raw_output_before_clamp",
+            "max(0,x)",
+            "min(1,x)",
+            "clamp_min_applied",
+            "clamp_max_applied",
+            "s_j(t+1)_output",
+            "input_term_in_range",
+            "domain_violation_count",
+            "tolerance"
+          ],
+          "row_hash": "9c8697e764412bf52c51b4f1b505dcc4bc8c02d10c0d54e907ab95e63b5e857c",
+          "data_testid": "cascade-expanded-arithmetic-row-1"
+        },
+        "arithmetic_row_hash": "9c8697e764412bf52c51b4f1b505dcc4bc8c02d10c0d54e907ab95e63b5e857c"
+      },
+      {
+        "step": 2,
+        "node_id": "civilizational-collapse",
+        "node_label": "civilizational collapse",
+        "ocf_006_symbol_inputs": {
+          "s_j(t)": 1.0,
+          "t+1": 3,
+          "w_ij": 0.39,
+          "delta_i(t)": 0.82,
+          "sum_i": 0.378963,
+          "r_j(t)": 0.107856,
+          "max(0,x)": "lower clamp applied to raw_formula_output_before_clamp",
+          "min(1,x)": "upper clamp applied after lower clamp"
+        },
+        "input_vulnerability": 0.39,
+        "input_resilience": 0.5992,
+        "shock_input": 0.82,
+        "formula_id": "OCF-006",
+        "formula_role_id": "OCF-006.propagation_update",
+        "formula_subtype": "propagation_update",
+        "s_j(t+1)_output": 0.728893,
+        "raw_formula_output_before_clamp": 0.728893,
+        "clamp_min_applied": false,
+        "clamp_max_applied": false,
+        "input_term_domain_checks": {
+          "s_j(t)_in_range": true,
+          "w_ij_in_range": true,
+          "delta_i(t)_in_range": true,
+          "r_j(t)_in_range": true,
+          "upstream_terms_nonnegative": true,
+          "output_in_range": true
+        },
+        "input_term_in_range": true,
+        "domain_violation_count": 0,
+        "row_reduction_policy": "MULTI_INPUT_SUMMATION",
+        "upstream_terms": [
+          {
+            "source_node_id": "infrastructure",
+            "w_ij": 0.39,
+            "delta_i(t)": 0.82,
+            "term_value": 0.3198
+          },
+          {
+            "source_node_id": "secondary_support_loss",
+            "w_ij": 0.1443,
+            "delta_i(t)": 0.41,
+            "term_value": 0.059163
+          }
+        ],
+        "upstream_term_count": 2,
+        "sum_value": 0.378963,
+        "flow_proxy_output": 0.229793,
+        "visible_derivation": "s_j(t+1)=min(1, max(0, 1.0 - sum_i([0.3198, 0.059163]) + 0.107856)) = min(1, max(0, 0.728893)) = 0.728893.",
+        "arithmetic_verification_status": "PASS",
+        "arithmetic_tolerance": 1e-06,
+        "recompute_rule": "min(1, max(0, s_j(t) - sum(upstream_terms.term_value) + r_j(t)))",
+        "arithmetic_verification": {
+          "formula_id": "OCF-006",
+          "formula_role_id": "OCF-006.propagation_update",
+          "formula_subtype": "propagation_update",
+          "substituted_expression": "min(1, max(0, 1.0 - 0.378963 + 0.107856))",
+          "expected_output": 0.728893,
+          "actual_output": 0.728893,
+          "absolute_error": 0.0,
+          "tolerance": 1e-06,
+          "assertion": "PASS"
+        },
+        "expanded_arithmetic_input": {
+          "step": 2,
+          "node_id": "civilizational-collapse",
+          "formula_id": "OCF-006",
+          "formula_role_id": "OCF-006.propagation_update",
+          "subtype": "expanded_per_row_arithmetic_inputs",
+          "s_j(t)": 1.0,
+          "t+1": 3,
+          "upstream_terms": [
+            {
+              "source_node_id": "infrastructure",
+              "w_ij": 0.39,
+              "delta_i(t)": 0.82,
+              "term_value": 0.3198
+            },
+            {
+              "source_node_id": "secondary_support_loss",
+              "w_ij": 0.1443,
+              "delta_i(t)": 0.41,
+              "term_value": 0.059163
+            }
+          ],
+          "sum_value": 0.378963,
+          "sum_i": 0.378963,
+          "r_j(t)": 0.107856,
+          "raw_output_before_clamp": 0.728893,
+          "clamp": "min(1, max(0, raw_output_before_clamp))",
+          "max(0,x)": "max(0, raw_output_before_clamp)",
+          "min(1,x)": "min(1, max(0, raw_output_before_clamp))",
+          "clamp_min_applied": false,
+          "clamp_max_applied": false,
+          "s_j(t+1)_output": 0.728893,
+          "expected_output": 0.728893,
+          "actual_output": 0.728893,
+          "input_term_domain_checks": {
+            "s_j(t)_in_range": true,
+            "w_ij_in_range": true,
+            "delta_i(t)_in_range": true,
+            "r_j(t)_in_range": true,
+            "upstream_terms_nonnegative": true,
+            "output_in_range": true
+          },
+          "input_term_in_range": true,
+          "domain_violation_count": 0,
+          "absolute_error": 0.0,
+          "tolerance": 1e-06,
+          "assertion": "PASS",
+          "visible_substitution": "s_j(t+1)=min(1, max(0, 1.0 - sum_i([0.3198, 0.059163]) + 0.107856)) = min(1, max(0, 0.728893)) = 0.728893.",
+          "reviewer_visibility": "UI drawer row and reviewer export prompt must show this full input tuple, not only a summarized formula label.",
+          "row_hash_basis": [
+            "step",
+            "node_id",
+            "formula_id",
+            "formula_role_id",
+            "s_j(t)",
+            "t+1",
+            "upstream_terms",
+            "sum_value",
+            "sum_i",
+            "r_j(t)",
+            "raw_output_before_clamp",
+            "max(0,x)",
+            "min(1,x)",
+            "clamp_min_applied",
+            "clamp_max_applied",
+            "s_j(t+1)_output",
+            "input_term_in_range",
+            "domain_violation_count",
+            "tolerance"
+          ],
+          "row_hash": "ffc97b1257f461d311f7e6daa23622c8e89dea222d17b3f669feb5824be07914",
+          "data_testid": "cascade-expanded-arithmetic-row-2"
+        },
+        "arithmetic_row_hash": "ffc97b1257f461d311f7e6daa23622c8e89dea222d17b3f669feb5824be07914"
+      },
+      {
+        "step": 3,
+        "node_id": "energy-throughput",
+        "node_label": "energy throughput",
+        "ocf_006_symbol_inputs": {
+          "s_j(t)": 1.0,
+          "t+1": 4,
+          "w_ij": 0.5,
+          "delta_i(t)": 0.82,
+          "sum_i": 0.41,
+          "r_j(t)": 0.0936,
+          "max(0,x)": "lower clamp applied to raw_formula_output_before_clamp",
+          "min(1,x)": "upper clamp applied after lower clamp"
+        },
+        "input_vulnerability": 0.5,
+        "input_resilience": 0.52,
+        "shock_input": 0.82,
+        "formula_id": "OCF-006",
+        "formula_role_id": "OCF-006.propagation_update",
+        "formula_subtype": "propagation_update",
+        "s_j(t+1)_output": 0.6836,
+        "raw_formula_output_before_clamp": 0.6836,
+        "clamp_min_applied": false,
+        "clamp_max_applied": false,
+        "input_term_domain_checks": {
+          "s_j(t)_in_range": true,
+          "w_ij_in_range": true,
+          "delta_i(t)_in_range": true,
+          "r_j(t)_in_range": true,
+          "upstream_terms_nonnegative": true,
+          "output_in_range": true
+        },
+        "input_term_in_range": true,
+        "domain_violation_count": 0,
+        "row_reduction_policy": "ONE_EDGE_REDUCTION_OF_SUMMATION",
+        "upstream_terms": [
+          {
+            "source_node_id": "infrastructure",
+            "w_ij": 0.5,
+            "delta_i(t)": 0.82,
+            "term_value": 0.41
+          }
+        ],
+        "upstream_term_count": 1,
+        "sum_value": 0.41,
+        "flow_proxy_output": 0.173056,
+        "visible_derivation": "s_j(t+1)=min(1, max(0, 1.0 - sum_i([0.41]) + 0.0936)) = min(1, max(0, 0.6836)) = 0.6836.",
+        "arithmetic_verification_status": "PASS",
+        "arithmetic_tolerance": 1e-06,
+        "recompute_rule": "min(1, max(0, s_j(t) - sum(upstream_terms.term_value) + r_j(t)))",
+        "arithmetic_verification": {
+          "formula_id": "OCF-006",
+          "formula_role_id": "OCF-006.propagation_update",
+          "formula_subtype": "propagation_update",
+          "substituted_expression": "min(1, max(0, 1.0 - 0.41 + 0.0936))",
+          "expected_output": 0.6836,
+          "actual_output": 0.6836,
+          "absolute_error": 0.0,
+          "tolerance": 1e-06,
+          "assertion": "PASS"
+        },
+        "expanded_arithmetic_input": {
+          "step": 3,
+          "node_id": "energy-throughput",
+          "formula_id": "OCF-006",
+          "formula_role_id": "OCF-006.propagation_update",
+          "subtype": "expanded_per_row_arithmetic_inputs",
+          "s_j(t)": 1.0,
+          "t+1": 4,
+          "upstream_terms": [
+            {
+              "source_node_id": "infrastructure",
+              "w_ij": 0.5,
+              "delta_i(t)": 0.82,
+              "term_value": 0.41
+            }
+          ],
+          "sum_value": 0.41,
+          "sum_i": 0.41,
+          "r_j(t)": 0.0936,
+          "raw_output_before_clamp": 0.6836,
+          "clamp": "min(1, max(0, raw_output_before_clamp))",
+          "max(0,x)": "max(0, raw_output_before_clamp)",
+          "min(1,x)": "min(1, max(0, raw_output_before_clamp))",
+          "clamp_min_applied": false,
+          "clamp_max_applied": false,
+          "s_j(t+1)_output": 0.6836,
+          "expected_output": 0.6836,
+          "actual_output": 0.6836,
+          "input_term_domain_checks": {
+            "s_j(t)_in_range": true,
+            "w_ij_in_range": true,
+            "delta_i(t)_in_range": true,
+            "r_j(t)_in_range": true,
+            "upstream_terms_nonnegative": true,
+            "output_in_range": true
+          },
+          "input_term_in_range": true,
+          "domain_violation_count": 0,
+          "absolute_error": 0.0,
+          "tolerance": 1e-06,
+          "assertion": "PASS",
+          "visible_substitution": "s_j(t+1)=min(1, max(0, 1.0 - sum_i([0.41]) + 0.0936)) = min(1, max(0, 0.6836)) = 0.6836.",
+          "reviewer_visibility": "UI drawer row and reviewer export prompt must show this full input tuple, not only a summarized formula label.",
+          "row_hash_basis": [
+            "step",
+            "node_id",
+            "formula_id",
+            "formula_role_id",
+            "s_j(t)",
+            "t+1",
+            "upstream_terms",
+            "sum_value",
+            "sum_i",
+            "r_j(t)",
+            "raw_output_before_clamp",
+            "max(0,x)",
+            "min(1,x)",
+            "clamp_min_applied",
+            "clamp_max_applied",
+            "s_j(t+1)_output",
+            "input_term_in_range",
+            "domain_violation_count",
+            "tolerance"
+          ],
+          "row_hash": "2c20e6414111dd5fbc792d78c3e21a6a3cfe2a2cf3015377d7dbd9b06402ed4b",
+          "data_testid": "cascade-expanded-arithmetic-row-3"
+        },
+        "arithmetic_row_hash": "2c20e6414111dd5fbc792d78c3e21a6a3cfe2a2cf3015377d7dbd9b06402ed4b"
+      },
+      {
+        "step": 4,
+        "node_id": "feedback-governance",
+        "node_label": "feedback governance",
+        "ocf_006_symbol_inputs": {
+          "s_j(t)": 1.0,
+          "t+1": 5,
+          "w_ij": 0.61,
+          "delta_i(t)": 0.82,
+          "sum_i": 0.5002,
+          "r_j(t)": 0.079344,
+          "max(0,x)": "lower clamp applied to raw_formula_output_before_clamp",
+          "min(1,x)": "upper clamp applied after lower clamp"
+        },
+        "input_vulnerability": 0.61,
+        "input_resilience": 0.4408,
+        "shock_input": 0.82,
+        "formula_id": "OCF-006",
+        "formula_role_id": "OCF-006.propagation_update",
+        "formula_subtype": "propagation_update",
+        "s_j(t+1)_output": 0.579144,
+        "raw_formula_output_before_clamp": 0.579144,
+        "clamp_min_applied": false,
+        "clamp_max_applied": false,
+        "input_term_domain_checks": {
+          "s_j(t)_in_range": true,
+          "w_ij_in_range": true,
+          "delta_i(t)_in_range": true,
+          "r_j(t)_in_range": true,
+          "upstream_terms_nonnegative": true,
+          "output_in_range": true
+        },
+        "input_term_in_range": true,
+        "domain_violation_count": 0,
+        "row_reduction_policy": "ONE_EDGE_REDUCTION_OF_SUMMATION",
+        "upstream_terms": [
+          {
+            "source_node_id": "infrastructure",
+            "w_ij": 0.61,
+            "delta_i(t)": 0.82,
+            "term_value": 0.5002
+          }
+        ],
+        "upstream_term_count": 1,
+        "sum_value": 0.5002,
+        "flow_proxy_output": 0.12435,
+        "visible_derivation": "s_j(t+1)=min(1, max(0, 1.0 - sum_i([0.5002]) + 0.079344)) = min(1, max(0, 0.579144)) = 0.579144.",
+        "arithmetic_verification_status": "PASS",
+        "arithmetic_tolerance": 1e-06,
+        "recompute_rule": "min(1, max(0, s_j(t) - sum(upstream_terms.term_value) + r_j(t)))",
+        "arithmetic_verification": {
+          "formula_id": "OCF-006",
+          "formula_role_id": "OCF-006.propagation_update",
+          "formula_subtype": "propagation_update",
+          "substituted_expression": "min(1, max(0, 1.0 - 0.5002 + 0.079344))",
+          "expected_output": 0.579144,
+          "actual_output": 0.579144,
+          "absolute_error": 0.0,
+          "tolerance": 1e-06,
+          "assertion": "PASS"
+        },
+        "expanded_arithmetic_input": {
+          "step": 4,
+          "node_id": "feedback-governance",
+          "formula_id": "OCF-006",
+          "formula_role_id": "OCF-006.propagation_update",
+          "subtype": "expanded_per_row_arithmetic_inputs",
+          "s_j(t)": 1.0,
+          "t+1": 5,
+          "upstream_terms": [
+            {
+              "source_node_id": "infrastructure",
+              "w_ij": 0.61,
+              "delta_i(t)": 0.82,
+              "term_value": 0.5002
+            }
+          ],
+          "sum_value": 0.5002,
+          "sum_i": 0.5002,
+          "r_j(t)": 0.079344,
+          "raw_output_before_clamp": 0.579144,
+          "clamp": "min(1, max(0, raw_output_before_clamp))",
+          "max(0,x)": "max(0, raw_output_before_clamp)",
+          "min(1,x)": "min(1, max(0, raw_output_before_clamp))",
+          "clamp_min_applied": false,
+          "clamp_max_applied": false,
+          "s_j(t+1)_output": 0.579144,
+          "expected_output": 0.579144,
+          "actual_output": 0.579144,
+          "input_term_domain_checks": {
+            "s_j(t)_in_range": true,
+            "w_ij_in_range": true,
+            "delta_i(t)_in_range": true,
+            "r_j(t)_in_range": true,
+            "upstream_terms_nonnegative": true,
+            "output_in_range": true
+          },
+          "input_term_in_range": true,
+          "domain_violation_count": 0,
+          "absolute_error": 0.0,
+          "tolerance": 1e-06,
+          "assertion": "PASS",
+          "visible_substitution": "s_j(t+1)=min(1, max(0, 1.0 - sum_i([0.5002]) + 0.079344)) = min(1, max(0, 0.579144)) = 0.579144.",
+          "reviewer_visibility": "UI drawer row and reviewer export prompt must show this full input tuple, not only a summarized formula label.",
+          "row_hash_basis": [
+            "step",
+            "node_id",
+            "formula_id",
+            "formula_role_id",
+            "s_j(t)",
+            "t+1",
+            "upstream_terms",
+            "sum_value",
+            "sum_i",
+            "r_j(t)",
+            "raw_output_before_clamp",
+            "max(0,x)",
+            "min(1,x)",
+            "clamp_min_applied",
+            "clamp_max_applied",
+            "s_j(t+1)_output",
+            "input_term_in_range",
+            "domain_violation_count",
+            "tolerance"
+          ],
+          "row_hash": "5b83df22295ba1cbb425750d610e8cf06a77922a16ecbbd037267defb1b404c7",
+          "data_testid": "cascade-expanded-arithmetic-row-4"
+        },
+        "arithmetic_row_hash": "5b83df22295ba1cbb425750d610e8cf06a77922a16ecbbd037267defb1b404c7"
+      },
+      {
+        "step": 5,
+        "node_id": "semantic-coherence",
+        "node_label": "semantic coherence",
+        "ocf_006_symbol_inputs": {
+          "s_j(t)": 1.0,
+          "t+1": 6,
+          "w_ij": 0.28,
+          "delta_i(t)": 0.82,
+          "sum_i": 0.2296,
+          "r_j(t)": 0.122112,
+          "max(0,x)": "lower clamp applied to raw_formula_output_before_clamp",
+          "min(1,x)": "upper clamp applied after lower clamp"
+        },
+        "input_vulnerability": 0.28,
+        "input_resilience": 0.6784,
+        "shock_input": 0.82,
+        "formula_id": "OCF-006",
+        "formula_role_id": "OCF-006.propagation_update",
+        "formula_subtype": "propagation_update",
+        "s_j(t+1)_output": 0.892512,
+        "raw_formula_output_before_clamp": 0.892512,
+        "clamp_min_applied": false,
+        "clamp_max_applied": false,
+        "input_term_domain_checks": {
+          "s_j(t)_in_range": true,
+          "w_ij_in_range": true,
+          "delta_i(t)_in_range": true,
+          "r_j(t)_in_range": true,
+          "upstream_terms_nonnegative": true,
+          "output_in_range": true
+        },
+        "input_term_in_range": true,
+        "domain_violation_count": 0,
+        "row_reduction_policy": "ONE_EDGE_REDUCTION_OF_SUMMATION",
+        "upstream_terms": [
+          {
+            "source_node_id": "infrastructure",
+            "w_ij": 0.28,
+            "delta_i(t)": 0.82,
+            "term_value": 0.2296
+          }
+        ],
+        "upstream_term_count": 1,
+        "sum_value": 0.2296,
+        "flow_proxy_output": 0.294561,
+        "visible_derivation": "s_j(t+1)=min(1, max(0, 1.0 - sum_i([0.2296]) + 0.122112)) = min(1, max(0, 0.892512)) = 0.892512.",
+        "arithmetic_verification_status": "PASS",
+        "arithmetic_tolerance": 1e-06,
+        "recompute_rule": "min(1, max(0, s_j(t) - sum(upstream_terms.term_value) + r_j(t)))",
+        "arithmetic_verification": {
+          "formula_id": "OCF-006",
+          "formula_role_id": "OCF-006.propagation_update",
+          "formula_subtype": "propagation_update",
+          "substituted_expression": "min(1, max(0, 1.0 - 0.2296 + 0.122112))",
+          "expected_output": 0.892512,
+          "actual_output": 0.892512,
+          "absolute_error": 0.0,
+          "tolerance": 1e-06,
+          "assertion": "PASS"
+        },
+        "expanded_arithmetic_input": {
+          "step": 5,
+          "node_id": "semantic-coherence",
+          "formula_id": "OCF-006",
+          "formula_role_id": "OCF-006.propagation_update",
+          "subtype": "expanded_per_row_arithmetic_inputs",
+          "s_j(t)": 1.0,
+          "t+1": 6,
+          "upstream_terms": [
+            {
+              "source_node_id": "infrastructure",
+              "w_ij": 0.28,
+              "delta_i(t)": 0.82,
+              "term_value": 0.2296
+            }
+          ],
+          "sum_value": 0.2296,
+          "sum_i": 0.2296,
+          "r_j(t)": 0.122112,
+          "raw_output_before_clamp": 0.892512,
+          "clamp": "min(1, max(0, raw_output_before_clamp))",
+          "max(0,x)": "max(0, raw_output_before_clamp)",
+          "min(1,x)": "min(1, max(0, raw_output_before_clamp))",
+          "clamp_min_applied": false,
+          "clamp_max_applied": false,
+          "s_j(t+1)_output": 0.892512,
+          "expected_output": 0.892512,
+          "actual_output": 0.892512,
+          "input_term_domain_checks": {
+            "s_j(t)_in_range": true,
+            "w_ij_in_range": true,
+            "delta_i(t)_in_range": true,
+            "r_j(t)_in_range": true,
+            "upstream_terms_nonnegative": true,
+            "output_in_range": true
+          },
+          "input_term_in_range": true,
+          "domain_violation_count": 0,
+          "absolute_error": 0.0,
+          "tolerance": 1e-06,
+          "assertion": "PASS",
+          "visible_substitution": "s_j(t+1)=min(1, max(0, 1.0 - sum_i([0.2296]) + 0.122112)) = min(1, max(0, 0.892512)) = 0.892512.",
+          "reviewer_visibility": "UI drawer row and reviewer export prompt must show this full input tuple, not only a summarized formula label.",
+          "row_hash_basis": [
+            "step",
+            "node_id",
+            "formula_id",
+            "formula_role_id",
+            "s_j(t)",
+            "t+1",
+            "upstream_terms",
+            "sum_value",
+            "sum_i",
+            "r_j(t)",
+            "raw_output_before_clamp",
+            "max(0,x)",
+            "min(1,x)",
+            "clamp_min_applied",
+            "clamp_max_applied",
+            "s_j(t+1)_output",
+            "input_term_in_range",
+            "domain_violation_count",
+            "tolerance"
+          ],
+          "row_hash": "f7b4b769432d0e848ce5889c6c8186476301c3dfc462d0a006fe69fb81d0642e",
+          "data_testid": "cascade-expanded-arithmetic-row-5"
+        },
+        "arithmetic_row_hash": "f7b4b769432d0e848ce5889c6c8186476301c3dfc462d0a006fe69fb81d0642e"
+      }
+    ],
+    "expanded_arithmetic_inputs": [
+      {
+        "step": 1,
+        "node_id": "infrastructure",
+        "formula_id": "OCF-006",
+        "formula_role_id": "OCF-006.propagation_update",
+        "subtype": "expanded_per_row_arithmetic_inputs",
+        "s_j(t)": 1.0,
+        "t+1": 2,
+        "upstream_terms": [
+          {
+            "source_node_id": "self-trigger",
+            "w_ij": 0.72,
+            "delta_i(t)": 0.82,
+            "term_value": 0.5904
+          }
+        ],
+        "sum_value": 0.5904,
+        "sum_i": 0.5904,
+        "r_j(t)": 0.065088,
+        "raw_output_before_clamp": 0.474688,
+        "clamp": "min(1, max(0, raw_output_before_clamp))",
+        "max(0,x)": "max(0, raw_output_before_clamp)",
+        "min(1,x)": "min(1, max(0, raw_output_before_clamp))",
+        "clamp_min_applied": false,
+        "clamp_max_applied": false,
+        "s_j(t+1)_output": 0.474688,
+        "expected_output": 0.474688,
+        "actual_output": 0.474688,
+        "input_term_domain_checks": {
+          "s_j(t)_in_range": true,
+          "w_ij_in_range": true,
+          "delta_i(t)_in_range": true,
+          "r_j(t)_in_range": true,
+          "upstream_terms_nonnegative": true,
+          "output_in_range": true
+        },
+        "input_term_in_range": true,
+        "domain_violation_count": 0,
+        "absolute_error": 0.0,
+        "tolerance": 1e-06,
+        "assertion": "PASS",
+        "visible_substitution": "s_j(t+1)=min(1, max(0, 1.0 - sum_i([0.5904]) + 0.065088)) = min(1, max(0, 0.474688)) = 0.474688.",
+        "reviewer_visibility": "UI drawer row and reviewer export prompt must show this full input tuple, not only a summarized formula label.",
+        "row_hash_basis": [
+          "step",
+          "node_id",
+          "formula_id",
+          "formula_role_id",
+          "s_j(t)",
+          "t+1",
+          "upstream_terms",
+          "sum_value",
+          "sum_i",
+          "r_j(t)",
+          "raw_output_before_clamp",
+          "max(0,x)",
+          "min(1,x)",
+          "clamp_min_applied",
+          "clamp_max_applied",
+          "s_j(t+1)_output",
+          "input_term_in_range",
+          "domain_violation_count",
+          "tolerance"
+        ],
+        "row_hash": "9c8697e764412bf52c51b4f1b505dcc4bc8c02d10c0d54e907ab95e63b5e857c",
+        "data_testid": "cascade-expanded-arithmetic-row-1"
+      },
+      {
+        "step": 2,
+        "node_id": "civilizational-collapse",
+        "formula_id": "OCF-006",
+        "formula_role_id": "OCF-006.propagation_update",
+        "subtype": "expanded_per_row_arithmetic_inputs",
+        "s_j(t)": 1.0,
+        "t+1": 3,
+        "upstream_terms": [
+          {
+            "source_node_id": "infrastructure",
+            "w_ij": 0.39,
+            "delta_i(t)": 0.82,
+            "term_value": 0.3198
+          },
+          {
+            "source_node_id": "secondary_support_loss",
+            "w_ij": 0.1443,
+            "delta_i(t)": 0.41,
+            "term_value": 0.059163
+          }
+        ],
+        "sum_value": 0.378963,
+        "sum_i": 0.378963,
+        "r_j(t)": 0.107856,
+        "raw_output_before_clamp": 0.728893,
+        "clamp": "min(1, max(0, raw_output_before_clamp))",
+        "max(0,x)": "max(0, raw_output_before_clamp)",
+        "min(1,x)": "min(1, max(0, raw_output_before_clamp))",
+        "clamp_min_applied": false,
+        "clamp_max_applied": false,
+        "s_j(t+1)_output": 0.728893,
+        "expected_output": 0.728893,
+        "actual_output": 0.728893,
+        "input_term_domain_checks": {
+          "s_j(t)_in_range": true,
+          "w_ij_in_range": true,
+          "delta_i(t)_in_range": true,
+          "r_j(t)_in_range": true,
+          "upstream_terms_nonnegative": true,
+          "output_in_range": true
+        },
+        "input_term_in_range": true,
+        "domain_violation_count": 0,
+        "absolute_error": 0.0,
+        "tolerance": 1e-06,
+        "assertion": "PASS",
+        "visible_substitution": "s_j(t+1)=min(1, max(0, 1.0 - sum_i([0.3198, 0.059163]) + 0.107856)) = min(1, max(0, 0.728893)) = 0.728893.",
+        "reviewer_visibility": "UI drawer row and reviewer export prompt must show this full input tuple, not only a summarized formula label.",
+        "row_hash_basis": [
+          "step",
+          "node_id",
+          "formula_id",
+          "formula_role_id",
+          "s_j(t)",
+          "t+1",
+          "upstream_terms",
+          "sum_value",
+          "sum_i",
+          "r_j(t)",
+          "raw_output_before_clamp",
+          "max(0,x)",
+          "min(1,x)",
+          "clamp_min_applied",
+          "clamp_max_applied",
+          "s_j(t+1)_output",
+          "input_term_in_range",
+          "domain_violation_count",
+          "tolerance"
+        ],
+        "row_hash": "ffc97b1257f461d311f7e6daa23622c8e89dea222d17b3f669feb5824be07914",
+        "data_testid": "cascade-expanded-arithmetic-row-2"
+      },
+      {
+        "step": 3,
+        "node_id": "energy-throughput",
+        "formula_id": "OCF-006",
+        "formula_role_id": "OCF-006.propagation_update",
+        "subtype": "expanded_per_row_arithmetic_inputs",
+        "s_j(t)": 1.0,
+        "t+1": 4,
+        "upstream_terms": [
+          {
+            "source_node_id": "infrastructure",
+            "w_ij": 0.5,
+            "delta_i(t)": 0.82,
+            "term_value": 0.41
+          }
+        ],
+        "sum_value": 0.41,
+        "sum_i": 0.41,
+        "r_j(t)": 0.0936,
+        "raw_output_before_clamp": 0.6836,
+        "clamp": "min(1, max(0, raw_output_before_clamp))",
+        "max(0,x)": "max(0, raw_output_before_clamp)",
+        "min(1,x)": "min(1, max(0, raw_output_before_clamp))",
+        "clamp_min_applied": false,
+        "clamp_max_applied": false,
+        "s_j(t+1)_output": 0.6836,
+        "expected_output": 0.6836,
+        "actual_output": 0.6836,
+        "input_term_domain_checks": {
+          "s_j(t)_in_range": true,
+          "w_ij_in_range": true,
+          "delta_i(t)_in_range": true,
+          "r_j(t)_in_range": true,
+          "upstream_terms_nonnegative": true,
+          "output_in_range": true
+        },
+        "input_term_in_range": true,
+        "domain_violation_count": 0,
+        "absolute_error": 0.0,
+        "tolerance": 1e-06,
+        "assertion": "PASS",
+        "visible_substitution": "s_j(t+1)=min(1, max(0, 1.0 - sum_i([0.41]) + 0.0936)) = min(1, max(0, 0.6836)) = 0.6836.",
+        "reviewer_visibility": "UI drawer row and reviewer export prompt must show this full input tuple, not only a summarized formula label.",
+        "row_hash_basis": [
+          "step",
+          "node_id",
+          "formula_id",
+          "formula_role_id",
+          "s_j(t)",
+          "t+1",
+          "upstream_terms",
+          "sum_value",
+          "sum_i",
+          "r_j(t)",
+          "raw_output_before_clamp",
+          "max(0,x)",
+          "min(1,x)",
+          "clamp_min_applied",
+          "clamp_max_applied",
+          "s_j(t+1)_output",
+          "input_term_in_range",
+          "domain_violation_count",
+          "tolerance"
+        ],
+        "row_hash": "2c20e6414111dd5fbc792d78c3e21a6a3cfe2a2cf3015377d7dbd9b06402ed4b",
+        "data_testid": "cascade-expanded-arithmetic-row-3"
+      },
+      {
+        "step": 4,
+        "node_id": "feedback-governance",
+        "formula_id": "OCF-006",
+        "formula_role_id": "OCF-006.propagation_update",
+        "subtype": "expanded_per_row_arithmetic_inputs",
+        "s_j(t)": 1.0,
+        "t+1": 5,
+        "upstream_terms": [
+          {
+            "source_node_id": "infrastructure",
+            "w_ij": 0.61,
+            "delta_i(t)": 0.82,
+            "term_value": 0.5002
+          }
+        ],
+        "sum_value": 0.5002,
+        "sum_i": 0.5002,
+        "r_j(t)": 0.079344,
+        "raw_output_before_clamp": 0.579144,
+        "clamp": "min(1, max(0, raw_output_before_clamp))",
+        "max(0,x)": "max(0, raw_output_before_clamp)",
+        "min(1,x)": "min(1, max(0, raw_output_before_clamp))",
+        "clamp_min_applied": false,
+        "clamp_max_applied": false,
+        "s_j(t+1)_output": 0.579144,
+        "expected_output": 0.579144,
+        "actual_output": 0.579144,
+        "input_term_domain_checks": {
+          "s_j(t)_in_range": true,
+          "w_ij_in_range": true,
+          "delta_i(t)_in_range": true,
+          "r_j(t)_in_range": true,
+          "upstream_terms_nonnegative": true,
+          "output_in_range": true
+        },
+        "input_term_in_range": true,
+        "domain_violation_count": 0,
+        "absolute_error": 0.0,
+        "tolerance": 1e-06,
+        "assertion": "PASS",
+        "visible_substitution": "s_j(t+1)=min(1, max(0, 1.0 - sum_i([0.5002]) + 0.079344)) = min(1, max(0, 0.579144)) = 0.579144.",
+        "reviewer_visibility": "UI drawer row and reviewer export prompt must show this full input tuple, not only a summarized formula label.",
+        "row_hash_basis": [
+          "step",
+          "node_id",
+          "formula_id",
+          "formula_role_id",
+          "s_j(t)",
+          "t+1",
+          "upstream_terms",
+          "sum_value",
+          "sum_i",
+          "r_j(t)",
+          "raw_output_before_clamp",
+          "max(0,x)",
+          "min(1,x)",
+          "clamp_min_applied",
+          "clamp_max_applied",
+          "s_j(t+1)_output",
+          "input_term_in_range",
+          "domain_violation_count",
+          "tolerance"
+        ],
+        "row_hash": "5b83df22295ba1cbb425750d610e8cf06a77922a16ecbbd037267defb1b404c7",
+        "data_testid": "cascade-expanded-arithmetic-row-4"
+      },
+      {
+        "step": 5,
+        "node_id": "semantic-coherence",
+        "formula_id": "OCF-006",
+        "formula_role_id": "OCF-006.propagation_update",
+        "subtype": "expanded_per_row_arithmetic_inputs",
+        "s_j(t)": 1.0,
+        "t+1": 6,
+        "upstream_terms": [
+          {
+            "source_node_id": "infrastructure",
+            "w_ij": 0.28,
+            "delta_i(t)": 0.82,
+            "term_value": 0.2296
+          }
+        ],
+        "sum_value": 0.2296,
+        "sum_i": 0.2296,
+        "r_j(t)": 0.122112,
+        "raw_output_before_clamp": 0.892512,
+        "clamp": "min(1, max(0, raw_output_before_clamp))",
+        "max(0,x)": "max(0, raw_output_before_clamp)",
+        "min(1,x)": "min(1, max(0, raw_output_before_clamp))",
+        "clamp_min_applied": false,
+        "clamp_max_applied": false,
+        "s_j(t+1)_output": 0.892512,
+        "expected_output": 0.892512,
+        "actual_output": 0.892512,
+        "input_term_domain_checks": {
+          "s_j(t)_in_range": true,
+          "w_ij_in_range": true,
+          "delta_i(t)_in_range": true,
+          "r_j(t)_in_range": true,
+          "upstream_terms_nonnegative": true,
+          "output_in_range": true
+        },
+        "input_term_in_range": true,
+        "domain_violation_count": 0,
+        "absolute_error": 0.0,
+        "tolerance": 1e-06,
+        "assertion": "PASS",
+        "visible_substitution": "s_j(t+1)=min(1, max(0, 1.0 - sum_i([0.2296]) + 0.122112)) = min(1, max(0, 0.892512)) = 0.892512.",
+        "reviewer_visibility": "UI drawer row and reviewer export prompt must show this full input tuple, not only a summarized formula label.",
+        "row_hash_basis": [
+          "step",
+          "node_id",
+          "formula_id",
+          "formula_role_id",
+          "s_j(t)",
+          "t+1",
+          "upstream_terms",
+          "sum_value",
+          "sum_i",
+          "r_j(t)",
+          "raw_output_before_clamp",
+          "max(0,x)",
+          "min(1,x)",
+          "clamp_min_applied",
+          "clamp_max_applied",
+          "s_j(t+1)_output",
+          "input_term_in_range",
+          "domain_violation_count",
+          "tolerance"
+        ],
+        "row_hash": "f7b4b769432d0e848ce5889c6c8186476301c3dfc462d0a006fe69fb81d0642e",
+        "data_testid": "cascade-expanded-arithmetic-row-5"
+      }
+    ],
+    "materialized_fifth_cascade_arithmetic_row": {
+      "step": 5,
+      "node_id": "semantic-coherence",
+      "formula_id": "OCF-006",
+      "formula_role_id": "OCF-006.propagation_update",
+      "subtype": "expanded_per_row_arithmetic_inputs",
+      "s_j(t)": 1.0,
+      "t+1": 6,
+      "upstream_terms": [
+        {
+          "source_node_id": "infrastructure",
+          "w_ij": 0.28,
+          "delta_i(t)": 0.82,
+          "term_value": 0.2296
+        }
+      ],
+      "sum_value": 0.2296,
+      "sum_i": 0.2296,
+      "r_j(t)": 0.122112,
+      "raw_output_before_clamp": 0.892512,
+      "clamp": "min(1, max(0, raw_output_before_clamp))",
+      "max(0,x)": "max(0, raw_output_before_clamp)",
+      "min(1,x)": "min(1, max(0, raw_output_before_clamp))",
+      "clamp_min_applied": false,
+      "clamp_max_applied": false,
+      "s_j(t+1)_output": 0.892512,
+      "expected_output": 0.892512,
+      "actual_output": 0.892512,
+      "input_term_domain_checks": {
+        "s_j(t)_in_range": true,
+        "w_ij_in_range": true,
+        "delta_i(t)_in_range": true,
+        "r_j(t)_in_range": true,
+        "upstream_terms_nonnegative": true,
+        "output_in_range": true
+      },
+      "input_term_in_range": true,
+      "domain_violation_count": 0,
+      "absolute_error": 0.0,
+      "tolerance": 1e-06,
+      "assertion": "PASS",
+      "visible_substitution": "s_j(t+1)=min(1, max(0, 1.0 - sum_i([0.2296]) + 0.122112)) = min(1, max(0, 0.892512)) = 0.892512.",
+      "reviewer_visibility": "UI drawer row and reviewer export prompt must show this full input tuple, not only a summarized formula label.",
+      "row_hash_basis": [
+        "step",
+        "node_id",
+        "formula_id",
+        "formula_role_id",
+        "s_j(t)",
+        "t+1",
+        "upstream_terms",
+        "sum_value",
+        "sum_i",
+        "r_j(t)",
+        "raw_output_before_clamp",
+        "max(0,x)",
+        "min(1,x)",
+        "clamp_min_applied",
+        "clamp_max_applied",
+        "s_j(t+1)_output",
+        "input_term_in_range",
+        "domain_violation_count",
+        "tolerance"
+      ],
+      "row_hash": "f7b4b769432d0e848ce5889c6c8186476301c3dfc462d0a006fe69fb81d0642e",
+      "data_testid": "cascade-expanded-arithmetic-row-5"
+    },
+    "support_unit_derivation_rows": [
+      {
+        "row_index": 1,
+        "node_id": "infrastructure",
+        "baseline_support_units": 20,
+        "flow_proxy_weight": 0.083674,
+        "raw_surviving_units": 3.604113,
+        "rounded_surviving_units": 4,
+        "rounding_basis": "largest fractional remainder allocation after global surviving units are rounded from 100*0.39 to 39",
+        "formula_refs": [
+          "OCF-007",
+          "OCF-008"
+        ]
+      },
+      {
+        "row_index": 2,
+        "node_id": "civilizational-collapse",
+        "baseline_support_units": 20,
+        "flow_proxy_weight": 0.229793,
+        "raw_surviving_units": 9.897935,
+        "rounded_surviving_units": 10,
+        "rounding_basis": "largest fractional remainder allocation after global surviving units are rounded from 100*0.39 to 39",
+        "formula_refs": [
+          "OCF-007",
+          "OCF-008"
+        ]
+      },
+      {
+        "row_index": 3,
+        "node_id": "energy-throughput",
+        "baseline_support_units": 20,
+        "flow_proxy_weight": 0.173056,
+        "raw_surviving_units": 7.454087,
+        "rounded_surviving_units": 7,
+        "rounding_basis": "largest fractional remainder allocation after global surviving units are rounded from 100*0.39 to 39",
+        "formula_refs": [
+          "OCF-007",
+          "OCF-008"
+        ]
+      },
+      {
+        "row_index": 4,
+        "node_id": "feedback-governance",
+        "baseline_support_units": 20,
+        "flow_proxy_weight": 0.12435,
+        "raw_surviving_units": 5.356161,
+        "rounded_surviving_units": 5,
+        "rounding_basis": "largest fractional remainder allocation after global surviving units are rounded from 100*0.39 to 39",
+        "formula_refs": [
+          "OCF-007",
+          "OCF-008"
+        ]
+      },
+      {
+        "row_index": 5,
+        "node_id": "semantic-coherence",
+        "baseline_support_units": 20,
+        "flow_proxy_weight": 0.294561,
+        "raw_surviving_units": 12.687704,
+        "rounded_surviving_units": 13,
+        "rounding_basis": "largest fractional remainder allocation after global surviving units are rounded from 100*0.39 to 39",
+        "formula_refs": [
+          "OCF-007",
+          "OCF-008"
+        ]
+      }
+    ],
+    "support_unit_rounding_basis": {
+      "formula_refs": [
+        "OCF-007",
+        "OCF-008"
+      ],
+      "baseline_support_units": 100,
+      "survival_ratio": 0.39,
+      "raw_surviving_support_units": 39.0,
+      "rounded_surviving_support_units": 39,
+      "rounding_policy": "round global surviving support units first, then allocate integer rows by largest fractional remainder",
+      "row_sum_check": 39,
+      "assertion": "PASS"
+    },
+    "support_unit_derivation_status": "PASS",
+    "expanded_arithmetic_input_policy": {
+      "status": "PASS",
+      "coverage": "one expanded arithmetic input row for every node_propagation_rows entry",
+      "row_count": 5,
+      "node_propagation_row_count": 5,
+      "materialized_fifth_row_status": "PASS",
+      "hash_policy": "Each row_hash binds visible input tuple + upstream terms + output + tolerance; result_hash includes the expanded arithmetic rows through sample_packet.result_hash_basis.",
+      "reviewer_prompt_requirement": "A hostile reviewer can recompute OCF-006 row-by-row from visible s_j(t), upstream_terms, sum_value, r_j(t), clamp and s_j(t+1) fields."
+    },
+    "determinism_check": {
+      "run_1_hash": "f1ec3b33c5724f77d0e04680a0aad01bb3080a0e7c25b322925744fa6c0fba5d",
+      "run_2_hash": "f1ec3b33c5724f77d0e04680a0aad01bb3080a0e7c25b322925744fa6c0fba5d",
+      "same_input_policy": "template_hash + topology_hash + kill_mode + selected_node_id + params excluding animation speed + formula bindings",
+      "speed_animation_only_contract": {
+        "speed_1": 0.5,
+        "speed_2": 2.0,
+        "result_hash_unchanged": true,
+        "after_metrics_unchanged": true,
+        "animation_state_hash_changes": true
+      },
+      "topology_identity_rejection_test": {
+        "same_system_id_different_topology_hash": "REJECT_OR_NEW_RESULT_HASH_REQUIRED",
+        "policy": "system_id alone is never a replay identity; topology_hash participates in determinism input identity."
+      },
+      "status": "PASS"
+    },
+    "formula_binding": {
+      "formula_id": "OCF-006",
+      "semantic_title": "Cascade propagation",
+      "formula_role_contract": {
+        "status": "PASS_DISAMBIGUATED_FORMULA_FAMILY",
+        "formula_family_id": "OCF-006",
+        "required_visible_roles": [
+          "OCF-006.path_depth",
+          "OCF-006.propagation_update"
+        ],
+        "visible_notation_coverage": {
+          "status": "PASS_ALL_VISIBLE_NOTATION_BOUND",
+          "symbols": [
+            "s_j(t)",
+            "t+1",
+            "s_j(t+1)",
+            "max(0,x)",
+            "min(1,x)",
+            "clamp",
+            "sum_i",
+            "w_ij",
+            "delta_i(t)",
+            "r_j(t)",
+            "P_c=(v_0,...,v_m)",
+            "v_0",
+            "v_m",
+            "P_c",
+            "D_c"
+          ],
+          "coverage_policy": "The Formula Atlas symbol table and cascade export rows must bind every displayed OCF-006 notation item, including tuple/path notation and clamp/summation operators."
+        },
+        "nonclaim_boundary": "One Formula Atlas row teaches the cascade family; exports must bind each metric to a named role."
+      },
+      "formula_subderivations": [
+        {
+          "formula_role_id": "OCF-006.path_depth",
+          "formula_subtype": "path_depth",
+          "canonical_expression": "D_c=|P_c|",
+          "symbols": [
+            "P_c=(v_0,...,v_m)",
+            "v_0",
+            "v_m",
+            "P_c",
+            "D_c"
+          ],
+          "input_fields": [
+            "selected collapse path P_c"
+          ],
+          "output_fields": [
+            "collapse_depth"
+          ],
+          "meaning": "Collapse depth is the length/cardinality of the selected collapse path."
+        },
+        {
+          "formula_role_id": "OCF-006.propagation_update",
+          "formula_subtype": "propagation_update",
+          "canonical_expression": "s_j(t+1)=min(1, max(0, s_j(t)-sum_i w_ij delta_i(t)+r_j(t)))",
+          "symbols": [
+            "s_j(t)",
+            "t+1",
+            "s_j(t+1)",
+            "max(0,x)",
+            "min(1,x)",
+            "clamp",
+            "sum_i",
+            "w_ij",
+            "delta_i(t)",
+            "r_j(t)"
+          ],
+          "input_fields": [
+            "node state",
+            "incoming dependency weights",
+            "upstream damage",
+            "local recovery"
+          ],
+          "output_fields": [
+            "node residual coherence"
+          ],
+          "range_claim_condition": "The displayed output is clamped by min(1,max(0,x)); public replay rows keep inputs in the normalized template domain and verify the final [0,1] value.",
+          "meaning": "A node updates by subtracting weighted upstream damage, adding local recovery and clamping into the normalized [0,1] state range."
+        }
+      ],
+      "symbol_contract_status": "PASS_CURATED_SEMANTIC_SYMBOLS"
+    },
+    "assumptions": [
+      "Local deterministic workbench replay",
+      "Speed slider affects animation timing only"
+    ],
+    "nonclaim_boundary": "Cascade packet is a bounded local diagnostic, not an external forecast or proof of real-world failure.",
+    "result_hash_basis": [
+      "advertised_first_click_example_id",
+      "after_metrics",
+      "assumptions",
+      "before_metrics",
+      "collapse_depth_arithmetic",
+      "connectivity_arithmetic",
+      "expanded_arithmetic_input_policy",
+      "expanded_arithmetic_inputs",
+      "first_click_promise_reconciliation",
+      "flow_rupture_arithmetic",
+      "formula_binding",
+      "kill_mode",
+      "kill_mode_matrix",
+      "materialized_fifth_cascade_arithmetic_row",
+      "metric_formula_bindings",
+      "node_propagation_rows",
+      "nonclaim_boundary",
+      "ocf_009_recovery_metric_scope",
+      "ocf_009_recovery_schema",
+      "packet_system_id",
+      "params",
+      "promise_packet_match",
+      "promised_first_click_trace_id",
+      "promised_system_id",
+      "range_condition_rows",
+      "recovery_basis",
+      "recovery_timeline",
+      "route_action_mapping_contract",
+      "rupture_timeline",
+      "selected_node_id",
+      "selected_node_label",
+      "selected_node_source",
+      "shock_input_contract",
+      "support_unit_derivation_rows",
+      "support_unit_derivation_status",
+      "support_unit_rounding_basis",
+      "system_id",
+      "template_hash",
+      "template_hash_scope",
+      "template_hash_scope_reconciliation",
+      "topology_change_contract",
+      "topology_hash",
+      "trigger_to_propagation_map",
+      "weakest_node_selection_contract"
+    ],
+    "result_hash_basis_exclusion": "animation_state.speed is excluded; changing 0.5x to 2.0x changes only animation_state_hash",
+    "result_hash": "f1ec3b33c5724f77d0e04680a0aad01bb3080a0e7c25b322925744fa6c0fba5d"
+  },
+  "range_condition_rows": [
+    {
+      "condition_id": "OCF-006::RANGE::PROPAGATION_UPDATE",
+      "formula_id": "OCF-006",
+      "metric": "node_state_update",
+      "formula_role_id": "OCF-006.propagation_update",
+      "bounded_range": "[0,1]",
+      "row_level_required_fields": [
+        "s_j(t)",
+        "upstream_terms",
+        "sum_value",
+        "r_j(t)",
+        "raw_output_before_clamp",
+        "clamp_min_applied",
+        "clamp_max_applied",
+        "s_j(t+1)_output"
+      ],
+      "template_bound_condition": "Every public replay row verifies s_j(t+1)=min(1,max(0,raw_output_before_clamp)) with all scalar inputs in [0,1].",
+      "status": "PASS_TEMPLATE_BOUND_RANGE_CONDITION"
+    },
+    {
+      "condition_id": "OCF-007::RANGE::CONNECTIVITY_LOSS",
+      "formula_id": "OCF-007",
+      "metric": "connectivity_loss",
+      "bounded_range": "[0,1]",
+      "row_level_required_fields": [
+        "E_alive_count",
+        "E_0_count",
+        "epsilon_guard",
+        "support_unit_derivation_rows"
+      ],
+      "template_bound_condition": "0 <= E_alive_count <= E_0_count and E_0_count is the visible support-unit total",
+      "status": "PASS_TEMPLATE_BOUND_RANGE_CONDITION"
+    },
+    {
+      "condition_id": "OCF-008::RANGE::FLOW_RUPTURE",
+      "formula_id": "OCF-008",
+      "metric": "flow_rupture",
+      "bounded_range": "[0,1]",
+      "row_level_required_fields": [
+        "pre_flow",
+        "post_flow",
+        "epsilon",
+        "support_unit_derivation_rows"
+      ],
+      "template_bound_condition": "0 <= post_flow <= pre_flow and pre_flow is the same support-unit total used by OCF-007",
+      "status": "PASS_TEMPLATE_BOUND_RANGE_CONDITION"
+    },
+    {
+      "condition_id": "OCF-009::RANGE::RECOVERY_INDEX",
+      "formula_id": "OCF-009",
+      "metric": "recovery_index",
+      "bounded_range": "[0,1]",
+      "row_level_required_fields": [
+        "Phi_before",
+        "Phi_min",
+        "Phi_after",
+        "epsilon"
+      ],
+      "template_bound_condition": "Phi_min <= Phi_after <= Phi_before and Phi_before > Phi_min for scored rows",
+      "status": "PASS_TEMPLATE_BOUND_RANGE_CONDITION"
+    }
+  ],
+  "kill_mode_matrix": [
+    {
+      "kill_mode": "selected_node",
+      "trigger_source": "user-selected graph node",
+      "determinism_identity_fields": [
+        "template_hash",
+        "topology_hash",
+        "selected_node_id",
+        "shock",
+        "recovery_enabled"
+      ],
+      "test_status": "PASS_TRACE_AVAILABLE"
+    },
+    {
+      "kill_mode": "weakest_node",
+      "trigger_source": "weakest_node_selection_contract",
+      "determinism_identity_fields": [
+        "template_hash",
+        "topology_hash",
+        "kill_tiebreak_rule",
+        "shock",
+        "recovery_enabled"
+      ],
+      "test_status": "PASS_TRACE_AVAILABLE"
+    },
+    {
+      "kill_mode": "manual_boundary_probe",
+      "trigger_source": "reviewer-entered node id",
+      "determinism_identity_fields": [
+        "template_hash",
+        "topology_hash",
+        "manual_node_id",
+        "shock",
+        "recovery_enabled"
+      ],
+      "invalid_input_policy": "FAIL_CLOSED_UNKNOWN_NODE"
+    }
+  ],
+  "shock_input_contract": {
+    "shock_min": 0.0,
+    "shock_max": 1.0,
+    "current_shock": 0.82,
+    "invalid_shock_action": "FAIL_CLOSED_REJECT_PARAMS_WITH_STRUCTURED_ERROR",
+    "ui_control": "slider bounded to [0,1]",
+    "api_policy": "reject non-finite, bool, or out-of-range shock values; never silently widen scientific meaning",
+    "nonclaim_boundary": "Shock is a normalized workbench stress scalar, not a calibrated domain-unit forecast."
+  },
+  "weakest_node_selection_contract": {
+    "status": "PASS_DETERMINISTIC",
+    "selected_node_id": "infrastructure",
+    "selection_order": [
+      "explicit system_template.weakest_node",
+      "highest vulnerability among outgoing dependency sources",
+      "lexicographic node_id tiebreak"
+    ],
+    "kill_tiebreak_rule": "If two eligible nodes have equal vulnerability, choose the lexicographically smallest node_id after filtering out terminal collapse nodes.",
+    "tie_break_test_case": {
+      "candidate_a": "axis-buffer",
+      "candidate_b": "energy-throughput",
+      "equal_vulnerability": 0.82,
+      "selected_by_rule": "axis-buffer"
+    },
+    "nonclaim_boundary": "Tie-break policy makes the replay deterministic; it is not a claim about real weakest physical infrastructure."
+  },
+  "topology_change_contract": {
+    "status": "PASS_IDENTITY_GUARDED",
+    "system_id_alone_policy": "system_id alone is never replay identity",
+    "topology_change_flag": "RECOMPUTE_REQUIRED_WHEN_NODES_OR_EDGES_CHANGE",
+    "topology_version": "e7db22ef5ff90ce8",
+    "user_visible_warning": "If nodes, edges, axes or compensators change, V010 shows a new topology hash and demotes the edited run to exploratory sandbox until replay-backed separately."
+  },
+  "route_action_mapping_contract": {
+    "status": "PASS",
+    "rows": [
+      {
+        "route_id": "cascade::kill",
+        "control_test_id": "cascade-kill",
+        "action": "kill",
+        "expected_visible_result": "rupture timeline and propagation rows update",
+        "route_hash": "cb8a5b6a3b2a07d90a1edfa83b4234f759d1b7c883a0df196d6edaa7e4b03221"
+      },
+      {
+        "route_id": "cascade::improve",
+        "control_test_id": "cascade-reset-recovery",
+        "action": "improve",
+        "expected_visible_result": "recovery/reconfiguration preview updates",
+        "route_hash": "1a6420dc1d6cfbfdec5dc0ccf5f2d492f5b4c4bf14b4e8ed9894defc2b9a76b2"
+      },
+      {
+        "route_id": "cascade::export",
+        "control_test_id": "cascade-export-control",
+        "action": "export",
+        "expected_visible_result": "export packet shows template_hash, topology_hash, result_hash_basis and nonclaim boundary",
+        "route_hash": "6206af9dccbed07065d8fe121b9d1a1d2a2a43d38687d62052f271c70672b45b"
+      }
+    ]
+  },
+  "contract_hash": "a28012097ecb8e000bc042e6268875f4383637bee1da8460531274b6add5657b"
+}

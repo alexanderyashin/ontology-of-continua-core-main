@@ -1,0 +1,576 @@
+{
+  "schema_version": "oc-core-demo-route-action-reconciliation.v010",
+  "demo_version": "V010",
+  "release_ordinal": "010",
+  "status": "PASS",
+  "route_action_row_total": 91,
+  "system_architect_mission_total": 8,
+  "expected_architect_action_rows": 48,
+  "actual_architect_action_rows": 48,
+  "count_clean": true,
+  "compare_route_hash_status": "PASS",
+  "negative_path_status": "PASS",
+  "template_topology_hash_status": "PASS",
+  "architect_workflow_count_reconciliation": {
+    "schema_version": "oc-core-demo-architect-workflow-count-reconciliation.v010",
+    "status": "PASS",
+    "system_architect_mission_total": 8,
+    "architect_mission_workflow_row_total": 8,
+    "architect_aggregate_workflow_row_total": 1,
+    "architect_workflow_row_total": 9,
+    "ninth_role": "aggregate_smoke_sequence",
+    "ninth_role_action": "diagnose->kill->improve->compare->export",
+    "expected_total_formula": "architect_workflow_row_total == system_architect_mission_total + architect_aggregate_workflow_row_total",
+    "counts_match": true,
+    "mission_id_sets_match": true,
+    "policy": "The extra architect_end_to_end workflow row is an aggregate diagnose-to-export smoke sequence, not a ninth system architect mission.",
+    "mission_rows": [
+      {
+        "mission_id": "system-architect::primitive-distinction::diagnostic-loop",
+        "route_action_row_count": 6,
+        "workflow_trace_present": true
+      },
+      {
+        "mission_id": "system-architect::physical-phase::diagnostic-loop",
+        "route_action_row_count": 6,
+        "workflow_trace_present": true
+      },
+      {
+        "mission_id": "system-architect::prebiotic-chemistry::diagnostic-loop",
+        "route_action_row_count": 6,
+        "workflow_trace_present": true
+      },
+      {
+        "mission_id": "system-architect::biological-cell::diagnostic-loop",
+        "route_action_row_count": 6,
+        "workflow_trace_present": true
+      },
+      {
+        "mission_id": "system-architect::institution::diagnostic-loop",
+        "route_action_row_count": 6,
+        "workflow_trace_present": true
+      },
+      {
+        "mission_id": "system-architect::cognitive-social-agent::diagnostic-loop",
+        "route_action_row_count": 6,
+        "workflow_trace_present": true
+      },
+      {
+        "mission_id": "system-architect::civilization::diagnostic-loop",
+        "route_action_row_count": 6,
+        "workflow_trace_present": true
+      },
+      {
+        "mission_id": "system-architect::meta-model::diagnostic-loop",
+        "route_action_row_count": 6,
+        "workflow_trace_present": true
+      }
+    ],
+    "aggregate_rows": [
+      {
+        "workflow": "architect_end_to_end",
+        "action": "diagnose->kill->improve->compare->export",
+        "assertion": "PASS"
+      }
+    ]
+  },
+  "meta_model_mission_present": true,
+  "meta_model_row": {
+    "mission_id": "system-architect::meta-model::diagnostic-loop",
+    "title": "Architect mission: Theory / Meta-Model Continuum",
+    "template_hash": "aa694c941e38026e1ad9725b7662d6b021b523f074dbc0b651a6321c0f50452c",
+    "topology_hash": "de8d3c18e02ee22e65d453ef35af1a9009333b49d978e46e0f1fdd1a746bbad5",
+    "compare_route_id": "meta-model::comparison",
+    "compare_output_hash": "c9dcdb6cde08aa32bfd8c2291264f7a901d2e4a8e3e8f69468d4b3c0b98e59e3",
+    "failure_path": {
+      "failure_action": "invalid_axis_or_unknown_node",
+      "expected_visible_result": "structured fail-closed boundary row; no replay-backed badge",
+      "test_status": "PASS_MANIFEST_BOUNDARY_CASE"
+    },
+    "semantic_action_trace_count": 5,
+    "expected_actions": [
+      "Compare",
+      "Diagnose",
+      "Export",
+      "Improve",
+      "Kill",
+      "Use in Workbench"
+    ],
+    "present_actions": [
+      "Compare",
+      "Diagnose",
+      "Export",
+      "Improve",
+      "Kill",
+      "Use in Workbench"
+    ],
+    "missing_actions": [],
+    "route_action_row_count": 6,
+    "surface_bindings": [
+      "graph",
+      "workbench"
+    ],
+    "surface_trace_coverage": {
+      "graph": true,
+      "workbench": true
+    },
+    "sample_breadcrumbs": [
+      "Architect mission: Theory / Meta-Model Continuum / Diagnose baseline risk surface / System Workbench",
+      "Architect mission: Theory / Meta-Model Continuum / Kill a stress point and observe path / System Workbench",
+      "Architect mission: Theory / Meta-Model Continuum / Improve with a supported axis / System Workbench"
+    ],
+    "test_ids": [
+      "route-system_architect_meta_model_diagnostic_loop-diag-01-diagnose",
+      "route-system_architect_meta_model_diagnostic_loop-kill-01-kill",
+      "route-system_architect_meta_model_diagnostic_loop-improve-01-improve",
+      "route-system_architect_meta_model_diagnostic_loop-improve-02-use_in_workbench",
+      "route-system_architect_meta_model_diagnostic_loop-compare-01-compare",
+      "route-system_architect_meta_model_diagnostic_loop-export-01-export"
+    ]
+  },
+  "missing_missions": [],
+  "mission_rows": [
+    {
+      "mission_id": "system-architect::primitive-distinction::diagnostic-loop",
+      "title": "Architect mission: Primitive Distinction / Axis Birth",
+      "template_hash": "e42ab5e03142ceab0ab7cb6a41bc63338277c39c95e0236fadd582d1217e2b94",
+      "topology_hash": "fcdb4c035d3c04704f7dbf205ada4de3740b6f8e38a5649d2bedb683b039398a",
+      "compare_route_id": "primitive-distinction::comparison",
+      "compare_output_hash": "33be6937d42859942026dfa2ae5054954d2023633f75bb0b26355eb2ab591660",
+      "failure_path": {
+        "failure_action": "invalid_axis_or_unknown_node",
+        "expected_visible_result": "structured fail-closed boundary row; no replay-backed badge",
+        "test_status": "PASS_MANIFEST_BOUNDARY_CASE"
+      },
+      "semantic_action_trace_count": 5,
+      "expected_actions": [
+        "Compare",
+        "Diagnose",
+        "Export",
+        "Improve",
+        "Kill",
+        "Use in Workbench"
+      ],
+      "present_actions": [
+        "Compare",
+        "Diagnose",
+        "Export",
+        "Improve",
+        "Kill",
+        "Use in Workbench"
+      ],
+      "missing_actions": [],
+      "route_action_row_count": 6,
+      "surface_bindings": [
+        "graph",
+        "workbench"
+      ],
+      "surface_trace_coverage": {
+        "graph": true,
+        "workbench": true
+      },
+      "sample_breadcrumbs": [
+        "Architect mission: Primitive Distinction / Axis Birth / Diagnose baseline risk surface / System Workbench",
+        "Architect mission: Primitive Distinction / Axis Birth / Kill a stress point and observe path / System Workbench",
+        "Architect mission: Primitive Distinction / Axis Birth / Improve with a supported axis / System Workbench"
+      ],
+      "test_ids": [
+        "route-system_architect_primitive_distinction_diagnostic_loop-diag-01-diagnose",
+        "route-system_architect_primitive_distinction_diagnostic_loop-kill-01-kill",
+        "route-system_architect_primitive_distinction_diagnostic_loop-improve-01-improve",
+        "route-system_architect_primitive_distinction_diagnostic_loop-improve-02-use_in_workbench",
+        "route-system_architect_primitive_distinction_diagnostic_loop-compare-01-compare",
+        "route-system_architect_primitive_distinction_diagnostic_loop-export-01-export"
+      ]
+    },
+    {
+      "mission_id": "system-architect::physical-phase::diagnostic-loop",
+      "title": "Architect mission: Physical Phase Continuum",
+      "template_hash": "09cbb46963989d1d286d075166912906815ac2c5ca14834652090162f0e529dc",
+      "topology_hash": "f3dd57b5b7a31d8ce53ce1cafe67e72a5d4e6ee4a2d3238be41816096ec6417c",
+      "compare_route_id": "physical-phase::comparison",
+      "compare_output_hash": "d2fb6642826bed303ec0d617cad24c35b95b2c6d7fb0684442116bf90c76f52f",
+      "failure_path": {
+        "failure_action": "invalid_axis_or_unknown_node",
+        "expected_visible_result": "structured fail-closed boundary row; no replay-backed badge",
+        "test_status": "PASS_MANIFEST_BOUNDARY_CASE"
+      },
+      "semantic_action_trace_count": 5,
+      "expected_actions": [
+        "Compare",
+        "Diagnose",
+        "Export",
+        "Improve",
+        "Kill",
+        "Use in Workbench"
+      ],
+      "present_actions": [
+        "Compare",
+        "Diagnose",
+        "Export",
+        "Improve",
+        "Kill",
+        "Use in Workbench"
+      ],
+      "missing_actions": [],
+      "route_action_row_count": 6,
+      "surface_bindings": [
+        "graph",
+        "workbench"
+      ],
+      "surface_trace_coverage": {
+        "graph": true,
+        "workbench": true
+      },
+      "sample_breadcrumbs": [
+        "Architect mission: Physical Phase Continuum / Diagnose baseline risk surface / System Workbench",
+        "Architect mission: Physical Phase Continuum / Kill a stress point and observe path / System Workbench",
+        "Architect mission: Physical Phase Continuum / Improve with a supported axis / System Workbench"
+      ],
+      "test_ids": [
+        "route-system_architect_physical_phase_diagnostic_loop-diag-01-diagnose",
+        "route-system_architect_physical_phase_diagnostic_loop-kill-01-kill",
+        "route-system_architect_physical_phase_diagnostic_loop-improve-01-improve",
+        "route-system_architect_physical_phase_diagnostic_loop-improve-02-use_in_workbench",
+        "route-system_architect_physical_phase_diagnostic_loop-compare-01-compare",
+        "route-system_architect_physical_phase_diagnostic_loop-export-01-export"
+      ]
+    },
+    {
+      "mission_id": "system-architect::prebiotic-chemistry::diagnostic-loop",
+      "title": "Architect mission: Prebiotic Chemical Organization",
+      "template_hash": "c1f0f1831dc088de8b8d2d07218a3bf0b3bd588814bdf7ace350b80ee45c7c99",
+      "topology_hash": "d30656091d8c3b47a80dfc1ff4e48e6b92e3ed47c818b2ed936384cfdeabab37",
+      "compare_route_id": "prebiotic-chemistry::comparison",
+      "compare_output_hash": "334c99b47e52f5f9933d8fa481ea1b146fd3fd35c6f12b9faf75d4a77c76b618",
+      "failure_path": {
+        "failure_action": "invalid_axis_or_unknown_node",
+        "expected_visible_result": "structured fail-closed boundary row; no replay-backed badge",
+        "test_status": "PASS_MANIFEST_BOUNDARY_CASE"
+      },
+      "semantic_action_trace_count": 5,
+      "expected_actions": [
+        "Compare",
+        "Diagnose",
+        "Export",
+        "Improve",
+        "Kill",
+        "Use in Workbench"
+      ],
+      "present_actions": [
+        "Compare",
+        "Diagnose",
+        "Export",
+        "Improve",
+        "Kill",
+        "Use in Workbench"
+      ],
+      "missing_actions": [],
+      "route_action_row_count": 6,
+      "surface_bindings": [
+        "graph",
+        "workbench"
+      ],
+      "surface_trace_coverage": {
+        "graph": true,
+        "workbench": true
+      },
+      "sample_breadcrumbs": [
+        "Architect mission: Prebiotic Chemical Organization / Diagnose baseline risk surface / System Workbench",
+        "Architect mission: Prebiotic Chemical Organization / Kill a stress point and observe path / System Workbench",
+        "Architect mission: Prebiotic Chemical Organization / Improve with a supported axis / System Workbench"
+      ],
+      "test_ids": [
+        "route-system_architect_prebiotic_chemistry_diagnostic_loop-diag-01-diagnose",
+        "route-system_architect_prebiotic_chemistry_diagnostic_loop-kill-01-kill",
+        "route-system_architect_prebiotic_chemistry_diagnostic_loop-improve-01-improve",
+        "route-system_architect_prebiotic_chemistry_diagnostic_loop-improve-02-use_in_workbench",
+        "route-system_architect_prebiotic_chemistry_diagnostic_loop-compare-01-compare",
+        "route-system_architect_prebiotic_chemistry_diagnostic_loop-export-01-export"
+      ]
+    },
+    {
+      "mission_id": "system-architect::biological-cell::diagnostic-loop",
+      "title": "Architect mission: Biological Cell-State Continuum",
+      "template_hash": "d5f5634914636a1a09810c9534352786489cd00be3be13d42099ca3587a20410",
+      "topology_hash": "80eeacb6601c100e10e88eaf4d1505da562c2c324bf279bdd818321c9765695c",
+      "compare_route_id": "biological-cell::comparison",
+      "compare_output_hash": "dcbc2e5f62af852365c8c2af65f456242e4521638a17360d0b8a7629ca276055",
+      "failure_path": {
+        "failure_action": "invalid_axis_or_unknown_node",
+        "expected_visible_result": "structured fail-closed boundary row; no replay-backed badge",
+        "test_status": "PASS_MANIFEST_BOUNDARY_CASE"
+      },
+      "semantic_action_trace_count": 5,
+      "expected_actions": [
+        "Compare",
+        "Diagnose",
+        "Export",
+        "Improve",
+        "Kill",
+        "Use in Workbench"
+      ],
+      "present_actions": [
+        "Compare",
+        "Diagnose",
+        "Export",
+        "Improve",
+        "Kill",
+        "Use in Workbench"
+      ],
+      "missing_actions": [],
+      "route_action_row_count": 6,
+      "surface_bindings": [
+        "graph",
+        "workbench"
+      ],
+      "surface_trace_coverage": {
+        "graph": true,
+        "workbench": true
+      },
+      "sample_breadcrumbs": [
+        "Architect mission: Biological Cell-State Continuum / Diagnose baseline risk surface / System Workbench",
+        "Architect mission: Biological Cell-State Continuum / Kill a stress point and observe path / System Workbench",
+        "Architect mission: Biological Cell-State Continuum / Improve with a supported axis / System Workbench"
+      ],
+      "test_ids": [
+        "route-system_architect_biological_cell_diagnostic_loop-diag-01-diagnose",
+        "route-system_architect_biological_cell_diagnostic_loop-kill-01-kill",
+        "route-system_architect_biological_cell_diagnostic_loop-improve-01-improve",
+        "route-system_architect_biological_cell_diagnostic_loop-improve-02-use_in_workbench",
+        "route-system_architect_biological_cell_diagnostic_loop-compare-01-compare",
+        "route-system_architect_biological_cell_diagnostic_loop-export-01-export"
+      ]
+    },
+    {
+      "mission_id": "system-architect::institution::diagnostic-loop",
+      "title": "Architect mission: Institutional Continuum",
+      "template_hash": "36fe1ca3d899aef63e4b6b182934416b036b3b5fc95cdcf8b2330d592cf0bfec",
+      "topology_hash": "6f34a7820dc8446c703af54116c87867efa21ead1d109e240164c437a3a6f23f",
+      "compare_route_id": "institution::comparison",
+      "compare_output_hash": "0d22f6cdedd35c9fac9d73cba5704f80a7774e8a9e3d66121fb861a1db5cd098",
+      "failure_path": {
+        "failure_action": "invalid_axis_or_unknown_node",
+        "expected_visible_result": "structured fail-closed boundary row; no replay-backed badge",
+        "test_status": "PASS_MANIFEST_BOUNDARY_CASE"
+      },
+      "semantic_action_trace_count": 5,
+      "expected_actions": [
+        "Compare",
+        "Diagnose",
+        "Export",
+        "Improve",
+        "Kill",
+        "Use in Workbench"
+      ],
+      "present_actions": [
+        "Compare",
+        "Diagnose",
+        "Export",
+        "Improve",
+        "Kill",
+        "Use in Workbench"
+      ],
+      "missing_actions": [],
+      "route_action_row_count": 6,
+      "surface_bindings": [
+        "graph",
+        "workbench"
+      ],
+      "surface_trace_coverage": {
+        "graph": true,
+        "workbench": true
+      },
+      "sample_breadcrumbs": [
+        "Architect mission: Institutional Continuum / Diagnose baseline risk surface / System Workbench",
+        "Architect mission: Institutional Continuum / Kill a stress point and observe path / System Workbench",
+        "Architect mission: Institutional Continuum / Improve with a supported axis / System Workbench"
+      ],
+      "test_ids": [
+        "route-system_architect_institution_diagnostic_loop-diag-01-diagnose",
+        "route-system_architect_institution_diagnostic_loop-kill-01-kill",
+        "route-system_architect_institution_diagnostic_loop-improve-01-improve",
+        "route-system_architect_institution_diagnostic_loop-improve-02-use_in_workbench",
+        "route-system_architect_institution_diagnostic_loop-compare-01-compare",
+        "route-system_architect_institution_diagnostic_loop-export-01-export"
+      ]
+    },
+    {
+      "mission_id": "system-architect::cognitive-social-agent::diagnostic-loop",
+      "title": "Architect mission: Cognitive / Social Agent Continuum",
+      "template_hash": "631130f107126050737c6bd75a953e1bce58fa5ba171e7623a686c1500b05c3b",
+      "topology_hash": "84103133c286f762449fd5e58d98751c4189d109e824af0a56dd5c2b91cc3aa9",
+      "compare_route_id": "cognitive-social-agent::comparison",
+      "compare_output_hash": "20d021ccd2f5d01e9e4d2d20000b6b8e87edb8ed7d9d2b7315e7ebc60152fc48",
+      "failure_path": {
+        "failure_action": "invalid_axis_or_unknown_node",
+        "expected_visible_result": "structured fail-closed boundary row; no replay-backed badge",
+        "test_status": "PASS_MANIFEST_BOUNDARY_CASE"
+      },
+      "semantic_action_trace_count": 5,
+      "expected_actions": [
+        "Compare",
+        "Diagnose",
+        "Export",
+        "Improve",
+        "Kill",
+        "Use in Workbench"
+      ],
+      "present_actions": [
+        "Compare",
+        "Diagnose",
+        "Export",
+        "Improve",
+        "Kill",
+        "Use in Workbench"
+      ],
+      "missing_actions": [],
+      "route_action_row_count": 6,
+      "surface_bindings": [
+        "graph",
+        "workbench"
+      ],
+      "surface_trace_coverage": {
+        "graph": true,
+        "workbench": true
+      },
+      "sample_breadcrumbs": [
+        "Architect mission: Cognitive / Social Agent Continuum / Diagnose baseline risk surface / System Workbench",
+        "Architect mission: Cognitive / Social Agent Continuum / Kill a stress point and observe path / System Workbench",
+        "Architect mission: Cognitive / Social Agent Continuum / Improve with a supported axis / System Workbench"
+      ],
+      "test_ids": [
+        "route-system_architect_cognitive_social_agent_diagnostic_loop-diag-01-diagnose",
+        "route-system_architect_cognitive_social_agent_diagnostic_loop-kill-01-kill",
+        "route-system_architect_cognitive_social_agent_diagnostic_loop-improve-01-improve",
+        "route-system_architect_cognitive_social_agent_diagnostic_loop-improve-02-use_in_workbench",
+        "route-system_architect_cognitive_social_agent_diagnostic_loop-compare-01-compare",
+        "route-system_architect_cognitive_social_agent_diagnostic_loop-export-01-export"
+      ]
+    },
+    {
+      "mission_id": "system-architect::civilization::diagnostic-loop",
+      "title": "Architect mission: Civilizational Continuum",
+      "template_hash": "832731b02ff2133cd08f02c2cd6a7fd57aed3bebcf32d122daac180fb4b702c7",
+      "topology_hash": "e7db22ef5ff90ce869c1dd1e6c1c129b18523703643e666dd3fada94d2fa20fe",
+      "compare_route_id": "civilization::comparison",
+      "compare_output_hash": "ccefada9f29d683011b8ec99b28bc2ad269c1a0c0298fcaf85a668593cba00b3",
+      "failure_path": {
+        "failure_action": "invalid_axis_or_unknown_node",
+        "expected_visible_result": "structured fail-closed boundary row; no replay-backed badge",
+        "test_status": "PASS_MANIFEST_BOUNDARY_CASE"
+      },
+      "semantic_action_trace_count": 5,
+      "expected_actions": [
+        "Compare",
+        "Diagnose",
+        "Export",
+        "Improve",
+        "Kill",
+        "Use in Workbench"
+      ],
+      "present_actions": [
+        "Compare",
+        "Diagnose",
+        "Export",
+        "Improve",
+        "Kill",
+        "Use in Workbench"
+      ],
+      "missing_actions": [],
+      "route_action_row_count": 6,
+      "surface_bindings": [
+        "graph",
+        "workbench"
+      ],
+      "surface_trace_coverage": {
+        "graph": true,
+        "workbench": true
+      },
+      "sample_breadcrumbs": [
+        "Architect mission: Civilizational Continuum / Diagnose baseline risk surface / System Workbench",
+        "Architect mission: Civilizational Continuum / Kill a stress point and observe path / System Workbench",
+        "Architect mission: Civilizational Continuum / Improve with a supported axis / System Workbench"
+      ],
+      "test_ids": [
+        "route-system_architect_civilization_diagnostic_loop-diag-01-diagnose",
+        "route-system_architect_civilization_diagnostic_loop-kill-01-kill",
+        "route-system_architect_civilization_diagnostic_loop-improve-01-improve",
+        "route-system_architect_civilization_diagnostic_loop-improve-02-use_in_workbench",
+        "route-system_architect_civilization_diagnostic_loop-compare-01-compare",
+        "route-system_architect_civilization_diagnostic_loop-export-01-export"
+      ]
+    },
+    {
+      "mission_id": "system-architect::meta-model::diagnostic-loop",
+      "title": "Architect mission: Theory / Meta-Model Continuum",
+      "template_hash": "aa694c941e38026e1ad9725b7662d6b021b523f074dbc0b651a6321c0f50452c",
+      "topology_hash": "de8d3c18e02ee22e65d453ef35af1a9009333b49d978e46e0f1fdd1a746bbad5",
+      "compare_route_id": "meta-model::comparison",
+      "compare_output_hash": "c9dcdb6cde08aa32bfd8c2291264f7a901d2e4a8e3e8f69468d4b3c0b98e59e3",
+      "failure_path": {
+        "failure_action": "invalid_axis_or_unknown_node",
+        "expected_visible_result": "structured fail-closed boundary row; no replay-backed badge",
+        "test_status": "PASS_MANIFEST_BOUNDARY_CASE"
+      },
+      "semantic_action_trace_count": 5,
+      "expected_actions": [
+        "Compare",
+        "Diagnose",
+        "Export",
+        "Improve",
+        "Kill",
+        "Use in Workbench"
+      ],
+      "present_actions": [
+        "Compare",
+        "Diagnose",
+        "Export",
+        "Improve",
+        "Kill",
+        "Use in Workbench"
+      ],
+      "missing_actions": [],
+      "route_action_row_count": 6,
+      "surface_bindings": [
+        "graph",
+        "workbench"
+      ],
+      "surface_trace_coverage": {
+        "graph": true,
+        "workbench": true
+      },
+      "sample_breadcrumbs": [
+        "Architect mission: Theory / Meta-Model Continuum / Diagnose baseline risk surface / System Workbench",
+        "Architect mission: Theory / Meta-Model Continuum / Kill a stress point and observe path / System Workbench",
+        "Architect mission: Theory / Meta-Model Continuum / Improve with a supported axis / System Workbench"
+      ],
+      "test_ids": [
+        "route-system_architect_meta_model_diagnostic_loop-diag-01-diagnose",
+        "route-system_architect_meta_model_diagnostic_loop-kill-01-kill",
+        "route-system_architect_meta_model_diagnostic_loop-improve-01-improve",
+        "route-system_architect_meta_model_diagnostic_loop-improve-02-use_in_workbench",
+        "route-system_architect_meta_model_diagnostic_loop-compare-01-compare",
+        "route-system_architect_meta_model_diagnostic_loop-export-01-export"
+      ]
+    }
+  ],
+  "buyer_route_action_total": 57,
+  "buyer_route_surface_coverage": [
+    "benchmarks",
+    "cascade",
+    "formula",
+    "graph",
+    "proof",
+    "workbench"
+  ],
+  "control_binding_resolution": {
+    "control_test_id_total": 62,
+    "workflow_action_id_total": 99,
+    "missing_control_binding_count": 0,
+    "missing_control_bindings": [],
+    "resolution_policy": "A route action control_binding must resolve to a surface graph control test_id or a Playwright workflow action id."
+  },
+  "nonclaim_boundary": "Route reconciliation proves UI/action coverage and landing surfaces; it is not scientific proof.",
+  "reconciliation_hash": "24a5685f752fe8ef48b5544f61919e15b1188e7094cb2b8e2027034e93e08dc0"
+}

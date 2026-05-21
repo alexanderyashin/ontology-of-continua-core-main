@@ -1,0 +1,2035 @@
+{
+  "schema_version": "oc-core-demo-formula-quality.v010",
+  "demo_version": "V010",
+  "release_ordinal": "010",
+  "status": "PASS",
+  "aggregate_count_units": {
+    "rows_total": "curated UI Formula Atlas rows, not raw registry candidates",
+    "formula_count": "curated UI Formula Atlas rows",
+    "symbol_table_count": "formula rows with a non-empty semantic symbol table",
+    "semantic_symbol_contract_count": "formula rows with curated semantic symbol contracts",
+    "parser_token_symbol_count": "raw parser-token symbol leaks found in primary UI symbol tables",
+    "dimension_operation_check_count": "formula rows with at least one symbolic dimension/operation check",
+    "ui_probe_contract_count": "formula rows with a selectable UI probe contract",
+    "boundary_mapping_count": "formula rows linked to a proof/boundary route"
+  },
+  "rows_total": 15,
+  "quality_totals": {
+    "WORKBENCH_READY_BOUNDARY_CHECKED": 15
+  },
+  "missing_symbol_count": 0,
+  "assumptions_missing_count": 0,
+  "assumption_audit_pass_count": 15,
+  "assumption_audit_fail_count": 0,
+  "validation_rule_audit_pass_count": 15,
+  "validation_rule_audit_fail_count": 0,
+  "symbolic_dimension_profile_count": 15,
+  "symbol_table_count": 15,
+  "semantic_symbol_contract_count": 15,
+  "parser_token_symbol_count": 0,
+  "parser_token_policy": "FAIL_CLOSED if any primary UI formula row exposes parser/LaTeX command tokens as symbols.",
+  "dimension_operation_check_count": 15,
+  "denominator_guarded_formula_count": 3,
+  "ocf006_visible_notation_status": "PASS",
+  "ocf006_visible_notation_coverage_status": "PASS",
+  "ocf006_missing_visible_notation": [],
+  "inherited_tuple_component_binding_status": "PASS",
+  "ocf013_inherited_tuple_component_binding_status": "PASS",
+  "ocf006_inherited_tuple_binding_status": "NOT_APPLICABLE_SEE_OCF013_AXIS_ADDITION_TUPLE_BINDING",
+  "range_claim_condition_pass_count": 5,
+  "template_bound_range_condition_pass_count": 4,
+  "template_bound_range_condition_required_formula_ids": [
+    "OCF-006",
+    "OCF-007",
+    "OCF-008",
+    "OCF-009"
+  ],
+  "template_bound_range_condition_required_status": "PASS",
+  "range_condition_rows_by_formula": {
+    "OCF-006": [
+      {
+        "formula_id": "OCF-006",
+        "status": "PASS_TEMPLATE_BOUND_RANGE_CONDITION",
+        "template_scope": "V010 public workbench/cascade template row; not a universal mathematical or empirical bound",
+        "nonclaim_boundary": "Range condition licenses only the displayed template-bound diagnostic row; it is not external validation.",
+        "condition_id": "OCF-006::RANGE::PATH_DEPTH",
+        "formula_role_id": "OCF-006.path_depth",
+        "output_symbol": "D_c",
+        "bounded_range": "nonnegative integer, bounded by selected template node count",
+        "template_bound_inputs": [
+          "selected_system_template.nodes",
+          "selected collapse path P_c"
+        ],
+        "row_level_required_fields": [
+          "template_id",
+          "topology_hash",
+          "P_c",
+          "D_c"
+        ],
+        "pass_condition": "D_c == len(P_c) and 0 <= D_c <= len(selected_system_template.nodes)",
+        "row_hash": "f3cc72028ac2710eaa10ec275edf3a24afa6c2c393a40ae2ae64cc61c697e4df"
+      },
+      {
+        "formula_id": "OCF-006",
+        "status": "PASS_TEMPLATE_BOUND_RANGE_CONDITION",
+        "template_scope": "V010 public workbench/cascade template row; not a universal mathematical or empirical bound",
+        "nonclaim_boundary": "Range condition licenses only the displayed template-bound diagnostic row; it is not external validation.",
+        "condition_id": "OCF-006::RANGE::PROPAGATION_UPDATE",
+        "formula_role_id": "OCF-006.propagation_update",
+        "output_symbol": "s_j(t+1)",
+        "bounded_range": "[0,1] for public replay rows",
+        "template_bound_inputs": [
+          "s_j(t) in [0,1]",
+          "w_ij in [0,1]",
+          "delta_i(t) in [0,1]",
+          "r_j(t) in [0,1]",
+          "visible upstream_terms"
+        ],
+        "row_level_required_fields": [
+          "template_id",
+          "node_id",
+          "upstream_terms",
+          "sum_value",
+          "raw_output_before_clamp",
+          "clamp_min_applied",
+          "clamp_max_applied",
+          "s_j(t+1)_output"
+        ],
+        "pass_condition": "s_j(t+1)_output == min(1, max(0, raw_output_before_clamp)) and replay row verifies the output in the normalized template domain",
+        "row_hash": "764f3df14503184c66c1cfbf6ec565060610abfbfd6a4a26922276d768d4a897"
+      }
+    ],
+    "OCF-007": [
+      {
+        "formula_id": "OCF-007",
+        "status": "PASS_TEMPLATE_BOUND_RANGE_CONDITION",
+        "template_scope": "V010 public workbench/cascade template row; not a universal mathematical or empirical bound",
+        "nonclaim_boundary": "Range condition licenses only the displayed template-bound diagnostic row; it is not external validation.",
+        "condition_id": "OCF-007::RANGE::CONNECTIVITY_LOSS",
+        "output_symbol": "Lambda(t)",
+        "bounded_range": "[0,1]",
+        "template_bound_inputs": [
+          "0 <= |E_alive(t)| <= |E_0|",
+          "|E_0| > 0 for scored rows",
+          "epsilon > 0"
+        ],
+        "row_level_required_fields": [
+          "template_id",
+          "topology_hash",
+          "E_alive_count",
+          "E_0_count",
+          "epsilon_guard",
+          "connectivity_loss"
+        ],
+        "pass_condition": "Lambda(t)=1-E_alive_count/max(epsilon,E_0_count) and the row is scored only when counts are template-bound support units",
+        "row_hash": "2a7dd04ada583d43fbce65afb33706f004005c9717c3854f1c337d487eecf551"
+      }
+    ],
+    "OCF-008": [
+      {
+        "formula_id": "OCF-008",
+        "status": "PASS_TEMPLATE_BOUND_RANGE_CONDITION",
+        "template_scope": "V010 public workbench/cascade template row; not a universal mathematical or empirical bound",
+        "nonclaim_boundary": "Range condition licenses only the displayed template-bound diagnostic row; it is not external validation.",
+        "condition_id": "OCF-008::RANGE::FLOW_RUPTURE",
+        "output_symbol": "F_loss(t)",
+        "bounded_range": "[0,1]",
+        "template_bound_inputs": [
+          "0 <= sum_i f_i_alive(t) <= sum_i f_i_0",
+          "sum_i f_i_0 > 0 for scored rows",
+          "epsilon > 0"
+        ],
+        "row_level_required_fields": [
+          "template_id",
+          "support_unit_derivation_rows",
+          "pre_flow",
+          "post_flow",
+          "epsilon",
+          "flow_rupture"
+        ],
+        "pass_condition": "F_loss(t)=1-post_flow/max(epsilon,pre_flow) using the same bounded support-unit basis as OCF-007",
+        "row_hash": "ee22cbcd726b36c6aa26bfc02b68918790913b8219fe17ea228f731a3532d537"
+      }
+    ],
+    "OCF-009": [
+      {
+        "formula_id": "OCF-009",
+        "status": "PASS_TEMPLATE_BOUND_RANGE_CONDITION",
+        "template_scope": "V010 public workbench/cascade template row; not a universal mathematical or empirical bound",
+        "nonclaim_boundary": "Range condition licenses only the displayed template-bound diagnostic row; it is not external validation.",
+        "condition_id": "OCF-009::RANGE::RECOVERY_INDEX",
+        "output_symbol": "rho",
+        "bounded_range": "[0,1] when Phi_min <= Phi_after <= Phi_before and Phi_before > Phi_min",
+        "template_bound_inputs": [
+          "Phi_before",
+          "Phi_min",
+          "Phi_after",
+          "epsilon > 0"
+        ],
+        "row_level_required_fields": [
+          "template_id",
+          "Phi_before",
+          "Phi_min",
+          "Phi_after",
+          "epsilon",
+          "rho"
+        ],
+        "pass_condition": "rho=(Phi_after-Phi_min)/max(epsilon,Phi_before-Phi_min), with out-of-order tuples marked boundary-only rather than scored",
+        "row_hash": "20f8cac5250fbabd6671048910df177337e16964e0e5b6c5db11624d1336ed1b"
+      }
+    ]
+  },
+  "ocf015_score_display_alignment_status": "PASS",
+  "chart_provenance_count": 15,
+  "ui_probe_contract_count": 15,
+  "boundary_mapping_count": 15,
+  "formula_count": 15,
+  "rows": [
+    {
+      "formula_id": "OCF-001",
+      "semantic_title": "Contradiction bifurcation",
+      "interpretation": "When contradiction pressure in a continuum exceeds its threshold, the lawful branch is new-axis formation or collapse.",
+      "quality_status": "WORKBENCH_READY_BOUNDARY_CHECKED",
+      "render_quality": null,
+      "render_quality_status": "PASS_KATEX",
+      "source_atom_id": "master_monograph__appendices__axiom_appendix__atom_101__h02290f5a7a63",
+      "source_refs": [
+        "SRC::formula::OC_CORE_V010_CANONICAL_FORMULA_SURFACE::a2d9e56e8a28a701"
+      ],
+      "formula_source_refs": [
+        "SRC::formula::OC_CORE_V010_CANONICAL_FORMULA_SURFACE::a2d9e56e8a28a701"
+      ],
+      "linked_atoms": [
+        "master_monograph__appendices__axiom_appendix__atom_101__h02290f5a7a63"
+      ],
+      "linked_term_count": 0,
+      "typed_symbol_signature_count": 4,
+      "symbol_table_count": 4,
+      "semantic_symbol_contract_status": "PASS_CURATED_SEMANTIC_SYMBOLS",
+      "parser_tokens_excluded": true,
+      "parser_token_symbol_count": 0,
+      "dimension_operation_check_count": 1,
+      "dimension_operations": [
+        "threshold_branch"
+      ],
+      "tuple_component_update_status": "NOT_APPLICABLE",
+      "inherited_tuple_component_binding_status": "NOT_APPLICABLE",
+      "inherited_tuple_component_bindings": [],
+      "path_depth_binding_status": "NOT_APPLICABLE",
+      "ocf006_visible_notation_status": "NOT_APPLICABLE",
+      "ocf006_missing_visible_notation": [],
+      "range_claim_condition_status": "NOT_APPLICABLE",
+      "range_claim_conditions": [],
+      "range_condition_rows": [],
+      "range_condition_row_count": 0,
+      "template_bound_range_condition_status": "NOT_APPLICABLE",
+      "ocf015_score_display_alignment_status": "NOT_APPLICABLE",
+      "denominator_guard_count": 0,
+      "missing_symbol_count": 0,
+      "assumptions_present": true,
+      "assumption_count": 2,
+      "assumption_bodies": [
+        {
+          "assumption_id": "assumption_1",
+          "text": "Formula is part of the curated V010 workbench symbolic surface.",
+          "text_hash": "fdc8685effd550aac01ff497999834b8fea0f06c05a06ee9586c0bfa3ba8c6ac",
+          "status": "VISIBLE_NONPLACEHOLDER"
+        },
+        {
+          "assumption_id": "assumption_2",
+          "text": "Formula validity is bounded by its source/boundary row and does not imply external peer review.",
+          "text_hash": "780b538ce39954dd61f0bbc27e70fd59db87e69023fdb70ae19a37cced46fccb",
+          "status": "VISIBLE_NONPLACEHOLDER"
+        }
+      ],
+      "assumption_audit_status": "PASS",
+      "validation_rule_count": 5,
+      "validation_rule_bodies": [
+        {
+          "rule_id": "FORMULA_RULE_001",
+          "rule_text": "semantic title present",
+          "status": "PASS",
+          "hash_basis": [
+            "semantic_title",
+            "formula_title"
+          ]
+        },
+        {
+          "rule_id": "FORMULA_RULE_002",
+          "rule_text": "operator glossary present",
+          "status": "PASS",
+          "hash_basis": [
+            "operator_glossary",
+            "operator_meanings"
+          ]
+        },
+        {
+          "rule_id": "FORMULA_RULE_003",
+          "rule_text": "consequences present",
+          "status": "PASS",
+          "hash_basis": [
+            "consequences"
+          ]
+        },
+        {
+          "rule_id": "FORMULA_RULE_004",
+          "rule_text": "diagnostic chart present",
+          "status": "PASS",
+          "hash_basis": [
+            "chart_spec",
+            "diagnostic_chart"
+          ]
+        },
+        {
+          "rule_id": "FORMULA_RULE_005",
+          "rule_text": "source or boundary present",
+          "status": "PASS",
+          "hash_basis": [
+            "source_refs",
+            "source_boundary",
+            "nonclaim_boundary"
+          ]
+        }
+      ],
+      "validation_rule_audit_status": "PASS",
+      "dimensional_consistency_status": "PASS_SYMBOLIC_DIMENSION_CONTRACT",
+      "chart_provenance_present": true,
+      "ui_probe_contract_id": "formula-probe::OCF-001",
+      "boundary_mapping_status": "EVIDENCE_BOUNDARY_LINKED",
+      "needs_formalization_boundary": false
+    },
+    {
+      "formula_id": "OCF-002",
+      "semantic_title": "Admissible state viability",
+      "interpretation": "A continuum remains alive while at least one admissible state remains open.",
+      "quality_status": "WORKBENCH_READY_BOUNDARY_CHECKED",
+      "render_quality": null,
+      "render_quality_status": "PASS_KATEX",
+      "source_atom_id": "master_monograph__frontmatter__title_page__atom_101__hf943f1f2b8af",
+      "source_refs": [
+        "SRC::formula::OC_CORE_V010_CANONICAL_FORMULA_SURFACE::a2d9e56e8a28a701"
+      ],
+      "formula_source_refs": [
+        "SRC::formula::OC_CORE_V010_CANONICAL_FORMULA_SURFACE::a2d9e56e8a28a701"
+      ],
+      "linked_atoms": [
+        "master_monograph__frontmatter__title_page__atom_101__hf943f1f2b8af"
+      ],
+      "linked_term_count": 0,
+      "typed_symbol_signature_count": 3,
+      "symbol_table_count": 3,
+      "semantic_symbol_contract_status": "PASS_CURATED_SEMANTIC_SYMBOLS",
+      "parser_tokens_excluded": true,
+      "parser_token_symbol_count": 0,
+      "dimension_operation_check_count": 1,
+      "dimension_operations": [
+        "symbolic_relation"
+      ],
+      "tuple_component_update_status": "NOT_APPLICABLE",
+      "inherited_tuple_component_binding_status": "NOT_APPLICABLE",
+      "inherited_tuple_component_bindings": [],
+      "path_depth_binding_status": "NOT_APPLICABLE",
+      "ocf006_visible_notation_status": "NOT_APPLICABLE",
+      "ocf006_missing_visible_notation": [],
+      "range_claim_condition_status": "NOT_APPLICABLE",
+      "range_claim_conditions": [],
+      "range_condition_rows": [],
+      "range_condition_row_count": 0,
+      "template_bound_range_condition_status": "NOT_APPLICABLE",
+      "ocf015_score_display_alignment_status": "NOT_APPLICABLE",
+      "denominator_guard_count": 0,
+      "missing_symbol_count": 0,
+      "assumptions_present": true,
+      "assumption_count": 2,
+      "assumption_bodies": [
+        {
+          "assumption_id": "assumption_1",
+          "text": "Formula is part of the curated V010 workbench symbolic surface.",
+          "text_hash": "fdc8685effd550aac01ff497999834b8fea0f06c05a06ee9586c0bfa3ba8c6ac",
+          "status": "VISIBLE_NONPLACEHOLDER"
+        },
+        {
+          "assumption_id": "assumption_2",
+          "text": "Formula validity is bounded by its source/boundary row and does not imply external peer review.",
+          "text_hash": "780b538ce39954dd61f0bbc27e70fd59db87e69023fdb70ae19a37cced46fccb",
+          "status": "VISIBLE_NONPLACEHOLDER"
+        }
+      ],
+      "assumption_audit_status": "PASS",
+      "validation_rule_count": 5,
+      "validation_rule_bodies": [
+        {
+          "rule_id": "FORMULA_RULE_001",
+          "rule_text": "semantic title present",
+          "status": "PASS",
+          "hash_basis": [
+            "semantic_title",
+            "formula_title"
+          ]
+        },
+        {
+          "rule_id": "FORMULA_RULE_002",
+          "rule_text": "operator glossary present",
+          "status": "PASS",
+          "hash_basis": [
+            "operator_glossary",
+            "operator_meanings"
+          ]
+        },
+        {
+          "rule_id": "FORMULA_RULE_003",
+          "rule_text": "consequences present",
+          "status": "PASS",
+          "hash_basis": [
+            "consequences"
+          ]
+        },
+        {
+          "rule_id": "FORMULA_RULE_004",
+          "rule_text": "diagnostic chart present",
+          "status": "PASS",
+          "hash_basis": [
+            "chart_spec",
+            "diagnostic_chart"
+          ]
+        },
+        {
+          "rule_id": "FORMULA_RULE_005",
+          "rule_text": "source or boundary present",
+          "status": "PASS",
+          "hash_basis": [
+            "source_refs",
+            "source_boundary",
+            "nonclaim_boundary"
+          ]
+        }
+      ],
+      "validation_rule_audit_status": "PASS",
+      "dimensional_consistency_status": "PASS_SYMBOLIC_DIMENSION_CONTRACT",
+      "chart_provenance_present": true,
+      "ui_probe_contract_id": "formula-probe::OCF-002",
+      "boundary_mapping_status": "EVIDENCE_BOUNDARY_LINKED",
+      "needs_formalization_boundary": false
+    },
+    {
+      "formula_id": "OCF-003",
+      "semantic_title": "Collapse condition",
+      "interpretation": "At the collapse time the admissible state space is empty under the active constraints.",
+      "quality_status": "WORKBENCH_READY_BOUNDARY_CHECKED",
+      "render_quality": null,
+      "render_quality_status": "PASS_KATEX",
+      "source_atom_id": "master_monograph__appendices__axiom_appendix__atom_101__h02290f5a7a63",
+      "source_refs": [
+        "SRC::formula::OC_CORE_V010_CANONICAL_FORMULA_SURFACE::a2d9e56e8a28a701"
+      ],
+      "formula_source_refs": [
+        "SRC::formula::OC_CORE_V010_CANONICAL_FORMULA_SURFACE::a2d9e56e8a28a701"
+      ],
+      "linked_atoms": [
+        "master_monograph__appendices__axiom_appendix__atom_101__h02290f5a7a63"
+      ],
+      "linked_term_count": 0,
+      "typed_symbol_signature_count": 3,
+      "symbol_table_count": 3,
+      "semantic_symbol_contract_status": "PASS_CURATED_SEMANTIC_SYMBOLS",
+      "parser_tokens_excluded": true,
+      "parser_token_symbol_count": 0,
+      "dimension_operation_check_count": 1,
+      "dimension_operations": [
+        "symbolic_relation"
+      ],
+      "tuple_component_update_status": "NOT_APPLICABLE",
+      "inherited_tuple_component_binding_status": "NOT_APPLICABLE",
+      "inherited_tuple_component_bindings": [],
+      "path_depth_binding_status": "NOT_APPLICABLE",
+      "ocf006_visible_notation_status": "NOT_APPLICABLE",
+      "ocf006_missing_visible_notation": [],
+      "range_claim_condition_status": "NOT_APPLICABLE",
+      "range_claim_conditions": [],
+      "range_condition_rows": [],
+      "range_condition_row_count": 0,
+      "template_bound_range_condition_status": "NOT_APPLICABLE",
+      "ocf015_score_display_alignment_status": "NOT_APPLICABLE",
+      "denominator_guard_count": 0,
+      "missing_symbol_count": 0,
+      "assumptions_present": true,
+      "assumption_count": 2,
+      "assumption_bodies": [
+        {
+          "assumption_id": "assumption_1",
+          "text": "Formula is part of the curated V010 workbench symbolic surface.",
+          "text_hash": "fdc8685effd550aac01ff497999834b8fea0f06c05a06ee9586c0bfa3ba8c6ac",
+          "status": "VISIBLE_NONPLACEHOLDER"
+        },
+        {
+          "assumption_id": "assumption_2",
+          "text": "Formula validity is bounded by its source/boundary row and does not imply external peer review.",
+          "text_hash": "780b538ce39954dd61f0bbc27e70fd59db87e69023fdb70ae19a37cced46fccb",
+          "status": "VISIBLE_NONPLACEHOLDER"
+        }
+      ],
+      "assumption_audit_status": "PASS",
+      "validation_rule_count": 5,
+      "validation_rule_bodies": [
+        {
+          "rule_id": "FORMULA_RULE_001",
+          "rule_text": "semantic title present",
+          "status": "PASS",
+          "hash_basis": [
+            "semantic_title",
+            "formula_title"
+          ]
+        },
+        {
+          "rule_id": "FORMULA_RULE_002",
+          "rule_text": "operator glossary present",
+          "status": "PASS",
+          "hash_basis": [
+            "operator_glossary",
+            "operator_meanings"
+          ]
+        },
+        {
+          "rule_id": "FORMULA_RULE_003",
+          "rule_text": "consequences present",
+          "status": "PASS",
+          "hash_basis": [
+            "consequences"
+          ]
+        },
+        {
+          "rule_id": "FORMULA_RULE_004",
+          "rule_text": "diagnostic chart present",
+          "status": "PASS",
+          "hash_basis": [
+            "chart_spec",
+            "diagnostic_chart"
+          ]
+        },
+        {
+          "rule_id": "FORMULA_RULE_005",
+          "rule_text": "source or boundary present",
+          "status": "PASS",
+          "hash_basis": [
+            "source_refs",
+            "source_boundary",
+            "nonclaim_boundary"
+          ]
+        }
+      ],
+      "validation_rule_audit_status": "PASS",
+      "dimensional_consistency_status": "PASS_SYMBOLIC_DIMENSION_CONTRACT",
+      "chart_provenance_present": true,
+      "ui_probe_contract_id": "formula-probe::OCF-003",
+      "boundary_mapping_status": "EVIDENCE_BOUNDARY_LINKED",
+      "needs_formalization_boundary": false
+    },
+    {
+      "formula_id": "OCF-004",
+      "semantic_title": "Coherence balance",
+      "interpretation": "Coherence rises with boundary/repair capacity and falls with load/contradiction pressure.",
+      "quality_status": "WORKBENCH_READY_BOUNDARY_CHECKED",
+      "render_quality": null,
+      "render_quality_status": "PASS_KATEX",
+      "source_atom_id": "",
+      "source_refs": [
+        "SRC::formula::OC_CORE_V010_CANONICAL_FORMULA_SURFACE::a2d9e56e8a28a701"
+      ],
+      "formula_source_refs": [
+        "SRC::formula::OC_CORE_V010_CANONICAL_FORMULA_SURFACE::a2d9e56e8a28a701"
+      ],
+      "linked_atoms": [],
+      "linked_term_count": 0,
+      "typed_symbol_signature_count": 5,
+      "symbol_table_count": 5,
+      "semantic_symbol_contract_status": "PASS_CURATED_SEMANTIC_SYMBOLS",
+      "parser_tokens_excluded": true,
+      "parser_token_symbol_count": 0,
+      "dimension_operation_check_count": 1,
+      "dimension_operations": [
+        "additive_balance"
+      ],
+      "tuple_component_update_status": "NOT_APPLICABLE",
+      "inherited_tuple_component_binding_status": "NOT_APPLICABLE",
+      "inherited_tuple_component_bindings": [],
+      "path_depth_binding_status": "NOT_APPLICABLE",
+      "ocf006_visible_notation_status": "NOT_APPLICABLE",
+      "ocf006_missing_visible_notation": [],
+      "range_claim_condition_status": "NOT_APPLICABLE",
+      "range_claim_conditions": [],
+      "range_condition_rows": [],
+      "range_condition_row_count": 0,
+      "template_bound_range_condition_status": "NOT_APPLICABLE",
+      "ocf015_score_display_alignment_status": "NOT_APPLICABLE",
+      "denominator_guard_count": 0,
+      "missing_symbol_count": 0,
+      "assumptions_present": true,
+      "assumption_count": 2,
+      "assumption_bodies": [
+        {
+          "assumption_id": "assumption_1",
+          "text": "Formula is part of the curated V010 workbench symbolic surface.",
+          "text_hash": "fdc8685effd550aac01ff497999834b8fea0f06c05a06ee9586c0bfa3ba8c6ac",
+          "status": "VISIBLE_NONPLACEHOLDER"
+        },
+        {
+          "assumption_id": "assumption_2",
+          "text": "Formula validity is bounded by its source/boundary row and does not imply external peer review.",
+          "text_hash": "780b538ce39954dd61f0bbc27e70fd59db87e69023fdb70ae19a37cced46fccb",
+          "status": "VISIBLE_NONPLACEHOLDER"
+        }
+      ],
+      "assumption_audit_status": "PASS",
+      "validation_rule_count": 5,
+      "validation_rule_bodies": [
+        {
+          "rule_id": "FORMULA_RULE_001",
+          "rule_text": "semantic title present",
+          "status": "PASS",
+          "hash_basis": [
+            "semantic_title",
+            "formula_title"
+          ]
+        },
+        {
+          "rule_id": "FORMULA_RULE_002",
+          "rule_text": "operator glossary present",
+          "status": "PASS",
+          "hash_basis": [
+            "operator_glossary",
+            "operator_meanings"
+          ]
+        },
+        {
+          "rule_id": "FORMULA_RULE_003",
+          "rule_text": "consequences present",
+          "status": "PASS",
+          "hash_basis": [
+            "consequences"
+          ]
+        },
+        {
+          "rule_id": "FORMULA_RULE_004",
+          "rule_text": "diagnostic chart present",
+          "status": "PASS",
+          "hash_basis": [
+            "chart_spec",
+            "diagnostic_chart"
+          ]
+        },
+        {
+          "rule_id": "FORMULA_RULE_005",
+          "rule_text": "source or boundary present",
+          "status": "PASS",
+          "hash_basis": [
+            "source_refs",
+            "source_boundary",
+            "nonclaim_boundary"
+          ]
+        }
+      ],
+      "validation_rule_audit_status": "PASS",
+      "dimensional_consistency_status": "PASS_SYMBOLIC_DIMENSION_CONTRACT",
+      "chart_provenance_present": true,
+      "ui_probe_contract_id": "formula-probe::OCF-004",
+      "boundary_mapping_status": "EVIDENCE_BOUNDARY_LINKED",
+      "needs_formalization_boundary": false
+    },
+    {
+      "formula_id": "OCF-005",
+      "semantic_title": "Transition pressure",
+      "interpretation": "Transition pressure is the net excess of load and contradiction over repair and boundary capacity.",
+      "quality_status": "WORKBENCH_READY_BOUNDARY_CHECKED",
+      "render_quality": null,
+      "render_quality_status": "PASS_KATEX",
+      "source_atom_id": "",
+      "source_refs": [
+        "SRC::formula::OC_CORE_V010_CANONICAL_FORMULA_SURFACE::a2d9e56e8a28a701"
+      ],
+      "formula_source_refs": [
+        "SRC::formula::OC_CORE_V010_CANONICAL_FORMULA_SURFACE::a2d9e56e8a28a701"
+      ],
+      "linked_atoms": [],
+      "linked_term_count": 0,
+      "typed_symbol_signature_count": 5,
+      "symbol_table_count": 5,
+      "semantic_symbol_contract_status": "PASS_CURATED_SEMANTIC_SYMBOLS",
+      "parser_tokens_excluded": true,
+      "parser_token_symbol_count": 0,
+      "dimension_operation_check_count": 1,
+      "dimension_operations": [
+        "additive_balance"
+      ],
+      "tuple_component_update_status": "NOT_APPLICABLE",
+      "inherited_tuple_component_binding_status": "NOT_APPLICABLE",
+      "inherited_tuple_component_bindings": [],
+      "path_depth_binding_status": "NOT_APPLICABLE",
+      "ocf006_visible_notation_status": "NOT_APPLICABLE",
+      "ocf006_missing_visible_notation": [],
+      "range_claim_condition_status": "NOT_APPLICABLE",
+      "range_claim_conditions": [],
+      "range_condition_rows": [],
+      "range_condition_row_count": 0,
+      "template_bound_range_condition_status": "NOT_APPLICABLE",
+      "ocf015_score_display_alignment_status": "NOT_APPLICABLE",
+      "denominator_guard_count": 0,
+      "missing_symbol_count": 0,
+      "assumptions_present": true,
+      "assumption_count": 2,
+      "assumption_bodies": [
+        {
+          "assumption_id": "assumption_1",
+          "text": "Formula is part of the curated V010 workbench symbolic surface.",
+          "text_hash": "fdc8685effd550aac01ff497999834b8fea0f06c05a06ee9586c0bfa3ba8c6ac",
+          "status": "VISIBLE_NONPLACEHOLDER"
+        },
+        {
+          "assumption_id": "assumption_2",
+          "text": "Formula validity is bounded by its source/boundary row and does not imply external peer review.",
+          "text_hash": "780b538ce39954dd61f0bbc27e70fd59db87e69023fdb70ae19a37cced46fccb",
+          "status": "VISIBLE_NONPLACEHOLDER"
+        }
+      ],
+      "assumption_audit_status": "PASS",
+      "validation_rule_count": 5,
+      "validation_rule_bodies": [
+        {
+          "rule_id": "FORMULA_RULE_001",
+          "rule_text": "semantic title present",
+          "status": "PASS",
+          "hash_basis": [
+            "semantic_title",
+            "formula_title"
+          ]
+        },
+        {
+          "rule_id": "FORMULA_RULE_002",
+          "rule_text": "operator glossary present",
+          "status": "PASS",
+          "hash_basis": [
+            "operator_glossary",
+            "operator_meanings"
+          ]
+        },
+        {
+          "rule_id": "FORMULA_RULE_003",
+          "rule_text": "consequences present",
+          "status": "PASS",
+          "hash_basis": [
+            "consequences"
+          ]
+        },
+        {
+          "rule_id": "FORMULA_RULE_004",
+          "rule_text": "diagnostic chart present",
+          "status": "PASS",
+          "hash_basis": [
+            "chart_spec",
+            "diagnostic_chart"
+          ]
+        },
+        {
+          "rule_id": "FORMULA_RULE_005",
+          "rule_text": "source or boundary present",
+          "status": "PASS",
+          "hash_basis": [
+            "source_refs",
+            "source_boundary",
+            "nonclaim_boundary"
+          ]
+        }
+      ],
+      "validation_rule_audit_status": "PASS",
+      "dimensional_consistency_status": "PASS_SYMBOLIC_DIMENSION_CONTRACT",
+      "chart_provenance_present": true,
+      "ui_probe_contract_id": "formula-probe::OCF-005",
+      "boundary_mapping_status": "EVIDENCE_BOUNDARY_LINKED",
+      "needs_formalization_boundary": false
+    },
+    {
+      "formula_id": "OCF-006",
+      "semantic_title": "Cascade propagation",
+      "interpretation": "A node loses state from weighted upstream damage, regains state through local recovery, and the public replay clamps the next state into [0,1]. Collapse depth is displayed as a named sub-role, not compressed into the propagation expression.",
+      "quality_status": "WORKBENCH_READY_BOUNDARY_CHECKED",
+      "render_quality": null,
+      "render_quality_status": "PASS_KATEX",
+      "source_atom_id": "master_monograph__falsification_review__attack_response__atom_137__h322a543dc15e",
+      "source_refs": [
+        "SRC::formula::OC_CORE_V010_CANONICAL_FORMULA_SURFACE::a2d9e56e8a28a701"
+      ],
+      "formula_source_refs": [
+        "SRC::formula::OC_CORE_V010_CANONICAL_FORMULA_SURFACE::a2d9e56e8a28a701"
+      ],
+      "linked_atoms": [
+        "master_monograph__falsification_review__attack_response__atom_137__h322a543dc15e"
+      ],
+      "linked_term_count": 0,
+      "typed_symbol_signature_count": 17,
+      "symbol_table_count": 17,
+      "semantic_symbol_contract_status": "PASS_CURATED_SEMANTIC_SYMBOLS",
+      "parser_tokens_excluded": true,
+      "parser_token_symbol_count": 0,
+      "dimension_operation_check_count": 2,
+      "dimension_operations": [
+        "cascade_state_update",
+        "path_cardinality_depth"
+      ],
+      "tuple_component_update_status": "NOT_APPLICABLE",
+      "inherited_tuple_component_binding_status": "NOT_APPLICABLE",
+      "inherited_tuple_component_bindings": [],
+      "path_depth_binding_status": "PASS",
+      "ocf006_visible_notation_status": "PASS",
+      "ocf006_missing_visible_notation": [],
+      "range_claim_condition_status": "PASS",
+      "range_claim_conditions": [
+        "Displayed s_j(t+1) is in [0,1] for the public replay rows because s_j(t), w_ij, delta_i(t), r_j(t) are [0,1], upstream_terms are nonnegative, and the replay export verifies min(1,max(0, raw_output)) with bounded template inputs.",
+        "OCF-006::RANGE::PATH_DEPTH: D_c == len(P_c) and 0 <= D_c <= len(selected_system_template.nodes)",
+        "OCF-006::RANGE::PROPAGATION_UPDATE: s_j(t+1)_output == min(1, max(0, raw_output_before_clamp)) and replay row verifies the output in the normalized template domain"
+      ],
+      "range_condition_rows": [
+        {
+          "formula_id": "OCF-006",
+          "status": "PASS_TEMPLATE_BOUND_RANGE_CONDITION",
+          "template_scope": "V010 public workbench/cascade template row; not a universal mathematical or empirical bound",
+          "nonclaim_boundary": "Range condition licenses only the displayed template-bound diagnostic row; it is not external validation.",
+          "condition_id": "OCF-006::RANGE::PATH_DEPTH",
+          "formula_role_id": "OCF-006.path_depth",
+          "output_symbol": "D_c",
+          "bounded_range": "nonnegative integer, bounded by selected template node count",
+          "template_bound_inputs": [
+            "selected_system_template.nodes",
+            "selected collapse path P_c"
+          ],
+          "row_level_required_fields": [
+            "template_id",
+            "topology_hash",
+            "P_c",
+            "D_c"
+          ],
+          "pass_condition": "D_c == len(P_c) and 0 <= D_c <= len(selected_system_template.nodes)",
+          "row_hash": "f3cc72028ac2710eaa10ec275edf3a24afa6c2c393a40ae2ae64cc61c697e4df"
+        },
+        {
+          "formula_id": "OCF-006",
+          "status": "PASS_TEMPLATE_BOUND_RANGE_CONDITION",
+          "template_scope": "V010 public workbench/cascade template row; not a universal mathematical or empirical bound",
+          "nonclaim_boundary": "Range condition licenses only the displayed template-bound diagnostic row; it is not external validation.",
+          "condition_id": "OCF-006::RANGE::PROPAGATION_UPDATE",
+          "formula_role_id": "OCF-006.propagation_update",
+          "output_symbol": "s_j(t+1)",
+          "bounded_range": "[0,1] for public replay rows",
+          "template_bound_inputs": [
+            "s_j(t) in [0,1]",
+            "w_ij in [0,1]",
+            "delta_i(t) in [0,1]",
+            "r_j(t) in [0,1]",
+            "visible upstream_terms"
+          ],
+          "row_level_required_fields": [
+            "template_id",
+            "node_id",
+            "upstream_terms",
+            "sum_value",
+            "raw_output_before_clamp",
+            "clamp_min_applied",
+            "clamp_max_applied",
+            "s_j(t+1)_output"
+          ],
+          "pass_condition": "s_j(t+1)_output == min(1, max(0, raw_output_before_clamp)) and replay row verifies the output in the normalized template domain",
+          "row_hash": "764f3df14503184c66c1cfbf6ec565060610abfbfd6a4a26922276d768d4a897"
+        }
+      ],
+      "range_condition_row_count": 2,
+      "template_bound_range_condition_status": "PASS",
+      "ocf015_score_display_alignment_status": "NOT_APPLICABLE",
+      "denominator_guard_count": 0,
+      "missing_symbol_count": 0,
+      "assumptions_present": true,
+      "assumption_count": 2,
+      "assumption_bodies": [
+        {
+          "assumption_id": "assumption_1",
+          "text": "Formula is part of the curated V010 workbench symbolic surface.",
+          "text_hash": "fdc8685effd550aac01ff497999834b8fea0f06c05a06ee9586c0bfa3ba8c6ac",
+          "status": "VISIBLE_NONPLACEHOLDER"
+        },
+        {
+          "assumption_id": "assumption_2",
+          "text": "Formula validity is bounded by its source/boundary row and does not imply external peer review.",
+          "text_hash": "780b538ce39954dd61f0bbc27e70fd59db87e69023fdb70ae19a37cced46fccb",
+          "status": "VISIBLE_NONPLACEHOLDER"
+        }
+      ],
+      "assumption_audit_status": "PASS",
+      "validation_rule_count": 5,
+      "validation_rule_bodies": [
+        {
+          "rule_id": "FORMULA_RULE_001",
+          "rule_text": "semantic title present",
+          "status": "PASS",
+          "hash_basis": [
+            "semantic_title",
+            "formula_title"
+          ]
+        },
+        {
+          "rule_id": "FORMULA_RULE_002",
+          "rule_text": "operator glossary present",
+          "status": "PASS",
+          "hash_basis": [
+            "operator_glossary",
+            "operator_meanings"
+          ]
+        },
+        {
+          "rule_id": "FORMULA_RULE_003",
+          "rule_text": "consequences present",
+          "status": "PASS",
+          "hash_basis": [
+            "consequences"
+          ]
+        },
+        {
+          "rule_id": "FORMULA_RULE_004",
+          "rule_text": "diagnostic chart present",
+          "status": "PASS",
+          "hash_basis": [
+            "chart_spec",
+            "diagnostic_chart"
+          ]
+        },
+        {
+          "rule_id": "FORMULA_RULE_005",
+          "rule_text": "source or boundary present",
+          "status": "PASS",
+          "hash_basis": [
+            "source_refs",
+            "source_boundary",
+            "nonclaim_boundary"
+          ]
+        }
+      ],
+      "validation_rule_audit_status": "PASS",
+      "dimensional_consistency_status": "PASS_SYMBOLIC_DIMENSION_CONTRACT",
+      "chart_provenance_present": true,
+      "ui_probe_contract_id": "formula-probe::OCF-006",
+      "boundary_mapping_status": "EVIDENCE_BOUNDARY_LINKED",
+      "needs_formalization_boundary": false
+    },
+    {
+      "formula_id": "OCF-007",
+      "semantic_title": "Connectivity loss",
+      "interpretation": "Connectivity loss measures the fraction of original edges that no longer carry viable system relation.",
+      "quality_status": "WORKBENCH_READY_BOUNDARY_CHECKED",
+      "render_quality": null,
+      "render_quality_status": "PASS_KATEX",
+      "source_atom_id": "master_monograph__domain_projections__social_systems__atom_102__h8d4238f775f4",
+      "source_refs": [
+        "SRC::formula::OC_CORE_V010_CANONICAL_FORMULA_SURFACE::a2d9e56e8a28a701"
+      ],
+      "formula_source_refs": [
+        "SRC::formula::OC_CORE_V010_CANONICAL_FORMULA_SURFACE::a2d9e56e8a28a701"
+      ],
+      "linked_atoms": [
+        "master_monograph__domain_projections__social_systems__atom_102__h8d4238f775f4"
+      ],
+      "linked_term_count": 0,
+      "typed_symbol_signature_count": 4,
+      "symbol_table_count": 4,
+      "semantic_symbol_contract_status": "PASS_CURATED_SEMANTIC_SYMBOLS",
+      "parser_tokens_excluded": true,
+      "parser_token_symbol_count": 0,
+      "dimension_operation_check_count": 4,
+      "dimension_operations": [
+        "additive_balance",
+        "ratio",
+        "set_cardinality_ratio",
+        "guarded_denominator"
+      ],
+      "tuple_component_update_status": "NOT_APPLICABLE",
+      "inherited_tuple_component_binding_status": "NOT_APPLICABLE",
+      "inherited_tuple_component_bindings": [],
+      "path_depth_binding_status": "NOT_APPLICABLE",
+      "ocf006_visible_notation_status": "NOT_APPLICABLE",
+      "ocf006_missing_visible_notation": [],
+      "range_claim_condition_status": "PASS",
+      "range_claim_conditions": [
+        "OCF-007::RANGE::CONNECTIVITY_LOSS: Lambda(t)=1-E_alive_count/max(epsilon,E_0_count) and the row is scored only when counts are template-bound support units"
+      ],
+      "range_condition_rows": [
+        {
+          "formula_id": "OCF-007",
+          "status": "PASS_TEMPLATE_BOUND_RANGE_CONDITION",
+          "template_scope": "V010 public workbench/cascade template row; not a universal mathematical or empirical bound",
+          "nonclaim_boundary": "Range condition licenses only the displayed template-bound diagnostic row; it is not external validation.",
+          "condition_id": "OCF-007::RANGE::CONNECTIVITY_LOSS",
+          "output_symbol": "Lambda(t)",
+          "bounded_range": "[0,1]",
+          "template_bound_inputs": [
+            "0 <= |E_alive(t)| <= |E_0|",
+            "|E_0| > 0 for scored rows",
+            "epsilon > 0"
+          ],
+          "row_level_required_fields": [
+            "template_id",
+            "topology_hash",
+            "E_alive_count",
+            "E_0_count",
+            "epsilon_guard",
+            "connectivity_loss"
+          ],
+          "pass_condition": "Lambda(t)=1-E_alive_count/max(epsilon,E_0_count) and the row is scored only when counts are template-bound support units",
+          "row_hash": "2a7dd04ada583d43fbce65afb33706f004005c9717c3854f1c337d487eecf551"
+        }
+      ],
+      "range_condition_row_count": 1,
+      "template_bound_range_condition_status": "PASS",
+      "ocf015_score_display_alignment_status": "NOT_APPLICABLE",
+      "denominator_guard_count": 2,
+      "missing_symbol_count": 0,
+      "assumptions_present": true,
+      "assumption_count": 2,
+      "assumption_bodies": [
+        {
+          "assumption_id": "assumption_1",
+          "text": "Formula is part of the curated V010 workbench symbolic surface.",
+          "text_hash": "fdc8685effd550aac01ff497999834b8fea0f06c05a06ee9586c0bfa3ba8c6ac",
+          "status": "VISIBLE_NONPLACEHOLDER"
+        },
+        {
+          "assumption_id": "assumption_2",
+          "text": "Formula validity is bounded by its source/boundary row and does not imply external peer review.",
+          "text_hash": "780b538ce39954dd61f0bbc27e70fd59db87e69023fdb70ae19a37cced46fccb",
+          "status": "VISIBLE_NONPLACEHOLDER"
+        }
+      ],
+      "assumption_audit_status": "PASS",
+      "validation_rule_count": 5,
+      "validation_rule_bodies": [
+        {
+          "rule_id": "FORMULA_RULE_001",
+          "rule_text": "semantic title present",
+          "status": "PASS",
+          "hash_basis": [
+            "semantic_title",
+            "formula_title"
+          ]
+        },
+        {
+          "rule_id": "FORMULA_RULE_002",
+          "rule_text": "operator glossary present",
+          "status": "PASS",
+          "hash_basis": [
+            "operator_glossary",
+            "operator_meanings"
+          ]
+        },
+        {
+          "rule_id": "FORMULA_RULE_003",
+          "rule_text": "consequences present",
+          "status": "PASS",
+          "hash_basis": [
+            "consequences"
+          ]
+        },
+        {
+          "rule_id": "FORMULA_RULE_004",
+          "rule_text": "diagnostic chart present",
+          "status": "PASS",
+          "hash_basis": [
+            "chart_spec",
+            "diagnostic_chart"
+          ]
+        },
+        {
+          "rule_id": "FORMULA_RULE_005",
+          "rule_text": "source or boundary present",
+          "status": "PASS",
+          "hash_basis": [
+            "source_refs",
+            "source_boundary",
+            "nonclaim_boundary"
+          ]
+        }
+      ],
+      "validation_rule_audit_status": "PASS",
+      "dimensional_consistency_status": "PASS_SYMBOLIC_DIMENSION_CONTRACT",
+      "chart_provenance_present": true,
+      "ui_probe_contract_id": "formula-probe::OCF-007",
+      "boundary_mapping_status": "EVIDENCE_BOUNDARY_LINKED",
+      "needs_formalization_boundary": false
+    },
+    {
+      "formula_id": "OCF-008",
+      "semantic_title": "Flow rupture",
+      "interpretation": "Flow rupture is the lost fraction of baseline flow capacity.",
+      "quality_status": "WORKBENCH_READY_BOUNDARY_CHECKED",
+      "render_quality": null,
+      "render_quality_status": "PASS_KATEX",
+      "source_atom_id": "methods_repro_companion__graph_compiler__atom_114__ha7439c93faa1",
+      "source_refs": [
+        "SRC::formula::OC_CORE_V010_CANONICAL_FORMULA_SURFACE::a2d9e56e8a28a701"
+      ],
+      "formula_source_refs": [
+        "SRC::formula::OC_CORE_V010_CANONICAL_FORMULA_SURFACE::a2d9e56e8a28a701"
+      ],
+      "linked_atoms": [
+        "methods_repro_companion__graph_compiler__atom_114__ha7439c93faa1"
+      ],
+      "linked_term_count": 0,
+      "typed_symbol_signature_count": 5,
+      "symbol_table_count": 5,
+      "semantic_symbol_contract_status": "PASS_CURATED_SEMANTIC_SYMBOLS",
+      "parser_tokens_excluded": true,
+      "parser_token_symbol_count": 0,
+      "dimension_operation_check_count": 3,
+      "dimension_operations": [
+        "additive_balance",
+        "ratio",
+        "guarded_denominator"
+      ],
+      "tuple_component_update_status": "NOT_APPLICABLE",
+      "inherited_tuple_component_binding_status": "NOT_APPLICABLE",
+      "inherited_tuple_component_bindings": [],
+      "path_depth_binding_status": "NOT_APPLICABLE",
+      "ocf006_visible_notation_status": "NOT_APPLICABLE",
+      "ocf006_missing_visible_notation": [],
+      "range_claim_condition_status": "PASS",
+      "range_claim_conditions": [
+        "OCF-008::RANGE::FLOW_RUPTURE: F_loss(t)=1-post_flow/max(epsilon,pre_flow) using the same bounded support-unit basis as OCF-007"
+      ],
+      "range_condition_rows": [
+        {
+          "formula_id": "OCF-008",
+          "status": "PASS_TEMPLATE_BOUND_RANGE_CONDITION",
+          "template_scope": "V010 public workbench/cascade template row; not a universal mathematical or empirical bound",
+          "nonclaim_boundary": "Range condition licenses only the displayed template-bound diagnostic row; it is not external validation.",
+          "condition_id": "OCF-008::RANGE::FLOW_RUPTURE",
+          "output_symbol": "F_loss(t)",
+          "bounded_range": "[0,1]",
+          "template_bound_inputs": [
+            "0 <= sum_i f_i_alive(t) <= sum_i f_i_0",
+            "sum_i f_i_0 > 0 for scored rows",
+            "epsilon > 0"
+          ],
+          "row_level_required_fields": [
+            "template_id",
+            "support_unit_derivation_rows",
+            "pre_flow",
+            "post_flow",
+            "epsilon",
+            "flow_rupture"
+          ],
+          "pass_condition": "F_loss(t)=1-post_flow/max(epsilon,pre_flow) using the same bounded support-unit basis as OCF-007",
+          "row_hash": "ee22cbcd726b36c6aa26bfc02b68918790913b8219fe17ea228f731a3532d537"
+        }
+      ],
+      "range_condition_row_count": 1,
+      "template_bound_range_condition_status": "PASS",
+      "ocf015_score_display_alignment_status": "NOT_APPLICABLE",
+      "denominator_guard_count": 2,
+      "missing_symbol_count": 0,
+      "assumptions_present": true,
+      "assumption_count": 2,
+      "assumption_bodies": [
+        {
+          "assumption_id": "assumption_1",
+          "text": "Formula is part of the curated V010 workbench symbolic surface.",
+          "text_hash": "fdc8685effd550aac01ff497999834b8fea0f06c05a06ee9586c0bfa3ba8c6ac",
+          "status": "VISIBLE_NONPLACEHOLDER"
+        },
+        {
+          "assumption_id": "assumption_2",
+          "text": "Formula validity is bounded by its source/boundary row and does not imply external peer review.",
+          "text_hash": "780b538ce39954dd61f0bbc27e70fd59db87e69023fdb70ae19a37cced46fccb",
+          "status": "VISIBLE_NONPLACEHOLDER"
+        }
+      ],
+      "assumption_audit_status": "PASS",
+      "validation_rule_count": 5,
+      "validation_rule_bodies": [
+        {
+          "rule_id": "FORMULA_RULE_001",
+          "rule_text": "semantic title present",
+          "status": "PASS",
+          "hash_basis": [
+            "semantic_title",
+            "formula_title"
+          ]
+        },
+        {
+          "rule_id": "FORMULA_RULE_002",
+          "rule_text": "operator glossary present",
+          "status": "PASS",
+          "hash_basis": [
+            "operator_glossary",
+            "operator_meanings"
+          ]
+        },
+        {
+          "rule_id": "FORMULA_RULE_003",
+          "rule_text": "consequences present",
+          "status": "PASS",
+          "hash_basis": [
+            "consequences"
+          ]
+        },
+        {
+          "rule_id": "FORMULA_RULE_004",
+          "rule_text": "diagnostic chart present",
+          "status": "PASS",
+          "hash_basis": [
+            "chart_spec",
+            "diagnostic_chart"
+          ]
+        },
+        {
+          "rule_id": "FORMULA_RULE_005",
+          "rule_text": "source or boundary present",
+          "status": "PASS",
+          "hash_basis": [
+            "source_refs",
+            "source_boundary",
+            "nonclaim_boundary"
+          ]
+        }
+      ],
+      "validation_rule_audit_status": "PASS",
+      "dimensional_consistency_status": "PASS_SYMBOLIC_DIMENSION_CONTRACT",
+      "chart_provenance_present": true,
+      "ui_probe_contract_id": "formula-probe::OCF-008",
+      "boundary_mapping_status": "EVIDENCE_BOUNDARY_LINKED",
+      "needs_formalization_boundary": false
+    },
+    {
+      "formula_id": "OCF-009",
+      "semantic_title": "Recovery index",
+      "interpretation": "Recovery compares post-reconfiguration coherence against the collapse trough and pre-shock baseline.",
+      "quality_status": "WORKBENCH_READY_BOUNDARY_CHECKED",
+      "render_quality": null,
+      "render_quality_status": "PASS_KATEX",
+      "source_atom_id": "master_monograph__domain_projections__biology__atom_108__hf9f07e9a05e6",
+      "source_refs": [
+        "SRC::formula::OC_CORE_V010_CANONICAL_FORMULA_SURFACE::a2d9e56e8a28a701"
+      ],
+      "formula_source_refs": [
+        "SRC::formula::OC_CORE_V010_CANONICAL_FORMULA_SURFACE::a2d9e56e8a28a701"
+      ],
+      "linked_atoms": [
+        "master_monograph__domain_projections__biology__atom_108__hf9f07e9a05e6"
+      ],
+      "linked_term_count": 0,
+      "typed_symbol_signature_count": 5,
+      "symbol_table_count": 5,
+      "semantic_symbol_contract_status": "PASS_CURATED_SEMANTIC_SYMBOLS",
+      "parser_tokens_excluded": true,
+      "parser_token_symbol_count": 0,
+      "dimension_operation_check_count": 3,
+      "dimension_operations": [
+        "additive_balance",
+        "ratio",
+        "guarded_denominator"
+      ],
+      "tuple_component_update_status": "NOT_APPLICABLE",
+      "inherited_tuple_component_binding_status": "NOT_APPLICABLE",
+      "inherited_tuple_component_bindings": [],
+      "path_depth_binding_status": "NOT_APPLICABLE",
+      "ocf006_visible_notation_status": "NOT_APPLICABLE",
+      "ocf006_missing_visible_notation": [],
+      "range_claim_condition_status": "PASS",
+      "range_claim_conditions": [
+        "OCF-009::RANGE::RECOVERY_INDEX: rho=(Phi_after-Phi_min)/max(epsilon,Phi_before-Phi_min), with out-of-order tuples marked boundary-only rather than scored"
+      ],
+      "range_condition_rows": [
+        {
+          "formula_id": "OCF-009",
+          "status": "PASS_TEMPLATE_BOUND_RANGE_CONDITION",
+          "template_scope": "V010 public workbench/cascade template row; not a universal mathematical or empirical bound",
+          "nonclaim_boundary": "Range condition licenses only the displayed template-bound diagnostic row; it is not external validation.",
+          "condition_id": "OCF-009::RANGE::RECOVERY_INDEX",
+          "output_symbol": "rho",
+          "bounded_range": "[0,1] when Phi_min <= Phi_after <= Phi_before and Phi_before > Phi_min",
+          "template_bound_inputs": [
+            "Phi_before",
+            "Phi_min",
+            "Phi_after",
+            "epsilon > 0"
+          ],
+          "row_level_required_fields": [
+            "template_id",
+            "Phi_before",
+            "Phi_min",
+            "Phi_after",
+            "epsilon",
+            "rho"
+          ],
+          "pass_condition": "rho=(Phi_after-Phi_min)/max(epsilon,Phi_before-Phi_min), with out-of-order tuples marked boundary-only rather than scored",
+          "row_hash": "20f8cac5250fbabd6671048910df177337e16964e0e5b6c5db11624d1336ed1b"
+        }
+      ],
+      "range_condition_row_count": 1,
+      "template_bound_range_condition_status": "PASS",
+      "ocf015_score_display_alignment_status": "NOT_APPLICABLE",
+      "denominator_guard_count": 2,
+      "missing_symbol_count": 0,
+      "assumptions_present": true,
+      "assumption_count": 2,
+      "assumption_bodies": [
+        {
+          "assumption_id": "assumption_1",
+          "text": "Formula is part of the curated V010 workbench symbolic surface.",
+          "text_hash": "fdc8685effd550aac01ff497999834b8fea0f06c05a06ee9586c0bfa3ba8c6ac",
+          "status": "VISIBLE_NONPLACEHOLDER"
+        },
+        {
+          "assumption_id": "assumption_2",
+          "text": "Formula validity is bounded by its source/boundary row and does not imply external peer review.",
+          "text_hash": "780b538ce39954dd61f0bbc27e70fd59db87e69023fdb70ae19a37cced46fccb",
+          "status": "VISIBLE_NONPLACEHOLDER"
+        }
+      ],
+      "assumption_audit_status": "PASS",
+      "validation_rule_count": 5,
+      "validation_rule_bodies": [
+        {
+          "rule_id": "FORMULA_RULE_001",
+          "rule_text": "semantic title present",
+          "status": "PASS",
+          "hash_basis": [
+            "semantic_title",
+            "formula_title"
+          ]
+        },
+        {
+          "rule_id": "FORMULA_RULE_002",
+          "rule_text": "operator glossary present",
+          "status": "PASS",
+          "hash_basis": [
+            "operator_glossary",
+            "operator_meanings"
+          ]
+        },
+        {
+          "rule_id": "FORMULA_RULE_003",
+          "rule_text": "consequences present",
+          "status": "PASS",
+          "hash_basis": [
+            "consequences"
+          ]
+        },
+        {
+          "rule_id": "FORMULA_RULE_004",
+          "rule_text": "diagnostic chart present",
+          "status": "PASS",
+          "hash_basis": [
+            "chart_spec",
+            "diagnostic_chart"
+          ]
+        },
+        {
+          "rule_id": "FORMULA_RULE_005",
+          "rule_text": "source or boundary present",
+          "status": "PASS",
+          "hash_basis": [
+            "source_refs",
+            "source_boundary",
+            "nonclaim_boundary"
+          ]
+        }
+      ],
+      "validation_rule_audit_status": "PASS",
+      "dimensional_consistency_status": "PASS_SYMBOLIC_DIMENSION_CONTRACT",
+      "chart_provenance_present": true,
+      "ui_probe_contract_id": "formula-probe::OCF-009",
+      "boundary_mapping_status": "EVIDENCE_BOUNDARY_LINKED",
+      "needs_formalization_boundary": false
+    },
+    {
+      "formula_id": "OCF-010",
+      "semantic_title": "K-level build-up operator",
+      "interpretation": "A higher K-level is built from lower-level substrate, active axes and invariants.",
+      "quality_status": "WORKBENCH_READY_BOUNDARY_CHECKED",
+      "render_quality": null,
+      "render_quality_status": "PASS_KATEX",
+      "source_atom_id": "",
+      "source_refs": [
+        "SRC::formula::OC_CORE_V010_CANONICAL_FORMULA_SURFACE::a2d9e56e8a28a701"
+      ],
+      "formula_source_refs": [
+        "SRC::formula::OC_CORE_V010_CANONICAL_FORMULA_SURFACE::a2d9e56e8a28a701"
+      ],
+      "linked_atoms": [],
+      "linked_term_count": 0,
+      "typed_symbol_signature_count": 5,
+      "symbol_table_count": 5,
+      "semantic_symbol_contract_status": "PASS_CURATED_SEMANTIC_SYMBOLS",
+      "parser_tokens_excluded": true,
+      "parser_token_symbol_count": 0,
+      "dimension_operation_check_count": 1,
+      "dimension_operations": [
+        "symbolic_relation"
+      ],
+      "tuple_component_update_status": "NOT_APPLICABLE",
+      "inherited_tuple_component_binding_status": "NOT_APPLICABLE",
+      "inherited_tuple_component_bindings": [],
+      "path_depth_binding_status": "NOT_APPLICABLE",
+      "ocf006_visible_notation_status": "NOT_APPLICABLE",
+      "ocf006_missing_visible_notation": [],
+      "range_claim_condition_status": "NOT_APPLICABLE",
+      "range_claim_conditions": [],
+      "range_condition_rows": [],
+      "range_condition_row_count": 0,
+      "template_bound_range_condition_status": "NOT_APPLICABLE",
+      "ocf015_score_display_alignment_status": "NOT_APPLICABLE",
+      "denominator_guard_count": 0,
+      "missing_symbol_count": 0,
+      "assumptions_present": true,
+      "assumption_count": 2,
+      "assumption_bodies": [
+        {
+          "assumption_id": "assumption_1",
+          "text": "Formula is part of the curated V010 workbench symbolic surface.",
+          "text_hash": "fdc8685effd550aac01ff497999834b8fea0f06c05a06ee9586c0bfa3ba8c6ac",
+          "status": "VISIBLE_NONPLACEHOLDER"
+        },
+        {
+          "assumption_id": "assumption_2",
+          "text": "Formula validity is bounded by its source/boundary row and does not imply external peer review.",
+          "text_hash": "780b538ce39954dd61f0bbc27e70fd59db87e69023fdb70ae19a37cced46fccb",
+          "status": "VISIBLE_NONPLACEHOLDER"
+        }
+      ],
+      "assumption_audit_status": "PASS",
+      "validation_rule_count": 5,
+      "validation_rule_bodies": [
+        {
+          "rule_id": "FORMULA_RULE_001",
+          "rule_text": "semantic title present",
+          "status": "PASS",
+          "hash_basis": [
+            "semantic_title",
+            "formula_title"
+          ]
+        },
+        {
+          "rule_id": "FORMULA_RULE_002",
+          "rule_text": "operator glossary present",
+          "status": "PASS",
+          "hash_basis": [
+            "operator_glossary",
+            "operator_meanings"
+          ]
+        },
+        {
+          "rule_id": "FORMULA_RULE_003",
+          "rule_text": "consequences present",
+          "status": "PASS",
+          "hash_basis": [
+            "consequences"
+          ]
+        },
+        {
+          "rule_id": "FORMULA_RULE_004",
+          "rule_text": "diagnostic chart present",
+          "status": "PASS",
+          "hash_basis": [
+            "chart_spec",
+            "diagnostic_chart"
+          ]
+        },
+        {
+          "rule_id": "FORMULA_RULE_005",
+          "rule_text": "source or boundary present",
+          "status": "PASS",
+          "hash_basis": [
+            "source_refs",
+            "source_boundary",
+            "nonclaim_boundary"
+          ]
+        }
+      ],
+      "validation_rule_audit_status": "PASS",
+      "dimensional_consistency_status": "PASS_SYMBOLIC_DIMENSION_CONTRACT",
+      "chart_provenance_present": true,
+      "ui_probe_contract_id": "formula-probe::OCF-010",
+      "boundary_mapping_status": "EVIDENCE_BOUNDARY_LINKED",
+      "needs_formalization_boundary": false
+    },
+    {
+      "formula_id": "OCF-011",
+      "semantic_title": "Top-down constraint",
+      "interpretation": "Higher-level organization constrains and reshapes lower-level dynamics.",
+      "quality_status": "WORKBENCH_READY_BOUNDARY_CHECKED",
+      "render_quality": null,
+      "render_quality_status": "PASS_KATEX",
+      "source_atom_id": "",
+      "source_refs": [
+        "SRC::formula::OC_CORE_V010_CANONICAL_FORMULA_SURFACE::a2d9e56e8a28a701"
+      ],
+      "formula_source_refs": [
+        "SRC::formula::OC_CORE_V010_CANONICAL_FORMULA_SURFACE::a2d9e56e8a28a701"
+      ],
+      "linked_atoms": [],
+      "linked_term_count": 0,
+      "typed_symbol_signature_count": 4,
+      "symbol_table_count": 4,
+      "semantic_symbol_contract_status": "PASS_CURATED_SEMANTIC_SYMBOLS",
+      "parser_tokens_excluded": true,
+      "parser_token_symbol_count": 0,
+      "dimension_operation_check_count": 1,
+      "dimension_operations": [
+        "symbolic_relation"
+      ],
+      "tuple_component_update_status": "NOT_APPLICABLE",
+      "inherited_tuple_component_binding_status": "NOT_APPLICABLE",
+      "inherited_tuple_component_bindings": [],
+      "path_depth_binding_status": "NOT_APPLICABLE",
+      "ocf006_visible_notation_status": "NOT_APPLICABLE",
+      "ocf006_missing_visible_notation": [],
+      "range_claim_condition_status": "NOT_APPLICABLE",
+      "range_claim_conditions": [],
+      "range_condition_rows": [],
+      "range_condition_row_count": 0,
+      "template_bound_range_condition_status": "NOT_APPLICABLE",
+      "ocf015_score_display_alignment_status": "NOT_APPLICABLE",
+      "denominator_guard_count": 0,
+      "missing_symbol_count": 0,
+      "assumptions_present": true,
+      "assumption_count": 2,
+      "assumption_bodies": [
+        {
+          "assumption_id": "assumption_1",
+          "text": "Formula is part of the curated V010 workbench symbolic surface.",
+          "text_hash": "fdc8685effd550aac01ff497999834b8fea0f06c05a06ee9586c0bfa3ba8c6ac",
+          "status": "VISIBLE_NONPLACEHOLDER"
+        },
+        {
+          "assumption_id": "assumption_2",
+          "text": "Formula validity is bounded by its source/boundary row and does not imply external peer review.",
+          "text_hash": "780b538ce39954dd61f0bbc27e70fd59db87e69023fdb70ae19a37cced46fccb",
+          "status": "VISIBLE_NONPLACEHOLDER"
+        }
+      ],
+      "assumption_audit_status": "PASS",
+      "validation_rule_count": 5,
+      "validation_rule_bodies": [
+        {
+          "rule_id": "FORMULA_RULE_001",
+          "rule_text": "semantic title present",
+          "status": "PASS",
+          "hash_basis": [
+            "semantic_title",
+            "formula_title"
+          ]
+        },
+        {
+          "rule_id": "FORMULA_RULE_002",
+          "rule_text": "operator glossary present",
+          "status": "PASS",
+          "hash_basis": [
+            "operator_glossary",
+            "operator_meanings"
+          ]
+        },
+        {
+          "rule_id": "FORMULA_RULE_003",
+          "rule_text": "consequences present",
+          "status": "PASS",
+          "hash_basis": [
+            "consequences"
+          ]
+        },
+        {
+          "rule_id": "FORMULA_RULE_004",
+          "rule_text": "diagnostic chart present",
+          "status": "PASS",
+          "hash_basis": [
+            "chart_spec",
+            "diagnostic_chart"
+          ]
+        },
+        {
+          "rule_id": "FORMULA_RULE_005",
+          "rule_text": "source or boundary present",
+          "status": "PASS",
+          "hash_basis": [
+            "source_refs",
+            "source_boundary",
+            "nonclaim_boundary"
+          ]
+        }
+      ],
+      "validation_rule_audit_status": "PASS",
+      "dimensional_consistency_status": "PASS_SYMBOLIC_DIMENSION_CONTRACT",
+      "chart_provenance_present": true,
+      "ui_probe_contract_id": "formula-probe::OCF-011",
+      "boundary_mapping_status": "EVIDENCE_BOUNDARY_LINKED",
+      "needs_formalization_boundary": false
+    },
+    {
+      "formula_id": "OCF-012",
+      "semantic_title": "M-space tuple",
+      "interpretation": "An M-space is a bounded model space of nodes, edges, axes, flows, thresholds and recovery rules.",
+      "quality_status": "WORKBENCH_READY_BOUNDARY_CHECKED",
+      "render_quality": null,
+      "render_quality_status": "PASS_KATEX",
+      "source_atom_id": "",
+      "source_refs": [
+        "SRC::formula::OC_CORE_V010_CANONICAL_FORMULA_SURFACE::a2d9e56e8a28a701"
+      ],
+      "formula_source_refs": [
+        "SRC::formula::OC_CORE_V010_CANONICAL_FORMULA_SURFACE::a2d9e56e8a28a701"
+      ],
+      "linked_atoms": [],
+      "linked_term_count": 0,
+      "typed_symbol_signature_count": 7,
+      "symbol_table_count": 7,
+      "semantic_symbol_contract_status": "PASS_CURATED_SEMANTIC_SYMBOLS",
+      "parser_tokens_excluded": true,
+      "parser_token_symbol_count": 0,
+      "dimension_operation_check_count": 1,
+      "dimension_operations": [
+        "symbolic_relation"
+      ],
+      "tuple_component_update_status": "NOT_APPLICABLE",
+      "inherited_tuple_component_binding_status": "NOT_APPLICABLE",
+      "inherited_tuple_component_bindings": [],
+      "path_depth_binding_status": "NOT_APPLICABLE",
+      "ocf006_visible_notation_status": "NOT_APPLICABLE",
+      "ocf006_missing_visible_notation": [],
+      "range_claim_condition_status": "NOT_APPLICABLE",
+      "range_claim_conditions": [],
+      "range_condition_rows": [],
+      "range_condition_row_count": 0,
+      "template_bound_range_condition_status": "NOT_APPLICABLE",
+      "ocf015_score_display_alignment_status": "NOT_APPLICABLE",
+      "denominator_guard_count": 0,
+      "missing_symbol_count": 0,
+      "assumptions_present": true,
+      "assumption_count": 2,
+      "assumption_bodies": [
+        {
+          "assumption_id": "assumption_1",
+          "text": "Formula is part of the curated V010 workbench symbolic surface.",
+          "text_hash": "fdc8685effd550aac01ff497999834b8fea0f06c05a06ee9586c0bfa3ba8c6ac",
+          "status": "VISIBLE_NONPLACEHOLDER"
+        },
+        {
+          "assumption_id": "assumption_2",
+          "text": "Formula validity is bounded by its source/boundary row and does not imply external peer review.",
+          "text_hash": "780b538ce39954dd61f0bbc27e70fd59db87e69023fdb70ae19a37cced46fccb",
+          "status": "VISIBLE_NONPLACEHOLDER"
+        }
+      ],
+      "assumption_audit_status": "PASS",
+      "validation_rule_count": 5,
+      "validation_rule_bodies": [
+        {
+          "rule_id": "FORMULA_RULE_001",
+          "rule_text": "semantic title present",
+          "status": "PASS",
+          "hash_basis": [
+            "semantic_title",
+            "formula_title"
+          ]
+        },
+        {
+          "rule_id": "FORMULA_RULE_002",
+          "rule_text": "operator glossary present",
+          "status": "PASS",
+          "hash_basis": [
+            "operator_glossary",
+            "operator_meanings"
+          ]
+        },
+        {
+          "rule_id": "FORMULA_RULE_003",
+          "rule_text": "consequences present",
+          "status": "PASS",
+          "hash_basis": [
+            "consequences"
+          ]
+        },
+        {
+          "rule_id": "FORMULA_RULE_004",
+          "rule_text": "diagnostic chart present",
+          "status": "PASS",
+          "hash_basis": [
+            "chart_spec",
+            "diagnostic_chart"
+          ]
+        },
+        {
+          "rule_id": "FORMULA_RULE_005",
+          "rule_text": "source or boundary present",
+          "status": "PASS",
+          "hash_basis": [
+            "source_refs",
+            "source_boundary",
+            "nonclaim_boundary"
+          ]
+        }
+      ],
+      "validation_rule_audit_status": "PASS",
+      "dimensional_consistency_status": "PASS_SYMBOLIC_DIMENSION_CONTRACT",
+      "chart_provenance_present": true,
+      "ui_probe_contract_id": "formula-probe::OCF-012",
+      "boundary_mapping_status": "EVIDENCE_BOUNDARY_LINKED",
+      "needs_formalization_boundary": false
+    },
+    {
+      "formula_id": "OCF-013",
+      "semantic_title": "Axis addition",
+      "interpretation": "A new axis updates the typed axis component A of an M-space; it does not union an axis set with the whole M-space tuple.",
+      "quality_status": "WORKBENCH_READY_BOUNDARY_CHECKED",
+      "render_quality": null,
+      "render_quality_status": "PASS_KATEX",
+      "source_atom_id": "master_monograph__orientation__scope__atom_133__hbd72e7f8610b",
+      "source_refs": [
+        "SRC::formula::OC_CORE_V010_CANONICAL_FORMULA_SURFACE::a2d9e56e8a28a701"
+      ],
+      "formula_source_refs": [
+        "SRC::formula::OC_CORE_V010_CANONICAL_FORMULA_SURFACE::a2d9e56e8a28a701"
+      ],
+      "linked_atoms": [
+        "master_monograph__orientation__scope__atom_133__hbd72e7f8610b"
+      ],
+      "linked_term_count": 0,
+      "typed_symbol_signature_count": 6,
+      "symbol_table_count": 6,
+      "semantic_symbol_contract_status": "PASS_CURATED_SEMANTIC_SYMBOLS",
+      "parser_tokens_excluded": true,
+      "parser_token_symbol_count": 0,
+      "dimension_operation_check_count": 1,
+      "dimension_operations": [
+        "typed_tuple_component_update"
+      ],
+      "tuple_component_update_status": "PASS",
+      "inherited_tuple_component_binding_status": "PASS",
+      "inherited_tuple_component_bindings": [
+        {
+          "source_tuple": "M=(N,E,A,F,Theta,R)",
+          "updated_tuple": "M'=(N,E,A union {a_new},F,Theta,R)",
+          "updated_component": "A",
+          "inherited_components": [
+            "N",
+            "E",
+            "F",
+            "Theta",
+            "R"
+          ],
+          "binding_status": "PASS_COMPONENTS_VISIBLE"
+        }
+      ],
+      "path_depth_binding_status": "NOT_APPLICABLE",
+      "ocf006_visible_notation_status": "NOT_APPLICABLE",
+      "ocf006_missing_visible_notation": [],
+      "range_claim_condition_status": "NOT_APPLICABLE",
+      "range_claim_conditions": [],
+      "range_condition_rows": [],
+      "range_condition_row_count": 0,
+      "template_bound_range_condition_status": "NOT_APPLICABLE",
+      "ocf015_score_display_alignment_status": "NOT_APPLICABLE",
+      "denominator_guard_count": 0,
+      "missing_symbol_count": 0,
+      "assumptions_present": true,
+      "assumption_count": 2,
+      "assumption_bodies": [
+        {
+          "assumption_id": "assumption_1",
+          "text": "Formula is part of the curated V010 workbench symbolic surface.",
+          "text_hash": "fdc8685effd550aac01ff497999834b8fea0f06c05a06ee9586c0bfa3ba8c6ac",
+          "status": "VISIBLE_NONPLACEHOLDER"
+        },
+        {
+          "assumption_id": "assumption_2",
+          "text": "Formula validity is bounded by its source/boundary row and does not imply external peer review.",
+          "text_hash": "780b538ce39954dd61f0bbc27e70fd59db87e69023fdb70ae19a37cced46fccb",
+          "status": "VISIBLE_NONPLACEHOLDER"
+        }
+      ],
+      "assumption_audit_status": "PASS",
+      "validation_rule_count": 5,
+      "validation_rule_bodies": [
+        {
+          "rule_id": "FORMULA_RULE_001",
+          "rule_text": "semantic title present",
+          "status": "PASS",
+          "hash_basis": [
+            "semantic_title",
+            "formula_title"
+          ]
+        },
+        {
+          "rule_id": "FORMULA_RULE_002",
+          "rule_text": "operator glossary present",
+          "status": "PASS",
+          "hash_basis": [
+            "operator_glossary",
+            "operator_meanings"
+          ]
+        },
+        {
+          "rule_id": "FORMULA_RULE_003",
+          "rule_text": "consequences present",
+          "status": "PASS",
+          "hash_basis": [
+            "consequences"
+          ]
+        },
+        {
+          "rule_id": "FORMULA_RULE_004",
+          "rule_text": "diagnostic chart present",
+          "status": "PASS",
+          "hash_basis": [
+            "chart_spec",
+            "diagnostic_chart"
+          ]
+        },
+        {
+          "rule_id": "FORMULA_RULE_005",
+          "rule_text": "source or boundary present",
+          "status": "PASS",
+          "hash_basis": [
+            "source_refs",
+            "source_boundary",
+            "nonclaim_boundary"
+          ]
+        }
+      ],
+      "validation_rule_audit_status": "PASS",
+      "dimensional_consistency_status": "PASS_SYMBOLIC_DIMENSION_CONTRACT",
+      "chart_provenance_present": true,
+      "ui_probe_contract_id": "formula-probe::OCF-013",
+      "boundary_mapping_status": "EVIDENCE_BOUNDARY_LINKED",
+      "needs_formalization_boundary": false
+    },
+    {
+      "formula_id": "OCF-014",
+      "semantic_title": "Domain projection",
+      "interpretation": "A domain lane is a projection of OC structure through domain constants and units.",
+      "quality_status": "WORKBENCH_READY_BOUNDARY_CHECKED",
+      "render_quality": null,
+      "render_quality_status": "PASS_KATEX",
+      "source_atom_id": "",
+      "source_refs": [
+        "SRC::formula::OC_CORE_V010_CANONICAL_FORMULA_SURFACE::a2d9e56e8a28a701"
+      ],
+      "formula_source_refs": [
+        "SRC::formula::OC_CORE_V010_CANONICAL_FORMULA_SURFACE::a2d9e56e8a28a701"
+      ],
+      "linked_atoms": [],
+      "linked_term_count": 0,
+      "typed_symbol_signature_count": 5,
+      "symbol_table_count": 5,
+      "semantic_symbol_contract_status": "PASS_CURATED_SEMANTIC_SYMBOLS",
+      "parser_tokens_excluded": true,
+      "parser_token_symbol_count": 0,
+      "dimension_operation_check_count": 1,
+      "dimension_operations": [
+        "symbolic_relation"
+      ],
+      "tuple_component_update_status": "NOT_APPLICABLE",
+      "inherited_tuple_component_binding_status": "NOT_APPLICABLE",
+      "inherited_tuple_component_bindings": [],
+      "path_depth_binding_status": "NOT_APPLICABLE",
+      "ocf006_visible_notation_status": "NOT_APPLICABLE",
+      "ocf006_missing_visible_notation": [],
+      "range_claim_condition_status": "NOT_APPLICABLE",
+      "range_claim_conditions": [],
+      "range_condition_rows": [],
+      "range_condition_row_count": 0,
+      "template_bound_range_condition_status": "NOT_APPLICABLE",
+      "ocf015_score_display_alignment_status": "NOT_APPLICABLE",
+      "denominator_guard_count": 0,
+      "missing_symbol_count": 0,
+      "assumptions_present": true,
+      "assumption_count": 2,
+      "assumption_bodies": [
+        {
+          "assumption_id": "assumption_1",
+          "text": "Formula is part of the curated V010 workbench symbolic surface.",
+          "text_hash": "fdc8685effd550aac01ff497999834b8fea0f06c05a06ee9586c0bfa3ba8c6ac",
+          "status": "VISIBLE_NONPLACEHOLDER"
+        },
+        {
+          "assumption_id": "assumption_2",
+          "text": "Formula validity is bounded by its source/boundary row and does not imply external peer review.",
+          "text_hash": "780b538ce39954dd61f0bbc27e70fd59db87e69023fdb70ae19a37cced46fccb",
+          "status": "VISIBLE_NONPLACEHOLDER"
+        }
+      ],
+      "assumption_audit_status": "PASS",
+      "validation_rule_count": 5,
+      "validation_rule_bodies": [
+        {
+          "rule_id": "FORMULA_RULE_001",
+          "rule_text": "semantic title present",
+          "status": "PASS",
+          "hash_basis": [
+            "semantic_title",
+            "formula_title"
+          ]
+        },
+        {
+          "rule_id": "FORMULA_RULE_002",
+          "rule_text": "operator glossary present",
+          "status": "PASS",
+          "hash_basis": [
+            "operator_glossary",
+            "operator_meanings"
+          ]
+        },
+        {
+          "rule_id": "FORMULA_RULE_003",
+          "rule_text": "consequences present",
+          "status": "PASS",
+          "hash_basis": [
+            "consequences"
+          ]
+        },
+        {
+          "rule_id": "FORMULA_RULE_004",
+          "rule_text": "diagnostic chart present",
+          "status": "PASS",
+          "hash_basis": [
+            "chart_spec",
+            "diagnostic_chart"
+          ]
+        },
+        {
+          "rule_id": "FORMULA_RULE_005",
+          "rule_text": "source or boundary present",
+          "status": "PASS",
+          "hash_basis": [
+            "source_refs",
+            "source_boundary",
+            "nonclaim_boundary"
+          ]
+        }
+      ],
+      "validation_rule_audit_status": "PASS",
+      "dimensional_consistency_status": "PASS_SYMBOLIC_DIMENSION_CONTRACT",
+      "chart_provenance_present": true,
+      "ui_probe_contract_id": "formula-probe::OCF-014",
+      "boundary_mapping_status": "EVIDENCE_BOUNDARY_LINKED",
+      "needs_formalization_boundary": false
+    },
+    {
+      "formula_id": "OCF-015",
+      "semantic_title": "Boundary inspectability score",
+      "interpretation": "The displayed score is route inspectability from visible component contributions. Boundary and obligation rows are capped by kappa_c and do not become proof closure.",
+      "quality_status": "WORKBENCH_READY_BOUNDARY_CHECKED",
+      "render_quality": null,
+      "render_quality_status": "PASS_KATEX",
+      "source_atom_id": "master_monograph__falsification_review__attack_response__atom_137__h322a543dc15e",
+      "source_refs": [
+        "SRC::formula::OC_CORE_V010_CANONICAL_FORMULA_SURFACE::a2d9e56e8a28a701"
+      ],
+      "formula_source_refs": [
+        "SRC::formula::OC_CORE_V010_CANONICAL_FORMULA_SURFACE::a2d9e56e8a28a701"
+      ],
+      "linked_atoms": [
+        "master_monograph__falsification_review__attack_response__atom_137__h322a543dc15e"
+      ],
+      "linked_term_count": 0,
+      "typed_symbol_signature_count": 8,
+      "symbol_table_count": 8,
+      "semantic_symbol_contract_status": "PASS_CURATED_SEMANTIC_SYMBOLS",
+      "parser_tokens_excluded": true,
+      "parser_token_symbol_count": 0,
+      "dimension_operation_check_count": 1,
+      "dimension_operations": [
+        "claim_class_score_cap"
+      ],
+      "tuple_component_update_status": "NOT_APPLICABLE",
+      "inherited_tuple_component_binding_status": "NOT_APPLICABLE",
+      "inherited_tuple_component_bindings": [],
+      "path_depth_binding_status": "NOT_APPLICABLE",
+      "ocf006_visible_notation_status": "NOT_APPLICABLE",
+      "ocf006_missing_visible_notation": [],
+      "range_claim_condition_status": "PASS",
+      "range_claim_conditions": [
+        "E_display(c) is in [0,1] when every b_i(c) is nonnegative and kappa_c is in [0,1]; boundary/obligation rows use kappa_c<1 and remain non-proof scores."
+      ],
+      "range_condition_rows": [],
+      "range_condition_row_count": 0,
+      "template_bound_range_condition_status": "NOT_APPLICABLE",
+      "ocf015_score_display_alignment_status": "PASS",
+      "denominator_guard_count": 0,
+      "missing_symbol_count": 0,
+      "assumptions_present": true,
+      "assumption_count": 2,
+      "assumption_bodies": [
+        {
+          "assumption_id": "assumption_1",
+          "text": "Formula is part of the curated V010 workbench symbolic surface.",
+          "text_hash": "fdc8685effd550aac01ff497999834b8fea0f06c05a06ee9586c0bfa3ba8c6ac",
+          "status": "VISIBLE_NONPLACEHOLDER"
+        },
+        {
+          "assumption_id": "assumption_2",
+          "text": "Formula validity is bounded by its source/boundary row and does not imply external peer review.",
+          "text_hash": "780b538ce39954dd61f0bbc27e70fd59db87e69023fdb70ae19a37cced46fccb",
+          "status": "VISIBLE_NONPLACEHOLDER"
+        }
+      ],
+      "assumption_audit_status": "PASS",
+      "validation_rule_count": 5,
+      "validation_rule_bodies": [
+        {
+          "rule_id": "FORMULA_RULE_001",
+          "rule_text": "semantic title present",
+          "status": "PASS",
+          "hash_basis": [
+            "semantic_title",
+            "formula_title"
+          ]
+        },
+        {
+          "rule_id": "FORMULA_RULE_002",
+          "rule_text": "operator glossary present",
+          "status": "PASS",
+          "hash_basis": [
+            "operator_glossary",
+            "operator_meanings"
+          ]
+        },
+        {
+          "rule_id": "FORMULA_RULE_003",
+          "rule_text": "consequences present",
+          "status": "PASS",
+          "hash_basis": [
+            "consequences"
+          ]
+        },
+        {
+          "rule_id": "FORMULA_RULE_004",
+          "rule_text": "diagnostic chart present",
+          "status": "PASS",
+          "hash_basis": [
+            "chart_spec",
+            "diagnostic_chart"
+          ]
+        },
+        {
+          "rule_id": "FORMULA_RULE_005",
+          "rule_text": "source or boundary present",
+          "status": "PASS",
+          "hash_basis": [
+            "source_refs",
+            "source_boundary",
+            "nonclaim_boundary"
+          ]
+        }
+      ],
+      "validation_rule_audit_status": "PASS",
+      "dimensional_consistency_status": "PASS_SYMBOLIC_DIMENSION_CONTRACT",
+      "chart_provenance_present": true,
+      "ui_probe_contract_id": "formula-probe::OCF-015",
+      "boundary_mapping_status": "EVIDENCE_BOUNDARY_LINKED",
+      "needs_formalization_boundary": false
+    }
+  ],
+  "report_hash": "6954162ec8bb29ff94811e1c36327789a1592450f5c7149d5d51956b7fba856f"
+}

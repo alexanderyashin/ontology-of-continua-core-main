@@ -1,0 +1,515 @@
+{
+  "schema_version": "oc-core-demo-global-hash-lineage.v010",
+  "demo_version": "V010",
+  "release_ordinal": "010",
+  "status": "PASS",
+  "row_total": 17,
+  "canonical_hash_scope_total": 3,
+  "derived_hash_scope_total": 14,
+  "canonical_scope_rows": [
+    {
+      "hash_id": "atlas_determinism_hash",
+      "value": "359fdaea5dc5a0e4323beeded670e26e45ac336e8921f4840052b05fd42873ce",
+      "scope": "canonical generated atlas payload",
+      "producer": "atlas_determinism",
+      "scope_reason": "atlas_determinism_hash is valid only for scope: canonical generated atlas payload"
+    },
+    {
+      "hash_id": "graph_summary_graph_hash",
+      "value": "5d3c5e992670faf132b2d06f93c2811bbfb0d8e207c2e3cc7c8d70adc0feeb47",
+      "scope": "science graph summary hash from generated graph",
+      "producer": "graph_summary_graph",
+      "scope_reason": "graph_summary_graph_hash is valid only for scope: science graph summary hash from generated graph"
+    },
+    {
+      "hash_id": "hierarchy_graph_hash",
+      "value": "2002f35a07c8373e7929f5dc756725beb0ef16effef6cd5da10ba6f8254288bc",
+      "scope": "full science graph nodes/edges/routes in current atlas",
+      "producer": "hierarchy_graph",
+      "scope_reason": "hierarchy_graph_hash is valid only for scope: full science graph nodes/edges/routes in current atlas"
+    }
+  ],
+  "derived_scope_rows": [
+    {
+      "hash_id": "corpus_completeness_report.report_hash",
+      "value": "97a7c04f6a869d6d6c3473800a9589302d03f62503958f33eda002b11deea27e",
+      "scope": "corpus_completeness_report.report_hash",
+      "producer": "corpus_completeness_report::report",
+      "scope_reason": "corpus_completeness_report.report_hash is valid only for scope: corpus_completeness_report.report_hash",
+      "canonical_reference_policy": "Canonical hashes bind generated source payloads; derived hashes bind projections, selected routes, exports or reconciliation packets and must not be substituted for canonical source identity."
+    },
+    {
+      "hash_id": "wiki_bridge_contract.bridge_hash",
+      "value": "921668bbb1192cf21191af91c236a4cc979b57f4d113ec131dd1e003448240fd",
+      "scope": "wiki_bridge_contract.bridge_hash",
+      "producer": "wiki_bridge_contract::bridge",
+      "scope_reason": "wiki_bridge_contract.bridge_hash is valid only for scope: wiki_bridge_contract.bridge_hash",
+      "canonical_reference_policy": "Canonical hashes bind generated source payloads; derived hashes bind projections, selected routes, exports or reconciliation packets and must not be substituted for canonical source identity."
+    },
+    {
+      "hash_id": "wiki_graph_corpus_reconciliation.reconciliation_hash",
+      "value": "fa996c589aa5312f91fe09c219cd19031ebd1c24426187f8b08d31c254f6d18c",
+      "scope": "wiki_graph_corpus_reconciliation.reconciliation_hash",
+      "producer": "wiki_graph_corpus_reconciliation::reconciliation",
+      "scope_reason": "wiki_graph_corpus_reconciliation.reconciliation_hash is valid only for scope: wiki_graph_corpus_reconciliation.reconciliation_hash",
+      "canonical_reference_policy": "Canonical hashes bind generated source payloads; derived hashes bind projections, selected routes, exports or reconciliation packets and must not be substituted for canonical source identity."
+    },
+    {
+      "hash_id": "graph_readability_full_graph_hash",
+      "value": "a93941da9b0ddc1e1d040ffbea6b3f3cecfd5dc0d6f3a41436815f2672cd07e3",
+      "scope": "full graph hash is over all nodes/edges; filtered hash is over default readable layers/relations; selected route hash is over root-path route state only.",
+      "producer": "graph_readability_full_graph",
+      "scope_reason": "graph_readability_full_graph_hash is valid only for scope: full graph hash is over all nodes/edges; filtered hash is over default readable layers/relations; selected route hash is over root-path route state only.",
+      "canonical_reference_policy": "Canonical hashes bind generated source payloads; derived hashes bind projections, selected routes, exports or reconciliation packets and must not be substituted for canonical source identity."
+    },
+    {
+      "hash_id": "graph_readability_filtered_hash",
+      "value": "b489da774f89f12a5dfa176a3dc14fe71dd9170ba14b827e4b286c3b9ccdafa8",
+      "scope": "default readable graph layers/relations only",
+      "producer": "graph_readability_filtered",
+      "scope_reason": "graph_readability_filtered_hash is valid only for scope: default readable graph layers/relations only",
+      "canonical_reference_policy": "Canonical hashes bind generated source payloads; derived hashes bind projections, selected routes, exports or reconciliation packets and must not be substituted for canonical source identity."
+    },
+    {
+      "hash_id": "graph_readability_selected_route_hash",
+      "value": "13a0db0cc2bea765330a2153aaee8fc1449ae08baccc56427162a910c725542b",
+      "scope": "root-path route state",
+      "producer": "graph_readability_selected_route",
+      "scope_reason": "graph_readability_selected_route_hash is valid only for scope: root-path route state",
+      "canonical_reference_policy": "Canonical hashes bind generated source payloads; derived hashes bind projections, selected routes, exports or reconciliation packets and must not be substituted for canonical source identity."
+    },
+    {
+      "hash_id": "hierarchy_source_manifest_hash",
+      "value": "f685794159a16548cc9baf8bbce05868097e6824692b10cd8baf3a65a45ee365",
+      "scope": "all generated K-level and M-space source/status rows",
+      "producer": "hierarchy_source_manifest",
+      "scope_reason": "hierarchy_source_manifest_hash is valid only for scope: all generated K-level and M-space source/status rows",
+      "canonical_reference_policy": "Canonical hashes bind generated source payloads; derived hashes bind projections, selected routes, exports or reconciliation packets and must not be substituted for canonical source identity."
+    },
+    {
+      "hash_id": "hierarchy_selected_route_hash",
+      "value": "e9cd8bd1de31c2a07bb4725ff78affe05232d9c86bec3b7ba4751b6f9a536f51",
+      "scope": "currently selected K-level, bound M-space, lower dependencies, top-down constraints and domain projections",
+      "producer": "hierarchy_selected_route",
+      "scope_reason": "hierarchy_selected_route_hash is valid only for scope: currently selected K-level, bound M-space, lower dependencies, top-down constraints and domain projections",
+      "canonical_reference_policy": "Canonical hashes bind generated source payloads; derived hashes bind projections, selected routes, exports or reconciliation packets and must not be substituted for canonical source identity."
+    },
+    {
+      "hash_id": "hierarchy_export_hash",
+      "value": "880004ded3a9b5967b9f13934d7c250aa294efbea04697b876124a11f5f78435",
+      "scope": "K/M export packet binding graph/source/route scopes",
+      "producer": "hierarchy_export",
+      "scope_reason": "hierarchy_export_hash is valid only for scope: K/M export packet binding graph/source/route scopes",
+      "canonical_reference_policy": "Canonical hashes bind generated source payloads; derived hashes bind projections, selected routes, exports or reconciliation packets and must not be substituted for canonical source identity."
+    },
+    {
+      "hash_id": "cascade_contract_hash",
+      "value": "a28012097ecb8e000bc042e6268875f4383637bee1da8460531274b6add5657b",
+      "scope": "cascade export contract with metric/provenance bindings",
+      "producer": "cascade_contract",
+      "scope_reason": "cascade_contract_hash is valid only for scope: cascade export contract with metric/provenance bindings",
+      "canonical_reference_policy": "Canonical hashes bind generated source payloads; derived hashes bind projections, selected routes, exports or reconciliation packets and must not be substituted for canonical source identity."
+    },
+    {
+      "hash_id": "cascade_result_hash",
+      "value": "f1ec3b33c5724f77d0e04680a0aad01bb3080a0e7c25b322925744fa6c0fba5d",
+      "scope": "selected cascade sample scenario result",
+      "producer": "cascade_result",
+      "scope_reason": "cascade_result_hash is valid only for scope: selected cascade sample scenario result",
+      "canonical_reference_policy": "Canonical hashes bind generated source payloads; derived hashes bind projections, selected routes, exports or reconciliation packets and must not be substituted for canonical source identity."
+    },
+    {
+      "hash_id": "workbench_contract_hash",
+      "value": "420260d5c6fbc2dbdad07e193a0e036929aa95f89ec723cb3ada238ba8ba5856",
+      "scope": "architect decision export contract",
+      "producer": "workbench_contract",
+      "scope_reason": "workbench_contract_hash is valid only for scope: architect decision export contract",
+      "canonical_reference_policy": "Canonical hashes bind generated source payloads; derived hashes bind projections, selected routes, exports or reconciliation packets and must not be substituted for canonical source identity."
+    },
+    {
+      "hash_id": "workbench_result_hash",
+      "value": "32344051a2656a0e7a9232c849642722bc5696d337c67242ca3ee8eb8aa1879b",
+      "scope": "diagnose-kill-improve-compare-export sample packet",
+      "producer": "workbench_result",
+      "scope_reason": "workbench_result_hash is valid only for scope: diagnose-kill-improve-compare-export sample packet",
+      "canonical_reference_policy": "Canonical hashes bind generated source payloads; derived hashes bind projections, selected routes, exports or reconciliation packets and must not be substituted for canonical source identity."
+    },
+    {
+      "hash_id": "model_comparison_claim_ledger_hash",
+      "value": "1deec9b3616041bcd76656314787132cd2d2efc45665afc20ff3a03789d899e4",
+      "scope": "model comparison rows with claim_id, assumptions, formula_ref, row_hash and nonreplacement boundaries",
+      "producer": "model_comparison_claim_ledger",
+      "scope_reason": "model_comparison_claim_ledger_hash is valid only for scope: model comparison rows with claim_id, assumptions, formula_ref, row_hash and nonreplacement boundaries",
+      "canonical_reference_policy": "Canonical hashes bind generated source payloads; derived hashes bind projections, selected routes, exports or reconciliation packets and must not be substituted for canonical source identity."
+    }
+  ],
+  "alias_groups": [],
+  "alias_group_total": 0,
+  "canonical_substitution_policy": "Derived export/view hashes may cite canonical hashes but cannot replace atlas/graph/source identity; aliases require visible hash_id, scope, producer and hash_scope_class.",
+  "canonical_vs_derived_reconciliation": {
+    "status": "PASS",
+    "canonical_scope_ids": [
+      "atlas_determinism_hash",
+      "graph_summary_graph_hash",
+      "hierarchy_graph_hash"
+    ],
+    "derived_scope_ids": [
+      "corpus_completeness_report.report_hash",
+      "wiki_bridge_contract.bridge_hash",
+      "wiki_graph_corpus_reconciliation.reconciliation_hash",
+      "graph_readability_full_graph_hash",
+      "graph_readability_filtered_hash",
+      "graph_readability_selected_route_hash",
+      "hierarchy_source_manifest_hash",
+      "hierarchy_selected_route_hash",
+      "hierarchy_export_hash",
+      "cascade_contract_hash",
+      "cascade_result_hash",
+      "workbench_contract_hash",
+      "workbench_result_hash",
+      "model_comparison_claim_ledger_hash"
+    ],
+    "alias_group_total": 0,
+    "alias_groups": [],
+    "canonical_substitution_policy": "Derived export/view hashes may cite canonical hashes but cannot replace atlas/graph/source identity; aliases require visible hash_id, scope, producer and hash_scope_class."
+  },
+  "rows": [
+    {
+      "hash_id": "corpus_completeness_report.report_hash",
+      "value": "97a7c04f6a869d6d6c3473800a9589302d03f62503958f33eda002b11deea27e",
+      "scope": "corpus_completeness_report.report_hash",
+      "anchors": [
+        "corpus completeness",
+        "lineage"
+      ],
+      "producer": "corpus_completeness_report::report",
+      "scope_reason": "corpus_completeness_report.report_hash is valid only for scope: corpus_completeness_report.report_hash",
+      "search_key": "97a7c04f6a869d6d",
+      "hash_scope_class": "DERIVED_EXPORT_OR_VIEW_HASH",
+      "canonical_vs_derived_policy": "Canonical hashes bind generated source payloads; derived hashes bind projections, selected routes, exports or reconciliation packets and must not be substituted for canonical source identity.",
+      "visible_value_occurrence_count": 1,
+      "unique_lineage_policy": "If a value appears on more than one row, the differing hash_id/scope fields are the disambiguation; UI search must show hash_id, scope and producer.",
+      "alias_policy": "UNIQUE_VALUE_IN_PACKET",
+      "same_value_hash_ids": [
+        "corpus_completeness_report.report_hash"
+      ]
+    },
+    {
+      "hash_id": "atlas_determinism_hash",
+      "value": "359fdaea5dc5a0e4323beeded670e26e45ac336e8921f4840052b05fd42873ce",
+      "scope": "canonical generated atlas payload",
+      "anchors": [
+        "atlas",
+        "reviewer export"
+      ],
+      "producer": "atlas_determinism",
+      "scope_reason": "atlas_determinism_hash is valid only for scope: canonical generated atlas payload",
+      "search_key": "359fdaea5dc5a0e4",
+      "hash_scope_class": "CANONICAL_SOURCE_HASH",
+      "canonical_vs_derived_policy": "Canonical source hash may be referenced by derived exports, but retains its original source scope.",
+      "visible_value_occurrence_count": 1,
+      "unique_lineage_policy": "If a value appears on more than one row, the differing hash_id/scope fields are the disambiguation; UI search must show hash_id, scope and producer.",
+      "alias_policy": "UNIQUE_VALUE_IN_PACKET",
+      "same_value_hash_ids": [
+        "atlas_determinism_hash"
+      ]
+    },
+    {
+      "hash_id": "wiki_bridge_contract.bridge_hash",
+      "value": "921668bbb1192cf21191af91c236a4cc979b57f4d113ec131dd1e003448240fd",
+      "scope": "wiki_bridge_contract.bridge_hash",
+      "anchors": [
+        "wiki",
+        "proof",
+        "reviewer export"
+      ],
+      "producer": "wiki_bridge_contract::bridge",
+      "scope_reason": "wiki_bridge_contract.bridge_hash is valid only for scope: wiki_bridge_contract.bridge_hash",
+      "search_key": "921668bbb1192cf2",
+      "hash_scope_class": "DERIVED_EXPORT_OR_VIEW_HASH",
+      "canonical_vs_derived_policy": "Canonical hashes bind generated source payloads; derived hashes bind projections, selected routes, exports or reconciliation packets and must not be substituted for canonical source identity.",
+      "visible_value_occurrence_count": 1,
+      "unique_lineage_policy": "If a value appears on more than one row, the differing hash_id/scope fields are the disambiguation; UI search must show hash_id, scope and producer.",
+      "alias_policy": "UNIQUE_VALUE_IN_PACKET",
+      "same_value_hash_ids": [
+        "wiki_bridge_contract.bridge_hash"
+      ]
+    },
+    {
+      "hash_id": "wiki_graph_corpus_reconciliation.reconciliation_hash",
+      "value": "fa996c589aa5312f91fe09c219cd19031ebd1c24426187f8b08d31c254f6d18c",
+      "scope": "wiki_graph_corpus_reconciliation.reconciliation_hash",
+      "anchors": [
+        "wiki",
+        "graph",
+        "reviewer export"
+      ],
+      "producer": "wiki_graph_corpus_reconciliation::reconciliation",
+      "scope_reason": "wiki_graph_corpus_reconciliation.reconciliation_hash is valid only for scope: wiki_graph_corpus_reconciliation.reconciliation_hash",
+      "search_key": "fa996c589aa5312f",
+      "hash_scope_class": "DERIVED_EXPORT_OR_VIEW_HASH",
+      "canonical_vs_derived_policy": "Canonical hashes bind generated source payloads; derived hashes bind projections, selected routes, exports or reconciliation packets and must not be substituted for canonical source identity.",
+      "visible_value_occurrence_count": 1,
+      "unique_lineage_policy": "If a value appears on more than one row, the differing hash_id/scope fields are the disambiguation; UI search must show hash_id, scope and producer.",
+      "alias_policy": "UNIQUE_VALUE_IN_PACKET",
+      "same_value_hash_ids": [
+        "wiki_graph_corpus_reconciliation.reconciliation_hash"
+      ]
+    },
+    {
+      "hash_id": "graph_summary_graph_hash",
+      "value": "5d3c5e992670faf132b2d06f93c2811bbfb0d8e207c2e3cc7c8d70adc0feeb47",
+      "scope": "science graph summary hash from generated graph",
+      "anchors": [
+        "science graph"
+      ],
+      "producer": "graph_summary_graph",
+      "scope_reason": "graph_summary_graph_hash is valid only for scope: science graph summary hash from generated graph",
+      "search_key": "5d3c5e992670faf1",
+      "hash_scope_class": "CANONICAL_SOURCE_HASH",
+      "canonical_vs_derived_policy": "Canonical source hash may be referenced by derived exports, but retains its original source scope.",
+      "visible_value_occurrence_count": 1,
+      "unique_lineage_policy": "If a value appears on more than one row, the differing hash_id/scope fields are the disambiguation; UI search must show hash_id, scope and producer.",
+      "alias_policy": "UNIQUE_VALUE_IN_PACKET",
+      "same_value_hash_ids": [
+        "graph_summary_graph_hash"
+      ]
+    },
+    {
+      "hash_id": "graph_readability_full_graph_hash",
+      "value": "a93941da9b0ddc1e1d040ffbea6b3f3cecfd5dc0d6f3a41436815f2672cd07e3",
+      "scope": "full graph hash is over all nodes/edges; filtered hash is over default readable layers/relations; selected route hash is over root-path route state only.",
+      "anchors": [
+        "science graph",
+        "reviewer"
+      ],
+      "producer": "graph_readability_full_graph",
+      "scope_reason": "graph_readability_full_graph_hash is valid only for scope: full graph hash is over all nodes/edges; filtered hash is over default readable layers/relations; selected route hash is over root-path route state only.",
+      "search_key": "a93941da9b0ddc1e",
+      "hash_scope_class": "DERIVED_EXPORT_OR_VIEW_HASH",
+      "canonical_vs_derived_policy": "Canonical hashes bind generated source payloads; derived hashes bind projections, selected routes, exports or reconciliation packets and must not be substituted for canonical source identity.",
+      "visible_value_occurrence_count": 1,
+      "unique_lineage_policy": "If a value appears on more than one row, the differing hash_id/scope fields are the disambiguation; UI search must show hash_id, scope and producer.",
+      "alias_policy": "UNIQUE_VALUE_IN_PACKET",
+      "same_value_hash_ids": [
+        "graph_readability_full_graph_hash"
+      ]
+    },
+    {
+      "hash_id": "graph_readability_filtered_hash",
+      "value": "b489da774f89f12a5dfa176a3dc14fe71dd9170ba14b827e4b286c3b9ccdafa8",
+      "scope": "default readable graph layers/relations only",
+      "anchors": [
+        "science graph filters"
+      ],
+      "producer": "graph_readability_filtered",
+      "scope_reason": "graph_readability_filtered_hash is valid only for scope: default readable graph layers/relations only",
+      "search_key": "b489da774f89f12a",
+      "hash_scope_class": "DERIVED_EXPORT_OR_VIEW_HASH",
+      "canonical_vs_derived_policy": "Canonical hashes bind generated source payloads; derived hashes bind projections, selected routes, exports or reconciliation packets and must not be substituted for canonical source identity.",
+      "visible_value_occurrence_count": 1,
+      "unique_lineage_policy": "If a value appears on more than one row, the differing hash_id/scope fields are the disambiguation; UI search must show hash_id, scope and producer.",
+      "alias_policy": "UNIQUE_VALUE_IN_PACKET",
+      "same_value_hash_ids": [
+        "graph_readability_filtered_hash"
+      ]
+    },
+    {
+      "hash_id": "graph_readability_selected_route_hash",
+      "value": "13a0db0cc2bea765330a2153aaee8fc1449ae08baccc56427162a910c725542b",
+      "scope": "root-path route state",
+      "anchors": [
+        "science graph route explorer"
+      ],
+      "producer": "graph_readability_selected_route",
+      "scope_reason": "graph_readability_selected_route_hash is valid only for scope: root-path route state",
+      "search_key": "13a0db0cc2bea765",
+      "hash_scope_class": "DERIVED_EXPORT_OR_VIEW_HASH",
+      "canonical_vs_derived_policy": "Canonical hashes bind generated source payloads; derived hashes bind projections, selected routes, exports or reconciliation packets and must not be substituted for canonical source identity.",
+      "visible_value_occurrence_count": 1,
+      "unique_lineage_policy": "If a value appears on more than one row, the differing hash_id/scope fields are the disambiguation; UI search must show hash_id, scope and producer.",
+      "alias_policy": "UNIQUE_VALUE_IN_PACKET",
+      "same_value_hash_ids": [
+        "graph_readability_selected_route_hash"
+      ]
+    },
+    {
+      "hash_id": "hierarchy_graph_hash",
+      "value": "2002f35a07c8373e7929f5dc756725beb0ef16effef6cd5da10ba6f8254288bc",
+      "scope": "full science graph nodes/edges/routes in current atlas",
+      "anchors": [
+        "K/M export"
+      ],
+      "producer": "hierarchy_graph",
+      "scope_reason": "hierarchy_graph_hash is valid only for scope: full science graph nodes/edges/routes in current atlas",
+      "search_key": "2002f35a07c8373e",
+      "hash_scope_class": "CANONICAL_SOURCE_HASH",
+      "canonical_vs_derived_policy": "Canonical source hash may be referenced by derived exports, but retains its original source scope.",
+      "visible_value_occurrence_count": 1,
+      "unique_lineage_policy": "If a value appears on more than one row, the differing hash_id/scope fields are the disambiguation; UI search must show hash_id, scope and producer.",
+      "alias_policy": "UNIQUE_VALUE_IN_PACKET",
+      "same_value_hash_ids": [
+        "hierarchy_graph_hash"
+      ]
+    },
+    {
+      "hash_id": "hierarchy_source_manifest_hash",
+      "value": "f685794159a16548cc9baf8bbce05868097e6824692b10cd8baf3a65a45ee365",
+      "scope": "all generated K-level and M-space source/status rows",
+      "anchors": [
+        "K/M export"
+      ],
+      "producer": "hierarchy_source_manifest",
+      "scope_reason": "hierarchy_source_manifest_hash is valid only for scope: all generated K-level and M-space source/status rows",
+      "search_key": "f685794159a16548",
+      "hash_scope_class": "DERIVED_EXPORT_OR_VIEW_HASH",
+      "canonical_vs_derived_policy": "Canonical hashes bind generated source payloads; derived hashes bind projections, selected routes, exports or reconciliation packets and must not be substituted for canonical source identity.",
+      "visible_value_occurrence_count": 1,
+      "unique_lineage_policy": "If a value appears on more than one row, the differing hash_id/scope fields are the disambiguation; UI search must show hash_id, scope and producer.",
+      "alias_policy": "UNIQUE_VALUE_IN_PACKET",
+      "same_value_hash_ids": [
+        "hierarchy_source_manifest_hash"
+      ]
+    },
+    {
+      "hash_id": "hierarchy_selected_route_hash",
+      "value": "e9cd8bd1de31c2a07bb4725ff78affe05232d9c86bec3b7ba4751b6f9a536f51",
+      "scope": "currently selected K-level, bound M-space, lower dependencies, top-down constraints and domain projections",
+      "anchors": [
+        "K/M export"
+      ],
+      "producer": "hierarchy_selected_route",
+      "scope_reason": "hierarchy_selected_route_hash is valid only for scope: currently selected K-level, bound M-space, lower dependencies, top-down constraints and domain projections",
+      "search_key": "e9cd8bd1de31c2a0",
+      "hash_scope_class": "DERIVED_EXPORT_OR_VIEW_HASH",
+      "canonical_vs_derived_policy": "Canonical hashes bind generated source payloads; derived hashes bind projections, selected routes, exports or reconciliation packets and must not be substituted for canonical source identity.",
+      "visible_value_occurrence_count": 1,
+      "unique_lineage_policy": "If a value appears on more than one row, the differing hash_id/scope fields are the disambiguation; UI search must show hash_id, scope and producer.",
+      "alias_policy": "UNIQUE_VALUE_IN_PACKET",
+      "same_value_hash_ids": [
+        "hierarchy_selected_route_hash"
+      ]
+    },
+    {
+      "hash_id": "hierarchy_export_hash",
+      "value": "880004ded3a9b5967b9f13934d7c250aa294efbea04697b876124a11f5f78435",
+      "scope": "K/M export packet binding graph/source/route scopes",
+      "anchors": [
+        "K/M export"
+      ],
+      "producer": "hierarchy_export",
+      "scope_reason": "hierarchy_export_hash is valid only for scope: K/M export packet binding graph/source/route scopes",
+      "search_key": "880004ded3a9b596",
+      "hash_scope_class": "DERIVED_EXPORT_OR_VIEW_HASH",
+      "canonical_vs_derived_policy": "Canonical hashes bind generated source payloads; derived hashes bind projections, selected routes, exports or reconciliation packets and must not be substituted for canonical source identity.",
+      "visible_value_occurrence_count": 1,
+      "unique_lineage_policy": "If a value appears on more than one row, the differing hash_id/scope fields are the disambiguation; UI search must show hash_id, scope and producer.",
+      "alias_policy": "UNIQUE_VALUE_IN_PACKET",
+      "same_value_hash_ids": [
+        "hierarchy_export_hash"
+      ]
+    },
+    {
+      "hash_id": "cascade_contract_hash",
+      "value": "a28012097ecb8e000bc042e6268875f4383637bee1da8460531274b6add5657b",
+      "scope": "cascade export contract with metric/provenance bindings",
+      "anchors": [
+        "cascade",
+        "reviewer export"
+      ],
+      "producer": "cascade_contract",
+      "scope_reason": "cascade_contract_hash is valid only for scope: cascade export contract with metric/provenance bindings",
+      "search_key": "a28012097ecb8e00",
+      "hash_scope_class": "DERIVED_EXPORT_OR_VIEW_HASH",
+      "canonical_vs_derived_policy": "Canonical hashes bind generated source payloads; derived hashes bind projections, selected routes, exports or reconciliation packets and must not be substituted for canonical source identity.",
+      "visible_value_occurrence_count": 1,
+      "unique_lineage_policy": "If a value appears on more than one row, the differing hash_id/scope fields are the disambiguation; UI search must show hash_id, scope and producer.",
+      "alias_policy": "UNIQUE_VALUE_IN_PACKET",
+      "same_value_hash_ids": [
+        "cascade_contract_hash"
+      ]
+    },
+    {
+      "hash_id": "cascade_result_hash",
+      "value": "f1ec3b33c5724f77d0e04680a0aad01bb3080a0e7c25b322925744fa6c0fba5d",
+      "scope": "selected cascade sample scenario result",
+      "anchors": [
+        "cascade"
+      ],
+      "producer": "cascade_result",
+      "scope_reason": "cascade_result_hash is valid only for scope: selected cascade sample scenario result",
+      "search_key": "f1ec3b33c5724f77",
+      "hash_scope_class": "DERIVED_EXPORT_OR_VIEW_HASH",
+      "canonical_vs_derived_policy": "Canonical hashes bind generated source payloads; derived hashes bind projections, selected routes, exports or reconciliation packets and must not be substituted for canonical source identity.",
+      "visible_value_occurrence_count": 1,
+      "unique_lineage_policy": "If a value appears on more than one row, the differing hash_id/scope fields are the disambiguation; UI search must show hash_id, scope and producer.",
+      "alias_policy": "UNIQUE_VALUE_IN_PACKET",
+      "same_value_hash_ids": [
+        "cascade_result_hash"
+      ]
+    },
+    {
+      "hash_id": "workbench_contract_hash",
+      "value": "420260d5c6fbc2dbdad07e193a0e036929aa95f89ec723cb3ada238ba8ba5856",
+      "scope": "architect decision export contract",
+      "anchors": [
+        "workbench",
+        "reviewer export"
+      ],
+      "producer": "workbench_contract",
+      "scope_reason": "workbench_contract_hash is valid only for scope: architect decision export contract",
+      "search_key": "420260d5c6fbc2db",
+      "hash_scope_class": "DERIVED_EXPORT_OR_VIEW_HASH",
+      "canonical_vs_derived_policy": "Canonical hashes bind generated source payloads; derived hashes bind projections, selected routes, exports or reconciliation packets and must not be substituted for canonical source identity.",
+      "visible_value_occurrence_count": 1,
+      "unique_lineage_policy": "If a value appears on more than one row, the differing hash_id/scope fields are the disambiguation; UI search must show hash_id, scope and producer.",
+      "alias_policy": "UNIQUE_VALUE_IN_PACKET",
+      "same_value_hash_ids": [
+        "workbench_contract_hash"
+      ]
+    },
+    {
+      "hash_id": "workbench_result_hash",
+      "value": "32344051a2656a0e7a9232c849642722bc5696d337c67242ca3ee8eb8aa1879b",
+      "scope": "diagnose-kill-improve-compare-export sample packet",
+      "anchors": [
+        "workbench"
+      ],
+      "producer": "workbench_result",
+      "scope_reason": "workbench_result_hash is valid only for scope: diagnose-kill-improve-compare-export sample packet",
+      "search_key": "32344051a2656a0e",
+      "hash_scope_class": "DERIVED_EXPORT_OR_VIEW_HASH",
+      "canonical_vs_derived_policy": "Canonical hashes bind generated source payloads; derived hashes bind projections, selected routes, exports or reconciliation packets and must not be substituted for canonical source identity.",
+      "visible_value_occurrence_count": 1,
+      "unique_lineage_policy": "If a value appears on more than one row, the differing hash_id/scope fields are the disambiguation; UI search must show hash_id, scope and producer.",
+      "alias_policy": "UNIQUE_VALUE_IN_PACKET",
+      "same_value_hash_ids": [
+        "workbench_result_hash"
+      ]
+    },
+    {
+      "hash_id": "model_comparison_claim_ledger_hash",
+      "value": "1deec9b3616041bcd76656314787132cd2d2efc45665afc20ff3a03789d899e4",
+      "scope": "model comparison rows with claim_id, assumptions, formula_ref, row_hash and nonreplacement boundaries",
+      "anchors": [
+        "why oc",
+        "formula trace",
+        "reviewer export"
+      ],
+      "producer": "model_comparison_claim_ledger",
+      "scope_reason": "model_comparison_claim_ledger_hash is valid only for scope: model comparison rows with claim_id, assumptions, formula_ref, row_hash and nonreplacement boundaries",
+      "search_key": "1deec9b3616041bc",
+      "hash_scope_class": "DERIVED_EXPORT_OR_VIEW_HASH",
+      "canonical_vs_derived_policy": "Canonical hashes bind generated source payloads; derived hashes bind projections, selected routes, exports or reconciliation packets and must not be substituted for canonical source identity.",
+      "visible_value_occurrence_count": 1,
+      "unique_lineage_policy": "If a value appears on more than one row, the differing hash_id/scope fields are the disambiguation; UI search must show hash_id, scope and producer.",
+      "alias_policy": "UNIQUE_VALUE_IN_PACKET",
+      "same_value_hash_ids": [
+        "model_comparison_claim_ledger_hash"
+      ]
+    }
+  ],
+  "mismatch_policy": "Different hashes are valid only when their scope labels differ; export hashes bind multiple scoped hashes together.",
+  "nonclaim_boundary": "Hash lineage verifies reproducibility and scope, not scientific proof or external validation.",
+  "lineage_hash": "64f27967bd0a515565b5a70f9b8a718a808682c65b55000dfcf8c42893098b25"
+}

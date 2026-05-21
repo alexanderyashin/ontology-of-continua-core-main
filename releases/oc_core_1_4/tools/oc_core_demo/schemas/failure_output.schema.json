@@ -1,0 +1,55 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "OC Core 1.4 fail-closed output",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "demo_version",
+    "release_ordinal",
+    "release_label",
+    "status",
+    "spec_id",
+    "message",
+    "scientific_boundary",
+    "result_hash"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "oc-core-demo.v001"
+    },
+    "demo_version": {
+      "const": "V010"
+    },
+    "release_ordinal": {
+      "const": "010"
+    },
+    "release_label": {
+      "const": "OC Core 1.4 Demonstrator V010 Ideal RC"
+    },
+    "status": {
+      "const": "FAIL_CLOSED"
+    },
+    "spec_id": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "message": {
+      "type": "string",
+      "minLength": 1
+    },
+    "scientific_boundary": {
+      "type": "string",
+      "minLength": 1
+    },
+    "result_hash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    }
+  }
+}
+
+
+

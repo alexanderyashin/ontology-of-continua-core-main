@@ -1,0 +1,49 @@
+{
+  "schema_version": "oc-core-demo-wiki-graph-corpus-reconciliation.v010",
+  "status": "PASS",
+  "wiki_atom_total": 2487,
+  "graph_corpus_node_total": 240,
+  "one_to_one_count": 0,
+  "aggregated_atom_count": 2487,
+  "omitted_by_boundary_count": 0,
+  "unlinked_atom_count": 0,
+  "aggregation_policy": "Graph corpus nodes are chapter/section buckets; the wiki keeps atom-level text. V010 intentionally does not render one graph node per wiki atom.",
+  "count_scope_reconciliation": {
+    "status": "PASS",
+    "rows": [
+      {
+        "scope_id": "wiki.corpus_atoms",
+        "count": 2487,
+        "unit": "atom-level reader rows",
+        "source_field": "wiki.corpus_summary.atom_count or len(wiki.corpus_atoms)",
+        "count_policy": "One wiki count unit equals one public PASS atom reader row.",
+        "compare_policy": "Do not compare one-to-one against graph bucket nodes.",
+        "status": "PASS"
+      },
+      {
+        "scope_id": "science_graph.corpus_bucket_nodes",
+        "count": 240,
+        "unit": "chapter/section graph buckets",
+        "source_field": "science_graph_v010.nodes[layer=corpus_atom or cluster=corpus_atom]",
+        "count_policy": "One graph count unit may aggregate multiple wiki atoms.",
+        "compare_policy": "Compare by aggregation coverage, not equal raw counts.",
+        "status": "PASS"
+      },
+      {
+        "scope_id": "reconciliation.aggregated_atoms",
+        "count": 2487,
+        "unit": "wiki atoms covered by corpus buckets",
+        "source_field": "wiki atoms after chapter/section bucket aggregation",
+        "count_policy": "Aggregated atom count should equal wiki_atom_total when no public atom is omitted by boundary.",
+        "compare_policy": "This is the reconciliation count that may be compared to wiki_atom_total.",
+        "status": "PASS"
+      }
+    ],
+    "copy_check": "wiki_atom_total counts atom reader rows; graph_corpus_node_total counts aggregate graph buckets; aggregated_atom_count is the only cross-scope coverage count.",
+    "scope_mismatch_blocker": "A raw wiki atom count and raw graph bucket count may differ without failing when aggregation_policy and aggregated_atom_count are visible."
+  },
+  "count_scope_copy_check": "Counts are complete only when the UI names all three scopes: wiki atom rows, graph corpus bucket nodes, and aggregated atom coverage.",
+  "estimated_atoms_per_graph_node": 11,
+  "nonclaim_boundary": "Corpus reconciliation proves UI/index coverage, not scientific proof.",
+  "reconciliation_hash": "fa996c589aa5312f91fe09c219cd19031ebd1c24426187f8b08d31c254f6d18c"
+}

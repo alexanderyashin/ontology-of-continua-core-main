@@ -1,0 +1,50 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "OC Core 1.4 demonstrator output envelope",
+  "type": "object",
+  "additionalProperties": true,
+  "required": [
+    "schema_version",
+    "status",
+    "result_hash"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "oc-core-demo.v001"
+    },
+    "status": {
+      "enum": [
+        "PASS",
+        "FAIL_CLOSED"
+      ]
+    },
+    "spec_id": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "params": {
+      "type": "object"
+    },
+    "result": {
+      "type": "object"
+    },
+    "message": {
+      "type": "string"
+    },
+    "scientific_boundary": {
+      "type": "string"
+    },
+    "limits": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "result_hash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    }
+  }
+}

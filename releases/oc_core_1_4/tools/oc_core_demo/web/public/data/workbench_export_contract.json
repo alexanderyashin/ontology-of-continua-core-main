@@ -1,0 +1,260 @@
+{
+  "schema_version": "oc-core-demo-workbench-export-contract.v010",
+  "status": "PASS",
+  "visible_action_label": "Export architect decision packet",
+  "required_fields": [
+    "template_id",
+    "truth_mode",
+    "action_sequence",
+    "baseline_metrics",
+    "after_metrics",
+    "delta",
+    "changed_assumption",
+    "killed_node_id",
+    "killed_node_label",
+    "topology_hash",
+    "source_refs",
+    "graph_hash",
+    "result_hash",
+    "nonclaim_boundary"
+  ],
+  "sample_packet": {
+    "template_id": "civilization",
+    "promised_first_click_trace_id": "cockpit:first-clickable-example:civilization",
+    "truth_mode": "REPLAY_BACKED",
+    "headline_status": "BASELINE_REPLAY_BACKED_OR_BOUNDARY__EDITED_SCENARIO_EXPLORATORY_SANDBOX",
+    "edited_scenario_status": "EXPLORATORY_SANDBOX_AFTER_USER_CHANGE",
+    "not_replay_backed_after_edit": true,
+    "truth_mode_scope": {
+      "baseline_template": "REPLAY_BACKED",
+      "edited_packet": "EXPLORATORY_SANDBOX_AFTER_USER_CHANGE",
+      "boundary": "User edits do not inherit baseline replay/proof status; edited scenarios remain local diagnostics until replay-backed separately."
+    },
+    "action_sequence": [
+      "diagnose",
+      "kill",
+      "add_axis",
+      "add_compensator",
+      "compare",
+      "export"
+    ],
+    "kill_mode": "weakest_node",
+    "killed_node_id": "infrastructure",
+    "killed_node_label": "infrastructure",
+    "kill_stress_point_required": true,
+    "topology_hash": "e7db22ef5ff90ce869c1dd1e6c1c129b18523703643e666dd3fada94d2fa20fe",
+    "topology_identity_policy": "Packet hash changes when killed_node_id or topology_hash changes; system_id alone is never sufficient.",
+    "baseline_metrics": {
+      "collapse_depth": 5,
+      "recovery_index": 0.416667,
+      "recovery_index_display": 0.42,
+      "connectivity_loss": 0.61
+    },
+    "after_metrics": {
+      "collapse_depth": 2,
+      "recovery_index": 0.666667,
+      "recovery_index_display": 0.67,
+      "connectivity_loss": 0.38
+    },
+    "delta": {
+      "collapse_depth": -3,
+      "recovery_index": 0.25,
+      "connectivity_loss": -0.23
+    },
+    "recovery_precision_policy": "UI may display two decimals; export carries six-decimal recomputed OCF-009 values.",
+    "metric_formula_bindings": [
+      {
+        "metric": "collapse_depth",
+        "formula_id": "OCF-006",
+        "formula_role_id": "OCF-006.path_depth",
+        "formula_subtype": "path_depth",
+        "formula_visible_symbols": [
+          "P_c",
+          "D_c"
+        ],
+        "derivation": "D_c = |P_c|",
+        "baseline_input": {
+          "path_length": 5
+        },
+        "after_input": {
+          "path_length": 2
+        },
+        "delta": -3,
+        "boundary": "template-local cascade path depth"
+      },
+      {
+        "metric": "connectivity_loss",
+        "formula_id": "OCF-007",
+        "baseline_input": {
+          "failed_edges_ratio": 0.61
+        },
+        "after_input": {
+          "failed_edges_ratio": 0.38
+        },
+        "delta": -0.23,
+        "boundary": "template-local graph connectivity diagnostic"
+      },
+      {
+        "metric": "recovery_index",
+        "formula_id": "OCF-009",
+        "formula_visible_symbols": [
+          "Phi_before",
+          "Phi_min",
+          "Phi_after",
+          "epsilon",
+          "rho"
+        ],
+        "derivation": "rho=(Phi_after-Phi_min)/max(epsilon,Phi_before-Phi_min)",
+        "ocf_009_input_tuple": {
+          "formula_id": "OCF-009",
+          "Phi_before": 1.0,
+          "Phi_min": 0.28,
+          "Phi_after": 0.58,
+          "epsilon": 1e-09,
+          "rho_calculation": "(0.58-0.28)/max(1e-9,1.0-0.28)=0.416667",
+          "recomputed_recovery_index": 0.416667,
+          "schema_status": "PASS_SHARED_WITH_FORMULA_ATLAS_AND_CASCADE"
+        },
+        "baseline_input": {
+          "formula_id": "OCF-009",
+          "Phi_before": 1.0,
+          "Phi_min": 0.28,
+          "Phi_after": 0.58,
+          "epsilon": 1e-09,
+          "rho_calculation": "(0.58-0.28)/max(1e-9,1.0-0.28)=0.416667",
+          "recomputed_recovery_index": 0.416667
+        },
+        "after_input": {
+          "formula_id": "OCF-009",
+          "Phi_before": 1.0,
+          "Phi_min": 0.28,
+          "Phi_after": 0.76,
+          "epsilon": 1e-09,
+          "rho_calculation": "(0.76-0.28)/max(1e-9,1.0-0.28)=0.666667",
+          "recomputed_recovery_index": 0.666667
+        },
+        "delta": 0.25,
+        "boundary": "local recovery heuristic, not production forecast"
+      }
+    ],
+    "baseline_ocf_009_tuple": {
+      "formula_id": "OCF-009",
+      "Phi_before": 1.0,
+      "Phi_min": 0.28,
+      "Phi_after": 0.58,
+      "epsilon": 1e-09,
+      "rho_calculation": "(0.58-0.28)/max(1e-9,1.0-0.28)=0.416667",
+      "recomputed_recovery_index": 0.416667
+    },
+    "after_improvement_ocf_009_tuple": {
+      "formula_id": "OCF-009",
+      "Phi_before": 1.0,
+      "Phi_min": 0.28,
+      "Phi_after": 0.76,
+      "epsilon": 1e-09,
+      "rho_calculation": "(0.76-0.28)/max(1e-9,1.0-0.28)=0.666667",
+      "recomputed_recovery_index": 0.666667
+    },
+    "ocf_009_recomputation_row": {
+      "metric": "recovery_index",
+      "formula_id": "OCF-009",
+      "formula_visible_symbols": [
+        "Phi_before",
+        "Phi_min",
+        "Phi_after",
+        "epsilon",
+        "rho"
+      ],
+      "derivation": "rho=(Phi_after-Phi_min)/max(epsilon,Phi_before-Phi_min)",
+      "baseline_tuple": {
+        "formula_id": "OCF-009",
+        "Phi_before": 1.0,
+        "Phi_min": 0.28,
+        "Phi_after": 0.58,
+        "epsilon": 1e-09,
+        "rho_calculation": "(0.58-0.28)/max(1e-9,1.0-0.28)=0.416667",
+        "recomputed_recovery_index": 0.416667
+      },
+      "after_improvement_tuple": {
+        "formula_id": "OCF-009",
+        "Phi_before": 1.0,
+        "Phi_min": 0.28,
+        "Phi_after": 0.76,
+        "epsilon": 1e-09,
+        "rho_calculation": "(0.76-0.28)/max(1e-9,1.0-0.28)=0.666667",
+        "recomputed_recovery_index": 0.666667
+      },
+      "baseline_recomputed_recovery_index": 0.416667,
+      "after_improvement_recomputed_recovery_index": 0.666667,
+      "recovery_delta_calculation": "0.666667-0.416667=0.250000",
+      "recomputed_recovery_delta": 0.25,
+      "display_recovery_delta": 0.25,
+      "verification_note": "Reviewer can recompute both OCF-009 rows from visible Phi_before/Phi_min/Phi_after/epsilon inputs."
+    },
+    "ocf_009_recovery_delta_recomputation_row": {
+      "metric": "recovery_index",
+      "formula_id": "OCF-009",
+      "formula_visible_symbols": [
+        "Phi_before",
+        "Phi_min",
+        "Phi_after",
+        "epsilon",
+        "rho"
+      ],
+      "derivation": "rho=(Phi_after-Phi_min)/max(epsilon,Phi_before-Phi_min)",
+      "baseline_tuple": {
+        "formula_id": "OCF-009",
+        "Phi_before": 1.0,
+        "Phi_min": 0.28,
+        "Phi_after": 0.58,
+        "epsilon": 1e-09,
+        "rho_calculation": "(0.58-0.28)/max(1e-9,1.0-0.28)=0.416667",
+        "recomputed_recovery_index": 0.416667
+      },
+      "after_improvement_tuple": {
+        "formula_id": "OCF-009",
+        "Phi_before": 1.0,
+        "Phi_min": 0.28,
+        "Phi_after": 0.76,
+        "epsilon": 1e-09,
+        "rho_calculation": "(0.76-0.28)/max(1e-9,1.0-0.28)=0.666667",
+        "recomputed_recovery_index": 0.666667
+      },
+      "baseline_recomputed_recovery_index": 0.416667,
+      "after_improvement_recomputed_recovery_index": 0.666667,
+      "recovery_delta_calculation": "0.666667-0.416667=0.250000",
+      "recomputed_recovery_delta": 0.25,
+      "display_recovery_delta": 0.25,
+      "verification_note": "Reviewer can recompute both OCF-009 rows from visible Phi_before/Phi_min/Phi_after/epsilon inputs."
+    },
+    "ocf_009_recovery_metric_scope": {
+      "formula_id": "OCF-009",
+      "Phi_before": 1.0,
+      "Phi_min": 0.28,
+      "Phi_after": 0.58,
+      "epsilon": 1e-09,
+      "rho_calculation": "(0.58-0.28)/max(1e-9,1.0-0.28)=0.416667",
+      "recomputed_recovery_index": 0.416667,
+      "schema_status": "PASS_SHARED_WITH_FORMULA_ATLAS_AND_CASCADE"
+    },
+    "ocf_009_recovery_schema": {
+      "formula_id": "OCF-009",
+      "Phi_before": 1.0,
+      "Phi_min": 0.28,
+      "Phi_after": 0.58,
+      "epsilon": 1e-09,
+      "rho_calculation": "(0.58-0.28)/max(1e-9,1.0-0.28)=0.416667",
+      "recomputed_recovery_index": 0.416667,
+      "schema_status": "PASS_SHARED_WITH_FORMULA_ATLAS_AND_CASCADE"
+    },
+    "changed_assumption": "Added one computable axis and one compensator inside the selected M-space boundary.",
+    "source_refs": [
+      "V010_SYSTEM_TEMPLATE_BOUNDARY",
+      "V010_WORKBENCH_LOCAL_REPLAY"
+    ],
+    "graph_hash": "2002f35a07c8373e7929f5dc756725beb0ef16effef6cd5da10ba6f8254288bc",
+    "nonclaim_boundary": "Workbench export is a local architect decision aid; unsupported science remains boundary-marked.",
+    "result_hash": "32344051a2656a0e7a9232c849642722bc5696d337c67242ca3ee8eb8aa1879b"
+  },
+  "contract_hash": "420260d5c6fbc2dbdad07e193a0e036929aa95f89ec723cb3ada238ba8ba5856"
+}
