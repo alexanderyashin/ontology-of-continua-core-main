@@ -78,7 +78,7 @@ The chapters are listed in reading order. Each chapter file contains reader-faci
 - Chapter 78: [How the Research Was Conducted](../chapter_sources/master_monograph/chapter_How_the_Research_Was_Conducted.md)
 - Chapter 79: [Independent Verification Route](../chapter_sources/master_monograph/chapter_Independent_Verification_Route.md)
 - Chapter 80: [Replay and Build Route](../chapter_sources/master_monograph/chapter_Replay_and_Build_Route.md)
-- Chapter 81: [fragment-level Generation and Validation Route](../chapter_sources/master_monograph/chapter_fragment-level_Generation_and_Validation_Route.md)
+- Chapter 81: [fragment-level generation and Validation Route](../chapter_sources/master_monograph/chapter_fragment-level_Generation_and_Validation_Route.md)
 - Chapter 82: [Reviewer Attack and Response Map](../chapter_sources/master_monograph/chapter_Reviewer_Attack_and_Response_Map.md)
 - Chapter 83: [Known Blockers and Scientific Work Queue](../chapter_sources/master_monograph/chapter_Known_Blockers_and_Scientific_Work_Queue.md)
 - Chapter 84: [Release Boundaries and Review Readiness](../chapter_sources/master_monograph/chapter_Release_Boundaries_and_Review_Readiness.md)

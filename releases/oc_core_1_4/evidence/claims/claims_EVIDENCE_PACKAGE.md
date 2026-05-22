@@ -13,7 +13,7 @@ This family is read through **claim strength and modal discipline**. This family
 
 Mark every strong verb in the sampled passage. The package is doing its job only when the verb strength tracks the proof or evidence route visible nearby.
 
-The misuse to watch for is specific: A claim package becomes dangerous when a fluent explanatory sentence quietly stops being conditional. The positive case is also specific: The package is strong when claim wording becomes narrower as the evidence becomes narrower, and when broad language is reserved for carefully marked research programme statements. The nonclaim boundary is: It does not certify a complete theory; it certifies that the release-facing claim register is disciplined enough for owner review.
+The misuse to watch for is specific: A claim package becomes dangerous when a fluent explanatory sentence quietly stops being conditional. The positive case is also specific: The package is strong when claim wording becomes narrower as the evidence becomes narrower, and when broad language is reserved for carefully marked research programme statements. The nonclaim boundary is: It does not certify a complete theory; it certifies that the release-facing claim register is disciplined enough for publication review.
 
 ## Source Reading Notes
 

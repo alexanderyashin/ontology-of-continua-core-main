@@ -1,0 +1,2263 @@
+{
+  "schema_version": "oc-core-demo-practical-value-decision-summary.v010",
+  "demo_version": "V010",
+  "release_ordinal": "010",
+  "status": "PASS",
+  "buyer_fit_workflow": [
+    "choose domain/system",
+    "run diagnose",
+    "kill",
+    "improve",
+    "compare",
+    "export bounded evidence"
+  ],
+  "bounded_cta": "Evaluate locally: complete one mission, export the packet, then decide whether a private replay-backed package is worth requesting. No purchase/upload action is executed.",
+  "buyer_personas": [
+    {
+      "persona": "system architect",
+      "value_metric": "collapse-depth reduction and recovery-index delta",
+      "thresholds": {
+        "improved": "< 0",
+        "inconclusive": "= 0",
+        "worse": "> 0",
+        "nonclaim_boundary": "Local workbench threshold only."
+      }
+    },
+    {
+      "persona": "domain scientist",
+      "value_metric": "domain lane, formula and evidence-boundary traceability",
+      "thresholds": {
+        "complete": "domain lane + formula + boundary route visible",
+        "inconclusive": "missing one link",
+        "nonclaim_boundary": "Traceability is not external validation."
+      }
+    },
+    {
+      "persona": "reviewer",
+      "value_metric": "exportable assumptions, hashes and nonclaim boundaries",
+      "thresholds": {
+        "complete": "export contains assumptions/hash/boundary",
+        "inconclusive": "export missing evidence rows",
+        "nonclaim_boundary": "Export is an audit packet, not peer review."
+      }
+    }
+  ],
+  "before_after_panel": {
+    "baseline": {
+      "collapse_depth": 5,
+      "recovery_index": 0.42,
+      "connectivity_loss": 0.61
+    },
+    "after_improvement": {
+      "collapse_depth": 2,
+      "recovery_index": 0.67,
+      "connectivity_loss": 0.38
+    },
+    "delta": {
+      "collapse_depth": -3,
+      "recovery_index": 0.25,
+      "connectivity_loss": -0.23
+    },
+    "metric_formula_bindings": [
+      {
+        "metric": "collapse_depth",
+        "formula_id": "OCF-006",
+        "formula_role_id": "OCF-006.path_depth",
+        "formula_subtype": "path_depth",
+        "formula_visible_symbols": [
+          "P_c",
+          "D_c"
+        ],
+        "derivation": "D_c=|P_c|; delta=after_path-baseline_path",
+        "input_values": {
+          "baseline_path": 5,
+          "after_path": 2
+        },
+        "output_value": -3
+      },
+      {
+        "metric": "recovery_index",
+        "formula_id": "OCF-009",
+        "input_values": {
+          "baseline_mean": 0.42,
+          "after_mean": 0.67
+        },
+        "output_value": 0.25
+      },
+      {
+        "metric": "connectivity_loss",
+        "formula_id": "OCF-007",
+        "input_values": {
+          "baseline_loss": 0.61,
+          "after_loss": 0.38
+        },
+        "output_value": -0.23
+      }
+    ],
+    "changed_assumption": "Added compensator and computable repair axis in exploratory sandbox.",
+    "export_hash_basis": "same selected template, action sequence and nonclaim boundary",
+    "interpretation": "Improved locally; still bounded until replay/domain evidence is attached."
+  },
+  "evaluation_thresholds": {
+    "collapse_depth_delta": {
+      "improved": "< 0",
+      "inconclusive": "= 0",
+      "worse": "> 0",
+      "nonclaim_boundary": "Local workbench threshold only."
+    },
+    "recovery_index_delta": {
+      "improved": "> 0.05",
+      "inconclusive": "[-0.05, 0.05]",
+      "worse": "< -0.05",
+      "nonclaim_boundary": "Not a production guarantee."
+    },
+    "connectivity_loss_delta": {
+      "improved": "< -0.05",
+      "inconclusive": "[-0.05, 0.05]",
+      "worse": "> 0.05",
+      "nonclaim_boundary": "Template-local diagnostic."
+    }
+  },
+  "local_request_criteria": {
+    "status": "PASS",
+    "criteria": [
+      {
+        "criterion_id": "LOCAL_DELTA_IMPROVES",
+        "field": "mission_outcome_table.metric_deltas",
+        "required": "collapse_depth < 0 or recovery_index > 0.05 or connectivity_loss < -0.05"
+      },
+      {
+        "criterion_id": "EXPORT_HAS_HASH",
+        "field": "mission_outcome_table.export_hash",
+        "required": "non-empty deterministic hash"
+      },
+      {
+        "criterion_id": "BOUNDARY_VISIBLE",
+        "field": "mission_outcome_table.nonclaim_boundary",
+        "required": "local-only nonclaim boundary visible before follow-up"
+      },
+      {
+        "criterion_id": "NO_EXTERNAL_ACTION",
+        "field": "local_request_packet_preview.explicit_non_action",
+        "required": "demo does not submit/upload/purchase/contact/publish"
+      }
+    ],
+    "qualification_policy": "A follow-up is qualified only as a local replay-backed review request; it is not a sales conversion, upload, external validation or proof claim."
+  },
+  "follow_up_qualification_ledger": {
+    "status": "PASS",
+    "qualified_total": 7,
+    "blocked_total": 1,
+    "local_request_criteria_hash": "aa3b1dcf6de9422e5f5cf38be2e87294dc64be338ce0151c195eefbcee2fdeac",
+    "rows": [
+      {
+        "mission_id": "system-architect::primitive-distinction::diagnostic-loop",
+        "qualified_for_local_request": true,
+        "qualification_status": "QUALIFIED_LOCAL_REQUEST",
+        "threshold_verdict": "PASS_LOCAL_CRITERIA",
+        "metric_deltas": {
+          "collapse_depth": -2,
+          "recovery_index": 0.137,
+          "connectivity_loss": -0.093
+        },
+        "collapse_depth_delta": -2,
+        "recovery_index_delta": 0.137,
+        "connectivity_loss_delta": -0.093,
+        "numeric_delta_fields": {
+          "collapse_depth_delta": -2,
+          "recovery_index_delta": 0.137,
+          "connectivity_loss_delta": -0.093
+        },
+        "blocker_reason": "",
+        "criteria_refs": [
+          "LOCAL_DELTA_IMPROVES",
+          "EXPORT_HAS_HASH",
+          "BOUNDARY_VISIBLE",
+          "NO_EXTERNAL_ACTION"
+        ],
+        "request_boundary": "Qualified means eligible for a local replay-backed review request packet only; no external action is executed.",
+        "row_hash": "3df9cbe0b76ecf88a36c61543cfaa9163642d72b434d75207af9001322221f35"
+      },
+      {
+        "mission_id": "system-architect::physical-phase::diagnostic-loop",
+        "qualified_for_local_request": true,
+        "qualification_status": "QUALIFIED_LOCAL_REQUEST",
+        "threshold_verdict": "PASS_LOCAL_CRITERIA",
+        "metric_deltas": {
+          "collapse_depth": -3,
+          "recovery_index": 0.154,
+          "connectivity_loss": -0.106
+        },
+        "collapse_depth_delta": -3,
+        "recovery_index_delta": 0.154,
+        "connectivity_loss_delta": -0.106,
+        "numeric_delta_fields": {
+          "collapse_depth_delta": -3,
+          "recovery_index_delta": 0.154,
+          "connectivity_loss_delta": -0.106
+        },
+        "blocker_reason": "",
+        "criteria_refs": [
+          "LOCAL_DELTA_IMPROVES",
+          "EXPORT_HAS_HASH",
+          "BOUNDARY_VISIBLE",
+          "NO_EXTERNAL_ACTION"
+        ],
+        "request_boundary": "Qualified means eligible for a local replay-backed review request packet only; no external action is executed.",
+        "row_hash": "18fb5cd1544b5a3a60ee2a0e9e3241dabc3ce40035e789e9947c688391461916"
+      },
+      {
+        "mission_id": "system-architect::prebiotic-chemistry::diagnostic-loop",
+        "qualified_for_local_request": true,
+        "qualification_status": "QUALIFIED_LOCAL_REQUEST",
+        "threshold_verdict": "PASS_LOCAL_CRITERIA",
+        "metric_deltas": {
+          "collapse_depth": -1,
+          "recovery_index": 0.171,
+          "connectivity_loss": -0.119
+        },
+        "collapse_depth_delta": -1,
+        "recovery_index_delta": 0.171,
+        "connectivity_loss_delta": -0.119,
+        "numeric_delta_fields": {
+          "collapse_depth_delta": -1,
+          "recovery_index_delta": 0.171,
+          "connectivity_loss_delta": -0.119
+        },
+        "blocker_reason": "",
+        "criteria_refs": [
+          "LOCAL_DELTA_IMPROVES",
+          "EXPORT_HAS_HASH",
+          "BOUNDARY_VISIBLE",
+          "NO_EXTERNAL_ACTION"
+        ],
+        "request_boundary": "Qualified means eligible for a local replay-backed review request packet only; no external action is executed.",
+        "row_hash": "f1cd918bf658e0e453d17bd93bd594e8dd3604706d47d73f67edd87b554dfef3"
+      },
+      {
+        "mission_id": "system-architect::biological-cell::diagnostic-loop",
+        "qualified_for_local_request": true,
+        "qualification_status": "QUALIFIED_LOCAL_REQUEST",
+        "threshold_verdict": "PASS_LOCAL_CRITERIA",
+        "metric_deltas": {
+          "collapse_depth": -2,
+          "recovery_index": 0.188,
+          "connectivity_loss": -0.132
+        },
+        "collapse_depth_delta": -2,
+        "recovery_index_delta": 0.188,
+        "connectivity_loss_delta": -0.132,
+        "numeric_delta_fields": {
+          "collapse_depth_delta": -2,
+          "recovery_index_delta": 0.188,
+          "connectivity_loss_delta": -0.132
+        },
+        "blocker_reason": "",
+        "criteria_refs": [
+          "LOCAL_DELTA_IMPROVES",
+          "EXPORT_HAS_HASH",
+          "BOUNDARY_VISIBLE",
+          "NO_EXTERNAL_ACTION"
+        ],
+        "request_boundary": "Qualified means eligible for a local replay-backed review request packet only; no external action is executed.",
+        "row_hash": "a54ab1f32ea4cc9d6ecde7c1649f4a948e4e6bdf2b7fcc6db7f0d13d9c58303c"
+      },
+      {
+        "mission_id": "system-architect::institution::diagnostic-loop",
+        "qualified_for_local_request": true,
+        "qualification_status": "QUALIFIED_LOCAL_REQUEST",
+        "threshold_verdict": "PASS_LOCAL_CRITERIA",
+        "metric_deltas": {
+          "collapse_depth": -3,
+          "recovery_index": 0.205,
+          "connectivity_loss": -0.145
+        },
+        "collapse_depth_delta": -3,
+        "recovery_index_delta": 0.205,
+        "connectivity_loss_delta": -0.145,
+        "numeric_delta_fields": {
+          "collapse_depth_delta": -3,
+          "recovery_index_delta": 0.205,
+          "connectivity_loss_delta": -0.145
+        },
+        "blocker_reason": "",
+        "criteria_refs": [
+          "LOCAL_DELTA_IMPROVES",
+          "EXPORT_HAS_HASH",
+          "BOUNDARY_VISIBLE",
+          "NO_EXTERNAL_ACTION"
+        ],
+        "request_boundary": "Qualified means eligible for a local replay-backed review request packet only; no external action is executed.",
+        "row_hash": "510be1a7df6b38fd36554e1a7d60d05fc90b08e4c7f864b76b1abbb3dd8bf07b"
+      },
+      {
+        "mission_id": "system-architect::cognitive-social-agent::diagnostic-loop",
+        "qualified_for_local_request": true,
+        "qualification_status": "QUALIFIED_LOCAL_REQUEST",
+        "threshold_verdict": "PASS_LOCAL_CRITERIA",
+        "metric_deltas": {
+          "collapse_depth": -1,
+          "recovery_index": 0.222,
+          "connectivity_loss": -0.158
+        },
+        "collapse_depth_delta": -1,
+        "recovery_index_delta": 0.222,
+        "connectivity_loss_delta": -0.158,
+        "numeric_delta_fields": {
+          "collapse_depth_delta": -1,
+          "recovery_index_delta": 0.222,
+          "connectivity_loss_delta": -0.158
+        },
+        "blocker_reason": "",
+        "criteria_refs": [
+          "LOCAL_DELTA_IMPROVES",
+          "EXPORT_HAS_HASH",
+          "BOUNDARY_VISIBLE",
+          "NO_EXTERNAL_ACTION"
+        ],
+        "request_boundary": "Qualified means eligible for a local replay-backed review request packet only; no external action is executed.",
+        "row_hash": "91a1724e5209e5302b6735d1bc30a861f59c5ad128eace8a910e3b467a21523c"
+      },
+      {
+        "mission_id": "system-architect::civilization::diagnostic-loop",
+        "qualified_for_local_request": true,
+        "qualification_status": "QUALIFIED_LOCAL_REQUEST",
+        "threshold_verdict": "PASS_LOCAL_CRITERIA",
+        "metric_deltas": {
+          "collapse_depth": -2,
+          "recovery_index": 0.239,
+          "connectivity_loss": -0.171
+        },
+        "collapse_depth_delta": -2,
+        "recovery_index_delta": 0.239,
+        "connectivity_loss_delta": -0.171,
+        "numeric_delta_fields": {
+          "collapse_depth_delta": -2,
+          "recovery_index_delta": 0.239,
+          "connectivity_loss_delta": -0.171
+        },
+        "blocker_reason": "",
+        "criteria_refs": [
+          "LOCAL_DELTA_IMPROVES",
+          "EXPORT_HAS_HASH",
+          "BOUNDARY_VISIBLE",
+          "NO_EXTERNAL_ACTION"
+        ],
+        "request_boundary": "Qualified means eligible for a local replay-backed review request packet only; no external action is executed.",
+        "row_hash": "1a6606ddb237a7db2380a69609e77ca4a80cecbdcbb93f2df6453233f521ea8f"
+      },
+      {
+        "mission_id": "system-architect::meta-model::diagnostic-loop",
+        "qualified_for_local_request": false,
+        "qualification_status": "DO_NOT_PROMOTE_FORMALIZATION_REQUIRED",
+        "threshold_verdict": "BOUNDARY_NOT_PASS_LOCAL_CRITERIA",
+        "metric_deltas": {
+          "collapse_depth": 0,
+          "recovery_index": 0.011,
+          "connectivity_loss": 0.006
+        },
+        "collapse_depth_delta": 0,
+        "recovery_index_delta": 0.011,
+        "connectivity_loss_delta": 0.006,
+        "numeric_delta_fields": {
+          "collapse_depth_delta": 0,
+          "recovery_index_delta": 0.011,
+          "connectivity_loss_delta": 0.006
+        },
+        "blocker_reason": "Blocked because the row is an intentional boundary case: metric deltas do not pass local thresholds, so the only next step is a formalization/replay obligation.",
+        "criteria_refs": [
+          "LOCAL_DELTA_IMPROVES",
+          "EXPORT_HAS_HASH",
+          "BOUNDARY_VISIBLE",
+          "NO_EXTERNAL_ACTION"
+        ],
+        "request_boundary": "Qualified means eligible for a local replay-backed review request packet only; no external action is executed.",
+        "row_hash": "eed56103dd7fff2e6b5cf62061f21fc32d8ef2eb941b5fda426ad33a538418e5"
+      }
+    ],
+    "blocked_row_drilldown": [
+      {
+        "mission_id": "system-architect::meta-model::diagnostic-loop",
+        "qualification_status": "DO_NOT_PROMOTE_FORMALIZATION_REQUIRED",
+        "threshold_verdict": "BOUNDARY_NOT_PASS_LOCAL_CRITERIA",
+        "blocker_reason": "Blocked because the row is an intentional boundary case: metric deltas do not pass local thresholds, so the only next step is a formalization/replay obligation.",
+        "row_hash": "eed56103dd7fff2e6b5cf62061f21fc32d8ef2eb941b5fda426ad33a538418e5",
+        "visible_remediation": "Keep the row in the export and request formalization/replay work before any follow-up promotion."
+      }
+    ],
+    "nonclaim_boundary": "Follow-up qualification is a local request ledger, not a purchase intent or external validation claim."
+  },
+  "mission_outcome_table": [
+    {
+      "mission_id": "system-architect::primitive-distinction::diagnostic-loop",
+      "mission_name": "Architect mission: Primitive Distinction / Axis Birth",
+      "template_id": "primitive-distinction",
+      "template_hash": "e42ab5e03142ceab0ab7cb6a41bc63338277c39c95e0236fadd582d1217e2b94",
+      "topology_hash": "fcdb4c035d3c04704f7dbf205ada4de3740b6f8e38a5649d2bedb683b039398a",
+      "target_user": "system architect",
+      "expected_local_decision": "Decide whether the system needs axis, compensator or replay-backed review.",
+      "primary_metric": "collapse_depth_delta / recovery_index_delta",
+      "export_artifact": "bounded_workbench_export_packet",
+      "route_or_surface": "workbench",
+      "compare_route_id": "primitive-distinction::comparison",
+      "compare_output_hash": "33be6937d42859942026dfa2ae5054954d2023633f75bb0b26355eb2ab591660",
+      "failure_path": {
+        "failure_action": "invalid_axis_or_unknown_node",
+        "expected_visible_result": "structured fail-closed boundary row; no replay-backed badge",
+        "test_status": "PASS_MANIFEST_BOUNDARY_CASE"
+      },
+      "semantic_action_trace": [
+        {
+          "stage": "diagnose",
+          "visible_delta": "baseline risk metrics materialized",
+          "hash_scope": "template_hash"
+        },
+        {
+          "stage": "kill",
+          "visible_delta": "selected/weakest node and cascade path materialized",
+          "hash_scope": "topology_hash + selected_node_id"
+        },
+        {
+          "stage": "improve",
+          "visible_delta": "axis or compensator edit demotes edited scenario to exploratory sandbox",
+          "hash_scope": "edited_topology_hash"
+        },
+        {
+          "stage": "compare",
+          "visible_delta": "before/after metric deltas and compare_output_hash materialized",
+          "hash_scope": "compare_output_hash"
+        },
+        {
+          "stage": "export",
+          "visible_delta": "bounded audit packet with assumptions and nonclaim boundary",
+          "hash_scope": "export_hash"
+        }
+      ],
+      "evaluated_status": "EARNED_LOCAL_FOLLOW_UP",
+      "metric_deltas": {
+        "collapse_depth": -2,
+        "recovery_index": 0.137,
+        "connectivity_loss": -0.093
+      },
+      "collapse_depth_delta": -2,
+      "recovery_index_delta": 0.137,
+      "connectivity_loss_delta": -0.093,
+      "numeric_delta_fields": {
+        "collapse_depth_delta": -2,
+        "recovery_index_delta": 0.137,
+        "connectivity_loss_delta": -0.093
+      },
+      "threshold_verdict": "PASS_LOCAL_CRITERIA",
+      "blocker_reason": "",
+      "bounded_next_step": "Export packet qualifies for local replay-backed review request; no purchase/upload action is executed.",
+      "export_hash": "5e9b06c884ded090d5a185f4bc5486b9f0b8de433328075d1ccb6fa5d9ed30e1",
+      "content_delta_assertions": [
+        "mission id changes row identity",
+        "metric deltas are row-specific payload fields",
+        "threshold verdict and next step are visible"
+      ]
+    },
+    {
+      "mission_id": "system-architect::physical-phase::diagnostic-loop",
+      "mission_name": "Architect mission: Physical Phase Continuum",
+      "template_id": "physical-phase",
+      "template_hash": "09cbb46963989d1d286d075166912906815ac2c5ca14834652090162f0e529dc",
+      "topology_hash": "f3dd57b5b7a31d8ce53ce1cafe67e72a5d4e6ee4a2d3238be41816096ec6417c",
+      "target_user": "system architect",
+      "expected_local_decision": "Decide whether the system needs axis, compensator or replay-backed review.",
+      "primary_metric": "collapse_depth_delta / recovery_index_delta",
+      "export_artifact": "bounded_workbench_export_packet",
+      "route_or_surface": "workbench",
+      "compare_route_id": "physical-phase::comparison",
+      "compare_output_hash": "d2fb6642826bed303ec0d617cad24c35b95b2c6d7fb0684442116bf90c76f52f",
+      "failure_path": {
+        "failure_action": "invalid_axis_or_unknown_node",
+        "expected_visible_result": "structured fail-closed boundary row; no replay-backed badge",
+        "test_status": "PASS_MANIFEST_BOUNDARY_CASE"
+      },
+      "semantic_action_trace": [
+        {
+          "stage": "diagnose",
+          "visible_delta": "baseline risk metrics materialized",
+          "hash_scope": "template_hash"
+        },
+        {
+          "stage": "kill",
+          "visible_delta": "selected/weakest node and cascade path materialized",
+          "hash_scope": "topology_hash + selected_node_id"
+        },
+        {
+          "stage": "improve",
+          "visible_delta": "axis or compensator edit demotes edited scenario to exploratory sandbox",
+          "hash_scope": "edited_topology_hash"
+        },
+        {
+          "stage": "compare",
+          "visible_delta": "before/after metric deltas and compare_output_hash materialized",
+          "hash_scope": "compare_output_hash"
+        },
+        {
+          "stage": "export",
+          "visible_delta": "bounded audit packet with assumptions and nonclaim boundary",
+          "hash_scope": "export_hash"
+        }
+      ],
+      "evaluated_status": "EARNED_LOCAL_FOLLOW_UP",
+      "metric_deltas": {
+        "collapse_depth": -3,
+        "recovery_index": 0.154,
+        "connectivity_loss": -0.106
+      },
+      "collapse_depth_delta": -3,
+      "recovery_index_delta": 0.154,
+      "connectivity_loss_delta": -0.106,
+      "numeric_delta_fields": {
+        "collapse_depth_delta": -3,
+        "recovery_index_delta": 0.154,
+        "connectivity_loss_delta": -0.106
+      },
+      "threshold_verdict": "PASS_LOCAL_CRITERIA",
+      "blocker_reason": "",
+      "bounded_next_step": "Export packet qualifies for local replay-backed review request; no purchase/upload action is executed.",
+      "export_hash": "7d63437d536819d590c5ae336a5392106ac5d879de763d7d6cc8102f29b7e29b",
+      "content_delta_assertions": [
+        "mission id changes row identity",
+        "metric deltas are row-specific payload fields",
+        "threshold verdict and next step are visible"
+      ]
+    },
+    {
+      "mission_id": "system-architect::prebiotic-chemistry::diagnostic-loop",
+      "mission_name": "Architect mission: Prebiotic Chemical Organization",
+      "template_id": "prebiotic-chemistry",
+      "template_hash": "c1f0f1831dc088de8b8d2d07218a3bf0b3bd588814bdf7ace350b80ee45c7c99",
+      "topology_hash": "d30656091d8c3b47a80dfc1ff4e48e6b92e3ed47c818b2ed936384cfdeabab37",
+      "target_user": "system architect",
+      "expected_local_decision": "Decide whether the system needs axis, compensator or replay-backed review.",
+      "primary_metric": "collapse_depth_delta / recovery_index_delta",
+      "export_artifact": "bounded_workbench_export_packet",
+      "route_or_surface": "workbench",
+      "compare_route_id": "prebiotic-chemistry::comparison",
+      "compare_output_hash": "334c99b47e52f5f9933d8fa481ea1b146fd3fd35c6f12b9faf75d4a77c76b618",
+      "failure_path": {
+        "failure_action": "invalid_axis_or_unknown_node",
+        "expected_visible_result": "structured fail-closed boundary row; no replay-backed badge",
+        "test_status": "PASS_MANIFEST_BOUNDARY_CASE"
+      },
+      "semantic_action_trace": [
+        {
+          "stage": "diagnose",
+          "visible_delta": "baseline risk metrics materialized",
+          "hash_scope": "template_hash"
+        },
+        {
+          "stage": "kill",
+          "visible_delta": "selected/weakest node and cascade path materialized",
+          "hash_scope": "topology_hash + selected_node_id"
+        },
+        {
+          "stage": "improve",
+          "visible_delta": "axis or compensator edit demotes edited scenario to exploratory sandbox",
+          "hash_scope": "edited_topology_hash"
+        },
+        {
+          "stage": "compare",
+          "visible_delta": "before/after metric deltas and compare_output_hash materialized",
+          "hash_scope": "compare_output_hash"
+        },
+        {
+          "stage": "export",
+          "visible_delta": "bounded audit packet with assumptions and nonclaim boundary",
+          "hash_scope": "export_hash"
+        }
+      ],
+      "evaluated_status": "EARNED_LOCAL_FOLLOW_UP",
+      "metric_deltas": {
+        "collapse_depth": -1,
+        "recovery_index": 0.171,
+        "connectivity_loss": -0.119
+      },
+      "collapse_depth_delta": -1,
+      "recovery_index_delta": 0.171,
+      "connectivity_loss_delta": -0.119,
+      "numeric_delta_fields": {
+        "collapse_depth_delta": -1,
+        "recovery_index_delta": 0.171,
+        "connectivity_loss_delta": -0.119
+      },
+      "threshold_verdict": "PASS_LOCAL_CRITERIA",
+      "blocker_reason": "",
+      "bounded_next_step": "Export packet qualifies for local replay-backed review request; no purchase/upload action is executed.",
+      "export_hash": "5af2cd6f1cc982305fad69a0fa9bbc01de82a7c1172b216d7c80cd6aaa0214cc",
+      "content_delta_assertions": [
+        "mission id changes row identity",
+        "metric deltas are row-specific payload fields",
+        "threshold verdict and next step are visible"
+      ]
+    },
+    {
+      "mission_id": "system-architect::biological-cell::diagnostic-loop",
+      "mission_name": "Architect mission: Biological Cell-State Continuum",
+      "template_id": "biological-cell",
+      "template_hash": "d5f5634914636a1a09810c9534352786489cd00be3be13d42099ca3587a20410",
+      "topology_hash": "80eeacb6601c100e10e88eaf4d1505da562c2c324bf279bdd818321c9765695c",
+      "target_user": "system architect",
+      "expected_local_decision": "Decide whether the system needs axis, compensator or replay-backed review.",
+      "primary_metric": "collapse_depth_delta / recovery_index_delta",
+      "export_artifact": "bounded_workbench_export_packet",
+      "route_or_surface": "workbench",
+      "compare_route_id": "biological-cell::comparison",
+      "compare_output_hash": "dcbc2e5f62af852365c8c2af65f456242e4521638a17360d0b8a7629ca276055",
+      "failure_path": {
+        "failure_action": "invalid_axis_or_unknown_node",
+        "expected_visible_result": "structured fail-closed boundary row; no replay-backed badge",
+        "test_status": "PASS_MANIFEST_BOUNDARY_CASE"
+      },
+      "semantic_action_trace": [
+        {
+          "stage": "diagnose",
+          "visible_delta": "baseline risk metrics materialized",
+          "hash_scope": "template_hash"
+        },
+        {
+          "stage": "kill",
+          "visible_delta": "selected/weakest node and cascade path materialized",
+          "hash_scope": "topology_hash + selected_node_id"
+        },
+        {
+          "stage": "improve",
+          "visible_delta": "axis or compensator edit demotes edited scenario to exploratory sandbox",
+          "hash_scope": "edited_topology_hash"
+        },
+        {
+          "stage": "compare",
+          "visible_delta": "before/after metric deltas and compare_output_hash materialized",
+          "hash_scope": "compare_output_hash"
+        },
+        {
+          "stage": "export",
+          "visible_delta": "bounded audit packet with assumptions and nonclaim boundary",
+          "hash_scope": "export_hash"
+        }
+      ],
+      "evaluated_status": "EARNED_LOCAL_FOLLOW_UP",
+      "metric_deltas": {
+        "collapse_depth": -2,
+        "recovery_index": 0.188,
+        "connectivity_loss": -0.132
+      },
+      "collapse_depth_delta": -2,
+      "recovery_index_delta": 0.188,
+      "connectivity_loss_delta": -0.132,
+      "numeric_delta_fields": {
+        "collapse_depth_delta": -2,
+        "recovery_index_delta": 0.188,
+        "connectivity_loss_delta": -0.132
+      },
+      "threshold_verdict": "PASS_LOCAL_CRITERIA",
+      "blocker_reason": "",
+      "bounded_next_step": "Export packet qualifies for local replay-backed review request; no purchase/upload action is executed.",
+      "export_hash": "8de7b674c6b817c58426117cd1788eccf63ab505f13344ecbf1e2277a92564ac",
+      "content_delta_assertions": [
+        "mission id changes row identity",
+        "metric deltas are row-specific payload fields",
+        "threshold verdict and next step are visible"
+      ]
+    },
+    {
+      "mission_id": "system-architect::institution::diagnostic-loop",
+      "mission_name": "Architect mission: Institutional Continuum",
+      "template_id": "institution",
+      "template_hash": "36fe1ca3d899aef63e4b6b182934416b036b3b5fc95cdcf8b2330d592cf0bfec",
+      "topology_hash": "6f34a7820dc8446c703af54116c87867efa21ead1d109e240164c437a3a6f23f",
+      "target_user": "system architect",
+      "expected_local_decision": "Decide whether the system needs axis, compensator or replay-backed review.",
+      "primary_metric": "collapse_depth_delta / recovery_index_delta",
+      "export_artifact": "bounded_workbench_export_packet",
+      "route_or_surface": "workbench",
+      "compare_route_id": "institution::comparison",
+      "compare_output_hash": "0d22f6cdedd35c9fac9d73cba5704f80a7774e8a9e3d66121fb861a1db5cd098",
+      "failure_path": {
+        "failure_action": "invalid_axis_or_unknown_node",
+        "expected_visible_result": "structured fail-closed boundary row; no replay-backed badge",
+        "test_status": "PASS_MANIFEST_BOUNDARY_CASE"
+      },
+      "semantic_action_trace": [
+        {
+          "stage": "diagnose",
+          "visible_delta": "baseline risk metrics materialized",
+          "hash_scope": "template_hash"
+        },
+        {
+          "stage": "kill",
+          "visible_delta": "selected/weakest node and cascade path materialized",
+          "hash_scope": "topology_hash + selected_node_id"
+        },
+        {
+          "stage": "improve",
+          "visible_delta": "axis or compensator edit demotes edited scenario to exploratory sandbox",
+          "hash_scope": "edited_topology_hash"
+        },
+        {
+          "stage": "compare",
+          "visible_delta": "before/after metric deltas and compare_output_hash materialized",
+          "hash_scope": "compare_output_hash"
+        },
+        {
+          "stage": "export",
+          "visible_delta": "bounded audit packet with assumptions and nonclaim boundary",
+          "hash_scope": "export_hash"
+        }
+      ],
+      "evaluated_status": "EARNED_LOCAL_FOLLOW_UP",
+      "metric_deltas": {
+        "collapse_depth": -3,
+        "recovery_index": 0.205,
+        "connectivity_loss": -0.145
+      },
+      "collapse_depth_delta": -3,
+      "recovery_index_delta": 0.205,
+      "connectivity_loss_delta": -0.145,
+      "numeric_delta_fields": {
+        "collapse_depth_delta": -3,
+        "recovery_index_delta": 0.205,
+        "connectivity_loss_delta": -0.145
+      },
+      "threshold_verdict": "PASS_LOCAL_CRITERIA",
+      "blocker_reason": "",
+      "bounded_next_step": "Export packet qualifies for local replay-backed review request; no purchase/upload action is executed.",
+      "export_hash": "25409fd769b3b195f24df738a34552336724578b1ea975d77ed8f12aedaa2471",
+      "content_delta_assertions": [
+        "mission id changes row identity",
+        "metric deltas are row-specific payload fields",
+        "threshold verdict and next step are visible"
+      ]
+    },
+    {
+      "mission_id": "system-architect::cognitive-social-agent::diagnostic-loop",
+      "mission_name": "Architect mission: Cognitive / Social Agent Continuum",
+      "template_id": "cognitive-social-agent",
+      "template_hash": "631130f107126050737c6bd75a953e1bce58fa5ba171e7623a686c1500b05c3b",
+      "topology_hash": "84103133c286f762449fd5e58d98751c4189d109e824af0a56dd5c2b91cc3aa9",
+      "target_user": "system architect",
+      "expected_local_decision": "Decide whether the system needs axis, compensator or replay-backed review.",
+      "primary_metric": "collapse_depth_delta / recovery_index_delta",
+      "export_artifact": "bounded_workbench_export_packet",
+      "route_or_surface": "workbench",
+      "compare_route_id": "cognitive-social-agent::comparison",
+      "compare_output_hash": "20d021ccd2f5d01e9e4d2d20000b6b8e87edb8ed7d9d2b7315e7ebc60152fc48",
+      "failure_path": {
+        "failure_action": "invalid_axis_or_unknown_node",
+        "expected_visible_result": "structured fail-closed boundary row; no replay-backed badge",
+        "test_status": "PASS_MANIFEST_BOUNDARY_CASE"
+      },
+      "semantic_action_trace": [
+        {
+          "stage": "diagnose",
+          "visible_delta": "baseline risk metrics materialized",
+          "hash_scope": "template_hash"
+        },
+        {
+          "stage": "kill",
+          "visible_delta": "selected/weakest node and cascade path materialized",
+          "hash_scope": "topology_hash + selected_node_id"
+        },
+        {
+          "stage": "improve",
+          "visible_delta": "axis or compensator edit demotes edited scenario to exploratory sandbox",
+          "hash_scope": "edited_topology_hash"
+        },
+        {
+          "stage": "compare",
+          "visible_delta": "before/after metric deltas and compare_output_hash materialized",
+          "hash_scope": "compare_output_hash"
+        },
+        {
+          "stage": "export",
+          "visible_delta": "bounded audit packet with assumptions and nonclaim boundary",
+          "hash_scope": "export_hash"
+        }
+      ],
+      "evaluated_status": "EARNED_LOCAL_FOLLOW_UP",
+      "metric_deltas": {
+        "collapse_depth": -1,
+        "recovery_index": 0.222,
+        "connectivity_loss": -0.158
+      },
+      "collapse_depth_delta": -1,
+      "recovery_index_delta": 0.222,
+      "connectivity_loss_delta": -0.158,
+      "numeric_delta_fields": {
+        "collapse_depth_delta": -1,
+        "recovery_index_delta": 0.222,
+        "connectivity_loss_delta": -0.158
+      },
+      "threshold_verdict": "PASS_LOCAL_CRITERIA",
+      "blocker_reason": "",
+      "bounded_next_step": "Export packet qualifies for local replay-backed review request; no purchase/upload action is executed.",
+      "export_hash": "3d0849932eed55a54dcfe926edf7e64b39268f7799610772f90adf1d78c27afc",
+      "content_delta_assertions": [
+        "mission id changes row identity",
+        "metric deltas are row-specific payload fields",
+        "threshold verdict and next step are visible"
+      ]
+    },
+    {
+      "mission_id": "system-architect::civilization::diagnostic-loop",
+      "mission_name": "Architect mission: Civilizational Continuum",
+      "template_id": "civilization",
+      "template_hash": "832731b02ff2133cd08f02c2cd6a7fd57aed3bebcf32d122daac180fb4b702c7",
+      "topology_hash": "e7db22ef5ff90ce869c1dd1e6c1c129b18523703643e666dd3fada94d2fa20fe",
+      "target_user": "system architect",
+      "expected_local_decision": "Decide whether the system needs axis, compensator or replay-backed review.",
+      "primary_metric": "collapse_depth_delta / recovery_index_delta",
+      "export_artifact": "bounded_workbench_export_packet",
+      "route_or_surface": "workbench",
+      "compare_route_id": "civilization::comparison",
+      "compare_output_hash": "ccefada9f29d683011b8ec99b28bc2ad269c1a0c0298fcaf85a668593cba00b3",
+      "failure_path": {
+        "failure_action": "invalid_axis_or_unknown_node",
+        "expected_visible_result": "structured fail-closed boundary row; no replay-backed badge",
+        "test_status": "PASS_MANIFEST_BOUNDARY_CASE"
+      },
+      "semantic_action_trace": [
+        {
+          "stage": "diagnose",
+          "visible_delta": "baseline risk metrics materialized",
+          "hash_scope": "template_hash"
+        },
+        {
+          "stage": "kill",
+          "visible_delta": "selected/weakest node and cascade path materialized",
+          "hash_scope": "topology_hash + selected_node_id"
+        },
+        {
+          "stage": "improve",
+          "visible_delta": "axis or compensator edit demotes edited scenario to exploratory sandbox",
+          "hash_scope": "edited_topology_hash"
+        },
+        {
+          "stage": "compare",
+          "visible_delta": "before/after metric deltas and compare_output_hash materialized",
+          "hash_scope": "compare_output_hash"
+        },
+        {
+          "stage": "export",
+          "visible_delta": "bounded audit packet with assumptions and nonclaim boundary",
+          "hash_scope": "export_hash"
+        }
+      ],
+      "evaluated_status": "EARNED_LOCAL_FOLLOW_UP",
+      "metric_deltas": {
+        "collapse_depth": -2,
+        "recovery_index": 0.239,
+        "connectivity_loss": -0.171
+      },
+      "collapse_depth_delta": -2,
+      "recovery_index_delta": 0.239,
+      "connectivity_loss_delta": -0.171,
+      "numeric_delta_fields": {
+        "collapse_depth_delta": -2,
+        "recovery_index_delta": 0.239,
+        "connectivity_loss_delta": -0.171
+      },
+      "threshold_verdict": "PASS_LOCAL_CRITERIA",
+      "blocker_reason": "",
+      "bounded_next_step": "Export packet qualifies for local replay-backed review request; no purchase/upload action is executed.",
+      "export_hash": "1777104ef4547967037fe3c44497cddb6b2c93bb3ec6bf7026ed3c7e8b0c74f7",
+      "content_delta_assertions": [
+        "mission id changes row identity",
+        "metric deltas are row-specific payload fields",
+        "threshold verdict and next step are visible"
+      ]
+    },
+    {
+      "mission_id": "system-architect::meta-model::diagnostic-loop",
+      "mission_name": "Architect mission: Theory / Meta-Model Continuum",
+      "template_id": "meta-model",
+      "template_hash": "aa694c941e38026e1ad9725b7662d6b021b523f074dbc0b651a6321c0f50452c",
+      "topology_hash": "de8d3c18e02ee22e65d453ef35af1a9009333b49d978e46e0f1fdd1a746bbad5",
+      "target_user": "system architect",
+      "expected_local_decision": "Decide whether the system needs axis, compensator or replay-backed review.",
+      "primary_metric": "collapse_depth_delta / recovery_index_delta",
+      "export_artifact": "bounded_workbench_export_packet",
+      "route_or_surface": "workbench",
+      "compare_route_id": "meta-model::comparison",
+      "compare_output_hash": "c9dcdb6cde08aa32bfd8c2291264f7a901d2e4a8e3e8f69468d4b3c0b98e59e3",
+      "failure_path": {
+        "failure_action": "invalid_axis_or_unknown_node",
+        "expected_visible_result": "structured fail-closed boundary row; no replay-backed badge",
+        "test_status": "PASS_MANIFEST_BOUNDARY_CASE"
+      },
+      "semantic_action_trace": [
+        {
+          "stage": "diagnose",
+          "visible_delta": "baseline risk metrics materialized",
+          "hash_scope": "template_hash"
+        },
+        {
+          "stage": "kill",
+          "visible_delta": "selected/weakest node and cascade path materialized",
+          "hash_scope": "topology_hash + selected_node_id"
+        },
+        {
+          "stage": "improve",
+          "visible_delta": "axis or compensator edit demotes edited scenario to exploratory sandbox",
+          "hash_scope": "edited_topology_hash"
+        },
+        {
+          "stage": "compare",
+          "visible_delta": "before/after metric deltas and compare_output_hash materialized",
+          "hash_scope": "compare_output_hash"
+        },
+        {
+          "stage": "export",
+          "visible_delta": "bounded audit packet with assumptions and nonclaim boundary",
+          "hash_scope": "export_hash"
+        }
+      ],
+      "evaluated_status": "BOUNDED_FORMALIZATION_REQUIRED",
+      "metric_deltas": {
+        "collapse_depth": 0,
+        "recovery_index": 0.011,
+        "connectivity_loss": 0.006
+      },
+      "collapse_depth_delta": 0,
+      "recovery_index_delta": 0.011,
+      "connectivity_loss_delta": 0.006,
+      "numeric_delta_fields": {
+        "collapse_depth_delta": 0,
+        "recovery_index_delta": 0.011,
+        "connectivity_loss_delta": 0.006
+      },
+      "threshold_verdict": "BOUNDARY_NOT_PASS_LOCAL_CRITERIA",
+      "blocker_reason": "Blocked because the row is an intentional boundary case: metric deltas do not pass local thresholds, so the only next step is a formalization/replay obligation.",
+      "bounded_next_step": "Do not promote this mission; record a formalization/replay obligation with assumptions, hash and nonclaim boundary.",
+      "export_hash": "1e4ff99201ec1222652b1429bf446ba836062ba33a0bf08560c39bfb0c96d573",
+      "content_delta_assertions": [
+        "mission id changes row identity",
+        "metric deltas are row-specific payload fields",
+        "threshold verdict and next step are visible"
+      ]
+    }
+  ],
+  "mission_outcome_full_digest": {
+    "schema_version": "oc-core-demo-practical-mission-outcome-full-digest.v010",
+    "status": "PASS",
+    "row_total": 8,
+    "mission_total": 8,
+    "count_reconciliation": {
+      "status": "PASS",
+      "declared_mission_total": 8,
+      "mission_outcome_row_total": 8,
+      "full_digest_row_total": 8,
+      "counts_match": true,
+      "row_hash_total": 8,
+      "numeric_delta_field_status": "PASS",
+      "head_packet_policy": "Every practical mission outcome has a deterministic full_digest row in the prompt packet; no mission outcome is represented only by a count.",
+      "compare_hash_status": "PASS",
+      "failure_path_status": "PASS",
+      "topology_hash_status": "PASS"
+    },
+    "rows": [
+      {
+        "row_index": 1,
+        "mission_id": "system-architect::primitive-distinction::diagnostic-loop",
+        "mission_name": "Architect mission: Primitive Distinction / Axis Birth",
+        "template_id": "primitive-distinction",
+        "template_hash": "e42ab5e03142ceab0ab7cb6a41bc63338277c39c95e0236fadd582d1217e2b94",
+        "topology_hash": "fcdb4c035d3c04704f7dbf205ada4de3740b6f8e38a5649d2bedb683b039398a",
+        "target_user": "system architect",
+        "route_or_surface": "workbench",
+        "compare_route_id": "primitive-distinction::comparison",
+        "compare_output_hash": "33be6937d42859942026dfa2ae5054954d2023633f75bb0b26355eb2ab591660",
+        "failure_path": {
+          "failure_action": "invalid_axis_or_unknown_node",
+          "expected_visible_result": "structured fail-closed boundary row; no replay-backed badge",
+          "test_status": "PASS_MANIFEST_BOUNDARY_CASE"
+        },
+        "semantic_action_trace": [
+          {
+            "stage": "diagnose",
+            "visible_delta": "baseline risk metrics materialized",
+            "hash_scope": "template_hash"
+          },
+          {
+            "stage": "kill",
+            "visible_delta": "selected/weakest node and cascade path materialized",
+            "hash_scope": "topology_hash + selected_node_id"
+          },
+          {
+            "stage": "improve",
+            "visible_delta": "axis or compensator edit demotes edited scenario to exploratory sandbox",
+            "hash_scope": "edited_topology_hash"
+          },
+          {
+            "stage": "compare",
+            "visible_delta": "before/after metric deltas and compare_output_hash materialized",
+            "hash_scope": "compare_output_hash"
+          },
+          {
+            "stage": "export",
+            "visible_delta": "bounded audit packet with assumptions and nonclaim boundary",
+            "hash_scope": "export_hash"
+          }
+        ],
+        "evaluated_status": "EARNED_LOCAL_FOLLOW_UP",
+        "threshold_verdict": "PASS_LOCAL_CRITERIA",
+        "metric_deltas": {
+          "collapse_depth": -2,
+          "recovery_index": 0.137,
+          "connectivity_loss": -0.093
+        },
+        "collapse_depth_delta": -2,
+        "recovery_index_delta": 0.137,
+        "connectivity_loss_delta": -0.093,
+        "numeric_delta_fields": {
+          "collapse_depth_delta": -2,
+          "recovery_index_delta": 0.137,
+          "connectivity_loss_delta": -0.093
+        },
+        "bounded_next_step": "Export packet qualifies for local replay-backed review request; no purchase/upload action is executed.",
+        "export_hash": "5e9b06c884ded090d5a185f4bc5486b9f0b8de433328075d1ccb6fa5d9ed30e1",
+        "nonclaim_boundary": "Mission outcome is local decision support only; inspectable digest is not external validation.",
+        "row_hash": "3aa796d0a607959e36430150f4777e1eb60cb05cc213d53a097adc03031a42f8"
+      },
+      {
+        "row_index": 2,
+        "mission_id": "system-architect::physical-phase::diagnostic-loop",
+        "mission_name": "Architect mission: Physical Phase Continuum",
+        "template_id": "physical-phase",
+        "template_hash": "09cbb46963989d1d286d075166912906815ac2c5ca14834652090162f0e529dc",
+        "topology_hash": "f3dd57b5b7a31d8ce53ce1cafe67e72a5d4e6ee4a2d3238be41816096ec6417c",
+        "target_user": "system architect",
+        "route_or_surface": "workbench",
+        "compare_route_id": "physical-phase::comparison",
+        "compare_output_hash": "d2fb6642826bed303ec0d617cad24c35b95b2c6d7fb0684442116bf90c76f52f",
+        "failure_path": {
+          "failure_action": "invalid_axis_or_unknown_node",
+          "expected_visible_result": "structured fail-closed boundary row; no replay-backed badge",
+          "test_status": "PASS_MANIFEST_BOUNDARY_CASE"
+        },
+        "semantic_action_trace": [
+          {
+            "stage": "diagnose",
+            "visible_delta": "baseline risk metrics materialized",
+            "hash_scope": "template_hash"
+          },
+          {
+            "stage": "kill",
+            "visible_delta": "selected/weakest node and cascade path materialized",
+            "hash_scope": "topology_hash + selected_node_id"
+          },
+          {
+            "stage": "improve",
+            "visible_delta": "axis or compensator edit demotes edited scenario to exploratory sandbox",
+            "hash_scope": "edited_topology_hash"
+          },
+          {
+            "stage": "compare",
+            "visible_delta": "before/after metric deltas and compare_output_hash materialized",
+            "hash_scope": "compare_output_hash"
+          },
+          {
+            "stage": "export",
+            "visible_delta": "bounded audit packet with assumptions and nonclaim boundary",
+            "hash_scope": "export_hash"
+          }
+        ],
+        "evaluated_status": "EARNED_LOCAL_FOLLOW_UP",
+        "threshold_verdict": "PASS_LOCAL_CRITERIA",
+        "metric_deltas": {
+          "collapse_depth": -3,
+          "recovery_index": 0.154,
+          "connectivity_loss": -0.106
+        },
+        "collapse_depth_delta": -3,
+        "recovery_index_delta": 0.154,
+        "connectivity_loss_delta": -0.106,
+        "numeric_delta_fields": {
+          "collapse_depth_delta": -3,
+          "recovery_index_delta": 0.154,
+          "connectivity_loss_delta": -0.106
+        },
+        "bounded_next_step": "Export packet qualifies for local replay-backed review request; no purchase/upload action is executed.",
+        "export_hash": "7d63437d536819d590c5ae336a5392106ac5d879de763d7d6cc8102f29b7e29b",
+        "nonclaim_boundary": "Mission outcome is local decision support only; inspectable digest is not external validation.",
+        "row_hash": "8ad882fa987df1466d9a45ca9d2d6bbdcccc2c03645dba4de4bcadd8857193a7"
+      },
+      {
+        "row_index": 3,
+        "mission_id": "system-architect::prebiotic-chemistry::diagnostic-loop",
+        "mission_name": "Architect mission: Prebiotic Chemical Organization",
+        "template_id": "prebiotic-chemistry",
+        "template_hash": "c1f0f1831dc088de8b8d2d07218a3bf0b3bd588814bdf7ace350b80ee45c7c99",
+        "topology_hash": "d30656091d8c3b47a80dfc1ff4e48e6b92e3ed47c818b2ed936384cfdeabab37",
+        "target_user": "system architect",
+        "route_or_surface": "workbench",
+        "compare_route_id": "prebiotic-chemistry::comparison",
+        "compare_output_hash": "334c99b47e52f5f9933d8fa481ea1b146fd3fd35c6f12b9faf75d4a77c76b618",
+        "failure_path": {
+          "failure_action": "invalid_axis_or_unknown_node",
+          "expected_visible_result": "structured fail-closed boundary row; no replay-backed badge",
+          "test_status": "PASS_MANIFEST_BOUNDARY_CASE"
+        },
+        "semantic_action_trace": [
+          {
+            "stage": "diagnose",
+            "visible_delta": "baseline risk metrics materialized",
+            "hash_scope": "template_hash"
+          },
+          {
+            "stage": "kill",
+            "visible_delta": "selected/weakest node and cascade path materialized",
+            "hash_scope": "topology_hash + selected_node_id"
+          },
+          {
+            "stage": "improve",
+            "visible_delta": "axis or compensator edit demotes edited scenario to exploratory sandbox",
+            "hash_scope": "edited_topology_hash"
+          },
+          {
+            "stage": "compare",
+            "visible_delta": "before/after metric deltas and compare_output_hash materialized",
+            "hash_scope": "compare_output_hash"
+          },
+          {
+            "stage": "export",
+            "visible_delta": "bounded audit packet with assumptions and nonclaim boundary",
+            "hash_scope": "export_hash"
+          }
+        ],
+        "evaluated_status": "EARNED_LOCAL_FOLLOW_UP",
+        "threshold_verdict": "PASS_LOCAL_CRITERIA",
+        "metric_deltas": {
+          "collapse_depth": -1,
+          "recovery_index": 0.171,
+          "connectivity_loss": -0.119
+        },
+        "collapse_depth_delta": -1,
+        "recovery_index_delta": 0.171,
+        "connectivity_loss_delta": -0.119,
+        "numeric_delta_fields": {
+          "collapse_depth_delta": -1,
+          "recovery_index_delta": 0.171,
+          "connectivity_loss_delta": -0.119
+        },
+        "bounded_next_step": "Export packet qualifies for local replay-backed review request; no purchase/upload action is executed.",
+        "export_hash": "5af2cd6f1cc982305fad69a0fa9bbc01de82a7c1172b216d7c80cd6aaa0214cc",
+        "nonclaim_boundary": "Mission outcome is local decision support only; inspectable digest is not external validation.",
+        "row_hash": "9b4b7f4452bad3fe97d980ca4c77f6d6d9538c10295bd6cf4f609fee133ae662"
+      },
+      {
+        "row_index": 4,
+        "mission_id": "system-architect::biological-cell::diagnostic-loop",
+        "mission_name": "Architect mission: Biological Cell-State Continuum",
+        "template_id": "biological-cell",
+        "template_hash": "d5f5634914636a1a09810c9534352786489cd00be3be13d42099ca3587a20410",
+        "topology_hash": "80eeacb6601c100e10e88eaf4d1505da562c2c324bf279bdd818321c9765695c",
+        "target_user": "system architect",
+        "route_or_surface": "workbench",
+        "compare_route_id": "biological-cell::comparison",
+        "compare_output_hash": "dcbc2e5f62af852365c8c2af65f456242e4521638a17360d0b8a7629ca276055",
+        "failure_path": {
+          "failure_action": "invalid_axis_or_unknown_node",
+          "expected_visible_result": "structured fail-closed boundary row; no replay-backed badge",
+          "test_status": "PASS_MANIFEST_BOUNDARY_CASE"
+        },
+        "semantic_action_trace": [
+          {
+            "stage": "diagnose",
+            "visible_delta": "baseline risk metrics materialized",
+            "hash_scope": "template_hash"
+          },
+          {
+            "stage": "kill",
+            "visible_delta": "selected/weakest node and cascade path materialized",
+            "hash_scope": "topology_hash + selected_node_id"
+          },
+          {
+            "stage": "improve",
+            "visible_delta": "axis or compensator edit demotes edited scenario to exploratory sandbox",
+            "hash_scope": "edited_topology_hash"
+          },
+          {
+            "stage": "compare",
+            "visible_delta": "before/after metric deltas and compare_output_hash materialized",
+            "hash_scope": "compare_output_hash"
+          },
+          {
+            "stage": "export",
+            "visible_delta": "bounded audit packet with assumptions and nonclaim boundary",
+            "hash_scope": "export_hash"
+          }
+        ],
+        "evaluated_status": "EARNED_LOCAL_FOLLOW_UP",
+        "threshold_verdict": "PASS_LOCAL_CRITERIA",
+        "metric_deltas": {
+          "collapse_depth": -2,
+          "recovery_index": 0.188,
+          "connectivity_loss": -0.132
+        },
+        "collapse_depth_delta": -2,
+        "recovery_index_delta": 0.188,
+        "connectivity_loss_delta": -0.132,
+        "numeric_delta_fields": {
+          "collapse_depth_delta": -2,
+          "recovery_index_delta": 0.188,
+          "connectivity_loss_delta": -0.132
+        },
+        "bounded_next_step": "Export packet qualifies for local replay-backed review request; no purchase/upload action is executed.",
+        "export_hash": "8de7b674c6b817c58426117cd1788eccf63ab505f13344ecbf1e2277a92564ac",
+        "nonclaim_boundary": "Mission outcome is local decision support only; inspectable digest is not external validation.",
+        "row_hash": "4a4f0366a9cb1ea89c8a024efb8b54382ddfd1a4cb676a1d292d79404dadf91b"
+      },
+      {
+        "row_index": 5,
+        "mission_id": "system-architect::institution::diagnostic-loop",
+        "mission_name": "Architect mission: Institutional Continuum",
+        "template_id": "institution",
+        "template_hash": "36fe1ca3d899aef63e4b6b182934416b036b3b5fc95cdcf8b2330d592cf0bfec",
+        "topology_hash": "6f34a7820dc8446c703af54116c87867efa21ead1d109e240164c437a3a6f23f",
+        "target_user": "system architect",
+        "route_or_surface": "workbench",
+        "compare_route_id": "institution::comparison",
+        "compare_output_hash": "0d22f6cdedd35c9fac9d73cba5704f80a7774e8a9e3d66121fb861a1db5cd098",
+        "failure_path": {
+          "failure_action": "invalid_axis_or_unknown_node",
+          "expected_visible_result": "structured fail-closed boundary row; no replay-backed badge",
+          "test_status": "PASS_MANIFEST_BOUNDARY_CASE"
+        },
+        "semantic_action_trace": [
+          {
+            "stage": "diagnose",
+            "visible_delta": "baseline risk metrics materialized",
+            "hash_scope": "template_hash"
+          },
+          {
+            "stage": "kill",
+            "visible_delta": "selected/weakest node and cascade path materialized",
+            "hash_scope": "topology_hash + selected_node_id"
+          },
+          {
+            "stage": "improve",
+            "visible_delta": "axis or compensator edit demotes edited scenario to exploratory sandbox",
+            "hash_scope": "edited_topology_hash"
+          },
+          {
+            "stage": "compare",
+            "visible_delta": "before/after metric deltas and compare_output_hash materialized",
+            "hash_scope": "compare_output_hash"
+          },
+          {
+            "stage": "export",
+            "visible_delta": "bounded audit packet with assumptions and nonclaim boundary",
+            "hash_scope": "export_hash"
+          }
+        ],
+        "evaluated_status": "EARNED_LOCAL_FOLLOW_UP",
+        "threshold_verdict": "PASS_LOCAL_CRITERIA",
+        "metric_deltas": {
+          "collapse_depth": -3,
+          "recovery_index": 0.205,
+          "connectivity_loss": -0.145
+        },
+        "collapse_depth_delta": -3,
+        "recovery_index_delta": 0.205,
+        "connectivity_loss_delta": -0.145,
+        "numeric_delta_fields": {
+          "collapse_depth_delta": -3,
+          "recovery_index_delta": 0.205,
+          "connectivity_loss_delta": -0.145
+        },
+        "bounded_next_step": "Export packet qualifies for local replay-backed review request; no purchase/upload action is executed.",
+        "export_hash": "25409fd769b3b195f24df738a34552336724578b1ea975d77ed8f12aedaa2471",
+        "nonclaim_boundary": "Mission outcome is local decision support only; inspectable digest is not external validation.",
+        "row_hash": "ac3b21b46aec140ac29470062381475265113076c9eead716c4278052e23c1bd"
+      },
+      {
+        "row_index": 6,
+        "mission_id": "system-architect::cognitive-social-agent::diagnostic-loop",
+        "mission_name": "Architect mission: Cognitive / Social Agent Continuum",
+        "template_id": "cognitive-social-agent",
+        "template_hash": "631130f107126050737c6bd75a953e1bce58fa5ba171e7623a686c1500b05c3b",
+        "topology_hash": "84103133c286f762449fd5e58d98751c4189d109e824af0a56dd5c2b91cc3aa9",
+        "target_user": "system architect",
+        "route_or_surface": "workbench",
+        "compare_route_id": "cognitive-social-agent::comparison",
+        "compare_output_hash": "20d021ccd2f5d01e9e4d2d20000b6b8e87edb8ed7d9d2b7315e7ebc60152fc48",
+        "failure_path": {
+          "failure_action": "invalid_axis_or_unknown_node",
+          "expected_visible_result": "structured fail-closed boundary row; no replay-backed badge",
+          "test_status": "PASS_MANIFEST_BOUNDARY_CASE"
+        },
+        "semantic_action_trace": [
+          {
+            "stage": "diagnose",
+            "visible_delta": "baseline risk metrics materialized",
+            "hash_scope": "template_hash"
+          },
+          {
+            "stage": "kill",
+            "visible_delta": "selected/weakest node and cascade path materialized",
+            "hash_scope": "topology_hash + selected_node_id"
+          },
+          {
+            "stage": "improve",
+            "visible_delta": "axis or compensator edit demotes edited scenario to exploratory sandbox",
+            "hash_scope": "edited_topology_hash"
+          },
+          {
+            "stage": "compare",
+            "visible_delta": "before/after metric deltas and compare_output_hash materialized",
+            "hash_scope": "compare_output_hash"
+          },
+          {
+            "stage": "export",
+            "visible_delta": "bounded audit packet with assumptions and nonclaim boundary",
+            "hash_scope": "export_hash"
+          }
+        ],
+        "evaluated_status": "EARNED_LOCAL_FOLLOW_UP",
+        "threshold_verdict": "PASS_LOCAL_CRITERIA",
+        "metric_deltas": {
+          "collapse_depth": -1,
+          "recovery_index": 0.222,
+          "connectivity_loss": -0.158
+        },
+        "collapse_depth_delta": -1,
+        "recovery_index_delta": 0.222,
+        "connectivity_loss_delta": -0.158,
+        "numeric_delta_fields": {
+          "collapse_depth_delta": -1,
+          "recovery_index_delta": 0.222,
+          "connectivity_loss_delta": -0.158
+        },
+        "bounded_next_step": "Export packet qualifies for local replay-backed review request; no purchase/upload action is executed.",
+        "export_hash": "3d0849932eed55a54dcfe926edf7e64b39268f7799610772f90adf1d78c27afc",
+        "nonclaim_boundary": "Mission outcome is local decision support only; inspectable digest is not external validation.",
+        "row_hash": "4e5b2885fd265d38ef5f5394ab0a8bbdd321a114e9d26ccd0861b79270fbbade"
+      },
+      {
+        "row_index": 7,
+        "mission_id": "system-architect::civilization::diagnostic-loop",
+        "mission_name": "Architect mission: Civilizational Continuum",
+        "template_id": "civilization",
+        "template_hash": "832731b02ff2133cd08f02c2cd6a7fd57aed3bebcf32d122daac180fb4b702c7",
+        "topology_hash": "e7db22ef5ff90ce869c1dd1e6c1c129b18523703643e666dd3fada94d2fa20fe",
+        "target_user": "system architect",
+        "route_or_surface": "workbench",
+        "compare_route_id": "civilization::comparison",
+        "compare_output_hash": "ccefada9f29d683011b8ec99b28bc2ad269c1a0c0298fcaf85a668593cba00b3",
+        "failure_path": {
+          "failure_action": "invalid_axis_or_unknown_node",
+          "expected_visible_result": "structured fail-closed boundary row; no replay-backed badge",
+          "test_status": "PASS_MANIFEST_BOUNDARY_CASE"
+        },
+        "semantic_action_trace": [
+          {
+            "stage": "diagnose",
+            "visible_delta": "baseline risk metrics materialized",
+            "hash_scope": "template_hash"
+          },
+          {
+            "stage": "kill",
+            "visible_delta": "selected/weakest node and cascade path materialized",
+            "hash_scope": "topology_hash + selected_node_id"
+          },
+          {
+            "stage": "improve",
+            "visible_delta": "axis or compensator edit demotes edited scenario to exploratory sandbox",
+            "hash_scope": "edited_topology_hash"
+          },
+          {
+            "stage": "compare",
+            "visible_delta": "before/after metric deltas and compare_output_hash materialized",
+            "hash_scope": "compare_output_hash"
+          },
+          {
+            "stage": "export",
+            "visible_delta": "bounded audit packet with assumptions and nonclaim boundary",
+            "hash_scope": "export_hash"
+          }
+        ],
+        "evaluated_status": "EARNED_LOCAL_FOLLOW_UP",
+        "threshold_verdict": "PASS_LOCAL_CRITERIA",
+        "metric_deltas": {
+          "collapse_depth": -2,
+          "recovery_index": 0.239,
+          "connectivity_loss": -0.171
+        },
+        "collapse_depth_delta": -2,
+        "recovery_index_delta": 0.239,
+        "connectivity_loss_delta": -0.171,
+        "numeric_delta_fields": {
+          "collapse_depth_delta": -2,
+          "recovery_index_delta": 0.239,
+          "connectivity_loss_delta": -0.171
+        },
+        "bounded_next_step": "Export packet qualifies for local replay-backed review request; no purchase/upload action is executed.",
+        "export_hash": "1777104ef4547967037fe3c44497cddb6b2c93bb3ec6bf7026ed3c7e8b0c74f7",
+        "nonclaim_boundary": "Mission outcome is local decision support only; inspectable digest is not external validation.",
+        "row_hash": "9c30ee0afc6d45475c590ca95c79b1c8e133b4511602c1dcd9bc980a4d4b0f70"
+      },
+      {
+        "row_index": 8,
+        "mission_id": "system-architect::meta-model::diagnostic-loop",
+        "mission_name": "Architect mission: Theory / Meta-Model Continuum",
+        "template_id": "meta-model",
+        "template_hash": "aa694c941e38026e1ad9725b7662d6b021b523f074dbc0b651a6321c0f50452c",
+        "topology_hash": "de8d3c18e02ee22e65d453ef35af1a9009333b49d978e46e0f1fdd1a746bbad5",
+        "target_user": "system architect",
+        "route_or_surface": "workbench",
+        "compare_route_id": "meta-model::comparison",
+        "compare_output_hash": "c9dcdb6cde08aa32bfd8c2291264f7a901d2e4a8e3e8f69468d4b3c0b98e59e3",
+        "failure_path": {
+          "failure_action": "invalid_axis_or_unknown_node",
+          "expected_visible_result": "structured fail-closed boundary row; no replay-backed badge",
+          "test_status": "PASS_MANIFEST_BOUNDARY_CASE"
+        },
+        "semantic_action_trace": [
+          {
+            "stage": "diagnose",
+            "visible_delta": "baseline risk metrics materialized",
+            "hash_scope": "template_hash"
+          },
+          {
+            "stage": "kill",
+            "visible_delta": "selected/weakest node and cascade path materialized",
+            "hash_scope": "topology_hash + selected_node_id"
+          },
+          {
+            "stage": "improve",
+            "visible_delta": "axis or compensator edit demotes edited scenario to exploratory sandbox",
+            "hash_scope": "edited_topology_hash"
+          },
+          {
+            "stage": "compare",
+            "visible_delta": "before/after metric deltas and compare_output_hash materialized",
+            "hash_scope": "compare_output_hash"
+          },
+          {
+            "stage": "export",
+            "visible_delta": "bounded audit packet with assumptions and nonclaim boundary",
+            "hash_scope": "export_hash"
+          }
+        ],
+        "evaluated_status": "BOUNDED_FORMALIZATION_REQUIRED",
+        "threshold_verdict": "BOUNDARY_NOT_PASS_LOCAL_CRITERIA",
+        "metric_deltas": {
+          "collapse_depth": 0,
+          "recovery_index": 0.011,
+          "connectivity_loss": 0.006
+        },
+        "collapse_depth_delta": 0,
+        "recovery_index_delta": 0.011,
+        "connectivity_loss_delta": 0.006,
+        "numeric_delta_fields": {
+          "collapse_depth_delta": 0,
+          "recovery_index_delta": 0.011,
+          "connectivity_loss_delta": 0.006
+        },
+        "bounded_next_step": "Do not promote this mission; record a formalization/replay obligation with assumptions, hash and nonclaim boundary.",
+        "export_hash": "1e4ff99201ec1222652b1429bf446ba836062ba33a0bf08560c39bfb0c96d573",
+        "nonclaim_boundary": "Mission outcome is local decision support only; inspectable digest is not external validation.",
+        "row_hash": "b6ff03aea199d81a36c578fb85df61f9fafe57ace1c645829cf7117c4a87c02b"
+      }
+    ],
+    "digest_hash": "c91960b6f5cee9381c16981a4a0c17db3bf79aa78327c25deb98e1a4c4db9b08"
+  },
+  "mission_outcome_full_digest_rows": [
+    {
+      "row_index": 1,
+      "mission_id": "system-architect::primitive-distinction::diagnostic-loop",
+      "mission_name": "Architect mission: Primitive Distinction / Axis Birth",
+      "template_id": "primitive-distinction",
+      "template_hash": "e42ab5e03142ceab0ab7cb6a41bc63338277c39c95e0236fadd582d1217e2b94",
+      "topology_hash": "fcdb4c035d3c04704f7dbf205ada4de3740b6f8e38a5649d2bedb683b039398a",
+      "target_user": "system architect",
+      "route_or_surface": "workbench",
+      "compare_route_id": "primitive-distinction::comparison",
+      "compare_output_hash": "33be6937d42859942026dfa2ae5054954d2023633f75bb0b26355eb2ab591660",
+      "failure_path": {
+        "failure_action": "invalid_axis_or_unknown_node",
+        "expected_visible_result": "structured fail-closed boundary row; no replay-backed badge",
+        "test_status": "PASS_MANIFEST_BOUNDARY_CASE"
+      },
+      "semantic_action_trace": [
+        {
+          "stage": "diagnose",
+          "visible_delta": "baseline risk metrics materialized",
+          "hash_scope": "template_hash"
+        },
+        {
+          "stage": "kill",
+          "visible_delta": "selected/weakest node and cascade path materialized",
+          "hash_scope": "topology_hash + selected_node_id"
+        },
+        {
+          "stage": "improve",
+          "visible_delta": "axis or compensator edit demotes edited scenario to exploratory sandbox",
+          "hash_scope": "edited_topology_hash"
+        },
+        {
+          "stage": "compare",
+          "visible_delta": "before/after metric deltas and compare_output_hash materialized",
+          "hash_scope": "compare_output_hash"
+        },
+        {
+          "stage": "export",
+          "visible_delta": "bounded audit packet with assumptions and nonclaim boundary",
+          "hash_scope": "export_hash"
+        }
+      ],
+      "evaluated_status": "EARNED_LOCAL_FOLLOW_UP",
+      "threshold_verdict": "PASS_LOCAL_CRITERIA",
+      "metric_deltas": {
+        "collapse_depth": -2,
+        "recovery_index": 0.137,
+        "connectivity_loss": -0.093
+      },
+      "collapse_depth_delta": -2,
+      "recovery_index_delta": 0.137,
+      "connectivity_loss_delta": -0.093,
+      "numeric_delta_fields": {
+        "collapse_depth_delta": -2,
+        "recovery_index_delta": 0.137,
+        "connectivity_loss_delta": -0.093
+      },
+      "bounded_next_step": "Export packet qualifies for local replay-backed review request; no purchase/upload action is executed.",
+      "export_hash": "5e9b06c884ded090d5a185f4bc5486b9f0b8de433328075d1ccb6fa5d9ed30e1",
+      "nonclaim_boundary": "Mission outcome is local decision support only; inspectable digest is not external validation.",
+      "row_hash": "3aa796d0a607959e36430150f4777e1eb60cb05cc213d53a097adc03031a42f8"
+    },
+    {
+      "row_index": 2,
+      "mission_id": "system-architect::physical-phase::diagnostic-loop",
+      "mission_name": "Architect mission: Physical Phase Continuum",
+      "template_id": "physical-phase",
+      "template_hash": "09cbb46963989d1d286d075166912906815ac2c5ca14834652090162f0e529dc",
+      "topology_hash": "f3dd57b5b7a31d8ce53ce1cafe67e72a5d4e6ee4a2d3238be41816096ec6417c",
+      "target_user": "system architect",
+      "route_or_surface": "workbench",
+      "compare_route_id": "physical-phase::comparison",
+      "compare_output_hash": "d2fb6642826bed303ec0d617cad24c35b95b2c6d7fb0684442116bf90c76f52f",
+      "failure_path": {
+        "failure_action": "invalid_axis_or_unknown_node",
+        "expected_visible_result": "structured fail-closed boundary row; no replay-backed badge",
+        "test_status": "PASS_MANIFEST_BOUNDARY_CASE"
+      },
+      "semantic_action_trace": [
+        {
+          "stage": "diagnose",
+          "visible_delta": "baseline risk metrics materialized",
+          "hash_scope": "template_hash"
+        },
+        {
+          "stage": "kill",
+          "visible_delta": "selected/weakest node and cascade path materialized",
+          "hash_scope": "topology_hash + selected_node_id"
+        },
+        {
+          "stage": "improve",
+          "visible_delta": "axis or compensator edit demotes edited scenario to exploratory sandbox",
+          "hash_scope": "edited_topology_hash"
+        },
+        {
+          "stage": "compare",
+          "visible_delta": "before/after metric deltas and compare_output_hash materialized",
+          "hash_scope": "compare_output_hash"
+        },
+        {
+          "stage": "export",
+          "visible_delta": "bounded audit packet with assumptions and nonclaim boundary",
+          "hash_scope": "export_hash"
+        }
+      ],
+      "evaluated_status": "EARNED_LOCAL_FOLLOW_UP",
+      "threshold_verdict": "PASS_LOCAL_CRITERIA",
+      "metric_deltas": {
+        "collapse_depth": -3,
+        "recovery_index": 0.154,
+        "connectivity_loss": -0.106
+      },
+      "collapse_depth_delta": -3,
+      "recovery_index_delta": 0.154,
+      "connectivity_loss_delta": -0.106,
+      "numeric_delta_fields": {
+        "collapse_depth_delta": -3,
+        "recovery_index_delta": 0.154,
+        "connectivity_loss_delta": -0.106
+      },
+      "bounded_next_step": "Export packet qualifies for local replay-backed review request; no purchase/upload action is executed.",
+      "export_hash": "7d63437d536819d590c5ae336a5392106ac5d879de763d7d6cc8102f29b7e29b",
+      "nonclaim_boundary": "Mission outcome is local decision support only; inspectable digest is not external validation.",
+      "row_hash": "8ad882fa987df1466d9a45ca9d2d6bbdcccc2c03645dba4de4bcadd8857193a7"
+    },
+    {
+      "row_index": 3,
+      "mission_id": "system-architect::prebiotic-chemistry::diagnostic-loop",
+      "mission_name": "Architect mission: Prebiotic Chemical Organization",
+      "template_id": "prebiotic-chemistry",
+      "template_hash": "c1f0f1831dc088de8b8d2d07218a3bf0b3bd588814bdf7ace350b80ee45c7c99",
+      "topology_hash": "d30656091d8c3b47a80dfc1ff4e48e6b92e3ed47c818b2ed936384cfdeabab37",
+      "target_user": "system architect",
+      "route_or_surface": "workbench",
+      "compare_route_id": "prebiotic-chemistry::comparison",
+      "compare_output_hash": "334c99b47e52f5f9933d8fa481ea1b146fd3fd35c6f12b9faf75d4a77c76b618",
+      "failure_path": {
+        "failure_action": "invalid_axis_or_unknown_node",
+        "expected_visible_result": "structured fail-closed boundary row; no replay-backed badge",
+        "test_status": "PASS_MANIFEST_BOUNDARY_CASE"
+      },
+      "semantic_action_trace": [
+        {
+          "stage": "diagnose",
+          "visible_delta": "baseline risk metrics materialized",
+          "hash_scope": "template_hash"
+        },
+        {
+          "stage": "kill",
+          "visible_delta": "selected/weakest node and cascade path materialized",
+          "hash_scope": "topology_hash + selected_node_id"
+        },
+        {
+          "stage": "improve",
+          "visible_delta": "axis or compensator edit demotes edited scenario to exploratory sandbox",
+          "hash_scope": "edited_topology_hash"
+        },
+        {
+          "stage": "compare",
+          "visible_delta": "before/after metric deltas and compare_output_hash materialized",
+          "hash_scope": "compare_output_hash"
+        },
+        {
+          "stage": "export",
+          "visible_delta": "bounded audit packet with assumptions and nonclaim boundary",
+          "hash_scope": "export_hash"
+        }
+      ],
+      "evaluated_status": "EARNED_LOCAL_FOLLOW_UP",
+      "threshold_verdict": "PASS_LOCAL_CRITERIA",
+      "metric_deltas": {
+        "collapse_depth": -1,
+        "recovery_index": 0.171,
+        "connectivity_loss": -0.119
+      },
+      "collapse_depth_delta": -1,
+      "recovery_index_delta": 0.171,
+      "connectivity_loss_delta": -0.119,
+      "numeric_delta_fields": {
+        "collapse_depth_delta": -1,
+        "recovery_index_delta": 0.171,
+        "connectivity_loss_delta": -0.119
+      },
+      "bounded_next_step": "Export packet qualifies for local replay-backed review request; no purchase/upload action is executed.",
+      "export_hash": "5af2cd6f1cc982305fad69a0fa9bbc01de82a7c1172b216d7c80cd6aaa0214cc",
+      "nonclaim_boundary": "Mission outcome is local decision support only; inspectable digest is not external validation.",
+      "row_hash": "9b4b7f4452bad3fe97d980ca4c77f6d6d9538c10295bd6cf4f609fee133ae662"
+    },
+    {
+      "row_index": 4,
+      "mission_id": "system-architect::biological-cell::diagnostic-loop",
+      "mission_name": "Architect mission: Biological Cell-State Continuum",
+      "template_id": "biological-cell",
+      "template_hash": "d5f5634914636a1a09810c9534352786489cd00be3be13d42099ca3587a20410",
+      "topology_hash": "80eeacb6601c100e10e88eaf4d1505da562c2c324bf279bdd818321c9765695c",
+      "target_user": "system architect",
+      "route_or_surface": "workbench",
+      "compare_route_id": "biological-cell::comparison",
+      "compare_output_hash": "dcbc2e5f62af852365c8c2af65f456242e4521638a17360d0b8a7629ca276055",
+      "failure_path": {
+        "failure_action": "invalid_axis_or_unknown_node",
+        "expected_visible_result": "structured fail-closed boundary row; no replay-backed badge",
+        "test_status": "PASS_MANIFEST_BOUNDARY_CASE"
+      },
+      "semantic_action_trace": [
+        {
+          "stage": "diagnose",
+          "visible_delta": "baseline risk metrics materialized",
+          "hash_scope": "template_hash"
+        },
+        {
+          "stage": "kill",
+          "visible_delta": "selected/weakest node and cascade path materialized",
+          "hash_scope": "topology_hash + selected_node_id"
+        },
+        {
+          "stage": "improve",
+          "visible_delta": "axis or compensator edit demotes edited scenario to exploratory sandbox",
+          "hash_scope": "edited_topology_hash"
+        },
+        {
+          "stage": "compare",
+          "visible_delta": "before/after metric deltas and compare_output_hash materialized",
+          "hash_scope": "compare_output_hash"
+        },
+        {
+          "stage": "export",
+          "visible_delta": "bounded audit packet with assumptions and nonclaim boundary",
+          "hash_scope": "export_hash"
+        }
+      ],
+      "evaluated_status": "EARNED_LOCAL_FOLLOW_UP",
+      "threshold_verdict": "PASS_LOCAL_CRITERIA",
+      "metric_deltas": {
+        "collapse_depth": -2,
+        "recovery_index": 0.188,
+        "connectivity_loss": -0.132
+      },
+      "collapse_depth_delta": -2,
+      "recovery_index_delta": 0.188,
+      "connectivity_loss_delta": -0.132,
+      "numeric_delta_fields": {
+        "collapse_depth_delta": -2,
+        "recovery_index_delta": 0.188,
+        "connectivity_loss_delta": -0.132
+      },
+      "bounded_next_step": "Export packet qualifies for local replay-backed review request; no purchase/upload action is executed.",
+      "export_hash": "8de7b674c6b817c58426117cd1788eccf63ab505f13344ecbf1e2277a92564ac",
+      "nonclaim_boundary": "Mission outcome is local decision support only; inspectable digest is not external validation.",
+      "row_hash": "4a4f0366a9cb1ea89c8a024efb8b54382ddfd1a4cb676a1d292d79404dadf91b"
+    },
+    {
+      "row_index": 5,
+      "mission_id": "system-architect::institution::diagnostic-loop",
+      "mission_name": "Architect mission: Institutional Continuum",
+      "template_id": "institution",
+      "template_hash": "36fe1ca3d899aef63e4b6b182934416b036b3b5fc95cdcf8b2330d592cf0bfec",
+      "topology_hash": "6f34a7820dc8446c703af54116c87867efa21ead1d109e240164c437a3a6f23f",
+      "target_user": "system architect",
+      "route_or_surface": "workbench",
+      "compare_route_id": "institution::comparison",
+      "compare_output_hash": "0d22f6cdedd35c9fac9d73cba5704f80a7774e8a9e3d66121fb861a1db5cd098",
+      "failure_path": {
+        "failure_action": "invalid_axis_or_unknown_node",
+        "expected_visible_result": "structured fail-closed boundary row; no replay-backed badge",
+        "test_status": "PASS_MANIFEST_BOUNDARY_CASE"
+      },
+      "semantic_action_trace": [
+        {
+          "stage": "diagnose",
+          "visible_delta": "baseline risk metrics materialized",
+          "hash_scope": "template_hash"
+        },
+        {
+          "stage": "kill",
+          "visible_delta": "selected/weakest node and cascade path materialized",
+          "hash_scope": "topology_hash + selected_node_id"
+        },
+        {
+          "stage": "improve",
+          "visible_delta": "axis or compensator edit demotes edited scenario to exploratory sandbox",
+          "hash_scope": "edited_topology_hash"
+        },
+        {
+          "stage": "compare",
+          "visible_delta": "before/after metric deltas and compare_output_hash materialized",
+          "hash_scope": "compare_output_hash"
+        },
+        {
+          "stage": "export",
+          "visible_delta": "bounded audit packet with assumptions and nonclaim boundary",
+          "hash_scope": "export_hash"
+        }
+      ],
+      "evaluated_status": "EARNED_LOCAL_FOLLOW_UP",
+      "threshold_verdict": "PASS_LOCAL_CRITERIA",
+      "metric_deltas": {
+        "collapse_depth": -3,
+        "recovery_index": 0.205,
+        "connectivity_loss": -0.145
+      },
+      "collapse_depth_delta": -3,
+      "recovery_index_delta": 0.205,
+      "connectivity_loss_delta": -0.145,
+      "numeric_delta_fields": {
+        "collapse_depth_delta": -3,
+        "recovery_index_delta": 0.205,
+        "connectivity_loss_delta": -0.145
+      },
+      "bounded_next_step": "Export packet qualifies for local replay-backed review request; no purchase/upload action is executed.",
+      "export_hash": "25409fd769b3b195f24df738a34552336724578b1ea975d77ed8f12aedaa2471",
+      "nonclaim_boundary": "Mission outcome is local decision support only; inspectable digest is not external validation.",
+      "row_hash": "ac3b21b46aec140ac29470062381475265113076c9eead716c4278052e23c1bd"
+    },
+    {
+      "row_index": 6,
+      "mission_id": "system-architect::cognitive-social-agent::diagnostic-loop",
+      "mission_name": "Architect mission: Cognitive / Social Agent Continuum",
+      "template_id": "cognitive-social-agent",
+      "template_hash": "631130f107126050737c6bd75a953e1bce58fa5ba171e7623a686c1500b05c3b",
+      "topology_hash": "84103133c286f762449fd5e58d98751c4189d109e824af0a56dd5c2b91cc3aa9",
+      "target_user": "system architect",
+      "route_or_surface": "workbench",
+      "compare_route_id": "cognitive-social-agent::comparison",
+      "compare_output_hash": "20d021ccd2f5d01e9e4d2d20000b6b8e87edb8ed7d9d2b7315e7ebc60152fc48",
+      "failure_path": {
+        "failure_action": "invalid_axis_or_unknown_node",
+        "expected_visible_result": "structured fail-closed boundary row; no replay-backed badge",
+        "test_status": "PASS_MANIFEST_BOUNDARY_CASE"
+      },
+      "semantic_action_trace": [
+        {
+          "stage": "diagnose",
+          "visible_delta": "baseline risk metrics materialized",
+          "hash_scope": "template_hash"
+        },
+        {
+          "stage": "kill",
+          "visible_delta": "selected/weakest node and cascade path materialized",
+          "hash_scope": "topology_hash + selected_node_id"
+        },
+        {
+          "stage": "improve",
+          "visible_delta": "axis or compensator edit demotes edited scenario to exploratory sandbox",
+          "hash_scope": "edited_topology_hash"
+        },
+        {
+          "stage": "compare",
+          "visible_delta": "before/after metric deltas and compare_output_hash materialized",
+          "hash_scope": "compare_output_hash"
+        },
+        {
+          "stage": "export",
+          "visible_delta": "bounded audit packet with assumptions and nonclaim boundary",
+          "hash_scope": "export_hash"
+        }
+      ],
+      "evaluated_status": "EARNED_LOCAL_FOLLOW_UP",
+      "threshold_verdict": "PASS_LOCAL_CRITERIA",
+      "metric_deltas": {
+        "collapse_depth": -1,
+        "recovery_index": 0.222,
+        "connectivity_loss": -0.158
+      },
+      "collapse_depth_delta": -1,
+      "recovery_index_delta": 0.222,
+      "connectivity_loss_delta": -0.158,
+      "numeric_delta_fields": {
+        "collapse_depth_delta": -1,
+        "recovery_index_delta": 0.222,
+        "connectivity_loss_delta": -0.158
+      },
+      "bounded_next_step": "Export packet qualifies for local replay-backed review request; no purchase/upload action is executed.",
+      "export_hash": "3d0849932eed55a54dcfe926edf7e64b39268f7799610772f90adf1d78c27afc",
+      "nonclaim_boundary": "Mission outcome is local decision support only; inspectable digest is not external validation.",
+      "row_hash": "4e5b2885fd265d38ef5f5394ab0a8bbdd321a114e9d26ccd0861b79270fbbade"
+    },
+    {
+      "row_index": 7,
+      "mission_id": "system-architect::civilization::diagnostic-loop",
+      "mission_name": "Architect mission: Civilizational Continuum",
+      "template_id": "civilization",
+      "template_hash": "832731b02ff2133cd08f02c2cd6a7fd57aed3bebcf32d122daac180fb4b702c7",
+      "topology_hash": "e7db22ef5ff90ce869c1dd1e6c1c129b18523703643e666dd3fada94d2fa20fe",
+      "target_user": "system architect",
+      "route_or_surface": "workbench",
+      "compare_route_id": "civilization::comparison",
+      "compare_output_hash": "ccefada9f29d683011b8ec99b28bc2ad269c1a0c0298fcaf85a668593cba00b3",
+      "failure_path": {
+        "failure_action": "invalid_axis_or_unknown_node",
+        "expected_visible_result": "structured fail-closed boundary row; no replay-backed badge",
+        "test_status": "PASS_MANIFEST_BOUNDARY_CASE"
+      },
+      "semantic_action_trace": [
+        {
+          "stage": "diagnose",
+          "visible_delta": "baseline risk metrics materialized",
+          "hash_scope": "template_hash"
+        },
+        {
+          "stage": "kill",
+          "visible_delta": "selected/weakest node and cascade path materialized",
+          "hash_scope": "topology_hash + selected_node_id"
+        },
+        {
+          "stage": "improve",
+          "visible_delta": "axis or compensator edit demotes edited scenario to exploratory sandbox",
+          "hash_scope": "edited_topology_hash"
+        },
+        {
+          "stage": "compare",
+          "visible_delta": "before/after metric deltas and compare_output_hash materialized",
+          "hash_scope": "compare_output_hash"
+        },
+        {
+          "stage": "export",
+          "visible_delta": "bounded audit packet with assumptions and nonclaim boundary",
+          "hash_scope": "export_hash"
+        }
+      ],
+      "evaluated_status": "EARNED_LOCAL_FOLLOW_UP",
+      "threshold_verdict": "PASS_LOCAL_CRITERIA",
+      "metric_deltas": {
+        "collapse_depth": -2,
+        "recovery_index": 0.239,
+        "connectivity_loss": -0.171
+      },
+      "collapse_depth_delta": -2,
+      "recovery_index_delta": 0.239,
+      "connectivity_loss_delta": -0.171,
+      "numeric_delta_fields": {
+        "collapse_depth_delta": -2,
+        "recovery_index_delta": 0.239,
+        "connectivity_loss_delta": -0.171
+      },
+      "bounded_next_step": "Export packet qualifies for local replay-backed review request; no purchase/upload action is executed.",
+      "export_hash": "1777104ef4547967037fe3c44497cddb6b2c93bb3ec6bf7026ed3c7e8b0c74f7",
+      "nonclaim_boundary": "Mission outcome is local decision support only; inspectable digest is not external validation.",
+      "row_hash": "9c30ee0afc6d45475c590ca95c79b1c8e133b4511602c1dcd9bc980a4d4b0f70"
+    },
+    {
+      "row_index": 8,
+      "mission_id": "system-architect::meta-model::diagnostic-loop",
+      "mission_name": "Architect mission: Theory / Meta-Model Continuum",
+      "template_id": "meta-model",
+      "template_hash": "aa694c941e38026e1ad9725b7662d6b021b523f074dbc0b651a6321c0f50452c",
+      "topology_hash": "de8d3c18e02ee22e65d453ef35af1a9009333b49d978e46e0f1fdd1a746bbad5",
+      "target_user": "system architect",
+      "route_or_surface": "workbench",
+      "compare_route_id": "meta-model::comparison",
+      "compare_output_hash": "c9dcdb6cde08aa32bfd8c2291264f7a901d2e4a8e3e8f69468d4b3c0b98e59e3",
+      "failure_path": {
+        "failure_action": "invalid_axis_or_unknown_node",
+        "expected_visible_result": "structured fail-closed boundary row; no replay-backed badge",
+        "test_status": "PASS_MANIFEST_BOUNDARY_CASE"
+      },
+      "semantic_action_trace": [
+        {
+          "stage": "diagnose",
+          "visible_delta": "baseline risk metrics materialized",
+          "hash_scope": "template_hash"
+        },
+        {
+          "stage": "kill",
+          "visible_delta": "selected/weakest node and cascade path materialized",
+          "hash_scope": "topology_hash + selected_node_id"
+        },
+        {
+          "stage": "improve",
+          "visible_delta": "axis or compensator edit demotes edited scenario to exploratory sandbox",
+          "hash_scope": "edited_topology_hash"
+        },
+        {
+          "stage": "compare",
+          "visible_delta": "before/after metric deltas and compare_output_hash materialized",
+          "hash_scope": "compare_output_hash"
+        },
+        {
+          "stage": "export",
+          "visible_delta": "bounded audit packet with assumptions and nonclaim boundary",
+          "hash_scope": "export_hash"
+        }
+      ],
+      "evaluated_status": "BOUNDED_FORMALIZATION_REQUIRED",
+      "threshold_verdict": "BOUNDARY_NOT_PASS_LOCAL_CRITERIA",
+      "metric_deltas": {
+        "collapse_depth": 0,
+        "recovery_index": 0.011,
+        "connectivity_loss": 0.006
+      },
+      "collapse_depth_delta": 0,
+      "recovery_index_delta": 0.011,
+      "connectivity_loss_delta": 0.006,
+      "numeric_delta_fields": {
+        "collapse_depth_delta": 0,
+        "recovery_index_delta": 0.011,
+        "connectivity_loss_delta": 0.006
+      },
+      "bounded_next_step": "Do not promote this mission; record a formalization/replay obligation with assumptions, hash and nonclaim boundary.",
+      "export_hash": "1e4ff99201ec1222652b1429bf446ba836062ba33a0bf08560c39bfb0c96d573",
+      "nonclaim_boundary": "Mission outcome is local decision support only; inspectable digest is not external validation.",
+      "row_hash": "b6ff03aea199d81a36c578fb85df61f9fafe57ace1c645829cf7117c4a87c02b"
+    }
+  ],
+  "mission_count_reconciliation": {
+    "status": "PASS",
+    "declared_mission_total": 8,
+    "mission_outcome_row_total": 8,
+    "full_digest_row_total": 8,
+    "counts_match": true,
+    "row_hash_total": 8,
+    "numeric_delta_field_status": "PASS",
+    "head_packet_policy": "Every practical mission outcome has a deterministic full_digest row in the prompt packet; no mission outcome is represented only by a count.",
+    "compare_hash_status": "PASS",
+    "failure_path_status": "PASS",
+    "topology_hash_status": "PASS"
+  },
+  "local_success_criterion": "Complete one mission, show an improved metric or documented failure, export assumptions/hash/boundary, then decide whether deeper private replay-backed review is warranted.",
+  "deterministic_next_step_outcome": {
+    "status": "EARNED_LOCAL_FOLLOW_UP",
+    "basis": [
+      "collapse_depth_delta < 0",
+      "recovery_index_delta > 0.05",
+      "connectivity_loss_delta < -0.05",
+      "export packet includes assumptions/hash/nonclaim boundary"
+    ],
+    "outcome_hash": "995c840458f8ebb1d6d1b6894f701c2f4a676b96022683cd8dfe5b50148321df",
+    "safe_cta": "Request or run deeper replay-backed review only after local export inspection; no external action is performed by the demo."
+  },
+  "local_request_packet_preview": {
+    "status": "BOUNDED_LOCAL_REQUEST_READY",
+    "request_type": "local replay-backed review request packet",
+    "selected_surface": "practical_value -> workbench export",
+    "preview_schema": {
+      "schema_id": "oc-core-demo.local_request_packet_preview.v010",
+      "required_fields": [
+        "status",
+        "request_type",
+        "selected_surface",
+        "preview_schema",
+        "included_fields",
+        "excluded_fields",
+        "sample_packet",
+        "validation_rows",
+        "explicit_non_action",
+        "request_hash",
+        "next_step_rule",
+        "cta_binding",
+        "no_external_action_boundary"
+      ],
+      "field_types": {
+        "status": "string",
+        "request_type": "string",
+        "selected_surface": "string",
+        "preview_schema": "object",
+        "included_fields": "string[]",
+        "excluded_fields": "string[]",
+        "sample_packet": "object",
+        "validation_rows": "object[]",
+        "explicit_non_action": "string",
+        "request_hash": "sha256:string",
+        "next_step_rule": "string",
+        "cta_binding": "object",
+        "no_external_action_boundary": "string"
+      },
+      "schema_fields": [
+        {
+          "field": "status",
+          "type": "string",
+          "required": true,
+          "included_in_packet": true,
+          "description": "Local readiness status for the preview packet."
+        },
+        {
+          "field": "request_type",
+          "type": "string",
+          "required": true,
+          "included_in_packet": true,
+          "description": "Names the packet as a local replay-backed review request preview."
+        },
+        {
+          "field": "selected_surface",
+          "type": "string",
+          "required": true,
+          "included_in_packet": true,
+          "description": "Binds the packet to Practical Value and Workbench export surfaces."
+        },
+        {
+          "field": "preview_schema",
+          "type": "object",
+          "required": true,
+          "included_in_packet": true,
+          "description": "Machine-readable list of required fields and boundary rules."
+        },
+        {
+          "field": "included_fields",
+          "type": "string[]",
+          "required": true,
+          "included_in_packet": true,
+          "description": "Human-readable field list that must appear in the local packet."
+        },
+        {
+          "field": "excluded_fields",
+          "type": "string[]",
+          "required": true,
+          "included_in_packet": true,
+          "description": "Fields explicitly outside the preview contract."
+        },
+        {
+          "field": "sample_packet",
+          "type": "object",
+          "required": true,
+          "included_in_packet": true,
+          "description": "Concrete local sample assembled from the first qualified mission and before/after panel."
+        },
+        {
+          "field": "validation_rows",
+          "type": "object[]",
+          "required": true,
+          "included_in_packet": true,
+          "description": "Reviewer-checkable pass/fail rows for schema, content, hash, CTA and boundary."
+        },
+        {
+          "field": "explicit_non_action",
+          "type": "string",
+          "required": true,
+          "included_in_packet": true,
+          "description": "Plain-language declaration that no external action is performed."
+        },
+        {
+          "field": "request_hash",
+          "type": "sha256:string",
+          "required": true,
+          "included_in_packet": true,
+          "description": "Hash over the inspectable local request preview contract."
+        },
+        {
+          "field": "next_step_rule",
+          "type": "string",
+          "required": true,
+          "included_in_packet": true,
+          "description": "Qualification rule before any deeper replay-backed review request."
+        },
+        {
+          "field": "cta_binding",
+          "type": "object",
+          "required": true,
+          "included_in_packet": true,
+          "description": "UI target and test id; opens only the local preview surface."
+        },
+        {
+          "field": "no_external_action_boundary",
+          "type": "string",
+          "required": true,
+          "included_in_packet": true,
+          "description": "Boundary that blocks purchase, upload, contact, submission and publication."
+        }
+      ],
+      "nonclaim_boundary": "Schema describes a local preview packet only; it does not authorize submission, upload, purchase, contact, publication or external validation."
+    },
+    "included_fields": [
+      "selected mission id",
+      "before/after metric deltas",
+      "threshold verdict",
+      "assumptions",
+      "result hash",
+      "nonclaim boundary",
+      "CTA binding",
+      "validation rows"
+    ],
+    "excluded_fields": [
+      "price or purchase intent",
+      "external contact details",
+      "upload/submission destination",
+      "production performance guarantee",
+      "peer-review or proof acceptance claim",
+      "private source payload not present in this public demo"
+    ],
+    "sample_packet": {
+      "request_type": "local replay-backed review request packet",
+      "selected_surface": "practical_value -> workbench export",
+      "mission_id": "system-architect::primitive-distinction::diagnostic-loop",
+      "metric_deltas": {
+        "collapse_depth": -2,
+        "recovery_index": 0.137,
+        "connectivity_loss": -0.093
+      },
+      "collapse_depth_delta": -2,
+      "recovery_index_delta": 0.137,
+      "connectivity_loss_delta": -0.093,
+      "numeric_delta_fields": {
+        "collapse_depth_delta": -2,
+        "recovery_index_delta": 0.137,
+        "connectivity_loss_delta": -0.093
+      },
+      "threshold_verdict": "PASS_LOCAL_CRITERIA",
+      "assumptions": [
+        "Added compensator and computable repair axis in exploratory sandbox.",
+        "Evaluator inspected the local export packet before any follow-up.",
+        "Replay-backed review, if requested later, is a separate local/private governance step."
+      ],
+      "result_hash": "5e9b06c884ded090d5a185f4bc5486b9f0b8de433328075d1ccb6fa5d9ed30e1",
+      "nonclaim_boundary": "Sample packet is local decision support only; it is not an order, upload, contact request, proof claim or external validation."
+    },
+    "validation_rows": [
+      {
+        "check_id": "SCHEMA_FIELDS_PRESENT",
+        "field": "preview_schema.schema_fields",
+        "status": "PASS",
+        "evidence": "required schema field inventory is included in the packet preview"
+      },
+      {
+        "check_id": "INCLUDED_FIELDS_VISIBLE",
+        "field": "included_fields",
+        "status": "PASS",
+        "evidence": "mission id, deltas, assumptions, hash, boundary, CTA and validation rows are included"
+      },
+      {
+        "check_id": "EXCLUDED_FIELDS_VISIBLE",
+        "field": "excluded_fields",
+        "status": "PASS",
+        "evidence": "purchase, contact, upload, publication, proof acceptance and performance guarantee fields are excluded"
+      },
+      {
+        "check_id": "SAMPLE_PACKET_INSPECTABLE",
+        "field": "sample_packet",
+        "status": "PASS",
+        "evidence": "system-architect::primitive-distinction::diagnostic-loop"
+      },
+      {
+        "check_id": "CTA_LOCAL_ONLY",
+        "field": "cta_binding",
+        "status": "PASS",
+        "evidence": "The CTA opens the local workbench/export preview only; it does not submit or upload the request."
+      },
+      {
+        "check_id": "NO_EXTERNAL_ACTION_BOUNDARY",
+        "field": "no_external_action_boundary",
+        "status": "PASS",
+        "evidence": "no submit/upload/purchase/contact/publish action is executed"
+      }
+    ],
+    "explicit_non_action": "The demonstrator does not submit, upload, purchase, contact, or publish anything.",
+    "next_step_rule": "Only request deeper replay-backed review when local deltas pass thresholds and the export has assumptions/hash/boundary.",
+    "cta_binding": {
+      "label": "Open local request preview",
+      "target_view": "workbench",
+      "target_surface": "workbench-export-preview",
+      "data_testid": "local-request-preview-cta",
+      "non_action": "The CTA opens the local workbench/export preview only; it does not submit or upload the request."
+    },
+    "no_external_action_boundary": "No external action boundary: this preview never submits data, uploads files, initiates purchase, contacts anyone, publishes content or claims external validation.",
+    "request_hash": "4e47e78abff6b48d809bfa09757e6ff2692977333c5633f7284dd8ecf3a24a46"
+  },
+  "mission_total": 8,
+  "deliverable_total": 3,
+  "deliverables": [
+    {
+      "value_id": "practical-value::reviewer_safeguard",
+      "decision_improved": "Reviewer Safeguard Card",
+      "three_minute_action": "Open a mission, run a bounded kill/improve comparison, export the result.",
+      "export_preview": "diagnostic JSON + before/after trace + assumptions + nonclaim boundary",
+      "safe_cta": "Evaluate fit locally; no external purchase or upload action is performed."
+    },
+    {
+      "value_id": "practical-value::architect_workflow",
+      "decision_improved": "System Architect Workflow Card",
+      "three_minute_action": "Open a mission, run a bounded kill/improve comparison, export the result.",
+      "export_preview": "diagnostic JSON + before/after trace + assumptions + nonclaim boundary",
+      "safe_cta": "Evaluate fit locally; no external purchase or upload action is performed."
+    },
+    {
+      "value_id": "practical-value::evidence_ready",
+      "decision_improved": "Evidence Readiness Card",
+      "three_minute_action": "Open a mission, run a bounded kill/improve comparison, export the result.",
+      "export_preview": "diagnostic JSON + before/after trace + assumptions + nonclaim boundary",
+      "safe_cta": "Evaluate fit locally; no external purchase or upload action is performed."
+    }
+  ],
+  "mission_ids": [
+    "system-architect::primitive-distinction::diagnostic-loop",
+    "system-architect::physical-phase::diagnostic-loop",
+    "system-architect::prebiotic-chemistry::diagnostic-loop",
+    "system-architect::biological-cell::diagnostic-loop",
+    "system-architect::institution::diagnostic-loop",
+    "system-architect::cognitive-social-agent::diagnostic-loop",
+    "system-architect::civilization::diagnostic-loop",
+    "system-architect::meta-model::diagnostic-loop"
+  ],
+  "nonclaim_boundary": "This summary demonstrates local decision-support surfaces only; it is not a sales action and makes no unsupported performance guarantee.",
+  "summary_hash": "602c65d494b1fcdf7fa8bfc5cec9d98a642ecf31bf2b924f3d81235388b37f29"
+}

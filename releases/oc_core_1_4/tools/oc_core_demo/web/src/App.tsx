@@ -148,9 +148,6 @@ function viewLabel(value?: string): string {
 function selectScienceGraph(atlas: Atlas): ScienceGraphData {
   return (
     atlas.science_graph_v010 ??
-    atlas.science_graph_v008 ??
-    atlas.science_graph_v007 ??
-    atlas.graph_v007 ??
     atlas.science_graph ??
     atlas.graph
   ) as ScienceGraphData;
@@ -3228,7 +3225,7 @@ function ProofEvidence({
   const obligationCount = routes.filter((route) => String(route.closure_status ?? "").includes("OBLIGATION")).length;
   const terminalCount = closureCounts["terminal-or-retired"] ?? 0;
   const proofClosedTotal = proofBodyIndex?.proof_closed_total_excluding_obligations ?? proofBackedCount;
-  const obligationOrBoundaryTotal = proofBodyIndex?.boundary_or_obligation_total ?? obligationCount;
+  const obligationOrBoundaryTotal = proofBodyIndex?.demoted_non_release_total ?? obligationCount;
   const baseMatches = routes.filter((route) => !query || JSON.stringify(route).toLowerCase().includes(query.toLowerCase()));
   const matches = baseMatches.filter((route) => closureFilter === "all" || (route.closure_status ?? route.status ?? "unknown") === closureFilter);
   const route = routes.find((item) => item.target_id === selected) ?? matches[0] ?? routes[0];
@@ -3251,7 +3248,7 @@ function ProofEvidence({
           {[
             ["all", "All routes", routes.length],
             ["CLOSED_REPLAY_BACKED", "Replay-backed", proofBackedCount],
-            ["CLOSED_AS_OBLIGATION_BOUNDARY", "Obligation boundary", obligationCount],
+            ["DEMOTED_NON_RELEASE_ROW", "Obligation boundary", obligationCount],
             ["terminal-or-retired", "Terminal / retired", terminalCount]
           ].map(([id, label, count]) => (
             <button key={id} className={closureFilter === id ? "nav-pill active" : "nav-pill"} onClick={() => setClosureFilter(String(id))}>
@@ -3368,7 +3365,7 @@ function ProofEvidence({
                 <tr key={item.target_id} className={item.target_id === route.target_id ? "selected-row" : ""}>
                   <td><button className="link-button" onClick={() => item.target_id && onSelect(item.target_id)}>{item.target_id}</button></td>
                   <td>{item.closure_status ?? "boundary"}</td>
-                  <td>{item.proof_class ?? "BOUNDARY_OR_OBLIGATION"}</td>
+                  <td>{item.proof_class ?? "NON_RELEASE_DEMOTED_ROW"}</td>
                   <td>{item.score_kind ?? "BOUNDARY_INSPECTABILITY_SCORE_NOT_PROOF"}<small>not proof</small></td>
                   <td data-testid="proof-inventory-canonical-warning-code">{String((item as any).canonical_warning_code ?? (item as any).warning_code ?? "PROOF_SCORE_NOT_CLOSURE")}</td>
                   <td>proof closed: 0 / inspectability {typeof item.evidence_score === "number" ? item.evidence_score.toFixed(3) : "n/a"} / not proof</td>
@@ -3743,13 +3740,7 @@ export default function App() {
   const gaps = atlas.research_gaps ?? [];
   const closureLedger = atlas.closure_ledger ?? [];
   const scienceGraph = selectScienceGraph(atlas);
-  const graphSource = atlas.science_graph_v010
-    ? "V010 graph bundle detected"
-    : atlas.science_graph_v008
-      ? "V008 graph bundle detected"
-    : atlas.science_graph_v007 || atlas.graph_v007
-      ? "V007 compatibility graph bundle detected"
-      : "V006 graph fallback";
+  const graphSource = atlas.science_graph_v010 ? "V010 graph bundle detected" : "Current graph bundle detected";
   const selectedK = store.selectedKLevel || kLevels[0]?.level_id || "K0";
 
   function jumpTo(target: ViewId, link: CrossLink = {}) {

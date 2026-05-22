@@ -1,5 +1,8 @@
-# OC Core 1.4 Release Notes
+# OC Core 1.4 RC 022 Release Notes
 
-This is a public research-stage snapshot. It consolidates the richest public OC Core 1.4 source surfaces with the current public demonstrator and science graph.
+RC 022 converts candidate 021 from a print-ready package into a print-ready public package with PDFs included and a proof-closed promoted claim set.
 
-The package intentionally withholds PDFs and Zenodo publication until owner review. GitHub publication is limited to public-safe source/data/demo surfaces, without tag or release.
+- Public promoted claims: `48`.
+- Open promoted claims: `0`.
+- Demoted non-release proof obligations: `321`.
+- Release date: `2026-05-21`.

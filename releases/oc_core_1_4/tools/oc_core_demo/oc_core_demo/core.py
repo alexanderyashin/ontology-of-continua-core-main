@@ -79,7 +79,7 @@ def _public_graph_cached() -> str:
     ):
         if atlas_path.exists():
             atlas = _read_json(atlas_path)
-            graph = atlas.get("science_graph_v010") or atlas.get("science_graph_v008") or atlas.get("science_graph_v007") or atlas.get("science_graph_v006") or atlas.get("graph")
+            graph = atlas.get("science_graph_v010") or atlas.get("science_graph") or atlas.get("graph")
             if isinstance(graph, dict) and graph.get("nodes") and graph.get("edges"):
                 return _canonical(graph)
     return _canonical(_read_json(DATA_ROOT / "interactive_graph.json"))

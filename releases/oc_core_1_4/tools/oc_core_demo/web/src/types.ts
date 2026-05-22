@@ -425,7 +425,7 @@ export type ProofBodyIndex = {
   release_ordinal?: string;
   route_total?: number;
   proof_closed_total_excluding_obligations?: number;
-  boundary_or_obligation_total?: number;
+  demoted_non_release_total?: number;
   status_counts?: Record<string, number>;
   proof_carrying_hash_lineage?: Record<string, unknown>;
   evidence_score_summary?: Record<string, unknown>;
@@ -541,10 +541,6 @@ export type Atlas = {
   domain_benchmarks?: DomainBenchmark[];
   science_graph?: ScienceGraph;
   science_graph_v010?: ScienceGraph;
-  science_graph_v009?: ScienceGraph;
-  science_graph_v007?: ScienceGraph;
-  graph_v007?: ScienceGraph;
-  science_graph_v006?: ScienceGraph;
   system_workbench?: WorkbenchConfig;
   system_workbench_schema?: Record<string, unknown>;
   didactic_routes?: Journey[];
@@ -595,7 +591,6 @@ export type Atlas = {
   };
   mission_deck?: MissionDeckCard[];
   trust_ladder?: TrustLadderEntry[] | { title?: string; entries?: TrustLadderEntry[] };
-  science_graph_v008?: ScienceGraph;
   cerberus_review?: CerberusReviewPayload;
   determinism_hash?: string;
 };

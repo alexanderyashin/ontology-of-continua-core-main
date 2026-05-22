@@ -1,0 +1,173 @@
+[
+  {
+    "id": "transition_pressure_lab",
+    "title": "Transition Pressure",
+    "source_title": "Transition pressure lab",
+    "concept": "coherence",
+    "visual_type": "phase-flow",
+    "purpose": "Show how pressure, coherence and correction interact during a bounded transition.",
+    "output_interpretation": "Returns a time series, final band, instability events and practical reading.",
+    "parameters": {
+      "corrective_capacity": {
+        "default": 0.38,
+        "max": 1.0,
+        "min": 0.0,
+        "type": "number"
+      },
+      "coupling_drag": {
+        "default": 0.44,
+        "max": 1.0,
+        "min": 0.0,
+        "type": "number"
+      },
+      "initial_coherence": {
+        "default": 0.52,
+        "max": 1.0,
+        "min": 0.0,
+        "type": "number"
+      },
+      "steps": {
+        "default": 30,
+        "max": 120,
+        "min": 3,
+        "type": "integer"
+      },
+      "transition_pressure": {
+        "default": 0.64,
+        "max": 1.0,
+        "min": 0.0,
+        "type": "number"
+      }
+    },
+    "limits": [
+      "The result is a bounded public demonstrator reading, not a proof and not external client evidence.",
+      "Proof and retirement status come from the public evidence graph, not from numeric simulation output."
+    ],
+    "evidence_refs": [
+      "public science graph",
+      "OC transition surfaces",
+      "methods/repro companion"
+    ]
+  },
+  {
+    "id": "degradation_recovery_lab",
+    "title": "Degradation / Recovery",
+    "source_title": "Degradation / recovery lab",
+    "concept": "collapse",
+    "visual_type": "repair-curve",
+    "purpose": "Explore how unresolved debt accumulates and how intervention strength changes recovery.",
+    "output_interpretation": "Shows whether the bounded case recovers, stalls or continues to decay.",
+    "parameters": {
+      "degradation_rate": {
+        "default": 0.08,
+        "max": 0.4,
+        "min": 0.0,
+        "type": "number"
+      },
+      "initial_health": {
+        "default": 0.74,
+        "max": 1.0,
+        "min": 0.0,
+        "type": "number"
+      },
+      "intervention_step": {
+        "default": 14,
+        "max": 100,
+        "min": 1,
+        "type": "integer"
+      },
+      "intervention_strength": {
+        "default": 0.22,
+        "max": 0.8,
+        "min": 0.0,
+        "type": "number"
+      },
+      "steps": {
+        "default": 36,
+        "max": 120,
+        "min": 6,
+        "type": "integer"
+      }
+    },
+    "limits": [
+      "The result is a bounded public demonstrator reading, not a proof and not external client evidence.",
+      "Proof and retirement status come from the public evidence graph, not from numeric simulation output."
+    ],
+    "evidence_refs": [
+      "public science graph",
+      "OC limits/nonclaims",
+      "methods/repro companion"
+    ]
+  },
+  {
+    "id": "dependency_propagation",
+    "title": "Dependency Propagation",
+    "source_title": "Dependency propagation",
+    "concept": "projection",
+    "visual_type": "network-wave",
+    "purpose": "Show how local claim or risk activation can spread across the public science graph.",
+    "output_interpretation": "Returns activated nodes by step and a dependency reading.",
+    "parameters": {
+      "seed_node": {
+        "default": "OC14-N001",
+        "type": "string"
+      },
+      "steps": {
+        "default": 3,
+        "max": 8,
+        "min": 1,
+        "type": "integer"
+      }
+    },
+    "limits": [
+      "The result is a bounded public demonstrator reading, not a proof and not external client evidence.",
+      "Proof and retirement status come from the public evidence graph, not from numeric simulation output."
+    ],
+    "evidence_refs": [
+      "interactive public science graph"
+    ]
+  },
+  {
+    "id": "evidence_sufficiency_calculator",
+    "title": "Evidence Sufficiency",
+    "source_title": "Evidence sufficiency calculator",
+    "concept": "evidence_nonclaim",
+    "visual_type": "evidence-radar",
+    "purpose": "Inspect whether a claim is backed by enough public evidence roles for release discussion.",
+    "output_interpretation": "Returns evidence band, missing role and reviewer-facing note.",
+    "parameters": {
+      "dependency_closure": {
+        "default": 0.76,
+        "max": 1.0,
+        "min": 0.0,
+        "type": "number"
+      },
+      "nonclaim_clarity": {
+        "default": 0.68,
+        "max": 1.0,
+        "min": 0.0,
+        "type": "number"
+      },
+      "source_binding": {
+        "default": 0.82,
+        "max": 1.0,
+        "min": 0.0,
+        "type": "number"
+      },
+      "verification_strength": {
+        "default": 0.7,
+        "max": 1.0,
+        "min": 0.0,
+        "type": "number"
+      }
+    },
+    "limits": [
+      "The result is a bounded public demonstrator reading, not a proof and not external client evidence.",
+      "Proof and retirement status come from the public evidence graph, not from numeric simulation output."
+    ],
+    "evidence_refs": [
+      "public evidence atlas",
+      "reviewer response map"
+    ]
+  }
+]

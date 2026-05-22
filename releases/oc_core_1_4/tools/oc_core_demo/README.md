@@ -2,7 +2,7 @@
 
 This directory contains the public-safe source and static data for the OC Core 1.4 Demonstrator.
 
-The demonstrator is included as a research-stage inspection tool. It exposes the public system workbench, science graph, formula atlas, wiki, proof/evidence routes, and reviewer data produced by the current V010 demonstrator pipeline.
+The demonstrator is included as a release-facing inspection tool. It exposes the public system workbench, science graph, formula atlas, wiki, proof/evidence routes, and reviewer data produced by the current V010 demonstrator pipeline.
 
 ## Public Boundary
 

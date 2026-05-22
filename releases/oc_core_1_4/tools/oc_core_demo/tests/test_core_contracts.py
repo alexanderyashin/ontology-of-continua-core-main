@@ -66,7 +66,7 @@ def test_proof_placeholder_targets_are_closed_as_boundaries() -> None:
     payload = run_spec("proof_trace_replay", {"target": "OC14-N152"})
     result = payload["result"]
     assert "Frozen proof/refute target ." not in result["statement_excerpt"]
-    assert result["public_target"]["closure_status"] in {"CLOSED_SOURCE_REPAIRED", "CLOSED_AS_OBLIGATION_BOUNDARY"}
+    assert result["public_target"]["closure_status"] in {"CLOSED_SOURCE_REPAIRED", "DEMOTED_NON_RELEASE_ROW"}
     assert "does not prove or refute" in result["nonclaim"]
 
 

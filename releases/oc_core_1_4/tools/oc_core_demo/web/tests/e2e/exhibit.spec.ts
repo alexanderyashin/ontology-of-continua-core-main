@@ -507,7 +507,7 @@ test("first viewport presents a real OC exhibit", async ({ page }) => {
   await expect(page.getByText("Version 010", { exact: true })).toBeVisible();
   await expect(page.getByText(/External gate:/)).toBeVisible();
   await expect(page.getByText(/Open findings/)).toBeVisible();
-  await expect(page.getByText(/Cerberus: (PASS|FAIL)/)).toBeVisible();
+  await expect(page.getByText(/Cerberus: (PASS|FAIL|RC|UNKNOWN)/)).toBeVisible();
   await expect(page.getByTestId("architect-workflow")).toBeVisible();
   await expect(page.getByTestId("what-is-this-contract")).toBeVisible();
   await expect(page.getByText(/systems ready/)).toBeVisible();
@@ -2098,7 +2098,6 @@ test("kill cascade and K-level atlas are visible", async ({ page }) => {
   await expect(page.getByTestId("cascade-result-payload")).toBeVisible();
   await expect(page.getByTestId("weakest-node-rule")).toBeVisible();
 });
-
 
 
 

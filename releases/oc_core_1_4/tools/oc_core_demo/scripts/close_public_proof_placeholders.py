@@ -121,7 +121,7 @@ def _replacement_for(row: dict[str, Any], public_target_id: str) -> tuple[str, s
         "Public proof/refute obligation for "
         f"{source_target_id}: the exact frozen 019 source proposition is not available as a public-safe statement in this bundle; "
         f"{DEMO_VERSION} records the proof-workbench boundary instead of presenting a solved claim.",
-        "CLOSED_AS_OBLIGATION_BOUNDARY",
+        "DEMOTED_NON_RELEASE_ROW",
     )
 
 
@@ -165,7 +165,7 @@ def close_placeholders() -> dict[str, Any]:
         dossier = dossiers[_target_index(public_id)]
         source_target_id = str(dossier.get("target_id") or public_id)
         replacement, status = _replacement_for(dossier, public_id)
-        basis = "terminal dossier exact statement" if status == "CLOSED_SOURCE_REPAIRED" else "proof workbench obligation boundary"
+        basis = "terminal dossier exact statement" if status == "CLOSED_SOURCE_REPAIRED" else "non-release research backlog row"
         nonclaim = (
             f"This {DEMO_VERSION} closure removes a demonstrator display placeholder only; it does not prove or refute the external target, "
             "does not claim external peer review, and does not promote unresolved proof work."

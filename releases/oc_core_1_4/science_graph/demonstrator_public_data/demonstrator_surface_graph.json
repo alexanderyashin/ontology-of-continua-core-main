@@ -1,0 +1,5201 @@
+{
+  "schema_version": "oc-core-demo-surface-graph.v010",
+  "demo_version": "V010",
+  "release_ordinal": "010",
+  "summary": {
+    "surface_count": 19,
+    "control_count": 62,
+    "route_count": 18,
+    "edge_count": 113,
+    "orphan_control_count": 0,
+    "dead_route_count": 0,
+    "count_without_drilldown_count": 0
+  },
+  "surfaces": [
+    {
+      "id": "SURFACE::journey",
+      "kind": "surface",
+      "surface_id": "journey",
+      "title": "Cockpit",
+      "purpose": "First loaded workbench surface; tells the reviewer what OC is and gives immediate actions.",
+      "test_id": "journey-surface",
+      "data_sources": [
+        "atlas",
+        "source_status",
+        "cerberus_review"
+      ],
+      "visible_count_source": {
+        "demo_specs": 10,
+        "proof_routes": 254,
+        "graph_nodes": 703,
+        "k_levels": 13,
+        "domains": 7,
+        "wiki_chapters": 77,
+        "corpus_atoms": 2487,
+        "formulas": 15,
+        "science_graph_nodes": 703,
+        "science_graph_edges": 2177,
+        "k_level_worlds": 13,
+        "m_spaces": 7,
+        "k_axes": 8,
+        "system_templates": 8,
+        "system_flows": 29,
+        "system_cycles": 8,
+        "thresholds": 36,
+        "compensators": 24,
+        "collapse_paths": 16,
+        "route_action_targets": 91,
+        "reviewer_objection_routes": 4,
+        "system_architect_missions": 8,
+        "model_comparison_rows": 8,
+        "trust_ladder_rungs": 4,
+        "practical_value_cards": 3,
+        "corpus_completeness_rows": 0,
+        "formula_quality_rows": 15,
+        "formula_formalization_obligations": 0,
+        "k_level_examples": 39,
+        "science_formalization_rows": 88,
+        "closure_rows": 87,
+        "open_research_gaps": 0
+      },
+      "must_have": [
+        "loaded-state screenshot",
+        "DOM snapshot",
+        "click trace for primary controls",
+        "nonclaim boundary where scientific status is shown"
+      ],
+      "anti_patterns": [
+        "button without route",
+        "count without drilldown",
+        "formula id as primary explanation",
+        "decorative PASS badge without evidence",
+        "loading-state screenshot"
+      ]
+    },
+    {
+      "id": "SURFACE::guided",
+      "kind": "surface",
+      "surface_id": "guided",
+      "title": "Guided OC Journey",
+      "purpose": "Didactic route rail for first-time readers.",
+      "test_id": "guided-surface",
+      "data_sources": [
+        "didactic_routes"
+      ],
+      "visible_count_source": {
+        "demo_specs": 10,
+        "proof_routes": 254,
+        "graph_nodes": 703,
+        "k_levels": 13,
+        "domains": 7,
+        "wiki_chapters": 77,
+        "corpus_atoms": 2487,
+        "formulas": 15,
+        "science_graph_nodes": 703,
+        "science_graph_edges": 2177,
+        "k_level_worlds": 13,
+        "m_spaces": 7,
+        "k_axes": 8,
+        "system_templates": 8,
+        "system_flows": 29,
+        "system_cycles": 8,
+        "thresholds": 36,
+        "compensators": 24,
+        "collapse_paths": 16,
+        "route_action_targets": 91,
+        "reviewer_objection_routes": 4,
+        "system_architect_missions": 8,
+        "model_comparison_rows": 8,
+        "trust_ladder_rungs": 4,
+        "practical_value_cards": 3,
+        "corpus_completeness_rows": 0,
+        "formula_quality_rows": 15,
+        "formula_formalization_obligations": 0,
+        "k_level_examples": 39,
+        "science_formalization_rows": 88,
+        "closure_rows": 87,
+        "open_research_gaps": 0
+      },
+      "must_have": [
+        "loaded-state screenshot",
+        "DOM snapshot",
+        "click trace for primary controls",
+        "nonclaim boundary where scientific status is shown"
+      ],
+      "anti_patterns": [
+        "button without route",
+        "count without drilldown",
+        "formula id as primary explanation",
+        "decorative PASS badge without evidence",
+        "loading-state screenshot"
+      ]
+    },
+    {
+      "id": "SURFACE::workbench",
+      "kind": "surface",
+      "surface_id": "workbench",
+      "title": "System Workbench",
+      "purpose": "Architect workflow: diagnose, kill, improve, compare, export.",
+      "test_id": "workbench-surface",
+      "data_sources": [
+        "system_templates",
+        "k_level_example_atlas"
+      ],
+      "visible_count_source": {
+        "demo_specs": 10,
+        "proof_routes": 254,
+        "graph_nodes": 703,
+        "k_levels": 13,
+        "domains": 7,
+        "wiki_chapters": 77,
+        "corpus_atoms": 2487,
+        "formulas": 15,
+        "science_graph_nodes": 703,
+        "science_graph_edges": 2177,
+        "k_level_worlds": 13,
+        "m_spaces": 7,
+        "k_axes": 8,
+        "system_templates": 8,
+        "system_flows": 29,
+        "system_cycles": 8,
+        "thresholds": 36,
+        "compensators": 24,
+        "collapse_paths": 16,
+        "route_action_targets": 91,
+        "reviewer_objection_routes": 4,
+        "system_architect_missions": 8,
+        "model_comparison_rows": 8,
+        "trust_ladder_rungs": 4,
+        "practical_value_cards": 3,
+        "corpus_completeness_rows": 0,
+        "formula_quality_rows": 15,
+        "formula_formalization_obligations": 0,
+        "k_level_examples": 39,
+        "science_formalization_rows": 88,
+        "closure_rows": 87,
+        "open_research_gaps": 0
+      },
+      "must_have": [
+        "loaded-state screenshot",
+        "DOM snapshot",
+        "click trace for primary controls",
+        "nonclaim boundary where scientific status is shown"
+      ],
+      "anti_patterns": [
+        "button without route",
+        "count without drilldown",
+        "formula id as primary explanation",
+        "decorative PASS badge without evidence",
+        "loading-state screenshot"
+      ]
+    },
+    {
+      "id": "SURFACE::km",
+      "kind": "surface",
+      "surface_id": "km",
+      "title": "K/M Hierarchy",
+      "purpose": "Bidirectional K/M slice view with axes, flows, cycles and thresholds.",
+      "test_id": "km-surface",
+      "data_sources": [
+        "k_levels",
+        "m_spaces",
+        "k_axes"
+      ],
+      "visible_count_source": {
+        "demo_specs": 10,
+        "proof_routes": 254,
+        "graph_nodes": 703,
+        "k_levels": 13,
+        "domains": 7,
+        "wiki_chapters": 77,
+        "corpus_atoms": 2487,
+        "formulas": 15,
+        "science_graph_nodes": 703,
+        "science_graph_edges": 2177,
+        "k_level_worlds": 13,
+        "m_spaces": 7,
+        "k_axes": 8,
+        "system_templates": 8,
+        "system_flows": 29,
+        "system_cycles": 8,
+        "thresholds": 36,
+        "compensators": 24,
+        "collapse_paths": 16,
+        "route_action_targets": 91,
+        "reviewer_objection_routes": 4,
+        "system_architect_missions": 8,
+        "model_comparison_rows": 8,
+        "trust_ladder_rungs": 4,
+        "practical_value_cards": 3,
+        "corpus_completeness_rows": 0,
+        "formula_quality_rows": 15,
+        "formula_formalization_obligations": 0,
+        "k_level_examples": 39,
+        "science_formalization_rows": 88,
+        "closure_rows": 87,
+        "open_research_gaps": 0
+      },
+      "must_have": [
+        "loaded-state screenshot",
+        "DOM snapshot",
+        "click trace for primary controls",
+        "nonclaim boundary where scientific status is shown"
+      ],
+      "anti_patterns": [
+        "button without route",
+        "count without drilldown",
+        "formula id as primary explanation",
+        "decorative PASS badge without evidence",
+        "loading-state screenshot"
+      ]
+    },
+    {
+      "id": "SURFACE::wiki",
+      "kind": "surface",
+      "surface_id": "wiki",
+      "title": "OC Wiki",
+      "purpose": "Atomized monograph/methods reader with cross-links.",
+      "test_id": "wiki-surface",
+      "data_sources": [
+        "corpus_index",
+        "oc_wiki"
+      ],
+      "visible_count_source": {
+        "demo_specs": 10,
+        "proof_routes": 254,
+        "graph_nodes": 703,
+        "k_levels": 13,
+        "domains": 7,
+        "wiki_chapters": 77,
+        "corpus_atoms": 2487,
+        "formulas": 15,
+        "science_graph_nodes": 703,
+        "science_graph_edges": 2177,
+        "k_level_worlds": 13,
+        "m_spaces": 7,
+        "k_axes": 8,
+        "system_templates": 8,
+        "system_flows": 29,
+        "system_cycles": 8,
+        "thresholds": 36,
+        "compensators": 24,
+        "collapse_paths": 16,
+        "route_action_targets": 91,
+        "reviewer_objection_routes": 4,
+        "system_architect_missions": 8,
+        "model_comparison_rows": 8,
+        "trust_ladder_rungs": 4,
+        "practical_value_cards": 3,
+        "corpus_completeness_rows": 0,
+        "formula_quality_rows": 15,
+        "formula_formalization_obligations": 0,
+        "k_level_examples": 39,
+        "science_formalization_rows": 88,
+        "closure_rows": 87,
+        "open_research_gaps": 0
+      },
+      "must_have": [
+        "loaded-state screenshot",
+        "DOM snapshot",
+        "click trace for primary controls",
+        "nonclaim boundary where scientific status is shown"
+      ],
+      "anti_patterns": [
+        "button without route",
+        "count without drilldown",
+        "formula id as primary explanation",
+        "decorative PASS badge without evidence",
+        "loading-state screenshot"
+      ]
+    },
+    {
+      "id": "SURFACE::formula",
+      "kind": "surface",
+      "surface_id": "formula",
+      "title": "Formula Atlas",
+      "purpose": "Searchable symbolic surface with quality/boundary metadata.",
+      "test_id": "formula-surface",
+      "data_sources": [
+        "formula_atlas",
+        "formula_quality_report"
+      ],
+      "visible_count_source": {
+        "demo_specs": 10,
+        "proof_routes": 254,
+        "graph_nodes": 703,
+        "k_levels": 13,
+        "domains": 7,
+        "wiki_chapters": 77,
+        "corpus_atoms": 2487,
+        "formulas": 15,
+        "science_graph_nodes": 703,
+        "science_graph_edges": 2177,
+        "k_level_worlds": 13,
+        "m_spaces": 7,
+        "k_axes": 8,
+        "system_templates": 8,
+        "system_flows": 29,
+        "system_cycles": 8,
+        "thresholds": 36,
+        "compensators": 24,
+        "collapse_paths": 16,
+        "route_action_targets": 91,
+        "reviewer_objection_routes": 4,
+        "system_architect_missions": 8,
+        "model_comparison_rows": 8,
+        "trust_ladder_rungs": 4,
+        "practical_value_cards": 3,
+        "corpus_completeness_rows": 0,
+        "formula_quality_rows": 15,
+        "formula_formalization_obligations": 0,
+        "k_level_examples": 39,
+        "science_formalization_rows": 88,
+        "closure_rows": 87,
+        "open_research_gaps": 0
+      },
+      "must_have": [
+        "loaded-state screenshot",
+        "DOM snapshot",
+        "click trace for primary controls",
+        "nonclaim boundary where scientific status is shown"
+      ],
+      "anti_patterns": [
+        "button without route",
+        "count without drilldown",
+        "formula id as primary explanation",
+        "decorative PASS badge without evidence",
+        "loading-state screenshot"
+      ]
+    },
+    {
+      "id": "SURFACE::klevels",
+      "kind": "surface",
+      "surface_id": "klevels",
+      "title": "K-Level Worlds",
+      "purpose": "K0-K12 3D worlds and drilldown examples.",
+      "test_id": "klevels-surface",
+      "data_sources": [
+        "k_level_worlds",
+        "k_level_example_atlas"
+      ],
+      "visible_count_source": {
+        "demo_specs": 10,
+        "proof_routes": 254,
+        "graph_nodes": 703,
+        "k_levels": 13,
+        "domains": 7,
+        "wiki_chapters": 77,
+        "corpus_atoms": 2487,
+        "formulas": 15,
+        "science_graph_nodes": 703,
+        "science_graph_edges": 2177,
+        "k_level_worlds": 13,
+        "m_spaces": 7,
+        "k_axes": 8,
+        "system_templates": 8,
+        "system_flows": 29,
+        "system_cycles": 8,
+        "thresholds": 36,
+        "compensators": 24,
+        "collapse_paths": 16,
+        "route_action_targets": 91,
+        "reviewer_objection_routes": 4,
+        "system_architect_missions": 8,
+        "model_comparison_rows": 8,
+        "trust_ladder_rungs": 4,
+        "practical_value_cards": 3,
+        "corpus_completeness_rows": 0,
+        "formula_quality_rows": 15,
+        "formula_formalization_obligations": 0,
+        "k_level_examples": 39,
+        "science_formalization_rows": 88,
+        "closure_rows": 87,
+        "open_research_gaps": 0
+      },
+      "must_have": [
+        "loaded-state screenshot",
+        "DOM snapshot",
+        "click trace for primary controls",
+        "nonclaim boundary where scientific status is shown"
+      ],
+      "anti_patterns": [
+        "button without route",
+        "count without drilldown",
+        "formula id as primary explanation",
+        "decorative PASS badge without evidence",
+        "loading-state screenshot"
+      ]
+    },
+    {
+      "id": "SURFACE::worldline",
+      "kind": "surface",
+      "surface_id": "worldline",
+      "title": "Worldline Theater",
+      "purpose": "Birth/evolution/overload/collapse/recovery didactic simulation.",
+      "test_id": "worldline-surface",
+      "data_sources": [
+        "simulation_worlds"
+      ],
+      "visible_count_source": {
+        "demo_specs": 10,
+        "proof_routes": 254,
+        "graph_nodes": 703,
+        "k_levels": 13,
+        "domains": 7,
+        "wiki_chapters": 77,
+        "corpus_atoms": 2487,
+        "formulas": 15,
+        "science_graph_nodes": 703,
+        "science_graph_edges": 2177,
+        "k_level_worlds": 13,
+        "m_spaces": 7,
+        "k_axes": 8,
+        "system_templates": 8,
+        "system_flows": 29,
+        "system_cycles": 8,
+        "thresholds": 36,
+        "compensators": 24,
+        "collapse_paths": 16,
+        "route_action_targets": 91,
+        "reviewer_objection_routes": 4,
+        "system_architect_missions": 8,
+        "model_comparison_rows": 8,
+        "trust_ladder_rungs": 4,
+        "practical_value_cards": 3,
+        "corpus_completeness_rows": 0,
+        "formula_quality_rows": 15,
+        "formula_formalization_obligations": 0,
+        "k_level_examples": 39,
+        "science_formalization_rows": 88,
+        "closure_rows": 87,
+        "open_research_gaps": 0
+      },
+      "must_have": [
+        "loaded-state screenshot",
+        "DOM snapshot",
+        "click trace for primary controls",
+        "nonclaim boundary where scientific status is shown"
+      ],
+      "anti_patterns": [
+        "button without route",
+        "count without drilldown",
+        "formula id as primary explanation",
+        "decorative PASS badge without evidence",
+        "loading-state screenshot"
+      ]
+    },
+    {
+      "id": "SURFACE::cascade",
+      "kind": "surface",
+      "surface_id": "cascade",
+      "title": "Cascade Lab",
+      "purpose": "Selected/weakest node kill and recovery visualization.",
+      "test_id": "cascade-surface",
+      "data_sources": [
+        "system_zoo",
+        "collapse_paths"
+      ],
+      "visible_count_source": {
+        "demo_specs": 10,
+        "proof_routes": 254,
+        "graph_nodes": 703,
+        "k_levels": 13,
+        "domains": 7,
+        "wiki_chapters": 77,
+        "corpus_atoms": 2487,
+        "formulas": 15,
+        "science_graph_nodes": 703,
+        "science_graph_edges": 2177,
+        "k_level_worlds": 13,
+        "m_spaces": 7,
+        "k_axes": 8,
+        "system_templates": 8,
+        "system_flows": 29,
+        "system_cycles": 8,
+        "thresholds": 36,
+        "compensators": 24,
+        "collapse_paths": 16,
+        "route_action_targets": 91,
+        "reviewer_objection_routes": 4,
+        "system_architect_missions": 8,
+        "model_comparison_rows": 8,
+        "trust_ladder_rungs": 4,
+        "practical_value_cards": 3,
+        "corpus_completeness_rows": 0,
+        "formula_quality_rows": 15,
+        "formula_formalization_obligations": 0,
+        "k_level_examples": 39,
+        "science_formalization_rows": 88,
+        "closure_rows": 87,
+        "open_research_gaps": 0
+      },
+      "must_have": [
+        "loaded-state screenshot",
+        "DOM snapshot",
+        "click trace for primary controls",
+        "nonclaim boundary where scientific status is shown"
+      ],
+      "anti_patterns": [
+        "button without route",
+        "count without drilldown",
+        "formula id as primary explanation",
+        "decorative PASS badge without evidence",
+        "loading-state screenshot"
+      ]
+    },
+    {
+      "id": "SURFACE::benchmarks",
+      "kind": "surface",
+      "surface_id": "benchmarks",
+      "title": "Domain Simulators",
+      "purpose": "Domain entry lanes with replay/status boundaries.",
+      "test_id": "benchmarks-surface",
+      "data_sources": [
+        "domain_benchmarks"
+      ],
+      "visible_count_source": {
+        "demo_specs": 10,
+        "proof_routes": 254,
+        "graph_nodes": 703,
+        "k_levels": 13,
+        "domains": 7,
+        "wiki_chapters": 77,
+        "corpus_atoms": 2487,
+        "formulas": 15,
+        "science_graph_nodes": 703,
+        "science_graph_edges": 2177,
+        "k_level_worlds": 13,
+        "m_spaces": 7,
+        "k_axes": 8,
+        "system_templates": 8,
+        "system_flows": 29,
+        "system_cycles": 8,
+        "thresholds": 36,
+        "compensators": 24,
+        "collapse_paths": 16,
+        "route_action_targets": 91,
+        "reviewer_objection_routes": 4,
+        "system_architect_missions": 8,
+        "model_comparison_rows": 8,
+        "trust_ladder_rungs": 4,
+        "practical_value_cards": 3,
+        "corpus_completeness_rows": 0,
+        "formula_quality_rows": 15,
+        "formula_formalization_obligations": 0,
+        "k_level_examples": 39,
+        "science_formalization_rows": 88,
+        "closure_rows": 87,
+        "open_research_gaps": 0
+      },
+      "must_have": [
+        "loaded-state screenshot",
+        "DOM snapshot",
+        "click trace for primary controls",
+        "nonclaim boundary where scientific status is shown"
+      ],
+      "anti_patterns": [
+        "button without route",
+        "count without drilldown",
+        "formula id as primary explanation",
+        "decorative PASS badge without evidence",
+        "loading-state screenshot"
+      ]
+    },
+    {
+      "id": "SURFACE::objections",
+      "kind": "surface",
+      "surface_id": "objections",
+      "title": "Objection Router",
+      "purpose": "Routes skeptical objections to functional surfaces, not FAQ text.",
+      "test_id": "objections-surface",
+      "data_sources": [
+        "reviewer_objection_routes"
+      ],
+      "visible_count_source": {
+        "demo_specs": 10,
+        "proof_routes": 254,
+        "graph_nodes": 703,
+        "k_levels": 13,
+        "domains": 7,
+        "wiki_chapters": 77,
+        "corpus_atoms": 2487,
+        "formulas": 15,
+        "science_graph_nodes": 703,
+        "science_graph_edges": 2177,
+        "k_level_worlds": 13,
+        "m_spaces": 7,
+        "k_axes": 8,
+        "system_templates": 8,
+        "system_flows": 29,
+        "system_cycles": 8,
+        "thresholds": 36,
+        "compensators": 24,
+        "collapse_paths": 16,
+        "route_action_targets": 91,
+        "reviewer_objection_routes": 4,
+        "system_architect_missions": 8,
+        "model_comparison_rows": 8,
+        "trust_ladder_rungs": 4,
+        "practical_value_cards": 3,
+        "corpus_completeness_rows": 0,
+        "formula_quality_rows": 15,
+        "formula_formalization_obligations": 0,
+        "k_level_examples": 39,
+        "science_formalization_rows": 88,
+        "closure_rows": 87,
+        "open_research_gaps": 0
+      },
+      "must_have": [
+        "loaded-state screenshot",
+        "DOM snapshot",
+        "click trace for primary controls",
+        "nonclaim boundary where scientific status is shown"
+      ],
+      "anti_patterns": [
+        "button without route",
+        "count without drilldown",
+        "formula id as primary explanation",
+        "decorative PASS badge without evidence",
+        "loading-state screenshot"
+      ]
+    },
+    {
+      "id": "SURFACE::whyoc",
+      "kind": "surface",
+      "surface_id": "whyoc",
+      "title": "Why OC / Comparison",
+      "purpose": "Interactive comparison to existing model families.",
+      "test_id": "whyoc-surface",
+      "data_sources": [
+        "model_comparison_matrix"
+      ],
+      "visible_count_source": {
+        "demo_specs": 10,
+        "proof_routes": 254,
+        "graph_nodes": 703,
+        "k_levels": 13,
+        "domains": 7,
+        "wiki_chapters": 77,
+        "corpus_atoms": 2487,
+        "formulas": 15,
+        "science_graph_nodes": 703,
+        "science_graph_edges": 2177,
+        "k_level_worlds": 13,
+        "m_spaces": 7,
+        "k_axes": 8,
+        "system_templates": 8,
+        "system_flows": 29,
+        "system_cycles": 8,
+        "thresholds": 36,
+        "compensators": 24,
+        "collapse_paths": 16,
+        "route_action_targets": 91,
+        "reviewer_objection_routes": 4,
+        "system_architect_missions": 8,
+        "model_comparison_rows": 8,
+        "trust_ladder_rungs": 4,
+        "practical_value_cards": 3,
+        "corpus_completeness_rows": 0,
+        "formula_quality_rows": 15,
+        "formula_formalization_obligations": 0,
+        "k_level_examples": 39,
+        "science_formalization_rows": 88,
+        "closure_rows": 87,
+        "open_research_gaps": 0
+      },
+      "must_have": [
+        "loaded-state screenshot",
+        "DOM snapshot",
+        "click trace for primary controls",
+        "nonclaim boundary where scientific status is shown"
+      ],
+      "anti_patterns": [
+        "button without route",
+        "count without drilldown",
+        "formula id as primary explanation",
+        "decorative PASS badge without evidence",
+        "loading-state screenshot"
+      ]
+    },
+    {
+      "id": "SURFACE::practical",
+      "kind": "surface",
+      "surface_id": "practical",
+      "title": "Practical Value",
+      "purpose": "Three-minute utility and export surfaces.",
+      "test_id": "practical-surface",
+      "data_sources": [
+        "practical_value_cards"
+      ],
+      "visible_count_source": {
+        "demo_specs": 10,
+        "proof_routes": 254,
+        "graph_nodes": 703,
+        "k_levels": 13,
+        "domains": 7,
+        "wiki_chapters": 77,
+        "corpus_atoms": 2487,
+        "formulas": 15,
+        "science_graph_nodes": 703,
+        "science_graph_edges": 2177,
+        "k_level_worlds": 13,
+        "m_spaces": 7,
+        "k_axes": 8,
+        "system_templates": 8,
+        "system_flows": 29,
+        "system_cycles": 8,
+        "thresholds": 36,
+        "compensators": 24,
+        "collapse_paths": 16,
+        "route_action_targets": 91,
+        "reviewer_objection_routes": 4,
+        "system_architect_missions": 8,
+        "model_comparison_rows": 8,
+        "trust_ladder_rungs": 4,
+        "practical_value_cards": 3,
+        "corpus_completeness_rows": 0,
+        "formula_quality_rows": 15,
+        "formula_formalization_obligations": 0,
+        "k_level_examples": 39,
+        "science_formalization_rows": 88,
+        "closure_rows": 87,
+        "open_research_gaps": 0
+      },
+      "must_have": [
+        "loaded-state screenshot",
+        "DOM snapshot",
+        "click trace for primary controls",
+        "nonclaim boundary where scientific status is shown"
+      ],
+      "anti_patterns": [
+        "button without route",
+        "count without drilldown",
+        "formula id as primary explanation",
+        "decorative PASS badge without evidence",
+        "loading-state screenshot"
+      ]
+    },
+    {
+      "id": "SURFACE::trust",
+      "kind": "surface",
+      "surface_id": "trust",
+      "title": "Trust Ladder",
+      "purpose": "Toy/exploratory/replay/proof-bounded status ladder.",
+      "test_id": "trust-surface",
+      "data_sources": [
+        "trust_ladder"
+      ],
+      "visible_count_source": {
+        "demo_specs": 10,
+        "proof_routes": 254,
+        "graph_nodes": 703,
+        "k_levels": 13,
+        "domains": 7,
+        "wiki_chapters": 77,
+        "corpus_atoms": 2487,
+        "formulas": 15,
+        "science_graph_nodes": 703,
+        "science_graph_edges": 2177,
+        "k_level_worlds": 13,
+        "m_spaces": 7,
+        "k_axes": 8,
+        "system_templates": 8,
+        "system_flows": 29,
+        "system_cycles": 8,
+        "thresholds": 36,
+        "compensators": 24,
+        "collapse_paths": 16,
+        "route_action_targets": 91,
+        "reviewer_objection_routes": 4,
+        "system_architect_missions": 8,
+        "model_comparison_rows": 8,
+        "trust_ladder_rungs": 4,
+        "practical_value_cards": 3,
+        "corpus_completeness_rows": 0,
+        "formula_quality_rows": 15,
+        "formula_formalization_obligations": 0,
+        "k_level_examples": 39,
+        "science_formalization_rows": 88,
+        "closure_rows": 87,
+        "open_research_gaps": 0
+      },
+      "must_have": [
+        "loaded-state screenshot",
+        "DOM snapshot",
+        "click trace for primary controls",
+        "nonclaim boundary where scientific status is shown"
+      ],
+      "anti_patterns": [
+        "button without route",
+        "count without drilldown",
+        "formula id as primary explanation",
+        "decorative PASS badge without evidence",
+        "loading-state screenshot"
+      ]
+    },
+    {
+      "id": "SURFACE::mission",
+      "kind": "surface",
+      "surface_id": "mission",
+      "title": "Mission Deck",
+      "purpose": "System architect missions with expected actions.",
+      "test_id": "mission-surface",
+      "data_sources": [
+        "system_architect_missions"
+      ],
+      "visible_count_source": {
+        "demo_specs": 10,
+        "proof_routes": 254,
+        "graph_nodes": 703,
+        "k_levels": 13,
+        "domains": 7,
+        "wiki_chapters": 77,
+        "corpus_atoms": 2487,
+        "formulas": 15,
+        "science_graph_nodes": 703,
+        "science_graph_edges": 2177,
+        "k_level_worlds": 13,
+        "m_spaces": 7,
+        "k_axes": 8,
+        "system_templates": 8,
+        "system_flows": 29,
+        "system_cycles": 8,
+        "thresholds": 36,
+        "compensators": 24,
+        "collapse_paths": 16,
+        "route_action_targets": 91,
+        "reviewer_objection_routes": 4,
+        "system_architect_missions": 8,
+        "model_comparison_rows": 8,
+        "trust_ladder_rungs": 4,
+        "practical_value_cards": 3,
+        "corpus_completeness_rows": 0,
+        "formula_quality_rows": 15,
+        "formula_formalization_obligations": 0,
+        "k_level_examples": 39,
+        "science_formalization_rows": 88,
+        "closure_rows": 87,
+        "open_research_gaps": 0
+      },
+      "must_have": [
+        "loaded-state screenshot",
+        "DOM snapshot",
+        "click trace for primary controls",
+        "nonclaim boundary where scientific status is shown"
+      ],
+      "anti_patterns": [
+        "button without route",
+        "count without drilldown",
+        "formula id as primary explanation",
+        "decorative PASS badge without evidence",
+        "loading-state screenshot"
+      ]
+    },
+    {
+      "id": "SURFACE::graph",
+      "kind": "surface",
+      "surface_id": "graph",
+      "title": "3D Science Graph",
+      "purpose": "Root principle to operators, K-levels, proofs, formulas and domains.",
+      "test_id": "graph-surface",
+      "data_sources": [
+        "science_graph_v010",
+        "node_detail_index"
+      ],
+      "visible_count_source": {
+        "demo_specs": 10,
+        "proof_routes": 254,
+        "graph_nodes": 703,
+        "k_levels": 13,
+        "domains": 7,
+        "wiki_chapters": 77,
+        "corpus_atoms": 2487,
+        "formulas": 15,
+        "science_graph_nodes": 703,
+        "science_graph_edges": 2177,
+        "k_level_worlds": 13,
+        "m_spaces": 7,
+        "k_axes": 8,
+        "system_templates": 8,
+        "system_flows": 29,
+        "system_cycles": 8,
+        "thresholds": 36,
+        "compensators": 24,
+        "collapse_paths": 16,
+        "route_action_targets": 91,
+        "reviewer_objection_routes": 4,
+        "system_architect_missions": 8,
+        "model_comparison_rows": 8,
+        "trust_ladder_rungs": 4,
+        "practical_value_cards": 3,
+        "corpus_completeness_rows": 0,
+        "formula_quality_rows": 15,
+        "formula_formalization_obligations": 0,
+        "k_level_examples": 39,
+        "science_formalization_rows": 88,
+        "closure_rows": 87,
+        "open_research_gaps": 0
+      },
+      "must_have": [
+        "loaded-state screenshot",
+        "DOM snapshot",
+        "click trace for primary controls",
+        "nonclaim boundary where scientific status is shown"
+      ],
+      "anti_patterns": [
+        "button without route",
+        "count without drilldown",
+        "formula id as primary explanation",
+        "decorative PASS badge without evidence",
+        "loading-state screenshot"
+      ]
+    },
+    {
+      "id": "SURFACE::proof",
+      "kind": "surface",
+      "surface_id": "proof",
+      "title": "Evidence / Boundaries",
+      "purpose": "Claim status, evidence route, limitations and nonclaim boundary without public proof-closure overclaim.",
+      "test_id": "proof-surface",
+      "data_sources": [
+        "proof_routes",
+        "closure_ledger"
+      ],
+      "visible_count_source": {
+        "demo_specs": 10,
+        "proof_routes": 254,
+        "graph_nodes": 703,
+        "k_levels": 13,
+        "domains": 7,
+        "wiki_chapters": 77,
+        "corpus_atoms": 2487,
+        "formulas": 15,
+        "science_graph_nodes": 703,
+        "science_graph_edges": 2177,
+        "k_level_worlds": 13,
+        "m_spaces": 7,
+        "k_axes": 8,
+        "system_templates": 8,
+        "system_flows": 29,
+        "system_cycles": 8,
+        "thresholds": 36,
+        "compensators": 24,
+        "collapse_paths": 16,
+        "route_action_targets": 91,
+        "reviewer_objection_routes": 4,
+        "system_architect_missions": 8,
+        "model_comparison_rows": 8,
+        "trust_ladder_rungs": 4,
+        "practical_value_cards": 3,
+        "corpus_completeness_rows": 0,
+        "formula_quality_rows": 15,
+        "formula_formalization_obligations": 0,
+        "k_level_examples": 39,
+        "science_formalization_rows": 88,
+        "closure_rows": 87,
+        "open_research_gaps": 0
+      },
+      "must_have": [
+        "loaded-state screenshot",
+        "DOM snapshot",
+        "click trace for primary controls",
+        "nonclaim boundary where scientific status is shown"
+      ],
+      "anti_patterns": [
+        "button without route",
+        "count without drilldown",
+        "formula id as primary explanation",
+        "decorative PASS badge without evidence",
+        "loading-state screenshot"
+      ]
+    },
+    {
+      "id": "SURFACE::gaps",
+      "kind": "surface",
+      "surface_id": "gaps",
+      "title": "Gap Closure",
+      "purpose": "Closure ledger and proof-workbench obligations.",
+      "test_id": "gaps-surface",
+      "data_sources": [
+        "closure_ledger",
+        "research_gap_summary"
+      ],
+      "visible_count_source": {
+        "demo_specs": 10,
+        "proof_routes": 254,
+        "graph_nodes": 703,
+        "k_levels": 13,
+        "domains": 7,
+        "wiki_chapters": 77,
+        "corpus_atoms": 2487,
+        "formulas": 15,
+        "science_graph_nodes": 703,
+        "science_graph_edges": 2177,
+        "k_level_worlds": 13,
+        "m_spaces": 7,
+        "k_axes": 8,
+        "system_templates": 8,
+        "system_flows": 29,
+        "system_cycles": 8,
+        "thresholds": 36,
+        "compensators": 24,
+        "collapse_paths": 16,
+        "route_action_targets": 91,
+        "reviewer_objection_routes": 4,
+        "system_architect_missions": 8,
+        "model_comparison_rows": 8,
+        "trust_ladder_rungs": 4,
+        "practical_value_cards": 3,
+        "corpus_completeness_rows": 0,
+        "formula_quality_rows": 15,
+        "formula_formalization_obligations": 0,
+        "k_level_examples": 39,
+        "science_formalization_rows": 88,
+        "closure_rows": 87,
+        "open_research_gaps": 0
+      },
+      "must_have": [
+        "loaded-state screenshot",
+        "DOM snapshot",
+        "click trace for primary controls",
+        "nonclaim boundary where scientific status is shown"
+      ],
+      "anti_patterns": [
+        "button without route",
+        "count without drilldown",
+        "formula id as primary explanation",
+        "decorative PASS badge without evidence",
+        "loading-state screenshot"
+      ]
+    },
+    {
+      "id": "SURFACE::reviewer",
+      "kind": "surface",
+      "surface_id": "reviewer",
+      "title": "Reviewer Mode",
+      "purpose": "Evidence bundle, quality report and public-safety review.",
+      "test_id": "reviewer-surface",
+      "data_sources": [
+        "quality_report",
+        "cerberus_v010_review"
+      ],
+      "visible_count_source": {
+        "demo_specs": 10,
+        "proof_routes": 254,
+        "graph_nodes": 703,
+        "k_levels": 13,
+        "domains": 7,
+        "wiki_chapters": 77,
+        "corpus_atoms": 2487,
+        "formulas": 15,
+        "science_graph_nodes": 703,
+        "science_graph_edges": 2177,
+        "k_level_worlds": 13,
+        "m_spaces": 7,
+        "k_axes": 8,
+        "system_templates": 8,
+        "system_flows": 29,
+        "system_cycles": 8,
+        "thresholds": 36,
+        "compensators": 24,
+        "collapse_paths": 16,
+        "route_action_targets": 91,
+        "reviewer_objection_routes": 4,
+        "system_architect_missions": 8,
+        "model_comparison_rows": 8,
+        "trust_ladder_rungs": 4,
+        "practical_value_cards": 3,
+        "corpus_completeness_rows": 0,
+        "formula_quality_rows": 15,
+        "formula_formalization_obligations": 0,
+        "k_level_examples": 39,
+        "science_formalization_rows": 88,
+        "closure_rows": 87,
+        "open_research_gaps": 0
+      },
+      "must_have": [
+        "loaded-state screenshot",
+        "DOM snapshot",
+        "click trace for primary controls",
+        "nonclaim boundary where scientific status is shown"
+      ],
+      "anti_patterns": [
+        "button without route",
+        "count without drilldown",
+        "formula id as primary explanation",
+        "decorative PASS badge without evidence",
+        "loading-state screenshot"
+      ]
+    }
+  ],
+  "controls": [
+    {
+      "id": "CONTROL::journey::open_oc_journey",
+      "kind": "control",
+      "surface_id": "journey",
+      "title": "Open OC Journey",
+      "purpose": "Primary user action on Cockpit.",
+      "data_sources": [
+        "atlas",
+        "source_status",
+        "cerberus_review"
+      ],
+      "target_view": "journey",
+      "state_mutation": "route-change-or-local-selection",
+      "expected_visible_result": "Cockpit visibly changes the journey surface or opens a linked route.",
+      "test_id": "journey-open_oc_journey",
+      "required_test": "Playwright click changes route, selection, model state or exported payload."
+    },
+    {
+      "id": "CONTROL::journey::open_workbench",
+      "kind": "control",
+      "surface_id": "journey",
+      "title": "Open Workbench",
+      "purpose": "Primary user action on Cockpit.",
+      "data_sources": [
+        "atlas",
+        "source_status",
+        "cerberus_review"
+      ],
+      "target_view": "journey",
+      "state_mutation": "route-change-or-local-selection",
+      "expected_visible_result": "Cockpit visibly changes the journey surface or opens a linked route.",
+      "test_id": "journey-open_workbench",
+      "required_test": "Playwright click changes route, selection, model state or exported payload."
+    },
+    {
+      "id": "CONTROL::journey::open_science_graph",
+      "kind": "control",
+      "surface_id": "journey",
+      "title": "Open Science Graph",
+      "purpose": "Primary user action on Cockpit.",
+      "data_sources": [
+        "atlas",
+        "source_status",
+        "cerberus_review"
+      ],
+      "target_view": "journey",
+      "state_mutation": "route-change-or-local-selection",
+      "expected_visible_result": "Cockpit visibly changes the journey surface or opens a linked route.",
+      "test_id": "journey-open_science_graph",
+      "required_test": "Playwright click changes route, selection, model state or exported payload."
+    },
+    {
+      "id": "CONTROL::journey::open_formula_atlas",
+      "kind": "control",
+      "surface_id": "journey",
+      "title": "Open Formula Atlas",
+      "purpose": "Primary user action on Cockpit.",
+      "data_sources": [
+        "atlas",
+        "source_status",
+        "cerberus_review"
+      ],
+      "target_view": "journey",
+      "state_mutation": "route-change-or-local-selection",
+      "expected_visible_result": "Cockpit visibly changes the journey surface or opens a linked route.",
+      "test_id": "journey-open_formula_atlas",
+      "required_test": "Playwright click changes route, selection, model state or exported payload."
+    },
+    {
+      "id": "CONTROL::journey::skeptical_objection_chips",
+      "kind": "control",
+      "surface_id": "journey",
+      "title": "skeptical objection chips",
+      "purpose": "Primary user action on Cockpit.",
+      "data_sources": [
+        "atlas",
+        "source_status",
+        "cerberus_review"
+      ],
+      "target_view": "journey",
+      "state_mutation": "route-change-or-local-selection",
+      "expected_visible_result": "Cockpit visibly changes the journey surface or opens a linked route.",
+      "test_id": "journey-skeptical_objection_chips",
+      "required_test": "Playwright click changes route, selection, model state or exported payload."
+    },
+    {
+      "id": "CONTROL::workbench::template_selector",
+      "kind": "control",
+      "surface_id": "workbench",
+      "title": "template selector",
+      "purpose": "Primary user action on System Workbench.",
+      "data_sources": [
+        "system_templates",
+        "k_level_example_atlas"
+      ],
+      "target_view": "workbench",
+      "state_mutation": "route-change-or-local-selection",
+      "expected_visible_result": "System Workbench visibly changes the workbench surface or opens a linked route.",
+      "test_id": "workbench-template_selector",
+      "required_test": "Playwright click changes route, selection, model state or exported payload."
+    },
+    {
+      "id": "CONTROL::workbench::k_level_selector",
+      "kind": "control",
+      "surface_id": "workbench",
+      "title": "K-level selector",
+      "purpose": "Primary user action on System Workbench.",
+      "data_sources": [
+        "system_templates",
+        "k_level_example_atlas"
+      ],
+      "target_view": "workbench",
+      "state_mutation": "route-change-or-local-selection",
+      "expected_visible_result": "System Workbench visibly changes the workbench surface or opens a linked route.",
+      "test_id": "workbench-k_level_selector",
+      "required_test": "Playwright click changes route, selection, model state or exported payload."
+    },
+    {
+      "id": "CONTROL::workbench::add_axis_dropdown",
+      "kind": "control",
+      "surface_id": "workbench",
+      "title": "add axis dropdown",
+      "purpose": "Primary user action on System Workbench.",
+      "data_sources": [
+        "system_templates",
+        "k_level_example_atlas"
+      ],
+      "target_view": "workbench",
+      "state_mutation": "route-change-or-local-selection",
+      "expected_visible_result": "System Workbench visibly changes the workbench surface or opens a linked route.",
+      "test_id": "workbench-add_axis_dropdown",
+      "required_test": "Playwright click changes route, selection, model state or exported payload."
+    },
+    {
+      "id": "CONTROL::workbench::kill",
+      "kind": "control",
+      "surface_id": "workbench",
+      "title": "Kill",
+      "purpose": "Primary user action on System Workbench.",
+      "data_sources": [
+        "system_templates",
+        "k_level_example_atlas"
+      ],
+      "target_view": "workbench",
+      "state_mutation": "route-change-or-local-selection",
+      "expected_visible_result": "System Workbench visibly changes the workbench surface or opens a linked route.",
+      "test_id": "workbench-kill",
+      "required_test": "Playwright click changes route, selection, model state or exported payload."
+    },
+    {
+      "id": "CONTROL::workbench::diagnose",
+      "kind": "control",
+      "surface_id": "workbench",
+      "title": "Diagnose",
+      "purpose": "Primary user action on System Workbench.",
+      "data_sources": [
+        "system_templates",
+        "k_level_example_atlas"
+      ],
+      "target_view": "workbench",
+      "state_mutation": "route-change-or-local-selection",
+      "expected_visible_result": "System Workbench visibly changes the workbench surface or opens a linked route.",
+      "test_id": "workbench-diagnose",
+      "required_test": "Playwright click changes route, selection, model state or exported payload."
+    },
+    {
+      "id": "CONTROL::workbench::improve",
+      "kind": "control",
+      "surface_id": "workbench",
+      "title": "Improve",
+      "purpose": "Primary user action on System Workbench.",
+      "data_sources": [
+        "system_templates",
+        "k_level_example_atlas"
+      ],
+      "target_view": "workbench",
+      "state_mutation": "route-change-or-local-selection",
+      "expected_visible_result": "System Workbench visibly changes the workbench surface or opens a linked route.",
+      "test_id": "workbench-improve",
+      "required_test": "Playwright click changes route, selection, model state or exported payload."
+    },
+    {
+      "id": "CONTROL::workbench::compare",
+      "kind": "control",
+      "surface_id": "workbench",
+      "title": "Compare",
+      "purpose": "Primary user action on System Workbench.",
+      "data_sources": [
+        "system_templates",
+        "k_level_example_atlas"
+      ],
+      "target_view": "workbench",
+      "state_mutation": "route-change-or-local-selection",
+      "expected_visible_result": "System Workbench visibly changes the workbench surface or opens a linked route.",
+      "test_id": "workbench-compare",
+      "required_test": "Playwright click changes route, selection, model state or exported payload."
+    },
+    {
+      "id": "CONTROL::workbench::export",
+      "kind": "control",
+      "surface_id": "workbench",
+      "title": "Export",
+      "purpose": "Primary user action on System Workbench.",
+      "data_sources": [
+        "system_templates",
+        "k_level_example_atlas"
+      ],
+      "target_view": "workbench",
+      "state_mutation": "route-change-or-local-selection",
+      "expected_visible_result": "System Workbench visibly changes the workbench surface or opens a linked route.",
+      "test_id": "workbench-export",
+      "required_test": "Playwright click changes route, selection, model state or exported payload."
+    },
+    {
+      "id": "CONTROL::wiki::search",
+      "kind": "control",
+      "surface_id": "wiki",
+      "title": "search",
+      "purpose": "Primary user action on OC Wiki.",
+      "data_sources": [
+        "corpus_index",
+        "oc_wiki"
+      ],
+      "target_view": "wiki",
+      "state_mutation": "route-change-or-local-selection",
+      "expected_visible_result": "OC Wiki visibly changes the wiki surface or opens a linked route.",
+      "test_id": "wiki-search",
+      "required_test": "Playwright click changes route, selection, model state or exported payload."
+    },
+    {
+      "id": "CONTROL::wiki::toc_chapter_buttons",
+      "kind": "control",
+      "surface_id": "wiki",
+      "title": "TOC chapter buttons",
+      "purpose": "Primary user action on OC Wiki.",
+      "data_sources": [
+        "corpus_index",
+        "oc_wiki"
+      ],
+      "target_view": "wiki",
+      "state_mutation": "route-change-or-local-selection",
+      "expected_visible_result": "OC Wiki visibly changes the wiki surface or opens a linked route.",
+      "test_id": "wiki-toc_chapter_buttons",
+      "required_test": "Playwright click changes route, selection, model state or exported payload."
+    },
+    {
+      "id": "CONTROL::wiki::section_chips",
+      "kind": "control",
+      "surface_id": "wiki",
+      "title": "section chips",
+      "purpose": "Primary user action on OC Wiki.",
+      "data_sources": [
+        "corpus_index",
+        "oc_wiki"
+      ],
+      "target_view": "wiki",
+      "state_mutation": "route-change-or-local-selection",
+      "expected_visible_result": "OC Wiki visibly changes the wiki surface or opens a linked route.",
+      "test_id": "wiki-section_chips",
+      "required_test": "Playwright click changes route, selection, model state or exported payload."
+    },
+    {
+      "id": "CONTROL::wiki::atom_open",
+      "kind": "control",
+      "surface_id": "wiki",
+      "title": "atom open",
+      "purpose": "Primary user action on OC Wiki.",
+      "data_sources": [
+        "corpus_index",
+        "oc_wiki"
+      ],
+      "target_view": "wiki",
+      "state_mutation": "route-change-or-local-selection",
+      "expected_visible_result": "OC Wiki visibly changes the wiki surface or opens a linked route.",
+      "test_id": "wiki-atom_open",
+      "required_test": "Playwright click changes route, selection, model state or exported payload."
+    },
+    {
+      "id": "CONTROL::wiki::formula_drill",
+      "kind": "control",
+      "surface_id": "wiki",
+      "title": "Formula drill",
+      "purpose": "Primary user action on OC Wiki.",
+      "data_sources": [
+        "corpus_index",
+        "oc_wiki"
+      ],
+      "target_view": "wiki",
+      "state_mutation": "route-change-or-local-selection",
+      "expected_visible_result": "OC Wiki visibly changes the wiki surface or opens a linked route.",
+      "test_id": "wiki-formula_drill",
+      "required_test": "Playwright click changes route, selection, model state or exported payload."
+    },
+    {
+      "id": "CONTROL::wiki::graph_drill",
+      "kind": "control",
+      "surface_id": "wiki",
+      "title": "Graph drill",
+      "purpose": "Primary user action on OC Wiki.",
+      "data_sources": [
+        "corpus_index",
+        "oc_wiki"
+      ],
+      "target_view": "wiki",
+      "state_mutation": "route-change-or-local-selection",
+      "expected_visible_result": "OC Wiki visibly changes the wiki surface or opens a linked route.",
+      "test_id": "wiki-graph_drill",
+      "required_test": "Playwright click changes route, selection, model state or exported payload."
+    },
+    {
+      "id": "CONTROL::wiki::proof_route",
+      "kind": "control",
+      "surface_id": "wiki",
+      "title": "Proof route",
+      "purpose": "Primary user action on OC Wiki.",
+      "data_sources": [
+        "corpus_index",
+        "oc_wiki"
+      ],
+      "target_view": "wiki",
+      "state_mutation": "route-change-or-local-selection",
+      "expected_visible_result": "OC Wiki visibly changes the wiki surface or opens a linked route.",
+      "test_id": "wiki-proof_route",
+      "required_test": "Playwright click changes route, selection, model state or exported payload."
+    },
+    {
+      "id": "CONTROL::formula::search",
+      "kind": "control",
+      "surface_id": "formula",
+      "title": "search",
+      "purpose": "Primary user action on Formula Atlas.",
+      "data_sources": [
+        "formula_atlas",
+        "formula_quality_report"
+      ],
+      "target_view": "formula",
+      "state_mutation": "route-change-or-local-selection",
+      "expected_visible_result": "Formula Atlas visibly changes the formula surface or opens a linked route.",
+      "test_id": "formula-search",
+      "required_test": "Playwright click changes route, selection, model state or exported payload."
+    },
+    {
+      "id": "CONTROL::formula::formula_row_button",
+      "kind": "control",
+      "surface_id": "formula",
+      "title": "formula row button",
+      "purpose": "Primary user action on Formula Atlas.",
+      "data_sources": [
+        "formula_atlas",
+        "formula_quality_report"
+      ],
+      "target_view": "formula",
+      "state_mutation": "route-change-or-local-selection",
+      "expected_visible_result": "Formula Atlas visibly changes the formula surface or opens a linked route.",
+      "test_id": "formula-formula_row_button",
+      "required_test": "Playwright click changes route, selection, model state or exported payload."
+    },
+    {
+      "id": "CONTROL::formula::probe_in_graph",
+      "kind": "control",
+      "surface_id": "formula",
+      "title": "Probe in graph",
+      "purpose": "Primary user action on Formula Atlas.",
+      "data_sources": [
+        "formula_atlas",
+        "formula_quality_report"
+      ],
+      "target_view": "formula",
+      "state_mutation": "route-change-or-local-selection",
+      "expected_visible_result": "Formula Atlas visibly changes the formula surface or opens a linked route.",
+      "test_id": "formula-probe_in_graph",
+      "required_test": "Playwright click changes route, selection, model state or exported payload."
+    },
+    {
+      "id": "CONTROL::formula::open_in_wiki",
+      "kind": "control",
+      "surface_id": "formula",
+      "title": "Open in wiki",
+      "purpose": "Primary user action on Formula Atlas.",
+      "data_sources": [
+        "formula_atlas",
+        "formula_quality_report"
+      ],
+      "target_view": "formula",
+      "state_mutation": "route-change-or-local-selection",
+      "expected_visible_result": "Formula Atlas visibly changes the formula surface or opens a linked route.",
+      "test_id": "formula-open_in_wiki",
+      "required_test": "Playwright click changes route, selection, model state or exported payload."
+    },
+    {
+      "id": "CONTROL::formula::open_in_graph_by_id",
+      "kind": "control",
+      "surface_id": "formula",
+      "title": "Open in graph by id",
+      "purpose": "Primary user action on Formula Atlas.",
+      "data_sources": [
+        "formula_atlas",
+        "formula_quality_report"
+      ],
+      "target_view": "formula",
+      "state_mutation": "route-change-or-local-selection",
+      "expected_visible_result": "Formula Atlas visibly changes the formula surface or opens a linked route.",
+      "test_id": "formula-open_in_graph_by_id",
+      "required_test": "Playwright click changes route, selection, model state or exported payload."
+    },
+    {
+      "id": "CONTROL::klevels::select_level_rail",
+      "kind": "control",
+      "surface_id": "klevels",
+      "title": "select level rail",
+      "purpose": "Primary user action on K-Level Worlds.",
+      "data_sources": [
+        "k_level_worlds",
+        "k_level_example_atlas"
+      ],
+      "target_view": "klevels",
+      "state_mutation": "route-change-or-local-selection",
+      "expected_visible_result": "K-Level Worlds visibly changes the klevels surface or opens a linked route.",
+      "test_id": "klevels-select_level_rail",
+      "required_test": "Playwright click changes route, selection, model state or exported payload."
+    },
+    {
+      "id": "CONTROL::klevels::elevator_select",
+      "kind": "control",
+      "surface_id": "klevels",
+      "title": "elevator select",
+      "purpose": "Primary user action on K-Level Worlds.",
+      "data_sources": [
+        "k_level_worlds",
+        "k_level_example_atlas"
+      ],
+      "target_view": "klevels",
+      "state_mutation": "route-change-or-local-selection",
+      "expected_visible_result": "K-Level Worlds visibly changes the klevels surface or opens a linked route.",
+      "test_id": "klevels-elevator_select",
+      "required_test": "Playwright click changes route, selection, model state or exported payload."
+    },
+    {
+      "id": "CONTROL::klevels::export_selected_route",
+      "kind": "control",
+      "surface_id": "klevels",
+      "title": "export selected route",
+      "purpose": "Primary user action on K-Level Worlds.",
+      "data_sources": [
+        "k_level_worlds",
+        "k_level_example_atlas"
+      ],
+      "target_view": "klevels",
+      "state_mutation": "route-change-or-local-selection",
+      "expected_visible_result": "K-Level Worlds visibly changes the klevels surface or opens a linked route.",
+      "test_id": "klevels-export_selected_route",
+      "required_test": "Playwright click changes route, selection, model state or exported payload."
+    },
+    {
+      "id": "CONTROL::klevels::open_workbench",
+      "kind": "control",
+      "surface_id": "klevels",
+      "title": "open workbench",
+      "purpose": "Primary user action on K-Level Worlds.",
+      "data_sources": [
+        "k_level_worlds",
+        "k_level_example_atlas"
+      ],
+      "target_view": "klevels",
+      "state_mutation": "route-change-or-local-selection",
+      "expected_visible_result": "K-Level Worlds visibly changes the klevels surface or opens a linked route.",
+      "test_id": "klevels-open_workbench",
+      "required_test": "Playwright click changes route, selection, model state or exported payload."
+    },
+    {
+      "id": "CONTROL::klevels::graph_probe",
+      "kind": "control",
+      "surface_id": "klevels",
+      "title": "graph probe",
+      "purpose": "Primary user action on K-Level Worlds.",
+      "data_sources": [
+        "k_level_worlds",
+        "k_level_example_atlas"
+      ],
+      "target_view": "klevels",
+      "state_mutation": "route-change-or-local-selection",
+      "expected_visible_result": "K-Level Worlds visibly changes the klevels surface or opens a linked route.",
+      "test_id": "klevels-graph_probe",
+      "required_test": "Playwright click changes route, selection, model state or exported payload."
+    },
+    {
+      "id": "CONTROL::cascade::system_selector",
+      "kind": "control",
+      "surface_id": "cascade",
+      "title": "system selector",
+      "purpose": "Primary user action on Cascade Lab.",
+      "data_sources": [
+        "system_zoo",
+        "collapse_paths"
+      ],
+      "target_view": "cascade",
+      "state_mutation": "route-change-or-local-selection",
+      "expected_visible_result": "Cascade Lab visibly changes the cascade surface or opens a linked route.",
+      "test_id": "cascade-system_selector",
+      "required_test": "Playwright click changes route, selection, model state or exported payload."
+    },
+    {
+      "id": "CONTROL::cascade::speed_slider",
+      "kind": "control",
+      "surface_id": "cascade",
+      "title": "speed slider",
+      "purpose": "Primary user action on Cascade Lab.",
+      "data_sources": [
+        "system_zoo",
+        "collapse_paths"
+      ],
+      "target_view": "cascade",
+      "state_mutation": "route-change-or-local-selection",
+      "expected_visible_result": "Cascade Lab visibly changes the cascade surface or opens a linked route.",
+      "test_id": "cascade-speed_slider",
+      "required_test": "Playwright click changes route, selection, model state or exported payload."
+    },
+    {
+      "id": "CONTROL::cascade::kill_mode_selector",
+      "kind": "control",
+      "surface_id": "cascade",
+      "title": "kill mode selector",
+      "purpose": "Primary user action on Cascade Lab.",
+      "data_sources": [
+        "system_zoo",
+        "collapse_paths"
+      ],
+      "target_view": "cascade",
+      "state_mutation": "route-change-or-local-selection",
+      "expected_visible_result": "Cascade Lab visibly changes the cascade surface or opens a linked route.",
+      "test_id": "cascade-kill_mode_selector",
+      "required_test": "Playwright click changes route, selection, model state or exported payload."
+    },
+    {
+      "id": "CONTROL::cascade::selected_node_kill",
+      "kind": "control",
+      "surface_id": "cascade",
+      "title": "selected node kill",
+      "purpose": "Primary user action on Cascade Lab.",
+      "data_sources": [
+        "system_zoo",
+        "collapse_paths"
+      ],
+      "target_view": "cascade",
+      "state_mutation": "route-change-or-local-selection",
+      "expected_visible_result": "Cascade Lab visibly changes the cascade surface or opens a linked route.",
+      "test_id": "cascade-selected_node_kill",
+      "required_test": "Playwright click changes route, selection, model state or exported payload."
+    },
+    {
+      "id": "CONTROL::cascade::reset_replay",
+      "kind": "control",
+      "surface_id": "cascade",
+      "title": "reset/replay",
+      "purpose": "Primary user action on Cascade Lab.",
+      "data_sources": [
+        "system_zoo",
+        "collapse_paths"
+      ],
+      "target_view": "cascade",
+      "state_mutation": "route-change-or-local-selection",
+      "expected_visible_result": "Cascade Lab visibly changes the cascade surface or opens a linked route.",
+      "test_id": "cascade-reset_replay",
+      "required_test": "Playwright click changes route, selection, model state or exported payload."
+    },
+    {
+      "id": "CONTROL::cascade::export_cascade_replay_packet",
+      "kind": "control",
+      "surface_id": "cascade",
+      "title": "export cascade replay packet",
+      "purpose": "Primary user action on Cascade Lab.",
+      "data_sources": [
+        "system_zoo",
+        "collapse_paths"
+      ],
+      "target_view": "cascade",
+      "state_mutation": "route-change-or-local-selection",
+      "expected_visible_result": "Cascade Lab visibly changes the cascade surface or opens a linked route.",
+      "test_id": "cascade-export_cascade_replay_packet",
+      "required_test": "Playwright click changes route, selection, model state or exported payload."
+    },
+    {
+      "id": "CONTROL::graph::search",
+      "kind": "control",
+      "surface_id": "graph",
+      "title": "search",
+      "purpose": "Primary user action on 3D Science Graph.",
+      "data_sources": [
+        "science_graph_v010",
+        "node_detail_index"
+      ],
+      "target_view": "graph",
+      "state_mutation": "route-change-or-local-selection",
+      "expected_visible_result": "3D Science Graph visibly changes the graph surface or opens a linked route.",
+      "test_id": "graph-search",
+      "required_test": "Playwright click changes route, selection, model state or exported payload."
+    },
+    {
+      "id": "CONTROL::graph::layer_filter",
+      "kind": "control",
+      "surface_id": "graph",
+      "title": "layer filter",
+      "purpose": "Primary user action on 3D Science Graph.",
+      "data_sources": [
+        "science_graph_v010",
+        "node_detail_index"
+      ],
+      "target_view": "graph",
+      "state_mutation": "route-change-or-local-selection",
+      "expected_visible_result": "3D Science Graph visibly changes the graph surface or opens a linked route.",
+      "test_id": "graph-layer_filter",
+      "required_test": "Playwright click changes route, selection, model state or exported payload."
+    },
+    {
+      "id": "CONTROL::graph::edge_filter",
+      "kind": "control",
+      "surface_id": "graph",
+      "title": "edge filter",
+      "purpose": "Primary user action on 3D Science Graph.",
+      "data_sources": [
+        "science_graph_v010",
+        "node_detail_index"
+      ],
+      "target_view": "graph",
+      "state_mutation": "route-change-or-local-selection",
+      "expected_visible_result": "3D Science Graph visibly changes the graph surface or opens a linked route.",
+      "test_id": "graph-edge_filter",
+      "required_test": "Playwright click changes route, selection, model state or exported payload."
+    },
+    {
+      "id": "CONTROL::graph::reset_root_path",
+      "kind": "control",
+      "surface_id": "graph",
+      "title": "reset/root path",
+      "purpose": "Primary user action on 3D Science Graph.",
+      "data_sources": [
+        "science_graph_v010",
+        "node_detail_index"
+      ],
+      "target_view": "graph",
+      "state_mutation": "route-change-or-local-selection",
+      "expected_visible_result": "3D Science Graph visibly changes the graph surface or opens a linked route.",
+      "test_id": "graph-reset_root_path",
+      "required_test": "Playwright click changes route, selection, model state or exported payload."
+    },
+    {
+      "id": "CONTROL::graph::node_click",
+      "kind": "control",
+      "surface_id": "graph",
+      "title": "node click",
+      "purpose": "Primary user action on 3D Science Graph.",
+      "data_sources": [
+        "science_graph_v010",
+        "node_detail_index"
+      ],
+      "target_view": "graph",
+      "state_mutation": "route-change-or-local-selection",
+      "expected_visible_result": "3D Science Graph visibly changes the graph surface or opens a linked route.",
+      "test_id": "graph-node_click",
+      "required_test": "Playwright click changes route, selection, model state or exported payload."
+    },
+    {
+      "id": "CONTROL::graph::wiki_formula_proof_k_workbench_links",
+      "kind": "control",
+      "surface_id": "graph",
+      "title": "wiki/formula/proof/K/workbench links",
+      "purpose": "Primary user action on 3D Science Graph.",
+      "data_sources": [
+        "science_graph_v010",
+        "node_detail_index"
+      ],
+      "target_view": "graph",
+      "state_mutation": "route-change-or-local-selection",
+      "expected_visible_result": "3D Science Graph visibly changes the graph surface or opens a linked route.",
+      "test_id": "graph-wiki_formula_proof_k_workbench_links",
+      "required_test": "Playwright click changes route, selection, model state or exported payload."
+    },
+    {
+      "id": "CONTROL::proof::target_list",
+      "kind": "control",
+      "surface_id": "proof",
+      "title": "target list",
+      "purpose": "Primary user action on Evidence / Boundaries.",
+      "data_sources": [
+        "proof_routes",
+        "closure_ledger"
+      ],
+      "target_view": "proof",
+      "state_mutation": "route-change-or-local-selection",
+      "expected_visible_result": "Evidence / Boundaries visibly changes the proof surface or opens a linked route.",
+      "test_id": "proof-target_list",
+      "required_test": "Playwright click changes route, selection, model state or exported payload."
+    },
+    {
+      "id": "CONTROL::proof::claim_drilldown",
+      "kind": "control",
+      "surface_id": "proof",
+      "title": "claim drilldown",
+      "purpose": "Primary user action on Evidence / Boundaries.",
+      "data_sources": [
+        "proof_routes",
+        "closure_ledger"
+      ],
+      "target_view": "proof",
+      "state_mutation": "route-change-or-local-selection",
+      "expected_visible_result": "Evidence / Boundaries visibly changes the proof surface or opens a linked route.",
+      "test_id": "proof-claim_drilldown",
+      "required_test": "Playwright click changes route, selection, model state or exported payload."
+    },
+    {
+      "id": "CONTROL::proof::nonclaim_boundary",
+      "kind": "control",
+      "surface_id": "proof",
+      "title": "nonclaim boundary",
+      "purpose": "Primary user action on Evidence / Boundaries.",
+      "data_sources": [
+        "proof_routes",
+        "closure_ledger"
+      ],
+      "target_view": "proof",
+      "state_mutation": "route-change-or-local-selection",
+      "expected_visible_result": "Evidence / Boundaries visibly changes the proof surface or opens a linked route.",
+      "test_id": "proof-nonclaim_boundary",
+      "required_test": "Playwright click changes route, selection, model state or exported payload."
+    },
+    {
+      "id": "CONTROL::proof::trust_ladder",
+      "kind": "control",
+      "surface_id": "proof",
+      "title": "trust ladder",
+      "purpose": "Primary user action on Evidence / Boundaries.",
+      "data_sources": [
+        "proof_routes",
+        "closure_ledger"
+      ],
+      "target_view": "proof",
+      "state_mutation": "route-change-or-local-selection",
+      "expected_visible_result": "Evidence / Boundaries visibly changes the proof surface or opens a linked route.",
+      "test_id": "proof-trust_ladder",
+      "required_test": "Playwright click changes route, selection, model state or exported payload."
+    },
+    {
+      "id": "CONTROL::reviewer::export_bundle",
+      "kind": "control",
+      "surface_id": "reviewer",
+      "title": "export bundle",
+      "purpose": "Primary user action on Reviewer Mode.",
+      "data_sources": [
+        "quality_report",
+        "cerberus_v010_review"
+      ],
+      "target_view": "reviewer",
+      "state_mutation": "route-change-or-local-selection",
+      "expected_visible_result": "Reviewer Mode visibly changes the reviewer surface or opens a linked route.",
+      "test_id": "reviewer-export_bundle",
+      "required_test": "Playwright click changes route, selection, model state or exported payload."
+    },
+    {
+      "id": "CONTROL::reviewer::trust_ladder",
+      "kind": "control",
+      "surface_id": "reviewer",
+      "title": "trust ladder",
+      "purpose": "Primary user action on Reviewer Mode.",
+      "data_sources": [
+        "quality_report",
+        "cerberus_v010_review"
+      ],
+      "target_view": "reviewer",
+      "state_mutation": "route-change-or-local-selection",
+      "expected_visible_result": "Reviewer Mode visibly changes the reviewer surface or opens a linked route.",
+      "test_id": "reviewer-trust_ladder",
+      "required_test": "Playwright click changes route, selection, model state or exported payload."
+    },
+    {
+      "id": "CONTROL::reviewer::why_oc",
+      "kind": "control",
+      "surface_id": "reviewer",
+      "title": "why OC",
+      "purpose": "Primary user action on Reviewer Mode.",
+      "data_sources": [
+        "quality_report",
+        "cerberus_v010_review"
+      ],
+      "target_view": "reviewer",
+      "state_mutation": "route-change-or-local-selection",
+      "expected_visible_result": "Reviewer Mode visibly changes the reviewer surface or opens a linked route.",
+      "test_id": "reviewer-why_oc",
+      "required_test": "Playwright click changes route, selection, model state or exported payload."
+    },
+    {
+      "id": "CONTROL::reviewer::practical_value",
+      "kind": "control",
+      "surface_id": "reviewer",
+      "title": "practical value",
+      "purpose": "Primary user action on Reviewer Mode.",
+      "data_sources": [
+        "quality_report",
+        "cerberus_v010_review"
+      ],
+      "target_view": "reviewer",
+      "state_mutation": "route-change-or-local-selection",
+      "expected_visible_result": "Reviewer Mode visibly changes the reviewer surface or opens a linked route.",
+      "test_id": "reviewer-practical_value",
+      "required_test": "Playwright click changes route, selection, model state or exported payload."
+    },
+    {
+      "id": "CONTROL::reviewer::mission_deck",
+      "kind": "control",
+      "surface_id": "reviewer",
+      "title": "mission deck",
+      "purpose": "Primary user action on Reviewer Mode.",
+      "data_sources": [
+        "quality_report",
+        "cerberus_v010_review"
+      ],
+      "target_view": "reviewer",
+      "state_mutation": "route-change-or-local-selection",
+      "expected_visible_result": "Reviewer Mode visibly changes the reviewer surface or opens a linked route.",
+      "test_id": "reviewer-mission_deck",
+      "required_test": "Playwright click changes route, selection, model state or exported payload."
+    },
+    {
+      "id": "CONTROL::worldline::worldline-run_simulation",
+      "kind": "control",
+      "surface_id": "worldline",
+      "title": "Run Simulation",
+      "purpose": "Route-bound control for oc_in_12_minutes.",
+      "data_sources": [
+        "route_action_manifest"
+      ],
+      "target_view": "worldline",
+      "state_mutation": "route-bound-semantic-action",
+      "expected_visible_result": "Run Simulation opens or mutates the worldline surface with a visible state/hash/detail change.",
+      "test_id": "worldline-run_simulation",
+      "required_test": "Route-action reconciliation resolves this control_binding to this listed control test_id."
+    },
+    {
+      "id": "CONTROL::wiki::wiki-open_in_wiki",
+      "kind": "control",
+      "surface_id": "wiki",
+      "title": "Open in Wiki",
+      "purpose": "Route-bound control for oc_in_12_minutes.",
+      "data_sources": [
+        "route_action_manifest"
+      ],
+      "target_view": "wiki",
+      "state_mutation": "route-bound-semantic-action",
+      "expected_visible_result": "Open in Wiki opens or mutates the wiki surface with a visible state/hash/detail change.",
+      "test_id": "wiki-open_in_wiki",
+      "required_test": "Route-action reconciliation resolves this control_binding to this listed control test_id."
+    },
+    {
+      "id": "CONTROL::graph::graph-show_in_graph",
+      "kind": "control",
+      "surface_id": "graph",
+      "title": "Show in Graph",
+      "purpose": "Route-bound control for oc_in_12_minutes.",
+      "data_sources": [
+        "route_action_manifest"
+      ],
+      "target_view": "graph",
+      "state_mutation": "route-bound-semantic-action",
+      "expected_visible_result": "Show in Graph opens or mutates the graph surface with a visible state/hash/detail change.",
+      "test_id": "graph-show_in_graph",
+      "required_test": "Route-action reconciliation resolves this control_binding to this listed control test_id."
+    },
+    {
+      "id": "CONTROL::workbench::workbench-use_in_workbench",
+      "kind": "control",
+      "surface_id": "workbench",
+      "title": "Use in Workbench",
+      "purpose": "Route-bound control for oc_in_12_minutes.",
+      "data_sources": [
+        "route_action_manifest"
+      ],
+      "target_view": "workbench",
+      "state_mutation": "route-bound-semantic-action",
+      "expected_visible_result": "Use in Workbench opens or mutates the workbench surface with a visible state/hash/detail change.",
+      "test_id": "workbench-use_in_workbench",
+      "required_test": "Route-action reconciliation resolves this control_binding to this listed control test_id."
+    },
+    {
+      "id": "CONTROL::workbench::workbench-run_simulation",
+      "kind": "control",
+      "surface_id": "workbench",
+      "title": "Run Simulation",
+      "purpose": "Route-bound control for oc_in_12_minutes.",
+      "data_sources": [
+        "route_action_manifest"
+      ],
+      "target_view": "workbench",
+      "state_mutation": "route-bound-semantic-action",
+      "expected_visible_result": "Run Simulation opens or mutates the workbench surface with a visible state/hash/detail change.",
+      "test_id": "workbench-run_simulation",
+      "required_test": "Route-action reconciliation resolves this control_binding to this listed control test_id."
+    },
+    {
+      "id": "CONTROL::cascade::cascade-run_simulation",
+      "kind": "control",
+      "surface_id": "cascade",
+      "title": "Run Simulation",
+      "purpose": "Route-bound control for oc_in_12_minutes.",
+      "data_sources": [
+        "route_action_manifest"
+      ],
+      "target_view": "cascade",
+      "state_mutation": "route-bound-semantic-action",
+      "expected_visible_result": "Run Simulation opens or mutates the cascade surface with a visible state/hash/detail change.",
+      "test_id": "cascade-run_simulation",
+      "required_test": "Route-action reconciliation resolves this control_binding to this listed control test_id."
+    },
+    {
+      "id": "CONTROL::proof::proof-open_evidence_boundary",
+      "kind": "control",
+      "surface_id": "proof",
+      "title": "Open Evidence Boundary",
+      "purpose": "Route-bound control for oc_in_12_minutes.",
+      "data_sources": [
+        "route_action_manifest"
+      ],
+      "target_view": "proof",
+      "state_mutation": "route-bound-semantic-action",
+      "expected_visible_result": "Open Evidence Boundary opens or mutates the proof surface with a visible state/hash/detail change.",
+      "test_id": "proof-open_evidence_boundary",
+      "required_test": "Route-action reconciliation resolves this control_binding to this listed control test_id."
+    },
+    {
+      "id": "CONTROL::benchmarks::benchmarks-open_domain",
+      "kind": "control",
+      "surface_id": "benchmarks",
+      "title": "Open Domain",
+      "purpose": "Route-bound control for oc_in_12_minutes.",
+      "data_sources": [
+        "route_action_manifest"
+      ],
+      "target_view": "benchmarks",
+      "state_mutation": "route-bound-semantic-action",
+      "expected_visible_result": "Open Domain opens or mutates the benchmarks surface with a visible state/hash/detail change.",
+      "test_id": "benchmarks-open_domain",
+      "required_test": "Route-action reconciliation resolves this control_binding to this listed control test_id."
+    },
+    {
+      "id": "CONTROL::formula::formula-show_formula",
+      "kind": "control",
+      "surface_id": "formula",
+      "title": "Show Formula",
+      "purpose": "Route-bound control for oc_in_12_minutes.",
+      "data_sources": [
+        "route_action_manifest"
+      ],
+      "target_view": "formula",
+      "state_mutation": "route-bound-semantic-action",
+      "expected_visible_result": "Show Formula opens or mutates the formula surface with a visible state/hash/detail change.",
+      "test_id": "formula-show_formula",
+      "required_test": "Route-action reconciliation resolves this control_binding to this listed control test_id."
+    },
+    {
+      "id": "CONTROL::practical::purchase_pull",
+      "kind": "control",
+      "surface_id": "practical",
+      "title": "purchase_pull",
+      "purpose": "Route-bound control for purchase_pull::local_qualified_next_step.",
+      "data_sources": [
+        "route_action_manifest"
+      ],
+      "target_view": "practical",
+      "state_mutation": "route-bound-semantic-action",
+      "expected_visible_result": "purchase_pull opens or mutates the practical surface with a visible state/hash/detail change.",
+      "test_id": "purchase_pull",
+      "required_test": "Route-action reconciliation resolves this control_binding to this listed control test_id."
+    },
+    {
+      "id": "CONTROL::graph::graph-compare",
+      "kind": "control",
+      "surface_id": "graph",
+      "title": "Compare",
+      "purpose": "Route-bound control for objection_route::no_compare_explanation.",
+      "data_sources": [
+        "route_action_manifest"
+      ],
+      "target_view": "graph",
+      "state_mutation": "route-bound-semantic-action",
+      "expected_visible_result": "Compare opens or mutates the graph surface with a visible state/hash/detail change.",
+      "test_id": "graph-compare",
+      "required_test": "Route-action reconciliation resolves this control_binding to this listed control test_id."
+    }
+  ],
+  "routes": [
+    {
+      "id": "ROUTE::oc_in_12_minutes",
+      "kind": "route",
+      "title": "oc_in_12_minutes",
+      "purpose": "Pre-build route contract; prevents orphan buttons and dead didactic branches.",
+      "target_surface": "benchmarks",
+      "source": "route_action_manifest",
+      "test_id": "route-oc_in_12_minutes",
+      "expected_visible_result": "Route lands on benchmarks with a visible surface or state change.",
+      "required_test": "Route must be reachable from UI and included in click trace."
+    },
+    {
+      "id": "ROUTE::from_contradiction_to_axis",
+      "kind": "route",
+      "title": "from_contradiction_to_axis",
+      "purpose": "Pre-build route contract; prevents orphan buttons and dead didactic branches.",
+      "target_surface": "cascade",
+      "source": "route_action_manifest",
+      "test_id": "route-from_contradiction_to_axis",
+      "expected_visible_result": "Route lands on cascade with a visible surface or state change.",
+      "required_test": "Route must be reachable from UI and included in click trace."
+    },
+    {
+      "id": "ROUTE::k12_to_k0_drilldown",
+      "kind": "route",
+      "title": "k12_to_k0_drilldown",
+      "purpose": "Pre-build route contract; prevents orphan buttons and dead didactic branches.",
+      "target_surface": "benchmarks",
+      "source": "route_action_manifest",
+      "test_id": "route-k12_to_k0_drilldown",
+      "expected_visible_result": "Route lands on benchmarks with a visible surface or state change.",
+      "required_test": "Route must be reachable from UI and included in click trace."
+    },
+    {
+      "id": "ROUTE::domain_expert_entry",
+      "kind": "route",
+      "title": "domain_expert_entry",
+      "purpose": "Pre-build route contract; prevents orphan buttons and dead didactic branches.",
+      "target_surface": "benchmarks",
+      "source": "route_action_manifest",
+      "test_id": "route-domain_expert_entry",
+      "expected_visible_result": "Route lands on benchmarks with a visible surface or state change.",
+      "required_test": "Route must be reachable from UI and included in click trace."
+    },
+    {
+      "id": "ROUTE::collapse_and_recovery",
+      "kind": "route",
+      "title": "collapse_and_recovery",
+      "purpose": "Pre-build route contract; prevents orphan buttons and dead didactic branches.",
+      "target_surface": "cascade",
+      "source": "route_action_manifest",
+      "test_id": "route-collapse_and_recovery",
+      "expected_visible_result": "Route lands on cascade with a visible surface or state change.",
+      "required_test": "Route must be reachable from UI and included in click trace."
+    },
+    {
+      "id": "ROUTE::proof_boundary_route",
+      "kind": "route",
+      "title": "proof_boundary_route",
+      "purpose": "Pre-build route contract; prevents orphan buttons and dead didactic branches.",
+      "target_surface": "formula",
+      "source": "route_action_manifest",
+      "test_id": "route-proof_boundary_route",
+      "expected_visible_result": "Route lands on formula with a visible surface or state change.",
+      "required_test": "Route must be reachable from UI and included in click trace."
+    },
+    {
+      "id": "ROUTE::purchase_pull::local_qualified_next_step",
+      "kind": "route",
+      "title": "purchase_pull::local_qualified_next_step",
+      "purpose": "Pre-build route contract; prevents orphan buttons and dead didactic branches.",
+      "target_surface": "practical",
+      "source": "route_action_manifest",
+      "test_id": "route-purchase_pull_local_qualified_next_step",
+      "expected_visible_result": "Route lands on practical with a visible surface or state change.",
+      "required_test": "Route must be reachable from UI and included in click trace."
+    },
+    {
+      "id": "ROUTE::objection_route::predictive_overreach",
+      "kind": "route",
+      "title": "objection_route::predictive_overreach",
+      "purpose": "Pre-build route contract; prevents orphan buttons and dead didactic branches.",
+      "target_surface": "benchmarks",
+      "source": "route_action_manifest",
+      "test_id": "route-objection_route_predictive_overreach",
+      "expected_visible_result": "Route lands on benchmarks with a visible surface or state change.",
+      "required_test": "Route must be reachable from UI and included in click trace."
+    },
+    {
+      "id": "ROUTE::objection_route::graph_formula_discrepancy",
+      "kind": "route",
+      "title": "objection_route::graph_formula_discrepancy",
+      "purpose": "Pre-build route contract; prevents orphan buttons and dead didactic branches.",
+      "target_surface": "formula",
+      "source": "route_action_manifest",
+      "test_id": "route-objection_route_graph_formula_discrepancy",
+      "expected_visible_result": "Route lands on formula with a visible surface or state change.",
+      "required_test": "Route must be reachable from UI and included in click trace."
+    },
+    {
+      "id": "ROUTE::objection_route::no_compare_explanation",
+      "kind": "route",
+      "title": "objection_route::no_compare_explanation",
+      "purpose": "Pre-build route contract; prevents orphan buttons and dead didactic branches.",
+      "target_surface": "graph",
+      "source": "route_action_manifest",
+      "test_id": "route-objection_route_no_compare_explanation",
+      "expected_visible_result": "Route lands on graph with a visible surface or state change.",
+      "required_test": "Route must be reachable from UI and included in click trace."
+    },
+    {
+      "id": "ROUTE::system-architect::primitive-distinction::diagnostic-loop",
+      "kind": "route",
+      "title": "system-architect::primitive-distinction::diagnostic-loop",
+      "purpose": "Pre-build route contract; prevents orphan buttons and dead didactic branches.",
+      "target_surface": "graph",
+      "source": "route_action_manifest",
+      "test_id": "route-system_architect_primitive_distinction_diagnostic_loop",
+      "expected_visible_result": "Route lands on graph with a visible surface or state change.",
+      "required_test": "Route must be reachable from UI and included in click trace."
+    },
+    {
+      "id": "ROUTE::system-architect::physical-phase::diagnostic-loop",
+      "kind": "route",
+      "title": "system-architect::physical-phase::diagnostic-loop",
+      "purpose": "Pre-build route contract; prevents orphan buttons and dead didactic branches.",
+      "target_surface": "graph",
+      "source": "route_action_manifest",
+      "test_id": "route-system_architect_physical_phase_diagnostic_loop",
+      "expected_visible_result": "Route lands on graph with a visible surface or state change.",
+      "required_test": "Route must be reachable from UI and included in click trace."
+    },
+    {
+      "id": "ROUTE::system-architect::prebiotic-chemistry::diagnostic-loop",
+      "kind": "route",
+      "title": "system-architect::prebiotic-chemistry::diagnostic-loop",
+      "purpose": "Pre-build route contract; prevents orphan buttons and dead didactic branches.",
+      "target_surface": "graph",
+      "source": "route_action_manifest",
+      "test_id": "route-system_architect_prebiotic_chemistry_diagnostic_loop",
+      "expected_visible_result": "Route lands on graph with a visible surface or state change.",
+      "required_test": "Route must be reachable from UI and included in click trace."
+    },
+    {
+      "id": "ROUTE::system-architect::biological-cell::diagnostic-loop",
+      "kind": "route",
+      "title": "system-architect::biological-cell::diagnostic-loop",
+      "purpose": "Pre-build route contract; prevents orphan buttons and dead didactic branches.",
+      "target_surface": "graph",
+      "source": "route_action_manifest",
+      "test_id": "route-system_architect_biological_cell_diagnostic_loop",
+      "expected_visible_result": "Route lands on graph with a visible surface or state change.",
+      "required_test": "Route must be reachable from UI and included in click trace."
+    },
+    {
+      "id": "ROUTE::system-architect::institution::diagnostic-loop",
+      "kind": "route",
+      "title": "system-architect::institution::diagnostic-loop",
+      "purpose": "Pre-build route contract; prevents orphan buttons and dead didactic branches.",
+      "target_surface": "graph",
+      "source": "route_action_manifest",
+      "test_id": "route-system_architect_institution_diagnostic_loop",
+      "expected_visible_result": "Route lands on graph with a visible surface or state change.",
+      "required_test": "Route must be reachable from UI and included in click trace."
+    },
+    {
+      "id": "ROUTE::system-architect::cognitive-social-agent::diagnostic-loop",
+      "kind": "route",
+      "title": "system-architect::cognitive-social-agent::diagnostic-loop",
+      "purpose": "Pre-build route contract; prevents orphan buttons and dead didactic branches.",
+      "target_surface": "graph",
+      "source": "route_action_manifest",
+      "test_id": "route-system_architect_cognitive_social_agent_diagnostic_loop",
+      "expected_visible_result": "Route lands on graph with a visible surface or state change.",
+      "required_test": "Route must be reachable from UI and included in click trace."
+    },
+    {
+      "id": "ROUTE::system-architect::civilization::diagnostic-loop",
+      "kind": "route",
+      "title": "system-architect::civilization::diagnostic-loop",
+      "purpose": "Pre-build route contract; prevents orphan buttons and dead didactic branches.",
+      "target_surface": "graph",
+      "source": "route_action_manifest",
+      "test_id": "route-system_architect_civilization_diagnostic_loop",
+      "expected_visible_result": "Route lands on graph with a visible surface or state change.",
+      "required_test": "Route must be reachable from UI and included in click trace."
+    },
+    {
+      "id": "ROUTE::system-architect::meta-model::diagnostic-loop",
+      "kind": "route",
+      "title": "system-architect::meta-model::diagnostic-loop",
+      "purpose": "Pre-build route contract; prevents orphan buttons and dead didactic branches.",
+      "target_surface": "graph",
+      "source": "route_action_manifest",
+      "test_id": "route-system_architect_meta_model_diagnostic_loop",
+      "expected_visible_result": "Route lands on graph with a visible surface or state change.",
+      "required_test": "Route must be reachable from UI and included in click trace."
+    }
+  ],
+  "nodes": [
+    {
+      "id": "SURFACE::journey",
+      "kind": "surface",
+      "surface_id": "journey",
+      "title": "Cockpit",
+      "purpose": "First loaded workbench surface; tells the reviewer what OC is and gives immediate actions.",
+      "test_id": "journey-surface",
+      "data_sources": [
+        "atlas",
+        "source_status",
+        "cerberus_review"
+      ],
+      "visible_count_source": {
+        "demo_specs": 10,
+        "proof_routes": 254,
+        "graph_nodes": 703,
+        "k_levels": 13,
+        "domains": 7,
+        "wiki_chapters": 77,
+        "corpus_atoms": 2487,
+        "formulas": 15,
+        "science_graph_nodes": 703,
+        "science_graph_edges": 2177,
+        "k_level_worlds": 13,
+        "m_spaces": 7,
+        "k_axes": 8,
+        "system_templates": 8,
+        "system_flows": 29,
+        "system_cycles": 8,
+        "thresholds": 36,
+        "compensators": 24,
+        "collapse_paths": 16,
+        "route_action_targets": 91,
+        "reviewer_objection_routes": 4,
+        "system_architect_missions": 8,
+        "model_comparison_rows": 8,
+        "trust_ladder_rungs": 4,
+        "practical_value_cards": 3,
+        "corpus_completeness_rows": 0,
+        "formula_quality_rows": 15,
+        "formula_formalization_obligations": 0,
+        "k_level_examples": 39,
+        "science_formalization_rows": 88,
+        "closure_rows": 87,
+        "open_research_gaps": 0
+      },
+      "must_have": [
+        "loaded-state screenshot",
+        "DOM snapshot",
+        "click trace for primary controls",
+        "nonclaim boundary where scientific status is shown"
+      ],
+      "anti_patterns": [
+        "button without route",
+        "count without drilldown",
+        "formula id as primary explanation",
+        "decorative PASS badge without evidence",
+        "loading-state screenshot"
+      ]
+    },
+    {
+      "id": "CONTROL::journey::open_oc_journey",
+      "kind": "control",
+      "surface_id": "journey",
+      "title": "Open OC Journey",
+      "purpose": "Primary user action on Cockpit.",
+      "data_sources": [
+        "atlas",
+        "source_status",
+        "cerberus_review"
+      ],
+      "target_view": "journey",
+      "state_mutation": "route-change-or-local-selection",
+      "expected_visible_result": "Cockpit visibly changes the journey surface or opens a linked route.",
+      "test_id": "journey-open_oc_journey",
+      "required_test": "Playwright click changes route, selection, model state or exported payload."
+    },
+    {
+      "id": "CONTROL::journey::open_workbench",
+      "kind": "control",
+      "surface_id": "journey",
+      "title": "Open Workbench",
+      "purpose": "Primary user action on Cockpit.",
+      "data_sources": [
+        "atlas",
+        "source_status",
+        "cerberus_review"
+      ],
+      "target_view": "journey",
+      "state_mutation": "route-change-or-local-selection",
+      "expected_visible_result": "Cockpit visibly changes the journey surface or opens a linked route.",
+      "test_id": "journey-open_workbench",
+      "required_test": "Playwright click changes route, selection, model state or exported payload."
+    },
+    {
+      "id": "CONTROL::journey::open_science_graph",
+      "kind": "control",
+      "surface_id": "journey",
+      "title": "Open Science Graph",
+      "purpose": "Primary user action on Cockpit.",
+      "data_sources": [
+        "atlas",
+        "source_status",
+        "cerberus_review"
+      ],
+      "target_view": "journey",
+      "state_mutation": "route-change-or-local-selection",
+      "expected_visible_result": "Cockpit visibly changes the journey surface or opens a linked route.",
+      "test_id": "journey-open_science_graph",
+      "required_test": "Playwright click changes route, selection, model state or exported payload."
+    },
+    {
+      "id": "CONTROL::journey::open_formula_atlas",
+      "kind": "control",
+      "surface_id": "journey",
+      "title": "Open Formula Atlas",
+      "purpose": "Primary user action on Cockpit.",
+      "data_sources": [
+        "atlas",
+        "source_status",
+        "cerberus_review"
+      ],
+      "target_view": "journey",
+      "state_mutation": "route-change-or-local-selection",
+      "expected_visible_result": "Cockpit visibly changes the journey surface or opens a linked route.",
+      "test_id": "journey-open_formula_atlas",
+      "required_test": "Playwright click changes route, selection, model state or exported payload."
+    },
+    {
+      "id": "CONTROL::journey::skeptical_objection_chips",
+      "kind": "control",
+      "surface_id": "journey",
+      "title": "skeptical objection chips",
+      "purpose": "Primary user action on Cockpit.",
+      "data_sources": [
+        "atlas",
+        "source_status",
+        "cerberus_review"
+      ],
+      "target_view": "journey",
+      "state_mutation": "route-change-or-local-selection",
+      "expected_visible_result": "Cockpit visibly changes the journey surface or opens a linked route.",
+      "test_id": "journey-skeptical_objection_chips",
+      "required_test": "Playwright click changes route, selection, model state or exported payload."
+    },
+    {
+      "id": "SURFACE::guided",
+      "kind": "surface",
+      "surface_id": "guided",
+      "title": "Guided OC Journey",
+      "purpose": "Didactic route rail for first-time readers.",
+      "test_id": "guided-surface",
+      "data_sources": [
+        "didactic_routes"
+      ],
+      "visible_count_source": {
+        "demo_specs": 10,
+        "proof_routes": 254,
+        "graph_nodes": 703,
+        "k_levels": 13,
+        "domains": 7,
+        "wiki_chapters": 77,
+        "corpus_atoms": 2487,
+        "formulas": 15,
+        "science_graph_nodes": 703,
+        "science_graph_edges": 2177,
+        "k_level_worlds": 13,
+        "m_spaces": 7,
+        "k_axes": 8,
+        "system_templates": 8,
+        "system_flows": 29,
+        "system_cycles": 8,
+        "thresholds": 36,
+        "compensators": 24,
+        "collapse_paths": 16,
+        "route_action_targets": 91,
+        "reviewer_objection_routes": 4,
+        "system_architect_missions": 8,
+        "model_comparison_rows": 8,
+        "trust_ladder_rungs": 4,
+        "practical_value_cards": 3,
+        "corpus_completeness_rows": 0,
+        "formula_quality_rows": 15,
+        "formula_formalization_obligations": 0,
+        "k_level_examples": 39,
+        "science_formalization_rows": 88,
+        "closure_rows": 87,
+        "open_research_gaps": 0
+      },
+      "must_have": [
+        "loaded-state screenshot",
+        "DOM snapshot",
+        "click trace for primary controls",
+        "nonclaim boundary where scientific status is shown"
+      ],
+      "anti_patterns": [
+        "button without route",
+        "count without drilldown",
+        "formula id as primary explanation",
+        "decorative PASS badge without evidence",
+        "loading-state screenshot"
+      ]
+    },
+    {
+      "id": "SURFACE::workbench",
+      "kind": "surface",
+      "surface_id": "workbench",
+      "title": "System Workbench",
+      "purpose": "Architect workflow: diagnose, kill, improve, compare, export.",
+      "test_id": "workbench-surface",
+      "data_sources": [
+        "system_templates",
+        "k_level_example_atlas"
+      ],
+      "visible_count_source": {
+        "demo_specs": 10,
+        "proof_routes": 254,
+        "graph_nodes": 703,
+        "k_levels": 13,
+        "domains": 7,
+        "wiki_chapters": 77,
+        "corpus_atoms": 2487,
+        "formulas": 15,
+        "science_graph_nodes": 703,
+        "science_graph_edges": 2177,
+        "k_level_worlds": 13,
+        "m_spaces": 7,
+        "k_axes": 8,
+        "system_templates": 8,
+        "system_flows": 29,
+        "system_cycles": 8,
+        "thresholds": 36,
+        "compensators": 24,
+        "collapse_paths": 16,
+        "route_action_targets": 91,
+        "reviewer_objection_routes": 4,
+        "system_architect_missions": 8,
+        "model_comparison_rows": 8,
+        "trust_ladder_rungs": 4,
+        "practical_value_cards": 3,
+        "corpus_completeness_rows": 0,
+        "formula_quality_rows": 15,
+        "formula_formalization_obligations": 0,
+        "k_level_examples": 39,
+        "science_formalization_rows": 88,
+        "closure_rows": 87,
+        "open_research_gaps": 0
+      },
+      "must_have": [
+        "loaded-state screenshot",
+        "DOM snapshot",
+        "click trace for primary controls",
+        "nonclaim boundary where scientific status is shown"
+      ],
+      "anti_patterns": [
+        "button without route",
+        "count without drilldown",
+        "formula id as primary explanation",
+        "decorative PASS badge without evidence",
+        "loading-state screenshot"
+      ]
+    },
+    {
+      "id": "CONTROL::workbench::template_selector",
+      "kind": "control",
+      "surface_id": "workbench",
+      "title": "template selector",
+      "purpose": "Primary user action on System Workbench.",
+      "data_sources": [
+        "system_templates",
+        "k_level_example_atlas"
+      ],
+      "target_view": "workbench",
+      "state_mutation": "route-change-or-local-selection",
+      "expected_visible_result": "System Workbench visibly changes the workbench surface or opens a linked route.",
+      "test_id": "workbench-template_selector",
+      "required_test": "Playwright click changes route, selection, model state or exported payload."
+    },
+    {
+      "id": "CONTROL::workbench::k_level_selector",
+      "kind": "control",
+      "surface_id": "workbench",
+      "title": "K-level selector",
+      "purpose": "Primary user action on System Workbench.",
+      "data_sources": [
+        "system_templates",
+        "k_level_example_atlas"
+      ],
+      "target_view": "workbench",
+      "state_mutation": "route-change-or-local-selection",
+      "expected_visible_result": "System Workbench visibly changes the workbench surface or opens a linked route.",
+      "test_id": "workbench-k_level_selector",
+      "required_test": "Playwright click changes route, selection, model state or exported payload."
+    },
+    {
+      "id": "CONTROL::workbench::add_axis_dropdown",
+      "kind": "control",
+      "surface_id": "workbench",
+      "title": "add axis dropdown",
+      "purpose": "Primary user action on System Workbench.",
+      "data_sources": [
+        "system_templates",
+        "k_level_example_atlas"
+      ],
+      "target_view": "workbench",
+      "state_mutation": "route-change-or-local-selection",
+      "expected_visible_result": "System Workbench visibly changes the workbench surface or opens a linked route.",
+      "test_id": "workbench-add_axis_dropdown",
+      "required_test": "Playwright click changes route, selection, model state or exported payload."
+    },
+    {
+      "id": "CONTROL::workbench::kill",
+      "kind": "control",
+      "surface_id": "workbench",
+      "title": "Kill",
+      "purpose": "Primary user action on System Workbench.",
+      "data_sources": [
+        "system_templates",
+        "k_level_example_atlas"
+      ],
+      "target_view": "workbench",
+      "state_mutation": "route-change-or-local-selection",
+      "expected_visible_result": "System Workbench visibly changes the workbench surface or opens a linked route.",
+      "test_id": "workbench-kill",
+      "required_test": "Playwright click changes route, selection, model state or exported payload."
+    },
+    {
+      "id": "CONTROL::workbench::diagnose",
+      "kind": "control",
+      "surface_id": "workbench",
+      "title": "Diagnose",
+      "purpose": "Primary user action on System Workbench.",
+      "data_sources": [
+        "system_templates",
+        "k_level_example_atlas"
+      ],
+      "target_view": "workbench",
+      "state_mutation": "route-change-or-local-selection",
+      "expected_visible_result": "System Workbench visibly changes the workbench surface or opens a linked route.",
+      "test_id": "workbench-diagnose",
+      "required_test": "Playwright click changes route, selection, model state or exported payload."
+    },
+    {
+      "id": "CONTROL::workbench::improve",
+      "kind": "control",
+      "surface_id": "workbench",
+      "title": "Improve",
+      "purpose": "Primary user action on System Workbench.",
+      "data_sources": [
+        "system_templates",
+        "k_level_example_atlas"
+      ],
+      "target_view": "workbench",
+      "state_mutation": "route-change-or-local-selection",
+      "expected_visible_result": "System Workbench visibly changes the workbench surface or opens a linked route.",
+      "test_id": "workbench-improve",
+      "required_test": "Playwright click changes route, selection, model state or exported payload."
+    },
+    {
+      "id": "CONTROL::workbench::compare",
+      "kind": "control",
+      "surface_id": "workbench",
+      "title": "Compare",
+      "purpose": "Primary user action on System Workbench.",
+      "data_sources": [
+        "system_templates",
+        "k_level_example_atlas"
+      ],
+      "target_view": "workbench",
+      "state_mutation": "route-change-or-local-selection",
+      "expected_visible_result": "System Workbench visibly changes the workbench surface or opens a linked route.",
+      "test_id": "workbench-compare",
+      "required_test": "Playwright click changes route, selection, model state or exported payload."
+    },
+    {
+      "id": "CONTROL::workbench::export",
+      "kind": "control",
+      "surface_id": "workbench",
+      "title": "Export",
+      "purpose": "Primary user action on System Workbench.",
+      "data_sources": [
+        "system_templates",
+        "k_level_example_atlas"
+      ],
+      "target_view": "workbench",
+      "state_mutation": "route-change-or-local-selection",
+      "expected_visible_result": "System Workbench visibly changes the workbench surface or opens a linked route.",
+      "test_id": "workbench-export",
+      "required_test": "Playwright click changes route, selection, model state or exported payload."
+    },
+    {
+      "id": "SURFACE::km",
+      "kind": "surface",
+      "surface_id": "km",
+      "title": "K/M Hierarchy",
+      "purpose": "Bidirectional K/M slice view with axes, flows, cycles and thresholds.",
+      "test_id": "km-surface",
+      "data_sources": [
+        "k_levels",
+        "m_spaces",
+        "k_axes"
+      ],
+      "visible_count_source": {
+        "demo_specs": 10,
+        "proof_routes": 254,
+        "graph_nodes": 703,
+        "k_levels": 13,
+        "domains": 7,
+        "wiki_chapters": 77,
+        "corpus_atoms": 2487,
+        "formulas": 15,
+        "science_graph_nodes": 703,
+        "science_graph_edges": 2177,
+        "k_level_worlds": 13,
+        "m_spaces": 7,
+        "k_axes": 8,
+        "system_templates": 8,
+        "system_flows": 29,
+        "system_cycles": 8,
+        "thresholds": 36,
+        "compensators": 24,
+        "collapse_paths": 16,
+        "route_action_targets": 91,
+        "reviewer_objection_routes": 4,
+        "system_architect_missions": 8,
+        "model_comparison_rows": 8,
+        "trust_ladder_rungs": 4,
+        "practical_value_cards": 3,
+        "corpus_completeness_rows": 0,
+        "formula_quality_rows": 15,
+        "formula_formalization_obligations": 0,
+        "k_level_examples": 39,
+        "science_formalization_rows": 88,
+        "closure_rows": 87,
+        "open_research_gaps": 0
+      },
+      "must_have": [
+        "loaded-state screenshot",
+        "DOM snapshot",
+        "click trace for primary controls",
+        "nonclaim boundary where scientific status is shown"
+      ],
+      "anti_patterns": [
+        "button without route",
+        "count without drilldown",
+        "formula id as primary explanation",
+        "decorative PASS badge without evidence",
+        "loading-state screenshot"
+      ]
+    },
+    {
+      "id": "SURFACE::wiki",
+      "kind": "surface",
+      "surface_id": "wiki",
+      "title": "OC Wiki",
+      "purpose": "Atomized monograph/methods reader with cross-links.",
+      "test_id": "wiki-surface",
+      "data_sources": [
+        "corpus_index",
+        "oc_wiki"
+      ],
+      "visible_count_source": {
+        "demo_specs": 10,
+        "proof_routes": 254,
+        "graph_nodes": 703,
+        "k_levels": 13,
+        "domains": 7,
+        "wiki_chapters": 77,
+        "corpus_atoms": 2487,
+        "formulas": 15,
+        "science_graph_nodes": 703,
+        "science_graph_edges": 2177,
+        "k_level_worlds": 13,
+        "m_spaces": 7,
+        "k_axes": 8,
+        "system_templates": 8,
+        "system_flows": 29,
+        "system_cycles": 8,
+        "thresholds": 36,
+        "compensators": 24,
+        "collapse_paths": 16,
+        "route_action_targets": 91,
+        "reviewer_objection_routes": 4,
+        "system_architect_missions": 8,
+        "model_comparison_rows": 8,
+        "trust_ladder_rungs": 4,
+        "practical_value_cards": 3,
+        "corpus_completeness_rows": 0,
+        "formula_quality_rows": 15,
+        "formula_formalization_obligations": 0,
+        "k_level_examples": 39,
+        "science_formalization_rows": 88,
+        "closure_rows": 87,
+        "open_research_gaps": 0
+      },
+      "must_have": [
+        "loaded-state screenshot",
+        "DOM snapshot",
+        "click trace for primary controls",
+        "nonclaim boundary where scientific status is shown"
+      ],
+      "anti_patterns": [
+        "button without route",
+        "count without drilldown",
+        "formula id as primary explanation",
+        "decorative PASS badge without evidence",
+        "loading-state screenshot"
+      ]
+    },
+    {
+      "id": "CONTROL::wiki::search",
+      "kind": "control",
+      "surface_id": "wiki",
+      "title": "search",
+      "purpose": "Primary user action on OC Wiki.",
+      "data_sources": [
+        "corpus_index",
+        "oc_wiki"
+      ],
+      "target_view": "wiki",
+      "state_mutation": "route-change-or-local-selection",
+      "expected_visible_result": "OC Wiki visibly changes the wiki surface or opens a linked route.",
+      "test_id": "wiki-search",
+      "required_test": "Playwright click changes route, selection, model state or exported payload."
+    },
+    {
+      "id": "CONTROL::wiki::toc_chapter_buttons",
+      "kind": "control",
+      "surface_id": "wiki",
+      "title": "TOC chapter buttons",
+      "purpose": "Primary user action on OC Wiki.",
+      "data_sources": [
+        "corpus_index",
+        "oc_wiki"
+      ],
+      "target_view": "wiki",
+      "state_mutation": "route-change-or-local-selection",
+      "expected_visible_result": "OC Wiki visibly changes the wiki surface or opens a linked route.",
+      "test_id": "wiki-toc_chapter_buttons",
+      "required_test": "Playwright click changes route, selection, model state or exported payload."
+    },
+    {
+      "id": "CONTROL::wiki::section_chips",
+      "kind": "control",
+      "surface_id": "wiki",
+      "title": "section chips",
+      "purpose": "Primary user action on OC Wiki.",
+      "data_sources": [
+        "corpus_index",
+        "oc_wiki"
+      ],
+      "target_view": "wiki",
+      "state_mutation": "route-change-or-local-selection",
+      "expected_visible_result": "OC Wiki visibly changes the wiki surface or opens a linked route.",
+      "test_id": "wiki-section_chips",
+      "required_test": "Playwright click changes route, selection, model state or exported payload."
+    },
+    {
+      "id": "CONTROL::wiki::atom_open",
+      "kind": "control",
+      "surface_id": "wiki",
+      "title": "atom open",
+      "purpose": "Primary user action on OC Wiki.",
+      "data_sources": [
+        "corpus_index",
+        "oc_wiki"
+      ],
+      "target_view": "wiki",
+      "state_mutation": "route-change-or-local-selection",
+      "expected_visible_result": "OC Wiki visibly changes the wiki surface or opens a linked route.",
+      "test_id": "wiki-atom_open",
+      "required_test": "Playwright click changes route, selection, model state or exported payload."
+    },
+    {
+      "id": "CONTROL::wiki::formula_drill",
+      "kind": "control",
+      "surface_id": "wiki",
+      "title": "Formula drill",
+      "purpose": "Primary user action on OC Wiki.",
+      "data_sources": [
+        "corpus_index",
+        "oc_wiki"
+      ],
+      "target_view": "wiki",
+      "state_mutation": "route-change-or-local-selection",
+      "expected_visible_result": "OC Wiki visibly changes the wiki surface or opens a linked route.",
+      "test_id": "wiki-formula_drill",
+      "required_test": "Playwright click changes route, selection, model state or exported payload."
+    },
+    {
+      "id": "CONTROL::wiki::graph_drill",
+      "kind": "control",
+      "surface_id": "wiki",
+      "title": "Graph drill",
+      "purpose": "Primary user action on OC Wiki.",
+      "data_sources": [
+        "corpus_index",
+        "oc_wiki"
+      ],
+      "target_view": "wiki",
+      "state_mutation": "route-change-or-local-selection",
+      "expected_visible_result": "OC Wiki visibly changes the wiki surface or opens a linked route.",
+      "test_id": "wiki-graph_drill",
+      "required_test": "Playwright click changes route, selection, model state or exported payload."
+    },
+    {
+      "id": "CONTROL::wiki::proof_route",
+      "kind": "control",
+      "surface_id": "wiki",
+      "title": "Proof route",
+      "purpose": "Primary user action on OC Wiki.",
+      "data_sources": [
+        "corpus_index",
+        "oc_wiki"
+      ],
+      "target_view": "wiki",
+      "state_mutation": "route-change-or-local-selection",
+      "expected_visible_result": "OC Wiki visibly changes the wiki surface or opens a linked route.",
+      "test_id": "wiki-proof_route",
+      "required_test": "Playwright click changes route, selection, model state or exported payload."
+    },
+    {
+      "id": "SURFACE::formula",
+      "kind": "surface",
+      "surface_id": "formula",
+      "title": "Formula Atlas",
+      "purpose": "Searchable symbolic surface with quality/boundary metadata.",
+      "test_id": "formula-surface",
+      "data_sources": [
+        "formula_atlas",
+        "formula_quality_report"
+      ],
+      "visible_count_source": {
+        "demo_specs": 10,
+        "proof_routes": 254,
+        "graph_nodes": 703,
+        "k_levels": 13,
+        "domains": 7,
+        "wiki_chapters": 77,
+        "corpus_atoms": 2487,
+        "formulas": 15,
+        "science_graph_nodes": 703,
+        "science_graph_edges": 2177,
+        "k_level_worlds": 13,
+        "m_spaces": 7,
+        "k_axes": 8,
+        "system_templates": 8,
+        "system_flows": 29,
+        "system_cycles": 8,
+        "thresholds": 36,
+        "compensators": 24,
+        "collapse_paths": 16,
+        "route_action_targets": 91,
+        "reviewer_objection_routes": 4,
+        "system_architect_missions": 8,
+        "model_comparison_rows": 8,
+        "trust_ladder_rungs": 4,
+        "practical_value_cards": 3,
+        "corpus_completeness_rows": 0,
+        "formula_quality_rows": 15,
+        "formula_formalization_obligations": 0,
+        "k_level_examples": 39,
+        "science_formalization_rows": 88,
+        "closure_rows": 87,
+        "open_research_gaps": 0
+      },
+      "must_have": [
+        "loaded-state screenshot",
+        "DOM snapshot",
+        "click trace for primary controls",
+        "nonclaim boundary where scientific status is shown"
+      ],
+      "anti_patterns": [
+        "button without route",
+        "count without drilldown",
+        "formula id as primary explanation",
+        "decorative PASS badge without evidence",
+        "loading-state screenshot"
+      ]
+    },
+    {
+      "id": "CONTROL::formula::search",
+      "kind": "control",
+      "surface_id": "formula",
+      "title": "search",
+      "purpose": "Primary user action on Formula Atlas.",
+      "data_sources": [
+        "formula_atlas",
+        "formula_quality_report"
+      ],
+      "target_view": "formula",
+      "state_mutation": "route-change-or-local-selection",
+      "expected_visible_result": "Formula Atlas visibly changes the formula surface or opens a linked route.",
+      "test_id": "formula-search",
+      "required_test": "Playwright click changes route, selection, model state or exported payload."
+    },
+    {
+      "id": "CONTROL::formula::formula_row_button",
+      "kind": "control",
+      "surface_id": "formula",
+      "title": "formula row button",
+      "purpose": "Primary user action on Formula Atlas.",
+      "data_sources": [
+        "formula_atlas",
+        "formula_quality_report"
+      ],
+      "target_view": "formula",
+      "state_mutation": "route-change-or-local-selection",
+      "expected_visible_result": "Formula Atlas visibly changes the formula surface or opens a linked route.",
+      "test_id": "formula-formula_row_button",
+      "required_test": "Playwright click changes route, selection, model state or exported payload."
+    },
+    {
+      "id": "CONTROL::formula::probe_in_graph",
+      "kind": "control",
+      "surface_id": "formula",
+      "title": "Probe in graph",
+      "purpose": "Primary user action on Formula Atlas.",
+      "data_sources": [
+        "formula_atlas",
+        "formula_quality_report"
+      ],
+      "target_view": "formula",
+      "state_mutation": "route-change-or-local-selection",
+      "expected_visible_result": "Formula Atlas visibly changes the formula surface or opens a linked route.",
+      "test_id": "formula-probe_in_graph",
+      "required_test": "Playwright click changes route, selection, model state or exported payload."
+    },
+    {
+      "id": "CONTROL::formula::open_in_wiki",
+      "kind": "control",
+      "surface_id": "formula",
+      "title": "Open in wiki",
+      "purpose": "Primary user action on Formula Atlas.",
+      "data_sources": [
+        "formula_atlas",
+        "formula_quality_report"
+      ],
+      "target_view": "formula",
+      "state_mutation": "route-change-or-local-selection",
+      "expected_visible_result": "Formula Atlas visibly changes the formula surface or opens a linked route.",
+      "test_id": "formula-open_in_wiki",
+      "required_test": "Playwright click changes route, selection, model state or exported payload."
+    },
+    {
+      "id": "CONTROL::formula::open_in_graph_by_id",
+      "kind": "control",
+      "surface_id": "formula",
+      "title": "Open in graph by id",
+      "purpose": "Primary user action on Formula Atlas.",
+      "data_sources": [
+        "formula_atlas",
+        "formula_quality_report"
+      ],
+      "target_view": "formula",
+      "state_mutation": "route-change-or-local-selection",
+      "expected_visible_result": "Formula Atlas visibly changes the formula surface or opens a linked route.",
+      "test_id": "formula-open_in_graph_by_id",
+      "required_test": "Playwright click changes route, selection, model state or exported payload."
+    },
+    {
+      "id": "SURFACE::klevels",
+      "kind": "surface",
+      "surface_id": "klevels",
+      "title": "K-Level Worlds",
+      "purpose": "K0-K12 3D worlds and drilldown examples.",
+      "test_id": "klevels-surface",
+      "data_sources": [
+        "k_level_worlds",
+        "k_level_example_atlas"
+      ],
+      "visible_count_source": {
+        "demo_specs": 10,
+        "proof_routes": 254,
+        "graph_nodes": 703,
+        "k_levels": 13,
+        "domains": 7,
+        "wiki_chapters": 77,
+        "corpus_atoms": 2487,
+        "formulas": 15,
+        "science_graph_nodes": 703,
+        "science_graph_edges": 2177,
+        "k_level_worlds": 13,
+        "m_spaces": 7,
+        "k_axes": 8,
+        "system_templates": 8,
+        "system_flows": 29,
+        "system_cycles": 8,
+        "thresholds": 36,
+        "compensators": 24,
+        "collapse_paths": 16,
+        "route_action_targets": 91,
+        "reviewer_objection_routes": 4,
+        "system_architect_missions": 8,
+        "model_comparison_rows": 8,
+        "trust_ladder_rungs": 4,
+        "practical_value_cards": 3,
+        "corpus_completeness_rows": 0,
+        "formula_quality_rows": 15,
+        "formula_formalization_obligations": 0,
+        "k_level_examples": 39,
+        "science_formalization_rows": 88,
+        "closure_rows": 87,
+        "open_research_gaps": 0
+      },
+      "must_have": [
+        "loaded-state screenshot",
+        "DOM snapshot",
+        "click trace for primary controls",
+        "nonclaim boundary where scientific status is shown"
+      ],
+      "anti_patterns": [
+        "button without route",
+        "count without drilldown",
+        "formula id as primary explanation",
+        "decorative PASS badge without evidence",
+        "loading-state screenshot"
+      ]
+    },
+    {
+      "id": "CONTROL::klevels::select_level_rail",
+      "kind": "control",
+      "surface_id": "klevels",
+      "title": "select level rail",
+      "purpose": "Primary user action on K-Level Worlds.",
+      "data_sources": [
+        "k_level_worlds",
+        "k_level_example_atlas"
+      ],
+      "target_view": "klevels",
+      "state_mutation": "route-change-or-local-selection",
+      "expected_visible_result": "K-Level Worlds visibly changes the klevels surface or opens a linked route.",
+      "test_id": "klevels-select_level_rail",
+      "required_test": "Playwright click changes route, selection, model state or exported payload."
+    },
+    {
+      "id": "CONTROL::klevels::elevator_select",
+      "kind": "control",
+      "surface_id": "klevels",
+      "title": "elevator select",
+      "purpose": "Primary user action on K-Level Worlds.",
+      "data_sources": [
+        "k_level_worlds",
+        "k_level_example_atlas"
+      ],
+      "target_view": "klevels",
+      "state_mutation": "route-change-or-local-selection",
+      "expected_visible_result": "K-Level Worlds visibly changes the klevels surface or opens a linked route.",
+      "test_id": "klevels-elevator_select",
+      "required_test": "Playwright click changes route, selection, model state or exported payload."
+    },
+    {
+      "id": "CONTROL::klevels::export_selected_route",
+      "kind": "control",
+      "surface_id": "klevels",
+      "title": "export selected route",
+      "purpose": "Primary user action on K-Level Worlds.",
+      "data_sources": [
+        "k_level_worlds",
+        "k_level_example_atlas"
+      ],
+      "target_view": "klevels",
+      "state_mutation": "route-change-or-local-selection",
+      "expected_visible_result": "K-Level Worlds visibly changes the klevels surface or opens a linked route.",
+      "test_id": "klevels-export_selected_route",
+      "required_test": "Playwright click changes route, selection, model state or exported payload."
+    },
+    {
+      "id": "CONTROL::klevels::open_workbench",
+      "kind": "control",
+      "surface_id": "klevels",
+      "title": "open workbench",
+      "purpose": "Primary user action on K-Level Worlds.",
+      "data_sources": [
+        "k_level_worlds",
+        "k_level_example_atlas"
+      ],
+      "target_view": "klevels",
+      "state_mutation": "route-change-or-local-selection",
+      "expected_visible_result": "K-Level Worlds visibly changes the klevels surface or opens a linked route.",
+      "test_id": "klevels-open_workbench",
+      "required_test": "Playwright click changes route, selection, model state or exported payload."
+    },
+    {
+      "id": "CONTROL::klevels::graph_probe",
+      "kind": "control",
+      "surface_id": "klevels",
+      "title": "graph probe",
+      "purpose": "Primary user action on K-Level Worlds.",
+      "data_sources": [
+        "k_level_worlds",
+        "k_level_example_atlas"
+      ],
+      "target_view": "klevels",
+      "state_mutation": "route-change-or-local-selection",
+      "expected_visible_result": "K-Level Worlds visibly changes the klevels surface or opens a linked route.",
+      "test_id": "klevels-graph_probe",
+      "required_test": "Playwright click changes route, selection, model state or exported payload."
+    },
+    {
+      "id": "SURFACE::worldline",
+      "kind": "surface",
+      "surface_id": "worldline",
+      "title": "Worldline Theater",
+      "purpose": "Birth/evolution/overload/collapse/recovery didactic simulation.",
+      "test_id": "worldline-surface",
+      "data_sources": [
+        "simulation_worlds"
+      ],
+      "visible_count_source": {
+        "demo_specs": 10,
+        "proof_routes": 254,
+        "graph_nodes": 703,
+        "k_levels": 13,
+        "domains": 7,
+        "wiki_chapters": 77,
+        "corpus_atoms": 2487,
+        "formulas": 15,
+        "science_graph_nodes": 703,
+        "science_graph_edges": 2177,
+        "k_level_worlds": 13,
+        "m_spaces": 7,
+        "k_axes": 8,
+        "system_templates": 8,
+        "system_flows": 29,
+        "system_cycles": 8,
+        "thresholds": 36,
+        "compensators": 24,
+        "collapse_paths": 16,
+        "route_action_targets": 91,
+        "reviewer_objection_routes": 4,
+        "system_architect_missions": 8,
+        "model_comparison_rows": 8,
+        "trust_ladder_rungs": 4,
+        "practical_value_cards": 3,
+        "corpus_completeness_rows": 0,
+        "formula_quality_rows": 15,
+        "formula_formalization_obligations": 0,
+        "k_level_examples": 39,
+        "science_formalization_rows": 88,
+        "closure_rows": 87,
+        "open_research_gaps": 0
+      },
+      "must_have": [
+        "loaded-state screenshot",
+        "DOM snapshot",
+        "click trace for primary controls",
+        "nonclaim boundary where scientific status is shown"
+      ],
+      "anti_patterns": [
+        "button without route",
+        "count without drilldown",
+        "formula id as primary explanation",
+        "decorative PASS badge without evidence",
+        "loading-state screenshot"
+      ]
+    },
+    {
+      "id": "SURFACE::cascade",
+      "kind": "surface",
+      "surface_id": "cascade",
+      "title": "Cascade Lab",
+      "purpose": "Selected/weakest node kill and recovery visualization.",
+      "test_id": "cascade-surface",
+      "data_sources": [
+        "system_zoo",
+        "collapse_paths"
+      ],
+      "visible_count_source": {
+        "demo_specs": 10,
+        "proof_routes": 254,
+        "graph_nodes": 703,
+        "k_levels": 13,
+        "domains": 7,
+        "wiki_chapters": 77,
+        "corpus_atoms": 2487,
+        "formulas": 15,
+        "science_graph_nodes": 703,
+        "science_graph_edges": 2177,
+        "k_level_worlds": 13,
+        "m_spaces": 7,
+        "k_axes": 8,
+        "system_templates": 8,
+        "system_flows": 29,
+        "system_cycles": 8,
+        "thresholds": 36,
+        "compensators": 24,
+        "collapse_paths": 16,
+        "route_action_targets": 91,
+        "reviewer_objection_routes": 4,
+        "system_architect_missions": 8,
+        "model_comparison_rows": 8,
+        "trust_ladder_rungs": 4,
+        "practical_value_cards": 3,
+        "corpus_completeness_rows": 0,
+        "formula_quality_rows": 15,
+        "formula_formalization_obligations": 0,
+        "k_level_examples": 39,
+        "science_formalization_rows": 88,
+        "closure_rows": 87,
+        "open_research_gaps": 0
+      },
+      "must_have": [
+        "loaded-state screenshot",
+        "DOM snapshot",
+        "click trace for primary controls",
+        "nonclaim boundary where scientific status is shown"
+      ],
+      "anti_patterns": [
+        "button without route",
+        "count without drilldown",
+        "formula id as primary explanation",
+        "decorative PASS badge without evidence",
+        "loading-state screenshot"
+      ]
+    },
+    {
+      "id": "CONTROL::cascade::system_selector",
+      "kind": "control",
+      "surface_id": "cascade",
+      "title": "system selector",
+      "purpose": "Primary user action on Cascade Lab.",
+      "data_sources": [
+        "system_zoo",
+        "collapse_paths"
+      ],
+      "target_view": "cascade",
+      "state_mutation": "route-change-or-local-selection",
+      "expected_visible_result": "Cascade Lab visibly changes the cascade surface or opens a linked route.",
+      "test_id": "cascade-system_selector",
+      "required_test": "Playwright click changes route, selection, model state or exported payload."
+    },
+    {
+      "id": "CONTROL::cascade::speed_slider",
+      "kind": "control",
+      "surface_id": "cascade",
+      "title": "speed slider",
+      "purpose": "Primary user action on Cascade Lab.",
+      "data_sources": [
+        "system_zoo",
+        "collapse_paths"
+      ],
+      "target_view": "cascade",
+      "state_mutation": "route-change-or-local-selection",
+      "expected_visible_result": "Cascade Lab visibly changes the cascade surface or opens a linked route.",
+      "test_id": "cascade-speed_slider",
+      "required_test": "Playwright click changes route, selection, model state or exported payload."
+    },
+    {
+      "id": "CONTROL::cascade::kill_mode_selector",
+      "kind": "control",
+      "surface_id": "cascade",
+      "title": "kill mode selector",
+      "purpose": "Primary user action on Cascade Lab.",
+      "data_sources": [
+        "system_zoo",
+        "collapse_paths"
+      ],
+      "target_view": "cascade",
+      "state_mutation": "route-change-or-local-selection",
+      "expected_visible_result": "Cascade Lab visibly changes the cascade surface or opens a linked route.",
+      "test_id": "cascade-kill_mode_selector",
+      "required_test": "Playwright click changes route, selection, model state or exported payload."
+    },
+    {
+      "id": "CONTROL::cascade::selected_node_kill",
+      "kind": "control",
+      "surface_id": "cascade",
+      "title": "selected node kill",
+      "purpose": "Primary user action on Cascade Lab.",
+      "data_sources": [
+        "system_zoo",
+        "collapse_paths"
+      ],
+      "target_view": "cascade",
+      "state_mutation": "route-change-or-local-selection",
+      "expected_visible_result": "Cascade Lab visibly changes the cascade surface or opens a linked route.",
+      "test_id": "cascade-selected_node_kill",
+      "required_test": "Playwright click changes route, selection, model state or exported payload."
+    },
+    {
+      "id": "CONTROL::cascade::reset_replay",
+      "kind": "control",
+      "surface_id": "cascade",
+      "title": "reset/replay",
+      "purpose": "Primary user action on Cascade Lab.",
+      "data_sources": [
+        "system_zoo",
+        "collapse_paths"
+      ],
+      "target_view": "cascade",
+      "state_mutation": "route-change-or-local-selection",
+      "expected_visible_result": "Cascade Lab visibly changes the cascade surface or opens a linked route.",
+      "test_id": "cascade-reset_replay",
+      "required_test": "Playwright click changes route, selection, model state or exported payload."
+    },
+    {
+      "id": "CONTROL::cascade::export_cascade_replay_packet",
+      "kind": "control",
+      "surface_id": "cascade",
+      "title": "export cascade replay packet",
+      "purpose": "Primary user action on Cascade Lab.",
+      "data_sources": [
+        "system_zoo",
+        "collapse_paths"
+      ],
+      "target_view": "cascade",
+      "state_mutation": "route-change-or-local-selection",
+      "expected_visible_result": "Cascade Lab visibly changes the cascade surface or opens a linked route.",
+      "test_id": "cascade-export_cascade_replay_packet",
+      "required_test": "Playwright click changes route, selection, model state or exported payload."
+    },
+    {
+      "id": "SURFACE::benchmarks",
+      "kind": "surface",
+      "surface_id": "benchmarks",
+      "title": "Domain Simulators",
+      "purpose": "Domain entry lanes with replay/status boundaries.",
+      "test_id": "benchmarks-surface",
+      "data_sources": [
+        "domain_benchmarks"
+      ],
+      "visible_count_source": {
+        "demo_specs": 10,
+        "proof_routes": 254,
+        "graph_nodes": 703,
+        "k_levels": 13,
+        "domains": 7,
+        "wiki_chapters": 77,
+        "corpus_atoms": 2487,
+        "formulas": 15,
+        "science_graph_nodes": 703,
+        "science_graph_edges": 2177,
+        "k_level_worlds": 13,
+        "m_spaces": 7,
+        "k_axes": 8,
+        "system_templates": 8,
+        "system_flows": 29,
+        "system_cycles": 8,
+        "thresholds": 36,
+        "compensators": 24,
+        "collapse_paths": 16,
+        "route_action_targets": 91,
+        "reviewer_objection_routes": 4,
+        "system_architect_missions": 8,
+        "model_comparison_rows": 8,
+        "trust_ladder_rungs": 4,
+        "practical_value_cards": 3,
+        "corpus_completeness_rows": 0,
+        "formula_quality_rows": 15,
+        "formula_formalization_obligations": 0,
+        "k_level_examples": 39,
+        "science_formalization_rows": 88,
+        "closure_rows": 87,
+        "open_research_gaps": 0
+      },
+      "must_have": [
+        "loaded-state screenshot",
+        "DOM snapshot",
+        "click trace for primary controls",
+        "nonclaim boundary where scientific status is shown"
+      ],
+      "anti_patterns": [
+        "button without route",
+        "count without drilldown",
+        "formula id as primary explanation",
+        "decorative PASS badge without evidence",
+        "loading-state screenshot"
+      ]
+    },
+    {
+      "id": "SURFACE::objections",
+      "kind": "surface",
+      "surface_id": "objections",
+      "title": "Objection Router",
+      "purpose": "Routes skeptical objections to functional surfaces, not FAQ text.",
+      "test_id": "objections-surface",
+      "data_sources": [
+        "reviewer_objection_routes"
+      ],
+      "visible_count_source": {
+        "demo_specs": 10,
+        "proof_routes": 254,
+        "graph_nodes": 703,
+        "k_levels": 13,
+        "domains": 7,
+        "wiki_chapters": 77,
+        "corpus_atoms": 2487,
+        "formulas": 15,
+        "science_graph_nodes": 703,
+        "science_graph_edges": 2177,
+        "k_level_worlds": 13,
+        "m_spaces": 7,
+        "k_axes": 8,
+        "system_templates": 8,
+        "system_flows": 29,
+        "system_cycles": 8,
+        "thresholds": 36,
+        "compensators": 24,
+        "collapse_paths": 16,
+        "route_action_targets": 91,
+        "reviewer_objection_routes": 4,
+        "system_architect_missions": 8,
+        "model_comparison_rows": 8,
+        "trust_ladder_rungs": 4,
+        "practical_value_cards": 3,
+        "corpus_completeness_rows": 0,
+        "formula_quality_rows": 15,
+        "formula_formalization_obligations": 0,
+        "k_level_examples": 39,
+        "science_formalization_rows": 88,
+        "closure_rows": 87,
+        "open_research_gaps": 0
+      },
+      "must_have": [
+        "loaded-state screenshot",
+        "DOM snapshot",
+        "click trace for primary controls",
+        "nonclaim boundary where scientific status is shown"
+      ],
+      "anti_patterns": [
+        "button without route",
+        "count without drilldown",
+        "formula id as primary explanation",
+        "decorative PASS badge without evidence",
+        "loading-state screenshot"
+      ]
+    },
+    {
+      "id": "SURFACE::whyoc",
+      "kind": "surface",
+      "surface_id": "whyoc",
+      "title": "Why OC / Comparison",
+      "purpose": "Interactive comparison to existing model families.",
+      "test_id": "whyoc-surface",
+      "data_sources": [
+        "model_comparison_matrix"
+      ],
+      "visible_count_source": {
+        "demo_specs": 10,
+        "proof_routes": 254,
+        "graph_nodes": 703,
+        "k_levels": 13,
+        "domains": 7,
+        "wiki_chapters": 77,
+        "corpus_atoms": 2487,
+        "formulas": 15,
+        "science_graph_nodes": 703,
+        "science_graph_edges": 2177,
+        "k_level_worlds": 13,
+        "m_spaces": 7,
+        "k_axes": 8,
+        "system_templates": 8,
+        "system_flows": 29,
+        "system_cycles": 8,
+        "thresholds": 36,
+        "compensators": 24,
+        "collapse_paths": 16,
+        "route_action_targets": 91,
+        "reviewer_objection_routes": 4,
+        "system_architect_missions": 8,
+        "model_comparison_rows": 8,
+        "trust_ladder_rungs": 4,
+        "practical_value_cards": 3,
+        "corpus_completeness_rows": 0,
+        "formula_quality_rows": 15,
+        "formula_formalization_obligations": 0,
+        "k_level_examples": 39,
+        "science_formalization_rows": 88,
+        "closure_rows": 87,
+        "open_research_gaps": 0
+      },
+      "must_have": [
+        "loaded-state screenshot",
+        "DOM snapshot",
+        "click trace for primary controls",
+        "nonclaim boundary where scientific status is shown"
+      ],
+      "anti_patterns": [
+        "button without route",
+        "count without drilldown",
+        "formula id as primary explanation",
+        "decorative PASS badge without evidence",
+        "loading-state screenshot"
+      ]
+    },
+    {
+      "id": "SURFACE::practical",
+      "kind": "surface",
+      "surface_id": "practical",
+      "title": "Practical Value",
+      "purpose": "Three-minute utility and export surfaces.",
+      "test_id": "practical-surface",
+      "data_sources": [
+        "practical_value_cards"
+      ],
+      "visible_count_source": {
+        "demo_specs": 10,
+        "proof_routes": 254,
+        "graph_nodes": 703,
+        "k_levels": 13,
+        "domains": 7,
+        "wiki_chapters": 77,
+        "corpus_atoms": 2487,
+        "formulas": 15,
+        "science_graph_nodes": 703,
+        "science_graph_edges": 2177,
+        "k_level_worlds": 13,
+        "m_spaces": 7,
+        "k_axes": 8,
+        "system_templates": 8,
+        "system_flows": 29,
+        "system_cycles": 8,
+        "thresholds": 36,
+        "compensators": 24,
+        "collapse_paths": 16,
+        "route_action_targets": 91,
+        "reviewer_objection_routes": 4,
+        "system_architect_missions": 8,
+        "model_comparison_rows": 8,
+        "trust_ladder_rungs": 4,
+        "practical_value_cards": 3,
+        "corpus_completeness_rows": 0,
+        "formula_quality_rows": 15,
+        "formula_formalization_obligations": 0,
+        "k_level_examples": 39,
+        "science_formalization_rows": 88,
+        "closure_rows": 87,
+        "open_research_gaps": 0
+      },
+      "must_have": [
+        "loaded-state screenshot",
+        "DOM snapshot",
+        "click trace for primary controls",
+        "nonclaim boundary where scientific status is shown"
+      ],
+      "anti_patterns": [
+        "button without route",
+        "count without drilldown",
+        "formula id as primary explanation",
+        "decorative PASS badge without evidence",
+        "loading-state screenshot"
+      ]
+    },
+    {
+      "id": "SURFACE::trust",
+      "kind": "surface",
+      "surface_id": "trust",
+      "title": "Trust Ladder",
+      "purpose": "Toy/exploratory/replay/proof-bounded status ladder.",
+      "test_id": "trust-surface",
+      "data_sources": [
+        "trust_ladder"
+      ],
+      "visible_count_source": {
+        "demo_specs": 10,
+        "proof_routes": 254,
+        "graph_nodes": 703,
+        "k_levels": 13,
+        "domains": 7,
+        "wiki_chapters": 77,
+        "corpus_atoms": 2487,
+        "formulas": 15,
+        "science_graph_nodes": 703,
+        "science_graph_edges": 2177,
+        "k_level_worlds": 13,
+        "m_spaces": 7,
+        "k_axes": 8,
+        "system_templates": 8,
+        "system_flows": 29,
+        "system_cycles": 8,
+        "thresholds": 36,
+        "compensators": 24,
+        "collapse_paths": 16,
+        "route_action_targets": 91,
+        "reviewer_objection_routes": 4,
+        "system_architect_missions": 8,
+        "model_comparison_rows": 8,
+        "trust_ladder_rungs": 4,
+        "practical_value_cards": 3,
+        "corpus_completeness_rows": 0,
+        "formula_quality_rows": 15,
+        "formula_formalization_obligations": 0,
+        "k_level_examples": 39,
+        "science_formalization_rows": 88,
+        "closure_rows": 87,
+        "open_research_gaps": 0
+      },
+      "must_have": [
+        "loaded-state screenshot",
+        "DOM snapshot",
+        "click trace for primary controls",
+        "nonclaim boundary where scientific status is shown"
+      ],
+      "anti_patterns": [
+        "button without route",
+        "count without drilldown",
+        "formula id as primary explanation",
+        "decorative PASS badge without evidence",
+        "loading-state screenshot"
+      ]
+    },
+    {
+      "id": "SURFACE::mission",
+      "kind": "surface",
+      "surface_id": "mission",
+      "title": "Mission Deck",
+      "purpose": "System architect missions with expected actions.",
+      "test_id": "mission-surface",
+      "data_sources": [
+        "system_architect_missions"
+      ],
+      "visible_count_source": {
+        "demo_specs": 10,
+        "proof_routes": 254,
+        "graph_nodes": 703,
+        "k_levels": 13,
+        "domains": 7,
+        "wiki_chapters": 77,
+        "corpus_atoms": 2487,
+        "formulas": 15,
+        "science_graph_nodes": 703,
+        "science_graph_edges": 2177,
+        "k_level_worlds": 13,
+        "m_spaces": 7,
+        "k_axes": 8,
+        "system_templates": 8,
+        "system_flows": 29,
+        "system_cycles": 8,
+        "thresholds": 36,
+        "compensators": 24,
+        "collapse_paths": 16,
+        "route_action_targets": 91,
+        "reviewer_objection_routes": 4,
+        "system_architect_missions": 8,
+        "model_comparison_rows": 8,
+        "trust_ladder_rungs": 4,
+        "practical_value_cards": 3,
+        "corpus_completeness_rows": 0,
+        "formula_quality_rows": 15,
+        "formula_formalization_obligations": 0,
+        "k_level_examples": 39,
+        "science_formalization_rows": 88,
+        "closure_rows": 87,
+        "open_research_gaps": 0
+      },
+      "must_have": [
+        "loaded-state screenshot",
+        "DOM snapshot",
+        "click trace for primary controls",
+        "nonclaim boundary where scientific status is shown"
+      ],
+      "anti_patterns": [
+        "button without route",
+        "count without drilldown",
+        "formula id as primary explanation",
+        "decorative PASS badge without evidence",
+        "loading-state screenshot"
+      ]
+    },
+    {
+      "id": "SURFACE::graph",
+      "kind": "surface",
+      "surface_id": "graph",
+      "title": "3D Science Graph",
+      "purpose": "Root principle to operators, K-levels, proofs, formulas and domains.",
+      "test_id": "graph-surface",
+      "data_sources": [
+        "science_graph_v010",
+        "node_detail_index"
+      ],
+      "visible_count_source": {
+        "demo_specs": 10,
+        "proof_routes": 254,
+        "graph_nodes": 703,
+        "k_levels": 13,
+        "domains": 7,
+        "wiki_chapters": 77,
+        "corpus_atoms": 2487,
+        "formulas": 15,
+        "science_graph_nodes": 703,
+        "science_graph_edges": 2177,
+        "k_level_worlds": 13,
+        "m_spaces": 7,
+        "k_axes": 8,
+        "system_templates": 8,
+        "system_flows": 29,
+        "system_cycles": 8,
+        "thresholds": 36,
+        "compensators": 24,
+        "collapse_paths": 16,
+        "route_action_targets": 91,
+        "reviewer_objection_routes": 4,
+        "system_architect_missions": 8,
+        "model_comparison_rows": 8,
+        "trust_ladder_rungs": 4,
+        "practical_value_cards": 3,
+        "corpus_completeness_rows": 0,
+        "formula_quality_rows": 15,
+        "formula_formalization_obligations": 0,
+        "k_level_examples": 39,
+        "science_formalization_rows": 88,
+        "closure_rows": 87,
+        "open_research_gaps": 0
+      },
+      "must_have": [
+        "loaded-state screenshot",
+        "DOM snapshot",
+        "click trace for primary controls",
+        "nonclaim boundary where scientific status is shown"
+      ],
+      "anti_patterns": [
+        "button without route",
+        "count without drilldown",
+        "formula id as primary explanation",
+        "decorative PASS badge without evidence",
+        "loading-state screenshot"
+      ]
+    },
+    {
+      "id": "CONTROL::graph::search",
+      "kind": "control",
+      "surface_id": "graph",
+      "title": "search",
+      "purpose": "Primary user action on 3D Science Graph.",
+      "data_sources": [
+        "science_graph_v010",
+        "node_detail_index"
+      ],
+      "target_view": "graph",
+      "state_mutation": "route-change-or-local-selection",
+      "expected_visible_result": "3D Science Graph visibly changes the graph surface or opens a linked route.",
+      "test_id": "graph-search",
+      "required_test": "Playwright click changes route, selection, model state or exported payload."
+    },
+    {
+      "id": "CONTROL::graph::layer_filter",
+      "kind": "control",
+      "surface_id": "graph",
+      "title": "layer filter",
+      "purpose": "Primary user action on 3D Science Graph.",
+      "data_sources": [
+        "science_graph_v010",
+        "node_detail_index"
+      ],
+      "target_view": "graph",
+      "state_mutation": "route-change-or-local-selection",
+      "expected_visible_result": "3D Science Graph visibly changes the graph surface or opens a linked route.",
+      "test_id": "graph-layer_filter",
+      "required_test": "Playwright click changes route, selection, model state or exported payload."
+    },
+    {
+      "id": "CONTROL::graph::edge_filter",
+      "kind": "control",
+      "surface_id": "graph",
+      "title": "edge filter",
+      "purpose": "Primary user action on 3D Science Graph.",
+      "data_sources": [
+        "science_graph_v010",
+        "node_detail_index"
+      ],
+      "target_view": "graph",
+      "state_mutation": "route-change-or-local-selection",
+      "expected_visible_result": "3D Science Graph visibly changes the graph surface or opens a linked route.",
+      "test_id": "graph-edge_filter",
+      "required_test": "Playwright click changes route, selection, model state or exported payload."
+    },
+    {
+      "id": "CONTROL::graph::reset_root_path",
+      "kind": "control",
+      "surface_id": "graph",
+      "title": "reset/root path",
+      "purpose": "Primary user action on 3D Science Graph.",
+      "data_sources": [
+        "science_graph_v010",
+        "node_detail_index"
+      ],
+      "target_view": "graph",
+      "state_mutation": "route-change-or-local-selection",
+      "expected_visible_result": "3D Science Graph visibly changes the graph surface or opens a linked route.",
+      "test_id": "graph-reset_root_path",
+      "required_test": "Playwright click changes route, selection, model state or exported payload."
+    },
+    {
+      "id": "CONTROL::graph::node_click",
+      "kind": "control",
+      "surface_id": "graph",
+      "title": "node click",
+      "purpose": "Primary user action on 3D Science Graph.",
+      "data_sources": [
+        "science_graph_v010",
+        "node_detail_index"
+      ],
+      "target_view": "graph",
+      "state_mutation": "route-change-or-local-selection",
+      "expected_visible_result": "3D Science Graph visibly changes the graph surface or opens a linked route.",
+      "test_id": "graph-node_click",
+      "required_test": "Playwright click changes route, selection, model state or exported payload."
+    },
+    {
+      "id": "CONTROL::graph::wiki_formula_proof_k_workbench_links",
+      "kind": "control",
+      "surface_id": "graph",
+      "title": "wiki/formula/proof/K/workbench links",
+      "purpose": "Primary user action on 3D Science Graph.",
+      "data_sources": [
+        "science_graph_v010",
+        "node_detail_index"
+      ],
+      "target_view": "graph",
+      "state_mutation": "route-change-or-local-selection",
+      "expected_visible_result": "3D Science Graph visibly changes the graph surface or opens a linked route.",
+      "test_id": "graph-wiki_formula_proof_k_workbench_links",
+      "required_test": "Playwright click changes route, selection, model state or exported payload."
+    },
+    {
+      "id": "SURFACE::proof",
+      "kind": "surface",
+      "surface_id": "proof",
+      "title": "Evidence / Boundaries",
+      "purpose": "Claim status, evidence route, limitations and nonclaim boundary without public proof-closure overclaim.",
+      "test_id": "proof-surface",
+      "data_sources": [
+        "proof_routes",
+        "closure_ledger"
+      ],
+      "visible_count_source": {
+        "demo_specs": 10,
+        "proof_routes": 254,
+        "graph_nodes": 703,
+        "k_levels": 13,
+        "domains": 7,
+        "wiki_chapters": 77,
+        "corpus_atoms": 2487,
+        "formulas": 15,
+        "science_graph_nodes": 703,
+        "science_graph_edges": 2177,
+        "k_level_worlds": 13,
+        "m_spaces": 7,
+        "k_axes": 8,
+        "system_templates": 8,
+        "system_flows": 29,
+        "system_cycles": 8,
+        "thresholds": 36,
+        "compensators": 24,
+        "collapse_paths": 16,
+        "route_action_targets": 91,
+        "reviewer_objection_routes": 4,
+        "system_architect_missions": 8,
+        "model_comparison_rows": 8,
+        "trust_ladder_rungs": 4,
+        "practical_value_cards": 3,
+        "corpus_completeness_rows": 0,
+        "formula_quality_rows": 15,
+        "formula_formalization_obligations": 0,
+        "k_level_examples": 39,
+        "science_formalization_rows": 88,
+        "closure_rows": 87,
+        "open_research_gaps": 0
+      },
+      "must_have": [
+        "loaded-state screenshot",
+        "DOM snapshot",
+        "click trace for primary controls",
+        "nonclaim boundary where scientific status is shown"
+      ],
+      "anti_patterns": [
+        "button without route",
+        "count without drilldown",
+        "formula id as primary explanation",
+        "decorative PASS badge without evidence",
+        "loading-state screenshot"
+      ]
+    },
+    {
+      "id": "CONTROL::proof::target_list",
+      "kind": "control",
+      "surface_id": "proof",
+      "title": "target list",
+      "purpose": "Primary user action on Evidence / Boundaries.",
+      "data_sources": [
+        "proof_routes",
+        "closure_ledger"
+      ],
+      "target_view": "proof",
+      "state_mutation": "route-change-or-local-selection",
+      "expected_visible_result": "Evidence / Boundaries visibly changes the proof surface or opens a linked route.",
+      "test_id": "proof-target_list",
+      "required_test": "Playwright click changes route, selection, model state or exported payload."
+    },
+    {
+      "id": "CONTROL::proof::claim_drilldown",
+      "kind": "control",
+      "surface_id": "proof",
+      "title": "claim drilldown",
+      "purpose": "Primary user action on Evidence / Boundaries.",
+      "data_sources": [
+        "proof_routes",
+        "closure_ledger"
+      ],
+      "target_view": "proof",
+      "state_mutation": "route-change-or-local-selection",
+      "expected_visible_result": "Evidence / Boundaries visibly changes the proof surface or opens a linked route.",
+      "test_id": "proof-claim_drilldown",
+      "required_test": "Playwright click changes route, selection, model state or exported payload."
+    },
+    {
+      "id": "CONTROL::proof::nonclaim_boundary",
+      "kind": "control",
+      "surface_id": "proof",
+      "title": "nonclaim boundary",
+      "purpose": "Primary user action on Evidence / Boundaries.",
+      "data_sources": [
+        "proof_routes",
+        "closure_ledger"
+      ],
+      "target_view": "proof",
+      "state_mutation": "route-change-or-local-selection",
+      "expected_visible_result": "Evidence / Boundaries visibly changes the proof surface or opens a linked route.",
+      "test_id": "proof-nonclaim_boundary",
+      "required_test": "Playwright click changes route, selection, model state or exported payload."
+    },
+    {
+      "id": "CONTROL::proof::trust_ladder",
+      "kind": "control",
+      "surface_id": "proof",
+      "title": "trust ladder",
+      "purpose": "Primary user action on Evidence / Boundaries.",
+      "data_sources": [
+        "proof_routes",
+        "closure_ledger"
+      ],
+      "target_view": "proof",
+      "state_mutation": "route-change-or-local-selection",
+      "expected_visible_result": "Evidence / Boundaries visibly changes the proof surface or opens a linked route.",
+      "test_id": "proof-trust_ladder",
+      "required_test": "Playwright click changes route, selection, model state or exported payload."
+    },
+    {
+      "id": "SURFACE::gaps",
+      "kind": "surface",
+      "surface_id": "gaps",
+      "title": "Gap Closure",
+      "purpose": "Closure ledger and proof-workbench obligations.",
+      "test_id": "gaps-surface",
+      "data_sources": [
+        "closure_ledger",
+        "research_gap_summary"
+      ],
+      "visible_count_source": {
+        "demo_specs": 10,
+        "proof_routes": 254,
+        "graph_nodes": 703,
+        "k_levels": 13,
+        "domains": 7,
+        "wiki_chapters": 77,
+        "corpus_atoms": 2487,
+        "formulas": 15,
+        "science_graph_nodes": 703,
+        "science_graph_edges": 2177,
+        "k_level_worlds": 13,
+        "m_spaces": 7,
+        "k_axes": 8,
+        "system_templates": 8,
+        "system_flows": 29,
+        "system_cycles": 8,
+        "thresholds": 36,
+        "compensators": 24,
+        "collapse_paths": 16,
+        "route_action_targets": 91,
+        "reviewer_objection_routes": 4,
+        "system_architect_missions": 8,
+        "model_comparison_rows": 8,
+        "trust_ladder_rungs": 4,
+        "practical_value_cards": 3,
+        "corpus_completeness_rows": 0,
+        "formula_quality_rows": 15,
+        "formula_formalization_obligations": 0,
+        "k_level_examples": 39,
+        "science_formalization_rows": 88,
+        "closure_rows": 87,
+        "open_research_gaps": 0
+      },
+      "must_have": [
+        "loaded-state screenshot",
+        "DOM snapshot",
+        "click trace for primary controls",
+        "nonclaim boundary where scientific status is shown"
+      ],
+      "anti_patterns": [
+        "button without route",
+        "count without drilldown",
+        "formula id as primary explanation",
+        "decorative PASS badge without evidence",
+        "loading-state screenshot"
+      ]
+    },
+    {
+      "id": "SURFACE::reviewer",
+      "kind": "surface",
+      "surface_id": "reviewer",
+      "title": "Reviewer Mode",
+      "purpose": "Evidence bundle, quality report and public-safety review.",
+      "test_id": "reviewer-surface",
+      "data_sources": [
+        "quality_report",
+        "cerberus_v010_review"
+      ],
+      "visible_count_source": {
+        "demo_specs": 10,
+        "proof_routes": 254,
+        "graph_nodes": 703,
+        "k_levels": 13,
+        "domains": 7,
+        "wiki_chapters": 77,
+        "corpus_atoms": 2487,
+        "formulas": 15,
+        "science_graph_nodes": 703,
+        "science_graph_edges": 2177,
+        "k_level_worlds": 13,
+        "m_spaces": 7,
+        "k_axes": 8,
+        "system_templates": 8,
+        "system_flows": 29,
+        "system_cycles": 8,
+        "thresholds": 36,
+        "compensators": 24,
+        "collapse_paths": 16,
+        "route_action_targets": 91,
+        "reviewer_objection_routes": 4,
+        "system_architect_missions": 8,
+        "model_comparison_rows": 8,
+        "trust_ladder_rungs": 4,
+        "practical_value_cards": 3,
+        "corpus_completeness_rows": 0,
+        "formula_quality_rows": 15,
+        "formula_formalization_obligations": 0,
+        "k_level_examples": 39,
+        "science_formalization_rows": 88,
+        "closure_rows": 87,
+        "open_research_gaps": 0
+      },
+      "must_have": [
+        "loaded-state screenshot",
+        "DOM snapshot",
+        "click trace for primary controls",
+        "nonclaim boundary where scientific status is shown"
+      ],
+      "anti_patterns": [
+        "button without route",
+        "count without drilldown",
+        "formula id as primary explanation",
+        "decorative PASS badge without evidence",
+        "loading-state screenshot"
+      ]
+    },
+    {
+      "id": "CONTROL::reviewer::export_bundle",
+      "kind": "control",
+      "surface_id": "reviewer",
+      "title": "export bundle",
+      "purpose": "Primary user action on Reviewer Mode.",
+      "data_sources": [
+        "quality_report",
+        "cerberus_v010_review"
+      ],
+      "target_view": "reviewer",
+      "state_mutation": "route-change-or-local-selection",
+      "expected_visible_result": "Reviewer Mode visibly changes the reviewer surface or opens a linked route.",
+      "test_id": "reviewer-export_bundle",
+      "required_test": "Playwright click changes route, selection, model state or exported payload."
+    },
+    {
+      "id": "CONTROL::reviewer::trust_ladder",
+      "kind": "control",
+      "surface_id": "reviewer",
+      "title": "trust ladder",
+      "purpose": "Primary user action on Reviewer Mode.",
+      "data_sources": [
+        "quality_report",
+        "cerberus_v010_review"
+      ],
+      "target_view": "reviewer",
+      "state_mutation": "route-change-or-local-selection",
+      "expected_visible_result": "Reviewer Mode visibly changes the reviewer surface or opens a linked route.",
+      "test_id": "reviewer-trust_ladder",
+      "required_test": "Playwright click changes route, selection, model state or exported payload."
+    },
+    {
+      "id": "CONTROL::reviewer::why_oc",
+      "kind": "control",
+      "surface_id": "reviewer",
+      "title": "why OC",
+      "purpose": "Primary user action on Reviewer Mode.",
+      "data_sources": [
+        "quality_report",
+        "cerberus_v010_review"
+      ],
+      "target_view": "reviewer",
+      "state_mutation": "route-change-or-local-selection",
+      "expected_visible_result": "Reviewer Mode visibly changes the reviewer surface or opens a linked route.",
+      "test_id": "reviewer-why_oc",
+      "required_test": "Playwright click changes route, selection, model state or exported payload."
+    },
+    {
+      "id": "CONTROL::reviewer::practical_value",
+      "kind": "control",
+      "surface_id": "reviewer",
+      "title": "practical value",
+      "purpose": "Primary user action on Reviewer Mode.",
+      "data_sources": [
+        "quality_report",
+        "cerberus_v010_review"
+      ],
+      "target_view": "reviewer",
+      "state_mutation": "route-change-or-local-selection",
+      "expected_visible_result": "Reviewer Mode visibly changes the reviewer surface or opens a linked route.",
+      "test_id": "reviewer-practical_value",
+      "required_test": "Playwright click changes route, selection, model state or exported payload."
+    },
+    {
+      "id": "CONTROL::reviewer::mission_deck",
+      "kind": "control",
+      "surface_id": "reviewer",
+      "title": "mission deck",
+      "purpose": "Primary user action on Reviewer Mode.",
+      "data_sources": [
+        "quality_report",
+        "cerberus_v010_review"
+      ],
+      "target_view": "reviewer",
+      "state_mutation": "route-change-or-local-selection",
+      "expected_visible_result": "Reviewer Mode visibly changes the reviewer surface or opens a linked route.",
+      "test_id": "reviewer-mission_deck",
+      "required_test": "Playwright click changes route, selection, model state or exported payload."
+    },
+    {
+      "id": "CONTROL::worldline::worldline-run_simulation",
+      "kind": "control",
+      "surface_id": "worldline",
+      "title": "Run Simulation",
+      "purpose": "Route-bound control for oc_in_12_minutes.",
+      "data_sources": [
+        "route_action_manifest"
+      ],
+      "target_view": "worldline",
+      "state_mutation": "route-bound-semantic-action",
+      "expected_visible_result": "Run Simulation opens or mutates the worldline surface with a visible state/hash/detail change.",
+      "test_id": "worldline-run_simulation",
+      "required_test": "Route-action reconciliation resolves this control_binding to this listed control test_id."
+    },
+    {
+      "id": "CONTROL::wiki::wiki-open_in_wiki",
+      "kind": "control",
+      "surface_id": "wiki",
+      "title": "Open in Wiki",
+      "purpose": "Route-bound control for oc_in_12_minutes.",
+      "data_sources": [
+        "route_action_manifest"
+      ],
+      "target_view": "wiki",
+      "state_mutation": "route-bound-semantic-action",
+      "expected_visible_result": "Open in Wiki opens or mutates the wiki surface with a visible state/hash/detail change.",
+      "test_id": "wiki-open_in_wiki",
+      "required_test": "Route-action reconciliation resolves this control_binding to this listed control test_id."
+    },
+    {
+      "id": "CONTROL::graph::graph-show_in_graph",
+      "kind": "control",
+      "surface_id": "graph",
+      "title": "Show in Graph",
+      "purpose": "Route-bound control for oc_in_12_minutes.",
+      "data_sources": [
+        "route_action_manifest"
+      ],
+      "target_view": "graph",
+      "state_mutation": "route-bound-semantic-action",
+      "expected_visible_result": "Show in Graph opens or mutates the graph surface with a visible state/hash/detail change.",
+      "test_id": "graph-show_in_graph",
+      "required_test": "Route-action reconciliation resolves this control_binding to this listed control test_id."
+    },
+    {
+      "id": "CONTROL::workbench::workbench-use_in_workbench",
+      "kind": "control",
+      "surface_id": "workbench",
+      "title": "Use in Workbench",
+      "purpose": "Route-bound control for oc_in_12_minutes.",
+      "data_sources": [
+        "route_action_manifest"
+      ],
+      "target_view": "workbench",
+      "state_mutation": "route-bound-semantic-action",
+      "expected_visible_result": "Use in Workbench opens or mutates the workbench surface with a visible state/hash/detail change.",
+      "test_id": "workbench-use_in_workbench",
+      "required_test": "Route-action reconciliation resolves this control_binding to this listed control test_id."
+    },
+    {
+      "id": "CONTROL::workbench::workbench-run_simulation",
+      "kind": "control",
+      "surface_id": "workbench",
+      "title": "Run Simulation",
+      "purpose": "Route-bound control for oc_in_12_minutes.",
+      "data_sources": [
+        "route_action_manifest"
+      ],
+      "target_view": "workbench",
+      "state_mutation": "route-bound-semantic-action",
+      "expected_visible_result": "Run Simulation opens or mutates the workbench surface with a visible state/hash/detail change.",
+      "test_id": "workbench-run_simulation",
+      "required_test": "Route-action reconciliation resolves this control_binding to this listed control test_id."
+    },
+    {
+      "id": "CONTROL::cascade::cascade-run_simulation",
+      "kind": "control",
+      "surface_id": "cascade",
+      "title": "Run Simulation",
+      "purpose": "Route-bound control for oc_in_12_minutes.",
+      "data_sources": [
+        "route_action_manifest"
+      ],
+      "target_view": "cascade",
+      "state_mutation": "route-bound-semantic-action",
+      "expected_visible_result": "Run Simulation opens or mutates the cascade surface with a visible state/hash/detail change.",
+      "test_id": "cascade-run_simulation",
+      "required_test": "Route-action reconciliation resolves this control_binding to this listed control test_id."
+    },
+    {
+      "id": "CONTROL::proof::proof-open_evidence_boundary",
+      "kind": "control",
+      "surface_id": "proof",
+      "title": "Open Evidence Boundary",
+      "purpose": "Route-bound control for oc_in_12_minutes.",
+      "data_sources": [
+        "route_action_manifest"
+      ],
+      "target_view": "proof",
+      "state_mutation": "route-bound-semantic-action",
+      "expected_visible_result": "Open Evidence Boundary opens or mutates the proof surface with a visible state/hash/detail change.",
+      "test_id": "proof-open_evidence_boundary",
+      "required_test": "Route-action reconciliation resolves this control_binding to this listed control test_id."
+    },
+    {
+      "id": "CONTROL::benchmarks::benchmarks-open_domain",
+      "kind": "control",
+      "surface_id": "benchmarks",
+      "title": "Open Domain",
+      "purpose": "Route-bound control for oc_in_12_minutes.",
+      "data_sources": [
+        "route_action_manifest"
+      ],
+      "target_view": "benchmarks",
+      "state_mutation": "route-bound-semantic-action",
+      "expected_visible_result": "Open Domain opens or mutates the benchmarks surface with a visible state/hash/detail change.",
+      "test_id": "benchmarks-open_domain",
+      "required_test": "Route-action reconciliation resolves this control_binding to this listed control test_id."
+    },
+    {
+      "id": "CONTROL::formula::formula-show_formula",
+      "kind": "control",
+      "surface_id": "formula",
+      "title": "Show Formula",
+      "purpose": "Route-bound control for oc_in_12_minutes.",
+      "data_sources": [
+        "route_action_manifest"
+      ],
+      "target_view": "formula",
+      "state_mutation": "route-bound-semantic-action",
+      "expected_visible_result": "Show Formula opens or mutates the formula surface with a visible state/hash/detail change.",
+      "test_id": "formula-show_formula",
+      "required_test": "Route-action reconciliation resolves this control_binding to this listed control test_id."
+    },
+    {
+      "id": "CONTROL::practical::purchase_pull",
+      "kind": "control",
+      "surface_id": "practical",
+      "title": "purchase_pull",
+      "purpose": "Route-bound control for purchase_pull::local_qualified_next_step.",
+      "data_sources": [
+        "route_action_manifest"
+      ],
+      "target_view": "practical",
+      "state_mutation": "route-bound-semantic-action",
+      "expected_visible_result": "purchase_pull opens or mutates the practical surface with a visible state/hash/detail change.",
+      "test_id": "purchase_pull",
+      "required_test": "Route-action reconciliation resolves this control_binding to this listed control test_id."
+    },
+    {
+      "id": "CONTROL::graph::graph-compare",
+      "kind": "control",
+      "surface_id": "graph",
+      "title": "Compare",
+      "purpose": "Route-bound control for objection_route::no_compare_explanation.",
+      "data_sources": [
+        "route_action_manifest"
+      ],
+      "target_view": "graph",
+      "state_mutation": "route-bound-semantic-action",
+      "expected_visible_result": "Compare opens or mutates the graph surface with a visible state/hash/detail change.",
+      "test_id": "graph-compare",
+      "required_test": "Route-action reconciliation resolves this control_binding to this listed control test_id."
+    },
+    {
+      "id": "ROUTE::oc_in_12_minutes",
+      "kind": "route",
+      "title": "oc_in_12_minutes",
+      "purpose": "Pre-build route contract; prevents orphan buttons and dead didactic branches.",
+      "target_surface": "benchmarks",
+      "source": "route_action_manifest",
+      "test_id": "route-oc_in_12_minutes",
+      "expected_visible_result": "Route lands on benchmarks with a visible surface or state change.",
+      "required_test": "Route must be reachable from UI and included in click trace."
+    },
+    {
+      "id": "ROUTE::from_contradiction_to_axis",
+      "kind": "route",
+      "title": "from_contradiction_to_axis",
+      "purpose": "Pre-build route contract; prevents orphan buttons and dead didactic branches.",
+      "target_surface": "cascade",
+      "source": "route_action_manifest",
+      "test_id": "route-from_contradiction_to_axis",
+      "expected_visible_result": "Route lands on cascade with a visible surface or state change.",
+      "required_test": "Route must be reachable from UI and included in click trace."
+    },
+    {
+      "id": "ROUTE::k12_to_k0_drilldown",
+      "kind": "route",
+      "title": "k12_to_k0_drilldown",
+      "purpose": "Pre-build route contract; prevents orphan buttons and dead didactic branches.",
+      "target_surface": "benchmarks",
+      "source": "route_action_manifest",
+      "test_id": "route-k12_to_k0_drilldown",
+      "expected_visible_result": "Route lands on benchmarks with a visible surface or state change.",
+      "required_test": "Route must be reachable from UI and included in click trace."
+    },
+    {
+      "id": "ROUTE::domain_expert_entry",
+      "kind": "route",
+      "title": "domain_expert_entry",
+      "purpose": "Pre-build route contract; prevents orphan buttons and dead didactic branches.",
+      "target_surface": "benchmarks",
+      "source": "route_action_manifest",
+      "test_id": "route-domain_expert_entry",
+      "expected_visible_result": "Route lands on benchmarks with a visible surface or state change.",
+      "required_test": "Route must be reachable from UI and included in click trace."
+    },
+    {
+      "id": "ROUTE::collapse_and_recovery",
+      "kind": "route",
+      "title": "collapse_and_recovery",
+      "purpose": "Pre-build route contract; prevents orphan buttons and dead didactic branches.",
+      "target_surface": "cascade",
+      "source": "route_action_manifest",
+      "test_id": "route-collapse_and_recovery",
+      "expected_visible_result": "Route lands on cascade with a visible surface or state change.",
+      "required_test": "Route must be reachable from UI and included in click trace."
+    },
+    {
+      "id": "ROUTE::proof_boundary_route",
+      "kind": "route",
+      "title": "proof_boundary_route",
+      "purpose": "Pre-build route contract; prevents orphan buttons and dead didactic branches.",
+      "target_surface": "formula",
+      "source": "route_action_manifest",
+      "test_id": "route-proof_boundary_route",
+      "expected_visible_result": "Route lands on formula with a visible surface or state change.",
+      "required_test": "Route must be reachable from UI and included in click trace."
+    },
+    {
+      "id": "ROUTE::purchase_pull::local_qualified_next_step",
+      "kind": "route",
+      "title": "purchase_pull::local_qualified_next_step",
+      "purpose": "Pre-build route contract; prevents orphan buttons and dead didactic branches.",
+      "target_surface": "practical",
+      "source": "route_action_manifest",
+      "test_id": "route-purchase_pull_local_qualified_next_step",
+      "expected_visible_result": "Route lands on practical with a visible surface or state change.",
+      "required_test": "Route must be reachable from UI and included in click trace."
+    },
+    {
+      "id": "ROUTE::objection_route::predictive_overreach",
+      "kind": "route",
+      "title": "objection_route::predictive_overreach",
+      "purpose": "Pre-build route contract; prevents orphan buttons and dead didactic branches.",
+      "target_surface": "benchmarks",
+      "source": "route_action_manifest",
+      "test_id": "route-objection_route_predictive_overreach",
+      "expected_visible_result": "Route lands on benchmarks with a visible surface or state change.",
+      "required_test": "Route must be reachable from UI and included in click trace."
+    },
+    {
+      "id": "ROUTE::objection_route::graph_formula_discrepancy",
+      "kind": "route",
+      "title": "objection_route::graph_formula_discrepancy",
+      "purpose": "Pre-build route contract; prevents orphan buttons and dead didactic branches.",
+      "target_surface": "formula",
+      "source": "route_action_manifest",
+      "test_id": "route-objection_route_graph_formula_discrepancy",
+      "expected_visible_result": "Route lands on formula with a visible surface or state change.",
+      "required_test": "Route must be reachable from UI and included in click trace."
+    },
+    {
+      "id": "ROUTE::objection_route::no_compare_explanation",
+      "kind": "route",
+      "title": "objection_route::no_compare_explanation",
+      "purpose": "Pre-build route contract; prevents orphan buttons and dead didactic branches.",
+      "target_surface": "graph",
+      "source": "route_action_manifest",
+      "test_id": "route-objection_route_no_compare_explanation",
+      "expected_visible_result": "Route lands on graph with a visible surface or state change.",
+      "required_test": "Route must be reachable from UI and included in click trace."
+    },
+    {
+      "id": "ROUTE::system-architect::primitive-distinction::diagnostic-loop",
+      "kind": "route",
+      "title": "system-architect::primitive-distinction::diagnostic-loop",
+      "purpose": "Pre-build route contract; prevents orphan buttons and dead didactic branches.",
+      "target_surface": "graph",
+      "source": "route_action_manifest",
+      "test_id": "route-system_architect_primitive_distinction_diagnostic_loop",
+      "expected_visible_result": "Route lands on graph with a visible surface or state change.",
+      "required_test": "Route must be reachable from UI and included in click trace."
+    },
+    {
+      "id": "ROUTE::system-architect::physical-phase::diagnostic-loop",
+      "kind": "route",
+      "title": "system-architect::physical-phase::diagnostic-loop",
+      "purpose": "Pre-build route contract; prevents orphan buttons and dead didactic branches.",
+      "target_surface": "graph",
+      "source": "route_action_manifest",
+      "test_id": "route-system_architect_physical_phase_diagnostic_loop",
+      "expected_visible_result": "Route lands on graph with a visible surface or state change.",
+      "required_test": "Route must be reachable from UI and included in click trace."
+    },
+    {
+      "id": "ROUTE::system-architect::prebiotic-chemistry::diagnostic-loop",
+      "kind": "route",
+      "title": "system-architect::prebiotic-chemistry::diagnostic-loop",
+      "purpose": "Pre-build route contract; prevents orphan buttons and dead didactic branches.",
+      "target_surface": "graph",
+      "source": "route_action_manifest",
+      "test_id": "route-system_architect_prebiotic_chemistry_diagnostic_loop",
+      "expected_visible_result": "Route lands on graph with a visible surface or state change.",
+      "required_test": "Route must be reachable from UI and included in click trace."
+    },
+    {
+      "id": "ROUTE::system-architect::biological-cell::diagnostic-loop",
+      "kind": "route",
+      "title": "system-architect::biological-cell::diagnostic-loop",
+      "purpose": "Pre-build route contract; prevents orphan buttons and dead didactic branches.",
+      "target_surface": "graph",
+      "source": "route_action_manifest",
+      "test_id": "route-system_architect_biological_cell_diagnostic_loop",
+      "expected_visible_result": "Route lands on graph with a visible surface or state change.",
+      "required_test": "Route must be reachable from UI and included in click trace."
+    },
+    {
+      "id": "ROUTE::system-architect::institution::diagnostic-loop",
+      "kind": "route",
+      "title": "system-architect::institution::diagnostic-loop",
+      "purpose": "Pre-build route contract; prevents orphan buttons and dead didactic branches.",
+      "target_surface": "graph",
+      "source": "route_action_manifest",
+      "test_id": "route-system_architect_institution_diagnostic_loop",
+      "expected_visible_result": "Route lands on graph with a visible surface or state change.",
+      "required_test": "Route must be reachable from UI and included in click trace."
+    },
+    {
+      "id": "ROUTE::system-architect::cognitive-social-agent::diagnostic-loop",
+      "kind": "route",
+      "title": "system-architect::cognitive-social-agent::diagnostic-loop",
+      "purpose": "Pre-build route contract; prevents orphan buttons and dead didactic branches.",
+      "target_surface": "graph",
+      "source": "route_action_manifest",
+      "test_id": "route-system_architect_cognitive_social_agent_diagnostic_loop",
+      "expected_visible_result": "Route lands on graph with a visible surface or state change.",
+      "required_test": "Route must be reachable from UI and included in click trace."
+    },
+    {
+      "id": "ROUTE::system-architect::civilization::diagnostic-loop",
+      "kind": "route",
+      "title": "system-architect::civilization::diagnostic-loop",
+      "purpose": "Pre-build route contract; prevents orphan buttons and dead didactic branches.",
+      "target_surface": "graph",
+      "source": "route_action_manifest",
+      "test_id": "route-system_architect_civilization_diagnostic_loop",
+      "expected_visible_result": "Route lands on graph with a visible surface or state change.",
+      "required_test": "Route must be reachable from UI and included in click trace."
+    },
+    {
+      "id": "ROUTE::system-architect::meta-model::diagnostic-loop",
+      "kind": "route",
+      "title": "system-architect::meta-model::diagnostic-loop",
+      "purpose": "Pre-build route contract; prevents orphan buttons and dead didactic branches.",
+      "target_surface": "graph",
+      "source": "route_action_manifest",
+      "test_id": "route-system_architect_meta_model_diagnostic_loop",
+      "expected_visible_result": "Route lands on graph with a visible surface or state change.",
+      "required_test": "Route must be reachable from UI and included in click trace."
+    }
+  ],
+  "edges": [
+    {
+      "source": "SURFACE::journey",
+      "target": "CONTROL::journey::open_oc_journey",
+      "relation": "exposes_control"
+    },
+    {
+      "source": "SURFACE::journey",
+      "target": "CONTROL::journey::open_workbench",
+      "relation": "exposes_control"
+    },
+    {
+      "source": "SURFACE::journey",
+      "target": "CONTROL::journey::open_science_graph",
+      "relation": "exposes_control"
+    },
+    {
+      "source": "SURFACE::journey",
+      "target": "CONTROL::journey::open_formula_atlas",
+      "relation": "exposes_control"
+    },
+    {
+      "source": "SURFACE::journey",
+      "target": "CONTROL::journey::skeptical_objection_chips",
+      "relation": "exposes_control"
+    },
+    {
+      "source": "SURFACE::workbench",
+      "target": "CONTROL::workbench::template_selector",
+      "relation": "exposes_control"
+    },
+    {
+      "source": "SURFACE::workbench",
+      "target": "CONTROL::workbench::k_level_selector",
+      "relation": "exposes_control"
+    },
+    {
+      "source": "SURFACE::workbench",
+      "target": "CONTROL::workbench::add_axis_dropdown",
+      "relation": "exposes_control"
+    },
+    {
+      "source": "SURFACE::workbench",
+      "target": "CONTROL::workbench::kill",
+      "relation": "exposes_control"
+    },
+    {
+      "source": "SURFACE::workbench",
+      "target": "CONTROL::workbench::diagnose",
+      "relation": "exposes_control"
+    },
+    {
+      "source": "SURFACE::workbench",
+      "target": "CONTROL::workbench::improve",
+      "relation": "exposes_control"
+    },
+    {
+      "source": "SURFACE::workbench",
+      "target": "CONTROL::workbench::compare",
+      "relation": "exposes_control"
+    },
+    {
+      "source": "SURFACE::workbench",
+      "target": "CONTROL::workbench::export",
+      "relation": "exposes_control"
+    },
+    {
+      "source": "SURFACE::wiki",
+      "target": "CONTROL::wiki::search",
+      "relation": "exposes_control"
+    },
+    {
+      "source": "SURFACE::wiki",
+      "target": "CONTROL::wiki::toc_chapter_buttons",
+      "relation": "exposes_control"
+    },
+    {
+      "source": "SURFACE::wiki",
+      "target": "CONTROL::wiki::section_chips",
+      "relation": "exposes_control"
+    },
+    {
+      "source": "SURFACE::wiki",
+      "target": "CONTROL::wiki::atom_open",
+      "relation": "exposes_control"
+    },
+    {
+      "source": "SURFACE::wiki",
+      "target": "CONTROL::wiki::formula_drill",
+      "relation": "exposes_control"
+    },
+    {
+      "source": "SURFACE::wiki",
+      "target": "CONTROL::wiki::graph_drill",
+      "relation": "exposes_control"
+    },
+    {
+      "source": "SURFACE::wiki",
+      "target": "CONTROL::wiki::proof_route",
+      "relation": "exposes_control"
+    },
+    {
+      "source": "SURFACE::formula",
+      "target": "CONTROL::formula::search",
+      "relation": "exposes_control"
+    },
+    {
+      "source": "SURFACE::formula",
+      "target": "CONTROL::formula::formula_row_button",
+      "relation": "exposes_control"
+    },
+    {
+      "source": "SURFACE::formula",
+      "target": "CONTROL::formula::probe_in_graph",
+      "relation": "exposes_control"
+    },
+    {
+      "source": "SURFACE::formula",
+      "target": "CONTROL::formula::open_in_wiki",
+      "relation": "exposes_control"
+    },
+    {
+      "source": "SURFACE::formula",
+      "target": "CONTROL::formula::open_in_graph_by_id",
+      "relation": "exposes_control"
+    },
+    {
+      "source": "SURFACE::klevels",
+      "target": "CONTROL::klevels::select_level_rail",
+      "relation": "exposes_control"
+    },
+    {
+      "source": "SURFACE::klevels",
+      "target": "CONTROL::klevels::elevator_select",
+      "relation": "exposes_control"
+    },
+    {
+      "source": "SURFACE::klevels",
+      "target": "CONTROL::klevels::export_selected_route",
+      "relation": "exposes_control"
+    },
+    {
+      "source": "SURFACE::klevels",
+      "target": "CONTROL::klevels::open_workbench",
+      "relation": "exposes_control"
+    },
+    {
+      "source": "SURFACE::klevels",
+      "target": "CONTROL::klevels::graph_probe",
+      "relation": "exposes_control"
+    },
+    {
+      "source": "SURFACE::cascade",
+      "target": "CONTROL::cascade::system_selector",
+      "relation": "exposes_control"
+    },
+    {
+      "source": "SURFACE::cascade",
+      "target": "CONTROL::cascade::speed_slider",
+      "relation": "exposes_control"
+    },
+    {
+      "source": "SURFACE::cascade",
+      "target": "CONTROL::cascade::kill_mode_selector",
+      "relation": "exposes_control"
+    },
+    {
+      "source": "SURFACE::cascade",
+      "target": "CONTROL::cascade::selected_node_kill",
+      "relation": "exposes_control"
+    },
+    {
+      "source": "SURFACE::cascade",
+      "target": "CONTROL::cascade::reset_replay",
+      "relation": "exposes_control"
+    },
+    {
+      "source": "SURFACE::cascade",
+      "target": "CONTROL::cascade::export_cascade_replay_packet",
+      "relation": "exposes_control"
+    },
+    {
+      "source": "SURFACE::graph",
+      "target": "CONTROL::graph::search",
+      "relation": "exposes_control"
+    },
+    {
+      "source": "SURFACE::graph",
+      "target": "CONTROL::graph::layer_filter",
+      "relation": "exposes_control"
+    },
+    {
+      "source": "SURFACE::graph",
+      "target": "CONTROL::graph::edge_filter",
+      "relation": "exposes_control"
+    },
+    {
+      "source": "SURFACE::graph",
+      "target": "CONTROL::graph::reset_root_path",
+      "relation": "exposes_control"
+    },
+    {
+      "source": "SURFACE::graph",
+      "target": "CONTROL::graph::node_click",
+      "relation": "exposes_control"
+    },
+    {
+      "source": "SURFACE::graph",
+      "target": "CONTROL::graph::wiki_formula_proof_k_workbench_links",
+      "relation": "exposes_control"
+    },
+    {
+      "source": "SURFACE::proof",
+      "target": "CONTROL::proof::target_list",
+      "relation": "exposes_control"
+    },
+    {
+      "source": "SURFACE::proof",
+      "target": "CONTROL::proof::claim_drilldown",
+      "relation": "exposes_control"
+    },
+    {
+      "source": "SURFACE::proof",
+      "target": "CONTROL::proof::nonclaim_boundary",
+      "relation": "exposes_control"
+    },
+    {
+      "source": "SURFACE::proof",
+      "target": "CONTROL::proof::trust_ladder",
+      "relation": "exposes_control"
+    },
+    {
+      "source": "SURFACE::reviewer",
+      "target": "CONTROL::reviewer::export_bundle",
+      "relation": "exposes_control"
+    },
+    {
+      "source": "SURFACE::reviewer",
+      "target": "CONTROL::reviewer::trust_ladder",
+      "relation": "exposes_control"
+    },
+    {
+      "source": "SURFACE::reviewer",
+      "target": "CONTROL::reviewer::why_oc",
+      "relation": "exposes_control"
+    },
+    {
+      "source": "SURFACE::reviewer",
+      "target": "CONTROL::reviewer::practical_value",
+      "relation": "exposes_control"
+    },
+    {
+      "source": "SURFACE::reviewer",
+      "target": "CONTROL::reviewer::mission_deck",
+      "relation": "exposes_control"
+    },
+    {
+      "source": "SURFACE::worldline",
+      "target": "CONTROL::worldline::worldline-run_simulation",
+      "relation": "exposes_route_bound_control"
+    },
+    {
+      "source": "SURFACE::wiki",
+      "target": "CONTROL::wiki::wiki-open_in_wiki",
+      "relation": "exposes_route_bound_control"
+    },
+    {
+      "source": "SURFACE::graph",
+      "target": "CONTROL::graph::graph-show_in_graph",
+      "relation": "exposes_route_bound_control"
+    },
+    {
+      "source": "SURFACE::workbench",
+      "target": "CONTROL::workbench::workbench-use_in_workbench",
+      "relation": "exposes_route_bound_control"
+    },
+    {
+      "source": "SURFACE::workbench",
+      "target": "CONTROL::workbench::workbench-run_simulation",
+      "relation": "exposes_route_bound_control"
+    },
+    {
+      "source": "SURFACE::cascade",
+      "target": "CONTROL::cascade::cascade-run_simulation",
+      "relation": "exposes_route_bound_control"
+    },
+    {
+      "source": "SURFACE::proof",
+      "target": "CONTROL::proof::proof-open_evidence_boundary",
+      "relation": "exposes_route_bound_control"
+    },
+    {
+      "source": "SURFACE::benchmarks",
+      "target": "CONTROL::benchmarks::benchmarks-open_domain",
+      "relation": "exposes_route_bound_control"
+    },
+    {
+      "source": "SURFACE::formula",
+      "target": "CONTROL::formula::formula-show_formula",
+      "relation": "exposes_route_bound_control"
+    },
+    {
+      "source": "SURFACE::practical",
+      "target": "CONTROL::practical::purchase_pull",
+      "relation": "exposes_route_bound_control"
+    },
+    {
+      "source": "SURFACE::graph",
+      "target": "CONTROL::graph::graph-compare",
+      "relation": "exposes_route_bound_control"
+    },
+    {
+      "source": "ROUTE::oc_in_12_minutes",
+      "target": "SURFACE::benchmarks",
+      "relation": "routes_to_surface"
+    },
+    {
+      "source": "ROUTE::oc_in_12_minutes",
+      "target": "SURFACE::cascade",
+      "relation": "routes_to_surface"
+    },
+    {
+      "source": "ROUTE::oc_in_12_minutes",
+      "target": "SURFACE::formula",
+      "relation": "routes_to_surface"
+    },
+    {
+      "source": "ROUTE::oc_in_12_minutes",
+      "target": "SURFACE::graph",
+      "relation": "routes_to_surface"
+    },
+    {
+      "source": "ROUTE::oc_in_12_minutes",
+      "target": "SURFACE::km",
+      "relation": "routes_to_surface"
+    },
+    {
+      "source": "ROUTE::oc_in_12_minutes",
+      "target": "SURFACE::proof",
+      "relation": "routes_to_surface"
+    },
+    {
+      "source": "ROUTE::oc_in_12_minutes",
+      "target": "SURFACE::wiki",
+      "relation": "routes_to_surface"
+    },
+    {
+      "source": "ROUTE::oc_in_12_minutes",
+      "target": "SURFACE::workbench",
+      "relation": "routes_to_surface"
+    },
+    {
+      "source": "ROUTE::oc_in_12_minutes",
+      "target": "SURFACE::worldline",
+      "relation": "routes_to_surface"
+    },
+    {
+      "source": "ROUTE::from_contradiction_to_axis",
+      "target": "SURFACE::cascade",
+      "relation": "routes_to_surface"
+    },
+    {
+      "source": "ROUTE::from_contradiction_to_axis",
+      "target": "SURFACE::workbench",
+      "relation": "routes_to_surface"
+    },
+    {
+      "source": "ROUTE::from_contradiction_to_axis",
+      "target": "SURFACE::worldline",
+      "relation": "routes_to_surface"
+    },
+    {
+      "source": "ROUTE::k12_to_k0_drilldown",
+      "target": "SURFACE::benchmarks",
+      "relation": "routes_to_surface"
+    },
+    {
+      "source": "ROUTE::k12_to_k0_drilldown",
+      "target": "SURFACE::graph",
+      "relation": "routes_to_surface"
+    },
+    {
+      "source": "ROUTE::k12_to_k0_drilldown",
+      "target": "SURFACE::km",
+      "relation": "routes_to_surface"
+    },
+    {
+      "source": "ROUTE::k12_to_k0_drilldown",
+      "target": "SURFACE::wiki",
+      "relation": "routes_to_surface"
+    },
+    {
+      "source": "ROUTE::domain_expert_entry",
+      "target": "SURFACE::benchmarks",
+      "relation": "routes_to_surface"
+    },
+    {
+      "source": "ROUTE::domain_expert_entry",
+      "target": "SURFACE::formula",
+      "relation": "routes_to_surface"
+    },
+    {
+      "source": "ROUTE::domain_expert_entry",
+      "target": "SURFACE::graph",
+      "relation": "routes_to_surface"
+    },
+    {
+      "source": "ROUTE::collapse_and_recovery",
+      "target": "SURFACE::cascade",
+      "relation": "routes_to_surface"
+    },
+    {
+      "source": "ROUTE::collapse_and_recovery",
+      "target": "SURFACE::workbench",
+      "relation": "routes_to_surface"
+    },
+    {
+      "source": "ROUTE::proof_boundary_route",
+      "target": "SURFACE::formula",
+      "relation": "routes_to_surface"
+    },
+    {
+      "source": "ROUTE::proof_boundary_route",
+      "target": "SURFACE::graph",
+      "relation": "routes_to_surface"
+    },
+    {
+      "source": "ROUTE::proof_boundary_route",
+      "target": "SURFACE::proof",
+      "relation": "routes_to_surface"
+    },
+    {
+      "source": "ROUTE::proof_boundary_route",
+      "target": "SURFACE::wiki",
+      "relation": "routes_to_surface"
+    },
+    {
+      "source": "ROUTE::purchase_pull::local_qualified_next_step",
+      "target": "SURFACE::practical",
+      "relation": "routes_to_surface"
+    },
+    {
+      "source": "ROUTE::purchase_pull::local_qualified_next_step",
+      "target": "SURFACE::workbench",
+      "relation": "routes_to_surface"
+    },
+    {
+      "source": "ROUTE::objection_route::predictive_overreach",
+      "target": "SURFACE::benchmarks",
+      "relation": "routes_to_surface"
+    },
+    {
+      "source": "ROUTE::objection_route::predictive_overreach",
+      "target": "SURFACE::cascade",
+      "relation": "routes_to_surface"
+    },
+    {
+      "source": "ROUTE::objection_route::predictive_overreach",
+      "target": "SURFACE::proof",
+      "relation": "routes_to_surface"
+    },
+    {
+      "source": "ROUTE::objection_route::graph_formula_discrepancy",
+      "target": "SURFACE::formula",
+      "relation": "routes_to_surface"
+    },
+    {
+      "source": "ROUTE::objection_route::graph_formula_discrepancy",
+      "target": "SURFACE::graph",
+      "relation": "routes_to_surface"
+    },
+    {
+      "source": "ROUTE::objection_route::graph_formula_discrepancy",
+      "target": "SURFACE::workbench",
+      "relation": "routes_to_surface"
+    },
+    {
+      "source": "ROUTE::objection_route::no_compare_explanation",
+      "target": "SURFACE::graph",
+      "relation": "routes_to_surface"
+    },
+    {
+      "source": "ROUTE::objection_route::no_compare_explanation",
+      "target": "SURFACE::workbench",
+      "relation": "routes_to_surface"
+    },
+    {
+      "source": "ROUTE::system-architect::primitive-distinction::diagnostic-loop",
+      "target": "SURFACE::graph",
+      "relation": "routes_to_surface"
+    },
+    {
+      "source": "ROUTE::system-architect::primitive-distinction::diagnostic-loop",
+      "target": "SURFACE::workbench",
+      "relation": "routes_to_surface"
+    },
+    {
+      "source": "ROUTE::system-architect::physical-phase::diagnostic-loop",
+      "target": "SURFACE::graph",
+      "relation": "routes_to_surface"
+    },
+    {
+      "source": "ROUTE::system-architect::physical-phase::diagnostic-loop",
+      "target": "SURFACE::workbench",
+      "relation": "routes_to_surface"
+    },
+    {
+      "source": "ROUTE::system-architect::prebiotic-chemistry::diagnostic-loop",
+      "target": "SURFACE::graph",
+      "relation": "routes_to_surface"
+    },
+    {
+      "source": "ROUTE::system-architect::prebiotic-chemistry::diagnostic-loop",
+      "target": "SURFACE::workbench",
+      "relation": "routes_to_surface"
+    },
+    {
+      "source": "ROUTE::system-architect::biological-cell::diagnostic-loop",
+      "target": "SURFACE::graph",
+      "relation": "routes_to_surface"
+    },
+    {
+      "source": "ROUTE::system-architect::biological-cell::diagnostic-loop",
+      "target": "SURFACE::workbench",
+      "relation": "routes_to_surface"
+    },
+    {
+      "source": "ROUTE::system-architect::institution::diagnostic-loop",
+      "target": "SURFACE::graph",
+      "relation": "routes_to_surface"
+    },
+    {
+      "source": "ROUTE::system-architect::institution::diagnostic-loop",
+      "target": "SURFACE::workbench",
+      "relation": "routes_to_surface"
+    },
+    {
+      "source": "ROUTE::system-architect::cognitive-social-agent::diagnostic-loop",
+      "target": "SURFACE::graph",
+      "relation": "routes_to_surface"
+    },
+    {
+      "source": "ROUTE::system-architect::cognitive-social-agent::diagnostic-loop",
+      "target": "SURFACE::workbench",
+      "relation": "routes_to_surface"
+    },
+    {
+      "source": "ROUTE::system-architect::civilization::diagnostic-loop",
+      "target": "SURFACE::graph",
+      "relation": "routes_to_surface"
+    },
+    {
+      "source": "ROUTE::system-architect::civilization::diagnostic-loop",
+      "target": "SURFACE::workbench",
+      "relation": "routes_to_surface"
+    },
+    {
+      "source": "ROUTE::system-architect::meta-model::diagnostic-loop",
+      "target": "SURFACE::graph",
+      "relation": "routes_to_surface"
+    },
+    {
+      "source": "ROUTE::system-architect::meta-model::diagnostic-loop",
+      "target": "SURFACE::workbench",
+      "relation": "routes_to_surface"
+    }
+  ],
+  "prebuild_gate": {
+    "required_before_release": true,
+    "status": "PASS",
+    "orphan_control_ids": [],
+    "dead_route_ids": [],
+    "count_without_drilldown_surface_ids": [],
+    "rules": [
+      "Every surface has purpose, data source, loaded screenshot and DOM/click trace.",
+      "Every button/control maps to a visible route or state mutation.",
+      "Every displayed count links to a drilldown/list.",
+      "Every scientific control declares evidence source and nonclaim boundary."
+    ]
+  },
+  "surface_graph_hash": "bf562b3447f2ce2cc745086aaae599b5d975dfcee88bead5f681c39f97cce2f5"
+}

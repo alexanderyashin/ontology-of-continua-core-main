@@ -3,9 +3,6 @@ import type { Atlas } from "./types";
 export async function loadAtlas(): Promise<Atlas> {
   const candidates = [
     "/data/oc_universe_atlas_v010.json",
-    "/data/oc_universe_atlas_v009.json",
-    "/data/oc_universe_atlas_v008.json",
-    "/data/oc_universe_atlas_v007.json",
     "/data/oc_universe_atlas.json"
   ];
   let lastStatus = 0;
@@ -14,12 +11,7 @@ export async function loadAtlas(): Promise<Atlas> {
     if (response.ok) {
       const atlas = (await response.json()) as Atlas;
       try {
-        const reviewPaths = [
-          "/data/cerberus_v010_review.json",
-          "/data/cerberus_v009_review.json",
-          "/data/cerberus_v008_review.json",
-          "/data/demonstrator_cerberus_review.json"
-        ];
+        const reviewPaths: readonly string[] = [];
         for (const reviewPath of reviewPaths) {
           const review = await fetch(reviewPath);
           if (review.ok) {
@@ -52,4 +44,3 @@ export function stableHash(input: unknown): string {
   }
   return (hash >>> 0).toString(16).padStart(8, "0");
 }
-

@@ -1,0 +1,1690 @@
+[
+  {
+    "id": "system-architect::primitive-distinction::diagnostic-loop",
+    "title": "Architect mission: Primitive Distinction / Axis Birth",
+    "template_id": "primitive-distinction",
+    "target_system_id": "primitive-distinction",
+    "template_hash": "e42ab5e03142ceab0ab7cb6a41bc63338277c39c95e0236fadd582d1217e2b94",
+    "topology_hash": "fcdb4c035d3c04704f7dbf205ada4de3740b6f8e38a5649d2bedb683b039398a",
+    "topology_hash_scope": "nodes, edges, kill_default and weakest_node",
+    "stage_sequence": [
+      "diagnose",
+      "kill",
+      "improve",
+      "compare",
+      "export"
+    ],
+    "compare_route_id": "primitive-distinction::comparison",
+    "compare_output_hash": "33be6937d42859942026dfa2ae5054954d2023633f75bb0b26355eb2ab591660",
+    "negative_path": {
+      "failure_action": "invalid_axis_or_unknown_node",
+      "expected_visible_result": "structured fail-closed boundary row; no replay-backed badge",
+      "test_status": "PASS_MANIFEST_BOUNDARY_CASE"
+    },
+    "semantic_action_trace": [
+      {
+        "stage": "diagnose",
+        "visible_delta": "baseline risk metrics materialized",
+        "hash_scope": "template_hash"
+      },
+      {
+        "stage": "kill",
+        "visible_delta": "selected/weakest node and cascade path materialized",
+        "hash_scope": "topology_hash + selected_node_id"
+      },
+      {
+        "stage": "improve",
+        "visible_delta": "axis or compensator edit demotes edited scenario to exploratory sandbox",
+        "hash_scope": "edited_topology_hash"
+      },
+      {
+        "stage": "compare",
+        "visible_delta": "before/after metric deltas and compare_output_hash materialized",
+        "hash_scope": "compare_output_hash"
+      },
+      {
+        "stage": "export",
+        "visible_delta": "bounded audit packet with assumptions and nonclaim boundary",
+        "hash_scope": "export_hash"
+      }
+    ],
+    "claim_status": "nonclaim",
+    "nonclaim_boundary": "Mission sequence is diagnostic; it is not a scientific guarantee.",
+    "steps": [
+      {
+        "id": "diag",
+        "stage": "diagnose",
+        "title": "Diagnose baseline risk surface",
+        "view": "workbench",
+        "minutes": 1,
+        "goal": "Inspect collapse, support and axis context in a known template.",
+        "axis_id": "coherence",
+        "actions": [
+          "Diagnose"
+        ],
+        "target_id": "primitive-distinction",
+        "target_type": "system_template",
+        "target_view": "workbench",
+        "action_targets": [
+          {
+            "action": "Diagnose",
+            "source_step_id": "diag",
+            "source_view": "workbench",
+            "target_view": "workbench",
+            "target_type": "system_template",
+            "target_id": "primitive-distinction",
+            "resolution_status": "direct",
+            "fallback_state": "If the target is filtered out, keep the action visible but route to the corresponding searchable atlas page with a boundary note."
+          }
+        ],
+        "surface_label": "System Workbench",
+        "breadcrumb": "Architect mission: Primitive Distinction / Axis Birth / Diagnose baseline risk surface / System Workbench"
+      },
+      {
+        "id": "kill",
+        "stage": "kill",
+        "title": "Kill a stress point and observe path",
+        "view": "workbench",
+        "minutes": 1,
+        "goal": "Trigger a shortest-path diagnostic from a critical dependency.",
+        "actions": [
+          "Kill"
+        ],
+        "target_id": "kill_cascade",
+        "target_type": "simulation",
+        "target_view": "workbench",
+        "action_targets": [
+          {
+            "action": "Kill",
+            "source_step_id": "kill",
+            "source_view": "workbench",
+            "target_view": "workbench",
+            "target_type": "simulation",
+            "target_id": "kill_cascade",
+            "resolution_status": "direct",
+            "fallback_state": "If the target is filtered out, keep the action visible but route to the corresponding searchable atlas page with a boundary note."
+          }
+        ],
+        "surface_label": "System Workbench",
+        "breadcrumb": "Architect mission: Primitive Distinction / Axis Birth / Kill a stress point and observe path / System Workbench"
+      },
+      {
+        "id": "improve",
+        "stage": "improve",
+        "title": "Improve with a supported axis",
+        "view": "workbench",
+        "minutes": 2,
+        "goal": "Apply one allowed axis or default recovery action.",
+        "axis_id": "load",
+        "actions": [
+          "Improve",
+          "Use in Workbench"
+        ],
+        "target_id": "primitive-distinction",
+        "target_type": "system_template",
+        "target_view": "workbench",
+        "action_targets": [
+          {
+            "action": "Improve",
+            "source_step_id": "improve",
+            "source_view": "workbench",
+            "target_view": "workbench",
+            "target_type": "system_template",
+            "target_id": "primitive-distinction",
+            "resolution_status": "direct",
+            "fallback_state": "If the target is filtered out, keep the action visible but route to the corresponding searchable atlas page with a boundary note."
+          },
+          {
+            "action": "Use in Workbench",
+            "source_step_id": "improve",
+            "source_view": "workbench",
+            "target_view": "workbench",
+            "target_type": "system_template",
+            "target_id": "primitive-distinction",
+            "resolution_status": "direct",
+            "fallback_state": "If the target is filtered out, keep the action visible but route to the corresponding searchable atlas page with a boundary note."
+          }
+        ],
+        "surface_label": "System Workbench",
+        "breadcrumb": "Architect mission: Primitive Distinction / Axis Birth / Improve with a supported axis / System Workbench"
+      },
+      {
+        "id": "compare",
+        "stage": "compare",
+        "title": "Compare baseline and edited profile",
+        "view": "graph",
+        "minutes": 2,
+        "goal": "Keep edits explicit and inspect comparison path on a shared graph projection.",
+        "actions": [
+          "Compare"
+        ],
+        "target_type": "comparison",
+        "target_view": "graph",
+        "target_id": "primitive-distinction::comparison",
+        "action_targets": [
+          {
+            "action": "Compare",
+            "source_step_id": "compare",
+            "source_view": "graph",
+            "target_view": "graph",
+            "target_type": "comparison",
+            "target_id": "primitive-distinction::comparison",
+            "resolution_status": "direct",
+            "fallback_state": "If the target is filtered out, keep the action visible but route to the corresponding searchable atlas page with a boundary note."
+          }
+        ],
+        "surface_label": "3D Science Graph",
+        "breadcrumb": "Architect mission: Primitive Distinction / Axis Birth / Compare baseline and edited profile / 3D Science Graph"
+      },
+      {
+        "id": "export",
+        "stage": "export",
+        "title": "Export audit bundle",
+        "view": "workbench",
+        "minutes": 1,
+        "goal": "Generate a deterministic bundle for reviewer handoff.",
+        "actions": [
+          "Export"
+        ],
+        "target_id": "primitive-distinction::bundle",
+        "target_type": "system_bundle",
+        "target_view": "workbench",
+        "action_targets": [
+          {
+            "action": "Export",
+            "source_step_id": "export",
+            "source_view": "workbench",
+            "target_view": "workbench",
+            "target_type": "system_bundle",
+            "target_id": "primitive-distinction::bundle",
+            "resolution_status": "direct",
+            "fallback_state": "If the target is filtered out, keep the action visible but route to the corresponding searchable atlas page with a boundary note."
+          }
+        ],
+        "surface_label": "System Workbench",
+        "breadcrumb": "Architect mission: Primitive Distinction / Axis Birth / Export audit bundle / System Workbench"
+      }
+    ],
+    "completion_markers": [],
+    "completion_marker_count": 0,
+    "estimated_minutes": 7,
+    "timing_evidence": "estimated from step minutes in the didactic route, not user telemetry"
+  },
+  {
+    "id": "system-architect::physical-phase::diagnostic-loop",
+    "title": "Architect mission: Physical Phase Continuum",
+    "template_id": "physical-phase",
+    "target_system_id": "physical-phase",
+    "template_hash": "09cbb46963989d1d286d075166912906815ac2c5ca14834652090162f0e529dc",
+    "topology_hash": "f3dd57b5b7a31d8ce53ce1cafe67e72a5d4e6ee4a2d3238be41816096ec6417c",
+    "topology_hash_scope": "nodes, edges, kill_default and weakest_node",
+    "stage_sequence": [
+      "diagnose",
+      "kill",
+      "improve",
+      "compare",
+      "export"
+    ],
+    "compare_route_id": "physical-phase::comparison",
+    "compare_output_hash": "d2fb6642826bed303ec0d617cad24c35b95b2c6d7fb0684442116bf90c76f52f",
+    "negative_path": {
+      "failure_action": "invalid_axis_or_unknown_node",
+      "expected_visible_result": "structured fail-closed boundary row; no replay-backed badge",
+      "test_status": "PASS_MANIFEST_BOUNDARY_CASE"
+    },
+    "semantic_action_trace": [
+      {
+        "stage": "diagnose",
+        "visible_delta": "baseline risk metrics materialized",
+        "hash_scope": "template_hash"
+      },
+      {
+        "stage": "kill",
+        "visible_delta": "selected/weakest node and cascade path materialized",
+        "hash_scope": "topology_hash + selected_node_id"
+      },
+      {
+        "stage": "improve",
+        "visible_delta": "axis or compensator edit demotes edited scenario to exploratory sandbox",
+        "hash_scope": "edited_topology_hash"
+      },
+      {
+        "stage": "compare",
+        "visible_delta": "before/after metric deltas and compare_output_hash materialized",
+        "hash_scope": "compare_output_hash"
+      },
+      {
+        "stage": "export",
+        "visible_delta": "bounded audit packet with assumptions and nonclaim boundary",
+        "hash_scope": "export_hash"
+      }
+    ],
+    "claim_status": "nonclaim",
+    "nonclaim_boundary": "Mission sequence is diagnostic; it is not a scientific guarantee.",
+    "steps": [
+      {
+        "id": "diag",
+        "stage": "diagnose",
+        "title": "Diagnose baseline risk surface",
+        "view": "workbench",
+        "minutes": 1,
+        "goal": "Inspect collapse, support and axis context in a known template.",
+        "axis_id": "coherence",
+        "actions": [
+          "Diagnose"
+        ],
+        "target_id": "physical-phase",
+        "target_type": "system_template",
+        "target_view": "workbench",
+        "action_targets": [
+          {
+            "action": "Diagnose",
+            "source_step_id": "diag",
+            "source_view": "workbench",
+            "target_view": "workbench",
+            "target_type": "system_template",
+            "target_id": "physical-phase",
+            "resolution_status": "direct",
+            "fallback_state": "If the target is filtered out, keep the action visible but route to the corresponding searchable atlas page with a boundary note."
+          }
+        ],
+        "surface_label": "System Workbench",
+        "breadcrumb": "Architect mission: Physical Phase Continuum / Diagnose baseline risk surface / System Workbench"
+      },
+      {
+        "id": "kill",
+        "stage": "kill",
+        "title": "Kill a stress point and observe path",
+        "view": "workbench",
+        "minutes": 1,
+        "goal": "Trigger a shortest-path diagnostic from a critical dependency.",
+        "actions": [
+          "Kill"
+        ],
+        "target_id": "kill_cascade",
+        "target_type": "simulation",
+        "target_view": "workbench",
+        "action_targets": [
+          {
+            "action": "Kill",
+            "source_step_id": "kill",
+            "source_view": "workbench",
+            "target_view": "workbench",
+            "target_type": "simulation",
+            "target_id": "kill_cascade",
+            "resolution_status": "direct",
+            "fallback_state": "If the target is filtered out, keep the action visible but route to the corresponding searchable atlas page with a boundary note."
+          }
+        ],
+        "surface_label": "System Workbench",
+        "breadcrumb": "Architect mission: Physical Phase Continuum / Kill a stress point and observe path / System Workbench"
+      },
+      {
+        "id": "improve",
+        "stage": "improve",
+        "title": "Improve with a supported axis",
+        "view": "workbench",
+        "minutes": 2,
+        "goal": "Apply one allowed axis or default recovery action.",
+        "axis_id": "load",
+        "actions": [
+          "Improve",
+          "Use in Workbench"
+        ],
+        "target_id": "physical-phase",
+        "target_type": "system_template",
+        "target_view": "workbench",
+        "action_targets": [
+          {
+            "action": "Improve",
+            "source_step_id": "improve",
+            "source_view": "workbench",
+            "target_view": "workbench",
+            "target_type": "system_template",
+            "target_id": "physical-phase",
+            "resolution_status": "direct",
+            "fallback_state": "If the target is filtered out, keep the action visible but route to the corresponding searchable atlas page with a boundary note."
+          },
+          {
+            "action": "Use in Workbench",
+            "source_step_id": "improve",
+            "source_view": "workbench",
+            "target_view": "workbench",
+            "target_type": "system_template",
+            "target_id": "physical-phase",
+            "resolution_status": "direct",
+            "fallback_state": "If the target is filtered out, keep the action visible but route to the corresponding searchable atlas page with a boundary note."
+          }
+        ],
+        "surface_label": "System Workbench",
+        "breadcrumb": "Architect mission: Physical Phase Continuum / Improve with a supported axis / System Workbench"
+      },
+      {
+        "id": "compare",
+        "stage": "compare",
+        "title": "Compare baseline and edited profile",
+        "view": "graph",
+        "minutes": 2,
+        "goal": "Keep edits explicit and inspect comparison path on a shared graph projection.",
+        "actions": [
+          "Compare"
+        ],
+        "target_type": "comparison",
+        "target_view": "graph",
+        "target_id": "physical-phase::comparison",
+        "action_targets": [
+          {
+            "action": "Compare",
+            "source_step_id": "compare",
+            "source_view": "graph",
+            "target_view": "graph",
+            "target_type": "comparison",
+            "target_id": "physical-phase::comparison",
+            "resolution_status": "direct",
+            "fallback_state": "If the target is filtered out, keep the action visible but route to the corresponding searchable atlas page with a boundary note."
+          }
+        ],
+        "surface_label": "3D Science Graph",
+        "breadcrumb": "Architect mission: Physical Phase Continuum / Compare baseline and edited profile / 3D Science Graph"
+      },
+      {
+        "id": "export",
+        "stage": "export",
+        "title": "Export audit bundle",
+        "view": "workbench",
+        "minutes": 1,
+        "goal": "Generate a deterministic bundle for reviewer handoff.",
+        "actions": [
+          "Export"
+        ],
+        "target_id": "physical-phase::bundle",
+        "target_type": "system_bundle",
+        "target_view": "workbench",
+        "action_targets": [
+          {
+            "action": "Export",
+            "source_step_id": "export",
+            "source_view": "workbench",
+            "target_view": "workbench",
+            "target_type": "system_bundle",
+            "target_id": "physical-phase::bundle",
+            "resolution_status": "direct",
+            "fallback_state": "If the target is filtered out, keep the action visible but route to the corresponding searchable atlas page with a boundary note."
+          }
+        ],
+        "surface_label": "System Workbench",
+        "breadcrumb": "Architect mission: Physical Phase Continuum / Export audit bundle / System Workbench"
+      }
+    ],
+    "completion_markers": [],
+    "completion_marker_count": 0,
+    "estimated_minutes": 7,
+    "timing_evidence": "estimated from step minutes in the didactic route, not user telemetry"
+  },
+  {
+    "id": "system-architect::prebiotic-chemistry::diagnostic-loop",
+    "title": "Architect mission: Prebiotic Chemical Organization",
+    "template_id": "prebiotic-chemistry",
+    "target_system_id": "prebiotic-chemistry",
+    "template_hash": "c1f0f1831dc088de8b8d2d07218a3bf0b3bd588814bdf7ace350b80ee45c7c99",
+    "topology_hash": "d30656091d8c3b47a80dfc1ff4e48e6b92e3ed47c818b2ed936384cfdeabab37",
+    "topology_hash_scope": "nodes, edges, kill_default and weakest_node",
+    "stage_sequence": [
+      "diagnose",
+      "kill",
+      "improve",
+      "compare",
+      "export"
+    ],
+    "compare_route_id": "prebiotic-chemistry::comparison",
+    "compare_output_hash": "334c99b47e52f5f9933d8fa481ea1b146fd3fd35c6f12b9faf75d4a77c76b618",
+    "negative_path": {
+      "failure_action": "invalid_axis_or_unknown_node",
+      "expected_visible_result": "structured fail-closed boundary row; no replay-backed badge",
+      "test_status": "PASS_MANIFEST_BOUNDARY_CASE"
+    },
+    "semantic_action_trace": [
+      {
+        "stage": "diagnose",
+        "visible_delta": "baseline risk metrics materialized",
+        "hash_scope": "template_hash"
+      },
+      {
+        "stage": "kill",
+        "visible_delta": "selected/weakest node and cascade path materialized",
+        "hash_scope": "topology_hash + selected_node_id"
+      },
+      {
+        "stage": "improve",
+        "visible_delta": "axis or compensator edit demotes edited scenario to exploratory sandbox",
+        "hash_scope": "edited_topology_hash"
+      },
+      {
+        "stage": "compare",
+        "visible_delta": "before/after metric deltas and compare_output_hash materialized",
+        "hash_scope": "compare_output_hash"
+      },
+      {
+        "stage": "export",
+        "visible_delta": "bounded audit packet with assumptions and nonclaim boundary",
+        "hash_scope": "export_hash"
+      }
+    ],
+    "claim_status": "nonclaim",
+    "nonclaim_boundary": "Mission sequence is diagnostic; it is not a scientific guarantee.",
+    "steps": [
+      {
+        "id": "diag",
+        "stage": "diagnose",
+        "title": "Diagnose baseline risk surface",
+        "view": "workbench",
+        "minutes": 1,
+        "goal": "Inspect collapse, support and axis context in a known template.",
+        "axis_id": "coherence",
+        "actions": [
+          "Diagnose"
+        ],
+        "target_id": "prebiotic-chemistry",
+        "target_type": "system_template",
+        "target_view": "workbench",
+        "action_targets": [
+          {
+            "action": "Diagnose",
+            "source_step_id": "diag",
+            "source_view": "workbench",
+            "target_view": "workbench",
+            "target_type": "system_template",
+            "target_id": "prebiotic-chemistry",
+            "resolution_status": "direct",
+            "fallback_state": "If the target is filtered out, keep the action visible but route to the corresponding searchable atlas page with a boundary note."
+          }
+        ],
+        "surface_label": "System Workbench",
+        "breadcrumb": "Architect mission: Prebiotic Chemical Organization / Diagnose baseline risk surface / System Workbench"
+      },
+      {
+        "id": "kill",
+        "stage": "kill",
+        "title": "Kill a stress point and observe path",
+        "view": "workbench",
+        "minutes": 1,
+        "goal": "Trigger a shortest-path diagnostic from a critical dependency.",
+        "actions": [
+          "Kill"
+        ],
+        "target_id": "kill_cascade",
+        "target_type": "simulation",
+        "target_view": "workbench",
+        "action_targets": [
+          {
+            "action": "Kill",
+            "source_step_id": "kill",
+            "source_view": "workbench",
+            "target_view": "workbench",
+            "target_type": "simulation",
+            "target_id": "kill_cascade",
+            "resolution_status": "direct",
+            "fallback_state": "If the target is filtered out, keep the action visible but route to the corresponding searchable atlas page with a boundary note."
+          }
+        ],
+        "surface_label": "System Workbench",
+        "breadcrumb": "Architect mission: Prebiotic Chemical Organization / Kill a stress point and observe path / System Workbench"
+      },
+      {
+        "id": "improve",
+        "stage": "improve",
+        "title": "Improve with a supported axis",
+        "view": "workbench",
+        "minutes": 2,
+        "goal": "Apply one allowed axis or default recovery action.",
+        "axis_id": "load",
+        "actions": [
+          "Improve",
+          "Use in Workbench"
+        ],
+        "target_id": "prebiotic-chemistry",
+        "target_type": "system_template",
+        "target_view": "workbench",
+        "action_targets": [
+          {
+            "action": "Improve",
+            "source_step_id": "improve",
+            "source_view": "workbench",
+            "target_view": "workbench",
+            "target_type": "system_template",
+            "target_id": "prebiotic-chemistry",
+            "resolution_status": "direct",
+            "fallback_state": "If the target is filtered out, keep the action visible but route to the corresponding searchable atlas page with a boundary note."
+          },
+          {
+            "action": "Use in Workbench",
+            "source_step_id": "improve",
+            "source_view": "workbench",
+            "target_view": "workbench",
+            "target_type": "system_template",
+            "target_id": "prebiotic-chemistry",
+            "resolution_status": "direct",
+            "fallback_state": "If the target is filtered out, keep the action visible but route to the corresponding searchable atlas page with a boundary note."
+          }
+        ],
+        "surface_label": "System Workbench",
+        "breadcrumb": "Architect mission: Prebiotic Chemical Organization / Improve with a supported axis / System Workbench"
+      },
+      {
+        "id": "compare",
+        "stage": "compare",
+        "title": "Compare baseline and edited profile",
+        "view": "graph",
+        "minutes": 2,
+        "goal": "Keep edits explicit and inspect comparison path on a shared graph projection.",
+        "actions": [
+          "Compare"
+        ],
+        "target_type": "comparison",
+        "target_view": "graph",
+        "target_id": "prebiotic-chemistry::comparison",
+        "action_targets": [
+          {
+            "action": "Compare",
+            "source_step_id": "compare",
+            "source_view": "graph",
+            "target_view": "graph",
+            "target_type": "comparison",
+            "target_id": "prebiotic-chemistry::comparison",
+            "resolution_status": "direct",
+            "fallback_state": "If the target is filtered out, keep the action visible but route to the corresponding searchable atlas page with a boundary note."
+          }
+        ],
+        "surface_label": "3D Science Graph",
+        "breadcrumb": "Architect mission: Prebiotic Chemical Organization / Compare baseline and edited profile / 3D Science Graph"
+      },
+      {
+        "id": "export",
+        "stage": "export",
+        "title": "Export audit bundle",
+        "view": "workbench",
+        "minutes": 1,
+        "goal": "Generate a deterministic bundle for reviewer handoff.",
+        "actions": [
+          "Export"
+        ],
+        "target_id": "prebiotic-chemistry::bundle",
+        "target_type": "system_bundle",
+        "target_view": "workbench",
+        "action_targets": [
+          {
+            "action": "Export",
+            "source_step_id": "export",
+            "source_view": "workbench",
+            "target_view": "workbench",
+            "target_type": "system_bundle",
+            "target_id": "prebiotic-chemistry::bundle",
+            "resolution_status": "direct",
+            "fallback_state": "If the target is filtered out, keep the action visible but route to the corresponding searchable atlas page with a boundary note."
+          }
+        ],
+        "surface_label": "System Workbench",
+        "breadcrumb": "Architect mission: Prebiotic Chemical Organization / Export audit bundle / System Workbench"
+      }
+    ],
+    "completion_markers": [],
+    "completion_marker_count": 0,
+    "estimated_minutes": 7,
+    "timing_evidence": "estimated from step minutes in the didactic route, not user telemetry"
+  },
+  {
+    "id": "system-architect::biological-cell::diagnostic-loop",
+    "title": "Architect mission: Biological Cell-State Continuum",
+    "template_id": "biological-cell",
+    "target_system_id": "biological-cell",
+    "template_hash": "d5f5634914636a1a09810c9534352786489cd00be3be13d42099ca3587a20410",
+    "topology_hash": "80eeacb6601c100e10e88eaf4d1505da562c2c324bf279bdd818321c9765695c",
+    "topology_hash_scope": "nodes, edges, kill_default and weakest_node",
+    "stage_sequence": [
+      "diagnose",
+      "kill",
+      "improve",
+      "compare",
+      "export"
+    ],
+    "compare_route_id": "biological-cell::comparison",
+    "compare_output_hash": "dcbc2e5f62af852365c8c2af65f456242e4521638a17360d0b8a7629ca276055",
+    "negative_path": {
+      "failure_action": "invalid_axis_or_unknown_node",
+      "expected_visible_result": "structured fail-closed boundary row; no replay-backed badge",
+      "test_status": "PASS_MANIFEST_BOUNDARY_CASE"
+    },
+    "semantic_action_trace": [
+      {
+        "stage": "diagnose",
+        "visible_delta": "baseline risk metrics materialized",
+        "hash_scope": "template_hash"
+      },
+      {
+        "stage": "kill",
+        "visible_delta": "selected/weakest node and cascade path materialized",
+        "hash_scope": "topology_hash + selected_node_id"
+      },
+      {
+        "stage": "improve",
+        "visible_delta": "axis or compensator edit demotes edited scenario to exploratory sandbox",
+        "hash_scope": "edited_topology_hash"
+      },
+      {
+        "stage": "compare",
+        "visible_delta": "before/after metric deltas and compare_output_hash materialized",
+        "hash_scope": "compare_output_hash"
+      },
+      {
+        "stage": "export",
+        "visible_delta": "bounded audit packet with assumptions and nonclaim boundary",
+        "hash_scope": "export_hash"
+      }
+    ],
+    "claim_status": "nonclaim",
+    "nonclaim_boundary": "Mission sequence is diagnostic; it is not a scientific guarantee.",
+    "steps": [
+      {
+        "id": "diag",
+        "stage": "diagnose",
+        "title": "Diagnose baseline risk surface",
+        "view": "workbench",
+        "minutes": 1,
+        "goal": "Inspect collapse, support and axis context in a known template.",
+        "axis_id": "coherence",
+        "actions": [
+          "Diagnose"
+        ],
+        "target_id": "biological-cell",
+        "target_type": "system_template",
+        "target_view": "workbench",
+        "action_targets": [
+          {
+            "action": "Diagnose",
+            "source_step_id": "diag",
+            "source_view": "workbench",
+            "target_view": "workbench",
+            "target_type": "system_template",
+            "target_id": "biological-cell",
+            "resolution_status": "direct",
+            "fallback_state": "If the target is filtered out, keep the action visible but route to the corresponding searchable atlas page with a boundary note."
+          }
+        ],
+        "surface_label": "System Workbench",
+        "breadcrumb": "Architect mission: Biological Cell-State Continuum / Diagnose baseline risk surface / System Workbench"
+      },
+      {
+        "id": "kill",
+        "stage": "kill",
+        "title": "Kill a stress point and observe path",
+        "view": "workbench",
+        "minutes": 1,
+        "goal": "Trigger a shortest-path diagnostic from a critical dependency.",
+        "actions": [
+          "Kill"
+        ],
+        "target_id": "kill_cascade",
+        "target_type": "simulation",
+        "target_view": "workbench",
+        "action_targets": [
+          {
+            "action": "Kill",
+            "source_step_id": "kill",
+            "source_view": "workbench",
+            "target_view": "workbench",
+            "target_type": "simulation",
+            "target_id": "kill_cascade",
+            "resolution_status": "direct",
+            "fallback_state": "If the target is filtered out, keep the action visible but route to the corresponding searchable atlas page with a boundary note."
+          }
+        ],
+        "surface_label": "System Workbench",
+        "breadcrumb": "Architect mission: Biological Cell-State Continuum / Kill a stress point and observe path / System Workbench"
+      },
+      {
+        "id": "improve",
+        "stage": "improve",
+        "title": "Improve with a supported axis",
+        "view": "workbench",
+        "minutes": 2,
+        "goal": "Apply one allowed axis or default recovery action.",
+        "axis_id": "load",
+        "actions": [
+          "Improve",
+          "Use in Workbench"
+        ],
+        "target_id": "biological-cell",
+        "target_type": "system_template",
+        "target_view": "workbench",
+        "action_targets": [
+          {
+            "action": "Improve",
+            "source_step_id": "improve",
+            "source_view": "workbench",
+            "target_view": "workbench",
+            "target_type": "system_template",
+            "target_id": "biological-cell",
+            "resolution_status": "direct",
+            "fallback_state": "If the target is filtered out, keep the action visible but route to the corresponding searchable atlas page with a boundary note."
+          },
+          {
+            "action": "Use in Workbench",
+            "source_step_id": "improve",
+            "source_view": "workbench",
+            "target_view": "workbench",
+            "target_type": "system_template",
+            "target_id": "biological-cell",
+            "resolution_status": "direct",
+            "fallback_state": "If the target is filtered out, keep the action visible but route to the corresponding searchable atlas page with a boundary note."
+          }
+        ],
+        "surface_label": "System Workbench",
+        "breadcrumb": "Architect mission: Biological Cell-State Continuum / Improve with a supported axis / System Workbench"
+      },
+      {
+        "id": "compare",
+        "stage": "compare",
+        "title": "Compare baseline and edited profile",
+        "view": "graph",
+        "minutes": 2,
+        "goal": "Keep edits explicit and inspect comparison path on a shared graph projection.",
+        "actions": [
+          "Compare"
+        ],
+        "target_type": "comparison",
+        "target_view": "graph",
+        "target_id": "biological-cell::comparison",
+        "action_targets": [
+          {
+            "action": "Compare",
+            "source_step_id": "compare",
+            "source_view": "graph",
+            "target_view": "graph",
+            "target_type": "comparison",
+            "target_id": "biological-cell::comparison",
+            "resolution_status": "direct",
+            "fallback_state": "If the target is filtered out, keep the action visible but route to the corresponding searchable atlas page with a boundary note."
+          }
+        ],
+        "surface_label": "3D Science Graph",
+        "breadcrumb": "Architect mission: Biological Cell-State Continuum / Compare baseline and edited profile / 3D Science Graph"
+      },
+      {
+        "id": "export",
+        "stage": "export",
+        "title": "Export audit bundle",
+        "view": "workbench",
+        "minutes": 1,
+        "goal": "Generate a deterministic bundle for reviewer handoff.",
+        "actions": [
+          "Export"
+        ],
+        "target_id": "biological-cell::bundle",
+        "target_type": "system_bundle",
+        "target_view": "workbench",
+        "action_targets": [
+          {
+            "action": "Export",
+            "source_step_id": "export",
+            "source_view": "workbench",
+            "target_view": "workbench",
+            "target_type": "system_bundle",
+            "target_id": "biological-cell::bundle",
+            "resolution_status": "direct",
+            "fallback_state": "If the target is filtered out, keep the action visible but route to the corresponding searchable atlas page with a boundary note."
+          }
+        ],
+        "surface_label": "System Workbench",
+        "breadcrumb": "Architect mission: Biological Cell-State Continuum / Export audit bundle / System Workbench"
+      }
+    ],
+    "completion_markers": [],
+    "completion_marker_count": 0,
+    "estimated_minutes": 7,
+    "timing_evidence": "estimated from step minutes in the didactic route, not user telemetry"
+  },
+  {
+    "id": "system-architect::institution::diagnostic-loop",
+    "title": "Architect mission: Institutional Continuum",
+    "template_id": "institution",
+    "target_system_id": "institution",
+    "template_hash": "36fe1ca3d899aef63e4b6b182934416b036b3b5fc95cdcf8b2330d592cf0bfec",
+    "topology_hash": "6f34a7820dc8446c703af54116c87867efa21ead1d109e240164c437a3a6f23f",
+    "topology_hash_scope": "nodes, edges, kill_default and weakest_node",
+    "stage_sequence": [
+      "diagnose",
+      "kill",
+      "improve",
+      "compare",
+      "export"
+    ],
+    "compare_route_id": "institution::comparison",
+    "compare_output_hash": "0d22f6cdedd35c9fac9d73cba5704f80a7774e8a9e3d66121fb861a1db5cd098",
+    "negative_path": {
+      "failure_action": "invalid_axis_or_unknown_node",
+      "expected_visible_result": "structured fail-closed boundary row; no replay-backed badge",
+      "test_status": "PASS_MANIFEST_BOUNDARY_CASE"
+    },
+    "semantic_action_trace": [
+      {
+        "stage": "diagnose",
+        "visible_delta": "baseline risk metrics materialized",
+        "hash_scope": "template_hash"
+      },
+      {
+        "stage": "kill",
+        "visible_delta": "selected/weakest node and cascade path materialized",
+        "hash_scope": "topology_hash + selected_node_id"
+      },
+      {
+        "stage": "improve",
+        "visible_delta": "axis or compensator edit demotes edited scenario to exploratory sandbox",
+        "hash_scope": "edited_topology_hash"
+      },
+      {
+        "stage": "compare",
+        "visible_delta": "before/after metric deltas and compare_output_hash materialized",
+        "hash_scope": "compare_output_hash"
+      },
+      {
+        "stage": "export",
+        "visible_delta": "bounded audit packet with assumptions and nonclaim boundary",
+        "hash_scope": "export_hash"
+      }
+    ],
+    "claim_status": "nonclaim",
+    "nonclaim_boundary": "Mission sequence is diagnostic; it is not a scientific guarantee.",
+    "steps": [
+      {
+        "id": "diag",
+        "stage": "diagnose",
+        "title": "Diagnose baseline risk surface",
+        "view": "workbench",
+        "minutes": 1,
+        "goal": "Inspect collapse, support and axis context in a known template.",
+        "axis_id": "coherence",
+        "actions": [
+          "Diagnose"
+        ],
+        "target_id": "institution",
+        "target_type": "system_template",
+        "target_view": "workbench",
+        "action_targets": [
+          {
+            "action": "Diagnose",
+            "source_step_id": "diag",
+            "source_view": "workbench",
+            "target_view": "workbench",
+            "target_type": "system_template",
+            "target_id": "institution",
+            "resolution_status": "direct",
+            "fallback_state": "If the target is filtered out, keep the action visible but route to the corresponding searchable atlas page with a boundary note."
+          }
+        ],
+        "surface_label": "System Workbench",
+        "breadcrumb": "Architect mission: Institutional Continuum / Diagnose baseline risk surface / System Workbench"
+      },
+      {
+        "id": "kill",
+        "stage": "kill",
+        "title": "Kill a stress point and observe path",
+        "view": "workbench",
+        "minutes": 1,
+        "goal": "Trigger a shortest-path diagnostic from a critical dependency.",
+        "actions": [
+          "Kill"
+        ],
+        "target_id": "kill_cascade",
+        "target_type": "simulation",
+        "target_view": "workbench",
+        "action_targets": [
+          {
+            "action": "Kill",
+            "source_step_id": "kill",
+            "source_view": "workbench",
+            "target_view": "workbench",
+            "target_type": "simulation",
+            "target_id": "kill_cascade",
+            "resolution_status": "direct",
+            "fallback_state": "If the target is filtered out, keep the action visible but route to the corresponding searchable atlas page with a boundary note."
+          }
+        ],
+        "surface_label": "System Workbench",
+        "breadcrumb": "Architect mission: Institutional Continuum / Kill a stress point and observe path / System Workbench"
+      },
+      {
+        "id": "improve",
+        "stage": "improve",
+        "title": "Improve with a supported axis",
+        "view": "workbench",
+        "minutes": 2,
+        "goal": "Apply one allowed axis or default recovery action.",
+        "axis_id": "load",
+        "actions": [
+          "Improve",
+          "Use in Workbench"
+        ],
+        "target_id": "institution",
+        "target_type": "system_template",
+        "target_view": "workbench",
+        "action_targets": [
+          {
+            "action": "Improve",
+            "source_step_id": "improve",
+            "source_view": "workbench",
+            "target_view": "workbench",
+            "target_type": "system_template",
+            "target_id": "institution",
+            "resolution_status": "direct",
+            "fallback_state": "If the target is filtered out, keep the action visible but route to the corresponding searchable atlas page with a boundary note."
+          },
+          {
+            "action": "Use in Workbench",
+            "source_step_id": "improve",
+            "source_view": "workbench",
+            "target_view": "workbench",
+            "target_type": "system_template",
+            "target_id": "institution",
+            "resolution_status": "direct",
+            "fallback_state": "If the target is filtered out, keep the action visible but route to the corresponding searchable atlas page with a boundary note."
+          }
+        ],
+        "surface_label": "System Workbench",
+        "breadcrumb": "Architect mission: Institutional Continuum / Improve with a supported axis / System Workbench"
+      },
+      {
+        "id": "compare",
+        "stage": "compare",
+        "title": "Compare baseline and edited profile",
+        "view": "graph",
+        "minutes": 2,
+        "goal": "Keep edits explicit and inspect comparison path on a shared graph projection.",
+        "actions": [
+          "Compare"
+        ],
+        "target_type": "comparison",
+        "target_view": "graph",
+        "target_id": "institution::comparison",
+        "action_targets": [
+          {
+            "action": "Compare",
+            "source_step_id": "compare",
+            "source_view": "graph",
+            "target_view": "graph",
+            "target_type": "comparison",
+            "target_id": "institution::comparison",
+            "resolution_status": "direct",
+            "fallback_state": "If the target is filtered out, keep the action visible but route to the corresponding searchable atlas page with a boundary note."
+          }
+        ],
+        "surface_label": "3D Science Graph",
+        "breadcrumb": "Architect mission: Institutional Continuum / Compare baseline and edited profile / 3D Science Graph"
+      },
+      {
+        "id": "export",
+        "stage": "export",
+        "title": "Export audit bundle",
+        "view": "workbench",
+        "minutes": 1,
+        "goal": "Generate a deterministic bundle for reviewer handoff.",
+        "actions": [
+          "Export"
+        ],
+        "target_id": "institution::bundle",
+        "target_type": "system_bundle",
+        "target_view": "workbench",
+        "action_targets": [
+          {
+            "action": "Export",
+            "source_step_id": "export",
+            "source_view": "workbench",
+            "target_view": "workbench",
+            "target_type": "system_bundle",
+            "target_id": "institution::bundle",
+            "resolution_status": "direct",
+            "fallback_state": "If the target is filtered out, keep the action visible but route to the corresponding searchable atlas page with a boundary note."
+          }
+        ],
+        "surface_label": "System Workbench",
+        "breadcrumb": "Architect mission: Institutional Continuum / Export audit bundle / System Workbench"
+      }
+    ],
+    "completion_markers": [],
+    "completion_marker_count": 0,
+    "estimated_minutes": 7,
+    "timing_evidence": "estimated from step minutes in the didactic route, not user telemetry"
+  },
+  {
+    "id": "system-architect::cognitive-social-agent::diagnostic-loop",
+    "title": "Architect mission: Cognitive / Social Agent Continuum",
+    "template_id": "cognitive-social-agent",
+    "target_system_id": "cognitive-social-agent",
+    "template_hash": "631130f107126050737c6bd75a953e1bce58fa5ba171e7623a686c1500b05c3b",
+    "topology_hash": "84103133c286f762449fd5e58d98751c4189d109e824af0a56dd5c2b91cc3aa9",
+    "topology_hash_scope": "nodes, edges, kill_default and weakest_node",
+    "stage_sequence": [
+      "diagnose",
+      "kill",
+      "improve",
+      "compare",
+      "export"
+    ],
+    "compare_route_id": "cognitive-social-agent::comparison",
+    "compare_output_hash": "20d021ccd2f5d01e9e4d2d20000b6b8e87edb8ed7d9d2b7315e7ebc60152fc48",
+    "negative_path": {
+      "failure_action": "invalid_axis_or_unknown_node",
+      "expected_visible_result": "structured fail-closed boundary row; no replay-backed badge",
+      "test_status": "PASS_MANIFEST_BOUNDARY_CASE"
+    },
+    "semantic_action_trace": [
+      {
+        "stage": "diagnose",
+        "visible_delta": "baseline risk metrics materialized",
+        "hash_scope": "template_hash"
+      },
+      {
+        "stage": "kill",
+        "visible_delta": "selected/weakest node and cascade path materialized",
+        "hash_scope": "topology_hash + selected_node_id"
+      },
+      {
+        "stage": "improve",
+        "visible_delta": "axis or compensator edit demotes edited scenario to exploratory sandbox",
+        "hash_scope": "edited_topology_hash"
+      },
+      {
+        "stage": "compare",
+        "visible_delta": "before/after metric deltas and compare_output_hash materialized",
+        "hash_scope": "compare_output_hash"
+      },
+      {
+        "stage": "export",
+        "visible_delta": "bounded audit packet with assumptions and nonclaim boundary",
+        "hash_scope": "export_hash"
+      }
+    ],
+    "claim_status": "nonclaim",
+    "nonclaim_boundary": "Mission sequence is diagnostic; it is not a scientific guarantee.",
+    "steps": [
+      {
+        "id": "diag",
+        "stage": "diagnose",
+        "title": "Diagnose baseline risk surface",
+        "view": "workbench",
+        "minutes": 1,
+        "goal": "Inspect collapse, support and axis context in a known template.",
+        "axis_id": "coherence",
+        "actions": [
+          "Diagnose"
+        ],
+        "target_id": "cognitive-social-agent",
+        "target_type": "system_template",
+        "target_view": "workbench",
+        "action_targets": [
+          {
+            "action": "Diagnose",
+            "source_step_id": "diag",
+            "source_view": "workbench",
+            "target_view": "workbench",
+            "target_type": "system_template",
+            "target_id": "cognitive-social-agent",
+            "resolution_status": "direct",
+            "fallback_state": "If the target is filtered out, keep the action visible but route to the corresponding searchable atlas page with a boundary note."
+          }
+        ],
+        "surface_label": "System Workbench",
+        "breadcrumb": "Architect mission: Cognitive / Social Agent Continuum / Diagnose baseline risk surface / System Workbench"
+      },
+      {
+        "id": "kill",
+        "stage": "kill",
+        "title": "Kill a stress point and observe path",
+        "view": "workbench",
+        "minutes": 1,
+        "goal": "Trigger a shortest-path diagnostic from a critical dependency.",
+        "actions": [
+          "Kill"
+        ],
+        "target_id": "kill_cascade",
+        "target_type": "simulation",
+        "target_view": "workbench",
+        "action_targets": [
+          {
+            "action": "Kill",
+            "source_step_id": "kill",
+            "source_view": "workbench",
+            "target_view": "workbench",
+            "target_type": "simulation",
+            "target_id": "kill_cascade",
+            "resolution_status": "direct",
+            "fallback_state": "If the target is filtered out, keep the action visible but route to the corresponding searchable atlas page with a boundary note."
+          }
+        ],
+        "surface_label": "System Workbench",
+        "breadcrumb": "Architect mission: Cognitive / Social Agent Continuum / Kill a stress point and observe path / System Workbench"
+      },
+      {
+        "id": "improve",
+        "stage": "improve",
+        "title": "Improve with a supported axis",
+        "view": "workbench",
+        "minutes": 2,
+        "goal": "Apply one allowed axis or default recovery action.",
+        "axis_id": "load",
+        "actions": [
+          "Improve",
+          "Use in Workbench"
+        ],
+        "target_id": "cognitive-social-agent",
+        "target_type": "system_template",
+        "target_view": "workbench",
+        "action_targets": [
+          {
+            "action": "Improve",
+            "source_step_id": "improve",
+            "source_view": "workbench",
+            "target_view": "workbench",
+            "target_type": "system_template",
+            "target_id": "cognitive-social-agent",
+            "resolution_status": "direct",
+            "fallback_state": "If the target is filtered out, keep the action visible but route to the corresponding searchable atlas page with a boundary note."
+          },
+          {
+            "action": "Use in Workbench",
+            "source_step_id": "improve",
+            "source_view": "workbench",
+            "target_view": "workbench",
+            "target_type": "system_template",
+            "target_id": "cognitive-social-agent",
+            "resolution_status": "direct",
+            "fallback_state": "If the target is filtered out, keep the action visible but route to the corresponding searchable atlas page with a boundary note."
+          }
+        ],
+        "surface_label": "System Workbench",
+        "breadcrumb": "Architect mission: Cognitive / Social Agent Continuum / Improve with a supported axis / System Workbench"
+      },
+      {
+        "id": "compare",
+        "stage": "compare",
+        "title": "Compare baseline and edited profile",
+        "view": "graph",
+        "minutes": 2,
+        "goal": "Keep edits explicit and inspect comparison path on a shared graph projection.",
+        "actions": [
+          "Compare"
+        ],
+        "target_type": "comparison",
+        "target_view": "graph",
+        "target_id": "cognitive-social-agent::comparison",
+        "action_targets": [
+          {
+            "action": "Compare",
+            "source_step_id": "compare",
+            "source_view": "graph",
+            "target_view": "graph",
+            "target_type": "comparison",
+            "target_id": "cognitive-social-agent::comparison",
+            "resolution_status": "direct",
+            "fallback_state": "If the target is filtered out, keep the action visible but route to the corresponding searchable atlas page with a boundary note."
+          }
+        ],
+        "surface_label": "3D Science Graph",
+        "breadcrumb": "Architect mission: Cognitive / Social Agent Continuum / Compare baseline and edited profile / 3D Science Graph"
+      },
+      {
+        "id": "export",
+        "stage": "export",
+        "title": "Export audit bundle",
+        "view": "workbench",
+        "minutes": 1,
+        "goal": "Generate a deterministic bundle for reviewer handoff.",
+        "actions": [
+          "Export"
+        ],
+        "target_id": "cognitive-social-agent::bundle",
+        "target_type": "system_bundle",
+        "target_view": "workbench",
+        "action_targets": [
+          {
+            "action": "Export",
+            "source_step_id": "export",
+            "source_view": "workbench",
+            "target_view": "workbench",
+            "target_type": "system_bundle",
+            "target_id": "cognitive-social-agent::bundle",
+            "resolution_status": "direct",
+            "fallback_state": "If the target is filtered out, keep the action visible but route to the corresponding searchable atlas page with a boundary note."
+          }
+        ],
+        "surface_label": "System Workbench",
+        "breadcrumb": "Architect mission: Cognitive / Social Agent Continuum / Export audit bundle / System Workbench"
+      }
+    ],
+    "completion_markers": [],
+    "completion_marker_count": 0,
+    "estimated_minutes": 7,
+    "timing_evidence": "estimated from step minutes in the didactic route, not user telemetry"
+  },
+  {
+    "id": "system-architect::civilization::diagnostic-loop",
+    "title": "Architect mission: Civilizational Continuum",
+    "template_id": "civilization",
+    "target_system_id": "civilization",
+    "template_hash": "832731b02ff2133cd08f02c2cd6a7fd57aed3bebcf32d122daac180fb4b702c7",
+    "topology_hash": "e7db22ef5ff90ce869c1dd1e6c1c129b18523703643e666dd3fada94d2fa20fe",
+    "topology_hash_scope": "nodes, edges, kill_default and weakest_node",
+    "stage_sequence": [
+      "diagnose",
+      "kill",
+      "improve",
+      "compare",
+      "export"
+    ],
+    "compare_route_id": "civilization::comparison",
+    "compare_output_hash": "ccefada9f29d683011b8ec99b28bc2ad269c1a0c0298fcaf85a668593cba00b3",
+    "negative_path": {
+      "failure_action": "invalid_axis_or_unknown_node",
+      "expected_visible_result": "structured fail-closed boundary row; no replay-backed badge",
+      "test_status": "PASS_MANIFEST_BOUNDARY_CASE"
+    },
+    "semantic_action_trace": [
+      {
+        "stage": "diagnose",
+        "visible_delta": "baseline risk metrics materialized",
+        "hash_scope": "template_hash"
+      },
+      {
+        "stage": "kill",
+        "visible_delta": "selected/weakest node and cascade path materialized",
+        "hash_scope": "topology_hash + selected_node_id"
+      },
+      {
+        "stage": "improve",
+        "visible_delta": "axis or compensator edit demotes edited scenario to exploratory sandbox",
+        "hash_scope": "edited_topology_hash"
+      },
+      {
+        "stage": "compare",
+        "visible_delta": "before/after metric deltas and compare_output_hash materialized",
+        "hash_scope": "compare_output_hash"
+      },
+      {
+        "stage": "export",
+        "visible_delta": "bounded audit packet with assumptions and nonclaim boundary",
+        "hash_scope": "export_hash"
+      }
+    ],
+    "claim_status": "nonclaim",
+    "nonclaim_boundary": "Mission sequence is diagnostic; it is not a scientific guarantee.",
+    "steps": [
+      {
+        "id": "diag",
+        "stage": "diagnose",
+        "title": "Diagnose baseline risk surface",
+        "view": "workbench",
+        "minutes": 1,
+        "goal": "Inspect collapse, support and axis context in a known template.",
+        "axis_id": "coherence",
+        "actions": [
+          "Diagnose"
+        ],
+        "target_id": "civilization",
+        "target_type": "system_template",
+        "target_view": "workbench",
+        "action_targets": [
+          {
+            "action": "Diagnose",
+            "source_step_id": "diag",
+            "source_view": "workbench",
+            "target_view": "workbench",
+            "target_type": "system_template",
+            "target_id": "civilization",
+            "resolution_status": "direct",
+            "fallback_state": "If the target is filtered out, keep the action visible but route to the corresponding searchable atlas page with a boundary note."
+          }
+        ],
+        "surface_label": "System Workbench",
+        "breadcrumb": "Architect mission: Civilizational Continuum / Diagnose baseline risk surface / System Workbench"
+      },
+      {
+        "id": "kill",
+        "stage": "kill",
+        "title": "Kill a stress point and observe path",
+        "view": "workbench",
+        "minutes": 1,
+        "goal": "Trigger a shortest-path diagnostic from a critical dependency.",
+        "actions": [
+          "Kill"
+        ],
+        "target_id": "kill_cascade",
+        "target_type": "simulation",
+        "target_view": "workbench",
+        "action_targets": [
+          {
+            "action": "Kill",
+            "source_step_id": "kill",
+            "source_view": "workbench",
+            "target_view": "workbench",
+            "target_type": "simulation",
+            "target_id": "kill_cascade",
+            "resolution_status": "direct",
+            "fallback_state": "If the target is filtered out, keep the action visible but route to the corresponding searchable atlas page with a boundary note."
+          }
+        ],
+        "surface_label": "System Workbench",
+        "breadcrumb": "Architect mission: Civilizational Continuum / Kill a stress point and observe path / System Workbench"
+      },
+      {
+        "id": "improve",
+        "stage": "improve",
+        "title": "Improve with a supported axis",
+        "view": "workbench",
+        "minutes": 2,
+        "goal": "Apply one allowed axis or default recovery action.",
+        "axis_id": "load",
+        "actions": [
+          "Improve",
+          "Use in Workbench"
+        ],
+        "target_id": "civilization",
+        "target_type": "system_template",
+        "target_view": "workbench",
+        "action_targets": [
+          {
+            "action": "Improve",
+            "source_step_id": "improve",
+            "source_view": "workbench",
+            "target_view": "workbench",
+            "target_type": "system_template",
+            "target_id": "civilization",
+            "resolution_status": "direct",
+            "fallback_state": "If the target is filtered out, keep the action visible but route to the corresponding searchable atlas page with a boundary note."
+          },
+          {
+            "action": "Use in Workbench",
+            "source_step_id": "improve",
+            "source_view": "workbench",
+            "target_view": "workbench",
+            "target_type": "system_template",
+            "target_id": "civilization",
+            "resolution_status": "direct",
+            "fallback_state": "If the target is filtered out, keep the action visible but route to the corresponding searchable atlas page with a boundary note."
+          }
+        ],
+        "surface_label": "System Workbench",
+        "breadcrumb": "Architect mission: Civilizational Continuum / Improve with a supported axis / System Workbench"
+      },
+      {
+        "id": "compare",
+        "stage": "compare",
+        "title": "Compare baseline and edited profile",
+        "view": "graph",
+        "minutes": 2,
+        "goal": "Keep edits explicit and inspect comparison path on a shared graph projection.",
+        "actions": [
+          "Compare"
+        ],
+        "target_type": "comparison",
+        "target_view": "graph",
+        "target_id": "civilization::comparison",
+        "action_targets": [
+          {
+            "action": "Compare",
+            "source_step_id": "compare",
+            "source_view": "graph",
+            "target_view": "graph",
+            "target_type": "comparison",
+            "target_id": "civilization::comparison",
+            "resolution_status": "direct",
+            "fallback_state": "If the target is filtered out, keep the action visible but route to the corresponding searchable atlas page with a boundary note."
+          }
+        ],
+        "surface_label": "3D Science Graph",
+        "breadcrumb": "Architect mission: Civilizational Continuum / Compare baseline and edited profile / 3D Science Graph"
+      },
+      {
+        "id": "export",
+        "stage": "export",
+        "title": "Export audit bundle",
+        "view": "workbench",
+        "minutes": 1,
+        "goal": "Generate a deterministic bundle for reviewer handoff.",
+        "actions": [
+          "Export"
+        ],
+        "target_id": "civilization::bundle",
+        "target_type": "system_bundle",
+        "target_view": "workbench",
+        "action_targets": [
+          {
+            "action": "Export",
+            "source_step_id": "export",
+            "source_view": "workbench",
+            "target_view": "workbench",
+            "target_type": "system_bundle",
+            "target_id": "civilization::bundle",
+            "resolution_status": "direct",
+            "fallback_state": "If the target is filtered out, keep the action visible but route to the corresponding searchable atlas page with a boundary note."
+          }
+        ],
+        "surface_label": "System Workbench",
+        "breadcrumb": "Architect mission: Civilizational Continuum / Export audit bundle / System Workbench"
+      }
+    ],
+    "completion_markers": [],
+    "completion_marker_count": 0,
+    "estimated_minutes": 7,
+    "timing_evidence": "estimated from step minutes in the didactic route, not user telemetry"
+  },
+  {
+    "id": "system-architect::meta-model::diagnostic-loop",
+    "title": "Architect mission: Theory / Meta-Model Continuum",
+    "template_id": "meta-model",
+    "target_system_id": "meta-model",
+    "template_hash": "aa694c941e38026e1ad9725b7662d6b021b523f074dbc0b651a6321c0f50452c",
+    "topology_hash": "de8d3c18e02ee22e65d453ef35af1a9009333b49d978e46e0f1fdd1a746bbad5",
+    "topology_hash_scope": "nodes, edges, kill_default and weakest_node",
+    "stage_sequence": [
+      "diagnose",
+      "kill",
+      "improve",
+      "compare",
+      "export"
+    ],
+    "compare_route_id": "meta-model::comparison",
+    "compare_output_hash": "c9dcdb6cde08aa32bfd8c2291264f7a901d2e4a8e3e8f69468d4b3c0b98e59e3",
+    "negative_path": {
+      "failure_action": "invalid_axis_or_unknown_node",
+      "expected_visible_result": "structured fail-closed boundary row; no replay-backed badge",
+      "test_status": "PASS_MANIFEST_BOUNDARY_CASE"
+    },
+    "semantic_action_trace": [
+      {
+        "stage": "diagnose",
+        "visible_delta": "baseline risk metrics materialized",
+        "hash_scope": "template_hash"
+      },
+      {
+        "stage": "kill",
+        "visible_delta": "selected/weakest node and cascade path materialized",
+        "hash_scope": "topology_hash + selected_node_id"
+      },
+      {
+        "stage": "improve",
+        "visible_delta": "axis or compensator edit demotes edited scenario to exploratory sandbox",
+        "hash_scope": "edited_topology_hash"
+      },
+      {
+        "stage": "compare",
+        "visible_delta": "before/after metric deltas and compare_output_hash materialized",
+        "hash_scope": "compare_output_hash"
+      },
+      {
+        "stage": "export",
+        "visible_delta": "bounded audit packet with assumptions and nonclaim boundary",
+        "hash_scope": "export_hash"
+      }
+    ],
+    "claim_status": "nonclaim",
+    "nonclaim_boundary": "Mission sequence is diagnostic; it is not a scientific guarantee.",
+    "steps": [
+      {
+        "id": "diag",
+        "stage": "diagnose",
+        "title": "Diagnose baseline risk surface",
+        "view": "workbench",
+        "minutes": 1,
+        "goal": "Inspect collapse, support and axis context in a known template.",
+        "axis_id": "load",
+        "actions": [
+          "Diagnose"
+        ],
+        "target_id": "meta-model",
+        "target_type": "system_template",
+        "target_view": "workbench",
+        "action_targets": [
+          {
+            "action": "Diagnose",
+            "source_step_id": "diag",
+            "source_view": "workbench",
+            "target_view": "workbench",
+            "target_type": "system_template",
+            "target_id": "meta-model",
+            "resolution_status": "direct",
+            "fallback_state": "If the target is filtered out, keep the action visible but route to the corresponding searchable atlas page with a boundary note."
+          }
+        ],
+        "surface_label": "System Workbench",
+        "breadcrumb": "Architect mission: Theory / Meta-Model Continuum / Diagnose baseline risk surface / System Workbench"
+      },
+      {
+        "id": "kill",
+        "stage": "kill",
+        "title": "Kill a stress point and observe path",
+        "view": "workbench",
+        "minutes": 1,
+        "goal": "Trigger a shortest-path diagnostic from a critical dependency.",
+        "actions": [
+          "Kill"
+        ],
+        "target_id": "kill_cascade",
+        "target_type": "simulation",
+        "target_view": "workbench",
+        "action_targets": [
+          {
+            "action": "Kill",
+            "source_step_id": "kill",
+            "source_view": "workbench",
+            "target_view": "workbench",
+            "target_type": "simulation",
+            "target_id": "kill_cascade",
+            "resolution_status": "direct",
+            "fallback_state": "If the target is filtered out, keep the action visible but route to the corresponding searchable atlas page with a boundary note."
+          }
+        ],
+        "surface_label": "System Workbench",
+        "breadcrumb": "Architect mission: Theory / Meta-Model Continuum / Kill a stress point and observe path / System Workbench"
+      },
+      {
+        "id": "improve",
+        "stage": "improve",
+        "title": "Improve with a supported axis",
+        "view": "workbench",
+        "minutes": 2,
+        "goal": "Apply one allowed axis or default recovery action.",
+        "axis_id": "flow",
+        "actions": [
+          "Improve",
+          "Use in Workbench"
+        ],
+        "target_id": "meta-model",
+        "target_type": "system_template",
+        "target_view": "workbench",
+        "action_targets": [
+          {
+            "action": "Improve",
+            "source_step_id": "improve",
+            "source_view": "workbench",
+            "target_view": "workbench",
+            "target_type": "system_template",
+            "target_id": "meta-model",
+            "resolution_status": "direct",
+            "fallback_state": "If the target is filtered out, keep the action visible but route to the corresponding searchable atlas page with a boundary note."
+          },
+          {
+            "action": "Use in Workbench",
+            "source_step_id": "improve",
+            "source_view": "workbench",
+            "target_view": "workbench",
+            "target_type": "system_template",
+            "target_id": "meta-model",
+            "resolution_status": "direct",
+            "fallback_state": "If the target is filtered out, keep the action visible but route to the corresponding searchable atlas page with a boundary note."
+          }
+        ],
+        "surface_label": "System Workbench",
+        "breadcrumb": "Architect mission: Theory / Meta-Model Continuum / Improve with a supported axis / System Workbench"
+      },
+      {
+        "id": "compare",
+        "stage": "compare",
+        "title": "Compare baseline and edited profile",
+        "view": "graph",
+        "minutes": 2,
+        "goal": "Keep edits explicit and inspect comparison path on a shared graph projection.",
+        "actions": [
+          "Compare"
+        ],
+        "target_type": "comparison",
+        "target_view": "graph",
+        "target_id": "meta-model::comparison",
+        "action_targets": [
+          {
+            "action": "Compare",
+            "source_step_id": "compare",
+            "source_view": "graph",
+            "target_view": "graph",
+            "target_type": "comparison",
+            "target_id": "meta-model::comparison",
+            "resolution_status": "direct",
+            "fallback_state": "If the target is filtered out, keep the action visible but route to the corresponding searchable atlas page with a boundary note."
+          }
+        ],
+        "surface_label": "3D Science Graph",
+        "breadcrumb": "Architect mission: Theory / Meta-Model Continuum / Compare baseline and edited profile / 3D Science Graph"
+      },
+      {
+        "id": "export",
+        "stage": "export",
+        "title": "Export audit bundle",
+        "view": "workbench",
+        "minutes": 1,
+        "goal": "Generate a deterministic bundle for reviewer handoff.",
+        "actions": [
+          "Export"
+        ],
+        "target_id": "meta-model::bundle",
+        "target_type": "system_bundle",
+        "target_view": "workbench",
+        "action_targets": [
+          {
+            "action": "Export",
+            "source_step_id": "export",
+            "source_view": "workbench",
+            "target_view": "workbench",
+            "target_type": "system_bundle",
+            "target_id": "meta-model::bundle",
+            "resolution_status": "direct",
+            "fallback_state": "If the target is filtered out, keep the action visible but route to the corresponding searchable atlas page with a boundary note."
+          }
+        ],
+        "surface_label": "System Workbench",
+        "breadcrumb": "Architect mission: Theory / Meta-Model Continuum / Export audit bundle / System Workbench"
+      }
+    ],
+    "completion_markers": [],
+    "completion_marker_count": 0,
+    "estimated_minutes": 7,
+    "timing_evidence": "estimated from step minutes in the didactic route, not user telemetry"
+  }
+]

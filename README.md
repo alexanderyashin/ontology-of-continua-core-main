@@ -1,27 +1,21 @@
-# Ontology of Continua Core 1.4
+# OC Core 1.4
 
-OC Core 1.4 is a public research-stage snapshot of the Ontology of Continua core model. This repository carries public source text, aggregated LaTeX/chapter sources, evidence and replay surfaces, proof/formalization records, validation data, public science graph assets, and the public demonstrator source/data needed for external inspection.
+OC Core 1.4 RC 022 is a public-ready print package for the Ontology of Continua core model.
 
-The theory is developing intensively. Some residual rough edges, technical labels, or source-bound editorial markers may remain. This repository is not the final print-ready monograph and does not by itself authorize Zenodo publication, DOI minting, GitHub release tagging, journal submission, or public promotional claims.
+## Included
 
-## Current Public Pointer
+- Seven regenerated PDFs built from the included 022 LaTeX sources.
+- Source Markdown, LaTeX, chapter sources, bibliography, figures, tables, and visual registries.
+- Proof-closed public claim registry and proof closure certificate.
+- Public science graph, formula atlas, evidence/replay data, and demonstrator source/data.
+- Checksums, manifest, CITATION, GitHub release draft text, and Zenodo metadata draft.
 
-- Public version: `1.4`
-- Current release path: `releases/oc_core_1_4`
-- Current pointer: `releases/CURRENT_RELEASE.json`
-- Repository: `https://github.com/alexanderyashin/ontology-of-continua-core-main`
-- PDFs: not included pending owner review
-- Zenodo: metadata prepared only; no upload/publish
-- GitHub release tag: not created
+## Proof Boundary
 
-## Start Here
+RC 022 promotes only claims that are proof/source/replay closed. Research obligations and boundary-only proof routes are not promoted public claims.
 
-- `releases/oc_core_1_4/README.md`
-- `releases/oc_core_1_4/sources/OC_CORE_1_4_MASTER_MONOGRAPH.md`
-- `releases/oc_core_1_4/science_graph/`
-- `releases/oc_core_1_4/evidence/`
-- `releases/oc_core_1_4/tools/oc_core_demo/`
+Proof closure certificate: `proof/proof_closure_certificate_022.json`.
 
-## Scientific Boundary
+## Publication Control
 
-The public package promotes only source-bound model-core claims supported or bounded by included proof, validation, replay, source, or falsification surfaces. Unsupported or unfinished science is represented as a boundary or obligation, not as proof.
+This package is public-ready for release-authorized publication. GitHub push, GitHub release/tag, Zenodo upload, and DOI publication remain explicit release actions.

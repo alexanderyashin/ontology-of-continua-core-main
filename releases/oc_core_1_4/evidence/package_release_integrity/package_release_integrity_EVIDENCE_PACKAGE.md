@@ -40,11 +40,11 @@ The misuse to watch for is specific: A stable archive is not a release approval.
 
 - Does every counted file have a manifest reason?
 - Do checksums and archive entries agree?
-- Is owner approval still unmistakably closed?
+- Is release authorization still unmistakably closed?
 
 ## Acceptance And Refusal
 
-Acceptance requires the chapter sample, source handle, and validation surface to converge on the same limited statement. A reviewer should compare manifest file totals, archive entry totals, PDF hashes, and excluded-source policy. The refusal condition is equally local: It fails if a file is missing, a hash drifts, an excluded source dump appears, or owner approval is bypassed. A release reviewer can stop at the first missing source, over-strong sentence, or vanished boundary because the package is designed to fail cheaply.
+Acceptance requires the chapter sample, source handle, and validation surface to converge on the same limited statement. A reviewer should compare manifest file totals, archive entry totals, PDF hashes, and excluded-source policy. The refusal condition is equally local: It fails if a file is missing, a hash drifts, an excluded source dump appears, or release authorization is bypassed. A release reviewer can stop at the first missing source, over-strong sentence, or vanished boundary because the package is designed to fail cheaply.
 
 ## Source Handles
 

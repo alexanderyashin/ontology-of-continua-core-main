@@ -1,24 +1,21 @@
 # OC Core 1.4
 
-OC Core 1.4 is a research-stage public snapshot of the Ontology of Continua project. It is intended for inspection of the current scientific model, source texts, evidence routes, reproducibility assets, public science graph, and demonstrator.
+OC Core 1.4 RC 022 is a public-ready print package for the Ontology of Continua core model.
 
-The theory is developing intensively. Some residual rough edges, technical labels, or source-bound editorial markers may remain. This package is not the final print-ready monograph and should not be treated as a journal-submission-ready book. It is a public research snapshot that lets readers inspect the current state of the work.
+## Included
 
-## What Is Included
+- Seven regenerated PDFs built from the included 022 LaTeX sources.
+- Source Markdown, LaTeX, chapter sources, bibliography, figures, tables, and visual registries.
+- Proof-closed public claim registry and proof closure certificate.
+- Public science graph, formula atlas, evidence/replay data, and demonstrator source/data.
+- Checksums, manifest, CITATION, GitHub release draft text, and Zenodo metadata draft.
 
-- Public source Markdown and aggregated LaTeX/chapter sources.
-- Evidence, proof, replay, dataset, simulation, validation, and source-binding surfaces.
-- Public science graph and node/formula/proof/workbench data from the current demonstrator.
-- Clean public Demonstrator source and static public data assets.
-- Figure, table, visual, checksum, and manifest registries.
+## Proof Boundary
 
-## What Is Not Included
+RC 022 promotes only claims that are proof/source/replay closed. Research obligations and boundary-only proof routes are not promoted public claims.
 
-- No PDFs are included in this public package.
-- No Zenodo upload or DOI minting has been performed.
-- No GitHub tag or GitHub release is authorized by this package.
-- Private runtime, local machine paths, release-machine internals, private review traces, and private provenance are excluded.
+Proof closure certificate: `proof/proof_closure_certificate_022.json`.
 
-## Recommended Reading Order
+## Publication Control
 
-Start with `sources/OC_CORE_1_4_MASTER_MONOGRAPH.md`, then inspect `sources/OC_CORE_1_4_METHODS_REPRO_COMPANION.md`, `evidence/`, `science_graph/`, and `tools/oc_core_demo/`.
+This package is public-ready for release-authorized publication. GitHub push, GitHub release/tag, Zenodo upload, and DOI publication remain explicit release actions.

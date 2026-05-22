@@ -407,7 +407,7 @@ def formula_search(atlas: dict[str, Any], query: str = "", limit: int = 25) -> d
 
 
 def quality_report(atlas: dict[str, Any], *, strict: bool = False) -> dict[str, Any]:
-    graph = atlas.get("science_graph_v010") or atlas.get("science_graph_v008") or atlas.get("science_graph_v007") or atlas.get("graph") or {}
+    graph = atlas.get("science_graph_v010") or atlas.get("science_graph_022") or atlas.get("science_graph_022") or atlas.get("graph") or {}
     wiki = atlas.get("wiki") or {}
     corpus_summary = wiki.get("corpus_summary", {})
     formula_total = len(atlas.get("formula_atlas", []) or wiki.get("formulas", []))
@@ -494,7 +494,7 @@ def quality_report(atlas: dict[str, Any], *, strict: bool = False) -> dict[str, 
 
 
 def corpus_completeness(atlas: dict[str, Any]) -> dict[str, Any]:
-    graph = atlas.get("science_graph_v010") or atlas.get("science_graph_v008") or atlas.get("science_graph_v007") or atlas.get("graph") or {}
+    graph = atlas.get("science_graph_v010") or atlas.get("science_graph_022") or atlas.get("science_graph_022") or atlas.get("graph") or {}
     wiki = atlas.get("wiki") or {}
     corpus = wiki.get("corpus_atoms", [])
     formulas = wiki.get("formulas", [])
@@ -733,7 +733,7 @@ def node_detail(atlas: dict[str, Any], node_id: str) -> dict[str, Any]:
 
 
 def science_graph(atlas: dict[str, Any], *, include_rows: bool = True) -> dict[str, Any]:
-    graph = atlas.get("science_graph_v010") or atlas.get("science_graph_v008") or atlas.get("science_graph_v007") or atlas.get("science_graph_v006") or atlas.get("graph") or {}
+    graph = atlas.get("science_graph_v010") or atlas.get("science_graph_022") or atlas.get("science_graph_022") or atlas.get("science_graph_022") or atlas.get("graph") or {}
     if not isinstance(graph, dict):
         graph = {}
     payload = {
@@ -978,7 +978,7 @@ def cerberus_summary(
         iteration_rows = []
 
     provider_gate = {
-        "provider_id": review.get("provider_id", "CODEX_CLI_CHATGPT"),
+        "provider_id": review.get("provider_id", "LIVE_REVIEW_PROVIDER"),
         "provider_available": bool(review.get("actual_live_llm_invocation")),
         "actual_live_llm_invocation": bool(review.get("actual_live_llm_invocation")),
         "status": "PASS"
@@ -1055,7 +1055,7 @@ def cerberus_summary(
         "demo_version": atlas.get("demo_version", DEMO_VERSION),
         "release_ordinal": atlas.get("release_ordinal", RELEASE_ORDINAL),
         "release_label": atlas.get("release_label", RELEASE_LABEL),
-        "provider_id": review.get("provider_id", "CODEX_CLI_CHATGPT"),
+        "provider_id": review.get("provider_id", "LIVE_REVIEW_PROVIDER"),
         "actual_live_llm_invocation": bool(review.get("actual_live_llm_invocation", False)),
         "provider_gate": provider_gate,
         "review_ledger_loading": review_loading,
@@ -1194,13 +1194,13 @@ def export_bundle(atlas: dict[str, Any], data_dir: Path) -> bytes:
     with zipfile.ZipFile(buffer, "w", compression=zipfile.ZIP_DEFLATED, compresslevel=9) as archive:
         archive.writestr("oc_universe_atlas.json", json.dumps(atlas, ensure_ascii=False, allow_nan=False, indent=2))
         for name in [
-            "oc_universe_atlas_v008.json",
+            "oc_universe_atlas_022.json",
             "oc_universe_atlas_v010.json",
-            "oc_universe_atlas_v007.json",
-            "science_graph_v008.json",
+            "oc_universe_atlas_022.json",
+            "science_graph_022.json",
             "science_graph_v010.json",
-            "science_graph_v007.json",
-            "science_graph_v006.json",
+            "science_graph_022.json",
+            "science_graph_022.json",
             "didactic_routes.json",
             "reviewer_objection_routes.json",
             "model_comparison_matrix.json",
