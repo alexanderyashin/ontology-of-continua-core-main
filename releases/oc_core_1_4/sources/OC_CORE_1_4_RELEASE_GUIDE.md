@@ -1,5 +1,7 @@
 # OC Core 1.4 Release Guide
 This public Markdown file is the navigation route for the compiled book. The release exposes readable chapter-level sources in `public_payload/chapter_sources/CHAPTER_SOURCE_INDEX.json`; atom-level construction ledgers and prompt layers are not part of the reader source payload.
+
+The active public scientific anchor for OC Core 1.4 is the Public Science SPOT at `science_spot/OC_CORE_1_4_PUBLIC_SCIENCE_SPOT_GRAPH.json`. RC 022 remains the print and release package label. Its 48 promoted public claims are the earlier narrow public-safe projection; they do not replace the broader SPOT frontier with 807 absolute proof-closure rows, formal witnesses, empirical rows, source packets, and prior-art comparators.
 ## Title Page
 ### Invitation and Scope In Title Page
 OC Core 1.4 is a scientific monograph about a proposed operational language for describing systems whose behavior cannot be captured by a single preferred vocabulary. Its subject is the Ontology of Continua, abbreviated here as OC: a way of speaking about systems, boundaries, continua, operators, contradiction, emergence, collapse, and projection across domains. A first encounter with the book begins before any formal claim appears. The title page must therefore do one quiet but decisive thing: identify the work without asking the first-time reader to accept the theory in advance.

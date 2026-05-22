@@ -1,0 +1,66 @@
+{
+  "schema_id": "OC_CORE_1_4_PUBLIC_SCIENCE_SPOT_TABLE_EXPORT_v1",
+  "package_id": "040",
+  "source_db": "logion/k7/release_missions/oc_core_current/packages/oc_core_1_4/040/continuous_replay_and_full_closure/oc_continuous_replay_full_closure_040.sqlite",
+  "source_db_sha256": "0c1a5ed2f712e65a1ecb6f25118dd247f3ac69ef0fb8c889535f440815f7ddc5",
+  "table": "existing_corpus_refs",
+  "row_total": 6,
+  "columns": [
+    "ref_id",
+    "source_ref",
+    "ref_kind",
+    "availability_status",
+    "use_rule",
+    "updated_at"
+  ],
+  "rows": [
+    {
+      "ref_id": "DOMAIN_REPLAY_REPORTS",
+      "source_ref": "logion/k0/governance/status/DOMAIN_REPLAY_REPORTS_latest.json",
+      "ref_kind": "prior_replay_surface",
+      "availability_status": "FOUND",
+      "use_rule": "size_bytes=693411; Prior replay report is admissible as a bounded replay/comparator surface, but not as chapter-level empirical closure unless claim ceiling and local evidence match.",
+      "updated_at": "2026-05-22T13:49:24.130140+00:00"
+    },
+    {
+      "ref_id": "EMPIRICAL_DOMAIN_VALIDATION_MATRIX",
+      "source_ref": "logion/k0/governance/status/EMPIRICAL_DOMAIN_VALIDATION_MATRIX_latest.json",
+      "ref_kind": "prior_validation_matrix",
+      "availability_status": "FOUND",
+      "use_rule": "size_bytes=16271; Prior validation matrix is admissible as a coarse domain gate and blocker source; 040 must not promote K4-K12 from coarse PASS alone.",
+      "updated_at": "2026-05-22T13:49:24.130140+00:00"
+    },
+    {
+      "ref_id": "DOMAIN_BENCHMARK_CASESET",
+      "source_ref": "logion/k0/governance/status/DOMAIN_BENCHMARK_CASESET_latest.json",
+      "ref_kind": "prior_caseset",
+      "availability_status": "FOUND",
+      "use_rule": "size_bytes=191004; Prior caseset provides official benchmark rows where present; missing K/crown rows still need acquisition or proof.",
+      "updated_at": "2026-05-22T13:49:24.130140+00:00"
+    },
+    {
+      "ref_id": "OC_DOMAIN_PROJECTION_COMPLETION",
+      "source_ref": "logion/k0/governance/status/OC_DOMAIN_PROJECTION_COMPLETION_latest.json",
+      "ref_kind": "prior_completion_gate",
+      "availability_status": "FOUND",
+      "use_rule": "size_bytes=754834; Prior completion ledger gives replay hashes and ceilings; 040 treats them as inherited evidence ceilings, not full empirical closeout.",
+      "updated_at": "2026-05-22T13:49:24.130140+00:00"
+    },
+    {
+      "ref_id": "OC022_COMPARATORS",
+      "source_ref": "logion/k7/release_missions/oc_core_current/packages/oc_core_1_4/022/public_payload/evidence/comparators/comparators_EVIDENCE_PACKAGE.json",
+      "ref_kind": "comparator_package",
+      "availability_status": "FOUND",
+      "use_rule": "size_bytes=2583; Comparator package prevents reinvention and overclaim; it is not local empirical evidence by itself.",
+      "updated_at": "2026-05-22T13:49:24.130140+00:00"
+    },
+    {
+      "ref_id": "OC016_RESEARCH_CORPUS",
+      "source_ref": "logion/k7/release_missions/oc_core_current/packages/oc_core_1_4/016/research_corpus/RESEARCH_CORPUS.json",
+      "ref_kind": "research_corpus",
+      "availability_status": "FOUND",
+      "use_rule": "size_bytes=28358; Earlier research corpus is indexed as background source discovery and prior-art context, not automatic proof.",
+      "updated_at": "2026-05-22T13:49:24.130140+00:00"
+    }
+  ]
+}

@@ -3,6 +3,7 @@
 This directory contains the public-safe source and static data for the OC Core 1.4 Demonstrator.
 
 The demonstrator is included as a release-facing inspection tool. It exposes the public system workbench, science graph, formula atlas, wiki, proof/evidence routes, and reviewer data produced by the current V010 demonstrator pipeline.
+Those RC 022 data files are now treated as projections of the Public Science SPOT. The SPOT summary is exposed at `web/public/data/science_spot_summary.json`, and the full SPOT graph is published at `../../science_spot/OC_CORE_1_4_PUBLIC_SCIENCE_SPOT_GRAPH.json`.
 
 ## Public Boundary
 

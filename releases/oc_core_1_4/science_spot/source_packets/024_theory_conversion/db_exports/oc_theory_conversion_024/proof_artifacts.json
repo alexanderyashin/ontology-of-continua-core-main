@@ -1,0 +1,150 @@
+{
+  "schema_id": "OC_CORE_1_4_PUBLIC_SCIENCE_SPOT_TABLE_EXPORT_v1",
+  "package_id": "024",
+  "source_db": "logion/k7/release_missions/oc_core_current/packages/oc_core_1_4/024/theory_conversion/oc_theory_conversion_024.sqlite",
+  "source_db_sha256": "70baf53b160396c76fd82d6b1bdcf55aca3e81dcf93a377e67b42db5f45fca87",
+  "table": "proof_artifacts",
+  "row_total": 13,
+  "columns": [
+    "artifact_id",
+    "claim_id",
+    "terminal_status",
+    "proof_body_ref",
+    "verification_note",
+    "dependency_closure_note",
+    "article_boundary_note",
+    "created_at_utc"
+  ],
+  "rows": [
+    {
+      "artifact_id": 1,
+      "claim_id": "OC-THEORY-DEF-001",
+      "terminal_status": "AXIOM_ACCEPTED_WITH_BOUNDARY",
+      "proof_body_ref": "OC_THEORY_CORE_NOTEBOOK_024.md#primitive-definition-package---terminal-decision-024-d001",
+      "verification_note": "Definitions are source-bound and anti-circular: contradiction, dimension birth, and collapse are separated.",
+      "dependency_closure_note": "Primitive package has no earlier OC theory dependencies; it is the foundation dependency for CP, operators, and K-levels.",
+      "article_boundary_note": "Definitions may be used as OC vocabulary, but they do not prove central principle, operator minimality, K hierarchy, or domain projections.",
+      "created_at_utc": "2026-05-22T08:53:14Z"
+    },
+    {
+      "artifact_id": 2,
+      "claim_id": "OC-THEORY-CP-001",
+      "terminal_status": "AXIOM_ACCEPTED_WITH_BOUNDARY",
+      "proof_body_ref": "OC_THEORY_CORE_NOTEBOOK_024.md#central-principle-terminal-decision-024-cp001",
+      "verification_note": "Theorem route would be non-circular only under exhaustive definitions; accepted route is bounded axiom schema with trigger exclusions.",
+      "dependency_closure_note": "Depends on OC-THEORY-DEF-001, which is closed as axiomatic primitive vocabulary.",
+      "article_boundary_note": "May be called central axiom/schema, not proved universal law.",
+      "created_at_utc": "2026-05-22T08:54:43Z"
+    },
+    {
+      "artifact_id": 3,
+      "claim_id": "OC-THEORY-THM-001",
+      "terminal_status": "PROVED_THEOREM",
+      "proof_body_ref": "OC_THEORY_CORE_NOTEBOOK_024.md#theorem-024-t001---oc-claim-admissibility",
+      "verification_note": "Proof derives required claim fields from primitive definitions and the bounded central axiom schema; it is an admissibility theorem, not empirical validation.",
+      "dependency_closure_note": "Closed dependencies: OC-THEORY-DEF-001 and OC-THEORY-CP-001. Operator-closure dependency dropped as out of scope for this first theorem.",
+      "article_boundary_note": "May say OC has a bounded internal admissibility theorem; may not say OC proved a universal law across domains.",
+      "created_at_utc": "2026-05-22T08:54:43Z"
+    },
+    {
+      "artifact_id": 4,
+      "claim_id": "OC-THEORY-OP-001",
+      "terminal_status": "AXIOM_ACCEPTED_WITH_BOUNDARY",
+      "proof_body_ref": "OC_THEORY_CORE_NOTEBOOK_024.md#operator-catalog-decision-024-op001",
+      "verification_note": "The six operator labels are recovered from the 022 public science graph as DEFINITIONAL_SOURCE_BOUND operator nodes.",
+      "dependency_closure_note": "Depends on primitive operator definition from OC-THEORY-DEF-001, which is closed.",
+      "article_boundary_note": "May state source-bound operator catalog; may not state minimality or complete composition laws.",
+      "created_at_utc": "2026-05-22T08:55:33Z"
+    },
+    {
+      "artifact_id": 5,
+      "claim_id": "OC-THEORY-OP-003",
+      "terminal_status": "PROVED_THEOREM",
+      "proof_body_ref": "OC_THEORY_CORE_NOTEBOOK_024.md#theorem-024-op003---typed-operator-composition",
+      "verification_note": "Proof follows from the accepted typed operator definition: composition is admissible only on matched domain/codomain types and carries preservation/loss records.",
+      "dependency_closure_note": "Closed dependencies: OC-THEORY-DEF-001 and OC-THEORY-OP-001.",
+      "article_boundary_note": "May state local typed composition rule; may not claim minimality, complete algebra, or universal dynamics.",
+      "created_at_utc": "2026-05-22T08:56:11Z"
+    },
+    {
+      "artifact_id": 6,
+      "claim_id": "OC-THEORY-OP-002",
+      "terminal_status": "PROVED_THEOREM",
+      "proof_body_ref": "OC_THEORY_CORE_NOTEBOOK_024.md#theorem-024-op002---local-operator-independence",
+      "verification_note": "Proof supplies one effect-invariant witness fragment per operator under the selected typed-effect formalism.",
+      "dependency_closure_note": "Closed dependencies: primitive package, source-bound operator catalog, typed composition rule.",
+      "article_boundary_note": "May state local independence/minimality under selected effect invariants; may not state unique global minimal basis.",
+      "created_at_utc": "2026-05-22T08:56:56Z"
+    },
+    {
+      "artifact_id": 7,
+      "claim_id": "OC-THEORY-K-001",
+      "terminal_status": "AXIOM_ACCEPTED_WITH_BOUNDARY",
+      "proof_body_ref": "OC_THEORY_CORE_NOTEBOOK_024.md#k-level-definition-package-024-k001",
+      "verification_note": "K0-K12 labels are recovered from the 022 public science graph as source-bound K-level nodes.",
+      "dependency_closure_note": "Depends on primitive vocabulary; distinctness/count theorem remains separate.",
+      "article_boundary_note": "May state current OC source hierarchy vocabulary; may not state uniqueness, non-collapse, or complete partition theorem.",
+      "created_at_utc": "2026-05-22T08:57:35Z"
+    },
+    {
+      "artifact_id": 8,
+      "claim_id": "OC-THEORY-K-002",
+      "terminal_status": "PROVED_THEOREM",
+      "proof_body_ref": "OC_THEORY_CORE_NOTEBOOK_024.md#theorem-024-k002---adjacent-k-level-non-recovery",
+      "verification_note": "Typed reduct/expansion witnesses show higher-level invariants are not recoverable from lower reducts.",
+      "dependency_closure_note": "Depends on K-level vocabulary and primitive typed-structure rules; both closed.",
+      "article_boundary_note": "May state adjacent non-recovery under typed-extension invariants; may not state unique hierarchy.",
+      "created_at_utc": "2026-05-22T09:16:25Z"
+    },
+    {
+      "artifact_id": 9,
+      "claim_id": "OC-THEORY-K-003",
+      "terminal_status": "REFUTED_AND_REPAIRED",
+      "proof_body_ref": "OC_THEORY_CORE_NOTEBOOK_024.md#countpartition-decision-024-k003",
+      "verification_note": "Strong uniqueness/exhaustiveness/count theorem is not proved; repaired to source-bound ladder plus non-recovery theorem.",
+      "dependency_closure_note": "Depends on K002, now closed.",
+      "article_boundary_note": "Must avoid unique/exhaustive K0-K12 wording.",
+      "created_at_utc": "2026-05-22T09:16:25Z"
+    },
+    {
+      "artifact_id": 10,
+      "claim_id": "OC-THEORY-LAW-001",
+      "terminal_status": "AXIOM_ACCEPTED_WITH_BOUNDARY",
+      "proof_body_ref": "OC_THEORY_CORE_NOTEBOOK_024.md#law-candidate-classification-024-law001",
+      "verification_note": "Classification rule prevents law-like statements from being promoted without theorem/axiom/evidence status.",
+      "dependency_closure_note": "Depends on claim admissibility theorem, closed.",
+      "article_boundary_note": "Only theorem consequences and bounded axiom schemas are core claims.",
+      "created_at_utc": "2026-05-22T09:16:25Z"
+    },
+    {
+      "artifact_id": 11,
+      "claim_id": "OC-THEORY-CROWN-001",
+      "terminal_status": "EXCLUDED_FROM_CORE_AS_CONJECTURE",
+      "proof_body_ref": "OC_THEORY_CORE_NOTEBOOK_024.md#crown-stone-boundary-024-crown001",
+      "verification_note": "No crown-stone statement is currently bound to a closed theorem chain.",
+      "dependency_closure_note": "Depends on theorem chain audit; excluded from core instead of promoted.",
+      "article_boundary_note": "Crown stones may appear only as conjectural extension/application motivation.",
+      "created_at_utc": "2026-05-22T09:16:25Z"
+    },
+    {
+      "artifact_id": 12,
+      "claim_id": "OC-THEORY-DOMAIN-001",
+      "terminal_status": "EXCLUDED_FROM_CORE_AS_CONJECTURE",
+      "proof_body_ref": "OC_THEORY_CORE_NOTEBOOK_024.md#domain-projection-boundary-024-domain001",
+      "verification_note": "Domain projections lack universal local evidence/falsifier packages in the core proof ledger.",
+      "dependency_closure_note": "Depends on claim admissibility theorem; excluded unless locally evidenced.",
+      "article_boundary_note": "Domain cases may illustrate the theorem, not validate OC globally.",
+      "created_at_utc": "2026-05-22T09:16:25Z"
+    },
+    {
+      "artifact_id": 13,
+      "claim_id": "OC-THEORY-ARTICLE-001",
+      "terminal_status": "PROVED_THEOREM",
+      "proof_body_ref": "OC_THEORY_CORE_NOTEBOOK_024.md#article-gate-024-article001",
+      "verification_note": "All promoted article claims are terminal and bounded; conjectural crown/domain/global claims are excluded.",
+      "dependency_closure_note": "All article-eligible dependencies closed or excluded from core.",
+      "article_boundary_note": "Article thesis restricted to bounded axiomatic theory of description change.",
+      "created_at_utc": "2026-05-22T09:16:25Z"
+    }
+  ]
+}

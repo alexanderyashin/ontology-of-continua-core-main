@@ -1,0 +1,32 @@
+{
+  "schema_id": "OC_CORE_1_4_PUBLIC_SCIENCE_SPOT_TABLE_EXPORT_v1",
+  "package_id": "046",
+  "source_db": "logion/k7/release_missions/oc_core_current/packages/oc_core_1_4/046/world_readiness_blocker_burndown/oc_world_readiness_blocker_burndown_046.sqlite",
+  "source_db_sha256": "399728be5a7fd1da43bf87d0b1c8058f488fe9e07cca9b6949a2692d505380dd",
+  "table": "materialization_audit",
+  "row_total": 1,
+  "columns": [
+    "id",
+    "manifest_path",
+    "manifest_status",
+    "closeout_status",
+    "stale_tuple_consumer_total",
+    "stale_feedback_consumer_total",
+    "impacted_existing_count",
+    "impacted_missing_count",
+    "verification_note"
+  ],
+  "rows": [
+    {
+      "id": 1,
+      "manifest_path": "logion/k0/governance/status/LOGION_POST_CLOSEOUT_DEFERRED_HEAVY_MATERIALIZATION_latest.json",
+      "manifest_status": "DEFERRED_HEAVY_MATERIALIZATION_REQUIRED",
+      "closeout_status": "PASS_CHEAP_WITH_DEFERRED_HEAVY",
+      "stale_tuple_consumer_total": 21,
+      "stale_feedback_consumer_total": 16,
+      "impacted_existing_count": 25,
+      "impacted_missing_count": 0,
+      "verification_note": "FULL materialization was attempted in 046. It exposed a disabled impacted surface id; autoderive now skips disabled target ids and the remaining long frontier pass is recorded as a runtime-window limitation."
+    }
+  ]
+}

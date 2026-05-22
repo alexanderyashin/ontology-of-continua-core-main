@@ -1,0 +1,31 @@
+{
+  "schema_id": "OC_CORE_1_4_PUBLIC_SCIENCE_SPOT_TABLE_EXPORT_v1",
+  "package_id": "027",
+  "source_db": "logion/k7/release_missions/oc_core_current/packages/oc_core_1_4/027/oc_universal_metamodel_repair/oc_universal_metamodel_027.sqlite",
+  "source_db_sha256": "7c6b5c08aa5aacf751aae0f9005e9faca518cbe1fd99655f9ccbc1da52a5911e",
+  "table": "proof_runs",
+  "row_total": 2,
+  "columns": [
+    "run_id",
+    "command",
+    "expected",
+    "last_result",
+    "checked_at"
+  ],
+  "rows": [
+    {
+      "run_id": "RUN-LEAN-001",
+      "command": "lake build",
+      "expected": "Build completed successfully",
+      "last_result": "PASS",
+      "checked_at": "2026-05-22T09:55:14Z"
+    },
+    {
+      "run_id": "RUN-PY-001",
+      "command": "python logion/k7/release_missions/oc_core_current/packages/oc_core_1_4/027/oc_universal_metamodel_repair/formal/ocu_python_witnesses.py",
+      "expected": "OC-U 027 finite witnesses: PASS",
+      "last_result": "PASS",
+      "checked_at": "2026-05-22T09:55:14Z"
+    }
+  ]
+}

@@ -1,0 +1,91 @@
+{
+  "schema_id": "OC_CORE_1_4_PUBLIC_SCIENCE_SPOT_TABLE_EXPORT_v1",
+  "package_id": "044",
+  "source_db": "logion/k7/release_missions/oc_core_current/packages/oc_core_1_4/044/goal_requirements_atlas/oc_goal_requirements_044.sqlite",
+  "source_db_sha256": "89571f65c2726353c8452874424b26647dc3337a0c477ef9b3cf9b7cb211fda1",
+  "table": "artifact_contracts",
+  "row_total": 8,
+  "columns": [
+    "contract_id",
+    "contract_type",
+    "required_attributes",
+    "acceptance_test",
+    "source_refs",
+    "artifact_refs",
+    "current_status"
+  ],
+  "rows": [
+    {
+      "contract_id": "AC-FORMAL-PROOF",
+      "contract_type": "formal proof",
+      "required_attributes": "source statement; proposition; assumptions; proof artifact; verification",
+      "acceptance_test": "Lean/Python proof artifact exists and is referenced by a satisfied requirement.",
+      "source_refs": "logion/k7/release_missions/oc_core_current/packages/oc_core_1_4/042/absolute_proof_closure/oc_absolute_proof_closure_042.sqlite",
+      "artifact_refs": "logion/k7/release_missions/oc_core_current/packages/oc_core_1_4/042/absolute_proof_closure/oc_absolute_proof_closure_042.sqlite; logion/k7/release_missions/oc_core_current/packages/oc_core_1_4/042/absolute_proof_closure/formal/OCAbsoluteClosure/Basic.lean",
+      "current_status": "SATISFIED_WITH_ARTIFACTS"
+    },
+    {
+      "contract_id": "AC-EXEC-WITNESS",
+      "contract_type": "executable witness",
+      "required_attributes": "script; command; expected result; falsifier/counterexample mode",
+      "acceptance_test": "Validator can find executable witness refs for proof/evidence rows.",
+      "source_refs": "logion/k7/release_missions/oc_core_current/packages/oc_core_1_4/040/continuous_replay_and_full_closure; logion/k7/release_missions/oc_core_current/packages/oc_core_1_4/042/absolute_proof_closure",
+      "artifact_refs": "logion/k7/release_missions/oc_core_current/packages/oc_core_1_4/040/continuous_replay_and_full_closure/formal/python/continuous_replay_witnesses_040.py; logion/k7/release_missions/oc_core_current/packages/oc_core_1_4/042/absolute_proof_closure/formal/python/absolute_closure_witnesses_042.py",
+      "current_status": "SATISFIED_WITH_ARTIFACTS"
+    },
+    {
+      "contract_id": "AC-EMPIRICAL-REPLAY",
+      "contract_type": "empirical replay",
+      "required_attributes": "dataset manifest; replay script; thresholds; evidence ceiling",
+      "acceptance_test": "Empirical claims cannot pass without dataset/replay/ceiling refs.",
+      "source_refs": "logion/k7/release_missions/oc_core_current/packages/oc_core_1_4/040/continuous_replay_and_full_closure/DATASET_MANIFEST_040.json",
+      "artifact_refs": "logion/k7/release_missions/oc_core_current/packages/oc_core_1_4/040/continuous_replay_and_full_closure/DATASET_MANIFEST_040.json; logion/k7/release_missions/oc_core_current/packages/oc_core_1_4/040/continuous_replay_and_full_closure/formal/python/replay_evidence_packets_040.py",
+      "current_status": "SATISFIED_WITH_ARTIFACTS"
+    },
+    {
+      "contract_id": "AC-FALSIFIER",
+      "contract_type": "falsifier",
+      "required_attributes": "what would break the claim; no-send behavior",
+      "acceptance_test": "Every operational requirement must carry falsifier or boundary wording.",
+      "source_refs": "logion/k7/release_missions/oc_core_current/packages/oc_core_1_4/043/goal_readiness_contract/OC_OPERATIONAL_PROTOCOL_043.md",
+      "artifact_refs": "logion/k7/release_missions/oc_core_current/packages/oc_core_1_4/043/goal_readiness_contract/OC_OPERATIONAL_PROTOCOL_043.md",
+      "current_status": "SATISFIED_WITH_ARTIFACTS"
+    },
+    {
+      "contract_id": "AC-REVIEWER",
+      "contract_type": "reviewer response",
+      "required_attributes": "attack; response; limitation; source/proof refs",
+      "acceptance_test": "Journal/book readiness fails without reviewer attack map.",
+      "source_refs": "logion/k7/release_missions/oc_core_current/packages/oc_core_1_4/022/public_payload/latex/OC_CORE_1_4_REVIEWER_ATTACK_RESPONSE_MAP.tex",
+      "artifact_refs": "logion/k7/release_missions/oc_core_current/packages/oc_core_1_4/022/public_payload/latex/OC_CORE_1_4_REVIEWER_ATTACK_RESPONSE_MAP.tex",
+      "current_status": "SATISFIED_WITH_ARTIFACTS"
+    },
+    {
+      "contract_id": "AC-PRODUCT-QA",
+      "contract_type": "product QA",
+      "required_attributes": "runtime route; acceptance tests; failure messages; support boundary",
+      "acceptance_test": "Toolkit/product readiness fails until current QA artifact passes 044 checks.",
+      "source_refs": "logion/k7/spe/state/gates/<PUBLIC_BOUNDARY_REDACTED_FILENAME>",
+      "artifact_refs": "logion/k7/spe/state/gates/<PUBLIC_BOUNDARY_REDACTED_FILENAME>",
+      "current_status": "FAILED_NEEDS_REPAIR"
+    },
+    {
+      "contract_id": "AC-NO-SEND",
+      "contract_type": "no-send gate",
+      "required_attributes": "owner/public/private boundary; forbidden wording",
+      "acceptance_test": "Business/publication/commercial flags stay false until no-send gates close.",
+      "source_refs": "logion/k0/governance/status/<SOURCE_BOUNDARY_STATUS_SURFACE><PUBLIC_BOUNDARY_REDACTED_FILENAME>",
+      "artifact_refs": "logion/k0/governance/status/<SOURCE_BOUNDARY_STATUS_SURFACE><PUBLIC_BOUNDARY_REDACTED_FILENAME>",
+      "current_status": "SATISFIED_WITH_ARTIFACTS"
+    },
+    {
+      "contract_id": "AC-OWNER-COUNSEL-CLIENT",
+      "contract_type": "owner/counsel/client gate",
+      "required_attributes": "owner approval; counsel/FTO; client proof; external evidence",
+      "acceptance_test": "Commercial/public release readiness fails without external gate artifacts.",
+      "source_refs": "logion/k0/governance/status/<SOURCE_BOUNDARY_STATUS_SURFACE><PUBLIC_BOUNDARY_REDACTED_FILENAME>; logion/k7/spe/state/gates/<PUBLIC_BOUNDARY_REDACTED_FILENAME>",
+      "artifact_refs": "",
+      "current_status": "BLOCKED_BY_EXTERNAL_EVIDENCE"
+    }
+  ]
+}

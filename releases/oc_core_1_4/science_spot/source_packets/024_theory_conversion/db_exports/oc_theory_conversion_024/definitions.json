@@ -1,0 +1,127 @@
+{
+  "schema_id": "OC_CORE_1_4_PUBLIC_SCIENCE_SPOT_TABLE_EXPORT_v1",
+  "package_id": "024",
+  "source_db": "logion/k7/release_missions/oc_core_current/packages/oc_core_1_4/024/theory_conversion/oc_theory_conversion_024.sqlite",
+  "source_db_sha256": "70baf53b160396c76fd82d6b1bdcf55aca3e81dcf93a377e67b42db5f45fca87",
+  "table": "definitions",
+  "row_total": 12,
+  "columns": [
+    "definition_id",
+    "term",
+    "provisional_definition",
+    "type_signature",
+    "source_refs_json",
+    "current_status",
+    "falsifier_or_check"
+  ],
+  "rows": [
+    {
+      "definition_id": "OC-DEF-DESCRIPTION",
+      "term": "description",
+      "provisional_definition": "A typed representation frame for a system, with named observables and admissible distinctions.",
+      "type_signature": "Description := (objects, observables, distinctions, admissible operations, failure tests)",
+      "source_refs_json": "[\"022/public_payload/sources/OC_CORE_1_4_JOURNAL_CORE_ARTICLE.md\", \"022/public_payload/chapter_sources/master_monograph/chapter_What_Counts_as_a_Claim_Proof_Evidence_and_Limit_Here.md\", \"022/public_payload/chapter_sources/master_monograph/chapter_Why_a_Universal_Language_of_System_Behaviour_Is_Needed.md\"]",
+      "current_status": "ACCEPTED_PRIMITIVE_WITH_CHECK",
+      "falsifier_or_check": "No observables or distinctions are named."
+    },
+    {
+      "definition_id": "OC-DEF-SYSTEM",
+      "term": "system",
+      "provisional_definition": "The object or configuration being described under a selected description.",
+      "type_signature": "System_D := object/configuration inside description D",
+      "source_refs_json": "[\"022/public_payload/sources/OC_CORE_1_4_JOURNAL_CORE_ARTICLE.md\", \"022/public_payload/chapter_sources/master_monograph/chapter_What_Counts_as_a_Claim_Proof_Evidence_and_Limit_Here.md\", \"022/public_payload/chapter_sources/master_monograph/chapter_Why_a_Universal_Language_of_System_Behaviour_Is_Needed.md\"]",
+      "current_status": "ACCEPTED_PRIMITIVE_WITH_CHECK",
+      "falsifier_or_check": "The object boundary cannot be stated."
+    },
+    {
+      "definition_id": "OC-DEF-STATE",
+      "term": "state",
+      "provisional_definition": "A located configuration of a system within a description.",
+      "type_signature": "State(S,D) := admissible location/configuration of S under D",
+      "source_refs_json": "[\"022/public_payload/sources/OC_CORE_1_4_JOURNAL_CORE_ARTICLE.md\", \"022/public_payload/chapter_sources/master_monograph/chapter_What_Counts_as_a_Claim_Proof_Evidence_and_Limit_Here.md\", \"022/public_payload/chapter_sources/master_monograph/chapter_Why_a_Universal_Language_of_System_Behaviour_Is_Needed.md\"]",
+      "current_status": "ACCEPTED_PRIMITIVE_WITH_CHECK",
+      "falsifier_or_check": "No state comparison exists."
+    },
+    {
+      "definition_id": "OC-DEF-AXIS",
+      "term": "axis",
+      "provisional_definition": "A named dimension of variation within a description.",
+      "type_signature": "Axis(D) := typed coordinate/ordering/distinction dimension in D",
+      "source_refs_json": "[\"022/public_payload/sources/OC_CORE_1_4_JOURNAL_CORE_ARTICLE.md\", \"022/public_payload/chapter_sources/master_monograph/chapter_What_Counts_as_a_Claim_Proof_Evidence_and_Limit_Here.md\", \"022/public_payload/chapter_sources/master_monograph/chapter_Why_a_Universal_Language_of_System_Behaviour_Is_Needed.md\"]",
+      "current_status": "ACCEPTED_PRIMITIVE_WITH_CHECK",
+      "falsifier_or_check": "The axis adds no distinguishable variation."
+    },
+    {
+      "definition_id": "OC-DEF-CONTINUUM",
+      "term": "continuum",
+      "provisional_definition": "A structured range of possible states or descriptions along one or more axes.",
+      "type_signature": "Continuum := states plus structure over axes",
+      "source_refs_json": "[\"022/public_payload/sources/OC_CORE_1_4_JOURNAL_CORE_ARTICLE.md\", \"022/public_payload/chapter_sources/master_monograph/chapter_What_Counts_as_a_Claim_Proof_Evidence_and_Limit_Here.md\", \"022/public_payload/chapter_sources/master_monograph/chapter_Why_a_Universal_Language_of_System_Behaviour_Is_Needed.md\"]",
+      "current_status": "ACCEPTED_PRIMITIVE_WITH_CHECK",
+      "falsifier_or_check": "No ordering, adjacency, metric, topology, or transition relation is given."
+    },
+    {
+      "definition_id": "OC-DEF-BOUNDARY",
+      "term": "boundary",
+      "provisional_definition": "A rule, threshold, surface, or distinction governing separation or crossing.",
+      "type_signature": "Boundary(C) := separation/crossing predicate or rule on a continuum",
+      "source_refs_json": "[\"022/public_payload/sources/OC_CORE_1_4_JOURNAL_CORE_ARTICLE.md\", \"022/public_payload/chapter_sources/master_monograph/chapter_What_Counts_as_a_Claim_Proof_Evidence_and_Limit_Here.md\", \"022/public_payload/chapter_sources/master_monograph/chapter_Why_a_Universal_Language_of_System_Behaviour_Is_Needed.md\"]",
+      "current_status": "ACCEPTED_PRIMITIVE_WITH_CHECK",
+      "falsifier_or_check": "Crossing or separation criteria are absent."
+    },
+    {
+      "definition_id": "OC-DEF-OPERATOR",
+      "term": "operator",
+      "provisional_definition": "A transformation acting on states, boundaries, axes, continua, or descriptions.",
+      "type_signature": "Operator := typed map with domain, codomain, preserved structure, lost structure",
+      "source_refs_json": "[\"022/public_payload/sources/OC_CORE_1_4_JOURNAL_CORE_ARTICLE.md\", \"022/public_payload/chapter_sources/master_monograph/chapter_What_Counts_as_a_Claim_Proof_Evidence_and_Limit_Here.md\", \"022/public_payload/chapter_sources/master_monograph/chapter_Why_a_Universal_Language_of_System_Behaviour_Is_Needed.md\"]",
+      "current_status": "ACCEPTED_PRIMITIVE_WITH_CHECK",
+      "falsifier_or_check": "Domain/codomain and preservation/loss conditions are absent."
+    },
+    {
+      "definition_id": "OC-DEF-CONSTRAINT",
+      "term": "constraint",
+      "provisional_definition": "A condition that a description, state, or transformation must satisfy.",
+      "type_signature": "Constraint := predicate over descriptions/states/operators",
+      "source_refs_json": "[\"022/public_payload/sources/OC_CORE_1_4_JOURNAL_CORE_ARTICLE.md\", \"022/public_payload/chapter_sources/master_monograph/chapter_What_Counts_as_a_Claim_Proof_Evidence_and_Limit_Here.md\", \"022/public_payload/chapter_sources/master_monograph/chapter_Why_a_Universal_Language_of_System_Behaviour_Is_Needed.md\"]",
+      "current_status": "ACCEPTED_PRIMITIVE_WITH_CHECK",
+      "falsifier_or_check": "No failure condition exists."
+    },
+    {
+      "definition_id": "OC-DEF-CONTRADICTION",
+      "term": "contradiction",
+      "provisional_definition": "An incompatibility among active constraints under the current description.",
+      "type_signature": "Contradiction_D := finite active constraints not jointly satisfiable under D",
+      "source_refs_json": "[\"022/public_payload/sources/OC_CORE_1_4_JOURNAL_CORE_ARTICLE.md\", \"022/public_payload/chapter_sources/master_monograph/chapter_What_Counts_as_a_Claim_Proof_Evidence_and_Limit_Here.md\", \"022/public_payload/chapter_sources/master_monograph/chapter_Why_a_Universal_Language_of_System_Behaviour_Is_Needed.md\"]",
+      "current_status": "ACCEPTED_PRIMITIVE_WITH_CHECK",
+      "falsifier_or_check": "The incompatibility can be resolved inside the current description."
+    },
+    {
+      "definition_id": "OC-DEF-RESOLUTION",
+      "term": "resolution",
+      "provisional_definition": "A transformation or refinement that removes incompatibility without losing required organization.",
+      "type_signature": "Resolution := operator or description refinement satisfying active constraints",
+      "source_refs_json": "[\"022/public_payload/sources/OC_CORE_1_4_JOURNAL_CORE_ARTICLE.md\", \"022/public_payload/chapter_sources/master_monograph/chapter_What_Counts_as_a_Claim_Proof_Evidence_and_Limit_Here.md\", \"022/public_payload/chapter_sources/master_monograph/chapter_Why_a_Universal_Language_of_System_Behaviour_Is_Needed.md\"]",
+      "current_status": "ACCEPTED_PRIMITIVE_WITH_CHECK",
+      "falsifier_or_check": "Neither preservation nor incompatibility removal is shown."
+    },
+    {
+      "definition_id": "OC-DEF-COLLAPSE",
+      "term": "collapse",
+      "provisional_definition": "Loss of the configuration ability to maintain relevant organization under active constraints.",
+      "type_signature": "Collapse := failure of organization predicate under active constraints",
+      "source_refs_json": "[\"022/public_payload/sources/OC_CORE_1_4_JOURNAL_CORE_ARTICLE.md\", \"022/public_payload/chapter_sources/master_monograph/chapter_What_Counts_as_a_Claim_Proof_Evidence_and_Limit_Here.md\", \"022/public_payload/chapter_sources/master_monograph/chapter_Why_a_Universal_Language_of_System_Behaviour_Is_Needed.md\"]",
+      "current_status": "ACCEPTED_PRIMITIVE_WITH_CHECK",
+      "falsifier_or_check": "Loss criteria are absent."
+    },
+    {
+      "definition_id": "OC-DEF-DIMENSION-BIRTH",
+      "term": "dimension_birth",
+      "provisional_definition": "Introduction of a new axis necessary to preserve or restore intelligibility under active constraints.",
+      "type_signature": "DimensionBirth := extension D -> D+axis such that old D fails and extended D restores target adequacy",
+      "source_refs_json": "[\"022/public_payload/sources/OC_CORE_1_4_JOURNAL_CORE_ARTICLE.md\", \"022/public_payload/chapter_sources/master_monograph/chapter_What_Counts_as_a_Claim_Proof_Evidence_and_Limit_Here.md\", \"022/public_payload/chapter_sources/master_monograph/chapter_Why_a_Universal_Language_of_System_Behaviour_Is_Needed.md\"]",
+      "current_status": "ACCEPTED_PRIMITIVE_WITH_CHECK",
+      "falsifier_or_check": "The new axis is not necessary or improves no prediction/explanation/compression."
+    }
+  ]
+}

@@ -1,0 +1,52 @@
+{
+  "schema_id": "OC_CORE_1_4_PUBLIC_SCIENCE_SPOT_TABLE_EXPORT_v1",
+  "package_id": "045",
+  "source_db": "logion/k7/release_missions/oc_core_current/packages/oc_core_1_4/045/readiness_fulfillment_closure/oc_readiness_fulfillment_045.sqlite",
+  "source_db_sha256": "ac840b0823c40102600ef3b9099678fea6e837c736eb411a675193192783aa04",
+  "table": "qa_scenarios",
+  "row_total": 5,
+  "columns": [
+    "scenario_id",
+    "input_case",
+    "expected_verdict",
+    "acceptance_note",
+    "current_status"
+  ],
+  "rows": [
+    {
+      "scenario_id": "qa_minimal_valid_ea_packet",
+      "input_case": "EAQ_103 answer packet with complete trace sections",
+      "expected_verdict": "PASS",
+      "acceptance_note": "report emitted with boundary and owner review flag",
+      "current_status": "SATISFIED_WITH_ARTIFACTS"
+    },
+    {
+      "scenario_id": "qa_missing_falsifier",
+      "input_case": "Input lacks falsifier/negative criterion",
+      "expected_verdict": "NO_SEND",
+      "acceptance_note": "blocks report and asks for falsifier",
+      "current_status": "SATISFIED_WITH_ARTIFACTS"
+    },
+    {
+      "scenario_id": "qa_empirical_without_dataset",
+      "input_case": "Empirical claim without manifest/replay",
+      "expected_verdict": "NO_SEND",
+      "acceptance_note": "blocks empirical wording",
+      "current_status": "SATISFIED_WITH_ARTIFACTS"
+    },
+    {
+      "scenario_id": "qa_roi_or_client_safe_claim",
+      "input_case": "Commercial promise without external proof/counsel gate",
+      "expected_verdict": "NO_SEND",
+      "acceptance_note": "blocks sales wording",
+      "current_status": "SATISFIED_WITH_ARTIFACTS"
+    },
+    {
+      "scenario_id": "qa_public_science_payload",
+      "input_case": "Public package includes proof graph and manifests only",
+      "expected_verdict": "PASS",
+      "acceptance_note": "allows public science without private/business material",
+      "current_status": "SATISFIED_WITH_ARTIFACTS"
+    }
+  ]
+}

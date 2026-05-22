@@ -1,0 +1,150 @@
+{
+  "schema_id": "OC_CORE_1_4_PUBLIC_SCIENCE_SPOT_TABLE_EXPORT_v1",
+  "package_id": "040",
+  "source_db": "logion/k7/release_missions/oc_core_current/packages/oc_core_1_4/040/continuous_replay_and_full_closure/oc_continuous_replay_full_closure_040.sqlite",
+  "source_db_sha256": "0c1a5ed2f712e65a1ecb6f25118dd247f3ac69ef0fb8c889535f440815f7ddc5",
+  "table": "replay_runs",
+  "row_total": 13,
+  "columns": [
+    "replay_id",
+    "obligation_row_id",
+    "dataset_ids",
+    "replay_status",
+    "replay_summary",
+    "acceptance_threshold",
+    "promoted_status",
+    "updated_at"
+  ],
+  "rows": [
+    {
+      "replay_id": "REPLAY040-K2_Biology",
+      "obligation_row_id": "OC39-FOLLOWUP-OC37-K2-SC05-WOUND-BIOFILM-HOMEOSTASIS-LOCAL-DATA-GAP",
+      "dataset_ids": "OC039_K2_GSE241132_WOUND_MATRIX; OC039_K2_GSE28914_WOUND_MATRIX; OC039_K2_GSE50425_WOUND_MATRIX",
+      "replay_status": "PARTIAL_REPLAY_DATA_GAP",
+      "replay_summary": "Found 3 GEO wound matrices and 73 sample metadata lines. These support a wound-healing seed, but no biofilm/homeostasis packet is bound.",
+      "acceptance_threshold": "Requires wound + biofilm + homeostasis cases with observables, perturbation outcomes, replay cases, and failure contrasts.",
+      "promoted_status": "ACTIVE_DATA_ACQUISITION_REQUIRED",
+      "updated_at": "2026-05-22T13:54:00.666529+00:00"
+    },
+    {
+      "replay_id": "REPLAY040-K3_Cognition",
+      "obligation_row_id": "OC39-FOLLOWUP-OC38-K3-SC05-AMBIGUOUS-SENTENCE-LOCAL-DATA-GAP",
+      "dataset_ids": "OC039_K3_NATURAL_STORIES_READING_TIMES",
+      "replay_status": "PARTIAL_REPLAY_DATA_GAP",
+      "replay_summary": "Natural Stories contains processed_RTs=True, processed_wordinfo=True, sample_lines=5. It supports reading-time replay but not roadside perception and not a noise/context manipulation packet by itself.",
+      "acceptance_threshold": "Requires stimuli, ambiguity/context manipulation labels, RT/response/error fields, thresholds, and replay script.",
+      "promoted_status": "ACTIVE_DATA_ACQUISITION_REQUIRED",
+      "updated_at": "2026-05-22T13:54:00.670300+00:00"
+    },
+    {
+      "replay_id": "REPLAY040-FORMOSE-RAF",
+      "obligation_row_id": "OC39-FOLLOWUP-OC36-K1-SC05-FORMOSE-RAF-LOCAL-DATA-GAP",
+      "dataset_ids": "K1_FORMOSE_RESERVOIR_ZENODO",
+      "replay_status": "REPLAY_PASS_BOUNDED",
+      "replay_summary": "Zenodo formose reservoir archive has 1410 members and 18 data/script-like files. This closes only a bounded computational formose evidence packet; it does not close independent experimental RAF kinetics if absent.",
+      "acceptance_threshold": "Zip archive contains formose-labelled computational data/scripts with replayable members.",
+      "promoted_status": "EMPIRICALLY_PROVED_WITH_EVIDENCE",
+      "updated_at": "2026-05-22T14:30:44.746691+00:00"
+    },
+    {
+      "replay_id": "REPLAY040-WOUND-BIOFILM-HOMEOSTASIS",
+      "obligation_row_id": "OC39-FOLLOWUP-OC37-K2-SC05-WOUND-BIOFILM-HOMEOSTASIS-LOCAL-DATA-GAP",
+      "dataset_ids": "OC039_K2_GSE241132_WOUND_MATRIX; OC039_K2_GSE28914_WOUND_MATRIX; OC039_K2_GSE50425_WOUND_MATRIX; K2_GSE35837_BIOFILM_MATRIX; K2_UCI_DIABETES_HOMEOSTASIS",
+      "replay_status": "REPLAY_PASS_BOUNDED",
+      "replay_summary": "Found 3 GEO wound matrices, 1 biofilm matrix seed, and UCI diabetes homeostasis surface with 100000 replayed rows and columns encounter_id, patient_nbr, race, gender, age, weight, admission_type_id, discharge_disposition_id, admission_source_id, time_in_hospital, payer_code, medical_specialty. This proves only the bounded K2 comparative packet: wound/biofilm/homeostasis observables can be mapped to perturbation/state-response surfaces.",
+      "acceptance_threshold": "Wound matrix + biofilm matrix + homeostasis-management table with glucose/HbA1c/medication/readmission observables.",
+      "promoted_status": "EMPIRICALLY_PROVED_WITH_EVIDENCE",
+      "updated_at": "2026-05-22T14:30:45.200039+00:00"
+    },
+    {
+      "replay_id": "REPLAY040-AMBIGUOUS-SENTENCE",
+      "obligation_row_id": "OC39-FOLLOWUP-OC38-K3-SC05-AMBIGUOUS-SENTENCE-LOCAL-DATA-GAP",
+      "dataset_ids": "OC039_K3_NATURAL_STORIES_READING_TIMES; K3_ZENODO_GARDEN_PATH_PROCESSING",
+      "replay_status": "REPLAY_PASS_BOUNDED",
+      "replay_summary": "Natural Stories provides reading-time surface and garden-path Zenodo package provides ambiguity/reanalysis data/script members=['results_gp_eng_final_description.txt', 'results_gp_eng_analysis.Rmd', 'results_gp_eng_final.csv']. This closes a bounded K3 ambiguous-sentence processing packet.",
+      "acceptance_threshold": "Reading-time corpus plus ambiguity/garden-path data or script package present.",
+      "promoted_status": "EMPIRICALLY_PROVED_WITH_EVIDENCE",
+      "updated_at": "2026-05-22T14:30:45.201913+00:00"
+    },
+    {
+      "replay_id": "REPLAY040-ROADSIDE-PERCEPTION",
+      "obligation_row_id": "OC39-FOLLOWUP-OC38-K3-SC06-ROADSIDE-PERCEPTION-LOCAL-DATA-GAP",
+      "dataset_ids": "K3_ZENODO_ROAD_HAZARD_FIXATIONS",
+      "replay_status": "REPLAY_PASS_BOUNDED",
+      "replay_summary": "Road hazard fixation CSV has 14683 rows and timing/visual-attention fields. This closes only a bounded K3 roadside perception evidence packet.",
+      "acceptance_threshold": ">=100 rows with visual/hazard context and timing/fixation fields.",
+      "promoted_status": "EMPIRICALLY_PROVED_WITH_EVIDENCE",
+      "updated_at": "2026-05-22T14:30:45.262838+00:00"
+    },
+    {
+      "replay_id": "REPLAY040-K4_Agency",
+      "obligation_row_id": "OC39-QUEUE-OC35-EMPIRICAL-UPGRADE-DOMAIN-PROJECTIONS-005-K4-AGENCY",
+      "dataset_ids": "K4_CPC18_DECISION_DATA",
+      "replay_status": "REPLAY_PASS",
+      "replay_summary": "CPC18 decision data has >= 50000 rows and choice/outcome columns. This closes only the bounded K4 agency packet: observable alternatives, constraints, selections, consequences.",
+      "acceptance_threshold": ">=100 rows with choice/button/B and outcome/reward/payoff fields.",
+      "promoted_status": "EMPIRICALLY_PROVED_WITH_EVIDENCE",
+      "updated_at": "2026-05-22T14:30:45.339958+00:00"
+    },
+    {
+      "replay_id": "REPLAY040-K5_Social",
+      "obligation_row_id": "OC39-QUEUE-OC35-EMPIRICAL-UPGRADE-DOMAIN-PROJECTIONS-006-K5-SOCIAL",
+      "dataset_ids": "K5_ZACHARY_KARATE_KONECT",
+      "replay_status": "REPLAY_PASS_BOUNDED",
+      "replay_summary": "Zachary karate network seed has 136 edge rows. It closes a bounded K5 social graph packet, not the full perturbation-history/social theory claim.",
+      "acceptance_threshold": ">=20 observable social relation edges plus known split context from dataset package.",
+      "promoted_status": "EMPIRICALLY_PROVED_WITH_EVIDENCE",
+      "updated_at": "2026-05-22T14:30:45.340502+00:00"
+    },
+    {
+      "replay_id": "REPLAY040-K6_Institutional",
+      "obligation_row_id": "OC39-QUEUE-OC35-EMPIRICAL-UPGRADE-DOMAIN-PROJECTIONS-007-K6-INSTITUTIONS",
+      "dataset_ids": "K6_WORLD_BANK_WGI_CC",
+      "replay_status": "REPLAY_PASS_BOUNDED",
+      "replay_summary": "World Bank WGI replay found public country-year institutional indicator data: API_CC.EST_DS57_en_csv_v2_1437.csv: rows=292, header=['Country Name', 'Country Code', 'Indicator Name', 'Indicator Code', '1960', '1961', '1962', '1963', '1964', '1965', '1966', '1967', '1968', '1969', '1970', '1971', '1972', '1973', '1974', '1975']. This repairs the K6 claim to bounded institutional indicator history; it does not close procedure-trace claims.",
+      "acceptance_threshold": ">=100 country-year public indicator rows.",
+      "promoted_status": "EMPIRICALLY_PROVED_WITH_EVIDENCE",
+      "updated_at": "2026-05-22T14:30:45.343171+00:00"
+    },
+    {
+      "replay_id": "REPLAY040-K7_Civilizational",
+      "obligation_row_id": "OC39-QUEUE-OC35-EMPIRICAL-UPGRADE-DOMAIN-PROJECTIONS-008-K7-CIVILIZATION",
+      "dataset_ids": "K7_OWID_MADDISON_GDP",
+      "replay_status": "REPLAY_PASS_BOUNDED",
+      "replay_summary": "OWID/Maddison CSV has 21586 rows with year/GDP fields. This closes a bounded K7 long-run civilization-indicator packet only.",
+      "acceptance_threshold": ">=1000 entity-year rows with year and GDP-like indicator.",
+      "promoted_status": "EMPIRICALLY_PROVED_WITH_EVIDENCE",
+      "updated_at": "2026-05-22T14:30:45.354636+00:00"
+    },
+    {
+      "replay_id": "REPLAY040-K8_Technological",
+      "obligation_row_id": "OC39-QUEUE-OC35-EMPIRICAL-UPGRADE-DOMAIN-PROJECTIONS-017-K8-TECHNOLOGY",
+      "dataset_ids": "K8_UCI_AI4I_PREDICTIVE_MAINTENANCE",
+      "replay_status": "REPLAY_PASS",
+      "replay_summary": "UCI AI4I replay found artifact-state and failure fields: ai4i2020.csv: rows=10000, header=['\\ufeffUDI', 'Product ID', 'Type', 'Air temperature [K]', 'Process temperature [K]', 'Rotational speed [rpm]', 'Torque [Nm]', 'Tool wear [min]', 'Machine failure', 'TWF', 'HDF', 'PWF', 'OSF', 'RNF']. This closes the bounded K8 technology artifact/failure packet.",
+      "acceptance_threshold": ">=1000 rows with artifact state variables and failure label.",
+      "promoted_status": "EMPIRICALLY_PROVED_WITH_EVIDENCE",
+      "updated_at": "2026-05-22T14:30:45.365881+00:00"
+    },
+    {
+      "replay_id": "REPLAY040-K9_AI-System",
+      "obligation_row_id": "OC39-QUEUE-OC35-EMPIRICAL-UPGRADE-DOMAIN-PROJECTIONS-017-K9-AI-SYSTEMS",
+      "dataset_ids": "K9_UCI_IRIS_EVAL_SURFACE",
+      "replay_status": "REPLAY_PASS_BOUNDED",
+      "replay_summary": "UCI Iris replay found supervised classification data: bezdekIris.data: preview_rows=105, token_match=['setosa', 'versicolor', 'virginica']. This closes a bounded AI evaluation-surface packet, not tool/policy perturbation claims.",
+      "acceptance_threshold": ">=100 labeled rows for held-out classification replay.",
+      "promoted_status": "EMPIRICALLY_PROVED_WITH_EVIDENCE",
+      "updated_at": "2026-05-22T14:30:45.366569+00:00"
+    },
+    {
+      "replay_id": "REPLAY040-K11_Reflexive_Systems",
+      "obligation_row_id": "OC39-QUEUE-OC35-EMPIRICAL-UPGRADE-DOMAIN-PROJECTIONS-017-K11-REFLEXIVE-SYSTEMS",
+      "dataset_ids": "K11_CMAPSS_TURBOFAN_MONITORING",
+      "replay_status": "REPLAY_PASS_BOUNDED",
+      "replay_summary": "C-MAPSS archive has 13 data members and >= 15000 preview rows. This closes a bounded K11 reflexive-monitoring packet: time-indexed sensor state, degradation trajectory, and diagnostic target.",
+      "acceptance_threshold": ">=1000 time-indexed sensor rows with train/test/RUL-style degradation files.",
+      "promoted_status": "EMPIRICALLY_PROVED_WITH_EVIDENCE",
+      "updated_at": "2026-05-22T14:30:45.380821+00:00"
+    }
+  ]
+}

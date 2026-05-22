@@ -1,0 +1,50 @@
+{
+  "schema_id": "OC_CORE_1_4_PUBLIC_SCIENCE_SPOT_TABLE_EXPORT_v1",
+  "package_id": "046",
+  "source_db": "logion/k7/release_missions/oc_core_current/packages/oc_core_1_4/046/world_readiness_blocker_burndown/oc_world_readiness_blocker_burndown_046.sqlite",
+  "source_db_sha256": "399728be5a7fd1da43bf87d0b1c8058f488fe9e07cca9b6949a2692d505380dd",
+  "table": "adversarial_reviews",
+  "row_total": 4,
+  "columns": [
+    "role_id",
+    "attack_surface",
+    "attacks",
+    "verdict",
+    "repairs",
+    "evidence_refs"
+  ],
+  "rows": [
+    {
+      "role_id": "FORMAL_REVIEWER",
+      "attack_surface": "OC proof ledgers, theorem boundaries, old overclaims",
+      "attacks": "Can 046 accidentally convert self-audit into proof? Does any public wording exceed 042/045 proof ledgers?",
+      "verdict": "PASS_WITH_LIMITATIONS",
+      "repairs": "All external proof claims are split into internal artifact rows plus explicit owner/client/counsel blockers.",
+      "evidence_refs": "OC_WORLD_READINESS_BLOCKER_LEDGER_046.md; OC_GOAL_REQUIREMENTS_BOUNDARY_044.md; <PUBLIC_BOUNDARY_REDACTED_FILENAME>"
+    },
+    {
+      "role_id": "EMPIRICAL_REVIEWER",
+      "attack_surface": "Domain projections and empirical/crown claims",
+      "attacks": "Can 046 claim empirical universality without data? Can internal replay replace client outcomes?",
+      "verdict": "PASS_WITH_LIMITATIONS",
+      "repairs": "Empirical claims remain at 040/042 ceilings; client outcome proof remains blocked.",
+      "evidence_refs": "OC_PUBLIC_SCIENCE_READINESS_PACKET_045.md; OC_WORLD_READY_ARTICLE_MONOGRAPH_PACKET_046.md"
+    },
+    {
+      "role_id": "PRODUCT_MARKET_REVIEWER",
+      "attack_surface": "Estra Toolkit, EA Second Opinion, pricing, ROI",
+      "attacks": "Can dogfood tests prove buyer adoption or ROI? Are alternatives named?",
+      "verdict": "PASS_WITH_LIMITATIONS",
+      "repairs": "Market scan and ROI assumptions are separate from client-proof status; alternatives are named.",
+      "evidence_refs": "<PUBLIC_BOUNDARY_REDACTED_FILENAME>; <PUBLIC_BOUNDARY_REDACTED_FILENAME>"
+    },
+    {
+      "role_id": "RELEASE_PRIVACY_REVIEWER",
+      "attack_surface": "Public/private split, datasets, legal/FTO, owner logs",
+      "attacks": "Does public payload leak private business/legal/owner/client data or heavy datasets?",
+      "verdict": "PASS_WITH_LIMITATIONS",
+      "repairs": "Public manifest exports only 046 science/readiness summary; legal/FTO remains self-audit only.",
+      "evidence_refs": "<PUBLIC_BOUNDARY_REDACTED_FILENAME>; PUBLIC_SCIENCE_PAYLOAD_MANIFEST_046.json"
+    }
+  ]
+}

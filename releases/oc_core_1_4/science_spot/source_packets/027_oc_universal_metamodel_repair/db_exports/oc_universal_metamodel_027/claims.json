@@ -1,0 +1,100 @@
+{
+  "schema_id": "OC_CORE_1_4_PUBLIC_SCIENCE_SPOT_TABLE_EXPORT_v1",
+  "package_id": "027",
+  "source_db": "logion/k7/release_missions/oc_core_current/packages/oc_core_1_4/027/oc_universal_metamodel_repair/oc_universal_metamodel_027.sqlite",
+  "source_db_sha256": "7c6b5c08aa5aacf751aae0f9005e9faca518cbe1fd99655f9ccbc1da52a5911e",
+  "table": "claims",
+  "row_total": 9,
+  "columns": [
+    "claim_id",
+    "claim_kind",
+    "statement",
+    "status",
+    "artifact_ref",
+    "proof_summary",
+    "boundary_note"
+  ],
+  "rows": [
+    {
+      "claim_id": "OCU-027-T001",
+      "claim_kind": "primitive_surface",
+      "statement": "OC-U can represent articulated system descriptions by typed primitives: state, observable, constraint, operator, projection, invariant, repair class, extension class, evidence binding.",
+      "status": "PROVED_UNIVERSAL_METAMODEL_THEOREM",
+      "artifact_ref": "logion/k7/release_missions/oc_core_current/packages/oc_core_1_4/027/oc_universal_metamodel_repair/formal/OCUniversal/Basic.lean",
+      "proof_summary": "Lean structure Description contains all required primitive surfaces.",
+      "boundary_note": "Universal only over articulated descriptions."
+    },
+    {
+      "claim_id": "OCU-027-T002",
+      "claim_kind": "absorption",
+      "statement": "If evidence is bound and a same-description repair exists, OC-U classifies structured pressure as absorption.",
+      "status": "PROVED_UNIVERSAL_METAMODEL_THEOREM",
+      "artifact_ref": "logion/k7/release_missions/oc_core_current/packages/oc_core_1_4/027/oc_universal_metamodel_repair/formal/OCUniversal/Basic.lean",
+      "proof_summary": "Lean theorem absorption_theorem proves classify C = absorption.",
+      "boundary_note": "Existing repair is no longer a counterexample; it is a first-class OC-U outcome."
+    },
+    {
+      "claim_id": "OCU-027-T003",
+      "claim_kind": "extension",
+      "statement": "If evidence is bound, no same-description repair exists, and an extension repair exists, OC-U classifies the case as extension/new-axis.",
+      "status": "PROVED_UNIVERSAL_METAMODEL_THEOREM",
+      "artifact_ref": "logion/k7/release_missions/oc_core_current/packages/oc_core_1_4/027/oc_universal_metamodel_repair/formal/OCUniversal/Basic.lean",
+      "proof_summary": "Lean theorem extension_necessity_theorem proves classify C = extension.",
+      "boundary_note": "Dimension birth is conditional on no same repair and available extension."
+    },
+    {
+      "claim_id": "OCU-027-T004",
+      "claim_kind": "collapse",
+      "statement": "If evidence is bound, no same repair exists, no extension exists, and invariant failure is declared, OC-U classifies the case as collapse.",
+      "status": "PROVED_UNIVERSAL_METAMODEL_THEOREM",
+      "artifact_ref": "logion/k7/release_missions/oc_core_current/packages/oc_core_1_4/027/oc_universal_metamodel_repair/formal/OCUniversal/Basic.lean",
+      "proof_summary": "Lean theorem collapse_theorem proves classify C = collapse.",
+      "boundary_note": "Collapse requires declared invariant failure."
+    },
+    {
+      "claim_id": "OCU-027-T005",
+      "claim_kind": "underdetermination",
+      "statement": "If evidence is missing, or no repair/extension/failure has been established, OC-U classifies the case as underdetermined.",
+      "status": "PROVED_UNIVERSAL_METAMODEL_THEOREM",
+      "artifact_ref": "logion/k7/release_missions/oc_core_current/packages/oc_core_1_4/027/oc_universal_metamodel_repair/formal/OCUniversal/Basic.lean",
+      "proof_summary": "Lean theorems underdetermined_without_evidence and underdetermined_open_invariant prove underdetermination cases.",
+      "boundary_note": "Out-of-scope is a formal status, not a hidden failure."
+    },
+    {
+      "claim_id": "OCU-027-T006",
+      "claim_kind": "total_taxonomy",
+      "statement": "For every StressContext, classify returns absorption, extension, collapse, or underdetermined.",
+      "status": "PROVED_UNIVERSAL_METAMODEL_THEOREM",
+      "artifact_ref": "logion/k7/release_missions/oc_core_current/packages/oc_core_1_4/027/oc_universal_metamodel_repair/formal/OCUniversal/Basic.lean",
+      "proof_summary": "Lean theorem total_stress_response_taxonomy proves the four-response classifier is total.",
+      "boundary_note": "This is the repaired universal metamodel theorem."
+    },
+    {
+      "claim_id": "OCU-027-T007",
+      "claim_kind": "projection_non_inflation",
+      "statement": "Core projection signature alone cannot inflate into domain validation without local instantiation.",
+      "status": "PROVED_UNIVERSAL_METAMODEL_THEOREM",
+      "artifact_ref": "logion/k7/release_missions/oc_core_current/packages/oc_core_1_4/027/oc_universal_metamodel_repair/formal/OCUniversal/Basic.lean",
+      "proof_summary": "Lean theorem projection_non_inflation and core_signature_alone_not_validation separate core signature from domain validation.",
+      "boundary_note": "Domain truth requires local instantiation evidence."
+    },
+    {
+      "claim_id": "OCU-027-R001",
+      "claim_kind": "old_formulation_refutation",
+      "statement": "The old two-outcome universal fork is incomplete.",
+      "status": "REFUTED_OLD_FORMULATION",
+      "artifact_ref": "logion/k7/release_missions/oc_core_current/packages/oc_core_1_4/027/oc_universal_metamodel_repair/formal/ocu_python_witnesses.py",
+      "proof_summary": "Python witness shows absorption is a valid OC-U outcome that is neither extension nor collapse.",
+      "boundary_note": "Do not reuse old fork as central claim."
+    },
+    {
+      "claim_id": "OCU-027-D001",
+      "claim_kind": "domain_gate",
+      "statement": "Real-domain truth requires local observables, constraints, operators, invariants, and evidence bindings.",
+      "status": "DOMAIN_INSTANTIATION_REQUIRED",
+      "artifact_ref": "logion/k7/release_missions/oc_core_current/packages/oc_core_1_4/027/oc_universal_metamodel_repair/formal/ocu_python_witnesses.py",
+      "proof_summary": "Python witness shows an uninstantiated domain case classifies as underdetermined and is not projection-validated.",
+      "boundary_note": "OC-U is universal metamodel, not automatic empirical validation."
+    }
+  ]
+}

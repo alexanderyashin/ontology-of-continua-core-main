@@ -1,0 +1,82 @@
+{
+  "schema_id": "OC_CORE_1_4_PUBLIC_SCIENCE_SPOT_TABLE_EXPORT_v1",
+  "package_id": "031",
+  "source_db": "logion/k7/release_missions/oc_core_current/packages/oc_core_1_4/031/evidence_operationalization/oc_evidence_operationalization_031.sqlite",
+  "source_db_sha256": "8d8409423b3c79c23b89a33b91428910522954b8d2e66911e0b0c57eec38443c",
+  "table": "domain_evidence",
+  "row_total": 5,
+  "columns": [
+    "domain_id",
+    "replay_status",
+    "validation_status",
+    "completion_status",
+    "claim_level",
+    "claim_ceiling",
+    "blocking_total",
+    "evidence_ref_total",
+    "acceptance_criterion",
+    "falsifier_specification"
+  ],
+  "rows": [
+    {
+      "domain_id": "MATHEMATICS",
+      "replay_status": "PASS_REPLAYABLE",
+      "validation_status": "PASS",
+      "completion_status": "PASS",
+      "claim_level": "descriptive_only",
+      "claim_ceiling": "PROOF_EXPANSION_ONLY_NO_EMPIRICAL_CLAIM",
+      "blocking_total": 0,
+      "evidence_ref_total": 13,
+      "acceptance_criterion": "No replay divergence and no surviving counterexample against the promoted packet.",
+      "falsifier_specification": "A single replay divergence or surviving counterexample collapses promotion for the affected packet."
+    },
+    {
+      "domain_id": "PHYSICS",
+      "replay_status": "PASS_REPLAYABLE",
+      "validation_status": "PASS",
+      "completion_status": "PASS",
+      "claim_level": "validated_predictive",
+      "claim_ceiling": "QUANTITATIVE_PACKET_READY_NO_SEND",
+      "blocking_total": 0,
+      "evidence_ref_total": 13,
+      "acceptance_criterion": "Held-out residuals stay inside the declared tolerance band for every promoted benchmark family.",
+      "falsifier_specification": "Any benchmark family with residuals outside tolerance or with broken sign/order constraints falsifies the promoted packet."
+    },
+    {
+      "domain_id": "CHEMISTRY",
+      "replay_status": "PASS_REPLAYABLE",
+      "validation_status": "PASS",
+      "completion_status": "PASS",
+      "claim_level": "validated_predictive",
+      "claim_ceiling": "QUANTITATIVE_PACKET_READY_NO_SEND",
+      "blocking_total": 0,
+      "evidence_ref_total": 13,
+      "acceptance_criterion": "Declared chemistry benchmark families pass the tolerance envelope on held-out compounds or reactions.",
+      "falsifier_specification": "A held-out thermochemical, spectral, or kinetic family outside tolerance collapses the promoted chemistry packet."
+    },
+    {
+      "domain_id": "BIOLOGY",
+      "replay_status": "PASS_REPLAYABLE",
+      "validation_status": "PASS",
+      "completion_status": "PASS",
+      "claim_level": "validated_predictive",
+      "claim_ceiling": "QUANTITATIVE_PACKET_READY_NO_SEND",
+      "blocking_total": 0,
+      "evidence_ref_total": 13,
+      "acceptance_criterion": "The promoted biological packet reproduces the declared measurable signatures on held-out datasets without widening the claim boundary.",
+      "falsifier_specification": "If the bounded signature family fails on held-out datasets, the biological packet remains frontier-bound."
+    },
+    {
+      "domain_id": "SYSTEMS_CIVILIZATIONAL_PROJECTION",
+      "replay_status": "PASS_REPLAYABLE",
+      "validation_status": "PASS",
+      "completion_status": "PASS",
+      "claim_level": "validated_predictive",
+      "claim_ceiling": "QUANTITATIVE_PACKET_READY_NO_SEND",
+      "blocking_total": 0,
+      "evidence_ref_total": 13,
+      "acceptance_criterion": "Declared trajectory and regime-change observables remain inside tolerance on held-out intervals.",
+      "falsifier_specification": "A missed turning point or out-of-band held-out trajectory falsifies the promoted systems packet."
+    }
+  ]
+}
