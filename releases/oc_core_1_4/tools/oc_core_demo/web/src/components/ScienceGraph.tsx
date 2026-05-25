@@ -1,6 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from "react";
-import Graph from "graphology";
-import Sigma from "sigma";
+import { useEffect, useMemo, useState } from "react";
 import type { GraphNode, ScienceGraph as ScienceGraphData } from "../types";
 import { Canvas3D } from "./Canvas3D";
 
@@ -56,8 +54,6 @@ export function ScienceGraph({
   query: string;
   onQuery: (value: string) => void;
 } & ScienceGraphCrossLinks) {
-  const sigmaContainerRef = useRef<HTMLDivElement | null>(null);
-  const sigmaRef = useRef<Sigma | null>(null);
   const [layer, setLayer] = useState("all");
   const [relation, setRelation] = useState("all");
   const [selected, setSelected] = useState(graph.nodes[0]?.id ?? "");
@@ -121,32 +117,77 @@ export function ScienceGraph({
     return filteredEdges.filter((edge) => edge.source === selected || edge.target === selected).map((edge) => (edge.source === selected ? edge.target : edge.source)).slice(0, 16);
   }, [filteredEdges, selected]);
 
-  useEffect(() => {
-    if (!show2d || !sigmaContainerRef.current) return;
-    const g = new Graph();
-    const allowed = new Set(filteredNodes.map((node) => node.id));
-    for (const node of filteredNodes) {
-      g.addNode(node.id, {
-        label: node.label,
-        x: node.x,
-        y: node.y,
-        size: node.size,
-        color: COLORS[node.layer ?? node.cluster] ?? "#64748b"
-      });
-    }
-    for (const edge of filteredEdges) {
-      if (allowed.has(edge.source) && allowed.has(edge.target) && !g.hasEdge(edge.id)) {
-        g.addEdgeWithKey(edge.id, edge.source, edge.target, { label: edge.relation, color: edge.relation === "collapse_path" ? "#dc2626" : "#cbd5e1", size: edge.weight ?? 1 });
-      }
-    }
-    sigmaRef.current?.kill();
-    sigmaRef.current = new Sigma(g, sigmaContainerRef.current, { renderEdgeLabels: false, allowInvalidContainer: true });
-    sigmaRef.current.on("clickNode", (event) => setSelected(event.node));
-    return () => {
-      sigmaRef.current?.kill();
-      sigmaRef.current = null;
+  const fallback2d = useMemo(() => {
+    const visibleNodes = filteredNodes.slice(0, 80);
+    const allowed = new Set(visibleNodes.map((node) => node.id));
+    const visibleEdges = filteredEdges.filter((edge) => allowed.has(edge.source) && allowed.has(edge.target)).slice(0, 140);
+    const xs = visibleNodes.map((node) => typeof node.x === "number" && Number.isFinite(node.x) ? node.x : 0);
+    const ys = visibleNodes.map((node) => typeof node.y === "number" && Number.isFinite(node.y) ? node.y : 0);
+    const minX = Math.min(...xs, -1);
+    const maxX = Math.max(...xs, 1);
+    const minY = Math.min(...ys, -1);
+    const maxY = Math.max(...ys, 1);
+    const spanX = Math.max(0.001, maxX - minX);
+    const spanY = Math.max(0.001, maxY - minY);
+    const point = (nodeId: string) => {
+      const node = visibleNodes.find((item) => item.id === nodeId);
+      const x = node && typeof node.x === "number" && Number.isFinite(node.x) ? node.x : 0;
+      const y = node && typeof node.y === "number" && Number.isFinite(node.y) ? node.y : 0;
+      return {
+        x: 50 + ((x - minX) / spanX) * 900,
+        y: 50 + ((y - minY) / spanY) * 560
+      };
     };
-  }, [show2d, filteredNodes, filteredEdges]);
+    return { visibleNodes, visibleEdges, point };
+  }, [filteredEdges, filteredNodes]);
+
+  const render2dFallback = () => (
+    <div className="graph-canvas graph-2d-fallback" data-testid="science-graph-canvas">
+      <svg className="planar-graph" viewBox="0 0 1000 660" role="img" aria-label="2D science graph fallback">
+        {fallback2d.visibleEdges.map((edge) => {
+          const source = fallback2d.point(edge.source);
+          const target = fallback2d.point(edge.target);
+          return (
+            <line
+              key={edge.id}
+              className={`planar-edge ${edge.relation === "collapse_path" ? "critical" : ""}`}
+              x1={source.x}
+              y1={source.y}
+              x2={target.x}
+              y2={target.y}
+            />
+          );
+        })}
+        {fallback2d.visibleNodes.map((node) => {
+          const point = fallback2d.point(node.id);
+          const label = node.semantic_label ?? node.technical_label ?? node.label ?? node.id;
+          return (
+            <g
+              key={node.id}
+              className={`planar-node ${node.id === selected ? "selected" : ""}`}
+              onClick={() => setSelected(node.id)}
+              tabIndex={0}
+              role="button"
+              aria-label={`Select ${label}`}
+              onKeyDown={(event) => {
+                if (event.key === "Enter" || event.key === " ") {
+                  event.preventDefault();
+                  setSelected(node.id);
+                }
+              }}
+            >
+              <circle cx={point.x} cy={point.y} r={Math.max(7, Math.min(18, node.size ?? 8))} fill={COLORS[node.layer ?? node.cluster] ?? "#64748b"} />
+              <text x={point.x + 12} y={point.y + 4}>{label}</text>
+            </g>
+          );
+        })}
+      </svg>
+      <div className="graph-2d-summary">
+        <span><strong>{fallback2d.visibleNodes.length}</strong> nodes shown</span>
+        <span><strong>{fallback2d.visibleEdges.length}</strong> edges shown</span>
+      </div>
+    </div>
+  );
 
   return (
     <section className="view-grid graph-view" data-testid="graph-surface">
@@ -161,7 +202,7 @@ export function ScienceGraph({
           <option value="all">All edge types</option>
           {Object.keys(graph.summary.relation_counts).map((item) => <option key={item} value={item}>{item}</option>)}
         </select>
-        <button className="command secondary-command" onClick={() => setShow2d((value) => !value)}>{show2d ? "Hide" : "Show"} Sigma 2D fallback</button>
+        <button className="command secondary-command" onClick={() => setShow2d((value) => !value)}>{show2d ? "Hide" : "Show"} 2D fallback</button>
         <button className="command secondary-command" onClick={() => setSelected(graph.nodes.find((node) => node.layer === "root_principle")?.id ?? graph.nodes[0]?.id ?? "")}>Root principle</button>
         <div className="legend">
           {Object.entries(layerCounts).map(([name, count]) => (
@@ -218,7 +259,7 @@ export function ScienceGraph({
           highlight={[...selectedLinks, ...rootPath]}
           testId="science-graph-3d-canvas"
         />
-        {show2d && <div className="graph-canvas sigma-fallback" ref={sigmaContainerRef} data-testid="science-graph-canvas" />}
+        {show2d && render2dFallback()}
         <div className="detail-panel">
           <h3 data-testid="graph-selected-semantic-label">{selectedLabel}</h3>
           <p>{selectedNode?.statement_excerpt || "Route node for proof/evidence or simulation surface."}</p>

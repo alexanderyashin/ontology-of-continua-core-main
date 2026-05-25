@@ -1,8 +1,9 @@
 import { defineConfig, devices } from "@playwright/test";
 
-const systemBrowser =
-  process.env.PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH ||
-  "C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe";
+const chromiumExecutablePath = process.env.PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH;
+const chromiumLaunchOptions = chromiumExecutablePath
+  ? { executablePath: chromiumExecutablePath }
+  : undefined;
 
 export default defineConfig({
   testDir: "./tests/e2e",
@@ -14,12 +15,11 @@ export default defineConfig({
   },
   use: {
     baseURL: "http://127.0.0.1:5174",
-    trace: "retain-on-failure",
-    launchOptions: {
-      executablePath: systemBrowser
-    }
+    trace: "retain-on-failure"
   },
   projects: [
-    { name: "chromium", use: { ...devices["Desktop Chrome"] } }
+    { name: "chromium", use: { ...devices["Desktop Chrome"], launchOptions: chromiumLaunchOptions } },
+    { name: "firefox", use: { ...devices["Desktop Firefox"] } },
+    { name: "webkit", use: { ...devices["Desktop Safari"] } }
   ]
 });

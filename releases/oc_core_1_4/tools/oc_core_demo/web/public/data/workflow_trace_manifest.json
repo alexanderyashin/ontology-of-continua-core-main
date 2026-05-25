@@ -1,0 +1,2921 @@
+{
+  "schema_version": "oc-core-demo-workflow-trace.v010",
+  "demo_version": "V010",
+  "release_ordinal": "010",
+  "status": "PASS",
+  "row_total": 99,
+  "failure_total": 0,
+  "count_reconciliation": {
+    "row_total_matches_rows_length": true,
+    "failure_total_matches_failing_actions_length": true
+  },
+  "failing_actions": [],
+  "rows": [
+    {
+      "workflow": "cockpit",
+      "action": "cockpit:first-viewport-contract",
+      "pre_state_hash": "4036ba9ac97c9ae4485be10214a56f7d5f2cc9b0ba12c0e1858c5fcd424d4e87",
+      "post_state_hash": "4036ba9ac97c9ae4485be10214a56f7d5f2cc9b0ba12c0e1858c5fcd424d4e87",
+      "state_changed": false,
+      "target_heading": "Test and improve a complex system before it breaks",
+      "expected_visible_result": "First viewport visibly answers what this is, why it matters, the first move, and the bounded evaluation path.",
+      "content_assertions": [
+        "what-is-this-contract visible",
+        "first-action-example visible",
+        "first-move-copy visible",
+        "why-care-copy visible",
+        "three-minute-decision-copy visible",
+        "bounded-evaluation-cta visible",
+        "not a proof oracle",
+        "No upload, purchase, or proof claim"
+      ],
+      "semantic_assertions": [
+        "plain_answer_before_any_user_action",
+        "why_care_before_deep_navigation",
+        "bounded_evaluation_cta_visible"
+      ],
+      "assertion": "PASS"
+    },
+    {
+      "workflow": "cockpit",
+      "action": "cockpit:first-primary-cta",
+      "pre_state_hash": "4036ba9ac97c9ae4485be10214a56f7d5f2cc9b0ba12c0e1858c5fcd424d4e87",
+      "post_state_hash": "454f8b92f4768f25dc105718ab57fb2660a9c50a3b1f13bb16511141c37505b9",
+      "state_changed": true,
+      "target_heading": "Diagnose a system, break it, repair it, compare the result",
+      "expected_visible_result": "cockpit:first-primary-cta produces visible result at Diagnose a system, break it, repair it, compare the result",
+      "content_assertions": [
+        "heading:Diagnose a system, break it, repair it, compare the result",
+        "state_hash_changed"
+      ],
+      "semantic_assertions": [
+        "target_heading:Diagnose a system, break it, repair it, compare the result",
+        "state_hash_changed"
+      ],
+      "assertion": "PASS"
+    },
+    {
+      "workflow": "cockpit",
+      "action": "cockpit:first-clickable-example:civilization",
+      "pre_state_hash": "454f8b92f4768f25dc105718ab57fb2660a9c50a3b1f13bb16511141c37505b9",
+      "post_state_hash": "4d039d745a90a623ae2f5e2a0dfb3825b018d4c10151385e94ca81b9fa3cba6c",
+      "state_changed": true,
+      "target_heading": "Cascade Lab",
+      "expected_visible_result": "cockpit:first-clickable-example:civilization produces visible result at Cascade Lab",
+      "content_assertions": [
+        "heading:Cascade Lab",
+        "state_hash_changed",
+        "template_selected:Civilizational Continuum"
+      ],
+      "semantic_assertions": [
+        "target_heading:Cascade Lab",
+        "state_hash_changed"
+      ],
+      "assertion": "PASS",
+      "selected_state": {
+        "system_id": "civilization",
+        "template_id": "civilization",
+        "selected_kill_mode": "weakest",
+        "export_packet_state": "visible",
+        "export_preview_fields": "template_hash, topology_hash, result_hash_basis"
+      }
+    },
+    {
+      "workflow": "cockpit",
+      "action": "cockpit:mobile-first-decision-proof",
+      "pre_state_hash": "4036ba9ac97c9ae4485be10214a56f7d5f2cc9b0ba12c0e1858c5fcd424d4e87",
+      "post_state_hash": "4036ba9ac97c9ae4485be10214a56f7d5f2cc9b0ba12c0e1858c5fcd424d4e87",
+      "state_changed": false,
+      "target_heading": "Test and improve a complex system before it breaks",
+      "expected_visible_result": "Mobile first viewport at 390x844 keeps plain answer, why-care, first move, bounded CTA and nonclaim copy visible.",
+      "content_assertions": [
+        "mobile viewport 390x844",
+        "plain answer visible",
+        "example action visible",
+        "why-care visible",
+        "first move visible",
+        "bounded CTA visible",
+        "no horizontal overflow"
+      ],
+      "semantic_assertions": [
+        "mobile_first_decision_proof_not_loading_state"
+      ],
+      "assertion": "PASS"
+    },
+    {
+      "workflow": "workbench",
+      "action": "workbench:diagnose",
+      "pre_state_hash": "f352290e9148be293bc93e7941e0fb522c294a1f0299f3c04f224a64eef8f53c",
+      "post_state_hash": "94f61ad6ef5c72ffdc95c61e77a0e5f809d63d0ebf42ae0bd0d17990d532e55e",
+      "state_changed": true,
+      "target_heading": "Diagnose a system, break it, repair it, compare the result",
+      "expected_visible_result": "workbench:diagnose produces visible result at Diagnose a system, break it, repair it, compare the result",
+      "content_assertions": [
+        "heading:Diagnose a system, break it, repair it, compare the result",
+        "state_hash_changed",
+        "selected_template_visible",
+        "baseline_metrics_visible",
+        "after_metrics_visible",
+        "delta_visible",
+        "changed_assumption_visible",
+        "result_hash_visible",
+        "nonclaim_boundary_visible"
+      ],
+      "semantic_assertions": [
+        "target_heading:Diagnose a system, break it, repair it, compare the result",
+        "state_hash_changed",
+        "scientific_workbench_step_not_button_only",
+        "diagnose_kill_improve_compare_export_context_preserved"
+      ],
+      "assertion": "PASS",
+      "selected_state": {
+        "template": "visible selected template",
+        "truth_mode": "visible trust mode",
+        "hash_basis": "template + action sequence + boundary"
+      }
+    },
+    {
+      "workflow": "workbench",
+      "action": "workbench:kill",
+      "pre_state_hash": "94f61ad6ef5c72ffdc95c61e77a0e5f809d63d0ebf42ae0bd0d17990d532e55e",
+      "post_state_hash": "9244f198bec709771b728c7817330a27ed2ff80c469949ffd5cb8827bcefa166",
+      "state_changed": true,
+      "target_heading": "Diagnose a system, break it, repair it, compare the result",
+      "expected_visible_result": "workbench:kill produces visible result at Diagnose a system, break it, repair it, compare the result",
+      "content_assertions": [
+        "heading:Diagnose a system, break it, repair it, compare the result",
+        "state_hash_changed",
+        "selected_template_visible",
+        "baseline_metrics_visible",
+        "after_metrics_visible",
+        "delta_visible",
+        "changed_assumption_visible",
+        "result_hash_visible",
+        "nonclaim_boundary_visible"
+      ],
+      "semantic_assertions": [
+        "target_heading:Diagnose a system, break it, repair it, compare the result",
+        "state_hash_changed",
+        "scientific_workbench_step_not_button_only",
+        "diagnose_kill_improve_compare_export_context_preserved"
+      ],
+      "assertion": "PASS",
+      "selected_state": {
+        "template": "visible selected template",
+        "truth_mode": "visible trust mode",
+        "hash_basis": "template + action sequence + boundary"
+      }
+    },
+    {
+      "workflow": "workbench",
+      "action": "workbench:improve",
+      "pre_state_hash": "9244f198bec709771b728c7817330a27ed2ff80c469949ffd5cb8827bcefa166",
+      "post_state_hash": "c02a964448684feca0e62f5c8f0be94c1ef1d67547afef1e439a98cac97b7c18",
+      "state_changed": true,
+      "target_heading": "Diagnose a system, break it, repair it, compare the result",
+      "expected_visible_result": "workbench:improve produces visible result at Diagnose a system, break it, repair it, compare the result",
+      "content_assertions": [
+        "heading:Diagnose a system, break it, repair it, compare the result",
+        "state_hash_changed",
+        "selected_template_visible",
+        "baseline_metrics_visible",
+        "after_metrics_visible",
+        "delta_visible",
+        "changed_assumption_visible",
+        "result_hash_visible",
+        "nonclaim_boundary_visible"
+      ],
+      "semantic_assertions": [
+        "target_heading:Diagnose a system, break it, repair it, compare the result",
+        "state_hash_changed",
+        "scientific_workbench_step_not_button_only",
+        "diagnose_kill_improve_compare_export_context_preserved"
+      ],
+      "assertion": "PASS",
+      "selected_state": {
+        "template": "visible selected template",
+        "truth_mode": "visible trust mode",
+        "hash_basis": "template + action sequence + boundary"
+      }
+    },
+    {
+      "workflow": "workbench",
+      "action": "workbench:compare",
+      "pre_state_hash": "c02a964448684feca0e62f5c8f0be94c1ef1d67547afef1e439a98cac97b7c18",
+      "post_state_hash": "f0c7eb41695bae6c6f345367902b0052a2b331fd91215fe33777edea7296e092",
+      "state_changed": true,
+      "target_heading": "Diagnose a system, break it, repair it, compare the result",
+      "expected_visible_result": "workbench:compare produces visible result at Diagnose a system, break it, repair it, compare the result",
+      "content_assertions": [
+        "heading:Diagnose a system, break it, repair it, compare the result",
+        "state_hash_changed",
+        "selected_template_visible",
+        "baseline_metrics_visible",
+        "after_metrics_visible",
+        "delta_visible",
+        "changed_assumption_visible",
+        "result_hash_visible",
+        "nonclaim_boundary_visible"
+      ],
+      "semantic_assertions": [
+        "target_heading:Diagnose a system, break it, repair it, compare the result",
+        "state_hash_changed",
+        "scientific_workbench_step_not_button_only",
+        "diagnose_kill_improve_compare_export_context_preserved"
+      ],
+      "assertion": "PASS",
+      "selected_state": {
+        "template": "visible selected template",
+        "truth_mode": "visible trust mode",
+        "hash_basis": "template + action sequence + boundary"
+      }
+    },
+    {
+      "workflow": "workbench",
+      "action": "workbench:export",
+      "pre_state_hash": "f0c7eb41695bae6c6f345367902b0052a2b331fd91215fe33777edea7296e092",
+      "post_state_hash": "a89db3a3973f571e8b5e49a599ac3cdd717ac54acb4e2dcd9fc03577f98dd9ba",
+      "state_changed": true,
+      "target_heading": "Diagnose a system, break it, repair it, compare the result",
+      "expected_visible_result": "workbench:export produces visible result at Diagnose a system, break it, repair it, compare the result",
+      "content_assertions": [
+        "heading:Diagnose a system, break it, repair it, compare the result",
+        "state_hash_changed",
+        "selected_template_visible",
+        "baseline_metrics_visible",
+        "after_metrics_visible",
+        "delta_visible",
+        "changed_assumption_visible",
+        "result_hash_visible",
+        "nonclaim_boundary_visible"
+      ],
+      "semantic_assertions": [
+        "target_heading:Diagnose a system, break it, repair it, compare the result",
+        "state_hash_changed",
+        "scientific_workbench_step_not_button_only",
+        "diagnose_kill_improve_compare_export_context_preserved"
+      ],
+      "assertion": "PASS",
+      "selected_state": {
+        "template": "visible selected template",
+        "truth_mode": "visible trust mode",
+        "hash_basis": "template + action sequence + boundary"
+      }
+    },
+    {
+      "workflow": "architect_end_to_end",
+      "action": "diagnose->kill->improve->compare->export",
+      "pre_state_hash": "f352290e9148be293bc93e7941e0fb522c294a1f0299f3c04f224a64eef8f53c",
+      "post_state_hash": "a89db3a3973f571e8b5e49a599ac3cdd717ac54acb4e2dcd9fc03577f98dd9ba",
+      "state_changed": true,
+      "target_heading": "Diagnose a system, break it, repair it, compare the result",
+      "expected_visible_result": "One continuous selected-template session reaches export with previous-result context and deterministic hash.",
+      "content_assertions": [
+        "current_step_marker_visible",
+        "same_template_context",
+        "before_after_summary_visible",
+        "export_summary_visible"
+      ],
+      "semantic_assertions": [
+        "continuous_architect_session",
+        "export_contains_previous_result_context",
+        "deterministic_hash_visible"
+      ],
+      "assertion": "PASS"
+    },
+    {
+      "workflow": "workbench",
+      "action": "workbench:diagnose-rupture",
+      "pre_state_hash": "a89db3a3973f571e8b5e49a599ac3cdd717ac54acb4e2dcd9fc03577f98dd9ba",
+      "post_state_hash": "e67d952456407bb3eae75404c7cfb2c1b74fa0c3d37dfcab00a66bd3ebf83138",
+      "state_changed": true,
+      "target_heading": "Diagnose a system, break it, repair it, compare the result",
+      "expected_visible_result": "workbench:diagnose-rupture produces visible result at Diagnose a system, break it, repair it, compare the result",
+      "content_assertions": [
+        "heading:Diagnose a system, break it, repair it, compare the result",
+        "state_hash_changed"
+      ],
+      "semantic_assertions": [
+        "target_heading:Diagnose a system, break it, repair it, compare the result",
+        "state_hash_changed"
+      ],
+      "assertion": "PASS"
+    },
+    {
+      "workflow": "cascade",
+      "action": "cascade:kill",
+      "pre_state_hash": "959d016fb1b5548d1de29cdf8e8405d4723332f3d398f0286fa88148de906881",
+      "post_state_hash": "26e6a50d480801ad21d795fbce7e674257126a246857bd8b1d3679b5acf2b968",
+      "state_changed": true,
+      "target_heading": "Cascade Lab",
+      "expected_visible_result": "cascade:kill produces visible result at Cascade Lab",
+      "content_assertions": [
+        "heading:Cascade Lab",
+        "state_hash_changed",
+        "cascade_metric_provenance_visible",
+        "OCF-006 propagation visible",
+        "OCF-007 connectivity loss visible",
+        "OCF-008 flow rupture visible",
+        "OCF-009 recovery index visible",
+        "node propagation rows visible",
+        "repeat-run hash verification visible"
+      ],
+      "semantic_assertions": [
+        "target_heading:Cascade Lab",
+        "state_hash_changed",
+        "cascade_state_specific_not_heading_only",
+        "formula_bound_metric_calculation",
+        "selected_node_propagation_trace"
+      ],
+      "assertion": "PASS"
+    },
+    {
+      "workflow": "cascade",
+      "action": "cascade:select-system",
+      "pre_state_hash": "26e6a50d480801ad21d795fbce7e674257126a246857bd8b1d3679b5acf2b968",
+      "post_state_hash": "74b732b06e4334552025a5f853fe89a8d68537f2022d17b34ac0bb247b346a26",
+      "state_changed": true,
+      "target_heading": "Cascade Lab",
+      "expected_visible_result": "cascade:select-system produces visible result at Cascade Lab",
+      "content_assertions": [
+        "heading:Cascade Lab",
+        "state_hash_changed",
+        "cascade_metric_provenance_visible",
+        "OCF-006 propagation visible",
+        "OCF-007 connectivity loss visible",
+        "OCF-008 flow rupture visible",
+        "OCF-009 recovery index visible",
+        "node propagation rows visible",
+        "repeat-run hash verification visible"
+      ],
+      "semantic_assertions": [
+        "target_heading:Cascade Lab",
+        "state_hash_changed",
+        "cascade_state_specific_not_heading_only",
+        "formula_bound_metric_calculation",
+        "selected_node_propagation_trace"
+      ],
+      "assertion": "PASS"
+    },
+    {
+      "workflow": "cascade",
+      "action": "cascade:set-selected-node-mode",
+      "pre_state_hash": "74b732b06e4334552025a5f853fe89a8d68537f2022d17b34ac0bb247b346a26",
+      "post_state_hash": "1e9f0cc1c860babf41601878c6d628c9855aead372c778388941146560b37a42",
+      "state_changed": true,
+      "target_heading": "Cascade Lab",
+      "expected_visible_result": "cascade:set-selected-node-mode produces visible result at Cascade Lab",
+      "content_assertions": [
+        "heading:Cascade Lab",
+        "state_hash_changed",
+        "cascade_metric_provenance_visible",
+        "OCF-006 propagation visible",
+        "OCF-007 connectivity loss visible",
+        "OCF-008 flow rupture visible",
+        "OCF-009 recovery index visible",
+        "node propagation rows visible",
+        "repeat-run hash verification visible"
+      ],
+      "semantic_assertions": [
+        "target_heading:Cascade Lab",
+        "state_hash_changed",
+        "cascade_state_specific_not_heading_only",
+        "formula_bound_metric_calculation",
+        "selected_node_propagation_trace"
+      ],
+      "assertion": "PASS"
+    },
+    {
+      "workflow": "cascade",
+      "action": "cascade:choose-kill-node",
+      "pre_state_hash": "1e9f0cc1c860babf41601878c6d628c9855aead372c778388941146560b37a42",
+      "post_state_hash": "2433cc6a019fa652caa5f94a988fd608b8f325465c40113fb65b939fe1174003",
+      "state_changed": true,
+      "target_heading": "Cascade Lab",
+      "expected_visible_result": "cascade:choose-kill-node produces visible result at Cascade Lab",
+      "content_assertions": [
+        "heading:Cascade Lab",
+        "state_hash_changed",
+        "cascade_metric_provenance_visible",
+        "OCF-006 propagation visible",
+        "OCF-007 connectivity loss visible",
+        "OCF-008 flow rupture visible",
+        "OCF-009 recovery index visible",
+        "node propagation rows visible",
+        "repeat-run hash verification visible"
+      ],
+      "semantic_assertions": [
+        "target_heading:Cascade Lab",
+        "state_hash_changed",
+        "cascade_state_specific_not_heading_only",
+        "formula_bound_metric_calculation",
+        "selected_node_propagation_trace"
+      ],
+      "assertion": "PASS"
+    },
+    {
+      "workflow": "cascade",
+      "action": "cascade:speed-animation-only",
+      "pre_state_hash": "2433cc6a019fa652caa5f94a988fd608b8f325465c40113fb65b939fe1174003",
+      "post_state_hash": "2433cc6a019fa652caa5f94a988fd608b8f325465c40113fb65b939fe1174003",
+      "state_changed": false,
+      "target_heading": "Cascade Lab",
+      "expected_visible_result": "cascade:speed-animation-only produces visible result at Cascade Lab",
+      "content_assertions": [
+        "heading:Cascade Lab",
+        "idempotent_visible_result",
+        "cascade_metric_provenance_visible",
+        "OCF-006 propagation visible",
+        "OCF-007 connectivity loss visible",
+        "OCF-008 flow rupture visible",
+        "OCF-009 recovery index visible",
+        "node propagation rows visible",
+        "repeat-run hash verification visible"
+      ],
+      "semantic_assertions": [
+        "target_heading:Cascade Lab",
+        "idempotent_visible_result",
+        "cascade_state_specific_not_heading_only",
+        "formula_bound_metric_calculation",
+        "selected_node_propagation_trace"
+      ],
+      "assertion": "PASS"
+    },
+    {
+      "workflow": "cascade",
+      "action": "cascade:reset-recovery",
+      "pre_state_hash": "2433cc6a019fa652caa5f94a988fd608b8f325465c40113fb65b939fe1174003",
+      "post_state_hash": "b8ec7941d5b39710860bd19845a67e4e678c661586e08178069e6663c5a4d275",
+      "state_changed": true,
+      "target_heading": "Cascade Lab",
+      "expected_visible_result": "cascade:reset-recovery produces visible result at Cascade Lab",
+      "content_assertions": [
+        "heading:Cascade Lab",
+        "state_hash_changed",
+        "cascade_metric_provenance_visible",
+        "OCF-006 propagation visible",
+        "OCF-007 connectivity loss visible",
+        "OCF-008 flow rupture visible",
+        "OCF-009 recovery index visible",
+        "node propagation rows visible",
+        "repeat-run hash verification visible"
+      ],
+      "semantic_assertions": [
+        "target_heading:Cascade Lab",
+        "state_hash_changed",
+        "cascade_state_specific_not_heading_only",
+        "formula_bound_metric_calculation",
+        "selected_node_propagation_trace"
+      ],
+      "assertion": "PASS"
+    },
+    {
+      "workflow": "cascade",
+      "action": "cascade:replay-selected-node",
+      "pre_state_hash": "b8ec7941d5b39710860bd19845a67e4e678c661586e08178069e6663c5a4d275",
+      "post_state_hash": "05be59597c5c1173116c0e63c640c5ff1f92af2c58955068809100b55e21719d",
+      "state_changed": true,
+      "target_heading": "Cascade Lab",
+      "expected_visible_result": "cascade:replay-selected-node produces visible result at Cascade Lab",
+      "content_assertions": [
+        "heading:Cascade Lab",
+        "state_hash_changed",
+        "cascade_metric_provenance_visible",
+        "OCF-006 propagation visible",
+        "OCF-007 connectivity loss visible",
+        "OCF-008 flow rupture visible",
+        "OCF-009 recovery index visible",
+        "node propagation rows visible",
+        "repeat-run hash verification visible"
+      ],
+      "semantic_assertions": [
+        "target_heading:Cascade Lab",
+        "state_hash_changed",
+        "cascade_state_specific_not_heading_only",
+        "formula_bound_metric_calculation",
+        "selected_node_propagation_trace"
+      ],
+      "assertion": "PASS"
+    },
+    {
+      "workflow": "cascade",
+      "action": "cascade:export-contract",
+      "pre_state_hash": "05be59597c5c1173116c0e63c640c5ff1f92af2c58955068809100b55e21719d",
+      "post_state_hash": "d3fe14140d13a2527788ed39c0a595e012aff519048f747e4f158a294b02be8f",
+      "state_changed": true,
+      "target_heading": "Cascade Lab",
+      "expected_visible_result": "cascade:export-contract produces visible result at Cascade Lab",
+      "content_assertions": [
+        "heading:Cascade Lab",
+        "state_hash_changed",
+        "cascade_metric_provenance_visible",
+        "OCF-006 propagation visible",
+        "OCF-007 connectivity loss visible",
+        "OCF-008 flow rupture visible",
+        "OCF-009 recovery index visible",
+        "node propagation rows visible",
+        "repeat-run hash verification visible"
+      ],
+      "semantic_assertions": [
+        "target_heading:Cascade Lab",
+        "state_hash_changed",
+        "cascade_state_specific_not_heading_only",
+        "formula_bound_metric_calculation",
+        "selected_node_propagation_trace"
+      ],
+      "assertion": "PASS"
+    },
+    {
+      "workflow": "practical",
+      "action": "practical:open-all-lanes",
+      "pre_state_hash": "18dc2e2aa08203e5c7136fcdf8cc1677a8e5163de6f87d8a805f6d467f9762da",
+      "post_state_hash": "c45d51bcec4797dea9d05cf90e102fe8c4e92720de0d12485c1ceb64babe8124",
+      "state_changed": true,
+      "target_heading": "Domain Lanes & Benchmarks",
+      "expected_visible_result": "practical:open-all-lanes produces visible result at Domain Lanes & Benchmarks",
+      "content_assertions": [
+        "heading:Domain Lanes & Benchmarks",
+        "state_hash_changed",
+        "baseline visible",
+        "after visible",
+        "delta visible",
+        "changed assumption visible",
+        "mission decision visible",
+        "export artifact visible",
+        "threshold labels visible",
+        "nonclaim boundary visible",
+        "local request packet preview visible",
+        "mission-specific deltas visible",
+        "threshold verdict visible"
+      ],
+      "semantic_assertions": [
+        "target_heading:Domain Lanes & Benchmarks",
+        "state_hash_changed",
+        "practical_value_answer_changes_into_view",
+        "deterministic_next_step_outcome_visible"
+      ],
+      "assertion": "PASS"
+    },
+    {
+      "workflow": "domains",
+      "action": "domains:pass-calibration-output-rows",
+      "pre_state_hash": "c45d51bcec4797dea9d05cf90e102fe8c4e92720de0d12485c1ceb64babe8124",
+      "post_state_hash": "4155e0189a43762988e44c1ba3bdd59837ab13923a77b9c65bf231a50873a601",
+      "state_changed": true,
+      "target_heading": "Domain Lanes & Benchmarks",
+      "expected_visible_result": "domains:pass-calibration-output-rows produces visible result at Domain Lanes & Benchmarks",
+      "content_assertions": [
+        "heading:Domain Lanes & Benchmarks",
+        "state_hash_changed"
+      ],
+      "semantic_assertions": [
+        "target_heading:Domain Lanes & Benchmarks",
+        "state_hash_changed"
+      ],
+      "assertion": "PASS"
+    },
+    {
+      "workflow": "domain_scientist",
+      "action": "domain_scientist:benchmark-to-boundary-export",
+      "pre_state_hash": "e6539b6eba14fbd35cd85d931ea5b2d806bdfa30f0e0c18f7e9d60342ba506fa",
+      "post_state_hash": "70052a069b7a0a8c516b27bc2c622ee73f7d699f854f39619d7885ab36547bd0",
+      "state_changed": true,
+      "target_heading": "Domain Lanes & Benchmarks",
+      "expected_visible_result": "Domain scientist route selects a domain, inspects benchmark output, formula/evidence boundary and exportable nonclaim status.",
+      "content_assertions": [
+        "domain_id visible",
+        "benchmark row visible",
+        "formula ref visible",
+        "evidence/boundary ref visible",
+        "export hash basis visible",
+        "nonclaim boundary visible"
+      ],
+      "semantic_assertions": [
+        "domain_scientist_end_to_end_trace"
+      ],
+      "assertion": "PASS"
+    },
+    {
+      "workflow": "practical",
+      "action": "practical:swap-domain",
+      "pre_state_hash": "18dc2e2aa08203e5c7136fcdf8cc1677a8e5163de6f87d8a805f6d467f9762da",
+      "post_state_hash": "4c40224abfe0ed1637470283384b91fd7dd933c69d070d5fc729d05ed3813b49",
+      "state_changed": true,
+      "target_heading": "Practical Value Surface",
+      "expected_visible_result": "practical:swap-domain produces visible result at Practical Value Surface",
+      "content_assertions": [
+        "heading:Practical Value Surface",
+        "state_hash_changed",
+        "baseline visible",
+        "after visible",
+        "delta visible",
+        "changed assumption visible",
+        "mission decision visible",
+        "export artifact visible",
+        "threshold labels visible",
+        "nonclaim boundary visible",
+        "local request packet preview visible",
+        "mission-specific deltas visible",
+        "threshold verdict visible"
+      ],
+      "semantic_assertions": [
+        "target_heading:Practical Value Surface",
+        "state_hash_changed",
+        "practical_value_answer_changes_into_view",
+        "deterministic_next_step_outcome_visible"
+      ],
+      "assertion": "PASS"
+    },
+    {
+      "workflow": "practical",
+      "action": "practical:persona-detail",
+      "pre_state_hash": "4c40224abfe0ed1637470283384b91fd7dd933c69d070d5fc729d05ed3813b49",
+      "post_state_hash": "55ae0b15ac93a8a42eea6c111299b5df6f5e147c54fb7b3e1452e1b408216434",
+      "state_changed": true,
+      "target_heading": "Practical Value Surface",
+      "expected_visible_result": "practical:persona-detail produces visible result at Practical Value Surface",
+      "content_assertions": [
+        "heading:Practical Value Surface",
+        "state_hash_changed",
+        "baseline visible",
+        "after visible",
+        "delta visible",
+        "changed assumption visible",
+        "mission decision visible",
+        "export artifact visible",
+        "threshold labels visible",
+        "nonclaim boundary visible",
+        "local request packet preview visible",
+        "mission-specific deltas visible",
+        "threshold verdict visible"
+      ],
+      "semantic_assertions": [
+        "target_heading:Practical Value Surface",
+        "state_hash_changed",
+        "practical_value_answer_changes_into_view",
+        "deterministic_next_step_outcome_visible"
+      ],
+      "assertion": "PASS"
+    },
+    {
+      "workflow": "practical",
+      "action": "practical:before-after",
+      "pre_state_hash": "55ae0b15ac93a8a42eea6c111299b5df6f5e147c54fb7b3e1452e1b408216434",
+      "post_state_hash": "5c94003db84ed235fbb6e1c09ee2cefdf94c72a69a4474c04b03373b6e8ecd77",
+      "state_changed": true,
+      "target_heading": "Practical Value Surface",
+      "expected_visible_result": "practical:before-after produces visible result at Practical Value Surface",
+      "content_assertions": [
+        "heading:Practical Value Surface",
+        "state_hash_changed",
+        "baseline visible",
+        "after visible",
+        "delta visible",
+        "changed assumption visible",
+        "mission decision visible",
+        "export artifact visible",
+        "threshold labels visible",
+        "nonclaim boundary visible",
+        "local request packet preview visible",
+        "mission-specific deltas visible",
+        "threshold verdict visible"
+      ],
+      "semantic_assertions": [
+        "target_heading:Practical Value Surface",
+        "state_hash_changed",
+        "practical_value_answer_changes_into_view",
+        "deterministic_next_step_outcome_visible"
+      ],
+      "assertion": "PASS"
+    },
+    {
+      "workflow": "practical",
+      "action": "practical:mission-outcome",
+      "pre_state_hash": "5c94003db84ed235fbb6e1c09ee2cefdf94c72a69a4474c04b03373b6e8ecd77",
+      "post_state_hash": "0c58ba1dfbf8e98c29a06f30c36f2b6957f5f74f9464a9ba1947ea64d6b9387c",
+      "state_changed": true,
+      "target_heading": "Practical Value Surface",
+      "expected_visible_result": "practical:mission-outcome produces visible result at Practical Value Surface",
+      "content_assertions": [
+        "heading:Practical Value Surface",
+        "state_hash_changed",
+        "baseline visible",
+        "after visible",
+        "delta visible",
+        "changed assumption visible",
+        "mission decision visible",
+        "export artifact visible",
+        "threshold labels visible",
+        "nonclaim boundary visible",
+        "local request packet preview visible",
+        "mission-specific deltas visible",
+        "threshold verdict visible"
+      ],
+      "semantic_assertions": [
+        "target_heading:Practical Value Surface",
+        "state_hash_changed",
+        "practical_value_answer_changes_into_view",
+        "deterministic_next_step_outcome_visible"
+      ],
+      "assertion": "PASS"
+    },
+    {
+      "workflow": "practical",
+      "action": "practical:threshold-and-export-preview",
+      "pre_state_hash": "0c58ba1dfbf8e98c29a06f30c36f2b6957f5f74f9464a9ba1947ea64d6b9387c",
+      "post_state_hash": "19d2c5c3c6321ed6e2839d8d7be706fe82123fc7e9b0b1f233ebfc626e188c6b",
+      "state_changed": true,
+      "target_heading": "Practical Value Surface",
+      "expected_visible_result": "practical:threshold-and-export-preview produces visible result at Practical Value Surface",
+      "content_assertions": [
+        "heading:Practical Value Surface",
+        "state_hash_changed",
+        "baseline visible",
+        "after visible",
+        "delta visible",
+        "changed assumption visible",
+        "mission decision visible",
+        "export artifact visible",
+        "threshold labels visible",
+        "nonclaim boundary visible",
+        "local request packet preview visible",
+        "mission-specific deltas visible",
+        "threshold verdict visible"
+      ],
+      "semantic_assertions": [
+        "target_heading:Practical Value Surface",
+        "state_hash_changed",
+        "practical_value_answer_changes_into_view",
+        "deterministic_next_step_outcome_visible"
+      ],
+      "assertion": "PASS"
+    },
+    {
+      "workflow": "architect_end_to_end",
+      "action": "architect_end_to_end:system-architect::primitive-distinction::diagnostic-loop",
+      "pre_state_hash": "4fe8a1677c68c35270667bf9340d6b651b794a87bc5f89fa25548af13512de70",
+      "post_state_hash": "0006ada404c2b3d6604ec49d53b5ea5e8a543563a1c438505ef45752482d3b1e",
+      "state_changed": true,
+      "target_heading": "Practical Value Surface",
+      "expected_visible_result": "Per-mission continuous workflow trace preserves same template context and export summary.",
+      "content_assertions": [
+        "mission_id:system-architect::primitive-distinction::diagnostic-loop",
+        "evaluated_status:EARNED_LOCAL_FOLLOW_UP",
+        "same_template_context",
+        "export_summary_visible",
+        "metric_deltas_visible",
+        "bounded_next_step_visible"
+      ],
+      "semantic_assertions": [
+        "per_mission_architect_end_to_end_trace",
+        "fixture_bounded_or_distinct_metric_payload"
+      ],
+      "assertion": "PASS"
+    },
+    {
+      "workflow": "architect_end_to_end",
+      "action": "architect_end_to_end:system-architect::physical-phase::diagnostic-loop",
+      "pre_state_hash": "912cd69d6a93e0f3db2dcfd46e8dc998afb91bf0ae34d5f7391f34b1d7eb5395",
+      "post_state_hash": "53320e6f6f10b0004ed5a9ee30e2f935196d91b84f75937c6acb28a8600fc575",
+      "state_changed": true,
+      "target_heading": "Practical Value Surface",
+      "expected_visible_result": "Per-mission continuous workflow trace preserves same template context and export summary.",
+      "content_assertions": [
+        "mission_id:system-architect::physical-phase::diagnostic-loop",
+        "evaluated_status:EARNED_LOCAL_FOLLOW_UP",
+        "same_template_context",
+        "export_summary_visible",
+        "metric_deltas_visible",
+        "bounded_next_step_visible"
+      ],
+      "semantic_assertions": [
+        "per_mission_architect_end_to_end_trace",
+        "fixture_bounded_or_distinct_metric_payload"
+      ],
+      "assertion": "PASS"
+    },
+    {
+      "workflow": "architect_end_to_end",
+      "action": "architect_end_to_end:system-architect::prebiotic-chemistry::diagnostic-loop",
+      "pre_state_hash": "47635b12c0a66268278bf7250b20011f202a85a999967ee1ab647d627eabec8c",
+      "post_state_hash": "ba250cb286c36e317ad25ecd3ebd47c2ca6ddc260c3af059d094c15c7b6074d9",
+      "state_changed": true,
+      "target_heading": "Practical Value Surface",
+      "expected_visible_result": "Per-mission continuous workflow trace preserves same template context and export summary.",
+      "content_assertions": [
+        "mission_id:system-architect::prebiotic-chemistry::diagnostic-loop",
+        "evaluated_status:EARNED_LOCAL_FOLLOW_UP",
+        "same_template_context",
+        "export_summary_visible",
+        "metric_deltas_visible",
+        "bounded_next_step_visible"
+      ],
+      "semantic_assertions": [
+        "per_mission_architect_end_to_end_trace",
+        "fixture_bounded_or_distinct_metric_payload"
+      ],
+      "assertion": "PASS"
+    },
+    {
+      "workflow": "architect_end_to_end",
+      "action": "architect_end_to_end:system-architect::biological-cell::diagnostic-loop",
+      "pre_state_hash": "586764d41fd0b5218eade2afc03592209e8367d1e3caa88a1e6636d7690db525",
+      "post_state_hash": "381773666024ea211593a9efee3b568b76917d9fb9c1701d1645536ead5cdc4c",
+      "state_changed": true,
+      "target_heading": "Practical Value Surface",
+      "expected_visible_result": "Per-mission continuous workflow trace preserves same template context and export summary.",
+      "content_assertions": [
+        "mission_id:system-architect::biological-cell::diagnostic-loop",
+        "evaluated_status:EARNED_LOCAL_FOLLOW_UP",
+        "same_template_context",
+        "export_summary_visible",
+        "metric_deltas_visible",
+        "bounded_next_step_visible"
+      ],
+      "semantic_assertions": [
+        "per_mission_architect_end_to_end_trace",
+        "fixture_bounded_or_distinct_metric_payload"
+      ],
+      "assertion": "PASS"
+    },
+    {
+      "workflow": "architect_end_to_end",
+      "action": "architect_end_to_end:system-architect::institution::diagnostic-loop",
+      "pre_state_hash": "d8655d6d82ed7398c9999df0a40823c21184dc524f65b69ed857e08d879c8223",
+      "post_state_hash": "fe7f34d50746c088a896d4c253d481380232e128935931d1ce540788c43bfe32",
+      "state_changed": true,
+      "target_heading": "Practical Value Surface",
+      "expected_visible_result": "Per-mission continuous workflow trace preserves same template context and export summary.",
+      "content_assertions": [
+        "mission_id:system-architect::institution::diagnostic-loop",
+        "evaluated_status:EARNED_LOCAL_FOLLOW_UP",
+        "same_template_context",
+        "export_summary_visible",
+        "metric_deltas_visible",
+        "bounded_next_step_visible"
+      ],
+      "semantic_assertions": [
+        "per_mission_architect_end_to_end_trace",
+        "fixture_bounded_or_distinct_metric_payload"
+      ],
+      "assertion": "PASS"
+    },
+    {
+      "workflow": "architect_end_to_end",
+      "action": "architect_end_to_end:system-architect::cognitive-social-agent::diagnostic-loop",
+      "pre_state_hash": "5ab7ce309e1f2a36bb6adc164cf600758ff6bca85e0f040630e8ebed2b22eead",
+      "post_state_hash": "6eed80f3132a67a85838690e056795b726ac70d491658da032102f95c6722c9e",
+      "state_changed": true,
+      "target_heading": "Practical Value Surface",
+      "expected_visible_result": "Per-mission continuous workflow trace preserves same template context and export summary.",
+      "content_assertions": [
+        "mission_id:system-architect::cognitive-social-agent::diagnostic-loop",
+        "evaluated_status:EARNED_LOCAL_FOLLOW_UP",
+        "same_template_context",
+        "export_summary_visible",
+        "metric_deltas_visible",
+        "bounded_next_step_visible"
+      ],
+      "semantic_assertions": [
+        "per_mission_architect_end_to_end_trace",
+        "fixture_bounded_or_distinct_metric_payload"
+      ],
+      "assertion": "PASS"
+    },
+    {
+      "workflow": "architect_end_to_end",
+      "action": "architect_end_to_end:system-architect::civilization::diagnostic-loop",
+      "pre_state_hash": "1b0d2f5b4def454081e8a3e6d38453722ed1d91dd6a72e737762142c9292eef0",
+      "post_state_hash": "974b144d7293f4eafabca00a9b2fe0b825be75fe1582c4561c6f129fc7018f72",
+      "state_changed": true,
+      "target_heading": "Practical Value Surface",
+      "expected_visible_result": "Per-mission continuous workflow trace preserves same template context and export summary.",
+      "content_assertions": [
+        "mission_id:system-architect::civilization::diagnostic-loop",
+        "evaluated_status:EARNED_LOCAL_FOLLOW_UP",
+        "same_template_context",
+        "export_summary_visible",
+        "metric_deltas_visible",
+        "bounded_next_step_visible"
+      ],
+      "semantic_assertions": [
+        "per_mission_architect_end_to_end_trace",
+        "fixture_bounded_or_distinct_metric_payload"
+      ],
+      "assertion": "PASS"
+    },
+    {
+      "workflow": "architect_end_to_end",
+      "action": "architect_end_to_end:system-architect::meta-model::diagnostic-loop",
+      "pre_state_hash": "5a1bbb4111dd7d8229cf41a5183b3b598a73c218b05de8a189877f8c49fbfe11",
+      "post_state_hash": "c3a87b31c0c240754258538b62ce7f255b85e5e2b606a320ac29ab867f008e7a",
+      "state_changed": true,
+      "target_heading": "Practical Value Surface",
+      "expected_visible_result": "Per-mission continuous workflow trace preserves same template context and export summary.",
+      "content_assertions": [
+        "mission_id:system-architect::meta-model::diagnostic-loop",
+        "evaluated_status:BOUNDED_FORMALIZATION_REQUIRED",
+        "same_template_context",
+        "export_summary_visible",
+        "metric_deltas_visible",
+        "bounded_next_step_visible"
+      ],
+      "semantic_assertions": [
+        "per_mission_architect_end_to_end_trace",
+        "fixture_bounded_or_distinct_metric_payload"
+      ],
+      "assertion": "PASS"
+    },
+    {
+      "workflow": "wiki",
+      "action": "wiki:proof-drill",
+      "pre_state_hash": "4036ba9ac97c9ae4485be10214a56f7d5f2cc9b0ba12c0e1858c5fcd424d4e87",
+      "post_state_hash": "01cb00762ee41420f7607cebf8ea4c1bc23856621f48f0707c524bce6615cf00",
+      "state_changed": true,
+      "target_heading": "Evidence / Boundaries",
+      "expected_visible_result": "wiki:proof-drill produces visible result at Evidence / Boundaries",
+      "content_assertions": [
+        "heading:Evidence / Boundaries",
+        "state_hash_changed"
+      ],
+      "semantic_assertions": [
+        "target_heading:Evidence / Boundaries",
+        "state_hash_changed"
+      ],
+      "assertion": "PASS"
+    },
+    {
+      "workflow": "wiki",
+      "action": "wiki:search",
+      "pre_state_hash": "01cb00762ee41420f7607cebf8ea4c1bc23856621f48f0707c524bce6615cf00",
+      "post_state_hash": "b9661fddec6352b011e7c3f239699f8ae228e4746568cf2b4cc7c3a8fb600b9f",
+      "state_changed": true,
+      "target_heading": "OC Wiki",
+      "expected_visible_result": "wiki:search produces visible result at OC Wiki",
+      "content_assertions": [
+        "heading:OC Wiki",
+        "state_hash_changed"
+      ],
+      "semantic_assertions": [
+        "target_heading:OC Wiki",
+        "state_hash_changed"
+      ],
+      "assertion": "PASS"
+    },
+    {
+      "workflow": "wiki",
+      "action": "wiki:toc-select",
+      "pre_state_hash": "b9661fddec6352b011e7c3f239699f8ae228e4746568cf2b4cc7c3a8fb600b9f",
+      "post_state_hash": "b9661fddec6352b011e7c3f239699f8ae228e4746568cf2b4cc7c3a8fb600b9f",
+      "state_changed": false,
+      "target_heading": "OC Wiki",
+      "expected_visible_result": "wiki:toc-select produces visible result at OC Wiki",
+      "content_assertions": [
+        "heading:OC Wiki",
+        "idempotent_visible_result"
+      ],
+      "semantic_assertions": [
+        "target_heading:OC Wiki",
+        "idempotent_visible_result"
+      ],
+      "assertion": "PASS"
+    },
+    {
+      "workflow": "wiki",
+      "action": "wiki:atom-reader-source",
+      "pre_state_hash": "b9661fddec6352b011e7c3f239699f8ae228e4746568cf2b4cc7c3a8fb600b9f",
+      "post_state_hash": "b9661fddec6352b011e7c3f239699f8ae228e4746568cf2b4cc7c3a8fb600b9f",
+      "state_changed": false,
+      "target_heading": "OC Wiki",
+      "expected_visible_result": "wiki:atom-reader-source produces visible result at OC Wiki",
+      "content_assertions": [
+        "heading:OC Wiki",
+        "idempotent_visible_result"
+      ],
+      "semantic_assertions": [
+        "target_heading:OC Wiki",
+        "idempotent_visible_result"
+      ],
+      "assertion": "PASS"
+    },
+    {
+      "workflow": "wiki",
+      "action": "wiki:atom-reachability:first",
+      "pre_state_hash": "b9661fddec6352b011e7c3f239699f8ae228e4746568cf2b4cc7c3a8fb600b9f",
+      "post_state_hash": "7f730ff1bdfc1fcdf13470af3ea67a912d13bfaecfb134be4cee674ea9792081",
+      "state_changed": true,
+      "target_heading": "OC Wiki",
+      "expected_visible_result": "wiki:atom-reachability:first produces visible result at OC Wiki",
+      "content_assertions": [
+        "heading:OC Wiki",
+        "state_hash_changed"
+      ],
+      "semantic_assertions": [
+        "target_heading:OC Wiki",
+        "state_hash_changed"
+      ],
+      "assertion": "PASS"
+    },
+    {
+      "workflow": "wiki",
+      "action": "wiki:addressable-atom:master_monograph__appendices__axiom_appendix__atom_101__h02290f5a7a63",
+      "pre_state_hash": "9859b528fc397593c4223d95a85078bf295980e8f42012625963b78a161fc71a",
+      "post_state_hash": "bbeba1dba9e743f62033dbe63e2b864269dd6e4a15f44cf276c5027c48aa0a67",
+      "state_changed": true,
+      "target_heading": "OC Wiki",
+      "expected_visible_result": "Wiki search opens an addressable corpus atom id from the generated full atom index.",
+      "content_assertions": [
+        "addressable_atom_id:master_monograph__appendices__axiom_appendix__atom_101__h02290f5a7a63",
+        "addressable_atom_position:first",
+        "addressable_atom_total:2487",
+        "source_hash:4c462621747f1b166a47b38102d21d612cf63e32820ca39849d779d677925968"
+      ],
+      "semantic_assertions": [
+        "wiki_full_atom_reachability_not_generation_only"
+      ],
+      "assertion": "PASS"
+    },
+    {
+      "workflow": "wiki",
+      "action": "wiki:atom-reachability:middle",
+      "pre_state_hash": "7f730ff1bdfc1fcdf13470af3ea67a912d13bfaecfb134be4cee674ea9792081",
+      "post_state_hash": "fd6bc7b5542cae9f7de14a2c3d40b5f860cce10ab1efa6b5da17726ac0cca996",
+      "state_changed": true,
+      "target_heading": "OC Wiki",
+      "expected_visible_result": "wiki:atom-reachability:middle produces visible result at OC Wiki",
+      "content_assertions": [
+        "heading:OC Wiki",
+        "state_hash_changed"
+      ],
+      "semantic_assertions": [
+        "target_heading:OC Wiki",
+        "state_hash_changed"
+      ],
+      "assertion": "PASS"
+    },
+    {
+      "workflow": "wiki",
+      "action": "wiki:addressable-atom:master_monograph__orientation__r017_delta__atom_104__hb4d7df49b989",
+      "pre_state_hash": "edb364e78b5dc8a913395959a2b9e8cb00168101cdb8c9123213f333dcafacc0",
+      "post_state_hash": "c44295818d7d63da6bbaaffb10ffb73755b3d405728240a7ac09be0c3aa77279",
+      "state_changed": true,
+      "target_heading": "OC Wiki",
+      "expected_visible_result": "Wiki search opens an addressable corpus atom id from the generated full atom index.",
+      "content_assertions": [
+        "addressable_atom_id:master_monograph__orientation__r017_delta__atom_104__hb4d7df49b989",
+        "addressable_atom_position:middle",
+        "addressable_atom_total:2487",
+        "source_hash:00c1b054c86eb61a009c48fd3c37df3c2d78bf1429df98f05d4157644b89c5fb"
+      ],
+      "semantic_assertions": [
+        "wiki_full_atom_reachability_not_generation_only"
+      ],
+      "assertion": "PASS"
+    },
+    {
+      "workflow": "wiki",
+      "action": "wiki:atom-reachability:last",
+      "pre_state_hash": "fd6bc7b5542cae9f7de14a2c3d40b5f860cce10ab1efa6b5da17726ac0cca996",
+      "post_state_hash": "b4ba03af512b1226dfe3439bc387c93177dda46bfae7c925dd0f899aebbb0250",
+      "state_changed": true,
+      "target_heading": "OC Wiki",
+      "expected_visible_result": "wiki:atom-reachability:last produces visible result at OC Wiki",
+      "content_assertions": [
+        "heading:OC Wiki",
+        "state_hash_changed"
+      ],
+      "semantic_assertions": [
+        "target_heading:OC Wiki",
+        "state_hash_changed"
+      ],
+      "assertion": "PASS"
+    },
+    {
+      "workflow": "wiki",
+      "action": "wiki:addressable-atom:methods_repro_companion__validator_matrix__atom_142__h486c604359b3",
+      "pre_state_hash": "a596e31d4f297689041e3eb5305fc01b199766e07f1c82581cc0fd5cc6674ab8",
+      "post_state_hash": "6e3f4707a98370336a79763288b9d0e8aaefb99209a7eff2d674087f46ae2fd8",
+      "state_changed": true,
+      "target_heading": "OC Wiki",
+      "expected_visible_result": "Wiki search opens an addressable corpus atom id from the generated full atom index.",
+      "content_assertions": [
+        "addressable_atom_id:methods_repro_companion__validator_matrix__atom_142__h486c604359b3",
+        "addressable_atom_position:last",
+        "addressable_atom_total:2487",
+        "source_hash:ff1d756ce322eedc77e446f234a040aa1fa6603388f98e4263903aefa1314e3d"
+      ],
+      "semantic_assertions": [
+        "wiki_full_atom_reachability_not_generation_only"
+      ],
+      "assertion": "PASS"
+    },
+    {
+      "workflow": "wiki",
+      "action": "wiki:atom-reachability:summary",
+      "pre_state_hash": "85b6a2009709b8cfa4f9d8c460774085853cb3422f0a684c0ac50c079a993fd8",
+      "post_state_hash": "01cef9df67aae4757cc6df2e4c934c2af5f38ea0c27d4374597dc2b2d6ff65c0",
+      "state_changed": true,
+      "target_heading": "OC Wiki",
+      "expected_visible_result": "Full UI contract row for addressable atoms and reachability invariants.",
+      "tested_atom_id_total": 2487,
+      "unresolved_atom_id_total": 0,
+      "blank_reader_body_total": 0,
+      "reachability_hash": "648a87f4930d5c721f537755a5d95e2b51089a260dd92848bd8ebad23b1b5eca",
+      "content_assertions": [
+        "summary_of_full_atom_ui_reachability",
+        "tested_atom_id_total:2487",
+        "unresolved_atom_id_total:0",
+        "blank_reader_body_total:0",
+        "reachability_hash:648a87f4930d5c721f537755a5d95e2b51089a260dd92848bd8ebad23b1b5eca",
+        "sample_first:master_monograph__appendices__axiom_appendix__atom_101__h02290f5a7a63",
+        "sample_middle:master_monograph__orientation__r017_delta__atom_104__hb4d7df49b989",
+        "sample_last:methods_repro_companion__validator_matrix__atom_142__h486c604359b3"
+      ],
+      "semantic_assertions": [
+        "ui_summary_row_covers_generation_contract",
+        "sample_clicks_full_coverage_previously_verified",
+        "reachability_hash_matches_contract"
+      ],
+      "assertion": "PASS"
+    },
+    {
+      "workflow": "wiki",
+      "action": "wiki:formula-bridge",
+      "pre_state_hash": "b4ba03af512b1226dfe3439bc387c93177dda46bfae7c925dd0f899aebbb0250",
+      "post_state_hash": "5b149ccf8624f0dbe379f6c1aaa554b9825be31c26df9836dc27d4c191e89ff7",
+      "state_changed": true,
+      "target_heading": "Formula Atlas",
+      "expected_visible_result": "wiki:formula-bridge produces visible result at Formula Atlas",
+      "content_assertions": [
+        "heading:Formula Atlas",
+        "state_hash_changed"
+      ],
+      "semantic_assertions": [
+        "target_heading:Formula Atlas",
+        "state_hash_changed"
+      ],
+      "assertion": "PASS"
+    },
+    {
+      "workflow": "wiki",
+      "action": "wiki:graph-bridge",
+      "pre_state_hash": "5b149ccf8624f0dbe379f6c1aaa554b9825be31c26df9836dc27d4c191e89ff7",
+      "post_state_hash": "ef425209ea8aa8b78d53039a4143faeb9b03093e8c336a69dd7e67deba5013fc",
+      "state_changed": true,
+      "target_heading": "3D Science Graph",
+      "expected_visible_result": "wiki:graph-bridge produces visible result at 3D Science Graph",
+      "content_assertions": [
+        "heading:3D Science Graph",
+        "state_hash_changed"
+      ],
+      "semantic_assertions": [
+        "target_heading:3D Science Graph",
+        "state_hash_changed"
+      ],
+      "assertion": "PASS"
+    },
+    {
+      "workflow": "graph",
+      "action": "graph:toggle-2d",
+      "pre_state_hash": "ef425209ea8aa8b78d53039a4143faeb9b03093e8c336a69dd7e67deba5013fc",
+      "post_state_hash": "07994e2abf33ba1aa26cd34a63f7af26d3b90952a6a292cde0933ff3e0113823",
+      "state_changed": true,
+      "target_heading": "3D Science Graph",
+      "expected_visible_result": "graph:toggle-2d produces visible result at 3D Science Graph",
+      "content_assertions": [
+        "heading:3D Science Graph",
+        "state_hash_changed",
+        "2d fallback control visible and callable",
+        "3D label remains visible",
+        "graph control result visible"
+      ],
+      "semantic_assertions": [
+        "target_heading:3D Science Graph",
+        "state_hash_changed",
+        "graph_clickability_asserts_content_not_hash_only"
+      ],
+      "assertion": "PASS"
+    },
+    {
+      "workflow": "graph",
+      "action": "graph:root-path",
+      "pre_state_hash": "07994e2abf33ba1aa26cd34a63f7af26d3b90952a6a292cde0933ff3e0113823",
+      "post_state_hash": "2b8234603e6a08f34a723d988adbe4d35f985e6ef1ef621bba51a61804231712",
+      "state_changed": true,
+      "target_heading": "3D Science Graph",
+      "expected_visible_result": "graph:root-path produces visible result at 3D Science Graph",
+      "content_assertions": [
+        "heading:3D Science Graph",
+        "state_hash_changed",
+        "root path affordance remains visible",
+        "path row remains selected",
+        "graph control result visible"
+      ],
+      "semantic_assertions": [
+        "target_heading:3D Science Graph",
+        "state_hash_changed",
+        "graph_clickability_asserts_content_not_hash_only"
+      ],
+      "assertion": "PASS"
+    },
+    {
+      "workflow": "graph",
+      "action": "graph:search-filter",
+      "pre_state_hash": "2b8234603e6a08f34a723d988adbe4d35f985e6ef1ef621bba51a61804231712",
+      "post_state_hash": "2da6f5e34b98266545da944f39b44612395a1b3a762c78f72e4eb74b13d43d59",
+      "state_changed": true,
+      "target_heading": "3D Science Graph",
+      "expected_visible_result": "graph:search-filter produces visible result at 3D Science Graph",
+      "content_assertions": [
+        "heading:3D Science Graph",
+        "state_hash_changed",
+        "graph search visible",
+        "search text reflects query",
+        "graph control result visible"
+      ],
+      "semantic_assertions": [
+        "target_heading:3D Science Graph",
+        "state_hash_changed",
+        "graph_clickability_asserts_content_not_hash_only"
+      ],
+      "assertion": "PASS"
+    },
+    {
+      "workflow": "graph",
+      "action": "graph:layer-filter",
+      "pre_state_hash": "2da6f5e34b98266545da944f39b44612395a1b3a762c78f72e4eb74b13d43d59",
+      "post_state_hash": "b4d29ef1f5792879588bc47f6cbc13ece6cf053e9aa8cf30074925b6c104d890",
+      "state_changed": true,
+      "target_heading": "3D Science Graph",
+      "expected_visible_result": "graph:layer-filter produces visible result at 3D Science Graph",
+      "content_assertions": [
+        "heading:3D Science Graph",
+        "state_hash_changed",
+        "relation filter state changed",
+        "searchable node count present",
+        "graph control result visible"
+      ],
+      "semantic_assertions": [
+        "target_heading:3D Science Graph",
+        "state_hash_changed",
+        "graph_clickability_asserts_content_not_hash_only"
+      ],
+      "assertion": "PASS"
+    },
+    {
+      "workflow": "graph",
+      "action": "graph:edge-filter",
+      "pre_state_hash": "b4d29ef1f5792879588bc47f6cbc13ece6cf053e9aa8cf30074925b6c104d890",
+      "post_state_hash": "6c8c34cedde76e812a8c260b786aac7e9e8452494e97f6a41b76df5b32d8c119",
+      "state_changed": true,
+      "target_heading": "3D Science Graph",
+      "expected_visible_result": "graph:edge-filter produces visible result at 3D Science Graph",
+      "content_assertions": [
+        "heading:3D Science Graph",
+        "state_hash_changed",
+        "relation filter result visible",
+        "edge control remains rendered",
+        "graph control result visible"
+      ],
+      "semantic_assertions": [
+        "target_heading:3D Science Graph",
+        "state_hash_changed",
+        "graph_clickability_asserts_content_not_hash_only"
+      ],
+      "assertion": "PASS"
+    },
+    {
+      "workflow": "graph",
+      "action": "graph:layer-click:axis",
+      "pre_state_hash": "6c8c34cedde76e812a8c260b786aac7e9e8452494e97f6a41b76df5b32d8c119",
+      "post_state_hash": "ccedfc0ba2a2ae44b6e747b554587d7ff72e03db266c9e8992bde1f5b8e5a48b",
+      "state_changed": true,
+      "target_heading": "3D Science Graph",
+      "expected_visible_result": "graph:layer-click:axis produces visible result at 3D Science Graph",
+      "content_assertions": [
+        "heading:3D Science Graph",
+        "state_hash_changed",
+        "selected node id visible",
+        "selected layer visible",
+        "selected semantic label visible",
+        "selected technical id visible",
+        "detail drawer visible",
+        "selected_node_id:AXIS::coherence",
+        "selected_node_layer:axis",
+        "selected_node_technical_id:AXIS::coherence"
+      ],
+      "semantic_assertions": [
+        "target_heading:3D Science Graph",
+        "state_hash_changed",
+        "graph_clickability_asserts_content_not_hash_only"
+      ],
+      "assertion": "PASS",
+      "selected_node_id": "AXIS::coherence",
+      "selected_node_layer": "axis",
+      "selected_node_semantic_label": "Coherence axis",
+      "selected_node_technical_id": "AXIS::coherence",
+      "selected_node_source": "Source atom contextd0f77293124ae43678c1453dbf586178a695198ef0df4703943d5d05427f15d8source context carried where the graph node has corpus provenance",
+      "selected_node_outbound_index": "Outbound link indexwiki=available / formulaQuery=available / formulaId=boundary / proof=boundary / k=boundary",
+      "selected_node_proof_policy": "Theorem vs proof closureclosure_status: not proof-closed hereOpen Evidence / Boundaries for proof-count policy; graph visualization does not close proofs.",
+      "selected_node_drawer_visible": true,
+      "relation_filter_result": "layer=axis; relation=all; selected node detail drawer visible",
+      "outbound_target_assertions": [
+        "selected_node_id present",
+        "selected_node_layer present",
+        "selected_node_semantic_label present",
+        "selected_node_technical_id present",
+        "detail drawer visible"
+      ]
+    },
+    {
+      "workflow": "graph",
+      "action": "graph:layer-click:boundary",
+      "pre_state_hash": "ccedfc0ba2a2ae44b6e747b554587d7ff72e03db266c9e8992bde1f5b8e5a48b",
+      "post_state_hash": "988a93424fbf09e38c1a7454ab8f316e04dddf60d7fbff41cd0d0efdc4308f54",
+      "state_changed": true,
+      "target_heading": "3D Science Graph",
+      "expected_visible_result": "graph:layer-click:boundary produces visible result at 3D Science Graph",
+      "content_assertions": [
+        "heading:3D Science Graph",
+        "state_hash_changed",
+        "boundary-node- trace-for-explicit-nonclaim-boundary",
+        "selected node id visible",
+        "selected layer visible",
+        "selected semantic label visible",
+        "selected technical id visible",
+        "detail drawer visible",
+        "selected_node_id:OC::BOUNDARY::NONCLAIM_DISCIPLINE",
+        "selected_node_layer:boundary",
+        "selected_node_technical_id:OC::BOUNDARY::NONCLAIM_DISCIPLINE"
+      ],
+      "semantic_assertions": [
+        "target_heading:3D Science Graph",
+        "state_hash_changed",
+        "graph_clickability_asserts_content_not_hash_only"
+      ],
+      "assertion": "PASS",
+      "selected_node_id": "OC::BOUNDARY::NONCLAIM_DISCIPLINE",
+      "selected_node_layer": "boundary",
+      "selected_node_semantic_label": "Evidence / nonclaim boundary",
+      "selected_node_technical_id": "OC::BOUNDARY::NONCLAIM_DISCIPLINE",
+      "selected_node_source": "Source atom contextsource context carried where the graph node has corpus provenance",
+      "selected_node_outbound_index": "Outbound link indexwiki=available / formulaQuery=available / formulaId=boundary / proof=boundary / k=boundary",
+      "selected_node_proof_policy": "Theorem vs proof closureclosure_status: not proof-closed hereOpen Evidence / Boundaries for proof-count policy; graph visualization does not close proofs.",
+      "selected_node_drawer_visible": true,
+      "relation_filter_result": "layer=boundary; relation=all; selected node detail drawer visible",
+      "outbound_target_assertions": [
+        "selected_node_id present",
+        "selected_node_layer present",
+        "selected_node_semantic_label present",
+        "selected_node_technical_id present",
+        "detail drawer visible"
+      ],
+      "visible_boundary": "Source atom contextsource context carried where the graph node has corpus provenance"
+    },
+    {
+      "workflow": "graph",
+      "action": "graph:layer-click:continuum_operator",
+      "pre_state_hash": "988a93424fbf09e38c1a7454ab8f316e04dddf60d7fbff41cd0d0efdc4308f54",
+      "post_state_hash": "bf156e2e7f22de28629c65754b78765c847f2440af7da2684464d52847291f9c",
+      "state_changed": true,
+      "target_heading": "3D Science Graph",
+      "expected_visible_result": "graph:layer-click:continuum_operator produces visible result at 3D Science Graph",
+      "content_assertions": [
+        "heading:3D Science Graph",
+        "state_hash_changed",
+        "selected node id visible",
+        "selected layer visible",
+        "selected semantic label visible",
+        "selected technical id visible",
+        "detail drawer visible",
+        "selected_node_id:OC::OPERATOR::OP-BIRTH",
+        "selected_node_layer:continuum_operator",
+        "selected_node_technical_id:OC::OPERATOR::OP-BIRTH"
+      ],
+      "semantic_assertions": [
+        "target_heading:3D Science Graph",
+        "state_hash_changed",
+        "graph_clickability_asserts_content_not_hash_only"
+      ],
+      "assertion": "PASS",
+      "selected_node_id": "OC::OPERATOR::OP-BIRTH",
+      "selected_node_layer": "continuum_operator",
+      "selected_node_semantic_label": "Birth",
+      "selected_node_technical_id": "OC::OPERATOR::OP-BIRTH",
+      "selected_node_source": "Source atom contextsource context carried where the graph node has corpus provenance",
+      "selected_node_outbound_index": "Outbound link indexwiki=available / formulaQuery=available / formulaId=boundary / proof=boundary / k=boundary",
+      "selected_node_proof_policy": "Theorem vs proof closureclosure_status: not proof-closed hereOpen Evidence / Boundaries for proof-count policy; graph visualization does not close proofs.",
+      "selected_node_drawer_visible": true,
+      "relation_filter_result": "layer=continuum_operator; relation=all; selected node detail drawer visible",
+      "outbound_target_assertions": [
+        "selected_node_id present",
+        "selected_node_layer present",
+        "selected_node_semantic_label present",
+        "selected_node_technical_id present",
+        "detail drawer visible"
+      ]
+    },
+    {
+      "workflow": "graph",
+      "action": "graph:layer-click:corpus_atom",
+      "pre_state_hash": "bf156e2e7f22de28629c65754b78765c847f2440af7da2684464d52847291f9c",
+      "post_state_hash": "26c7a97569951ccdb93d95c9bd576e02129a4babef1cb2b9a8c82966e19a531e",
+      "state_changed": true,
+      "target_heading": "3D Science Graph",
+      "expected_visible_result": "graph:layer-click:corpus_atom produces visible result at 3D Science Graph",
+      "content_assertions": [
+        "heading:3D Science Graph",
+        "state_hash_changed",
+        "selected node id visible",
+        "selected layer visible",
+        "selected semantic label visible",
+        "selected technical id visible",
+        "detail drawer visible",
+        "selected_node_id:ATOM::master_monograph_appendices_axiom_appendix_atom_101_h02290f5a7a63",
+        "selected_node_layer:corpus_atom",
+        "selected_node_technical_id:ATOM::master_monograph_appendices_axiom_appendix_atom_101_h02290f5a7a63"
+      ],
+      "semantic_assertions": [
+        "target_heading:3D Science Graph",
+        "state_hash_changed",
+        "graph_clickability_asserts_content_not_hash_only"
+      ],
+      "assertion": "PASS",
+      "selected_node_id": "ATOM::master_monograph_appendices_axiom_appendix_atom_101_h02290f5a7a63",
+      "selected_node_layer": "corpus_atom",
+      "selected_node_semantic_label": "Social tension T7 includes communication tension, coordination tension, normative tensi...",
+      "selected_node_technical_id": "ATOM::master_monograph_appendices_axiom_appendix_atom_101_h02290f5a7a63",
+      "selected_node_source": "Source atom contextmaster_monograph__appendices__axiom_appendix__atom_101__h02290f5a7a63master_monograph",
+      "selected_node_outbound_index": "Outbound link indexwiki=available / formulaQuery=available / formulaId=boundary / proof=boundary / k=boundary",
+      "selected_node_proof_policy": "Theorem vs proof closureclosure_status: not proof-closed hereOpen Evidence / Boundaries for proof-count policy; graph visualization does not close proofs.",
+      "selected_node_drawer_visible": true,
+      "relation_filter_result": "layer=corpus_atom; relation=all; selected node detail drawer visible",
+      "outbound_target_assertions": [
+        "selected_node_id present",
+        "selected_node_layer present",
+        "selected_node_semantic_label present",
+        "selected_node_technical_id present",
+        "detail drawer visible"
+      ]
+    },
+    {
+      "workflow": "graph",
+      "action": "graph:layer-click:domain_projection",
+      "pre_state_hash": "26c7a97569951ccdb93d95c9bd576e02129a4babef1cb2b9a8c82966e19a531e",
+      "post_state_hash": "adfd9cfcd054966fbebab0d8ffecb03392e56890d38a75c4df3e5da861629cf6",
+      "state_changed": true,
+      "target_heading": "3D Science Graph",
+      "expected_visible_result": "graph:layer-click:domain_projection produces visible result at 3D Science Graph",
+      "content_assertions": [
+        "heading:3D Science Graph",
+        "state_hash_changed",
+        "selected node id visible",
+        "selected layer visible",
+        "selected semantic label visible",
+        "selected technical id visible",
+        "detail drawer visible",
+        "selected_node_id:DOMAIN::MATHEMATICS",
+        "selected_node_layer:domain_projection",
+        "selected_node_technical_id:DOMAIN::MATHEMATICS"
+      ],
+      "semantic_assertions": [
+        "target_heading:3D Science Graph",
+        "state_hash_changed",
+        "graph_clickability_asserts_content_not_hash_only"
+      ],
+      "assertion": "PASS",
+      "selected_node_id": "DOMAIN::MATHEMATICS",
+      "selected_node_layer": "domain_projection",
+      "selected_node_semantic_label": "Mathematics",
+      "selected_node_technical_id": "DOMAIN::MATHEMATICS",
+      "selected_node_source": "Source atom contextsource context carried where the graph node has corpus provenance",
+      "selected_node_outbound_index": "Outbound link indexwiki=available / formulaQuery=available / formulaId=boundary / proof=boundary / k=boundary",
+      "selected_node_proof_policy": "Theorem vs proof closureclosure_status: PASSOpen Evidence / Boundaries for proof-count policy; graph visualization does not close proofs.",
+      "selected_node_drawer_visible": true,
+      "relation_filter_result": "layer=domain_projection; relation=all; selected node detail drawer visible",
+      "outbound_target_assertions": [
+        "selected_node_id present",
+        "selected_node_layer present",
+        "selected_node_semantic_label present",
+        "selected_node_technical_id present",
+        "detail drawer visible"
+      ]
+    },
+    {
+      "workflow": "graph",
+      "action": "graph:layer-click:evidence",
+      "pre_state_hash": "adfd9cfcd054966fbebab0d8ffecb03392e56890d38a75c4df3e5da861629cf6",
+      "post_state_hash": "1a1b97f84f2df539f9cf02f621379ebbf37068b7e6fc209a7538ae21ae56c381",
+      "state_changed": true,
+      "target_heading": "3D Science Graph",
+      "expected_visible_result": "graph:layer-click:evidence produces visible result at 3D Science Graph",
+      "content_assertions": [
+        "heading:3D Science Graph",
+        "state_hash_changed",
+        "selected node id visible",
+        "selected layer visible",
+        "selected semantic label visible",
+        "selected technical id visible",
+        "detail drawer visible",
+        "selected_node_id:OC::EVIDENCE::REPLAY_AND_SOURCE_LEDGER",
+        "selected_node_layer:evidence",
+        "selected_node_technical_id:OC::EVIDENCE::REPLAY_AND_SOURCE_LEDGER"
+      ],
+      "semantic_assertions": [
+        "target_heading:3D Science Graph",
+        "state_hash_changed",
+        "graph_clickability_asserts_content_not_hash_only"
+      ],
+      "assertion": "PASS",
+      "selected_node_id": "OC::EVIDENCE::REPLAY_AND_SOURCE_LEDGER",
+      "selected_node_layer": "evidence",
+      "selected_node_semantic_label": "Replay, source and evidence ledgers",
+      "selected_node_technical_id": "OC::EVIDENCE::REPLAY_AND_SOURCE_LEDGER",
+      "selected_node_source": "Source atom contextsource context carried where the graph node has corpus provenance",
+      "selected_node_outbound_index": "Outbound link indexwiki=available / formulaQuery=available / formulaId=boundary / proof=EVIDENCE_SOURCE_LEDGER / k=boundary",
+      "selected_node_proof_policy": "Theorem vs proof closureclosure_status: PUBLIC_EVIDENCE_BOUNDARYOpen Evidence / Boundaries for proof-count policy; graph visualization does not close proofs.",
+      "selected_node_drawer_visible": true,
+      "relation_filter_result": "layer=evidence; relation=all; selected node detail drawer visible",
+      "outbound_target_assertions": [
+        "selected_node_id present",
+        "selected_node_layer present",
+        "selected_node_semantic_label present",
+        "selected_node_technical_id present",
+        "detail drawer visible"
+      ]
+    },
+    {
+      "workflow": "graph",
+      "action": "graph:layer-click:formula",
+      "pre_state_hash": "1a1b97f84f2df539f9cf02f621379ebbf37068b7e6fc209a7538ae21ae56c381",
+      "post_state_hash": "c20affda170f401ed9c3fc237dc343d03b5b1a3173122d13cc956a4a5a62bfa7",
+      "state_changed": true,
+      "target_heading": "3D Science Graph",
+      "expected_visible_result": "graph:layer-click:formula produces visible result at 3D Science Graph",
+      "content_assertions": [
+        "heading:3D Science Graph",
+        "state_hash_changed",
+        "selected node id visible",
+        "selected layer visible",
+        "selected semantic label visible",
+        "selected technical id visible",
+        "detail drawer visible",
+        "selected_node_id:FORMULA::OCF_003",
+        "selected_node_layer:formula",
+        "selected_node_technical_id:FORMULA::OCF_003"
+      ],
+      "semantic_assertions": [
+        "target_heading:3D Science Graph",
+        "state_hash_changed",
+        "graph_clickability_asserts_content_not_hash_only"
+      ],
+      "assertion": "PASS",
+      "selected_node_id": "FORMULA::OCF_003",
+      "selected_node_layer": "formula",
+      "selected_node_semantic_label": "\\operatorname{Collapse}_K(t^*) \\Leftrightarrow \\Omega_K(t^*) = \\varnothing",
+      "selected_node_technical_id": "FORMULA::OCF_003",
+      "selected_node_source": "Source atom context1051908c43f1b59222657cb16a9bfe8b6517651a1dc256d9989eedd6f10c35bbsource context carried where the graph node has corpus provenance",
+      "selected_node_outbound_index": "Outbound link indexwiki=available / formulaQuery=available / formulaId=OCF-003 / proof=boundary / k=boundary",
+      "selected_node_proof_policy": "Theorem vs proof closureclosure_status: not proof-closed hereOpen Evidence / Boundaries for proof-count policy; graph visualization does not close proofs.",
+      "selected_node_drawer_visible": true,
+      "relation_filter_result": "layer=formula; relation=all; selected node detail drawer visible",
+      "outbound_target_assertions": [
+        "selected_node_id present",
+        "selected_node_layer present",
+        "selected_node_semantic_label present",
+        "selected_node_technical_id present",
+        "detail drawer visible"
+      ]
+    },
+    {
+      "workflow": "graph",
+      "action": "graph:layer-click:k_level",
+      "pre_state_hash": "c20affda170f401ed9c3fc237dc343d03b5b1a3173122d13cc956a4a5a62bfa7",
+      "post_state_hash": "2db2126ba8a023a25b355e9334b9d58f7acbe32dc93dbf995a368e8cdeff14f3",
+      "state_changed": true,
+      "target_heading": "3D Science Graph",
+      "expected_visible_result": "graph:layer-click:k_level produces visible result at 3D Science Graph",
+      "content_assertions": [
+        "heading:3D Science Graph",
+        "state_hash_changed",
+        "selected node id visible",
+        "selected layer visible",
+        "selected semantic label visible",
+        "selected technical id visible",
+        "detail drawer visible",
+        "selected_node_id:K::K0",
+        "selected_node_layer:k_level",
+        "selected_node_technical_id:K::K0"
+      ],
+      "semantic_assertions": [
+        "target_heading:3D Science Graph",
+        "state_hash_changed",
+        "graph_clickability_asserts_content_not_hash_only"
+      ],
+      "assertion": "PASS",
+      "selected_node_id": "K::K0",
+      "selected_node_layer": "k_level",
+      "selected_node_semantic_label": "K0 - mere distinguishability; no time, energy or geometry",
+      "selected_node_technical_id": "K::K0",
+      "selected_node_source": "Source atom context72278d09684ca1e55b734effcf19227f4af450d6739f3bfaff81e9c37e492ee7source context carried where the graph node has corpus provenance",
+      "selected_node_outbound_index": "Outbound link indexwiki=available / formulaQuery=available / formulaId=boundary / proof=boundary / k=K0",
+      "selected_node_proof_policy": "Theorem vs proof closureclosure_status: not proof-closed hereOpen Evidence / Boundaries for proof-count policy; graph visualization does not close proofs.",
+      "selected_node_drawer_visible": true,
+      "relation_filter_result": "layer=k_level; relation=all; selected node detail drawer visible",
+      "outbound_target_assertions": [
+        "selected_node_id present",
+        "selected_node_layer present",
+        "selected_node_semantic_label present",
+        "selected_node_technical_id present",
+        "detail drawer visible"
+      ]
+    },
+    {
+      "workflow": "graph",
+      "action": "graph:layer-click:m_space",
+      "pre_state_hash": "2db2126ba8a023a25b355e9334b9d58f7acbe32dc93dbf995a368e8cdeff14f3",
+      "post_state_hash": "ee168c217e5455495d781c2294443f803f03e2954bd05811134f020c6b3adee7",
+      "state_changed": true,
+      "target_heading": "3D Science Graph",
+      "expected_visible_result": "graph:layer-click:m_space produces visible result at 3D Science Graph",
+      "content_assertions": [
+        "heading:3D Science Graph",
+        "state_hash_changed",
+        "selected node id visible",
+        "selected layer visible",
+        "selected semantic label visible",
+        "selected technical id visible",
+        "detail drawer visible",
+        "selected_node_id:M::M-ROOT",
+        "selected_node_layer:m_space",
+        "selected_node_technical_id:M::M-ROOT"
+      ],
+      "semantic_assertions": [
+        "target_heading:3D Science Graph",
+        "state_hash_changed",
+        "graph_clickability_asserts_content_not_hash_only"
+      ],
+      "assertion": "PASS",
+      "selected_node_id": "M::M-ROOT",
+      "selected_node_layer": "m_space",
+      "selected_node_semantic_label": "Root M-space",
+      "selected_node_technical_id": "M::M-ROOT",
+      "selected_node_source": "Source atom context84e2c8db8f3ed5d69c42ee4fc43610b3c59e19ac96a657f596a288a55ee1b4f7source context carried where the graph node has corpus provenance",
+      "selected_node_outbound_index": "Outbound link indexwiki=available / formulaQuery=available / formulaId=boundary / proof=boundary / k=boundary",
+      "selected_node_proof_policy": "Theorem vs proof closureclosure_status: not proof-closed hereOpen Evidence / Boundaries for proof-count policy; graph visualization does not close proofs.",
+      "selected_node_drawer_visible": true,
+      "relation_filter_result": "layer=m_space; relation=all; selected node detail drawer visible",
+      "outbound_target_assertions": [
+        "selected_node_id present",
+        "selected_node_layer present",
+        "selected_node_semantic_label present",
+        "selected_node_technical_id present",
+        "detail drawer visible"
+      ]
+    },
+    {
+      "workflow": "graph",
+      "action": "graph:layer-click:metaontology",
+      "pre_state_hash": "ee168c217e5455495d781c2294443f803f03e2954bd05811134f020c6b3adee7",
+      "post_state_hash": "88636ba5c9db5e9bd7deb22d23549d32148d89fd2312222be8330186983032ba",
+      "state_changed": true,
+      "target_heading": "3D Science Graph",
+      "expected_visible_result": "graph:layer-click:metaontology produces visible result at 3D Science Graph",
+      "content_assertions": [
+        "heading:3D Science Graph",
+        "state_hash_changed",
+        "selected node id visible",
+        "selected layer visible",
+        "selected semantic label visible",
+        "selected technical id visible",
+        "detail drawer visible",
+        "selected_node_id:OC::META::ONTOLOGY",
+        "selected_node_layer:metaontology",
+        "selected_node_technical_id:OC::META::ONTOLOGY"
+      ],
+      "semantic_assertions": [
+        "target_heading:3D Science Graph",
+        "state_hash_changed",
+        "graph_clickability_asserts_content_not_hash_only"
+      ],
+      "assertion": "PASS",
+      "selected_node_id": "OC::META::ONTOLOGY",
+      "selected_node_layer": "metaontology",
+      "selected_node_semantic_label": "Metaontology of Continua",
+      "selected_node_technical_id": "OC::META::ONTOLOGY",
+      "selected_node_source": "Source atom contextsource context carried where the graph node has corpus provenance",
+      "selected_node_outbound_index": "Outbound link indexwiki=available / formulaQuery=available / formulaId=boundary / proof=boundary / k=boundary",
+      "selected_node_proof_policy": "Theorem vs proof closureclosure_status: not proof-closed hereOpen Evidence / Boundaries for proof-count policy; graph visualization does not close proofs.",
+      "selected_node_drawer_visible": true,
+      "relation_filter_result": "layer=metaontology; relation=all; selected node detail drawer visible",
+      "outbound_target_assertions": [
+        "selected_node_id present",
+        "selected_node_layer present",
+        "selected_node_semantic_label present",
+        "selected_node_technical_id present",
+        "detail drawer visible"
+      ]
+    },
+    {
+      "workflow": "graph",
+      "action": "graph:layer-click:proof_route",
+      "pre_state_hash": "88636ba5c9db5e9bd7deb22d23549d32148d89fd2312222be8330186983032ba",
+      "post_state_hash": "f2d92f52c86414625d17c39a5e4111036aaff902f8fbebef1c49d5f28bc01dbe",
+      "state_changed": true,
+      "target_heading": "3D Science Graph",
+      "expected_visible_result": "graph:layer-click:proof_route produces visible result at 3D Science Graph",
+      "content_assertions": [
+        "heading:3D Science Graph",
+        "state_hash_changed",
+        "selected node id visible",
+        "selected layer visible",
+        "selected semantic label visible",
+        "selected technical id visible",
+        "detail drawer visible",
+        "selected_node_id:OC::PROOF_GATEWAY",
+        "selected_node_layer:proof_route",
+        "selected_node_technical_id:OC::PROOF_GATEWAY"
+      ],
+      "semantic_assertions": [
+        "target_heading:3D Science Graph",
+        "state_hash_changed",
+        "graph_clickability_asserts_content_not_hash_only"
+      ],
+      "assertion": "PASS",
+      "selected_node_id": "OC::PROOF_GATEWAY",
+      "selected_node_layer": "proof_route",
+      "selected_node_semantic_label": "Proof and refutation route gateway",
+      "selected_node_technical_id": "OC::PROOF_GATEWAY",
+      "selected_node_source": "Source atom contextsource context carried where the graph node has corpus provenance",
+      "selected_node_outbound_index": "Outbound link indexwiki=available / formulaQuery=available / formulaId=boundary / proof=EVIDENCE_BOUNDARY_GATEWAY / k=boundary",
+      "selected_node_proof_policy": "Theorem vs proof closureclosure_status: PUBLIC_EVIDENCE_BOUNDARYOpen Evidence / Boundaries for proof-count policy; graph visualization does not close proofs.",
+      "selected_node_drawer_visible": true,
+      "relation_filter_result": "layer=proof_route; relation=all; selected node detail drawer visible",
+      "outbound_target_assertions": [
+        "selected_node_id present",
+        "selected_node_layer present",
+        "selected_node_semantic_label present",
+        "selected_node_technical_id present",
+        "detail drawer visible"
+      ]
+    },
+    {
+      "workflow": "graph",
+      "action": "graph:layer-click:root_principle",
+      "pre_state_hash": "f2d92f52c86414625d17c39a5e4111036aaff902f8fbebef1c49d5f28bc01dbe",
+      "post_state_hash": "e202cb956f20b068de1945b950c33944e307a8da0c4e028f0656c9a236cd2f61",
+      "state_changed": true,
+      "target_heading": "3D Science Graph",
+      "expected_visible_result": "graph:layer-click:root_principle produces visible result at 3D Science Graph",
+      "content_assertions": [
+        "heading:3D Science Graph",
+        "state_hash_changed",
+        "selected node id visible",
+        "selected layer visible",
+        "selected semantic label visible",
+        "selected technical id visible",
+        "detail drawer visible",
+        "selected_node_id:OC::ROOT_PRINCIPLE::CONTRADICTION_AXIS_OR_COLLAPSE",
+        "selected_node_layer:root_principle",
+        "selected_node_technical_id:OC::ROOT_PRINCIPLE::CONTRADICTION_AXIS_OR_COLLAPSE"
+      ],
+      "semantic_assertions": [
+        "target_heading:3D Science Graph",
+        "state_hash_changed",
+        "graph_clickability_asserts_content_not_hash_only"
+      ],
+      "assertion": "PASS",
+      "selected_node_id": "OC::ROOT_PRINCIPLE::CONTRADICTION_AXIS_OR_COLLAPSE",
+      "selected_node_layer": "root_principle",
+      "selected_node_semantic_label": "Unresolvable contradiction births a new axis or drives collapse",
+      "selected_node_technical_id": "OC::ROOT_PRINCIPLE::CONTRADICTION_AXIS_OR_COLLAPSE",
+      "selected_node_source": "Source atom contextsource context carried where the graph node has corpus provenance",
+      "selected_node_outbound_index": "Outbound link indexwiki=available / formulaQuery=available / formulaId=boundary / proof=boundary / k=boundary",
+      "selected_node_proof_policy": "Theorem vs proof closureclosure_status: not proof-closed hereOpen Evidence / Boundaries for proof-count policy; graph visualization does not close proofs.",
+      "selected_node_drawer_visible": true,
+      "relation_filter_result": "layer=root_principle; relation=all; selected node detail drawer visible",
+      "outbound_target_assertions": [
+        "selected_node_id present",
+        "selected_node_layer present",
+        "selected_node_semantic_label present",
+        "selected_node_technical_id present",
+        "detail drawer visible"
+      ]
+    },
+    {
+      "workflow": "graph",
+      "action": "graph:layer-click:simulation",
+      "pre_state_hash": "e202cb956f20b068de1945b950c33944e307a8da0c4e028f0656c9a236cd2f61",
+      "post_state_hash": "1270b5baa4f098b3f2cfe9db6055d46be3a50135bec17902d156eaac9bfb96d8",
+      "state_changed": true,
+      "target_heading": "3D Science Graph",
+      "expected_visible_result": "graph:layer-click:simulation produces visible result at 3D Science Graph",
+      "content_assertions": [
+        "heading:3D Science Graph",
+        "state_hash_changed",
+        "selected node id visible",
+        "selected layer visible",
+        "selected semantic label visible",
+        "selected technical id visible",
+        "detail drawer visible",
+        "selected_node_id:SIM::worldline_birth_evolution_collapse",
+        "selected_node_layer:simulation",
+        "selected_node_technical_id:SIM::worldline_birth_evolution_collapse"
+      ],
+      "semantic_assertions": [
+        "target_heading:3D Science Graph",
+        "state_hash_changed",
+        "graph_clickability_asserts_content_not_hash_only"
+      ],
+      "assertion": "PASS",
+      "selected_node_id": "SIM::worldline_birth_evolution_collapse",
+      "selected_node_layer": "simulation",
+      "selected_node_semantic_label": "Worldline Birth / Evolution / Collapse",
+      "selected_node_technical_id": "SIM::worldline_birth_evolution_collapse",
+      "selected_node_source": "Source atom contextsource context carried where the graph node has corpus provenance",
+      "selected_node_outbound_index": "Outbound link indexwiki=available / formulaQuery=available / formulaId=boundary / proof=boundary / k=boundary",
+      "selected_node_proof_policy": "Theorem vs proof closureclosure_status: not proof-closed hereOpen Evidence / Boundaries for proof-count policy; graph visualization does not close proofs.",
+      "selected_node_drawer_visible": true,
+      "relation_filter_result": "layer=simulation; relation=all; selected node detail drawer visible",
+      "outbound_target_assertions": [
+        "selected_node_id present",
+        "selected_node_layer present",
+        "selected_node_semantic_label present",
+        "selected_node_technical_id present",
+        "detail drawer visible"
+      ]
+    },
+    {
+      "workflow": "graph",
+      "action": "graph:layer-click:theorem",
+      "pre_state_hash": "1270b5baa4f098b3f2cfe9db6055d46be3a50135bec17902d156eaac9bfb96d8",
+      "post_state_hash": "5845485e9bd9cb9391f904cf13bcafd3bb9e790861a93517b5a5f74f24052062",
+      "state_changed": true,
+      "target_heading": "3D Science Graph",
+      "expected_visible_result": "graph:layer-click:theorem produces visible result at 3D Science Graph",
+      "content_assertions": [
+        "heading:3D Science Graph",
+        "state_hash_changed",
+        "selected node id visible",
+        "selected layer visible",
+        "selected semantic label visible",
+        "selected technical id visible",
+        "detail drawer visible",
+        "selected_node_id:THEOREM::001",
+        "selected_node_layer:theorem",
+        "selected_node_technical_id:THEOREM::001"
+      ],
+      "semantic_assertions": [
+        "target_heading:3D Science Graph",
+        "state_hash_changed",
+        "graph_clickability_asserts_content_not_hash_only"
+      ],
+      "assertion": "PASS",
+      "selected_node_id": "THEOREM::001",
+      "selected_node_layer": "theorem",
+      "selected_node_semantic_label": "Social tension T7 includes communication tension, coordination tension, normative tensi...",
+      "selected_node_technical_id": "THEOREM::001",
+      "selected_node_source": "Source atom context4c462621747f1b166a47b38102d21d612cf63e32820ca39849d779d677925968source context carried where the graph node has corpus provenance",
+      "selected_node_outbound_index": "Outbound link indexwiki=available / formulaQuery=available / formulaId=boundary / proof=boundary / k=boundary",
+      "selected_node_proof_policy": "Theorem vs proof closureclosure_status: not proof-closed hereOpen Evidence / Boundaries for proof-count policy; graph visualization does not close proofs.",
+      "selected_node_drawer_visible": true,
+      "relation_filter_result": "layer=theorem; relation=all; selected node detail drawer visible",
+      "outbound_target_assertions": [
+        "selected_node_id present",
+        "selected_node_layer present",
+        "selected_node_semantic_label present",
+        "selected_node_technical_id present",
+        "detail drawer visible"
+      ]
+    },
+    {
+      "workflow": "graph",
+      "action": "graph:layer-click:threshold",
+      "pre_state_hash": "5845485e9bd9cb9391f904cf13bcafd3bb9e790861a93517b5a5f74f24052062",
+      "post_state_hash": "106588b5103032db533584d135af2a3ea21752bf18b275f757a39b8496edae79",
+      "state_changed": true,
+      "target_heading": "3D Science Graph",
+      "expected_visible_result": "graph:layer-click:threshold produces visible result at 3D Science Graph",
+      "content_assertions": [
+        "heading:3D Science Graph",
+        "state_hash_changed",
+        "selected node id visible",
+        "selected layer visible",
+        "selected semantic label visible",
+        "selected technical id visible",
+        "detail drawer visible",
+        "selected_node_id:THRESHOLD::THR::primitive-distinction::axis-choice",
+        "selected_node_layer:threshold",
+        "selected_node_technical_id:THRESHOLD::THR::primitive-distinction::axis-choice"
+      ],
+      "semantic_assertions": [
+        "target_heading:3D Science Graph",
+        "state_hash_changed",
+        "graph_clickability_asserts_content_not_hash_only"
+      ],
+      "assertion": "PASS",
+      "selected_node_id": "THRESHOLD::THR::primitive-distinction::axis-choice",
+      "selected_node_layer": "threshold",
+      "selected_node_semantic_label": "axis choice threshold",
+      "selected_node_technical_id": "THRESHOLD::THR::primitive-distinction::axis-choice",
+      "selected_node_source": "Source atom context87543bb08b445fbc0a4340b6e88892ab0cb042d2f883764a326ddec1c3482f3dsource context carried where the graph node has corpus provenance",
+      "selected_node_outbound_index": "Outbound link indexwiki=available / formulaQuery=available / formulaId=boundary / proof=boundary / k=boundary",
+      "selected_node_proof_policy": "Theorem vs proof closureclosure_status: not proof-closed hereOpen Evidence / Boundaries for proof-count policy; graph visualization does not close proofs.",
+      "selected_node_drawer_visible": true,
+      "relation_filter_result": "layer=threshold; relation=all; selected node detail drawer visible",
+      "outbound_target_assertions": [
+        "selected_node_id present",
+        "selected_node_layer present",
+        "selected_node_semantic_label present",
+        "selected_node_technical_id present",
+        "detail drawer visible"
+      ]
+    },
+    {
+      "workflow": "graph",
+      "action": "graph:detail-link:wiki",
+      "pre_state_hash": "106588b5103032db533584d135af2a3ea21752bf18b275f757a39b8496edae79",
+      "post_state_hash": "c8c28f08de903cebb8f6c7b865aace2a9c02f8116c0af620c7f40dcad4ca5ee8",
+      "state_changed": true,
+      "target_heading": "OC Wiki",
+      "expected_visible_result": "graph:detail-link:wiki produces visible result at OC Wiki",
+      "content_assertions": [
+        "heading:OC Wiki",
+        "state_hash_changed",
+        "outbound-source-layer:axis",
+        "outbound-target-id:available",
+        "selected node id visible",
+        "outbound source state captured",
+        "outbound target id/query captured",
+        "outbound_target_kind:wiki",
+        "outbound_target_heading:OC Wiki",
+        "outbound_target_id:available",
+        "outbound_target_query:available"
+      ],
+      "semantic_assertions": [
+        "target_heading:OC Wiki",
+        "state_hash_changed",
+        "graph-link-wiki-available",
+        "graph_clickability_asserts_content_not_hash_only"
+      ],
+      "assertion": "PASS",
+      "selected_node_id": "AXIS::coherence",
+      "selected_node_layer": "axis",
+      "selected_node_semantic_label": "Coherence axis",
+      "selected_node_technical_id": "AXIS::coherence",
+      "selected_node_source": "Source atom contextd0f77293124ae43678c1453dbf586178a695198ef0df4703943d5d05427f15d8source context carried where the graph node has corpus provenance",
+      "selected_node_outbound_index": "Outbound link indexwiki=available / formulaQuery=available / formulaId=boundary / proof=boundary / k=boundary",
+      "outbound_target_kind": "wiki",
+      "outbound_link_available": true,
+      "outbound_target_id": "available",
+      "outbound_target_query": "available",
+      "outbound_target_heading": "OC Wiki"
+    },
+    {
+      "workflow": "graph",
+      "action": "graph:detail-link:formula",
+      "pre_state_hash": "c8c28f08de903cebb8f6c7b865aace2a9c02f8116c0af620c7f40dcad4ca5ee8",
+      "post_state_hash": "c8c28f08de903cebb8f6c7b865aace2a9c02f8116c0af620c7f40dcad4ca5ee8",
+      "state_changed": false,
+      "target_heading": "Formula Atlas",
+      "expected_visible_result": "graph:detail-link:formula produces visible result at Formula Atlas",
+      "content_assertions": [
+        "heading:Formula Atlas",
+        "idempotent_visible_result",
+        "outbound-source-layer:axis",
+        "outbound-target-id:available",
+        "selected node id visible",
+        "outbound source state captured",
+        "outbound target id/query captured",
+        "outbound_target_kind:formula",
+        "outbound_target_heading:Formula Atlas",
+        "outbound_target_id:available",
+        "outbound_target_query:available"
+      ],
+      "semantic_assertions": [
+        "target_heading:Formula Atlas",
+        "idempotent_visible_result",
+        "graph-link-formula-available",
+        "graph_clickability_asserts_content_not_hash_only"
+      ],
+      "assertion": "PASS",
+      "selected_node_id": "AXIS::coherence",
+      "selected_node_layer": "axis",
+      "selected_node_semantic_label": "Coherence axis",
+      "selected_node_technical_id": "AXIS::coherence",
+      "selected_node_source": "Source atom contextd0f77293124ae43678c1453dbf586178a695198ef0df4703943d5d05427f15d8source context carried where the graph node has corpus provenance",
+      "selected_node_outbound_index": "Outbound link indexwiki=available / formulaQuery=available / formulaId=boundary / proof=boundary / k=boundary",
+      "outbound_target_kind": "formula",
+      "outbound_link_available": true,
+      "outbound_target_id": "available",
+      "outbound_target_query": "available",
+      "outbound_target_heading": "Formula Atlas"
+    },
+    {
+      "workflow": "graph",
+      "action": "graph:detail-link:formula-id",
+      "pre_state_hash": "c8c28f08de903cebb8f6c7b865aace2a9c02f8116c0af620c7f40dcad4ca5ee8",
+      "post_state_hash": "55f4833877c6775f5eb96f5f2597520b91cf2dd1300cfce5bfb77fb5813a5599",
+      "state_changed": true,
+      "target_heading": "Formula Atlas",
+      "expected_visible_result": "graph:detail-link:formula-id produces visible result at Formula Atlas",
+      "content_assertions": [
+        "heading:Formula Atlas",
+        "state_hash_changed",
+        "outbound-source-layer:formula",
+        "outbound-target-id:OCF-003",
+        "selected node id visible",
+        "outbound source state captured",
+        "outbound target id/query captured",
+        "outbound_target_kind:formula-id",
+        "outbound_target_heading:Formula Atlas",
+        "outbound_target_id:OCF-003",
+        "outbound_target_query:OCF-003"
+      ],
+      "semantic_assertions": [
+        "target_heading:Formula Atlas",
+        "state_hash_changed",
+        "graph-link-formula-id-available",
+        "graph_clickability_asserts_content_not_hash_only"
+      ],
+      "assertion": "PASS",
+      "selected_node_id": "FORMULA::OCF_003",
+      "selected_node_layer": "formula",
+      "selected_node_semantic_label": "\\operatorname{Collapse}_K(t^*) \\Leftrightarrow \\Omega_K(t^*) = \\varnothing",
+      "selected_node_technical_id": "FORMULA::OCF_003",
+      "selected_node_source": "Source atom context1051908c43f1b59222657cb16a9bfe8b6517651a1dc256d9989eedd6f10c35bbsource context carried where the graph node has corpus provenance",
+      "selected_node_outbound_index": "Outbound link indexwiki=available / formulaQuery=available / formulaId=OCF-003 / proof=boundary / k=boundary",
+      "outbound_target_kind": "formula-id",
+      "outbound_link_available": true,
+      "outbound_target_id": "OCF-003",
+      "outbound_target_query": "OCF-003",
+      "outbound_target_heading": "Formula Atlas"
+    },
+    {
+      "workflow": "graph",
+      "action": "graph:detail-link:proof",
+      "pre_state_hash": "55f4833877c6775f5eb96f5f2597520b91cf2dd1300cfce5bfb77fb5813a5599",
+      "post_state_hash": "a036b584ec46f7e334312bd4c4b0f91d42b2994f823966cfe84bdc1ffc42110d",
+      "state_changed": true,
+      "target_heading": "Evidence / Boundaries",
+      "expected_visible_result": "graph:detail-link:proof produces visible result at Evidence / Boundaries",
+      "content_assertions": [
+        "heading:Evidence / Boundaries",
+        "state_hash_changed",
+        "outbound-source-layer:evidence",
+        "outbound-target-id:EVIDENCE_SOURCE_LEDGER",
+        "selected node id visible",
+        "outbound source state captured",
+        "outbound target id/query captured",
+        "outbound_target_kind:proof",
+        "outbound_target_heading:Evidence / Boundaries",
+        "outbound_target_id:EVIDENCE_SOURCE_LEDGER",
+        "outbound_target_query:EVIDENCE_SOURCE_LEDGER"
+      ],
+      "semantic_assertions": [
+        "target_heading:Evidence / Boundaries",
+        "state_hash_changed",
+        "graph-link-proof-available",
+        "graph_clickability_asserts_content_not_hash_only"
+      ],
+      "assertion": "PASS",
+      "selected_node_id": "OC::EVIDENCE::REPLAY_AND_SOURCE_LEDGER",
+      "selected_node_layer": "evidence",
+      "selected_node_semantic_label": "Replay, source and evidence ledgers",
+      "selected_node_technical_id": "OC::EVIDENCE::REPLAY_AND_SOURCE_LEDGER",
+      "selected_node_source": "Source atom contextsource context carried where the graph node has corpus provenance",
+      "selected_node_outbound_index": "Outbound link indexwiki=available / formulaQuery=available / formulaId=boundary / proof=EVIDENCE_SOURCE_LEDGER / k=boundary",
+      "outbound_target_kind": "proof",
+      "outbound_link_available": true,
+      "outbound_target_id": "EVIDENCE_SOURCE_LEDGER",
+      "outbound_target_query": "EVIDENCE_SOURCE_LEDGER",
+      "outbound_target_heading": "Evidence / Boundaries"
+    },
+    {
+      "workflow": "graph",
+      "action": "graph:detail-link:k",
+      "pre_state_hash": "a036b584ec46f7e334312bd4c4b0f91d42b2994f823966cfe84bdc1ffc42110d",
+      "post_state_hash": "1438de2b2ded3ff8d9b7c9594710c1d0298df31a9872b3852f32f552a1e8da02",
+      "state_changed": true,
+      "target_heading": "K / M Hierarchy",
+      "expected_visible_result": "graph:detail-link:k produces visible result at K / M Hierarchy",
+      "content_assertions": [
+        "heading:K / M Hierarchy",
+        "state_hash_changed",
+        "outbound-source-layer:k_level",
+        "outbound-target-id:K0",
+        "selected node id visible",
+        "outbound source state captured",
+        "outbound target id/query captured",
+        "outbound_target_kind:k",
+        "outbound_target_heading:K / M Hierarchy",
+        "outbound_target_id:K0",
+        "outbound_target_query:K0"
+      ],
+      "semantic_assertions": [
+        "target_heading:K / M Hierarchy",
+        "state_hash_changed",
+        "graph-link-k-available",
+        "graph_clickability_asserts_content_not_hash_only"
+      ],
+      "assertion": "PASS",
+      "selected_node_id": "K::K0",
+      "selected_node_layer": "k_level",
+      "selected_node_semantic_label": "K0 - mere distinguishability; no time, energy or geometry",
+      "selected_node_technical_id": "K::K0",
+      "selected_node_source": "Source atom context72278d09684ca1e55b734effcf19227f4af450d6739f3bfaff81e9c37e492ee7source context carried where the graph node has corpus provenance",
+      "selected_node_outbound_index": "Outbound link indexwiki=available / formulaQuery=available / formulaId=boundary / proof=boundary / k=K0",
+      "outbound_target_kind": "k",
+      "outbound_link_available": true,
+      "outbound_target_id": "K0",
+      "outbound_target_query": "K0",
+      "outbound_target_heading": "K / M Hierarchy"
+    },
+    {
+      "workflow": "graph",
+      "action": "graph:detail-link:workbench",
+      "pre_state_hash": "1438de2b2ded3ff8d9b7c9594710c1d0298df31a9872b3852f32f552a1e8da02",
+      "post_state_hash": "1438de2b2ded3ff8d9b7c9594710c1d0298df31a9872b3852f32f552a1e8da02",
+      "state_changed": false,
+      "target_heading": "Diagnose a system, break it, repair it, compare the result",
+      "expected_visible_result": "graph:detail-link:workbench produces visible result at Diagnose a system, break it, repair it, compare the result",
+      "content_assertions": [
+        "heading:Diagnose a system, break it, repair it, compare the result",
+        "idempotent_visible_result",
+        "outbound-source-layer:k_level",
+        "outbound-target-id:K0",
+        "selected node id visible",
+        "outbound source state captured",
+        "outbound target id/query captured",
+        "outbound_target_kind:workbench",
+        "outbound_target_heading:Diagnose a system, break it, repair it, compare the result",
+        "outbound_target_id:K0",
+        "outbound_target_query:K0"
+      ],
+      "semantic_assertions": [
+        "target_heading:Diagnose a system, break it, repair it, compare the result",
+        "idempotent_visible_result",
+        "graph-link-workbench-available",
+        "graph_clickability_asserts_content_not_hash_only"
+      ],
+      "assertion": "PASS",
+      "selected_node_id": "K::K0",
+      "selected_node_layer": "k_level",
+      "selected_node_semantic_label": "K0 - mere distinguishability; no time, energy or geometry",
+      "selected_node_technical_id": "K::K0",
+      "selected_node_source": "Source atom context72278d09684ca1e55b734effcf19227f4af450d6739f3bfaff81e9c37e492ee7source context carried where the graph node has corpus provenance",
+      "selected_node_outbound_index": "Outbound link indexwiki=available / formulaQuery=available / formulaId=boundary / proof=boundary / k=K0",
+      "outbound_target_kind": "workbench",
+      "outbound_link_available": true,
+      "outbound_target_id": "K0",
+      "outbound_target_query": "K0",
+      "outbound_target_heading": "Diagnose a system, break it, repair it, compare the result"
+    },
+    {
+      "workflow": "hierarchy",
+      "action": "hierarchy:select-level-rail",
+      "pre_state_hash": "ada83758dbe83de60060109d521b2beabd36ee983ff33b07e69edf1bb0209a09",
+      "post_state_hash": "1947ad97581fe7f81b8c7a390e6d112ef63837921f14dadea11e604a0177a162",
+      "state_changed": true,
+      "target_heading": "K / M Hierarchy",
+      "expected_visible_result": "hierarchy:select-level-rail produces visible result at K / M Hierarchy",
+      "content_assertions": [
+        "heading:K / M Hierarchy",
+        "state_hash_changed",
+        "route_order_start",
+        "selected_level_after:K12",
+        "selected_m_space_visible",
+        "selected K/M state visible",
+        "changed state hash",
+        "full intermediate K12..K0 ladder visible"
+      ],
+      "semantic_assertions": [
+        "target_heading:K / M Hierarchy",
+        "state_hash_changed",
+        "k12_to_k0_route_touches_hierarchy",
+        "semantic_level_assertion_not_hash_only"
+      ],
+      "assertion": "PASS"
+    },
+    {
+      "workflow": "hierarchy",
+      "action": "hierarchy:elevator-select",
+      "pre_state_hash": "1947ad97581fe7f81b8c7a390e6d112ef63837921f14dadea11e604a0177a162",
+      "post_state_hash": "ada83758dbe83de60060109d521b2beabd36ee983ff33b07e69edf1bb0209a09",
+      "state_changed": true,
+      "target_heading": "K / M Hierarchy",
+      "expected_visible_result": "hierarchy:elevator-select produces visible result at K / M Hierarchy",
+      "content_assertions": [
+        "heading:K / M Hierarchy",
+        "state_hash_changed",
+        "route_order_next",
+        "selected_level_before:K12",
+        "selected_level_after:K0",
+        "selected_m_space_visible",
+        "selected K/M state visible",
+        "changed state hash",
+        "full intermediate K12..K0 ladder visible"
+      ],
+      "semantic_assertions": [
+        "target_heading:K / M Hierarchy",
+        "state_hash_changed",
+        "k12_to_k0_route_touches_hierarchy",
+        "semantic_level_assertion_not_hash_only"
+      ],
+      "assertion": "PASS"
+    },
+    {
+      "workflow": "hierarchy",
+      "action": "hierarchy:export-selected-k0-route",
+      "pre_state_hash": "ada83758dbe83de60060109d521b2beabd36ee983ff33b07e69edf1bb0209a09",
+      "post_state_hash": "5370e68579d0b307cc84ce9e387358a2ddcf1cbcbb114d71c1b6c32682f30236",
+      "state_changed": true,
+      "target_heading": "K / M Hierarchy",
+      "expected_visible_result": "hierarchy:export-selected-k0-route produces visible result at K / M Hierarchy",
+      "content_assertions": [
+        "heading:K / M Hierarchy",
+        "state_hash_changed",
+        "selected_level:K0",
+        "export_hash_scope:selected K0 route",
+        "default_k12_not_used:true",
+        "km-export-preview visible",
+        "km-export-preview hash/scope visible",
+        "selected_level_before:K12",
+        "selected_level_after:K0",
+        "export_hash_scope:selected K0 route",
+        "selected_route_hash_visible",
+        "selected K/M state visible",
+        "changed state hash",
+        "full intermediate K12..K0 ladder visible"
+      ],
+      "semantic_assertions": [
+        "target_heading:K / M Hierarchy",
+        "state_hash_changed",
+        "k12_to_k0_route_touches_hierarchy",
+        "semantic_level_assertion_not_hash_only"
+      ],
+      "assertion": "PASS",
+      "selected_state": {
+        "k_level": "K0",
+        "m_space": "M-PHYSICS",
+        "m_space_source": "captured and asserted during hierarchy:export-selected-k0-route before the later K10 meta-binding probe",
+        "export_hash_scope": "selected K0 route",
+        "default_k12_not_used": true
+      }
+    },
+    {
+      "workflow": "hierarchy",
+      "action": "hierarchy:export-selected-route",
+      "pre_state_hash": "5370e68579d0b307cc84ce9e387358a2ddcf1cbcbb114d71c1b6c32682f30236",
+      "post_state_hash": "5370e68579d0b307cc84ce9e387358a2ddcf1cbcbb114d71c1b6c32682f30236",
+      "state_changed": false,
+      "target_heading": "K / M Hierarchy",
+      "expected_visible_result": "hierarchy:export-selected-route produces visible result at K / M Hierarchy",
+      "content_assertions": [
+        "heading:K / M Hierarchy",
+        "idempotent_visible_result",
+        "route_order_export",
+        "graph_hash_scope_visible",
+        "source_manifest_hash_visible",
+        "selected_route_hash_visible",
+        "export_hash_visible",
+        "selected K/M state visible",
+        "changed state hash",
+        "full intermediate K12..K0 ladder visible"
+      ],
+      "semantic_assertions": [
+        "target_heading:K / M Hierarchy",
+        "idempotent_visible_result",
+        "k12_to_k0_route_touches_hierarchy",
+        "semantic_level_assertion_not_hash_only"
+      ],
+      "assertion": "PASS"
+    },
+    {
+      "workflow": "hierarchy",
+      "action": "hierarchy:k7-domain-projection-boundary",
+      "pre_state_hash": "5370e68579d0b307cc84ce9e387358a2ddcf1cbcbb114d71c1b6c32682f30236",
+      "post_state_hash": "7d255a9875e20001486dc2be8c218e66c3fde42eaaa63e9810a10a432f78c95d",
+      "state_changed": true,
+      "target_heading": "K / M Hierarchy",
+      "expected_visible_result": "hierarchy:k7-domain-projection-boundary produces visible result at K / M Hierarchy",
+      "content_assertions": [
+        "heading:K / M Hierarchy",
+        "state_hash_changed",
+        "route_order_export",
+        "graph_hash_scope_visible",
+        "source_manifest_hash_visible",
+        "selected_route_hash_visible",
+        "export_hash_visible",
+        "selected K/M state visible",
+        "changed state hash",
+        "full intermediate K12..K0 ladder visible"
+      ],
+      "semantic_assertions": [
+        "target_heading:K / M Hierarchy",
+        "state_hash_changed",
+        "k12_to_k0_route_touches_hierarchy",
+        "semantic_level_assertion_not_hash_only"
+      ],
+      "assertion": "PASS"
+    },
+    {
+      "workflow": "hierarchy",
+      "action": "hierarchy:k10-meta-mspace-binding",
+      "pre_state_hash": "7d255a9875e20001486dc2be8c218e66c3fde42eaaa63e9810a10a432f78c95d",
+      "post_state_hash": "268b705c6dfca9a809d4bd9fdf6c4846577151253858d3465a05164f5ae43a3a",
+      "state_changed": true,
+      "target_heading": "K / M Hierarchy",
+      "expected_visible_result": "hierarchy:k10-meta-mspace-binding produces visible result at K / M Hierarchy",
+      "content_assertions": [
+        "heading:K / M Hierarchy",
+        "state_hash_changed",
+        "route_order_export",
+        "graph_hash_scope_visible",
+        "source_manifest_hash_visible",
+        "selected_route_hash_visible",
+        "export_hash_visible",
+        "selected K/M state visible",
+        "changed state hash",
+        "full intermediate K12..K0 ladder visible"
+      ],
+      "semantic_assertions": [
+        "target_heading:K / M Hierarchy",
+        "state_hash_changed",
+        "k12_to_k0_route_touches_hierarchy",
+        "semantic_level_assertion_not_hash_only"
+      ],
+      "assertion": "PASS"
+    },
+    {
+      "workflow": "hierarchy",
+      "action": "hierarchy:transition:K12->K11",
+      "pre_state_hash": "f4b6aa79b2f4df0b44d3ab9060a0d0b54cfd783ecbed7579432c901e9e814f26",
+      "post_state_hash": "d1e7d53e2b4e3fa6beb7297e176fb80554c772ddce47803d8c7d13bbe75698e7",
+      "state_changed": true,
+      "target_heading": "K / M Hierarchy",
+      "expected_visible_result": "K/M drilldown transition K12 selects K11 as the exact next lower slice.",
+      "content_assertions": [
+        "selected_level_before:K12",
+        "selected_level_after:K11",
+        "selected_m_space_visible",
+        "next_lower_slice_visible",
+        "direct_formula_refs_visible",
+        "expanded_formula_refs_visible",
+        "route_order_export",
+        "graph_hash_scope_visible",
+        "source_manifest_hash_visible",
+        "selected_route_hash_visible",
+        "export_hash_visible",
+        "selected K/M state visible",
+        "changed state hash",
+        "full intermediate K12..K0 ladder visible"
+      ],
+      "semantic_assertions": [
+        "one_pass_row_per_ladder_transition",
+        "exact_selected_level_after_asserted",
+        "k12_to_k0_route_touches_hierarchy",
+        "semantic_level_assertion_not_hash_only"
+      ],
+      "assertion": "PASS"
+    },
+    {
+      "workflow": "hierarchy",
+      "action": "hierarchy:transition:K11->K10",
+      "pre_state_hash": "34aa549f000cc80441b95ae2cbda4e8a819288a0de3b0ee6890518c677540869",
+      "post_state_hash": "2483a265ea81857e9e105b0320df6344b98fad26b8fe32473a421fd58bcc6f75",
+      "state_changed": true,
+      "target_heading": "K / M Hierarchy",
+      "expected_visible_result": "K/M drilldown transition K11 selects K10 as the exact next lower slice.",
+      "content_assertions": [
+        "selected_level_before:K11",
+        "selected_level_after:K10",
+        "selected_m_space_visible",
+        "next_lower_slice_visible",
+        "direct_formula_refs_visible",
+        "expanded_formula_refs_visible",
+        "route_order_export",
+        "graph_hash_scope_visible",
+        "source_manifest_hash_visible",
+        "selected_route_hash_visible",
+        "export_hash_visible",
+        "selected K/M state visible",
+        "changed state hash",
+        "full intermediate K12..K0 ladder visible"
+      ],
+      "semantic_assertions": [
+        "one_pass_row_per_ladder_transition",
+        "exact_selected_level_after_asserted",
+        "k12_to_k0_route_touches_hierarchy",
+        "semantic_level_assertion_not_hash_only"
+      ],
+      "assertion": "PASS"
+    },
+    {
+      "workflow": "hierarchy",
+      "action": "hierarchy:transition:K10->K9",
+      "pre_state_hash": "d35bf04fff57f1fcff97760c220f8667f6756ed58ed7a4694256b76e997b962e",
+      "post_state_hash": "20d7edca3eb16a3efa33c6cf09e088b5756747f19d2fb722e8b24142cc8f54c5",
+      "state_changed": true,
+      "target_heading": "K / M Hierarchy",
+      "expected_visible_result": "K/M drilldown transition K10 selects K9 as the exact next lower slice.",
+      "content_assertions": [
+        "selected_level_before:K10",
+        "selected_level_after:K9",
+        "selected_m_space_visible",
+        "next_lower_slice_visible",
+        "direct_formula_refs_visible",
+        "expanded_formula_refs_visible",
+        "route_order_export",
+        "graph_hash_scope_visible",
+        "source_manifest_hash_visible",
+        "selected_route_hash_visible",
+        "export_hash_visible",
+        "selected K/M state visible",
+        "changed state hash",
+        "full intermediate K12..K0 ladder visible"
+      ],
+      "semantic_assertions": [
+        "one_pass_row_per_ladder_transition",
+        "exact_selected_level_after_asserted",
+        "k12_to_k0_route_touches_hierarchy",
+        "semantic_level_assertion_not_hash_only"
+      ],
+      "assertion": "PASS"
+    },
+    {
+      "workflow": "hierarchy",
+      "action": "hierarchy:transition:K9->K8",
+      "pre_state_hash": "f740a3699d080a5a3cdbb8e4f17274c54ea157459d97642c31967a1c53c122b4",
+      "post_state_hash": "cbe8e87f4b8df93362a19517f6bdb84d138bd956bba8e96638cb085e5f506dcd",
+      "state_changed": true,
+      "target_heading": "K / M Hierarchy",
+      "expected_visible_result": "K/M drilldown transition K9 selects K8 as the exact next lower slice.",
+      "content_assertions": [
+        "selected_level_before:K9",
+        "selected_level_after:K8",
+        "selected_m_space_visible",
+        "next_lower_slice_visible",
+        "direct_formula_refs_visible",
+        "expanded_formula_refs_visible",
+        "route_order_export",
+        "graph_hash_scope_visible",
+        "source_manifest_hash_visible",
+        "selected_route_hash_visible",
+        "export_hash_visible",
+        "selected K/M state visible",
+        "changed state hash",
+        "full intermediate K12..K0 ladder visible"
+      ],
+      "semantic_assertions": [
+        "one_pass_row_per_ladder_transition",
+        "exact_selected_level_after_asserted",
+        "k12_to_k0_route_touches_hierarchy",
+        "semantic_level_assertion_not_hash_only"
+      ],
+      "assertion": "PASS"
+    },
+    {
+      "workflow": "hierarchy",
+      "action": "hierarchy:transition:K8->K7",
+      "pre_state_hash": "42a0437ecb82021fd972fcd025d309d79138ee01cdf71ea0de01f9a1711dc2dd",
+      "post_state_hash": "9c5c42c24b47104ac3337e8e19d8f14e7ad29a09e6b861d511309d517e115ced",
+      "state_changed": true,
+      "target_heading": "K / M Hierarchy",
+      "expected_visible_result": "K/M drilldown transition K8 selects K7 as the exact next lower slice.",
+      "content_assertions": [
+        "selected_level_before:K8",
+        "selected_level_after:K7",
+        "selected_m_space_visible",
+        "next_lower_slice_visible",
+        "direct_formula_refs_visible",
+        "expanded_formula_refs_visible",
+        "route_order_export",
+        "graph_hash_scope_visible",
+        "source_manifest_hash_visible",
+        "selected_route_hash_visible",
+        "export_hash_visible",
+        "selected K/M state visible",
+        "changed state hash",
+        "full intermediate K12..K0 ladder visible"
+      ],
+      "semantic_assertions": [
+        "one_pass_row_per_ladder_transition",
+        "exact_selected_level_after_asserted",
+        "k12_to_k0_route_touches_hierarchy",
+        "semantic_level_assertion_not_hash_only"
+      ],
+      "assertion": "PASS"
+    },
+    {
+      "workflow": "hierarchy",
+      "action": "hierarchy:transition:K7->K6",
+      "pre_state_hash": "da07580314824bbe11e1bf1f657970f60dd0a0495976fa1b85f4e314602d8bc8",
+      "post_state_hash": "89b5ecd3f17b383c4f0652c2a11be944767df7e2fc0ed33468578a5b6c07c56c",
+      "state_changed": true,
+      "target_heading": "K / M Hierarchy",
+      "expected_visible_result": "K/M drilldown transition K7 selects K6 as the exact next lower slice.",
+      "content_assertions": [
+        "selected_level_before:K7",
+        "selected_level_after:K6",
+        "selected_m_space_visible",
+        "next_lower_slice_visible",
+        "direct_formula_refs_visible",
+        "expanded_formula_refs_visible",
+        "route_order_export",
+        "graph_hash_scope_visible",
+        "source_manifest_hash_visible",
+        "selected_route_hash_visible",
+        "export_hash_visible",
+        "selected K/M state visible",
+        "changed state hash",
+        "full intermediate K12..K0 ladder visible"
+      ],
+      "semantic_assertions": [
+        "one_pass_row_per_ladder_transition",
+        "exact_selected_level_after_asserted",
+        "k12_to_k0_route_touches_hierarchy",
+        "semantic_level_assertion_not_hash_only"
+      ],
+      "assertion": "PASS"
+    },
+    {
+      "workflow": "hierarchy",
+      "action": "hierarchy:transition:K6->K5",
+      "pre_state_hash": "c7fd51757fca49764c881a1196c3671e88d5cfc059fd5f4e6c50fb37d78c044d",
+      "post_state_hash": "d2039b8b39f485c7c2231c9c11695f0ce84e2084b0cf942aa7fe06e19036e074",
+      "state_changed": true,
+      "target_heading": "K / M Hierarchy",
+      "expected_visible_result": "K/M drilldown transition K6 selects K5 as the exact next lower slice.",
+      "content_assertions": [
+        "selected_level_before:K6",
+        "selected_level_after:K5",
+        "selected_m_space_visible",
+        "next_lower_slice_visible",
+        "direct_formula_refs_visible",
+        "expanded_formula_refs_visible",
+        "route_order_export",
+        "graph_hash_scope_visible",
+        "source_manifest_hash_visible",
+        "selected_route_hash_visible",
+        "export_hash_visible",
+        "selected K/M state visible",
+        "changed state hash",
+        "full intermediate K12..K0 ladder visible"
+      ],
+      "semantic_assertions": [
+        "one_pass_row_per_ladder_transition",
+        "exact_selected_level_after_asserted",
+        "k12_to_k0_route_touches_hierarchy",
+        "semantic_level_assertion_not_hash_only"
+      ],
+      "assertion": "PASS"
+    },
+    {
+      "workflow": "hierarchy",
+      "action": "hierarchy:transition:K5->K4",
+      "pre_state_hash": "e75d1509b86b903f14316bbc8b9ba4ccb96f18b8543a423f24e5e869aac65097",
+      "post_state_hash": "2237ba50e778d86e36ed4345ecc56c0d8c9c09fa5fe6bf0d57f27fbc22526270",
+      "state_changed": true,
+      "target_heading": "K / M Hierarchy",
+      "expected_visible_result": "K/M drilldown transition K5 selects K4 as the exact next lower slice.",
+      "content_assertions": [
+        "selected_level_before:K5",
+        "selected_level_after:K4",
+        "selected_m_space_visible",
+        "next_lower_slice_visible",
+        "direct_formula_refs_visible",
+        "expanded_formula_refs_visible",
+        "route_order_export",
+        "graph_hash_scope_visible",
+        "source_manifest_hash_visible",
+        "selected_route_hash_visible",
+        "export_hash_visible",
+        "selected K/M state visible",
+        "changed state hash",
+        "full intermediate K12..K0 ladder visible"
+      ],
+      "semantic_assertions": [
+        "one_pass_row_per_ladder_transition",
+        "exact_selected_level_after_asserted",
+        "k12_to_k0_route_touches_hierarchy",
+        "semantic_level_assertion_not_hash_only"
+      ],
+      "assertion": "PASS"
+    },
+    {
+      "workflow": "hierarchy",
+      "action": "hierarchy:transition:K4->K3",
+      "pre_state_hash": "4ab811cbefec4e9599ff3e9ccf5030371ba1325cee1ab43f4bca924ad887a8c7",
+      "post_state_hash": "58306d7787f6e2ea164082ff40e92770499c51a9e3b133556c24e8edf946f903",
+      "state_changed": true,
+      "target_heading": "K / M Hierarchy",
+      "expected_visible_result": "K/M drilldown transition K4 selects K3 as the exact next lower slice.",
+      "content_assertions": [
+        "selected_level_before:K4",
+        "selected_level_after:K3",
+        "selected_m_space_visible",
+        "next_lower_slice_visible",
+        "direct_formula_refs_visible",
+        "expanded_formula_refs_visible",
+        "route_order_export",
+        "graph_hash_scope_visible",
+        "source_manifest_hash_visible",
+        "selected_route_hash_visible",
+        "export_hash_visible",
+        "selected K/M state visible",
+        "changed state hash",
+        "full intermediate K12..K0 ladder visible"
+      ],
+      "semantic_assertions": [
+        "one_pass_row_per_ladder_transition",
+        "exact_selected_level_after_asserted",
+        "k12_to_k0_route_touches_hierarchy",
+        "semantic_level_assertion_not_hash_only"
+      ],
+      "assertion": "PASS"
+    },
+    {
+      "workflow": "hierarchy",
+      "action": "hierarchy:transition:K3->K2",
+      "pre_state_hash": "54c41e0402abdddf802c5423f301d6e4231e205de082057831912ae6450d95be",
+      "post_state_hash": "718fd70ff61ff9794f2c88aa561dae71f9f8b4bd041f8c8d50a2f37bc274cbcf",
+      "state_changed": true,
+      "target_heading": "K / M Hierarchy",
+      "expected_visible_result": "K/M drilldown transition K3 selects K2 as the exact next lower slice.",
+      "content_assertions": [
+        "selected_level_before:K3",
+        "selected_level_after:K2",
+        "selected_m_space_visible",
+        "next_lower_slice_visible",
+        "direct_formula_refs_visible",
+        "expanded_formula_refs_visible",
+        "route_order_export",
+        "graph_hash_scope_visible",
+        "source_manifest_hash_visible",
+        "selected_route_hash_visible",
+        "export_hash_visible",
+        "selected K/M state visible",
+        "changed state hash",
+        "full intermediate K12..K0 ladder visible"
+      ],
+      "semantic_assertions": [
+        "one_pass_row_per_ladder_transition",
+        "exact_selected_level_after_asserted",
+        "k12_to_k0_route_touches_hierarchy",
+        "semantic_level_assertion_not_hash_only"
+      ],
+      "assertion": "PASS"
+    },
+    {
+      "workflow": "hierarchy",
+      "action": "hierarchy:transition:K2->K1",
+      "pre_state_hash": "6897ab3e7bed435cf094a10477f16bf68af03a04d99b2833d43902ce2b40f0a9",
+      "post_state_hash": "5d114caba4f4fb540f3a6cccf7594885867e0868ee788f700c62df4393fd6f25",
+      "state_changed": true,
+      "target_heading": "K / M Hierarchy",
+      "expected_visible_result": "K/M drilldown transition K2 selects K1 as the exact next lower slice.",
+      "content_assertions": [
+        "selected_level_before:K2",
+        "selected_level_after:K1",
+        "selected_m_space_visible",
+        "next_lower_slice_visible",
+        "direct_formula_refs_visible",
+        "expanded_formula_refs_visible",
+        "route_order_export",
+        "graph_hash_scope_visible",
+        "source_manifest_hash_visible",
+        "selected_route_hash_visible",
+        "export_hash_visible",
+        "selected K/M state visible",
+        "changed state hash",
+        "full intermediate K12..K0 ladder visible"
+      ],
+      "semantic_assertions": [
+        "one_pass_row_per_ladder_transition",
+        "exact_selected_level_after_asserted",
+        "k12_to_k0_route_touches_hierarchy",
+        "semantic_level_assertion_not_hash_only"
+      ],
+      "assertion": "PASS"
+    },
+    {
+      "workflow": "hierarchy",
+      "action": "hierarchy:transition:K1->K0",
+      "pre_state_hash": "badb7283766a112aebdb2936077a25f5db85ea465cdbac330ba6641d38c4ac77",
+      "post_state_hash": "e74e062fcd702f300b9619373b067a79b46a97fb8e86edd91ef2a714b40bbdd5",
+      "state_changed": true,
+      "target_heading": "K / M Hierarchy",
+      "expected_visible_result": "K/M drilldown transition K1 selects K0 as the exact next lower slice.",
+      "content_assertions": [
+        "selected_level_before:K1",
+        "selected_level_after:K0",
+        "selected_m_space_visible",
+        "next_lower_slice_visible",
+        "direct_formula_refs_visible",
+        "expanded_formula_refs_visible",
+        "route_order_export",
+        "graph_hash_scope_visible",
+        "source_manifest_hash_visible",
+        "selected_route_hash_visible",
+        "export_hash_visible",
+        "selected K/M state visible",
+        "changed state hash",
+        "full intermediate K12..K0 ladder visible"
+      ],
+      "semantic_assertions": [
+        "one_pass_row_per_ladder_transition",
+        "exact_selected_level_after_asserted",
+        "k12_to_k0_route_touches_hierarchy",
+        "semantic_level_assertion_not_hash_only"
+      ],
+      "assertion": "PASS"
+    },
+    {
+      "workflow": "hierarchy",
+      "action": "hierarchy:transition:K0->K0_BASE",
+      "pre_state_hash": "8704a01a73fa56816fb473d937190aa74b3e8ba54b92c30f8c80c1c50823a5af",
+      "post_state_hash": "6f6368fec8bd5c5b2c183446c6140ff27511e6ad3ddfd2ef30d67f0e1b2054fe",
+      "state_changed": true,
+      "target_heading": "K / M Hierarchy",
+      "expected_visible_result": "K/M drilldown transition K0 selects K0_BASE as the exact next lower slice.",
+      "content_assertions": [
+        "selected_level_before:K0",
+        "selected_level_after:K0_BASE",
+        "selected_m_space_visible",
+        "K0_BASE_terminal_boundary_not_lower_level",
+        "direct_formula_refs_visible",
+        "expanded_formula_refs_visible",
+        "route_order_export",
+        "graph_hash_scope_visible",
+        "source_manifest_hash_visible",
+        "selected_route_hash_visible",
+        "export_hash_visible",
+        "selected K/M state visible",
+        "changed state hash",
+        "full intermediate K12..K0 ladder visible"
+      ],
+      "semantic_assertions": [
+        "one_pass_row_per_ladder_transition",
+        "exact_selected_level_after_asserted",
+        "k12_to_k0_route_touches_hierarchy",
+        "semantic_level_assertion_not_hash_only"
+      ],
+      "assertion": "PASS"
+    },
+    {
+      "workflow": "proof",
+      "action": "proof:filter-replay-backed",
+      "pre_state_hash": "00e8459a72685fd8d825dfb129f0ab9a21c660362e934ba2cc00e52b15ff05bb",
+      "post_state_hash": "b18017a0af267efa9f165124dbaa5881e4bfcfed1324e10e4f788d4856527b4e",
+      "state_changed": true,
+      "target_heading": "Evidence / Boundaries",
+      "expected_visible_result": "proof:filter-replay-backed produces visible result at Evidence / Boundaries",
+      "content_assertions": [
+        "heading:Evidence / Boundaries",
+        "state_hash_changed",
+        "target_id visible",
+        "body excerpt visible",
+        "assumptions visible",
+        "evidence role breakdown visible",
+        "source refs visible",
+        "evidence hash visible",
+        "score kind visible",
+        "nonclaim boundary visible"
+      ],
+      "semantic_assertions": [
+        "target_heading:Evidence / Boundaries",
+        "state_hash_changed",
+        "proof_score_label_says_not_proof",
+        "full_route_inventory_visible",
+        "field_level_drilldown_assertions"
+      ],
+      "assertion": "PASS"
+    },
+    {
+      "workflow": "proof",
+      "action": "proof:famous-open-problem-warning",
+      "pre_state_hash": "b18017a0af267efa9f165124dbaa5881e4bfcfed1324e10e4f788d4856527b4e",
+      "post_state_hash": "5c1e48a897ba6fe59f37f800b37d4a162e7a57d340eb0f73e8cb1acacc048b45",
+      "state_changed": true,
+      "target_heading": "Evidence / Boundaries",
+      "expected_visible_result": "proof:famous-open-problem-warning produces visible result at Evidence / Boundaries",
+      "content_assertions": [
+        "heading:Evidence / Boundaries",
+        "state_hash_changed",
+        "target_id visible",
+        "body excerpt visible",
+        "assumptions visible",
+        "evidence role breakdown visible",
+        "source refs visible",
+        "evidence hash visible",
+        "score kind visible",
+        "nonclaim boundary visible"
+      ],
+      "semantic_assertions": [
+        "target_heading:Evidence / Boundaries",
+        "state_hash_changed",
+        "proof_score_label_says_not_proof",
+        "full_route_inventory_visible",
+        "field_level_drilldown_assertions"
+      ],
+      "assertion": "PASS"
+    },
+    {
+      "workflow": "reviewer",
+      "action": "reviewer:global-hash-lineage",
+      "pre_state_hash": "69fe0325591929bf09fec344cfd49bb4b484a6436cdd8954a6c05c5723ad41c2",
+      "post_state_hash": "69fe0325591929bf09fec344cfd49bb4b484a6436cdd8954a6c05c5723ad41c2",
+      "state_changed": false,
+      "target_heading": "Reviewer Mode",
+      "expected_visible_result": "reviewer:global-hash-lineage produces visible result at Reviewer Mode",
+      "content_assertions": [
+        "heading:Reviewer Mode",
+        "idempotent_visible_result"
+      ],
+      "semantic_assertions": [
+        "target_heading:Reviewer Mode",
+        "idempotent_visible_result"
+      ],
+      "assertion": "PASS"
+    },
+    {
+      "workflow": "model_comparison",
+      "action": "model-comparison:open",
+      "pre_state_hash": "69fe0325591929bf09fec344cfd49bb4b484a6436cdd8954a6c05c5723ad41c2",
+      "post_state_hash": "04797884ef6ea46076764a906abcfa097c3722efbc22db38cbe0abd9c4491838",
+      "state_changed": true,
+      "target_heading": "Why OC & Existing Models",
+      "expected_visible_result": "model-comparison:open produces visible result at Why OC & Existing Models",
+      "content_assertions": [
+        "heading:Why OC & Existing Models",
+        "state_hash_changed",
+        "all comparison rows visible",
+        "OC adds field visible",
+        "does not replace field visible",
+        "when not to use field visible",
+        "criteria field visible",
+        "boundary field visible"
+      ],
+      "semantic_assertions": [
+        "target_heading:Why OC & Existing Models",
+        "state_hash_changed",
+        "model_comparison_works_beyond_page_open",
+        "row_level_dom_coverage"
+      ],
+      "assertion": "PASS"
+    },
+    {
+      "workflow": "model_comparison",
+      "action": "model-comparison:row-level-ledger",
+      "pre_state_hash": "04797884ef6ea46076764a906abcfa097c3722efbc22db38cbe0abd9c4491838",
+      "post_state_hash": "04797884ef6ea46076764a906abcfa097c3722efbc22db38cbe0abd9c4491838",
+      "state_changed": false,
+      "target_heading": "Why OC & Existing Models",
+      "expected_visible_result": "model-comparison:row-level-ledger produces visible result at Why OC & Existing Models",
+      "content_assertions": [
+        "heading:Why OC & Existing Models",
+        "idempotent_visible_result",
+        "all comparison rows visible",
+        "OC adds field visible",
+        "does not replace field visible",
+        "when not to use field visible",
+        "criteria field visible",
+        "boundary field visible"
+      ],
+      "semantic_assertions": [
+        "target_heading:Why OC & Existing Models",
+        "idempotent_visible_result",
+        "model_comparison_works_beyond_page_open",
+        "row_level_dom_coverage"
+      ],
+      "assertion": "PASS"
+    },
+    {
+      "workflow": "model_comparison",
+      "action": "model-comparison:formula-trace",
+      "pre_state_hash": "04797884ef6ea46076764a906abcfa097c3722efbc22db38cbe0abd9c4491838",
+      "post_state_hash": "2d11195ceece82bdcc64c6eda173d0ec2bcaa98dd11066e9caeb6c182208a83a",
+      "state_changed": true,
+      "target_heading": "Formula Atlas",
+      "expected_visible_result": "model-comparison:formula-trace produces visible result at Formula Atlas",
+      "content_assertions": [
+        "heading:Formula Atlas",
+        "state_hash_changed",
+        "all comparison rows visible",
+        "OC adds field visible",
+        "does not replace field visible",
+        "when not to use field visible",
+        "criteria field visible",
+        "boundary field visible"
+      ],
+      "semantic_assertions": [
+        "target_heading:Formula Atlas",
+        "state_hash_changed",
+        "model_comparison_works_beyond_page_open",
+        "row_level_dom_coverage"
+      ],
+      "assertion": "PASS"
+    }
+  ]
+}

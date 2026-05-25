@@ -157,6 +157,33 @@ type ViewMetrics = {
   horizontal_overflow_pixels: number;
 };
 
+type CanvasContractRow = {
+  visible: boolean;
+  width: number;
+  height: number;
+  css_width: number;
+  css_height: number;
+};
+
+const runtimeErrors = new WeakMap<object, string[]>();
+
+test.beforeEach(async ({ page }) => {
+  const errors: string[] = [];
+  runtimeErrors.set(page, errors);
+  page.on("console", (message) => {
+    if (message.type() === "error") {
+      errors.push(`console.error: ${message.text()}`);
+    }
+  });
+  page.on("pageerror", (error) => {
+    errors.push(`pageerror: ${error.message}`);
+  });
+});
+
+test.afterEach(async ({ page }) => {
+  expect(runtimeErrors.get(page) ?? []).toEqual([]);
+});
+
 const VISUAL_SURFACES = [
   "cockpit",
   "graph",
@@ -277,6 +304,54 @@ type PostCondition = (postText: string) => boolean | Promise<boolean>;
 
 function noOverflow(metrics: ViewMetrics): boolean {
   return metrics.document_width <= metrics.viewport_width_observed;
+}
+
+async function expectNoHorizontalOverflow(page: any, context: string): Promise<void> {
+  const metrics = await recordViewMetrics(page);
+  expect(metrics.horizontal_overflow_pixels, `${context} horizontal overflow`).toBe(0);
+}
+
+async function expectVisibleCanvasContracts(page: any, context: string): Promise<void> {
+  const canvasRows: CanvasContractRow[] = await page.locator("canvas").evaluateAll((canvases: HTMLCanvasElement[]) =>
+    canvases.map((canvas) => {
+      const rect = canvas.getBoundingClientRect();
+      return {
+        visible: rect.width > 10 && rect.height > 10,
+        width: canvas.width,
+        height: canvas.height,
+        css_width: rect.width,
+        css_height: rect.height
+      };
+    })
+  );
+  for (const row of canvasRows.filter((canvas: CanvasContractRow) => canvas.visible)) {
+    expect(row.width, `${context} visible canvas width`).toBeGreaterThan(0);
+    expect(row.height, `${context} visible canvas height`).toBeGreaterThan(0);
+    expect(row.css_width, `${context} visible canvas CSS width`).toBeGreaterThan(0);
+    expect(row.css_height, `${context} visible canvas CSS height`).toBeGreaterThan(0);
+  }
+}
+
+async function expectAccessibilitySmokeGate(page: any): Promise<void> {
+  const result = await page.evaluate(() => {
+    const text = (node: Element) => (node.textContent ?? "").trim();
+    const accessibleName = (node: Element) =>
+      (node.getAttribute("aria-label") ?? node.getAttribute("title") ?? text(node)).trim();
+    const unnamedControls = Array.from(document.querySelectorAll("button, a[href], input, select, textarea"))
+      .filter((node) => !accessibleName(node))
+      .map((node) => node.outerHTML.slice(0, 160));
+    const imagesWithoutAlt = Array.from(document.querySelectorAll("img"))
+      .filter((node) => !node.hasAttribute("alt"))
+      .map((node) => node.outerHTML.slice(0, 160));
+    return {
+      html_lang: document.documentElement.getAttribute("lang"),
+      unnamed_controls: unnamedControls,
+      images_without_alt: imagesWithoutAlt
+    };
+  });
+  expect(result.html_lang).toMatch(/^en/i);
+  expect(result.unnamed_controls).toEqual([]);
+  expect(result.images_without_alt).toEqual([]);
 }
 
 async function recordViewMetrics(page: any): Promise<ViewMetrics> {
@@ -507,7 +582,7 @@ test("first viewport presents a real OC exhibit", async ({ page }) => {
   await expect(page.getByText("Version 010", { exact: true })).toBeVisible();
   await expect(page.getByText(/External gate:/)).toBeVisible();
   await expect(page.getByText(/Open findings/)).toBeVisible();
-  await expect(page.getByText(/Cerberus: (PASS|FAIL|RC|UNKNOWN)/)).toBeVisible();
+  await expect(page.getByText(/Cerberus: (PASS|RC|FAIL|BLOCKED)/)).toBeVisible();
   await expect(page.getByTestId("architect-workflow")).toBeVisible();
   await expect(page.getByTestId("what-is-this-contract")).toBeVisible();
   await expect(page.getByText(/systems ready/)).toBeVisible();
@@ -517,6 +592,8 @@ test("first viewport presents a real OC exhibit", async ({ page }) => {
   await expect(page.getByRole("button", { name: "Show decision summary", exact: true })).toBeVisible();
   await expect(page.getByRole("navigation").getByRole("button", { name: "Science Graph", exact: true })).toBeVisible();
   await expect(page.getByRole("navigation").getByRole("button", { name: "Cascade", exact: true })).toBeVisible();
+  await expectNoHorizontalOverflow(page, "first viewport");
+  await expectAccessibilitySmokeGate(page);
 });
 
 test("reviewer objection routes and architect surfaces are reachable", async ({ page }) => {
@@ -555,6 +632,8 @@ test("reviewer objection routes and architect surfaces are reachable", async ({ 
   }
   await page.getByRole("button", { name: "Add compensator and reinforce bridge" }).click();
   await expect(page.getByTestId("workbench-before-after")).toBeVisible();
+  await expectNoHorizontalOverflow(page, "reviewer routes");
+  await expectVisibleCanvasContracts(page, "reviewer routes");
 });
 
 test("captures V010 responsive visual manifest and semantic traces", async ({ page }, testInfo) => {
@@ -1338,7 +1417,7 @@ test("captures V010 responsive visual manifest and semantic traces", async ({ pa
 
   await page.getByRole("navigation").getByRole("button", { name: "Science Graph", exact: true }).click();
   await addWorkflowTrace("graph", "graph:toggle-2d", "3D Science Graph", async () => {
-    await page.getByTestId("graph-surface").getByRole("button", { name: /Show Sigma 2D fallback|Hide Sigma 2D fallback/ }).click();
+    await page.getByTestId("graph-surface").getByRole("button", { name: /Show 2D fallback|Hide 2D fallback/ }).click();
     return await page.getByText("3D Science Graph").first().isVisible();
   });
   await addWorkflowTrace("graph", "graph:root-path", "3D Science Graph", async () => {
@@ -1504,7 +1583,8 @@ test("captures V010 responsive visual manifest and semantic traces", async ({ pa
       await linkButton.click();
       await expect(page.locator("body").getByText(new RegExp(link.targetHeading, "i")).first()).toBeVisible();
       await page.getByRole("navigation").getByRole("button", { name: "Science Graph", exact: true }).click();
-      return await page.getByRole("heading", { name: "3D Science Graph" }).isVisible();
+      await expect(page.getByRole("heading", { name: "3D Science Graph" })).toBeVisible();
+      return true;
     });
     const detailLinkTrace = workflowRows.find((row) => row.workflow === "graph" && row.action === `graph:detail-link:${link.kind}`);
     if (detailLinkTrace) {
@@ -2098,6 +2178,7 @@ test("kill cascade and K-level atlas are visible", async ({ page }) => {
   await expect(page.getByTestId("cascade-result-payload")).toBeVisible();
   await expect(page.getByTestId("weakest-node-rule")).toBeVisible();
 });
+
 
 
 

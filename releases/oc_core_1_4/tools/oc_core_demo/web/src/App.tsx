@@ -153,7 +153,7 @@ function selectScienceGraph(atlas: Atlas): ScienceGraphData {
   ) as ScienceGraphData;
 }
 
-type GateStatus = "PASS" | "RC" | "FAIL" | "UNKNOWN";
+type GateStatus = "PASS" | "RC" | "FAIL" | "BLOCKED" | "UNKNOWN";
 
 function normalizeTrustStatus(rawStatus?: string): "PASS" | "RC" | "REVIEW" | "FAIL" | "UNKNOWN" {
   const status = rawStatus?.trim().toLowerCase() ?? "";
@@ -183,6 +183,7 @@ function gateStatusFromCerberus(rawStatus?: string, unresolved = 0): GateStatus 
   if (!status) return unresolved > 0 ? "FAIL" : "PASS";
   const tokens = new Set(status.replace(/[^a-z0-9]+/g, " ").split(" ").filter(Boolean));
   const includesToken = (value: string) => tokens.has(value) || status.includes(value);
+  if (["blocked", "missing", "provider", "owner", "signoff", "unrun", "not run", "not_run"].some(includesToken)) return "BLOCKED";
   if (includesToken("pass") && !includesToken("fail") && unresolved === 0) return "PASS";
   if (includesToken("fail") || includesToken("timeout") || includesToken("error") || includesToken("critical")) return "FAIL";
   if (includesToken("release-candidate") || includesToken("releasecandidate") || includesToken("rc") || includesToken("candidate")) return unresolved > 0 ? "RC" : "PASS";
@@ -218,8 +219,8 @@ function cerberusGateState(review: CerberusReviewPayload | undefined): {
 } {
   if (!review) {
     return {
-      status: "UNKNOWN",
-      statusLabel: "UNKNOWN",
+      status: "BLOCKED",
+      statusLabel: "BLOCKED",
       rationale: "Cerberus review payload is not attached to this atlas load."
     };
   }
@@ -295,7 +296,7 @@ function externalReviewerGate(atlas: Atlas): GateStatus {
   if (cerberusFindings !== undefined) {
     return unresolvedFindings === 0 ? "PASS" : "RC";
   }
-  return unresolvedFindings === 0 && (atlas.reviewer_mode?.external_actions ?? 0) >= 0 ? "PASS" : "FAIL";
+  return "BLOCKED";
 }
 
 function deriveFormulaAtlas(atlas: Atlas): FormulaRow[] {
@@ -311,6 +312,7 @@ function gateStatusLabel(status: GateStatus): string {
   if (status === "PASS") return "PASS";
   if (status === "RC") return "RC";
   if (status === "FAIL") return "FAIL";
+  if (status === "BLOCKED") return "BLOCKED";
   return "UNKNOWN";
 }
 
@@ -661,8 +663,8 @@ function Hero({
   const practicalWhy = decisionSummary?.buyer_personas?.[0]?.value_metric ?? "collapse-depth reduction and recovery-index delta";
   const systemsReady = atlas.system_zoo?.length ?? atlas.system_templates?.length ?? 0;
   const progressText = unresolvedFindings === 0 ? "Clear unresolved findings state and explicit boundaries" : "Review-facing actions are bounded; check unresolved findings first";
-  const gateClass = reviewerGate === "PASS" ? "pass" : reviewerGate === "RC" ? "review" : reviewerGate === "FAIL" ? "fail" : "unknown";
-  const cerberusClass = cerberusGate.status === "PASS" ? "pass" : cerberusGate.status === "RC" ? "review" : cerberusGate.status === "FAIL" ? "fail" : "unknown";
+  const gateClass = reviewerGate === "PASS" ? "pass" : reviewerGate === "RC" ? "review" : reviewerGate === "FAIL" ? "fail" : reviewerGate === "BLOCKED" ? "blocked" : "unknown";
+  const cerberusClass = cerberusGate.status === "PASS" ? "pass" : cerberusGate.status === "RC" ? "review" : cerberusGate.status === "FAIL" ? "fail" : cerberusGate.status === "BLOCKED" ? "blocked" : "unknown";
   return (
     <header className="hero hero-v003">
       <div className="hero-copy">
@@ -3912,5 +3914,4 @@ export default function App() {
     </div>
   );
 }
-
 

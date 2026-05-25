@@ -184,7 +184,6 @@ export function Canvas3D({
   }
 
   function handleWheel(event: WheelEvent<HTMLCanvasElement>) {
-    event.preventDefault();
     const direction = event.deltaY > 0 ? -1 : 1;
     setZoom((value) => Math.max(0.42, Math.min(4.2, value * (direction > 0 ? 1.12 : 0.89))));
   }
