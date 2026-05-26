@@ -1,26 +1,30 @@
 # OC Core 1.4
 
-OC Core 1.4 RC 022 is a public-ready print package for the Ontology of Continua core model.
-The active public scientific base is the OC Core 1.4 Public Science SPOT in
-`releases/oc_core_1_4/science_spot/`.
+OC Core 1.4 candidate 058 is a rebuilt reviewer-facing package for the Ontology of Continua core model. It is not a DOI, Zenodo upload, journal submission, public announcement, or final public sync.
+
+## Start here
+
+Read `START_HERE_FOR_REVIEWERS.md` first. Then use the model cheat sheet, proof-status glossary, SPOT frontier boundary, proof certificate, evidence package index, and Demonstrator route.
+
+## Proof boundary
+
+| Surface | Count | Meaning |
+| --- | ---: | --- |
+| Promoted public claims | 48 | Narrow release projection with declared support routes. |
+| DEFINITIONAL_SOURCE_BOUND | 25 | Definitions/source-bound vocabulary, not empirical or independent theorem proof. |
+| REPLAY_VALIDATED | 23 | Release replay/check support, not independent replication. |
+| Public Science SPOT frontier | 807 | Broader research frontier and audit context, not the promoted article theorem set. |
+
+The phrase "proof-closed" means closed at the declared support class only.
 
 ## Included
 
-- Seven regenerated PDFs built from the included 022 LaTeX sources.
-- Source Markdown, LaTeX, chapter sources, bibliography, figures, tables, and visual registries.
+- Seven PDFs, each with a role-specific first page in the rebuilt candidate.
+- Source Markdown, LaTeX sources, bibliography, figures, tables, and public registries.
 - Proof-closed public claim registry and proof closure certificate.
-- Public Science SPOT: unified science graph, source packets, formal witnesses, prior-art map, release-quality contract, inventory, and audit checklist.
-- RC 022 public science graph, formula atlas, evidence/replay data, and demonstrator source/data.
+- Public Science SPOT, source packets, formal witnesses, prior-art map, evidence/replay data, and Demonstrator source/data.
 - Checksums, manifest, CITATION, GitHub release draft text, and Zenodo metadata draft.
 
-## Proof Boundary
+## Publication control
 
-RC 022 originally promoted only the narrow public-safe 48-claim projection that was proof/source/replay closed.
-The Public Science SPOT carries the broader public scientific frontier: 807 absolute proof-closure rows from 042, including 664 proved-closed rows, 130 repaired/refuted-and-proved rows, 13 counterproof rows, and the empirical/formal boundary needed to audit them.
-
-Proof closure certificate: `proof/proof_closure_certificate_022.json`.
-SPOT graph: `science_spot/OC_CORE_1_4_PUBLIC_SCIENCE_SPOT_GRAPH.json`.
-
-## Publication Control
-
-This package is public-ready for release-authorized publication. GitHub push, GitHub release/tag, Zenodo upload, and DOI publication remain explicit release actions.
+No external publication action is authorized by this candidate. Future DOI, Zenodo upload, journal submission, GitHub release/tag, announcement, or public sync requires explicit owner signoff.
