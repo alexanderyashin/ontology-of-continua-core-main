@@ -1,0 +1,9 @@
+import OCKIndividuationMSpaceComposition.TaskOpticModelClassBridge
+
+open OCKIndividuationMSpaceComposition
+
+#print axioms optic_refinement_contracts_admitted_model_class
+#print axioms optic_refinement_narrows_sharp_prediction_band
+#print axioms task_optic_refinement_has_nonnegative_acquisition_value
+#print axioms strict_optic_refinement_need_not_strictly_contract_model_class
+#print axioms fixed_optic_model_extension_reopens_epistemic_predictions

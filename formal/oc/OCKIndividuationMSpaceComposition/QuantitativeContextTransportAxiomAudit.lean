@@ -1,0 +1,8 @@
+import OCKIndividuationMSpaceComposition.QuantitativeContextTransport
+
+open OCKIndividuationMSpaceComposition
+
+#print axioms QuantitativeContextEvidenceTransport.transportWitness_zero_targetDefect
+#print axioms QuantitativeContextEvidenceTransport.positive_targetDefect_obstructs_transport
+#print axioms identity_roundTrip_has_zero_holonomyDefect
+#print axioms positive_holonomyDefect_obstructs_identity_roundTrip

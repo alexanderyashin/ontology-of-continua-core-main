@@ -1,0 +1,24 @@
+import OCKIndividuationMSpaceComposition.GeneratorSamplingFrameTransport
+
+/-!
+Source-bound axiom audit for `GeneratorSamplingFrameTransport.lean`.
+
+Every theorem declaration listed by the current OC14 byte inventory is
+printed exactly once below.  This is an audit surface for the compiled
+declarations; it is not a new theorem, Claim, independent review or
+empirical result.
+-/
+
+#print axioms OCKIndividuationMSpaceComposition.constant_inclusion_preserves_frequency
+#print axioms OCKIndividuationMSpaceComposition.differential_selection_has_exact_quarter_bias
+#print axioms OCKIndividuationMSpaceComposition.inverse_inclusion_identifies_target_frequency
+#print axioms OCKIndividuationMSpaceComposition.inverse_inclusion_identifies_target_mass
+#print axioms OCKIndividuationMSpaceComposition.misspecified_inclusion_error_bounded_by_cell_budgets
+#print axioms OCKIndividuationMSpaceComposition.misspecified_inclusion_error_exact
+#print axioms OCKIndividuationMSpaceComposition.misspecified_inclusion_frequency_error_exact
+#print axioms OCKIndividuationMSpaceComposition.misspecified_selection_has_exact_sixth_error
+#print axioms OCKIndividuationMSpaceComposition.selected_frequency_bias_exact
+#print axioms OCKIndividuationMSpaceComposition.selected_frequency_eq_target_iff_zero_bias
+#print axioms OCKIndividuationMSpaceComposition.zero_coverage_blocks_universal_target_frequency_decoder
+#print axioms OCKIndividuationMSpaceComposition.zero_coverage_worlds_have_distinct_target_frequencies
+#print axioms OCKIndividuationMSpaceComposition.zero_coverage_worlds_have_equal_selected_contributions

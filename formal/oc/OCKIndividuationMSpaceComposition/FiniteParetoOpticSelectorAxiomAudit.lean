@@ -1,0 +1,10 @@
+import OCKIndividuationMSpaceComposition.FiniteParetoOpticSelector
+
+open OCKIndividuationMSpaceComposition
+
+#print axioms finiteParetoOptics_member_is_admissible_and_minimal
+#print axioms contract_pareto_member_meets_declared_bounds
+#print axioms finiteParetoOptics_covers_every_admissible
+#print axioms finiteParetoOptics_nonempty_iff_admissible_exists
+#print axioms selector_abstains_when_no_optic_is_admissible
+#print axioms selector_returns_pareto_set_when_admissible_exists

@@ -1,0 +1,22 @@
+import OCKIndividuationMSpaceComposition.SymmetryAxisCoaxisTorsor
+
+open OCKIndividuationMSpaceComposition
+
+#print axioms PrimitiveDistinction.coaxis_axis_cases
+#print axioms PrimitiveDistinction.axisCoaxis_ext_positive
+#print axioms PrimitiveDistinction.axisCoaxis_partner_positive_iff_not_seed_positive
+#print axioms PrimitiveDistinction.axisCoaxis_eq_base_or_reverse_base
+#print axioms PrimitiveDistinction.axisCoaxisCode
+#print axioms PrimitiveDistinction.coaxisSwap
+#print axioms PrimitiveDistinction.coaxisSwap_twice
+#print axioms PrimitiveDistinction.axisCoaxisCode_coaxisSwap
+#print axioms PrimitiveDistinction.coaxisSwap_ne_self
+#print axioms PrimitiveDistinction.coaxisC2Action
+#print axioms PrimitiveDistinction.coaxisC2Action_false
+#print axioms PrimitiveDistinction.coaxisC2Action_true
+#print axioms PrimitiveDistinction.coaxisC2Action_xor
+#print axioms PrimitiveDistinction.coaxisC2Action_true_ne
+#print axioms PrimitiveDistinction.axisCoaxisCode_base
+#print axioms PrimitiveDistinction.axisCoaxisCode_reverse_base
+#print axioms PrimitiveDistinction.axisCoaxisEquivBool
+#print axioms PrimitiveDistinction.axisCoaxisCode_eq_false_iff_seed_positive

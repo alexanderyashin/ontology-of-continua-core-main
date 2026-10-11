@@ -1,0 +1,19 @@
+import OCKIndividuationMSpaceComposition.CompositePredictiveKernelCorrespondence
+
+/-!
+Source-bound axiom audit for `CompositePredictiveKernelCorrespondence.lean`.
+
+Every theorem declaration listed by the current OC14 byte inventory is
+printed exactly once below.  This is an audit surface for the compiled
+declarations; it is not a new theorem, Claim, independent review or
+empirical result.
+-/
+
+#print axioms OCKIndividuationMSpaceComposition.continuation_aware_kernel_mature_composite_correspondence
+#print axioms OCKIndividuationMSpaceComposition.mature_composite_preserves_necessary_future
+#print axioms OCKIndividuationMSpaceComposition.mature_composite_preserves_possible_future
+#print axioms OCKIndividuationMSpaceComposition.mature_composite_preserves_robust_outcome
+#print axioms OCKIndividuationMSpaceComposition.mature_composite_preserves_sound_predictor
+#print axioms OCKIndividuationMSpaceComposition.mature_composite_transport_residual_is_oc_compatibility
+#print axioms OCKIndividuationMSpaceComposition.no_strict_possible_future_gain_over_exact_mature_composite
+#print axioms OCKIndividuationMSpaceComposition.strict_possible_difference_requires_contract_difference

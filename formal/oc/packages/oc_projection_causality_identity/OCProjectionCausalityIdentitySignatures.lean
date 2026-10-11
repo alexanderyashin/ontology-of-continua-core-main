@@ -1,0 +1,31 @@
+import OCProjectionCausalityIdentity
+
+open OCProjectionCausalityIdentity
+
+/-! Executable declaration/signature inventory for guarded replay. -/
+
+#check OperationalSignature
+#check FunctionalAssembly
+#check MacroEdge
+#check ExternalMacroEdge
+#check InternalEvolution
+#check AlternatingCycle
+#check LiftedMicroReachability
+#check MacroReachability
+#check ZeroStitchingDefect
+#check StrongQuotientCongruence
+#check FiberConvexFor
+#check finite_noPositiveCycle_iff_natTopologicalRank
+#check noPositiveCycle_iff_noPositiveMutualReachability
+#check macroCycle_iff_alternatingCycle
+#check macro_self_loop_iff_internalEvolution
+#check reciprocal_macro_edges_require_three_micro_occurrences
+#check n_edge_path_endpoint_collapse_creates_n_edge_macro_closedWalk
+#check cyclic_quotient_requires_more_occurrences_than_objects
+#check totalOrder_convexFibers_iff_externalMacro_acyclic
+#check partialOrder_convex_fibers_can_have_reciprocal_quotient
+#check strongCongruence_preserves_acyclicity
+#check strongCongruence_is_not_necessary_for_macro_acyclicity
+#check zeroStitchingDefect_iff_reachabilityEquality
+#check spurious_path_fixture
+#check assemblyProjectionFamily_jointlySeparates_iff_injective

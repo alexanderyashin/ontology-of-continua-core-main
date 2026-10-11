@@ -1,0 +1,17 @@
+import OCKIndividuationMSpaceComposition.SymmetryQuotientRankBoundary
+
+namespace OCKIndividuationMSpaceComposition
+
+namespace IntrinsicFinitaryRank
+
+#print axioms FinitaryDistinctionClosure.rank_image_le_source_card
+#print axioms FinitaryDistinctionClosure.rank_image_le_source_rank_of_independent
+#print axioms FinitaryDistinctionClosure.rank_image_eq_source_rank_of_independent
+#print axioms FinitaryDistinctionClosure.rank_image_lt_source_rank_of_collision
+#print axioms collapseTwoCoordinates_full_family
+#print axioms collapseTwoCoordinates_target_singleton_independent
+#print axioms collapseTwoCoordinates_strict_rank_loss
+
+end IntrinsicFinitaryRank
+
+end OCKIndividuationMSpaceComposition

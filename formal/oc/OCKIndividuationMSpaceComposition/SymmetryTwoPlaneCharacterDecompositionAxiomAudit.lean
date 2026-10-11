@@ -1,0 +1,37 @@
+import OCKIndividuationMSpaceComposition.SymmetryTwoPlaneCharacterDecomposition
+
+open OCKIndividuationMSpaceComposition
+
+#print axioms boolFlipFirst
+#print axioms boolFlipSecond
+#print axioms boolFlipFirst_involutive
+#print axioms boolFlipSecond_involutive
+#print axioms boolFlipFirst_second_commute
+#print axioms boolEvenEvenPart
+#print axioms boolOddEvenPart
+#print axioms boolEvenOddPart
+#print axioms boolOddOddPart
+#print axioms bool_character_parts_sum
+#print axioms boolEvenEvenPart_flipFirst
+#print axioms boolEvenEvenPart_flipSecond
+#print axioms boolOddEvenPart_flipFirst
+#print axioms boolOddEvenPart_flipSecond
+#print axioms boolEvenOddPart_flipFirst
+#print axioms boolEvenOddPart_flipSecond
+#print axioms boolOddOddPart_flipFirst
+#print axioms boolOddOddPart_flipSecond
+#print axioms bool_character_decomposition_unique
+#print axioms PrimitiveDistinction.planeObservableToBool
+#print axioms PrimitiveDistinction.planeEvenEvenPart
+#print axioms PrimitiveDistinction.planeOddEvenPart
+#print axioms PrimitiveDistinction.planeEvenOddPart
+#print axioms PrimitiveDistinction.planeOddOddPart
+#print axioms PrimitiveDistinction.plane_character_parts_sum
+#print axioms PrimitiveDistinction.plane_evenEvenPart_first_invariant
+#print axioms PrimitiveDistinction.plane_evenEvenPart_second_invariant
+#print axioms PrimitiveDistinction.plane_oddEvenPart_first_odd
+#print axioms PrimitiveDistinction.plane_oddEvenPart_second_invariant
+#print axioms PrimitiveDistinction.plane_evenOddPart_second_odd
+#print axioms PrimitiveDistinction.plane_evenOddPart_first_invariant
+#print axioms PrimitiveDistinction.plane_oddOddPart_second_odd
+#print axioms PrimitiveDistinction.plane_oddOddPart_first_odd

@@ -1,0 +1,20 @@
+import OCKIndividuationMSpaceComposition.FrameAdequacyAndPhase
+
+/-!
+Source-bound axiom audit for `FrameAdequacyAndPhase.lean`.
+
+Every theorem declaration listed by the current OC14 byte inventory is
+printed exactly once below.  This is an audit surface for the compiled
+declarations; it is not a new theorem, Claim, independent review or
+empirical result.
+-/
+
+#print axioms OCKIndividuationMSpaceComposition.OutcomeCollision.pair_correct_count_le_one
+#print axioms OCKIndividuationMSpaceComposition.QualifiedFrameRepair.extension_strictly_resolves_trigger
+#print axioms OCKIndividuationMSpaceComposition.QualifiedFrameRepair.old_frame_fails
+#print axioms OCKIndividuationMSpaceComposition.ResolvingFrameExtension.has_exact_predictor
+#print axioms OCKIndividuationMSpaceComposition.ResolvingFrameExtension.splits_collision
+#print axioms OCKIndividuationMSpaceComposition.ValidatedPhaseAdapter.phaseChange_iff_crossing
+#print axioms OCKIndividuationMSpaceComposition.boolean_half_threshold_crosses
+#print axioms OCKIndividuationMSpaceComposition.frameInsufficient_iff_not_observationSufficient
+#print axioms OCKIndividuationMSpaceComposition.threshold_data_alone_does_not_determine_phase_label

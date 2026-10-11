@@ -1,0 +1,7 @@
+import OCKIndividuationMSpaceComposition.SymmetryGlobalC2InvariantQuotient
+
+open OCKIndividuationMSpaceComposition
+
+#print axioms PrimitiveDistinction.carrierInvariant_iff_globalPairQuotient_factor_of_covers
+#print axioms PrimitiveDistinction.carrierInvariantPart_factors_through_globalPairQuotient
+#print axioms PrimitiveDistinction.globalPairQuotient_factor_unique

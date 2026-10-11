@@ -1,0 +1,9 @@
+import OCKIndividuationMSpaceComposition.OpenDiscreteDynamics
+
+/-! Source-bound axiom surface for open-dynamics and robust-envelope results. -/
+
+#print axioms OCKIndividuationMSpaceComposition.equal_trajectory_does_not_identify_endogenous_flow
+#print axioms OCKIndividuationMSpaceComposition.contraction_geometric_error_bound
+#print axioms OCKIndividuationMSpaceComposition.forced_contraction_error_bound
+#print axioms OCKIndividuationMSpaceComposition.robustErrorEnvelope_eq_geometric_sum
+#print axioms OCKIndividuationMSpaceComposition.robustErrorEnvelope_le_contracting_plateau

@@ -1,0 +1,10 @@
+import OCKIndividuationMSpaceComposition.SymmetrySignRepresentation
+
+open OCKIndividuationMSpaceComposition
+
+#print axioms baseAxisSignPairing_seed
+#print axioms baseAxisSignPairing_partner
+#print axioms axisSignPairing_determined_by_seed
+#print axioms axisSignPairing_equal_or_reversed
+#print axioms axisSignPairing_breaks_everywhere
+#print axioms axisSignPairing_forbids_quotient_factor

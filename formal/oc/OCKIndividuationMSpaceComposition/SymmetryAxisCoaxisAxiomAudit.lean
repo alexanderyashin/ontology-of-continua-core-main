@@ -1,0 +1,15 @@
+import OCKIndividuationMSpaceComposition.SymmetryAxisCoaxis
+
+open OCKIndividuationMSpaceComposition
+
+#print axioms mem_axisPositiveSide_iff
+#print axioms mem_axisNegativeSide_iff
+#print axioms axis_side_dichotomy
+#print axioms axis_sides_exclusive
+#print axioms axis_negative_iff_not_positive
+#print axioms axisSwap_positive_iff_negative
+#print axioms axisSwap_negative_iff_positive
+#print axioms baseAxisCoaxis_marks_seed_positive
+#print axioms baseAxisCoaxis_marks_partner_negative
+#print axioms reverseAxisCoaxis_twice
+#print axioms axisCoaxis_not_swap_invariant

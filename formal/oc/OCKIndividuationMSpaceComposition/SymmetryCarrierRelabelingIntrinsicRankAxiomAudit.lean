@@ -1,0 +1,31 @@
+import OCKIndividuationMSpaceComposition.SymmetryCarrierRelabelingIntrinsicRank
+
+namespace OCKIndividuationMSpaceComposition
+
+namespace PrimitiveDistinction.NativeCarrierTransport
+
+#print axioms transportPermutationHom
+#print axioms transportPermutationHom_apply
+#print axioms transportPermutation_one
+#print axioms transport_maskFactor
+#print axioms transport_maskPermutationProduct
+#print axioms transport_symmetryAlgebraLogRank
+
+end PrimitiveDistinction.NativeCarrierTransport
+
+namespace PrimitiveDistinction.NativeIntrinsicRankBoundary
+
+#print axioms transportCardinalityRealization
+#print axioms transport_realization_closure_rank
+#print axioms transport_realization_native_rank
+#print axioms transportTokenAction
+#print axioms transportActionCorrespondence
+#print axioms transport_correspondenceActionLogRank
+#print axioms transport_correspondenceActionLogRank_eq_intrinsic_rank
+#print axioms reverseLabelsCardinalityRealization
+#print axioms reverseLabelsActionCorrespondence
+#print axioms reverseLabels_correspondenceActionLogRank
+
+end PrimitiveDistinction.NativeIntrinsicRankBoundary
+
+end OCKIndividuationMSpaceComposition

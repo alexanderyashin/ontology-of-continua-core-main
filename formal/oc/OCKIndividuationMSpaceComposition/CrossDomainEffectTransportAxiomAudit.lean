@@ -1,0 +1,20 @@
+import OCKIndividuationMSpaceComposition.CrossDomainEffectTransport
+
+/-!
+Source-bound axiom audit for `CrossDomainEffectTransport.lean`.
+
+Every theorem declaration listed by the current OC14 byte inventory is
+printed exactly once below.  This is an audit surface for the compiled
+declarations; it is not a new theorem, Claim, independent review or
+empirical result.
+-/
+
+#print axioms OCKIndividuationMSpaceComposition.combined_cross_domain_transport_bound
+#print axioms OCKIndividuationMSpaceComposition.conditional_effect_drift_bound
+#print axioms OCKIndividuationMSpaceComposition.conditional_effect_drift_composes
+#print axioms OCKIndividuationMSpaceComposition.missing_overlap_blocks_cross_domain_effect_identification
+#print axioms OCKIndividuationMSpaceComposition.population_shift_effect_bound
+#print axioms OCKIndividuationMSpaceComposition.positive_overlap_reweighting_exact
+#print axioms OCKIndividuationMSpaceComposition.stable_conditional_effect_standardization_exact
+#print axioms OCKIndividuationMSpaceComposition.target_effect_transport_decomposition
+#print axioms OCKIndividuationMSpaceComposition.transport_model_error_floor_blocks_policy_order

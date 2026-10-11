@@ -1,0 +1,24 @@
+import OCKIndividuationMSpaceComposition.UniversalPredictiveDynamics
+
+/-!
+Source-bound axiom audit for `UniversalPredictiveDynamics.lean`.
+
+Every theorem declaration listed by the current OC14 byte inventory is
+printed exactly once below.  This is an audit surface for the compiled
+declarations; it is not a new theorem, Claim, independent review or
+empirical result.
+-/
+
+#print axioms OCKIndividuationMSpaceComposition.DomainProjection.map_reachExactly
+#print axioms OCKIndividuationMSpaceComposition.DomainProjection.map_reachWithin
+#print axioms OCKIndividuationMSpaceComposition.DomainProjection.map_targetFuture
+#print axioms OCKIndividuationMSpaceComposition.action_conditioned_system_step_is_exact
+#print axioms OCKIndividuationMSpaceComposition.domain_necessary_feature_pulls_back
+#print axioms OCKIndividuationMSpaceComposition.generated_exclusion_sound
+#print axioms OCKIndividuationMSpaceComposition.generated_necessary_feature_sound
+#print axioms OCKIndividuationMSpaceComposition.observation_collision_no_exact_predictor
+#print axioms OCKIndividuationMSpaceComposition.observation_collision_pair_correct_count_le_one
+#print axioms OCKIndividuationMSpaceComposition.possibility_support_does_not_determine_weights
+#print axioms OCKIndividuationMSpaceComposition.same_frame_exhaustion_forces_extension
+#print axioms OCKIndividuationMSpaceComposition.sound_complete_generator_exact
+#print axioms OCKIndividuationMSpaceComposition.source_necessary_feature_descends_of_exact

@@ -1,0 +1,23 @@
+import OCKIndividuationMSpaceComposition.QualificationBaseChange
+
+/-!
+Source-bound axiom audit for `QualificationBaseChange.lean`.
+
+Every theorem declaration listed by the current OC14 byte inventory is
+printed exactly once below.  This is an audit surface for the compiled
+declarations; it is not a new theorem, Claim, independent review or
+empirical result.
+-/
+
+#print axioms OCKIndividuationMSpaceComposition.QualificationBaseIsomorphism.qualificationGrade_iff
+#print axioms OCKIndividuationMSpaceComposition.QualificationBaseIsomorphism.atomicQualification_iff
+#print axioms OCKIndividuationMSpaceComposition.QualificationBaseIsomorphism.backward_mechanismMap_injective
+#print axioms OCKIndividuationMSpaceComposition.QualificationBaseIsomorphism.compositeQualification_iff
+#print axioms OCKIndividuationMSpaceComposition.QualificationBaseIsomorphism.forward_mechanismMap_injective
+#print axioms OCKIndividuationMSpaceComposition.ActiveConstraintBaseChange.mapEssentialDependency
+#print axioms OCKIndividuationMSpaceComposition.ActiveConstraintBaseChange.mapGeneratedKernel
+#print axioms OCKIndividuationMSpaceComposition.ActiveConstraintBaseChange.mapInternalDependency
+#print axioms OCKIndividuationMSpaceComposition.qualificationGrade_is_not_contextInvariant_without_contract
+#print axioms OCKIndividuationMSpaceComposition.QualificationBaseChange.targetAtomicQualification_iff_kernelIrreducible
+#print axioms OCKIndividuationMSpaceComposition.QualificationBaseChange.targetCompositeQualification_iff_internalWitness
+#print axioms OCKIndividuationMSpaceComposition.QualificationBaseChange.targetKernel_irreducible_of_reflection

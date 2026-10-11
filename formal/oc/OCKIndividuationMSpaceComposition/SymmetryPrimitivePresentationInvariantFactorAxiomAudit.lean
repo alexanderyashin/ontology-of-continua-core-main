@@ -1,0 +1,17 @@
+import OCKIndividuationMSpaceComposition.SymmetryPrimitivePresentationInvariantFactor
+
+namespace OCKIndividuationMSpaceComposition
+
+namespace PrimitiveDistinction
+
+#print axioms presentationInvariant_on_sameUnorderedSupport
+#print axioms presentationInvariantFactor_spec
+#print axioms presentationInvariant_factors_through_unorderedClass
+#print axioms presentationInvariant_iff_unorderedClass_factor
+#print axioms unorderedClass_factor_unique
+#print axioms presentation_symmetry_breaking_forbids_unorderedClass_factor
+#print axioms reverseLabels_ne_self
+
+end PrimitiveDistinction
+
+end OCKIndividuationMSpaceComposition

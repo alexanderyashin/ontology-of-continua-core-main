@@ -1,0 +1,12 @@
+import OCKIndividuationMSpaceComposition.TomographicNoisyAutofocus
+import Mathlib.Algebra.BigOperators.Group.Finset.Basic
+import Mathlib.Data.Real.Basic
+open scoped BigOperators
+
+namespace OCKIndividuationMSpaceComposition
+
+#print axioms tomographicNoisyFocusUpdate_error
+#print axioms tomographicNoisyFocusUpdate_abs_error_bound
+#print axioms tomographicNoisyFocusUpdate_error_tube_invariant
+
+end OCKIndividuationMSpaceComposition

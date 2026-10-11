@@ -1,0 +1,23 @@
+import OCKIndividuationMSpaceComposition.ConstitutiveBridge
+
+/-!
+Source-bound axiom audit for `ConstitutiveBridge.lean`.
+
+Every theorem declaration listed by the current OC14 byte inventory is
+printed exactly once below.  This is an audit surface for the compiled
+declarations; it is not a new theorem, Claim, independent review or
+empirical result.
+-/
+
+#print axioms OCKIndividuationMSpaceComposition.admissibility_is_insufficient_for_parent_existence
+#print axioms OCKIndividuationMSpaceComposition.admissibleRealizationBridge_has_available_parent
+#print axioms OCKIndividuationMSpaceComposition.arbitraryBoolFilterBridge_is_strictlyConstrained
+#print axioms OCKIndividuationMSpaceComposition.constitutiveTransition_preserves_parentAvailability
+#print axioms OCKIndividuationMSpaceComposition.constitutive_continuation_does_not_imply_normative_validity
+#print axioms OCKIndividuationMSpaceComposition.duplicatedTokenBridge_has_equal_parent_fibers
+#print axioms OCKIndividuationMSpaceComposition.emptyRealizationBridge_has_no_available_parent
+#print axioms OCKIndividuationMSpaceComposition.isomorphic_view_types_do_not_imply_same_source_token
+#print axioms OCKIndividuationMSpaceComposition.one_source_token_allows_nonisomorphic_projection_types
+#print axioms OCKIndividuationMSpaceComposition.parentAvailable_of_mSpace_available_and_explicitAdapter
+#print axioms OCKIndividuationMSpaceComposition.parentFiber_member_is_admissible
+#print axioms OCKIndividuationMSpaceComposition.parent_fiber_is_insufficient_for_token_identity

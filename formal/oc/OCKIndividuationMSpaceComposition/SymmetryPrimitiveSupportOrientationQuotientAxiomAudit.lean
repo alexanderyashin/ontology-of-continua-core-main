@@ -1,0 +1,13 @@
+import OCKIndividuationMSpaceComposition.SymmetryPrimitiveSupportOrientationQuotient
+
+namespace OCKIndividuationMSpaceComposition
+namespace PrimitiveDistinction
+
+#print axioms supportOrientation_eq_false_iff_fixed
+#print axioms supportOrientation_eq_true_iff_swapped
+#print axioms supportOrientation_trans
+#print axioms supportOrientation_symm
+#print axioms supportOrientation_surjective
+
+end PrimitiveDistinction
+end OCKIndividuationMSpaceComposition

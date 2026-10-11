@@ -1,0 +1,20 @@
+import OCKIndividuationMSpaceComposition.EnterpriseCarrierExtractorBinding
+
+/-!
+Source-bound axiom audit for `EnterpriseCarrierExtractorBinding.lean`.
+
+Every theorem declaration listed by the current OC14 byte inventory is
+printed exactly once below.  This is an audit surface for the compiled
+declarations; it is not a new theorem, Claim, independent review or
+empirical result.
+-/
+
+#print axioms OCKIndividuationMSpaceComposition.ExtractorProfileCertificate.reportedCarrier_dominant
+#print axioms OCKIndividuationMSpaceComposition.ExtractorProfileCertificate.unique_reportedCarrier
+#print axioms OCKIndividuationMSpaceComposition.carrier_support_set_does_not_determine_dominant_carrier
+#print axioms OCKIndividuationMSpaceComposition.controlHeavy_profile_is_control_dominant
+#print axioms OCKIndividuationMSpaceComposition.exact_path_replay_preserves_profile_and_carrier
+#print axioms OCKIndividuationMSpaceComposition.extractedCarrierProfile_append
+#print axioms OCKIndividuationMSpaceComposition.extractedCarrierProfile_nil
+#print axioms OCKIndividuationMSpaceComposition.km_extractor_profile_dominance_yields_singleton_carrier_support
+#print axioms OCKIndividuationMSpaceComposition.scientificHeavy_profile_is_scientific_dominant

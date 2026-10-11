@@ -1,0 +1,25 @@
+import OCKIndividuationMSpaceComposition.SymmetryPrimitiveDistinctionNaturality
+
+open OCKIndividuationMSpaceComposition
+
+#print axioms PrimitiveDistinction.OrderPreservingMap.axisMap_injective
+#print axioms PrimitiveDistinction.OrderPreservingMap.axisMap_surjective
+#print axioms PrimitiveDistinction.OrderPreservingMap.axisEquiv
+#print axioms PrimitiveDistinction.OrderPreservingMap.axisMap_swap
+#print axioms PrimitiveDistinction.OrderPreservingMap.toR3EquivariantMap
+#print axioms PrimitiveDistinction.OrderPreservingMap.generatedPolarity_natural
+#print axioms PrimitiveDistinction.OrderPreservingMap.axisMap_unique
+#print axioms PrimitiveDistinction.OrderPreservingMap.identity
+#print axioms PrimitiveDistinction.OrderPreservingMap.axisMap_identity
+#print axioms PrimitiveDistinction.OrderPreservingMap.comp
+#print axioms PrimitiveDistinction.OrderPreservingMap.axisMap_comp
+#print axioms PrimitiveDistinction.OrderReversingMap.axisMap_injective
+#print axioms PrimitiveDistinction.OrderReversingMap.axisMap_surjective
+#print axioms PrimitiveDistinction.OrderReversingMap.axisEquiv
+#print axioms PrimitiveDistinction.OrderReversingMap.axisMap_swap
+#print axioms PrimitiveDistinction.OrderReversingMap.toR3EquivariantMap
+#print axioms PrimitiveDistinction.OrderReversingMap.generatedPolarity_antinatural
+#print axioms PrimitiveDistinction.OrderReversingMap.axisMap_unique
+#print axioms PrimitiveDistinction.OrderReversingMap.comp
+#print axioms PrimitiveDistinction.OrderReversingMap.axisMap_comp
+#print axioms PrimitiveDistinction.OrderReversingMap.generatedPolarity_comp

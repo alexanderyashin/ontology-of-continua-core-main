@@ -1,0 +1,22 @@
+import OCKIndividuationMSpaceComposition.OCGeneratorMechanicsBinding
+
+/-!
+Source-bound axiom audit for `OCGeneratorMechanicsBinding.lean`.
+
+Every theorem declaration listed by the current OC14 byte inventory is
+printed exactly once below.  This is an audit surface for the compiled
+declarations; it is not a new theorem, Claim, independent review or
+empirical result.
+-/
+
+#print axioms OCKIndividuationMSpaceComposition.equal_complete_observation_gives_equal_constraint_system
+#print axioms OCKIndividuationMSpaceComposition.frame_shift_changes_exact_successor
+#print axioms OCKIndividuationMSpaceComposition.frame_worlds_have_same_k_and_m_projection
+#print axioms OCKIndividuationMSpaceComposition.k_and_m_projection_without_frame_do_not_identify_successor
+#print axioms OCKIndividuationMSpaceComposition.mechanics_qualifiedStep_iff_feasible_successor
+#print axioms OCKIndividuationMSpaceComposition.observation_refinement_feasibleEnumeration_subset
+#print axioms OCKIndividuationMSpaceComposition.observation_refinement_shrinks_feasible_class
+#print axioms OCKIndividuationMSpaceComposition.oc_observation_alias_blocks_exact_successor_decoder
+#print axioms OCKIndividuationMSpaceComposition.oneGeneratorPresent_feasible_in_both_frames
+#print axioms OCKIndividuationMSpaceComposition.point_identification_survives_nonempty_refinement
+#print axioms OCKIndividuationMSpaceComposition.successor_state_eq_of_observation_refinement

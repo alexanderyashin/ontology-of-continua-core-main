@@ -1,0 +1,21 @@
+import OCKIndividuationMSpaceComposition.SymmetryTwoPlaneNativeMaskRealization
+
+namespace OCKIndividuationMSpaceComposition
+
+namespace PrimitiveDistinction
+
+/-! Axiom audit for the native two-plane mask realization. -/
+
+#print axioms generatedPlaneMaskAction_coordinate_readback
+#print axioms generatedPlaneMaskAction_self
+#print axioms generatedPlaneMaskAction_comp
+#print axioms generatedPlaneMaskAction_commute
+#print axioms generatedPlaneMaskAction_injective
+#print axioms generatedPlaneMaskActionFamily_card
+#print axioms generatedPlaneMaskAction_first
+#print axioms generatedPlaneMaskAction_second
+#print axioms generatedPlaneMaskAction_both
+
+end PrimitiveDistinction
+
+end OCKIndividuationMSpaceComposition

@@ -1,0 +1,12 @@
+import OCKIndividuationMSpaceComposition.StochasticKernelDefectBridge
+
+namespace OCKIndividuationMSpaceComposition
+
+#print axioms pushedKernelRowProbability_mass
+#print axioms pairwiseLumpabilityDefect_eq_zero_iff
+#print axioms controlledLumpability_iff_pairwiseTV_defect_zero
+#print axioms positive_pairwiseTV_defect_no_exact_quotient
+#print axioms oc14_transported_kernel_horizon_bound
+#print axioms zero_transport_defect_preserves_exact_horizon
+
+end OCKIndividuationMSpaceComposition

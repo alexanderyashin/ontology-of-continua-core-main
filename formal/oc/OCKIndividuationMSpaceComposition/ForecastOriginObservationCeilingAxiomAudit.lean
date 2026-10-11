@@ -1,0 +1,7 @@
+import OCKIndividuationMSpaceComposition.ForecastOriginObservationCeiling
+
+open OCKIndividuationMSpaceComposition
+
+#print axioms forecastOrigin_predictor_equal_on_collision
+#print axioms forecastOrigin_collision_MSE_lower_bound
+#print axioms forecastOrigin_midpoint_attains_collision_bound

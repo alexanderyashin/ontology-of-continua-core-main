@@ -1,0 +1,31 @@
+import OCKIndividuationMSpaceComposition.ContextIndexedSymmetry
+
+/-!
+Source-bound axiom audit for `ContextIndexedSymmetry.lean`.
+
+Every theorem declaration listed by the current OC14 byte inventory is
+printed exactly once below.  This is an audit surface for the compiled
+declarations; it is not a new theorem, Claim, independent review or
+empirical result.
+-/
+
+#print axioms OCKIndividuationMSpaceComposition.boolNegation_not_separating_symmetry
+#print axioms OCKIndividuationMSpaceComposition.coarse_observation_preservation_does_not_imply_fine_preservation
+#print axioms OCKIndividuationMSpaceComposition.coarse_symmetry_need_not_extend_to_global_symmetry
+#print axioms OCKIndividuationMSpaceComposition.LocalSymmetry.comp_apply
+#print axioms OCKIndividuationMSpaceComposition.LocalSymmetry.comp_assoc
+#print axioms OCKIndividuationMSpaceComposition.LocalSymmetry.comp_identity
+#print axioms OCKIndividuationMSpaceComposition.LocalSymmetry.comp_inverse
+#print axioms OCKIndividuationMSpaceComposition.LocalSymmetry.comp_inverse_apply
+#print axioms OCKIndividuationMSpaceComposition.ExactContextEquivalence.conjugate_apply
+#print axioms OCKIndividuationMSpaceComposition.ExactContextEquivalence.conjugate_comp
+#print axioms OCKIndividuationMSpaceComposition.ExactContextEquivalence.conjugate_identity
+#print axioms OCKIndividuationMSpaceComposition.ExactContextEquivalence.conjugate_inverse
+#print axioms OCKIndividuationMSpaceComposition.context_indexed_stabilizer_groupoid_schema
+#print axioms OCKIndividuationMSpaceComposition.exact_context_transport_preserves_symmetry_composition
+#print axioms OCKIndividuationMSpaceComposition.ExactContextEquivalence.ext
+#print axioms OCKIndividuationMSpaceComposition.LocalSymmetry.ext
+#print axioms OCKIndividuationMSpaceComposition.LocalSymmetry.identity_comp
+#print axioms OCKIndividuationMSpaceComposition.LocalSymmetry.inverse_comp
+#print axioms OCKIndividuationMSpaceComposition.LocalSymmetry.inverse_comp_apply
+#print axioms OCKIndividuationMSpaceComposition.observation_refinement_preserves_coarse

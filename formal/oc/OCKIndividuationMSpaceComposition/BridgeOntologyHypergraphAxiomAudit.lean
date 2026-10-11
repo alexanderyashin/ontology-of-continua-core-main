@@ -1,0 +1,20 @@
+import OCKIndividuationMSpaceComposition.BridgeOntologyHypergraph
+
+open OCKIndividuationMSpaceComposition
+
+#print axioms vertexTag_injective
+#print axioms distinct_family_tags_ne
+#print axioms assembled_local_incidence_iff
+#print axioms integrated_hypergraph_vertex_carrier
+#print axioms bridgeRelComp_assoc
+#print axioms endpoints_do_not_identify_path
+#print axioms faithful_embedding_round_trip_on_verified_image
+#print axioms faithful_embedding_has_exact_image_round_trip
+#print axioms aliasing_blocks_exact_source_round_trip
+#print axioms task_distinguishing_alias_blocks_exact_recovery
+#print axioms transportLoss_union
+#print axioms transportLoss_comp
+#print axioms composedLoss_assoc
+#print axioms applyAssemblyEvent_replay_idempotent
+#print axioms distinct_unseen_additive_events_commute
+#print axioms changed_dependency_invalidates

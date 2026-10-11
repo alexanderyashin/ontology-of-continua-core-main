@@ -1,0 +1,17 @@
+import OCKIndividuationMSpaceComposition.SymmetryGlobalC2NormalizedNaturality
+
+namespace OCKIndividuationMSpaceComposition
+
+namespace PrimitiveDistinction.GlobalC2Naturality
+
+#print axioms transportObservable
+#print axioms transport_pairSwap_apply
+#print axioms transport_carrierInvariantHalf
+#print axioms transport_carrierAntiInvariantHalf
+#print axioms transport_carrierInvariantHalf_invariant
+#print axioms transport_carrierAntiInvariantHalf_antiInvariant
+#print axioms transport_normalized_reconstruction
+
+end PrimitiveDistinction.GlobalC2Naturality
+
+end OCKIndividuationMSpaceComposition

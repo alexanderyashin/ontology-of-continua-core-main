@@ -1,0 +1,8 @@
+import OCKIndividuationMSpaceComposition.LevelClassification
+
+/-! Source-bound axiom surface for context-derived K-level order results. -/
+
+#print axioms OCKIndividuationMSpaceComposition.derivedLevelPrecedence_is_partial_order
+#print axioms OCKIndividuationMSpaceComposition.diamond_has_incomparable_levels
+#print axioms OCKIndividuationMSpaceComposition.scientific_axes_can_be_incomparable
+#print axioms OCKIndividuationMSpaceComposition.derivedLevel_antisymmetric_on_representatives

@@ -1,0 +1,16 @@
+import OCKIndividuationMSpaceComposition.TomographicAdditionalObservation
+import Mathlib.Algebra.BigOperators.Group.Finset.Basic
+import Mathlib.Data.Real.Basic
+open scoped BigOperators
+
+namespace OCKIndividuationMSpaceComposition
+
+/-! Direct axiom-audit targets for additional-observation obligations. -/
+
+#print axioms tomographicExtendedCompatible
+#print axioms TomographicAdditionalViewSeparates
+#print axioms tomographicExtendedClaimSupported_of_separates
+#print axioms tomographicAdditionalView_missing_pair_refutes_separation
+#print axioms tomographicExtendedCompatible_implies_old_compatible
+
+end OCKIndividuationMSpaceComposition

@@ -1,0 +1,5 @@
+import OCKIndividuationMSpaceComposition.SymmetryActionCorrespondenceRankComposition
+
+open OCKIndividuationMSpaceComposition
+
+#print axioms PrimitiveDistinction.NativeIntrinsicRankBoundary.correspondence_rank_composition_of_disjoint_rank_witnesses

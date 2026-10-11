@@ -1,0 +1,23 @@
+import OCKIndividuationMSpaceComposition.TomographicFrequencyResponse
+import Mathlib.Algebra.BigOperators.Group.Finset.Basic
+import Mathlib.Data.Real.Basic
+open scoped BigOperators
+
+namespace OCKIndividuationMSpaceComposition
+
+#print axioms tomographicFrequencyTransfer_zero_spectrum
+#print axioms tomographicFrequencyTransfer_zero_response
+#print axioms tomographicFrequencyTransfer_add
+#print axioms tomographicFrequencyTransfer_smul
+#print axioms tomographicFrequencyTransfer_composition
+#print axioms tomographicFrequencyTransfer_abs_bound
+#print axioms tomographicFrequencyTransfer_uniform_abs_bound
+#print axioms tomographicFrequencyTransfer_composition_uniform_abs_bound
+#print axioms TomographicFrequencyBandInverseCertificate
+#print axioms tomographicFrequencyApplyInverseOnBand
+#print axioms tomographicFrequencyApplyInverseOnBand_exact_on_transfer
+#print axioms tomographicFrequencyApplyInverseOnBand_exact_of_band_limited
+#print axioms tomographicFrequencyApplyInverseOnBand_noise_bound
+#print axioms tomographicFrequencyApplyInverseOnBand_noise_bound_global
+
+end OCKIndividuationMSpaceComposition

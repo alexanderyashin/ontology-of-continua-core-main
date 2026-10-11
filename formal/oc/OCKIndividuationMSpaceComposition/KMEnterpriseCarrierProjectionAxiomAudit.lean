@@ -1,0 +1,21 @@
+import OCKIndividuationMSpaceComposition.KMEnterpriseCarrierProjection
+
+/-!
+Source-bound axiom audit for `KMEnterpriseCarrierProjection.lean`.
+
+Every theorem declaration listed by the current OC14 byte inventory is
+printed exactly once below.  This is an audit surface for the compiled
+declarations; it is not a new theorem, Claim, independent review or
+empirical result.
+-/
+
+#print axioms OCKIndividuationMSpaceComposition.context_coherence_carrierFuture_iff
+#print axioms OCKIndividuationMSpaceComposition.enterpriseNextCarrierV2Mass_normalized
+#print axioms OCKIndividuationMSpaceComposition.enterpriseNextCarrierV2Mass_positive
+#print axioms OCKIndividuationMSpaceComposition.exact_state_does_not_determine_enterprise_carrier_without_projection
+#print axioms OCKIndividuationMSpaceComposition.km_context_coherence_excludes_carrier_for_all_tied_models
+#print axioms OCKIndividuationMSpaceComposition.km_context_coherence_makes_selected_carrier_necessary
+#print axioms OCKIndividuationMSpaceComposition.km_context_continuation_coherence_implies_carrier_point_identified
+#print axioms OCKIndividuationMSpaceComposition.positive_mass_requires_allowed_carrier
+#print axioms OCKIndividuationMSpaceComposition.singleton_formal_support_forces_point_mass
+#print axioms OCKIndividuationMSpaceComposition.v2_full_support_compatible_only_with_no_exclusions

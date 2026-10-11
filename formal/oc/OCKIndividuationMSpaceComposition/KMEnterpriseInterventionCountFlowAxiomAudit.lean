@@ -1,0 +1,21 @@
+import OCKIndividuationMSpaceComposition.KMEnterpriseInterventionCountFlow
+
+/-!
+Source-bound axiom audit for `KMEnterpriseInterventionCountFlow.lean`.
+
+Every theorem declaration listed by the current OC14 byte inventory is
+printed exactly once below.  This is an audit surface for the compiled
+declarations; it is not a new theorem, Claim, independent review or
+empirical result.
+-/
+
+#print axioms OCKIndividuationMSpaceComposition.ActionConditionedCarrierCountDynamics.countAt_within_envelope
+#print axioms OCKIndividuationMSpaceComposition.actionConditionedCarrierEnvelope_endpoints_attainable
+#print axioms OCKIndividuationMSpaceComposition.failed_intervention_envelope_has_counterprofile
+#print axioms OCKIndividuationMSpaceComposition.km_action_conditioned_flow_yields_singleton_carrier_support
+#print axioms OCKIndividuationMSpaceComposition.omitted_carrier_intervention_pair_accuracy_at_most_half
+#print axioms OCKIndividuationMSpaceComposition.sciencePlan_cumulative_one_exact
+#print axioms OCKIndividuationMSpaceComposition.sciencePlan_forces_scientificClaim
+#print axioms OCKIndividuationMSpaceComposition.sciencePlan_has_strict_margin_ten
+#print axioms OCKIndividuationMSpaceComposition.strict_intervention_margin_forces_carrier
+#print axioms OCKIndividuationMSpaceComposition.zero_margin_scientific_plan_not_forced

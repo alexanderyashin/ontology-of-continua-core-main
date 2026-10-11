@@ -1,0 +1,18 @@
+import OCKIndividuationMSpaceComposition.RobustFiniteRecovery
+
+/-!
+Source-bound axiom audit for `RobustFiniteRecovery.lean`.
+
+Every theorem declaration listed by the current OC14 byte inventory is
+printed exactly once below.  This is an audit surface for the compiled
+declarations; it is not a new theorem, Claim, independent review or
+empirical result.
+-/
+
+#print axioms OCKIndividuationMSpaceComposition.RepeatedBoolObservation.majorityDecode_eq_of_strict_minority_errors
+#print axioms OCKIndividuationMSpaceComposition.no_decoder_recovers_both_truths_at_half_contamination
+#print axioms OCKIndividuationMSpaceComposition.ratSignatureConfidenceSet_subsingleton_of_margin
+#print axioms OCKIndividuationMSpaceComposition.repeatedMajoritySignature_eq_true_signature
+#print axioms OCKIndividuationMSpaceComposition.strictMinorityErrors_imply_unique_candidate
+#print axioms OCKIndividuationMSpaceComposition.true_candidate_mem_ratSignatureConfidenceSet
+#print axioms OCKIndividuationMSpaceComposition.twoVoteTie_is_half_error_for_both_truths

@@ -1,0 +1,15 @@
+import OCKIndividuationMSpaceComposition.TomographicVariationalFusion
+import Mathlib.Algebra.BigOperators.Group.Finset.Basic
+import Mathlib.Data.Real.Basic
+open scoped BigOperators
+
+namespace OCKIndividuationMSpaceComposition
+
+#print axioms tomographicVariationalFusionObjective
+#print axioms tomographicVariationalFusionObjective_nonnegative
+#print axioms tomographicVariationalFusionObjective_zero_variation
+#print axioms tomographicVariationalFusionObjective_state_energy_bound
+#print axioms tomographicVariationalFusionObjective_residual_bound
+#print axioms tomographicVariationalFusionObjective_zero_iff_exact_and_zero
+
+end OCKIndividuationMSpaceComposition

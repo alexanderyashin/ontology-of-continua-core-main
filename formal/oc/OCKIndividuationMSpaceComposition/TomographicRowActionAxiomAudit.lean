@@ -1,0 +1,24 @@
+import OCKIndividuationMSpaceComposition.TomographicRowAction
+import Mathlib.Algebra.BigOperators.Group.Finset.Basic
+import Mathlib.Data.Real.Basic
+open scoped BigOperators
+
+-- Audit instructions only: NOT_RUN, not an axiom audit receipt.
+open OCKIndividuationMSpaceComposition
+
+#print axioms tomographicRowMap
+#print axioms tomographicEnergy_nonnegative
+#print axioms tomographicDot_sub
+#print axioms tomographicDot_shift
+#print axioms tomographicDot_self
+#print axioms tomographicEnergy_shift
+#print axioms tomographicRowStep_satisfies_row
+#print axioms tomographicRowStep_energy_identity
+#print axioms tomographicRowStep_noiseless_nonincrease
+#print axioms tomographicRowStep_noisy_energy_identity
+#print axioms tomographicRowStep_noisy_progress
+#print axioms tomographicRowStep_gain_order
+#print axioms tomographicRowStep_contraction_from_gain
+#print axioms tomographicRowStep_zero_row
+#print axioms tomographicRowStep_preserves_invisible_component
+#print axioms tomographicSweep_preserves_invisible_component

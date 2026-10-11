@@ -1,0 +1,11 @@
+import OCKIndividuationMSpaceComposition.CyclicCompositionBoundary
+
+namespace OCKIndividuationMSpaceComposition
+
+#print axioms ExactDecomposition.toMultiLevel
+#print axioms alternating_has_exact_finite_prefix
+#print axioms alternating_positive_two_step_cycle
+#print axioms alternating_positive_decomposition_not_wellFounded
+#print axioms alternating_singleton_is_not_terminal
+
+end OCKIndividuationMSpaceComposition

@@ -1,0 +1,29 @@
+import OCKIndividuationMSpaceComposition.OddsHazardInteractionCompetition
+
+/-!
+Source-bound axiom audit for `OddsHazardInteractionCompetition.lean`.
+
+Every theorem declaration listed by the current OC14 byte inventory is
+printed exactly once below.  This is an audit surface for the compiled
+declarations; it is not a new theorem, Claim, independent review or
+empirical result.
+-/
+
+#print axioms OCKIndividuationMSpaceComposition.abs_oddsProbability_sub_exact
+#print axioms OCKIndividuationMSpaceComposition.bilinearInteraction_models_separated_at
+#print axioms OCKIndividuationMSpaceComposition.bilinearInteraction_parameter_gap_exact
+#print axioms OCKIndividuationMSpaceComposition.design_refinement_preserves_separation
+#print axioms OCKIndividuationMSpaceComposition.normalized_bilinear_signal_le_coefficient
+#print axioms OCKIndividuationMSpaceComposition.normalized_corner_separates_interactions
+#print axioms OCKIndividuationMSpaceComposition.oddsProbability_injective_nonnegative
+#print axioms OCKIndividuationMSpaceComposition.oddsProbability_le_one
+#print axioms OCKIndividuationMSpaceComposition.oddsProbability_lt_one
+#print axioms OCKIndividuationMSpaceComposition.oddsProbability_nonnegative
+#print axioms OCKIndividuationMSpaceComposition.oddsProbability_sub_exact
+#print axioms OCKIndividuationMSpaceComposition.odds_models_separated_of_probability_gap
+#print axioms OCKIndividuationMSpaceComposition.odds_saturation_denominator_lower_bound
+#print axioms OCKIndividuationMSpaceComposition.proportionalHazardRate_valid
+#print axioms OCKIndividuationMSpaceComposition.proportionalHazard_constant_survival_exact
+#print axioms OCKIndividuationMSpaceComposition.proportionalHazard_models_separated
+#print axioms OCKIndividuationMSpaceComposition.proportionalHazard_multiplier_gap_exact
+#print axioms OCKIndividuationMSpaceComposition.zero_product_design_cannot_identify_interaction

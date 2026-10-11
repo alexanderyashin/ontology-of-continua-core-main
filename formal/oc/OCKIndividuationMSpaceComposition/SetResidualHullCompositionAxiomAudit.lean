@@ -1,0 +1,8 @@
+import OCKIndividuationMSpaceComposition.SetResidualHullComposition
+
+open OCKIndividuationMSpaceComposition
+
+#print axioms ScalarForecastHull.contained_center_and_residual_bound_yield_inflated_target
+#print axioms ScalarForecastHull.mechanism_center_containment_alone_does_not_imply_target_containment
+#print axioms ScalarForecastHull.inflated_hull_is_minimal_for_extreme_residual_worlds
+#print axioms ScalarForecastHull.composed_width_exact

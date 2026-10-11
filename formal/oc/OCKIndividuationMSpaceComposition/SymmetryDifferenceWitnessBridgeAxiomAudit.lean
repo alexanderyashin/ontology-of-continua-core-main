@@ -1,0 +1,15 @@
+import OCKIndividuationMSpaceComposition.SymmetryDifferenceWitnessBridge
+
+open OCKIndividuationMSpaceComposition
+
+#print axioms DifferenceWitness.toIrreflexiveDistinctionWitness
+#print axioms DifferenceWitness.toPrimitiveDistinction
+#print axioms DifferenceWitness.toLocalFixedPointFreeInvolution
+#print axioms DifferenceWitness.toLocalR3Torsor
+#print axioms DifferenceWitness.localAdmissibleAutomorphismsEquivBool
+#print axioms DifferenceWitness.localSwap_actual
+#print axioms DifferenceWitness.localSwap_removal
+#print axioms DifferenceWitness.generatedPolarity_actual
+#print axioms DifferenceWitness.generatedPolarity_removal
+#print axioms DifferenceWitness.globalPairSwap_free_iff_outcomeCoverage
+#print axioms DifferenceWitness.thirdOutcome_blocks_canonical_globalFreeness

@@ -1,0 +1,21 @@
+import OCKIndividuationMSpaceComposition.KernelKLChainContract
+
+/-!
+Source-bound axiom audit for `KernelKLChainContract.lean`.
+
+Every theorem declaration listed by the current OC14 byte inventory is
+printed exactly once below.  This is an audit surface for the compiled
+declarations; it is not a new theorem, Claim, independent review or
+empirical result.
+-/
+
+#print axioms OCKIndividuationMSpaceComposition.joint_kl_eq_marginal_kl_iff_conditionalInformation_eq_zero
+#print axioms OCKIndividuationMSpaceComposition.llr_compProd_eq_marginal_add_kernel
+#print axioms OCKIndividuationMSpaceComposition.marginal_kl_lt_joint_kl_of_positive_conditional
+#print axioms OCKIndividuationMSpaceComposition.rnDeriv_compProd_eq_marginal_mul_kernel
+#print axioms OCKIndividuationMSpaceComposition.rnDeriv_compProd_same_kernel
+#print axioms OCKIndividuationMSpaceComposition.rnDeriv_compProd_same_state
+#print axioms OCKIndividuationMSpaceComposition.toReal_klDiv_compProd_chain_rule
+#print axioms OCKIndividuationMSpaceComposition.toReal_klDiv_compProd_eq_add_conditional
+#print axioms OCKIndividuationMSpaceComposition.withDensity_compProd_left
+#print axioms OCKIndividuationMSpaceComposition.zero_conditional_likelihood_adds_no_kernel_information

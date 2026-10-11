@@ -1,0 +1,6 @@
+import OCKIndividuationMSpaceComposition.SymmetryNativeRankEmergenceEquivalence
+
+open OCKIndividuationMSpaceComposition
+
+#print axioms PrimitiveDistinction.DisjointDistinctionFamily.nativeReversal_rank_insert_eq_rank_of_generated
+#print axioms PrimitiveDistinction.DisjointDistinctionFamily.nativeReversal_rank_birth_iff_not_in_native_closure

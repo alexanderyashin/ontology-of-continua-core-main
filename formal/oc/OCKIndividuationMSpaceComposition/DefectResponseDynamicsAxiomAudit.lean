@@ -1,0 +1,13 @@
+import OCKIndividuationMSpaceComposition.DefectResponseDynamics
+
+open OCKIndividuationMSpaceComposition
+
+#print axioms clippedAffineDefectResponse_bounds
+#print axioms constantDefect_barrierCdf
+#print axioms constantBarrierCdf_error_le_horizon_mul_hazardError
+#print axioms two_distinct_defect_levels_identify_affine_response
+#print axioms threePoint_incompatibility_refutes_affine_response
+#print axioms one_defect_level_does_not_identify_affine_response
+#print axioms two_defect_endpoint_sample_budget
+#print axioms three_defect_level_sample_budget
+#print axioms defect_collision_no_exact_outcome_predictor

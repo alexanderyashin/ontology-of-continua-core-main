@@ -1,0 +1,19 @@
+import OCKIndividuationMSpaceComposition.InterventionalContrastIdentification
+
+/-!
+Source-bound axiom audit for `InterventionalContrastIdentification.lean`.
+
+Every theorem declaration listed by the current OC14 byte inventory is
+printed exactly once below.  This is an audit surface for the compiled
+declarations; it is not a new theorem, Claim, independent review or
+empirical result.
+-/
+
+#print axioms OCKIndividuationMSpaceComposition.causal_policy_order_stable_of_arm_error
+#print axioms OCKIndividuationMSpaceComposition.censoringAdjusted_causal_separation_iff
+#print axioms OCKIndividuationMSpaceComposition.confounding_can_create_nonzero_association_with_zero_causal_effect
+#print axioms OCKIndividuationMSpaceComposition.inverse_propensity_identifies_weighted_ate
+#print axioms OCKIndividuationMSpaceComposition.observational_outcomes_do_not_identify_average_treatment_effect
+#print axioms OCKIndividuationMSpaceComposition.stratified_g_formula_identifies_ate
+#print axioms OCKIndividuationMSpaceComposition.visibility_error_can_make_causal_policy_comparison_impossible
+#print axioms OCKIndividuationMSpaceComposition.weighted_ate_estimation_error_bound

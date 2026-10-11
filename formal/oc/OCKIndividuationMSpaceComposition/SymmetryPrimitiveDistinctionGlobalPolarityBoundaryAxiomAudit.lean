@@ -1,0 +1,9 @@
+import OCKIndividuationMSpaceComposition.SymmetryPrimitiveDistinctionGlobalPolarityBoundary
+
+open OCKIndividuationMSpaceComposition
+
+#print axioms PrimitiveDistinction.PairSwapBoolAntiInvariant
+#print axioms PrimitiveDistinction.pairSwapPolarity
+#print axioms PrimitiveDistinction.pairSwapPolarity_antiInvariant_of_covers
+#print axioms PrimitiveDistinction.covers_of_pairSwapBoolAntiInvariant
+#print axioms PrimitiveDistinction.exists_pairSwapBoolAntiInvariant_iff_coversCarrier

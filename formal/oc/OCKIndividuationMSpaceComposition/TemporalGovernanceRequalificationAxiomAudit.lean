@@ -1,0 +1,20 @@
+import OCKIndividuationMSpaceComposition.TemporalGovernanceRequalification
+
+/-!
+Source-bound axiom audit for `TemporalGovernanceRequalification.lean`.
+
+Every theorem declaration listed by the current OC14 byte inventory is
+printed exactly once below.  This is an audit surface for the compiled
+declarations; it is not a new theorem, Claim, independent review or
+empirical result.
+-/
+
+#print axioms OCKIndividuationMSpaceComposition.admission_precedes_revocation_cutoff
+#print axioms OCKIndividuationMSpaceComposition.admission_precedes_validity_cutoff
+#print axioms OCKIndividuationMSpaceComposition.at_or_after_revocation_cutoff_blocks_admission
+#print axioms OCKIndividuationMSpaceComposition.at_or_after_validity_cutoff_blocks_admission
+#print axioms OCKIndividuationMSpaceComposition.evidenceTriggerAt_unique
+#print axioms OCKIndividuationMSpaceComposition.firstGovernanceBarrierAt_unique
+#print axioms OCKIndividuationMSpaceComposition.first_evidence_trigger_exists_of_occurs
+#print axioms OCKIndividuationMSpaceComposition.first_governance_barrier_exists_of_occurs
+#print axioms OCKIndividuationMSpaceComposition.first_observed_trigger_blocks_admission

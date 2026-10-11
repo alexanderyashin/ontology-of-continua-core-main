@@ -1,0 +1,20 @@
+import OCKIndividuationMSpaceComposition.SymmetryOrbitFiberPrincipalC2
+
+namespace OCKIndividuationMSpaceComposition
+
+namespace FixedPointFreeInvolution
+
+#print axioms axisFiberSwap
+#print axioms axisFiberSwap_involutive
+#print axioms axisFiberSwap_fixedPointFree
+#print axioms axisFiberC2Action
+#print axioms axisFiberC2Action_xor
+#print axioms axisFiberC2Action_transitive
+#print axioms axisFiberC2Action_free
+#print axioms axisFiberC2Action_unique
+#print axioms axisFiber_card_eq_two_of_quotient
+#print axioms axisFiber_principal_c2_spine
+
+end FixedPointFreeInvolution
+
+end OCKIndividuationMSpaceComposition

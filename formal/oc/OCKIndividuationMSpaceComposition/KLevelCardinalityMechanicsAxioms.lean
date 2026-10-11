@@ -1,0 +1,7 @@
+import OCKIndividuationMSpaceComposition.KLevelCardinalityMechanics
+
+/-! Trusted-base audit for parameterised K-level cardinality mechanics. -/
+
+#print axioms OCKIndividuationMSpaceComposition.every_finite_k_level_count_is_realisable
+#print axioms OCKIndividuationMSpaceComposition.discrete_k_level_identity_atlas_exact
+#print axioms OCKIndividuationMSpaceComposition.discrete_k_level_count_is_axis_relative

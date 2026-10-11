@@ -1,0 +1,20 @@
+import OCKIndividuationMSpaceComposition.IdentityTestValidation
+
+/-!
+Source-bound axiom audit for `IdentityTestValidation.lean`.
+
+Every theorem declaration listed by the current OC14 byte inventory is
+printed exactly once below.  This is an audit surface for the compiled
+declarations; it is not a new theorem, Claim, independent review or
+empirical result.
+-/
+
+#print axioms OCKIndividuationMSpaceComposition.bound_validated_allowedIdentity_eq_referenceLineage
+#print axioms OCKIndividuationMSpaceComposition.bound_validated_forcedIdentity_eq_referenceLineage
+#print axioms OCKIndividuationMSpaceComposition.failedInvariance_blocks_identityTestValidation
+#print axioms OCKIndividuationMSpaceComposition.failedSeparation_blocks_identityTestValidation
+#print axioms OCKIndividuationMSpaceComposition.falsifier_blocks_identityTestValidation
+#print axioms OCKIndividuationMSpaceComposition.strings_and_booleans_alone_do_not_validate_identity_semantics
+#print axioms OCKIndividuationMSpaceComposition.validated_allowedIdentity_eq_referenceLineage
+#print axioms OCKIndividuationMSpaceComposition.validated_forcedIdentity_eq_referenceLineage
+#print axioms OCKIndividuationMSpaceComposition.validationPass_does_not_choose_onticGroundTruth

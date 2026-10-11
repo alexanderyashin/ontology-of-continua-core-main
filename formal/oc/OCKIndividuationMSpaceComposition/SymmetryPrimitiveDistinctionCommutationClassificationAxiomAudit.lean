@@ -1,0 +1,7 @@
+import OCKIndividuationMSpaceComposition.SymmetryPrimitiveDistinctionCommutationClassification
+
+open OCKIndividuationMSpaceComposition
+open OCKIndividuationMSpaceComposition.PrimitiveDistinction
+
+#print axioms commute_iff_supportsDisjoint_or_sameUnorderedSupport
+#print axioms commute_and_pairSwap_ne_implies_supportsDisjoint

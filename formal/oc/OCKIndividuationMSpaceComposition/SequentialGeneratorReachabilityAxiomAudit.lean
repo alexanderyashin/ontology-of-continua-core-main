@@ -1,0 +1,23 @@
+import OCKIndividuationMSpaceComposition.SequentialGeneratorReachability
+
+/-!
+Source-bound axiom audit for `SequentialGeneratorReachability.lean`.
+
+Every theorem declaration listed by the current OC14 byte inventory is
+printed exactly once below.  This is an audit surface for the compiled
+declarations; it is not a new theorem, Claim, independent review or
+empirical result.
+-/
+
+#print axioms OCKIndividuationMSpaceComposition.admitted_order_implies_sequential_reachability
+#print axioms OCKIndividuationMSpaceComposition.bothGenerator_orders_exact
+#print axioms OCKIndividuationMSpaceComposition.bothGenerators_endpoint_feasible_under_tight_bounds
+#print axioms OCKIndividuationMSpaceComposition.bothGenerators_endpoint_successor_exact
+#print axioms OCKIndividuationMSpaceComposition.both_orders_admissible_under_wide_bounds
+#print axioms OCKIndividuationMSpaceComposition.both_orders_violate_tight_intermediate_bounds
+#print axioms OCKIndividuationMSpaceComposition.endpoint_feasibility_does_not_imply_sequential_reachability
+#print axioms OCKIndividuationMSpaceComposition.generatorOrderAdmissibleBool_eq_true_iff
+#print axioms OCKIndividuationMSpaceComposition.no_admissible_order_blocks_sequential_reachability
+#print axioms OCKIndividuationMSpaceComposition.sequential_reachability_implies_endpoint_feasibility
+#print axioms OCKIndividuationMSpaceComposition.sequentiallyGeneratorReachableBool_eq_true_iff
+#print axioms OCKIndividuationMSpaceComposition.widened_intermediate_bounds_restore_reachability

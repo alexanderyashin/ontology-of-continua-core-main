@@ -1,0 +1,29 @@
+import OCProjectionCausalityIdentity
+
+open OCProjectionCausalityIdentity
+
+/-!
+This file is an executable kernel-axiom audit entrypoint. It has deliberately
+not been run at authoring time. The guarded replay receipt must capture its
+stdout and reject `sorryAx` and undeclared custom axioms.
+-/
+
+#print axioms finite_noPositiveCycle_iff_natTopologicalRank
+#print axioms noPositiveCycle_iff_noPositiveMutualReachability
+#print axioms macroCycle_iff_alternatingCycle
+#print axioms threeTokenCausal_acyclic
+#print axioms threeToken_quotient_has_reciprocal_cycle
+#print axioms macro_reciprocity_does_not_imply_micro_cycle
+#print axioms macro_self_loop_iff_internalEvolution
+#print axioms reciprocal_macro_edges_require_three_micro_occurrences
+#print axioms n_edge_path_endpoint_collapse_creates_n_edge_macro_closedWalk
+#print axioms cyclic_quotient_requires_more_occurrences_than_objects
+#print axioms totalOrder_convexFibers_iff_externalMacro_acyclic
+#print axioms partialOrder_convex_fibers_can_have_reciprocal_quotient
+#print axioms strongCongruence_preserves_acyclicity
+#print axioms strongCongruence_is_not_necessary_for_macro_acyclicity
+#print axioms liftedMicroReachability_implies_macroReachability
+#print axioms zeroStitchingDefect_iff_reachabilityEquality
+#print axioms spurious_path_fixture
+#print axioms assemblyProjectionFamily_jointlySeparates_iff_injective
+#print axioms wave1_negative_fixture_bundle

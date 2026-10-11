@@ -1,0 +1,8 @@
+import OCKIndividuationMSpaceComposition.IndependentInformationScaling
+
+open OCKIndividuationMSpaceComposition
+
+#print axioms gaussian_requiredRealObservations_exact
+#print axioms gaussian_observation_threshold_guarantees_budget
+#print axioms poissonBhattacharyyaExponent_exposure_scaling
+#print axioms poisson_exposure_threshold_guarantees_budget

@@ -1,0 +1,19 @@
+import OCKIndividuationMSpaceComposition.SymmetryOrientationFiberPrincipalC2
+
+namespace OCKIndividuationMSpaceComposition
+
+namespace PrimitiveDistinction
+
+#print axioms orientationC2Action
+#print axioms orientationC2Action_false
+#print axioms orientationC2Action_true
+#print axioms orientationC2Action_xor
+#print axioms orientation_eq_self_or_reverse
+#print axioms orientationC2Action_transitive
+#print axioms orientationC2Action_free
+#print axioms orientationC2Action_unique
+#print axioms orientationFiber_principal_c2_spine
+
+end PrimitiveDistinction
+
+end OCKIndividuationMSpaceComposition

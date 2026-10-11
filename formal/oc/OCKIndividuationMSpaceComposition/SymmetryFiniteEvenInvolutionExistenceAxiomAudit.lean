@@ -1,0 +1,13 @@
+import OCKIndividuationMSpaceComposition.SymmetryFiniteEvenInvolutionExistence
+
+namespace OCKIndividuationMSpaceComposition
+
+namespace FixedPointFreeInvolution
+
+#print axioms evenCardInvolution
+#print axioms exists_fixedPointFreeInvolution_of_even_card
+#print axioms even_card_iff_nonempty_fixedPointFreeInvolution
+
+end FixedPointFreeInvolution
+
+end OCKIndividuationMSpaceComposition

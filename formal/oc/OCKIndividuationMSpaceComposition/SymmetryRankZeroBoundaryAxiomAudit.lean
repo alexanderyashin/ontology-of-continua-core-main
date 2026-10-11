@@ -1,0 +1,15 @@
+import OCKIndividuationMSpaceComposition.SymmetryRankZeroBoundary
+
+namespace OCKIndividuationMSpaceComposition
+
+namespace IntrinsicFinitaryRank
+
+#print axioms FinitaryDistinctionClosure.rank_empty_eq_zero
+#print axioms FinitaryDistinctionClosure.rank_singleton_eq_zero_of_generated_empty
+#print axioms FinitaryDistinctionClosure.rank_singleton_eq_one_of_not_generated_empty
+#print axioms FinitaryDistinctionClosure.rank_singleton_eq_one_iff_not_generated_empty
+#print axioms FinitaryDistinctionClosure.rank_singleton_eq_zero_or_one
+
+end IntrinsicFinitaryRank
+
+end OCKIndividuationMSpaceComposition

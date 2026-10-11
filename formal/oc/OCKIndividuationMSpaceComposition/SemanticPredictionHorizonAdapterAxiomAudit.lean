@@ -1,0 +1,8 @@
+import OCKIndividuationMSpaceComposition.SemanticPredictionHorizonAdapter
+
+open OCKIndividuationMSpaceComposition
+
+#print axioms SemanticPredictionHorizonBinding.inputs_available_at_origin
+#print axioms SemanticPredictionHorizonBinding.core_nonoverlap
+#print axioms SemanticPredictionHorizonBinding.operational_input_available
+#print axioms SemanticPredictionHorizonBinding.target_starts_after_origin

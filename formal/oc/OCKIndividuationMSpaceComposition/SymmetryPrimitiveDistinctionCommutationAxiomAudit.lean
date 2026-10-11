@@ -1,0 +1,10 @@
+import OCKIndividuationMSpaceComposition.SymmetryPrimitiveDistinctionCommutation
+
+open OCKIndividuationMSpaceComposition
+open OCKIndividuationMSpaceComposition.PrimitiveDistinction
+
+#print axioms pairSwapEquiv
+#print axioms pairSwap_eq_of_sameUnorderedSupport
+#print axioms pairSwap_commute_of_supportsDisjoint
+#print axioms pairSwap_noncommute_of_three_distinct_points
+#print axioms fin3_overlap_pairSwaps_noncommute

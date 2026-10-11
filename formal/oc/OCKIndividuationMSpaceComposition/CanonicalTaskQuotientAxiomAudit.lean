@@ -1,0 +1,20 @@
+import OCKIndividuationMSpaceComposition.CanonicalTaskQuotient
+import OCKIndividuationMSpaceComposition.DynamicObservationQuotient
+import OCKIndividuationMSpaceComposition.CanonicalTaskDynamicBridge
+
+open OCKIndividuationMSpaceComposition
+
+#print axioms taskQuotient_signature_of_world
+#print axioms taskQuotient_is_exact
+#print axioms sufficient_observation_has_quotient_factor
+#print axioms quotient_factor_unique_on_reachable_observations
+#print axioms exact_representation_quotient_equiv
+#print axioms canonical_task_quotient_characterization
+#print axioms induced_observation_transition_commutes
+#print axioms dynamic_quotient_exists_iff_closure
+#print axioms induced_dynamic_quotient_transition_unique
+#print axioms dynamic_quotient_characterization
+#print axioms induced_task_quotient_transition_commutes
+#print axioms canonical_task_dynamic_exists_iff
+#print axioms canonical_task_dynamic_transition_unique
+#print axioms canonical_task_dynamic_characterization

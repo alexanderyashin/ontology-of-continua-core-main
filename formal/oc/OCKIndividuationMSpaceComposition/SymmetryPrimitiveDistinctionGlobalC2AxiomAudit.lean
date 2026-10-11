@@ -1,0 +1,11 @@
+import OCKIndividuationMSpaceComposition.SymmetryPrimitiveDistinctionGlobalC2
+
+namespace OCKIndividuationMSpaceComposition.PrimitiveDistinction
+
+#print axioms coversCarrier_iff_card_eq_two
+#print axioms carrierAutomorphism_eq_identity_or_pairSwap
+#print axioms carrierAutomorphismParity_identity
+#print axioms carrierAutomorphismParity_pairSwap
+#print axioms global_c2_spine
+
+end OCKIndividuationMSpaceComposition.PrimitiveDistinction

@@ -1,0 +1,11 @@
+import OCKIndividuationMSpaceComposition.PredictionHorizonCore
+
+open OCKIndividuationMSpaceComposition
+
+#print axioms horizonMeaning_ne_of_horizonId_ne
+#print axioms ForecastHorizonContract.nonoverlap
+#print axioms no_shared_sample_of_nonoverlap
+#print axioms overlap_blocks_nonoverlap
+#print axioms admitted_input_is_available
+#print axioms stable_selector_preserves_nonloss
+#print axioms untouched_tail_failure_is_not_repaired

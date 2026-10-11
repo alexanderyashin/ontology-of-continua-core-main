@@ -1,0 +1,15 @@
+import OCKIndividuationMSpaceComposition.TomographicMultidimensionalPolarization
+import Mathlib.Algebra.BigOperators.Group.Finset.Basic
+import Mathlib.Data.Real.Basic
+open scoped BigOperators
+
+namespace OCKIndividuationMSpaceComposition
+
+/-! Direct axiom-audit targets for the multidimensional polarization seam. -/
+
+#print axioms tomographicMultidimensionalRayPolarizationOn
+#print axioms tomographicWeightedMultidimensionalRayPolarizationOn
+#print axioms tomographicMultidimensionalRayPolarizationOn_eq_gramPairOn
+#print axioms tomographicWeightedMultidimensionalRayPolarizationOn_eq_gramPairOn
+
+end OCKIndividuationMSpaceComposition

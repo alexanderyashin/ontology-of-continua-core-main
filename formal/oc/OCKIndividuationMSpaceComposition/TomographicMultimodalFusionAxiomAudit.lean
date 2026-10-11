@@ -1,0 +1,26 @@
+import OCKIndividuationMSpaceComposition.TomographicMultimodalFusion
+import Mathlib.Algebra.BigOperators.Group.Finset.Basic
+import Mathlib.Data.Real.Basic
+open scoped BigOperators
+
+namespace OCKIndividuationMSpaceComposition
+
+#print axioms tomographicJointCompatible
+#print axioms tomographicJointSupport
+#print axioms tomographicJointSupport_mem_iff
+#print axioms tomographicJointSupport_subset_left
+#print axioms tomographicJointSupport_subset_right
+#print axioms tomographicJointSupport_rejects_left_incompatible
+#print axioms tomographicJointSupport_rejects_right_incompatible
+#print axioms tomographicJointClaimSupport
+#print axioms tomographicJointClaimSupport_of_left
+#print axioms tomographicJointClaimSupport_of_right
+#print axioms tomographicJointSupport_target_distance_bound
+#print axioms tomographicFiniteJointSupport
+#print axioms tomographicFiniteJointSupport_mem_iff
+#print axioms tomographicFiniteJointSupport_mono
+#print axioms tomographicFiniteJointSupport_claimSupport_of_member
+#print axioms tomographicFiniteJointSupport_claimSupport_mono
+#print axioms tomographicFiniteJointSupport_target_distance_bound_of_member
+
+end OCKIndividuationMSpaceComposition

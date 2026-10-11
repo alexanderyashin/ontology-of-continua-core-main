@@ -1,0 +1,5 @@
+import OCKIndividuationMSpaceComposition.PhysicalEpistemicMSpaceSemanticBridge
+
+open OCKIndividuationMSpaceComposition
+
+#print axioms optic_refinement_splits_epistemic_classes_without_physical_change

@@ -1,0 +1,18 @@
+import OCKIndividuationMSpaceComposition.SymmetryExchangeAugmentation
+
+namespace OCKIndividuationMSpaceComposition
+
+namespace IntrinsicDimensionExchangeAugmentation
+
+#print axioms rank_le_card
+#print axioms rank_eq_card_of_independent
+#print axioms rank_witness_spans_seed
+#print axioms rank_insert_eq_of_generated
+#print axioms rank_union_eq_of_subset_closure
+#print axioms basisAugmentation_of_exchange
+#print axioms maximalIndependent_card_unique_of_exchange
+#print axioms rank_is_wellDefined_maximalIndependent_dimension_of_exchange
+
+end IntrinsicDimensionExchangeAugmentation
+
+end OCKIndividuationMSpaceComposition

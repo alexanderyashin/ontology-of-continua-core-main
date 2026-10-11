@@ -1,0 +1,11 @@
+import OCKIndividuationMSpaceComposition.SymmetryCanonicalPairingRelabellingBoundary
+
+namespace OCKIndividuationMSpaceComposition
+
+namespace FixedPointFreeInvolution
+
+#print axioms no_relabelling_invariant_of_third_point
+
+end FixedPointFreeInvolution
+
+end OCKIndividuationMSpaceComposition

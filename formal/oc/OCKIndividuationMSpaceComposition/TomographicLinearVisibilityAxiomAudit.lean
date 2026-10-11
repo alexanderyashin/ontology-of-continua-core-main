@@ -1,0 +1,15 @@
+import OCKIndividuationMSpaceComposition.TomographicLinearVisibility
+import Mathlib.Algebra.BigOperators.Group.Finset.Basic
+import Mathlib.Data.Real.Basic
+open scoped BigOperators
+
+-- Audit instructions only: NOT_RUN, not an axiom audit receipt.
+open OCKIndividuationMSpaceComposition
+
+#print axioms tomographic_equal_projections_iff_invisible_difference
+#print axioms tomographic_linear_task_iff_kernel_inclusion
+#print axioms tomographic_invisible_translation
+#print axioms tomographic_new_row_splits_iff
+#print axioms tomographic_derived_projection_keeps_collision
+#print axioms tomographicKernelOutcomeCollision
+#print axioms tomographicProjectiveResolution

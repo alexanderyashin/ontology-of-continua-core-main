@@ -1,0 +1,19 @@
+import OCKIndividuationMSpaceComposition.SymmetryOrientationPresentationInvolution
+
+namespace OCKIndividuationMSpaceComposition
+
+namespace PrimitiveDistinction
+
+#print axioms reverseLabels_involutive
+
+namespace DisjointDistinctionFamily
+
+#print axioms reverseLabelsFamily_twice_distinction
+#print axioms reverseLabelsFamily_twice_maskPermutation
+#print axioms reverseLabelsFamily_twice_maskPermutationProduct
+
+end DisjointDistinctionFamily
+
+end PrimitiveDistinction
+
+end OCKIndividuationMSpaceComposition

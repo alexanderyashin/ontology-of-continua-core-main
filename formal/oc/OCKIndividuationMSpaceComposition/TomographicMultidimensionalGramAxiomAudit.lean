@@ -1,0 +1,21 @@
+import OCKIndividuationMSpaceComposition.TomographicMultidimensionalGram
+import Mathlib.Algebra.BigOperators.Group.Finset.Basic
+import Mathlib.Data.Real.Basic
+open scoped BigOperators
+
+namespace OCKIndividuationMSpaceComposition
+
+/-! Direct axiom-audit targets for the multidimensional Gram adapter. -/
+
+#print axioms tomographicMultidimensionalRayGramPair
+#print axioms tomographicMultidimensionalRayGramPair_symmetric
+#print axioms tomographicMultidimensionalRayGramPair_self_eq_normalEnergy
+#print axioms tomographicMultidimensionalRayGramPair_self_nonnegative
+#print axioms tomographicMultidimensionalRayGramPair_abs_bound
+#print axioms tomographicWeightedMultidimensionalRayGramPair
+#print axioms tomographicWeightedMultidimensionalRayGramPair_symmetric
+#print axioms tomographicWeightedMultidimensionalRayGramPair_self_eq_normalEnergy
+#print axioms tomographicWeightedMultidimensionalRayGramPair_self_nonnegative
+#print axioms tomographicWeightedMultidimensionalRayGramPair_abs_bound
+
+end OCKIndividuationMSpaceComposition

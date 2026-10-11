@@ -1,0 +1,12 @@
+import OCKIndividuationMSpaceComposition.SymmetryNativeFreeMatroidReduction
+
+open OCKIndividuationMSpaceComposition
+open OCKIndividuationMSpaceComposition.PrimitiveDistinction
+open OCKIndividuationMSpaceComposition.PrimitiveDistinction.NativeFreeMatroidReduction
+
+#print axioms freeMatroidPresentation_ground
+#print axioms nativeClosure_coe_eq_freeMatroid_closure
+#print axioms nativeIndependent_iff_freeMatroid_indep
+#print axioms nativeSeed_is_freeMatroid_basis
+#print axioms native_freeMatroid_structure_preserved
+#print axioms ordinary_closure_not_matroid_reducible_by_laws_alone

@@ -1,0 +1,25 @@
+import OCKIndividuationMSpaceComposition.QuantitativeContinuationReliability
+
+/-!
+Source-bound axiom audit for `QuantitativeContinuationReliability.lean`.
+
+Every theorem declaration listed by the current OC14 byte inventory is
+printed exactly once below.  This is an audit surface for the compiled
+declarations; it is not a new theorem, Claim, independent review or
+empirical result.
+-/
+
+#print axioms OCKIndividuationMSpaceComposition.axe_governance_prediction
+#print axioms OCKIndividuationMSpaceComposition.axe_serial_continuation_prediction
+#print axioms OCKIndividuationMSpaceComposition.disjoint_two_path_prediction
+#print axioms OCKIndividuationMSpaceComposition.endpoint_projection_does_not_determine_quantitative_reliability
+#print axioms OCKIndividuationMSpaceComposition.equal_edge_marginals_do_not_determine_serial_probability
+#print axioms OCKIndividuationMSpaceComposition.governance_acceptance_implies_witness_retention
+#print axioms OCKIndividuationMSpaceComposition.independentSeriesMass_cons
+#print axioms OCKIndividuationMSpaceComposition.independentSeriesMass_nil
+#print axioms OCKIndividuationMSpaceComposition.naive_path_independence_overestimates_shared_trunk
+#print axioms OCKIndividuationMSpaceComposition.shared_provenance_alias_resolution_prediction
+#print axioms OCKIndividuationMSpaceComposition.shared_provenance_ambiguity_pair_prediction
+#print axioms OCKIndividuationMSpaceComposition.shared_trunk_prediction
+#print axioms OCKIndividuationMSpaceComposition.task_equivalent_alias_resolution_prediction
+#print axioms OCKIndividuationMSpaceComposition.zero_retention_annihilates_serial_numerator

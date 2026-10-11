@@ -1,0 +1,11 @@
+import OCKIndividuationMSpaceComposition.SymmetryObservableDichotomy
+
+open OCKIndividuationMSpaceComposition
+
+#print axioms r3_observable_range_two_values
+#print axioms r3_invariant_observable_iff_constant
+#print axioms r3_observable_constant_or_breaks_everywhere
+#print axioms r3_breaking_witness_propagates_everywhere
+#print axioms r3_observable_nonconstant_iff_breaks_everywhere
+#print axioms r3_breaking_base_fiber
+#print axioms r3_breaking_partner_fiber

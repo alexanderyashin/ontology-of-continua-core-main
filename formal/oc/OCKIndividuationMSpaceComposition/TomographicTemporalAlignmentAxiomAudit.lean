@@ -1,0 +1,15 @@
+import OCKIndividuationMSpaceComposition.TomographicTemporalAlignment
+import Mathlib.Algebra.BigOperators.Group.Finset.Basic
+import Mathlib.Data.Real.Basic
+open scoped BigOperators
+
+-- Audit instructions only: NOT_RUN, not an axiom audit receipt.
+open OCKIndividuationMSpaceComposition
+
+#print axioms temporalProjectionReadout_difference
+#print axioms temporalProjectionReadout_equal_iff_invisible
+#print axioms temporally_separating_rows_injective
+#print axioms temporal_invisible_difference_blocks_initial_injectivity
+#print axioms alignedTemporalReadout_difference
+#print axioms aligned_readout_separates_when_rows_separate
+#print axioms temporal_endpoint_agreement_does_not_license_registration

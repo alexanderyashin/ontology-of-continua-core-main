@@ -1,0 +1,13 @@
+import OCKIndividuationMSpaceComposition.ResidualAlignmentContextAdmission
+
+namespace OCKIndividuationMSpaceComposition
+
+#print axioms contextGateQuadraticRisk_complete_square
+#print axioms residualAlignmentWeight_globally_minimizes
+#print axioms clampedResidualAlignmentWeight_distance_minimizes
+#print axioms clampedResidualAlignmentWeight_globally_minimizes
+#print axioms positive_context_weight_improves_iff_energy_below_alignment
+#print axioms nonpositive_alignment_rejects_every_positive_gate
+#print axioms residualAlignmentWeight_in_unit_interval
+
+end OCKIndividuationMSpaceComposition

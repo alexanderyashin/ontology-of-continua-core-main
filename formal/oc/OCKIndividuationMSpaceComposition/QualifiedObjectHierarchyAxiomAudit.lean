@@ -1,0 +1,24 @@
+import OCKIndividuationMSpaceComposition.QualifiedObjectHierarchy
+
+/-!
+Source-bound axiom audit for `QualifiedObjectHierarchy.lean`.
+
+Every theorem declaration listed by the current OC14 byte inventory is
+printed exactly once below.  This is an audit surface for the compiled
+declarations; it is not a new theorem, Claim, independent review or
+empirical result.
+-/
+
+#print axioms OCKIndividuationMSpaceComposition.GeneralizedStaticObjectCut.adapted_object_is_composite
+#print axioms OCKIndividuationMSpaceComposition.ObjectQualificationGrade.atomic_composite_disjoint
+#print axioms OCKIndividuationMSpaceComposition.atomic_singleton_object_is_inhabited
+#print axioms OCKIndividuationMSpaceComposition.coarseToy_generatedKernel_irreducible
+#print axioms OCKIndividuationMSpaceComposition.coarseToy_has_no_essential_dependency
+#print axioms OCKIndividuationMSpaceComposition.coarseToy_has_no_internal_dependency
+#print axioms OCKIndividuationMSpaceComposition.GeneralizedDynamicQualifiedObject.exactHistory_endpoint_sameToken
+#print axioms OCKIndividuationMSpaceComposition.GeneralizedDynamicQualifiedObject.lineageHistory_endpoint_lineage
+#print axioms OCKIndividuationMSpaceComposition.GeneralizedDynamicQualifiedObject.sameToken_implies_identityTestAgreement
+#print axioms OCKIndividuationMSpaceComposition.same_toy_root_is_atomic_coarse_and_composite_refined
+#print axioms OCKIndividuationMSpaceComposition.singletonGeneratedKernel_irreducible
+#print axioms OCKIndividuationMSpaceComposition.singleton_atomic_grade_has_no_composite_qualification
+#print axioms OCKIndividuationMSpaceComposition.singleton_member_identity_converges

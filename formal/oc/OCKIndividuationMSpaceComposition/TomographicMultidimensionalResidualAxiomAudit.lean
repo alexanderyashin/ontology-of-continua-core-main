@@ -1,0 +1,14 @@
+import OCKIndividuationMSpaceComposition.TomographicMultidimensionalResidual
+import Mathlib.Algebra.BigOperators.Group.Finset.Basic
+import Mathlib.Data.Real.Basic
+open scoped BigOperators
+
+namespace OCKIndividuationMSpaceComposition
+
+#print axioms tomographicMultidimensionalResidualEnergyOn
+#print axioms tomographicMultidimensionalResidualEnergy
+#print axioms tomographicMultidimensionalResidualEnergyOn_union_modalities
+#print axioms tomographicMultidimensionalResidualEnergyOn_univ_eq
+#print axioms tomographicMultidimensionalResidualEnergyOn_eq_zero_of_agreement
+
+end OCKIndividuationMSpaceComposition

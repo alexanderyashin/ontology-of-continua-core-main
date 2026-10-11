@@ -1,0 +1,11 @@
+import OCKIndividuationMSpaceComposition.CanonicalTaskQuotientReachable
+
+namespace OCKIndividuationMSpaceComposition
+
+#print axioms sufficient_observation_has_range_quotient_factor
+#print axioms taskQuotient_isEmpty_of_empty_world
+#print axioms no_total_task_factor_empty_world_nonempty_observation
+#print axioms task_equivalence_does_not_imply_world_identity
+#print axioms passive_equivalence_does_not_imply_continuation_identity
+
+end OCKIndividuationMSpaceComposition

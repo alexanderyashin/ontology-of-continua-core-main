@@ -1,0 +1,21 @@
+import OCKIndividuationMSpaceComposition.DependentInformationBudget
+
+/-!
+Source-bound axiom audit for `DependentInformationBudget.lean`.
+
+Every theorem declaration listed by the current OC14 byte inventory is
+printed exactly once below.  This is an audit surface for the compiled
+declarations; it is not a new theorem, Claim, independent review or
+empirical result.
+-/
+
+#print axioms OCKIndividuationMSpaceComposition.exchangeableEffectiveObservations_antitone_correlation
+#print axioms OCKIndividuationMSpaceComposition.exchangeableEffectiveObservations_le_raw
+#print axioms OCKIndividuationMSpaceComposition.exchangeableEffectiveObservations_lt_inverseCorrelation
+#print axioms OCKIndividuationMSpaceComposition.exchangeable_raw_threshold_guarantees_budget
+#print axioms OCKIndividuationMSpaceComposition.exchangeable_raw_threshold_sufficient
+#print axioms OCKIndividuationMSpaceComposition.exchangeable_target_unreachable_at_dependence_ceiling
+#print axioms OCKIndividuationMSpaceComposition.exchangeable_uncertainty_sandwich
+#print axioms OCKIndividuationMSpaceComposition.independentBlockEffectiveObservations_linear_blocks
+#print axioms OCKIndividuationMSpaceComposition.independentBlock_uncertainty_sandwich
+#print axioms OCKIndividuationMSpaceComposition.independent_blocks_break_single_block_ceiling

@@ -1,0 +1,10 @@
+import OCKIndividuationMSpaceComposition.SymmetryFaithfulCommutingFamily
+
+open OCKIndividuationMSpaceComposition
+open OCKIndividuationMSpaceComposition.PrimitiveDistinction
+
+#print axioms FaithfulCommutingDistinctionFamily.toDisjoint
+#print axioms FaithfulCommutingDistinctionFamily.supportsDisjoint
+#print axioms FaithfulCommutingDistinctionFamily.maskPermutationProduct_range_card
+#print axioms duplicateFinTwoFamily_pairSwap_commute
+#print axioms duplicateFinTwoFamily_not_supportsDisjoint

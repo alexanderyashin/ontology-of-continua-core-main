@@ -1,0 +1,17 @@
+import OCKIndividuationMSpaceComposition.TomographicTaskConditionedBridge
+import Mathlib.Algebra.BigOperators.Group.Finset.Basic
+import Mathlib.Data.Real.Basic
+open scoped BigOperators
+
+namespace OCKIndividuationMSpaceComposition
+
+/-! Audit instructions only: run after source elaboration in the qualified
+replay route. This file is not an audit result. -/
+
+#print axioms tomographicTaskConditionedOptic_observe
+#print axioms tomographicTaskConditioned_kernel_gives_observation_sufficiency
+#print axioms tomographicTaskConditioned_visible_kernel_blocks_exact_predictor
+#print axioms tomographicTaskConditioned_identifiability_has_canonical_quotient_factor
+#print axioms tomographicTaskConditioned_kernel_has_canonical_quotient_factor
+
+end OCKIndividuationMSpaceComposition

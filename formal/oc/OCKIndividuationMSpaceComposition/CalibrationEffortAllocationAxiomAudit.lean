@@ -1,0 +1,9 @@
+import OCKIndividuationMSpaceComposition.CalibrationEffortAllocation
+
+open OCKIndividuationMSpaceComposition
+
+#print axioms common_marginal_certifies_optimal_calibration_effort
+#print axioms cube_balance_certifies_optimal_calibration_effort
+#print axioms common_positive_scale_preserves_allocation_cube_balance
+#print axioms zero_drop_coordinate_has_zero_calibration_prediction_width
+#print axioms one_eight_calibration_drops_five_budget_unique_optimum

@@ -1,0 +1,17 @@
+import OCKIndividuationMSpaceComposition.TomographicDistortionBoundary
+import Mathlib.Algebra.BigOperators.Group.Finset.Basic
+import Mathlib.Data.Real.Basic
+open scoped BigOperators
+
+namespace OCKIndividuationMSpaceComposition
+
+#print axioms TomographicObservationDistortionBound
+#print axioms tomographicCalibrationDriftBound_as_observationDistortionBound
+#print axioms tomographicObservationDistortionBound_compose
+#print axioms tomographicDistortedPair_reference_contrast_bound
+#print axioms tomographicDistortedPair_current_margin_lower_bound
+#print axioms tomographicDistortion_preserves_positive_margin
+#print axioms tomographicDistortion_preserves_pair_resolution
+#print axioms tomographicZeroDistortion_reference_eq_current
+
+end OCKIndividuationMSpaceComposition

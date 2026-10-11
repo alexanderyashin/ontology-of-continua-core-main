@@ -1,0 +1,27 @@
+import OCKIndividuationMSpaceComposition.SymmetryCanonicalFiniteRankOrientationInvariant
+
+namespace OCKIndividuationMSpaceComposition
+
+namespace PrimitiveDistinction.DisjointDistinctionFamily
+
+#print axioms reverseLabelsFamily
+#print axioms reverseLabelsFamily_distinction
+#print axioms reverseLabelsFamily_pairSwapEquiv
+#print axioms reverseLabelsFamily_maskPermutation
+#print axioms reverseLabelsFamily_maskFactor
+#print axioms reverseLabelsFamily_maskPermutationProduct
+#print axioms reverseLabelsFamily_mask_range_card
+#print axioms reverseLabelsFamily_maskPermutationProduct_range_card
+#print axioms reverseLabelsFamily_symmetryAlgebraLogRank
+
+end PrimitiveDistinction.DisjointDistinctionFamily
+
+namespace PrimitiveDistinction.CanonicalFiniteFamily
+
+#print axioms canonical_reverseLabels_mask_range_card
+#print axioms canonical_reverseLabels_product_range_card
+#print axioms canonical_reverseLabels_action_log_rank
+
+end PrimitiveDistinction.CanonicalFiniteFamily
+
+end OCKIndividuationMSpaceComposition

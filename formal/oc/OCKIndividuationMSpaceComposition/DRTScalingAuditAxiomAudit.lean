@@ -1,0 +1,20 @@
+import OCKIndividuationMSpaceComposition.DRTScalingAudit
+
+/-!
+Source-bound axiom audit for `DRTScalingAudit.lean`.
+
+Every theorem declaration listed by the current OC14 byte inventory is
+printed exactly once below.  This is an audit surface for the compiled
+declarations; it is not a new theorem, Claim, independent review or
+empirical result.
+-/
+
+#print axioms OCKIndividuationMSpaceComposition.drt_displayed_stationarity_implies_quadratic_balance
+#print axioms OCKIndividuationMSpaceComposition.drt_one_half_scaling_fails_published_cubic_invariant
+#print axioms OCKIndividuationMSpaceComposition.drt_one_third_scaling_fails_displayed_stationarity
+#print axioms OCKIndividuationMSpaceComposition.drt_stationary_flux_time_square_invariant
+#print axioms OCKIndividuationMSpaceComposition.independent_exposure_implies_square_resolution_balance
+#print axioms OCKIndividuationMSpaceComposition.one_half_pair_satisfies_stationary_square_invariant
+#print axioms OCKIndividuationMSpaceComposition.one_third_pair_satisfies_published_cubic_invariant
+#print axioms OCKIndividuationMSpaceComposition.published_cubic_flux_time_invariant
+#print axioms OCKIndividuationMSpaceComposition.published_self_consistency_implies_cubic_balance

@@ -1,0 +1,20 @@
+import OCKIndividuationMSpaceComposition.BridgeOntologyRuleRegistry
+
+open OCKIndividuationMSpaceComposition
+
+#print axioms bridgeRuleId_card
+#print axioms mappingFamily_card
+#print axioms ruleFamily_injective
+#print axioms ruleFamily_surjective
+#print axioms ruleFamily_bijective
+#print axioms bridgeRuleSpec_injective
+#print axioms every_bridge_ontology_is_covered
+#print axioms every_rule_has_generation_one
+#print axioms every_rule_requires_witness_and_loss_account
+#print axioms exact_round_trip_has_verified_image_reverse
+#print axioms set_valued_rule_has_candidate_set_reverse
+#print axioms task_equivalent_rule_has_task_relative_reverse
+#print axioms no_round_trip_rule_has_no_exact_reverse
+#print axioms bidirectional_rule_has_declared_reverse
+#print axioms bridgeRuleIndex_round_trip
+#print axioms bridgeRuleFromIndex_round_trip

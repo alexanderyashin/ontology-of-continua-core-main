@@ -1,0 +1,18 @@
+import OCKIndividuationMSpaceComposition.PathDependentSequentialIntervention
+
+/-!
+Source-bound axiom audit for `PathDependentSequentialIntervention.lean`.
+
+Every theorem declaration listed by the current OC14 byte inventory is
+printed exactly once below.  This is an audit surface for the compiled
+declarations; it is not a new theorem, Claim, independent review or
+empirical result.
+-/
+
+#print axioms OCKIndividuationMSpaceComposition.continuation_obstruction_blocks_sequential_intervention
+#print axioms OCKIndividuationMSpaceComposition.equal_regime_value_does_not_identify_effect_timing
+#print axioms OCKIndividuationMSpaceComposition.path_dependent_sequential_certificate_is_sound
+#print axioms OCKIndividuationMSpaceComposition.sequential_g_contract_identifies_regime_value
+#print axioms OCKIndividuationMSpaceComposition.sequential_policy_order_stable
+#print axioms OCKIndividuationMSpaceComposition.sequential_regime_estimation_error_bound
+#print axioms OCKIndividuationMSpaceComposition.zero_stage_propensity_blocks_sequential_positivity

@@ -1,0 +1,11 @@
+import OCKIndividuationMSpaceComposition.SymmetryPrimitiveDistinctionDecomposition
+
+open OCKIndividuationMSpaceComposition
+
+#print axioms PrimitiveDistinction.generatedEvenPart_invariant
+#print axioms PrimitiveDistinction.generatedOddPart_antiInvariant
+#print axioms PrimitiveDistinction.generated_even_odd_reconstruction
+#print axioms PrimitiveDistinction.even_and_odd_observable_is_zero
+#print axioms PrimitiveDistinction.generated_even_odd_decomposition_unique
+#print axioms PrimitiveDistinction.evenObservable_constant
+#print axioms PrimitiveDistinction.generatedSignedPolarity_odd

@@ -1,0 +1,9 @@
+import OCKIndividuationMSpaceComposition.FamilySuffixRiskTransport
+
+namespace OCKIndividuationMSpaceComposition
+
+#print axioms family_suffix_risk_transport_bound
+#print axioms family_suffix_risk_transport_bound_expanded
+#print axioms family_suffix_risk_no_overlap_no_go
+
+end OCKIndividuationMSpaceComposition

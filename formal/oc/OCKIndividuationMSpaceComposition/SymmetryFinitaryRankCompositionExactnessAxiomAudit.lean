@@ -1,0 +1,11 @@
+import OCKIndividuationMSpaceComposition.SymmetryFinitaryRankCompositionExactness
+
+namespace OCKIndividuationMSpaceComposition
+
+namespace IntrinsicFinitaryRank
+
+#print axioms rank_union_eq_add_iff_exists_disjoint_rank_witnesses
+
+end IntrinsicFinitaryRank
+
+end OCKIndividuationMSpaceComposition

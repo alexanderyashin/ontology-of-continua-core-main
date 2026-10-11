@@ -1,0 +1,22 @@
+import OCKIndividuationMSpaceComposition.CompositionBoundaryV2
+
+/-!
+Source-bound axiom audit for `CompositionBoundaryV2.lean`.
+
+Every theorem declaration listed by the current OC14 byte inventory is
+printed exactly once below.  This is an audit surface for the compiled
+declarations; it is not a new theorem, Claim, independent review or
+empirical result.
+-/
+
+#print axioms OCKIndividuationMSpaceComposition.DirectTwoCycle.toOmega_nonstationary
+#print axioms OCKIndividuationMSpaceComposition.OmegaDecomposition.implies_not_wellFounded
+#print axioms OCKIndividuationMSpaceComposition.alternatingPair_orientation
+#print axioms OCKIndividuationMSpaceComposition.decompositionDescent_wellFounded_iff_no_omega
+#print axioms OCKIndividuationMSpaceComposition.OmegaDecomposition.finitePrefix
+#print axioms OCKIndividuationMSpaceComposition.OmegaDecomposition.noFiniteStageTerminal
+#print axioms OCKIndividuationMSpaceComposition.not_wellFounded_iff_exists_omegaDecomposition_classical
+#print axioms OCKIndividuationMSpaceComposition.successorOmega_has_no_terminal_stage
+#print axioms OCKIndividuationMSpaceComposition.successorOmega_stage_injective
+#print axioms OCKIndividuationMSpaceComposition.successorRealization_step
+#print axioms OCKIndividuationMSpaceComposition.wellFounded_excludes_omegaDecomposition

@@ -1,0 +1,13 @@
+import OCKIndividuationMSpaceComposition.SymmetryIntrinsicDimensionInterface
+
+namespace OCKIndividuationMSpaceComposition
+
+namespace IntrinsicDimensionInterface
+
+#print axioms maximalIndependent_card_eq_rank_of_augmentation
+#print axioms maximalIndependent_card_unique_of_augmentation
+#print axioms rank_is_wellDefined_maximalIndependent_dimension
+
+end IntrinsicDimensionInterface
+
+end OCKIndividuationMSpaceComposition

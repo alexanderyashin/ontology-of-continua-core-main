@@ -1,0 +1,12 @@
+import OCKIndividuationMSpaceComposition.SymmetryTorsorTransport
+
+open OCKIndividuationMSpaceComposition
+
+#print axioms r3EquivariantMap_injective
+#print axioms r3EquivariantMap_surjective
+#print axioms r3EquivariantMapEquiv
+#print axioms r3EquivariantMap_ext_at_base
+#print axioms r3PointedEquivariantEquiv_base
+#print axioms r3PointedEquivariantEquiv_reversal
+#print axioms r3EquivariantMap_eq_first_or_reversed_transport
+#print axioms r3PointedEquivariantMap_ne_reversed

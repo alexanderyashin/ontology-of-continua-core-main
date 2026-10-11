@@ -1,0 +1,13 @@
+import OCKIndividuationMSpaceComposition.SymmetryContextBridge
+
+namespace OCKIndividuationMSpaceComposition
+
+/-! Source-bound audit for `SymmetryContextBridge.lean`. -/
+
+#print axioms OCKIndividuationMSpaceComposition.local_symmetry_observation_is_invariant
+#print axioms OCKIndividuationMSpaceComposition.local_symmetry_evidence_is_invariant
+#print axioms OCKIndividuationMSpaceComposition.local_symmetry_admissibility_is_axis_invariant
+#print axioms OCKIndividuationMSpaceComposition.local_symmetry_preserves_axis_class
+#print axioms OCKIndividuationMSpaceComposition.local_observation_factors_iff_invariant
+
+end OCKIndividuationMSpaceComposition

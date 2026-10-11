@@ -1,0 +1,30 @@
+import OCKIndividuationMSpaceComposition.DerivedMSpace
+
+/-!
+Source-bound axiom audit for `DerivedMSpace.lean`.
+
+Every theorem declaration listed by the current OC14 byte inventory is
+printed exactly once below.  This is an audit surface for the compiled
+declarations; it is not a new theorem, Claim, independent review or
+empirical result.
+-/
+
+#print axioms OCKIndividuationMSpaceComposition.DerivedMSpace.endpoint_invariant
+#print axioms OCKIndividuationMSpaceComposition.DerivedMSpace.endpoint_reachable
+#print axioms OCKIndividuationMSpaceComposition.DerivedMSpace.map_comp
+#print axioms OCKIndividuationMSpaceComposition.DerivedMSpace.map_comp_endpoint
+#print axioms OCKIndividuationMSpaceComposition.DerivedMSpace.map_comp_inputTrace
+#print axioms OCKIndividuationMSpaceComposition.DerivedMSpace.map_endpoint
+#print axioms OCKIndividuationMSpaceComposition.DerivedMSpace.map_identity
+#print axioms OCKIndividuationMSpaceComposition.derivedMSpace_has_branching_endpoints
+#print axioms OCKIndividuationMSpaceComposition.OpenHistory.inputTrace_append
+#print axioms OCKIndividuationMSpaceComposition.OpenHistory.inputTrace_map
+#print axioms OCKIndividuationMSpaceComposition.OpenHistory.inputTrace_map_comp
+#print axioms OCKIndividuationMSpaceComposition.OpenHistory.invariant
+#print axioms OCKIndividuationMSpaceComposition.OpenHistory.length_append
+#print axioms OCKIndividuationMSpaceComposition.OpenHistory.length_map
+#print axioms OCKIndividuationMSpaceComposition.OpenHistory.map_comp
+#print axioms OCKIndividuationMSpaceComposition.OpenHistory.map_identity
+#print axioms OCKIndividuationMSpaceComposition.multiple_histories_same_endpoint
+#print axioms OCKIndividuationMSpaceComposition.OpenHistory.reachable
+#print axioms OCKIndividuationMSpaceComposition.reconvergent_histories_same_length

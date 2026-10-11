@@ -1,0 +1,10 @@
+import OCKIndividuationMSpaceComposition.SymmetryTorsorClassification
+
+open OCKIndividuationMSpaceComposition
+
+#print axioms r3OrientationEquivBool_base
+#print axioms r3OrientationEquivBool_partner
+#print axioms r3OrientationEquivBool_reverse
+#print axioms r3OrientationEquivBool_false_iff
+#print axioms r3OrientationEquivBool_true_iff
+#print axioms r3OrientationEquivBool_change_base

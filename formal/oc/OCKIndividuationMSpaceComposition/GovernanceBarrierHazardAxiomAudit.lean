@@ -1,0 +1,23 @@
+import OCKIndividuationMSpaceComposition.GovernanceBarrierHazard
+
+/-!
+Source-bound axiom audit for `GovernanceBarrierHazard.lean`.
+
+Every theorem declaration listed by the current OC14 byte inventory is
+printed exactly once below.  This is an audit surface for the compiled
+declarations; it is not a new theorem, Claim, independent review or
+empirical result.
+-/
+
+#print axioms OCKIndividuationMSpaceComposition.barrierCdf_bounds
+#print axioms OCKIndividuationMSpaceComposition.barrierCdf_eq_sum_firstBarrierMass
+#print axioms OCKIndividuationMSpaceComposition.barrierCdf_mono_succ
+#print axioms OCKIndividuationMSpaceComposition.barrierCdf_succ_sub
+#print axioms OCKIndividuationMSpaceComposition.barrierQuantileAt_unique
+#print axioms OCKIndividuationMSpaceComposition.barrierSurvival_bounds
+#print axioms OCKIndividuationMSpaceComposition.barrierSurvival_succ
+#print axioms OCKIndividuationMSpaceComposition.combinedStepHazard_complement
+#print axioms OCKIndividuationMSpaceComposition.combined_hazard_does_not_identify_cause
+#print axioms OCKIndividuationMSpaceComposition.constantBarrierHazard_cdf
+#print axioms OCKIndividuationMSpaceComposition.constantBarrierHazard_survival
+#print axioms OCKIndividuationMSpaceComposition.first_barrier_quantile_exists_of_reaches

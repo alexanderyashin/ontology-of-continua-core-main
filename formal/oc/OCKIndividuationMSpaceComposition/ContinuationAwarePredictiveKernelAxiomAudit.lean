@@ -1,0 +1,24 @@
+import OCKIndividuationMSpaceComposition.ContinuationAwarePredictiveKernel
+
+/-!
+Source-bound axiom audit for `ContinuationAwarePredictiveKernel.lean`.
+
+Every theorem declaration listed by the current OC14 byte inventory is
+printed exactly once below.  This is an audit surface for the compiled
+declarations; it is not a new theorem, Claim, independent review or
+empirical result.
+-/
+
+#print axioms OCKIndividuationMSpaceComposition.abstention_blocks_every_exact_point
+#print axioms OCKIndividuationMSpaceComposition.admissible_model_outcome_is_possible
+#print axioms OCKIndividuationMSpaceComposition.causal_transport_without_frame_continuity_is_not_kernel_transport
+#print axioms OCKIndividuationMSpaceComposition.continuation_aware_predictive_kernel_guarantees
+#print axioms OCKIndividuationMSpaceComposition.excluding_possible_future_is_unsound
+#print axioms OCKIndividuationMSpaceComposition.flagship_provenance_and_endpoint_strict_separation
+#print axioms OCKIndividuationMSpaceComposition.generator_successor_possible_iff_feasible_image
+#print axioms OCKIndividuationMSpaceComposition.kernel_transport_allowed_iff_components
+#print axioms OCKIndividuationMSpaceComposition.necessary_future_iff_possible_singleton
+#print axioms OCKIndividuationMSpaceComposition.no_abstention_implies_exact_point
+#print axioms OCKIndividuationMSpaceComposition.not_robust_iff_counterprofile
+#print axioms OCKIndividuationMSpaceComposition.possible_future_is_minimal_sound_predictor
+#print axioms OCKIndividuationMSpaceComposition.robust_outcome_holds_for_admissible_execution

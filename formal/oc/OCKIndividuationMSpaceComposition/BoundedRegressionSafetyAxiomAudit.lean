@@ -1,0 +1,8 @@
+import OCKIndividuationMSpaceComposition.BoundedRegressionSafety
+
+open OCKIndividuationMSpaceComposition
+
+#print axioms squaredLossExcess_identity
+#print axioms unbounded_squaredLoss_no_finite_uniform_budget
+#print axioms squaredLossExcess_zero_of_zero_departure
+#print axioms squaredLossExcess_le_endpointEnvelope

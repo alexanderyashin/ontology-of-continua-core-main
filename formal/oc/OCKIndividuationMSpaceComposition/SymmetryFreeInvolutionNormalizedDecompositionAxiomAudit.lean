@@ -1,0 +1,20 @@
+import OCKIndividuationMSpaceComposition.SymmetryFreeInvolutionNormalizedDecomposition
+
+namespace OCKIndividuationMSpaceComposition
+
+namespace FixedPointFreeInvolution
+
+#print axioms AntiInvariantObservable
+#print axioms invariantHalf
+#print axioms antiInvariantHalf
+#print axioms invariantHalf_invariant
+#print axioms antiInvariantHalf_antiInvariant
+#print axioms invariantHalf_add_antiInvariantHalf_eq_observable
+#print axioms even_odd_decomposition_unique
+#print axioms invariantHalf_factors_through_axis_quotient
+#print axioms antiInvariantHalf_factor_through_axis_quotient_iff_zero
+#print axioms antiInvariantHalf_eq_zero_iff_invariant
+
+end FixedPointFreeInvolution
+
+end OCKIndividuationMSpaceComposition

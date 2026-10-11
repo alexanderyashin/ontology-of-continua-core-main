@@ -1,0 +1,12 @@
+import OCKIndividuationMSpaceComposition.BrierResidualAlignmentAdmission
+
+namespace OCKIndividuationMSpaceComposition
+
+#print axioms brierContextRisk_exact_quadratic
+#print axioms positive_brier_context_improves_iff_residual_alignment
+#print axioms nonpositive_brier_alignment_rejects_every_positive_gate
+#print axioms brierResidualAlignmentWeight_globally_minimizes
+#print axioms clampedBrierResidualAlignmentWeight_globally_minimizes
+#print axioms zero_brier_shift_is_neutral
+
+end OCKIndividuationMSpaceComposition

@@ -1,0 +1,8 @@
+import OCKIndividuationMSpaceComposition.SymmetryGlobalC2NormalizedDecomposition
+
+open OCKIndividuationMSpaceComposition
+
+#print axioms PrimitiveDistinction.carrierInvariantHalf_invariant
+#print axioms PrimitiveDistinction.carrierAntiInvariantHalf_antiInvariant
+#print axioms PrimitiveDistinction.carrierInvariantHalf_add_carrierAntiInvariantHalf_eq_observable
+#print axioms PrimitiveDistinction.carrier_even_odd_decomposition_unique

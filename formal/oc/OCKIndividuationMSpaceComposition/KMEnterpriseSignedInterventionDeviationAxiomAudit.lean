@@ -1,0 +1,23 @@
+import OCKIndividuationMSpaceComposition.KMEnterpriseSignedInterventionDeviation
+
+/-!
+Source-bound axiom audit for `KMEnterpriseSignedInterventionDeviation.lean`.
+
+Every theorem declaration listed by the current OC14 byte inventory is
+printed exactly once below.  This is an audit surface for the compiled
+declarations; it is not a new theorem, Claim, independent review or
+empirical result.
+-/
+
+#print axioms OCKIndividuationMSpaceComposition.SignedActionExecution.actual_within_total_envelope
+#print axioms OCKIndividuationMSpaceComposition.failed_signed_intervention_envelope_has_counterprofile
+#print axioms OCKIndividuationMSpaceComposition.km_signed_action_flow_yields_singleton_carrier_support
+#print axioms OCKIndividuationMSpaceComposition.science_plan_shortfall_budget_boundary
+#print axioms OCKIndividuationMSpaceComposition.science_shortfall_nine_preserves_carrier
+#print axioms OCKIndividuationMSpaceComposition.science_shortfall_ten_loses_carrier
+#print axioms OCKIndividuationMSpaceComposition.signedAdversarialCarrierProfile_within
+#print axioms OCKIndividuationMSpaceComposition.signed_adversarial_dominance_implies_all_profiles
+#print axioms OCKIndividuationMSpaceComposition.signed_dominance_iff_nat_dominance
+#print axioms OCKIndividuationMSpaceComposition.signed_envelope_forces_iff_adversarial_dominant
+#print axioms OCKIndividuationMSpaceComposition.signed_execution_margin_forces_actual_carrier
+#print axioms OCKIndividuationMSpaceComposition.strict_signed_intervention_margin_forces_carrier

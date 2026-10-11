@@ -1,0 +1,9 @@
+import OCKIndividuationMSpaceComposition.SymmetryDistinctionLayers
+
+open OCKIndividuationMSpaceComposition
+
+#print axioms PrimitiveDistinction.generatedSeparator_iff_polarity_false
+#print axioms PrimitiveDistinction.generatedBoundary_projection_constant
+#print axioms PrimitiveDistinction.generatedSwap_preserves_boundary_and_negates_polarity
+#print axioms PrimitiveDistinction.generated_r1_r2_r3_layer_synthesis
+#print axioms PrimitiveDistinction.generatedSign_does_not_factor_through_boundary

@@ -1,0 +1,19 @@
+import OCKIndividuationMSpaceComposition.TemporalDependenceEnvelope
+
+/-!
+Source-bound axiom audit for `TemporalDependenceEnvelope.lean`.
+
+Every theorem declaration listed by the current OC14 byte inventory is
+printed exactly once below.  This is an audit surface for the compiled
+declarations; it is not a new theorem, Claim, independent review or
+empirical result.
+-/
+
+#print axioms OCKIndividuationMSpaceComposition.positive_omitted_tail_creates_false_acceptance_interval
+#print axioms OCKIndividuationMSpaceComposition.positive_omitted_tail_strictly_increases_designEffect
+#print axioms OCKIndividuationMSpaceComposition.temporalDesignEffect_additive_tail
+#print axioms OCKIndividuationMSpaceComposition.temporalDesignEffect_at_least_one
+#print axioms OCKIndividuationMSpaceComposition.temporalDesignEffect_le_captured_add_tailBudget
+#print axioms OCKIndividuationMSpaceComposition.temporalDesignEffect_mono_correlation
+#print axioms OCKIndividuationMSpaceComposition.temporal_tail_corrected_raw_threshold_guarantees_population_budget
+#print axioms OCKIndividuationMSpaceComposition.underestimated_temporalDesignEffect_can_false_accept

@@ -1,0 +1,11 @@
+import OCKIndividuationMSpaceComposition.TypedEffectDoctrine
+
+namespace OCKIndividuationMSpaceComposition
+
+#print axioms FiniteStochasticEffect.support_iff_positive_mass
+#print axioms parallelRelEffect_iff
+#print axioms feedbackClosure_trans
+#print axioms ExactEffectTransport.preserves_support
+#print axioms support_forgetting_is_not_quantitatively_faithful
+
+end OCKIndividuationMSpaceComposition

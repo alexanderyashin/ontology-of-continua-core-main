@@ -1,0 +1,14 @@
+import OCKIndividuationMSpaceComposition.SymmetryNativeRankBirthNaturality
+
+namespace OCKIndividuationMSpaceComposition
+
+namespace PrimitiveDistinction.NativeCarrierTransport
+
+#print axioms transport_reversalGenerated_iff
+#print axioms transport_rank_birth_iff_original_rank_birth
+#print axioms transport_rank_birth_iff_not_generated
+#print axioms transport_rank_birth_iff_not_in_original_subgroup
+
+end PrimitiveDistinction.NativeCarrierTransport
+
+end OCKIndividuationMSpaceComposition

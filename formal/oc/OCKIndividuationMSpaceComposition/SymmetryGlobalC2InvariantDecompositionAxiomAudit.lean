@@ -1,0 +1,8 @@
+import OCKIndividuationMSpaceComposition.SymmetryGlobalC2InvariantDecomposition
+
+open OCKIndividuationMSpaceComposition
+
+#print axioms PrimitiveDistinction.carrierInvariantPart_invariant
+#print axioms PrimitiveDistinction.carrierAntiInvariantPart_antiInvariant
+#print axioms PrimitiveDistinction.carrierInvariantPart_add_carrierAntiInvariantPart_eq_two_smul
+#print axioms PrimitiveDistinction.carrierInvariant_iff_endpoint_equal_of_covers

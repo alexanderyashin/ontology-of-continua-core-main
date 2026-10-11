@@ -1,0 +1,22 @@
+import OCKIndividuationMSpaceComposition.DerivedObjectTheory
+
+/-!
+Source-bound axiom audit for `DerivedObjectTheory.lean`.
+
+Every theorem declaration listed by the current OC14 byte inventory is
+printed exactly once below.  This is an audit surface for the compiled
+declarations; it is not a new theorem, Claim, independent review or
+empirical result.
+-/
+
+#print axioms OCKIndividuationMSpaceComposition.IdentifiedDynamicObject.exact_carrier_realization
+#print axioms OCKIndividuationMSpaceComposition.IdentifiedDynamicObject.history_endpoint_in_carrier
+#print axioms OCKIndividuationMSpaceComposition.IdentifiedDynamicObject.identity_exists_unique
+#print axioms OCKIndividuationMSpaceComposition.IdentifiedDynamicObject.local_children_in_carrier
+#print axioms OCKIndividuationMSpaceComposition.IdentifiedDynamicObject.multiLevel_children_in_carrier
+#print axioms OCKIndividuationMSpaceComposition.IdentifiedDynamicObject.presentationQuotient_bijective_carrier
+#print axioms OCKIndividuationMSpaceComposition.IdentifiedDynamicObject.root_in_carrier
+#print axioms OCKIndividuationMSpaceComposition.forcedIdentity_presentationMutualReachability
+#print axioms OCKIndividuationMSpaceComposition.identifiedDynamicObject_full_synthesis
+#print axioms OCKIndividuationMSpaceComposition.presentationMutualReachability_equivalence
+#print axioms OCKIndividuationMSpaceComposition.reachableFrom_trans

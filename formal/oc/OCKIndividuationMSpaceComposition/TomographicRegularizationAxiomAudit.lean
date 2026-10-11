@@ -1,0 +1,15 @@
+import OCKIndividuationMSpaceComposition.TomographicRegularization
+import Mathlib.Algebra.BigOperators.Group.Finset.Basic
+import Mathlib.Data.Real.Basic
+open scoped BigOperators
+
+namespace OCKIndividuationMSpaceComposition
+
+#print axioms tomographicRegularizedObjective_nonnegative
+#print axioms tomographicRegularizedObjective_zero_parameter
+#print axioms tomographicRegularizedObjective_mono_parameter
+#print axioms tomographicRegularizedObjective_parameter_gap
+#print axioms tomographicRegularizedObjective_strict_mono_parameter
+#print axioms tomographicRegularizedObjective_parameter_invariant_of_zero_energy
+
+end OCKIndividuationMSpaceComposition

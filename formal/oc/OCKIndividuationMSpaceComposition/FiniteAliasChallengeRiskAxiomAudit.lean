@@ -1,0 +1,10 @@
+import OCKIndividuationMSpaceComposition.FiniteAliasChallengeRisk
+
+open OCKIndividuationMSpaceComposition
+
+#print axioms collision_pair_endpoint_error_count_ge_one
+#print axioms collision_challenge_total_error_ge_collision_count
+#print axioms nonempty_collision_challenge_error_rate_ge_half
+#print axioms collision_resolution_fraction_mem_unit_interval
+#print axioms refinement_collision_resolution_fraction_mem_unit_interval
+#print axioms derived_feature_collision_resolution_fraction_eq_zero

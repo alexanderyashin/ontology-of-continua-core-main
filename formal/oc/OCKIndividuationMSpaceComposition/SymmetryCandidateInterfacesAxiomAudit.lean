@@ -1,0 +1,16 @@
+import OCKIndividuationMSpaceComposition.SymmetryCandidateInterfaces
+
+open OCKIndividuationMSpaceComposition
+
+#print axioms r1_axis_boundary_compatibility
+#print axioms r1_projection_compatibility
+#print axioms r1_canonicality_condition
+#print axioms r2_axis_requires_admitted_pairing
+#print axioms r2_two_sides_remains_typed_unavailable
+#print axioms r2_invariant_transport_remains_source_literal
+#print axioms r3_reverse_involutive
+#print axioms r3_reverse_free
+#print axioms r3_pair_transitive
+#print axioms r3_typed_axis_identity_observation
+#print axioms symmetry_candidate_winner_remains_null
+#print axioms symmetry_candidate_formalism_remains_null

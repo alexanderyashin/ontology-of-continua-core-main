@@ -1,0 +1,27 @@
+import OCKIndividuationMSpaceComposition.RecursiveComposition
+
+/-!
+Source-bound axiom audit for `RecursiveComposition.lean`.
+
+Every theorem declaration listed by the current OC14 byte inventory is
+printed exactly once below.  This is an audit surface for the compiled
+declarations; it is not a new theorem, Claim, independent review or
+empirical result.
+-/
+
+#print axioms OCKIndividuationMSpaceComposition.DecompositionStep.map
+#print axioms OCKIndividuationMSpaceComposition.MultiLevelDecomposition.map
+#print axioms OCKIndividuationMSpaceComposition.arbitrary_finite_composition_depth
+#print axioms OCKIndividuationMSpaceComposition.composition_does_not_force_unique_decomposition
+#print axioms OCKIndividuationMSpaceComposition.decompositionStep_in_context
+#print axioms OCKIndividuationMSpaceComposition.decompositionStep_preserves_forall
+#print axioms OCKIndividuationMSpaceComposition.local_realization_is_multiLevelDecomposition
+#print axioms OCKIndividuationMSpaceComposition.multiLevelDecomposition_from_parent_preserves
+#print axioms OCKIndividuationMSpaceComposition.multiLevelDecomposition_in_context
+#print axioms OCKIndividuationMSpaceComposition.multiLevelDecomposition_preserves_forall
+#print axioms OCKIndividuationMSpaceComposition.multiLevelDecomposition_refl
+#print axioms OCKIndividuationMSpaceComposition.multiLevelDecomposition_trans
+#print axioms OCKIndividuationMSpaceComposition.multiLevel_substitution
+#print axioms OCKIndividuationMSpaceComposition.parent_has_two_valid_decompositions
+#print axioms OCKIndividuationMSpaceComposition.predecessor_chain_reaches_zero
+#print axioms OCKIndividuationMSpaceComposition.the_two_decompositions_are_distinct

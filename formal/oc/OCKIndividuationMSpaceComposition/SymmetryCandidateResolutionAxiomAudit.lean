@@ -1,0 +1,11 @@
+import OCKIndividuationMSpaceComposition.SymmetryCandidateResolution
+
+open OCKIndividuationMSpaceComposition
+
+#print axioms r3_axis_eq_univ
+#print axioms r3_axisClass_unique
+#print axioms r3_axisQuotient_subsingleton
+#print axioms r3_invariant_observable_constant
+#print axioms r3_observable_nonconstant_iff_breaking_witness
+#print axioms r3_axis_has_coaxis
+#print axioms r3_coaxis_not_reversal_invariant

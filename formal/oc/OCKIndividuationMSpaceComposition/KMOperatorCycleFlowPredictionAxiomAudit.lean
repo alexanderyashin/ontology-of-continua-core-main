@@ -1,0 +1,22 @@
+import OCKIndividuationMSpaceComposition.KMOperatorCycleFlowPrediction
+
+/-!
+Source-bound axiom audit for `KMOperatorCycleFlowPrediction.lean`.
+
+Every theorem declaration listed by the current OC14 byte inventory is
+printed exactly once below.  This is an audit surface for the compiled
+declarations; it is not a new theorem, Claim, independent review or
+empirical result.
+-/
+
+#print axioms OCKIndividuationMSpaceComposition.OpenDiscreteDynamics.first_crossing_exists_within_of_reaches
+#print axioms OCKIndividuationMSpaceComposition.OpenDiscreteDynamics.lower_flow_forces_crossing_by
+#print axioms OCKIndividuationMSpaceComposition.OpenDiscreteDynamics.nonpositive_increment_never_crosses
+#print axioms OCKIndividuationMSpaceComposition.OpenDiscreteDynamics.positive_lower_flow_excludes_cycle
+#print axioms OCKIndividuationMSpaceComposition.OpenDiscreteDynamics.state_interval_of_increment_interval
+#print axioms OCKIndividuationMSpaceComposition.OpenDiscreteDynamics.state_lower_bound_of_increment_lower
+#print axioms OCKIndividuationMSpaceComposition.OpenDiscreteDynamics.state_upper_bound_of_increment_upper
+#print axioms OCKIndividuationMSpaceComposition.OpenDiscreteDynamics.windowFlow_lower_bound
+#print axioms OCKIndividuationMSpaceComposition.increment_interval_induces_exact_band_width
+#print axioms OCKIndividuationMSpaceComposition.km_positive_flow_contract_forces_necessary_crossing
+#print axioms OCKIndividuationMSpaceComposition.tied_opposite_flow_regimes_block_crossing_point_identification

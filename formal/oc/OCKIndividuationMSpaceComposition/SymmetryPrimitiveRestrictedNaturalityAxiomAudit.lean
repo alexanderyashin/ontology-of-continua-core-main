@@ -1,0 +1,12 @@
+import OCKIndividuationMSpaceComposition.SymmetryPrimitiveRestrictedNaturality
+
+namespace OCKIndividuationMSpaceComposition
+
+namespace PrimitiveDistinction
+
+#print axioms pairSwap_commutes_of_preservesPairSupport
+#print axioms pairSwapEquiv_conjugationInvariant_of_preservesPairSupport
+
+end PrimitiveDistinction
+
+end OCKIndividuationMSpaceComposition

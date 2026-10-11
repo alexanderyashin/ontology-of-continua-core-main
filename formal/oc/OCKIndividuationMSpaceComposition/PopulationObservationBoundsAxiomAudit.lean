@@ -1,0 +1,8 @@
+import OCKIndividuationMSpaceComposition.PopulationObservationBounds
+
+open OCKIndividuationMSpaceComposition
+
+#print axioms uniformConcentrationCertificate_of_log_budget
+#print axioms argmax_pair_stable_of_uniform_error
+#print axioms unseen_world_no_learner_guarantees_both_outcome_laws
+#print axioms sufficient_and_covered_observation_is_exactly_learnable

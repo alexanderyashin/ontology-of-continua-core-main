@@ -1,0 +1,9 @@
+import OCKIndividuationMSpaceComposition.SymmetryGluingV2
+
+/-! Source-bound axiom surface for the finite-cover gluing/holonomy results. -/
+
+#print axioms OCKIndividuationMSpaceComposition.finiteCech_bijective_iff_separated_and_descent
+#print axioms OCKIndividuationMSpaceComposition.finiteCech_nonfixedHolonomy_obstructs_global_anchor
+#print axioms OCKIndividuationMSpaceComposition.finiteCech_nontrivialHolonomy_refutes_cocycle
+#print axioms OCKIndividuationMSpaceComposition.pairwiseCompatible_localFamily_need_not_glue
+#print axioms OCKIndividuationMSpaceComposition.nontrivialHolonomy_obstructs_coherence

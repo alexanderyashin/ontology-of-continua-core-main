@@ -1,0 +1,25 @@
+import OCKIndividuationMSpaceComposition.SymmetryCanonicalFiniteRankRealization
+
+namespace OCKIndividuationMSpaceComposition
+
+namespace PrimitiveDistinction.CanonicalFiniteFamily
+
+#print axioms DisjointDistinctionFamily.toFaithful
+#print axioms evenPoint_ne_evenPoint
+#print axioms oddPoint_ne_oddPoint
+#print axioms evenPoint_ne_oddPoint
+#print axioms oddPoint_ne_evenPoint
+#print axioms canonicalDistinction
+#print axioms canonicalDisjointFamily
+#print axioms canonicalFaithfulFamily
+#print axioms canonical_actual_mask_range_card
+#print axioms canonical_actual_product_range_card
+#print axioms canonical_actual_direction_rank
+#print axioms canonical_rank_zero
+#print axioms canonical_rank_one
+#print axioms canonical_rank_two
+#print axioms canonical_rank_three
+
+end PrimitiveDistinction.CanonicalFiniteFamily
+
+end OCKIndividuationMSpaceComposition

@@ -1,0 +1,21 @@
+import OCKIndividuationMSpaceComposition.CensoringVisibilityAndEffectiveSample
+
+/-!
+Source-bound axiom audit for `CensoringVisibilityAndEffectiveSample.lean`.
+
+Every theorem declaration listed by the current OC14 byte inventory is
+printed exactly once below.  This is an audit surface for the compiled
+declarations; it is not a new theorem, Claim, independent review or
+empirical result.
+-/
+
+#print axioms OCKIndividuationMSpaceComposition.censoredExchangeableEffectiveObservations_le_raw
+#print axioms OCKIndividuationMSpaceComposition.censored_event_mass_gap_exact
+#print axioms OCKIndividuationMSpaceComposition.censored_event_models_separated_at_visible_time
+#print axioms OCKIndividuationMSpaceComposition.censored_exchangeable_effective_ceiling
+#print axioms OCKIndividuationMSpaceComposition.censored_exchangeable_raw_threshold_sufficient
+#print axioms OCKIndividuationMSpaceComposition.complete_censoring_admits_common_observation
+#print axioms OCKIndividuationMSpaceComposition.independentCensoredEventMass_factorization
+#print axioms OCKIndividuationMSpaceComposition.latent_event_mass_recovered_from_positive_visibility
+#print axioms OCKIndividuationMSpaceComposition.zero_visibility_erases_event_model_difference
+#print axioms OCKIndividuationMSpaceComposition.zero_visibility_has_zero_effective_observations

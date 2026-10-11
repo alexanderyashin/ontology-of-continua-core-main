@@ -1,0 +1,7 @@
+import OCKIndividuationMSpaceComposition.UnseenLevelNoGo
+
+open OCKIndividuationMSpaceComposition
+
+#print axioms unseenLevel_minimax_half_bound
+#print axioms unseenLevel_no_uniform_error_lt_half
+#print axioms unseenLevel_minimax_half_sharp

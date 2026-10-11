@@ -1,0 +1,9 @@
+import OCKIndividuationMSpaceComposition.FiniteNoisyIdentifiability
+
+open OCKIndividuationMSpaceComposition
+
+#print axioms margin_gt_twice_error_implies_unique_recovery
+#print axioms exactObservationAlias_refutes_signature_injective
+#print axioms exactObservationAlias_no_observation_only_recovery
+#print axioms test_refinement_shrinks_allowed_identity
+#print axioms coarse_tests_can_alias_while_fine_tests_separate

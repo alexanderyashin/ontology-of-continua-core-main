@@ -1,0 +1,11 @@
+import OCKIndividuationMSpaceComposition.TypedEffectCausalCorrespondence
+
+namespace OCKIndividuationMSpaceComposition
+
+#print axioms ExactSignedEffectTransport.comp_map_assoc
+#print axioms typed_causal_transport_certifies_continuation_and_signed_effect
+#print axioms negative_signed_effect_is_retained_but_not_supported
+#print axioms negative_causal_effect_is_not_stochastic_mass
+#print axioms relabeled_signed_transport_does_not_imply_pointwise_causal_stability
+
+end OCKIndividuationMSpaceComposition

@@ -1,0 +1,20 @@
+import OCKIndividuationMSpaceComposition.SymmetryNativeCausalFamilyClosure
+
+namespace OCKIndividuationMSpaceComposition
+
+namespace ActiveConstraintModel
+
+#print axioms generatedKernel_trans
+#print axioms familyGenerated_of_root
+#print axioms familyGenerated_mono
+#print axioms familyGenerated_extensive
+#print axioms familyGenerated_trans
+#print axioms familyGenerated_idempotent
+#print axioms familyGenerated_is_singleton_generated
+#print axioms familyGenerated_has_no_genuine_joint_generator
+#print axioms internalDependency_is_one_step_familyGenerated
+#print axioms familyGenerated_contains_only_typed_kernel_paths
+
+end ActiveConstraintModel
+
+end OCKIndividuationMSpaceComposition

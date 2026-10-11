@@ -1,0 +1,19 @@
+import OCKIndividuationMSpaceComposition.HierarchicalPoolingObservationBounds
+
+/-!
+Source-bound axiom audit for `HierarchicalPoolingObservationBounds.lean`.
+
+Every theorem declaration listed by the current OC14 byte inventory is
+printed exactly once below.  This is an audit surface for the compiled
+declarations; it is not a new theorem, Claim, independent review or
+empirical result.
+-/
+
+#print axioms OCKIndividuationMSpaceComposition.exact_group_factorization_predicts_every_cell
+#print axioms OCKIndividuationMSpaceComposition.group_collision_refutes_exact_factorization
+#print axioms OCKIndividuationMSpaceComposition.no_pooled_scalar_reaches_target_below_half_gap
+#print axioms OCKIndividuationMSpaceComposition.pooled_argmax_pair_stable
+#print axioms OCKIndividuationMSpaceComposition.pooled_bias_and_estimation_error_add
+#print axioms OCKIndividuationMSpaceComposition.pooled_designEffect_threshold_guarantees_population_budget
+#print axioms OCKIndividuationMSpaceComposition.pooled_scalar_collision_minimax_lower_bound
+#print axioms OCKIndividuationMSpaceComposition.residual_estimation_budget_guarantees_total_target

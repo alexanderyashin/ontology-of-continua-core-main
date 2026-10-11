@@ -1,0 +1,18 @@
+import OCKIndividuationMSpaceComposition.TimeVaryingCoupledPropagation
+
+/-!
+Source-bound axiom audit for `TimeVaryingCoupledPropagation.lean`.
+
+Every theorem declaration listed by the current OC14 byte inventory is
+printed exactly once below.  This is an audit surface for the compiled
+declarations; it is not a new theorem, Claim, independent review or
+empirical result.
+-/
+
+#print axioms OCKIndividuationMSpaceComposition.endpoint_product_does_not_identify_operator_schedule
+#print axioms OCKIndividuationMSpaceComposition.forecast_margin_certifies_above_threshold
+#print axioms OCKIndividuationMSpaceComposition.forecast_margin_certifies_below_threshold
+#print axioms OCKIndividuationMSpaceComposition.timeVaryingCoupledTrajectory_exact_decomposition
+#print axioms OCKIndividuationMSpaceComposition.timeVaryingCoupledTrajectory_full_difference
+#print axioms OCKIndividuationMSpaceComposition.timeVaryingCoupledTrajectory_initial_difference_eq_product
+#print axioms OCKIndividuationMSpaceComposition.timeVarying_model_mismatch_error_bound

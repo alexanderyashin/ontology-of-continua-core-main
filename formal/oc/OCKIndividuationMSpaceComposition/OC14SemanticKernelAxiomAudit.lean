@@ -1,0 +1,8 @@
+import OCKIndividuationMSpaceComposition.OC14SemanticKernel
+
+open OCKIndividuationMSpaceComposition
+
+#print axioms world_event_can_be_observationally_silent
+#print axioms observational_alias_does_not_imply_world_equality
+#print axioms optic_refinement_contracts_epistemic_continuation_set
+#print axioms model_class_extension_expands_epistemic_continuation_set

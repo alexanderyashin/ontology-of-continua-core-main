@@ -1,0 +1,15 @@
+import OCKIndividuationMSpaceComposition.TomographicStability
+import Mathlib.Algebra.BigOperators.Group.Finset.Basic
+import Mathlib.Data.Real.Basic
+open scoped BigOperators
+
+-- Audit instructions only: NOT_RUN, not an axiom audit receipt.
+open OCKIndividuationMSpaceComposition
+
+#print axioms tomographic_calibrated_reconstruction_bound
+#print axioms tomographic_task_error_from_state_budget
+#print axioms tomographic_calibrated_task_error_bound
+#print axioms tomographic_task_threshold_certificate
+#print axioms tomographic_restricted_norm_reconstruction_bound
+#print axioms tomographic_row_error_budget
+#print axioms tomographic_weighted_frame_budget

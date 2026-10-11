@@ -1,0 +1,13 @@
+import OCKIndividuationMSpaceComposition.TypedHorizonBrierTransport
+
+open OCKIndividuationMSpaceComposition
+
+#print axioms HorizonCalibrationCoordinate.ne_of_outcomeId_ne
+#print axioms HorizonCalibrationCoordinate.ne_of_domainId_ne
+#print axioms TypedHorizonBrierCell.positive_gate_iff
+#print axioms TypedHorizonBrierCell.clamped_weight_minimizes
+#print axioms TypedHorizonBrierCell.gain_threshold_requires_signal_floor
+#print axioms no_common_unconstrained_weight_of_distinct_alignment_ratios
+#print axioms TypedHorizonBrierCell.universal_gain_without_signal_floor_is_impossible
+#print axioms source_horizon_residual_requires_transport_margin
+#print axioms transport_margin_yields_target_hull

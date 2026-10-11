@@ -1,0 +1,8 @@
+import OCKIndividuationMSpaceComposition.FiniteObservationRefinementBudget
+
+/-! Trusted-base audit for the finite observation-refinement budget. -/
+
+#print axioms OCKIndividuationMSpaceComposition.collision_pair_budget_monotone_under_refinement
+#print axioms OCKIndividuationMSpaceComposition.zero_collision_pair_budget_implies_outcome_constancy
+#print axioms OCKIndividuationMSpaceComposition.zero_collision_pair_budget_has_exact_predictor
+#print axioms OCKIndividuationMSpaceComposition.derived_feature_preserves_collision_pair_budget

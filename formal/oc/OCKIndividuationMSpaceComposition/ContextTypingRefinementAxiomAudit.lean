@@ -1,0 +1,11 @@
+import OCKIndividuationMSpaceComposition.ContextTypingRefinement
+
+namespace OCKIndividuationMSpaceComposition
+
+#print axioms ContextObservationRefinement.coarse_collision_of_fine_collision
+#print axioms ContextObservationRefinement.fine_distinguishes_of_coarse_distinguishes
+#print axioms ContextObservationRefinement.factorsThrough_mono
+#print axioms optimal_risk_antitone_under_observation_refinement
+#print axioms factoring_predictor_equal_on_observation_collision
+
+end OCKIndividuationMSpaceComposition

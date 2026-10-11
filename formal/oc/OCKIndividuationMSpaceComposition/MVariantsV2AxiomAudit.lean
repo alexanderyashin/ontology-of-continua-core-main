@@ -1,0 +1,22 @@
+import OCKIndividuationMSpaceComposition.MVariantsV2
+
+/-!
+Source-bound axiom audit for `MVariantsV2.lean`.
+
+Every theorem declaration listed by the current OC14 byte inventory is
+printed exactly once below.  This is an audit surface for the compiled
+declarations; it is not a new theorem, Claim, independent review or
+empirical result.
+-/
+
+#print axioms OCKIndividuationMSpaceComposition.OpenHistory.AllStates.endpoint
+#print axioms OCKIndividuationMSpaceComposition.DerivedMSpace.semanticTranslation_exists_of_step_inclusion
+#print axioms OCKIndividuationMSpaceComposition.DerivedMSpace.weaken_endpoint
+#print axioms OCKIndividuationMSpaceComposition.ViableMSpace.forget_injective
+#print axioms OCKIndividuationMSpaceComposition.bare_point_map_does_not_imply_semantic_translation
+#print axioms OCKIndividuationMSpaceComposition.boundaryHistory_forgetting_not_injective
+#print axioms OCKIndividuationMSpaceComposition.finiteDerivedMSpace_does_not_imply_omegaHistory
+#print axioms OCKIndividuationMSpaceComposition.OmegaOpenHistory.finiteStageReachable
+#print axioms OCKIndividuationMSpaceComposition.OpenHistory.inputTrace_weaken
+#print axioms OCKIndividuationMSpaceComposition.mSpaceSemanticTranslation_exists_iff_preserving_maps
+#print axioms OCKIndividuationMSpaceComposition.nonviable_endpoint_has_no_viable_preimage

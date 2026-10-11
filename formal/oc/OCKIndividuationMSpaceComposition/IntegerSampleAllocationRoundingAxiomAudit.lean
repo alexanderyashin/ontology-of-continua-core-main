@@ -1,0 +1,11 @@
+import OCKIndividuationMSpaceComposition.IntegerSampleAllocationRounding
+
+open OCKIndividuationMSpaceComposition
+
+#print axioms inverseSqrtAllocationCost_antitone
+#print axioms floorSampleAllocation_preserves_budget
+#print axioms floorAllocationRoundingGap_nonnegative
+#print axioms floorAllocationWidth_eq_continuous_add_exactGap
+#print axioms ceilingSampleAllocation_totalWidth_le_continuous
+#print axioms ceilingSampleAllocation_budget_augmentation
+#print axioms ceiling_rounding_can_exceed_original_budget

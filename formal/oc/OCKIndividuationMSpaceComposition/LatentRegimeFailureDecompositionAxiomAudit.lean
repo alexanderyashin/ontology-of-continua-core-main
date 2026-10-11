@@ -1,0 +1,21 @@
+import OCKIndividuationMSpaceComposition.LatentRegimeFailureDecomposition
+
+/-!
+Source-bound axiom audit for `LatentRegimeFailureDecomposition.lean`.
+
+Every theorem declaration listed by the current OC14 byte inventory is
+printed exactly once below.  This is an audit surface for the compiled
+declarations; it is not a new theorem, Claim, independent review or
+empirical result.
+-/
+
+#print axioms OCKIndividuationMSpaceComposition.pooled_probability_does_not_identify_regime_covariance
+#print axioms OCKIndividuationMSpaceComposition.symmetricRegime_hidden_covariance
+#print axioms OCKIndividuationMSpaceComposition.symmetricRegime_same_pooled_probability
+#print axioms OCKIndividuationMSpaceComposition.twoRegime_bernoulli_variance_decomposition
+#print axioms OCKIndividuationMSpaceComposition.twoRegime_betweenVariance_eq_zero_iff
+#print axioms OCKIndividuationMSpaceComposition.twoRegime_capture_value_nonpositive_iff
+#print axioms OCKIndividuationMSpaceComposition.twoRegime_capture_value_positive_iff
+#print axioms OCKIndividuationMSpaceComposition.twoRegime_pooled_excess_brier_exact
+#print axioms OCKIndividuationMSpaceComposition.twoRegime_pooled_excess_brier_pos
+#print axioms OCKIndividuationMSpaceComposition.twoRegime_sharedLatent_covariance_exact

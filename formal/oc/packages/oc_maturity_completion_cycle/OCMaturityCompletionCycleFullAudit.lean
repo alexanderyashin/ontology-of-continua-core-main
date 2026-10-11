@@ -1,0 +1,49 @@
+import OCMaturityCompletionCycle
+
+open OCMaturityCompletionCycle
+
+-- Complete 22/22 axiom inventory for IdentityAssembly.lean.
+#print axioms EquivalenceGenerated.isReflexive
+#print axioms EquivalenceGenerated.isSymmetric
+#print axioms EquivalenceGenerated.isTransitive
+#print axioms EquivalenceGenerated.minimal
+#print axioms LineageGenerated.isReflexive
+#print axioms LineageGenerated.isTransitive
+#print axioms LineageGenerated.minimal
+#print axioms realizesMembership_iff_hasUniqueMember
+#print axioms overlap_precludes_functional_membership
+#print axioms branching_with_required_separation_no_go
+#print axioms fusion_with_required_separation_no_go
+#print axioms familyIntersection_isLeast
+#print axioms leastRelation_pointwise_eq_familyIntersection
+#print axioms leastRelation_unique
+#print axioms uniqueLeastRelation_iff_intersectionAdmitted
+#print axioms mooreFamily_hasUniqueLeastRelation
+#print axioms fork_equivalence_relates_left_to_root
+#print axioms forkEvidence_rank_monotone
+#print axioms fork_lineage_does_not_run_left_to_root
+#print axioms fork_overlap_is_not_functional
+#print axioms fork_relations_and_independent_overlap_are_not_interchangeable
+#print axioms crossing_context_partitions_are_incomparable
+
+-- Complete 20/20 axiom inventory for IdentityPredictiveBridge.lean.
+#print axioms predictivelySufficientIdentity_iff_kernelInclusion
+#print axioms exactIdentityPredictiveBridge_iff_kernelEquality
+#print axioms exactIdentityPredictiveBridge_iff_mutualKernelInclusion
+#print axioms factorization_on_usedRange_iff_kernelInclusion
+#print axioms evidenceGeneratedIdentitySafe_iff_edgesPreservePrediction
+#print axioms exactReportLoss_eq_one_of_ne
+#print axioms sharedReport_misses_at_least_one
+#print axioms predictive_insufficiency_yields_weightWitness
+#print axioms predictive_insufficiency_yields_futureTest
+#print axioms predictive_insufficiency_yields_unavoidable_exactReportLoss
+#print axioms kernelRelation_exhaustive
+#print axioms identity_predictive_kernel_equality_fixture
+#print axioms identity_strictly_finer_than_prediction_fixture
+#print axioms identity_strictly_coarser_than_prediction_fixture
+#print axioms identity_prediction_incomparable_fixture
+#print axioms four_identity_predictive_kernel_relations_fixture
+#print axioms firstBit_identity_is_stochastically_insufficient
+#print axioms finite_stochastic_exactReportLoss_fixture
+#print axioms branching_predictive_distinction_precludes_collapsingIdentity
+#print axioms fork_precludes_edgeCollapsing_predictivelySufficient_functionalIdentity

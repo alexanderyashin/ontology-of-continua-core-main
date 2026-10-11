@@ -1,0 +1,21 @@
+import OCKIndividuationMSpaceComposition.AnytimeSpendingOptimization
+
+/-!
+Source-bound axiom audit for `AnytimeSpendingOptimization.lean`.
+
+Every theorem declaration listed by the current OC14 byte inventory is
+printed exactly once below.  This is an audit surface for the compiled
+declarations; it is not a new theorem, Claim, independent review or
+empirical result.
+-/
+
+#print axioms OCKIndividuationMSpaceComposition.cumulativePolynomialAlphaSpending_exact
+#print axioms OCKIndividuationMSpaceComposition.cumulativePolynomialAlphaSpending_le
+#print axioms OCKIndividuationMSpaceComposition.equalHorizonAlphaSpending_total
+#print axioms OCKIndividuationMSpaceComposition.finite_horizon_spending_has_look_at_most_average
+#print axioms OCKIndividuationMSpaceComposition.no_finite_horizon_schedule_beats_equal_share_at_every_look
+#print axioms OCKIndividuationMSpaceComposition.polynomialAlphaSpending_difference
+#print axioms OCKIndividuationMSpaceComposition.polynomialAlphaSpending_nonnegative
+#print axioms OCKIndividuationMSpaceComposition.polynomialAlphaSpending_positive
+#print axioms OCKIndividuationMSpaceComposition.polynomial_alpha_spending_controls_any_finite_monitor
+#print axioms OCKIndividuationMSpaceComposition.polynomial_spending_pooled_threshold_guarantees_look_budget

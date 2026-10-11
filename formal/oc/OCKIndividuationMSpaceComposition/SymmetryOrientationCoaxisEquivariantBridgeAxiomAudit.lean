@@ -1,0 +1,21 @@
+import OCKIndividuationMSpaceComposition.SymmetryOrientationCoaxisEquivariantBridge
+
+namespace OCKIndividuationMSpaceComposition
+
+namespace PrimitiveDistinction
+
+#print axioms orientationToAxisCoaxis
+#print axioms orientationToAxisCoaxis_base
+#print axioms orientationToAxisCoaxis_partner
+#print axioms axisCoaxisToOrientation
+#print axioms axisCoaxisToOrientation_base
+#print axioms axisCoaxisToOrientation_reverse_base
+#print axioms reverse_baseAxisCoaxis_twice
+#print axioms orientationFiberAxisCoaxisEquiv
+#print axioms orientationFiberAxisCoaxisEquiv_intertwines_reverse
+#print axioms orientationFiberAxisCoaxisEquiv_intertwines_c2
+#print axioms orientationFiber_axisCoaxis_equivariant_principal_c2_spine
+
+end PrimitiveDistinction
+
+end OCKIndividuationMSpaceComposition

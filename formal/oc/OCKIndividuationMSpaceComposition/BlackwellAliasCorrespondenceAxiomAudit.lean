@@ -1,0 +1,10 @@
+import OCKIndividuationMSpaceComposition.BlackwellAliasCorrespondence
+
+open OCKIndividuationMSpaceComposition
+
+#print axioms observation_refinement_is_deterministic_blackwell_garbling
+#print axioms aliased_two_world_challenge_risk_ge_half
+#print axioms aliased_two_world_challenge_half_is_attainable
+#print axioms aliased_two_world_challenge_exact_bayes_risk
+#print axioms separated_two_world_challenge_zero_is_attainable
+#print axioms separated_origin_information_has_exact_half_challenge_value

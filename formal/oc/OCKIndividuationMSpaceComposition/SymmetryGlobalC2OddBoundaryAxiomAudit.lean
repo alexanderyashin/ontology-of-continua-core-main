@@ -1,0 +1,7 @@
+import OCKIndividuationMSpaceComposition.SymmetryGlobalC2OddBoundary
+
+open OCKIndividuationMSpaceComposition
+
+#print axioms PrimitiveDistinction.carrierAntiInvariant_at_outside_two_nsmul_eq_zero
+#print axioms PrimitiveDistinction.carrierAntiInvariantPart_at_outside_two_nsmul_eq_zero
+#print axioms PrimitiveDistinction.carrierAntiInvariant_vanishes_at_outside_of_no_two_torsion

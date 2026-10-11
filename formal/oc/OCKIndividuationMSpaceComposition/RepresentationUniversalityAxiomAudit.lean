@@ -1,0 +1,25 @@
+import OCKIndividuationMSpaceComposition.RepresentationUniversality
+
+/-!
+Source-bound axiom audit for `RepresentationUniversality.lean`.
+
+Every theorem declaration listed by the current OC14 byte inventory is
+printed exactly once below.  This is an audit surface for the compiled
+declarations; it is not a new theorem, Claim, independent review or
+empirical result.
+-/
+
+#print axioms OCKIndividuationMSpaceComposition.FinitaryRelModel.decode_encode_payload
+#print axioms OCKIndividuationMSpaceComposition.empty_full_extensions_are_distinct
+#print axioms OCKIndividuationMSpaceComposition.empty_full_extensions_have_same_reduct
+#print axioms OCKIndividuationMSpaceComposition.FinitaryRelModel.encodePayload_bijective
+#print axioms OCKIndividuationMSpaceComposition.FinitaryRelModel.encode_decode_node
+#print axioms OCKIndividuationMSpaceComposition.FinitaryRelModel.encoded_element_has_exact_type
+#print axioms OCKIndividuationMSpaceComposition.FinitaryRelModel.encoded_fact_has_exact_argument
+#print axioms OCKIndividuationMSpaceComposition.FinitaryRelModel.encoded_fact_has_exact_relation
+#print axioms OCKIndividuationMSpaceComposition.FinitaryRelModel.encoded_slot_has_exact_owner_and_type
+#print axioms OCKIndividuationMSpaceComposition.extension_relative_no_maximum
+#print axioms OCKIndividuationMSpaceComposition.FinitaryRelModel.fact_node_reflects_held_tuple
+#print axioms OCKIndividuationMSpaceComposition.FinitaryRelModel.held_tuple_is_reified
+#print axioms OCKIndividuationMSpaceComposition.no_old_payload_recovers_all_independent_extensions
+#print axioms OCKIndividuationMSpaceComposition.FinitaryRelModel.universe_relative_incidence_representation_is_lossless

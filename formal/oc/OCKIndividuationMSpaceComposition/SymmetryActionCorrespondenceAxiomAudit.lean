@@ -1,0 +1,20 @@
+import OCKIndividuationMSpaceComposition.SymmetryActionCorrespondence
+
+namespace OCKIndividuationMSpaceComposition
+
+namespace PrimitiveDistinction.NativeIntrinsicRankBoundary
+
+#print axioms seed_card_eq_index_card_of_actionCorrespondence
+#print axioms correspondenceActionFactor_eq_maskFactor
+#print axioms correspondenceActionFactor_pairwise_commute
+#print axioms correspondenceMaskProduct_eq_native
+#print axioms correspondenceActionLogRank_eq_native
+#print axioms intrinsic_rank_eq_correspondence_action_log_rank
+#print axioms correspondenceActionLogRank_eq_intrinsic_rank
+#print axioms correspondenceActionLogRank_realization_independent
+#print axioms constantIdentityAction_no_correspondence
+#print axioms cardinality_only_does_not_supply_action_correspondence
+
+end PrimitiveDistinction.NativeIntrinsicRankBoundary
+
+end OCKIndividuationMSpaceComposition

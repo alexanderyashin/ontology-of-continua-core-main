@@ -1,0 +1,18 @@
+import OCKIndividuationMSpaceComposition.SequentialMonitoringBounds
+
+/-!
+Source-bound axiom audit for `SequentialMonitoringBounds.lean`.
+
+Every theorem declaration listed by the current OC14 byte inventory is
+printed exactly once below.  This is an audit surface for the compiled
+declarations; it is not a new theorem, Claim, independent review or
+empirical result.
+-/
+
+#print axioms OCKIndividuationMSpaceComposition.cumulative_geometricAlphaSpending_le
+#print axioms OCKIndividuationMSpaceComposition.geometricAlphaSpending_nonnegative
+#print axioms OCKIndividuationMSpaceComposition.geometricAlphaSpending_positive
+#print axioms OCKIndividuationMSpaceComposition.geometric_alpha_spending_controls_any_finite_monitor
+#print axioms OCKIndividuationMSpaceComposition.geometric_spending_pooled_threshold_guarantees_look_budget
+#print axioms OCKIndividuationMSpaceComposition.independentTwoLookFamilywise_excess_exact
+#print axioms OCKIndividuationMSpaceComposition.two_look_fixed_alpha_reuse_strictly_understates_error

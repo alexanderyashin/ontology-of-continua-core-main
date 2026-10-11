@@ -1,0 +1,13 @@
+import OCKIndividuationMSpaceComposition.SymmetryIntrinsicDimensionBasisBoundary
+
+namespace OCKIndividuationMSpaceComposition
+
+namespace IntrinsicDimensionBasisBoundary
+
+#print axioms fanClosure_fails_plainBasisAugmentation
+#print axioms closure_laws_and_maximality_without_augmentation_are_insufficient
+#print axioms basisAugmentation_suffices_for_wellDefined_finite_dimension
+
+end IntrinsicDimensionBasisBoundary
+
+end OCKIndividuationMSpaceComposition

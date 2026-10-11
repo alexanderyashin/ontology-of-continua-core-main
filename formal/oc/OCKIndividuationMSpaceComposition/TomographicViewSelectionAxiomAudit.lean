@@ -1,0 +1,16 @@
+import OCKIndividuationMSpaceComposition.TomographicViewSelection
+import Mathlib.Algebra.BigOperators.Group.Finset.Basic
+import Mathlib.Data.Real.Basic
+open scoped BigOperators
+
+-- Audit instructions only: NOT_RUN, not an axiom audit receipt.
+open OCKIndividuationMSpaceComposition
+
+#print axioms tomographicAugmentedObservation_refines
+#print axioms tomographicAugmentedObservation_eq_iff_base_eq_of_derived_view
+#print axioms tomographicViewCollisionReduction_nonnegative
+#print axioms tomographicViewCollisionReduction_le_base
+#print axioms tomographicView_splits_all_task_collisions
+#print axioms tomographicView_zero_budget_has_exact_task_predictor
+#print axioms tomographicView_full_reduction_of_collision_split
+#print axioms tomographicView_positive_reduction_is_bounded_claim

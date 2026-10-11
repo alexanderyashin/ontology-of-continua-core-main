@@ -1,0 +1,18 @@
+import OCKIndividuationMSpaceComposition.SymmetryFiniteFreeInvolutionOrbitRank
+
+namespace OCKIndividuationMSpaceComposition
+
+namespace FixedPointFreeInvolution
+
+#print axioms axisEquivBool
+#print axioms axis_card_eq_two
+#print axioms axisFiberEquivAxis
+#print axioms axisFiber_card_eq_two
+#print axioms carrier_card_eq_two_mul_quotient_card
+#print axioms even_carrier_card
+#print axioms invariantObservableEquivQuotientFunction
+#print axioms invariantObservableEquivQuotientFunction_spec
+
+end FixedPointFreeInvolution
+
+end OCKIndividuationMSpaceComposition

@@ -1,0 +1,25 @@
+import OCKIndividuationMSpaceComposition.KMPredictiveModelConstraint
+
+/-!
+Source-bound axiom audit for `KMPredictiveModelConstraint.lean`.
+
+Every theorem declaration listed by the current OC14 byte inventory is
+printed exactly once below.  This is an audit surface for the compiled
+declarations; it is not a new theorem, Claim, independent review or
+empirical result.
+-/
+
+#print axioms OCKIndividuationMSpaceComposition.km_coherence_implies_point_identified
+#print axioms OCKIndividuationMSpaceComposition.km_necessary_future_exact_of_coherence
+#print axioms OCKIndividuationMSpaceComposition.km_no_sound_interval_has_smaller_width
+#print axioms OCKIndividuationMSpaceComposition.km_possible_future_exact_of_coherence
+#print axioms OCKIndividuationMSpaceComposition.km_sharp_band_is_information_optimal
+#print axioms OCKIndividuationMSpaceComposition.km_sharp_prediction_band_nonnegative
+#print axioms OCKIndividuationMSpaceComposition.km_target_future_point_identified_of_dynamics_coherence
+#print axioms OCKIndividuationMSpaceComposition.km_zero_width_gives_exact_numeric_prediction
+#print axioms OCKIndividuationMSpaceComposition.refinement_expands_necessary_future
+#print axioms OCKIndividuationMSpaceComposition.refinement_shrinks_possible_future
+#print axioms OCKIndividuationMSpaceComposition.selected_is_km_tied_resolving
+#print axioms OCKIndividuationMSpaceComposition.selected_rank_bounds_every_resolving_lift
+#print axioms OCKIndividuationMSpaceComposition.tied_behavioral_disagreement_blocks_point_identification
+#print axioms OCKIndividuationMSpaceComposition.tied_numeric_disagreement_blocks_exact_prediction

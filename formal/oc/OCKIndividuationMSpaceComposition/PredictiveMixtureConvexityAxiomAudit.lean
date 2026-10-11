@@ -1,0 +1,7 @@
+import OCKIndividuationMSpaceComposition.PredictiveMixtureConvexity
+
+open OCKIndividuationMSpaceComposition
+
+#print axioms convexMixtureSquaredLoss_decomposition
+#print axioms convexMixtureSquaredLoss_le_weightedComponents
+#print axioms convexMixtureSquaredLoss_strict_diversity_credit

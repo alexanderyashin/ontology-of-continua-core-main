@@ -1,0 +1,19 @@
+import OCKIndividuationMSpaceComposition.SymmetryPrimitiveDistinctionAxisOfAxisBridge
+
+namespace OCKIndividuationMSpaceComposition
+
+namespace PrimitiveDistinction
+
+#print axioms axisOfAxisPoint
+#print axioms axisOfAxisEquiv
+#print axioms axisOfAxisPoint_swap
+#print axioms primitiveAxisOfAxisCoaxis
+#print axioms primitiveAxisOfAxisSignPairing
+#print axioms primitiveAxisOfAxisCoaxis_positive_iff_polarity_false
+#print axioms primitiveAxisOfAxisSign_agrees_with_polarity
+#print axioms primitiveAxisOfAxisCoaxis_eq_base_or_reverse
+#print axioms primitiveDistinction_axis_of_axis_spine
+
+end PrimitiveDistinction
+
+end OCKIndividuationMSpaceComposition

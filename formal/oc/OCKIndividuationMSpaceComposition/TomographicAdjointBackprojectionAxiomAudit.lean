@@ -1,0 +1,18 @@
+import OCKIndividuationMSpaceComposition.TomographicAdjointBackprojection
+import Mathlib.Algebra.BigOperators.Group.Finset.Basic
+import Mathlib.Data.Real.Basic
+open scoped BigOperators
+
+-- Audit instructions only: NOT_RUN, not an axiom audit receipt.
+open OCKIndividuationMSpaceComposition
+
+#print axioms tomographicInner_nonnegative
+#print axioms tomographicBackprojection_adjoint
+#print axioms tomographicWeightedBackprojection_adjoint
+#print axioms tomographicResidual_backprojection_energy
+#print axioms tomographicWeightedResidual_backprojection_energy
+#print axioms tomographicWeightedResidual_backprojection_energy_nonnegative
+#print axioms tomographicWeightedResidual_backprojection_energy_zero_iff
+#print axioms tomographicResidual_backprojection_energy_nonnegative
+#print axioms tomographicBackprojection_zero_of_zero_residual
+#print axioms tomographicBackprojection_zero_on_invisible_error

@@ -1,0 +1,21 @@
+import OCKIndividuationMSpaceComposition.TomographicCoverageBoundary
+import Mathlib.Algebra.BigOperators.Group.Finset.Basic
+import Mathlib.Data.Real.Basic
+open scoped BigOperators
+
+namespace OCKIndividuationMSpaceComposition
+
+#print axioms TomographicViewCoverage
+#print axioms TomographicCoverageExtension
+#print axioms TomographicCoveredAgreement
+#print axioms tomographicCoverage_of_extension
+#print axioms tomographicCoverage_of_required_subset
+#print axioms tomographicCoverage_union_left
+#print axioms tomographicCoverage_agreement_implies_required_equality
+#print axioms tomographicCoverage_missing_witness
+#print axioms TomographicRayCoverage
+#print axioms TomographicRaySupportWithin
+#print axioms tomographicRayCoverage_implies_viewCoverage
+#print axioms tomographicRayCoverage_missing_witness
+
+end OCKIndividuationMSpaceComposition

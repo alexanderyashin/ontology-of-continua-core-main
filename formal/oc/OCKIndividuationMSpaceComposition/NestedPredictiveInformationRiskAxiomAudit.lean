@@ -1,0 +1,18 @@
+import OCKIndividuationMSpaceComposition.NestedPredictiveInformationRisk
+
+namespace OCKIndividuationMSpaceComposition
+
+#print axioms optimal_risk_antitone_under_model_refinement
+#print axioms strict_optimal_improvement_of_residual_signal
+#print axioms fitted_refinement_beats_local_iff_penalty_lt_gain
+#print axioms predictive_information_gain_nonnegative
+#print axioms no_strict_fitted_improvement_without_gain
+#print axioms fitted_refinement_worse_iff_gain_lt_penalty
+#print axioms exists_finite_estimator_reversal_under_refinement
+#print axioms totalizeWithOOV_of_unknown
+#print axioms totalizeWithOOV_collision
+#print axioms binary_collision_average_squared_error_lower_bound
+#print axioms typedTotalizeWithOOV_preserves_type
+#print axioms typedTotalizeWithOOV_collision_of_same_type
+
+end OCKIndividuationMSpaceComposition

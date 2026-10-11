@@ -1,0 +1,14 @@
+import OCKIndividuationMSpaceComposition.TomographicMultidimensionalSymmetry
+import Mathlib.Algebra.BigOperators.Group.Finset.Basic
+import Mathlib.Data.Real.Basic
+open scoped BigOperators
+
+namespace OCKIndividuationMSpaceComposition
+
+#print axioms tomographicMultidimensionalSignature
+#print axioms TomographicMultidimensionalProjectionInvariant
+#print axioms tomographic_multidimensional_invariant_projection_axis_collision
+#print axioms tomographic_multidimensional_symmetry_blocks_noninvariant_task
+#print axioms tomographic_multidimensional_decoder_requires_symmetry_break
+
+end OCKIndividuationMSpaceComposition

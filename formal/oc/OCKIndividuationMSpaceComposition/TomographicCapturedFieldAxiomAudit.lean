@@ -1,0 +1,19 @@
+import OCKIndividuationMSpaceComposition.TomographicCapturedField
+import Mathlib.Algebra.BigOperators.Group.Finset.Basic
+import Mathlib.Data.Real.Basic
+open scoped BigOperators
+
+namespace OCKIndividuationMSpaceComposition
+
+/-! Direct axiom-audit targets for captured-field claim ceilings. -/
+
+#print axioms TomographicCapturedField
+#print axioms tomographicCapturedFieldCompatible
+#print axioms tomographicCapturedFieldClaimSupported
+#print axioms TomographicMissingObservation
+#print axioms tomographicCapturedField_claimSupported_iff_no_missing_observation
+#print axioms tomographicCapturedField_claimSupported_of_unique_compatible
+#print axioms tomographicCapturedField_forward_compatible
+#print axioms tomographicCapturedField_missing_observation_refutes_claim
+
+end OCKIndividuationMSpaceComposition

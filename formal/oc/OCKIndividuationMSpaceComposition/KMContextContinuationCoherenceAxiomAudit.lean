@@ -1,0 +1,22 @@
+import OCKIndividuationMSpaceComposition.KMContextContinuationCoherence
+
+/-!
+Source-bound axiom audit for `KMContextContinuationCoherence.lean`.
+
+Every theorem declaration listed by the current OC14 byte inventory is
+printed exactly once below.  This is an audit surface for the compiled
+declarations; it is not a new theorem, Claim, independent review or
+empirical result.
+-/
+
+#print axioms OCKIndividuationMSpaceComposition.ContinuationWitness.targetFuture
+#print axioms OCKIndividuationMSpaceComposition.context_coherence_reachExactly_iff
+#print axioms OCKIndividuationMSpaceComposition.context_coherence_reachWithin_iff
+#print axioms OCKIndividuationMSpaceComposition.context_coherence_targetFuture_iff
+#print axioms OCKIndividuationMSpaceComposition.equal_context_headers_and_invariant_do_not_determine_future
+#print axioms OCKIndividuationMSpaceComposition.historyEvidence_reaches_exactly
+#print axioms OCKIndividuationMSpaceComposition.km_context_continuation_coherence_implies_point_identified
+#print axioms OCKIndividuationMSpaceComposition.km_contextual_and_observation_error_add
+#print axioms OCKIndividuationMSpaceComposition.km_contextual_radius_bounds_pairwise_disagreement
+#print axioms OCKIndividuationMSpaceComposition.km_contextual_radius_bounds_sharp_band_width
+#print axioms OCKIndividuationMSpaceComposition.km_zero_contextual_radius_gives_exact_numeric_prediction

@@ -1,0 +1,38 @@
+import OCKIndividuationMSpaceComposition.TomographicProjectionMatrix
+import Mathlib.Algebra.BigOperators.Group.Finset.Basic
+import Mathlib.Data.Real.Basic
+open scoped BigOperators
+
+namespace OCKIndividuationMSpaceComposition
+
+/-! Audit instructions only: run after the source module is admitted and
+elaborated in the qualified replay route. This file is not an audit result. -/
+
+#print axioms tomographicProjection_add
+#print axioms tomographicProjection_eq_rowMap
+#print axioms tomographicProjection_smul
+#print axioms tomographicProjection_sub
+#print axioms tomographicRowL1Norm_nonnegative
+#print axioms tomographicRowL1Norm_eq_zero_iff
+#print axioms tomographicProjection_zero_of_rowL1Norm_zero
+#print axioms tomographicProjection_abs_sub_bound_by_rowL1_inf
+#print axioms tomographicNormalEnergy_nonnegative
+#print axioms tomographicNormalEnergyOn_nonnegative
+#print axioms tomographicNormalEnergyOn_union
+#print axioms tomographicNormalEnergyOn_univ_eq_normalEnergy
+#print axioms tomographicNormalEnergyOn_zero_iff_pointwise_invisible
+#print axioms tomographicNormalEnergyOn_mono
+#print axioms tomographicNormalEnergyOn_uniform_bound
+#print axioms tomographicNormalEnergyOn_rowwise_bound
+#print axioms tomographicNormalEnergyOn_rowL1_inf_rowwise_bound
+#print axioms tomographicNormalEnergyOn_difference_rowwise_bound
+#print axioms tomographicNormalEnergyOn_difference_rowL1_inf_rowwise_bound
+#print axioms tomographicNormalEnergyOn_difference_zero_iff_equal_selected_projections
+#print axioms tomographicNormalEnergyOn_difference_rowwise_lower_bound
+#print axioms tomographicProjection_abs_bound_by_rowL1_inf
+#print axioms tomographicNormalEnergyOn_rowL1_inf_bound
+#print axioms tomographicNormalEnergy_zero_iff
+#print axioms tomographicNormalEnergy_difference_zero_iff_equal_projections
+#print axioms tomographicNormalEnergy_zero_of_invisible
+
+end OCKIndividuationMSpaceComposition

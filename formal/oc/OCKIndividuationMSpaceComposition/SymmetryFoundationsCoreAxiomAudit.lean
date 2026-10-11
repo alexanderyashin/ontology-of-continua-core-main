@@ -1,0 +1,38 @@
+import OCKIndividuationMSpaceComposition.SymmetryFoundationsCore
+
+/-!
+Source-bound audit surface for `SymmetryFoundationsCore.lean`.
+
+Each theorem is printed exactly once.  This file audits the declarations; it
+does not itself turn a theorem into an empirical, semantic, CCI or release
+claim.  A fresh pinned replay is required before the source can be advertised
+as compiled in the current release cut.
+-/
+
+#print axioms OCKIndividuationMSpaceComposition.distinction_holds
+#print axioms OCKIndividuationMSpaceComposition.mem_axis_iff
+#print axioms OCKIndividuationMSpaceComposition.axis_mem_left
+#print axioms OCKIndividuationMSpaceComposition.axis_mem_right
+#print axioms OCKIndividuationMSpaceComposition.axis_eq_pair
+#print axioms OCKIndividuationMSpaceComposition.axis_endpoints_distinct
+#print axioms OCKIndividuationMSpaceComposition.axis_invariant
+#print axioms OCKIndividuationMSpaceComposition.sameAxis_iff_mem_axis
+#print axioms OCKIndividuationMSpaceComposition.sameAxis_refl
+#print axioms OCKIndividuationMSpaceComposition.sameAxis_symm
+#print axioms OCKIndividuationMSpaceComposition.sameAxis_trans
+#print axioms OCKIndividuationMSpaceComposition.axisClass_eq_iff_sameAxis
+#print axioms OCKIndividuationMSpaceComposition.action_preserves_axis_class
+#print axioms OCKIndividuationMSpaceComposition.axis_eq_iff_sameAxis
+#print axioms OCKIndividuationMSpaceComposition.axis_overlap_implies_equal
+#print axioms OCKIndividuationMSpaceComposition.axis_action_mem
+#print axioms OCKIndividuationMSpaceComposition.axis_closed
+#print axioms OCKIndividuationMSpaceComposition.axis_is_smallest_closed
+#print axioms OCKIndividuationMSpaceComposition.axisSwap_involutive
+#print axioms OCKIndividuationMSpaceComposition.axisSwap_fixedPointFree
+#print axioms OCKIndividuationMSpaceComposition.axisSwap_exchanges_endpoints_left
+#print axioms OCKIndividuationMSpaceComposition.axisSwap_exchanges_endpoints_right
+#print axioms OCKIndividuationMSpaceComposition.distinction_axis_nontrivial
+#print axioms OCKIndividuationMSpaceComposition.distinction_axis_balanced
+#print axioms OCKIndividuationMSpaceComposition.axisInvariant_constant_on_axis
+#print axioms OCKIndividuationMSpaceComposition.commuting_map_preserves_axis
+#print axioms OCKIndividuationMSpaceComposition.commuting_equiv_maps_axis_exactly

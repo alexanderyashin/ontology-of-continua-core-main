@@ -1,0 +1,8 @@
+import OCKIndividuationMSpaceComposition.SymmetryNativeMaskInvariantBoundary
+
+open OCKIndividuationMSpaceComposition
+open OCKIndividuationMSpaceComposition.PrimitiveDistinction
+
+#print axioms PrimitiveDistinction.NativeMaskInvariantBoundary.LocalMaskInvariant
+#print axioms PrimitiveDistinction.NativeMaskInvariantBoundary.MaskInvariant
+#print axioms PrimitiveDistinction.NativeMaskInvariantBoundary.maskInvariant_of_localMaskInvariant

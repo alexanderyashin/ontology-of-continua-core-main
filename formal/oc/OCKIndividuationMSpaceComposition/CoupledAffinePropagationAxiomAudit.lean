@@ -1,0 +1,21 @@
+import OCKIndividuationMSpaceComposition.CoupledAffinePropagation
+
+/-!
+Source-bound axiom audit for `CoupledAffinePropagation.lean`.
+
+Every theorem declaration listed by the current OC14 byte inventory is
+printed exactly once below.  This is an audit surface for the compiled
+declarations; it is not a new theorem, Claim, independent review or
+empirical result.
+-/
+
+#print axioms OCKIndividuationMSpaceComposition.coupledAffineTrajectory_eq_of_reachable_step_agreement
+#print axioms OCKIndividuationMSpaceComposition.coupledAffineTrajectory_exact_decomposition
+#print axioms OCKIndividuationMSpaceComposition.coupledAffineTrajectory_full_difference
+#print axioms OCKIndividuationMSpaceComposition.coupledAffineTrajectory_initial_difference
+#print axioms OCKIndividuationMSpaceComposition.coupledAffineTrajectory_initial_difference_eq_power
+#print axioms OCKIndividuationMSpaceComposition.coupledAffineTrajectory_zero_forcing_eq_power
+#print axioms OCKIndividuationMSpaceComposition.coupledAffineTrajectory_zero_state
+#print axioms OCKIndividuationMSpaceComposition.coupling_eq_of_probe_complete
+#print axioms OCKIndividuationMSpaceComposition.invisibleCouplingPerturbation_blocks_identification
+#print axioms OCKIndividuationMSpaceComposition.passive_zero_trajectory_does_not_identify_coupling

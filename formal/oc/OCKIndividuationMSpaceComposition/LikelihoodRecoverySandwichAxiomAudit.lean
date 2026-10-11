@@ -1,0 +1,23 @@
+import OCKIndividuationMSpaceComposition.LikelihoodRecoverySandwich
+
+/-!
+Source-bound axiom audit for `LikelihoodRecoverySandwich.lean`.
+
+Every theorem declaration listed by the current OC14 byte inventory is
+printed exactly once below.  This is an audit surface for the compiled
+declarations; it is not a new theorem, Claim, independent review or
+empirical result.
+-/
+
+#print axioms OCKIndividuationMSpaceComposition.bernoulliHellingerSeparation_nonnegative
+#print axioms OCKIndividuationMSpaceComposition.bernoulliHellingerSeparation_self
+#print axioms OCKIndividuationMSpaceComposition.finiteHypothesis_chernoff_recovery_bound
+#print axioms OCKIndividuationMSpaceComposition.finiteHypothesis_union_error_bound
+#print axioms OCKIndividuationMSpaceComposition.gaussianChernoffExponent_nonnegative
+#print axioms OCKIndividuationMSpaceComposition.gaussianLocationKL_eq_four_mul_chernoff
+#print axioms OCKIndividuationMSpaceComposition.gaussianLocationKL_nonnegative
+#print axioms OCKIndividuationMSpaceComposition.poissonBhattacharyyaExponent_nonnegative
+#print axioms OCKIndividuationMSpaceComposition.poissonBhattacharyyaExponent_self
+#print axioms OCKIndividuationMSpaceComposition.recoverySandwich_lower_bound
+#print axioms OCKIndividuationMSpaceComposition.recoverySandwich_upper_guarantee
+#print axioms OCKIndividuationMSpaceComposition.recoverySandwich_verified

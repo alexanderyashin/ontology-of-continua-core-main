@@ -1,0 +1,15 @@
+import OCKIndividuationMSpaceComposition.SymmetryIntrinsicFinitaryRank
+
+open OCKIndividuationMSpaceComposition
+open OCKIndividuationMSpaceComposition.IntrinsicFinitaryRank
+
+#print axioms FinitaryDistinctionClosure.Independent.mono
+#print axioms FinitaryDistinctionClosure.Independent.insert_of_not_generated
+#print axioms FinitaryDistinctionClosure.exists_independent_rank_witness
+#print axioms FinitaryDistinctionClosure.independent_insert_card_le
+#print axioms FinitaryDistinctionClosure.rank_insert_eq_add_one_of_not_generated
+#print axioms FinitaryDistinctionClosure.Relabeling.independent_image
+#print axioms FinitaryDistinctionClosure.Relabeling.symm
+#print axioms FinitaryDistinctionClosure.Relabeling.rank_le_rank_image
+#print axioms FinitaryDistinctionClosure.Relabeling.rank_image_eq
+#print axioms triangle_rank_insert_grows

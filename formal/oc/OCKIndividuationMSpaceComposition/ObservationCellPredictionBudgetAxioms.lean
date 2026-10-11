@@ -1,0 +1,10 @@
+import OCKIndividuationMSpaceComposition.ObservationCellPredictionBudget
+
+/-! Executable trusted-base audit for the observation-cell budget theorems.
+The managed build receipt records this replay independently of the umbrella
+gate, so the audit output remains directly inspectable. -/
+
+#print axioms OCKIndividuationMSpaceComposition.covered_design_requires_at_least_observation_cells
+#print axioms OCKIndividuationMSpaceComposition.too_few_samples_block_observation_coverage
+#print axioms OCKIndividuationMSpaceComposition.covered_sufficient_design_has_exact_task_predictor
+#print axioms OCKIndividuationMSpaceComposition.exact_prediction_requires_cell_budget_or_stronger_structure

@@ -1,0 +1,30 @@
+import OCKIndividuationMSpaceComposition.SymmetryNativeReversalClosure
+
+namespace OCKIndividuationMSpaceComposition
+
+namespace PrimitiveDistinction
+
+namespace DisjointDistinctionFamily
+
+#print axioms reversalGenerated_of_mem
+#print axioms reversalSubgroup_le_fixesPoint_of_not_mem
+#print axioms reversal_notGenerated_of_not_mem
+#print axioms mem_nativeReversalClosure
+#print axioms nativeReversalClosure_eq_seed
+#print axioms nativeReversalFinitaryClosure_rank_eq_card
+#print axioms nativeReversalFinitaryClosure_rank_univ_eq_action_log_rank
+
+end DisjointDistinctionFamily
+
+namespace NativeCarrierTransport
+
+#print axioms transportPermutation_apply
+#print axioms transport_pairSwap
+#print axioms transport_nativeReversalClosure
+#print axioms transport_nativeReversalFinitaryClosure_rank
+
+end NativeCarrierTransport
+
+end PrimitiveDistinction
+
+end OCKIndividuationMSpaceComposition

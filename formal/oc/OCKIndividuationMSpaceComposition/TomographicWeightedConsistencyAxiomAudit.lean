@@ -1,0 +1,19 @@
+import OCKIndividuationMSpaceComposition.TomographicWeightedConsistency
+import Mathlib.Algebra.BigOperators.Group.Finset.Basic
+import Mathlib.Data.Real.Basic
+open scoped BigOperators
+
+namespace OCKIndividuationMSpaceComposition
+
+/-! Audit instructions only: run after the source module is admitted and
+elaborated in the qualified replay route. This file is not an audit result. -/
+
+#print axioms tomographicWeightedDataResidualEnergy_nonnegative
+#print axioms tomographicWeightedDataResidualEnergy_zero_iff_pointwise_of_positive
+#print axioms tomographicWeightedDataResidualEnergy_uniform_bound
+#print axioms tomographicWeightedDataResidualEnergy_mono_weight
+#print axioms tomographicWeightedDataResidualEnergy_zero_iff_agreement_on_positive_weight
+#print axioms tomographicWeightedDataResidualEnergy_pos_of_exists_positive_weight_disagreement
+#print axioms tomographicWeightedDataResidualEnergy_lower_bound_of_weight_floor
+
+end OCKIndividuationMSpaceComposition

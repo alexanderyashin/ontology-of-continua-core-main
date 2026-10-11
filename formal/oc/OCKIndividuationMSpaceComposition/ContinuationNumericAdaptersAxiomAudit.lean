@@ -1,0 +1,21 @@
+import OCKIndividuationMSpaceComposition.ContinuationNumericAdapters
+
+/-!
+Source-bound axiom audit for `ContinuationNumericAdapters.lean`.
+
+Every theorem declaration listed by the current OC14 byte inventory is
+printed exactly once below.  This is an audit surface for the compiled
+declarations; it is not a new theorem, Claim, independent review or
+empirical result.
+-/
+
+#print axioms OCKIndividuationMSpaceComposition.asymmetric_clipped_ate_interval_sound
+#print axioms OCKIndividuationMSpaceComposition.bounded_mean_in_clipped_interval
+#print axioms OCKIndividuationMSpaceComposition.composedTVDrift_eq_barrierCdf
+#print axioms OCKIndividuationMSpaceComposition.no_product_without_retention_contract
+#print axioms OCKIndividuationMSpaceComposition.packetClippedATEInterval_values
+#print axioms OCKIndividuationMSpaceComposition.packetRetentionWitness_drift
+#print axioms OCKIndividuationMSpaceComposition.retention_contract_drift_eq_composedTVDrift
+#print axioms OCKIndividuationMSpaceComposition.retention_contract_survival_eq_product
+#print axioms OCKIndividuationMSpaceComposition.valid_composedTVDrift_bounds
+#print axioms OCKIndividuationMSpaceComposition.valid_retention_contract_drift_bounds

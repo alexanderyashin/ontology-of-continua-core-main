@@ -1,0 +1,17 @@
+import OCKIndividuationMSpaceComposition.TomographicTikhonov
+import Mathlib.Algebra.BigOperators.Group.Finset.Basic
+import Mathlib.Data.Real.Basic
+open scoped BigOperators
+
+namespace OCKIndividuationMSpaceComposition
+
+#print axioms tomographicStateEnergy_nonnegative
+#print axioms tomographicStateEnergy_zero_iff
+#print axioms tomographicTikhonovObjective_nonnegative
+#print axioms tomographicTikhonovObjective_zero_regularization
+#print axioms tomographicTikhonovObjective_state_energy_bound
+#print axioms tomographicTikhonovObjective_residual_bound
+#print axioms tomographicTikhonovObjective_zero_of_exact_zero
+#print axioms tomographicTikhonovObjective_zero_iff_exact_and_zero
+
+end OCKIndividuationMSpaceComposition

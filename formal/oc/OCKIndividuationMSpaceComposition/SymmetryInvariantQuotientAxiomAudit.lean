@@ -1,0 +1,11 @@
+import OCKIndividuationMSpaceComposition.SymmetryInvariantQuotient
+
+/-! Source-bound axiom surface for the invariant-observable quotient results. -/
+
+#print axioms OCKIndividuationMSpaceComposition.invariant_observable_on_axis
+#print axioms OCKIndividuationMSpaceComposition.invariantObservableFactor_spec
+#print axioms OCKIndividuationMSpaceComposition.invariant_observable_factors_through_axis_quotient
+#print axioms OCKIndividuationMSpaceComposition.invariant_observable_iff_axis_quotient_factor
+#print axioms OCKIndividuationMSpaceComposition.axis_quotient_factor_unique
+#print axioms OCKIndividuationMSpaceComposition.invariant_observable_has_no_breaking_witness
+#print axioms OCKIndividuationMSpaceComposition.symmetry_breaking_forbids_axis_quotient_factor

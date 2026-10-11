@@ -1,0 +1,10 @@
+import OCKIndividuationMSpaceComposition.ProjectionSelectiveContextRisk
+
+namespace OCKIndividuationMSpaceComposition
+
+#print axioms projected_relative_context_gain_eq_net_signal_ratio
+#print axioms projected_context_refinement_improves_iff_positive_net_signal
+#print axioms projected_context_squared_risk_decomposition
+#print axioms exists_projection_selective_context_value
+
+end OCKIndividuationMSpaceComposition

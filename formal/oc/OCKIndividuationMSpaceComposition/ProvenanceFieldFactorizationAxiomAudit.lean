@@ -1,0 +1,9 @@
+import OCKIndividuationMSpaceComposition.ProvenanceFieldFactorization
+
+namespace OCKIndividuationMSpaceComposition
+
+#print axioms field_profile_decoder_exists_iff_constant_on_fields
+#print axioms minimal_profile_field_has_omission_witness
+#print axioms sufficient_field_decoder_can_be_selected_coordinate_only
+
+end OCKIndividuationMSpaceComposition

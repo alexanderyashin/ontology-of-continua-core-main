@@ -1,0 +1,14 @@
+import OCKIndividuationMSpaceComposition.SymmetryOCExchangeProducingComposition
+
+open OCKIndividuationMSpaceComposition
+open OCKIndividuationMSpaceComposition.JointCompositionBoundary
+open OCKIndividuationMSpaceComposition.OCExchangeProducingComposition
+
+#print axioms composition_target_generated
+#print axioms composition_target_mem_close
+#print axioms generated_iff_toClosure_mem
+#print axioms rank_insert_eq_add_one_of_not_generated
+#print axioms maximalIndependent_card_unique
+#print axioms rank_is_wellDefined_maximalIndependent
+#print axioms twoRoot_closure_has_no_exchange_generating_relation
+#print axioms twoRoot_joint_composition_is_not_exchange_producing

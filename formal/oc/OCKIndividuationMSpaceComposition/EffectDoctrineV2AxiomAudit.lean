@@ -1,0 +1,28 @@
+import OCKIndividuationMSpaceComposition.EffectDoctrineV2
+
+/-!
+Source-bound axiom audit for `EffectDoctrineV2.lean`.
+
+Every theorem declaration listed by the current OC14 byte inventory is
+printed exactly once below.  This is an audit surface for the compiled
+declarations; it is not a new theorem, Claim, independent review or
+empirical result.
+-/
+
+#print axioms OCKIndividuationMSpaceComposition.arbitraryParallelEffect_requires_joint_information
+#print axioms OCKIndividuationMSpaceComposition.boolLoopNegation_has_no_deterministicFeedbackSolution
+#print axioms OCKIndividuationMSpaceComposition.deterministicAsRel_identity
+#print axioms OCKIndividuationMSpaceComposition.deterministicAsRel_parallel
+#print axioms OCKIndividuationMSpaceComposition.deterministicEffectPresentation_faithful
+#print axioms OCKIndividuationMSpaceComposition.deterministicFeedback_supported
+#print axioms OCKIndividuationMSpaceComposition.feedbackEffect_requires_boundaryCongruence
+#print axioms OCKIndividuationMSpaceComposition.finiteKernelActionEffect_recovers_action_row
+#print axioms OCKIndividuationMSpaceComposition.finiteKernelActionEffect_support
+#print axioms OCKIndividuationMSpaceComposition.finiteStochasticParallelBridge
+#print axioms OCKIndividuationMSpaceComposition.finiteStochasticSequentialBridge
+#print axioms OCKIndividuationMSpaceComposition.generalizedEffect_support_forgetting_not_faithful
+#print axioms OCKIndividuationMSpaceComposition.measurableEffectBridge_current_ceiling
+#print axioms OCKIndividuationMSpaceComposition.rationalPositiveSupport_not_faithful
+#print axioms OCKIndividuationMSpaceComposition.rationalUnitBoolWeights_distinct
+#print axioms OCKIndividuationMSpaceComposition.rationalUnitBoolWeights_same_positiveSupport
+#print axioms OCKIndividuationMSpaceComposition.unitBool_has_no_total_deterministicFeedbackSelection

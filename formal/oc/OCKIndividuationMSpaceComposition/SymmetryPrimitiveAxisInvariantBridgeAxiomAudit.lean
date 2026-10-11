@@ -1,0 +1,17 @@
+import OCKIndividuationMSpaceComposition.SymmetryPrimitiveAxisInvariantBridge
+
+namespace OCKIndividuationMSpaceComposition
+
+namespace PrimitiveDistinction
+
+#print axioms evenObservable_iff_axisInvariant
+#print axioms oddObservable_iff_axisAntiInvariant
+#print axioms generatedEvenPart_eq_inv_two_smul_invariantPart
+#print axioms generatedOddPart_eq_inv_two_smul_antiInvariantPart
+#print axioms invariantPart_eq_two_smul_generatedEvenPart
+#print axioms antiInvariantPart_eq_two_smul_generatedOddPart
+#print axioms normalised_reconstruction_is_unscaled_reconstruction
+
+end PrimitiveDistinction
+
+end OCKIndividuationMSpaceComposition

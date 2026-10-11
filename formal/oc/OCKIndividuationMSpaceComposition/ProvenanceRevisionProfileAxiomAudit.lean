@@ -1,0 +1,7 @@
+import OCKIndividuationMSpaceComposition.ProvenanceRevisionProfile
+
+open OCKIndividuationMSpaceComposition
+
+#print axioms presentation_profile_decoder_exists_iff_constant
+#print axioms provenance_profile_collision_blocks_presentation_decoder
+#print axioms bool_provenance_profile_requires_provenance

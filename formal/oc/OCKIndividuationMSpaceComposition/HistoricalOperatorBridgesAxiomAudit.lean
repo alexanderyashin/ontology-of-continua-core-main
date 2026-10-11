@@ -1,0 +1,25 @@
+import OCKIndividuationMSpaceComposition.HistoricalOperatorBridges
+
+/-!
+Source-bound axiom audit for `HistoricalOperatorBridges.lean`.
+
+Every theorem declaration listed by the current OC14 byte inventory is
+printed exactly once below.  This is an audit surface for the compiled
+declarations; it is not a new theorem, Claim, independent review or
+empirical result.
+-/
+
+#print axioms OCKIndividuationMSpaceComposition.historicalGlyphSupport_is_not_quantitativelyFaithful
+#print axioms OCKIndividuationMSpaceComposition.historicalGlyphs_cannot_erase_typedRoles
+#print axioms OCKIndividuationMSpaceComposition.historicalOnticAdjudication_is_total_on_register
+#print axioms OCKIndividuationMSpaceComposition.historicalOperationalAdjudication_is_total_on_register
+#print axioms OCKIndividuationMSpaceComposition.operationalPhi_does_not_entail_onticChange
+#print axioms OCKIndividuationMSpaceComposition.operationalPsi_does_not_force_independentCoordinate
+#print axioms OCKIndividuationMSpaceComposition.operationalX_does_not_imply_onticDestruction
+#print axioms OCKIndividuationMSpaceComposition.operationalX_iff_no_successorMembership
+#print axioms OCKIndividuationMSpaceComposition.phiOperationalClaim_proved
+#print axioms OCKIndividuationMSpaceComposition.phiStrongOnticChangeClaim_refuted
+#print axioms OCKIndividuationMSpaceComposition.psiOperationalClaim_proved
+#print axioms OCKIndividuationMSpaceComposition.psiStrongCoordinateBirthClaim_refuted
+#print axioms OCKIndividuationMSpaceComposition.xOperationalClaim_proved
+#print axioms OCKIndividuationMSpaceComposition.xStrongOnticDestructionClaim_refuted

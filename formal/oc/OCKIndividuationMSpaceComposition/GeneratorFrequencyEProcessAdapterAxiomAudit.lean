@@ -1,0 +1,22 @@
+import OCKIndividuationMSpaceComposition.GeneratorFrequencyEProcessAdapter
+
+/-!
+Source-bound axiom audit for `GeneratorFrequencyEProcessAdapter.lean`.
+
+Every theorem declaration listed by the current OC14 byte inventory is
+printed exactly once below.  This is an audit surface for the compiled
+declarations; it is not a new theorem, Claim, independent review or
+empirical result.
+-/
+
+#print axioms OCKIndividuationMSpaceComposition.centeredGeneratorIncidence_intervalWidth
+#print axioms OCKIndividuationMSpaceComposition.centeredGeneratorIncidence_mem_exactInterval
+#print axioms OCKIndividuationMSpaceComposition.classifier_change_can_reverse_generatorIncidence
+#print axioms OCKIndividuationMSpaceComposition.exchangeable_generatorFrequency_rawThreshold_guaranteesBudget
+#print axioms OCKIndividuationMSpaceComposition.exchangeable_generatorFrequency_target_unreachable_at_ceiling
+#print axioms OCKIndividuationMSpaceComposition.generatorFamilyBoundaryCrossing_probability
+#print axioms OCKIndividuationMSpaceComposition.generatorIncidenceValue_mem_unitInterval
+#print axioms OCKIndividuationMSpaceComposition.generatorIncidence_cumulativeDeviation_exact
+#print axioms OCKIndividuationMSpaceComposition.generatorIncidence_familywise_fixedLambda_anytimeBound
+#print axioms OCKIndividuationMSpaceComposition.generatorIncidence_fixedLambda_anytimeBound
+#print axioms OCKIndividuationMSpaceComposition.requiredGeneratorFrequencyEffectiveObservations_formula

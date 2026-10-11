@@ -1,0 +1,19 @@
+import OCKIndividuationMSpaceComposition.ContextResidualDefinability
+
+/-!
+Source-bound axiom audit for `ContextResidualDefinability.lean`.
+
+Every theorem declaration listed by the current OC14 byte inventory is
+printed exactly once below.  This is an audit surface for the compiled
+declarations; it is not a new theorem, Claim, independent review or
+empirical result.
+-/
+
+#print axioms OCKIndividuationMSpaceComposition.ExactObservationChannel.eq_of_observation_eq
+#print axioms OCKIndividuationMSpaceComposition.ExactObservationChannel.observe_injective
+#print axioms OCKIndividuationMSpaceComposition.below_context_residual_information_floor_no_go
+#print axioms OCKIndividuationMSpaceComposition.constructive_composite_certifies_target_continuation_and_effect
+#print axioms OCKIndividuationMSpaceComposition.context_observation_collision_blocks_exact_recovery
+#print axioms OCKIndividuationMSpaceComposition.context_residual_fano_observation_lower_bound
+#print axioms OCKIndividuationMSpaceComposition.equal_labels_without_path_adapter_do_not_imply_compatibility
+#print axioms OCKIndividuationMSpaceComposition.omitted_context_coordinate_blocks_exact_recovery

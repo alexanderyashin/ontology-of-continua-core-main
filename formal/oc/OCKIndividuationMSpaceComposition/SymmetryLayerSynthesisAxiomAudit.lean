@@ -1,0 +1,11 @@
+import OCKIndividuationMSpaceComposition.SymmetryLayerSynthesis
+
+open OCKIndividuationMSpaceComposition
+
+#print axioms r3_orientation_mem_base_axis
+#print axioms r3_sign_coordinate_agrees
+#print axioms r3_separator_iff_sign_false
+#print axioms r3_boundary_projection_constant
+#print axioms r3_reversal_preserves_boundary_and_negates_sign
+#print axioms r3_r1_r2_r3_layer_synthesis
+#print axioms r3_sign_does_not_factor_through_boundary

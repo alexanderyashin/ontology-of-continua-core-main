@@ -1,0 +1,21 @@
+import OCKIndividuationMSpaceComposition.KMEnterpriseOperationalProjection
+
+/-!
+Source-bound axiom audit for `KMEnterpriseOperationalProjection.lean`.
+
+Every theorem declaration listed by the current OC14 byte inventory is
+printed exactly once below.  This is an audit surface for the compiled
+declarations; it is not a new theorem, Claim, independent review or
+empirical result.
+-/
+
+#print axioms OCKIndividuationMSpaceComposition.EnterpriseOperationalProjection.carrier_eq_of_dominant
+#print axioms OCKIndividuationMSpaceComposition.enterpriseCarrierPriority_injective
+#print axioms OCKIndividuationMSpaceComposition.hiddenControl_profile_is_control_dominant
+#print axioms OCKIndividuationMSpaceComposition.km_operational_dominance_yields_singleton_carrier_support
+#print axioms OCKIndividuationMSpaceComposition.km_operational_singleton_carrier_is_necessary
+#print axioms OCKIndividuationMSpaceComposition.km_operational_singleton_excludes_other_carriers_for_all_tied
+#print axioms OCKIndividuationMSpaceComposition.km_operational_singleton_forces_numerical_point_mass
+#print axioms OCKIndividuationMSpaceComposition.operationallyDominant_unique
+#print axioms OCKIndividuationMSpaceComposition.scientificOnly_profile_is_scientific_dominant
+#print axioms OCKIndividuationMSpaceComposition.scientific_count_alone_does_not_determine_dominant_carrier

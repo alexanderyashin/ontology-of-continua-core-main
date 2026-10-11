@@ -1,0 +1,17 @@
+import OCKIndividuationMSpaceComposition.SymmetryPrimitivePresentationOrientationQuotient
+
+namespace OCKIndividuationMSpaceComposition.PrimitiveDistinction
+
+#print axioms sameUnorderedSupport_refl
+#print axioms sameUnorderedSupport_symm
+#print axioms sameUnorderedSupport_trans
+#print axioms unorderedClass_eq_iff_sameUnorderedSupport
+#print axioms sameUnorderedSupport_iff_eq_or_reverse
+#print axioms reverseLabels_preserves_unorderedClass
+#print axioms orientationFiber_eq_base_or_partner
+#print axioms orientationReverse_involutive
+#print axioms orientationReverse_fixedPointFree
+#print axioms orientationFiber_pairTransitive
+#print axioms orientationFiber_has_exact_two_elements
+
+end OCKIndividuationMSpaceComposition.PrimitiveDistinction

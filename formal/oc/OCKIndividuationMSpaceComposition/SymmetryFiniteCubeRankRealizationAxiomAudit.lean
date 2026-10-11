@@ -1,0 +1,14 @@
+import OCKIndividuationMSpaceComposition.SymmetryFiniteCubeRankRealization
+
+open OCKIndividuationMSpaceComposition
+open OCKIndividuationMSpaceComposition.FiniteCubeRankRealization
+
+#print axioms booleanCompositionMask
+#print axioms coordinateMask_injective
+#print axioms maskEvaluation
+#print axioms maskEvaluation_eq_one_of_mem_closure
+#print axioms fullCoordinateFamily_independent
+#print axioms fullCoordinateFamily_card
+#print axioms rank_eq_card_of_independent
+#print axioms booleanGeneratedClosure_fullCoordinateFamily_rank
+#print axioms maskAction_faithful

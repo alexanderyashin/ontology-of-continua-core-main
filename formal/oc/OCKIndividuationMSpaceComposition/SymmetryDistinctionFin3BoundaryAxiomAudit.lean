@@ -1,0 +1,10 @@
+import OCKIndividuationMSpaceComposition.SymmetryDistinctionFin3Boundary
+
+open OCKIndividuationMSpaceComposition
+
+#print axioms finThreePrimitiveDistinction
+#print axioms noFixedPointFreeInvolutionFinThree
+#print axioms primitiveDistinction_does_not_force_globalFreeInvolution
+#print axioms finThreeLocalR3Torsor
+#print axioms finThreePairSwap_fixesThird
+#print axioms finThreeDistinction_not_covering

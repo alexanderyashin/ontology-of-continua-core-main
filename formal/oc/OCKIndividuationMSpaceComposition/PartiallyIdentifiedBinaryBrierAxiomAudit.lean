@@ -1,0 +1,10 @@
+import OCKIndividuationMSpaceComposition.PartiallyIdentifiedBinaryBrier
+
+open OCKIndividuationMSpaceComposition
+
+#print axioms compatible_binary_label_brier_bounded
+#print axioms partial_binary_brier_interval_is_sharp
+#print axioms binary_brier_label_flip_difference
+#print axioms missing_binary_label_has_unique_brier_iff_half
+#print axioms missing_binary_label_can_reverse_forecast_ranking
+#print axioms compatible_binary_labels_total_brier_bounded

@@ -1,0 +1,17 @@
+import OCKIndividuationMSpaceComposition.TomographicOperatorBoundary
+import Mathlib.Algebra.BigOperators.Group.Finset.Basic
+import Mathlib.Data.Real.Basic
+open scoped BigOperators
+
+namespace OCKIndividuationMSpaceComposition
+
+/-! Direct axiom-audit targets for typed observation/reconstruction operators. -/
+
+#print axioms tomographicObservationSignature
+#print axioms TomographicExactReconstruction
+#print axioms TomographicExactTaskReconstruction
+#print axioms tomographicExactReconstruction_implies_observation_injective
+#print axioms tomographicExactTaskReconstruction_implies_claimSupport
+#print axioms tomographicExactReconstruction_implies_exactTaskReconstruction
+
+end OCKIndividuationMSpaceComposition

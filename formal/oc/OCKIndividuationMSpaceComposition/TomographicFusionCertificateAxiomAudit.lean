@@ -1,0 +1,22 @@
+import OCKIndividuationMSpaceComposition.TomographicFusionCertificate
+import Mathlib.Algebra.BigOperators.Group.Finset.Basic
+import Mathlib.Data.Real.Basic
+open scoped BigOperators
+
+namespace OCKIndividuationMSpaceComposition
+
+#print axioms tomographicFiniteFusedImage_coordinate
+#print axioms tomographicFiniteFusedImage_add
+#print axioms tomographicFiniteFusedImage_smul
+#print axioms tomographicFiniteFusedImage_eq_iff
+#print axioms TomographicFusionCertificate.asStableLeftInverse
+#print axioms tomographicFusion_exact_reconstruction
+#print axioms tomographicFusion_injective_of_certificate
+#print axioms tomographicFusion_target_equal_of_certificate
+#print axioms tomographicFusion_target_decoder_of_certificate
+#print axioms tomographicFusion_unique_reconstruction
+#print axioms tomographicFusion_noise_bound
+#print axioms tomographicFusion_task_noise_bound
+#print axioms tomographicFusion_target_decoder_with_noise_bound
+
+end OCKIndividuationMSpaceComposition

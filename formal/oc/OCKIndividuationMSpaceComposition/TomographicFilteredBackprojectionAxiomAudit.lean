@@ -1,0 +1,16 @@
+import OCKIndividuationMSpaceComposition.TomographicFilteredBackprojection
+import Mathlib.Algebra.BigOperators.Group.Finset.Basic
+import Mathlib.Data.Real.Basic
+open scoped BigOperators
+
+namespace OCKIndividuationMSpaceComposition
+
+#print axioms tomographicFilterApply_zero
+#print axioms tomographicFilterApply_add
+#print axioms tomographicFilterApply_smul
+#print axioms tomographicFilteredBackprojection_zero_of_zero_data
+#print axioms tomographicFilteredBackprojectionCertificate_as_left_inverse
+#print axioms tomographicFilteredBackprojection_exact
+#print axioms tomographicFilteredBackprojection_target_decoder_of_certificate
+
+end OCKIndividuationMSpaceComposition

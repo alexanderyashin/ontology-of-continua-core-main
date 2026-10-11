@@ -1,0 +1,14 @@
+import OCKIndividuationMSpaceComposition.ConformalCoverageTransportDefect
+
+namespace OCKIndividuationMSpaceComposition
+
+#print axioms transported_coverage_lower_bound
+#print axioms defect_budget_guarantees_requested_coverage
+#print axioms transported_coverage_lower_bound_is_sharp
+#print axioms uniform_target_coverage_iff_budget
+#print axioms transported_coverage_probability_bound_is_sharp
+#print axioms calibration_coverage_alone_does_not_force_positive_test
+#print axioms observedCoverageTransportDefect_is_exact
+#print axioms observed_defect_exceeds_budget_iff
+
+end OCKIndividuationMSpaceComposition

@@ -1,0 +1,9 @@
+import OCKIndividuationMSpaceComposition.SupportConditionedCorrectionTransport
+
+open OCKIndividuationMSpaceComposition
+
+#print axioms perStratumAdmission_transports_to_every_mixture
+#print axioms harmfulStratum_refutes_uniform_mixture_transport
+#print axioms unsupportedContext_correction_not_identified
+#print axioms zeroCorrection_minimax
+#print axioms nonzeroUnsupportedCorrection_strictly_worse

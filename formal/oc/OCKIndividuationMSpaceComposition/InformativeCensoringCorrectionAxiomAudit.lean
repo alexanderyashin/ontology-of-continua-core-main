@@ -1,0 +1,22 @@
+import OCKIndividuationMSpaceComposition.InformativeCensoringCorrection
+
+/-!
+Source-bound axiom audit for `InformativeCensoringCorrection.lean`.
+
+Every theorem declaration listed by the current OC14 byte inventory is
+printed exactly once below.  This is an audit surface for the compiled
+declarations; it is not a new theorem, Claim, independent review or
+empirical result.
+-/
+
+#print axioms OCKIndividuationMSpaceComposition.censoringAdjusted_concentration_and_separation_certificate
+#print axioms OCKIndividuationMSpaceComposition.censoringAdjusted_separation_iff
+#print axioms OCKIndividuationMSpaceComposition.conditionalVisibilityCorrection_preserves_model_separation
+#print axioms OCKIndividuationMSpaceComposition.conditionalVisibilityCorrection_recovers_signature
+#print axioms OCKIndividuationMSpaceComposition.informative_censoring_latent_mass_not_identified_from_product
+#print axioms OCKIndividuationMSpaceComposition.informative_censoring_rescaling_invariance
+#print axioms OCKIndividuationMSpaceComposition.inverseVisibilityCorrection_error_bound
+#print axioms OCKIndividuationMSpaceComposition.inverseVisibilityCorrection_error_exact
+#print axioms OCKIndividuationMSpaceComposition.inverseVisibilityCorrection_exact
+#print axioms OCKIndividuationMSpaceComposition.inverseVisibilityCorrection_systematic_bias_exact
+#print axioms OCKIndividuationMSpaceComposition.visibility_misspecification_can_make_separation_impossible

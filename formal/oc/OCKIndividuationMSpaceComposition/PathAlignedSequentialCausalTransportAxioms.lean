@@ -1,0 +1,7 @@
+import OCKIndividuationMSpaceComposition.PathAlignedSequentialCausalTransport
+
+/-! Trusted-base audit for the one-contract sequential causal transport bridge. -/
+
+#print axioms OCKIndividuationMSpaceComposition.path_aligned_causal_transport_preserves_sequential_horizon
+#print axioms OCKIndividuationMSpaceComposition.path_aligned_sequential_causal_transport_is_sound
+#print axioms OCKIndividuationMSpaceComposition.target_continuation_obstruction_blocks_path_aligned_sequential_causal_transport

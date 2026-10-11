@@ -1,0 +1,11 @@
+import OCKIndividuationMSpaceComposition.TypedEventPrefixHorizon
+
+open OCKIndividuationMSpaceComposition
+
+#print axioms EventPrefixHorizon.prefix_length
+#print axioms EventPrefixHorizon.prefix_is_origin_information
+#print axioms EventPrefixHorizon.prefix_ignores_appended_future
+#print axioms EventPrefixHorizon.to_core_contract
+#print axioms identical_event_prefix_cannot_force_distinct_suffix_outcomes
+#print axioms eventPrefixFeature_append_eq
+#print axioms finiteEventPrefixFeatureVector_append_eq

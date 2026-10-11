@@ -1,0 +1,17 @@
+import OCMaturityCompletionCycle.CrossContextCoupling
+
+/-!
+The fixtures are deliberately separate from the two positive characterizations.
+They show that continuation evidence, each local-context requirement, the joint
+sufficiency requirement, and the path-law coordinate have distinct operational
+content.  They do not claim logical independence of every possible axiom set.
+-/
+
+#check OCMaturityCompletionCycle.crossing_context_joint_signature_no_functional_code
+#check OCMaturityCompletionCycle.omitting_column_context_allows_row_code
+#check OCMaturityCompletionCycle.omitting_row_context_allows_column_code
+#check OCMaturityCompletionCycle.omitting_joint_sufficiency_allows_constant_common_code
+#check OCMaturityCompletionCycle.omitting_evidence_preservation_allows_exact_behavior_code
+#check OCMaturityCompletionCycle.omitting_path_law_coordinate_allows_common_code
+#check OCMaturityCompletionCycle.identical_marginals_no_exact_joint_law_stitcher
+#check OCMaturityCompletionCycle.joint_event_coordinate_restores_exact_joint_law_stitching

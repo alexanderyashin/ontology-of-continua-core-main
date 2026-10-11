@@ -1,0 +1,13 @@
+import OCKIndividuationMSpaceComposition.BridgeOntologyRealMappingSlice
+
+open OCKIndividuationMSpaceComposition
+
+#print axioms admit_exact_of_all_requirements
+#print axioms undeclared_is_not_candidate
+#print axioms missing_physical_is_ldm_ahead
+#print axioms changed_digest_is_stale
+#print axioms changed_cut_is_stale
+#print axioms failed_evidence_is_rejected
+#print axioms nonunique_inverse_must_abstain
+#print axioms admitted_exact_requires_all_conditions
+#print axioms view_current_iff_mapping_exact

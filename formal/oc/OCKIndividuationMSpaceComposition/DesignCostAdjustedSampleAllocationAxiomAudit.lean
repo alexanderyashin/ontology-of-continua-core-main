@@ -1,0 +1,9 @@
+import OCKIndividuationMSpaceComposition.DesignCostAdjustedSampleAllocation
+
+open OCKIndividuationMSpaceComposition
+
+#print axioms raw_effective_width_eq_costAdjusted_spend_width
+#print axioms designCostAdjustedWidthCoefficient_positive
+#print axioms adjusted_spend_cube_balance_certifies_unique_raw_plan
+#print axioms spend_to_raw_count_exact
+#print axioms adjusted_spend_cube_balance_iff_raw_balance

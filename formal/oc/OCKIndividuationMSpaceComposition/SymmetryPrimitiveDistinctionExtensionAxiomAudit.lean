@@ -1,0 +1,12 @@
+import OCKIndividuationMSpaceComposition.SymmetryPrimitiveDistinctionExtension
+
+open OCKIndividuationMSpaceComposition
+
+#print axioms PrimitiveDistinction.outside_not_nonempty_iff_coversCarrier
+#print axioms PrimitiveDistinction.extendedSwap_involutive
+#print axioms PrimitiveDistinction.extendedSwap_fixedPointFree
+#print axioms PrimitiveDistinction.extendToFixedPointFreeInvolution
+#print axioms PrimitiveDistinction.globalSwap_second
+#print axioms PrimitiveDistinction.globalSwap_preserves_outside
+#print axioms PrimitiveDistinction.restrictGlobalToOutside
+#print axioms PrimitiveDistinction.globalFreeExtension_exists_iff_outsidePairing

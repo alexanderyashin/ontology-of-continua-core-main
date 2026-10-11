@@ -1,0 +1,18 @@
+import OCKIndividuationMSpaceComposition.PredictionHorizonContract
+
+/-!
+Source-bound axiom audit for `PredictionHorizonContract.lean`.
+
+Every theorem declaration listed by the current OC14 byte inventory is
+printed exactly once below.  This is an audit surface for the compiled
+declarations; it is not a new theorem, Claim, independent review or
+empirical result.
+-/
+
+#print axioms OCKIndividuationMSpaceComposition.candidate_failure_on_untouched_tail_is_not_repaired_by_selection_stability
+#print axioms OCKIndividuationMSpaceComposition.candidate_no_worse_preserves_block_safety
+#print axioms OCKIndividuationMSpaceComposition.TypedPredictionHorizon.feature_target_nonoverlap
+#print axioms OCKIndividuationMSpaceComposition.TypedPredictionHorizon.input_available_at_origin
+#print axioms OCKIndividuationMSpaceComposition.PredictionMeaning.ne_of_horizonId_ne
+#print axioms OCKIndividuationMSpaceComposition.TypedPredictionHorizon.no_shared_sample_of_nonoverlap
+#print axioms OCKIndividuationMSpaceComposition.TypedPredictionHorizon.overlap_blocks_nonoverlap

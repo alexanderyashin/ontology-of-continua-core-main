@@ -1,0 +1,7 @@
+import OCKIndividuationMSpaceComposition.SymmetryPrimitiveSwapUniqueness
+
+open OCKIndividuationMSpaceComposition
+
+#print axioms PrimitiveDistinction.axisSwap_unique_of_endpoint_exchange
+#print axioms PrimitiveDistinction.axisSwap_unique_of_fixedPointFree
+#print axioms PrimitiveDistinction.existsUnique_fixedPointFree_axisMap

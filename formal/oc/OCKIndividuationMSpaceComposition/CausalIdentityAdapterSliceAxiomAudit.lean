@@ -1,0 +1,11 @@
+import OCKIndividuationMSpaceComposition.CausalIdentityAdapterSlice
+
+namespace OCKIndividuationMSpaceComposition
+
+#print axioms causalIdentityAdapter_is_admitted
+#print axioms causalIdentityAdapter_preserves_identity_and_effect
+#print axioms faithfulCausalIdentityAdapter_reflects_identity
+#print axioms allTrueCausalPremises_admitted
+#print axioms admitted_causal_identity_need_not_reflect_source_identity
+
+end OCKIndividuationMSpaceComposition

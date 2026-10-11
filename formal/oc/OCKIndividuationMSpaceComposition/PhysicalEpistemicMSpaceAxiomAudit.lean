@@ -1,0 +1,6 @@
+import OCKIndividuationMSpaceComposition.PhysicalEpistemicMSpace
+
+open OCKIndividuationMSpaceComposition
+
+#print axioms physical_expansion_epistemic_contraction_countermodel
+#print axioms physical_contraction_epistemic_stasis_countermodel

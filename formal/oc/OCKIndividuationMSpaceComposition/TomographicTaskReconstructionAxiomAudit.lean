@@ -1,0 +1,20 @@
+import OCKIndividuationMSpaceComposition.TomographicTaskReconstruction
+import Mathlib.Algebra.BigOperators.Group.Finset.Basic
+import Mathlib.Data.Real.Basic
+open scoped BigOperators
+
+-- Audit instructions only: NOT_RUN, not an axiom audit receipt.
+open OCKIndividuationMSpaceComposition
+
+#print axioms tomographic_task_decoder_iff
+#print axioms tomographic_task_collision_blocks_postprocessing
+#print axioms jointly_injective_projections_identify_task
+#print axioms tomographic_fused_image_coordinate
+#print axioms tomographic_fused_image_eq_iff
+#print axioms tomographic_fused_image_injective_of_view_separation
+#print axioms tomographic_fused_image_injective_iff_view_separation
+#print axioms tomographic_fused_image_identifies_task_of_view_separation
+#print axioms tomographic_cech_unique_reconstruction
+#print axioms tomographic_overlap_conflict_no_realization
+#print axioms tomographic_nonnegative_margin_collision
+#print axioms tomographic_margins_and_diagonal_injective

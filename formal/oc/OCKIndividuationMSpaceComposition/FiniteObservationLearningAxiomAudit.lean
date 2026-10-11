@@ -1,0 +1,23 @@
+import OCKIndividuationMSpaceComposition.FiniteObservationLearning
+
+/-!
+Source-bound axiom audit for `FiniteObservationLearning.lean`.
+
+Every theorem declaration listed by the current OC14 byte inventory is
+printed exactly once below.  This is an audit surface for the compiled
+declarations; it is not a new theorem, Claim, independent review or
+empirical result.
+-/
+
+#print axioms OCKIndividuationMSpaceComposition.additive_transition_error_accumulates_at_most_linearly
+#print axioms OCKIndividuationMSpaceComposition.concentration_bound_meets_declared_confidence
+#print axioms OCKIndividuationMSpaceComposition.covered_sufficient_sample_predictor_is_exact
+#print axioms OCKIndividuationMSpaceComposition.every_sufficient_observation_refines_target_signature
+#print axioms OCKIndividuationMSpaceComposition.exact_predictor_implies_observation_sufficient
+#print axioms OCKIndividuationMSpaceComposition.longer_cumulative_horizon_refines_shorter
+#print axioms OCKIndividuationMSpaceComposition.observation_sufficient_implies_exact_predictor
+#print axioms OCKIndividuationMSpaceComposition.sufficiency_is_monotone_under_refinement
+#print axioms OCKIndividuationMSpaceComposition.sufficient_refinement_must_split_every_outcome_collision
+#print axioms OCKIndividuationMSpaceComposition.target_signature_is_observation_sufficient
+#print axioms OCKIndividuationMSpaceComposition.uniform_deviation_erm_excess_risk
+#print axioms OCKIndividuationMSpaceComposition.unseen_world_supports_indistinguishable_outcome_laws

@@ -1,0 +1,22 @@
+import OCKIndividuationMSpaceComposition.SymmetryPrimitiveDistinction
+
+open OCKIndividuationMSpaceComposition
+
+#print axioms IrreflexiveDistinctionWitness.endpoints_ne
+#print axioms IrreflexiveDistinctionWitness.toPrimitiveDistinction
+#print axioms IrreflexiveDistinctionWitness.reverse_witness_of_symmetric
+#print axioms PrimitiveDistinction.axis_cases
+#print axioms PrimitiveDistinction.axisSwap_involutive
+#print axioms PrimitiveDistinction.axisSwap_fixedPointFree
+#print axioms PrimitiveDistinction.toFixedPointFreeInvolution
+#print axioms PrimitiveDistinction.axis_pairTransitive
+#print axioms PrimitiveDistinction.toR3Torsor
+#print axioms PrimitiveDistinction.generatedAdmissibleAutomorphismsEquivBool
+#print axioms PrimitiveDistinction.generatedAxisEquivBool
+#print axioms PrimitiveDistinction.generatedAxis_no_admissiblyCanonicalPole
+#print axioms PrimitiveDistinction.generatedPolarity_first
+#print axioms PrimitiveDistinction.generatedPolarity_second
+#print axioms PrimitiveDistinction.generatedPolarity_change_base
+#print axioms PrimitiveDistinction.pairSwap_involutive
+#print axioms PrimitiveDistinction.pairSwap_reverseLabels
+#print axioms PrimitiveDistinction.pairSwap_fixedPointFree_iff_coversCarrier

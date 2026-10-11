@@ -1,0 +1,8 @@
+import OCKIndividuationMSpaceComposition.BudgetedPredictiveSafety
+
+open OCKIndividuationMSpaceComposition
+
+#print axioms binary_excess_le_riskEnvelope
+#print axioms riskCapital_preserved_after_binary_reveal
+#print axioms no_uniform_strict_binary_squaredLoss_improvement
+#print axioms registeredBlock_excessLoss_le_budget

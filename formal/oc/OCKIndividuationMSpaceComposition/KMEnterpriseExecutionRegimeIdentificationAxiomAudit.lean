@@ -1,0 +1,18 @@
+import OCKIndividuationMSpaceComposition.KMEnterpriseExecutionRegimeIdentification
+
+/-!
+Source-bound axiom audit for `KMEnterpriseExecutionRegimeIdentification.lean`.
+
+Every theorem declaration listed by the current OC14 byte inventory is
+printed exactly once below.  This is an audit surface for the compiled
+declarations; it is not a new theorem, Claim, independent review or
+empirical result.
+-/
+
+#print axioms OCKIndividuationMSpaceComposition.controlled_only_samples_do_not_identify_open_deviation
+#print axioms OCKIndividuationMSpaceComposition.exact_conformance_iff_zero_signed_deviation
+#print axioms OCKIndividuationMSpaceComposition.exact_conformance_transports_operational_dominance
+#print axioms OCKIndividuationMSpaceComposition.execution_regime_coverage_identifies_deterministic_deviation
+#print axioms OCKIndividuationMSpaceComposition.five_controlled_occurrences_admit_distinct_open_regime_laws
+#print axioms OCKIndividuationMSpaceComposition.five_controlled_occurrences_do_not_cover_open_regime
+#print axioms OCKIndividuationMSpaceComposition.zero_and_scientific_unit_deviation_are_distinct

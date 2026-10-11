@@ -1,0 +1,19 @@
+import OCKIndividuationMSpaceComposition.ObservationResourceScaling
+
+/-!
+Source-bound axiom audit for `ObservationResourceScaling.lean`.
+
+Every theorem declaration listed by the current OC14 byte inventory is
+printed exactly once below.  This is an audit surface for the compiled
+declarations; it is not a new theorem, Claim, independent review or
+empirical result.
+-/
+
+#print axioms OCKIndividuationMSpaceComposition.closed_resource_invariant
+#print axioms OCKIndividuationMSpaceComposition.cubic_flux_slope_does_not_identify_mechanism
+#print axioms OCKIndividuationMSpaceComposition.eightfold_resource_halves_cubic_resolution
+#print axioms OCKIndividuationMSpaceComposition.equal_closure_degree_gives_equal_scaling_surface
+#print axioms OCKIndividuationMSpaceComposition.flux_alone_does_not_determine_resolution
+#print axioms OCKIndividuationMSpaceComposition.fourfold_resource_halves_square_resolution
+#print axioms OCKIndividuationMSpaceComposition.independent_resource_balance
+#print axioms OCKIndividuationMSpaceComposition.monomial_resource_closure_balance

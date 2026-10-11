@@ -1,0 +1,9 @@
+import OCKIndividuationMSpaceComposition.WeightedAdaptiveExperimentalDesign
+
+open OCKIndividuationMSpaceComposition
+
+#print axioms weighted_trials_lower_bound
+#print axioms adaptivePolicy_realization_obeys_weighted_budget
+#print axioms adaptivePolicy_insufficient_trials_no_go
+#print axioms sparseActiveSet_information_budget_bound
+#print axioms sparse_insufficient_trials_no_go

@@ -1,0 +1,10 @@
+import OCKIndividuationMSpaceComposition.ContinuousOpticLipschitz
+
+namespace OCKIndividuationMSpaceComposition
+
+#print axioms lipschitz_risk_nearby_grid_upper_bound
+#print axioms grid_minimizer_additive_regret_bound
+#print axioms grid_minimizer_uniform_regret_on_covered_target
+#print axioms observed_regret_exceeding_lipschitz_budget_refutes_contract
+
+end OCKIndividuationMSpaceComposition

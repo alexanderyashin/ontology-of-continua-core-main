@@ -1,0 +1,9 @@
+import OCKIndividuationMSpaceComposition.SymmetryPrimitiveAxisInvariantDecomposition
+
+open OCKIndividuationMSpaceComposition
+
+#print axioms PrimitiveDistinction.axisInvariant_iff_endpoint_equal
+#print axioms PrimitiveDistinction.axisInvariant_eq_constant
+#print axioms PrimitiveDistinction.invariantPart_invariant
+#print axioms PrimitiveDistinction.antiInvariantPart_antiInvariant
+#print axioms PrimitiveDistinction.invariantPart_add_antiInvariantPart_eq_two_smul

@@ -1,0 +1,20 @@
+import OCKIndividuationMSpaceComposition.TomographicSupportBoundary
+import Mathlib.Algebra.BigOperators.Group.Finset.Basic
+import Mathlib.Data.Real.Basic
+open scoped BigOperators
+
+namespace OCKIndividuationMSpaceComposition
+
+/-! Direct axiom-audit targets for the support hierarchy. -/
+
+#print axioms tomographicObservationSupport
+#print axioms tomographicReconstructionSupport
+#print axioms tomographicClaimSupport
+#print axioms tomographicObservationSupport_mem_iff
+#print axioms tomographicReconstructionSupport_implies_claimSupport
+#print axioms tomographicReconstructionSupport_implies_uniqueCompatible
+#print axioms tomographicClaimSupport_iff_no_missing_observation
+#print axioms tomographicClaimSupport_of_capturedFieldClaimSupported
+#print axioms tomographicClaimSupport_target_distance_bound
+
+end OCKIndividuationMSpaceComposition

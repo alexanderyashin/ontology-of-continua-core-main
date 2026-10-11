@@ -1,0 +1,11 @@
+import OCKIndividuationMSpaceComposition.SymmetryCanonicalSeparator
+
+open OCKIndividuationMSpaceComposition
+
+#print axioms axis_membership_iff_boundary_class
+#print axioms axisClass_projection_invariant
+#print axioms coreR1_separator_is_positive_side
+#print axioms coreR1_separator_flips
+#print axioms coreR1_seed_reversal_preserves_axis
+#print axioms coreR1_seed_reversal_preserves_boundary
+#print axioms coreR1_seed_reversal_complements_separator

@@ -1,0 +1,17 @@
+import OCKIndividuationMSpaceComposition.FiniteObservationOracle
+
+/-!
+Source-bound axiom audit for `FiniteObservationOracle.lean`.
+
+Every theorem declaration listed by the current OC14 byte inventory is
+printed exactly once below.  This is an audit surface for the compiled
+declarations; it is not a new theorem, Claim, independent review or
+empirical result.
+-/
+
+#print axioms OCKIndividuationMSpaceComposition.FiniteObservationDataset.correctCount_eq_sum_outcomeMultiplicity
+#print axioms OCKIndividuationMSpaceComposition.FiniteObservationDataset.correctCount_le_oracleCapacity
+#print axioms OCKIndividuationMSpaceComposition.FiniteObservationDataset.no_observation_predictor_beats_oracle
+#print axioms OCKIndividuationMSpaceComposition.FiniteObservationDataset.observation_collision_no_everywhere_correct_predictor
+#print axioms OCKIndividuationMSpaceComposition.FiniteObservationDataset.oracleLabel_correctCount_eq_capacity
+#print axioms OCKIndividuationMSpaceComposition.FiniteObservationDataset.refinement_lift_preserves_correctCount

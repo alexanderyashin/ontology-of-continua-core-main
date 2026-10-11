@@ -1,0 +1,13 @@
+import OCKIndividuationMSpaceComposition.SymmetryIntrinsicComponentRank
+
+open OCKIndividuationMSpaceComposition
+open OCKIndividuationMSpaceComposition.IntrinsicComponentRank
+
+#print axioms componentClosure_extensive
+#print axioms componentClosure_idempotent
+#print axioms componentClosure_exchange
+#print axioms componentRank_insert_eq_add_one_iff
+#print axioms componentClosure_is_singleton_generated
+#print axioms triangleClosure_exchange
+#print axioms triangleClosure_has_joint_generation
+#print axioms triangleClosure_not_equivalence_component_closure

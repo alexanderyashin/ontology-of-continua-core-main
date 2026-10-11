@@ -1,0 +1,8 @@
+import OCKIndividuationMSpaceComposition.SymmetryMagnitudeBetweennessBoundary
+
+open OCKIndividuationMSpaceComposition
+
+#print axioms PrimitiveDistinction.NatMagnitudeStrictBetweenModel
+#print axioms PrimitiveDistinction.finThreeDiscreteMagnitude_witnessed_model
+#print axioms PrimitiveDistinction.finThreeDiscreteMagnitude_empty_model
+#print axioms PrimitiveDistinction.finThreeMagnitude_does_not_force_betweenness

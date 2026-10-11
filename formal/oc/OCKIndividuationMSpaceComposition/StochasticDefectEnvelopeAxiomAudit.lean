@@ -1,0 +1,12 @@
+import OCKIndividuationMSpaceComposition.StochasticDefectEnvelope
+
+namespace OCKIndividuationMSpaceComposition
+
+#print axioms mean_defect_error_le_envelope
+#print axioms stochasticDefectEnvelope_eq_geometric_sum
+#print axioms stochasticDefectEnvelope_le_plateau
+#print axioms noncontractive_envelope_ge_linear_defect
+#print axioms noncontractive_positive_defect_no_uniform_plateau
+#print axioms stochasticDefectEnvelope_equality_recurrence_is_sharp
+
+end OCKIndividuationMSpaceComposition

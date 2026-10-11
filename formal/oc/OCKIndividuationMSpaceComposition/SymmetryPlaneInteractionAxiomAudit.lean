@@ -1,0 +1,15 @@
+import OCKIndividuationMSpaceComposition.SymmetryPlaneInteraction
+
+open OCKIndividuationMSpaceComposition
+
+#print axioms involutionComposition_involutive_iff_commute
+#print axioms PrimitiveDistinction.firstPlaneInvolution
+#print axioms PrimitiveDistinction.secondPlaneInvolution
+#print axioms PrimitiveDistinction.generatedPlanes_commute
+#print axioms PrimitiveDistinction.generatedPlanes_distinct
+#print axioms PrimitiveDistinction.generatedPlanes_composition_involutive
+#print axioms PrimitiveDistinction.generatedPlanes_composite_ne_identity
+#print axioms PrimitiveDistinction.generatedPlanes_composition_fixedPointFree
+#print axioms PrimitiveDistinction.generatedPlaneEquivBoolProduct
+#print axioms PrimitiveDistinction.generatedPlane_first_coordinate_reversal
+#print axioms PrimitiveDistinction.generatedPlane_second_coordinate_reversal

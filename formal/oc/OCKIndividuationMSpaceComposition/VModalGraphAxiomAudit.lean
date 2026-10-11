@@ -1,0 +1,17 @@
+import OCKIndividuationMSpaceComposition.VModalGraph
+
+open OCKIndividuationMSpaceComposition.VModalGraph
+
+#print axioms registered_split_has_local_return
+#print axioms split_registration_alone_does_not_supply_join
+#print axioms parent_closure_requires_composition
+#print axioms parent_closure_requires_interface_acceptance
+#print axioms parent_closure_requires_evidence_acceptance
+#print axioms child_closure_is_not_sufficient_for_parent_closure
+#print axioms rendering_preserves_semantic_source
+#print axioms equal_view_does_not_imply_equal_semantic_source
+#print axioms reopen_advances_generation
+#print axioms reopen_preserves_previous_occurrence
+#print axioms reopen_is_not_in_place_at_generation
+#print axioms profile_extension_is_conservative
+#print axioms admitted_profile_preserves_declared_invariant

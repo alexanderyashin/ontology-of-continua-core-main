@@ -1,0 +1,7 @@
+import OCKIndividuationMSpaceComposition.DynamicQuotientDefectBound
+
+open OCKIndividuationMSpaceComposition
+
+#print axioms approximate_transition_error_bound
+#print axioms zero_initial_error_envelope_eq_geometric_sum
+#print axioms approximate_transition_error_le_plateau

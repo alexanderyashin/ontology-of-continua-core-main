@@ -1,0 +1,14 @@
+import OCKIndividuationMSpaceComposition.TomographicTotalVariation
+import Mathlib.Algebra.BigOperators.Group.Finset.Basic
+import Mathlib.Data.Real.Basic
+open scoped BigOperators
+
+namespace OCKIndividuationMSpaceComposition
+
+#print axioms tomographicTotalVariation
+#print axioms tomographicTotalVariation_nonnegative
+#print axioms tomographicTotalVariation_zero_of_constant
+#print axioms tomographicTotalVariation_shift_invariant
+#print axioms tomographicTotalVariation_mono_of_adjacency
+
+end OCKIndividuationMSpaceComposition

@@ -1,0 +1,17 @@
+import OCKIndividuationMSpaceComposition.SymmetryJointCompositionBoundary
+
+open OCKIndividuationMSpaceComposition
+open OCKIndividuationMSpaceComposition.JointCompositionBoundary
+
+#print axioms singleton_family_generation_forbids_genuine_joint
+#print axioms target_jointGenerated_of_two_roots
+#print axioms twoRootClosure_extensive
+#print axioms twoRootClosure_monotone
+#print axioms twoRootClosure_idempotent
+#print axioms twoRoot_target_is_joint
+#print axioms twoRoot_target_not_singleton_generated
+#print axioms twoRootClosure_fails_exchange
+#print axioms twoRoot_maximal_independent_first
+#print axioms twoRoot_maximal_independent_second
+#print axioms twoRoot_maximal_independent_cardinals_differ
+#print axioms twoRoot_countermodel_boundary

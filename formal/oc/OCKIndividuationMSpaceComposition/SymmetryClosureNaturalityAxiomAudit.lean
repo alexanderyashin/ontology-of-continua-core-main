@@ -1,0 +1,6 @@
+import OCKIndividuationMSpaceComposition.SymmetryClosureNaturality
+
+open OCKIndividuationMSpaceComposition
+
+#print axioms IntrinsicFinitaryRank.FinitaryDistinctionClosure.Relabeling.close_image_eq_image_close
+#print axioms IntrinsicFinitaryRank.FinitaryDistinctionClosure.Relabeling.mem_close_image_iff

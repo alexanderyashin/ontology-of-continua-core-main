@@ -1,0 +1,12 @@
+import OCKIndividuationMSpaceComposition.SymmetryTrajectoryDistinctionBridge
+
+open OCKIndividuationMSpaceComposition
+
+#print axioms trajectoryEffectDistinctionRelation_irreflexive
+#print axioms trajectoryEffectDistinctionRelation_symmetric
+#print axioms trajectoryDistinction_states_ne
+#print axioms trajectoryDistinctionToPrimitive
+#print axioms trajectoryDistinctionToLocalR3
+#print axioms trajectoryDistinctionAutomorphismsEquivBool
+#print axioms trajectoryDistinction_globalPairSwap_free_iff_stateCoverage
+#print axioms trajectoryDistinction_reverse_effect_ne

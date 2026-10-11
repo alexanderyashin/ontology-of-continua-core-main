@@ -1,0 +1,8 @@
+import OCMaturityCompletionCycle.EmpiricalCouplingPredictionR2
+
+/-! Scoped failure/repair fixtures; these are not empirical observations. -/
+
+#check OCMaturityCompletionCycle.couplingBlindSignatureR2_no_exactPredictiveStitcher
+#check OCMaturityCompletionCycle.couplingAugmentedSignatureR2_restores_exactPredictiveStitching
+#check OCMaturityCompletionCycle.noConditionalSeparationR2_noBrierGain
+#check OCMaturityCompletionCycle.degenerateRegimeWeightR2_noBrierGain

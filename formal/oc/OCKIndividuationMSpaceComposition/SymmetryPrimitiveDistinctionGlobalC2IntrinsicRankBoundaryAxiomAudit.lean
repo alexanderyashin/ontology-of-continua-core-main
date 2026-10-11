@@ -1,0 +1,26 @@
+import OCKIndividuationMSpaceComposition.SymmetryPrimitiveDistinctionGlobalC2IntrinsicRankBoundary
+
+open OCKIndividuationMSpaceComposition
+
+namespace OCKIndividuationMSpaceComposition
+
+namespace PrimitiveDistinction
+
+#print axioms globalPairNativeFamily
+#print axioms globalPairNativeRealization
+#print axioms globalPairNativeRealization_seed_independent
+#print axioms globalPairNativeRealization_rank_one
+#print axioms globalPairNativeRealization_action_rank_one
+#print axioms globalPairNativeRealization_rank_eq_action_rank
+#print axioms globalPairNativeFamily_pairSwap_matches_global_torsor
+#print axioms covered_global_c2_native_rank_one_spine
+#print axioms twoPointDistinction
+#print axioms twoPointDistinction_covers
+#print axioms twoPointGlobalTorsor
+#print axioms emptyNativeFamily
+#print axioms emptyNativeFamily_rank_zero
+#print axioms global_c2_does_not_force_positive_native_rank
+
+end PrimitiveDistinction
+
+end OCKIndividuationMSpaceComposition

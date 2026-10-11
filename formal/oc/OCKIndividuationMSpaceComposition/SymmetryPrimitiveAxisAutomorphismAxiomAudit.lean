@@ -1,0 +1,13 @@
+import OCKIndividuationMSpaceComposition.SymmetryPrimitiveAxisAutomorphism
+
+open OCKIndividuationMSpaceComposition
+
+#print axioms PrimitiveDistinction.axisAutomorphism_maps_first_cases
+#print axioms PrimitiveDistinction.axisAutomorphism_eq_identity_of_fixed_first
+#print axioms PrimitiveDistinction.axisAutomorphism_eq_swap_of_maps_second
+#print axioms PrimitiveDistinction.axisAutomorphism_eq_identity_or_swap
+#print axioms PrimitiveDistinction.axisAutomorphismParity
+#print axioms PrimitiveDistinction.axisAutomorphismParity_identity
+#print axioms PrimitiveDistinction.axisAutomorphismParity_swap
+#print axioms PrimitiveDistinction.axisAutomorphismEquivBool
+#print axioms PrimitiveDistinction.axisAutomorphismParity_mul

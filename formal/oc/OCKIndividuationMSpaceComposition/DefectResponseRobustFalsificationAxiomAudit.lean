@@ -1,0 +1,22 @@
+import OCKIndividuationMSpaceComposition.DefectResponseRobustFalsification
+
+/-!
+Source-bound axiom audit for `DefectResponseRobustFalsification.lean`.
+
+Every theorem declaration listed by the current OC14 byte inventory is
+printed exactly once below.  This is an audit surface for the compiled
+declarations; it is not a new theorem, Claim, independent review or
+empirical result.
+-/
+
+#print axioms OCKIndividuationMSpaceComposition.abs_rationalDirection
+#print axioms OCKIndividuationMSpaceComposition.abs_three_term_linear_bound
+#print axioms OCKIndividuationMSpaceComposition.abs_three_term_linear_bound_is_sharp
+#print axioms OCKIndividuationMSpaceComposition.affine_response_has_zero_threePointResidual
+#print axioms OCKIndividuationMSpaceComposition.middle_perturbation_residual_exact
+#print axioms OCKIndividuationMSpaceComposition.observed_threePointResidual_error_bound
+#print axioms OCKIndividuationMSpaceComposition.rationalDirection_mul_self_eq_abs
+#print axioms OCKIndividuationMSpaceComposition.robust_threePoint_rejection_refutes_every_affine_response
+#print axioms OCKIndividuationMSpaceComposition.threePointAffineCompatible_iff_residual_zero
+#print axioms OCKIndividuationMSpaceComposition.threePointResidualErrorEnvelope_is_attainable
+#print axioms OCKIndividuationMSpaceComposition.threePointResidualErrorEnvelope_of_ordered

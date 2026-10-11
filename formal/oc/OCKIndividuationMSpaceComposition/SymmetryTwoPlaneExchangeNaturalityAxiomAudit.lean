@@ -1,0 +1,17 @@
+import OCKIndividuationMSpaceComposition.SymmetryTwoPlaneExchangeNaturality
+
+open OCKIndividuationMSpaceComposition
+
+#print axioms boolCoordinateSwap
+#print axioms boolCoordinateSwap_involutive
+#print axioms boolCoordinateSwapObservable
+#print axioms boolEvenEvenPart_swap
+#print axioms boolOddOddPart_swap
+#print axioms boolOddEvenPart_swap
+#print axioms boolEvenOddPart_swap
+#print axioms bool_character_parts_exchange_natural
+#print axioms PrimitiveDistinction.planeCoordinateSwapEquiv
+#print axioms PrimitiveDistinction.planeCoordinateSwapObservable
+#print axioms PrimitiveDistinction.generatedPlaneEquiv_coordinateSwap
+#print axioms PrimitiveDistinction.planeObservableToBool_coordinateSwap
+#print axioms PrimitiveDistinction.plane_character_parts_exchange_natural

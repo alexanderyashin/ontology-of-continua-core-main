@@ -1,0 +1,18 @@
+import OCKIndividuationMSpaceComposition.SymmetryBooleanMaskReversalCorrespondence
+
+namespace OCKIndividuationMSpaceComposition
+
+namespace PrimitiveDistinction
+
+namespace DisjointDistinctionFamily
+
+#print axioms maskPermutationProduct_mem_reversalSubgroup
+#print axioms mask_bit_iff_native_reversalGenerated
+#print axioms mask_eq_iff_maskPermutationProduct_eq
+#print axioms mask_ne_has_endpoint_support_witness
+
+end DisjointDistinctionFamily
+
+end PrimitiveDistinction
+
+end OCKIndividuationMSpaceComposition

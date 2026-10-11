@@ -1,0 +1,26 @@
+import OCKIndividuationMSpaceComposition.PoissonKLMagnitude
+
+/-!
+Source-bound axiom audit for `PoissonKLMagnitude.lean`.
+
+Every theorem declaration listed by the current OC14 byte inventory is
+printed exactly once below.  This is an audit surface for the compiled
+declarations; it is not a new theorem, Claim, independent review or
+empirical result.
+-/
+
+#print axioms OCKIndividuationMSpaceComposition.log_poissonPMFReal
+#print axioms OCKIndividuationMSpaceComposition.poissonExposureMeasure_toReal_klDiv_exact
+#print axioms OCKIndividuationMSpaceComposition.poissonLikelihoodRatio_toReal
+#print axioms OCKIndividuationMSpaceComposition.poissonMeasure_toReal_klDiv_exact
+#print axioms OCKIndividuationMSpaceComposition.poissonPMFReal_firstMoment_hasSum
+#print axioms OCKIndividuationMSpaceComposition.poissonPMFReal_firstMoment_tsum
+#print axioms OCKIndividuationMSpaceComposition.poissonPMFReal_succ_weighted
+#print axioms OCKIndividuationMSpaceComposition.poissonPMF_apply_eq_ofReal
+#print axioms OCKIndividuationMSpaceComposition.poissonPMF_fullSupport
+#print axioms OCKIndividuationMSpaceComposition.poissonPMF_toReal
+#print axioms OCKIndividuationMSpaceComposition.poisson_count_integrable
+#print axioms OCKIndividuationMSpaceComposition.poisson_count_integral
+#print axioms OCKIndividuationMSpaceComposition.poisson_llr_ae_formula
+#print axioms OCKIndividuationMSpaceComposition.poisson_logLikelihoodRatio_formula
+#print axioms OCKIndividuationMSpaceComposition.poisson_logLikelihoodRatio_formula_integrable

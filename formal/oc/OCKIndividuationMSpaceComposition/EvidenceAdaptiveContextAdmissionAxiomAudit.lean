@@ -1,0 +1,12 @@
+import OCKIndividuationMSpaceComposition.EvidenceAdaptiveContextAdmission
+
+namespace OCKIndividuationMSpaceComposition
+
+#print axioms fitted_refinement_beats_local_of_admission_certificate
+#print axioms admission_margin_lower_bounds_true_advantage
+#print axioms inverse_sample_penalty_lt_gain_floor
+#print axioms inverse_nat_sample_penalty_lt_gain_floor
+#print axioms count_threshold_alone_cannot_guarantee_nonworsening
+#print axioms evidenceAdaptivePredictor_nonworse
+
+end OCKIndividuationMSpaceComposition

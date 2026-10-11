@@ -1,0 +1,22 @@
+import OCKIndividuationMSpaceComposition.TomographicBandLimit
+import Mathlib.Algebra.BigOperators.Group.Finset.Basic
+import Mathlib.Data.Real.Basic
+open scoped BigOperators
+
+namespace OCKIndividuationMSpaceComposition
+
+#print axioms tomographicBandEnergy_nonnegative
+#print axioms tomographicBandEnergy_zero_of_on_band_zero
+#print axioms tomographicBandLimited_extensional
+#print axioms tomographicBandProjection_on_band
+#print axioms tomographicBandProjection_is_band_limited
+#print axioms tomographicBandProjection_idempotent
+#print axioms tomographicBandProjection_add
+#print axioms tomographicBandProjection_smul
+#print axioms tomographicBandProjection_compose_of_subset
+#print axioms tomographicBandProjection_eq_self_of_band_limited
+#print axioms tomographicBandProjectionResidual_nonnegative
+#print axioms tomographicBandProjectionResidual_zero_of_band_limited
+#print axioms tomographicBandProjectionResidual_mono_of_subset
+
+end OCKIndividuationMSpaceComposition

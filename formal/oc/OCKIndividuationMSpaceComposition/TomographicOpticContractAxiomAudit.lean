@@ -1,0 +1,19 @@
+import OCKIndividuationMSpaceComposition.TomographicOpticContract
+import Mathlib.Algebra.BigOperators.Group.Finset.Basic
+import Mathlib.Data.Real.Basic
+open scoped BigOperators
+
+namespace OCKIndividuationMSpaceComposition
+
+#print axioms TomographicOpticContract
+#print axioms tomographicOpticObservation
+#print axioms tomographicEffectiveResolution
+#print axioms TomographicFocusAdequacy
+#print axioms tomographicFocusAdequacy_implies_positive_effectiveResolution
+#print axioms tomographicFocusAdequacy_impossible_of_nonpositive_effectiveResolution
+#print axioms tomographicFocusAdequacy_impossible_of_unseparated_pair
+#print axioms tomographicFocusAdequacy_implies_noisy_taskIdentifiable
+#print axioms tomographicFocusAdequacy_implies_taskIdentifiable
+#print axioms tomographicFocusAdequacy_implies_observation_task_boundary
+
+end OCKIndividuationMSpaceComposition

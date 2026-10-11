@@ -1,0 +1,12 @@
+import OCKIndividuationMSpaceComposition.SymmetryRestrictedNaturalityClass
+
+namespace OCKIndividuationMSpaceComposition
+namespace PrimitiveDistinction
+
+#print axioms preservesPairSupport_refl
+#print axioms preservesPairSupport_trans
+#print axioms preservesPairSupport_symm
+#print axioms preservesPairSupport_iff_pairSwap_commutes
+
+end PrimitiveDistinction
+end OCKIndividuationMSpaceComposition

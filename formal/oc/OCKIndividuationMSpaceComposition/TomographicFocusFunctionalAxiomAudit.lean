@@ -1,0 +1,13 @@
+import OCKIndividuationMSpaceComposition.TomographicFocusFunctional
+import Mathlib.Algebra.BigOperators.Group.Finset.Basic
+import Mathlib.Data.Real.Basic
+open scoped BigOperators
+
+namespace OCKIndividuationMSpaceComposition
+
+#print axioms tomographicQuadraticFocusError_nonnegative
+#print axioms tomographicQuadraticFocusError_at_optimum
+#print axioms tomographicQuadraticFocusError_minimizer
+#print axioms tomographicQuadraticFocusError_unique_minimizer
+
+end OCKIndividuationMSpaceComposition

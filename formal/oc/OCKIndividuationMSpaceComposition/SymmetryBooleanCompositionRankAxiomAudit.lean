@@ -1,0 +1,13 @@
+import OCKIndividuationMSpaceComposition.SymmetryBooleanCompositionRank
+
+open OCKIndividuationMSpaceComposition
+open OCKIndividuationMSpaceComposition.BooleanCompositionRank
+
+#print axioms boolean_inv_eq_self
+#print axioms closure_singleton_cases
+#print axioms generatedClose_extensive
+#print axioms generatedClose_monotone
+#print axioms generatedClose_idempotent
+#print axioms generatedClose_exchange
+#print axioms booleanGeneratedClosure
+#print axioms rank_insert_eq_add_one_of_not_generated

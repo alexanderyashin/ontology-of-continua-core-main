@@ -1,0 +1,28 @@
+import OCKIndividuationMSpaceComposition.StrongestUniversalization
+
+/-!
+Source-bound axiom audit for `StrongestUniversalization.lean`.
+
+Every theorem declaration listed by the current OC14 byte inventory is
+printed exactly once below.  This is an audit surface for the compiled
+declarations; it is not a new theorem, Claim, independent review or
+empirical result.
+-/
+
+#print axioms OCKIndividuationMSpaceComposition.admissibleIdentityRelation_bounds
+#print axioms OCKIndividuationMSpaceComposition.admissibleIdentity_exists_iff
+#print axioms OCKIndividuationMSpaceComposition.admissibleIdentity_unique_iff
+#print axioms OCKIndividuationMSpaceComposition.converged_identity_bounds_exist_unique
+#print axioms OCKIndividuationMSpaceComposition.distinct_fission_children_not_both_identical
+#print axioms OCKIndividuationMSpaceComposition.equivalence_collapses_fission
+#print axioms OCKIndividuationMSpaceComposition.generatedKernel_universal_iff
+#print axioms OCKIndividuationMSpaceComposition.invariant_selector_is_fixed
+#print axioms OCKIndividuationMSpaceComposition.no_invariant_selector_without_fixed_successor
+#print axioms OCKIndividuationMSpaceComposition.no_swap_invariant_root
+#print axioms OCKIndividuationMSpaceComposition.no_unique_bool_selector_invariant_under_swap
+#print axioms OCKIndividuationMSpaceComposition.operationalToken_lift_unique
+#print axioms OCKIndividuationMSpaceComposition.projection_collision_no_leftInverse
+#print axioms OCKIndividuationMSpaceComposition.projection_descent_iff
+#print axioms OCKIndividuationMSpaceComposition.projection_descent_unique
+#print axioms OCKIndividuationMSpaceComposition.swapFirstSecond_involution
+#print axioms OCKIndividuationMSpaceComposition.unique_admissible_identity_implies_converged_bounds

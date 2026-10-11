@@ -1,0 +1,21 @@
+import OCKIndividuationMSpaceComposition.DependentPopulationObservationBounds
+
+/-!
+Source-bound axiom audit for `DependentPopulationObservationBounds.lean`.
+
+Every theorem declaration listed by the current OC14 byte inventory is
+printed exactly once below.  This is an audit surface for the compiled
+declarations; it is not a new theorem, Claim, independent review or
+empirical result.
+-/
+
+#print axioms OCKIndividuationMSpaceComposition.designEffect_one_recovers_independent_population_budget
+#print axioms OCKIndividuationMSpaceComposition.designEffect_raw_threshold_guarantees_population_budget
+#print axioms OCKIndividuationMSpaceComposition.exchangeable_is_designEffect_model
+#print axioms OCKIndividuationMSpaceComposition.exchangeable_singleBlock_population_target_impossible_at_ceiling
+#print axioms OCKIndividuationMSpaceComposition.independent_blocks_guarantee_population_budget
+#print axioms OCKIndividuationMSpaceComposition.no_finite_raw_meets_all_positive_designEffects
+#print axioms OCKIndividuationMSpaceComposition.no_finite_raw_uniform_population_guarantee_without_dependence_bound
+#print axioms OCKIndividuationMSpaceComposition.observations_below_required_fail_exponential_budget
+#print axioms OCKIndividuationMSpaceComposition.populationRequiredEffectiveObservations_positive
+#print axioms OCKIndividuationMSpaceComposition.upper_designEffect_threshold_is_robust

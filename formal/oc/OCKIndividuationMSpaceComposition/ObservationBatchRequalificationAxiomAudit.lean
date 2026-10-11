@@ -1,0 +1,8 @@
+import OCKIndividuationMSpaceComposition.ObservationBatchRequalification
+
+open OCKIndividuationMSpaceComposition
+
+#print axioms latestNegative_forces_baseline
+#print axioms latestNegative_requalification_zero_excess
+#print axioms observational_aliasing_obstruction
+#print axioms first_unannounced_shift_cannot_be_preempted_in_both_worlds

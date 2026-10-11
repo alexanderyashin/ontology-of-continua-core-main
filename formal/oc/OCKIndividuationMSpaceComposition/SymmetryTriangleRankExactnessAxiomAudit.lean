@@ -1,0 +1,17 @@
+import OCKIndividuationMSpaceComposition.SymmetryTriangleRankExactness
+
+namespace OCKIndividuationMSpaceComposition
+
+namespace IntrinsicFinitaryRank
+
+#print axioms triangle_pair_independent
+#print axioms triangle_rank_pair
+#print axioms triangle_third_generated_by_pair
+#print axioms triangle_rank_pair_with_generated_third
+#print axioms triangle_insert_third_does_not_raise_rank
+#print axioms triangle_rank_univ
+#print axioms triangle_joint_generation_rank_boundary
+
+end IntrinsicFinitaryRank
+
+end OCKIndividuationMSpaceComposition

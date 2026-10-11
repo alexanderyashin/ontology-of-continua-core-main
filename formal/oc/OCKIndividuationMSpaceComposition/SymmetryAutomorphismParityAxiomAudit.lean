@@ -1,0 +1,11 @@
+import OCKIndividuationMSpaceComposition.SymmetryAutomorphismParity
+
+open OCKIndividuationMSpaceComposition
+
+#print axioms r3AdmissibleComposition
+#print axioms r3AdmissibleEndomorphism_ext_at_base
+#print axioms r3AdmissibleParity_identity
+#print axioms r3AdmissibleParity_reversal
+#print axioms r3AdmissibleEndomorphism_eq_identity_or_reversal
+#print axioms r3AdmissibleEndomorphismEquivBool
+#print axioms r3AdmissibleParity_composition

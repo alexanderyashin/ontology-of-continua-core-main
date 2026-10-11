@@ -1,0 +1,16 @@
+import OCKIndividuationMSpaceComposition.SymmetryAxisCoaxisTorsorAction
+
+namespace OCKIndividuationMSpaceComposition
+
+namespace PrimitiveDistinction
+
+#print axioms axisCoaxisCode_coaxisC2Action
+#print axioms coaxis_eq_self_or_swap
+#print axioms coaxisC2Action_transitive
+#print axioms coaxisC2Action_free
+#print axioms coaxisC2Action_unique
+#print axioms axisCoaxis_principal_c2_spine
+
+end PrimitiveDistinction
+
+end OCKIndividuationMSpaceComposition

@@ -1,0 +1,12 @@
+import OCKIndividuationMSpaceComposition.FiniteKObservationInference
+
+namespace OCKIndividuationMSpaceComposition
+
+#print axioms observedDistinctionProfile_eq_of_complete
+#print axioms profile_eq_of_observed_eq_and_complete
+#print axioms omitted_test_pair_creates_observational_alias
+#print axioms coverageFailureUpperBound_antitone_repeats
+#print axioms coverageFailureUpperBound_one_is_unimproved
+#print axioms hundred_coordinates_five_repeats_point_one_bound
+
+end OCKIndividuationMSpaceComposition

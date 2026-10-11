@@ -1,0 +1,17 @@
+import OCKIndividuationMSpaceComposition.SymmetryNativeRankBirthEquivalence
+
+namespace OCKIndividuationMSpaceComposition
+
+namespace PrimitiveDistinction.DisjointDistinctionFamily
+
+/-! Axiom audit for the exact native rank-birth equivalence. -/
+
+#print axioms nativeReversalGenerated_iff_mem
+#print axioms nativeReversalNotGenerated_iff_not_mem
+#print axioms nativeReversal_rank_insert_eq_iff_generated
+#print axioms nativeReversal_rank_birth_iff_not_generated
+#print axioms nativeReversal_rank_birth_iff_not_in_subgroup
+
+end PrimitiveDistinction.DisjointDistinctionFamily
+
+end OCKIndividuationMSpaceComposition

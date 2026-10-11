@@ -1,0 +1,17 @@
+import OCKIndividuationMSpaceComposition.FoundationalConvergenceBridges
+
+/-!
+Source-bound axiom audit for `FoundationalConvergenceBridges.lean`.
+
+Every theorem declaration listed by the current OC14 byte inventory is
+printed exactly once below.  This is an audit surface for the compiled
+declarations; it is not a new theorem, Claim, independent review or
+empirical result.
+-/
+
+#print axioms OCKIndividuationMSpaceComposition.continuationPredictivelySafe_iff_operationalToken_uniqueFactorization
+#print axioms OCKIndividuationMSpaceComposition.duplicatedTokenBridge_not_parentFiberTokenFaithful
+#print axioms OCKIndividuationMSpaceComposition.equal_parentFiber_implies_sameToken_of_faithful
+#print axioms OCKIndividuationMSpaceComposition.exactOperationalTokenBridge_has_usedRangeEquivalence
+#print axioms OCKIndividuationMSpaceComposition.generatedKernel_membership_does_not_determine_history_equivalence
+#print axioms OCKIndividuationMSpaceComposition.prediction_K_exact_iff_of_typed_adapter

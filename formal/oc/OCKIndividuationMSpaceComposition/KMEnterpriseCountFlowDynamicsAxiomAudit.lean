@@ -1,0 +1,20 @@
+import OCKIndividuationMSpaceComposition.KMEnterpriseCountFlowDynamics
+
+/-!
+Source-bound axiom audit for `KMEnterpriseCountFlowDynamics.lean`.
+
+Every theorem declaration listed by the current OC14 byte inventory is
+printed exactly once below.  This is an audit surface for the compiled
+declarations; it is not a new theorem, Claim, independent review or
+empirical result.
+-/
+
+#print axioms OCKIndividuationMSpaceComposition.CarrierCountDynamics.countAt_within_flowEnvelope
+#print axioms OCKIndividuationMSpaceComposition.carrierCountFlowEnvelope_endpoints_attainable
+#print axioms OCKIndividuationMSpaceComposition.km_count_flow_contract_yields_singleton_carrier_support
+#print axioms OCKIndividuationMSpaceComposition.lowerExtremal_countAt_exact
+#print axioms OCKIndividuationMSpaceComposition.lowerExtremal_respects
+#print axioms OCKIndividuationMSpaceComposition.stricter_lower_bound_has_admissible_counterdynamics
+#print axioms OCKIndividuationMSpaceComposition.stricter_upper_bound_has_admissible_counterdynamics
+#print axioms OCKIndividuationMSpaceComposition.upperExtremal_countAt_exact
+#print axioms OCKIndividuationMSpaceComposition.upperExtremal_respects

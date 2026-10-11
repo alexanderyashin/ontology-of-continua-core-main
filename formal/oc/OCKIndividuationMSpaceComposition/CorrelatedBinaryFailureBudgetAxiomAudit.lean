@@ -1,0 +1,20 @@
+import OCKIndividuationMSpaceComposition.CorrelatedBinaryFailureBudget
+
+/-!
+Source-bound axiom audit for `CorrelatedBinaryFailureBudget.lean`.
+
+Every theorem declaration listed by the current OC14 byte inventory is
+printed exactly once below.  This is an audit surface for the compiled
+declarations; it is not a new theorem, Claim, independent review or
+empirical result.
+-/
+
+#print axioms OCKIndividuationMSpaceComposition.exchangeableBinaryMeanMSE_correlation_floor
+#print axioms OCKIndividuationMSpaceComposition.exchangeableBinaryMeanMSE_decomposition
+#print axioms OCKIndividuationMSpaceComposition.exchangeableBinary_impliedCorrelation_exact
+#print axioms OCKIndividuationMSpaceComposition.exchangeableBinary_singleBlock_target_impossible
+#print axioms OCKIndividuationMSpaceComposition.exists_independentExchangeableBinary_blocks_for_target
+#print axioms OCKIndividuationMSpaceComposition.independentExchangeableBinaryMeanMSE_formula
+#print axioms OCKIndividuationMSpaceComposition.independentExchangeableBinary_blocks_sufficient
+#print axioms OCKIndividuationMSpaceComposition.independentExchangeableBinary_chebyshev_bound
+#print axioms OCKIndividuationMSpaceComposition.independentExchangeableBinary_probability_target

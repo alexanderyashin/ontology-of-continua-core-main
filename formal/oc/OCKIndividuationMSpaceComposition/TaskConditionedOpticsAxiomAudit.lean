@@ -1,0 +1,7 @@
+import OCKIndividuationMSpaceComposition.TaskConditionedOptics
+
+open OCKIndividuationMSpaceComposition
+
+#print axioms oracle_risk_monotone_of_optic_refinement
+#print axioms task_signature_is_coarsest_sufficient
+#print axioms finite_sample_refinement_nonmonotone_countermodel

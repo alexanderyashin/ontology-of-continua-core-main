@@ -1,0 +1,15 @@
+import OCKIndividuationMSpaceComposition.SymmetryPrimitiveGlobalCanonicalBoundary
+
+namespace OCKIndividuationMSpaceComposition
+
+namespace PrimitiveDistinction
+
+#print axioms pairSwapGlobal_relabellingInvariant
+#print axioms covers_of_exists_relabellingInvariant_pair_exchange
+#print axioms exists_relabellingInvariant_pair_exchange_iff_covers
+#print axioms exists_relabellingInvariant_pair_exchange_iff_card_eq_two
+#print axioms global_canonical_c2_boundary_spine
+
+end PrimitiveDistinction
+
+end OCKIndividuationMSpaceComposition

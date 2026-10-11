@@ -1,0 +1,13 @@
+import OCKIndividuationMSpaceComposition.SymmetryAdmissibleTransformations
+
+open OCKIndividuationMSpaceComposition
+
+#print axioms r3_identity_admissible
+#print axioms r3_reversal_admissible
+#print axioms r3_admissible_transformation_classification
+#print axioms r3_identity_ne_reversal
+#print axioms r3_admissible_transformation_injective
+#print axioms r3_admissible_transformation_surjective
+#print axioms r3_admissible_transformation_preserves_boundary
+#print axioms r3_no_orientation_fixed_by_all_admissible_transformations
+#print axioms r3_all_admissible_invariant_iff_constant

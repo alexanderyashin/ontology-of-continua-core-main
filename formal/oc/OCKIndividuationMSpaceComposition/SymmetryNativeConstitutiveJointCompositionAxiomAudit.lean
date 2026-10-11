@@ -1,0 +1,34 @@
+import OCKIndividuationMSpaceComposition.SymmetryNativeConstitutiveJointComposition
+
+namespace OCKIndividuationMSpaceComposition
+
+namespace ConstitutiveBridge
+
+#print axioms twoBitAndBridge_joint_true
+#print axioms twoBitAndBridge_true_not_singleSupport
+#print axioms twoBitAnd_pair_support_generates_true
+#print axioms twoBitAnd_singleton_support_not_generates_true
+#print axioms twoBitAnd_pair_is_minimal_joint_support
+#print axioms twoBitAnd_true_support_contains_both
+#print axioms twoBitAnd_true_support_iff
+#print axioms twoBitAnd_true_support_not_accessible
+#print axioms twoBitNativeClosure_parent_iff
+#print axioms twoBitNativeClosure_extensive
+#print axioms twoBitNativeClosure_monotone
+#print axioms twoBitNativeClosure_idempotent
+#print axioms twoBitNativeClosure_has_joint_generation
+#print axioms twoBitNativeClosure_fails_exchange
+#print axioms supportConfiguration_mono
+#print axioms supportGenerates_mono
+#print axioms twoBitAndBridge_is_genuinely_joint
+#print axioms twoBitAndBridge_swap_invariant
+#print axioms constantResponseModel_has_no_difference
+#print axioms ConstitutiveResponseDifferenceAdapter.toDifferenceWitness
+#print axioms differenceWitness_of_constitutiveResponseDifferenceAdapter
+#print axioms twoBitAndBridge_joint_false
+#print axioms twoBitConstitutiveResponseAdapter_yields_difference
+#print axioms joint_constitutive_layer_does_not_entail_causal_difference
+
+end ConstitutiveBridge
+
+end OCKIndividuationMSpaceComposition

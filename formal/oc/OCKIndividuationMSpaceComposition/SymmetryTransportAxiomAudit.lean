@@ -1,0 +1,10 @@
+import OCKIndividuationMSpaceComposition.SymmetryTransport
+
+/-! Source-bound axiom surface for the symmetry transport results. -/
+
+#print axioms OCKIndividuationMSpaceComposition.symmetryDefect_empty_iff
+#print axioms OCKIndividuationMSpaceComposition.commutingAxisMap_spec
+#print axioms OCKIndividuationMSpaceComposition.commuting_equiv_trans_commutes
+#print axioms OCKIndividuationMSpaceComposition.commutingAxisMap_trans_comp
+#print axioms OCKIndividuationMSpaceComposition.commutingAxisMap_identity
+#print axioms OCKIndividuationMSpaceComposition.invariant_factor_after_commuting_map

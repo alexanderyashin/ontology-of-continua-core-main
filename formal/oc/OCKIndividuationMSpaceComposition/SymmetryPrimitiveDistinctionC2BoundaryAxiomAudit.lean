@@ -1,0 +1,17 @@
+import OCKIndividuationMSpaceComposition.SymmetryPrimitiveDistinctionC2Boundary
+
+open OCKIndividuationMSpaceComposition
+open OCKIndividuationMSpaceComposition.PrimitiveDistinction
+
+#print axioms PrimitiveDistinction.axis_card_eq_two
+#print axioms PrimitiveDistinction.generatedAxisEquivBool_swap
+#print axioms PrimitiveDistinction.local_c2_spine
+#print axioms PrimitiveDistinction.pairSwapGlobalInvolution
+#print axioms PrimitiveDistinction.pairSwapGlobalInvolution_exchanges_pair
+#print axioms PrimitiveDistinction.global_c2_boundary_spine
+#print axioms PrimitiveDistinction.threePoint_not_covered
+#print axioms PrimitiveDistinction.threePoint_extra_is_fixed
+#print axioms PrimitiveDistinction.threePoint_outside_unique
+#print axioms PrimitiveDistinction.threePoint_outside_has_no_free_involution
+#print axioms PrimitiveDistinction.threePoint_no_global_free_extension
+#print axioms FiniteCubeC2Boundary.finiteDistinctionCube_card_eq_two_power

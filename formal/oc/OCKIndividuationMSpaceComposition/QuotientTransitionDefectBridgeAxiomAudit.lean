@@ -1,0 +1,8 @@
+import OCKIndividuationMSpaceComposition.QuotientTransitionDefectBridge
+
+namespace OCKIndividuationMSpaceComposition
+
+#print axioms structuralQuotientDefect_implies_uniformTransitionDefect
+#print axioms structuralQuotientDefect_horizon_error_bound
+
+end OCKIndividuationMSpaceComposition

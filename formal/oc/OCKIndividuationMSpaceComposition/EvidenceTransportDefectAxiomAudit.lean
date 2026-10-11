@@ -1,0 +1,10 @@
+import OCKIndividuationMSpaceComposition.EvidenceTransportDefect
+
+open OCKIndividuationMSpaceComposition
+
+#print axioms evidenceTransportDefect_nonnegative
+#print axioms evidenceTransportDefect_eq_zero_iff
+#print axioms evidenceTransportDefect_triangle
+#print axioms branchMergeObstruction_eq_zero_iff
+#print axioms branchJoin_minimizes_obstruction
+#print axioms familyDivergence_obstructs_zero_merge

@@ -1,0 +1,24 @@
+import OCKIndividuationMSpaceComposition.ContinuationCountermodels
+
+/-!
+Source-bound axiom audit for `ContinuationCountermodels.lean`.
+
+Every theorem declaration listed by the current OC14 byte inventory is
+printed exactly once below.  This is an audit surface for the compiled
+declarations; it is not a new theorem, Claim, independent review or
+empirical result.
+-/
+
+#print axioms OCKIndividuationMSpaceComposition.axe_same_terminal_physical_state
+#print axioms OCKIndividuationMSpaceComposition.continuation_is_not_generally_symmetric
+#print axioms OCKIndividuationMSpaceComposition.erased_pointer_lineage_has_no_historical_converse
+#print axioms OCKIndividuationMSpaceComposition.frame_shift_is_not_stable_refinement
+#print axioms OCKIndividuationMSpaceComposition.identity_laundering_blocked
+#print axioms OCKIndividuationMSpaceComposition.no_historical_history_a0_b
+#print axioms OCKIndividuationMSpaceComposition.no_historical_history_a0_reassembled
+#print axioms OCKIndividuationMSpaceComposition.no_historical_history_a1_a0
+#print axioms OCKIndividuationMSpaceComposition.original_parts_do_not_force_historical_continuation
+#print axioms OCKIndividuationMSpaceComposition.pointer_context_does_not_transport_to_historical_context
+#print axioms OCKIndividuationMSpaceComposition.risky_history_contains_requalification
+#print axioms OCKIndividuationMSpaceComposition.risky_path_cannot_satisfy_no_trigger
+#print axioms OCKIndividuationMSpaceComposition.terminal_projection_does_not_determine_continuation

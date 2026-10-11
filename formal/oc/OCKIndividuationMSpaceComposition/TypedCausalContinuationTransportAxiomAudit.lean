@@ -1,0 +1,16 @@
+import OCKIndividuationMSpaceComposition.TypedCausalContinuationTransport
+
+/-!
+Source-bound axiom audit for `TypedCausalContinuationTransport.lean`.
+
+Every theorem declaration listed by the current OC14 byte inventory is
+printed exactly once below.  This is an audit surface for the compiled
+declarations; it is not a new theorem, Claim, independent review or
+empirical result.
+-/
+
+#print axioms OCKIndividuationMSpaceComposition.frame_mismatch_blocks_typed_exact_causal_transport
+#print axioms OCKIndividuationMSpaceComposition.numerical_transport_bound_does_not_override_continuation_obstruction
+#print axioms OCKIndividuationMSpaceComposition.target_continuation_obstruction_blocks_typed_exact_causal_transport
+#print axioms OCKIndividuationMSpaceComposition.typed_exact_transport_certifies_continuation_and_effect
+#print axioms OCKIndividuationMSpaceComposition.typed_robust_transport_certifies_continuation_and_effect_bound
